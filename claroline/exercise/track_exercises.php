@@ -17,20 +17,24 @@ $tlabelReq = 'CLQWZ';
 
 require '../inc/claro_init_global.inc.php';
 
+include_once dirname(__FILE__) . '/lib/exercise.class.php';
+
+FromKernel::uses( 'utils/input.lib' );
+
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 
-if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) ) $exId = (int) $_REQUEST['exId'];
-else                                                            $exId = null;
+$userInput = Claro_UserInput::getInstance();
 
-// exId is required
-if( is_null($exId) )
+$exId = (int)$userInput->get( 'exId' );
+$src = $userInput->get( 'scr' );
+$exportCsv = (int)$userInput->get( 'exportCsv' );
+
+if( $exId == 0 )
 {
     claro_redirect("exercise.php");
     exit();
 }
-
-include_once dirname(__FILE__) . '/lib/exercise.class.php';
 
 /**
  * DB tables definition
@@ -58,10 +62,10 @@ $tbl_qwz_tracking_questions = $tbl_cdb_names['qwz_tracking_questions'];
 $exercise = new Exercise();
 $exercise->load($exId);
 
-if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
+if( $src == 'ex' )
 {
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), './exercise.php' );
-    $src = '&amp;src=ex';
+    $src = htmlspecialchars( '&src=ex' );
 }
 else
 {
@@ -75,12 +79,12 @@ ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './track_exercises.php?
 
 
 // get the tracking of a question as a csv file
-if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )
+if( get_conf( 'is_trackingEnabled' ) )
 {
     require_once( dirname(__FILE__) . '/lib/export_tracking.class.php');
     
     // contruction of XML flow
-    switch ( $_REQUEST[ 'exportCsv' ] )
+    switch ( $exportCsv )
     {
         case 1 :
             $csv = export_exercise_tracking( $exId );
@@ -98,9 +102,6 @@ if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )
             $csv = $exoExport->buildCsv();
             $csvFileName = 'exercise_'. $exId.'_results_by_question';
             break;
-        
-        default :
-            throw new Exception( 'Invalid parameter' );
     }
     
     if( isset($csv) )
@@ -226,7 +227,7 @@ if ( get_conf('is_trackingEnabled') )
             $displayedAvgTime = claro_html_duration(floor($exo_users_detail['avgTime']));
         }
         $out .=      '<tr>'."\n"
-                  .'<td><a href="../tracking/userReport.php?userId='.$exo_users_detail['user_id'].'&amp;exId='.$exercise->getId().'">'."\n"
+                  .'<td><a href="../tracking/userReport.php?userId='.$exo_users_detail['user_id'].htmlspecialchars( '&exId=' ).$exercise->getId().'">'."\n"
                 .$exo_users_detail['nom'].' '.$exo_users_detail['prenom'].'</a></td>'."\n"
                   .'<td>'.$exo_users_detail['minimum'].'</td>'."\n"
                   .'<td>'.$exo_users_detail['maximum'].'</td>'."\n"
@@ -293,5 +294,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
