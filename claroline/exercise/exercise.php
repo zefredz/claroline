@@ -690,7 +690,7 @@ if( !$inLP )
             
             $out .= '<td align="center">'
             .   '<a href="'. htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=exExportPDF&exId=' . $anExercise['id'] ) ).'">'
-            .   '<img src="' . get_icon_url( 'pdf_export' ) . '" alt="' . get_lang( 'Export to PDF' ) . '" />'
+            .   '<img src="' . get_icon_url( 'mime/pdf' ) . '" alt="' . get_lang( 'Export to PDF' ) . '" />'
             .   '</a>'
             .   '</td>' . "\n"
             ;
