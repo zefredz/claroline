@@ -36,6 +36,7 @@ require_once dirname( __FILE__ ) . '/lib/trackingRendererRegistry.class.php';
  */
 
 if( isset($_REQUEST['userId']) && is_numeric($_REQUEST['userId']) )   $userId = (int) $_REQUEST['userId'];
+elseif( isset( $_REQUEST['uInfo']) && is_numeric( $_REQUEST['uInfo'] ) )    $userId = (int) $_REQUEST['uInfo'];
 else                                                                  $userId = null;
 
 if( isset($_REQUEST['courseId']) && !empty($_REQUEST['courseId']) )
@@ -94,7 +95,6 @@ if( $canSwitchCourses )
 
 // user's data
 $userData = user_get_properties($userId);
-
 if( !is_array($userData) )
 {
     claro_die( get_lang('Cannot find user') );
