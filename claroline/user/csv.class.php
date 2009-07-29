@@ -506,7 +506,7 @@ class csvImport extends csv
         }
         else
         {
-            $csvUseableArray = $_SESSION['_csvUseableArray'];
+            $csvUseableArray = $_SESSION['_csvUsableArray'];
         }
         
         $fields = $csvContent[0];
