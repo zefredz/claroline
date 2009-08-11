@@ -1131,7 +1131,7 @@
                         $userUrl = $userStr;
                     }
 
-                    echo '<li>'
+                    $out .= '<li>'
                         . sprintf( get_lang("%1\$s modified on %2\$s by %3\$s"), $entry, $time, $userUrl )
                         . '</li>'
                         . "\n"
