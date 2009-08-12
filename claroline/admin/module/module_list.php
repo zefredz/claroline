@@ -825,7 +825,8 @@ $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspaci
 .    '<tr class="headerX">' . "\n"
 .    '<th>' . get_lang('Icon')                . '</th>' . "\n"
 .    '<th>' . get_lang('Module name')         . '</th>' . "\n";
-if ($typeReq!='tool')
+
+if ($typeReq == 'applet')
 {
     $out .= '<th>' . get_lang('Display')             . '</th>' . "\n";
 }
@@ -833,6 +834,7 @@ else
 {
     $out .= '<th colspan="2">' . get_lang('Order')       . '</th>' . "\n";
 }
+
 $out .= '<th>' . get_lang('Properties')          . '</th>' . "\n"
 .    '<th>' . get_lang('Uninstall')           . '</th>' . "\n"
 .    '<th>' . get_lang('Activated')          . '</th>' . "\n"
@@ -888,7 +890,7 @@ foreach($moduleList as $module)
 
     //displaying location column
 
-    if ($module['type']!='tool' )
+    if ( $module['type'] == 'applet' )
     {
         $out .= '<td align="left"><small>';
         if (empty($module_dock[$module['id']]))
