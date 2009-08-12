@@ -119,6 +119,34 @@ if( $is_allowedToEdit && !is_null($cmd) )
     }
 
     //-- export
+    if( $cmd == 'rqExport' && $exId )
+    {
+      
+      $dialogBoxContent = "\n"
+      .             '<strong>' . get_lang( 'Export exercise' ) . '</strong><br />' . "\n"
+      .             get_lang( 'Select the type for your export :' ) . '<br />' . "\n"
+      .             '<ul>' . "\n"
+      ;
+      
+      if( get_conf('enableExerciseExportQTI') )
+      {
+        $dialogBoxContent .=  '<li>' . "\n"
+        .                     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export in IMS QTI').'" /> ' . "\n"
+        .                     '<a href="' . htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=exExport&exId=' . $exId ) ) . '">' . get_lang( 'Export in IMS QTI' ) . '</a>' . "\n"
+        .                     '</li>' . "\n"
+        ;
+      }
+      
+      $dialogBoxContent .=  '<li>' . "\n"
+      .                     '<img src="' . get_icon_url('mime/pdf') . '" alt="'.get_lang('Export to PDF').'" /> ' . "\n"
+      .                     '<a href="' . htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=exExportPDF&exId=' . $exId ) ) . '">' . get_lang( 'Export to PDF' ) . '</a>' . "\n"
+      .                     '</li>' . "\n"
+      .                     '</ul>' . "\n"
+      ;
+      
+      $dialogBox->question( $dialogBoxContent );
+    }
+    
     if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') && $exId )
     {
         include_once './lib/question.class.php';
@@ -579,11 +607,8 @@ if( !$inLP )
         .     '<th>' . get_lang('Visibility') . '</th>' . "\n";
         $colspan = 4;
     
-        if( get_conf('enableExerciseExportQTI') )
-        {
-            $out .= '<th>' . get_lang('Export') . '</th>' . "\n";
-            $colspan++;
-        }
+        $out .= '<th>' . get_lang('Export') . '</th>' . "\n";
+        $colspan++;
     
         if( $is_allowedToTrack )
         {
@@ -591,8 +616,6 @@ if( !$inLP )
             $colspan++;
         }
     }
-    
-    $out .= '<th>' . get_lang( 'Export to PDF' ) . '</th>' . "\n";
     
     $out .= '</tr>' . "\n"
     .     '</thead>' . "\n\n"
@@ -669,14 +692,11 @@ if( !$inLP )
                     .     '</td>' . "\n";
                 }
     
-                if( get_conf('enableExerciseExportQTI') )
-                {
-                    $out .= '<td align="center">'
-                    .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exExport">'
-                    .     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export').'" />'
-                    .     '</a>'
-                    .     '</td>' . "\n";
-                }
+                $out .= '<td align="center">'
+                .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=rqExport">'
+                .     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export').'" />'
+                .     '</a>'
+                .     '</td>' . "\n";
     
                 if( $is_allowedToTrack )
                 {
@@ -687,13 +707,6 @@ if( !$inLP )
                     .     '</td>' . "\n";
                 }
             }
-            
-            $out .= '<td align="center">'
-            .   '<a href="'. htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=exExportPDF&exId=' . $anExercise['id'] ) ).'">'
-            .   '<img src="' . get_icon_url( 'mime/pdf' ) . '" alt="' . get_lang( 'Export to PDF' ) . '" />'
-            .   '</a>'
-            .   '</td>' . "\n"
-            ;
     
             $out .= '</tr>' . "\n\n";
         }
