@@ -634,7 +634,7 @@ if ( $_cid )
     
     $mainCourseToolList = claro_get_main_course_tool_list(); 
     
-    // 2. get tool list from course
+    // 2. get list af already installed tools from course
     
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_tool            = $tbl_mdb_names['tool'           ];
@@ -645,7 +645,7 @@ if ( $_cid )
             FROM `".$_course['dbNameGlu']."tool_list` AS ctl
             INNER JOIN `".$tbl_tool."` AS pct
             ON `ctl`.`tool_id` = `pct`.`id`
-            WHERE 1";
+            WHERE ctl.installed = 'true'";
     
     $courseToolList = claro_sql_query_fetch_all_rows($sql);
     
