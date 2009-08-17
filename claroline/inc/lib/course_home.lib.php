@@ -153,7 +153,7 @@ function set_local_course_tool($toolId, $name, $url)
 
     // check for "http://", if the user forgot "http://" or "ftp://" or ...
     // the link will not be correct
-    if( !ereg( "://",$url ) )
+    if( !preg_match( '/:\/\//',$url ) )
     {
          // add "http://" as default protocol for url
          $url = "http://".$url;
@@ -197,7 +197,7 @@ function insert_local_course_tool($name, $url, $visibility = true)
 
     // check for "http://", if the user forgot "http://" or "ftp://" or ...
     // the link will not be correct
-    if( !ereg( "://",$url ) )
+    if( !preg_match( '/:\/\//',$url ) )
     {
          // add "http://" as default protocol for url
          $url = "http://".$url;
