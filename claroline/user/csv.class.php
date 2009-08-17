@@ -607,7 +607,7 @@ class csvImport extends csv
                         }
                       }
                       //join group
-                      $groups = split(',', $groupNames);
+                      $groups = explode(',', $groupNames);
                       if( is_array( $groups ) )
                       {
                         foreach( $groups as $group)

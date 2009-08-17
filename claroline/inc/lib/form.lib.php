@@ -49,7 +49,7 @@ function claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $u
     else                $selectedDate = date('Y-m-d', $unixDate);
 
     // split selectedDate
-    list($selYear, $selMonth, $selDay) = split('-', $selectedDate);
+    list($selYear, $selMonth, $selDay) = exlpode('-', $selectedDate);
 
     // day field
     for ($dayCounter=1;$dayCounter <=31; $dayCounter++)
@@ -131,7 +131,7 @@ function claro_html_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
 
 
     //split selectedTime
-    list($selHour, $selMinute) = split(':',$selectedTime);
+    list($selHour, $selMinute) = explode(':',$selectedTime);
 
 
     if ($hourFieldName != '')

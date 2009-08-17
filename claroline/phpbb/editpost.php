@@ -104,7 +104,7 @@ if ( $postSettingList && $is_allowedToEdit )
             $forum_id         = $postSettingList['forum_id' ];
             $topic_id         = $postSettingList['topic_id' ];
             $this_post_time   = $postSettingList['post_time'];
-            list($day, $time) = split(' ', $postSettingList['post_time']);
+            list($day, $time) = explode(' ', $postSettingList['post_time']);
             $date             = date('Y-m-d H:i');
 
             if ( isset($_REQUEST['message']) )
@@ -145,7 +145,7 @@ if ( $postSettingList && $is_allowedToEdit )
               ==========================*/
             $postSettingList  = get_post_settings($post_id);
 
-            list($day, $time) = split(' ', $postSettingList['post_time']);
+            list($day, $time) = explode(' ', $postSettingList['post_time']);
             $message = $postSettingList['post_text'];
             $message = preg_replace('#</textarea>#si', '&lt;/TEXTAREA&gt;', $message);
                 // Special handling for </textarea> tags in the message,
