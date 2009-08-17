@@ -108,7 +108,7 @@ function choose_image($fileName)
     /* FUNCTION CORE */
     $extension= null;
 
-    if (ereg("\.([[:alnum:]]+)$", $fileName, $extension))
+    if (preg_match('/\.([[:alnum:]]+)$/', $fileName, $extension))
     {
         $extension[1] = strtolower ($extension[1]);
 
