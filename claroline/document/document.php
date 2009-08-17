@@ -586,7 +586,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         {
             // check for "http://", if the user forgot "http://" or "ftp://" or ...
             // the link will not be correct
-            if( !ereg( '://',$url ) )
+            if( !preg_match( '/:\/\//',$url ) )
             {
                 // add "http://" as default protocol for url
                 $url = "http://".$url;
@@ -761,7 +761,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                  * In this case, add "http://" as default url protocol
                  */
 
-                if( ! ereg( '://',$url ) ) $url = 'http://'.$url;
+                if( ! preg_match( '/:\/\//',$url ) ) $url = 'http://'.$url;
 
                 // else $url = $url ...
 
