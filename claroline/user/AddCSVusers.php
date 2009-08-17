@@ -330,7 +330,7 @@ switch( $step )
                 
                 if( !$firstLineFormat )
                 {
-                    $keys = split( $_SESSION['CSV_fieldSeparator'], $usedFormat);
+                    $keys = explode( $_SESSION['CSV_fieldSeparator'], $usedFormat);
                     $firstLine = $usedFormat;
                 }
                 else

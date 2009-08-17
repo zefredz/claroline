@@ -131,7 +131,7 @@ function claro_html_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
 
 
     //split selectedTime
-    list($selHour, $selMinute) = split(':',$selectedTime);
+    list($selHour, $selMinute) = explode(':',$selectedTime);
 
 
     if ($hourFieldName != '')
