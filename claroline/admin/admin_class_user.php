@@ -82,7 +82,7 @@ if ( !empty($class_id) )
             {
                 $dialogBox->success( get_lang('All users have been sucessfully unregistered from the class') );
             }
-            break;        
+            break;
 
         default :
             // No command
@@ -114,11 +114,13 @@ if ( !empty($class_id) )
     
     if (isset($search))
     {
-        $sql .= " AND (U.nom LIKE '%". $search ."%'
-                  OR U.prenom LIKE '%". $search ."%' ";
-        $sql .= " OR U.email LIKE '%".  $search ."%'";
-        $sql .= " OR U.username LIKE '".  $search ."%'";        
-        $sql .= " OR U.officialCode = '".  $search ."')";
+        $escapedSearchTerm = claro_sql_escape($search);
+        
+        $sql .= " AND (U.nom LIKE '%". $escapedSearchTerm ."%'
+                  OR U.prenom LIKE '%". $escapedSearchTerm ."%'
+                  OR U.email LIKE '%".  $escapedSearchTerm ."%'
+                  OR U.username LIKE '".  $escapedSearchTerm ."%'
+                  OR U.officialCode = '".  $escapedSearchTerm ."')";
     }
 
     // deal with session variables for search criteria
@@ -154,7 +156,7 @@ if ( !empty($class_id) )
     if ( ! isset($_SESSION['admin_user_class_order_crit']))
     {
         $_SESSION['admin_user_class_dir'] = 'ASC';
-        $_SESSION['admin_user_class_order_crit'] = 'nom'; 
+        $_SESSION['admin_user_class_order_crit'] = 'nom';
     }
 
     $toAdd = " ORDER BY `".$_SESSION['admin_user_class_order_crit'] . "` " . $_SESSION['admin_user_class_dir'];
@@ -223,7 +225,7 @@ if ( !empty($class_id) )
 {
     $out .= claro_html_tool_title($nameTools . ' : ' . $classinfo['name']);
     
-    $out .= $dialogBox->render();    
+    $out .= $dialogBox->render();
 
     // Display menu
     $out .= '<p>' . claro_html_menu_horizontal($cmdList) . '</p>' ;
@@ -231,13 +233,15 @@ if ( !empty($class_id) )
     // Display pager
     $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
 
-    //Display search form
-    $out .= '<div style="text-align:right"><form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-    .    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
-    .    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" />' . "\n"
-    .    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
+    // Display search form
+    $out .= '<div style="text-align: right">'."\n"
+    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="GET">' . "\n"
     .    '<input type="hidden" name="class_id" value="'.$class_id. '" />' . "\n"
-    .    '</form></div>' . "\n"
+    .    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" size="20" />' . "\n"
+    .    '<input type="submit" value=" ' . get_lang('Search') . ' " />' . "\n"
+    .    '</form>'."\n"
+    .    '</div>' . "\n"
+    .    '<br />' . "\n" // simulate empty line to keep consistency with admin_class_register where there is a space for pager
     ;
     
     // Display list of users

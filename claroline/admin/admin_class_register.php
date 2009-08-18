@@ -42,6 +42,7 @@ $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 $cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
 $user_id = isset($_REQUEST['user_id'])?(int)$_REQUEST['user_id']:0;
 $class_id = isset($_REQUEST['class_id'])?(int)$_REQUEST['class_id']:0;
+$search = isset($_REQUEST['search'])?$_REQUEST['search']:'';
 
 // find info about the class
 
@@ -80,6 +81,17 @@ if ( !empty($class_id) )
             LEFT JOIN `" . $tbl_class_user . "` AS CU
                    ON  CU.`user_id` = U.`user_id`
                   AND CU.`class_id` = " . (int) $class_id;
+    
+    if ( !empty($search) )
+    {
+        $escapedSearchTerm = claro_sql_escape($search);
+        
+        $sql .= " WHERE (U.nom LIKE '%". $escapedSearchTerm ."%'
+                  OR U.prenom LIKE '%". $escapedSearchTerm ."%'
+                  OR U.email LIKE '%".  $escapedSearchTerm ."%'
+                  OR U.username LIKE '".  $escapedSearchTerm ."%'
+                  OR U.officialCode = '".  $escapedSearchTerm ."')";
+    }
 
     // deal with REORDER
 
@@ -146,11 +158,11 @@ if ( !empty($class_id) )
 
 // Deal with interbredcrumps
 // We have to prepend in reverse order !!!
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Class users'), get_path('rootAdminWeb') . 'admin_class_user.php?class_id='.$class_id );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Class members'), get_path('rootAdminWeb') . 'admin_class_user.php?class_id='.$class_id );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Classes'), get_path('rootAdminWeb') . 'admin_class.php' );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
-$nameTools = get_lang('Register user to class');
+$nameTools = get_lang('Register users to class');
 
 $out = '';
 
@@ -166,15 +178,25 @@ else
     $out .= claro_html_tool_title($nameTools . ' : ' . $classinfo['name']);
     
     // Display Forms or dialog box(if needed)
-    $out .= $dialogBox->render();    
+    $out .= $dialogBox->render();
     
     // Display tool link
 
-    $out .= '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$class_id.'">'. 
+    $out .= '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$class_id.'">'.
          get_lang('Class members').'</a></p>'."\n";
 
     if (isset($_REQUEST['cfrom']) && ($_REQUEST['cfrom']=='clist')) $out .= claro_html_button('admincourses.php', get_lang('Back to course list'));
 
+    // Display search form
+    $out .= '<div style="text-align: right">'."\n"
+    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="GET">' . "\n"
+    .    '<input type="hidden" name="class_id" value="'.$class_id. '" />' . "\n"
+    .    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" size="20" />' . "\n"
+    .    '<input type="submit" value=" ' . get_lang('Search') . ' " />' . "\n"
+    .    '</form>'."\n"
+    .    '</div>' . "\n"
+    ;
+    
     // Display pager
 
     $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ) );
