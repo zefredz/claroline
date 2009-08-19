@@ -405,15 +405,15 @@ function detect_included_files(&$tokenList)
             }
 
             // replace dirname(__FILE__) by nothing
-            $includeFile = ereg_replace("dirname\(__FILE__\) *\. *(['\"])","\\1",$includeFile);
+            $includeFile = preg_replace("/dirname\(__FILE__\) *\. *(['\"])/","\\1",$includeFile);
             // replace get_path('incRepositorySys') by get_path('incRepositorySys')
-            $includeFile = ereg_replace('\$includePath *\. *([\'\"])',"\\1" . get_path('incRepositorySys'), $includeFile);
+            $includeFile = preg_replace('/\$includePath *\. *([\'\"])/',"\\1" . get_path('incRepositorySys'), $includeFile);
             // replace $rootSys by $rootSys
-            $includeFile = ereg_replace('\$rootSys *\. *([\'\"])',"\\1" . $GLOBALS['rootSys'],$includeFile);
+            $includeFile = preg_replace('/\$rootSys *\. *([\'\"])/',"\\1" . $GLOBALS['rootSys'],$includeFile);
             // replace $rootAdminSys by $rootAdminSys
-            $includeFile = ereg_replace('\$rootAdminSys *\. *([\'\"])',"\\1" . get_path('rootAdminSys'),$includeFile);
+            $includeFile = preg_replace('/\$rootAdminSys *\. *([\'\"])/',"\\1" . get_path('rootAdminSys'),$includeFile);
             // replace $clarolineRepositorySys by $clarolineRepositorySys
-            $includeFile = ereg_replace('\$clarolineRepositorySys  *\. *([\'\"])',"\\1" . $GLOBALS['clarolineRepositorySys'],$includeFile);
+            $includeFile = preg_replace('/\$clarolineRepositorySys  *\. *([\'\"])/',"\\1" . $GLOBALS['clarolineRepositorySys'],$includeFile);
 
             $includeFileList[] = $includeFile;
         }

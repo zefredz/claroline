@@ -575,10 +575,10 @@ function claro_html_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
     // with the ereg  we  replace %aAbB of date format
     //(they can be done by the system when  locale date aren't aivailable
 
-    $formatOfDate = ereg_replace('%[A]', $langDay_of_weekNames['long'][(int)strftime('%w', $timestamp)], $formatOfDate);
-    $formatOfDate = ereg_replace('%[a]', $langDay_of_weekNames['short'][(int)strftime('%w', $timestamp)], $formatOfDate);
-    $formatOfDate = ereg_replace('%[B]', $langMonthNames['long'][(int)strftime('%m', $timestamp)-1], $formatOfDate);
-    $formatOfDate = ereg_replace('%[b]', $langMonthNames['short'][(int)strftime('%m', $timestamp)-1], $formatOfDate);
+    $formatOfDate = preg_replace('/%[A]/', $langDay_of_weekNames['long'][(int)strftime('%w', $timestamp)], $formatOfDate);
+    $formatOfDate = preg_replace('/%[a]/', $langDay_of_weekNames['short'][(int)strftime('%w', $timestamp)], $formatOfDate);
+    $formatOfDate = preg_replace('/%[B]/', $langMonthNames['long'][(int)strftime('%m', $timestamp)-1], $formatOfDate);
+    $formatOfDate = preg_replace('/%[b]/', $langMonthNames['short'][(int)strftime('%m', $timestamp)-1], $formatOfDate);
     return strftime($formatOfDate, $timestamp);
 }
 
