@@ -402,7 +402,7 @@ class Config
                 break;
 
             case 'integer' :
-                if ( eregi('[^0-9]',$value) )
+                if ( preg_match('/[^0-9]/i',$value) )
                 {
                     $this->backlog->failure( get_lang('%name should be integer',array('%name'=>$label)));
                     $valid = false;
@@ -467,7 +467,7 @@ class Config
                 break;
 
             case 'regexp' :
-                if ( isset($acceptedValue) && !eregi( $acceptedValue, $value ))
+                if ( isset($acceptedValue) && !preg_match( '/' . $acceptedValue . '/i', $value ))
                 {
                     $this->backlog->failure( get_lang('%name should be match %regular_expression', array('%name' => $label,'%regular_expression'=> $acceptedValue) ));
                     $valid = false;

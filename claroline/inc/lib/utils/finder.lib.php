@@ -37,7 +37,7 @@ class Claro_FileFinder extends FilterIterator
     {
         $this->searchString = $searchString;
         
-        $pathList = split( PATH_SEPARATOR, $path );
+        $pathList = explode( PATH_SEPARATOR, $path );
             
         if (count($pathList) <= 1)
         {

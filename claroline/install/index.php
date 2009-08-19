@@ -289,14 +289,14 @@ if( DISP_ADMINISTRATIVE_SETTING == $_REQUEST['fromPanel'] )
     $contactNameForm    = trim($contactNameForm);
     $adminNameForm      = trim($adminNameForm);
     $contactEmailForm   = trim($contactEmailForm);
-    $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\._\?\,\'/\\\+&%\$#\=~-])*$";
+    $regexp = "/^(http|https|ftp)\://[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\._\?\,\'/\\\+&%\$#\=~-])*$/i";
     
-    if ( (!empty($institutionUrlForm)) && !eregi( $regexp, $institutionUrlForm) )
+    if ( (!empty($institutionUrlForm)) && !preg_match( $regexp, $institutionUrlForm) )
     {
         // problem with url. try to repair
         // if  it  only the protocol missing add http
-        if (eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z0-9]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $institutionUrlForm )
-        && (eregi($regexp, 'http://' . $institutionUrlForm )))
+        if (preg_match('/^[a-zA-Z0-9\-\.]+\.[a-zA-Z0-9]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$/i', $institutionUrlForm )
+        && (preg_match($regexp, 'http://' . $institutionUrlForm )))
         {
             $institutionUrlForm = 'http://' . $institutionUrlForm;
         }
@@ -417,7 +417,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
 if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall'])
 {
     $stepStatus[DISP_DB_NAMES_SETTING] = 'V';
-    $regexpPatternForDbName = '^[a-z0-9][a-z0-9_-]*$';
+    $regexpPatternForDbName = '/^[a-z0-9][a-z0-9_-]*$/i';
     // Now mysql connect param are ok, try  to use given DBNames
     // 1° check given string
     // 2° check if db exists
@@ -430,16 +430,16 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
     $databaseNameValid = TRUE;
     $databaseAlreadyExist = FALSE;
 
-    if (!eregi($regexpPatternForDbName,$dbNameForm)|| strlen($dbNameForm)>64
+    if (!preg_match($regexpPatternForDbName,$dbNameForm)|| strlen($dbNameForm)>64
         ||
-        !eregi($regexpPatternForDbName,$dbStatsForm)|| strlen($dbStatsForm)>64 )
+        !preg_match($regexpPatternForDbName,$dbStatsForm)|| strlen($dbStatsForm)>64 )
 
     //  64 is  the  max  for the name of a mysql database
     {
         $databaseNameValid = FALSE;
         $msgErrorDbMain_dbNameToolLong = (strlen($dbNameForm)>64);
-        $msgErrorDbMain_dbNameInvalid = !eregi($regexpPatternForDbName,$dbNameForm);
-        $msgErrorDbMain_dbNameBadStart = !eregi('^[a-z0-9]',$dbNameForm);
+        $msgErrorDbMain_dbNameInvalid = !preg_match($regexpPatternForDbName,$dbNameForm);
+        $msgErrorDbMain_dbNameBadStart = !preg_match('/^[a-z0-9]/i',$dbNameForm);
 
         if (!$singleDbForm)
         {
@@ -447,9 +447,9 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
                                      $msgErrorDbMain_dbNameInvalid ||
                                      $msgErrorDbMain_dbNameBadStart ;
 
-            $msgErrorDbStat_dbNameInvalid = !eregi($regexpPatternForDbName,$dbStatsForm);
+            $msgErrorDbStat_dbNameInvalid = !preg_match($regexpPatternForDbName,$dbStatsForm);
             $msgErrorDbStat_dbNameToolLong = (strlen($dbStatsForm)>64);
-            $msgErrorDbStat_dbNameBadStart = !eregi('^[a-z0-9]',$dbStatsForm);
+            $msgErrorDbStat_dbNameBadStart = !preg_match('/^[a-z0-9]/i',$dbStatsForm);
         }
 
     }
