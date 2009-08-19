@@ -183,9 +183,9 @@ foreach ($userList as $userKey => $user)
     {
         $bold_search = str_replace('*','.*',$_SESSION['admin_user_search']);
 
-        $userGrid[$userKey]['name'] = eregi_replace('(' . $bold_search . ')' , '<b>\\1</b>', $user['name']);
-        $userGrid[$userKey]['firstname'] = eregi_replace('(' . $bold_search . ')' , '<b>\\1</b>', $user['firstname']);
-        $userEmailLabel  = eregi_replace('(' . $bold_search . ')', '<b>\\1</b>' , $user['email']);
+        $userGrid[$userKey]['name'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['name']);
+        $userGrid[$userKey]['firstname'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['firstname']);
+        $userEmailLabel  = preg_replace('/(' . $bold_search . ')/i', '<b>\\1</b>' , $user['email']);
     }
     
     $userGrid[$userKey]['officialCode'] = empty($user['officialCode']) ? ' - ' : $user['officialCode'];

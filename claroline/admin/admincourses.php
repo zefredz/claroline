@@ -292,9 +292,9 @@ foreach($courseList as $numLine => $courseLine)
     //trick to prevent "//1" display when no keyword used in search
     {
         $bold_search = str_replace('*', '.*', $_SESSION['admin_course_search']);
-        $courseLine['officialCode'] = eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['officialCode']);
-        $courseLine['intitule'] = eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['intitule']);
-        $courseLine['faculte'] = eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['faculte']);
+        $courseLine['officialCode'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['officialCode']);
+        $courseLine['intitule'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['intitule']);
+        $courseLine['faculte'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['faculte']);
     }
 
     // Official Code
