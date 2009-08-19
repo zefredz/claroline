@@ -203,7 +203,7 @@ if ( isset($_REQUEST['chatLine']) && trim($_REQUEST['chatLine']) != "" )
     $fchat = fopen($activeChatFile,'a');
     $chatLine = htmlspecialchars( $_REQUEST['chatLine'] );
     // replace url with real html link
-    $chatLine = ereg_replace("(http://)(([[:punct:]]|[[:alnum:]])*)","<a href=\"\\0\" target=\"_blank\">\\2</a>",$chatLine);
+    $chatLine = preg_replace("/(http://)(([[:punct:]]|[[:alnum:]])*)/","<a href=\"\\0\" target=\"_blank\">\\2</a>",$chatLine);
 
     fwrite($fchat, '<small>' . $timeNow . ' &lt;<b>' . $nick . '</b>&gt; ' . $chatLine . '</small><br />' . "\n");
 

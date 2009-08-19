@@ -268,7 +268,7 @@ class ClaroCourse
         if ( isset($_REQUEST['course_officialCode' ]) )
         {
             $this->officialCode = trim(strip_tags($_REQUEST['course_officialCode']));
-            $this->officialCode = ereg_replace('[^A-Za-z0-9_]', '', $this->officialCode);
+            $this->officialCode = preg_replace('/[^A-Za-z0-9_]/', '', $this->officialCode);
             $this->officialCode = strtoupper($this->officialCode);
         }
 
