@@ -165,7 +165,7 @@ function claro_move_file($sourcePath, $targetPath)
 
     // check to not copy a directory inside itself
     if (   is_dir($sourcePath)
-        && ereg('^' . $sourcePath . '/', $targetPath . '/') )
+        && ereg('/^' . $sourcePath . '\//', $targetPath . '/') )
         return claro_failure::set_failure('MOVE INSIDE ITSELF');
 
     $sourceFileName = basename($sourcePath);
@@ -212,7 +212,7 @@ function claro_copy_file($sourcePath, $targetPath)
     {
         // check to not copy the directory inside itself
 
-        if ( ereg('^'.$sourcePath . '/', $targetPath . '/') ) return false;
+        if ( preg_match('/^'.$sourcePath . '\//', $targetPath . '/') ) return false;
 
         if ( ! claro_mkdir($targetPath . '/' . $fileName, CLARO_FILE_PERMISSIONS) )   return false;
 
