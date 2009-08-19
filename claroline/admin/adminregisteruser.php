@@ -317,8 +317,8 @@ foreach($userList as $user)
 {
     if (isset($_REQUEST['search'])&& ($_REQUEST['search'] != ''))
     {
-        $user['nom'] = eregi_replace("^(".$_REQUEST['search'].")",'<b>\\1</b>', $user['nom']);
-        $user['prenom'] = eregi_replace("^(".$_REQUEST['search'].")","<b>\\1</b>", $user['prenom']);
+        $user['nom'] = preg_replace("/^(".$_REQUEST['search'].")/i",'<b>\\1</b>', $user['nom']);
+        $user['prenom'] = preg_replace("/^(".$_REQUEST['search'].")/i","<b>\\1</b>", $user['prenom']);
     }
 
     $out .= '<tr>' . "\n"
