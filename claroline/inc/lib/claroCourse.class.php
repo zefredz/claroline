@@ -487,14 +487,14 @@ class ClaroCourse
     {
         if ( empty($this->extLinkUrl) ) return true;
 
-        $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\._\?\,\'/\\\+&%\$#\=~-])*$";
+        $regexp = "/^(http|https|ftp)\://[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\._\?\,\'/\\\+&%\$#\=~-])*$/i";
 
-        if ( ! eregi($regexp,$this->extLinkUrl) )
+        if ( ! preg_match($regexp,$this->extLinkUrl) )
         {
             // Problem with url. try to repair
             // if  it  only the protocol missing add http
-            if ( eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $this->extLinkUrl)
-                && ( eregi($regexp, 'http://' . $this->extLinkUrl)))
+            if ( preg_match('/^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$/i', $this->extLinkUrl)
+                && ( preg_match($regexp, 'http://' . $this->extLinkUrl)))
             {
                 $this->extLinkUrl = 'http://' . $this->extLinkUrl;
             }
