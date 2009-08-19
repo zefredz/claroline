@@ -132,3 +132,4 @@ var tinyMCE_GZ = {
 			w.execScript(co); // IE
 	}
 };
+tinyMCE_GZ.init({});
