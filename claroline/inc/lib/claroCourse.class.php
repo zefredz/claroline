@@ -136,9 +136,11 @@ class ClaroCourse
             $this->visibility         = $course_data['visibility'];
             $this->registration       = $course_data['registrationAllowed'];
             $this->registrationKey    = $course_data['registrationKey'];
-            $this->publicationDate    = (int) $course_data['publicationDate'];
-            $this->expirationDate     = (int) $course_data['expirationDate'];
+            $this->publicationDate    = $course_data['publicationDate'];
+            $this->expirationDate     = $course_data['expirationDate'];
             $this->status             = $course_data['status'];
+            
+            pushClaroMessage($course_data['publicationDate']);
             
             $this->useExpirationDate = isset($this->expirationDate);
             
@@ -221,9 +223,19 @@ class ClaroCourse
             $tbl_cdb_names = claro_sql_get_course_tbl();
             $tbl_course_properties = $tbl_cdb_names['course_properties'];
             
-            if ( ! $this->useExpirationDate) $this->expirationDate = 'NULL';
+            if ( ! $this->useExpirationDate) $this->expirationDate = null;
 
-            $sql = "UPDATE `" . $tbl_course . "`
+            $sqlExpirationDate = is_null($this->expirationDate) 
+                ? 'NULL' 
+                : 'FROM_UNIXTIME(' . claro_sql_escape($this->expirationDate)   . ')'
+                ;    
+     
+            $sqlCreationDate = is_null($this->publicationDate) 
+                ? 'NULL' 
+                : 'FROM_UNIXTIME(' . claro_sql_escape($this->publicationDate)   . ')'
+                ;    
+
+            $sql = "UPDATE `" . $tbl_course . "` 
                     SET `intitule`             = '" . claro_sql_escape($this->title) . "',
                         `faculte`              = '" . claro_sql_escape($this->category) . "',
                         `titulaires`           = '" . claro_sql_escape($this->titular) . "',
@@ -237,10 +249,10 @@ class ClaroCourse
                         `registration`         = '" . ($this->registration ? 'OPEN':'CLOSE') . "',
                         `registrationKey`      = '" . claro_sql_escape($this->registrationKey) . "',
                         `lastEdit`             = NOW(),
-                        `creationDate`         = FROM_UNIXTIME(" . claro_sql_escape($this->publicationDate)   . "),
-                        `expirationDate`       = FROM_UNIXTIME(" . claro_sql_escape($this->expirationDate)   . "),
-                        `status`               = '" . claro_sql_escape($this->status)   . "'
-                    WHERE code='" . claro_sql_escape($this->courseId) . "'";
+                        `creationDate`         = " . $sqlCreationDate . ", 
+                        `expirationDate`       = " . $sqlExpirationDate . ", 
+                        `status`               = '" . claro_sql_escape($this->status)   . "' 
+                    WHERE code='" . claro_sql_escape($this->courseId) . "'"; 
 
             return claro_sql_query($sql);
         }
