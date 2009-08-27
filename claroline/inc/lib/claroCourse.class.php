@@ -136,8 +136,8 @@ class ClaroCourse
             $this->visibility         = $course_data['visibility'];
             $this->registration       = $course_data['registrationAllowed'];
             $this->registrationKey    = $course_data['registrationKey'];
-            $this->publicationDate    = $course_data['publicationDate'];
-            $this->expirationDate     = $course_data['expirationDate'];
+            $this->publicationDate    = (int) $course_data['publicationDate'];
+            $this->expirationDate     = (int) $course_data['expirationDate'];
             $this->status             = $course_data['status'];
             
             $this->useExpirationDate = isset($this->expirationDate);
