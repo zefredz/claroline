@@ -161,7 +161,7 @@
             $content .= '<a href="'.$link.$totalPage.'">'.$totalPage.'</a>'."\n";
             
         }
-        $content .= '<div/>';
+        $content .= '</div>';
         
         return $content;
     }
