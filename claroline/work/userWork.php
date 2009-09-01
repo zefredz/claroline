@@ -899,7 +899,10 @@ if( $is_allowedToSubmit )
                     $message->setTools('CLWRK');
 
                     $recipient = new UserListRecipient();
-                    $recipient->addUserIdList($userIdList);
+                    foreach( $userIdList as $thisUser ) 
+                    {
+                       $recipient->addUserId( (int)$thisUser['user_id'] );
+                    }
 
                     $recipient->sendMessage($message);
                 }
