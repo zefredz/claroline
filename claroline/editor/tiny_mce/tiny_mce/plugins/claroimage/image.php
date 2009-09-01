@@ -192,7 +192,7 @@
                         <div id="image_list">
                         </div>
 						<div>
-                            <div id="processing"><img src="<?php echo get_icon_url('processing_ajax'); ?>" /></div>
+                            <div id="processing"><img src="<?php echo get_icon_url('loading'); ?>" /></div>
                             <label for="sentfile"><?php echo get_lang('Add an image'); ?></label><br />
 						    <input type="hidden" id="relativePath" name="relativePath" value="<?php echo $relativePath ?>" />
                             <input id="sentFile" type="file" name="sentFile" size="25" value="" />
