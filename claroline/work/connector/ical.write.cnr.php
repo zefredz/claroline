@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author Claro Team <cvs@claroline.net>
  */
 
-function CLWRK_write_ical( & $iCal, $context)
+function CLWRK_write_ical( $iCal, $context)
 {
     if (is_array($context) && count($context) > 0)
     {
