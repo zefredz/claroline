@@ -271,7 +271,7 @@ function assignment_upgrade_to_16($course_code)
                 $sql_step2[] = "INSERT INTO `".$currentCourseDbNameGlu."wrk_assignment` 
                     SET `id` = 1,
                     `title` = 'Assignments', 
-                    `description`= '" . mysql_escape_string($work_intro) . "', 
+                    `description`= '" . mysql_real_escape_string($work_intro) . "', 
                     `visibility` = 'VISIBLE', 
                     `def_submission_visibility` = 'VISIBLE',
                     `assignment_type` = 'INDIVIDUAL',
