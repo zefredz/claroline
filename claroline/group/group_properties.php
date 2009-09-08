@@ -37,7 +37,8 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Groups'), 'group.php' );
 $_groupProperties = claro_get_main_group_properties(claro_get_current_course_id());
 
 
-session_register('_groupProperties');
+// session_register('_groupProperties');
+$_SESSION['_groupProperties'] =& $_groupProperties;
 
 $registrationAllowedInGroup = $_groupProperties ['registrationAllowed'];
 $groupPrivate               = $_groupProperties ['private'];
