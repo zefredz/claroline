@@ -293,5 +293,29 @@ function track_exercise_details($exerciseTrackId, $questionId, $values, $questio
     return 1;
 }
 
+function change_img_url_for_pdf( $str )
+{
+    $pattern = '/(.*?)<img (.*?)src=(\'|")(.*?)url=(.*?)=&(.*?)(\'|")(.*?)>(.*?)/is';
+    
+    if( ! preg_match( $pattern, urldecode( $str ), $matches) )
+    {
+        return $str;
+    }
+    
+    if( count($matches) != 10 )
+    {
+        return $str;
+    }
+    
+    if( is_download_url_encoded( $matches[5] ) )
+    {
+      $matches[5] = download_url_decode( $matches[5] );
+    }
+    $matches[5] = get_conf('rootWeb') . 'courses/' . claro_get_current_course_id() . '/document' . $matches[5];
+    $replace = $matches[1].'<img ' . $matches[2] . ' src="' . $matches[5] .'" ' . $matches[8] . '>' . $matches[9];
+    
+    return $replace;
+}
+
 
 ?>
