@@ -122,29 +122,58 @@ if( $is_allowedToEdit && !is_null($cmd) )
     if( $cmd == 'rqExport' && $exId )
     {
       
-      $dialogBoxContent = "\n"
-      .             '<strong>' . get_lang( 'Export exercise' ) . '</strong><br />' . "\n"
-      .             get_lang( 'Select the type for your export :' ) . '<br />' . "\n"
-      .             '<ul>' . "\n"
-      ;
+      $exercise = new Exercise();
       
-      if( get_conf('enableExerciseExportQTI') )
+      if( ! $exercise->load( $exId ) )
       {
+        $dialogBox->error( get_lang( 'Unable to load the exercise' ) );
+      }
+      else
+      {
+        $dialogBoxContent = "\n"
+        .             '<strong>' . get_lang( 'Export exercise' ) . '</strong><br />' . "\n"
+        .             get_lang( 'Select the type for your export :' ) . '<br />' . "\n"
+        .             '<ul>' . "\n"
+        ;
+        
+        if( get_conf('enableExerciseExportQTI') )
+        {
+          $dialogBoxContent .=  '<li>' . "\n"
+          .                     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export in IMS QTI').'" /> ' . "\n"
+          .                     '<a href="' . htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=exExport&exId=' . $exId ) ) . '">' . get_lang( 'Export in IMS QTI' ) . '</a>' . "\n"
+          .                     '</li>' . "\n"
+          ;
+          
+          if( $exercise->getShuffle() )
+          {
+            $dialogBoxContent .=  '<li>' . "\n"
+            .                     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export in IMS QTI (Shuffle)').'" /> ' . "\n"
+            .                     '<a href="' . htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=exExport&exId=' . $exId . '&shuffle=1' ) ) . '">' . get_lang( 'Export in IMS QTI (Shuffle)' ) . '</a>' . "\n"
+            .                     '</li>' . "\n"
+            ;
+          }
+        }
+        
         $dialogBoxContent .=  '<li>' . "\n"
-        .                     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export in IMS QTI').'" /> ' . "\n"
-        .                     '<a href="' . htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=exExport&exId=' . $exId ) ) . '">' . get_lang( 'Export in IMS QTI' ) . '</a>' . "\n"
+        .                     '<img src="' . get_icon_url('mime/pdf') . '" alt="'.get_lang('Export to PDF').'" /> ' . "\n"
+        .                     '<a href="' . htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=exExportPDF&exId=' . $exId ) ) . '">' . get_lang( 'Export to PDF' ) . '</a>' . "\n"
         .                     '</li>' . "\n"
         ;
+        
+        if( $exercise->getShuffle() )
+        {
+          $dialogBoxContent .=  '<li>' . "\n"
+          .                     '<img src="' . get_icon_url('mime/pdf') . '" alt="'.get_lang('Export to PDF (Shuffle)').'" /> ' . "\n"
+          .                     '<a href="' . htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=exExportPDF&exId=' . $exId . '&shuffle=1' ) ) . '">' . get_lang( 'Export to PDF (Shuffle)' ) . '</a>' . "\n"
+          .                     '</li>' . "\n"
+          ;
+        }
+        
+        $dialogBoxContent .=  '</ul>' . "\n"
+        ;
+        
+        $dialogBox->question( $dialogBoxContent );
       }
-      
-      $dialogBoxContent .=  '<li>' . "\n"
-      .                     '<img src="' . get_icon_url('mime/pdf') . '" alt="'.get_lang('Export to PDF').'" /> ' . "\n"
-      .                     '<a href="' . htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=exExportPDF&exId=' . $exId ) ) . '">' . get_lang( 'Export to PDF' ) . '</a>' . "\n"
-      .                     '</li>' . "\n"
-      .                     '</ul>' . "\n"
-      ;
-      
-      $dialogBox->question( $dialogBoxContent );
     }
     
     if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') && $exId )
@@ -159,7 +188,14 @@ if( $is_allowedToEdit && !is_null($cmd) )
 
         $exercise= new Exercise();
         $exercise->load($exId);
-        $questionList = $exercise->getQuestionList();
+        if( $exercise->getShuffle() && isset($_REQUEST['shuffle']) && $_REQUEST['shuffle'] == 1)
+        {
+          $questionList = $exercise->getRandomQuestionList();
+        }
+        else
+        {
+          $questionList = $exercise->getQuestionList();
+        }
 
         $filePathList = array();
 
@@ -225,7 +261,14 @@ if( $is_allowedToEdit && !is_null($cmd) )
         
         $exercise= new Exercise();
         $exercise->load($exId);
-        $questionList = $exercise->getQuestionList();
+        if( $exercise->getShuffle() && isset($_REQUEST['shuffle']) && $_REQUEST['shuffle'] == 1 )
+        {
+          $questionList = $exercise->getRandomQuestionList();
+        }
+        else
+        {
+          $questionList = $exercise->getQuestionList();
+        }
         
         foreach( $questionList as $_id => $question )
         {
@@ -235,6 +278,11 @@ if( $is_allowedToEdit && !is_null($cmd) )
           if( $questionObj->load($question['id']) )
           {
             $questionList[ $_id ]['description'] = $questionObj->getDescription();
+            $questionList[ $_id ]['attachment'] = $questionObj->getAttachment();
+            if( !empty( $questionList[ $_id ]['attachment'] ) )
+            {
+              $questionList[ $_id ]['attachmentURL'] = get_conf('rootWeb') . 'courses/' . claro_get_current_course_id() . '/exercise/question_' . $questionObj->getId() . '/' . $questionObj->getAttachment();
+            }
             
             switch( $questionObj->getType() )
             {
@@ -281,8 +329,8 @@ if( $is_allowedToEdit && !is_null($cmd) )
         // create new PDF document
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         
-        $pdf->SetTitle( $exercise->getTitle() );
-        $pdf->SetSubject( $exercise->getTitle() );
+        $pdf->SetTitle( claro_utf8_encode( $exercise->getTitle() ) );
+        $pdf->SetSubject( claro_utf8_encode( $exercise->getTitle() ) );
         
         //set margins
         $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
@@ -300,10 +348,13 @@ if( $is_allowedToEdit && !is_null($cmd) )
         // add a page
         $pdf->AddPage();
         
-        $htmlcontent = '<div style="font-size: xx-large; font-weight: bold;">' . htmlspecialchars( $exercise->getTitle() ) . '<div>' . "\n";
+        $htmlcontent = '<div style="font-size: xx-large; font-weight: bold;">' . htmlspecialchars( claro_utf8_encode( $exercise->getTitle() ) ) . '<div>' . "\n";
         $pdf->writeHTML( $htmlcontent, true, 0, true, 0);
         
-        $htmlcontent = '<div style="font-size: normal; font-weight: normal;">'. htmlspecialchars( strip_tags( $exercise->getDescription() ) ) .'</div><br /><br />' . "\n"
+        //change Img URL
+        $exercise->setDescription( change_img_url_for_pdf( $exercise->getDescription() ) );
+        //End change Img URL
+        $htmlcontent = '<div style="font-size: normal; font-weight: normal;">'. $exercise->getDescription() .'</div><br /><br />' . "\n"
         ;
         $pdf->writeHTML( $htmlcontent, true, 0, true, 0);
         
@@ -324,9 +375,24 @@ if( $is_allowedToEdit && !is_null($cmd) )
           if( trim( htmlspecialchars( strip_tags( claro_utf8_encode( $question['description'], get_conf('charset') ) ) ) ) )
           {
             $htmlcontent .= '<tr>' . "\n"
-            .   '<td colspan="2" style="font-size: x-small; font-style: italic;">' . htmlspecialchars( strip_tags( claro_utf8_encode( $question['description'], get_conf('charset') ) ) ) .'</td>' . "\n"
+            .   '<td colspan="2" style="font-size: x-small; font-style: italic;">' . claro_utf8_encode( change_img_url_for_pdf( $question['description'] ), get_conf('charset') ) .'</td>' . "\n"
             .   '</tr>' . "\n"
             ;
+          }
+          // Attachment
+          if( ! empty( $question['attachment'] ) )
+          {
+            $extensionsList = array( 'jpg', 'jpeg', 'bmp', 'gif', 'png');
+            
+            $ext = strtolower( get_file_extension( $question['attachment'] ) );
+            
+            if( in_array( $ext, $extensionsList ) )
+            {
+              $htmlcontent .= '<tr>' . "\n"
+              .   '<td colspan="2"><img src="' . $question['attachmentURL'] . '" /></td>' . "\n"
+              .   '</tr>' . "\n"
+              ;
+            }
           }
           
           
