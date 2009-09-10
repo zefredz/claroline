@@ -89,7 +89,7 @@ if( $req_upgrade_tracking_data )
 if ( $reset_confirm_backup || !$is_backup_confirmed )
 {
     // reset confirm backup
-    session_unregister('confirm_backup');
+    unset($_SESSION['confirm_backup']);
     $confirm_backup = 0;
 }
 
