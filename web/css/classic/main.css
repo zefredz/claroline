@@ -924,10 +924,10 @@ dl.userCourseList
 
 .claroDialogMsg { padding: 2px 5px 1px 20px; }
 .claroDialogBox .msgInfo { } /* I _really_ don't think there is a need for an icon here */
-.claroDialogBox .msgSuccess { background: url('img/bg_boxsuccess.png') top left no-repeat; }
-.claroDialogBox .msgWarning { background: url('img/bg_boxwarning.png') top left no-repeat; }
-.claroDialogBox .msgError { background: url('img/bg_boxerror.png') top left no-repeat; }
-.claroDialogBox .msgQuestion { background: url('img/bg_boxquestion.png') top left no-repeat; }
+.claroDialogBox .msgSuccess { background: url('../../img/success.png') top left no-repeat; }
+.claroDialogBox .msgWarning { background: url('../../img/warning.png') top left no-repeat; }
+.claroDialogBox .msgError { background: url('../../img/error.png') top left no-repeat; }
+.claroDialogBox .msgQuestion { background: url('../../img/question.png') top left no-repeat; }
 .claroDialogBox .msgForm { padding: 3px 20px; }
 .claroDialogBox .msgTitle { font-weight: bold; }
 
