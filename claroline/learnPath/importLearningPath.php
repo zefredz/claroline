@@ -14,6 +14,19 @@
  * @package CLLNP
  */
 
+function get_xml_charset( $xml )
+{
+    $regex = '/<\?xml(?:.*?)encoding="([a-zA-Z0-9\-]+)"(?:.*?)\s*\?>/';
+    if( preg_match( $regex, $xml, $matches ) )
+    {
+        return $matches[1];
+    }
+    else
+    {
+        return get_conf( 'charset' );
+    }
+}
+
 /*======================================
        CLAROLINE MAIN
   ======================================*/
@@ -226,7 +239,7 @@ function elementData($parser,$data)
     global $errorMsgs,$okMsgs;
     global $pathToManifest;
 
-    $data = trim(claro_utf8_decode($data));
+    //$data = trim(claro_utf8_decode($data));
     
     if (!isset($data)) $data="";
 
@@ -610,9 +623,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             if (!isset($manifestPath)) $manifestPath = "";
 
             array_push ($okMsgs, get_lang('Manifest found in zip file : ').$manifestPath."imsmanifest.xml" );
-
-            $data = html_entity_decode(urldecode(file_get_contents($manifestPath.$file)));
-
+            
+            $fileContent = file_get_contents($manifestPath.$file);
+            $charset = get_xml_charset( $fileContent );
+            $data = html_entity_decode(urldecode( $fileContent ), ENT_COMPAT, $charset);
+            
             if( !xml_parse($xml_parser, $data) )
             {
                 // if reading of the xml file in not successfull :
@@ -624,7 +639,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( claro_debug_mode() )
                 {
                     $debugMessage = strtr( 'Debug : %message (error code %code) on line %line and column %column' ,
-                                 array( '%message' => xml_error_string($xml_parser) ,
+                                 array( '%message' => xml_error_string( xml_get_error_code($xml_parser) ) ,
                                         '%code' => xml_get_error_code($xml_parser) ,
                                         '%line' => xml_get_current_line_number($xml_parser) ,
                                         '%column' => xml_get_current_column_number($xml_parser) ) );
