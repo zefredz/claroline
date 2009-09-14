@@ -158,10 +158,10 @@ h2 {
 
 .claroDialogMsg { padding: 2px 5px 1px 20px; }
 .claroDialogBox .msgInfo { } /* I _really_ don't think there is a need for an icon here */
-.claroDialogBox .msgSuccess { background: url('classic/img/success.gif') top left no-repeat; }
-.claroDialogBox .msgWarning { background: url('classic/img/warning.gif') top left no-repeat; }
-.claroDialogBox .msgError { background: url('classic/img/error.gif') top left no-repeat; }
-.claroDialogBox .msgQuestion { background: url('classic/img/question.gif') top left no-repeat; }
+.claroDialogBox .msgSuccess { background: url('../img/success.png') top left no-repeat; }
+.claroDialogBox .msgWarning { background: url('../img/warning.png') top left no-repeat; }
+.claroDialogBox .msgError { background: url('../img/error.png') top left no-repeat; }
+.claroDialogBox .msgQuestion { background: url('../img/question.png') top left no-repeat; }
 .claroDialogBox .msgForm { padding: 3px 20px; }
 .claroDialogBox .msgTitle { font-weight: bold; }
 
