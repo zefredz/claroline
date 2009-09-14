@@ -195,8 +195,9 @@ function search_course($keyword, $userId = null)
                      :  "")
          . " \n "
          
-         . "WHERE (
-            (visibility = 'VISIBLE'
+         . "WHERE ( "
+         . (claro_is_platform_admin() ? '' : 
+            "(visibility = 'VISIBLE'
                 AND ( `status`='enable'
                         OR ( `status` = 'date'
                             AND ( `creationDate` < '" . $curdate . "'
@@ -208,11 +209,12 @@ function search_course($keyword, $userId = null)
                                 )
                             )
                     )
-            )"
-                //OR " . ( claro_is_platform_admin() ? "1" : "0" ) ." "
-                
-            . ( $userId ? " OR cu.user_id " : "") . "
-            AND ( UPPER(administrativeNumber)   LIKE '%" . $upperKeyword . "%'
+            "
+            . ( $userId ? " OR cu.user_id " : "")
+            . " ) AND "
+            )
+             . "
+            ( UPPER(administrativeNumber)   LIKE '%" . $upperKeyword . "%'
                 OR UPPER(intitule)              LIKE '%" . $upperKeyword . "%'
                 OR UPPER(titulaires)            LIKE '%" . $upperKeyword . "%'
                 )"
