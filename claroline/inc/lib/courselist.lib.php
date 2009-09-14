@@ -194,17 +194,30 @@ function search_course($keyword, $userId = null)
                         AND cu.user_id = " . (int) $userId
                      :  "")
          . " \n "
-         . "WHERE (  (visibility = 'VISIBLE' AND (`status`='enable' OR `status` = 'date')
-             AND `creationDate` < '". $curdate ."' 
-             AND ('". $curdate ."'<`expirationDate` OR `expirationDate` IS NULL))
-            OR ".(claro_is_platform_admin()?"1":"0") ." "
-         .  ($userId ? "OR cu.user_id" : "") . "
-
-                  )
-              AND (  (UPPER(administrativeNumber)  LIKE '%" . $upperKeyword . "%'
-                  OR  UPPER(intitule)              LIKE '%" . $upperKeyword . "%'
-                  OR  UPPER(titulaires)            LIKE '%" . $upperKeyword . "%')
-                  )
+         
+         . "WHERE (
+            (visibility = 'VISIBLE'
+                AND ( `status`='enable'
+                        OR ( `status` = 'date'
+                            AND ( `creationDate` < '" . $curdate . "'
+                                OR `creationDate` IS NULL
+                                OR UNIX_TIMESTAMP(`creationDate`) = 0
+                                )
+                            AND ( '" . $curdate . "' < `expirationDate`
+                                OR `expirationDate` IS NULL
+                                )
+                            )
+                    )
+            )"
+                //OR " . ( claro_is_platform_admin() ? "1" : "0" ) ." "
+                
+            . ( $userId ? " OR cu.user_id " : "") . "
+            AND ( UPPER(administrativeNumber)   LIKE '%" . $upperKeyword . "%'
+                OR UPPER(intitule)              LIKE '%" . $upperKeyword . "%'
+                OR UPPER(titulaires)            LIKE '%" . $upperKeyword . "%'
+                )"
+            . "
+            )
             ORDER BY officialCode";
 
     $courseList = claro_sql_query_fetch_all($sql);
