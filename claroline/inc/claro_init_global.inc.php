@@ -352,6 +352,26 @@ language::load_module_translation();
 
 define('CLARO_MAX_REGISTERED_FORM_ID', 50);
 
+if ( claro_is_user_authenticated() )
+{
+    if ( empty( $_SESSION['csrf_token'] ) || !isset( $_SESSION['csrf_token'] ) )
+    {
+        $_SESSION['csrf_token'] = strrev(md5(time())); //set a token with a reverse string and md5 encryption of the user's password
+    }
+    
+    if ( defined('CSRF_PROTECTED') && CSRF_PROTECTED )
+    {
+        if ( $_POST )
+        {
+            if ( !isset( $_POST['csrf_token'] ) || ( $_POST['csrf_token'] != $_SESSION['csrf_token'] ) )
+            {
+                claro_die( get_lang("Not Allowed !") );
+                exit();
+            }
+        }
+    }
+}
+
 if ( isset($_POST['claroFormId']) )
 {
     if ( ! isset($_SESSION['claroFormIdList']) )
