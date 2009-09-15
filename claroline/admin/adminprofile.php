@@ -16,6 +16,8 @@
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
+define( 'CSRF_PROTECTED', true );
+
 require '../inc/claro_init_global.inc.php';
 
 // Security check
@@ -67,20 +69,20 @@ else
 if ( isset($_REQUEST['applyChange']) )  //for formular modification
 {
     // get params form the form
-    if ( isset($_REQUEST['lastname']) )       $user_data['lastname'] = trim($_REQUEST['lastname']);
-    if ( isset($_REQUEST['firstname']) )      $user_data['firstname'] = trim($_REQUEST['firstname']);
-    if ( isset($_REQUEST['officialCode']) )   $user_data['officialCode'] = trim($_REQUEST['officialCode']);
-    if ( isset($_REQUEST['username']) )       $user_data['username'] = trim($_REQUEST['username' ]);
-    if ( isset($_REQUEST['password']) )       $user_data['password'] = trim($_REQUEST['password']);
-    if ( isset($_REQUEST['password_conf']) )  $user_data['password_conf'] = trim($_REQUEST['password_conf']);
-    if ( isset($_REQUEST['email']) )          $user_data['email'] = trim($_REQUEST['email']);
-    if ( isset($_REQUEST['officialEmail']) )  $user_data['officialEmail'] = trim($_REQUEST['officialEmail']);
-    if ( isset($_REQUEST['phone']) )          $user_data['phone'] = trim($_REQUEST['phone']);
-    if ( isset($_REQUEST['language']) )       $user_data['language'] = trim($_REQUEST['language']);
-    if ( isset($_REQUEST['isCourseCreator'])) $user_data['isCourseCreator'] = (int) $_REQUEST['isCourseCreator'];
-    if ( isset($_REQUEST['is_admin']) )       $user_data['is_admin'] = (bool) $_REQUEST['is_admin'];
+    if ( isset($_POST['lastname']) )       $user_data['lastname'] = trim($_POST['lastname']);
+    if ( isset($_POST['firstname']) )      $user_data['firstname'] = trim($_POST['firstname']);
+    if ( isset($_POST['officialCode']) )   $user_data['officialCode'] = trim($_POST['officialCode']);
+    if ( isset($_POST['username']) )       $user_data['username'] = trim($_POST['username' ]);
+    if ( isset($_POST['password']) )       $user_data['password'] = trim($_POST['password']);
+    if ( isset($_POST['password_conf']) )  $user_data['password_conf'] = trim($_POST['password_conf']);
+    if ( isset($_POST['email']) )          $user_data['email'] = trim($_POST['email']);
+    if ( isset($_POST['officialEmail']) )  $user_data['officialEmail'] = trim($_POST['officialEmail']);
+    if ( isset($_POST['phone']) )          $user_data['phone'] = trim($_POST['phone']);
+    if ( isset($_POST['language']) )       $user_data['language'] = trim($_POST['language']);
+    if ( isset($_POST['isCourseCreator'])) $user_data['isCourseCreator'] = (int) $_POST['isCourseCreator'];
+    if ( isset($_POST['is_admin']) )       $user_data['is_admin'] = (bool) $_POST['is_admin'];
     
-    if ( isset($_REQUEST['delPicture']) && $_REQUEST['delPicture'] =='true' )
+    if ( isset($_POST['delPicture']) && $_POST['delPicture'] =='true' )
     {
         $picturePath = user_get_picture_path( $user_data );
         
