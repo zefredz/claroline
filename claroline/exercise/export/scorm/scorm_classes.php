@@ -18,6 +18,7 @@ include_once $path . '/../../lib/answer_multiplechoice.class.php';
 include_once $path . '/../../lib/answer_truefalse.class.php';
 include_once $path . '/../../lib/answer_fib.class.php';
 include_once $path . '/../../lib/answer_matching.class.php';
+include_once get_path('incRepositorySys') . '/lib/form.lib.php';
 
 class ScormQuestion extends Question
 {
