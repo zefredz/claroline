@@ -82,8 +82,8 @@ $userGroupRegCount = group_count_group_of_a_user(claro_get_current_user_id());
 
 // The previous request compute the quantity of subscription for the current user.
 // the following request compare with the quota of subscription allowed to each student
-$userGroupQuotaExceeded = (bool) (   $_groupProperties ['nbGroupPerUser'] <= $userGroupRegCount)
-&& ! is_null($_groupProperties['nbGroupPerUser']); // no limit assign to group per user;
+$userGroupQuotaExceeded = (bool) (  $_groupProperties ['nbGroupPerUser'] <= $userGroupRegCount
+&& ! is_null($_groupProperties['nbGroupPerUser']) && ($_groupProperties ['nbGroupPerUser'] != 'ALL' )); // no limit assign to group per user;
 
 $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
 && ( ! $groupMemberQuotaExceeded )
