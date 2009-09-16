@@ -98,6 +98,8 @@ $assetPath = claro_sql_query_get_single_value($sql);
 
 $withFrames = false;
 
+$moduleStartAssetPage = '';
+
 switch ($module['contentType'])
 {
     case CTDOCUMENT_ :
