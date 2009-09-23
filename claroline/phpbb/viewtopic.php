@@ -201,6 +201,15 @@ else
 
     $out .= claro_html_tool_title(get_lang('Forums'),
     $is_allowedToEdit ? 'help_forum.php' : false);
+    
+    if( claro_is_allowed_to_edit() )
+    {
+        $out .= '<div style="float: right;">' . "\n"
+        .   '<img src=' . get_icon_url('html') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&topic=' . $topic_id )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
+        .   '<img src="'. get_icon_url('mime/pdf') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=PDF&topic=' . $topic_id ) ) . '" target="_blank">' . get_lang( 'Export to PDF' ) .'</a>' . "\n"
+        .   '</div>'
+        ;
+    }
 
     $out .= disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, 0, $topic_subject);
 
@@ -226,91 +235,29 @@ else
     }
 
     $out .= $postLister->disp_pager_tool_bar($pagerUrl);
-
-    $out .= '<h4 class="header">' . "\n";
-
-    // display notification link
-
-    if ( !empty($notification_bloc) )
-    {
-        $out .= $notification_bloc . "\n";
-    }
-
-    $out .= $topic_subject . "\n"
-    .    '</h4>' . "\n"
-    ;
-
+    
+    $form = new PhpTemplate( get_path( 'incRepositorySys' ) . '/templates/forum_viewtopic.tpl.php' );
+    
+    $form->assign( 'forum_id', $forum_id );
+    $form->assign( 'topic_id', $topic_id );
+    $form->assign( 'notification_bloc', $notification_bloc );
+    $form->assign( 'topic_subject', $topic_subject );
+    $form->assign( 'postList', $postList );
+    $form->assign( 'claro_notifier', $claro_notifier );
+    $form->assign( 'is_allowedToEdit', $is_allowedToEdit );
+    
     if (claro_is_user_authenticated())
     {
         $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
     }
-
-    foreach ( $postList as $thisPost )
+    else
     {
-        // notify if is new message
-        $post_time = datetime_to_timestamp($thisPost['post_time']);
-
-        if (claro_is_user_authenticated()
-            && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id))
-        {
-            $class = 'item hot';
-        }
-        else
-        {
-            $class = 'item';
-        }
-        
-        // get user picture
-        $userData = user_get_properties( $thisPost['poster_id'] );
-
-        $picturePath = user_get_picture_path( $userData );
-
-        if ( $picturePath && file_exists( $picturePath ) )
-        {
-            $pictureUrl = user_get_picture_url( $userData );
-        }
-        else
-        {
-            $pictureUrl = null;
-        }
-        
-        $out .= '<div id="post'. $thisPost['post_id'] .'" class="threadPost">'
-        .    '<div class="threadPostInfo">'
-        .    ( !is_null($pictureUrl) ?'<div class="threadPosterPicture"><img src="' . $pictureUrl . '" alt=" " /></div>':'' ) . "\n"
-        .    '<b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-        .    '<br />'
-        .    '<small>' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
-        ;
-
-        
-        $out .= '  </div>' . "\n"
-
-        .    '<div class="threadPostContent">' . "\n"
-        .    '<span class="threadPostIcon '.$class.'"><img src="' . get_icon_url( 'post' ) . '" alt="" /></span><br />' . "\n"
-        .    claro_parse_user_text($thisPost['post_text']) . "\n";
-
-        if ( $is_allowedToEdit )
-        {
-            $out .= '<p>' . "\n"
-
-            . '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') . '/editpost.php?post_id=' . $thisPost['post_id'] )) . '">'
-            . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
-            . '</a>' . "\n"
-
-            . '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') . '/editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit')).'" '
-            . 'onclick="return confirm_delete();" >'
-            . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
-            . '</a>' . "\n"
-
-            . '</p>' . "\n";
-        }
-
-        $out .= '</div>' . "\n"
-        .    '<div class="spacer"></div>' . "\n\n"
-        .    '</div>' . "\n"
-        ;
-
-    } // end for each
+        $date = null;
+    }
+    
+    $form->assign( 'date', $date );
+    
+    $out .= $form->render();
 
     if ($forum_post_allowed)
     {
