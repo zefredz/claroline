@@ -574,13 +574,13 @@ if( $showResult )
     
     //  Display results    
     
-    if( $exercise->getShuffle() && $exercise->getUseSameShuffle() && isset( $_SESSION['lastRandomQuestionList'] ) )
+    /*if( $exercise->getShuffle() && $exercise->getUseSameShuffle() && isset( $_SESSION['lastRandomQuestionList'] ) )
     {
         $out .= '<div style="font-weight: bold;">' . "\n"
         .   '<a href="exercise.php?exId=' . $exercise->getId() .'&cmd=exSaveQwz'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'">' . get_lang('Save this questions list') . '</a>'
         .   '</div>'
         ;
-    }
+    }*/
     if( $recordResults )
     {
        $dialogBoxResults = new DialogBox();
