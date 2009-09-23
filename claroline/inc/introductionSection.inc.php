@@ -332,14 +332,14 @@ if ($intro_dispDefault)
 
                     if ($thisIntroKey > 0 )
                     {
-                        $section .= '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvUp&amp;introId='.$introId.'">'
+                        $section .= '<a class="claroCmd" href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?introCmd=exMvUp&amp;introId='.$introId)).'">'
                         .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
                         .    '</a> ';
                     }
 
                     if ($thisIntroKey + 1 < $introListCount )
                     {
-                        $section .= ' <a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvDown&amp;introId='.$introId.'">'
+                        $section .= ' <a class="claroCmd" href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?introCmd=exMvDown&amp;introId='.$introId)).'">'
                         .    '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
                         .    '</a>';
                     }
@@ -348,9 +348,11 @@ if ($intro_dispDefault)
 
                     if ( $introVisibility =='SHOW' )
                     {
-                        $section .= '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                            . '?introCmd=mkInvisible&amp;introId='
-                            . $introId . '" title="'
+                        $section .= '<a class="claroCmd" href="'
+                            . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                                . '?introCmd=mkInvisible&amp;introId='
+                                . $introId ))
+                            . '" title="'
                             . get_lang( 'Click to make invisible' ).'">'
                             ;
                         $section .= '<img src="' . get_icon_url('visible')
@@ -361,9 +363,11 @@ if ($intro_dispDefault)
                     }
                     else
                     {
-                        $section .= '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                            . '?introCmd=mkVisible&amp;introId='
-                            . $introId . '" title="'
+                        $section .= '<a class="claroCmd" href="'
+                            . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                                . '?introCmd=mkVisible&amp;introId='
+                                . $introId ))
+                            . '" title="'
                             . get_lang( 'Click to make visible' ).'">'
                             ;
                         $section .= '<img src="' . get_icon_url('invisible')
@@ -395,12 +399,14 @@ if ($intro_dispDefault)
     if ($intro_dispCommand)
     {
         $output .= '<p>' . "\n"
-        .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqAdd">'
-        .    '<img src="' . get_icon_url('textzone') . '" alt="" />'
-        .    get_lang('Add Text')
-        .    '</a>' . "\n"
-        .    '</p>' . "\n\n"
-        ;
+            . '<a class="claroCmd" href="'
+            . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?introCmd=rqAdd' ))
+            .'">'
+            . '<img src="' . get_icon_url('textzone') . '" alt="" />'
+            . get_lang('Add Text')
+            . '</a>' . "\n"
+            . '</p>' . "\n\n"
+            ;
     }
 } // end if intro_dispDefault
 
