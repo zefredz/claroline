@@ -197,6 +197,15 @@ else
 
     $out .= claro_html_tool_title(get_lang('Forums'),
                           $is_allowedToEdit ? 'help_forum.php' : false);
+    
+    if( claro_is_allowed_to_edit() )
+    {
+        $out .= '<div style="float: right;">' . "\n"
+        .   '<img src=' . get_icon_url('html') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&forum=' . $forum_id )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
+        .   '<img src="'. get_icon_url('mime/pdf') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=PDF&forum=' . $forum_id ) ) . '" target="_blank">' . get_lang( 'Export to PDF' ) .'</a>' . "\n"
+        .   '</div>' . "\n"
+        ;
+    }
 
     $out .= disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
 
