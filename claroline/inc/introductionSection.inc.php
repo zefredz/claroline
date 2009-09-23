@@ -317,18 +317,22 @@ if ($intro_dispDefault)
                 {
                     $section .= '<div class="toolbar">' . "\n";
 
-                    $section .= '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                    .       '?introCmd=rqEd&amp;introId='.$introId.'">'
-                    .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
-                    .    '</a>' . "\n"
-                    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                    .      '?introCmd=exDel&amp;introId=' . $introId . '" '
-                    .      'onclick="javascript:if(!confirm(\''
-                    .      clean_str_for_javascript( get_lang('Confirm Operation') . ' : ' . get_lang('Delete') ).'\')) '
-                    .      'return false;">'
-                    .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
-                    .    '</a>' . "\n"
-                    ;
+                    $section .= '<a class="claroCmd" href="'
+                        . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                            . '?introCmd=rqEd&amp;introId='.$introId ))
+                        .'">'
+                        . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
+                        . '</a>' . "\n"
+                        . '<a class="claroCmd" href="'
+                        . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                            . '?introCmd=exDel&amp;introId=' . $introId ))
+                        . '" '
+                        . 'onclick="javascript:if(!confirm(\''
+                        . clean_str_for_javascript( get_lang('Confirm Operation') . ' : ' . get_lang('Delete') ).'\')) '
+                        . 'return false;">'
+                        . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
+                        . '</a>' . "\n"
+                        ;
 
                     if ($thisIntroKey > 0 )
                     {
