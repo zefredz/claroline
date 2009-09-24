@@ -251,6 +251,8 @@ foreach ( $categories as $this_category )
             $total_posts  = (int) $this_forum['forum_posts' ];
             $forum_id     = (int) $this_forum['forum_id'    ];
             $group_id     = is_null($this_forum['group_id']) ? null : (int) $this_forum['group_id'];
+            
+            $anonymous = ( $this_forum['is_anonymous'] == 'anonymous' ) ? '  [ ' . get_lang('Anonymous forum') . ' ]' : '';
 
             $forum_post_allowed = ($this_forum['forum_access'] != 0) ? true : false;
 
@@ -294,7 +296,7 @@ foreach ( $categories as $this_category )
                 {
                     $out .= '<a href="'. htmlspecialchars(Url::Contextualize(get_module_url('CLFRM').'/viewforum.php?gidReq=' . $group_id
                     .    '&amp;forum=' . $forum_id  )). '">'
-                    .    $forum_name
+                    .    $forum_name . $anonymous
                     .    '</a>' . "\n"
 
                     .    '&nbsp;' . "\n"
@@ -316,13 +318,13 @@ foreach ( $categories as $this_category )
                 }
                 else
                 {
-                    $out .= $forum_name;
+                    $out .= $forum_name . $anonymous;
                 }
             }
             else
             {
                 $out .= '<a href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLFRM') . '/viewforum.php?forum=' . $forum_id )) . '">'
-                .    $forum_name
+                .    $forum_name . $anonymous
                 .    '</a> ';
             }
 

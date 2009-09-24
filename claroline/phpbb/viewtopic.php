@@ -73,6 +73,7 @@ if ($topicSettingList)
     $forum_cat_id       = $forumSettingList['cat_id'    ];
     $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
     $lastPostId         = $topicSettingList['topic_last_post_id'];
+    $is_anonymous       = $forumSettingList['is_anonymous'];
 
     /*
     * Check if the topic isn't attached to a group,  or -- if it is attached --,
@@ -245,6 +246,7 @@ else
     $form->assign( 'postList', $postList );
     $form->assign( 'claro_notifier', $claro_notifier );
     $form->assign( 'is_allowedToEdit', $is_allowedToEdit );
+    $form->assign( 'is_anonymous' , $is_anonymous );
     
     if (claro_is_user_authenticated())
     {

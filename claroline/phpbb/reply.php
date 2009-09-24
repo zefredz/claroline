@@ -95,6 +95,7 @@ elseif ( $topicSettingList )
         $forum_type         = $forumSettingList['forum_type'  ];
         $forum_groupId      = $forumSettingList['idGroup'     ];
         $forum_cat_id       = $forumSettingList['cat_id'      ];
+        $is_anonymous       = $forumSettingList['is_anonymous'];
 
         /**
          * Check if the topic isn't attached to a group,  or -- if it is attached --,
@@ -125,7 +126,7 @@ elseif ( $topicSettingList )
                 $poster_ip  = $_SERVER['REMOTE_ADDR'];
                 $time       = date('Y-m-d H:i');
 
-                create_new_post($topic_id, $forum_id, claro_get_current_user_id(), $time, $poster_ip, $lastName, $firstName, $message);
+                create_new_post($topic_id, $forum_id, claro_get_current_user_id(), $time, $poster_ip, $lastName, $firstName, $message,$is_anonymous);
 
                 // notify eventmanager that a new message has been posted
 

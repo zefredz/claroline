@@ -251,7 +251,8 @@ function get_forum_settings($forumId)
                    `f`.`forum_type`   `forum_type`,
                    `f`.`cat_id`       `cat_id`,
                    `f`.`forum_order`  `forum_rank`,
-                   `f`.`group_id`      `idGroup`
+                   `f`.`group_id`      `idGroup`,
+                   `f`.`is_anonymous` `is_anonymous`
             FROM `" . $tbl_forums."` `f`
             WHERE `f`.`forum_id` = '" . (int) $forumId."'" ;
 
@@ -501,7 +502,7 @@ function get_post_settings($postId)
 
 
 function create_new_post($topicId, $forumId, $userId, $time, $posterIp
-                        , $userLastname, $userFirstname, $message, $course_id=NULL)
+                        , $userLastname, $userFirstname, $message, $is_anonymous='not_anonymous', $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_forums           = $tbl_cdb_names['bb_forums'];
@@ -509,8 +510,8 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
     $tbl_posts            = $tbl_cdb_names['bb_posts'];
     $tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
 
-    // CREATE THE POST SETTINGS
 
+    // CREATE THE POST SETTINGS
     $sql = "INSERT INTO `" . $tbl_posts . "`
             SET topic_id  = '" . (int) $topicId . "',
                 forum_id  = '" . (int) $forumId . "',
@@ -519,7 +520,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
                 poster_ip = '" . claro_sql_escape($posterIp) . "',
                 nom       = '" . claro_sql_escape($userLastname) . "',
                 prenom    = '" . claro_sql_escape($userFirstname) . "'";
-
+    
     $postId = claro_sql_query_insert_id($sql);
 
     if ($postId)
@@ -1453,7 +1454,7 @@ function delete_forum($forum_id)
  *
  */
 
-function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $group_id = null, $course_id=NULL)
+function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $is_anonymous='not_anonymous', $group_id = null, $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
@@ -1479,7 +1480,8 @@ function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $g
                 forum_moderator = 1,
                 cat_id          = " . (int) $cat_id . ",
                 forum_type      = 0,
-                forum_order     = " . (int) $order ;
+                forum_order     = " . (int) $order .",
+                is_anonymous       = '" . $is_anonymous . "'";
 
     return claro_sql_query_insert_id($sql);
 }
@@ -1700,7 +1702,8 @@ function get_forum_list()
                    f.forum_access, f.forum_moderator,
                    f.forum_topics, f.forum_posts, f.forum_last_post_id,
                    f.cat_id, f.forum_type, f.forum_order,
-            p.poster_id, p.post_time, f.group_id
+                   f.group_id, f.is_anonymous,
+                   p.poster_id, p.post_time
             FROM `" . $tbl_forums . "` AS f
             LEFT JOIN `" . $tbl_posts . "` AS p
                    ON p.post_id = f.forum_last_post_id
