@@ -178,7 +178,6 @@ $_lang['Announcements'] = 'Annonces';
 $_lang['Announcements list has been cleared up'] = 'Toutes les annonces ont été supprimées';
 $_lang['Anonymous'] = 'Anonyme';
 $_lang['Anonymous attempts'] = 'Essais anonymes';
-$_lang['Anonymous forum'] = 'Forum anonyme';
 $_lang['Anonymous users access count :'] = 'Nombre d\'accès d\'utilisateurs anonymes&nbsp;: ';
 $_lang['Answer'] = 'Réponses';
 $_lang['Answer type'] = 'Type de réponse';
@@ -1857,7 +1856,6 @@ $_lang['WARNING : you are going to delete this wiki and all its pages. Are you s
 $_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = 'Attention : cette page n\'est qu\'un aperçu. Vos modifications n\'ont pas encore été enregistrées. Pour les enregistrer, cliquez sur <strong>Enregistrer</strong> au bas de la page.';
 $_lang['Warn users when they loose their session on the platform'] = 'Avertit les utilisateurs quand leur session est perdue.';
 $_lang['Warning : chosen date is in the future'] = 'Attention : la date choisie est dans le futur';
-$_lang['Warning: once set, this option cannot be changed'] = 'Attention! Ce choix est définitif!';
 $_lang['Warning the system distinguishes uppercase (capital) and lowercase (small) letters'] = 'Attention, le système fait la distinction entre majuscules et minuscules.';
 $_lang['Warning: When you delete a message keep in mind that it will be deleted for every user.
         <br /><br />You cannot retrieve deleted messages!'] = 'Attention : la suppression d\'un message s\'applique à tous les utilisateurs.<br /><br />Les messages supprimés ne peuvent être récupérés!';

@@ -71,17 +71,14 @@ if ( $cmd == 'rqMkCat' )
 if ( $cmd == 'exMkForum' )
 {
     $forumPostAllowed = ( isset($_REQUEST['forumPostUnallowed']) ) ? false : true;
-    
-    $isAnonymous = ( isset($_REQUEST['anonymous']) ) ? 'anonymous' : 'not_anonymous';
-    
+
     if (   ( ( trim($_REQUEST['forumName']) != '') )
         && (   0 < (int) $_REQUEST['forumCatId']   )  )
     {
             if ( create_forum(trim($_REQUEST['forumName']),
                               trim($_REQUEST['forumDesc']),
                               $forumPostAllowed,
-                              (int) $_REQUEST['forumCatId'],
-                              $isAnonymous ) )
+                              (int) $_REQUEST['forumCatId'] ) )
             {
                $dialogBox->success( get_lang('Forum created') );
             }
@@ -126,8 +123,6 @@ if ( $cmd == 'rqMkForum' )
 
     $reqForumPostUnallowedState = isset($_REQUEST['forumPostUnallowed']) ?
                                   ' checked ' : '';
-    
-    $reqAnonymousForum = isset($_REQUEST['anonymous']) ? ' checked ' : '';
 
 
     $htmlAddForum = '<strong>'.get_lang('Add forum').'</strong>'
@@ -145,8 +140,6 @@ if ( $cmd == 'rqMkForum' )
                .'<br />'."\n"
                .'<input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" '.$reqForumPostUnallowedState.' />'."\n"
                .'<label for="forumPostUnallowed">'.get_lang('Locked').' <small>('.get_lang('No new post allowed').')</small></label><br />'."\n"
-               .'<input type="checkbox" id="anonymousForum" name="anonymous" '.$reqAnonymousForum.' />'."\n"
-               .'<label for="anonymousForum">'.get_lang('Anonymous forum').' <small>( <strong>'.get_lang('Warning: once set, this option cannot be changed').'</strong> )</small></label><br />'."\n"
                .'<br />'."\n"
                .'<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
                . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))

@@ -26,11 +26,9 @@
   }
   ?>
   <div class="threadPostInfo">
-    <?php if ( $this->is_anonymous == 'not_anonymous' || claro_is_platform_admin() ) : ?>
     <?php if( !is_null( $pictureUrl ) ) : ?><div class="threadPosterPicture"><img src="<?php echo $pictureUrl; ?>" alt=" " /></div><?php endif; ?>
     <span style="font-weight: bold;"><?php echo $thisPost[ 'firstname' ]; ?> <?php echo $thisPost[ 'lastname' ]; ?></span>
     <br />
-    <?php endif; ?>
     <small><?php echo claro_html_localised_date(get_locale('dateTimeFormatLong'), datetime_to_timestamp( $thisPost['post_time']) ); ?></small>
   </div>
   <div class="threadPostContent">
