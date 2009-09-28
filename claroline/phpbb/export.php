@@ -119,8 +119,8 @@ else
           $list = $zipFile->create( $path, PCLZIP_OPT_REMOVE_PATH, $path);
           
           if ( !$list ) {
-              $this->error = get_lang('Unable to create the archive'); return
-              false;
+              $dialogBox->error( get_lang('Unable to create the archive') );
+              break;
           }
           
           claro_delete_file( $path );
@@ -192,8 +192,8 @@ else
           $list = $zipFile->create( $path, PCLZIP_OPT_REMOVE_PATH, $path);
           
           if ( !$list ) {
-              $this->error = get_lang('Unable to create the archive'); return
-              false;
+              $dialogBox->error( get_lang('Unable to create the archive') );
+              break;
           }
           
           claro_delete_file( $path );
