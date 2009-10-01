@@ -679,23 +679,29 @@ function claro_is_course_enable()
     $curdate = claro_mktime();
     
     if (claro_is_course_manager())
-    $sql=" SELECT 	c.`code`
-    	   FROM `".$tbl_course."` c
-		   WHERE  (c.`status` != 'trash') 
-		   	   AND c.`code` = '".$courseId."';";
+    $sql=" SELECT c.`code`
+             FROM `".$tbl_course."` c
+            WHERE  (c.`status` != 'trash') 
+              AND c.`code` = '".$courseId."';";
     else
-    $sql=" SELECT 	c.`code`
-    	   FROM `".$tbl_course."` c
-		   WHERE  (c.`status` = 'enable' 
-		   			OR (c.`status` = 'date' 
-                         	AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0)
-                        	AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) OR `expirationDate` IS NULL)))
-		   			AND c.`code` = '".$courseId."';";
+    $sql=" SELECT     c.`code`
+             FROM `".$tbl_course."` c
+            WHERE  (c.`status` = 'enable' 
+                    OR (c.`status` = 'date' 
+                        AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' 
+                             OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0
+                             )
+                        AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) 
+                             OR `expirationDate` IS NULL
+                             )
+                        )
+                    )
+                    AND c.`code` = '".$courseId."';";
 
-	$result = claro_sql_query_get_single_value($sql);
-	
-	if (isset($result) OR claro_is_platform_admin()) $return = true; 
-	else $return = false;
-	
-	return $return;
+    $result = claro_sql_query_get_single_value($sql);
+    
+    if (isset($result) OR claro_is_platform_admin()) $return = true; 
+    else $return = false;
+    
+    return $return;
 }

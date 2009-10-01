@@ -37,7 +37,7 @@ if ( isset($_SERVER[$shibbolethUniqueIdAttr]) )
             $result = claro_sql_query($sql);
             if ( mysql_num_rows($result) > 0 )
             {
-			    // uniqueId already in use
+                // uniqueId already in use
                 claro_die ("<center>WARNING ! UNABLE TO CHANGE AUTHSOURCE. YOU ALREADY HAVE A USERACCOUNT.</center>");
             } 
             else 
@@ -50,7 +50,7 @@ if ( isset($_SERVER[$shibbolethUniqueIdAttr]) )
                 // Use first email only
                 $shibbolethEmail = explode($shibbolethEmailSep, $_SERVER[$shibbolethData['email']]);
                 if ($shibbolethEmail[0] == '') {
-                    $shibbolethEmail[0] = $shibbolethDefaultEmail;	
+                    $shibbolethEmail[0] = $shibbolethDefaultEmail;    
                 }
                 $sqlPrepareList[] = 'email = "'        . addslashes($shibbolethEmail[0]) . '"';
                 $sqlPrepareList[] = 'authSource = "'                  . $shibbolethAuthSource . '"';
@@ -59,7 +59,7 @@ if ( isset($_SERVER[$shibbolethUniqueIdAttr]) )
                 if ( $shibbolethUidTbl <> 'username' )
                 {
                     $sqlPrepareList[] = 'username = "' . addslashes(shibbolethUniqueUsername($_SERVER[$shibbolethData['nom']], $_SERVER[$shibbolethData['prenom']])) . '"';
-				}
+                }
 
                 $sql = 'UPDATE `' . $tbl_user . '` '
                      . 'SET ' . implode(', ', $sqlPrepareList) . ' '

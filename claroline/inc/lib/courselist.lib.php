@@ -61,9 +61,9 @@ class category_browser
         }
 
          $sql .= "AND (`cours`.`status` = 'enable'
-         		  	OR (`cours`.`status` = 'date'
-                  		AND (`cours`.`creationDate` < '". $curdate ."' OR `cours`.`creationDate` IS NULL OR UNIX_TIMESTAMP(`cours`.`creationDate`)=0)
-                  		AND ('". $curdate ."'<`cours`.`expirationDate`  OR `cours`.`expirationDate` IS NULL)))
+                       OR (`cours`.`status` = 'date'
+                          AND (`cours`.`creationDate` < '". $curdate ."' OR `cours`.`creationDate` IS NULL OR UNIX_TIMESTAMP(`cours`.`creationDate`)=0)
+                          AND ('". $curdate ."'<`cours`.`expirationDate`  OR `cours`.`expirationDate` IS NULL)))
                   GROUP  BY `faculte`.`code`
                   ORDER BY  `faculte`.`treePos`";
             
@@ -136,9 +136,9 @@ class category_browser
               . "WHERE c.`faculte` = '" . addslashes($this->categoryCode) . "'
                  AND visibility = 'VISIBLE' 
                  AND (`status` = 'enable' 
-                 	OR (`status` = 'date'
-                 		AND (`creationDate` < '". $curdate ."' OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0)
-                 		AND ('". $curdate ."'<`expirationDate`  OR `expirationDate` IS NULL)))"
+                     OR (`status` = 'date'
+                         AND (`creationDate` < '". $curdate ."' OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0)
+                         AND ('". $curdate ."'<`expirationDate`  OR `expirationDate` IS NULL)))"
                  . ($this->userId ? "OR NOT (cu.user_id IS NULL)" :"") .
                  " ORDER BY UPPER(c.administrativeNumber)";
 
@@ -262,7 +262,7 @@ function get_user_course_list($userId, $renew = false)
                        course_user.isCourseManager,
                        course.status,
                        UNIX_TIMESTAMP(course.expirationDate) AS expirationDate,
-                       UNIX_TIMESTAMP(course.creationDate)	 AS creationDate
+                       UNIX_TIMESTAMP(course.creationDate)     AS creationDate
 
                        FROM `" . $tbl_courses . "`           AS course,
                             `" . $tbl_link_user_courses . "` AS course_user
@@ -270,9 +270,12 @@ function get_user_course_list($userId, $renew = false)
                        WHERE course.code         = course_user.code_cours
                          AND course_user.user_id = " . (int) $userId . " 
                          AND (course.`status`='enable'
-                         	OR (course.`status` = 'date'
-                         	AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0)
-                        	AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) OR `expirationDate` IS NULL))) \n " ;
+                              OR (course.`status` = 'date'
+                                  AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' 
+                                  OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0)
+                                  AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) OR `expirationDate` IS NULL)
+                                  )
+                              ) \n " ;
 
         if ( get_conf('course_order_by') == 'official_code' )
         {
@@ -323,7 +326,7 @@ function get_user_course_list_desactivated($userId, $renew = false)
                        course_user.isCourseManager,
                        course.status,
                        UNIX_TIMESTAMP(course.expirationDate) AS expirationDate,
-                       UNIX_TIMESTAMP(course.creationDate)	 AS creationDate
+                       UNIX_TIMESTAMP(course.creationDate)     AS creationDate
 
                        FROM `" . $tbl_courses . "`           AS course,
                             `" . $tbl_link_user_courses . "` AS course_user
@@ -331,10 +334,13 @@ function get_user_course_list_desactivated($userId, $renew = false)
                        WHERE course.code         = course_user.code_cours
                          AND course_user.user_id = " . (int) $userId . " 
                          AND (course.`status` = 'disable' 
-                         	 OR course.`status` = 'pending'
-                             OR (course.`status` = 'date' AND (
-                             	UNIX_TIMESTAMP(`creationDate`) > '". $curdate ."' 
-                             	OR '". $curdate ."'> UNIX_TIMESTAMP(`expirationDate`)))) 
+                              OR course.`status` = 'pending'
+                              OR (course.`status` = 'date' 
+                                  AND (UNIX_TIMESTAMP(`creationDate`) > '". $curdate ."' 
+                                       OR '". $curdate ."'> UNIX_TIMESTAMP(`expirationDate`)
+                                       )
+                                  )
+                              ) 
                          AND course_user.isCourseManager = 1 " ;
 
         if ( get_conf('course_order_by') == 'official_code' )

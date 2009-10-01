@@ -400,15 +400,15 @@ if ( count($descList) )
         if (($thisDesc['visibility'] == 'INVISIBLE' && $is_allowedToEdit) || $thisDesc['visibility'] == 'VISIBLE')
         {
             //modify style if the file is recently added since last login
-	        if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisDesc['id']))
-	        {
-	            $cssItem = 'item hot';
-	        }
-	        else
-	        {
-	            $cssItem = 'item';
-	        }
-	        
+            if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisDesc['id']))
+            {
+                $cssItem = 'item hot';
+            }
+            else
+            {
+                $cssItem = 'item';
+            }
+            
             $cssInvisible = '';
             if ($thisDesc['visibility'] == 'INVISIBLE')
             {

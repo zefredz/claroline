@@ -26,7 +26,7 @@ if ( $_REQUEST['shibbolethLogin'] && isset($_SERVER[$shibbolethUniqueIdAttr]) &&
     // Use first email only
     $shibbolethEmail = explode($shibbolethEmailSep, $_SERVER[$shibbolethData['email']]);
     if ($shibbolethEmail[0] == '') {
-    	$shibbolethEmail[0] = $shibbolethDefaultEmail;	
+        $shibbolethEmail[0] = $shibbolethDefaultEmail;    
     }
     $sqlPrepareList[] = 'email = "'        . addslashes($shibbolethEmail[0]) . '"';
 //    $sqlPrepareList[] = 'phoneNumber = "'  . addslashes(($_SERVER[$shibbolethData['phoneNumber']]  ? $_SERVER[$shibbolethData['phoneNumber']]  : $shibbolethData['phoneNumber']  )) . '"';    //optional field
