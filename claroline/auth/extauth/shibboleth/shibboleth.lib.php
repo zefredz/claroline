@@ -43,7 +43,7 @@ function shibbolethUsernameExists($username)
     global $tbl_user;
     global $shibbolethAuthSource;
 
-	// unique for all authSources
+    // unique for all authSources
     $sql = 'SELECT count(*)
             FROM `' . $tbl_user . '`
             WHERE

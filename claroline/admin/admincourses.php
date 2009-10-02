@@ -502,7 +502,7 @@ function prepare_get_filtred_course_list()
                     C.`registration`         AS `registration`,
                     C.`registrationKey`      AS `registrationKey`,
                     C.`directory`            AS `repository`,
-                    C.`status`				 AS `status`
+                    C.`status`               AS `status`
                     FROM  `" . $tbl_mdb_names['course'] . "` AS C
            " . $sqlFilter ;
 

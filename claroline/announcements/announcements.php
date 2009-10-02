@@ -557,12 +557,12 @@ if ($displayList)
                 if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisAnnouncement['id']))
                 {
                     $cssItem = 'item hot';
-	            }
-	            else
-	            {
-	                $cssItem = 'item';
-	            }
-	            
+                }
+                else
+                {
+                    $cssItem = 'item';
+                }
+                
                 $cssInvisible = '';
                 if ($thisAnnouncement['visibility'] == 'HIDE')
                 {

@@ -29,7 +29,7 @@ if ( isset($_SERVER[$shibbolethUniqueIdAttr]) )
         }
         else
         {
-            claro_redirect($rootWeb);			
+            claro_redirect($rootWeb);            
         }
     }
     else

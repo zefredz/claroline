@@ -611,7 +611,7 @@ if ($canRunCmd)
     }
  }
 
-//PREPARE DISPLAY	
+//PREPARE DISPLAY    
 
 
 if( DISP_DB_NAMES_SETTING == $display )

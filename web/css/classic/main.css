@@ -496,7 +496,7 @@ li.lastBreadCrumbsNode {
 #commonToolList a 
 {
     padding-top: 2px;
-    padding-bottom: 2px;	
+    padding-bottom: 2px;    
     margin: 2px 0;
 }
 
@@ -552,8 +552,8 @@ th .claroCmdDisabled {
 .claroCmd img,
 .claroCmdDisabled img
 {
-	vertical-align: text-bottom;
-	padding: 0 1px;
+    vertical-align: text-bottom;
+    padding: 0 1px;
 }
 /*
  * Classes family to emphase some item in the tool interface.
@@ -1157,14 +1157,14 @@ form tr.admin td{
     background: #eee;
     border-left: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    border-right: 1px solid #ccc;	
+    border-right: 1px solid #ccc;    
     padding: 5px 10px;
     margin: 0;
 }
 
 #im_message .header
 {
-    margin: 0;	
+    margin: 0;    
 }
 
 .imInfo .imInfoTitle

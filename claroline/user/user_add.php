@@ -211,7 +211,7 @@ if ($cmd == 'applySearch')
     {
 
         $userList = user_search( array('lastname'     => $userData['lastname'],
-                                       'firstname'	  => $userData['firstname'],
+                                       'firstname'      => $userData['firstname'],
                                        'email'        => $userData['email'],
                                        'officialCode' => $userData['officialCode'],
                                        'username'       => $userData['username']),
