@@ -299,7 +299,7 @@ function nameBox($type, $mode)
             $oldName = claro_sql_query_get_single_value($sql);
 
             $out .= '<form method="post" action="' . $_SERVER['PHP_SELF'].'">' . "\n"
-            .    '<input type="text" name="newName" size="50" maxlength="255" value="'.htmlspecialchars($oldName).'" />'
+            .    '<input type="text" name="newName" size="50" maxlength="255" value="'.htmlspecialchars( claro_utf8_decode( $oldName, get_conf( 'charset' ) ) ).'" />'
             .    '<br />' . "\n"
             .    '<input type="hidden" name="cmd" value="updateName" />' ."\n"
             .    '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
@@ -320,7 +320,7 @@ function nameBox($type, $mode)
         $currentName = claro_sql_query_get_single_value($sql);
 
         $out .= '<h4>'
-        .    $currentName;
+        .    claro_utf8_decode( $currentName, get_conf( 'charset' ) );
 
         if ( $is_allowedToEdit )
             $out .= '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'

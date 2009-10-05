@@ -181,14 +181,14 @@ foreach ($flatElementList as $module)
     {
         if($module['contentType'] == CTLABEL_) // chapter head
         {
-            $out .= '<b>'.$module['name'].'</b>';
+            $out .= '<b>'. claro_utf8_decode( $module['name'], get_conf( 'charset' ) ).'</b>';
         }
         else
         {
             if ( strlen($module['name']) > $moduleNameLength)
-                $displayedName = substr($module['name'],0,$moduleNameLength)."...";
+                $displayedName = substr( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ),0,$moduleNameLength)."...";
             else
-                $displayedName = $module['name'];
+                $displayedName = claro_utf8_decode( $module['name'], get_conf( 'charset' ) );
 
             // bold the title of the current displayed module
             if( $_SESSION['module_id'] == $module['module_id'] )
