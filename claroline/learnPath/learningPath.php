@@ -217,7 +217,7 @@ foreach ($flatElementList as $module)
     //-- if chapter head
     if ( $module['contentType'] == CTLABEL_ )
     {
-        $out .= '<b>'.htmlspecialchars($module['name']).'</b>'."\n";
+        $out .= '<b>'.htmlspecialchars( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ) ).'</b>'."\n";
     }
     //-- if user can access module
     elseif ( !$is_blocked )
@@ -230,7 +230,7 @@ foreach ($flatElementList as $module)
         $contentType_alt = selectAlt($module['contentType']);
         $out .= '<a href="module.php?module_id='.$module['module_id'].'">'
             .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.'" border="0" />'
-            .htmlspecialchars($module['name']).'</a>'."\n";
+            .htmlspecialchars( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ) ).'</a>'."\n";
         // a module ALLOW access to the following modules if
         // document module : credit == CREDIT || lesson_status == 'completed'
         // exercise module : credit == CREDIT || lesson_status == 'passed'

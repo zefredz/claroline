@@ -472,7 +472,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
     $sql = "INSERT INTO `".$TABLELEARNPATH."`
             (`name`,`visibility`,`rank`,`comment`)
-            VALUES ('". claro_sql_escape($lpName) ."','HIDE',".($rankMax+1).", '')";
+            VALUES ('". claro_sql_escape( claro_utf8_decode( $lpName, get_conf( 'charset' ) ) ) ."','HIDE',".($rankMax+1).", '')";
     claro_sql_query($sql);
 
     $tempPathId = claro_sql_insert_id();
@@ -711,8 +711,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 $manifestData['items'][$sco['href']]['identifierref'] = $sco['href'];
                 $manifestData['items'][$sco['href']]['parameters'] = '';
                 $manifestData['items'][$sco['href']]['isvisible'] = "true";
-                $manifestData['items'][$sco['href']]['title'] = $sco['title'];
-                $manifestData['items'][$sco['href']]['description'] = $sco['description'];
+                $manifestData['items'][$sco['href']]['title'] =  claro_utf8_decode( $sco['title'], get_conf( 'charset' ) );
+                $manifestData['items'][$sco['href']]['description'] = claro_utf8_decode( $sco['description'], get_conf( 'charset' ) );
                 $manifestData['items'][$attributes['IDENTIFIER']]['parent'] = 0;
 
                 $scoPathFound = false;
@@ -799,7 +799,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
                     $sql = "INSERT INTO `".$TABLEMODULE."`
                             (`name` , `comment`, `contentType`, `launch_data`)
-                            VALUES ('".claro_sql_escape($chapterTitle)."' , '', '".CTLABEL_."','')";
+                            VALUES ('".claro_sql_escape( claro_utf8_decode( $chapterTitle, get_conf( 'charset' ) ) )."' , '', '".CTLABEL_."','')";
 
                     $query = claro_sql_query($sql);
 
@@ -885,7 +885,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
                 $sql = "INSERT INTO `".$TABLEMODULE."`
                         (`name` , `comment`, `contentType`, `launch_data`)
-                        VALUES ('".claro_sql_escape($moduleName)."' , '".claro_sql_escape($description)."', '".CTSCORM_."', '".claro_sql_escape($item['datafromlms'])."')";
+                        VALUES ('".claro_sql_escape( claro_utf8_decode( $moduleName, get_conf( 'charset' ) ) )."' , '".claro_sql_escape( claro_utf8_decode( $description, get_conf( 'charset' ) ) )."', '".CTSCORM_."', '".claro_sql_escape($item['datafromlms'])."')";
                 $query = claro_sql_query($sql);
 
                 if ( claro_sql_error() )

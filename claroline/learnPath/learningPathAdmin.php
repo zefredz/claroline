@@ -552,7 +552,7 @@ foreach ($flatElementList as $module)
 
     if ($module['contentType'] == CTLABEL_) // chapter head
     {
-        $out .= "<b>".htmlspecialchars($module['name'])."</b>\n";
+        $out .= "<b>".htmlspecialchars( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ) )."</b>\n";
     }
     else // module
     {
@@ -564,7 +564,7 @@ foreach ($flatElementList as $module)
         $contentType_alt = selectAlt($module['contentType']);
         $out .= "<a href=\"module.php?module_id=".$module['module_id']."\">"
             . "<img src=\"" . $moduleImg . "\" alt=\"".$contentType_alt."\" >"
-            . htmlspecialchars($module['name'])
+            . htmlspecialchars( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ) )
             . "</a>";
     }
     $out .= "</td>"; // end of td of module name
