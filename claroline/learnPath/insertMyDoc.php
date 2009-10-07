@@ -25,7 +25,7 @@ require '../inc/claro_init_global.inc.php';
 // when leaving a course all the LP sessions infos are cleared so we use this trick to avoid other errors
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-$is_allowedToEdit = claro_is_course_manager();
+$is_allowedToEdit = claro_is_allowed_to_edit();
 
 if ( ! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
 

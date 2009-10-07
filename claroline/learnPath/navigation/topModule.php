@@ -26,7 +26,7 @@
 require '../../inc/claro_init_global.inc.php';
 
 $interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> get_lang('Learning path list'));
-if ( claro_is_course_manager() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
+if ( claro_is_allowed_to_edit() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
 {
        $interbredcrump[]= array ("url"=>"../learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
 }
