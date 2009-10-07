@@ -211,11 +211,10 @@ function claro_copy_file($sourcePath, $targetPath)
     elseif ( is_dir($sourcePath) )
     {
         // check to not copy the directory inside itself
-
-        if ( preg_match('/^'.$sourcePath . '\//', $targetPath . '/') ) return false;
+        if ( preg_match('/^'.addslashes($sourcePath) . '\//', addslashes( $targetPath ) . '/') ) return false;
 
         if ( ! claro_mkdir($targetPath . '/' . $fileName, CLARO_FILE_PERMISSIONS) )   return false;
-
+        
         $dirHandle = opendir($sourcePath);
 
         if ( ! $dirHandle ) return false;
@@ -224,13 +223,13 @@ function claro_copy_file($sourcePath, $targetPath)
 
         while ( false !== ( $element = readdir($dirHandle) ) )
         {
-            if ( $element == '.' || $element == '..') continue;
-
+            if ( $element == '.' || $element == '..' || $element == '.svn') continue;
+            
             $copiableFileList[] = $sourcePath . '/' . $element;
         }
 
         closedir($dirHandle);
-
+        
         if ( count($copiableFileList) > 0 )
         {
             foreach($copiableFileList as $thisFile)
