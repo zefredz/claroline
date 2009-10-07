@@ -449,10 +449,19 @@ if ( !class_exists('ScormExport') )
             }
             
             // var_dump( get_path('clarolineRepositorySys') . '../web/css/' . $claro_stylesheet );
+            // Check css to use
+            if( file_exists( get_path( 'clarolineRepositorySys' ) . '../platform/css/' . $claro_stylesheet ) )
+            {
+                $claro_stylesheet_path = get_path( 'clarolineRepositorySys' ) . '../platform/css/' . $claro_stylesheet;
+            }
+            elseif( file_exists( get_path( 'clarolineRepositorySys' ) . '../web/css/' . $claro_stylesheet ) )
+            {
+                $claro_stylesheet_path = get_path( 'clarolineRepositorySys' ) . '../web/css/' . $claro_stylesheet;
+            }
             
             // Copy usual files (.css, .js, .xsd, etc)
             if (
-                   !claro_copy_file(get_path('clarolineRepositorySys') . '../web/css/' . $claro_stylesheet, $this->destDir)
+                   !claro_copy_file( $claro_stylesheet_path, $this->destDir)
                 || !claro_copy_file(dirname(__FILE__).'/../export/APIWrapper.js', $this->destDir)
                 || !claro_copy_file(dirname(__FILE__).'/../export/scores.js', $this->destDir)
                 || !claro_copy_file(dirname(__FILE__).'/../export/ims_xml.xsd', $this->destDir)
@@ -470,7 +479,7 @@ if ( !class_exists('ScormExport') )
             
             
             // Copy SCORM package, if needed
-            if ($this->fromScorm)
+            if ($this->fromScorm && file_exists( $this->srcDirScorm ) )
             {
                 // Copy the scorm directory as OrigScorm/
                 if (
