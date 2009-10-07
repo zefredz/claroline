@@ -283,7 +283,7 @@ $out .= '</table>'."\n\n";
 
 
 //  set redirection link
-if ( claro_is_course_manager() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
+if ( claro_is_allowed_to_edit() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
     $returl = '../learningPathAdmin.php';
 else
     $returl = '../learningPath.php';
@@ -319,7 +319,7 @@ if ( $moduleNb > 1 )
 }
 
 //  set redirection link
-if ( claro_is_course_manager() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
+if ( claro_is_allowed_to_edit() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
     $returl = '../learningPathAdmin.php';
 else
     $returl = '../learningPath.php';

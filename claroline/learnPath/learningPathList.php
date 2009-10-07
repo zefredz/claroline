@@ -922,7 +922,7 @@ if( $iterator == 1 )
     .    '</tr>'
     ;
 }
-elseif (!claro_is_course_manager() && $iterator != 1 && $lpUid)
+elseif (!claro_is_allowed_to_edit() && $iterator != 1 && $lpUid)
 {
     // add a blank line between module progression and global progression
     $total = round($globalprog/($iterator-1));
