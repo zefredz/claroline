@@ -48,13 +48,6 @@
         $pathWeb = get_path('rootWeb') . 'platform/document/';
     }
     
-    if( !$is_allowedToEdit )
-    {
-        // should use ../../themes/advanced/image.htm instead but should therefore find a way to load language
-        claro_redirect( '../advimage/image.htm' );
-        exit();     
-    }
-        
     /*
      * Libraries
      */
@@ -85,7 +78,7 @@
     /*
      * Handle upload 
      */
-    if( isset($_FILES['sentFile']['tmp_name']) && is_uploaded_file($_FILES['sentFile']['tmp_name']) )
+    if( $is_allowedToEdit && isset($_FILES['sentFile']['tmp_name']) && is_uploaded_file($_FILES['sentFile']['tmp_name']) )
     {
         $imgFile = $_FILES['sentFile'];
         $imgFile['name'] = replace_dangerous_char($imgFile['name'],'strict');
@@ -193,10 +186,17 @@
                         </div>
 						<div>
                             <div id="processing"><img src="<?php echo get_icon_url('loading'); ?>" /></div>
+                            <?php
+                            if( $is_allowedToEdit )
+                            {
+                            ?>
                             <label for="sentfile"><?php echo get_lang('Add an image'); ?></label><br />
-						    <input type="hidden" id="relativePath" name="relativePath" value="<?php echo $relativePath ?>" />
+                            <input type="hidden" id="relativePath" name="relativePath" value="<?php echo $relativePath ?>" />
                             <input id="sentFile" type="file" name="sentFile" size="25" value="" />
                             <input id="upload" type="submit" name="upload" value="<?php echo get_lang('Upload'); ?>" />
+                            <?php
+                            }
+                            ?>
                         </div>
 				</fieldset>
 
