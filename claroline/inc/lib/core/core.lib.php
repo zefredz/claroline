@@ -38,6 +38,7 @@ function protect_against_file_inclusion( $path )
  * includePath or module lib/ directory. .php extension added automaticaly
  * @param   list of libraries
  * @return  array of not found libraries + generate an error in debug mode
+ * @deprecated since 1.9.0, use FromKernel::uses() and From::module()->uses() instead
  */
 function uses()
 {
