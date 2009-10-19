@@ -61,7 +61,7 @@
         $pathWeb = get_path('rootWeb') . 'platform/document/';
     }
     
-    if( claro_is_user_authenticated() && !$is_allowedToEdit )
+    if( !claro_is_user_authenticated() )
     {
         claro_disp_auth_form(true);
     }
