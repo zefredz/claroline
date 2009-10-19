@@ -165,7 +165,7 @@ if ( get_conf('is_trackingEnabled') )
     .'<li>'.get_lang('Total attempts').' : '.$exo_scores_details['tusers'].'</li>'."\n"
     .'</ul>'."\n\n";
 
-    if ( claro_is_platform_admin() )
+    if ( claro_is_allowed_to_edit() )
     {
         $out .= '<ul>'."\n"
                 .'<li><a href="'.$_SERVER['PHP_SELF'].htmlspecialchars('?exportCsv=1&exId=').$exId.'">'.get_lang('Get tracking data in a CSV file').'</a></li>'."\n"
