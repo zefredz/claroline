@@ -910,7 +910,7 @@ foreach($moduleList as $module)
     else
     {
         //up command
-        if ($course_tool_min_rank != $module [ 'rank' ])
+        if (isset( $module[ 'rank' ] ) && $course_tool_min_rank != $module [ 'rank' ])
         {
             $out .= '<td align="center">'
             .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvUp">'
@@ -924,7 +924,7 @@ foreach($moduleList as $module)
         }
 
         //down command
-        if ($course_tool_max_rank != $module [ 'rank' ])
+        if (isset( $module[ 'rank' ] ) && $course_tool_max_rank != $module [ 'rank' ])
         {
             $out .= '<td align="center">'
             .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvDown">'
