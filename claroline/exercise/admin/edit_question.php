@@ -202,7 +202,8 @@ else
 
 if( !is_null($exId) )
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), './edit_exercise.php?exId='.$exId );
+    ClaroBreadCrumbs::getInstance()->prepend( $exercise->getTitle(), Url::Contextualize( './edit_exercise.php?exId=' . $exId ) );
+    //ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), './edit_exercise.php?exId='.$exId );
 }
 else
 {
