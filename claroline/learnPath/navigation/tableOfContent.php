@@ -236,7 +236,7 @@ foreach ($flatElementList as $module)
             else
                 $displayedName = $module['name'];
 
-            echo '<img src="' . $moduleImg . '" alt="'.$contentType_alt.'" border="0" />'.$displayedName;
+            $out .= '<img src="' . $moduleImg . '" alt="'.$contentType_alt.'" border="0" />'.$displayedName;
         }
     }
 
