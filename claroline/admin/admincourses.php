@@ -294,6 +294,7 @@ foreach($courseList as $numLine => $courseLine)
         $bold_search = str_replace('*', '.*', $_SESSION['admin_course_search']);
         $courseLine['officialCode'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['officialCode']);
         $courseLine['intitule'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['intitule']);
+        $courseLine['intituleOrgine'] = $courseLine['intitule'];
         $courseLine['faculte'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['faculte']);
     }
 
@@ -353,7 +354,7 @@ foreach($courseList as $numLine => $courseLine)
     $courseDataList[$numLine]['cmdDelete'] = '<a href="' . $_SERVER['PHP_SELF']
     .                                        '?cmd=rqDelete&amp;delCode=' . $courseLine['sysCode'] . $addToURL . '" '
     //.                                        ' onclick="return confirmation(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');"'
-    .                                        ' class="delete" id="'.$courseLine['intitule'].'_'.$courseLine['sysCode'].'">' . "\n"
+    .                                        ' class="delete" id="'.$courseLine['intituleOrgine'].'_'.$courseLine['sysCode'].'">' . "\n"
     .                                        '<img src="' . get_icon_url('delete') . '" border="0" alt="" />' . "\n"
     .                                        '</a>' . "\n"
     ;
