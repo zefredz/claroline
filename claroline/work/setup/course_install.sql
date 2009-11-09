@@ -18,7 +18,8 @@
         KEY `user` (`user_id`),
         KEY `original` (`original_id`),
         KEY `visible` (`visibility`),
-        KEY `parent` (`parent_id`)
+        KEY `parent` (`parent_id`),
+        KEY `group` (`group_id`)
     ) TYPE=MyISAM;
     
     CREATE INDEX `assigid` ON `__CL_COURSE__wrk_submission` ( `assignment_id` );
