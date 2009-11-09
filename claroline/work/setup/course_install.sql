@@ -14,7 +14,11 @@
         `private_feedback` text default NULL,
         `original_id` int(11) default NULL,
         `score` smallint(3) NULL default NULL,
-        PRIMARY KEY  (`id`)
+        PRIMARY KEY  (`id`),
+        KEY `user` (`user_id`),
+        KEY `original` (`original_id`),
+        KEY `visible` (`visibility`),
+        KEY `parent` (`parent_id`)
     ) TYPE=MyISAM;
     
     CREATE INDEX `assigid` ON `__CL_COURSE__wrk_submission` ( `assignment_id` );
