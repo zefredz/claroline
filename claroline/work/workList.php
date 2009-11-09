@@ -382,7 +382,7 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
                 ON `S`.`user_id` = `S2`.`user_id`
                 AND `S2`.`assignment_id` = ". (int) $req['assignmentId']."
                 AND `S`.`last_edit_date` < `S2`.`last_edit_date`
-                AND `S2`.`parent_id` IS NULL
+                AND `S`.`parent_id` IS NULL
             WHERE `S2`.`user_id` IS NULL
                 AND `S`.`original_id` IS NULL
                 AND `S`.`assignment_id` = ". (int) $req['assignmentId']."
