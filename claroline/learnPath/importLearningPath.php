@@ -445,7 +445,7 @@ $out .= claro_html_tool_title(get_lang('Import a learning path'));
 $okMsgs   = array();
 $errorMsgs = array();
 
-$maxFilledSpace = 100000000;
+$maxFilledSpace = get_conf('maxFilledSpace_for_import');
 
 $courseDir   = claro_get_course_path() . '/scormPackages/';
 $baseWorkDir = get_path('coursesRepositorySys').$courseDir; // path_id
