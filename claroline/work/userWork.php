@@ -31,6 +31,7 @@ include_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
 include_once get_path('incRepositorySys') . '/lib/file.lib.php';
 include_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
 include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
+require_once get_path('incRepositorySys') . '/lib/utils/htmlsanitizer.lib.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
@@ -362,7 +363,7 @@ if( isset($_REQUEST['submitWrk']) )
         }
         else
         {
-            $wrkForm['wrkTxt'] = trim($_REQUEST['wrkTxt']);
+            $wrkForm['wrkTxt'] = claro_html_sanitize_all( trim($_REQUEST['wrkTxt']) );
         }
     }
     elseif( $assignmentContent == "FILE" )
@@ -375,7 +376,7 @@ if( isset($_REQUEST['submitWrk']) )
         }
         else
         {
-            $wrkForm['wrkTxt'] = trim($_REQUEST['wrkTxt']);
+            $wrkForm['wrkTxt'] = claro_html_sanitize_all( trim($_REQUEST['wrkTxt']) );
         }
     }
 
@@ -390,7 +391,7 @@ if( isset($_REQUEST['submitWrk']) )
     else
     {
         // do not check if a title is already in use, title can be duplicate
-        $wrkForm['wrkTitle'] = $_REQUEST['wrkTitle'];
+        $wrkForm['wrkTitle'] = claro_html_sanitize_all( $_REQUEST['wrkTitle'] );
     }
 
 
@@ -410,7 +411,7 @@ if( isset($_REQUEST['submitWrk']) )
     }
     else
     {
-        $wrkForm['wrkAuthors'] = $_REQUEST['wrkAuthors'];
+        $wrkForm['wrkAuthors'] = claro_html_sanitize_all( $_REQUEST['wrkAuthors'] );
     }
 
 
@@ -456,7 +457,7 @@ if( isset($_REQUEST['submitWrk']) )
     // check if a private feedback has been submitted
     if( isset($_REQUEST['wrkPrivFbk']) && trim(strip_tags($_REQUEST['wrkPrivFbk'], $allowedTags)) != '' )
     {
-        $wrkForm['wrkPrivFbk'] = $_REQUEST['wrkPrivFbk'];
+        $wrkForm['wrkPrivFbk'] = claro_html_sanitize_all( $_REQUEST['wrkPrivFbk'] );
     }
     else
     {
@@ -721,11 +722,11 @@ if($is_allowedToEditAll)
         else
         {
             // there was an error in the form so display it with already modified values
-            $form['wrkTitle'] = $_REQUEST['wrkTitle'];
+            $form['wrkTitle'] = claro_html_sanitize_all( $_REQUEST['wrkTitle'] );
             $form['wrkAuthors'] = $_REQUEST['wrkAuthors'];
-            $form['wrkTxt'] = $_REQUEST['wrkTxt'];
-            $form['wrkScore'] = $_REQUEST['wrkScore'];
-            $form['wrkPrivFbk'] = $_REQUEST['wrkPrivFbk'];
+            $form['wrkTxt'] = claro_html_sanitize_all( $_REQUEST['wrkTxt'] );
+            $form['wrkScore'] = claro_html_sanitize_all( $_REQUEST['wrkScore'] );
+            $form['wrkPrivFbk'] = claro_html_sanitize_all( $_REQUEST['wrkPrivFbk'] );
         }
 
         $cmdToSend = "exGradeWrk";
@@ -844,7 +845,7 @@ if( $is_allowedToSubmit )
             $submission->setTitle($wrkForm['wrkTitle']);
             $submission->setAuthor($wrkForm['wrkAuthors']);
             $submission->setVisibility($assignment->getDefaultSubmissionVisibility());
-            $submission->setSubmittedText($wrkForm['wrkTxt']);
+            $submission->setSubmittedText( $wrkForm['wrkTxt'] );
             $submission->setSubmittedFilename($wrkForm['filename']);
 
             if( $assignment->getAssignmentType() == 'GROUP' && isset($wrkForm['wrkGroup']) )
@@ -1283,7 +1284,7 @@ if( $is_allowedToSubmit )
                 .    '<small>'.get_lang('Course administrator only').'</small>'
                 .    '</label></td>'
                 .    '<td>'."\n"
-                .    '<textarea name="wrkPrivFbk" cols="40" rows="10">'.$form['wrkPrivFbk'].'</textarea>'
+                .    '<textarea name="wrkPrivFbk" cols="40" rows="10">'. claro_html_sanitize_all( $form['wrkPrivFbk'] ) .'</textarea>'
                 .    '</td>'."\n"
                 .    '</tr>'."\n\n";
                 
@@ -1474,7 +1475,7 @@ if( $dispWrkLst )
             $out .= '<div class="'. $visStyle . $style .'">' . "\n"
             
             .    '<h4 class="'. ( !$is_feedback ? 'claroBlockSuperHeader':'claroBlockHeader') . '">' . "\n"
-            .    $thisWrk['title'] . "\n"
+            .    claro_html_sanitize_all( $thisWrk['title'] ) . "\n"
             .    '</h4>' . "\n"
             ;
 
@@ -1482,7 +1483,7 @@ if( $dispWrkLst )
             $out .= '<div class="workInfo">' . "\n"
             .    '<span class="workInfoTitle">' . get_lang('Author(s)') . '&nbsp;: </span>' . "\n"
             .    '<div class="workInfoValue">' . "\n"
-            .    $thisWrk['authors'] . "\n"
+            .    claro_html_sanitize_all( $thisWrk['authors'] ) . "\n"
             .    '</div>' . "\n"
             .    '</div>' . "\n\n"
             ;
@@ -1539,7 +1540,7 @@ if( $dispWrkLst )
             $out .= '<div class="workInfo">' . "\n"
             .    '<span class="workInfoTitle">' . $txtForText . '&nbsp;: </span>' . "\n"
             .    '<div class="workInfoValue">' . "\n" 
-            .    '<blockquote>' . "\n" . $thisWrk['submitted_text'] . "\n" . '&nbsp;</blockquote>' . "\n"
+            .    '<blockquote>' . "\n" . claro_html_sanitize_all( $thisWrk['submitted_text'] ) . "\n" . '&nbsp;</blockquote>' . "\n"
             .    '</div>' . "\n"
             .    '</div>' . "\n\n"
             ;
@@ -1552,7 +1553,7 @@ if( $dispWrkLst )
                     $out .= '<div class="workInfo">' . "\n"
                     .    '<span class="workInfoTitle">' . get_lang('Private feedback') . '&nbsp;: </span>' . "\n"
                     .    '<div class="workInfoValue">' . "\n" 
-                    .    '<blockquote>' . "\n" . $thisWrk['private_feedback'] . "\n" . '&nbsp;</blockquote>' . "\n"
+                    .    '<blockquote>' . "\n" . claro_html_sanitize_all( $thisWrk['private_feedback'] ) . "\n" . '&nbsp;</blockquote>' . "\n"
                     .    '</div>' . "\n"
                     .    '</div>' . "\n\n"
                     ;
