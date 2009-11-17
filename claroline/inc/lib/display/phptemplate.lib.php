@@ -132,3 +132,39 @@ class CoreTemplate extends PhpTemplate
         }
     }
 }
+
+/**
+ * Extended PHP-based template class for a module
+ * Search for template files in platform/templates/MODULELABEL and in module/MODULELABEL/templates
+ * @throws  Exception if template file not found
+ */
+class ModuleTemplate extends PhpTemplate
+{
+    /**
+     * @param   string $moduleLabel label of the module
+     * @param   string $template name of the template
+     */
+    public function __construct( $moduleLabel, $template )
+    {
+        $template = secure_file_path( $template );
+        $moduleLabel = secure_file_path( $moduleLabel );
+        
+        $customTemplatePath = get_path('rootSys') . '/platform/templates/'.$label.'/'.$template;
+        $defaultTemplatePath = get_module_path($moduleLabel) . '/templates/'.$template;
+        
+        if ( file_exists( $customTemplatePath ) )
+        {
+            parent::__construct( $customTemplatePath );
+        }
+        elseif ( file_exists( $defaultTemplatePath ) )
+        {
+            parent::__construct( $defaultTemplatePath );
+        }
+        else
+        {
+            throw new Exception("Template not found {$template} "
+                . "at custom location {$customTemplatePath} "
+                . "or default location {$defaultTemplatePath} !");
+        }
+    }
+}
