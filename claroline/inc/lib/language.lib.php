@@ -190,11 +190,31 @@ class language
           ----------------------------------------------------------------------*/
 
         include(get_path('incRepositorySys') . '/../lang/english/complete.lang.php');
+        
+        // overwrite with custom english language file if any
+            
+        $language_file = realpath(get_path('incRepositorySys') . '/../../platform/lang/english/complete.lang.php');
+        
+        if ( file_exists($language_file) )
+        {
+            include($language_file);
+        }
 
         if ($language != 'english') // Avoid useless include as English lang is preloaded
         {
+            // overwrite with specific language file
+            
             $language_file = realpath(get_path('incRepositorySys') . '/../lang/' . $language . '/complete.lang.php');
 
+            if ( file_exists($language_file) )
+            {
+                include($language_file);
+            }
+            
+            // overwrite with custom language files
+            
+            $language_file = realpath(get_path('incRepositorySys') . '/../../platform/lang/' . $language . '/complete.lang.php');
+            
             if ( file_exists($language_file) )
             {
                 include($language_file);
