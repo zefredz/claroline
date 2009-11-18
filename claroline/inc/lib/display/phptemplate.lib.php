@@ -149,7 +149,7 @@ class ModuleTemplate extends PhpTemplate
         $template = secure_file_path( $template );
         $moduleLabel = secure_file_path( $moduleLabel );
         
-        $customTemplatePath = get_path('rootSys') . '/platform/templates/'.$label.'/'.$template;
+        $customTemplatePath = get_path('rootSys') . 'platform/templates/'.$moduleLabel.'/'.$template;
         $defaultTemplatePath = get_module_path($moduleLabel) . '/templates/'.$template;
         
         if ( file_exists( $customTemplatePath ) )
