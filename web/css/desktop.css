@@ -105,6 +105,16 @@
     _height: expression( Math.min(parseInt(this.offsetHeight), 100) ); */
 }
 
+#portletMyCourseList dd
+{
+    padding: 0 0 0 32px;
+}
+
+#portletMyCourseList dt
+{
+    padding-left: 16px;
+}
+
 #portletMyAnnouncements {
     max-height: 20em;
     overflow: auto;
