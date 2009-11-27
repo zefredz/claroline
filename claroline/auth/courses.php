@@ -321,7 +321,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
     {
         $title   = get_lang('Select course in search results');
         $keyword = trim($_REQUEST['keyword']);
-        $result  = search_course($keyword, claro_get_current_user_id());
+        $result  = search_course($keyword, $uidToEdit);
 
         if ( count($result) > 0 )
         {
