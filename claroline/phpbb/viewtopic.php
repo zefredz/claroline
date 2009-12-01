@@ -149,7 +149,11 @@ if ($topicSettingList)
             }
 
             $notification_bloc .= '</span>' . "\n";
-        } //end not anonymous user
+        }//end not anonymous user
+        else
+        {
+            $notification_bloc = '';
+        }
     }
 }
 else
