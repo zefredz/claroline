@@ -113,43 +113,6 @@ if ($topicSettingList)
             // have to be considered as a new topic
             // consult
         }
-
-        // Allow user to be have notification for this topic or disable it
-
-        if ( claro_is_user_authenticated() )  //anonymous user do not have this function
-        {
-            $notification_bloc = '<span style="float: right;" class="claroCmd">';
-
-            if ( is_topic_notification_requested($topic_id, claro_get_current_user_id()) )   // display link NOT to be notified
-            {
-                $notification_url = Url::Contextualize(
-                    $_SERVER['PHP_SELF']
-                    . '?forum=' . $forum_id . '&amp;topic='
-                    . $topic_id . '&amp;cmd=exdoNotNotify'
-                );
-                
-                $notification_bloc .= '<img src="' . get_icon_url('mail_close') . '" alt="" style="vertical-align: text-bottom" />';
-                $notification_bloc .= get_lang('Notify by email when replies are posted');
-                $notification_bloc .= ' [<a href="' .htmlspecialchars($notification_url). '">';
-                $notification_bloc .= get_lang('Disable');
-                $notification_bloc .= '</a>]';
-            }
-            else   //display link to be notified for this topic
-            {
-                $notification_url = Url::Contextualize(
-                    $_SERVER['PHP_SELF']
-                    . '?forum=' . $forum_id . '&amp;topic='
-                    . $topic_id . '&amp;cmd=exNotify'
-                );
-                
-                $notification_bloc .= '<a href="' . htmlspecialchars($notification_url). '">';
-                $notification_bloc .= '<img src="' . get_icon_url('mail_close') . '" alt="" /> ';
-                $notification_bloc .= get_lang('Notify by email when replies are posted');
-                $notification_bloc .= '</a>';
-            }
-
-            $notification_bloc .= '</span>' . "\n";
-        } //end not anonymous user
     }
 }
 else
@@ -240,10 +203,8 @@ else
     
     $form->assign( 'forum_id', $forum_id );
     $form->assign( 'topic_id', $topic_id );
-    $form->assign( 'notification_bloc', $notification_bloc );
     $form->assign( 'topic_subject', $topic_subject );
     $form->assign( 'postList', $postList );
-    $form->assign( 'claro_notifier', $claro_notifier );
     $form->assign( 'is_allowedToEdit', $is_allowedToEdit );
     
     if (claro_is_user_authenticated())
@@ -256,7 +217,7 @@ else
     }
     
     $form->assign( 'date', $date );
-    
+    $form->assign( 'is_a_notified_ressource', $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id ) );
     $out .= $form->render();
 
     if ($forum_post_allowed)

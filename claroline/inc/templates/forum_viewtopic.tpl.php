@@ -1,38 +1,41 @@
-<h4 class="header"><?php if( !empty( $this->notification_bloc ) ) : echo $this->notification_bloc;  endif; echo $this->topic_subject; ?></h4>
+<h4 class="header">
+<?php
+// Allow user to be have notification for this topic or disable it
+if ( claro_is_user_authenticated() ) : //anonymous user do not have this function
+?>
+<span style="float: right;" class="claroCmd">
+  <?php if ( is_topic_notification_requested($this->topic_id, claro_get_current_user_id()) ) :  // display link NOT to be notified ?>
+  <img src="<?php echo get_icon_url('mail_close'); ?>" alt="" style="vertical-align: text-bottom" />
+  <?php echo get_lang('Notify by email when replies are posted'); ?>
+  [<a href="<?php echo htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forum_id . '&amp;topic=' . $this->topic_id . '&amp;cmd=exdoNotNotify' ) ); ?>"><?php echo get_lang('Disable'); ?></a>
+  <?php else : //display link to be notified for this topic ?>
+  <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forum_id . '&amp;topic=' . $this->topic_id . '&amp;cmd=exNotify' ) ); ?>">
+  <img src="<?php echo get_icon_url('mail_close'); ?>" alt="" /><?php echo get_lang('Notify by email when replies are posted'); ?></a>
+  <?php endif; ?>
+</span>
+<?php
+endif; //end not anonymous user
+?>
+<?php echo $this->topic_subject; ?>
+</h4>
 <?php foreach( $this->postList as $thisPost ) : ?>
 <div id="post<?php echo $thisPost['post_id']; ?>" class="threadPost">
+  <?php  
+  if( user_get_picture_path( user_get_properties( $thisPost['poster_id'] ) )
+     && file_exists( user_get_picture_path( user_get_properties( $thisPost['poster_id'] ) ) )
+     ) :
+  ?>
+    <div class="threadPosterPicture"><img src="<?php echo user_get_picture_url( user_get_properties( $thisPost['poster_id'] ) ); ?>" alt=" " /></div>
   <?php
-  $userData = user_get_properties( $thisPost['poster_id'] );
-  $picturePath = user_get_picture_path( $userData );
-  
-  if (claro_is_user_authenticated()
-      && $this->claro_notifier
-      && $this->claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $this->date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this->forum_id."-".$this->topic_id))
-  {
-      $class = 'item hot';
-  }
-  else
-  {
-      $class = 'item';
-  }
-  
-  if ( $picturePath && file_exists( $picturePath ) )
-  {
-      $pictureUrl = user_get_picture_url( $userData );
-  }
-  else
-  {
-      $pictureUrl = null;
-  }
+  endif;
   ?>
   <div class="threadPostInfo">
-    <?php if( !is_null( $pictureUrl ) ) : ?><div class="threadPosterPicture"><img src="<?php echo $pictureUrl; ?>" alt=" " /></div><?php endif; ?>
     <span style="font-weight: bold;"><?php echo $thisPost[ 'firstname' ]; ?> <?php echo $thisPost[ 'lastname' ]; ?></span>
     <br />
     <small><?php echo claro_html_localised_date(get_locale('dateTimeFormatLong'), datetime_to_timestamp( $thisPost['post_time']) ); ?></small>
   </div>
   <div class="threadPostContent">
-    <span class="threadPostIcon <?php echo $class; ?>"><img src="<?php echo get_icon_url( 'post' ); ?>" alt="" /></span><br />
+    <span class="threadPostIcon <?php echo (claro_is_user_authenticated() && $this->is_a_notified_ressource ? 'item hot' : 'item' ); ?>"><img src="<?php echo get_icon_url( 'post' ); ?>" alt="" /></span><br />
     <?php echo claro_parse_user_text( $thisPost[ 'post_text' ] ); ?>
     <?php if( $this->is_allowedToEdit ) : ?>
     <p>
