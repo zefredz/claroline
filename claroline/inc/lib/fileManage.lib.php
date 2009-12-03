@@ -211,7 +211,7 @@ function claro_copy_file($sourcePath, $targetPath)
     elseif ( is_dir($sourcePath) )
     {
         // check to not copy the directory inside itself
-        if ( preg_match('/^'.addslashes($sourcePath) . '\//', addslashes( $targetPath ) . '/') ) return false;
+        if ( preg_match('/^'.str_replace( '/', '\/', $sourcePath ) . '\//', str_replace( '/', '\/', $targetPath ) . '/') ) return false;
 
         if ( ! claro_mkdir($targetPath . '/' . $fileName, CLARO_FILE_PERMISSIONS) )   return false;
         
