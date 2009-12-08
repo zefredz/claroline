@@ -63,7 +63,7 @@ function claro_is_in_a_course()
 // replace is_null(claro_get_current_course_id())
 function claro_is_in_a_group()
 {
-    return ! is_null($GLOBALS['_gid']);
+    return isset($GLOBALS['_gid']) && ! is_null($GLOBALS['_gid']);
 }
 
 /**
