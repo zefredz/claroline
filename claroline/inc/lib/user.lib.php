@@ -552,7 +552,7 @@ function profile_send_request_revoquation($explanation,$login,$password)
     '%lastname'  => $_user['lastName'],
     '%email'     => $_user['mail'],
     '%login'     => $login,
-    '%password'  => $password,
+    '%password'  => '**********',
     '%comment'   => nl2br($explanation),
     '%url'       => rtrim( get_path('rootWeb'), '/' ) . '/claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
     )
