@@ -27,6 +27,7 @@
         
         private $_htmlXtraHeaders;
         private $_httpXtraHeaders;
+        private $_toolName;
         
         /**
          * Constructor
@@ -36,6 +37,7 @@
             parent::__construct('header.tpl.php');
             $this->_htmlXtraHeaders = array();
             $this->_httpXtraHeaders = array();
+            $this->_toolName = '';
         }
         
         public static function getInstance()
@@ -46,6 +48,11 @@
             }
 
             return ClaroHeader::$instance;
+        }
+        
+        public function setToolName( $pageTitle )
+        {
+            $this->_toolName = $pageTitle;
         }
         
         /**
@@ -150,9 +157,13 @@
             
             $titlePage = '';
 
-            if(!empty($this->_nameTools))
+            if(empty($this->_toolName) && !empty($this->_nameTools))
             {
                 $titlePage .= $this->_nameTools . ' - ';
+            }
+            else
+            {
+                $titlePage .= $this->_toolName;
             }
 
             if(claro_is_in_a_course() && claro_get_current_course_data('officialCode') != '')
