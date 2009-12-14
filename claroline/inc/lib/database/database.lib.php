@@ -484,8 +484,12 @@ class Mysql_ResultSet implements Database_ResultSet
     
     public function __destruct()
     {
-        @mysql_free_result($this->resultSet);
+        if ( $this->resultSet )
+        {
+            @mysql_free_result($this->resultSet);
+        }
         
+        unset( $this->resultSet );
         unset( $this->numrows );
         unset( $this->mode );
         unset( $this->valid );
