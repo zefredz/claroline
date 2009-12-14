@@ -21,7 +21,7 @@
 
     $tlabelReq = 'CLWIKI';
     require_once '../inc/claro_init_global.inc.php';
-    
+
     if ( ! claro_is_tool_allowed() )
     {
         if ( ! claro_is_in_a_course() )
@@ -81,7 +81,7 @@
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.wikidisplay.php";
     require_once "lib/lib.javascript.php";
-    
+
     $dialogBox = new DialogBox();
 
 
@@ -104,7 +104,7 @@
         $result = $con->getRowFromQuery( $sql );
 
         $wikiGroupId = (int) $result['group_id'];
-        
+
         if ( claro_is_in_a_group() && claro_get_current_group_id() != $wikiGroupId )
         {
             claro_die(get_lang("Not allowed"));
@@ -318,7 +318,7 @@
             {
                 $searchEngine = new WikiSearchEngine( $con, $config );
                 $searchResult = $searchEngine->searchInWiki( $pattern, $wikiId, CLWIKI_SEARCH_ANY );
-                
+
 //                var_dump($searchResult);
 
                 if ( $searchEngine->hasError() )
@@ -527,6 +527,9 @@
                 $content = $wikiPage->getContent();
 
                 $title = $wikiPage->getTitle();
+
+                $claroline = Claroline::getInstance();
+                $claroline->notifier->event('wiki_read_page', array( 'data' => array('wiki_id' => $wikiId, 'title' => $title, 'version_id' => $versionId ) ) );
             }
             else
             {
@@ -656,7 +659,7 @@
     }
 
     // Breadcrumps
-    
+
     $nameTools = get_lang( 'Wiki' );
     ClaroBreadCrumbs::getInstance()->append(
         htmlspecialchars($wiki->getTitle()),
@@ -785,7 +788,7 @@
                 . '?wikiId=' . $wiki->getWikiId()
                 . '&amp;action=show'
                 . '&amp;title=__MainPage__' ))
-            // . claro_url_relay_context('&amp;') 
+            // . claro_url_relay_context('&amp;')
             , '<img src="' . get_icon_url('wiki').'" alt="edit" />&nbsp;'
                 . get_lang("Main page")
         );
@@ -1278,7 +1281,7 @@
                 {
                     $versionInfo = '';
                 }
-                
+
                 $out .= '<div id="mainContent" class="wiki2xhtml">' . "\n";
                 $out .= '<h1>'.$displaytitle
                     . $versionInfo
@@ -1514,9 +1517,9 @@
     }
 
     // ------------ End of wiki script ---------------
-    
+
     $claroline->display->body->appendContent($out);
 
     echo $claroline->display->render();
-    
+
 ?>

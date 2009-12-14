@@ -153,6 +153,8 @@ if ( ! $allowed )
 }
 else
 {
+    $claroline = Claroline::getInstance();
+    $claroline->notifier->event('forum_read_topic', array( 'data' => array('topic_id' => $topic_id) ) );
     /*-----------------------------------------------------------------
     Display Forum Header
     -----------------------------------------------------------------*/
@@ -164,7 +166,7 @@ else
 
     $out .= claro_html_tool_title(get_lang('Forums'),
     $is_allowedToEdit ? 'help_forum.php' : false);
-    
+
     if( claro_is_allowed_to_edit() )
     {
         $out .= '<div style="float: right;">' . "\n"
@@ -179,7 +181,7 @@ else
     if ($forum_post_allowed)
     {
         $toolList = disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
-        
+
         if ( count($postList) > 2 ) // if less than 2 las message is visible
         {
             $start_last_message = ( ceil($totalPosts / get_conf('posts_per_page')) -1 ) * get_conf('posts_per_page') ;
@@ -190,23 +192,23 @@ else
             .             '&amp;start=' . $start_last_message
             .             '#post' . $lastPostId
             ;
-            
+
             $toolList[] = claro_html_cmd_link(htmlspecialchars(Url::Contextualize($lastMsgUrl)),get_lang('Last message'));
         }
-        
+
         $out .= claro_html_menu_horizontal($toolList);
     }
 
     $out .= $postLister->disp_pager_tool_bar($pagerUrl);
-    
+
     $form = new PhpTemplate( get_path( 'incRepositorySys' ) . '/templates/forum_viewtopic.tpl.php' );
-    
+
     $form->assign( 'forum_id', $forum_id );
     $form->assign( 'topic_id', $topic_id );
     $form->assign( 'topic_subject', $topic_subject );
     $form->assign( 'postList', $postList );
     $form->assign( 'is_allowedToEdit', $is_allowedToEdit );
-    
+
     if (claro_is_user_authenticated())
     {
         $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
@@ -215,7 +217,7 @@ else
     {
         $date = null;
     }
-    
+
     $form->assign( 'date', $date );
     $form->assign( 'is_a_notified_ressource', $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id ) );
     $out .= $form->render();
@@ -227,7 +229,7 @@ else
             . '?topic=' . $topic_id
             . '&amp;forum=' . $forum_id
         );
-            
+
         $toolBar[] = claro_html_cmd_link( htmlspecialchars( $replyUrl )
                                         , '<img src="' . get_icon_url('reply') . '" alt="" />'
                                         . ' '
