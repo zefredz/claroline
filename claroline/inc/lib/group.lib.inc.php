@@ -668,7 +668,7 @@ function get_user_group_list($userId,$course=null)
             INNER JOIN `" . $tbl_group_team . "`    as `t`
               ON `tu`.`team` = `t`.`id`
             INNER JOIN `" . $mainTableName['cours_user'] . "` AS `cu`
-                ON `cu`.user_id = `user_group`.`user`
+                ON `cu`.user_id = `tu`.`user`
             WHERE `tu`.`user` = " . (int) $userId ;
 
     $groupList = claro_sql_query_fetch_all($sql);
