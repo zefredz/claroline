@@ -715,13 +715,11 @@ function get_group_user_list($gid, $courseId =  NULL)
     $mainTableName = get_module_main_tbl(array('user','cours_user'));
     $courseTableName = get_module_course_tbl(array('group_rel_team_user'), $courseId);
     
-    $sql = "SELECT `user`.`user_id` AS `id`, `nom` AS `lastName`, `prenom` AS `firstName`, `email`
-        FROM `" . $mainTableName['user'] . "` AS `user`, `" . $courseTableName['group_rel_team_user'] . "` AS `user_group`
-        INNER JOIN `" . $mainTableName['cours_user'] . "` AS `cu`
-            ON `cu`.user_id = `user_group`.`user`
-        WHERE `user_group`.`team`= '" . $gid . "'
-        AND   `user_group`.`user`= `user`.`user_id`";
-    
+    $sql = "SELECT `user`.`user_id` AS `id`, `user`.`nom` AS `lastName`, `user`.`prenom` AS `firstName`, `user`.`email`
+        FROM `" . $mainTableName['user'] . "` AS `user`
+        INNER JOIN `" . $courseTableName['group_rel_team_user'] . "` AS `user_group`
+            ON `user`.`user_id` = `user_group`.`user`
+        WHERE `user_group`.`team`= '" . $gid . "'";
     
     return claro_sql_query_fetch_all($sql);
 }
