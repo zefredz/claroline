@@ -719,7 +719,10 @@ function get_group_user_list($gid, $courseId =  NULL)
         FROM `" . $mainTableName['user'] . "` AS `user`
         INNER JOIN `" . $courseTableName['group_rel_team_user'] . "` AS `user_group`
             ON `user`.`user_id` = `user_group`.`user`
-        WHERE `user_group`.`team`= '" . $gid . "'";
+        INNER JOIN `" . $mainTableName['cours_user'] . "`AS `course_user`
+            ON `user`.`user_id` = `course_user`.`user_id`
+        WHERE `user_group`.`team`= '" . $gid . "'
+        AND `course_user`.`code_cours` = '" . $courseId ."'";
     
     return claro_sql_query_fetch_all($sql);
 }

@@ -33,7 +33,7 @@ function current_user_is_allowed_to_send_message_to_user($userId)
     {
         if (claro_is_group_tutor() || claro_is_course_manager())
         {
-            $userList = get_group_user_list(claro_get_current_course_id());
+            $userList = get_group_user_list(claro_get_current_group_id(),claro_get_current_course_id());
             for ($count=0; $count<count($userList); $count++)
             {
                 if ($userList[$count]['id'] == $userId)
