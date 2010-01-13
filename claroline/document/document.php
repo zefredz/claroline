@@ -172,19 +172,19 @@ if($is_allowedToEdit) // for teacher only
 }
 
 // XSS protection
-$cwd = isset( $_REQUEST['cwd'] ) ? $_REQUEST['cwd'] : null;
+$cwd = isset( $_REQUEST['cwd'] ) ? strip_tags($_REQUEST['cwd']) : null;
 
 // clean information submited by the user from antislash
 
-if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+if ( isset($_REQUEST['cmd']) ) $cmd = strip_tags($_REQUEST['cmd']);
 else                           $cmd = null;
 
-if ( isset($_REQUEST['docView']) ) $docView = $_REQUEST['docView'];
+if ( isset($_REQUEST['docView']) ) $docView = strip_tags($_REQUEST['docView']);
 else                               $docView = 'files';
 
 if ( isset($_REQUEST['file']) /*&& is_download_url_encoded($_REQUEST['file']) */ )
 {
-    $_REQUEST['file'] = download_url_decode( $_REQUEST['file'] );
+    $_REQUEST['file'] = strip_tags(download_url_decode( $_REQUEST['file'] ));
 }
 
 /* > > > > > > MAIN SECTION  < < < < < < <*/
@@ -1015,7 +1015,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
 if ('rqSearch' == $cmd )
 {
-    $searchMsg = !empty($cwd) ? '<br />' . get_lang('Search in %currentDirectory', array('%currentDirectory'=>$cwd) ) : '' ;
+    $searchMsg = !empty($cwd) ? '<br />' . get_lang('Search in %currentDirectory', array('%currentDirectory'=>htmlspecialchars($cwd)) ) : '' ;
     $dialogBox->form( '<form action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '" method="post">' . "\n"
                     . claro_form_relay_context()
                     . '<input type="hidden" name="cmd" value="exSearch" />' . "\n"
@@ -1197,7 +1197,7 @@ if ($curDirPath == '/' || $curDirPath == '\\' || strstr($curDirPath, '..'))
 
 if ( !file_exists($baseWorkDir.'/'.$curDirPath) || ! is_dir($baseWorkDir.'/'.$curDirPath) )
 {
-    $dialogBox->error("The requested folder ".$baseWorkDir.'/'.$curDirPath." does not exists");
+    $dialogBox->error("The requested folder ".htmlspecialchars($baseWorkDir.'/'.$curDirPath)." does not exists");
     $curDirPath = ''; // back to root directory
 }
 
