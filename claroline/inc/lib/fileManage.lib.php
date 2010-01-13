@@ -104,11 +104,15 @@ function claro_rename_file($oldFilePath, $newFilePath)
     if (realpath($oldFilePath) == realpath($newFilePath) ) return true;
 
     /* CHECK IF THE NEW NAME HAS AN EXTENSION */
-    $ext_new = get_file_extension( $newFilePath );
-    $ext_old = get_file_extension( $oldFilePath );
-    if( empty($ext_new) && !empty($ext_old) )
+    if ( ! is_dir( $oldFilePath ) )
     {
-        $newFilePath .= '.' . $ext_old;
+        $ext_new = get_file_extension( $newFilePath );
+        $ext_old = get_file_extension( $oldFilePath );
+        
+        if( empty($ext_new) && !empty($ext_old) )
+        {
+            $newFilePath .= '.' . $ext_old;
+        }
     }
 
     /* PREVENT FILE NAME WITH PHP EXTENSION */
