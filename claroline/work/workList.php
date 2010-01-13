@@ -629,7 +629,7 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
     if( $assignment->getAutoFeedbackFilename() != '' )
     {
         $target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
-        $out .=  '<p><a href="' . $assignment->getAssigDirWeb() . $assignment->getAutoFeedbackFilename() . claro_url_relay_context('&amp;') . '" ' . $target . '>'
+        $out .=  '<p><a href="' . $assignment->getAssigDirWeb() . $assignment->getAutoFeedbackFilename() . '" ' . $target . '>'
         .     $assignment->getAutoFeedbackFilename()
         .     '</a></p>'
         ;
