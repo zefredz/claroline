@@ -443,7 +443,7 @@ function user_send_enroll_to_course_mail($userId, $data, $course=null)
         ;
     
     $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
-    $message->setCourse($courseData['officialCode']);
+    $message->setCourse($courseData['sysCode']);
     
     $recipient = new SingleUserRecipient($userId);
     
