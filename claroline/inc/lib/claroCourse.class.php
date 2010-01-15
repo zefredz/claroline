@@ -388,7 +388,7 @@ class ClaroCourse
         // Validate course access
         if ( empty($this->access) || ! in_array($this->access, array('public','private','platform')) )
         {
-            $this->backlog->failure(get_lang('Course title needed'));
+            $this->backlog->failure(get_lang('Missing or invalid course access'));
             $success = false ;
         }
 
