@@ -964,7 +964,7 @@ function user_html_form($data, $form_type='registration')
     // hidden fields
     .       form_input_hidden('cmd', 'registration')
     .       form_input_hidden('claroFormId', uniqid('') )
-    .       form_input_hidden('csrf_token', $_SESSION['csrf_token'] )
+    .       ( claro_is_user_authenticated() ? form_input_hidden('csrf_token', $_SESSION['csrf_token'] ) : '' )
     ;
 
     if ( array_key_exists('confirmUserCreate', $data) )
