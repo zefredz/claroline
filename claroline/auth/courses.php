@@ -559,15 +559,30 @@ switch ( $displayMode )
                 }
                 elseif ( $fromAdmin == 'class')
                 {
+                   if (!get_class_list_of_course($thisCourse['sysCode']))
+                   {
                     $out .= '<td valign="top"  align="center">' . "\n"
                     .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
-                    .    '?cmd=exReg'
+                    .    '?cmd=exReg' 
                     .    '&amp;course_id=' . $thisCourse['sysCode']
                     .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
                     .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol class') . '" />'
                     .     '</a>'
                     .     '</td>' . "\n"
                     ;
+                   }
+                   else
+                   {
+                   	$out .= '<td valign="top"  align="center">' . "\n"
+                    .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
+                    .    '?cmd=exUnreg' 
+                    .    '&amp;course_id=' . $thisCourse['sysCode']
+                    .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
+                    .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unenrol class') . '" />'
+                    .     '</a>'
+                    .     '</td>' . "\n"
+                    ;
+                   }
                 }
                 else
                 {

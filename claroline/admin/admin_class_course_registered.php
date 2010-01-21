@@ -63,7 +63,13 @@ if (isset($cmd) && claro_is_platform_admin())
             }
         }
     }
-
+	elseif ($cmd == 'exUnreg')
+    {
+    	if (unregister_class_to_course($class_id,$course_id))
+    	{
+    		$dialogBox->success( get_lang('Class has been unenroled') );
+    	}
+    }
 }
 
 /**
