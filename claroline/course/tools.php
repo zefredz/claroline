@@ -57,6 +57,9 @@ $toolRepository = '../';
 $currentCourseRepository = claro_get_course_path();
 $dialogBox = new DialogBox();
 
+//include course configuration file
+include claro_get_conf_repository() . 'course_main.conf.php';
+
 // Library
 require_once get_path('incRepositorySys') . '/lib/course_home.lib.php';
 require_once get_path('incRepositorySys') . '/lib/right/courseProfileToolAction.class.php';
