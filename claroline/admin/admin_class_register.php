@@ -204,18 +204,36 @@ else
     // Display list of users
     // start table...
 
-    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
-    .    '<thead>' . "\n"
-    .    '<tr class="headerX" align="center" valign="top">'
-    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=user_id&amp;chdir=yes">' . get_lang('User id') . '</a></th>' . "\n"
-    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=nom&amp;chdir=yes"    >' . get_lang('Last name') . '</a></th>' . "\n"
-    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=prenom&amp;chdir=yes" >' . get_lang('First name') . '</a></th>' . "\n"
-    .    '<th>' . get_lang('Register to the class') . '</th>'
-    .    '<th>' . get_lang('Unregister from class') . '</th>'
-    .    '</tr>' . "\n"
-    .    '</thead>' . "\n"
-    .    '<tbody>' . "\n"
-    ;
+	if ($search == '')
+	{
+	    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+	    .    '<thead>' . "\n"
+	    .    '<tr class="headerX" align="center" valign="top">'
+	    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=user_id&amp;chdir=yes">' . get_lang('User id') . '</a></th>' . "\n"
+	    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=nom&amp;chdir=yes"    >' . get_lang('Last name') . '</a></th>' . "\n"
+	    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=prenom&amp;chdir=yes" >' . get_lang('First name') . '</a></th>' . "\n"
+	    .    '<th>' . get_lang('Register to the class') . '</th>'
+	    .    '<th>' . get_lang('Unregister from class') . '</th>'
+	    .    '</tr>' . "\n"
+	    .    '</thead>' . "\n"
+	    .    '<tbody>' . "\n"
+	    ;
+	}
+	else
+	{
+		 $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+	    .    '<thead>' . "\n"
+	    .    '<tr class="headerX" align="center" valign="top">'
+	    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;search='.$search.'&amp;order_crit=user_id&amp;chdir=yes">' . get_lang('User id') . '</a></th>' . "\n"
+	    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;search='.$search.'&amp;order_crit=nom&amp;chdir=yes"    >' . get_lang('Last name') . '</a></th>' . "\n"
+	    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;search='.$search.'&amp;order_crit=prenom&amp;chdir=yes" >' . get_lang('First name') . '</a></th>' . "\n"
+	    .    '<th>' . get_lang('Register to the class') . '</th>'
+	    .    '<th>' . get_lang('Unregister from class') . '</th>'
+	    .    '</tr>' . "\n"
+	    .    '</thead>' . "\n"
+	    .    '<tbody>' . "\n"
+	    ;
+	}
 
     // Start the list of users...
 
