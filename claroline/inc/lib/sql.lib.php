@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 )
 
 
 /**
- * Return the tablename for a tool, en tenant compte du fait que it's (or not)
+ * Return the tablename for a tool, dependig on it's (or not)
  * * in a course,
  * * in a group
  *
@@ -149,7 +149,9 @@ function claro_sql_get_main_tbl()
         'config_file'               => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'config_file',
         'course'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours',
         'rel_course_user'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours_user',
-        'category'                  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'faculte',
+        'rel_course_category'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_category',
+        'category'                  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'faculte', //TODO modify the name for 'category' when new implementation is finished
+        'category_dev'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'category', //TODO modify the name for 'category' when new implementation is finished
         'user'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user',
         'tool'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'course_tool',
         'user_category'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'class',
@@ -633,6 +635,8 @@ function claro_sql_query_fetch_single_row($sqlQuery, $dbHandler = '#')
 {
     return claro_sql_query_get_single_row($sqlQuery, $dbHandler);
 }
+
+
 function claro_sql_query_get_single_row($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);

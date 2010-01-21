@@ -135,7 +135,7 @@ function delete_class($class_id)
 
     if ($has_children)
     {
-        return claro_failure::set_failure('class_has_sub_classes'); // the class doesn't exist
+        return claro_failure::set_failure('class_has_sub_classes'); // the class has sub classes
     }
     else
     {

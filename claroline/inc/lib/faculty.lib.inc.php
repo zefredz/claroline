@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 )
 /**
      *This function display the bom whith option to edit or delete the categories
      *
-     * @author - < Benoît Muret >
+     * @author - < Benoï¿½t Muret >
      * @param   - elem             array     : the array of each category
      * @param   - father        string     : the father of the category
      *
@@ -62,7 +62,7 @@ function claro_disp_tree($elem,$father,$space)
                         ;
                     }
                     else
-                    $out .= '&nbsp;° &nbsp;&nbsp;&nbsp;';
+                    $out .= '&nbsp;&nbsp;&nbsp;&nbsp;';
 
                     $out .= $one_faculty['name'] . ' (' . $one_faculty['code'] . ') &nbsp;&nbsp;&nbsp;';
 
@@ -235,7 +235,7 @@ function delete_qty_child_father($node_code, $childQty)
 /**
      *This function add a number of child of all father from a category
      *
-     * @author < Benoît Muret >
+     * @author < Benoï¿½t Muret >
      * @param  fatherChangeChild        string     : the father
      * @param  newNbChild            int        : the number of child adding
 
@@ -264,7 +264,7 @@ function addNbChildFather($fatherChangeChild, $newNbChild)
 /**
      *This function create de select box categories
      *
-     * @author Benoît Muret
+     * @author Benoï¿½t Muret
      * @param   $elem array the categories
      * @param   $father string the father of the category
      * @param   $editFather string the category editing
@@ -302,7 +302,7 @@ function build_select_faculty($elem,$father, $editFather, $space)
  *
  * @param $cat_id string code of cat to get data
  * @return array of data id, name, code, code_P, treePos, nb_childs, canHaveCatChild, canHaveCoursesChild
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @since 1.7
  */
 function get_cat_data($cat_id)
@@ -321,7 +321,7 @@ function get_cat_data($cat_id)
  *
  * @param $cat_id string code of cat to get data
  * @return array of data id, name, code, code_P, canHaveCatChild, canHaveCoursesChild
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @since 1.7
  *
  */
@@ -341,7 +341,7 @@ function get_cat_id_from_code($cat_code)
  * THEORIC FUNCTION TO COMPUTE  NB_CHILDS
  * @param $node_code
  * @return
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @since 1.7
  *
 
@@ -358,7 +358,7 @@ function cat_count_descendance($node_code)
 /**
  * Return  minimum and the maximum value for treePos
  * @return minimum and the maximum value for treePos
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @since 1.7
  *
  */
@@ -389,7 +389,7 @@ function search_max_tree_pos()
  *
  * @param $node
  * @return
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  *
  */
 function get_node_children_count($node)
@@ -416,7 +416,7 @@ function get_node_children_count($node)
  *
  * @param $node
  * @return
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  *
  */
 function get_node_descendance_count($node)
@@ -442,7 +442,7 @@ function get_node_descendance_count($node)
  *
  * @param $node
  * @return
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  *
  */
 function get_node_children_count_course($node)
@@ -461,7 +461,7 @@ function get_node_children_count_course($node)
  *
  * @param $id_node
  * @return
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  *
  */
 function delete_node($id_node)
@@ -491,7 +491,7 @@ function delete_node($id_node)
  * make 6 test on the given category and and return the status
  * @param $cat_Code
  * @return boolean tree status
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  *
  */
 function analyseCat($catCode)
