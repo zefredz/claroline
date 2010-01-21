@@ -389,6 +389,10 @@ else
     elseif ( $fromAdmin == 'class' ) // admin tool used : class registration
     {
         $backUrl   = '../admin/admin_class_user.php?';
+        if (isset($_SESSION['admin_user_class_id']))
+        {
+        	$backUrl .= 'class_id='. $_SESSION['admin_user_class_id'];
+        }
         $backLabel = get_lang('Back to the class');
     }
     else
