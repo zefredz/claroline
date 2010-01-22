@@ -654,6 +654,11 @@ dl.userCourseList
     padding: 0 0 0 32px;
 }
 
+.userCourseList dt a, .userCourseList dd small
+{
+    padding-left: 3px;
+}
+
 /******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
