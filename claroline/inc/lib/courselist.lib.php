@@ -177,6 +177,7 @@ function search_course($keyword, $userId = null)
                    c.administrativeNumber AS officialCode,
                    c.directory            AS directory,
                    c.code                 AS code,
+                   c.language             AS language,
                    c.email                AS email,
                    c.visibility,
                    c.access,
@@ -221,7 +222,7 @@ function search_course($keyword, $userId = null)
             . "
             )
             ORDER BY officialCode";
-
+    
     $courseList = claro_sql_query_fetch_all($sql);
 
     if (count($courseList) > 0) return $courseList;
@@ -259,6 +260,7 @@ function get_user_course_list($userId, $renew = false)
                        course.titulaires           AS `titular`,
                        course.language             AS `language`,
                        course.faculte              AS `categoryCode`,
+                       course.access               AS `access`,
                        course_user.isCourseManager,
                        course.status,
                        UNIX_TIMESTAMP(course.expirationDate) AS expirationDate,
@@ -270,7 +272,7 @@ function get_user_course_list($userId, $renew = false)
                        WHERE course.code         = course_user.code_cours
                          AND course_user.user_id = " . (int) $userId . " 
                          AND (course.`status`='enable'
-                             OR (course.`status` = 'date'
+                              OR (course.`status` = 'date'
                                   AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' 
                                   OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0)
                                   AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) OR `expirationDate` IS NULL)
@@ -323,6 +325,7 @@ function get_user_course_list_desactivated($userId, $renew = false)
                        course.titulaires           AS `titular`,
                        course.language             AS `language`,
                        course.faculte              AS `categoryCode`,
+                       course.access               AS `access`,
                        course_user.isCourseManager,
                        course.status,
                        UNIX_TIMESTAMP(course.expirationDate) AS expirationDate,
@@ -457,7 +460,7 @@ function render_course_dt_in_dd_list($course, $hot = false)
     $langNameOfLang = get_locale('langNameOfLang');
     $out = '';
     
-    if ($course['isCourseManager'] == 1)
+    if( isset( $course['isCourseManager'] ) && $course['isCourseManager'] == 1 s)
     {
         $userStatusImg = '&nbsp;&nbsp;<img src="' . get_icon_url('manager') . '" alt="'.get_lang('Course manager').'" />';
     }
@@ -496,8 +499,16 @@ function render_course_dt_in_dd_list($course, $hot = false)
     .    htmlspecialchars($course['sysCode'])
     ;
 
+    $iconUrl = get_course_access_icon( $course['access'] );
+    
+    $managerString = htmlspecialchars( $course['titular'] . $course_language_txt );
+    if( isset( $course['email'] ) && claro_is_user_authenticated() )
+    {
+        $managerString = '<a href="mailto:' . $course['email'] . '">' . $managerString . '</a>';
+    }
+    
     $out .= '<dt class="' . $classItem . '" >' . "\n"
-    .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="" />'
+    .    '<img class="iconDefinitionList" src="' . $iconUrl . '" alt="" />'
     .    '<a href="' . htmlspecialchars( $url ) . '">'
     .    htmlspecialchars($courseTitle)
     .    $userStatusImg
@@ -505,7 +516,7 @@ function render_course_dt_in_dd_list($course, $hot = false)
     .    '</dt>' . "\n"
     .    '<dd>'
     .    '<small>' . "\n"
-    .    htmlspecialchars( $course['titular'] . $course_language_txt )
+    . $managerString
     .    '</small>' . "\n"
     .    '</dd>' . "\n"
     ;
@@ -714,4 +725,29 @@ function render_user_course_list()
     }
     
     return $out;
+}
+
+/**
+ * Get an icon url according to a course access mode ('public', 'private' or 'platform') 
+ * 
+ * @param string $accessMode : label of the access mode for which an icon is asked for
+ * @return string : the url to the icon
+ */
+function get_course_access_icon( $accessMode )
+{
+    switch( $accessMode )
+    {
+        case 'private' :               
+            $iconUrl = get_icon_url( 'access_locked' );
+            break;
+        case 'platform' : 
+            $iconUrl = get_icon_url( 'access_platform' );
+            break;
+        case 'public' : 
+            $iconUrl = get_icon_url( 'access_open' );
+            break;
+        default : 
+            $iconUrl = get_icon_url( 'course' );
+    }
+    return $iconUrl;
 }
