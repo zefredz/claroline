@@ -460,7 +460,7 @@ function render_course_dt_in_dd_list($course, $hot = false)
     $langNameOfLang = get_locale('langNameOfLang');
     $out = '';
     
-    if( isset( $course['isCourseManager'] ) && $course['isCourseManager'] == 1 s)
+    if( isset( $course['isCourseManager'] ) && $course['isCourseManager'] == 1 )
     {
         $userStatusImg = '&nbsp;&nbsp;<img src="' . get_icon_url('manager') . '" alt="'.get_lang('Course manager').'" />';
     }
