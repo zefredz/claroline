@@ -634,6 +634,11 @@ if ( $cidReq
     && !empty($_course['dbNameGlu'])
     && trim($_course['dbNameGlu']) )
 {
+    // 0. load course configuration to avoid creating uneeded examples
+    
+    require claro_get_conf_repository() . 'course_main.conf.php';
+    
+    
     // 1. get tool list from main db
     
     $mainCourseToolList = claro_get_main_course_tool_list(); 
