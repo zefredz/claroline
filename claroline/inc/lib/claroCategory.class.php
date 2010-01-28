@@ -22,6 +22,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * 
  * Development notes
+ * =================
  * 
  * Adaptation of the previous table `faculte` (becoming `category`)
  * ----------------------------------------------------------------
@@ -29,10 +30,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * RENAME TABLE `db_name`.`prefix_faculte`  TO `db_name`.`prefix_category` ;
  * 
  * ALTER TABLE `cl_faculte` CHANGE `code_P` `idParent` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL ; 
- * ALTER TABLE `cl_faculte` CHANGE `treePos` `rank` INT( 10 ) UNSIGNED NULL DEFAULT NULL ;
+ * ALTER TABLE `cl_faculte` CHANGE `treePos` `rank` INT( 11 ) NOT NULL DEFAULT '0' ;
  * /!\ Conversion of 'TRUE'/'FALSE' values into '1'/'0' !  Then: 
  * ALTER TABLE `cl_course_category` CHANGE `canHaveCoursesChild` `canHaveCoursesChild` TINYINT( 1 ) NOT NULL DEFAULT '1' ;
- * ALTER TABLE `cl_course_category` CHANGE `canHaveCatChild` `canHaveCatChild` TINYINT( 1 ) NOT NULL DEFAULT '1' ;
+ * ALTER TABLE `cl_category` DROP `canHaveCatChild` ;
  * ALTER TABLE `cl_course_category` DROP INDEX `code_P` ;
  * ALTER TABLE `cl_course_category` DROP INDEX `treePos` ;
  * ALTER TABLE `cl_course_category` DROP INDEX `code` ;
@@ -52,6 +53,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * `rootCourse` BOOL NOT NULL DEFAULT '0'
  * ) ENGINE = MYISAM ;
  * ALTER TABLE `db_name`.`prefix_rel_course_category` ADD PRIMARY KEY ( `idCourse` , `idCategory` ) ;
+ * 
  * 
  * 
  * Adaptation of the previous table `cours`
@@ -85,6 +87,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * 
  * * Delete inc/lib/faculty.inc.lib.php
  * * Modify inc/lib/sql.lib.php claro_sql_get_main_tbl() (table names have to be fixed)
+ * * In french language files, make difference between "Aucun" and "Aucune" (cf. dropdown list in the form)c
  * 
  * 
  * TODO: questions
@@ -93,11 +96,20 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * * When hiding a category, should all its children categories also get hidden ? (seems logic)
  * * What's the best way managing and displaying: (1) the number of courses in a category and 
  *   (2) the number of categories in a category ?
+ * * What's the purpose of variable $cancelUrl ?
+ * 
+ * 
+ * Regarding users: main modifications
+ * -----------------------------------
+ * 
+ * * If you want to change the parent of a category, you have to use the "Edit" function (there is no more "Move/Displace" function)
  *
  */
 
-require_once dirname(__FILE__) . '/backlog.class.php';
+
+require_once dirname(__FILE__) . '/backlog.class.php'; // Manage the backlog entries
 require_once dirname(__FILE__) . '/category.lib.inc.php'; // Contains all MySQL requests for this class
+require_once dirname(__FILE__) . '/course.lib.inc.php'; // Contains certain usefull functions for this class: claro_get_lang_flat_list(), ...
 require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
 
 
@@ -126,9 +138,9 @@ class ClaroCategory
 
     // Allowed to possess children (true = yes, false = no)
     public $canHaveCoursesChild;
-
-    // Allowed to have sub categories (true = yes, false = no)
-    public $canHaveCatChild;
+    
+    // Backlog object
+    public $backlog;
     
     // List of GET or POST parameters
     public $htmlParamList = array();    
@@ -137,7 +149,7 @@ class ClaroCategory
     /**
      * Constructor
      */
-    function ClaroCategory ($id, $name, $code, $idParent, $rank = null, $visible = 1, $canHaveCoursesChild = 1, $canHaveCatChild = 1)
+    function ClaroCategory ($id = null, $name = null, $code = null, $idParent = null, $rank = null, $visible = 1, $canHaveCoursesChild = 1)
     {
         $this->id                   = $id;
         $this->name                 = $name;
@@ -146,7 +158,7 @@ class ClaroCategory
         $this->rank                 = $rank;
         $this->visible              = $visible;
         $this->canHaveCoursesChild  = $canHaveCoursesChild;
-        $this->canHaveCatChild      = $canHaveCatChild;
+        $this->backlog 				= new Backlog();
     }
     
 
@@ -174,7 +186,6 @@ class ClaroCategory
 	        $this->rank                 = $data['rank'];
 	        $this->visible              = $data['visible'];
 	        $this->canHaveCoursesChild  = $data['canHaveCoursesChild'];
-	        $this->canHaveCatChild      = $data['canHaveCatChild'];
 	        
 	        return true;
         }
@@ -192,20 +203,25 @@ class ClaroCategory
         {
             // No id: it's a new category -> insert
             
-            if( claro_insert_cat_datas($this->name, $this->code, $this->idParent, $this->rank, $this->visible, $this->canHaveCoursesChild, $this->canHaveCatChild) ) 
+            if( claro_insert_cat_datas($this->name, $this->code, $this->idParent, $this->rank, $this->visible, $this->canHaveCoursesChild) ) 
                 return true;
             else 
-                return false;
-            
+            {
+            	claro_failure::set_failure('category_not_saved');
+            	return false;
+            }
         }
         else
         {
             // No id: it's a new category -> update
             
-            if( claro_update_cat_datas($this->id, $this->name, $this->code, $this->idParent, $this->rank, $this->visible, $this->canHaveCoursesChild, $this->canHaveCatChild) ) 
+            if( claro_update_cat_datas($this->id, $this->name, $this->code, $this->idParent, $this->rank, $this->visible, $this->canHaveCoursesChild) ) 
                 return true;
             else 
-                return false;
+            {
+            	claro_failure::set_failure('category_not_saved');
+            	return false;
+            }
         }
     }
     
@@ -266,26 +282,43 @@ class ClaroCategory
             return false;
     }
     
+    
+    /**
+     * Check if the code of the category is unique (doesn't already exists in database)
+     * 
+     * @return boolean: TRUE if the code is unique, FALSE if it's not
+     */
+    public function checkUniqueCode () 
+    {
+        
+        if ( claro_count_code($this->id, $this->code) == 0 ) 
+            return true;
+        else 
+            return false;
+    }
+    
 
     /**
      * Retrieve category data from form and fill current category with it
      */
     public function handleForm ()
     {
-        if ( isset($_REQUEST['name']) )                 $this->title = trim(strip_tags($_REQUEST['name']));
+    	if ( isset($_REQUEST['category_id']) )                 	 $this->id = trim(strip_tags($_REQUEST['category_id']));
+        if ( isset($_REQUEST['category_name']) )                 $this->name = trim(strip_tags($_REQUEST['category_name']));
 
-        if ( isset($_REQUEST['code']) ) // Only capital letters and numbers
+        if ( isset($_REQUEST['category_code']) ) // Only capital letters and numbers
         {
-            $this->code = trim(strip_tags($_REQUEST['code']));
+            $this->code = trim(strip_tags($_REQUEST['category_code']));
             $this->code = preg_replace('/[^A-Za-z0-9_]/', '', $this->code);
             $this->code = strtoupper($this->code);
         }
 
-        if ( isset($_REQUEST['idParent']) )             $this->idParent = trim(strip_tags($_REQUEST['idParent']));
-        if ( isset($_REQUEST['rank']) )                 $this->rank = trim(strip_tags($_REQUEST['rank']));
-        if ( isset($_REQUEST['visible']) )              $this->visible = trim(strip_tags($_REQUEST['visible']));
-        if ( isset($_REQUEST['canHaveCoursesChild']) )  $this->canHaveCoursesChild = trim(strip_tags($_REQUEST['canHaveCoursesChild']));
-        if ( isset($_REQUEST['canHaveCatChild']) )      $this->canHaveCatChild = trim(strip_tags($_REQUEST['canHaveCatChild']));
+        if ( isset($_REQUEST['category_parent']) )               $this->idParent = trim(strip_tags($_REQUEST['category_parent']));
+        
+        if ( isset($_REQUEST['category_rank']) )                 $this->rank = trim(strip_tags($_REQUEST['category_rank']));
+       		
+        if ( isset($_REQUEST['category_visible']) )              $this->visible = trim(strip_tags($_REQUEST['category_visible']));
+        if ( isset($_REQUEST['category_can_have_courses']) )     $this->canHaveCoursesChild = trim(strip_tags($_REQUEST['category_can_have_courses']));
     }
     
 
@@ -309,42 +342,62 @@ class ClaroCategory
         $fieldRequiredStateList['code']                 = true;
         $fieldRequiredStateList['idParent']             = true;
         $fieldRequiredStateList['rank']                 = false;
-        $fieldRequiredStateList['visible ']             = true;
+        $fieldRequiredStateList['visible']              = true;
         $fieldRequiredStateList['canHaveCoursesChild']  = true;
-        $fieldRequiredStateList['canHaveCatChild']      = true;
 
         // Validate category name
-        if ( empty($this->name) && $fieldRequiredStateList['name'] )
+        if ( is_null($this->name) && $fieldRequiredStateList['name'] )
         {
+        	claro_failure::set_failure('category_missing_field_name');
             $this->backlog->failure(get_lang('Category name needed'));
             $success = false ;
         }
 
         // Validate category code
-        if ( empty($this->code) && $fieldRequiredStateList['code'] )
+        if ( is_null($this->code) && $fieldRequiredStateList['code'] )
         {
+        	claro_failure::set_failure('category_missing_field_code');
             $this->backlog->failure(get_lang('Category code needed'));
             $success = false ;
         }
         
-        // Check authorisation to possess courses
-        if ( empty($this->visible) && $fieldRequiredStateList['visible'] )
+        // Check if the code is unique
+        if ( !$this->checkUniqueCode() )
         {
+        	claro_failure::set_failure('category_duplicate_code');
+	       	$this->backlog->failure(get_lang('This category already exists !'));
+            $success = false ;
+        }
+        
+        // Validate parent identifier
+        if ( is_null($this->idParent) && $fieldRequiredStateList['idParent'] )
+        {
+        	claro_failure::set_failure('category_missing_field_idParent');
+            $this->backlog->failure(get_lang('Category parent needed'));
+            $success = false ;
+        }
+        
+        // Category can't be its own parent
+		if ( $this->idParent == $this->id ) 
+		{
+        	claro_failure::set_failure('category_self_linked');
+	       	$this->backlog->failure(get_lang('Category can\'t be its own parent'));
+            $success = false ;
+		}
+        
+        // Check authorisation to possess courses
+        if ( is_null($this->visible) && $fieldRequiredStateList['visible'] )
+        {
+        	claro_failure::set_failure('category_missing_field_visible');
             $this->backlog->failure(get_lang('Visibility of the category must be set'));
             $success = false;
         }
         
         // Check authorisation to possess courses
-        if ( empty($this->canHaveCoursesChild) && $fieldRequiredStateList['canHaveCoursesChild'] )
+        if ( is_null($this->canHaveCoursesChild) && $fieldRequiredStateList['canHaveCoursesChild'] )
         {
+        	claro_failure::set_failure('category_missing_field_canHaveCoursesChild');
             $this->backlog->failure(get_lang('Category must be authorized or not to have courses children'));
-            $success = false;
-        }
-
-        // Check authorisation to have categories
-        if ( empty($this->canHaveCatChild) && $fieldRequiredStateList['canHaveCatChild'] )
-        {
-            $this->backlog->failure(get_lang('Category must be authorized or not to have categories children'));
             $success = false;
         }
 
@@ -366,8 +419,7 @@ class ClaroCategory
         .    'idParent = ' . $this->idParent . "\n"
         .    'rank = ' . $this->rank . "\n"
         .    'visible = ' . $this->visible . "\n"
-        .    'canHaveCoursesChild = ' . $this->canHaveCoursesChild . "\n"
-        .    'canHaveCatChild = ' . $this->canHaveCatChild;
+        .    'canHaveCoursesChild = ' . $this->canHaveCoursesChild . "\n";
         
         return $str;
     }
@@ -381,25 +433,28 @@ class ClaroCategory
      */
     public function displayForm ($cancelUrl=null)
     {
-
         $languageList = claro_get_lang_flat_list();
-        $categoryList = claro_get_cat_list();
+        $categoryList = claroCategory::fetchAllCategories();
 
         // TODO cancelUrl cannot be null
+        
         if ( is_null($cancelUrl) )
             $cancelUrl = get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($this->id);
 
         $html = '';
 
-        $html .= '<form method="post" id="courseSettings" action="' . $_SERVER['PHP_SELF'] . '" >' . "\n"
+        $html .= '<form method="post" id="categorySettings" action="' . $_SERVER['PHP_SELF'] . '" >' . "\n"
             . claro_form_relay_context()
-            . '<input type="hidden" name="cmd" value="'.(empty($this->id)?'rqProgress':'exEdit').'" />' . "\n"
+            . '<input type="hidden" name="cmd" value="' . (empty($this->id)?'exAdd':'exEdit') . '" />' . "\n"
             . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
 
             . $this->getHtmlParamList('POST');
 
         $html .= '<fieldset>' . "\n"
-        .   '<dl>' . "\n";
+        	. '<dl>' . "\n";
+        	
+        // Category identifier
+        $html .= '<input type="hidden" name="category_id" value="' . $this->id . '" />' . "\n";
 
         // Category name
         $html .= '<dt>'
@@ -408,7 +463,7 @@ class ClaroCategory
             . (get_conf('human_label_needed') ? '<span class="required">*</span> ':'') 
             .'</label>&nbsp;:</dt>'
             . '<dd>'
-            . '<input type="text" name="category_name" id="category_name" value="' . htmlspecialchars($this->name) . '" size="60" />'
+            . '<input type="text" name="category_name" id="category_name" value="' . htmlspecialchars($this->name) . '" size="30" maxlength="100" />'
             . (empty($this->id) ? '<br /><small>'.get_lang('e.g. <em>Sciences of Economics</em>').'</small>':'')
             . '</dd>' . "\n" ;
 
@@ -418,19 +473,29 @@ class ClaroCategory
             . get_lang('Category code')
             . '<span class="required">*</span> '
             . '</label>&nbsp;:</dt>'
-            . '<dd><input type="text" id="category_code" name="category_code" value="' . htmlspecialchars($this->code) . '" size="60" maxlength="12" />'
+            . '<dd><input type="text" id="category_code" name="category_code" value="' . htmlspecialchars($this->code) . '" size="30" maxlength="12" />'
             . (empty($this->id) ? '<br /><small>'.get_lang('max. 12 characters, e.g. <em>ROM2121</em>').'</small>':'')
             . '</dd>' . "\n" ;
 
         // Category's parent
         $html .= '<dt>'
             . '<label for="category_parent">' 
-            . get_lang('Category\'s parent') 
+            . get_lang('Parent category') 
             . '</label>&nbsp;:</dt>'
-            . '<dd><input type="text"  id="category_parent" name="category_parent" value="' . htmlspecialchars($this->idParent) . '" size="60" />'
+            . '<dd>'
+            . '<select  id="category_parent" name="category_parent" />'
+            . '<option value="0">' . get_lang("None") . '</option>';		// TODO: in French, manage the feminine gender of "Aucun"
+            
+            foreach ($categoryList as $elmt)
+            {
+            	$html .= '<option value="' . $elmt['id'] . '" ' . ( ( !empty($elmt['id']) && $elmt['id'] == $this->idParent ) ? 'selected="selected"' : null ) . '>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ') </option>';
+            }
+            
+        $html .= '</select>'
             . '</dd>' . "\n" ;
 
         // Category's rank
+        /*
         $html .= '<dt>'
             . '<label for="category_rank">'
             . get_lang('Category\'s rank')
@@ -440,54 +505,46 @@ class ClaroCategory
             . '<dd>'
             . '<input type="text" id="category_rank" name="category_rank" value="' . htmlspecialchars($this->rank) . '" size="60" />'
             . '</dd>' . "\n";
+        */
+        $html .= '<input type="hidden" name="category_rank" value="' . (empty($this->rank)?0:$this->rank) . '" />'."\n";
 
         // Category's visibility
         $html .= '<dt>'
-            . get_lang('Category is visible') 
+            . get_lang('Category visibility') 
             . '<span class="required">*</span> '
             . ' :'
             . '</dt>'
             . '<dd>'
-            . '<input type="radio" id="visible" name="visibility" value="1" ' . ($this->visible == 1 ? 'checked="checked"':'') . ' />'
+            . '<input type="radio" id="visible" name="category_visible" value="1" ' . (( $this->visible == 1 || !isset($this->visible) ) ? 'checked="checked"' : null ) . ' />'
             . '&nbsp;'
             . '<label for="visible">' . get_lang('Visible') . '</label><br/>'
-            . '<input type="radio" id="hidden" name="visibility" value="0" ' . ($this->visible == 0 ? 'checked="checked"':'') . ' />'
+            . '<input type="radio" id="hidden" name="category_visible" value="0" ' . (( $this->visible == 0 && isset($this->visible) ) ? 'checked="checked"' : null ) . ' />'
             . '&nbsp;'
-            . '<label for="chidden">' . get_lang('Hidden') . '</label>'
-            . '<small>'.get_lang('Authorize the category to possess courses or not (opened or closed category)').'</small>'
+            . '<label for="hidden">' . get_lang('Hidden') . '</label>'
             . '</dd>' . "\n" ;
 
         // Category's right to possess courses
         $html .= '<dt>'
-            . get_lang('Category can possess courses') 
+            . get_lang('Can have courses')
             . '<span class="required">*</span> '
             . ' :'
             . '</dt>'
             . '<dd>'
-            . '<input type="radio" id="can_have_courses" name="can_have_courses" value="true" ' . ($this->canHaveCoursesChild == 'true' ? 'checked="checked"':'') . ' />'
+            . '<input type="radio" id="can_have_courses" name="category_can_have_courses" value="1" ' . (( $this->canHaveCoursesChild == 1 || !isset($this->canHaveCoursesChild) ) ? 'checked="checked"':'' ) . ' />'
             . '&nbsp;'
-            . '<label for="can_have_courses">' . get_lang('Allowed to have courses') . '</label><br/>'
-            . '<input type="radio" id="cant_have_courses" name="can_have_courses" value="false" ' . ($this->canHaveCoursesChild == 'false' ? 'checked="checked"':'') . ' />'
+            . '<label for="can_have_courses">' . get_lang('Yes') . '</label><br/>'
+            . '<input type="radio" id="cant_have_courses" name="category_can_have_courses" value="0" ' . (( $this->canHaveCoursesChild == 0 && isset($this->canHaveCoursesChild) ) ? 'checked="checked"':'' ) . ' />'
             . '&nbsp;'
-            . '<label for="cant_have_courses">' . get_lang('Not allowed to have courses') . '</label>'
+            . '<label for="cant_have_courses">' . get_lang('No') . '</label><br/>'
             . '<small>'.get_lang('Authorize the category to possess courses or not (opened or closed category)').'</small>'
             . '</dd>' . "\n" ;
             
-        // Category's right to possess sub categories
-        $html .= '<dt>'
-            . get_lang('Category can have sub categories') 
-            . '<span class="required">*</span> '
-            . ' :'
-            . '</dt>'
-            . '<dd>'
-            . '<input type="radio" id="can_have_categories" name="can_have_categories" value="true" ' . ($this->canHaveCatChild == 'true' ? 'checked="checked"':'') . ' />'
-            . '&nbsp;'
-            . '<label for="can_have_categories">' . get_lang('Allowed to have sub categories') . '</label><br/>'
-            . '<input type="radio" id="cant_have_categories" name="can_have_categories" value="false" ' . ($this->canHaveCatChild == 'false' ? 'checked="checked"':'') . ' />'
-            . '&nbsp;'
-            . '<label for="cant_have_categories">' . get_lang('Not allowed to have sub categories') . '</label>'
-            . '<small>'.get_lang('Authorize the category to have sub categories').'</small>'
-            . '</dd>' . "\n" ;
+        // Form's footer
+        $html .= '</fieldset>' . "\n"
+        	. '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br/>' . "\n"
+			. '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+	        . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+	        . '</form>' . "\n";
 
         return $html;
     }
@@ -590,7 +647,6 @@ class ClaroCategory
         $paramList['category_rank']                = $this->rank;
         $paramList['category_visible']             = $this->visible;
         $paramList['category_canHavecoursesChild'] = $this->canHavecoursesChild;
-        $paramList['category_canHaveCatChild']     = $this->canHaveCatChild;
 
         $paramList = array_merge($paramList, $this->htmlParamList);
 

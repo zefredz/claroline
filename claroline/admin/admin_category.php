@@ -45,42 +45,83 @@ $id    = isset($_REQUEST['categoryId'])?$_REQUEST['categoryId']:null;
 
 // Initialize output
 $out = '';
+		
+// Display page title
+$out .= claro_html_tool_title($nameTools);
 
 
 switch ( $cmd )
 {
-    // Delete an existing category
-    case 'exDelete' :
-        // Code
-    break;
-    
     // Display form to create a new category
     case 'rqAdd' :
-        // Code
+        $category = new claroCategory();
+        $dialogBox->form( $category->displayForm() );
     break;
     
     // Create a new category
     case 'exAdd' :
-        // Code
+        $category = new claroCategory();
+        $category->handleForm();
+        
+        if ( $category->validate() )
+        {
+        	$category->save();
+        	$dialogBox->success( get_lang('Category created') );
+        }
+        else
+        {
+	        if ( claro_failure::get_last_failure() == 'category_duplicate_code')
+	        {
+				$dialogBox->error( get_lang('This code already exists') );
+	        }
+	        elseif ( claro_failure::get_last_failure() == 'category_missing_field')
+	        {
+	        	$dialogBox->error( get_lang('Some fields are missing') );
+	        }
+	        
+	        $dialogBox->form( $category->displayForm() );
+        }
     break;
     
     // Display form to edit a category
     case 'rqEdit' :
-        // Code
+        $category = new claroCategory();
+        $category->load($id);
+        $dialogBox->form( $category->displayForm() );
     break;
     
     // Edit a new category
     case 'exEdit' :
-        // Code
+        $category = new claroCategory();
+        $category->handleForm();
+        
+        if ( $category->validate() )
+        {
+        	$category->save();
+        	$dialogBox->success( get_lang('Category modified') );
+        }
+        else
+        {
+        	echo "<p>".nl2br($category->toString())."</p>";
+	        if ( claro_failure::get_last_failure() == 'category_duplicate_code')
+	        {
+				$dialogBox->error( get_lang('This code already exists') );
+	        }
+	        elseif ( claro_failure::get_last_failure() == 'category_self_linked')
+	        {
+	        	$dialogBox->error( get_lang('Category can\'t be its own parent') );
+	        }
+	        elseif ( claro_failure::get_last_failure() == 'category_missing_field')
+	        {
+	        	$dialogBox->error( get_lang('Some fields are missing') );
+	        }
+	        
+	        $dialogBox->form( $category->displayForm() );
+        }
     break;
     
-    // Display form to move a category in the tree (change parent or rank)
-    case 'rqMove' :
-        // Code
-    break;
-    
-    // Move a category in the tree (change parent or rank)
-    case 'exMove' :
+    // Delete an existing category
+    case 'exDelete' :
         // Code
     break;
     
@@ -126,9 +167,6 @@ switch ( $cmd )
 
 // Display dialog box
 $out .= $dialogBox->render();
-		
-// Display page title
-$out .= claro_html_tool_title($nameTools);
 
 // Display categories array
 $categories = claroCategory::fetchAllCategories();

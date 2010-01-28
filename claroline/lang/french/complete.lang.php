@@ -333,6 +333,7 @@ $_lang['Category name'] = 'Nom de la catégorie';
 $_lang['Category name is required'] = 'Le nom de la catégorie est obligatoire !';
 $_lang['Category needed'] = 'Vous devez choisir une catégorie';
 $_lang['Category updated'] = 'Catégorie mise à jour.';
+$_lang['Category visibility'] = 'Visibilité de la catégorie';
 $_lang['Central Authentication System'] = 'Système d\'authentification centralisé (CAS)';
 $_lang['Centralized Authentication System'] = 'Système d\'authentification centralisé';
 $_lang['Change minimum raw mark to pass this module (percentage) :'] = 'Modifier le score minimum à atteindre pour réussir ce module (pourcentage) : ';
