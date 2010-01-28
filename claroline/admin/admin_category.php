@@ -102,7 +102,6 @@ switch ( $cmd )
         }
         else
         {
-        	echo "<p>".nl2br($category->toString())."</p>";
 	        if ( claro_failure::get_last_failure() == 'category_duplicate_code')
 	        {
 				$dialogBox->error( get_lang('This code already exists') );
@@ -125,24 +124,36 @@ switch ( $cmd )
         // Code
     break;
     
-    // Display form to shift or displace a category
-    case 'rqMoveUp' :
-        // Code
-    break;
-    
-    // Shift or displace category
+    // Shift or displace category (up)
     case 'exMoveUp' :
-        // Code
+        $category = new claroCategory();
+        $category->load($id);
+        $category->lowerRank();
+        
+        if ( claro_failure::get_last_failure() == 'category_no_predecessor')
+        {
+			$dialogBox->error( get_lang('This code can\'t be moved up') );
+        }
+        else
+        {
+        	$dialogBox->success( get_lang('Category moved up') );
+        }
     break;
     
-    // Display form to shift or displace a category
-    case 'rqMoveDown' :
-        // Code
-    break;
-    
-    // Shift or displace category
+    // Shift or displace category (down)
     case 'exMoveDown' :
-        // Code
+        $category = new claroCategory();
+        $category->load($id);
+        $category->higherRank();
+        
+        if ( claro_failure::get_last_failure() == 'category_no_successor')
+        {
+			$dialogBox->error( get_lang('This code can\'t be moved down') );
+        }
+        else
+        {
+        	$dialogBox->success( get_lang('Category moved down') );
+        }
     break;
     
     // Change the visibility of a category
@@ -189,7 +200,6 @@ $out .=
 .    '<th>' . get_lang('Courses') . '</th>' . "\n"
 .    '<th>' . get_lang('Visibility') . '</th>' . "\n"
 .    '<th>' . get_lang('Edit') . '</th>' . "\n"
-.    '<th>' . get_lang('Move') . '</th>' . "\n"
 .    '<th>' . get_lang('Delete') . '</th>' . "\n"
 .    '<th colspan="2">' . get_lang('Order') . '</th>'."\n"
 .    '</tr>' . "\n"
@@ -199,6 +209,7 @@ $out .=
 $out .= 
 	'<tbody>' . "\n";
 
+//TODO: hide uparrows and downarrows when they are useless/ineffective (get_icon_url('move_up/down'))
 foreach ($categories as $elmt)
 {
     $out .=
@@ -216,23 +227,18 @@ foreach ($categories as $elmt)
     .   	'</a>'
     .   '</td>'
 	.   '<td align="center">'
-	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMove&amp;categoryId=' . $elmt['id'] . '">' . "\n"
-    .   	'<img src="' . get_icon_url('move') . '" alt="Move category" />' . "\n"
-    .   	'</a>'
-    .   '</td>'
-	.   '<td align="center">'
-	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqDelete&amp;categoryId=' . $elmt['id']
+	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;categoryId=' . $elmt['id']
 	.		' onclick="return confirmation(\'' . clean_str_for_javascript($elmt['name']) . '\');">' . "\n"
     .   	'<img src="' . get_icon_url('delete') . '" alt="Delete category" />' . "\n"
     .   	'</a>'
     .   '</td>'
 	.   '<td align="center">'
-	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMoveUp&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveUp&amp;categoryId=' . $elmt['id'] . '">' . "\n"
     .   	'<img src="' . get_icon_url('move_up') . '" alt="Move up category" />' . "\n"
     .   	'</a>'
     .   '</td>'
 	.   '<td align="center">'
-	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMoveDown&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveDown&amp;categoryId=' . $elmt['id'] . '">' . "\n"
     .   	'<img src="' . get_icon_url('move_down') . '" alt="Move down category" />' . "\n"
     .   	'</a>'
     .   '</td>'

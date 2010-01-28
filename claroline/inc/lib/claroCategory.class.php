@@ -27,46 +27,46 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * Adaptation of the previous table `faculte` (becoming `category`)
  * ----------------------------------------------------------------
  * 
- * RENAME TABLE `db_name`.`prefix_faculte`  TO `db_name`.`prefix_category` ;
+ * RENAME TABLE `db_name`.`PREFIX_faculte`  TO `db_name`.`PREFIX_category` ;
  * 
- * ALTER TABLE `cl_faculte` CHANGE `code_P` `idParent` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL ; 
- * ALTER TABLE `cl_faculte` CHANGE `treePos` `rank` INT( 11 ) NOT NULL DEFAULT '0' ;
+ * ALTER TABLE `PREFIX_category` CHANGE `code_P` `idParent` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL ; 
+ * ALTER TABLE `PREFIX_category` CHANGE `treePos` `rank` INT( 11 ) NOT NULL DEFAULT '0' ;
  * /!\ Conversion of 'TRUE'/'FALSE' values into '1'/'0' !  Then: 
- * ALTER TABLE `cl_course_category` CHANGE `canHaveCoursesChild` `canHaveCoursesChild` TINYINT( 1 ) NOT NULL DEFAULT '1' ;
- * ALTER TABLE `cl_category` DROP `canHaveCatChild` ;
- * ALTER TABLE `cl_course_category` DROP INDEX `code_P` ;
- * ALTER TABLE `cl_course_category` DROP INDEX `treePos` ;
- * ALTER TABLE `cl_course_category` DROP INDEX `code` ;
- * ALTER TABLE `cl_course_category` ADD UNIQUE (`code`) ;
+ * ALTER TABLE `PREFIX_category` CHANGE `canHaveCoursesChild` `canHaveCoursesChild` TINYINT( 1 ) NOT NULL DEFAULT '1' ;
+ * ALTER TABLE `PREFIX_category` DROP `canHaveCatChild` ;
+ * ALTER TABLE `PREFIX_category` DROP INDEX `code_P` ;
+ * ALTER TABLE `PREFIX_category` DROP INDEX `treePos` ;
+ * ALTER TABLE `PREFIX_category` DROP INDEX `code` ;
+ * ALTER TABLE `PREFIX_category` ADD UNIQUE (`code`) ;
  * /!\ Conversion of CODES into IDS !  Then: 
- * ALTER TABLE `cl_course_category` CHANGE `idParent` `idParent` INT( 11 ) NOT NULL DEFAULT '0' ;
- * ALTER TABLE `cl_category` DROP `nb_childs` ;
+ * ALTER TABLE `PREFIX_category` CHANGE `idParent` `idParent` INT( 11 ) NOT NULL DEFAULT '0' ;
+ * ALTER TABLE `PREFIX_category` DROP `nb_childs` ;
  *  
  *  
  * 
  * Creation of the join table `rel_course_category`
  * ------------------------------------------------
  * 
- * CREATE TABLE `db_name`.`prefix_rel_course_category` (
+ * CREATE TABLE `db_name`.`PREFIX_rel_course_category` (
  * `idCourse` INT NOT NULL ,
  * `idCategory` INT NOT NULL ,
  * `rootCourse` BOOL NOT NULL DEFAULT '0'
  * ) ENGINE = MYISAM ;
- * ALTER TABLE `db_name`.`prefix_rel_course_category` ADD PRIMARY KEY ( `idCourse` , `idCategory` ) ;
+ * ALTER TABLE `db_name`.`PREFIX_rel_course_category` ADD PRIMARY KEY ( `idCourse` , `idCategory` ) ;
  * 
  * 
  * 
  * Adaptation of the previous table `cours`
  * ----------------------------------------
  * 
- * ALTER TABLE `db_name`.`prefix_cours` DROP `faculte` ;
+ * ALTER TABLE `db_name`.`PREFIX_cours` DROP `faculte` ;
  * 
  * 
  * 
  * Datas for testing purpose
  * -------------------------
  * 
- * INSERT INTO `db_name`.`prefix_category` (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`, `canHaveCatChild`) VALUES
+ * INSERT INTO `db_name`.`PREFIX_category` (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`, `canHaveCatChild`) VALUES
  * (1, 'Sciences', 'SC', 0, 1, 1, 1, 1),
  * (2, 'Economics', 'ECO', 0, 2, 1, 1, 1),
  * (3, 'Humanities', 'HUMA', 0, 3, 1, 1, 1),
@@ -76,7 +76,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * (7, 'Géologie', 'GEO', 1, 2, 1, 1, 1),
  * (8, 'Macro Economie', 'MACROECO', 2, 1, 1, 1, 1) ;
  * 
- * INSERT INTO `db_name`.`prefix_rel_course_category` (`courseId`, `categoryId`, `rootCourse`) VALUES
+ * INSERT INTO `db_name`.`PREFIX_rel_course_category` (`courseId`, `categoryId`, `rootCourse`) VALUES
  * (1, 1, 0),
  * (2, 6, 0),
  * (3, 6, 0) ;
@@ -280,6 +280,73 @@ class ClaroCategory
             return true;
         else 
             return false;
+    }
+    
+    
+    /**
+     * Exchange category's position with previous category of the same level
+     * 
+     * @return boolean success
+     */
+    public function lowerRank () 
+    {
+		// Get the id of the previous category (if any)
+		$idSwapCategory = claro_get_previous_cat_datas($this->rank, $this->idParent);
+		if (!empty($idSwapCategory))
+		{
+			$this->exchangeRanks($idSwapCategory);
+			return true;
+		}
+		else
+		{
+            claro_failure::set_failure('category_no_predecessor');
+            return false;
+		}
+    }
+    
+    
+    /**
+     * Exchange category's position with following category of the same level
+     * 
+     * @return boolean success
+     */
+    public function higherRank () 
+    {
+		// Get the id of the following category (if any)
+		$idSwapCategory = claro_get_following_cat_datas($this->rank, $this->idParent);
+		if (!empty($idSwapCategory))
+		{
+			$this->exchangeRanks($idSwapCategory);
+			return true;
+		}
+		else
+		{
+            claro_failure::set_failure('category_no_successor');
+            return false;
+		}
+    }
+    
+    
+    /**
+     * Exchange ranks between the current category and another one 
+     * and save the modification in database.
+     * 
+     * @param $id identifier of the other category
+     */
+    public function exchangeRanks ($id)
+    {
+    	// Get the other category
+		$swapCategory = new claroCategory();
+		$swapCategory->load($id);
+		
+		// Exchange the ranks
+		$tempRank = $this->rank;
+		$this->rank = $swapCategory->rank;
+		$swapCategory->rank = $tempRank;
+		
+		// Save the modifications
+		$this->save();
+		$swapCategory->save();
     }
     
     
@@ -488,7 +555,7 @@ class ClaroCategory
             
             foreach ($categoryList as $elmt)
             {
-            	$html .= '<option value="' . $elmt['id'] . '" ' . ( ( !empty($elmt['id']) && $elmt['id'] == $this->idParent ) ? 'selected="selected"' : null ) . '>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ') </option>';
+            	$html .= '<option value="' . $elmt['id'] . '" ' . ( ( !empty($elmt['id']) && $elmt['id'] == $this->idParent ) ? 'selected="selected"' : null ) . ( ( !empty($elmt['id']) && $elmt['id'] == $this->id ) ? 'disabled="disabled"' : null ) . '>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ') </option>';
             }
             
         $html .= '</select>'

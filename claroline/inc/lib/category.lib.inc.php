@@ -4,7 +4,7 @@
  * Get datas for a category
  * 
  * @param $id identifier of the category
- * @return $array containing datas
+ * @return $array containing category datas
  */
 function claro_get_cat_datas($id)
 {
@@ -25,7 +25,122 @@ function claro_get_cat_datas($id)
 			WHERE c.id = '" . claro_sql_escape($id) . "'";
 	
 	return claro_sql_query_get_single_row($sql);
+}
+
+
+/**
+ * Return the predecessor of a specified category (based on the rank attribute).  Ranks can 
+ * be discontinued (1, 2, 4, 7, ...), so we can't just perform a $rank-1 to get the direct 
+ * predecessor of a category.
+ * 
+ * @param $rank of the category that you want the predecessor
+ * @param $idParent of the category that you want the predecessor
+ * @return int $id of the direct predecessor (if any)
+ */
+function claro_get_previous_cat_datas($rank, $idParent)
+{
+	// Get table name
+	$tbl_mdb_names   = claro_sql_get_main_tbl();
+	$tbl_category    = $tbl_mdb_names['category_dev'];
 	
+	// Retrieve all the predecessors
+	$sql = "SELECT id 
+			FROM `" . $tbl_category . "` 
+			WHERE idParent = '" . claro_sql_escape($idParent) . "'
+			AND rank < '" . claro_sql_escape($rank) . "'
+			ORDER BY `rank` ASC";
+	
+	$result = claro_sql_query_fetch_all($sql);
+	
+	// Are there any predecessors ?	
+	$nbPredecessors = count($result);
+	
+	if ( $nbPredecessors > 0 )
+	{
+		// Get the closest predecessor
+		return $result[$nbPredecessors-1]['id'];
+	}
+	else 
+	{
+		return false;
+	}
+}
+
+
+/**
+ * Return the successor of a specified category (based on the rank attribute).  Ranks can 
+ * be discontinued (1, 2, 4, 7, ...), so we can't just perform a $rank+1 to get the direct 
+ * successor of a category.
+ * 
+ * @param $rank of the category that you want the successor
+ * @param $idParent of the category that you want the successor
+ * @return int $id of the direct successor (if any)
+ */
+function claro_get_following_cat_datas($rank, $idParent)
+{
+	// Get table name
+	$tbl_mdb_names   = claro_sql_get_main_tbl();
+	$tbl_category    = $tbl_mdb_names['category_dev'];
+	
+	// Retrieve all the successors
+	$sql = "SELECT id
+			FROM `" . $tbl_category . "` 
+			WHERE idParent = '" . claro_sql_escape($idParent) . "'
+			AND rank > '" . claro_sql_escape($rank) . "'
+			ORDER BY `rank` ASC";
+	
+	$result = claro_sql_query_fetch_all($sql);
+	
+	// Are there any successors ?	
+	$nbSuccessors = count($result);
+	
+	if ( $nbSuccessors > 0 )
+	{
+		// Get the closest predecessor
+		return $result[0]['id'];
+	}
+	else 
+	{
+		return false;
+	}
+}
+
+
+/**
+ * Return an array containing all the categories from the node $parent
+ *
+ * @param $parent the parent from wich we want to get the categories tree
+ * @param $level the level where we start (default: 0)
+ * @return $result_array containing all the categories organized hierarchically and ordered by rank
+ */
+function claro_get_all_categories($parent, $level = '0')
+{
+    // Get table name
+    $tbl_mdb_names             = claro_sql_get_main_tbl();
+    $tbl_category              = $tbl_mdb_names['category_dev'];
+    $tbl_rel_course_category   = $tbl_mdb_names['rel_course_category'];
+    
+	// Retrieve all children of the id $parent
+	$sql = "SELECT COUNT(rcc.courseId) AS nbCourses, c.id, c.name, c.code, c.idParent, c.rank, c.visible, c.canHaveCoursesChild 
+			FROM `" . $tbl_category . "` AS c LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
+			ON rcc.categoryId = c.id
+			WHERE idParent = '" . claro_sql_escape($parent) . "'
+			GROUP BY c.`id`
+			ORDER BY c.`rank`";
+	
+	$result = claro_sql_query_fetch_all($sql);
+	$result_array = array();
+	
+	//Get each child
+	foreach ( $result as $row ) 
+	{
+		$row['level'] = $level;
+		$result_array[] = $row;
+		// call this function again to display the next level of the tree
+		$result_array = array_merge( $result_array, claro_get_all_categories($row['id'], $level+1) );
+	}
+	
+	return $result_array;
 }
 
 
@@ -98,6 +213,7 @@ function claro_update_cat_datas($id, $name, $code, $idParent, $rank, $visible, $
 	    $sql = "UPDATE `" . $tbl_category . "` SET
 	            `name`					= '" . claro_sql_escape($name) . "',
 	            `code`					= '" . claro_sql_escape($code) . "',
+	            `rank`					= '" . claro_sql_escape($rank) . "',
 	            `visible`				= '" . (is_null(claro_sql_escape($visible))?(1):(0)) . "',
 	            `canHaveCoursesChild`	= '" . (is_null(claro_sql_escape($canHaveCoursesChild))?(1):(0)) . "'
 	            WHERE id = '" . claro_sql_escape($id) . "'";
@@ -146,44 +262,6 @@ function claro_delete_cat_datas($id)
 
 
 /**
- * Return an array containing all the categories from the node $parent
- *
- * @param $parent the parent from wich we want to get the categories tree
- * @param $level the level where we start (default: 0)
- * @return $result_array containing all the categories organized hierarchically and ordered by rank
- */
-function claro_get_all_categories($parent, $level = '0')
-{
-    // Get table name
-    $tbl_mdb_names             = claro_sql_get_main_tbl();
-    $tbl_category              = $tbl_mdb_names['category_dev'];
-    $tbl_rel_course_category   = $tbl_mdb_names['rel_course_category'];
-    
-	//Retrieve all children of the id $parent
-	$sql = "SELECT COUNT(rcc.courseId) AS nbCourses, c.id, c.name, c.code, c.idParent, c.rank, c.visible, c.canHaveCoursesChild 
-			FROM `" . $tbl_category . "` AS c LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
-			ON rcc.categoryId = c.id
-			WHERE idParent='" . claro_sql_escape($parent) . "'
-			GROUP BY c.`id`
-			ORDER BY c.`rank`";
-	
-	$result = claro_sql_query_fetch_all($sql);
-	$result_array = array();
-	
-	//Get each child
-	foreach ( $result as $row ) 
-	{
-		$row['level'] = $level;
-		$result_array[] = $row;
-		// call this function again to display the next level of the tree
-		$result_array = array_merge( $result_array, claro_get_all_categories($row['id'], $level+1) );
-	}
-	
-	return $result_array;
-}
-
-
-/**
  * Update the visibility value for a category
  * 
  * @param $id identifier of the category
@@ -221,6 +299,7 @@ function claro_count_category_courses($id)
     
     return claro_sql_query_get_single_row($sql);
 }
+
 
 /**
  * Count the number of categories having a specific value for the code attribute.  You can ignore 
