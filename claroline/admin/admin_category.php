@@ -5,11 +5,10 @@
  *
  * Management tools for categories' tree
  *
- * @version 1.9 $Revision: 11765 $
+ * @version 1.10 $Revision: 11765 $
  * @copyright 2001-2010 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see http://www.claroline.net/wiki/index.php/CLTREE
- * @package 
+ * @author Claro Team <cvs@claroline.net>
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  */
 
@@ -42,6 +41,18 @@ $nameTools = get_lang('Categories');
 // Get the cmd and id arguments
 $cmd   = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
 $id    = isset($_REQUEST['categoryId'])?$_REQUEST['categoryId']:null;
+
+// Javascript confirm pop up declaration for header
+$htmlHeadXtra[] =
+'<script>
+function confirmation (name)
+{
+    if (confirm("' . clean_str_for_javascript(get_lang('Are you sure to delete')) . '"+\' \'+ name + "? "))
+        {return true;}
+    else
+        {return false;}
+}
+</script>';
 
 // Initialize output
 $out = '';
@@ -110,6 +121,10 @@ switch ( $cmd )
 	        {
 	        	$dialogBox->error( get_lang('Category can\'t be its own parent') );
 	        }
+	        elseif ( claro_failure::get_last_failure() == 'category_child_linked')
+	        {
+	        	$dialogBox->error( get_lang('Category can\'t be linked to one of its own children') );
+	        }
 	        elseif ( claro_failure::get_last_failure() == 'category_missing_field')
 	        {
 	        	$dialogBox->error( get_lang('Some fields are missing') );
@@ -121,7 +136,10 @@ switch ( $cmd )
     
     // Delete an existing category
     case 'exDelete' :
-        // Code
+        $category = new claroCategory();
+        $category->load($id);
+        $category->delete();
+        
     break;
     
     // Shift or displace category (up)
@@ -132,7 +150,7 @@ switch ( $cmd )
         
         if ( claro_failure::get_last_failure() == 'category_no_predecessor')
         {
-			$dialogBox->error( get_lang('This code can\'t be moved up') );
+			$dialogBox->error( get_lang('This category can\'t be moved up') );
         }
         else
         {
@@ -148,7 +166,7 @@ switch ( $cmd )
         
         if ( claro_failure::get_last_failure() == 'category_no_successor')
         {
-			$dialogBox->error( get_lang('This code can\'t be moved down') );
+			$dialogBox->error( get_lang('This category can\'t be moved down') );
         }
         else
         {
@@ -227,7 +245,7 @@ foreach ($categories as $elmt)
     .   	'</a>'
     .   '</td>'
 	.   '<td align="center">'
-	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;categoryId=' . $elmt['id']
+	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;categoryId=' . $elmt['id'] . '"'
 	.		' onclick="return confirmation(\'' . clean_str_for_javascript($elmt['name']) . '\');">' . "\n"
     .   	'<img src="' . get_icon_url('delete') . '" alt="Delete category" />' . "\n"
     .   	'</a>'

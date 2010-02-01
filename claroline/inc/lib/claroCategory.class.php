@@ -5,16 +5,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * Category Class
+ * claroCategory Class
  *
- * @version 1.9 $Revision: 11894 $
+ * @version 1.10 $Revision: 11894 $
  *
- * @copyright 2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2010 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package Kernel
  * @author Claro Team <cvs@claroline.net>
- * @author Mathieu Laurent <laurent@cerdecam.be>
- * @author Sebastien Piraux <piraux@cerdecam.be>
+ * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  */
 
 
@@ -22,7 +20,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * 
  * Development notes
- * =================
+ * /////////////////
+ * 
+ * Database
+ * ========
  * 
  * Adaptation of the previous table `faculte` (becoming `category`)
  * ----------------------------------------------------------------
@@ -63,24 +64,75 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * 
  * 
  * 
+ * Structures for testing purpose
+ * ------------------------------
+ * 
+
+--
+-- Structure of table `db_name`.`PREFIX_category`
+--
+
+CREATE TABLE IF NOT EXISTS `PREFIX_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `code` varchar(12) NOT NULL DEFAULT '',
+  `idParent` int(11) NOT NULL DEFAULT '0',
+  `rank` int(11) NOT NULL DEFAULT '0',
+  `visible` tinyint(1) NOT NULL DEFAULT '1',
+  `canHaveCoursesChild` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+
+--
+-- Structure of table `db_name`.`PREFIX_rel_course_category`
+--
+
+CREATE TABLE IF NOT EXISTS `PREFIX_rel_course_category` (
+  `courseId` int(11) NOT NULL,
+  `categoryId` int(11) NOT NULL,
+  `rootCourse` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`courseId`,`categoryId`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+ * 
  * Datas for testing purpose
  * -------------------------
  * 
- * INSERT INTO `db_name`.`PREFIX_category` (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`, `canHaveCatChild`) VALUES
- * (1, 'Sciences', 'SC', 0, 1, 1, 1, 1),
- * (2, 'Economics', 'ECO', 0, 2, 1, 1, 1),
- * (3, 'Humanities', 'HUMA', 0, 3, 1, 1, 1),
- * (4, 'Informatique', 'INFO', 0, 4, 1, 1, 1),
- * (5, 'Physique', 'PHY', 1, 3, 1, 1, 1),
- * (6, 'Chimie', 'CHIM', 1, 1, 1, 1, 1),
- * (7, 'Géologie', 'GEO', 1, 2, 1, 1, 1),
- * (8, 'Macro Economie', 'MACROECO', 2, 1, 1, 1, 1) ;
+
+--
+-- Content of table `db_name`.`PREFIX_category`
+--
+
+INSERT INTO `PREFIX_category` (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) VALUES
+(1, 'Sciences', 'SC', 0, 6, 1, 0),
+(2, 'Economics', 'ECO', 0, 5, 1, 0),
+(3, 'Humanities', 'HUMA', 0, 3, 1, 1),
+(4, 'Informatique', 'INFO', 0, 4, 1, 1),
+(5, 'Physique', 'PHY', 1, 1, 1, 1),
+(6, 'Chimie', 'CHIM', 1, 1, 1, 0),
+(7, 'Géologie', 'GEO', 1, 2, 1, 0),
+(8, 'Macro Economie', 'MACROECO', 2, 1, 1, 1),
+(9, 'Catégorie cachée', 'CATCACH', 5, 1, 1, 0),
+(18, 'Test 1', 'TEST1', 9, 1, 1, 0),
+(19, 'Test 2', 'TEST2', 9, 2, 1, 1),
+(20, 'Test 3', 'TEST3', 9, 3, 1, 1),
+(21, 'Intro aux faits et mécanismes économiques', 'INTROFME', 2, 2, 1, 1);
+
+--
+-- Content of table `db_name`.`PREFIX_rel_course_category`
+--
+
+INSERT INTO `PREFIX_rel_course_category` (`courseId`, `categoryId`, `rootCourse`) VALUES
+(1, 1, 0),
+(2, 6, 0),
+(3, 6, 0);
+
+
  * 
- * INSERT INTO `db_name`.`PREFIX_rel_course_category` (`courseId`, `categoryId`, `rootCourse`) VALUES
- * (1, 1, 0),
- * (2, 6, 0),
- * (3, 6, 0) ;
- * 
+ * Tasks
+ * =====
  * 
  * TODO: stuff to fix before definitive update
  * -------------------------------------------
@@ -97,12 +149,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * * What's the best way managing and displaying: (1) the number of courses in a category and 
  *   (2) the number of categories in a category ?
  * * What's the purpose of variable $cancelUrl ?
+ * * Fold/Unfold categories: is it necessary ?
  * 
  * 
  * Regarding users: main modifications
- * -----------------------------------
+ * ===================================
  * 
  * * If you want to change the parent of a category, you have to use the "Edit" function (there is no more "Move/Displace" function)
+ * * The menu has been improved (a little more user friendly: disabled valors in the drop down list, ...)
  *
  */
 
@@ -357,8 +411,24 @@ class ClaroCategory
      */
     public function checkUniqueCode () 
     {
-        
         if ( claro_count_code($this->id, $this->code) == 0 ) 
+            return true;
+        else 
+            return false;
+    }
+    
+    
+    /**
+     * Check if the specified category is a child of the current category
+     * 
+     * @param $id the identifier of the category we want to check
+     * @return boolean: TRUE if the specified category is the child of the current category
+     */
+    public function checkIsChild ($id) 
+    {
+     	$ids = claro_get_parents_ids($id);
+     	 
+        if ( in_array($this->id, $ids) ) 
             return true;
         else 
             return false;
@@ -449,6 +519,14 @@ class ClaroCategory
 		{
         	claro_failure::set_failure('category_self_linked');
 	       	$this->backlog->failure(get_lang('Category can\'t be its own parent'));
+            $success = false ;
+		}
+        
+        // Category can't be linked to one of its own children
+		if ( $this->checkIsChild($this->idParent) ) 
+		{
+        	claro_failure::set_failure('category_child_linked');
+	       	$this->backlog->failure(get_lang('Category can\'t be linked to one of its own children'));
             $success = false ;
 		}
         
@@ -553,9 +631,27 @@ class ClaroCategory
             . '<select  id="category_parent" name="category_parent" />'
             . '<option value="0">' . get_lang("None") . '</option>';		// TODO: in French, manage the feminine gender of "Aucun"
             
+            $disabled = false;
+            $tempLevel = null;
             foreach ($categoryList as $elmt)
             {
-            	$html .= '<option value="' . $elmt['id'] . '" ' . ( ( !empty($elmt['id']) && $elmt['id'] == $this->idParent ) ? 'selected="selected"' : null ) . ( ( !empty($elmt['id']) && $elmt['id'] == $this->id ) ? 'disabled="disabled"' : null ) . '>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ') </option>';
+            	// Enable/disable elements in the drop down list
+            	if ( !empty($elmt['id']) && $elmt['id'] == $this->id )
+            	{
+            		$disabled = true;
+            		$tempLevel = $elmt['level'];
+            	}
+            	elseif ( isset($tempLevel) && $elmt['level'] > $tempLevel )
+            	{
+            		$disabled = true;
+            	}
+            	else
+            	{
+            		$disabled = false;
+            		$tempLevel = null;
+            	}
+            	
+            	$html .= '<option value="' . $elmt['id'] . '" ' . ( ( !empty($elmt['id']) && $elmt['id'] == $this->idParent ) ? 'selected="selected"' : null ) . ( ( $disabled ) ? 'disabled="disabled"' : null ) . '>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ') </option>';
             }
             
         $html .= '</select>'

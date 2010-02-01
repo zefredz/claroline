@@ -1,8 +1,9 @@
-<?php // $Id$
+<?php
+
 /**
  * CLAROLINE
  *
- * This tool can edit category tree
+ * This tool can edit category tree (v 1.9x) / Replaced by admin_category.php (v 1.10)
  *
  * @version 1.9 $Revision$
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)

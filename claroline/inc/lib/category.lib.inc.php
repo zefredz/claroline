@@ -1,6 +1,19 @@
 <?php
 
 /**
+ * CLAROLINE
+ *
+ * SQL requests for claroCategory Class
+ *
+ * @version 1.10 $Revision: 11894 $
+ *
+ * @copyright 2001-2010 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author Claro Team <cvs@claroline.net>
+ * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
+ */
+
+/**
  * Get datas for a category
  * 
  * @param $id identifier of the category
@@ -107,7 +120,7 @@ function claro_get_following_cat_datas($rank, $idParent)
 
 
 /**
- * Return an array containing all the categories from the node $parent
+ * Return all the categories from the node $parent
  *
  * @param $parent the parent from wich we want to get the categories tree
  * @param $level the level where we start (default: 0)
@@ -131,13 +144,44 @@ function claro_get_all_categories($parent, $level = '0')
 	$result = claro_sql_query_fetch_all($sql);
 	$result_array = array();
 	
-	//Get each child
+	// Get each child
 	foreach ( $result as $row ) 
 	{
 		$row['level'] = $level;
 		$result_array[] = $row;
-		// call this function again to display the next level of the tree
+		// Call this function again to get the next level of the tree
 		$result_array = array_merge( $result_array, claro_get_all_categories($row['id'], $level+1) );
+	}
+	
+	return $result_array;
+}
+
+
+/**
+ * Return the identifiers of all the parents of a category
+ *
+ * @param $id identifier of the specified category
+ * @return $result_array containing all the identifiers of the parents
+ */
+function claro_get_parents_ids($id)
+{
+    // Get table name
+    $tbl_mdb_names             = claro_sql_get_main_tbl();
+    $tbl_category              = $tbl_mdb_names['category_dev'];
+    
+	// Retrieve parent of the category
+	$sql = "SELECT idParent
+			FROM `" . $tbl_category . "`
+			WHERE id = '" . claro_sql_escape($id) . "'";
+	
+	$result = claro_sql_query_get_single_row($sql);
+	$result_array = array();
+	
+	// Keep going up until reaching the root
+	if ( $result['idParent'] != 0 )
+	{
+		$result_array[] = $result['idParent'];
+		$result_array = array_merge( $result_array, claro_get_parents_ids($result['idParent']) );
 	}
 	
 	return $result_array;
@@ -168,15 +212,14 @@ function claro_insert_cat_datas($name, $code, $idParent, $rank, $visible, $canHa
 	
 	$result = claro_sql_query_get_single_row($sql);
 	$newRank = $result['maxRank'] + 1;
-	mysql_free_result($result);
 	
     $sql = "INSERT INTO `" . $tbl_category . "` SET 
             `name`					= '" . claro_sql_escape($name) . "',
             `code`					= '" . claro_sql_escape($code) . "',
-            `idParent`				= '" . (is_null(claro_sql_escape($idParent))?(0):(claro_sql_escape($idParent))) . "', 
+            `idParent`				= '" . claro_sql_escape($idParent) . "', 
             `rank`					= '" . $newRank. "',
-            `visible`				= '" . (is_null(claro_sql_escape($visible))?(1):(0)) . "',
-            `canHaveCoursesChild`	= '" . (is_null(claro_sql_escape($canHaveCoursesChild))?(1):(0)) . "'";
+            `visible`				= '" . claro_sql_escape($visible) . "',
+            `canHaveCoursesChild`	= '" . claro_sql_escape($canHaveCoursesChild) . "'";
     
     return claro_sql_query($sql);
 }
@@ -214,13 +257,13 @@ function claro_update_cat_datas($id, $name, $code, $idParent, $rank, $visible, $
 	            `name`					= '" . claro_sql_escape($name) . "',
 	            `code`					= '" . claro_sql_escape($code) . "',
 	            `rank`					= '" . claro_sql_escape($rank) . "',
-	            `visible`				= '" . (is_null(claro_sql_escape($visible))?(1):(0)) . "',
-	            `canHaveCoursesChild`	= '" . (is_null(claro_sql_escape($canHaveCoursesChild))?(1):(0)) . "'
+	            `visible`				= '" . claro_sql_escape($visible) . "',
+	            `canHaveCoursesChild`	= '" . claro_sql_escape($canHaveCoursesChild) . "'
 	            WHERE id = '" . claro_sql_escape($id) . "'";
 	}
 	else // Parent has changed
 	{
-		// Get the higher rank for the designated parent
+		// Get the higher rank for the designated new parent
 		$sql = "SELECT MAX(rank) AS maxRank 
 				FROM `" . $tbl_category . "` 
 				WHERE idParent='" . claro_sql_escape($idParent) . "'";
@@ -231,10 +274,10 @@ function claro_update_cat_datas($id, $name, $code, $idParent, $rank, $visible, $
 	    $sql = "UPDATE `" . $tbl_category . "` SET
 	            `name`					= '" . claro_sql_escape($name) . "',
 	            `code`					= '" . claro_sql_escape($code) . "',
-	            `idParent`				= '" . (is_null(claro_sql_escape($idParent))?(0):(claro_sql_escape($idParent))) . "', 
+	            `idParent`				= '" . claro_sql_escape($idParent) . "', 
 	            `rank`					= '" . $newRank. "',
-	            `visible`				= '" . (is_null(claro_sql_escape($visible))?(1):(0)) . "',
-	            `canHaveCoursesChild`	= '" . (is_null(claro_sql_escape($canHaveCoursesChild))?(1):(0)) . "'
+	            `visible`				= '" . claro_sql_escape($visible) . "',
+	            `canHaveCoursesChild`	= '" . claro_sql_escape($canHaveCoursesChild) . "'
 	            WHERE id = '" . claro_sql_escape($id) . "'";
 	}
     

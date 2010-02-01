@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * this tool manage the
+ * This tool manages the classes
  *
  * @version 1.9 $Revision$
  *
@@ -11,10 +11,10 @@
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author  Guillaume Lederer <lederer@cerdecam.be>
+ * @author Guillaume Lederer <lederer@cerdecam.be>
  */
 
-//used libraries
+// Used libraries
 
 require '../inc/claro_init_global.inc.php';
 
@@ -29,7 +29,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // DB tables definition
 
-$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_mdb_names 	= claro_sql_get_main_tbl();
 $tbl_class      = $tbl_mdb_names['user_category'];
 
 // USED SESSION VARIABLES
@@ -38,14 +38,16 @@ if ( !isset($_SESSION['admin_visible_class']))
 {
     $_SESSION['admin_visible_class'] = array();
 }
+
 // Dialogbox
 $dialogBox = new DialogBox();
-// Deal with interbredcrumps  and title variable
+
+// Deal with interbreadcrumbs and title variable
 
 $nameTools = get_lang('Classes');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
-// javascript confirm pop up declaration for header
+// Javascript confirm pop up declaration for header
 
 $htmlHeadXtra[] =
 '<script>
