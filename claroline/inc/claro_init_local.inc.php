@@ -203,10 +203,8 @@ if ( count( get_included_files() ) == 1 )
 
 FromKernel::uses('auth/authmanager.lib','kernel/user.lib','core/claroline.lib');
 
-// require claro_get_conf_repository() .  'auth.drivers.conf.php';
-
+// Load authentication config files
 require_once claro_get_conf_repository() .  'auth.sso.conf.php';
-// require_once claro_get_conf_repository() .  'auth.cas.conf.php';
 require_once claro_get_conf_repository() .  'auth.extra.conf.php';
 
 // CAS INIT ( PROBABLY BROKEN !!!! )
