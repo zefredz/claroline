@@ -209,8 +209,8 @@ require_once claro_get_conf_repository() .  'auth.sso.conf.php';
 // require_once claro_get_conf_repository() .  'auth.cas.conf.php';
 require_once claro_get_conf_repository() .  'auth.extra.conf.php';
 
-/* // INIT CAS
-if ( get_conf('claro_extauth_sso_system','cas') != '' )
+// CAS INIT ( PROBABLY BROKEN !!!! )
+if ( get_conf('claro_extauth_sso_system','cas') != '' ) // ???? Not Sure To Understand This Condition !
 {
     $ext_auth_sso_file = realpath(claro_get_conf_repository() . 'auth.' . get_conf('claro_extauth_sso_system','cas') . '.conf.php');
 
@@ -218,7 +218,7 @@ if ( get_conf('claro_extauth_sso_system','cas') != '' )
     {
         require_once $ext_auth_sso_file;
     }
-}*/
+}
 
 /*===========================================================================
   Set claro_init_local.inc.php variables coming from HTTP request into the
@@ -306,11 +306,11 @@ $currentUser = false;
 
 if ( $logout && !empty($_SESSION['_uid']) )
 {
-    /*// logout from CAS server
+    // CAS LOGOUT ( PROBABLY BROKEN !!!! )
     if ( get_conf('claro_CasEnabled', false) && get_conf('claro_CasGlobalLogout') )
     {
         require get_path('rootSys').'/claroline/auth/extauth/cas/casProcess.inc.php';
-    }*/
+    }
     
     // needed to notify that a user has just loggued out
     $logout_uid = $_SESSION['_uid'];
@@ -357,22 +357,22 @@ else
         unset( $_SESSION['_user'] );
     }
     
-    // CAS ( BROKEN !!!! )
+    // CAS ( PROBABLY BROKEN !!!! )
 
-    /*if ( get_conf('claro_CasEnabled', false) 
+    if ( get_conf('claro_CasEnabled', false) 
          && isset($_REQUEST['authModeReq'])
          && $_REQUEST['authModeReq'] == 'CAS'
          )
     {
         require get_path('rootSys').'/claroline/auth/extauth/cas/casProcess.inc.php';
-    }*/
+    }
     
-    // SHIBBOLETH ( BROKEN !!!! )
+    // SHIBBOLETH ( PROBABLY BROKEN !!!! )
     
-    /*if ( get_conf('claro_ShibbolethEnabled',false) )
+    if ( get_conf('claro_ShibbolethEnabled',false) )
     {
         require get_path('rootSys').'/claroline/auth/extauth/shibboleth/shibbolethProcess.inc.php';
-    }*/
+    }
 
     if ( $login && $password ) // $login && $password are given to log in
     {
