@@ -210,7 +210,7 @@ require_once claro_get_conf_repository() .  'auth.sso.conf.php';
 require_once claro_get_conf_repository() .  'auth.extra.conf.php';
 
 // CAS INIT ( PROBABLY BROKEN !!!! )
-if ( get_conf('claro_extauth_sso_system','cas') != '' ) // ???? Not Sure To Understand This Condition !
+if ( get_conf('claro_extauth_sso_system','cas') != '' )
 {
     $ext_auth_sso_file = realpath(claro_get_conf_repository() . 'auth.' . get_conf('claro_extauth_sso_system','cas') . '.conf.php');
 
