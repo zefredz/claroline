@@ -25,20 +25,24 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
-$stable = true;
-$is_upgrade_available = true;
+$stable = false;
+$is_upgrade_available = false;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.9.1';
-$new_version_branch = '1.9';
+$new_version = '1.10.0';
+$new_version_branch = '1.10';
 
-if (!$is_upgrade_available)
+if (!$stable)
 {
     $new_version = $new_version . '.[unstable:' . date('yzBs') . ']';
 }
 
-$requiredPhpVersion = '5.1.6';
-$requiredMySqlVersion = '4.3';
+if (!$is_upgrade_available)
+{
+    $new_version = $new_version . '[NO UPGRADE]';
+}
 
-?>
+$requiredPhpVersion = '5.2.0';
+$requiredMySqlVersion = '5.0';
+
