@@ -1,5 +1,5 @@
 *******************************************************************************
-                            CLAROLINE 1.9 - CREDITS
+                    CLAROLINE 1.10 - CREDITS
 *******************************************************************************
 
 ------------------------------------------------------------------------------
@@ -23,13 +23,20 @@ Claroline Consortium involving several institutions over the world
 
 Claroline Core Team :
 
-    Frédéric Minne      (zefredz@claroline.net) aka ZeFredz
-    Dimitri Rambout     (dim@claroline.net) aka Dim
-    Frédéric Fervaille  (ffervaille@claroline.net)
+    From Claroline Consortium :
+    
+    Philippe Dekimpe        (dkp@ecam.be)
+    Antonin Bourguignon    (antonin.bourguignon@claroline.net)
+    
+    From Université catholique de Louvain :
 
-Team from Cerdecam :
-
-    Philippe Dekimpe    (dkp@ecam.be)
+    Frédéric Minne          (zefredz@claroline.net) aka ZeFredz
+    Dimitri Rambout         (dim@claroline.net) aka Dim
+    Frédéric Fervaille      (ffervaille@claroline.net)
+    
+    From Haute Ecole Léonard de Vinci :
+    
+    Philippe Van Eerdenbrugghe (systho@gmail.com)
 
 Active contributors :
 
@@ -243,10 +250,11 @@ Deepfear, Netcraft and Siegfried from the Zone-H Team
 
 The Digital Security Research Group [DSecRG] <http://www.dsec.ru>
 
-Fernando Munoz on the Claroline.net forum
+Fernando Munoz and dimkrayan on the Claroline.net forum
 
 Gerendi Sandor Attila <http://gsasec.blogspot.com/>
 
 =========================================================================
-        Europe, Belgium, Louvain-la-Neuve - $Date$
+    Europe, Belgium, Louvain-la-Neuve
+    $Date$
 ================================== END ===================================
