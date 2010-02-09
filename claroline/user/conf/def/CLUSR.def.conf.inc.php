@@ -175,4 +175,15 @@ array('label'         => 'Encrypt exported password using md5 algorithm'
                               ,'FALSE'=>'No'
                               )
 ); 
+
+$conf_def_property_list['update_user_properties'] =
+array('label'         => 'Update properties of users  on CVS import'
+     ,'default'       => FALSE
+     ,'type'          => 'boolean'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'acceptedValue' => array ('TRUE'=>'Yes'
+                              ,'FALSE'=>'No'
+                              )
+     );
 ?>

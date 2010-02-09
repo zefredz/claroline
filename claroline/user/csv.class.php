@@ -386,7 +386,7 @@ class csvImport extends csv
         return null;
     }
     
-    public function importUsers( $class_id )
+    public function importUsers( $class_id , $updateUserProperties)
     {
         $csvContent = $this->getCSVContent();
         if( empty( $csvContent ) )
@@ -442,7 +442,15 @@ class csvImport extends csv
                 if( !empty($resultSearch))
                 {
                   $userId = $resultSearch[0]['uid'];
-                  $logs['errors'][] = get_lang( 'User %username not created because it already exists in the database', array( '%username' => $userInfo['username'] ) );
+                  if (get_conf('update_user_properties') && $updateUserProperties)
+                  {
+                       if (user_set_properties($userId, $userInfo))
+                       $logs['success'][] = get_lang( 'User profile %username updated successfully', array( '%username' => $userInfo['username'] ) );                                                
+                  }
+                  else
+                  {
+                      $logs['errors'][] = get_lang( 'User %username not created because it already exists in the database', array( '%username' => $userInfo['username'] ) );
+                  }
                 }
                 else
                 {
