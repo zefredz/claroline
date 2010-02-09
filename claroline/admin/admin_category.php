@@ -12,6 +12,7 @@
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  */
 
+
 // Reset session variables
 $cidReset = true; // course id
 $gidReset = true; // group id
@@ -52,7 +53,7 @@ function confirmation (name)
     else
         {return false;}
 }
-</script>';
+</script>'; // TODO error in the display of questions marks in this string
 
 // Initialize output
 $out = '';
@@ -97,8 +98,10 @@ switch ( $cmd )
     // Display form to edit a category
     case 'rqEdit' :
         $category = new claroCategory();
-        $category->load($id);
-        $dialogBox->form( $category->displayForm() );
+        if ($category->load($id))
+            $dialogBox->form( $category->displayForm() );
+        else
+            $dialogBox->error( get_lang('Category not found') );
     break;
     
     // Edit a new category
@@ -113,19 +116,19 @@ switch ( $cmd )
         }
         else
         {
-	        if ( claro_failure::get_last_failure() == 'category_duplicate_code')
+	        if ( claro_failure::get_last_failure() == 'category_duplicate_code' )
 	        {
 				$dialogBox->error( get_lang('This code already exists') );
 	        }
-	        elseif ( claro_failure::get_last_failure() == 'category_self_linked')
+	        elseif ( claro_failure::get_last_failure() == 'category_self_linked' )
 	        {
 	        	$dialogBox->error( get_lang('Category can\'t be its own parent') );
 	        }
-	        elseif ( claro_failure::get_last_failure() == 'category_child_linked')
+	        elseif ( claro_failure::get_last_failure() == 'category_child_linked' )
 	        {
 	        	$dialogBox->error( get_lang('Category can\'t be linked to one of its own children') );
 	        }
-	        elseif ( claro_failure::get_last_failure() == 'category_missing_field')
+	        elseif ( claro_failure::get_last_failure() == 'category_missing_field' )
 	        {
 	        	$dialogBox->error( get_lang('Some fields are missing') );
 	        }
@@ -137,60 +140,86 @@ switch ( $cmd )
     // Delete an existing category
     case 'exDelete' :
         $category = new claroCategory();
-        $category->load($id);
-        $category->delete();
-        
+        if ($category->load($id))
+	        if ( $category->countSubCategories() > 0 )
+	        {
+				$dialogBox->error( get_lang('You cannot delete a category having sub categories') );
+	        }
+	        elseif ( $category->countCourses() > 0 )
+	        {
+				$dialogBox->error( get_lang('You cannot delete a category having courses') );
+	        }
+	        else
+	        {
+	            $category->delete();
+	            $dialogBox->success( get_lang('Category deleted') );
+	        }
+        else
+            $dialogBox->error( get_lang('Category not found') );
     break;
     
     // Shift or displace category (up)
     case 'exMoveUp' :
         $category = new claroCategory();
-        $category->load($id);
-        $category->lowerRank();
-        
-        if ( claro_failure::get_last_failure() == 'category_no_predecessor')
+        if ($category->load($id)) 
         {
-			$dialogBox->error( get_lang('This category can\'t be moved up') );
+            $category->decreaseRank();
+	        
+	        if ( claro_failure::get_last_failure() == 'category_no_predecessor')
+	        {
+				$dialogBox->error( get_lang('This category can\'t be moved up') );
+	        }
+	        else
+	        {
+	        	$dialogBox->success( get_lang('Category moved up') );
+	        }
         }
         else
-        {
-        	$dialogBox->success( get_lang('Category moved up') );
-        }
+            $dialogBox->error( get_lang('Category not found') );
     break;
     
     // Shift or displace category (down)
     case 'exMoveDown' :
         $category = new claroCategory();
-        $category->load($id);
-        $category->higherRank();
-        
-        if ( claro_failure::get_last_failure() == 'category_no_successor')
+        $category = new claroCategory();
+        if ($category->load($id))
         {
-			$dialogBox->error( get_lang('This category can\'t be moved down') );
+	        $category->increaseRank();
+	        
+	        if ( claro_failure::get_last_failure() == 'category_no_successor')
+	        {
+				$dialogBox->error( get_lang('This category can\'t be moved down') );
+	        }
+	        else
+	        {
+	        	$dialogBox->success( get_lang('Category moved down') );
+	        }
         }
         else
-        {
-        	$dialogBox->success( get_lang('Category moved down') );
-        }
+            $dialogBox->error( get_lang('Category not found') );
     break;
     
     // Change the visibility of a category
     case 'exVisibility' : 
         $category = new claroCategory(null, null, null, null, null, null, null, null);
-        $category->load($id);
-        if( $category->swapVisibility())
+        if ($category->load($id))
         {
-            $dialogBox->success( get_lang('Category\'s visibility modified') );
+	        if( $category->swapVisibility())
+	        {
+	            $dialogBox->success( get_lang('Category\'s visibility modified') );
+	        }
+	        else 
+	        {
+	            switch ( claro_failure::get_last_failure() )
+	            {
+	                case 'category_not_found' :
+	                    $dialogBox->error( get_lang('Error : Category not found') );
+	                    break;
+	            }
+	        }
         }
-        else 
-        {
-            switch ( claro_failure::get_last_failure() )
-            {
-                case 'category_not_found' :
-                    $dialogBox->error( get_lang('Error : Category not found') );
-                    break;
-            }
-        }
+        else
+            $dialogBox->error( get_lang('Category not found') );
     break;
 }
 

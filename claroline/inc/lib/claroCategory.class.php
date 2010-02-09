@@ -16,7 +16,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 
 
-
 /**
  * 
  * Development notes
@@ -155,6 +154,7 @@ INSERT INTO `PREFIX_rel_course_category` (`courseId`, `categoryId`, `rootCourse`
  * Regarding users: main modifications
  * ===================================
  * 
+ * * It's now possible ton link a course to multiple categories
  * * If you want to change the parent of a category, you have to use the "Edit" function (there is no more "Move/Displace" function)
  * * The menu has been improved (a little more user friendly: disabled valors in the drop down list, ...)
  *
@@ -232,7 +232,7 @@ class ClaroCategory
             return false;
         }
         else
-        {            
+        {
 	        $this->id                   = $id;
 	        $this->name                 = $data['name'];
 	        $this->code                 = $data['code'];
@@ -309,15 +309,38 @@ class ClaroCategory
     
     
     /**
-     * Count the number of courses in the current category (DOESN'T include courses 
-     * in sub categories).
+     * Optimize categories ranks in database, filling possible gaps between them
+	 * 
+     * @return int number of gaps filled
+     */
+    public static function optimizeRanks ( )
+    {
+        // TODO
+    }
+    
+    
+    /**
+     * Count the number of courses in the current category (not recursive: only works on 
+     * one level of the tree).
      * 
      * @return integer number of courses
      */
-    public function countCategoryCourses ()
+    public function countCourses ()
     {
-        return claro_count_category_courses($this->id);
-    }    
+        return claro_count_courses($this->id);
+    }
+    
+    
+    /**
+     * Count the number of sub categories of the current category (not recursive: only works on 
+     * one level of the tree).
+     * 
+     * @return integer number of sub categories
+     */
+    public function countSubCategories ()
+    {
+        return claro_count_sub_categories($this->id);
+    }
     
     
     /**
@@ -342,7 +365,7 @@ class ClaroCategory
      * 
      * @return boolean success
      */
-    public function lowerRank () 
+    public function decreaseRank () 
     {
 		// Get the id of the previous category (if any)
 		$idSwapCategory = claro_get_previous_cat_datas($this->rank, $this->idParent);
@@ -364,7 +387,7 @@ class ClaroCategory
      * 
      * @return boolean success
      */
-    public function higherRank () 
+    public function increaseRank () 
     {
 		// Get the id of the following category (if any)
 		$idSwapCategory = claro_get_following_cat_datas($this->rank, $this->idParent);
@@ -708,40 +731,6 @@ class ClaroCategory
 			. '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
 	        . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
 	        . '</form>' . "\n";
-
-        return $html;
-    }
-
-    /**
-     * Display question of delete confirmation
-     *
-     * @param $cancelUrl string url of the cancel button
-     * @return string html output of form
-     */
-    public function displayDeleteConfirmation ()
-    {
-        //TODO Give and warn if subcategories exist (in this case, can't delete the current category)        
-        
-        $paramString = $this->getHtmlParamList('GET');
-
-        $deleteUrl = './settings.php?cmd=exDelete&amp;'.$paramString;
-        $cancelUrl = './settings.php?'.$paramString ;
-
-        $html = '';
-
-        $html .= '<p>'
-        . '<font color="#CC0000">'
-        . get_lang('Are you sure to delete the category "%ccategory_name" ( %category_code ) ?', array('%category_name' => $this->name,
-                                                                                                       '%category_code' => $this->code ))
-        . '</font>'
-        . '</p>'
-        . '<p>'
-        . '<font color="#CC0000">'
-        . '<a href="'.$deleteUrl.'">'.get_lang('Yes').'</a>'
-        . '&nbsp;|&nbsp;'
-        . '<a href="'.$cancelUrl.'">'.get_lang('No').'</a>'
-        . '</font>'
-        . '</p>';
 
         return $html;
     }
