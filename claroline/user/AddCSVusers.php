@@ -69,6 +69,9 @@ else                             $step = 0;
 if( isset( $_REQUEST['class_id']) ) $class_id = (int) $_REQUEST['class_id'];
 else                                $class_id = 0;
 
+if( isset( $_REQUEST['updateUserProperties']) ) $updateUserProperties = (int) $_REQUEST['updateUserProperties'];
+else                                $updateUserProperties = 0;
+
 $nameTools        = get_lang('Add a user list in course');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php'.(!is_null($courseId) ? '?cid='.$courseId : '') );
 
@@ -214,8 +217,16 @@ $content_default = get_lang('You must specify the CSV format used in your file')
 .   '<br /><br />' . "\n"
 .   get_lang('CSV file with the user list :') . "\n"
 .   '<input type="file" name="CSVfile" />' . "\n"
-.   '<br /><br />' . "\n" . "\n"
-.   '<input type="submit" name="submitCSV" value="' . get_lang('Add user list') . '" />' . "\n"
+.   '<br /><br />' . "\n" . "\n";
+
+if (get_conf('update_user_properties')) 
+{
+	    $content_default .= '<input type="checkbox" name="updateUserProperties" value="1" id="updateUserProperties" />' . "\n"
+        				   .'<label for="updateUserProperties">' . get_lang('Update user\'properties ') . ' ' . '</label>' . "\n"
+        				   .'<br /><br />' . "\n";
+}
+
+$content_default .=   '<input type="submit" name="submitCSV" value="' . get_lang('Add user list') . '" />' . "\n"
 .   claro_html_button(htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
 .   '</form>' . "\n";
 
@@ -240,7 +251,7 @@ switch( $step )
                 {
                   claro_die(get_lang('Not allowed'));
                 }
-                $logs = $csvImport->importUsers( $class_id );
+                $logs = $csvImport->importUsers( $class_id,$updateUserProperties );
             }
             else
             {
@@ -386,6 +397,7 @@ switch( $step )
                     $content .= '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" >' . "\n"                    
                     .   '<input type="hidden" name="step" value="2" />' . "\n"
                     .   '<input type="hidden" name="class_id" value="' . $class_id .'" />' . "\n"
+                    .   '<input type="hidden" name="updateUserProperties" value="' . $updateUserProperties . '" />' . "\n"
                     // options
                     // TODO: check if user can create users
                     //.   get_lang('Create new users') . '<input type="checkbox" value="1" name="newUsers" />'
