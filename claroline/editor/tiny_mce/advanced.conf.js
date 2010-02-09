@@ -76,7 +76,7 @@ tinyMCE.init({
             var content = ed.dom.getRoot();
             var spoilers = $(content).find('div.spoiler');
             $.each(spoilers, function() {
-                var title = $(this).find('a').text();
+                var title = $(this).find('a:eq(0)').text();
                 var spoilerContent = $(this).find('div.spoilerContent').html();
                 var spoilerTags = '<p>[spoiler /' + title + '/]</p>' + spoilerContent + '<p>[/spoiler]</p>';
                 $(this).replaceWith(spoilerTags);
