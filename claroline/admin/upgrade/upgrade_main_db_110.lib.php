@@ -36,23 +36,23 @@ function upgrade_main_database_category_to_110 ()
 
             // Create new tables `category` and `rel_course_category`
             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['category_dev'] . "` (
-								`id` int(11) NOT NULL AUTO_INCREMENT,
-								`name` varchar(100) NOT NULL DEFAULT '',
-								`code` varchar(12) NOT NULL DEFAULT '',
-								`idParent` int(11) DEFAULT '0',
-								`rank` int(11) NOT NULL DEFAULT '0',
-								`visible` tinyint(1) NOT NULL DEFAULT '1',
-								`canHaveCoursesChild` tinyint(1) NOT NULL DEFAULT '1',
-								PRIMARY KEY (`id`),
-								UNIQUE KEY `code` (`code`)
-								) TYPE=MyISAM";
+                                `id` int(11) NOT NULL AUTO_INCREMENT,
+                                `name` varchar(100) NOT NULL DEFAULT '',
+                                `code` varchar(12) NOT NULL DEFAULT '',
+                                `idParent` int(11) DEFAULT '0',
+                                `rank` int(11) NOT NULL DEFAULT '0',
+                                `visible` tinyint(1) NOT NULL DEFAULT '1',
+                                `canHaveCoursesChild` tinyint(1) NOT NULL DEFAULT '1',
+                                PRIMARY KEY (`id`),
+                                UNIQUE KEY `code` (`code`)
+                                ) TYPE=MyISAM";
             
             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['rel_course_category'] . "` (
-								`courseId` int(11) NOT NULL,
-								`categoryId` int(11) NOT NULL,
-								`rootCourse` tinyint(1) NOT NULL DEFAULT '0',
-								PRIMARY KEY (`courseId`,`categoryId`)
-								) TYPE=MyISAM";
+                                `courseId` int(11) NOT NULL,
+                                `categoryId` int(11) NOT NULL,
+                                `rootCourse` tinyint(1) NOT NULL DEFAULT '0',
+                                PRIMARY KEY (`courseId`,`categoryId`)
+                                ) TYPE=MyISAM";
                         
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -63,9 +63,9 @@ function upgrade_main_database_category_to_110 ()
             
             // Insert root category
             $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category_dev'] . "` 
-								(`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
-								VALUES
-								(0, 'Root', 'ROOT', NULL, 0, 0, 0)";
+                                (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
+                                VALUES
+                                (0, 'Root', 'ROOT', NULL, 0, 0, 0)";
                         
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -76,10 +76,10 @@ function upgrade_main_database_category_to_110 ()
             
             // Insert all previous categories ("faculties") in the new table `category`
             $sql = "SELECT f1.`id`, f1.`code`, f1.`code_P`, f1.`treePos`, f1.`nb_childs`, f1.`canHaveCoursesChild`, f1.`canHaveCatChild`, f2.`id` as idParent 
-					FROM `" . $tbl_mdb_names['category'] . "` f1, `" . $tbl_mdb_names['category'] . "` f2
+                    FROM `" . $tbl_mdb_names['category'] . "` f1, `" . $tbl_mdb_names['category'] . "` f2
                     WHERE f1.code_P = f2.code OR f1.code_P IS NULL
                     GROUP BY f1.id 
-					ORDER BY idParent ASC, f1.`treePos` ASC";
+                    ORDER BY idParent ASC, f1.`treePos` ASC";
             
             $categoriesList = claro_sql_query_fetch_all_rows( $sql );
             
@@ -99,10 +99,10 @@ function upgrade_main_database_category_to_110 ()
                     $rank++;
                 }
                 
-	            $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category_dev'] . "` 
-									(`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
-									VALUES
-									('', '" . $category['name'] . "', '" . $category['code'] . "', " . $category['idParent'] . ", " . $rank . ", $visibile, " . $category['canHaveCoursesChild'] . ")";
+                $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category_dev'] . "` 
+                                    (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
+                                    VALUES
+                                    ('', '" . $category['name'] . "', '" . $category['code'] . "', " . $category['idParent'] . ", " . $rank . ", $visibile, " . $category['canHaveCoursesChild'] . ")";
             }
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -131,5 +131,3 @@ function upgrade_main_database_category_to_110 ()
       
     return false;    
 }
-
-?>
