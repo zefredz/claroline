@@ -360,8 +360,4 @@ VALUES
 INSERT INTO `__CL_MAIN__category` 
 (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
 VALUES
-(0, 'Racine', 'RACINE', NULL, 0, 0, 0);
-
-
-
-
+(0, 'Root', 'ROOT', NULL, 0, 0, 0);

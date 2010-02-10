@@ -4,9 +4,9 @@
  *
  * Try to create main database of claroline without remove existing content
  *
- * @version 1.9 $Revision$
+ * @version 1.10 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2010 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -84,6 +84,7 @@ if ($cmd == 'run')
     require_once('./upgrade_main_db_17.lib.php');
     require_once('./upgrade_main_db_18.lib.php');
     require_once('./upgrade_main_db_19.lib.php');
+    require_once('./upgrade_main_db_110.lib.php');
 
     $display = DISPLAY_RESULT_PANEL;
 
@@ -278,6 +279,46 @@ switch ( $display )
                 save_current_version_file($currentClarolineVersion, $currentDbVersion);
             }
         } // End of upgrade 1.8 to 1.9
+        
+        /*---------------------------------------------------------------------
+        Upgrade 1.9 to 1.10
+        ---------------------------------------------------------------------*/
+
+        if ( preg_match('/^1.9/',$currentDbVersion) )
+        {
+            $function_list = array('upgrade_main_database_categoy_to_110'
+                                    );
+                                    
+            if( isset($_SESSION['upgrade_tracking_data']) && $_SESSION['upgrade_tracking_data'])
+            {
+                $function_list[] = 'upgrade_main_database_tracking_data_to_110';
+            }
+            
+            foreach ( $function_list as $function )
+            {
+                $step = $function();
+                if ( $step > 0 )
+                {
+                    echo 'Error : ' . $function . ' at step . ' . $step . '<br />';
+                    $nbError++;
+                }
+            }
+
+            if ( $nbError == 0 )
+            {
+                // Upgrade 1.9 to 1.10 Succeed
+                echo '<p class="success">The claroline main tables have been successfully upgraded to version 1.10</p>' . "\n";
+                clean_upgrade_status();
+
+                // Database version is 1.10
+                $currentDbVersion = $new_version;
+
+                // Update current version file
+                save_current_version_file($currentClarolineVersion, $currentDbVersion);
+            }
+        } // End of upgrade 1.9 to 1.10
+        
+        
 
         if ( $nbError == 0 )
         {
