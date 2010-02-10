@@ -6,17 +6,20 @@ Thank you for downloading Claroline 1.9. This text will guide you
 through the basics of installation and operation of Claroline 1.9. Please
 ensure you read this fully BEFORE proceeding with the installation.
 
-TABLE OF CONTENT :
+TABLE OF CONTENTS :
 
-  1. REQUIREMENTS
-  2. INSTALLATION PROCEDURE
-     2.1 New Claroline installation
-     2.2 Upgrade from previous Claroline version
-  3. TROUBLESHOOTING
-  4. ADMIN
+1. REQUIREMENTS
+2. INSTALLATION PROCEDURE
+        2.1 New Claroline installation
+        2.2 Upgrading Claroline
+            2.2.1 Understanding Claroline version numbers
+            2.2.2 Upgrade from previous Claroline major version
+            2.2.3 Upgrade from previous Claroline minor version
+3. TROUBLESHOOTING
+4. ADMINISTRATION SECTION
 
-REQUIREMENTS
-============
+1. REQUIREMENTS
+===============
 
 Claroline should work on the following Operating systems :
 
@@ -84,11 +87,11 @@ with IIS too and should work on any PHP-compatible web server.
    Several MTA are freely available for Windows (Mercury, Blat,
    Netmail95, WMailto , Hamster ...).
 
-INSTALLATION PROCEDURE
-======================
+2. INSTALLATION PROCEDURE
+=========================
 
-NEW CLAROLINE INSTALLATION
---------------------------
+2.1 NEW CLAROLINE INSTALLATION
+------------------------------
 
 1. Download 'claroline19x.tar.gz' (UNIX, Linux) or 'claroline19x.zip' (Windows)
 
@@ -144,8 +147,28 @@ NEW CLAROLINE INSTALLATION
    MacOSX : if you use MAMP, default connection parameters
    for MySQL are login : root and password : root
 
-UPDGRADE FROM PREVIOUS CLAROLINE VERSION
-----------------------------------------
+2.2 UPGRADING CLAROLINE
+-----------------------
+
+    2.2.1 UNDERSTANDING CLAROLINE VERSION NUMBERS
+
+Claroline version numbers are of the form 1.X.Y where X and Y are two numbers.
+X is called the major version number, while Y is called the minor version number
+
+For example : in version number 1.9.0, 9 is the major version number and 0 is
+the minor version number
+
+In other words, Claroline major versions differ by the major version number (for
+example 1.4.1 and 1.9.1), while minor versions have the same major version
+number but differ by the minor version number (for example 1.9.1 and 1.9.4).
+
+This is important for the Claroline upgrade process. If you want to upgrade
+Claroline between two different major version (let's say 1.8 and 1.9), you
+have to follow the instructions in section 2.2.2. If you want to upgrade
+Claroline between two minor versions of the same major version (let's say
+1.9.1 and 1.9.4), you have to follow the instructions given in section 2.2.3.
+
+    2.2.2 UPDGRADE FROM PREVIOUS CLAROLINE MAJOR VERSION
 
 The upgrade works only from Claroline 1.5.x, 1.6.x, 1.7.x. and 1.8.x.
 
@@ -194,8 +217,38 @@ copy the new CLCHAT module to this directory.
 
 5. Follow instructions.
 
-TROUBLESHOOTING
-===============
+    2.3.3 UPDGRADE FROM A PREVIOUS CLAROLINE MINOR VERSION
+
+Follow the following instructions to upgrade to a new minor version of the same
+major version of Claroline (for example to upgrade from Claroline 1.9.0 to
+1.9.4)
+
+Before upgrading we heavily recommend you do A FULL BACKUP of the previous
+Claroline directories and databases. If you are unsure how to achieve this
+please ask your hosting provider for advice.
+
+1. Download 'claroline19x.tar.gz'
+
+   Windows : download 'claroline19x.zip'
+
+
+2. Open a shell, go to download directory and type
+
+    tar -zxvf claroline19x.tar.gz
+
+   Windows : unzip 'claroline19x.zip'
+
+
+3. Replace your previous 'claroline' and 'web' folders with the new ones.
+You also have to replace the index.php file at the root of Claroline.
+
+4. Go to your campus home page to check that the platform is still running
+correctly.
+
+5. That's all !
+
+3. TROUBLESHOOTING
+==================
 
 In case web install doesn't work
 
@@ -207,8 +260,8 @@ forums
 3. If you do not find any solution to your issue, ask for help on the forum
 http://forum.claroline.net
 
-ADMINISTRATION SECTION
-======================
+4. ADMINISTRATION SECTION
+=========================
 
 To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
