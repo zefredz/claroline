@@ -170,8 +170,6 @@ Claroline between two minor versions of the same major version (let's say
 
     2.2.2 UPDGRADE FROM PREVIOUS CLAROLINE MAJOR VERSION
 
-NO MAJOR UPGRADE AVAILABLE AT THIS TIME !!!!!
-
 The upgrade works only from Claroline 1.5.x, 1.6.x, 1.7.x., 1.8.x and 1.9.x.
 
 Older Claroline versions should upgrade first to Claroline 1.5.x before
