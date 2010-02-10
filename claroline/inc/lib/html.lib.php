@@ -1224,6 +1224,29 @@ function clean_str_for_javascript( $str )
 }
 
 /**
+ * Remove comments and noise from MS Office 2007 pasted-text that causes
+ * Internet Explorer rendering engine to halt
+ * @param   string original text
+ * @return  string clean text
+ */
+function cleanup_mso2007_text ( $string )
+{
+    // remove comments from mso2007 that cause IE rendering engine to halt
+    $regexp_if = "/\<\!--\[if(.*?)(\<\!--|\<\!)\[endif\]--\>/mi";
+    $string = preg_replace( $regexp_if, '', $string );
+    
+    //remove comments missed by the previous rule
+    $regexp_rm_if = "/(\<\!--\[if(.*?)\]\>|\<\!-*\[endif\]--\>)/mi";
+    $string = preg_replace( $regexp_rm_if, '', $string );
+    
+    // remove noisy font definitions
+    $regexp_font = "~<p>&lt;\!--  /\* Font Definitions(.*?)--&gt;</p>~i";
+    $string = preg_replace( $regexp_font, '', $string );
+    
+    return $string;
+}
+
+/**
  * Parse the user text (e.g. stored in database)
  * before displaying it to the screen
  * For example it change new line charater to <br> tag etc.
@@ -1235,6 +1258,8 @@ function clean_str_for_javascript( $str )
 
 function claro_parse_user_text($userText)
 {
+    $userText = cleanup_mso2007_text( $userText );
+    
     $userText = renderTex($userText);
     $userText = make_clickable($userText);
     $userText = make_spoiler($userText);
