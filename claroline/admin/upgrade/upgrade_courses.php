@@ -507,4 +507,3 @@ switch ($display)
 // Display footer
 echo upgrade_disp_footer();
 
-?>
