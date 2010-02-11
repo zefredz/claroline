@@ -1,11 +1,11 @@
-<?php // $Id: upgrade_main_db_19.lib.php 11825 2009-07-07 15:57:02Z dkp1060 $
+<?php
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
  * Sql query to update main database
  *
- * @version 1.10 $Revision: 11825 $
+ * @version 1.10
  *
  * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
  *
@@ -16,7 +16,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package UPGRADE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
+ * @author Antonin Bourguignon <antonin.bourguignon@claroline.net> (upgrades regarding categories)
  *
  */
 
@@ -33,7 +33,7 @@ function upgrade_main_database_category_to_110 ()
     switch( $step = get_upgrade_status($tool) )
     {           
         case 1 :
-
+            
             // Create new tables `category` and `rel_course_category`
             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['category_dev'] . "` (
                                 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -53,9 +53,9 @@ function upgrade_main_database_category_to_110 ()
                                 `rootCourse` tinyint(1) NOT NULL DEFAULT '0',
                                 PRIMARY KEY (`courseId`,`categoryId`)
                                 ) TYPE=MyISAM";
-                        
+
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
-            else return $step ;
+            else return $step;
 
             unset($sqlForUpdate);
 
@@ -68,10 +68,10 @@ function upgrade_main_database_category_to_110 ()
                                 (0, 'Root', 'ROOT', NULL, 0, 0, 0)";
                         
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
-            else return $step ;
-
-            unset($sqlForUpdate);
+            else return $step;
             
+            unset($sqlForUpdate);
+
         case 3:
             
             // Insert all previous categories ("faculties") in the new table `category`
@@ -106,28 +106,59 @@ function upgrade_main_database_category_to_110 ()
             }
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
-            else return $step ;
-
+            else return $step;
+            
             unset($sqlForUpdate);
             
         case 4 :
             
-            // Link new categories to courses in `rel_course_categories`
+            // Associate courses to new categories through `rel_course_categories`
+            $sql = "SELECT co.cours_id AS courseId, ca.id AS categoryId
+                    FROM `" . $tbl_mdb_names['course'] . "` co, `" . $tbl_mdb_names['category'] . "` f, `" . $tbl_mdb_names['category_dev'] . "` ca
+                    WHERE co.faculte = f.code AND f.code = ca.code
+                    ORDER BY co.`cours_id` ASC";
+            
+            $associationsList = claro_sql_query_fetch_all_rows( $sql );
+            
+            $rootCourse = 0; // Change this value if you want to change the default value of rootCourse (1 or 0)
+            foreach ( $associationsList as $assoc )
+            {
+                $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['rel_course_category'] . "` 
+                                    (`courseId`, `categoryId`, `rootCourse`) 
+                                    VALUES
+                                    (" . (int) $assoc['courseId'] . ", " . (int) $assoc['categoryId'] . ", " . $rootCourse . ")";
+            }
+            
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+            
+            unset($sqlForUpdate);
             
         case 5 :
             
             // Drop deprecated attribute "faculte" from `cours` table
-            
+            $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['course'] . "` DROP `faculte`";
+
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+
+            unset($sqlForUpdate);
         case 6 :
             
             // Drop deprecated table `faculty`
+            $sqlForUpdate[] = "DROP TABLE `" . $tbl_mdb_names['category'] . "`";
+
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+
+            unset($sqlForUpdate);
 
         default :
 
             $step = set_upgrade_status($tool, 0);
             return $step;
-    
+
     }
-      
+
     return false;    
 }

@@ -141,19 +141,19 @@ switch ( $cmd )
     case 'exDelete' :
         $category = new claroCategory();
         if ($category->load($id))
-	        if ( $category->countSubCategories() > 0 )
-	        {
-				$dialogBox->error( get_lang('You cannot delete a category having sub categories') );
-	        }
-	        elseif ( $category->countCourses() > 0 )
-	        {
-				$dialogBox->error( get_lang('You cannot delete a category having courses') );
-	        }
-	        else
-	        {
-	            $category->delete();
-	            $dialogBox->success( get_lang('Category deleted') );
-	        }
+            if ( $category->countSubCategories() > 0 )
+            {
+                $dialogBox->error( get_lang('You cannot delete a category having sub categories') );
+            }
+            elseif ( $category->countCourses() > 0 )
+            {
+                $dialogBox->error( get_lang('You cannot delete a category having courses') );
+            }
+            else
+            {
+                $category->delete();
+                $dialogBox->success( get_lang('Category deleted') );
+            }
         else
             $dialogBox->error( get_lang('Category not found') );
     break;
@@ -164,15 +164,15 @@ switch ( $cmd )
         if ($category->load($id)) 
         {
             $category->decreaseRank();
-	        
-	        if ( claro_failure::get_last_failure() == 'category_no_predecessor')
-	        {
-				$dialogBox->error( get_lang('This category can\'t be moved up') );
-	        }
-	        else
-	        {
-	        	$dialogBox->success( get_lang('Category moved up') );
-	        }
+            
+            if ( claro_failure::get_last_failure() == 'category_no_predecessor')
+            {
+                $dialogBox->error( get_lang('This category can\'t be moved up') );
+            }
+            else
+            {
+                $dialogBox->success( get_lang('Category moved up') );
+            }
         }
         else
             $dialogBox->error( get_lang('Category not found') );
@@ -184,16 +184,16 @@ switch ( $cmd )
         $category = new claroCategory();
         if ($category->load($id))
         {
-	        $category->increaseRank();
-	        
-	        if ( claro_failure::get_last_failure() == 'category_no_successor')
-	        {
-				$dialogBox->error( get_lang('This category can\'t be moved down') );
-	        }
-	        else
-	        {
-	        	$dialogBox->success( get_lang('Category moved down') );
-	        }
+            $category->increaseRank();
+            
+            if ( claro_failure::get_last_failure() == 'category_no_successor')
+            {
+                $dialogBox->error( get_lang('This category can\'t be moved down') );
+            }
+            else
+            {
+                $dialogBox->success( get_lang('Category moved down') );
+            }
         }
         else
             $dialogBox->error( get_lang('Category not found') );
@@ -204,19 +204,19 @@ switch ( $cmd )
         $category = new claroCategory(null, null, null, null, null, null, null, null);
         if ($category->load($id))
         {
-	        if( $category->swapVisibility())
-	        {
-	            $dialogBox->success( get_lang('Category\'s visibility modified') );
-	        }
-	        else 
-	        {
-	            switch ( claro_failure::get_last_failure() )
-	            {
-	                case 'category_not_found' :
-	                    $dialogBox->error( get_lang('Error : Category not found') );
-	                    break;
-	            }
-	        }
+            if( $category->swapVisibility())
+            {
+                $dialogBox->success( get_lang('Category\'s visibility modified') );
+            }
+            else 
+            {
+                switch ( claro_failure::get_last_failure() )
+                {
+                    case 'category_not_found' :
+                        $dialogBox->error( get_lang('Error : Category not found') );
+                        break;
+                }
+            }
         }
         else
             $dialogBox->error( get_lang('Category not found') );
@@ -231,7 +231,7 @@ $categories = claroCategory::fetchAllCategories();
 
     // "Create category" link
 $out .= 
-	 '<p>'
+     '<p>'
 .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
 .    '<img src="' . get_icon_url('category') . '" />' . get_lang('Create a category')
 .    '</a>'
@@ -239,7 +239,7 @@ $out .=
 
     // Array header
 $out .= 
-	 '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+     '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX">' . "\n"
      // Array titles
@@ -254,46 +254,46 @@ $out .=
 
     // Array body
 $out .= 
-	'<tbody>' . "\n";
+    '<tbody>' . "\n";
 
 //TODO: hide uparrows and downarrows when they are useless/ineffective (get_icon_url('move_up/down'))
 foreach ($categories as $elmt)
 {
     $out .=
-    	'<tr>'
-	.   '<td>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ')</td>'
-	.   '<td align="center">' . $elmt['nbCourses'] . '</td>'
-	.   '<td align="center">'
-	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisibility&amp;categoryId=' . $elmt['id'] . '">' . "\n"
-    .   	'<img src="' . get_icon_url($elmt['visible']?'visible':'invisible') . '" alt="Change visibility" />' . "\n"
-    .   	'</a>'
+        '<tr>'
+    .   '<td>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ')</td>'
+    .   '<td align="center">' . $elmt['nbCourses'] . '</td>'
+    .   '<td align="center">'
+    .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisibility&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+    .       '<img src="' . get_icon_url($elmt['visible']?'visible':'invisible') . '" alt="Change visibility" />' . "\n"
+    .       '</a>'
     .   '</td>'
-	.   '<td align="center">'
-	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;categoryId=' . $elmt['id'] . '">' . "\n"
-    .   	'<img src="' . get_icon_url('edit') . '" alt="Edit category" />' . "\n"
-    .   	'</a>'
+    .   '<td align="center">'
+    .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+    .       '<img src="' . get_icon_url('edit') . '" alt="Edit category" />' . "\n"
+    .       '</a>'
     .   '</td>'
-	.   '<td align="center">'
-	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;categoryId=' . $elmt['id'] . '"'
-	.		' onclick="return confirmation(\'' . clean_str_for_javascript($elmt['name']) . '\');">' . "\n"
-    .   	'<img src="' . get_icon_url('delete') . '" alt="Delete category" />' . "\n"
-    .   	'</a>'
+    .   '<td align="center">'
+    .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;categoryId=' . $elmt['id'] . '"'
+    .        ' onclick="return confirmation(\'' . clean_str_for_javascript($elmt['name']) . '\');">' . "\n"
+    .       '<img src="' . get_icon_url('delete') . '" alt="Delete category" />' . "\n"
+    .       '</a>'
     .   '</td>'
-	.   '<td align="center">'
-	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveUp&amp;categoryId=' . $elmt['id'] . '">' . "\n"
-    .   	'<img src="' . get_icon_url('move_up') . '" alt="Move up category" />' . "\n"
-    .   	'</a>'
+    .   '<td align="center">'
+    .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveUp&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+    .       '<img src="' . get_icon_url('move_up') . '" alt="Move up category" />' . "\n"
+    .       '</a>'
     .   '</td>'
-	.   '<td align="center">'
-	.   	'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveDown&amp;categoryId=' . $elmt['id'] . '">' . "\n"
-    .   	'<img src="' . get_icon_url('move_down') . '" alt="Move down category" />' . "\n"
-    .   	'</a>'
+    .   '<td align="center">'
+    .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveDown&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+    .       '<img src="' . get_icon_url('move_down') . '" alt="Move down category" />' . "\n"
+    .       '</a>'
     .   '</td>'
     .   '</tr>';
 }
 
 $out .= 
-	'</tbody>' 
+    '</tbody>' 
 .   '</table>' . "\n";
 
 // Append output

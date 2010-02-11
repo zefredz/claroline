@@ -233,15 +233,15 @@ class ClaroCategory
         }
         else
         {
-	        $this->id                   = $id;
-	        $this->name                 = $data['name'];
-	        $this->code                 = $data['code'];
-	        $this->idParent             = $data['idParent'];
-	        $this->rank                 = $data['rank'];
-	        $this->visible              = $data['visible'];
-	        $this->canHaveCoursesChild  = $data['canHaveCoursesChild'];
-	        
-	        return true;
+            $this->id                   = $id;
+            $this->name                 = $data['name'];
+            $this->code                 = $data['code'];
+            $this->idParent             = $data['idParent'];
+            $this->rank                 = $data['rank'];
+            $this->visible              = $data['visible'];
+            $this->canHaveCoursesChild  = $data['canHaveCoursesChild'];
+            
+            return true;
         }
     }
     
@@ -252,7 +252,7 @@ class ClaroCategory
      * @return boolean success
      */
     public function save ()
-    {		
+    {        
         if ( empty($this->id) )
         {
             // No id: it's a new category -> insert
@@ -261,8 +261,8 @@ class ClaroCategory
                 return true;
             else 
             {
-            	claro_failure::set_failure('category_not_saved');
-            	return false;
+                claro_failure::set_failure('category_not_saved');
+                return false;
             }
         }
         else
@@ -273,8 +273,8 @@ class ClaroCategory
                 return true;
             else 
             {
-            	claro_failure::set_failure('category_not_saved');
-            	return false;
+                claro_failure::set_failure('category_not_saved');
+                return false;
             }
         }
     }
@@ -298,8 +298,8 @@ class ClaroCategory
     /**
      * Select all categories in database from a certain point
      *
-	 * @param $start_node the parent from wich we want to get the categories tree (default: 0)
-	 * @param $start_level the level where we start (default: 0)
+     * @param $start_node the parent from wich we want to get the categories tree (default: 0)
+     * @param $start_level the level where we start (default: 0)
      * @return array containing all the categories organized hierarchically and ordered by rank
      */
     public static function fetchAllCategories ( $start_node = 0, $start_level = 0 )
@@ -310,7 +310,7 @@ class ClaroCategory
     
     /**
      * Optimize categories ranks in database, filling possible gaps between them
-	 * 
+     * 
      * @return int number of gaps filled
      */
     public static function optimizeRanks ( )
@@ -367,18 +367,18 @@ class ClaroCategory
      */
     public function decreaseRank () 
     {
-		// Get the id of the previous category (if any)
-		$idSwapCategory = claro_get_previous_cat_datas($this->rank, $this->idParent);
-		if (!empty($idSwapCategory))
-		{
-			$this->exchangeRanks($idSwapCategory);
-			return true;
-		}
-		else
-		{
+        // Get the id of the previous category (if any)
+        $idSwapCategory = claro_get_previous_cat_datas($this->rank, $this->idParent);
+        if (!empty($idSwapCategory))
+        {
+            $this->exchangeRanks($idSwapCategory);
+            return true;
+        }
+        else
+        {
             claro_failure::set_failure('category_no_predecessor');
             return false;
-		}
+        }
     }
     
     
@@ -389,18 +389,18 @@ class ClaroCategory
      */
     public function increaseRank () 
     {
-		// Get the id of the following category (if any)
-		$idSwapCategory = claro_get_following_cat_datas($this->rank, $this->idParent);
-		if (!empty($idSwapCategory))
-		{
-			$this->exchangeRanks($idSwapCategory);
-			return true;
-		}
-		else
-		{
+        // Get the id of the following category (if any)
+        $idSwapCategory = claro_get_following_cat_datas($this->rank, $this->idParent);
+        if (!empty($idSwapCategory))
+        {
+            $this->exchangeRanks($idSwapCategory);
+            return true;
+        }
+        else
+        {
             claro_failure::set_failure('category_no_successor');
             return false;
-		}
+        }
     }
     
     
@@ -412,18 +412,18 @@ class ClaroCategory
      */
     public function exchangeRanks ($id)
     {
-    	// Get the other category
-		$swapCategory = new claroCategory();
-		$swapCategory->load($id);
-		
-		// Exchange the ranks
-		$tempRank = $this->rank;
-		$this->rank = $swapCategory->rank;
-		$swapCategory->rank = $tempRank;
-		
-		// Save the modifications
-		$this->save();
-		$swapCategory->save();
+        // Get the other category
+        $swapCategory = new claroCategory();
+        $swapCategory->load($id);
+        
+        // Exchange the ranks
+        $tempRank = $this->rank;
+        $this->rank = $swapCategory->rank;
+        $swapCategory->rank = $tempRank;
+        
+        // Save the modifications
+        $this->save();
+        $swapCategory->save();
     }
     
     
@@ -449,8 +449,8 @@ class ClaroCategory
      */
     public function checkIsChild ($id) 
     {
-     	$ids = claro_get_parents_ids($id);
-     	 
+         $ids = claro_get_parents_ids($id);
+          
         if ( in_array($this->id, $ids) ) 
             return true;
         else 
@@ -463,7 +463,7 @@ class ClaroCategory
      */
     public function handleForm ()
     {
-    	if ( isset($_REQUEST['category_id']) )                 	 $this->id = trim(strip_tags($_REQUEST['category_id']));
+        if ( isset($_REQUEST['category_id']) )                      $this->id = trim(strip_tags($_REQUEST['category_id']));
         if ( isset($_REQUEST['category_name']) )                 $this->name = trim(strip_tags($_REQUEST['category_name']));
 
         if ( isset($_REQUEST['category_code']) ) // Only capital letters and numbers
@@ -476,7 +476,7 @@ class ClaroCategory
         if ( isset($_REQUEST['category_parent']) )               $this->idParent = trim(strip_tags($_REQUEST['category_parent']));
         
         if ( isset($_REQUEST['category_rank']) )                 $this->rank = trim(strip_tags($_REQUEST['category_rank']));
-       		
+               
         if ( isset($_REQUEST['category_visible']) )              $this->visible = trim(strip_tags($_REQUEST['category_visible']));
         if ( isset($_REQUEST['category_can_have_courses']) )     $this->canHaveCoursesChild = trim(strip_tags($_REQUEST['category_can_have_courses']));
     }
@@ -508,7 +508,7 @@ class ClaroCategory
         // Validate category name
         if ( is_null($this->name) && $fieldRequiredStateList['name'] )
         {
-        	claro_failure::set_failure('category_missing_field_name');
+            claro_failure::set_failure('category_missing_field_name');
             $this->backlog->failure(get_lang('Category name needed'));
             $success = false ;
         }
@@ -516,7 +516,7 @@ class ClaroCategory
         // Validate category code
         if ( is_null($this->code) && $fieldRequiredStateList['code'] )
         {
-        	claro_failure::set_failure('category_missing_field_code');
+            claro_failure::set_failure('category_missing_field_code');
             $this->backlog->failure(get_lang('Category code needed'));
             $success = false ;
         }
@@ -524,39 +524,39 @@ class ClaroCategory
         // Check if the code is unique
         if ( !$this->checkUniqueCode() )
         {
-        	claro_failure::set_failure('category_duplicate_code');
-	       	$this->backlog->failure(get_lang('This category already exists !'));
+            claro_failure::set_failure('category_duplicate_code');
+               $this->backlog->failure(get_lang('This category already exists !'));
             $success = false ;
         }
         
         // Validate parent identifier
         if ( is_null($this->idParent) && $fieldRequiredStateList['idParent'] )
         {
-        	claro_failure::set_failure('category_missing_field_idParent');
+            claro_failure::set_failure('category_missing_field_idParent');
             $this->backlog->failure(get_lang('Category parent needed'));
             $success = false ;
         }
         
         // Category can't be its own parent
-		if ( $this->idParent == $this->id ) 
-		{
-        	claro_failure::set_failure('category_self_linked');
-	       	$this->backlog->failure(get_lang('Category can\'t be its own parent'));
+        if ( $this->idParent == $this->id ) 
+        {
+            claro_failure::set_failure('category_self_linked');
+               $this->backlog->failure(get_lang('Category can\'t be its own parent'));
             $success = false ;
-		}
+        }
         
         // Category can't be linked to one of its own children
-		if ( $this->checkIsChild($this->idParent) ) 
-		{
-        	claro_failure::set_failure('category_child_linked');
-	       	$this->backlog->failure(get_lang('Category can\'t be linked to one of its own children'));
+        if ( $this->checkIsChild($this->idParent) ) 
+        {
+            claro_failure::set_failure('category_child_linked');
+               $this->backlog->failure(get_lang('Category can\'t be linked to one of its own children'));
             $success = false ;
-		}
+        }
         
         // Check authorisation to possess courses
         if ( is_null($this->visible) && $fieldRequiredStateList['visible'] )
         {
-        	claro_failure::set_failure('category_missing_field_visible');
+            claro_failure::set_failure('category_missing_field_visible');
             $this->backlog->failure(get_lang('Visibility of the category must be set'));
             $success = false;
         }
@@ -564,7 +564,7 @@ class ClaroCategory
         // Check authorisation to possess courses
         if ( is_null($this->canHaveCoursesChild) && $fieldRequiredStateList['canHaveCoursesChild'] )
         {
-        	claro_failure::set_failure('category_missing_field_canHaveCoursesChild');
+            claro_failure::set_failure('category_missing_field_canHaveCoursesChild');
             $this->backlog->failure(get_lang('Category must be authorized or not to have courses children'));
             $success = false;
         }
@@ -581,7 +581,7 @@ class ClaroCategory
     public function toString ()
     {
         $str = 
-        	 'id = ' . $this->id . "\n"
+             'id = ' . $this->id . "\n"
         .    'name = ' . $this->name . "\n"
         .    'code = ' . $this->code . "\n"
         .    'idParent = ' . $this->idParent . "\n"
@@ -619,8 +619,8 @@ class ClaroCategory
             . $this->getHtmlParamList('POST');
 
         $html .= '<fieldset>' . "\n"
-        	. '<dl>' . "\n";
-        	
+            . '<dl>' . "\n";
+            
         // Category identifier
         $html .= '<input type="hidden" name="category_id" value="' . $this->id . '" />' . "\n";
 
@@ -652,29 +652,29 @@ class ClaroCategory
             . '</label>&nbsp;:</dt>'
             . '<dd>'
             . '<select  id="category_parent" name="category_parent" />'
-            . '<option value="0">' . get_lang("None") . '</option>';		// TODO: in French, manage the feminine gender of "Aucun"
+            . '<option value="0">' . get_lang("None") . '</option>';        // TODO: in French, manage the feminine gender of "Aucun"
             
             $disabled = false;
             $tempLevel = null;
             foreach ($categoryList as $elmt)
             {
-            	// Enable/disable elements in the drop down list
-            	if ( !empty($elmt['id']) && $elmt['id'] == $this->id )
-            	{
-            		$disabled = true;
-            		$tempLevel = $elmt['level'];
-            	}
-            	elseif ( isset($tempLevel) && $elmt['level'] > $tempLevel )
-            	{
-            		$disabled = true;
-            	}
-            	else
-            	{
-            		$disabled = false;
-            		$tempLevel = null;
-            	}
-            	
-            	$html .= '<option value="' . $elmt['id'] . '" ' . ( ( !empty($elmt['id']) && $elmt['id'] == $this->idParent ) ? 'selected="selected"' : null ) . ( ( $disabled ) ? 'disabled="disabled"' : null ) . '>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ') </option>';
+                // Enable/disable elements in the drop down list
+                if ( !empty($elmt['id']) && $elmt['id'] == $this->id )
+                {
+                    $disabled = true;
+                    $tempLevel = $elmt['level'];
+                }
+                elseif ( isset($tempLevel) && $elmt['level'] > $tempLevel )
+                {
+                    $disabled = true;
+                }
+                else
+                {
+                    $disabled = false;
+                    $tempLevel = null;
+                }
+                
+                $html .= '<option value="' . $elmt['id'] . '" ' . ( ( !empty($elmt['id']) && $elmt['id'] == $this->idParent ) ? 'selected="selected"' : null ) . ( ( $disabled ) ? 'disabled="disabled"' : null ) . '>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ') </option>';
             }
             
         $html .= '</select>'
@@ -727,10 +727,10 @@ class ClaroCategory
             
         // Form's footer
         $html .= '</fieldset>' . "\n"
-        	. '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br/>' . "\n"
-			. '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-	        . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
-	        . '</form>' . "\n";
+            . '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br/>' . "\n"
+            . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+            . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+            . '</form>' . "\n";
 
         return $html;
     }
