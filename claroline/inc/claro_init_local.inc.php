@@ -930,7 +930,9 @@ if ( $uidReset || $cidReset || $gidReset || $tidReset ) // session data refresh 
         $toolLabel = trim( $_courseTool['label'] , '_');
 
         $is_toolAllowed = array_key_exists($toolLabel, $_groupProperties ['tools'])
-            && $_groupProperties ['tools'] [$toolLabel];
+            && $_groupProperties ['tools'] [$toolLabel]
+            // do not allow to access group tools when groups are not allowed for current profile
+            && claro_is_allowed_tool_read(get_tool_id_from_module_label('CLGRP'),$_profileId,$_cid);
 
         if ( $_groupProperties ['private'] )
         {
