@@ -204,7 +204,7 @@ else
     // Display list of users
     // start table...
 
-	if ($search == '')
+    if ($search == '')
 	{
 	    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 	    .    '<thead>' . "\n"

@@ -1,9 +1,8 @@
-<?php
-
+<?php // $Id$
 /**
  * CLAROLINE
  *
- * This tool can edit category tree (v 1.9x) / Replaced by admin_category.php (v 1.10)
+ * This tool can edit category tree
  *
  * @version 1.9 $Revision$
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
@@ -17,8 +16,6 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
-
-
 define ('DISP_FORM_CREATE', __LINE__);
 define ('DISP_FORM_EDIT', __LINE__);
 define ('DISP_FORM_MOVE', __LINE__);
@@ -27,57 +24,62 @@ $cidReset = true;
 $gidReset = true;
 $tidReset = true;
 
-// Include claro main global
+// include claro main global
 require '../inc/claro_init_global.inc.php';
 
-// Check if user is logged as administrator
+// check if user is logged as administrator
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 include_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
-include_once get_path('incRepositorySys') . '/lib/faculty.lib.inc.php'; //TODO deprecated
-include_once get_path('incRepositorySys') . '/lib/claroCategory.class.php'; //Category object
-include_once get_path('incRepositorySys') . '/lib/category.lib.inc.php'; //Contains all SQL queries linked to categories
+include_once get_path('incRepositorySys') . '/lib/faculty.lib.inc.php';
 
-// Build breadcrumb
+// build bredcrump
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools        = get_lang('Categories');
 
-// Get table name
+// get table name
 $tbl_mdb_names   = claro_sql_get_main_tbl();
-$tbl_course      = $tbl_mdb_names['course'];
+$tbl_course      = $tbl_mdb_names['course'  ];
 $tbl_course_node = $tbl_mdb_names['category'];
 
 $dialogBox = new DialogBox();
 
 // Display variables
+
 $display_form = null;
+//Get Parameters from URL or post
 
-// Get Parameters from URL or post
 $validCmdList = array('exCreate','exDelete', 'exUp', 'exDown', 'rqCreate', 'rqEdit', 'rqMove', 'exChange');
-$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $validCmdList)? $_REQUEST['cmd'] : '');
+$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : '');
 
-// Show or hide sub categories
-if ( isset($_REQUEST['id']) && empty($cmd) )
+
+/**
+ * Show or hide sub categories
+ */
+
+if ( isset($_REQUEST['id'])
+&& empty($cmd)   )
 {
     $id = $_REQUEST['id'];
     $categories = $_SESSION['categories'];
 
     // Change the parameter 'visible'
-    if ( !is_null($categories) )
+
+    if(!is_null($categories))
     {
-        foreach ( $categories as $key=>$category )
+        foreach($categories as $key=>$category)
         {
-            if ( $category['id'] == $id )
+            if($category['id'] == $id)
             {
-                if ( $categories[$key]['visible'] )
-                    $categories[$key]['visible'] = FALSE;
+                if($categories[$key]['visible'])
+                $categories[$key]['visible'] = FALSE;
                 else
-                    $categories[$key]['visible'] = TRUE;
+                $categories[$key]['visible'] = TRUE;
             }
         }
     }
-    
+
     // Save in session
     $_SESSION['categories'] = $categories;
 }
@@ -673,7 +675,7 @@ else
                             $i++;
                         }
     
-                        // Remet les treePos de celui qu on a deplacï¿½ et de ses enfants
+                        // Remet les treePos de celui qu on a deplacé et de ses enfants
                         $i=1;
                         while($i <= $facultyEdit['nb_childs'] + 1)
                         {
@@ -724,7 +726,7 @@ else
             $categories[]=$catList[$i];
         }
 
-        // Pour remettre a visible ou non comme prï¿½dï¿½dement
+        // Pour remettre a visible ou non comme prédédement
         for($i=0;$i<count($categories);$i++)
         {
             $searchId=$categories[$i]["id"];
@@ -757,7 +759,6 @@ else
  */
 
 $category_array = claro_get_cat_flat_list();
-
 // If there is no current $category, add a fake option
 // to prevent auto select the first in list
 if ( isset($category['id']) && is_array($category_array)
@@ -924,10 +925,7 @@ $out .= $dialogBox->render();
 $out .= '<p>' . "\n"
 .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate">'
 .    get_lang('Create a category')
-.    '</a> | ' . "\n"
-.    '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_category.php">'
-.    get_lang('Jump to the new manager')
-.    '</a>'
+.    '</a>' . "\n"
 .    '</p>' . "\n"
 .    '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"

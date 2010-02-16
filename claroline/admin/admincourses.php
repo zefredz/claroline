@@ -293,8 +293,8 @@ foreach($courseList as $numLine => $courseLine)
     //trick to prevent "//1" display when no keyword used in search
     {
         $bold_search = str_replace('*', '.*', $_SESSION['admin_course_search']);
-        $courseLine['officialCode'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['officialCode']);        
-        $courseLine['intitule'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['intitule']);
+        $courseLine['officialCode'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['officialCode']);
+        $courseLine['intitule'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['intitule']);        
         $courseLine['faculte'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['faculte']);
     }
 
@@ -503,7 +503,7 @@ function prepare_get_filtred_course_list()
                     C.`registration`         AS `registration`,
                     C.`registrationKey`      AS `registrationKey`,
                     C.`directory`            AS `repository`,
-                    C.`status`                 AS `status`
+                    C.`status`               AS `status`
                     FROM  `" . $tbl_mdb_names['course'] . "` AS C
            " . $sqlFilter ;
 

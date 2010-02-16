@@ -687,15 +687,15 @@ function claro_is_course_enable()
     $sql=" SELECT     c.`code`
              FROM `".$tbl_course."` c
             WHERE  (c.`status` = 'enable' 
-                    OR (c.`status` = 'date' 
-                        AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' 
-                             OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0
-                             )
-                        AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) 
-                             OR `expirationDate` IS NULL
-                             )
-                        )
-                    )
+                     OR (c.`status` = 'date' 
+                         AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' 
+                              OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0
+                              )
+                         AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) 
+                              OR `expirationDate` IS NULL
+                              )
+                         )
+                     )
                     AND c.`code` = '".$courseId."';";
 
     $result = claro_sql_query_get_single_value($sql);

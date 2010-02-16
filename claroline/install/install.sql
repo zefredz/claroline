@@ -1,4 +1,4 @@
-# Claroline Database version 1.10
+# Claroline Database version 1.9
 
 # MAIN TABLES
 
@@ -67,8 +67,6 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours_user` (
   KEY `isCourseManager` (`isCourseManager`)
 ) TYPE=MyISAM;
 
-# TODO: delete this table (replaced by tables `category` and `rel_course_category` when implementation of claroCategory will be finalised
-
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__faculte` (
   id                    INT(11) NOT NULL AUTO_INCREMENT,
   name                  VARCHAR(100) NOT NULL DEFAULT '',
@@ -83,25 +81,6 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__faculte` (
   KEY `code_P` (`code_P`),
   KEY `treePos` (`treePos`)
 
-) TYPE=MyISAM;
-
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL DEFAULT '',
-  `code` varchar(12) NOT NULL DEFAULT '',
-  `idParent` int(11) DEFAULT '0',
-  `rank` int(11) NOT NULL DEFAULT '0',
-  `visible` tinyint(1) NOT NULL DEFAULT '1',
-  `canHaveCoursesChild` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`)
-) TYPE=MyISAM;
-
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__rel_course_category` (
-  `courseId` int(11) NOT NULL,
-  `categoryId` int(11) NOT NULL,
-  `rootCourse` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`courseId`,`categoryId`)
 ) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__course_tool` (
@@ -348,16 +327,9 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__log` (
 
 # INSERT COMMANDS
 
-# TODO: delete this table (replaced by tables `category` and `rel_course_category` when implementation of claroCategory will be finalised
-
 INSERT INTO `__CL_MAIN__faculte`
 (`code`, `code_P`, `treePos`, `nb_childs`, `name`)
 VALUES
 ( 'SC',     NULL,  1, 0, 'Sciences'),
 ( 'ECO',    NULL,  2, 0, 'Economics'),
 ( 'HUMA',   NULL,  3, 0, 'Humanities');
-
-INSERT INTO `__CL_MAIN__category` 
-(`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
-VALUES
-(0, 'Root', 'ROOT', NULL, 0, 0, 0);

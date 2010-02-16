@@ -267,3 +267,5 @@ else                $_SESSION['_uid'] = null; // unset
 if ( isset($is_platformAdmin) ) $_SESSION['is_platformAdmin'] = $is_platformAdmin;
 else                            $_SESSION['is_platformAdmin'] = null;
 
+
+?>
