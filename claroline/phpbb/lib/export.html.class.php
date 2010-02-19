@@ -79,7 +79,7 @@ class exportHTML extends export
     .   '<style type="text/css">' . $css . '</style>' . "\n"
     .   '<title>'. $topicInfo[ 'topic_title' ] .'</title>' . "\n"
     .   '</head>' . "\n"
-    .   '<body><div id="forumExport">'' . "\n"
+    .   '<body><div id="forumExport">' . "\n"
     ;
     
     $out .= $form->render();

@@ -569,7 +569,7 @@ class csvImport extends csv
                     $userId = user_create( $userInfo );
                     if( $userId != 0 )
                     {
-                        $logs['success'][] = get_lang( 'User %username created successfully', array( '%username' => $userInfo['username'] ) );
+                        $logs['success'][] = get_lang( 'User profile %username created successfully', array( '%username' => $userInfo['username'] ) );
                     }
                     else
                     {

@@ -86,8 +86,8 @@ require_once(dirname(__FILE__) . '/icon.lib.php');
  * @param  string $course_id (optionnal)  If not set, it use the current course
  *         will be taken.
  * @return array list of unique keys (sys, db & path) of a course
- * @author Christophe Geschï¿½ <moosh@claroline.net>
- * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Frédéric Minne <zefredz@claroline.net>
  * @since 1.7
  */
 
@@ -248,7 +248,7 @@ function claro_get_main_group_properties($courseId)
  * @param  string $course_id (optionnal)  If not set, it use the current course
  *         will be taken.
  * @return string db_name
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @since 1.7
  */
 function claro_get_course_db_name($cid=NULL)
@@ -265,7 +265,7 @@ function claro_get_course_db_name($cid=NULL)
  * @param  string $course_id (optionnal)  If not set, it use the current course
  *         will be taken.
  * @return string db_name glued
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @since 1.7
  */
 function claro_get_course_db_name_glued($cid=NULL)
@@ -281,7 +281,7 @@ function claro_get_course_db_name_glued($cid=NULL)
  * @param  string $course_id (optionnal)  If not set, it use the current course
  *         will be taken.
  * @return string path
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @since 1.7
  */
 function claro_get_course_path($cid=NULL)
@@ -303,7 +303,7 @@ function claro_get_course_path($cid=NULL)
  * @param  string $course_id (optionnal)  If not set, it use the current course
  *         will be taken.
  * @return array list of unique keys (sys, db & path) of a course
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @since 1.7
  */
 
@@ -366,7 +366,7 @@ function claro_get_group_data($context, $force = false )
  * Get the path of a group in a course.
  * @param  array $context
  * @return string path
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @var $gData use to get groupdata
  * @since 1.8.1
  */
@@ -1141,7 +1141,7 @@ function claro_set_display_mode_available($mode)
  * @param integer $timestamp timestamp or default  -1 for "now()"
  * @return date()
  *
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  */
 function claro_date($format, $timestamp = -1)
@@ -1156,7 +1156,7 @@ function claro_date($format, $timestamp = -1)
  *
  * @return timestamp shifted by mainTimeShift config value
  *
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  */
 function claro_time()
@@ -1175,7 +1175,7 @@ function claro_time()
  * @see mktime()
  * @return timestamp corresponding to the given arguments shifted by
  *  mainTimeShift config value
- * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
+ * @author Frédéric Minne <zefredz@claroline.net>
  */
 function claro_mktime()
 {
@@ -1225,7 +1225,7 @@ function claro_is_javascript_enabled()
 /**
  * get the list  of aivailable languages on the platform
  *
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  * @return array( langCode => langLabel) with aivailable languages
  */
@@ -1446,7 +1446,7 @@ function claro_get_current_context($contextKeys = null)
 /**
  * Developper function to push a message in stack of devs messages
  * in debug mod this stack is output in footer
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  */
 if (!isset($claroErrorList)) $claroErrorList= array();
 function pushClaroMessage($message,$errorClass='error')
@@ -1527,14 +1527,10 @@ function claro_redirect($location)
     header("Location: " . $location);
 }
 
-/**
- * Generate some informations in HTML format over the execution context.\n
- * Informations are placed into hidden inputs.
- */
 function claro_form_relay_context($context=null)
 {
-    $html = '';
-    if ( is_null($context) )
+    $html ='';
+    if(is_null($context))
     {
         $context = Claro_Context::getCurrentUrlContext();
     }

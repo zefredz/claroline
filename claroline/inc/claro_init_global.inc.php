@@ -77,15 +77,13 @@ $imgRepositoryAppend    = get_path('imgRepositoryAppend');
 $imgRepositorySys       = get_path('imgRepositorySys');
 $imgRepositoryWeb       = get_path('imgRepositoryWeb');
 
-/*
- * Path to the PEAR library. PEAR stands for "PHP Extension and Application
- * Repository". It is a framework and distribution system for reusable PHP
- * components. More on http://pear.php.net.
- * Claroline is provided with the basic PEAR components needed by the
- * application in the "claroline/inc/lib/pear" directory. But, server
- * administator can redirect to their own PEAR library directory by setting
- * its path to the PEAR_LIB_PATH constant.x
- */
+// Path to the PEAR library. PEAR stands for "PHP Extension and Application
+// Repository". It is a framework and distribution system for reusable PHP
+// components. More on http://pear.php.net.
+// Claroline is provided with the basic PEAR components needed by the
+// application in the "claroline/inc/lib/pear" directory. But, server
+// administator can redirect to their own PEAR library directory by setting
+// its path to the PEAR_LIB_PATH constant.
 
 define('PEAR_LIB_PATH', get_path('incRepositorySys') . '/lib/thirdparty/pear');
 
@@ -204,7 +202,9 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
         claro_die(get_lang('Not allowed'));
     }
     
-    if ( $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed() )
+    
+    if ( $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed()
+        && ! ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] && ($tlabelReq == 'CLQWZ' || $tlabelReq == 'CLDOC') ) ) // WORKAROUND FOR OLD LP
     {
         if ( ! claro_is_user_authenticated() )
         {

@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 )
  * @see http://www.claroline.net/wiki/CLCRS/
  * @package COURSE
  * @author  Claro Team <cvs@claroline.net>
- * @author  Muret Benoï¿½t <muret_ben@hotmail.com>
+ * @author  Muret Benoît <muret_ben@hotmail.com>
  */
 
 /**
@@ -168,7 +168,10 @@ function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
  * @param the code of the preselected categorie
  * @param the separator used between a cat and its paretn cat to display in the <select>
  * @return echo all the <option> elements needed for a <select>.
+ *
  */
+
+
 function claro_get_cat_list()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -178,6 +181,7 @@ function claro_get_cat_list()
                FROM `" . $tbl_category . "`
                ORDER BY `treePos`";
     return claro_sql_query_fetch_all($sql);
+
 }
 
 
@@ -215,7 +219,6 @@ function claro_get_cat_flat_list($separator = ' > ')
     return $fac_array;
 }
 
-
 /**
  * Recursive function to get the full categories path of a specified categorie
  *
@@ -225,6 +228,8 @@ function claro_get_cat_flat_list($separator = ' > ')
  * @param $separator string
  * @return void
   */
+
+
 function get_full_path($categories, $catcode = NULL, $separator = ' > ')
 {
     //Find parent code

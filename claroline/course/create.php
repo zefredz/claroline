@@ -85,7 +85,7 @@ if ( claro_is_platform_admin()
                 // include the platform language file with all language variables
                 language::load_translation();
                 language::load_locale_settings();
-
+    
                 $course->mailAdministratorOnCourseCreation($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
     
                 $dialogBox->success( get_lang('You have just created the course website')
