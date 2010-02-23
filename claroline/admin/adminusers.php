@@ -311,11 +311,12 @@ $out .= '<table width="100%">' . "\n"
 .    '</table>' . "\n\n"
 ;
 
-if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+$url = ($search =='')?$_SERVER['PHP_SELF']: $_SERVER['PHP_SELF']. '?search='.$search;
+if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($url);
 
 $out .= $userDataGrid->render();
 
-if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($url);
 
 $out .=
 '<script type="text/javascript">
