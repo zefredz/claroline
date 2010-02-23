@@ -153,8 +153,14 @@ if ( !empty($fromAdmin) )
     {
         if ( isset($_REQUEST['class_id']) )
         {
-            $_SESSION['admin_user_class_id'] = $_REQUEST['class_id'];
+            $classId = trim($_REQUEST['class_id']);
+            $_SESSION['admin_user_class_id'] = $classId;
         }
+        else if (isset($_SESSION['admin_user_class_id']))
+        {        
+            $classId = $_SESSION['admin_user_class_id'];
+        }
+        else $classId = '';
 
         // bred different if we come from admin tool for a CLASS
         $nameTools = get_lang('Enrol class');
@@ -563,7 +569,7 @@ switch ( $displayMode )
                 }
                 elseif ( $fromAdmin == 'class')
                 {
-                   if (!get_class_list_of_course($thisCourse['sysCode']))
+                   if (!get_class_list_of_course($thisCourse['sysCode'],$classId))
                    {
                     $out .= '<td valign="top"  align="center">' . "\n"
                     .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
