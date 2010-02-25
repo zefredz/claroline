@@ -655,6 +655,11 @@ ORDER BY tl.rank
 
 function get_user_group_list($userId,$course=null)
 {
+    if ( !is_null( $course ) )
+    {
+        $course = claro_get_current_course_id();
+    }
+    
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course));
     $tbl_group_team          = $tbl_cdb_names['group_team'];
     $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
