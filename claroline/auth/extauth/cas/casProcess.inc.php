@@ -35,7 +35,7 @@ previously in the Claroline 'user' table.
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die();
 
 // include path library    
-include_once get_path('incRepositorySys')  . '/lib/cas/CAS.php';
+include_once get_path('incRepositorySys')  . '/lib/thirdparty/cas/CAS.php';
 
 // DB table definition
         $tbl_mdb_names = claro_sql_get_main_tbl();
