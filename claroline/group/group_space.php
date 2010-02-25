@@ -168,7 +168,7 @@ if ( isset($_REQUEST['regDone']) )
 GET GROUP MEMBER LIST
 ----------------------------------------------------------------------------*/
 
-$groupMemberList = get_group_user_list(claro_get_current_group_id());
+$groupMemberList = get_group_user_list(claro_get_current_group_id(),claro_get_current_course_id());
 
 
 /*----------------------------------------------------------------------------
