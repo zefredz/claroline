@@ -357,15 +357,15 @@ else
         unset( $_SESSION['_user'] );
     }
     
-    // CAS ( BROKEN !!!! )
+    // CAS 
 
-    /*if ( get_conf('claro_CasEnabled', false) 
+    if ( get_conf('claro_CasEnabled', false) 
          && isset($_REQUEST['authModeReq'])
          && $_REQUEST['authModeReq'] == 'CAS'
          )
     {
         require get_path('rootSys').'/claroline/auth/extauth/cas/casProcess.inc.php';
-    }*/
+    }
     
     // SHIBBOLETH ( BROKEN !!!! )
     
@@ -415,7 +415,7 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
     {
         if ( !$currentUser )
         {
-            $currentUser = Claro_CurrentUser::getInstance($_uid);
+            $currentUser = Claro_CurrentUser::getInstance($_uid,true);
         }
         
         // User login

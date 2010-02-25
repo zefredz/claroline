@@ -319,7 +319,7 @@ else // LOGIN SUCCEEDED
     }
     elseif($userLoggedOnCas && isset($_SESSION['casCallBackUrl']))
     {
-        claro_redirect(base64_decode($_SESSION['casCallBackUrl']));
+        claro_redirect($_SESSION['casCallBackUrl']);
     }
     elseif( isset($sourceUrl) ) // send back the user to the script authentication trigger
     {
