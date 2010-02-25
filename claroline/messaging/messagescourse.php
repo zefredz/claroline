@@ -175,7 +175,7 @@
          * Get class user list of this course
          */
         
-        $classList = get_class_list_of_course(claro_get_current_course_id());
+        $classList = get_class_list_of_course(claro_get_current_course_id(),null);
         $displayForm = TRUE;
     }
     

@@ -180,7 +180,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
 
         if ( claro_sql_query_get_single_value($sql)  > 0 )
         {
-            $claroline->log( 'DELETE_USER_FAILED' , array ('USER' => $userId, 'failure' => 'course_manager_cannot_unsubscribe_himself') );
+            Claroline::getInstance()->log( 'DELETE_USER_FAILED' , array ('USER' => $userId, 'failure' => 'course_manager_cannot_unsubscribe_himself') );
             return claro_failure::set_failure('course_manager_cannot_unsubscribe_himself');
         }
     }
