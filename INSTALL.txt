@@ -119,12 +119,10 @@ with IIS too and should work on any PHP-compatible web server.
    for everyone:
    
     - claroline19x/
-    - claroline19x/platform
     - claroline19x/module and all its subfolders
    
    You can change the access rights from the command line under UNIX or Linux :
     chmod ugo+w claroline-1_10_x/
-    chmod -R ugo+w claroline-1_10_x/platform
     chmod -R ugo+w claroline-1_10_x/module
 
 4. Open Web Browser and go to
