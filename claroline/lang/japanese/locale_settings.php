@@ -30,33 +30,38 @@ $langNameOfLang['swedish']="swedish";
 $langNameOfLang['thai']="thai";
 
 
-$charset = 'EUC-JP';
+$charset = 'UTF-8';
 $text_dir = 'ltr';
 $left_font_family = 'sans-serif';
 $right_font_family = 'sans-serif';
 $number_thousands_separator = ',';
 $number_decimal_separator = '.';
-$byteUnits = array('¥Ð¥¤¥È', 'KB', 'MB', 'GB');
+$byteUnits = array('ãƒã‚¤ãƒˆ', 'KB', 'MB', 'GB');
 
-$day_of_week = array('Æü', '·î', '²Ð', '¿å', 'ÌÚ', '¶â', 'ÅÚ');
-$month = array('1·î','2·î','3·î','4·î','5·î','6·î','7·î','8·î','9·î','10·î','11·î','12·î');
+$day_of_week = array('æ—¥', 'æœˆ', 'ç«', 'æ°´', 'æœ¨', 'é‡‘', 'åœŸ');
+$month = array('1æœˆ','2æœˆ','3æœˆ','4æœˆ','5æœˆ','6æœˆ','7æœˆ','8æœˆ','9æœˆ','10æœˆ','11æœˆ','12æœˆ');
 // See http://www.php.net/manual/en/function.strftime.php to define the
 // variable below
 
-$langDay_of_weekNames['init'] = array('Æü', '·î', '²Ð', '¿å', 'ÌÚ', '¶â', 'ÅÚ'); // 1 letter
-$langDay_of_weekNames['short'] = array('Æü', '·î', '²Ð', '¿å', 'ÌÚ', '¶â', 'ÅÚ');
-$langDay_of_weekNames['long'] = array('Æü', '·î', '²Ð', '¿å', 'ÌÚ', '¶â', 'ÅÚ'); // complete word
+$langDay_of_weekNames['init'] = array('S', 'M', 'T', 'W', 'T', 'F', 'S');
+// $langDay_of_weekNames['init'] = array('æ—¥', 'æœˆ', 'ç«', 'æ°´', 'æœ¨', 'é‡‘', 'åœŸ'); // 1 letter
+$langDay_of_weekNames['short'] = array('æ—¥', 'æœˆ', 'ç«', 'æ°´', 'æœ¨', 'é‡‘', 'åœŸ');
+$langDay_of_weekNames['long'] = array('æ—¥', 'æœˆ', 'ç«', 'æ°´', 'æœ¨', 'é‡‘', 'åœŸ'); // complete word
 
-$langMonthNames['init']  = array('1·î','2·î','3·î','4·î','5·î','6·î','7·î','8·î','9·î','10·î','11·î','12·î');
-$langMonthNames['short'] = array('1·î','2·î','3·î','4·î','5·î','6·î','7·î','8·î','9·î','10·î','11·î','12·î');
-$langMonthNames['long'] = array('1·î','2·î','3·î','4·î','5·î','6·î','7·î','8·î','9·î','10·î','11·î','12·î');
+$langMonthNames['init']  = array('1','2','3','4','5','6','7','8','9','10','11','12');
+$langMonthNames['short'] = array('1','2','3','4','5','6','7','8','9','10','11','12');
+$langMonthNames['long'] = array('1','2','3','4','5','6','7','8','9','10','11','12');
 
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
 
-$dateFormatShort =  "%YÇ¯%b%eÆü";
-$dateFormatLong  = '%YÇ¯%B%eÆü';
-$dateTimeFormatLong  = '%YÇ¯%B%eÆü %H:%M';
+$dateFormatCompact = "%Y/%B";
+$dateFormatShort =  "%Y/%B/%d";
+$dateFormatLong  = '%Yå¹´%Bæœˆ%eæ—¥';
+$dateFormatNumeric =  "%Y/%B/%d";
+$dateTimeFormatLong  = '%Yå¹´%Bæœˆ%eæ—¥(%A) %H:%M';
+$dateTimeFormatShort = "%y.%m.%d %I:%M %p";
 $timeNoSecFormat = '%H:%M';
+
 
 ?>
