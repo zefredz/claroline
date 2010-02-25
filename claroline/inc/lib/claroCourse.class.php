@@ -499,8 +499,8 @@ class ClaroCourse
     {
         if ( empty($this->extLinkUrl) ) return true;
 
-        $regexp = "/^(http|https|ftp)\://[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\._\?\,\'/\\\+&%\$#\=~-])*$/i";
-
+        $regexp = "!^(http|https|ftp)\://[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\._\?\,\'/\\\+&%\$#\=~-])*$!i";
+        
         if ( ! preg_match($regexp,$this->extLinkUrl) )
         {
             // Problem with url. try to repair
