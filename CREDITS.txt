@@ -194,6 +194,7 @@ Italian translation :           Maurizio Guercio  (mguercio@libero.it),
 Indonesian translation :        Ery Atmodjo (eryatmodjo@yahoo.com)
 
 Japanese translation :          Akira Yoshii (yoshii@cc.hokkyodai.ac.jp)
+                                Associate Prof. Naoto KIMRUA  Department of Commerce, Takushoku University (nkimura@tsukimidai.net)
 
 Persian translation :           Elnaz Sarbar (elnaz.s@gmail.com)
 
