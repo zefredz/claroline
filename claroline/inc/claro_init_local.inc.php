@@ -205,9 +205,10 @@ FromKernel::uses('auth/authmanager.lib','kernel/user.lib','core/claroline.lib');
 
 // Load authentication config files
 require_once claro_get_conf_repository() .  'auth.sso.conf.php';
+require_once claro_get_conf_repository() .  'auth.cas.conf.php';
 require_once claro_get_conf_repository() .  'auth.extra.conf.php';
 
-// CAS INIT ( PROBABLY BROKEN !!!! )
+// INIT CAS
 if ( get_conf('claro_extauth_sso_system','cas') != '' )
 {
     $ext_auth_sso_file = realpath(claro_get_conf_repository() . 'auth.' . get_conf('claro_extauth_sso_system','cas') . '.conf.php');
@@ -304,7 +305,7 @@ $currentUser = false;
 
 if ( $logout && !empty($_SESSION['_uid']) )
 {
-    // CAS LOGOUT ( PROBABLY BROKEN !!!! )
+    // logout from CAS server
     if ( get_conf('claro_CasEnabled', false) && get_conf('claro_CasGlobalLogout') )
     {
         require get_path('rootSys').'/claroline/auth/extauth/cas/casProcess.inc.php';
@@ -355,7 +356,7 @@ else
         unset( $_SESSION['_user'] );
     }
     
-    // CAS ( PROBABLY BROKEN !!!! )
+    // CAS 
 
     if ( get_conf('claro_CasEnabled', false) 
          && isset($_REQUEST['authModeReq'])
@@ -635,6 +636,7 @@ if ( $cidReq
     // 0. load course configuration to avoid creating uneeded examples
     
     require claro_get_conf_repository() . 'course_main.conf.php';
+    
     
     // 1. get tool list from main db
     
