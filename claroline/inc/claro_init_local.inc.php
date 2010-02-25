@@ -206,10 +206,10 @@ FromKernel::uses('auth/authmanager.lib','kernel/user.lib','core/claroline.lib');
 // require claro_get_conf_repository() .  'auth.drivers.conf.php';
 
 require_once claro_get_conf_repository() .  'auth.sso.conf.php';
-// require_once claro_get_conf_repository() .  'auth.cas.conf.php';
+require_once claro_get_conf_repository() .  'auth.cas.conf.php';
 require_once claro_get_conf_repository() .  'auth.extra.conf.php';
 
-/* // INIT CAS
+// INIT CAS
 if ( get_conf('claro_extauth_sso_system','cas') != '' )
 {
     $ext_auth_sso_file = realpath(claro_get_conf_repository() . 'auth.' . get_conf('claro_extauth_sso_system','cas') . '.conf.php');
@@ -218,7 +218,7 @@ if ( get_conf('claro_extauth_sso_system','cas') != '' )
     {
         require_once $ext_auth_sso_file;
     }
-}*/
+}
 
 /*===========================================================================
   Set claro_init_local.inc.php variables coming from HTTP request into the
@@ -306,11 +306,11 @@ $currentUser = false;
 
 if ( $logout && !empty($_SESSION['_uid']) )
 {
-    /*// logout from CAS server
+    // logout from CAS server
     if ( get_conf('claro_CasEnabled', false) && get_conf('claro_CasGlobalLogout') )
     {
         require get_path('rootSys').'/claroline/auth/extauth/cas/casProcess.inc.php';
-    }*/
+    }
     
     // needed to notify that a user has just loggued out
     $logout_uid = $_SESSION['_uid'];
