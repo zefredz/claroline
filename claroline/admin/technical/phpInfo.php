@@ -31,6 +31,8 @@ if( file_exists(get_path('rootSys').'platform/currentVersion.inc.php') )
     include (get_path('rootSys').'platform/currentVersion.inc.php');
 }
 
+require dirname(__FILE__) .'/../../inc/installedVersion.inc.php';
+
 if( ! claro_is_platform_admin() ) claro_disp_auth_form();
 
 
@@ -57,10 +59,36 @@ if ($is_allowedToAdmin)
 ?>
 
 <div class="elementServeur">
- <span>Claroline</span> <strong><?php echo $clarolineVersion ;?></strong><br />
- <span>PHP</span>  <strong><?php echo phpversion(); ?></strong><br />
- <span>MySql</span> <strong><?php echo mysql_get_server_info();?></strong><br />
- <span>WebServer</span> <strong><?php echo $_SERVER['SERVER_SOFTWARE'] ;?></strong>
+    <table class="claroTable">
+        <thead>
+            <tr class="headerX">
+                <th scope="col">Software</th>
+                <th scope="col">Version</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Claroline Install/Last Major Upgrade Version</th>
+                <td><?php echo $clarolineVersion ;?></td>
+            </tr>
+            <tr>
+                <th scope="row">Claroline Current Version</th>
+                <td><?php echo $new_version ;?></td>
+            </tr>
+            <tr>
+                <th scope="row">PHP</th>
+                <td><?php echo phpversion(); ?></td>
+            </tr>
+            <tr>
+                <th scope="row">MySQL</th>
+                <td><?php echo mysql_get_server_info();?></td>
+            </tr>
+            <tr>
+                <th scope="row">WebServer</th>
+                <td><?php echo $_SERVER['SERVER_SOFTWARE'] ;?></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <ul id="navlist">
