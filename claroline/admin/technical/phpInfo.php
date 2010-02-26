@@ -46,6 +46,7 @@ $nameTools = get_lang('System Info');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $is_allowedToAdmin = claro_is_platform_admin();
+
 if ($is_allowedToAdmin)
 {
     $htmlHeadXtra[] = phpinfo_getStyle();
@@ -53,45 +54,21 @@ if ($is_allowedToAdmin)
 
     echo claro_html_tool_title( array( 'mainTitle'=>$nameTools, 'subTitle'=> get_conf('siteName') ) );
 
-    $cmd = array_key_exists( 'cmd', $_REQUEST ) ? $_REQUEST['cmd'] : 'phpinfo';
+    $cmd = array_key_exists( 'cmd', $_REQUEST ) ? $_REQUEST['cmd'] : 'versions';
     $ext = array_key_exists( 'ext', $_REQUEST ) ? $_REQUEST['ext'] : '';
 
 ?>
 
-<div class="elementServeur">
-    <table class="claroTable">
-        <thead>
-            <tr class="headerX">
-                <th scope="col">Software</th>
-                <th scope="col">Version</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">Claroline Install/Last Major Upgrade Version</th>
-                <td><?php echo $clarolineVersion ;?></td>
-            </tr>
-            <tr>
-                <th scope="row">Claroline Current Version</th>
-                <td><?php echo $new_version ;?></td>
-            </tr>
-            <tr>
-                <th scope="row">PHP</th>
-                <td><?php echo phpversion(); ?></td>
-            </tr>
-            <tr>
-                <th scope="row">MySQL</th>
-                <td><?php echo mysql_get_server_info();?></td>
-            </tr>
-            <tr>
-                <th scope="row">WebServer</th>
-                <td><?php echo $_SERVER['SERVER_SOFTWARE'] ;?></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<!-- div class="elementServeur">
+    
+</div -->
 
 <ul id="navlist">
+    <li>
+        <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=versions" <?php echo ($cmd == 'versions')? 'class="current"': ''; ?>>
+        <?php echo get_lang('Software versions'); ?>
+        </a>
+    </li>
     <li>
         <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpinfo" <?php echo ($cmd == 'phpinfo')? 'class="current"': ''; ?>>
         <?php echo get_lang('PHP configuration'); ?>
@@ -113,7 +90,6 @@ if ($is_allowedToAdmin)
         </a>
     </li>
 </ul>
-
 
 <div class="phpInfoContents">
 <?php
@@ -164,6 +140,41 @@ if ($is_allowedToAdmin)
         echo '<div style="background-color: #dfdfff;">';
         highlight_file(claro_get_conf_repository() . 'claro_main.conf.php');
         echo '<hr /></div>';
+    }
+    else // versions
+    {
+        ?>
+        <table class="claroTable">
+            <thead>
+                <tr class="headerX">
+                    <th scope="col">Software</th>
+                    <th scope="col">Version</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Claroline Install/Last Major Upgrade Version</th>
+                    <td><?php echo $clarolineVersion ;?></td>
+                </tr>
+                <tr>
+                    <th scope="row">Claroline Current Version</th>
+                    <td><?php echo $new_version ;?></td>
+                </tr>
+                <tr>
+                    <th scope="row">PHP</th>
+                    <td><?php echo phpversion(); ?></td>
+                </tr>
+                <tr>
+                    <th scope="row">MySQL</th>
+                    <td><?php echo mysql_get_server_info();?></td>
+                </tr>
+                <tr>
+                    <th scope="row">WebServer</th>
+                    <td><?php echo $_SERVER['SERVER_SOFTWARE'] ;?></td>
+                </tr>
+            </tbody>
+        </table>
+        <?php
     }
 }
 else // is not allowed
