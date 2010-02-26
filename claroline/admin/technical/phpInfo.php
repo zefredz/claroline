@@ -59,10 +59,6 @@ if ($is_allowedToAdmin)
 
 ?>
 
-<!-- div class="elementServeur">
-    
-</div -->
-
 <ul id="navlist">
     <li>
         <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=versions" <?php echo ($cmd == 'versions')? 'class="current"': ''; ?>>
