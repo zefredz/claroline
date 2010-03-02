@@ -164,7 +164,7 @@ This is important for the Claroline upgrade process. If you want to upgrade
 Claroline between two different major version (let's say 1.8 and 1.9), you
 have to follow the instructions in section 2.2.2. If you want to upgrade
 Claroline between two minor versions of the same major version (let's say
-1.9.1 and 1.9.4), you have to follow the instructions given in section 2.2.3.
+1.9.1 and 1.9.4), you have to follow the instructions given in section 2.3.3.
 
     2.2.2 UPDGRADE FROM PREVIOUS CLAROLINE MAJOR VERSION
 
