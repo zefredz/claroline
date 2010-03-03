@@ -69,7 +69,7 @@ Connection API between Claroline and the current script
 $userIdViewer = claro_get_current_user_id(); // id fo the user currently online
 //$userIdViewed = $_GET['userIdViewed']; // Id of the user we want to view
 
-$allowedToEditContent     = ($userIdViewer == $userIdViewed); // || claro_is_allowed_to_edit();
+$allowedToEditContent     = $userIdViewer == $userIdViewed || claro_is_allowed_to_edit();
 $allowedToEditDef         = claro_is_allowed_to_edit();
 $is_allowedToTrack        = ( claro_is_allowed_to_edit() || $userIdViewer == $userIdViewed ) && get_conf('is_trackingEnabled') ;
 
