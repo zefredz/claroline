@@ -1369,10 +1369,12 @@ function user_html_search_form( $data )
  *        define if all submited criterion has to be set.
  * @param boolean $strictCompare (optional)
  *        define if criterion comparison use wildcard or not
+ * @param boolean $ignoreDisabledAccounts (optional)
+ *        define disabled accounts are ignored or not (default : ignored)
  * @return array : existing users who met the criterions
  */
 
-function user_search( $criterionList = array() , $courseId = null, $allCriterion = true, $strictCompare = false )
+function user_search( $criterionList = array() , $courseId = null, $allCriterion = true, $strictCompare = false, $ignoreDisabledAccounts = false )
 {
     $validatedCritList = array('lastname' => '', 'firstname'    => '',
     'email' => ''   , 'officialCode' => '','username'=>'');
@@ -1420,6 +1422,19 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
     $sqlCritList[] = " U.username = '". claro_sql_escape($validatedCritList['username']) . "'";
 
     if ( count($sqlCritList) > 0) $sql .= 'WHERE ' . implode(" $operator ", $sqlCritList);
+    
+    // ignore disabled account if needed 
+    if ( $ignoreDisabledAccounts )
+    {
+        if ( count($sqlCritList) > 0)
+        {
+            $sql .= " AND U.authSource != 'disabled' ";
+        }
+        else
+        {
+            $sql .= "WHERE U.authSource != 'disabled' ";
+        }
+    }
 
     $sql .= " ORDER BY U.nom, U.prenom";
 
