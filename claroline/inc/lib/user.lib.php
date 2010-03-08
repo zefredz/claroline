@@ -1372,7 +1372,7 @@ function user_html_search_form( $data )
  * @return array : existing users who met the criterions
  */
 
-function user_search( $criterionList = array() , $courseId = null, $allCriterion = true, $strictCompare = false )
+function user_search( $criterionList = array() , $courseId = null, $allCriterion = true, $strictCompare = false, $ignoreDisabledAccounts = false )
 {
     $validatedCritList = array('lastname' => '', 'firstname'    => '',
     'email' => ''   , 'officialCode' => '','username'=>'');
@@ -1420,9 +1420,22 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
     $sqlCritList[] = " U.username = '". claro_sql_escape($validatedCritList['username']) . "'";
 
     if ( count($sqlCritList) > 0) $sql .= 'WHERE ' . implode(" $operator ", $sqlCritList);
-
+    
+    // ignore disabled account if needed 
+    if ( $ignoreDisabledAccounts )
+    {
+        if ( count($sqlCritList) > 0)
+        {
+            $sql .= " AND U.authSource != 'disabled' ";
+        }
+        else
+        {
+            $sql .= "WHERE U.authSource != 'disabled' ";
+        }
+    }
+    
     $sql .= " ORDER BY U.nom, U.prenom";
-
+    
     return claro_sql_query_fetch_all($sql);
 }
 

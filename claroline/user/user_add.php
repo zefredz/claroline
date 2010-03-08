@@ -215,10 +215,13 @@ if ($cmd == 'applySearch')
                                        'email'        => $userData['email'],
                                        'officialCode' => $userData['officialCode'],
                                        'username'       => $userData['username']),
-                                       claro_get_current_course_id());
+                                       claro_get_current_course_id(),
+                                       !claro_is_platform_admin() );
     }
     else
+    {
         $userList = array();
+    }
 } // if $cmd == 'applySearch'
 
 // Send mail notification
