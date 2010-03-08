@@ -55,6 +55,7 @@ class MergeUser
                 throw new Exception("Cannot change rel_class_user in {$thisCourseCode}");
             }
             
+            
             // Update course
             
             self::mergeCourseUsers( $uidToRemove, $uidToKeep, $thisCourseCode );
@@ -67,6 +68,9 @@ class MergeUser
         // Update main tracking
         self::mergeMainTrackingUsers( $uidToRemove, $uidToKeep );
         
+        // updtae main messaging
+        self::mergeMainMessaging( $uidToRemove, $uidToKeep );
+        
         // Delete old user
         $sql = "DELETE FROM `{$mainTbl['user']}`
             WHERE user_id = ".(int)$uidToRemove;
@@ -74,6 +78,178 @@ class MergeUser
         if ( ! claro_sql_query($sql) )
         {
             throw new Exception("Cannot delete old use");
+        }
+    }
+    
+    public static function mergeMainMessaging( $uidToRemove, $uidToKeep )
+    {
+        $tableName = get_module_main_tbl(array('im_message','im_message_status'));
+            
+        $getUserMessagesInCourse = "SELECT M.message_id AS id"
+            . " FROM `" . $tableName['im_message'] . "` as M\n"
+            . " LEFT JOIN `" . $tableName['im_recipient'] . "` as R ON M.message_id = R.message_id\n"
+            . " WHERE R.user_id = " . (int)$uidToKeep
+            . " AND M.course IS NULL";
+            
+        $userToKeepMsgList = claro_sql_query_fetch_all($sql);
+        
+        if ( !empty( $userToKeepMsgList ) )
+        {
+            $messageListToRemoveArr = array();
+            
+            foreach ( $userToKeepMsgList as $message )
+            {
+                $messageListToRemoveArr[] = (int)$message['id'];
+            }
+            
+            $messageListToRemove = implode(',', $messageListToRemoveArr);
+            
+            // Remove the user to remove from the course
+            $sql = "DELETE FROM `{$tableName['im_recipient']}`
+                WHERE user_id = " . (int)$uidToRemove . "
+                AND message_id IN ({$messageListToRemove})";
+            
+            if ( ! claro_sql_query($sql) )
+            {
+                throw new Exception("Cannot remove doubles in internal messaging recipients");
+            }
+            
+            $sql = "DELETE FROM `{$tableName['im_message_status']}`
+                WHERE user_id = " . (int)$uidToRemove . "
+                AND message_id IN ({$messageListToRemove})";
+            
+            if ( ! claro_sql_query($sql) )
+            {
+                throw new Exception("Cannot remove doubles in internal messaging status");
+            }
+        }
+        
+        $getUserMessagesInCourse = "SELECT M.message_id AS id"
+            . " FROM `" . $tableName['im_message'] . "` as M\n"
+            . " LEFT JOIN `" . $tableName['im_recipient'] . "` as R ON M.message_id = R.message_id\n"
+            . " WHERE R.user_id = " . (int)$uidToRemove
+            . " AND M.course IS NULL".claro_sql_escape($thisCourseCode)."'";
+            
+        $userToKeepMsgList = claro_sql_query_fetch_all($sql);
+        
+        if ( !empty( $userToKeepMsgList ) )
+        {
+            $messageListToUpdateArr = array();
+            
+            foreach ( $userToKeepMsgList as $message )
+            {
+                $messageListToUpdateArr[] = (int)$message['id'];
+            }
+            
+            $messageListToUpdate = implode(',', $messageListToUpdateArr);
+        
+            // Replace the user id of the user to remove
+            $sql = "UPDATE `{$tableName['im_recipient']}` 
+                SET   user_id    = ".(int)$uidToKeep."
+                WHERE user_id    = ".(int)$uidToRemove."
+                  AND message_id IN ({$messageListToUpdate})";
+            
+            if ( ! claro_sql_query($sql) )
+            {
+                throw new Exception("Cannot change internal messaging recipient");
+            }
+            
+            $sql = "UPDATE `{$tableName['im_message_status']}` 
+                SET   user_id    = ".(int)$uidToKeep."
+                WHERE user_id    = ".(int)$uidToRemove."
+                  AND message_id IN ({$messageListToUpdate})";
+            
+            if ( ! claro_sql_query($sql) )
+            {
+                throw new Exception("Cannot change internal messaging status");
+            }
+        }
+    }
+    
+    public static function mergeCourseMessaging( $uidToRemove, $uidToKeep, $thisCourseCode )
+    {
+        // update messaging
+        
+        $tableName = get_module_main_tbl(array('im_message','im_message_status'));
+        
+        $getUserMessagesInCourse = "SELECT M.message_id AS id"
+            . " FROM `" . $tableName['im_message'] . "` as M\n"
+            . " LEFT JOIN `" . $tableName['im_recipient'] . "` as R ON M.message_id = R.message_id\n"
+            . " WHERE R.user_id = " . (int)$uidToKeep
+            . " AND M.course = '".claro_sql_escape($thisCourseCode)."'";
+            
+        $userToKeepMsgList = claro_sql_query_fetch_all($sql);
+        
+        if ( !empty( $userToKeepMsgList ) )
+        {
+            $messageListToRemoveArr = array();
+            
+            foreach ( $userToKeepMsgList as $message )
+            {
+                $messageListToRemoveArr[] = (int)$message['id'];
+            }
+            
+            $messageListToRemove = implode(',', $messageListToRemoveArr);
+            
+            // Remove the user to remove from the course
+            $sql = "DELETE FROM `{$tableName['im_recipient']}`
+                WHERE user_id = " . (int)$uidToRemove . "
+                AND message_id IN ({$messageListToRemove})";
+            
+            if ( ! claro_sql_query($sql) )
+            {
+                throw new Exception("Cannot change messaging in {$thisCourseCode}");
+            }
+            
+            $sql = "DELETE FROM `{$tableName['im_message_status']}`
+                WHERE user_id = " . (int)$uidToRemove . "
+                AND message_id IN ({$messageListToRemove})";
+            
+            if ( ! claro_sql_query($sql) )
+            {
+                throw new Exception("Cannot change messaging in {$thisCourseCode}");
+            }
+        }
+        
+        $getUserMessagesInCourse = "SELECT M.message_id AS id"
+            . " FROM `" . $tableName['im_message'] . "` as M\n"
+            . " LEFT JOIN `" . $tableName['im_recipient'] . "` as R ON M.message_id = R.message_id\n"
+            . " WHERE R.user_id = " . (int)$uidToRemove
+            . " AND M.course IS NULL".claro_sql_escape($thisCourseCode)."'";
+            
+        $userToKeepMsgList = claro_sql_query_fetch_all($sql);
+        
+        if ( !empty( $userToKeepMsgList ) )
+        {
+            $messageListToUpdateArr = array();
+            
+            foreach ( $userToKeepMsgList as $message )
+            {
+                $messageListToUpdateArr[] = (int)$message['id'];
+            }
+            
+            $messageListToUpdate = implode(',', $messageListToUpdateArr);
+        
+            // Replace the user id of the user to remove
+            $sql = "UPDATE `{$tableName['im_recipient']}` 
+                SET   user_id    = ".(int)$uidToKeep."
+                WHERE user_id    = ".(int)$uidToRemove."
+                  AND message_id IN ({$messageListToUpdate})";
+            
+            if ( ! claro_sql_query($sql) )
+            {
+                throw new Exception("Cannot change messaging in {$thisCourseCode}");
+            }
+            
+            $sql = "UPDATE `{$tableName['im_message_status']}` 
+                SET   user_id    = ".(int)$uidToKeep."
+                WHERE user_id    = ".(int)$uidToRemove."
+                  AND message_id IN ({$messageListToUpdate})";
+            
+            if ( ! claro_sql_query($sql) )
+            {
+                throw new Exception("Cannot change messaging in {$thisCourseCode}");
+            }
         }
     }
     
@@ -115,7 +291,7 @@ class MergeUser
         
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot change group_rel_team_user in {$thisCourseCode}");
+            throw new Exception("Cannot change group_rel_team_user in {$courseId}");
         }
         
         // Update tracking
@@ -125,7 +301,7 @@ class MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot change tracking_event in {$thisCourseCode}");
+            throw new Exception("Cannot change tracking_event in {$courseId}");
         }
 
         
@@ -137,7 +313,7 @@ class MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot change qwz_tracking in {$thisCourseCode}");
+            throw new Exception("Cannot change qwz_tracking in {$courseId}");
         }
 
         // Update user info in course
@@ -146,7 +322,7 @@ class MergeUser
         
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot remove user info in {$thisCourseCode}");
+            throw new Exception("Cannot remove user info in {$courseId}");
         }
     }
     
