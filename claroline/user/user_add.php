@@ -221,7 +221,9 @@ if ($cmd == 'applySearch')
                                        !claro_is_platform_admin() );
     }
     else
+    {
         $userList = array();
+    }
 } // if $cmd == 'applySearch'
 
 // Send mail notification
