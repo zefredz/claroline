@@ -17,6 +17,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
+require_once get_path('incRepositorySys') . '/lib/auth/sso.lib.php';
 
 /* Capture the source of the authentication trigger to get back to it
  * if the authentication succeeds
@@ -163,13 +164,29 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
         .    '</fieldset>'                                                ."\n"
         .    '</form>'                                                    ."\n"
         ;
+        
+        // SSO
+        $sso = new sso();
+        $ssoDrivers = $sso->getDrivers();
+        foreach( $ssoDrivers as $driverName => $driver )
+        {
+            if( $driver['driver']['enabled'] == true )
+            {
+                $driverClass = $driver['driver']['class'];
+                $thisDriver = new $driverClass( $driver['driver'] );
+                $out .= $thisDriver->displayAuthForm();
+                //$out .= '<a href="' . $driver['driver']['url'] . '">' . $driver['driver']['name'] . '</a><br />';
+            }
+        }
+        
+        
 
         $out .= '</td>'                                                    ."\n"
         .    '</tr>'                                                    ."\n"
         .    '</table>'                                                 ."\n"
         ;
     } // end if claro_dispLocalAuthForm
-
+    
     if (get_conf('claro_CasEnabled',false))
     {
         $out .= '<div align="center">'
@@ -319,7 +336,7 @@ else // LOGIN SUCCEEDED
     }
     elseif($userLoggedOnCas && isset($_SESSION['casCallBackUrl']))
     {
-        claro_redirect(base64_decode($_SESSION['casCallBackUrl']));
+        claro_redirect($_SESSION['casCallBackUrl']);
     }
     elseif( isset($sourceUrl) ) // send back the user to the script authentication trigger
     {

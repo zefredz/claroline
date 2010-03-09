@@ -46,7 +46,7 @@ else
     claro_die('<center>WARNING ! PROTECT THIS FOLDER IN YOUR WEBSERVER CONFIGURATION.</center>');
 }*/
 
-$driver = new shibbolethAuthDriver( 'shibboleth' );
+$driver = new shibbolethDriver( 'shibboleth' );
 
 
 if( isset( $_POST['SAMLResponse'] ) )
@@ -56,9 +56,11 @@ if( isset( $_POST['SAMLResponse'] ) )
     $test = simplexml_load_string( $samlReponse );
     $test->registerXPathNamespace('saml2',     'urn:oasis:names:tc:SAML:2.0:assertion');
     $statusCode = $test->xpath('saml2p:Status/saml2p:StatusCode');
+    
+    $user = array();
+    
     if( $statusCode[0]->attributes()->Value == 'urn:oasis:names:tc:SAML:2.0:status:Success' )
-    {
-     $user = array();
+    {     
      $data =  $test->xpath('saml2:Assertion/saml2:AttributeStatement/saml2:Attribute');
      foreach( $data as $id => $d )
      {
@@ -74,7 +76,24 @@ if( isset( $_POST['SAMLResponse'] ) )
             case 'givenName' : $user['firstName'] = $value;
         }
      }
-     var_dump( $user );
+     
+    }
+    
+    if( ! isset( $user['userID'] ) )
+    {
+        //TODO, manage error
+    }
+    else
+    {
+        $authDriver = new shibbolethAuthDriver();
+        
+        $authDriver->setAuthenticationParams( $user['userID'], '' );
+        $currentUser = $authDriver->authenticate();
+        
+        $currentUser = Claro_CurrentUser::getInstance( $authDriver->getUserId(), true )->saveToSession();
+        $_SESSION['_uid'] = $authDriver->getUserId();
+        header('Location: ../../../index.php');
+        
     }
 }
 else
