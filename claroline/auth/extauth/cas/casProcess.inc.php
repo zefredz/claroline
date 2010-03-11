@@ -37,11 +37,6 @@ if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die();
 // include path library    
 include_once get_path('incRepositorySys')  . '/lib/thirdparty/cas/CAS.php';
 
-// DB table definition
-        $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl_user      = $tbl_mdb_names['user'];
-
-
 if (   ! isset($_SESSION['init_CasCheckinDone'] )
     || $logout
     || ( basename($_SERVER['SCRIPT_NAME']) == 'login.php' && isset($_REQUEST['authModeReq']) && $_REQUEST['authModeReq'] == 'CAS' )
