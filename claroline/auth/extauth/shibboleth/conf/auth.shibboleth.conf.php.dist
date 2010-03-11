@@ -1,12 +1,110 @@
 <?php
 
-class shibbolethAuthDriver extends sso
+class shibbolethAuthDriver extends AbstractAuthDriver
+{
+    
+    public function getAuthSource()
+    {
+        return 'shibboleth';
+    }
+    
+    public function setAuthenticationParams( $username, $password )
+    {
+        $this->username = $username;
+        
+        if ( get_conf('userPasswordCrypted',false) )
+        {
+            $this->password = md5($password);
+        }
+        else
+        {
+            $this->password = $password;
+        }
+    }
+    
+    public function authenticate( $userData = null )
+    {
+        $tbl = claro_sql_get_main_tbl();
+        
+        $sql = "SELECT user_id, username, password, authSource\n"
+            . "FROM `{$tbl['user']}`\n"
+            . "WHERE "
+            . ( get_conf('claro_authUsernameCaseSensitive',true) ? 'BINARY ' : '')
+            . "username = ". Claroline::getDatabase()->quote($this->username) . "\n"
+            . "AND authSource = '{$this->getAuthSource()
+            }'". "\n"
+            . "ORDER BY user_id DESC LIMIT 1"
+            ;
+
+        // error_log( $sql );
+            
+        $userDataList = Claroline::getDatabase()->query( $sql );
+        if ( $userDataList->numRows() > 0 )
+        {
+            $userData = $userDataList->fetch();
+            $this->userId = $userData['user_id'];
+            
+            return true;
+        }
+        else
+        {
+            $return = user_create(
+              array(    'lastname' =>  $userData['lastName']
+                    ,   'firstname' => $userData['firstName']
+                    ,   'username' => $userData['userID']
+                    ,   'officialCode' => ''
+                    ,   'email' => $userData['email']
+                    ,   'password' => ''
+                   )
+            );
+            
+            if( $return )
+            {
+                $this->userId = $return;
+                
+                $tbl = claro_sql_get_main_tbl();                
+                
+                Claroline::getDatabase()->exec("
+                    UPDATE
+                        `" . $tbl['user'] . "`
+                    SET
+                        `authSource` = '{$this->getAuthSource()}'
+                    WHERE
+                        `user_id` = " . (int) $this->userId . "
+                ");
+                
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+    
+    public function getUserData()
+    {
+        return $this->getUser()->getRawData();
+    }
+}
+
+class shibbolethDriver extends sso
 {
     private $driver;
     
     public function __construct( $driver )
     {
         $this->driver = $driver;
+    }
+    
+    public function getAuthSource()
+    {
+        return 'shibboleth';
     }
     
     private function samlEncodeMessage( $msg )
@@ -62,7 +160,7 @@ $driverConfig['shibboleth']['driver'] = array(
     'enabled' => true,
     'url' =>  'https://pcwin889.win.tue.nl:8443/idp/profile/SAML2/POST/SSO',
     'name'=> 'Grapple Login (Shibboleth)',
-    'class' => 'shibbolethAuthDriver'
+    'class' => 'shibbolethDriver'
 );
 
 ?>

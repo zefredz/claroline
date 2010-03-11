@@ -88,11 +88,13 @@ if( isset( $_POST['SAMLResponse'] ) )
         $authDriver = new shibbolethAuthDriver();
         
         $authDriver->setAuthenticationParams( $user['userID'], '' );
-        $currentUser = $authDriver->authenticate();
-        
-        $currentUser = Claro_CurrentUser::getInstance( $authDriver->getUserId(), true )->saveToSession();
-        $_SESSION['_uid'] = $authDriver->getUserId();
-        header('Location: ../../../index.php');
+        $currentUser = $authDriver->authenticate( $user );
+        if( $currentUser )
+        {
+            $currentUser = Claro_CurrentUser::getInstance( $authDriver->getUserId(), true )->saveToSession();
+            $_SESSION['_uid'] = $authDriver->getUserId();
+            header('Location: ../../../index.php');
+        }
         
     }
 }
