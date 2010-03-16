@@ -60,6 +60,10 @@ input, textarea, button, select{
     color: #369;
 }
 
+select {
+    min-width: 150px;
+}
+
 input[type=submit], input[type=reset], input[type=button], button {
     margin-left: 2px;
     color: #666;
