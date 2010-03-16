@@ -145,7 +145,7 @@ if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
 {
     if( !$submission->load($_REQUEST['wrkId']) )
     {
-        unset($cmd);
+        $cmd = '';
     }
 }
 
@@ -646,12 +646,9 @@ if($is_allowedToEditAll)
                 $userIdList = array();
                 if( $assignment->getAssignmentType() == 'GROUP' )
                 {
-                    $sql = "SELECT `user`
-                            FROM `".$tbl_group_rel_team_user."`
-                            WHERE `team` = ".(int)$_REQUEST['authId'];
-
-                    $userIdList = claro_sql_query_fetch_all($sql);
-                    $userIdList = $userIdList['user'];
+                    $gradedSubmission = new Submission;
+                    $gradedSubmission->load( $submission->getParentId() );
+                    $userIdList[] = $gradedSubmission->getUserId();
                 }
                 else
                 {
