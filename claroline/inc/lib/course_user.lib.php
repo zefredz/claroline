@@ -211,8 +211,16 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
             $tbl_group_team        = $tbl_cdb_names['group_team'         ];
             $tbl_userinfo_content  = $tbl_cdb_names['userinfo_content'   ];
 
-            $sqlList = array(
-            "DELETE FROM `" . $tbl_bb_notify        . "` WHERE user_id = " . (int) $userId ,
+           $sqlList = array(); 
+           $toolCLFRM =  get_module_data('CLFRM');
+           
+           if (is_tool_activated_in_course($toolCLFRM['id'],$thisUserEnrolCourse['code_cours']))
+           {
+               $sqlList = array(
+            		"DELETE FROM `" . $tbl_bb_notify        . "` WHERE user_id = " . (int) $userId );          
+           }
+            
+            array_push($sqlList,
             "DELETE FROM `" . $tbl_userinfo_content . "` WHERE user_id = " . (int) $userId ,
             // change tutor to NULL for the course WHERE the tutor is the user to delete
             "UPDATE `" . $tbl_group_team . "` SET `tutor` = NULL WHERE `tutor`='" . (int) $userId . "'"
