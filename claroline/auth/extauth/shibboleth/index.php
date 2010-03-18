@@ -46,7 +46,7 @@ else
     claro_die('<center>WARNING ! PROTECT THIS FOLDER IN YOUR WEBSERVER CONFIGURATION.</center>');
 }*/
 
-$driver = new shibbolethDriver( 'shibboleth' );
+$driver = new shibbolethDriver( $driverConfig['shibboleth']['driver'] );
 
 
 if( isset( $_POST['SAMLResponse'] ) )
@@ -54,6 +54,9 @@ if( isset( $_POST['SAMLResponse'] ) )
     $samlReponse =  utf8_decode( base64_decode( $_POST['SAMLResponse'] ) );
     
     $test = simplexml_load_string( $samlReponse );
+    
+    $_SESSION['shibboleth']['id'] = (string) $test->attributes()->ID;
+    
     $test->registerXPathNamespace('saml2',     'urn:oasis:names:tc:SAML:2.0:assertion');
     $statusCode = $test->xpath('saml2p:Status/saml2p:StatusCode');
     
@@ -101,6 +104,14 @@ if( isset( $_POST['SAMLResponse'] ) )
 else
 {
     //TODO, redirect to form
+    $out = $driver->displayAuthForm()
+    .   '<script>$("#auth").submit();</script>'
+    ;
+    
+    $claroline->display->body->appendContent($out);
+
+    echo $claroline->display->render();
+    
 }
 
 
