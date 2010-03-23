@@ -818,15 +818,16 @@ elseif( $showSubmitForm )
         {
             $questionsList = @unserialize( $qList['questions'] );
             $out .= '<div id="questionsList' . $i++ . '" class="collapsible collapsed" style="padding: 3px 0 3px 0;">' . "\n"            
-            .   '<a href="#" class="doCollapse" style="font-weight: bold;">' . get_lang( 'Question list %id', array( '%id' => $i) ) . '</a>' . "\n"            
+            .   '<a href="#" class="doCollapse" style="font-weight: bold;">' . get_lang( 'Question list %id (saved the %date)', array( '%id' => $i, '%date' => date( 'Y/m/d - H:i', $questionsList['date'] ) ) ) . '</a>' . "\n"
+            .   ' - ' . "\n"
+            .   '<a href="exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'&listId=' . $qList['id'] . '">' . get_lang( 'Load this list' ) . '</a>' . "\n"
+            .   ' - ' . "\n"
+            .   '<a href="exercise_submit.php?exId=' . $exId . '&cmd=deleteRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'&listId=' . $qList['id'] . '">' . get_lang( 'Delete') . '</a>'
             .   '<div class="collapsible-wrapper">' . "\n";
-            if( is_array( $questionsList) && count( $questionsList) )
+            if( is_array( $questionsList['questions']) && count( $questionsList['questions']) )
             {
-                $out .= '<a href="exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'&listId=' . $qList['id'] . '">' . get_lang( 'Load this list' ) . '</a>' . "\n"
-                .   ' - '
-                .   '<a href="exercise_submit.php?exId=' . $exId . '&cmd=deleteRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'&listId=' . $qList['id'] . '">' . get_lang( 'Delete') . '</a>'
-                .   '<ol>';
-                foreach( $questionsList as $question)
+                $out .= '<ol>';
+                foreach( $questionsList['questions'] as $question)
                 {
                     $out .= '<li>'
                     .   $question['title']
