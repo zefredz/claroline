@@ -525,6 +525,7 @@ else
     $out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
     .     '<thead>' . "\n"
     .     '<tr class="headerX">' . "\n"
+    .     '<th>' . get_lang('Id') . '</th>' . "\n"
     .     '<th>' . get_lang('Question') . '</th>' . "\n"
     .     '<th>' . get_lang('Answer type') . '</th>' . "\n"
     .     '<th>' . get_lang('Modify') . '</th>' . "\n"
@@ -545,6 +546,7 @@ else
             $questionIterator++;
 
             $out .= '<tr>' . "\n"
+            .     '<td align="center">' . $question['id'] . '</td>' . "\n"
             .     '<td>'.$question['title'].'</td>' . "\n";
 
             // answer type
@@ -602,7 +604,7 @@ else
     else
     {
         $out .= '<tr>' . "\n"
-        .     '<td colspan="6">' . get_lang('Empty') . '</td>' . "\n"
+        .     '<td colspan="7">' . get_lang('Empty') . '</td>' . "\n"
         .     '</tr>' . "\n\n";
     }
     $out .= '</tbody>' . "\n\n"

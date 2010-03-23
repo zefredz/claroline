@@ -479,8 +479,11 @@ class Exercise
      * @param $exerciseId id of the exercise
      * @param $questions array of question ids
      */    
-    function saveRandomQuestionList( $userId, $exerciseId, $questions)
+    function saveRandomQuestionList( $userId, $exerciseId, $thisQuestions)
     {
+        
+        $questions[ 'questions' ] = $thisQuestions;
+        $questions[ 'date' ] = time();
         
         $sql = "INSERT INTO `" . $this->tblRandomQuestions . "` SET "
         .   " `user_id` = " . (int) $userId . ","
