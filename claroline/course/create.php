@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * This  script  manage the creation of a new course.
+ * This script  manage the creation of a new course.
  *
  * it contain 3 panel
  * - Form
@@ -48,6 +48,7 @@ require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
 require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
+require_once get_path('incRepositorySys') . '/lib/claroCourseSession.class.php';
 
 define('DISP_COURSE_CREATION_FORM'     ,__LINE__);
 define('DISP_COURSE_CREATION_SUCCEED'  ,__LINE__);
@@ -58,16 +59,90 @@ $display = DISP_COURSE_CREATION_FORM; // default display
 
 $dialogBox = new DialogBox();
 
-$cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
-$adminContext = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
+$cmd                = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
+$adminContext       = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
+
+// $sourceCourseId has a value only if we're about to create a session course; it's null otherwise 
+$sourceCourseId = isset($_REQUEST['course_sourceCourseId']) ? (int) $_REQUEST['course_sourceCourseId'] : null;
+
+// Manage html multiple select
+$htmlHeadXtra[]='
+<script type="text/javascript" language="JavaScript">
+<!-- Begin javascript menu swapper
+function move( inBox, outBox )
+{
+    var arrInBox = new Array();
+    var arrOutBox = new Array();
+
+    for ( var i=0; i<outBox.options.length; i++ )
+    {
+        arrOutBox[i] = outBox.options[i];
+    }
+
+    var outLength = arrOutBox.length;
+    var inLength = 0;
+
+    for ( var i=0; i<inBox.options.length; i++ )
+    {
+        var opt = inBox.options[i];
+        if ( opt.selected )
+        {
+            arrOutBox[outLength] = opt;
+            outLength++;
+        }
+        else
+        {
+            arrInBox[inLength] = opt;
+            inLength++;
+        }
+    }
+
+    inBox.length = 0;
+    outBox.length = 0;
+
+    for ( var i = 0; i < arrOutBox.length; i++ )
+    {
+        outBox.options[i] = arrOutBox[i];
+    }
+
+    for ( var i = 0; i < arrInBox.length; i++ )
+    {
+        inBox.options[i] = arrInBox[i];
+    }
+}
+//  End -->
+</script>
+
+<script type="text/javascript" language="JavaScript">
+<!-- 
+function selectAll(cbList,bSelect) {
+  for (var i=0; i<cbList.length; i++)
+    cbList[i].selected = cbList[i].checked = bSelect
+}
+
+function reverseAll(cbList) {
+  for (var i=0; i<cbList.length; i++) {
+    cbList[i].checked = !(cbList[i].checked)
+    cbList[i].selected = !(cbList[i].selected)
+  }
+}
+ -->
+</script>';
 
 // New course object
 $thisUser = claro_get_current_user_data();
-$course = new ClaroCourse($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
+if ( is_null ($sourceCourseId) )
+{
+    $course = new ClaroCourse($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
+}
+else
+{
+    $course = new claroCourseSession($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
+}
 
 if ( $adminContext && claro_is_platform_admin() )
 {
-    // from admin, add param to form
+    // From admin, add param to form
     $course->addHtmlParam('adminContext','1');
 }
 
@@ -85,12 +160,12 @@ if ( claro_is_platform_admin()
                 // include the platform language file with all language variables
                 language::load_translation();
                 language::load_locale_settings();
-
+                
                 $course->mailAdministratorOnCourseCreation($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
-    
+                
                 $dialogBox->success( get_lang('You have just created the course website')
                 .            ' : ' . '<strong>' . $course->officialCode . '</strong>' );
-    
+                
                 $display = DISP_COURSE_CREATION_SUCCEED;
             }
             else
@@ -112,13 +187,12 @@ if ( claro_is_platform_admin()
     
         if( $course->validate() )
         {
-            // Trig a waiting screen as course creation may take a while ...
-    
+            // Trig a waiting screen as course creation may take a while...
             $progressUrl = $course->buildProgressUrl();
     
             $htmlHeadXtra[] = '<meta http-equiv="REFRESH" content="0; URL=' . $progressUrl . '">';
     
-            // display "progression" page
+            // Display "progression" page
             $dialogBox->info( get_lang('Creating course (it may take a while) ...') . '<br />' . "\n"
             .      '<p align="center">'
             .      '<img src="' . get_icon_url('processing') . '" alt="" />'
@@ -138,11 +212,11 @@ if ( claro_is_platform_admin()
 }
 
 // Set navigation url
-
 if ( $adminContext && claro_is_platform_admin() )
 {
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Create course'), get_path('clarolineRepositoryWeb') . 'course/create.php?adminContext=1' );
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
-    $backUrl =  get_path('rootAdminWeb') ;
+    $backUrl = get_path('rootAdminWeb') ;
 }
 else
 {
@@ -161,7 +235,7 @@ if ( ! get_conf('courseCreationAllowed', true) )
 
 $out = '';
 
-$out .= claro_html_tool_title(get_lang('Create a course website'));
+$out .=  (is_null($sourceCourseId))?(claro_html_tool_title(get_lang('Create a course website'))):(claro_html_tool_title(get_lang('Create a session course website')));
 
 $out .= $dialogBox->render();
 
@@ -171,7 +245,7 @@ if ( claro_is_platform_admin()
     if( $display == DISP_COURSE_CREATION_FORM || $display == DISP_COURSE_CREATION_FAILED )
     {
         // display form
-        $out .= $course->displayForm($backUrl);
+        $out .= $course->displayForm($backUrl, $sourceCourseId);
     }
     elseif ( $display == DISP_COURSE_CREATION_PROGRESS )
     {

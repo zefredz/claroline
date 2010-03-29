@@ -2125,6 +2125,9 @@ Manager : %administratorName
 Phone : %administratorPhone
 Email : %administratorEmail
 ';
+$_lang['blockSessionCourseTip'] = 'You are about to create a "session" course: a course dependent from another.  This course will inherit from the documents linked to its "source" course.<br/>
+By default form fields are filled with informations of the course designated as course.
+Par défaut, les champs du formulaire seront remplis par les informations du cours désigné comme source.';
 $_lang['blockDefaultLearningPathComment'] = 'This is the introduction text of this learning path. To replace it by your own text, click below on <b>modify</b>.';
 $_lang['blockDefaultModuleAddedComment'] = 'This an additional introduction text about the presence of this module specially into this learning path. To replace it by your own text, click below on <b>modify</b>.';
 $_lang['blockDefaultModuleComment'] = 'This is the introduction text of this module, it will appears in each learning path that contains this module. To replace it by your own text, click below on <b>modify</b>.';
