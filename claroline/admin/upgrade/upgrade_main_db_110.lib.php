@@ -16,7 +16,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package UPGRADE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Antonin Bourguignon <antonin.bourguignon@claroline.net> (upgrades regarding categories)
+ * @author Antonin Bourguignon <antonin.bourguignon@claroline.net> 
+ *         (upgrades regarding session courses and categories)
  *
  */
 
@@ -25,7 +26,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  Upgrade to claroline 1.10
  ===========================================================================*/
 
-function upgrade_main_database_category_to_110 ()
+function category_to_110 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tool = 'CATEGORY_110';
@@ -35,7 +36,7 @@ function upgrade_main_database_category_to_110 ()
         case 1 :
             
             // Create new tables `category` and `rel_course_category`
-            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['category_dev'] . "` (
+            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['category'] . "` (
                                 `id` int(11) NOT NULL AUTO_INCREMENT,
                                 `name` varchar(100) NOT NULL DEFAULT '',
                                 `code` varchar(12) NOT NULL DEFAULT '',
@@ -62,7 +63,7 @@ function upgrade_main_database_category_to_110 ()
         case 2 :
             
             // Insert root category
-            $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category_dev'] . "` 
+            $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "` 
                                 (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
                                 VALUES
                                 (0, 'Root', 'ROOT', NULL, 0, 0, 0)";
@@ -76,7 +77,7 @@ function upgrade_main_database_category_to_110 ()
             
             // Insert all previous categories ("faculties") in the new table `category`
             $sql = "SELECT f1.`id`, f1.`code`, f1.`code_P`, f1.`treePos`, f1.`nb_childs`, f1.`canHaveCoursesChild`, f1.`canHaveCatChild`, f2.`id` as idParent 
-                    FROM `" . $tbl_mdb_names['category'] . "` f1, `" . $tbl_mdb_names['category'] . "` f2
+                    FROM `" . get_conf('mainTblPrefix') . "`.`faculty` f1, `" . get_conf('mainTblPrefix') . "`.`faculty` f2
                     WHERE f1.code_P = f2.code OR f1.code_P IS NULL
                     GROUP BY f1.id 
                     ORDER BY idParent ASC, f1.`treePos` ASC";
@@ -99,10 +100,10 @@ function upgrade_main_database_category_to_110 ()
                     $rank++;
                 }
                 
-                $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category_dev'] . "` 
-                                    (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
-                                    VALUES
-                                    ('', '" . $category['name'] . "', '" . $category['code'] . "', " . $category['idParent'] . ", " . $rank . ", $visibile, " . $category['canHaveCoursesChild'] . ")";
+                $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "` 
+                                   (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
+                                   VALUES
+                                   ('', '" . $category['name'] . "', '" . $category['code'] . "', " . $category['idParent'] . ", " . $rank . ", $visibile, " . $category['canHaveCoursesChild'] . ")";
             }
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -114,7 +115,7 @@ function upgrade_main_database_category_to_110 ()
             
             // Associate courses to new categories through `rel_course_categories`
             $sql = "SELECT co.cours_id AS courseId, ca.id AS categoryId
-                    FROM `" . $tbl_mdb_names['course'] . "` co, `" . $tbl_mdb_names['category'] . "` f, `" . $tbl_mdb_names['category_dev'] . "` ca
+                    FROM `" . $tbl_mdb_names['course'] . "` co, `" . get_conf('mainTblPrefix') . "`.`faculty` f, `" . $tbl_mdb_names['category'] . "` ca
                     WHERE co.faculte = f.code AND f.code = ca.code
                     ORDER BY co.`cours_id` ASC";
             
@@ -124,9 +125,9 @@ function upgrade_main_database_category_to_110 ()
             foreach ( $associationsList as $assoc )
             {
                 $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['rel_course_category'] . "` 
-                                    (`courseId`, `categoryId`, `rootCourse`) 
-                                    VALUES
-                                    (" . (int) $assoc['courseId'] . ", " . (int) $assoc['categoryId'] . ", " . $rootCourse . ")";
+                                   (`courseId`, `categoryId`, `rootCourse`) 
+                                   VALUES
+                                   (" . (int) $assoc['courseId'] . ", " . (int) $assoc['categoryId'] . ", " . $rootCourse . ")";
             }
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -146,7 +147,35 @@ function upgrade_main_database_category_to_110 ()
         case 6 :
             
             // Drop deprecated table `faculty`
-            $sqlForUpdate[] = "DROP TABLE `" . $tbl_mdb_names['category'] . "`";
+            $sqlForUpdate[] = "DROP TABLE `" . get_conf('mainTblPrefix') . "`.`faculty`";
+
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+
+            unset($sqlForUpdate);
+
+        default :
+
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+
+    }
+
+    return false;    
+}
+
+function session_course ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'SESSION_COURSE';
+
+    switch( $step = get_upgrade_status($tool) )
+    {           
+        case 1 :
+            
+            // Add the attribute sourceCourseId to the course table
+            $sqlForUpdate[] = " ALTER TABLE `" . $tbl_mdb_names['course'] . "` 
+                                ADD `sourceCourseId` INT NULL AFTER `code`  ";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;

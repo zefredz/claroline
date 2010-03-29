@@ -5,17 +5,13 @@
  *
  * This tool can edit category tree (v 1.9x) / Replaced by admin_category.php (v 1.10)
  *
- * @version 1.9 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLTREE
- *
- * @package CLCOURSES
- *
- * @author Claro Team <cvs@claroline.net>
- *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2006 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/CLTREE
+ * @package     CLCOURSES
+ * @author      Claro Team <cvs@claroline.net>
+ * @deprecated  since 1.10 (now using admin_category.php)
  */
 
 

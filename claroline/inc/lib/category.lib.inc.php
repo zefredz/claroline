@@ -3,7 +3,7 @@
 /**
  * CLAROLINE
  *
- * SQL requests for claroCategory Class
+ * SQL requests for claroCategory class
  *
  * @version 1.10 $Revision: 11894 $
  *
@@ -11,41 +11,40 @@
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author Claro Team <cvs@claroline.net>
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
- * 
- * Development notes
- * /////////////////
- * 
- * * Table names are stored in inc/lib/sql.lib.php
- * * Inputs are secured through 
- * 	 - function Claroline::getDatabase()->quote($str) for strings
- * 	 - casting into int for integers
- * 
+ * @since 1.10
  */
 
 
 /**
- * Get datas for a category
+ * Get datas for a category.
  * 
- * @param $id identifier of the category
- * @return $array containing category datas
+ * @param int       identifier of the category
+ * @return array    category's datas
  */
 function claro_get_cat_datas($id)
 {
     // Get table name
-    $tbl_mdb_names   = claro_sql_get_main_tbl();
-    $tbl_category    = $tbl_mdb_names['category_dev'];
+    $tbl_mdb_names              = claro_sql_get_main_tbl();
+    $tbl_category               = $tbl_mdb_names['category'];
+    $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
             
     $sql = "SELECT
             c.id                    AS id,
-            c.name                    AS name,
-            c.code                    AS code,
-            c.idParent                AS idParent,
-            c.rank                    AS rank,
-            c.visible                AS visible,
-            c.canHaveCoursesChild    AS canHaveCoursesChild
+            c.name                  AS name,
+            c.code                  AS code,
+            c.idParent              AS idParent,
+            c.rank                  AS rank,
+            c.visible               AS visible,
+            c.canHaveCoursesChild   AS canHaveCoursesChild, 
+            rcc.courseId            AS rootCourse
 
             FROM `" . $tbl_category . "` AS c
-            WHERE c.id = " . (int) $id . "";
+            
+            LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
+            ON rcc.categoryId = c.id 
+            AND rcc.rootCourse = 1
+            
+            WHERE c.id = " . (int) $id;
     
     $result = Claroline::getDatabase()->query($sql);
     
@@ -58,15 +57,15 @@ function claro_get_cat_datas($id)
  * be discontinued (1, 2, 4, 7, ...), so we can't just perform a $rank-1 to get the direct 
  * predecessor of a category.
  * 
- * @param $rank of the category that you want the predecessor
- * @param $idParent of the category that you want the predecessor
- * @return int $id of the direct predecessor (if any)
+ * @param int       rank of the category that you want the predecessor
+ * @param int       identifier of the category that you want the predecessor
+ * @return int      identifier of the direct predecessor (if any)
  */
 function claro_get_previous_cat_datas($rank, $idParent)
 {
     // Get table name
     $tbl_mdb_names   = claro_sql_get_main_tbl();
-    $tbl_category    = $tbl_mdb_names['category_dev'];
+    $tbl_category    = $tbl_mdb_names['category'];
     
     // Retrieve all the predecessors
     $sql = "SELECT id 
@@ -94,19 +93,19 @@ function claro_get_previous_cat_datas($rank, $idParent)
 
 
 /**
- * Return the successor of a specified category (based on the rank attribute).  Ranks can 
- * be discontinued (1, 2, 4, 7, ...), so we can't just perform a $rank+1 to get the direct 
- * successor of a category.
+ * Return the successor of a specified category (based on the rank attribute).
+ * Ranks can be discontinued (1, 2, 4, 7, ...), so we can't just perform a 
+ * $rank+1 to get the direct successor of a category.
  * 
- * @param $rank of the category that you want the successor
- * @param $idParent of the category that you want the successor
- * @return int $id of the direct successor (if any)
+ * @param int       rank of the category that you want the successor
+ * @param int       identifier of the category that you want the successor
+ * @return int      identifier of the direct successor (if any)
  */
 function claro_get_following_cat_datas($rank, $idParent)
 {
     // Get table name
     $tbl_mdb_names   = claro_sql_get_main_tbl();
-    $tbl_category    = $tbl_mdb_names['category_dev'];
+    $tbl_category    = $tbl_mdb_names['category'];
     
     // Retrieve all the successors
     $sql = "SELECT id
@@ -134,26 +133,83 @@ function claro_get_following_cat_datas($rank, $idParent)
 
 
 /**
- * Return all the categories from the node $parent
+ * Return categories from the node $parent (recursivly).  Also returns 
+ * the number of courses (nbCourses) directly linked to each category.
  *
- * @param $parent the parent from wich we want to get the categories tree
- * @param $level the level where we start (default: 0)
- * @return $result_array containing all the categories organized hierarchically and ordered by rank
+ * @param int       identifier of the parent from wich we want to 
+ *                  get the categories
+ * @param bool      $visibility (1 = only visible, 0 = only invisible, null = all; default: null)
+ * @return iterator collection of categories ordered by rank
  */
-function claro_get_all_categories($parent, $level = '0')
+function claro_get_categories($parent, $visibility)
 {
     // Get table name
     $tbl_mdb_names             = claro_sql_get_main_tbl();
-    $tbl_category              = $tbl_mdb_names['category_dev'];
+    $tbl_category              = $tbl_mdb_names['category'];
     $tbl_rel_course_category   = $tbl_mdb_names['rel_course_category'];
     
     // Retrieve all children of the id $parent
-    $sql = "SELECT COUNT(rcc.courseId) AS nbCourses, c.id, c.name, c.code, c.idParent, c.rank, c.visible, c.canHaveCoursesChild 
-            FROM `" . $tbl_category . "` AS c LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
-            ON rcc.categoryId = c.id
-            WHERE idParent = " . (int) $parent . "
-            GROUP BY c.`id`
+    $sql = "SELECT c.id, c.name, 
+            c.code, c.idParent, c.rank, c.visible, c.canHaveCoursesChild 
+            FROM `" . $tbl_category . "` AS c 
+            
+            WHERE c.idParent = " . (int) $parent;
+    
+    if (!is_null($visibility))
+    {
+        $sql .= "
+            AND c.visible = " . $visibility;
+    }
+    
+    $sql .= "
             ORDER BY c.`rank`";
+    
+    return Claroline::getDatabase()->query($sql);
+}
+
+
+/**
+ * Return all the categories from the node $parent (recursivly).  Also returns
+ * the number of courses (nbCourses) directly linked to each category and the 
+ * level of each category.
+ *
+ * @param int       identifier of the parent from wich we want to get 
+ *                  the categories tree (default: 0)
+ * @param int       level where we start (default: 0)
+ * @param bool      visibility (1 = only visible, 0 = only invisible, null = all; default: null)
+ * @return array    collection of all the categories organized hierarchically and ordered by rank
+ */
+function claro_get_all_categories($parent = 0, $level = 0, $visibility = null)
+{
+    // Get table name
+    $tbl_mdb_names              = claro_sql_get_main_tbl();
+    $tbl_category               = $tbl_mdb_names['category'];
+    $tbl_course                 = $tbl_mdb_names['course'];
+    $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
+    
+    // Retrieve all children of the id $parent
+    $sql = "SELECT COUNT(rcc.courseId) AS nbCourses, ca.id, ca.name, 
+            ca.code, ca.idParent, ca.rank, ca.visible, ca.canHaveCoursesChild, 
+            co.intitule AS dedicatedCourse, co.code AS dedicatedCourseCode 
+            FROM `" . $tbl_category . "` AS ca 
+            
+            LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
+            ON rcc.categoryId = ca.id
+            
+            LEFT JOIN `" . $tbl_course . "` AS co 
+            ON rcc.courseId = co.cours_id AND rcc.rootCourse = 1
+            
+            WHERE ca.idParent = " . (int) $parent;
+    
+    if ( !is_null($visibility) )
+    {
+        $sql .= " 
+            AND ca.visible = " . $visibility;
+    }
+    
+    $sql .=  " 
+            GROUP BY ca.`id`
+            ORDER BY ca.`rank`";
     
     $result = Claroline::getDatabase()->query($sql);
     $result_array = array();
@@ -175,14 +231,14 @@ function claro_get_all_categories($parent, $level = '0')
  * Return the identifiers of all the parents of a category.
  * Reserved category 0 never has any parent.
  *
- * @param $id identifier of the specified category
- * @return $result_array containing all the identifiers of the parents
+ * @param int       identifier of the specified category
+ * @return array    collection of all the identifiers of the parents
  */
 function claro_get_parents_ids($id)
 {
     // Get table name
     $tbl_mdb_names             = claro_sql_get_main_tbl();
-    $tbl_category              = $tbl_mdb_names['category_dev'];
+    $tbl_category              = $tbl_mdb_names['category'];
     
     // Retrieve parent of the category
     $sql = "SELECT idParent
@@ -193,15 +249,15 @@ function claro_get_parents_ids($id)
     
     if (!$result->isEmpty())
     {
-        $result->rewind();
+        $category = $result->fetch(Database_ResultSet::FETCH_VALUE);
         
         $result_array = array();
         
         // Keep going up until reaching the root
-        if ( $temp['idParent'] != 0 )
+        if ( $category['idParent'] != 0 )
         {
-            $result_array[] = $result->fetch(Database_ResultSet::FETCH_VALUE);
-            $result_array = array_merge( $result_array, claro_get_parents_ids($temp['idParent']) );
+            $result_array[] = $category;
+            $result_array = array_merge( $result_array, claro_get_parents_ids($category['idParent']) );
         }
     
         return $result_array;
@@ -214,23 +270,25 @@ function claro_get_parents_ids($id)
 
 
 /**
- * Insert a category in database (with rank following the last category of the same parent)
+ * Insert a category in database (with rank following the last category of 
+ * the same parent)
  * 
- * @param $name name of the category
- * @param $code code of the category
- * @param $idParent id of the parent category (default: 0)
- * @param $rank position in the tree's level // Not used
- * @param $visible (default: 1)
- * @param $canHaveCoursesChild authorized to possess courses (default: 1)
+ * @param string        name of the category
+ * @param string        code of the category
+ * @param int           identifier of the parent category (default: 0)
+ * @param int           rank, position in the tree's level // Not used
+ * @param bool          visibility (default: 1)
+ * @param bool          canHaveCoursesChild (authorized to possess courses) (default: 1)
  * @return handler
  */
 function claro_insert_cat_datas($name, $code, $idParent, $rank, $visible, $canHaveCoursesChild)
 {
     // Get table name
-    $tbl_mdb_names    = claro_sql_get_main_tbl();
-    $tbl_category     = $tbl_mdb_names['category_dev'];
+    $tbl_mdb_names              = claro_sql_get_main_tbl();
+    $tbl_category               = $tbl_mdb_names['category'];
+    $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
     
-    // Get the higher rank for the designated parent
+    // Get the highest rank for the designated parent
     $sql = "SELECT MAX(rank) AS maxRank 
             FROM `" . $tbl_category . "` 
             WHERE idParent=" . (int) $idParent;
@@ -241,74 +299,104 @@ function claro_insert_cat_datas($name, $code, $idParent, $rank, $visible, $canHa
     $newRank = $result->fetch(Database_ResultSet::FETCH_VALUE) + 1;
     
     $sql = "INSERT INTO `" . $tbl_category . "` SET 
-            `name`                    = " . Claroline::getDatabase()->quote($name) . ",
-            `code`                    = " . Claroline::getDatabase()->quote($code) . ",
-            `idParent`                = " . (int) $idParent . ", 
-            `rank`                    = " . $newRank. ",
-            `visible`                = " . (int) $visible . ",
-            `canHaveCoursesChild`    = " . (int) $canHaveCoursesChild;
+            `name`                  = " . Claroline::getDatabase()->quote($name) . ",
+            `code`                  = " . Claroline::getDatabase()->quote($code) . ",
+            `idParent`              = " . (int) $idParent . ", 
+            `rank`                  = " . $newRank. ",
+            `visible`               = " . (int) $visible . ",
+            `canHaveCoursesChild`   = " . (int) $canHaveCoursesChild;
     
     return Claroline::getDatabase()->exec($sql);
 }
 
 
 /**
- * Update datas of a category.  If the parent ($idParent) is modified, category's rank will 
- * follow the last category of the new parent.
+ * Update datas of a category.  If the parent ($idParent) is modified, 
+ * category's rank will follow the last category of the new parent.
  * 
- * @param $id identifier of the category
- * @param $name name of the category
- * @param $code code of the category
- * @param $idParent id of the parent category (default: 0)
- * @param $rank position in the tree's level
- * @param $visible (default: 1)
- * @param $canHaveCoursesChild authorized to possess courses (default: 1)
- * @return handler
+ * @param int       identifier of the category
+ * @param string    name of the category
+ * @param string    code of the category
+ * @param int       identifier of the parent category (default: 0)
+ * @param int       rank, position in the tree's level
+ * @param bool      visibility (default: 1)
+ * @param bool      canHaveCoursesChild (authorized to possess courses) (default: 1)
+ * @param int           identifier of the root course/dedicated course
  */
-function claro_update_cat_datas($id, $name, $code, $idParent, $rank, $visible, $canHaveCoursesChild)
+function claro_update_cat_datas($id, $name, $code, $idParent, $rank, $visible, $canHaveCoursesChild, $rootCourse)
 {
     // Get table name
     $tbl_mdb_names   = claro_sql_get_main_tbl();
-    $tbl_category    = $tbl_mdb_names['category_dev'];
+    $tbl_category    = $tbl_mdb_names['category'];
+    $tbl_rel_course_category   = $tbl_mdb_names['rel_course_category'];
+    
+    // New root course ?
+    if (!is_null($rootCourse))
+    {
+        $sql = "SELECT rcc.courseId 
+                FROM `" . $tbl_rel_course_category . "` AS rcc 
+                WHERE rcc.categoryId = " . (int) $id . " 
+                AND rootCourse = 1";
+        
+        $result = Claroline::getDatabase()->query($sql);
+        $course = $result->fetch(Database_ResultSet::FETCH_VALUE);
+        
+        // Unset the previous rootCourse
+        if (isset($course['courseId']) && $course['courseId'] != $rootCourse)
+        {
+            $sql = "UPDATE `" . $tbl_rel_course_category . "` SET 
+                    rootCourse = 0 
+                    WHERE categoryId = " . (int) $id . " 
+                    AND courseId = " . $course['courseId'];
+            
+            Claroline::getDatabase()->exec($sql);
+        }
+        
+        // Set the new rootCourse
+        $sql = "UPDATE `" . $tbl_rel_course_category . "` SET 
+                rootCourse = 1 
+                WHERE categoryId = " . (int) $id . " 
+                AND courseId = " . $rootCourse;
+        
+        Claroline::getDatabase()->exec($sql);
+    }
     
     // New parent ?
-    $sql = "SELECT idParent 
-            FROM `" . $tbl_category . "` 
-            WHERE id=" . (int) $id;
+    $sql = "SELECT c.idParent 
+            FROM `" . $tbl_category . "` AS c 
+            WHERE c.id = " . (int) $id;
     
     $result = Claroline::getDatabase()->query($sql);
-    $result->rewind();
     
     if ($result->fetch(Database_ResultSet::FETCH_VALUE) == $idParent) // Parent hasn't changed
     {
         $sql = "UPDATE `" . $tbl_category . "` SET
-                `name`                    = " . Claroline::getDatabase()->quote($name) . ",
-                `code`                    = " . Claroline::getDatabase()->quote($code) . ",
-                `rank`                    = " . (int) $rank . ",
-                `visible`                = " . (int) $visible . ",
-                `canHaveCoursesChild`    = " . (int) $canHaveCoursesChild . "
+                `name`                  = " . Claroline::getDatabase()->quote($name) . ",
+                `code`                  = " . Claroline::getDatabase()->quote($code) . ",
+                `rank`                  = " . (int) $rank . ",
+                `visible`               = " . (int) $visible . ",
+                `canHaveCoursesChild`   = " . (int) $canHaveCoursesChild . "
                 WHERE id = " . (int) $id;
     }
     else // Parent has changed
     {
-        // Get the higher rank for the designated new parent
+        // Get the highest rank for the designated new parent
         $sql = "SELECT MAX(rank) AS maxRank 
                 FROM `" . $tbl_category . "` 
                 WHERE idParent=" . (int) $idParent;
         
         $result = Claroline::getDatabase()->query($sql);
-        $result->rewind();
         
         $newRank = $result->fetch(Database_ResultSet::FETCH_VALUE) + 1;
         
         // Update datas
         $sql = "UPDATE `" . $tbl_category . "` SET
-                `name`                    = " . Claroline::getDatabase()->quote($name) . ",
-                `code`                    = " . Claroline::getDatabase()->quote($code) . ",
-                `idParent`                = " . (int) $idParent . ", 
-                `rank`                    = " . $newRank. ",
-                `visible`                = " . (int) $visible . ",
-                `canHaveCoursesChild`    = " . (int) $canHaveCoursesChild . "
+                `name`                  = " . Claroline::getDatabase()->quote($name) . ",
+                `code`                  = " . Claroline::getDatabase()->quote($code) . ",
+                `idParent`              = " . (int) $idParent . ", 
+                `rank`                  = " . $newRank. ",
+                `visible`               = " . (int) $visible . ",
+                `canHaveCoursesChild`   = " . (int) $canHaveCoursesChild . "
                 WHERE id = " . (int) $id;
     }
     
@@ -317,16 +405,16 @@ function claro_update_cat_datas($id, $name, $code, $idParent, $rank, $visible, $
 
 
 /**
- * Delete datas of a category
+ * Delete datas of a category.
  * 
- * @param $id identifier of the category
+ * @param int       identifier of the category
  * @return handler
  */
 function claro_delete_cat_datas($id)
 {
     // Get table name
     $tbl_mdb_names   = claro_sql_get_main_tbl();
-    $tbl_category    = $tbl_mdb_names['category_dev'];
+    $tbl_category    = $tbl_mdb_names['category'];
     
     $sql = "DELETE FROM `" . $tbl_category . "` 
             WHERE id = " . (int) $id . "";
@@ -336,16 +424,16 @@ function claro_delete_cat_datas($id)
 
 
 /**
- * Update the visibility value for a category
+ * Update the visibility value for a category.
  * 
- * @param $id identifier of the category
- * @param $visibility 
+ * @param int       identifier of the category
+ * @param bool      visibility 
  */
 function claro_set_cat_visibility($id, $visible)
 {
     // Get table name
     $tbl_mdb_names             = claro_sql_get_main_tbl();
-    $tbl_category              = $tbl_mdb_names['category_dev'];
+    $tbl_category              = $tbl_mdb_names['category'];
     
     $sql = "UPDATE `" . $tbl_category . "` SET
             visible    = " . (int) $visible . "
@@ -356,10 +444,11 @@ function claro_set_cat_visibility($id, $visible)
 
 
 /**
- * Count the number of courses directly attached to the category
+ * Count the number of courses directly attached to the category.
+ * The count does NOT include root courses.
  * 
- * @param $id identifier of the category
- * @return integer number of courses
+ * @param int       identifier of the category
+ * @return int      number of courses
  */
 function claro_count_courses($id)
 {
@@ -369,29 +458,72 @@ function claro_count_courses($id)
     
     $sql = "SELECT COUNT(courseId) as nbCourses 
             FROM `" . $tbl_rel_course_category . "`
-            WHERE categoryId = " . (int) $id;
+            WHERE categoryId = " . (int) $id . "
+            AND rootCourse != 0";
     
     $result = Claroline::getDatabase()->query($sql);
-    $result->rewind();
     
     return $result->fetch(Database_ResultSet::FETCH_VALUE);
 }
 
 
 /**
- * Count the number of sub categories directly attached to the category
+ * Count the number of courses belonging to the category and all its 
+ * subcategories (recursivly).
+ * The count does NOT include root courses.
  * 
- * @param $id identifier of the category
- * @return integer number of sub categories
+ * @param int       identifier of the category
+ * @param int       count, starting value of counting (default: 0)
+ * @return int      number of courses
+ */
+function claro_count_all_courses($id, $count = 0)
+{
+    // Get table name
+    $tbl_mdb_names             = claro_sql_get_main_tbl();
+    $tbl_category              = $tbl_mdb_names['category'];
+    $tbl_rel_course_category   = $tbl_mdb_names['rel_course_category'];
+    
+    // Count number of courses for this category
+    $sql = "SELECT COUNT(rcc.courseId) AS nbCourses
+            FROM `" . $tbl_rel_course_category . "` AS rcc 
+            WHERE rcc.categoryId = " . (int) $id . "
+            AND rootCourse != 1";
+    
+    $result = Claroline::getDatabase()->query($sql);
+    $nbCourses = $result->fetch(Database_ResultSet::FETCH_VALUE);
+    $count = ($nbCourses > 0) ? ($count + $nbCourses) : ($count);
+    
+    // Retrieve all children of this category
+    $sql = "SELECT id 
+            FROM `" . $tbl_category . "` 
+            WHERE idParent = " . (int) $id;
+    
+    $result = Claroline::getDatabase()->query($sql);
+    
+    // Get each child
+    foreach ( $result as $row )
+    {
+        $count =+ claro_count_all_courses($row['id'], $count);
+    }
+    
+    return $count;
+}
+
+
+/**
+ * Count the number of sub categories directly attached to the category.
+ * 
+ * @param int       identifier of the category
+ * @return int      number of sub categories
  */
 function claro_count_sub_categories($id)
 {
     // Get table name
     $tbl_mdb_names             = claro_sql_get_main_tbl();
-    $tbl_category              = $tbl_mdb_names['category_dev'];
+    $tbl_category              = $tbl_mdb_names['category'];
     
-    $sql = "SELECT COUNT(id) as nbSubCategories
-            FROM `" . $tbl_category . "`
+    $sql = "SELECT COUNT(id) as nbSubCategories 
+            FROM `" . $tbl_category . "` 
             WHERE idParent = " . (int) $id;
     
     $result = Claroline::getDatabase()->query($sql);
@@ -402,18 +534,56 @@ function claro_count_sub_categories($id)
 
 
 /**
- * Count the number of categories having a specific value for the code attribute.  You can ignore 
- * a specific id in the counting.
+ * Count the number of sub categories belonging to a category (recursivly).
  * 
- * @param $id the id that we want to ignore in the request
- * @param $code the code's value we search for
- * @return integer number of categories matching this value
+ * @param int       identifier of the category
+ * @return int      number of sub categories
+ */
+function claro_count_all_sub_categories($id, $count = 0)
+{
+    // Get table name
+    $tbl_mdb_names             = claro_sql_get_main_tbl();
+    $tbl_category              = $tbl_mdb_names['category'];
+    
+    // Count number of courses for this category
+    $sql = "SELECT COUNT(c.id) AS nbSubCategories 
+            FROM `" . $tbl_category . "` AS c 
+            WHERE c.idParent = " . (int) $id;
+    
+    $result = Claroline::getDatabase()->query($sql);
+    $nbSubCategories = $result->fetch(Database_ResultSet::FETCH_VALUE);
+    $count = ($nbSubCategories > 0) ? ($count + $nbSubCategories) : ($count);
+    
+    // Retrieve all subcategories
+    $sql = "SELECT id 
+            FROM `" . $tbl_category . "` 
+            WHERE idParent = " . (int) $id;
+    
+    $result = Claroline::getDatabase()->query($sql);
+    
+    // Get each child
+    foreach ( $result as $row ) 
+    {
+        $count =+ claro_count_all_sub_categories($row['id'], $count);
+    }
+    
+    return $count;
+}
+
+
+/**
+ * Count the number of categories having a specific value for the code 
+ * attribute.  You can ignore a specific id in the counting.
+ * 
+ * @param int       identifier that we want to ignore in the request
+ * @param string    code's value we search for
+ * @return int      number of categories matching this value
  */
 function claro_count_code($id = null, $code)
 {
     // Get table name
     $tbl_mdb_names             = claro_sql_get_main_tbl();
-    $tbl_category              = $tbl_mdb_names['category_dev'];
+    $tbl_category              = $tbl_mdb_names['category'];
     
     $sql = "SELECT COUNT(id) nbMatching
             FROM `" . $tbl_category . "`
@@ -427,5 +597,3 @@ function claro_count_code($id = null, $code)
     
     return $result->fetch(Database_ResultSet::FETCH_VALUE);
 }
-
-?>

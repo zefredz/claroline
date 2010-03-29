@@ -13,162 +13,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author Claro Team <cvs@claroline.net>
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
- */
-
-
-/**
- * 
- * Development notes
- * /////////////////
- * 
- * Database
- * ========
- * 
- * Adaptation of the previous table `faculte` (becoming `category`)
- * ----------------------------------------------------------------
- * 
- * RENAME TABLE `db_name`.`PREFIX_faculte`  TO `db_name`.`PREFIX_category` ;
- * 
- * ALTER TABLE `PREFIX_category` CHANGE `code_P` `idParent` VARCHAR( 12 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL ; 
- * ALTER TABLE `PREFIX_category` CHANGE `treePos` `rank` INT( 11 ) NOT NULL DEFAULT '0' ;
- * /!\ Conversion of 'TRUE'/'FALSE' values into '1'/'0' !  Then: 
- * ALTER TABLE `PREFIX_category` CHANGE `canHaveCoursesChild` `canHaveCoursesChild` TINYINT( 1 ) NOT NULL DEFAULT '1' ;
- * ALTER TABLE `PREFIX_category` DROP `canHaveCatChild` ;
- * ALTER TABLE `PREFIX_category` DROP INDEX `code_P` ;
- * ALTER TABLE `PREFIX_category` DROP INDEX `treePos` ;
- * ALTER TABLE `PREFIX_category` DROP INDEX `code` ;
- * ALTER TABLE `PREFIX_category` ADD UNIQUE (`code`) ;
- * /!\ Conversion of CODES into IDS !  Then: 
- * ALTER TABLE `PREFIX_category` CHANGE `idParent` `idParent` INT( 11 ) NOT NULL DEFAULT '0' ;
- * ALTER TABLE `PREFIX_category` DROP `nb_childs` ;
- *  
- *  
- * 
- * Creation of the join table `rel_course_category`
- * ------------------------------------------------
- * 
- * CREATE TABLE `db_name`.`PREFIX_rel_course_category` (
- * `idCourse` INT NOT NULL ,
- * `idCategory` INT NOT NULL ,
- * `rootCourse` BOOL NOT NULL DEFAULT '0'
- * ) ENGINE = MYISAM ;
- * ALTER TABLE `db_name`.`PREFIX_rel_course_category` ADD PRIMARY KEY ( `idCourse` , `idCategory` ) ;
- * 
- * 
- * 
- * Adaptation of the previous table `cours`
- * ----------------------------------------
- * 
- * ALTER TABLE `db_name`.`PREFIX_cours` DROP `faculte` ;
- * 
- * 
- * 
- * Structures for testing purpose
- * ------------------------------
- * 
-
---
--- Structure of table `db_name`.`PREFIX_category`
---
-
-CREATE TABLE IF NOT EXISTS `PREFIX_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL DEFAULT '',
-  `code` varchar(12) NOT NULL DEFAULT '',
-  `idParent` int(11) NOT NULL DEFAULT '0',
-  `rank` int(11) NOT NULL DEFAULT '0',
-  `visible` tinyint(1) NOT NULL DEFAULT '1',
-  `canHaveCoursesChild` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
-
---
--- Structure of table `db_name`.`PREFIX_rel_course_category`
---
-
-CREATE TABLE IF NOT EXISTS `PREFIX_rel_course_category` (
-  `courseId` int(11) NOT NULL,
-  `categoryId` int(11) NOT NULL,
-  `rootCourse` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`courseId`,`categoryId`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
-
- * 
- * Datas for testing purpose
- * -------------------------
- * 
-
---
--- Content of table `db_name`.`PREFIX_category`
---
-
-INSERT INTO `PREFIX_category` (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) VALUES
-(1, 'Sciences', 'SC', 0, 6, 1, 0),
-(2, 'Economics', 'ECO', 0, 5, 1, 0),
-(3, 'Humanities', 'HUMA', 0, 3, 1, 1),
-(4, 'Informatique', 'INFO', 0, 4, 1, 1),
-(5, 'Physique', 'PHY', 1, 1, 1, 1),
-(6, 'Chimie', 'CHIM', 1, 1, 1, 0),
-(7, 'Géologie', 'GEO', 1, 2, 1, 0),
-(8, 'Macro Economie', 'MACROECO', 2, 1, 1, 1),
-(9, 'Catégorie cachée', 'CATCACH', 5, 1, 1, 0),
-(18, 'Test 1', 'TEST1', 9, 1, 1, 0),
-(19, 'Test 2', 'TEST2', 9, 2, 1, 1),
-(20, 'Test 3', 'TEST3', 9, 3, 1, 1),
-(21, 'Intro aux faits et mécanismes économiques', 'INTROFME', 2, 2, 1, 1);
-
---
--- Content of table `db_name`.`PREFIX_rel_course_category`
---
-
-INSERT INTO `PREFIX_rel_course_category` (`courseId`, `categoryId`, `rootCourse`) VALUES
-(1, 1, 0),
-(2, 6, 0),
-(3, 6, 0);
-
-
- * 
- * Tasks
- * =====
- * 
- * TODO: stuff to fix before definitive update
- * -------------------------------------------
- * 
- * * Delete inc/lib/faculty.inc.lib.php
- * * Modify inc/lib/sql.lib.php claro_sql_get_main_tbl() (table names have to be fixed)
- * * In french language files, make difference between "Aucun" and "Aucune" (cf. dropdown list in the form)c
- * 
- * 
- * TODO: questions
- * ---------------
- * 
- * * When hiding a category, should all its children categories also get hidden ? (seems logic)
- * * What's the best way managing and displaying: (1) the number of courses in a category and 
- *   (2) the number of categories in a category ?
- * * What's the purpose of variable $cancelUrl ?
- * * Fold/Unfold categories: is it necessary ?
- * 
- * 
- * Regarding users: main modifications
- * ===================================
- * 
- * * It's now possible ton link a course to multiple categories
- * * If you want to change the parent of a category, you have to use the "Edit" function (there is no more "Move/Displace" function)
- * * The menu has been improved (a little more user friendly: disabled valors in the drop down list, ...)
- *
+ * @since 1.10
  */
 
 
 require_once dirname(__FILE__) . '/backlog.class.php'; // Manage the backlog entries
 require_once dirname(__FILE__) . '/category.lib.inc.php'; // Contains all MySQL requests for this class
+require_once dirname(__FILE__) . '/claroCourse.class.php';
 require_once dirname(__FILE__) . '/course.lib.inc.php'; // Contains certain usefull functions for this class: claro_get_lang_flat_list(), ...
 require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
-
-
-$jsLoader = JavascriptLoader::getInstance();
-$jsLoader->load( 'claroline.ui' );
 
 class ClaroCategory
 {
@@ -182,45 +35,49 @@ class ClaroCategory
     public $code;
 
     // Identifier of the parent category
-    public $idParent;
+    public $parentId;
 
     // Position in the tree's level
     public $rank;
-    
+
     // Visibility
     public $visible;
 
     // Allowed to possess children (true = yes, false = no)
     public $canHaveCoursesChild;
     
+    // Dedicated course (identifier of the course)
+    public $rootCourse;
+
     // Backlog object
     public $backlog;
-    
+
     // List of GET or POST parameters
-    public $htmlParamList = array();    
-    
+    public $htmlParamList = array();
+
 
     /**
      * Constructor
      */
-    function ClaroCategory ($id = null, $name = null, $code = null, $idParent = null, $rank = null, $visible = 1, $canHaveCoursesChild = 1)
+    function ClaroCategory ($id = null, $name = null, $code = null, $parentId = null, $rank = null, $visible = 1, $canHaveCoursesChild = 1, $rootCourse = null)
     {
         $this->id                   = $id;
         $this->name                 = $name;
         $this->code                 = $code;
-        $this->idParent             = $idParent;
+        $this->idParent             = $parentId;
         $this->rank                 = $rank;
         $this->visible              = $visible;
         $this->canHaveCoursesChild  = $canHaveCoursesChild;
-        $this->backlog 				= new Backlog();
+        $this->rootCourse           = $rootCourse;
+        $this->backlog              = new Backlog();
     }
     
-
+    
     /**
-     * Load category data from database in the current object
+     * Load category data from database in the current object.
      *
-     * @param $id int category identifier
-     * @return boolean success
+     * @param int       category identifier
+     * @return bool     success
      */
     public function load ($id)
     {
@@ -240,24 +97,24 @@ class ClaroCategory
             $this->rank                 = $data['rank'];
             $this->visible              = $data['visible'];
             $this->canHaveCoursesChild  = $data['canHaveCoursesChild'];
+            $this->rootCourse           = $data['rootCourse'];
             
             return true;
         }
     }
     
-
+    
     /**
-     * Insert or update current category data
+     * Insert or update current category data.
      *
-     * @return boolean success
+     * @return bool     success
      */
     public function save ()
     {        
         if ( empty($this->id) )
         {
             // No id: it's a new category -> insert
-            
-            if( claro_insert_cat_datas($this->name, $this->code, $this->idParent, $this->rank, $this->visible, $this->canHaveCoursesChild) ) 
+            if( claro_insert_cat_datas($this->name, $this->code, $this->idParent, $this->rank, $this->visible, $this->canHaveCoursesChild, $this->rootCourse) ) 
                 return true;
             else 
             {
@@ -268,8 +125,7 @@ class ClaroCategory
         else
         {
             // No id: it's a new category -> update
-            
-            if( claro_update_cat_datas($this->id, $this->name, $this->code, $this->idParent, $this->rank, $this->visible, $this->canHaveCoursesChild) ) 
+            if( claro_update_cat_datas($this->id, $this->name, $this->code, $this->idParent, $this->rank, $this->visible, $this->canHaveCoursesChild, $this->rootCourse) ) 
                 return true;
             else 
             {
@@ -279,11 +135,11 @@ class ClaroCategory
         }
     }
     
-
+    
     /**
-     * Delete current category data and content
+     * Delete current category data and content.
      *
-     * @return boolean success
+     * @return bool     success
      */
     public function delete ()
     {
@@ -296,22 +152,93 @@ class ClaroCategory
     
     
     /**
-     * Select all categories in database from a certain point
+     * Get the complete path of a category.
      *
-     * @param $start_node the parent from wich we want to get the categories tree (default: 0)
-     * @param $start_level the level where we start (default: 0)
-     * @return array containing all the categories organized hierarchically and ordered by rank
+     * @return string   path.  
+     * @example echo getPath($categoryId, $categoriesList) will show "Category A > Category B > Category C"
      */
-    public static function fetchAllCategories ( $start_node = 0, $start_level = 0 )
+    public static function getPath ($categoryId, $categoriesList = null, $separator = ' > ')
     {
-        return claro_get_all_categories($start_node, $start_level);
+        if ( is_null($categoriesList) )
+        {
+            $categoriesList = self::getAllCategories();
+        }
+        
+        $path   = null;
+        $findId = $categoryId;
+        while ( !is_null($findId) && $findId != 0 )
+        {
+	        foreach ( $categoriesList as $category )
+	        {
+	            if ( $category['id'] == $findId )
+	            {
+	                $path = $category['name'] . ((!is_null($path))?(' ' . $separator . ' ' . $path):(null));
+	                $findId = $category['idParent'];
+	                break;
+	            }
+	        }
+        }
+        
+        return $path;
     }
     
     
     /**
-     * Optimize categories ranks in database, filling possible gaps between them
+     * Select categories in database for a specific parent.
+     *
+     * @param int       $parentId the parent from wich we want to get the categories
+     * @param bool          $visibility (1 = only visible, 0 = only invisible, null = all; default: null)
+     * @return array    collection of categories ordered by rank
+     */
+    public static function getCategories ( $parentId, $visibility = null )
+    {
+        return claro_get_categories($parentId, $visibility);
+    }
+    
+    
+    /**
+     * Select all categories in database from a certain point.  You can use the attribute "level" for 
+     * display purpose.  For instance: echo str_repeat('&nbsp;', 4*$category['level']) . $category['name'];
+     *
+     * @param int           $start_node the parent from wich we want to get the categories tree (default: 0)
+     * @param int           $start_level the level where we start (default: 0)
+     * @param bool          $visibility (1 = only visible, 0 = only invisible, null = all; default: null)
+     * @return iterator     containing all the categories organized hierarchically and ordered by rank
+     */
+    public static function getAllCategories ( $start_node = 0, $start_level = 0, $visibility = null )
+    {
+        return claro_get_all_categories($start_node, $start_level, $visibility);
+    }
+    
+    
+    /**
+     * Select all categories in database and give an explicit path for each of them.
+     *
+     * @param string    $separator (default: ' > ')
+     * @return array    collection of categories (id and path), ordered by rank
+     */
+    public static function getAllCategoriesFlat ( $separator = ' > ' )
+    {
+        $categoriesList = self::getAllCategories();
+        
+        $flatList = array();
+        foreach ($categoriesList as $category)
+        {
+            $flatList[] = array(
+                                'id' =>     $category['id'], 
+                                'path' =>   self::getPath($category['id'], $categoriesList, $separator)
+                                );
+        }
+        
+        return $flatList;
+    }
+    
+    
+    /**
+     * Optimize categories ranks in database, filling possible 
+     * gaps between them.
      * 
-     * @return int number of gaps filled
+     * @return int      number of gaps filled
      */
     public static function optimizeRanks ( )
     {
@@ -320,34 +247,59 @@ class ClaroCategory
     
     
     /**
-     * Count the number of courses in the current category (not recursive: only works on 
-     * one level of the tree).
+     * Count the number of courses in the current category 
+     * (not recursive: only works on one level of the tree).  
+     * The count does NOT include root courses.
      * 
-     * @return integer number of courses
+     * @return int      number of courses
      */
-    public function countCourses ()
+    public static function countCourses ($id)
     {
-        return claro_count_courses($this->id);
+        return claro_count_courses($id);
     }
     
     
     /**
-     * Count the number of sub categories of the current category (not recursive: only works on 
-     * one level of the tree).
+     * Count the number of courses in the current category 
+     * and all its sub categories (recursivly).  
+     * The count does NOT include root courses.
      * 
-     * @return integer number of sub categories
+     * @return int      number of courses
      */
-    public function countSubCategories ()
+    public static function countAllCourses ($id)
     {
-        return claro_count_sub_categories($this->id);
+        return claro_count_all_courses($id);
     }
     
     
     /**
-     * Swap the visibility value of a category (from TRUE to FALSE or from FALSE to TRUE) 
-     * and save it into the database
+     * Count the number of sub categories of the current category 
+     * (not recursive: only works on one level of the tree).
      * 
-     * @return boolean success
+     * @return int      number of sub categories
+     */
+    public static function countSubCategories ($id)
+    {
+        return claro_count_sub_categories($id);
+    }
+    
+    
+    /**
+     * Count the number of sub categories of the current category (recursivly).
+     * 
+     * @return int      number of sub categories
+     */
+    public static function countAllSubCategories ($id)
+    {
+        return claro_count_all_sub_categories($id);
+    }
+    
+    
+    /**
+     * Swap the visibility value of a category (from TRUE to FALSE or 
+     * from FALSE to TRUE) and save it into the database.
+     * 
+     * @return boo      success
      */
     public function swapVisibility () 
     {
@@ -361,9 +313,9 @@ class ClaroCategory
     
     
     /**
-     * Exchange category's position with previous category of the same level
+     * Exchange category's position with previous category of the same level.
      * 
-     * @return boolean success
+     * @return bool     success
      */
     public function decreaseRank () 
     {
@@ -383,9 +335,9 @@ class ClaroCategory
     
     
     /**
-     * Exchange category's position with following category of the same level
+     * Exchange category's position with following category of the same level.
      * 
-     * @return boolean success
+     * @return bool     success
      */
     public function increaseRank () 
     {
@@ -408,7 +360,7 @@ class ClaroCategory
      * Exchange ranks between the current category and another one 
      * and save the modification in database.
      * 
-     * @param $id identifier of the other category
+     * @param int       identifier of the other category
      */
     public function exchangeRanks ($id)
     {
@@ -428,9 +380,10 @@ class ClaroCategory
     
     
     /**
-     * Check if the code of the category is unique (doesn't already exists in database)
+     * Check if the code of the category is unique (doesn't already 
+     * exists in database).
      * 
-     * @return boolean: TRUE if the code is unique, FALSE if it's not
+     * @return bool     result: TRUE if the code is unique, FALSE if it's not
      */
     public function checkUniqueCode () 
     {
@@ -442,10 +395,11 @@ class ClaroCategory
     
     
     /**
-     * Check if the specified category is a child of the current category
+     * Check if the specified category is a child of the current category.
      * 
-     * @param $id the identifier of the category we want to check
-     * @return boolean: TRUE if the specified category is the child of the current category
+     * @param int       identifier of the category we want to check
+     * @return bool     result: TRUE if the specified category is the child 
+     *                  of the current category
      */
     public function checkIsChild ($id) 
     {
@@ -457,35 +411,37 @@ class ClaroCategory
             return false;
     }
     
-
+    
     /**
-     * Retrieve category data from form and fill current category with it
+     * Retrieve category data from form and fill current category with it.
      */
     public function handleForm ()
     {
-        if ( isset($_REQUEST['category_id']) )                      $this->id = trim(strip_tags($_REQUEST['category_id']));
-        if ( isset($_REQUEST['category_name']) )                 $this->name = trim(strip_tags($_REQUEST['category_name']));
-
+        if ( isset($_REQUEST['category_id']) )                  $this->id = trim(strip_tags($_REQUEST['category_id']));
+        if ( isset($_REQUEST['category_name']) )                $this->name = trim(strip_tags($_REQUEST['category_name']));
+        
         if ( isset($_REQUEST['category_code']) ) // Only capital letters and numbers
         {
             $this->code = trim(strip_tags($_REQUEST['category_code']));
             $this->code = preg_replace('/[^A-Za-z0-9_]/', '', $this->code);
             $this->code = strtoupper($this->code);
         }
-
-        if ( isset($_REQUEST['category_parent']) )               $this->idParent = trim(strip_tags($_REQUEST['category_parent']));
         
-        if ( isset($_REQUEST['category_rank']) )                 $this->rank = trim(strip_tags($_REQUEST['category_rank']));
+        if ( isset($_REQUEST['category_parent']) )              $this->idParent = trim(strip_tags($_REQUEST['category_parent']));
+        
+        if ( isset($_REQUEST['category_rank']) )                $this->rank = trim(strip_tags($_REQUEST['category_rank']));
                
-        if ( isset($_REQUEST['category_visible']) )              $this->visible = trim(strip_tags($_REQUEST['category_visible']));
-        if ( isset($_REQUEST['category_can_have_courses']) )     $this->canHaveCoursesChild = trim(strip_tags($_REQUEST['category_can_have_courses']));
+        if ( isset($_REQUEST['category_visible']) )             $this->visible = trim(strip_tags($_REQUEST['category_visible']));
+        if ( isset($_REQUEST['category_can_have_courses']) )    $this->canHaveCoursesChild = trim(strip_tags($_REQUEST['category_can_have_courses']));
+        if ( isset($_REQUEST['category_root_course']) )         $this->rootCourse = trim(strip_tags($_REQUEST['category_root_course']));
     }
     
-
+    
     /**
-     * Validate data from current object.  Error handling with a backlog object.
+     * Validate data from current object.  Error handling with 
+     * a backlog object.
      *
-     * @return boolean success
+     * @return bool     success
      */
     public function validate ()
     {
@@ -493,10 +449,7 @@ class ClaroCategory
         
         $success = true ;
 
-        /**
-         * Configuration array , define here which field can be left empty or not
-         */
-
+        // Configuration array, define here which field can be left empty or not
         //TODO make it more accurate using function get_conf('human_label_needed');
         $fieldRequiredStateList['name']                 = true;
         $fieldRequiredStateList['code']                 = true;
@@ -574,9 +527,9 @@ class ClaroCategory
     
     
     /**
-     * Put the current category's datas into a string format
+     * Put the current category's datas into a string format.
      * 
-     * @return string
+     * @return string       category's datas
      */
     public function toString ()
     {
@@ -592,19 +545,53 @@ class ClaroCategory
         return $str;
     }
     
-
+    
     /**
-     * Display form
+     * Display form.
      *
-     * @param $cancelUrl string url of the cancel button
-     * @return string html output of form
+     * @param string        $cancelUrl url of the cancel button
+     * @return string       html output of form
      */
     public function displayForm ($cancelUrl=null)
     {
-        $languageList = claro_get_lang_flat_list();
-        $categoryList = claroCategory::fetchAllCategories();
-
+        $languageList   = claro_get_lang_flat_list();
+        $categoriesList = self::getAllCategories();
+        $coursesList    = isset($this->id) ? (claroCourse::getAllCourses($this->id)) : (array());
+        
+        // Generate HTML options list for categories
+        $categoriesHtmlList = '<option value="0">' . get_lang("None") . '</option>';
+        $disabled   = false;
+        $tempLevel  = null;
+        foreach ( $categoriesList as $elmt )
+        {
+            // Enable/disable elements in the drop down list
+            if ( !empty($elmt['id']) && $elmt['id'] == $this->id )
+            {
+                $disabled = true;
+                $tempLevel = $elmt['level'];
+            }
+            elseif ( isset($tempLevel) && $elmt['level'] > $tempLevel )
+            {
+                $disabled = true;
+            }
+            else
+            {
+                $disabled = false;
+                $tempLevel = null;
+            }
+            
+            $categoriesHtmlList .= '<option value="' . $elmt['id'] . '" ' . ( ( !empty($elmt['id']) && $elmt['id'] == $this->idParent ) ? ('selected="selected"') : ('') ) . ( ( $disabled ) ? ('disabled="disabled"') : ('') ) . '>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ') </option>';
+        }
+        
+        $coursesHtmlList = '<option value="0">' . get_lang("None") . '</option>';
+        // Generate HTML options list for courses
+        foreach ( $coursesList as $elmt )
+        {
+            $coursesHtmlList .= '<option value="' . $elmt['id'] . '" ' . ( ( !empty($elmt['id']) && $elmt['id'] == $this->rootCourse ) ? ('selected="selected"') : ('') ) . '>' . $elmt['title'] . ' (' . $elmt['sysCode'] . ')</option>';
+        }
+        
         // TODO cancelUrl cannot be null
+        // TODO use a template
         
         if ( is_null($cancelUrl) )
             $cancelUrl = get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($this->id);
@@ -652,46 +639,11 @@ class ClaroCategory
             . '</label>&nbsp;:</dt>'
             . '<dd>'
             . '<select  id="category_parent" name="category_parent" />'
-            . '<option value="0">' . get_lang("None") . '</option>';        // TODO: in French, manage the feminine gender of "Aucun"
-            
-            $disabled = false;
-            $tempLevel = null;
-            foreach ($categoryList as $elmt)
-            {
-                // Enable/disable elements in the drop down list
-                if ( !empty($elmt['id']) && $elmt['id'] == $this->id )
-                {
-                    $disabled = true;
-                    $tempLevel = $elmt['level'];
-                }
-                elseif ( isset($tempLevel) && $elmt['level'] > $tempLevel )
-                {
-                    $disabled = true;
-                }
-                else
-                {
-                    $disabled = false;
-                    $tempLevel = null;
-                }
-                
-                $html .= '<option value="' . $elmt['id'] . '" ' . ( ( !empty($elmt['id']) && $elmt['id'] == $this->idParent ) ? 'selected="selected"' : null ) . ( ( $disabled ) ? 'disabled="disabled"' : null ) . '>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ') </option>';
-            }
-            
-        $html .= '</select>'
+            . $categoriesHtmlList
+            . '</select>'
             . '</dd>' . "\n" ;
 
         // Category's rank
-        /*
-        $html .= '<dt>'
-            . '<label for="category_rank">'
-            . get_lang('Category\'s rank')
-            . '</label>'
-            . '&nbsp;:'
-            . '</dt>'
-            . '<dd>'
-            . '<input type="text" id="category_rank" name="category_rank" value="' . htmlspecialchars($this->rank) . '" size="60" />'
-            . '</dd>' . "\n";
-        */
         $html .= '<input type="hidden" name="category_rank" value="' . (empty($this->rank)?0:$this->rank) . '" />'."\n";
 
         // Category's visibility
@@ -725,6 +677,18 @@ class ClaroCategory
             . '<small>'.get_lang('Authorize the category to possess courses or not (opened or closed category)').'</small>'
             . '</dd>' . "\n" ;
             
+        // Category's dedicated course/board
+        $html .= '<dt>'
+            . '<label for="category_root_course">' 
+            . get_lang('Category\'s board') 
+            . '</label>&nbsp;:</dt>'
+            . '<dd>'
+            . '<select  id="category_root_course" name="category_root_course" />'
+            . $coursesHtmlList
+            . '</select><br/>'
+            . '<small>'.get_lang('Dedicate a course to this category.  The course has to be linked to the category first.').'</small>'
+            . '</dd>' . "\n" ;
+            
         // Form's footer
         $html .= '</fieldset>' . "\n"
             . '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br/>' . "\n"
@@ -735,24 +699,24 @@ class ClaroCategory
         return $html;
     }
     
-
+    
     /**
-     * Add html parameter to list
+     * Add html parameter to list.
      *
-     * @param $name string input name
-     * @param $value string input value
+     * @param string        $name input name
+     * @param string        $value input value
      */
     public function addHtmlParam($name, $value)
     {
         $this->htmlParamList[$name] = $value;
     }
     
-
+    
     /**
-     * Get html representing parameter list depending on method (POST for form, GET for URL's')
+     * Get html representing parameter list depending on method (POST for form, GET for URL's').
      *
-     * @param $method string GET OR POST (default: GET)
-     * @return string html output of params for $method method
+     * @param string        $method GET OR POST (default: GET)
+     * @return string       html output of params for $method method
      */
     public function getHtmlParamList($method = 'GET')
     {
@@ -780,35 +744,6 @@ class ClaroCategory
 
         return $html;
     }
-    
 
-    /**
-     * Build progress param url
-     *
-     * @return string url
-     */
-    public function buildProgressUrl ()
-    {
-        $url = $_SERVER['PHP_SELF'] . '?cmd=exEdit';
 
-        $paramList = array();
-
-        $paramList['category_name']                = $this->name;
-        $paramList['category_code']                = $this->code;
-        $paramList['category_idParent']            = $this->idParent;
-        $paramList['category_rank']                = $this->rank;
-        $paramList['category_visible']             = $this->visible;
-        $paramList['category_canHavecoursesChild'] = $this->canHavecoursesChild;
-
-        $paramList = array_merge($paramList, $this->htmlParamList);
-
-        foreach ($paramList as $key => $value)
-        {
-            $url .= '&amp;' . rawurlencode($key) . '=' . rawurlencode($value);
-        }
-
-        return $url;
-    }
 }
-
-?>

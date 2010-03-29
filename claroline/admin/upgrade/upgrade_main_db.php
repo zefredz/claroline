@@ -286,13 +286,10 @@ switch ( $display )
 
         if ( preg_match('/^1.9/',$currentDbVersion) )
         {
-            $function_list = array('upgrade_main_database_categoy_to_110'
+            $function_list = array('categoy_to_110', 
+                                   'session_course'
                                     );
-                                    
-            if( isset($_SESSION['upgrade_tracking_data']) && $_SESSION['upgrade_tracking_data'])
-            {
-                $function_list[] = 'upgrade_main_database_tracking_data_to_110';
-            }
+            
             
             foreach ( $function_list as $function )
             {

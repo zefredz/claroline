@@ -5,11 +5,11 @@
  *
  * Management tools for categories' tree
  *
- * @version 1.10 $Revision: 11765 $
- * @copyright 2001-2010 Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author Claro Team <cvs@claroline.net>
- * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
+ * @since       1.10
  */
 
 
@@ -30,10 +30,6 @@ require_once get_path('incRepositorySys') . '/lib/claroCategory.class.php';
 
 // Instanciate dialog box
 $dialogBox = new DialogBox();
-
-// DB tables definition
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_class     = $tbl_mdb_names['category_dev'];
 
 // Build the breadcrumb
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
@@ -57,7 +53,7 @@ function confirmation (name)
 
 // Initialize output
 $out = '';
-		
+
 // Display page title
 $out .= claro_html_tool_title($nameTools);
 
@@ -82,16 +78,16 @@ switch ( $cmd )
         }
         else
         {
-	        if ( claro_failure::get_last_failure() == 'category_duplicate_code')
-	        {
-				$dialogBox->error( get_lang('This code already exists') );
-	        }
-	        elseif ( claro_failure::get_last_failure() == 'category_missing_field')
-	        {
-	        	$dialogBox->error( get_lang('Some fields are missing') );
-	        }
-	        
-	        $dialogBox->form( $category->displayForm() );
+            if ( claro_failure::get_last_failure() == 'category_duplicate_code')
+            {
+                $dialogBox->error( get_lang('This code already exists') );
+            }
+            elseif ( claro_failure::get_last_failure() == 'category_missing_field')
+            {
+                $dialogBox->error( get_lang('Some fields are missing') );
+            }
+            
+            $dialogBox->form( $category->displayForm() );
         }
     break;
     
@@ -111,29 +107,29 @@ switch ( $cmd )
         
         if ( $category->validate() )
         {
-        	$category->save();
-        	$dialogBox->success( get_lang('Category modified') );
+            $category->save();
+            $dialogBox->success( get_lang('Category modified') );
         }
         else
         {
-	        if ( claro_failure::get_last_failure() == 'category_duplicate_code' )
-	        {
-				$dialogBox->error( get_lang('This code already exists') );
-	        }
-	        elseif ( claro_failure::get_last_failure() == 'category_self_linked' )
-	        {
-	        	$dialogBox->error( get_lang('Category can\'t be its own parent') );
-	        }
-	        elseif ( claro_failure::get_last_failure() == 'category_child_linked' )
-	        {
-	        	$dialogBox->error( get_lang('Category can\'t be linked to one of its own children') );
-	        }
-	        elseif ( claro_failure::get_last_failure() == 'category_missing_field' )
-	        {
-	        	$dialogBox->error( get_lang('Some fields are missing') );
-	        }
-	        
-	        $dialogBox->form( $category->displayForm() );
+            if ( claro_failure::get_last_failure() == 'category_duplicate_code' )
+            {
+                $dialogBox->error( get_lang('This code already exists') );
+            }
+            elseif ( claro_failure::get_last_failure() == 'category_self_linked' )
+            {
+                $dialogBox->error( get_lang('Category can\'t be its own parent') );
+            }
+            elseif ( claro_failure::get_last_failure() == 'category_child_linked' )
+            {
+                $dialogBox->error( get_lang('Category can\'t be linked to one of its own children') );
+            }
+            elseif ( claro_failure::get_last_failure() == 'category_missing_field' )
+            {
+                $dialogBox->error( get_lang('Some fields are missing') );
+            }
+            
+            $dialogBox->form( $category->displayForm() );
         }
     break;
     
@@ -227,7 +223,7 @@ switch ( $cmd )
 $out .= $dialogBox->render();
 
 // Display categories array
-$categories = claroCategory::fetchAllCategories();
+$categories = claroCategory::getAllCategories();
 
     // "Create category" link
 $out .= 
@@ -244,6 +240,7 @@ $out .=
 .    '<tr class="headerX">' . "\n"
      // Array titles
 .    '<th>' . get_lang('Category label') . '</th>' . "\n"
+.    '<th>' . get_lang('Dedicated course') . '</th>' . "\n"
 .    '<th>' . get_lang('Courses') . '</th>' . "\n"
 .    '<th>' . get_lang('Visibility') . '</th>' . "\n"
 .    '<th>' . get_lang('Edit') . '</th>' . "\n"
@@ -256,40 +253,50 @@ $out .=
 $out .= 
     '<tbody>' . "\n";
 
-//TODO: hide uparrows and downarrows when they are useless/ineffective (get_icon_url('move_up/down'))
-foreach ($categories as $elmt)
+if (count($categories) == 0)
 {
-    $out .=
-        '<tr>'
-    .   '<td>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ')</td>'
-    .   '<td align="center">' . $elmt['nbCourses'] . '</td>'
-    .   '<td align="center">'
-    .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisibility&amp;categoryId=' . $elmt['id'] . '">' . "\n"
-    .       '<img src="' . get_icon_url($elmt['visible']?'visible':'invisible') . '" alt="Change visibility" />' . "\n"
-    .       '</a>'
-    .   '</td>'
-    .   '<td align="center">'
-    .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;categoryId=' . $elmt['id'] . '">' . "\n"
-    .       '<img src="' . get_icon_url('edit') . '" alt="Edit category" />' . "\n"
-    .       '</a>'
-    .   '</td>'
-    .   '<td align="center">'
-    .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;categoryId=' . $elmt['id'] . '"'
-    .        ' onclick="return confirmation(\'' . clean_str_for_javascript($elmt['name']) . '\');">' . "\n"
-    .       '<img src="' . get_icon_url('delete') . '" alt="Delete category" />' . "\n"
-    .       '</a>'
-    .   '</td>'
-    .   '<td align="center">'
-    .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveUp&amp;categoryId=' . $elmt['id'] . '">' . "\n"
-    .       '<img src="' . get_icon_url('move_up') . '" alt="Move up category" />' . "\n"
-    .       '</a>'
-    .   '</td>'
-    .   '<td align="center">'
-    .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveDown&amp;categoryId=' . $elmt['id'] . '">' . "\n"
-    .       '<img src="' . get_icon_url('move_down') . '" alt="Move down category" />' . "\n"
-    .       '</a>'
-    .   '</td>'
-    .   '</tr>';
+    $out .= '<tr><td colspan="7">'
+        .get_lang('There are no cateogries right now.  Use the link above to add some.')
+        .'</td></tr>';
+}
+else 
+{
+    //TODO: hide uparrows/downarrows when they are useless/ineffective (get_icon_url('move_up/down'))
+    foreach ($categories as $elmt)
+    {
+        $out .=
+            '<tr>'
+        .   '<td>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ')</td>'
+        .   '<td>' . (!is_null($elmt['dedicatedCourse']) ? ($elmt['dedicatedCourse'] . ' (' . $elmt['dedicatedCourseCode'] . ')') : ('')) . '</td>'
+        .   '<td align="center">' . $elmt['nbCourses'] . '</td>'
+        .   '<td align="center">'
+        .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisibility&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+        .       '<img src="' . get_icon_url($elmt['visible']?'visible':'invisible') . '" alt="Change visibility" />' . "\n"
+        .       '</a>'
+        .   '</td>'
+        .   '<td align="center">'
+        .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+        .       '<img src="' . get_icon_url('edit') . '" alt="Edit category" />' . "\n"
+        .       '</a>'
+        .   '</td>'
+        .   '<td align="center">'
+        .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;categoryId=' . $elmt['id'] . '"'
+        .        ' onclick="return confirmation(\'' . clean_str_for_javascript($elmt['name']) . '\');">' . "\n"
+        .       '<img src="' . get_icon_url('delete') . '" alt="Delete category" />' . "\n"
+        .       '</a>'
+        .   '</td>'
+        .   '<td align="center">'
+        .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveUp&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+        .       '<img src="' . get_icon_url('move_up') . '" alt="Move up category" />' . "\n"
+        .       '</a>'
+        .   '</td>'
+        .   '<td align="center">'
+        .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveDown&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+        .       '<img src="' . get_icon_url('move_down') . '" alt="Move down category" />' . "\n"
+        .       '</a>'
+        .   '</td>'
+        .   '</tr>';
+    }
 }
 
 $out .= 
