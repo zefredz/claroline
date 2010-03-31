@@ -168,15 +168,15 @@ class ClaroCategory
         $findId = $categoryId;
         while ( !is_null($findId) && $findId != 0 )
         {
-	        foreach ( $categoriesList as $category )
-	        {
-	            if ( $category['id'] == $findId )
-	            {
-	                $path = $category['name'] . ((!is_null($path))?(' ' . $separator . ' ' . $path):(null));
-	                $findId = $category['idParent'];
-	                break;
-	            }
-	        }
+            foreach ( $categoriesList as $category )
+            {
+                if ( $category['id'] == $findId )
+                {
+                    $path = $category['name'] . ((!is_null($path))?(' ' . $separator . ' ' . $path):(null));
+                    $findId = $category['idParent'];
+                    break;
+                }
+            }
         }
         
         return $path;
@@ -745,5 +745,9 @@ class ClaroCategory
         return $html;
     }
 
+    public function __toString()
+    {
+        return "[{$this->code}] {$this->name}";
+    }
 
 }
