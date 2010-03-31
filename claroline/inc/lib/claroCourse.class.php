@@ -1324,7 +1324,7 @@ class ClaroCourse
                                 '%course_title' => $this->title,
                                 '%course_lecturers' => $this->titular,
                                 '%course_email' => $this->email,
-                                '%course_category' => $this->categories,
+                                '%course_category' => is_array($this->categories) ? implode(',',$this->categories) : $this->categories,
                                 '%course_language' => $this->language,
                                 '%course_url' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) );
 
