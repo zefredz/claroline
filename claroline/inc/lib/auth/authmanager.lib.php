@@ -68,7 +68,7 @@ class AuthManager
                         if ( isset( $userAttrList['loginName'] )
                             && $username != $userAttrList['loginName'] )
                         {
-                            Console::error( "EXTAUTH ERROR : try to overwrite an existing user {$this->username} with another one" . var_export($userAttrList, true) );
+                            Console::error( "EXTAUTH ERROR : try to overwrite an existing user {$username} with another one" . var_export($userAttrList, true) );
                         }
                         else
                         {
