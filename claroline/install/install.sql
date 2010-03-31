@@ -5,12 +5,12 @@
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours` (
   `cours_id` INT(11) NOT NULL AUTO_INCREMENT,
   `code` VARCHAR(40) DEFAULT NULL,
-  `sourceCourseId` INT(11) DEFAULT NULL,
   `administrativeNumber` VARCHAR(40) DEFAULT NULL,
   `directory` VARCHAR(20) DEFAULT NULL,
   `dbName` VARCHAR(40) DEFAULT NULL,
   `language` VARCHAR(15) DEFAULT NULL,
   `intitule` VARCHAR(250) DEFAULT NULL,
+  `faculte` VARCHAR(12) DEFAULT NULL,
   `titulaires` VARCHAR(255) DEFAULT NULL,
   `email` VARCHAR(255) DEFAULT NULL,
   `extLinkName` VARCHAR(30) DEFAULT NULL,
@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours` (
   `defaultProfileId` INT(11) NOT NULL,
   `status` enum('enable','pending','disable','trash','date') NOT NULL DEFAULT 'enable',
   PRIMARY KEY  (`cours_id`),
-  KEY `administrativeNumber` (`administrativeNumber`)
+  KEY `administrativeNumber` (`administrativeNumber`),
+  KEY `faculte` (`faculte`)
 ) TYPE=MyISAM COMMENT='data of courses';
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__user` (
@@ -64,6 +65,24 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours_user` (
   `isCourseManager` tinyINT(4) NOT NULL DEFAULT 0,
    PRIMARY KEY  (`code_cours`,`user_id`),
   KEY `isCourseManager` (`isCourseManager`)
+) TYPE=MyISAM;
+
+# TODO: delete this table (replaced by tables `category` and `rel_course_category` when implementation of claroCategory will be finalised
+
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__faculte` (
+  id                    INT(11) NOT NULL AUTO_INCREMENT,
+  name                  VARCHAR(100) NOT NULL DEFAULT '',
+  code                  VARCHAR(12) NOT NULL DEFAULT '',
+  code_P                VARCHAR(40) DEFAULT NULL,
+  treePos               INT(10) UNSIGNED DEFAULT NULL,
+  nb_childs             SMALLINT(6) DEFAULT 0,
+  canHaveCoursesChild   ENUM('TRUE','FALSE') DEFAULT 'TRUE',
+  canHaveCatChild       ENUM('TRUE','FALSE') DEFAULT 'TRUE',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `code` (`code`),
+  KEY `code_P` (`code_P`),
+  KEY `treePos` (`treePos`)
+
 ) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__category` (
@@ -280,6 +299,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__im_recipient` (
 ) ENGINE=MyISAM ;
 
 # DESKTOP
+
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet` (
   `label` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -327,6 +347,16 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__log` (
 ) TYPE=MyISAM;
 
 # INSERT COMMANDS
+
+# TODO: delete this table (replaced by tables `category` and `rel_course_category` when implementation of claroCategory will be finalised
+
+INSERT INTO `__CL_MAIN__faculte`
+(`code`, `code_P`, `treePos`, `nb_childs`, `name`)
+VALUES
+( 'SC',     NULL,  1, 0, 'Sciences'),
+( 'ECO',    NULL,  2, 0, 'Economics'),
+( 'HUMA',   NULL,  3, 0, 'Humanities');
+
 INSERT INTO `__CL_MAIN__category` 
 (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
 VALUES

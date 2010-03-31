@@ -2139,8 +2139,6 @@ Cordialement,
 Administrateur(s) : %administratorName
 Tel : %administratorPhone
 E-mail : %administratorEmail';
-$_lang['blockSessionCourseTip'] = 'Vous êtes sur le point de créer un cours "session", c\'est à dire un cours dépendant d\'un autre.  Ce cours héritera automatiquement des documents attribués à son cours "source".<br/>
-Par défaut, les champs du formulaire seront remplis par les informations du cours désigné comme source.';
 $_lang['blockDefaultLearningPathComment'] = 'Ceci est le texte d\'introduction du parcours pédagogique. Pour le remplacer par votre propre texte, cliquez ci-dessous sur <b>modifier</b>.';
 $_lang['blockDefaultModuleAddedComment'] = 'Ceci est un texte additionnel de présentation du module. Il est spécifique à ce parcours pédagogique. Pour le remplacer par votre propre texte, cliquez sur <b>Modifier</b> ci-dessous.';
 $_lang['blockDefaultModuleComment'] = 'Ceci est un texte de présentation module, il apparaîtra dans chaque parcours contenant ce module. Pour le remplacer par votre propre texte, cliquez sur <b>Modifier</b> ci-dessous.';

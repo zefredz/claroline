@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.9 $Revision$
  *
- * @copyright 2001-2010 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package Kernel
  * @author Claro Team <cvs@claroline.net>
@@ -19,7 +19,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 require_once dirname(__FILE__) . '/backlog.class.php';
 require_once dirname(__FILE__) . '/admin.lib.inc.php'; // for delete course function
-require_once dirname(__FILE__) . '/claroCategory.class.php';
 require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
 require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
 
@@ -29,9 +28,6 @@ $jsLoader->load( 'claroline.ui');
 class ClaroCourse
 {
     // Identifier
-    public $id;
-    
-    // Code (sometimes named sysCode)
     public $courseId;
 
     // Name
@@ -46,8 +42,8 @@ class ClaroCourse
     // Email
     public $email;
 
-    // Collection of categories (claroCategory.class.php)
-    public $categories;
+    // Course category code
+    public $category;
 
     // Depatment Name
     public $departmentName;
@@ -91,27 +87,27 @@ class ClaroCourse
     /**
      * Constructor
      */
+
     function ClaroCourse ($creatorFirstName = '', $creatorLastName = '', $creatorEmail = '')
     {
-        $this->id                   = null;
-        $this->courseId             = '';
-        $this->title                = '';
-        $this->officialCode         = '';
-        $this->titular              = $creatorFirstName . ' ' . $creatorLastName;
-        $this->email                = $creatorEmail;
-        $this->categories           = array();
-        $this->departmentName       = '';
-        $this->extLinkUrl           = '';
-        $this->language             = get_conf('platformLanguage');
+        $this->courseId = '';
+        $this->title = '';
+        $this->officialCode = '';
+        $this->titular = $creatorFirstName . ' ' . $creatorLastName;
+        $this->email = $creatorEmail;
+        $this->category = '';
+        $this->departmentName = '';
+        $this->extLinkUrl = '';
+        $this->language     = get_conf('platformLanguage');
         # FIXME FIXME FIXME
-        $this->access               = get_conf('defaultAccessOnCourseCreation');
-        $this->visibility           = get_conf('defaultVisibilityOnCourseCreation');
-        $this->registration         = get_conf('defaultRegistrationOnCourseCreation') ;
-        $this->registrationKey      = '';
-        $this->publicationDate      =  time();
-        $this->expirationDate       = 0;
-        $this->useExpirationDate    = false;
-        $this->status               = 'enable';
+        $this->access       = get_conf('defaultAccessOnCourseCreation');
+        $this->visibility   = get_conf('defaultVisibilityOnCourseCreation');
+        $this->registration = get_conf('defaultRegistrationOnCourseCreation') ;
+        $this->registrationKey = '';
+        $this->publicationDate =  time();
+        $this->expirationDate = 0;
+        $this->useExpirationDate = false;
+        $this->status = 'enable';
 
         $this->backlog = new Backlog();
     }
@@ -119,31 +115,20 @@ class ClaroCourse
     /**
      * load course data from database
      *
-     * @param string    $courseId string course identifier
-     * @return boolean  success
+     * @param $courseId string course identifier
+     * @return boolean success
      */
 
     function load ($courseId)
     {
         if ( ( $course_data = claro_get_course_data($courseId) ) !== false )
         {
-            // Generate the array of categories
-            $categoriesList = array();
-            foreach ($course_data['categories'] as $cat)
-            {
-                $tempCat = new claroCategory();
-                $tempCat->load($cat['categoryId']);
-                $categoriesList[] = $tempCat;
-            }
-            
-            // Assign
             $this->courseId           = $courseId;
-            $this->id                 = $course_data['id'];
             $this->title              = $course_data['name'];
             $this->officialCode       = $course_data['officialCode'];
             $this->titular            = $course_data['titular'];
             $this->email              = $course_data['email'];
-            $this->categories         = $categoriesList;
+            $this->category           = $course_data['categoryCode'];
             $this->departmentName     = $course_data['extLinkName'];
             $this->extLinkUrl         = $course_data['extLinkUrl'];
             $this->language           = $course_data['language'];
@@ -177,14 +162,14 @@ class ClaroCourse
     {
         if ( empty($this->courseId) )
         {
-            // Insert
+            // insert
             $keys = define_course_keys ($this->officialCode,'',get_conf('dbNamePrefix'));
-            
+
             $courseSysCode      = $keys['currentCourseId'];
             $courseDbName       = $keys['currentCourseDbName'];
             $courseDirectory    = $keys['currentCourseRepository'];
             if ( ! $this->useExpirationDate) $this->expirationDate = 'NULL';
-            
+
             if (   prepare_course_repository($courseDirectory, $courseSysCode)
                 && register_course($courseSysCode
                    ,               $this->officialCode
@@ -192,7 +177,7 @@ class ClaroCourse
                    ,               $courseDbName
                    ,               $this->titular
                    ,               $this->email
-                   ,               $this->categories
+                   ,               $this->category
                    ,               $this->title
                    ,               $this->language
                    ,               $GLOBALS['_uid']
@@ -209,14 +194,14 @@ class ClaroCourse
                 && install_course_tools( $courseDbName, $this->language, $courseDirectory )
                 )
             {
-                // Set course id
+                // set course id
                 $this->courseId = $courseSysCode;
 
-                // Notify event manager
+                // notify event manager
                 $args['courseSysCode'  ] = $courseSysCode;
                 $args['courseDbName'   ] = $courseDbName;
                 $args['courseDirectory'] = $courseDirectory;
-                $args['courseCategory' ] = $this->categories;
+                $args['courseCategory' ] = $this->category;
 
                 $GLOBALS['eventNotifier']->notifyEvent("course_created",$args);
 
@@ -232,7 +217,7 @@ class ClaroCourse
         }
         else
         {
-            // Update
+            // update
             $tbl_mdb_names = claro_sql_get_main_tbl();
             $tbl_course = $tbl_mdb_names['course'];
             $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -242,16 +227,17 @@ class ClaroCourse
 
             $sqlExpirationDate = is_null($this->expirationDate) 
                 ? 'NULL' 
-                : 'FROM_UNIXTIME(' . claro_sql_escape($this->expirationDate) . ')'
-                ;
+                : 'FROM_UNIXTIME(' . claro_sql_escape($this->expirationDate)   . ')'
+                ;    
      
             $sqlCreationDate = is_null($this->publicationDate) 
                 ? 'NULL' 
-                : 'FROM_UNIXTIME(' . claro_sql_escape($this->publicationDate) . ')'
-                ;
+                : 'FROM_UNIXTIME(' . claro_sql_escape($this->publicationDate)   . ')'
+                ;    
 
             $sql = "UPDATE `" . $tbl_course . "` 
                     SET `intitule`             = '" . claro_sql_escape($this->title) . "',
+                        `faculte`              = '" . claro_sql_escape($this->category) . "',
                         `titulaires`           = '" . claro_sql_escape($this->titular) . "',
                         `administrativeNumber` = '" . claro_sql_escape($this->officialCode) . "',
                         `language`             = '" . claro_sql_escape($this->language) . "',
@@ -266,108 +252,12 @@ class ClaroCourse
                         `creationDate`         = " . $sqlCreationDate . ", 
                         `expirationDate`       = " . $sqlExpirationDate . ", 
                         `status`               = '" . claro_sql_escape($this->status)   . "' 
-                    WHERE code='" . claro_sql_escape($this->courseId) . "'";
-            
-            // Handle categories
-            // 1/ Remove all links in database
-            $this->unlinkCategories();
-            
-            // 2/ Link new categories selection
-            $this->linkCategories($this->categories);
-            
+                    WHERE code='" . claro_sql_escape($this->courseId) . "'"; 
+
             return claro_sql_query($sql);
         }
     }
-    
-    
-    /**
-     * Check if the course has session courses.
-     * 
-     * @return boolean  TRUE if the course is a source course
-     *                  FALSE otherwise
-     * @since 1.10
-     */
-    function isSourceCourse ()
-    {
-        $sessionCoursesList = get_session_courses($this->id);
-        if (count($sessionCoursesList) > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    
-    
-    /**
-     * Check if the course is a session of another course.
-     * 
-     * @return boolean  TRUE if the course is a session course
-     *                  FALSE otherwise
-     * @since 1.10
-     */
-    function isSessionCourse ()
-    {
-        $sourceCourse = get_source_course($this->id);
-        
-        if (!empty($sourceCourse))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    
-    
-    /**
-     * Create links between current course one or more categories.  If there 
-     * are no category specified, only the root category is linked.
-     * 
-     * @param array of categories
-     * @since 1.10
-     */
-    function linkCategories ( $categories )
-    {
-        if ( !is_null($categories) && !empty($categories) )
-        {
-            link_course_categories ( $this->id, $categories );
-        }
-        else
-        {
-            $this->backlog->failure(get_lang('Categories list is empty'));
-        }
-    }
-    
-    
-    /**
-     * Delete links in database between current course one or more categories.
-     * If there are no category specified, all categories are unlinked.
-     * 
-     * @param array of categories (leave it empty to unlink all categories)
-     * @since 1.10
-     */
-    function unlinkCategories ( $categories = array() )
-    {
-        unlink_course_categories ( $this->id, $categories );
-    }
-    
-    
-    /**
-     * Count the number of categories linked to the current course.
-     * 
-     * @return int      number of categories
-     * @since 1.10
-     */
-    function countCategoriesLinks ()
-    {
-        return (count_course_categories ( $this->id ));
-    }
-    
-    
+
     /**
      * delete course data and content
      *
@@ -378,35 +268,6 @@ class ClaroCourse
     {
         return delete_course($this->courseId);
     }
-    
-    
-    /**
-     * Get all courses in database ordered by label.  If a category identifier 
-     * is specified, only get courses linked to this category.  You can also 
-     * specify visibility.
-     * 
-     * @param int       identifier of category (default: null)
-     * @param bool      visibility (1 = only visible, 0 = only invisible, null = all; default: null)
-     * @since 1.10
-     */
-    static function getAllCourses ($categoryId = null, $visibility = null)
-    {
-        return claro_get_all_courses ($categoryId, $visibility);
-    }
-    
-    
-    /**
-     * Get courses that can be displayed to normal users.  More restricted 
-     * than getAllCourses() method.
-     * 
-     * @param int       identifier of category (default: null)
-     * @param int       identifier of user (default: null)
-     * @since 1.10
-     */
-    static function getRestrictedCourses ($categoryId = null, $userId = null)
-    {
-        return claro_get_restricted_courses ($categoryId, $userId);
-    }
 
     /**
      * retrieve course data from form
@@ -414,59 +275,27 @@ class ClaroCourse
 
     function handleForm ()
     {
-        /*
-         * Manage the multiple select.
-         * If it has been left empty (no selection), create an array with 
-         * the identifier of the root category (0).
-         * If it has been serialized in the progress URL, unserialized it.
-         */ 
-        if ( isset($_REQUEST['linked_categories']) )
-        {
-            $_REQUEST['linked_categories'] = is_array($_REQUEST['linked_categories']) ? ($_REQUEST['linked_categories']) : (unserialize($_REQUEST['linked_categories']));
-        }
-        else
-        {
-            $_REQUEST['linked_categories'] = array(0);
-        }
-        
-        
         if ( isset($_REQUEST['course_title'        ]) ) $this->title = trim(strip_tags($_REQUEST['course_title']));
-        
+
         if ( isset($_REQUEST['course_officialCode' ]) )
         {
             $this->officialCode = trim(strip_tags($_REQUEST['course_officialCode']));
             $this->officialCode = preg_replace('/[^A-Za-z0-9_]/', '', $this->officialCode);
             $this->officialCode = strtoupper($this->officialCode);
         }
-        
+
         if ( isset($_REQUEST['course_titular'      ]) ) $this->titular = trim(strip_tags($_REQUEST['course_titular']));
         if ( isset($_REQUEST['course_email'        ]) ) $this->email = trim(strip_tags($_REQUEST['course_email']));
-        if ( count($_REQUEST['linked_categories'   ]) > 0 ) 
-        {
-            $categoriesList = array();
-            foreach( $_REQUEST['linked_categories'] as $category ) 
-            {
-                // Bypass the loading page "course creating, please wait"
-                $categoryId = (is_a($category, 'claroCategory')) ? (strip_tags($category->id)) : (strip_tags($category));
-                
-                $categoriesList[] = new claroCategory($categoryId);
-            }
-            
-            $this->categories = $categoriesList;
-        }
-        else
-        {
-            $this->categories = array(0);
-        }
-        if ( isset($_REQUEST['course_departmentName' ]) ) $this->departmentName = trim(strip_tags($_REQUEST['course_departmentName']));
-        if ( isset($_REQUEST['course_extLinkUrl'     ]) ) $this->extLinkUrl = trim(strip_tags($_REQUEST['course_extLinkUrl']));
-        if ( isset($_REQUEST['course_language'       ]) ) $this->language = trim(strip_tags($_REQUEST['course_language']));
-        if ( isset($_REQUEST['course_visibility'     ]) ) $this->visibility  = (bool) $_REQUEST['course_visibility'];
-        if ( isset($_REQUEST['course_access'         ]) ) $this->access = $_REQUEST['course_access'];
-        if ( isset($_REQUEST['course_registration'   ]) ) $this->registration = (bool) $_REQUEST['course_registration'];
-        if ( isset($_REQUEST['course_registrationKey']) ) $this->registrationKey = trim(strip_tags($_REQUEST['course_registrationKey']));
+        if ( isset($_REQUEST['course_category'     ]) ) $this->category = trim(strip_tags($_REQUEST['course_category']));
+        if ( isset($_REQUEST['course_departmentName']) ) $this->departmentName = trim(strip_tags($_REQUEST['course_departmentName']));
+        if ( isset($_REQUEST['course_extLinkUrl']) ) $this->extLinkUrl = trim(strip_tags($_REQUEST['course_extLinkUrl']));
+        if ( isset($_REQUEST['course_language'     ]) ) $this->language = trim(strip_tags($_REQUEST['course_language']));
+        if ( isset($_REQUEST['course_visibility'   ]) ) $this->visibility  = (bool) $_REQUEST['course_visibility'];
+        if ( isset($_REQUEST['course_access'       ]) ) $this->access = $_REQUEST['course_access'];
+        if ( isset($_REQUEST['course_registration' ]) ) $this->registration = (bool) $_REQUEST['course_registration'];
+        if ( isset($_REQUEST['course_registrationKey' ]) ) $this->registrationKey = trim(strip_tags($_REQUEST['course_registrationKey']));
         
-        // if ( isset($_REQUEST['course_status'      ]) ) $this->status = $_REQUEST['course_status'];
+        // if ( isset($_REQUEST['course_status'       ]) ) $this->status = $_REQUEST['course_status'];
         
         if ( isset($_REQUEST['course_status_selection']))
         {
@@ -549,7 +378,7 @@ class ClaroCourse
         $fieldRequiredStateList['officialCode'  ] = get_conf('human_code_needed');
         $fieldRequiredStateList['titular'       ] = false;
         $fieldRequiredStateList['email'         ] = get_conf('course_email_needed');
-        $fieldRequiredStateList['categories'    ] = false;
+        $fieldRequiredStateList['category'      ] = true;
         $fieldRequiredStateList['language'      ] = true;
         $fieldRequiredStateList['departmentName'] = get_conf('extLinkNameNeeded');
         $fieldRequiredStateList['extLinkUrl'    ] = get_conf('extLinkUrlNeeded');
@@ -597,6 +426,13 @@ class ClaroCourse
                 $this->backlog->failure(get_lang('The email address is not valid'));
                 $success = false;
             }
+        }
+
+        // Validate course category
+        if ( is_null($this->category) && $fieldRequiredStateList['category'] || $this->category == 'choose_one' )
+        {
+            $this->backlog->failure(get_lang('Category needed'));
+            $success = false ;
         }
 
         // Validate course language
@@ -728,42 +564,14 @@ class ClaroCourse
 
     function displayForm ($cancelUrl=null)
     {
-        /* 
-         * The javascript required to manage multiple selects is loaded in the 
-         * concerned pages (settings.php, create.php, ...).  
-         */
-        
+
         $languageList = claro_get_lang_flat_list();
-        $categoriesList = claroCategory::getAllCategoriesFlat();
-        
-        $linkedCategoriesListHtml   = ''; // Categories linked to the course
-        $unlinkedCategoriesListHtml = ''; // Other categories (not linked to the course)
-        foreach ( $categoriesList as $category )
+        $categoryList = claro_get_cat_flat_list();
+
+        if ( ! in_array($this->category,$categoryList) )
         {
-            // Is that category linked to the current course or not ?
-            $match = false;
-            foreach ( $this->categories as $searchCategory )
-            {
-                if ( $category['id'] == (int) $searchCategory->id )
-                {
-                    $match = true;
-                    break;
-                }
-                else
-                {
-                    $match = false;
-                }
-            }
-            
-            // Dispatch in the lists
-            if ( $match )
-            {
-                $linkedCategoriesListHtml .= '<option value="' . $category['id'] . '">' . $category['path'] . '</option>' . "\n";
-            }
-            else 
-            {
-                $unlinkedCategoriesListHtml .= '<option value="' . $category['id'] . '">' . $category['path'] . '</option>' . "\n";
-            }
+            $this->category = 'choose_one';
+            $categoryList = array_merge( array(get_lang('Choose one')=>'choose_one'), $categoryList);
         }
 
         // TODO cancelUrl cannot be null
@@ -775,7 +583,6 @@ class ClaroCourse
         $html .= '<form method="post" id="courseSettings" action="' . $_SERVER['PHP_SELF'] . '" >' . "\n"
         .    claro_form_relay_context()
             . '<input type="hidden" name="cmd" value="'.(empty($this->courseId)?'rqProgress':'exEdit').'" />' . "\n"
-            . '<input type="hidden" name="cours_id" value="'.(empty($this->id)?'':$this->id).'" />' . "\n"
             . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
 
             . $this->getHtmlParamList('POST');
@@ -828,33 +635,19 @@ class ClaroCourse
             . '</dd>'
             . "\n";
 
-        // Course categories
+        // Course category select box
 
         $html .= '<dt>'
-            . '<label>'
-            . get_lang('Categories') 
+            . '<label for="course_category">'
+            . get_lang('Category') 
             . '<span class="required">*</span> '
             . '</label>'
             . ' :'
             . '</dt>'
             . '<dd>'
-            . '<table>'
-            . '<tr>'
-            . '<td>'
-            . '<label for="linked_categories">' . get_lang('Linked categories') . '</label><br/>'
-            . '<select multiple="multiple" name="linked_categories[]" id="linked_categories" size="10">'
-            . $linkedCategoriesListHtml
-            . '</select>'
-            . '</td>'
-            . '<td><input type="button" value="&rarr;" onclick="move(this.form.elements[\'linked_categories\'],this.form.elements[\'unlinked_categories\'])"></input><br/><input type="button" value="&larr;" onclick="move(this.form.elements[\'unlinked_categories\'],this.form.elements[\'linked_categories\'])"></input></td>'
-            . '<td>'
-            . '<label for="unlinked_categories">' . get_lang('Unlinked categories') . '</label><br/>'
-            . '<select multiple="multiple" name="unlinked_categories[]" id="unlinked_categories" size="10">'
-            . $unlinkedCategoriesListHtml
-            . '</select>'
-            . '</td>'
-            . '</tr>'
-            . '</table>'
+            . claro_html_form_select( 'course_category', $categoryList, $this->category, array('id'=>'course_category') )
+            . (empty($this->courseId) ? '<br />'
+            . '<small>'.get_lang('This is the faculty, department or school where the course is delivered').'</small>':'')
             . '</dd>'
             . "\n" ;
 
@@ -1030,10 +823,11 @@ class ClaroCourse
                 
               $html .=   '</dd></dl></div>' . "\n" // fieldset-wrapper
                 .   '</fieldset>' . "\n";
+        
         }    
 
         $html .= '<dl><dt>'
-            . '<input type="submit" name="changeProperties" value="' . get_lang('Ok') . '" onclick="selectAll(this.form.elements[\'linked_categories\'],true)" />'
+            . '<input type="submit" name="changeProperties" value="' . get_lang('Ok') . '" />'
             . '&nbsp;'
             . claro_html_button($cancelUrl, get_lang('Cancel'))
             . '</dt>' . "\n" ;
@@ -1221,8 +1015,7 @@ class ClaroCourse
 
         return $html;
     }
-    
-    
+
     /**
      * Get visibility
      *
@@ -1270,39 +1063,7 @@ class ClaroCourse
         if ( $visibility == 1 || $visibility == 2 ) return true ;
         else                                        return false;
     }
-    
-    
-    /**
-     * Courses are often identified through their code (sysCode).  This 
-     * method permits to easily get the code of a course based on 
-     * its identifier (integer).
-     *
-     * @param int       course identifier
-     * @return string   course code (sysCode)
-     * @since 1.10
-     */
-    static function getCodeFromId ( $id )
-    {
-        return recover_code_from_id( $id );
-    }
-    
-    
-    /**
-     * Courses are often identified through their code (sysCode).  But 
-     * sometimes their identifier (integer) can be useful.  This 
-     * method permits to easily get the id of a course based on 
-     * its code.
-     *
-     * @param string    course code (sysCode)
-     * @return int      course identifier
-     * @since 1.10
-     */
-    static function getIdFromCode ( $code )
-    {
-        return recover_id_from_code( $code );
-    }
-    
-    
+
     /**
      * Send course creation information by mail to all platform administrators
      *
@@ -1324,11 +1085,12 @@ class ClaroCourse
                                 '%course_title' => $this->title,
                                 '%course_lecturers' => $this->titular,
                                 '%course_email' => $this->email,
-                                '%course_category' => $this->categories,
+                                '%course_category' => $this->category,
                                 '%course_language' => $this->language,
                                 '%course_url' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) );
 
         // Get the concerned senders of the email
+
         $mailToUidList = claro_get_uid_of_system_notification_recipient();
         if(empty($mailToUidList)) $mailToUidList = claro_get_uid_of_platform_admin();
 
@@ -1354,22 +1116,22 @@ class ClaroCourse
 
         $paramList = array();
 
-        $paramList['course_title']              = $this->title;
-        $paramList['course_officialCode']       = $this->officialCode;
-        $paramList['course_titular']            = $this->titular;
-        $paramList['course_email']              = $this->email;
-        $paramList['linked_categories']         = serialize($this->categories); // Serialize array to put it into an URL
-        $paramList['course_departmentName']     = $this->departmentName;
-        $paramList['course_extLinkUrl']         = $this->extLinkUrl;
-        $paramList['course_language']           = $this->language;
-        $paramList['course_visibility']         = $this->visibility;
-        $paramList['course_access']             = $this->access;
-        $paramList['course_registration']       = $this->registration;
-        $paramList['course_registrationKey']    = $this->registrationKey;
-        $paramList['course_publicationDate']    = $this->publicationDate;
-        $paramList['course_expirationDate']     = $this->expirationDate;
-        $paramList['useExpirationDate']         = $this->useExpirationDate;
-        $paramList['course_status']             = $this->status;
+        $paramList['course_title'] = $this->title;
+        $paramList['course_officialCode'] = $this->officialCode;
+        $paramList['course_titular'] = $this->titular;
+        $paramList['course_email'] = $this->email;
+        $paramList['course_category'] = $this->category;
+        $paramList['course_departmentName'] = $this->departmentName;
+        $paramList['course_extLinkUrl'] = $this->extLinkUrl;
+        $paramList['course_language'] = $this->language;
+        $paramList['course_visibility'] = $this->visibility;
+        $paramList['course_access'] = $this->access;
+        $paramList['course_registration'] = $this->registration;
+        $paramList['course_registrationKey'] = $this->registrationKey;
+        $paramList['course_publicationDate'] = $this->publicationDate;
+        $paramList['course_expirationDate'] = $this->expirationDate;
+        $paramList['useExpirationDate']    = $this->useExpirationDate;
+        $paramList['course_status'] = $this->status;        
 
         $paramList = array_merge($paramList, $this->htmlParamList);
 

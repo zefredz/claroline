@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright 2001-2010 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -20,31 +20,32 @@
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
-// Initialisation of global variables and used libraries
+// initialisation of global variables and used libraries
 require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-// Initialisation of global variables and used libraries
+// initialisation of global variables and used libraries
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 
-// Check incoming data
-$offsetC            = isset($_REQUEST['offsetC']) ? $_REQUEST['offsetC'] : '0';
-$validCmdList       = array('exDelete', 'rqDelete');
-$cmd                = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
-$delCode            = isset($_REQUEST['delCode']) ? $_REQUEST['delCode'] : null;
-$resetFilter        = (bool) (isset($_REQUEST['newsearch']) && 'yes' == $_REQUEST['newsearch']);
-$search             = (isset($_REQUEST['search']))  ? $_REQUEST['search'] :'';
-$validRefererList   = array('clist',);
-$cfrom              = (isset($_REQUEST['cfrom']) && in_array($_REQUEST['cfrom'],$validRefererList) ? $_REQUEST['cfrom'] : null);
-$addToURL           = '';
-$do                 = null;
+/**
+ * Check incoming data
+ */
+$offsetC = isset($_REQUEST['offsetC']) ? $_REQUEST['offsetC'] : '0';
+$validCmdList = array('exDelete', 'rqDelete');
+$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
+$delCode = isset($_REQUEST['delCode']) ? $_REQUEST['delCode'] : null;
+$resetFilter = (bool) (isset($_REQUEST['newsearch']) && 'yes' == $_REQUEST['newsearch']);
+$search = (isset($_REQUEST['search']))  ? $_REQUEST['search'] :'';
+$validRefererList = array('clist',);
+$cfrom = (isset($_REQUEST['cfrom']) && in_array($_REQUEST['cfrom'],$validRefererList) ? $_REQUEST['cfrom'] : null);
+$addToURL = '';
+$do=null;
 
-// Javascript confirm pop up declaration
+// javascript confirm pop up declaration
 $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
@@ -56,19 +57,20 @@ function confirmation (name)
 }
 </script>';
 
-// Deal with interbreadcrumb
+// Deal with interbredcrumps
+
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('Course list');
 
-/**
- * USED SESSION VARIABLES
- * 
- * Deal with session variables for search criteria (depends where we come from):
- * 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
- * 2 ) we must be able to arrive with new critera for a new search.
- * 
- * Clean session from  previous search if necessary
- */
+//------------------------
+//  USED SESSION VARIABLES
+//------------------------
+// deal with session variables for search criteria, it depends where we come from :
+// 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
+// 2 ) we must be able to arrive with new critera for a new search.
+
+// clean session if needed from  previous search
+
 if ( $resetFilter )
 {
     unset($_SESSION['admin_course_code'        ]);
@@ -93,32 +95,14 @@ if ('clist' != $cfrom) $addToURL .= '&amp;offsetC=' . $offsetC;
 
 $dialogBox = new DialogBox();
 
-
-// Parse command
-if (!empty($delCode)) 
-{
-    $courseToDelete = new claroCourse();
-    $courseToDelete->load($delCode);
-}
-else
-{
-    $courseToDelete = null;
-}
-
+/**
+ * PARSE COMMAND
+ */
+$courseToDelete = claro_get_course_data($delCode);
 if ('exDelete' == $cmd)
 {
-    if ( !is_null($courseToDelete) ) 
-    {
-        // Cannot delete a course if it has session courses
-        if ( !$courseToDelete->isSourceCourse() )
-        {
-            $do = 'delete';
-        }
-        else
-        {
-            $dialogBox->error( get_lang('This course has session courses.  You have to delete them before.') );
-        }
-    }
+    
+    if ($courseToDelete) $do = 'delete';
     else
     {
         switch(claro_failure::get_last_failure())
@@ -132,20 +116,12 @@ if ('exDelete' == $cmd)
 }
 elseif( 'rqDelete' == $cmd )
 {
-    if( !is_null($courseToDelete) )
+    if( $courseToDelete )
     {
-        // Cannot delete a course if it has session courses
-        if ( !$courseToDelete->isSourceCourse() )
-        {
-            $dialogBox->question( get_lang('Are you sure to delete course %name', array('%name' => $courseToDelete->title)).'<br/><br/>'."\n"
-            .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;delCode='.$delCode.'&amp;offsetC='.$offsetC. $addToURL .'">'.get_lang('Yes').'</a>'
-            .    ' | '
-            .    '<a href="'.$_SERVER['PHP_SELF'].'">'.get_lang('No').'</a>'."\n");
-        }
-        else
-        {
-            $dialogBox->error( get_lang('This course has session courses.  You have to delete them before.') );
-        }
+        $dialogBox->question( get_lang('Are you sure to delete course %name', array('%name' => $courseToDelete['name'])).'<br/><br/>'."\n"
+        .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;delCode='.$delCode.'&amp;offsetC='.$offsetC. $addToURL .'">'.get_lang('Yes').'</a>'
+        .    ' | '
+        .    '<a href="'.$_SERVER['PHP_SELF'].'">'.get_lang('No').'</a>'."\n");
     }
     else
     {
@@ -163,18 +139,18 @@ if ('delete' == $do)
     }
 }
 
-
 /**
  * PREPARE DISPLAY
- * 
- * Display contains 2 parts: 
- * 
- * 1/ Filter/search panel
- * 2/ List of datas
+ *
+ * Display contain 2 part
+ *
+ * * Filter/search panel
+ * * List of datas
  */
+
 $sqlCourseList = prepare_get_filtred_course_list();
 $myPager = new claro_sql_pager($sqlCourseList, $offsetC, get_conf('coursePerPage',20));
-$sortKey = isset($_GET['sort']) ? $_GET['sort'] : 'officialCode, intitule';
+$sortKey = isset($_GET['sort']) ? $_GET['sort'] : 'officialCode';
 $sortDir = isset($_GET['dir' ]) ? $_GET['dir' ] : SORT_ASC;
 $myPager->set_sort_key($sortKey, $sortDir);
 $myPager->set_pager_call_param_name('offsetC');
@@ -206,7 +182,10 @@ if (is_array($courseList))
     }
 }
 
-// Prepare display of search/Filter panel
+/**
+ * Prepare display of search/Filter panel
+ */
+
 $advanced_search_query_string = array();
 $isSearched ='';
 
@@ -239,7 +218,7 @@ if ( !empty($_REQUEST['language']) )
 if ( isset($_REQUEST['access']))
 {
     $isSearched .= '<br />' . "\n";
-    
+
     if ($_REQUEST['access'] == 'public' )
     {
         $isSearched .= '<b>' . get_lang('Course access') . ' : ' . get_lang('Access allowed to anybody (even without login)') . '</b>';
@@ -261,7 +240,7 @@ if ( isset($_REQUEST['access']))
 if ( isset($_REQUEST['subscription']) )
 {
     $isSearched .= '<br />' . "\n";
-    
+
     if ( $_REQUEST['subscription'] == 'allowed' )
     {
         $isSearched .= '<b>' . get_lang('Enrolment') . ' : ' . get_lang('Allowed') . '</b>';
@@ -280,7 +259,8 @@ if ( isset($_REQUEST['subscription']) )
     }
 }
 
-// See what must be kept for advanced links
+//see what must be kept for advanced links
+
 if ( !empty($_REQUEST['access']) )
 {
     $advanced_search_query_string[] ='access=' . urlencode($_REQUEST['access']);
@@ -290,41 +270,34 @@ if ( !empty($_REQUEST['subscription']) )
     $advanced_search_query_string[] ='subscription=' . urlencode($_REQUEST['subscription']);
 }
 
-if ( count($advanced_search_query_string) > 0 )
-{
-    $addtoAdvanced = '?' . implode('&',$advanced_search_query_string);
-}
-else
-{
-    $addtoAdvanced = '';
-}
+if ( count($advanced_search_query_string) > 0 ) $addtoAdvanced = '?' . implode('&',$advanced_search_query_string);
+else                                            $addtoAdvanced = '';
 
 
-$imgVisibilityStatus['visible']     = 'visible';
-$imgVisibilityStatus['invisible']   = 'invisible';
-$imgAccessStatus['private']         = 'access_locked';
-$imgAccessStatus['public']          = 'access_open';
-$imgAccessStatus['platform']        = 'access_platform';
-$imgRegistrationStatus['open']      = 'enroll_allowed';
-$imgRegistrationStatus['key']       = 'enroll_key';
-$imgRegistrationStatus['close']     = 'enroll_forbidden';
+$imgVisibilityStatus['visible'] = 'visible';
+$imgVisibilityStatus['invisible'] = 'invisible';
+$imgAccessStatus['private'] = 'access_locked';
+$imgAccessStatus['public'] = 'access_open';
+$imgAccessStatus['platform'] = 'access_platform';
+$imgRegistrationStatus['open'] = 'enroll_allowed';
+$imgRegistrationStatus['key'] = 'enroll_key';
+$imgRegistrationStatus['close'] = 'enroll_forbidden';
 
 $courseDataList=array();
-
 // Now read datas and rebuild cell content to set datagrid to display.
 foreach($courseList as $numLine => $courseLine)
 {
     $courseLine['intituleOrigine'] = $courseLine['intitule'];
     if (    isset($_SESSION['admin_course_search'])
     && $_SESSION['admin_course_search'] != '' )
-    // Trick to prevent "//1" display when no keyword used in search
+    //trick to prevent "//1" display when no keyword used in search
     {
         $bold_search = str_replace('*', '.*', $_SESSION['admin_course_search']);
-        $courseLine['officialCode'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['officialCode']);
+        $courseLine['officialCode'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['officialCode']);        
         $courseLine['intitule'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['intitule']);
         $courseLine['faculte'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['faculte']);
     }
-    
+
     // Official Code
     if ($courseLine['status'] == 'enable')
     {
@@ -334,21 +307,25 @@ foreach($courseList as $numLine => $courseLine)
     {
         $courseDataList[$numLine]['officialCode'] = '<span class="invisible" >'.$courseLine['officialCode'].'</span>';
     }
-    
+
     // Label
     $courseDataList[$numLine]['intitule'] =  '<a href="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($courseLine['sysCode']) . '">'
     .                                        $courseLine['intitule']
-    .                                        '</a>' . ((!is_null($courseLine['sourceCourseId']))?(' ['.get_lang('Session').']'):(''));
-    
+    .                                        '</a>';
+    // Category
+    $courseDataList[$numLine]['faculte'] = $courseLine['faculte'];
+
     // Users in course
     $courseDataList[$numLine]['qty_cm'] = '<a href="admincourseusers.php'
     .                                     '?cidToEdit=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
+
     .                                     get_lang('%nb member(s)', array ( '%nb' => ($courseLine['qty_stu'] + $courseLine['qty_cm']) ) )
     .                                     '</a>'
     .                                     '<br />' . "\n" . '<small><small>' . "\n"
     .                                     get_lang('%nb course(s) manager(s)', array( '%nb' => $courseLine['qty_cm']) ) . ' - '
     .                                     get_lang('%nb student(s)', array ('%nb' => $courseLine['qty_stu']) ) . "\n"
-    .                                     '</small></small>' . "\n";
+    .                                     '</small></small>' . "\n"
+    ;
     
     if ( $courseLine['registration'] == 'open' && !empty( $courseLine['registrationKey'] )  )
     {
@@ -358,11 +335,10 @@ foreach($courseList as $numLine => $courseLine)
     {
         $regIcon = $courseLine['registration'];
     }
-    
+
     // Course Settings
     $courseDataList[$numLine]['cmdSetting'] = '<a href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?adminContext=1'
-    .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist' 
-    .                                         ((!is_null($courseLine['sourceCourseId']))?('&amp;courseType=session'):('')) . '">'
+    .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
     .                                         '<img src="' . get_icon_url('settings') . '" alt="" />'
     // .                                         '</a>'
     .                                         '&nbsp;&nbsp;&nbsp;'
@@ -371,26 +347,27 @@ foreach($courseList as $numLine => $courseLine)
     .                                         '<img src="' . get_icon_url( $imgVisibilityStatus[$courseLine['visibility']] ) . '" alt="" /> '
     .                                         '<img src="' . get_icon_url( $imgAccessStatus[$courseLine['access']] ) . '" alt="" /> '
     .                                         '<img src="' . get_icon_url( $imgRegistrationStatus[$regIcon] ) . '" alt="" />'
-    .                                         '</a>';
-    
+    .                                         '</a>'
+    ;
+
     // Course Action Delete
     $courseDataList[$numLine]['cmdDelete'] = '<a href="' . $_SERVER['PHP_SELF']
     .                                        '?cmd=rqDelete&amp;delCode=' . $courseLine['sysCode'] . $addToURL . '" '
     //.                                        ' onclick="return confirmation(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');"'
-    .                                        ' class="delete" id="'.$courseLine['intituleOrigine'].'__'.$courseLine['sysCode'].'">' . "\n"
+    .                                        ' class="delete" id="'.$courseLine['intituleOrigine'].'_'.$courseLine['sysCode'].'">' . "\n"
     .                                        '<img src="' . get_icon_url('delete') . '" border="0" alt="" />' . "\n"
-    .                                        '</a>' . "\n";
+    .                                        '</a>' . "\n"
+    ;
 }
 
-/**
- * CONFIG DATAGRID
- */
+// CONFIG DATAGRID.
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
 $courseDataGrid = new claro_datagrid($courseDataList);
 
 $courseDataGrid->set_colTitleList(array ( 'officialCode' => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Course code')        . '</a>'
                                         , 'intitule'     => '<a href="' . $sortUrlList['intitule'    ] . '">' . get_lang('Course title') . '</a>'
+                                        , 'faculte'      => '<a href="' . $sortUrlList['faculte'     ] . '">' . get_lang('Category')    . '</a>'
                                         , 'qty_cm'       => get_lang('Course members')
                                         , 'cmdSetting'   => get_lang('Course settings')
                                         , 'cmdDelete'    => get_lang('Delete')));
@@ -406,10 +383,10 @@ $courseDataGrid->set_colHead('officialCode') ;
 $courseDataGrid->set_noRowMessage( get_lang('There is no course matching such criteria') . '<br />'
 .    '<a href="advancedCourseSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>');
 
-
-/**
+/** ***********************************************************************************
  * DISPLAY
  */
+
 $out = '';
 
 $out .= claro_html_tool_title($nameTools);
@@ -421,8 +398,9 @@ if ( !empty($isSearched) )
 
 $out .= $dialogBox->render();
 
-
-// DISPLAY : Search/filter panel
+/**
+ * DISPLAY : Search/filter panel
+ */
 $out .= '<table width="100%">' . "\n\n"
 .    '<tr>' . "\n"
 .    '<td align="left" valign="top">' . "\n"
@@ -443,9 +421,11 @@ $out .= '<table width="100%">' . "\n\n"
 .    '</form>'  . "\n\n"
 .    '</td>'    . "\n"
 .    '</tr>'    . "\n\n"
-.    '</table>' . "\n\n";
+.    '</table>' . "\n\n"
+;
 
-// DISPLAY : List of datas
+/** DISPLAY : LIST of data */
+
 $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'])
 .    $courseDataGrid->render()
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
@@ -456,8 +436,8 @@ $out .=
     $(document).ready(function(){
         $(".delete").each(function( i ){
             var _id = $(this).attr("id");
-            var id = _id.substr(_id.lastIndexOf("__") + 2 );
-            var course = _id.substr(0,_id.indexOf("__"));
+            var id = _id.substr(_id.lastIndexOf("_") + 1 );
+            var course = _id.substr(0,_id.indexOf("_"));
             
             $(this).click(function(){
                return confirmation(" " + course ); 
@@ -472,45 +452,41 @@ $claroline->display->body->appendContent($out);
 echo $claroline->display->render();
 
 
-/**
- * Prepares the sql request to select courses in database
- * @return string $sql
- */
 function prepare_get_filtred_course_list()
 {
     $tbl_mdb_names       = claro_sql_get_main_tbl();
 
     $sqlFilter = array();
     // Prepare filter deal with KEY WORDS classification call
-    if (isset($_SESSION['admin_course_search']))   $sqlFilter[]="(  co.`intitule`  LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'
-                                                                 OR co.`administrativeNumber` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'
-                                                                 OR co.`faculte`   LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'
+    if (isset($_SESSION['admin_course_search']))   $sqlFilter[]="(  C.`intitule`  LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'
+                                                                 OR C.`administrativeNumber` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'
+                                                                 OR C.`faculte`   LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'
                                                              )";
 
     //deal with ADVANCED SEARCH parmaters call
-    if (isset($_SESSION['admin_course_intitule']) && !empty($_SESSION['admin_course_intitule']) ) $sqlFilter[] = "(co.`intitule` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_intitule'])) ."%')";
-    if (isset($_SESSION['admin_course_code']) && !empty($_SESSION['admin_course_code']) )     $sqlFilter[] = "(co.`administrativeNumber` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_code'])) ."%')";
-    if (isset($_SESSION['admin_course_category']) && !empty($_SESSION['admin_course_category'])) $sqlFilter[] = "(co.`faculte` = '". claro_sql_escape(pr_star_replace($_SESSION['admin_course_category'])) ."')";
-    if (isset($_SESSION['admin_course_language'])) $sqlFilter[] = "(co.`language` = '". claro_sql_escape($_SESSION['admin_course_language']) ."')";
+    if (isset($_SESSION['admin_course_intitule']) && !empty($_SESSION['admin_course_intitule']) ) $sqlFilter[] = "(C.`intitule` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_intitule'])) ."%')";
+    if (isset($_SESSION['admin_course_code']) && !empty($_SESSION['admin_course_code']) )     $sqlFilter[] = "(C.`administrativeNumber` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_code'])) ."%')";
+    if (isset($_SESSION['admin_course_category']) && !empty($_SESSION['admin_course_category'])) $sqlFilter[] = "(C.`faculte` = '". claro_sql_escape(pr_star_replace($_SESSION['admin_course_category'])) ."')";
+    if (isset($_SESSION['admin_course_language'])) $sqlFilter[] = "(C.`language` = '". claro_sql_escape($_SESSION['admin_course_language']) ."')";
 
     if (isset($_SESSION['admin_course_visibility']))
     {
-        if     ($_SESSION['admin_course_visibility'] == 'invisible') $sqlFilter[]= "co.`visibility`='INVISIBLE'";
-        elseif ($_SESSION['admin_course_visibility'] == 'visible'  ) $sqlFilter[]= "co.`visibility`='VISIBLE'";
+        if     ($_SESSION['admin_course_visibility'] == 'invisible') $sqlFilter[]= "C.`visibility`='INVISIBLE'";
+        elseif ($_SESSION['admin_course_visibility'] == 'visible'  ) $sqlFilter[]= "C.`visibility`='VISIBLE'";
     }
 
     if (isset($_SESSION['admin_course_access']))
     {
-        if     ($_SESSION['admin_course_access'] == 'public' ) $sqlFilter[]= "co.`access`='public'";
-        elseif ($_SESSION['admin_course_access'] == 'private') $sqlFilter[]= "co.`access`='private'";
-        elseif ($_SESSION['admin_course_access'] == 'platform') $sqlFilter[]= "co.`access`='platform'";
+        if     ($_SESSION['admin_course_access'] == 'public' ) $sqlFilter[]= "C.`access`='public'";
+        elseif ($_SESSION['admin_course_access'] == 'private') $sqlFilter[]= "C.`access`='private'";
+        elseif ($_SESSION['admin_course_access'] == 'platform') $sqlFilter[]= "C.`access`='platform'";
     }
 
     if (isset($_SESSION['admin_course_subscription']))   // type of subscription allowed is used
     {
-        if ($_SESSION['admin_course_subscription']     == 'allowed') $sqlFilter[]= "co.`registration`='OPEN'";
-        elseif ($_SESSION['admin_course_subscription'] == 'denied' ) $sqlFilter[]= "co.`registration`='CLOSE'";
-        elseif ($_SESSION['admin_course_subscription'] == 'key' ) $sqlFilter[]= "co.`registration`='OPEN' AND CHAR_LENGTH(co.`registrationKey`) != 0";
+        if ($_SESSION['admin_course_subscription']     == 'allowed') $sqlFilter[]= "C.`registration`='OPEN'";
+        elseif ($_SESSION['admin_course_subscription'] == 'denied' ) $sqlFilter[]= "C.`registration`='CLOSE'";
+        elseif ($_SESSION['admin_course_subscription'] == 'key' ) $sqlFilter[]= "C.`registration`='OPEN' AND CHAR_LENGTH(C.`registrationKey`) != 0";
     }
 
 
@@ -518,20 +494,18 @@ function prepare_get_filtred_course_list()
 
 
     // Build the complete SQL
-    $sql = "SELECT  co.`cours_id`             AS `id`,
-                    co.`administrativeNumber` AS `officialCode`,
-                    co.`intitule`             AS `intitule`,
-                    co.`code`                 AS `sysCode`,
-                    co.`sourceCourseId`       AS `sourceCourseId`,
-                    co.`visibility`           AS `visibility`,
-                    co.`access`               AS `access`,
-                    co.`registration`         AS `registration`,
-                    co.`registrationKey`      AS `registrationKey`,
-                    co.`directory`            AS `repository`,
-                    co.`status`               AS `status`
-                    
-                    FROM  `" . $tbl_mdb_names['course'] . "` AS co" 
-                    . $sqlFilter ;
+    $sql = "SELECT  C.`administrativeNumber` AS `officialCode`,
+                    C.`intitule`             AS `intitule`,
+                    C.`faculte`              AS `faculte`,
+                    C.`code`                 AS `sysCode`,
+                    C.`visibility`           AS `visibility`,
+                    C.`access`               AS `access`,
+                    C.`registration`         AS `registration`,
+                    C.`registrationKey`      AS `registrationKey`,
+                    C.`directory`            AS `repository`,
+                    C.`status`                 AS `status`
+                    FROM  `" . $tbl_mdb_names['course'] . "` AS C
+           " . $sqlFilter ;
 
     return $sql;
 }
