@@ -19,7 +19,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 require_once dirname(__FILE__) . '/backlog.class.php';
 require_once dirname(__FILE__) . '/admin.lib.inc.php'; // for delete course function
-require_once dirname(__FILE__) . '/claroCategory.class.php';
+require_once dirname(__FILE__) . '/clarocategory.class.php';
 require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
 require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
 
@@ -46,7 +46,7 @@ class ClaroCourse
     // Email
     public $email;
 
-    // Array of categories (claroCategory.class.php)
+    // Array of categories (clarocategory.class.php)
     public $categories;
 
     // Depatment Name

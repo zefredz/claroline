@@ -32,7 +32,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 include_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
 include_once get_path('incRepositorySys') . '/lib/faculty.lib.inc.php'; //TODO deprecated
-include_once get_path('incRepositorySys') . '/lib/claroCategory.class.php'; //Category object
+include_once get_path('incRepositorySys') . '/lib/clarocategory.class.php'; //Category object
 include_once get_path('incRepositorySys') . '/lib/category.lib.inc.php'; //Contains all SQL queries linked to categories
 
 // Build breadcrumb

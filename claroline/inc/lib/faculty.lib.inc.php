@@ -16,7 +16,7 @@ if ( count( get_included_files() ) == 1 )
  * @see         http://www.claroline.net/wiki/index.php/CLTREE
  * @package     CLTREE
  * @author      Claro Team <cvs@claroline.net>
- * @deprecated  since 1.10 (now using claroCategory.class.php and category.lib.inc.php)
+ * @deprecated  since 1.10 (now using clarocategory.class.php and category.lib.inc.php)
  */
 
 /**

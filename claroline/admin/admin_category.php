@@ -26,7 +26,7 @@ if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // Initialisation of global variables and used classes and libraries
-require_once get_path('incRepositorySys') . '/lib/claroCategory.class.php';
+require_once get_path('incRepositorySys') . '/lib/clarocategory.class.php';
 
 // Instanciate dialog box
 $dialogBox = new DialogBox();

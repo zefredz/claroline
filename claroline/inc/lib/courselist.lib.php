@@ -16,7 +16,7 @@ if ( count( get_included_files() ) == 1 )
  * @author Claro Team <cvs@claroline.net>
  */
 
-require_once dirname(__FILE__) . '/claroCategory.class.php';
+require_once dirname(__FILE__) . '/clarocategory.class.php';
 
 class category_browser
 {
