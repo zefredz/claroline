@@ -91,7 +91,7 @@ class ClaroCourse
     /**
      * Constructor
      */
-    function ClaroCourse ($creatorFirstName = '', $creatorLastName = '', $creatorEmail = '')
+    public function __construct ($creatorFirstName = '', $creatorLastName = '', $creatorEmail = '')
     {
         $this->id                   = null;
         $this->courseId             = '';
@@ -123,7 +123,7 @@ class ClaroCourse
      * @return boolean  success
      */
 
-    function load ($courseId)
+    public function load ($courseId)
     {
         if ( ( $course_data = claro_get_course_data($courseId) ) !== false )
         {
@@ -173,7 +173,7 @@ class ClaroCourse
      * @return boolean success
      */
 
-    function save ()
+    public function save ()
     {
         if ( empty($this->courseId) )
         {
@@ -287,7 +287,7 @@ class ClaroCourse
      *                  FALSE otherwise
      * @since 1.10
      */
-    function isSourceCourse ()
+    public function isSourceCourse ()
     {
         $sessionCoursesList = get_session_courses($this->id);
         if (count($sessionCoursesList) > 0)
@@ -308,7 +308,7 @@ class ClaroCourse
      *                  FALSE otherwise
      * @since 1.10
      */
-    function isSessionCourse ()
+    public function isSessionCourse ()
     {
         $sourceCourse = get_source_course($this->id);
         
@@ -330,7 +330,7 @@ class ClaroCourse
      * @param array of categories
      * @since 1.10
      */
-    function linkCategories ( $categories )
+    public function linkCategories ( $categories )
     {
         if ( !is_null($categories) && !empty($categories) )
         {
@@ -350,7 +350,7 @@ class ClaroCourse
      * @param array of categories (leave it empty to unlink all categories)
      * @since 1.10
      */
-    function unlinkCategories ( $categories = array() )
+    public function unlinkCategories ( $categories = array() )
     {
         unlink_course_categories ( $this->id, $categories );
     }
@@ -362,7 +362,7 @@ class ClaroCourse
      * @return int      number of categories
      * @since 1.10
      */
-    function countCategoriesLinks ()
+    public function countCategoriesLinks ()
     {
         return (count_course_categories ( $this->id ));
     }
@@ -374,7 +374,7 @@ class ClaroCourse
      * @return boolean success
      */
 
-    function delete ()
+    public function delete ()
     {
         return delete_course($this->courseId);
     }
@@ -389,7 +389,7 @@ class ClaroCourse
      * @param bool      visibility (1 = only visible, 0 = only invisible, null = all; default: null)
      * @since 1.10
      */
-    static function getAllCourses ($categoryId = null, $visibility = null)
+    public static function getAllCourses ($categoryId = null, $visibility = null)
     {
         return claro_get_all_courses ($categoryId, $visibility);
     }
@@ -403,7 +403,7 @@ class ClaroCourse
      * @param int       identifier of user (default: null)
      * @since 1.10
      */
-    static function getRestrictedCourses ($categoryId = null, $userId = null)
+    public static function getRestrictedCourses ($categoryId = null, $userId = null)
     {
         return claro_get_restricted_courses ($categoryId, $userId);
     }
@@ -412,7 +412,7 @@ class ClaroCourse
      * retrieve course data from form
      */
 
-    function handleForm ()
+    public function handleForm ()
     {
         /*
          * Manage the multiple select.
@@ -537,7 +537,7 @@ class ClaroCourse
      * @return boolean success
      */
 
-    function validate ()
+    public function validate ()
     {
         $success = true ;
 
@@ -659,7 +659,7 @@ class ClaroCourse
      * @return boolean success
      */
 
-    function validateExtLinkUrl ()
+    protected function validateExtLinkUrl ()
     {
         if ( empty($this->extLinkUrl) ) return true;
 
@@ -689,7 +689,7 @@ class ClaroCourse
      * @return boolean success
      */
 
-    function validateEmailList ()
+    protected function validateEmailList ()
     {
         // empty email is valide as we already checked if field was required
         if( empty($this->email) ) return true;
@@ -726,7 +726,7 @@ class ClaroCourse
      * @return string html output of form
      */
 
-    function displayForm ($cancelUrl=null)
+    public function displayForm ($cancelUrl=null)
     {
         /* 
          * The javascript required to manage multiple selects is loaded in the 
@@ -1146,7 +1146,7 @@ class ClaroCourse
      * @return string html output of form
      */
 
-    function displayDeleteConfirmation ()
+    public function displayDeleteConfirmation ()
     {
         $paramString = $this->getHtmlParamList('GET');
 
@@ -1183,7 +1183,7 @@ class ClaroCourse
      *
      */
 
-    function addHtmlParam($name, $value)
+    public function addHtmlParam($name, $value)
     {
         $this->htmlParamList[$name] = $value;
     }
@@ -1195,7 +1195,7 @@ class ClaroCourse
      * @return string html output of params for $method method
      */
 
-    function getHtmlParamList($method = 'GET')
+    public function getHtmlParamList($method = 'GET')
     {
         if ( empty($this->htmlParamList) ) return '';
 
@@ -1233,7 +1233,7 @@ class ClaroCourse
      * @deprecated 1.9
      */
 
-    function getVisibility ( $access, $registration )
+    public function getVisibility ( $access, $registration )
     {
         $visibility = 0 ;
 
@@ -1252,7 +1252,7 @@ class ClaroCourse
      * @return boolean public true, private false
      */
 
-    function getAccess ( $visibility )
+    public function getAccess ( $visibility )
     {
         if ( $visibility >= 2 ) return true ;
         else                    return false ;
@@ -1265,7 +1265,7 @@ class ClaroCourse
      * @return boolean open true, close false
      */
 
-    function getRegistration ( $visibility )
+    public function getRegistration ( $visibility )
     {
         if ( $visibility == 1 || $visibility == 2 ) return true ;
         else                                        return false;
@@ -1281,7 +1281,7 @@ class ClaroCourse
      * @return string   course code (sysCode)
      * @since 1.10
      */
-    static function getCodeFromId ( $id )
+    public static function getCodeFromId ( $id )
     {
         return recover_code_from_id( $id );
     }
@@ -1297,7 +1297,7 @@ class ClaroCourse
      * @return int      course identifier
      * @since 1.10
      */
-    static function getIdFromCode ( $code )
+    public static function getIdFromCode ( $code )
     {
         return recover_id_from_code( $code );
     }
@@ -1311,7 +1311,7 @@ class ClaroCourse
      * @param string creator email
      */
 
-    function mailAdministratorOnCourseCreation ($creatorFirstName, $creatorLastName, $creatorEmail)
+    public function mailAdministratorOnCourseCreation ($creatorFirstName, $creatorLastName, $creatorEmail)
     {
         $subject = get_lang('Course created : %course_name',array('%course_name'=> $this->title));
 
@@ -1348,7 +1348,7 @@ class ClaroCourse
      * @return string url
      */
 
-    function buildProgressUrl ()
+    public function buildProgressUrl ()
     {
         $url = $_SERVER['PHP_SELF'] . '?cmd=exEdit';
 
