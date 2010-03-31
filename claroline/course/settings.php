@@ -43,21 +43,93 @@ require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
+require_once get_path('incRepositorySys') . '/lib/claroCourseSession.class.php';
 
-// initialisation
+// Initialisation
 define('DISP_COURSE_EDIT_FORM',__LINE__);
 define('DISP_COURSE_RQ_DELETE',__LINE__);
 
 $dialogBox = new DialogBox();
 
-$cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
-$adminContext = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
-$current_cid = null;
-$display = DISP_COURSE_EDIT_FORM;
+// Manage html multiple select
+$htmlHeadXtra[]='
+<script type="text/javascript" language="JavaScript">
+<!-- Begin javascript menu swapper
+function move( inBox, outBox )
+{
+    var arrInBox = new Array();
+    var arrOutBox = new Array();
 
-// New course object
+    for ( var i=0; i<outBox.options.length; i++ )
+    {
+        arrOutBox[i] = outBox.options[i];
+    }
 
-$course = new ClaroCourse();
+    var outLength = arrOutBox.length;
+    var inLength = 0;
+
+    for ( var i=0; i<inBox.options.length; i++ )
+    {
+        var opt = inBox.options[i];
+        if ( opt.selected )
+        {
+            arrOutBox[outLength] = opt;
+            outLength++;
+        }
+        else
+        {
+            arrInBox[inLength] = opt;
+            inLength++;
+        }
+    }
+
+    inBox.length = 0;
+    outBox.length = 0;
+
+    for ( var i = 0; i < arrOutBox.length; i++ )
+    {
+        outBox.options[i] = arrOutBox[i];
+    }
+
+    for ( var i = 0; i < arrInBox.length; i++ )
+    {
+        inBox.options[i] = arrInBox[i];
+    }
+}
+//  End -->
+</script>
+
+<script type="text/javascript" language="JavaScript">
+<!-- 
+function selectAll(cbList,bSelect) {
+  for (var i=0; i<cbList.length; i++)
+    cbList[i].selected = cbList[i].checked = bSelect
+}
+
+function reverseAll(cbList) {
+  for (var i=0; i<cbList.length; i++) {
+    cbList[i].checked = !(cbList[i].checked)
+    cbList[i].selected = !(cbList[i].selected)
+  }
+}
+ -->
+</script>';
+
+$cmd            = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
+$adminContext   = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
+$courseType     = isset($_REQUEST['courseType']) ? ($_REQUEST['courseType']) : null;
+$current_cid    = null;
+$display        = DISP_COURSE_EDIT_FORM;
+
+// New course object (normal or session, depending on the courseType param)
+if ( !is_null($courseType) && $courseType == 'session')
+{
+    $course = new ClaroCourseSession();
+}
+else
+{
+    $course = new ClaroCourse();
+}
 
 // Initialise current course id
 
@@ -185,7 +257,7 @@ if ( $course->load($current_cid) )
         }
         else
         {
-            $dialogBox->error( get_lang('Unable to save') );
+            $dialogBox->error( get_lang('Unable to delete') );
         }
     }
 
@@ -220,8 +292,7 @@ $links[] = '<a class="claroCmd" href="'. htmlspecialchars(Url::Contextualize( ge
 .          get_lang("Main Group Settings")
 .          '</a>' ;
 
-// add tracking link
-
+// Add tracking link
 if ( get_conf('is_trackingEnabled') )
 {
     $links[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'tracking/courseReport.php' )) . '">'
@@ -230,8 +301,16 @@ if ( get_conf('is_trackingEnabled') )
     .          '</a>' ;
 }
 
-// add delete course link
+// Create a session course
+if ( !$course->isSessionCourse() )
+{
+    $links[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/create.php', array('course_sourceCourseId'=>$course->id) )) . '">'
+    .          '<img src="' . get_icon_url('duplicate') . '" alt="" />'
+    .          get_lang("Create a session course")
+    .          '</a>' ;
+}
 
+// Add delete course link
 if ( get_conf('showLinkToDeleteThisCourse') )
 {
     $paramString = $course->getHtmlParamList('GET');

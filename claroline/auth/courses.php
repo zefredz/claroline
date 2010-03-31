@@ -43,8 +43,8 @@ include claro_get_conf_repository() . 'user_profile.conf.php';
 $parentCategoryCode = '';
 $userSettingMode    = FALSE;
 $dialogBox = new DialogBox();
-$courseList = array();
-$categoryList = array();
+$coursesList = array();
+$categoriesList = array();
 
 /*---------------------------------------------------------------------
 Define Display
@@ -74,8 +74,7 @@ else                                                              $fromAdmin = '
 if ( isset($_REQUEST['course']) ) $course = trim($_REQUEST['course']);
 else                              $course = '';
 
-if ( isset($_REQUEST['category']) ) $category = trim($_REQUEST['category']);
-else                                $category = '';
+$category   = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
 
 /*=====================================================================
 Main Section
@@ -309,7 +308,7 @@ User course list to unregister
 
 if ( $cmd == 'rqUnreg' )
 {
-    $courseList = get_user_course_list($userId);
+    $coursesList = get_user_course_list($userId);
     $displayMode = DISPLAY_USER_COURSES;
 } // if ($cmd == 'rqUnreg')
 
@@ -331,7 +330,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 
         if ( count($result) > 0 )
         {
-            $courseList = $result;
+            $coursesList = $result;
         }
         else
         {
@@ -348,15 +347,16 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 
     else
     {
-        $courseCategoryBrowser = new category_browser($category, $userId);
+        $courseCategoryBrowser  = new category_browser($category, $userId);
 
-        $currentCategory     = $courseCategoryBrowser->get_current_category_settings();
-        $currentCategoryName = $currentCategory['name'  ];
-        $parentCategoryCode  = $currentCategory['code_P'];
+        $currentCategory        = $courseCategoryBrowser->get_current_category_settings();
+        $currentCategoryName    = $currentCategory->name;
+        $parentCategoryId       = $currentCategory->idParent;
 
-        $categoryList = $courseCategoryBrowser->get_sub_category_list();
+        $categoriesList         = $courseCategoryBrowser->get_sub_category_list();
 
-        $courseList   = $courseCategoryBrowser->get_course_list();
+        $courseCategoryBrowser->get_course_list();
+        $coursesList            = $courseCategoryBrowser->getCoursesWithoutSourceCourses();
 
         $displayMode = DISPLAY_COURSE_TREE;
     }
@@ -371,9 +371,9 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 * SET 'BACK' LINK
 */
 
-if ( $cmd == 'rqReg' && ( !empty($category) || !empty($parentCategoryCode) ) )
+if ( $cmd == 'rqReg' && ( !empty($category) || !empty($parentCategoryId) ) )
 {
-    $backUrl   = $_SERVER['PHP_SELF'].'?cmd=rqReg&amp;category=' . urlencode($parentCategoryCode);
+    $backUrl   = $_SERVER['PHP_SELF'].'?cmd=rqReg&amp;category=' . urlencode($parentCategoryId);
     $backLabel = get_lang('Back to parent category');
 }
 else
@@ -406,10 +406,10 @@ else
         $backUrl   = '../../index.php?';
         $backLabel = get_lang('Back to my personal course list');
     }
-} // ($cmd == 'rqReg' && ($category || ! is_null($parentCategoryCode) ) )
+} // ($cmd == 'rqReg' && ($category || ! is_null($parentCategoryId) ) )
 
 $backUrl .= $inURL; //notify userid of the user we are working with in admin mode and that we come from admin
-$backLink = '<p><small><a href="' . $backUrl . '" title="' . $backLabel. '" >&lt;&lt; ' . $backLabel . '</a></small></p>' . "\n\n";
+$backLink = '<p><small><a href="' . $backUrl . '" title="' . $backLabel. '" >&larr; ' . $backLabel . '</a></small></p>' . "\n\n";
 
 $out = '';
 
@@ -422,7 +422,6 @@ switch ( $displayMode )
 
     case DISPLAY_COURSE_TREE :
     {
-
         //  Note : if we are at the root category we're at the top of the campus
         //        root name equal platform name
         //        $siteName comes from claro_main.conf.php
@@ -430,7 +429,6 @@ switch ( $displayMode )
         if ( empty($category) ) $currentCategoryName = get_conf('siteName');
 
         //  Display Title
-
         if ( $fromAdmin != 'class' )
         {
             $title = get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'];
@@ -447,19 +445,35 @@ switch ( $displayMode )
         }
 
         // Display message
-
         $out .= $dialogBox->render();
 
         $out .= $backLink;
+        
         // Display categories
-
-        if ( count($categoryList) > 0)
+        if ( count($categoriesList) > 0)
         {
             $out .= '<h4>' . get_lang('Categories') . '</h4>' . "\n" ;
 
             $out .= '<ul>' . "\n" ;
-
-            foreach ( $categoryList as $thisCategory )
+            
+            foreach( $categoriesList as $category )
+	        {
+                $nbCourses = claroCategory::countAllCourses($category['id']);
+                $nbSubCategories = claroCategory::countAllSubCategories($category['id']);
+                
+                $out .= '<li>' . "\n";
+                
+                // If the category contains something else (subcategory or course),
+                // make a link to access to these ressources
+                if ($nbCourses + $nbSubCategories > 0)
+                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;category=" . urlencode( $category['id'] ) . '">' . $category['name'] . '</a>';
+                else
+                    $out .= $category['name'];
+                
+                $out .= '</li>' . "\n";
+            }
+/*
+            foreach ( $categoriesList as $thisCategory )
             {
                 if ( $thisCategory['code'] != $category )
                 {
@@ -479,26 +493,24 @@ switch ( $displayMode )
                     $out .= '</li>' . "\n";
                 }
             } // end foreach categoryList
-
+*/
             $out .= '</ul>' . "\n";
         }
 
         // Separator between category list and course list
-
-        if ( count($courseList) > 0  && count($categoryList) > 0 )
+        if ( count($coursesList) > 0  && count($categoriesList) > 0 )
         {
             $out .= '<hr size="1" noshade="noshade" />' . "\n";
         }
 
         // Course List
-
-        if ( count($courseList) > 0 )
+        if ( count($coursesList) > 0 )
         {
             $out .= '<h4>' . get_lang('Course list') . '</h4>' . "\n"
             .    '<blockquote>' . "\n"
             .    '<table class="claroTable emphaseLine" >' . "\n" ;
 
-            if ( $userSettingMode ) //display links to enroll as student and also as teacher (but not for a class)
+            if ( $userSettingMode ) // Display links to enroll as student and also as teacher (but not for a class)
             {
 
                 $out .= '<thead>' . "\n"
@@ -522,8 +534,8 @@ switch ( $displayMode )
             }
 
             $out .= '<tbody>' . "\n";
-
-            foreach($courseList as $thisCourse)
+            
+            foreach($coursesList as $thisCourse)
             {
                 $out .= '<tr>' . "\n"
                 .    '<td>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['title'] . '<br />' . "\n"
@@ -583,7 +595,7 @@ switch ( $displayMode )
                    }
                    else
                    {
-                   	$out .= '<td valign="top"  align="center">' . "\n"
+                       $out .= '<td valign="top"  align="center">' . "\n"
                     .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
                     .    '?cmd=exUnreg' 
                     .    '&amp;course_id=' . $thisCourse['sysCode']
@@ -673,13 +685,13 @@ switch ( $displayMode )
         
         $out .= $dialogBox->render();
         
-        if ( count($courseList) > 0 )
+        if ( count($coursesList) > 0 )
         {
             $out .= '<blockquote>' . "\n"
             .    '<table class="claroTable">' . "\n"
             ;
 
-            foreach ($courseList as $thisCourse)
+            foreach ($coursesList as $thisCourse)
             {
                 $out .= '<tr>' . "\n"
                 .    '<td>' . "\n"
@@ -710,7 +722,7 @@ switch ( $displayMode )
                 $out .= '</td>' . "\n"
                 .    '</tr>' . "\n"
                 ;
-            } // foreach $courseList as $thisCourse
+            } // foreach $coursesList as $thisCourse
 
             $out .= '</table>' . "\n"
             .    '</blockquote>' . "\n"

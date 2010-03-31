@@ -87,16 +87,18 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro
             $tableCal = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'calendar_event';
     
             $sql = "SELECT '". claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
-                       '". claro_sql_escape($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
-                       'CLCAL' AS `toolLabel`,
-                CONCAT(`day`, ' ',`hour`) AS `date`,
-                CONCAT(`titre`,' - ',`contenu`) AS `content`
-                FROM `" . $tableCal . "`
-                WHERE CONCAT(`day`, ' ',`hour`) >= CURDATE()
-                  AND CONCAT(`titre`, `contenu`) != ''
-                  AND visibility = 'SHOW'
-                ORDER BY `date`
-                LIMIT 1";
+                           '". claro_sql_escape($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
+                           'CLCAL' AS `toolLabel`,
+                           CONCAT(`day`, ' ',`hour`) AS `date`,
+                           CONCAT(`titre`,' - ',`contenu`) AS `content`
+                    FROM `" . $tableCal . "`
+                    
+                    WHERE CONCAT(`day`, ' ',`hour`) >= CURDATE()
+                    AND CONCAT(`titre`, `contenu`) != ''
+                    AND visibility = 'SHOW'
+                    
+                    ORDER BY `date`
+                    LIMIT 1";
     
             $resultList = claro_sql_query_fetch_all_cols($sql);
     

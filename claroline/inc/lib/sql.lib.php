@@ -150,8 +150,7 @@ function claro_sql_get_main_tbl()
         'course'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours',
         'rel_course_user'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours_user',
         'rel_course_category'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_category',
-        'category'                  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'faculte', //TODO modify the name for 'category' when new implementation is finished
-        'category_dev'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'category', //TODO modify the name for 'category' when new implementation is finished
+        'category'                  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'category',
         'user'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user',
         'tool'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'course_tool',
         'user_category'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'class',
