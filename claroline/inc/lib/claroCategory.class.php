@@ -59,7 +59,7 @@ class ClaroCategory
     /**
      * Constructor
      */
-    function ClaroCategory ($id = null, $name = null, $code = null, $parentId = null, $rank = null, $visible = 1, $canHaveCoursesChild = 1, $rootCourse = null)
+    public function __construct  ($id = null, $name = null, $code = null, $parentId = null, $rank = null, $visible = 1, $canHaveCoursesChild = 1, $rootCourse = null)
     {
         $this->id                   = $id;
         $this->name                 = $name;
@@ -523,26 +523,6 @@ class ClaroCategory
         }
 
         return $success;
-    }
-    
-    
-    /**
-     * Put the current category's datas into a string format.
-     * 
-     * @return string       category's datas
-     */
-    public function toString ()
-    {
-        $str = 
-             'id = ' . $this->id . "\n"
-        .    'name = ' . $this->name . "\n"
-        .    'code = ' . $this->code . "\n"
-        .    'idParent = ' . $this->idParent . "\n"
-        .    'rank = ' . $this->rank . "\n"
-        .    'visible = ' . $this->visible . "\n"
-        .    'canHaveCoursesChild = ' . $this->canHaveCoursesChild . "\n";
-        
-        return $str;
     }
     
     

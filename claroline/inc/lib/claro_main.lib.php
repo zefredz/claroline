@@ -434,7 +434,7 @@ function get_source_course($id)
  * @param int       course identifier
  * @return string   course code
  */
-function recover_code_from_id($id)
+function retrieve_code_from_id($id)
 {
     // Declare needed tables
     $tbl_mdb_names              = claro_sql_get_main_tbl();
@@ -462,7 +462,7 @@ function recover_code_from_id($id)
  * @param string    course code
  * @return int      course identifier
  */
-function recover_id_from_code($code)
+function rectrieve_id_from_code($code)
 {
     // Declare needed tables
     $tbl_mdb_names              = claro_sql_get_main_tbl();

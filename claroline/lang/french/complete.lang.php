@@ -2066,7 +2066,7 @@ Code : %course_code
 Titre : %course_title
 Gestionnaire(s) : %course_lecturers
 E-mail : %course_email
-Catégorie : %course_category
+Catégories : %course_categories
 Langue : %course_language
 URL : %course_url';
 $_lang['blockCourseDescriptionCourseContent'] = 'Contenu du cours';

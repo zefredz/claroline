@@ -46,7 +46,7 @@ class ClaroCourse
     // Email
     public $email;
 
-    // Collection of categories (claroCategory.class.php)
+    // Array of categories (claroCategory.class.php)
     public $categories;
 
     // Depatment Name
@@ -448,8 +448,9 @@ class ClaroCourse
             {
                 // Bypass the loading page "course creating, please wait"
                 $categoryId = (is_a($category, 'claroCategory')) ? (strip_tags($category->id)) : (strip_tags($category));
-                
-                $categoriesList[] = new claroCategory($categoryId);
+                $tempCat = new claroCategory();
+                $tempCat->load($categoryId);
+                $categoriesList[] = $tempCat;
             }
             
             $this->categories = $categoriesList;
@@ -1283,7 +1284,7 @@ class ClaroCourse
      */
     public static function getCodeFromId ( $id )
     {
-        return recover_code_from_id( $id );
+        return retrieve_code_from_id( $id );
     }
     
     
@@ -1299,7 +1300,7 @@ class ClaroCourse
      */
     public static function getIdFromCode ( $code )
     {
-        return recover_id_from_code( $code );
+        return retrieve_id_from_code( $code );
     }
     
     
@@ -1324,7 +1325,7 @@ class ClaroCourse
                                 '%course_title' => $this->title,
                                 '%course_lecturers' => $this->titular,
                                 '%course_email' => $this->email,
-                                '%course_category' => is_array($this->categories) ? implode(',',$this->categories) : $this->categories,
+                                '%course_categories' => is_array($this->categories) ? implode(',',$this->categories) : $this->categories,
                                 '%course_language' => $this->language,
                                 '%course_url' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) );
 
