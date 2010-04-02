@@ -3,7 +3,7 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Description
+ * Objects used to represent a user in the platform.
  *
  * @version     1.10 $Revision$
  * @copyright   2001-2010 Universite catholique de Louvain (UCL)
@@ -18,16 +18,26 @@ require_once dirname(__FILE__) . '/object.lib.php';
 require_once dirname(__FILE__) . '/../core/claroline.lib.php';
 require_once dirname(__FILE__) . '/../database/database.lib.php';
 
-
+/**
+ * Object used to load and represent a user.
+ * WARNING : this object is read only.
+ */
 class Claro_User extends KernelObject
 {
     protected $_userId;
-    
+
+    /**
+     * Constructor
+     * @param int $userId
+     */
     public function __construct( $userId )
     {
         $this->_userId = $userId;
     }
-    
+
+    /**
+     * Load user properties from database
+     */
     public function loadFromDatabase()
     {
         $tbl = claro_sql_get_main_tbl();
@@ -88,7 +98,10 @@ class Claro_User extends KernelObject
             $this->loadUserProperties();
         }
     }
-    
+
+    /**
+     * Load additional properties from the database
+     */
     public function loadUserProperties()
     {
         $tbl = claro_sql_get_main_tbl();
@@ -117,7 +130,13 @@ class Claro_User extends KernelObject
             $this->_rawData['userProperties'][$property->name][$property->scope] = $property->value;
         }
     }
-    
+
+    /**
+     * Get an additionnal user property
+     * @param string $name property name
+     * @param string $scope property scope
+     * @return mixed property value
+     */
     public function getUserProperty( $name, $scope )
     {
         if ( array_key_exists( $name, $this->_rawData['userProperties'] )
@@ -133,6 +152,9 @@ class Claro_User extends KernelObject
     }
 }
 
+/**
+ * Object to represent the current user. This class is a singleton.
+ */
 class Claro_CurrentUser extends Claro_User
 {
     public function __construct( $userId = null )
@@ -144,7 +166,10 @@ class Claro_CurrentUser extends Claro_User
             
         parent::__construct( $userId );
     }
-    
+
+    /**
+     * Load user properties from session
+     */
     public function loadFromSession()
     {
         if ( !empty($_SESSION['_user']) )
@@ -157,17 +182,31 @@ class Claro_CurrentUser extends Claro_User
             throw new Exception("Cannot load user data from session for {$this->_userId}");
         }
     }
-    
+
+    /**
+     * Save user properties to session
+     */
     public function saveToSession()
     {
         $_SESSION['_user'] = $this->_rawData;
     }
-    
+
+    /**
+     * Is it the first time the user log in to the platform ?
+     * @todo the creator id should not be used for this purpose
+     * @return boolean
+     */
     public function firstLogin()
     {
         return ($this->_userId != $this->creatorId);
     }
-    
+
+    /**
+     * Change the creator id of the user to the user itself to indicate that
+     * the user has already logged in to the the platform
+     * @todo the creator id should not be used for this purpose
+     * @return void
+     */
     public function updateCreatorId()
     {
         $tbl = claro_sql_get_main_tbl();
@@ -183,7 +222,14 @@ class Claro_CurrentUser extends Claro_User
     }
     
     protected static $instance = false;
-    
+
+    /**
+     * Singleton constructor
+     * @todo avoid using the singleton pattern and use a factory instead ?
+     * @param int $uid user id
+     * @param boolean $forceReload force reloading the data
+     * @return Claro_CurrentUser current user
+     */
     public static function getInstance( $uid = null, $forceReload = false )
     {
         if ( $forceReload || ! self::$instance )
