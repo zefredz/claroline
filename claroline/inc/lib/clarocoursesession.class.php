@@ -20,7 +20,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 require_once dirname(__FILE__) . '/backlog.class.php';
 require_once dirname(__FILE__) . '/coursesession.lib.inc.php';
 require_once dirname(__FILE__) . '/claroCourse.class.php';
-require_once dirname(__FILE__) . '/claroCategory.class.php';
+require_once dirname(__FILE__) . '/clarocategory.class.php';
 require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
 require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
 
