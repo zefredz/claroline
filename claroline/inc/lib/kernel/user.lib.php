@@ -5,8 +5,8 @@
 /**
  * Description
  *
- * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @version     1.10 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -14,7 +14,10 @@
  * @package     PACKAGE_NAME
  */
 
-FromKernel::uses ( 'kernel/object.lib', 'core/claroline.lib', 'database/database.lib' );
+require_once dirname(__FILE__) . '/object.lib.php';
+require_once dirname(__FILE__) . '/../core/claroline.lib.php';
+require_once dirname(__FILE__) . '/../database/database.lib.php';
+
 
 class Claro_User extends KernelObject
 {

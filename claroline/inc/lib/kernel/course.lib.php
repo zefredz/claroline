@@ -5,8 +5,8 @@
 /**
  * Claroline Kernel objects
  *
- * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @version     1.10 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -14,12 +14,9 @@
  * @package     kernel.objects
  */
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
-FromKernel::uses ( 'kernel/object.lib' );
+require_once dirname(__FILE__) . '/object.lib.php';
+require_once dirname(__FILE__) . '/../core/claroline.lib.php';
+require_once dirname(__FILE__) . '/../database/database.lib.php';
 
 class Claro_Course extends KernelObject
 {
@@ -74,7 +71,9 @@ class Claro_Course extends KernelObject
             . "WHERE c.code = '{$sqlCourseId}'"
             ;
 
-        $courseDataList = claro_sql_query_get_single_row( $sql_getCourseData );
+        $courseDataList = Claroline::getDatabase()
+            ->query( $sql_getCourseData )
+            ->fetch();
         
         if ( ! $courseDataList )
         {
@@ -104,7 +103,9 @@ class Claro_Course extends KernelObject
             . "WHERE category = 'MAIN'"
             ;
 
-        $courseProperties = claro_sql_query_fetch_all( $sql_getCourseProperties );
+        $courseProperties = Claroline::getDatabase()
+            ->query( $sql_getCourseProperties )
+            ->fetch();
         
         $coursePropertyList = array();
 
@@ -128,7 +129,9 @@ class Claro_Course extends KernelObject
             . "WHERE category = 'GROUP'"
             ;
 
-        $db_groupProperties = claro_sql_query_fetch_all( $sql_getGroupProperties );
+        $db_groupProperties = Claroline::getDatabase()
+            ->query( $sql_getGroupProperties )
+            ->fetch();
         
         if ( ! $db_groupProperties )
         {
