@@ -3,7 +3,7 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Claroline Kernel objects
+ * Claroline Course objects
  *
  * @version     1.10 $Revision$
  * @copyright   2001-2010 Universite catholique de Louvain (UCL)
@@ -18,23 +18,37 @@ require_once dirname(__FILE__) . '/object.lib.php';
 require_once dirname(__FILE__) . '/../core/claroline.lib.php';
 require_once dirname(__FILE__) . '/../database/database.lib.php';
 
+/**
+ * Represents a course in the platform
+ */
 class Claro_Course extends KernelObject
 {
     protected $_courseId;
-    
+
+    /**
+     * Constructor
+     * @todo use course id (int) instead of course code to identify a course.
+     * @param string $courseId course code
+     */
     public function __construct( $courseId )
     {
         $this->_courseId = $courseId;
         $this->load();
     }
-    
+
+    /**
+     * Load course properties and group properties from database
+     */
     protected function loadFromDatabase()
     {
         $this->_rawData = $this->loadCourseKernelData();
         $this->loadCourseProperties();
         $this->loadGroupProperties();
     }
-    
+
+    /**
+     * Load course main properties from database
+     */
     protected function loadCourseKernelData()
     {
         // get course data from main
@@ -92,7 +106,10 @@ class Claro_Course extends KernelObject
             
         return $courseDataList;
     }
-    
+
+    /**
+     * Load course additionnal properties from database
+     */
     protected function loadCourseProperties()
     {
         // get extra course properties
@@ -119,7 +136,10 @@ class Claro_Course extends KernelObject
         
         $this->_rawData['courseProperties'] = $coursePropertyList;
     }
-    
+
+    /**
+     * Load course group properties from database
+     */
     protected function loadGroupProperties()
     {
         $tbl = claro_sql_get_course_tbl( $this->_rawData['dbNameGlu'] );
@@ -170,17 +190,31 @@ class Claro_Course extends KernelObject
         
         $this->_rawData['groupProperties'] = $groupProperties;
     }
-    
+
+    /**
+     * Get group properties in the course
+     * @return array
+     */
     public function getGroupProperties()
     {
         return $this->_rawData['groupProperties'];
     }
-    
+
+    /**
+     * Get course additional properties
+     * @return array
+     */
     public function getCourseProperties()
     {
         return $this->_rawData['courseProperties'];
     }
-    
+
+    /**
+     * Overwrite KernelObjet::__get to get properties from both main properties
+     * and additionnal properties.
+     * @param string $nm property name
+     * @return mixed property value or null
+     */
     public function __get( $nm )
     {
         if ( isset ( $this->_rawData[$nm] ) )
@@ -198,6 +232,9 @@ class Claro_Course extends KernelObject
     }
 }
 
+/**
+ * Represents the current course object. This class is a singleton.
+ */
 class Claro_CurrentCourse extends Claro_Course
 {
     public function __construct( $courseId = null )
@@ -209,7 +246,10 @@ class Claro_CurrentCourse extends Claro_Course
             
         parent::__construct( $courseId );
     }
-    
+
+    /**
+     * Load the course from the session
+     */
     public function loadFromSession()
     {
         if ( !empty($_SESSION['_course']) )
@@ -222,14 +262,23 @@ class Claro_CurrentCourse extends Claro_Course
             throw new Exception("Cannot load course data from session for {$this->_courseId}");
         }
     }
-    
+
+    /**
+     * Save the course to the session
+     */
     public function saveToSession()
     {
         $_SESSION['_course'] = $this->_rawData;
     }
     
     protected static $instance = false;
-    
+
+    /**
+     * Singleton constructor
+     * @param int $courseId course code
+     * @param boolean $forceReload force relaoding the course
+     * @return Claro_CurrentCourse
+     */
     public static function getInstance( $courseId = null, $forceReload = false )
     {
         if ( $forceReload || ! self::$instance )
