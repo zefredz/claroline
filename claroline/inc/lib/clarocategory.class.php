@@ -197,7 +197,7 @@ class ClaroCategory
     
     
     /**
-     * Select all categories in database from a certain point.  You can use the attribute "level" for 
+     * Select all categories in database from a certain point, ordered by rank. Use the attribute "level" for 
      * display purpose.  For instance: echo str_repeat('&nbsp;', 4*$category['level']) . $category['name'];
      *
      * @param int           $start_node the parent from wich we want to get the categories tree (default: 0)

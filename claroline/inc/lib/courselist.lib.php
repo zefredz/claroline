@@ -662,7 +662,6 @@ function render_user_course_list()
     if( get_conf('userCourseListGroupByCategories', false) )
     {
         // get category list
-        $category = new claroCategory();
         $categoriesList = claroCategory::getAllCategories(0, 0, 1);
         
         // categories have to be ordered alphabetically using full trail so handle it here
@@ -671,35 +670,47 @@ function render_user_course_list()
             foreach( $categoriesList as $category )
             {
                 $trail = build_category_trail($categoriesList, $category['id']);
-                $sortedcategoriesList[$category['id']] = $trail;
+                $sortedCategoriesList[$category['id']] = $trail;
             }
             // order by trail and keep key-value associated
-            asort($sortedcategoriesList);
+            asort($sortedCategoriesList);
         }
         else
         {
-            $sortedcategoriesList = array();
+            $sortedCategoriesList = array();
         }
         
+        $sortedUserCourseList = array();
+        foreach($sortedCategoriesList as $categoryId => $trail)
+        {
+            $sortedUserCourseList[$categoryId] = claro_get_restricted_courses ($categoryId, claro_get_current_user_id());
+        }
+        
+        /*
         // get courseList
         $userCourseList = claro_get_restricted_courses (null, claro_get_current_user_id());
-        // group courses by category code for better perf in main loop
+        
+        // group courses by category id for better perf in main loop
         if( is_array($userCourseList) && !empty($userCourseList) )
         {
             foreach($userCourseList as $userCourse)
             {
-                $sortedUserCourseList[$userCourse['categoryId']][] = $userCourse;
+                if (isset($userCourse['enroled']) && !is_null($userCourse['enroled']))
+                {
+                    $sortedUserCourseList[$userCourse['categoryId']][] = $userCourse;
+                }
             }
         }
         else
         {
             $sortedUserCourseList = array();
         }
+        */
         
         // so now we have ordered course list and ordered category list we can use them to display the user course list
         $out .= '<div id="courseListByCat">' . "\n";
         // traverse category list, on each node check if some course the user is subscribed in is of this category
-        foreach($sortedcategoriesList as $categoryId => $trail )
+        foreach($sortedCategoriesList as $categoryId => $trail )
         {
             if( array_key_exists($categoryId, $sortedUserCourseList) && !empty($sortedUserCourseList[$categoryId]) )
             {
@@ -717,22 +728,25 @@ function render_user_course_list()
                 $outCourse = '';
                 foreach( $sortedUserCourseList[$categoryId] as $thisCourse )
                 {
-                    // Display presentation course of the category
-                    if ($thisCourse['rootCourse']) 
+                    if (isset($thisCourse['enroled']) && !is_null($thisCourse['enroled'])) 
                     {
-                        $out .=  ' <a href="' . get_path('url') . '/claroline/course/index.php?cid='
-                            .    htmlspecialchars($thisCourse['sysCode']) . '" class="rootCourse">'
-                            .    get_lang('Info')
-                            .    '</a>' . "\n";
-                    }
-                    else
-                    {
-                            // If the course contains new things to see since last user login,
-                            // The course name will be displayed with the 'hot' class style in the list.
-                            // Otherwise it will name normally be displayed
-                            $hot = (bool) in_array ($thisCourse['sysCode'], $modified_course);
-                        
-                            $outCourse .= render_course_dt_in_dd_list($thisCourse, $hot);
+                        // Display presentation course of the category
+                        if (isset($thisCourse['rootCourse']) && $thisCourse['rootCourse'] == 1) 
+                        {
+                            $out .=  ' <a href="' . get_path('url') . '/claroline/course/index.php?cid='
+                                .    htmlspecialchars($thisCourse['sysCode']) . '" class="rootCourse">'
+                                .    get_lang('Info')
+                                .    '</a>' . "\n";
+                        }
+                        else
+                        {
+                                // If the course contains new things to see since last user login,
+                                // The course name will be displayed with the 'hot' class style in the list.
+                                // Otherwise it will name normally be displayed
+                                $hot = (bool) in_array($thisCourse['sysCode'], $modified_course);
+                            
+                                $outCourse .= render_course_dt_in_dd_list($thisCourse, $hot);
+                        }
                     }
                 
                 }
@@ -756,7 +770,8 @@ function render_user_course_list()
             
             foreach($personnalCourseList as $thisCourse)
             {
-                if (!isset($thisCourse['rootCourse']) || !$thisCourse['rootCourse']) 
+                if ((!isset($thisCourse['rootCourse']) || !$thisCourse['rootCourse']) 
+                    && (isset($thisCourse['enroled']) && !is_null($thisCourse['enroled']))) 
                 {
                     // If the course contains new things to see since last user login,
                     // The course name will be displayed with the 'hot' class style in the list.

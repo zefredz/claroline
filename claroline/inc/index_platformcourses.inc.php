@@ -15,7 +15,9 @@ else
     $categoryBrowser    = new category_browser( $categoryId, claro_get_current_user_id() );
     $currentCategory    = $categoryBrowser->get_current_category_settings();
     $categoriesList     = $categoryBrowser->get_sub_category_list();
-    $coursesList        = $categoryBrowser->getCoursesWithoutSessionCourses();
+    $coursesList        = (!is_null(claro_get_current_user_id())) ? 
+                            $categoryBrowser->getCoursesWithoutSourceCourses():
+                            $categoryBrowser->getCoursesWithoutSessionCourses();
 }
 
 // Are we in the root of the category tree ?

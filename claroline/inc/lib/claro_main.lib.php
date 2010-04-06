@@ -271,15 +271,15 @@ function claro_get_restricted_courses ($categoryId, $userId)
     $curdate = claro_mktime();
     
     $sql = "SELECT c.cours_id               AS id, 
-                    c.titulaires             AS titular,
-                    c.code                   AS sysCode,
-                    c.sourceCourseId         AS sourceCourseId,
-                    c.intitule               AS title,
-                    c.administrativeNumber   AS officialCode,
-                    c.dbName                 AS db,
-                    c.intitule               AS title,
-                    UNIX_TIMESTAMP(c.expirationDate)     AS expirationDate, 
-                    UNIX_TIMESTAMP(c.creationDate)       AS creationDate, 
+                    c.titulaires            AS titular,
+                    c.code                  AS sysCode,
+                    c.sourceCourseId        AS sourceCourseId,
+                    c.intitule              AS title,
+                    c.administrativeNumber  AS officialCode,
+                    c.dbName                AS db,
+                    c.intitule              AS title,
+                    UNIX_TIMESTAMP(c.expirationDate)    AS expirationDate, 
+                    UNIX_TIMESTAMP(c.creationDate)      AS creationDate, 
                     c.language,
                     c.directory,
                     c.visibility,
@@ -305,7 +305,7 @@ function claro_get_restricted_courses ($categoryId, $userId)
         $sql .= "
             
             LEFT JOIN `" . $tbl_rel_course_user . "` AS rcu
-            ON c.code = rcu.code_cours";
+            ON c.code = rcu.code_cours AND rcu.user_id = " . (int) $userId;
     
     if (!is_null($categoryId))
         $sql .= "
@@ -314,7 +314,7 @@ function claro_get_restricted_courses ($categoryId, $userId)
             ON (
                 (c.cours_id = rcc.courseId AND c.sourceCourseId IS NULL) #source courses
                 OR 
-                (c.sourceCourseId IS NOT NULL AND c.sourceCourseId = rcc.courseId)  #session courses
+                (c.sourceCourseId = rcc.courseId AND c.sourceCourseId IS NOT NULL) #session courses
                )";
     
     $sql .= "
@@ -339,10 +339,6 @@ function claro_get_restricted_courses ($categoryId, $userId)
     if (!is_null($categoryId))
         $sql .= "
             AND ( rcc.categoryId = " . (int) $categoryId . ")";
-        
-    if (!is_null($userId))
-        $sql .= "
-            AND rcu.user_id = " . (int) $userId;
     
     if ( !get_conf('userCourseListGroupByCategories') )
     {
