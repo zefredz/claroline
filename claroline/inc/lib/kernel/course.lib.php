@@ -33,7 +33,6 @@ class Claro_Course extends KernelObject
     public function __construct( $courseId )
     {
         $this->_courseId = $courseId;
-        $this->load();
     }
 
     /**
