@@ -105,16 +105,18 @@ class Claro_User extends KernelObject
     public function loadUserProperties()
     {
         $tbl = claro_sql_get_main_tbl();
-        
-        $sqlUserId = (int) $this->_userId;
-        
-        $sql = "SELECT propertyId AS name, propertyValue AS value, scope\n"
-            . "FROM `{$tbl['user_property']}`\n"
-            . "WHERE userId = " . $sqlUserId
-            ;
             
-            
-        $userProperties = Claroline::getDatabase()->query( $sql );
+        $userProperties = Claroline::getDatabase()->query("
+            SELECT 
+                propertyId AS name, 
+                propertyValue AS value, 
+                scope
+            FROM 
+                `{$tbl['user_property']}`
+            WHERE 
+                userId = " . (int) $this->_userId . ";    
+        ");
+
         $userProperties->setFetchMode(Database_ResultSet::FETCH_OBJECT);
         
         $this->_rawData['userProperties'] = array();
