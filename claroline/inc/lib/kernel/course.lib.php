@@ -126,8 +126,14 @@ class Claro_Course extends KernelObject
             WHERE
                 rcc.courseId = {$this->_rawData['id']};
         ");
+                
+        $this->_rawData['categories'] = array();
 
-        $this->_rawData['categories'] = iterator_to_array($categoriesDataList);
+        foreach ( $categoriesDataList as $category )
+        {
+            $category['visibility'] = ($category['visibility'] == 1);
+            $this->_rawData['categories'][] = $category;
+        }
     }
 
     /**
