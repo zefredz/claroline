@@ -59,23 +59,23 @@ class Claro_Course extends KernelObject
 
         $sql_getCourseData = "
             SELECT
-                c.code                 AS courseId,
-                c.code                 AS sysCode,
-                c.cours_id             AS courseDbId,
-                c.intitule             AS name,
-                c.administrativeNumber AS officialCode,
-                c.directory            AS path,
-                c.dbName               AS dbName,
-                c.titulaires           AS titular,
-                c.email                AS email,
-                c.language             AS language,
-                c.extLinkUrl           AS extLinkUrl,
-                c.extLinkName          AS extLinkName,
-                c.visibility           AS visibility,
-                c.access               AS access,
-                c.registration         AS registration,
-                c.registrationKey      AS registrationKey,
-                c.diskQuota            AS diskQuota
+                c.code                  AS courseId,
+                c.code                  AS sysCode,
+                c.cours_id              AS courseDbId,
+                c.intitule              AS name,
+                c.administrativeNumber  AS officialCode,
+                c.directory             AS path,
+                c.dbName                AS dbName,
+                c.titulaires            AS titular,
+                c.email                 AS email,
+                c.language              AS language,
+                c.extLinkUrl            AS extLinkUrl,
+                c.extLinkName           AS extLinkName,
+                c.visibility            AS visibility,
+                c.access                AS access,
+                c.registration          AS registration,
+                c.registrationKey       AS registrationKey,
+                c.diskQuota             AS diskQuota
             FROM
                 `{$tbl['cours']}`   AS c
             WHERE
@@ -115,11 +115,11 @@ class Claro_Course extends KernelObject
 
         $categoriesDataList = Claroline::getDatabase()->query("
             SELECT
-                cat.id AS categoryId,
-                cat.name AS categoryName,
-                cat.code AS categoryCode,
+                cat.id      AS categoryId,
+                cat.name    AS categoryName,
+                cat.code    AS categoryCode,
                 cat.visible AS visibility,
-                cat.rank AS categoryRank
+                cat.rank    AS categoryRank
             FROM
                 `{$tbl['category']}` AS cat
             LEFT JOIN
@@ -205,6 +205,7 @@ class Claro_Course extends KernelObject
         
         $groupProperties ['registrationAllowed'] =  ($groupProperties['self_registration'] == 1);
         unset ( $groupProperties['self_registration'] );
+
         $groupProperties ['private'] =  ($groupProperties['private'] == 1);
 
         $groupProperties['tools'] = array();
