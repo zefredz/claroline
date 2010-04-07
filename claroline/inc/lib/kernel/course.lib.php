@@ -41,6 +41,7 @@ class Claro_Course extends KernelObject
     protected function loadFromDatabase()
     {
         $this->_rawData = $this->loadCourseKernelData();
+        $this->loadCourseCategories();
         $this->loadCourseProperties();
         $this->loadGroupProperties();
     }
@@ -75,12 +76,8 @@ class Claro_Course extends KernelObject
             . "\tc.access               AS access,\n"
             . "\tc.registration         AS registration,\n"
             . "\tc.registrationKey      AS registrationKey ,\n"
-            . "\tcat.code               AS categoryCode,\n"
-            . "\tcat.name               AS categoryName,\n"
             . "\tc.diskQuota            AS diskQuota\n\n"
             . "FROM      `{$tblCourse}`   AS c\n"
-            . "LEFT JOIN `{$tblCat}` AS cat\n"
-            . "\tON c.faculte =  cat.code\n"
             . "WHERE c.code = '{$sqlCourseId}'"
             ;
 
@@ -104,6 +101,33 @@ class Claro_Course extends KernelObject
             ;
             
         return $courseDataList;
+    }
+
+    /**
+     * Load course categories
+     */
+    protected function loadCourseCategories()
+    {
+        $tbl = claro_sql_get_course_tbl( $this->_rawData['dbNameGlu'] );
+
+        $categoriesDataList = Claroline::getDatabase()->query("
+            SELECT
+                cat.id AS categoryId,
+                cat.name AS categoryName,
+                cat.code AS categoryCode,
+                cat.visible AS visibility,
+                cat.rank AS categoryRank
+            FROM
+                `{$tbl['category']}` AS cat
+            LEFT JOIN
+                `{$tbl['rel_course_category']}` AS rcc
+            ON
+                cat.id = rcc.categoryId
+            WHERE
+                rcc.courseId = {$this->_rawData['id']};
+        ");
+
+        $this->_rawData['categories'] = iterator_to_array($categoriesDataList);
     }
 
     /**
