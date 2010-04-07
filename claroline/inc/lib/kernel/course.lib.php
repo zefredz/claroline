@@ -40,7 +40,8 @@ class Claro_Course extends KernelObject
      */
     protected function loadFromDatabase()
     {
-        $this->_rawData = $this->loadCourseKernelData();
+        $this->_rawData = array();
+        $this->loadCourseKernelData();
         $this->loadCourseCategories();
         $this->loadCourseProperties();
         $this->loadGroupProperties();
@@ -54,32 +55,32 @@ class Claro_Course extends KernelObject
         // get course data from main
         $tbl =  claro_sql_get_tbl(array('cours','faculte',));
         
-        $tblCourse = $tbl['cours'];
-        $tblCat = $tbl['faculte'];
-        
-        $sqlCourseId = claro_sql_escape($this->_courseId);
+        $sqlCourseId = Claroline::getDatabase()->quote($this->_courseId);
 
-        $sql_getCourseData =  "SELECT\n"
-            . "\tc.code                 AS courseId,\n"
-            . "\tc.code                 AS sysCode,\n"
-            . "\tc.cours_id             AS courseDbId,\n"
-            . "\tc.intitule             AS name,\n"
-            . "\tc.administrativeNumber AS officialCode,\n"
-            . "\tc.directory            AS path,\n"
-            . "\tc.dbName               AS dbName,\n"
-            . "\tc.titulaires           AS titular,\n"
-            . "\tc.email                AS email  ,\n"
-            . "\tc.language             AS language,\n"
-            . "\tc.extLinkUrl           AS extLinkUrl,\n"
-            . "\tc.extLinkName          AS extLinkName,\n"
-            . "\tc.visibility           AS visibility,\n"
-            . "\tc.access               AS access,\n"
-            . "\tc.registration         AS registration,\n"
-            . "\tc.registrationKey      AS registrationKey ,\n"
-            . "\tc.diskQuota            AS diskQuota\n\n"
-            . "FROM      `{$tblCourse}`   AS c\n"
-            . "WHERE c.code = '{$sqlCourseId}'"
-            ;
+        $sql_getCourseData = "
+            SELECT
+                c.code                 AS courseId,
+                c.code                 AS sysCode,
+                c.cours_id             AS courseDbId,
+                c.intitule             AS name,
+                c.administrativeNumber AS officialCode,
+                c.directory            AS path,
+                c.dbName               AS dbName,
+                c.titulaires           AS titular,
+                c.email                AS email,
+                c.language             AS language,
+                c.extLinkUrl           AS extLinkUrl,
+                c.extLinkName          AS extLinkName,
+                c.visibility           AS visibility,
+                c.access               AS access,
+                c.registration         AS registration,
+                c.registrationKey      AS registrationKey,
+                c.diskQuota            AS diskQuota
+            FROM
+                `{$tbl['cours']}`   AS c
+            WHERE
+                c.code = {$sqlCourseId};
+        ";
 
         $courseDataList = Claroline::getDatabase()
             ->query( $sql_getCourseData )
@@ -92,15 +93,17 @@ class Claro_Course extends KernelObject
         
         // set bool values
         $courseDataList['access'] = $courseDataList['access'];
-        $courseDataList['visibility'] = (bool) ('visible' == $courseDataList['visibility'] );
-        $courseDataList['registrationAllowed'] = (bool) ('open' == $courseDataList['registration'] );
+        $courseDataList['visibility'] = ('visible' == $courseDataList['visibility'] );
+        $courseDataList['registrationAllowed'] = ('open' == $courseDataList['registration'] );
         
         // set dbNameGlu
-        $courseDataList['dbNameGlu'] = get_conf('courseTablePrefix') 
-            . $courseDataList['dbName'] . get_conf('dbGlu')
+        $courseDataList['dbNameGlu'] =
+            get_conf('courseTablePrefix')
+            . $courseDataList['dbName']
+            . get_conf('dbGlu')
             ;
             
-        return $courseDataList;
+        $this->_rawData = $courseDataList;
     }
 
     /**
@@ -143,14 +146,17 @@ class Claro_Course extends KernelObject
     {
         // get extra course properties
         $tbl = claro_sql_get_course_tbl( $this->_rawData['dbNameGlu'] );
-        
-        $sql_getCourseProperties = "SELECT name, value\n"
-            . "FROM `{$tbl['course_properties']}`\n"
-            . "WHERE category = 'MAIN'"
-            ;
 
         $courseProperties = Claroline::getDatabase()
-            ->query( $sql_getCourseProperties )
+            ->query("
+                SELECT
+                    name,
+                    value
+                FROM
+                    `{$tbl['course_properties']}`
+                WHERE
+                    category = 'MAIN';
+            ")
             ->fetch();
         
         $coursePropertyList = array();
@@ -172,14 +178,17 @@ class Claro_Course extends KernelObject
     protected function loadGroupProperties()
     {
         $tbl = claro_sql_get_course_tbl( $this->_rawData['dbNameGlu'] );
-        
-        $sql_getGroupProperties = "SELECT name, value\n"
-            . "FROM `{$tbl['course_properties']}`\n"
-            . "WHERE category = 'GROUP'"
-            ;
 
         $db_groupProperties = Claroline::getDatabase()
-            ->query( $sql_getGroupProperties )
+            ->query("
+                SELECT
+                    name,
+                    value
+                FROM
+                    `{$tbl['course_properties']}`
+                WHERE
+                    category = 'GROUP';
+            ")
             ->fetch();
         
         if ( ! $db_groupProperties )
@@ -194,9 +203,9 @@ class Claro_Course extends KernelObject
             $groupProperties[$currentProperty['name']] = (int) $currentProperty['value'];
         }
         
-        $groupProperties ['registrationAllowed'] =  (bool) ($groupProperties['self_registration'] == 1);
+        $groupProperties ['registrationAllowed'] =  ($groupProperties['self_registration'] == 1);
         unset ( $groupProperties['self_registration'] );
-        $groupProperties ['private'] =  (bool) ($groupProperties['private'] == 1);
+        $groupProperties ['private'] =  ($groupProperties['private'] == 1);
 
         $groupProperties['tools'] = array();
         
@@ -208,7 +217,8 @@ class Claro_Course extends KernelObject
             
             if ( array_key_exists( $groupTLabel, $groupProperties ) )
             {
-                $groupProperties ['tools'] [$groupTLabel] = (bool) ($groupProperties[$groupTLabel] == 1);
+                $groupProperties ['tools'] [$groupTLabel] = ($groupProperties[$groupTLabel] == 1);
+                
                 unset ( $groupProperties[$groupTLabel] );
             }
             else
