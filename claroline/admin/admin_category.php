@@ -57,7 +57,6 @@ $out = '';
 // Display page title
 $out .= claro_html_tool_title($nameTools);
 
-
 switch ( $cmd )
 {
     // Display form to create a new category
@@ -73,8 +72,8 @@ switch ( $cmd )
         
         if ( $category->validate() )
         {
-        	$category->save();
-        	$dialogBox->success( get_lang('Category created') );
+            $category->save();
+            $dialogBox->success( get_lang('Category created') );
         }
         else
         {
