@@ -82,13 +82,13 @@ class category_browser
 
 
     /**
-     * Fetch list of courses of the current category
+     * Fetch list of courses of the current category.
      *
-     * This list include main data about
-     * the user but also registration status
+     * This list include main data about the user but also 
+     * registration status.
      *
      * @since 1.8
-     * @return array list of courses of the current category
+     * @return array    list of courses of the current category
      */
     function get_course_list()
     {
@@ -134,8 +134,8 @@ class category_browser
      * Fetch list of courses of the current category without 
      * the source courses (i.e. courses having session courses).
      *
-     * This list include main data about
-     * the user but also registration status
+     * This list include main data about the user but also 
+     * registration status.
      *
      * @return array    list of courses of the current category
      *                  without source courses
@@ -172,14 +172,14 @@ class category_browser
 
 
 /**
- * Search a specific course based on his course code
+ * Search a specific course based on his course code.
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
- * @param  string  $keyword course code from the cours table
- * @param  mixed   $userId  null or valid id of a user (default:null)
+ * @param  string       $keyword course code from the cours table
+ * @param  mixed        $userId  null or valid id of a user (default:null)
  *
- * @return array    course parameters
+ * @return array        course parameters
  */
 function search_course($keyword, $userId = null)
 {
@@ -396,10 +396,10 @@ function get_user_course_list_desactivated($userId, $renew = false)
 
 
 /**
- * return the editable textzone for a course where subscript are denied
+ * Return the editable textzone for a course where subscript are denied.
  *
- * @param string $course_id
- * @return string : html content
+ * @param string        $course_id
+ * @return string       html content
  */
 function get_locked_course_explanation($course_id=null)
 {
@@ -426,11 +426,10 @@ function get_locked_course_explanation($course_id=null)
 
 
 /**
- * Return the editable textzone for a course where subscript are locked
+ * Return the editable textzone for a course where subscript are locked.
  *
- * @param string $course_id
- *
- * @return string : html content
+ * @param string        $course_id
+ * @return string       html content
  */
 function get_locked_course_by_key_explanation($course_id=null)
 {
@@ -456,6 +455,13 @@ function get_locked_course_by_key_explanation($course_id=null)
 }
 
 
+/**
+ * Return trail (path) for a given category.
+ * 
+ * @param array         list of categories
+ * @param int           id of the category for which we want the trail
+ * @return string       trail
+ */
 function build_category_trail($categoriesList, $requiredId)
 {
     $trail = array();
@@ -465,14 +471,13 @@ function build_category_trail($categoriesList, $requiredId)
         {
             if( $category['id'] == $requiredId )
             {
-                if(!is_null($category['idParent']) && ($category['idParent']))
+                if( !is_null($category['idParent']) && ($category['idParent']) )
                 {
                     $trail[] = build_category_trail($categoriesList, $category['idParent']);
                     $trail[] = $category['name'];
                 }
                 else
                 {
-                    
                     return $category['name'];
                 }
             }
@@ -557,99 +562,105 @@ function render_course_dt_in_dd_list($course, $hot = false)
 
 function render_user_course_list_desactivated()
 {
-        $personnalCourseList = get_user_course_list_desactivated(claro_get_current_user_id());
+    $personnalCourseList = get_user_course_list_desactivated(claro_get_current_user_id());
+    
+    $out = '';
+
+    //display list
+    if (!empty($personnalCourseList) && is_array($personnalCourseList))
+    {
+        $out .= '<dl class="userCourseList">'."\n";
         
-        $out='';    
-         //display list
-         if (!empty($personnalCourseList) && is_array($personnalCourseList))
-         {
-             $out .= '<dl class="userCourseList">'."\n";
-             
-             foreach($personnalCourseList as $course)
-             {
-                  if ( get_conf('course_order_by') == 'official_code' )
-                  {
-                      $courseTitle = $course['officialCode'] . ' - ' . $course['title'];
-                  }
-                  else
-                  {
-                      $courseTitle = $course['title'] . ' (' . $course['officialCode'] . ')';
-                  }
+        foreach($personnalCourseList as $course)
+        {
+            if ( get_conf('course_order_by') == 'official_code' )
+            {
+                $courseTitle = $course['officialCode'] . ' - ' . $course['title'];
+            }
+            else
+            {
+                $courseTitle = $course['title'] . ' (' . $course['officialCode'] . ')';
+            }
+            
+            $url = get_path('url') . '/claroline/course/index.php?cid='
+                 .    htmlspecialchars($course['sysCode']) ;
+            
+            $urlSettings = Url::Contextualize( get_path('url') . '/claroline/course/settings.php?cidReq='
+                         . htmlspecialchars($course['sysCode']. '&cmd=exEnable') ) ;
+            
+            $out .= '<dt>' . "\n"
+                  . '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="" />';
+            
+            if ($course['status']=='pending')
+            {
+                $out .=  '<a href="' . htmlspecialchars( $url ) . '">'
+                      . htmlspecialchars($courseTitle)
+                      . '</a>' . "\n"
+                      . '<a href="'.$urlSettings.'">'
+                      . '<img src="'.get_icon_url('manager').'" alt="" /> '.get_lang('Reactivate it ').'</a>';
+            }
+            
+            if ($course['status']=='disable')
+            {
+                if (claro_is_platform_admin())
+                {
+                    $out .= '<a href="' . htmlspecialchars( $url ) . '">'
+                          . htmlspecialchars($courseTitle)
+                          . '</a> ' 
+                          . '<img src="'.get_icon_url('platformadmin').'" alt="" /> '
+                          . '<a href="'.$urlSettings.'">'.get_lang('Reactivate it ').'</a>'
+                          . "\n";
+                }
+                else 
+                {
+                    $out .= htmlspecialchars($courseTitle)
+                          . ' '.get_lang('Contact your administrator to reactivate it. ');
+                }
                 
-                  $url = get_path('url') . '/claroline/course/index.php?cid='
-                  .    htmlspecialchars($course['sysCode']) ;
-                  
-                  $urlSettings = Url::Contextualize( get_path('url') . '/claroline/course/settings.php?cidReq='
-                  . htmlspecialchars($course['sysCode']. '&cmd=exEnable') ) ;
+            }
+            
+            if ($course['status']=='date')
+            {
+                if ($course['creationDate'] > claro_mktime())
+                {
+                    $out .= '<a href="' . htmlspecialchars( $url ) . '">'
+                          . htmlspecialchars($courseTitle)
+                          . '</a>' . "\n"
+                          . ' '.get_lang('Will be published on ').date('d-m-Y',$course['creationDate']);
+                }
                 
-                  $out .= '<dt>' . "\n"
-                  .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="" />';
-                   
-                    if ($course['status']=='pending')
-                    {
-                        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-                            .   htmlspecialchars($courseTitle)
-                            .   '</a>' . "\n"
-                            .   '<a href="'.$urlSettings.'">'
-                            .   '<img src="'.get_icon_url('manager').'" alt="" /> '.get_lang('Reactivate it ').'</a>';
-                    }
-                    
-                    if ($course['status']=='disable')
-                    {
-                        if (claro_is_platform_admin())
-                        {
-                            $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-                            .   htmlspecialchars($courseTitle)
-                            .   '</a> ' 
-                            .   '<img src="'.get_icon_url('platformadmin').'" alt="" /> '
-                            .   '<a href="'.$urlSettings.'">'.get_lang('Reactivate it ').'</a>'
-                            .   "\n";
-                        }
-                        else 
-                        {
-                            $out.=  htmlspecialchars($courseTitle)
-                             .' '.get_lang('Contact your administrator to reactivate it. ');
-                        }
-                                
-                    }
-                    
-                    if ($course['status']=='date')
-                    {
-                        if ($course['creationDate'] > claro_mktime())
-                        {
-                            $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-                                .    htmlspecialchars($courseTitle)
-                                .    '</a>' . "\n"
-                                .     ' '.get_lang('Will be published on ').date('d-m-Y',$course['creationDate']);
-                        }
-                        
-                        if (isset($course['expirationDate']) AND ($course['expirationDate'] < claro_mktime()))
-                        {
-                            $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-                                .    htmlspecialchars($courseTitle)
-                                .    '</a>' . "\n"
-                                .     ' '.get_lang('Expired since ').date('d-m-Y',$course['expirationDate']) ;
-                        }
-                    
-                    }
-                    
-                    $out .= '</dt>' . "\n";
-                    
-                    $out .=     '<dd>'
-                          .    '<small>' . "\n"
-                          .    htmlspecialchars( $course['titular'] )
-                          .    '</small>' . "\n"
-                          .    '</dd>' . "\n" ;
-                 
-             }
-                        
-                
-                    $out .= '</dl>' . "\n";
+                if (isset($course['expirationDate']) AND ($course['expirationDate'] < claro_mktime()))
+                {
+                    $out .= '<a href="' . htmlspecialchars( $url ) . '">'
+                          . htmlspecialchars($courseTitle)
+                          . '</a>' . "\n"
+                          . ' '.get_lang('Expired since ').date('d-m-Y',$course['expirationDate']) ;
+                }
+            
+            }
+            
+            $out .= '</dt>' . "\n";
+            
+            $out .= '<dd>'
+                  . '<small>' . "\n"
+                  . htmlspecialchars( $course['titular'] )
+                  . '</small>' . "\n"
+                  . '</dd>' . "\n" ;
+            
         }
-         return $out;
+        
+        $out .= '</dl>' . "\n";
+    }
+    
+    return $out;
 }
 
 
+/**
+ * Returns a courses list for the current user.
+ * 
+ * @return string       list of courses (HTML format)
+ */
 function render_user_course_list()
 {
     // get the list of personnal courses marked as contening new events
@@ -659,12 +670,12 @@ function render_user_course_list()
     $out = '';
     
     // FIXME: When grouped by categories, doesn't show courses attached to the root category
-    if( get_conf('userCourseListGroupByCategories', false) )
+    if( get_conf('userCourseListGroupByCategories') )
     {
         // get category list
         $categoriesList = claroCategory::getAllCategories(0, 0, 1);
         
-        // categories have to be ordered alphabetically using full trail so handle it here
+        // categories have to be ordered alphabetically using full trail
         if( is_array($categoriesList) && !empty($categoriesList) )
         {
             foreach( $categoriesList as $category )
@@ -686,28 +697,7 @@ function render_user_course_list()
             $sortedUserCourseList[$categoryId] = claro_get_restricted_courses ($categoryId, claro_get_current_user_id());
         }
         
-        /*
-        // get courseList
-        $userCourseList = claro_get_restricted_courses (null, claro_get_current_user_id());
-        
-        // group courses by category id for better perf in main loop
-        if( is_array($userCourseList) && !empty($userCourseList) )
-        {
-            foreach($userCourseList as $userCourse)
-            {
-                if (isset($userCourse['enroled']) && !is_null($userCourse['enroled']))
-                {
-                    $sortedUserCourseList[$userCourse['categoryId']][] = $userCourse;
-                }
-            }
-        }
-        else
-        {
-            $sortedUserCourseList = array();
-        }
-        */
-        
-        // so now we have ordered course list and ordered category list we can use them to display the user course list
+        // course and category lists are ordered: we can use them to display the user's course list
         $out .= '<div id="courseListByCat">' . "\n";
         // traverse category list, on each node check if some course the user is subscribed in is of this category
         foreach($sortedCategoriesList as $categoryId => $trail )
