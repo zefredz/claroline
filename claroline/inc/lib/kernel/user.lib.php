@@ -11,7 +11,7 @@
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     PACKAGE_NAME
+ * @package     kernel.objects
  */
 
 require_once dirname(__FILE__) . '/object.lib.php';
