@@ -34,6 +34,10 @@ implements
     //put your code here
     protected $courseObj, $groupId, $userList, $_rawData;
 
+    /**
+     * @param Claro_Course $courseObj
+     * @param int $groupId
+     */
     public function __construct( Claro_Course $courseObj, int $groupId )
     {
         $this->groupId = $groupId;
@@ -61,6 +65,9 @@ implements
         }
     }
 
+    /**
+     * Load group properties defined for the course
+     */
     protected function loadGroupCourseProperties()
     {
         // get course data from main
@@ -111,6 +118,9 @@ implements
         };
     }
 
+    /**
+     * Load group specific properties
+     */
     protected function loadGroupTeamProperties()
     {
         $tbl = claro_sql_get_course_tbl( $this->courseObj->dbNameGlu );
@@ -135,6 +145,15 @@ implements
             ->fetch() );
     }
 
+    /**
+     * Get the properties of the user in the current Group/Team
+     * @param Claro_User $userObj
+     * @return stdClass user properties record :
+     *      $userProperties->isGroupMember : boolean
+     *      $userProperties->status : boolean
+     *      $userProperties->role : string or null
+     *      $userProperties->isGroupTutor : boolean
+     */
     public function getUserPropertiesInGroup( Claro_User $userObj )
     {
         if ( !$this->_rawData )
@@ -178,7 +197,11 @@ implements
         return $userProperties;
     }
 
-    public function getGroupUsers()
+    /**
+     * Get the list of users in the group
+     * @return Database_ResultSet group members
+     */
+    public function getGroupMembers()
     {
         if ( ! $this->userList )
 
@@ -213,11 +236,19 @@ implements
         return $this->userList;
     }
 
+    /**
+     * Get the course object the group belongs to
+     * @return Claro_Course
+     */
     public function getCourse()
     {
         return $this->courseObj;
     }
 
+    /**
+     * Get the user object for the group tutor
+     * @return Claro_User
+     */
     public function getTutor()
     {
         $tutor = null;
@@ -231,6 +262,10 @@ implements
         return $tutor;
     }
 
+    /**
+     * Get the group space object for the current group/team
+     * @return Claro_GroupSpace
+     */
     public function getGroupSpace()
     {
         $groupSpace = new Claro_GroupSpace($this);
@@ -243,12 +278,13 @@ implements
     }
 
     /**
+     * Get the number of members in the group
      * @see Countable
      * @return int
      */
     public function count()
     {
-        return count($this->getGroupUsers());
+        return count($this->getGroupMembers());
     }
 }
 
@@ -297,9 +333,9 @@ class Claro_CurrentGroupTeam extends Claro_GroupTeam
 
 /**
  * Claro_GroupSpace represents a Group Space
- *
  * @author zefredz <zefredz@claroline.net>
  * @since 1.10
+ * @todo implements me !
  */
 class Claro_GroupSpace
 {
