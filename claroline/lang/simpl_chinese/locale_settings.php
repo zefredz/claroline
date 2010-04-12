@@ -10,7 +10,7 @@
  *
  * @package LANG-ZH
  *
- * @author Derek Zhou <zhous1998@gmail.com> (www.claroline.net.cn)
+ * @author Derek Joe <zhous1998@gmail.com> (www.claroline.net.cn)
  */
 $englishLangName = "Chinese";
 
