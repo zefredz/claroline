@@ -296,6 +296,47 @@ class ClaroCategory
     
     
     /**
+     * Check if a user is registered to a category.
+     * 
+     * @param int       identifier of the user
+     * @param int       identifier of the category
+     * @return bool     user is registered to category
+     */
+    public static function isRegistredToCategory ($userId, $categoryId)
+    {
+        // Get table name
+        $tbl_mdb_names              = claro_sql_get_main_tbl();
+        $tbl_course                 = $tbl_mdb_names['course'];
+        $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
+        $tbl_rel_course_user        = $tbl_mdb_names['rel_course_user'];
+        
+        $sql = "SELECT rcu.code_cours AS sysCode 
+                FROM `" . $tbl_rel_course_user . "` AS rcu 
+                
+                LEFT JOIN `" . $tbl_course . "` AS co 
+                ON co.code = rcu.code_cours 
+                
+                LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
+                ON rcc.courseId = co.cours_id 
+                
+                WHERE rcu.user_id = " . (int) $userId . " 
+                AND rcc.categoryId = " . (int) $categoryId;
+        
+        $result = Claroline::getDatabase()->query($sql);
+        $sysCode = $result->fetch(Database_ResultSet::FETCH_VALUE);
+        
+        if(!empty($sysCode))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    
+    /**
      * Swap the visibility value of a category (from TRUE to FALSE or 
      * from FALSE to TRUE) and save it into the database.
      * 
