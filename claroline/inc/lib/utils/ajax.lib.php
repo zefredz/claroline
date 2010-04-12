@@ -175,7 +175,12 @@ class Ajax_Request
  */
 interface Ajax_Remote_Service
 {
-
+    /**
+     * Check if the current user is allowed execute the request
+     * @param Ajax_Request $request
+     * @return boolean
+     */
+    public function isMethodInvokationAllowed( Ajax_Request $request );
 }
 
 /**
@@ -216,7 +221,8 @@ class Ajax_Remote_Service_Broker
      * Handle an Ajax Request
      * @param Ajax_Request $request
      * @return Json_Response or Json_Exception if the invoked class or method
-     *  is not found or not callable or if the invokation throws an exception
+     *  is not found or not callable or if the invokation is not allowed or
+     *  throws an exception
      */
     public function handle( Ajax_Request $request )
     {
@@ -229,6 +235,11 @@ class Ajax_Remote_Service_Broker
                     || is_null($this->register[$request->getClass()]['methods'])
                 )
                 {
+                    if ( ! $this->register[$request->getClass()]['object']->isMethodInvokationAllowed($request) )
+                    {
+                        throw new Exception('Remote method invokation not allowed : ' . $request->__toString());
+                    }
+
                     if ( is_callable( array(
                             $this->register[$request->getClass()]['object'],
                             $request->getMethod() )
