@@ -16,19 +16,38 @@
 
 require_once dirname(__FILE__) . '/input.lib.php';
 
+/**
+ * JSON Response
+ */
 class Json_Response
 {
+    /**
+     * Message type SUCCESS
+     */
     const SUCCESS = 'success';
+
+    /**
+     * Message type ERROR
+     */
     const ERROR = 'error';
     
     protected $type, $body;
-    
+
+    /**
+     * @param mixed $body
+     * @param string $type Json_Response::SUCCESS (default)
+     *  or Json_Response::ERROR
+     */
     public function __construct( $body, $type = self::SUCCESS )
     {
         $this->body = $body;
         $this->type = $type;
     }
-    
+
+    /**
+     * Get JSON code for the response
+     * @return string JSON code (utf-8 encoded)
+     */
     public function toJson()
     {
         $response = $response = array(
@@ -42,16 +61,29 @@ class Json_Response
     }
 }
 
+/**
+ * Json_Error message
+ */
 class Json_Error extends Json_Response
 {
+    /**
+     * @param string $error error message
+     */
     public function __construct( $error )
     {
         parent::__construct( $error, Json_Response::ERROR );
     }
 }
 
+/**
+ * Json_Exception message
+ */
 class Json_Exception extends Json_Error
 {
+    /**
+     * Send a JSON-encoded exception to the client
+     * @param Exception $e
+     */
     public function __construct( $e )
     {
         $errorArr = array(
@@ -70,27 +102,47 @@ class Json_Exception extends Json_Error
     }
 }
 
+/**
+ * AJAX Remote Method Request
+ */
 class Ajax_Request
 {
     protected $klass, $method, $params;
-    
+
+    /**
+     * @param string $class class name
+     * @param string $method invoked method name
+     * @param array $params method invokation parameters
+     */
     public function __construct( $class, $method, $params = array() )
     {
         $this->klass = $class; 
         $this->method = $method;
         $this->params = $params;
     }
-    
+
+    /**
+     * Get the name of the invoked class
+     * @return string class name
+     */
     public function getClass()
     {
         return $this->klass;
     }
-    
+
+    /**
+     * Get the name of the invoked method
+     * @return string method name
+     */
     public function getMethod()
     {
         return $this->method;
     }
-    
+
+    /**
+     * Get the parameters for the invoked method
+     * @return array method parameters
+     */
     public function getParameters()
     {
         return $this->params;
@@ -101,6 +153,11 @@ class Ajax_Request
         return $this->getClass().'::'.$this->getMethod().'('.implode(',',$this->getParameters()).')';
     }
 
+    /**
+     * FActory : build an Ajax Request object from the user input
+     * @param Claro_Input $userInput
+     * @return Ajax_Request
+     */
     public static function getRequest( Claro_Input $userInput )
     {
         $request = new self(
@@ -113,15 +170,33 @@ class Ajax_Request
     }
 }
 
+/**
+ * Ajax Remote Service interface
+ */
 interface Ajax_Remote_Service
 {
 
 }
 
+/**
+ * Ajax remote service broker serves the ajax request to the right ajax remote
+ * service and returns the response from the method invokation
+ */
 class Ajax_Remote_Service_Broker
 {
     protected $register = array();
 
+    /**
+     * Register an Ajax Remote Service
+     * @param string $className
+     * @param Ajax_Remote_Service $object
+     * @param array $methods or null to allow remote invokation of the public
+     *  methods of the service (not recommanded)
+     * @param boolean $overwrite set to true to averwrite a previous
+     *  registration of the same service
+     * @throws Exception if trying to overwrite accidentally (i.e. without
+     *  setting $overwrite to true) an already registered service
+     */
     public function register( $className, Ajax_Remote_Service $object, $methods = null, $overwrite = false )
     {
         if ( ! isset($this->register[$className]) || $overwrite === true )
@@ -137,6 +212,12 @@ class Ajax_Remote_Service_Broker
         }
     }
 
+    /**
+     * Handle an Ajax Request
+     * @param Ajax_Request $request
+     * @return Json_Response or Json_Exception if the invoked class or method
+     *  is not found or not callable or if the invokation throws an exception
+     */
     public function handle( Ajax_Request $request )
     {
         try
