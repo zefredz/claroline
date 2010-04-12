@@ -122,8 +122,8 @@ else
     }
     else
     {
-        $userId = claro_get_current_user_id(); // default use is enroll for itself...
-        $uidToEdit = claro_get_current_user_id();
+        $userId     = claro_get_current_user_id(); // default use is enroll for itself...
+        $uidToEdit  = claro_get_current_user_id();
     }
 
 } // if (!claro_is_platform_admin())
@@ -457,7 +457,7 @@ switch ( $displayMode )
             $out .= '<ul>' . "\n" ;
             
             foreach( $categoriesList as $category )
-	        {
+            {
                 $nbCourses = claroCategory::countAllCourses($category['id']);
                 $nbSubCategories = claroCategory::countAllSubCategories($category['id']);
                 
@@ -466,34 +466,15 @@ switch ( $displayMode )
                 // If the category contains something else (subcategory or course),
                 // make a link to access to these ressources
                 if ($nbCourses + $nbSubCategories > 0)
-                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;category=" . urlencode( $category['id'] ) . '">' . $category['name'] . '</a>';
+                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;category=" 
+                          . urlencode( $category['id'] ) . $inURL . '">' 
+                          . $category['name'] . '</a>';
                 else
                     $out .= $category['name'];
                 
                 $out .= '</li>' . "\n";
             }
-/*
-            foreach ( $categoriesList as $thisCategory )
-            {
-                if ( $thisCategory['code'] != $category )
-                {
-                    $out .= '<li>' . "\n";
-
-                    if ($thisCategory['nbCourse'] + $thisCategory['nb_childs'] > 0)
-                    {
-                        $url = $_SERVER['PHP_SELF'] . '?cmd=rqReg&amp;category=' . urlencode($thisCategory['code']) . $inURL ;
-
-                        $out .= '<a href="' . $url . '">' . $thisCategory['name'] . '</a>' . '&nbsp<small>(' . $thisCategory['nbCourse'] . ')</small>' ;
-                    }
-                    else
-                    {
-                        $out .= $thisCategory['name'];
-                    }
-
-                    $out .= '</li>' . "\n";
-                }
-            } // end foreach categoryList
-*/
+            
             $out .= '</ul>' . "\n";
         }
 
