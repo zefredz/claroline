@@ -23,7 +23,7 @@ if ( count( get_included_files() ) == 1 )
 
 FromKernel::uses( 'core/debug.lib', 'core/console.lib', 'core/event.lib'
     , 'core/notify.lib', 'display/display.lib', 'database/database.lib'
-    , 'core/log.lib', 'core/url.lib' );
+    , 'core/log.lib', 'core/url.lib', 'utils/ajax.lib' );
 
 define ( 'CL_PAGE',     'CL_PAGE' );
 define ( 'CL_FRAMESET', 'CL_FRAMESET' );
@@ -157,12 +157,31 @@ class Claroline
 
         return self::$instance;
     }
-    
+
+    /**
+     * Get the current display object
+     * @return Display which can be a ClaroPage or ClaroFramesetPage according
+     *  to the display type
+     */
+    public static function getDisplay()
+    {
+        return self::getInstance()->display;
+    }
+
+    /**
+     * Helper to initialize the display
+     * @param string $displayType
+     */
     public static function initDisplay( $displayType = self::PAGE )
     {
         self::getInstance()->setDisplayType( $displayType );
     }
-    
+
+    /**
+     * Helper to log a message
+     * @param string $type
+     * @param string $data
+     */
     public static function log( $type, $data )
     {
         self::getInstance()->logger->log($type, $data);
@@ -171,12 +190,11 @@ class Claroline
     protected static $db = false;
     // Database link
     protected static $database = false;
-    
-    public static function getDisplay()
-    {
-        return self::getInstance()->display;
-    }
-    
+
+    /**
+     * Get the current database connection object
+     * @return Claroline_Database_Connection
+     */
     public static function getDatabase()
     {
         if ( ! self::$database )
@@ -188,7 +206,13 @@ class Claroline
         
         return self::$database;
     }
-    
+
+    /**
+     * Initialize the database for claro_sql_* legacy code
+     * @return void
+     * @throws Exception when the database connection cannot be created
+     * @deprecated since 1.10
+     */
     public static function initMainDatabase()
     {
         if ( self::$db )
@@ -233,5 +257,21 @@ class Claroline
         {
             $GLOBALS['statsDbName'] = get_conf('mainDbName');
         }
+    }
+
+    protected static $_ajaxServiceBroker = false;
+
+    /**
+     * Get kernel Ajax Service Broker instance
+     * @return Ajax_Remote_Service_Broker 
+     */
+    public static function ajaxServiceBroker()
+    {
+        if ( ! self::$_ajaxServiceBroker )
+        {
+            self::$_ajaxServiceBroker = new Ajax_Remote_Service_Broker();
+        }
+
+        return self::$_ajaxServiceBroker;
     }
 }
