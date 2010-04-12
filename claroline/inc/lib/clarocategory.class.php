@@ -563,11 +563,17 @@ class ClaroCategory
             $categoriesHtmlList .= '<option value="' . $elmt['id'] . '" ' . ( ( !empty($elmt['id']) && $elmt['id'] == $this->idParent ) ? ('selected="selected"') : ('') ) . ( ( $disabled ) ? ('disabled="disabled"') : ('') ) . '>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ') </option>';
         }
         
-        $coursesHtmlList = '<option value="0">' . get_lang("None") . '</option>';
         // Generate HTML options list for courses
+        $coursesHtmlList = '<option value="0">' . get_lang("None") . '</option>';
         foreach ( $coursesList as $elmt )
         {
-            $coursesHtmlList .= '<option value="' . $elmt['id'] . '" ' . ( ( !empty($elmt['id']) && $elmt['id'] == $this->rootCourse ) ? ('selected="selected"') : ('') ) . '>' . $elmt['title'] . ' (' . $elmt['sysCode'] . ')</option>';
+            // Session courses can't become category courses
+            if (is_null($elmt['sourceCourseId']))
+            {
+                $coursesHtmlList .= '<option value="' . $elmt['id'] . '" ' 
+                                  . ( ( !empty($elmt['id']) && $elmt['id'] == $this->rootCourse ) ? ('selected="selected"') : ('') ) . '>' 
+                                  . $elmt['title'] . ' (' . $elmt['sysCode'] . ')</option>';
+            }
         }
         
         // TODO cancelUrl cannot be null
