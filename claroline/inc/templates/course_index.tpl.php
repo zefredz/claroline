@@ -3,7 +3,10 @@
 <table border="0" cellspacing="10" cellpadding="10" width="100%">
 <tr>
 <td valign="top" style="border-right: gray solid 1px;" width="220">
-<?php if (is_array($this->toolLinkListSource) && is_array($this->toolLinkListSession))
+<?php if (is_array($this->toolLinkListSource)
+    && !empty($this->toolLinkListSource)
+    && is_array($this->toolLinkListSession)
+    && !empty($this->toolLinkListSession) )
 {
     echo '<div class="sourceToolPanel"><h3>' . get_lang('Course') . '</h3>';
     echo claro_html_menu_vertical_br($this->toolLinkListSource, array('id'=>'commonToolListSource'));

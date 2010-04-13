@@ -78,6 +78,11 @@ else
     else $courseCode['standAlone'] = claro_get_current_course_id();
 }
 
+$toolLinkList = array(
+    'source' => array(),
+    'session' => array()
+);
+
 // generate toollists
 foreach ($courseCode as $key => $course)
 {   
