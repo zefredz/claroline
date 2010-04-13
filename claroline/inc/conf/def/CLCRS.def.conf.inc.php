@@ -56,6 +56,13 @@ array (
       , 'defaultVisibilityOnCourseCreation'
       );
 
+$conf_def['section']['registration']['label']='Course registration settings';
+$conf_def['section']['registration']['description']='';
+$conf_def['section']['registration']['properties'] =
+array (
+        'registrationRestrictedThroughCategories'
+      );
+
 $conf_def_property_list['fill_course_example'] =
 array ('label'       => 'Fill courses tools with material example'
       ,'description' => ''
@@ -128,6 +135,18 @@ array ('label'       => 'Default course enrolment'
       ,'readonly'    => FALSE
       ,'acceptedValue' => array ('TRUE' => 'New Registration allowed'
                                 ,'FALSE'=> 'New registration denied'
+                                )
+      );
+
+$conf_def_property_list['registrationRestrictedThroughCategories'] =
+array ('label'       => 'Category\'s registration restriction'
+      ,'description' => ''
+      ,'default'     => FALSE
+      ,'type'        => 'boolean'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'acceptedValue' => array ('TRUE' => 'Restricted to category\'s users'
+                                ,'FALSE'=> 'Not restricted'
                                 )
       );
 
