@@ -194,6 +194,41 @@ interface Ajax_Remote_Service
 }
 
 /**
+ * Abstract Module Remote Service. Should be extended by module Ajax Remote
+ * Service.
+ */
+abstract class Ajax_Remote_Module_Service implements Ajax_Remote_Service
+{
+    /**
+     * Get the invokable methods for the service
+     * @return array of remotely invokable public methods
+     */
+    abstract protected function getInvokableMethods();
+
+    /**
+     * Register the service
+     * @param Ajax_Remote_Service_Broker $broker
+     */
+    public function register( Ajax_Remote_Service_Broker $broker )
+    {
+        $broker->register(
+            $this->getInvokableClassName(),
+            $this,
+            $this->getInvokableMethods(),
+            true );
+    }
+
+    /**
+     * Get the invokation name of the class
+     * @return string
+     */
+    protected function getInvokableClassName()
+    {
+        return strtolower(get_class($this));
+    }
+}
+
+/**
  * Ajax remote service broker serves the ajax request to the right ajax remote
  * service and returns the response from the method invokation
  */
