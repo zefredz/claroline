@@ -304,34 +304,44 @@ class ClaroCategory
      */
     public static function isRegistredToCategory ($userId, $categoryId)
     {
-        // Get table name
-        $tbl_mdb_names              = claro_sql_get_main_tbl();
-        $tbl_course                 = $tbl_mdb_names['course'];
-        $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
-        $tbl_rel_course_user        = $tbl_mdb_names['rel_course_user'];
-        
-        $sql = "SELECT rcu.code_cours AS sysCode 
-                FROM `" . $tbl_rel_course_user . "` AS rcu 
-                
-                LEFT JOIN `" . $tbl_course . "` AS co 
-                ON co.code = rcu.code_cours 
-                
-                LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
-                ON rcc.courseId = co.cours_id 
-                
-                WHERE rcu.user_id = " . (int) $userId . " 
-                AND rcc.categoryId = " . (int) $categoryId;
-        
-        $result = Claroline::getDatabase()->query($sql);
-        $sysCode = $result->fetch(Database_ResultSet::FETCH_VALUE);
-        
-        if(!empty($sysCode))
+        //TODO make it recursive
+        if (is_null($userId) || is_null($categoryId)) 
         {
-            return true;
+            claro_failure::set_failure('missing_user_or_category_id');
+            return false;
         }
         else
         {
-            return false;
+            // Get table name
+            $tbl_mdb_names              = claro_sql_get_main_tbl();
+            $tbl_course                 = $tbl_mdb_names['course'];
+            $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
+            $tbl_rel_course_user        = $tbl_mdb_names['rel_course_user'];
+            
+            $sql = "SELECT rcu.code_cours AS sysCode 
+                    FROM `" . $tbl_rel_course_user . "` AS rcu 
+                    
+                    LEFT JOIN `" . $tbl_course . "` AS co 
+                    ON co.code = rcu.code_cours 
+                    
+                    LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
+                    ON rcc.courseId = co.cours_id 
+                    
+                    WHERE rcu.user_id = " . (int) $userId . " 
+                    AND rcc.categoryId = " . (int) $categoryId . "
+                    AND rcc.rootCourse = 1";
+            
+            $result = Claroline::getDatabase()->query($sql);
+            $sysCode = $result->fetch(Database_ResultSet::FETCH_VALUE);
+            
+            if(!empty($sysCode))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
     
