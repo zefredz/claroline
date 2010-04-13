@@ -160,10 +160,20 @@ class Ajax_Request
      */
     public static function getRequest( Claro_Input $userInput )
     {
+        if ( $userInput->get( 'parametersType', null ) == 'json' )
+        {
+            $parameters = json_decode($userInput->get('parameters', array()));
+        }
+        // default parametersType = array
+        else
+        {
+            $parameters = $userInput->get('parameters', array());
+        }
+
         $request = new self(
             $userInput->getMandatory('class'),
             $userInput->getMandatory('method'),
-            $userInput->get('parameters', array())
+            $parameters
         );
 
         return $request;
