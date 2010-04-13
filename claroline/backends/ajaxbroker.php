@@ -23,11 +23,28 @@ try
 {
     require_once dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
-    $broker = Claroline::ajaxServiceBroker();
+    $moduleLabel = Claroline::getInstance()->currentModuleLabel();
+
+    if ( $moduleLabel )
+    {
+        $ajaxHandlerPath = get_module_path($moduleLabel) . '/connector/ajaxservice.cnr.php';
+        $ajaxHandlerClass = "{$moduleLabel}_AjaxRemoteService";
+
+        if ( file_exists( $ajaxHandlerPath ) )
+        {
+            require_once $ajaxHandlerPath;
+
+            if ( class_exists( $ajaxHandlerClass ) )
+            {
+                $ajaxHandler = new $ajaxHandlerClass();
+                $ajaxHandler->register();
+            }
+        }
+    }
 
     $ajaxRequest = Ajax_Request::getRequest(Claro_UserInput::getInstance());
 
-    $response = $broker->handle($ajaxRequest);
+    $response = Claroline::ajaxServiceBroker()->handle($ajaxRequest);
 }
 catch (Exception $e )
 {
