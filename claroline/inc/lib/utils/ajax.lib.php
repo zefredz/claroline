@@ -246,10 +246,10 @@ class Ajax_Remote_Service_Broker
                         )
                     )
                     {
-                        $response = call_user_method_array(
-                            $request->getMethod(),
-                            $this->register[$request->getClass()]['object'],
-                            $request->getParameters() );
+                        $response = call_user_func(
+                            array( $this->register[$request->getClass()]['object'],
+                            $request->getMethod() ),
+                            $request );
 
                         return new Json_Response(array(
                             'class' => $request->getClass(),
