@@ -37,7 +37,7 @@ try
             if ( class_exists( $ajaxHandlerClass ) )
             {
                 $ajaxHandler = new $ajaxHandlerClass();
-                $ajaxHandler->register();
+                $ajaxHandler->register( Claroline::ajaxServiceBroker() );
             }
         }
     }
@@ -51,6 +51,7 @@ catch (Exception $e )
     $response = new Json_Exception( $e );
 }
 
+header('Content-type: application/json; charset=utf-8');
 echo $response->toJson();
 exit;
 
