@@ -75,7 +75,7 @@ if ( claro_is_user_authenticated() ) :
 
     if (get_conf('allowToSelfEnroll',true))
     {
-        $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=" class="claroCmd">'
+        $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqReg&amp;categoryId=0" class="claroCmd">'
         .    '<img src="' . get_icon_url('enroll') . '" alt="" /> '
         .    get_lang('Enrol on a new course')
         .    '</a>';

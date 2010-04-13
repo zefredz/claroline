@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -30,7 +30,6 @@ Security Check
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 $can_see_hidden_course = claro_is_platform_admin();
 
-
 /*---------------------------------------------------------------------
 Include Files and initialize variables
 ---------------------------------------------------------------------*/
@@ -39,22 +38,23 @@ require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/class.lib.php';
 include claro_get_conf_repository() . 'user_profile.conf.php';
+include claro_get_conf_repository() . 'course_main.conf.php';
 
 $parentCategoryCode = '';
 $userSettingMode    = FALSE;
-$dialogBox = new DialogBox();
-$coursesList = array();
-$categoriesList = array();
+$dialogBox          = new DialogBox();
+$coursesList        = array();
+$categoriesList     = array();
 
 /*---------------------------------------------------------------------
 Define Display
 ---------------------------------------------------------------------*/
 
-define ('DISPLAY_USER_COURSES'       ,      __LINE__);
-define ('DISPLAY_COURSE_TREE'        ,      __LINE__);
-define ('DISPLAY_MESSAGE_SCREEN'     ,      __LINE__);
-define ('DISPLAY_REGISTRATION_KEY_FORM',      __LINE__);
-define ('DISPLAY_REGISTRATION_DISABLED_FORM', __LINE__);
+define ('DISPLAY_USER_COURSES',                 __LINE__);
+define ('DISPLAY_COURSE_TREE',                  __LINE__);
+define ('DISPLAY_MESSAGE_SCREEN',               __LINE__);
+define ('DISPLAY_REGISTRATION_KEY_FORM',        __LINE__);
+define ('DISPLAY_REGISTRATION_DISABLED_FORM',   __LINE__);
 
 $displayMode = DISPLAY_USER_COURSES; // default display
 
@@ -62,19 +62,11 @@ $displayMode = DISPLAY_USER_COURSES; // default display
 Get request variables
 ---------------------------------------------------------------------*/
 
-if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = '';
-
-if ( isset($_REQUEST['uidToEdit']) ) $uidToEdit = (int) $_REQUEST['uidToEdit'];
-else                                 $uidToEdit = 0;
-
-if ( isset($_REQUEST['fromAdmin']) && claro_is_platform_admin() ) $fromAdmin = trim($_REQUEST['fromAdmin']);
-else                                                              $fromAdmin = '';
-
-if ( isset($_REQUEST['course']) ) $course = trim($_REQUEST['course']);
-else                              $course = '';
-
-$category   = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
+$cmd        = ( isset($_REQUEST['cmd']) ) ? ( $_REQUEST['cmd'] ) : ( '' );
+$uidToEdit  = ( isset($_REQUEST['uidToEdit']) ) ? ( (int) $_REQUEST['uidToEdit'] ) : ( 0 );
+$fromAdmin  = ( isset($_REQUEST['fromAdmin']) && claro_is_platform_admin() ) ? ( trim($_REQUEST['fromAdmin']) ) : ( '' );
+$course     = ( isset($_REQUEST['course']) ) ? ( trim($_REQUEST['course']) ) : ( '' );
+$categoryId = ( isset($_REQUEST['categoryId'])) ? ( (int) $_REQUEST['categoryId'] ) : ( null );
 
 /*=====================================================================
 Main Section
@@ -101,7 +93,7 @@ if ( !claro_is_platform_admin() )
 }
 else
 {
-    // security : only platform admin can edit other user than himself...
+    // security : only a platform admin can edit other users than himself...
 
     if ( isset($fromAdmin)
     && ( $fromAdmin == 'settings' || $fromAdmin == 'usercourse' )
@@ -111,8 +103,8 @@ else
         $userSettingMode = TRUE;
     }
 
-    if ( !empty($fromAdmin) ) $inURL .= '&amp;fromAdmin=' . $_REQUEST['fromAdmin'];
-    if ( !empty($uidToEdit) ) $inURL .= '&amp;uidToEdit=' . $_REQUEST['uidToEdit'];
+    if ( !empty($fromAdmin) ) $inURL    .= '&amp;fromAdmin=' . $_REQUEST['fromAdmin'];
+    if ( !empty($uidToEdit) ) $inURL    .= '&amp;uidToEdit=' . $_REQUEST['uidToEdit'];
 
     // in admin mode, there 2 possibilities : we might want to enroll themself or either be here from admin tool
 
@@ -147,7 +139,7 @@ if ( !empty($fromAdmin) )
     {
         ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
     }
-
+    
     if ( $fromAdmin == 'class' )
     {
         if ( isset($_REQUEST['class_id']) )
@@ -160,10 +152,10 @@ if ( !empty($fromAdmin) )
             $classId = $_SESSION['admin_user_class_id'];
         }
         else $classId = '';
-
-        // bred different if we come from admin tool for a CLASS
+        
+        // breadcrumbs different if we come from admin tool for a CLASS
         $nameTools = get_lang('Enrol class');
-
+        
         $classinfo = class_get_properties ($_SESSION['admin_user_class_id']);
     }
 }
@@ -182,12 +174,14 @@ if(!$userInfo)
         case 'user_not_found' :
         {
             $msg = get_lang('User not found');
-        }   break;
-
+        }
+        break;
+        
         default:
         {
             $msg = get_lang('User is not valid');
-        }   break;
+        }
+        break;
     }
 }
 
@@ -210,17 +204,19 @@ if ( $cmd == 'exUnreg' )
             case 'cannot_unsubscribe_the_last_course_manager' :
             {
                 $dialogBox->error( get_lang('You cannot unsubscribe the last course manager of the course') );
-            } break;
+            }
+            break;
             case 'course_manager_cannot_unsubscribe_himself' :
             {
                 $dialogBox->error( get_lang('Course manager cannot unsubscribe himself') );
-            } break;
+            }
+            break;
             default : $dialogBox->error( get_lang('Unable to remove your registration to the course') );
         }
     }
-
+    
     $displayMode = DISPLAY_MESSAGE_SCREEN;
-} //if ($cmd == 'exUnreg')
+} // end if ($cmd == 'exUnreg')
 
 /*----------------------------------------------------------------------------
 Subscribe to a course
@@ -228,35 +224,48 @@ Subscribe to a course
 
 if ( $cmd == 'exReg' )
 {
-    // if user is platform admin, register to private course can be forced.
-    // Otherwise not
-    if ( is_course_registration_allowed($course) || claro_is_platform_admin())
+    //Does the category prevent registration ?
+    if((get_conf('registrationRestrictedThroughCategories') 
+        && ClaroCategory::isRegistredToCategory($userId, $categoryId))
+        || (!get_conf('registrationRestrictedThroughCategories')))
+    {
+        $categoryRestricted = false; //Category doesn't prevent registration
+    }
+    else
+    {
+        $categoryRestricted = true; //Category does prevent registration
+    }
+    
+    //If the current user is a platform admin OR 
+    //(if the course is open AND if the category doesn't prevent registration)
+    if ( claro_is_platform_admin() || 
+        (is_course_registration_allowed($course) && !$categoryRestricted) )
     {
         $courseRegistrationKey = get_course_registration_key($course);
-
-        if (    claro_is_platform_admin()
+        
+        if ( claro_is_platform_admin()
         || ( is_null($courseRegistrationKey) || empty($courseRegistrationKey) )
-        || (   isset($_REQUEST['registrationKey'] )
+        || ( isset($_REQUEST['registrationKey'] )
         && strtolower(trim($_REQUEST['registrationKey'] )) == strtolower(trim($courseRegistrationKey))) )
         {
-            // try to register user
+            //Try to register user
             if ( user_add_to_course($userId, $course, false, false, false) )
             {
                 if ( claro_get_current_user_id() != $uidToEdit )
                 {
-                    // message for admin
+                    //Message for admin
                     $dialogBox->success( get_lang('The user has been enroled to the course') );
                 }
                 else
                 {
                     $dialogBox->success( get_lang('You\'ve been enroled on the course') );
                 }
-
+                
                 if ( !empty($_REQUEST['asTeacher']) && claro_is_platform_admin() )
                 {
-                    $properties['isCourseManager'] = 1;
-                    $properties['role']   = get_lang('Course manager');
-                    $properties['tutor']  = 1;
+                    $properties['isCourseManager']  = 1;
+                    $properties['role']             = get_lang('Course manager');
+                    $properties['tutor']            = 1;
                     user_set_course_properties($userId, $course, $properties);
                 }
             }
@@ -268,13 +277,14 @@ if ( $cmd == 'exReg' )
                     case 'already_enroled_in_course' :
                     {
                         $dialogBox->warning( get_lang('The user is already enroled in this course') );
-                    }   break;
+                    }
+                    break;
                     default: $dialogBox->error( get_lang('Unable to enrol you to the course') );
                 }
             }
-
+            
             $displayMode = DISPLAY_MESSAGE_SCREEN;
-
+            
         } // end else if is_null $courseRegistrationKey
         else
         {
@@ -282,7 +292,7 @@ if ( $cmd == 'exReg' )
             {
                 $dialogBox->error( get_lang('Wrong enrolment key') );
             }
-
+            
             $displayMode = DISPLAY_REGISTRATION_KEY_FORM;
         } // end else if is_null $courseRegistrationKey
     }
@@ -299,7 +309,6 @@ if ( $cmd == 'exReg' )
         $dialogBox->info( get_lang('Please contact the course manager : %email' , array ('%email' => '<a href="mailto:'.$courseData['email'] . '?body=' . $courseData['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseData['titular']) . '</a>')) );
     }
 
-
 } // end if ($cmd == 'exReg')
 
 /*----------------------------------------------------------------------------
@@ -310,7 +319,7 @@ if ( $cmd == 'rqUnreg' )
 {
     $coursesList = get_user_course_list($userId);
     $displayMode = DISPLAY_USER_COURSES;
-} // if ($cmd == 'rqUnreg')
+} // end if ($cmd == 'rqUnreg')
 
 /*----------------------------------------------------------------------------
 Search a course to register
@@ -321,13 +330,13 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
     /*
     * Search by keyword
     */
-
+    
     if ( isset($_REQUEST['keyword']) )
     {
         $title   = get_lang('Select course in search results');
         $keyword = trim($_REQUEST['keyword']);
         $result  = search_course($keyword, $uidToEdit);
-
+        
         if ( count($result) > 0 )
         {
             $coursesList = $result;
@@ -336,28 +345,28 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
         {
             $dialogBox->info( get_lang('No course available fitting this keyword') );
         }
-
+        
         $displayMode = DISPLAY_COURSE_TREE;
-
+        
     } // end if isset keyword
-
+    
     /*
     * Get the courses contained in this category
     */
-
+    
     else
     {
-        $courseCategoryBrowser  = new category_browser($category, $userId);
-
+        $courseCategoryBrowser  = new category_browser($categoryId, $userId);
+        
         $currentCategory        = $courseCategoryBrowser->get_current_category_settings();
         $currentCategoryName    = $currentCategory->name;
         $parentCategoryId       = $currentCategory->idParent;
-
+        
         $categoriesList         = $courseCategoryBrowser->get_sub_category_list();
-
+        
         $courseCategoryBrowser->get_course_list();
         $coursesList            = $courseCategoryBrowser->getCoursesWithoutSourceCourses();
-
+        
         $displayMode = DISPLAY_COURSE_TREE;
     }
 
@@ -371,9 +380,9 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 * SET 'BACK' LINK
 */
 
-if ( $cmd == 'rqReg' && ( !empty($category) || !empty($parentCategoryId) ) )
+if ( $cmd == 'rqReg' && ( !empty($categoryId) || !empty($parentCategoryId) ) )
 {
-    $backUrl   = $_SERVER['PHP_SELF'].'?cmd=rqReg&amp;category=' . urlencode($parentCategoryId);
+    $backUrl   = $_SERVER['PHP_SELF'].'?cmd=rqReg&amp;categoryId=' . urlencode($parentCategoryId);
     $backLabel = get_lang('Back to parent category');
 }
 else
@@ -406,7 +415,7 @@ else
         $backUrl   = '../../index.php?';
         $backLabel = get_lang('Back to my personal course list');
     }
-} // ($cmd == 'rqReg' && ($category || ! is_null($parentCategoryId) ) )
+} // end if ( $cmd == 'rqReg' && ( !empty($categoryId) || !empty($parentCategoryId) ) )
 
 $backUrl .= $inURL; //notify userid of the user we are working with in admin mode and that we come from admin
 $backLink = '<p><small><a href="' . $backUrl . '" title="' . $backLabel. '" >&larr; ' . $backLabel . '</a></small></p>' . "\n\n";
@@ -426,7 +435,7 @@ switch ( $displayMode )
         //        root name equal platform name
         //        $siteName comes from claro_main.conf.php
 
-        if ( empty($category) ) $currentCategoryName = get_conf('siteName');
+        if ( empty($categoryId) ) $currentCategoryName = get_conf('siteName');
 
         //  Display Title
         if ( $fromAdmin != 'class' )
@@ -453,7 +462,7 @@ switch ( $displayMode )
         if ( count($categoriesList) > 0)
         {
             $out .= '<h4>' . get_lang('Categories') . '</h4>' . "\n" ;
-
+            
             $out .= '<ul>' . "\n" ;
             
             foreach( $categoriesList as $category )
@@ -466,7 +475,7 @@ switch ( $displayMode )
                 // If the category contains something else (subcategory or course),
                 // make a link to access to these ressources
                 if ($nbCourses + $nbSubCategories > 0)
-                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;category=" 
+                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;categoryId=" 
                           . urlencode( $category['id'] ) . $inURL . '">' 
                           . $category['name'] . '</a>';
                 else
@@ -477,7 +486,7 @@ switch ( $displayMode )
             
             $out .= '</ul>' . "\n";
         }
-
+        
         // Separator between category list and course list
         if ( count($coursesList) > 0  && count($categoriesList) > 0 )
         {
@@ -513,15 +522,27 @@ switch ( $displayMode )
                 .    '</thead>' . "\n"
                 ;
             }
-
+            
             $out .= '<tbody>' . "\n";
+            
+            //Does the category prevent registration ?
+            if((get_conf('registrationRestrictedThroughCategories') 
+                && ClaroCategory::isRegistredToCategory($userId, $categoryId))
+                || (!get_conf('registrationRestrictedThroughCategories')))
+            {
+                $categoryRestricted = false; //Category doesn't prevent registration
+            }
+            else
+            {
+                $categoryRestricted = true; //Category does prevent registration
+            }
             
             foreach($coursesList as $thisCourse)
             {
                 $out .= '<tr>' . "\n"
                 .    '<td>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['title'] . '<br />' . "\n"
-                .     '<small>';
-
+                .    '<small>';
+                
                 if( !empty($thisCourse['email']) )
                 {
                     $out .= '<a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a>';
@@ -530,11 +551,10 @@ switch ( $displayMode )
                 {
                     $out .= $thisCourse['titular'];
                 }
-
+                
                 $out .= '</small>' . "\n" . '</td>' . "\n";
-
+                
                 // enroll link
-
                 if ( $userSettingMode )
                 {
                     if ( $thisCourse['enroled'] )
@@ -547,13 +567,14 @@ switch ( $displayMode )
                     else
                     {
                         // class may not be enroled as teachers
-
                         $out .= '<td valign="top" align="center">' . "\n"
-                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] . $inURL . '">'
+                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] 
+                        .    '&amp;categoryId=' . $categoryId . $inURL . '">'
                         .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol as student') . '" />'
                         .    '</a></td>' . "\n"
                         .    '<td valign="top" align="center">' . "\n"
-                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;asTeacher=true&amp;course=' . $thisCourse['sysCode'] .$inURL . '">'
+                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;asTeacher=true&amp;course=' . $thisCourse['sysCode'] 
+                        .    '&amp;categoryId=' . $categoryId . $inURL . '">'
                         .    '<img src="' . get_icon_url('enroll') . '"  alt="' . get_lang('Enrol as teacher') . '" />'
                         .    '</a>'
                         .    '</td>' . "\n"
@@ -562,30 +583,31 @@ switch ( $displayMode )
                 }
                 elseif ( $fromAdmin == 'class')
                 {
-                   if (!get_class_list_of_course($thisCourse['sysCode'],$classId))
-                   {
-                    $out .= '<td valign="top"  align="center">' . "\n"
-                    .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
-                    .    '?cmd=exReg' 
-                    .    '&amp;course_id=' . $thisCourse['sysCode']
-                    .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
-                    .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol class') . '" />'
-                    .     '</a>'
-                    .     '</td>' . "\n"
-                    ;
-                   }
-                   else
-                   {
-                       $out .= '<td valign="top"  align="center">' . "\n"
-                    .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
-                    .    '?cmd=exUnreg' 
-                    .    '&amp;course_id=' . $thisCourse['sysCode']
-                    .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
-                    .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unenrol class') . '" />'
-                    .     '</a>'
-                    .     '</td>' . "\n"
-                    ;
-                   }
+                    if (!get_class_list_of_course($thisCourse['sysCode'],$classId))
+                    {
+                        $out .= '<td valign="top"  align="center">' . "\n"
+                        .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
+                        .    '?cmd=exReg' 
+                        .    '&amp;course_id=' . $thisCourse['sysCode']
+                        .    '&amp;class_id=' . $classinfo['id']
+                        .    '&amp;categoryId=' . $categoryId . $inURL . '">'
+                        .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol class') . '" />'
+                        .    '</a>'
+                        .    '</td>' . "\n"
+                        ;
+                    }
+                    else
+                    {
+                        $out .= '<td valign="top"  align="center">' . "\n"
+                        .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
+                        .    '?cmd=exUnreg' 
+                        .    '&amp;course_id=' . $thisCourse['sysCode']
+                        .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
+                        .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unenrol class') . '" />'
+                        .     '</a>'
+                        .     '</td>' . "\n"
+                        ;
+                    }
                 }
                 else
                 {
@@ -594,10 +616,12 @@ switch ( $displayMode )
                     {
                         $out .= '<span class="highlight">' . get_lang('Already enroled') . '</span>' . "\n";
                     }
-                    elseif($thisCourse['registration'] == 'open')
+                    elseif(claro_is_platform_admin() || 
+                        ($thisCourse['registration'] == 'open' && !$categoryRestricted))
                     {
                         $out .= '<a href="' . $_SERVER['PHP_SELF']
-                        .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] . $inURL . '">'
+                        .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] 
+                        .    '&amp;categoryId=' . $categoryId . $inURL . '">'
                         .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrolment') . '" />'
                         .    '</a>'
                         ;
@@ -605,7 +629,8 @@ switch ( $displayMode )
                     else
                     {
                         $out .= '<a href="' . $_SERVER['PHP_SELF']
-                        .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] . $inURL . '">'
+                        .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] 
+                        .    '&amp;categoryId=' . $categoryId . $inURL . '">'
                         .    '<img src="' . get_icon_url('locked') . '" alt="' . get_lang('Locked') . '" />'
                         .    '</a>'
                         ;
