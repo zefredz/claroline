@@ -252,7 +252,8 @@ function get_module_data( $claroLabel, $dataName = null, $ignoreCache = false )
                    M.`script_url`     AS entry,
                    CT.`icon`          AS icon,
                    CT.`def_rank`      AS rank,
-                   CT.`add_in_course` AS add_in_course
+                   CT.`add_in_course` AS add_in_course,
+                   CT.`access_manager` AS access_manager
 
         FROM `" . $tbl['module'] . "` AS M
         LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
@@ -673,6 +674,7 @@ function module_get_course_tool_list( $courseIdReq,
                   ISNULL(ctl.tool_id)         AS external,
                   m.activation ,
                   m.name                      AS name,
+                  pct.access_manager            AS access_manager,
                   ctl.activated,
                   IFNULL( ctl.script_url ,
                           pct.script_url )    AS url

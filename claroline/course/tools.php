@@ -300,7 +300,8 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
 
 $undeactivable_tool_array = array('CLDOC',
                                   'CLGRP',
-                                  'CLUSR'
+                                  'CLUSR',
+                                  'CLFRM'
                                   );
 
 if ( 'exRmTool' == $cmd )
@@ -351,38 +352,48 @@ if ( 'exAddTool' == $cmd )
     }
     else
     {
-        // get tool id
-        $toolId = get_tool_id_from_module_label( $toolLabel );
-        
-        if ( $toolId )
-        {
-            if ( ! is_module_registered_in_course( $toolId, claro_get_current_course_id()) )
-            {
-                register_module_in_single_course( $toolId, claro_get_current_course_id() );
-            }
-            
-            // update course_tool.activated
-            if ( update_course_tool_activation_in_course( $toolId,
-                                                         claro_get_current_course_id(),
-                                                         true ) )
-            {
-                set_module_visibility_in_course( $toolId, $_cid, true );
-                
-                $dialogBox->success( get_lang('Tool added to course') );
-                $cidReset = TRUE;
-                $cidReq   = claro_get_current_course_id();
+        $moduleData = get_module_data($toolLabel);
 
-                include get_path('incRepositorySys') . '/claro_init_local.inc.php';
+        if ( $moduleData['access_manager'] == 'COURSE_ADMIN'
+            || claro_is_platform_admin() )
+        {
+            // get tool id
+            $toolId = get_tool_id_from_module_label( $toolLabel );
+            
+            if ( $toolId )
+            {
+                if ( ! is_module_registered_in_course( $toolId, claro_get_current_course_id()) )
+                {
+                    register_module_in_single_course( $toolId, claro_get_current_course_id() );
+                }
+                
+                // update course_tool.activated
+                if ( update_course_tool_activation_in_course( $toolId,
+                                                             claro_get_current_course_id(),
+                                                             true ) )
+                {
+                    set_module_visibility_in_course( $toolId, $_cid, true );
+                    
+                    $dialogBox->success( get_lang('Tool added to course') );
+                    $cidReset = TRUE;
+                    $cidReq   = claro_get_current_course_id();
+    
+                    include get_path('incRepositorySys') . '/claro_init_local.inc.php';
+                }
+                else
+                {
+                    $dialogBox->error( get_lang('Cannot add tool to course') );
+                }
             }
             else
             {
-                $dialogBox->error( get_lang('Cannot add tool to course') );
+                $dialogBox->error( get_lang('Not a valid tool') );
             }
         }
         else
         {
-            $dialogBox->error( get_lang('Not a valid tool') );
-        }
+            $dialogBox->error( get_lang('This tool is activable by the platform administrator only') );
+}
     }
 }
 
@@ -431,7 +442,6 @@ $out .= $dialogBox->render();
 
 if ( $currentSection == 'toolRights' )
 {
-    // $out .= claro_html_tool_title(get_lang('Manage tool access rights'));
     $out .= '<p>'
         . get_lang('Select the tools you want to make visible for your user.')
         . get_lang('An invisible tool will be greyed out on your personal interface.')
@@ -467,16 +477,6 @@ if ( $currentSection == 'toolRights' )
         }
     }
     
-    /*$out .= '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : '
-        . '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" /> '
-        . get_lang('No access') . ' - '
-        . '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />'
-        . get_lang('Access allowed') . ' - '
-        . '<img src="' . get_icon_url('manager') . '" alt="' . get_lang('Manager') . '" /> '
-        . get_lang('Edition allowed')
-        . '.</small></p>'
-        ;*/
-    
     $out .= '<p><small><span style="text-decoration: underline">' . get_lang('Profile list')
         . '</span> : ' . implode($profileLegend,' - ') . '.</small></p>'
         ;
@@ -490,7 +490,6 @@ elseif ( $currentSection == 'extLinks' )
 {
     // Display external link list
     
-    // $out .= claro_html_tool_title(get_lang('Manage external links'));
     $out .= '<p>'.get_lang('Add external links to your course').'</p>'."\n" ;
     
     $out .= '<blockquote>' . "\n"
@@ -570,7 +569,6 @@ elseif ( $currentSection == 'extLinks' )
 }
 elseif ( $currentSection == 'toolList' )
 {
-    // $out .= claro_html_tool_title(get_lang('Add or remove tools'));
     $out .= '<p>'.get_lang('Add or remove tools from your course').'</p>'."\n" ;
     
     $activeCourseToolList = module_get_course_tool_list(
@@ -585,13 +583,12 @@ elseif ( $currentSection == 'toolList' )
     
     foreach ( $inactiveCourseToolList as $inactiveCourseTool )
     {
-        // var_dump($inactiveCourseTool);
-        
         $completeInactiveToolList[] = array(
             'id' =>  $inactiveCourseTool['id'],
             'tool_id' => $inactiveCourseTool['tool_id'],
             'label' => $inactiveCourseTool['label'],
-            'icon' => get_module_url($inactiveCourseTool['label']) . '/' . $inactiveCourseTool['icon']
+            'icon' => get_module_url($inactiveCourseTool['label']) . '/' . $inactiveCourseTool['icon'],
+            'access_manager' => $inactiveCourseTool['access_manager'],
         );
     }
     
@@ -622,7 +619,8 @@ elseif ( $currentSection == 'toolList' )
             $completeInactiveToolList[] = array(
                 'tool_id' => $toolId,
                 'label' => $platformCourseTool['label'],
-                'icon' => $platformCourseTool['icon']
+                'icon' => $platformCourseTool['icon'],
+                'access_manager' => $platformCourseTool['access_manager'],
             );
         }
     }
@@ -696,14 +694,22 @@ elseif ( $currentSection == 'toolList' )
     {
         foreach ( $completeInactiveToolList as $inactiveTool )
         {
-            $action_link = '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                . '?cmd=exAddTool&amp;toolLabel='
-                . htmlspecialchars($inactiveTool['label'])
-                .'&amp;section='.htmlspecialchars($currentSection) )).'" '
-                . 'title="'.get_lang('Add').'">'
-                . '<img src="' . get_icon_url('select') . '" alt="'. get_lang('Add') . '"/>'
-                . '</a>'
-                ;
+            if ( $inactiveTool['access_manager'] == 'COURSE_MANAGER'
+                || claro_is_platform_admin() )
+            {
+                $action_link = '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?cmd=exAddTool&amp;toolLabel='
+                    . htmlspecialchars($inactiveTool['label'])
+                    .'&amp;section='.htmlspecialchars($currentSection) )).'" '
+                    . 'title="'.get_lang('Add').'">'
+                    . '<img src="' . get_icon_url('select') . '" alt="'. get_lang('Add') . '"/>'
+                    . '</a>'
+                    ;
+            }
+            else
+            {
+                $action_link = '<em>'.get_lang('Activable only by the platform administrator !').'</em>';
+            }
                 
             $out .= '<tr>'
                 . '<td><img src="'
