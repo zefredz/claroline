@@ -1865,7 +1865,10 @@ function is_module_registered_in_course( $toolId, $courseId )
     return $res;
 }
 
-
+/**
+ * Get the list of modules that cannot be deactivated
+ * @return array
+ */
 function get_not_deactivable_tool_list()
 {
     return array(
@@ -1876,6 +1879,10 @@ function get_not_deactivable_tool_list()
     );
 }
 
+/**
+ * Get the list of modules that cannot be uninstalled
+ * @return array
+ */
 function get_not_uninstallable_tool_list()
 {
     return array(
@@ -1893,4 +1900,50 @@ function get_not_uninstallable_tool_list()
         'CLLNK',
         'CLGRP'
     );
+}
+
+/**
+ * Set the autoactivation the given module in courses
+ * @param string $moduleLabel
+ * @param boolean $value
+ */
+function set_module_autoactivation_in_course( $moduleLabel, $autoActivation )
+{
+    $sql_autoActivation = $autoActivation ? 'AUTOMATIC' : 'MANUAL';
+
+    /* @todo move to a lib */
+    $tbl_mdb_names        = claro_sql_get_main_tbl();
+    $tbl_tool_list        = $tbl_mdb_names['tool'];
+
+    return Claroline::getDatabase()->exec("
+        UPDATE
+            `{$tbl_tool_list}`
+        SET
+            add_in_course = '{$sql_autoActivation}'
+        WHERE
+            claro_label = " . Claroline::getDatabase()->quote( $moduleLabel ) . ";
+    ");
+}
+
+/**
+ * Allow course managers to activate the given module in their courses
+ * @param string $moduleLabel
+ * @param boolean $value
+ */
+function allow_module_activation_by_course_manager( $moduleLabel, $courseManagerCanActivate )
+{
+    $sql_accessManager = $courseManagerCanActivate ? 'COURSE_MANAGER' : 'PLATFORM_ADMIN';
+
+    /* @todo move to a lib */
+    $tbl_mdb_names        = claro_sql_get_main_tbl();
+    $tbl_tool_list        = $tbl_mdb_names['tool'];
+
+    return Claroline::getDatabase()->exec("
+        UPDATE
+            `{$tbl_tool_list}`
+        SET
+            access_manager = '{$sql_accessManager}'
+        WHERE
+            claro_label = " . Claroline::getDatabase()->quote( $moduleLabel ) . ";
+    ");
 }

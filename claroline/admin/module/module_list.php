@@ -393,39 +393,28 @@ switch ( $cmd )
 
                     if ( $typeReq == 'tool' && $notAutoActivateInCourses )
                     {
-                        /* @todo move to a lib */
-                        $tbl_mdb_names        = claro_sql_get_main_tbl();
-                        $tbl_tool_list        = $tbl_mdb_names['tool'];
-
-                        $sql = "UPDATE `{$tbl_tool_list}` "
-                            . "SET add_in_course = 'MANUAL' "
-                            . "WHERE claro_label = '" . claro_sql_escape( $moduleInfo['label']) . "'"
-                            ;
-
-                        if (claro_sql_query($sql))
+                        if ( set_module_autoactivation_in_course( $moduleInfo['label'], false ) )
                         {
-                            $dialogBox->success( get_lang('Module activation at course creation set to MANUAL') );
+                            $dialogBox->success(
+                                get_lang('Module activation at course creation set to MANUAL') );
                         }
                         else
                         {
-                            $dialogBox->error( get_lang('Cannot change module activation on course creation') );
+                            $dialogBox->error(
+                                get_lang('Cannot change module activation on course creation') );
                         }
 
                         if ( $activableOnlyByPlatformAdmin )
                         {
-                            /* @todo move to a lib */
-                            $sql = "UPDATE `{$tbl_tool_list}` "
-                                . "SET access_manager = 'PLATFORM_ADMIN' "
-                                . "WHERE claro_label = '" . claro_sql_escape( $moduleInfo['label']) . "'"
-                                ;
-
-                            if (claro_sql_query($sql))
+                            if ( allow_module_activation_by_course_manager( $moduleInfo['label'], false ) )
                             {
-                                $dialogBox->success( get_lang('Only PLATFORM_ADMIN can activate this module') );
+                                $dialogBox->success(
+                                    get_lang('Only PLATFORM_ADMIN can activate this module') );
                             }
                             else
                             {
-                                $dialogBox->error( get_lang('Cannot change module activation on course creation') );
+                                $dialogBox->error(
+                                    get_lang('Cannot change module activation on course creation') );
                             }
                         }
                     }
