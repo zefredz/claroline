@@ -43,9 +43,7 @@ $tbl_dock        = $tbl_name['dock'];
 require_once get_path('incRepositorySys') . '/lib/module/manage.lib.php';
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 
-$undeactivable_tool_array = array('CLDOC',
-                                  'CLGRP'
-                                 );
+$undeactivable_tool_array = get_not_deactivable_tool_list();
 
 $htmlHeadXtra[] =
 "<script type=\"text/javascript\">

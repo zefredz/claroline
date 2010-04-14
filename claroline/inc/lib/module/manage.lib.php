@@ -73,8 +73,8 @@ function get_module_info($moduleId)
 
 /**
 * Gest the list of module type already installed
-* @return array of string 
-* 
+* @return array of string
+*
 */
 function claro_get_module_types()
 {
@@ -223,10 +223,10 @@ function check_module_repositories()
 
 
 /**
- * 
+ *
  * This function would be split
- * 
- * 
+ *
+ *
  */
 function get_and_unzip_uploaded_package()
 {
@@ -248,12 +248,12 @@ function get_and_unzip_uploaded_package()
     }
 
     //unzip files
-    
-    
+
+
     // $moduleRepositorySys is the place where go the installed module
     // $uploadDirFullPath is a temporary name of the dir in $moduleRepositorySys the module is unpack
     // $uploadDirFullPath would be renamed to $modulePath when install is done.
-    
+
     $moduleRepositorySys = get_path('rootSys') . 'module/';
     //create temp dir for upload
     claro_mkdir($moduleRepositorySys, CLARO_FILE_PERMISSIONS, true);
@@ -265,8 +265,8 @@ function get_and_unzip_uploaded_package()
 
     // treat_uploaded_file : Executes all the necessary operation to upload the file in the document tool
     // TODO this function would be splited.
-    
-    if ( preg_match('/.zip$/i', $_FILES['uploadedModule']['name']) 
+
+    if ( preg_match('/.zip$/i', $_FILES['uploadedModule']['name'])
       && treat_uploaded_file( $_FILES['uploadedModule']
                             , $moduleRepositorySys
                             , $uploadDir
@@ -278,18 +278,18 @@ function get_and_unzip_uploaded_package()
         $backlog_message[] = get_lang('Files dezipped sucessfully in %path', array ('%path' => $modulePath )) ;
     }
     else
-    {   
+    {
         $backlog_message[] = get_lang('Impossible to unzip file');
         claro_delete_file($modulePath);
         return claro_failure::set_failure($backlog_message);
     }
-    
+
     return $modulePath;
 }
 
 /**
- * 
- * 
+ *
+ *
  */
 function unzip_package($packageFileName )
 {
@@ -311,8 +311,8 @@ function unzip_package($packageFileName )
     $uploadDirFullPath = claro_mkdir_tmp($moduleRepositorySys);
     $uploadDir         = str_replace($moduleRepositorySys,'',$uploadDirFullPath);
     $modulePath        = $moduleRepositorySys.$uploadDir.'/';
-    
-    if ( preg_match('/.zip$/i', $packageFileName) 
+
+    if ( preg_match('/.zip$/i', $packageFileName)
       && treat_secure_file_unzip($packageFileName, $uploadDir, $moduleRepositorySys, get_conf('maxFilledSpaceForModule' , 10000000),true))
     {
         $backlog_message[] = get_lang('Files dezipped sucessfully in %path', array ('%path' => $modulePath )) ;
@@ -467,7 +467,7 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                 {
                    $backlog->failure(get_lang("Error while renaming module folder").
                    ' from:' . $currentPlace  .
-                   ' to:' . $destPath  
+                   ' to:' . $destPath
                    );
                 }
                 else
@@ -571,14 +571,14 @@ function activate_module($moduleId, $activateInAllCourses = false)
     $moduleInfo =  get_module_info($moduleId);
 
     list( $backlog2, $success ) = activate_module_in_platform($moduleId);
-    
+
     if( ! $success )
     {
         return array( $backlog2, $success );
     }
-    
+
     $backlog1->append($backlog2);
-    
+
     if ( $activateInAllCourses && $moduleInfo['type'] == 'tool' /*&& $moduleInfo['activateInCourses'] == 'AUTOMATIC'*/ )
     {
         // FIXME : ONLY WHEN INSTALLING A MODULE !
@@ -636,7 +636,7 @@ function activate_module_in_platform( $moduleId )
             $success = false;
         }
     }
-    
+
     return array( $backlog, $success );
 }
 
@@ -644,11 +644,11 @@ function activate_module_in_all_courses( $toolLabel )
 {
     $toolId = get_tool_id_from_module_label( $toolLabel );
     $tbl = claro_sql_get_main_tbl();
-    
+
     $sql = "SELECT `code` FROM `" . $tbl['course'] . "`";
 
     $courseList = claro_sql_query_fetch_all( $sql );
-    
+
     foreach ( $courseList as $course )
     {
         if ( ! update_course_tool_activation_in_course( $toolId,
@@ -658,7 +658,7 @@ function activate_module_in_all_courses( $toolLabel )
             return false;
         }
     }
-    
+
     return true;
 }
 
@@ -787,7 +787,7 @@ function uninstall_module($moduleId, $deleteModuleData = true)
 
         if ( isset( $uninstallSqlScript ) ) unset ( $uninstallSqlScript );
         $uninstallSqlScript = get_module_path($module['label']) . '/setup/uninstall.sql';
-        
+
         if ($deleteModuleData && file_exists( $uninstallSqlScript ))
         {
             $sql = file_get_contents( $uninstallSqlScript );
@@ -853,9 +853,9 @@ function uninstall_module($moduleId, $deleteModuleData = true)
         $sql = "DELETE FROM `" . $tbl['module_info'] . "`
                 WHERE `module_id` = " . (int) $moduleId;
         claro_sql_query($sql);
-        
+
         $sql = "DELETE FROM `" . $tbl['module_contexts'] . "`
-                WHERE `module_id` = " . (int) $moduleId;        
+                WHERE `module_id` = " . (int) $moduleId;
         claro_sql_query($sql);
 
         // 4-Manage right - Delete read action
@@ -989,7 +989,7 @@ function unregister_module_from_courses( $moduleId )
     $moduleInfo =  get_module_info($moduleId);
     $tbl = claro_sql_get_main_tbl();
 
-    $sql = "SELECT id AS tool_id 
+    $sql = "SELECT id AS tool_id
               FROM `" . $tbl['tool']."`
              WHERE claro_label = '".$moduleInfo['label']."'";
     $tool_to_delete = claro_sql_query_get_single_row($sql);
@@ -1124,13 +1124,13 @@ function register_module($modulePath)
     {
         /*$parser = new ModuleManifestParser;
         $module_info = $parser->parse($modulePath.'/manifest.xml');*/
-        
+
         $module_info = readModuleManifest( $modulePath );
-        
+
         if ( false === $module_info )
         {
             $backlog->failure(get_lang( 'Cannot parse module manifest'));
-            
+
             $moduleId = false;
         }
         elseif ( is_array($module_info)
@@ -1138,13 +1138,13 @@ function register_module($modulePath)
         {
             $backlog->failure(get_lang('Module %claroLabel registered',
                 array('%claroLabel'=>$module_info['LABEL'])));
-            
+
             if('TOOL' == strtoupper($module_info['TYPE']))
             {
                 if (false !== ($toolId   = register_module_tool($moduleId,$module_info)))
                 {
                     $backlog->failure(get_lang('Module %label registered as tool', array('%claroLabel'=>$module_info['LABEL'])));
-            
+
                 }
                 else
                 {
@@ -1161,7 +1161,7 @@ function register_module($modulePath)
                         add_module_in_dock($moduleId, $dock);
                             $backlog->failure(get_lang('Module %label added in dock : %dock'
                             , array('%label' => $module_info['LABEL'], '%dock' => $dock)));
-                        
+
                     }
                 }
             }
@@ -1199,7 +1199,7 @@ function register_module_core($module_info)
     {
         return claro_failure::set_failure(get_lang('Missing elements in module Manifest : %MissingElements' , array('%MissingElements' => implode(',',$missingElement))));
     }
-    
+
     if (isset($module_info['ENTRY']))
     {
         $script_url = $module_info['ENTRY'];
@@ -1226,9 +1226,9 @@ function register_module_core($module_info)
                 website        = '" . claro_sql_escape($module_info['WEB']) . "',
                 description    = '" . claro_sql_escape($module_info['DESCRIPTION']) . "',
                 license        = '" . claro_sql_escape($module_info['LICENSE']) . "'";
-    
+
     claro_sql_query($sql);
-    
+
     foreach ( $module_info['CONTEXTS'] AS $context )
     {
         $sql = "INSERT INTO `{$tbl['module_contexts']}`\n"
@@ -1236,7 +1236,7 @@ function register_module_core($module_info)
             . "  `module_id` = " . (int) $moduleId . ",\n"
             . "  `context` = '" . claro_sql_escape( $context ) . "'"
             ;
-            
+
         claro_sql_query($sql);
     }
 
@@ -1305,10 +1305,10 @@ function register_module_tool($moduleId,$module_info)
         {
             $profile = new RightProfile();
             $profile->load($profileId);
-            
+
             $profileRight = new RightProfileToolRight();
             $profileRight->load($profile);
-            
+
             if ( claro_get_profile_id('manager') == $profileId )
             {
                 $profileRight->setToolRight($tool_id,'manager');
@@ -1317,7 +1317,7 @@ function register_module_tool($moduleId,$module_info)
             {
                 $profileRight->setToolRight($tool_id,'user');
             }
-            
+
             $profileRight->save();
         }
 
@@ -1757,7 +1757,7 @@ function get_course_tool_min_rank()
  * Check  if the  given  file path point on a claroline package file
  *
  * @param string $packagePath
- * @return boolean 
+ * @return boolean
  */
 function is_package_file($packagePath)
 {
@@ -1773,12 +1773,12 @@ function course_tool_already_installed($toolId,$courseId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
     $tblCourseToolList = $tbl_cdb_names['tool'];
-    
+
     $sql = "SELECT `installed`\n"
         . "FROM `{$tblCourseToolList}`\n"
         . "WHERE tool_id = " . (int) $toolId
         ;
-    
+
     return claro_sql_query_fetch_single_value($sql) == 'true';
 }
 
@@ -1806,22 +1806,22 @@ function update_course_tool_activation_in_course( $toolId, $courseId, $activated
             {
                 register_module_in_single_course( $toolId, $courseId );
             }
-            
+
             install_module_in_course( $tLabel, $courseId );
             update_tool_installation_in_course( $toolId, $courseId );
         }
     }
-    
+
     $sql_activated = $activated ? "'true'" : "'false'";
-    
+
     $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
     $tblCourseToolList = $tbl_cdb_names['tool'];
-    
+
     $sql = "UPDATE `{$tblCourseToolList}`\n"
         . "SET `activated` = " . $sql_activated . "\n"
         . "WHERE tool_id = " . (int) $toolId
         ;
-        
+
     if ( claro_sql_query( $sql ) )
     {
         return claro_sql_affected_rows();
@@ -1836,12 +1836,12 @@ function update_tool_installation_in_course( $toolId, $courseId )
 {
     $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
     $tblCourseToolList = $tbl_cdb_names['tool'];
-    
+
     $sql = "UPDATE `{$tblCourseToolList}`\n"
         . "SET `installed` = 'true'\n"
         . "WHERE tool_id = " . (int) $toolId
         ;
-        
+
     if ( claro_sql_query( $sql ) )
     {
         return claro_sql_affected_rows() == 1;
@@ -1856,11 +1856,41 @@ function is_module_registered_in_course( $toolId, $courseId )
 {
     $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
     $tblCourseToolList = $tbl_cdb_names['tool'];
-    
+
     $sql = "SELECT COUNT(*) FROM `{$tblCourseToolList}`\n"
         . "WHERE tool_id = " . (int) $toolId;
-    
+
     $res = claro_sql_query_fetch_single_value( $sql );
-    
+
     return $res;
+}
+
+
+function get_not_deactivable_tool_list()
+{
+    return array(
+        'CLDOC',
+        'CLGRP',
+        'CLUSR',
+        'CLFRM'
+    );
+}
+
+function get_not_uninstallable_tool_list()
+{
+    return array(
+        'CLANN',
+        'CLCAL',
+        'CLFRM',
+        'CLCHT',
+        'CLDOC',
+        'CLDSC',
+        'CLUSR',
+        'CLLNP',
+        'CLQWZ',
+        'CLWRK',
+        'CLWIKI',
+        'CLLNK',
+        'CLGRP'
+    );
 }

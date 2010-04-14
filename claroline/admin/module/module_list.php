@@ -52,26 +52,11 @@ $old_tool_array = array('CLANN',
 
 //UNDEACTIVABLE    TOOLS array
 
-$undeactivable_tool_array = array('CLDOC',
-                                  'CLGRP'
-                                  );
+$undeactivable_tool_array = get_not_deactivable_tool_list();
 
 //NONUNINSTALABLE TOOLS array
 
-$nonuninstalable_tool_array = array('CLANN',
-                        'CLCAL',
-                        'CLFRM',
-                        'CLCHT',
-                        'CLDOC',
-                        'CLDSC',
-                        'CLUSR',
-                        'CLLNP',
-                        'CLQWZ',
-                        'CLWRK',
-                        'CLWIKI',
-                        'CLLNK',
-                        'CLGRP'
-                        );
+$nonuninstalable_tool_array = get_not_uninstallable_tool_list();
 
 //SQL table name
 

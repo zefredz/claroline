@@ -298,11 +298,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
  ADD OR REMOVE A TOOL
 ----------------------------------------------------------------------------*/
 
-$undeactivable_tool_array = array('CLDOC',
-                                  'CLGRP',
-                                  'CLUSR',
-                                  'CLFRM'
-                                  );
+$undeactivable_tool_array = get_not_deactivable_tool_list();
 
 if ( 'exRmTool' == $cmd )
 {
