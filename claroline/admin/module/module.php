@@ -110,15 +110,7 @@ switch ( $cmd )
 {
     case 'activplatformadmin' :
     {
-        $tbl_mdb_names        = claro_sql_get_main_tbl();
-        $tbl_tool_list        = $tbl_mdb_names['tool'];
-
-        $sql = "UPDATE `{$tbl_tool_list}` "
-            . "SET access_manager = 'PLATFORM_ADMIN' "
-            . "WHERE claro_label = '" . claro_sql_escape( $module['label']) . "'"
-            ;
-
-        if (claro_sql_query($sql))
+        if ( allow_module_activation_by_course_manager( $module['label'], false ) )
         {
             $dialogBox->success( get_lang('Only PLATFORM_ADMIN can activate this module') );
             $module['accessManager']  = 'PLATFORM_ADMIN';
@@ -131,15 +123,7 @@ switch ( $cmd )
     }
     case 'activcoursemanager' :
     {
-        $tbl_mdb_names        = claro_sql_get_main_tbl();
-        $tbl_tool_list        = $tbl_mdb_names['tool'];
-
-        $sql = "UPDATE `{$tbl_tool_list}` "
-            . "SET access_manager = 'COURSE_ADMIN' "
-            . "WHERE claro_label = '" . claro_sql_escape( $module['label']) . "'"
-            ;
-
-        if (claro_sql_query($sql))
+        if ( allow_module_activation_by_course_manager( $module['label'], true ) )
         {
             $dialogBox->success( get_lang('COURSE_ADMIN can activate this module') );
             $module['accessManager']  = 'COURSE_ADMIN';
@@ -152,15 +136,7 @@ switch ( $cmd )
     }
     case 'courseactiv' :
     {
-        $tbl_mdb_names        = claro_sql_get_main_tbl();
-        $tbl_tool_list        = $tbl_mdb_names['tool'];
-        
-        $sql = "UPDATE `{$tbl_tool_list}` "
-            . "SET add_in_course = 'AUTOMATIC' "
-            . "WHERE claro_label = '" . claro_sql_escape( $module['label']) . "'"
-            ;
-        
-        if (claro_sql_query($sql))
+        if ( set_module_autoactivation_in_course( $module['label'], true ) )
         {
             $dialogBox->success( get_lang('Module activation at course creation set to AUTOMATIC') );
             $module['activateInCourses']  = 'AUTOMATIC';
@@ -173,15 +149,7 @@ switch ( $cmd )
     }
     case 'coursedeactiv' :
     {
-        $tbl_mdb_names        = claro_sql_get_main_tbl();
-        $tbl_tool_list        = $tbl_mdb_names['tool'];
-        
-        $sql = "UPDATE `{$tbl_tool_list}` "
-            . "SET add_in_course = 'MANUAL' "
-            . "WHERE claro_label = '" . claro_sql_escape( $module['label']) . "'"
-            ;
-        
-        if (claro_sql_query($sql))
+        if ( set_module_autoactivation_in_course( $module['label'], false ) )
         {
             $dialogBox->success( get_lang('Module activation at course creation set to MANUAL') );
             $module['activateInCourses']  = 'MANUAL';
@@ -441,7 +409,20 @@ switch ($item)
             if (in_array($module['label'],$undeactivable_tool_array))
             {
                 // do not fuck with cthulhu !
-                $action_link = get_lang('Cannot be changed');
+                if ( 'AUTOMATIC' == $module['activateInCourses'] )
+                {
+                    $action_link = '<img src="' . get_icon_url('select')
+                    . '" alt="'. get_lang('Automatic') . '" /> '
+                    . get_lang('Automatic');
+                }
+                else
+                {
+                    $action_link = '<img src="' . get_icon_url('forbidden')
+                    . '" alt="'. get_lang('Manual') . '"/> '
+                    . get_lang('Manual');
+                }
+
+                $action_link .= ' (' . get_lang('Cannot be changed') . ')';
             }
             elseif ( 'AUTOMATIC' == $module['activateInCourses'] )
             {
@@ -467,7 +448,7 @@ switch ($item)
                     . get_lang('Manual') . '</a>'
                     ;
             }
-                
+
             $out .= '<td align="right" valign="top">'
             .    get_lang('Activate on course creation')
             .    ' : ' . "\n"
@@ -480,10 +461,28 @@ switch ($item)
             .    '<td colspan="2">&nbsp;</td>' . "\n"
             .    '</tr>' . "\n"
             ;
-            
+
             // Access Manager
 
-            if ( 'PLATFORM_ADMIN' == $module['accessManager'] )
+            if (in_array($module['label'],$undeactivable_tool_array))
+            {
+                // do not fuck with cthulhu !
+                if ( 'PLATFORM_ADMIN' == $module['accessManager'] )
+                {
+                    $action_link = '<img src="' . get_icon_url('platformadmin')
+                    . '" alt="'. get_lang('Platform administrator') . '" /> '
+                    . get_lang('Platform administrator');
+                }
+                else
+                {
+                    $action_link = '<img src="' . get_icon_url('manager')
+                    . '" alt="'. get_lang('Course manager') . '"/> '
+                    . get_lang('Course manager');
+                }
+
+                $action_link .= ' (' . get_lang('Cannot be changed') . ')';
+            }
+            elseif ( 'PLATFORM_ADMIN' == $module['accessManager'] )
             {
                 $activ_form  = 'activcoursemanager';
                 $action_link = '<a href="' . $_SERVER['PHP_SELF']
@@ -718,5 +717,3 @@ $out .= '</table>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
