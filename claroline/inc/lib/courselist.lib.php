@@ -506,9 +506,9 @@ function render_course_dt_in_dd_list($course, $hot = false)
     }
 
     // show course language if not the same of the platform
-    if ( get_conf('platformLanguage') != $course['language'] )
+    if ( (get_conf('platformLanguage') != $course['language']) || get_conf('showAlwaysLanguageInCourseList',false) )
     {
-        if ( !empty($langNameOfLang[$course['language']]) )
+        if ( !empty($langNameOfLang[$course['language']])  )
         {
             $course_language_txt = ' - ' . ucfirst($langNameOfLang[$course['language']]);
         }

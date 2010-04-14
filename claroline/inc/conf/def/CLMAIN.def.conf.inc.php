@@ -46,6 +46,7 @@ $conf_def['section']['LANGUAGE']['description']='';
 $conf_def['section']['LANGUAGE']['properties'] =
 array ( 'platformLanguage'
       , 'language_to_display'
+      , 'showAlwaysLanguageInCourseList'
       );
 
 $conf_def['section']['ADMINISTRATOR_SETTING']['label']='Contact';
@@ -192,7 +193,17 @@ array ('label'         => 'Personal language selector'
       ,'acceptedValueType' => 'lang'
       ,'readonly'      => FALSE
       );
-
+      
+$conf_def_property_list['showAlwaysLanguageInCourseList'] =
+array ( 'label'       => 'Show always language in the course list'
+      , 'description' => ''
+      ,'default'     => TRUE
+      ,'type'        => 'boolean'
+      , 'display'     => TRUE
+      , 'readonly'    => FALSE
+      ,'acceptedValue' => array ('TRUE'=>'On', 'FALSE' => 'Off')
+      );
+      
 // Database settings
 
 $conf_def_property_list['dbHost'] =
