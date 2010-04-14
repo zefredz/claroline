@@ -52,26 +52,11 @@ $old_tool_array = array('CLANN',
 
 //UNDEACTIVABLE    TOOLS array
 
-$undeactivable_tool_array = array('CLDOC',
-                                  'CLGRP'
-                                  );
+$undeactivable_tool_array = get_not_deactivable_tool_list();
 
 //NONUNINSTALABLE TOOLS array
 
-$nonuninstalable_tool_array = array('CLANN',
-                        'CLCAL',
-                        'CLFRM',
-                        'CLCHT',
-                        'CLDOC',
-                        'CLDSC',
-                        'CLUSR',
-                        'CLLNP',
-                        'CLQWZ',
-                        'CLWRK',
-                        'CLWIKI',
-                        'CLLNK',
-                        'CLGRP'
-                        );
+$nonuninstalable_tool_array = get_not_uninstallable_tool_list();
 
 //SQL table name
 
@@ -248,15 +233,15 @@ switch ( $cmd )
     case 'exInstall' :
 
         // call by rqInstall
-        //1° GET THE FILE
-        //2° UNZIP IF ZIPPED
-        //3° INSTALL
+        //1ï¿½ GET THE FILE
+        //2ï¿½ UNZIP IF ZIPPED
+        //3ï¿½ INSTALL
 
 
         $moduleInstallable = false ;
 
         //include needed librabries for treatment
-        //1° GET THE FILE
+        //1ï¿½ GET THE FILE
         // File can be an uploaded package file
         // or a local package file
         // or a local unpackaged file

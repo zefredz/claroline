@@ -1864,3 +1864,33 @@ function is_module_registered_in_course( $toolId, $courseId )
     
     return $res;
 }
+
+
+function get_not_deactivable_tool_list()
+{
+    return array(
+        'CLDOC',
+        'CLGRP',
+        'CLUSR',
+        'CLFRM'
+    );
+}
+
+function get_not_uninstallable_tool_list()
+{
+    return array(
+        'CLANN',
+        'CLCAL',
+        'CLFRM',
+        'CLCHT',
+        'CLDOC',
+        'CLDSC',
+        'CLUSR',
+        'CLLNP',
+        'CLQWZ',
+        'CLWRK',
+        'CLWIKI',
+        'CLLNK',
+        'CLGRP'
+    );
+}
