@@ -511,7 +511,7 @@ switch ($item)
             }
 
             $out .= '<td align="right" valign="top">'
-            .    get_lang('Module activation by')
+            .    get_lang('In manual mode, module activable by')
             .    ' : ' . "\n"
             .    '</td>' . "\n"
             .    '<td>' . "\n"
