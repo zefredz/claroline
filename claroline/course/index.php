@@ -80,7 +80,8 @@ else
 
 $toolLinkList = array(
     'source' => array(),
-    'session' => array()
+    'session' => array(),
+	'standAlone' => array()
 );
 
 // generate toollists
