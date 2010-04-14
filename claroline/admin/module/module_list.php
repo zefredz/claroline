@@ -112,6 +112,18 @@ $_cleanInput['selectInput'] = (isset($_REQUEST['selectInput'])     ? $_REQUEST['
 
 // var_dump( $_REQUEST['activateOnInstall'] );
 
+$notAutoActivateInCourses = ( array_key_exists( 'notAutoActivateInCourses', $_REQUEST )
+    && $_REQUEST['notAutoActivateInCourses'] == 'on' )
+    ? true
+    : false
+    ;
+
+$activableOnlyByPlatformAdmin = ( array_key_exists( 'activableOnlyByPlatformAdmin', $_REQUEST )
+    && $_REQUEST['activableOnlyByPlatformAdmin'] == 'on' )
+    ? true
+    : false
+    ;
+
 $activateOnInstall = ( array_key_exists( 'activateOnInstall', $_REQUEST )
     && $_REQUEST['activateOnInstall'] == 'on' )
     ? true
@@ -378,6 +390,45 @@ switch ( $cmd )
                         }
 
                     }
+
+                    if ( $typeReq == 'tool' && $notAutoActivateInCourses )
+                    {
+                        /* @todo move to a lib */
+                        $tbl_mdb_names        = claro_sql_get_main_tbl();
+                        $tbl_tool_list        = $tbl_mdb_names['tool'];
+
+                        $sql = "UPDATE `{$tbl_tool_list}` "
+                            . "SET add_in_course = 'MANUAL' "
+                            . "WHERE claro_label = '" . claro_sql_escape( $moduleInfo['label']) . "'"
+                            ;
+
+                        if (claro_sql_query($sql))
+                        {
+                            $dialogBox->success( get_lang('Module activation at course creation set to MANUAL') );
+                        }
+                        else
+                        {
+                            $dialogBox->error( get_lang('Cannot change module activation on course creation') );
+                        }
+
+                        if ( $activableOnlyByPlatformAdmin )
+                        {
+                            /* @todo move to a lib */
+                            $sql = "UPDATE `{$tbl_tool_list}` "
+                                . "SET access_manager = 'PLATFORM_ADMIN' "
+                                . "WHERE claro_label = '" . claro_sql_escape( $moduleInfo['label']) . "'"
+                                ;
+
+                            if (claro_sql_query($sql))
+                            {
+                                $dialogBox->success( get_lang('Only PLATFORM_ADMIN can activate this module') );
+                            }
+                            else
+                            {
+                                $dialogBox->error( get_lang('Cannot change module activation on course creation') );
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -481,16 +532,21 @@ switch ( $cmd )
                 );
 
                 $dialogBox->form(
-                      '<form enctype="multipart/form-data" action="' . $_SERVER [ 'PHP_SELF' ] . '" method="POST">' . "\n"
+                      '<form enctype="multipart/form-data" action="' . $_SERVER [ 'PHP_SELF' ] . '" method="post">' . "\n"
                     . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />'  . "\n"
                     . '<input name="cmd" type="hidden" value="exInstall" />' . "\n"
                     . '<input name="uploadedModule" type="file" /><br />' . "\n"
                     . '<input name="activateOnInstall" id="activateOnInstall" type="checkbox" />'  . "\n"
                     . '<label for="activateOnInstall" >' . get_lang ( 'Activate module on install' ) . '</label>' . '<br />' . "\n"
-                    // . '<input name="autoActivateInCourses" id="autoActivateInCourses" type="checkbox" />'  . "\n"
-                    // . '<label for="autoActivateInCourses" >' . get_lang ( 'Activate automaticaly in courses <small>(course tool only)</small>' ) . '</label>' . '<br />' . "\n"
+                    . '<fieldset>'
+                    . '<legend>'.get_lang('The following options will only work for course tool modules :').'</legend>'
+                    . '<input name="notAutoActivateInCourses" id="autoActivateInCourses" type="checkbox" />'  . "\n"
+                    . '<label for="notAutoActivateInCourses" >' . get_lang ( 'This tool must be activated manualy in each course' ) . '</label>' . '<br />' . "\n"
+                    . '<input name="activableOnlyByPlatformAdmin" id="activableOnlyByPlatformAdmin" type="checkbox" />'  . "\n"
+                    . '<label for="activableOnlyByPlatformAdmin" >' . get_lang ( 'Make this tool activable only by the platform administrator <small>(available if the previous option is checked)</small>' ) . '</label>' . '<br />' . "\n"
                     . '<input name="visibleOnInstall" id="visibleOnInstall" type="checkbox" />'  . "\n"
-                    . '<label for="visibleOnInstall" >' . get_lang ( 'Visible in all courses on install <small>(course tool only)</small>' ) . '</label>'
+                    . '<label for="visibleOnInstall" >' . get_lang ( 'Visible in all courses on install <small>(this can take some time depending on the number of courses in your campus)</small>' ) . '</label>'
+                    . '</fieldset>'
                     . '<br />' . "\n"
                     . '<br />' . "\n"
                     . '<input value="' . get_lang ( 'Upload and Install module' ) . '" type="submit" />&nbsp;' . "\n"
