@@ -233,15 +233,15 @@ switch ( $cmd )
     case 'exInstall' :
 
         // call by rqInstall
-        //1� GET THE FILE
-        //2� UNZIP IF ZIPPED
-        //3� INSTALL
+        //1 GET THE FILE
+        //2 UNZIP IF ZIPPED
+        //3 INSTALL
 
 
         $moduleInstallable = false ;
 
         //include needed librabries for treatment
-        //1� GET THE FILE
+        //1 GET THE FILE
         // File can be an uploaded package file
         // or a local package file
         // or a local unpackaged file
@@ -320,8 +320,6 @@ switch ( $cmd )
                     else
                     {
                         $dialogBox->error( get_lang ( 'Module catching failed. Check your path' ) );
-                        //    $details = implode( "<br />\n", claro_failure::get_last_failure() );
-                        // $msgList [ 'error' ] [] = Backlog_Reporter::report ( $summary, $details ) ;
                         $moduleInstallable = false ;
                     }
                 }
@@ -403,7 +401,8 @@ switch ( $cmd )
          *
          */
         $inputPackage = array ( ) ;
-        if (get_conf ( 'can_install_local_module', true ))
+
+        if (get_conf ( 'can_install_local_module', false ))
         {
             $inputPackage [] = 'local' ;
         }
@@ -435,7 +434,7 @@ switch ( $cmd )
                 break ;
             
                 case 1 : //Direct display
-                    $selectInput = $inputPackage [ 0 ];
+                    $_cleanInput['selectInput'] = $selectInput = $inputPackage [ 0 ];
                 break ;
             
                 default : // SELECT ONE
@@ -444,16 +443,17 @@ switch ( $cmd )
                         . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />'
                         . '<input name="cmd" type="hidden" value="rqInstall" />' . "\n"
                         . get_lang('Where is your package ?')  . '<br />' . "\n"
-                        . (get_conf ( 'can_install_local_module', true ) ?
+
+                        . (get_conf ( 'can_install_upload_module', true ) ?
+                        
+                          '<input name="selectInput" value="upload"  id="zipOnYouComputerServer" type="radio" checked="checked" />'
+                        . '<label for="zipOnYouComputerServer" >' . get_lang ( 'Package on your computer (zip only)' ) . '</label>' . '<br />'
+                        :'')
+
+                        . (get_conf ( 'can_install_local_module', false ) ?
                         
                           '<input name="selectInput"  value="local" id="packageOnServer" type="radio" />'
                         . '<label for="packageOnServer" >' . get_lang ( 'Package on server (zipped or not)' ) . '</label>' . '<br />'
-                        :'')
-                        
-                        . (get_conf ( 'can_install_upload_module', true ) ?
-                        
-                          '<input name="selectInput" value="upload"  id="zipOnYouComputerServer" type="radio" />'
-                        . '<label for="zipOnYouComputerServer" >' . get_lang ( 'Package on your computer (zip only)' ) . '</label>' . '<br />'
                         :'')
                         
                         . (get_conf ( 'can_install_curl_module', false ) ?
