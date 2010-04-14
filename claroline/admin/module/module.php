@@ -69,11 +69,28 @@ function confirmMakeInVisible ()
 // GET REQUEST VARIABLES
 //----------------------------------
 
-$cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : null);
-$item = (isset($_REQUEST['item'])? $_REQUEST['item'] : 'GLOBAL');
-$section_selected = (isset($_REQUEST['section'])? $_REQUEST['section'] : null);
-$moduleId = (isset($_REQUEST['module_id'])? $_REQUEST['module_id'] : null);
+$cmd = isset($_REQUEST['cmd'])
+    ? $_REQUEST['cmd']
+    : null
+    ;
+
+$item = isset($_REQUEST['item'])
+    ? $_REQUEST['item']
+    : 'GLOBAL'
+    ;
+
+$section_selected = isset($_REQUEST['section'])
+    ? $_REQUEST['section']
+    : null
+    ;
+
+$moduleId = isset($_REQUEST['module_id'])
+    ? $_REQUEST['module_id']
+    : null
+    ;
+
 $module = get_module_info($moduleId);
+
 $dockList = get_dock_list($module['type']);
 
 $nameTools = get_lang('Module settings');
@@ -93,6 +110,48 @@ $dialogBox = new dialogBox();
 
 switch ( $cmd )
 {
+    case 'activplatformadmin' :
+    {
+        $tbl_mdb_names        = claro_sql_get_main_tbl();
+        $tbl_tool_list        = $tbl_mdb_names['tool'];
+
+        $sql = "UPDATE `{$tbl_tool_list}` "
+            . "SET access_manager = 'PLATFORM_ADMIN' "
+            . "WHERE claro_label = '" . claro_sql_escape( $module['label']) . "'"
+            ;
+
+        if (claro_sql_query($sql))
+        {
+            $dialogBox->success( get_lang('Only PLATFORM_ADMIN can activate this module') );
+            $module['accessManager']  = 'PLATFORM_ADMIN';
+        }
+        else
+        {
+            $dialogBox->error( get_lang('Cannot change module activation on course creation') );
+        }
+        break;
+    }
+    case 'activcoursemanager' :
+    {
+        $tbl_mdb_names        = claro_sql_get_main_tbl();
+        $tbl_tool_list        = $tbl_mdb_names['tool'];
+
+        $sql = "UPDATE `{$tbl_tool_list}` "
+            . "SET access_manager = 'COURSE_ADMIN' "
+            . "WHERE claro_label = '" . claro_sql_escape( $module['label']) . "'"
+            ;
+
+        if (claro_sql_query($sql))
+        {
+            $dialogBox->success( get_lang('COURSE_ADMIN can activate this module') );
+            $module['accessManager']  = 'COURSE_ADMIN';
+        }
+        else
+        {
+            $dialogBox->error( get_lang('Cannot change module activation on course creation') );
+        }
+        break;
+    }
     case 'courseactiv' :
     {
         $tbl_mdb_names        = claro_sql_get_main_tbl();
@@ -380,7 +439,7 @@ switch ($item)
 
         if ($module['type'] == 'tool')
         {
-            // var_dump($module['activateInCourse']);
+            // Course activation automatic or manual ?
             if (in_array($module['label'],$undeactivable_tool_array))
             {
                 // do not fuck with cthulhu !
@@ -423,6 +482,48 @@ switch ($item)
             .    '<td colspan="2">&nbsp;</td>' . "\n"
             .    '</tr>' . "\n"
             ;
+
+            // Access Manager
+
+            if ( 'PLATFORM_ADMIN' == $module['accessManager'] )
+            {
+                $activ_form  = 'activcoursemanager';
+                $action_link = '<a href="' . $_SERVER['PHP_SELF']
+                    . '?cmd='.$activ_form.'&module_id='.$module['module_id']
+                    . '&item=GLOBAL" title="'
+                    . get_lang('Platform administrator').'">'
+                    . '<img src="' . get_icon_url('platformadmin')
+                    . '" alt="'. get_lang('Platform administrator') . '" /> '
+                    . get_lang('Platform administrator') . '</a>'
+                    ;
+            }
+            else
+            {
+                $activ_form  = 'activplatformadmin';
+                $action_link = '<a href="' . $_SERVER['PHP_SELF']
+                    . '?cmd='.$activ_form.'&module_id='
+                    . $module['module_id'].'&item=GLOBAL" '
+                    . 'title="'.get_lang('Course manager').'">'
+                    . '<img src="' . get_icon_url('manager')
+                    . '" alt="'. get_lang('Course manager') . '"/> '
+                    . get_lang('Course manager') . '</a>'
+                    ;
+            }
+
+            $out .= '<td align="right" valign="top">'
+            .    get_lang('Module activation by')
+            .    ' : ' . "\n"
+            .    '</td>' . "\n"
+            .    '<td>' . "\n"
+            .    $action_link . "\n"
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n"
+            .    '<tr>' . "\n"
+            .    '<td colspan="2">&nbsp;</td>' . "\n"
+            .    '</tr>' . "\n"
+            ;
+
+            // Visibility
             
             $out .= '<tr><td align="right" valign="top">'
                 . get_lang( 'Change visibility in all courses' )
@@ -619,5 +720,3 @@ $out .= '</table>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

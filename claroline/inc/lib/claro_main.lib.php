@@ -799,6 +799,7 @@ function claro_get_main_course_tool_list ( $force = false )
                        m.name,
                        m.activation,
                        t.icon,
+                       t.access_manager,
                        t.script_url as url
                 FROM `" . $tbl_module . "` as m,
                      `" . $tbl_tool_list . "` as t
@@ -833,6 +834,15 @@ function claro_get_main_course_tool_list ( $force = false )
             else
             {
                 $courseToolList[$toolId]['activation'] = false;
+            }
+
+            if ( $courseTool['access_manager'] == 'PLATFORM_ADMIN' )
+            {
+                $courseToolList[$toolId]['activable'] = false;
+            }
+            else
+            {
+                $courseToolList[$toolId]['activable'] = true;
             }
         }
     }

@@ -48,6 +48,7 @@ function get_module_info($moduleId)
 
                CT.`icon`       AS icon,
                CT.`add_in_course` AS activateInCourses,
+               CT.`access_manager` AS accessManager,
 
                MI.version      AS version,
                MI.author       AS author,
