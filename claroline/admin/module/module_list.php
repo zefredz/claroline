@@ -112,6 +112,18 @@ $_cleanInput['selectInput'] = (isset($_REQUEST['selectInput'])     ? $_REQUEST['
 
 // var_dump( $_REQUEST['activateOnInstall'] );
 
+$notAutoActivateInCourses = ( array_key_exists( 'notAutoActivateInCourses', $_REQUEST )
+    && $_REQUEST['notAutoActivateInCourses'] == 'on' )
+    ? true
+    : false
+    ;
+
+$activableOnlyByPlatformAdmin = ( array_key_exists( 'activableOnlyByPlatformAdmin', $_REQUEST )
+    && $_REQUEST['activableOnlyByPlatformAdmin'] == 'on' )
+    ? true
+    : false
+    ;
+
 $activateOnInstall = ( array_key_exists( 'activateOnInstall', $_REQUEST )
     && $_REQUEST['activateOnInstall'] == 'on' )
     ? true
@@ -157,7 +169,7 @@ switch ( $cmd )
             $dialogBox->error( Backlog_Reporter::report( $summary, $details ) );
         }
         break;
-    
+
     case 'desactiv' :
         list( $backlog, $success ) = deactivate_module($module_id);
         $details = $backlog->output();
@@ -172,24 +184,24 @@ switch ( $cmd )
             $dialogBox->error( Backlog_Reporter::report( $summary, $details ) );
         }
         break;
-        
+
     case 'mvUp' :
             if(!is_null($courseToolId))
             {
                 move_module_tool($courseToolId, 'up');
             }
             break;
-        
+
     case 'mvDown' :
             if(!is_null($courseToolId))
             {
                 move_module_tool($courseToolId, 'down');
             }
             break;
-        
+
     case 'exUninstall' :
         $moduleInfo = get_module_info ( $module_id ) ;
-        
+
         if (in_array ( $moduleInfo [ 'label' ], $old_tool_array ))
         {
             $dialogBox->error( get_lang ( 'This tool can not be uninstalled.' ) );
@@ -197,9 +209,9 @@ switch ( $cmd )
         else
         {
             list ( $backlog, $success ) = uninstall_module ( $module_id, $deleteModuleDatabase ) ;
-            
+
             $details = $backlog->output () ;
-            
+
             if ($success)
             {
                 $summary = get_lang ( 'Module uninstallation succeeded' ) ;
@@ -233,15 +245,15 @@ switch ( $cmd )
     case 'exInstall' :
 
         // call by rqInstall
-        //1° GET THE FILE
-        //2° UNZIP IF ZIPPED
-        //3° INSTALL
+        //1 GET THE FILE
+        //2 UNZIP IF ZIPPED
+        //3 INSTALL
 
 
         $moduleInstallable = false ;
 
         //include needed librabries for treatment
-        //1° GET THE FILE
+        //1 GET THE FILE
         // File can be an uploaded package file
         // or a local package file
         // or a local unpackaged file
@@ -254,7 +266,7 @@ switch ( $cmd )
 
 
         pushClaroMessage(__LINE__ . '<pre>$_FILES ='.var_export($_FILES,1).'</pre>','dbg');
-        
+
         if (array_key_exists ( 'uploadedModule', $_FILES )
             || array_key_exists ( 'packageCandidatePath', $_REQUEST ))
         {
@@ -270,7 +282,7 @@ switch ( $cmd )
                 {
                     $summary = get_lang ( 'Module upload failed' ) ;
                     $details = get_file_upload_error_message ( $_FILES [ 'uploadedModule' ] ) ;
-                    
+
                     $dialogBox->error( Backlog_Reporter::report( $summary, $details ) );
                 }
                 else
@@ -286,7 +298,7 @@ switch ( $cmd )
                     {
                         $summary = get_lang ( 'Module unpackaging failed' ) ;
                         $details = implode ( "<br />\n", claro_failure::get_last_failure () ) ;
-                        
+
                         $dialogBox->error( Backlog_Reporter::report( $summary, $details ) );
                     }
                 }
@@ -320,23 +332,21 @@ switch ( $cmd )
                     else
                     {
                         $dialogBox->error( get_lang ( 'Module catching failed. Check your path' ) );
-                        //    $details = implode( "<br />\n", claro_failure::get_last_failure() );
-                        // $msgList [ 'error' ] [] = Backlog_Reporter::report ( $summary, $details ) ;
                         $moduleInstallable = false ;
                     }
                 }
             }
 
             pushClaroMessage ( __LINE__ . '<pre>$modulePath =' . var_export ( $modulePath, 1 ) . '</pre>', 'dbg' ) ;
-            
+
             // OK TO TRY TO INSTALL ?
             if ($moduleInstallable)
             {
 
                 list ( $backlog, $module_id ) = install_module ( $modulePath ) ;
-                
+
                 $details = $backlog->output () ;
-                
+
                 if (false !== $module_id)
                 {
 
@@ -380,6 +390,45 @@ switch ( $cmd )
                         }
 
                     }
+
+                    if ( $typeReq == 'tool' && $notAutoActivateInCourses )
+                    {
+                        /* @todo move to a lib */
+                        $tbl_mdb_names        = claro_sql_get_main_tbl();
+                        $tbl_tool_list        = $tbl_mdb_names['tool'];
+
+                        $sql = "UPDATE `{$tbl_tool_list}` "
+                            . "SET add_in_course = 'MANUAL' "
+                            . "WHERE claro_label = '" . claro_sql_escape( $moduleInfo['label']) . "'"
+                            ;
+
+                        if (claro_sql_query($sql))
+                        {
+                            $dialogBox->success( get_lang('Module activation at course creation set to MANUAL') );
+                        }
+                        else
+                        {
+                            $dialogBox->error( get_lang('Cannot change module activation on course creation') );
+                        }
+
+                        if ( $activableOnlyByPlatformAdmin )
+                        {
+                            /* @todo move to a lib */
+                            $sql = "UPDATE `{$tbl_tool_list}` "
+                                . "SET access_manager = 'PLATFORM_ADMIN' "
+                                . "WHERE claro_label = '" . claro_sql_escape( $moduleInfo['label']) . "'"
+                                ;
+
+                            if (claro_sql_query($sql))
+                            {
+                                $dialogBox->success( get_lang('Only PLATFORM_ADMIN can activate this module') );
+                            }
+                            else
+                            {
+                                $dialogBox->error( get_lang('Cannot change module activation on course creation') );
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -403,16 +452,17 @@ switch ( $cmd )
          *
          */
         $inputPackage = array ( ) ;
-        if (get_conf ( 'can_install_local_module', true ))
+
+        if (get_conf ( 'can_install_local_module', false ))
         {
             $inputPackage [] = 'local' ;
         }
-        
+
         if (get_conf ( 'can_install_upload_module', true ))
         {
             $inputPackage [] = 'upload' ;
         }
-        
+
         if (get_conf ( 'can_install_curl_module', false ))
         {
             $inputPackage [] = 'curl' ;
@@ -433,31 +483,32 @@ switch ( $cmd )
                           . claro_html_button('../tool/config_edit.php?config_code=CLMAIN&section=ADVANCED', get_lang('Go to config'))
                     );
                 break ;
-            
+
                 case 1 : //Direct display
-                    $selectInput = $inputPackage [ 0 ];
+                    $_cleanInput['selectInput'] = $selectInput = $inputPackage [ 0 ];
                 break ;
-            
+
                 default : // SELECT ONE
                     $dialogBox->form(
                           '<form action="' . $_SERVER [ 'PHP_SELF' ] . '" method="GET">' . "\n"
                         . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />'
                         . '<input name="cmd" type="hidden" value="rqInstall" />' . "\n"
                         . get_lang('Where is your package ?')  . '<br />' . "\n"
-                        . (get_conf ( 'can_install_local_module', true ) ?
-                        
+
+                        . (get_conf ( 'can_install_upload_module', true ) ?
+
+                          '<input name="selectInput" value="upload"  id="zipOnYouComputerServer" type="radio" checked="checked" />'
+                        . '<label for="zipOnYouComputerServer" >' . get_lang ( 'Package on your computer (zip only)' ) . '</label>' . '<br />'
+                        :'')
+
+                        . (get_conf ( 'can_install_local_module', false ) ?
+
                           '<input name="selectInput"  value="local" id="packageOnServer" type="radio" />'
                         . '<label for="packageOnServer" >' . get_lang ( 'Package on server (zipped or not)' ) . '</label>' . '<br />'
                         :'')
-                        
-                        . (get_conf ( 'can_install_upload_module', true ) ?
-                        
-                          '<input name="selectInput" value="upload"  id="zipOnYouComputerServer" type="radio" />'
-                        . '<label for="zipOnYouComputerServer" >' . get_lang ( 'Package on your computer (zip only)' ) . '</label>' . '<br />'
-                        :'')
-                        
+
                         . (get_conf ( 'can_install_curl_module', false ) ?
-                        
+
                           '<input name="selectInput" value="curl" id="zipOnThirdServer" type="radio" />'
                         . '<label for="zipOnThirdServer" >' . get_lang ( 'Package on the net (zip only)' ) . '</label>' . '<br />'
                         :'')
@@ -481,30 +532,35 @@ switch ( $cmd )
                 );
 
                 $dialogBox->form(
-                      '<form enctype="multipart/form-data" action="' . $_SERVER [ 'PHP_SELF' ] . '" method="POST">' . "\n"
+                      '<form enctype="multipart/form-data" action="' . $_SERVER [ 'PHP_SELF' ] . '" method="post">' . "\n"
                     . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />'  . "\n"
                     . '<input name="cmd" type="hidden" value="exInstall" />' . "\n"
                     . '<input name="uploadedModule" type="file" /><br />' . "\n"
                     . '<input name="activateOnInstall" id="activateOnInstall" type="checkbox" />'  . "\n"
                     . '<label for="activateOnInstall" >' . get_lang ( 'Activate module on install' ) . '</label>' . '<br />' . "\n"
-                    // . '<input name="autoActivateInCourses" id="autoActivateInCourses" type="checkbox" />'  . "\n"
-                    // . '<label for="autoActivateInCourses" >' . get_lang ( 'Activate automaticaly in courses <small>(course tool only)</small>' ) . '</label>' . '<br />' . "\n"
+                    . '<fieldset>'
+                    . '<legend>'.get_lang('The following options will only work for course tool modules :').'</legend>'
+                    . '<input name="notAutoActivateInCourses" id="autoActivateInCourses" type="checkbox" />'  . "\n"
+                    . '<label for="notAutoActivateInCourses" >' . get_lang ( 'This tool must be activated manualy in each course' ) . '</label>' . '<br />' . "\n"
+                    . '<input name="activableOnlyByPlatformAdmin" id="activableOnlyByPlatformAdmin" type="checkbox" />'  . "\n"
+                    . '<label for="activableOnlyByPlatformAdmin" >' . get_lang ( 'Make this tool activable only by the platform administrator <small>(available if the previous option is checked)</small>' ) . '</label>' . '<br />' . "\n"
                     . '<input name="visibleOnInstall" id="visibleOnInstall" type="checkbox" />'  . "\n"
-                    . '<label for="visibleOnInstall" >' . get_lang ( 'Visible in all courses on install <small>(course tool only)</small>' ) . '</label>'
+                    . '<label for="visibleOnInstall" >' . get_lang ( 'Visible in all courses on install <small>(this can take some time depending on the number of courses in your campus)</small>' ) . '</label>'
+                    . '</fieldset>'
                     . '<br />' . "\n"
                     . '<br />' . "\n"
                     . '<input value="' . get_lang ( 'Upload and Install module' ) . '" type="submit" />&nbsp;' . "\n"
                     .  claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) ) . '</form>' . "\n"
                 );
             break ;
-        
+
             case 'local' :
                 $dialogBox->warning(
                      '<p>' . "\n"
                     . get_lang ( 'Imported modules must be compatible with your Claroline version.' ) . '<br />' . "\n"
                     . get_lang ( 'Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.' ) . '</p>' . "\n\n"
                 );
-                
+
                 $dialogBox->form(
                       '<form enctype="multipart/form-data" action="' . $_SERVER [ 'PHP_SELF' ] . '" method="GET">' . "\n"
                     . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />'
@@ -525,13 +581,13 @@ switch ( $cmd )
                     . claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) ) . '</form>' . "\n"
                 );
             break ;
-        
+
             case 'curl' :
                 $dialogBox->error(
                      '<p>' . "\n"
                     . get_lang ( 'This feature is not ready.' ) . '</p>' . "\n\n"
                 );
-                
+
                 $dialogBox->warning(
                     '<p>' . "\n"
                     . get_lang ( 'Imported modules must consist of a zip file and be compatible with your Claroline version.' ) . '<br />' . "\n"
@@ -586,7 +642,7 @@ switch ( $cmd )
                         . get_lang('Error while deleting module files')
                         . '</p>' . "\n"
                     );
-                    
+
                     $success = false;
                 }
             }
@@ -596,7 +652,7 @@ switch ( $cmd )
         {
             $summary  = get_lang('Module installation failed');
             $details = get_lang('Missing module directory');
-            
+
             $dialogBox->error( Backlog_Reporter::report( $summary, $details ) );
         }
     }
@@ -614,12 +670,12 @@ switch ( $cmd )
                 {
                     list ( $backlog, $module_id ) = install_module ( $modulePath, true ) ;
                     $details = $backlog->output () ;
-                    
+
                     if (false !== $module_id)
                     {
                         $moduleInfo = get_module_info ( $module_id ) ;
                         $typeReq = $moduleInfo [ 'type' ] ;
-                        
+
                         $dialogBox->success( get_lang ( 'Module installation succeeded' ) );
                     } else
                     {
@@ -682,7 +738,7 @@ switch($typeReq)
         ;
         $orderType = "ORDER BY `def_rank` \n";
         break;
-    
+
      default :
         $sqlSelectType = "" ;
         $sqlJoinType = "" ;
