@@ -6,19 +6,17 @@ if ( count( get_included_files() ) == 1 )
 }
 
 /**
- * CLAROLINE
+ * Claroline extension modules library
  *
- * This lib make the interface with kernel task
- * and module extention for theses task.
+ * This lib make the interface with kernel task and module extention for theses
+ * task. It also provide some backward compatibility functions.
  *
- * Provide also some function making abstracation
- * for transition between structures before and after modularity
- *
- * @version     1.9 $Revision$
- * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      see 'credits' file
- * @package     KERNEL
+ * @version     1.10 $Revision$
+ * @copyright   (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
+ *  version 2 or later
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     kernel.module
  * @since       1.8
  */
 
@@ -35,7 +33,6 @@ defined('CLARO_CONTEXT_TOOLLABEL')    || define('CLARO_CONTEXT_TOOLLABEL','toolL
  * @return string
  * @since 1.9
  */
- 
 function get_package_path()
 {
     return get_path('rootSys') . 'packages/';
@@ -47,7 +44,6 @@ function get_package_path()
  * @param string $toolLabel
  * @return string
  */
- 
 function get_module_path($toolLabel)
 {
 
@@ -79,7 +75,6 @@ function get_module_path($toolLabel)
  * @param string $toolLabel
  * @return string
  */
-
 function get_module_url($toolLabel)
 {
     $toolLabel = rtrim($toolLabel,'_');
@@ -110,7 +105,6 @@ function get_module_url($toolLabel)
  * @param string $toolId
  * @return array
  */
-
 function get_module_db_dependance($toolId)
 {
     // actual place of this info prom module
@@ -147,11 +141,12 @@ function get_module_db_dependance($toolId)
 }
 
 /**
- * return the syspath where a tool can store these file for a given context
+ * Return the syspath where a tool can store these file for a given context
  *
- * @param unknown_type $context
+ * @param mixed $contextData
+ * @return string
  */
-function claro_get_data_path($contextData=array())
+function claro_get_data_path( $contextData=array() )
 {
     if(is_null($contextData)
         || !array_key_exists(CLARO_CONTEXT_TOOLLABEL,$contextData))
@@ -173,11 +168,6 @@ function claro_get_data_path($contextData=array())
     {
         $contextData[CLARO_CONTEXT_USER] = claro_get_current_user_id();
     }
-    /*if(is_null($contextData)
-        || !array_key_exists(CLARO_CONTEXT_TOOLINSTANCE,$contextData))
-    {
-        $contextData[CLARO_CONTEXT_TOOLINSTANCE] = claro_get_current_tool_id();
-    }*/
 
     if (isset($contextData[CLARO_CONTEXT_COURSE]))
     {
@@ -212,26 +202,37 @@ function claro_get_data_path($contextData=array())
 
 }
 
-function get_module_entry($claroLabel)
+/**
+ * Get module entry filename
+ * @param string $claroLabel module label
+ * @return string
+ */
+function get_module_entry( $claroLabel )
 {
     return get_module_data($claroLabel, 'entry' );
 
 }
 
-
 /**
- * return the complete path to the entry of an module.
+ * Get the complete path to the entry of an module.
  *
- * @param string $claroLabel
+ * @param string $claroLabel module label
  * @return string
  */
-function get_module_entry_url($claroLabel)
+function get_module_entry_url( $claroLabel )
 {
     return get_module_url($claroLabel) . '/'
         . ltrim(get_module_entry($claroLabel),'/')
         ;
 }
 
+/**
+ * Get information about a module
+ * @param string $claroLabel module label
+ * @param <type> $dataName
+ * @param <type> $ignoreCache
+ * @return <type>
+ */
 function get_module_data( $claroLabel, $dataName = null, $ignoreCache = false )
 {
     static $cachedModuleDataList = null;
@@ -276,7 +277,7 @@ function get_module_data( $claroLabel, $dataName = null, $ignoreCache = false )
 /**
  * Check if a module is installed and actived.
  *
- * @param string $modLabel
+ * @param string $modLabel module label
  * @return array
  */
 function check_module($modLabel)
@@ -311,10 +312,10 @@ function check_module($modLabel)
 
 /**
  * Load language file for a module
- * FIXME : REMOVE !
  * @deprecated since Claroline 1.9, use language::load_module_translation
  * @param   $moduleLabel module label (default null for current module)
  * @param   $language language name (default null for current language)
+ * @deprecated since 1.9
  */
 function load_module_language ( $moduleLabel = null, $language = null )
 {
@@ -323,11 +324,10 @@ function load_module_language ( $moduleLabel = null, $language = null )
 
 /**
  * Merge module lang with lang file
- *
- * FIXME : REMOVE !
  * @deprecated since Claroline 1.9, use language::load_module_translation
  * @param   $moduleLabel module label (default null for current module)
  * @param   $language language name (default null for current language)
+ * @deprecated since 1.9
  */
 function add_module_lang_array( $moduleLabel = null, $language = null )
 {
@@ -336,7 +336,7 @@ function add_module_lang_array( $moduleLabel = null, $language = null )
 
 /**
  * Get the list of all modules on the platform
- * @param   bool activeModulesOnly selects only active module (default true)
+ * @param   bool $activeModulesOnly selects only active module (default true)
  * @return  array module label list
  * @throws  COULD_NOT_GET_MODULE_LABEL_LIST
  * @author  Frederic Minne <zefredz@claroline.net>
@@ -373,7 +373,7 @@ function get_module_label_list( $activeModulesOnly = true )
     }
 }
 
-/**
+/*
  * Module (un)installation functions
  */
 
@@ -394,6 +394,13 @@ function install_module_in_course( $moduleLabel, $courseId )
     install_module_script_in_course( $moduleLabel, $courseId );
 }
 
+/**
+ * Create and initialize the module database in the given course
+ * @param string $moduleLabel
+ * @param string $courseId
+ * @todo what to return if the script file does not exists ?!?
+ * @return boolean
+ */
 function install_module_database_in_course( $moduleLabel, $courseId )
 {
     $sqlPath = get_module_path( $moduleLabel ) . '/setup/course_install.sql';
@@ -404,9 +411,18 @@ function install_module_database_in_course( $moduleLabel, $courseId )
         {
             return false;
         }
+        else
+        {
+            return true;
+        }
     }
 }
 
+/**
+ * Execute module initialization script in the given course
+ * @param string $moduleLabel
+ * @param string $courseId
+ */
 function install_module_script_in_course( $moduleLabel, $courseId )
 {
     $phpPath = get_module_path( $moduleLabel ) . '/setup/course_install.php';
@@ -607,6 +623,14 @@ function load_module_config ( $moduleLabel = null )
     }
 }
 
+/**
+ * Get the list of tools in a course
+ * @param string $courseIdReq course code
+ * @param boolean $platformActive get only modules activated for the platform
+ * @param boolean $courseActive get only modules activated in the current course
+ * @param string $context context of the module
+ * @return array or false
+ */
 function module_get_course_tool_list( $courseIdReq,
                                     $platformActive = true,
                                     $courseActive = true,
@@ -695,6 +719,11 @@ function module_get_course_tool_list( $courseIdReq,
     return claro_sql_query_fetch_all($sql);
 }
 
+/**
+ * Get the list of labels for the modules available in groups
+ * @param boolean $activatedOnly get only activated modules
+ * @return array or false
+ */
 function get_group_tool_label_list( $activatedOnly = true )
 {
     $tbl = claro_sql_get_main_tbl();
@@ -711,6 +740,11 @@ function get_group_tool_label_list( $activatedOnly = true )
     return claro_sql_query_fetch_all_rows($sql);
 }
 
+/**
+ * Get the list of modules activated for the groups in the given course
+ * @param string $courseId course code
+ * @return array or false
+ */
 function get_activated_group_tool_label_list( $courseId )
 {
     return module_get_course_tool_list( $courseId,
@@ -719,9 +753,16 @@ function get_activated_group_tool_label_list( $courseId )
                                     'group' );
 }
 
+/**
+ * Is the given tool activated in the given course ?
+ * @param int $toolId tool id
+ * @param string $courseIdReq course code
+ * @return boolean
+ */
 function is_tool_activated_in_course( $toolId, $courseIdReq )
 {
-    $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseIdReq) );
+    $tbl_cdb_names        = claro_sql_get_course_tbl( 
+        claro_get_course_db_name_glued( $courseIdReq ) );
     $tbl_course_tool_list = $tbl_cdb_names['tool'];
     
     $sql = "SELECT count(*) \n"
@@ -733,6 +774,12 @@ function is_tool_activated_in_course( $toolId, $courseIdReq )
     return ( false != claro_sql_query_fetch_single_value($sql) );
 }
 
+/**
+ * Is the given module installed in the given course ?
+ * @param string $toolLabel module label
+ * @param string $courseId course code
+ * @return boolean
+ */
 function is_module_installed_in_course( $toolLabel, $courseId )
 {
     $toolId = get_tool_id_from_module_label( $toolLabel );
@@ -749,6 +796,12 @@ function is_module_installed_in_course( $toolLabel, $courseId )
     return ( false != claro_sql_query_fetch_single_value($sql) );
 }
 
+/**
+ * Is the given module activated in the groups of the given course ?
+ * @param string $courseId course code
+ * @param string $toolLabel module label
+ * @return boolean
+ */
 function is_tool_activated_in_groups( $courseId, $toolLabel )
 {
     $activatedGroupToolList = get_activated_group_tool_label_list( $courseId );
@@ -764,6 +817,11 @@ function is_tool_activated_in_groups( $courseId, $toolLabel )
     return false;
 }
 
+/**
+ * Get the tool id corresponding to the given module label
+ * @param string $moduleLabel
+ * @return int
+ */
 function get_tool_id_from_module_label( $moduleLabel )
 {
     $tbl = claro_sql_get_main_tbl();
@@ -775,6 +833,11 @@ function get_tool_id_from_module_label( $moduleLabel )
     return claro_sql_query_fetch_single_value($sql);
 }
 
+/**
+ * Get the module label corresponding to the given tool id
+ * @param int $toolId
+ * @return string
+ */
 function get_module_label_from_tool_id( $toolId )
 {
     $tbl = claro_sql_get_main_tbl();

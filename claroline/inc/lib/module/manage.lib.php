@@ -6,16 +6,15 @@ if ( count( get_included_files() ) == 1 )
 }
 
 /**
- * CLAROLINE
+ * Claroline extension modules management library
  *
- * manage module of the system
- *
- * @version     1.9 $Revision$
- * @copyright   2001-2009 Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Install
+ * @version     1.10 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *      GNU GENERAL PUBLIC LICENSE version 2 or later
  * @author      Claro Team <cvs@claroline.net>
- * @package     MODULES
+ * @package     kernel.module
+ * @todo why do we need that much identifiers for a module ?!?
  */
 
 require_once dirname(__FILE__) . '/../fileManage.lib.php';
@@ -118,12 +117,12 @@ function get_installed_module_list($type = null)
 }
 
 /**
+ * Get the tool id in a course (not the main tool id!) from the module label
  * @param the label of a course tool
  * @return the id in the course tool tabel
  *         false if tool not found
  */
-
-function get_course_tool_id($label)
+function get_course_tool_id( $label )
 {
     $tbl = claro_sql_get_main_tbl();
 
@@ -223,10 +222,10 @@ function check_module_repositories()
 
 
 /**
- * 
- * This function would be split
- * 
- * 
+ * Unzip a module package archive and get the path of the unzipped files
+ * @todo split this function and use unzip_package()
+ * @todo remove the need of the Backlog and use Exceptions instead
+ * @return string
  */
 function get_and_unzip_uploaded_package()
 {
@@ -288,10 +287,13 @@ function get_and_unzip_uploaded_package()
 }
 
 /**
- * 
- * 
+ * Unzip the module package
+ * @param string $packageFileName
+ * @return string module path
+ * @todo use this function in get_and_unzip_uploaded_package()
+ * @todo remove the need of the Backlog and use Exceptions instead
  */
-function unzip_package($packageFileName )
+function unzip_package( $packageFileName )
 {
     $backlog_message = array();
 
@@ -401,14 +403,14 @@ function generate_module_cache()
 }
 
 /**
- * function to install a specific module to the platform
+ * Install a specific module to the platform
  * @param string $modulePath path to the module
  * @param bool $skipCheckDir skip checking if module directory already exists (default false)
  * @return array( backlog, int )
  *      backlog object containing the messages
  *      int moduleId if the install process suceeded, false otherwise
+ * @todo remove the need of the Backlog and use Exceptions instead
  */
-
 function install_module($modulePath, $skipCheckDir = false, $registerModuleInCourses = false )
 {
     $backlog = new Backlog;
@@ -560,7 +562,6 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
  *      backlog object
  *      boolean true if the activation process suceeded, false otherwise
  */
-
 function activate_module($moduleId, $activateInAllCourses = false)
 {
     $success = true;
@@ -597,6 +598,12 @@ function activate_module($moduleId, $activateInAllCourses = false)
     return array( $backlog1, $success );
 }
 
+/**
+ * Activate the module for the plateforme
+ * @param int $moduleId
+ * @return array array( Backlog $backlog, boolean $success );
+ * @todo remove the need of the Backlog and use Exceptions instead
+ */
 function activate_module_in_platform( $moduleId )
 {
     $success = true;
@@ -640,6 +647,12 @@ function activate_module_in_platform( $moduleId )
     return array( $backlog, $success );
 }
 
+/**
+ * Activate the module in all courses
+ * @param string $moduleLabel
+ * @return array array( Backlog $backlog, boolean $success );
+ * @todo remove the need of the Backlog and use Exceptions instead
+ */
 function activate_module_in_all_courses( $toolLabel )
 {
     $toolId = get_tool_id_from_module_label( $toolLabel );
@@ -670,8 +683,8 @@ function activate_module_in_all_courses( $toolLabel )
  * @return array( backlog, boolean )
  *      backlog object
  *      boolean true if the deactivation process suceeded, false otherwise
+ * @todo remove the need of the Backlog and use Exceptions instead
  */
-
 function deactivate_module($moduleId)
 {
     $success = true;
@@ -719,14 +732,14 @@ function deactivate_module($moduleId)
 }
 
 /**
- * function to uninstall a specific module to the platform
+ * Uninstall a specific module to the platform
  *
  * @param integer $moduleId the id of the module to uninstall
  * @return array( backlog, boolean )
  *      backlog object
  *      boolean true if the uninstall process suceeded, false otherwise
+ * @todo remove the need of the Backlog and use Exceptions instead
  */
-
 function uninstall_module($moduleId, $deleteModuleData = true)
 {
     $success = true;
@@ -897,6 +910,7 @@ function uninstall_module($moduleId, $deleteModuleData = true)
  * @return array( backlog, boolean )
  *      backlog object
  *      boolean true if suceeded, false otherwise
+ * @todo remove the need of the Backlog and use Exceptions instead
  */
 function register_module_in_courses( $moduleId )
 {
@@ -979,6 +993,7 @@ function register_module_in_single_course( $tool_id, $course_code )
  * @return array( backlog, boolean )
  *      backlog object
  *      boolean true if suceeded, false otherwise
+ * @todo remove the need of the Backlog and use Exceptions instead
  */
 function unregister_module_from_courses( $moduleId )
 {
@@ -1048,6 +1063,7 @@ function unregister_module_from_single_course( $tool_id, $course_code )
  * @return array( backlog, boolean )
  *      backlog object
  *      boolean true if suceeded, false otherwise
+ * @todo remove the need of the Backlog and use Exceptions instead
  */
 function set_module_visibility( $moduleId, $visibility )
 {
@@ -1088,6 +1104,7 @@ function set_module_visibility( $moduleId, $visibility )
  * @return array( backlog, boolean )
  *      backlog object
  *      boolean true if suceeded, false otherwise
+ * @todo remove the need of the Backlog and use Exceptions instead
  */
 function set_module_visibility_in_course( $tool_id, $courseCode, $visibility )
 {
@@ -1115,7 +1132,8 @@ function set_module_visibility_in_course( $tool_id, $courseCode, $visibility )
  * Add module in claroline, giving  its path
  *
  * @param string $modulePath
- * @return install result
+ * @return int module id or false
+ * @todo remove the need of the Backlog and use Exceptions instead
  */
 function register_module($modulePath)
 {
@@ -1187,7 +1205,7 @@ function register_module($modulePath)
  * * module_info for descriptive info
  *
  * @param array $module_info.
- * @return integer moduleId in the registry.
+ * @return int moduleId in the registry.
  */
 function register_module_core($module_info)
 {
@@ -1245,10 +1263,9 @@ function register_module_core($module_info)
 
 /**
  * Store all unique info about a tool during install
- *
  * @param integer $moduleId
  * @param array $moduleToolData, data from manifest
- * @return unknown
+ * @return int tool id or false
  */
 
 function register_module_tool($moduleId,$module_info)
@@ -1333,11 +1350,9 @@ function register_module_tool($moduleId,$module_info)
 
 /**
  * Set the dock in which the module displays its content
- *
  * @param integer $moduleId id of the module to rename
  * @param string $newDockName new name  for the doc
- *
- * @return handler result of insert
+ * @return boolean
  */
 function add_module_in_dock( $moduleId, $newDockName )
 {
@@ -1381,10 +1396,8 @@ function add_module_in_dock( $moduleId, $newDockName )
 
 /**
  * Remove a module from a dock in which the module displays
- *
  * @param integer $moduleId
  * @param string  $dockName
- *
  */
 
 function remove_module_dock($moduleId, $dockName)
@@ -1441,7 +1454,6 @@ function remove_module_dock($moduleId, $dockName)
 
 /**
  * Move a module inside its dock (change its position in the display
- *
  * @param integer $moduleId
  * @param string $dockName
  * @param string $direction 'up' or 'down'
@@ -1524,9 +1536,8 @@ function move_module_in_dock($moduleId, $dockName, $direction)
 
 /**
  * Function used by the SAX xml parser when the parser meets a opening tag
- *
  * @param tring $dockName the dock from which we want this info
- * @return integer : the max rank used for this dock
+ * @return int the max rank used for this dock
  *
  */
 function get_max_rank_in_dock($dockName)
@@ -1543,7 +1554,6 @@ function get_max_rank_in_dock($dockName)
 
 /**
  * Return list of dock where a module is docked
- *
  * @param integer $moduleId
  * @return array of array ( id, name)
  */
@@ -1566,7 +1576,6 @@ function get_module_dock_list($moduleId)
 
 /**
  * Return list of dock aivailable for a given type
- *
  * @param string $moduleType
  * @param string $context
  * @return array
@@ -1604,13 +1613,11 @@ function get_dock_list($moduleType)
 // COURSE TOOL RANK MANAGEMENT FUNCTIONS
 
 /**
- * move the place of the module in the module list
+ * Move the place of the module in the module list
  * (it changes the value of def_rank in the course_tool table)
  * @param $moduleId id of the module tool to move
  * @param $sense should either 'up' or 'down' to know in which direction the module has to move in the list
  */
-
-
 function move_module_tool($toolId, $sense)
 {
    $tbl_mdb_names        = claro_sql_get_main_tbl();
@@ -1673,11 +1680,10 @@ function move_module_tool($toolId, $sense)
 }
 
 /**
- *
- * @param id of the course_tool module to get rank
+ * Get the rank of the tool in the course tool list
+ * @param int $toolId id of the course_tool module to get rank
  * @return the value of the rank (def_rank table)
  */
-
 function get_course_tool_rank($toolId)
 {
     $tbl_mdb_names        = claro_sql_get_main_tbl();
@@ -1691,10 +1697,10 @@ function get_course_tool_rank($toolId)
 
 /**
  *
- * @return integer the value of the rank of the course_tool just after the course tool of rank $rank in the list
+ * @return int the rank of the course_tool just after the course tool of rank
+ *  $rank in the list
  */
-
-function get_next_course_tool($rank)
+function get_next_course_tool( $rank )
 {
     $tbl_mdb_names        = claro_sql_get_main_tbl();
     $tbl_tool_list        = $tbl_mdb_names['tool'];
@@ -1710,9 +1716,9 @@ function get_next_course_tool($rank)
 
 /**
  *
- * @return integer the value of the rank of the course_tool just before the course toolof rank $rank in the list
+ * @return integer the value of the rank of the course_tool just before the
+ * course toolof rank $rank in the list
  */
-
 function get_before_course_tool($rank)
 {
     $tbl_mdb_names        = claro_sql_get_main_tbl();
@@ -1727,10 +1733,8 @@ function get_before_course_tool($rank)
 
 /**
  * get maximum position already used in the course_tool of the def_rank value
- *
  * @return : the maximum value
  */
-
 function get_course_tool_max_rank()
 {
     $tbl = claro_sql_get_main_tbl();
@@ -1741,10 +1745,8 @@ function get_course_tool_max_rank()
 
 /**
  * get minimum position already used in the course_tool of the def_rank value
- *
  * @return : the minimum value
  */
-
 function get_course_tool_min_rank()
 {
     $tbl = claro_sql_get_main_tbl();
@@ -1755,7 +1757,6 @@ function get_course_tool_min_rank()
 
 /**
  * Check  if the  given  file path point on a claroline package file
- *
  * @param string $packagePath
  * @return boolean 
  */
@@ -1769,7 +1770,13 @@ function is_package_file($packagePath)
      return false;
 }
 
-function course_tool_already_installed($toolId,$courseId)
+/**
+ * Is the tool already installed in the course
+ * @param int $toolId main tool id
+ * @param string $courseId course code
+ * @return boolean
+ */
+function course_tool_already_installed( $toolId, $courseId )
 {
     $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
     $tblCourseToolList = $tbl_cdb_names['tool'];
@@ -1782,6 +1789,12 @@ function course_tool_already_installed($toolId,$courseId)
     return claro_sql_query_fetch_single_value($sql) == 'true';
 }
 
+/**
+ * Is the tool already registered in the course
+ * @param int $toolId main tool id
+ * @param string $courseId course code
+ * @return boolean
+ */
 function is_tool_registered_in_course( $toolId, $courseId )
 {
     $currentCourseDbNameGlu = claro_get_course_db_name_glued($courseId);
@@ -1796,11 +1809,20 @@ function is_tool_registered_in_course( $toolId, $courseId )
     return claro_sql_query_fetch_single_value($sql);
 }
 
+/**
+ * Change the activation status for the given tool in the given course
+ * @param int $toolId main tool id
+ * @param string $courseId
+ * @param boolean $activated
+ * @return boolean
+ */
 function update_course_tool_activation_in_course( $toolId, $courseId, $activated )
 {
     if ( $activated && !course_tool_already_installed($toolId,$courseId) )
     {
-        if ( $tLabel = get_module_label_from_tool_id( $toolId ) )
+        $tLabel = get_module_label_from_tool_id( $toolId );
+
+        if ( $tLabel )
         {
             if ( ! is_tool_registered_in_course( $toolId, $courseId ) )
             {
@@ -1832,6 +1854,12 @@ function update_course_tool_activation_in_course( $toolId, $courseId, $activated
     }
 }
 
+/**
+ * Change the tool installation status in the course
+ * @param int $toolId main tool id
+ * @param string $courseId
+ * @return boolean
+ */
 function update_tool_installation_in_course( $toolId, $courseId )
 {
     $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
@@ -1852,6 +1880,12 @@ function update_tool_installation_in_course( $toolId, $courseId )
     }
 }
 
+/**
+ * Is the module registered in the given course ?
+ * @param int $toolId main tool id
+ * @param string $courseId course code
+ * @return boolean
+ */
 function is_module_registered_in_course( $toolId, $courseId )
 {
     $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );

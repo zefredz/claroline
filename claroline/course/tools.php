@@ -1,17 +1,13 @@
 <?php // $Id$
+
 /**
- * CLAROLINE
+ * Claroline Course Tool List management script
  *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
+ * @version 1.10 $Revision$
+ * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
+ *  version 2 or later
  * @package CLHOME
- *
- * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_home/course_home_edit.php
- *
  * @author Claro Team <cvs@claroline.net>
  */
 
@@ -737,5 +733,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
