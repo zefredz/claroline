@@ -1,17 +1,13 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * Claroline extension modules settings script
  *
  * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
+ * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
+ *  version 2 or later
  * @package ADMIN
- *
  * @author claro team <cvs@claroline.net>
- * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  * @since 1.8
  */
 

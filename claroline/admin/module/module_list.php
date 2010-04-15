@@ -8,7 +8,6 @@
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package ADMIN
- *
  * @author claro team <cvs@claroline.net>
  */
 
@@ -1043,5 +1042,3 @@ if ( $myPager->get_previous_offset() ) $out .= $myPager->disp_pager_tool_bar ( '
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

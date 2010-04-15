@@ -3,17 +3,20 @@
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
- * CLAROLINE
+ * Claroline main functions library
  *
  * This lib contain many parts of frequently used function.
  * This is not a thematic lib
  *
  * @version 1.9 $Revision$
- * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author see 'credits' file
- * @package KERNEL
- *
+ * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
+ *  version 2 or later
+ * @author Claro Team <cvs@claroline.net> for additionnal authors see the
+ *  'credits.txt' file
+ * @package kernel
+ * @todo why do we need that much identifiers for a module ?!?
+ * @todo use Exceptions instead of claro_failure
  */
 
 require_once(dirname(__FILE__) . '/language.lib.php');
@@ -191,7 +194,6 @@ function claro_get_course_data($courseId = NULL, $force = false )
  * The 4th first properties  are course properties dedicated to groups as default value.
  * The 'tool' array is like course.tool_list.
  */
-
 function claro_get_main_group_properties($courseId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
@@ -298,7 +300,6 @@ function claro_get_course_path($cid=NULL)
  * @author Christophe Gesche <moosh@claroline.net>
  * @since 1.7
  */
-
 function claro_get_group_data($context, $force = false )
 {
     if (is_array($context) && array_key_exists(CLARO_CONTEXT_COURSE,$context))
@@ -385,7 +386,6 @@ function claro_get_course_group_path($context)
  * @return array list of localised name of tools
  * @todo with plugin, this lis would be read in a dynamic datasource
  */
-
 function claro_get_tool_name_list()
 {
     return claro_get_module_name_list();
@@ -470,7 +470,6 @@ function claro_get_module_name_list($active = true)
  *
  * @return array the main course list array ( $tid => 'label','name','url','icon','activation' )
  */
-
 function claro_get_main_course_tool_list ( $force = false )
 {
     static $courseToolList = null ;
@@ -818,8 +817,8 @@ $claro_failureList = array();
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @package failure
+ * @deprecated since 1.9, use Exceptions instead
  */
-
 class claro_failure
 {
     /*
@@ -1429,18 +1428,6 @@ function claro_unquote_gpc()
  */
 function claro_get_current_context($contextKeys = null)
 {
-    /* $currentKeys = array();
-
-    if(!is_null($contextKeys) && !is_array($contextKeys)) $contextKeys = array($contextKeys);
-
-    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_COURSE,$contextKeys))       && claro_is_in_a_course()) $currentKeys[CLARO_CONTEXT_COURSE]       = claro_get_current_course_id();
-    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_GROUP,$contextKeys))        && !is_null($GLOBALS['_gid'])) $currentKeys[CLARO_CONTEXT_GROUP]        = claro_get_current_group_id();
-    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_USER,$contextKeys))         && !is_null($GLOBALS['_uid'])) $currentKeys[CLARO_CONTEXT_USER]         = claro_get_current_user_id();
-    //if((is_null($contextKeys) || in_array('session',$contextKeys))      && !is_null($GLOBALS['_sid']))  $currentKeys['session']       = get_init('_sid');
-    if((is_null($contextKeys) || in_array('toolInstance',$contextKeys)) && !is_null($GLOBALS['_tid'])) $currentKeys['toolInstance'] = claro_get_current_tool_id();
-
-    return $currentKeys;*/
-
     return Claro_Context::getCurrentContext();
 }
 
@@ -1563,6 +1550,13 @@ function claro_form_relay_context($context=null)
     return $html;
 }
 
+/**
+ * Get the string needed to relay the current context in urls
+ * @param string $prepend string to prepend to the relayed context
+ * @param array $context
+ * @return string
+ * @deprecated since 1.9 use Url::Contextualize instead
+ */
 function claro_url_relay_context($prepend='',$context=null)
 {
     if(is_null($context))
@@ -1588,6 +1582,10 @@ function claro_url_relay_context($prepend='',$context=null)
     else                    return '';
 }
 
+/**
+ * Get (and not display !) the debug banner html code
+ * @return string
+ */
 function claro_disp_debug_banner()
 {
     require_once dirname( __FILE__ ) . '/backlog.class.php';
@@ -1664,6 +1662,12 @@ function claro_debug_mode()
         || ( get_conf('triggerDebugMode', false) && isset($_SESSION['claro_debug_mode']) && $_SESSION['claro_debug_mode'] );
 }
 
+/**
+ * Is the given tool activated in the given course
+ * @param string $courseId course code
+ * @param string $toolId tool id in the course, not the main tool id !
+ * @return boolean
+ */
 function claro_is_course_tool_activated( $courseId, $toolId )
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
@@ -1717,6 +1721,10 @@ function claro_get_tool_id_from_course_tid( $tid, $courseId = null, $profileId =
     return false;
 }
 
+/**
+ * Load configuration file given its name
+ * @param string $name
+ */
 function load_kernel_config( $name )
 {
     $name = secure_file_path( $name );
