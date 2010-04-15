@@ -93,21 +93,19 @@ if ( !claro_is_platform_admin() )
 }
 else
 {
-    // security : only a platform admin can edit other users than himself...
-
+    //Security: only a platform admin can edit other users than himself...
     if ( isset($fromAdmin)
-    && ( $fromAdmin == 'settings' || $fromAdmin == 'usercourse' )
-    && !empty($uidToEdit)
-    )
+        && ( $fromAdmin == 'settings' || $fromAdmin == 'usercourse' )
+        && !empty($uidToEdit)
+        )
     {
         $userSettingMode = TRUE;
     }
-
+    
     if ( !empty($fromAdmin) ) $inURL    .= '&amp;fromAdmin=' . $_REQUEST['fromAdmin'];
     if ( !empty($uidToEdit) ) $inURL    .= '&amp;uidToEdit=' . $_REQUEST['uidToEdit'];
-
-    // in admin mode, there 2 possibilities : we might want to enroll themself or either be here from admin tool
-
+    
+    //In admin mode, there are 2 possibilities: we might want to enroll themself or either be here from admin tool
     if ( !empty($uidToEdit) )
     {
         $userId = $uidToEdit;
@@ -121,7 +119,7 @@ else
 } // if (!claro_is_platform_admin())
 
 /*---------------------------------------------------------------------
- Define breadcrumbs
+Define breadcrumbs
 ---------------------------------------------------------------------*/
 
 if ( isset($_REQUEST['addNewCourse']) )
@@ -130,7 +128,7 @@ if ( isset($_REQUEST['addNewCourse']) )
 }
 
 /*---------------------------------------------------------------------
- breadcrumbs is different if we come from admin tool
+Breadcrumbs is different if we come from admin tool
 ---------------------------------------------------------------------*/
 
 if ( !empty($fromAdmin) )
@@ -161,8 +159,8 @@ if ( !empty($fromAdmin) )
 }
 
 /*---------------------------------------------------------------------
- DB tables initialisation
- Find info about user we are working with
+DB tables initialisation
+Find info about user we are working with
 ---------------------------------------------------------------------*/
 
 $userInfo = user_get_properties($userId);
@@ -184,7 +182,6 @@ if(!$userInfo)
         break;
     }
 }
-
 
 /*----------------------------------------------------------------------------
 Unsubscribe from a course
@@ -492,17 +489,17 @@ switch ( $displayMode )
         {
             $out .= '<hr size="1" noshade="noshade" />' . "\n";
         }
-
+        
         // Course List
         if ( count($coursesList) > 0 )
         {
             $out .= '<h4>' . get_lang('Course list') . '</h4>' . "\n"
             .    '<blockquote>' . "\n"
             .    '<table class="claroTable emphaseLine" >' . "\n" ;
-
+            
             if ( $userSettingMode ) // Display links to enroll as student and also as teacher (but not for a class)
             {
-
+            
                 $out .= '<thead>' . "\n"
                 .    '<tr class="headerX">' . "\n"
                 .    '<th>&nbsp;</th>' . "\n"

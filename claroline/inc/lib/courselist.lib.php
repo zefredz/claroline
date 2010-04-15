@@ -172,7 +172,9 @@ class category_browser
 
 
 /**
- * Search a specific course based on his course code.
+ * Search a specific course based on his course code.  If the user isn't 
+ * a platform admin, this function will not return source courses having 
+ * session courses.
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
@@ -186,16 +188,17 @@ function search_course($keyword, $userId = null)
     $tbl_mdb_names        = claro_sql_get_main_tbl();
     $tbl_course           = $tbl_mdb_names['course'         ];
     $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
-
+    
     $keyword = trim($keyword);
-
+    
     if ( empty($keyword) ) return array();
-
+    
     $upperKeyword = addslashes(strtoupper($keyword));
     
     $curdate = date('Y-m-d H:i:s', time());
-
-    $sql = "SELECT c.intitule             AS title,
+    
+    $sql = "SELECT c.cours_id             AS id,
+                   c.intitule             AS title,
                    c.titulaires           AS titular,
                    c.code                 AS sysCode,
                    c.sourceCourseId       AS souceCourseId,
@@ -204,14 +207,17 @@ function search_course($keyword, $userId = null)
                    c.code                 AS code,
                    c.language             AS language,
                    c.email                AS email,
+                   c.sourceCourseId,
                    c.visibility,
                    c.access,
                    c.registration,
                    c.status,
                    c.creationDate,
                    c.expirationDate"
-
-         .  ($userId ? ", cu.user_id AS enroled" : "")
+        
+         .  ($userId ? ", 
+                   cu.user_id AS enroled, 
+                   cu.isCourseManager" : "")
          . " \n "
          .  "FROM `" . $tbl_course . "` c "
          . " \n "
@@ -250,8 +256,40 @@ function search_course($keyword, $userId = null)
     
     $coursesList = claro_sql_query_fetch_all($sql);
 
-    if (count($coursesList) > 0) return $coursesList;
-    else                         return array() ;
+    if (count($coursesList) > 0) 
+    {
+        //If not platform admin, remove source courses
+        if (!claro_is_platform_admin()) 
+        {
+            // Find the source courses identifiers
+            $sourceCoursesIds = array();
+            foreach ($coursesList as $course)
+            {
+                if (!is_null($course['sourceCourseId']) 
+                    && !in_array($course['sourceCourseId'], $sourceCoursesIds))
+                {
+                    $sourceCoursesIds[] = $course['sourceCourseId'];
+                }
+            }
+            
+            $filteredCoursesList = array();
+            foreach ($coursesList as $course)
+            {
+                if (!in_array($course['id'], $sourceCoursesIds))
+                    $filteredCoursesList[] = $course;
+            }
+            
+            return $filteredCoursesList;
+        }
+        else
+        {
+            return $coursesList;
+        }
+    }
+    else
+    {
+        return array() ;
+    }
 }
 
 
@@ -273,12 +311,13 @@ function get_user_course_list($userId, $renew = false)
 
         $tbl_mdb_names              = claro_sql_get_main_tbl();
         $tbl_courses                = $tbl_mdb_names['course'         ];
-        $tbl_link_user_courses      = $tbl_mdb_names['rel_course_user'];
-        $tbl_link_course_category   = $tbl_mdb_names['rel_course_category'];
+        $tbl_rel_user_courses       = $tbl_mdb_names['rel_course_user'];
+        $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
 
         $curdate = claro_mktime();
         
-        $sql = "SELECT course.code                 AS `sysCode`,
+        $sql = "SELECT course.cours_id,
+                       course.code                 AS `sysCode`,
                        course.directory            AS `directory`,
                        course.administrativeNumber AS `officialCode`,
                        course.dbName               AS `db`,
@@ -286,6 +325,7 @@ function get_user_course_list($userId, $renew = false)
                        course.titulaires           AS `titular`,
                        course.language             AS `language`,
                        course.access               AS `access`,
+                       course.sourceCourseId,
                        course_user.isCourseManager,
                        course.status,
                        UNIX_TIMESTAMP(course.expirationDate) AS expirationDate,
@@ -294,8 +334,8 @@ function get_user_course_list($userId, $renew = false)
                        course_category.rootCourse
                 
                 FROM `" . $tbl_courses . "`              AS course,
-                     `" . $tbl_link_user_courses . "`    AS course_user,
-                     `" . $tbl_link_course_category . "` AS course_category
+                     `" . $tbl_rel_user_courses . "`    AS course_user,
+                     `" . $tbl_rel_course_category . "` AS course_category
                 
                 WHERE course.code         = course_user.code_cours
                          AND course_user.user_id = " . (int) $userId . " 
@@ -351,7 +391,8 @@ function get_user_course_list_desactivated($userId, $renew = false)
         $tbl_courses           = $tbl_mdb_names['course'         ];
         $tbl_link_user_courses = $tbl_mdb_names['rel_course_user'];
 
-        $sql = "SELECT course.code                 AS `sysCode`,
+        $sql = "SELECT course.cours_id,
+                       course.code                 AS `sysCode`,
                        course.directory            AS `directory`,
                        course.administrativeNumber AS `officialCode`,
                        course.dbName               AS `db`,
