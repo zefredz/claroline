@@ -229,9 +229,9 @@ function get_module_entry_url( $claroLabel )
 /**
  * Get information about a module
  * @param string $claroLabel module label
- * @param <type> $dataName
- * @param <type> $ignoreCache
- * @return <type>
+ * @param string $dataName
+ * @param boolean $ignoreCache
+ * @return mixed
  */
 function get_module_data( $claroLabel, $dataName = null, $ignoreCache = false )
 {
