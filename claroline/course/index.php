@@ -58,14 +58,14 @@ else
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-$courseSource = get_source_course(rectrieve_id_from_code(claro_get_current_course_id()));
+$courseSource = retrieve_code_from_id((claro_get_current_course_data('sourceCourseId')));
 
-if (isset($courseSource['sysCode']))
+if (isset($courseSource))
 {
    // call a session course
-   $_SESSION['courseSessionCode'][$courseSource['sysCode']]= claro_get_current_course_id();
+   $_SESSION['courseSessionCode'][$courseSource]= claro_get_current_course_id();
    $courseCode['session'] =  claro_get_current_course_id();
-   $courseCode['source'] = $courseSource['sysCode'];
+   $courseCode['source'] = $courseSource;
 }
 else 
 {
