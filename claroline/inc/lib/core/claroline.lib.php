@@ -7,19 +7,14 @@
  * class providing classes and methods to deal with the kernel and the page
  * display
  *
- * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @version     1.10 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
+ * @package     kernel.core
  */
-
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
 
 FromKernel::uses( 'core/debug.lib', 'core/console.lib', 'core/event.lib'
     , 'core/notify.lib', 'display/display.lib', 'database/database.lib'
@@ -263,7 +258,8 @@ class Claroline
 
     /**
      * Get kernel Ajax Service Broker instance
-     * @return Ajax_Remote_Service_Broker 
+     * @return Ajax_Remote_Service_Broker
+     * @since Claroline 1.9.5
      */
     public static function ajaxServiceBroker()
     {
