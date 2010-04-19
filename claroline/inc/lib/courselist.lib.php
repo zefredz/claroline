@@ -317,36 +317,43 @@ function get_user_course_list($userId, $renew = false)
         $curdate = claro_mktime();
         
         $sql = "SELECT course.cours_id,
-                       course.code                 AS `sysCode`,
-                       course.directory            AS `directory`,
-                       course.administrativeNumber AS `officialCode`,
-                       course.dbName               AS `db`,
-                       course.intitule             AS `title`,
-                       course.titulaires           AS `titular`,
-                       course.language             AS `language`,
-                       course.access               AS `access`,
-                       course.sourceCourseId,
-                       course_user.isCourseManager,
+                       course.code                  AS `sysCode`,
+                       course.directory             AS `directory`,
+                       course.administrativeNumber  AS `officialCode`,
+                       course.dbName                AS `db`,
+                       course.intitule              AS `title`,
+                       course.titulaires            AS `titular`,
+                       course.language              AS `language`,
+                       course.access                AS `access`,
                        course.status,
+                       course.sourceCourseId,
                        UNIX_TIMESTAMP(course.expirationDate) AS expirationDate,
                        UNIX_TIMESTAMP(course.creationDate)   AS creationDate,
-                       course_category.categoryId  AS `categoryId`,
-                       course_category.rootCourse
+                       rcu.isCourseManager, 
+                       rcc.categoryId               AS `categoryId`,
+                       rcc.rootCourse
                 
-                FROM `" . $tbl_courses . "`              AS course,
-                     `" . $tbl_rel_user_courses . "`    AS course_user,
-                     `" . $tbl_rel_course_category . "` AS course_category
+                FROM `" . $tbl_courses . "` AS course
                 
-                WHERE course.code         = course_user.code_cours
-                         AND course_user.user_id = " . (int) $userId . " 
+                LEFT JOIN `" . $tbl_rel_user_courses . "` AS rcu 
+                ON rcu.user_id = " . (int) $userId . " 
+                     
+                LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
+                ON (
+                    (course.cours_id = rcc.courseId AND course.sourceCourseId IS NULL) #source courses
+                    OR 
+                    (course.sourceCourseId = rcc.courseId AND course.sourceCourseId IS NOT NULL) #session courses
+                   )
+                
+                WHERE course.code         = rcu.code_cours
+                         
                          AND (course.`status`='enable'
                               OR (course.`status` = 'date'
                                   AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' 
                                   OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0)
                                   AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) OR `expirationDate` IS NULL)
                                  )
-                             )
-                         AND course.cours_id = course_category.courseId \n ";
+                             ) ";
         
         if ( !get_conf('userCourseListGroupByCategories') )
         {
