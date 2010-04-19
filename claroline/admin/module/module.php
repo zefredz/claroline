@@ -252,15 +252,15 @@ $out = '';
 
 if (array_key_exists('icon',$module) && !empty($module['icon'])  && file_exists(get_module_path($module['label']) . '/' .$module['icon']))
 {
-    $icon = '<img src="' . get_module_url($module['label']) . '/' . $module['icon'] . '" />';
+    $icon = '<img src="' . get_module_url($module['label']) . '/' . $module['icon'] . '" alt="'.$module['label'].'" />';
 }
 elseif (file_exists(get_module_path($module['label']) . '/icon.png'))
 {
-    $icon = '<img src="' . get_module_url($module['label']) . '/icon.png" />';
+    $icon = '<img src="' . get_module_url($module['label']) . '/icon.png" alt="'.$module['label'].'" />';
 }
 elseif (file_exists(get_module_path($module['label']) . '/icon.gif'))
 {
-    $icon = '<img src="' . get_module_url($module['label']) . '/icon.gif" />';
+    $icon = '<img src="' . get_module_url($module['label']) . '/icon.gif" alt="'.$module['label'].'" />';
 }
 else
 {
@@ -354,8 +354,9 @@ switch ($item)
         $out .= claro_html_tool_title(array('subTitle' => get_lang('Platform Settings')));
 
         $out .= '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="post">';
-
+        
         $out .= '<table>' . "\n";
+
 
         //Activation form
         if (in_array($module['label'],$undeactivable_tool_array))
@@ -365,10 +366,11 @@ switch ($item)
         elseif ( 'activated' == $module['activation'] )
         {
             $activ_form  = 'deactiv';
-            $action_link = '<a href="' . $_SERVER['PHP_SELF']
+            $action_link = '<a href="' 
+                . htmlspecialchars( $_SERVER['PHP_SELF']
                 . '?cmd='.$activ_form.'&module_id='.$module['module_id']
-                . '&item=GLOBAL" title="'
-                . get_lang('Activated - Click to deactivate').'">'
+                . '&item=GLOBAL' )
+                . '" title="'.get_lang('Activated - Click to deactivate').'">'
                 . '<img src="' . get_icon_url('on')
                 . '" alt="'. get_lang('Activated') . '" /> '
                 . get_lang('Activated') . '</a>'
@@ -377,17 +379,18 @@ switch ($item)
         else
         {
             $activ_form  = 'activ';
-            $action_link = '<a href="' . $_SERVER['PHP_SELF']
+            $action_link = '<a href="' 
+                . htmlspecialchars( $_SERVER['PHP_SELF']
                 . '?cmd='.$activ_form.'&module_id='
-                . $module['module_id'].'&item=GLOBAL" '
-                . 'title="'.get_lang('Deactivated - Click to activate').'">'
+                . $module['module_id'].'&item=GLOBAL')
+                . '" title="'.get_lang('Deactivated - Click to activate').'">'
                 . '<img src="' . get_icon_url('off')
                 . '" alt="'. get_lang('Deactivated') . '"/> '
                 . get_lang('Deactivated') . '</a>'
                 ;
         }
 
-        $out .= '<td align="right" valign="top">'
+        $out .= '<tr><td align="right" valign="top">'
           .    get_lang('Platform activation')
           .    ' : ' . "\n"
           .    '</td>' . "\n"
@@ -424,10 +427,11 @@ switch ($item)
             elseif ( 'AUTOMATIC' == $module['activateInCourses'] )
             {
                 $activ_form  = 'coursedeactiv';
-                $action_link = '<a href="' . $_SERVER['PHP_SELF']
+                $action_link = '<a href="' 
+                    . htmlspecialchars( $_SERVER['PHP_SELF']
                     . '?cmd='.$activ_form.'&module_id='.$module['module_id']
-                    . '&item=GLOBAL" title="'
-                    . get_lang('Automatic').'">'
+                    . '&item=GLOBAL')
+                    . '" title="' . get_lang('Automatic').'">'
                     . '<img src="' . get_icon_url('select')
                     . '" alt="'. get_lang('Automatic') . '" /> '
                     . get_lang('Automatic') . '</a>'
@@ -436,17 +440,18 @@ switch ($item)
             else
             {
                 $activ_form  = 'courseactiv';
-                $action_link = '<a href="' . $_SERVER['PHP_SELF']
+                $action_link = '<a href="' 
+                    . htmlspecialchars($_SERVER['PHP_SELF']
                     . '?cmd='.$activ_form.'&module_id='
-                    . $module['module_id'].'&item=GLOBAL" '
-                    . 'title="'.get_lang('Manual').'">'
+                    . $module['module_id'].'&item=GLOBAL')
+                    .'" title="'.get_lang('Manual').'">'
                     . '<img src="' . get_icon_url('forbidden')
                     . '" alt="'. get_lang('Manual') . '"/> '
                     . get_lang('Manual') . '</a>'
                     ;
             }
                 
-            $out .= '<td align="right" valign="top">'
+            $out .= '<tr><td align="right" valign="top">'
             .    get_lang('Activate on course creation')
             .    ' : ' . "\n"
             .    '</td>' . "\n"
@@ -482,10 +487,11 @@ switch ($item)
             elseif ( 'PLATFORM_ADMIN' == $module['accessManager'] )
             {
                 $activ_form  = 'activcoursemanager';
-                $action_link = '<a href="' . $_SERVER['PHP_SELF']
+                $action_link = '<a href="' 
+                    . htmlspecialchars( $_SERVER['PHP_SELF']
                     . '?cmd='.$activ_form.'&module_id='.$module['module_id']
-                    . '&item=GLOBAL" title="'
-                    . get_lang('Platform administrator').'">'
+                    . '&item=GLOBAL')
+                    .'" title="'. get_lang('Platform administrator').'">'
                     . '<img src="' . get_icon_url('platformadmin')
                     . '" alt="'. get_lang('Platform administrator') . '" /> '
                     . get_lang('Platform administrator') . '</a>'
@@ -494,17 +500,18 @@ switch ($item)
             else
             {
                 $activ_form  = 'activplatformadmin';
-                $action_link = '<a href="' . $_SERVER['PHP_SELF']
+                $action_link = '<a href="' 
+                    . htmlspecialchars( $_SERVER['PHP_SELF']
                     . '?cmd='.$activ_form.'&module_id='
-                    . $module['module_id'].'&item=GLOBAL" '
-                    . 'title="'.get_lang('Course manager').'">'
+                    . $module['module_id'].'&item=GLOBAL')
+                    .'" title="'.get_lang('Course manager').'">'
                     . '<img src="' . get_icon_url('manager')
                     . '" alt="'. get_lang('Course manager') . '"/> '
                     . get_lang('Course manager') . '</a>'
                     ;
             }
 
-            $out .= '<td align="right" valign="top">'
+            $out .= '<tr><td align="right" valign="top">'
             .    get_lang('In manual mode, module activable by')
             .    ' : ' . "\n"
             .    '</td>' . "\n"
@@ -525,8 +532,9 @@ switch ($item)
                 .    '</td>' . "\n"
                 .    '<td>' . "\n"
                 . '<small><a href="'
-                . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeVisible&amp;item=GLOBAL"'
-                . 'title="'.get_lang( 'Make module visible in all courses' ).'"'
+                . htmlspecialchars($_SERVER['PHP_SELF'] . '?module_id='
+                . $module['module_id'].'&amp;cmd=makeVisible&amp;item=GLOBAL')
+                .'" title="'.get_lang( 'Make module visible in all courses' ).'"'
                 . ' onclick="return confirmMakeVisible();">'
                 . '<img src="' . get_icon_url('visible')
                 . '" alt="'. get_lang('Visible') . '"/> '
@@ -534,14 +542,15 @@ switch ($item)
                 . '</a></small>'
                 . " | "
                 . '<small><a href="'
-                . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeInvisible&amp;item=GLOBAL"'
-                . 'title="'.get_lang( 'Make module invisible in all courses' ).'"'
+                . htmlspecialchars($_SERVER['PHP_SELF'] . '?module_id='
+                . $module['module_id'].'&amp;cmd=makeInvisible&amp;item=GLOBAL')
+                . '" title="'.get_lang( 'Make module invisible in all courses' ).'"'
                 . ' onclick="return confirmMakeInVisible();">'
                 . '<img src="' . get_icon_url('invisible')
                 . '" alt="'. get_lang('Invisible') . '"/> '
                 . get_lang( 'Invisible' )
                 . '</a></small>'
-                . '<td><tr>' . "\n"
+                . '</td></tr>' . "\n"
                 ;
         }
         elseif ($module['type'] == 'applet')
@@ -581,9 +590,8 @@ switch ($item)
             .    '<td >'
             .    '<input type="hidden" name="cmd" value="movedock" />'. "\n"
             .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'. "\n"
-            .    claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+            .    claro_html_button(htmlspecialchars($_SERVER['HTTP_REFERER']), get_lang('Cancel')) . '</td>' . "\n"
             .    '</tr>' . "\n"
-            .    '</form>'
             ;
         }
         else // not a tool, not an applet
@@ -592,9 +600,7 @@ switch ($item)
         }
 
         $out .= '</table>' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '</table>' . "\n"
+        .    '</form>'
         ;
         break;
     }
@@ -627,7 +633,7 @@ switch ($item)
             $form .= $config->display_form(null,$section_selected,$url_params);
         }
 
-        $out .= '<div style=padding-left:1em;padding-right:1em;>';
+        $out .= '<div style="padding-left:1em;padding-right:1em;">';
 
         if ( ! empty($message) )
         {
@@ -698,18 +704,9 @@ switch ($item)
         .    '<td><a href="' . $module['website'] . '">' . $module['website'] . '</a></td>' . "\n"
         .    '</tr>' . "\n"
         .    '</table>' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    '<table>' . "\n"
         ;
     }
 }
-
-$out .= '</table>' . "\n"
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '</table>' . "\n"
-;
 
 $claroline->display->body->appendContent($out);
 
