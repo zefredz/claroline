@@ -20,9 +20,21 @@ FromKernel::uses( 'core/debug.lib', 'core/console.lib', 'core/event.lib'
     , 'core/notify.lib', 'display/display.lib', 'database/database.lib'
     , 'core/log.lib', 'core/url.lib', 'utils/ajax.lib' );
 
+/**
+ * @deprecated since 1.9 use Claroline::PAGE
+ */
 define ( 'CL_PAGE',     'CL_PAGE' );
+/**
+ * @deprecated since 1.9 use Claroline::FRAMESET instead
+ */
 define ( 'CL_FRAMESET', 'CL_FRAMESET' );
+/**
+ * @deprecated since 1.9 use Claroline::POPUP instead
+ */
 define ( 'CL_POPUP',    'CL_POPUP' );
+/**
+ * @deprecated since 1.9 use Claroline::FRAME instead
+ */
 define ( 'CL_FRAME',    'CL_FRAME' );
 
 /**
@@ -32,10 +44,10 @@ define ( 'CL_FRAME',    'CL_FRAME' );
 class Claroline
 {
     // Display type constants
-    const PAGE = 'CL_PAGE';
-    const FRAMESET = 'CL_FRAMESET';
-    const POPUP = 'CL_POPUP';
-    const FRAME = 'CL_FRAME';
+    const PAGE      = 'CL_PAGE';
+    const FRAMESET  = 'CL_FRAMESET';
+    const POPUP     = 'CL_POPUP';
+    const FRAME     = 'CL_FRAME';
     
     // Kernel objects
     // Event manager
