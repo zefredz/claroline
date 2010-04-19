@@ -104,6 +104,7 @@ class Json_Exception extends Json_Error
 
 /**
  * AJAX Remote Method Request
+ * @since Claroline 1.9.5
  */
 class Ajax_Request
 {
@@ -182,6 +183,7 @@ class Ajax_Request
 
 /**
  * Ajax Remote Service interface
+ * @since Claroline 1.9.5
  */
 interface Ajax_Remote_Service
 {
@@ -196,6 +198,7 @@ interface Ajax_Remote_Service
 /**
  * Abstract Module Remote Service. Should be extended by module Ajax Remote
  * Service.
+ * @since Claroline 1.9.5
  */
 abstract class Ajax_Remote_Module_Service implements Ajax_Remote_Service
 {
@@ -231,6 +234,7 @@ abstract class Ajax_Remote_Module_Service implements Ajax_Remote_Service
 /**
  * Ajax remote service broker serves the ajax request to the right ajax remote
  * service and returns the response from the method invokation
+ * @since Claroline 1.9.5
  */
 class Ajax_Remote_Service_Broker
 {
