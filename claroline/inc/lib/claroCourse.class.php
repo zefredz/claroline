@@ -834,7 +834,6 @@ class ClaroCourse
         $html .= '<dt>'
             . '<label>'
             . get_lang('Categories') 
-            . '<span class="required">*</span> '
             . '</label>'
             . ' :'
             . '</dt>'
