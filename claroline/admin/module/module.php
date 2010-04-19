@@ -352,11 +352,8 @@ switch ($item)
     case 'GLOBAL':
     {
         $out .= claro_html_tool_title(array('subTitle' => get_lang('Platform Settings')));
-
-        $out .= '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="post">';
         
-        $out .= '<table>' . "\n";
-
+        $out .= '<dl class="onOneLine">';
 
         //Activation form
         if (in_array($module['label'],$undeactivable_tool_array))
@@ -390,17 +387,13 @@ switch ($item)
                 ;
         }
 
-        $out .= '<tr><td align="right" valign="top">'
+        $out .= '<dt>'
           .    get_lang('Platform activation')
           .    ' : ' . "\n"
-          .    '</td>' . "\n"
-          .    '<td>' . "\n"
+          .    '</dt>' . "\n"
+          .    '<dd>' . "\n"
           .    $action_link . "\n"
-          .    '</td>' . "\n"
-          .    '</tr>' . "\n"
-          .    '<tr>' . "\n"
-          .    '<td colspan="2">&nbsp;</td>' . "\n"
-          .    '</tr>' . "\n"
+          .    '</dd>' . "\n"
           ;
 
         if ($module['type'] == 'tool')
@@ -451,17 +444,13 @@ switch ($item)
                     ;
             }
                 
-            $out .= '<tr><td align="right" valign="top">'
+            $out .= '<dt>'
             .    get_lang('Activate on course creation')
             .    ' : ' . "\n"
-            .    '</td>' . "\n"
-            .    '<td>' . "\n"
+            .    '</dt>' . "\n"
+            .    '<dd>' . "\n"
             .    $action_link . "\n"
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n"
-            .    '<tr>' . "\n"
-            .    '<td colspan="2">&nbsp;</td>' . "\n"
-            .    '</tr>' . "\n"
+            .    '</dd>' . "\n"
             ;
 
             // Access Manager
@@ -511,26 +500,22 @@ switch ($item)
                     ;
             }
 
-            $out .= '<tr><td align="right" valign="top">'
+            $out .= '<dt>'
             .    get_lang('In manual mode, module activable by')
             .    ' : ' . "\n"
-            .    '</td>' . "\n"
-            .    '<td>' . "\n"
+            .    '</dt>' . "\n"
+            .    '<dd>' . "\n"
             .    $action_link . "\n"
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n"
-            .    '<tr>' . "\n"
-            .    '<td colspan="2">&nbsp;</td>' . "\n"
-            .    '</tr>' . "\n"
+            .    '</dd>' . "\n"
             ;
 
             // Visibility
             
-            $out .= '<tr><td align="right" valign="top">'
+            $out .= '<dt>'
                 . get_lang( 'Change visibility in all courses' )
                 . ' : '
-                .    '</td>' . "\n"
-                .    '<td>' . "\n"
+                .    '</dt>' . "\n"
+                .    '<dd>' . "\n"
                 . '<small><a href="'
                 . htmlspecialchars($_SERVER['PHP_SELF'] . '?module_id='
                 . $module['module_id'].'&amp;cmd=makeVisible&amp;item=GLOBAL')
@@ -550,14 +535,20 @@ switch ($item)
                 . '" alt="'. get_lang('Invisible') . '"/> '
                 . get_lang( 'Invisible' )
                 . '</a></small>'
-                . '</td></tr>' . "\n"
+                . '</dd>' . "\n"
                 ;
+
+            $out .= '</dl>';
         }
         elseif ($module['type'] == 'applet')
         {
             //choose the dock radio button list display
             if ( is_array($dockList) && $module['type']!='tool')
             {
+                $out .= '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="post">';
+
+                $out .= '<table>' . "\n";
+
                 $out .= '<tr>' ."\n"
                 .    '<td syle="align:right" colspan="2">' . get_lang('Display'). '&nbsp;:</td>' ."\n"
                 .    '</tr>' ."\n"
@@ -581,27 +572,29 @@ switch ($item)
 
                     $i++;
                 }
+
+                // display submit button
+                $out .= '<tr><td colspan="2">&nbsp;</td></tr>' . "\n"
+                .    '<tr>' ."\n"
+                .    '<td style="text-align:right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
+                .    '<td >'
+                .    '<input type="hidden" name="cmd" value="movedock" />'. "\n"
+                .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'. "\n"
+                .    claro_html_button(htmlspecialchars($_SERVER['HTTP_REFERER']), get_lang('Cancel')) . '</td>' . "\n"
+                .    '</tr>' . "\n"
+                .    '</table>' . "\n"
+                .    '</form>'
+                ;
             }
 
-            // display submit button
-            $out .= '<tr><td colspan="2">&nbsp;</td></tr>' . "\n"
-            .    '<tr>' ."\n"
-            .    '<td style="text-align:right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
-            .    '<td >'
-            .    '<input type="hidden" name="cmd" value="movedock" />'. "\n"
-            .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'. "\n"
-            .    claro_html_button(htmlspecialchars($_SERVER['HTTP_REFERER']), get_lang('Cancel')) . '</td>' . "\n"
-            .    '</tr>' . "\n"
-            ;
+            
         }
         else // not a tool, not an applet
         {
             // nothing to do at the moment
         }
 
-        $out .= '</table>' . "\n"
-        .    '</form>'
-        ;
+        
         break;
     }
     case 'LOCAL':

@@ -107,7 +107,7 @@ fieldset legend {
     background: transparent url(img/menu-collapsed.gif) no-repeat scroll 0 50%;
 }
 
-fieldset dl dt {
+dl.onOneLine dt, fieldset dl dt {
     clear: both;
     float: left;
     width: 20%;
@@ -115,7 +115,7 @@ fieldset dl dt {
     margin: 2px 0;
 }
 
-fieldset dl dd {
+dl.onOneLine dd, fieldset dl dd {
     float: left;
     padding: 1px;
     width: 70%;
