@@ -245,6 +245,16 @@ if ( $cmd == 'exReg' )
         || ( isset($_REQUEST['registrationKey'] )
         && strtolower(trim($_REQUEST['registrationKey'] )) == strtolower(trim($courseRegistrationKey))) )
         {
+            //Is it a session course ?
+            $tempCourse = claro_get_course_data($course);
+            
+            if (isset($tempCourse) && !empty($tempCourse['sourceCourseId']))
+            {
+                //It's a session course: register the user to this course AND the source course
+                $sourceCourseCode = ClaroCourse::getCodeFromId($tempCourse['sourceCourseId']);
+                user_add_to_course($userId, $sourceCourseCode, false, false, false);
+            }
+            
             //Try to register user
             if ( user_add_to_course($userId, $course, false, false, false) )
             {
