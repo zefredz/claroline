@@ -2036,6 +2036,8 @@ The list of publications related to the user and the assignment can be view by c
 </li>
 </ul>
 ';
+$_lang['blockCategoriesOrderInfo'] = "Categories are curently not ordered by rank.  You can order categories yourself 
+by choosing \"Order categories by rank\" in the \"Platform administration\" panel.";
 $_lang['blockClaroMainHelp'] = 'Here, lecturers and assistants create and administer
  courses websites. Students read (documents, agenda, information) and,
  sometimes, do exercises, publish papers, participate in

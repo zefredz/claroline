@@ -2041,6 +2041,8 @@ pour vous rappeler l\'identifiant et le mot de passe à introduire lors de votre 
 <p>Procédez comme suit. Inscription > Remplissez tous les champs et sélectionnez l\'action <strong>Créer des sites de cours</strong> > Validez > Tapez le nom du cours, sélectionnez une faculté ou une catégorie, tapez le code du cours (inventez-en un au besoin > Validez. Et vous voici dans la liste de vos cours. Cliquez sur l\'intitulé du cours que vous venez de créer. Vous voici dans un site de cours vierge à l\'exception de quelques contenus factices destinés à vous éviter l\'angoisse de la page blanche. À l\'inscription, un e-mail vous a été envoyé pour vous rappeler l\'identifiant et le mot de passe que vous devrez taper lors de votre prochaine visite.</p>
 <p>En cas de problème, contactez votre administrateur réseau ou l\'administrateur de ce campus virtuel. Vous pouvez aussi publier un message sur le forum de support de <a href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>';
+$_lang['blockCategoriesOrderInfo'] = "Les catégories ne sont actuellement pas ordonnées par rang.  Vous pouvez les ordonner 
+vous-même en choisissant \"Classer les catégories par rang\" dans le panneau \"Administration de la plateforme\".";
 $_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Ce module est bloquant.
  Le rendre invisible permettra aux apprenants d\'accéder
  aux modules suivants du parcours sans devoir réussir celui-ci.
