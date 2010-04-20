@@ -161,8 +161,15 @@ function claro_get_categories($parent, $visibility)
             AND c.visible = " . $visibility;
     }
     
-    $sql .= "
+    if ( get_conf('categories_order_by') == 'rank' )
+        $sql .= "
             ORDER BY c.`rank`";
+    elseif ( get_conf('categories_order_by') == 'alpha_asc' )
+        $sql .= "
+            ORDER BY c.`name` ASC";
+    elseif ( get_conf('categories_order_by') == 'alpha_desc' )
+        $sql .= "
+            ORDER BY c.`name` DESC";
     
     return Claroline::getDatabase()->query($sql);
 }
@@ -188,9 +195,16 @@ function claro_get_all_categories($parent = 0, $level = 0, $visibility = null)
     $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
     
     // Retrieve all children of the id $parent
-    $sql = "SELECT COUNT(rcc.courseId) AS nbCourses, ca.id, ca.name, 
-            ca.code, ca.idParent, ca.rank, ca.visible, ca.canHaveCoursesChild, 
-            co.intitule AS dedicatedCourse, co.code AS dedicatedCourseCode 
+    $sql = "SELECT COUNT(rcc.courseId) AS nbCourses, 
+            ca.id, ca.name, 
+            ca.code, 
+            ca.idParent, 
+            ca.rank, 
+            ca.visible, 
+            ca.canHaveCoursesChild, 
+            co.intitule AS dedicatedCourse, 
+            co.code AS dedicatedCourseCode 
+            
             FROM `" . $tbl_category . "` AS ca 
             
             LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
@@ -208,8 +222,17 @@ function claro_get_all_categories($parent = 0, $level = 0, $visibility = null)
     }
     
     $sql .=  " 
-            GROUP BY ca.`id`
+            GROUP BY ca.`id`";
+    
+    if ( get_conf('categories_order_by') == 'rank' )
+        $sql .= "
             ORDER BY ca.`rank`";
+    elseif ( get_conf('categories_order_by') == 'alpha_asc' )
+        $sql .= "
+            ORDER BY ca.`name` ASC";
+    elseif ( get_conf('categories_order_by') == 'alpha_desc' )
+        $sql .= "
+            ORDER BY ca.`name` DESC";
     
     $result = Claroline::getDatabase()->query($sql);
     $result_array = array();

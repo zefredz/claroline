@@ -27,6 +27,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // Initialisation of global variables and used classes and libraries
 require_once get_path('incRepositorySys') . '/lib/clarocategory.class.php';
+include claro_get_conf_repository() . 'CLHOME.conf.php';
 
 // Instanciate dialog box
 $dialogBox = new DialogBox();
@@ -232,6 +233,9 @@ $out .=
 .    '</a>'
 .    '</p>' . "\n";
 
+if ((get_conf('categories_order_by') != 'rank'))
+    $out .= 
+            '<p>'.get_block('blockCategoriesOrderInfo').'</p>';
     // Array header
 $out .= 
      '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
@@ -244,7 +248,9 @@ $out .=
 .    '<th>' . get_lang('Visibility') . '</th>' . "\n"
 .    '<th>' . get_lang('Edit') . '</th>' . "\n"
 .    '<th>' . get_lang('Delete') . '</th>' . "\n"
-.    '<th colspan="2">' . get_lang('Order') . '</th>'."\n"
+.    ((get_conf('categories_order_by') == 'rank')?
+        ('<th colspan="2">' . get_lang('Order') . '</th>'."\n"):
+        (''))
 .    '</tr>' . "\n"
 .    '</thead>' . "\n";
 
@@ -284,7 +290,8 @@ else
         .       '<img src="' . get_icon_url('delete') . '" alt="Delete category" />' . "\n"
         .       '</a>'
         .   '</td>'
-        .   '<td align="center">'
+        .    ((get_conf('categories_order_by') == 'rank')?
+                ('<td align="center">'
         .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveUp&amp;categoryId=' . $elmt['id'] . '">' . "\n"
         .       '<img src="' . get_icon_url('move_up') . '" alt="Move up category" />' . "\n"
         .       '</a>'
@@ -293,7 +300,8 @@ else
         .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveDown&amp;categoryId=' . $elmt['id'] . '">' . "\n"
         .       '<img src="' . get_icon_url('move_down') . '" alt="Move down category" />' . "\n"
         .       '</a>'
-        .   '</td>'
+        .   '</td>'):
+                (''))
         .   '</tr>';
     }
 }

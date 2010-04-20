@@ -714,7 +714,7 @@ function render_user_course_list()
     // get the list of personnal courses marked as contening new events
     $date            = Claroline::getInstance()->notification->get_notification_date(claro_get_current_user_id());
     $modified_course = Claroline::getInstance()->notification->get_notified_courses($date,claro_get_current_user_id());
-
+    
     $out = '';
     
     // FIXME: When grouped by categories, doesn't show courses attached to the root category
@@ -726,45 +726,39 @@ function render_user_course_list()
         // categories have to be ordered alphabetically using full trail
         if( is_array($categoriesList) && !empty($categoriesList) )
         {
-            foreach( $categoriesList as $category )
+            foreach( $categoriesList as &$category )
             {
                 $trail = build_category_trail($categoriesList, $category['id']);
-                $sortedCategoriesList[$category['id']] = $trail;
+                $category['trail'] = $trail;
             }
-            // order by trail and keep key-value associated
-            asort($sortedCategoriesList);
-        }
-        else
-        {
-            $sortedCategoriesList = array();
         }
         
         $sortedUserCourseList = array();
-        foreach($sortedCategoriesList as $categoryId => $trail)
+        foreach($categoriesList as $category)
         {
-            $sortedUserCourseList[$categoryId] = claro_get_restricted_courses ($categoryId, claro_get_current_user_id());
+            $sortedUserCourseList[$category['id']] = claro_get_restricted_courses ($category['id'], claro_get_current_user_id());
         }
         
         // course and category lists are ordered: we can use them to display the user's course list
         $out .= '<div id="courseListByCat">' . "\n";
         // traverse category list, on each node check if some course the user is subscribed in is of this category
-        foreach($sortedCategoriesList as $categoryId => $trail )
+        foreach($categoriesList as $category )
         {
-            if( array_key_exists($categoryId, $sortedUserCourseList) && !empty($sortedUserCourseList[$categoryId]) )
+            if( array_key_exists($category['id'], $sortedUserCourseList) && !empty($sortedUserCourseList[$category['id']]) )
             {
                 // Display category header
                 $out .= '<div class="categoryMyCourses">'
                     . '<span class="categoryTitle">' 
                     . '<strong>'
-                    . '<a name="'.$categoryId.'"></a>'
-                    . $trail
+                    . '<a name="'.$category['id'].'"></a>'
+                    . $category['trail']
                     . '</strong>'
                     . '</span>';
                 
                 
                 // Display category courses
                 $outCourse = '';
-                foreach( $sortedUserCourseList[$categoryId] as $thisCourse )
+                foreach( $sortedUserCourseList[$category['id']] as $thisCourse )
                 {
                     if (isset($thisCourse['enroled']) && !is_null($thisCourse['enroled'])) 
                     {
