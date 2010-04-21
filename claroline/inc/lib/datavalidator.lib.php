@@ -1,10 +1,5 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * DataValidator class
  * Validates the content of data chained into an array according to a set
@@ -33,8 +28,8 @@ if ( count( get_included_files() ) == 1 )
  *     echo explode(', ', $validator->getErrorList() );
  *   }
  *   
- * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @version     1.10 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Hugues Peeters <hugues.peeters@advalvas.be>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -46,9 +41,8 @@ if ( count( get_included_files() ) == 1 )
 define ('DATAVALIDATOR_STRICT_MODE', true);
 
 /**
-
+ * @deprectaed since Claroline 1.9, use utils/validator.lib.php instead
  */
-
 class DataValidator
 {
     var $dataList           = array(),
