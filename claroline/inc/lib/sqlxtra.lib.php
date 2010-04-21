@@ -24,7 +24,7 @@ if ( count( get_included_files() ) == 1 )
  * @param  bool $breakOnFailure  - stop query execution if one query failed (default true)
  * @return true on success, false on failure
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
+ *  in database/extra.lib.php instead
  */
 function claro_sql_multi_query( $sqlQueries, $breakOnFailure = true )
 {
@@ -54,7 +54,7 @@ function claro_sql_multi_query( $sqlQueries, $breakOnFailure = true )
  * @return  array   the splitted queries
  * @access  public
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
+ *  in database/extra.lib.php instead
  */
 function PMA_splitSqlFile( $sql )
 {
