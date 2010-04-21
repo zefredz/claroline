@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 )
  * CLAROLINE
  *
  * @version    1.9 $Revision$
- * @copyright  (c) 2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright  (c) 2001-2010 Universite catholique de Louvain (UCL)
  * @license    http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author     see 'credits' file
  * @package    KERNEL
@@ -23,8 +23,9 @@ if ( count( get_included_files() ) == 1 )
  * @param  string  $sqlQueries   - the string containing sql queries to apply
  * @param  bool $breakOnFailure  - stop query execution if one query failed (default true)
  * @return true on success, false on failure
+ * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
+ *  in database/extra.lib.php instead
  */
-
 function claro_sql_multi_query( $sqlQueries, $breakOnFailure = true )
 {
    $queryArray = PMA_splitSqlFile( $sqlQueries );
@@ -49,12 +50,11 @@ function claro_sql_multi_query( $sqlQueries, $breakOnFailure = true )
  * Removes comment lines and splits up large sql files into individual queries
  *
  * Last revision: September 23, 2001 - gandon
- *
  * @param   string  $sql the sql commands
- *
  * @return  array   the splitted queries
- *
  * @access  public
+ * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
+ *  in database/extra.lib.php instead
  */
 function PMA_splitSqlFile( $sql )
 {

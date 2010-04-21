@@ -6,21 +6,38 @@
  * Context handling library
  *
  * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     linker
+ * @package     kernel.core.context
+ * @since       Claroline 1.9
  */
 
-defined('CLARO_CONTEXT_PLATFORM')     || define('CLARO_CONTEXT_PLATFORM','platform');
-defined('CLARO_CONTEXT_COURSE')       || define('CLARO_CONTEXT_COURSE','course');
-defined('CLARO_CONTEXT_GROUP')        || define('CLARO_CONTEXT_GROUP','group');
-defined('CLARO_CONTEXT_USER')         || define('CLARO_CONTEXT_USER','user');
-defined('CLARO_CONTEXT_TOOLINSTANCE') || define('CLARO_CONTEXT_TOOLINSTANCE','toolInstance');
-defined('CLARO_CONTEXT_TOOLLABEL')    || define('CLARO_CONTEXT_TOOLLABEL','toolLabel');
-defined('CLARO_CONTEXT_MODULE')       || define('CLARO_CONTEXT_MODULE','moduleLabel');
+defined('CLARO_CONTEXT_PLATFORM')
+    || define('CLARO_CONTEXT_PLATFORM',     'platform');
 
+defined('CLARO_CONTEXT_COURSE')
+    || define('CLARO_CONTEXT_COURSE',       'course');
+
+defined('CLARO_CONTEXT_GROUP')
+    || define('CLARO_CONTEXT_GROUP',        'group');
+
+defined('CLARO_CONTEXT_USER')
+    || define('CLARO_CONTEXT_USER',         'user');
+
+defined('CLARO_CONTEXT_TOOLINSTANCE')
+    || define('CLARO_CONTEXT_TOOLINSTANCE', 'toolInstance');
+
+defined('CLARO_CONTEXT_TOOLLABEL')
+    || define('CLARO_CONTEXT_TOOLLABEL',    'toolLabel');
+
+defined('CLARO_CONTEXT_MODULE')
+    || define('CLARO_CONTEXT_MODULE',       'moduleLabel');
+
+/**
+ * Claroline Execution Context
+ */
 class Claro_Context
 {
     public static function getCurrentContext()
@@ -58,7 +75,10 @@ class Claro_Context
         return $context;
     }
     
-    
+    /**
+     * Get the current context array formated for use in urls
+     * @return array
+     */
     public static function getCurrentUrlContext()
     {
         $givenContext = self::getCurrentContext();
@@ -66,6 +86,11 @@ class Claro_Context
         return self::getUrlContext( $givenContext );
     }
     
+    /**
+     * Get the given context array formated for use in urls
+     * @param array $givenContext
+     * @return array
+     */
     public static function getUrlContext( $givenContext )
     {
         $context = array();

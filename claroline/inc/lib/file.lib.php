@@ -2,16 +2,11 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * File handling functions
  *
  * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -380,6 +375,11 @@ function claro_readfile( $path, $retbytes = true )
     }
 }
 
+/**
+ * Check if a relative path is encoded or not
+ * @param string $str
+ * @return boolean
+ */
 function is_download_url_encoded( $str )
 {
     $str = ltrim($str, '/');
@@ -389,6 +389,9 @@ function is_download_url_encoded( $str )
 /**
  * WARNING : DO NOT USE IN Url OBJET : ALREADY URLENCODED
  *  USE BASE64_ENCODE INSTEAD !
+ * Encode course relative file path to use with backend/download
+ * @param string file relative path
+ * @return string
  */
 function download_url_encode( $str )
 {
@@ -403,6 +406,11 @@ function download_url_encode( $str )
     }
 }
 
+/**
+ * Decode encoded relative file path
+ * @param string $str
+ * @return string
+ */
 function download_url_decode( $str )
 {
     if ( $GLOBALS['is_Apache'] && get_conf('usePrettyUrl', false) )
@@ -416,6 +424,12 @@ function download_url_decode( $str )
     }
 }
 
+/**
+ * Get the url to download the file at the given file path
+ * @param string $file path to the file
+ * @param array $context
+ * @return string url to the file
+ */
 function claro_get_file_download_url( $file, $context = null )
 {
     $file = download_url_encode( $file );
@@ -447,12 +461,12 @@ function claro_get_file_download_url( $file, $context = null )
 
 /**
  * replaces some dangerous character in a file name
+ * This function is broken !
  *
  * @param   string $string
  * @param   string $strict (optional) removes also scores and simple quotes
  * @return  string : the string cleaned of dangerous character
- * @todo    TODO use boolean instead as string for the second parameter 
- *
+ * @todo    function broken !
  */
 function replace_dangerous_char($string, $strict = 'loose')
 {
