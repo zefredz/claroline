@@ -42,19 +42,6 @@
 class Database_Connection_Exception extends Exception{};
 
 /**
- * Database Object usable by Database_ResultSet in FETCH_CLASS mode
- * @since Claroline 1.10
- */
-interface Database_Object
-{
-    /**
-     *
-     * @param array $data
-     */
-    public static function getInstance( $data );
-}
-
-/**
  * Database_Connection generic interface
  */
 interface Database_Connection
@@ -359,6 +346,19 @@ class Claroline_Database_Connection implements Database_Connection
 }
 
 /**
+ * Database Object usable by Database_ResultSet in FETCH_CLASS mode
+ * @since Claroline 1.9.5
+ */
+interface Database_Object
+{
+    /**
+     *
+     * @param array $data
+     */
+    public static function getInstance( $data );
+}
+
+/**
  * Database_ResultSet generic interface
  */
 interface Database_ResultSet extends SeekableIterator, Countable
@@ -398,7 +398,7 @@ interface Database_ResultSet extends SeekableIterator, Countable
      * second argument of Database_ResultSet::setFetchMode
      *
      * This class must implement the magic static __set_state method
-     * @since Claroline 1.10
+     * @since Claroline 1.9.5
      */
     const FETCH_CLASS = 'FETCH_CLASS';
     
