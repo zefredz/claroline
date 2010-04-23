@@ -1140,7 +1140,7 @@ function get_class_list_by_course($courseId)
  * @since 1.9.1
  * @return array(`id`,`name`,`class_parent_id`)
  */
-function get_class_list_of_course($courseId,$classId)
+function get_class_list_of_course($courseId)
 {
     $tbl = claro_sql_get_main_tbl();
 
@@ -1151,7 +1151,7 @@ function get_class_list_of_course($courseId,$classId)
         FROM `" . $tbl['class'] . "` C
         LEFT JOIN `" . $tbl['rel_course_class'] . "` CC
                ON CC.`classId` = C.`id`
-        WHERE CC.`courseId` = '" . claro_sql_escape($courseId) . "' AND  C.`id` = ".$classId. "        
+        WHERE CC.`courseId` = '" . claro_sql_escape($courseId) . "'         
         ORDER BY C.`name`";
     return claro_sql_query_fetch_all($sql);
 }
