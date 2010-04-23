@@ -521,7 +521,7 @@ if ( $displayForm )
 
     $output .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
 
-    $output .= claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), 'Cancel')
+    $output .= claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel'))
         . '</td>'
         . '</tr>' . "\n"
         . '</table>'
