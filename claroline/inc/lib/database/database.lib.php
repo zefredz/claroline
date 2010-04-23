@@ -79,6 +79,7 @@ interface Database_Connection
      * Get a pager for the query
      * @return  Database_Pager
      * @throws  Database_Connection_Exception
+     * @deprecated since Claroline 1.9.5, will be removed in 1.9.6 and 1.10
      */
     public function pager( $sql );
     
@@ -247,6 +248,7 @@ class Mysql_Database_Connection implements Database_Connection
     
     /**
      * @see Database_Connection
+     * @deprecated since Claroline 1.9.5, will be removed in 1.9.6 and 1.10
      */
     public function pager( $sql )
     {
@@ -354,6 +356,7 @@ class Claroline_Database_Connection implements Database_Connection
     
     /**
      * @see Database_Connection
+     * @deprecated since Claroline 1.9.5, will be removed in 1.9.6 and 1.10
      */
     public function pager( $sql )
     {
