@@ -255,6 +255,7 @@ class Mysql_Database_Connection implements Database_Connection
 
 /**
  * Claroline kernel database specific Database_Connection
+ * @todo rewrite without using claro_sql_* functions
  */
 class Claroline_Database_Connection implements Database_Connection
 {
