@@ -44,19 +44,6 @@ FromKernel::uses('database/pager.lib');
 class Database_Connection_Exception extends Exception{};
 
 /**
- * Database Object usable by Database_ResultSet in FETCH_CLASS mode
- * @since Claroline 1.9.5
- */
-interface Database_Object
-{
-    /**
-     *
-     * @param array $data
-     */
-    public static function getInstance( $data );
-}
-
-/**
  * Database_Connection generic interface
  */
 interface Database_Connection
@@ -399,6 +386,20 @@ class Claroline_Database_Connection implements Database_Connection
         return "'".claro_sql_escape( $str, $this->dbLink )."'";
     }
 }
+
+/**
+ * Database Object usable by Database_ResultSet in FETCH_CLASS mode
+ * @since Claroline 1.9.5
+ */
+interface Database_Object
+{
+    /**
+     *
+     * @param array $data
+     */
+    public static function getInstance( $data );
+}
+
 
 /**
  * Database_ResultSet generic interface
