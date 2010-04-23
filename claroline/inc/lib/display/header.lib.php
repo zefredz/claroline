@@ -5,8 +5,8 @@
     /**
      * Class used to configure and display the page header
      *
-     * @version     1.9 $Revision$
-     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+     * @version     1.10 $Revision$
+     * @copyright   2001-2010 Universite catholique de Louvain (UCL)
      * @author      Claroline Team <info@claroline.net>
      * @author      Frederic Minne <zefredz@claroline.net>
      * @license     http://www.gnu.org/copyleft/gpl.html
@@ -52,7 +52,7 @@
 
         /**
          * Set the page title
-         * @since Claroline 1.10
+         * @since Claroline 1.9.5
          * @param string $title
          */
         public function setTitle( $pageTitle )
@@ -62,7 +62,7 @@
 
         /**
          * Set the page title
-         * @deprecated since Claroline 1.10, use setTitle() instead
+         * @deprecated since Claroline 1.9.5, use setTitle() instead
          * @param string $pageTitle
          */
         public function setToolName( $pageTitle )
@@ -176,7 +176,7 @@
             {
                 $titlePage .= $this->_nameTools . ' - ';
             }
-            else
+            elseif (! empty($this->_toolName) )
             {
                 $titlePage .= $this->_toolName  . ' - ';
             }
