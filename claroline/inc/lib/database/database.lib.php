@@ -28,7 +28,7 @@
  * connections
  *
  * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -42,6 +42,19 @@ FromKernel::uses('database/pager.lib');
  * Database Specific Exception
  */
 class Database_Connection_Exception extends Exception{};
+
+/**
+ * Database Object usable by Database_ResultSet in FETCH_CLASS mode
+ * @since Claroline 1.9.5
+ */
+interface Database_Object
+{
+    /**
+     *
+     * @param array $data
+     */
+    public static function getInstance( $data );
+}
 
 /**
  * Database_Connection generic interface
@@ -393,7 +406,7 @@ class Claroline_Database_Connection implements Database_Connection
 interface Database_ResultSet extends SeekableIterator, Countable
 {
     /**
-     * Associative array fetch mode constant
+     * Associative array fetch mode constant, default mode if no one specified
      */
     const FETCH_ASSOC = MYSQL_ASSOC;
     
@@ -423,21 +436,36 @@ interface Database_ResultSet extends SeekableIterator, Countable
     const FETCH_COLUMN = 'FETCH_COLUMN';
     
     /**
-     * Set fetch mode
-     * @param   mixed $mode fetch mode
+     * Fetch the next rows as a new instance of the class name specified as the
+     * second argument of Database_ResultSet::setFetchMode
+     *
+     * This class must implement the magic static __set_state method
+     * @since Claroline 1.9.5
      */
-    public function setFetchMode( $mode );
+    const FETCH_CLASS = 'FETCH_CLASS';
     
     /**
+     * Set fetch mode. If not set, the default mode is FETCH_ASSOC
+     * @param   string $mode fetch mode
+     * @param   string class name used for the FETCH_CLASS mode, this class
+     *  need to implement all the method in the Database_Object interface
+     * @return  $this for chaining
+     */
+    public function setFetchMode( $mode, $className = null );
+
+    /**
      * Get the next row in the Result Set
-     * @param   mixed $mode fetch mode (optional, use internal fetch mode :
+     * @param   string $mode fetch mode (optional, use internal fetch mode :
      *      FETCH_ASSOC by default or set by setFetchMode())
+     * @param   string class name used for the FETCH_CLASS mode, this class
+     *  need to implement all the method in the Database_Object interface
      * @return  mixed result row, returned data type depends on fetch mode :
      *      FETCH_ASSOC, FETCH_NUM or FETCH_BOTH : array
      *      FETCH_OBJECT : object representation of the current row
+     *      FETCH_CLASS : instance of the class name given
      *      FETCH_VALUE : value of the first field in the current row
      */
-    public function fetch( $mode = null );
+    public function fetch( $mode = null, $className = null );
     
     /**
      * Get the number of rows in the result set
@@ -460,6 +488,7 @@ interface Database_ResultSet extends SeekableIterator, Countable
 class Mysql_ResultSet implements Database_ResultSet
 {
     protected $mode;
+    protected $className;
     protected $idx;
     protected $valid;
     protected $numrows;
@@ -467,14 +496,14 @@ class Mysql_ResultSet implements Database_ResultSet
     
     /**
      * @param   resource $result Mysql native resultset
-     * @param   mixed $mode fetch mode (optional, default FETCH_ASSOC)
      */
-    public function __construct( $result, $mode = self::FETCH_ASSOC )
+    public function __construct( $result )
     {
         if ( $result )
         {
             $this->resultSet = $result;
-            $this->mode = $mode;
+            $this->mode = self::FETCH_ASSOC;
+
             // set to 0 if false;
             $this->numrows = (int) @mysql_num_rows( $this->resultSet );
             $this->idx = 0;
@@ -502,15 +531,25 @@ class Mysql_ResultSet implements Database_ResultSet
     // --- Database_ResultSet  ---
     
     /**
-     * Set the fetch mode
+     * Set fetch mode
+     * @param   string $mode fetch mode
+     * @param   string class name used for the FETCH_CLASS mode, this class
+     *  need to implement all the method in the Database_Object interface
      * @see     Database_ResultSet
-     * @return  void
+     * @return $this
      */
-    public function setFetchMode( $mode )
+    public function setFetchMode( $mode, $className = null )
     {
         $this->mode = $mode;
+
+        if ( $this->mode == self::FETCH_CLASS )
+        {
+            $this->className = $className;
     }
     
+        return $this;
+    }
+
     /**
      * Get the number of rows in the result set
      * @see     Database_ResultSet
@@ -534,18 +573,36 @@ class Mysql_ResultSet implements Database_ResultSet
     /**
      * Get the next row in the Result Set
      * @see     Database_ResultSet
-     * @param   mixed $mode fetch mode (optional, use internal fetch mode :
+     * @param   string $mode fetch mode (optional, use internal fetch mode :
      *      FETCH_ASSOC by default or set by setFetchMode())
+     * @param   string class name used for the FETCH_CLASS mode, this class
+     *  need to implement all the method in the Database_Object interface
      * @return  mixed result row, returned data type depends on fetch mode :
      *      FETCH_ASSOC, FETCH_NUM or FETCH_BOTH : array
      *      FETCH_OBJECT : object representation of the current row
+     *      FETCH_CLASS : instance of the class name given
      *      FETCH_VALUE : value of the first field in the current row
      */
-    public function fetch( $mode = null )
+    public function fetch( $mode = null, $className = null )
     {
         $mode = empty( $mode ) ? $this->mode : $mode;
+        $className = empty( $className ) ? $this->className : $className;
         
-        if ( $mode == self::FETCH_OBJECT )
+        if ( $mode == self::FETCH_CLASS )
+        {
+            if ( empty ( $className )
+                || ! class_exists( $className )
+                || ! is_callable ( array( $className, 'getInstance' ) ) )
+            {
+                throw new Exception( "Cannot instanciate class {$className}" );
+            }
+
+            $row = @mysql_fetch_array( $this->resultSet, self::FETCH_ASSOC );
+            $obj = call_user_func( array($className, 'getInstance' ), $row );
+
+            return $obj;
+        }
+        elseif ( $mode == self::FETCH_OBJECT )
         {
             return @mysql_fetch_object( $this->resultSet );
         }
