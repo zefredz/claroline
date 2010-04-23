@@ -342,6 +342,7 @@
         .    '<br/>'.get_lang('Message') .'<br/>'. "\n"
         .    claro_html_textarea_editor('content', "")
         .    '<br/><input type="submit" name="submitMessage" value="' . get_lang('Submit') . '" />'
+        .    claro_html_button(htmlspecialchars(Url::Contextualize("../announcements/announcements.php?cidReset=true")), get_lang('Cancel'))
         .    '</div>'."\n"
         .    '</div>'."\n\n"
         .    '</form>'."\n\n"
