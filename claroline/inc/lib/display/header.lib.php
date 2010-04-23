@@ -1,7 +1,7 @@
 <?php // $Id$
 
     // vim: expandtab sw=4 ts=4 sts=4:
-    
+
     /**
      * Class used to configure and display the page header
      *
@@ -13,22 +13,22 @@
      *              GNU GENERAL PUBLIC LICENSE version 2 or later
      * @package     DISPLAY
      */
-    
+
     if ( count( get_included_files() ) == 1 )
     {
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
-    
+
     FromKernel::uses( 'core/loader.lib' );
-    
+
     class ClaroHeader extends CoreTemplate
     {
         private static $instance = false;
-        
+
         private $_htmlXtraHeaders;
         private $_httpXtraHeaders;
         private $_toolName;
-        
+
         /**
          * Constructor
          */
@@ -39,7 +39,7 @@
             $this->_httpXtraHeaders = array();
             $this->_toolName = '';
         }
-        
+
         public static function getInstance()
         {
             if ( ! ClaroHeader::$instance )
@@ -49,12 +49,27 @@
 
             return ClaroHeader::$instance;
         }
-        
-        public function setToolName( $pageTitle )
+
+        /**
+         * Set the page title
+         * @since Claroline 1.9.5
+         * @param string $title
+         */
+        public function setTitle( $pageTitle )
         {
             $this->_toolName = $pageTitle;
         }
-        
+
+        /**
+         * Set the page title
+         * @deprecated since Claroline 1.9.5, use setTitle() instead
+         * @param string $pageTitle
+         */
+        public function setToolName( $pageTitle )
+        {
+            $this->setToolName( $pageTitle );
+        }
+
         /**
          * Add extra HTML header elements
          *
@@ -64,7 +79,7 @@
         {
             $this->_htmlXtraHeaders[] = $header;
         }
-        
+
         /**
          * Add inline javascript code to HTML head
          *
@@ -76,10 +91,10 @@
             {
                 $script = "<script type=\"text/javascript\">\n{$script}\n</script>";
             }
-            
+
             $this->addHtmlHeader( $script );
         }
-        
+
         /**
          * Add inline css style to HTML head
          *
@@ -91,7 +106,7 @@
             {
                 $style = "<style type=\"text/css\">\n{$style}\n</style>";
             }
-            
+
             $this->addHtmlHeader( $style );
         }
 
@@ -104,7 +119,7 @@
         {
             $this->_httpXtraHeaders[] = $header;
         }
-        
+
         /**
          * Send HTTP headers to the client
          */
@@ -123,7 +138,7 @@
                 }
             }
         }
-        
+
         /**
          * Retrieve variables used by the old header script for compatibility
          * with old scripts
@@ -134,19 +149,19 @@
             {
                 $this->_htmlXtraHeaders = array_merge($this->_htmlXtraHeaders, $GLOBALS['htmlHeadXtra'] );
             }
-            
+
             if ( isset( $GLOBALS['httpHeadXtra'] ) && !empty($GLOBALS['httpHeadXtra']) )
             {
                 $this->_httpXtraHeaders = array_merge($this->_httpXtraHeaders, $GLOBALS['httpHeadXtra'] );
             }
-            
+
             if ( isset( $GLOBALS['nameTools'] ) && !empty($GLOBALS['nameTools']) )
             {
                 $this->_nameTools = $GLOBALS['nameTools'];
             }
         }
-        
-        
+
+
         /**
          * Render the HTML page header
          * @return  string
@@ -154,16 +169,16 @@
         public function render()
         {
             $this->_globalVarsCompat();
-            
+
             $titlePage = '';
 
             if(empty($this->_toolName) && !empty($this->_nameTools))
             {
                 $titlePage .= $this->_nameTools . ' - ';
             }
-            else
+            elseif (! empty($this->_toolName) )
             {
-                $titlePage .= $this->_toolName;
+                $titlePage .= $this->_toolName  . ' - ';
             }
 
             if(claro_is_in_a_course() && claro_get_current_course_data('officialCode') != '')
@@ -172,9 +187,9 @@
             }
 
             $titlePage .= get_conf('siteName');
-            
+
             $this->assign( 'pageTitle', $titlePage );
-            
+
             if ( true === get_conf( 'warnSessionLost', true ) && claro_get_current_user_id() )
             {
                 $this->assign( 'warnSessionLost',
@@ -192,16 +207,16 @@ function claro_warn_of_session_loss() {
             {
                 $this->assign( 'warnSessionLost', '' );
             }
-            
+
             $htmlXtraHeaders = '';
-            
+
             if ( !empty( $this->_htmlXtraHeaders ) )
             {
                 $htmlXtraHeaders .= implode ( "\n", $this->_htmlXtraHeaders );
             }
 
             $this->assign( 'htmlScriptDefinedHeaders', $htmlXtraHeaders );
-            
+
             return parent::render() . "\n";
         }
     }
