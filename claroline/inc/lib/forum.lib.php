@@ -390,9 +390,9 @@ function trig_forum_notification($forumId)
     // send mail to registered user for notification
     $message = get_lang('You are receiving this notification because you are watching for new topics on the forum of one of your courses.') . '<br/>' . "\n"
     . get_lang('View forum') . '<br/>' . "\n"
-    . '<a href="' . $url_forum . '">' . $url_forum . '</a><br/><br/>' . "\n"
+    . '<a href="' . Url::Contextualize($url_forum) . '">' . Url::Contextualize($url_forum) . '</a><br/><br/>' . "\n"
     . get_lang('View general forum') . '<br/>'
-    . '<a href="' . $url_forum_global . '">' .$url_forum_global . '</a><br/>' . "\n"
+    . '<a href="' . Url::Contextualize($url_forum_global) . '">' . Url::Contextualize($url_forum_global) . '</a><br/>' . "\n"
     ;
     
     require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
