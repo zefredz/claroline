@@ -42,6 +42,19 @@
 class Database_Connection_Exception extends Exception{};
 
 /**
+ * Database Object usable by Database_ResultSet in FETCH_CLASS mode
+ * @since Claroline 1.10
+ */
+interface Database_Object
+{
+    /**
+     *
+     * @param array $data
+     */
+    public static function getInstance( $data );
+}
+
+/**
  * Database_Connection generic interface
  */
 interface Database_Connection
@@ -351,7 +364,7 @@ class Claroline_Database_Connection implements Database_Connection
 interface Database_ResultSet extends SeekableIterator, Countable
 {
     /**
-     * Associative array fetch mode constant
+     * Associative array fetch mode constant, default mode if no one specified
      */
     const FETCH_ASSOC = MYSQL_ASSOC;
     
@@ -390,10 +403,11 @@ interface Database_ResultSet extends SeekableIterator, Countable
     const FETCH_CLASS = 'FETCH_CLASS';
     
     /**
-     * Set fetch mode
+     * Set fetch mode. If not set, the default mode is FETCH_ASSOC
      * @param   string $mode fetch mode
-     * @param   string class name used for the FETCH_CLASS mode, this class must
-     *  implement the magic static __set_state method
+     * @param   string class name used for the FETCH_CLASS mode, this class
+     *  need to implement all the method in the Database_Object interface
+     * @return  $this for chaining
      */
     public function setFetchMode( $mode, $className = null );
     
@@ -401,7 +415,8 @@ interface Database_ResultSet extends SeekableIterator, Countable
      * Get the next row in the Result Set
      * @param   string $mode fetch mode (optional, use internal fetch mode :
      *      FETCH_ASSOC by default or set by setFetchMode())
-     * @param   string $className class name for FETCH_CLASS mode
+     * @param   string class name used for the FETCH_CLASS mode, this class
+     *  need to implement all the method in the Database_Object interface
      * @return  mixed result row, returned data type depends on fetch mode :
      *      FETCH_ASSOC, FETCH_NUM or FETCH_BOTH : array
      *      FETCH_OBJECT : object representation of the current row
@@ -439,14 +454,14 @@ class Mysql_ResultSet implements Database_ResultSet
     
     /**
      * @param   resource $result Mysql native resultset
-     * @param   mixed $mode fetch mode (optional, default FETCH_ASSOC)
      */
-    public function __construct( $result, $mode = self::FETCH_ASSOC )
+    public function __construct( $result )
     {
         if ( $result )
         {
             $this->resultSet = $result;
-            $this->mode = $mode;
+            $this->mode = self::FETCH_ASSOC;
+            
             // set to 0 if false;
             $this->numrows = (int) @mysql_num_rows( $this->resultSet );
             $this->idx = 0;
@@ -474,9 +489,12 @@ class Mysql_ResultSet implements Database_ResultSet
     // --- Database_ResultSet  ---
     
     /**
-     * Set the fetch mode
+     * Set fetch mode
+     * @param   string $mode fetch mode
+     * @param   string class name used for the FETCH_CLASS mode, this class
+     *  need to implement all the method in the Database_Object interface
      * @see     Database_ResultSet
-     * @return  void
+     * @return $this
      */
     public function setFetchMode( $mode, $className = null )
     {
@@ -486,6 +504,8 @@ class Mysql_ResultSet implements Database_ResultSet
         {
             $this->className = $className;
         }
+
+        return $this;
     }
     
     /**
@@ -513,7 +533,8 @@ class Mysql_ResultSet implements Database_ResultSet
      * @see     Database_ResultSet
      * @param   string $mode fetch mode (optional, use internal fetch mode :
      *      FETCH_ASSOC by default or set by setFetchMode())
-     * @param   string $className class name for FETCH_CLASS mode
+     * @param   string class name used for the FETCH_CLASS mode, this class
+     *  need to implement all the method in the Database_Object interface
      * @return  mixed result row, returned data type depends on fetch mode :
      *      FETCH_ASSOC, FETCH_NUM or FETCH_BOTH : array
      *      FETCH_OBJECT : object representation of the current row
@@ -529,13 +550,13 @@ class Mysql_ResultSet implements Database_ResultSet
         {
             if ( empty ( $className )
                 || ! class_exists( $className )
-                || ! is_callable ( array( $className, '__set_state' ) ) )
+                || ! is_callable ( array( $className, 'getInstance' ) ) )
             {
                 throw new Exception( "Cannot instanciate class {$className}" );
             }
 
             $row = @mysql_fetch_array( $this->resultSet, self::FETCH_ASSOC );
-            $obj = call_user_func( array($className, '__set_state' ), $row );
+            $obj = call_user_func( array($className, 'getInstance' ), $row );
 
             return $obj;
         }
