@@ -36,8 +36,6 @@
  * @package     kernel.database
  */
 
-require_once dirname(__FILE__) . '/pager.lib';
-
 /**
  * Database Specific Exception
  */
@@ -74,13 +72,6 @@ interface Database_Connection
      * @throws  Database_Connection_Exception
      */
     public function query( $sql );
-    
-    /**
-     * Get a pager for the query
-     * @return  Database_Pager
-     * @throws  Database_Connection_Exception
-     */
-    public function pager( $sql );
     
     /**
      * Returns the number of rows affected by the last query
@@ -248,21 +239,6 @@ class Mysql_Database_Connection implements Database_Connection
     /**
      * @see Database_Connection
      */
-    public function pager( $sql )
-    {
-        if ( ! $this->isConnected() )
-        {
-            throw new Database_Connection_Exception("No connection found to database server, please connect first");
-        }
-        
-        $pager = new Mysql_Pager( $sql, $this );
-        
-        return $pager;
-    }
-    
-    /**
-     * @see Database_Connection
-     */
     public function escape( $str )
     {
         return mysql_real_escape_string( $str, $this->dbLink );
@@ -355,21 +331,6 @@ class Claroline_Database_Connection implements Database_Connection
     /**
      * @see Database_Connection
      */
-    public function pager( $sql )
-    {
-        if ( ! $this->isConnected() )
-        {
-            throw new Database_Connection_Exception("No connection found to database server, please connect first");
-        }
-        
-        $pager = new Mysql_Pager( $sql, $this );
-        
-        return $pager;
-    }
-    
-    /**
-     * @see Database_Connection
-     */
     public function escape( $str )
     {
         return claro_sql_escape( $str, $this->dbLink );
@@ -418,23 +379,36 @@ interface Database_ResultSet extends SeekableIterator, Countable
      * Fetch the value of the first column of each row of the result set
      */
     const FETCH_COLUMN = 'FETCH_COLUMN';
+
+    /**
+     * Fetch the next rows as a new instance of the class name specified as the
+     * second argument of Database_ResultSet::setFetchMode
+     *
+     * This class must implement the magic static __set_state method
+     * @since Claroline 1.10
+     */
+    const FETCH_CLASS = 'FETCH_CLASS';
     
     /**
      * Set fetch mode
-     * @param   mixed $mode fetch mode
+     * @param   string $mode fetch mode
+     * @param   string class name used for the FETCH_CLASS mode, this class must
+     *  implement the magic static __set_state method
      */
-    public function setFetchMode( $mode );
+    public function setFetchMode( $mode, $className = null );
     
     /**
      * Get the next row in the Result Set
-     * @param   mixed $mode fetch mode (optional, use internal fetch mode :
+     * @param   string $mode fetch mode (optional, use internal fetch mode :
      *      FETCH_ASSOC by default or set by setFetchMode())
+     * @param   string $className class name for FETCH_CLASS mode
      * @return  mixed result row, returned data type depends on fetch mode :
      *      FETCH_ASSOC, FETCH_NUM or FETCH_BOTH : array
      *      FETCH_OBJECT : object representation of the current row
+     *      FETCH_CLASS : instance of the class name given
      *      FETCH_VALUE : value of the first field in the current row
      */
-    public function fetch( $mode = null );
+    public function fetch( $mode = null, $className = null );
     
     /**
      * Get the number of rows in the result set
@@ -457,6 +431,7 @@ interface Database_ResultSet extends SeekableIterator, Countable
 class Mysql_ResultSet implements Database_ResultSet
 {
     protected $mode;
+    protected $className;
     protected $idx;
     protected $valid;
     protected $numrows;
@@ -503,9 +478,14 @@ class Mysql_ResultSet implements Database_ResultSet
      * @see     Database_ResultSet
      * @return  void
      */
-    public function setFetchMode( $mode )
+    public function setFetchMode( $mode, $className = null )
     {
         $this->mode = $mode;
+
+        if ( $this->mode == self::FETCH_CLASS )
+        {
+            $this->className = $className;
+        }
     }
     
     /**
@@ -531,18 +511,35 @@ class Mysql_ResultSet implements Database_ResultSet
     /**
      * Get the next row in the Result Set
      * @see     Database_ResultSet
-     * @param   mixed $mode fetch mode (optional, use internal fetch mode :
+     * @param   string $mode fetch mode (optional, use internal fetch mode :
      *      FETCH_ASSOC by default or set by setFetchMode())
+     * @param   string $className class name for FETCH_CLASS mode
      * @return  mixed result row, returned data type depends on fetch mode :
      *      FETCH_ASSOC, FETCH_NUM or FETCH_BOTH : array
      *      FETCH_OBJECT : object representation of the current row
+     *      FETCH_CLASS : instance of the class name given
      *      FETCH_VALUE : value of the first field in the current row
      */
-    public function fetch( $mode = null )
+    public function fetch( $mode = null, $className = null )
     {
         $mode = empty( $mode ) ? $this->mode : $mode;
+        $className = empty( $className ) ? $this->className : $className;
         
-        if ( $mode == self::FETCH_OBJECT )
+        if ( $mode == self::FETCH_CLASS )
+        {
+            if ( empty ( $className )
+                || ! class_exists( $className )
+                || ! is_callable ( array( $className, '__set_state' ) ) )
+            {
+                throw new Exception( "Cannot instanciate class {$className}" );
+            }
+
+            $row = @mysql_fetch_array( $this->resultSet, self::FETCH_ASSOC );
+            $obj = call_user_func( array($className, '__set_state' ), $row );
+
+            return $obj;
+        }
+        elseif ( $mode == self::FETCH_OBJECT )
         {
             return @mysql_fetch_object( $this->resultSet );
         }
