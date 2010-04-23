@@ -49,10 +49,25 @@
 
             return ClaroHeader::$instance;
         }
-        
-        public function setToolName( $pageTitle )
+
+        /**
+         * Set the page title
+         * @since Claroline 1.10
+         * @param string $title
+         */
+        public function setTitle( $pageTitle )
         {
             $this->_toolName = $pageTitle;
+        }
+
+        /**
+         * Set the page title
+         * @deprecated since Claroline 1.10, use setTitle() instead
+         * @param string $pageTitle
+         */
+        public function setToolName( $pageTitle )
+        {
+            $this->setToolName( $pageTitle );
         }
         
         /**
@@ -163,7 +178,7 @@
             }
             else
             {
-                $titlePage .= $this->_toolName;
+                $titlePage .= $this->_toolName  . ' - ';
             }
 
             if(claro_is_in_a_course() && claro_get_current_course_data('officialCode') != '')
