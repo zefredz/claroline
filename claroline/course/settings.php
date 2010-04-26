@@ -301,15 +301,6 @@ if ( get_conf('is_trackingEnabled') )
     .          '</a>' ;
 }
 
-// Create a session course
-if ( !$course->isSessionCourse() )
-{
-    $links[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/create.php', array('course_sourceCourseId'=>$course->id) )) . '">'
-    .          '<img src="' . get_icon_url('duplicate') . '" alt="" />'
-    .          get_lang("Create a session course")
-    .          '</a>' ;
-}
-
 // Add delete course link
 if ( get_conf('showLinkToDeleteThisCourse') )
 {
