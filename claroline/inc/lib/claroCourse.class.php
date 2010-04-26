@@ -287,10 +287,19 @@ class ClaroCourse
      *                  FALSE otherwise
      * @since 1.10
      */
-    public function isSourceCourse ()
+    public static function isSourceCourse ($id)
     {
-        $sessionCoursesList = get_session_courses($this->id);
-        if (count($sessionCoursesList) > 0)
+        // Declare needed tables
+        $tbl_mdb_names              = claro_sql_get_main_tbl();
+        $tbl_courses                 = $tbl_mdb_names['course'];
+        
+        $sql = "SELECT isSourceCourse 
+                FROM `" . $tbl_courses . "` 
+                WHERE cours_id = " . (int) $id;
+        
+        $res = claro_sql_query_get_single_row($sql);
+        
+        if ($res['isSourceCourse'] == 1)
         {
             return true;
         }
@@ -308,9 +317,9 @@ class ClaroCourse
      *                  FALSE otherwise
      * @since 1.10
      */
-    public function isSessionCourse ()
+    public static function isSessionCourse ($id)
     {
-        $sourceCourse = get_source_course($this->id);
+        $sourceCourse = get_source_course($id);
         
         if (!empty($sourceCourse))
         {
@@ -377,6 +386,22 @@ class ClaroCourse
     public function delete ()
     {
         return delete_course($this->courseId);
+    }
+    
+    /**
+     * Get all session courses for the current course (if any).
+     * 
+     * @return array    session courses
+     * @since 1.10
+     */
+    public function getSessionCourses ()
+    {
+        $sessionCourses = get_session_courses($this->id);
+        
+        if (!empty($sessionCourses))
+            return $sessionCourses;
+        else
+            return array();
     }
     
     
