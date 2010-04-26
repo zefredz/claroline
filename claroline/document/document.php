@@ -2040,7 +2040,7 @@ $out .= claro_html_tool_title($titleElement,
         {
             $docViewToolbar[] = '<a class="claroCmd" href="'
                  . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. base_64_encode($curDirPath) . $searchCmdUrl ))
+                 . '?docView=files&amp;cmd=exChDir&amp;file='. base64_encode($curDirPath) . $searchCmdUrl ))
                  . '">'
                  . '<img src="' . get_icon_url('document') . '" alt="" />' . "\n"
                  . get_lang('File list') .'</a>';
