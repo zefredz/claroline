@@ -215,6 +215,16 @@ function register_session_course(
         return false;
     }
     
+    // Flag the source course
+    $sql = "UPDATE `" . $tbl_course . "` SET
+            isSourceCourse = 1
+            WHERE cours_id = " . (int) $sourceCourseId;
+    
+    if ( claro_sql_query($sql) == false ) 
+    {
+        return false;
+    }
+    
     // Add user to course
     if ( user_add_to_course($uidCreator, $courseSysCode, true, true) === false )
     {
@@ -235,7 +245,7 @@ function register_session_course(
  *         boolean  FALSE       otherwise.
  * @since 1.10
  */
-function delete_session_course($code)
+function delete_session_course($code, $sourceCourseId)
 {
     global $eventNotifier;
     
@@ -251,7 +261,7 @@ function delete_session_course($code)
     
     // Delete user registrations into this course
     $sql = 'DELETE FROM `' . $tbl_rel_course_user . '`
-            WHERE code_cours="' . $currentCourseId . '"';
+            WHERE code_cours ="' . $currentCourseId . '"';
     
     claro_sql_query($sql);
     
@@ -259,13 +269,29 @@ function delete_session_course($code)
     $sql = "DELETE FROM `" . $tbl_course_class . "`
             WHERE courseId ='" . claro_sql_escape($currentCourseId) . "'";
     
-      claro_sql_query($sql);
+    claro_sql_query($sql);
     
     // Delete the course inside the platform course registery
     $sql = 'DELETE FROM `' . $tbl_course . '`
-            WHERE code= "' . claro_sql_escape($currentCourseId) . '"';
+            WHERE code = "' . claro_sql_escape($currentCourseId) . '"';
     
     claro_sql_query($sql);
+    
+    // Does the source course still have session courses ?
+    $sql = "SELECT COUNT(cours_id) AS nbSessionCourses 
+            FROM `" . $tbl_course . "` 
+            WHERE sourceCourseId = " . (int) $sourceCourseId;
+    
+    $result = claro_sql_query_get_single_row($sql);
+    var_dump($result['nbSessionCourses']);
+    if ( $result['nbSessionCourses'] == 0 )
+    {
+        $sql = "UPDATE `" . $tbl_course . "` 
+                SET isSourceCourse = 0 
+                WHERE cours_id = " . (int) $sourceCourseId;
+        
+        claro_sql_query($sql);
+    }
     
     // Delete course right
     RightCourseProfileToolRight::resetAllRightProfile($currentCourseId);

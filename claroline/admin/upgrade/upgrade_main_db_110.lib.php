@@ -139,11 +139,12 @@ function category_to_110 ()
             
             // Drop deprecated attribute "faculte" from `cours` table
             $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['course'] . "` DROP `faculte`";
-
+            
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
 
             unset($sqlForUpdate);
+            
         case 6 :
             
             // Drop deprecated table `faculty`
@@ -181,7 +182,17 @@ function session_course ()
             else return $step;
 
             unset($sqlForUpdate);
+            
+        case 2 :
+            
+            // Add attribute "isSourceCours" to `cours`table
+            $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['course'] . "` ADD `isSourceCourse` BOOL NOT NULL DEFAULT '0' AFTER `code`";
+            // 
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
 
+            unset($sqlForUpdate);
+            
         default :
 
             $step = set_upgrade_status($tool, 0);

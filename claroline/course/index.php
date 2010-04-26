@@ -16,17 +16,23 @@
  */
 
 // If user is here, it means he isn't neither in specific group space
-// nor a specific course tool now. So it's careful to to reset the group
+// nor a specific course tool now. So it's careful to reset the group
 // and tool settings
 
 $gidReset = TRUE;
 $tidReset = TRUE;
 
-if ( isset($_REQUEST['cid']) ) $cidReq = $_REQUEST['cid'];
+$cidReq = ( isset($_REQUEST['cid']) ) ? $_REQUEST['cid'] : '';
 
 require '../inc/claro_init_global.inc.php';
-
+require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 include claro_get_conf_repository() . 'rss.conf.php';
+
+if (!empty($cidReq))
+{
+    $thisCourse = new ClaroCourse();
+    $thisCourse->load($cidReq);
+}
 
 
 if ( !claro_is_in_a_course()  || !claro_is_course_allowed() ) claro_disp_auth_form(true);
@@ -87,7 +93,7 @@ $toolLinkList = array(
 // generate toollists
 foreach ($courseCode as $key => $course)
 {   
-    $toolListSource = claro_get_course_tool_list($course,$_profileId,true);
+    $toolListSource = claro_get_course_tool_list($course, $_profileId, true);
     $toolLinkListSource = array();
     
     foreach ($toolListSource as $thisTool)
@@ -153,6 +159,13 @@ $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Ur
 .                             get_lang('Course settings')
 .                             '</a>'
 ;
+if ( !ClaroCourse::isSessionCourse($thisCourse->id) )
+{
+    $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/session_courses.php', array('cid'=>$thisCourse->id) )) . '">'
+    .                             '<img src="' . get_icon_url('duplicate') . '" alt="" /> '
+    .                             get_lang("Manage session courses")
+    .                             '</a>' ;
+}
 
 if( get_conf('is_trackingEnabled') )
 {

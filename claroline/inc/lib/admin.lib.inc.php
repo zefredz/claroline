@@ -198,7 +198,7 @@ function link_course_categories ( $courseId, $categories )
 
 
 /**
- * delete link between a course and its associated categories
+ * delete link between a course and its associated categories.
  * 
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @param  int      id of course

@@ -137,13 +137,12 @@ class ClaroCategory
     
     
     /**
-     * Delete current category data and content.
+     * Delete datas of a category and unlinks all courses linked to it.
      *
      * @return bool     success
      */
     public function delete ()
     {
-        //TODO handle cases where the category has subcategories
         if ( claro_delete_cat_datas($this->id) ) 
             return true;
         else 
@@ -247,7 +246,7 @@ class ClaroCategory
     
     
     /**
-     * Count the number of courses in the current category 
+     * Count the number of courses for the specified category 
      * (not recursive: only works on one level of the tree).  
      * The count does NOT include root courses.
      * 
@@ -260,7 +259,7 @@ class ClaroCategory
     
     
     /**
-     * Count the number of courses in the current category 
+     * Count the number of courses for the specified category 
      * and all its sub categories (recursivly).  
      * The count does NOT include root courses.
      * 

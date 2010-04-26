@@ -461,7 +461,7 @@ function retrieve_code_from_id($id)
  * @param string    course code
  * @return int      course identifier
  */
-function rectrieve_id_from_code($code)
+function retrieve_id_from_code($code)
 {
     // Declare needed tables
     $tbl_mdb_names              = claro_sql_get_main_tbl();

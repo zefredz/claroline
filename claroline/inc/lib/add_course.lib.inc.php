@@ -421,6 +421,7 @@ function register_course( $courseSysCode, $courseScreenCode,
     // Insert course
     $sql = "INSERT INTO `" . $tbl_course . "` SET
             code                 = '" . claro_sql_escape($courseSysCode)    . "',
+            isSourceCourse       = 0,
             dbName               = '" . claro_sql_escape($courseDbName)     . "',
             directory            = '" . claro_sql_escape($courseRepository) . "',
             language             = '" . claro_sql_escape($languageCourse)   . "',

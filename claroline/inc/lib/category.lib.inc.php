@@ -428,7 +428,7 @@ function claro_update_cat_datas($id, $name, $code, $idParent, $rank, $visible, $
 
 
 /**
- * Delete datas of a category.
+ * Delete datas of a category and unlinks all courses linked to it.
  * 
  * @param int       identifier of the category
  * @return handler
@@ -436,11 +436,50 @@ function claro_update_cat_datas($id, $name, $code, $idParent, $rank, $visible, $
 function claro_delete_cat_datas($id)
 {
     // Get table name
-    $tbl_mdb_names   = claro_sql_get_main_tbl();
-    $tbl_category    = $tbl_mdb_names['category'];
+    $tbl_mdb_names              = claro_sql_get_main_tbl();
+    $tbl_category               = $tbl_mdb_names['category'];
+    $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
     
+    //Unlink the courses
+    $sql = "SELECT courseId, categoryId 
+            FROM `" . $tbl_rel_course_category . "` 
+            WHERE categoryId = " . (int) $id;
+    
+    $result = Claroline::getDatabase()->query($sql);
+    
+    while ($link = $result->fetch(Database_ResultSet::FETCH_ASSOC))
+    {
+        $sql = "SELECT COUNT(courseId) AS nbLinks
+                FROM `" . $tbl_rel_course_category . "` 
+                WHERE courseId = " . $link['courseId'];
+        
+        $result2 = Claroline::getDatabase()->query($sql);
+        $nbLinks = $result2->fetch(Database_ResultSet::FETCH_VALUE);
+        
+        //If there are multiple links for this course, just delete the one we want
+        if ($nbLinks > 1)
+        {
+            $sql = "DELETE FROM `" . $tbl_rel_course_category . "` 
+                    WHERE categoryId = " . (int) $id . " 
+                    AND courseId = " . $link['courseId'];
+            Claroline::getDatabase()->exec($sql);
+        }
+        //If there is only one link for this course, link it to the root category
+        else 
+        {
+            $sql = "UPDATE `" . $tbl_rel_course_category . "` 
+                    SET 
+                    categoryId = 0, 
+                    rootCourse = 0 
+                    WHERE categoryId = " . (int) $id . " 
+                    AND courseId = " . $link['courseId'];
+            Claroline::getDatabase()->exec($sql);
+        }
+    }
+    
+    //Finaly, delete the category
     $sql = "DELETE FROM `" . $tbl_category . "` 
-            WHERE id = " . (int) $id . "";
+            WHERE id = " . (int) $id;
     
     return Claroline::getDatabase()->exec($sql);
 }
@@ -482,7 +521,7 @@ function claro_count_courses($id)
     $sql = "SELECT COUNT(courseId) as nbCourses 
             FROM `" . $tbl_rel_course_category . "`
             WHERE categoryId = " . (int) $id . "
-            AND rootCourse != 0";
+            AND rootCourse != 1";
     
     $result = Claroline::getDatabase()->query($sql);
     

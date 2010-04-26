@@ -228,7 +228,7 @@ class ClaroCourseSession extends ClaroCourse
      */
     function delete ()
     {
-        return delete_session_course($this->courseId);
+        return delete_session_course($this->courseId, $this->sourceCourseId);
     }
     
     
@@ -372,11 +372,7 @@ class ClaroCourseSession extends ClaroCourse
         
         
         // Course designated as source cannot be a session course
-        $sourceCourseCode = claroCourse::getCodeFromId($this->sourceCourseId);
-        $sourceCourse = new claroCourse();
-        $sourceCourse->load($sourceCourseCode);
-        
-        if ( $sourceCourse->isSessionCourse() )
+        if ( ClaroCourse::isSessionCourse($this->sourceCourseId) )
         {
             $this->backlog->failure(get_lang('Session course cannot be used as a source course'));
             $success = false ;
