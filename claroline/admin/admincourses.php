@@ -31,12 +31,13 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
+require_once get_path('incRepositorySys') . '/lib/clarocoursesession.class.php';
 
 // Check incoming data
 $offsetC            = isset($_REQUEST['offsetC']) ? $_REQUEST['offsetC'] : '0';
 $validCmdList       = array('exDelete', 'rqDelete');
 $cmd                = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
-$delCode            = isset($_REQUEST['delCode']) ? $_REQUEST['delCode'] : null;
+$courseCode         = isset($_REQUEST['delCode']) ? $_REQUEST['delCode'] : null;
 $resetFilter        = (bool) (isset($_REQUEST['newsearch']) && 'yes' == $_REQUEST['newsearch']);
 $search             = (isset($_REQUEST['search']))  ? $_REQUEST['search'] :'';
 $validRefererList   = array('clist',);
@@ -95,10 +96,21 @@ $dialogBox = new DialogBox();
 
 
 // Parse command
-if (!empty($delCode)) 
+if (!empty($courseCode)) 
 {
-    $courseToDelete = new claroCourse();
-    $courseToDelete->load($delCode);
+    $courseId = ClaroCourse::getIdFromCode($courseCode);
+    
+    // Is it a session course ?
+    if (ClaroCourse::isSessionCourse($courseId))
+    {
+        $courseToDelete = new ClaroCourseSession();
+        $courseToDelete->load($courseCode);
+    }
+    else
+    {
+        $courseToDelete = new ClaroCourse();
+        $courseToDelete->load($courseCode);
+    }
 }
 else
 {
@@ -110,7 +122,7 @@ if ('exDelete' == $cmd)
     if ( !is_null($courseToDelete) ) 
     {
         // Cannot delete a course if it has session courses
-        if ( !$courseToDelete->isSourceCourse() )
+        if ( !ClaroCourse::isSourceCourse($courseId) )
         {
             $do = 'delete';
         }
@@ -134,18 +146,10 @@ elseif( 'rqDelete' == $cmd )
 {
     if( !is_null($courseToDelete) )
     {
-        // Cannot delete a course if it has session courses
-        if ( !$courseToDelete->isSourceCourse() )
-        {
-            $dialogBox->question( get_lang('Are you sure to delete course %name', array('%name' => $courseToDelete->title)).'<br/><br/>'."\n"
-            .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;delCode='.$delCode.'&amp;offsetC='.$offsetC. $addToURL .'">'.get_lang('Yes').'</a>'
-            .    ' | '
-            .    '<a href="'.$_SERVER['PHP_SELF'].'">'.get_lang('No').'</a>'."\n");
-        }
-        else
-        {
-            $dialogBox->error( get_lang('This course has session courses.  You have to delete them before.') );
-        }
+        $dialogBox->question( get_lang('Are you sure to delete course %name', array('%name' => $courseToDelete->title)).'<br/><br/>'."\n"
+        .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;delCode='.$courseCode.'&amp;offsetC='.$offsetC. $addToURL .'">'.get_lang('Yes').'</a>'
+        .    ' | '
+        .    '<a href="'.$_SERVER['PHP_SELF'].'">'.get_lang('No').'</a>'."\n");
     }
     else
     {
@@ -156,7 +160,7 @@ elseif( 'rqDelete' == $cmd )
 // EXECUTE
 if ('delete' == $do)
 {
-    if (delete_course($delCode))
+    if ($courseToDelete->delete())
     {
         $dialogBox->success( get_lang('The course has been successfully deleted') );
         $noQUERY_STRING = true;
@@ -338,7 +342,9 @@ foreach($courseList as $numLine => $courseLine)
     // Label
     $courseDataList[$numLine]['intitule'] =  '<a href="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($courseLine['sysCode']) . '">'
     .                                        $courseLine['intitule']
-    .                                        '</a>' . ((!is_null($courseLine['sourceCourseId']))?(' ['.get_lang('Session').']'):(''));
+    .                                        '</a>' 
+                                             . ((!is_null($courseLine['sourceCourseId']))?(' ['.get_lang('Session').']'):(''))
+                                             . (($courseLine['isSourceCourse'])?(' ['.get_lang('Source').']'):(''));
     
     // Users in course
     $courseDataList[$numLine]['qty_cm'] = '<a href="admincourseusers.php'
@@ -523,6 +529,7 @@ function prepare_get_filtred_course_list()
                     co.`intitule`             AS `intitule`,
                     co.`code`                 AS `sysCode`,
                     co.`sourceCourseId`       AS `sourceCourseId`,
+                    co.`isSourceCourse`       AS `isSourceCourse`,
                     co.`visibility`           AS `visibility`,
                     co.`access`               AS `access`,
                     co.`registration`         AS `registration`,

@@ -137,18 +137,14 @@ switch ( $cmd )
     case 'exDelete' :
         $category = new claroCategory();
         if ($category->load($id))
-            if ( $category->countSubCategories() > 0 )
+            if ( ClaroCategory::countSubCategories($category->id) > 0 )
             {
                 $dialogBox->error( get_lang('You cannot delete a category having sub categories') );
-            }
-            elseif ( $category->countCourses() > 0 )
-            {
-                $dialogBox->error( get_lang('You cannot delete a category having courses') );
             }
             else
             {
                 $category->delete();
-                $dialogBox->success( get_lang('Category deleted') );
+                $dialogBox->success( get_lang('Category deleted.  Courses linked to this category have been linked to the root category.') );
             }
         else
             $dialogBox->error( get_lang('Category not found') );
@@ -275,29 +271,29 @@ else
         .   '<td>' . (!is_null($elmt['dedicatedCourse']) ? ($elmt['dedicatedCourse'] . ' (' . $elmt['dedicatedCourseCode'] . ')') : ('')) . '</td>'
         .   '<td align="center">' . $elmt['nbCourses'] . '</td>'
         .   '<td align="center">'
-        .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisibility&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+        .       '<a href="' . htmlspecialchars(URL::Contextualize('?cmd=exVisibility&amp;categoryId=' . $elmt['id'])) . '">' . "\n"
         .       '<img src="' . get_icon_url($elmt['visible']?'visible':'invisible') . '" alt="Change visibility" />' . "\n"
         .       '</a>'
         .   '</td>'
         .   '<td align="center">'
-        .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+        .       '<a href="' . htmlspecialchars(URL::Contextualize('?cmd=rqEdit&amp;categoryId=' . $elmt['id'])) . '">' . "\n"
         .       '<img src="' . get_icon_url('edit') . '" alt="Edit category" />' . "\n"
         .       '</a>'
         .   '</td>'
         .   '<td align="center">'
-        .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;categoryId=' . $elmt['id'] . '"'
+        .       '<a href="' . htmlspecialchars(URL::Contextualize('?cmd=exDelete&amp;categoryId=' . $elmt['id'])) . '"'
         .        ' onclick="return confirmation(\'' . clean_str_for_javascript($elmt['name']) . '\');">' . "\n"
         .       '<img src="' . get_icon_url('delete') . '" alt="Delete category" />' . "\n"
         .       '</a>'
         .   '</td>'
         .    ((get_conf('categories_order_by') == 'rank')?
                 ('<td align="center">'
-        .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveUp&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+        .       '<a href="' . htmlspecialchars(URL::Contextualize('?cmd=exMoveUp&amp;categoryId=' . $elmt['id'])) . '">' . "\n"
         .       '<img src="' . get_icon_url('move_up') . '" alt="Move up category" />' . "\n"
         .       '</a>'
         .   '</td>'
         .   '<td align="center">'
-        .       '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMoveDown&amp;categoryId=' . $elmt['id'] . '">' . "\n"
+        .       '<a href="' . htmlspecialchars(URL::Contextualize('?cmd=exMoveDown&amp;categoryId=' . $elmt['id'])) . '">' . "\n"
         .       '<img src="' . get_icon_url('move_down') . '" alt="Move down category" />' . "\n"
         .       '</a>'
         .   '</td>'):
