@@ -30,10 +30,10 @@ function CLANN_write_ical( $iCal, $context)
 
     $organizer = (array) array($courseData['titular'], $courseData['email']);
     $attendees = array();
-    $categories = array( get_conf('siteName'),
-    $courseData['officialCode'],
-    trim($toolNameList['CLANN']),
-    $courseData['categoryCode']
+    $categories = array( 
+        get_conf('siteName'),
+        $courseData['officialCode'],
+        trim($toolNameList['CLANN'])
     );
 
     foreach ($announcementList as $announcementItem)
