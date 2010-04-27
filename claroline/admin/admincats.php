@@ -97,7 +97,7 @@ else
             if (isset($cat_data['code']))
             {
                 // Error message for attempt to create a duplicate
-                $dialogBox->error( get_lang('This category already exists!') );
+                $dialogBox->error( get_lang('This category already exists') );
             }
             else
             {
@@ -922,7 +922,7 @@ $out .= '<p>' . "\n"
 .    get_lang('Create a category')
 .    '</a> | ' . "\n"
 .    '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_category.php">'
-.    get_lang('Jump to the new manager')
+.    'Jump to the new manager'
 .    '</a>'
 .    '</p>' . "\n"
 .    '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"

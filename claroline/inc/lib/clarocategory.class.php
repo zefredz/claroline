@@ -512,7 +512,7 @@ class ClaroCategory
         if ( is_null($this->name) && $fieldRequiredStateList['name'] )
         {
             claro_failure::set_failure('category_missing_field_name');
-            $this->backlog->failure(get_lang('Category name needed'));
+            $this->backlog->failure(get_lang('Category name is required'));
             $success = false ;
         }
 
@@ -528,7 +528,7 @@ class ClaroCategory
         if ( !$this->checkUniqueCode() )
         {
             claro_failure::set_failure('category_duplicate_code');
-               $this->backlog->failure(get_lang('This category already exists !'));
+               $this->backlog->failure(get_lang('This category already exists'));
             $success = false ;
         }
         

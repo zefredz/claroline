@@ -235,7 +235,7 @@ if ( ! get_conf('courseCreationAllowed', true) )
 
 $out = '';
 
-$out .=  (is_null($sourceCourseId))?(claro_html_tool_title(get_lang('Create a course website'))):(claro_html_tool_title(get_lang('Create a session course website')));
+$out .=  (is_null($sourceCourseId))?(claro_html_tool_title(get_lang('Create a course website'))):(claro_html_tool_title(get_lang('Create a session course')));
 
 $out .= $dialogBox->render();
 
