@@ -5,7 +5,7 @@
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours` (
   `cours_id` INT(11) NOT NULL AUTO_INCREMENT,
   `code` VARCHAR(40) DEFAULT NULL,
-  `isSourceCourse` BOOL NOT NULL DEFAULT '0',
+  `isSourceCourse` TINYINT(4) NOT NULL DEFAULT '0',
   `sourceCourseId` INT(11) DEFAULT NULL,
   `administrativeNumber` VARCHAR(40) DEFAULT NULL,
   `directory` VARCHAR(20) DEFAULT NULL,
