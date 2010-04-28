@@ -297,7 +297,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
                 $questionList[ $_id ]['answers'][0]['answer'] = get_lang('True');
                 $questionList[ $_id ]['answers'][0]['feedback'] = $questionObj->answer->trueFeedback;
                 $questionList[ $_id ]['answers'][1]['answer'] = get_lang('False');
-                $questionList[ $_id ]['answers'][0]['feedback'] = $questionObj->answer->falseFeedback;
+                $questionList[ $_id ]['answers'][1]['feedback'] = $questionObj->answer->falseFeedback;
               }
               break;
               case 'FIB' :
