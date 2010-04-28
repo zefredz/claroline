@@ -93,6 +93,8 @@ function user_get_properties($userId)
 
 function user_create($settingList, $creatorId = null)
 {
+    global $eventNotifier;
+    
     $requiredSettingList = array('lastname', 'firstname', 'username',
     'password', 'language', 'email', 'officialCode', 'phone', 'isCourseCreator');
 
@@ -137,7 +139,11 @@ function user_create($settingList, $creatorId = null)
                 isPlatformAdmin = 0,
                 creatorId    = " . ($creatorId > 0 ? (int) $creatorId : 'NULL');
     $adminId = claro_sql_query_insert_id($sql);
-    if (false !== $adminId) return $adminId;
+    if (false !== $adminId)
+    {
+        $eventNotifier->notifyEvent( 'user_created', array( 'uid' =>  $adminId ) );
+        return $adminId;
+    }
     else return claro_failure::set_failure('Cant create user|' . mysql_error() . '|');
 }
 
