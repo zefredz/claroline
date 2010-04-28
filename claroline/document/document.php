@@ -1392,7 +1392,7 @@ $fileLister = new claro_array_pager($fileList, 0, 1000);
 foreach ($defaultSortkeyList as $thisSortkey) $fileLister->add_sort_key($thisSortkey, SORT_ASC);
 if ( isset($_GET['sort']) ) $fileLister->set_sort_key($_GET['sort'], $_GET['dir']);
 
-$sortUrlList = $fileLister->get_sort_url_list( $_SERVER['PHP_SELF'] . '?cmd=exChDir&file='.rawurlencode($curDirPath) );
+$sortUrlList = $fileLister->get_sort_url_list( $_SERVER['PHP_SELF'] . '?cmd=exChDir&file='.download_url_encode($curDirPath) );
 
 $fileList = $fileLister->get_result_list();
 
@@ -2040,7 +2040,7 @@ $out .= claro_html_tool_title($titleElement,
         {
             $docViewToolbar[] = '<a class="claroCmd" href="'
                  . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. base_64_encode($curDirPath) . $searchCmdUrl ))
+                 . '?docView=files&amp;cmd=exChDir&amp;file='. base64_encode($curDirPath) . $searchCmdUrl ))
                  . '">'
                  . '<img src="' . get_icon_url('document') . '" alt="" />' . "\n"
                  . get_lang('File list') .'</a>';
