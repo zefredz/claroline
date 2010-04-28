@@ -294,6 +294,59 @@ function claro_send_file( $path, $name = '', $charset = null )
 }
 
 /**
+ * Send a stream over HTTP
+ * @param   string $stream file stream
+ * @param   string $name file name to force (optional)
+ * @return  true on success,
+ */
+function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
+{
+    $charset = empty( $charset )
+        ? '; charset=' . get_locale( 'charset' )
+        : '; charset=' . $charset
+        ;
+    
+    if( is_null( $mimeType ) )
+    {
+        $mimeType = get_mime_on_ext( $name );
+    }
+
+    header( 'Content-Type: ' . $mimeType . $charset );
+        
+    // IE no-cache bug
+    
+    // TODO move $lifetime to config
+    $lifetime = 60;
+    
+    header( 'Cache-Control: max-age=' . $lifetime );
+    header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + $lifetime ) .' GMT' );
+    header( 'Pragma: ' );
+    
+    // Patch proposed by Diego Conde Pérez <dconde@uvigo.es> - Universidade de Vigo
+    // It seems that with the combination of OfficeXP and Internet Explorer 6 the 
+    // downloading of powerpoints fails sometimes. I captured the network packets 
+    // and the viewer of the office doesn't send all the needed cookies, 
+    // therefore claroline redirects the viewer to the login page because its not 
+    // correctly authenticated. 
+    if ( strtolower( pathinfo( $name, PATHINFO_EXTENSION ) ) == "ppt" )
+    {
+        // force file name for ppt
+        header( 'Content-Disposition: attachment; filename="' . $name . '"' );
+    }
+    else
+    {
+        // force file name for other files
+        header( 'Content-Disposition: inline; filename="' . $name . '"' );
+    } 
+    
+    header( 'Content-Length: '. strlen( $stream ) );
+    
+    echo $stream;
+    
+    return strlen( $stream );
+}
+
+/**
  * Remove /.. ../ from file path
  * @param   string $path file path
  * @return  string, clean file path
