@@ -1912,7 +1912,8 @@ function get_not_deactivable_tool_list()
         'CLDOC',
         'CLGRP',
         'CLUSR',
-        'CLFRM'
+        'CLFRM',
+        'CLLNP'
     );
 }
 
