@@ -297,7 +297,11 @@ function claro_send_file( $path, $name = '', $charset = null )
  * Send a stream over HTTP
  * @param   string $stream file stream
  * @param   string $name file name to force (optional)
- * @return  true on success,
+ * @param   string $mimeType mime type of the stream if none given, the function
+ *  will try to guess it from $name
+ * @param   string $charset character encoding of the strem, if none given the
+ *  function will use the encoding of the current page
+ * @return  number of octets sent
  */
 function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
 {
