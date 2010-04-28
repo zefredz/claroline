@@ -40,6 +40,15 @@ class ClaroPHPMailer extends PHPMailer
                 $this->Username = get_conf('smtp_username'); // SMTP username
                 $this->Password = get_conf('smtp_password'); // SMTP password
             }
+        	if ( get_conf('smtp_port') != '' )
+            {              
+                $this->Port = (int)get_conf('smtp_port');
+            }
+        	if ( get_conf('smtp_secure') != '' )
+            {              
+                $this->SMTPSecure = get_conf('smtp_secure');
+            }
+            
         }
         else
         {

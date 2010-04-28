@@ -842,6 +842,10 @@ $_lang['Generate ics file'] = 'Générer un fichier ICS';
 $_lang['Get a question from another exercise'] = 'Récupérer une question d\'un autre exercice';
 $_lang['Get tracking data in a CSV file'] = 'Exporter les statistiques dans un fichier CSV';
 $_lang['Give a SMTP server name to turn on SMTP mode. (e.g. smtp1.site.com or smtp1.site.com;smtp2.site.com)'] = 'Spécifiez le nom d\'un serveur SMTP si vous souhaitez activer l\'envoi de messages par e-mail (exemple : smtp1.site.com ou smtp1.site.com;smtp2.site.com)';
+$_lang['Give a port number used to contact SMTP the SMTP server(s) if no port is specified in the hostname (default: 25)'] = 'Spécifiez un port sur lequel joindre le(s) serveur(s) SMTP. Ce port sera utilsé si aucun port n\' est spécifié dans le(s) nom(s) de serveur. (par défaut : 25)';
+$_lang['Define the security layer. options are : tls, ssl or clear (default clear). You need to activate the php_openssl extension in php.ini in order to send mail over ssl or starttls !'] = 
+	'Choisissez la couche de sécurité à utiliser : clair, SSL ou STARTLS (défaut: clair). Si vous choisieez SSL ou STARTTLS, vous devez activer l\'extension php_openssl dans le fichier php.ini';
+$_lang['clear'] = 'clair';
 $_lang['Give a username and password to turn on SMTP authentication.'] = 'Spécifiez un identifiant et un mot de passe pour activer l\'authentification SMTP';
 $_lang['Global settings'] = 'Paramètres généraux';
 $_lang['Go back to Wiki list'] = 'Retour à la liste des wikis';
