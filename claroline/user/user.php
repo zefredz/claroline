@@ -176,9 +176,10 @@ if ( $is_allowedToEdit )
 
         if( !empty($csv) )
         {
-            header("Content-type: application/csv");
+            /*header("Content-type: application/csv");
             header('Content-Disposition: attachment; filename="'.claro_get_current_course_id().'_userlist.csv"');
-            echo $csv;
+            echo $csv;*/
+            claro_send_stream( $csv, claro_get_current_course_id().'_userlist.csv');
             exit;
         }
     }
