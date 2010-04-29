@@ -15,6 +15,7 @@
  */
 
 require_once dirname(__FILE__) . '/input.lib.php';
+require_once dirname(__FILE__) . '/../core/url.lib.php';
 
 /**
  * JSON Response
@@ -206,7 +207,19 @@ abstract class Ajax_Remote_Module_Service implements Ajax_Remote_Service
      * Get the invokable methods for the service
      * @return array of remotely invokable public methods
      */
-    abstract protected function getInvokableMethods();
+    abstract public function getInvokableMethods();
+
+    /**
+     * Get the invokation name of the class
+     * @return string
+     */
+    abstract public function getInvokableClassName();
+
+    /**
+     * Get the label of the module this service belongs to
+     * @return string
+     */
+    abstract public function getModuleLabel();
 
     /**
      * Register the service
@@ -222,12 +235,76 @@ abstract class Ajax_Remote_Module_Service implements Ajax_Remote_Service
     }
 
     /**
-     * Get the invokation name of the class
-     * @return string
+     * Get the not contextualized Url object
+     * @param string $method optional name of the method to invoke
+     * @param array $parameters optional parameters for method invokation
+     * @return Url
      */
-    protected function getInvokableClassName()
+    public function getInvokationUrl( $method = null, $parameters = null )
     {
-        return strtolower(get_class($this));
+        $url = new Url( rtrim( get_path('rootWeb'), '/' )
+            . '/claroline/backends/ajaxbroker.php' );
+
+        $url->addParam( 'moduleLabel', $this->getModuleLabel() );
+        $url->addParam( 'class', $this->getInvokableClassName() );
+
+        if ( ! empty( $method ) )
+        {
+            if ( ! in_array( $method, $this->getInvokableMethods() ) )
+            {
+                throw new Exception("Method not in invokable method list");
+            }
+            else
+            {
+                $url->addParam( 'method', $method );
+            }
+        }
+
+        if ( is_array( $parameters ) && !empty( $parameters ) )
+        {
+            foreach ( $parameters as $key => $value )
+            {
+                $url->addParam("parameters['{$key}']", $value);
+            }
+        }
+
+        return $url;
+    }
+
+    /**
+     * Factory method to instanciate the AJAX remote service for a given module.
+     * The remote service must be defined in the connector/ajaxservice.cnr.php
+     * file of the module, extends the Ajax_Remote_Module_Service abstract class
+     * and, in addition, it's name must follow the pattern "{$moduleLabel}_AjaxRemoteService"
+     * @param string $moduleLabel
+     * @return <type>
+     * @throws Exception if the module does not provide an AJAX remote service
+     */
+    public static function getModuleServiceInstance( $moduleLabel )
+    {
+        $ajaxHandlerPath = get_module_path($moduleLabel) . '/connector/ajaxservice.cnr.php';
+        $ajaxHandlerClass = "{$moduleLabel}_AjaxRemoteService";
+
+        if ( file_exists( $ajaxHandlerPath ) )
+        {
+            require_once $ajaxHandlerPath;
+
+            if ( class_exists( $ajaxHandlerClass ) )
+            {
+                $ajaxHandler = new $ajaxHandlerClass();
+                $ajaxHandler->register( Claroline::ajaxServiceBroker() );
+
+                return $ajaxHandler;
+            }
+            else
+            {
+                throw new Exception("No AJAX service found for {$moduleLabel}");
+            }
+        }
+        else
+        {
+            throw new Exception("No AJAX service found for {$moduleLabel}");
+        }
     }
 }
 
