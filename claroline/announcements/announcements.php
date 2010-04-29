@@ -392,7 +392,7 @@ if ( $displayButtonLine )
         ;
 
     $cmdList[] = '<a class="claroCmd" href="'
-        . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php')) . '">'
+        . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann')) . '">'
         . '<img src="' . get_icon_url('mail_close') . '" alt="" />'
         . get_lang('Messages to selected users')
         . '</a>' . "\n"
