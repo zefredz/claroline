@@ -8,26 +8,39 @@
  * display
  *
  * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
+ * @package     kernel.core
  */
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
+require_once dirname(__FILE__) . '/../core/debug.lib.php';
+require_once dirname(__FILE__) . '/../core/console.lib.php';
+require_once dirname(__FILE__) . '/../core/event.lib.php';
+require_once dirname(__FILE__) . '/../core/log.lib.php';
+require_once dirname(__FILE__) . '/../core/url.lib.php';
+require_once dirname(__FILE__) . '/../core/notify.lib.php';
+require_once dirname(__FILE__) . '/../display/display.lib.php';
+require_once dirname(__FILE__) . '/../database/database.lib.php';
+require_once dirname(__FILE__) . '/../utils/ajax.lib.php';
 
-FromKernel::uses( 'core/debug.lib', 'core/console.lib', 'core/event.lib'
-    , 'core/notify.lib', 'display/display.lib', 'database/database.lib'
-    , 'core/log.lib', 'core/url.lib' );
-
+/**
+ * @deprecated since 1.9 use Claroline::PAGE instead
+ */
 define ( 'CL_PAGE',     'CL_PAGE' );
+/**
+ * @deprecated since 1.9 use Claroline::FRAMESET instead
+ */
 define ( 'CL_FRAMESET', 'CL_FRAMESET' );
+/**
+ * @deprecated since 1.9 use Claroline::POPUP instead
+ */
 define ( 'CL_POPUP',    'CL_POPUP' );
+/**
+ * @deprecated since 1.9 use Claroline::FRAME instead
+ */
 define ( 'CL_FRAME',    'CL_FRAME' );
 
 /**
@@ -37,21 +50,29 @@ define ( 'CL_FRAME',    'CL_FRAME' );
 class Claroline
 {
     // Display type constants
-    const PAGE = 'CL_PAGE';
-    const FRAMESET = 'CL_FRAMESET';
-    const POPUP = 'CL_POPUP';
-    const FRAME = 'CL_FRAME';
+    const PAGE      = 'CL_PAGE';
+    const FRAMESET  = 'CL_FRAMESET';
+    const POPUP     = 'CL_POPUP';
+    const FRAME     = 'CL_FRAME';
     
     // Kernel objects
-    // Event manager
+    /**
+     * @var EventManager
+     */
     public $eventManager;
-    // Notification manager
+    /**
+     * @var ClaroNotification
+     */
     public $notification;
-    // Notifier object
+    /**
+     * @var ClaroNotifier
+     */
     public $notifier;
     // Display object
     public $display;
-    // logger
+    /**
+     * @var Logger
+     */
     public $logger;
     
     protected $moduleLabelStack;
@@ -84,16 +105,27 @@ class Claroline
         }
     }
     
+    /**
+     * Add a label at the top of the module stack
+     * @param string $label
+     */
     public function pushModuleLabel( $label )
     {
         array_push( $this->moduleLabelStack, $label );
     }
     
+    /**
+     * Remove the modulke label at the top of the module stack
+     */
     public function popModuleLabel()
     {
         array_pop( $this->moduleLabelStack );
     }
     
+    /**
+     * Get the label of the current module
+     * @return string or false
+     */
     public function currentModuleLabel()
     {
         if ( empty( $this->moduleLabelStack ) )
@@ -158,11 +190,30 @@ class Claroline
         return self::$instance;
     }
     
+    /**
+     * Get the current display object
+     * @return Display which can be a ClaroPage or ClaroFramesetPage according
+     *  to the display type
+     */
+    public static function getDisplay()
+    {
+        return self::getInstance()->display;
+    }
+
+    /**
+     * Helper to initialize the display
+     * @param string $displayType
+     */
     public static function initDisplay( $displayType = self::PAGE )
     {
         self::getInstance()->setDisplayType( $displayType );
     }
     
+    /**
+     * Helper to log a message
+     * @param string $type
+     * @param string $data
+     */
     public static function log( $type, $data )
     {
         self::getInstance()->logger->log($type, $data);
@@ -172,11 +223,10 @@ class Claroline
     // Database link
     protected static $database = false;
     
-    public static function getDisplay()
-    {
-        return self::getInstance()->display;
-    }
-    
+    /**
+     * Get the current database connection object
+     * @return Claroline_Database_Connection
+     */
     public static function getDatabase()
     {
         if ( ! self::$database )
@@ -220,18 +270,33 @@ class Claroline
         // mysql_connect(). mysql_affected_rows() will return then the number of rows
         // matched, even if none are updated.
         
-        
-        
         $selectResult = mysql_select_db( get_conf('mainDbName'), self::$db);
         
         if ( ! $selectResult )
         {
             throw new Exception ( 'FATAL ERROR ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.' );
         }
-        
+
         if ($GLOBALS['statsDbName'] == '')
         {
             $GLOBALS['statsDbName'] = get_conf('mainDbName');
         }
+    }
+    
+    protected static $_ajaxServiceBroker = false;
+        
+    /**
+     * Get kernel Ajax Service Broker instance
+     * @return Ajax_Remote_Service_Broker
+     * @since Claroline 1.9.5
+     */
+    public static function ajaxServiceBroker()
+    {
+        if ( ! self::$_ajaxServiceBroker )
+        {
+            self::$_ajaxServiceBroker = new Ajax_Remote_Service_Broker();
+        }
+        
+        return self::$_ajaxServiceBroker;
     }
 }

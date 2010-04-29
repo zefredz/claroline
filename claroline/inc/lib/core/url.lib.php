@@ -6,7 +6,7 @@
  * Url manipulation library
  *
  * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -81,6 +81,7 @@ class Url
 
     /**
      * Relay Claroline current Url context in urls
+     * @return $this
      */
     public function relayCurrentContext()
     {
@@ -101,20 +102,28 @@ class Url
         } */
         
         $this->addParamList( Claro_Context::getCurrentUrlContext() );
+
+        return $this;
     }
     
     /**
      * Relay given Url context in urls
      * @param   array context
+     * @return $this
      */
     public function relayContext( $context )
     {
         $this->addParamList( $context );
+
+        return $this;
     }
 
     /**
      * Add a list of parameters to the current url
-     * @param   array paramList associative array of parameters name=>value
+     * @param   array $paramList associative array of parameters name=>value
+     * @param   boolean $overwrite will overwrite the value of an existing
+     *  parameter if set to true
+     * @return $this
      */
     public function addParamList( $paramList, $overwrite = false )
     {
@@ -132,12 +141,15 @@ class Url
                 }
             }
         }
+
+        return $this;
     }
 
     /**
      * Add one parameter to the current url
-     * @param   string name parameter name
-     * @param   string value parameter value
+     * @param   string $name parameter name
+     * @param   string $value parameter value
+     * @return $this
      */
     public function addParam( $name, $value )
     {
@@ -145,46 +157,64 @@ class Url
         {
             $this->url['query'][$name] = $value;
         }
+
+        return $this;
     }
 
     /**
      * Replace the value of the given parameter with the given value
-     * @param   string name parameter name
-     * @param   string value parameter value
-     * @param   boolean addIfMissing add the parameter if missing (default false)
-     * @return  boolean true if replaced or added, else false
+     * @param   string $name parameter name
+     * @param   string $value parameter value
+     * @param   boolean $addIfMissing add the parameter if missing (default false)
+     * @return  $this
+     * @throws  Exception if trying to modify a non existent parameter with
+     *  $addIfMissing set to false (default)
      */
     public function replaceParam( $name, $value, $addIfMissing = false )
     {
         if ( $addIfMissing || array_key_exists( $name, $this->url['query'] ) )
         {
             $this->addParam( $name, $value );
-            return true;
+            return $this;
         }
         else
         {
-            return false;
+            throw new Exception("Cannot replace parameter {$name} : not found");
         }
     }
 
     /**
      * Remove the given parameter
-     * @param   string name parameter name
-     * @return  boolean true if removed, else false
+     * @param   string $name parameter name
+     * @param   boolean $ignoreMissing if set to true, the method invokation
+     *  will ignore a missing parameter. If set to false (default) removing a
+     *  non existent parameter will generate an exception
+     * @return  $this
+     * @throws  Exception if trying to remove a non existent parameter with
+     *  $ignoreMissing set to false (default)
      */
-    public function removeParam( $name )
+    public function removeParam( $name, $ignoreMissing = false )
     {
         if ( array_key_exists( $name, $this->url['query'] ) )
         {
             unset( $this->url['query'] );
-            return true;
+
+            return $this;
+        }
+        elseif ( $ignoreMissing)
+        {
+            return $this;
         }
         else
         {
-            return false;
+            throw new Exception("Cannot remove parameter {$name} : not found");
         }
     }
 
+    /**
+     * Convert the current Url object to an URL string
+     * @return string
+     */
     public function toUrl()
     {
         $url = '';
@@ -241,6 +271,21 @@ class Url
         return $url;
     }
     
+    /**
+     * @since   Claroline 1.10
+     * @return  string
+     */
+    public function  __toString()
+    {
+        return $this->toUrl();
+    }
+
+    /**
+     * Add current execution context to the given URL
+     * @param string $url
+     * @param array $context
+     * @return string
+     */
     public static function Contextualize( $url, $context = null )
     {
         $urlObj = new self($url);
