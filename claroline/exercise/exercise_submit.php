@@ -248,7 +248,7 @@ if( $resetQuestionList || !isset($_SESSION['serializedQuestionList']) || !is_arr
 elseif( isset( $loadRandomQuestionsList ) && is_array( $loadRandomQuestionsList) )
 {
     $questionList = array();
-    foreach( $loadRandomQuestionsList as $question )
+    foreach( $loadRandomQuestionsList['questions'] as $question )
     {
         $questionObj = new Question();
         $questionObj->setExerciseId( $exId );
@@ -890,12 +890,9 @@ $htmlHeaders = "\n".'
         })
     });
     
-    clockStart = new Date('.date('Y',$exeStartTime).','
-                         .(date('n',$exeStartTime)-1).','
-                         .date('j',$exeStartTime).','
-                         .date('G',$exeStartTime).','
-                         .date('i',$exeStartTime).','
-                         .date('s',$exeStartTime).').getTime();
+    clockStart = new Date();
+    clockStart.setTime( '. $exeStartTime * 1000 .' );
+    clockStart = clockStart.getTime();
     timeLimit = '.$exercise->getTimeLimit().';
     langMinShort = "'. get_lang('MinuteShort') .'";
     langSecShort = "'. get_lang('SecondShort') .'";
