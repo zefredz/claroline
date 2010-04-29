@@ -8,7 +8,7 @@ if ( count( get_included_files() ) == 1 )
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -201,7 +201,9 @@ if ( count( get_included_files() ) == 1 )
  *    for the current user.
  ******************************************************************************/
 
-FromKernel::uses('auth/authmanager.lib','kernel/user.lib','core/claroline.lib');
+require_once dirname(__FILE__) . '/lib/auth/authmanager.lib.php';
+require_once dirname(__FILE__) . '/lib/kernel/user.lib.php';
+require_once dirname(__FILE__) . '/lib/core/claroline.lib.php';
 
 // Load authentication config files
 require_once claro_get_conf_repository() .  'auth.sso.conf.php';
