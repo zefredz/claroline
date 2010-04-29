@@ -16,12 +16,18 @@
  * @package     kernel.core
  */
 
-FromKernel::uses( 'core/debug.lib', 'core/console.lib', 'core/event.lib'
-    , 'core/notify.lib', 'display/display.lib', 'database/database.lib'
-    , 'core/log.lib', 'core/url.lib', 'utils/ajax.lib' );
+require_once dirname(__FILE__) . '/../core/debug.lib.php';
+require_once dirname(__FILE__) . '/../core/console.lib.php';
+require_once dirname(__FILE__) . '/../core/event.lib.php';
+require_once dirname(__FILE__) . '/../core/log.lib.php';
+require_once dirname(__FILE__) . '/../core/url.lib.php';
+require_once dirname(__FILE__) . '/../core/notify.lib.php';
+require_once dirname(__FILE__) . '/../display/display.lib.php';
+require_once dirname(__FILE__) . '/../database/database.lib.php';
+require_once dirname(__FILE__) . '/../utils/ajax.lib.php';
 
 /**
- * @deprecated since 1.9 use Claroline::PAGE
+ * @deprecated since 1.9 use Claroline::PAGE instead
  */
 define ( 'CL_PAGE',     'CL_PAGE' );
 /**
@@ -50,15 +56,23 @@ class Claroline
     const FRAME     = 'CL_FRAME';
     
     // Kernel objects
-    // Event manager
+    /**
+     * @var EventManager
+     */
     public $eventManager;
-    // Notification manager
+    /**
+     * @var ClaroNotification
+     */
     public $notification;
-    // Notifier object
+    /**
+     * @var ClaroNotifier
+     */
     public $notifier;
     // Display object
     public $display;
-    // logger
+    /**
+     * @var Logger
+     */
     public $logger;
     
     protected $moduleLabelStack;
@@ -90,17 +104,28 @@ class Claroline
             die( $e );
         }
     }
-    
+
+    /**
+     * Add a label at the top of the module stack
+     * @param string $label
+     */
     public function pushModuleLabel( $label )
     {
         array_push( $this->moduleLabelStack, $label );
     }
-    
+
+    /**
+     * Remove the modulke label at the top of the module stack
+     */
     public function popModuleLabel()
     {
         array_pop( $this->moduleLabelStack );
     }
-    
+
+    /**
+     * Get the label of the current module
+     * @return string or false
+     */
     public function currentModuleLabel()
     {
         if ( empty( $this->moduleLabelStack ) )
@@ -207,7 +232,7 @@ class Claroline
         if ( ! self::$database )
         {
             // self::initMainDatabase();
-            self::$database = new Claroline_Database_Connection(self::$db);
+            self::$database = new Claroline_Database_Connection();//self::$db);
             self::$database->connect();
         }
         
@@ -222,42 +247,9 @@ class Claroline
      */
     public static function initMainDatabase()
     {
-        if ( self::$db )
+        if ( !self::$db )
         {
-            return;
-        }
-        
-        if ( ! defined('CLIENT_FOUND_ROWS') ) define('CLIENT_FOUND_ROWS', 2);
-        // NOTE. For some reasons, this flag is not always defined in PHP.
-        
-        self::$db = @mysql_connect(
-            get_conf('dbHost'),
-            get_conf('dbLogin'),
-            get_conf('dbPass'),
-            false,
-            CLIENT_FOUND_ROWS );
-        
-        if ( ! self::$db )
-        {
-            throw new Exception ( 'FATAL ERROR ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER.' );
-        }
-        
-        // NOTE. CLIENT_FOUND_ROWS is required to make claro_sql_query_affected_rows()
-        // work properly. When using UPDATE, MySQL will not update columns where the new
-        // value is the same as the old value. This creates the possiblity that
-        // mysql_affected_rows() may not actually equal the number of rows matched,
-        // only the number of rows that were literally affected by the query.
-        // But this behavior can be changed by setting the CLIENT_FOUND_ROWS flag in
-        // mysql_connect(). mysql_affected_rows() will return then the number of rows
-        // matched, even if none are updated.
-        
-        
-        
-        $selectResult = mysql_select_db( get_conf('mainDbName'), self::$db);
-        
-        if ( ! $selectResult )
-        {
-            throw new Exception ( 'FATAL ERROR ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.' );
+            self::$db = self::getDatabase()->getDbLink();
         }
         
         if ($GLOBALS['statsDbName'] == '')

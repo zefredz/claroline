@@ -285,44 +285,48 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
  */
 function claro_sql_query($sqlQuery, $dbHandler = '#' )
 {
-
-    if ( claro_debug_mode()
-      && get_conf('CLARO_PROFILE_SQL',false)
-      )
-      {
-         $start = microtime();
-      }
-    if ( $dbHandler == '#')
+    if ( $dbHandler == '#' )
     {
-        $resultHandler =  @mysql_query($sqlQuery);
-    }
-    else
-    {
-        $resultHandler =  @mysql_query($sqlQuery, $dbHandler);
+        $dbHandler = Claroline::getDatabase()->getDbLink();
     }
 
-    if ( claro_debug_mode()
-      && get_conf('CLARO_PROFILE_SQL',false)
-      )
+    if ( claro_debug_mode() && get_conf( 'CLARO_PROFILE_SQL',false ) )
     {
-        static $queryCounter = 1;
-        $duration = microtime()-$start;
-        $info = 'execution time : ' . ($duration > 0.001 ? '<b>' . round($duration,4) . '</b>':'&lt;0.001')  . '&#181;s'  ;
-        // $info = ( $dbHandler == '#') ? mysql_info() : mysql_info($dbHandler);
-        // $info .= ': affected rows :' . (( $dbHandler == '#') ? mysql_affected_rows() : mysql_affected_rows($dbHandler));
-        $info .= ': affected rows :' . claro_sql_affected_rows();
+        $start = microtime();
+    }
 
-        pushClaroMessage( '<br />Query counter : <b>' . $queryCounter++ . '</b> : ' . $info . '<br />'
-            . '<code><span class="sqlcode">' . nl2br($sqlQuery) . '</span></code>'
-            , (claro_sql_errno()?'error':'sqlinfo'));
+    $resultHandler =  @mysql_query( $sqlQuery, $dbHandler );
+
+    if ( claro_debug_mode() && get_conf('CLARO_PROFILE_SQL',false) )
+    {
+        
+        $duration = microtime() - $start;
+
+        $info = 'execution time : '
+            . ($duration > 0.001
+                ? '<b>' . round( $duration, 4 ) . '</b>'
+                : '&lt;0.001')
+            . '&#181;s'
+            . ': affected rows :'
+            . claro_sql_affected_rows( $dbHandler )
+            ;
+
+        pushClaroMessage(
+            '<br />Query counter : <b>'
+                . Claroline::getDatabase()->incrementQueryCounter()->getQueryCounter()
+                . '</b> : ' . $info . '<br />'
+                . '<code><span class="sqlcode">' . nl2br($sqlQuery) . '</span></code>'
+            , (claro_sql_errno( $dbHandler )?'error':'sqlinfo') )
+            ;
 
     }
-    if ( claro_debug_mode() && claro_sql_errno() )
+
+    if ( claro_debug_mode() && claro_sql_errno( $dbHandler ) )
     {
         echo '<hr size="1" noshade>'
-        .    claro_sql_errno() . ' : '. claro_sql_error() . '<br>'
+        .    claro_sql_errno( $dbHandler ) . ' : '. claro_sql_error( $dbHandler ) . '<br>'
         .    '<pre style="color:red">'
-        .    $sqlQuery
+        .    htmlspecialchars( $sqlQuery )
         .    '</pre>'
         .    ( function_exists('claro_html_debug_backtrace')
              ? claro_html_debug_backtrace()
@@ -344,12 +348,10 @@ function claro_sql_errno($dbHandler = '#')
 {
     if ( $dbHandler == '#' )
     {
-        return mysql_errno();
+        $dbHandler = Claroline::getDatabase()->getDbLink();
     }
-    else
-    {
-        return mysql_errno($dbHandler);
-    }
+    
+    return mysql_errno( $dbHandler );
 }
 
 /**
@@ -361,12 +363,10 @@ function claro_sql_error($dbHandler = '#')
 {
     if ( $dbHandler == '#' )
     {
-        return mysql_error();
+        $dbHandler = Claroline::getDatabase()->getDbLink();
     }
-    else
-    {
-        return mysql_error($dbHandler);
-    }
+    
+    return mysql_error( $dbHandler );
 }
 
 /**
@@ -374,11 +374,11 @@ function claro_sql_error($dbHandler = '#')
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
  *  in database/database.lib.php instead
  */
-function claro_sql_select_db($dbName, $dbHandler = '#')
+function claro_sql_select_db( $dbName, $dbHandler = '#' )
 {
     if ( $dbHandler == '#' )
     {
-        return mysql_select_db($dbName);
+        return Claroline::getDatabase()->selectDatabase($dbName);
     }
     else
     {
@@ -395,7 +395,8 @@ function claro_sql_affected_rows($dbHandler = '#')
 {
     if ( $dbHandler == '#' )
     {
-        return mysql_affected_rows();
+        // return mysql_affected_rows(Claroline::getDatabase()->getDbLink());
+        return Claroline::getDatabase()->affectedRows();
     }
     else
     {
@@ -412,7 +413,8 @@ function claro_sql_insert_id($dbHandler = '#')
 {
     if ( $dbHandler == '#' )
     {
-        return mysql_insert_id();
+        // return mysql_insert_id(Claroline::getDatabase()->getDbLink());
+        return Claroline::getDatabase()->insertId();
     }
     else
     {
@@ -731,7 +733,7 @@ function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
 
     if ($result)
     {
-        if ($dbHandler == '#') return mysql_insert_id();
+        if ($dbHandler == '#') return mysql_insert_id( Claroline::getDatabase()->getDbLink() );
         else                   return mysql_insert_id($dbHandler);
     }
     else
@@ -751,7 +753,7 @@ function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
  */
 function claro_sql_escape($statement,$db=null)
 {
-    if (is_null($db)) return mysql_real_escape_string($statement);
+    if (is_null($db)) return mysql_real_escape_string($statement, Claroline::getDatabase()->getDbLink());
     else              return mysql_real_escape_string($statement, $db);
 
 }

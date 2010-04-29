@@ -16,16 +16,15 @@
  * 
  * This library provides the following classes :
  * 
- * 1. Claroline_Database_Connection is an adapter build upon the Claroline
- * kernel database connection and provided by the Claroline core class through
- * Claroline::getDatabase()
+ * 1. Claroline_Database_Connection is an adapter provided by the Claroline core
+ *  class through Claroline::getDatabase() static method call
  * 2. Mysql_Database_connection is an adapater build upon the mysql extension
- * provided to connect to other databases
+ *  provided to connect to other databases
  * 3. Mysql_ResultSet implementation of Database_ResultSet to store and access
- * database query result based on mysql extension and used by both
- * Mysql_Database_Connection and Claroline_Database_Connection
+ *  database query result based on mysql extension and used by both
+ *  Mysql_Database_Connection and Claroline_Database_Connection
  * 4. Database_Connection_Exception exception class specific to database
- * connections
+ *  connections
  *
  * @version     1.10 $Revision$
  * @copyright   2001-2010 Universite catholique de Louvain (UCL)
@@ -254,95 +253,214 @@ class Mysql_Database_Connection implements Database_Connection
 }
 
 /**
- * Claroline kernel database specific Database_Connection
- * @todo rewrite without using claro_sql_* functions
+ * Provides a MYsql_Database_Connection adapted to the Claroline database
+ * with extra logging capability that mimics the old sql.lib.php functions
  */
-class Claroline_Database_Connection implements Database_Connection
+class
+    Claroline_Database_Connection
+extends
+    Mysql_Database_Connection
 {
-    protected $dbLink;
-    
-    public function __construct( $dbLink )
+    protected $mysqlConnection;
+    protected $queryCounter = 0;
+
+    public function __construct()
     {
-        $this->dbLink = $dbLink;
+        $this->mysqlConnection = parent::__construct(
+            get_conf('dbHost'),
+            get_conf('dbLogin'),
+            get_conf('dbPass'),
+            get_conf('mainDbName')
+        );
     }
-    
+
     /**
+     * Connect to the database
      * @see Database_Connection
      */
     public function connect()
     {
-        // already connected through claroline kernel
-    }
-    
-    /**
-     * @see Database_Connection
-     */
-    public function selectDatabase( $database )
-    {
-        if ( ! claro_sql_select_db( $database, $this->dbLink ) )
+        if ( $this->isConnected() )
         {
-            throw new Database_Connection_Exception("Cannot select database {$database} on {$this->username}@{$this->host}");
+            throw new Database_Connection_Exception("Already to database server {$this->username}@{$this->host}");
+        }
+
+        if ( ! defined('CLIENT_FOUND_ROWS') )
+        {
+            define('CLIENT_FOUND_ROWS', 2);
+        }
+
+        $this->dbLink = @mysql_connect(
+            $this->host,
+            $this->username,
+            $this->password,
+            false,
+            CLIENT_FOUND_ROWS
+        );
+
+        if ( ! $this->dbLink )
+        {
+            throw new Database_Connection_Exception("Cannot connect to database server {$this->username}@{$this->host}");
+        }
+
+        if ( !empty( $this->database ) )
+        {
+            $this->selectDatabase( $this->database );
         }
     }
-    
-    /**
-     * @see Database_Connection
-     */
-    public function affectedRows()
-    {
-        return claro_sql_affected_rows( $this->dbLink );
-    }
-    
-    /**
-     * @see Database_Connection
-     */
-    public function insertId()
-    {
-        return claro_sql_insert_id( $this->dbLink );
-    }
-    
+
     /**
      * @see Database_Connection
      */
     public function exec( $sql )
     {
-        if ( ! claro_sql_query( $sql, $this->dbLink ) )
+        if ( claro_debug_mode() && get_conf('CLARO_PROFILE_SQL',false) )
         {
-            throw new Database_Connection_Exception( "Error in {$sql} : ".claro_sql_error(), claro_sql_errno() );
+            $start = microtime();
         }
-        
-        return $this->affectedRows();
+
+        try
+        {
+            $result =  parent::query( self::prepareQueryForExecution( $sql ) );
+
+            if ( claro_debug_mode() && get_conf('CLARO_PROFILE_SQL',false) )
+            {
+                $duration = microtime() - $start;
+                $info = 'execution time : ' . ($duration > 0.001 ? '<b>' . round($duration,4) . '</b>':'&lt;0.001')  . '&#181;s'  ;
+                $info .= ': affected rows :' . $this->affectedRows();
+
+                pushClaroMessage( '<br />Query counter : <b>' . $this->queryCounter++ . '</b> : ' . $info . '<br />'
+                    . '<code><span class="sqlcode">' . nl2br($sql) . '</span></code>'
+                    , 'sqlinfo' );
+
+            }
+            
+            return $this->affectedRows();
+        }
+        catch ( Database_Exception $e )
+        {
+            if ( claro_debug_mode() )
+            {
+                $duration = microtime() - $start;
+                $info = 'execution time : ' . ($duration > 0.001 ? '<b>' . round($duration,4) . '</b>':'&lt;0.001')  . '&#181;s'  ;
+                $info .= ': affected rows :' . $this->affectedRows();
+
+                pushClaroMessage( '<br />Query counter : <b>' . $this->queryCounter++ . '</b> : ' . $info . '<br />'
+                    . '<code><span class="sqlcode">' . nl2br($sql) . '</span></code>'
+                    , 'error' );
+            }
+
+            throw $e;
+        }
     }
-    
-    /**
+
+    /**t
      * @see Database_Connection
      */
     public function query( $sql )
     {
-        if ( false === ( $result = claro_sql_query( $sql, $this->dbLink ) ) )
+        if ( claro_debug_mode() && get_conf('CLARO_PROFILE_SQL',false) )
         {
-            throw new Database_Connection_Exception( "Error in {$sql} : ".claro_sql_error(), claro_sql_errno() );
+            $start = microtime();
         }
-        
-        $tmp = new Mysql_ResultSet( $result );
-        
-        return $tmp;
+
+        try
+        {
+            $result =  parent::query( self::prepareQueryForExecution( $sql ) );
+
+            if ( claro_debug_mode() && get_conf('CLARO_PROFILE_SQL',false) )
+            {
+                $duration = microtime() - $start;
+                $info = 'execution time : ' . ($duration > 0.001 ? '<b>' . round($duration,4) . '</b>':'&lt;0.001')  . '&#181;s'  ;
+                $info .= ': affected rows :' . $this->affectedRows();
+
+                pushClaroMessage( '<br />Query counter : <b>' . $this->queryCounter++ . '</b> : ' . $info . '<br />'
+                    . '<code><span class="sqlcode">' . nl2br($sql) . '</span></code>'
+                    , 'sqlinfo' );
+            }
+
+            return $result;
+        }
+        catch ( Database_Exception $e )
+        {
+            if ( claro_debug_mode() )
+            {
+                $duration = microtime() - $start;
+                $info = 'execution time : ' . ($duration > 0.001 ? '<b>' . round($duration,4) . '</b>':'&lt;0.001')  . '&#181;s'  ;
+                $info .= ': affected rows :' . $this->affectedRows();
+
+                pushClaroMessage( '<br />Query counter : <b>' . $this->queryCounter++ . '</b> : ' . $info . '<br />'
+                    . '<code><span class="sqlcode">' . nl2br($sql) . '</span></code>'
+                    , 'error' );
+            }
+
+            throw $e;
+        }
     }
-    
+
     /**
-     * @see Database_Connection
+     * This function is available only for backward compatibility in sql.lib.php
+     * DO NOT USE IT IN YOUR SCRIPTS !
+     * @since Claroline 1.10
+     * @deprecated since Claroline 1.10
+     * @return resource
      */
-    public function escape( $str )
+    public function getDbLink()
     {
-        return claro_sql_escape( $str, $this->dbLink );
+        return $this->dbLink;
     }
-    
+
     /**
-     * @see Database_Connection
+     * This function is available only for bacward compatibility in sql.lib.php.
+     * DO NOT USE IT IN YOUR SCRIPTS !
+     * @since Claroline 1.10
+     * @deprecated since Claroline 1.10
      */
-    public function quote( $str )
+    public function getQueryCounter()
     {
-        return "'".claro_sql_escape( $str, $this->dbLink )."'";
+        return $this->queryCounter;
+    }
+
+    /**
+     * This function is available only for bacward compatibility in sql.lib.php.
+     * DO NOT USE IT IN YOUR SCRIPTS !
+     * @since Claroline 1.10
+     * @deprecated since Claroline 1.10
+     * @return $this
+     */
+    public function incrementQueryCounter()
+    {
+        $this->queryCounter++;
+        return $this;
+    }
+
+    /**
+     * Replace the Claroline SQL place holders __CL_MAIN__ and __CL_COURSE__ by
+     * the corresponding value in the given SQL query
+     * @param string $sql
+     * @return string
+     * @since Claroline 1.10
+     */
+    protected static function prepareQueryForExecution( $sql )
+    {
+        $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
+
+        if ( claro_is_in_a_course() )
+        {
+            $currentCourseDbNameGlu = claro_get_course_data(
+                claro_get_current_course_id(), 'dbNameGlu');
+
+            $sql = str_replace('__CL_COURSE__', $currentCourseDbNameGlu['dbNameGlu'], $sql );
+        }
+        else
+        {
+            if ( preg_match( '/__CL_COURSE__/', $sql ) )
+            {
+                throw new Exception( "Trying to execute course SQL query while not in a course contexte" );
+            }
+        }
+
+        return $sql;
     }
 }
 
@@ -367,17 +485,17 @@ interface Database_ResultSet extends SeekableIterator, Countable
     /**
      * Associative array fetch mode constant, default mode if no one specified
      */
-    const FETCH_ASSOC = MYSQL_ASSOC;
+    const FETCH_ASSOC = 'FETCH_ASSOC';
     
     /**
      * Numeric index array fetch mode constant
      */
-    const FETCH_NUM = MYSQL_NUM;
+    const FETCH_NUM = 'FETCH_NUM';
     
     /**
      * Associative and numeric array fetch mode constant
      */
-    const FETCH_BOTH = MYSQL_BOTH;
+    const FETCH_BOTH = 'FETCH_BOTH';
     
     /**
      * Object fetch mode constant
@@ -446,12 +564,13 @@ interface Database_ResultSet extends SeekableIterator, Countable
  */
 class Mysql_ResultSet implements Database_ResultSet
 {
-    protected $mode;
-    protected $className;
-    protected $idx;
-    protected $valid;
-    protected $numrows;
-    protected $resultSet;
+    protected   
+        $mode,
+        $className,
+        $idx,
+        $valid,
+        $numrows,
+        $resultSet;
     
     /**
      * @param   resource $result Mysql native resultset
@@ -556,7 +675,7 @@ class Mysql_ResultSet implements Database_ResultSet
                 throw new Exception( "Cannot instanciate class {$className}" );
             }
 
-            $row = @mysql_fetch_array( $this->resultSet, self::FETCH_ASSOC );
+            $row = @mysql_fetch_array( $this->resultSet, MYSQL_ASSOC );
             $obj = call_user_func( array($className, 'getInstance' ), $row );
 
             return $obj;
@@ -568,14 +687,30 @@ class Mysql_ResultSet implements Database_ResultSet
         // FIXME : FETCH_VALUE should not be called twice !
         elseif ( $mode == self::FETCH_VALUE || $mode == self::FETCH_COLUMN )
         {
-            $res = @mysql_fetch_array( $this->resultSet, self::FETCH_NUM );
+            $res = @mysql_fetch_array( $this->resultSet, MYSQL_NUM );
             
             // use side effect of the [] operator : will return null if !$res
             return $res[0];
         }
         else
         {
-            return @mysql_fetch_array( $this->resultSet, $mode );
+            return @mysql_fetch_array( $this->resultSet, $this->mysqlFetchMode( $mode ) );
+        }
+    }
+
+    protected function mysqlFetchMode( $mode )
+    {
+        switch ( $mode )
+        {
+            case self::FETCH_ASSOC:
+                return MYSQL_ASSOC;
+
+            case self::FETCH_NUM:
+                return MYSQL_NUM;
+            
+            case self::FETCH_BOTH:
+            default:
+                return MYSQL_BOTH;
         }
     }
     
