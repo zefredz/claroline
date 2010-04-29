@@ -1190,7 +1190,7 @@ function claro_mktime()
     {
         // shift
         $mainTimeShift = (int) get_conf('mainTimeShift',0);
-        return mktime()+(3600 * $mainTimeShift);
+        return time()+(3600 * $mainTimeShift);
     }
 }
 //////////////////////////////////////////////////////////////////////////////
