@@ -11,15 +11,10 @@
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
+ * @package     kernel.core
  */
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
-FromKernel::uses ( 'core/event.lib' );
+require_once dirname(__FILE__) . '/event.lib.php';
 
 function load_current_module_listeners()
 {

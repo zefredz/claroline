@@ -10,7 +10,7 @@
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.core.context
+ * @package     kernel.core
  * @since       Claroline 1.9
  */
 

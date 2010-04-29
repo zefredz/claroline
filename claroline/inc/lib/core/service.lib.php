@@ -2,11 +2,6 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * Service architecture, provides
  *  - Service classes
@@ -18,7 +13,7 @@ if ( count( get_included_files() ) == 1 )
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
+ * @package     kernel.core
  * @deprecated  since 1.9, use utils/controller.lib instead
  */
 
