@@ -723,7 +723,7 @@ function render_user_course_list()
         // get category list
         $categoriesList = claroCategory::getAllCategories(0, 0, 1);
         
-        // categories have to be ordered alphabetically using full trail
+        // build full trails for the categories
         if( is_array($categoriesList) && !empty($categoriesList) )
         {
             foreach( $categoriesList as &$category )
@@ -731,12 +731,14 @@ function render_user_course_list()
                 $trail = build_category_trail($categoriesList, $category['id']);
                 $category['trail'] = $trail;
             }
+            
+            unset($category);
         }
         
-        $sortedUserCourseList = array();
+        $userCourseList = array();
         foreach($categoriesList as $category)
         {
-            $sortedUserCourseList[$category['id']] = claro_get_restricted_courses ($category['id'], claro_get_current_user_id());
+            $userCourseList[$category['id']] = claro_get_restricted_courses ($category['id'], claro_get_current_user_id());
         }
         
         // course and category lists are ordered: we can use them to display the user's course list
@@ -744,7 +746,7 @@ function render_user_course_list()
         // traverse category list, on each node check if some course the user is subscribed in is of this category
         foreach($categoriesList as $category )
         {
-            if( array_key_exists($category['id'], $sortedUserCourseList) && !empty($sortedUserCourseList[$category['id']]) )
+            if( array_key_exists($category['id'], $userCourseList) && !empty($userCourseList[$category['id']]) )
             {
                 // Display category header
                 $out .= '<div class="categoryMyCourses">'
@@ -758,7 +760,7 @@ function render_user_course_list()
                 
                 // Display category courses
                 $outCourse = '';
-                foreach( $sortedUserCourseList[$category['id']] as $thisCourse )
+                foreach( $userCourseList[$category['id']] as $thisCourse )
                 {
                     if (isset($thisCourse['enroled']) && !is_null($thisCourse['enroled'])) 
                     {
