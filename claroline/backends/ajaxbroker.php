@@ -16,7 +16,8 @@
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     core.linker
+ * @package     kernel.utils.ajax
+ * @since       Claroline 1.10
  */
 
 try
