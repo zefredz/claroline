@@ -81,6 +81,7 @@ class Url
 
     /**
      * Relay Claroline current Url context in urls
+     * @return $this
      */
     public function relayCurrentContext()
     {
@@ -101,20 +102,26 @@ class Url
         } */
         
         $this->addParamList( Claro_Context::getCurrentUrlContext() );
+
+        return $this;
     }
     
     /**
      * Relay given Url context in urls
      * @param   array context
+     * @return $this
      */
     public function relayContext( $context )
     {
         $this->addParamList( $context );
+
+        return $this;
     }
 
     /**
      * Add a list of parameters to the current url
      * @param   array paramList associative array of parameters name=>value
+     * @return $this
      */
     public function addParamList( $paramList, $overwrite = false )
     {
@@ -132,12 +139,15 @@ class Url
                 }
             }
         }
+
+        return $this;
     }
 
     /**
      * Add one parameter to the current url
      * @param   string name parameter name
      * @param   string value parameter value
+     * @return $this
      */
     public function addParam( $name, $value )
     {
@@ -145,6 +155,8 @@ class Url
         {
             $this->url['query'][$name] = $value;
         }
+
+        return $this;
     }
 
     /**
@@ -152,39 +164,48 @@ class Url
      * @param   string name parameter name
      * @param   string value parameter value
      * @param   boolean addIfMissing add the parameter if missing (default false)
-     * @return  boolean true if replaced or added, else false
+     * @return  $this
      */
     public function replaceParam( $name, $value, $addIfMissing = false )
     {
         if ( $addIfMissing || array_key_exists( $name, $this->url['query'] ) )
         {
             $this->addParam( $name, $value );
-            return true;
+            return $this;
         }
         else
         {
-            return false;
+            throw new Exception("Cannot replace parameter {$name} : not found");
         }
     }
 
     /**
      * Remove the given parameter
      * @param   string name parameter name
-     * @return  boolean true if removed, else false
+     * @return  $this
      */
-    public function removeParam( $name )
+    public function removeParam( $name, $ignoreMissing = false )
     {
         if ( array_key_exists( $name, $this->url['query'] ) )
         {
             unset( $this->url['query'] );
-            return true;
+
+            return $this;
+        }
+        elseif ( $ignoreMissing)
+        {
+            return $this;
         }
         else
         {
-            return false;
+            throw new Exception("Cannot remove parameter {$name} : not found");
         }
     }
 
+    /**
+     * Convert the current Url object to an URL string
+     * @return string
+     */
     public function toUrl()
     {
         $url = '';
@@ -240,7 +261,22 @@ class Url
         
         return $url;
     }
-    
+
+    /**
+     * @since   Claroline 1.10
+     * @return  string 
+     */
+    public function  __toString()
+    {
+        return $this->toUrl();
+    }
+
+    /**
+     * Add current execution context to the given URL
+     * @param string $url
+     * @param array $context
+     * @return string
+     */
     public static function Contextualize( $url, $context = null )
     {
         $urlObj = new self($url);
@@ -257,10 +293,3 @@ class Url
         return $urlObj->toUrl();
     }
 }
-
-/*$url = new Url('http://www.claroline.net?forum_id=3&plop=gnome#4');
-$url->addParam('path','/img/blue.gif');
-
-$url->port=3306;
-
-var_Dump($url->toUrl());*/
