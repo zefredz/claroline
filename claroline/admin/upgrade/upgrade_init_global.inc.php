@@ -81,6 +81,7 @@ session_start();
   Include main library
   ----------------------------------------------------------------------*/
 
+require_once $includePath . '/lib/core/claroline.lib.php';
 require_once $includePath . '/lib/claro_main.lib.php';
 require_once $includePath . '/lib/fileManage.lib.php';
 
