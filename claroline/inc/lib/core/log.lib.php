@@ -1,5 +1,19 @@
 <?php // $Id$
 
+// vim: expandtab sw=4 ts=4 sts=4:
+
+/**
+ * Logging class
+ *
+ * @version     1.10 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @author      Frederic Minne <zefredz@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     kernel.core
+ */
+
 class Logger
 {
     private $tbl_log;
