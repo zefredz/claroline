@@ -120,7 +120,9 @@ class Url
 
     /**
      * Add a list of parameters to the current url
-     * @param   array paramList associative array of parameters name=>value
+     * @param   array $paramList associative array of parameters name=>value
+     * @param   boolean $overwrite will overwrite the value of an existing
+     *  parameter if set to true
      * @return $this
      */
     public function addParamList( $paramList, $overwrite = false )
@@ -145,8 +147,8 @@ class Url
 
     /**
      * Add one parameter to the current url
-     * @param   string name parameter name
-     * @param   string value parameter value
+     * @param   string $name parameter name
+     * @param   string $value parameter value
      * @return $this
      */
     public function addParam( $name, $value )
@@ -161,10 +163,12 @@ class Url
 
     /**
      * Replace the value of the given parameter with the given value
-     * @param   string name parameter name
-     * @param   string value parameter value
-     * @param   boolean addIfMissing add the parameter if missing (default false)
+     * @param   string $name parameter name
+     * @param   string $value parameter value
+     * @param   boolean $addIfMissing add the parameter if missing (default false)
      * @return  $this
+     * @throws  Exception if trying to modify a non existent parameter with
+     *  $addIfMissing set to false (default)
      */
     public function replaceParam( $name, $value, $addIfMissing = false )
     {
@@ -181,8 +185,13 @@ class Url
 
     /**
      * Remove the given parameter
-     * @param   string name parameter name
+     * @param   string $name parameter name
+     * @param   boolean $ignoreMissing if set to true, the method invokation
+     *  will ignore a missing parameter. If set to false (default) removing a
+     *  non existent parameter will generate an exception
      * @return  $this
+     * @throws  Exception if trying to remove a non existent parameter with
+     *  $ignoreMissing set to false (default)
      */
     public function removeParam( $name, $ignoreMissing = false )
     {
