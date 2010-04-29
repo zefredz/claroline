@@ -24,8 +24,6 @@ try
 {
     require_once dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
-    $url = '';
-
     $moduleLabel = Claro_UserInput::getInstance()->get('moduleLabel',false);
 
     if ( $moduleLabel )
