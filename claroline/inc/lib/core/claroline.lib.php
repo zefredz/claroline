@@ -263,7 +263,7 @@ class Claroline
     /**
      * Get kernel Ajax Service Broker instance
      * @return Ajax_Remote_Service_Broker
-     * @since Claroline 1.10
+     * @since Claroline 1.9.5
      */
     public static function ajaxServiceBroker()
     {
