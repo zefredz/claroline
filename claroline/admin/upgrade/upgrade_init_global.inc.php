@@ -98,7 +98,7 @@ $clarolineRepositorySys = get_conf('rootSys') . $clarolineRepositoryAppend;
 
 require_once $includePath . '/lib/config.lib.inc.php';
 require_once dirname(__FILE__) . '/configUpgrade.class.php';
-require_once 'upgrade.lib.php';
+require_once dirname(__FILE__) . '/upgrade.lib.php';
 
 /**
  * List of accepted error - See MySQL error codes :
