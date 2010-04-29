@@ -133,8 +133,8 @@ function claro_get_following_cat_datas($rank, $idParent)
 
 
 /**
- * Return categories from the node $parent (recursivly).  Also returns 
- * the number of courses (nbCourses) directly linked to each category.
+ * Return categories from the node $parent.  Also returns the number 
+ * of courses (nbCourses) directly linked to each category.
  *
  * @param int       identifier of the parent from wich we want to 
  *                  get the categories
