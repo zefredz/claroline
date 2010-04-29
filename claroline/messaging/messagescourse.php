@@ -43,7 +43,7 @@
     
     $displayForm = FALSE;
     $content = "";
-    $from = (isset($_REQUEST['from'])) ? $_REQUEST['from'] : $_REQUEST['from'];
+    $from = (isset($_REQUEST['from'])) ? get_module_entry_url(strtoupper($_REQUEST['from'])) : $_SERVER['PHP_SELF'];
     //commande
     $acceptedCmdList = array('exSendMessage');
     
@@ -342,7 +342,7 @@
         .    '<br/>'.get_lang('Message') .'<br/>'. "\n"
         .    claro_html_textarea_editor('content', "")
         .    '<br/><input type="submit" name="submitMessage" value="' . get_lang('Submit') . '" />'
-        .    claro_html_button(htmlspecialchars(Url::Contextualize( get_module_entry_url(strtoupper($from)))), get_lang('Cancel'))
+        .    claro_html_button(htmlspecialchars(Url::Contextualize( $from)), get_lang('Cancel'))
         .    '</div>'."\n"
         .    '</div>'."\n\n"
         .    '</form>'."\n\n"
