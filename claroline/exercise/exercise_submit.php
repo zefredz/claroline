@@ -248,7 +248,7 @@ if( $resetQuestionList || !isset($_SESSION['serializedQuestionList']) || !is_arr
 elseif( isset( $loadRandomQuestionsList ) && is_array( $loadRandomQuestionsList) )
 {
     $questionList = array();
-    foreach( $loadRandomQuestionsList as $question )
+    foreach( $loadRandomQuestionsList['questions'] as $question )
     {
         $questionObj = new Question();
         $questionObj->setExerciseId( $exId );
@@ -590,7 +590,7 @@ if( $showResult )
             $outDialogbox .= get_lang('Your time is %time', array('%time' => claro_html_duration($timeToCompleteExe)) )
             .     '<br />' . "\n";            
        }
-       $outDialogbox .= '<strong>' . get_lang('Your total score is %score', array('%score' => $totalResult."/".$totalGrade ) ) . '</strong>';
+       //$outDialogbox .= '<strong>' . get_lang('Your total score is %score', array('%score' => $totalResult."/".$totalGrade ) ) . '</strong>';
        $dialogBoxResults->info( $outDialogbox );
        $out .= $dialogBoxResults->render();
     }
@@ -650,7 +650,7 @@ if( $showResult )
     $out .= '</table>' . "\n\n";    
     
     //  Display results    
-    if( $recordResults )
+    if( $recordResults && $showAnswers )
     {
         $out .= $dialogBoxResults->render();
         
@@ -890,12 +890,9 @@ $htmlHeaders = "\n".'
         })
     });
     
-    clockStart = new Date('.date('Y',$exeStartTime).','
-                         .(date('n',$exeStartTime)-1).','
-                         .date('j',$exeStartTime).','
-                         .date('G',$exeStartTime).','
-                         .date('i',$exeStartTime).','
-                         .date('s',$exeStartTime).').getTime();
+    clockStart = new Date();
+    clockStart.setTime( '. $exeStartTime * 1000 .' );
+    clockStart = clockStart.getTime();
     timeLimit = '.$exercise->getTimeLimit().';
     langMinShort = "'. get_lang('MinuteShort') .'";
     langSecShort = "'. get_lang('SecondShort') .'";
