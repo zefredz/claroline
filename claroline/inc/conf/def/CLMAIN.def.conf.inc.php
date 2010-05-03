@@ -1,20 +1,16 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
- * CLAROLINE
- * This file describe the parameter for Claroline main config file
+ * CLAROLINE main configuration file variable definitions
  *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
+ * @version 1.9 $Revision$
+ * @copyright 2001-2010 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @see http://www.claroline.net/wiki/config_def/
- *
  * @author Claro Team <cvs@claroline.net>
- *
- * @package Kernel
+ * @package kernel
  */
 
 // CONFIG HEADER
@@ -123,6 +119,7 @@ array ( 'userPasswordCrypted'
       , 'warnSessionLost'
       , 'claro_brailleViewMode'
       , 'javascriptCompression'
+      , 'ajaxRemoteServiceBrokerEnabled'
       // , 'secureDocumentDownload'
       );
 
@@ -604,6 +601,16 @@ array ('label'       => 'Development mode'
 $conf_def_property_list['triggerDebugMode'] =
 array ('label'       => 'Trigger debug mode in url'
       ,'description' => ''
+      ,'type'        => 'boolean'
+      ,'default'     => FALSE
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
+      );
+
+$conf_def_property_list['ajaxRemoteServiceBrokerEnabled'] =
+array ('label'       => 'Enable Ajax Remote Service broker'
+      ,'description' => 'The Ajax Remote Service broker can be used by some modules to access remote services using AJAX requests and JSON'
       ,'type'        => 'boolean'
       ,'default'     => FALSE
       ,'display'     => TRUE
