@@ -19,8 +19,8 @@
 // nor a specific course tool now. So it's careful to reset the group
 // and tool settings
 
-$gidReset = TRUE;
-$tidReset = TRUE;
+$gidReset = true;
+$tidReset = true;
 
 $cidReq = ( isset($_REQUEST['cid']) ) ? $_REQUEST['cid'] : '';
 
@@ -38,7 +38,7 @@ if (!empty($cidReq))
 if ( !claro_is_in_a_course()  || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $toolRepository = get_path('clarolineRepositoryWeb');
-claro_set_display_mode_available(TRUE);
+claro_set_display_mode_available(true);
 
 /*
  * Language initialisation of the tool names
@@ -68,10 +68,10 @@ $courseSource = retrieve_code_from_id((claro_get_current_course_data('sourceCour
 
 if (isset($courseSource))
 {
-   // call a session course
-   $_SESSION['courseSessionCode'][$courseSource]= claro_get_current_course_id();
-   $courseCode['session'] =  claro_get_current_course_id();
-   $courseCode['source'] = $courseSource;
+    // call a session course
+    $_SESSION['courseSessionCode'][$courseSource]= claro_get_current_course_id();
+    $courseCode['session'] =  claro_get_current_course_id();
+    $courseCode['source'] = $courseSource;
 }
 else 
 {
@@ -81,7 +81,8 @@ else
         $courseCode['source'] = claro_get_current_course_id();
         $courseCode['session'] =  $_SESSION['courseSessionCode'][$courseCode['source']];
     }
-    else $courseCode['standAlone'] = claro_get_current_course_id();
+    else 
+        $courseCode['standAlone'] = claro_get_current_course_id();
 }
 
 $toolLinkList = array(
