@@ -1061,9 +1061,11 @@ $_SESSION['is_toolAllowed'] = $is_toolAllowed;
 $_SESSION['_courseToolList'] = $_courseToolList;
 
 /*===========================================================================
-  Set config for course ---> to move in claro_init_global
+  Load configuration files
+  @todo Move to claro_init_global
  ===========================================================================*/
 
+// Course tools
 if (isset($_cid) && $_courseTool['label'])
 {
     $config_code = rtrim($_courseTool['label'],'_');
@@ -1077,5 +1079,19 @@ if (isset($_cid) && $_courseTool['label'])
         && file_exists(get_conf('coursesRepositorySys') . $_course['path'] . '/conf/' . $config_code . '.conf.php'))
     {
         require get_conf('coursesRepositorySys') . $_course['path'] . '/conf/' . $config_code . '.conf.php';
+    }
+}
+// Other modules
+elseif ( $tlabelReq )
+{
+    $config_code = rtrim($tlabelReq,'_');
+
+    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
+    {
+        include claro_get_conf_repository() . $config_code . '.conf.php';
+
+        pushClaroMessage("Loading configuration file "
+            . claro_get_conf_repository() . $config_code
+            . '.conf.php','debug');
     }
 }
