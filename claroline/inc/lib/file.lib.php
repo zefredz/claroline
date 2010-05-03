@@ -302,6 +302,7 @@ function claro_send_file( $path, $name = '', $charset = null )
  * @param   string $charset character encoding of the strem, if none given the
  *  function will use the encoding of the current page
  * @return  number of octets sent
+ * @since Claroline 1.9.5
  */
 function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
 {
