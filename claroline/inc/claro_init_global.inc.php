@@ -193,6 +193,50 @@ Claroline::initDisplay();
 // Assign the Claroline singleton to a variable for more convenience
 $claroline = Claroline::getInstance();
 
+/*===========================================================================
+                     Load configuration files
+ ===========================================================================*/
+
+// Course tools
+if (isset($_cid) && $_courseTool['label'])
+{
+    $config_code = rtrim($_courseTool['label'],'_');
+
+    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
+    {
+        include claro_get_conf_repository() . $config_code . '.conf.php';
+        pushClaroMessage("Loading configuration file "
+            . claro_get_conf_repository() . $config_code
+            . '.conf.php','debug');
+    }
+
+    if ( claro_is_in_a_course()
+        && file_exists( get_conf('coursesRepositorySys')
+            . $_course['path'] . '/conf/' . $config_code . '.conf.php' ) )
+    {
+        require get_conf('coursesRepositorySys') . $_course['path'] 
+            . '/conf/' . $config_code . '.conf.php';
+
+        pushClaroMessage("Loading configuration file "
+            . get_conf('coursesRepositorySys') . $_course['path']
+            . '/conf/' . $config_code . '.conf.php', 'debug');
+    }
+}
+// Other modules
+elseif ( $tlabelReq )
+{
+    $config_code = rtrim($tlabelReq,'_');
+
+    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
+    {
+        include claro_get_conf_repository() . $config_code . '.conf.php';
+
+        pushClaroMessage("Loading configuration file "
+            . claro_get_conf_repository() . $config_code
+            . '.conf.php','debug');
+    }
+}
+
 if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
 {
     /*----------------------------------------------------------------------

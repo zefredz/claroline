@@ -1060,23 +1060,3 @@ $_SESSION['is_toolAllowed'] = $is_toolAllowed;
  ---------------------------------------------------------------------------*/
 
 $_SESSION['_courseToolList'] = $_courseToolList;
-
-/*===========================================================================
-  Set config for course ---> to move in claro_init_global
- ===========================================================================*/
-
-if (isset($_cid) && $_courseTool['label'])
-{
-    $config_code = rtrim($_courseTool['label'],'_');
-
-    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
-    {
-        include claro_get_conf_repository() . $config_code . '.conf.php';
-    }
-        
-    if ( claro_is_in_a_course()
-        && file_exists(get_conf('coursesRepositorySys') . $_course['path'] . '/conf/' . $config_code . '.conf.php'))
-    {
-        require get_conf('coursesRepositorySys') . $_course['path'] . '/conf/' . $config_code . '.conf.php';
-    }
-}
