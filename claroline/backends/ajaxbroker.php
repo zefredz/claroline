@@ -24,16 +24,26 @@ try
 {
     require_once dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
-    $moduleLabel = Claro_UserInput::getInstance()->get('moduleLabel',false);
-
-    if ( $moduleLabel )
+    if ( ! get_conf('ajaxRemoteServiceBrokerEnabled', false ) )
     {
-        $ajaxHandler = Ajax_Remote_Module_Service::getModuleServiceInstance( $moduleLabel );
+        $response = new Json_Error(
+            "Ajax Remote Service is not available (you can allow it in the "
+                . "claroline configuration advanced settings)"
+        );
     }
+    else
+    {
+        $moduleLabel = Claro_UserInput::getInstance()->get('moduleLabel',false);
 
-    $ajaxRequest = Ajax_Request::getRequest(Claro_UserInput::getInstance());
+        if ( $moduleLabel )
+        {
+            $ajaxHandler = Ajax_Remote_Module_Service::getModuleServiceInstance( $moduleLabel );
+        }
 
-    $response = Claroline::ajaxServiceBroker()->handle($ajaxRequest);
+        $ajaxRequest = Ajax_Request::getRequest(Claro_UserInput::getInstance());
+
+        $response = Claroline::ajaxServiceBroker()->handle($ajaxRequest);
+    }
 }
 catch (Exception $e )
 {

@@ -126,6 +126,7 @@ array ( 'userPasswordCrypted'
       , 'warnSessionLost'
       , 'claro_brailleViewMode'
       , 'javascriptCompression'
+      , 'ajaxRemoteServiceBrokerEnabled'
       // , 'secureDocumentDownload'
       );
 
@@ -634,6 +635,16 @@ array ('label'       => 'Development mode'
 $conf_def_property_list['triggerDebugMode'] =
 array ('label'       => 'Trigger debug mode in url'
       ,'description' => ''
+      ,'type'        => 'boolean'
+      ,'default'     => FALSE
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
+      );
+
+$conf_def_property_list['ajaxRemoteServiceBrokerEnabled'] =
+array ('label'       => 'Enable Ajax Remote Service broker'
+      ,'description' => 'The Ajax Remote Service broker can be used by some modules to access remote services using AJAX requests and JSON'
       ,'type'        => 'boolean'
       ,'default'     => FALSE
       ,'display'     => TRUE
