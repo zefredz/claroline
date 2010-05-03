@@ -68,7 +68,7 @@ claro_sql_query($sql);
 if ( isset($_REQUEST['verbose']) ) $verbose = true;
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = FALSE;
+else                           $cmd = false;
 
 $display = DISPLAY_WELCOME_PANEL;
 
@@ -286,8 +286,8 @@ switch ( $display )
 
         if ( preg_match('/^1.9/',$currentDbVersion) )
         {
-            $function_list = array('categoy_to_110', 
-                                   'session_course'
+            $function_list = array('upgrade_category_to_110', 
+                                   'upgrade_session_course_to_110'
                                     );
             
             

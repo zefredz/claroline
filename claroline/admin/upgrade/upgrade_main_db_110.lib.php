@@ -26,7 +26,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  Upgrade to claroline 1.10
  ===========================================================================*/
 
-function category_to_110 ()
+function upgrade_category_to_110 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tool = 'CATEGORY_110';
@@ -148,7 +148,7 @@ function category_to_110 ()
         case 6 :
             
             // Drop deprecated table `faculty`
-            $sqlForUpdate[] = "DROP TABLE `" . get_conf('mainTblPrefix') . "`.`faculty`";
+            $sqlForUpdate[] = "DROP TABLE `" . get_conf('mainTblPrefix') . "`.`faculte`";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
@@ -165,7 +165,7 @@ function category_to_110 ()
     return false;    
 }
 
-function session_course ()
+function upgrade_session_course_to_110 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tool = 'SESSION_COURSE';
