@@ -1,10 +1,5 @@
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
-<?php 
-    if (isset($this->courseStyle)) 
-        echo '<style type="text/css">'.$this->courseStyle.'</style>';
-?>
-
 <table border="0" cellspacing="10" cellpadding="10" width="100%">
 <tr>
 <td valign="top" style="border-right: gray solid 1px;" width="220">

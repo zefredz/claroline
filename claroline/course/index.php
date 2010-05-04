@@ -32,10 +32,12 @@ include claro_get_conf_repository() . 'rss.conf.php';
 // Include specific CSS if any
 if ( claro_is_in_a_course()
     && file_exists( get_conf('coursesRepositorySys')
-        . $_course['path'] . '/conf/style.php' ) )
+        . $_course['path'] . '/css/course.css' ) )
 {
-    require get_conf('coursesRepositorySys')
-        . $_course['path'] . '/conf/style.php';
+    $claroline->display->header->addHtmlHeader( 
+        '<link rel="stylesheet" media="screen" type="text/css" href="'
+        . get_path('url') . '/' . get_path('coursesRepositoryAppend')
+        . $_course['path'] . '/css/course.css" />');
 }
 
 if (isset($cidReq))
@@ -189,7 +191,6 @@ if( get_conf('is_trackingEnabled') )
 
 // Display header
 $template = new CoreTemplate('course_index.tpl.php');
-$template->assign('courseStyle', $courseStyle);
 $template->assign('toolLinkListSource', $toolLinkList['source']);
 $template->assign('toolLinkListSession', $toolLinkList['session']);
 $template->assign('toolLinkListStandAlone', $toolLinkList['standAlone']);

@@ -63,9 +63,9 @@ array (
         'registrationRestrictedThroughCategories'
       );
 
-$conf_def['section']['courses_styles']['label']='Courses styles';
-$conf_def['section']['courses_styles']['description'] = 'You can personalize the layout of each course';
-$conf_def['section']['courses_styles']['properties'] = array();
+$conf_def['section']['courses_layouts']['label']='Courses layouts';
+$conf_def['section']['courses_layouts']['description'] = 'You can personalize the layout of each course';
+$conf_def['section']['courses_layouts']['properties'] = array();
 
 
 
