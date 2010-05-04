@@ -768,7 +768,7 @@ function claro_get_module_name ( $identifier )
 
     if ( isset($toolNameList[$toolLabel]) )
     {
-        return $toolNameList[$toolLabel];
+        return get_lang($toolNameList[$toolLabel]);
     }
 /*
     if ( isset($toolNameList[$toolLabel]) )

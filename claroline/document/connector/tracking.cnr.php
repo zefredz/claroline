@@ -41,6 +41,7 @@ class CLDOC_CourseTrackingRenderer extends CourseTrackingRenderer
                     FROM `".$this->tbl_course_tracking_event."`
                     WHERE `type` = 'download'
                       AND `group_id` IS NULL
+                    ORDER BY substring_index(data,'\"',-2)
                     GROUP BY `data`";
 
         $results = claro_sql_query_fetch_all($sql);
