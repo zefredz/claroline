@@ -243,7 +243,7 @@ if ($intro_dispForm)
     $introId      = isset($introSettingList['id']) ? $introSettingList['id'] : false;
     $introEditorCmdValue = $introId ? 'exEd' : 'exAdd';
 
-    $output .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+    $output .= '<form action="' . Url::Contextualize($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
     .    '<input type="hidden" name="claroFormId" value="'.uniqid(time()).'" />'
     .    '<input type="hidden" name="introCmd" value="' . $introEditorCmdValue . '" />'
     .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'" />' : '')
