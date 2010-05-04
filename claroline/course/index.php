@@ -22,11 +22,12 @@
 $gidReset = true;
 $tidReset = true;
 
+if ( isset($_REQUEST['cid']) ) $cidReq = $_REQUEST['cid'];
+elseif ( isset($_REQUEST['cidReq']) ) $cidReq = $_REQUEST['cidReq'];
+
 require '../inc/claro_init_global.inc.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 include claro_get_conf_repository() . 'rss.conf.php';
-
-$cidReq = claro_get_current_course_id();
 
 if (isset($cidReq))
 {
