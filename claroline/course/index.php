@@ -29,6 +29,15 @@ require '../inc/claro_init_global.inc.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 include claro_get_conf_repository() . 'rss.conf.php';
 
+// Include specific CSS if any
+if ( claro_is_in_a_course()
+    && file_exists( get_conf('coursesRepositorySys')
+        . $_course['path'] . '/conf/style.php' ) )
+{
+    require get_conf('coursesRepositorySys')
+        . $_course['path'] . '/conf/style.php';
+}
+
 if (isset($cidReq))
 {
     $thisCourse = new ClaroCourse();
@@ -180,6 +189,7 @@ if( get_conf('is_trackingEnabled') )
 
 // Display header
 $template = new CoreTemplate('course_index.tpl.php');
+$template->assign('courseStyle', $courseStyle);
 $template->assign('toolLinkListSource', $toolLinkList['source']);
 $template->assign('toolLinkListSession', $toolLinkList['session']);
 $template->assign('toolLinkListStandAlone', $toolLinkList['standAlone']);

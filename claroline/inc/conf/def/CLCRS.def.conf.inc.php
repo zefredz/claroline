@@ -63,6 +63,12 @@ array (
         'registrationRestrictedThroughCategories'
       );
 
+$conf_def['section']['courses_styles']['label']='Courses styles';
+$conf_def['section']['courses_styles']['description'] = 'You can personalize the layout of each course';
+$conf_def['section']['courses_styles']['properties'] = array();
+
+
+
 $conf_def_property_list['fill_course_example'] =
 array ('label'       => 'Fill courses tools with material example'
       ,'description' => ''
@@ -85,7 +91,8 @@ array ('label'       => 'Course code case'
                                 ,'nochange'=>'dont change case'
                                 )
       );
-      /*
+
+/*
 $conf_def_property_list['defaultVisibilityForANewCourse'] =
 array ('label'       => 'Default course access'
       ,'description' => ''
@@ -100,6 +107,7 @@ array ('label'       => 'Default course access'
                                 )
       );
 */
+
 $conf_def_property_list['defaultVisibilityOnCourseCreation'] =
 array ('label'       => 'Default course visibility'
       ,'description' => 'This is probably a bad idea to set as hidden'
@@ -124,7 +132,6 @@ array ('label'       => 'Default course access'
                                 ,'platform'=> 'Reserved to platform members'
                                 )
       );
-
 
 $conf_def_property_list['defaultRegistrationOnCourseCreation'] =
 array ('label'       => 'Default course enrolment'
@@ -248,5 +255,15 @@ $conf_def_property_list['showLinkToDeleteThisCourse']
                                   ,'FALSE' => 'No'
                                   )
         );
-
+/*
+$conf_def_property_list['infosCoursesStyles'] =
+array ('label'       => 'Personalize the look of your courses\' pages'
+      ,'description' => 'You can personalize the style of each course.  '
+                      . 'To do so, just put a file named "style.php" in the '
+                      . 'course\'s directory'
+      ,'default'     => null
+      ,'type'        => ''
+      ,'acceptedValue' => array ()
+      );
+*/
 ?>
