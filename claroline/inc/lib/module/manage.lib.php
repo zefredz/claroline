@@ -1970,7 +1970,7 @@ function set_module_autoactivation_in_course( $moduleLabel, $autoActivation )
  */
 function allow_module_activation_by_course_manager( $moduleLabel, $courseManagerCanActivate )
 {
-    $sql_accessManager = $courseManagerCanActivate ? 'COURSE_MANAGER' : 'PLATFORM_ADMIN';
+    $sql_accessManager = $courseManagerCanActivate ? 'COURSE_ADMIN' : 'PLATFORM_ADMIN';
 
     /* @todo move to a lib */
     $tbl_mdb_names        = claro_sql_get_main_tbl();
