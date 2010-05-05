@@ -687,7 +687,7 @@ elseif ( $currentSection == 'toolList' )
     {
         foreach ( $completeInactiveToolList as $inactiveTool )
         {
-            if ( $inactiveTool['access_manager'] == 'COURSE_MANAGER'
+            if ( $inactiveTool['access_manager'] == 'COURSE_ADMIN'
                 || claro_is_platform_admin() )
             {
                 $action_link = '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
