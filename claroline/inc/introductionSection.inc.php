@@ -247,6 +247,7 @@ if ($intro_dispForm)
     .    '<input type="hidden" name="claroFormId" value="'.uniqid(time()).'" />'
     .    '<input type="hidden" name="introCmd" value="' . $introEditorCmdValue . '" />'
     .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'" />' : '')
+    .    claro_form_relay_context()
     .    claro_html_textarea_editor('intro_content', trim($introContent))
     .    '<br />'."\n"
     ;
