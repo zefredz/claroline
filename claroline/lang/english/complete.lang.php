@@ -1226,6 +1226,7 @@ $_lang['Note : this repository should be protected with a .htaccess or
 $_lang['Nothing to display'] = 'Nothing to display';
 $_lang['Notice'] = 'Notice';
 $_lang['Notification preferences saved'] = 'Notification preferences saved';
+$_lang['Notifications to users'] = 'Notifications to users';
 $_lang['Notify'] = 'Notify';
 $_lang['Notify by email when replies are posted'] = 'Notify by email when replies are posted';
 $_lang['Notify by email when topics are created'] = 'Notify by email when topics are created';
