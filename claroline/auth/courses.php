@@ -569,7 +569,7 @@ switch ( $displayMode )
                 }
                 elseif ( $fromAdmin == 'class')
                 {
-                   if (in_array(get_class_list_of_course($thisCourse['sysCode']),$class_id))
+                   if (in_array(get_class_list_of_course($thisCourse['sysCode'])))
                    {
                     $out .= '<td valign="top"  align="center">' . "\n"
                     .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
