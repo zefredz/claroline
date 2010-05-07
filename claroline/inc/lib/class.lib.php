@@ -55,14 +55,25 @@ function class_create ( $className, $parentId )
     $className = trim($className);
     $parentId = (int) $parentId;
 
+    if ($parentId != 0)
+    {
+        $parent_class_properties = class_get_properties ( $parentId );
+        $class_level = $parent_class_properties['class_level']+1;
+       
+    }
+    else
+    {
+        $class_level= 1;
+    }
+
     $sql = "INSERT INTO `" . $tbl['class'] . "`
-            SET `name`='". claro_sql_escape($className) ."'";
+            SET `name`='". claro_sql_escape($className) ."',
+                `class_level`='".(int)$class_level."'";
 
     if ( $parentId != 0 )
     {
         $sql.=", `class_parent_id`= ". (int) $parentId;
     }
-
     return claro_sql_query($sql);
 }
 
@@ -226,7 +237,7 @@ function move_class($class_id, $class_id_towards)
 
     if ( $class_id_towards != 0 )
     {
-        $sql = "SELECT `id`
+    	 $sql = "SELECT `id`, `class_level`
                 FROM `" . $tbl_class . "`
                 WHERE `id` = '" .(int) $class_id_towards . "' ";
         $result = claro_sql_query_fetch_all($sql);
@@ -235,16 +246,22 @@ function move_class($class_id, $class_id_towards)
         {
             return claro_failure::set_failure('class_not_found'); // the parent class doesn't exist
         }
+        else 
+        {
+            $class_level = $result[0]['class_level'] +1;
+        }
     }
     else
     {
         //if $class_id_parent is root
         $class_id_towards = "NULL";
+        $class_level = 1;
     }
 
     //Move class
     $sql_update="UPDATE `" . $tbl_class . "`
-                 SET class_parent_id= " . $class_id_towards . "
+                 SET class_parent_id= " . $class_id_towards . ", 
+                 class_level = ". $class_level ."
                  WHERE id= " . (int) $class_id;
     claro_sql_query($sql_update);
 
@@ -295,7 +312,7 @@ function register_class_to_course($class_id, $course_code)
     if ( !isset($course_identifier[0]['code']))
     {
         return claro_failure::set_failure('course_not_found');
-        //TODO : aéméliorer la détection d'erreur
+        //TODO : ameliorer la detection d'erreur
     }
 
     // 2. See if there is a class with such ID in the main DB
@@ -553,7 +570,7 @@ function user_add_to_class($user_id,$class_id)
         if( !user_add_to_course($user_id, $course['code'], false, false, true) )
         {
             return claro_failure::set_failure('PROBLEM_WITH_COURSE_SUBSCRIBE');
-            //TODO : améliorer la  gestion d'erreur ...
+            //TODO : ameliorer la  gestion d'erreur ...
         }
     }
 
@@ -662,7 +679,7 @@ function user_remove_to_class($user_id,$class_id)
                     if ( !user_remove_from_course($user_id, $course['code'], false, false, TRUE) )
                     {
                             return claro_failure::set_failure('PROBLEM_WITH_COURSE_UNSUSCRIBTION');
-                            //TODO : améliorer la détection d'erreur
+                            //TODO : ameliorer la detection d'erreur
                     }
             }
     }
@@ -1185,4 +1202,108 @@ function get_class_list_user_id_list($classId)
     }
     
     return $userIdList;
+}
+
+/**
+ * This function delete all classes,
+ * remove link between courses and classes
+ * remove link between classes and users
+ * delete related users from related courses
+ *
+ */
+function delete_all_classes()
+{
+    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
+    $tbl = claro_sql_get_main_tbl();
+    
+    $sql = "
+        SELECT id FROM `" . $tbl['class'] . "` ORDER BY class_level DESC";
+    $searchResultList = claro_sql_query_fetch_all($sql);
+    foreach ($searchResultList  as $thisClass)
+    {
+        $classId = $thisClass['id'];
+        // find all the students enrolled in that class
+        $sql2 = "
+            SELECT user_id from `" . $tbl['rel_class_user'] . "` 
+            WHERE class_id = '" . claro_sql_escape($classId) . "'";
+        $thisClassUser = claro_sql_query_fetch_all($sql2);
+         
+        // Find all the courses to whom the class is enrolled
+        $sql2 = "
+            SELECT courseId 
+            FROM `" . $tbl['rel_course_class'] . "` 
+            WHERE classId = '" . claro_sql_escape($classId) . "'";
+        $searchResultList2 = claro_sql_query_fetch_all($sql2);
+        foreach ($searchResultList2  as $thisCourse)
+        {
+            $courseCode = $thisCourse['courseId'];
+            foreach ($thisClassUser as $thisUser)
+            {
+                 $user_id = $thisUser['user_id'];
+                if ( !user_remove_from_course($user_id, $courseCode, false, false, TRUE) )
+                {
+                    return claro_failure::set_failure('PROBLEM_WITH_COURSE_UNSUSCRIBTION');
+                            //TODO : ameliorer la detection d'erreur
+                }
+            }
+        }
+         delete_class($classId);
+    }
+    return true;
+}
+
+/**
+ * This function empties all classes,
+ * remove link between classes and users
+ * delete related users from related courses
+ */
+function empty_all_class()
+{
+    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
+    $tbl = claro_sql_get_main_tbl();
+    
+    $sql = "
+        SELECT id FROM `" . $tbl['class'] . "`";
+    $searchResultList = claro_sql_query_fetch_all($sql);
+    foreach ($searchResultList  as $thisClass)
+    {
+        $classId = $thisClass['id'];
+        // find all the students enrolled in that class
+        $sql2 = "
+            SELECT user_id from `" . $tbl['rel_class_user'] . "` 
+            WHERE class_id = '" . claro_sql_escape($classId) . "'";
+        $thisClassUser = claro_sql_query_fetch_all($sql2);
+         
+        // Find all the courses to whom the class is enrolled
+        $sql2 = "
+            SELECT courseId 
+            FROM `" . $tbl['rel_course_class'] . "` 
+            WHERE classId = '" . claro_sql_escape($classId) . "'";
+        $searchResultList2 = claro_sql_query_fetch_all($sql2);
+        foreach ($searchResultList2  as $thisCourse)
+        {
+            $courseCode = $thisCourse['courseId'];
+            foreach ($thisClassUser as $thisUser)
+            {
+                $user_id = $thisUser['user_id'];
+                if ( !user_remove_from_course($user_id, $courseCode, false, false, TRUE) )
+                {
+                    return claro_failure::set_failure('PROBLEM_WITH_COURSE_UNSUSCRIBTION ' . $user_id . ' '. $courseCode);
+                    //TODO : ameliorer la detection d'erreur
+                }
+            }
+            
+        }
+        class_remove_all_users ($classId);
+    }
+
+    return true;
+}
+
+function class_exist ()
+{
+    $tbl = claro_sql_get_main_tbl();
+    $sql = "
+        SELECT id FROM `" . $tbl['class'] . "`";
+    return claro_sql_query_fetch_all($sql);
 }
