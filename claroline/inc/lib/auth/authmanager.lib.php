@@ -34,7 +34,7 @@ class AuthManager
         self::$extraMessage = $message;
     }
     
-    public function authenticate( $username, $password )
+    public static function authenticate( $username, $password )
     {
         if ( !empty($username) && $authSource = AuthUserTable::getAuthSource( $username ) )
         {
