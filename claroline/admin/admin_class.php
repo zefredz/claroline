@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * this tool manage the
+ * this tool manage the classes
  *
  * @version 1.9 $Revision$
  *
@@ -14,7 +14,7 @@
  * @author  Guillaume Lederer <lederer@cerdecam.be>
  */
 
-//used libraries
+//Used libraries
 
 require '../inc/claro_init_global.inc.php';
 
@@ -45,7 +45,7 @@ $dialogBox = new DialogBox();
 $nameTools = get_lang('Classes');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
-// javascript confirm pop up declaration for header
+// jJavascript confirm pop up declaration for header
 
 $htmlHeadXtra[] =
 '<script>
@@ -92,6 +92,35 @@ switch ( $cmd )
         }
 
         break;
+        
+   // Delete all classes
+	case 'exDeleteAll' :
+
+		if ( delete_all_classes() )
+	    {
+	    	$dialogBox = get_lang('All classes deleted');
+	    }
+	    else
+	    {
+	    	$dialogBox = get_lang('Error : Can not delete all classes');
+	    }
+
+        break;
+        
+   // Empty all classes
+    case 'exEmptyAll' :
+
+		if ( empty_all_class() )
+	    {
+	    	$dialogBox = get_lang('All classes emptied');
+	    }
+	    else
+	    {
+	    	$dialogBox = get_lang('Error : Can not empty all classes');
+	
+	    }
+
+       	break;
 
     // Display form to create a new class
     case 'rqAdd' :
@@ -223,7 +252,7 @@ switch ( $cmd )
         }
 
     // Move a class in the tree (display form)
-    case "rqMove" :
+    case 'rqMove' :
 
         $dialogBox->form( '<form action="'.$_SERVER['PHP_SELF'].'">'
         .            '<table>'
@@ -272,8 +301,20 @@ $out .= $dialogBox->render();
 $out .= '<p>'
 .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
 .    '<img src="' . get_icon_url('class') . '" />' . get_lang('Create a new class')
-.    '</a>'
-.    '</p>' . "\n";
+.    '</a>';
+
+if ( class_exist ())
+{
+    $out .= ' | ' .  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exEmptyAll" 
+    onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Empty all classes ?')) . '\')){return true;}else{return false;}">'
+    .    '<img src="' . get_icon_url('class') . '" />' . get_lang('Empty all classes')
+    .    '</a> '
+    . ' | ' . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" 
+    onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Delete all classes ?')) . '\')){return true;}else{return false;}">'
+    .    '<img src="' . get_icon_url('class') . '" />' . get_lang('Delete all classes')
+    .    '</a> ';
+}
+$out .= '</p>' . "\n";
 
 //display cols headers
 $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
