@@ -153,12 +153,12 @@ if ( !empty($fromAdmin) )
     {
         if ( isset($_REQUEST['class_id']) )
         {
-            $classId = trim($_REQUEST['class_id']);
+            $classId = (int)trim($_REQUEST['class_id']);
             $_SESSION['admin_user_class_id'] = $classId;
         }
         else if (isset($_SESSION['admin_user_class_id']))
         {        
-            $classId = $_SESSION['admin_user_class_id'];
+            $classId = (int)$_SESSION['admin_user_class_id'];
         }
         else $classId = '';
 
@@ -569,30 +569,37 @@ switch ( $displayMode )
                 }
                 elseif ( $fromAdmin == 'class')
                 {
-                   if (in_array(get_class_list_of_course($thisCourse['sysCode'])))
-                   {
-                    $out .= '<td valign="top"  align="center">' . "\n"
-                    .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
-                    .    '?cmd=exReg' 
-                    .    '&amp;course_id=' . $thisCourse['sysCode']
-                    .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
-                    .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol class') . '" />'
-                    .     '</a>'
-                    .     '</td>' . "\n"
-                    ;
-                   }
-                   else
-                   {
-                   	$out .= '<td valign="top"  align="center">' . "\n"
-                    .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
-                    .    '?cmd=exUnreg' 
-                    .    '&amp;course_id=' . $thisCourse['sysCode']
-                    .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
-                    .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unenrol class') . '" />'
-                    .     '</a>'
-                    .     '</td>' . "\n"
-                    ;
-                   }
+                    $classEnroled = false;
+                    $classes = get_class_list_of_course($thisCourse['sysCode']);
+                    foreach ($classes as $thisClass)
+                    {
+                        if ($classId == $thisClass['id']) $classEnroled = true;
+                    }
+                    
+                    if (!$classEnroled)
+                    {
+                        $out .= '<td valign="top"  align="center">' . "\n"
+                        .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
+                        .    '?cmd=exReg' 
+                        .    '&amp;course_id=' . $thisCourse['sysCode']
+                        .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
+                        .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol class') . '" />'
+                        .    '</a>'
+                        .    '</td>' . "\n"
+                        ;
+                    }
+                    else
+                    {
+                        $out .= '<td valign="top"  align="center">' . "\n"
+                        .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
+                        .    '?cmd=exUnreg' 
+                        .    '&amp;course_id=' . $thisCourse['sysCode']
+                        .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
+                        .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unenrol class') . '" />'
+                        .     '</a>'
+                        .     '</td>' . "\n"
+                        ;
+                    }
                 }
                 else
                 {
