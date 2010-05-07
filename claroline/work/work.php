@@ -706,6 +706,12 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
             .     "\n"
             ;
         }
+        if( get_conf( 'mail_notification' ) )
+        {
+            $cmdMenu[] = '<a class="claroCmd" href="work_settings.php">' . "\n"
+            .     '<img src="' . get_icon_url( 'settings' ) . '" alt="" />' . get_lang( 'Assignments preferences' ) . "\n"
+            .     '</a>' . "\n";
+        }
     }
 
     if( !empty($cmdMenu) ) $out .= '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
