@@ -72,8 +72,19 @@ else                                $class_id = 0;
 if( isset( $_REQUEST['updateUserProperties']) ) $updateUserProperties = (int) $_REQUEST['updateUserProperties'];
 else                                $updateUserProperties = 0;
 
+if( isset( $_REQUEST['sendEmailToUserCreated']) ) $sendEmailToUserCreated  = $_REQUEST['sendEmailToUserCreated'];
+else                                $sendEmailToUserCreated = 0;
+
 $nameTools        = get_lang('Add a user list in course');
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php'.(!is_null($courseId) ? '?cid='.$courseId : '') );
+
+if (claro_is_in_a_course())
+{
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php'.(!is_null($courseId) ? '?cid='.$courseId : '') );
+}
+else 
+{
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Platform administration'), get_path('rootAdminWeb'));
+}
 
 $dialogBox = new DialogBox();
 
@@ -219,6 +230,12 @@ $content_default = get_lang('You must specify the CSV format used in your file')
 .   '<input type="file" name="CSVfile" />' . "\n"
 .   '<br /><br />' . "\n" . "\n";
 
+$content_default .= '<h3>' . get_lang('Options') . '</h3>';
+
+$content_default .= '<input type="checkbox" name="sendEmailToUserCreated" value="1" id="sendEmailToUserCreated" />' . "\n"
+				   .'<label for="sendEmailToUserCreated">' . get_lang('Send email to new users ') . ' ' . '</label>' . "\n"
+				   .'<br /><br />' . "\n";
+
 if (get_conf('update_user_properties')) 
 {
 	    $content_default .= '<input type="checkbox" name="updateUserProperties" value="1" id="updateUserProperties" />' . "\n"
@@ -251,7 +268,7 @@ switch( $step )
                 {
                   claro_die(get_lang('Not allowed'));
                 }
-                $logs = $csvImport->importUsers( $class_id,$updateUserProperties );
+                $logs = $csvImport->importUsers( $class_id,$updateUserProperties,$sendEmailToUserCreated );
             }
             else
             {
@@ -289,8 +306,7 @@ switch( $step )
             else
             {
                 $dialogBox->success( 'Users imported successfully');
-            }
-            
+            }           
         }
     }
     break;
@@ -398,6 +414,7 @@ switch( $step )
                     .   '<input type="hidden" name="step" value="2" />' . "\n"
                     .   '<input type="hidden" name="class_id" value="' . $class_id .'" />' . "\n"
                     .   '<input type="hidden" name="updateUserProperties" value="' . $updateUserProperties . '" />' . "\n"
+                    .   '<input type="hidden" name="sendEmailToUserCreated" value="' . $sendEmailToUserCreated  . '" />' . "\n"
                     // options
                     // TODO: check if user can create users
                     //.   get_lang('Create new users') . '<input type="checkbox" value="1" name="newUsers" />'

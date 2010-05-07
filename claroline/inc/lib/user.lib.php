@@ -445,6 +445,8 @@ function user_set_platform_admin($status, $userId)
 
 function user_send_registration_mail ($userId, $data)
 {
+    require_once dirname(__FILE__) . '/../../inc/lib/sendmail.lib.php';
+    
     if ( ! empty($data['email']) )
     {
         // email subjet
