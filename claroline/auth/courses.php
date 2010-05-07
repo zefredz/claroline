@@ -590,14 +590,20 @@ switch ( $displayMode )
                 }
                 elseif ( $fromAdmin == 'class')
                 {
-                    if (in_array(get_class_list_of_course($thisCourse['sysCode']),$classId))
+                                    $classEnroled = false;
+                    $classes = get_class_list_of_course($thisCourse['sysCode']);
+                    foreach ($classes as $thisClass)
+                    {
+                        if ($classId == $thisClass['id']) $classEnroled = true;
+                    }
+                    
+                    if (!$classEnroled)
                     {
                         $out .= '<td valign="top"  align="center">' . "\n"
                         .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
                         .    '?cmd=exReg' 
                         .    '&amp;course_id=' . $thisCourse['sysCode']
-                        .    '&amp;class_id=' . $classinfo['id']
-                        .    '&amp;categoryId=' . $categoryId . $inURL . '">'
+                        .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
                         .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol class') . '" />'
                         .    '</a>'
                         .    '</td>' . "\n"
