@@ -341,6 +341,10 @@ else
                 . '<img src="' . get_icon_url('edit') . '" alt="" />'
                 . get_lang('Edit answers')
                 . '</a>';
+                
+    $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit">'
+                . get_lang('New question')
+                . '</a>';
 
     $out .= claro_html_menu_horizontal($cmd_menu);
 
