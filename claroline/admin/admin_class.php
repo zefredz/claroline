@@ -98,11 +98,11 @@ switch ( $cmd )
 
 		if ( delete_all_classes() )
 	    {
-	    	$dialogBox = get_lang('All classes deleted');
+	    	$dialogBox->success(get_lang('All classes deleted'));
 	    }
 	    else
 	    {
-	    	$dialogBox = get_lang('Error : Can not delete all classes');
+	    	$dialogBox->error(get_lang('Error : Can not delete all classes'));
 	    }
 
         break;
@@ -112,11 +112,11 @@ switch ( $cmd )
 
 		if ( empty_all_class() )
 	    {
-	    	$dialogBox = get_lang('All classes emptied');
+	    	$dialogBox->success(get_lang('All classes emptied'));
 	    }
 	    else
 	    {
-	    	$dialogBox = get_lang('Error : Can not empty all classes');
+	    	$dialogBox->error(get_lang('Error : Can not empty all classes'));
 	
 	    }
 
