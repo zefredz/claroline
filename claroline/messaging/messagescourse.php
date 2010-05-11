@@ -66,6 +66,7 @@
                 {
                     case 'CLASS':
                     $classIdList[] = $elmtId;
+                    $classIdList = array_merge($classIdList,getSubClasses($elmtId)); 
                     break;
                     
                     case 'GROUP':
