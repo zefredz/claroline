@@ -738,7 +738,14 @@ function render_user_course_list()
         $userCourseList = array();
         foreach($categoriesList as $category)
         {
-            $userCourseList[$category['id']] = claro_get_restricted_courses ($category['id'], claro_get_current_user_id());
+            $courses = claro_get_restricted_courses ($category['id'], claro_get_current_user_id());
+            
+            // Only keep user's courses
+            foreach ($courses as $course)
+            {
+                if ($course['enroled'] || $course['isCourseManager'])
+                    $userCourseList[$category['id']][] = $course;
+            }
         }
         
         // course and category lists are ordered: we can use them to display the user's course list
@@ -794,7 +801,6 @@ function render_user_course_list()
     }
     else
     {
-        #$personnalCourseList = get_user_course_list(claro_get_current_user_id());
         $personnalCourseList = claro_get_restricted_courses (null, claro_get_current_user_id());
         
         // Display list

@@ -260,7 +260,7 @@ function claro_get_all_courses ($categoryId = null, $visibility = null)
  * 
  * @param int           category identifier (default: null)
  * @param int           identifier of the user
- * @return array        collection of courses ordered by label (asc)
+ * @return array        array of courses ordered by label (asc)
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @since 1.10
  */
@@ -298,8 +298,8 @@ function claro_get_restricted_courses ($categoryId, $userId)
     
     if (!is_null($userId))
         $sql .= ", 
-                   rcu.isCourseManager, 
-                   rcu.user_id              AS enroled";
+                    rcu.isCourseManager, 
+                    rcu.user_id              AS enroled";
     
     $sql .= "
             FROM `" . $tbl_course . "` AS c";
