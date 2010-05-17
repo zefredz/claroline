@@ -11,7 +11,7 @@
     <div id="campusBannerLeft">
         <span id="siteName">
         <?php $bannerSiteName =  get_conf('siteLogo') != ''
-                ? '<img src="' . get_conf('siteLogo') . '" alt="'.get_conf('siteName').'" >'
+                ? '<img src="' . get_conf('siteLogo') . '" alt="'.get_conf('siteName').'" />'
                 : get_conf('siteName');
         ?>
         <a href="<?php echo get_path( 'url' ); ?>/index.php" target="_top"><?php echo $bannerSiteName; ?></a>
