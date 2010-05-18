@@ -2,8 +2,9 @@
 /**
  * CLAROLINE
  *
- * - For a Student -> View agenda Content
- * - For a Prof    -> - View agenda Content
+ * - For a Student -> View agenda content
+ * - For a Prof    -> 
+ *         - View agenda content
  *         - Update/delete existing entries
  *         - Add entries
  *         - generate an "announce" entries about an entries
@@ -18,16 +19,17 @@
  * @author Claro Team <cvs@claroline.net>
  */
 
-$tlabelReq = 'CLCAL';
-$gidReset=true;
+$tlabelReq  = 'CLCAL';
+$gidReset   = true;
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
-$_user = claro_get_current_user_data();
-$_course = claro_get_current_course_data();
+$_user      = claro_get_current_user_data();
+$_course    = claro_get_current_course_data();
 
 //**//
 
 if (claro_is_in_a_group()) $currentContext = claro_get_current_context(array('course','group'));
 else                       $currentContext = claro_get_current_context('course');
+
 //**/
 
 FromKernel::uses('core/linker.lib');
@@ -106,6 +108,8 @@ $_SESSION['orderDirection'] = $orderDirection;
 
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
+
+
 /**
  * COMMANDS SECTION
  */
@@ -115,29 +119,21 @@ $display_command = FALSE;
 
 if ( $is_allowedToEdit )
 {
-    if ( isset($_REQUEST['id']) ) $id = (int) $_REQUEST['id'];
-    else                          $id = 0;
-
-    if ( isset($_REQUEST['title']) ) $title = trim($_REQUEST['title']);
-    else                             $title = '';
-
-    if ( isset($_REQUEST['content']) ) $content = trim($_REQUEST['content']);
-    else                               $content = '';
-
-    $lasting = ( isset($_REQUEST['content']) ? trim($_REQUEST['lasting']) : '');
+    $id         = ( isset($_REQUEST['id']) ) ? ((int) $_REQUEST['id']) : (0);
+    $title      = ( isset($_REQUEST['title']) ) ? (trim($_REQUEST['title'])) : ('');
+    $content    = ( isset($_REQUEST['content']) ) ? (trim($_REQUEST['content'])) : ('');
+    $lasting    = ( isset($_REQUEST['lasting']) ) ? (trim($_REQUEST['lasting'])) : ('');
+    $tutors     = ( isset($_REQUEST['tutors']) ) ? (trim($_REQUEST['tutors'])) : ('');
+    $location   = ( isset($_REQUEST['location']) ) ? (trim($_REQUEST['location'])) : ('');
     
-    if ( isset($_REQUEST['location']) ) $location = trim($_REQUEST['location']);
-    else                             $location = '';
-    
-
-    $autoExportRefresh = FALSE;
+    $autoExportRefresh = false;
     
     if ( 'exAdd' == $cmd )
     {
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
         $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
 
-        $entryId = agenda_add_item($title,$content, $date_selection, $hour, $lasting, $location) ;
+        $entryId = agenda_add_item($title, $content, $date_selection, $hour, $lasting, $tutors, $location) ;
         
         if ( $entryId != false )
         {
@@ -182,7 +178,7 @@ if ( $is_allowedToEdit )
 
         if ( !empty($id) )
         {
-            if ( agenda_update_item($id,$title,$content,$date_selection,$hour,$lasting,$location))
+            if ( agenda_update_item($id,$title,$content,$date_selection,$hour,$lasting,$tutors,$location) )
             {
                 $dialogBox->success( get_lang('Event updated into the agenda') );
                 
@@ -382,6 +378,66 @@ $output .= $dialogBox->render();
 
 if ($display_form)
 {
+    // Ressource linker
+    if ( 'rqEdit' == $_REQUEST['cmd'] )
+    {
+        ResourceLinker::setCurrentLocator(
+            ResourceLinker::$Navigator->getCurrentLocator(
+                array( 'id' => (int) $_REQUEST['id'] ) ) );
+    }
+    
+    $output .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'
+    . claro_form_relay_context()
+    . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
+    . '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
+    . '<input type="hidden" name="id"  value="' . $editedEvent['id'] . '" />'
+    . '<fieldset>' . "\n"
+    . '<dl>'
+    . '<dt><label for="title">' . get_lang('Title') . '</label></dt>' . "\n"
+    . '<dd>'
+    . '<input size="80" type="text" name="title" id="title" value="'
+    . htmlspecialchars($editedEvent['title']). '" />'
+    . '</dd>' . "\n"
+    . '<dt>' . get_lang('Date')
+    . '</dt>' . "\n"
+    . '<dd>'
+    . claro_html_date_form('fday', 'fmonth', 'fyear', $editedEvent['date'], 'long' ) . ' '
+    . claro_html_time_form('fhour','fminute', $editedEvent['date']) . '&nbsp;'
+    . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
+    . '</dd>' . "\n"
+    . '<dt>'
+    . '<label for="lasting">' . get_lang('Lasting') . '</label>'
+    . '</dt>' . "\n"
+    . '<dd>'
+    . '<input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="' . htmlspecialchars($editedEvent['lastingAncient']) . '" />'
+    . '</dd>' . "\n"
+    . '<dt>'
+    . '<label for="location">' . get_lang('Location') . '</label>'
+    . '</dt>' . "\n"
+    . '<dd>'
+    . '<input type="text" name="location" id="location" size="20" maxlength="20" value="' . htmlspecialchars($editedEvent['location']) . '" />'
+    . '</dd>' . "\n"
+    . '<dt>'
+    . '<label for="tutors">' . get_lang('Tutors') . '</label>'
+    . '</dt>' . "\n"
+    . '<dd>'
+    . '<input type="text" name="tutors" id="tutors" size="20" maxlength="200" value="' 
+    . (isset($editedEvent['tutors']) ? (htmlspecialchars($editedEvent['tutors'])) : ('')) . '" /><br/>'
+    . '<small>' . get_lang('If more than one, separated by a coma') . '</small>'
+    . '</dd>' . "\n"
+    . '<dt><label for="content">' . get_lang('Detail') . '</label></dt>'
+    . '<dd>' . "\n"
+    . claro_html_textarea_editor('content', $editedEvent['content'], 12, 67 ) . "\n"
+    . '</dd>' . "\n"
+    . '</dl>'
+    . '</fieldset>'
+    
+    . ResourceLinker::renderLinkerBlock()
+    . '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n"
+    . claro_html_button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
+    ;
+    
+    /*
     $output .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'
     .    claro_form_relay_context()
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
@@ -440,16 +496,6 @@ if ($display_form)
     .    '<td>' . "\n"
     ;
 
-
-    //---------------------
-    // linker
-    
-    if ( 'rqEdit' == $_REQUEST['cmd'] )
-    {
-        ResourceLinker::setCurrentLocator(
-            ResourceLinker::$Navigator->getCurrentLocator(
-                array( 'id' => (int) $_REQUEST['id'] ) ) );
-    }
     
     $output .= ResourceLinker::renderLinkerBlock();
 
@@ -467,6 +513,8 @@ if ($display_form)
     .    '</table>' . "\n"
     .    '</form>' . "\n"
     ;
+    
+    */
 }
 
 if ( $display_command ) $output .= '<p>' . claro_html_menu_horizontal($cmdList) . '</p>';

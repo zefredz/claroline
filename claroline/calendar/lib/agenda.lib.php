@@ -65,7 +65,7 @@ function agenda_get_item_list($context, $order='DESC')
  * @return result of deletion query
  * @since  1.7
  */
-function agenda_delete_item($event_id, $course_id=NULL)
+function agenda_delete_item($event_id, $course_id=null)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
@@ -85,7 +85,7 @@ function agenda_delete_item($event_id, $course_id=NULL)
  * @return result of deletion query
  * @since  1.7
  */
-function agenda_delete_all_items($course_id=NULL)
+function agenda_delete_all_items($course_id=null)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
@@ -106,13 +106,15 @@ function agenda_delete_all_items($course_id=NULL)
  * @since  1.7
  */
 
-function agenda_add_item($title='',$content='', $day=NULL, $hour=NULL, $lasting='', $location='', $visibility='SHOW', $course_id=NULL)
+function agenda_add_item($title='',$content='', $day=null, $hour=null, $lasting='', $tutors='', $location='', $visibility='SHOW', $course_id=null)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
     if (is_null($day)) $day = date('Y-m-d');
     if (is_null($hour)) $hour =  date('H:i:s');
+    $tutors = (!empty($tutors)) ? ("'".claro_sql_escape($tutors)."'") : ("null");
+    
     $sql = "INSERT INTO `" . $tbl_calendar_event . "`
         SET   titre   = '" . claro_sql_escape(trim($title)) . "',
               contenu = '" . claro_sql_escape(trim($content)) . "',
@@ -120,6 +122,7 @@ function agenda_add_item($title='',$content='', $day=NULL, $hour=NULL, $lasting=
               hour    = '" . $hour . "',
               visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "',
               lasting = '" . claro_sql_escape(trim($lasting)) . "',
+              tutors = " . $tutors . ",
               location = '". claro_sql_escape(trim($location)) ."'";
     
     return claro_sql_query_insert_id($sql);
@@ -138,20 +141,23 @@ function agenda_add_item($title='',$content='', $day=NULL, $hour=NULL, $lasting=
  * @since  1.7
  */
 
-function agenda_update_item($event_id, $title=NULL,$content=NULL, $day=NULL, $hour=NULL, $lasting= NULL, $location=NULL, $visibility=NULL, $course_id=NULL)
+function agenda_update_item($event_id, $title=null,$content=null, $day=null, $hour=null, $lasting= null, $tutors='', $location=null, $visibility=null, $course_id=null)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
-
+    
+    $tutors = (!empty($tutors)) ? ("'".claro_sql_escape($tutors)."'") : ("null");
+    
     $sqlSet = array();
     if(!is_null($title))      $sqlSet[] = " `titre` = '" . claro_sql_escape(trim($title)) . "' ";
     if(!is_null($content))    $sqlSet[] = " `contenu` = '" . claro_sql_escape(trim($content)) . "' ";
     if(!is_null($day))        $sqlSet[] = " `day` = '" . claro_sql_escape(trim($day)) . "' ";
     if(!is_null($hour))       $sqlSet[] = " `hour` = '" . claro_sql_escape(trim($hour)) . "' ";
     if(!is_null($lasting))    $sqlSet[] = " `lasting` = '" . claro_sql_escape(trim($lasting)) . "' ";
+    if(!is_null($lasting))    $sqlSet[] = " `tutors` = " . $tutors;
     if(!is_null($visibility)) $sqlSet[] = " `visibility` = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "' ";
-    if(!is_null($location))    $sqlSet[] = " `location` = '" . claro_sql_escape(trim($location)) . "' ";
-
+    if(!is_null($location))   $sqlSet[] = " `location` = '" . claro_sql_escape(trim($location)) . "' ";
+    
     if (count($sqlSet)>0)
     {
         $sql = "UPDATE `" . $tbl_calendar_event . "`
@@ -160,7 +166,7 @@ function agenda_update_item($event_id, $title=NULL,$content=NULL, $day=NULL, $ho
 
         return claro_sql_query($sql);
     }
-    else return NULL;
+    else return null;
 }
 
 
@@ -174,17 +180,18 @@ function agenda_update_item($event_id, $title=NULL,$content=NULL, $day=NULL, $ho
  * @since  1.7
  */
 
-function agenda_get_item($event_id, $course_id=NULL)
+function agenda_get_item($event_id, $course_id=null)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
     $sql = "SELECT `id`,
-                   `titre` `title`,
-                   `contenu` `content`,
-                   `day` as `dayAncient`,
-                   `hour` as `hourAncient`,
-                   `lasting` as `lastingAncient`, 
-                   `location` `location`
+                   `titre`      AS `title`,
+                   `contenu`    AS `content`,
+                   `day`        AS `dayAncient`,
+                   `hour`       AS `hourAncient`,
+                   `lasting`    AS `lastingAncient`,
+                   `tutors`     AS `tutors`,
+                   `location`   AS `location`
             FROM `" . $tbl_calendar_event . "`
 
             WHERE `id` = " . (int) $event_id ;
@@ -207,7 +214,7 @@ function agenda_get_item($event_id, $course_id=NULL)
  * @since  1.7
  */
 
-function agenda_set_item_visibility($event_id, $visibility, $course_id=NULL)
+function agenda_set_item_visibility($event_id, $visibility, $course_id=null)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
