@@ -1148,7 +1148,7 @@ class claro_failure
      * @return boolean false to stay consistent with the main script
      */
 
-    function set_failure($failureType)
+    public static function set_failure($failureType)
     {
         global $claro_failureList;
 
@@ -1167,7 +1167,7 @@ class claro_failure
      * @return string the last failure stored
      */
 
-    function get_last_failure()
+    public static function get_last_failure()
     {
         global $claro_failureList;
 
