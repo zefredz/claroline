@@ -162,7 +162,7 @@ function upgrade_category_to_110 ()
 
     }
 
-    return false;    
+    return false;
 }
 
 function upgrade_session_course_to_110 ()
@@ -200,5 +200,5 @@ function upgrade_session_course_to_110 ()
 
     }
 
-    return false;    
+    return false;
 }
