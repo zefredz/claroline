@@ -602,6 +602,10 @@ function install_module_at_course_creation( $moduleLabel, $courseDbName, $langua
         $courseDbName = get_conf('courseTablePrefix') . $courseDbName.get_conf('dbGlu');
         $moduleCourseTblList = claro_sql_get_course_tbl($courseDbName);
 
+        /*
+         * @todo select database should not be needed if the setup scripts are
+         * well written !
+         */
         if ( ! get_conf('singleDbEnabled') )
         {
             claro_sql_select_db($courseDbName);
