@@ -24,8 +24,8 @@ if ( count( get_included_files() ) == 1 )
  * @package COURSE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
- * @author Frédéric Minne <zefredz@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
  *
  */
 
@@ -72,7 +72,7 @@ function define_course_keys ($wantedCode,
     // $keys["currentCourseCode"] is the "public code"
 
     $wantedCode =  strtr($wantedCode,
-    'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ',
+    'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',
     'AAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy');
 
     //$wantedCode = strtoupper($wantedCode);
@@ -217,9 +217,9 @@ function define_course_keys ($wantedCode,
  * @param  string $courseRepository path from $coursesRepositorySys to root of course
  * @param  string $courseId         sysId of course
  * @return boolean
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @author Frédéric Minne <zefredz@claroline.net>
+ * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
  */
 function prepare_course_repository($courseRepository, $courseId)
 {
@@ -292,8 +292,8 @@ function prepare_course_repository($courseRepository, $courseId)
  *
  * @param  string courseDbName partial dbName form course table tu build real DbName
  * @return boolean
- * @author Christophe Gesché <moosh@claroline.net>
- * @author Frédéric Minne <zefredz@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
  */
 function install_course_database( $courseDbName )
 {
@@ -342,7 +342,7 @@ function install_course_tools( $courseDbName, $language, $courseDirectory )
  * @param string courseDbName partial dbName form course table tu build real DbName
  * @param string language course language
  * @param string courseDirectory
- * @author Frédéric Minne <zefredz@claroline.net>
+ * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
  */
 function setup_course_tools( $courseDbName, $language, $courseDirectory )
 {
@@ -387,7 +387,7 @@ function setup_course_tools( $courseDbName, $language, $courseDirectory )
  * @param bool      $registrationAllowed
  * @param string    $registrationKey
  * @return bool     success;
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  */
 function register_course( $courseSysCode, $courseScreenCode,
                           $courseRepository, $courseDbName,
@@ -467,7 +467,7 @@ function register_course( $courseSysCode, $courseScreenCode,
 
 /**
  * Get the list of all installable course tool modules from kernel
- * @author Frédéric Minne <zefredz@claroline.net>
+ * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
  */
 function get_course_installable_tool_list()
 {
@@ -487,7 +487,7 @@ function get_course_installable_tool_list()
 // TODO: check if tool installed successfuly !!!!
 /**
  * Register installed course tool in course database
- * @author Frédéric Minne <zefredz@claroline.net>
+ * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
  */
 function update_course_tool_list($courseDbName)
 {
@@ -601,8 +601,11 @@ function install_module_at_course_creation( $moduleLabel, $courseDbName, $langua
         // define tables to use in php install scripts
         $courseDbName = get_conf('courseTablePrefix') . $courseDbName.get_conf('dbGlu');
         $moduleCourseTblList = claro_sql_get_course_tbl($courseDbName);
-        
-        claro_sql_select_db($courseDbName);
+
+        if ( ! get_conf('singleDbEnabled') )
+        {
+            claro_sql_select_db($courseDbName);
+        }
         
         require_once $phpPath;
     }
