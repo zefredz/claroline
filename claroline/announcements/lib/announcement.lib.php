@@ -8,11 +8,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * DB Table structure:
  * ---
  *
- * * id         : announcement id
- * * contenu    : announcement content
- * * temps      : date of the announcement introduction / modification
- * * title      : optionnal title for an announcement
- * * ordre      : order of the announcement display
+ * id         : announcement id
+ * contenu    : announcement content
+ * publishAt  : date of the publication of the announcement
+ * expiresAt  : date of expiration of the announcement
+ * temps      : date of the announcement introduction / modification
+ * title      : optionnal title for an announcement
+ * ordre      : order of the announcement display
  *              (the announcements are display in desc order)
  *
  * @version 1.8 $Revision$
@@ -29,17 +31,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 
 /**
- * get list of all announcements in the given or current course
+ * Get list of all announcements in the given or current course.
  *
- * @param string $order  'ASC' || 'DESC' : ordering of the list.
- * @param  string $course_id sysCode of the course (leaveblank for current course)
+ * @param string    $order  'ASC' || 'DESC' : ordering of the list.
+ * @param string    $course_id sysCode of the course (leaveblank for current course)
  * @return array of array(id, title, content, time, visibility, rank)
- * @since  1.7
+ * @since 1.7
  */
-
 function announcement_get_course_item_list($thisCourse, $limit = null, $startTime = null, $visibleOnly = true )
 {    
-    // **** Attention !!! A changer ...
+    // **** Caution: has to get fixed !
     $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
     // ****
     
@@ -47,7 +48,9 @@ function announcement_get_course_item_list($thisCourse, $limit = null, $startTim
             . "'" . claro_sql_escape($thisCourse['officialCode']) ."'     AS `courseOfficialCode`,\n"
             . "'CLANN'                                              AS `toolLabel`,\n"
             . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`,\n"
-            . "CONCAT(`title`,' - ',`contenu`)                      AS `content`\n"
+            . "CONCAT(`title`,' - ',`contenu`)                      AS `content`,\n"
+            . "`publishAt`,\n"
+            . "`expiresAt`\n"
             . "FROM `" . $tableAnn . "`\n"
             . "WHERE CONCAT(`title`, `contenu`) != ''\n"
             . ( $startTime ? '' : "AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', (double)$startTime)."'\n" )
@@ -58,10 +61,10 @@ function announcement_get_course_item_list($thisCourse, $limit = null, $startTim
 
     return claro_sql_query_fetch_all_cols($sql);
 } 
- 
+
 function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $startTime = null, $visibleOnly = true )
 {    
-    // **** Attention !!! A changer ...
+    // **** Caution: has to get fixed !
     $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
     // ****
     
@@ -77,9 +80,9 @@ function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $
             . "ORDER BY `date` DESC\n"
             . ( $limit ? "LIMIT " . (int) $limit : '' )
             ;
-
+    
     return claro_sql_query_fetch_all_rows($sql);
-} 
+}
 
 function announcement_get_items_portlet($personnalCourseList)
 {
@@ -89,7 +92,7 @@ function announcement_get_items_portlet($personnalCourseList)
     foreach($personnalCourseList as $thisCourse)
     {
         $courseEventList = announcement_get_course_item_list_portlet($thisCourse, get_conf('announcementPortletMaxItems', 3));
-
+        
         if ( is_array($courseEventList) )
         {
             foreach($courseEventList as $thisEvent)
@@ -108,7 +111,7 @@ function announcement_get_items_portlet($personnalCourseList)
                 }
               
                 $courseOfficialCode = $thisEvent['courseOfficialCode'];
-
+                
                 if(!array_key_exists($courseOfficialCode, $courseDigestList))
                 {
                     $courseDigestList[$courseOfficialCode] = array();
@@ -132,7 +135,7 @@ function announcement_get_items_portlet($personnalCourseList)
     
     return $courseDigestList;
 }
- 
+
 function announcement_get_item_list($context, $order='DESC')
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($context[CLARO_CONTEXT_COURSE]));
@@ -140,6 +143,8 @@ function announcement_get_item_list($context, $order='DESC')
     $sql = "SELECT            id,
                               title,
                    contenu AS content,
+                   publishAt,
+                   expiresAt,
                    temps   AS `time`,
                               visibility,
                    ordre AS   rank
@@ -154,17 +159,16 @@ function announcement_get_item_list($context, $order='DESC')
  * @param integer $announcement_id id the requested announcement
  * @param string $course_id  sysCode of the course (leaveblank for current course)
  * @return result of deletion query
- * @since  1.7
+ * @since 1.7
  */
-function announcement_delete_item($id, $course_id=NULL)
+function announcement_delete_item($id, $course_id=null)
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-
+    
     $sql = "DELETE FROM  `" . $tbl['announcement'] . "`
-            WHERE id='" . (int) $id . "'";
+            WHERE id = '" . (int) $id . "'";
     return claro_sql_query($sql);
 }
-
 
 /**
  * Delete an announcement in the given or current course
@@ -172,116 +176,142 @@ function announcement_delete_item($id, $course_id=NULL)
  * @param integer $announcement_id id the requested announcement
  * @param string $course_id        sysCode of the course (leaveblank for current course)
  * @return result of deletion query
- * @since  1.7
+ * @since 1.7
  */
-function announcement_delete_all_items($course_id=NULL)
+function announcement_delete_all_items($course_id=null)
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-
+    
     $sql = "DELETE FROM  `" . $tbl['announcement'] . "`";
     return claro_sql_query($sql);
 }
 
 /**
- * add an new announcement in the given or current course
+ * Add a new announcement in the given or current course.
  *
- * @param string $title title of the new item
- * @param string $content   content of the new item
- * @param date   $time  publication dat of the item def:now
- * @param course_code $course_id sysCode of the course (leaveblank for current course)
+ * @param string    $title title of the new item
+ * @param string    $content   content of the new item
+ * @param date      $publish_at
+ * @param date      $expires_at
+ * @param date      $time  publication date of the item def:now
+ * @param string    $course_id sysCode of the course (leaveblank for current course)
  * @return id of the new item
- * @since  1.7
- * @todo convert to param date  timestamp
+ * @since 1.7
+ * @todo convert to param date timestamp
  */
-
-function announcement_add_item($title='',$content='', $visibility='SHOW', $time=NULL, $course_id=NULL)
+function announcement_add_item($title='',$content='', $publish_date=null, $expires_date=null, $visibility='SHOW', $time=null, $course_id=null)
 {
     $tbl= claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-
-    if(is_null($time))
+    
+    $sqlTime = (is_null($time)) ? ($sqlTime = "NOW()") : ("FROM_UNIXTIME('". (int) $time ."')");
+    
+    // Determine the position of the new announcement
+    $sql = "SELECT (MAX(ordre) + 1) AS nextRank
+            FROM  `" . $tbl['announcement'] . "`";
+    
+    $nextRank = claro_sql_query_get_single_value($sql);
+    
+    if (is_null($publish_date) || is_null($expires_date))
     {
-        $sqlTime = " temps = NOW(), ";
+        $publish_date = "NULL";
+        $expires_date = "NULL";
     }
     else
     {
-        $sqlTime = " temps = from_unixtime('". (int)$time ."'), ";
+        $publish_date = "'".claro_sql_escape($publish_date)."'";
+        $expires_date = "'".claro_sql_escape($expires_date)."'";
     }
-
-    // DETERMINE THE ORDER OF THE NEW ANNOUNCEMENT
-    $sql = "SELECT (MAX(ordre) + 1) AS nextRank
-            FROM  `" . $tbl['announcement'] . "`";
-
-    $nextRank = claro_sql_query_get_single_value($sql);
-    // INSERT ANNOUNCEMENT
-
+    
+    // Insert announcement
     $sql = "INSERT INTO `" . $tbl['announcement'] . "`
-            SET title ='" . claro_sql_escape(trim($title)) . "',
-                contenu = '" . claro_sql_escape(trim($content)) . "',
-                visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "',
-             ". $sqlTime ."
-            ordre ='" . (int) $nextRank . "'";
+            SET title       = '" . claro_sql_escape(trim($title)) . "',
+                contenu     = '" . claro_sql_escape(trim($content)) . "',
+                temps       = " . $sqlTime .",
+                publishAt   = " . $publish_date . ",
+                expiresAt   = " . $expires_date . ",
+                ordre       = '" . (int) $nextRank . "',
+                visibility  = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "'";
+    
     return claro_sql_query_insert_id($sql);
 }
 
 /**
- * Update an announcement in the given or current course
+ * Update an announcement in the given or current course.
  *
- * @param string $title     title of the new item
- * @param string $content   content of the new item
- * @param date   $time      publication dat of the item def:now
- * @param string $course_id sysCode of the course (leaveblank for current course)
+ * @param string    $title     title of the new item
+ * @param string    $content   content of the new item
+ * @param date      $publish_at
+ * @param date      $expires_at
+ * @param date      $time      publication date of the item def:now
+ * @param string    $course_id sysCode of the course (leaveblank for current course)
  * @return handler of query
- * @since  1.7
- * @todo convert to param date  timestamp
+ * @since 1.7
+ * @todo convert to param date timestamp
  */
-
-function announcement_update_item($announcement_id, $title=NULL, $content=NULL, $visibility=NULL, $time=NULL, $course_id=NULL)
+function announcement_update_item($announcement_id, $title=null, $content=null, $publish_date=null, $expires_date=null, $visibility=null, $time=null, $course_id=null)
 {
     $tbl= claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    
+    if (is_null($publish_date) || is_null($expires_date))
+    {
+        $publish_date = "NULL";
+        $expires_date = "NULL";
+    }
+    else
+    {
+        $publish_date = "'".claro_sql_escape($publish_date)."'";
+        $expires_date = "'".claro_sql_escape($expires_date)."'";
+    }
+    
     $sqlSet = array();
     if(!is_null($title))      $sqlSet[] = " title = '" . claro_sql_escape(trim($title)) . "' ";
     if(!is_null($content))    $sqlSet[] = " contenu = '" . claro_sql_escape(trim($content)) . "' ";
+    if(!is_null($content))    $sqlSet[] = " publishAt = " . $publish_date . " ";
+    if(!is_null($content))    $sqlSet[] = " expiresAt = " . $expires_date . " ";
     if(!is_null($visibility)) $sqlSet[] = " visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "' ";
     if(!is_null($time))       $sqlSet[] = " temps = from_unixtime('".(int)$time."') ";
-
+    
     if (count($sqlSet)>0)
     {
         $sql = "UPDATE  `" . $tbl['announcement'] . "`
-                SET " . implode(', ',$sqlSet) . "
+                SET " . implode(', ', $sqlSet) . "
                 WHERE id='" . (int) $announcement_id . "'";
+        
         return claro_sql_query($sql);
     }
-    else return NULL;
+    else 
+        return null;
 }
 
 /**
- * return data for the announcement  of the given id of the given or current course
+ * Returns data for the announcement  of the given id of the given or current course.
  *
- * @param integer $announcement_id id the requested announcement
- * @param string  $course_id       sysCode of the course (leaveblank for current course)
+ * @param integer   $announcement_id id the requested announcement
+ * @param string    $course_id       sysCode of the course (leaveblank for current course)
  * @return array(id, title, content, visibility, rank) of the announcement
- * @since  1.7
+ * @since 1.7
  */
-
-function announcement_get_item($announcement_id, $course_id=NULL)
+function announcement_get_item($announcement_id, $course_id=null)
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 
-    $sql = "SELECT                id,
-                                  title,
-                   contenu     AS content,
-                                  visibility,
-                   ordre       AS rank
+    $sql = "SELECT id,
+                   title,
+                   contenu      AS content,
+                   publishAt,
+                   expiresAt,
+                   visibility,
+                   ordre        AS rank
             FROM  `" . $tbl['announcement'] . "`
-            WHERE id=" . (int) $announcement_id ;
-
+            WHERE id = " . (int) $announcement_id ;
+    
     $announcement = claro_sql_query_get_single_row($sql);
-
+    
     if ($announcement) return $announcement;
     else               return claro_failure::set_failure('ANNOUNCEMENT_UNKNOW');
 }
 
-function announcement_set_item_visibility($announcement_id, $visibility, $course_id=NULL)
+function announcement_set_item_visibility($announcement_id, $visibility, $course_id=null)
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 
@@ -289,12 +319,12 @@ function announcement_set_item_visibility($announcement_id, $visibility, $course
      trigger_error('ANNOUNCEMENT_VISIBILITY_UNKNOW', E_USER_NOTICE);
     $sql = "UPDATE `" . $tbl['announcement'] . "`
             SET   visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "'
-                  WHERE id =  '" . (int) $announcement_id . "'";
+                  WHERE id = '" . (int) $announcement_id . "'";
     return  claro_sql_query($sql);
 }
 
 /**
- * function move_entry($entryId,$cmd)
+ * Displaces an entry (up or down).
  *
  * @param  integer $entryId  an valid id of announcement.
  * @param  string $cmd       'UP' or 'DOWN'
@@ -302,10 +332,10 @@ function announcement_set_item_visibility($announcement_id, $visibility, $course
  *
  * @author Christophe Gesché <moosh@claroline.net>
  */
-function move_entry($item_id, $cmd, $course_id=NULL)
+function move_entry($item_id, $cmd, $course_id=null)
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-
+    
     if ( $cmd == 'DOWN' )
     {
         $thisAnnouncementId = $item_id;
@@ -318,14 +348,14 @@ function move_entry($item_id, $cmd, $course_id=NULL)
     }
     else
         return false;
-
+    
     if ( $sortDirection )
     {
         $sql = "SELECT          id,
                        ordre AS rank
             FROM `" . $tbl['announcement'] . "`
             ORDER BY `ordre` " . $sortDirection;
-
+        
         $result = claro_sql_query($sql);
         $thisAnnouncementRankFound = false;
         $thisAnnouncementRank = '';

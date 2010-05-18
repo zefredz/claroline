@@ -9,6 +9,8 @@
  *
  * id         : announcement id
  * contenu    : announcement content
+ * publishAt  : date of the publication of the announcement
+ * expiresAt  : date of expiration of the announcement
  * temps      : date of the announcement introduction / modification
  * title      : optionnal title for an announcement
  * ordre      : order of the announcement display
@@ -46,9 +48,11 @@
 * Partially rewritten by Hugues Peeters <peeters@ipm.ucl.ac.be> 19 April 2002.
 * Rewritten again     by Hugues Peeters <peeters@ipm.ucl.ac.be> 5 April 2004
 */
+
 define('CONFVAL_LOG_ANNOUNCEMENT_INSERT', FALSE);
 define('CONFVAL_LOG_ANNOUNCEMENT_DELETE', FALSE);
 define('CONFVAL_LOG_ANNOUNCEMENT_UPDATE', FALSE);
+
 
 /**
  *  CLAROLINE MAIN SETTINGS
@@ -59,11 +63,15 @@ $gidReset = true;
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course()  || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 $context = claro_get_current_context(CLARO_CONTEXT_COURSE);
 
-// local lib
+// Local lib
 require_once './lib/announcement.lib.php';
+
+// JS for expand/collapse actions
+$jsLoader = JavascriptLoader::getInstance();
+$jsLoader->load( 'claroline.ui');
 
 // get some shared lib
 require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
@@ -72,29 +80,23 @@ require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 FromKernel::uses('core/linker.lib');
 ResourceLinker::init();
 
-// get specific conf file
+// Get specific conf file
 require claro_get_conf_repository() . 'ical.conf.php';
 require claro_get_conf_repository() . 'rss.conf.php';
 
 claro_set_display_mode_available(TRUE);
 
-//set flag following init settings
+// Set flag following depending on settings
 $is_allowedToEdit = claro_is_allowed_to_edit();
-
 $courseId         = claro_get_current_course_id();
-
 $userLastLogin    = claro_get_current_user_data('lastLogin');
 
-/**
- * DB tables definition
- */
-
+// DB tables definition
 $tbl_cdb_names   = claro_sql_get_main_tbl();
 $tbl_course_user = $tbl_cdb_names['rel_course_user'];
 $tbl_user        = $tbl_cdb_names['user'];
 
-// DEFAULT DISPLAY
-
+// Default display
 $displayForm = FALSE;
 $displayList = TRUE;
 
@@ -102,8 +104,9 @@ $subTitle = '';
 
 $dialogBox = new DialogBox();
 
+
 /**
- *                    COMMANDS SECTION (COURSE MANAGER ONLY)
+ * COMMANDS SECTION (COURSE MANAGER ONLY)
  */
 
 $id  = isset($_REQUEST['id'])  ? (int) $_REQUEST['id']   : 0;
@@ -123,13 +126,11 @@ if($is_allowedToEdit) // check teacher status
             ResourceLinker::setCurrentLocator( $currentLocator );
         }
     }
-
+    
     $autoExportRefresh = FALSE;
     if ( !empty($cmd) )
     {
-        /**
-         * MOVE UP AND MOVE DOWN COMMANDS
-         */
+        // Move announcements up or down
         if ( 'exMvDown' == $cmd  )
         {
             move_entry($id,'DOWN');
@@ -138,125 +139,115 @@ if($is_allowedToEdit) // check teacher status
         {
             move_entry($id,'UP');
         }
-
-
-        /**
-         * DELETE ANNOUNCEMENT COMMAND
-         */
+        
+        // Delete announcement
         if ( 'exDelete' == $cmd )
         {
             if ( announcement_delete_item($id) )
             {
                 $dialogBox->success( get_lang('Announcement has been deleted') );
-
+                
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) $claroline->log('ANNOUNCEMENT',array('DELETE_ENTRY'=>$id));
                 $eventNotifier->notifyCourseEvent('anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
                 $autoExportRefresh = TRUE;
-
-                // linker_delete_resource();
+                
+                #linker_delete_resource();
             }
             else
             {
                 $dialogBox->error( get_lang('Cannot delete announcement') );
             }
         }
-
-        /**
-         * DELETE ALL ANNOUNCEMENTS COMMAND
-         */
-
+        
+        // Delete all announcements
         if ( 'exDeleteAll' == $cmd )
         {
             $announcementList = announcement_get_item_list($context);
             if ( announcement_delete_all_items() )
             {
                 $dialogBox->success( get_lang('Announcements list has been cleared up') );
-
+                
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) $claroline->log('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
                 $eventNotifier->notifyCourseEvent('all_anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $announcementList , claro_get_current_group_id(), '0');
                 $autoExportRefresh = TRUE;
-
-                // linker_delete_all_tool_resources();
+                
+                #linker_delete_all_tool_resources();
             }
             else
             {
                 $dialogBox->error( get_lang('Cannot delete announcement list') );
             }
         }
-
-        /**
-         * EDIT ANNOUNCEMENT COMMAND
-        --------------------------------------------------------------------------*/
-
+        
+        // Require announcement's edition
         if ( 'rqEdit' == $cmd  )
         {
             $subTitle = get_lang('Modifies this announcement');
             claro_set_display_mode_available(false);
-
-            // RETRIEVE THE CONTENT OF THE ANNOUNCEMENT TO MODIFY
-            $announcementToEdit = announcement_get_item($id);
+            
+            // Get the announcement to modify
+            $announcement = announcement_get_item($id);
             $displayForm = TRUE;
             $nextCommand = 'exEdit';
-
+        
         }
-
-        /*-------------------------------------------------------------------------
-        EDIT ANNOUNCEMENT VISIBILITY
-        ---------------------------------------------------------------------------*/
-
-
+        
+        // Switch announcement's visibility
         if ( 'mkShow' == $cmd || 'mkHide' == $cmd )
         {
-            if ('mkShow' == $cmd )
+            if ( 'mkShow' == $cmd )
             {
                 $eventNotifier->notifyCourseEvent('anouncement_visible', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
                 $visibility = 'SHOW';
             }
-            if ('mkHide' == $cmd )
+            if ( 'mkHide' == $cmd )
             {
                 $eventNotifier->notifyCourseEvent('anouncement_invisible', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
                 $visibility = 'HIDE';
             }
-            if (announcement_set_item_visibility($id,$visibility))
+            if (announcement_set_item_visibility($id, $visibility))
             {
-                // $dialogBox->success( get_lang('Visibility modified') );
+                #$dialogBox->success( get_lang('Visibility modified') );
             }
             $autoExportRefresh = TRUE;
         }
-
-        /*------------------------------------------------------------------------
-        CREATE NEW ANNOUNCEMENT COMMAND
-        ------------------------------------------------------------------------*/
-
+        
+        // Require new announcement's creation
         if ( 'rqCreate' == $cmd )
         {
             $subTitle = get_lang('Add announcement');
             claro_set_display_mode_available(false);
             $displayForm = TRUE;
             $nextCommand = 'exCreate';
-            $announcementToEdit=array();
+            $announcement=array();
         }
-
-        /*------------------------------------------------------------------------
-        SUBMIT ANNOUNCEMENT COMMAND
-        -------------------------------------------------------------------------*/
-
+        
+        // Submit announcement
         if ( 'exCreate' == $cmd  || 'exEdit' == $cmd )
         {
-
             $title       = isset($_REQUEST['title'])      ? trim($_REQUEST['title']) : '';
             $content     = isset($_REQUEST['newContent']) ? trim($_REQUEST['newContent']) : '';
             $emailOption = isset($_REQUEST['emailOption'])? (int) $_REQUEST['emailOption'] : 0;
-
-            /* MODIFY ANNOUNCEMENT */
-
-            if ( 'exEdit' == $cmd  ) // there is an Id => the announcement already exists => udpate mode
+            if (isset($_REQUEST['enable_publication_options']))
             {
-
-                if ( announcement_update_item((int) $_REQUEST['id'], $title, $content) )
+                $publish_date = (isset($_REQUEST['publish_year']) && isset($_REQUEST['publish_month']) && isset($_REQUEST['publish_day'])) ? 
+                                ($_REQUEST['publish_year'].'-'.$_REQUEST['publish_month'].'-'.$_REQUEST['publish_day']) : null;
+                $expires_date = (isset($_REQUEST['expire_year']) && isset($_REQUEST['expire_month']) && isset($_REQUEST['expire_day'])) ? 
+                                ($_REQUEST['expire_year'].'-'.$_REQUEST['expire_month'].'-'.$_REQUEST['expire_day']) : null;
+            }
+            else
+            {
+                $publish_date = null;
+                $expires_date = null;
+            }
+            
+            // Modification of an announcement
+            if ( 'exEdit' == $cmd ) 
+            {
+                if ( announcement_update_item((int) $_REQUEST['id'], $title, $content, $publish_date, $expires_date) )
                 {
                     $dialogBox->success( get_lang('Announcement has been modified') );
-
+                    
                     $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
                         array( 'id' => (int) $_REQUEST['id'] ) );
                     
@@ -266,24 +257,22 @@ if($is_allowedToEdit) // check teacher status
                         ;
                         
                     ResourceLinker::updateLinkList( $currentLocator, $resourceList );
-
+                    
                     $eventNotifier->notifyCourseEvent('anouncement_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
                     if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE) $claroling->log('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
                     $autoExportRefresh = TRUE;
                 }
             }
-
-            /* CREATE NEW ANNOUNCEMENT */
-
+            
+            // Create a new announcement
             elseif ( 'exCreate' == $cmd )
             {
-                // DETERMINE THE ORDER OF THE NEW ANNOUNCEMENT
-
-                $insert_id = announcement_add_item($title,$content) ;
+                // Determine the rank of the new announcement
+                $insert_id = announcement_add_item($title, $content, $publish_date, $expires_date) ;
                 if ( $insert_id )
                 {
                     $dialogBox->success( get_lang('Announcement has been added') );
-
+                    
                     $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
                         array( 'id' => (int) $insert_id ) );
                     
@@ -293,7 +282,7 @@ if($is_allowedToEdit) // check teacher status
                         ;
                         
                     ResourceLinker::updateLinkList( $currentLocator, $resourceList );
-
+                    
                     $eventNotifier->notifyCourseEvent('anouncement_added',claro_get_current_course_id(), claro_get_current_tool_id(), $insert_id, claro_get_current_group_id(), '0');
                     if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) $claroline->log('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
                     $autoExportRefresh = TRUE;
@@ -303,11 +292,9 @@ if($is_allowedToEdit) // check teacher status
 //                    //error on insert
 //                    //claro_failure::set_failure('CLANN:announcement can be insert '.mysql_error());
 //                }
-
             } // end elseif cmd == exCreate
-
-            /* SEND EMAIL (OPTIONAL) */
-
+            
+            // Email sending (optionnal)
             if ( 1 == $emailOption )
             {
                 $courseSender = claro_get_current_user_data('firstName') . ' ' . claro_get_current_user_data('lastName');
@@ -319,13 +306,12 @@ if($is_allowedToEdit) // check teacher status
                 else                  $subject .= get_lang('Message from your lecturer');
                 
                 $msgContent = $content;
-                                               
-                // attached resource
+                
+                // Enclosed resource
                 $body = $msgContent . "\n" .
                     "\n" .
                     ResourceLinker::renderLinkList( $currentLocator, true );
-                ;
-              
+                
                 require_once dirname(__FILE__) . '/../messaging/lib/message/messagetosend.lib.php';
                 require_once dirname(__FILE__) . '/../messaging/lib/recipient/courserecipient.lib.php';
                 
@@ -344,33 +330,32 @@ if($is_allowedToEdit) // check teacher status
                 
             }   // end if $emailOption==1
         }   // end if $submit Announcement
-
+        
         if ($autoExportRefresh)
         {
-            /**
-             * in future, the 2 following calls would be pas by event manager.
-             */
-            // rss update
+            //TODO The 2 following calls should be managed by the event manager.
+            
+            // RSS update
             if ( get_conf('enableRssInCourse',1))
             {
                 require_once get_path('incRepositorySys') . '/lib/rss.write.lib.php';
                 build_rss( array('course' => claro_get_current_course_id()));
             }
-
-            // ical update
+            
+            // iCal update
             if (get_conf('enableICalInCourse', 1)  )
             {
                 require_once get_path('incRepositorySys') . '/lib/ical.write.lib.php';
                 buildICal( array('course' => claro_get_current_course_id()));
             }
         }
-
+        
     } // end if isset $_REQUEST['cmd']
-
+    
 } // end if is_allowedToEdit
 
 
-// PREPARE DISPLAYS
+// Prepare displays
 if ($displayList)
 {
     // list
@@ -419,10 +404,10 @@ if ( $displayButtonLine )
 
 }
 
+
 /**
  *  DISPLAY SECTION
  */
-
 
 $nameTools = get_lang('Announcements');
 $noQUERY_STRING = true;
@@ -441,97 +426,77 @@ else
 $output .= $dialogBox->render();
 
 $output .= '<p>'
-.    claro_html_menu_horizontal($cmdList)
-.    '</p>'
-;
+         . claro_html_menu_horizontal($cmdList)
+         . '</p>';
 
-/*----------------------------------------------------------------------------
-FORM TO FILL OR MODIFY AN ANNOUNCEMENT
-----------------------------------------------------------------------------*/
+
+/**
+ * FORM TO FILL OR MODIFY AN ANNOUNCEMENT
+ */
 
 if ( $displayForm )
 {
-
     // DISPLAY ADD ANNOUNCEMENT COMMAND
-
-    $output .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'."\n"
-    .    claro_form_relay_context()
-    .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
-    .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
-    .    (isset( $announcementToEdit['id'] )
-         ? '<input type="hidden" name="id" value="' . $announcementToEdit['id'] . '" />' . "\n"
-         : ''
-         )
-    .    '<table cellpadding="5">'
-    .    '<tr>'
-    .    '<td valign="top"><label for="title">' . get_lang('Title') . ' : </label></td>' . "\n"
-    .    '<td>'
-    .    '<input type="text" id="title" name="title" value = "'
-    .    ( isset($announcementToEdit['title']) ? htmlspecialchars($announcementToEdit['title']) : '' )
-    .    '" size="80" />'
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>'
-    .    '<td valign="top">'
-    .    '<label for="newContent">'
-    .    get_lang('Content')
-    .    ' : '
-    .    '</label>'
-    .    '</td>' . "\n"
-    .    '<td>'
-    .     claro_html_textarea_editor('newContent', !empty($announcementToEdit) ? $announcementToEdit['content'] : '',12,67)
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    ;
-
-   $output .= '<tr>'
-    .    '<td>&nbsp;</td>' . "\n"
-    .    '<td>'
-    .    '<input type="checkbox" value="1" name="emailOption" id="emailOption" />'
-    .    '<label for="emailOption">'
-    .    get_lang('Send this announcement by internal message to registered students')
-    .    '</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    ;
-
-    $output .= '<tr>'
-    .    '<td>&nbsp;</td>' . "\n"
-    .    '<td>' . "\n"
-;
-
-    //---------------------
-    // linker
-
-    if ( 'rqEdit' == $_REQUEST['cmd'] )
+    
+    // Ressource linker
+    if ( $_REQUEST['cmd'] == 'rqEdit' )
     {
         ResourceLinker::setCurrentLocator(
             ResourceLinker::$Navigator->getCurrentLocator(
                 array( 'id' => (int) $_REQUEST['id'] ) ) );
     }
     
-    $output .= ResourceLinker::renderLinkerBlock();
-
-    $output .= '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>'
-    .    '<td>&nbsp;</td>' . "\n"
-    .    '<td>' . "\n"
-    ;
-
-    $output .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
-
-    $output .= claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel'))
-        . '</td>'
-        . '</tr>' . "\n"
-        . '</table>'
-        . '</form>' . "\n"
-        ;
+    $output .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'."\n"
+    . claro_form_relay_context()
+    . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
+    . '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
+    . (
+        (isset( $announcement['id'] )) ? 
+        ('<input type="hidden" name="id" value="' . $announcement['id'] . '" />' . "\n") :
+        ('')
+      )
+    . '<fieldset>' . "\n"
+    . '<dl>' . "\n"
+    . '<dt><label for="title">' . get_lang('Title') . '</label></dt>' . "\n"
+    . '<dd>'
+    . '<input type="text" id="title" name="title" value = "'
+    . ( isset($announcement['title']) ? htmlspecialchars($announcement['title']) : '' )
+    . '" size="80" />'
+    . '</dd>'
+    . '<dt><label for="newContent">' . get_lang('Content') . '</label></dt>'
+    . '<dd>'
+    . claro_html_textarea_editor('newContent', (!empty($announcement) ? $announcement['content'] : ''), 12, 67)
+    . '</dd>'
+    . '</dl>'
+    . '</fieldset>'
+    
+    . '<fieldset id="advancedInformation" class="collapsible collapsed">' . "\n"
+    . '<legend><a href="#" class="doCollapse">' . get_lang('Publication options') . '</a></legend>' . "\n"
+    . '<div class="collapsible-wrapper">' . "\n"
+    . '<dl>' . "\n"
+    . '<dt><label for="enable_publication_options">' . get_lang('Enable publication options') . '</label></dt>'
+    . '<dd><input name="enable_publication_options" id="enable_publication_options" type="checkbox" '
+    . ((isset($announcement['publishAt']) && $announcement['expiresAt']) ? ('checked="checked"') : ('')) . '/></dd>'
+    . '<dt>' . get_lang('Publication date') . '</dt>'
+    . '<dd>'.claro_html_date_form('publish_day', 'publish_month', 'publish_year', 
+    ((isset($announcement['publishAt']) ? strtotime($announcement['publishAt']) : (0))), 'long' ).'</dd>'
+    . '<dt>' . get_lang('Expiration date') . '</dt>'
+    . '<dd>'.claro_html_date_form('expire_day', 'expire_month', 'expire_year', 
+    ((isset($announcement['expiresAt']) ? strtotime($announcement['expiresAt']) : (0))), 'long' ).'</dd>'
+    . '</dl>'
+    . '</div>'
+    . '</fieldset>'
+    
+    . ResourceLinker::renderLinkerBlock()
+    . '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'
+    . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel'))
+    
+    . '</form>';
 }
 
 
 /**
- * ANNOUNCEMENT LIST
+ * ANNOUNCEMENTS LIST
  */
 
 
@@ -546,9 +511,10 @@ if ($displayList)
 
     else
     {
-        if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id()); //get notification date
+        // Get notification date
+        if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
 
-        foreach ( $announcementList as $thisAnnouncement)
+        foreach ( $announcementList as $thisAnnouncement )
         {
 
             if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility'] == 'SHOW')
@@ -563,8 +529,11 @@ if ($displayList)
                     $cssItem = 'item';
                 }
                 
+                // Hide hidden and expired elements
                 $cssInvisible = '';
-                if ($thisAnnouncement['visibility'] == 'HIDE')
+                if ( $thisAnnouncement['visibility'] == 'HIDE' || 
+                    (isset($thisAnnouncement['expiresAt']) && 
+                        strtotime($thisAnnouncement['expiresAt']) < time()) )
                 {
                     $cssInvisible = ' invisible';
                 }
@@ -572,7 +541,10 @@ if ($displayList)
                 $title = $thisAnnouncement['title'];
 
                 $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
-                $last_post_date = $thisAnnouncement['time']; // post time format date de mysql
+                 // Post time format in MySQL date format
+                $last_post_date = ((isset($thisAnnouncement['publishAt'])) ? 
+                    ($thisAnnouncement['publishAt']) : 
+                    ($thisAnnouncement['time']));
 
                 $output .= '<div class="claroBlock">' . "\n"
                 .   '<h4 class="claroBlockHeader">'
@@ -592,7 +564,6 @@ if ($displayList)
                     )
                 .   claro_parse_user_text($content) . "\n"
                 .   '</div>' . "\n"
-                
                 ;
                 
                 $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisAnnouncement['id'] ) );
@@ -623,8 +594,8 @@ if ($displayList)
 
                     if( $iterator != 1 )
                     {
-                        // $output .=    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
-                        // the anchor dont refreshpage.
+                        #$output .=    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+                        // Anchor doesn't refresh the page
                         $output .= '<a href="'. htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] )) . '">'
                             . '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') . '" />'
                             . '</a>' . "\n"
@@ -635,8 +606,8 @@ if ($displayList)
 
                     if($iterator < $bottomAnnouncement)
                     {
-                        // $output .=    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
-                        // the anchor dont refreshpage.
+                        #$output .=    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+                        // Anchor doesn't refresh the page
                         $output .= '<a href="'
                             . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] )) . '">'
                             . '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />'
@@ -661,13 +632,13 @@ if ($displayList)
                     }
                     
                     $output .= '</div>' . "\n"; // claroBlockCmd
-
+                
                 } // end if is_AllowedToEdit
                 
                 $output .= '</div>' . "\n" // claroBlockContent
                 .    '</div>' . "\n\n"; // claroBlock
             }
-
+            
             $iterator ++;
         }    // end foreach ( $announcementList as $thisAnnouncement)
     }
