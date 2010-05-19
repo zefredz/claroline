@@ -47,6 +47,7 @@ function agenda_get_item_list($context, $order='DESC')
                              `day`,
                              `hour`,
                              `lasting`,
+                             `speakers`,
                              `visibility`, 
                              `location`
         FROM `" . $tbl['calendar_event'] . "`
@@ -89,8 +90,9 @@ function agenda_delete_all_items($course_id=null)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
-
+    
     $sql = "DELETE FROM  `" . $tbl_calendar_event . "`";
+    
     return claro_sql_query($sql);
 }
 
@@ -106,24 +108,25 @@ function agenda_delete_all_items($course_id=null)
  * @since  1.7
  */
 
-function agenda_add_item($title='',$content='', $day=null, $hour=null, $lasting='', $tutors='', $location='', $visibility='SHOW', $course_id=null)
+function agenda_add_item($title='',$content='', $day=null, $hour=null, $lasting='', $speakers='', $location='', $visibility='SHOW', $course_id=null)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
     if (is_null($day)) $day = date('Y-m-d');
     if (is_null($hour)) $hour =  date('H:i:s');
-    $tutors = (!empty($tutors)) ? ("'".claro_sql_escape($tutors)."'") : ("null");
+    $speakers = (!empty($speakers)) ? ("'".claro_sql_escape($speakers)."'") : ("null");
     
     $sql = "INSERT INTO `" . $tbl_calendar_event . "`
-        SET   titre   = '" . claro_sql_escape(trim($title)) . "',
-              contenu = '" . claro_sql_escape(trim($content)) . "',
-              day     = '" . $day . "',
-              hour    = '" . $hour . "',
-              visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "',
-              lasting = '" . claro_sql_escape(trim($lasting)) . "',
-              tutors = " . $tutors . ",
-              location = '". claro_sql_escape(trim($location)) ."'";
+            SET   
+            titre       = '" . claro_sql_escape(trim($title)) . "',
+            contenu     = '" . claro_sql_escape(trim($content)) . "',
+            day         = '" . $day . "',
+            hour        = '" . $hour . "',
+            visibility  = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "',
+            lasting     = '" . claro_sql_escape(trim($lasting)) . "',
+            speakers    = " . $speakers . ",
+            location    = '". claro_sql_escape(trim($location)) ."'";
     
     return claro_sql_query_insert_id($sql);
 }
@@ -141,12 +144,12 @@ function agenda_add_item($title='',$content='', $day=null, $hour=null, $lasting=
  * @since  1.7
  */
 
-function agenda_update_item($event_id, $title=null,$content=null, $day=null, $hour=null, $lasting= null, $tutors='', $location=null, $visibility=null, $course_id=null)
+function agenda_update_item($event_id, $title=null,$content=null, $day=null, $hour=null, $lasting= null, $speakers='', $location=null, $visibility=null, $course_id=null)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
     
-    $tutors = (!empty($tutors)) ? ("'".claro_sql_escape($tutors)."'") : ("null");
+    $speakers = (!empty($speakers)) ? ("'".claro_sql_escape($speakers)."'") : ("null");
     
     $sqlSet = array();
     if(!is_null($title))      $sqlSet[] = " `titre` = '" . claro_sql_escape(trim($title)) . "' ";
@@ -154,7 +157,7 @@ function agenda_update_item($event_id, $title=null,$content=null, $day=null, $ho
     if(!is_null($day))        $sqlSet[] = " `day` = '" . claro_sql_escape(trim($day)) . "' ";
     if(!is_null($hour))       $sqlSet[] = " `hour` = '" . claro_sql_escape(trim($hour)) . "' ";
     if(!is_null($lasting))    $sqlSet[] = " `lasting` = '" . claro_sql_escape(trim($lasting)) . "' ";
-    if(!is_null($lasting))    $sqlSet[] = " `tutors` = " . $tutors;
+    if(!is_null($lasting))    $sqlSet[] = " `speakers` = " . $speakers;
     if(!is_null($visibility)) $sqlSet[] = " `visibility` = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "' ";
     if(!is_null($location))   $sqlSet[] = " `location` = '" . claro_sql_escape(trim($location)) . "' ";
     
@@ -190,7 +193,7 @@ function agenda_get_item($event_id, $course_id=null)
                    `day`        AS `dayAncient`,
                    `hour`       AS `hourAncient`,
                    `lasting`    AS `lastingAncient`,
-                   `tutors`     AS `tutors`,
+                   `speakers`     AS `speakers`,
                    `location`   AS `location`
             FROM `" . $tbl_calendar_event . "`
 

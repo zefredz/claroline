@@ -1,23 +1,17 @@
-<?php
+<?php // $Id: agenda.php 12380 2010-05-18 11:19:27Z abourguignon $
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
  * Sql query to update main database
  *
- * @version 1.10
- *
- * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
- *
- * @package UPGRADE
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Antonin Bourguignon <antonin.bourguignon@claroline.net> 
- *         (upgrades regarding session courses and categories)
+ * @version     1.10 $Revision: 12380 $ *
+ * @copyright   (c) 2001-2010 Universite catholique de Louvain (UCL) *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE *
+ * @package     UPGRADE *
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net> 
+ *              (upgrades regarding session courses and categories)
  *
  */
 

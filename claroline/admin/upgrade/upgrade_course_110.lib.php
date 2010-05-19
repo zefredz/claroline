@@ -1,4 +1,4 @@
-<?php
+<?php // $Id: agenda.php 12380 2010-05-18 11:19:27Z abourguignon $
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
@@ -12,7 +12,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * This code would be splited by task for the 1.8 Stable but code inside
  * function won't change, so let's go to write it.
  *
- * @version     1.10
+ * @version     1.10 $Revision: 12380 $
  * @copyright   (c) 2001-2010 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     UPGRADE
@@ -78,7 +78,7 @@ function calendar_upgrade_to_110 ($course_code)
             case 1 :
                 
                 // Add the attribute sourceCourseId to the course table
-                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` ADD `tutors` VARCHAR(200) NULL DEFAULT NULL AFTER `lasting`";
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` ADD `speakers` VARCHAR(200) NULL DEFAULT NULL AFTER `lasting`";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
                 else return $step;
