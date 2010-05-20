@@ -44,6 +44,15 @@ function announcements_upgrade_to_110 ($course_code)
                 
                 // Add the attribute sourceCourseId to the course table
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "announcement` ADD `publishAt` DATE NULL DEFAULT NULL AFTER `contenu`";
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                else return $step;
+                
+                unset($sqlForUpdate);
+            
+            case 2 :
+                
+                // Add the attribute sourceCourseId to the course table
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "announcement` ADD `expiresAt` DATE NULL DEFAULT NULL AFTER `publishAt`";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -78,7 +87,17 @@ function calendar_upgrade_to_110 ($course_code)
             case 1 :
                 
                 // Add the attribute sourceCourseId to the course table
-                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` ADD `speakers` VARCHAR(200) NULL DEFAULT NULL AFTER `lasting`";
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` ADD `speakers` VARCHAR(150) NULL DEFAULT NULL AFTER `lasting`";
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                else return $step;
+                
+                unset($sqlForUpdate);
+                
+            case 2 :
+                
+                // Add the attribute sourceCourseId to the course table
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` CHANGE `location` `location` VARCHAR(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
                 else return $step;
