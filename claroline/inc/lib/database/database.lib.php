@@ -218,7 +218,7 @@ class Mysql_Database_Connection implements Database_Connection
             throw new Database_Connection_Exception("No connection found to database server, please connect first");
         }
         
-        if ( false === @mysql_query( $sql ) )
+        if ( false === @mysql_query( $sql, $this->dbLink ) )
         {
             throw new Database_Connection_Exception( "Error in {$sql} : ".@mysql_error($this->dbLink), @mysql_errno($this->dbLink) );
         }
@@ -236,7 +236,7 @@ class Mysql_Database_Connection implements Database_Connection
             throw new Database_Connection_Exception("No connection found to database server, please connect first");
         }
         
-        if ( false === ( $result = @mysql_query( $sql ) ) )
+        if ( false === ( $result = @mysql_query( $sql, $this->dbLink ) ) )
         {
             throw new Database_Connection_Exception( "Error in {$sql} : ".@mysql_error($this->dbLink), @mysql_errno($this->dbLink) );
         }
