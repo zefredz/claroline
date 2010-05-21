@@ -176,9 +176,16 @@ class CssLoader
     {
         $this->css = array();
         $this->pathList = array(
-            get_module_path( get_current_module_label() ) . '/css' => get_module_url( get_current_module_label() ) . '/css',
-            get_path( 'rootSys' ) . 'web/css' => get_path('url') . '/web/css',
-            get_path( 'rootSys' ) . 'claroline/css' => get_path('url') . '/claroline/css', // this stay there for legacy but should be removed.
+            get_path('rootSys') . 'platform/css/' . get_current_module_label()
+                => get_path('url') . '/platform/css/' . get_current_module_label(),
+            get_module_path( get_current_module_label() ) . '/css'
+                => get_module_url( get_current_module_label() ) . '/css',
+            get_path('rootSys') . 'platform/css'
+                => get_path('url') . '/platform/css', // <-- is this useful or not ?
+            get_path( 'rootSys' ) . 'web/css'
+                => get_path('url') . '/web/css',
+            /* get_path( 'rootSys' ) . 'claroline/css'
+                => get_path('url') . '/claroline/css', */ // <-- this stay there for legacy but should be removed.
             './css' => './css'
         );
     }
@@ -197,7 +204,7 @@ class CssLoader
      * Load a css file
      * @param   string lib css file url relative to one of the
      *  declared css paths
-     * @return  boolean true if the library was found, false else
+     * @return  boolean true if the library was found, false if not
      */
     public function load( $css, $media = 'all' )
     {
@@ -249,48 +256,77 @@ class CssLoader
     public function loadFromModule( $moduleLabel, $lib, $media = 'all' )
     {
         $lib = secure_file_path( $lib );
+        $moduleLabel = secure_file_path( $moduleLabel );
+
+        if ( ! get_module_data( $moduleLabel ) )
+        {
+            pushClaroMessage(__Class__."::{$moduleLabel} does not exists", 'error');
+            return false;
+        }
         
         if ( claro_debug_mode() )
         {
-            pushClaroMessage(__Class__."::Try to find {$lib} in {$moduleLabel}", 'debug');
+            pushClaroMessage(__Class__."::Try to find {$lib} for {$moduleLabel}", 'debug');
         }
+
+        $cssPath = array(
+            0 => array(
+                'path' => get_path('rootSys') . 'platform/css/' . $moduleLabel . '/' . $lib . '.css',
+                'url' => get_path('url') . '/platform/css/' . $moduleLabel . '/' . $lib . '.css',
+            ),
+            1 => array(
+                'path' => get_module_path( $moduleLabel ) . '/css/' . $lib . '.css',
+                'url' => get_module_url( $moduleLabel ) . '/css/' . $lib . '.css'
+            )
+        );
         
-        $path = get_module_path( $moduleLabel ) . '/css/' . $lib . '.css';
-        $url = get_module_url( $moduleLabel ) . '/css/' . $lib . '.css';
-        
-        if ( file_exists( $path ) )
+        /*$path = get_module_path( $moduleLabel ) . '/css/' . $lib . '.css';
+        $url = get_module_url( $moduleLabel ) . '/css/' . $lib . '.css';*/
+
+        foreach ( $cssPath as $cssTry )
         {
-            if ( array_key_exists( $path, $this->css ) )
+            $path = $cssTry['path'];
+            $url = $cssTry['url'];
+
+            if ( claro_debug_mode() )
             {
+                pushClaroMessage(__Class__."::Try {$path}::{$url} for {$moduleLabel}", 'debug');
+            }
+
+            if ( file_exists( $path ) )
+            {
+                if ( array_key_exists( $path, $this->css ) )
+                {
+                    return false;
+                }
+
+                $this->css[$path] = array(
+                    'url' => $url . '?' . filemtime($path),
+                    'media' => $media
+                );
+
+                if ( claro_debug_mode() )
+                {
+                    pushClaroMessage(__Class__."::Use {$path}::{$url} for {$moduleLabel}", 'debug');
+                }
+
+                ClaroHeader::getInstance()->addHtmlHeader(
+                    '<link rel="stylesheet" type="text/css"'
+                    . ' href="'. $url.'"'
+                    . ' media="'.$media.'" />'
+                );
+
+                return true;
+            }
+            else
+            {
+                if ( claro_debug_mode() )
+                {
+                    pushClaroMessage(__Class__."::Cannot found css {$lib} for {$moduleLabel}", 'error');
+                }
+
                 return false;
             }
-            
-            $this->css[$path] = array(
-                'url' => $url . '?' . filemtime($path),
-                'media' => $media
-            );
-            
-            if ( claro_debug_mode() )
-            {
-                pushClaroMessage(__Class__."::Use {$path}::{$url}", 'debug');
-            }
-            
-            ClaroHeader::getInstance()->addHtmlHeader(
-                '<link rel="stylesheet" type="text/css"'
-                . ' href="'. $url.'"'
-                . ' media="'.$media.'" />'
-            );
-            
-            return true;
-        }
-        else
-        {
-            if ( claro_debug_mode() )
-            {
-                pushClaroMessage(__Class__."::Cannot found {$lib} in {$moduleLabel}", 'error');
-            }
-            
-            return false;
         }
     }
 
