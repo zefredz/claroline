@@ -7,13 +7,13 @@
  * DB Table structure:
  * ---
  *
- * id         : announcement id
- * contenu    : announcement content
- * publishAt  : date of the publication of the announcement
- * expiresAt  : date of expiration of the announcement
- * temps      : date of the announcement introduction / modification
- * title      : optionnal title for an announcement
- * ordre      : order of the announcement display
+ * id           : announcement id
+ * contenu      : announcement content
+ * visibleFrom  : date of the publication of the announcement
+ * visibleUntil : date of expiration of the announcement
+ * temps        : date of the announcement introduction / modification
+ * title        : optionnal title for an announcement
+ * ordre        : order of the announcement display
  *              (the announcements are display in desc order)
  *
  * Script Structure:
@@ -228,70 +228,97 @@ if($is_allowedToEdit) // check teacher status
             $title       = isset($_REQUEST['title'])      ? trim($_REQUEST['title']) : '';
             $content     = isset($_REQUEST['newContent']) ? trim($_REQUEST['newContent']) : '';
             $emailOption = isset($_REQUEST['emailOption'])? (int) $_REQUEST['emailOption'] : 0;
-            if (isset($_REQUEST['enable_publication_options']))
+            $visibility  = (int) $_REQUEST['visibility'];
+            
+            // Manage the visibility options
+            if (isset($_REQUEST['visibility']) && $_REQUEST['visibility'] == 1)
             {
-                $publish_date = (isset($_REQUEST['publish_year']) && isset($_REQUEST['publish_month']) && isset($_REQUEST['publish_day'])) ? 
-                                ($_REQUEST['publish_year'].'-'.$_REQUEST['publish_month'].'-'.$_REQUEST['publish_day']) : null;
-                $expires_date = (isset($_REQUEST['expire_year']) && isset($_REQUEST['expire_month']) && isset($_REQUEST['expire_day'])) ? 
-                                ($_REQUEST['expire_year'].'-'.$_REQUEST['expire_month'].'-'.$_REQUEST['expire_day']) : null;
+                if (isset($_REQUEST['enable_visible_from']) && (isset($_REQUEST['visible_from_year']) && isset($_REQUEST['visible_from_month']) && isset($_REQUEST['visible_from_day'])))
+                {
+                    $visible_from = $_REQUEST['visible_from_year'].'-'.$_REQUEST['visible_from_month'].'-'.$_REQUEST['visible_from_day'];
+                }
+                else
+                {
+                    $visible_from = null;
+                }
+                
+                if (isset($_REQUEST['enable_visible_until']) && (isset($_REQUEST['visible_until_year']) && isset($_REQUEST['visible_until_month']) && isset($_REQUEST['visible_until_day'])))
+                {
+                    $visible_until = $_REQUEST['visible_until_year'].'-'.$_REQUEST['visible_until_month'].'-'.$_REQUEST['visible_until_day'];
+                }
+                else
+                {
+                    $visible_until = null;
+                }
             }
             else
             {
-                $publish_date = null;
-                $expires_date = null;
+                $visible_from = null;
+                $visible_until = null;
             }
             
             // Modification of an announcement
             if ( 'exEdit' == $cmd ) 
             {
-                if ( announcement_update_item((int) $_REQUEST['id'], $title, $content, $publish_date, $expires_date) )
+                // One of the two visible date fields is null OR the "from" field is <= the "until" field
+                if ((is_null($visible_from) || is_null($visible_until)) || ($visible_from <= $visible_until))
                 {
-                    $dialogBox->success( get_lang('Announcement has been modified') );
-                    
-                    $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
-                        array( 'id' => (int) $_REQUEST['id'] ) );
-                    
-                    $resourceList =  isset($_REQUEST['resourceList'])
-                        ? $_REQUEST['resourceList']
-                        : array()
-                        ;
+                    if ( announcement_update_item((int) $_REQUEST['id'], $title, $content, $visible_from, $visible_until, $visibility) )
+                    {
+                        $dialogBox->success( get_lang('Announcement has been modified') );
                         
-                    ResourceLinker::updateLinkList( $currentLocator, $resourceList );
-                    
-                    $eventNotifier->notifyCourseEvent('anouncement_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
-                    if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE) $claroling->log('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
-                    $autoExportRefresh = TRUE;
+                        $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
+                            array( 'id' => (int) $_REQUEST['id'] ) );
+                        
+                        $resourceList =  isset($_REQUEST['resourceList'])
+                            ? $_REQUEST['resourceList']
+                            : array()
+                            ;
+                            
+                        ResourceLinker::updateLinkList( $currentLocator, $resourceList );
+                        
+                        $eventNotifier->notifyCourseEvent('anouncement_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
+                        if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE) $claroling->log('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
+                        $autoExportRefresh = TRUE;
+                    }
+                }
+                else
+                {
+                    $dialogBox->error( get_lang('The "visible from" date can\'t exceed the "visible until" date') );
                 }
             }
             
             // Create a new announcement
             elseif ( 'exCreate' == $cmd )
             {
-                // Determine the rank of the new announcement
-                $insert_id = announcement_add_item($title, $content, $publish_date, $expires_date) ;
-                if ( $insert_id )
+                // One of the two visible date fields is null OR the "from" field is <= the "until" field
+                if ((is_null($visible_from) || is_null($visible_until)) || ($visible_from <= $visible_until))
                 {
-                    $dialogBox->success( get_lang('Announcement has been added') );
-                    
-                    $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
-                        array( 'id' => (int) $insert_id ) );
-                    
-                    $resourceList =  isset($_REQUEST['resourceList'])
-                        ? $_REQUEST['resourceList']
-                        : array()
-                        ;
+                    // Determine the rank of the new announcement
+                    $insert_id = announcement_add_item($title, $content, $visible_from, $visible_until, $visibility) ;
+                    if ( $insert_id )
+                    {
+                        $dialogBox->success( get_lang('Announcement has been added') );
                         
-                    ResourceLinker::updateLinkList( $currentLocator, $resourceList );
-                    
-                    $eventNotifier->notifyCourseEvent('anouncement_added',claro_get_current_course_id(), claro_get_current_tool_id(), $insert_id, claro_get_current_group_id(), '0');
-                    if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) $claroline->log('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
-                    $autoExportRefresh = TRUE;
+                        $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
+                            array( 'id' => (int) $insert_id ) );
+                        
+                        $resourceList =  isset($_REQUEST['resourceList'])
+                            ? $_REQUEST['resourceList']
+                            : array()
+                            ;
+                            
+                        ResourceLinker::updateLinkList( $currentLocator, $resourceList );
+                        
+                        $eventNotifier->notifyCourseEvent('anouncement_added',claro_get_current_course_id(), claro_get_current_tool_id(), $insert_id, claro_get_current_group_id(), '0');
+                        if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) $claroline->log('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
+                        $autoExportRefresh = TRUE;
+                    }
                 }
-//                else
-//                {
-//                    //error on insert
-//                    //claro_failure::set_failure('CLANN:announcement can be insert '.mysql_error());
-//                }
+                else
+                {
+                    $dialogBox->error( get_lang('The "visible from" date can\'t exceed the "visible until" date') );
+                }
             } // end elseif cmd == exCreate
             
             // Email sending (optionnal)
@@ -471,18 +498,40 @@ if ( $displayForm )
     . '</fieldset>'
     
     . '<fieldset id="advancedInformation" class="collapsible collapsed">' . "\n"
-    . '<legend><a href="#" class="doCollapse">' . get_lang('Publication options') . '</a></legend>' . "\n"
+    . '<legend><a href="#" class="doCollapse">' . get_lang('Visibility options') . '</a></legend>' . "\n"
     . '<div class="collapsible-wrapper">' . "\n"
     . '<dl>' . "\n"
-    . '<dt><label for="enable_publication_options">' . get_lang('Enable publication options') . '</label></dt>'
-    . '<dd><input name="enable_publication_options" id="enable_publication_options" type="checkbox" '
-    . ((isset($announcement['publishAt']) && $announcement['expiresAt']) ? ('checked="checked"') : ('')) . '/></dd>'
-    . '<dt>' . get_lang('Publication date') . '</dt>'
-    . '<dd>'.claro_html_date_form('publish_day', 'publish_month', 'publish_year', 
-    ((isset($announcement['publishAt']) ? strtotime($announcement['publishAt']) : (0))), 'long' ).'</dd>'
-    . '<dt>' . get_lang('Expiration date') . '</dt>'
-    . '<dd>'.claro_html_date_form('expire_day', 'expire_month', 'expire_year', 
-    ((isset($announcement['expiresAt']) ? strtotime($announcement['expiresAt']) : (0))), 'long' ).'</dd>'
+    . '<dt>'
+    . '<input name="visibility" id="visible" value="1" type="radio"'
+    . ((!isset($announcement['visibility']) || $announcement['visibility'] == 'SHOW') ? ('checked="checked"') : ('')) 
+    . '/> '
+    . '<label for="visible"><img src="' . get_icon_url('visible') . '" alt="" /> '
+    . get_lang('Visible') . '</label>'
+    . '</dt>'
+    . '<dt>&nbsp;&nbsp;&nbsp;&nbsp;'
+    . '<input name="enable_visible_from" id="enable_visible_from" type="checkbox" '
+    . (isset($announcement['visibleFrom']) ? ('checked="checked"') : ('')) . '/>' 
+    . '<label for="enable_visible_from">'.get_lang('Visible from').'</label>' 
+    . '</dt>'
+    . '<dd>'
+    . claro_html_date_form('visible_from_day', 'visible_from_month', 'visible_from_year', 
+    ((isset($announcement['visibleFrom']) ? strtotime($announcement['visibleFrom']) : (strtotime('Now')))), 'long' ).'</dd>'
+    . '<dt>&nbsp;&nbsp;&nbsp;&nbsp;'
+    . '<input name="enable_visible_until" id="enable_visible_until" type="checkbox" '
+    . (isset($announcement['visibleUntil']) ? ('checked="checked"') : ('')) . '/>' 
+    . '<label for="enable_visible_until">'.get_lang('Visible until').'</label>' 
+    . '</dt>'
+    . '<dd>'
+    . claro_html_date_form('visible_until_day', 'visible_until_month', 'visible_until_year', 
+    ((isset($announcement['visibleUntil']) ? strtotime($announcement['visibleUntil']) : (strtotime('Now +1 day')))), 'long' )
+    . '</dd>'
+    . '<dt>'
+    . '<input name="visibility" id="invisible" value="0" type="radio"'
+    . ((isset($announcement['visibility']) && $announcement['visibility'] == 'HIDE') ? ('checked="checked"') : ('')) 
+    . '/> '
+    . '<label for="invisible"><img src="' . get_icon_url('invisible') . '" alt="" /> '
+    . get_lang('Inisible') . '</label>'
+    . '</dt>'
     . '</dl>'
     . '</div>'
     . '</fieldset>'
@@ -532,8 +581,8 @@ if ($displayList)
                 // Hide hidden and expired elements
                 $cssInvisible = '';
                 if ( $thisAnnouncement['visibility'] == 'HIDE' || 
-                    (isset($thisAnnouncement['expiresAt']) && 
-                        strtotime($thisAnnouncement['expiresAt']) < time()) )
+                    (isset($thisAnnouncement['visibleUntil']) && 
+                        strtotime($thisAnnouncement['visibleUntil']) < time()) )
                 {
                     $cssInvisible = ' invisible';
                 }
@@ -542,8 +591,8 @@ if ($displayList)
 
                 $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
                  // Post time format in MySQL date format
-                $last_post_date = ((isset($thisAnnouncement['publishAt'])) ? 
-                    ($thisAnnouncement['publishAt']) : 
+                $last_post_date = ((isset($thisAnnouncement['visibleFrom'])) ? 
+                    ($thisAnnouncement['visibleFrom']) : 
                     ($thisAnnouncement['time']));
 
                 $output .= '<div class="claroBlock">' . "\n"

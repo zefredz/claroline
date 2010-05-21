@@ -10,8 +10,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * id         : announcement id
  * contenu    : announcement content
- * publishAt  : date of the publication of the announcement
- * expiresAt  : date of expiration of the announcement
+ * visibleFrom  : date of the publication of the announcement
+ * visibleUntil  : date of expiration of the announcement
  * temps      : date of the announcement introduction / modification
  * title      : optionnal title for an announcement
  * ordre      : order of the announcement display
@@ -49,8 +49,8 @@ function announcement_get_course_item_list($thisCourse, $limit = null, $startTim
             . "'CLANN'                                              AS `toolLabel`,\n"
             . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`,\n"
             . "CONCAT(`title`,' - ',`contenu`)                      AS `content`,\n"
-            . "`publishAt`,\n"
-            . "`expiresAt`\n"
+            . "`visibleFrom`,\n"
+            . "`visibleUntil`\n"
             . "FROM `" . $tableAnn . "`\n"
             . "WHERE CONCAT(`title`, `contenu`) != ''\n"
             . ( $startTime ? '' : "AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', (double)$startTime)."'\n" )
@@ -58,9 +58,9 @@ function announcement_get_course_item_list($thisCourse, $limit = null, $startTim
             . "ORDER BY `date` DESC\n"
             . ( $limit ? "LIMIT " . (int) $limit : '' )
             ;
-
+    
     return claro_sql_query_fetch_all_cols($sql);
-} 
+}
 
 function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $startTime = null, $visibleOnly = true )
 {    
@@ -86,7 +86,6 @@ function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $
 
 function announcement_get_items_portlet($personnalCourseList)
 {
-    
     $courseDigestList = array();
     
     foreach($personnalCourseList as $thisCourse)
@@ -143,8 +142,8 @@ function announcement_get_item_list($context, $order='DESC')
     $sql = "SELECT            id,
                               title,
                    contenu AS content,
-                   publishAt,
-                   expiresAt,
+                   visibleFrom,
+                   visibleUntil,
                    temps   AS `time`,
                               visibility,
                    ordre AS   rank
@@ -191,15 +190,16 @@ function announcement_delete_all_items($course_id=null)
  *
  * @param string    $title title of the new item
  * @param string    $content   content of the new item
- * @param date      $publish_at
- * @param date      $expires_at
+ * @param date      $visibleFrom
+ * @param date      $visibleUntil
+ * @param bool      visibility
  * @param date      $time  publication date of the item def:now
  * @param string    $course_id sysCode of the course (leaveblank for current course)
  * @return id of the new item
  * @since 1.7
  * @todo convert to param date timestamp
  */
-function announcement_add_item($title='',$content='', $publish_date=null, $expires_date=null, $visibility='SHOW', $time=null, $course_id=null)
+function announcement_add_item($title='',$content='', $visible_from=null, $visible_until=null, $visibility=null, $time=null, $course_id=null)
 {
     $tbl= claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     
@@ -211,26 +211,19 @@ function announcement_add_item($title='',$content='', $publish_date=null, $expir
     
     $nextRank = claro_sql_query_get_single_value($sql);
     
-    if (is_null($publish_date) || is_null($expires_date))
-    {
-        $publish_date = "NULL";
-        $expires_date = "NULL";
-    }
-    else
-    {
-        $publish_date = "'".claro_sql_escape($publish_date)."'";
-        $expires_date = "'".claro_sql_escape($expires_date)."'";
-    }
+    $visibility = (($visibility == 1) ? ("SHOW") : ("HIDE"));
+    $visible_from = (!is_null($visible_from) ? ("'".claro_sql_escape($visible_from)."'") : ("NULL"));
+    $visible_until = (!is_null($visible_until) ? ("'".claro_sql_escape($visible_until)."'") : ("NULL"));
     
     // Insert announcement
     $sql = "INSERT INTO `" . $tbl['announcement'] . "`
-            SET title       = '" . claro_sql_escape(trim($title)) . "',
-                contenu     = '" . claro_sql_escape(trim($content)) . "',
-                temps       = " . $sqlTime .",
-                publishAt   = " . $publish_date . ",
-                expiresAt   = " . $expires_date . ",
-                ordre       = '" . (int) $nextRank . "',
-                visibility  = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "'";
+            SET title           = '" . claro_sql_escape(trim($title)) . "',
+                contenu         = '" . claro_sql_escape(trim($content)) . "',
+                temps           = " . $sqlTime .",
+                visibleFrom     = " . $visible_from . ",
+                visibleUntil    = " . $visible_until . ",
+                ordre           = '" . (int) $nextRank . "',
+                visibility      = '" . $visibility . "'";
     
     return claro_sql_query_insert_id($sql);
 }
@@ -240,38 +233,32 @@ function announcement_add_item($title='',$content='', $publish_date=null, $expir
  *
  * @param string    $title     title of the new item
  * @param string    $content   content of the new item
- * @param date      $publish_at
- * @param date      $expires_at
+ * @param date      $visible_from
+ * @param date      $visible_until
+ * @param bool      visibility
  * @param date      $time      publication date of the item def:now
  * @param string    $course_id sysCode of the course (leaveblank for current course)
  * @return handler of query
  * @since 1.7
  * @todo convert to param date timestamp
  */
-function announcement_update_item($announcement_id, $title=null, $content=null, $publish_date=null, $expires_date=null, $visibility=null, $time=null, $course_id=null)
+function announcement_update_item($announcement_id, $title=null, $content=null, $visible_from=null, $visible_until=null, $visibility=null, $time=null, $course_id=null)
 {
     $tbl= claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     
-    if (is_null($publish_date) || is_null($expires_date))
-    {
-        $publish_date = "NULL";
-        $expires_date = "NULL";
-    }
-    else
-    {
-        $publish_date = "'".claro_sql_escape($publish_date)."'";
-        $expires_date = "'".claro_sql_escape($expires_date)."'";
-    }
+    $visibility = (($visibility == 1) ? ("SHOW") : ("HIDE"));
+    $visible_from = (!is_null($visible_from) ? ("'".claro_sql_escape($visible_from)."'") : ("NULL"));
+    $visible_until = (!is_null($visible_until) ? ("'".claro_sql_escape($visible_until)."'") : ("NULL"));
     
     $sqlSet = array();
     if(!is_null($title))      $sqlSet[] = " title = '" . claro_sql_escape(trim($title)) . "' ";
     if(!is_null($content))    $sqlSet[] = " contenu = '" . claro_sql_escape(trim($content)) . "' ";
-    if(!is_null($content))    $sqlSet[] = " publishAt = " . $publish_date . " ";
-    if(!is_null($content))    $sqlSet[] = " expiresAt = " . $expires_date . " ";
-    if(!is_null($visibility)) $sqlSet[] = " visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "' ";
+    if(!is_null($content))    $sqlSet[] = " visibleFrom = " . $visible_from . " ";
+    if(!is_null($content))    $sqlSet[] = " visibleUntil = " . $visible_until . " ";
+    if(!is_null($visibility)) $sqlSet[] = " visibility = '" . $visibility . "' ";
     if(!is_null($time))       $sqlSet[] = " temps = from_unixtime('".(int)$time."') ";
     
-    if (count($sqlSet)>0)
+    if (count($sqlSet) > 0)
     {
         $sql = "UPDATE  `" . $tbl['announcement'] . "`
                 SET " . implode(', ', $sqlSet) . "
@@ -298,8 +285,8 @@ function announcement_get_item($announcement_id, $course_id=null)
     $sql = "SELECT id,
                    title,
                    contenu      AS content,
-                   publishAt,
-                   expiresAt,
+                   visibleFrom,
+                   visibleUntil,
                    visibility,
                    ordre        AS rank
             FROM  `" . $tbl['announcement'] . "`
