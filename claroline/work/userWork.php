@@ -640,7 +640,7 @@ if($is_allowedToEditAll)
             // notify eventmanager that a new correction has been posted
             $eventNotifier->notifyCourseEvent('work_correction_posted',claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['gradedWrkId'], '0', '0');
             // mail notification if required by configuration
-            if( get_conf( 'mail_notification' ) && ( claro_get_current_course_data( 'notify_feedbacks' ) !== '0' ) )
+            if( get_conf( 'mail_notification' ) && ( claro_get_current_course_data( 'notify_feedbacks' ) || get_conf( 'automatic_mail_notification', false ) ) )
             {
                 // get owner(s) email
                 $userIdList = array();
@@ -857,7 +857,7 @@ if( $is_allowedToSubmit )
             // notify eventmanager that a new submission has been posted
             $eventNotifier->notifyCourseEvent("work_submission_posted",claro_get_current_course_id(), claro_get_current_tool_id(), $assignmentId, '0', '0');
 
-            if( get_conf( 'mail_notification' ) && ( claro_get_current_course_data( 'notify_submissions' ) !== '0' ) )
+            if( get_conf( 'mail_notification' ) && ( claro_get_current_course_data( 'notify_submissions' ) || get_conf( 'automatic_mail_notification', false ) ) )
             {
                 // get teacher(s) mail
                 $sql = "SELECT `U`.`user_id`

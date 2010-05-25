@@ -70,11 +70,11 @@ catch( Exception $ex )
 
 if( !isset( $courseData['notify_submissions'] ) )
 {
-    $courseData['notify_submissions'] = get_conf( 'mail_notification', 'FALSE' ) == 'TRUE' ? '1' : '0';
+    $courseData['notify_submissions'] = ( get_conf( 'mail_notification', false ) && get_conf( 'automatic_mail_notification', false ) ) ? '1' : '0';
 }
 if( !isset( $courseData['notify_feedbacks'] ) )
 {
-    $courseData['notify_feedbacks'] = get_conf( 'mail_notification', 'FALSE' ) == 'TRUE' ? '1' : '0';
+    $courseData['notify_feedbacks'] = ( get_conf( 'mail_notification', false ) && get_conf( 'automatic_mail_notification', false ) ) ? '1' : '0';
 }
 
 //display

@@ -706,7 +706,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
             .     "\n"
             ;
         }
-        if( get_conf( 'mail_notification' ) )
+        if( get_conf( 'mail_notification', false ) && !get_conf( 'automatic_mail_notification', false ) )
         {
             $cmdMenu[] = '<a class="claroCmd" href="work_settings.php">' . "\n"
             .     '<img src="' . get_icon_url( 'settings' ) . '" alt="" />' . get_lang( 'Assignments preferences' ) . "\n"

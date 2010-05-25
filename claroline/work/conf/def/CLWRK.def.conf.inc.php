@@ -26,7 +26,7 @@ $conf_def['config_class']= 'tool';
 
 $conf_def['section']['main']['label']      = 'Main';
 $conf_def['section']['main']['properties'] =
-array ( 'confval_def_sub_vis_change_only_new', 'open_submitted_file_in_new_window', 'show_only_author', 'mail_notification', 'allow_download_all_submissions', 'assignmentsPerPage', 'usersPerPage' );
+array ( 'confval_def_sub_vis_change_only_new', 'open_submitted_file_in_new_window', 'show_only_author', 'mail_notification', 'automatic_mail_notification', 'allow_download_all_submissions', 'assignmentsPerPage', 'usersPerPage' );
 
 $conf_def['section']['quota']['label']      = 'Quota';
 $conf_def['section']['quota']['description']= 'Disk space allowed for submitted files';
@@ -70,13 +70,22 @@ array ('label'     => 'Show only author submissions'
 
 $conf_def_property_list['mail_notification'] =
 array ('label'     => 'Mail notification'
-        ,'description' => 'If activated course administrator will receive an email every time a submission is made.  Students will receive an email advising them that their work has been marked.'
+        ,'description' => 'If activated, allows to define a notification policy for assignment submissions and feedbacks.'
         ,'default'   => FALSE
         ,'type'      => 'boolean'
         ,'display'       => TRUE
         ,'readonly'      => FALSE
         ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
         );
+
+$conf_def_property_list['automatic_mail_notification'] =
+array ('label' => 'Mail notification mode' 
+        ,'description' => 'Are notification emails sent automaticaly or on demand (configurable in the assignement tool).' 
+        ,'default' => FALSE 
+        ,'type' => 'boolean' 
+        ,'display' => TRUE 
+        ,'readonly' => FALSE 
+        ,'acceptedValue' => array ( 'TRUE' => 'Automatic', 'FALSE' => 'On demand' ) );        
 
 $conf_def_property_list['assignmentsPerPage'] =
 array ('label'         => 'Number of assignment per page'
