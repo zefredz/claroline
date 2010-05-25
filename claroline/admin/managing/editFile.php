@@ -2,16 +2,13 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @package CLMANAGE
- *
  * @author Claro Team <cvs@claroline.net>
- *
  * @todo use modifiy is use in a cmd request
  */
 
@@ -56,6 +53,9 @@ $textZoneList['textzone_inscription_form.inc.html'] = array( 'filename' => get_p
 
 $textZoneList['textzone_edit_profile_form.inc.html'] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_edit_profile_form.inc.html',
                          'desc' => get_lang('Text displayed on the "My user account" page'));
+
+$textZoneList['textzone_upload_file_disclaimer.inc.html'] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_upload_file_disclaimer.inc.html',
+                         'desc' => get_lang('Message displayed on the file upload pages'));
 
 $display = DISP_FILE_LIST;
 

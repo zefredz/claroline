@@ -2,14 +2,10 @@
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
- *
+ * @version 1.10 $Revision$
+ * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @package CLDOC
- *
  * @author Hugues Peeters <hugues@claroline.net>
  * @author Claro Team <cvs@claroline.net>
  *
@@ -393,6 +389,15 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
              */
 
             $dialogBox->title( get_lang('Upload file') );
+
+            $agreementText = claro_text_zone::get_content('textzone_upload_file_disclaimer');
+
+            if ( !empty( $agreementText ) )
+            {
+                $dialogBox->info( $agreementText );
+            }
+
+
             $form = '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post" enctype="multipart/form-data">'
             .    claro_form_relay_context()
             .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
