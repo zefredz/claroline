@@ -393,6 +393,15 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
              */
 
             $dialogBox->title( get_lang('Upload file') );
+            
+            $agreementText = claro_text_zone::get_content('textzone_upload_file_disclaimer');
+            
+            if ( !empty( $agreementText ) )
+            {
+                $dialogBox->info( $agreementText );
+            }
+
+
             $form = '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post" enctype="multipart/form-data">'
             .    claro_form_relay_context()
             .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
