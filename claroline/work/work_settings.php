@@ -115,12 +115,10 @@ $out .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
      . '<td align="left"><em>' . get_lang( 'Choose "Yes" to notify students when you add feedback information to their works' ) . '</em></td>' . "\n"
      . '</tr>' . "\n"
      . '<tr><td colspan="3">&nbsp;</td></tr>' . "\n"
-     . '<tr><td>&nbsp;</td>' . "\n"
-     . '<td style="text-align:center;">' . "\n"
+     . '<tr><td colspan="3" style="text-align:center;">' . "\n"
      . '<input value="' . get_lang ( 'Ok' ) . '" type="submit" name="submit"/>&nbsp;' . "\n"
      . claro_html_button ( 'index.php' , get_lang ( 'Cancel' ) )
      . '</td>' . "\n"
-     . '<td>&nbsp;</td>' . "\n"
      . '</tr>' . "\n"
      . '</tbody></table>' . "\n"
      ;
