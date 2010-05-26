@@ -362,8 +362,6 @@ $claroline_script[] = "/user/userInfo.php";
 $claroline_script[] = "/user/user_add.php";
 $claroline_script[] = "/work/feedback.php";
 $claroline_script[] = "/work/index.php";
-$claroline_script[] = "/work/userWork.php";
+$claroline_script[] = "/work/user_work.php";
 $claroline_script[] = "/work/work.php";
-$claroline_script[] = "/work/workList.php";
-
-?>
+$claroline_script[] = "/work/work_list.php";

@@ -787,13 +787,13 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         $out .= '<tr ' . $style . '>'."\n"
         .    '<td>' . "\n";
         
-        $assignmentUrl = 'workList.php?assigId=' . $anAssignment['id'];    
+        $assignmentUrl = 'work_list.php?assigId=' . $anAssignment['id'];    
         
         if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
         {
             if( !isset($anAssignment['authorized_content']) || $anAssignment['authorized_content'] != 'TEXT' )
             {
-                $assignmentUrl = 'workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] 
+                $assignmentUrl = 'work_list.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] 
                 . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) 
                 . '&amp;gidReq=' . claro_get_current_group_id();
             }
