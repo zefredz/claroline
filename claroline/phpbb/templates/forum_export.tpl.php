@@ -1,3 +1,4 @@
+<!-- $Id$ -->
 <h4 class="header">
 <?php
 // Allow user to be have notification for this topic or disable it
@@ -35,7 +36,7 @@ endif; //end not anonymous user
     <small><?php echo claro_html_localised_date(get_locale('dateTimeFormatLong'), datetime_to_timestamp( $thisPost['post_time']) ); ?></small>
   </div>
   <div class="threadPostContent">
-    <span class="threadPostIcon <?php echo (claro_is_user_authenticated() && $this->is_a_notified_ressource ? 'item hot' : 'item' ); ?>"><img src="<?php echo get_icon_url( 'post' ); ?>" alt="" /></span><br />
+    <span class="threadPostIcon item"><img src="<?php echo get_icon_url( 'post' ); ?>" alt="" /></span><br />
     <?php echo claro_parse_user_text( $thisPost[ 'post_text' ] ); ?>
     <?php if( $this->is_allowedToEdit ) : ?>
     <p>
