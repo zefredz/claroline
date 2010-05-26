@@ -24,8 +24,10 @@ class ClaroPHPMailer extends PHPMailer
 {
     function ClaroPHPMailer()
     {
+    	//prevent phpMailer from echo'ing anything
+        parent::__construct(true);
         // set charset
-        $this->CharSet = get_locale('charset');
+        $this->CharSet = get_locale('charset');        
 
         if ( get_conf('smtp_host') != '' )
         {
@@ -55,6 +57,7 @@ class ClaroPHPMailer extends PHPMailer
             // set sendmail mode
             $this->IsMail();
         }
+        
     }
 
     /**
@@ -70,6 +73,17 @@ class ClaroPHPMailer extends PHPMailer
     function getError ()
     {
         return $this->ErrorInfo;
+    }    
+    
+    function Send(){
+        // errors can be retrieved when return value is false by calling getError method
+        try{
+        	return parent::Send();
+        }
+        catch (phpmailerException $e)
+        {
+        	return false;
+        }
     }
 }
 
