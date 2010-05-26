@@ -336,7 +336,7 @@ if ( $cmd == 'exDownload' )
 
     header('HTTP/1.1 404 Not Found');
     $interbredcrump[]= array ('url' => "../work/work.php", 'name' => get_lang('Assignments'));
-    $interbredcrump[]= array ('url' => "../work/workList.php?authId=".$_REQUEST['authId']."&amp;assigId=".$assignmentId, 'name' => get_lang('Assignment'));
+    $interbredcrump[]= array ('url' => "../work/work_list.php?authId=".$_REQUEST['authId']."&amp;assigId=".$assignmentId, 'name' => get_lang('Assignment'));
     
     $out = $dialogBox->render();
     
@@ -668,7 +668,7 @@ if($is_allowedToEditAll)
                     else
                         $authId = $_REQUEST['authId'];
 
-                    $url = get_path('rootWeb') . 'claroline/work/userWork.php?authId='.$authId.'&assigId='.$assignmentId.'&cidReq=' . claro_get_current_course_id();
+                    $url = get_path('rootWeb') . 'claroline/work/user_work.php?authId='.$authId.'&assigId='.$assignmentId.'&cidReq=' . claro_get_current_course_id();
                     
                     // email content
                     $body = get_lang('New assignment feedback posted') . "\n\n"
@@ -881,7 +881,7 @@ if( $is_allowedToSubmit )
                     else
                         $authId = $_REQUEST['authId'];
 
-                    $url = get_path('rootWeb') . 'claroline/work/userWork.php?authId=' . $authId . '&assigId=' . $assignmentId
+                    $url = get_path('rootWeb') . 'claroline/work/user_work.php?authId=' . $authId . '&assigId=' . $assignmentId
                     .      '&cidReq=' . claro_get_current_course_id();
 
                     // email content
@@ -986,7 +986,7 @@ if( $dispWrkDet || $dispWrkForm )
       
       $nameTools = get_lang('Submission');
       ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . $params ));
-      ClaroBreadCrumbs::getInstance()->prepend( $authName, Url::Contextualize('../work/userWork.php?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId) );
+      ClaroBreadCrumbs::getInstance()->prepend( $authName, Url::Contextualize('../work/user_work.php?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId) );
 }
 else
 {
@@ -994,7 +994,7 @@ else
       ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . '?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId ) );
 }
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignment'), Url::Contextualize('../work/workList.php?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId) );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignment'), Url::Contextualize('../work/work_list.php?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId) );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignments'), Url::Contextualize('../work/work.php') );
 
 $out = '';

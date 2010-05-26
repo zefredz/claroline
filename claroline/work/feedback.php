@@ -183,7 +183,7 @@ if($is_allowedToEdit)
         if( $formCorrectlySent && $assignment->save() )
         {
             $dialogBox->success( get_lang('Feedback edited') );
-            $dialogBox->info('<a href="./workList.php?assigId=' . $assignmentId . '">' . get_lang('Continue') . '</a>' );
+            $dialogBox->info('<a href="./work_list.php?assigId=' . $assignmentId . '">' . get_lang('Continue') . '</a>' );
 
             $displayFeedbackForm = false;
 
@@ -246,7 +246,7 @@ if($is_allowedToEdit)
 
 // bredcrump to return to the list when in a form
 $interbredcrump[]= array ('url' => './work.php', 'name' => get_lang('Assignments'));
-$interbredcrump[]= array ('url' => './workList.php?assigId=' . $assignmentId, 'name' => get_lang('Assignment'));
+$interbredcrump[]= array ('url' => './work_list.php?assigId=' . $assignmentId, 'name' => get_lang('Assignment'));
 $nameTools = get_lang('Feedback');
 
 $out = '';
@@ -350,7 +350,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<td>&nbsp;</td>' . "\n"
     .    '<td>' . "\n"
     .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
-    .    claro_html_button('./workList.php?assigId=' . $assignmentId, get_lang('Cancel')) . "\n"
+    .    claro_html_button('./work_list.php?assigId=' . $assignmentId, get_lang('Cancel')) . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     .    '</table>' . "\n"

@@ -103,7 +103,7 @@ if ( !$req['assignmentId'] || !$assignment->load($req['assignmentId']) )
  */
 if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) && claro_is_in_a_group() )
 {
-    claro_redirect ('userWork.php?authId='
+    claro_redirect ('user_work.php?authId='
     .       claro_get_current_group_id()
     .       '&cmd=rqSubWrk'
     .       '&assigId=' . $req['assignmentId']
@@ -492,7 +492,7 @@ foreach ( $workList as $workId => $thisWrk )
 
     if ($thisWrk['is_mine']) $workList[$workId]['name'] = '<b>' . $thisWrk['name'] . '</b>';
 
-    $workList[$workId]['name'] = '<a class="item" href="userWork.php'
+    $workList[$workId]['name'] = '<a class="item" href="user_work.php'
     .                            '?authId=' . $thisWrk['authId']
     .                            '&amp;assigId=' . $req['assignmentId']
     .                            claro_url_relay_context('&amp;')
@@ -647,7 +647,7 @@ $cmdMenu = array();
 if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
 {
     // link to create a new assignment
-    $cmdMenu[] = claro_html_cmd_link( 'userWork.php?authId=' . claro_get_current_user_id()
+    $cmdMenu[] = claro_html_cmd_link( 'user_work.php?authId=' . claro_get_current_user_id()
                                     . '&amp;cmd=rqSubWrk'
                                     . '&amp;assigId=' . $req['assignmentId']
                                     . claro_url_relay_context('&amp;')
@@ -670,7 +670,7 @@ if ( $is_allowedToEditAll )
          .        claro_html_time_form('hour', 'minute', time() - fmod(time(), 86400) - 3600) . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>' . '<br /><br />' . "\n"
          .        '<input type="radio" name="downloadMode" id="downloadMode_all" value="all" /><label for="downloadMode_all">' . get_lang('All submissions') . '</label><br /><br />' . "\n"
          .        '<input type="submit" value="'.get_lang('OK').'" />&nbsp;' . "\n"
-         .    claro_html_button('workList.php?assigId='.$req['assignmentId'], get_lang('Cancel'))
+         .    claro_html_button('work_list.php?assigId='.$req['assignmentId'], get_lang('Cancel'))
          .        '</form>'."\n"
         ;
 
