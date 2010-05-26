@@ -2852,4 +2852,6 @@ $_lang['Reactivate it'] = 'Réactiver';
 $_lang['Spoiler'] = 'Texte déroulant';
 $_lang['Spoiler Editor'] = 'Editeur de texte déroulant';
 $_lang['from'] = 'depuis';
+$_lang['Empty all classes'] = 'Vider toutes les classes';
+$_lang['Delete all classes'] = 'Effacer toutes les classes';
 ?>
