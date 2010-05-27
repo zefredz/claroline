@@ -122,3 +122,5 @@ function upgrade_main_database_to_16 ()
 
     return false;
 }
+
+?>

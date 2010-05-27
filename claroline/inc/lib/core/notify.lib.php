@@ -11,10 +11,15 @@
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.core
+ * @package     KERNEL
  */
 
-require_once dirname(__FILE__) . '/event.lib.php';
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
+FromKernel::uses ( 'core/event.lib' );
 
 function load_current_module_listeners()
 {
@@ -824,8 +829,9 @@ class ClaroNotification extends EventDriven
 
         foreach ($courses as $course)
         {
+
             $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course['code_cours']));
-            $tbl_course_tracking_event = $tbl_c_names['tracking_event'];
+            $tbl_course_tracking_event = $tbl_c_names['tracking_event'];  
             
             $sqlMaxDate = "SELECT MAX(`date`) AS MAXDATE
                       FROM `" . $tbl_course_tracking_event . "` AS STAT,

@@ -5,7 +5,7 @@
 /**
  * Embed script output into Claroline layout
  *
- * @version     1.10 $Revision$
+ * @version     1.9 $Revision$
  * @deprecated since Claroline 1.9
  * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Frederic Minne <zefredz@claroline.net>

@@ -60,7 +60,7 @@ class exportHTML extends export
     
     $css = $this->importCss();
     
-    $form = new PhpTemplate( get_path( 'incRepositorySys' ) . '/templates/forum_viewtopic.tpl.php' );
+    $form = new PhpTemplate( get_module_path('CLFRM') . '/templates/forum_export.tpl.php' );
     
     $form->assign( 'forum_id', $topicInfo[ 'forum_id' ] );
     $form->assign( 'topic_id', $topicInfo[ 'topic_id' ] );
@@ -121,4 +121,3 @@ class exportHTML extends export
   }
 }
 
-?>

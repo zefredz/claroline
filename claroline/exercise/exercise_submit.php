@@ -106,7 +106,14 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
         && ( ! isset($_SESSION['inPathMode']) || ! $_SESSION['inPathMode'] || ! $inLP )
          )
         {
-            header("Location: ./exercise.php");
+            $dialogBox->error( get_lang( 'The exercise is not available' ) );
+        
+            $content = $dialogBox->render();
+    
+            $claroline->display->body->appendContent($content);
+            
+            echo $claroline->display->render();
+            //header("Location: ./exercise.php");
             exit();
         }
         else

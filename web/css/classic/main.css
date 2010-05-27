@@ -60,10 +60,6 @@ input, textarea, button, select{
     color: #369;
 }
 
-select {
-    min-width: 150px;
-}
-
 input[type=submit], input[type=reset], input[type=button], button {
     margin-left: 2px;
     color: #666;
@@ -107,7 +103,7 @@ fieldset legend {
     background: transparent url(img/menu-collapsed.gif) no-repeat scroll 0 50%;
 }
 
-dl.onOneLine dt, fieldset dl dt {
+fieldset dl dt {
     clear: both;
     float: left;
     width: 20%;
@@ -115,7 +111,7 @@ dl.onOneLine dt, fieldset dl dt {
     margin: 2px 0;
 }
 
-dl.onOneLine dd, fieldset dl dd {
+fieldset dl dd {
     float: left;
     padding: 1px;
     width: 70%;

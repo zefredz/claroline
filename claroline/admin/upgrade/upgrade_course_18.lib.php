@@ -818,3 +818,5 @@ function tracking_upgrade_to_18($course_code)
 
     return false;
 }
+
+?>

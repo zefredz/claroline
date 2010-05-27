@@ -201,7 +201,7 @@ else
 
     $out .= $postLister->disp_pager_tool_bar($pagerUrl);
 
-    $form = new PhpTemplate( get_path( 'incRepositorySys' ) . '/templates/forum_viewtopic.tpl.php' );
+    $form = new PhpTemplate( get_module_path( 'CLFRM' ) . '/templates/forum_viewtopic.tpl.php' );
 
     $form->assign( 'forum_id', $forum_id );
     $form->assign( 'topic_id', $topic_id );

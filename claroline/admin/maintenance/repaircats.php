@@ -14,7 +14,6 @@
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
- * @deprecated since 1.10
  *
  */
 define ('DISP_ANALYSE', __LINE__);

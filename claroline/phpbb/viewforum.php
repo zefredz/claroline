@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright 2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2010 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -201,7 +201,7 @@ else
     if( claro_is_allowed_to_edit() )
     {
         $out .= '<div style="float: right;">' . "\n"
-        .   '<img src=' . get_icon_url('html') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&forum=' . $forum_id )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
+        .   '<img src="' . get_icon_url('html') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&forum=' . $forum_id )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
         .   '<img src="'. get_icon_url('mime/pdf') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=PDF&forum=' . $forum_id ) ) . '" target="_blank">' . get_lang( 'Export to PDF' ) .'</a>' . "\n"
         .   '</div>' . "\n"
         ;

@@ -597,7 +597,7 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
     $incPath = get_path('rootSys') . 'claroline/editor/' . $claro_editor;
     $editorPath = get_conf('urlAppend') . '/claroline/editor/';
     $webPath = $editorPath . $claro_editor;
-    
+
     $isSafariOn_iPhone = preg_match("!Mobile/.*?Safari/.*?!", $_SERVER['HTTP_USER_AGENT']);
 
     if( !$isSafariOn_iPhone && file_exists($incPath . '/editor.class.php') )

@@ -70,7 +70,7 @@ $out .= '<div>' . "\n"
 .    '<input type="radio" name="progress" id="full" class="progressRadio" value="100" />' . "\n"
 .    '<label for="full">100%</label>' . "\n"
 
-.    '<input type="button" value="'.get_lang('Done').'" id="progressDone" />' . "\n"
+//.    '<input type="button" value="'.get_lang('Done').'" id="progressDone" />' . "\n"
 .    '</form>' . "\n"
 .    '</div>' . "\n";
 

@@ -454,3 +454,5 @@ function introtext_upgrade_to_17($course_code)
     }
     return false;
 }
+
+?>

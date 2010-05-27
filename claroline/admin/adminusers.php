@@ -70,6 +70,7 @@ $dialogBox = new DialogBox();
 // Deal with interbredcrumps
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
+
 $nameTools = get_lang('User list');
 
 
@@ -113,6 +114,7 @@ switch ( $cmd )
         }        
     }
 }
+
 $searchInfo = prepare_search();
 
 $isSearched    = $searchInfo['isSearched'];
@@ -157,6 +159,7 @@ foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 }
 
 $userList = $myPager->get_result_list();
+
 if (is_array($userList))
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -171,58 +174,72 @@ if (is_array($userList))
 }
 
 $userGrid = array();
+
 if (is_array($userList))
-foreach ($userList as $userKey => $user)
 {
-
-    $userGrid[$userKey]['user_id']   = $user['user_id'];
-    $userGrid[$userKey]['name']      = $user['name'];
-    $userGrid[$userKey]['firstname'] = $user['firstname'];
-    $userEmailLabel=null;
-    if ( !empty($_SESSION['admin_user_search']) )
+    foreach ($userList as $userKey => $user)
     {
-        $bold_search = str_replace('*','.*',$_SESSION['admin_user_search']);
-
-        $userGrid[$userKey]['name'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['name']);
-        $userGrid[$userKey]['firstname'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['firstname']);
-        $userEmailLabel  = preg_replace('/(' . $bold_search . ')/i', '<b>\\1</b>' , $user['email']);
-    }
+        // var_dump( $user );
     
-    $userGrid[$userKey]['officialCode'] = empty($user['officialCode']) ? ' - ' : $user['officialCode'];
-    $userGrid[$userKey]['email'] = claro_html_mailTo($user['email'], $userEmailLabel);
-
-    $userGrid[$userKey]['isCourseCreator'] =  ( $user['isCourseCreator']?get_lang('Course creator'):get_lang('User'));
-
-    if ( $user['isPlatformAdmin'] )
-    {
-        $userGrid[$userKey]['isCourseCreator'] .= '<br /><span class="highlight">' . get_lang('Administrator').'</span>';
+        $userGrid[$userKey]['user_id']   = $user['user_id'];
+        $userGrid[$userKey]['name']      = $user['name'];
+        $userGrid[$userKey]['firstname'] = $user['firstname'];
+        
+        $userEmailLabel=null;
+        
+        if ( !empty($_SESSION['admin_user_search']) )
+        {
+            $bold_search = str_replace('*','.*',$_SESSION['admin_user_search']);
+    
+            $userGrid[$userKey]['name'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['name']);
+            $userGrid[$userKey]['firstname'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['firstname']);
+            $userEmailLabel  = preg_replace('/(' . $bold_search . ')/i', '<b>\\1</b>' , $user['email']);
+        }
+        
+        $userGrid[$userKey]['officialCode'] = empty($user['officialCode']) ? ' - ' : $user['officialCode'];
+        
+        $userGrid[$userKey]['authSource'] = $user['authSource'];
+        
+        $userGrid[$userKey]['email'] = claro_html_mailTo($user['email'], $userEmailLabel);
+    
+        $userGrid[$userKey]['isCourseCreator'] =  ( $user['isCourseCreator']?get_lang('Course creator'):get_lang('User'));
+    
+        if ( $user['isPlatformAdmin'] )
+        {
+            $userGrid[$userKey]['isCourseCreator'] .= '<br /><span class="highlight">' . get_lang('Administrator').'</span>';
+        }
+        
+        $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
+        .                                 '?uidToEdit=' . $user['user_id']
+        .                                 '&amp;cfrom=ulist' . $addToURL . '">'
+        .                                 '<img src="' . get_icon_url('usersetting') . '" alt="' . get_lang('User settings') . '" />'
+        .    '</a>'
+        ;
+        
+        
+        
+        $userGrid[$userKey]['qty_course'] = '<a href="adminusercourses.php?uidToEdit=' . $user['user_id']
+        .                                   '&amp;cfrom=ulist' . $addToURL . '">' . "\n"
+        .                                   get_lang('%nb course(s)', array('%nb' => $user['qty_course'])) . "\n"
+        .                                   '</a>' . "\n"
+        ;
+    
+        $userGrid[$userKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
+        .                               '?cmd=rqDelete&amp;user_id=' . $user['user_id']
+        .                               '&amp;offset=' . $offset . $addToURL . '" '
+        //.                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');" '
+        .                               ' class="delete" id="'.$user['firstname'].'_' . $user['name'] .'_' . $user['user_id'] .'">' . "\n"
+        .                               '<img src="' . get_icon_url('deluser') . '" alt="' . get_lang('Delete') . '" />' . "\n"
+        .                               '</a> '."\n"
+        ;
+    
     }
-    $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
-    .                                 '?uidToEdit=' . $user['user_id']
-    .                                 '&amp;cfrom=ulist' . $addToURL . '">'
-    .                                 '<img src="' . get_icon_url('usersetting') . '" alt="' . get_lang('User settings') . '" />'
-    .    '</a>';
-
-
-
-    $userGrid[$userKey]['qty_course'] = '<a href="adminusercourses.php?uidToEdit=' . $user['user_id']
-    .                                   '&amp;cfrom=ulist' . $addToURL . '">' . "\n"
-    .                                   get_lang('%nb course(s)', array('%nb' => $user['qty_course'])) . "\n"
-    .                                   '</a>' . "\n"
-    ;
-
-    $userGrid[$userKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
-    .                               '?cmd=rqDelete&amp;user_id=' . $user['user_id']
-    .                               '&amp;offset=' . $offset . $addToURL . '" '
-    //.                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');" '
-    .                               ' class="delete" id="'.$user['firstname'].'_' . $user['name'] .'_' . $user['user_id'] .'">' . "\n"
-    .                               '<img src="' . get_icon_url('deluser') . '" alt="' . get_lang('Delete') . '" />' . "\n"
-    .                               '</a> '."\n"
-    ;
-
 }
+
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
+
 $userDataGrid = new claro_datagrid();
+
 $userDataGrid->set_grid($userGrid);
 $userDataGrid->set_colHead('name') ;
 $userDataGrid->set_colTitleList(array (
@@ -230,6 +247,7 @@ $userDataGrid->set_colTitleList(array (
                 ,'name'=>'<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>'
                 ,'firstname'=>'<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>'
                 ,'officialCode'=>'<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Administrative code') . '</a>'
+                ,'authSource' => get_lang('Authentication source')
                 ,'email'=>'<a href="' . $sortUrlList['email'] . '">' . get_lang('Email') . '</a>'
                 ,'isCourseCreator'=>'<a href="' . $sortUrlList['isCourseCreator'] . '">' . get_lang('Status') . '</a>'
                 ,'settings'=> get_lang('User settings')
@@ -297,7 +315,6 @@ $out .= '<table width="100%">' . "\n"
 .    get_lang('Create user')
 .    '</a>'
 .     '</td>' . "\n"
-.     '<td>' . ''
 .    '<td align="right">' . "\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
@@ -320,6 +337,7 @@ if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($url);
 
 $out .=
 '<script type="text/javascript">
+//<![CDATA[
     $(document).ready(function(){
     $(".delete").each(function( i )
         {
@@ -336,6 +354,7 @@ $out .=
             $(this).attr("href","'. $_SERVER['PHP_SELF'] .'?cmd=exDelete&user_id=" + id + "&offset=' . $offset . $addToURL . '");
         });
     });
+//]]>
 </script>';
 
 $claroline->display->body->appendContent($out);

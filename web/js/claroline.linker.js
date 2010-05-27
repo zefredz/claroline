@@ -49,7 +49,21 @@ $(document).ready(function(){
     
     // listen to attach events
     $("#lnk_resources a.linkable").livequery( 'click', function(){
-        linkerFrontend.select($(this).attr("id"), $(this).attr("title"));
+        if( ($(this).attr('class')) == 'linkable invisible' )
+        {
+            if( linkerFrontend.alertVisible( false ) )
+            {
+                linkerFrontend.select($(this).attr("id"), $(this).attr("title"));
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            linkerFrontend.select($(this).attr("id"), $(this).attr("title"));
+        }
         return false;
     });
     // listen to detach events
@@ -93,6 +107,7 @@ var linkerFrontend = {
     history : [],
     base_url : '',
     deleteIconUrl : '',
+    invisibleIconUrl : '',
     currentIdx : 0,
     currentCrl: '',
     
@@ -217,20 +232,30 @@ var linkerFrontend = {
                         "isLinkable":true
                         "isNavigable":false
                     */
+                    visibleClass = 'visible';
+                    if( ! currentResource.isVisible )
+                    {
+                        visibleClass = 'invisible';
+                    }
   
                     // style for !isVisible to add on a and span
                     if( currentResource.isNavigable )
                     {
                         $("#lnk_resources")
-                            .append('<a class="navigable" rel="'+currentResource.crl+'" title="'+currentResource.name+'">'+currentResource.name+'</a>');
+                            .append('<a class="navigable '+ visibleClass +'" rel="'+currentResource.crl+'" title="'+currentResource.name+'">'+currentResource.name+'</a>');
                     }
                     else
                     {
                          // !isNavigable
                          $("#lnk_resources")
-                          .append('<span>'+currentResource.name+'</span>');
+                          .append('<span class="'+ visibleClass +'">'+currentResource.name+'</span>');
                     }
-                     
+                    if( ! currentResource.isVisible )
+                    {
+                        $("#lnk_resources")
+                            .append( ' <img src="'+ linkerFrontend.invisibleIconUrl +'" alt="" />')
+                            ;                     
+                    }
                     if( currentResource.isLinkable )
                     {/*
                          $("<a />")
@@ -240,8 +265,10 @@ var linkerFrontend = {
                          .appendTo("#lnk_resources")
                          ;*/
                           $("#lnk_resources")
-                          .append(' <a class="linkable" id="'+currentResource.crl+'" title="'+currentResource.name+'">['+Claroline.getLang('Attach')+']</a>');
+                          .append(' <a class="linkable '+ visibleClass +'" id="'+currentResource.crl+'" title="'+currentResource.name+'">['+Claroline.getLang('Attach')+']</a>');
                     }
+                    
+                    $("#lnk_resources").children().css('cursor','pointer');
                     
                     $("<br />").appendTo("#lnk_resources"); 
                   }
@@ -353,5 +380,10 @@ var linkerFrontend = {
               $(this).remove();
           }
         });
+    },
+    
+    alertVisible : function( visibility ) {
+        //Popup a confirm message when the resource is invisible.
+        return confirm( 'The resource is invisible. Are you sure that you want to attack this resource ?' );
     }
 }

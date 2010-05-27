@@ -5,7 +5,7 @@
 /**
  * File handling functions
  *
- * @version     1.10 $Revision$
+ * @version     1.9 $Revision$
  * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -266,7 +266,7 @@ function claro_send_file( $path, $name = '', $charset = null )
         header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + $lifetime ) .' GMT' );
         header( 'Pragma: ' );
         
-        // Patch proposed by Diego Conde Pï¿½rez <dconde@uvigo.es> - Universidade de Vigo
+        // Patch proposed by Diego Conde Pérez <dconde@uvigo.es> - Universidade de Vigo
         // It seems that with the combination of OfficeXP and Internet Explorer 6 the 
         // downloading of powerpoints fails sometimes. I captured the network packets 
         // and the viewer of the office doesn't send all the needed cookies, 
@@ -327,7 +327,7 @@ function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
     header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + $lifetime ) .' GMT' );
     header( 'Pragma: ' );
     
-    // Patch proposed by Diego Conde PÃ©rez <dconde@uvigo.es> - Universidade de Vigo
+    // Patch proposed by Diego Conde Pérez <dconde@uvigo.es> - Universidade de Vigo
     // It seems that with the combination of OfficeXP and Internet Explorer 6 the 
     // downloading of powerpoints fails sometimes. I captured the network packets 
     // and the viewer of the office doesn't send all the needed cookies, 
@@ -350,6 +350,7 @@ function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
     
     return strlen( $stream );
 }
+
 /**
  * Remove /.. ../ from file path
  * @param   string $path file path
@@ -545,7 +546,7 @@ function replace_dangerous_char($string, $strict = 'loose')
     $search[] = '[';  $replace[] = '-';
     $search[] = ']';  $replace[] = '-';
     // $search[] = '..';  $replace[] = '';
-    $search[] = 'ï¿½';  $replace[] = 'o';
+    $search[] = '°';  $replace[] = 'o';
 
 
     foreach($search as $key=>$char )
@@ -559,7 +560,7 @@ function replace_dangerous_char($string, $strict = 'loose')
         $string = str_replace('-', '_', $string);
         $string = str_replace("'", '', $string);
         /*$string = strtr($string,
-                        'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',
+                        'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
                         'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');*/
     }
 

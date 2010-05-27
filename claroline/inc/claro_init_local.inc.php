@@ -8,7 +8,7 @@ if ( count( get_included_files() ) == 1 )
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -201,11 +201,10 @@ if ( count( get_included_files() ) == 1 )
  *    for the current user.
  ******************************************************************************/
 
-require_once dirname(__FILE__) . '/lib/auth/authmanager.lib.php';
-require_once dirname(__FILE__) . '/lib/kernel/user.lib.php';
-require_once dirname(__FILE__) . '/lib/core/claroline.lib.php';
+FromKernel::uses('auth/authmanager.lib','kernel/user.lib','core/claroline.lib');
 
-// Load authentication config files
+// require claro_get_conf_repository() .  'auth.drivers.conf.php';
+
 require_once claro_get_conf_repository() .  'auth.sso.conf.php';
 require_once claro_get_conf_repository() .  'auth.cas.conf.php';
 require_once claro_get_conf_repository() .  'auth.extra.conf.php';
@@ -368,12 +367,12 @@ else
         require get_path('rootSys').'/claroline/auth/extauth/cas/casProcess.inc.php';
     }
     
-    // SHIBBOLETH ( PROBABLY BROKEN !!!! )
+    // SHIBBOLETH ( BROKEN !!!! )
     
-    if ( get_conf('claro_ShibbolethEnabled',false) )
+    /*if ( get_conf('claro_ShibbolethEnabled',false) )
     {
         require get_path('rootSys').'/claroline/auth/extauth/shibboleth/shibbolethProcess.inc.php';
-    }
+    }*/
 
     if ( $login && $password ) // $login && $password are given to log in
     {
@@ -416,7 +415,7 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
     {
         if ( !$currentUser )
         {
-            $currentUser = Claro_CurrentUser::getInstance($_uid);
+            $currentUser = Claro_CurrentUser::getInstance($_uid,true);
         }
         
         // User login
@@ -1060,3 +1059,39 @@ $_SESSION['is_toolAllowed'] = $is_toolAllowed;
  ---------------------------------------------------------------------------*/
 
 $_SESSION['_courseToolList'] = $_courseToolList;
+
+/*===========================================================================
+  Load configuration files
+  @todo Move to claro_init_global
+ ===========================================================================*/
+
+// Course tools
+if (isset($_cid) && $_courseTool['label'])
+{
+    $config_code = rtrim($_courseTool['label'],'_');
+
+    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
+    {
+        include claro_get_conf_repository() . $config_code . '.conf.php';
+    }
+        
+    if ( claro_is_in_a_course()
+        && file_exists(get_conf('coursesRepositorySys') . $_course['path'] . '/conf/' . $config_code . '.conf.php'))
+    {
+        require get_conf('coursesRepositorySys') . $_course['path'] . '/conf/' . $config_code . '.conf.php';
+    }
+}
+// Other modules
+elseif ( $tlabelReq )
+{
+    $config_code = rtrim($tlabelReq,'_');
+
+    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
+    {
+        include claro_get_conf_repository() . $config_code . '.conf.php';
+
+        pushClaroMessage("Loading configuration file "
+            . claro_get_conf_repository() . $config_code
+            . '.conf.php','debug');
+    }
+}

@@ -670,3 +670,4 @@ function upgrade_main_database_tracking_data_to_19()
     }
     return false;
 }
+

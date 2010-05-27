@@ -97,7 +97,7 @@ if ( $cmd == 'registration' )
         if ( in_array(get_lang('This official code is already used by another user.'), $errorMsgList) ) // validation exception ...
         {
             $userList = user_search( array('officialCode' => $userData['officialCode']),
-                                     claro_get_current_course_id(), false, true);
+                                     claro_get_current_course_id(), false, true, false);
 
             $dialogBox->error(get_lang('This official code is already used by another user.')
                            . '<br />' . get_lang('Take one of these options') . ' : '
@@ -120,7 +120,7 @@ if ( $cmd == 'registration' )
         {
             $userList = user_search( array('lastname' => $userData['lastname'    ],
                                            'email'    => $userData['email'       ]),
-                                     claro_get_current_course_id(), false, true);
+                                     claro_get_current_course_id(), false, true, false);
             if ( count($userList) > 0 )
             {
                  // PREPARE THE URL command TO CONFIRM THE USER CREATION
@@ -216,6 +216,8 @@ if ($cmd == 'applySearch')
                                        'officialCode' => $userData['officialCode'],
                                        'username'       => $userData['username']),
                                        claro_get_current_course_id(),
+                                       true,
+                                       false,
                                        !claro_is_platform_admin() );
     }
     else

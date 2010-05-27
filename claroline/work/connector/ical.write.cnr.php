@@ -23,14 +23,10 @@ function CLWRK_write_ical( $iCal, $context)
         $courseData = claro_get_course_data($courseCode);
         $toolNameList = claro_get_tool_name_list();
         $assignmentList = assignmentList($courseCode);
-        
         $organizer = (array) array($courseData['titular'], $courseData['email']);
         $attendees = array();
-        $categories = array( 
-            get_conf('siteName'), 
-            $courseData['officialCode'],
-            trim($toolNameList['CLWRK'])
-        );
+        $categories = array( get_conf('siteName'), $courseData['officialCode'],
+        trim($toolNameList['CLWRK']), $courseData['categoryCode'] );
 
         foreach ($assignmentList as $thisAssignment)
         {

@@ -17,7 +17,7 @@
     // Create a hidden category for group forums
     claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (1,'"
         .claro_sql_escape(get_lang('sampleForumGroupCategory'))."',2)");
-
+    
     if ( get_conf('fill_course_example',true) )
     {
         // Create an example category
@@ -26,6 +26,7 @@
         $firstname = claro_get_current_user_data('firstName');
         $email = claro_get_current_user_data('mail');
 
+        
         $TABLEPHPBBFORUMS       = $moduleCourseTblList['bb_forums'];//  "bb_forums";
         $TABLEPHPBBPOSTS        = $moduleCourseTblList['bb_posts'];//  "bb_posts";
         $TABLEPHPBBPOSTSTEXT    = $moduleCourseTblList['bb_posts_text'];//  "bb_posts_text";

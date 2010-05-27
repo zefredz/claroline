@@ -77,15 +77,13 @@ $imgRepositoryAppend    = get_path('imgRepositoryAppend');
 $imgRepositorySys       = get_path('imgRepositorySys');
 $imgRepositoryWeb       = get_path('imgRepositoryWeb');
 
-/*
- * Path to the PEAR library. PEAR stands for "PHP Extension and Application
- * Repository". It is a framework and distribution system for reusable PHP
- * components. More on http://pear.php.net.
- * Claroline is provided with the basic PEAR components needed by the
- * application in the "claroline/inc/lib/pear" directory. But, server
- * administator can redirect to their own PEAR library directory by setting
- * its path to the PEAR_LIB_PATH constant.x
- */
+// Path to the PEAR library. PEAR stands for "PHP Extension and Application
+// Repository". It is a framework and distribution system for reusable PHP
+// components. More on http://pear.php.net.
+// Claroline is provided with the basic PEAR components needed by the
+// application in the "claroline/inc/lib/pear" directory. But, server
+// administator can redirect to their own PEAR library directory by setting
+// its path to the PEAR_LIB_PATH constant.
 
 define('PEAR_LIB_PATH', get_path('incRepositorySys') . '/lib/thirdparty/pear');
 
@@ -193,50 +191,6 @@ Claroline::initDisplay();
 // Assign the Claroline singleton to a variable for more convenience
 $claroline = Claroline::getInstance();
 
-/*===========================================================================
-                     Load configuration files
- ===========================================================================*/
-
-// Course tools
-if (isset($_cid) && $_courseTool['label'])
-{
-    $config_code = rtrim($_courseTool['label'],'_');
-
-    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
-    {
-        include claro_get_conf_repository() . $config_code . '.conf.php';
-        pushClaroMessage("Loading configuration file "
-            . claro_get_conf_repository() . $config_code
-            . '.conf.php','debug');
-    }
-
-    if ( claro_is_in_a_course()
-        && file_exists( get_conf('coursesRepositorySys')
-            . $_course['path'] . '/conf/' . $config_code . '.conf.php' ) )
-    {
-        require get_conf('coursesRepositorySys') . $_course['path'] 
-            . '/conf/' . $config_code . '.conf.php';
-
-        pushClaroMessage("Loading configuration file "
-            . get_conf('coursesRepositorySys') . $_course['path']
-            . '/conf/' . $config_code . '.conf.php', 'debug');
-    }
-}
-// Other modules
-elseif ( $tlabelReq )
-{
-    $config_code = rtrim($tlabelReq,'_');
-
-    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
-    {
-        include claro_get_conf_repository() . $config_code . '.conf.php';
-
-        pushClaroMessage("Loading configuration file "
-            . claro_get_conf_repository() . $config_code
-            . '.conf.php','debug');
-    }
-}
-
 if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
 {
     /*----------------------------------------------------------------------
@@ -248,7 +202,9 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
         claro_die(get_lang('Not allowed'));
     }
     
-    if ( $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed() )
+    
+    if ( $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed()
+        && ! ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] && ($tlabelReq == 'CLQWZ' || $tlabelReq == 'CLDOC') ) ) // WORKAROUND FOR OLD LP
     {
         if ( ! claro_is_user_authenticated() )
         {

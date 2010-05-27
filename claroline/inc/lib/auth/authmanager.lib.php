@@ -5,8 +5,8 @@
 /**
  * Authentication Manager
  *
- * @version     1.10 $Revision$
- * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2009 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -15,10 +15,7 @@
  */
 
 // Get required libraries
-require_once dirname(__FILE__) . '/../core/claroline.lib.php';
-require_once dirname(__FILE__) . '/../database/database.lib.php';
-require_once dirname(__FILE__) . '/../kernel/user.lib.php';
-require_once dirname(__FILE__) . '/authdrivers.lib.php';
+FromKernel::uses('core/claroline.lib','database/database.lib','kernel/user.lib', 'auth/authdrivers.lib');
 
 class AuthManager
 {

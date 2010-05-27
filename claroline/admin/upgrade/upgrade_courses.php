@@ -24,7 +24,6 @@ include ('upgrade_course_16.lib.php');
 include ('upgrade_course_17.lib.php');
 include ('upgrade_course_18.lib.php');
 include ('upgrade_course_19.lib.php');
-include ('upgrade_course_110.lib.php');
 
 require_once $includePath . '/lib/module/manage.lib.php';
 
@@ -395,43 +394,6 @@ switch ($display)
                     save_course_current_version($currentCourseCode,$currentCourseVersion);
 
                 }
-                
-                /*---------------------------------------------------------------------
-                  Upgrade 1.9 to 1.10
-                 ---------------------------------------------------------------------*/
-
-                if ( preg_match('/^1.9/',$currentCourseVersion) )
-                {
-                    // Function to upgrade tool to 1.8
-                    $function_list = array( 'announcements_upgrade_to_110',
-                                            'calendar_upgrade_to_19'
-                                    );
-            
-                    foreach ( $function_list as $function )
-                    {
-                        $step = $function($currentCourseCode);
-                        if ( $step > 0 )
-                        {
-                            echo 'Error : ' . $function . ' at step ' . $step . '<br />';
-                            $error = true;
-                        }
-                    }
-
-                    if ( ! $error )
-                    {
-                        // Upgrade succeeded
-                        clean_upgrade_status($currentCourseCode);
-                        $currentCourseVersion = '1.10';
-                    }
-                    else
-                    {
-                        // Upgrade failed
-                        $currentCourseVersion = 'error-1.9';
-                    }
-                    // Save version
-                    save_course_current_version($currentCourseCode,$currentCourseVersion);
-
-                }
 
             }
 
@@ -545,3 +507,4 @@ switch ($display)
 // Display footer
 echo upgrade_disp_footer();
 
+?>

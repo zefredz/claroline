@@ -342,7 +342,7 @@ else
                 . get_lang('Edit answers')
                 . '</a>';
                 
-    $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit">'
+   $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit">'
                 . get_lang('New question')
                 . '</a>';
 

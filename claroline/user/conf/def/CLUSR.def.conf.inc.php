@@ -73,7 +73,7 @@ $conf_def['section']['add_user']['label'] = 'Add user';
 $conf_def['section']['add_user']['description'] = '';
 $conf_def['section']['add_user']['properties'] =
 array ( 'is_coursemanager_allowed_to_register_single_user'
-      , 'is_coursemanager_allowed_to_enroll_single_user'
+      ,    'is_coursemanager_allowed_to_enroll_single_user'
       , 'is_coursemanager_allowed_to_import_user_list'
       , 'is_coursemanager_allowed_to_import_user_class'
 
@@ -175,6 +175,12 @@ array('label'         => 'Encrypt exported password using md5 algorithm'
                               ,'FALSE'=>'No'
                               )
 ); 
+
+$conf_def['section']['import']['label'] = 'Import CVS';
+$conf_def['section']['import']['description'] = '';
+$conf_def['section']['import']['properties'] =
+array ( 'update_user_properties'
+);
 
 $conf_def_property_list['update_user_properties'] =
 array('label'         => 'Update properties of users  on CVS import'

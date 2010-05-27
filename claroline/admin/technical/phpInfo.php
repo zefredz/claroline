@@ -46,7 +46,6 @@ $nameTools = get_lang('System Info');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $is_allowedToAdmin = claro_is_platform_admin();
-
 if ($is_allowedToAdmin)
 {
     $htmlHeadXtra[] = phpinfo_getStyle();
@@ -86,6 +85,7 @@ if ($is_allowedToAdmin)
         </a>
     </li>
 </ul>
+
 
 <div class="phpInfoContents">
 <?php

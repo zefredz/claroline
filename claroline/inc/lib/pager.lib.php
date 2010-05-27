@@ -237,6 +237,10 @@ class claro_pager
                 }
             }
         }
+        else
+        {
+            $output .= '&nbsp;';
+        }
 
         // display 1 ... {start_page}
         if ( $lastLink < $pageCount )
@@ -247,6 +251,7 @@ class claro_pager
         }
 
         $output .= "\n"
+        
         . '</span>'. "\n"
         . '<span class="pagerAfter">'. "\n"
         ;

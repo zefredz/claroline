@@ -101,7 +101,7 @@ if($statsDbName != $mainDbName)
     if(!$singleDbForm)
     {
         // multi DB mode AND tracking has its own DB so create it
-        mysql_query("CREATE DATABASE `" . $statsDbName . "`");
+        claro_sql_query("CREATE DATABASE `" . $statsDbName . "`");
         
         if (mysql_errno() >0)
         {

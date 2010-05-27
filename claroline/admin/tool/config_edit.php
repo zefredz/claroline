@@ -2,46 +2,46 @@
 /**
  * CLAROLINE
  *
- * This tool has been written to edit Claroline's settings.
+ * This tool is write to edit setting of Claroline.
  *
- * In the old version of Claroline, there was a central config 
- * file.  In the new releases a conf repository was build with 
- * config files.
+ * In the old claroline, there was a central config file
+ * in next release a conf repository
+ * was build with conf files.
  *
- * To avoid overwriting on the following release, it 
- * was renamed from .conf.inc.php to .conf.inc.php.dist.  
- * Installer was enable to rename from .conf.inc.php.dist
- * to .conf.inc.php.
+ * To not owerwrite on the following release,
+ * was rename  from .conf.inc.php to .conf.inc.php.dist
+ * installer was eable to rename from .conf.inc.php.dist
+ * to .conf.inc.php
  *
- * The current config file is build to merge new and active 
- * settings.
+ * The actual config file is build
+ * to merge new and active setting.
  *
- * The system has been modified deeper than previous evolution.
- * Tools are released with a conf definition file.
+ * The system as more change than previous evolution
+ * Tool are released with a conf definition file.
  *
- * For each property, this file defines a name, a place and 
- * also some control to define accepted content.
+ * This file define for each property a name,
+ * a place but also some control for define accepted content.
  *
+ * And finally some comment, explanation or info
  *
- * And finally some comment, explanation or information.
- *
- * This version does not include
- * - triggered procedure (function called when a property
+ * this version do not include
+ * - trigered procedure (function called when a property
  *   is switch or set to a particular value)
  * - renaming or deletion of properties from config
- * - locking  of edit file (this tools can't really be
- *   in the active part of the day in prod)
- *   I need to change that to let admin sleep during 
- *   the night
+ * - locking  of edit file (This tools can't really be
+ *   in the active part of the day in prod. )
+ *   I need to change that to let
+ *   admin sleep during the night
  *
  * To make transition,
- * - a section can parse old file to find old properties
- *   and their values.
- * - this script should continue to generate a def conf file.
+ * - a section can parse old file to found old properties
+ *   and his values.
+ *   This script would be continue
+ *   to generate a def conf file.
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-209 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -126,7 +126,7 @@ else
                 }
                 else
                 {
-                    // not valid
+                    // no valid
                     $error = true ;
                     $dialogBox->error( $config->backlog->output() );
                 }
