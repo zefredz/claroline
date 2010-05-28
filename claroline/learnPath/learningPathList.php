@@ -540,6 +540,8 @@ $LPNumber = mysql_num_rows($result);
 $iterator = 1;
 
 $is_blocked = false;
+$display_comment = false;
+
 while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 {
     //modify style if the file is recently added since last login
@@ -733,6 +735,8 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
     }
     else   //else of !$is_blocked condition , we have already been blocked before, so we continue beeing blocked : we don't display any links to next paths any longer
     {
+        $display_comment = true;
+        
         $out .= '<td align="left"><span class="item'.$classItem.'">'
         .    '<img src="' . get_icon_url('learnpath') . '" alt="" />  '
         .    $list['name']
@@ -905,7 +909,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
     }
     $out .= '</tr>' . "\n";
     
-    if ( $is_blocked )
+    if ( $display_comment )
     {
         $out .= '<tr>' . "\n"
         .   '<td colspan="2"><span class="comment">'
