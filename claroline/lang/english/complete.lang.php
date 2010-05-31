@@ -1932,6 +1932,7 @@ $_lang['You can not change your own settings!'] = 'You can not change your own s
 $_lang['You can not remove a group forum. You have to remove the group first'] = 'You can not remove a group forum. You have to remove the group first';
 $_lang['You can now create your  course'] = 'You can now create  your  course';
 $_lang['You can now select, in the list, the courses you want to access'] = 'You can now select, in the list, the courses you want to access.';
+$_lang['You can personalize the layout of each course'] = 'You can personalize the layout of each course.  To do that, put a css file named "course.css" in the css directory of your course (for instance: "courses/BIO/css/course.css").';
 $_lang['You can set access rights for users using the following grid :'] = 'You can set access rights for users using the following grid : ';
 $_lang['You can\'t move %facultyCode in the same category !'] = 'You can\'t move %facultyCode in the same category !';
 $_lang['You can\'t remove a group forum. You have to remove the group first'] = 'You can\'t remove a group forum. You have to remove the group first';

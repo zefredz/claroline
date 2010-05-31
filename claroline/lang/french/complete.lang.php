@@ -1931,6 +1931,7 @@ $_lang['You can not change your own settings!'] = 'Vous ne pouvez pas changer vo
 $_lang['You can not remove a group forum. You have to remove the group first'] = 'Vous ne pouvez pas supprimer un forum de groupe.  Il faut d\'abord supprimer le groupe.';
 $_lang['You can now create your  course'] = 'Vous pouvez à présent créer votre cours';
 $_lang['You can now select, in the list, the courses you want to access'] = 'Vous pouvez à présent sélectionner les cours auxquels vous souhaitez avoir accès.';
+$_lang['You can personalize the layout of each course'] = 'Vous pouvez personnaliser le style graphique de chaque cours.  Pour ce faire, placez un fichier css nommé "course.css" dans le répertoire de votre cours (par exemple: "courses/BIO/css/course.css").';
 $_lang['You can set access rights for users using the following grid :'] = 'Définissez les droits d\'accès au wiki pour les différents types d\'utilisateurs :';
 $_lang['You can\'t move %facultyCode in the same category !'] = 'La catégorie %facultyCode ne peut se contenir elle-même.';
 $_lang['You can\'t remove a group forum. You have to remove the group first'] = 'Vous ne pouvez pas supprimer un forum de groupe.  Il faut d\'abord supprimer le groupe.';
