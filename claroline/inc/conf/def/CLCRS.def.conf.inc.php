@@ -51,7 +51,8 @@ $conf_def['section']['create']['description']='';
 $conf_def['section']['create']['properties'] =
 array (
       //, 'defaultVisibilityForANewCourse'
-        'defaultAccessOnCourseCreation'
+        'allowPublicCourses'
+      , 'defaultAccessOnCourseCreation'
       , 'defaultRegistrationOnCourseCreation'
       , 'defaultVisibilityOnCourseCreation'
       );
@@ -93,6 +94,19 @@ array ('label'       => 'Default course access'
                                 )
       );
 */
+
+$conf_def_property_list['allowPublicCourses'] =
+array ('label'       => 'Allow course access to be public'
+      ,'description' => 'Set to No to avoid the creation of public, world accessible, course sites'
+      ,'default'     => TRUE
+      ,'type'        => 'boolean'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );
+
 $conf_def_property_list['defaultVisibilityOnCourseCreation'] =
 array ('label'       => 'Default course visibility'
       ,'description' => 'This is probably a bad idea to set as hidden'
