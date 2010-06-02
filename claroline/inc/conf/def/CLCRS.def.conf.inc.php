@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @see http://www.claroline.net/wiki/index.php/Config
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  *
  * @package COURSE
  */
@@ -51,7 +51,8 @@ $conf_def['section']['create']['description']='';
 $conf_def['section']['create']['properties'] =
 array (
       //, 'defaultVisibilityForANewCourse'
-        'defaultAccessOnCourseCreation'
+        'allowPublicCourses'
+      , 'defaultAccessOnCourseCreation'
       , 'defaultRegistrationOnCourseCreation'
       , 'defaultVisibilityOnCourseCreation'
       );
@@ -107,6 +108,18 @@ array ('label'       => 'Default course access'
                                 )
       );
 */
+
+$conf_def_property_list['allowPublicCourses'] =
+array ('label'       => 'Allow course access to be public'
+      ,'description' => 'Set to No to avoid the creation of public, world accessible, course sites'
+      ,'default'     => TRUE
+      ,'type'        => 'boolean'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );
 
 $conf_def_property_list['defaultVisibilityOnCourseCreation'] =
 array ('label'       => 'Default course visibility'

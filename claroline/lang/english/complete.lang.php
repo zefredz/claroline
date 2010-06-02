@@ -1,4 +1,7 @@
 <?php 
+$_lang['You are not allowed to create a public course'] = 'You are not allowed to create a public course';
+$_lang['Allow course access to be public'] = 'Allow course access to be public';
+$_lang['Set to No to avoid the creation of public, world accessible, course sites'] = 'Set to No to avoid the creation of public, world accessible, course sites';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! size of course repository (include claroline and garbage in old systems)';
 $_lang['%1\$s by %2\$s'] = '%1$s by %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modified on %2$s by %3$s';
