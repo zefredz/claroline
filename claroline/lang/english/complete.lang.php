@@ -2123,7 +2123,7 @@ $_lang['blockCourseDescriptionSupportsComment2'] = 'Presentation of the support 
 $_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Teaching-training activities';
 $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?';
 $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).';
-$_lang['blockCourseSettingsTip'] = 'By default, your course is accessible to everybody. If you want some confidentiality,
+$_lang['blockCourseSettingsTip'] = 'By default, all users registered to the platform can enrol to your course. If you want some confidentiality,
 the simplest way is to open registration during
 one week, ask the students to register themselves, then close registration and check for possible intruders in the user list.';
 $_lang['blockCourseSubscriptionNotification'] = '

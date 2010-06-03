@@ -2139,7 +2139,7 @@ Quel est le calendrier des activités&nbsp;?';
 $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Présentation des activités prévues&nbsp;:&nbsp;exposés magistraux, participation attendue des étudiants, travaux pratiques,<br />
 séances de laboratoire, visites, recueil d\'informations sur le terrain,
 ...';
-$_lang['blockCourseSettingsTip'] = 'Par défaut, votre cours est accessible à tout le monde. Si vous souhaitez un minimum de confidentialité, <br />
+$_lang['blockCourseSettingsTip'] = 'Par défaut, tous les utilisateurs inscrits sur la plateforme peuvent s\'inscrire à votre cours. Si vous souhaitez un minimum de confidentialité, <br />
 le plus simple est d\'ouvrir l\'inscription pendant une semaine, de demander aux étudiants de s\'inscrire eux-mêmes<br />
 puis de fermer l\'inscription et de vérifier dans la liste des utilisateurs les intrus éventuels.';
 $_lang['blockCourseSubscriptionNotification'] = '
