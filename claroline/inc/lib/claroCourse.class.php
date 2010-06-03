@@ -937,13 +937,22 @@ class ClaroCourse
             : ''
             ;
 
+        $publicMessage = $this->access != 'public' && !(get_conf('allowPublicCourses', true) || claro_is_platform_admin())
+            ? '<br /><span style="color:silver; font-style: italic; font-size: 75%">'
+                . get_lang('If you need to create a public course, please contact the platform administrator')
+                . '</span>'
+            : ''
+            ;
+
         // Course access
+
         $html .= '<dt>' . get_lang('Course access') . '&nbsp;:</dt>'
             . '<dd>'
             . '<img src="' . get_icon_url('access_open') . '" alt="' . get_lang('open') . '" />'
             . '<input type="radio"'. $publicDisabled . ' id="access_public" name="course_access" value="public" ' . ($this->access == 'public' ? 'checked="checked"':'') . ' />'
             . '&nbsp;'
             . '<label for="access_public"'.$publicCssClass.'>' . get_lang('Access allowed to anybody (even without login)') . '</label>'
+            . $publicMessage
             . '<br />' . "\n"
             . '<img src="' . get_icon_url('access_platform') . '" alt="' . get_lang('open') . '" />'
             . '<input type="radio" id="access_reserved" name="course_access" value="platform" ' . ($this->access == 'platform' ? 'checked="checked"':'') . ' />'
