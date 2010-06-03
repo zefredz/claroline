@@ -1,4 +1,5 @@
 <?php
+$_lang['If you need to create a public course, please contact the platform administrator'] = 'Si vous voulez créer un cours public, veuillez contacter le gestionnaire de la plateforme';
 $_lang['You are not allowed to create a public course'] = 'Vous ne pouvez pas créer de cours public';
 $_lang['Allow course access to be public'] = 'Autoriser les cours publics';
 $_lang['Set to No to avoid the creation of public, world accessible, course sites'] = 'Choisir Non pour interdir la création de sites de cours publics';
