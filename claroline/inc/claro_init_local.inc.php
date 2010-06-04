@@ -690,7 +690,7 @@ if ( $cidReq
         if ( !is_module_installed_in_course( $toolLabel, $_cid )
             && 'AUTOMATIC' == get_module_data( $toolLabel, 'add_in_course' ) )
         {
-            install_module_in_course( $tlabelReq, $_cid );
+            install_module_in_course( $toolLabel, $_cid );
         }
         
         if ( 'AUTOMATIC' == get_module_data( $toolLabel, 'add_in_course' ) )
