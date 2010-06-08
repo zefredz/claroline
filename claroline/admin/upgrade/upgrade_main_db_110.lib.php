@@ -169,8 +169,8 @@ function upgrade_session_course_to_110 ()
         case 1 :
             
             // Add the attribute sourceCourseId to the course table
-            $sqlForUpdate[] = " ALTER TABLE `" . $tbl_mdb_names['course'] . "` 
-                                ADD `sourceCourseId` INT NULL AFTER `code`  ";
+            $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['course'] . "` 
+                               ADD `sourceCourseId` INT NULL AFTER `code`  ";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
@@ -185,6 +185,34 @@ function upgrade_session_course_to_110 ()
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
 
+            unset($sqlForUpdate);
+            
+        default :
+
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+
+    }
+
+    return false;
+}
+
+function upgrade_cours_user_to_110 ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'REL_COURSE_USER';
+
+    switch( $step = get_upgrade_status($tool) )
+    {           
+        case 1 :
+            
+            // Add the attribute sourceCourseId to the course table
+            $sqlForUpdate[] = "RENAME TABLE `" . get_conf('mainTblPrefix') . "`.`cl_cours_user` "
+                            . "TO `" . get_conf('mainTblPrefix') . "`.`cl_rel_course_user`";
+            
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+            
             unset($sqlForUpdate);
             
         default :

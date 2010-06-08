@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__user` (
   KEY `loginpass` (`username`,`password`)
 ) TYPE=MyISAM;
     
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours_user` (
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__rel_course_user` (
   `code_cours` VARCHAR(40) NOT NULL DEFAULT '0',
   `user_id` INT(11) UNSIGNED NOT NULL DEFAULT '0',
   `profile_id` INT(11) NOT NULL,
