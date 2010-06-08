@@ -410,11 +410,11 @@ function group_count_students_in_course($course_id)
 function group_count_students_in_groups($course_id=null)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-    $mainTableName = get_module_main_tbl(array('cours_user'));
+    $mainTableName = get_module_main_tbl(array('rel_course_user'));
 
     $sql = "SELECT COUNT(`gu`.`user`)
             FROM `" . $tbl_cdb_names['group_rel_team_user'] . "` as `gu`
-            INNER JOIN `" . $mainTableName['cours_user'] . "` AS `cu`
+            INNER JOIN `" . $mainTableName['rel_course_user'] . "` AS `cu`
                 ON `cu`.user_id = `gu`.`user`";
     return (int) claro_sql_query_get_single_value($sql);
 }
@@ -430,11 +430,11 @@ function group_count_students_in_groups($course_id=null)
 function group_count_students_in_group($group_id,$course_id=null)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-    $mainTableName = get_module_main_tbl(array('cours_user'));
+    $mainTableName = get_module_main_tbl(array('rel_course_user'));
 
     $sql = "SELECT COUNT(`gu`.`user`)
             FROM `" . $tbl_cdb_names['group_rel_team_user'] . "` AS `gu`
-            INNER JOIN `" . $mainTableName['cours_user'] . "` AS `cu`
+            INNER JOIN `" . $mainTableName['rel_course_user'] . "` AS `cu`
                 ON `cu`.user_id = `gu`.`user`
             WHERE `gu`.`team` = ". (int) $group_id;
     return (int) claro_sql_query_get_single_value($sql);
@@ -664,7 +664,7 @@ function get_user_group_list($userId,$course=null)
     $tbl_group_team          = $tbl_cdb_names['group_team'];
     $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
     
-    $mainTableName = get_module_main_tbl(array('user','cours_user'));
+    $mainTableName = get_module_main_tbl(array('user','rel_course_user'));
 
     $userGroupList = array();
 
@@ -672,7 +672,7 @@ function get_user_group_list($userId,$course=null)
             FROM `" . $tbl_group_rel_team_user . "` as `tu`
             INNER JOIN `" . $tbl_group_team . "`    as `t`
               ON `tu`.`team` = `t`.`id`
-            INNER JOIN `" . $mainTableName['cours_user'] . "` AS `cu`
+            INNER JOIN `" . $mainTableName['rel_course_user'] . "` AS `cu`
                 ON `cu`.user_id = `tu`.`user`
             WHERE `tu`.`user` = " . (int) $userId ;
 
@@ -717,14 +717,14 @@ function get_tutor_group_list($uid)
 
 function get_group_user_list($gid, $courseId =  NULL)
 {
-    $mainTableName = get_module_main_tbl(array('user','cours_user'));
+    $mainTableName = get_module_main_tbl(array('user','rel_course_user'));
     $courseTableName = get_module_course_tbl(array('group_rel_team_user'), $courseId);
     
     $sql = "SELECT `user`.`user_id` AS `id`, `user`.`nom` AS `lastName`, `user`.`prenom` AS `firstName`, `user`.`email`
         FROM `" . $mainTableName['user'] . "` AS `user`
         INNER JOIN `" . $courseTableName['group_rel_team_user'] . "` AS `user_group`
             ON `user`.`user_id` = `user_group`.`user`
-        INNER JOIN `" . $mainTableName['cours_user'] . "`AS `course_user`
+        INNER JOIN `" . $mainTableName['rel_course_user'] . "`AS `course_user`
             ON `user`.`user_id` = `course_user`.`user_id`
         WHERE `user_group`.`team`= '" . $gid . "'
         AND `course_user`.`code_cours` = '" . $courseId ."'";
@@ -743,11 +743,11 @@ function get_group_list_user_id_list($gidList,$courseId = NULL)
     $groupIdList = implode(', ',$gidList);
 
     $courseTableName = get_module_course_tbl(array('group_team','group_rel_team_user'),$courseId);
-    $mainTableName = get_module_main_tbl(array('user','cours_user'));
+    $mainTableName = get_module_main_tbl(array('user','rel_course_user'));
     
     $sql = "SELECT `user_group`.`user`
             FROM `".$courseTableName['group_rel_team_user']."` AS `user_group`
-            INNER JOIN `" . $mainTableName['cours_user'] . "` AS `cu`
+            INNER JOIN `" . $mainTableName['rel_course_user'] . "` AS `cu`
             ON `cu`.user_id = `user_group`.`user`
             WHERE `user_group`.`team` IN (".$groupIdList.")";
 

@@ -302,10 +302,10 @@ function claro_get_course_manager_id($cid = NULL)
         $cid = claro_get_current_course_id();
     }
     
-     $tableName = get_module_main_tbl(array('cours_user'));
+     $tableName = get_module_main_tbl(array('rel_course_user'));
      
     $sql = "SELECT user_id "
-            . " FROM `". $tableName['cours_user']."`"
+            . " FROM `". $tableName['rel_course_user']."`"
             . " WHERE code_cours='".claro_sql_escape($cid)."'"
             .    " AND isCourseManager = 1"
             ;

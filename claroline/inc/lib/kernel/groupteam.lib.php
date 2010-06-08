@@ -206,7 +206,7 @@ implements
         if ( ! $this->userList )
 
         {
-            $mainTableName = get_module_main_tbl(array('user','cours_user'));
+            $mainTableName = get_module_main_tbl(array('user','rel_course_user'));
             $courseTableName = get_module_course_tbl(array('group_rel_team_user'), $this->courseObj->sysCode);
 
             $sql = "
@@ -222,7 +222,7 @@ implements
                 ON
                     `user`.`user_id` = `user_group`.`user`
                 INNER JOIN
-                    `{$mainTableName['cours_user']}` AS `course_user`
+                    `{$mainTableName['rel_course_user']}` AS `course_user`
                 ON
                     `user`.`user_id` = `course_user`.`user_id`
                 WHERE

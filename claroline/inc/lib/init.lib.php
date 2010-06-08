@@ -599,7 +599,7 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
 {
     $admin = claro_is_platform_admin();
     
-    $tbl = claro_sql_get_tbl('cours_user');
+    $tbl = claro_sql_get_tbl('rel_course_user');
     static $course_user_cache = null;
     static $course_user_data = null;
     static $course_user_privilege = array();
@@ -610,7 +610,7 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
                        isCourseManager,
                        tutor,
                        role
-                FROM `" . $tbl['cours_user'] . "` `cours_user`
+                FROM `" . $tbl['rel_course_user'] . "` `cours_user`
                 WHERE `user_id`  = '" . (int) $uid . "'
                 AND `code_cours` = '" . claro_sql_escape($cid) . "'";
 
