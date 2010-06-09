@@ -404,7 +404,7 @@ switch ($display)
                 {
                     // Function to upgrade tool to 1.8
                     $function_list = array( 'announcements_upgrade_to_110',
-                                            'calendar_upgrade_to_19'
+                                            'calendar_upgrade_to_110'
                                     );
             
                     foreach ( $function_list as $function )
