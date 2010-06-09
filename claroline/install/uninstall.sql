@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `__CL_MAIN__admin`;
 DROP TABLE IF EXISTS `__CL_MAIN__cours`;
-DROP TABLE IF EXISTS `__CL_MAIN__cours_user`;
+DROP TABLE IF EXISTS `__CL_MAIN__rel_course_user`;
 DROP TABLE IF EXISTS `__CL_MAIN__faculte`;
 DROP TABLE IF EXISTS `__CL_MAIN__user`;
 DROP TABLE IF EXISTS `__CL_MAIN__course_tool`;
