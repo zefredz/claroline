@@ -114,3 +114,38 @@ function calendar_upgrade_to_110 ($course_code)
     
     return false;
 }
+
+function exercise_upgrade_to_110 ($course_code)
+{
+	global $currentCourseVersion;
+
+    $versionRequiredToProceed = '/^1.9/';
+    
+    $tool = 'CLQWZ';
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+    
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    {
+        // On init , $step = 1
+        switch( $step = get_upgrade_status($tool,$course_code) )
+        {
+            case 1 :
+                
+                // Add the attribute sourceCourseId to the course table
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_question` ADD `id_category` INT(11) NULL DEFAULT '0' AFTER `grade`";
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                else return $step;
+                
+                unset($sqlForUpdate);               
+                
+            default :
+                
+                $step = set_upgrade_status($tool, 0);
+                return $step;
+            
+        }
+    }
+    
+    return false;
+}
