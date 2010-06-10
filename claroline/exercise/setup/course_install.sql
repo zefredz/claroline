@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_question` (
     `attachment` varchar(255) NOT NULL default '',
     `type` enum('MCUA','MCMA','TF','FIB','MATCHING') NOT NULL default 'MCUA',
     `grade` float NOT NULL default '0',
+    `id_category` int(11) NOT NULL default '0',
     PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
@@ -111,3 +112,10 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_users_random_questions` (
   `questions` text NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_questions_categories` (
+    `id` int(11) NOT NULL auto_increment,
+    `title` varchar(50) NOT NULL,
+    `description` TEXT,
+   PRIMARY KEY (`id`)
+) TYPE=MyISAM COMMENT='Record the categories of questions';

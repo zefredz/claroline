@@ -61,6 +61,8 @@ else                                                            $quId = null;
 if( isset($_REQUEST['filter']) )     $filter = $_REQUEST['filter'];
 else                                $filter = 'all';
 
+$categoryId = (substr($filter,0,10) == 'categoryId')&& is_numeric(substr($filter,10))?substr($filter,10):null;
+
 /*
  * Init other vars
  */
@@ -172,13 +174,27 @@ elseif( $filter == 'orphan' )
 {
     $filterCondition = " AND REQ.`exerciseId` IS NULL ";
 }
+else if (! is_null($categoryId) )
+{
+    $filterCondition = "AND id_category='".(int)$categoryId."' ";
+}
 else // $filter == 'all'
 {
     $filterCondition = "";
 }
 
 //-- prepare query
-if( !is_null($exId) )
+if ( !is_null($categoryId))
+{
+     // Filter on categories 
+         $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, Q.`id_category`
+              FROM `".$tbl_quiz_question."` AS Q
+              WHERE 1 = 1
+             " . $filterCondition . "
+          GROUP BY Q.`id`
+          ORDER BY Q.`title`, Q.`id`";
+}
+else if( !is_null($exId) )
 {
     $questionList = $exercise->getQuestionList();
 
@@ -197,7 +213,7 @@ if( !is_null($exId) )
 
     // TODO probably need to adapt query with a left join on rel_exercise_question for filter
 
-    $sql = "SELECT Q.`id`, Q.`title`, Q.`type`
+    $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, Q.`id_category`
               FROM `".$tbl_quiz_question."` AS Q
               LEFT JOIN `".$tbl_quiz_rel_exercise_question."` AS REQ
               ON REQ.`questionId` = Q.`id`
@@ -210,7 +226,7 @@ if( !is_null($exId) )
 }
 else
 {
-    $sql = "SELECT Q.`id`, Q.`title`, Q.`type`
+    $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, Q.`id_category`
               FROM `".$tbl_quiz_question."` AS Q
               LEFT JOIN `".$tbl_quiz_rel_exercise_question."` AS REQ
               ON REQ.`questionId` = Q.`id`
@@ -233,6 +249,10 @@ if( !is_null($exId) )
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), './edit_exercise.php?exId='.$exId );
     ClaroBreadCrumbs::getInstance()->setCurrent( get_lang('Question pool'), $_SERVER['PHP_SELF'].'?exId='.$exId );
     $pagerUrl = $_SERVER['PHP_SELF'].'?exId='.$exId;
+}
+else if ( !is_null($categoryId) )
+{
+	$pagerUrl = $_SERVER['PHP_SELF'].'?filter='.$filter;
 }
 else
 {
@@ -282,6 +302,7 @@ $out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpad
 .     '<tr class="headerX">' . "\n"
 .     '<th>' . get_lang('Id') . '</th>' . "\n"
 .     '<th>' . get_lang('Question') . '</th>' . "\n"
+.     '<th>' . get_lang('Category') . '</th>' . "\n"
 .     '<th>' . get_lang('Answer type') . '</th>' . "\n";
 $colspan = 2;
 if( !is_null($exId) )
@@ -320,6 +341,9 @@ if( !empty($questionList) )
         .   '<td align="center">' . $question['id'] . '</td>' . "\n"
         .     '<td>'.$question['title'].'</td>' . "\n"
         ;
+        
+        $out .=  '<td>'.getCategoryTitle( $question['id_category']) . '</td>' . "\n";
+        
 
         // answer type
         $out .= '<td><small>'.$questionTypeLang[$question['type']].'</small></td>' . "\n";

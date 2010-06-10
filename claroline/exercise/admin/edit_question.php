@@ -115,6 +115,7 @@ if( $cmd == 'exEdit' )
 
     $question->setTitle($_REQUEST['title']);
     $question->setDescription($_REQUEST['description']);
+    $question->setCategoryId($_REQUEST['categoryId']); 
     
     if( is_null($quId) ) $question->setType($_REQUEST['type']);
 
@@ -132,7 +133,7 @@ if( $cmd == 'exEdit' )
             if( !$question->setAttachment($_FILES['attachment']) )
             {
                 // throw error
-                echo claro_failure::get_last_failure();
+                $dialogBox->error( get_lang(claro_failure::get_last_failure()  ) );
             }
         }
 
@@ -176,6 +177,7 @@ if( $cmd == 'rqEdit' )
     $form['description']         = $question->getDescription();
     $form['attachment']            = $question->getAttachment();
     $form['type']                 = $question->getType();
+    $form['categoryId']           = $question->getCategoryId();
 
     $displayForm = true;
 }
@@ -250,6 +252,21 @@ if( $displayForm )
     $out .= '<tr>' . "\n"
     .     '<td valign="top"><label for="description">'.get_lang('Description').'&nbsp;:</label></td>' . "\n"
     .     '<td>'.claro_html_textarea_editor('description', $form['description']).'</td>' . "\n"
+    .     '</tr>' . "\n\n";
+
+	$questionCategoryList = getQuestionCategoryList();
+    // category
+    $out .=  '<tr>' . "\n"
+    .     '<td valign="top"><label for="category">'.get_lang('Category').'&nbsp;:</label></td>' . "\n"
+    .     '<td><select name="categoryId"><option value="0">';
+    foreach ($questionCategoryList as $category)
+    {
+        $out .= '<option value="'.$category['id'].'"' 
+            .( $category['id'] == $form['categoryId']?'selected="selected"':' ' )
+            .'>'.$category['title'].'</option>';
+    }
+    $out .= '</option>'
+    .'</td>' . "\n"
     .     '</tr>' . "\n\n";
 
     // attached file

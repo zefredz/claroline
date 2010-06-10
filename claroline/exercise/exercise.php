@@ -649,6 +649,7 @@ if( !$inLP )
     {
         $cmd_menu[] = '<a class="claroCmd" href="admin/edit_exercise.php?cmd=rqEdit"><img src="' . get_icon_url('quiz_new') . '" alt="" />' . get_lang('New exercise').'</a>';
         $cmd_menu[] = '<a class="claroCmd" href="admin/question_pool.php"><img src="' . get_icon_url('question_pool') . '" alt="" />'.get_lang('Question pool').'</a>';
+        $cmd_menu[] = '<a class="claroCmd" href="admin/question_category.php"><img src="' . get_icon_url('question_pool') . '" alt="" />'.get_lang('Question categories').'</a>';
         $cmd_menu[] = '<a class="claroCmd" href="exercise.php?cmd=rqImport"><img src="' . get_icon_url('import') . '" alt="" />'.get_lang('Import exercise').'</a>';
     }
     

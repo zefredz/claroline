@@ -357,7 +357,7 @@ class Exercise
      */
     function getQuestionList()
     {
-        $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, REQ.`rank`
+        $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, REQ.`rank`, Q.`id_category` 
                  FROM `" . $this->tblRelExerciseQuestion . "` AS REQ,
                       `" . $this->tblQuestion . "` AS Q
                 WHERE REQ.`exerciseId` = " . (int) $this->id . "

@@ -527,6 +527,7 @@ else
     .     '<tr class="headerX">' . "\n"
     .     '<th>' . get_lang('Id') . '</th>' . "\n"
     .     '<th>' . get_lang('Question') . '</th>' . "\n"
+    .    '<th>' . get_lang('Category') . '</th>' . "\n"
     .     '<th>' . get_lang('Answer type') . '</th>' . "\n"
     .     '<th>' . get_lang('Modify') . '</th>' . "\n"
     .     '<th>' . get_lang('Delete') . '</th>' . "\n"
@@ -549,6 +550,7 @@ else
             .     '<td align="center">' . $question['id'] . '</td>' . "\n"
             .     '<td>'.$question['title'].'</td>' . "\n";
 
+			$out .= '<td>'. getCategoryTitle( $question['id_category']) .'</td>' . "\n";
             // answer type
             $out .= '<td><small>'.$localizedQuestionType[$question['type']].'</small></td>' . "\n";
 
@@ -604,7 +606,7 @@ else
     else
     {
         $out .= '<tr>' . "\n"
-        .     '<td colspan="7">' . get_lang('Empty') . '</td>' . "\n"
+        .     '<td colspan="8">' . get_lang('Empty') . '</td>' . "\n"
         .     '</tr>' . "\n\n";
     }
     $out .= '</tbody>' . "\n\n"

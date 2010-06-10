@@ -42,7 +42,13 @@ function get_filter_list($excludeId = '')
                 $filterList[$anExercise['title']] = $anExercise['id'];
             }
         }
-    }     
+    } 
+    $questionCategoryList = getQuestionCategoryList();
+    // category
+    foreach ($questionCategoryList as $category)
+    {
+        $filterList[get_lang('Category').' '.$category['title']] = 'categoryId'.$category['id'];
+    }    
     return $filterList;
 }
 
@@ -317,5 +323,40 @@ function change_img_url_for_pdf( $str )
     return $replace;
 }
 
+function getQuestionCategoryList()
+{
+    $categoryList = array();
+    $tbl_cdb_names = get_module_course_tbl( array('qwz_questions_categories' ),  claro_get_current_course_id()  );
+    $tblQuestionCategories = $tbl_cdb_names['qwz_questions_categories'];
+    $query = "SELECT `id`, `title` FROM `".$tblQuestionCategories."`  
+               ORDER BY `title`";
+    if( claro_sql_query($query) )
+    {
+        return claro_sql_query_fetch_all_rows($query);
+    }
+    else 
+    {
+         return $categoryList;
+    }
+}
+
+
+function getCategoryTitle( $categoryId )
+{
+   	$tbl_cdb_names = get_module_course_tbl( array('qwz_questions_categories' ),  claro_get_current_course_id()  );
+	$tblQuestionCategories = $tbl_cdb_names['qwz_questions_categories'];
+	$sql = "SELECT `title` FROM  `".$tblQuestionCategories. "` WHERE `id`= '".(int)$categoryId."'";
+	$data = claro_sql_query_get_single_row($sql);
+    
+    if( !empty($data) )
+    {
+    	// from query
+        return $data['title'];
+    }
+    else
+    {
+    	return '';
+    }
+}
 
 ?>
