@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__rel_course_user` (
   `tutor` INT(11) NOT NULL DEFAULT '0',
   `count_user_enrol` INT(11) NOT NULL DEFAULT '0',
   `count_class_enrol` INT(11) NOT NULL DEFAULT '0',
+  `isPending` tinyINT(4) NOT NULL DEFAULT 0,
   `isCourseManager` tinyINT(4) NOT NULL DEFAULT 0,
    PRIMARY KEY  (`code_cours`,`user_id`),
   KEY `isCourseManager` (`isCourseManager`)
