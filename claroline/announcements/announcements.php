@@ -494,7 +494,12 @@ if ( $displayForm )
     . '<dd>'
     . claro_html_textarea_editor('newContent', (!empty($announcement) ? $announcement['content'] : ''), 12, 67)
     . '</dd>'
-    . '</dl>'
+    . '<dt></dt>' . "\n"
+    . '<dd>'
+    . '<input type="checkbox" value="1" name="emailOption" id="emailOption" />'
+    . '<label for="emailOption">' . get_lang('Send this announcement by internal message to registered students') . '</label>'
+    . '</dd>'
+    . '</dl>'    
     . '</fieldset>'
     
     . '<fieldset id="advancedInformation" class="collapsible collapsed">' . "\n"
