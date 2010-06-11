@@ -264,7 +264,7 @@ class ClaroCourse
                         `email`                = '" . claro_sql_escape($this->email) . "',
                         `visibility`           = '" . ($this->visibility ? 'visible':'invisible') . "',
                         `access`               = '" . claro_sql_escape( $this->access ) . "',
-                        `registration`         = '" . ($this->registration ? 'open':'close') . "',
+                        `registration`         = '" . claro_sql_escape($this->registration) . "',
                         `registrationKey`      = '" . claro_sql_escape($this->registrationKey) . "',
                         `lastEdit`             = NOW(),
                         `creationDate`         = " . $sqlCreationDate . ", 
@@ -436,11 +436,11 @@ class ClaroCourse
     {
         return claro_get_restricted_courses ($categoryId, $userId);
     }
-
+    
+    
     /**
-     * retrieve course data from form
+     * Retrieve course data from a course's form.
      */
-
     public function handleForm ()
     {
         /*
@@ -448,18 +448,19 @@ class ClaroCourse
          * If it has been left empty (no selection), create an array with 
          * the identifier of the root category (0).
          * If it has been serialized in the progress URL, unserialized it.
-         */ 
+         */
         if ( isset($_REQUEST['linked_categories']) )
         {
-            $_REQUEST['linked_categories'] = is_array($_REQUEST['linked_categories']) ? ($_REQUEST['linked_categories']) : (unserialize($_REQUEST['linked_categories']));
+            $_REQUEST['linked_categories'] = is_array($_REQUEST['linked_categories']) ? 
+                ($_REQUEST['linked_categories']) : 
+                (unserialize($_REQUEST['linked_categories']));
         }
         else
         {
             $_REQUEST['linked_categories'] = array(0);
         }
         
-        
-        if ( isset($_REQUEST['course_title'        ]) ) $this->title = trim(strip_tags($_REQUEST['course_title']));
+        if ( isset($_REQUEST['course_title']) ) $this->title = trim(strip_tags($_REQUEST['course_title']));
         
         if ( isset($_REQUEST['course_officialCode' ]) )
         {
@@ -468,9 +469,9 @@ class ClaroCourse
             $this->officialCode = strtoupper($this->officialCode);
         }
         
-        if ( isset($_REQUEST['course_titular'      ]) ) $this->titular = trim(strip_tags($_REQUEST['course_titular']));
-        if ( isset($_REQUEST['course_email'        ]) ) $this->email = trim(strip_tags($_REQUEST['course_email']));
-        if ( count($_REQUEST['linked_categories'   ]) > 0 ) 
+        if ( isset($_REQUEST['course_titular']) )   $this->titular = trim(strip_tags($_REQUEST['course_titular']));
+        if ( isset($_REQUEST['course_email']) )     $this->email = trim(strip_tags($_REQUEST['course_email']));
+        if ( count($_REQUEST['linked_categories']) > 0 )
         {
             $categoriesList = array();
             foreach( $_REQUEST['linked_categories'] as $category ) 
@@ -488,15 +489,28 @@ class ClaroCourse
         {
             $this->categories = array(0);
         }
-        if ( isset($_REQUEST['course_departmentName' ]) ) $this->departmentName = trim(strip_tags($_REQUEST['course_departmentName']));
-        if ( isset($_REQUEST['course_extLinkUrl'     ]) ) $this->extLinkUrl = trim(strip_tags($_REQUEST['course_extLinkUrl']));
-        if ( isset($_REQUEST['course_language'       ]) ) $this->language = trim(strip_tags($_REQUEST['course_language']));
-        if ( isset($_REQUEST['course_visibility'     ]) ) $this->visibility  = (bool) $_REQUEST['course_visibility'];
-        if ( isset($_REQUEST['course_access'         ]) ) $this->access = $_REQUEST['course_access'];
-        if ( isset($_REQUEST['course_registration'   ]) ) $this->registration = trim(strip_tags($_REQUEST['course_registration']));
-        if ( isset($_REQUEST['course_registrationKey']) ) $this->registrationKey = trim(strip_tags($_REQUEST['course_registrationKey']));
         
-        // if ( isset($_REQUEST['course_status'      ]) ) $this->status = $_REQUEST['course_status'];
+        if ( isset($_REQUEST['course_departmentName']) )    $this->departmentName = trim(strip_tags($_REQUEST['course_departmentName']));
+        if ( isset($_REQUEST['course_extLinkUrl']) )        $this->extLinkUrl = trim(strip_tags($_REQUEST['course_extLinkUrl']));
+        if ( isset($_REQUEST['course_language']) )          $this->language = trim(strip_tags($_REQUEST['course_language']));
+        if ( isset($_REQUEST['course_visibility']) )        $this->visibility  = (bool) $_REQUEST['course_visibility'];
+        if ( isset($_REQUEST['course_access']) )            $this->access = $_REQUEST['course_access'];
+        
+        if ( isset($_REQUEST['course_registration']) )
+        {
+            if ( isset($_REQUEST['registration_validation']) && $_REQUEST['registration_validation'] == 'on' )
+            {
+                $this->registration = 'validation';
+            }
+            else
+            {
+                $this->registration = trim(strip_tags($_REQUEST['course_registration']));
+            }
+        }
+        
+        if ( isset($_REQUEST['course_registrationKey']) )   $this->registrationKey = trim(strip_tags($_REQUEST['course_registrationKey']));
+        
+        # if ( isset($_REQUEST['course_status'      ]) ) $this->status = $_REQUEST['course_status'];
         
         if ( isset($_REQUEST['course_status_selection']))
         {
@@ -530,11 +544,11 @@ class ClaroCourse
                     $this->publicationDate = mktime(23,59,59);
                 }
                 
-                $this->useExpirationDate = (bool) (isset($_REQUEST['useExpirationDate'   ]) && $_REQUEST['useExpirationDate']);
+                $this->useExpirationDate = (bool) (isset($_REQUEST['useExpirationDate']) && $_REQUEST['useExpirationDate']);
                 
                 if ( $this->useExpirationDate )
                 {                
-                    if ( isset($_REQUEST['course_expirationDate' ]) )
+                    if ( isset($_REQUEST['course_expirationDate']) )
                     {
                         $this->expirationDate = trim(strip_tags($_REQUEST['course_expirationDate']));
                     }
@@ -560,21 +574,21 @@ class ClaroCourse
             }
         }
     }
-
+    
+    
     /**
-     * validate data from object.  Error handling with a backlog object.
+     * Validate data from object.  Error handling with a backlog object.
      *
      * @return boolean success
      */
-
     public function validate ()
     {
         $success = true ;
-
+        
         /**
          * Configuration array , define here which field can be left empty or not
          */
-
+        
         $fieldRequiredStateList['title'         ] = get_conf('human_label_needed');
         $fieldRequiredStateList['officialCode'  ] = get_conf('human_code_needed');
         $fieldRequiredStateList['titular'       ] = false;
@@ -591,7 +605,7 @@ class ClaroCourse
         {
             $this->backlog->failure(get_lang('Missing or invalid course access'));
             $success = false ;
-
+            
             if ( !$this->courseId
                 && $this->access == 'public'
                 && !( get_conf('allowPublicCourses', true) || claro_is_platform_admin() ) )
@@ -600,14 +614,14 @@ class ClaroCourse
                 $success = false ;
             }
         }
-
+        
         // Validate course title
         if ( empty($this->title) && $fieldRequiredStateList['title'] )
         {
             $this->backlog->failure(get_lang('Course title needed'));
             $success = false ;
         }
-
+        
         // Validate course code
         if ( empty($this->officialCode) && $fieldRequiredStateList['officialCode'])
         {
@@ -621,7 +635,7 @@ class ClaroCourse
             $this->backlog->failure(get_lang('Course code too long'));
             $success = false;
         }
-
+        
         // Validate email
         if ( empty($this->email) && $fieldRequiredStateList['email'])
         {
@@ -636,28 +650,28 @@ class ClaroCourse
                 $success = false;
             }
         }
-
+        
         // Validate course language
         if ( empty($this->language) && $fieldRequiredStateList['language'])
         {
             $this->backlog->failure(get_lang('Language needed'));
             $success = false ;
         }
-
+        
         // Validate course departmentName
         if ( empty($this->departmentName) && $fieldRequiredStateList['departmentName'])
         {
             $this->backlog->failure(get_lang('Department needed'));
             $success = false ;
         }
-
+        
         // Validate course extLinkUrl
         if ( empty($this->extLinkUrl) && $fieldRequiredStateList['extLinkUrl'])
         {
             $this->backlog->failure(get_lang('Department url needed'));
             $success = false ;
         }
-
+        
         // Validate department url
         if ( ! $this->validateExtLinkUrl() )
         {
@@ -687,20 +701,20 @@ class ClaroCourse
                 $success = false ;
             }
         }
-
+        
         return $success;
     }
-
+    
+    
     /**
-     * validate url and try to repair it if no protocol specified
+     * Validate url and try to repair it if no protocol specified.
      *
      * @return boolean success
      */
-
     protected function validateExtLinkUrl ()
     {
         if ( empty($this->extLinkUrl) ) return true;
-
+        
         $regexp = "!^(http|https|ftp)\://[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\._\?\,\'/\\\+&%\$#\=~-])*$!i";
         
         if ( ! preg_match($regexp,$this->extLinkUrl) )
@@ -926,26 +940,25 @@ class ClaroCourse
             . claro_html_form_select('course_language', $languageList, $this->language, array('id'=>'course_language'))
             . '</dd>'
             . "\n" ;
-
+        
         $publicDisabled = !(get_conf('allowPublicCourses', true) || claro_is_platform_admin())
             ? ' disabled="disabled"'
             : ''
             ;
-
+        
         $publicCssClass = !(get_conf('allowPublicCourses', true) || claro_is_platform_admin())
             ? ' style="color:silver; font-style: italic;"'
             : ''
             ;
-
+        
         $publicMessage = $this->access != 'public' && !(get_conf('allowPublicCourses', true) || claro_is_platform_admin())
             ? '<br /><span style="color:silver; font-style: italic; font-size: 75%">'
                 . get_lang('If you need to create a public course, please contact the platform administrator')
                 . '</span>'
             : ''
             ;
-
+        
         // Course access
-
         $html .= '<dt>' . get_lang('Course access') . '&nbsp;:</dt>'
             . '<dd>'
             . '<img src="' . get_icon_url('access_open') . '" alt="' . get_lang('open') . '" />'
@@ -977,18 +990,18 @@ class ClaroCourse
         $html .='<dt>' . get_lang('Enrolment') . '&nbsp;:</dt>'
             . '<dd>'
             . '<img src="' . get_icon_url('enroll_allowed') . '"  alt="" />'
-            . '<input type="radio" id="registration_true" name="course_registration" value="open" ' . ($this->registration && empty($this->registrationKey) ?'checked="checked"':'') . ' />'
+            . '<input type="radio" id="registration_true" name="course_registration" value="open"' . ( !isset($this->registration) || $this->registration === 'open' || $this->registration == 'validation' ? ' checked="checked"' : '' ) . ' />'
             . '&nbsp;'
             . '<label for="registration_true">' . get_lang('Allowed') . '</label>' . "\n"
             
             . '<blockquote>' . "\n"
-            . '<img src="' . get_icon_url('select') . '"  alt="" />'
-            . '<input type="checkbox" id="registration_validation" name="registration_validation" />'
+            . '<img src="' . get_icon_url('tick') . '"  alt="" />'
+            . '<input type="checkbox" id="registration_validation" name="registration_validation"' . ( $this->registration === 'validation' ? ' checked="checked"' : '' ) . ' />'
             . '&nbsp;'
             . '<label for="registration_validation">' . get_lang('Allowed with validation') . '</label>'
             . '<br />' . "\n"
             . '<img src="' . get_icon_url('enroll_key') . '"  alt="" />'
-            . '<input type="checkbox" id="registration_key" name="registration_key" />'
+            . '<input type="checkbox" id="registration_key" name="registration_key"' . ( !empty($this->registrationKey) ? 'checked="checked"' : '') . ' />'
             . '&nbsp;'
             . '<label for="registration_key">' . get_lang('Allowed with enrolment key') . '</label>'
             . '&nbsp;'
@@ -996,7 +1009,7 @@ class ClaroCourse
             . '</blockquote>'
             
             . '<img src="' . get_icon_url('enroll_forbidden') . '"  alt="" />'
-            . '<input type="radio" id="registration_false"  name="course_registration" value="close" ' . ( ! $this->registration ?'checked="checked"':'') . ' />'
+            . '<input type="radio" id="registration_false"  name="course_registration" value="close"' . ( $this->registration === 'close' ? ' checked="checked"' : '' ) . ' />'
             . '&nbsp;'
             . '<label for="registration_false">' . get_lang('Denied') . '</label>'
             . '</dd>'
@@ -1096,17 +1109,31 @@ class ClaroCourse
             . '</small></p>' . "\n";
         
         $html .= '<script type="text/javascript">
-    $("#registration_true").click(function(){
+    var courseRegistrationEnable = function(){
         $("#registration_validation").attr("disabled", false);
         $("#registration_key").attr("disabled", false);
         $("#registrationKey").attr("disabled", false);
-    });
+    };
     
-    $("#registration_false").click(function(){
+    var courseRegistrationDisable = function(){
         $("#registration_validation").attr("disabled", true);
         $("#registration_key").attr("disabled", true);
         $("#registrationKey").attr("disabled", true);
-    });
+    };
+    
+    $("#registration_true").click(courseRegistrationEnable);
+    
+    $("#registration_false").click(courseRegistrationDisable);
+    
+    if ( $("#registration_true").attr("checked") ) {
+        courseRegistrationEnable();
+    }
+    else if ( $("#registration_false").attr("checked") ) {
+        courseRegistrationDisable();
+    }
+    else {
+        courseRegistrationEnable();
+    }
     
     var courseStatusEnabled = function(){
         $("#status_pending").attr("disabled", true);
@@ -1198,9 +1225,9 @@ class ClaroCourse
         }
     });
 </script>' . "\n";
-
+    
         return $html;
-
+    
     }
 
     /**

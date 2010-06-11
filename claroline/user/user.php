@@ -88,6 +88,7 @@ $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
+$tbl_courses         = $tbl_mdb_names['course'           ];
 $tbl_users           = $tbl_mdb_names['user'             ];
 $tbl_courses_users   = $tbl_rel_course_user;
 
@@ -112,12 +113,13 @@ if (isset($_REQUEST['user_id']))
   Main section
   =====================================================================*/
 
-$disp_tool_link = FALSE;
+$disp_tool_link = false;
 
 if ( $is_allowedToEdit )
 {
-    $disp_tool_link = TRUE;
-
+    $disp_tool_link = true;
+    
+    // Register a new user
     if ( $cmd == 'register' && $req['user_id'])
     {
         $done = user_add_to_course($req['user_id'], claro_get_current_course_id(), false, false, false);
@@ -126,21 +128,22 @@ if ( $is_allowedToEdit )
             $dialogBox->success( get_lang('User registered to the course') );
         }
     }
-
+    
+    // Unregister a user
     if ( $cmd == 'unregister')
     {
         // Unregister user from course
         // (notice : it does not delete user from claroline main DB)
-
+        
         if ('allStudent' == $req['user_id'])
         {
             // TODO : add a function to unenroll all users from a course
             $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
                     WHERE `code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
-                     AND `isCourseManager` = 0";
-
+                    AND `isCourseManager` = 0";
+            
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
-
+            
             $dialogBox->success( get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) ) );
         }
         elseif ( 0 < (int)  $req['user_id'] )
@@ -166,14 +169,15 @@ if ( $is_allowedToEdit )
             }
         }
     } // end if cmd == unregister
-
+    
+    // Export users list
     if( $cmd == 'export' && $can_export_user_list )
     {
         require_once( dirname(__FILE__) . '/lib/export.lib.php');
-
+        
         // contruction of XML flow
         $csv = export_user_list(claro_get_current_course_id());
-
+        
         if( !empty($csv) )
         {
             /*header("Content-type: application/csv");
@@ -183,7 +187,62 @@ if ( $is_allowedToEdit )
             exit;
         }
     }
+    
+    // Validate a user (if this option is enable for the course)
+    if ( $cmd == 'validation' && $req['user_id'])
+    {
+        // Get the current pending value
+        $sql = "SELECT `rcu`.`isPending`
+                FROM `" . $tbl_rel_course_user . "` AS rcu
+                WHERE `rcu`.`user_id` = " . $req['user_id'] . "
+                AND   `rcu`.`code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'";
+        
+        $user = claro_sql_query_get_single_row($sql);
+        
+        // Compute the opposite value
+        $newPendingStatus = null;
+        if ($user['isPending'] == 1)
+        {
+            $newPendingStatus = 0;
+        }
+        else
+        {
+            $newPendingStatus = 1;
+        }
+        
+        $sql = "UPDATE `" . $tbl_rel_course_user . "` AS rcu
+                SET isPending = " . $newPendingStatus . "
+                WHERE `rcu`.`user_id` = " . $req['user_id'] . "
+                AND `code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
+                AND `isCourseManager` = 0";
+            
+        $updated = claro_sql_query_affected_rows($sql);
+        
+        if ($updated)
+        {
+            if ($newPendingStatus)
+            {
+                $dialogBox->success( get_lang('User unvalidated') );
+            }
+            else
+            {
+                $dialogBox->success( get_lang('User validated') );
+            }
+        }
+    }
 }    // end if allowed to edit
+
+
+/*----------------------------------------------------------------------
+   Get Course informations
+  ----------------------------------------------------------------------*/
+
+$sql = "SELECT `course`.`registration` 
+        FROM `" . $tbl_courses . "` AS course 
+        WHERE `course`.`code`='" . claro_sql_escape(claro_get_current_course_id()) . "'";
+
+$course = claro_sql_query_get_single_row($sql);
+
 
 /*----------------------------------------------------------------------
    Get User List
@@ -195,6 +254,7 @@ $sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
                        `user`.`email`        AS `email`,
                        `course_user`.`profile_id`,
                        `course_user`.`isCourseManager`,
+                       `course_user`.`isPending`,
                        `course_user`.`tutor`  AS `tutor`,
                        `course_user`.`role`   AS `role`
                FROM `" . $tbl_users . "`           AS user,
@@ -221,6 +281,7 @@ foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 
 $userList    = $myPager->get_result_list();
 $userTotalNb = $myPager->get_total_item_count();
+
 
 /*----------------------------------------------------------------------
   Get groups
@@ -259,7 +320,9 @@ if ( count($userListId)> 0 )
 }
 
 
-// PREPARE DISPLAY
+/*----------------------------------------------------------------------
+  Prepare display
+  ----------------------------------------------------------------------*/
 
 $nameTools = get_lang('Users');
 
@@ -327,6 +390,7 @@ $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize($_SERVER[
                                  , array('onclick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
                                  );
 
+                                 
 /*=====================================================================
 Display section
   =====================================================================*/
@@ -334,14 +398,14 @@ Display section
 $out = '';
 
 $out .= claro_html_tool_title($nameTools . ' (' . get_lang('number') . ' : ' . $userTotalNb . ')',
-            $is_allowedToEdit ? 'help_user.php' : FALSE);
+            $is_allowedToEdit ? 'help_user.php' : false);
 
 // Display Forms or dialog box(if needed)
-
 $out .= $dialogBox->render();
 
 // Display tool links
 if ( $disp_tool_link ) $out .= claro_html_menu_horizontal($userMenu);
+
 
 /*----------------------------------------------------------------------
    Display pager
@@ -350,6 +414,7 @@ if ( $disp_tool_link ) $out .= claro_html_menu_horizontal($userMenu);
 $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
+
 
 /*----------------------------------------------------------------------
    Display table header
@@ -371,13 +436,19 @@ if ( $is_allowedToEdit ) // EDIT COMMANDS
     $out .= '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['tutor'])).'">'.get_lang('Group Tutor').'</a></th>'."\n"
        . '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['isCourseManager'])).'">'.get_lang('Course manager').'</a></th>'."\n"
        . '<th>'.get_lang('Edit').'</th>'."\n"
-       . '<th>'.get_lang('Unregister').'</th>'."\n" ;
+       . '<th>'.get_lang('Unregister').'</th>'."\n";
+       
+       if ($course['registration'] == 'validation')
+       {
+           $out .= '<th>'.get_lang('Validation').'</th>'."\n" ;
+       }
 }
 
 $out .= '</tr>'."\n"
    . '</thead>'."\n"
    . '<tbody>'."\n" ;
 
+   
 /*----------------------------------------------------------------------
    Display users
   ----------------------------------------------------------------------*/
@@ -503,6 +574,40 @@ foreach ( $userList as $thisUser )
 
         $out .= '</td>' . "\n";
 
+        // User's validation column
+        if ($course['registration'] == 'validation')
+        {
+            $out .= '<td>';
+            
+            if ($thisUser['user_id'] != claro_get_current_user_id())
+            {
+                $icon = '';
+                $tips = '';
+                if ($thisUser['isPending'])
+                {
+                    $icon = 'tick';
+                    $tips = 'Validate this user';
+                }
+                else
+                {
+                    $icon = 'untick';
+                    $tips = 'Unvalidate this user';
+                }
+                $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                .    '?cmd=validation&amp;user_id=' . $thisUser['user_id'] )) . '&amp;offset='.$offset . '" '
+                .    ' title="'.get_lang($tips).'">'
+                .    '<img alt="' . get_lang('Validation') . '" src="' . get_icon_url($icon) . '" />'
+                .    '</a>'
+                ;
+            }
+            else
+            {
+                $out .= '&nbsp;';
+            }
+    
+            $out .= '</td>' . "\n";
+        }
+
     }  // END - is_allowedToEdit
 
     $out .= '</tr>'."\n";
@@ -510,6 +615,7 @@ foreach ( $userList as $thisUser )
     $previousUser = $thisUser['user_id'];
 
 } // END - foreach users
+
 
 /*----------------------------------------------------------------------
    Display table footer

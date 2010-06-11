@@ -11,10 +11,11 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * @version 1.10 $Revision$
  * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
- *  version 2 or later
+ *          version 2 or later
  * @author Claro Team <cvs@claroline.net> for additionnal authors see the
- *  'credits.txt' file
+ *         'credits.txt' file
  * @package kernel
+ * 
  * @todo why do we need that much identifiers for a module ?!?
  * @todo use Exceptions instead of claro_failure
  */
@@ -158,7 +159,7 @@ function claro_get_course_data($courseId = NULL, $force = false )
             
             $courseDataList['access'             ] = $courseDataList['access'];
             $courseDataList['visibility'         ] = (bool) ('visible' == $courseDataList['visibility'] );
-            $courseDataList['registrationAllowed'] = (bool) ('open' == $courseDataList['registration'] );
+            $courseDataList['registrationAllowed'] = $courseDataList['registration'];
             $courseDataList['dbNameGlu'          ] = get_conf('courseTablePrefix') . $courseDataList['dbName'] . get_conf('dbGlu'); // use in all queries
             $courseDataList['categories'         ] = $categoriesDataList;
 
@@ -299,6 +300,7 @@ function claro_get_restricted_courses ($categoryId, $userId)
     if (!is_null($userId))
         $sql .= ", 
                     rcu.isCourseManager, 
+                    rcu.isPending, 
                     rcu.user_id              AS enroled";
     
     $sql .= "

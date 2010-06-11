@@ -41,7 +41,7 @@ include claro_get_conf_repository() . 'user_profile.conf.php';
 include claro_get_conf_repository() . 'course_main.conf.php';
 
 $parentCategoryCode = '';
-$userSettingMode    = FALSE;
+$userSettingMode    = false;
 $dialogBox          = new DialogBox();
 $coursesList        = array();
 $categoriesList     = array();
@@ -65,7 +65,7 @@ Get request variables
 $cmd        = ( isset($_REQUEST['cmd']) ) ? ( $_REQUEST['cmd'] ) : ( '' );
 $uidToEdit  = ( isset($_REQUEST['uidToEdit']) ) ? ( (int) $_REQUEST['uidToEdit'] ) : ( 0 );
 $fromAdmin  = ( isset($_REQUEST['fromAdmin']) && claro_is_platform_admin() ) ? ( trim($_REQUEST['fromAdmin']) ) : ( '' );
-$course     = ( isset($_REQUEST['course']) ) ? ( trim($_REQUEST['course']) ) : ( '' );
+$courseCode = ( isset($_REQUEST['course']) ) ? ( trim($_REQUEST['course']) ) : ( '' );
 $categoryId = ( isset($_REQUEST['categoryId'])) ? ( (int) $_REQUEST['categoryId'] ) : ( null );
 
 /*=====================================================================
@@ -189,9 +189,9 @@ Unsubscribe from a course
 
 if ( $cmd == 'exUnreg' )
 {
-    if ( user_remove_from_course($userId, $course, false, false, false) )
+    if ( user_remove_from_course($userId, $courseCode, false, false, false) )
     {
-        $claroline->log('COURSE_UNSUBSCRIBE',array('user'=>$userId,'course'=>$course));
+        $claroline->log('COURSE_UNSUBSCRIBE',array('user'=>$userId,'course'=>$courseCode));
         $dialogBox->success( get_lang('Your enrolment on the course has been removed') );
     }
     else
@@ -236,9 +236,9 @@ if ( $cmd == 'exReg' )
     //If the current user is a platform admin OR 
     //(if the course is open AND if the category doesn't prevent registration)
     if ( claro_is_platform_admin() || 
-        (is_course_registration_allowed($course) && !$categoryRestricted) )
+        (is_course_registration_allowed($courseCode) && !$categoryRestricted) )
     {
-        $courseRegistrationKey = get_course_registration_key($course);
+        $courseRegistrationKey = get_course_registration_key($courseCode);
         
         if ( claro_is_platform_admin()
         || ( is_null($courseRegistrationKey) || empty($courseRegistrationKey) )
@@ -246,7 +246,7 @@ if ( $cmd == 'exReg' )
         && strtolower(trim($_REQUEST['registrationKey'] )) == strtolower(trim($courseRegistrationKey))) )
         {
             //Is it a session course ?
-            $tempCourse = claro_get_course_data($course);
+            $tempCourse = claro_get_course_data($courseCode);
             
             if (isset($tempCourse) && !empty($tempCourse['sourceCourseId']))
             {
@@ -256,7 +256,7 @@ if ( $cmd == 'exReg' )
             }
             
             //Try to register user
-            if ( user_add_to_course($userId, $course, false, false, false) )
+            if ( user_add_to_course($userId, $courseCode, false, false, false) )
             {
                 if ( claro_get_current_user_id() != $uidToEdit )
                 {
@@ -273,7 +273,7 @@ if ( $cmd == 'exReg' )
                     $properties['isCourseManager']  = 1;
                     $properties['role']             = get_lang('Course manager');
                     $properties['tutor']            = 1;
-                    user_set_course_properties($userId, $course, $properties);
+                    user_set_course_properties($userId, $courseCode, $properties);
                 }
             }
             else
@@ -305,10 +305,10 @@ if ( $cmd == 'exReg' )
     }
     else
     {
-        $courseData = claro_get_course_data($course);
+        $courseData = claro_get_course_data($courseCode);
         $displayMode = DISPLAY_REGISTRATION_DISABLED_FORM;
         
-        $explanation = get_locked_course_explanation($course);
+        $explanation = get_locked_course_explanation($courseCode);
         if( $explanation )
         {
             $dialogBox->error( $explanation );
@@ -630,7 +630,7 @@ switch ( $displayMode )
                         $out .= '<span class="highlight">' . get_lang('Already enroled') . '</span>' . "\n";
                     }
                     elseif(claro_is_platform_admin() || 
-                        ($thisCourse['registration'] == 'open' && !$categoryRestricted))
+                        (in_array($thisCourse['registration'], array('open', 'validation')) && !$categoryRestricted))
                     {
                         $out .= '<a href="' . $_SERVER['PHP_SELF']
                         .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] 
@@ -761,7 +761,7 @@ switch ( $displayMode )
         $dialogBox->title(get_lang('This course requires a key for enrolment'));
         
         $dialogBox->form('<p><small>(' . get_lang('If you do not have the key, please contact the course manager') . ')</small></p>' . "\n"
-        .     get_locked_course_by_key_explanation($course)
+        .     get_locked_course_by_key_explanation($courseCode)
         .     '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .     '<input type="hidden" name="cmd" value="exReg" />' . "\n"
         .     get_lang('Enrolment key')

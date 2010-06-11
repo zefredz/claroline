@@ -47,7 +47,7 @@ if (isset($cidReq))
 }
 
 
-if ( !claro_is_in_a_course()  || !claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $toolRepository = get_path('clarolineRepositoryWeb');
 claro_set_display_mode_available(true);
@@ -81,7 +81,7 @@ $courseSource = retrieve_code_from_id((claro_get_current_course_data('sourceCour
 if (isset($courseSource))
 {
     // call a session course
-    $_SESSION['courseSessionCode'][$courseSource]= claro_get_current_course_id();
+    $_SESSION['courseSessionCode'][$courseSource] = claro_get_current_course_id();
     $courseCode['session'] =  claro_get_current_course_id();
     $courseCode['source'] = $courseSource;
 }

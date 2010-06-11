@@ -586,13 +586,19 @@ if ( $uidReset || $cidReset ) // session data refresh requested
 
         $_courseUser = null; // not used
     }
-
-    $is_courseAllowed = (bool) (
-        ( $_course['visibility']
-            && ( $_course['access'] == 'public'
-                || ( $_course['access'] == 'platform' && claro_is_user_authenticated() )  ) )
+    
+    $is_courseAllowed = (bool) 
+    (
+        ( $_course['visibility'] 
+          && ( $_course['access'] == 'public'
+               || ( $_course['access'] == 'platform' 
+                    && claro_is_user_authenticated() 
+                  ) 
+             ) 
+        )
         || $is_courseMember
-        || $is_platformAdmin ); // here because it's a right and not a state
+        || $is_platformAdmin 
+    ); // here because it's a right and not a state
 }
 else // else of if ($uidReset || $cidReset) - continue with the previous values
 {
@@ -658,8 +664,6 @@ if ( $cidReq
             WHERE ctl.installed = 'true'";
     
     $courseToolList = claro_sql_query_fetch_all_rows($sql);
-    
-    // var_dump( $courseToolList );
     
     $tmp = array();
     

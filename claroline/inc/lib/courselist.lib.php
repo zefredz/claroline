@@ -544,7 +544,7 @@ function render_course_dt_in_dd_list($course, $hot = false)
     $langNameOfLang = get_locale('langNameOfLang');
     $out = '';
     
-    if( isset( $course['isCourseManager'] ) && $course['isCourseManager'] == 1 )
+    if ( isset( $course['isCourseManager'] ) && $course['isCourseManager'] == 1 )
     {
         $userStatusImg = '&nbsp;&nbsp;<img src="' . get_icon_url('manager') . '" alt="'.get_lang('Course manager').'" />';
     }
@@ -591,12 +591,29 @@ function render_course_dt_in_dd_list($course, $hot = false)
         $managerString = '<a href="mailto:' . $course['email'] . '">' . $managerString . '</a>';
     }
     
+    // Don't give a link to the course if the user is in pending state
+    $isUserPending = ($course['access'] == 'private' && isset($course['isPending']) && $course['isPending'] == 1) ? 
+                     (true) : 
+                     (false);
+    if ( $isUserPending )
+    {
+        $courseLink = '<a>'
+                    . htmlspecialchars($courseTitle)
+                    . $userStatusImg
+                    . '</a> ['.get_lang('Pending registration').']' . "\n";
+    }
+    else
+    {
+        $courseLink = '<a href="' . htmlspecialchars( $url ) . '">'
+                    . htmlspecialchars($courseTitle)
+                    . $userStatusImg
+                    . '</a>' . "\n";
+    }
+    
+    
     $out .= '<dt class="' . $classItem . '" >' . "\n"
     .    '<img class="iconDefinitionList" src="' . $iconUrl . '" alt="" />'
-    .    '<a href="' . htmlspecialchars( $url ) . '">'
-    .    htmlspecialchars($courseTitle)
-    .    $userStatusImg
-    .    '</a>' . "\n"
+    .    $courseLink . "\n"
     .    '</dt>' . "\n"
     .    '<dd>'
     .    '<small>' . "\n"
