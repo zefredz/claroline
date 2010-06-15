@@ -1,9 +1,9 @@
-<?php
+<?php // $Id: index.php 12441 2010-06-11 14:34:16Z abourguignon $
 
 /**
  * CLAROLINE
  *
- * @version     1.10
+ * @version     1.10 $Revision: 12441 $
  * @copyright   (c) 2001-2007 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLHOME
