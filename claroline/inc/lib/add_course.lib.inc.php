@@ -375,11 +375,12 @@ function setup_course_tools( $courseDbName, $language, $courseDirectory )
  * 
  * @param string    $courseSysCode
  * @param string    $courseScreenCode
+ * @param int       $sourceCourseId
  * @param string    $courseRepository
  * @param string    $courseDbName
  * @param string    $titular
  * @param string    $email
- * @param arrat     $categories
+ * @param array     $categories
  * @param string    $intitule
  * @param string    $languageCourse
  * @param string    $uidCreator
@@ -389,7 +390,7 @@ function setup_course_tools( $courseDbName, $language, $courseDirectory )
  * @return bool     success;
  * @author Christophe Gesch� <moosh@claroline.net>
  */
-function register_course( $courseSysCode, $courseScreenCode,
+function register_course( $courseSysCode, $courseScreenCode, $sourceCourseId,
                           $courseRepository, $courseDbName,
                           $titular, $email, $categories, $intitule, $languageCourse='',
                           $uidCreator,
@@ -415,7 +416,10 @@ function register_course( $courseSysCode, $courseScreenCode,
     }
     
     // Optionnal parameters
-    if ($languageCourse == '') $languageCourse = 'english';
+    $languageCourse = (!empty($languageCourse)) ? $languageCourse : 'english';
+    
+    $sourceCourseId = (!is_null($sourceCourseId) && !empty($sourceCourseId)) ? 
+        claro_sql_escape($sourceCourseId) : "NULL";
     
     $currentVersionFilePath = get_conf('rootSys') . 'platform/currentVersion.inc.php';
     file_exists($currentVersionFilePath) && require $currentVersionFilePath;
@@ -425,7 +429,7 @@ function register_course( $courseSysCode, $courseScreenCode,
     // Insert course
     $sql = "INSERT INTO `" . $tbl_course . "` SET
             code                 = '" . claro_sql_escape($courseSysCode)        . "',
-            isSourceCourse       = 0,
+            sourceCourseId       = " . $sourceCourseId . ",
             dbName               = '" . claro_sql_escape($courseDbName)         . "',
             directory            = '" . claro_sql_escape($courseRepository)     . "',
             language             = '" . claro_sql_escape($languageCourse)       . "',
@@ -449,7 +453,7 @@ function register_course( $courseSysCode, $courseScreenCode,
             extLinkUrl           = '" . claro_sql_escape($extLinkUrl)       . "',
             defaultProfileId     = " . $defaultProfileId ;
     
-    if ( claro_sql_query($sql) == false) 
+    if ( claro_sql_query($sql) == false)
     {
         return false;
     }
@@ -457,12 +461,29 @@ function register_course( $courseSysCode, $courseScreenCode,
     $courseId = mysql_insert_id();
     
     // Insert categories
-    link_course_categories ( $courseId, $categories );
+    if ( link_course_categories ( $courseId, $categories ) === false )
+    {
+        return false;
+    }
     
     // Add user to course
     if ( user_add_to_course($uidCreator, $courseSysCode, true, true) === false )
     {
         return false;
+    }
+    
+    // Did we insert a session couse ? 
+    if (!is_null($sourceCourseId)) 
+    {
+        // If yes, flag its source course
+        $sql = "UPDATE `" . $tbl_course . "` 
+                SET isSourceCourse = 1 
+                WHERE cours_id = $sourceCourseId";
+        
+        if ( claro_sql_query($sql) == false )
+        {
+            return false;
+        }
     }
     
     return true;

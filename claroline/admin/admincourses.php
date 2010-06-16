@@ -31,13 +31,13 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
-require_once get_path('incRepositorySys') . '/lib/clarocoursesession.class.php';
 
 // Check incoming data
 $offsetC            = isset($_REQUEST['offsetC']) ? $_REQUEST['offsetC'] : '0';
 $validCmdList       = array('exDelete', 'rqDelete');
 $cmd                = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
 $courseCode         = isset($_REQUEST['delCode']) ? $_REQUEST['delCode'] : null;
+$courseId           = isset($_REQUEST['delCode']) ? ClaroCourse::getIdFromCode($_REQUEST['delCode']) : null;
 $resetFilter        = (bool) (isset($_REQUEST['newsearch']) && 'yes' == $_REQUEST['newsearch']);
 $search             = (isset($_REQUEST['search']))  ? $_REQUEST['search'] :'';
 $validRefererList   = array('clist',);
@@ -98,19 +98,8 @@ $dialogBox = new DialogBox();
 // Parse command
 if (!empty($courseCode)) 
 {
-    $courseId = ClaroCourse::getIdFromCode($courseCode);
-    
-    // Is it a session course ?
-    if (ClaroCourse::isSessionCourse($courseId))
-    {
-        $courseToDelete = new ClaroCourseSession();
-        $courseToDelete->load($courseCode);
-    }
-    else
-    {
-        $courseToDelete = new ClaroCourse();
-        $courseToDelete->load($courseCode);
-    }
+    $courseToDelete = new ClaroCourse();
+    $courseToDelete->load($courseCode);
 }
 else
 {
@@ -304,14 +293,15 @@ else
 }
 
 
-$imgVisibilityStatus['visible']     = 'visible';
-$imgVisibilityStatus['invisible']   = 'invisible';
-$imgAccessStatus['private']         = 'access_locked';
-$imgAccessStatus['public']          = 'access_open';
-$imgAccessStatus['platform']        = 'access_platform';
-$imgRegistrationStatus['open']      = 'enroll_allowed';
-$imgRegistrationStatus['key']       = 'enroll_key';
-$imgRegistrationStatus['close']     = 'enroll_forbidden';
+$imgVisibilityStatus['visible']         = 'visible';
+$imgVisibilityStatus['invisible']       = 'invisible';
+$imgAccessStatus['private']             = 'access_locked';
+$imgAccessStatus['public']              = 'access_open';
+$imgAccessStatus['platform']            = 'access_platform';
+$imgRegistrationStatus['open']          = 'enroll_allowed';
+$imgRegistrationStatus['key']           = 'enroll_key';
+$imgRegistrationStatus['close']         = 'enroll_forbidden';
+$imgRegistrationStatus['validation']    = 'tick';
 
 $courseDataList=array();
 

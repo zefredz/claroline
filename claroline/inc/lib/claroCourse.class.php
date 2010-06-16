@@ -34,6 +34,12 @@ class ClaroCourse
     // Code (sometimes named sysCode)
     public $courseId;
 
+    // Boolean: 1 = source course, 0 = session course
+    public $isSourceCourse;
+
+    // Identifier of the source course (only for session courses)
+    public $sourceCourseId;
+
     // Name
     public $title;
 
@@ -95,6 +101,8 @@ class ClaroCourse
     {
         $this->id                   = null;
         $this->courseId             = '';
+        $this->isSourceCourse       = null;
+        $this->sourceCourseId       = null;
         $this->title                = '';
         $this->officialCode         = '';
         $this->titular              = $creatorFirstName . ' ' . $creatorLastName;
@@ -131,18 +139,23 @@ class ClaroCourse
     {
         if ( ( $course_data = claro_get_course_data($courseId) ) !== false )
         {
-            // Generate the array of categories
+            // Generate the array of categories (excepted for session courses)
             $categoriesList = array();
-            foreach ($course_data['categories'] as $cat)
+            if (is_null($course_data['sourceCourseId']))
             {
-                $tempCat = new claroCategory();
-                $tempCat->load($cat['categoryId']);
-                $categoriesList[] = $tempCat;
+                foreach ($course_data['categories'] as $cat)
+                {
+                    $tempCat = new claroCategory();
+                    $tempCat->load($cat['categoryId']);
+                    $categoriesList[] = $tempCat;
+                }
             }
             
             // Assign
             $this->courseId           = $courseId;
             $this->id                 = $course_data['id'];
+            $this->isSourceCourse     = $course_data['isSourceCourse'];
+            $this->sourceCourseId     = $course_data['sourceCourseId'];
             $this->title              = $course_data['name'];
             $this->officialCode       = $course_data['officialCode'];
             $this->titular            = $course_data['titular'];
@@ -189,9 +202,21 @@ class ClaroCourse
             $courseDirectory    = $keys['currentCourseRepository'];
             if ( ! $this->useExpirationDate) $this->expirationDate = 'NULL';
             
+            // Session courses are created without categories links: 
+            // so we duplicate the source course's categories links
+            
+            if ( !is_null($this->sourceCourseId) && !empty($this->sourceCourseId) )
+            {
+                $sourceCourse = new claroCourse();
+                $sourceCourse->load(claroCourse::getCodeFromId($this->sourceCourseId));
+                
+                $this->categories = $sourceCourse->categories;
+            }
+            
             if (   prepare_course_repository($courseDirectory, $courseSysCode)
                 && register_course($courseSysCode
                    ,               $this->officialCode
+                   ,               $this->sourceCourseId
                    ,               $courseDirectory
                    ,               $courseDbName
                    ,               $this->titular
@@ -248,7 +273,7 @@ class ClaroCourse
                 ? 'NULL' 
                 : 'FROM_UNIXTIME(' . claro_sql_escape($this->expirationDate) . ')'
                 ;
-     
+
             $sqlCreationDate = is_null($this->publicationDate) 
                 ? 'NULL' 
                 : 'FROM_UNIXTIME(' . claro_sql_escape($this->publicationDate) . ')'
@@ -278,6 +303,21 @@ class ClaroCourse
             
             // 2/ Link new categories selection
             $this->linkCategories($this->categories);
+            
+            // If it's a source course, do the same for all its session courses
+            if ( $this->isSourceCourse )
+            {
+                $sql = "SELECT cours_id FROM `" . $tbl_course . "` 
+                        WHERE sourceCourseId = " . $this->id;
+                
+                $sessionCourses = claro_sql_query_fetch_all_rows($sql);
+                
+                foreach ($sessionCourses as $sessionCourse)
+                {
+                    unlink_course_categories ( $sessionCourse['cours_id'] );
+                    link_course_categories ( $sessionCourse['cours_id'], $this->categories );
+                }
+            }
             
             return claro_sql_query($sql);
         }
@@ -389,7 +429,7 @@ class ClaroCourse
 
     public function delete ()
     {
-        return delete_course($this->courseId);
+        return delete_course($this->courseId, $this->sourceCourseId);
     }
     
     /**
@@ -460,6 +500,8 @@ class ClaroCourse
             $_REQUEST['linked_categories'] = array(0);
         }
         
+        if ( isset($_REQUEST['isSourceCourse']) ) $this->title = trim(strip_tags($_REQUEST['isSourceCourse']));
+        if ( isset($_REQUEST['sourceCourseId']) ) $this->title = trim(strip_tags($_REQUEST['sourceCourseId']));
         if ( isset($_REQUEST['course_title']) ) $this->title = trim(strip_tags($_REQUEST['course_title']));
         
         if ( isset($_REQUEST['course_officialCode' ]) )
@@ -832,6 +874,8 @@ class ClaroCourse
             . claro_form_relay_context()
             . '<input type="hidden" name="cmd" value="'.(empty($this->courseId)?'rqProgress':'exEdit').'" />' . "\n"
             . '<input type="hidden" name="cours_id" value="'.(empty($this->id)?'':$this->id).'" />' . "\n"
+            . '<input type="hidden" name="course_isSourceCourse" value="'.(empty($this->isSourceCourse)?'':$this->isSourceCourse).'" />' . "\n"
+            . '<input type="hidden" name="course_sourceCourseId" value="'.(empty($this->sourceCourseId)?'':$this->sourceCourseId).'" />' . "\n"
             . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
             
             . $this->getHtmlParamList('POST');
@@ -880,33 +924,36 @@ class ClaroCourse
             . '</dd>'
             . "\n";
         
-        // Course categories
-        $html .= '<dt>'
-            . '<label>'
-            . get_lang('Categories') 
-            . '</label>'
-            . ' :'
-            . '</dt>'
-            . '<dd>'
-            . '<table>'
-            . '<tr>'
-            . '<td>'
-            . '<label for="linked_categories">' . get_lang('Linked categories') . '</label><br/>'
-            . '<select multiple="multiple" name="linked_categories[]" id="linked_categories" size="10">'
-            . $linkedCategoriesListHtml
-            . '</select>'
-            . '</td>'
-            . '<td><input type="button" value="&rarr;" onclick="move(this.form.elements[\'linked_categories\'],this.form.elements[\'unlinked_categories\'])"></input><br/><input type="button" value="&larr;" onclick="move(this.form.elements[\'unlinked_categories\'],this.form.elements[\'linked_categories\'])"></input></td>'
-            . '<td>'
-            . '<label for="unlinked_categories">' . get_lang('Unlinked categories') . '</label><br/>'
-            . '<select multiple="multiple" name="unlinked_categories[]" id="unlinked_categories" size="10">'
-            . $unlinkedCategoriesListHtml
-            . '</select>'
-            . '</td>'
-            . '</tr>'
-            . '</table>'
-            . '</dd>'
-            . "\n";
+        // Course categories (not displayed for session courses)
+        if (is_null($this->sourceCourseId))
+        {
+            $html .= '<dt>'
+                . '<label>'
+                . get_lang('Categories') 
+                . '</label>'
+                . ' :'
+                . '</dt>'
+                . '<dd>'
+                . '<table>'
+                . '<tr>'
+                . '<td>'
+                . '<label for="linked_categories">' . get_lang('Linked categories') . '</label><br/>'
+                . '<select multiple="multiple" name="linked_categories[]" id="linked_categories" size="10">'
+                . $linkedCategoriesListHtml
+                . '</select>'
+                . '</td>'
+                . '<td><input type="button" value="&rarr;" onclick="move(this.form.elements[\'linked_categories\'],this.form.elements[\'unlinked_categories\'])"></input><br/><input type="button" value="&larr;" onclick="move(this.form.elements[\'unlinked_categories\'],this.form.elements[\'linked_categories\'])"></input></td>'
+                . '<td>'
+                . '<label for="unlinked_categories">' . get_lang('Unlinked categories') . '</label><br/>'
+                . '<select multiple="multiple" name="unlinked_categories[]" id="unlinked_categories" size="10">'
+                . $unlinkedCategoriesListHtml
+                . '</select>'
+                . '</td>'
+                . '</tr>'
+                . '</table>'
+                . '</dd>'
+                . "\n";
+        }
         
         // Course department name
         $html .= '<dt>'
@@ -1445,6 +1492,8 @@ class ClaroCourse
 
         $paramList = array();
 
+        $paramList['course_isSourceCourse']     = $this->isSourceCourse;
+        $paramList['course_sourceCourseId']     = $this->sourceCourseId;
         $paramList['course_title']              = $this->title;
         $paramList['course_officialCode']       = $this->officialCode;
         $paramList['course_titular']            = $this->titular;

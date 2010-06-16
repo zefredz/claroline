@@ -43,7 +43,7 @@ include_once( dirname(__FILE__) . '/right/courseProfileToolAction.class.php');
  * @return boolean TRUE        if suceed
  *         boolean FALSE       otherwise.
  */
-function delete_course($code)
+function delete_course($code, $sourceCourseId)
 {
     global $eventNotifier;
 
@@ -67,19 +67,39 @@ function delete_course($code)
     $sql = "DELETE FROM `" . $tbl_course_class . "`
             WHERE courseId ='" . claro_sql_escape($currentCourseId) . "'";
 
-      claro_sql_query($sql);
-      
+    claro_sql_query($sql);
+    
     // Remove links between this course and categories
-      $sql = "DELETE FROM `" . $tbl_rel_course_category . "`
-              WHERE courseId ='" . $this_course['id'] . "'";
+    $sql = "DELETE FROM `" . $tbl_rel_course_category . "`
+            WHERE courseId ='" . $this_course['id'] . "'";
 
-      claro_sql_query($sql);
+    claro_sql_query($sql);
 
     // Delete the course inside the platform course registery
     $sql = 'DELETE FROM `' . $tbl_course . '`
             WHERE code= "' . claro_sql_escape($currentCourseId) . '"';
 
     claro_sql_query($sql);
+    
+    // Is it a session course ?
+    if (!is_null($sourceCourseId))
+    {
+        // Does the source course still have session courses ?
+        $sql = "SELECT COUNT(cours_id) AS nbSessionCourses 
+                FROM `" . $tbl_course . "` 
+                WHERE sourceCourseId = " . (int) $sourceCourseId;
+        
+        $result = claro_sql_query_get_single_row($sql);
+        
+        if ( $result['nbSessionCourses'] == 0 )
+        {
+            $sql = "UPDATE `" . $tbl_course . "` 
+                    SET isSourceCourse = 0 
+                    WHERE cours_id = " . (int) $sourceCourseId;
+            
+            claro_sql_query($sql);
+        }
+    }
 
     // Delete course right
     RightCourseProfileToolRight::resetAllRightProfile($currentCourseId);

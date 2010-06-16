@@ -76,14 +76,14 @@ else
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-$courseSource = retrieve_code_from_id((claro_get_current_course_data('sourceCourseId')));
+$sourceCourseCode = retrieve_code_from_id((claro_get_current_course_data('sourceCourseId')));
 
-if (isset($courseSource))
+if (isset($sourceCourseCode))
 {
     // call a session course
-    $_SESSION['courseSessionCode'][$courseSource] = claro_get_current_course_id();
+    $_SESSION['courseSessionCode'][$sourceCourseCode] = claro_get_current_course_id();
     $courseCode['session'] =  claro_get_current_course_id();
-    $courseCode['source'] = $courseSource;
+    $courseCode['source'] = $sourceCourseCode;
 }
 else 
 {
@@ -100,7 +100,7 @@ else
 $toolLinkList = array(
     'source' => array(),
     'session' => array(),
-	'standAlone' => array()
+    'standAlone' => array()
 );
 
 // generate toollists

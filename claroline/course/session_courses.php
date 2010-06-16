@@ -18,7 +18,7 @@ include claro_get_conf_repository() . 'rss.conf.php';
 $cid = ( isset($_REQUEST['cid']) ) ? $_REQUEST['cid'] : '';
 $nameTools = get_lang('Manage session courses');
 
-if ( !claro_is_in_a_course()  || !claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $toolRepository = get_path('clarolineRepositoryWeb');
 claro_set_display_mode_available(TRUE);

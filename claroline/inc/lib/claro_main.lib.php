@@ -115,26 +115,27 @@ function claro_get_course_data($courseId = NULL, $force = false )
             
             // Get course datas
             $sql =  "SELECT
-                    c.cours_id             AS id,
-                    c.code                 AS sysCode,
-                    c.sourceCourseId       AS sourceCourseId,
-                    c.intitule             AS name,
-                    c.administrativeNumber AS officialCode,
-                    c.directory            AS path,
-                    c.dbName               AS dbName,
-                    c.titulaires           AS titular,
-                    c.email                AS email,
-                    c.language             AS language,
-                    c.extLinkUrl           AS extLinkUrl,
-                    c.extLinkName          AS extLinkName,
-                    c.visibility           AS visibility,
-                    c.access               AS access,
-                    c.registration         AS registration,
-                    c.registrationKey      AS registrationKey,
-                    c.diskQuota            AS diskQuota,
-                    UNIX_TIMESTAMP(c.creationDate)         AS publicationDate,
-                    UNIX_TIMESTAMP(c.expirationDate)       AS expirationDate,
-                    c.status               AS status
+                    c.cours_id              AS id,
+                    c.code                  AS sysCode,
+                    c.isSourceCourse        AS isSourceCourse,
+                    c.sourceCourseId        AS sourceCourseId,
+                    c.intitule              AS name,
+                    c.administrativeNumber  AS officialCode,
+                    c.directory             AS path,
+                    c.dbName                AS dbName,
+                    c.titulaires            AS titular,
+                    c.email                 AS email,
+                    c.language              AS language,
+                    c.extLinkUrl            AS extLinkUrl,
+                    c.extLinkName           AS extLinkName,
+                    c.visibility            AS visibility,
+                    c.access                AS access,
+                    c.registration          AS registration,
+                    c.registrationKey       AS registrationKey,
+                    c.diskQuota             AS diskQuota,
+                    UNIX_TIMESTAMP(c.creationDate)          AS publicationDate,
+                    UNIX_TIMESTAMP(c.expirationDate)        AS expirationDate,
+                    c.status                AS status
                     
                     FROM `" . $tbl_courses . "` AS c
                     
@@ -144,26 +145,21 @@ function claro_get_course_data($courseId = NULL, $force = false )
             
             if ( ! $courseDataList ) return claro_failure::set_failure('course_not_found');
             
-            // Get categories datas
-            $sql = "SELECT
-                    cat.id                  AS categoryId
-                    
-                    FROM `" . $tbl_category . "` AS cat
-                    
-                    LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
-                           ON ( cat.id = rcc.categoryId )
-                           
-                    WHERE rcc.courseId = " . $courseDataList['id'];
-            
-            $categoriesDataList = claro_sql_query_fetch_all($sql);
-            
             $courseDataList['access'             ] = $courseDataList['access'];
             $courseDataList['visibility'         ] = (bool) ('visible' == $courseDataList['visibility'] );
             $courseDataList['registrationAllowed'] = $courseDataList['registration'];
             $courseDataList['dbNameGlu'          ] = get_conf('courseTablePrefix') . $courseDataList['dbName'] . get_conf('dbGlu'); // use in all queries
+            
+            // Get categories datas
+            $sql = "SELECT cat.id  AS categoryId
+                    FROM `" . $tbl_category . "` AS cat
+                    LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
+                    ON ( cat.id = rcc.categoryId )
+                    WHERE rcc.courseId = " . $courseDataList['id'];
+            
+            $categoriesDataList = claro_sql_query_fetch_all($sql);
+            
             $courseDataList['categories'         ] = $categoriesDataList;
-
-
 
             // Doesn't work claro_sql_get_tbl need a tool id and is not for a tool
             // kernel table would be in mainDB.
@@ -186,8 +182,6 @@ function claro_get_course_data($courseId = NULL, $force = false )
 
         $cachedDataList[$courseId] = $courseDataList; // cache for the next time ...
     }
-    
-    // var_dump( $cachedDataList );
 
     return $cachedDataList[$courseId];
 }
@@ -213,6 +207,7 @@ function claro_get_all_courses ($categoryId = null, $visibility = null)
     $sql = "SELECT c.cours_id               AS id, 
                    c.titulaires             AS titular,
                    c.code                   AS sysCode, 
+                   c.isSourceCourse         AS isSourceCourse,
                    c.sourceCourseId         AS sourceCourseId,
                    c.intitule               AS title, 
                    c.administrativeNumber   AS officialCode,
@@ -316,11 +311,7 @@ function claro_get_restricted_courses ($categoryId, $userId)
         $sql .= "
             
             LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
-            ON (
-                (c.cours_id = rcc.courseId AND c.sourceCourseId IS NULL) #source courses
-                OR 
-                (c.sourceCourseId = rcc.courseId AND c.sourceCourseId IS NOT NULL) #session courses
-               )";
+            ON c.cours_id = rcc.courseId";
     
     $sql .= "
             

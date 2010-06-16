@@ -43,7 +43,6 @@ require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
-require_once get_path('incRepositorySys') . '/lib/clarocoursesession.class.php';
 
 // Initialisation
 define('DISP_COURSE_EDIT_FORM',__LINE__);

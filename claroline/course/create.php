@@ -3,8 +3,7 @@
  * CLAROLINE
  *
  * This script  manage the creation of a new course.
- *
- * it contain 3 panel
+ * It contains 3 panels
  * - Form
  * - Wait
  * - Done
@@ -48,7 +47,6 @@ require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
 require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
-require_once get_path('incRepositorySys') . '/lib/clarocoursesession.class.php';
 
 define('DISP_COURSE_CREATION_FORM'     ,__LINE__);
 define('DISP_COURSE_CREATION_SUCCEED'  ,__LINE__);
@@ -131,13 +129,11 @@ function reverseAll(cbList) {
 
 // New course object
 $thisUser = claro_get_current_user_data();
-if ( is_null ($sourceCourseId) )
+$course = new ClaroCourse($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
+
+if (!is_null($sourceCourseId))
 {
-    $course = new ClaroCourse($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
-}
-else
-{
-    $course = new claroCourseSession($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
+    $course->sourceCourseId = $sourceCourseId;
 }
 
 if ( $adminContext && claro_is_platform_admin() )
@@ -152,7 +148,7 @@ if ( claro_is_platform_admin()
     if ( $cmd == 'exEdit' )
     {
         $course->handleForm();
-    
+        
         if( $course->validate() )
         {
             if( $course->save() )
