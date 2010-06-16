@@ -312,25 +312,9 @@ switch( $step )
     break;
     case 1 : // check csv data & display the selection
     {
-        $mimetypes = array(); //array used with supported mimetype for CSV files
-        $mimetypes[] = 'text/comma-separated-values';
-        $mimetypes[] = 'text/csv';
-        $mimetypes[] = 'text/plain';
-        $mimetypes[] = 'application/csv';
-        $mimetypes[] = 'application/excel';
-        $mimetypes[] = 'application/vnd.ms-excel';
-        $mimetypes[] = 'application/vnd.msexcel';
-        $mimetypes[] = 'text/anytext';
-        
         if( !isset( $_FILES['CSVfile'] ) || empty($_FILES['CSVfile']['name']) || $_FILES['CSVfile']['size'] == 0 )
         {
             $dialogBox->error(get_lang('You must select a file'));
-            
-            $content .= $content_default;
-        }
-        elseif( !in_array( $_FILES['CSVfile']['type'], $mimetypes) )
-        {
-            $dialogBox->error(get_lang('CSV file is in the bad format'));
             
             $content .= $content_default;
         }
