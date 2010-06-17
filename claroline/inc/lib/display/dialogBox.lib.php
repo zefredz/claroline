@@ -98,7 +98,7 @@ class DialogBox implements Display
     public function warning( $msg )
     {
         $this->message( $msg, self::DIALOG_WARNING );
-        $this->_size[sefl::DIALOG_WARNING]++;
+        $this->_size[self::DIALOG_WARNING]++;
 
         return $this;
     }
