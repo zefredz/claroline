@@ -15,7 +15,7 @@
 
 /**
  * Constants deprecated
- * @deprectaed since Claroline 1.9.6 use DialogBox constants instead
+ * @deprecated since Claroline 1.9.6 use DialogBox constants instead
  */
 define ( 'DIALOG_INFO',     'DIALOG_INFO' );
 define ( 'DIALOG_SUCCESS',  'DIALOG_SUCCESS' );
