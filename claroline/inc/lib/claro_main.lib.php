@@ -272,6 +272,7 @@ function claro_get_restricted_courses ($categoryId, $userId)
     $sql = "SELECT c.cours_id               AS id, 
                     c.titulaires            AS titular,
                     c.code                  AS sysCode,
+                    c.isSourceCourse        AS isSourceCourse,
                     c.sourceCourseId        AS sourceCourseId,
                     c.intitule              AS title,
                     c.administrativeNumber  AS officialCode,
@@ -315,7 +316,18 @@ function claro_get_restricted_courses ($categoryId, $userId)
     
     $sql .= "
             
-            WHERE visibility = 'visible' 
+            WHERE visibility = 'visible' ";
+    
+    // User logged can't see source courses
+    if (!is_null($userId))
+            $sql .= "
+            AND (isSourceCourse = 0 OR rcu.isCourseManager = 1)";
+    // User anonymous can't see session courses
+    else
+            $sql .= "
+            AND sourceCourseId IS NULL";
+            
+    $sql .= "
             AND (
                   (c.status = 'enable' 
                     OR (c.status = 'date'
@@ -843,15 +855,17 @@ function claro_get_main_course_tool_list ( $force = false )
 }
 
 /**
- * Return the tool list for a course according a certain access level
- * @param  string  $courseIdReq - the requested course id
- *
- * @param  boolean $force (optionnal)  - reset the result cache, default is false
- * @param  boolean $active (optionnal) - get the list of active tool only if set
- *      to true (default behaviour)
- * @param  mixed $courseActive (optional) - set to true (default behaviour) to get only activated course
- *      tools, set to false to get all course tools
- * @return array   the course list
+ * Return the tool list for a course according a certain access level.
+ * 
+ * @param string    $courseIdReq - the requested course id
+ * @param int       $profileIdReq - the requested profile id
+ * @param boolean   $force (optionnal)  - reset the result cache, default is false
+ * @param boolean   $active (optionnal) - get the list of active tool only if set
+ *                  to true (default behaviour)
+ * @param mixed     $courseActive (optional) - set to true (default behaviour) to get 
+ *                  only activated course tools, set to false to get all course tools
+ * 
+ * @return array    the courses list
  */
 
 function claro_get_course_tool_list( $courseIdReq,
