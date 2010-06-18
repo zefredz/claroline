@@ -249,6 +249,54 @@ class From
         }
     }
     
+    /**
+     * Load a list of connectors from a given module
+     * Usage : From::module(ModuleLable)->loadConnectors( list of connectors );
+     * @since Claroline 1.9.6
+     * @params  list of connectors
+     * @return  array of not found connectors
+     */
+    public function loadConnectors()
+    {
+        $args = func_get_args();
+        $notFound = array();
+        
+        foreach ( $args as $cnr )
+        {
+            if ( substr($cnr, -4) !== '.php' && substr( $cnr, -4 ) === '.cnr' )            
+            {
+                $cnr .= '.php';
+            }
+            elseif ( substr($cnr, -8) !== '.cnr.php' )
+            {
+                $cnr .= '.cnr.php';
+            }
+            
+            $cnr = protect_against_file_inclusion( $cnr );
+            
+            $cnrPath = get_module_path( $this->moduleLabel ) . '/connector/' . $cnr;
+            
+            if ( file_exists( $cnrPath ) )
+            {
+                require_once $cnrPath;
+            }
+            else
+            {
+                if ( claro_debug_mode() )
+                {
+                    throw new Exception( "Cannot load connector {$cnrPath}" );
+                }
+                
+                $notFound[] = $cnr;
+                
+                continue;
+            }
+            
+        }
+        
+        return $notFound;
+    }
+    
     private static $cache = array();
     
     /**
