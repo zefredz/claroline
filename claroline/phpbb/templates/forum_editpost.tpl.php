@@ -19,7 +19,7 @@
                 <td><?php echo $this->editor ?></td>
             </tr>
     <?php if( 'forbidden' !== $this->anonymityStatus ) :
-            $checked = ( $this->anonymityStatus == 'default' && !$this->is_allowedToEdit ) ? ' checked=checked' : '';?>
+            $checked = ( $this->anonymityStatus == 'default' ) ? ' checked=checked' : '';?>
             <tr valign="top">
                 <td align="right"><label for="anonymous_post"><?php echo get_lang( 'Anonymous post' )?></label> : </td>
                 <td><input id="anonymous_cb" type="checkbox" name="anonymous_post" value="1"<?php echo $checked ?>/> </td>

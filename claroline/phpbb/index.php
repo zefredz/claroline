@@ -126,6 +126,7 @@ try
         case 'exMvDownForum' :
             $forumId = $userInput->getMandatory( 'forumId' );
             break;                
+        default : break;            
     }
 }
 catch( Exception $ex )
@@ -194,6 +195,7 @@ catch( Exception $ex )
                 $dialogBox->error( get_lang( 'Unknown forum' ) );
                 $cmd = 'show'; 
                 break;  
+            default : break;
         }              
     }
     elseif( $ex instanceof Claro_Input_Exception )

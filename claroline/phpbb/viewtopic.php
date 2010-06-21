@@ -58,11 +58,13 @@ try
     $userInput->setValidator( 'subject', new Claro_Validator_NotEmpty() );
     $userInput->setValidator( 'message', new Claro_Validator_ValueType( 'string' ) );
     $userInput->setValidator( 'start', new Claro_Validator_ValueType( 'numeric' ) );
+    $userInput->setValidator( 'viewall', new Claro_Validator_ValueType( 'numeric' ) );
     
     //gather user input values
     $cmd = $userInput->get( 'cmd', 'show' );
     $forumId = $topicId = $postId = 0;
     $start = $userInput->get( 'start', 0 );
+    $viewall = $userInput->get( 'viewall', 0 );
     switch( $cmd )
     {
         case 'rqPost' :
@@ -460,7 +462,16 @@ if( isset( $form ) )
 if( $topicSettingList )
 {
     // get post and use pager
+    if( !$viewall )
+    {
     $postLister = new postLister( $topicId, $start, get_conf( 'posts_per_page' ) );
+    }
+    else
+    {
+        $postLister = new postLister( $topicId, $start, get_total_posts( $topicId, 'topic' ) );
+        $incrementViewCount = false;
+    }
+    // get post and use pager
     $postList   = $postLister->get_post_list();
     $totalPosts = $postLister->sqlPager->get_total_item_count();
     $pagerUrl   = htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?topic=' . $topicId ) );
@@ -489,6 +500,17 @@ if( $topicSettingList )
             ;
             
             $toolList[] = claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $lastMsgUrl ) ), get_lang( 'Last message' ) );
+            
+            if( !$viewall )
+            {
+                $viewallUrl = Url::Contextualize( $_SERVER['PHP_SELF']
+                .             '?forum=' . $forumSettingList['forum_id']
+                .             '&amp;topic=' . $topicId
+                .             '&amp;viewall=1' )
+                ;
+               
+                $toolList[] = claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $viewallUrl ) ), get_lang( 'Full review' ) );
+            }
         }
         
         $out .= '<p>' . claro_html_menu_horizontal( $toolList ) . '</p>';
@@ -534,7 +556,7 @@ if( $topicSettingList )
     $out .= $postLister->disp_pager_tool_bar( $pagerUrl );
 }
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang( 'Forums' ), 'index.php' );
+ClaroBreadCrumbs::getInstance()->setCurrent( get_lang( 'Forums' ), 'index.php' );
 
 $claroline->display->body->appendContent( $out );
 
