@@ -47,31 +47,46 @@ class CLANN_Portlet extends UserDesktopPortlet
         {
             $output .= '<dl id="portletMyAnnouncements">';
             foreach($announcementEventList as $announcementItem)
-            {
-
-                $output .= '<dt>' . "\n"
-                .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="" />'
-                .    '<small>'
-                .    '<a href="' . $announcementItem['url'] . '">'
-                .    $announcementItem['title']
-                .    '</a>' . "\n"
-                .    '</small>' . "\n"
-                .    '</dt>' . "\n"
-                ;
-
-                foreach($announcementItem['eventList'] as $announcementEvent)
+            {                
+                // Hide hidden and expired elements
+                $isVisible = (bool) ($announcementItem['visibility'] == 'SHOW') ? (1) : (0);
+                $isOffDeadline = (bool) 
+                    (
+                        (isset($announcementItem['visibleFrom']) 
+                            && strtotime($announcementItem['visibleFrom']) > time()
+                        )
+                        ||
+                        (isset($announcementItem['visibleUntil']) 
+                            && time() >= strtotime($announcementItem['visibleUntil'])
+                        )
+                    ) ? (1) : (0);
+                
+                if ( $isVisible && !$isOffDeadline )
                 {
-                    $output .= '<dd>'
-                    .    '<small>'  . "\n"
+                    $output .= '<dt>' . "\n"
+                    .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="" />'
+                    .    '<small>'
                     .    '<a href="' . $announcementItem['url'] . '">'
-                    .    $announcementItem['courseOfficialCode']
-                    .    '</a> : ' . "\n"
-                    .    '<small>'  . "\n"
-                    .    $announcementEvent['content'] . "\n"
+                    .    $announcementItem['title']
+                    .    '</a>' . "\n"
                     .    '</small>' . "\n"
-                    .    '</small>' . "\n"
-                    .    '</dd>' . "\n"
+                    .    '</dt>' . "\n"
                     ;
+                    
+                    foreach($announcementItem['eventList'] as $announcementEvent)
+                    {
+                        $output .= '<dd>'
+                        .    '<small>'  . "\n"
+                        .    '<a href="' . $announcementItem['url'] . '">'
+                        .    $announcementItem['courseOfficialCode']
+                        .    '</a> : ' . "\n"
+                        .    '<small>'  . "\n"
+                        .    $announcementEvent['content'] . "\n"
+                        .    '</small>' . "\n"
+                        .    '</small>' . "\n"
+                        .    '</dd>' . "\n"
+                        ;
+                    }
                 }
             }
             $output .= '</dl>';

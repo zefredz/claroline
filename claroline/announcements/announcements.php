@@ -207,7 +207,7 @@ if($is_allowedToEdit) // check teacher status
             }
             if (announcement_set_item_visibility($id, $visibility))
             {
-                #$dialogBox->success( get_lang('Visibility modified') );
+                $dialogBox->success( get_lang('Visibility modified') );
             }
             $autoExportRefresh = TRUE;
         }
@@ -516,7 +516,7 @@ if ( $displayForm )
     . '<dt>&nbsp;&nbsp;&nbsp;&nbsp;'
     . '<input name="enable_visible_from" id="enable_visible_from" type="checkbox" '
     . (isset($announcement['visibleFrom']) ? ('checked="checked"') : ('')) . '/>' 
-    . '<label for="enable_visible_from">'.get_lang('Visible from').'</label>' 
+    . '<label for="enable_visible_from">'.get_lang('Visible from').' ('.get_lang('included').')</label>' 
     . '</dt>'
     . '<dd>'
     . claro_html_date_form('visible_from_day', 'visible_from_month', 'visible_from_year', 
@@ -524,7 +524,7 @@ if ( $displayForm )
     . '<dt>&nbsp;&nbsp;&nbsp;&nbsp;'
     . '<input name="enable_visible_until" id="enable_visible_until" type="checkbox" '
     . (isset($announcement['visibleUntil']) ? ('checked="checked"') : ('')) . '/>' 
-    . '<label for="enable_visible_until">'.get_lang('Visible until').'</label>' 
+    . '<label for="enable_visible_until">'.get_lang('Visible until').' ('.get_lang('not included').')</label>' 
     . '</dt>'
     . '<dd>'
     . claro_html_date_form('visible_until_day', 'visible_until_month', 'visible_until_year', 
@@ -594,7 +594,7 @@ if ($displayList)
         foreach ( $announcementList as $thisAnnouncement )
         {
 
-            if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility'] == 'SHOW')
+            if (($thisAnnouncement['visibility'] == 'HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility'] == 'SHOW')
             {
                 //modify style if the event is recently added since last login
                 if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisAnnouncement['id']))
@@ -606,11 +606,21 @@ if ($displayList)
                     $cssItem = 'item';
                 }
                 
-                // Hide hidden and expired elements
+                // Hide hidden and out of deadline elements
                 $cssInvisible = '';
-                if ( $thisAnnouncement['visibility'] == 'HIDE' || 
-                    (isset($thisAnnouncement['visibleUntil']) && 
-                        strtotime($thisAnnouncement['visibleUntil']) < time()) )
+                $isVisible = (bool) ($thisAnnouncement['visibility'] == 'SHOW') ? (1) : (0);
+                $isOffDeadline = (bool) 
+                    (
+                        (isset($thisAnnouncement['visibleFrom']) 
+                            && strtotime($thisAnnouncement['visibleFrom']) > time()
+                        )
+                        ||
+                        (isset($thisAnnouncement['visibleUntil']) 
+                            && time() >= strtotime($thisAnnouncement['visibleUntil'])
+                        )
+                    ) ? (1) : (0);
+                
+                if ( !$isVisible || $isOffDeadline )
                 {
                     $cssInvisible = ' invisible';
                 }

@@ -33,8 +33,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * Get list of all announcements in the given or current course.
  *
- * @param string    $order  'ASC' || 'DESC' : ordering of the list.
- * @param string    $course_id sysCode of the course (leaveblank for current course)
+ * @param array     $thisCourse
+ * @param int       $limit number of records to return
+ * @param int       $startTime 
+ * @param bool      $visibleOnly
  * @return array of array(id, title, content, time, visibility, rank)
  * @since 1.7
  */
@@ -44,40 +46,55 @@ function announcement_get_course_item_list($thisCourse, $limit = null, $startTim
     $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
     // ****
     
-    $sql = "SELECT '" . claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`,\n"
-            . "'" . claro_sql_escape($thisCourse['officialCode']) ."'     AS `courseOfficialCode`,\n"
+    $sql = "SELECT '" . claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`, \n"
+            . "'" . claro_sql_escape($thisCourse['officialCode']) ."'     AS `courseOfficialCode`, \n"
             . "'CLANN'                                              AS `toolLabel`,\n"
-            . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`,\n"
-            . "CONCAT(`title`,' - ',`contenu`)                      AS `content`,\n"
-            . "`visibleFrom`,\n"
-            . "`visibleUntil`\n"
-            . "FROM `" . $tableAnn . "`\n"
-            . "WHERE CONCAT(`title`, `contenu`) != ''\n"
-            . ( $startTime ? '' : "AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', (double)$startTime)."'\n" )
-            . ( $visibleOnly ? "  AND visibility = 'SHOW'\n" : '' )
-            . "ORDER BY `date` DESC\n"
+            . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`, \n"
+            . "CONCAT(`title`,' - ',`contenu`)                      AS `content`, \n"
+            . "`visibility`, \n"
+            . "`visibleFrom`, \n"
+            . "`visibleUntil` \n"
+            . "FROM `" . $tableAnn . "` \n"
+            . "WHERE CONCAT(`title`, `contenu`) != '' \n"
+            . ( $startTime ? '' : "AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', (double)$startTime)."' \n" )
+            . ( $visibleOnly ? "  AND visibility = 'SHOW' \n" : '' )
+            . "ORDER BY `date` DESC \n"
             . ( $limit ? "LIMIT " . (int) $limit : '' )
             ;
     
     return claro_sql_query_fetch_all_cols($sql);
 }
 
+
+/**
+ * Get list of all announcements in the given or current course.
+ *
+ * @param array     $thisCourse
+ * @param int       $limit number of records to return
+ * @param int       $startTime 
+ * @param bool      $visibleOnly
+ * @return array of array(id, title, content, time, visibility, rank)
+ * @since 1.7
+ */
 function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $startTime = null, $visibleOnly = true )
 {    
     // **** Caution: has to get fixed !
     $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
     // ****
     
-    $sql = "SELECT '" . claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`,\n"
-            . "'" . claro_sql_escape($thisCourse['officialCode']) ."'     AS `courseOfficialCode`,\n"
-            . "'CLANN'                                              AS `toolLabel`,\n"
-            . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`,\n"
-            . "CONCAT(`title`,' - ',`contenu`)                      AS `content`\n"
-            . "FROM `" . $tableAnn . "`\n"
-            . "WHERE CONCAT(`title`, `contenu`) != ''\n"
-            . ( $startTime ? '' : "AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', (double)$startTime)."'\n" )
-            . ( $visibleOnly ? "  AND visibility = 'SHOW'\n" : '' )
-            . "ORDER BY `date` DESC\n"
+    $sql = "SELECT '" . claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`, \n"
+            . "'" . claro_sql_escape($thisCourse['officialCode']) ."'     AS `courseOfficialCode`, \n"
+            . "'CLANN'                                              AS `toolLabel`, \n"
+            . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`, \n"
+            . "CONCAT(`title`,' - ',`contenu`)                      AS `content`, \n"
+            . "`visibility`, \n"
+            . "`visibleFrom`, \n"
+            . "`visibleUntil` \n"
+            . "FROM `" . $tableAnn . "` \n"
+            . "WHERE CONCAT(`title`, `contenu`) != '' \n"
+            . ( $startTime ? '' : "AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', (double)$startTime)."' \n" )
+            . ( $visibleOnly ? "  AND visibility = 'SHOW' \n" : '' )
+            . "ORDER BY `date` DESC \n"
             . ( $limit ? "LIMIT " . (int) $limit : '' )
             ;
     
@@ -117,6 +134,9 @@ function announcement_get_items_portlet($personnalCourseList)
                     $courseDigestList[$courseOfficialCode]['eventList'] = array();
                     $courseDigestList[$courseOfficialCode]['courseOfficialCode'] = $courseOfficialCode;
                     $courseDigestList[$courseOfficialCode]['title'] = $eventTitle;
+                    $courseDigestList[$courseOfficialCode]['visibility'] = $thisEvent['visibility'];
+                    $courseDigestList[$courseOfficialCode]['visibleFrom'] = $thisEvent['visibleFrom'];
+                    $courseDigestList[$courseOfficialCode]['visibleUntil'] = $thisEvent['visibleUntil'];
                     $courseDigestList[$courseOfficialCode]['url'] = get_path('url').'/claroline/announcements/announcements.php?cidReq=' . $thisEvent['courseSysCode'];
                 } 
                 
@@ -139,14 +159,14 @@ function announcement_get_item_list($context, $order='DESC')
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($context[CLARO_CONTEXT_COURSE]));
 
-    $sql = "SELECT            id,
-                              title,
-                   contenu AS content,
+    $sql = "SELECT id,
+                   title,
+                   contenu          AS content,
                    visibleFrom,
                    visibleUntil,
-                   temps   AS `time`,
-                              visibility,
-                   ordre AS   rank
+                   temps            AS `time`,
+                   visibility,
+                   ordre            AS rank
             FROM `" . $tbl['announcement'] . "`
             ORDER BY ordre " . ($order == 'DESC' ? 'DESC' : 'ASC');
     return claro_sql_query_fetch_all($sql);
