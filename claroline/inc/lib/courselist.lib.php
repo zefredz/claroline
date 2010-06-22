@@ -339,21 +339,17 @@ function get_user_course_list($userId, $renew = false)
                 ON rcu.user_id = " . (int) $userId . " 
                      
                 LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
-                ON (
-                    (course.cours_id = rcc.courseId AND course.sourceCourseId IS NULL) #source courses
-                    OR 
-                    (course.sourceCourseId = rcc.courseId AND course.sourceCourseId IS NOT NULL) #session courses
-                   )
+                ON course.cours_id = rcc.courseId
                 
-                WHERE course.code         = rcu.code_cours
-                         
-                         AND (course.`status`='enable'
-                              OR (course.`status` = 'date'
-                                  AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' 
-                                  OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0)
-                                  AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) OR `expirationDate` IS NULL)
-                                 )
-                             ) ";
+                WHERE course.code = rcu.code_cours
+                AND (course.`status`='enable'
+                      OR (course.`status` = 'date'
+                           AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' 
+                                 OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0
+                               )
+                           AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) OR `expirationDate` IS NULL)
+                         )
+                    )";
         
         if ( !get_conf('userCourseListGroupByCategories') )
         {
