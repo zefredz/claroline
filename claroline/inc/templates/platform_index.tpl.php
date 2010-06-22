@@ -102,6 +102,10 @@ if ( claro_is_user_authenticated() ) :
     else
     {
         // DISPLAY USER OWN COURSE LIST
+        
+        // Clean session code
+        if (isset($_SESSION['courseSessionCode'])) $_SESSION['courseSessionCode'] = null;
+        
         require get_path('incRepositorySys') . '/index_mycourses.inc.php';        
         
     }
