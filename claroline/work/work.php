@@ -205,7 +205,8 @@ if( $is_allowedToEdit && $cmd == 'exDownload' && get_conf('allow_download_all_su
             FROM  `" . $tbl_wrk_submission . "`
             WHERE `parent_id` IS NULL
             " . $sqlDateCondition . "
-            ORDER BY `creation_date`";
+            ORDER BY `authors`,
+                     `creation_date`";
 
     $results = claro_sql_query_fetch_all($sql);
 

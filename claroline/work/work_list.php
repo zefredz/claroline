@@ -186,7 +186,8 @@ if( $cmd == 'exDownload' && $is_allowedToEditAll && get_conf('allow_download_all
             WHERE `assignment_id` = " . (int) $req['assignmentId'] . "
             AND `parent_id` IS NULL
             " . $sqlDateCondition . "
-            ORDER BY `creation_date`";
+            ORDER BY `authors`,
+                     `creation_date`";
 
 
     $path = $coursesRepositorySys . $_course['path'] . '/work/assig_' . $req['assignmentId'] . '/';
