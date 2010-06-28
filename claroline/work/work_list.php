@@ -663,7 +663,7 @@ if ( $is_allowedToEditAll )
         require_once($includePath . '/lib/form.lib.php');
 
          $downloadForm = '<strong>' . get_lang('Download').'</strong>' . "\n"
-         .        '<form action="' . $_SERVER['PHP_SELF'] . '?assigId=' . $req['assignmentId'] . '" method="POST">' . "\n"
+         .        '<form action="export.php?assigId=' . $req['assignmentId'] . '" method="POST">' . "\n"
          .    claro_form_relay_context()
          .    '<input type="hidden" name="cmd" value="exDownload" />' . "\n"
          .        '<input type="radio" name="downloadMode" id="downloadMode_from" value="from" checked /><label for="downloadMode_from">' . get_lang('Submissions posted or modified after date :') . '</label><br />' . "\n"

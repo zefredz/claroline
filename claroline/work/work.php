@@ -290,7 +290,7 @@ if( $is_allowedToEdit && $cmd == 'rqDownload' && get_conf('allow_download_all_su
     require_once($includePath . '/lib/form.lib.php');
     
     $dialogBox->title( get_lang('Download') );
-    $dialogBox->form( '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+    $dialogBox->form( '<form action="export.php" method="POST">' . "\n"
     .    claro_form_relay_context()
     .    '<input type="hidden" name="cmd" value="exDownload" />' . "\n"
     .     '<input type="radio" name="downloadMode" id="downloadMode_from" value="from" checked /><label for="downloadMode_from">' . get_lang('Submissions posted or modified after date :') . '</label><br />' . "\n"
