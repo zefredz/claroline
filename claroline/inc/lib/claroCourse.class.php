@@ -635,7 +635,7 @@ class ClaroCourse
         $fieldRequiredStateList['officialCode'  ] = get_conf('human_code_needed');
         $fieldRequiredStateList['titular'       ] = false;
         $fieldRequiredStateList['email'         ] = get_conf('course_email_needed');
-        $fieldRequiredStateList['categories'    ] = false;
+        $fieldRequiredStateList['categories'    ] = false; // Can be left blank (no category associated)
         $fieldRequiredStateList['language'      ] = true;
         $fieldRequiredStateList['departmentName'] = get_conf('extLinkNameNeeded');
         $fieldRequiredStateList['extLinkUrl'    ] = get_conf('extLinkUrlNeeded');
