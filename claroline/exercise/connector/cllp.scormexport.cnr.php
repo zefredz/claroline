@@ -160,7 +160,7 @@ class CLQWZ_ScormExport extends PathScormExport
     
     $pageEnd = '
     <tr>
-        <td align="center"><br /><input type="button" value="' . get_lang('Ok') . '" onclick="calcScore()" /></td>
+        <td align="center"><br /><input type="button" value="' . get_lang('Finish') . '" onclick="calcScore()" /></td>
     </tr>
     </table>
     </form>
@@ -192,17 +192,17 @@ class CLQWZ_ScormExport extends PathScormExport
             {
                 rawScore = CalculateRawScore(document, ' . getIdCounter() . ', fillAnswerList);
                 var score = Math.max(Math.round(rawScore * 100 / weighting), 0);
-                var oldScore = doLMSGetValue("cmi.score.raw");
+                //var oldScore = doLMSGetValue("cmi.score.raw");
     
                 doLMSSetValue("cmi.score.max", weighting);
                 doLMSSetValue("cmi.score.min", 0);
     
                 computeTime();
     
-                if (score > oldScore) // Update only if score is better than the previous time.
-                {
+                /*if (score > oldScore) // Update only if score is better than the previous time.
+                {*/
                     doLMSSetValue("cmi.raw", rawScore);
-                }
+                /*}*/
                 
                 var oldStatus = doLMSGetValue( "cmi.completion_status" )
                 if (score >= raw_to_pass)
