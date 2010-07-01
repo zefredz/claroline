@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * prupose an multifield search in courses
+ * Offers a multifield search tool for courses
  *
  * @version 1.9 $Revision$
  *
@@ -27,6 +27,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 include_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 include_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
 include_once get_path('incRepositorySys') . '/lib/form.lib.php';
+include_once get_path('incRepositorySys') . '/lib/clarocategory.class.php';
 
 //declare needed tables
 $tbl_mdb_names    = claro_sql_get_main_tbl();
@@ -60,14 +61,20 @@ if (isset($_REQUEST['visibility']))    $visibility    = $_REQUEST['visibility'];
 if (isset($_REQUEST['code']))          $code          = $_REQUEST['code'];          else $code         = "";
 if (isset($_REQUEST['intitule']))      $intitule      = $_REQUEST['intitule'];      else $intitule     = "";
 if (isset($_REQUEST['category']))      $category      = $_REQUEST['category'];      else $category     = "";
-if (isset($_REQUEST['searchLang']))    $searchLang    = $_REQUEST['searchLang'];      else $searchLang = "";
+if (isset($_REQUEST['searchLang']))    $searchLang    = $_REQUEST['searchLang'];    else $searchLang   = "";
 
 // Search needed info in db to create the right formulaire
-$arrayFaculty = course_category_get_list();
-$category_array = claro_get_cat_flat_list();
-$category_array = array_merge(array(get_lang('All') => ''),$category_array);
-$language_list = claro_get_lang_flat_list();
-$language_list = array_merge(array(get_lang('All') => ''),$language_list);
+$arrayFaculty   = course_category_get_list();
+$category_array = ClaroCategory::getAllCategoriesFlat();
+$language_list  = claro_get_lang_flat_list();
+$language_list  = array_merge(array(get_lang('All') => ''),$language_list);
+
+// Structure the categories array as follow: array(category_label => category_value)
+$structuredCatArray = array(get_lang('All') => ''); // Default choice
+foreach ($category_array as $category)
+{
+    $structuredCatArray[$category['path']] = $category['id'];
+}
 
 //----------------------------------
 // DISPLAY
@@ -83,7 +90,7 @@ $tpl = new PhpTemplate( get_path( 'incRepositorySys' ) . '/templates/advancedCou
 
 $tpl->assign('code', $code);
 $tpl->assign('intitule', $intitule);
-$tpl->assign('category_array', $category_array);
+$tpl->assign('category_array', $structuredCatArray);
 $tpl->assign('language_list', $language_list);
 $tpl->assign('access', $access);
 $tpl->assign('subscription', $subscription);
@@ -133,27 +140,27 @@ function build_select_faculty($elem,$father,$editFather,$space)
 
 
 /**
- * return all courses category order by treepos
- * @return array (id, name, code, code_P, treePos, nb_childs, canHaveCoursesChild, canHaveCatChild )
+ * Return all courses category order by treepos.
+ * 
+ * @return array (id, name, code, idParent, rank, visible, canHaveCoursesChild)
  */
 function  course_category_get_list()
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_course_nodes     = $tbl_mdb_names['category'];
-    $sql_searchfaculty = "
+    $tbl_mdb_names  = claro_sql_get_main_tbl();
+    $tbl_category   = $tbl_mdb_names['category'];
+    $sql_searchCategory = "
 SELECT
     id,
     name,
     code,
-    code_P,
-    treePos,
-    nb_childs,
-    canHaveCoursesChild,
-    canHaveCatChild
-FROM `" . $tbl_course_nodes . "`
-ORDER BY `treePos`";
+    idParent,
+    rank,
+    visible,
+    canHaveCoursesChild
+FROM `" . $tbl_category . "`
+ORDER BY idParent, rank";
 
-    return claro_sql_query_fetch_all($sql_searchfaculty);
+    return claro_sql_query_fetch_all($sql_searchCategory);
 }
 
 ?>

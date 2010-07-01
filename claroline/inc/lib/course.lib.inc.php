@@ -17,10 +17,11 @@ if ( count( get_included_files() ) == 1 )
  * @author  Muret Beno�t <muret_ben@hotmail.com>
  */
 
+
 /**
-  * Delete a directory
+  * Delete a directory.
+  * 
   * @param string $dir    the directory deleting
-  *
   * @return boolean whether success true
   *
   */
@@ -47,13 +48,14 @@ function delete_directory($dir)
       return $deleteOk;
 }
 
+
 /**
-  * Create a command to create a selectBox with the language
+  * Create a command to create a selectBox with the language.
+  * 
   * @param string $selected the language selected
   * @return the command to create the selectBox
   * @todo merge this with  claro_disp_select_box
   */
-
 function create_select_box_language($selected=NULL)
 {
     $arrayLanguage = language_exists();
@@ -76,8 +78,10 @@ function create_select_box_language($selected=NULL)
     return $selectBox;
 }
 
+
 /**
-  * Return an array with the language
+  * Return an array with the language.
+  * 
   * @return an array with the language
   */
 function language_exists()
@@ -108,15 +112,15 @@ function language_exists()
     return $arrayLanguage;
 }
 
+
 /**
- * build the <option> element with categories where we can create/have courses
+ * Build the <option> element with categories where we can create/have courses.
  *
  * @param the code of the preselected categorie
  * @param the separator used between a cat and its paretn cat to display in the <select>
  * @return echo all the <option> elements needed for a <select>.
  *
  */
-
 function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -163,7 +167,7 @@ function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
 
 
 /**
- * build the <option> element with categories where we can create/have courses
+ * Build the <option> element with categories where we can create/have courses.
  *
  * @param the code of the preselected categorie
  * @param the separator used between a cat and its paretn cat to display in the <select>
@@ -181,50 +185,15 @@ function claro_get_cat_list()
 }
 
 
-function claro_get_cat_flat_list($separator = ' > ')
-{
-    $fac_list = claro_get_cat_list();
-    $categories = array();
-    $fac_array = array();
-    if(is_array($fac_list))
-    foreach ($fac_list as $myfac)
-    {
-        $categories[$myfac['code']]['treePos'] = $myfac['treePos'];
-        $categories[$myfac['code']]['code']    = $myfac['code'];
-        $categories[$myfac['code']]['parent']  = $myfac['code_P'];
-        $categories[$myfac['code']]['name']    = $myfac['name'];
-        $categories[$myfac['code']]['childs']  = $myfac['canHaveCoursesChild'];
-    }
-
-    // then we build the table we need : full path of editable cats in an array
-
-    foreach ($categories as $cat)
-    {
-        if ( $cat['childs'] == 'TRUE' )
-        {
-            $label = '('
-            .   get_full_path($categories, $cat['code'], $separator)
-            .   ') '
-            .   htmlspecialchars($cat['name'])
-            ;
-            
-            $fac_array[$label] = $cat['code'];
-        }
-    }
-
-    return $fac_array;
-}
-
-
 /**
- * Recursive function to get the full categories path of a specified categorie
+ * Recursive function to get the full categories path of a specified categorie.
  *
  * @param table of all the categories, 2 dimension tables, first dimension for cat codes, second for names,
  *  parent's cat code.
  * @param $catcode   string the categorie we want to have its full path from root categorie
  * @param $separator string
  * @return void
-  */
+ */
 function get_full_path($categories, $catcode = NULL, $separator = ' > ')
 {
     //Find parent code
@@ -284,8 +253,9 @@ function claro_get_lang_flat_list()
     return $language_flat_list;
 }
 
+
 /**
- * return all manager id of a course
+ * Return all manager id of a course.
  *
  * @param string $cid course id
  * @return array(int) array of int
@@ -305,9 +275,9 @@ function claro_get_course_manager_id($cid = NULL)
      $tableName = get_module_main_tbl(array('rel_course_user'));
      
     $sql = "SELECT user_id "
-            . " FROM `". $tableName['rel_course_user']."`"
-            . " WHERE code_cours='".claro_sql_escape($cid)."'"
-            .    " AND isCourseManager = 1"
+         . "FROM `". $tableName['rel_course_user']."` "
+         . "WHERE code_cours='".claro_sql_escape($cid)."' "
+         . "AND isCourseManager = 1"
             ;
     
     $result = claro_sql_query_fetch_all_cols($sql);

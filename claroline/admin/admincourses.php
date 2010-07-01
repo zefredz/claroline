@@ -316,7 +316,6 @@ foreach($courseList as $numLine => $courseLine)
         $bold_search = str_replace('*', '.*', $_SESSION['admin_course_search']);
         $courseLine['officialCode'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['officialCode']);
         $courseLine['intitule'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['intitule']);
-        $courseLine['faculte'] = preg_replace("/(".$bold_search.")/i","<b>\\1</b>", $courseLine['faculte']);
     }
     
     // Official Code
@@ -469,7 +468,8 @@ echo $claroline->display->render();
 
 
 /**
- * Prepares the sql request to select courses in database
+ * Prepares the sql request to select courses in database.
+ * 
  * @return string $sql
  */
 function prepare_get_filtred_course_list()
@@ -478,60 +478,65 @@ function prepare_get_filtred_course_list()
 
     $sqlFilter = array();
     // Prepare filter deal with KEY WORDS classification call
-    if (isset($_SESSION['admin_course_search']))   $sqlFilter[]="(  co.`intitule`  LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'
-                                                                 OR co.`administrativeNumber` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'
-                                                                 OR co.`faculte`   LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'
-                                                             )";
-
-    //deal with ADVANCED SEARCH parmaters call
-    if (isset($_SESSION['admin_course_intitule']) && !empty($_SESSION['admin_course_intitule']) ) $sqlFilter[] = "(co.`intitule` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_intitule'])) ."%')";
-    if (isset($_SESSION['admin_course_code']) && !empty($_SESSION['admin_course_code']) )     $sqlFilter[] = "(co.`administrativeNumber` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_code'])) ."%')";
-    if (isset($_SESSION['admin_course_category']) && !empty($_SESSION['admin_course_category'])) $sqlFilter[] = "(co.`faculte` = '". claro_sql_escape(pr_star_replace($_SESSION['admin_course_category'])) ."')";
-    if (isset($_SESSION['admin_course_language'])) $sqlFilter[] = "(co.`language` = '". claro_sql_escape($_SESSION['admin_course_language']) ."')";
-
+    if (isset($_SESSION['admin_course_search'])) 
+        $sqlFilter[] = "(  co.`intitule`  LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'" . "\n"
+                     . "   OR co.`administrativeNumber` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'" . "\n"
+                     . ")";
+    
+    // Deal with ADVANCED SEARCH parmaters call
+    if (isset($_SESSION['admin_course_intitule']) && !empty($_SESSION['admin_course_intitule']) ) 
+        $sqlFilter[] = "(co.`intitule` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_intitule'])) ."%')";
+    if (isset($_SESSION['admin_course_code']) && !empty($_SESSION['admin_course_code']) ) 
+        $sqlFilter[] = "(co.`administrativeNumber` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_code'])) ."%')";
+    if (isset($_SESSION['admin_course_language'])) 
+        $sqlFilter[] = "(co.`language` = '". claro_sql_escape($_SESSION['admin_course_language']) ."')";
+    
     if (isset($_SESSION['admin_course_visibility']))
     {
-        if     ($_SESSION['admin_course_visibility'] == 'invisible') $sqlFilter[]= "co.`visibility`='INVISIBLE'";
-        elseif ($_SESSION['admin_course_visibility'] == 'visible'  ) $sqlFilter[]= "co.`visibility`='VISIBLE'";
+        if ($_SESSION['admin_course_visibility'] == 'invisible') 
+            $sqlFilter[]= "co.`visibility`='INVISIBLE'";
+        elseif ($_SESSION['admin_course_visibility'] == 'visible'  ) 
+            $sqlFilter[]= "co.`visibility`='VISIBLE'";
     }
-
+    
     if (isset($_SESSION['admin_course_access']))
     {
-        if     ($_SESSION['admin_course_access'] == 'public' ) $sqlFilter[]= "co.`access`='public'";
-        elseif ($_SESSION['admin_course_access'] == 'private') $sqlFilter[]= "co.`access`='private'";
-        elseif ($_SESSION['admin_course_access'] == 'platform') $sqlFilter[]= "co.`access`='platform'";
+        if ($_SESSION['admin_course_access'] == 'public' ) 
+            $sqlFilter[]= "co.`access`='public'";
+        elseif ($_SESSION['admin_course_access'] == 'private') 
+            $sqlFilter[]= "co.`access`='private'";
+        elseif ($_SESSION['admin_course_access'] == 'platform') 
+            $sqlFilter[]= "co.`access`='platform'";
     }
-
+    
     if (isset($_SESSION['admin_course_subscription']))   // type of subscription allowed is used
     {
-        if ($_SESSION['admin_course_subscription']     == 'allowed') $sqlFilter[]= "co.`registration`='OPEN'";
-        elseif ($_SESSION['admin_course_subscription'] == 'denied' ) $sqlFilter[]= "co.`registration`='CLOSE'";
-        elseif ($_SESSION['admin_course_subscription'] == 'key' ) $sqlFilter[]= "co.`registration`='OPEN' AND CHAR_LENGTH(co.`registrationKey`) != 0";
+        if ($_SESSION['admin_course_subscription']     == 'allowed') 
+            $sqlFilter[]= "co.`registration`='OPEN'";
+        elseif ($_SESSION['admin_course_subscription'] == 'denied' ) 
+            $sqlFilter[]= "co.`registration`='CLOSE'";
+        elseif ($_SESSION['admin_course_subscription'] == 'key' ) 
+            $sqlFilter[]= "co.`registration`='OPEN' AND CHAR_LENGTH(co.`registrationKey`) != 0";
     }
-
-
+    
+    // Create the WHERE clauses
     $sqlFilter = sizeof($sqlFilter) ? "WHERE " . implode(" AND ",$sqlFilter)  : "";
-
-
-    // Build the complete SQL
-    $sql = "SELECT  co.`cours_id`             AS `id`,
-                    co.`administrativeNumber` AS `officialCode`,
-                    co.`intitule`             AS `intitule`,
-                    co.`code`                 AS `sysCode`,
-                    co.`sourceCourseId`       AS `sourceCourseId`,
-                    co.`isSourceCourse`       AS `isSourceCourse`,
-                    co.`visibility`           AS `visibility`,
-                    co.`access`               AS `access`,
-                    co.`registration`         AS `registration`,
-                    co.`registrationKey`      AS `registrationKey`,
-                    co.`directory`            AS `repository`,
-                    co.`status`               AS `status`
-                    
-                    FROM  `" . $tbl_mdb_names['course'] . "` AS co" 
-                    . $sqlFilter ;
-
+    
+    // Build the complete SQL request
+    $sql = "SELECT co.`cours_id`      AS `id`, " . "\n"
+         . "co.`administrativeNumber` AS `officialCode`, " . "\n"
+         . "co.`intitule`             AS `intitule`, " . "\n"
+         . "co.`code`                 AS `sysCode`, " . "\n"
+         . "co.`sourceCourseId`       AS `sourceCourseId`, " . "\n"
+         . "co.`isSourceCourse`       AS `isSourceCourse`, " . "\n"
+         . "co.`visibility`           AS `visibility`, " . "\n"
+         . "co.`access`               AS `access`, " . "\n"
+         . "co.`registration`         AS `registration`, " . "\n"
+         . "co.`registrationKey`      AS `registrationKey`, " . "\n"
+         . "co.`directory`            AS `repository`, " . "\n"
+         . "co.`status`               AS `status` " . "\n"
+         . "FROM  `" . $tbl_mdb_names['course'] . "` AS co " . "\n"
+         . $sqlFilter ;
+    
     return $sql;
 }
-
-
-?>
