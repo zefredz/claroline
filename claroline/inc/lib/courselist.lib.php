@@ -294,14 +294,15 @@ function search_course($keyword, $userId = null)
 
 
 /**
- * Return the list of course of a user.
+ * Return course list of a user.
  *
  * @param int $userId valid id of a user
- * @param boolean $renew whether true, force to read databaseingoring an existing cache.
- * @return array (list of course) of array (course settings) of the given user.
+ * @param boolean $renew whether true, force to read databaseingoring an existing cache (default: false)
+ * @param boolean $categories wheter true, get categories informations (default: false)
+ * @return array (list of course) of array (course settings) of the given user
  * @todo search and merge other instance of this functionality
  */
-function get_user_course_list($userId, $renew = false)
+function get_user_course_list($userId, $renew = false, $categories = false)
 {
     static $cached_uid = null, $userCourseList = null;
 
@@ -329,17 +330,27 @@ function get_user_course_list($userId, $renew = false)
                        course.sourceCourseId,
                        UNIX_TIMESTAMP(course.expirationDate) AS expirationDate,
                        UNIX_TIMESTAMP(course.creationDate)   AS creationDate,
-                       rcu.isCourseManager, 
+                       rcu.isCourseManager";
+        
+        if ($categories)
+            $sql .= ", 
                        rcc.categoryId               AS `categoryId`,
-                       rcc.rootCourse
+                       rcc.rootCourse";
+        
+        $sql .= "
                 
                 FROM `" . $tbl_courses . "` AS course
                 
                 LEFT JOIN `" . $tbl_rel_user_courses . "` AS rcu 
-                ON rcu.user_id = " . (int) $userId . " 
-                     
+                ON rcu.user_id = " . (int) $userId . " ";
+        
+        if ($categories)
+            $sql .= "
+                
                 LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
-                ON course.cours_id = rcc.courseId
+                ON course.cours_id = rcc.courseId";
+        
+        $sql .= "
                 
                 WHERE course.code = rcu.code_cours
                 AND (course.`status`='enable'
