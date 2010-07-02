@@ -120,15 +120,8 @@ $courseType     = isset($_REQUEST['courseType']) ? ($_REQUEST['courseType']) : n
 $current_cid    = null;
 $display        = DISP_COURSE_EDIT_FORM;
 
-// New course object (normal or session, depending on the courseType param)
-if ( !is_null($courseType) && $courseType == 'session')
-{
-    $course = new ClaroCourseSession();
-}
-else
-{
-    $course = new ClaroCourse();
-}
+$course = new ClaroCourse();
+
 
 // Initialise current course id
 
