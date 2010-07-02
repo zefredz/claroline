@@ -103,7 +103,7 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
         // load successfull
         // exercise must be visible or in learning path to be displayed to a student
         if( $exercise->getVisibility() != 'VISIBLE' && !$is_allowedToEdit 
-        && ( ! isset($_SESSION['inPathMode']) || ! $_SESSION['inPathMode'] || ! $inLP )
+        && ( ! (isset($_SESSION['inPathMode']) ||  $_SESSION['inPathMode'] ||  $inLP ) )
          )
         {
             header("Location: ./exercise.php");
