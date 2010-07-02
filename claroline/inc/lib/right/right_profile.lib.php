@@ -344,7 +344,7 @@ function claro_is_tool_activated ($tid, $courseId)
     {
         if ( claro_is_in_a_course())
         {
-            $tbl_cdb_names = claro_sql_get_course_tbl();
+            $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
         
             $sql = " SELECT ctl.activated
                      FROM `" . $tbl_cdb_names['tool'] . "` as ctl
