@@ -362,6 +362,10 @@ function get_user_course_list($userId, $renew = false, $categories = false)
                          )
                     )";
         
+        if ($categories)
+            $sql .= "
+                AND rcc.rootCourse != 1";
+        
         if ( !get_conf('userCourseListGroupByCategories') )
         {
             $sql .= " GROUP BY course.code";

@@ -316,12 +316,14 @@ function claro_get_restricted_courses ($categoryId, $userId)
     
     $sql .= "
             
-            WHERE visibility = 'visible' ";
+            WHERE visibility = 'visible' 
+            AND rcc.rootCourse != 1";
     
     // User logged can't see source courses
     if (!is_null($userId))
             $sql .= "
             AND (isSourceCourse = 0 OR rcu.isCourseManager = 1)";
+    
     // User anonymous can't see session courses
     else
             $sql .= "
