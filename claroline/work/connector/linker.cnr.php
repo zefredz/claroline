@@ -10,7 +10,7 @@ class CLWRK_Resolver implements ModuleResourceResolver
         {
             if( strpos( $locator->getResourceId(), 'ass_' ) !== FALSE )
             {
-                return get_module_url('CLWRK') . '/workList.php?assigId=' . (int) str_replace( 'ass_', '', $locator->getResourceId() );
+                return get_module_url('CLWRK') . '/work_list.php?assigId=' . (int) str_replace( 'ass_', '', $locator->getResourceId() );
             }
             elseif( strpos( $locator->getResourceId(), 'sub_' ) !== FALSE )
             {
@@ -20,7 +20,7 @@ class CLWRK_Resolver implements ModuleResourceResolver
                 $submission = new Submission();
                 $submission->load( $submissionId );
                 
-                return get_module_url('CLWRK') . '/userWork.php?authId=' . $submission->getUserId() . '&assigId=' . $submission->getAssignmentId();
+                return get_module_url('CLWRK') . '/user_work.php?authId=' . $submission->getUserId() . '&assigId=' . $submission->getAssignmentId();
             }
             else
             {
