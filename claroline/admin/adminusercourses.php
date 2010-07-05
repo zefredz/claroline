@@ -24,6 +24,7 @@ require '../inc/claro_init_global.inc.php';
 include_once get_path('incRepositorySys') . '/lib/user.lib.php';
 include_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+include_once get_path('incRepositorySys') . '/lib/courselist.lib.php';
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
 $dialogBox = new DialogBox();
@@ -112,7 +113,11 @@ $userCourseGrid = array();
 foreach ($userCourseList as $courseKey => $course)
 {
     $userCourseGrid[$courseKey]['officialCode']   = $course['officialCode'];
-    $userCourseGrid[$courseKey]['name']      = '<a href="'. get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($course['sysCode']) . '">'.$course['name']. '</a><br />' . $course['titular'];
+    
+    $iconUrl = get_course_access_icon( $course['access'] );
+    
+    $userCourseGrid[$courseKey]['name']      = '<img class="iconDefinitionList" src="' . $iconUrl . '" alt="" />'
+                                            . '<a href="'. get_path( 'clarolineRepositoryWeb' ) . 'course/index.php?cid=' . htmlspecialchars( $course['sysCode'] ) . '">' . $course['name']. '</a><br />' . $course['titular'];
 
 
     $userCourseGrid[$courseKey]['profileId'] = claro_get_profile_name($course['profileId']);
