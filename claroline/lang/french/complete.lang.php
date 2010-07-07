@@ -1341,6 +1341,7 @@ $_lang['Platform administrator'] = 'Administrateur de la plateforme';
 $_lang['Platform language'] = 'Langue de la plateforme';
 $_lang['Platform local path '] = 'Dossier système de la plateforme';
 $_lang['Platform logo url'] = 'URL du logo de la plateforme';
+$_lang['Platform message']= 'Message de la plateforme';
 $_lang['Platform name'] = 'Nom de la plateforme';
 $_lang['Platform statistics'] = 'Statistiques de la plateforme';
 $_lang['Platform web URL'] = 'URL de la plateforme';

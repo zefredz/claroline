@@ -79,7 +79,7 @@ abstract class RecipientList
         $subject = claro_sql_escape($messageToSend->getSubject());
         $message = claro_sql_escape($messageToSend->getMessage());
         
-        if (!$messageToSend->getSender())
+        if ( is_null( $messageToSend->getSender() ) )
         {
             $sender = claro_get_current_user_id();
         }
@@ -152,12 +152,12 @@ abstract class RecipientList
                 . "(user_id, message_id, is_read, is_deleted) \n"
                 . "values (" . (int)$currentRecipient . "," . (int)$messageId . ",0 , 0)\n"
                 ;
-
+            
             if (!claro_sql_query($addInternalMessageSQL))
             {
                 throw new Exception(claro_sql_errno().":".claro_sql_error());
             }
-    
+            
             $this->addRecipient($messageId,$currentRecipient);
         }
     }
