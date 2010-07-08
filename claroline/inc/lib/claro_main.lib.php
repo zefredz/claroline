@@ -314,10 +314,15 @@ function claro_get_restricted_courses ($categoryId, $userId)
             LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
             ON c.cours_id = rcc.courseId";
     
+
     $sql .= "
             
-            WHERE visibility = 'visible' 
+            WHERE visibility = 'visible' ";
+    
+    if (!is_null($categoryId))
+        $sql .= "
             AND rcc.rootCourse != 1";
+    
     
     // User logged can't see source courses
     if (!is_null($userId))
