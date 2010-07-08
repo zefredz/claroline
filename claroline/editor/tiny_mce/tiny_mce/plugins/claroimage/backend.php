@@ -45,13 +45,25 @@
     /*
      * Init other vars
      */
-    if( claro_is_in_a_course() )
+    if( claro_is_in_a_course() && !claro_is_in_a_group() )
     {
         $course_data = claro_get_course_data();
         // course context
         $is_allowedToEdit = claro_is_allowed_to_edit();
         $pathSys = get_path('coursesRepositorySys') . claro_get_course_path().'/document/';
         $pathWeb = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/document/';
+    }
+        elseif( claro_is_in_a_group() )
+    {
+        // course context
+        $is_allowedToEdit = claro_is_allowed_to_edit();
+        $pathSys = get_path('coursesRepositorySys') . claro_get_course_path().'/group/'
+                    . claro_get_current_group_data('directory');
+        $pathWeb = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/group/'
+                    . claro_get_current_group_data('directory');
+        
+        require claro_get_conf_repository() . 'CLDOC.conf.php';
+        $maxFilledSpace = get_conf('maxFilledSpace_for_course');
     }
     else
     {
