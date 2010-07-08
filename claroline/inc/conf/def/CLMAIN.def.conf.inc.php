@@ -50,6 +50,7 @@ $conf_def['section']['ADMINISTRATOR_SETTING']['properties'] =
 array ( 'administrator_name'
       , 'administrator_email'
       , 'administrator_phone'
+      , 'no_reply_mail'
       );
 
 $conf_def['section']['FILE_SYSTEM_SETTING']['label']='File system settings';
@@ -484,6 +485,14 @@ $conf_def_property_list['administrator_phone'] =
 array ('label'       => 'Phone'
       ,'default'     => ''
       ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+
+$conf_def_property_list['no_reply_mail'] =
+array ('label'       => 'No reply mail ( platform messages )'
+      ,'default'     => ''
+      ,'type'        => 'email'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
