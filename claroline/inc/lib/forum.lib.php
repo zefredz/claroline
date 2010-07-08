@@ -408,7 +408,7 @@ function trig_forum_notification($forumId)
     ;
     
     require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
-    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
     
     $recipient = new UserListRecipient();
     
@@ -417,7 +417,7 @@ function trig_forum_notification($forumId)
         $recipient->addUserId($list['user_id']);
     }
     
-    $message = new MessageToSend(0,$subject,$message);
+    $message = new PlatformMessageToSend($subject,$message);
     $message->setCourse(claro_get_current_course_id());
     $message->setTools('CLFRM');
     
@@ -732,7 +732,7 @@ function trig_topic_notification($topicId)
     ;
     
     require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
-    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
     
     $recipient = new UserListRecipient();
     
@@ -741,8 +741,7 @@ function trig_topic_notification($topicId)
         $recipient->addUserId($list['user_id']);
     }
     
-    
-    $message = new MessageToSend(0,$subject,$message);
+    $message = new PlatformMessageToSend($subject,$message);
     $message->setCourse(claro_get_current_course_id());
     $message->setTools('CLFRM');
     
