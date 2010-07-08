@@ -295,14 +295,7 @@
                 $content .= '<a href="sendmessage.php?cmd=rqMessageToUser&amp;userId='.$message->getSender().'">';
             }
             
-            if ( $message->getSender() == 0)
-            {
-                $content .= get_lang( 'Platform message' );
-            }
-            else
-            {
-                $content .= get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($message->getSenderFirstName()), '%lastName' => htmlspecialchars($message->getSenderLastName())));
-            }
+            $content .= get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($message->getSenderFirstName()), '%lastName' => htmlspecialchars($message->getSenderLastName())));
             
             if ($isAllowed)
             {

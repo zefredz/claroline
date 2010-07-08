@@ -406,7 +406,7 @@ function trig_forum_notification($forumId)
     }
     
     
-    $message = new MessageToSend(0,$subject,$message);
+    $message = new MessageToSend(claro_get_current_user_id(),$subject,$message);
     $message->setCourse(claro_get_current_course_id());
     $message->setTools('CLFRM');
     
@@ -731,7 +731,7 @@ function trig_topic_notification($topicId)
     }
     
     
-    $message = new MessageToSend(0,$subject,$message);
+    $message = new MessageToSend(claro_get_current_user_id(),$subject,$message);
     $message->setCourse(claro_get_current_course_id());
     $message->setTools('CLFRM');
     

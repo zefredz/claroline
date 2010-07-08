@@ -41,17 +41,8 @@ class MailNotifier implements MessagingNotifier
         }
         
         // sender name and email
-        if ( $message->getSender() == 0 )
-        {
-            $userData = array( 'mail' => get_conf( 'no_reply_mail' ) ? get_conf( 'no_reply_mail' ) : get_conf( 'administrator_email' ),
-                               'firstName' => get_lang( 'Platform message' ),
-                               'lastName' => '' );
-        }
-        else
-        {
-            $userData = claro_get_current_user_data();
-        }
-        
+        $courseSender = claro_get_current_user_data('firstName') . ' ' . claro_get_current_user_data('lastName');
+    
         //************************************ IS MANAGER
         $stringManager = false;
         $courseManagers =  claro_get_course_manager_id($message->getCourseCode());
@@ -100,7 +91,7 @@ class MailNotifier implements MessagingNotifier
                     . '<br /><br />'
                // footer
                     . '-- <br />'
-                    . $userData[ 'firstName' ] . ' ' . $userData[ 'lastName' ] . "<br />"
+                    . claro_get_current_user_data('lastName') . " " . claro_get_current_user_data('firstName') . "<br />"
                     .$stringManager
                     . '<br /><br /><a href="' . get_conf('rootWeb') . '">' . get_conf('siteName') . '</a><br />'
                     . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . get_lang('Administrator')  . ': <a href="mailto:' . get_conf('administrator_email') . '">' . get_conf('administrator_name') . '</a><br />'
@@ -108,6 +99,8 @@ class MailNotifier implements MessagingNotifier
                     ;
         //******************************** END BODY
         //******************************************
+
+        $userData = claro_get_current_user_data();
         
         if ( empty( $userData['mail'] ) || ! is_well_formed_email_address( $userData['mail'] ) )
         {

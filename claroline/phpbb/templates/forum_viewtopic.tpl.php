@@ -7,7 +7,7 @@ if ( claro_is_user_authenticated() ) : //anonymous user do not have this functio
   <?php if ( is_topic_notification_requested($this->topic_id, claro_get_current_user_id()) ) :  // display link NOT to be notified ?>
   <img src="<?php echo get_icon_url('mail_close'); ?>" alt="" style="vertical-align: text-bottom" />
   <?php echo get_lang('Notify by email when replies are posted'); ?>
-  [<a href="<?php echo htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forum_id . '&amp;topic=' . $this->topic_id . '&amp;cmd=exdoNotNotify' ) ); ?>"><?php echo get_lang('Disable'); ?></a>]
+  [<a href="<?php echo htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forum_id . '&amp;topic=' . $this->topic_id . '&amp;cmd=exdoNotNotify' ) ); ?>"><?php echo get_lang('Disable'); ?></a>
   <?php else : //display link to be notified for this topic ?>
   <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forum_id . '&amp;topic=' . $this->topic_id . '&amp;cmd=exNotify' ) ); ?>">
   <img src="<?php echo get_icon_url('mail_close'); ?>" alt="" /><?php echo get_lang('Notify by email when replies are posted'); ?></a>
