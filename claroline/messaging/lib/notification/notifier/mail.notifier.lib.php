@@ -44,7 +44,8 @@ class MailNotifier implements MessagingNotifier
         if ( $message->getSender() == 0 )
         {
             $userData = array( 'mail' => get_conf( 'no_reply_mail' ) ? get_conf( 'no_reply_mail' ) : get_conf( 'administrator_email' ),
-                               'firstName' => get_lang( 'Platform message' ),
+                               'firstName' => get_lang( 'Message from %platformName'
+                                                        , array( '%platformName' => get_conf( 'siteName' ) ) ),
                                'lastName' => '' );
         }
         else

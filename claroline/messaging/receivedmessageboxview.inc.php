@@ -297,7 +297,7 @@
             
             if ( $message->getSender() == 0)
             {
-                $content .= get_lang( 'Platform message' );
+                $content .= get_lang( 'Message from %platformName' , array( '%platformName' => get_conf( 'siteName' ) ) );
             }
             else
             {
