@@ -328,6 +328,7 @@ $_lang['Cannot remove tool from course'] = 'L\'outil n\'a pas pu être supprimé d
 $_lang['Cannot update course database for %course'] = 'Impossible de mettre à jour la base de données pour le cours %course';
 $_lang['Cannot update database'] = 'Impossible de mettre à jour la base de données';
 $_lang['Cannot upload file'] = 'Le téléchargement du fichier a échoué';
+$_lang['Caption'] = 'Légende';
 $_lang['Cas settings'] = 'Paramètres du CAS';
 $_lang['Categories'] = 'Catégories';
 $_lang['Categories structure is right'] = 'La structure des catégories est conforme';
