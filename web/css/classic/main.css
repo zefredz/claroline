@@ -124,6 +124,12 @@ fieldset dt label {
     cursor: pointer;
 }
 
+.captionBlock {
+	width:45em;
+	padding-left:2px;
+	margin-left:0;
+}
+
 input.radio,
 input.checkbox {
     cursor: pointer;

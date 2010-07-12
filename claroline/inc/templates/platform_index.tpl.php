@@ -92,24 +92,32 @@ if ( claro_is_user_authenticated() ) :
     .                 '</a>'
     ;
 
-    echo '<a name="myCourseList"></a><p>' . claro_html_menu_horizontal($userCommands) . '</p>' . "\n";
+    echo '<a name="myCourseList"></a><p>' . claro_html_menu_horizontal( $userCommands ) . '</p>' . "\n";
 
-    if ( isset($_REQUEST['category']) || (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' ) )
+    if ( isset( $_REQUEST['category'] ) || ( isset( $_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'search' ) )
     {
         // DISPLAY PLATFORM COURSE LIST and search result
-        require get_path('incRepositorySys') . '/index_platformcourses.inc.php';
+        require get_path( 'incRepositorySys' ) . '/index_platformcourses.inc.php';
+        if( !( isset( $_REQUEST['category'] ) && '' == trim( $_REQUEST['category'] ) ) )
+        {
+            echo render_access_mode_caption_block();
+        }
     }
     else
     {
         // DISPLAY USER OWN COURSE LIST
-        require get_path('incRepositorySys') . '/index_mycourses.inc.php';        
-        
+        require get_path( 'incRepositorySys' ) . '/index_mycourses.inc.php';        
+        echo render_access_mode_caption_block();
     }
 else :
     if ( ! get_conf('course_categories_hidden_to_anonymous',false) )
     {
         // DISPLAY PLATFORM COURSE LIST
-        require get_path('incRepositorySys') . '/index_platformcourses.inc.php';
+        require get_path( 'incRepositorySys' ) . '/index_platformcourses.inc.php';
+        if ( !empty( $_REQUEST['category'] ) || ( isset( $_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' ) )
+        {
+            echo render_access_mode_caption_block();
+        }
     }
 endif;
 ?>
