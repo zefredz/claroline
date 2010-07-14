@@ -255,7 +255,20 @@ if( $resetQuestionList || !isset($_SESSION['serializedQuestionList']) || !is_arr
 elseif( isset( $loadRandomQuestionsList ) && is_array( $loadRandomQuestionsList) )
 {
     $questionList = array();
-    foreach( $loadRandomQuestionsList['questions'] as $question )
+    if( isset($loadRandomQuestionsList['questions'] ) && is_array( $loadRandomQuestionsList['questions'] ) )
+    {
+        $questions = $loadRandomQuestionsList['questions'];
+    }
+    elseif( is_array( $loadRandomQuestionsList ) )
+    {
+        $questions = $loadRandomQuestionsList;
+    }
+    else
+    {
+        $questions = array();
+    }
+    
+    foreach( $questions as $question )
     {
         $questionObj = new Question();
         $questionObj->setExerciseId( $exId );
