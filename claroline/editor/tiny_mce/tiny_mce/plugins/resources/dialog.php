@@ -31,6 +31,7 @@ else                                                                            
   <script type="text/javascript">
     linkerFrontend.base_url = "<?php echo get_path( 'rootWeb' ); ?>claroline/backends/linker.php";
     linkerFrontend.deleteIconUrl = "<?php echo get_icon_url('delete'); ?>";
+    linkerFrontend.invisibleIconUrl = "<?php echo get_icon_url('invisible'); ?>";
     Claroline.lang["Attach"] = "<?php echo get_lang('Attach'); ?>";
     Claroline.lang["Delete"] = "<?php echo get_lang('Delete'); ?>";
   </script>

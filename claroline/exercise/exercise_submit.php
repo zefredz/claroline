@@ -106,7 +106,14 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
         && ( ! (isset($_SESSION['inPathMode']) ||  $_SESSION['inPathMode'] ||  $inLP ) )
          )
         {
-            header("Location: ./exercise.php");
+            $dialogBox->error( get_lang( 'The exercise is not available' ) );
+        
+            $content = $dialogBox->render();
+    
+            $claroline->display->body->appendContent($content);
+            
+            echo $claroline->display->render();
+            //header("Location: ./exercise.php");
             exit();
         }
         else
@@ -248,7 +255,20 @@ if( $resetQuestionList || !isset($_SESSION['serializedQuestionList']) || !is_arr
 elseif( isset( $loadRandomQuestionsList ) && is_array( $loadRandomQuestionsList) )
 {
     $questionList = array();
-    foreach( $loadRandomQuestionsList['questions'] as $question )
+    if( isset($loadRandomQuestionsList['questions'] ) && is_array( $loadRandomQuestionsList['questions'] ) )
+    {
+        $questions = $loadRandomQuestionsList['questions'];
+    }
+    elseif( is_array( $loadRandomQuestionsList ) )
+    {
+        $questions = $loadRandomQuestionsList;
+    }
+    else
+    {
+        $questions = array();
+    }
+    
+    foreach( $questions as $question )
     {
         $questionObj = new Question();
         $questionObj->setExerciseId( $exId );
