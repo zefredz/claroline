@@ -392,11 +392,11 @@ function trig_forum_notification($forumId)
     . get_lang('View forum') . '<br/>' . "\n"
     . '<a href="' . Url::Contextualize($url_forum) . '">' . Url::Contextualize($url_forum) . '</a><br/><br/>' . "\n"
     . get_lang('View general forum') . '<br/>'
-    . '<a href="' . Url::Contextualize($url_forum_global) . '">' .Url::Contextualize($url_forum_global) . '</a><br/>' . "\n"
+    . '<a href="' . Url::Contextualize($url_forum_global) . '">' . Url::Contextualize($url_forum_global) . '</a><br/>' . "\n"
     ;
     
     require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
-    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
     
     $recipient = new UserListRecipient();
     
@@ -406,7 +406,7 @@ function trig_forum_notification($forumId)
     }
     
     
-    $message = new MessageToSend(claro_get_current_user_id(),$subject,$message);
+    $message = new PlatformMessageToSend($subject,$message);
     $message->setCourse(claro_get_current_course_id());
     $message->setTools('CLFRM');
     
@@ -721,7 +721,7 @@ function trig_topic_notification($topicId)
     ;
     
     require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
-    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
     
     $recipient = new UserListRecipient();
     
@@ -731,7 +731,7 @@ function trig_topic_notification($topicId)
     }
     
     
-    $message = new MessageToSend(claro_get_current_user_id(),$subject,$message);
+    $message = new PlatformMessageToSend($subject,$message);
     $message->setCourse(claro_get_current_course_id());
     $message->setTools('CLFRM');
     

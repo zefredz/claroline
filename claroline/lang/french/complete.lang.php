@@ -1052,6 +1052,7 @@ $_lang['Merging user accounts is not a reversible operation so be careful !'] = 
 $_lang['Merging users will alter the user data and cannot be undone. Are you sure to want to continue ?'] = 'La fusion de comptes modifiera les données et ne pourra être annulée. Voulez-vous vraiment continuer ?';
 $_lang['Message'] = 'Message';
 $_lang['Message body'] = 'Contenu du message';
+$_lang['Message from %platformName'] = "Message de %platformName";
 $_lang['Message from your lecturer'] = 'Message de votre gestionnaire de cours';
 $_lang['Message not found'] = 'Message introuvable';
 $_lang['Message sent'] = 'Message envoyé';

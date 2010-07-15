@@ -295,7 +295,14 @@
                 $content .= '<a href="sendmessage.php?cmd=rqMessageToUser&amp;userId='.$message->getSender().'">';
             }
             
-            $content .= get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($message->getSenderFirstName()), '%lastName' => htmlspecialchars($message->getSenderLastName())));
+            if ( $message->getSender() == 0)
+            {
+                $content .= get_lang( 'Message from %platformName' , array( '%platformName' => get_conf( 'siteName' ) ) );
+            }
+            else
+            {
+                $content .= get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($message->getSenderFirstName()), '%lastName' => htmlspecialchars($message->getSenderLastName())));
+            }
             
             if ($isAllowed)
             {
