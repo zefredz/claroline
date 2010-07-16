@@ -82,6 +82,8 @@ function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $
     $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
     // ****
     
+    $curdate = claro_mktime();
+    
     $sql = "SELECT '" . claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`, \n"
             . "'" . claro_sql_escape($thisCourse['officialCode']) ."'     AS `courseOfficialCode`, \n"
             . "'CLANN'                                              AS `toolLabel`, \n"
@@ -94,6 +96,10 @@ function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $
             . "WHERE CONCAT(`title`, `contenu`) != '' \n"
             . ( $startTime ? '' : "AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', (double)$startTime)."' \n" )
             . ( $visibleOnly ? "  AND visibility = 'SHOW' \n" : '' )
+            . "            AND (UNIX_TIMESTAMP(`visibleFrom`) < '". $curdate ."' 
+                                 OR `visibleFrom` IS NULL OR UNIX_TIMESTAMP(`visibleFrom`)=0
+                               )
+                           AND ('". $curdate ."' < UNIX_TIMESTAMP(`visibleUntil`) OR `visibleUntil` IS NULL)"
             . "ORDER BY `date` DESC \n"
             . ( $limit ? "LIMIT " . (int) $limit : '' )
             ;
