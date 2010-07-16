@@ -657,7 +657,7 @@ if($is_allowedToEditAll)
 
                 if( is_array($userIdList) )
                 {
-                    require_once dirname(__FILE__) . '/../messaging/lib/message/messagetosend.lib.php';
+                    require_once dirname(__FILE__) . '/../messaging/lib/message/platformmessagetosend.lib.php';
                     require_once dirname(__FILE__) . '/../messaging/lib/recipient/userlistrecipient.lib.php';
                     
                     // subject
@@ -676,7 +676,7 @@ if($is_allowedToEditAll)
                     . '<a href="'.$url.'">' . $submission->getTitle() .'</a>' . "\n"
                     ;
                     
-                    $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
+                    $message = new PlatformMessageToSend( $subject,$body );
                     
                     // TODO use official code everywhere : $message->setCourse(claro_get_current_course_data('officialCode'));
                     $message->setCourse(claro_get_current_course_id());
@@ -870,7 +870,7 @@ if( $is_allowedToSubmit )
 
                 if( is_array($userIdList) && !empty($userIdList) )
                 {
-                    require_once dirname(__FILE__) . '/../messaging/lib/message/messagetosend.lib.php';
+                    require_once dirname(__FILE__) . '/../messaging/lib/message/platformmessagetosend.lib.php';
                     require_once dirname(__FILE__) . '/../messaging/lib/recipient/userlistrecipient.lib.php';
 
                     // subject
@@ -890,8 +890,7 @@ if( $is_allowedToSubmit )
                     . '<a href="'.$url.'">' . $wrkForm['wrkTitle'] .'</a>' . "\n"
                     ;
 
-                    $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
-
+                    $message = new PlatformMessageToSend( $subject,$body );
                     // TODO use official code everywhere : $message->setCourse(claro_get_current_course_data('officialCode'));
                     $message->setCourse(claro_get_current_course_id());
                     $message->setTools('CLWRK');
