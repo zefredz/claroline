@@ -204,7 +204,7 @@ if( $displayForm )
     .     '<td>&nbsp;</td>' . "\n"
     .     '<td>'
     .     '<input type="submit" name="" id="" value="'.get_lang('Ok').'" />&nbsp;&nbsp;'
-    .     claro_html_button('../question_category.php', get_lang("Cancel") )
+    .     claro_html_button($_SERVER['PHP_SELF'] , get_lang("Cancel") )
     .     '</td>' . "\n"
     .     '</tr>' . "\n\n";
 
