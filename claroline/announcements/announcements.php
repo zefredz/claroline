@@ -593,9 +593,23 @@ if ($displayList)
 
         foreach ( $announcementList as $thisAnnouncement )
         {
-
-            if (($thisAnnouncement['visibility'] == 'HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility'] == 'SHOW')
+            // Hide hidden and out of deadline elements
+            $cssInvisible = '';
+            $isVisible = (bool) ($thisAnnouncement['visibility'] == 'SHOW') ? (1) : (0);
+            $isOffDeadline = (bool) 
+                (
+                    (isset($thisAnnouncement['visibleFrom']) 
+                        && strtotime($thisAnnouncement['visibleFrom']) > time()
+                    )
+                    ||
+                    (isset($thisAnnouncement['visibleUntil']) 
+                        && time() >= strtotime($thisAnnouncement['visibleUntil'])
+                    )
+                ) ? (1) : (0);
+                
+            if (($is_allowedToEdit || ( $isVisible && ! $isOffDeadline)))
             {
+                
                 //modify style if the event is recently added since last login
                 if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisAnnouncement['id']))
                 {
@@ -605,20 +619,6 @@ if ($displayList)
                 {
                     $cssItem = 'item';
                 }
-                
-                // Hide hidden and out of deadline elements
-                $cssInvisible = '';
-                $isVisible = (bool) ($thisAnnouncement['visibility'] == 'SHOW') ? (1) : (0);
-                $isOffDeadline = (bool) 
-                    (
-                        (isset($thisAnnouncement['visibleFrom']) 
-                            && strtotime($thisAnnouncement['visibleFrom']) > time()
-                        )
-                        ||
-                        (isset($thisAnnouncement['visibleUntil']) 
-                            && time() >= strtotime($thisAnnouncement['visibleUntil'])
-                        )
-                    ) ? (1) : (0);
                 
                 if ( !$isVisible || $isOffDeadline )
                 {
