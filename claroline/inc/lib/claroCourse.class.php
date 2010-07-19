@@ -870,7 +870,7 @@ class ClaroCourse
         
         $html = '';
         
-        $html .= '<form method="post" id="courseSettings" action="' . $_SERVER['PHP_SELF'] . '" >' . "\n"
+        $html .= '<form method="post" id="courseSettings" class="msform" action="' . $_SERVER['PHP_SELF'] . '" >' . "\n"
             . claro_form_relay_context()
             . '<input type="hidden" name="cmd" value="'.(empty($this->courseId)?'rqProgress':'exEdit').'" />' . "\n"
             . '<input type="hidden" name="cours_id" value="'.(empty($this->id)?'':$this->id).'" />' . "\n"
@@ -937,15 +937,20 @@ class ClaroCourse
                 . '<table>'
                 . '<tr>'
                 . '<td>'
-                . '<label for="linked_categories">' . get_lang('Linked categories') . '</label><br/>'
-                . '<select multiple="multiple" name="linked_categories[]" id="linked_categories" size="10">'
+                . '<label for="mslist1">' . get_lang('Linked categories') . '</label><br/>'
+                . '<select multiple="multiple" name="linked_categories[]" id="mslist1" size="10">'
                 . $linkedCategoriesListHtml
                 . '</select>'
                 . '</td>'
-                . '<td><input type="button" value="&rarr;" onclick="move(this.form.elements[\'linked_categories\'],this.form.elements[\'unlinked_categories\'])"></input><br/><input type="button" value="&larr;" onclick="move(this.form.elements[\'unlinked_categories\'],this.form.elements[\'linked_categories\'])"></input></td>'
                 . '<td>'
-                . '<label for="unlinked_categories">' . get_lang('Unlinked categories') . '</label><br/>'
-                . '<select multiple="multiple" name="unlinked_categories[]" id="unlinked_categories" size="10">'
+                . '<a href="#" class="msadd"><img src="'.get_icon('go_right').'" /></a>'
+                . '</input><br/><br/>'
+                . '<a href="#" class="msremove"><img src="'.get_icon('go_left').'" /></a>'
+                . '</input>'
+                . '</td>'
+                . '<td>'
+                . '<label for="mslist2">' . get_lang('Unlinked categories') . '</label><br/>'
+                . '<select multiple="multiple" name="unlinked_categories[]" id="mslist2" size="10">'
                 . $unlinkedCategoriesListHtml
                 . '</select>'
                 . '</td>'
@@ -1145,7 +1150,7 @@ class ClaroCourse
         }
         
         $html .= '<dl><dt>'
-            . '<input type="submit" name="changeProperties" value="' . get_lang('Ok') . '" onclick="selectAll(this.form.elements[\'linked_categories\'],true)" />'
+            . '<input type="submit" name="changeProperties" value="' . get_lang('Ok') . '" />'
             . '&nbsp;'
             . claro_html_button($cancelUrl, get_lang('Cancel'))
             . '</dt>' . "\n";
