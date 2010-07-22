@@ -52,4 +52,26 @@ $(document).ready( function(){
 </p>
 <?php   endif; ?>
 
+<?php
+
+//display SSO Auth
+require_once get_path('incRepositorySys') . '/lib/auth/sso.lib.php';
+$sso = new sso();
+$ssoDrivers = $sso->getDrivers();
+$out = '';
+foreach( $ssoDrivers as $driverName => $driver )
+{
+    if( $driver['driver']['enabled'] == true )
+    {
+        $driverClass = $driver['driver']['class'];
+        $thisDriver = new $driverClass( $driver['driver'] );
+        $out = $thisDriver->displayAuthForm();
+        //$out .= '<a href="' . $driver['driver']['url'] . '">' . $driver['driver']['name'] . '</a><br />';
+    }
+}
+
+echo $out;
+
+?>
+
 <?php endif; ?>

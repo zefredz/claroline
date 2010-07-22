@@ -124,6 +124,8 @@ class shibbolethDriver extends sso
     
     public function displayAuthForm()
     {
+        $out = '';
+        
         $now = time();
         $_SESSION['shibboleth']['session_id'] = 'id_' . $now;
         $issuedate=date('c', $now);
@@ -141,10 +143,7 @@ class shibbolethDriver extends sso
         
         $samlRequest = $this->samlEncodeMessage($samlRequest);
         
-        $out = '';
-        
-        
-        $out .= '<form method="POST" action="' . $this->driver['url'] . '">' . "\n"
+        $out .= '<form name="auth" id="auth" method="POST" action="' . $this->driver['url'] . '">' . "\n"
         .   '<input type="hidden" name="SAMLRequest" value="' . $samlRequest . '">' . "\n"
         .   '<input type="hidden" name="RelayState" value="target"/>' . "\n"
         .   '<input type="submit" value="' . $this->driver['name'] . '" />' . "\n"
@@ -152,6 +151,90 @@ class shibbolethDriver extends sso
         ;
         
         return $out;
+    }
+    
+    public function logout()
+    {
+        $now = time();
+        $issuedate=date('c', $now);        
+        
+        if( !isset( $_SESSION['shibboleth']['session_id'] ) )
+        {
+            $_SESSION['shibboleth']['session_id'] = 'id_' . $now;
+        }
+        $samlRequest = '<samlp:LogoutRequest
+            xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+            xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+            ID="' . $_SESSION['shibboleth']['session_id'] . '"
+            Version="2.0"
+            Destination="' . $this->driver['url'] . '"
+            IssueInstant="' . $issuedate . '">
+            <saml:Issuer >http://130.104.58.231/claroline/</saml:Issuer>
+            <samlp:SessionIndex>'. $_SESSION['shibboleth']['id'] .'</samlp:SessionIndex>
+        </samlp:LogoutRequest>';
+        /*$samlRequest = '<samlp:LogoutRequest
+            xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+            xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+            ID="' . $_SESSION['shibboleth']['session_id'] .'"
+            Version="2.0"
+            IssueInstant="' . $issuedate . '"
+            AssertionConsumerServiceIndex="0"
+            AttributeConsumingServiceIndex="0"
+            >
+                <saml:Issuer>http://130.104.58.231/claroline/</saml:Issuer>                
+            </samlp:LogoutRequest>';*/
+        
+        $samlRequest = $this->samlEncodeMessage($samlRequest);
+        
+        $data = array( 'SAMLRequest' => $samlRequest
+                      , 'RelayState' => 'target'
+                      );
+        
+        /*$ch = curl_init();
+        
+        curl_setopt($ch, CURLOPT_URL, $this->driver['url']);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        
+        curl_exec($ch);*/
+        $out = '<form name="auth" id="auth" method="POST" action="' . $this->driver['url'] . '">' . "\n"
+        .   '<input type="hidden" name="SAMLRequest" value="' . $samlRequest . '">' . "\n"
+        .   '<input type="hidden" name="RelayState" value="target"/>' . "\n"
+        .   '<input type="submit" value="' . $this->driver['name'] . '" />' . "\n"
+        .   '</form>' . "\n"
+        .   '<script>$("#auth").submit();</script>'
+        ;
+        
+            
+        /*$claroline->display->body->appendContent($out);
+    
+        echo $claroline->display->render();*/
+        
+    }
+    
+    public function defineAuthFormVars()
+    {
+        $now = time();
+        $_SESSION['shibboleth']['session_id'] = 'id_' . $now;
+        $issuedate=date('c', $now);
+        $samlRequest = '<samlp:AuthnRequest
+            xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+            xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+            ID="id_' . $now .'"
+            Version="2.0"
+            IssueInstant="' . $issuedate . '"
+            AssertionConsumerServiceIndex="0"
+            AttributeConsumingServiceIndex="0"
+            >
+                <saml:Issuer>http://130.104.58.231/claroline/</saml:Issuer>                
+            </samlp:AuthnRequest>';
+        
+        $samlRequest = $this->samlEncodeMessage($samlRequest);
+        
+        $vars['SAMLRequest'] = $samlRequest;
+        $vars['RelayState'] = 'target';
+        
+        return $vars;
     }
 }
 
