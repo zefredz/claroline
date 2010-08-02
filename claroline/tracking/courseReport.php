@@ -56,6 +56,14 @@ $html .= claro_html_tool_title(
                 )
             );
 
+// display link to delete all course stats
+$links[] = '<a class="claroCmd"  href="delete_course_stats.php">'
+            .    '<img src="' . get_icon_url('delete') . '" alt="" />'
+            .    get_lang('Delete all course statistics')
+            .    '</a>'."\n"
+            ;
+
+$html .= '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n\n" ;
             
 /*
  * Prepare rendering : 
@@ -75,14 +83,6 @@ foreach( $courseTrackingRendererList as $ctr )
     $html .= $renderer->render();
 }
 
-
-// display link to delete all course stats
-$html .= '<hr />'."\n"
-.    '<a class="claroButton" href="delete_course_stats.php">'
-.    '<img src="' . get_icon_url('delete') . '" alt="" />'
-.    get_lang('Delete all course statistics')
-.    '</a>'."\n"
-;
 
 /*
  * Output rendering
