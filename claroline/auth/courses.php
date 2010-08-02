@@ -363,7 +363,13 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
     
     else
     {
-        $courseCategoryBrowser  = new category_browser($categoryId, $userId);
+        
+        if ($fromAdmin == 'class')
+            $user = null;
+        else
+            $user =  $userId;
+        
+        $courseCategoryBrowser  = new category_browser($categoryId, $user);
         
         $currentCategory        = $courseCategoryBrowser->get_current_category_settings();
         $currentCategoryName    = $currentCategory->name;
