@@ -803,5 +803,3 @@ $out .= $backLink;
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

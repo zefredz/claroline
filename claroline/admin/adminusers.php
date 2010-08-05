@@ -159,14 +159,38 @@ foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 $userList = $myPager->get_result_list();
 if (is_array($userList))
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_mdb_names              = claro_sql_get_main_tbl();
+    $tbl_course                 = $tbl_mdb_names['course'];
+    $tbl_category               = $tbl_mdb_names['category'];
+    $tbl_rel_course_user        = $tbl_mdb_names['rel_course_user'];
+    $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
+    
     foreach ($userList as $userKey => $user)
     {
-        $sql ="SELECT count(DISTINCT code_cours) AS qty_course
-                 FROM `" . $tbl_mdb_names['rel_course_user'] . "`
-                 WHERE user_id = '". (int) $user['user_id'] ."'
-                 GROUP BY user_id";
+        // Count number of courses
+        $sql = "SELECT count(DISTINCT code_cours) AS qty_course
+                FROM `" . $tbl_rel_course_user . "`
+                WHERE user_id = '". (int) $user['user_id'] ."'
+                GROUP BY user_id";
+        
         $userList[$userKey]['qty_course'] = (int) claro_sql_query_get_single_value($sql);
+        
+        // Count number of categories
+        $sql = "SELECT count(DISTINCT rcc.categoryId) AS qty_category
+                
+                FROM `" . $tbl_course . "` AS co 
+                
+                LEFT JOIN `" . $tbl_rel_course_user . "` AS rcu 
+                    ON rcu.code_cours = co.code 
+                LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
+                    ON co.cours_id = rcc.courseId 
+                LEFT JOIN `" . $tbl_category . "` AS ca 
+                    ON rcc.categoryId = ca.id
+                
+                WHERE rcu.user_id = " . (int) $user['user_id'] . " 
+                AND co.isSourceCourse = 0";
+                
+        $userList[$userKey]['qty_category'] = (int) claro_sql_query_get_single_value($sql);
     }
 }
 
@@ -205,6 +229,10 @@ foreach ($userList as $userKey => $user)
 
 
 
+    $userGrid[$userKey]['qty_category'] = get_lang('%nb category(ies)', array('%nb' => $user['qty_category'])) . "\n";
+
+
+
     $userGrid[$userKey]['qty_course'] = '<a href="adminusercourses.php?uidToEdit=' . $user['user_id']
     .                                   '&amp;cfrom=ulist' . $addToURL . '">' . "\n"
     .                                   get_lang('%nb course(s)', array('%nb' => $user['qty_course'])) . "\n"
@@ -233,6 +261,7 @@ $userDataGrid->set_colTitleList(array (
                 ,'email'=>'<a href="' . $sortUrlList['email'] . '">' . get_lang('Email') . '</a>'
                 ,'isCourseCreator'=>'<a href="' . $sortUrlList['isCourseCreator'] . '">' . get_lang('Status') . '</a>'
                 ,'settings'=> get_lang('User settings')
+                ,'qty_category' => get_lang('Categories')
                 ,'qty_course' => get_lang('Courses')
                 ,'delete'=>get_lang('Delete') ));
 
