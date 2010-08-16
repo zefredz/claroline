@@ -1954,7 +1954,8 @@ $out .= claro_html_tool_title($titleElement,
         if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.rawurlencode($searchPattern);
         else                             $downloadArgument = 'file='. download_url_encode($curDirPath);
 
-        if ( isset($fileList) && count($fileList) > 0 )
+        if ( (claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFolder', false) )
+            && isset($fileList) && count($fileList) > 0 )
         {
             // Download current folder
            $links[] = '<a class="claroCmd" href="'
