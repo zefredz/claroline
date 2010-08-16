@@ -1962,25 +1962,27 @@ $out .= claro_html_tool_title($titleElement,
         if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.rawurlencode($searchPattern);
         else                             $downloadArgument = 'file='. download_url_encode($curDirPath);
 
-        if ( ( claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFolder', false) )
-            && isset($fileList) && count($fileList) > 0 )
+        if ( claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFolder', false) )
         {
-            // Download current folder
-           $links[] = '<a class="claroCmd" href="'
-                . htmlspecialchars(Url::Contextualize(
-                    $_SERVER['PHP_SELF'].'?cmd=exDownload&amp;'.$downloadArgument ))
-                .'" rel="nofollow">'
-                .'<img src="' . get_icon_url('save') . '" alt="" />&nbsp;'
-                .get_lang('Download current directory')
-                .'</a>';
-        }
-        else
-        {
-            // Download current folder disabled
-            $links[] = '<span class="claroCmdDisabled" >'
-                .'<img src="' . get_icon_url('save') . '" alt="" />&nbsp;'
-                .get_lang('Download current directory')
-                .'</span>';
+            if( isset($fileList) && count($fileList) > 0 )
+            {
+                // Download current folder
+               $links[] = '<a class="claroCmd" href="'
+                    . htmlspecialchars(Url::Contextualize(
+                        $_SERVER['PHP_SELF'].'?cmd=exDownload&amp;'.$downloadArgument ))
+                    .'" rel="nofollow">'
+                    .'<img src="' . get_icon_url('save') . '" alt="" />&nbsp;'
+                    .get_lang('Download current directory')
+                    .'</a>';
+            }
+            else
+            {
+                // Download current folder disabled
+                $links[] = '<span class="claroCmdDisabled" >'
+                    .'<img src="' . get_icon_url('save') . '" alt="" />&nbsp;'
+                    .get_lang('Download current directory')
+                    .'</span>';
+            }
         }
 
 
