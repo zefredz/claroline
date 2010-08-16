@@ -1036,127 +1036,134 @@ if ('rqSearch' == $cmd )
 
 if ('exDownload' == $cmd )
 {
-    /*
-     * PREPARE THE FILE COLLECTION
-     */
-
-    if ( isset( $_REQUEST['file'] ) )
-    {
-        $requestDownloadPath = $baseWorkDir
-                             . secure_file_path( $_REQUEST['file']);
-        $searchDownloadPattern = '';
-    }
-    elseif( isset($_REQUEST['searchPattern']) )
-    {
-            $requestDownloadPath   = $baseWorkDir;
-            $searchDownloadPattern = $_REQUEST['searchPattern'];
-    }
-
-    if (! $is_allowedToEdit && $courseContext)
-    {
-        // Build an exclude file list to prevent simple user
-        // to see document contained in "invisible" directories
-        $searchExcludeList = getInvisibleDocumentList($baseWorkDir);
-    }
-    else
-    {
-        $searchExcludeList = array();
-    }
-
-    $filePathList = claro_search_file(search_string_to_pcre($searchDownloadPattern),
-                                      $requestDownloadPath,
-                                      true,
-                                      'FILE',
-                                      $searchExcludeList);
-
-    /*
-     * BUILD THE ZIP ARCHIVE
-     */
-
-    require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
-
-    // Build archive in tmp course folder
-    $downloadArchivePath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp/zip';
-    $downloadArchiveFile = $downloadArchivePath . '/' . uniqid('') . '.zip';
-
-    // Create the temp dir if it doesn't exist
-    // or do a cleanup before creating the zipfile
-
-    if(!is_dir($downloadArchivePath))
-    {
-        mkdir($downloadArchivePath, CLARO_FILE_PERMISSIONS, true);
-    }
-    else
-    {
-        // Delete old archive files - fix bug
-        $handle=opendir($downloadArchivePath);
-        while ( false !== ($file = readdir($handle)) )
-        {
-            if ($file != '.' && $file != '..')
-            {
-                $fileCreationTimeInMinute = (time() - filemtime($downloadArchivePath . '/' . $file))/60;
-
-                // If file is old of 60 minutes delete it
-                if ($fileCreationTimeInMinute > 60 )
-                {
-                    unlink($downloadArchivePath . '/' . $file);
-                }
-            }
-        }
-        closedir($handle);
-    }
-
-    $downloadArchiveName = get_conf('siteName');
-
-    if (claro_is_in_a_course())
-    {
-        $downloadArchiveName .= '.' . $_course['officialCode'];
-    }
-
-    if (claro_is_in_a_group())
-    {
-        $downloadArchiveName .= '.' . claro_get_current_group_data('name');
-    }
-
-    if (isset($_REQUEST['file']))
-    {
-        $bnFile = basename($_REQUEST['file']);
-        if (empty($bnFile)) $downloadArchiveName .= '.complete';
-        else                $downloadArchiveName .= '.' . $bnFile;
-    }
-
-    if (isset($_REQUEST['searchPattern']))
-    {
-        $downloadArchiveName .= '.' . get_lang('Search') . '.' . $_REQUEST['searchPattern'];
-    }
-
-    $downloadArchiveName .= '.zip';
-    $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
-
-    if ( $downloadArchiveName == '.zip')
-    {
-        $downloadArchiveName = get_lang('Documents and Links') . '.zip';
-    }
-
-    $downloadArchive     = new PclZip($downloadArchiveFile);
-
-    $downloadArchive->add($filePathList,
-                          PCLZIP_OPT_REMOVE_PATH,
-                          $requestDownloadPath);
-
-    if ( file_exists($downloadArchiveFile) )
+    if ( claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFolder', false) )
     {
         /*
-         * SEND THE ZIP ARCHIVE FOR DOWNLOAD
+         * PREPARE THE FILE COLLECTION
          */
-
-        claro_send_file( $downloadArchiveFile, $downloadArchiveName );
-        unlink($downloadArchiveFile);
-        exit();
+    
+        if ( isset( $_REQUEST['file'] ) )
+        {
+            $requestDownloadPath = $baseWorkDir
+                                 . secure_file_path( $_REQUEST['file']);
+            $searchDownloadPattern = '';
+        }
+        elseif( isset($_REQUEST['searchPattern']) )
+        {
+                $requestDownloadPath   = $baseWorkDir;
+                $searchDownloadPattern = $_REQUEST['searchPattern'];
+        }
+    
+        if (! $is_allowedToEdit && $courseContext)
+        {
+            // Build an exclude file list to prevent simple user
+            // to see document contained in "invisible" directories
+            $searchExcludeList = getInvisibleDocumentList($baseWorkDir);
+        }
+        else
+        {
+            $searchExcludeList = array();
+        }
+    
+        $filePathList = claro_search_file(search_string_to_pcre($searchDownloadPattern),
+                                          $requestDownloadPath,
+                                          true,
+                                          'FILE',
+                                          $searchExcludeList);
+    
+        /*
+         * BUILD THE ZIP ARCHIVE
+         */
+    
+        require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
+    
+        // Build archive in tmp course folder
+        $downloadArchivePath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp/zip';
+        $downloadArchiveFile = $downloadArchivePath . '/' . uniqid('') . '.zip';
+    
+        // Create the temp dir if it doesn't exist
+        // or do a cleanup before creating the zipfile
+    
+        if(!is_dir($downloadArchivePath))
+        {
+            mkdir($downloadArchivePath, CLARO_FILE_PERMISSIONS, true);
+        }
+        else
+        {
+            // Delete old archive files - fix bug
+            $handle=opendir($downloadArchivePath);
+            while ( false !== ($file = readdir($handle)) )
+            {
+                if ($file != '.' && $file != '..')
+                {
+                    $fileCreationTimeInMinute = (time() - filemtime($downloadArchivePath . '/' . $file))/60;
+    
+                    // If file is old of 60 minutes delete it
+                    if ($fileCreationTimeInMinute > 60 )
+                    {
+                        unlink($downloadArchivePath . '/' . $file);
+                    }
+                }
+            }
+            closedir($handle);
+        }
+    
+        $downloadArchiveName = get_conf('siteName');
+    
+        if (claro_is_in_a_course())
+        {
+            $downloadArchiveName .= '.' . $_course['officialCode'];
+        }
+    
+        if (claro_is_in_a_group())
+        {
+            $downloadArchiveName .= '.' . claro_get_current_group_data('name');
+        }
+    
+        if (isset($_REQUEST['file']))
+        {
+            $bnFile = basename($_REQUEST['file']);
+            if (empty($bnFile)) $downloadArchiveName .= '.complete';
+            else                $downloadArchiveName .= '.' . $bnFile;
+        }
+    
+        if (isset($_REQUEST['searchPattern']))
+        {
+            $downloadArchiveName .= '.' . get_lang('Search') . '.' . $_REQUEST['searchPattern'];
+        }
+    
+        $downloadArchiveName .= '.zip';
+        $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
+    
+        if ( $downloadArchiveName == '.zip')
+        {
+            $downloadArchiveName = get_lang('Documents and Links') . '.zip';
+        }
+    
+        $downloadArchive     = new PclZip($downloadArchiveFile);
+    
+        $downloadArchive->add($filePathList,
+                              PCLZIP_OPT_REMOVE_PATH,
+                              $requestDownloadPath);
+    
+        if ( file_exists($downloadArchiveFile) )
+        {
+            /*
+             * SEND THE ZIP ARCHIVE FOR DOWNLOAD
+             */
+    
+            claro_send_file( $downloadArchiveFile, $downloadArchiveName );
+            unlink($downloadArchiveFile);
+            exit();
+        }
+        else
+        {
+            $dialogBox->error( get_lang('Unable to create zip file') );
+        }
     }
     else
     {
-        $dialogBox->error( get_lang('Unable to create zip file') );
+        $dialogBox->error( get_lang('Not allowed') );
     }
 }
 
@@ -1955,7 +1962,8 @@ $out .= claro_html_tool_title($titleElement,
         if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.rawurlencode($searchPattern);
         else                             $downloadArgument = 'file='. download_url_encode($curDirPath);
 
-        if ( isset($fileList) && count($fileList) > 0 )
+        if ( ( claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFolder', false) )
+            && isset($fileList) && count($fileList) > 0 )
         {
             // Download current folder
            $links[] = '<a class="claroCmd" href="'

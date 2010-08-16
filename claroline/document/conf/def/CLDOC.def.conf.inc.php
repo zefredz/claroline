@@ -32,7 +32,8 @@ $conf_def['config_class']= 'tool';
 $conf_def['section']['main']['label']='Main';
 $conf_def['section']['main']['description']='';
 $conf_def['section']['main']['properties'] =
-array ( 'openNewWindowForDoc');
+array ( 'openNewWindowForDoc'
+       , 'cldoc_allowAnonymousToDownloadFolder');
 
 
 // CONFIG SECTIONS
@@ -117,4 +118,14 @@ array ( 'description' => 'When users click on a document, it opens a new window'
       , 'readonly'    => FALSE
       );
 
-?>
+$conf_def_property_list['cldoc_allowAnonymousToDownloadFolder'] =
+array ( 'description' => 'This option can be used to prevent web crawlers to download an archive of the folder'
+      , 'label'       => 'Allow download of folder by anonymous users'
+      , 'default'     => TRUE
+      , 'type'        => 'boolean'
+      , 'acceptedValue' => array ('TRUE'=>'Yes'
+                               ,'FALSE'=>'No'
+                               )
+      , 'display'     => TRUE
+      , 'readonly'    => FALSE
+      );
