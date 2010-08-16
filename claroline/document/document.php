@@ -1961,7 +1961,7 @@ $out .= claro_html_tool_title($titleElement,
            $links[] = '<a class="claroCmd" href="'
                 . htmlspecialchars(Url::Contextualize(
                     $_SERVER['PHP_SELF'].'?cmd=exDownload&amp;'.$downloadArgument ))
-                .'">'
+                .'" rel="nofollow">'
                 .'<img src="' . get_icon_url('save') . '" alt="" />&nbsp;'
                 .get_lang('Download current directory')
                 .'</a>';
