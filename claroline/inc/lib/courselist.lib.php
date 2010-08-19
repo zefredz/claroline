@@ -887,7 +887,7 @@ function render_access_mode_caption_block()
 {
     $block = '<fieldset class="captionBlock">' . "\n"
            . '<legend>' . get_lang( 'Caption' ) . '</legend>' . "\n"
-           . '<img class="iconDefinitionList" src="' . get_icon_url( 'access_open' ) . '" alt="public" />' . get_lang( 'Access allowed to anybody (even without login)' ) . '<br>' . "\n"
+           . '<img class="iconDefinitionList" src="' . get_icon_url( 'access_open' ) . '" alt="public" />' . get_lang( 'Access allowed to anybody (even without login)' ) . '<br />' . "\n"
            . '<img class="iconDefinitionList" src="' . get_icon_url( 'access_platform' ) . '" alt="public" />' . get_lang( 'Access allowed only to platform members (user registered to the platform)' ) . '<br />' . "\n"
            . '<img class="iconDefinitionList" src="' . get_icon_url( 'access_locked' ) . '"  alt="Verrouillé" />' . get_lang( 'Access allowed only to course members (people on the course user list)' ) . "\n"
            . '</fieldset>';
