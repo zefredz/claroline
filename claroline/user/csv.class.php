@@ -434,8 +434,12 @@ class csvImport extends csv
                 $userInfo['username'] = $csvUseableArray['username'][$user_id];
                 $userInfo['firstname'] = $csvUseableArray['firstname'][$user_id];
                 $userInfo['lastname'] = $csvUseableArray['lastname'][$user_id];
-                $userInfo['email'] = isset( $csvUseableArray['email'][$user_id] ) ? $csvUseableArray['email'][$user_id] : '';
-                $userInfo['password'] = isset( $csvUseableArray['password'][$user_id] ) ? $csvUseableArray['password'][$user_id] : mk_password( 8 );
+                $userInfo['email'] = isset( $csvUseableArray['email'][$user_id] )
+                                     && ! empty( $csvUseableArray['email'][$user_id] )
+                                     ? $csvUseableArray['email'][$user_id] : '';
+                $userInfo['password'] = isset( $csvUseableArray['password'][$user_id] )
+                                     || empty( $csvUseableArray['password'][$user_id] )
+                                     ? $csvUseableArray['password'][$user_id] : mk_password( 8 );
                 $userInfo['officialCode'] = isset( $csvUseableArray['officialCode'][$user_id] ) ? $csvUseableArray['officialCode'][$user_id] : '';
                 
                 //check user existe if not create is asked                
@@ -550,8 +554,12 @@ class csvImport extends csv
                 $userInfo['username'] = $csvUseableArray['username'][$user_id];
                 $userInfo['firstname'] = $csvUseableArray['firstname'][$user_id];
                 $userInfo['lastname'] = $csvUseableArray['lastname'][$user_id];
-                $userInfo['email'] = isset( $csvUseableArray['email'][$user_id] ) ? $csvUseableArray['email'][$user_id] : '';
-                $userInfo['password'] = isset( $csvUseableArray['password'][$user_id] ) ? $csvUseableArray['password'][$user_id] : mk_password( 8 );
+                $userInfo['email'] = isset( $csvUseableArray['email'][$user_id] )
+                                     && ! empty( $csvUseableArray['email'][$user_id] )
+                                     ? $csvUseableArray['email'][$user_id] : '';
+                $userInfo['password'] = isset( $csvUseableArray['password'][$user_id] )
+                                     || empty( $csvUseableArray['password'][$user_id] )
+                                     ? $csvUseableArray['password'][$user_id] : mk_password( 8 );
                 $userInfo['officialCode'] = isset( $csvUseableArray['officialCode'][$user_id] ) ? $csvUseableArray['officialCode'][$user_id] : '';
                 if( isset( $csvUseableArray['groupName'][$user_id] ) )
                 {
