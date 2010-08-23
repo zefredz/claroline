@@ -623,10 +623,6 @@ class csvImport extends csv
                     else
                     {
                       $logs['success'][] = get_lang( 'User %username added in course %courseId', array('%username' => $userInfo['username'], '%courseId' => $courseId ));
-                       if ( $sendEmail )
-                       {
-                            user_send_registration_mail ($userId, $userInfo);
-                       }
                       //join class if needed
                       if( $class_id )
                       {
