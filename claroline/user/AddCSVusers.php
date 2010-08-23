@@ -272,7 +272,7 @@ switch( $step )
             }
             else
             {
-                $logs = $csvImport->importUsersInCourse( $courseId, $is_allowedToCreate, $is_allowedToEnroll, $class_id );
+                $logs = $csvImport->importUsersInCourse( $courseId, $is_allowedToCreate, $is_allowedToEnroll, $class_id, $sendEmailToUserCreated );
             }
             
             if( !empty($logs) )
