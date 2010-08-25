@@ -161,7 +161,7 @@ class EventManager
                 . $event->getEventType( ) . "]"
                 ;
                 
-            Console::warning( $errmsg );
+            Console::debug( $errmsg );
 
             return false;
         }
