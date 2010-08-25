@@ -243,7 +243,7 @@ if( $displayForm )
     // title
     $out .= '<tr>' . "\n"
     .     '<td valign="top"><label for="title">'.get_lang('Title').'&nbsp;<span class="required">*</span>&nbsp;:</label></td>' . "\n"
-    .     '<td><input type="text" name="title" id="title" size="60" maxlength="200" value="'.$form['title'].'" /></td>' . "\n"
+    .     '<td><input type="text" name="title" id="title" size="60" maxlength="200" value="'. htmlspecialchars($form['title']) .'" /></td>' . "\n"
     .     '</tr>' . "\n\n";
 
     // description
