@@ -163,10 +163,10 @@ class EventManager
         else
         {
             $errmsg = __CLASS__ . " : No listener found for EVENT["
-                . $event->getEventType( ) . "]"
-                ;
-                
-            Console::warning( $errmsg );
+                    . $event->getEventType( ) . "]"
+                    ;
+            
+            Console::debug( $errmsg );
 
             return false;
         }
