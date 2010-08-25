@@ -1,5 +1,22 @@
-<?php
+<?php // $Id$
 
+// vim: expandtab sw=4 ts=4 sts=4:
+
+/**
+ * Merge User Library
+ *
+ * @version     1.10 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @author      Frederic Minne <zefredz@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     kernel.admin.mergeuser
+ */
+
+/**
+ * Merge User Class
+ */
 class MergeUser
 {
     public static function merge( $uidToRemove, $uidToKeep )
@@ -60,6 +77,9 @@ class MergeUser
             
             self::mergeCourseUsers( $uidToRemove, $uidToKeep, $thisCourseCode );
             self::mergeCourseModuleUsers( $uidToRemove, $uidToKeep, $thisCourseCode );
+            
+            // update course messaging
+            self::mergeCourseMessaging( $uidToRemove, $uidToKeep, $thisCourseCode );
         }
         
         // Update modules
