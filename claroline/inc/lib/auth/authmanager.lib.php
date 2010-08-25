@@ -73,6 +73,7 @@ class AuthManager
                         else
                         {
                             AuthUserTable::updateUser( $uid, $userAttrList );
+                            Console::info( "EXTAUTH INFO : update user {$uid} {$username} with " . var_export($userAttrList, true) );
                         }
                     }
                     
