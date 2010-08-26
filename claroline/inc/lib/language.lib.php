@@ -1,18 +1,13 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * language library
  * contains function to manage l10n
  *
- * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @version     1.10 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLUSR
  * @package     CLUSR
@@ -215,6 +210,13 @@ class language
             
             $language_file = realpath(get_path('incRepositorySys') . '/../../platform/lang/' . $language . '/complete.lang.php');
             
+            if ( file_exists($language_file) )
+            {
+                include($language_file);
+            }
+
+            $language_file  = get_path('rootSys') . get_conf('cacheRepository', 'tmp/cache/') . 'module_lang_cache/' . $language . '.lang.php';
+
             if ( file_exists($language_file) )
             {
                 include($language_file);
