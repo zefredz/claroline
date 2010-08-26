@@ -1670,23 +1670,34 @@ function claro_debug_mode()
  */
 function claro_is_course_tool_activated( $courseId, $toolId )
 {
-    $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
-    $tbl_course_tool_list = $tbl_cdb_names['tool'];
-
-    /*
-    * Search all the tool corresponding to this access levels
-    */
-
-    // find module or claroline existing tools
-
-    $sql = "SELECT ctl.activated\n"
-        ."FROM `" . $tbl_course_tool_list . "` AS ctl\n"
-        ."WHERE ctl.id = ".(int) $toolId
-        ;
+    static $activatedCourseToolList = false;
     
-    $activated = claro_sql_query_fetch_single_value($sql);
+    if ( ! $activatedCourseToolList )
+    {
+        $activatedCourseToolList = array();
+        
+        $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
+        $tbl_course_tool_list = $tbl_cdb_names['tool'];
     
-    return $activated == 'true';
+        /*
+        * Search all the tool corresponding to this access levels
+        */
+    
+        // find module or claroline existing tools
+    
+        $sql = "SELECT ctl.id, ctl.activated\n"
+            ."FROM `" . $tbl_course_tool_list . "` AS ctl"
+            ;
+        
+        $toolList = claro_sql_query_fetch_all_rows($sql);
+        
+        foreach ( $toolList as $tool )
+        {
+            $activatedCourseToolList[$tool['id']] = $tool['activated'];
+        }
+    }
+    
+    return $activatedCourseToolList[$toolId] == 'true';
 }
 
 /**

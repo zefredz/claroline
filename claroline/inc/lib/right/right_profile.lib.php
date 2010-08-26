@@ -315,6 +315,8 @@ function claro_is_allowed_tool_edit ($tid = null, $profileId = null, $courseId =
 function claro_is_tool_activated ($tid, $courseId)
 {
     global $_mainToolId;
+    
+    static $activation = false;
 
     // load tool id
     if ( is_null($tid) )
@@ -329,22 +331,33 @@ function claro_is_tool_activated ($tid, $courseId)
         if ( claro_is_in_a_course() ) $courseId = claro_get_current_course_id() ;
         else                 return false ;
     }
-
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-
-    $sql = " SELECT m.activation
-             FROM `" . $tbl_mdb_names['module'] . "` as m,
-                  `" . $tbl_mdb_names['tool'] . "` as t
-             WHERE t.claro_label = m.label 
-             AND t.id = " . $tid ;
-
-    $tool_activation = claro_sql_query_get_single_value($sql);
+    
+    if ( !$activation )
+    {
+        $activation = array();
+        
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+    
+        $sql = " SELECT t.id, m.activation
+                 FROM `" . $tbl_mdb_names['module'] . "` as m,
+                      `" . $tbl_mdb_names['tool'] . "` as t
+                 WHERE t.claro_label = m.label";
+    
+        $tool_activationTmp = claro_sql_query_fetch_all_rows($sql);
+        
+        foreach ( $tool_activationTmp as $tool )
+        {
+            $activation[$tool['id']] = $tool['activation'];
+        }
+    }
+    
+    $tool_activation = $activation[$tid];
 
     if ( $tool_activation == 'activated' )
     {
         if ( claro_is_in_a_course())
         {
-            $tbl_cdb_names = claro_sql_get_course_tbl();
+            /* $tbl_cdb_names = claro_sql_get_course_tbl();
         
             $sql = " SELECT ctl.activated
                      FROM `" . $tbl_cdb_names['tool'] . "` as ctl
@@ -352,7 +365,9 @@ function claro_is_tool_activated ($tid, $courseId)
         
             $tool_activatedInCourse = claro_sql_query_get_single_value($sql);
             
-            return $tool_activatedInCourse == 'true';
+            return $tool_activatedInCourse == 'true';*/
+            
+            return claro_is_course_tool_activated( $courseId, $tid );
         }
         
         return true;
@@ -377,6 +392,8 @@ function claro_is_tool_activated ($tid, $courseId)
 function claro_is_tool_visible ($tid, $courseId)
 {
     global $_mainToolId;
+    
+    static $toolVisibilityCache = false;
 
     // load tool id
     if ( is_null($tid) )
@@ -391,13 +408,23 @@ function claro_is_tool_visible ($tid, $courseId)
         if ( claro_is_in_a_course() ) $courseId = claro_get_current_course_id() ;
         else                 return false ;
     }
-
-    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
-    $sql = " SELECT visibility 
-             FROM `" . $tbl_cdb_names['tool'] . "`
-             WHERE tool_id = " . $tid ;
+    
+    if ( !$toolVisibilityCache )
+    {
+        $toolVisibilityCache = array();
         
-    $tool_visibility = claro_sql_query_get_single_value($sql);
+        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
+        $sql = " SELECT tool_id, visibility 
+                 FROM `" . $tbl_cdb_names['tool'] . "`";
+            
+        $tool_visibilityTmp = claro_sql_query_fetch_all_rows($sql);
+        
+        foreach ( $tool_visibilityTmp as $tool )
+        {
+            $toolVisibilityCache[$tool['tool_id']] = $tool['visibility'];
+        }
+    
+    }
 
-    return (boolean) $tool_visibility ;
+    return (boolean) $toolVisibilityCache[$tid] ;
 }
