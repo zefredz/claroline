@@ -211,16 +211,18 @@ class language
                 include($language_file);
             }
             
-            // overwrite with custom language files
+            // load module name translations
             
-            $language_file = realpath(get_path('incRepositorySys') . '/../../platform/lang/' . $language . '/complete.lang.php');
+            $language_file  = get_path('rootSys') . get_conf('cacheRepository', 'tmp/cache/') . 'module_lang_cache/' . $language . '.lang.php';
             
             if ( file_exists($language_file) )
             {
                 include($language_file);
             }
             
-            $language_file  = get_path('rootSys') . get_conf('cacheRepository', 'tmp/cache/') . 'module_lang_cache/' . $language . '.lang.php';
+            // overwrite with custom language files
+            
+            $language_file = realpath(get_path('incRepositorySys') . '/../../platform/lang/' . $language . '/complete.lang.php');
             
             if ( file_exists($language_file) )
             {
