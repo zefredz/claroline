@@ -219,6 +219,13 @@ class language
             {
                 include($language_file);
             }
+            
+            $language_file  = get_path('rootSys') . get_conf('cacheRepository', 'tmp/cache/') . 'module_lang_cache/' . $language . '.lang.php';
+            
+            if ( file_exists($language_file) )
+            {
+                include($language_file);
+            }
         }
     }
 

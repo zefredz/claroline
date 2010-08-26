@@ -331,13 +331,85 @@ function unzip_package( $packageFileName )
     return $modulePath;
 }
 
+function generate_module_names_translation_cache()
+{
+    $cacheRepositorySys = get_path('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
+    $moduleLangCache = $cacheRepositorySys . 'module_lang_cache';
+    
+    if ( ! file_exists($moduleLangCache) )
+    {
+        claro_mkdir( $moduleLangCache, CLARO_FILE_PERMISSIONS, true );
+    }
+    
+    $tbl = claro_sql_get_main_tbl();
+    $sql = "SELECT `name`, `label`
+              FROM `" . $tbl['module'] . "`
+             WHERE activation = 'activated'";
+
+    $module_list = claro_sql_query_fetch_all($sql);
+    
+    $langVars = array();
+    
+    foreach ( $module_list as $module )
+    {
+        $langPath = get_module_path( $module['label'] ).'/lang/';
+        
+        if ( file_exists( $langPath ) )
+        {
+            $it = new DirectoryIterator( $langPath );
+            
+            foreach ( $it as $file )
+            {
+                if ( $file->isFile()
+                    && preg_match('/^lang_\w+.php$/', $file->getFilename() ) )
+                {
+                    $langName = str_replace( 'lang_', '', $file->getFilename() );
+                    $langName = str_replace( '.php', '', $langName );
+                    
+                    if ( $langName != 'english' )
+                    {
+                        pushClaroMessage( $langName . ':' . $module['label'], 'debug');
+                        
+                        $_lang = array();
+                        
+                        ob_start();
+                        include $file->getPathname();
+                        ob_end_clean();
+                        
+                        if ( ! isset( $langVars[$langName] ) )
+                        {
+                            $langVars[$langName] = '';
+                        }
+                        
+                        if ( isset($_lang[$module['name']]) )
+                        {
+                            $langVars[$langName] .= '$_lang[\''.$module['name'].'\'] = "'.addslashes($_lang[ $module['name'] ])."\";\n";
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    foreach ( $langVars as $lgnNm => $contents )
+    {
+        $langFile = $moduleLangCache . '/'.$lgnNm.'.lang.php';
+        
+        if ( file_exists( $langFile ) )
+        {
+            unlink( $langFile );
+        }
+        
+        file_put_contents( $langFile, "<?php\n".$contents );
+    }
+}
+
 /**
  * Generate the cache php file with the needed include of activated module of the platform.
  * @return boolean true if succeed, false on failure
  */
 function generate_module_cache()
 {
-
     $module_cache_filename = get_conf('module_cache_filename','moduleCache.inc.php');
     $cacheRepositorySys = get_path('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
     $module_cache_filepath = $cacheRepositorySys . $module_cache_filename;
@@ -401,6 +473,8 @@ function generate_module_cache()
         // FIXME E_USER_ERROR instead of E_USER_NOTICE
         return claro_failure::set_failure('Directory %directory is not writable', array('%directory' => $cacheRepositorySys) );
     }
+    
+    generate_module_names_translation_cache();
 
     return true;
 }
