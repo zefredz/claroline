@@ -452,7 +452,15 @@ function build_category_trail($categoryList, $requiredCode)
     return implode(' &gt; ', $trail);
 }
 
-function render_course_dt_in_dd_list($course, $hot = false)
+/**
+ * Render informations about a course in a list
+ *
+ * @param array $course
+ * @param boolean $hot, true to display red dot
+ * @param boolean $iconAccess, true to display icon access
+ * @return html output to display a course in a list
+ */
+function render_course_dt_in_dd_list($course, $hot = false, $iconAccess = true)
 {
     if( $hot ) $classItem = ' hot';
     else       $classItem = '';
@@ -499,7 +507,11 @@ function render_course_dt_in_dd_list($course, $hot = false)
     .    htmlspecialchars($course['sysCode'])
     ;
 
-    $iconUrl = get_course_access_icon( $course['access'] );
+        if ( $iconAccess )
+    {
+        $iconUrl = get_course_access_icon( $course['access'] );
+    }
+    else $iconUrl = get_icon_url('course') ;
     
     $managerString = htmlspecialchars( $course['titular'] . $course_language_txt );
     if( isset( $course['email'] ) && claro_is_user_authenticated() )
@@ -715,9 +727,13 @@ function render_user_course_list()
                 // If the course contains new things to see since last user login,
                 // The course name will be displayed with the 'hot' class style in the list.
                 // Otherwise it will name normally be displayed
+                
                 $hot = (bool) in_array ($thisCourse['sysCode'], $modified_course);
-            
-                $out .= render_course_dt_in_dd_list($thisCourse, $hot);
+                
+                $iconAccess = false;
+                if ($thisCourse['isCourseManager'])
+                    $iconAccess  =  true;
+                $out .= render_course_dt_in_dd_list($thisCourse, $hot, $iconAccess);
             }
         
             $out .= '</dl>' . "\n";
