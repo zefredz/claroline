@@ -5,7 +5,7 @@
             <th colspan="<?php echo ( $this->is_allowedToEdit ) ? 9 : 6 ?>">
             <?php
             // Allow course managers to receive notification for all new contributions in this forum or disable it
-            if ( claro_is_user_authenticated() && claro_is_course_manager() ) : //anonymous user do not have this function
+            if ( claro_is_user_authenticated() && claro_is_course_member() ) : //anonymous user do not have this function
             ?>
             <span style="float: right;" class="claroCmd">
             <?php if( is_forum_notification_requested( $this->forumId, claro_get_current_user_id() ) ) :  // display link NOT to be notified ?>
