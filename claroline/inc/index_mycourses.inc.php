@@ -1,16 +1,19 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
-/******************************************************************************
+/**
  * CLAROLINE
- ******************************************************************************
+ *
  * This module displays the course list of a the current authenticated user
  *
- * @version 1.9 $Revision$
- * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
- * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
- * @package CLINDEX
- ******************************************************************************/
+ * @version     1.9 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLINDEX
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
+ * @since       1.10
+ */
 
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
@@ -40,7 +43,7 @@ if( !empty($modified_course) )
     .     '</td>' . "\n";
 }
 
-// DISPLAY DEACTIVATED COURSES          
+// DISPLAY DEACTIVATED COURSES
 
 if ( !empty( $userCourseListDesactivated ) )
 {

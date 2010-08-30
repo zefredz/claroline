@@ -520,7 +520,7 @@ function profile_send_request_course_creator_status($explanation)
     
     $recipient->sendMessage($message);
     
-    return true;   
+    return true;
 }
 
 /**
@@ -1256,7 +1256,7 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_row('<label for="applyChange">' . get_lang('Save changes') . ' : </label>',
         ' <input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
-        // @TODO : if $_SERVER['HTTP_REFERER'] not set find a best value than '' 
+        // @TODO : if $_SERVER['HTTP_REFERER'] not set find a best value than ''
         . claro_html_button(isset($_SERVER['HTTP_REFERER'])?htmlspecialchars(Url::Contextualize($_SERVER['HTTP_REFERER'])):'', get_lang('Cancel')) );
     }
 
@@ -1319,7 +1319,7 @@ function user_html_search_form( $data )
     $html .= '<table class="claroRecord" cellpadding="3" cellspacing="0" border="0">' . "\n";
 
     // display search criteria
-    $html .= form_input_text( 'lastname', '', get_lang( 'Last name' ), false );   
+    $html .= form_input_text( 'lastname', '', get_lang( 'Last name' ), false );
     $html .= form_input_text( 'firstname', '', get_lang( 'First name' ), false );
     if ( get_conf( 'ask_for_official_code' ) )
     {
@@ -1337,7 +1337,7 @@ function user_html_search_form( $data )
                 
                         . '<input type="radio" name="tutor" value="0"  id="tutorNo" '
                         . ( !$data['tutor'] ? 'checked="checked"' : '' ) . ' />'
-                        . '<label for="tutorNo">' . get_lang( 'No' ) . '</label>' 
+                        . '<label for="tutorNo">' . get_lang( 'No' ) . '</label>'
                         );
    
     $html .= form_row( get_lang( 'Manager' ) . '&nbsp;: ',
@@ -1346,10 +1346,10 @@ function user_html_search_form( $data )
                         . '<label for="courseAdminYes">' . get_lang( 'Yes' ) . '</label>'
                         . '<input type="radio" name="courseAdmin" value="0" id="courseAdminNo" '
                         . ( $data['courseAdmin'] ? '' : 'checked="checked"' ) . ' />'
-                        . '<label for="courseAdminNo">' . get_lang( 'No' ) . '</label>' 
+                        . '<label for="courseAdminNo">' . get_lang( 'No' ) . '</label>'
                         );
     
-    // Submit  
+    // Submit
     $html .= form_row( '&nbsp;',
                          '<input type="submit" name="applySearch" id="applySearch" value="' . get_lang( 'Search' ) . '" />&nbsp;'
                          . claro_html_button( htmlspecialchars( Url::Contextualize( $_SERVER['HTTP_REFERER'] ) ), get_lang( 'Cancel' ) )
@@ -1423,7 +1423,7 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
 
     if ( count($sqlCritList) > 0) $sql .= 'WHERE ' . implode(" $operator ", $sqlCritList);
     
-    // ignore disabled account if needed 
+    // ignore disabled account if needed
     if ( $ignoreDisabledAccounts )
     {
         if ( count($sqlCritList) > 0)
@@ -1626,7 +1626,12 @@ function delete_userInfoExtraDefinition($propertyId, $contextScope )
 
 }
 
-function claro_get_user_course_list($user_id = null) 
+/**
+ * Return the list of user's courses
+ * @param int $user_id
+ * @return array $userCourseList
+ */
+function claro_get_user_course_list($user_id = null)
 {
     if(is_null($user_id))
     {
@@ -1638,18 +1643,27 @@ function claro_get_user_course_list($user_id = null)
     $tbl_course          = $tbl_mdb_names['course'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
-    $sql = "SELECT cours.code                 AS sysCode,
-                   cours.administrativeNumber AS officialCode,
-                   cours.intitule             AS title,
-                   cours.titulaires           AS t,
-                   cours.dbName               AS db,
-                   cours.directory            AS dir
+    $sql = "SELECT course.cours_id             AS courseId,
+                   course.code                 AS sysCode,
+                   course.isSourceCourse       AS isSourceCourse,
+                   course.sourceCourseId       AS sourceCourseId,
+                   course.administrativeNumber AS officialCode,
+                   course.dbName               AS db,
+                   course.language             AS language,
+                   course.intitule             AS title,
+                   course.titulaires           AS titular,
+                   course.visibility           AS visibility,
+                   course.access               AS access,
+                   course.registration         AS registration,
+                   course.directory            AS dir,
+                   course_user.isCourseManager AS isCourseManager
 
-            FROM    `" . $tbl_course . "`          AS cours,
-                    `" . $tbl_rel_course_user . "` AS cours_user
+            FROM    `" . $tbl_course . "`          AS course,
+                    `" . $tbl_rel_course_user . "` AS course_user
 
-            WHERE cours.code         = cours_user.code_cours
-            AND   cours_user.user_id = " . (int) $user_id ;
+            WHERE course.code         = course_user.code_cours
+            AND   course_user.user_id = " . (int) $user_id . "
+            ORDER BY course.intitule";
 
     $userCourseList = claro_sql_query_fetch_all($sql);
 

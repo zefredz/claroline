@@ -84,7 +84,7 @@ class category_browser
     /**
      * Fetch list of courses of the current category.
      *
-     * This list include main data about the user but also 
+     * This list include main data about the user but also
      * registration status.
      *
      * @since 1.8
@@ -100,7 +100,7 @@ class category_browser
     
     
     /**
-     * Fetch list of courses of the current category without 
+     * Fetch list of courses of the current category without
      * the session courses.
      *
      * This list include main data about
@@ -131,10 +131,10 @@ class category_browser
     
     
     /**
-     * Fetch list of courses of the current category without 
+     * Fetch list of courses of the current category without
      * the source courses (i.e. courses having session courses).
      *
-     * This list include main data about the user but also 
+     * This list include main data about the user but also
      * registration status.
      *
      * @return array    list of courses of the current category
@@ -149,7 +149,7 @@ class category_browser
             $sourceCoursesIds = array();
             foreach ($this->coursesList as $course)
             {
-                if (!is_null($course['sourceCourseId']) 
+                if (!is_null($course['sourceCourseId'])
                     && !in_array($course['sourceCourseId'], $sourceCoursesIds))
                 {
                     $sourceCoursesIds[] = $course['sourceCourseId'];
@@ -172,8 +172,8 @@ class category_browser
 
 
 /**
- * Search a specific course based on his course code.  If the user isn't 
- * a platform admin, this function will not return source courses having 
+ * Search a specific course based on his course code.  If the user isn't
+ * a platform admin, this function will not return source courses having
  * session courses.
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
@@ -215,8 +215,8 @@ function search_course($keyword, $userId = null)
                    c.creationDate,
                    c.expirationDate"
         
-         .  ($userId ? ", 
-                   cu.user_id AS enroled, 
+         .  ($userId ? ",
+                   cu.user_id AS enroled,
                    cu.isCourseManager" : "")
          . " \n "
          .  "FROM `" . $tbl_course . "` c "
@@ -228,7 +228,7 @@ function search_course($keyword, $userId = null)
          . " \n "
          
          . "WHERE ( "
-         . (claro_is_platform_admin() ? '' : 
+         . (claro_is_platform_admin() ? '' :
             "(visibility = 'VISIBLE'
                 AND ( `status`='enable'
                         OR ( `status` = 'date'
@@ -256,16 +256,16 @@ function search_course($keyword, $userId = null)
     
     $coursesList = claro_sql_query_fetch_all($sql);
 
-    if (count($coursesList) > 0) 
+    if (count($coursesList) > 0)
     {
         //If not platform admin, remove source courses
-        if (!claro_is_platform_admin()) 
+        if (!claro_is_platform_admin())
         {
             // Find the source courses identifiers
             $sourceCoursesIds = array();
             foreach ($coursesList as $course)
             {
-                if (!is_null($course['sourceCourseId']) 
+                if (!is_null($course['sourceCourseId'])
                     && !in_array($course['sourceCourseId'], $sourceCoursesIds))
                 {
                     $sourceCoursesIds[] = $course['sourceCourseId'];
@@ -333,7 +333,7 @@ function get_user_course_list($userId, $renew = false, $categories = false)
                        rcu.isCourseManager";
         
         if ($categories)
-            $sql .= ", 
+            $sql .= ",
                        rcc.categoryId               AS `categoryId`,
                        rcc.rootCourse";
         
@@ -341,13 +341,13 @@ function get_user_course_list($userId, $renew = false, $categories = false)
                 
                 FROM `" . $tbl_courses . "` AS course
                 
-                LEFT JOIN `" . $tbl_rel_user_courses . "` AS rcu 
+                LEFT JOIN `" . $tbl_rel_user_courses . "` AS rcu
                 ON rcu.user_id = " . (int) $userId . " ";
         
         if ($categories)
             $sql .= "
                 
-                LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
+                LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
                 ON course.cours_id = rcc.courseId";
         
         $sql .= "
@@ -355,7 +355,7 @@ function get_user_course_list($userId, $renew = false, $categories = false)
                 WHERE course.code = rcu.code_cours
                 AND (course.`status`='enable'
                       OR (course.`status` = 'date'
-                           AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' 
+                           AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."'
                                  OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0
                                )
                            AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) OR `expirationDate` IS NULL)
@@ -427,15 +427,15 @@ function get_user_course_list_desactivated($userId, $renew = false)
                             `" . $tbl_link_user_courses . "` AS course_user
 
                        WHERE course.code         = course_user.code_cours
-                         AND course_user.user_id = " . (int) $userId . " 
-                         AND (course.`status` = 'disable' 
+                         AND course_user.user_id = " . (int) $userId . "
+                         AND (course.`status` = 'disable'
                               OR course.`status` = 'pending'
-                              OR (course.`status` = 'date' 
-                                  AND (UNIX_TIMESTAMP(`creationDate`) > '". $curdate ."' 
+                              OR (course.`status` = 'date'
+                                  AND (UNIX_TIMESTAMP(`creationDate`) > '". $curdate ."'
                                        OR '". $curdate ."'> UNIX_TIMESTAMP(`expirationDate`)
                                        )
                                   )
-                              ) 
+                              )
                          AND course_user.isCourseManager = 1 " ;
 
         if ( get_conf('course_order_by') == 'official_code' )
@@ -516,7 +516,7 @@ function get_locked_course_by_key_explanation($course_id=null)
 
 /**
  * Return trail (path) for a given category.
- * 
+ *
  * @param array         list of categories
  * @param int           id of the category for which we want the trail
  * @return string       trail
@@ -524,6 +524,7 @@ function get_locked_course_by_key_explanation($course_id=null)
 function build_category_trail($categoriesList, $requiredId)
 {
     $trail = array();
+    
     if( is_array($categoriesList) && !empty($categoriesList) )
     {
         foreach( $categoriesList as $category )
@@ -603,9 +604,10 @@ function render_course_dt_in_dd_list($course, $hot = false)
     }
     
     // Don't give a link to the course if the user is in pending state
-    $isUserPending = ($course['access'] == 'private' && isset($course['isPending']) && $course['isPending'] == 1) ? 
-                     (true) : 
+    $isUserPending = ($course['access'] == 'private' && isset($course['isPending']) && $course['isPending'] == 1) ?
+                     (true) :
                      (false);
+    
     if ( $isUserPending )
     {
         $courseLink = '<a>'
@@ -622,16 +624,14 @@ function render_course_dt_in_dd_list($course, $hot = false)
     }
     
     
-    $out .= '<dt class="' . $classItem . '" >' . "\n"
-    .    '<img class="iconDefinitionList" src="' . $iconUrl . '" alt="" />'
-    .    $courseLink . "\n"
-    .    '</dt>' . "\n"
-    .    '<dd>'
-    .    '<small>' . "\n"
-    . $managerString
-    .    '</small>' . "\n"
-    .    '</dd>' . "\n"
-    ;
+    $out .= '<dt '.(!empty($classItem) ? 'class="'.$classItem.'"' : '').'" >' . "\n"
+          . '<img class="iconDefinitionList" src="' . $iconUrl . '" alt="Icon URL" />'
+          . $courseLink . "\n"
+          . '</dt>' . "\n"
+          . '<dd>'
+          . $managerString
+          . '</dd>' . "\n"
+          ;
     return $out;
 }
 
@@ -682,12 +682,12 @@ function render_user_course_list_desactivated()
                 {
                     $out .= '<a href="' . htmlspecialchars( $url ) . '">'
                           . htmlspecialchars($courseTitle)
-                          . '</a> ' 
+                          . '</a> '
                           . '<img src="'.get_icon_url('platformadmin').'" alt="" /> '
                           . '<a href="'.$urlSettings.'">'.get_lang('Reactivate it ').'</a>'
                           . "\n";
                 }
-                else 
+                else
                 {
                     $out .= htmlspecialchars($courseTitle)
                           . ' '.get_lang('Contact your administrator to reactivate it. ');
@@ -734,122 +734,128 @@ function render_user_course_list_desactivated()
 
 /**
  * Returns a courses list for the current user.
- * 
+ *
  * @return string       list of courses (HTML format)
  */
 function render_user_course_list()
 {
-    // get the list of personnal courses marked as contening new events
+    // Get the list of personnal courses marked as contening new events
     $date            = Claroline::getInstance()->notification->get_notification_date(claro_get_current_user_id());
     $modified_course = Claroline::getInstance()->notification->get_notified_courses($date,claro_get_current_user_id());
     
+    // Get courses, categories and sort it for display
+    $categoryList       = ClaroCategory::getAllCategories(0, 0, 1);
+    $userCourseList     = claro_get_user_course_list();
+    $userCategoryList   = ClaroCategory::getCoursesCategories($userCourseList);
+    
+    // Use the course id as array index and flag hot courses
+    $reorganizedUserCourseList = array();
+    foreach ($userCourseList as $course)
+    {
+        // Flag hot courses
+        $course['hot'] = (bool) in_array($course['sysCode'], $modified_course);
+        
+        if (!isset($reorganizedUserCourseList[$course['courseId']]))
+        {
+            $reorganizedUserCourseList[$course['courseId']] = $course;
+        }
+    }
+    unset($userCourseList);
+    
+    // Use the category id as array index
+    $reorganizedUserCategoryList = array();
+    foreach ($userCategoryList as $category)
+    {
+        // Flag root courses and put it aside
+        $reorganizedUserCourseList[$category['courseId']]['rootCourse'] = null;
+        if ($category['rootCourse'])
+        {
+            $reorganizedUserCourseList[$category['courseId']]['rootCourse'] = 1;
+        }
+        
+        if (!isset($reorganizedUserCategoryList[$category['categoryId']]))
+        {
+            $reorganizedUserCategoryList[$category['categoryId']] =
+                $category;
+        }
+    }
+    
+    // Place courses in the right categories and build categories' trails
+    $currentCategoryId = null;
+    foreach ($userCategoryList as $category)
+    {
+        // Build the full trail for each category (excepted root category)
+        if ($category['categoryId'] == 0)
+        {
+            $trail = $category['name'];
+        }
+        else
+        {
+            $trail = build_category_trail($categoryList, $category['categoryId']);
+        }
+        $reorganizedUserCategoryList[$category['categoryId']]['trail'] = $trail;
+        
+        // Put root courses aside
+        if ($reorganizedUserCourseList[$category['courseId']]['rootCourse'])
+        {
+            $reorganizedUserCategoryList[$category['categoryId']]['rootCourse'] =
+                $reorganizedUserCourseList[$category['courseId']];
+        }
+        else
+        {
+            // Do not include source courses (only display session courses)
+            if (!($reorganizedUserCourseList[$category['courseId']]['isSourceCourse']))
+            {
+                $reorganizedUserCategoryList[$category['categoryId']]['courseList'][] =
+                    $reorganizedUserCourseList[$category['courseId']];
+            }
+        }
+    }
+    unset($userCategoryList);
+    
     $out = '';
     
-    // FIXME: When grouped by categories, doesn't show courses attached to the root category
+    // Display
     if( get_conf('userCourseListGroupByCategories') )
     {
-        // get category list
-        $categoriesList = claroCategory::getAllCategories(0, 0, 1);
-        
-        // build full trails for the categories
-        if( is_array($categoriesList) && !empty($categoriesList) )
+        foreach ($reorganizedUserCategoryList as $category)
         {
-            foreach( $categoriesList as &$category )
-            {
-                $trail = build_category_trail($categoriesList, $category['id']);
-                $category['trail'] = $trail;
-            }
+            $out .= '<h4 id="'.$category['categoryId'].'">'
+                  . $category['trail']
+                  . (!empty($category['rootCourse']) ?
+                  ' [<a href="'
+                  . get_path('url') . '/claroline/course/index.php?cid='
+                  . htmlspecialchars($course['sysCode'])
+                  .'">Infos</a>]' :
+                  '')
+                  . '</h4>'."\n"
+                  . '<ul class="courses">';
             
-            unset($category);
-        }
-        
-        $userCourseList = array();
-        foreach($categoriesList as $category)
-        {
-            $courses = claro_get_restricted_courses ($category['id'], claro_get_current_user_id());
-            
-            // Only keep user's courses
-            foreach ($courses as $course)
+            foreach ($category['courseList'] as $course)
             {
-                if ($course['enroled'] || $course['isCourseManager'])
-                    $userCourseList[$category['id']][] = $course;
+                $out .= '<li '.($course['hot'] ? 'class="hot"' : '').'>'
+                      . '<dl>'
+                      . render_course_dt_in_dd_list($course, $course['hot']).'</li>'
+                      . '</dl>' . "\n";
             }
+            $out .= '</ul>';
         }
-        
-        // course and category lists are ordered: we can use them to display the user's course list
-        $out .= '<div id="courseListByCat">' . "\n";
-        // traverse category list, on each node check if some course the user is subscribed in is of this category
-        foreach($categoriesList as $category )
-        {
-            if( array_key_exists($category['id'], $userCourseList) && !empty($userCourseList[$category['id']]) )
-            {
-                // Display category header
-                $out .= '<div class="categoryMyCourses">'
-                    . '<span class="categoryTitle">' 
-                    . '<strong>'
-                    . '<a name="'.$category['id'].'"></a>'
-                    . $category['trail']
-                    . '</strong>'
-                    . '</span>';
-                
-                
-                // Display category courses
-                $outCourse = '';
-                foreach( $userCourseList[$category['id']] as $thisCourse )
-                {
-                    if (isset($thisCourse['enroled']) && !is_null($thisCourse['enroled'])) 
-                    {
-                        // Display presentation course of the category
-                        if (isset($thisCourse['rootCourse']) && $thisCourse['rootCourse'] == 1) 
-                        {
-                            $out .=  ' <a href="' . get_path('url') . '/claroline/course/index.php?cid='
-                                .    htmlspecialchars($thisCourse['sysCode']) . '" class="rootCourse">'
-                                .    get_lang('Info')
-                                .    '</a>' . "\n";
-                        }
-                        else
-                        {
-                                // If the course contains new things to see since last user login,
-                                // The course name will be displayed with the 'hot' class style in the list.
-                                // Otherwise it will name normally be displayed
-                                $hot = (bool) in_array($thisCourse['sysCode'], $modified_course);
-                            
-                                $outCourse .= render_course_dt_in_dd_list($thisCourse, $hot);
-                        }
-                    }
-                
-                }
-                $out .= '</div>';
-                $out .= '<dl class="userCourseList">'."\n";
-                $out .= $outCourse;
-                $out .= '</dl>' . "\n";
-            }
-        }
-        $out .= '</div>' . "\n";
     }
     else
     {
-        $personnalCourseList = claro_get_restricted_courses (null, claro_get_current_user_id());
-        
         // Display list
-        if (count($personnalCourseList))
+        if (count($reorganizedUserCourseList))
         {
             $out .= '<dl class="userCourseList">'."\n";
             
-            foreach($personnalCourseList as $thisCourse)
+            foreach($reorganizedUserCourseList as $course)
             {
-                if ((!isset($thisCourse['rootCourse']) || !$thisCourse['rootCourse']) 
-                    && (isset($thisCourse['enroled']) && !is_null($thisCourse['enroled']))) 
+                if ($course['rootCourse'] != 1 && $course['isSourceCourse'] != 1)
                 {
-                    // If the course contains new things to see since last user login,
-                    // The course name will be displayed with the 'hot' class style in the list.
-                    // Otherwise it will name normally be displayed
-                    $hot = (bool) in_array ($thisCourse['sysCode'], $modified_course);
-                
-                    $out .= render_course_dt_in_dd_list($thisCourse, $hot);
+                    $out .= render_course_dt_in_dd_list($course, $course['hot']);
                 }
             }
-        
+            
             $out .= '</dl>' . "\n";
         }
     }
@@ -859,8 +865,8 @@ function render_user_course_list()
 
 
 /**
- * Get an icon url according to a course access mode ('public', 'private' or 'platform') 
- * 
+ * Get an icon url according to a course access mode ('public', 'private' or 'platform')
+ *
  * @param string $accessMode : label of the access mode for which an icon is asked for
  * @return string : the url to the icon
  */
@@ -868,16 +874,16 @@ function get_course_access_icon( $accessMode )
 {
     switch( $accessMode )
     {
-        case 'private' :               
+        case 'private' :
             $iconUrl = get_icon_url( 'access_locked' );
             break;
-        case 'platform' : 
+        case 'platform' :
             $iconUrl = get_icon_url( 'access_platform' );
             break;
-        case 'public' : 
+        case 'public' :
             $iconUrl = get_icon_url( 'access_open' );
             break;
-        default : 
+        default :
             $iconUrl = get_icon_url( 'course' );
     }
     return $iconUrl;
@@ -889,7 +895,7 @@ function render_access_mode_caption_block()
            . '<legend>' . get_lang( 'Caption' ) . '</legend>' . "\n"
            . '<img class="iconDefinitionList" src="' . get_icon_url( 'access_open' ) . '" alt="public" />' . get_lang( 'Access allowed to anybody (even without login)' ) . '<br />' . "\n"
            . '<img class="iconDefinitionList" src="' . get_icon_url( 'access_platform' ) . '" alt="public" />' . get_lang( 'Access allowed only to platform members (user registered to the platform)' ) . '<br />' . "\n"
-           . '<img class="iconDefinitionList" src="' . get_icon_url( 'access_locked' ) . '"  alt="Verrouillé" />' . get_lang( 'Access allowed only to course members (people on the course user list)' ) . "\n"
+           . '<img class="iconDefinitionList" src="' . get_icon_url( 'access_locked' ) . '"  alt="Verrouillï¿½" />' . get_lang( 'Access allowed only to course members (people on the course user list)' ) . "\n"
            . '</fieldset>';
     return $block;
 }

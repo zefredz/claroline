@@ -60,6 +60,12 @@ if (isset($_REQUEST['action'    ])) $_SESSION['admin_user_action'    ] = trim($_
 
 if (isset($_REQUEST['order_crit'])) $_SESSION['admin_user_order_crit'] = trim($_REQUEST['order_crit']);
 if (isset($_REQUEST['dir'       ])) $_SESSION['admin_user_dir'       ] = ($_REQUEST['dir'] == 'DESC' ? 'DESC' : 'ASC' );
+
+if (isset($_REQUEST['display']))
+    $display_mode = trim($_REQUEST['display']);
+else
+    $display_mode = 'list';
+    
 $addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
 
 $dialogBox = new DialogBox();
@@ -67,7 +73,7 @@ $dialogBox = new DialogBox();
 //TABLES
 //declare needed tables
 
-// Deal with interbredcrumps
+// Deal with interbreadcrumbs
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('User list');
@@ -85,11 +91,11 @@ switch ( $cmd )
     {
         if( user_delete($userIdReq) )
         {
-           $dialogBox->success( get_lang('Deletion of the user was done sucessfully') ); 
+           $dialogBox->success( get_lang('Deletion of the user was done sucessfully') );
         }
         else
         {
-            $dialogBox->error( get_lang('You can not change your own settings!') );   
+            $dialogBox->error( get_lang('You can not change your own settings!') );
         }
     }
     break;
@@ -97,7 +103,7 @@ switch ( $cmd )
     {
         if( empty( $userIdReq ) )
         {
-            $dialogBox->error( get_lang('User id missing') );   
+            $dialogBox->error( get_lang('User id missing') );
         }
         else
         {
@@ -109,8 +115,7 @@ switch ( $cmd )
                 .    ' | '
                 .    '<a href="'.$_SERVER['PHP_SELF'].'">'.get_lang('No').'</a>'."\n");
             }
-            
-        }        
+        }
     }
 }
 $searchInfo = prepare_search();
@@ -178,16 +183,16 @@ if (is_array($userList))
         // Count number of categories
         $sql = "SELECT count(DISTINCT rcc.categoryId) AS qty_category
                 
-                FROM `" . $tbl_course . "` AS co 
+                FROM `" . $tbl_course . "` AS co
                 
-                LEFT JOIN `" . $tbl_rel_course_user . "` AS rcu 
-                    ON rcu.code_cours = co.code 
-                LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
-                    ON co.cours_id = rcc.courseId 
-                LEFT JOIN `" . $tbl_category . "` AS ca 
+                LEFT JOIN `" . $tbl_rel_course_user . "` AS rcu
+                    ON rcu.code_cours = co.code
+                LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
+                    ON co.cours_id = rcc.courseId
+                LEFT JOIN `" . $tbl_category . "` AS ca
                     ON rcc.categoryId = ca.id
                 
-                WHERE rcu.user_id = " . (int) $user['user_id'] . " 
+                WHERE rcu.user_id = " . (int) $user['user_id'] . "
                 AND co.isSourceCourse = 0";
                 
         $userList[$userKey]['qty_category'] = (int) claro_sql_query_get_single_value($sql);
@@ -325,8 +330,8 @@ $out .= '<table width="100%">' . "\n"
 .    '<img src="' . get_icon_url('user') . '" alt="" />'
 .    get_lang('Create user')
 .    '</a>'
-.     '</td>' . "\n"
-.     '<td>' . ''
+.    '</td>' . "\n"
+.    '<td>' . ''
 .    '<td align="right">' . "\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
@@ -337,15 +342,75 @@ $out .= '<table width="100%">' . "\n"
 .    '</form>' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
+.    '<tr>'
+.    '<td>'
+.    get_lang('Display') . ': ';
+
+if ($display_mode == 'list')
+$out .=
+    '<b><a href="' . htmlspecialchars(URL::Contextualize('adminusers.php?display=list')) . '">' . get_lang('List') . '</a></b> | ';
+else
+$out .=
+    '<a href="' . htmlspecialchars(URL::Contextualize('adminusers.php?display=list')) . '">' . get_lang('List') . '</a> | ';
+if ($display_mode == 'rich_list')
+$out .=
+    '<b><a href="' . htmlspecialchars(URL::Contextualize('adminusers.php?display=rich_list')) . '">' . get_lang('Rich list') . '</a></b> | ';
+else
+$out .=
+    '<a href="' . htmlspecialchars(URL::Contextualize('adminusers.php?display=rich_list')) . '">' . get_lang('Rich list') . '</a> | ';
+if ($display_mode == 'thumbs')
+$out .=
+    '<b><a href="' . htmlspecialchars(URL::Contextualize('adminusers.php?display=thumbs')) . '">' . get_lang('Thumbs') . '</a></b>';
+else
+$out .=
+    '<a href="' . htmlspecialchars(URL::Contextualize('adminusers.php?display=thumbs')) . '">' . get_lang('Thumbs') . '</a>';
+
+$out .= '</td>'
+.    '</tr>'
 .    '</table>' . "\n\n"
 ;
 
-$url = ($search =='')?$_SERVER['PHP_SELF']: $_SERVER['PHP_SELF']. '?search='.$search;
-if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($url);
-
-$out .= $userDataGrid->render();
-
-if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($url);
+if ($display_mode == 'list')
+{
+    $url = ($search =='')?$_SERVER['PHP_SELF']: $_SERVER['PHP_SELF']. '?search='.$search;
+    if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($url);
+    
+    $out .= $userDataGrid->render();
+    
+    if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($url);
+}
+elseif ($display_mode == 'rich_list')
+{
+    $out .= '<p>Rich list</p>';
+}
+elseif ($display_mode == 'thumbs')
+{
+    $out .= '<p>Thumbs</p>'
+          . '<ul class="user_list">';
+    foreach ($userList as $userKey => $user)
+    {
+        $user['picture'] = $user['pictureUri'];
+        $picture_url = user_get_picture_url($user);
+        if(empty($picture_url))
+        {
+            $picture_url = get_icon_url('nopicture');
+        }
+        
+        $out .= '<li>'
+              . '<img width="80" height="80" src="'
+              . $picture_url.'" alt="'.$user['name'].'" />'
+              . '<a href="adminprofile.php'
+              . '?uidToEdit=' . $user['user_id']
+              . '&amp;cfrom=ulist' . $addToURL . '">'
+              . '<img class="edit_link" src="'.get_icon_url('edit').'" alt="'
+              . get_lang('Edit') .' '.$user['name'].'" />'
+              . '</a><br/>'
+              . $user['firstname'].'<br/>'
+              . $user['name']
+              . '</li>';
+    }
+    $out .= '</ul>';
+}
 
 $out .=
 '<script type="text/javascript">
@@ -439,7 +504,7 @@ function get_sql_filtered_user_list()
         $sql .= " AND (U.nom LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%'
                   OR U.prenom LIKE '%".claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%' ";
         $sql .= " OR U.email LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%'";
-        $sql .= " OR U.username LIKE '". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%'";        
+        $sql .= " OR U.username LIKE '". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%'";
         $sql .= " OR U.officialCode = '". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."')";
     }
 

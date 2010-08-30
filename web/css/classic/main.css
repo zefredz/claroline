@@ -1127,6 +1127,38 @@ form tr.admin td{
     text-align:center;
 }
 
+ul.user_list {
+    list-style-type:none;
+}
+
+ul.user_list li {
+    float:left;
+    position:relative;
+}
+
+ul.user_list li img.edit_link {
+    position:absolute;
+    right:0; top:0;
+    z-index:100;
+    display:none;
+}
+
+ul.user_list li:hover img.edit_link {
+    display:block;
+}
+
+ul.courses {
+    list-style-type:none; 
+    padding:0;
+}
+ul.courses li {margin-bottom:10px;}
+ul.courses dd {
+    margin:0;
+    font-size:.8em;
+}
+
+h4 {margin-bottom:5px;}
+
 
 /******************************************************************************
                             INTERNAL MESSAGING
