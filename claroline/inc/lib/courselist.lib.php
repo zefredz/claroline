@@ -548,7 +548,7 @@ function build_category_trail($categoriesList, $requiredId)
 }
 
 
-function render_course_dt_in_dd_list($course, $hot = false)
+function render_course_dt_in_dd_list($course, $hot = false, $iconAccess = true)
 {
     if( $hot ) $classItem = ' hot';
     else       $classItem = '';
@@ -595,7 +595,11 @@ function render_course_dt_in_dd_list($course, $hot = false)
     .    htmlspecialchars($course['sysCode'])
     ;
 
-    $iconUrl = get_course_access_icon( $course['access'] );
+    if ( $iconAccess )
+    {
+        $iconUrl = get_course_access_icon( $course['access'] );
+    }
+    else $iconUrl = get_icon_url('course') ;
     
     $managerString = htmlspecialchars( $course['titular'] . $course_language_txt );
     if( isset( $course['email'] ) && claro_is_user_authenticated() )
@@ -852,7 +856,10 @@ function render_user_course_list()
             {
                 if ($course['rootCourse'] != 1 && $course['isSourceCourse'] != 1)
                 {
-                    $out .= render_course_dt_in_dd_list($course, $course['hot']);
+                    $iconAccess = false;
+                    if ($course['isCourseManager'])
+                        $iconAccess  =  true;
+                    $out .= render_course_dt_in_dd_list($course, $course['hot'], $iconAccess);
                 }
             }
             

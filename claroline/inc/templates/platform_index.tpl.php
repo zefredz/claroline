@@ -111,7 +111,8 @@ if ( claro_is_user_authenticated() ) :
         if (isset($_SESSION['courseSessionCode'])) $_SESSION['courseSessionCode'] = null;
         
         require get_path('incRepositorySys') . '/index_mycourses.inc.php';        
-        echo render_access_mode_caption_block();
+        if (claro_is_allowed_to_create_course())
+            echo render_access_mode_caption_block(); 
     }
 else :
     if ( ! get_conf('course_categories_hidden_to_anonymous',false) )
