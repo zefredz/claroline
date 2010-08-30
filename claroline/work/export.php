@@ -6,7 +6,7 @@
  * As from 1.9.6 replaces $cmd = 'exDownload' in both work.php and work_list.php
  * As from 1.9.6 uses pclzip instead of zip.lib
  *
- * @version     1.9 $Revision$
+ * @version     1.10 $Revision$
  * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
  * @author      Jean-Roch Meurisse <jmeuriss@fundp.ac.be>
@@ -101,6 +101,15 @@ if( get_conf( 'allow_download_all_submissions' ) )
         $zipName = claro_get_current_course_id() . '_' . replace_dangerous_char( $assignment->getTitle(), 'strict' ) . $wanted . '.zip';
     }
 
+    $downloadArchiveFolderPath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp/zip';
+
+    if ( !is_dir( $downloadArchiveFilePath ) )
+    {
+        mkdir( $downloadArchiveFilePath, CLARO_FILE_PERMISSIONS, true );
+    }
+
+    $downloadArchiveFilePath = $downloadArchiveFolderPath . '/' . $zipName;
+
     $sql = "SELECT `id`, 
                    `assignment_id`,
                    `authors`,
@@ -128,7 +137,7 @@ if( get_conf( 'allow_download_all_submissions' ) )
         $previousAuthors = '';
         $i = 1;
 
-        foreach( $results as $row => $result )
+        foreach ( $results as $row => $result )
         {
             //create assignment directory if necessary
             if( $assignmentId == 0 )
@@ -137,12 +146,14 @@ if( get_conf( 'allow_download_all_submissions' ) )
                 {
                     mkdir( $zipPath . '/' . get_lang( 'Assignment' ) . '_' . $result['assignment_id'] . '/', CLARO_FILE_PERMISSIONS, true );
                 }
+
                 $assigDir = '/' . get_lang( 'Assignment' ) . '_' . $result['assignment_id'] . '/';
             }
             else
             {
                 $assigDir = '';
             }
+
             $assignmentPath = get_path( 'coursesRepositorySys' ) . claro_get_current_course_id() . '/work/assig_' . (int)$result['assignment_id'] . '/';
             
             //  count author's submissions for the name of directory
@@ -196,13 +207,13 @@ if( get_conf( 'allow_download_all_submissions' ) )
             
             file_put_contents( $zipPath . '/' . $submissionPrefix . $txtFileName, $htmlContent );
         }
-        $zipFile = new PclZip( $zipName );
+
+        $zipFile = new PclZip( $downloadArchiveFilePath );
         $created = $zipFile->create( $zipPath, PCLZIP_OPT_REMOVE_PATH, $zipPath );
         
         if ( !$created ) 
         {
             $dialogBox->error( get_lang( 'Unable to create the archive' ) );
-            break;
         } 
         else
         {
@@ -210,12 +221,12 @@ if( get_conf( 'allow_download_all_submissions' ) )
             
             header( 'Content-Description: File Transfer' );
             header( 'Content-Type: application/force-download' );
-            header( 'Content-Length: ' . filesize( $zipName ) );
-            header( 'Content-Disposition: attachment; filename=' . basename( $zipName ) );
+            header( 'Content-Length: ' . filesize( $downloadArchiveFilePath ) );
+            header( 'Content-Disposition: attachment; filename=' . $zipName );
             
-            readfile( $zipName );
+            readfile( $downloadArchiveFilePath );
             
-            claro_delete_file( $zipName );
+            claro_delete_file( $downloadArchiveFilePath );
             
             exit();
         }
