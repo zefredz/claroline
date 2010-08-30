@@ -1733,6 +1733,38 @@ function claro_get_tool_id_from_course_tid( $tid, $courseId = null, $profileId =
 }
 
 /**
+ * Get the course tid for a given course tool from its main tool id
+ * @param   int $tool_id id of the tool instance in the platform
+ * @param   string $courseId id (sysCode) of the course (optional, current course used if missing)
+ * @param   int $profileId profile of the user to get the tool list from (optional, current user used if missing)
+ * @return  int tid, course tool id
+ */
+function claro_get_course_tid_from_tool_id( $tool_id, $courseId = null, $profileId = null )
+{
+    $courseId = empty( $courseId )
+        ? claro_get_current_course_id()
+        : $courseId
+        ;
+    
+    $profileId = empty( $profileId )
+        ? claro_get_current_user_profile_id_in_course( $courseId )
+        : $profileId
+        ;
+    
+    $courseToolList = claro_get_course_tool_list( $courseId, $profileId );
+    
+    foreach ( $courseToolList as $courseTool )
+    {
+        if ( $courseTool['tool_id'] == $tool_id )
+        {
+            return $courseTool['id'];
+        }
+    }
+    
+    return false;
+}
+
+/**
  * Load configuration file given its name
  * @param string $name
  */

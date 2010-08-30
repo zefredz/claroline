@@ -367,7 +367,7 @@ function claro_is_tool_activated ($tid, $courseId)
             
             return $tool_activatedInCourse == 'true';*/
             
-            return claro_is_course_tool_activated( $courseId, $tid );
+            return claro_is_course_tool_activated( $courseId, claro_get_course_tid_from_tool_id( $tid ) );
         }
         
         return true;
