@@ -5,6 +5,7 @@
  *
  * Management tools for categories' tree
  *
+ * @version     1.10 $Revision: 11767 $
  * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
@@ -153,7 +154,7 @@ switch ( $cmd )
     // Shift or displace category (up)
     case 'exMoveUp' :
         $category = new claroCategory();
-        if ($category->load($id)) 
+        if ($category->load($id))
         {
             $category->decreaseRank();
             
@@ -192,7 +193,7 @@ switch ( $cmd )
     break;
     
     // Change the visibility of a category
-    case 'exVisibility' : 
+    case 'exVisibility' :
         $category = new claroCategory(null, null, null, null, null, null, null, null);
         if ($category->load($id))
         {
@@ -200,7 +201,7 @@ switch ( $cmd )
             {
                 $dialogBox->success( get_lang('Category\'s visibility modified') );
             }
-            else 
+            else
             {
                 switch ( claro_failure::get_last_failure() )
                 {
@@ -222,7 +223,7 @@ $out .= $dialogBox->render();
 $categories = claroCategory::getAllCategories();
 
     // "Create category" link
-$out .= 
+$out .=
      '<p>'
 .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
 .    '<img src="' . get_icon_url('category') . '" />' . get_lang('Create a category')
@@ -230,10 +231,10 @@ $out .=
 .    '</p>' . "\n";
 
 if ((get_conf('categories_order_by') != 'rank'))
-    $out .= 
+    $out .=
             '<p>'.get_block('blockCategoriesOrderInfo').'</p>';
     // Array header
-$out .= 
+$out .=
      '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX">' . "\n"
@@ -251,7 +252,7 @@ $out .=
 .    '</thead>' . "\n";
 
     // Array body
-$out .= 
+$out .=
     '<tbody>' . "\n";
 
 if (count($categories) == 0)
@@ -260,7 +261,7 @@ if (count($categories) == 0)
         .get_lang('There are no cateogries right now.  Use the link above to add some.')
         .'</td></tr>';
 }
-else 
+else
 {
     //TODO: hide uparrows/downarrows when they are useless/ineffective (get_icon_url('move_up/down'))
     foreach ($categories as $elmt)
@@ -302,8 +303,8 @@ else
     }
 }
 
-$out .= 
-    '</tbody>' 
+$out .=
+    '</tbody>'
 .   '</table>' . "\n";
 
 // Append output
