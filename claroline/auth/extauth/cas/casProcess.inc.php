@@ -47,7 +47,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
     || ( basename($_SERVER['SCRIPT_NAME']) == 'login.php' && isset($_REQUEST['authModeReq']) && $_REQUEST['authModeReq'] == 'CAS' )
     || isset($_REQUEST['fromCasServer']) )
 {
-    phpCAS::client(CAS_VERSION_2_0, get_conf('claro_CasServerHostUrl'), get_conf('claro_CasServerHostPort',443) , get_conf('claro_CasServerRoot','') );
+    phpCAS::client(CAS_VERSION_2_0, get_conf('claro_CasServerHostUrl'), get_conf('claro_CasServerHostPort',443) , get_conf('claro_CasServerRoot',''), FALSE );
     phpCAS::setNoCasServerValidation();
     
     if ( $logout )
