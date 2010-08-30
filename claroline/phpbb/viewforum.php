@@ -149,7 +149,7 @@ else
     
     // Allow user to be have notification for this topic or disable it
 
-    if ( claro_is_user_authenticated() && claro_is_course_manager() )  //anonymous user do not have this function
+    if ( claro_is_user_authenticated() && claro_is_course_member() )  //anonymous user do not have this function
     {
         $notification_bloc = '<span style="float: right;" class="claroCmd">';
 
