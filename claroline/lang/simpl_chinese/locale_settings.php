@@ -65,10 +65,10 @@ $langMonthNames['long'] = array('1月', '2月', '3月', '4月', '5月', '6月', '7月',
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
 
-$dateFormatShort =  "%y %b %d";
-$dateFormatLong  = '%Y %B %d, %A';
-$dateTimeFormatLong  = '%Y %B %d, %I:%M %p';
-$dateTimeFormatShort = "%y %b %d, %I:%M %p";
+$dateFormatShort =  "%y年%b月%d日";
+$dateFormatLong  = '%Y 年 %B  %d 日, %A';
+$dateTimeFormatLong  = '%Y 年 %B  %d 日, %I:%M %p';
+$dateTimeFormatShort = "%y 年 %b 月 %d 日, %I:%M %p";
 $timeNoSecFormat = '%I:%M %p';
 
 ?>
