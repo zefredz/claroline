@@ -1424,16 +1424,17 @@ function delete_category($cat_id)
 function delete_forum($forum_id)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_forum_forums     = $tbl_cdb_names['bb_forums'];
+    $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
 
     delete_all_post_in_forum($forum_id);
 
-
     $sql = "DELETE FROM `" . $tbl_forum_forums . "`
             WHERE `forum_id` = " . (int) $forum_id ;
-
-    if ( claro_sql_query($sql) == false) return false;
-    else                                 return true;
+    
+    delete_all_posts_in_topic($forum_id);
+    
+    if ( ! claro_sql_query($sql) ) return false;
+    else                           return true;
 
     // note we should also clean the topic notification table ...
 }
