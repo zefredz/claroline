@@ -1430,11 +1430,9 @@ function delete_forum($forum_id)
 
     $sql = "DELETE FROM `" . $tbl_forum_forums . "`
             WHERE `forum_id` = " . (int) $forum_id ;
-    
-    delete_all_post_in_forum($forum_id);
-    
-    if ( ! claro_sql_query($sql) ) return false;
-    else                           return true;
+
+    if ( claro_sql_query($sql) == false) return false;
+    else                                 return true;
 
     // note we should also clean the topic notification table ...
 }
