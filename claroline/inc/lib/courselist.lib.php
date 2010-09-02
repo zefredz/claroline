@@ -68,11 +68,7 @@ class category_browser
                   ORDER BY  `faculte`.`treePos`";
             
 
-        $categoryList = claro_sql_query_fetch_all($sql);
-
-
-
-        $disabledCourseList = claro_sql_query_fetch_all($sql);
+        $this->categoryList = claro_sql_query_fetch_all($sql);
     }
 
     /**
