@@ -781,6 +781,9 @@ function render_user_course_list()
         {
             $reorganizedUserCategoryList[$category['categoryId']] =
                 $category;
+            
+            //We won't need that key anymore
+            unset($reorganizedUserCategoryList[$category['categoryId']]['courseId']);
         }
     }
     
@@ -824,23 +827,26 @@ function render_user_course_list()
     {
         foreach ($reorganizedUserCategoryList as $category)
         {
-            $out .= '<h4 id="'.$category['categoryId'].'">'
-                  . $category['trail']
-                  . (!empty($category['rootCourse']) ?
-                  ' [<a href="'
-                  . get_path('url') . '/claroline/course/index.php?cid='
-                  . htmlspecialchars($course['sysCode'])
-                  .'">Infos</a>]' :
-                  '')
-                  . '</h4>'."\n"
-                  . '<ul class="courses">';
-            
-            foreach ($category['courseList'] as $course)
+            if (!empty($category['courseList']))
             {
-                $out .= '<li '.($course['hot'] ? 'class="hot"' : '').'>'
-                      . '<dl>'
-                      . render_course_dt_in_dd_list($course, $course['hot']).'</li>'
-                      . '</dl>' . "\n";
+                $out .= '<h4 id="'.$category['categoryId'].'">'
+                      . $category['trail']
+                      . (!empty($category['rootCourse']) ?
+                      ' [<a href="'
+                      . get_path('url') . '/claroline/course/index.php?cid='
+                      . htmlspecialchars($course['sysCode'])
+                      .'">Infos</a>]' :
+                      '')
+                      . '</h4>'."\n"
+                      . '<ul class="courses">';
+                
+                foreach ($category['courseList'] as $course)
+                {
+                    $out .= '<li '.($course['hot'] ? 'class="hot"' : '').'>'
+                          . '<dl>'
+                          . render_course_dt_in_dd_list($course, $course['hot']).'</li>'
+                          . '</dl>' . "\n";
+                }
             }
             $out .= '</ul>';
         }
