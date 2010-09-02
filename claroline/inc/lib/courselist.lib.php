@@ -47,6 +47,10 @@ class category_browser
                 LEFT JOIN `" . $tbl_courses . "` AS `cours`
                        ON `cours`.`faculte` = `subCat`.`code`
                        AND `cours`.visibility = 'VISIBLE'
+                       AND (`cours`.`status` = 'enable'
+                       OR (`cours`.`status` = 'date'
+                          AND (`cours`.`creationDate` < '". $curdate ."' OR `cours`.`creationDate` IS NULL OR UNIX_TIMESTAMP(`cours`.`creationDate`)=0)
+                          AND ('". $curdate ."'<`cours`.`expirationDate`  OR `cours`.`expirationDate` IS NULL)))
                        ";
 
         if ($categoryCode)
@@ -60,15 +64,15 @@ class category_browser
                         OR `faculte`.`code_P` IS NULL \n";
         }
 
-         $sql .= "AND (`cours`.`status` = 'enable'
-                       OR (`cours`.`status` = 'date'
-                          AND (`cours`.`creationDate` < '". $curdate ."' OR `cours`.`creationDate` IS NULL OR UNIX_TIMESTAMP(`cours`.`creationDate`)=0)
-                          AND ('". $curdate ."'<`cours`.`expirationDate`  OR `cours`.`expirationDate` IS NULL)))
-                  GROUP  BY `faculte`.`code`
+        $sql .= "GROUP  BY `faculte`.`code`
                   ORDER BY  `faculte`.`treePos`";
             
 
-        $this->categoryList = claro_sql_query_fetch_all($sql);
+        $categoryList = claro_sql_query_fetch_all($sql);
+
+
+
+        $disabledCourseList = claro_sql_query_fetch_all($sql);
     }
 
     /**
@@ -774,7 +778,7 @@ function render_access_mode_caption_block()
            . '<legend>' . get_lang( 'Caption' ) . '</legend>' . "\n"
            . '<img class="iconDefinitionList" src="' . get_icon_url( 'access_open' ) . '" alt="public" />' . get_lang( 'Access allowed to anybody (even without login)' ) . '<br />' . "\n"
            . '<img class="iconDefinitionList" src="' . get_icon_url( 'access_platform' ) . '" alt="public" />' . get_lang( 'Access allowed only to platform members (user registered to the platform)' ) . '<br />' . "\n"
-           . '<img class="iconDefinitionList" src="' . get_icon_url( 'access_locked' ) . '"  alt="Verrouillé" />' . get_lang( 'Access allowed only to course members (people on the course user list)' ) . "\n"
+           . '<img class="iconDefinitionList" src="' . get_icon_url( 'access_locked' ) . '"  alt="Verrouillï¿½" />' . get_lang( 'Access allowed only to course members (people on the course user list)' ) . "\n"
            . '</fieldset>';
     return $block;
 }
