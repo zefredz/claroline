@@ -287,7 +287,8 @@ switch ( $display )
         if ( preg_match('/^1.9/',$currentDbVersion) )
         {
             $function_list = array('upgrade_category_to_110', 
-                                   'upgrade_session_course_to_110'
+                                   'upgrade_session_course_to_110',
+                                   'upgrade_cours_user_to_110'
                                     );
             
             
@@ -319,7 +320,7 @@ switch ( $display )
 
         if ( $nbError == 0 )
         {
-            if ( preg_match('/^1.9/',$currentDbVersion) )
+            if ( preg_match('/^1.10/',$currentDbVersion) )
             {
                 echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">Next ></button></p></div>';
             }

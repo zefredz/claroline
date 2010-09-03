@@ -216,7 +216,7 @@ if ( $cmd == 'run' )
      * Config file to undist
      */
 
-    $arr_file_to_undist = array ( get_path('incRepositorySys').'/../auth/extauth/drivers/auth.drivers.conf.php' => get_path('rootSys').'platform/conf' );
+    $arr_file_to_undist = array ( get_path('incRepositorySys').'/conf/drivers.auth.conf.php' => get_path('rootSys').'platform/conf' );
 
     foreach ( $arr_file_to_undist as $undistFile => $undistPath )
     {

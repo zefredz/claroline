@@ -16,7 +16,7 @@
  */
 
 $new_version_branch = '';
-$patternVarVersion = '/^1.9/';
+$patternVarVersion = '/^1.10/';
 // Initialise Upgrade
 require 'upgrade_init_global.inc.php';
 

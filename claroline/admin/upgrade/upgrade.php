@@ -51,8 +51,8 @@ if (!claro_is_platform_admin()) upgrade_disp_auth_form();
 
 // Pattern for this new stable version
 
-$patternVarVersion = '/^1.9/';
-$patternSqlVersion = '1.9%';
+$patternVarVersion = '/^1.10/';
+$patternSqlVersion = '1.10%';
 
 // Display definition
 

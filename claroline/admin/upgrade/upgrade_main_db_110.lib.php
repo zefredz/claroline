@@ -207,14 +207,23 @@ function upgrade_cours_user_to_110 ()
         case 1 :
             
             // Add the attribute sourceCourseId to the course table
-            $sqlForUpdate[] = "RENAME TABLE `" . get_conf('mainTblPrefix') . "`.`cl_cours_user` "
-                            . "TO `" . get_conf('mainTblPrefix') . "`.`cl_rel_course_user`";
+            $sqlForUpdate[] = "RENAME TABLE `" . get_conf('mainTblPrefix') . "`.`cours_user` "
+                            . "TO `" . get_conf('mainTblPrefix') . "`.`rel_course_user`";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
             
             unset($sqlForUpdate);
             
+        case 2 :
+            
+            // Add attribute "isSourceCours" to `cours`table
+            $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['rel_course_user'] . "` ADD `isPending` TINYINT(4) NOT NULL DEFAULT '0' ";
+            // 
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+
+            unset($sqlForUpdate);            
         default :
 
             $step = set_upgrade_status($tool, 0);
