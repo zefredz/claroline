@@ -402,7 +402,7 @@ switch ($display)
 
                 if ( preg_match('/^1.9/',$currentCourseVersion) )
                 {
-                    // Function to upgrade tool to 1.8
+                    // Function to upgrade tool to 1.10
                     $function_list = array( 'announcements_upgrade_to_110',
                                             'calendar_upgrade_to_110',
                                             'exercise_upgrade_to_110'
@@ -439,7 +439,7 @@ switch ($display)
 
             if ( ! $error )
             {
-                if ( preg_match('/^1.9/',$currentCourseVersion) )
+                if ( preg_match('/^1.10/',$currentCourseVersion) )
                 {
                     $message .= '<p class="success">Upgrade succeeded</p>';
                     // course upgraded
