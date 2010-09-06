@@ -42,7 +42,7 @@ class ImsAssessmentItem
      {
         $this->question = $question;
         $this->answer = $question->answer;
-        $this->questionIdent = "QST_" . (int) $question->getId() ;
+        $this->questionIdent = 'QST_' . (int) $question->getRank();
      }
 
      /**

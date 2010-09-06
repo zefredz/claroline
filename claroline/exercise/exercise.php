@@ -200,12 +200,12 @@ if( $is_allowedToEdit && !is_null($cmd) )
         $filePathList = array();
 
         //prepare xml file of each question
-
+        $quRank = 0;
         foreach ($questionList as $question)
         {
-            
-            $quId = $question['id'];            
+            $quId = $question['id'];
             $questionObj = new Qti2Question();
+            $questionObj->setRank( ++$quRank );
             $questionObj->load($quId);
             
             // contruction of XML flow
@@ -222,7 +222,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
                 claro_mkdir($questionObj->questionDirSys,CLARO_FILE_PERMISSIONS);
             }
 
-            if( $fp = @fopen($questionObj->questionDirSys."/question_".$quId.".xml", 'w') )
+            if( $fp = @fopen($questionObj->questionDirSys."/question_".$quRank.".xml", 'w') )
             {
                 fwrite($fp, $xml);
                 fclose($fp);

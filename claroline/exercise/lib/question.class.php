@@ -89,8 +89,13 @@ class Question
     /**
      * @var $tblRelExerciseQuestion
      */
-    var $tblRelExerciseQuestion;  
- 
+    var $tblRelExerciseQuestion;
+    
+    /**
+     * @var $rank
+     */
+    var $rank;
+
  	/**
  	 * @var $tblQuestionCategory
  	 */  
@@ -339,8 +344,8 @@ class Question
     {
         global $_course;
         
-        $this->questionDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'exercise/question_'.$this->id.'/';
-        $this->questionDirWeb = get_conf('coursesRepositoryWeb').$_course['path'].'/'.'exercise/question_'.$this->id.'/';            
+        $this->questionDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'exercise/question_'.$this->rank.'/';
+        $this->questionDirWeb = get_conf('coursesRepositoryWeb').$_course['path'].'/'.'exercise/question_'.$this->rank.'/';            
     }    
 
     /**
@@ -976,6 +981,25 @@ class QuestionCategory
             return true;
         }
         return false;
+    }
+    
+    /**
+     * get question rank
+     * @return int $rank
+     */
+    public function getRank()
+    {
+        return $this->rank;
+    }
+    
+    /**
+     * set question rank
+     * @param int $rank
+     * @return boolean
+     */
+    public function setRank( $rank )
+    {
+        return $this->rank = (int) $rank;
     }
 }
 ?>
