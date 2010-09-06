@@ -80,8 +80,12 @@ class Question
      * @var $tblRelExerciseQuestion
      */
     var $tblRelExerciseQuestion;  
-            
-            
+    
+    /**
+     * @var $rank
+     */
+    var $rank;
+    
     function Question($course_id = null)
     {
         global $_course;
@@ -316,8 +320,8 @@ class Question
     {
         global $_course;
         
-        $this->questionDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'exercise/question_'.$this->id.'/';
-        $this->questionDirWeb = get_conf('coursesRepositoryWeb').$_course['path'].'/'.'exercise/question_'.$this->id.'/';            
+        $this->questionDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'exercise/question_'.$this->rank.'/';
+        $this->questionDirWeb = get_conf('coursesRepositoryWeb').$_course['path'].'/'.'exercise/question_'.$this->rank.'/';            
     }    
 
     /**
@@ -712,8 +716,24 @@ class Question
     {
         $this->exerciseId = (int) $value;
     }
-
-
-
+    
+    /**
+     * get question rank
+     * @return int $rank
+     */
+    public function getRank()
+    {
+        return $this->rank;
+    }
+    
+    /**
+     * set question rank
+     * @param int $rank
+     * @return boolean
+     */
+    public function setRank( $rank )
+    {
+        return $this->rank = (int) $rank;
+    }
 }
 ?>

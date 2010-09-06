@@ -88,7 +88,6 @@ function import_exercise($file, &$backlog)
     $exercise_info['name'] = preg_replace('/.zip$/i','' ,$file);
     $exercise_info['description'] = '';
     $exercise_info['question'] = array();
-    $element_pile    = array();
 
     // create parser and array to retrieve info from manifest
 
@@ -172,7 +171,9 @@ function import_exercise($file, &$backlog)
         $backlog->failure(get_lang('There is an error in exercise data of imported file.'));
         return false;
     }
-
+    
+    ksort( $exercise_info['question'] , SORT_NUMERIC );
+    
     //For each question found...
     foreach($exercise_info['question'] as $key => $question_array)
     {
@@ -403,7 +404,7 @@ function startElement($parser, $name, $attributes)
         {
             //retrieve current question
 
-            $current_question_ident = $attributes['IDENTIFIER'];
+            $current_question_ident = (int) substr( $attributes['IDENTIFIER'] , 4 );
             $exercise_info['question'][$current_question_ident] = array();
             $exercise_info['question'][$current_question_ident]['answer'] = array();
             $exercise_info['question'][$current_question_ident]['correct_answers'] = array();
