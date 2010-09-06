@@ -168,8 +168,8 @@ function claro_move_file($sourcePath, $targetPath)
     if (realpath($sourcePath) == realpath($targetPath) ) return true;
 
     // check to not copy a directory inside itself
-    if (   is_dir($sourcePath)
-        && preg_match('/^' . $sourcePath . '\//', $targetPath . '/') )
+    if ( is_dir($sourcePath)
+        && preg_match('/^' . str_replace( '/' , '\/' , $sourcePath ) . '\//', $targetPath . '/') )
         return claro_failure::set_failure('MOVE INSIDE ITSELF');
 
     $sourceFileName = basename($sourcePath);
