@@ -874,7 +874,7 @@ if( $is_allowedToSubmit )
                     require_once dirname(__FILE__) . '/../messaging/lib/recipient/userlistrecipient.lib.php';
 
                     // subject
-                    $subject = get_lang('New submission posted in assignment tool.');
+                    $subject = $_user['firstName'] . ' ' .$_user['lastName'] . ' : ' . get_lang('New submission posted in assignment tool.');
 
                     if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
                         $authId = $wrkForm['wrkGroup'];
