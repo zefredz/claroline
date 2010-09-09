@@ -624,7 +624,7 @@ function generate_passwd($nb=8)
 }
 
 /**
- * Check an email
+ * Check an email based on RFC 2822. Regex from http://www.regular-expressions.info/email.html
  * @version 1.0
  * @param  string $email email to check
  *
@@ -634,9 +634,10 @@ function generate_passwd($nb=8)
 
 function is_well_formed_email_address($address)
 {
-    $regexp = '/^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$/i';
-
-    //  $regexp = '^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$';
+    $regexp = "/[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i";
+    
+    //  $regexp = '/^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$/i';
+    //  $regexp = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";
     return preg_match($regexp, $address);
 }
 
