@@ -771,7 +771,7 @@ function render_user_course_list()
     foreach ($userCategoryList as $category)
     {
         // Flag root courses and put it aside
-        $reorganizedUserCourseList[$category['courseId']]['rootCourse'] = null;
+        $reorganizedUserCourseList[$category['courseId']]['rootCourse'] = 0;
         if ($category['rootCourse'])
         {
             $reorganizedUserCourseList[$category['courseId']]['rootCourse'] = 1;
@@ -834,7 +834,7 @@ function render_user_course_list()
                       . (!empty($category['rootCourse']) ?
                       ' [<a href="'
                       . get_path('url') . '/claroline/course/index.php?cid='
-                      . htmlspecialchars($course['sysCode'])
+                      . htmlspecialchars($category['rootCourse']['sysCode'])
                       .'">Infos</a>]' :
                       '')
                       . '</h4>'."\n"
