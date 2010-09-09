@@ -126,6 +126,9 @@ if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
             {
                 $emailBody .= implode ("\r\n\r\n", $userAccountList);
             }
+            
+            $emailBody .= "\r\n\r\n"
+                        . get_lang( 'This new password has been automatically generated. Once logged in, feel free to change it.' );
 
             // send message
             if( claro_mail_user($userList[0]['uid'], $emailBody, $emailSubject) )

@@ -1656,6 +1656,7 @@ $_lang['This is where tracking and statistics data are stored. This database can
 $_lang['This is your account Login-Pass'] = 'Voici vos paramètres de connexion';
 $_lang['This mail appears already in a previous line of the CSV file.'] = 'Cette adresse de courrier électronique apparaît déjà dans une ligne précédente du fichier CSV.';
 $_lang['This module cannot be deactivated'] = 'Ce module ne peut pas être désactivé';
+$_lang['This new password has been automatically generated. Once logged in, feel free to change it.'] = 'Ce nouveau mot de passe a été généré automatiquement. Une fois authentifié, vous êtes libre de le modifier';
 $_lang['This official code already appears in a previous line of the CSV file.'] = 'Ce matricule apparaît déjà dans une ligne précédente du fichier CSV.';
 $_lang['This official code is already used by another user.'] = 'Ce matricule est déjà utilisé par un autre utilisateur.';
 $_lang['This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'] = 'Cette option ajoute un lien dans le formulaire "Mon compte utilisateur" pour solliciter le statut de "Créateur de cours". Cette requête est envoyée par e-mail à l\'administrateur de la plateforme.';
