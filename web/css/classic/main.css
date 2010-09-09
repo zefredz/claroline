@@ -1134,6 +1134,10 @@ ul.user_list {
 ul.user_list li {
     float:left;
     position:relative;
+    width:100px;
+    padding:0;
+    margin:5px;
+    background:#ccc;
 }
 
 ul.user_list li img.edit_link {

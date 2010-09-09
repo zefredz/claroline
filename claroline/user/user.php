@@ -237,8 +237,8 @@ if ( $is_allowedToEdit )
    Get Course informations
   ----------------------------------------------------------------------*/
 
-$sql = "SELECT `course`.`registration` 
-        FROM `" . $tbl_courses . "` AS course 
+$sql = "SELECT `course`.`registration`
+        FROM `" . $tbl_courses . "` AS course
         WHERE `course`.`code`='" . claro_sql_escape(claro_get_current_course_id()) . "'";
 
 $course = claro_sql_query_get_single_row($sql);
@@ -390,21 +390,30 @@ $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize($_SERVER[
                                  , array('onclick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
                                  );
 
-                                 
+
 /*=====================================================================
 Display section
   =====================================================================*/
 
 $out = '';
 
-$out .= claro_html_tool_title($nameTools . ' (' . get_lang('number') . ' : ' . $userTotalNb . ')',
-            $is_allowedToEdit ? 'help_user.php' : false);
+$out .= claro_html_tool_title($nameTools
+      . ' (' . get_lang('number') . ' : ' . $userTotalNb
+      . ')', $is_allowedToEdit ? 'help_user.php' : false);
 
 // Display Forms or dialog box(if needed)
 $out .= $dialogBox->render();
 
 // Display tool links
 if ( $disp_tool_link ) $out .= claro_html_menu_horizontal($userMenu);
+
+// Display link to the users' pictures
+$out .= '<br/>'
+      . claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+            get_path('clarolineRepositoryWeb') . 'user/user_pictures.php'
+            ))
+            , '<img src="' . get_icon_url('picture') . '" alt="" />'
+            . get_lang('Users\'s pictures'));
 
 
 /*----------------------------------------------------------------------
@@ -631,5 +640,3 @@ $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
