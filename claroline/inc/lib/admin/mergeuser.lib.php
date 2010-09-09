@@ -103,7 +103,7 @@ class MergeUser
     
     public static function mergeMainMessaging( $uidToRemove, $uidToKeep )
     {
-        $tableName = get_module_main_tbl(array('im_message','im_message_status'));
+        $tableName = get_module_main_tbl(array('im_message','im_message_status','im_recipient'));
             
         $getUserMessagesInCourse = "SELECT M.message_id AS id"
             . " FROM `" . $tableName['im_message'] . "` as M\n"
@@ -111,7 +111,7 @@ class MergeUser
             . " WHERE R.user_id = " . (int)$uidToKeep
             . " AND M.course IS NULL";
             
-        $userToKeepMsgList = claro_sql_query_fetch_all($sql);
+        $userToKeepMsgList = claro_sql_query_fetch_all($getUserMessagesInCourse);
         
         if ( !empty( $userToKeepMsgList ) )
         {
@@ -148,9 +148,9 @@ class MergeUser
             . " FROM `" . $tableName['im_message'] . "` as M\n"
             . " LEFT JOIN `" . $tableName['im_recipient'] . "` as R ON M.message_id = R.message_id\n"
             . " WHERE R.user_id = " . (int)$uidToRemove
-            . " AND M.course IS NULL".claro_sql_escape($thisCourseCode)."'";
+            . " AND M.course IS NULL";
             
-        $userToKeepMsgList = claro_sql_query_fetch_all($sql);
+        $userToKeepMsgList = claro_sql_query_fetch_all($getUserMessagesInCourse);
         
         if ( !empty( $userToKeepMsgList ) )
         {
@@ -190,7 +190,7 @@ class MergeUser
     {
         // update messaging
         
-        $tableName = get_module_main_tbl(array('im_message','im_message_status'));
+        $tableName = get_module_main_tbl(array('im_message','im_message_status','im_recipient'));
         
         $getUserMessagesInCourse = "SELECT M.message_id AS id"
             . " FROM `" . $tableName['im_message'] . "` as M\n"
@@ -198,7 +198,7 @@ class MergeUser
             . " WHERE R.user_id = " . (int)$uidToKeep
             . " AND M.course = '".claro_sql_escape($thisCourseCode)."'";
             
-        $userToKeepMsgList = claro_sql_query_fetch_all($sql);
+        $userToKeepMsgList = claro_sql_query_fetch_all($getUserMessagesInCourse);
         
         if ( !empty( $userToKeepMsgList ) )
         {
@@ -237,7 +237,7 @@ class MergeUser
             . " WHERE R.user_id = " . (int)$uidToRemove
             . " AND M.course IS NULL".claro_sql_escape($thisCourseCode)."'";
             
-        $userToKeepMsgList = claro_sql_query_fetch_all($sql);
+        $userToKeepMsgList = claro_sql_query_fetch_all($getUserMessagesInCourse);
         
         if ( !empty( $userToKeepMsgList ) )
         {
