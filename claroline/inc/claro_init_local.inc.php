@@ -358,9 +358,9 @@ else
         unset( $_SESSION['_user'] );
     }
     
-    // CAS 
+    // CAS
 
-    if ( get_conf('claro_CasEnabled', false) 
+    if ( get_conf('claro_CasEnabled', false)
          && isset($_REQUEST['authModeReq'])
          && $_REQUEST['authModeReq'] == 'CAS'
          )
@@ -441,7 +441,7 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
             if ( $currentUser->firstLogin() )
             {
                 // first login for a not self registred (e.g. registered by a teacher)
-                // do nothing (code may be added later)                
+                // do nothing (code may be added later)
                 $currentUser->updateCreatorId();
                 $_SESSION['firstLogin'] = true;
             }
@@ -474,7 +474,8 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
     }
     catch ( Exception $e )
     {
-        exit('WARNING UNDEFINED UID !! The requested user doesn\'t exist ');
+        exit('WARNING !! Undefined user id: the requested user doesn\'t exist '
+            . 'at line '.__LINE__);
     }
 }
 else
@@ -506,7 +507,8 @@ if ( $cidReset ) // course session data refresh requested
 
         if ($_course == false)
         {
-            die('WARNING !! claro_get_course_data() in INIT FAILED ! '.__LINE__);
+            die('WARNING !! The course\'s datas couldn\'t be loaded at line '
+                .__LINE__.'.  Please contact your platform administrator.');
         }
 
         $_cid    = $_course['sysCode'];
@@ -515,7 +517,8 @@ if ( $cidReset ) // course session data refresh requested
 
         if ($_groupProperties == false)
         {
-            die('WARNING !! claro_get_main_group_properties() in INIT FAILED !  '.__LINE__);
+            die('WARNING !! The group\'s properties couldn\'t be loaded at line '
+                .__LINE__.'.  Please contact your platform administrator.');
         }
     }
     else
@@ -587,17 +590,17 @@ if ( $uidReset || $cidReset ) // session data refresh requested
         $_courseUser = null; // not used
     }
     
-    $is_courseAllowed = (bool) 
+    $is_courseAllowed = (bool)
     (
-        ( $_course['visibility'] 
+        ( $_course['visibility']
           && ( $_course['access'] == 'public'
-               || ( $_course['access'] == 'platform' 
-                    && claro_is_user_authenticated() 
-                  ) 
-             ) 
+               || ( $_course['access'] == 'platform'
+                    && claro_is_user_authenticated()
+                  )
+             )
         )
         || $is_courseMember
-        || $is_platformAdmin 
+        || $is_platformAdmin
     ); // here because it's a right and not a state
 }
 else // else of if ($uidReset || $cidReset) - continue with the previous values
@@ -635,9 +638,9 @@ else // else of if ($uidReset || $cidReset) - continue with the previous values
 }
 
 // Installed module in course if available in platform and not in course
-if ( $cidReq 
-    && is_array( $_course ) 
-    && isset($_course['dbNameGlu']) 
+if ( $cidReq
+    && is_array( $_course )
+    && isset($_course['dbNameGlu'])
     && !empty($_course['dbNameGlu'])
     && trim($_course['dbNameGlu']) )
 {
@@ -648,7 +651,7 @@ if ( $cidReq
     
     // 1. get tool list from main db
     
-    $mainCourseToolList = claro_get_main_course_tool_list(); 
+    $mainCourseToolList = claro_get_main_course_tool_list();
     
     // 2. get list af already installed tools from course
     
@@ -764,7 +767,9 @@ if ( $tidReset || $cidReset ) // session data refresh requested
             
             if ( ! in_array( $tlabelReq, $activatedModules ) )
             {
-                exit('WARNING UNDEFINED TLABEL OR TID !! Your script declare be a tool wich is not registred');
+                exit('WARNING !! Undefined Tlabel or Tid: your script declare '
+                    . 'be a tool wich is not registred at line '.__LINE__.'.  '
+                    . 'Please contact your platform administrator.');
             }
             else
             {
@@ -830,7 +835,9 @@ if ( $gidReset || $cidReset ) // session data refresh requested
         }
         else
         {
-            claro_die('WARNING UNDEFINED GID !! The requested group doesn\'t exist');
+            claro_die('WARNING !! Undefined groupd id: the requested group '
+                . ' doesn\'t exist at line '.__LINE__.'.  '
+                . 'Please contact your platform administrator.');
         }
     }
     else  // Keys missing => not anymore in the group - course relation
