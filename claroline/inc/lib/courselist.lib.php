@@ -108,39 +108,52 @@ class category_browser
         
         $curdate = date('Y-m-d H:i:s', time());
 
-        $sql = "SELECT intitule             AS title,
-                       titulaires           AS titular,
-                       code                 AS sysCode,
-                       administrativeNumber AS officialCode,
-                                              `language`,
-                                               directory,
-                                               visibility,
-                                               access,
-                                               registration,
-                                               email,
-                                               status,
+        $sql = "
+                SELECT
+                        c.intitule             AS title,
+                        c.titulaires           AS titular,
+                        c.code                 AS sysCode,
+                        c.administrativeNumber AS officialCode,
+                        c.`language`,
+                        c.directory,
+                        c.visibility,
+                        c.access,
+                        c.registration,
+                        c.email,
+                        c.status,
                        "
-              . ( $this->userId ? 'isCourseManager, ' : '')."
+              . ( $this->userId ? "cu.`isCourseManager`, " : "")."
                        "
-              . ( $this->userId ? "cu.user_id" : "NULL") . " AS enroled "
-
-              . " FROM `" . $tbl_courses . "` AS c
-                "
-              . ($this->userId
-                 ? "LEFT JOIN `" . $tbl_rel_course_user . "` AS `cu`
-                           ON  `c`.`code`    = `cu`.`code_cours`
-                          AND `cu`.`user_id` = " . (int) $this->userId . "
-                   "
-                 : " ")
-                 
-              . "WHERE c.`faculte` = '" . addslashes($this->categoryCode) . "'
-                 AND visibility = 'VISIBLE' 
-                 AND (`status` = 'enable' 
-                     OR (`status` = 'date'
-                         AND (`creationDate` < '". $curdate ."' OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0)
-                         AND ('". $curdate ."'<`expirationDate`  OR `expirationDate` IS NULL)))"
-                 . ($this->userId ? "OR NOT (cu.user_id IS NULL)" :"") .
-                 " ORDER BY UPPER(c.administrativeNumber)";
+              . ( $this->userId ? "cu.user_id" : "NULL") . " AS enroled
+              
+                FROM
+                    `" . $tbl_courses . "` AS c
+                
+                " . ($this->userId ? "
+                
+                LEFT JOIN `" . $tbl_rel_course_user . "` AS `cu`
+                ON  `c`.`code`    = `cu`.`code_cours`
+                AND `cu`.`user_id` = " . (int) $this->userId
+                
+                :  "") . "
+                
+                WHERE
+                    c.`faculte` = '" . addslashes($this->categoryCode) . "'
+                AND
+                    c.visibility = 'VISIBLE' 
+                AND (
+                
+                    c.`status` = 'enable'
+                    
+                    OR (
+                            c.`status` = 'date'
+                                AND ( c.`creationDate` < '". $curdate ."' OR c.`creationDate` IS NULL OR UNIX_TIMESTAMP( c.`creationDate` ) = 0 )
+                                AND ( '". $curdate ."' < c.`expirationDate`  OR c.`expirationDate` IS NULL )
+                        )
+                        
+                    )
+                    
+                ORDER BY UPPER(c.administrativeNumber)";
 
         return claro_sql_query_fetch_all($sql);
     }
