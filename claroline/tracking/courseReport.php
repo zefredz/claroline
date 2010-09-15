@@ -4,7 +4,7 @@
  *
  * @version 1.9 $Revision: 9858 $
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
  *
  * @author Sebastien Piraux <seb@claroline.net>
  *

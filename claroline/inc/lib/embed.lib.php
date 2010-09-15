@@ -7,7 +7,7 @@
  *
  * @version     1.10 $Revision$
  * @deprecated since Claroline 1.9
- * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE

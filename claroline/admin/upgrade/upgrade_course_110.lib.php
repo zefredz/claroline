@@ -13,7 +13,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * function won't change, so let's go to write it.
  *
  * @version     1.10 $Revision: 12380 $
- * @copyright   (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     UPGRADE
  * @author      Claro Team <cvs@claroline.net>

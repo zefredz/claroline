@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * This is not a thematic lib
  *
  * @version 1.10 $Revision$
- * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
  *          version 2 or later
  * @author Claro Team <cvs@claroline.net> for additionnal authors see the

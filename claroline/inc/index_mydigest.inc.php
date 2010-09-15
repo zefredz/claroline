@@ -8,7 +8,7 @@ die('This file is deprecated.('.basename(__FILE__). ':'.__LINE__.')');
  * This module displays a cross course digest for the current authenticated user
  *
  * @version 1.9 $Revision$
- * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
  * @package CLCALDIGEST
  *

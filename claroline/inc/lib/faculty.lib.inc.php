@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * This is lib for manage course tree with tree structure version 1
  *
  * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/CLTREE
  * @package     CLTREE

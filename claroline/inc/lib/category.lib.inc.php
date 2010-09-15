@@ -7,7 +7,7 @@
  *
  * @version 1.10 $Revision: 11894 $
  *
- * @copyright 2001-2010 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author Claro Team <cvs@claroline.net>
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
