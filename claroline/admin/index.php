@@ -3,7 +3,7 @@
  * CLAROLINE
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -12,12 +12,12 @@
  * @author claro team <cvs@claroline.net>
  * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  */
-
 $cidReset=true;
 $gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
-// SECURITY CHECK
+//SECURITY CHECK
+
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
@@ -26,8 +26,8 @@ require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 //------------------------
 //  USED SESSION VARIABLES
 //------------------------
+// clean session of possible previous search information. : COURSE
 
-// Clean session of possible previous search information. : COURSE
 unset($_SESSION['admin_course_code']);
 unset($_SESSION['admin_course_search']);
 unset($_SESSION['admin_course_intitule']);
@@ -38,7 +38,7 @@ unset($_SESSION['admin_course_subscription']);
 unset($_SESSION['admin_course_order_crit']);
 
 
-// Deal with session variables clean session variables from previous search : USER
+// deal with session variables clean session variables from previous search : USER
 
 // TODO : this unset would disapear
 unset($_SESSION['admin_user_search']);
@@ -57,7 +57,7 @@ $menu['AdminClaroline'] = get_menu_item_list('AdminClaroline');
 $menu['AdminPlatform']  = get_menu_item_list('AdminPlatform');
 $menu['AdminTechnical'] = get_menu_item_list('AdminTechnical');
 $menu['Communication']  = get_menu_item_list('Communication');
-$menu['ExtraTools']     = get_menu_item_list('ExtraTools');
+$menu['ExtraTools'] = get_menu_item_list('ExtraTools');
 
 
 
@@ -65,10 +65,11 @@ $menu['ExtraTools']     = get_menu_item_list('ExtraTools');
 // DISPLAY
 //----------------------------------
 
-// Deal with interbreadcrumbs and title variable
+// Deal with interbredcrumps  and title variable
+
 $nameTools = get_lang('Administration');
 
-// no sense because not allowed with claro_is_platform_admin()
+//  no sense because not allowed with claro_is_platform_admin()
 // but  claro_is_platform_admin() would be later replaced by get_user_property ('can view admin menu')
 $is_allowedToAdmin     = claro_is_platform_admin();
 
@@ -77,6 +78,7 @@ if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'
 {
     $dialogBox->warning( get_block('blockWarningRemoveInstallDirectory') );
 }
+
 // ----- is install visible ----- end
 
 $register_globals_value = ini_get('register_globals');
@@ -193,7 +195,7 @@ function get_menu_item_list($type)
 
         $menu['AdminCourse'][] = claro_html_tool_link('admincourses.php',                   get_lang('Course list'));
         $menu['AdminCourse'][] = claro_html_tool_link('../course/create.php?adminContext=1', get_lang('Create course'));
-        $menu['AdminCourse'][] = claro_html_tool_link('admin_category.php',                      get_lang('Manage course categories'));
+        $menu['AdminCourse'][] = claro_html_tool_link('admincats.php',                      get_lang('Manage course categories'));
 
 
         $menu['AdminPlatform'][] = claro_html_tool_link('tool/config_list.php', get_lang('Configuration'));

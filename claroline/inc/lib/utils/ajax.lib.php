@@ -5,7 +5,7 @@
 /**
  * Ajax utility functions and classes
  *
- * @version     1.10 $Revision$
+ * @version     1.9 $Revision$
  * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -31,7 +31,7 @@ class Json_Response
      * Message type ERROR
      */
     const ERROR = 'error';
-    
+
     protected $type, $body;
 
     /**
@@ -55,9 +55,9 @@ class Json_Response
             'responseType' => $this->type,
             'responseBody' => $this->body
         );
-        
+
         claro_utf8_encode_array( $response );
-        
+
         return json_encode( $response );
     }
 }
@@ -91,14 +91,14 @@ class Json_Exception extends Json_Error
             'errno' => $e->getCode(),
             'error' => $e->getMessage()
         );
-        
+
         if ( claro_debug_mode() )
         {
             $errorArr['trace'] = $e->getTraceAsString();
             $errorArr['file'] = $e->getFile();
             $errorArr['line'] = $e->getLine();
         }
-        
+
         parent::__construct( $errorArr );
     }
 }
@@ -118,7 +118,7 @@ class Ajax_Request
      */
     public function __construct( $class, $method, $params = array() )
     {
-        $this->klass = $class; 
+        $this->klass = $class;
         $this->method = $method;
         $this->params = $params;
     }

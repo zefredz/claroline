@@ -228,7 +228,6 @@ $_lang['Attach a file'] = 'Voeg een bestand toe';
 $_lang['Attach an existing resource'] = 'Voeg een al bestaande bron toe';
 $_lang['Attached file'] = 'Toegevoegd bestand';
 $_lang['Attached resources'] = 'Toegevoegde bronnen';
-$_lang['Attempt %attemptCount'] = 'Poging %attemptCount';
 $_lang['Attempt %attemptCount on %attempts'] = 'Poging %attemptCount op %attempts';
 $_lang['Attempts'] = 'Pogingen';
 $_lang['Attempts allowed'] = 'Pogingen toegestaan';
@@ -249,7 +248,6 @@ $_lang['Average Time'] = 'Gemiddelde tijd (s.)';
 $_lang['Average score'] = 'Gemiddelde';
 $_lang['Back'] = 'Terug';
 $_lang['Back to administration page'] = 'Terug naar administratie pagina';
-$_lang['Back to class list'] = 'Terug naar de klaslijst';
 $_lang['Back to class members'] = 'Terug naar klasleden';
 $_lang['Back to course list'] = 'Terug naar de cursuslijst';
 $_lang['Back to inbox'] = 'Terug naar de inbox';
@@ -333,7 +331,7 @@ $_lang['Category code is required'] = 'Code categorie is vereist';
 $_lang['Category created'] = 'Categorie aangemaakt';
 $_lang['Category deleted'] = 'Categorie verwijderd';
 $_lang['Category moved'] = 'Categorie verplaatst';
-$_lang['Category name'] = 'Categorie naam :';
+$_lang['Category name'] = 'Categorie naam:';
 $_lang['Category name is required'] = 'Categorie naam is vereist';
 $_lang['Category needed'] = 'Categorie is een verplicht veld.';
 $_lang['Category updated'] = 'Categorie gewijzigd.';
@@ -370,7 +368,6 @@ $_lang['Class has been unenroled'] = 'Klas is uitgeschreven';
 $_lang['Class members'] = 'Klasleden';
 $_lang['Class not found'] = 'Klas niet gevonden';
 $_lang['Class registered'] = 'Klas geregistreerd';
-$_lang['Class users'] = 'Gebruikers in klas';
 $_lang['Classes'] = 'Klassen';
 $_lang['Clear up event list'] = 'Lijst opschonen';
 $_lang['Clear up event list ?'] = 'De lijst met gebeurtenissen opschonen?';
@@ -943,7 +940,6 @@ $_lang['Last attempt'] = 'Laatste poging';
 $_lang['Last computing'] = 'Laatste berekening';
 $_lang['Last download'] = 'Laatste download';
 $_lang['Last edit date'] = 'Datum laatst bewerkt';
-$_lang['Last event length'] = 'Duur van laatste event';
 $_lang['Last message'] = 'Laatste bericht';
 $_lang['Last message was on'] = 'Laatste bericht was op: ';
 $_lang['Last name'] = 'Achternaam';
@@ -1185,7 +1181,6 @@ $_lang['No description given'] = 'Geen beschrijving opgegeven';
 $_lang['No dock chosen'] = 'Geen dock gekozen';
 $_lang['No dock selected'] = 'Geen dock geselecteerd';
 $_lang['No error'] = 'Geen fout';
-$_lang['No error in file found.'] = 'Geen fout gevonden in bestand.';
 $_lang['No event in the agenda'] = 'Geen gebeurtenissen in de agenda';
 $_lang['No event to display'] = 'Geen gebeurtenis te melden';
 $_lang['No file uploaded'] = 'Geen bestand verstuurd';
@@ -1409,7 +1404,6 @@ $_lang['Register my campus'] = 'Registreer mijn campus';
 $_lang['Register this user to a course'] = 'Schrijf deze gebruiker in voor een cursus';
 $_lang['Register to the class'] = 'Inschrijven in de klas';
 $_lang['Register user'] = 'Gebruiker registreren';
-$_lang['Register user to class'] = 'Gebruiker in klas plaatsen';
 $_lang['Registered'] = 'Ingeschreven';
 $_lang['Registration'] = 'Inschrijven';
 $_lang['Registration agreement'] = 'Registratie-overeenkomst';
@@ -1447,8 +1441,6 @@ $_lang['Reuse same shuffle'] = 'Gebruik dezelfde shuffle opnieuw';
 $_lang['Reuse the same shuffle'] = 'Gebruik dezelfde shuffle opnieuw';
 $_lang['Revocation of %firstname %lastname'] = 'Hernoem %firstname %lastname';
 $_lang['Right'] = 'Rechten';
-$_lang['Right list'] = 'Lijst met rechten';
-$_lang['Right menu settings'] = 'Instellingen van het rechtenmenu';
 $_lang['Right profile list'] = 'Lijst van het rechtenprofiel';
 $_lang['Rights'] = 'Rechten';
 $_lang['Role'] = 'Rol';
@@ -1487,8 +1479,7 @@ $_lang['Search user'] = 'Zoek gebruiker';
 $_lang['Search user to add to your course'] = 'Zoek gebruiker om voor je cursus in te schrijven';
 $_lang['SecondShort'] = 'sec.';
 $_lang['Secondary manifest found in zip file :'] = 'Tweede manifest gevonden in zip-file:';
-$_lang['See below the files you can edit from this tool.'] = 'Met deze tool kan u de onderstaande bestanden bewerken.';
-$_lang['See user list'] = 'Bekijk gebruikerslijst';
+$_lang['See below the files you can edit from this tool.'] = 'Met deze tool kun je de onderstaande bestanden bewerken.';
 $_lang['Seen'] = 'Gelezen';
 $_lang['Select course in'] = 'Kies cursus in ';
 $_lang['Select course in search results'] = 'Kies cursus in zoekresultaten';
@@ -1516,8 +1507,7 @@ $_lang['Sets how the assignment property "default works visibility" acts.  It wi
 $_lang['Sets if user can see only his own submissions (or those from his groups) or if he can see every visible submission.'] = 'Stelt in of een gebruiker alleen zijn eigen inzendingen ziet (of die van zijn groep) of alle zichtbare inzendingen.';
 $_lang['Settings for tutors of group'] = 'Instellingen voor groepsdocenten';
 $_lang['Settings for users of group'] = 'Instellingen voor de gebruikers van groepen';
-$_lang['Settings of the right menu elements'] = 'Instellingen voor de rechter menuonderdelen';
-$_lang['Settings of the tool'] = 'Instellingen voor het onderdeel';
+$_lang['Settings of the tool'] = 'Instellingen voor het leermiddel';
 $_lang['Settings of the user course list'] = 'Instellingen van de cursuslijst van de gebruikers';
 $_lang['Show'] = 'Laat zien';
 $_lang['Show all'] = 'Laat alles zien';
@@ -1688,9 +1678,7 @@ $_lang['Title'] = 'Titel';
 $_lang['Title added :'] = 'Titel toegevoegd: ';
 $_lang['Title of the wiki'] = 'Titel van Wiki';
 $_lang['To'] = 'naar';
-$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Selecteer een groep gebruikers om een bericht te sturen (selecteer met een * ervoor)
-
- of selecteer enkele gebruikers uit de linker lijst.';
+$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Selecteer een groep gebruikers (selecteer met een * ervoor) of selecteer enkele gebruikers uit de linker lijst om een bericht te sturen';
 $_lang['Today'] = 'Vandaag';
 $_lang['Tool'] = 'leermiddel';
 $_lang['Tool added to course'] = 'leermiddel toegevoegd aan de cursus';
@@ -1798,7 +1786,6 @@ $_lang['Unregister all users ?'] = 'Alle gebruikers verwijderen?';
 $_lang['Unregister from class'] = 'Uitschrijven uit klas';
 $_lang['Unregister user'] = 'Gebruiker verwijderen';
 $_lang['Unsubscribe'] = 'Uitschrijven';
-$_lang['Until'] = 'tot';
 $_lang['Untitled'] = 'onbenoemd';
 $_lang['Up'] = 'Hoger';
 $_lang['Upgrade'] = 'Bijwerken';
@@ -2042,8 +2029,7 @@ E-mail : %administratorEmail
     ';
 $_lang['blockAssignmentsHelp'] = '<p>
 Het leermiddel \'Taken\' biedt een publicatiegelegenheid voor cursisten.
-De cursusleider maakt een of meer taken aan (met keuze uit verschillende publicatie mogelijkheden). 
-De cursisten gaan die taak vervolgens maken en publiceren.
+De cursusleider maakt een of meer taken aan (met keuze uit verschillende publicatie mogelijkheden). De cursisten gaan die taak vervolgens maken en publiceren.
 <br /><br />
 
 Elke taak biedt een aantal alternatieven:
@@ -2051,23 +2037,19 @@ Een publicatie kan een bestand en/of tekst zijn, en een publicatie kan individue
 groep worden aangeboden.
  <br /><br />
 
-Cursisten hebben de mogelijkheid hun werk na het indienen nog te wijzigen naar aanleiding van het commentaar van de cursusleider 
-op het ingeleverde werk.
+Cursisten hebben de mogelijkheid hun werk na het indienen nog te wijzigen naar aanleiding van het commentaar van de cursusleider op het ingeleverde werk.
 </p>
 <hr />
 
 <h4>Een taak aanmaken</h4>
 <p>
-Om een nieuwe taak aan te maken moet de cursusleider in het leermiddel \'Taken\' de link \'Maak een nieuwe taak\' 
-aanklikken.
+Om een nieuwe taak aan te maken moet de cursusleider in het leermiddel \'Taken\' de link \'Maak een nieuwe taak\' aanklikken.
 <p>Het formulier dat dan getoond wordt vraagt de cursusbeheerder om:
 </p>
 <ul><li> De naam van de taak.
 </li><li> Een omschrijving: wat de taak inhoudt, wat er van de cursisten verwacht wordt.
 </li><li> Wat dient te worden ingediend:
-<ul><li> Bestand: elk uploadbaar type bestand. (NB. er is een grens aan de grootte 
-van de bestanden die je kunt uploaden.) 
-Er kan een korte beschrijving van het bestand worden meegegegeven bij het uploaden.
+<ul><li> Bestand: elk uploadbaar type bestand. (NB. er is een grens aan de grootte van de bestanden die je kunt uploaden.) Er kan een korte beschrijving van het bestand worden meegegegeven bij het uploaden.
 
 </li><li> Alleen tekst: Een tekst (mogelijk met opmaak).
 </li><li> Tekst met toegevoegd bestand: een tekst (mogelijk met opmaak) en een bestand (optioneel)
@@ -2089,17 +2071,12 @@ mogen zijn voor andere gebruikers of niet.
 <p>Een commentaar (feedback) is een correcte versie van de taak. Om automatisch feedback toe te voegen, klik op de titel van de taak en vervolgens op \'Bewerk automatische feedback\'.
 <p>Deze feedback kan bestaan uit een tekst en/of een bestand.
 De cursusleider kan kiezen wanneer dit automatische commentaar aan de gebruikers getoond wordt: na de einddatum van de taak, of meteen nadat het werk werd ingediend.
-
-
 </p>
 
 <hr />
 <h4>Werken</h4>
 <p>Werken (inzendingen) zijn de publicaties/teksten die de gebruikers uploaden.</p>
-<p>Voor elke taak toont het leermiddel een lijst van alle cursisten,
- en voor elke cursist de titel van het eerste werk dat hij heeft ingediend, 
-het aantal ingediende werken en het aantal commentaren. 
-De lijst van werken van een gebruiker kan opgevraagd worden door op de gebruikersnaam te klikken.
+<p>Voor elke taak toont het leermiddel een lijst van alle cursisten, en voor elke cursist de titel van het eerste werk dat hij heeft ingediend, het aantal ingediende werken en het aantal commentaren. De lijst van werken van een gebruiker kan opgevraagd worden door op de gebruikersnaam te klikken.
 </p>
 <p><strong>Een werk indienen</strong></p>
 <p>Indien de gebruiker het recht heeft werk in te dienen, wordt er een link naar een formulier getoond.
@@ -2109,8 +2086,7 @@ De lijst van werken van een gebruiker kan opgevraagd worden door op de gebruiker
 Hij kan ook commentaar leveren op het werk.
 </p>
 <ul>
-<li> <strong>Wijzigen</strong>&nbsp;: 
-Via dit pictogram kan de gebruiker de inhoud van het werk wijzigen. Dit is het geval voor de cursusleider, voor de gebruiker, of voor de groep waar hij in zit.
+<li> <strong>Wijzigen</strong>&nbsp;: Via dit pictogram kan de gebruiker de inhoud van het werk wijzigen. Dit is het geval voor de cursusleider, voor de gebruiker, of voor de groep waar hij in zit.
 
 </li>
 <li> <strong>Verwijderen</strong>&nbsp;: Hiermee kan de cursusleider een werk verwijderen.
@@ -2122,9 +2098,7 @@ Via dit pictogram kan de gebruiker de inhoud van het werk wijzigen. Dit is het g
 (zoals bij de \'Documenten\'). Op het pictogram klikken maakt het werk zichtbaar.
 
 </li>
-<li> <strong>Commentaar toevoegen</strong>&nbsp;: 
-Via deze link kan de cursusleider commentaar toevoegen aan een werk.
- Dit kan een tekst en/of een bestand zijn. Het kan een privé commentaar zijn, zodat alleen de cursusleider en de indiener van het werk het commentaar kunnen zien.
+<li> <strong>Commentaar toevoegen</strong>&nbsp;: Via deze link kan de cursusleider commentaar toevoegen aan een werk. Dit kan een tekst en/of een bestand zijn. Het kan een privé commentaar zijn, zodat alleen de cursusleider en de indiener van het werk het commentaar kunnen zien.
 </li>
 </ul>';
 $_lang['blockClaroMainHelp'] = '<br /><p><b>Student</b></p><p>Om cursussen te bezoeken, die toegankelijk zijn vanaf de Claroline startpagina, is het voldoende te klikken op de code van de cursus in de cursuslijst, zonder dat een voorafgaande registratie noodzakelijk is.</p><p>Om toegang tot de cursussen te krijgen, die niet toegankelijk zijn vanaf de startpagina van de leeromgeving, is het wel noodzakelijk om zich voorafgaand aan te melden. <b>Aanmelding > Vul je persoonlijke gegevens in > Actie: Inschrijven voor cursussen > Selecteer de cursussen en klik op Ok.</b></p><p>Een e-mail zal worden opgestuurd waarin je gebruikersnaam en wachtwoord ter herinnering worden meegedeeld.</p><hr noshade size=1><p><b>docent</b></p><p><b>Cursussite aanmaken</b></p><p>Zo ga je te werk: <b>Registratie > Vul alle velden in en kies \'cursussen aanmaken\' als actie > Klik Ok > Voer de naam van de cursus in. Selecteer een  of een vakgroep. Voer de referentie van de cursus in  > Klik Ok </b>. Je komt op je persoonlijke pagina in Claroline terecht. Hier vind je de lijst van cursussen waarin je geregistreerd bent. Klik op de naam van de cursus die je hebt aangemaakt. Je komt in een \'lege\' cursus terecht. Leeg in die zin dat er alleen voorbeeld-items zijn aangebracht, om je te helpen bij de confrontatie met blanco pagina\'s. Bij je aanmelding kreeg je een e-mail, waarin je gebruikersnaam en wachtwoord ter herinnering zijn meegedeeld.</p><p>Als er een probleem is, neem contact op met je Claroline-beheerder. Je kunt ook een bericht publiceren op het supportforum van <a href=http://www.claroline.net>http://www.claroline.net</a>.</p>';
@@ -2256,7 +2230,6 @@ Om een meerkeuzevraag te maken: <br />
 <b>Invulvragen</b>
 <p>Hiermee kun je een tekst met invulruimtes creëren. Het doel is om cursisten woorden te laten invullen die ontbreken in de tekst.<br /><br />
 	Om een invulruimte te creëren, plaats je een woord tussen vierkante haakjes [zoals hier].<br /><br />
-	
 	<!--Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br /><br />-->
 	Bewaar je tekst. Vervolgens kun je gewicht toekennen aan elke invulruimte.
 	Bijvoorbeeld: voor een vraag met 5 invulruimtes die 10 punten waard is kun je 2 punten toekennen aan iedere invulruimte.
@@ -2290,12 +2263,10 @@ Geef een gewicht aan elk goed koppel, daarna kun je je vraag bewaren.</p>
 <br /><br />
 Door voor deze optie te kiezen, krijgt elke cursist de vragen telkens in een andere volgorde te zien.
 <br /><br />
-Als u veel vragen hebt, kunt u ook slechts een bepaald aantal vragen laten trekken uit de volledige vragenlijst van de oefening.
 </p>
 <hr />
 <b>Verzameling van alle vragen</b>
-<p>Als je een oefening wist, blijven de individuele vragen 
-van die oefening bewaard, zodat ze opnieuw kunnen worden gebruikt. Je vindt ze in de \'Lijst met alle vragen\'.<br /><br />
+<p>Als je een oefening wist, blijven de individuele vragen van die oefening bewaard, zodat ze opnieuw kunnen worden gebruikt. Je vindt ze in de \'Lijst met alle vragen\'.<br /><br />
 Deze algemene lijst van vragen laat je ook toe om een vraag in meerdere oefeningen tegelijk te gebruiken.<br /><br />
 Standaard worden in de lijst alle vragen van je cursus getoond.
 Je kunt dit overzicht verfijnen met behulp van het rolmenu \'Filter\'.
@@ -2332,20 +2303,14 @@ Deze invulmethodes kunnen gecombineerd worden gebruikt. Bijvoorbeeld: De geregis
 $_lang['blockHomepageHelp'] = '
 	Je bevindt je op de startpagina van een cursus. Hier zie je verschillende ikoontjes
 die de cursusonderdelen weergeven: forum, mededelingen, documenten... De
-meeste onderdelen zijn al ingevuld met voorbeeldmateriaal: een 
-korte tekst, een hyperlink.
+meeste onderdelen zijn al ingevuld met voorbeeldmateriaal: een korte tekst, een hyperlink.
 Die zijn als voorbeeld gegeven en kun je zelf wijzigen of verwijderen.</p>
 <p>De startpagina van een cursussite bevat als inleiding \'Dit is
-  de inleidingstekst van de cursus.\' 
-  Je kunt deze tekst eenvoudig wijzigen door op het \'editeren\' potlood te
+  de inleidingstekst van de cursus.\' Je kunt deze tekst eenvoudig wijzigen door op het \'editeren\' potlood te
   klikken. <b>Tip:
   Gebruik deze tekst om je cursisten wegwijs te maken op jouw cursussite. Dit kan
   ook handig zijn voor het melden van veranderingen op de cursussite</b>.</p>
-<p>Wanneer je een site creëert 
-zijn de meeste onderdelen standaard al geactiveerd (Agenda, Forum, 
-Oefeningen...). Het is aan te bevelen die functies 
-die je niet gebruikt te inactiveren. Hierdoor worden ze 
-onzichtbaar voor de studenten en verliezen de gebruikers en bezoekers geen tijd door te zoeken op verkeerde plaatsen.</p>
+<p>Wanneer je een site creëert zijn de meeste onderdelen standaard al geactiveerd (Agenda, Forum, Oefeningen...). Het is aan te bevelen die functies die je niet gebruikt te inactiveren. Hierdoor worden ze onzichtbaar voor de studenten en verliezen de gebruikers en bezoekers geen tijd door te zoeken op verkeerde plaatsen.</p>
 <p>Je kunt ook links en pagina\'s toevoegen aan de startpagina. Gebruik daarvoor de tool \'Link toevoegen aan de startpagina\'. De pagina\'s en de links die je toevoegt, kun je inactiveren en nadien verwijderen.  Dit verschilt van de standaardfuncties, die je kunt inactiveren, maar niet verwijderen.</p><p>Je krijgt tevens de keuze je cursus zichtbaar of onzichtbaar in de cursuslijst te plaatsen. Het kan wenselijk zijn een cursus \'in aanmaak\' niet in de cursuslijst te laten verschijnen (zie functie \'Eigenschappen van de cursus\') zodat niemand zich kan aanmelden zolang de cursus in ontwikkeling is.</p>
 ';
 $_lang['blockIntroCourse'] = 'Je bent op de homepage van de cursus.<br /><br />Op deze pagina kun je:
@@ -2384,9 +2349,6 @@ Link : %url';
 $_lang['blockTextZoneHelp'] = 'Deze tekstzone wordt aan iedere gebruiker getoond. De platformbeheerder kan de inhoud wijzigen of hem verwijderen door de <b>%textZoneFile</b> aan te passen.';
 $_lang['blockUsedInSeveralPath'] = 'Deze oefening wordt gebruikt in een of meerdere leertrajecten. Als je haar verwijdert, zal ze niet langer beschikbaar zijn in het leertraject.';
 $_lang['blockUsersHelp'] = '<b>Beheersrechten</b>
-<p>Om een medelesgever, assistent, tutor of iemand anders toe te laten uw cursussite, al dan niet samen met u, te beheren, moet u eerst deze persoon voor uw cursus inschrijven (of ervoor zorgen hij ingeschreven word).  Vervolgens wijzigt u zijn rechten door te klikken op de wijzigingsfunctie onder ofwel de kolom Tutor of de kolom Beheerder op de rij van de medelesgever.</p><hr />
-<b>Medelesgevers</b>
-<p>Om de naam van de medelesgever te laten verschijnen bij de naam van uw cursus in de cursuslijst, gebruik de pagina \'cursuseigenschappen’ op de startpagina van uw cursussite. Deze wijziging toont de medelesgever niet automatisch als een gebruiker van de cursus. Dit zijn twee verschillende stappen</p><hr />
 <b>Gebruiker toevoegen</b>
 <p>Om een gebruiker toe te voegen aan je cursus, vul de velden in en klik op \'Ok\'. De persoon zal zijn gebruikersnaam en wachtwoord via e-mail krijgen toegestuurd, samen met de bevestiging van zijn registratie, behalve als je geen e-mailadres hebt ingevuld.</p>';
 $_lang['blockWarningRemoveInstallDirectory'] = '<b>Opgelet :</b> De dir die je install-scripts bevat (<code>claroline/install/</code>) is nog steeds bereikbaar via het web. Dit betekent dat iedereen die dat wil je huidige installatie volledig kan vernietigen. We raden je ten zeerste aan om deze map te verwijderen of anderzijds af te sluiten.';
@@ -2444,19 +2406,10 @@ om een text te veranderen in een link kunt u ook : <code>[WikiWord|text]</code>.
 <li><strong>Pre(formated tekst)</strong>: zet een spatie voor iedere regel van preformated tekst.</li>
 </ul></dd>
 <dt>Inline elements</dt>
-<dd><ul><li>Automatic punctuation correction active : An unbreakable space will precede each of the following symbols ";","?",":" and "!".&nbsp;;</li>
-<li><strong>Emphasis</strong> : surround your text with two single quotes <code>\'\'text\'\'</code>&nbsp;;</li>
-<li><strong>Strong emphasis</strong> : surround your text with three single quotes underscores <code>\'\'\'text\'\'\'</code>&nbsp;;</li>
-<li><strong>Forced line break</strong> : <code>%%%</code>&nbsp;;</li>
-<li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
-<li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
-<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Image</strong> : same as Hyperlinks<br />Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br />This syntax is deprecated, consider o use the following one&nbsp;;</li>
-<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br />The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
+<dd><ul>
+<li>Selecteer de tekst die aangepast moet worden en maak gebruik van de iconen \'vet\', \'schuin\', \'onderstreept\', \'doorgehaald\' en \'citaat\'.
+<li><strong>Forced line break</strong>: <code>%%%</code></li>
 <li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
-<li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
-<li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
-<li><strong>Code</strong> : <code>@@code here@@</code>&nbsp;;</li>
 <li><strong>Footnote</strong> : <code>$$footnote text$$</code>.</li>
 </ul></dd>
 </dl>';
@@ -2505,8 +2458,7 @@ $_lang['sampleForumMainCategory'] = 'Algemeen';
 $_lang['sampleForumMessage'] = 'Wanneer je het Testforum verwijdert, zal ook elk onderwerp hierin verwijderd worden.';
 $_lang['sampleForumTitle'] = 'Test forum';
 $_lang['sampleForumTopicTitle'] = 'Voorbeeldbericht';
-$_lang['sampleLearnPathDescription'] = 'Dit is een voorbeeld van een leertraject. 
-Je vindt er een voorbeeldoefening en een voorbeelddocument.';
+$_lang['sampleLearnPathDescription'] = 'Dit is een voorbeeld van een leertraject. Je vindt er een voorbeeldoefening en een voorbeelddocument.';
 $_lang['sampleLearnPathDocumentDescription'] = 'Je kunt elk bestaand document in de verzameling documenten uit deze cursus gebruiken.';
 $_lang['sampleLearnPathDocumentTitle'] = 'voorbeeld-document';
 $_lang['sampleLearnPathQuizDescription'] = 'Je kunt elke oefening uit de verzameling oefeningen van de cursus gebruiken.';

@@ -8,7 +8,7 @@ die('This file is deprecated.('.basename(__FILE__). ':'.__LINE__.')');
  * This module displays a cross course digest for the current authenticated user
  *
  * @version 1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
  * @package CLCALDIGEST
  *
@@ -87,18 +87,16 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro
             $tableCal = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'calendar_event';
     
             $sql = "SELECT '". claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
-                           '". claro_sql_escape($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
-                           'CLCAL' AS `toolLabel`,
-                           CONCAT(`day`, ' ',`hour`) AS `date`,
-                           CONCAT(`titre`,' - ',`contenu`) AS `content`
-                    FROM `" . $tableCal . "`
-                    
-                    WHERE CONCAT(`day`, ' ',`hour`) >= CURDATE()
-                    AND CONCAT(`titre`, `contenu`) != ''
-                    AND visibility = 'SHOW'
-                    
-                    ORDER BY `date`
-                    LIMIT 1";
+                       '". claro_sql_escape($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
+                       'CLCAL' AS `toolLabel`,
+                CONCAT(`day`, ' ',`hour`) AS `date`,
+                CONCAT(`titre`,' - ',`contenu`) AS `content`
+                FROM `" . $tableCal . "`
+                WHERE CONCAT(`day`, ' ',`hour`) >= CURDATE()
+                  AND CONCAT(`titre`, `contenu`) != ''
+                  AND visibility = 'SHOW'
+                ORDER BY `date`
+                LIMIT 1";
     
             $resultList = claro_sql_query_fetch_all_cols($sql);
     

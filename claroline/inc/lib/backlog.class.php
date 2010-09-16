@@ -5,8 +5,8 @@
 /**
  * Backlog
  *
- * @version     1.10 $Revision$
- * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -18,10 +18,6 @@ define ( 'BACKLOG_FAILURE', 'BACKLOG_FAILURE' );
 define ( 'BACKLOG_DEBUG',   'BACKLOG_DEBUG' );
 define ( 'BACKLOG_INFO',   'BACKLOG_INFO' );
 
-/**
- * Backlog class
- * @deprecated since Claroline 1.10, use exceptions instead
- */
 class Backlog
 {
     var $_backlog = array();

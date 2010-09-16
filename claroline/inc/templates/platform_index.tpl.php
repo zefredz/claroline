@@ -75,7 +75,7 @@ if ( claro_is_user_authenticated() ) :
 
     if (get_conf('allowToSelfEnroll',true))
     {
-        $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqReg&amp;categoryId=0" class="claroCmd">'
+        $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=" class="claroCmd">'
         .    '<img src="' . get_icon_url('enroll') . '" alt="" /> '
         .    get_lang('Enrol on a new course')
         .    '</a>';
@@ -106,11 +106,7 @@ if ( claro_is_user_authenticated() ) :
     else
     {
         // DISPLAY USER OWN COURSE LIST
-        
-        // Clean session code
-        if (isset($_SESSION['courseSessionCode'])) $_SESSION['courseSessionCode'] = null;
-        
-        require get_path('incRepositorySys') . '/index_mycourses.inc.php';        
+        require get_path( 'incRepositorySys' ) . '/index_mycourses.inc.php';        
         if (claro_is_allowed_to_create_course())
             echo render_access_mode_caption_block(); 
     }

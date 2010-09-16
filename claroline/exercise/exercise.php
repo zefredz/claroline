@@ -4,7 +4,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -198,7 +198,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
         }
 
         $filePathList = array();
-
+        
         //prepare xml file of each question
         $quRank = 0;
         foreach ($questionList as $question)
@@ -649,7 +649,6 @@ if( !$inLP )
     {
         $cmd_menu[] = '<a class="claroCmd" href="admin/edit_exercise.php?cmd=rqEdit"><img src="' . get_icon_url('quiz_new') . '" alt="" />' . get_lang('New exercise').'</a>';
         $cmd_menu[] = '<a class="claroCmd" href="admin/question_pool.php"><img src="' . get_icon_url('question_pool') . '" alt="" />'.get_lang('Question pool').'</a>';
-        $cmd_menu[] = '<a class="claroCmd" href="admin/question_category.php"><img src="' . get_icon_url('question_pool') . '" alt="" />'.get_lang('Question categories').'</a>';
         $cmd_menu[] = '<a class="claroCmd" href="exercise.php?cmd=rqImport"><img src="' . get_icon_url('import') . '" alt="" />'.get_lang('Import exercise').'</a>';
     }
     

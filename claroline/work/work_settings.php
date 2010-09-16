@@ -9,7 +9,7 @@
  *  2. Send notification to students when a feedback is added
  *
  * @version     1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
  * @author      Jean-Roch Meurisse <jmeuriss@fundp.ac.be>
  * @license     http://www.gnu.org/copyleft/gpl.html

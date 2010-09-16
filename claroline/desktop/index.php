@@ -16,9 +16,9 @@
 */
 
 // reset course and groupe
-$cidReset = true;
-$gidReset = true;
-$uidRequired = true;
+$cidReset = TRUE;
+$gidReset = TRUE;
+$uidRequired = TRUE;
 
 // load Claroline kernel
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';

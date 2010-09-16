@@ -15,7 +15,7 @@ if ( count( get_included_files() ) == 1 )
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -24,13 +24,12 @@ if ( count( get_included_files() ) == 1 )
  * @package COURSE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Geschï¿½ <moosh@claroline.net>
- * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Frédéric Minne <zefredz@claroline.net>
  *
  */
 
 require_once get_path('includePath') . '/lib/course_user.lib.php';
-
 
 /**
  * with  the WantedCode we can define the 4 keys  to find courses datas
@@ -72,7 +71,7 @@ function define_course_keys ($wantedCode,
     // $keys["currentCourseCode"] is the "public code"
 
     $wantedCode =  strtr($wantedCode,
-    'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',
+    'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ',
     'AAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy');
 
     //$wantedCode = strtoupper($wantedCode);
@@ -210,16 +209,15 @@ function define_course_keys ($wantedCode,
     return $keys;
 };
 
-
 /**
  * Create directories used by course.
  *
  * @param  string $courseRepository path from $coursesRepositorySys to root of course
  * @param  string $courseId         sysId of course
  * @return boolean
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
+ * @author Frédéric Minne <zefredz@claroline.net>
  */
 function prepare_course_repository($courseRepository, $courseId)
 {
@@ -286,14 +284,13 @@ function prepare_course_repository($courseRepository, $courseId)
     return true;
 }
 
-
 /**
  * Create course database and tables
  *
  * @param  string courseDbName partial dbName form course table tu build real DbName
  * @return boolean
- * @author Christophe Geschï¿½ <moosh@claroline.net>
- * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Frédéric Minne <zefredz@claroline.net>
  */
 function install_course_database( $courseDbName )
 {
@@ -315,7 +312,6 @@ function install_course_database( $courseDbName )
     return true;
 }
 
-
 /**
  * Install course tool modules
  *
@@ -336,13 +332,12 @@ function install_course_tools( $courseDbName, $language, $courseDirectory )
     return true;
 }
 
-
 /**
  * Run setup scripts for course tool modules
  * @param string courseDbName partial dbName form course table tu build real DbName
  * @param string language course language
  * @param string courseDirectory
- * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
+ * @author Frédéric Minne <zefredz@claroline.net>
  */
 function setup_course_tools( $courseDbName, $language, $courseDirectory )
 {
@@ -368,80 +363,66 @@ function setup_course_tools( $courseDbName, $language, $courseDirectory )
     return true;
 };
 
-
 /**
- * To create a record in the course table of main database.  Also handles 
- * the categories links creation.
- * 
+ * To create a record in the course tabale of main database
  * @param string    $courseSysCode
  * @param string    $courseScreenCode
- * @param int       $sourceCourseId
  * @param string    $courseRepository
  * @param string    $courseDbName
  * @param string    $titular
  * @param string    $email
- * @param array     $categories
+ * @param string    $faculte
  * @param string    $intitule
  * @param string    $languageCourse
  * @param string    $uidCreator
  * @param bool      $visibility
- * @param string    $registration ('open', 'close' or 'validation')
+ * @param bool      $registrationAllowed
  * @param string    $registrationKey
- * @return bool     success;
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  */
-function register_course( $courseSysCode, $courseScreenCode, $sourceCourseId,
+
+function register_course( $courseSysCode, $courseScreenCode,
                           $courseRepository, $courseDbName,
-                          $titular, $email, $categories, $intitule, $languageCourse='',
+                          $titular, $email, $faculte, $intitule, $languageCourse='',
                           $uidCreator,
-                          $access, $registration, $registrationKey='', $visibility=true,
+                          $access, $registrationAllowed, $registrationKey='', $visibility=true,
                           $extLinkName='', $extLinkUrl='',$publicationDate, $expirationDate, $status)
 {
     global $versionDb, $clarolineVersion;
-    
-    $tblList                    = claro_sql_get_main_tbl();
-    $tbl_course                 = $tblList['course'];
-    $tbl_category               = $tblList['category'];
-    $tbl_rel_course_category    = $tblList['rel_course_category'];
-    
+
+    $tblList         = claro_sql_get_main_tbl();
+    $tbl_course      = $tblList['course'         ];
+
     // Needed parameters
     if ($courseSysCode    == '') return claro_failure::set_failure('courseSysCode is missing');
     if ($courseScreenCode == '') return claro_failure::set_failure('courseScreenCode is missing');
     if ($courseDbName     == '') return claro_failure::set_failure('courseDbName is missing');
     if ($courseRepository == '') return claro_failure::set_failure('course Repository is missing');
     if ($uidCreator       == '') return claro_failure::set_failure('uidCreator is missing');
-    if (!in_array($registration, array('open', 'close', 'validation'))) 
-    {
-        return claro_failure::set_failure('wrong registration value');
-    }
-    
-    // Optionnal parameters
-    $languageCourse = (!empty($languageCourse)) ? $languageCourse : 'english';
-    
-    $sourceCourseId = (!is_null($sourceCourseId) && !empty($sourceCourseId)) ? 
-        claro_sql_escape($sourceCourseId) : "NULL";
-    
+
+    // optionnal parameters
+    if ($languageCourse == '') $languageCourse = 'english';
+
     $currentVersionFilePath = get_conf('rootSys') . 'platform/currentVersion.inc.php';
     file_exists($currentVersionFilePath) && require $currentVersionFilePath;
-    
+
     $defaultProfileId = claro_get_profile_id('user');
-    
-    // Insert course
+
     $sql = "INSERT INTO `" . $tbl_course . "` SET
-            code                 = '" . claro_sql_escape($courseSysCode)        . "',
-            sourceCourseId       = " . $sourceCourseId . ",
-            dbName               = '" . claro_sql_escape($courseDbName)         . "',
-            directory            = '" . claro_sql_escape($courseRepository)     . "',
-            language             = '" . claro_sql_escape($languageCourse)       . "',
-            intitule             = '" . claro_sql_escape($intitule)             . "',
-            visibility           = '" .  ($visibility?'VISIBLE':'INVISIBLE')    . "',
-            access               = '" .  claro_sql_escape($access)              . "',
-            registration         = '" .  claro_sql_escape($registration)        . "',
-            registrationKey      = '" .  claro_sql_escape($registrationKey)     . "',
+            code                 = '" . claro_sql_escape($courseSysCode)    . "',
+            dbName               = '" . claro_sql_escape($courseDbName)     . "',
+            directory            = '" . claro_sql_escape($courseRepository) . "',
+            language             = '" . claro_sql_escape($languageCourse)   . "',
+            intitule             = '" . claro_sql_escape($intitule)         . "',
+            faculte              = '" . claro_sql_escape($faculte)          . "',
+            visibility           = '".  ($visibility?'VISIBLE':'INVISIBLE')    . "',
+            access               = '".  claro_sql_escape($access)    . "',
+            registration         = '".  ($registrationAllowed?'OPEN':'CLOSE')    . "',
+            registrationKey      = '".  claro_sql_escape($registrationKey)    . "',
             diskQuota            = NULL,
-            creationDate         = FROM_UNIXTIME(" . claro_sql_escape($publicationDate) . "),
-            expirationDate       = FROM_UNIXTIME(" . claro_sql_escape($expirationDate)  . "),
-            status               = '" . claro_sql_escape($status)           . "',
+            creationDate         = FROM_UNIXTIME(" . claro_sql_escape($publicationDate)   . "),
+            expirationDate       = FROM_UNIXTIME(" . claro_sql_escape($expirationDate)   . "),
+            status               = '" . claro_sql_escape($status)   . "',
             versionDb            = '" . claro_sql_escape($versionDb)        . "',
             versionClaro         = '" . claro_sql_escape($clarolineVersion) . "',
             lastEdit             = NOW(),
@@ -452,47 +433,23 @@ function register_course( $courseSysCode, $courseScreenCode, $sourceCourseId,
             extLinkName          = '" . claro_sql_escape($extLinkName)      . "',
             extLinkUrl           = '" . claro_sql_escape($extLinkUrl)       . "',
             defaultProfileId     = " . $defaultProfileId ;
-    
-    if ( claro_sql_query($sql) == false)
-    {
-        return false;
-    }
-    
-    $courseId = mysql_insert_id();
-    
-    // Insert categories
-    if ( link_course_categories ( $courseId, $categories ) === false )
-    {
-        return false;
-    }
-    
-    // Add user to course
+
+    if ( claro_sql_query($sql) == false) return false;
+
+    // add user to course
+
     if ( user_add_to_course($uidCreator, $courseSysCode, true, true) === false )
     {
         return false;
     }
-    
-    // Did we insert a session couse ? 
-    if (!is_null($sourceCourseId)) 
-    {
-        // If yes, flag its source course
-        $sql = "UPDATE `" . $tbl_course . "` 
-                SET isSourceCourse = 1 
-                WHERE cours_id = $sourceCourseId";
-        
-        if ( claro_sql_query($sql) == false )
-        {
-            return false;
-        }
-    }
-    
+
     return true;
 }
 
 
 /**
  * Get the list of all installable course tool modules from kernel
- * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
+ * @author Frédéric Minne <zefredz@claroline.net>
  */
 function get_course_installable_tool_list()
 {
@@ -512,7 +469,7 @@ function get_course_installable_tool_list()
 // TODO: check if tool installed successfuly !!!!
 /**
  * Register installed course tool in course database
- * @author Frï¿½dï¿½ric Minne <zefredz@claroline.net>
+ * @author Frédéric Minne <zefredz@claroline.net>
  */
 function update_course_tool_list($courseDbName)
 {
@@ -626,15 +583,8 @@ function install_module_at_course_creation( $moduleLabel, $courseDbName, $langua
         // define tables to use in php install scripts
         $courseDbName = get_conf('courseTablePrefix') . $courseDbName.get_conf('dbGlu');
         $moduleCourseTblList = claro_sql_get_course_tbl($courseDbName);
-
-        /*
-         * @todo select database should not be needed if the setup scripts are
-         * well written !
-         */
-        if ( ! get_conf('singleDbEnabled') )
-        {
-            claro_sql_select_db($courseDbName);
-        }
+        
+        claro_sql_select_db($courseDbName);
         
         require_once $phpPath;
     }

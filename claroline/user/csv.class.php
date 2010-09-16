@@ -443,7 +443,7 @@ class csvImport extends csv
                 $userInfo['officialCode'] = isset( $csvUseableArray['officialCode'][$user_id] ) ? $csvUseableArray['officialCode'][$user_id] : '';
                 
                 //check user existe if not create is asked                
-                $resultSearch = user_search( array( 'username' => $userInfo['username'] ), null, true, true );
+                $resultSearch = user_search( array( 'username' => $userInfo['username'] ), null, true, true, false );
                 if( !empty($resultSearch))
                 {
                   $userId = $resultSearch[0]['uid'];
@@ -572,7 +572,7 @@ class csvImport extends csv
                 
                 
                 //check user existe if not create is asked
-                $resultSearch = user_search( array( 'username' => $userInfo['username'] ), null, true, true );
+                $resultSearch = user_search( array( 'username' => $userInfo['username'] ), null, true, true, false );
                 
                 if( empty($resultSearch))
                 {

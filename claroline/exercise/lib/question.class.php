@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -47,16 +47,6 @@ class Question
     var $grade;
     
     /**
-     * @var $categoryId  id of the question category
-     */
-     var $categoryId;
-     
-     /**
-     * @var $categoryTitle  title of the question category
-     */
-     var $categoryTitle;
-    
-    /**
      * @var $questionDirSys
      */
     var $questionDirSys;
@@ -89,18 +79,13 @@ class Question
     /**
      * @var $tblRelExerciseQuestion
      */
-    var $tblRelExerciseQuestion;
+    var $tblRelExerciseQuestion;  
     
     /**
      * @var $rank
      */
     var $rank;
-
- 	/**
- 	 * @var $tblQuestionCategory
- 	 */  
- 	 var  $tblQuestionCategory;        
-            
+    
     function Question($course_id = null)
     {
         global $_course;
@@ -111,8 +96,6 @@ class Question
         $this->attachment = '';
         $this->type = 'MCMA';
         $this->grade = 0;
-        $this->categoryId = 0;
-        $this->categoryTitle = '';
         
         $this->answer = null;
         
@@ -123,10 +106,9 @@ class Question
         
         $this->tmpQuestionDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'exercise/tmp'.uniqid('').'/';
 
-        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_question', 'qwz_rel_exercise_question', 'qwz_questions_categories' ), $course_id );
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_question', 'qwz_rel_exercise_question' ), $course_id );
         $this->tblQuestion = $tbl_cdb_names['qwz_question'];
         $this->tblRelExerciseQuestion = $tbl_cdb_names['qwz_rel_exercise_question'];
-        $this->tblQuestionCategory = $tbl_cdb_names['qwz_questions_categories'];
     }    
     
     /**
@@ -144,8 +126,7 @@ class Question
                     `description`,
                     `attachment`,
                     `type`,
-                    `grade`, 
-                    `id_category`		
+                    `grade`
             FROM `".$this->tblQuestion."`
             WHERE `id` = ".(int) $id;
     
@@ -160,9 +141,6 @@ class Question
             $this->attachment = $data['attachment'];
             $this->type = $data['type'];
             $this->grade = $data['grade'];
-            $this->categoryId = $data['id_category'];
-            
-            $this->categoryTitle = getCategoryTitle( $this->categoryId );
             
             // create answer object
             $this->setAnswer();
@@ -198,8 +176,7 @@ class Question
                         `description` = '".claro_sql_escape($this->description)."',
                         `attachment` = '".claro_sql_escape($this->attachment)."',
                         `type` = '".claro_sql_escape($this->type)."',
-                        `grade` = '".claro_sql_escape($this->grade)."',
-                        `id_category` = '".(int)$this->categoryId."'";
+                        `grade` = '".claro_sql_escape($this->grade)."'";
         
             // execute the creation query and get id of inserted assignment
             $insertedId = claro_sql_query_insert_id($sql);
@@ -233,9 +210,9 @@ class Question
                     SET `title` = '".claro_sql_escape($this->title)."',
                         `description` = '".claro_sql_escape($this->description)."',
                         `attachment` = '".claro_sql_escape($this->attachment)."',
-                        `grade` = '".claro_sql_escape($this->grade)."',
-                        `id_category` = '".(int)$this->categoryId."' 
+                        `grade` = '".claro_sql_escape($this->grade)."'
                     WHERE `id` = '".$this->id."'";
+        
             // execute and return main query
             if( claro_sql_query($sql) )
             {
@@ -317,7 +294,6 @@ class Question
         $duplicated->setDescription($this->description);
         $duplicated->setType($this->type);
         $duplicated->setGrade($this->grade);
-        $duplicated->setcayegoryId($this->categoryId);
 
         $duplicatedId = $duplicated->save();
 
@@ -660,30 +636,6 @@ class Question
     }
     
     /**
-     * get categoryId
-     * 
-     * @author Laurence Dumortier <ldumorti@fundp.ac.be>
-     * @return int 
-     */
-     function getCategoryId()
-     {
-     	return $this->categoryId;
-     }
-     
-     /**
-      * set categoryId
-      * 
-      * @author Laurence Dumortier <ldumorti@fundp.ac.be>
-      * @param int $value
-      */
-      function setCategoryId($value)
-      {
-      	$this->categoryId = (int) $value;
-      }
-     
-       
-    
-    /**
      * get the full systeme path of the attachment directory
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
@@ -763,224 +715,6 @@ class Question
     function setExerciseId($value)
     {
         $this->exerciseId = (int) $value;
-    }
-}
-
-class QuestionCategory
-{
-    /**
-     * @var $id id of question category, -1 if exercise doesn't exist already
-     */
-    var $id;
-
-    /**
-     * @var $title name of the question category
-     */
-    var $title;
-
-    /**
-     * @var $description statement of the question category
-     */
-    var $description;
-    
-    
-     function QuestionCategory($course_id = null)
-    {
-        $this->id = (int) -1;
-        $this->title = '';
-        $this->description = '';
-      
-        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_question','qwz_questions_categories' ), $course_id );
-        $this->tblQuestion = $tbl_cdb_names['qwz_question'];
-        $this->tblQuestionCategory = $tbl_cdb_names['qwz_questions_categories'];
-    }
-
-    /**
-     * load an exercise from DB
-     *
-     * @param integer $id id of exercise
-     * @return boolean load successfull ?
-     */
-    function load()
-    {
-        $sql = "SELECT
-                    `id`,
-                    `title`,
-                    `description`
-            FROM `".$this->tblQuestionCategory."`
-            WHERE `id` = ".(int) $this->id;
-
-        $data = claro_sql_query_get_single_row($sql);
-        
-        if( !empty($data) )
-        {
-            // from query
-            $this->title = $data['title'];
-            $this->description = $data['description'];
-
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    /**
-     * save category to DB
-     *    
-     * @return mixed false or id of the record
-     */
-    function save()
-    {
-        // TODO method to validate data
-        if( $this->id == -1 )
-        {
-            // insert
-            $sql = "INSERT INTO `".$this->tblQuestionCategory."`
-                    SET `title` = '".claro_sql_escape($this->title)."',
-                        `description` = '".claro_sql_escape($this->description)."'";
-            // execute the creation query and get id of inserted assignment
-            $insertedId = claro_sql_query_insert_id($sql);
-            if( $insertedId )
-            {
-            	$this->setId($insertedId);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            // update, main query
-            $sql = "UPDATE `".$this->tblQuestionCategory."`
-                    SET `title` = '".claro_sql_escape($this->title)."',
-                        `description` = '".claro_sql_escape($this->description)."'
-                    WHERE `id` = '".$this->id."'";
-            // execute and return main query
-            if( claro_sql_query($sql) )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
-
-    /**
-     * delete category from DB 
-     *
-     * @return boolean
-     */
-    function delete()
-    {
-        $sql = "SELECT `id` FROM `" . $this->tblQuestion . "`
-                WHERE `id_category` = " . (int) $this->id ;
-        $questionList = claro_sql_query_fetch_all($sql);
-
-        if( sizeof($questionList) > 0 )
-        {   
-            return false;
-        }
-        else
-        {    
-            $sql = "DELETE FROM `" . $this->tblQuestionCategory . "`
-                WHERE `id` = " . (int) $this->id ;
-        }
-
-        if( claro_sql_query($sql) == false ) return false;
-                
-        $this->id = -1;
-            
-        return true;
-    }
-
-    /**
-     * check if data are valide
-     *
-     * @author Laurence Dumortier <ldumorti@fundp.ac.be>
-     * @return boolean
-     */
-    function validate()
-    {
-        // title is a mandatory element
-        $title = strip_tags($this->title);
-
-        if( empty($title) )
-        {
-            claro_failure::set_failure('category_no_title');
-            return false;
-        }
-
-		if ($this->titleAlreadyExists())
-		{
-			claro_failure::set_failure('category_already_exists');
-            return false;
-		}
-        return true; // no errors, form is valide
-    }
-    
- /**
-     * get title
-     *
-     * @return string
-     */
-    function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * set title
-     *
-     * @param string $value
-     */
-    function setTitle($value)
-    {
-        $this->title = trim($value);
-    }
-
-    /**
-     * get description
-     *
-     * @return string
-     */
-    function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * set description
-     *
-     * @param string $value
-     */
-    function setDescription($value)
-    {
-        $this->description = trim($value);
-    }
-    
-    function setId ($id)
-    {
-    	
-    	$this->id = (int)$id;
-    }
-    
-    function titleAlreadyExists()
-    {
-    	$sql = "SELECT `id`, `title` FROM `" . $this->tblQuestionCategory . "`
-                WHERE `title`='".claro_sql_escape($this->title)."' AND `id` != " . (int) $this->id ;
-        $list = claro_sql_query_fetch_all($sql);
-
-        if( sizeof($list) > 0 )
-        {   
-            return true;
-        }
-        return false;
     }
     
     /**

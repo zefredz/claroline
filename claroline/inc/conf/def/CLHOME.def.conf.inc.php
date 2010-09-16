@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -29,7 +29,6 @@ $conf_def['section']['courselist']['label']='Course list';
 $conf_def['section']['courselist']['description']='Settings of the user course list';
 $conf_def['section']['courselist']['properties'] =
 array ( 'course_order_by',
-        'categories_order_by',
         'course_categories_hidden_to_anonymous',
         'userCourseListGroupByCategories' );
 
@@ -44,18 +43,6 @@ $conf_def_property_list['course_order_by']
         ,'readonly'      => FALSE
         ,'acceptedValue' => array ( 'official_code'=> 'Course code',
                                     'course_title' => 'Course title' )
-        );
-
-$conf_def_property_list['categories_order_by']
-= array ('label'     => 'Order categories by'
-        ,'description' => ''
-        ,'default'   => 'rank'
-        ,'type'      => 'enum'
-        ,'display'       => TRUE
-        ,'readonly'      => FALSE
-        ,'acceptedValue' => array ( 'rank'=> 'Rank',
-                                    'alpha_asc' => 'Alphabetical ascending', 
-                                    'alpha_desc' => 'Alphabetical descending' )
         );
 
 $conf_def_property_list['course_categories_hidden_to_anonymous']

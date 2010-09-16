@@ -5,7 +5,7 @@
 /**
  * Merge User Library
  *
- * @version     1.10 $Revision$
+ * @version     1.9 $Revision$
  * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -23,90 +23,31 @@ class MergeUser
     {
         $mainTbl = claro_sql_get_main_tbl();
         
-        // inherit course creator status
-        $toKeep_isCourseCreator = claro_sql_query_fetch_single_value("
-            SELECT isCourseCreator FROM `{$mainTbl['user']}` WHERE user_id = " . (int) $uidToKeep . "
-        ");
-
-        $toRemove_isCourseCreator = claro_sql_query_fetch_single_value("
-            SELECT isCourseCreator FROM `{$mainTbl['user']}` WHERE user_id = " . (int) $uidToRemove . "
-        ");
-
-        if ( $toRemove_isCourseCreator && ! $toKeep_isCourseCreator )
-        {
-            claro_sql_query("UPDATE `{$mainTbl['user']}` SET `isCourseCreator` = 1 WHERE user_id = ".(int) $uidToKeep );
-        }
-
         // Get course list for the user to remove        
-        $sql = "
-            SELECT
-                c.`code` AS `code`,
-                cu.`isCourseManager`,
-                cu.`profile_id`
-            FROM
-                `{$mainTbl['course']}` c,
-                `{$mainTbl['rel_course_user']}` cu
-            WHERE
-                cu.user_id = ".(int)$uidToRemove."
-              AND
-                c.code = cu.code_cours";
+        $sql = "SELECT c.`code` AS `code`
+              FROM `{$mainTbl['course']}` c, `{$mainTbl['rel_course_user']}` cu
+            WHERE cu.user_id = ".(int)$uidToRemove."
+              AND   c.code = cu.code_cours";
 
-        $courseList = claro_sql_query_fetch_all_rows($sql);
+        $tmpResult = claro_sql_query_fetch_all_cols($sql);
+        $courseList = $tmpResult['code'];
         
-        foreach ( $courseList as $thisCourse )
+        foreach ( $courseList as $thisCourseCode )
         {
             // Check if the user to keep is registered to the course
-            $sql = "
-                SELECT
-                    `code_cours`,
-                    `isCourseManager`,
-                    `profile_id`
-                FROM
-                    `{$mainTbl['rel_course_user']}`
-                WHERE
-                    code_cours = '".claro_sql_escape($thisCourse['code'])."'
-                AND
-                    user_id = ".(int)$uidToKeep;
+            $sql = "SELECT `code_cours`
+                  FROM `{$mainTbl['rel_course_user']}`
+                WHERE code_cours = '".claro_sql_escape($thisCourseCode)."'
+                  AND user_id = ".(int)$uidToKeep;
 
-            $userToKeepCourseList = claro_sql_query_fetch_single_row($sql);
+            $userToKeepCourseList = claro_sql_query_fetch_all($sql);
             
             if ( !empty( $userToKeepCourseList ) )
             {
-                // inherit isCourseManager
-                if ( ( $thisCourse['isCourseManager'] == 1 ) && ( $userToKeepCourseList['isCourseManager'] != 1 ) )
-                {
-                    if ( claro_sql_query("
-                        UPDATE `{$mainTbl['rel_course_user']}`
-                        SET `isCourseManager` = 1
-                        WHERE code_cours = '".claro_sql_escape($thisCourse['code'])."'
-                        AND user_id = ".(int) $uidToKeep ) )
-                    {
-                        throw new Exception("Cannot change rel_course_user isCourseManager in {$thisCourse['code']}");
-                    }
-                }
-
-                // inherit profile
-                if ( $thisCourse['profile_id'] > $userToKeepCourseList['profile_id'] )
-                {
-                    if ( ! claro_sql_query("
-                        UPDATE `{$mainTbl['rel_course_user']}`
-                        SET `profile_id` = ".(int) $thisCourse['profile_id']."
-                        WHERE code_cours = '".claro_sql_escape($thisCourse['code'])."'
-                        AND user_id = ".(int) $uidToKeep ) )
-                    {
-                        throw new Exception("Cannot change rel_course_user profile in {$thisCourse['code']}");
-                    }
-                }
-
                 // Remove the user to remove from the course
                 $sql = "DELETE FROM `{$mainTbl['rel_course_user']}` 
                     WHERE user_id    = ".(int)$uidToRemove."
-                      AND code_cours = '".claro_sql_escape($thisCourse['code'])."'";
-
-                if ( ! claro_sql_query($sql) )
-                {
-                    throw new Exception("Cannot change rel_course_user in {$thisCourse['code']}");
-                }
+                      AND code_cours = '".claro_sql_escape($thisCourseCode)."'";
             }
             else
             {
@@ -114,17 +55,12 @@ class MergeUser
                 $sql = "UPDATE `{$mainTbl['rel_course_user']}` 
                     SET   user_id    = ".(int)$uidToKeep."
                     WHERE user_id    = ".(int)$uidToRemove."
-                      AND code_cours = '".claro_sql_escape($thisCourse['code'])."'";
-
-                if ( ! claro_sql_query($sql) )
-                {
-                    throw new Exception("Cannot change rel_course_user in {$thisCourse['code']}");
-                }
+                      AND code_cours = '".claro_sql_escape($thisCourseCode)."'";
             }
             
             if ( ! claro_sql_query($sql) )
             {
-                throw new Exception("Cannot change rel_course_user in {$thisCourse['code']}");
+                throw new Exception("Cannot change rel_course_user in {$thisCourseCode}");
             }
             
             $sql = "UPDATE `{$mainTbl['rel_class_user']}` 
@@ -133,17 +69,17 @@ class MergeUser
 
             if ( ! claro_sql_query($sql) )
             {
-                throw new Exception("Cannot change rel_class_user in {$thisCourse['code']}");
+                throw new Exception("Cannot change rel_class_user in {$thisCourseCode}");
             }
             
             
             // Update course
             
-            self::mergeCourseUsers( $uidToRemove, $uidToKeep, $thisCourse['code'] );
-            self::mergeCourseModuleUsers( $uidToRemove, $uidToKeep, $thisCourse['code'] );
+            self::mergeCourseUsers( $uidToRemove, $uidToKeep, $thisCourseCode );
+            self::mergeCourseModuleUsers( $uidToRemove, $uidToKeep, $thisCourseCode );
             
             // update course messaging
-            self::mergeCourseMessaging( $uidToRemove, $uidToKeep, $thisCourse['code'] );
+            self::mergeCourseMessaging( $uidToRemove, $uidToKeep, $thisCourseCode );
         }
         
         // Update modules

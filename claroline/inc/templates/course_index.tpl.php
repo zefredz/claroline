@@ -3,24 +3,7 @@
 <table border="0" cellspacing="10" cellpadding="10" width="100%">
 <tr>
 <td valign="top" style="border-right: gray solid 1px;" width="220">
-<?php if (is_array($this->toolLinkListSource)
-    && !empty($this->toolLinkListSource)
-    && is_array($this->toolLinkListSession)
-    && !empty($this->toolLinkListSession) )
-{
-    echo '<div class="sourceToolPanel"><h3>' . get_lang('Course') . '</h3>';
-    echo claro_html_menu_vertical_br($this->toolLinkListSource, array('id'=>'commonToolListSource'));
-    echo '</div>';
-    echo '<div class="sessionToolPanel"><h3>' . get_lang('Session') . '</h3>';
-    echo claro_html_menu_vertical_br($this->toolLinkListSession, array('id'=>'commonToolListSession'));
-    echo '</div>';
-}
-if (is_array($this->toolLinkListStandAlone))
-{
-    echo claro_html_menu_vertical_br($this->toolLinkListStandAlone, array('id'=>'commonToolListStandAlone'));
-}
-?>
-
+<?php echo claro_html_menu_vertical_br($this->toolLinkList, array('id'=>'commonToolList')); ?>
 <br />
 
 <?php 

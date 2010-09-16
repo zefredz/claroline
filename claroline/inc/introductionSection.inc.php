@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLINTRO
@@ -243,10 +243,11 @@ if ($intro_dispForm)
     $introId      = isset($introSettingList['id']) ? $introSettingList['id'] : false;
     $introEditorCmdValue = $introId ? 'exEd' : 'exAdd';
 
-    $output .= '<form action="' . Url::Contextualize($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+    $output .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
     .    '<input type="hidden" name="claroFormId" value="'.uniqid(time()).'" />'
     .    '<input type="hidden" name="introCmd" value="' . $introEditorCmdValue . '" />'
     .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'" />' : '')
+    .    claro_form_relay_context()
     .    claro_html_textarea_editor('intro_content', trim($introContent))
     .    '<br />'."\n"
     ;
@@ -262,7 +263,7 @@ if ($intro_dispForm)
     
     $output .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />&nbsp;'."\n";
 
-    $output .= claro_html_button( Url::Contextualize($_SERVER['PHP_SELF']), get_lang('Cancel'))
+    $output .= claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
     .    '<br />' . "\n"
     .    '</form>' . "\n\n"
     ;

@@ -100,10 +100,10 @@
      */
     function claro_is_user_course_manager($userId,$courseCode)
     {
-        $tableName = get_module_main_tbl(array('rel_course_user'));
+        $tableName = get_module_main_tbl(array('cours_user'));
         
         $sql = "SELECT count(*)"
-            ." FROM `".$tableName['rel_course_user']."`"
+            ." FROM `".$tableName['cours_user']."`"
             ." WHERE code_cours = '" . claro_sql_escape($courseCode) . "'"
             ." AND user_id = " . (int)$userId
             ." AND isCourseManager = 1"

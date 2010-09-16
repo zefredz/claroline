@@ -6,7 +6,7 @@
  *
  * @version 1.9
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -78,11 +78,10 @@ if ( !empty($class_id) )
 
     //find this class current content
     // TODO Factorise this statement
-    $sql = "SELECT distinct (cc.`courseId`), c.`code`, c.`language`,
-            c.`intitule`, c.`titulaires`
-            FROM `".$tbl_course_class."` cc, `".$tbl_cours."` c
-            WHERE c.`code` = cc.`courseId`
-            AND cc.`classId` = '". $class_id ."'";
+    $sql = "SELECT distinct (CC.`courseId`), C.`code`, C.`language` ,C.`intitule`,C.`faculte`,C.`titulaires`
+            FROM `".$tbl_course_class."` CC, `".$tbl_cours."` C
+            WHERE C.`code` = CC.`courseId`
+            AND CC.`classId` = '". $class_id ."'";
 
     // deal with session variables for search criteria
 
@@ -167,6 +166,7 @@ else
     .    '<tr class="headerX" align="center" valign="top">'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=code&amp;chdir=yes">' . get_lang('Course code') . '</a></th>'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=intitule&amp;chdir=yes">' . get_lang('Course title') . '</a></th>'
+    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=faculte&amp;chdir=yes">' . get_lang('Category') . '</a></th>'
     .     '<th>' . get_lang('Course settings') . '</th>'
     .    '<th>' . get_lang('Unregister from class') . '</th>'
     .    '</tr>'
@@ -183,6 +183,7 @@ else
         $out .= '<tr>'
         .    '<td align="center" >' . $list['code']      . '</td>'
         .    '<td align="left" >'   . $list['intitule']          . '</td>'
+        .    '<td align="left" >'   . $list['faculte']       . '</td>'
         .     '<td align="center">'
         .    '<a href="../course/settings.php?adminContext=1'
         // TODO cfrom=xxx is probably a hack

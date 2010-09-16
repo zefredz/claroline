@@ -213,13 +213,13 @@ fieldset {
     padding: 20px;
     position: relative;
     margin-top: 20px; 
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 legend {
-	padding:0px;
+	padding:0;
     font-weight: bold;    
-    color: #333;  
+    color: #333;   
 }
 
 div.row {

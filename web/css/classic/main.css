@@ -60,10 +60,6 @@ input, textarea, button, select{
     color: #369;
 }
 
-select {
-    min-width: 150px;
-}
-
 input[type=submit], input[type=reset], input[type=button], button {
     margin-left: 2px;
     color: #666;
@@ -107,7 +103,7 @@ fieldset legend {
     background: transparent url(img/menu-collapsed.gif) no-repeat scroll 0 50%;
 }
 
-dl.onOneLine dt, fieldset dl dt {
+fieldset dl dt {
     clear: both;
     float: left;
     width: 20%;
@@ -115,7 +111,7 @@ dl.onOneLine dt, fieldset dl dt {
     margin: 2px 0;
 }
 
-dl.onOneLine dd, fieldset dl dd {
+fieldset dl dd {
     float: left;
     padding: 1px;
     width: 70%;
@@ -1127,42 +1123,6 @@ form tr.admin td{
     text-align:center;
 }
 
-ul.user_list {
-    list-style-type:none;
-}
-
-ul.user_list li {
-    float:left;
-    position:relative;
-    width:100px;
-    padding:0;
-    margin:5px;
-    background:#ccc;
-}
-
-ul.user_list li img.edit_link {
-    position:absolute;
-    right:0; top:0;
-    z-index:100;
-    display:none;
-}
-
-ul.user_list li:hover img.edit_link {
-    display:block;
-}
-
-ul.courses {
-    list-style-type:none; 
-    padding:0;
-}
-ul.courses li {margin-bottom:10px;}
-ul.courses dd {
-    margin:0;
-    font-size:.8em;
-}
-
-h4 {margin-bottom:5px;}
-
 
 /******************************************************************************
                             INTERNAL MESSAGING
@@ -1259,11 +1219,6 @@ h4 {margin-bottom:5px;}
 .debugBar a:visited
 {
     color: #E6F;
-}
-
-.debugBar .claroDialogBox
-{
-    color: #990000;
 }
 
 /******************************************************************************

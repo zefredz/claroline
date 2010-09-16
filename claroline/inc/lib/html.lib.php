@@ -135,7 +135,7 @@ function claro_html_menu_horizontal($itemList)
             $section_name = $section_def['label'];
             
             $tabList[]= '<a ' . ( $section == $section_selected ? ('class="' . $currentClassName . '"') : '' )
-            . ' href="' . $_SERVER['PHP_SELF'] . '?section=' . htmlspecialchars($section)
+            . ' href="' . $_SERVER['PHP_SELF'] . '?section=' . htmlspecialchars($section) 
                                                . htmlspecialchars($url_params). '">'
             . get_lang($section_name) . '</a>';
 
@@ -597,7 +597,7 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
     $incPath = get_path('rootSys') . 'claroline/editor/' . $claro_editor;
     $editorPath = get_conf('urlAppend') . '/claroline/editor/';
     $webPath = $editorPath . $claro_editor;
-    
+
     $isSafariOn_iPhone = preg_match("!Mobile/.*?Safari/.*?!", $_SERVER['HTTP_USER_AGENT']);
 
     if( !$isSafariOn_iPhone && file_exists($incPath . '/editor.class.php') )
@@ -672,7 +672,7 @@ DEFINE('DG_ORDER_COLS_BY_TITLE','DG_ORDER_COLS_BY_TITLE'.__FILE__.__LINE__);
  * set_caption(string 'caption');
  * set_counterLine(bool 'dispCounter')
  * set_colDecoration(string columnName,string pattern, array param)
- *
+ * 
  * @package HTML
  * @author Christophe Gesché <moosh@claroline.net>
  *
@@ -882,23 +882,23 @@ class claro_datagrid
 
     /**
      * Add a decoration on a column
-     *
-     * add, or overide a column by a content build from a template and where
+     * 
+     * add, or overide a column by a content build from a template and where 
      * tags are replace by data from each lines
      *
      * $myDataList[]=array('id'=>1,'pid'=>'foo',);
      * $dg = new claro_datagrid($myDataList);
      * $dg->set_colDecoration('edit','<a href="?cmd=edit&amp;id=%id&amp;pid=%pid">edit</a>', array('id','pid'));
      * $dg->set_colDecoration('foo','<strong>%foo</strong>', array('foo'));
-     *
+     * 
      * The first decoration add a third column called edit. and  using id and pid from line to fill %id and %pid;
-     * The second decoration overite the existing column 'foo' by the same content between <strong> tags
-     *
+     * The second decoration overite the existing column 'foo' by the same content between <strong> tags 
+     *  
      *
      * @param string $colName
      * @param string $decorationPattern
      * @param array $tag
-     *
+     * 
      * @since 1.9
      * @return the current list
      */
@@ -907,7 +907,7 @@ class claro_datagrid
     {
         $this->decorationList[$colName] = array( 'decorationPattern' => $decorationPattern
                                          , 'tagList' => $tag);
-        return $this->decorationList;
+        return $this->decorationList;            
     }
     
     function render()
@@ -1012,7 +1012,7 @@ class claro_datagrid
                         {
                             // Decore content
                             $dataCell = $this->decorationList[$colId]['decorationPattern'];
-                            foreach ($this->decorationList[$colId]['tagList'] as $tagName)
+                            foreach ($this->decorationList[$colId]['tagList'] as $tagName) 
                             {
                                 if (isset($dataLine[$tagName]))
                                 $dataCell = str_replace('%'.$tagName,$dataLine[$tagName],$dataCell);
@@ -1309,7 +1309,7 @@ function clean_spoilerStart($match)
 {
     if(isset($match[4]))
     {
-        return '[spoiler /'.$match[4].'/]';
+        return '[spoiler /'.$match[4].'/]';    
     }
     else
     {
@@ -1361,7 +1361,7 @@ function renderTex($text)
         $text = preg_replace_callback(  '/\[tex\](.+?)\[\/tex\]/i',
                                         'renderTexCallback',
                                         $text
-                            );
+                            );        
     }
     else
     {
@@ -1389,7 +1389,7 @@ function renderTexCallback( $matches )
     else
     {
         return false;
-    }
+    }    
 }
 /**
  * Completes url contained in the text with "<a href ...".
@@ -1692,7 +1692,7 @@ function claro_html_breadcrumb()
 
 /**
  * Create a navigation tab bar
- *
+ * 
  * @param array $section_list associative array of tabs tab id => tab label
  * @param string $section_selected_id selected tab id
  * @param array $url_params associative array of additionnal parameters
