@@ -2862,4 +2862,6 @@ $_lang['Spoiler Editor'] = 'Editeur de texte déroulant';
 $_lang['from'] = 'depuis';
 $_lang['Empty all classes'] = 'Vider toutes les classes';
 $_lang['Delete all classes'] = 'Effacer toutes les classes';
-?>
+$_lang['This course is deactivated'] = 'Ce cours a été désactivé';
+$_lang['You can reactive it from your course list'] = 'Vous pouvez le réactiver depuis votre liste de cours';
+$_lang['Contact the platform administrator'] = 'Veuillez contacter le gestionnaire de la plateforme';

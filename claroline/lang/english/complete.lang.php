@@ -2922,5 +2922,6 @@ $_lang['on top'] = 'on top';
 $_lang['relative path from root campus to courses'] = 'relative path from root campus to courses';
 $_lang['relative path from root web to user pic repository'] = 'relative path from root web to user pic repository';
 $_lang['unique id of the platform'] = 'unique id of the platform';
-
-?>
+$_lang['This course is deactivated'] = 'This course is deactivated';
+$_lang['You can reactive it from your course list'] = 'You can reactive it from your course list';
+$_lang['Contact the platform administrator'] = 'Plese contact the platform administrator';
