@@ -23,6 +23,20 @@ class MergeUser
     {
         $mainTbl = claro_sql_get_main_tbl();
         
+        // inherit platform admin status ? harmful !
+        /*$toKeep_isPlatformAdmin = claro_sql_query_fetch_single_value("
+            SELECT isPlatformAdmin FROM `{$mainTbl['user']}` WHERE user_id = " . (int) $uidToKeep . "
+        ");
+        
+        $toRemove_isPlatformAdmin = claro_sql_query_fetch_single_value("
+            SELECT isPlatformAdmin FROM `{$mainTbl['user']}` WHERE user_id = " . (int) $uidToRemove . "
+        ");
+        
+        if ( $toKeep_isPlatformAdmin && ! $toRemove_isPlatformAdmin )
+        {
+            claro_sql_query("UPDATE `{$mainTbl['user']}` SET `isPlatformAdmin` = 1 WHERE user_id = ".(int) $uidToKeep );
+        }*/
+        
         // inherit course creator status
         $toKeep_isCourseCreator = claro_sql_query_fetch_single_value("
             SELECT isCourseCreator FROM `{$mainTbl['user']}` WHERE user_id = " . (int) $uidToKeep . "
