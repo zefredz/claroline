@@ -356,8 +356,8 @@ function get_user_course_list_desactivated($userId, $renew = false)
                                        OR '". $curdate ."'> UNIX_TIMESTAMP(`expirationDate`)
                                        )
                                   )
-                              ) 
-                         AND course_user.isCourseManager = 1 " ;
+                              ) " ;
+                         // AND course_user.isCourseManager = 1 " ;
 
         if ( get_conf('course_order_by') == 'official_code' )
         {
@@ -548,18 +548,37 @@ function render_course_dt_in_dd_list($course, $hot = false, $iconAccess = true)
     return $out;
 }
 
+function is_user_allowed_to_see_desactivated_course( $course )
+{
+    return claro_is_platform_admin() || $course['isCourseManager'] == '1'
+        || ( $course['status'] == 'pending' &&  get_conf( 'crslist_DisplayPendingToAllUsers', false ) )
+        || ( $course['status'] == 'disable' && get_conf( 'crslist_DisplayDisableToAllUsers', false ) )
+        || ( $course['status'] == 'date' && $course['creationDate'] > claro_mktime() && get_conf( 'crslist_DisplayExpiredToAllUsers', false ) )
+        || ( $course['status'] == 'date' && isset($course['expirationDate']) && $course['expirationDate'] < claro_mktime() && get_conf( 'crslist_DisplayUnpublishedToAllUsers', false ) );
+}
+
 function render_user_course_list_desactivated()
 {
         $personnalCourseList = get_user_course_list_desactivated(claro_get_current_user_id());
         
-        $out='';    
+        $deactivatedCoursesDiplayed = 0;
+        
+        $out ='';    
          //display list
          if (!empty($personnalCourseList) && is_array($personnalCourseList))
          {
+             
              $out .= '<dl class="userCourseList">'."\n";
              
              foreach($personnalCourseList as $course)
              {
+                  if ( ! is_user_allowed_to_see_desactivated_course( $course ) )
+                  {
+                    continue;
+                  }
+                  
+                  $deactivatedCoursesDiplayed++;
+                  
                   if ( get_conf('course_order_by') == 'official_code' )
                   {
                       $courseTitle = $course['officialCode'] . ' - ' . $course['title'];
@@ -575,21 +594,31 @@ function render_user_course_list_desactivated()
                   $urlSettings = Url::Contextualize( get_path('url') . '/claroline/course/settings.php?cidReq='
                   . htmlspecialchars($course['sysCode']. '&cmd=exEnable') ) ;
                 
+                  
                   $out .= '<dt>' . "\n"
                   .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="" />';
                    
-                    if ($course['status']=='pending')
+                    if ( $course['status']=='pending' )
                     {
-                        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-                            .   htmlspecialchars($courseTitle)
-                            .   '</a>' . "\n"
-                            .   '<a href="'.$urlSettings.'">'
-                            .   '<img src="'.get_icon_url('manager').'" alt="" /> '.get_lang('Reactivate it ').'</a>';
+                        if ( claro_is_platform_admin() || $course['isCourseManager'] == '1' )
+                        {
+                            $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
+                                .   htmlspecialchars($courseTitle)
+                                .   '</a>' . "\n"
+                                .   '<a href="'.$urlSettings.'">'
+                                .   '<img src="'.get_icon_url('manager').'" alt="" /> '.get_lang('Reactivate it').'</a>';
+                        }
+                        elseif ( get_conf( 'crslist_DisplayPendingToAllUsers', false ) )
+                        {
+                            $out.=  htmlspecialchars($courseTitle)
+                                . ' <em><small>' . get_lang('You cannot access this course until the course manager has reactivated it') . '</small></em>'
+                                . "\n";
+                        }
                     }
                     
                     if ($course['status']=='disable')
                     {
-                        if (claro_is_platform_admin())
+                        if ( claro_is_platform_admin() )
                         {
                             $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
                             .   htmlspecialchars($courseTitle)
@@ -600,8 +629,17 @@ function render_user_course_list_desactivated()
                         }
                         else 
                         {
-                            $out.=  htmlspecialchars($courseTitle)
-                             .' '.get_lang('Contact your administrator to reactivate it. ');
+                            if ( $course['isCourseManager'] == '1' )
+                            {
+                                $out.=  htmlspecialchars($courseTitle)
+                                .' '.get_lang('Contact your administrator to reactivate it. ');
+                            }
+                            elseif ( get_conf( 'crslist_DisplayDisableToAllUsers', false ) )
+                            {
+                                $out.=  htmlspecialchars($courseTitle)
+                                    . ' <em><small>' . get_lang('You cannot access this course it has been deactivated') . '</small></em>'
+                                    . "\n";
+                            }
                         }
                                 
                     }
@@ -610,18 +648,34 @@ function render_user_course_list_desactivated()
                     {
                         if ($course['creationDate'] > claro_mktime())
                         {
-                            $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-                                .    htmlspecialchars($courseTitle)
-                                .    '</a>' . "\n"
-                                .     ' '.get_lang('Will be published on ').date('d-m-Y',$course['creationDate']);
+                            if ( claro_is_platform_admin() || $course['isCourseManager'] == '1' )
+                            {
+                                $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
+                                    .    htmlspecialchars($courseTitle)
+                                    .    '</a>' . "\n"
+                                    .     ' '.get_lang('Will be published on ').date('d-m-Y',$course['creationDate']);
+                            }
+                            elseif ( get_conf( 'crslist_DisplayUnpublishedToAllUsers', false ) )
+                            {
+                                $out.=  htmlspecialchars($courseTitle)
+                                    .     ' '.get_lang('Will be published on ').date('d-m-Y',$course['creationDate']);
+                            }
                         }
                         
                         if (isset($course['expirationDate']) AND ($course['expirationDate'] < claro_mktime()))
                         {
-                            $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-                                .    htmlspecialchars($courseTitle)
-                                .    '</a>' . "\n"
-                                .     ' '.get_lang('Expired since ').date('d-m-Y',$course['expirationDate']) ;
+                            if ( claro_is_platform_admin() || $course['isCourseManager'] == '1' )
+                            {
+                                $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
+                                    .    htmlspecialchars($courseTitle)
+                                    .    '</a>' . "\n"
+                                    .     ' '.get_lang('Expired since ').date('d-m-Y',$course['expirationDate']) ;
+                            }
+                            elseif ( get_conf( 'crslist_DisplayExpiredToAllUsers', false ) )
+                            {
+                                $out.=  htmlspecialchars($courseTitle)
+                                    .     ' '.get_lang('Expired since ').date('d-m-Y',$course['expirationDate']);
+                            }
                         }
                     
                     }
@@ -639,7 +693,15 @@ function render_user_course_list_desactivated()
                 
                     $out .= '</dl>' . "\n";
         }
-         return $out;
+        
+        if ( $deactivatedCoursesDiplayed == 0 )
+        {
+            return '';
+        }
+        else
+        {
+            return $out;
+        }
 
 }
 

@@ -106,6 +106,15 @@ array ( 'useSendFile'
       , 'usePrettyUrl'
       );
 
+$conf_def['section']['CRSLIST']['label']='My course list settings';
+$conf_def['section']['CRSLIST']['properties'] =
+array (
+       'crslist_DisplayPendingToAllUsers',
+       'crslist_DisplayDisableToAllUsers',
+       'crslist_DisplayUnpublishedToAllUsers',
+       'crslist_DisplayExpiredToAllUsers'
+      );
+
 $conf_def['section']['ADVANCED']['label']='Advanced settings';
 $conf_def['section']['ADVANCED']['properties'] =
 array ( 'userPasswordCrypted'
@@ -708,4 +717,42 @@ array ( 'description' => 'Choose the mode for URL for file download. Warning : P
       , 'readonly'    => FALSE
       );
 
-?>
+$conf_def_property_list['crslist_DisplayPendingToAllUsers'] =
+array ('label'       => 'Display pending courses in members\' course list'
+      ,'description' => ''
+      ,'default'     => FALSE
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );
+
+$conf_def_property_list['crslist_DisplayDisableToAllUsers'] =
+array ('label'       => 'Display disabled courses in members\' course list'
+      ,'description' => ''
+      ,'default'     => FALSE
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );
+
+$conf_def_property_list['crslist_DisplayExpiredToAllUsers'] =
+array ('label'       => 'Display expired courses in members\' course list'
+      ,'description' => ''
+      ,'default'     => FALSE
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );
+
+$conf_def_property_list['crslist_DisplayUnpublishedToAllUsers'] =
+array ('label'       => 'Display unpublished courses in members\' course list'
+      ,'description' => ''
+      ,'default'     => FALSE
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );

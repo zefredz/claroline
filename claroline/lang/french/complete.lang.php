@@ -2865,3 +2865,5 @@ $_lang['Delete all classes'] = 'Effacer toutes les classes';
 $_lang['This course is deactivated'] = 'Ce cours a été désactivé';
 $_lang['You can reactive it from your course list'] = 'Vous pouvez le réactiver depuis votre liste de cours';
 $_lang['Contact the platform administrator'] = 'Veuillez contacter le gestionnaire de la plateforme';
+$_lang['You cannot access this course it has been deactivated'] = 'Ce cours n\'est plus accessible';
+$_lang['You cannot access this course until the course manager has reactivated it'] = 'Ce cours est désactivé et doit être réactivé par son gestionnaire';

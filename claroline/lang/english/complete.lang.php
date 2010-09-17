@@ -2924,4 +2924,6 @@ $_lang['relative path from root web to user pic repository'] = 'relative path fr
 $_lang['unique id of the platform'] = 'unique id of the platform';
 $_lang['This course is deactivated'] = 'This course is deactivated';
 $_lang['You can reactive it from your course list'] = 'You can reactive it from your course list';
-$_lang['Contact the platform administrator'] = 'Plese contact the platform administrator';
+$_lang['Contact the platform administrator'] = 'Please contact the platform administrator';
+$_lang['You cannot access this course it has been deactivated'] = 'You cannot access this course it has been deactivated';
+$_lang['You cannot access this course until the course manager has reactivated it'] = 'You cannot access this course until the course manager has reactivated it';
