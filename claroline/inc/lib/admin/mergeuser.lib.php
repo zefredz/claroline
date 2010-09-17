@@ -89,7 +89,7 @@ class MergeUser
                 // inherit isCourseManager
                 if ( ( $thisCourse['isCourseManager'] == 1 ) && ( $userToKeepCourseList['isCourseManager'] != 1 ) )
                 {
-                    if ( claro_sql_query("
+                    if ( ! claro_sql_query("
                         UPDATE `{$mainTbl['rel_course_user']}`
                         SET `isCourseManager` = 1
                         WHERE code_cours = '".claro_sql_escape($thisCourse['code'])."'
