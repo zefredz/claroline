@@ -313,7 +313,7 @@ class MergeUser
             . " FROM `" . $tableName['im_message'] . "` as M\n"
             . " LEFT JOIN `" . $tableName['im_recipient'] . "` as R ON M.message_id = R.message_id\n"
             . " WHERE R.user_id = " . (int)$uidToRemove
-            . " AND M.course IS NULL".claro_sql_escape($thisCourseCode)."'";
+            . " AND M.course = '".claro_sql_escape($thisCourseCode)."'";
             
         $userToKeepMsgList = claro_sql_query_fetch_all($getUserMessagesInCourse);
         
