@@ -43,7 +43,7 @@ function announcements_upgrade_to_110 ($course_code)
             case 1 :
                 
                 // Add the attribute sourceCourseId to the course table
-                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "announcement` ADD `publishAt` DATE NULL DEFAULT NULL AFTER `contenu`";
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "announcement` ADD `visibleFrom` DATE NULL DEFAULT NULL AFTER `contenu`";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
                 else return $step;
@@ -53,7 +53,7 @@ function announcements_upgrade_to_110 ($course_code)
             case 2 :
                 
                 // Add the attribute sourceCourseId to the course table
-                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "announcement` ADD `expiresAt` DATE NULL DEFAULT NULL AFTER `publishAt`";
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "announcement` ADD `visibleUntil` DATE NULL DEFAULT NULL AFTER `visibleFrom`";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
                 else return $step;
@@ -137,7 +137,21 @@ function exercise_upgrade_to_110 ($course_code)
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
                 else return $step;
                 
-                unset($sqlForUpdate);               
+                unset($sqlForUpdate);     
+                
+             case 2 :
+                
+                // Add the key
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking` ADD KEY `user_id` (`user_id`)";
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking` ADD KEY `exo_id` (`exo_id`)";
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking_questions` ADD KEY `exercise_track_id` (`exercise_track_id`)";
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking_questions` ADD KEY `question_id` (`question_id`)";
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking_answers` ADD KEY `details_id` (`details_id`)";
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                else return $step;
+                
+                unset($sqlForUpdate);           
                 
             default :
                 

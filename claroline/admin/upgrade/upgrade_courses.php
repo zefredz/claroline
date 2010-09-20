@@ -403,10 +403,31 @@ switch ($display)
                 if ( preg_match('/^1.9/',$currentCourseVersion) )
                 {
                     // Function to upgrade tool to 1.10
-                    $function_list = array( 'announcements_upgrade_to_110',
+                    
+                    $function_list = array();
+                    
+                    $toolCLANN =  get_module_data('CLANN');
+                    if (is_tool_activated_in_course($toolCLANN['id'],$currentCourseCode))
+                    {
+                        $function_list[] = 'announcements_upgrade_to_110';
+                    }
+                    
+                    $toolCLCAL =  get_module_data('CLCAL');
+                    if (is_tool_activated_in_course($toolCLCAL['id'],$currentCourseCode))
+                    {
+                        $function_list[] = 'calendar_upgrade_to_110';
+                    }
+                    
+                    $toolCLQWZ =  get_module_data('CLQWZ');
+                    if (is_tool_activated_in_course($toolCLQWZ['id'],$currentCourseCode))
+                    {
+                        $function_list[] = 'exercise_upgrade_to_110';
+                    }
+                    
+                    /*$function_list = array( 'announcements_upgrade_to_110',
                                             'calendar_upgrade_to_110',
                                             'exercise_upgrade_to_110'
-                                    );
+                     */
             
                     foreach ( $function_list as $function )
                     {
