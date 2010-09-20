@@ -1821,10 +1821,10 @@ function claro_get_user_tool_list($activeOnly=true)
 function claro_redirect($location)
 {
     // IIS prefers Refresh over Location
-    if ( $GLOBALS['is_IIS'] )
+    /*if ( $GLOBALS['is_IIS'] )
     {
         header("Refresh: 0;url=$location");
-    }
+    }*/
     
     // Issue with non utf-8 url under Apache 2 on Windows
     if ( $GLOBALS['is_Apache2'] )
