@@ -10,8 +10,8 @@ class CLFRM_MergeUser implements Module_MergeUser
         
         $sql = "UPDATE `{$moduleCourseTbl['bb_posts']}`
                 SET     poster_id = ".(int)$uidToKeep.",
-                        nom = '". htmlspecialchars( $userToKeepProp['lastname'] ) . "',
-                        prenom = '". htmlspecialchars( $userToKeepProp['firstname'] ) . "'
+                        nom = '". claro_sql_escape( $userToKeepProp['lastname'] ) . "',
+                        prenom = '". claro_sql_escape( $userToKeepProp['firstname'] ) . "'
                 WHERE poster_id = ".(int)$uidToRemove;
 
         if ( ! claro_sql_query($sql) )
@@ -22,8 +22,8 @@ class CLFRM_MergeUser implements Module_MergeUser
         // Update topic poster, lastname & firstname
         $sql = "UPDATE `{$moduleCourseTbl['bb_topics']}`
                 SET topic_poster = " . (int)$uidToKeep . ",
-                nom = '".htmlspecialchars( $userToKeepProp['lastname']) . "',
-                prenom = '".htmlspecialchars( $userToKeepProp['firstname']) . "'
+                nom = '".claro_sql_escape( $userToKeepProp['lastname']) . "',
+                prenom = '".claro_sql_escape( $userToKeepProp['firstname']) . "'
                 WHERE topic_poster = ".(int)$uidToRemove;
         
         if( ! claro_sql_query($sql) )
