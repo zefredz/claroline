@@ -23,6 +23,20 @@ class MergeUser
     {
         $mainTbl = claro_sql_get_main_tbl();
         
+        // inherit platform admin status ? harmful !
+        /*$toKeep_isPlatformAdmin = claro_sql_query_fetch_single_value("
+            SELECT isPlatformAdmin FROM `{$mainTbl['user']}` WHERE user_id = " . (int) $uidToKeep . "
+        ");
+
+        $toRemove_isPlatformAdmin = claro_sql_query_fetch_single_value("
+            SELECT isPlatformAdmin FROM `{$mainTbl['user']}` WHERE user_id = " . (int) $uidToRemove . "
+        ");
+
+        if ( $toKeep_isPlatformAdmin && ! $toRemove_isPlatformAdmin )
+        {
+            claro_sql_query("UPDATE `{$mainTbl['user']}` SET `isPlatformAdmin` = 1 WHERE user_id = ".(int) $uidToKeep );
+        }*/
+
         // inherit course creator status
         $toKeep_isCourseCreator = claro_sql_query_fetch_single_value("
             SELECT isCourseCreator FROM `{$mainTbl['user']}` WHERE user_id = " . (int) $uidToKeep . "
@@ -75,7 +89,7 @@ class MergeUser
                 // inherit isCourseManager
                 if ( ( $thisCourse['isCourseManager'] == 1 ) && ( $userToKeepCourseList['isCourseManager'] != 1 ) )
                 {
-                    if ( claro_sql_query("
+                    if ( ! claro_sql_query("
                         UPDATE `{$mainTbl['rel_course_user']}`
                         SET `isCourseManager` = 1
                         WHERE code_cours = '".claro_sql_escape($thisCourse['code'])."'
@@ -299,7 +313,7 @@ class MergeUser
             . " FROM `" . $tableName['im_message'] . "` as M\n"
             . " LEFT JOIN `" . $tableName['im_recipient'] . "` as R ON M.message_id = R.message_id\n"
             . " WHERE R.user_id = " . (int)$uidToRemove
-            . " AND M.course IS NULL".claro_sql_escape($thisCourseCode)."'";
+            . " AND M.course = '".claro_sql_escape($thisCourseCode)."'";
             
         $userToKeepMsgList = claro_sql_query_fetch_all($getUserMessagesInCourse);
         
