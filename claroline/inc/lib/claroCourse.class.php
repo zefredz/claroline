@@ -672,7 +672,7 @@ class ClaroCourse
         }
         
         // Check course length
-        if( strlen($this->officialCode) > 12 )
+        if( strlen($this->officialCode) > 40 )
         {
             $this->backlog->failure(get_lang('Course code too long'));
             $success = false;
