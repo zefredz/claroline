@@ -764,6 +764,26 @@ class Question
     {
         $this->exerciseId = (int) $value;
     }
+    
+    
+    /**
+     * get question rank
+     * @return int $rank
+     */
+    public function getRank()
+    {
+        return $this->rank;
+    }
+    
+    /**
+     * set question rank
+     * @param int $rank
+     * @return boolean
+     */
+    public function setRank( $rank )
+    {
+        return $this->rank = (int) $rank;
+    }
 }
 
 class QuestionCategory
@@ -981,25 +1001,6 @@ class QuestionCategory
             return true;
         }
         return false;
-    }
-    
-    /**
-     * get question rank
-     * @return int $rank
-     */
-    public function getRank()
-    {
-        return $this->rank;
-    }
-    
-    /**
-     * set question rank
-     * @param int $rank
-     * @return boolean
-     */
-    public function setRank( $rank )
-    {
-        return $this->rank = (int) $rank;
     }
 }
 ?>
