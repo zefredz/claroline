@@ -21,44 +21,46 @@ endif; //end not anonymous user
 <div id="postList">
 <?php foreach( $this->postList as $thisPost ) : ?>
 <div id="post<?php echo $thisPost['post_id']; ?>" class="threadPost">
-  <?php  
-  if( 'anonymous' !== $thisPost['lastname'] 
+  <div class="threadPostInfo">
+    <?php
+    if( 'anonymous' !== $thisPost['lastname']
      && user_get_picture_path( user_get_properties( $thisPost['poster_id'] ) )
      && file_exists( user_get_picture_path( user_get_properties( $thisPost['poster_id'] ) ) )
      ) :
-  ?>
-    <div class="threadPosterPicture"><img src="<?php echo user_get_picture_url( user_get_properties( $thisPost['poster_id'] ) ); ?>" alt=" " /></div>
-  <?php
-  endif;
-  ?>
-  <div class="threadPostInfo">
-    <?php 
+    ?>
+    <div class="threadPosterPicture">
+        <img src="<?php echo user_get_picture_url( user_get_properties( $thisPost['poster_id'] ) ); ?>" alt=" " />
+    </div>
+    <?php
+    endif;
+    ?>
+    <?php
     if( 'anonymous' === $thisPost['lastname'] ) :
-        ?><span style="font-weight: bold;"><?php 
+        ?><span style="font-weight: bold;"><?php
         $userData = user_get_properties( $thisPost['poster_id'] );
         echo get_lang( 'Anonymous contribution' );?>
         </span>
-        <?php 
+        <?php
         if( claro_is_platform_admin() ) :?>
         <span style="font-weight: bold;" id="<?php $thisPost['post_id']?>" class="switch">
             <a href="#" class="show">(<?php echo get_lang( 'show' );?>)</a>
             <a href="#" class="hide" style="display:none;">(<?php echo get_lang( 'hide' );?>)</a>
-        </span> 
+        </span>
         <span style="font-weight: bold;display:none;"><?php echo $userData[ 'firstname' ] . '&nbsp;' . $userData[ 'lastname' ];?></span><?php
-        endif;    
+        endif;
     else :
-        ?><span style="font-weight: bold;"><?php 
-        echo $thisPost[ 'firstname' ] . '&nbsp;' . $thisPost[ 'lastname' ]; 
-        ?></span><?php 
-    endif;    
-    ?>   
+        ?><span style="font-weight: bold;"><?php
+        echo $thisPost[ 'firstname' ] . '&nbsp;' . $thisPost[ 'lastname' ];
+        ?></span><?php
+    endif;
+    ?>
     <br />
     <small><?php echo claro_html_localised_date( get_locale( 'dateTimeFormatLong' ), datetime_to_timestamp( $thisPost['post_time'] ) ); ?></small>
   </div>
   <div class="threadPostContent">
-    <?php $itemClass = claro_is_user_authenticated() 
+    <?php $itemClass = claro_is_user_authenticated()
                        && $this->claro_notifier->is_a_notified_ressource( claro_get_current_course_id(), $this->claro_notifier->get_notification_date( claro_get_current_user_id() ), claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this->forum_id . "-" . $this->topic_id . "-" . $thisPost['post_id'] )
-                       ? 'item hot' : 'item';?>  
+                       ? 'item hot' : 'item';?>
     <span class="threadPostIcon <?php echo $itemClass ?>">
         <img src="<?php echo get_icon_url( 'post' ); ?>" alt="" />
     </span><br />
