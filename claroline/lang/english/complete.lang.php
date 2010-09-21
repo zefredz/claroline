@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['If you need to create a public course, please contact the platform administrator'] = 'If you need to create a public course, please contact the platform administrator';
 $_lang['You are not allowed to create a public course'] = 'You are not allowed to create a public course';
 $_lang['Allow course access to be public'] = 'Allow course access to be public';
@@ -365,7 +365,7 @@ $_lang['Choose now a username and a password for the user account'] = 'Choose no
 $_lang['Choose one'] = 'Choose one';
 $_lang['Choose the mode for URL for file download. Warning : Pretty URL mode don\'t work with IIS.'] = 'Choose the mode for URL for file download. Warning : Pretty URL mode don\'t work with IIS.';
 $_lang['Choose "Yes" to notify students when you add feedback information to their works'] = 'Choose "Yes" to notify students when you add feedback information to their works';
-$_lang['Choose "Yes" to receive an email every time a submission is made'] = 'Choose "Yes" to receive an email every time a submission is made'. 
+$_lang['Choose "Yes" to receive an email every time a submission is made'] = 'Choose "Yes" to receive an email every time a submission is made'.
 $_lang['Chosen date is in the future'] = 'Chosen date is in the future';
 $_lang['Clarodoc'] = 'Clarodoc';
 $_lang['Claroline configuration'] = 'Claroline configuration';
@@ -411,6 +411,7 @@ $_lang['Confirmation'] = 'Confirmation';
 $_lang['Constrain proportions'] = 'Constrain proportions';
 $_lang['Contact'] = 'Contact';
 $_lang['Contact your administrator.'] = 'Contact your administrator.';
+$_lang['Contact the platform administrator'] = 'Please contact the platform administrator';
 $_lang['Content'] = 'Content';
 $_lang['Continue'] = 'Continue';
 $_lang['Conversion'] = 'Conversion';
@@ -781,7 +782,7 @@ $_lang['Files dezipped sucessfully in %path'] = 'Files dezipped sucessfully in %
 $_lang['Fill courses tools with material example'] = 'Fill courses tools with material example';
 $_lang['Fill groups (automatically)'] = 'Fill groups (automatically)';
 $_lang['Fill in blanks'] = 'Fill in blanks';
-$_lang['Fill in one or more search criteria, select user profile parameters for your course and press \'Search\''] = 'Précisez un ou plusieurs critères de recherche, cochez les paramètres du profil utilisateur voulu et cliquez sur \'Rechercher\'';
+$_lang['Fill in one or more search criteria, select user profile parameters for your course and press \'Search\''] = 'Prï¿½cisez un ou plusieurs critï¿½res de recherche, cochez les paramï¿½tres du profil utilisateur voulu et cliquez sur \'Rechercher\'';
 $_lang['Fill in the text area to motivate your request and then submit the form to send it to platform administrators'] = 'Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).';
 $_lang['Fill text field'] = 'Fill text field';
 $_lang['Fill type'] = 'Fill type';
@@ -876,11 +877,11 @@ $_lang['If false, other fields are optional'] = 'If false, other fields are opti
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value'] = 'If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value';
-$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the class only if his firstname, 
+$_lang['If the user is existing in the platform, he will be added to the class only if his firstname,
+                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the class only if his firstname,
                                         lastname and username are similar.';
-$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the course only if his firstname, 
+$_lang['If the user is existing in the platform, he will be added to the course only if his firstname,
+                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the course only if his firstname,
                                         lastname and username are similar.';
 $_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available';
 $_lang['If you do not have the key, please contact the course manager'] = 'If you do not have the key, please contact the course manager';
@@ -1480,7 +1481,7 @@ $_lang['Search in pages'] = 'Search in pages';
 $_lang['Search on'] = 'Search on';
 $_lang['Search result'] = 'Search result';
 $_lang['Search user'] = 'Search user';
-$_lang['Search user to add to your course'] = 'Rechercher un utilisateur pour l\'ajouter à votre cours';
+$_lang['Search user to add to your course'] = 'Rechercher un utilisateur pour l\'ajouter ï¿½ votre cours';
 $_lang['SecondShort'] = 'sec.';
 $_lang['Secondary manifest found in zip file :'] = 'Secondary manifest found in zip file :';
 $_lang['See below the files you can edit from this tool.'] = 'See below the files you can edit from this tool.';
@@ -1945,6 +1946,8 @@ $_lang['You cannot add module. Change this in configuration.'] = 'You cannot add
 $_lang['You cannot give a blank name to a class'] = 'You cannot give a blank name to a class';
 $_lang['You cannot post an empty message'] = 'You must type a Message to post. You cannot post an empty Message.';
 $_lang['You cannot unsubscribe the last course manager of the course'] = 'You cannot unsubscribe the last course manager of the course';
+$_lang['You cannot access this course it has been deactivated'] = 'You cannot access this course it has been deactivated';
+$_lang['You cannot access this course until the course manager has reactivated it'] = 'You cannot access this course until the course manager has reactivated it';
 $_lang['You didnt choose any file to send, or file is too big'] = 'You didnt choose any file to send, or file is too big';
 $_lang['You didnt choose any file to send, or it is too big'] = 'You didn\'t choose any file to send, or it is too big';
 $_lang['You have just created the course website'] = 'You have just created the course website';
@@ -2890,8 +2893,8 @@ $_lang['The domain that the cookie is available.  To make the cookie available o
 $_lang['The export\'s type is not supported for the moment.'] = 'The export\'s type is not supported for the moment.';
 $_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.'] = 'The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.';
 $_lang['This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.'] = 'This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.';
-$_lang['This feature is use for institute with  blind users. 
- I fact, System would be ehanced to activate this view user by user'] = 'This feature is use for institute with  blind users. 
+$_lang['This feature is use for institute with  blind users.
+ I fact, System would be ehanced to activate this view user by user'] = 'This feature is use for institute with  blind users.
  I fact, System would be ehanced to activate this view user by user';
 $_lang['This is the physical path to databases storage. This path is  optional, use by the quota and size.'] = 'This is the physical path to databases storage. This path is  optional, use by the quota and size.';
 $_lang['This string is prepend to course database name if it begins with a number'] = 'This string is prepend to course database name if it begins with a number';

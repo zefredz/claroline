@@ -89,7 +89,7 @@ $conf_def['section']['SMTP']['description']='Mail server configuration';
 $conf_def['section']['SMTP']['properties'] =
 array ( 'smtp_host'
       , 'smtp_port'
-      , 'smtp_secure'   
+      , 'smtp_secure'
       , 'smtp_username'
       , 'smtp_password'
       );
@@ -106,6 +106,15 @@ $conf_def['section']['DOWNLOAD_SETTINGS']['description']='Configure the way file
 $conf_def['section']['DOWNLOAD_SETTINGS']['properties'] =
 array ( 'useSendFile'
       , 'usePrettyUrl'
+      );
+
+$conf_def['section']['CRSLIST']['label']='My course list settings';
+$conf_def['section']['CRSLIST']['properties'] =
+array (
+       'crslist_DisplayPendingToAllUsers',
+       'crslist_DisplayDisableToAllUsers',
+       'crslist_DisplayUnpublishedToAllUsers',
+       'crslist_DisplayExpiredToAllUsers'
       );
 
 $conf_def['section']['ADVANCED']['label']='Advanced settings';
@@ -461,7 +470,7 @@ array ('label'       => 'Use TinyMCE editor compressor'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
-      );      
+      );
 
 // Administrator
 
@@ -736,4 +745,42 @@ array ( 'description' => 'Choose the mode for URL for file download. Warning : P
       , 'readonly'    => FALSE
       );
 
-?>
+$conf_def_property_list['crslist_DisplayPendingToAllUsers'] =
+array ('label'       => 'Display pending courses in members\' course list'
+      ,'description' => ''
+      ,'default'     => FALSE
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );
+
+$conf_def_property_list['crslist_DisplayDisableToAllUsers'] =
+array ('label'       => 'Display disabled courses in members\' course list'
+      ,'description' => ''
+      ,'default'     => FALSE
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );
+
+$conf_def_property_list['crslist_DisplayExpiredToAllUsers'] =
+array ('label'       => 'Display expired courses in members\' course list'
+      ,'description' => ''
+      ,'default'     => FALSE
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );
+
+$conf_def_property_list['crslist_DisplayUnpublishedToAllUsers'] =
+array ('label'       => 'Display unpublished courses in members\' course list'
+      ,'description' => ''
+      ,'default'     => FALSE
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );

@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['If you need to create a public course, please contact the platform administrator'] = 'Si vous voulez créer un cours public, veuillez contacter le gestionnaire de la plateforme';
 $_lang['You are not allowed to create a public course'] = 'Vous ne pouvez pas créer de cours public';
 $_lang['Allow course access to be public'] = 'Autoriser les cours publics';
@@ -369,7 +369,7 @@ $_lang['Choose now a username and a password for the user account'] = 'Saisissez
 $_lang['Choose one'] = '- Choisissez une catégorie -';
 $_lang['Choose the mode for URL for file download. Warning : Pretty URL mode don\'t work with IIS.'] = 'Sélectionnez le type d\'URL à utiliser pour le téléchargement de fichiers. Attention : Pretty URL ne fonctionne pas avec IIS';
 $_lang['Choose "Yes" to notify students when you add feedback information to their works'] = 'Choisissez "Oui" pour prévenir les étudiants par courriel lorsque vous ajoutez une correction à leurs travaux.';
-$_lang['Choose "Yes" to receive an email every time a submission is made'] = 'Choisissez "Oui" pour recevoir un courriel chaque fois qu\'un travail est soumis.'; 
+$_lang['Choose "Yes" to receive an email every time a submission is made'] = 'Choisissez "Oui" pour recevoir un courriel chaque fois qu\'un travail est soumis.';
 $_lang['Chosen date is in the future'] = 'La date spécifiée est dans le futur';
 $_lang['Clarodoc'] = 'Clarodoc';
 $_lang['Claroline configuration'] = 'Configuration de Claroline';
@@ -887,9 +887,9 @@ $_lang['If after while no message appears confirming the course creation, please
 $_lang['If false, other fields are optional'] = 'Si ce paramètre est désactivé, les suivants sont facultatifs.';
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value'] = 'Si le nom et prénom sont plus longs que la valeur indiquée, ils seront tronqués. Pour avoir l\'information complète, il est préférable de ne pas spécifier une trop petite valeur.';
-$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
+$_lang['If the user is existing in the platform, he will be added to the class only if his firstname,
                                         lastname and username are similar.'] = 'Si l\'utilisateur est déjà inscrit sur la plateforme, il ne sera ajouté à la classe que si le nom, le prénom et le nom d\'utilisateur indiqués dans la liste correspondent au données enregistrées sur la plateforme.';
-$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
+$_lang['If the user is existing in the platform, he will be added to the course only if his firstname,
                                         lastname and username are similar.'] = 'Si l\'utilisateur est déjà inscrit sur la plateforme, il ne sera ajouté au cours que si le nom, le prénom et le nom d\'utilisateur indiqués dans la liste correspondent au données enregistrées sur la plateforme.';
 $_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'Si vous n\'utilisez pas le système de mots de passe intégré pour l\'authentification, désactivez cette option pour ne pas afficher le formulaire d\'identification';
 $_lang['If you do not have the key, please contact the course manager'] = 'Si vous ne disposez pas de la clé d\'inscription, contactez le gestionnaire de cours';
@@ -1239,7 +1239,7 @@ $_lang['Note :  this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses.'] = 'Note : ce dossier doit être protégé par un .htaccess ou placé en-dehors du Web.
        Il contient des données de cours privés.';
 $_lang['Note : this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'] = 'Note : ce dossier doit être protégé par un .htaccess ou placé en-dehors du Web. 
+       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'] = 'Note : ce dossier doit être protégé par un .htaccess ou placé en-dehors du Web.
        Il contient des données de cours privés. Claroline doit pouvoir lire et écrire dans ce dossier.';
 $_lang['Nothing to display'] = 'Rien à afficher';
 $_lang['Notice'] = 'Remarque';
@@ -1953,6 +1953,8 @@ $_lang['You cannot add module. Change this in configuration.'] = 'L\'ajout de mo
 $_lang['You cannot give a blank name to a class'] = 'Nom obligatoire';
 $_lang['You cannot post an empty message'] = 'Les messages vides sont interdits. Rédigez un contenu avant de poster';
 $_lang['You cannot unsubscribe the last course manager of the course'] = 'Vous ne pouvez pas désinscrire le dernier gestionnaire d\'un cours ';
+$_lang['You cannot access this course it has been deactivated'] = 'Ce cours n\'est plus accessible';
+$_lang['You cannot access this course until the course manager has reactivated it'] = 'Ce cours est d\xE9sactiv\xE9 et doit \xEAtre r\xE9activ\xE9 par son gestionnaire';
 $_lang['You didnt choose any file to send, or file is too big'] = 'Soit vous n\'avez sélectionné aucun fichier, soit le fichier sélectionné est trop volumineux';
 $_lang['You didnt choose any file to send, or it is too big'] = 'Soit vous n\'avez sélectionné aucun fichier, soit celui-ci est trop volumineux';
 $_lang['You have just created the course website'] = 'Nouvel espace de cours créé';
