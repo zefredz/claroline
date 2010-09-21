@@ -20,16 +20,16 @@ endif; //end not anonymous user
 </h4>
 <?php foreach( $this->postList as $thisPost ) : ?>
 <div id="post<?php echo $thisPost['post_id']; ?>" class="threadPost">
-  <?php  
-  if( user_get_picture_path( user_get_properties( $thisPost['poster_id'] ) )
+  <div class="threadPostInfo">
+    <?php  
+    if( user_get_picture_path( user_get_properties( $thisPost['poster_id'] ) )
      && file_exists( user_get_picture_path( user_get_properties( $thisPost['poster_id'] ) ) )
      ) :
-  ?>
+    ?>
     <div class="threadPosterPicture"><img src="<?php echo user_get_picture_url( user_get_properties( $thisPost['poster_id'] ) ); ?>" alt=" " /></div>
-  <?php
-  endif;
-  ?>
-  <div class="threadPostInfo">
+    <?php
+    endif;
+    ?>
     <span style="font-weight: bold;"><?php echo $thisPost[ 'firstname' ]; ?> <?php echo $thisPost[ 'lastname' ]; ?></span>
     <br />
     <small><?php echo claro_html_localised_date(get_locale('dateTimeFormatLong'), datetime_to_timestamp( $thisPost['post_time']) ); ?></small>
