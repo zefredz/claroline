@@ -63,10 +63,12 @@ if ( !class_exists('ScormExport') )
     include_once get_path('incRepositorySys') . "/lib/thirdparty/pclzip/pclzip.lib.php";
 
     require_once dirname(__FILE__).'/../../exercise/lib/exercise.class.php';
+    require_once dirname(__FILE__).'/../../exercise/lib/exercise.lib.php';
     require_once dirname(__FILE__).'/../../exercise/export/scorm/scorm_classes.php';
 
     include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
     include_once get_path('incRepositorySys') . '/lib/form.lib.php';
+    
 
     /**
      * Exports a Learning Path to a SCORM package.
