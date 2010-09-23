@@ -7,31 +7,12 @@
  * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Frederic Minne <frederic.minne@uclouvain.be>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
- *              GNU AFFERO GENERAL PUBLIC LICENSE version 3
- *
- * Usage :
- *
- *      $rootDomain = "ou=personne,o=universite catholique de louvain, c=be";
- *      $server = "ldaps://ldap.sgsi.ucl.ac.be";
- *      $port = "636";
- *
- *      $ldap = new Ldap( $server, $port, $rootDomain );
- *      $ldap->connect();
- *
- *      // bind en anonyme
- *      $ldap->bindAnonymous();
- *
- *      // recuperation des donnes de l'utilisateur
- *      $user = $ldap->getUser( $uid );
- *      // accès via $user->getDn(), $user->getData()
- *      
- *      // authentification de l'utilisateur
- *      $success = $ldap->authenticate( $user->getDn(), $pw );
- *
- *      // fin de la transaction LDAP
- *      $ldap->close(); 
+ *              GNU AFFERO GENERAL PUBLIC LICENSE version 3 
  */
 
+/**
+ * Represents data from the LDAP and declare __get and __Set magic methods
+ */
 class Claro_Ldap_DataObject
 {
     protected $data;
@@ -86,7 +67,11 @@ class Claro_Ldap_DataObject
             return null;
         }
     }
-    
+
+    /**
+     * Get the list of retreived attributes
+     * @return array
+     */
     public function listGivenAttributes()
     {
         $arrayKeys = array_keys( $this->data );
@@ -102,8 +87,20 @@ class Claro_Ldap_DataObject
         
         return $givenAttributes;
     }
+
+    /**
+     * Set the data object fields to LDAP attributes names mapping
+     * @param array $mapping
+     */
+    public function setMapping( $mapping )
+    {
+        $this->mapping = $mapping;
+    }
 }
 
+/**
+ * LDAP User
+ */
 class Claro_Ldap_User extends Claro_Ldap_DataObject
 {
     protected $dn;
@@ -124,21 +121,28 @@ class Claro_Ldap_User extends Claro_Ldap_DataObject
     }
 
     /**
-     * Get the dat of the user
+     * Get the retreived data (ie attributes) of the user
      * @return array
      */
     public function getData()
     {
         return Claro_Ldap_Utils::decode( $this->data );
     }
-    
+
+    /**
+     * Get the user identifier in the LDAP (use the setMapping to map the uid
+     * filed of the USer object to the correct LDAP attribute)
+     * @return string
+     */
     public function getUid()
     {
         return $this->uid;
-        // return $this->data['uid'][0];
     }
 }
 
+/**
+ * LDAP Connection class
+ */
 class Claro_Ldap
 {
     protected $ds;
@@ -225,14 +229,14 @@ class Claro_Ldap
             $searchString = '(& '.$searchString.' '.$filter.')';
         }
         
-        $sr = ldap_search( $this->ds, $this->rootDomain, $searchString );
+        $sr = @ldap_search( $this->ds, $this->rootDomain, $searchString );
         
-        if ( ldap_count_entries( $this->ds, $sr ) == 1 )
+        if ( @ldap_count_entries( $this->ds, $sr ) == 1 )
         {
             // get the resource of the user
-            $re = ldap_first_entry( $this->ds, $sr );
+            $re = @ldap_first_entry( $this->ds, $sr );
             // get the data of the user as an array
-            $entries = ldap_get_entries( $this->ds, $sr );
+            $entries = @ldap_get_entries( $this->ds, $sr );
             // user object from the dn and the entries corresponding to the user
             $user = new Claro_Ldap_User( ldap_get_dn( $this->ds, $re ), $entries[0] );
 
@@ -250,18 +254,18 @@ class Claro_Ldap
      */
     public function search( $searchString, $filterString = null )
     {
-        if ( empty( $file ) )
+        if ( empty( $filterString ) )
         {
-            $sr = ldap_search( $this->ds, $this->rootDomain, $searchString );
+            $sr = @ldap_search( $this->ds, $this->rootDomain, $searchString );
         }
         else
         {
-            $sr = ldap_search( $this->ds, $this->rootDomain, $searchString, $filterString );
+            $sr = @ldap_search( $this->ds, $this->rootDomain, $searchString, $filterString );
         }
         
-        if ( ldap_count_entries( $this->ds, $sr ) > 0 )
+        if ( @ldap_count_entries( $this->ds, $sr ) > 0 )
         {
-            $entries = ldap_get_entries( $this->ds, $sr );
+            $entries = @ldap_get_entries( $this->ds, $sr );
             return $entries;
         }
         else
@@ -284,6 +288,9 @@ class Claro_Ldap
     }
 }
 
+/**
+ * LDAP Utility Functions
+ */
 class Claro_Ldap_Utils
 {
     public static function decode( $data )

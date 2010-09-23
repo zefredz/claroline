@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * LDAP Authentication Driver
+ *
+ * @version     2.5
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @author      Frederic Minne <frederic.minne@uclouvain.be>
+ * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
+ *              GNU AFFERO GENERAL PUBLIC LICENSE version 3
+ */
+
 require_once dirname(__FILE__) . '/ldap.lib.php';
 require_once dirname(__FILE__) . '/authdrivers.lib.php';
 
