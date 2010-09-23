@@ -45,7 +45,6 @@ class Claro_Html_Sanitizer
         $this->_allowStyle = false;
         $this->_allowScript = false;
         $this->_allowObjects = false;
-        $this->_allowStyle = false;
         $this->_allowInlineStyle = false;
 
         $this->_allowedTags = '<a><br><b><h1><h2><h3><h4><h5><h6>'
@@ -105,7 +104,7 @@ class Claro_Html_Sanitizer
     public function allowStyle()
     {
         $this->_allowStyle = true;
-    }        
+    }
     
     /**
      * Helper to allow all javascript related tags and attributes
@@ -241,7 +240,7 @@ class Claro_Html_Sanitizer
                 , array( &$this, '_removeStyleCallback' )
                 , $str );
         }
-            
+        
         return $str;
     }
     
@@ -358,7 +357,7 @@ class Claro_Html_Sanitizer
         
         $str = preg_replace ( $closeTags, "[[/\\1]]", $str );
         
-        // ?! = do not match    
+        // ?! = do not match
         $autoAndOpenTags = '~('
             . '\<(?!'.$tagList.')[^\>\<]*(/){0,1}\>' // auto
             . ')~';
