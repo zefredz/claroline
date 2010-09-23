@@ -15,7 +15,7 @@
  */
 
 // Get required libraries
-FromKernel::uses('core/claroline.lib','database/database.lib','kernel/user.lib', 'auth/authdrivers.lib');
+FromKernel::uses('core/claroline.lib','database/database.lib','kernel/user.lib', 'auth/authdrivers.lib', 'auth/ldapauthdriver.lib');
 
 class AuthManager
 {
@@ -35,7 +35,7 @@ class AuthManager
     {
         if ( !empty($username) && $authSource = AuthUserTable::getAuthSource( $username ) )
         {
-            Console::debug("Found authentication source {$authSource}");
+            Console::debug("Found authentication source {$authSource} for {$username}");
             $driverList = array( AuthDriverManager::getDriver( $authSource ) );
         }
         else
@@ -147,7 +147,9 @@ class AuthUserTable
         
         if ( $res->numRows() )
         {
-            return $res->fetch(Database_ResultSet::FETCH_VALUE);
+            $uidArr = $res->fetch();
+            
+            return (int) $uidArr['user_id'];
         }
         else
         {
