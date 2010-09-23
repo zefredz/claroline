@@ -91,10 +91,14 @@ class Claro_Ldap_DataObject
     /**
      * Set the data object fields to LDAP attributes names mapping
      * @param array $mapping
+     * @return $this
      */
     public function setMapping( $mapping )
     {
         $this->mapping = $mapping;
+
+        // allow chaining
+        return $this;
     }
 }
 
