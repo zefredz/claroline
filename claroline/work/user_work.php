@@ -363,7 +363,9 @@ if( isset($_REQUEST['submitWrk']) )
         }
         else
         {
-            $wrkForm['wrkTxt'] = claro_html_sanitize_all( trim($_REQUEST['wrkTxt']) );
+            $san = new Claro_Html_Sanitizer();
+            $san->allowStyle();
+            $wrkForm['wrkTxt'] = $san->sanitize( $_REQUEST['wrkTxt'] );
         }
     }
     elseif( $assignmentContent == "FILE" )
@@ -376,7 +378,9 @@ if( isset($_REQUEST['submitWrk']) )
         }
         else
         {
-            $wrkForm['wrkTxt'] = claro_html_sanitize_all( trim($_REQUEST['wrkTxt']) );
+            $san = new Claro_Html_Sanitizer();
+            $san->allowStyle();
+            $wrkForm['wrkTxt'] = $san->sanitize( $_REQUEST['wrkTxt'] );
         }
     }
 
@@ -896,7 +900,7 @@ if( $is_allowedToSubmit )
                     $message->setTools('CLWRK');
 
                     $recipient = new UserListRecipient();
-                    foreach( $userIdList as $thisUser ) 
+                    foreach( $userIdList as $thisUser )
                     {
                        $recipient->addUserId( (int)$thisUser['user_id'] );
                     }
@@ -962,7 +966,7 @@ if( !$dispWrkForm && !$dispWrkDet )
                     HEADER
     --------------------------------------------------------------------*/
 $cssLoader = CssLoader::getInstance();
-$cssLoader->load( 'clwrk', 'screen'); 
+$cssLoader->load( 'clwrk', 'screen');
 
 $htmlHeadXtra[] =
 '<script type="text/javascript">
@@ -1489,7 +1493,7 @@ if( $dispWrkLst )
             {
                 // display group if this is a group assignment and if this is not a correction
                 $out .= '<div class="workInfo">' . "\n"
-                .    '<span class="workInfoTitle">' . get_lang('Group') . '&nbsp;: </span>' . "\n" 
+                .    '<span class="workInfoTitle">' . get_lang('Group') . '&nbsp;: </span>' . "\n"
                 .    '<div class="workInfoValue">' . "\n"
                 .    $allGroupList[$thisWrk['group_id']]['name'] . "\n"
                 .    '</div>' . "\n"
@@ -1505,7 +1509,7 @@ if( $dispWrkLst )
                     $target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
                     // show file if this is not a TEXT only work
                     $out .= '<div class="workInfo">' . "\n"
-                    .    '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n" 
+                    .    '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n"
                     .    '<div class="workInfoValue">' . "\n"
                     .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDownload'
                     .    '&amp;authId=' . $_REQUEST['authId']
@@ -1524,7 +1528,7 @@ if( $dispWrkLst )
                 {
                     $out .= '<div class="workInfo">' . "\n"
                     .    '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n"
-                    .    '<div class="workInfoValue">' . "\n" 
+                    .    '<div class="workInfoValue">' . "\n"
                     .    get_lang('- none -') . "\n"
                     .    '</div>' . "\n"
                     .    '</div>' . "\n\n"
@@ -1535,7 +1539,7 @@ if( $dispWrkLst )
             // text
             $out .= '<div class="workInfo">' . "\n"
             .    '<span class="workInfoTitle">' . $txtForText . '&nbsp;: </span>' . "\n"
-            .    '<div class="workInfoValue">' . "\n" 
+            .    '<div class="workInfoValue">' . "\n"
             .    '<blockquote>' . "\n" . claro_html_sanitize_all( $thisWrk['submitted_text'] ) . "\n" . '&nbsp;</blockquote>' . "\n"
             .    '</div>' . "\n"
             .    '</div>' . "\n\n"
@@ -1548,7 +1552,7 @@ if( $dispWrkLst )
                 {
                     $out .= '<div class="workInfo">' . "\n"
                     .    '<span class="workInfoTitle">' . get_lang('Private feedback') . '&nbsp;: </span>' . "\n"
-                    .    '<div class="workInfoValue">' . "\n" 
+                    .    '<div class="workInfoValue">' . "\n"
                     .    '<blockquote>' . "\n" . claro_html_sanitize_all( $thisWrk['private_feedback'] ) . "\n" . '&nbsp;</blockquote>' . "\n"
                     .    '</div>' . "\n"
                     .    '</div>' . "\n\n"
@@ -1556,7 +1560,7 @@ if( $dispWrkLst )
                 }
                 
                 // score
-                $out .= '<div class="workInfo">' . "\n" 
+                $out .= '<div class="workInfo">' . "\n"
                 .    '<span class="workInfoTitle">' . get_lang('Score') . '&nbsp;: </span>' . "\n"
                 .    '<div class="workInfoValue">' . "\n"
                 .    ( ( $thisWrk['score'] == -1 ) ? get_lang('No score') : $thisWrk['score'].' %' )
@@ -1566,7 +1570,7 @@ if( $dispWrkLst )
             }
             
             // submission date
-            $out .= '<div class="workInfo">' . "\n" 
+            $out .= '<div class="workInfo">' . "\n"
             .    '<span class="workInfoTitle">' . get_lang('First submission date') . '&nbsp;: </span>' . "\n"
             .    '<div class="workInfoValue">' . "\n"
             .    claro_html_localised_date(get_locale('dateTimeFormatLong'), $thisWrk['unix_creation_date'])
@@ -1578,7 +1582,7 @@ if( $dispWrkLst )
                   $out .= ' <img src="' . get_icon_url('warning') . '" alt="'.get_lang('Late upload').'" />';
             }
 
-            $out .= '</div>' . "\n" 
+            $out .= '</div>' . "\n"
             .    '</div>' . "\n\n";
             
             // last edit date
@@ -1586,7 +1590,7 @@ if( $dispWrkLst )
             {
                 $out .= '<div class="workInfo">' . "\n"
                 .     '<span class="workInfoTitle">' . get_lang('Last edit date') . '&nbsp;: </span>' . "\n"
-                .     '<div class="workInfoValue">' . "\n" 
+                .     '<div class="workInfoValue">' . "\n"
                 .    claro_html_localised_date(get_locale('dateTimeFormatLong'), $thisWrk['unix_last_edit_date']);
                 
                 // display an alert if work was submitted after end date and work is not a correction !
@@ -1595,7 +1599,7 @@ if( $dispWrkLst )
                     $out .= ' <img src="' . get_icon_url('warning') . '" alt="'.get_lang('Late upload').'" />';
                 }
 
-                $out .= '</div>' . "\n" 
+                $out .= '</div>' . "\n"
                 .    '</div>' . "\n\n";
             }
             
