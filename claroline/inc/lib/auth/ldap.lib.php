@@ -314,7 +314,7 @@ class Claro_Ldap_Utils
     private static function _decode( &$str )
     {
         // $str = iconv( 'UTF-8', 'ISO-8859-1', $str );
-        $str = claro_utf8_decode( $str );
+        $str = utf8_decode( $str );
         return $str;
     }
     
@@ -335,7 +335,7 @@ class Claro_Ldap_Utils
     private static function _encode( &$str )
     {
         // $str = iconv( 'ISO-8859-1', 'UTF-8', $str );
-        claro_utf8_encode( $str );
+        utf8_encode( $str );
         return $str;
     }
     
