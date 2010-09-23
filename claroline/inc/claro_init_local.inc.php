@@ -333,7 +333,7 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 }
 else
 {
-    // $_uid     = null;   // uid not in session ? prevent any hacking
+    //$_uid     = null;   // uid not in session ? prevent any hacking
     $uidReset = false;
     
     // Unset current user authentication :
@@ -376,11 +376,16 @@ else
 
     if ( $login && $password ) // $login && $password are given to log in
     {
+        // reinitalize all session variables
+        session_unset();
+        
         $claro_loginRequested = true;
         
         try
         {
-            if ( $currentUser = AuthManager::authenticate($login, $password) )
+            $currentUser = AuthManager::authenticate($login, $password);
+
+            if ( $currentUser )
             {
                 $_uid = (int)$currentUser->userId;
                 $uidReset = true;
