@@ -638,6 +638,14 @@ function load_module_config ( $moduleLabel = null )
     }
 }
 
+/**
+ * Get the list of tools in a course
+ * @param string $courseIdReq course code
+ * @param boolean $platformActive get only modules activated for the platform
+ * @param boolean $courseActive get only modules activated in the current course
+ * @param string $context context of the module
+ * @return array or false
+ */
 function module_get_course_tool_list( $courseIdReq,
                                     $platformActive = true,
                                     $courseActive = true,
