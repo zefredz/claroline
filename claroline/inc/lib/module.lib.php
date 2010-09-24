@@ -552,15 +552,30 @@ function execute_sql_file_in_course( $file, $courseId )
  * @param array $arrTblName of tableName
  * @param string $courseCode course code
  * @return array $tableName => $dbNameGlue . $tableName
+ * @throws Exception if no course code given and not in a course or
+ *  course not valid
  */
 function get_module_course_tbl( $arrTblName, $courseCode = null )
 {
     if ( empty ( $courseCode ) ) 
     {
-        $courseCode = claro_get_current_course_id();
+        if ( ! claro_is_in_a_course() )
+        {
+            throw new Exception('Not in a course !');
+        }
+        else
+        {
+            $courseCode = claro_get_current_course_id();
+        }
     }
     
     $currentCourseDbNameGlu = claro_get_course_db_name_glued( $courseCode );
+
+    if ( ! $currentCourseDbNameGlu )
+    {
+        throw new Exception('Invalid course !');
+    }
+
     $arrToReturn = array();
 
     foreach ( $arrTblName as $name )
