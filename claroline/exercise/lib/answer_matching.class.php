@@ -119,7 +119,9 @@ class answerMatching
                 // we need at least 2 answers !
                 $this->addRight();
             }
-
+            
+            shuffle( $this->leftList );
+            
             return true;
         }
         else
