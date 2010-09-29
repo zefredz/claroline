@@ -1574,10 +1574,10 @@ $_lang['Zlib php extension is required to use this tool. Please contact your pla
 $_lang['all students'] = 'minden tanuló';
 $_lang['archive'] = 'tárol';
 $_lang['blockAccountCreationNotification'] = '
-Kedves %lastname %firstname!
+Tisztelt %firstname %lastname!
 
-A személyes találkozó után az itt következõ hozzáférési adatokkal tud
-belépni az oldalra. Kérjük ezt a levelet jól õrizze meg.
+A következo adatok segítségével beléphet a %siteName oldalra:
+
 
     Felhasználónév :  %username
     Jelszó : %password
@@ -1585,10 +1585,7 @@ belépni az oldalra. Kérjük ezt a levelet jól õrizze meg.
     Rendszer címe : %rootWeb
     Kérdéseivel forduljon hozzánk.
     Tisztelettel,
-    Kemenczky Ildikó irodavezetõ
---
-Telefon : +36 30 520 40 63
-Levél : hd@mta.mmsz.hu';
+    %administratorName';
 $_lang['blockAssignmentsHelp'] = '
 <p>
 A beadandó feladatok eszköz segítségével a tanulók feltölthetik az anyagaikat a rendszerbe. A tanfolyamvezetõ létrehoz egy vagy több beadandó feladatot, a felhasználók pedig szövegek és/vagy fájlok feltöltésével válaszolnak.<br /><br /> 
@@ -1710,7 +1707,7 @@ a hallgatókat, hogy regisztráljanak, majd zárja be a regisztrációt,
 és ellenõrizze az illetéktelenek jelenlétét.';
 $_lang['blockCourseSubscriptionNotification'] = '
 
-Kedves %lastname %firstname!
+Tisztelt %lastname %firstname!
 
 A "%courseName" tanfolyam adminisztrátora beiratta a képzésre.
 
@@ -1718,16 +1715,14 @@ A tanfolyam Internet címe:
 
 %coursePath
 
-Kérjük ezt a levelet jól õrizze meg
-
 Ha valami gondja van, vegye fel velünk a kapcsolatot.
 
 Tisztelettel,
-Kemenczky Ildikó irodavezetõ
+%administratorName
 --
 Rendszergazda : %administratorName
-Telefon : +36 30 520 40 63
-Email : hd@mta.mmsz.hu';
+Telefon : %administratorPhone
+Email : %administratorEmail';
 $_lang['blockDefaultLearningPathComment'] = 'Ez a tanösvény bevezetõ szövege. Kattintson a <b>módosítás</b>-ra ha ki akarja cserélni a szöveget.';
 $_lang['blockDefaultModuleAddedComment'] = 'Ez egy további bevezetõ szöveg a modul létezésérõl a tanösvényen belül. Ha ki akarja cserélni a szöveget, kattintson a <b>módosítás</b>-ra.';
 $_lang['blockDefaultModuleComment'] = 'Ez a modul bevezetõ szövege, ez jelenik meg minden olyan tanösvényen, ahol a modul szerepel. Ha ki akarja cserélni a szöveget, kattintson a <b>módosítás</b>-ra.';
