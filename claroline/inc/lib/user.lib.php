@@ -1671,7 +1671,7 @@ function claro_get_user_course_list($user_id = null)
             }
             else
             {
-                $sql .= "ORDER BY course.code";
+                $sql .= "ORDER BY course.administrativeNumber";
             }
 
     $userCourseList = claro_sql_query_fetch_all($sql);
