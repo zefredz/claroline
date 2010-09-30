@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 )
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLUSR
  * @author      Claro Team <cvs@claroline.net>
- * @author      Christophe Gesché <moosh@claroline.net>
+ * @author      Christophe Gesche <moosh@claroline.net>
  * @author      Mathieu Laurent <laurent@cerdecam.be>
  * @author      Hugues Peeters <hugues.peeters@advalvas.be>
  */
@@ -266,7 +266,7 @@ function user_delete($userId)
 
 /**
  * @return list of users wich have admin status
- * @author Christophe Gesché <Moosh@claroline.net>
+ * @author Christophe Geschï¿½ <Moosh@claroline.net>
  *
  */
 
@@ -285,7 +285,7 @@ function claro_get_uid_of_platform_admin()
 
 /**
  * @return list of users wich have status to receipt REQUESTS
- * @author Christophe Gesché <Moosh@claroline.net>
+ * @author Christophe Geschï¿½ <Moosh@claroline.net>
  *
  */
 
@@ -310,7 +310,7 @@ function claro_get_uid_of_request_admin()
 
 /**
  * @return list of users wich have status to receive system notification
- * @author Christophe Gesché <Moosh@claroline.net>
+ * @author Christophe Geschï¿½ <Moosh@claroline.net>
  *
  */
 
@@ -335,7 +335,7 @@ function claro_get_uid_of_platform_contact()
 
 /**
  * @return list of users wich have status to receive system notification
- * @author Christophe Gesché <Moosh@claroline.net>
+ * @author Christophe Geschï¿½ <Moosh@claroline.net>
  *
  */
 
@@ -1657,13 +1657,22 @@ function claro_get_user_course_list($user_id = null)
                    course.registration         AS registration,
                    course.directory            AS dir,
                    course_user.isCourseManager AS isCourseManager
-
+            
             FROM    `" . $tbl_course . "`          AS course,
                     `" . $tbl_rel_course_user . "` AS course_user
-
+            
             WHERE course.code         = course_user.code_cours
             AND   course_user.user_id = " . (int) $user_id . "
-            ORDER BY course.intitule";
+            ";
+            
+            if (get_conf('course_order_by') == 'course_title')
+            {
+                $sql .= "ORDER BY course.intitule";
+            }
+            else
+            {
+                $sql .= "ORDER BY course.code";
+            }
 
     $userCourseList = claro_sql_query_fetch_all($sql);
 
