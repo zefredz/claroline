@@ -183,7 +183,8 @@ if ( $is_allowedToEdit )
             /*header("Content-type: application/csv");
             header('Content-Disposition: attachment; filename="'.claro_get_current_course_id().'_userlist.csv"');
             echo $csv;*/
-            claro_send_stream( $csv, claro_get_current_course_id().'_userlist.csv');
+            $courseData = claro_get_current_course_data();
+            claro_send_stream( $csv, $courseData[ 'officialCode' ] .'_userlist.csv');
             exit;
         }
     }
