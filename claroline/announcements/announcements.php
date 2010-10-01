@@ -258,7 +258,7 @@ if($is_allowedToEdit) // check teacher status
             }
             
             // Modification of an announcement
-            if ( 'exEdit' == $cmd ) 
+            if ( 'exEdit' == $cmd )
             {
                 // One of the two visible date fields is null OR the "from" field is <= the "until" field
                 if ((is_null($visible_from) || is_null($visible_until)) || ($visible_from <= $visible_until))
@@ -478,7 +478,7 @@ if ( $displayForm )
     . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
     . '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
     . (
-        (isset( $announcement['id'] )) ? 
+        (isset( $announcement['id'] )) ?
         ('<input type="hidden" name="id" value="' . $announcement['id'] . '" />' . "\n") :
         ('')
       )
@@ -499,7 +499,7 @@ if ( $displayForm )
     . '<input type="checkbox" value="1" name="emailOption" id="emailOption" />'
     . '<label for="emailOption">' . get_lang('Send this announcement by internal message to registered students') . '</label>'
     . '</dd>'
-    . '</dl>'    
+    . '</dl>'
     . '</fieldset>'
     
     . '<fieldset id="advancedInformation" class="collapsible collapsed">' . "\n"
@@ -508,34 +508,34 @@ if ( $displayForm )
     . '<dl>' . "\n"
     . '<dt>'
     . '<input name="visibility" id="visible" value="1" type="radio"'
-    . ((!isset($announcement['visibility']) || $announcement['visibility'] == 'SHOW') ? ('checked="checked"') : ('')) 
+    . ((!isset($announcement['visibility']) || $announcement['visibility'] == 'SHOW') ? ('checked="checked"') : (''))
     . '/> '
     . '<label for="visible"><img src="' . get_icon_url('visible') . '" alt="" /> '
     . get_lang('Visible') . '</label>'
     . '</dt>'
     . '<dt>&nbsp;&nbsp;&nbsp;&nbsp;'
     . '<input name="enable_visible_from" id="enable_visible_from" type="checkbox" '
-    . (isset($announcement['visibleFrom']) ? ('checked="checked"') : ('')) . '/>' 
-    . '<label for="enable_visible_from">'.get_lang('Visible from').' ('.get_lang('included').')</label>' 
+    . (isset($announcement['visibleFrom']) ? ('checked="checked"') : ('')) . '/>'
+    . '<label for="enable_visible_from">'.get_lang('Visible from').' ('.get_lang('included').')</label>'
     . '</dt>'
     . '<dd>'
-    . claro_html_date_form('visible_from_day', 'visible_from_month', 'visible_from_year', 
+    . claro_html_date_form('visible_from_day', 'visible_from_month', 'visible_from_year',
     ((isset($announcement['visibleFrom']) ? strtotime($announcement['visibleFrom']) : (strtotime('Now')))), 'long' ).'</dd>'
     . '<dt>&nbsp;&nbsp;&nbsp;&nbsp;'
     . '<input name="enable_visible_until" id="enable_visible_until" type="checkbox" '
-    . (isset($announcement['visibleUntil']) ? ('checked="checked"') : ('')) . '/>' 
-    . '<label for="enable_visible_until">'.get_lang('Visible until').' ('.get_lang('not included').')</label>' 
+    . (isset($announcement['visibleUntil']) ? ('checked="checked"') : ('')) . '/>'
+    . '<label for="enable_visible_until">'.get_lang('Visible until').' ('.get_lang('not included').')</label>'
     . '</dt>'
     . '<dd>'
-    . claro_html_date_form('visible_until_day', 'visible_until_month', 'visible_until_year', 
+    . claro_html_date_form('visible_until_day', 'visible_until_month', 'visible_until_year',
     ((isset($announcement['visibleUntil']) ? strtotime($announcement['visibleUntil']) : (strtotime('Now +1 day')))), 'long' )
     . '</dd>'
     . '<dt>'
     . '<input name="visibility" id="invisible" value="0" type="radio"'
-    . ((isset($announcement['visibility']) && $announcement['visibility'] == 'HIDE') ? ('checked="checked"') : ('')) 
+    . ((isset($announcement['visibility']) && $announcement['visibility'] == 'HIDE') ? ('checked="checked"') : (''))
     . '/> '
     . '<label for="invisible"><img src="' . get_icon_url('invisible') . '" alt="" /> '
-    . get_lang('Inisible') . '</label>'
+    . get_lang('Invisible') . '</label>'
     . '</dt>'
     . '</dl>'
     . '</div>'
@@ -596,13 +596,13 @@ if ($displayList)
             // Hide hidden and out of deadline elements
             $cssInvisible = '';
             $isVisible = (bool) ($thisAnnouncement['visibility'] == 'SHOW') ? (1) : (0);
-            $isOffDeadline = (bool) 
+            $isOffDeadline = (bool)
                 (
-                    (isset($thisAnnouncement['visibleFrom']) 
+                    (isset($thisAnnouncement['visibleFrom'])
                         && strtotime($thisAnnouncement['visibleFrom']) > time()
                     )
                     ||
-                    (isset($thisAnnouncement['visibleUntil']) 
+                    (isset($thisAnnouncement['visibleUntil'])
                         && time() >= strtotime($thisAnnouncement['visibleUntil'])
                     )
                 ) ? (1) : (0);
@@ -629,8 +629,8 @@ if ($displayList)
 
                 $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
                  // Post time format in MySQL date format
-                $last_post_date = ((isset($thisAnnouncement['visibleFrom'])) ? 
-                    ($thisAnnouncement['visibleFrom']) : 
+                $last_post_date = ((isset($thisAnnouncement['visibleFrom'])) ?
+                    ($thisAnnouncement['visibleFrom']) :
                     ($thisAnnouncement['time']));
 
                 $output .= '<div class="claroBlock">' . "\n"
