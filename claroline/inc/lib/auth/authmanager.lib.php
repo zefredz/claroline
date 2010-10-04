@@ -19,6 +19,7 @@ require_once dirname(__FILE__) . '/../core/claroline.lib.php';
 require_once dirname(__FILE__) . '/../database/database.lib.php';
 require_once dirname(__FILE__) . '/../kernel/user.lib.php';
 require_once dirname(__FILE__) . '/authdrivers.lib.php';
+require_once dirname(__FILE__) . '/ldapauthdriver.lib.php';
 
 class AuthManager
 {
@@ -38,7 +39,7 @@ class AuthManager
     {
         if ( !empty($username) && $authSource = AuthUserTable::getAuthSource( $username ) )
         {
-            Console::debug("Found authentication source {$authSource}");
+            Console::debug("Found authentication source {$authSource} for {$username}");
             $driverList = array( AuthDriverManager::getDriver( $authSource ) );
         }
         else
