@@ -15,7 +15,7 @@ if ( count( get_included_files() ) == 1 )
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package CLUSR
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
  */
@@ -111,12 +111,34 @@ function is_course_registration_allowed($courseId)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course = $tbl_mdb_names['course'];
 
-    $sql = " SELECT count(*) AS registration_allowed
-             FROM `" . $tbl_course . "`
-             WHERE  `code` = '" . claro_sql_escape($courseId) . "'
-             AND    `registration` = 'open'" ;
+    $curdate = date('Y-m-d H:i:s', time());
+
+    $sql = " 
+        SELECT
+            count(*) AS registration_allowed
+        FROM
+            `" . $tbl_course . "` AS `cours`
+        WHERE
+            `cours`.`code` = '" . claro_sql_escape($courseId) . "'
+        AND
+            `cours`.`registration` = 'open'
+        AND
+            ( `cours`.`status` = 'enable'
+                OR
+                    ( `cours`.`status` = 'date'
+                        AND
+                            ( `cours`.`creationDate` < '". $curdate ."'
+                                OR `cours`.`creationDate` IS NULL OR UNIX_TIMESTAMP( `cours`.`creationDate` ) = 0
+                        )
+                        AND
+                            ( '". $curdate ."' < `cours`.`expirationDate`
+                                OR `cours`.`expirationDate` IS NULL
+                        )
+                    )
+            )";
 
     $courseRegistrationList = claro_sql_query_get_single_value($sql);
+
     return (bool) ($courseRegistrationList) ;
 }
 
