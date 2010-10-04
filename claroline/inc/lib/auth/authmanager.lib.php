@@ -15,7 +15,11 @@
  */
 
 // Get required libraries
-FromKernel::uses('core/claroline.lib','database/database.lib','kernel/user.lib', 'auth/authdrivers.lib', 'auth/ldapauthdriver.lib');
+require_once dirname(__FILE__) . '/../core/claroline.lib.php';
+require_once dirname(__FILE__) . '/../database/database.lib.php';
+require_once dirname(__FILE__) . '/../kernel/user.lib.php';
+require_once dirname(__FILE__) . '/authdrivers.lib.php';
+require_once dirname(__FILE__) . '/ldapauthdriver.lib.php';
 
 class AuthManager
 {
