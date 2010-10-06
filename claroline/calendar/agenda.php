@@ -600,6 +600,9 @@ foreach ( $eventList as $thisEvent )
         .   '</div>' . "\n"
         
         ;
+        
+            $output .= '</div>' . "\n" // claroBlockContent
+    .    '</div>' . "\n\n"; // claroBlock
 
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisEvent['id'] ) );
         $output .= ResourceLinker::renderLinkList( $currentLocator );
@@ -634,8 +637,7 @@ foreach ( $eventList as $thisEvent )
         
         $output .= '</div>' . "\n"; // claroBlockCmd
     }
-    $output .= '</div>' . "\n" // claroBlockContent
-    .    '</div>' . "\n\n"; // claroBlock
+
 }   // end while
 
 Claroline::getDisplay()->body->appendContent( $output );
