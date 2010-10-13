@@ -81,7 +81,8 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_tracking` (
     `result` float NOT NULL default '0',
     `time`    mediumint(8) NOT NULL default '0',
     `weighting` float NOT NULL default '0',
-    PRIMARY KEY  (`id`)
+    PRIMARY KEY  (`id`),
+    KEY `user_id` ( `user_id` )
 ) TYPE=MyISAM  COMMENT='Record informations about exercices';
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_tracking_questions` (
