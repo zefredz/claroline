@@ -68,25 +68,32 @@ class Thumbnailer
         {
             case 'png':
             {
-                $image = imagecreatefrompng( $srcPath );
+                $image = @imagecreatefrompng( $srcPath );
             } break;
             case 'jpg':
             case 'jpeg':
             {
-                $image = imagecreatefromjpeg( $srcPath );
+                $image = @imagecreatefromjpeg( $srcPath );
             } break;
             case 'gif':
             {
-                $image = imagecreatefromgif( $srcPath );
+                $image = @imagecreatefromgif( $srcPath );
             } break;
             case 'bmp':
             {
-                $image = imagecreatefromwbmp( $srcPath );
+                $image = @imagecreatefromwbmp( $srcPath );
             } break;
             default:
             {
                 return false;
             }
+        }
+
+        // image loading failed use srcPath instead
+        if ( ! $image )
+        {
+            Console::warning("Failed to create GD image from {$srcPath}");
+            return $srcPath;
         }
         
         $oldWidth = imageSX( $image );
