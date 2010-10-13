@@ -1,7 +1,7 @@
 <?php //$Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This file describe the parameter for the home page of the campus
  *
@@ -33,6 +33,11 @@ array ( 'course_order_by',
         'course_categories_hidden_to_anonymous',
         'userCourseListGroupByCategories' );
 
+$conf_def['section']['display']['label']='Display';
+$conf_def['section']['display']['description']='Manage the home page\'s display';
+$conf_def['section']['display']['properties'] =
+array ( 'display_user_desktop' );
+
 //PROPERTIES
 
 $conf_def_property_list['course_order_by']
@@ -54,7 +59,7 @@ $conf_def_property_list['categories_order_by']
         ,'display'       => TRUE
         ,'readonly'      => FALSE
         ,'acceptedValue' => array ( 'rank'=> 'Rank',
-                                    'alpha_asc' => 'Alphabetical ascending', 
+                                    'alpha_asc' => 'Alphabetical ascending',
                                     'alpha_desc' => 'Alphabetical descending' )
         );
 
@@ -71,6 +76,17 @@ $conf_def_property_list['course_categories_hidden_to_anonymous']
 
 $conf_def_property_list['userCourseListGroupByCategories']
 = array ('label'     => 'Group user courses by categories'
+        ,'description' => ''
+        ,'default'   => false
+        ,'type'      => 'boolean'
+        ,'display'       => TRUE
+        ,'readonly'      => FALSE
+        ,'acceptedValue' => array ( 'TRUE'=> 'Yes',
+                                    'FALSE' => 'No' )
+        );
+        
+$conf_def_property_list['display_user_desktop']
+= array ('label'     => 'Display user\'s desktop instead of the normal home page'
         ,'description' => ''
         ,'default'   => false
         ,'type'      => 'boolean'

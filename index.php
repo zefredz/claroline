@@ -28,7 +28,21 @@ $tidReset = TRUE;
 require './claroline/inc/claro_init_global.inc.php'; // main init
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
-require_once get_path('incRepositorySys') . '/lib/courselist.lib.php'; // conf file
+if (get_conf('display_user_desktop'))
+{
+    require_once get_path('clarolineRepositorySys') . '/desktop/index.php'; // conf file
+}
+else
+{
+    require_once get_path('incRepositorySys') . '/lib/courselist.lib.php'; // conf file
+    
+    $template = new CoreTemplate('platform_index.tpl.php');
+    
+    $claroline->display->body->setContent($template->render());
+    
+    echo $claroline->display->render();
+}
+
 
 
 // logout request : delete session data
@@ -54,11 +68,4 @@ if (isset($_REQUEST['logout']))
 
 // Hide breadcrumbs and view mode on platform home page
 // $claroline->display->banner->hideBreadcrumbLine();
-
-$template = new CoreTemplate('platform_index.tpl.php');
-
-$claroline->display->body->setContent($template->render());
-
-
-echo $claroline->display->render();
 ?>
