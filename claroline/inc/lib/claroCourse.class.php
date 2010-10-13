@@ -113,7 +113,7 @@ class ClaroCourse
         $this->language             = get_conf('platformLanguage');
         # FIXME FIXME FIXME
         $this->access               = !(get_conf('allowPublicCourses', true) || claro_is_platform_admin())
-            && get_conf('defaultAccessOnCourseCreation') == 'public' 
+            && get_conf('defaultAccessOnCourseCreation') == 'public'
             ? 'platform'
             : get_conf('defaultAccessOnCourseCreation')
             ;
@@ -202,7 +202,7 @@ class ClaroCourse
             $courseDirectory    = $keys['currentCourseRepository'];
             if ( ! $this->useExpirationDate) $this->expirationDate = 'NULL';
             
-            // Session courses are created without categories links: 
+            // Session courses are created without categories links:
             // so we duplicate the source course's categories links
             
             if ( !is_null($this->sourceCourseId) && !empty($this->sourceCourseId) )
@@ -231,7 +231,7 @@ class ClaroCourse
                    ,               $this->visibility
                    ,               $this->departmentName
                    ,               $this->extLinkUrl
-                   ,               $this->publicationDate 
+                   ,               $this->publicationDate
                    ,               $this->expirationDate
                    ,               $this->status )
                 && install_course_database( $courseDbName )
@@ -269,17 +269,17 @@ class ClaroCourse
             
             if ( ! $this->useExpirationDate) $this->expirationDate = null;
 
-            $sqlExpirationDate = is_null($this->expirationDate) 
-                ? 'NULL' 
+            $sqlExpirationDate = is_null($this->expirationDate)
+                ? 'NULL'
                 : 'FROM_UNIXTIME(' . claro_sql_escape($this->expirationDate) . ')'
                 ;
 
-            $sqlCreationDate = is_null($this->publicationDate) 
-                ? 'NULL' 
+            $sqlCreationDate = is_null($this->publicationDate)
+                ? 'NULL'
                 : 'FROM_UNIXTIME(' . claro_sql_escape($this->publicationDate) . ')'
                 ;
 
-            $sql = "UPDATE `" . $tbl_course . "` 
+            $sql = "UPDATE `" . $tbl_course . "`
                     SET `intitule`             = '" . claro_sql_escape($this->title) . "',
                         `titulaires`           = '" . claro_sql_escape($this->titular) . "',
                         `administrativeNumber` = '" . claro_sql_escape($this->officialCode) . "',
@@ -292,9 +292,9 @@ class ClaroCourse
                         `registration`         = '" . claro_sql_escape($this->registration) . "',
                         `registrationKey`      = '" . claro_sql_escape($this->registrationKey) . "',
                         `lastEdit`             = NOW(),
-                        `creationDate`         = " . $sqlCreationDate . ", 
-                        `expirationDate`       = " . $sqlExpirationDate . ", 
-                        `status`               = '" . claro_sql_escape($this->status)   . "' 
+                        `creationDate`         = " . $sqlCreationDate . ",
+                        `expirationDate`       = " . $sqlExpirationDate . ",
+                        `status`               = '" . claro_sql_escape($this->status)   . "'
                     WHERE code='" . claro_sql_escape($this->courseId) . "'";
             
             // Handle categories
@@ -307,7 +307,7 @@ class ClaroCourse
             // If it's a source course, do the same for all its session courses
             if ( $this->isSourceCourse )
             {
-                $sql = "SELECT cours_id FROM `" . $tbl_course . "` 
+                $sql = "SELECT cours_id FROM `" . $tbl_course . "`
                         WHERE sourceCourseId = " . $this->id;
                 
                 $sessionCourses = claro_sql_query_fetch_all_rows($sql);
@@ -326,7 +326,7 @@ class ClaroCourse
     
     /**
      * Check if the course has session courses.
-     * 
+     *
      * @return boolean  TRUE if the course is a source course
      *                  FALSE otherwise
      * @since 1.10
@@ -337,8 +337,8 @@ class ClaroCourse
         $tbl_mdb_names              = claro_sql_get_main_tbl();
         $tbl_courses                 = $tbl_mdb_names['course'];
         
-        $sql = "SELECT isSourceCourse 
-                FROM `" . $tbl_courses . "` 
+        $sql = "SELECT isSourceCourse
+                FROM `" . $tbl_courses . "`
                 WHERE cours_id = " . (int) $id;
         
         $res = claro_sql_query_get_single_row($sql);
@@ -356,7 +356,7 @@ class ClaroCourse
     
     /**
      * Check if the course is a session of another course.
-     * 
+     *
      * @return boolean  TRUE if the course is a session course
      *                  FALSE otherwise
      * @since 1.10
@@ -377,9 +377,9 @@ class ClaroCourse
     
     
     /**
-     * Create links between current course one or more categories.  If there 
+     * Create links between current course one or more categories.  If there
      * are no category specified, only the root category is linked.
-     * 
+     *
      * @param array of categories
      * @since 1.10
      */
@@ -399,7 +399,7 @@ class ClaroCourse
     /**
      * Delete links in database between current course one or more categories.
      * If there are no category specified, all categories are unlinked.
-     * 
+     *
      * @param array of categories (leave it empty to unlink all categories)
      * @since 1.10
      */
@@ -411,7 +411,7 @@ class ClaroCourse
     
     /**
      * Count the number of categories linked to the current course.
-     * 
+     *
      * @return int      number of categories
      * @since 1.10
      */
@@ -434,7 +434,7 @@ class ClaroCourse
     
     /**
      * Get all session courses for the current course (if any).
-     * 
+     *
      * @return array    session courses
      * @since 1.10
      */
@@ -450,10 +450,10 @@ class ClaroCourse
     
     
     /**
-     * Get all courses in database ordered by label.  If a category identifier 
-     * is specified, only get courses linked to this category.  You can also 
+     * Get all courses in database ordered by label.  If a category identifier
+     * is specified, only get courses linked to this category.  You can also
      * specify visibility.
-     * 
+     *
      * @param int       identifier of category (default: null)
      * @param bool      visibility (1 = only visible, 0 = only invisible, null = all; default: null)
      * @since 1.10
@@ -465,9 +465,9 @@ class ClaroCourse
     
     
     /**
-     * Get courses that can be displayed to normal users.  More restricted 
+     * Get courses that can be displayed to normal users.  More restricted
      * than getAllCourses() method.
-     * 
+     *
      * @param int       identifier of category (default: null)
      * @param int       identifier of user (default: null)
      * @since 1.10
@@ -485,14 +485,14 @@ class ClaroCourse
     {
         /*
          * Manage the multiple select.
-         * If it has been left empty (no selection), create an array with 
+         * If it has been left empty (no selection), create an array with
          * the identifier of the root category (0).
          * If it has been serialized in the progress URL, unserialized it.
          */
         if ( isset($_REQUEST['linked_categories']) )
         {
-            $_REQUEST['linked_categories'] = is_array($_REQUEST['linked_categories']) ? 
-                ($_REQUEST['linked_categories']) : 
+            $_REQUEST['linked_categories'] = is_array($_REQUEST['linked_categories']) ?
+                ($_REQUEST['linked_categories']) :
                 (unserialize($_REQUEST['linked_categories']));
         }
         else
@@ -516,7 +516,7 @@ class ClaroCourse
         if ( count($_REQUEST['linked_categories']) > 0 )
         {
             $categoriesList = array();
-            foreach( $_REQUEST['linked_categories'] as $category ) 
+            foreach( $_REQUEST['linked_categories'] as $category )
             {
                 // Bypass the loading page "course creating, please wait"
                 $categoryId = (is_a($category, 'claroCategory')) ? (strip_tags($category->id)) : (strip_tags($category));
@@ -589,7 +589,7 @@ class ClaroCourse
                 $this->useExpirationDate = (bool) (isset($_REQUEST['useExpirationDate']) && $_REQUEST['useExpirationDate']);
                 
                 if ( $this->useExpirationDate )
-                {                
+                {
                     if ( isset($_REQUEST['course_expirationDate']) )
                     {
                         $this->expirationDate = trim(strip_tags($_REQUEST['course_expirationDate']));
@@ -822,9 +822,9 @@ class ClaroCourse
 
     public function displayForm ($cancelUrl=null)
     {
-        /* 
-         * The javascript required to manage multiple selects is loaded in the 
-         * concerned pages (settings.php, create.php, ...).  
+        /*
+         * The javascript required to manage multiple selects is loaded in the
+         * concerned pages (settings.php, create.php, ...).
          */
         
         $languageList   = claro_get_lang_flat_list();
@@ -852,14 +852,14 @@ class ClaroCourse
             // Dispatch in the lists
             if ( $match )
             {
-                $linkedCategoriesListHtml .= '<option value="' 
-                    . $category['id'] . '">' . $category['path'] 
+                $linkedCategoriesListHtml .= '<option value="'
+                    . $category['id'] . '">' . $category['path']
                     . '</option>' . "\n";
             }
-            else 
+            else
             {
-                $unlinkedCategoriesListHtml .= '<option value="' 
-                    . $category['id'] . '">' . $category['path'] 
+                $unlinkedCategoriesListHtml .= '<option value="'
+                    . $category['id'] . '">' . $category['path']
                     . '</option>' . "\n";
             }
         }
@@ -887,7 +887,7 @@ class ClaroCourse
         $html .= '<dt>'
             . '<label for="course_title">'
             . get_lang('Course title')
-            . (get_conf('human_label_needed') ? '<span class="required">*</span> ':'') 
+            . (get_conf('human_label_needed') ? '<span class="required">*</span> ':'')
             .'</label>&nbsp;:</dt>'
             . '<dd>'
             . '<input type="text" name="course_title" id="course_title" value="' . htmlspecialchars($this->title) . '" size="60" />'
@@ -906,7 +906,7 @@ class ClaroCourse
         
         // Course titular
         $html .= '<dt>'
-            . '<label for="course_titular">' . get_lang('Lecturer(s)') 
+            . '<label for="course_titular">' . get_lang('Lecturer(s)')
             . '</label>&nbsp;:</dt>'
             . '<dd><input type="text"  id="course_titular" name="course_titular" value="' . htmlspecialchars($this->titular) . '" size="60" />'
             . '</dd>' . "\n";
@@ -915,7 +915,7 @@ class ClaroCourse
         $html .= '<dt>'
             . '<label for="course_email">'
             . get_lang('Email')
-            . (get_conf('course_email_needed')?'<span class="required">*</span> ':'') 
+            . (get_conf('course_email_needed')?'<span class="required">*</span> ':'')
             . '</label>'
             . '&nbsp;:'
             . '</dt>'
@@ -929,7 +929,7 @@ class ClaroCourse
         {
             $html .= '<dt>'
                 . '<label>'
-                . get_lang('Categories') 
+                . get_lang('Categories')
                 . '</label>'
                 . ' :'
                 . '</dt>'
@@ -972,7 +972,7 @@ class ClaroCourse
         
         // Course department url
         $html .= '<dt>'
-            . '<label for="course_extLinkUrl" >' . get_lang('Department URL') 
+            . '<label for="course_extLinkUrl" >' . get_lang('Department URL')
             . (get_conf('extLinkUrlNeeded')?'<span class="required">*</span> ':'')
             . '</label>'
             . '&nbsp;:'
@@ -986,7 +986,7 @@ class ClaroCourse
         $html .= '<dt>'
             . '<label for="course_language">'
             . get_lang('Language') . '</label>'
-            . '&nbsp;<span class="required">*</span>&nbsp;:' 
+            . '&nbsp;<span class="required">*</span>&nbsp;:'
             . '</dt>'
             . '<dd>'
             . claro_html_form_select('course_language', $languageList, $this->language, array('id'=>'course_language'))
@@ -1086,7 +1086,7 @@ class ClaroCourse
                     . '<dl>' . "\n";
             
             // Visibility in category list
-            $html .= '<dt>' 
+            $html .= '<dt>'
                 . get_lang('Course visibility') . '&nbsp;:</dt>'
                 . '<dd>'
                 . '<img src="' . get_icon_url('visible') . '" alt="" />'
@@ -1124,7 +1124,7 @@ class ClaroCourse
             
             $html .= "\n"
                 . '<input type="radio" id="course_status_disabled" name="course_status_selection" value="disable" '
-                . ( $this->status == 'pending' || $this->status == 'disable' || $this->status == 'trash' ? 'checked="checked"':'' ) 
+                . ( $this->status == 'pending' || $this->status == 'disable' || $this->status == 'trash' ? 'checked="checked"':'' )
                 . ' />&nbsp;'
                 . '<label for="course_status_disabled">'. get_lang('Not available') . '</label>'
                 . '<blockquote>'
@@ -1157,7 +1157,7 @@ class ClaroCourse
         
         $html .= '</dl>' . "\n" . '</form>' . "\n";
         
-        $html .= '<p><small>' . get_lang('<span class="required">*</span> denotes required field') 
+        $html .= '<p><small>' . get_lang('<span class="required">*</span> denotes required field')
             . '</small></p>' . "\n";
         
         $html .= '<script type="text/javascript">
@@ -1270,12 +1270,6 @@ class ClaroCourse
     else {
         courseStatusDisabled();
     }
-    
-    $("#courseSettings").submit(function(){
-        if($("#registration_true").attr("checked")){
-            $("#registrationKey").val("");
-        }
-    });
 </script>' . "\n";
     
         return $html;
@@ -1416,8 +1410,8 @@ class ClaroCourse
     
     
     /**
-     * Courses are often identified through their code (sysCode).  This 
-     * method permits to easily get the code of a course based on 
+     * Courses are often identified through their code (sysCode).  This
+     * method permits to easily get the code of a course based on
      * its identifier (integer).
      *
      * @param int       course identifier
@@ -1431,9 +1425,9 @@ class ClaroCourse
     
     
     /**
-     * Courses are often identified through their code (sysCode).  But 
-     * sometimes their identifier (integer) can be useful.  This 
-     * method permits to easily get the id of a course based on 
+     * Courses are often identified through their code (sysCode).  But
+     * sometimes their identifier (integer) can be useful.  This
+     * method permits to easily get the id of a course based on
      * its code.
      *
      * @param string    course code (sysCode)
