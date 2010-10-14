@@ -113,6 +113,12 @@ if ( claro_is_user_authenticated() ) :
         require get_path('incRepositorySys') . '/index_mycourses.inc.php';        
         if (claro_is_allowed_to_create_course())
             echo render_access_mode_caption_block(); 
+        
+        echo '<fieldset class="captionBlock">' 
+        	. '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
+        	. get_lang('New items'). ' ('  
+            . '<a href="claroline/inc/notification_date.php' . '" >' . get_lang('to a previous date') . '</a>'
+            . ')</fieldset>' ;
     }
 else :
     if ( ! get_conf('course_categories_hidden_to_anonymous',false) )
@@ -125,6 +131,8 @@ else :
         }
     }
 endif;
+
+
 ?>
 
 <?php include_dock('campusHomePageBottom'); ?>

@@ -1168,6 +1168,7 @@ $_lang['New assignment feedback posted'] = 'Une nouvelle correction a été postée
 $_lang['New category'] = 'Nouvelle catégorie';
 $_lang['New chat'] = 'Nouvelle discussion';
 $_lang['New exercise'] = 'Nouvel exercice';
+$_lang['New items'] = 'Nouveautés';
 $_lang['New password'] = 'Nouveau mot de passe';
 $_lang['New question'] = 'Nouvelle question';
 $_lang['New registration denied'] = 'Inscription interdite';
@@ -2931,7 +2932,6 @@ $_lang['This topic is now open to new contributions'] = 'Ce sujet accepte désorm
 $_lang['Topic title changed successfully'] = 'L\'intitulé du sujet a été modifié';
 $_lang['You are not allowed to access this forum'] = 'Vous n\'avez pas le droit d\'accéder à ce forum';
 
-
 $_lang['%nb categorie(s)'] = '%nb category(ies)';
 $_lang['*.inc.php'] = '*.inc.php';
 $_lang['<p>Over the %nbRequests requests, %nbRequestsPerformed were performed.</p>'] = '<p>Sur les %nbRequests requêtes, %nbRequestsPerformed ont bien été effectuées.</p>';
@@ -2989,6 +2989,7 @@ $_lang['Source'] = 'Source';
 $_lang['Speakers'] = 'Interlocuteurs';
 $_lang['Students connected today:'] = 'Étudiants connectés aujourd\'hui:';
 $_lang['Target'] = 'Cible';
+$_lang['to a previous date'] = 'à une date précédente';
 $_lang['The "visible from" date can\'t exceed the "visible until" date'] = 'La date "visible à partir de" ne peux excéder la date "visible jusqu\'à"';
 $_lang['There are no cateogries right now.  Use the link above to add some.'] = 'Il n\'y a actuellement aucune catégorie.  Utilisez le lien ci-dessus pour en ajouter.';
 $_lang['This category already exists'] = 'Cette catégorie existe déjà';
