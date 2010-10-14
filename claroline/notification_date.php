@@ -55,5 +55,5 @@ if ( claro_is_user_authenticated() )
     echo Claroline::getDisplay()->render();
 
 }   
-claro_redirect('index.php');
+else claro_redirect('index.php');
 ?>

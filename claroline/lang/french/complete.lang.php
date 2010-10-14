@@ -352,6 +352,7 @@ $_lang['Change minimum raw mark to pass this module (percentage) :'] = 'Modifier
 $_lang['Change parent\'s category of %catCode'] = 'Déplacer la catégorie %catCode';
 $_lang['Change this setting only if it\'s absolutely required.'] = 'Ne modifiez ce paramètre que si c\'est absolument nécessaire.';
 $_lang['Change visibility in all courses'] = 'Modifier la visibilité dans tous les cours';
+$_lang['Change notification date'] = 'Changer la date d\'affichage des nouveautés';
 $_lang['Changes have been applied to the user settings'] = 'Modifications des paramètres de l\'utilisateur enregistrées';
 $_lang['Changes have been saved'] = 'Modifications effectuées';
 $_lang['Changes have not been applied to the user settings'] = 'Les modifications des paramètres de l\'utilisateur n\'ont pas pu être effectuées';

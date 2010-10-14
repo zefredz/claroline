@@ -117,7 +117,7 @@ if ( claro_is_user_authenticated() ) :
         echo '<fieldset class="captionBlock">' 
         	. '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
         	. get_lang('New items'). ' ('  
-            . '<a href="claroline/inc/notification_date.php' . '" >' . get_lang('to a previous date') . '</a>'
+            . '<a href="' . get_path('clarolineRepositoryWeb') . 'notification_date.php' . '" >' . get_lang('to a previous date') . '</a>'
             . ')</fieldset>' ;
     }
 else :
