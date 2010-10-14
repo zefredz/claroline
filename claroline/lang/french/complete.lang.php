@@ -2867,3 +2867,6 @@ $_lang['You can reactive it from your course list'] = 'Vous pouvez le réactiver 
 $_lang['Contact the platform administrator'] = 'Veuillez contacter le gestionnaire de la plateforme';
 $_lang['You cannot access this course it has been deactivated'] = 'Ce cours n\'est plus accessible';
 $_lang['You cannot access this course until the course manager has reactivated it'] = 'Ce cours est désactivé et doit être réactivé par son gestionnaire';
+$_lang['New items'] = 'Nouveautés';
+$_lang['to a previous date'] = 'à une date précédente';
+$_lang['Change notification date'] = 'Changer la date d\'affichage des nouveautés';
