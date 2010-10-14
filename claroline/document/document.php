@@ -1356,7 +1356,7 @@ if ( count($filePathList) > 0 )
         {
             $fileAttributeList['type'] = A_FILE;
             $fileAttributeList['size'] = claro_get_file_size($baseWorkDir.$thisFile);
-            $fileAttributeList['date'] = filectime($baseWorkDir.$thisFile);
+            $fileAttributeList['date'] = filemtime($baseWorkDir.$thisFile);
         }
 
         $xtraAttributeKey = array_search($thisFile, $xtraAttributeList['path']);
@@ -2093,7 +2093,7 @@ $out .= claro_html_tool_title($titleElement,
         {
             $out .= '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['path'])).'">'.get_lang('Name').'</a></th>' . "\n"
             .    '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['size'])).'">'.get_lang('Size').'</a></th>' . "\n"
-            .    '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['date'])).'">'.get_lang('Date').'</a></th>' . "\n"
+            .    '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['date'])).'">'.get_lang('Last modification date').'</a></th>' . "\n"
             ;
         }
         else

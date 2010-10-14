@@ -958,6 +958,7 @@ $_lang['Last edit date'] = 'Date de dernière modification';
 $_lang['Last event length'] = 'Nombre de caractères de l\'événement';
 $_lang['Last message'] = 'Dernier message';
 $_lang['Last message was on'] = 'Le dernier message date du';
+$_lang['Last modification date'] = 'Date de dernière modification';
 $_lang['Last name'] = 'Nom de famille';
 $_lang['Last session time'] = 'Durée de la dernière session';
 $_lang['Last submission'] = 'Dernière soumission';
