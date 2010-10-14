@@ -80,7 +80,7 @@ array ('label'     => 'Mail notification'
 
 $conf_def_property_list['automatic_mail_notification'] =
 array ('label' => 'Mail notification mode' 
-        ,'description' => 'Are notification emails sent automaticaly or on demand (configurable in the assignement tool).' 
+        ,'description' => 'Are notification emails sent automatically or on demand (configurable in the assignement tool).' 
         ,'default' => FALSE 
         ,'type' => 'boolean' 
         ,'display' => TRUE 

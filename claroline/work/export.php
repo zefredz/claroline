@@ -239,7 +239,7 @@ if( get_conf( 'allow_download_all_submissions' ) )
 
 $out .= $dialogBox->render();
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang( 'Work' ), 'work.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang( 'Assignments' ), 'work.php' );
 
 $claroline->display->body->appendContent($out);
 
