@@ -472,7 +472,7 @@ array ('label'       => 'Phone'
 
 $conf_def_property_list['no_reply_mail'] =
 array ('label'       => 'No reply email address'
-      ,'description' => 'You can set a specific no-reply address used by the the platform email notification system. If none provided the administrator email will be used.'
+      ,'description' => 'You can set a specific no-reply address used by the platform email notification system. If none provided the administrator email will be used.'
       ,'default'     => ''
       ,'type'        => 'email'
       ,'display'     => TRUE
