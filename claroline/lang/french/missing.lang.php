@@ -1,5 +1,4 @@
 <?php 
-
 $_lang['*.inc.php'] = '*.inc.php';
 $_lang['Absolute sys path to the place where are move data of a deleted course.'] = 'Absolute sys path to the place where are move data of a deleted course.';
 $_lang['Allow user to use html tag in messages'] = 'Allow user to use html tag in messages';
