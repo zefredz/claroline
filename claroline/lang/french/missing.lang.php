@@ -1,5 +1,5 @@
 <?php 
-$_lang['*.inc.php'] = '*.inc.php';
+
 $_lang['Absolute sys path to the place where are move data of a deleted course.'] = 'Absolute sys path to the place where are move data of a deleted course.';
 $_lang['Allow user to use html tag in messages'] = 'Allow user to use html tag in messages';
 $_lang['Are you sure to delete course %name'] = 'Are you sure to delete course %name';
@@ -66,7 +66,6 @@ $_lang['User id missing'] = 'User id missing';
 $_lang['User profile %username created successfully'] = 'User profile %username created successfully';
 $_lang['User profile %username updated successfully'] = 'User profile %username updated successfully';
 $_lang['Whether include tutors in the displayed member list'] = 'Whether include tutors in the displayed member list';
-$_lang['db glu'] = 'db glu';
 $_lang['filename for one file module inclusion'] = 'filename for one file module inclusion';
 $_lang['on bottom'] = 'on bottom';
 $_lang['on top'] = 'on top';

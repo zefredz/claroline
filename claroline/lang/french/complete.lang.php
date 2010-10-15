@@ -2899,3 +2899,5 @@ $_lang['You cannot access this course until the course manager has reactivated i
 $_lang['New items'] = 'Nouveautés';
 $_lang['to a previous date'] = 'à une date précédente';
 $_lang['Change notification date'] = 'Changer la date d\'affichage des nouveautés';
+$_lang['*.inc.php'] = '*.inc.php';
+$_lang['db glu'] = 'db glu';
