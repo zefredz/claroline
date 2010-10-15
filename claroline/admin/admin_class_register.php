@@ -199,7 +199,7 @@ else
     
     // Display pager
 
-    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ) );
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ) . ( isset( $_REQUEST['search'] ) ? '&search=' . $_REQUEST['search'] : '' ) );
 
     // Display list of users
     // start table...
