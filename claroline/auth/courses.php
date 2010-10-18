@@ -146,7 +146,7 @@ if ( !empty($fromAdmin) )
             $_SESSION['admin_user_class_id'] = $classId;
         }
         else if (isset($_SESSION['admin_user_class_id']))
-        {        
+        {
             $classId = $_SESSION['admin_user_class_id'];
         }
         else $classId = '';
@@ -222,7 +222,7 @@ Subscribe to a course
 if ( $cmd == 'exReg' )
 {
     //Does the category prevent registration ?
-    if((get_conf('registrationRestrictedThroughCategories') 
+    if((get_conf('registrationRestrictedThroughCategories')
         && ClaroCategory::isRegistredToCategory($userId, $categoryId))
         || (!get_conf('registrationRestrictedThroughCategories')))
     {
@@ -233,9 +233,9 @@ if ( $cmd == 'exReg' )
         $categoryRestricted = true; //Category does prevent registration
     }
     
-    //If the current user is a platform admin OR 
+    //If the current user is a platform admin OR
     //(if the course is open AND if the category doesn't prevent registration)
-    if ( claro_is_platform_admin() || 
+    if ( claro_is_platform_admin() ||
         (is_course_registration_allowed($courseCode) && !$categoryRestricted) )
     {
         $courseRegistrationKey = get_course_registration_key($courseCode);
@@ -369,7 +369,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
         else
             $user =  $userId;
         
-        $courseCategoryBrowser  = new category_browser($categoryId, $user);
+        $courseCategoryBrowser  = new ClaroCategoriesBrowser($categoryId, $user);
         
         $currentCategory        = $courseCategoryBrowser->get_current_category_settings();
         $currentCategoryName    = $currentCategory->name;
@@ -488,8 +488,8 @@ switch ( $displayMode )
                 // If the category contains something else (subcategory or course),
                 // make a link to access to these ressources
                 if ($nbCourses + $nbSubCategories > 0)
-                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;categoryId=" 
-                          . urlencode( $category['id'] ) . $inURL . '">' 
+                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;categoryId="
+                          . urlencode( $category['id'] ) . $inURL . '">'
                           . $category['name'] . '</a>';
                 else
                     $out .= $category['name'];
@@ -539,7 +539,7 @@ switch ( $displayMode )
             $out .= '<tbody>' . "\n";
             
             //Does the category prevent registration ?
-            if((get_conf('registrationRestrictedThroughCategories') 
+            if((get_conf('registrationRestrictedThroughCategories')
                 && ClaroCategory::isRegistredToCategory($userId, $categoryId))
                 || (!get_conf('registrationRestrictedThroughCategories')))
             {
@@ -581,12 +581,12 @@ switch ( $displayMode )
                     {
                         // class may not be enroled as teachers
                         $out .= '<td valign="top" align="center">' . "\n"
-                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] 
+                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;course=' . $thisCourse['sysCode']
                         .    '&amp;categoryId=' . $categoryId . $inURL . '">'
                         .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol as student') . '" />'
                         .    '</a></td>' . "\n"
                         .    '<td valign="top" align="center">' . "\n"
-                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;asTeacher=true&amp;course=' . $thisCourse['sysCode'] 
+                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;asTeacher=true&amp;course=' . $thisCourse['sysCode']
                         .    '&amp;categoryId=' . $categoryId . $inURL . '">'
                         .    '<img src="' . get_icon_url('enroll') . '"  alt="' . get_lang('Enrol as teacher') . '" />'
                         .    '</a>'
@@ -607,7 +607,7 @@ switch ( $displayMode )
                     {
                         $out .= '<td valign="top"  align="center">' . "\n"
                         .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
-                        .    '?cmd=exReg' 
+                        .    '?cmd=exReg'
                         .    '&amp;course_id=' . $thisCourse['sysCode']
                         .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
                         .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol class') . '" />'
@@ -619,7 +619,7 @@ switch ( $displayMode )
                     {
                         $out .= '<td valign="top"  align="center">' . "\n"
                         .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
-                        .    '?cmd=exUnreg' 
+                        .    '?cmd=exUnreg'
                         .    '&amp;course_id=' . $thisCourse['sysCode']
                         .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
                         .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unenrol class') . '" />'
@@ -635,11 +635,11 @@ switch ( $displayMode )
                     {
                         $out .= '<span class="highlight">' . get_lang('Already enroled') . '</span>' . "\n";
                     }
-                    elseif(claro_is_platform_admin() || 
+                    elseif(claro_is_platform_admin() ||
                         (in_array($thisCourse['registration'], array('open', 'validation')) && !$categoryRestricted))
                     {
                         $out .= '<a href="' . $_SERVER['PHP_SELF']
-                        .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] 
+                        .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode']
                         .    '&amp;categoryId=' . $categoryId . $inURL . '">'
                         .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrolment') . '" />'
                         .    '</a>'
@@ -648,7 +648,7 @@ switch ( $displayMode )
                     else
                     {
                         $out .= '<a href="' . $_SERVER['PHP_SELF']
-                        .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] 
+                        .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode']
                         .    '&amp;categoryId=' . $categoryId . $inURL . '">'
                         .    '<img src="' . get_icon_url('locked') . '" alt="' . get_lang('Locked') . '" />'
                         .    '</a>'

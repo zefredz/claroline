@@ -12,21 +12,21 @@ if ( isset($_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'search' )
 }
 else
 {
-    $categoryBrowser    = new category_browser( $categoryId, claro_get_current_user_id() );
+    $categoryBrowser    = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
     $currentCategory    = $categoryBrowser->get_current_category_settings();
     $categoriesList     = $categoryBrowser->get_sub_category_list();
-    $coursesList        = (!is_null(claro_get_current_user_id())) ? 
+    $coursesList        = (!is_null(claro_get_current_user_id())) ?
                             $categoryBrowser->getCoursesWithoutSourceCourses():
                             $categoryBrowser->getCoursesWithoutSessionCourses();
 }
 
 // Are we in the root of the category tree ?
 // If not, give a link to go up in the tree
-if ( $categoryId != 0 ) 
+if ( $categoryId != 0 )
 {
     $backCommandLine = '<p>'
                      . '<small>'
-                     . '<a href="' . $_SERVER['PHP_SELF'] . "?category=" 
+                     . '<a href="' . $_SERVER['PHP_SELF'] . "?category="
                      .  urlencode( $currentCategory->idParent ) . '#categoryContent">'
                      . '&larr; ' . get_lang( 'previous level' )
                      . '</a>'
@@ -93,13 +93,13 @@ else
 {
     if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] = 'search')
     {
-        $out .= '<blockquote>' 
-              . get_lang( 'Your search did not match any courses' ) 
+        $out .= '<blockquote>'
+              . get_lang( 'Your search did not match any courses' )
               . '</blockquote>' . "\n";
     }
 }
 
-$out .= "\n" 
+$out .= "\n"
       . '<blockquote>' . "\n"
       . '<p><label for="keyword">' . get_lang( 'Search from keyword' ) . '</label> : </p>' . "\n"
       . '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
