@@ -1,14 +1,13 @@
-<?php
+<?php // $Id: add_course.lib.inc.php 12608 2010-09-15 11:20:46Z abourguignon $
 
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
  * CLAROLINE
  *
- * claroCategory Class
+ * ClaroCategory Class
  *
- * @version 1.10 $Revision: 11894 $
- *
+ * @version $Revision: 11894 $
  * @copyright 2001-2010 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author Claro Team <cvs@claroline.net>
