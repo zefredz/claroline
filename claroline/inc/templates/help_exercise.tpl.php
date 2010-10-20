@@ -1,3 +1,5 @@
+<!-- $Id$ -->
+
 <table width="100%" border="0" cellpadding="1" cellspacing="1">
 <tr>
   <td align="left" valign="top">

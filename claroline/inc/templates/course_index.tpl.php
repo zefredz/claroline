@@ -1,3 +1,5 @@
+<!-- $Id$ -->
+
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
 <table border="0" cellspacing="10" cellpadding="10" width="100%">
@@ -23,7 +25,7 @@ if (is_array($this->toolLinkListStandAlone))
 
 <br />
 
-<?php 
+<?php
 if ( claro_is_allowed_to_edit() ) :
     echo claro_html_menu_vertical_br($this->courseManageToolLinkList,  array('id'=>'courseManageToolList'));
 endif;

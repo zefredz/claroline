@@ -1,8 +1,10 @@
+<!-- $Id$ -->
+
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
 <div id="rightSidebar">
 
-<?php 
+<?php
 if ( claro_is_user_authenticated() ) :
 
     FromKernel::uses('display/userprofilebox.lib');
@@ -28,21 +30,21 @@ endif;
 
 <div id="leftContent">
 
-<?php 
+<?php
 include_textzone( 'textzone_top.inc.html', '<div style="text-align: center">
 <img src="'.get_icon_url('logo').'" border="0" alt="Claroline logo" />
 <p><strong>Claroline Open Source e-Learning</strong></p>
-</div>' ); 
+</div>' );
 ?>
 
 <?php include_dock('campusHomePageTop'); ?>
 
-<?php 
-if( claro_is_user_authenticated() ) : 
+<?php
+if( claro_is_user_authenticated() ) :
     include_textzone( 'textzone_top.authenticated.inc.html' );
 else :
     include_textzone( 'textzone_top.anonymous.inc.html' );
-endif; 
+endif;
 ?>
 
 <?php
@@ -110,13 +112,13 @@ if ( claro_is_user_authenticated() ) :
         // Clean session code
         if (isset($_SESSION['courseSessionCode'])) $_SESSION['courseSessionCode'] = null;
         
-        require get_path('incRepositorySys') . '/index_mycourses.inc.php';        
+        require get_path('incRepositorySys') . '/index_mycourses.inc.php';
         if (claro_is_allowed_to_create_course())
-            echo render_access_mode_caption_block(); 
+            echo render_access_mode_caption_block();
         
-        echo '<fieldset class="captionBlock">' 
+        echo '<fieldset class="captionBlock">'
         	. '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
-        	. get_lang('New items'). ' ('  
+        	. get_lang('New items'). ' ('
             . '<a href="' . get_path('clarolineRepositoryWeb') . 'notification_date.php' . '" >' . get_lang('to a previous date') . '</a>'
             . ')</fieldset>' ;
     }

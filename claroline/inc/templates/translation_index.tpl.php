@@ -1,3 +1,5 @@
+<!-- $Id$ -->
+
 <h4><?php echo get_lang('Extract language variables')?></h4>
 <ul>
 <li><a href="lang/extract_var_from_lang_file.php"><?php echo get_lang('From language files')?></a></li>

@@ -1,3 +1,5 @@
+<!-- $Id$ -->
+
 <h4 class="header">
 <?php
 // Allow user to be have notification for this topic or disable it
@@ -20,7 +22,7 @@ endif; //end not anonymous user
 </h4>
 <?php foreach( $this->postList as $thisPost ) : ?>
 <div id="post<?php echo $thisPost['post_id']; ?>" class="threadPost">
-  <?php  
+  <?php
   if( user_get_picture_path( user_get_properties( $thisPost['poster_id'] ) )
      && file_exists( user_get_picture_path( user_get_properties( $thisPost['poster_id'] ) ) )
      ) :

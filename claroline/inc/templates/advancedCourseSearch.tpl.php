@@ -1,3 +1,5 @@
+<!-- $Id$ -->
+
 <form action="admincourses.php" method="get" >
 <fieldset>
 
@@ -11,13 +13,13 @@
 
 <dt><label for="searchLang"><?php echo get_lang('Language')?></label></dt>
 <dd>
-    <?php 
+    <?php
     echo claro_html_form_select(
-        'searchLang', 
-        $this->language_list, 
-        '', 
+        'searchLang',
+        $this->language_list,
+        '',
         array('id'=>'searchLang')
-    ); 
+    );
     ?>
 </dd>
 
