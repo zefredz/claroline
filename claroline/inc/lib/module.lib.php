@@ -823,7 +823,7 @@ function is_tool_activated_in_groups( $courseId, $toolLabel )
     
     foreach ( $activatedGroupToolList as $groupTool )
     {
-        if ( $groupTool['label'] = $toolLabel )
+        if ( $groupTool['label'] == $toolLabel )
         {
             return true;
         }
@@ -862,4 +862,78 @@ function get_module_label_from_tool_id( $toolId )
              WHERE id = ".(int)$toolId;
              
     return claro_sql_query_fetch_single_value($sql);
+}
+
+/**
+ * Activate a module in all the groups of the given course
+ * @param Database_Connection $database, use Claroline::getDatabase()
+ * @param string $moduleLabel
+ * @param string $courseId
+ * @return boolean
+ */
+function activate_module_in_groups( $database, $moduleLabel, $courseId )
+{
+    return change_module_activation_in_groups ( $database, $moduleLabel, $courseId, true );
+}
+
+/**
+ * Deactivate a module in all the groups of the given course
+ * @param Database_Connection $database, use Claroline::getDatabase()
+ * @param string $moduleLabel
+ * @param string $courseId
+ * @return boolean
+ */
+function deactivate_module_in_groups( $database, $moduleLabel, $courseId )
+{
+    return change_module_activation_in_groups ( $database, $moduleLabel, $courseId, false );
+}
+
+/**
+ * Change a module activation in all the groups of the given course
+ * @param Database_Connection $database, use Claroline::getDatabase()
+ * @param string $moduleLabel
+ * @param string $courseId
+ * @param boolean $activated
+ * @return boolean
+ */
+function change_module_activation_in_groups ( $database, $moduleLabel, $courseId, $activated )
+{
+    $tbl = get_module_course_tbl(array('course_properties'), $courseId);
+
+    $activation = $activated ? 1 : 0;
+
+    if ( $database->query("
+        SELECT
+            `value`
+        FROM
+            `{$tbl['course_properties']}`
+        WHERE
+            `name` = " . $database->quote( $moduleLabel ) . "
+        AND
+            `category` = 'GROUP'" )->numRows() )
+    {
+        // update
+        return $database->exec( "
+            UPDATE
+                `{$tbl['course_properties']}`
+            SET
+                `value` = {$activation}
+            WHERE
+                `name` = " . $database->quote( $moduleLabel ) . "
+            AND
+                `category` = 'GROUP'
+         " );
+    }
+    else
+    {
+        // insert
+        return $database->exec( "
+            INSERT INTO
+                `{$tbl['course_properties']}`
+            SET
+                `value` = {$activation},
+                `name` = " . $database->quote( $moduleLabel ) . ",
+                `category` = 'GROUP'
+         " );
+    }
 }

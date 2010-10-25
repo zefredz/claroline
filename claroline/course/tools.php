@@ -370,6 +370,21 @@ if ( 'exAddTool' == $cmd )
                     $cidReset = TRUE;
                     $cidReq   = claro_get_current_course_id();
 
+                    $groupToolList = get_group_tool_label_list();
+
+                    foreach ( $groupToolList as $group )
+                    {
+                        if ( $group['label'] == $toolLabel )
+                        {
+                            // this is a group tool, enable it in groups
+                            activate_module_in_groups(
+                                Claroline::getDatabase(),
+                                $toolLabel,
+                                claro_get_current_course_id()
+                            );
+                        }
+                    }
+
                     include get_path('incRepositorySys') . '/claro_init_local.inc.php';
                 }
                 else
