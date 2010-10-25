@@ -675,7 +675,7 @@ if ( $is_allowedToEditAll )
          .        '</form>'."\n"
         ;
 
-        $out .= $dialogBox->form($downloadForm);
+        $dialogBox->form($downloadForm);
     }
 
     $cmdMenu[] = claro_html_cmd_link( 'feedback.php?cmd=rqEditFeedback'
