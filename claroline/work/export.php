@@ -30,10 +30,12 @@ if( !claro_is_allowed_to_edit() )
 
 //load required libs
 require_once get_module_path( $tlabelReq ) . '/lib/assignment.class.php';
+require_once get_path( 'incRepositorySys' ) . '/lib/course_utils.lib.php';
 require_once get_path( 'incRepositorySys' ) . '/lib/fileManage.lib.php';
 require_once get_path( 'incRepositorySys' ) . '/lib/thirdparty/pclzip/pclzip.lib.php';
 
 //init general purpose vars
+$out ='';
 $is_allowedToEdit = claro_is_allowed_to_edit();
 $dialogBox = new DialogBox();
 
@@ -91,21 +93,21 @@ if( get_conf( 'allow_download_all_submissions' ) )
     if( $assignmentId == 0 )
     {
         $assignmentRestriction = '';
-        $zipPath = get_path( 'coursesRepositorySys' ) . claro_get_current_course_id() . '/work/tmp';
+        $zipPath = get_path( 'coursesRepositorySys' ) . claro_get_course_path(claro_get_current_course_id()) . '/work/tmp';
         $zipName = claro_get_current_course_id() . '_' . replace_dangerous_char( get_lang( 'Assignments' ) ) . $wanted . '.zip';      
     }
     else
     {
         $assignmentRestriction = " AND `assignment_id` = " . (int)$assignmentId;
-        $zipPath = get_path( 'coursesRepositorySys' ) . claro_get_current_course_id() . '/work/assig_' . (int)$assignmentId . '/' . 'tmp';
-        $zipName = claro_get_current_course_id() . '_' . replace_dangerous_char( $assignment->getTitle(), 'strict' ) . $wanted . '.zip';
+        $zipPath = get_path( 'coursesRepositorySys' ) . claro_get_course_path(claro_get_current_course_id()) . '/work/assig_' . (int)$assignmentId . '/' . 'tmp';
+        $zipName = replace_dangerous_char(claro_get_course_name(claro_get_current_course_id())) . '_' . replace_dangerous_char( $assignment->getTitle(), 'strict' ) . $wanted . '.zip';
     }
 
-    $downloadArchiveFolderPath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp/zip';
+    $downloadArchiveFolderPath = get_path('coursesRepositorySys') . claro_get_course_path(claro_get_current_course_id()) . '/tmp/zip';
 
-    if ( !is_dir( $downloadArchiveFilePath ) )
+    if ( !is_dir( $downloadArchiveFolderPath ) )
     {
-        mkdir( $downloadArchiveFilePath, CLARO_FILE_PERMISSIONS, true );
+        mkdir( $downloadArchiveFolderPath, CLARO_FILE_PERMISSIONS, true );
     }
 
     $downloadArchiveFilePath = $downloadArchiveFolderPath . '/' . $zipName;
@@ -154,7 +156,7 @@ if( get_conf( 'allow_download_all_submissions' ) )
                 $assigDir = '';
             }
 
-            $assignmentPath = get_path( 'coursesRepositorySys' ) . claro_get_current_course_id() . '/work/assig_' . (int)$result['assignment_id'] . '/';
+            $assignmentPath = get_path( 'coursesRepositorySys' ) . claro_get_course_path(claro_get_current_course_id()) . '/work/assig_' . (int)$result['assignment_id'] . '/';
             
             //  count author's submissions for the name of directory
             if( $result['authors'] != $previousAuthors )
