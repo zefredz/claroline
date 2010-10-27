@@ -58,13 +58,19 @@ $maxFilledSpace  = get_conf('maxFilledSpace',100000000);
 // but a 'text' with only an image don't have to be considered as empty
 $allowedTags = '<img>';
 
+// initialise a html sanitizer authorizing the style attribute
+$san = new Claro_Html_Sanitizer();
+$san->allowStyle();
+
 // initialise dialog box to an empty string, all dialog will be concat to it
 $dialogBox = new DialogBox();
+
 // initialise default view mode (values will be overwritten if needed)
-$dispWrkLst = true;     // view list is default
-$dispWrkForm = false;
-$dispWrkDet   = false;
-$is_feedback = false;
+$dispWrkLst     = true;     // view list is default
+$dispWrkForm    = false;
+$dispWrkDet     = false;
+$is_feedback    = false;
+
 /*============================================================================
                      CLEAN INFORMATIONS SENT BY USER
   =============================================================================*/
@@ -363,8 +369,6 @@ if( isset($_REQUEST['submitWrk']) )
         }
         else
         {
-            $san = new Claro_Html_Sanitizer();
-            $san->allowStyle();
             $wrkForm['wrkTxt'] = $san->sanitize( $_REQUEST['wrkTxt'] );
         }
     }
@@ -378,8 +382,6 @@ if( isset($_REQUEST['submitWrk']) )
         }
         else
         {
-            $san = new Claro_Html_Sanitizer();
-            $san->allowStyle();
             $wrkForm['wrkTxt'] = $san->sanitize( $_REQUEST['wrkTxt'] );
         }
     }
@@ -395,7 +397,7 @@ if( isset($_REQUEST['submitWrk']) )
     else
     {
         // do not check if a title is already in use, title can be duplicate
-        $wrkForm['wrkTitle'] = claro_html_sanitize_all( $_REQUEST['wrkTitle'] );
+        $wrkForm['wrkTitle'] = $san->sanitize( $_REQUEST['wrkTitle'] );
     }
 
 
@@ -415,7 +417,7 @@ if( isset($_REQUEST['submitWrk']) )
     }
     else
     {
-        $wrkForm['wrkAuthors'] = claro_html_sanitize_all( $_REQUEST['wrkAuthors'] );
+        $wrkForm['wrkAuthors'] = $san->sanitize( $_REQUEST['wrkAuthors'] );
     }
 
 
@@ -461,7 +463,7 @@ if( isset($_REQUEST['submitWrk']) )
     // check if a private feedback has been submitted
     if( isset($_REQUEST['wrkPrivFbk']) && trim(strip_tags($_REQUEST['wrkPrivFbk'], $allowedTags)) != '' )
     {
-        $wrkForm['wrkPrivFbk'] = claro_html_sanitize_all( $_REQUEST['wrkPrivFbk'] );
+        $wrkForm['wrkPrivFbk'] = $san->sanitize( $_REQUEST['wrkPrivFbk'] );
     }
     else
     {
@@ -723,11 +725,11 @@ if($is_allowedToEditAll)
         else
         {
             // there was an error in the form so display it with already modified values
-            $form['wrkTitle'] = claro_html_sanitize_all( $_REQUEST['wrkTitle'] );
+            $form['wrkTitle'] = $san->sanitize( $_REQUEST['wrkTitle'] );
             $form['wrkAuthors'] = $_REQUEST['wrkAuthors'];
-            $form['wrkTxt'] = claro_html_sanitize_all( $_REQUEST['wrkTxt'] );
-            $form['wrkScore'] = claro_html_sanitize_all( $_REQUEST['wrkScore'] );
-            $form['wrkPrivFbk'] = claro_html_sanitize_all( $_REQUEST['wrkPrivFbk'] );
+            $form['wrkTxt'] = $san->sanitize( $_REQUEST['wrkTxt'] );
+            $form['wrkScore'] = $san->sanitize( $_REQUEST['wrkScore'] );
+            $form['wrkPrivFbk'] = $san->sanitize( $_REQUEST['wrkPrivFbk'] );
         }
 
         $cmdToSend = "exGradeWrk";
@@ -1284,7 +1286,7 @@ if( $is_allowedToSubmit )
                 .    '<small>'.get_lang('Course administrator only').'</small>'
                 .    '</label></td>'
                 .    '<td>'."\n"
-                .    '<textarea name="wrkPrivFbk" cols="40" rows="10">'. claro_html_sanitize_all( $form['wrkPrivFbk'] ) .'</textarea>'
+                .    '<textarea name="wrkPrivFbk" cols="40" rows="10">'. $san->sanitize( $form['wrkPrivFbk'] ) .'</textarea>'
                 .    '</td>'."\n"
                 .    '</tr>'."\n\n";
                 
@@ -1448,8 +1450,10 @@ if( $dispWrkLst )
                     )
                 ;
 
-            if( $thisWrk['visibility'] == "INVISIBLE" && $is_allowedToEditAll )    $visStyle = ' invisible ';
-            else                                                                $visStyle = '';
+            if( $thisWrk['visibility'] == "INVISIBLE" && $is_allowedToEditAll )
+                $visStyle = ' invisible ';
+            else
+                $visStyle = '';
 
             if( $is_feedback )  $style = ' feedback ';
             else                $style = ' work';
@@ -1470,12 +1474,15 @@ if( $dispWrkLst )
                 $txtForFile = get_lang('Uploaded file');
                 $txtForText = get_lang('File description');
             }
-
+            
+            $san = new Claro_Html_Sanitizer();
+            $san->allowStyle();
+            
             // title (and edit links)
             $out .= '<div class="'. $visStyle . $style .'">' . "\n"
             
             .    '<h4 class="'. ( !$is_feedback ? 'claroBlockSuperHeader':'claroBlockHeader') . '">' . "\n"
-            .    claro_html_sanitize_all( $thisWrk['title'] ) . "\n"
+            .    $san->sanitize( $thisWrk['title'] ) . "\n"
             .    '</h4>' . "\n"
             ;
 
@@ -1483,7 +1490,7 @@ if( $dispWrkLst )
             $out .= '<div class="workInfo">' . "\n"
             .    '<span class="workInfoTitle">' . get_lang('Author(s)') . '&nbsp;: </span>' . "\n"
             .    '<div class="workInfoValue">' . "\n"
-            .    claro_html_sanitize_all( $thisWrk['authors'] ) . "\n"
+            .    $san->sanitize( $thisWrk['authors'] ) . "\n"
             .    '</div>' . "\n"
             .    '</div>' . "\n\n"
             ;
@@ -1540,7 +1547,7 @@ if( $dispWrkLst )
             $out .= '<div class="workInfo">' . "\n"
             .    '<span class="workInfoTitle">' . $txtForText . '&nbsp;: </span>' . "\n"
             .    '<div class="workInfoValue">' . "\n"
-            .    '<blockquote>' . "\n" . claro_html_sanitize_all( $thisWrk['submitted_text'] ) . "\n" . '&nbsp;</blockquote>' . "\n"
+            .    '<blockquote>' . "\n" . $san->sanitize( $thisWrk['submitted_text'] ) . "\n" . '&nbsp;</blockquote>' . "\n"
             .    '</div>' . "\n"
             .    '</div>' . "\n\n"
             ;
@@ -1553,7 +1560,7 @@ if( $dispWrkLst )
                     $out .= '<div class="workInfo">' . "\n"
                     .    '<span class="workInfoTitle">' . get_lang('Private feedback') . '&nbsp;: </span>' . "\n"
                     .    '<div class="workInfoValue">' . "\n"
-                    .    '<blockquote>' . "\n" . claro_html_sanitize_all( $thisWrk['private_feedback'] ) . "\n" . '&nbsp;</blockquote>' . "\n"
+                    .    '<blockquote>' . "\n" . $san->sanitize( $thisWrk['private_feedback'] ) . "\n" . '&nbsp;</blockquote>' . "\n"
                     .    '</div>' . "\n"
                     .    '</div>' . "\n\n"
                     ;
