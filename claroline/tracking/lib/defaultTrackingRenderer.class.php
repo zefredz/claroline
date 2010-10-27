@@ -213,11 +213,11 @@ class CLTRACK_CourseToolAccess extends CourseTrackingRenderer
         $results = claro_sql_query_fetch_all($sql);
         
         $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
-        .   '<tr class="headerX">'."\n"
+        .   '<thead><tr class="headerX">'."\n"
         .   '<th>&nbsp;'.get_lang('Name of the tool').'&nbsp;</th>'."\n"
         .   '<th>&nbsp;'.get_lang('Users\' Clicks').'&nbsp;</th>'."\n"
         .   '<th>&nbsp;'.get_lang('Total Clicks').'&nbsp;</th>'."\n"
-        .   '</tr>'."\n"
+        .   '</tr></thead>'."\n"
         .   '<tbody>'."\n";
         
         if( !empty($results) && is_array($results))
@@ -485,4 +485,3 @@ class CLTRACK_userPlatformAccess extends UserTrackingRenderer
 }
 
 TrackingRendererRegistry::registerUser('CLTRACK_userPlatformAccess',TrackingRendererRegistry::PLATFORM);
-?>

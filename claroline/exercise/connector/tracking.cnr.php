@@ -49,11 +49,11 @@ class CLQWZ_CourseTrackingRenderer extends CourseTrackingRenderer
         $results = claro_sql_query_fetch_all($sql);
         
         $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
-        .   '<tr class="headerX">'."\n"
+        .   '<thead><tr class="headerX">'."\n"
         .   '<th>&nbsp;'.get_lang('Exercises').'&nbsp;</th>'."\n"
         .   '<th>&nbsp;'.get_lang('User attempts').'&nbsp;</th>'."\n"
         .   '<th>&nbsp;'.get_lang('Total attempts').'&nbsp;</th>'."\n"
-        .   '</tr>'."\n"
+        .   '</tr></thead>'."\n"
         .   '<tbody>'."\n"
         ;
 
@@ -261,4 +261,3 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
 }
 
 TrackingRendererRegistry::registerUser('CLQWZ_UserTrackingRenderer');
-?>
