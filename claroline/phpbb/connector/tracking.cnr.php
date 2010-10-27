@@ -3,9 +3,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision: 415 $
+ * @version 1.9 $Revision: 415 $
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -61,10 +61,10 @@ class CLFRM_CourseTrackingRenderer extends CourseTrackingRenderer
                     ";
         $results = claro_sql_query_fetch_all($sql);
         $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
-        .   '<tr class="headerX">'."\n"
+        .   '<thead><tr class="headerX">'."\n"
         .   '<th>'.get_lang('More active topics').'</th>'."\n"
         .   '<th>'.get_lang('Replies').'</th>'."\n"
-        .   '</tr>'."\n";
+        .   '</tr></thead>'."\n";
         
         if( !empty($results) && is_array($results) )
         {
@@ -133,10 +133,10 @@ class CLFRM_CourseTrackingRenderer extends CourseTrackingRenderer
         $results = claro_sql_query_fetch_all($sql);
 
         $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
-        .   '<tr class="headerX">'."\n"
+        .   '<thead><tr class="headerX">'."\n"
         .   '<th>'.get_lang('Most recently active topics').'</th>'."\n"
         .   '<th>'.get_lang('Last message').'</th>'."\n"
-        .   '</tr>'."\n";
+        .   '</tr></thead>'."\n";
         
         if (is_array($results))
         {
@@ -301,4 +301,3 @@ class CLFRM_UserTrackingRenderer extends UserTrackingRenderer
 }
 
 TrackingRendererRegistry::registerUser('CLFRM_UserTrackingRenderer');
-?>

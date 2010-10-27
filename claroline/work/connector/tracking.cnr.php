@@ -174,4 +174,3 @@ class CLWRK_UserTrackingRenderer extends UserTrackingRenderer
 }
 
 TrackingRendererRegistry::registerUser('CLWRK_UserTrackingRenderer');
-?>
