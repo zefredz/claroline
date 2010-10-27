@@ -96,10 +96,10 @@ class CLFRM_CourseTrackingRenderer extends CourseTrackingRenderer
         $results = claro_sql_query_fetch_all($sql);
 
         $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
-        .   '<tr class="headerX">'."\n"
+        .   '<thead><tr class="headerX">'."\n"
         .   '<th>'.get_lang('More read topics').'</th>'."\n"
         .   '<th>'.get_lang('Seen').'</th>'."\n"
-        .   '</tr>'."\n";
+        .   '</tr></thead>'."\n";
         
         if( !empty($results) && is_array($results) )
         {
