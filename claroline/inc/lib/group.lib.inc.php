@@ -95,13 +95,13 @@ function delete_groups($groupIdList = 'ALL')
     require_once get_path('incRepositorySys') . '/lib/forum.lib.php';
     
     if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLWIKI'), claro_get_current_course_id() )
-        && is_tool_activated_in_groups( 'CLWIKI', claro_get_current_course_id() ) )
+        && is_tool_activated_in_groups( claro_get_current_course_id(), 'CLWIKI' ) )
     {
         delete_group_wikis( $groupIdList );
     }
     
     if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLFRM'), claro_get_current_course_id() )
-        && is_tool_activated_in_groups( 'CLFRM', claro_get_current_course_id() ) )
+        && is_tool_activated_in_groups( claro_get_current_course_id(), 'CLFRM' ) )
     {
         delete_group_forums( $groupIdList );
     }
@@ -513,7 +513,7 @@ function create_group($prefixGroupName, $maxMember)
     */
 
     if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLFRM'), claro_get_current_course_id() )
-        && is_tool_activated_in_groups( 'CLFRM', claro_get_current_course_id() ) )
+        && is_tool_activated_in_groups( claro_get_current_course_id(), 'CLFRM' ) )
     {
         create_forum( $groupName. ' - '. strtolower(get_lang('Forum'))
         , '' // forum description
@@ -524,7 +524,7 @@ function create_group($prefixGroupName, $maxMember)
     }
     
     if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLWIKI'), claro_get_current_course_id() )
-        && is_tool_activated_in_groups( 'CLWIKI', claro_get_current_course_id() ) )
+        && is_tool_activated_in_groups( claro_get_current_course_id(), 'CLWIKI' ) )
     {
         require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
         create_wiki( $createdGroupId, $groupName. ' - Wiki' );
