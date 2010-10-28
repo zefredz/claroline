@@ -39,7 +39,8 @@ endif;
     	. get_lang('New items'). ' ('
     . '<a href="' . get_path('clarolineRepositoryWeb') . 'notification_date.php' . '" >' . get_lang('to another date') . '</a>';
             
-    if (substr($_SESSION['last_action'],10) == '00:00:00' )
+    $nbChar = strlen($_SESSION['last_action']);
+    if (substr($_SESSION['last_action'],$nbChar - 8) == '00:00:00' )
     {
         echo ' [' . claro_html_localised_date( get_locale('dateFormatNumeric'),
             strtotime($_SESSION['last_action'])) . ']';
