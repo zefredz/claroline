@@ -19,12 +19,20 @@ if ( claro_is_user_authenticated() )
     
     $display_form = true;
     
-    if (((isset($_REQUEST['fday']) && is_int((int)$_REQUEST['fday'])))
-        && ((isset($_REQUEST['fmonth']) && is_int((int)$_REQUEST['fmonth']))) 
-        && ((isset($_REQUEST['fyear']) && is_int((int)$_REQUEST['fyear']))))
+    if (((isset($_REQUEST['fday']) && is_numeric($_REQUEST['fday'])))
+        && ((isset($_REQUEST['fmonth']) && is_numeric($_REQUEST['fmonth']))) 
+        && ((isset($_REQUEST['fyear']) && is_numeric($_REQUEST['fyear']))))
     {
-        $_SESSION['last_action'] = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'] . '00:00:00';
-        claro_redirect('index.php');
+        $_SESSION['last_action'] = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'] . ' 00:00:00';
+
+        if ( claro_get_current_course_id() != '' )
+        {
+            claro_redirect(Url::Contextualize(get_path('clarolineRepositoryWeb') . '/course/index.php'));
+        }
+        else
+        {
+            claro_redirect(get_path('clarolineRepositoryWeb').'/index.php');
+        }
     }
     
     /**
