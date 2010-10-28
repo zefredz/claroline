@@ -73,7 +73,7 @@ $conf_def['section']['add_user']['label'] = 'Add user';
 $conf_def['section']['add_user']['description'] = '';
 $conf_def['section']['add_user']['properties'] =
 array ( 'is_coursemanager_allowed_to_register_single_user'
-      , 'is_coursemanager_allowed_to_enroll_single_user'
+      ,    'is_coursemanager_allowed_to_enroll_single_user'
       , 'is_coursemanager_allowed_to_import_user_list'
       , 'is_coursemanager_allowed_to_import_user_class'
 
@@ -130,6 +130,8 @@ array ( 'is_coursemanager_allowed_to_export_user_list'
       , 'export_user_username'
       , 'export_user_password'
       , 'export_user_password_encrypted'
+      , 'export_user_id'
+      , 'export_sensitive_data_for_admin'
 );
 
 $conf_def_property_list['is_coursemanager_allowed_to_export_user_list'] =
@@ -143,8 +145,19 @@ array('label'         => 'Teacher can export user list from his course'
                               )
      );
 
+$conf_def_property_list['export_sensitive_data_for_admin'] =
+array('label'         => 'Platform admin can export username, user_id and password'
+     ,'default'       => FALSE
+     ,'type'          => 'boolean'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'acceptedValue' => array ('TRUE'=>'Yes'
+                              ,'FALSE'=>'No'
+                              )
+);
+
 $conf_def_property_list['export_user_username'] =
-array('label'         => 'Export username'
+array('label'         => 'Teacher can export username'
      ,'default'       => FALSE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
@@ -154,8 +167,19 @@ array('label'         => 'Export username'
                               )
 );
      
+$conf_def_property_list['export_user_id'] =
+array('label'         => 'Teacher can export user id'
+     ,'default'       => FALSE
+     ,'type'          => 'boolean'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'acceptedValue' => array ('TRUE'=>'Yes'
+                              ,'FALSE'=>'No'
+                              )
+);
+
 $conf_def_property_list['export_user_password'] =
-array('label'         => 'Export password'
+array('label'         => 'Teacher can export password'
      ,'default'       => FALSE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
@@ -166,7 +190,7 @@ array('label'         => 'Export password'
 );     
 
 $conf_def_property_list['export_user_password_encrypted'] =
-array('label'         => 'Encrypt exported password using md5 algorithm'
+array('label'         => 'Encrypt exported password using md5 algorithm for teacher'
      ,'default'       => TRUE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
@@ -175,6 +199,12 @@ array('label'         => 'Encrypt exported password using md5 algorithm'
                               ,'FALSE'=>'No'
                               )
 ); 
+
+$conf_def['section']['import']['label'] = 'Import CVS';
+$conf_def['section']['import']['description'] = '';
+$conf_def['section']['import']['properties'] =
+array ( 'update_user_properties'
+);
 
 $conf_def_property_list['update_user_properties'] =
 array('label'         => 'Update properties of users  on CVS import'

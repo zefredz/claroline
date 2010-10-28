@@ -12,36 +12,116 @@
  */
 
 require_once get_path('incRepositorySys') . '/lib/csv.class.php';
+FromKernel::uses( 'user_info.lib' );
+
+class UserInfoList
+{
+    private $courseId;
+
+    public function __construct( $courseId )
+    {
+        $this->courseId = $courseId;
+    }
+
+    public function getUserInfoLabels()
+    {
+        $labels = claro_user_info_claro_user_info_get_cat_def_list( $this->courseId );
+
+        if ( $labels )
+        {
+            $ret = array();
+
+            foreach ( $labels as $label )
+            {
+                $ret[$label['catId']] = $label['title'];
+            }
+
+            return $ret;
+        }
+        else
+        {
+            return array();
+        }
+    }
+
+    public function getUserInfo( $catId )
+    {
+        $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));
+
+        return Claroline::getDatabase()->query("
+            SELECT
+                content.user_id     AS userId,
+                cat.id              AS catId,
+                cat.title           AS title,
+                content.content     AS content
+            FROM
+                `" . $tbl['userinfo_def'] . "`     AS cat
+            LEFT JOIN
+                `" . $tbl['userinfo_content'] . "` AS content
+            ON
+                cat.id = content.def_id
+            WHERE
+                cat.id = " . (int) $catId . "
+            ORDER BY `cat`.`id`
+        ");
+    }
+}
 
 
 class csvUserList extends csv
 {
-    var $course_id;
-    var $exId;
+    private $course_id;
+    private $exId;
     
-    function csvUserList( $course_id )
+    public function __construct( $course_id )
     {
         parent::csv(); // call constructor of parent class
         
         $this->course_id = $course_id;
     }
     
-    function buildRecords()
+    function buildRecords( $exportUserInfo = true )
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
+
         $tbl_user = $tbl_mdb_names['user'];
         $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
         
-        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->course_id));
+
         $tbl_team = $tbl_cdb_names['group_team'];        
         $tbl_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
         
+        $username = ( claro_is_platform_admin() && get_conf( 'export_sensitive_data_for_admin', false ) )
+                || get_conf('export_user_username', false)
+            ? "`U`.`username`     AS `username`,"
+            : ""
+            ;
                  
+        if ( ( claro_is_platform_admin() && get_conf( 'export_sensitive_data_for_admin', false ) )
+            || get_conf('export_user_password', false) )
+        {
+            if ( ( claro_is_platform_admin() && get_conf( 'export_sensitive_data_for_admin', false ) )
+                || get_conf('export_user_password_encrypted', true ) )
+            {
+                $password = "MD5(`U`.`password`)     AS `password`,";
+            }
+            else
+            {
+                $password = "`U`.`password`     AS `password`,";
+            }
+        }
+        else
+        {
+            $password = '';
+        }
+
         // get user list
         $sql = "SELECT `U`.`user_id`      AS `userId`,
                        `U`.`nom`          AS `lastname`,
                        `U`.`prenom`       AS `firstname`,
-                       `U`.`username`     AS `username`,
+                       {$username}
+                       {$password}
                        `U`.`email`        AS `email`, 
                        `U`.`officialCode`     AS `officialCode`,
                        GROUP_CONCAT(`G`.`id`) AS `groupId`,
@@ -62,30 +142,64 @@ class csvUserList extends csv
 
         $userList = claro_sql_query_fetch_all($sql);
 
+        // var_dump( $userList ); die();
+
         // build recordlist with good values for answers
         if( is_array($userList) && !empty($userList) )
         {
             // add titles at row 0, for that get the keys of the first row of array
             $this->recordList[0] = array_keys($userList[0]); 
+
             $i = 1;
-            foreach( $userList as $user )
+
+            $userIdList = array();
+
+            foreach( $userList as  $user )
             {
-                // $this->recordList is defined in parent class csv
-                $this->recordList[$i] = $user;
-                // if password is exported and must be encrypted and is not already encrypted : crypt it
-                if( get_conf('export_user_password') && get_conf('export_user_password_encrypted') && !get_conf('userPasswordCrypted') )
+                // var_dump($user);
+                $userIdList[$user['userId']] = $i;
+
+                if ( !( ( claro_is_platform_admin() && get_conf( 'export_sensitive_data_for_admin', false ) )
+                    || get_conf('export_user_id', false) ) )
                 {
-                    $this->recordList[$i]['password'] = md5($this->recordList[$i]['password']);
+                    $user['userId'] = $i;
                 }
                 
+                // $this->recordList is defined in parent class csv
+                $this->recordList[$i] = $user;
+
                 $i++;
             }
 
-            if( is_array($this->recordList) && !empty($this->recordList) ) return true;
+            if ( $exportUserInfo )
+            {
+                $userInfoList = new UserInfoList($this->course_id);
+
+                $userInfoLabelList = $userInfoList->getUserInfoLabels();
+
+                foreach ( $userInfoLabelList as $catId => $catTitle )
+                {
+                    $this->recordList[0][] = $catTitle;
+
+                    $userCatInfo = $userInfoList->getUserInfo($catId);
+
+                    foreach ( $userCatInfo as $userCatInfo )
+                    {
+                        $this->recordList[$userIdList[$userCatInfo['userId']]][] = $userCatInfo['content'];
+                    }
+                }
+            }
         }
         
+        if( is_array($this->recordList) && !empty($this->recordList) )
+        {
+            return true;
+        }
+        else
+        {
         return false;
     }
+}
 }
 
 function export_user_list( $course_id )
@@ -97,4 +211,4 @@ function export_user_list( $course_id )
     
     return $csvContent;
 }
-?>
+
