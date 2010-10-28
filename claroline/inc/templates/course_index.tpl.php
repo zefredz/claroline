@@ -30,11 +30,21 @@ endif;
 
 <?php if ( claro_is_user_authenticated() ) : ?>
 <br />
-<small>
-<span class="item hot">
-<?php echo get_lang('denotes new items'); ?>
+<span style='font-size:8pt'> 
+<?php
+    echo '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
+    	. get_lang('New items'). ' ('
+    . '<a href="' . get_path('clarolineRepositoryWeb') . 'notification_date.php' . '" >' . get_lang('other date') . '</a>';
+            
+    if (substr($_SESSION['last_action'],10) == '00:00:00' )
+    {
+        echo ' [' . claro_html_localised_date( get_locale('dateFormatNumeric'),
+            strtotime($_SESSION['last_action'])) . ']';
+    }
+    
+    echo ')' ;
+?>
 </span>
-</small>
 <?php endif; ?>
 
 </td>

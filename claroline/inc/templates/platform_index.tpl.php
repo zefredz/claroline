@@ -108,13 +108,20 @@ if ( claro_is_user_authenticated() ) :
         // DISPLAY USER OWN COURSE LIST
         require get_path( 'incRepositorySys' ) . '/index_mycourses.inc.php';        
         if (claro_is_allowed_to_create_course())
-            echo render_access_mode_caption_block(); 
-            
-        echo '<fieldset class="captionBlock">' 
-    	. '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
-    	. get_lang('New items'). ' ('  
-        . '<a href="' . get_path('clarolineRepositoryWeb') . 'notification_date.php' . '" >' . get_lang('to a previous date') . '</a>'
-        . ')</fieldset>' ;
+            echo render_access_mode_caption_block();
+        
+        echo '<fieldset class="captionBlock">'
+        	. '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
+        	. get_lang('New items'). ' ('
+            . '<a href="'. htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')) . '" >' . get_lang('to another date') . '</a>';
+                
+        if (substr($_SESSION['last_action'],10) == '00:00:00' )
+        {
+            echo ' [' . claro_html_localised_date( get_locale('dateFormatNumeric'),
+                strtotime($_SESSION['last_action'])) . ']' ;
+        }
+        
+        echo ')</fieldset>' ;
     }
 else :
     if ( ! get_conf('course_categories_hidden_to_anonymous',false) )
