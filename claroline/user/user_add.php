@@ -190,7 +190,12 @@ if ( $cmd == 'registration' )
     if ( $userId )
     {
         $courseRegSucceed = user_add_to_course($userId, claro_get_current_course_id(), $userData['courseAdmin'], $userData['tutor'],false);
-
+        Console::log(
+            "{$userId} enroled to course "
+            .  claro_get_current_course_id()
+            . " by " . claro_get_current_user_id(),
+                'COURSE_SUBSCRIBE'
+        );
     }
     else
     {

@@ -67,6 +67,13 @@ switch ( $cmd )
 
         if ( register_class_to_course( $form_data['class_id'], claro_get_current_course_id()) )
         {
+            Console::log(
+                "Class {$form_data['class_id']} enroled to course "
+                .  claro_get_current_course_id()
+                . " by " . claro_get_current_user_id(),
+                    'CLASS_SUBSCRIBE'
+            );
+
             $dialogBoxMsg[]  = get_lang('Class has been enroled') ;
         }
         break;
@@ -77,6 +84,13 @@ switch ( $cmd )
 
         if ( unregister_class_to_course( $form_data['class_id'], claro_get_current_course_id()) )
         {
+            Console::log(
+                "Class {$form_data['class_id']} removed from course "
+                .  claro_get_current_course_id()
+                . " by " . claro_get_current_user_id(),
+                    'CLASS_UNSUBSCRIBE'
+            );
+
             $dialogBoxMsg[]  = get_lang('Class has been unenroled') ;
         }
         break;
