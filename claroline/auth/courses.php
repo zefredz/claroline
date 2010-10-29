@@ -258,6 +258,8 @@ if ( $cmd == 'exReg' )
             //Try to register user
             if ( user_add_to_course($userId, $courseCode, false, false, false) )
             {
+                $claroline->log('COURSE_SUBSCRIBE',array('user'=>$userId,'course'=>$courseCode));
+
                 if ( claro_get_current_user_id() != $uidToEdit )
                 {
                     //Message for admin

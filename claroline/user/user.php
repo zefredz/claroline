@@ -123,8 +123,10 @@ if ( $is_allowedToEdit )
     if ( $cmd == 'register' && $req['user_id'])
     {
         $done = user_add_to_course($req['user_id'], claro_get_current_course_id(), false, false, false);
+
         if ($done)
         {
+            Console::log( "{$req['user_id']} subscribe to course ".  claro_get_current_course_id(), 'COURSE_SUBSCRIBE');
             $dialogBox->success( get_lang('User registered to the course') );
         }
     }
@@ -143,6 +145,8 @@ if ( $is_allowedToEdit )
                     AND `isCourseManager` = 0";
             
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
+
+            Console::log( "{$req['user_id']} ({$unregisterdUserCount}) removed by user ".  claro_get_current_user_id(), 'COURSE_UNSUBSCRIBE');
             
             $dialogBox->success( get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) ) );
         }
@@ -151,7 +155,8 @@ if ( $is_allowedToEdit )
             // delete user from course user list
             if ( user_remove_from_course(  $req['user_id'], claro_get_current_course_id(), false, false, false) )
             {
-               $dialogBox->success( get_lang('The user has been successfully unregistered from course') );
+                Console::log( "{$req['user_id']} removed by user ".  claro_get_current_user_id(), 'COURSE_UNSUBSCRIBE');
+                $dialogBox->success( get_lang('The user has been successfully unregistered from course') );
             }
             else
             {
