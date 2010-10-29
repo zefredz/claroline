@@ -201,7 +201,7 @@ if ( $cmd == 'exUnreg' )
 {
     if ( user_remove_from_course($userId, $course, false, false, false) )
     {
-        $claroline->log('COURSE_UNSUBSCRIBE',array('user'=>$userId,'course'=>$course));
+        $claroline->log( 'COURSE_UNSUBSCRIBE', array('user'=>$userId,'course'=>$course ) );
         $dialogBox->success( get_lang('Your enrolment on the course has been removed') );
     }
     else
@@ -243,6 +243,8 @@ if ( $cmd == 'exReg' )
             // try to register user
             if ( user_add_to_course($userId, $course, false, false, false) )
             {
+                $claroline->log('COURSE_SUBSCRIBE',array('user'=>$userId,'course'=>$courseCode));
+
                 if ( claro_get_current_user_id() != $uidToEdit )
                 {
                     // message for admin

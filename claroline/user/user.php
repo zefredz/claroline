@@ -118,15 +118,24 @@ if ( $is_allowedToEdit )
 {
     $disp_tool_link = TRUE;
 
+    // Register a new user
     if ( $cmd == 'register' && $req['user_id'])
     {
         $done = user_add_to_course($req['user_id'], claro_get_current_course_id(), false, false, false);
+
         if ($done)
         {
+            Console::log(
+                "{$req['user_id']} subscribe to course "
+                .  claro_get_current_course_id(),
+                    'COURSE_SUBSCRIBE'
+            );
+
             $dialogBox->success( get_lang('User registered to the course') );
         }
     }
 
+    // Unregister a user
     if ( $cmd == 'unregister')
     {
         // Unregister user from course
@@ -141,6 +150,13 @@ if ( $is_allowedToEdit )
 
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
 
+            Console::log( 
+                "{$unregisterdUserCount} students removed by user "
+                .  claro_get_current_user_id()
+                . " in ".  claro_get_current_course_id(),
+                    'COURSE_UNSUBSCRIBE'
+            );
+
             $dialogBox->success( get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) ) );
         }
         elseif ( 0 < (int)  $req['user_id'] )
@@ -148,7 +164,14 @@ if ( $is_allowedToEdit )
             // delete user from course user list
             if ( user_remove_from_course(  $req['user_id'], claro_get_current_course_id(), false, false, false) )
             {
-               $dialogBox->success( get_lang('The user has been successfully unregistered from course') );
+                Console::log(
+                    "{$req['user_id']} removed from "
+                    . claro_get_current_course_id()
+                    . " by user ".  claro_get_current_user_id(),
+                        'COURSE_UNSUBSCRIBE'
+                );
+
+                $dialogBox->success( get_lang('The user has been successfully unregistered from course') );
             }
             else
             {
