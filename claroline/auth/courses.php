@@ -379,7 +379,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
         
         $categoriesList         = $courseCategoryBrowser->get_sub_category_list();
         
-        $courseCategoryBrowser->get_course_list();
+        $courseCategoryBrowser->getCourseList();
         $coursesList            = $courseCategoryBrowser->getCoursesWithoutSourceCourses();
         
         $displayMode = DISPLAY_COURSE_TREE;

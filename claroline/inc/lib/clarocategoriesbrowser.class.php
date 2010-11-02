@@ -52,8 +52,8 @@ class ClaroCategoriesBrowser
         $this->categoriesList   = claroCategory::getCategories($categoryId, 1);
         $this->coursesList      = claroCourse::getRestrictedCourses($categoryId, $userId);
     }
-
-
+    
+    
     /**
      * @since 1.8
      * @return object claroCategory
@@ -65,8 +65,8 @@ class ClaroCategoriesBrowser
         else
             return null;
     }
-
-
+    
+    
     /**
      * @since 1.8
      * @return iterator     list of sub category of the current category
@@ -78,8 +78,8 @@ class ClaroCategoriesBrowser
         else
             return array();
     }
-
-
+    
+    
     /**
      * Fetch list of courses of the current category.
      *
@@ -89,7 +89,7 @@ class ClaroCategoriesBrowser
      * @since 1.8
      * @return array    list of courses of the current category
      */
-    function get_course_list()
+    function getCourseList()
     {
         if (!empty($this->coursesList))
             return $this->coursesList;
@@ -166,5 +166,28 @@ class ClaroCategoriesBrowser
         }
         else
             return array();
+    }
+    
+    
+    /**
+     * @return template object
+     * @since 1.10
+     */
+    function getTemplate()
+    {
+        $currentCategory    = $this->get_current_category_settings();
+        $categoriesList     = $this->get_sub_category_list();
+        
+        $coursesList = (!is_null(claro_get_current_user_id())) ?
+        $this->getCoursesWithoutSourceCourses():
+        $this->getCoursesWithoutSessionCourses();
+        
+        $template = new CoreTemplate('platform_courses.tpl.php');
+        $template->assign('currentCategory', $currentCategory);
+        $template->assign('categoryBrowser', $this);
+        $template->assign('categoriesList', $categoriesList);
+        $template->assign('coursesList', $coursesList);
+        
+        return $template;
     }
 }

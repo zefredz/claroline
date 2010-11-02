@@ -4,11 +4,10 @@
     <h3><?php echo $this->currentCategory->name; ?></h3>
     <p>
         <small>
-        <a href="
-        <?php echo $_SERVER['PHP_SELF'] . "?category=" . urlencode( $this->currentCategory->idParent ); ?>
-        #categoryContent">
-        &larr;
-        <?php echo get_lang( 'previous level' ); ?>
+        <?php echo '<a href="' . $_SERVER['PHP_SELF'] . '?category='
+        . urlencode( $this->currentCategory->idParent )
+        . '#categoryContent">&larr;'
+        . get_lang( 'previous level' ); ?>
         </a>
         </small>
     </p>
@@ -18,14 +17,14 @@
 
 <?php if ( ( count($this->categoriesList ) - 1) >= 0 ) : ?>
     
-    <?php echo claro_html_title( get_lang( 'Categories' ), 4 ); ?>
+    <?php echo claro_html_title( get_lang( 'Sub categories' ), 4 ); ?>
     
     <ul>
     <?php foreach( $this->categoriesList as $category ) : ?>
         <li>
         
         <?php if (claroCategory::countAllCourses($category['id']) + claroCategory::countAllSubCategories($category['id']) > 0) : ?>
-           <?php echo '<a href="' . $_SERVER['PHP_SELF'] . "?category="
+           <?php echo '<a href="' . $_SERVER['PHP_SELF'] . '?category='
             . urlencode( $category['id'] ) . '#categoryContent">'
             . $category['name'] . '</a>'; ?>
         <?php else : ?>
@@ -39,11 +38,7 @@
 <?php endif; ?>
 
 <?php if ( count($this->coursesList) > 0 ) : ?>
-    <?php if ( ( count($this->categoriesList) - 1 ) > 0 ) : ?>
-        <hr size="1" noshade="noshade" />
-    <?php endif; ?>
-        
-    <h4><?php echo get_lang( 'Course list' ); ?></h4>
+    <h4><?php echo get_lang( 'Courses in this category' ); ?></h4>
     <dl class="userCourseList">
         <?php foreach( $this->coursesList as $course ) : ?>
             <?php echo render_course_dt_in_dd_list( $course, false ); ?>
@@ -52,7 +47,11 @@
 <?php else : ?>
     <?php if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] = 'search') : ?>
         <p>
-            <?php get_lang( 'Your search did not match any courses' ); ?>
+            <?php echo get_lang( 'Your search did not match any courses' ); ?>
+            <br/>
+            <a href="platform_courses.php">
+                <?php echo get_lang( 'Get back to the platform courses list.' ); ?>
+            </a>
         </p>
     <?php endif; ?>
 <?php endif; ?>
@@ -60,11 +59,10 @@
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>
 <p>
     <small>
-    <a href="
-    <?php echo $_SERVER['PHP_SELF'] . "?category=" . urlencode( $this->currentCategory->idParent ); ?>
-    #categoryContent">
-    &larr;
-    <?php echo get_lang( 'previous level' ); ?>
+    <?php echo '<a href="' . $_SERVER['PHP_SELF'] . '?category='
+    . urlencode( $this->currentCategory->idParent )
+    . '#categoryContent">&larr;'
+    . get_lang( 'previous level' ); ?>
     </a>
     </small>
 </p>

@@ -49,7 +49,6 @@ endif;
 
 <?php
 if ( claro_is_user_authenticated() ) :
-
     /**
      * Commands line
      */
@@ -88,7 +87,7 @@ if ( claro_is_user_authenticated() ) :
         .    '</a>';
     }
 
-    $userCommands[] = '<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
+    $userCommands[] = '<a href="claroline/course/platform_courses.php" class="claroCmd">'
     .                 '<img src="' . get_icon_url('course') . '" alt="" /> '
     .     get_lang('All platform courses')
     .                 '</a>'
@@ -96,17 +95,7 @@ if ( claro_is_user_authenticated() ) :
 
     echo '<a name="myCourseList"></a><p>' . claro_html_menu_horizontal( $userCommands ) . '</p>' . "\n";
 
-    if ( isset( $_REQUEST['category'] ) || ( isset( $_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'search' ) )
-    {
-        // DISPLAY PLATFORM COURSE LIST and search result
-        require get_path( 'incRepositorySys' ) . '/index_platformcourses.inc.php';
-        if( !( isset( $_REQUEST['category'] ) && '' == trim( $_REQUEST['category'] ) ) )
-        {
-            echo render_access_mode_caption_block();
-        }
-    }
-    else
-    {
+        
         // DISPLAY USER OWN COURSE LIST
         
         // Clean session code
@@ -117,8 +106,8 @@ if ( claro_is_user_authenticated() ) :
             echo render_access_mode_caption_block();
         
         echo '<fieldset class="captionBlock">'
-        	. '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
-        	. get_lang('New items'). ' ('
+            . '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
+            . get_lang('New items'). ' ('
             . '<a href="'. htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')) . '" >' . get_lang('to another date') . '</a>';
                 
         $nbChar = strlen($_SESSION['last_action']);
@@ -129,19 +118,13 @@ if ( claro_is_user_authenticated() ) :
         }
         
         echo ')</fieldset>' ;
-    }
+
 else :
     if ( ! get_conf('course_categories_hidden_to_anonymous',false) )
     {
-        // DISPLAY PLATFORM COURSE LIST
-        require get_path( 'incRepositorySys' ) . '/index_platformcourses.inc.php';
-        if ( !empty( $_REQUEST['category'] ) || ( isset( $_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' ) )
-        {
-            echo render_access_mode_caption_block();
-        }
+        echo $this->templateCategoryBrowser->render();
     }
 endif;
-
 
 ?>
 

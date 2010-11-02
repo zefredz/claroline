@@ -512,7 +512,7 @@ function render_user_course_list_desactivated()
             }
             
             $deactivatedCoursesDiplayed++;
-
+            
             
             if ( get_conf('course_order_by') == 'official_code' )
             {

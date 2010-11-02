@@ -30,13 +30,20 @@ include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
 if (get_conf('display_user_desktop'))
 {
-    require_once get_path('clarolineRepositorySys') . '/desktop/index.php'; // conf file
+    require_once get_path('clarolineRepositorySys') . '/desktop/index.php';
 }
 else
 {
-    require_once get_path('incRepositorySys') . '/lib/courselist.lib.php'; // conf file
+    require_once get_path('incRepositorySys') . '/lib/courselist.lib.php';
+    require get_path('incRepositorySys') . '/lib/courselist.lib.php';
+    
+    $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
+    $categoryBrowser    = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
+    $templateCategoryBrowser = $categoryBrowser->getTemplate();
     
     $template = new CoreTemplate('platform_index.tpl.php');
+    $template->assign('templateCategoryBrowser', $templateCategoryBrowser);
+    
     
     $claroline->display->body->setContent($template->render());
     

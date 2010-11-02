@@ -648,20 +648,19 @@ a.item:visited{
 
 dl.userCourseList
 {
-    padding-left: 30px;
+    padding-left: 0;
 }
 
 .userCourseList dt
 {
     margin: 0;
     padding: 0;
-    padding-left: 16px;
 }
 
 .userCourseList dd
 {
     margin: 0;
-    padding: 0 0 0 32px;
+    padding: 0 0 0 20px;
 }
 
 .userCourseList dt a, .userCourseList dd small
