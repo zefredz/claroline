@@ -99,13 +99,13 @@ class ReceivedMessageBox extends MessageBox
             }
             
             $sql =
-                "SELECT DISTINCT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender, M.subject,\n"
+                "SELECT  U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender, M.subject,\n"
                 ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools,\n"
                 ."RE.sent_to"
                 . " FROM `" . $tableName['im_message'] . "` as M\n"
                 . " LEFT JOIN `" . $tableName['im_message_status'] . "` as R ON M.message_id = R.message_id\n"
                 . " LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
-                ." LEFT JOIN `".$tableName['im_recipient']."` AS RE ON M.message_id = RE.message_id\n"
+                ." LEFT JOIN `".$tableName['im_recipient']."` AS RE ON M.message_id = RE.message_id AND RE.user_id = R.user_id\n"
                 . " WHERE (R.user_id = " . (int)$this->getUserId() . " OR R.user_id = 0) \n" // 0 platforme message
                 .    " " . $strategy
                 .    " " . $order
