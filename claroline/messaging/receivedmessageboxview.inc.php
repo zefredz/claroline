@@ -208,6 +208,7 @@
         $claroline->display->header->addHtmlHeader($javascriptDelete);
         
         $arg_deleting = makeArgLink($link_arg);
+
         if ($arg_deleting == "")
         {
             $link = $linkPage."?";
@@ -216,6 +217,7 @@
         {
             $link = $linkPage."?".$arg_deleting."&amp;";
         }
+
         foreach ($box as $key => $message)
         {
             $content .= '<tr';
