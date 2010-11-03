@@ -99,7 +99,7 @@ class ReceivedMessageBox extends MessageBox
             }
             
             $sql =
-                "SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender, M.subject,\n"
+                "SELECT DISTINCT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender, M.subject,\n"
                 ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools,\n"
                 ."RE.sent_to"
                 . " FROM `" . $tableName['im_message'] . "` as M\n"
