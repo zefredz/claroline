@@ -189,7 +189,8 @@ class ReceivedMessage extends StoredMessage
         {
             $this->isRead = (int) $messageData['is_read'];
         }
-        else{
+        else
+        {
             throw new Exception("\$messageData['is_read'] is not defined: All data must be defined and not null");
         }
          
@@ -197,13 +198,23 @@ class ReceivedMessage extends StoredMessage
         {
             $this->isDeleted = (int) $messageData['is_deleted'];
         }
-        else{
+        else
+        {
             throw new Exception("\$messageData['is_deleted'] is not defined: All data must be defined and not null");
         }
         
         if (isset($messageData['user_id']) && !is_null($messageData['user_id']))
         {
             $this->userId = (int) $messageData['user_id'];
+        }
+        else
+        {
+            throw new Exception("\$messageData['user_id'] is not defined: All data must be defined and not null");
+        }
+
+        if (isset($messageData['sent_to']) && !is_null($messageData['sent_to']))
+        {
+            $this->sentTo = $messageData['sent_to'];
         }
         else
         {
@@ -282,14 +293,16 @@ class ReceivedMessage extends StoredMessage
             $userSql = "";
         }
          
-        $tableName = get_module_main_tbl(array('im_message','im_message_status','user'));
+        $tableName = get_module_main_tbl(array('im_message','im_message_status','user','im_recipient'));
          
         $messageSQL =
             "SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender,M.subject,  \n"
-                ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools \n"
+                ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools, \n"
+                ."RE.sent_to"
                 .    "FROM `" . $tableName['im_message'] . "` as M \n"
                 .    " LEFT JOIN `".$tableName['im_message_status']."` AS R ON M.message_id = R.message_id\n"
                 .    " LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
+                ." LEFT JOIN `".$tableName['im_recipient']."` AS RE ON M.message_id = RE.message_id\n"
                 .    " WHERE M.message_id = " . (int) $messageId."\n"
                 . $userSql
                 ;
@@ -300,10 +313,12 @@ class ReceivedMessage extends StoredMessage
         {
             $messageSQL =
                 "SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender, M.subject, \n"
-                ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools \n"
+                ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools, \n"
+                ."RE.sent_to"
                 ."FROM `" . $tableName['im_message'] . "` as M\n"
                 ." LEFT JOIN `".$tableName['im_message_status']."` AS R ON M.message_id = R.message_id\n"
                 ." LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
+                ." LEFT JOIN `".$tableName['im_recipient']."` AS RE ON M.message_id = RE.message_id\n"
                 ." WHERE R.user_id = 0" 
                 ." AND M.message_id = " . (int) $messageId
                 ;
@@ -324,18 +339,25 @@ class ReceivedMessage extends StoredMessage
      */
     public function load()
     {
-        $tableName = get_module_main_tbl(array('im_message','im_message_status','user'));
+        $tableName = get_module_main_tbl(array('im_message','im_message_status','user','im_recipient'));
         
         $messageSQL =
             "SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender, M.subject, \n"
-            ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id , M.course, M.group, M.tools \n"
+            ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id , M.course, M.group, M.tools, \n"
+            ."RE.sent_to"
             ." FROM `" . $tableName['im_message'] . "` as M \n"
             ." LEFT JOIN `".$tableName['im_message_status'] . "` as R ON M.message_id = R.message_id\n"
             ." LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
+            ." LEFT JOIN `".$tableName['im_recipient']."` AS RE ON M.message_id = RE.message_id\n"
             ." WHERE R.user_id = " . (int) $this->userId."\n"
             ." AND M.message_id = " . (int) $this->messageId."\n"
             ;
         
         $this->setFromArray(claro_sql_query_fetch_single_row($messageSQL));
+    }
+
+    public function isPlatformMessage()
+    {
+        return $this->sentTo == 'allUser';
     }
 }

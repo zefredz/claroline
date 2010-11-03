@@ -83,9 +83,14 @@
      */
     function claro_is_user_platform_admin($userId)
     {
+        static $uidAdmin = false;
+
         require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
-        $uidAdmin = claro_get_uid_of_platform_admin();
+        if ( ! $uidAdmin )
+        {
+            $uidAdmin = claro_get_uid_of_platform_admin();
+        }
         
         return (in_array($userId,$uidAdmin));
     }
