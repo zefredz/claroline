@@ -298,7 +298,7 @@ class ReceivedMessage extends StoredMessage
         $messageSQL =
             "SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender,M.subject,  \n"
                 ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools, \n"
-                ."RE.sent_to"
+                ."RE.sent_to\n"
                 .    "FROM `" . $tableName['im_message'] . "` as M \n"
                 .    " LEFT JOIN `".$tableName['im_message_status']."` AS R ON M.message_id = R.message_id\n"
                 .    " LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
@@ -314,7 +314,7 @@ class ReceivedMessage extends StoredMessage
             $messageSQL =
                 "SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender, M.subject, \n"
                 ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools, \n"
-                ."RE.sent_to"
+                ."RE.sent_to\n"
                 ."FROM `" . $tableName['im_message'] . "` as M\n"
                 ." LEFT JOIN `".$tableName['im_message_status']."` AS R ON M.message_id = R.message_id\n"
                 ." LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
