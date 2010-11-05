@@ -763,10 +763,10 @@ class ClaroCourse
         {
             // Problem with url. try to repair
             // if  it  only the protocol missing add http
-            if ( preg_match('/^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$/i', $this->extLinkUrl)
-                && ( preg_match($regexp, 'http://' . $this->extLinkUrl)))
+            $fixed_url = 'http://' . $this->extLinkUrl;
+            if ( preg_match($regexp, $fixed_url))
             {
-                $this->extLinkUrl = 'http://' . $this->extLinkUrl;
+                $this->extLinkUrl = $fixed_url;
             }
             else
             {
@@ -925,7 +925,7 @@ class ClaroCourse
             . "\n";
         
         // Course categories (not displayed for session courses)
-        if (is_null($this->sourceCourseId))
+        if (empty($this->sourceCourseId))
         {
             $html .= '<dt>'
                 . '<label>'
