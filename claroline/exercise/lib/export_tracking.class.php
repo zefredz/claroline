@@ -73,7 +73,7 @@ class csvTrackTrueFalse extends csv
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
-        $sql .= " ORDER BY `TE`.`date` ASC, `lastname` ASC";
+        $sql .= " ORDER BY `TE`.`date` ASC, `lastname` ASC, `firstname` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
 
@@ -157,7 +157,7 @@ class csvTrackMultipleChoice extends csv
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
-        $sql .= " ORDER BY `TE`.`date` ASC, `lastname` ASC";
+        $sql .= " ORDER BY `TE`.`date` ASC, `lastname` ASC, `firstname` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
 
@@ -234,7 +234,7 @@ class csvTrackFIB extends csv
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
-        $sql .= " ORDER BY `TE`.`date` ASC, `lastname` ASC";
+        $sql .= " ORDER BY `TE`.`date` ASC, `lastname` ASC, `firstname` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
 
@@ -310,7 +310,7 @@ class csvTrackMatching extends csv
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
-        $sql .= " ORDER BY `TE`.`date` ASC, `lastname` ASC";
+        $sql .= " ORDER BY `TE`.`date` ASC, `lastname` ASC, `firstname` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
 
@@ -454,7 +454,8 @@ class ExoExportByUser extends csv
                     `TE`.`exo_id` IS NULL
                 )
                 GROUP BY `U`.`user_id`
-                ORDER BY `U`.`lastname` DESC";
+                ORDER BY `lastname` DESC, `firstname` DESC";
+                // !!!! we have to order by lastname and firstname DESC because of the array_reverse below
         
         $csvDatas = claro_sql_query_fetch_all($sql);
         
