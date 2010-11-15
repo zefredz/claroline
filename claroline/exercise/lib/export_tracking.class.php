@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 |   as published by the Free Software Foundation; either version 2
 |   of the License, or (at your option) any later version.
 +----------------------------------------------------------------------+
-| Authors: Sébastien Piraux
+| Authors: Sï¿½bastien Piraux
 +----------------------------------------------------------------------+
 */
 
@@ -51,7 +51,8 @@ class csvTrackTrueFalse extends csv
         
         // this query doesn't show attempts without any answer
         $sql = "SELECT `TE`.`date`,
-                        CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
+                        `U`.`prenom` AS `firstname`,
+                        `U`.`nom` AS `lastname`,
                         `Q`.`title`,
                         `TEA`.`answer`
                 FROM (
@@ -72,7 +73,7 @@ class csvTrackTrueFalse extends csv
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
-        $sql .= " ORDER BY `TE`.`date` ASC, `name` ASC";
+        $sql .= " ORDER BY `TE`.`date` ASC, `lastname` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
 
@@ -134,7 +135,8 @@ class csvTrackMultipleChoice extends csv
 
         // this query doesn't show attempts without any answer
         $sql = "SELECT `TE`.`date`,
-                        CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
+                        `U`.`prenom` AS `firstname`,
+                        `U`.`nom` AS `lastname`,
                         `Q`.`title`,
                         `TEA`.`answer`
                 FROM (
@@ -155,7 +157,7 @@ class csvTrackMultipleChoice extends csv
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
-        $sql .= " ORDER BY `TE`.`date` ASC, `name` ASC";
+        $sql .= " ORDER BY `TE`.`date` ASC, `lastname` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
 
@@ -210,7 +212,8 @@ class csvTrackFIB extends csv
 
         // this query doesn't show attempts without any answer
         $sql = "SELECT `TE`.`date`,
-                        CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
+                        `U`.`prenom` AS `firstname`,
+                        `U`.`nom` AS `lastname`,
                         `Q`.`title`,
                         `TEA`.`answer`
                 FROM (
@@ -231,7 +234,7 @@ class csvTrackFIB extends csv
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
-        $sql .= " ORDER BY `TE`.`date` ASC, `name` ASC";
+        $sql .= " ORDER BY `TE`.`date` ASC, `lastname` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
 
@@ -285,7 +288,8 @@ class csvTrackMatching extends csv
 
         // this query doesn't show attempts without any answer
         $sql = "SELECT `TE`.`date`,
-                        CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
+                        `U`.`prenom` AS `firstname`,
+                        `U`.`nom` AS `lastname`,
                         `Q`.`title`,
                         `TEA`.`answer`
                 FROM (
@@ -306,7 +310,7 @@ class csvTrackMatching extends csv
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
-        $sql .= " ORDER BY `TE`.`date` ASC, `name` ASC";
+        $sql .= " ORDER BY `TE`.`date` ASC, `lastname` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
 
@@ -427,7 +431,8 @@ class ExoExportByUser extends csv
         $tbl_qwz_tracking    = $tbl_cdb_names['qwz_tracking'];
         
         $sql = "SELECT
-                    CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
+                    `U`.`prenom` AS `firstname`,
+                    `U`.`nom` AS `lastname`,
                     MIN(TE.`result`) AS `minimum`,
                     MAX(TE.`result`) AS `maximum`,
                     AVG(TE.`result`) AS `average`,
@@ -449,7 +454,7 @@ class ExoExportByUser extends csv
                     `TE`.`exo_id` IS NULL
                 )
                 GROUP BY `U`.`user_id`
-                ORDER BY `U`.`nom` DESC";
+                ORDER BY `U`.`lastname` DESC";
         
         $csvDatas = claro_sql_query_fetch_all($sql);
         
@@ -473,12 +478,13 @@ class ExoExportByUser extends csv
             $i++;
         }
         
-        $csvDatas[] = array(    'name' => get_lang( 'Student' ),
-                                'minimum' => get_lang( 'Worst score' ),
-                                'maximum' => get_lang( 'Best score' ),
-                                'average' => get_lang( 'Average score' ),
-                                'attempts' => get_lang( 'Attempts' ),
-                                'avgTime' => get_lang( 'Average Time' ) );
+        $csvDatas[] = array(    'firstname' => get_lang( 'First name' ),
+                                'lastname'  => get_lang( 'Last name' ),
+                                'minimum'   => get_lang( 'Worst score' ),
+                                'maximum'   => get_lang( 'Best score' ),
+                                'average'   => get_lang( 'Average score' ),
+                                'attempts'  => get_lang( 'Attempts' ),
+                                'avgTime'   => get_lang( 'Average Time' ) );
         
         $this->recordList = array_reverse( $csvDatas );
         
