@@ -455,6 +455,7 @@ class ExoExportByUser extends csv
                 )
                 GROUP BY `U`.`user_id`
                 ORDER BY `lastname` DESC, `firstname` DESC";
+                // !!!! we have to order by lastname and firstname DESC because of the array_reverse below
         
         $csvDatas = claro_sql_query_fetch_all($sql);
         
