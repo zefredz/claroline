@@ -110,7 +110,8 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_users_random_questions` (
   `user_id` int(11) NOT NULL,
   `exercise_id` int(11) NOT NULL,
   `questions` text NOT NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  KEY `user_exo` ( `user_id`, `exercise_id` )
 ) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_questions_categories` (
