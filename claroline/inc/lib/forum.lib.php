@@ -879,7 +879,7 @@ class topicLister
      * @param int $postPerPage number of post to display per page
      */
 
-    function topicLister($forumId, $start = 1, $topicPerPage)
+    function topicLister($forumId, $start = 1, $topicPerPage = 10)
     {
         $tbl_cdb_names = claro_sql_get_course_tbl();
         $tbl_topics    = $tbl_cdb_names['bb_topics'];
@@ -949,7 +949,7 @@ class postLister
      * @param int $postPerPage number of post to display per page
      */
 
-    function postLister($topicId, $start = 1, $postsPerPage)
+    function postLister($topicId, $start = 1, $postsPerPage = 10)
     {
         $tbl_cdb_names = claro_sql_get_course_tbl();
         $tbl_posts            = $tbl_cdb_names['bb_posts'];
@@ -1003,7 +1003,7 @@ class postLister
         /**
      * return count of post of the current topic
      *
-     * @author Christophe Gesché <moosh@claroline.net>
+     * @author Christophe Geschï¿½ <moosh@claroline.net>
      * @return array post list
      */
 
@@ -1219,20 +1219,25 @@ function forum_group_tool_list($gid, $active = true)
         . get_lang('Group area')
     );
 
+    $courseGroupData= claro_get_main_group_properties( $courseId );
 
     foreach ($groupToolList as $groupTool)
     {
-        if ('CLFRM' !== $groupTool['label'])
-        $toolList[] =
-        claro_html_cmd_link(
-            htmlspecialchars(Url::Contextualize(
-            get_module_url($groupTool['label'])
-            . '/' . $groupTool['url'] ))
-            , '<img src="' . get_module_url($groupTool['label']) . '/' . ($groupTool['icon']) . '" alt="" />'
-            . '&nbsp;'
-            . claro_get_tool_name ($groupTool['label'])
-            , array('class' => $groupTool['visibility'] ? 'visible':'invisible')
-        );
+        if ('CLFRM' !== $groupTool['label']
+            && is_tool_activated_in_groups($courseId, $groupTool['label'])
+            && ( isset($courseGroupData['tools'][$groupTool['label']])
+                && $courseGroupData['tools'][$groupTool['label']] ) )
+        {
+            $toolList[] = claro_html_cmd_link(
+                htmlspecialchars(Url::Contextualize(
+                get_module_url($groupTool['label'])
+                . '/' . $groupTool['url'] ))
+                , '<img src="' . get_module_url($groupTool['label']) . '/' . ($groupTool['icon']) . '" alt="" />'
+                . '&nbsp;'
+                . claro_get_tool_name ($groupTool['label'])
+                , array('class' => $groupTool['visibility'] ? 'visible':'invisible')
+            );
+        }
     }
 
     return $toolList;
@@ -2021,5 +2026,6 @@ function get_access_mode_to_group_forum( $forum )
         }
         return $accessMode;
     }
+
     return false;
 }
