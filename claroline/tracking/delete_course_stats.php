@@ -104,6 +104,12 @@ if( 'exDelete' == $cmd && 'BEFORE' == $scope )
         }
 
         $dialogBox->success( get_block('All events before %date have been successfully deleted', array('%date' => claro_html_localised_date(get_locale('dateFormatLong'), $beforeDate))));
+
+        Console::log( "In course "
+            .  claro_get_current_course_id()
+            . " : tracking events before " 
+            . date('Y-m-d', $beforeDate)
+            . " deleted by " . claro_get_current_user_id(), 'COURSE_RESET_TRACKING_BEFORE' );
     }
     else
     {
@@ -131,6 +137,11 @@ if( 'exDelete' == $cmd && 'ALL' == $scope )
     }
 
     $dialogBox->success(get_lang('Course statistics are now empty'));
+
+    Console::log( "In course "
+        .  claro_get_current_course_id()
+        . " : all tracking events deleted by user "
+        . claro_get_current_user_id(), 'COURSE_RESET_ALL_TRACKING' );
 
     $display = DISP_FLUSH_RESULT;
 }
