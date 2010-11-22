@@ -15,7 +15,7 @@
  * @package UPGRADE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
  */
@@ -286,9 +286,10 @@ switch ( $display )
 
         if ( preg_match('/^1.9/',$currentDbVersion) )
         {
-            $function_list = array('upgrade_category_to_110', 
+            $function_list = array('upgrade_category_to_110',
                                    'upgrade_session_course_to_110',
-                                   'upgrade_cours_user_to_110'
+                                   'upgrade_cours_user_to_110',
+                                   'upgrade_coursehomepage_to_110'
                                     );
             
             

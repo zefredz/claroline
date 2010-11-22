@@ -10,7 +10,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE *
  * @package     UPGRADE *
  * @author      Claro Team <cvs@claroline.net>
- * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net> 
+ * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
  *              (upgrades regarding session courses and categories)
  *
  */
@@ -26,7 +26,7 @@ function upgrade_category_to_110 ()
     $tool = 'CATEGORY_110';
 
     switch( $step = get_upgrade_status($tool) )
-    {           
+    {
         case 1 :
             
             // Create new tables `category` and `rel_course_category`
@@ -57,8 +57,8 @@ function upgrade_category_to_110 ()
         case 2 :
             
             // Insert root category
-            $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "` 
-                                (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
+            $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "`
+                                (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`)
                                 VALUES
                                 (0, 'Root', 'ROOT', NULL, 0, 0, 0)";
                         
@@ -70,10 +70,10 @@ function upgrade_category_to_110 ()
         case 3:
             
             // Insert all previous categories ("faculties") in the new table `category`
-            $sql = "SELECT f1.`id`, f1.`name`, f1.`code`, f1.`code_P`, f1.`treePos`, f1.`nb_childs`, f1.`canHaveCoursesChild`, f1.`canHaveCatChild`, f2.`id` as idParent 
+            $sql = "SELECT f1.`id`, f1.`name`, f1.`code`, f1.`code_P`, f1.`treePos`, f1.`nb_childs`, f1.`canHaveCoursesChild`, f1.`canHaveCatChild`, f2.`id` as idParent
                     FROM `" . get_conf('mainTblPrefix') . "faculte` f1, `" . get_conf('mainTblPrefix') . "faculte` f2
                     WHERE f1.code_P = f2.code OR f1.code_P IS NULL
-                    GROUP BY f1.id 
+                    GROUP BY f1.id
                     ORDER BY idParent ASC, f1.`treePos` ASC";
             
             $categoriesList = claro_sql_query_fetch_all_rows( $sql );
@@ -98,8 +98,8 @@ function upgrade_category_to_110 ()
                     $category['idParent'] = 0;
                 }
                 
-                $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "` 
-                                   ( `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
+                $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "`
+                                   ( `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`)
                                    VALUES
                                    ( '" . $category['name'] . "', '" . $category['code'] . "', " . $category['idParent'] . ", " . $rank . ", $visibile, " . $category['canHaveCoursesChild'] . ")";
             }
@@ -122,8 +122,8 @@ function upgrade_category_to_110 ()
             $rootCourse = 0; // Change this value if you want to change the default value of rootCourse (1 or 0)
             foreach ( $associationsList as $assoc )
             {
-                $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['rel_course_category'] . "` 
-                                   (`courseId`, `categoryId`, `rootCourse`) 
+                $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['rel_course_category'] . "`
+                                   (`courseId`, `categoryId`, `rootCourse`)
                                    VALUES
                                    (" . (int) $assoc['courseId'] . ", " . (int) $assoc['categoryId'] . ", " . $rootCourse . ")";
             }
@@ -169,11 +169,11 @@ function upgrade_session_course_to_110 ()
     $tool = 'SESSION_COURSE';
 
     switch( $step = get_upgrade_status($tool) )
-    {           
+    {
         case 1 :
             
             // Add the attribute sourceCourseId to the course table
-            $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['course'] . "` 
+            $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['course'] . "`
                                ADD `sourceCourseId` INT NULL AFTER `code`  ";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -185,7 +185,7 @@ function upgrade_session_course_to_110 ()
             
             // Add attribute "isSourceCours" to `cours`table
             $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['course'] . "` ADD `isSourceCourse` TINYINT(4) NOT NULL DEFAULT '0' AFTER `code`";
-            // 
+            //
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
 
@@ -207,7 +207,7 @@ function upgrade_cours_user_to_110 ()
     $tool = 'REL_COURSE_USER';
 
     switch( $step = get_upgrade_status($tool) )
-    {           
+    {
         case 1 :
             
             // Add the attribute sourceCourseId to the course table
@@ -223,11 +223,44 @@ function upgrade_cours_user_to_110 ()
             
             // Add attribute "isSourceCours" to `cours`table
             $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['rel_course_user'] . "` ADD `isPending` TINYINT(4) NOT NULL DEFAULT '0' ";
-            // 
+            //
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
 
-            unset($sqlForUpdate);            
+            unset($sqlForUpdate);
+        default :
+
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+
+    }
+
+    return false;
+}
+
+function upgrade_coursehomepage_to_110 ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'COURSE_HOMEPAGE';
+
+    switch( $step = get_upgrade_status($tool) )
+    {
+        case 1 :
+            
+            // Create table
+            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . get_conf('mainTblPrefix') . "coursehomepage_portlet` (
+                  `courseId` int(11) NOT NULL AUTO_INCREMENT,
+                  `rank` int(11) NOT NULL,
+                  `label` varchar(255) NOT NULL,
+                  `name` varchar(255) NOT NULL,
+                  `visible` tinyint(4) NOT NULL,
+                  PRIMARY KEY (`courseId`,`rank`)
+                )  TYPE=MyISAM";
+            
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+            
+            unset($sqlForUpdate);
         default :
 
             $step = set_upgrade_status($tool, 0);
