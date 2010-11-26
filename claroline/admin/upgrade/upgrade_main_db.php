@@ -288,6 +288,7 @@ switch ( $display )
         {
             $function_list = array('upgrade_category_to_110',
                                    'upgrade_session_course_to_110',
+                                   'upgrade_course_to_110',
                                    'upgrade_cours_user_to_110',
                                    'upgrade_coursehomepage_to_110'
                                     );

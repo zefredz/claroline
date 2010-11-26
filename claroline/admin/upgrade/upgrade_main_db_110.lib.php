@@ -200,6 +200,33 @@ function upgrade_session_course_to_110 ()
 
     return false;
 }
+function upgrade_course_to_110 ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'COURSE';
+
+    switch( $step = get_upgrade_status($tool) )
+    {
+        case 1 :
+            
+            // Add the attribute sourceCourseId to the course table
+            $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['course'] . "`
+                               CHANGE `registration` `registration` enum('open','close','validation')";
+
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+
+            unset($sqlForUpdate);
+            
+        default :
+
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+
+    }
+
+    return false;
+}
 
 function upgrade_cours_user_to_110 ()
 {
