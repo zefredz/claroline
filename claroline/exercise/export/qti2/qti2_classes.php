@@ -22,6 +22,38 @@ include_once get_path('incRepositorySys') . '/lib/xml.lib.php';
 
 class Qti2Question extends Question
 {
+    static private $_rank = 1;
+    
+    private $rank;
+    
+    /**
+     * Constructor
+     */
+    public function __construct( $course_id = null )
+    {
+        $this->rank = self::$_rank++;
+        parent::__construct( $course_id );
+    }
+    
+    /**
+     * get question rank
+     * @return int $rank
+     */
+    public function getRank()
+    {
+        return $this->rank;
+    }
+    
+    /**
+     * set question rank
+     * @param int $rank
+     * @return boolean
+     */
+    public function setRank( $rank )
+    {
+        return $this->rank = (int) $rank;
+    }
+    
     /**
      * Include the correct answer class and create answer
      */

@@ -200,12 +200,10 @@ if( $is_allowedToEdit && !is_null($cmd) )
         $filePathList = array();
         
         //prepare xml file of each question
-        $quRank = 0;
         foreach ($questionList as $question)
         {
             $quId = $question['id'];
             $questionObj = new Qti2Question();
-            $questionObj->setRank( ++$quRank );
             $questionObj->load($quId);
             
             // contruction of XML flow
