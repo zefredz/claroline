@@ -285,7 +285,19 @@ class ClaroCourse
         {
             $this->officialCode = trim(strip_tags($_REQUEST['course_officialCode']));
             $this->officialCode = preg_replace('/[^A-Za-z0-9_]/', '', $this->officialCode);
-            $this->officialCode = strtoupper($this->officialCode);
+            switch (get_conf('forceCodeCase'))
+            {
+                case 'upper':
+                    $this->officialCode = strtoupper($this->officialCode);
+                    break;
+                case 'lower':
+                    $this->officialCode = strtolower($this->officialCode);
+                    break;
+                case 'nochange':
+                    break;
+                default:
+                    break;
+            }
         }
 
         if ( isset($_REQUEST['course_titular'      ]) ) $this->titular = trim(strip_tags($_REQUEST['course_titular']));
