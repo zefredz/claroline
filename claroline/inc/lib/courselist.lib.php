@@ -5,11 +5,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
+ * @version $Revision$
  * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package CLCOURSELIST
  * @author Claro Team <cvs@claroline.net>
+ * @since 1.9
  */
 
 
@@ -132,7 +133,7 @@ function search_course($keyword, $userId = null)
     }
     else
     {
-        return array() ;
+        return array();
     }
 }
 
