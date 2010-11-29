@@ -20,26 +20,11 @@ if ( count( get_included_files() ) == 1 )
 *
 */
 
-abstract class UserDesktopPortlet
+require_once get_path('includePath') . '/lib/portlet.class.php';
+
+abstract class UserDesktopPortlet extends Portlet
 {
-    // render title
-    abstract public function renderTitle();
-
-    // render content
-    abstract public function renderContent();
-
-    // render all
-    public function render()
-    {
-        return '<div class="claroBlock portlet">' . "\n"
-        .   '<div class="claroBlockHeader">' . "\n"
-        .   $this->renderTitle() . "\n"
-        .   '</div>' . "\n"
-        .   '<div class="claroBlockContent">' . "\n"
-        .   $this->renderContent()
-        .   '</div>' . "\n" 
-        .   '</div>' . "\n\n";
-    }
+    
 }
 
 class PortletList
