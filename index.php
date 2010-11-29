@@ -1,19 +1,14 @@
 <?php // $Id$
 /**
  * CLAROLINE
- ******************************************************************************
+ *
  * Campus Home Page
  *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLINDEX
- *
- * @author Claro Team <cvs@claroline.net>
- *
+ * @version     $Revision$
+ * @copyright   (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLINDEX
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 unset($includePath); // prevent hacking
@@ -35,7 +30,6 @@ if (get_conf('display_user_desktop'))
 else
 {
     require_once get_path('incRepositorySys') . '/lib/courselist.lib.php';
-    require get_path('incRepositorySys') . '/lib/courselist.lib.php';
     
     $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
     $categoryBrowser    = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
