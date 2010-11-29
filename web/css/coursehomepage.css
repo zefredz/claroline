@@ -4,4 +4,10 @@
 
 dl#portletMyAnnouncements dd, 
 dl#portletMyAnnouncements dt 
-{ margin-left: 0;}
+{
+    margin-left: 0;
+}
+dl#portletMyAnnouncements dd
+{
+    margin-bottom: 10px;
+}

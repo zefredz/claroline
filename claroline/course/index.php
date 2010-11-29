@@ -1,18 +1,14 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_home/course_home.php
- *
- * @package CLHOME
- *
- * @author Claro Team <cvs@claroline.net>
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *              old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_home/course_home.php
+ * @package     CLHOME
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 // If user is here, it means he isn't neither in specific group space
@@ -27,14 +23,23 @@ elseif ( isset($_REQUEST['cidReq']) ) $cidReq = $_REQUEST['cidReq'];
 
 require '../inc/claro_init_global.inc.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
+require_once get_path('clarolineRepositorySys') . 'coursehomepage/lib/portlet.lib.php';
+require_once get_path('clarolineRepositorySys') . 'coursehomepage/lib/coursehomepageportletiterator.class.php';
+
+$portletiterator = new CourseHomePagePortletIterator(ClaroCourse::getIdFromCode($cidReq));
+
 include claro_get_conf_repository() . 'rss.conf.php';
+
+// Include the course home page special CSS
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load('coursehomepage','all');
 
 // Include specific CSS if any
 if ( claro_is_in_a_course()
     && file_exists( get_conf('coursesRepositorySys')
         . $_course['path'] . '/css/course.css' ) )
 {
-    $claroline->display->header->addHtmlHeader( 
+    $claroline->display->header->addHtmlHeader(
         '<link rel="stylesheet" media="screen" type="text/css" href="'
         . get_path('url') . '/' . get_path('coursesRepositoryAppend')
         . $_course['path'] . '/css/course.css" />');
@@ -85,7 +90,7 @@ if (isset($sourceCourseCode))
     $courseCode['session'] =  claro_get_current_course_id();
     $courseCode['source'] = $sourceCourseCode;
 }
-else 
+else
 {
     if (isset($_SESSION['courseSessionCode'][claro_get_current_course_id()]) )
     {
@@ -93,7 +98,7 @@ else
         $courseCode['source'] = claro_get_current_course_id();
         $courseCode['session'] =  $_SESSION['courseSessionCode'][$courseCode['source']];
     }
-    else 
+    else
         $courseCode['standAlone'] = claro_get_current_course_id();
 }
 
@@ -105,7 +110,7 @@ $toolLinkList = array(
 
 // generate toollists
 foreach ($courseCode as $key => $course)
-{   
+{
     $toolListSource = claro_get_course_tool_list($course, $_profileId, true);
     $toolLinkListSource = array();
     
@@ -158,7 +163,7 @@ foreach ($courseCode as $key => $course)
             .                 '</span>' . "\n"
             ;
         }
-    }       
+    }
 }
     
 // generate toolList for managment of the course
@@ -195,6 +200,7 @@ $template->assign('toolLinkListSource', $toolLinkList['source']);
 $template->assign('toolLinkListSession', $toolLinkList['session']);
 $template->assign('toolLinkListStandAlone', $toolLinkList['standAlone']);
 $template->assign('courseManageToolLinkList', $courseManageToolLinkList);
+$template->assign('portletIterator', $portletiterator);
 
 $claroline->display->body->setContent($template->render());
 

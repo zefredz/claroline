@@ -33,11 +33,12 @@ endif;
 
 <?php if ( claro_is_user_authenticated() ) : ?>
 <br />
-<span style='font-size:8pt'> 
+<span style='font-size:8pt'>
 <?php
     echo '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
-    	. get_lang('New items'). ' ('
-    . '<a href="' . get_path('clarolineRepositoryWeb') . 'notification_date.php' . '" >' . get_lang('to another date') . '</a>';
+        . get_lang('New items'). ' ('
+        . '<a href="' . get_path('clarolineRepositoryWeb') . 'notification_date.php' . '" >'
+        . get_lang('to another date') . '</a>';
             
     $nbChar = strlen($_SESSION['last_action']);
     if (substr($_SESSION['last_action'],$nbChar - 8) == '00:00:00' )
@@ -59,7 +60,16 @@ endif;
 </td>
 
 <td valign="top">
-<?php include( get_path('incRepositorySys') . '/introductionSection.inc.php' ); ?>
+<?php
+    include( get_path('incRepositorySys') . '/introductionSection.inc.php' );
+    
+    /* work in progress (abourguignon)
+    foreach ($this->portletIterator as $portlet)
+    {
+        echo $portlet->render();
+    }
+    */
+?>
 </td>
 
 </tr>
