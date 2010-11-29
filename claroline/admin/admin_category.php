@@ -1,12 +1,12 @@
-<?php
+<?php //$Id: admin_class_cours.php 12608 2010-09-15 11:20:46Z abourguignon $
 
 /**
  * CLAROLINE
  *
  * Management tools for categories' tree
  *
- * @version     1.10 $Revision: 11767 $
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @version     $Revision: 11767 $
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
