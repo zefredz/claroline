@@ -6,7 +6,7 @@
  * message from platform to send class
  *
  * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Fervaille <frederic.fervaille@uclouvain.be>
  * @license     http://www.gnu.org/copyleft/gpl.html
