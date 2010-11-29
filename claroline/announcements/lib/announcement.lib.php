@@ -19,14 +19,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLANN
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  */
 
 
@@ -35,13 +35,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @param array     $thisCourse
  * @param int       $limit number of records to return
- * @param int       $startTime 
+ * @param int       $startTime
  * @param bool      $visibleOnly
  * @return array of array(id, title, content, time, visibility, rank)
  * @since 1.7
  */
 function announcement_get_course_item_list($thisCourse, $limit = null, $startTime = null, $visibleOnly = true )
-{    
+{
     // **** Caution: has to get fixed !
     $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
     // ****
@@ -71,13 +71,13 @@ function announcement_get_course_item_list($thisCourse, $limit = null, $startTim
  *
  * @param array     $thisCourse
  * @param int       $limit number of records to return
- * @param int       $startTime 
+ * @param int       $startTime
  * @param bool      $visibleOnly
  * @return array of array(id, title, content, time, visibility, rank)
  * @since 1.7
  */
 function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $startTime = null, $visibleOnly = true )
-{    
+{
     // **** Caution: has to get fixed !
     $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
     // ****
@@ -96,7 +96,7 @@ function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $
             . "WHERE CONCAT(`title`, `contenu`) != '' \n"
             . ( $startTime ? '' : "AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', (double)$startTime)."' \n" )
             . ( $visibleOnly ? "  AND visibility = 'SHOW' \n" : '' )
-            . "            AND (UNIX_TIMESTAMP(`visibleFrom`) < '". $curdate ."' 
+            . "            AND (UNIX_TIMESTAMP(`visibleFrom`) < '". $curdate ."'
                                  OR `visibleFrom` IS NULL OR UNIX_TIMESTAMP(`visibleFrom`)=0
                                )
                            AND ('". $curdate ."' < UNIX_TIMESTAMP(`visibleUntil`) OR `visibleUntil` IS NULL)"
@@ -144,7 +144,7 @@ function announcement_get_items_portlet($personnalCourseList)
                     $courseDigestList[$courseOfficialCode]['visibleFrom'] = $thisEvent['visibleFrom'];
                     $courseDigestList[$courseOfficialCode]['visibleUntil'] = $thisEvent['visibleUntil'];
                     $courseDigestList[$courseOfficialCode]['url'] = get_path('url').'/claroline/announcements/announcements.php?cidReq=' . $thisEvent['courseSysCode'];
-                } 
+                }
                 
                 $courseDigestList[$courseOfficialCode]['eventList'][] =
                     array(
@@ -156,7 +156,7 @@ function announcement_get_items_portlet($personnalCourseList)
                 
             }
         }
-    }  
+    }
     
     return $courseDigestList;
 }
@@ -292,7 +292,7 @@ function announcement_update_item($announcement_id, $title=null, $content=null, 
         
         return claro_sql_query($sql);
     }
-    else 
+    else
         return null;
 }
 
@@ -343,7 +343,7 @@ function announcement_set_item_visibility($announcement_id, $visibility, $course
  * @param  string $cmd       'UP' or 'DOWN'
  * @return true;
  *
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  */
 function move_entry($item_id, $cmd, $course_id=null)
 {

@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 )
 * FIXME : move to annoucements module
 *
 * @version      1.9 $Revision$
-* @copyright    (c) 2001-2008 Universite catholique de Louvain (UCL)
+* @copyright    (c) 2001-2010, Universite catholique de Louvain (UCL)
 * @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
 * @package      DESKTOP
 * @author       Claroline team <info@claroline.net>
@@ -47,16 +47,16 @@ class CLANN_Portlet extends UserDesktopPortlet
         {
             $output .= '<dl id="portletMyAnnouncements">';
             foreach($announcementEventList as $announcementItem)
-            {                
+            {
                 // Hide hidden and expired elements
                 $isVisible = (bool) ($announcementItem['visibility'] == 'SHOW') ? (1) : (0);
-                $isOffDeadline = (bool) 
+                $isOffDeadline = (bool)
                     (
-                        (isset($announcementItem['visibleFrom']) 
+                        (isset($announcementItem['visibleFrom'])
                             && strtotime($announcementItem['visibleFrom']) > time()
                         )
                         ||
-                        (isset($announcementItem['visibleUntil']) 
+                        (isset($announcementItem['visibleUntil'])
                             && time() >= strtotime($announcementItem['visibleUntil'])
                         )
                     ) ? (1) : (0);
