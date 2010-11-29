@@ -13,7 +13,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
  
-class Question 
+class Question
 {
     /**
      * @var $id id of question, -1 if question doesn't exist already
@@ -92,16 +92,12 @@ class Question
     var $tblRelExerciseQuestion;
     
     /**
-     * @var $rank
-     */
-    var $rank;
-
- 	/**
- 	 * @var $tblQuestionCategory
- 	 */  
- 	 var  $tblQuestionCategory;        
-            
-    function Question($course_id = null)
+     * @var $tblQuestionCategory
+     */  
+     var  $tblQuestionCategory;        
+    
+    
+    public function __construct($course_id = null)
     {
         global $_course;
         
@@ -208,7 +204,7 @@ class Question
             {
                 $this->id = (int) $insertedId;
                 
-                $this->buildDirPaths();                
+                $this->buildDirPaths();
                 
                 // create the question directory if query was successfull and dir not already exists
                 if( !is_dir( $this->questionDirSys ) ) claro_mkdir( $this->questionDirSys , CLARO_FILE_PERMISSIONS );
@@ -217,7 +213,7 @@ class Question
                 // if there is one from tmp directory to the the question directory
                 // and delete tmp directory
                 $this->moveAttachment();
-                                                    
+                
                 return $this->id;
             }
             else
@@ -299,9 +295,9 @@ class Question
         if( !claro_delete_file($this->questionDirSys) ) return false;
                 
         $this->id = -1;
-            
+        
         return true;
-    }    
+    }
 
     /**
      * duplicate question from DB
@@ -318,23 +314,22 @@ class Question
         $duplicated->setType($this->type);
         $duplicated->setGrade($this->grade);
         $duplicated->setcayegoryId($this->categoryId);
-
+        
         $duplicatedId = $duplicated->save();
-
+        
         // attachment need to be copied in the correct repository but for that we need the id
         if( !empty($this->attachment) && file_exists($this->questionDirSys.$this->attachment) )
         {
             $duplicated->copyAttachment($this->questionDirSys.$this->attachment);
         }
         // else $duplicated->attachment keeps its default value
-
+        
         // and its answers
         $duplicated->answer = $this->answer->duplicate($duplicatedId);
-
+        
         return $duplicated;
     }
     
-         
     /**
      * builds required paths and sets values in $questionDirSys and $questionDirWeb
      *
@@ -344,10 +339,10 @@ class Question
     {
         global $_course;
         
-        $this->questionDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'exercise/question_'.$this->rank.'/';
-        $this->questionDirWeb = get_conf('coursesRepositoryWeb').$_course['path'].'/'.'exercise/question_'.$this->rank.'/';            
-    }    
-
+        $this->questionDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'exercise/question_'.$this->id.'/';
+        $this->questionDirWeb = get_conf('coursesRepositoryWeb').$_course['path'].'/'.'exercise/question_'.$this->id.'/';
+    }
+    
     /**
      * set attachment value and move uploaded image to a temporary file
      *

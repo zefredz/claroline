@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -22,6 +22,38 @@ include_once get_path('incRepositorySys') . '/lib/xml.lib.php';
 
 class Qti2Question extends Question
 {
+    static private $_rank = 1;
+    
+    private $rank;
+    
+    /**
+     * Constructor
+     */
+    public function __construct( $course_id = null )
+    {
+        $this->rank = self::$_rank++;
+        parent::__construct( $course_id );
+    }
+    
+    /**
+     * get question rank
+     * @return int $rank
+     */
+    public function getRank()
+    {
+        return $this->rank;
+    }
+    
+    /**
+     * set question rank
+     * @param int $rank
+     * @return boolean
+     */
+    public function setRank( $rank )
+    {
+        return $this->rank = (int) $rank;
+    }
+    
     /**
      * Include the correct answer class and create answer
      */
