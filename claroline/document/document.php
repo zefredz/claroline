@@ -1090,22 +1090,13 @@ if ('exDownload' == $cmd )
         }
         else
         {
-            // Delete old archive files - fix bug
-            $handle=opendir($downloadArchivePath);
-            while ( false !== ($file = readdir($handle)) )
-            {
-                if ($file != '.' && $file != '..')
-                {
-                    $fileCreationTimeInMinute = (time() - filemtime($downloadArchivePath . '/' . $file))/60;
-    
-                    // If file is old of 60 minutes delete it
-                    if ($fileCreationTimeInMinute > 60 )
-                    {
-                        unlink($downloadArchivePath . '/' . $file);
-                    }
-                }
-            }
-            closedir($handle);
+            // Delete archive files older than one hour
+            $tempDirectoryFiles = new DirectoryIterator($downloadArchivePath);
+            foreach ($tempDirectoryFiles as $tempDirectoryFile)
+                if ($tempDirectoryFile->isReadable())
+                    if ($tempDirectoryFile->getCTime() < time() - 60 * 60)
+                        if (!$tempDirectoryFile->isDot())
+                            unlink($tempDirectoryFile->getPathName());
         }
     
         $downloadArchiveName = get_conf('siteName');
