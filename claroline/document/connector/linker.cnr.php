@@ -243,7 +243,8 @@ class CLDOC_Navigator implements ModuleResourceNavigator
             
             $it = new DirectoryIterator( $path );
             
-            $resourceList = new LinkerResourceIterator;
+            $dirList = array();
+            $fileList = array();
             
             foreach ( $it as $file )
             {
@@ -262,6 +263,23 @@ class CLDOC_Navigator implements ModuleResourceNavigator
                         ;
                 }
                 
+                if ( $file->isDir() )
+                {
+                    $dirList[] = $relativePath;
+                }
+                elseif ( $file->isFile() )
+                {
+                    $fileList[] = $relativePath;
+                }
+            }
+
+            natcasesort( $dirList );
+            natcasesort( $fileList );
+
+            $resourceList = new LinkerResourceIterator;
+
+            foreach ( $dirList as $relativePath )
+            {
                 $isVisible = true;
                 
                 if ( array_key_exists( $relativePath, $fileProperties ) )
@@ -269,25 +287,46 @@ class CLDOC_Navigator implements ModuleResourceNavigator
                     $isVisible = $fileProperties[$relativePath]['visibility'] != 'i' ? true : false;
                 }
                 
-                $fileLoc = new ClarolineResourceLocator(
-                    $locator->getCourseId(),
-                    'CLDOC',
-                    format_url_path( $relativePath ),
-                    $groupId
+                $resourceList->addResource( $this->createResourceLocator(
+                    $locator->getCourseId(), $relativePath, $isVisible, true, $groupId )
                 );
-                
-                $fileResource = new LinkerResource(
-                    $file->getFilename(),
-                    $fileLoc,
-                    true,
-                    $isVisible,
-                    $file->isDir()
-                );
-                
-                $resourceList->addResource( $fileResource );
             }
-            
+
+            foreach ( $fileList as $relativePath )
+            {
+                $isVisible = true;
+
+                if ( array_key_exists( $relativePath, $fileProperties ) )
+                {
+                    $isVisible = $fileProperties[$relativePath]['visibility'] != 'i' ? true : false;
+                }
+
+                $resourceList->addResource( $this->createResourceLocator(
+                    $locator->getCourseId(), $relativePath, $isVisible, false, $groupId )
+                );
+            }
+
             return $resourceList;
         }
+    }
+
+    public function createResourceLocator( $courseId, $relativePath, $isVisible, $isNavigable, $groupId )
+    {
+        $fileLoc = new ClarolineResourceLocator(
+            $courseId,
+            'CLDOC',
+            format_url_path( $relativePath ),
+            $groupId
+        );
+                
+        $fileResource = new LinkerResource(
+            basename($relativePath),
+            $fileLoc,
+            true,
+            $isVisible,
+            $isNavigable
+        );
+                
+        return $fileResource;
     }
 }
