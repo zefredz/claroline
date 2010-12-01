@@ -1091,11 +1091,20 @@ if ('exDownload' == $cmd )
         {
             // Delete archive files older than one hour
             $tempDirectoryFiles = new DirectoryIterator($downloadArchivePath);
-            foreach ($tempDirectoryFiles as $tempDirectoryFile)
-                if ($tempDirectoryFile->isReadable())
-                    if ($tempDirectoryFile->getCTime() < time() - 60 * 60)
-                        if (!$tempDirectoryFile->isDot())
-                            unlink($tempDirectoryFile->getPathName());
+
+            foreach ( $tempDirectoryFiles as $tempDirectoryFile )
+            {
+                if ( $tempDirectoryFile->isReadable() )
+                {
+                    if ( $tempDirectoryFile->getCTime() < time() - 3600 )
+                    {
+                        if ( !$tempDirectoryFile->isDot() )
+                        {
+                            unlink( $tempDirectoryFile->getPathName() );
+                        }
+                    }
+                }
+            }
         }
     
         $downloadArchiveName = get_conf('siteName');
