@@ -41,7 +41,7 @@ class ClaroGarbageCollector
     {
         if ( is_dir( $this->path ) )
         {
-            pushClaroMessage('GC Called in '.$this->path,'debug');
+            Console::debug('GC Called in '.$this->path);
             
             // Delete archive files older than one hour
             $tempDirectoryFiles = new DirectoryIterator( $this->path );
@@ -54,12 +54,12 @@ class ClaroGarbageCollector
                     {
                         if ( !$tempDirectoryFile->isDot() )
                         {
-                            pushClaroMessage(
+                            Console::debug(
                                 'Unlink '
-                                    . $tempDirectoryFile->getPathName()
-                                    . " mtime: ".$tempDirectoryFile->getMTime()
-                                    . "; expire: ".$this->expire,
-                                'debug' );
+                                . $tempDirectoryFile->getPathName()
+                                . " mtime: ".$tempDirectoryFile->getMTime()
+                                . "; expire: ".$this->expire
+                            );
 
                             unlink( $tempDirectoryFile->getPathName() );
                         }

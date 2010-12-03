@@ -1087,11 +1087,6 @@ if ('exDownload' == $cmd )
         {
             mkdir( $downloadArchivePath, CLARO_FILE_PERMISSIONS, true );
         }
-        else
-        {
-            $gc = new ClaroGarbageCollector( $downloadArchivePath, 3600 );
-            $gc->run();
-        }
     
         $downloadArchiveName = get_conf('siteName');
     
@@ -2330,3 +2325,8 @@ $out .= claro_html_tool_title($titleElement,
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+// call the garbage collector to remove temporary files
+$tmpZipPath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp/zip';
+$gc = new ClaroGarbageCollector( $tmpZipPath, 3600 );
+$gc->run();
