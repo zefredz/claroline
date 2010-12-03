@@ -377,11 +377,16 @@ else
 
     if ( $login && $password ) // $login && $password are given to log in
     {
+        // reinitalize all session variables
+        session_unset();
+
         $claro_loginRequested = true;
         
         try
         {
-            if ( $currentUser = AuthManager::authenticate($login, $password) )
+            $currentUser = AuthManager::authenticate($login, $password);
+
+            if ( $currentUser )
             {
                 $_uid = (int)$currentUser->userId;
                 $uidReset = true;
@@ -638,7 +643,7 @@ else // else of if ($uidReset || $cidReset) - continue with the previous values
 }
 
 // Installed module in course if available in platform and not in course
-if ( $cidReq
+if ( $_cid
     && is_array( $_course )
     && isset($_course['dbNameGlu'])
     && !empty($_course['dbNameGlu'])
