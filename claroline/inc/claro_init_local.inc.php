@@ -633,7 +633,7 @@ else // else of if ($uidReset || $cidReset) - continue with the previous values
 }
 
 // Installed module in course if available in platform and not in course
-if ( $cidReq 
+if ( $_cid
     && is_array( $_course ) 
     && isset($_course['dbNameGlu']) 
     && !empty($_course['dbNameGlu'])
