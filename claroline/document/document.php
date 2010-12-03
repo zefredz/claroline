@@ -1083,28 +1083,14 @@ if ('exDownload' == $cmd )
         // Create the temp dir if it doesn't exist
         // or do a cleanup before creating the zipfile
     
-        if(!is_dir($downloadArchivePath))
+        if ( ! is_dir( $downloadArchivePath ) )
         {
-            mkdir($downloadArchivePath, CLARO_FILE_PERMISSIONS, true);
+            mkdir( $downloadArchivePath, CLARO_FILE_PERMISSIONS, true );
         }
         else
         {
-            // Delete archive files older than one hour
-            $tempDirectoryFiles = new DirectoryIterator($downloadArchivePath);
-
-            foreach ( $tempDirectoryFiles as $tempDirectoryFile )
-            {
-                if ( $tempDirectoryFile->isReadable() )
-                {
-                    if ( $tempDirectoryFile->getCTime() < time() - 3600 )
-                    {
-                        if ( !$tempDirectoryFile->isDot() )
-                        {
-                            unlink( $tempDirectoryFile->getPathName() );
-                        }
-                    }
-                }
-            }
+            $gc = new ClaroGarbageCollector( $downloadArchivePath, time() - 3600 );
+            $gc->run();
         }
     
         $downloadArchiveName = get_conf('siteName');
@@ -2344,5 +2330,3 @@ $out .= claro_html_tool_title($titleElement,
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
