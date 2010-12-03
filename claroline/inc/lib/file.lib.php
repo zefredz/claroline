@@ -20,17 +20,18 @@ FromKernel::uses( 'core/url.lib' );
  */
 class ClaroGarbageCollector
 {
-    private $path, $expire;
+    private $path, $expire, $maxLifeTime;
 
     /**
      * Constructor
      * @param string $path folder path
      * @param int $expire expiration time
      */
-    public function  __construct( $path, $expire )
+    public function  __construct( $path, $maxLifeTime = 3600 )
     {
         $this->path = $path;
-        $this->expire = $expire;
+        $this->maxLifeTime = $maxLifeTime;
+        $this->expire = time() - $maxLifeTime;
     }
 
     /**
