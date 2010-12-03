@@ -15,6 +15,60 @@
 
 FromKernel::uses( 'core/url.lib' );
 
+/**
+ * Garbage collector : remove old files from a given folder
+ */
+class ClaroGarbageCollector
+{
+    private $path, $expire;
+
+    /**
+     * Constructor
+     * @param string $path folder path
+     * @param int $expire expiration time
+     */
+    public function  __construct( $path, $expire )
+    {
+        $this->path = $path;
+        $this->expire = $expire;
+    }
+
+    /**
+     * Run the garbage collector
+     */
+    public function run()
+    {
+        if ( is_dir( $this->path ) )
+        {
+            pushClaroMessage('GC Called in '.$this->path,'debug');
+
+            // Delete archive files older than one hour
+            $tempDirectoryFiles = new DirectoryIterator( $this->path );
+
+            foreach ( $tempDirectoryFiles as $tempDirectoryFile )
+            {
+                if ( $tempDirectoryFile->isReadable() )
+                {
+                    if ( $tempDirectoryFile->getMTime() < $this->expire )
+                    {
+                        if ( !$tempDirectoryFile->isDot() )
+                        {
+                            pushClaroMessage(
+                                'Unlink '
+                                    . $tempDirectoryFile->getPathName()
+                                    . " mtime: ".$tempDirectoryFile->getMTime()
+                                    . "; expire: ".$this->expire,
+                                'debug' );
+
+                            unlink( $tempDirectoryFile->getPathName() );
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 function file_upload_failed( $file )
 {
     return get_file_upload_errno( $file ) > 0;
