@@ -1089,7 +1089,7 @@ if ('exDownload' == $cmd )
         }
         else
         {
-            $gc = new ClaroGarbageCollector( $downloadArchivePath, time() - 3600 );
+            $gc = new ClaroGarbageCollector( $downloadArchivePath, 3600 );
             $gc->run();
         }
     
