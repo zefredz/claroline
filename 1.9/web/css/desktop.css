@@ -1,0 +1,124 @@
+/* portlet */
+
+.portlet 
+{
+}
+
+.portletTitle
+{
+
+}
+
+.portletContent
+{
+    margin-top: 0.3em;
+    padding: 5px;
+}
+
+.porletIcon
+{
+    float:right;
+    margin:auto;
+    padding:0;
+}
+
+.portlet dl, .portlet dt, .portlet dd
+{
+    margin: 0;
+    padding: 0;
+}
+
+.portlet dt
+{
+    margin-top: 0.5em;
+}
+
+.portlet .iconDefinitionList
+{
+    list-style-position:inside;
+    margin:0 0.5em 0 0;
+    padding:0;
+}
+
+/* portlet right menu  */
+
+.portletRightMenu {
+    padding: 2px;
+    margin: 10px 0 0 0;
+    float:right;
+    width:200px;
+}
+
+/* portlet mycalendar */
+
+#portletMycalendar .calendar {
+    min-width: 250px;
+    float: left;
+    max-width: 30%;
+    width: 30%;
+    margin: 0;
+    height: 300px;
+    padding: 0.3em 1em 0.3em 1em;
+    text-align: center;
+}
+
+#portletMycalendar .details {
+    min-width: 200px;
+    margin-left: 33%;
+    padding: 0 1em 0.1em 1em;
+    height: 300px;
+    overflow: auto;
+    /* border-left: 1px solid #ccc; */
+}
+ 
+#portletMycalendar .dayWithEvent {
+    background-color:silver;
+}
+
+
+.avatar img {
+    margin:1em;
+}
+
+.config {
+    padding: 0;
+    margin: 15px 240px 15px 0;
+}
+
+.config td {
+    text-align:center;
+}
+
+.hideul {
+    background: transparent url(../../claroline/desktop/img/hide.png) no-repeat top left; 
+}
+
+.showul {
+    background: transparent url(../../claroline/desktop/img/show.png) no-repeat top left; 
+}
+
+#portletMyCourseList {
+    max-height: 20em;
+    overflow: auto;
+    
+    /* IE hack 
+    _height: expression( Math.min(parseInt(this.offsetHeight), 100) ); */
+}
+
+#portletMyCourseList dd
+{
+    padding: 0 0 0 32px;
+}
+
+#portletMyCourseList dt
+{
+    padding-left: 16px;
+}
+
+#portletMyAnnouncements {
+    max-height: 20em;
+    overflow: auto;
+    
+    /* IE hack 
+    _height: expression( Math.min(parseInt(this.offsetHeight), 100) ); */
+}
