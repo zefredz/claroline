@@ -323,7 +323,7 @@ extends
 
         try
         {
-            $result =  parent::query( self::prepareQueryForExecution( $sql ) );
+            $affectedRows =  parent::exec( self::prepareQueryForExecution( $sql ) );
 
             if ( claro_debug_mode() && get_conf('CLARO_PROFILE_SQL',false) )
             {
