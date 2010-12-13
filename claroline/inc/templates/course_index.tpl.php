@@ -1,31 +1,28 @@
-<!-- $Id$ -->
-
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
+
+<?php if ( claro_is_course_manager() && $this->course['status'] != 'enable' ): ?>
+<?php
+    $message = new DialogBox;
+    
+    $msgStr = get_lang('This course is deactivated') . '<br />';
+    if ( $this->course['status'] == 'pending' ):
+        $msgStr .= get_lang('You can reactive it from your course list');
+    else:
+        $msgStr .= get_lang('Contact the platform administrator');
+    endif;
+    
+    $message->warning($msgStr);
+    echo $message->render();
+?>
+<?php endif; ?>
 
 <table border="0" cellspacing="10" cellpadding="10" width="100%">
 <tr>
 <td valign="top" style="border-right: gray solid 1px;" width="220">
-<?php if (is_array($this->toolLinkListSource)
-    && !empty($this->toolLinkListSource)
-    && is_array($this->toolLinkListSession)
-    && !empty($this->toolLinkListSession) )
-{
-    echo '<div class="sourceToolPanel"><h3>' . get_lang('Course') . '</h3>';
-    echo claro_html_menu_vertical_br($this->toolLinkListSource, array('id'=>'commonToolListSource'));
-    echo '</div>';
-    echo '<div class="sessionToolPanel"><h3>' . get_lang('Session') . '</h3>';
-    echo claro_html_menu_vertical_br($this->toolLinkListSession, array('id'=>'commonToolListSession'));
-    echo '</div>';
-}
-if (is_array($this->toolLinkListStandAlone))
-{
-    echo claro_html_menu_vertical_br($this->toolLinkListStandAlone, array('id'=>'commonToolListStandAlone'));
-}
-?>
-
+<?php echo claro_html_menu_vertical_br($this->toolLinkList, array('id'=>'commonToolList')); ?>
 <br />
 
-<?php
+<?php 
 if ( claro_is_allowed_to_edit() ) :
     echo claro_html_menu_vertical_br($this->courseManageToolLinkList,  array('id'=>'courseManageToolList'));
 endif;
@@ -33,12 +30,11 @@ endif;
 
 <?php if ( claro_is_user_authenticated() ) : ?>
 <br />
-<span style='font-size:8pt'>
+<span style='font-size:8pt'> 
 <?php
     echo '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
-        . get_lang('New items'). ' ('
-        . '<a href="' . get_path('clarolineRepositoryWeb') . 'notification_date.php' . '" >'
-        . get_lang('to another date') . '</a>';
+    	. get_lang('New items'). ' ('
+    . '<a href="' . get_path('clarolineRepositoryWeb') . 'notification_date.php' . '" >' . get_lang('other date') . '</a>';
             
     $nbChar = strlen($_SESSION['last_action']);
     if (substr($_SESSION['last_action'],$nbChar - 8) == '00:00:00' )
@@ -50,7 +46,6 @@ endif;
     echo ')' ;
 ?>
 </span>
-
 <?php endif; ?>
 
 </td>
@@ -60,16 +55,7 @@ endif;
 </td>
 
 <td valign="top">
-<?php
-    include( get_path('incRepositorySys') . '/introductionSection.inc.php' );
-    
-    /* work in progress (abourguignon)
-    foreach ($this->portletIterator as $portlet)
-    {
-        echo $portlet->render();
-    }
-    */
-?>
+<?php include( get_path('incRepositorySys') . '/introductionSection.inc.php' ); ?>
 </td>
 
 </tr>

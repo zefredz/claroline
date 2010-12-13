@@ -1,11 +1,12 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
  * CLAROLINE main configuration file variable definitions
  *
- * @version 1.10 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @version 1.9 $Revision$
+ * @copyright 2001-2010 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/config_def/
  * @author Claro Team <cvs@claroline.net>
@@ -41,7 +42,6 @@ $conf_def['section']['LANGUAGE']['description']='';
 $conf_def['section']['LANGUAGE']['properties'] =
 array ( 'platformLanguage'
       , 'language_to_display'
-      , 'showAlwaysLanguageInCourseList'
       );
 
 $conf_def['section']['ADMINISTRATOR_SETTING']['label']='Contact';
@@ -88,8 +88,6 @@ $conf_def['section']['SMTP']['label']='SMTP';
 $conf_def['section']['SMTP']['description']='Mail server configuration';
 $conf_def['section']['SMTP']['properties'] =
 array ( 'smtp_host'
-      , 'smtp_port'
-      , 'smtp_secure'
       , 'smtp_username'
       , 'smtp_password'
       );
@@ -201,17 +199,7 @@ array ('label'         => 'Personal language selector'
       ,'acceptedValueType' => 'lang'
       ,'readonly'      => FALSE
       );
-      
-$conf_def_property_list['showAlwaysLanguageInCourseList'] =
-array ( 'label'       => 'Show always language in the course list'
-      , 'description' => ''
-      ,'default'     => TRUE
-      ,'type'        => 'boolean'
-      , 'display'     => TRUE
-      , 'readonly'    => FALSE
-      ,'acceptedValue' => array ('TRUE'=>'On', 'FALSE' => 'Off')
-      );
-      
+
 // Database settings
 
 $conf_def_property_list['dbHost'] =
@@ -357,23 +345,6 @@ array ('label'       => 'SMTP server(s)'
       ,'type'        => 'string'
       ,'display'     => TRUE
       );
-      
-$conf_def_property_list['smtp_port'] =
-array ('label'       => 'SMTP port'
-      ,'description' => 'Give a port number used to contact SMTP the SMTP server(s) if no port is specified in the hostname (default: 25)'
-      ,'default'     => '25'
-      ,'type'        => 'int'
-      ,'display'     => TRUE
-      );
-
-$conf_def_property_list['smtp_secure'] =
-array ('label'       => 'SMTP security layer'
-      ,'description' => 'Define the security layer. options are : tls, ssl or clear (default clear). You need to activate the php_openssl extension in php.ini in order to send mail over ssl or starttls !'
-      ,'default'     => ''
-      ,'type'        => 'enum'
-      ,'display'     => TRUE
-      ,'acceptedValue' => array ('tls'=>'TLS/STARTTLS', 'ssl' => 'SSL', '' => 'clear')
-      );
 
 $conf_def_property_list['smtp_username'] =
 array ('label'       => 'Username'
@@ -470,7 +441,7 @@ array ('label'       => 'Use TinyMCE editor compressor'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
-      );
+      );      
 
 // Administrator
 
@@ -490,6 +461,7 @@ array ('label'       => 'E-mail'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
+
 $conf_def_property_list['administrator_phone'] =
 array ('label'       => 'Phone'
       ,'default'     => ''
@@ -500,7 +472,7 @@ array ('label'       => 'Phone'
 
 $conf_def_property_list['no_reply_mail'] =
 array ('label'       => 'No reply email address'
-      ,'description' => 'You can set a specific no-reply address used by the the platform email notification system. If none provided the administrator email will be used.'
+      ,'description' => 'You can set a specific no-reply address used by the platform email notification system. If none provided the administrator email will be used.'
       ,'default'     => ''
       ,'type'        => 'email'
       ,'display'     => TRUE

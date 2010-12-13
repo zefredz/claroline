@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * Get and set value of current session.
  *
  * @version     1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      see 'credits' file
  * @since       claroline 1.8.3
@@ -599,50 +599,47 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
 {
     $admin = claro_is_platform_admin();
     
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
-    
-    static $course_user_cache       = null;
-    static $course_user_data        = null;
-    static $course_user_privilege   = array();
+    $tbl = claro_sql_get_tbl('cours_user');
+    static $course_user_cache = null;
+    static $course_user_data = null;
+    static $course_user_privilege = array();
     
     if (($course_user_cache != array('uid'=>$uid,'cid'=>$cid)) || $ignoreCache)
     {
-        $sql = "SELECT profile_id AS profileId, 
-                       isCourseManager, 
-                       isPending, 
-                       tutor, 
-                       role 
-                FROM `" . $tbl_rel_course_user . "` `cours_user`
+        $sql = "SELECT profile_id as profileId,
+                       isCourseManager,
+                       tutor,
+                       role
+                FROM `" . $tbl['cours_user'] . "` `cours_user`
                 WHERE `user_id`  = '" . (int) $uid . "'
                 AND `code_cours` = '" . claro_sql_escape($cid) . "'";
-        
+
         $cuData = claro_sql_query_get_single_row($sql);
-        
+
         if ( !empty($cuData) )
         {
             $course_user_data['role'] = $cuData['role']; // not used
-            
-            $course_user_privilege['_profileId']        = $cuData['profileId'];
-            $course_user_privilege['is_courseMember']   = (bool) ($cuData['isPending' ] == 0 );
-            $course_user_privilege['is_courseTutor']    = (bool) ($cuData['tutor' ] == 1 );
-            $course_user_privilege['is_courseAdmin']    = (bool) ($cuData['isCourseManager'] == 1 );
+
+            $course_user_privilege['_profileId'] = $cuData['profileId'];
+            $course_user_privilege['is_courseMember'] = true;
+            $course_user_privilege['is_courseTutor']  = (bool) ($cuData['tutor' ] == 1 );
+            $course_user_privilege['is_courseAdmin']  = (bool) ($cuData['isCourseManager'] == 1 );
         }
         else // this user has no status related to this course
         {
-            $course_user_privilege['_profileId']        = claro_get_profile_id('guest');
-            $course_user_privilege['is_courseMember']   = false;
-            $course_user_privilege['is_courseAdmin']    = false;
-            $course_user_privilege['is_courseTutor']    = false;
-            
+            $course_user_privilege['_profileId']      = claro_get_profile_id('guest');
+            $course_user_privilege['is_courseMember'] = false;
+            $course_user_privilege['is_courseAdmin']  = false;
+            $course_user_privilege['is_courseTutor']  = false;
+
             $course_user_data = null; // not used
         }
-        
+
         $course_user_privilege['is_courseAdmin'] = (bool) ($course_user_privilege['is_courseAdmin'] || claro_is_platform_admin());
         $course_user_cache = array('uid'=>$uid,'cid'=>$cid);
     }
-    
-    return array('data' => $course_user_data, 'privilege' => $course_user_privilege);
+    return array('data' =>$course_user_data, 'privilege' => $course_user_privilege);
+
 }
 
 /**
@@ -690,15 +687,15 @@ function claro_is_course_enable()
     $sql=" SELECT     c.`code`
              FROM `".$tbl_course."` c
             WHERE  (c.`status` = 'enable' 
-                    OR (c.`status` = 'date' 
-                        AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' 
-                             OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0
-                             )
-                        AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) 
-                             OR `expirationDate` IS NULL
-                             )
-                        )
-                    )
+                     OR (c.`status` = 'date' 
+                         AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' 
+                              OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0
+                              )
+                         AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) 
+                              OR `expirationDate` IS NULL
+                              )
+                         )
+                     )
                     AND c.`code` = '".$courseId."';";
 
     $result = claro_sql_query_get_single_value($sql);

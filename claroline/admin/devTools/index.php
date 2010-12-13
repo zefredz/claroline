@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -15,7 +15,6 @@
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
  * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
- * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  *
  */
 
@@ -35,7 +34,7 @@ if ( get_conf('DEVEL_MODE',false))
     if (file_exists('./fillToolCourses.php')) $devtoolsList[] = claro_html_tool_link('fillToolCourses.php',  get_lang('Create item into courses tools'));
 }
 
-$nameTools = get_lang('Development Tools');
+$nameTools = get_lang('Devel Tools');
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 

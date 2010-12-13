@@ -5,34 +5,34 @@
 /**
  * Context handling library
  *
- * @version     1.10 $Revision$
+ * @version     1.9 $Revision$
  * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.core
+ * @package     kernel.core.context
  * @since       Claroline 1.9
  */
 
-defined('CLARO_CONTEXT_PLATFORM')       
+defined('CLARO_CONTEXT_PLATFORM')
     || define('CLARO_CONTEXT_PLATFORM',     'platform');
 
-defined('CLARO_CONTEXT_COURSE')         
+defined('CLARO_CONTEXT_COURSE')
     || define('CLARO_CONTEXT_COURSE',       'course');
 
-defined('CLARO_CONTEXT_GROUP')          
+defined('CLARO_CONTEXT_GROUP')
     || define('CLARO_CONTEXT_GROUP',        'group');
 
-defined('CLARO_CONTEXT_USER')           
+defined('CLARO_CONTEXT_USER')
     || define('CLARO_CONTEXT_USER',         'user');
 
-defined('CLARO_CONTEXT_TOOLINSTANCE')   
+defined('CLARO_CONTEXT_TOOLINSTANCE')
     || define('CLARO_CONTEXT_TOOLINSTANCE', 'toolInstance');
 
-defined('CLARO_CONTEXT_TOOLLABEL')      
+defined('CLARO_CONTEXT_TOOLLABEL')
     || define('CLARO_CONTEXT_TOOLLABEL',    'toolLabel');
 
-defined('CLARO_CONTEXT_MODULE')         
+defined('CLARO_CONTEXT_MODULE')
     || define('CLARO_CONTEXT_MODULE',       'moduleLabel');
 
 /**
@@ -40,10 +40,6 @@ defined('CLARO_CONTEXT_MODULE')
  */
 class Claro_Context
 {
-    /**
-     * Get the current execution context
-     * @return array
-     */
     public static function getCurrentContext()
     {
         $context = array();
@@ -89,7 +85,7 @@ class Claro_Context
         
         return self::getUrlContext( $givenContext );
     }
-
+    
     /**
      * Get the given context array formated for use in urls
      * @param array $givenContext

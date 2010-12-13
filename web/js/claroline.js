@@ -81,20 +81,6 @@ $(document).ready( function (){
         $(this).hide();
     });
     
-    // multiple select
-    $('.msadd').click(function() {
-        return !$('#mslist1 option:selected').remove().appendTo('#mslist2');
-    });
-    
-    $('.msremove').click(function() {
-        return !$('#mslist2 option:selected').remove().appendTo('#mslist1');
-    });
-    
-    $('.msform').submit(function() {
-        $('#mslist1 option').each(function(i) {
-            $(this).attr("selected", "selected");
-        });
-    });
 });
 
 // here should also come :

@@ -3,17 +3,18 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
- *
- * User desktop : MyCalendar portlet calendar class
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     DESKTOP
- * @author      Claroline team <info@claroline.net>
- * @since       1.9
- */
+* CLAROLINE
+*
+* User desktop : MyCalendar portlet calendar class
+* FIXME : move to calendar module
+*
+* @version      1.9 $Revision$
+* @copyright    (c) 2001-2008 Universite catholique de Louvain (UCL)
+* @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+* @package      DESKTOP
+* @author       Claroline team <info@claroline.net>
+*
+*/
 
 FromKernel::uses('user.lib');
 From::Module('CLCAL')->uses('agenda.lib');
@@ -63,7 +64,8 @@ class UserDesktopCalendar
         return $this->year;
     }
     
-    protected function ajaxMiniCalendar( $agendaItemList )
+    protected function ajaxMiniCalendar(
+        $agendaItemList )
     {
         $weekdaynames = get_locale('langDay_of_weekNames');
         $weekdaynames = $weekdaynames['init'];
@@ -108,7 +110,7 @@ var UserDesktopCalendar = {
     previous: function(){
         $.ajax({
             url: '".get_module_url('CLCAL')."/ajaxHandler.php',
-            data: 'year=".(int)$previousYear."&month=".(int)$previousMonth."&location=userdesktop',
+            data: 'year=".(int)$previousYear."&month=".(int)$previousMonth."',
             success: function(response){
                 $('#portletMycalendar').empty().append(response);
             }
@@ -117,7 +119,7 @@ var UserDesktopCalendar = {
     next: function(){
         $.ajax({
             url: '".get_module_url('CLCAL')."/ajaxHandler.php',
-            data: 'year=".(int)$nextYear."&month=".(int)$nextMonth."&location=userdesktop',
+            data: 'year=".(int)$nextYear."&month=".(int)$nextMonth."',
             success: function(response){
                 $('#portletMycalendar').empty().append(response);
             }
@@ -197,14 +199,14 @@ var UserDesktopCalendar = {
                     $dayheader = $curday ;
     
                     $htmlStream .= '<td height="40" width="12%" valign="top" '
-                    .    'class="' . $weekdayType
+                    .    'class="' . $weekdayType 
                     .    (isset($agendaItemList[$curday]) ? ' dayWithEvent': '')
                     .    '">'
                     ;
     
                     if ( isset($agendaItemList[$curday]) )
                     {
-                        $htmlStream .= '<a href="'.$agendaItemList[$curday]['eventList'][0]['url'].'">' . $dayheader .'</a>';
+                        $htmlStream .= '<a href="'.$agendaItemList[$curday]['eventList'][0]['url'].'">' . $dayheader .'</a>';    
                     }
                     else
                     {
@@ -292,3 +294,5 @@ var UserDesktopCalendar = {
         return $output;
     }
 }
+
+?>

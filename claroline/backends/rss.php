@@ -6,7 +6,7 @@
      *
      *
      * @version     1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
      * @author      Claroline Team <info@claroline.net>
      * @author      Christophe Gesché <moosh@claroline.net>
      * @author      Frederic Minne <zefredz@claroline.net>

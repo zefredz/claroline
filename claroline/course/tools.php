@@ -1,12 +1,13 @@
 <?php // $Id$
-
 /**
- * Claroline Course Tool List management script
+ * CLAROLINE
  *
- * @version 1.10 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
- *  version 2 or later
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @package CLHOME
  * @author Claro Team <cvs@claroline.net>
  */
@@ -345,27 +346,27 @@ if ( 'exAddTool' == $cmd )
     else
     {
         $moduleData = get_module_data($toolLabel);
-        
+
         if ( $moduleData['access_manager'] == 'COURSE_ADMIN'
             || claro_is_platform_admin() )
         {
             // get tool id
             $toolId = get_tool_id_from_module_label( $toolLabel );
-
+            
             if ( $toolId )
             {
                 if ( ! is_module_registered_in_course( $toolId, claro_get_current_course_id()) )
                 {
                     register_module_in_single_course( $toolId, claro_get_current_course_id() );
                 }
-
+                
                 // update course_tool.activated
                 if ( update_course_tool_activation_in_course( $toolId,
                                                              claro_get_current_course_id(),
                                                              true ) )
                 {
                     set_module_visibility_in_course( $toolId, $_cid, true );
-
+                    
                     $dialogBox->success( get_lang('Tool added to course') );
                     $cidReset = TRUE;
                     $cidReq   = claro_get_current_course_id();
@@ -384,7 +385,7 @@ if ( 'exAddTool' == $cmd )
                             );
                         }
                     }
-
+    
                     include get_path('incRepositorySys') . '/claro_init_local.inc.php';
                 }
                 else
@@ -400,7 +401,7 @@ if ( 'exAddTool' == $cmd )
         else
         {
             $dialogBox->error( get_lang('This tool is activable by the platform administrator only') );
-        }
+}
     }
 }
 
@@ -717,7 +718,7 @@ elseif ( $currentSection == 'toolList' )
             {
                 $action_link = '<em>'.get_lang('Activable only by the platform administrator !').'</em>';
             }
-
+                
             $out .= '<tr>'
                 . '<td><img src="'
                 . $inactiveTool['icon'] . '" alt="" /> '

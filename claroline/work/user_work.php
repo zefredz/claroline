@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -1450,8 +1450,10 @@ if( $dispWrkLst )
                     )
                 ;
 
-            if( $thisWrk['visibility'] == "INVISIBLE" && $is_allowedToEditAll )    $visStyle = ' invisible ';
-            else                                                                $visStyle = '';
+            if( $thisWrk['visibility'] == "INVISIBLE" && $is_allowedToEditAll )
+                $visStyle = ' invisible ';
+            else
+                $visStyle = '';
 
             if( $is_feedback )  $style = ' feedback ';
             else                $style = ' work';
@@ -1472,6 +1474,9 @@ if( $dispWrkLst )
                 $txtForFile = get_lang('Uploaded file');
                 $txtForText = get_lang('File description');
             }
+            
+            $san = new Claro_Html_Sanitizer();
+            $san->allowStyle();
             
             // title (and edit links)
             $out .= '<div class="'. $visStyle . $style .'">' . "\n"

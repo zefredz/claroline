@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -29,13 +29,11 @@ function CLCAL_write_ical( $iCal, $context)
         $toolNameList = claro_get_tool_name_list();
         require_once dirname(__FILE__) . '/../lib/agenda.lib.php';
         $eventList    = agenda_get_item_list($context,'ASC');
-        
+
         $organizer = (array) array($courseData['titular'], $courseData['email']);
         $attendees = array();
-        $categories = array( 
-            get_conf('siteName'), 
-            $courseData['officialCode'], 
-            trim($toolNameList['CLCAL'])
+        $categories = array( get_conf('siteName'), $courseData['officialCode'], trim($toolNameList['CLCAL']),
+        $courseData['categoryCode']
         );
 
         foreach ($eventList as $thisEvent)

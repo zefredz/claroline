@@ -91,13 +91,13 @@ class csvUserList extends csv
 
         $tbl_team = $tbl_cdb_names['group_team'];        
         $tbl_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
-        
+
         $username = ( claro_is_platform_admin() && get_conf( 'export_sensitive_data_for_admin', false ) )
                 || get_conf('export_user_username', false)
             ? "`U`.`username`     AS `username`,"
             : ""
             ;
-                 
+
         if ( ( claro_is_platform_admin() && get_conf( 'export_sensitive_data_for_admin', false ) )
             || get_conf('export_user_password', false) )
         {
@@ -115,7 +115,7 @@ class csvUserList extends csv
         {
             $password = '';
         }
-
+                 
         // get user list
         $sql = "SELECT `U`.`user_id`      AS `userId`,
                        `U`.`nom`          AS `lastname`,
@@ -148,7 +148,7 @@ class csvUserList extends csv
         if( is_array($userList) && !empty($userList) )
         {
             // add titles at row 0, for that get the keys of the first row of array
-            $this->recordList[0] = array_keys($userList[0]); 
+            $this->recordList[0] = array_keys($userList[0]);
 
             $i = 1;
 
@@ -164,10 +164,10 @@ class csvUserList extends csv
                 {
                     $user['userId'] = $i;
                 }
-                
+
                 // $this->recordList is defined in parent class csv
                 $this->recordList[$i] = $user;
-
+                
                 $i++;
             }
 
@@ -190,16 +190,16 @@ class csvUserList extends csv
                 }
             }
         }
-        
+
         if( is_array($this->recordList) && !empty($this->recordList) )
         {
             return true;
         }
         else
         {
-        return false;
+            return false;
+        }
     }
-}
 }
 
 function export_user_list( $course_id )

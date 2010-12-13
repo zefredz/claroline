@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  * @package UPGRADE
@@ -24,7 +24,6 @@ include ('upgrade_course_16.lib.php');
 include ('upgrade_course_17.lib.php');
 include ('upgrade_course_18.lib.php');
 include ('upgrade_course_19.lib.php');
-include ('upgrade_course_110.lib.php');
 
 require_once $includePath . '/lib/module/manage.lib.php';
 
@@ -395,72 +394,13 @@ switch ($display)
                     save_course_current_version($currentCourseCode,$currentCourseVersion);
 
                 }
-                
-                /*---------------------------------------------------------------------
-                  Upgrade 1.9 to 1.10
-                 ---------------------------------------------------------------------*/
-
-                if ( preg_match('/^1.9/',$currentCourseVersion) )
-                {
-                    // Function to upgrade tool to 1.10
-                    
-                    $function_list = array();
-                    
-                    $toolCLANN =  get_module_data('CLANN');
-                    if (is_tool_activated_in_course($toolCLANN['id'],$currentCourseCode))
-                    {
-                        $function_list[] = 'announcements_upgrade_to_110';
-                    }
-                    
-                    $toolCLCAL =  get_module_data('CLCAL');
-                    if (is_tool_activated_in_course($toolCLCAL['id'],$currentCourseCode))
-                    {
-                        $function_list[] = 'calendar_upgrade_to_110';
-                    }
-                    
-                    $toolCLQWZ =  get_module_data('CLQWZ');
-                    if (is_tool_activated_in_course($toolCLQWZ['id'],$currentCourseCode))
-                    {
-                        $function_list[] = 'exercise_upgrade_to_110';
-                    }
-                    
-                    /*$function_list = array( 'announcements_upgrade_to_110',
-                                            'calendar_upgrade_to_110',
-                                            'exercise_upgrade_to_110'
-                     */
-            
-                    foreach ( $function_list as $function )
-                    {
-                        $step = $function($currentCourseCode);
-                        if ( $step > 0 )
-                        {
-                            echo 'Error : ' . $function . ' at step ' . $step . '<br />';
-                            $error = true;
-                        }
-                    }
-
-                    if ( ! $error )
-                    {
-                        // Upgrade succeeded
-                        clean_upgrade_status($currentCourseCode);
-                        $currentCourseVersion = '1.10';
-                    }
-                    else
-                    {
-                        // Upgrade failed
-                        $currentCourseVersion = 'error-1.9';
-                    }
-                    // Save version
-                    save_course_current_version($currentCourseCode,$currentCourseVersion);
-
-                }
 
             }
 
 
             if ( ! $error )
             {
-                if ( preg_match('/^1.10/',$currentCourseVersion) )
+                if ( preg_match('/^1.9/',$currentCourseVersion) )
                 {
                     $message .= '<p class="success">Upgrade succeeded</p>';
                     // course upgraded
@@ -567,3 +507,4 @@ switch ($display)
 // Display footer
 echo upgrade_disp_footer();
 
+?>

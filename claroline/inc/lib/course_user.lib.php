@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * Course user library contains function to manage users registration and properties in course
  *
  * @version 1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package CLUSR
  * @author Claro Team <cvs@claroline.net>
@@ -33,7 +33,6 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user            = $tbl_mdb_names['user'];
-    $tbl_course          = $tbl_mdb_names['course'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
     // previously check if the user are already registered on the platform
@@ -51,7 +50,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
         $sql = "SELECT count_user_enrol, count_class_enrol
                 FROM `" . $tbl_rel_course_user . "`
                 WHERE user_id = " . (int) $userId . "
-                AND code_cours ='" . claro_sql_escape($courseCode) . "'";
+                  AND code_cours ='" . claro_sql_escape($courseCode) . "'";
 
         $course_user_list = claro_sql_query_get_single_row($sql);
 
@@ -77,16 +76,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             // first registration to the course
             $count_user_enrol = 0;
             $count_class_enrol = 0;
-            
-            // previously check the registration type ('open' or 'validation')
-            $sql = "SELECT registration
-                    FROM `" . $tbl_course . "`
-                    WHERE code ='" . claro_sql_escape($courseCode) . "'";
-            
-            $course_registration = claro_sql_query_get_single_row($sql);
-            //If a validation is requested for this course: isPending is true
-            $isPending = $course_registration['registration'] == 'validation' ? 1 : 0;
-            
+
             if ( ! $register_by_class )  $count_user_enrol = 1;
             else                         $count_class_enrol = 1;
 
@@ -95,12 +85,11 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             else          $profileId = claro_get_profile_id('user');
 
             $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
-                    SET code_cours      = '" . claro_sql_escape($courseCode) . "',
-                        user_id         = " . (int) $userId . ",
-                        profile_id      = " . (int) $profileId . ",
+                    SET code_cours = '" . claro_sql_escape($courseCode) . "',
+                        user_id    = " . (int) $userId . ",
+                        profile_id = " . (int) $profileId . ",
                         isCourseManager = " . (int) ($admin ? 1 : 0 ) . ",
-                        isPending       = " . $isPending . ", 
-                        tutor           = " . (int) ($tutor ? 1 : 0) . ",
+                        tutor  = " . (int) ($tutor ? 1 : 0) . ",
                         count_user_enrol = " . $count_user_enrol . ",
                         count_class_enrol = " . $count_class_enrol ;
 
@@ -121,10 +110,10 @@ function is_course_registration_allowed($courseId)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course = $tbl_mdb_names['course'];
-    
+
     $curdate = date('Y-m-d H:i:s', time());
-    
-    $sql = "
+
+    $sql = " 
         SELECT
             count(*) AS registration_allowed
         FROM
@@ -250,7 +239,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
            if (is_tool_activated_in_course($toolCLFRM['id'],$thisUserEnrolCourse['code_cours']))
            {
                $sqlList = array(
-                    "DELETE FROM `" . $tbl_bb_notify        . "` WHERE user_id = " . (int) $userId );          
+            		"DELETE FROM `" . $tbl_bb_notify        . "` WHERE user_id = " . (int) $userId );          
            }
             
             array_push($sqlList,

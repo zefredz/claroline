@@ -6,7 +6,7 @@
  * send message for some user in context of course
  *
  * @version     1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -343,7 +343,7 @@
         .    '<br/>'.get_lang('Message') .'<br/>'. "\n"
         .    claro_html_textarea_editor('content', "")
         .    '<br/><input type="submit" name="submitMessage" value="' . get_lang('Submit') . '" />'
-        .     claro_html_button(htmlspecialchars(Url::Contextualize(get_module_entry($from))), get_lang('Cancel'))
+        .    claro_html_button(htmlspecialchars(Url::Contextualize( $from)), get_lang('Cancel'))
         .    '</div>'."\n"
         .    '</div>'."\n\n"
         .    '</form>'."\n\n"

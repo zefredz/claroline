@@ -1,12 +1,16 @@
 <?php // $Id$
 
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
- * @version     1.10 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC
- *  LICENSE version 2 or later
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      see 'credits' file
  * @package     KERNEL
  */
@@ -149,8 +153,8 @@ function claro_sql_get_main_tbl()
         'config_property'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'config_property',
         'config_file'               => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'config_file',
         'course'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours',
-        'coursehomepage_portlet'    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'coursehomepage_portlet',
-        'category'                  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'category',
+        'rel_course_user'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours_user',
+        'category'                  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'faculte',
         'user'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user',
         'tool'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'course_tool',
         'user_category'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'class',
@@ -158,8 +162,6 @@ function claro_sql_get_main_tbl()
         'class'                     => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'class',
         'rel_class_user'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_class_user',
         'rel_course_class'          => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_class',
-        'rel_course_user'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_user',
-        'rel_course_category'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_category',
         'sso'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'sso',
         'notify'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'notify',
         'upgrade_status'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'upgrade_status',
@@ -177,7 +179,6 @@ function claro_sql_get_main_tbl()
         'im_recipient'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'im_recipient',
         'desktop_portlet'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'desktop_portlet',
         'desktop_portlet_data'      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'desktop_portlet_data',
-
         'tracking_event'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_event',
         'log'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log'
         );
@@ -277,7 +278,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
  * when the CLARO_DEBUG_MODE constant flag is set to on (true)
  *
  * @author Hugues Peeters    <peeters@ipm.ucl.ac.be>,
- * @author Christophe Gesch√© <moosh@claroline.net>
+ * @author Christophe Gesch� <moosh@claroline.net>
  * @param  string  $sqlQuery   - the sql query
  * @param  handler $dbHandler  - optional
  * @return handler             - the result handler
@@ -641,7 +642,7 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
  * @see    claro_sql_query_get_single_row()
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
  *  in database/database.lib.php instead
- */
+  */
 function claro_sql_query_fetch_single_row($sqlQuery, $dbHandler = '#')
 {
     return claro_sql_query_get_single_row($sqlQuery, $dbHandler);

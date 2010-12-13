@@ -1,14 +1,19 @@
 <?php // $Id$
 /**
  * CLAROLINE
- *
+ ******************************************************************************
  * Campus Home Page
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2010 Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLINDEX
- * @author      Claro Team <cvs@claroline.net>
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLINDEX
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
  */
 
 unset($includePath); // prevent hacking
@@ -23,27 +28,7 @@ $tidReset = TRUE;
 require './claroline/inc/claro_init_global.inc.php'; // main init
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
-if (get_conf('display_user_desktop'))
-{
-    require_once get_path('clarolineRepositorySys') . '/desktop/index.php';
-}
-else
-{
-    require_once get_path('incRepositorySys') . '/lib/courselist.lib.php';
-    
-    $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
-    $categoryBrowser    = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
-    $templateCategoryBrowser = $categoryBrowser->getTemplate();
-    
-    $template = new CoreTemplate('platform_index.tpl.php');
-    $template->assign('templateCategoryBrowser', $templateCategoryBrowser);
-    
-    
-    $claroline->display->body->setContent($template->render());
-    
-    echo $claroline->display->render();
-}
-
+require_once get_path('incRepositorySys') . '/lib/courselist.lib.php'; // conf file
 
 
 // logout request : delete session data
@@ -69,4 +54,11 @@ if (isset($_REQUEST['logout']))
 
 // Hide breadcrumbs and view mode on platform home page
 // $claroline->display->banner->hideBreadcrumbLine();
+
+$template = new CoreTemplate('platform_index.tpl.php');
+
+$claroline->display->body->setContent($template->render());
+
+
+echo $claroline->display->render();
 ?>

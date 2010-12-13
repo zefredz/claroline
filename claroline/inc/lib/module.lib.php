@@ -11,8 +11,8 @@ if ( count( get_included_files() ) == 1 )
  * This lib make the interface with kernel task and module extention for theses
  * task. It also provide some backward compatibility functions.
  *
- * @version     1.10 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2010 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
  *  version 2 or later
  * @author      Claro Team <cvs@claroline.net>
@@ -776,7 +776,7 @@ function get_activated_group_tool_label_list( $courseId )
  */
 function is_tool_activated_in_course( $toolId, $courseIdReq )
 {
-    $tbl_cdb_names        = claro_sql_get_course_tbl( 
+    $tbl_cdb_names        = claro_sql_get_course_tbl(
         claro_get_course_db_name_glued( $courseIdReq ) );
     $tbl_course_tool_list = $tbl_cdb_names['tool'];
     

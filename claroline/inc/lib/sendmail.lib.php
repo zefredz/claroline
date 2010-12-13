@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 )
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Libs-mail
  * @package     KERNEL
@@ -24,10 +24,8 @@ class ClaroPHPMailer extends PHPMailer
 {
     function ClaroPHPMailer()
     {
-    	//prevent phpMailer from echo'ing anything
-        parent::__construct(true);
         // set charset
-        $this->CharSet = get_locale('charset');        
+        $this->CharSet = get_locale('charset');
 
         if ( get_conf('smtp_host') != '' )
         {
@@ -42,22 +40,12 @@ class ClaroPHPMailer extends PHPMailer
                 $this->Username = get_conf('smtp_username'); // SMTP username
                 $this->Password = get_conf('smtp_password'); // SMTP password
             }
-        	if ( get_conf('smtp_port') != '' )
-            {              
-                $this->Port = (int)get_conf('smtp_port');
-            }
-        	if ( get_conf('smtp_secure') != '' )
-            {              
-                $this->SMTPSecure = get_conf('smtp_secure');
-            }
-            
         }
         else
         {
             // set sendmail mode
             $this->IsMail();
         }
-        
     }
 
     /**
@@ -73,17 +61,6 @@ class ClaroPHPMailer extends PHPMailer
     function getError ()
     {
         return $this->ErrorInfo;
-    }    
-    
-    function Send(){
-        // errors can be retrieved when return value is false by calling getError method
-        try{
-        	return parent::Send();
-        }
-        catch (phpmailerException $e)
-        {
-        	return false;
-        }
     }
 }
 

@@ -1,5 +1,3 @@
-<!-- $Id$ -->
-
 <?php  if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
 <!-- claroPage -->
@@ -45,7 +43,7 @@
         <span id="userName">
         <?php echo get_lang( '%firstName %lastName'
             , array(  '%firstName' => $this->user['firstName']
-                    , '%lastName' => $this->user['lastName'] ) ) ?> :
+                    , '%lastName' => $this->user['lastName'] ) ) ?> : 
         </span>
         <?php echo $this->userToolList; ?>
         <?php include_dock('userBannerLeft'); ?>

@@ -81,8 +81,6 @@ session_start();
   Include main library
   ----------------------------------------------------------------------*/
 
-require_once $includePath . '/lib/core/core.lib.php';
-require_once $includePath . '/lib/core/claroline.lib.php';
 require_once $includePath . '/lib/claro_main.lib.php';
 require_once $includePath . '/lib/fileManage.lib.php';
 
@@ -98,7 +96,7 @@ $clarolineRepositorySys = get_conf('rootSys') . $clarolineRepositoryAppend;
 
 require_once $includePath . '/lib/config.lib.inc.php';
 require_once dirname(__FILE__) . '/configUpgrade.class.php';
-require_once dirname(__FILE__) . '/upgrade.lib.php';
+require_once 'upgrade.lib.php';
 
 /**
  * List of accepted error - See MySQL error codes :
@@ -269,3 +267,5 @@ else                $_SESSION['_uid'] = null; // unset
 if ( isset($is_platformAdmin) ) $_SESSION['is_platformAdmin'] = $is_platformAdmin;
 else                            $_SESSION['is_platformAdmin'] = null;
 
+
+?>

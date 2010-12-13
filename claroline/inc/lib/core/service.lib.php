@@ -2,18 +2,23 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * Service architecture, provides
  *  - Service classes
  *  - Dispatcher class
  *
- * @version     1.10 $Revision$
- * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.core
+ * @package     KERNEL
  * @deprecated  since 1.9, use utils/controller.lib instead
  */
 

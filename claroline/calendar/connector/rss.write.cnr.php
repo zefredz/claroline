@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -39,18 +39,15 @@ function CLCAL_write_rss($context)
             //prepare values
             //c ISO 8601 date (added in PHP 5) 2004-02-12T15:19:21+00:00
             $item['dc:date'] = ('c' == $item['dc:date'])?date('Y-m-d\TH:i:sO', $item['timestamp']):$item['dc:date'];
-            $item['content'] = ((isset($item['speakers'])) ? (get_lang('Speakers').': '.$item['speakers'].'<br/>') : ('')) 
-                             . trim(str_replace('<!-- content: html -->','',$item['content']));
 
-            $itemRssList[] = array( 
-                'title'       => $item['title'],
-                'category'    => trim($toolNameList['CLCAL']),
-                'guid'        => get_path('rootWeb') .'claroline/' . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id'],
-                'link'        => get_path('rootWeb') .'claroline/' . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id'],
-                'description' => $item['content'],
-                'pubDate'     => $item['pubDate'],
-                'dc:date'     => $item['dc:date'],
-            #   'author' => $_course['email'],
+            $itemRssList[] = array( 'title'       => $item['title']
+            ,                       'category'    => trim($toolNameList['CLCAL'])
+            ,                        'guid'        => get_path('rootWeb') .'claroline/' . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id']
+            ,                        'link'        => get_path('rootWeb') .'claroline/' . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id']
+            ,                        'description' => trim(str_replace('<!-- content: html -->','',$item['content']))
+            ,                        'pubDate'     => $item['pubDate']
+            ,                        'dc:date'     => $item['dc:date']
+        //, 'author' => $_course['email']
             );
         }
     }

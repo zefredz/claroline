@@ -1,10 +1,8 @@
-<!-- $Id$ -->
-
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
 <div id="rightSidebar">
 
-<?php
+<?php 
 if ( claro_is_user_authenticated() ) :
 
     FromKernel::uses('display/userprofilebox.lib');
@@ -30,25 +28,26 @@ endif;
 
 <div id="leftContent">
 
-<?php
+<?php 
 include_textzone( 'textzone_top.inc.html', '<div style="text-align: center">
 <img src="'.get_icon_url('logo').'" border="0" alt="Claroline logo" />
 <p><strong>Claroline Open Source e-Learning</strong></p>
-</div>' );
+</div>' ); 
 ?>
 
 <?php include_dock('campusHomePageTop'); ?>
 
-<?php
-if( claro_is_user_authenticated() ) :
+<?php 
+if( claro_is_user_authenticated() ) : 
     include_textzone( 'textzone_top.authenticated.inc.html' );
 else :
     include_textzone( 'textzone_top.anonymous.inc.html' );
-endif;
+endif; 
 ?>
 
 <?php
 if ( claro_is_user_authenticated() ) :
+
     /**
      * Commands line
      */
@@ -76,7 +75,7 @@ if ( claro_is_user_authenticated() ) :
 
     if (get_conf('allowToSelfEnroll',true))
     {
-        $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqReg&amp;categoryId=0" class="claroCmd">'
+        $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=" class="claroCmd">'
         .    '<img src="' . get_icon_url('enroll') . '" alt="" /> '
         .    get_lang('Enrol on a new course')
         .    '</a>';
@@ -87,7 +86,7 @@ if ( claro_is_user_authenticated() ) :
         .    '</a>';
     }
 
-    $userCommands[] = '<a href="claroline/course/platform_courses.php" class="claroCmd">'
+    $userCommands[] = '<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
     .                 '<img src="' . get_icon_url('course') . '" alt="" /> '
     .     get_lang('All platform courses')
     .                 '</a>'
@@ -95,21 +94,27 @@ if ( claro_is_user_authenticated() ) :
 
     echo '<a name="myCourseList"></a><p>' . claro_html_menu_horizontal( $userCommands ) . '</p>' . "\n";
 
-        
+    if ( isset( $_REQUEST['category'] ) || ( isset( $_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'search' ) )
+    {
+        // DISPLAY PLATFORM COURSE LIST and search result
+        require get_path( 'incRepositorySys' ) . '/index_platformcourses.inc.php';
+        if( !( isset( $_REQUEST['category'] ) && '' == trim( $_REQUEST['category'] ) ) )
+        {
+            echo render_access_mode_caption_block();
+        }
+    }
+    else
+    {
         // DISPLAY USER OWN COURSE LIST
-        
-        // Clean session code
-        if (isset($_SESSION['courseSessionCode'])) $_SESSION['courseSessionCode'] = null;
-        
-        require get_path('incRepositorySys') . '/index_mycourses.inc.php';
+        require get_path( 'incRepositorySys' ) . '/index_mycourses.inc.php';        
         if (claro_is_allowed_to_create_course())
             echo render_access_mode_caption_block();
         
         echo '<fieldset class="captionBlock">'
-            . '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
-            . get_lang('New items'). ' ('
+        	. '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
+        	. get_lang('New items'). ' ('
             . '<a href="'. htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')) . '" >' . get_lang('to another date') . '</a>';
-                
+
         $nbChar = strlen($_SESSION['last_action']);
         if (substr($_SESSION['last_action'],$nbChar - 8) == '00:00:00' )
         {
@@ -118,14 +123,18 @@ if ( claro_is_user_authenticated() ) :
         }
         
         echo ')</fieldset>' ;
-
+    }
 else :
     if ( ! get_conf('course_categories_hidden_to_anonymous',false) )
     {
-        echo $this->templateCategoryBrowser->render();
+        // DISPLAY PLATFORM COURSE LIST
+        require get_path( 'incRepositorySys' ) . '/index_platformcourses.inc.php';
+        if ( !empty( $_REQUEST['category'] ) || ( isset( $_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' ) )
+        {
+            echo render_access_mode_caption_block();
+        }
     }
 endif;
-
 ?>
 
 <?php include_dock('campusHomePageBottom'); ?>
