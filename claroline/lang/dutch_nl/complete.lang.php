@@ -2541,4 +2541,78 @@ $_lang['warning : Installation cannot find the description of the learning path 
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'Waarschuwing: De installatie kan de naam van het leertraject niet vinden en heeft een standaardtekst gebruikt. Je dient deze te veranderen.';
 $_lang['write n-1 times without check if (others) cached files are or not deprecated'] = 'schrijf n-1 tijden zonder te controleren of (andere) gecachte bestanden al dan niet vernietigd zijn';
 $_lang['wrote'] = 'schreef';
+$_lang['Absolute sys path to the place where are move data of a deleted course.'] = 'Absoluut path naar de locatie waar data van een verwijderde cursus verplaatst zijn.' ;
+$_lang['Allow user to use html tag in messages'] = 'Laat gebruiker toe een html tag in de boodschappen te gebruiken.' ;
+$_lang['Are you sure to delete course %name'] = 'Wilt u cursus%naam verwijderen ?' ;
+$_lang['Are you sure to delete user %firstname %lastname'] =  'Wilt u gebruiker %voornaam %naam verwijderen ?' ;
+$_lang['Course code is'] = 'cursus code is' ;
+$_lang['Course name table prefix'] = 'tabel voorvoegsel cursusnaam' ;
+$_lang['Crypt passwords'] = 'crypt paswoorden' ;
+$_lang['Disk space allowed for import learning path'] = 'Diskruimte toegelaten voor het importeren van een leertraject'; 
+$_lang['Disk space allowed to import scorm package'] = 'Diskruimte toegelaten voor het importeren van scorm package';
+$_lang['Display banner'] = 'Toon banner';
+$_lang['Export exercise'] = 'Exporteer oefening' ;
+$_lang['Export in IMS QTI'] = 'Exporteer in IMS QTI';
+$_lang['Export in IMS QTI (Shuffle)'] = 'Exporteer in IMS QTI (Shuffle)';
+$_lang['Export to HTML'] = 'Exporteer naar HTML';
+$_lang['Export to PDF'] = 'Exporteer naar PDF';
+$_lang['Export to PDF (Shuffle)'] = 'Exporteer naar PDF (Shuffle)';
+$_lang['Garbage'] = 'Prullenmand';
+$_lang['HTML in posts'] = 'HTML in posts';
+$_lang['Import CVS'] = 'Importeer CVS';
+$_lang['Length of course code suffix'] = 'achtervoegsel lengte van cursuscode ';
+$_lang['Maximum score'] = 'Maximum score';
+$_lang['Missing or invalid course access'] = 'Ontbrekende of ongeldige cursustoegang';
+$_lang['Mysql Base Path'] = 'Mysql Base Path';
+$_lang['Not Allowed !'] = 'Niet toegelaten !';
+$_lang['Not implemented, name reserved  for future version of Claroline'] = 'Niet toegepast, naam is gereserveerd voor een toekomstige versie van Claroline';
+$_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO server provides a way to retrieve the user parameters from another server on the internet on the base of this cookie value.'] = 'Van zodra een gebruiker aanlogt bij het Claroline platform wordt een cookie gestuurd naar de gebruikersbrowser als de logon slaagt. De waarde van de cookie wordt opgeslagen in een interne tabel van het Claroline platform voor een bepaalde tijd. Wanneer het gevraagd wordt levert de Claroline SSO server een manier om de gebruikersparameters vanop een andere server op het internet op basis van deze cookie waarde terug te vinden.';
+$_lang['Prefix course code beginning with number'] = 'Voorvoegsel van de cursuscode begint met nummer';
+$_lang['Prefix for empty code course'] = 'voorvoegsel voor lege cursuscode';
+$_lang['Register users to class'] = 'Schrijf gebruikers in in een klas';
+$_lang['Relative path from claroline kernel to root of admin section'] = 'Relatief pad van de Claroline kernel naar de basis van de admin sectie';
+$_lang['Relative path from claroline web to icon set'] = 'Relatief pad van de Claroline website naar het icoonset';
+$_lang['Relative path from root campus to claroline code'] = 'Relatief pad van de basiscampus naar de Claroline code';
+$_lang['Select the type for your export :'] = 'Selecteer het type voor uw exporteeropdracht :';
+$_lang['Students connected today:'] = 'Vandaag aangemelde studenten:';
+$_lang['Target'] = 'doel';
+$_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the cookie only available in the www  subdomain.'] = 'Het domein dat de cookie beschikbaar is. Om de cookie beschikbaar te maken op alle subdomeinen van example.com, dient u dit op « example.com » te zetten. De . is niet vereist maar maakt het compatibel met meerdere browsers. Door dit op www.example.com te zetten wordt de cookie enkel beschikbaar in het www subdomein.';
+$_lang['The export\'s type is not supported for the moment.'] = 'Het export type wordt momenteel niet ondersteund.';
+$_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.'] = 'Het pad op de server waarin de cookie beschikbaar is. Als dit op « / » staat zal de cookie beschikbaar zijn in het ganse domein. Als dit op « /foo/ » staat zal de cookie enkel beschikbaar zijn binnen de /foo/ directory en alle subdirectory\'s zoals /foo/bar of domein. De standaardwaarde is het huidige directory waar de cookie in geplaatst is.';
+$_lang['This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.'] = 'Dit voorvoegsel is toegevoegd aan elke cursustabel naam. Dit is nuttig in de enkelvoudige database modus daar het alle cursustabellen groepeert.';
+$_lang['This feature is use for institute with  blind users. 
+ I fact, System would be ehanced to activate this view user by user'] = 'Dit kenmerk wordt gebruikt voor instituten met anonime gebruikers.  
+ Eigenlijk zal het systeem verbeteren door dit beeld gebruiker voor gebruiker te activeren.';
+$_lang['This is the physical path to databases storage. This path is  optional, use by the quota and size.'] = 'dit is het fysische pad tot database opslag. Dit pad is optioneel, gebruik door quota en grootte.';
+$_lang['This string is prepend to course database name if it begins with a number'] = 'Deze reeks wordt aan de cursusdatabase naam toegevoegd als het met een nummer begint';
+$_lang['To find a table name, the choose database name is prepend to the table name.
+db glu is use between these two name.
+
+In multi db mode, IT MUST be a dot.
+In single db mode, IT CAN\'T be a dot.
+'] = 'Om een tabelnaam te vinden, is de gekozen database naam toegevoegd aan de tabelnaam.
+db glu wordt gebruikt tussen deze twee namen.
+
+In meervoudige db modus, MOET dit een punt zijn.
+In enkelvoudige db modus, KAN dit een punt zijn.
+';
+$_lang['Unable to create the archive'] = 'Niet mogelijk om het archief te creëren';
+$_lang['Unable to export your topic in HTML format.'] = 'Niet mogelijk om uw toci in html formaat te exporteren';
+$_lang['Unable to export your topic in PDF format.'] = 'Niet mogelijk om uw topic in pdf formaat te exporteren.';
+$_lang['Unable to load user information'] = 'Niet mogelijk om gebruikers informatie te laden';
+$_lang['Unenrol class'] = 'klas uitschrijven';
+$_lang['Update properties of users  on CVS import'] = 'Update gebruikersinstellingen op CVS import';
+$_lang['Update user\'properties'] = 'Update gebruikersinstellingen';
+$_lang['User can leave course code (officialCode) field empty or not'] = 'Gebruiker heeft de keuze om het cursuscode veld (officiële code) al dan niet leeg laten';
+$_lang['User id missing'] = 'Gebruikers id ontbreekt';
+$_lang['User profile %username created successfully'] = 'Creatie gebruikersprofiel %username is geslaagd';
+$_lang['User profile %username updated successfully'] = 'Update gebruikersprofiel %username geslaagd';
+$_lang['Whether include tutors in the displayed member list'] = 'Of de opleider deel uitmaakt van de getoonde deelnemerslijst';
+$_lang['db glu'] = 'db glu';
+$_lang['filename for one file module inclusion'] = 'bestandsnaam voor een ingesloten bestandsmodule';
+$_lang['on bottom'] = 'naar beneden';
+$_lang['on top'] = 'naar boven';
+$_lang['relative path from root campus to courses'] = 'relatief pad van de basiscampus naar de cursussen';
+$_lang['relative path from root web to user pic repository'] = 'relatief pad van de basiswebsite naar de gebruikers afbeeldingen opslagplaats';
+$_lang['unique id of the platform'] = 'Uniek id van het platform';
 ?>
