@@ -142,14 +142,14 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
 function claro_sql_get_main_tbl()
 {
     static $mainTblList = array();
-
+    
     if ( count($mainTblList) == 0 )
     {
         $mainTblList= array (
+        'coursehomepage_portlet'    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'coursehomepage_portlet',
         'config_property'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'config_property',
         'config_file'               => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'config_file',
         'course'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours',
-        'coursehomepage_portlet'    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'coursehomepage_portlet',
         'category'                  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'category',
         'user'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user',
         'tool'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'course_tool',
@@ -157,9 +157,10 @@ function claro_sql_get_main_tbl()
         'user_rel_profile_category' => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_class_user',
         'class'                     => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'class',
         'rel_class_user'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_class_user',
-        'rel_course_class'          => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_class',
-        'rel_course_user'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_user',
         'rel_course_category'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_category',
+        'rel_course_class'          => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_class',
+        'rel_course_portlet'        => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_portlet',
+        'rel_course_user'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_user',
         'sso'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'sso',
         'notify'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'notify',
         'upgrade_status'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'upgrade_status',
@@ -177,12 +178,12 @@ function claro_sql_get_main_tbl()
         'im_recipient'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'im_recipient',
         'desktop_portlet'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'desktop_portlet',
         'desktop_portlet_data'      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'desktop_portlet_data',
-
+        
         'tracking_event'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_event',
         'log'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log'
         );
-
     }
+    
     return $mainTblList;
 }
 

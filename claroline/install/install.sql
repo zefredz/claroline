@@ -33,15 +33,20 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours` (
   KEY `administrativeNumber` (`administrativeNumber`)
 ) TYPE=MyISAM COMMENT='data of courses';
 
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__coursehomepage_portlet` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `__CL_MAIN__rel_course_portlet` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `courseId` int(11) NOT NULL,
   `rank` int(11) NOT NULL,
   `label` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
   `visible` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `courseId` (`courseId`,`label`)
+) TYPE=MyISAM;
+
+CREATE TABLE `__CL_MAIN__coursehomepage_portlet` (
+  `label` varchar(10) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`label`)
 ) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__user` (
@@ -351,3 +356,10 @@ VALUES
 UPDATE `__CL_MAIN__category` 
 SET `id` = 0 
 WHERE `code` = 'ROOT';
+
+INSERT INTO `__CL_MAIN__coursehomepage_portlet` 
+(`label`, `name`) 
+VALUES
+('CLTI',    'Headlines'),
+('CLCAL',   'Calendar'),
+('CLANN',   'Announcements');

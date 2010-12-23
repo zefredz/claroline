@@ -275,12 +275,11 @@ function upgrade_coursehomepage_to_110 ()
         case 1 :
             
             // Create table
-            $sqlForUpdate[] = "CREATE TABLE `" . get_conf('mainTblPrefix') . "coursehomepage_portlet` (
+            $sqlForUpdate[] = "CREATE TABLE `" . get_conf('mainTblPrefix') . "rel_course_portlet` (
               `id` int(11) NOT NULL AUTO_INCREMENT,
               `courseId` int(11) NOT NULL,
               `rank` int(11) NOT NULL,
               `label` varchar(255) NOT NULL,
-              `name` varchar(255) NOT NULL,
               `visible` tinyint(4) NOT NULL,
               PRIMARY KEY (`id`),
               UNIQUE KEY `courseId` (`courseId`,`label`)
@@ -290,8 +289,37 @@ function upgrade_coursehomepage_to_110 ()
             else return $step;
             
             unset($sqlForUpdate);
+            
+        case 2 :
+            
+            // Create table
+            $sqlForUpdate[] = "CREATE TABLE `" . get_conf('mainTblPrefix') . "cl_coursehomepage_portlet` (
+              `label` varchar(10) NOT NULL,
+              `name` varchar(255) NOT NULL,
+              PRIMARY KEY (`label`)
+            ) TYPE=MyISAM";
+            //
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+            
+            unset($sqlForUpdate);
+            
+        case 3 :
+            
+            // Insert data
+            $sqlForUpdate[] = "INSERT INTO `" . get_conf('mainTblPrefix') . "cl_coursehomepage_portlet`
+            (`label`, `name`)
+            VALUES
+            ('CLTI',    'Headlines'),
+            ('CLCAL',   'Calendar'),
+            ('CLANN',   'Announcements')";
+            //
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+            
+            unset($sqlForUpdate);
         default :
-
+            
             $step = set_upgrade_status($tool, 0);
             return $step;
 
