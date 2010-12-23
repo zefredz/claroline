@@ -20,13 +20,6 @@ require_once get_module_path( 'CLCAL' ) . '/lib/agenda.lib.php';
 
 class CLCAL_Portlet extends CourseHomePagePortlet
 {
-    private $courseCode;
-    
-    public function __construct()
-    {
-        $this->courseCode = $courseCode = claro_get_current_course_id();
-    }
-    
     public function renderContent()
     {
         $output = '<div id="portletMycalendar">' . "\n"
@@ -47,6 +40,17 @@ $(document).ready( function(){
     
     public function renderTitle()
     {
-        return get_lang('My calendar');
+        $output = get_lang('Calendar');
+        
+        if (claro_is_allowed_to_edit())
+        {
+            $output .= ' <span class="separator">|</span> <a href="'
+                     . htmlspecialchars(Url::Contextualize(get_module_url( 'CLCAL' ) . '/agenda.php'))
+                     . '">'
+                     . '<img src="' . get_icon_url('settings') . '" alt="'.get_lang('Settings').'" /> '
+                     . get_lang('Manage').'</a>';
+        }
+        
+        return $output;
     }
 }

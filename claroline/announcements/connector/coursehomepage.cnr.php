@@ -18,18 +18,6 @@
 
 class CLANN_Portlet extends CourseHomePagePortlet
 {
-    private $courseCode;
-    
-    public function __construct()
-    {
-        $this->courseCode = $courseCode = claro_get_current_course_id();
-        
-        if (file_exists(claro_get_conf_repository() . 'CLANN.conf.php'))
-        {
-            include claro_get_conf_repository() . 'CLANN.conf.php';
-        }
-    }
-    
     public function renderContent()
     {
         // Select announcements for this course
@@ -64,8 +52,9 @@ class CLANN_Portlet extends CourseHomePagePortlet
         // Manage announcement's datas
         if($announcementList)
         {
-            $output .= '<dl id="portletMyAnnouncements">' . "\n";
+            $output .= '<dl id="portletAnnouncements">' . "\n";
             
+            $i = 0;
             foreach($announcementList as $announcementItem)
             {
                 // Generate announcement URL
@@ -108,11 +97,13 @@ class CLANN_Portlet extends CourseHomePagePortlet
                              . $announcementItem['title']
                              . '</a>' . "\n"
                              . '</dt>' . "\n"
-                             . '<dd>' . "\n"
+                             . '<dd'.($i == count($announcementList)-1?' class="last"':'').'>' . "\n"
                              . $announcementItem['content'] . "\n"
                              . '</dd>' . "\n"
                              ;
                 }
+                
+                $i++;
             }
             
             $output .= '</dl>';
@@ -121,10 +112,11 @@ class CLANN_Portlet extends CourseHomePagePortlet
         {
             $output .= "\n"
                      . '<dl>' . "\n"
-                     . '<dt>' . "\n"
+                     . '<dt></dt>' . "\n"
+                     . '<dd class="last">'
                      . '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="Announcement icon" />'
                      . ' ' . get_lang('No announce to display') . "\n"
-                     . '</dt>' . "\n"
+                     . '</dd>' . "\n"
                      . '</dl>' . "\n" . "\n"
                      ;
         }
@@ -134,6 +126,17 @@ class CLANN_Portlet extends CourseHomePagePortlet
     
     public function renderTitle()
     {
-        return get_lang('Latest announcements');
+        $output = get_lang('Latest announcements');
+        
+        if (claro_is_allowed_to_edit())
+        {
+            $output .= ' <span class="separator">|</span> <a href="'
+                     . htmlspecialchars(Url::Contextualize(get_module_url( 'CLANN' ) . '/announcements.php'))
+                     . '">'
+                     . '<img src="' . get_icon_url('settings') . '" alt="'.get_lang('Settings').'" /> '
+                     . get_lang('Manage').'</a>';
+        }
+        
+        return $output;
     }
 }
