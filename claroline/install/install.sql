@@ -34,13 +34,15 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours` (
 ) TYPE=MyISAM COMMENT='data of courses';
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__coursehomepage_portlet` (
-  `courseId` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL AUTO_INCREMENT,
+  `courseId` int(11) NOT NULL,
   `rank` int(11) NOT NULL,
   `label` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `visible` tinyint(4) NOT NULL,
-  PRIMARY KEY (`courseId`,`rank`)
-)  TYPE=MyISAM;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `courseId` (`courseId`,`label`)
+) TYPE=MyISAM
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__user` (
   `user_id` INT(11)  UNSIGNED NOT NULL AUTO_INCREMENT,

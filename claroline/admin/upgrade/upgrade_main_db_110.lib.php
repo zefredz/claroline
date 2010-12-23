@@ -275,14 +275,16 @@ function upgrade_coursehomepage_to_110 ()
         case 1 :
             
             // Create table
-            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . get_conf('mainTblPrefix') . "coursehomepage_portlet` (
-                  `courseId` int(11) NOT NULL AUTO_INCREMENT,
-                  `rank` int(11) NOT NULL,
-                  `label` varchar(255) NOT NULL,
-                  `name` varchar(255) NOT NULL,
-                  `visible` tinyint(4) NOT NULL,
-                  PRIMARY KEY (`courseId`,`rank`)
-                )  TYPE=MyISAM";
+            $sqlForUpdate[] = "CREATE TABLE `" . get_conf('mainTblPrefix') . "coursehomepage_portlet` (
+              `id` int(11) NOT NULL AUTO_INCREMENT,
+              `courseId` int(11) NOT NULL,
+              `rank` int(11) NOT NULL,
+              `label` varchar(255) NOT NULL,
+              `name` varchar(255) NOT NULL,
+              `visible` tinyint(4) NOT NULL,
+              PRIMARY KEY (`id`),
+              UNIQUE KEY `courseId` (`courseId`,`label`)
+            ) TYPE=MyISAM";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
