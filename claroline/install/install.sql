@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__coursehomepage_portlet` (
   `visible` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `courseId` (`courseId`,`label`)
-) TYPE=MyISAM
+) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__user` (
   `user_id` INT(11)  UNSIGNED NOT NULL AUTO_INCREMENT,
