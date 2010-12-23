@@ -169,7 +169,6 @@ $claroline_script[] = "/inc/htmlarea/popups/insert_image.php";
 $claroline_script[] = "/inc/index_anonymous.inc.php";
 $claroline_script[] = "/inc/index_authenticated.inc.php";
 $claroline_script[] = "/inc/installedVersion.inc.php";
-$claroline_script[] = "/inc/introductionSection.inc.php";
 $claroline_script[] = "/inc/lib/JPSpan/JPSpan.php";
 $claroline_script[] = "/inc/lib/JPSpan/JPSpan/CodeWriter.php";
 $claroline_script[] = "/inc/lib/JPSpan/JPSpan/ErrorHandler.php";

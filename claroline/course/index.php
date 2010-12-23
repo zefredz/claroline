@@ -3,13 +3,15 @@
 /**
  * CLAROLINE
  *
- * @version     1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *              old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_home/course_home.php
  * @package     CLHOME
  * @author      Claro Team <cvs@claroline.net>
+ * @since       1.9
  */
+
 
 // If user is here, it means he isn't neither in specific group space
 // nor a specific course tool now. So it's careful to reset the group
@@ -21,9 +23,14 @@ $tidReset = true;
 if ( isset($_REQUEST['cid']) ) $cidReq = $_REQUEST['cid'];
 elseif ( isset($_REQUEST['cidReq']) ) $cidReq = $_REQUEST['cidReq'];
 
+$portletCmd = (isset($_REQUEST['portletCmd'])?$_REQUEST['portletCmd']:null);
+$portletId = (isset($_REQUEST['portletId'])?$_REQUEST['portletId']:null);
+$portletLabel = (isset($_REQUEST['portletLabel'])?$_REQUEST['portletLabel']:null);
+$portletClass = (isset($portletLabel)?($portletLabel.'_portlet'):null);
+
 require '../inc/claro_init_global.inc.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
-require_once get_path('clarolineRepositorySys') . 'coursehomepage/lib/portlet.lib.php';
+require_once get_path('clarolineRepositorySys') . 'coursehomepage/lib/coursehomepageportlet.class.php';
 require_once get_path('clarolineRepositorySys') . 'coursehomepage/lib/coursehomepageportletiterator.class.php';
 
 $portletiterator = new CourseHomePagePortletIterator(ClaroCourse::getIdFromCode($cidReq));
@@ -45,6 +52,9 @@ if ( claro_is_in_a_course()
         . $_course['path'] . '/css/course.css" />');
 }
 
+// Instanciate dialog box
+$dialogBox = new DialogBox();
+
 if (isset($cidReq))
 {
     $thisCourse = new ClaroCourse();
@@ -57,14 +67,100 @@ if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_for
 $toolRepository = get_path('clarolineRepositoryWeb');
 claro_set_display_mode_available(true);
 
-/*
- * Language initialisation of the tool names
- */
+// Manage portlets
+if (claro_is_course_manager())
+{
+    if ($portletCmd == 'rqAdd')
+    {
+        $form = CourseHomePagePortlet::renderForm();
+        if ($form)
+        {
+            $dialogBox->form($form);
+        }
+        else
+        {
+            $dialogBox->error(get_lang('No more portlet available for this course'));
+        }
+    }
+    if ($portletCmd == 'exAdd')
+    {
+        $portletPath = get_module_path( $portletLabel )
+            . '/connector/coursehomepage.cnr.php';
+        if ( file_exists($portletPath) )
+        {
+            require_once $portletPath;
+        }
+        else
+        {
+            $dialogBox->error(get_lang('Can\'t find this portlet'));
+        }
+        
+        $portlet = new $portletClass();
+        $portlet->handleForm();
+        if($portlet->save())
+        {
+            $dialogBox->success(get_lang('Portlet created'));
+        }
+    }
+    if ($portletCmd == 'delete' && !empty($portletId))
+    {
+        $portlet = new $portletClass();
+        $portlet->load($portletId);
+        if($portlet->delete())
+        {
+            $dialogBox->success(get_lang('Portlet deleted'));
+        }
+    }
+    elseif ($portletCmd == 'swapVisibility' && !empty($portletId))
+    {
+        $portlet = new $portletClass();
+        if ($portlet->load($portletId))
+        {
+            $portlet->swapVisibility();
+            if($portlet->save())
+            {
+                $dialogBox->success(get_lang('Portlet visibility modified'));
+            }
+        }
+    }
+    elseif ($portletCmd == 'moveUp' && !empty($portletId))
+    {
+        $portlet = new $portletClass();
+        $portlet->load($portletId);
+        
+        if ($portlet->load($portletId))
+        {
+            if($portlet->moveUp())
+            {
+                $dialogBox->success(get_lang('Portlet moved up'));
+            }
+            else
+            {
+                $dialogBox->error(get_lang('This portlet can\'t be moved up'));
+            }
+        }
+    }
+    elseif ($portletCmd == 'moveDown' && !empty($portletId))
+    {
+        $portlet = new $portletClass();
+        if ($portlet->load($portletId))
+        {
+            if($portlet->moveDown())
+            {
+                $dialogBox->success(get_lang('Portlet moved down'));
+            }
+            else
+            {
+                $dialogBox->error(get_lang('This portlet can\'t be moved down'));
+            }
+        }
+    }
+}
 
+// Language initialisation of the tool names
 $toolNameList = claro_get_tool_name_list();
 
-// get tool id where new events have been recorded since last login
-
+// Get tool id where new events have been recorded since last login
 if (claro_is_user_authenticated())
 {
     $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
@@ -81,11 +177,11 @@ else
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-$sourceCourseCode = retrieve_code_from_id((claro_get_current_course_data('sourceCourseId')));
+$sourceCourseCode = ClaroCourse::getCodeFromId(claro_get_current_course_data('sourceCourseId'));
 
 if (isset($sourceCourseCode))
 {
-    // call a session course
+    // Call a session course
     $_SESSION['courseSessionCode'][$sourceCourseCode] = claro_get_current_course_id();
     $courseCode['session'] =  claro_get_current_course_id();
     $courseCode['source'] = $sourceCourseCode;
@@ -108,7 +204,7 @@ $toolLinkList = array(
     'standAlone' => array()
 );
 
-// generate toollists
+// Generate tool lists
 foreach ($courseCode as $key => $course)
 {
     $toolListSource = claro_get_course_tool_list($course, $_profileId, true);
@@ -121,14 +217,14 @@ foreach ($courseCode as $key => $course)
         {
             continue;
         }
-    
+        
         if (isset($thisTool['label'])) // standart claroline tool or module of type tool
         {
             $thisToolName = $thisTool['name'];
             $toolName = get_lang($thisToolName);
-    
+            
             //trick to find how to build URL, must be IMPROVED
-    
+            
             $url = htmlspecialchars( get_module_url($thisTool['label']) . '/' . $thisTool['url'] . '?cidReset=true&cidReq=' .$course);
             $icon = get_module_url($thisTool['label']) .'/'. $thisTool['icon'];
             $htmlId = 'id="' . $thisTool['label'] . '"';
@@ -143,7 +239,7 @@ foreach ($courseCode as $key => $course)
             $htmlId = '';
             $removableTool = true;
         }
-    
+        
         $style = !$thisTool['visibility']? 'invisible ' : '';
         $classItem = (in_array($thisTool['id'], $modified_tools)) ? ' hot' : '';
         
@@ -165,8 +261,8 @@ foreach ($courseCode as $key => $course)
         }
     }
 }
-    
-// generate toolList for managment of the course
+
+// Generate tool list for managment of the course
 $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')  . 'course/tools.php' )) . '">'
 .                             '<img src="' . get_icon_url('edit') . '" alt="" /> '
 .                             get_lang('Edit Tool list')
@@ -194,8 +290,14 @@ if( get_conf('is_trackingEnabled') )
     ;
 }
 
+
+// Fetch the portlets
+$portletiterator = new CourseHomePagePortletIterator(ClaroCourse::getIdFromCode($cidReq));
+
+
 // Display header
 $template = new CoreTemplate('course_index.tpl.php');
+$template->assign('dialogBox', $dialogBox);
 $template->assign('toolLinkListSource', $toolLinkList['source']);
 $template->assign('toolLinkListSession', $toolLinkList['session']);
 $template->assign('toolLinkListStandAlone', $toolLinkList['standAlone']);
@@ -206,4 +308,3 @@ $claroline->display->body->setContent($template->render());
 
 
 echo $claroline->display->render();
-?>

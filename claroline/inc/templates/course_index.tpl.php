@@ -34,6 +34,7 @@ endif;
 <?php if ( claro_is_user_authenticated() ) : ?>
 <br />
 <span style='font-size:8pt'>
+
 <?php
     echo '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
         . get_lang('New items'). ' ('
@@ -61,14 +62,23 @@ endif;
 
 <td valign="top">
 <?php
-    include( get_path('incRepositorySys') . '/introductionSection.inc.php' );
+    if ( claro_is_allowed_to_edit() ) :
+        echo '<a href="'
+           . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+           . '?portletCmd=rqAdd')).'">'
+           . '<img src="'.get_icon_url('default_new').'" alt="'.get_lang('Add a new portlet').'" /> '
+           . get_lang('Add a portlet to your course homepage').'</a>';
+    endif;
     
-    /* work in progress (abourguignon)
+    echo $this->dialogBox->render();
+    
     foreach ($this->portletIterator as $portlet)
     {
-        echo $portlet->render();
+        if ($portlet->getVisible() || !$portlet->getVisible() && claro_is_allowed_to_edit())
+        {
+            echo $portlet->render();
+        }
     }
-    */
 ?>
 </td>
 
