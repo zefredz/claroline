@@ -2,12 +2,30 @@
  $Id$
  **/
 
-dl#portletMyAnnouncements dd, 
-dl#portletMyAnnouncements dt 
+dl#portletAnnouncements dd, 
+dl#portletAnnouncements dt, 
+dl#portletAbout dd, 
+dl#portletAbout dt 
 {
     margin-left: 0;
 }
-dl#portletMyAnnouncements dd
+dl#portletAnnouncements dd, 
+dl#portletAbout dd
 {
     margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #EDF1E3;
+}
+dl#portletAnnouncements dd.last, 
+dl#portletAbout dd.last
+{
+    border-bottom: 0;
+}
+div.claroBlockHeader .separator
+{
+    font-weight: normal;
+}
+div.claroBlockHeader.hidden
+{
+    color: #666;
 }

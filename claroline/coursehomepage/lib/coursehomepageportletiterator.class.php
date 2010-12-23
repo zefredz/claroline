@@ -11,6 +11,7 @@
  * @since       1.10
  */
 
+
 class CourseHomePagePortletIterator implements Iterator
 {
     private     $courseId;
@@ -20,19 +21,21 @@ class CourseHomePagePortletIterator implements Iterator
     public function __construct($courseId)
     {
         $this->courseId = $courseId;
+        $courseCode     = ClaroCourse::getCodeFromId($this->courseId);
         
-        $tbl_mdb_names      = claro_sql_get_main_tbl();
-        $tbl_chp_portlet    = $tbl_mdb_names['coursehomepage_portlet'];
+        $tbl_mdb_names          = claro_sql_get_main_tbl();
+        $tbl_rel_course_portlet = $tbl_mdb_names['rel_course_portlet'];
         
-        $sql = "SELECT courseId, rank, label, name, visible
-                FROM `{$tbl_chp_portlet}`
-                WHERE courseId = {$this->courseId}
-                ORDER BY rank ASC";
+        $sql = "SELECT id, courseId, rank, label, visible
+                FROM `{$tbl_rel_course_portlet}`
+                WHERE `courseId` = {$this->courseId}
+                ORDER BY `rank` ASC";
         
         $result = Claroline::getDatabase()->query($sql);
         
         foreach($result as $portletInfos)
         {
+            // Require the proper portlet class
             $portletPath = get_module_path( $portletInfos['label'] )
             . '/connector/coursehomepage.cnr.php';
             
@@ -47,30 +50,22 @@ class CourseHomePagePortletIterator implements Iterator
                 echo "Le fichier {$portletPath} est introuvable<br/>";
             }
             
-            if ( class_exists($portletName) )
+            if (class_exists($portletName))
             {
-                $portlet = new $portletName();
+                $portlet = new $portletName($portletInfos['id'], $courseCode,
+                $portletInfos['courseId'], $portletInfos['rank'],
+                $portletInfos['label'], $portletInfos['visible']);
+                
                 $this->portlets[] = $portlet;
             }
             
             #TODO debug
             else
             {
-                echo "La classe {$portletName} est introuvable<br/>";
+                echo "Can't find the class {$portletName}_portlet<br/>";
+                return false;
             }
         }
-    }
-    
-    public function __toString()
-    {
-        $out = '';
-        
-        foreach ($this->portlets as $portlet)
-        {
-            $out .= var_dump($portlet);
-        }
-        
-        return $out;
     }
     
     public function rewind()
