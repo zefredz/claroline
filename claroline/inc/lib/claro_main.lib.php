@@ -15,7 +15,7 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * @author Claro Team <cvs@claroline.net> for additionnal authors see the
  *         'credits.txt' file
  * @package kernel
- * 
+ *
  * @todo why do we need that much identifiers for a module ?!?
  * @todo use Exceptions instead of claro_failure
  */
@@ -189,7 +189,7 @@ function claro_get_course_data($courseId = NULL, $force = false )
 
 /**
  * Get all courses datas in data base.
- * 
+ *
  * @param int           category identifier (default: null)
  * @param bool          $visibility (1 = only visible, 0 = only invisible, null = all; default: null)
  * @return array        collection of courses ordered by label (asc)
@@ -197,19 +197,19 @@ function claro_get_course_data($courseId = NULL, $force = false )
  * @since 1.10
  */
 function claro_get_all_courses ($categoryId = null, $visibility = null)
-{    
+{
     $tbl_mdb_names              = claro_sql_get_main_tbl();
     $tbl_course                 = $tbl_mdb_names['course'];
     $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
     
     $curdate = date('Y-m-d H:i:s', time());
     
-    $sql = "SELECT c.cours_id               AS id, 
+    $sql = "SELECT c.cours_id               AS id,
                    c.titulaires             AS titular,
-                   c.code                   AS sysCode, 
+                   c.code                   AS sysCode,
                    c.isSourceCourse         AS isSourceCourse,
                    c.sourceCourseId         AS sourceCourseId,
-                   c.intitule               AS title, 
+                   c.intitule               AS title,
                    c.administrativeNumber   AS officialCode,
                    c.language,
                    c.directory,
@@ -224,10 +224,10 @@ function claro_get_all_courses ($categoryId = null, $visibility = null)
     if (!is_null($categoryId))
     {
         $sql .= "
-            LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
-            ON c.cours_id = rcc.courseId 
+            LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
+            ON c.cours_id = rcc.courseId
             
-            WHERE (rcc.categoryId = " . (int) $categoryId . " 
+            WHERE (rcc.categoryId = " . (int) $categoryId . "
             OR c.sourceCourseId IS NOT NULL)";
     }
 
@@ -253,7 +253,7 @@ function claro_get_all_courses ($categoryId = null, $visibility = null)
 
 /**
  * Get courses datas in data base.
- * 
+ *
  * @param int           category identifier (default: null)
  * @param int           identifier of the user
  * @return array        array of courses ordered by label (asc)
@@ -269,7 +269,7 @@ function claro_get_restricted_courses ($categoryId, $userId)
     
     $curdate = claro_mktime();
     
-    $sql = "SELECT c.cours_id               AS id, 
+    $sql = "SELECT c.cours_id               AS id,
                     c.titulaires            AS titular,
                     c.code                  AS sysCode,
                     c.isSourceCourse        AS isSourceCourse,
@@ -278,8 +278,8 @@ function claro_get_restricted_courses ($categoryId, $userId)
                     c.administrativeNumber  AS officialCode,
                     c.dbName                AS db,
                     c.intitule              AS title,
-                    UNIX_TIMESTAMP(c.expirationDate)    AS expirationDate, 
-                    UNIX_TIMESTAMP(c.creationDate)      AS creationDate, 
+                    UNIX_TIMESTAMP(c.expirationDate)    AS expirationDate,
+                    UNIX_TIMESTAMP(c.creationDate)      AS creationDate,
                     c.language,
                     c.directory,
                     c.visibility,
@@ -289,14 +289,14 @@ function claro_get_restricted_courses ($categoryId, $userId)
                     c.status";
     
     if (!is_null($categoryId))
-        $sql .= ", 
-                    rcc.categoryId  AS categoryId, 
+        $sql .= ",
+                    rcc.categoryId  AS categoryId,
                     rcc.rootCourse  AS rootCourse";
     
     if (!is_null($userId))
-        $sql .= ", 
-                    rcu.isCourseManager, 
-                    rcu.isPending, 
+        $sql .= ",
+                    rcu.isCourseManager,
+                    rcu.isPending,
                     rcu.user_id              AS enroled";
     
     $sql .= "
@@ -311,7 +311,7 @@ function claro_get_restricted_courses ($categoryId, $userId)
     if (!is_null($categoryId))
         $sql .= "
             
-            LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc 
+            LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
             ON c.cours_id = rcc.courseId";
     
 
@@ -336,9 +336,9 @@ function claro_get_restricted_courses ($categoryId, $userId)
             
     $sql .= "
             AND (
-                  (c.status = 'enable' 
+                  (c.status = 'enable'
                     OR (c.status = 'date'
-                         AND (UNIX_TIMESTAMP(c.creationDate) < '". $curdate ."' 
+                         AND (UNIX_TIMESTAMP(c.creationDate) < '". $curdate ."'
                                 OR c.creationDate IS NULL OR UNIX_TIMESTAMP(c.creationDate) = 0)
                          AND ('". $curdate ."' < UNIX_TIMESTAMP(c.expirationDate)  OR c.expirationDate IS NULL)
                        )
@@ -375,7 +375,7 @@ function claro_get_restricted_courses ($categoryId, $userId)
 
 /**
  * Return session courses (if any) for the specified course.
- * 
+ *
  * @param int       identifier of the specified course
  * @return array    collection of session courses
  * @since 1.10
@@ -386,11 +386,11 @@ function get_session_courses($id)
     $tbl_mdb_names              = claro_sql_get_main_tbl();
     $tbl_course                 = $tbl_mdb_names['course'];
     
-    $sql = "SELECT c.cours_id               AS id, 
+    $sql = "SELECT c.cours_id               AS id,
                    c.titulaires             AS titular,
-                   c.code                   AS sysCode, 
-                   c.sourceCourseId         AS sourceCourseId, 
-                   c.intitule               AS title, 
+                   c.code                   AS sysCode,
+                   c.sourceCourseId         AS sourceCourseId,
+                   c.intitule               AS title,
                    c.administrativeNumber   AS officialCode,
                    c.language,
                    c.directory,
@@ -408,7 +408,7 @@ function get_session_courses($id)
 
 /**
  * Return the source course (if any) for the specified course.
- * 
+ *
  * @param int       identifier of the specified course
  * @return array    datas of the source course
  * @since 1.10
@@ -419,10 +419,10 @@ function get_source_course($id)
     $tbl_mdb_names              = claro_sql_get_main_tbl();
     $tbl_course                 = $tbl_mdb_names['course'];
     
-    $sql = "SELECT c1.cours_id               AS id, 
+    $sql = "SELECT c1.cours_id               AS id,
                    c1.titulaires             AS titular,
-                   c1.code                   AS sysCode, 
-                   c1.intitule               AS title, 
+                   c1.code                   AS sysCode,
+                   c1.intitule               AS title,
                    c1.administrativeNumber   AS officialCode,
                    c1.language,
                    c1.directory,
@@ -432,66 +432,10 @@ function get_source_course($id)
                    c1.email,
                    c1.status
             FROM `" . $tbl_course . "` AS c1, `" . $tbl_course . "` AS c2
-            WHERE c1.cours_id = c2.sourceCourseId 
+            WHERE c1.cours_id = c2.sourceCourseId
             AND c2.cours_id = " . (int) $id;
     
     return claro_sql_query_get_single_row($sql);
-}
-
-
-/**
- * Returns the code (string) of a course based on its identifier (integer).
- * 
- * @param int       course identifier
- * @return string   course code
- */
-function retrieve_code_from_id($id)
-{
-    // Declare needed tables
-    $tbl_mdb_names              = claro_sql_get_main_tbl();
-    $tbl_course                 = $tbl_mdb_names['course'];
-    
-    $sql = "SELECT c.code AS sysCode
-            
-            FROM `" . $tbl_course . "` AS c
-            WHERE c.cours_id = " . (int) $id;
-    
-    if ($result = claro_sql_query_get_single_row($sql))
-    {
-        return $result['sysCode'];
-    }
-    else
-    {
-        return null;
-    }
-}
-
-
-/**
- * Returns the identifier (integer) of a course based on its code (string).
- * 
- * @param string    course code
- * @return int      course identifier
- */
-function retrieve_id_from_code($code)
-{
-    // Declare needed tables
-    $tbl_mdb_names              = claro_sql_get_main_tbl();
-    $tbl_course                 = $tbl_mdb_names['course'];
-    
-    $sql = "SELECT c.cours_id AS id
-            
-            FROM `" . $tbl_course . "` AS c
-            WHERE c.code = '" . $code . "'";
-    
-    if ($result = claro_sql_query_get_single_row($sql))
-    {
-        return $result['id'];
-    }
-    else
-    {
-        return null;
-    }
 }
 
 
@@ -863,15 +807,15 @@ function claro_get_main_course_tool_list ( $force = false )
 
 /**
  * Return the tool list for a course according a certain access level.
- * 
+ *
  * @param string    $courseIdReq - the requested course id
  * @param int       $profileIdReq - the requested profile id
  * @param boolean   $force (optionnal)  - reset the result cache, default is false
  * @param boolean   $active (optionnal) - get the list of active tool only if set
  *                  to true (default behaviour)
- * @param mixed     $courseActive (optional) - set to true (default behaviour) to get 
+ * @param mixed     $courseActive (optional) - set to true (default behaviour) to get
  *                  only activated course tools, set to false to get all course tools
- * 
+ *
  * @return array    the courses list
  */
 

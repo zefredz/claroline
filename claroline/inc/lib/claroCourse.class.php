@@ -1432,7 +1432,23 @@ class ClaroCourse
      */
     public static function getCodeFromId ( $id )
     {
-        return retrieve_code_from_id( $id );
+        // Declare needed tables
+        $tbl_mdb_names              = claro_sql_get_main_tbl();
+        $tbl_course                 = $tbl_mdb_names['course'];
+        
+        $sql = "SELECT c.code AS sysCode
+                
+                FROM `" . $tbl_course . "` AS c
+                WHERE c.cours_id = " . (int) $id;
+        
+        if ($result = claro_sql_query_get_single_row($sql))
+        {
+            return $result['sysCode'];
+        }
+        else
+        {
+            return null;
+        }
     }
     
     
@@ -1448,7 +1464,23 @@ class ClaroCourse
      */
     public static function getIdFromCode ( $code )
     {
-        return retrieve_id_from_code( $code );
+        // Declare needed tables
+        $tbl_mdb_names              = claro_sql_get_main_tbl();
+        $tbl_course                 = $tbl_mdb_names['course'];
+        
+        $sql = "SELECT c.cours_id AS id
+                
+                FROM `" . $tbl_course . "` AS c
+                WHERE c.code = '" . $code . "'";
+        
+        if ($result = claro_sql_query_get_single_row($sql))
+        {
+            return $result['id'];
+        }
+        else
+        {
+            return null;
+        }
     }
     
     
