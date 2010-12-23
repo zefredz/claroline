@@ -312,5 +312,3 @@ $claroline->display->body->appendContent($out);
 
 // Generate output
 echo $claroline->display->render();
-
-?>

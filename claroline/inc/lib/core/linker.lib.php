@@ -49,7 +49,7 @@
 require_once dirname(__FILE__) . '/url.lib.php';
 require_once dirname(__FILE__) . '/../group.lib.inc.php';
 
-interface ResourceLocator 
+interface ResourceLocator
 {
 }
 
@@ -65,7 +65,7 @@ class ClarolineResourceLocator implements ResourceLocator
             $resourceId,
             $teamId;
             
-    public function __construct( 
+    public function __construct(
             $courseId = null,
             $moduleLabel = null,
             $resourceId = null,
@@ -384,7 +384,7 @@ class LinkerResource
 }
 
 /**
- * Defines a resource that contains other resources such as 
+ * Defines a resource that contains other resources such as
  * a tool or a directory in document tool
  *
  */
@@ -634,7 +634,7 @@ class CourseResolver
 {
     public function resolve( ResourceLocator $locator )
     {
-        return get_path('clarolineRepositoryWeb') . 'course/index.php?cid='.$locator->getCourseId(); 
+        return get_path('clarolineRepositoryWeb') . 'course/index.php?cid='.$locator->getCourseId();
     }
     
     public function getResourceName( ResourceLocator $locator )

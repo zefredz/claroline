@@ -3,22 +3,15 @@
 /**
  * CLAROLINE
  *
- * This  page show  to the user, the course description
+ * This page displays the course's description to the user.
  *
- * If ist's the admin, he can access to the editing
- *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/CLDSC/
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLDSC
- *
+ * @version     $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/CLDSC/
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     CLDSC
+ * @since       1.9
  */
 
 // TODO add config var to allow multiple post of same type
@@ -47,7 +40,7 @@ $acceptedCmdList = array('rqEdit', 'exEdit', 'exDelete', 'mkVis','mkInvis');
 if ( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )
 {
     $cmd = $_REQUEST['cmd'];
-}   
+}
 else
 {
     $cmd = null;
