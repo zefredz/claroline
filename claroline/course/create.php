@@ -2,26 +2,21 @@
 /**
  * CLAROLINE
  *
- * This script  manage the creation of a new course.
- * It contains 3 panels
+ * This script manages the creation of a course.
+ * It contains 3 panels:
  * - Form
  * - Wait
  * - Done
  *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/CLCRS/
- *
- * @package COURSE
- *
- * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/create_course/add_course.php
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @version     $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/CLCRS/
+ * @package     COURSE
+ *              old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/create_course/add_course.php
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @since       1.9
  *
  */
 
@@ -60,7 +55,7 @@ $dialogBox = new DialogBox();
 $cmd                = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
 $adminContext       = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
 
-// $sourceCourseId has a value only if we're about to create a session course; it's null otherwise 
+// $sourceCourseId has a value only if we're about to create a session course; it's null otherwise
 $sourceCourseId = isset($_REQUEST['course_sourceCourseId']) ? (int) $_REQUEST['course_sourceCourseId'] : null;
 
 // New course object

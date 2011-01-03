@@ -2136,7 +2136,7 @@ Course code : %course_code
 Course title : %course_title
 Lecturer(s) : %course_lecturers
 Email : %course_email
-Category : %course_category
+Category : %course_categories
 Language : %course_language
 Url : %course_url';
 $_lang['blockCourseDescriptionCourseContent'] = 'Course content';

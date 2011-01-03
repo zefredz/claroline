@@ -7,14 +7,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * Course Class
  *
- * @version 1.9 $Revision$
- *
- * @copyright 2001-2010 Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package Kernel
- * @author Claro Team <cvs@claroline.net>
- * @author Mathieu Laurent <laurent@cerdecam.be>
- * @author Sebastien Piraux <piraux@cerdecam.be>
+ * @version     $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     Kernel
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Mathieu Laurent <laurent@cerdecam.be>
+ * @author      Sebastien Piraux <piraux@cerdecam.be>
+ * @since       1.9
  */
 
 require_once dirname(__FILE__) . '/backlog.class.php';
@@ -1505,7 +1505,7 @@ class ClaroCourse
                                 '%course_title' => $this->title,
                                 '%course_lecturers' => $this->titular,
                                 '%course_email' => $this->email,
-                                '%course_categories' => is_array($this->categories) ? implode(',',$this->categories) : $this->categories,
+                                '%course_categories' => ((is_array($this->categories) && !empty($this->categories)) ? implode(', ',$this->categories) : get_lang('No category')),
                                 '%course_language' => $this->language,
                                 '%course_url' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) );
 
