@@ -278,7 +278,7 @@ class ClaroCourse
                 ? 'NULL'
                 : 'FROM_UNIXTIME(' . claro_sql_escape($this->publicationDate) . ')'
                 ;
-
+            
             $sql = "UPDATE `" . $tbl_course . "`
                     SET `intitule`             = '" . claro_sql_escape($this->title) . "',
                         `titulaires`           = '" . claro_sql_escape($this->titular) . "',
@@ -307,10 +307,10 @@ class ClaroCourse
             // If it's a source course, do the same for all its session courses
             if ( $this->isSourceCourse )
             {
-                $sql = "SELECT cours_id FROM `" . $tbl_course . "`
+                $sql2 = "SELECT cours_id FROM `" . $tbl_course . "`
                         WHERE sourceCourseId = " . $this->id;
                 
-                $sessionCourses = claro_sql_query_fetch_all_rows($sql);
+                $sessionCourses = claro_sql_query_fetch_all_rows($sql2);
                 
                 foreach ($sessionCourses as $sessionCourse)
                 {

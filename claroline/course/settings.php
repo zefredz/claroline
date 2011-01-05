@@ -4,18 +4,13 @@
  *
  * This tool manage properties of an exiting course
  *
- * @version 1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author claroline Team <cvs@claroline.net>
- * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
- *
- * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_info/infocours.php
- *
- * @package CLCRS
- *
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      claroline Team <cvs@claroline.net>
+ * @author      Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ *              old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_info/infocours.php
+ * @package     CLCRS
  */
 
 $gidReset = true;
@@ -116,7 +111,7 @@ if ( $course->load($current_cid) )
             {
                 $dialogBox->success(get_lang('This course has been activated and is now available on this platform'));
             }
-            else 
+            else
             {
                 $dialogBox->error(get_lang('Unable to reactivate this course'));
             }
@@ -129,7 +124,7 @@ if ( $course->load($current_cid) )
             {
                 $dialogBox->success(get_lang('This course has been activated and is now available on this platform'));
             }
-            else 
+            else
             {
                 $dialogBox->error(get_lang('Unable to reactivate this course'));
             }
@@ -143,13 +138,13 @@ if ( $course->load($current_cid) )
     if ( $cmd == 'exEdit' )
     {
         $course->handleForm();
-
+        
         if ( $course->validate() )
         {
             if ( $course->save() )
             {
                 $dialogBox->success( get_lang('The information have been modified') ) ;
-
+                
                 if ( ! $adminContext )
                 {
                     // force reload of the "course session" of the user
