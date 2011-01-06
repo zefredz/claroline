@@ -12,7 +12,7 @@
  */
 
 
-class CourseHomePagePortletIterator implements Iterator
+class CourseHomePagePortletIterator implements Iterator, Countable
 {
     private     $courseId;
     private     $portlets = array();
@@ -91,5 +91,10 @@ class CourseHomePagePortletIterator implements Iterator
     public function valid()
     {
         return $this->n < count($this->portlets);
+    }
+    
+    public function count()
+    {
+        return count($this->portlets);
     }
 }
