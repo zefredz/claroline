@@ -33,7 +33,7 @@ endif;
 
 <?php if ( claro_is_user_authenticated() ) : ?>
 <br />
-<span style='font-size:8pt'>
+<span style="font-size:8pt;">
 
 <?php
     echo '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
@@ -74,12 +74,19 @@ endif;
     
     echo $this->dialogBox->render();
     
-    foreach ($this->portletIterator as $portlet)
+    if ($this->portletIterator->count() > 0)
     {
-        if ($portlet->getVisible() || !$portlet->getVisible() && claro_is_allowed_to_edit())
+        foreach ($this->portletIterator as $portlet)
         {
-            echo $portlet->render();
+            if ($portlet->getVisible() || !$portlet->getVisible() && claro_is_allowed_to_edit())
+            {
+                echo $portlet->render();
+            }
         }
+    }
+    else
+    {
+        echo get_lang('There is nothing to display on your course home page right now.  Use the "Add course portlet" link above to fill it.');
     }
 ?>
 </td>
