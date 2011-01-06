@@ -26,7 +26,8 @@ Claroline Core Team :
     From Claroline Consortium :
     
     Philippe Dekimpe        (dkp@ecam.be)
-    Antonin Bourguignon    (antonin.bourguignon@claroline.net)
+    Antonin Bourguignon     (antonin.bourguignon@claroline.net)
+    Stephane Klein          (stephane.klein@claroline.net)
     
     From Université catholique de Louvain :
 
@@ -129,6 +130,12 @@ RSS reader :                    based on LastRSS by http://lastrss.oslab.net/
 PEAR Modules :                  http://pear.php.net
 
 PHP email transport :           based on PHP Mailer class by Brent R. Matzelle
+
+------------------------------------------------------------------------------
+                                  GRAPHICS
+------------------------------------------------------------------------------
+
+Famfamfam icon set :            by Mark James (http://www.famfamfam.com/)
 
 ------------------------------------------------------------------------------
                                   TRANSLATIONS
