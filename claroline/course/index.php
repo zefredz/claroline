@@ -280,6 +280,13 @@ if ( !ClaroCourse::isSessionCourse($thisCourse->id) )
     .                             get_lang("Manage session courses")
     .                             '</a>' ;
 }
+else
+{
+    $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/index.php', array('cid'=>ClaroCourse::getCodeFromId($thisCourse->sourceCourseId)) )) . '">'
+    .                             '<img src="' . get_icon_url('default') . '" alt="" /> '
+    .                             get_lang("View source course")
+    .                             '</a>' ;
+}
 
 if( get_conf('is_trackingEnabled') )
 {
