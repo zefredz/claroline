@@ -306,6 +306,8 @@ abstract class CourseHomePagePortlet extends Portlet
      */
     public static function renderForm()
     {
+        $courseCode = claro_get_current_course_id();
+        
         // Get table name
         $tbl_mdb_names              = claro_sql_get_main_tbl();
         $tbl_coursehomepage_portlet = $tbl_mdb_names['coursehomepage_portlet'];
@@ -317,7 +319,7 @@ abstract class CourseHomePagePortlet extends Portlet
                 WHERE `label` NOT IN (
                     SELECT CONCAT_WS(',', label)
                     FROM `".$tbl_rel_course_portlet."`
-                    WHERE `courseId` = ".(int) ClaroCourse::getIdFromCode(claro_get_current_course_id())."
+                    WHERE `courseId` = ".(int) ClaroCourse::getIdFromCode($courseCode)."
                 )
                 ORDER BY `name` ASC";
         
@@ -342,7 +344,7 @@ abstract class CourseHomePagePortlet extends Portlet
                  . '<input type="hidden" name="courseId" value="'
                  . ClaroCourse::getIdFromCode(claro_get_current_course_id()).'" />'
                  . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-                 . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
+                 . claro_html_button(Url::Contextualize($_SERVER['PHP_SELF']), get_lang('Cancel')) . "\n"
                  . '</form>';
             
             return $out;
