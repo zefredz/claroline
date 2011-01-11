@@ -129,8 +129,7 @@ abstract class CourseHomePagePortlet extends Portlet
         
         // Insert datas
         $sql = "INSERT INTO `".$this->tblRelCoursePortlet."`
-                SET `id` = '',
-                    `courseId` = ". (int) $this->courseId .",
+                SET `courseId` = ". (int) $this->courseId .",
                     `rank` = " . (int) $this->rank . ",
                     `label` = " . Claroline::getDatabase()->quote($this->label) . ",
                     `visible` = " . (int) $this->visible;
