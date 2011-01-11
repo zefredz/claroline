@@ -1068,7 +1068,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         $sql = "UPDATE `".$TABLELEARNPATH."`
                 SET `rank` = ".($rankMax+1).",
                     `name` = '".claro_sql_escape($lpName)."',
-                    `comment` = '".claro_sql_escape($lpComment)."',
+                    `comment` = '".claro_sql_escape(claro_utf8_decode( $lpComment, get_conf( 'charset' ) ))."',
                     `visibility` = 'SHOW'
                 WHERE `learnPath_id` = ". (int)$tempPathId;
         claro_sql_query($sql);
