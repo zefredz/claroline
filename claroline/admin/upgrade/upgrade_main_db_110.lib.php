@@ -293,7 +293,7 @@ function upgrade_coursehomepage_to_110 ()
         case 2 :
             
             // Create table
-            $sqlForUpdate[] = "CREATE TABLE `" . get_conf('mainTblPrefix') . "cl_coursehomepage_portlet` (
+            $sqlForUpdate[] = "CREATE TABLE `" . get_conf('mainTblPrefix') . "coursehomepage_portlet` (
               `label` varchar(10) NOT NULL,
               `name` varchar(255) NOT NULL,
               PRIMARY KEY (`label`)
@@ -307,7 +307,7 @@ function upgrade_coursehomepage_to_110 ()
         case 3 :
             
             // Insert data
-            $sqlForUpdate[] = "INSERT INTO `" . get_conf('mainTblPrefix') . "cl_coursehomepage_portlet`
+            $sqlForUpdate[] = "INSERT INTO `" . get_conf('mainTblPrefix') . "coursehomepage_portlet`
             (`label`, `name`)
             VALUES
             ('CLTI',    'Headlines'),
