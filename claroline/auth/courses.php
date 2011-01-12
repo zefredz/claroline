@@ -226,11 +226,13 @@ if ( $cmd == 'exReg' )
         && ClaroCategory::isRegistredToCategory($userId, $categoryId))
         || (!get_conf('registrationRestrictedThroughCategories')))
     {
-        $categoryRestricted = false; //Category doesn't prevent registration
+        //Category doesn't prevent this user's registration
+        $categoryRestricted = false;
     }
     else
     {
-        $categoryRestricted = true; //Category does prevent registration
+        //Category does prevent this user's registration
+        $categoryRestricted = true;
     }
     
     //If the current user is a platform admin OR

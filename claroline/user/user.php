@@ -600,12 +600,12 @@ foreach ( $userList as $thisUser )
                 $tips = '';
                 if ($thisUser['isPending'])
                 {
-                    $icon = 'tick';
+                    $icon = 'untick';
                     $tips = 'Validate this user';
                 }
                 else
                 {
-                    $icon = 'untick';
+                    $icon = 'tick';
                     $tips = 'Unvalidate this user';
                 }
                 $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
