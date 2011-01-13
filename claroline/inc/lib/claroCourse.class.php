@@ -1122,7 +1122,7 @@ class ClaroCourse
                 . '<br /><br />' . "\n"
                 . '<input type="radio" id="course_status_date" name="course_status_selection" value="date" '
                 . ($this->status == 'date' ? 'checked="checked"':'') . ' />&nbsp;'
-                . '<label for="couse_status_date">' . get_lang('Available') . '&nbsp;'. get_lang('from') . '</label> '
+                . '<label for="course_status_date">' . get_lang('Available') . '&nbsp;'. get_lang('from') . '</label> '
                 . claro_html_date_form('course_publicationDay', 'course_publicationMonth', 'course_publicationYear', $this->publicationDate, 'numeric')
                 . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
                 . "\n"
