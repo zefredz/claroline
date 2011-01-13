@@ -41,7 +41,7 @@
     <h4><?php echo get_lang( 'Courses in this category' ); ?></h4>
     <dl class="userCourseList">
         <?php foreach( $this->coursesList as $course ) : ?>
-            <?php echo render_course_dt_in_dd_list( $course, false ); ?>
+            <?php echo render_course_in_dl_list( $course, false ); ?>
         <?php endforeach; ?>
     </dl>
 <?php else : ?>

@@ -1,10 +1,5 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
@@ -1656,6 +1651,9 @@ function claro_get_user_course_list($user_id = null)
                    course.access               AS access,
                    course.registration         AS registration,
                    course.directory            AS dir,
+                   course.creationDate         AS creationDate,
+                   course.expirationDate       AS expirationDate,
+                   course.status               AS status,
                    course_user.isCourseManager AS isCourseManager
             
             FROM    `" . $tbl_course . "`          AS course,

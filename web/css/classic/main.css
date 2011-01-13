@@ -588,6 +588,7 @@ th .claroCmdDisabled {
 }
 
 .hot {
+    padding-left: 15px;
     background: url('../../img/hot.png') no-repeat center left;
 }
 
@@ -648,6 +649,7 @@ a.item:visited{
 
 dl.userCourseList
 {
+    margin: 5px 0 10px 0;
     padding-left: 0;
 }
 
@@ -660,12 +662,12 @@ dl.userCourseList
 .userCourseList dd
 {
     margin: 0;
-    padding: 0 0 0 20px;
+    padding: 0 0 5px 20px;
 }
 
 .userCourseList dt a, .userCourseList dd small
 {
-    padding-left: 3px;
+    padding: 0;
 }
 
 /******************************************************************************
