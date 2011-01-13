@@ -712,7 +712,8 @@ function render_user_course_list()
         else
         {
             // Do not include source courses (only display session courses)
-            if (!($reorganizedUserCourseList[$category['courseId']]['isSourceCourse']))
+            if (!($reorganizedUserCourseList[$category['courseId']]['isSourceCourse'])
+                || $reorganizedUserCourseList[$category['courseId']]['isCourseManager'])
             {
                 $reorganizedUserCategoryList[$category['categoryId']]['courseList'][] =
                     $reorganizedUserCourseList[$category['courseId']];
@@ -761,7 +762,8 @@ function render_user_course_list()
             
             foreach($reorganizedUserCourseList as $course)
             {
-                if ($course['rootCourse'] != 1 && $course['isSourceCourse'] != 1)
+                if (($course['rootCourse'] != 1 && $course['isSourceCourse'] != 1)
+                    || $course['isCourseManager'])
                 {
                     $iconAccess = false;
                     if ($course['isCourseManager'])
