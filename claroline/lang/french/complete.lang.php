@@ -929,6 +929,7 @@ $_lang['In frames'] = 'Cadres';
 $_lang['In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.'] = 'Dans le format iCal, un événement a une durée, mais pas dans Claroline. 3600 secondes = 1 heure.';
 $_lang['In manual mode, module activable by'] = 'En mode manuel ce module est activable par';
 $_lang['Inbox'] = 'Boîte de réception';
+$_lang['included'] = 'inclus';
 $_lang['Individual'] = 'Individuel';
 $_lang['Information'] = 'Information';
 $_lang['Information about your platform and your organisation'] = 'Information sur votre plateforme et votre institution';

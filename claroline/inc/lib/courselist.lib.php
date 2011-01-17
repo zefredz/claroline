@@ -674,7 +674,7 @@ function render_user_course_list()
             (
                 $course['status'] == 'date' &&
                 (!isset($course['creationDate']) || strtotime($course['creationDate']) <= $curdate) &&
-                (!isset($course['expirationDate']) || strtotime($course['expirationDate']) > $curdate)
+                (!isset($course['expirationDate']) || strtotime($course['expirationDate']) >= $curdate)
             )
         );
         
