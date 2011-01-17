@@ -524,7 +524,7 @@ if ( $displayForm )
     . '<dt>&nbsp;&nbsp;&nbsp;&nbsp;'
     . '<input name="enable_visible_until" id="enable_visible_until" type="checkbox" '
     . (isset($announcement['visibleUntil']) ? ('checked="checked"') : ('')) . '/>'
-    . '<label for="enable_visible_until">'.get_lang('Visible until').' ('.get_lang('not included').')</label>'
+    . '<label for="enable_visible_until">'.get_lang('Visible until').' ('.get_lang('included').')</label>'
     . '</dt>'
     . '<dd>'
     . claro_html_date_form('visible_until_day', 'visible_until_month', 'visible_until_year',
@@ -603,7 +603,7 @@ if ($displayList)
                     )
                     ||
                     (isset($thisAnnouncement['visibleUntil'])
-                        && time() >= strtotime($thisAnnouncement['visibleUntil'])
+                        && time() > strtotime($thisAnnouncement['visibleUntil'])+86400
                     )
                 ) ? (1) : (0);
                 
