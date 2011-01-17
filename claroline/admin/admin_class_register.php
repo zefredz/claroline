@@ -81,11 +81,11 @@ if ( !empty($class_id) )
             LEFT JOIN `" . $tbl_class_user . "` AS CU
                    ON  CU.`user_id` = U.`user_id`
                   AND CU.`class_id` = " . (int) $class_id;
-    
+
     if ( !empty($search) )
     {
         $escapedSearchTerm = claro_sql_escape($search);
-        
+
         $sql .= " WHERE (U.nom LIKE '%". $escapedSearchTerm ."%'
                   OR U.prenom LIKE '%". $escapedSearchTerm ."%'
                   OR U.email LIKE '%".  $escapedSearchTerm ."%'
@@ -176,10 +176,10 @@ else
     // Display tool title
 
     $out .= claro_html_tool_title($nameTools . ' : ' . $classinfo['name']);
-    
+
     // Display Forms or dialog box(if needed)
     $out .= $dialogBox->render();
-    
+
     // Display tool link
 
     $out .= '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$class_id.'">'.
@@ -196,7 +196,7 @@ else
     .    '</form>'."\n"
     .    '</div>' . "\n"
     ;
-    
+
     // Display pager
 
     $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ). ( isset( $_REQUEST['search'] ) ? '&search=' . $_REQUEST['search'] : '' ) );
@@ -294,7 +294,7 @@ else
 
     //Pager
 
-    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ) );
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ). ( isset( $_REQUEST['search'] ) ? '&search=' . $_REQUEST['search'] : '' ) );
 
 }
 
