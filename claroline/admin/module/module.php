@@ -86,6 +86,8 @@ $moduleId = isset($_REQUEST['module_id'])
 
 $module = get_module_info($moduleId);
 
+language::load_module_translation( $module['label'] );
+
 $dockList = get_dock_list($module['type']);
 
 $nameTools = get_lang('Module settings');
