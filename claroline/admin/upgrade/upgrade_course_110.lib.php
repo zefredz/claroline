@@ -1,4 +1,4 @@
-<?php // $Id: agenda.php 12380 2010-05-18 11:19:27Z abourguignon $
+<?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
@@ -97,7 +97,7 @@ function calendar_upgrade_to_110 ($course_code)
             case 2 :
                 
                 // Add the attribute sourceCourseId to the course table
-                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` CHANGE `location` `location` VARCHAR(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL";
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` CHANGE `location` `location` VARCHAR(150) NULL DEFAULT NULL";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
                 else return $step;
@@ -117,7 +117,7 @@ function calendar_upgrade_to_110 ($course_code)
 
 function exercise_upgrade_to_110 ($course_code)
 {
-	global $currentCourseVersion;
+    global $currentCourseVersion;
 
     $versionRequiredToProceed = '/^1.9/';
     
@@ -134,25 +134,124 @@ function exercise_upgrade_to_110 ($course_code)
                 // Add the attribute sourceCourseId to the course table
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_question` ADD `id_category` INT(11) NULL DEFAULT '0' AFTER `grade`";
                 
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
-                else return $step;
+                upgrade_apply_sql($sqlForUpdate);
+                $step = set_upgrade_status($tool, $step+1);
                 
-                unset($sqlForUpdate);     
+                unset($sqlForUpdate);
                 
              case 2 :
                 
                 // Add the key
-                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking` ADD KEY `user_id` (`user_id`)";
-                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking` ADD KEY `exo_id` (`exo_id`)";
-                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking_questions` ADD KEY `exercise_track_id` (`exercise_track_id`)";
-                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking_questions` ADD KEY `question_id` (`question_id`)";
-                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking_answers` ADD KEY `details_id` (`details_id`)";
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking` ADD INDEX `user_id` (`user_id`)";
+                
+                upgrade_apply_sql($sqlForUpdate);
+                $step = set_upgrade_status($tool, $step+1);
+                
+                unset($sqlForUpdate);
+                
+             case 3 :
+                
+                // Add the key
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking` ADD INDEX `exo_id` (`exo_id`)";
+                
+                upgrade_apply_sql($sqlForUpdate);
+                $step = set_upgrade_status($tool, $step+1);
+                
+                unset($sqlForUpdate);
+                
+             case 4 :
+                
+                // Add the key
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking_questions` ADD INDEX `exercise_track_id` (`exercise_track_id`)";
+                
+                upgrade_apply_sql($sqlForUpdate);
+                $step = set_upgrade_status($tool, $step+1);
+                
+                unset($sqlForUpdate);
+                
+             case 5 :
+                
+                // Add the key
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking_questions` ADD INDEX `question_id` (`question_id`)";
+                
+                upgrade_apply_sql($sqlForUpdate);
+                $step = set_upgrade_status($tool, $step+1);
+                
+                unset($sqlForUpdate);
+                
+             case 6 :
+                
+                // Add the key
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking_answers` ADD INDEX `details_id` (`details_id`)";
+                
+                upgrade_apply_sql($sqlForUpdate);
+                $step = set_upgrade_status($tool, $step+1);
+                
+                unset($sqlForUpdate);
+                
+            default :
+                
+                $step = set_upgrade_status($tool, 0);
+                return $step;
+        }
+    }
+    
+    return false;
+}
+
+function tool_intro_upgrade_to_110 ($course_code)
+{
+    global $currentCourseVersion;
+
+    $versionRequiredToProceed = '/^1.9/';
+    
+    $tool = 'CLTI';
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+    
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    {
+        // On init , $step = 1
+        switch( $step = get_upgrade_status($tool,$course_code) )
+        {
+            case 1 :
+                
+                // Are there any tool_intro to migrate ?
+                $req = "SELECT
+                            COUNT(id) AS nbToolIntro
+                            FROM `" . $currentCourseDbNameGlu . "tool_intro`
+                            WHERE `tool_id` = 0";
+                
+                $sql = mysql_query($req);
+                
+                $res = mysql_fetch_assoc($sql);
+                
+                // If yes: create a portlet for this course in `rel_course_portlet`
+                if (isset($res['nbToolIntro']) && $res['nbToolIntro'] > 0)
+                {
+                    // Select the id of the course (int)
+                    $req = "SELECT cours_id AS courseId
+                            FROM `" . get_conf('mainTblPrefix') . "cours`
+                            WHERE `code` = '".$course_code."'";
+                    
+                    $sql = mysql_query($req);
+                    
+                    $res = mysql_fetch_assoc($sql);
+                    
+                    // Insert the portlet
+                    $sqlForUpdate[] = "INSERT INTO `" . get_conf('mainTblPrefix') . "rel_course_portlet`
+                            (courseId, rank, label, visible)
+                            VALUES
+                            ('".$res['courseId']."', 1, 'CLTI', 1)";
+                }
+                else
+                {
+                    $sqlForUpdate = array();
+                }
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
                 else return $step;
                 
-                unset($sqlForUpdate);           
-                
+                unset($sqlForUpdate);
             default :
                 
                 $step = set_upgrade_status($tool, 0);

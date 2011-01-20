@@ -194,10 +194,13 @@ function upgrade_apply_sql ( $array_query )
     global $verbose;
 
     $nb_error = 0;
-
-    foreach ( $array_query as $sql )
+    
+    if (!empty($array_query))
     {
-        if ( !upgrade_sql_query($sql, $verbose) ) $nb_error++;
+        foreach ( $array_query as $sql )
+        {
+            if ( !upgrade_sql_query($sql, $verbose) ) $nb_error++;
+        }
     }
 
     if ( $nb_error == 0 ) return true;

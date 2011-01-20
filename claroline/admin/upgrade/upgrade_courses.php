@@ -418,17 +418,14 @@ switch ($display)
                         $function_list[] = 'calendar_upgrade_to_110';
                     }
                     
+                    $function_list[] = 'tool_intro_upgrade_to_110';
+                    
                     $toolCLQWZ =  get_module_data('CLQWZ');
                     if (is_tool_activated_in_course($toolCLQWZ['id'],$currentCourseCode))
                     {
                         $function_list[] = 'exercise_upgrade_to_110';
                     }
                     
-                    /*$function_list = array( 'announcements_upgrade_to_110',
-                                            'calendar_upgrade_to_110',
-                                            'exercise_upgrade_to_110'
-                     */
-            
                     foreach ( $function_list as $function )
                     {
                         $step = $function($currentCourseCode);
