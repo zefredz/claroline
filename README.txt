@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.9 - README
+        CLAROLINE 1.10 - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -56,7 +56,7 @@ See INSTALL.txt file
 Complete manuals for trainers and students are available in different languages
 at :
 
-  http://www.claroline.net/documentation.htm
+  http://www.claroline.net/
 
 
 6. CONTACT
@@ -76,11 +76,15 @@ at :
 
 7. NEW FEATURES
    ============
-   
+NEW FEATURES IN CLAROLINE 1.10 SINCE CLAROLINE 1.9
+-------------------------------------------------
+
+* See http://sourceforge.net/apps/mediawiki/claroline/index.php?title=Changelog_1.10
+
 NEW FEATURES IN CLAROLINE 1.9 SINCE CLAROLINE 1.8
 -------------------------------------------------
 
-* See http://www.claroline.net/wiki/index.php/Changelog_1.9.x
+* See http://sourceforge.net/apps/mediawiki/claroline/index.php?title=Changelog_1.9
 
 NEW FEATURES IN CLAROLINE 1.8.11 SINCE CLAROLINE 1.8.0
 ------------------------------------------------------
