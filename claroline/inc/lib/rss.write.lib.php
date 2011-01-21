@@ -27,8 +27,6 @@ if ( count( get_included_files() ) == 1 )
  *
  */
 
-if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
-
 define('RSS_FILE_EXT', 'xml');
 
 include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
@@ -101,6 +99,9 @@ function build_rss($context)
         );
 
         $toolLabelList = rss_get_tool_compatible_list();
+
+
+
         foreach ($toolLabelList as $toolLabel)
         {
             if ( is_tool_activated_in_course(
@@ -175,63 +176,32 @@ function build_rss($context)
 function rss_get_tool_compatible_list()
 {
     static $rssToolList = null;
-    if (is_null($rssToolList))
+
+    if ( is_null( $rssToolList ) )
     {
-        if(get_conf('rssUseCache',true))
+        $rssToolList = array();
+
+        $toolList = $GLOBALS['_courseToolList'];
+
+        foreach ( $toolList as $tool )
         {
-            include_once  PEAR_LIB_PATH . '/Lite.php';
+            $toolLabel = trim( $tool['label'], '_' );
 
-            // Cache_lite setting & init
-            $cache_options = array(
-            'cacheDir' => get_path('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/') . 'sources/',
-            'lifeTime' => get_conf('rssCacheLifeTime', get_conf('cache_lifeTime', 10)),
-            'automaticCleaningFactor' => 500,
-            );
-            if ( claro_debug_mode() )
+            $rssToolLibPath = get_module_path($toolLabel) . '/connector/rss.write.cnr.php';
+
+            $rssToolFuncName =  $toolLabel . '_write_rss';
+
+            if ( file_exists( $rssToolLibPath ) )
             {
-                $cache_options ['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
-                $cache_options ['lifeTime'] = 60;
-                $cache_options ['automaticCleaningFactor'] = 10;
-            }
+                require_once $rssToolLibPath;
 
-            if (! file_exists($cache_options['cacheDir']) )
-            {
-                include_once dirname(__FILE__) . '/fileManage.lib.php';
-                claro_mkdir($cache_options['cacheDir'],CLARO_FILE_PERMISSIONS,true);
-                if (! file_exists($cache_options['cacheDir']) )
-                return claro_failure::set_failure('CANT_CREATE_CACHE_RSS_SOURCE_LIST');
-            }
-
-            $rssToolListCache = new Cache_Lite($cache_options);
-
-            if (false === ($rssToolListSerialized = $rssToolListCache->get('rssToolList')))
-            {
-                $toolList = $GLOBALS['_courseToolList'];
-                foreach ($toolList as $tool)
+                if ( function_exists( $rssToolFuncName ) )
                 {
-                    $toolLabel = trim($tool['label'],'_');
-                    $rssToolLibPath = get_module_path($toolLabel) . '/connector/rss.write.cnr.php';
-                    $rssToolFuncName =  $toolLabel . '_write_rss';
-                    if ( file_exists($rssToolLibPath)
-                    )
-                    {
-                        require_once $rssToolLibPath;
-                        if (function_exists($rssToolFuncName))
-                        {
-                            $rssToolList[] = $toolLabel;
-                        }
-                    }
-
+                    $rssToolList[] = $toolLabel;
                 }
-                $rssToolListSerialized = serialize($rssToolList);
-                $rssToolListCache->save($rssToolListSerialized, 'rssToolList');
             }
-            else
-            $rssToolList = unserialize($rssToolListSerialized);
 
         }
-        else
-        $rssToolList = array();
 
     } // if is_null $rssToolList -> if not use static
 
