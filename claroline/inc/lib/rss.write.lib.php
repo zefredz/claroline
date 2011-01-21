@@ -27,8 +27,6 @@ if ( count( get_included_files() ) == 1 )
  *
  */
 
-if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
-
 define('RSS_FILE_EXT', 'xml');
 
 include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
