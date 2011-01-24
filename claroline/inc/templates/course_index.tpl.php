@@ -84,7 +84,7 @@ endif;
             }
         }
     }
-    else
+    elseif ($this->portletIterator->count() == 0 && claro_is_allowed_to_edit())
     {
         echo get_lang('There is nothing to display on your course home page right now.  Use the "Add course portlet" link above to fill it.');
     }
