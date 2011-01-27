@@ -284,12 +284,17 @@ if ( $cmd == 'exReg' )
             {
                 switch (claro_failure::get_last_failure())
                 {
-                    //TODO Where is set the error ??
                     case 'already_enroled_in_course' :
                     {
                         $dialogBox->warning( get_lang('The user is already enroled in this course') );
                     }
                     break;
+                    
+                    case 'user_limit_reached' :
+                    {
+                        $dialogBox->warning( get_lang('The users limit for this course has been reached') );
+                    }
+                    
                     default: $dialogBox->error( get_lang('Unable to enrol you to the course') );
                 }
             }

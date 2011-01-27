@@ -135,7 +135,8 @@ function claro_get_course_data($courseId = NULL, $force = false )
                     c.diskQuota             AS diskQuota,
                     UNIX_TIMESTAMP(c.creationDate)          AS publicationDate,
                     UNIX_TIMESTAMP(c.expirationDate)        AS expirationDate,
-                    c.status                AS status
+                    c.status                AS status,
+                    c.userLimit             AS userLimit
                     
                     FROM `" . $tbl_courses . "` AS c
                     
@@ -165,8 +166,10 @@ function claro_get_course_data($courseId = NULL, $force = false )
             // kernel table would be in mainDB.
             // $tbl =  claro_sql_get_tbl('course_properties', array(CLARO_CONTEXT_COURSE=>$courseDataList['sysCode']));
             $tbl = claro_sql_get_course_tbl( $courseDataList['dbNameGlu'] );
+            $tbl_course_properties = $tbl['course_properties'];
+            
             $sql = "SELECT name, value
-                    FROM `" . $tbl['course_properties'] . "`
+                    FROM `" . $tbl_course_properties . "`
                     WHERE category = 'MAIN'";
 
             $extraDataList = claro_sql_query_fetch_all($sql);
@@ -217,7 +220,8 @@ function claro_get_all_courses ($categoryId = null, $visibility = null)
                    c.access,
                    c.registration,
                    c.email,
-                   c.status
+                   c.status,
+                   c.userLimit
                    
             FROM `" . $tbl_course . "` AS c";
     
@@ -286,7 +290,8 @@ function claro_get_restricted_courses ($categoryId, $userId)
                     c.access,
                     c.registration,
                     c.email,
-                    c.status";
+                    c.status,
+                    c.userLimit";
     
     if (!is_null($categoryId))
         $sql .= ",
@@ -398,7 +403,8 @@ function get_session_courses($id)
                    c.access,
                    c.registration,
                    c.email,
-                   c.status
+                   c.status,
+                   c.userLimit
             FROM `" . $tbl_course . "` AS c
             WHERE c.sourceCourseId = " . (int) $id;
     
@@ -430,7 +436,8 @@ function get_source_course($id)
                    c1.access,
                    c1.registration,
                    c1.email,
-                   c1.status
+                   c1.status,
+                   c1.userLimit
             FROM `" . $tbl_course . "` AS c1, `" . $tbl_course . "` AS c2
             WHERE c1.cours_id = c2.sourceCourseId
             AND c2.cours_id = " . (int) $id;

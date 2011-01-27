@@ -143,6 +143,12 @@ input.checkbox {
     width: 1em;
 }
 
+.notice 
+{
+    font-size: 0.8em;
+    color: grey;
+}
+
 
 /******************************************************************************
                              CLAROLINE PAGE

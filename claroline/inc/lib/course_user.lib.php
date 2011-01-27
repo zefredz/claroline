@@ -36,7 +36,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
     $tbl_course          = $tbl_mdb_names['course'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
-    // previously check if the user are already registered on the platform
+    // previously check if the users are already registered on the platform
     $sql = "SELECT COUNT(user_id)
             FROM `" . $tbl_user . "`
             WHERE user_id = " . (int) $userId ;
@@ -52,7 +52,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
         $sql = "SELECT count_user_enrol, count_class_enrol
                 FROM `" . $tbl_rel_course_user . "`
                 WHERE user_id = " . (int) $userId . "
-                AND code_cours ='" . claro_sql_escape($courseCode) . "'";
+                AND code_cours = '" . claro_sql_escape($courseCode) . "'";
 
         $course_user_list = claro_sql_query_get_single_row($sql);
 
@@ -70,6 +70,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
                         `count_class_enrol` = " . $count_class_enrol . "
                     WHERE `user_id` = ". (int)$userId . "
                     AND  `code_cours` = '" . claro_sql_escape($courseCode) . "'";
+            
             if ( claro_sql_query($sql) ) return true;
             else                         return false;
         }
@@ -80,9 +81,10 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             $count_class_enrol = 0;
             
             // previously check the registration type ('open' or 'validation')
-            $sql = "SELECT registration
+            // and the user limit
+            $sql = "SELECT registration, userLimit
                     FROM `" . $tbl_course . "`
-                    WHERE code ='" . claro_sql_escape($courseCode) . "'";
+                    WHERE code = '" . claro_sql_escape($courseCode) . "'";
             
             $course_registration = claro_sql_query_get_single_row($sql);
             
@@ -90,25 +92,42 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             // If the user is course manager, never flag him as "pending"
             $isPending = ($course_registration['registration'] == 'validation' && !$admin) ? 1 : 0;
             
-            if ( ! $register_by_class )  $count_user_enrol = 1;
-            else                         $count_class_enrol = 1;
-
-            // TODO
-            if ( $admin ) $profileId = claro_get_profile_id('manager');
-            else          $profileId = claro_get_profile_id('user');
+            if ($course_registration['userLimit'] > 0)
+            {
+                $sql = "SELECT COUNT(user_id) AS nbUsers
+                        FROM `" . $tbl_rel_course_user . "`
+                        WHERE code_cours = '" . claro_sql_escape($courseCode) . "'";
+                
+                $course_nb_users = claro_sql_query_get_single_row($sql);
+            }
+            $userLimitReached = ($course_nb_users['nbUsers'] >= $course_registration['userLimit'] && !$admin) ? 1 : 0;
             
-            $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
-                    SET code_cours      = '" . claro_sql_escape($courseCode) . "',
-                        user_id         = " . (int) $userId . ",
-                        profile_id      = " . (int) $profileId . ",
-                        isCourseManager = " . (int) ($admin ? 1 : 0 ) . ",
-                        isPending       = " . $isPending . ",
-                        tutor           = " . (int) ($tutor ? 1 : 0) . ",
-                        count_user_enrol = " . $count_user_enrol . ",
-                        count_class_enrol = " . $count_class_enrol ;
-
-            if ( claro_sql_query($sql) ) return true;
-            else                         return false;
+            if (!$userLimitReached)
+            {
+                if ( ! $register_by_class )  $count_user_enrol = 1;
+                else                         $count_class_enrol = 1;
+                
+                // TODO
+                if ( $admin ) $profileId = claro_get_profile_id('manager');
+                else          $profileId = claro_get_profile_id('user');
+                
+                $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
+                        SET code_cours      = '" . claro_sql_escape($courseCode) . "',
+                            user_id         = " . (int) $userId . ",
+                            profile_id      = " . (int) $profileId . ",
+                            isCourseManager = " . (int) ($admin ? 1 : 0 ) . ",
+                            isPending       = " . $isPending . ",
+                            tutor           = " . (int) ($tutor ? 1 : 0) . ",
+                            count_user_enrol = " . $count_user_enrol . ",
+                            count_class_enrol = " . $count_class_enrol ;
+                
+                if ( claro_sql_query($sql) ) return true;
+                else                         return false;
+            }
+            else
+            {
+                return claro_failure::set_failure('user_limit_reached');
+            }
         }
     } // end else user register in the platform
 }
