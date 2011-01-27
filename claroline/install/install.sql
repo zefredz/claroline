@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours` (
   `expirationDate` DATETIME DEFAULT NULL,
   `defaultProfileId` INT(11) NOT NULL,
   `status` enum('enable','pending','disable','trash','date') NOT NULL DEFAULT 'enable',
-  PRIMARY KEY  (`cours_id`),
+  `userLimit` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`cours_id`),
   KEY `administrativeNumber` (`administrativeNumber`)
 ) TYPE=MyISAM COMMENT='data of courses';
 
