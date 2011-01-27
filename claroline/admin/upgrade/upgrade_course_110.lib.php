@@ -219,7 +219,7 @@ function tool_intro_upgrade_to_110 ($course_code)
                 $req = "SELECT
                             COUNT(id) AS nbToolIntro
                             FROM `" . $currentCourseDbNameGlu . "tool_intro`
-                            WHERE `tool_id` = 0";
+                            WHERE `tool_id` <= 0";
                 
                 $sql = mysql_query($req);
                 
