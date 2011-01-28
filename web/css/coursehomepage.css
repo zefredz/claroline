@@ -8,6 +8,8 @@
     margin:0 0 15px 0;
 }
 
+td.coursePortletList .claroDialogBox { margin-top:0; }
+
 dl#portletAnnouncements dd, 
 dl#portletAnnouncements dt, 
 dl#portletAbout dd, 

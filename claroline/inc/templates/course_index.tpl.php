@@ -53,7 +53,6 @@ endif;
 </span>
 
 <?php endif; ?>
-
 </td>
 
 <td width="20">
@@ -61,6 +60,10 @@ endif;
 </td>
 
 <td class="coursePortletList" valign="top">
+<?php
+    echo $this->dialogBox->render();
+?>
+
 <?php
     if ( claro_is_allowed_to_edit() ) :
         echo '<div class="claroBlock">'."\n"
@@ -71,8 +74,6 @@ endif;
            . get_lang('Add a portlet to your course homepage').'</a>'."\n"
            . '</div>';
     endif;
-    
-    echo $this->dialogBox->render();
     
     if ($this->portletIterator->count() > 0)
     {

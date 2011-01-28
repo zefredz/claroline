@@ -23,10 +23,10 @@ $tidReset = true;
 if ( isset($_REQUEST['cid']) ) $cidReq = $_REQUEST['cid'];
 elseif ( isset($_REQUEST['cidReq']) ) $cidReq = $_REQUEST['cidReq'];
 
-$portletCmd = (isset($_REQUEST['portletCmd'])?$_REQUEST['portletCmd']:null);
-$portletId = (isset($_REQUEST['portletId'])?$_REQUEST['portletId']:null);
-$portletLabel = (isset($_REQUEST['portletLabel'])?$_REQUEST['portletLabel']:null);
-$portletClass = (isset($portletLabel)?($portletLabel.'_portlet'):null);
+$portletCmd = (isset($_REQUEST['portletCmd']) ? $_REQUEST['portletCmd'] : null);
+$portletId = (isset($_REQUEST['portletId']) ? $_REQUEST['portletId'] : null);
+$portletLabel = (isset($_REQUEST['portletLabel']) ? $_REQUEST['portletLabel'] : null);
+$portletClass = (isset($portletLabel) ? ($portletLabel.'_portlet') : null);
 
 require '../inc/claro_init_global.inc.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
@@ -61,7 +61,7 @@ if (isset($cidReq))
     $thisCourse->load($cidReq);
 }
 
-
+// Display the auth form if necessary
 if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $toolRepository = get_path('clarolineRepositoryWeb');
@@ -300,6 +300,39 @@ if( get_conf('is_trackingEnabled') )
 
 // Fetch the portlets
 $portletiterator = new CourseHomePagePortletIterator(ClaroCourse::getIdFromCode($cidReq));
+
+// Notices
+$msg = get_lang('This course is deactivated') . '<br />';
+if ( $thisCourse->status == 'pending' )
+{
+    $msg .= get_lang('You can reactive it from your course list');
+}
+elseif  ( $thisCourse->status == 'date' )
+{
+    $msg .= get_lang('It will be activated on the %date',
+        array('%date' => claro_date('d/m/Y', $thisCourse->publicationDate)));
+}
+else
+{
+    $msg .= get_lang('Contact the platform administrator');
+}
+
+$dialogBox->warning($msg);
+
+if ($thisCourse->userLimit > 0)
+{
+    $dialogBox->warning(get_lang('Don\'t forget this course is limited to %userLimit users',
+        array('%userLimit' => $thisCourse->userLimit)));
+}
+
+if ($thisCourse->registration == 'validation')
+{
+    $usersPanelUrl = htmlspecialchars(Url::Contextualize( $toolRepository . 'user/user.php' ));
+    $dialogBox->warning(
+        get_lang('Don\'t forget that you have to validate users to give them access to this course through the <a href="%url">course user list</a>', array('%url' => $usersPanelUrl))
+    );
+}
+
 
 
 // Display header
