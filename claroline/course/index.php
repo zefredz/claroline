@@ -305,23 +305,28 @@ $portletiterator = new CourseHomePagePortletIterator(ClaroCourse::getIdFromCode(
 $msg = get_lang('This course is deactivated') . '<br />';
 if ( $thisCourse->status == 'pending' )
 {
-    $msg .= get_lang('You can reactive it from your course list');
+    $dialogBox->warning(
+        get_lang('You can reactive it from your course list'));
 }
 elseif  ( $thisCourse->status == 'date' )
 {
-    $msg .= get_lang('It will be activated on the %date',
-        array('%date' => claro_date('d/m/Y', $thisCourse->publicationDate)));
+    if (!empty($thisCourse->publicationDate))
+    {
+        $dialogBox->warning(
+            get_lang('It will be enabled on the %date',
+            array('%date' => claro_date('d/m/Y', $thisCourse->publicationDate))));
+    }
+    if (!empty($thisCourse->expirationDate))
+    {
+        $dialogBox->warning(
+            get_lang('It will be disable on the %date',
+            array('%date' => claro_date('d/m/Y', $thisCourse->expirationDate))));
+    }
 }
-else
-{
-    $msg .= get_lang('Contact the platform administrator');
-}
-
-$dialogBox->warning($msg);
 
 if ($thisCourse->userLimit > 0)
 {
-    $dialogBox->warning(get_lang('Don\'t forget this course is limited to %userLimit users',
+    $dialogBox->warning(get_lang('This course is limited to %userLimit users',
         array('%userLimit' => $thisCourse->userLimit)));
 }
 
@@ -329,7 +334,7 @@ if ($thisCourse->registration == 'validation')
 {
     $usersPanelUrl = htmlspecialchars(Url::Contextualize( $toolRepository . 'user/user.php' ));
     $dialogBox->warning(
-        get_lang('Don\'t forget that you have to validate users to give them access to this course through the <a href="%url">course user list</a>', array('%url' => $usersPanelUrl))
+        get_lang('You have to validate users to give them access to this course through the <a href="%url">course user list</a>', array('%url' => $usersPanelUrl))
     );
 }
 
