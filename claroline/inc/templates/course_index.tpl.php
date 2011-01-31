@@ -5,7 +5,8 @@
 <table border="0" cellspacing="10" cellpadding="10" width="100%">
 <tr>
 <td valign="top" style="border-right: gray solid 1px;" width="220">
-<?php if (is_array($this->toolLinkListSource)
+<?php
+if (is_array($this->toolLinkListSource)
     && !empty($this->toolLinkListSource)
     && is_array($this->toolLinkListSession)
     && !empty($this->toolLinkListSession) )

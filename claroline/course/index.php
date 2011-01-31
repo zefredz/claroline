@@ -23,15 +23,20 @@ $tidReset = true;
 if ( isset($_REQUEST['cid']) ) $cidReq = $_REQUEST['cid'];
 elseif ( isset($_REQUEST['cidReq']) ) $cidReq = $_REQUEST['cidReq'];
 
-$portletCmd = (isset($_REQUEST['portletCmd']) ? $_REQUEST['portletCmd'] : null);
-$portletId = (isset($_REQUEST['portletId']) ? $_REQUEST['portletId'] : null);
-$portletLabel = (isset($_REQUEST['portletLabel']) ? $_REQUEST['portletLabel'] : null);
-$portletClass = (isset($portletLabel) ? ($portletLabel.'_portlet') : null);
+$portletCmd     = (isset($_REQUEST['portletCmd']) ? $_REQUEST['portletCmd'] : null);
+$portletId      = (isset($_REQUEST['portletId']) ? $_REQUEST['portletId'] : null);
+$portletLabel   = (isset($_REQUEST['portletLabel']) ? $_REQUEST['portletLabel'] : null);
+$portletClass   = (isset($portletLabel) ? ($portletLabel.'_portlet') : null);
 
 require '../inc/claro_init_global.inc.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 require_once get_path('clarolineRepositorySys') . 'coursehomepage/lib/coursehomepageportlet.class.php';
 require_once get_path('clarolineRepositorySys') . 'coursehomepage/lib/coursehomepageportletiterator.class.php';
+
+
+// Display the auth form if necessary
+// Also redirect if no cid specified
+if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $portletiterator = new CourseHomePagePortletIterator(ClaroCourse::getIdFromCode($cidReq));
 
@@ -39,7 +44,7 @@ include claro_get_conf_repository() . 'rss.conf.php';
 
 // Include the course home page special CSS
 $cssLoader = CssLoader::getInstance();
-$cssLoader->load('coursehomepage','all');
+$cssLoader->load('coursehomepage', 'all');
 
 // Include specific CSS if any
 if ( claro_is_in_a_course()
@@ -60,9 +65,6 @@ if (isset($cidReq))
     $thisCourse = new ClaroCourse();
     $thisCourse->load($cidReq);
 }
-
-// Display the auth form if necessary
-if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $toolRepository = get_path('clarolineRepositoryWeb');
 claro_set_display_mode_available(true);
@@ -190,7 +192,7 @@ else
 {
     if (isset($_SESSION['courseSessionCode'][claro_get_current_course_id()]) )
     {
-        // call a source course
+        // Call a source course
         $courseCode['source'] = claro_get_current_course_id();
         $courseCode['session'] =  $_SESSION['courseSessionCode'][$courseCode['source']];
     }
@@ -212,7 +214,7 @@ foreach ($courseCode as $key => $course)
     
     foreach ($toolListSource as $thisTool)
     {
-        // special case when display mode is student and tool invisible doesn't display it
+        // Special case when display mode is student and tool invisible doesn't display it
         if ( ( claro_get_tool_view_mode() == 'STUDENT' ) && ! $thisTool['visibility']  )
         {
             continue;
@@ -223,14 +225,13 @@ foreach ($courseCode as $key => $course)
             $thisToolName = $thisTool['name'];
             $toolName = get_lang($thisToolName);
             
-            //trick to find how to build URL, must be IMPROVED
-            
+            // Trick to find how to build URL, must be IMPROVED
             $url = htmlspecialchars( get_module_url($thisTool['label']) . '/' . $thisTool['url'] . '?cidReset=true&cidReq=' .$course);
             $icon = get_module_url($thisTool['label']) .'/'. $thisTool['icon'];
             $htmlId = 'id="' . $thisTool['label'] . '"';
             $removableTool = false;
         }
-        else   // external tool added by course manager
+        else   // External tool added by course manager
         {
             if ( ! empty($thisTool['external_name'])) $toolName = $thisTool['external_name'];
             else $toolName = '<i>no name</i>';
@@ -301,44 +302,45 @@ if( get_conf('is_trackingEnabled') )
 // Fetch the portlets
 $portletiterator = new CourseHomePagePortletIterator(ClaroCourse::getIdFromCode($cidReq));
 
-// Notices
-$msg = get_lang('This course is deactivated') . '<br />';
-if ( $thisCourse->status == 'pending' )
+// Notices for course managers
+if (claro_is_allowed_to_edit())
 {
-    $dialogBox->warning(
-        get_lang('You can reactive it from your course list'));
-}
-elseif  ( $thisCourse->status == 'date' )
-{
-    if (!empty($thisCourse->publicationDate))
+    if ( $thisCourse->status == 'pending' )
     {
         $dialogBox->warning(
-            get_lang('It will be enabled on the %date',
-            array('%date' => claro_date('d/m/Y', $thisCourse->publicationDate))));
+            get_lang('This course is deactivated: you can reactive it from your course list'));
     }
-    if (!empty($thisCourse->expirationDate))
+    elseif  ( $thisCourse->status == 'date' )
+    {
+        if (!empty($thisCourse->publicationDate) && $thisCourse->publicationDate > claro_mktime())
+        {
+            $dialogBox->warning(
+                get_lang('This course will be enabled on the %date',
+                array('%date' => claro_date('d/m/Y', $thisCourse->publicationDate))));
+        }
+        if (!empty($thisCourse->expirationDate) && $thisCourse->expirationDate > claro_mktime())
+        {
+            $dialogBox->warning(
+                get_lang('This course will be disable on the %date',
+                array('%date' => claro_date('d/m/Y', $thisCourse->expirationDate))));
+        }
+    }
+    
+    if ($thisCourse->userLimit > 0)
     {
         $dialogBox->warning(
-            get_lang('It will be disable on the %date',
-            array('%date' => claro_date('d/m/Y', $thisCourse->expirationDate))));
+            get_lang('This course is limited to %userLimit users',
+            array('%userLimit' => $thisCourse->userLimit)));
+    }
+    
+    if ($thisCourse->registration == 'validation')
+    {
+        $usersPanelUrl = htmlspecialchars(Url::Contextualize( $toolRepository . 'user/user.php' ));
+        $dialogBox->warning(
+            get_lang('You have to validate users to give them access to this course through the <a href="%url">course user list</a>', array('%url' => $usersPanelUrl))
+        );
     }
 }
-
-if ($thisCourse->userLimit > 0)
-{
-    $dialogBox->warning(get_lang('This course is limited to %userLimit users',
-        array('%userLimit' => $thisCourse->userLimit)));
-}
-
-if ($thisCourse->registration == 'validation')
-{
-    $usersPanelUrl = htmlspecialchars(Url::Contextualize( $toolRepository . 'user/user.php' ));
-    $dialogBox->warning(
-        get_lang('You have to validate users to give them access to this course through the <a href="%url">course user list</a>', array('%url' => $usersPanelUrl))
-    );
-}
-
-
 
 // Display header
 $template = new CoreTemplate('course_index.tpl.php');
