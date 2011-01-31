@@ -353,6 +353,7 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
                 $_SESSION['_uid']             = $targetId;
                 $_SESSION['isVirtualUser']    = true;
                 $_SESSION['is_platformAdmin'] = $_SESSION['_user']['isPlatformAdmin'];
+                $_SESSION['is_allowedCreateCourse'] = $_SESSION['_user']['isCourseCreator'];
             }
         }
     }
