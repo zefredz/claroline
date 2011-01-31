@@ -59,10 +59,7 @@ if (isset($_REQUEST['logout']))
         unset($_SESSION['isVirtualUser']);
         unset($_SESSION['realUser']);        
 
-        claro_redirect(get_conf('rootWeb') 
-                             . 'claroline' . DIRECTORY_SEPARATOR
-                             . 'admin'     . DIRECTORY_SEPARATOR
-                             . 'adminusers.php');
+        claro_redirect(get_conf('rootWeb') . 'claroline/admin/adminusers.php');
         exit();
     }
 
