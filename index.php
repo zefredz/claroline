@@ -38,18 +38,34 @@ else
     $template = new CoreTemplate('platform_index.tpl.php');
     $template->assign('templateCategoryBrowser', $templateCategoryBrowser);
     
-    
     $claroline->display->body->setContent($template->render());
-    
-    echo $claroline->display->render();
+
+    if (!(isset($_REQUEST['logout']) && isset($_SESSION['isVirtualUser'])))
+    {
+        echo $claroline->display->render();
+    }
 }
-
-
 
 // logout request : delete session data
 
 if (isset($_REQUEST['logout']))
 {
+    if (isset($_SESSION['isVirtualUser']) && isset($_SESSION['realUser']))
+    {
+        $_SESSION['_user']            = $_SESSION['realUser'];
+        $_SESSION['_uid']             = $_SESSION['realUser']['userId'];
+        $_SESSION['is_platformAdmin'] = true;
+        
+        unset($_SESSION['isVirtualUser']);
+        unset($_SESSION['realUser']);        
+
+        claro_redirect(get_conf('rootWeb') 
+                             . 'claroline' . DIRECTORY_SEPARATOR
+                             . 'admin'     . DIRECTORY_SEPARATOR
+                             . 'adminusers.php');
+        exit();
+    }
+
     // notify that a user has just loggued out
     if (isset($logout_uid)) // Set  by local_init
     {

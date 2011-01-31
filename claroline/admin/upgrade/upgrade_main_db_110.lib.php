@@ -55,7 +55,6 @@ function upgrade_category_to_110 ()
             unset($sqlForUpdate);
 
         case 2 :
-            
             // Insert root category
             $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "`
                                 (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`)

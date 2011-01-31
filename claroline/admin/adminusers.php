@@ -257,6 +257,20 @@ foreach ($userList as $userKey => $user)
     .                               '<img src="' . get_icon_url('deluser') . '" alt="' . get_lang('Delete') . '" />' . "\n"
     .                               '</a> '."\n"
     ;
+
+    if (! $user['isPlatformAdmin'])
+    {
+        $userGrid[$userKey]['login_as'] = '<a href="' . get_conf('rootWeb') . 'index.php?'
+                                                      . 'switchToUser=' . $user['user_id']
+                                                      . '">' . "\n"
+                                            . '<img src="' . get_icon_url('login_as')
+                                               . '" alt="' . get_lang('Login as') . '" />' . "\n"
+                                        . '</a> '."\n";
+    }
+    else
+    {
+        $userGrid[$userKey]['login_as'] = ' - ';
+    }
 }
 
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
@@ -277,6 +291,7 @@ if (get_conf("registrationRestrictedThroughCategories"))
     
 $colTitleList['qty_course']    = get_lang('Courses');
 $colTitleList['delete']        = get_lang('Delete');
+$colTitleList['login_as']      = get_lang('Login as');
 
 $userDataGrid = new claro_datagrid();
 $userDataGrid->set_grid($userGrid);
@@ -296,6 +311,7 @@ else
                                               , 'officialCode' => array ('align' => 'center')
                                               , 'settings'     => array ('align' => 'center')
                                               , 'delete'       => array ('align' => 'center')
+                                              , 'login_as'     => array ('align' => 'center')
     ));
 }
 

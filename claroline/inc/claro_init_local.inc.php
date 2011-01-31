@@ -30,7 +30,8 @@ if ( count( get_included_files() ) == 1 )
  *
  * All the course informations are store in the $_course array.
  *
- * You can request a group id. It will check if the group Id requested is the
+ * You can request a group id. It will check if the group Id requested is theexit('WARNING !! Undefined user id: the requested user doesn\'t exist '
+            . 'at line '.__LINE__);
  * same as the current one. If it isn't it will update session information from
  * the database. You can also force the course reset if you want ($gidReset).
  *
@@ -128,7 +129,8 @@ if ( count( get_included_files() ) == 1 )
  * int     $_group ['tutorId'    ]
  * int     $_group ['forumId'    ]
  * string  $_group ['directory'  ]
- * int     $_group ['maxMember'  ]
+ * int     $_group ['maxMember'  ]exit('WARNING !! Undefined user id: the requested user doesn\'t exist '
+            . 'at line '.__LINE__);
  *
  * boolean $is_groupMember
  * boolean $is_groupTutor
@@ -203,6 +205,7 @@ if ( count( get_included_files() ) == 1 )
 
 require_once dirname(__FILE__) . '/lib/auth/authmanager.lib.php';
 require_once dirname(__FILE__) . '/lib/kernel/user.lib.php';
+require_once dirname(__FILE__) . '/lib/user.lib.php';
 require_once dirname(__FILE__) . '/lib/core/claroline.lib.php';
 
 // Load authentication config files
@@ -319,6 +322,41 @@ if ( $logout && !empty($_SESSION['_uid']) )
 
 if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 {
+    if (isset($_REQUEST['switchToUser']))
+    {
+        if (! empty($_SESSION['_user']['isPlatformAdmin']))
+        {
+            if ((bool) $_SESSION['_user']['isPlatformAdmin'] === true)
+            {
+                $targetId = $_REQUEST['switchToUser'];
+
+                if (user_is_admin($targetId))
+                {
+                    exit('ERROR !! You cannot access another administrator account !');
+                }
+
+                $_SESSION['realUser'] = Claro_CurrentUser::getInstance($_SESSION['_uid'], true)
+                                                         ->getRawData();
+                
+                try
+                {
+                    $currentUser = Claro_CurrentUser::getInstance($targetId, true);
+                    $currentUser->saveToSession();
+                    
+                }
+                catch (Exception $ex)
+                {
+                    exit('ERROR !! Undefined user id: the requested user doesn\'t exist'
+                         . 'at line '.__LINE__);
+                }
+                
+                $_SESSION['_uid']             = $targetId;
+                $_SESSION['isVirtualUser']    = true;
+                $_SESSION['is_platformAdmin'] = $_SESSION['_user']['isPlatformAdmin'];
+            }
+        }
+    }
+    
     // uid is in session => login already done, continue with this value
     $_uid = $_SESSION['_uid'];
     
@@ -326,7 +364,7 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
         ? $_SESSION['is_platformAdmin']
         : false
         ;
-    
+
     $is_allowedCreateCourse = !empty($_SESSION['is_allowedCreateCourse'])
         ? $_SESSION['is_allowedCreateCourse']
         : false
@@ -419,7 +457,7 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
 {
     try
     {
-        if ( !$currentUser )
+        if (!$currentUser)
         {
             $currentUser = Claro_CurrentUser::getInstance($_uid);
         }

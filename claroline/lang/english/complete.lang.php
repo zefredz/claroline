@@ -995,6 +995,7 @@ $_lang['Lock'] = 'Lock';
 $_lang['Locked'] = 'Locked';
 $_lang['Log of user activities  on the whole platform (course access, tool use, ...).'] = 'Log of user activities  on the whole platform (course access, tool use, ...).';
 $_lang['Login'] = 'Login';
+$_lang['Login as'] = 'Login as';
 $_lang['Login date'] = 'Login date';
 $_lang['Login failed.'] = 'Login failed.';
 $_lang['Login request'] = 'Login request';

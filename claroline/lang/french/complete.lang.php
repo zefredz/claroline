@@ -1007,6 +1007,7 @@ $_lang['Lock'] = 'Verrouiller';
 $_lang['Locked'] = 'Verrouillé';
 $_lang['Log of user activities  on the whole platform (course access, tool use, ...).'] = 'Enregistre les activités sur la plateforme (accès aux cours, utilisation des outils, ...)';
 $_lang['Login'] = 'Login';
+$_lang['Login as'] = 'Se connecter';
 $_lang['Login date'] = 'Date de login';
 $_lang['Login failed.'] = 'Echec d\'identification.';
 $_lang['Login request'] = 'Demande de login';
