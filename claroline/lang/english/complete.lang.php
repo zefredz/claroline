@@ -2543,10 +2543,10 @@ $_lang['blockHomepageHelp'] = 'For convenience, claroline tools contain default 
  By default, your course is hidden (because you work on it).</p>';
 $_lang['blockIntroCourse'] = 'You are on the course home page.<br /><br />On this page, you can :
 <ul>
-<li>activate or deactivate tools (click on the \'Edit Tool list\' button at bottom left).</li>
+<li>add portlets to your course home page (see link above);</li>
+<li>activate or deactivate tools (click on the \'Edit Tool list\' button at bottom left);</li>
 <li>change settings or view statistics (click on corresponding links at bottom).</li>
-</ul>
-Now, to add an introduction text presenting your course to students, click on this button ';
+</ul>';
 $_lang['blockIntroLearningPath'] = 'Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br /><br />If you want to present your learning path to students, click on the button below.<br />';
 $_lang['blockModulePoolHelp'] = 'This page allows you to view all the modules available in this course. <br />
                      Any exercise or document that has been added in a learning path will also appear in this list.';

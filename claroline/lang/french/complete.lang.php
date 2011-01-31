@@ -91,6 +91,7 @@ $_lang['Add a comment'] = 'Ajouter un commentaire';
 $_lang['Add a comment (optional)'] = 'Ajouter un commentaire (facultatif)';
 $_lang['Add a document'] = 'Ajouter un document';
 $_lang['Add a module of this course'] = 'Ajouter un module de ce cours';
+$_lang['Add a portlet to your course homepage'] = 'Ajouter un portlet à la page d\'accueil du cours';
 $_lang['Add a user'] = 'Ajouter un utilisateur';
 $_lang['Add a user list'] = 'Ajouter une liste d\'utilisateurs';
 $_lang['Add a user list in class'] = 'Ajouter une liste d\'utilisateurs à la classe';
@@ -990,6 +991,7 @@ $_lang['Learning path has been successfully imported.'] = 'L\'importation du par
 $_lang['Learning path list'] = 'Liste des parcours pédagogiques';
 $_lang['Learning path progression :'] = 'Progression du parcours pédagogique&nbsp;: ';
 $_lang['Learning paths tracking'] = 'Suivi des parcours';
+$_lang['Leave this field empty or use 0 if you don\'t want to limit the number of users in this course'] = 'Laissez ce champ vide ou indiquez 0 si vous ne souhaitez pas restreindre le nombre d\'utilisateurs de ce cours';
 $_lang['Lecturer(s)'] = 'Titulaire(s) du cours';
 $_lang['Left'] = 'Gauche';
 $_lang['License'] = 'Licence';
@@ -2587,10 +2589,10 @@ $_lang['blockHomepageHelp'] = 'La plupart des rubriques de Claroline contiennent
  possibilité d\'inscription le temps de sa conception.</p>';
 $_lang['blockIntroCourse'] = 'Bienvenue sur la page d\'accueil du cours.<br /><br />Sur cette page, vous pouvez&nbsp;:
 <ul>
-<li>activer ou désactiver des outils (cliquer sur Modifier la liste d\'outils en bas à gauche)&nbsp;</li>
+<li>ajouter des portlets sur la page d\'accueil de votre cours (lien ci-dessus);</li>
+<li>activer ou désactiver des outils (cliquer sur "Modifier la liste d\'outils" en bas à gauche);</li>
 <li>changer les paramètres ou voir les statistiques du cours (cliquer sur les liens correspondants).</li>
-</ul>
-Pour présenter votre cours aux étudiants, cliquer sur Ajouter un texte d\'introduction ci-dessous.<br />';
+</ul>';
 $_lang['blockIntroLearningPath'] = 'Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins. Vous pouvez y inclure des documents, exercices, pages HTML, liens... ou importer des contenus SCORM existants.<br /><br />Pour ajouter un texte d\'introduction, cliquez sur le lien ci-dessous.<br />';
 $_lang['blockModulePoolHelp'] = 'Cette page affiche tous les modules disponibles dans votre cours.<br />
 Tout exercice ou document qui a été ajouté dans un parcours apparaîtra aussi dans cette liste.';
