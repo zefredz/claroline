@@ -420,7 +420,7 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
     {
         if ( !$currentUser )
         {
-            $currentUser = Claro_CurrentUser::getInstance($_uid,true);
+            $currentUser = Claro_CurrentUser::getInstance($_uid); //, true);
         }
         
         // User login
