@@ -18,6 +18,12 @@
 
 require '../inc/claro_init_global.inc.php';
 
+// Keep the username in session 
+if (isset($_REQUEST['login']))
+{
+    $_SESSION['lastUserName'] = $_REQUEST['login'];
+}
+
 /* Capture the source of the authentication trigger to get back to it
  * if the authentication succeeds
  */
@@ -98,6 +104,14 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
 {
     $out = '';
 
+    $defaultLoginValue= '';
+
+    if (isset($_SESSION['lastUserName']))
+    {
+        $defaultLoginValue= $_SESSION['lastUserName'];
+        unset($_SESSION['lastUserName']);
+    }
+
     if( get_conf('claro_displayLocalAuthForm',true) == true )
     {
         // Display login form
@@ -153,10 +167,10 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
         .    '<legend>' . get_lang('Authentication') . '</legend>'               ."\n"
 
         .    '<label for="login">'.get_lang('Username').' : </label><br />'   ."\n"
-        .    '<input type="text" name="login" id="login" size="15" tabindex="1" /><br />'       ."\n"
+        .    '<input type="text" name="login" id="login" size="15" tabindex="1" value="' . $defaultLoginValue . '"/><br />' ."\n"
 
         .    '<label for="password">'.get_lang('Password').' : </label><br />'   ."\n"
-        .    '<input type="password" name="password" id="password" size="15" tabindex="2" /><br />'."\n"
+        .    '<input type="password" name="password" id="password" size="15" tabindex="2" autocomplete="off"/><br />'."\n"
         .    '<br />'
         .    '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '                 ."\n"
         .    claro_html_button(get_path('clarolineRepositoryWeb'), get_lang('Cancel'))

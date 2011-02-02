@@ -50,15 +50,9 @@ else
 
 if (isset($_REQUEST['logout']))
 {
-    if (isset($_SESSION['isVirtualUser']) && isset($_SESSION['realUser']))
-    {
-        $_SESSION['_user']            = $_SESSION['realUser'];
-        $_SESSION['_uid']             = $_SESSION['realUser']['userId'];
-        $_SESSION['is_platformAdmin'] = true;
-        
+    if (isset($_SESSION['isVirtualUser']))
+    {        
         unset($_SESSION['isVirtualUser']);
-        unset($_SESSION['realUser']);        
-
         claro_redirect(get_conf('rootWeb') . 'claroline/admin/adminusers.php');
         exit();
     }

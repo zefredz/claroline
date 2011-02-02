@@ -334,9 +334,6 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
                 {
                     exit('ERROR !! You cannot access another administrator account !');
                 }
-
-                $_SESSION['realUser'] = Claro_CurrentUser::getInstance($_SESSION['_uid'], true)
-                                                         ->getRawData();
                 
                 try
                 {
