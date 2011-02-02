@@ -233,7 +233,7 @@ $content_default = get_lang('You must specify the CSV format used in your file')
 $content_default .= '<h3>' . get_lang('Options') . '</h3>';
 
 $content_default .= '<input type="checkbox" name="sendEmailToUserCreated" value="1" id="sendEmailToUserCreated" />' . "\n"
-				   .'<label for="sendEmailToUserCreated">' . get_lang('Send email to new users ') . ' ' . '</label>' . "\n"
+				   .'<label for="sendEmailToUserCreated">' . get_lang('Send email to new users') . ' ' . '</label>' . "\n"
 				   .'<br /><br />' . "\n";
 
 if (get_conf('update_user_properties')) 
