@@ -1,5 +1,5 @@
 *******************************************************************************
-                    CLAROLINE 1.10 - CREDITS
+                            CLAROLINE 1.10 - CREDITS
 *******************************************************************************
 
 ------------------------------------------------------------------------------
@@ -32,7 +32,6 @@ Claroline Core Team :
     From Université catholique de Louvain :
 
     Frédéric Minne          (zefredz@claroline.net) aka ZeFredz
-    Dimitri Rambout         (dim@claroline.net) aka Dim
     Frédéric Fervaille      (ffervaille@claroline.net)
     
     From Haute Ecole Léonard de Vinci :
@@ -56,6 +55,7 @@ Former members of the Claroline Team :
     Nicolas Leblanc     (Developer - CERDECAM)
     Hugues Peeters      (Developer and Project Manager - UCL)
     Aurelien Van Hamme  (Developer - CERDECAM)
+    Dimitri Rambout     (Developer - UCL)
 
 Former contributors :
 
