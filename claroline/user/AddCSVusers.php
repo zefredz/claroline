@@ -37,23 +37,16 @@ load_module_config( 'CLUSR' );
 
 if ( !$is_courseAllowed ) claro_disp_auth_form(true);
 
-$is_allowedToEdit = claro_is_allowed_to_edit();
 $is_courseManager = claro_is_course_manager();
-$is_allowedToEnroll = get_conf('is_coursemanager_allowed_to_enroll_single_user');
-$is_allowedToImport = get_conf('is_coursemanager_allowed_to_import_user_list');
-$is_allowedToCreate = get_conf('is_coursemanager_allowed_to_register_single_user');
 $is_platformAdmin = claro_is_platform_admin();
 
-if( !(( $is_courseManager && $is_allowedToImport ) || $is_platformAdmin ) )
+$is_allowedToEnroll = ( $is_courseManager && get_conf('is_coursemanager_allowed_to_enroll_single_user') ) || $is_platformAdmin;
+$is_allowedToImport = ( $is_courseManager && get_conf('is_coursemanager_allowed_to_import_user_list') ) || $is_platformAdmin;
+$is_allowedToCreate = ( $is_courseManager && get_conf('is_coursemanager_allowed_to_register_single_user') ) || $is_platformAdmin;
+
+if( !$is_allowedToImport )
 {
   claro_die(get_lang('Not allowed'));
-}
-
-// courseadmin reserved page
-if( !($is_allowedToEdit || $is_platformAdmin) )
-{
-    header("Location: ../user.php");
-    exit();
 }
 
 $courseId = claro_get_current_course_id();
