@@ -100,7 +100,8 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
                 
                 $course_nb_users = claro_sql_query_get_single_row($sql);
             }
-            $userLimitReached = ($course_nb_users['nbUsers'] >= $course_registration['userLimit'] && !$admin) ? 1 : 0;
+            
+            $userLimitReached = (!empty($course_nb_users) && $course_nb_users['nbUsers'] >= $course_registration['userLimit'] && !$admin) ? true : false;
             
             if (!$userLimitReached)
             {
