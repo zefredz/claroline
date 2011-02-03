@@ -96,6 +96,10 @@ fieldset {
 fieldset legend {
     font-weight: bold;
     color: #444;
+    margin-left: 20px;
+    padding: 5px;
+    border: 1px solid #eee;
+    background: #fff;
 }
 
 .collapsible a.doCollapse{
@@ -129,9 +133,9 @@ fieldset dt label {
 }
 
 .captionBlock {
-	width:45em;
-	padding-left:2px;
-	margin-left:0;
+    width:45em;
+    padding-left:2px;
+    margin-left:0;
 }
 
 input.radio,
@@ -1056,10 +1060,9 @@ a:visited.invisible {
 }
 
 .claroToolTitle {
-    margin: 10px 0 5px 0;
+    margin: 15px 0 5px 0;
     padding: 0 0 0 15px;
     font-weight: bold;
-    border-bottom: 1px solid #DEDEDE;
     background-image: url(img/arrow_green.gif);
     background-position: 0px 5px;
     background-repeat: no-repeat;
