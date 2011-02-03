@@ -310,12 +310,12 @@ if ( $is_allowedToEdit )
     if ( $autoExportRefresh)
     {
         // rss update
-        if ( get_conf('enableRssInCourse',1))
+        /*if ( get_conf('enableRssInCourse',1))
         {
 
             require_once get_path('incRepositorySys') . '/lib/rss.write.lib.php';
             build_rss( array(CLARO_CONTEXT_COURSE => claro_get_current_course_id()));
-        }
+        }*/
 
         // ical update
         if (get_conf('enableICalInCourse',1) )

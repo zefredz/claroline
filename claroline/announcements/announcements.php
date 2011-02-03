@@ -360,14 +360,15 @@ if($is_allowedToEdit) // check teacher status
         
         if ($autoExportRefresh)
         {
-            //TODO The 2 following calls should be managed by the event manager.
-            
-            // RSS update
-            if ( get_conf('enableRssInCourse',1))
+            /**
+             * in future, the 2 following calls would be pas by event manager.
+             */
+            // rss update
+            /*if ( get_conf('enableRssInCourse',1))
             {
                 require_once get_path('incRepositorySys') . '/lib/rss.write.lib.php';
                 build_rss( array('course' => claro_get_current_course_id()));
-            }
+            }*/
             
             // iCal update
             if (get_conf('enableICalInCourse', 1)  )
