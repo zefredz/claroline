@@ -179,8 +179,10 @@ function claro_sql_get_main_tbl()
         'im_recipient'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'im_recipient',
         'desktop_portlet'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'desktop_portlet',
         'desktop_portlet_data'      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'desktop_portlet_data',
-        'tracking_event'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_event',
-        'log'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log'
+
+        'tracking_event'            => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'tracking_event',
+        'log'                       => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'log'
+
         );
 
     }
