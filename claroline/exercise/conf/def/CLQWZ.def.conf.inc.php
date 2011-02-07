@@ -30,8 +30,9 @@ $conf_def['section']['main']['label']='Main settings';
 //$conf_def['section']['main']['description']='';
 $conf_def['section']['main']['properties'] =
 array ( 'enableExerciseExportQTI'
-       ,'exercisesPerPage',
-       'showAllFeedbacks'
+       ,'exercisesPerPage'
+       ,'showAllFeedbacks'
+       ,'allow_exercise_event_generation'
 );
 
 //PROPERTIES
@@ -63,5 +64,15 @@ array ('label'     => 'Display all feedbacks'
         ,'readonly'      => FALSE
         ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
         );
+
+$conf_def_property_list['allow_exercise_event_generation'] =
+array ('label'         => 'Generate an event in the calendar'
+      ,'description'   => 'Automatically insert an event in the calendar at the end date'
+      ,'display'       => TRUE
+      ,'readonly'      => FALSE
+      ,'default'       => TRUE
+      ,'type'          => 'boolean'
+      ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
+      );
 
 ?>

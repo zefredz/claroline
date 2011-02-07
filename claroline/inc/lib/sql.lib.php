@@ -151,6 +151,7 @@ function claro_sql_get_main_tbl()
         'config_file'               => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'config_file',
         'course'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours',
         'category'                  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'category',
+        'event_resource'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'event_resource',
         'user'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user',
         'tool'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'course_tool',
         'user_category'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'class',

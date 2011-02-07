@@ -345,6 +345,16 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__log` (
   KEY `user_log` (`user_id`)
 ) TYPE=MyISAM;
 
+# EVENT-RESOURCE TABLE
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__event_resource` (
+  `event_id` INTEGER NOT NULL,
+  `resource_id` INTEGER NOT NULL,
+  `tool_id` INTEGER NOT NULL,
+  `course_code` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`event_id`, `resource_id`, `tool_id`, `course_code`),
+  UNIQUE KEY (`event_id`, `course_code`)
+) TYPE=MyISAM;
+
 # INSERT COMMANDS
 INSERT INTO `__CL_MAIN__category` 
 (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 

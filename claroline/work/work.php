@@ -320,6 +320,8 @@ if ($is_allowedToEdit)
 
             // notify eventmanager
 
+            $eventNotifier->notifyCourseEvent('work_updated', claro_get_current_course_id(), claro_get_current_tool_id(), $assigId, claro_get_current_group_id(), '0');
+
             if ( $_REQUEST['vis'] == 'v')
             {
                 $eventNotifier->notifyCourseEvent('work_visible', claro_get_current_course_id(), claro_get_current_tool_id(), $assigId, claro_get_current_group_id(), '0');
@@ -360,6 +362,8 @@ if ($is_allowedToEdit)
         if ( !is_null($assigId) && $assignment->validate() )
         {
             $assignment->save();
+
+            $eventNotifier->notifyCourseEvent('work_updated', claro_get_current_course_id(), claro_get_current_tool_id(), $assigId, claro_get_current_group_id(), '0');
 
             $dialogBox->success( get_lang('Assignment modified') );
         }

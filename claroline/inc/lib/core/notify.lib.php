@@ -452,14 +452,254 @@ class ClaroNotification extends EventDriven
 
         claro_sql_query($sql);
     }
+    
+    /*
+     * Generate an event in the calendar at the end date
+     * of an assignment or an exercise. The corresponding
+     * config params ('allow_work_event_generation',
+     * 'allow_exercise_event_generation') must be set to true.
+     */
+    public function calendarAddEvent($event)
+    {
+        $eventArgs = $event->getArgs();
 
+        $cid = array_key_exists( 'cid', $eventArgs) ? $eventArgs['cid'] : '';
+        $tid = array_key_exists( 'tid', $eventArgs) ? $eventArgs['tid'] : 0;
+        $rid = array_key_exists( 'rid', $eventArgs) ? $eventArgs['rid'] : '';
 
+        $mainTables    = claro_sql_get_main_tbl();
+        $courseTables  = claro_sql_get_course_tbl();
 
+        $eventResourceTable = $mainTables['event_resource'];
+        $calendarTable      = $courseTables['calendar_event'];
+        $workTable          = $courseTables['wrk_assignment'];
+        $exerciseTable      = $courseTables['qwz_exercise'];
 
+        $eventType = $event->getEventType();
 
+        if ($eventType == 'work_added')
+        {
+            // check that the configuration variable for work event
+            // generation is set to true
+            if (get_conf('allow_work_event_generation') == false) return;
 
+            // select data from assignment
+            $sql = 'SELECT `title`, `description`,
+                           `end_date` AS endDate, `visibility` ' .
+                   'FROM ' . $workTable . ' ' .
+                   'WHERE `id` = ' . $rid;
+            $result = claro_sql_query_fetch_all($sql);
+        }
+        elseif ($eventType == 'exercise_added')
+        {
+            // check that the configuration variable for exercise event
+            // generation is set to true
+            if (get_conf('allow_exercise_event_generation') == false) return;
 
+            // select data from exercise
+            $sql = 'SELECT `title`, `description`, `endDate`,
+                           CAST(`endDate` AS SIGNED) AS integerDate,
+                           `visibility` ' .
+                   'FROM ' . $exerciseTable . ' ' .
+                   'WHERE `id` = ' . $rid;
+            $result = claro_sql_query_fetch_all($sql);
 
+            // check that an end date has been chosen for this exercise,
+            // otherwise it doesn't make sense to insert it in the agenda
+            // (when no date has been chosen, the date field is set to '0000-00-00')
+            if ($result[0]['integerDate'] == 0) return;
+        }
+
+        // explode assignment/exercise end date into day and hour
+        $date = explode(' ', $result[0]['endDate']);
+
+        // set the visibility value of the assignment/exercise record
+        // to its corresponding value in the calendar table
+        $result[0]['visibility'] == 'VISIBLE' ?
+                         $visibility = 'SHOW' :
+                         $visibility = 'HIDE' ;
+
+        // insert a new event in the calendar
+        $sql = 'INSERT INTO ' . $calendarTable . ' ' .
+               'SET `titre`      = \'' . $result[0]['title'] . '\', ' .
+                   '`contenu`    = \'' . $result[0]['description'] . '\', ' .
+                   '`day`        = \'' . $date[0] . '\', ' .
+                   '`hour`       = \'' . $date[1] . '\', ' .
+                   '`visibility` = \'' . $visibility . '\'';
+        claro_sql_query($sql);
+
+        // insert the relationship between the event and the assignment/exercise
+        // into the 'event_resource' table
+        $sql = 'INSERT INTO `' . $eventResourceTable . '` ' .
+               'SET `event_id`    = \'' . mysql_insert_id() . '\', ' .
+                   '`resource_id` = \'' . $rid . '\', ' .
+                   '`tool_id`     = \'' . $tid . '\', ' .
+                   '`course_code` = \'' . $cid . '\'';
+        claro_sql_query($sql);
+    }
+
+    /*
+     * Delete a generated calendar event when the
+     * original resource (exercise or assignment) has
+     * been deleted.
+     */
+    public function calendarDeleteEvent($event)
+    {
+        $eventArgs = $event->getArgs();
+
+        $cid = array_key_exists( 'cid', $eventArgs) ? $eventArgs['cid'] : '';
+        $tid = array_key_exists( 'tid', $eventArgs) ? $eventArgs['tid'] : 0;
+        $rid = array_key_exists( 'rid', $eventArgs) ? $eventArgs['rid'] : '';
+
+        $mainTables    = claro_sql_get_main_tbl();
+        $courseTables  = claro_sql_get_course_tbl();
+
+        $eventResourceTable = $mainTables['event_resource'];
+        $calendarTable      = $courseTables['calendar_event'];
+
+        $eventType = $event->getEventType();
+
+        // try to get the id of the corresponding event
+        $sql = 'SELECT `event_id` FROM `' . $eventResourceTable . '` ' .
+               'WHERE `resource_id` = \'' . $rid . '\' ' .
+                 'AND `tool_id`     = \'' . $tid . '\' ' .
+                 'AND `course_code` = \'' . $cid . '\'';
+        $result = claro_sql_query_fetch_all($sql);
+
+        if ($result != false)
+        {
+            $eventId = $result[0]['event_id'];
+
+            // delete the event in the calendar
+            $sql = 'DELETE FROM ' . $calendarTable . ' ' .
+                   'WHERE `id` = ' . $eventId;
+            claro_sql_query($sql);
+
+            // delete the relationship between event
+            // and assignment/exercise in 'event_resource'
+            $sql = 'DELETE FROM `' . $eventResourceTable . '` ' .
+                   'WHERE `event_id`    = ' .   $eventId . ' ' .
+                     'AND `resource_id` = ' .   $rid . ' ' .
+                     'AND `tool_id`     = ' .   $tid . ' ' .
+                     'AND `course_code` = \'' . $cid . '\'';
+            claro_sql_query($sql);
+        }
+    }
+
+    /*
+     * Update the data (date, title, description, visibility)
+     * of a generated calendar event when the original
+     * resource has been updated.
+     */
+    public function calendarUpdateEvent($event)
+    {
+        $eventArgs = $event->getArgs();
+
+        $cid = array_key_exists( 'cid', $eventArgs) ? $eventArgs['cid'] : '';
+        $tid = array_key_exists( 'tid', $eventArgs) ? $eventArgs['tid'] : 0;
+        $rid = array_key_exists( 'rid', $eventArgs) ? $eventArgs['rid'] : '';
+
+        $mainTables    = claro_sql_get_main_tbl();
+        $courseTables  = claro_sql_get_course_tbl();
+
+        $eventResourceTable = $mainTables['event_resource'];
+        $calendarTable      = $courseTables['calendar_event'];
+        $workTable          = $courseTables['wrk_assignment'];
+        $exerciseTable      = $courseTables['qwz_exercise'];
+
+        $eventType = $event->getEventType();
+
+        // try to get the id of the corresponding event
+        $sql = 'SELECT `event_id` FROM `' . $eventResourceTable . '` ' .
+               'WHERE `resource_id` = \'' . $rid . '\' ' .
+                 'AND `tool_id`     = \'' . $tid . '\' ' .
+                 'AND `course_code` = \'' . $cid . '\'';
+        $result = claro_sql_query_fetch_all($sql);
+
+        if ($result != false)
+        {
+            $eventId = $result[0]['event_id'];
+
+            if ($eventType == 'work_updated')
+            {
+                // select new data from the work table
+                $sql = 'SELECT `title`, `description`, `end_date` as endDate, `visibility` ' .
+                       'FROM ' . $workTable . ' ' .
+                       'WHERE `id` = ' . $rid;
+                $result = claro_sql_query_fetch_all($sql);
+            }
+            elseif ($eventType == 'exercise_updated')
+            {
+                // select new data from the exercise table
+                $sql = 'SELECT `title`, `description`, `endDate`, `visibility` ' .
+                       'FROM ' . $exerciseTable . ' ' .
+                       'WHERE `id` = ' . $rid;
+                $result = claro_sql_query_fetch_all($sql);
+            }
+
+            // explode assignment end date into day and hour
+            $date = explode(' ', $result[0]['endDate']);
+
+            // set the visibility value of the assignment/exercise table to its
+            // corresponding value in the calendar table
+            $result[0]['visibility'] == 'VISIBLE' ?
+                             $visibility = 'SHOW' :
+                             $visibility = 'HIDE' ;
+
+            // update the corresponding event in the calendar
+            $sql = 'UPDATE ' . $calendarTable . ' ' .
+                   'SET `titre`      = \'' . $result[0]['title'] . '\', ' .
+                       '`contenu`    = \'' . $result[0]['description'] . '\', ' .
+                       '`day`        = \'' . $date[0] . '\', ' .
+                       '`hour`       = \'' . $date[1] . '\', ' .
+                       '`visibility` = \'' . $visibility . '\' ' .
+                   'WHERE `id` = ' . $eventId;
+            claro_sql_query($sql);
+        }
+    }
+
+    /*
+     * Delete the relationship between a resource
+     * and a calendar event when this event has
+     * been deleted.
+     */
+    public function deleteEventResource($event)
+    {
+        $eventArgs = $event->getArgs();
+
+        $cid = array_key_exists( 'cid', $eventArgs) ? $eventArgs['cid'] : '';
+        $rid = array_key_exists( 'rid', $eventArgs) ? $eventArgs['rid'] : '';
+
+        $mainTables    = claro_sql_get_main_tbl();
+
+        $eventResourceTable = $mainTables['event_resource'];
+
+        $eventType = $event->getEventType();
+
+        $sql = 'DELETE FROM `' . $eventResourceTable . '` ' .
+               'WHERE `event_id`    = ' . $rid . ' ' .
+                 'AND `course_code` = \'' . $cid . '\'';
+        claro_sql_query($sql);
+    }
+
+    /*
+     * Delete all the relationships between events and
+     * resources when the list of events in a
+     * course has been deleted.
+     */
+    public function deleteEventResourceList($event)
+    {
+        $eventArgs = $event->getArgs();
+
+        $cid = array_key_exists( 'cid', $eventArgs) ? $eventArgs['cid'] : '';
+
+        $mainTables         = claro_sql_get_main_tbl();
+        $eventResourceTable = $mainTables['event_resource'];
+
+        $sql = 'DELETE FROM `' . $eventResourceTable . '` ' .
+               'WHERE `course_code` = \'' . $cid . '\'';
+        claro_sql_query($sql);
+    }
 
     // get notification from database methods
 
@@ -655,7 +895,7 @@ class ClaroNotification extends EventDriven
         }
         else return false;
     }
-    
+
     public function isANotifiedDocument($course_id, $date, $user_id, $group_id, $tool_id, $thisFile,$setAsViewed=TRUE)
     {
         // global $fileList, $fileKey; //needed for the document tool
@@ -798,7 +1038,7 @@ class ClaroNotification extends EventDriven
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
-        
+
         $_user = claro_get_current_user_data();
 
         //if we already knwo in session what is the last action date, just retrieve it from the session
@@ -826,7 +1066,7 @@ class ClaroNotification extends EventDriven
         {
             $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course['code_cours']));
             $tbl_course_tracking_event = $tbl_c_names['tracking_event'];
-            
+
             $sqlMaxDate = "SELECT MAX(`date`) AS MAXDATE
                       FROM `" . $tbl_course_tracking_event . "` AS STAT,
                            `" . $tbl_rel_course_user . "` AS CU
@@ -884,7 +1124,7 @@ class ClaroNotification extends EventDriven
     {
         return $this->isANotifiedForum( $course_id, $date, $user_id, $group_id, $tool_id, $forumId );
     }
-    
+
     public function is_a_notified_document( $course_id, $date, $user_id, $group_id, $tool_id, $fileInfo )
     {
         return $this->isANotifiedDocument( $course_id, $date, $user_id, $group_id, $tool_id, $fileInfo );

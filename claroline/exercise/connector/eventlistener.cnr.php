@@ -10,4 +10,9 @@
     $claroline->notification->addListener( 'exercise_visible',      'modificationDefault' );
     $claroline->notification->addListener( 'exercise_invisible',    'modificationDelete' );
     $claroline->notification->addListener( 'exercise_deleted',      'modificationDelete' );
+
+    $claroline->notification->addListener( 'exercise_added',        'calendarAddEvent' );
+    $claroline->notification->addListener( 'exercise_deleted',      'calendarDeleteEvent' );
+    $claroline->notification->addListener( 'exercise_updated',      'calendarUpdateEvent' );
+
 ?>
