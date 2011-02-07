@@ -533,12 +533,14 @@ if( $is_allowedToEdit && !is_null($cmd) )
     {
         Exercise::updateExerciseVisibility($exId,'VISIBLE');
         $eventNotifier->notifyCourseEvent("exercise_visible",claro_get_current_course_id(), claro_get_current_tool_id(), $exId, claro_get_current_group_id(), "0");
+        $eventNotifier->notifyCourseEvent("exercise_updated",claro_get_current_course_id(), claro_get_current_tool_id(), $exId, claro_get_current_group_id(), "0");
     }
 
     if( $cmd == 'exMkInvis' && $exId )
     {
         Exercise::updateExerciseVisibility($exId,'INVISIBLE');
         $eventNotifier->notifyCourseEvent("exercise_invisible",claro_get_current_course_id(), claro_get_current_tool_id(), $exId, claro_get_current_group_id(), "0");
+        $eventNotifier->notifyCourseEvent("exercise_updated",claro_get_current_course_id(), claro_get_current_tool_id(), $exId, claro_get_current_group_id(), "0");
     }
 }
 

@@ -155,6 +155,7 @@ function claro_sql_get_main_tbl()
         'course'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours',
         'rel_course_user'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours_user',
         'category'                  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'faculte',
+        'event_resource'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'event_resource',
         'user'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user',
         'tool'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'course_tool',
         'user_category'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'class',
@@ -280,7 +281,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
  * when the CLARO_DEBUG_MODE constant flag is set to on (true)
  *
  * @author Hugues Peeters    <peeters@ipm.ucl.ac.be>,
- * @author Christophe GeschŽ <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @param  string  $sqlQuery   - the sql query
  * @param  handler $dbHandler  - optional
  * @return handler             - the result handler

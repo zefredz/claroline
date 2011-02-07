@@ -26,7 +26,7 @@ $conf_def['config_class']= 'tool';
 
 $conf_def['section']['main']['label']      = 'Main';
 $conf_def['section']['main']['properties'] =
-array ( 'confval_def_sub_vis_change_only_new', 'open_submitted_file_in_new_window', 'show_only_author', 'mail_notification', 'automatic_mail_notification', 'allow_download_all_submissions', 'assignmentsPerPage', 'usersPerPage' );
+array ( 'confval_def_sub_vis_change_only_new', 'open_submitted_file_in_new_window', 'show_only_author', 'mail_notification', 'automatic_mail_notification', 'allow_download_all_submissions', 'allow_work_event_generation', 'assignmentsPerPage', 'usersPerPage' );
 
 $conf_def['section']['quota']['label']      = 'Quota';
 $conf_def['section']['quota']['description']= 'Disk space allowed for submitted files';
@@ -125,6 +125,16 @@ array ('label'         => 'Maximum size for an assignment'
       ,'default'       => '3000000' // 3mo
       ,'type'          => 'integer'
       ,'unit'          => 'bytes'
+      );
+
+$conf_def_property_list['allow_work_event_generation'] =
+array ('label'         => 'Generate an event in the calendar'
+      ,'description'   => 'Automatically insert an event in the calendar at the submission date'
+      ,'display'       => TRUE
+      ,'readonly'      => FALSE
+      ,'default'       => TRUE
+      ,'type'          => 'boolean'
+      ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
       );
 
 ?>

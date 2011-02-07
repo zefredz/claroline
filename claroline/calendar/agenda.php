@@ -240,6 +240,8 @@ if ( $is_allowedToEdit )
     {
         if ( agenda_delete_all_items())
         {
+            $eventNotifier->notifyCourseEvent('agenda_event_list_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), null, claro_get_current_group_id(), '0');
+
             $dialogBox->success( get_lang('All events deleted from the agenda') );
 
             if ( CONFVAL_LOG_CALENDAR_DELETE )

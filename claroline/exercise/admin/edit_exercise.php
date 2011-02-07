@@ -138,11 +138,13 @@ if( $cmd == 'exEdit' )
             if( is_null($exId) )
             {
                 $dialogBox->success( get_lang('Exercise added') );
+                $eventNotifier->notifyCourseEvent("exercise_added",claro_get_current_course_id(), claro_get_current_tool_id(), $insertedId, claro_get_current_group_id(), "0");
                 $exId = $insertedId;
             }
             else
             {
                 $dialogBox->success( get_lang('Exercise modified') );
+                $eventNotifier->notifyCourseEvent("exercise_updated",claro_get_current_course_id(), claro_get_current_tool_id(), $insertedId, claro_get_current_group_id(), "0");
             }
             $displaySettings = true;
         }

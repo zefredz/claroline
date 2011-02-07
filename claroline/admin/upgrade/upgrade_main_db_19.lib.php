@@ -17,7 +17,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Mathieu Laurent   <mla@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  *
  */
 
@@ -671,3 +671,36 @@ function upgrade_main_database_tracking_data_to_19()
     return false;
 }
 
+function upgrade_event_resource_to_19 ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'EVENT_RESOURCE_LINKER';
+
+    switch( $step = get_upgrade_status($tool) )
+    {
+        case 1 :
+
+            // Create table
+            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . get_conf('mainTblPrefix') . "event_resource` (
+              `event_id` INTEGER NOT NULL,
+              `resource_id` INTEGER NOT NULL,
+              `tool_id` INTEGER NOT NULL,
+              `course_code` VARCHAR(40) NOT NULL,
+              PRIMARY KEY (`event_id`, `resource_id`, `tool_id`, `course_code`),
+              UNIQUE KEY (`event_id`, `course_code`)
+            ) TYPE=MyISAM";
+
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+
+            unset($sqlForUpdate);
+
+        default :
+
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+
+    }
+
+    return false;
+}
