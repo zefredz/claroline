@@ -131,14 +131,14 @@ class ClaroCourse
 
         $this->backlog = new Backlog();
     }
-
+    
+    
     /**
      * load course data from database
      *
      * @param string    $courseId string course identifier
      * @return boolean  success
      */
-
     public function load ($courseId)
     {
         if ( ( $course_data = claro_get_course_data($courseId) ) !== false )
@@ -188,13 +188,13 @@ class ClaroCourse
             return false;
         }
     }
-
+    
+    
     /**
      * insert or update course data
      *
      * @return boolean success
      */
-
     public function save ()
     {
         if ( empty($this->courseId) )
@@ -433,11 +433,11 @@ class ClaroCourse
      *
      * @return boolean success
      */
-
     public function delete ()
     {
         return delete_course($this->courseId, $this->sourceCourseId);
     }
+    
     
     /**
      * Get all session courses for the current course (if any).
@@ -804,13 +804,13 @@ class ClaroCourse
 
         return true;
     }
-
+    
+    
     /**
      * validate email ( and semi-column separated email list )
      *
      * @return boolean success
      */
-
     protected function validateEmailList ()
     {
         // empty email is valide as we already checked if field was required
@@ -840,14 +840,14 @@ class ClaroCourse
            $this->email = implode(';',$emailValidList);
            return true;
     }
-
+    
+    
     /**
      * Display form
      *
      * @param $cancelUrl string url of the cancel button
      * @return string html output of form
      */
-
     public function displayForm ($cancelUrl=null)
     {
         JavascriptLoader::getInstance()->load('courseForm');
@@ -1112,33 +1112,38 @@ class ClaroCourse
         
         $html .= '</dl></div></fieldset>';
         
-        // THIRD SECTION: advanced (for admin only)
+        // THIRD SECTION: advanced options
+        // Administration Information
+        $html .= '<fieldset id="advancedInformation" class="collapsible collapsed">' . "\n"
+                . '<legend><a href="#" class="doCollapse">' . get_lang('Advanced options') . '</a></legend>' . "\n"
+                . '<div class="collapsible-wrapper">' . "\n"
+                . '<dl>' . "\n";
+        
+        // Visibility in category list
+        $html .= '<dt>'
+            . get_lang('Course visibility') . '</dt>'
+            . '<dd>'
+            . '<img src="' . get_icon_url('visible') . '" alt="" />'
+            . '<input type="radio" id="visibility_show" name="course_visibility" value="1" ' . ($this->visibility ? 'checked="checked"':'') . ' />&nbsp;'
+            . '<label for="visibility_show">' . get_lang('The course is shown in the courses listing') . '</label>'
+            . '<br />' . "\n"
+            . '<img src="' . get_icon_url('invisible') . '" alt="" />'
+            . '<input type="radio" id="visibility_hidden" name="course_visibility" value="0" ' . ( ! $this->visibility ? 'checked="checked"':'' ) . ' />&nbsp;'
+            . '<label for="visibility_hidden">'
+            . get_lang('Visible only to people on the user list')
+            . '</label>'
+                . '</dd>' . "\n"; // Required legend
+        
+        $html .= '<dt>' . get_lang('Maximum number of users') . '</dt>'
+            . '<dd><input type="text" name="course_userLimit" id="course_userLimit" value="'.$this->userLimit.'" /><br/>'
+            . '<span class="notice">'.get_lang('Leave this field empty or use 0 if you don\'t want to limit the number of users in this course')
+            . '</span></dd>'
+            . '</dl>';
+        
         if (claro_is_platform_admin())
         {
-            
-            // Administration Information
-            $html .= '<fieldset id="advancedInformation" class="collapsible collapsed">' . "\n"
-                    . '<legend><a href="#" class="doCollapse">' . get_lang('Advanced settings for administrator') . '</a></legend>' . "\n"
-                    . '<div class="collapsible-wrapper">' . "\n"
-                    . '<dl>' . "\n";
-            
-            // Visibility in category list
-            $html .= '<dt>'
-                . get_lang('Course visibility') . '</dt>'
-                . '<dd>'
-                . '<img src="' . get_icon_url('visible') . '" alt="" />'
-                . '<input type="radio" id="visibility_show" name="course_visibility" value="1" ' . ($this->visibility ? 'checked="checked"':'') . ' />&nbsp;'
-                . '<label for="visibility_show">' . get_lang('The course is shown in the courses listing') . '</label>'
-                . '<br />' . "\n"
-                . '<img src="' . get_icon_url('invisible') . '" alt="" />'
-                . '<input type="radio" id="visibility_hidden" name="course_visibility" value="0" ' . ( ! $this->visibility ? 'checked="checked"':'' ) . ' />&nbsp;'
-                . '<label for="visibility_hidden">'
-                . get_lang('Visible only to people on the user list')
-                . '</label>'
-                . '</dd>' . "\n"; // Required legend
-            
             // Status : enable, pending, disable, trash
-            $html .= "\n"
+            $html .= '<dl class="admin-control">'
                 . '<dt>' . get_lang('Status') . '</dt>'
                 . '<dd>'
                 . '<input type="radio" id="course_status_enable" name="course_status_selection" value="enable" '
@@ -1181,15 +1186,10 @@ class ClaroCourse
                 . '<label for="status_trash">' . get_lang('Move to trash') . '</label>'
                 . '</blockquote>' . "\n"
                 . '</dd>';
-            
-            $html .= '<dt>' . get_lang('Maximum number of users') . '</dt>'
-                .'<dd><input type="text" name="course_userLimit" id="course_userLimit" value="'.$this->userLimit.'" /><br/>'
-                . '<span class="notice">'.get_lang('Leave this field empty or use 0 if you don\'t want to limit the number of users in this course')
-                . '</span></dd>';
-            
-            $html .= '</dl></div>' . "\n" // fieldset-wrapper
-                . '</fieldset>' . "\n";
         }
+        
+        $html .= '</dl></div>' . "\n" // fieldset-wrapper
+            . '</fieldset>' . "\n";
         
         $html .= '<dl><dt>'
             . '<input type="submit" name="changeProperties" value="' . get_lang('Ok') . '" />'
@@ -1205,14 +1205,14 @@ class ClaroCourse
         return $html;
     
     }
-
+    
+    
     /**
      * Display question of delete confirmation
      *
      * @param $cancelUrl string url of the cancel button
      * @return string html output of form
      */
-
     public function displayDeleteConfirmation ()
     {
         $paramString = $this->getHtmlParamList('GET');
@@ -1240,7 +1240,8 @@ class ClaroCourse
 
         return $html;
     }
-
+    
+    
     /**
      * Add html parameter to list
      *
@@ -1249,19 +1250,18 @@ class ClaroCourse
      *
      *
      */
-
     public function addHtmlParam($name, $value)
     {
         $this->htmlParamList[$name] = $value;
     }
-
+    
+    
     /**
      * Get html representing parameter list depending on method (POST for form, GET for URL's')
      *
      * @param $method string GET OR POST
      * @return string html output of params for $method method
      */
-
     public function getHtmlParamList($method = 'GET')
     {
         if ( empty($this->htmlParamList) ) return '';
@@ -1299,7 +1299,6 @@ class ClaroCourse
      *
      * @deprecated 1.9
      */
-
     public function getVisibility ( $access, $registration )
     {
         $visibility = 0 ;
@@ -1311,27 +1310,27 @@ class ClaroCourse
 
         return $visibility ;
     }
-
+    
+    
     /**
      * Get access value from visibility field
      *
      * @param $visbility integer value of field
      * @return boolean public true, private false
      */
-
     public function getAccess ( $visibility )
     {
         if ( $visibility >= 2 ) return true ;
         else                    return false ;
     }
-
+    
+    
     /**
      * Get registration value from visibility field
      *
      * @param $visbility integer value of field
      * @return boolean open true, close false
      */
-
     public function getRegistration ( $visibility )
     {
         if ( $visibility == 1 || $visibility == 2 ) return true ;
@@ -1409,7 +1408,6 @@ class ClaroCourse
      * @param string creator lastname
      * @param string creator email
      */
-
     public function mailAdministratorOnCourseCreation ($creatorFirstName, $creatorLastName, $creatorEmail)
     {
         $subject = get_lang('Course created : %course_name',array('%course_name'=> $this->title));
@@ -1440,13 +1438,13 @@ class ClaroCourse
         $recipient->sendMessage($message);
         
     }
-
+    
+    
     /**
      * Build progress param url
      *
      * @return string url
      */
-
     public function buildProgressUrl ()
     {
         $url = $_SERVER['PHP_SELF'] . '?cmd=exEdit';
