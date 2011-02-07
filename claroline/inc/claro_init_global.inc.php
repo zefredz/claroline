@@ -432,3 +432,22 @@ if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )
     $claroline->display->header->addHtmlHeader('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
     .' href="' . get_path('url') . '/claroline/backends/rss.php?cidReq=' . claro_get_current_course_id() . '" />' );
 }
+
+/*----------------------------------------------------------------------
+  Create the main table 'event_resource' if it doesn't exist
+  ----------------------------------------------------------------------*/
+
+require_once dirname(__FILE__) . '/../wiki/lib/class.clarodbconnection.php';
+
+$sql = "CREATE TABLE IF NOT EXISTS `" . get_conf('mainTblPrefix') . "event_resource` (
+              `event_id` INTEGER NOT NULL,
+              `resource_id` INTEGER NOT NULL,
+              `tool_id` INTEGER NOT NULL,
+              `course_code` VARCHAR(40) NOT NULL,
+              PRIMARY KEY (`event_id`, `resource_id`, `tool_id`, `course_code`),
+              UNIQUE KEY (`event_id`, `course_code`)
+            ) TYPE=MyISAM";
+claro_sql_query($sql);
+
+$connection = new ClarolineDatabaseConnection();
+$connection->executeQuery($sql);

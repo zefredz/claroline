@@ -247,8 +247,7 @@ switch ( $display )
                                    'upgrade_main_database_module_to_19',
                                    'upgrade_main_database_messaging_to_19',
                                    'upgrade_main_database_tracking_to_19',
-                                   'upgrade_chat_to_19',
-                                   'upgrade_event_resource_to_19'
+                                   'upgrade_chat_to_19'
                                     );
                                     
             if( isset($_SESSION['upgrade_tracking_data']) && $_SESSION['upgrade_tracking_data'])
