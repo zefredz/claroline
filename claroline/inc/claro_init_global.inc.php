@@ -437,17 +437,13 @@ if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )
   Create the main table 'event_resource' if it doesn't exist
   ----------------------------------------------------------------------*/
 
-require_once dirname(__FILE__) . '/../wiki/lib/class.clarodbconnection.php';
+$main_tblList = get_module_main_tbl(array('event_resource'));
 
-$sql = "CREATE TABLE IF NOT EXISTS `" . get_conf('mainTblPrefix') . "event_resource` (
-              `event_id` INTEGER NOT NULL,
-              `resource_id` INTEGER NOT NULL,
-              `tool_id` INTEGER NOT NULL,
-              `course_code` VARCHAR(40) NOT NULL,
-              PRIMARY KEY (`event_id`, `resource_id`, `tool_id`, `course_code`),
-              UNIQUE KEY (`event_id`, `course_code`)
-            ) TYPE=MyISAM";
-claro_sql_query($sql);
-
-$connection = new ClarolineDatabaseConnection();
-$connection->executeQuery($sql);
+Claroline::getDatabase()->exec("CREATE TABLE IF NOT EXISTS `{$main_tblList['event_resource']}` (
+                                    `event_id` INTEGER NOT NULL,
+                                    `resource_id` INTEGER NOT NULL,
+                                    `tool_id` INTEGER NOT NULL,
+                                    `course_code` VARCHAR(40) NOT NULL,
+                                    PRIMARY KEY (`event_id`, `resource_id`, `tool_id`, `course_code`),
+                                    UNIQUE KEY (`event_id`, `course_code`)
+                                ) TYPE=MyISAM");
