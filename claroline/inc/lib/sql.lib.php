@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 )
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      see 'credits' file
  * @package     KERNEL
@@ -21,16 +21,13 @@ if ( count( get_included_files() ) == 1 )
 
 
 /**
- * Return the tablename for a tool, dependig on the execution context
- * WARNING DO NOT USE THIS FUNCTION UNTIL THE deprecated TAG IS REMOVE
+ * Return the tablename for a tool, en tenant compte du fait que it's (or not)
+ * * in a course,
+ * * in a group
  *
  * @param array $tableList
- * @param array $contextData id To discrim table. Do not add context Id
- *  of an context active but managed by tool.
+ * @param array $contextData id To discrim table. Do not add context Id  of an context active but managed by tool.
  * @return array
- * @deprecated for modules since Claroline 1.9, use get_module_main_tbl and
- *  get_module_course_tbl instead
- * @todo rewrite to use new Claroline core/context.lib.php
  */
 function claro_sql_get_tbl( $tableList, $contextData=null)
 {
@@ -137,12 +134,10 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
 
 /**
  * Get list of table names for central table.
- *
  * @return array list of the central claroline database tables
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @deprecated for module development since Claroline 1.9, use
- *  get_module_main_tbl instead
  */
+
 function claro_sql_get_main_tbl()
 {
     static $mainTblList = array();
@@ -180,11 +175,23 @@ function claro_sql_get_main_tbl()
         'im_recipient'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'im_recipient',
         'desktop_portlet'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'desktop_portlet',
         'desktop_portlet_data'      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'desktop_portlet_data',
-
-        'tracking_event'            => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'tracking_event',
-        'log'                       => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'log'
-
+        'tracking_event'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_event',
+        'log'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log'
         );
+
+
+        // Work arround if old tracking database exists
+        if ((get_conf('mainDbName') != get_conf('statsDbName')) || (get_conf('mainTblPrefix') != get_conf('mainTblPrefix')))
+        {
+            $sql = ' SHOW TABLES IN ' . get_conf('mainDbName') . ' LIKE  "' .get_conf('mainTblPrefix') . 'tracking_event"' ;
+            $result =  Claroline::getDatabase()->exec($sql);
+
+            if ($result <= 0)
+            {
+                $mainTblList['tracking_event'] = get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'tracking_event';
+                $mainTblList['log'] = get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'log';
+             }
+        }
 
     }
     return $mainTblList;
@@ -196,9 +203,8 @@ function claro_sql_get_main_tbl()
  *         glue already append. If no db name are set, the current course db
  *         will be taken.
  * @return array list of the current course database tables
- * @deprecated for module development since Claroline 1.9, use
- *  get_module_course_tbl instead
  */
+
 function claro_sql_get_course_tbl($dbNameGlued = null)
 {
     global $_course;
@@ -285,9 +291,8 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
  * @param  string  $sqlQuery   - the sql query
  * @param  handler $dbHandler  - optional
  * @return handler             - the result handler
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
  */
+
 function claro_sql_query($sqlQuery, $dbHandler = '#' )
 {
 
@@ -342,9 +347,8 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
 
 /**
  * CLAROLINE mySQL errno wrapper.
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
  */
+
 function claro_sql_errno($dbHandler = '#')
 {
     if ( $dbHandler == '#' )
@@ -359,9 +363,9 @@ function claro_sql_errno($dbHandler = '#')
 
 /**
  * CLAROLINE mySQL error wrapper.
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
+ *
  */
+
 function claro_sql_error($dbHandler = '#')
 {
     if ( $dbHandler == '#' )
@@ -376,9 +380,9 @@ function claro_sql_error($dbHandler = '#')
 
 /**
  * CLAROLINE mySQL selectDb wrapper.
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
+ *
  */
+
 function claro_sql_select_db($dbName, $dbHandler = '#')
 {
     if ( $dbHandler == '#' )
@@ -393,9 +397,9 @@ function claro_sql_select_db($dbName, $dbHandler = '#')
 
 /**
  * CLAROLINE mySQL affected rows wrapper.
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
+ *
  */
+
 function claro_sql_affected_rows($dbHandler = '#')
 {
     if ( $dbHandler == '#' )
@@ -410,9 +414,9 @@ function claro_sql_affected_rows($dbHandler = '#')
 
 /**
  * CLAROLINE mySQL insert id wrapper.
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
+ *
  */
+
 function claro_sql_insert_id($dbHandler = '#')
 {
     if ( $dbHandler == '#' )
@@ -433,9 +437,9 @@ function claro_sql_insert_id($dbHandler = '#')
  * @return  names of the specified field index
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
+ *
  */
+
 function claro_sql_field_names( $sql, $resultPt = null )
 {
     static $_colNameList = array();
@@ -477,8 +481,6 @@ function claro_sql_field_names( $sql, $resultPt = null )
  * @return array associative array containing all the result rows
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
  */
 
 function claro_sql_query_fetch_all_rows($sqlQuery, $dbHandler = '#')
@@ -514,12 +516,6 @@ function claro_sql_query_fetch_all_rows($sqlQuery, $dbHandler = '#')
     }
 }
 
-/**
- * Alias for claro_sql_query_fetch_all_rows
- * @see claro_sql_query_fetch_all_rows()
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
- */
 function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
 {
     return claro_sql_query_fetch_all_rows($sqlQuery, $dbHandler);
@@ -535,9 +531,9 @@ function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
  *
  * @see    claro_sql_query()
  * @author Hugues Peeters <hugues.peeters@claroline.net>,
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
+ *
  */
+
 function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
@@ -586,9 +582,9 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
  * @see    claro_sql_query()
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>,
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
  */
+
+
 function claro_sql_query_fetch_single_value($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
@@ -626,9 +622,9 @@ function claro_sql_query_fetch_single_value($sqlQuery, $dbHandler = '#')
  * @see    claro_sql_query_fetch_single_value()
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>,
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
  */
+
+
 function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
 {
     return claro_sql_query_fetch_single_value($sqlQuery, $dbHandler);
@@ -643,22 +639,14 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
  * @return associative array containing all the result column
  * @since  1.9.*
  * @see    claro_sql_query_get_single_row()
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
+ *
   */
+
+
 function claro_sql_query_fetch_single_row($sqlQuery, $dbHandler = '#')
 {
     return claro_sql_query_get_single_row($sqlQuery, $dbHandler);
 }
-
-/**
- * Get a single row from a SQL query
- * @param string $sqlQuery
- * @param ressource $dbHandler
- * @return array or false
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
- */
 function claro_sql_query_get_single_row($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
@@ -687,9 +675,10 @@ function claro_sql_query_get_single_row($sqlQuery, $dbHandler = '#')
  *
  * @see    claro_sql_query()
  * @author Hugues Peeters <hugues.peeters@claroline.net>,
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
+ *
  */
+
+
 function claro_sql_query_affected_rows($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
@@ -727,9 +716,9 @@ function claro_sql_query_affected_rows($sqlQuery, $dbHandler = '#')
  * @return integer the id generated by the previous insert query
  *
  * @see    claro_sql_query()
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
+ *
  */
+
 function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
@@ -751,8 +740,6 @@ function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
  * @param unknown_type $statement
  * @param unknown_type $db
  * @return unknown
- * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
- *  in database/database.lib.php instead
  */
 function claro_sql_escape($statement,$db=null)
 {
@@ -769,15 +756,13 @@ function claro_sql_escape($statement,$db=null)
  *
  * By default it's in table name except of course context wich follow singleDbMode value.
  *
- * DO NOT USE THIS FUNCTION !
- *
  * @param string $toolId claro_label
  * @return array of array
  *
  * @since 1.8
- * @deprecated since Claroline 1.9, see claro_sql_get_tbl for details
  */
 
+//Temporary included
 require_once(dirname(__FILE__) . '/module.lib.php');
 function get_context_db_discriminator($toolId)
 {

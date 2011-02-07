@@ -89,6 +89,21 @@ if ( ! empty($register_globals_value) && strtolower($register_globals_value) != 
 }
 
 
+        // Work arround if old tracking database exists
+        if ((get_conf('mainDbName') != get_conf('statsDbName')) || (get_conf('mainTblPrefix') != get_conf('statsTblPrefix')))
+        {
+            //$sql ='SELECT id FROM `' . get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_event' . '`  LIMIT 0 , 1' ;
+            $sql = ' SHOW TABLES IN ' . get_conf('mainDbName') . ' LIKE  "' .get_conf('mainTblPrefix') . 'tracking_event"' ;
+            $result =  Claroline::getDatabase()->exec($sql);
+
+            if ($result <= 0)
+            {
+                if (get_conf('mainDbNane') != get_conf('statsDbName'))
+                    $dialogBox->warning( get_lang('Please transfer tables from database ' . get_conf('statsDbName') . ' to  database ' . get_conf('mainDbName') . ' and modify the main configuration'));
+                if (get_conf('mainTblPrefix') != get_conf('statsTblPrefix'))
+                    $dialogBox->warning( get_lang('Please modify prefix of statistic tables from ' . get_conf('statsTblPrefix') . ' to ' . get_conf('mainTblPrefix') . ' and modify the main configuration'));
+            }
+        }
 $out = '';
 
 $out .= claro_html_tool_title($nameTools)
