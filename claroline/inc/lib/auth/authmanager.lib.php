@@ -62,7 +62,10 @@ class AuthManager
             
             if ( $driver->authenticate() )
             {
-                if ( $uid = AuthUserTable::registered( $username, $driver->getAuthSource() ) )
+
+                $uid = AuthUserTable::registered( $username, $driver->getAuthSource() );
+                
+                if ( $uid )
                 {
                     if ( $driver->userUpdateAllowed() )
                     {
