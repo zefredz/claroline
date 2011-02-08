@@ -23,20 +23,20 @@ else                                                                            
 	<title><?php echo get_lang('Documents Linker'); ?></title>
 	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
 	<script type="text/javascript" src="js/dialog.js"></script>
-	<script type="text/javascript" src="<?php echo get_path( 'rootWeb' ); ?>web/js/jquery.js"></script>
-	<script type="text/javascript" src="<?php echo get_path( 'rootWeb' ); ?>web/js/claroline.js"></script>
-	<script type="text/javascript" src="<?php echo get_path( 'rootWeb' ); ?>web/js/claroline.ui.js"></script>
-  <script type="text/javascript" src="<?php echo get_path( 'rootWeb' ); ?>web/js/jquery.livequery.js"></script>
-  <script type="text/javascript" src="js/linker.js"></script>
-  <script type="text/javascript">
-    linkerFrontend.base_url = "<?php echo get_path( 'rootWeb' ); ?>claroline/backends/linker.php";
-    linkerFrontend.deleteIconUrl = "<?php echo get_icon_url('delete'); ?>";
-    linkerFrontend.invisibleIconUrl = "<?php echo get_icon_url('invisible'); ?>";
-    Claroline.lang["Attach"] = "<?php echo get_lang('Attach'); ?>";
-    Claroline.lang["Delete"] = "<?php echo get_lang('Delete'); ?>";
-  </script>
+	<script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/jquery.js"></script>
+	<script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/claroline.js"></script>
+	<script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/claroline.ui.js"></script>
+    <script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/jquery.livequery.js"></script>
+    <script type="text/javascript" src="js/linker.js"></script>
+    <script type="text/javascript">
+        linkerFrontend.base_url = "<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/claroline/backends/linker.php";
+        linkerFrontend.deleteIconUrl = "<?php echo get_icon_url('delete'); ?>";
+        linkerFrontend.invisibleIconUrl = "<?php echo get_icon_url('invisible'); ?>";
+        Claroline.lang["Attach"] = "<?php echo get_lang('Attach'); ?>";
+        Claroline.lang["Delete"] = "<?php echo get_lang('Delete'); ?>";
+    </script>
 	<?php echo link_to_css( get_conf('claro_stylesheet') . '/main.css', 'screen, projection, tv' );?>
-  <link rel="stylesheet" type="text/css" href="<?php echo get_path( 'rootWeb' ); ?>web/css/classic/main.css" media="screen, projection, tv" />
+    <link rel="stylesheet" type="text/css" href="<?php echo rtrim( get_path( 'rootWeb' ), '/' ) ?>/web/css/classic/main.css" media="screen, projection, tv" />
 </head>
 <body>
 
@@ -44,7 +44,7 @@ else                                                                            
 	<div>
 		<fieldset>
 			<legend><?php echo get_lang('Resources'); ?></legend>
-      <?php echo Documents_ResourceLinker::renderLinkerBlock(get_path( 'rootWeb' ).'/claroline/backends/linker.php'); ?>
+      <?php echo Documents_ResourceLinker::renderLinkerBlock( rtrim( get_path( 'rootWeb' ), '/' ) . '/claroline/backends/linker.php'); ?>
       </fieldset>
 		<fieldset>
 			<legend><?php echo get_lang('Target'); ?></legend>
