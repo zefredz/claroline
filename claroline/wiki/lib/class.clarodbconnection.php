@@ -16,6 +16,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
      *
      * @author Frederic Minne <zefredz@gmail.com>
+     * @deprecated use Claroline_Database_Connection class from
+     *  inc/lib/database/database.lib.php instead
      *
      * @package Wiki
      */
