@@ -412,7 +412,7 @@ function group_count_students_in_groups($course_id=null)
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $mainTableName = get_module_main_tbl(array('rel_course_user'));
 
-    $sql = "SELECT COUNT(`gu`.`user`)
+    $sql = "SELECT COUNT(DISTINCT(`gu`.`user`))
             FROM `" . $tbl_cdb_names['group_rel_team_user'] . "` as `gu`
             INNER JOIN `" . $mainTableName['rel_course_user'] . "` AS `cu`
                 ON `cu`.user_id = `gu`.`user`";
@@ -432,7 +432,7 @@ function group_count_students_in_group($group_id,$course_id=null)
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $mainTableName = get_module_main_tbl(array('rel_course_user'));
 
-    $sql = "SELECT COUNT(`gu`.`user`)
+    $sql = "SELECT COUNT(DISTINCT(`gu`.`user`))
             FROM `" . $tbl_cdb_names['group_rel_team_user'] . "` AS `gu`
             INNER JOIN `" . $mainTableName['rel_course_user'] . "` AS `cu`
                 ON `cu`.user_id = `gu`.`user`
