@@ -195,10 +195,10 @@ function user_set_properties($userId, $propertyList)
         $sql = "UPDATE  `" . $tbl['user'] . "`
                 SET ". implode(', ', $setList) . "
                 WHERE user_id  = " . (int) $userId ;
+    
+        if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
+        else                                           return false;
     }
-
-    if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
-    else                                           return false;
 }
 
 /**
