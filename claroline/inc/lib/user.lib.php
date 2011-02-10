@@ -20,6 +20,9 @@ if ( count( get_included_files() ) == 1 )
  */
 
 require_once(dirname(__FILE__) . '/form.lib.php');
+require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
+require_once get_path('clarolineRepositorySys') . '/messaging/lib/message/messagetosend.lib.php';
+require_once get_path('clarolineRepositorySys') . '/messaging/lib/recipient/singleuserrecipient.lib.php';
 
 /**
  * Initialise user data
@@ -200,10 +203,10 @@ function user_set_properties($userId, $propertyList)
         $sql = "UPDATE  `" . $tbl['user'] . "`
                 SET ". implode(', ', $setList) . "
                 WHERE user_id  = " . (int) $userId ;
-    }
 
-    if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
-    else                                           return false;
+        if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
+        else                                           return false;
+    }
 }
 
 /**
@@ -443,7 +446,7 @@ function user_set_platform_admin($status, $userId)
  * @return boolean
  */
 
-function user_send_registration_mail ($userId, $data)
+function user_send_registration_mail ($userId, $data,$courseCode = null)
 {
     require_once dirname(__FILE__) . '/../../inc/lib/sendmail.lib.php';
     
@@ -469,13 +472,26 @@ function user_send_registration_mail ($userId, $data)
         )
         );
 
-        if ( claro_mail_user($userId, $emailBody, $emailSubject) ) return true;
-        else                                                       return false;
+        $message = new MessageToSend(claro_get_current_user_id(),$emailSubject,$emailBody);
+
+        // send email registration from course creator if user created in course
+        if (isset($courseCode))
+        {
+            $message->setCourse($courseCode);
+        }
+
+        $recipient = new SingleUserRecipient($userId);
+
+        //$message->sendTo($recipient);
+        return $recipient->sendMessage($message);
     }
-    else
-    {
-        return false;
-    }
+//        if ( claro_mail_user($userId, $emailBody, $emailSubject) ) return true;
+//        else                                                       return false;
+//    }
+//    else
+//    {
+//        return false;
+//    }
 
 }
 
