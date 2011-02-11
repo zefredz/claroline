@@ -65,171 +65,6 @@ class CourseHomePageCalendar
         return $this->year;
     }
     
-    protected function ajaxMiniCalendar( $agendaItemList )
-    {
-        $weekdaynames = get_locale('langDay_of_weekNames');
-        $weekdaynames = $weekdaynames['init'];
-        
-        $htmlStream = '';
-        //Handle leap year
-        $numberofdays = array(0,31,28,31,30,31,30,31,31,30,31,30,31);
-    
-        if ( ($this->getYear()%400 == 0) || ( $this->getYear()%4 == 0 && $this->getYear()%100 != 0 ) )
-        {
-            $numberofdays[2] = 29;
-        }
-    
-        //Get the first day of the month
-        $dayone = getdate(mktime(0,0,0,$this->getMonth(),1,$this->getYear()));
-    
-        //Start the week on monday
-        $startdayofweek = $dayone['wday']<> 0 ? ($dayone['wday']-1) : 6;
-        
-        $previousMonth = $this->getMonth() == 1
-            ? 12
-            : $this->getMonth() -1
-            ;
-        
-        $previousYear = $this->getMonth() == 1
-            ? $this->getYear() - 1
-            : $this->getYear()
-            ;
-        
-        $nextMonth = $this->getMonth() == 12
-            ? 1
-            : $this->getMonth() + 1
-            ;
-        
-        $nextYear = $this->getMonth() == 12
-            ? $this->getYear() + 1
-            : $this->getYear()
-            ;
-            
-        $htmlStream = "<script type=\"text/javascript\">
-var CourseHomePageCalendar = {
-    previous: function(){
-        $.ajax({
-            url: '".get_module_url('CLCAL')."/ajaxHandler.php',
-            data: 'year=".(int)$previousYear."&month=".(int)$previousMonth."&location=coursehomepage',
-            success: function(response){
-                $('#portletMycalendar').empty().append(response);
-            }
-        });
-    },
-    next: function(){
-        $.ajax({
-            url: '".get_module_url('CLCAL')."/ajaxHandler.php',
-            data: 'year=".(int)$nextYear."&month=".(int)$nextMonth."&location=coursehomepage',
-            success: function(response){
-                $('#portletMycalendar').empty().append(response);
-            }
-        });
-    }
-};
-</script>";
-        
-        $htmlStream .=  '<table class="claroTable" width="100%">' . "\n"
-        .    '<tr class="superHeader">' . "\n"
-        .    '<th width="13%">'
-        ;
-        
-        $htmlStream .= '<center>' . "\n"
-        .    '<a href="" onclick="CourseHomePageCalendar.previous();return false;">&lt;&lt;</a>'
-        .    '</center>' . "\n"
-        ;
-        
-        $htmlStream .= '</th>' . "\n"
-        .    '<th width="65%" colspan="5">'
-        .    '<center>'
-        .    $this->getMonthName() . ' ' . $this->getYear()
-        .    '</center>'
-        .    '</th>' . "\n"
-        .    '<th width="13%">'
-        ;
-        
-        $htmlStream .= '<center>' . "\n"
-        .    '<a href="" onclick="CourseHomePageCalendar.next();return false;">&gt;&gt;</a>'
-        .    '</center>'
-        ;
-    
-        $htmlStream .= '</th>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr class="headerX">' ."\n"
-        ;
-    
-        for ( $iterator = 1; $iterator < 8; $iterator++)
-        {
-            $htmlStream .=   '<th width="13%">' . $weekdaynames[$iterator%7] . '</th>' . "\n";
-        }
-    
-        $htmlStream .=  '</tr>' . "\n\n";
-    
-        $curday = -1;
-    
-        $today = getdate();
-    
-        while ($curday <= $numberofdays[$this->getMonth()])
-        {
-            $htmlStream .=  '<tr>' . "\n";
-    
-            for ($iterator = 0; $iterator < 7 ; $iterator++)
-            {
-                if ( ($curday == -1) && ($iterator == $startdayofweek) )
-                {
-                    $curday = 1;
-                }
-    
-                if ( ($curday > 0) && ($curday <= $numberofdays[$this->getMonth()]) )
-                {
-                    if (   ($curday == $today['mday'])
-                    && ($this->getYear()   == $today['year'])
-                    && ($this->getMonth()  == $today['mon' ]) )
-                    {
-                        $weekdayType = 'highlight'; // today
-                    }
-                    elseif ( $iterator < 5 )
-                    {
-                        $weekdayType = 'workingWeek';
-                    }
-                    else
-                    {
-                        $weekdayType = 'weekEnd';
-                    }
-    
-                    $dayheader = $curday ;
-    
-                    $htmlStream .= '<td height="40" width="12%" valign="top" '
-                    .    'class="' . $weekdayType
-                    .    (isset($agendaItemList[$curday]) ? ' dayWithEvent': '')
-                    .    '">'
-                    ;
-    
-                    if ( isset($agendaItemList[$curday]) )
-                    {
-                        $htmlStream .= '<a href="'.$agendaItemList[$curday]['eventList'][0]['url'].'">' . $dayheader .'</a>';
-                    }
-                    else
-                    {
-                        $htmlStream .= $dayheader;
-                    }
-    
-                    $htmlStream .= '</td>' . "\n";
-    
-                    $curday++;
-                }
-                else
-                {
-                    $htmlStream .= '<td width="12%">&nbsp;</td>' . "\n";
-                }
-            }
-            $htmlStream .= '</tr>' . "\n\n";
-        }
-        
-        $htmlStream .= '</table>';
-        
-        return $htmlStream;
-    }
-    
     public function render()
     {
         // Select current course's datas
@@ -257,63 +92,83 @@ var CourseHomePageCalendar = {
         $result = Claroline::getDatabase()->query($sql);
         $courseData = $result->fetch(Database_ResultSet::FETCH_ASSOC);
         
-        $agendaItemList = get_agenda_items_compact_mode(array($courseData), $this->month, $this->year);
+        $courseEventList = get_agenda_next_items_list($courseData, 10, $this->month, $this->year);
+        
+        if ( is_array($courseEventList) )
+        {
+            $courseDigestList = array();
+            
+            foreach($courseEventList as $thisEvent )
+            {
+                $eventLine = trim(strip_tags($thisEvent['title']));
+                
+                if ( $eventLine == '' )
+                {
+                    $eventContent = trim(strip_tags($thisEvent['content']));
+                    $eventLine    = substr($eventContent, 0, 60) . (strlen($eventContent) > 60 ? ' (...)' : '');
+                }
+                
+                $eventDate = explode('-', $thisEvent['day']);
+                $day       = intval($eventDate[2]);
+                
+                if(!array_key_exists($day, $courseDigestList))
+                {
+                    $courseDigestList[$day] = array();
+                    $courseDigestList[$day]['eventList'] = array();
+                    $courseDigestList[$day]['date'] = $thisEvent['day'];
+                }
+                
+                $courseDigestList[$day]['eventList'][] =
+                    array(
+                        'hour' => $thisEvent['hour'],
+                        'courseOfficialCode' => $courseData['officialCode'],
+                        'courseSysCode' => $courseData['sysCode'],
+                        'content' => $eventLine,
+                        'url' => get_path('url').'/claroline/calendar/agenda.php?cidReq=' . $courseData['sysCode']
+                    );
+            
+            }
+        }
         
         $output = '';
         
-        $output .= '<div class="calendar">'.$this->ajaxMiniCalendar($agendaItemList).'</div>'
-        . ' <div class="details">'
-        ;
+        //$output .= '<div class="calendar">'.$this->ajaxMiniCalendar($agendaItemList).'</div>';
         
-        if($agendaItemList)
+        $output .= '<div class="details">' . "\n"
+                 . '<dl>' . "\n";
+        
+        if($courseDigestList)
         {
-            $output .= '<dl>';
-            
-            foreach($agendaItemList as $agendaItem)
+            foreach($courseDigestList as $agendaItem)
             {
                 $output .= '<dt>' . "\n"
-                .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="" />'
-                .    '<small>'
-                .    claro_html_localised_date( get_locale('dateFormatLong'),
-                strtotime($agendaItem['date']) )
-                .    '</small>' . "\n"
-                .    '</dt>' . "\n"
-                ;
+                         . '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="Calendar" />&nbsp;'
+                         . claro_html_localised_date( get_locale('dateFormatLong'),
+                                strtotime($agendaItem['date']) )
+                         . '</dt>' . "\n";
                 
                 foreach($agendaItem['eventList'] as $agendaEvent)
                 {
                     $output .= '<dd>'
-                    .    '<small>'  . "\n"
-                    .    '<a href="' . $agendaEvent['url'] . '">'
-                    .    $agendaEvent['courseOfficialCode']
-                    .    '</a> : ' . "\n"
-                    .    '<small>'  . "\n"
-                    .    $agendaEvent['content'] . "\n"
-                    .    '</small>' . "\n"
-                    .    '</small>' . "\n"
-                    .    '</dd>' . "\n"
-                    ;
+                             . '<a href="' . $agendaEvent['url'] . '">'
+                             . $agendaEvent['courseOfficialCode']
+                             . '</a> : ' . "\n"
+                             . $agendaEvent['content'] . "\n"
+                             . '</dd>' . "\n";
                 }
             }
-            $output .= '</dl>';
         }
         else
         {
-            $output .= "\n"
-            .    '<dl>' . "\n"
-            .    '<dt>' . "\n"
-            .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="" />'
-            .    '<small>'
-            .    get_lang('No event to display') . "\n"
-            .    '</small>' . "\n"
-            .    '</dt>' . "\n"
-            .    '</dl>' . "\n"
-            ;
+            $output .= '<dt>' . "\n"
+                     . '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="" />&nbsp;'
+                     . get_lang('No event to display') . "\n"
+                     . '</dt>' . "\n";
         }
         
         $output .= ''
-        .     ' </div>' . "\n"
-        ;
+                 . '</dl>' . "\n"
+                 . '</div>' . "\n";
         
         return $output;
     }

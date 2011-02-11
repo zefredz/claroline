@@ -40,7 +40,7 @@ $(document).ready( function(){
     
     public function renderTitle()
     {
-        $output = get_lang('Calendar');
+        $output = get_lang('Next course events');
         
         if (claro_is_allowed_to_edit())
         {

@@ -27,12 +27,12 @@ class CLTI_Portlet extends CourseHomePagePortlet
         ResourceLinker::init();
         
         $output = '';
+        $output .= '<dl id="portletAbout">' . "\n";
         
         $toolIntroIterator = new ToolIntroductionIterator($this->courseCode);
         
-        if ($toolIntroIterator)
+        if ($toolIntroIterator->count() > 0)
         {
-            $output .= '<dl id="portletAbout">' . "\n";
             
             foreach ($toolIntroIterator as $introItem)
             {
@@ -49,22 +49,19 @@ class CLTI_Portlet extends CourseHomePagePortlet
                          . '<dd'.(!$toolIntroIterator->hasNext()?' class="last"':'').'>' . "\n"
                          . $introItem->getContent() . "\n"
                          . $resources
-                         . '</dd>' . "\n"
-                         ;
+                         . '</dd>' . "\n";
             }
-            
-            $output .= '</dl>';
         }
         else
         {
-            $output .= '<dl>' . "\n"
-                     . '<dt>' . "\n"
+            $output .= '<dt></dt>'
+                     . '<dd>' . "\n"
                      . '<img class="iconDefinitionList" src="' . get_icon_url('course_description', 'CLDSC') . '" alt="Description icon" />'
                      . ' ' . get_lang('No description to display') . "\n"
-                     . '</dt>' . "\n"
-                     . '</dl>' . "\n"
-                     ;
+                     . '</dd>' . "\n";
         }
+        
+        $output .= '</dl>';
         
         return $output;
     }

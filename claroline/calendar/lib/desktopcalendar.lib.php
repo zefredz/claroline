@@ -235,59 +235,43 @@ var UserDesktopCalendar = {
 
         $output = '';
 
-        $output .= '<div class="calendar">'.$this->ajaxMiniCalendar($agendaItemList).'</div>'
-        . ' <div class="details">'
-        ;
-
+        $output .= '<div class="calendar">'.$this->ajaxMiniCalendar($agendaItemList).'</div>';
+        
+        $output .= '<div class="details">' . "\n"
+                 . '<dl>' . "\n";
+        
         if($agendaItemList)
         {
-            $output .= '<dl>';
-
             foreach($agendaItemList as $agendaItem)
             {
                 $output .= '<dt>' . "\n"
-                .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="" />'
-                .    '<small>'
-                .    claro_html_localised_date( get_locale('dateFormatLong'),
-                strtotime($agendaItem['date']) )
-                .    '</small>' . "\n"
-                .    '</dt>' . "\n"
-                ;
-
+                         . '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="Calendar" />&nbsp;'
+                         . claro_html_localised_date( get_locale('dateFormatLong'),
+                                strtotime($agendaItem['date']) )
+                         . '</dt>' . "\n";
+                
                 foreach($agendaItem['eventList'] as $agendaEvent)
                 {
                     $output .= '<dd>'
-                    .    '<small>'  . "\n"
-                    .    '<a href="' . $agendaEvent['url'] . '">'
-                    .    $agendaEvent['courseOfficialCode']
-                    .    '</a> : ' . "\n"
-                    .    '<small>'  . "\n"
-                    .    $agendaEvent['content'] . "\n"
-                    .    '</small>' . "\n"
-                    .    '</small>' . "\n"
-                    .    '</dd>' . "\n"
-                    ;
+                             . '<a href="' . $agendaEvent['url'] . '">'
+                             . $agendaEvent['courseOfficialCode']
+                             . '</a> : ' . "\n"
+                             . $agendaEvent['content'] . "\n"
+                             . '</dd>' . "\n";
                 }
             }
-            $output .= '</dl>';
         }
         else
         {
-            $output .= "\n"
-            .    '<dl>' . "\n"
-            .    '<dt>' . "\n"
-            .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="" />'
-            .    '<small>'
-            .    get_lang('No event to display') . "\n"
-            .    '</small>' . "\n"
-            .    '</dt>' . "\n"
-            .    '</dl>' . "\n"
-            ;
+            $output .= '<dt>' . "\n"
+                     . '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="" />&nbsp;'
+                     . get_lang('No event to display') . "\n"
+                     . '</dt>' . "\n";
         }
-
+        
         $output .= ''
-        .     ' </div>' . "\n"
-        ;
+                 . '</dl>' . "\n"
+                 . '</div>' . "\n";
         
         return $output;
     }

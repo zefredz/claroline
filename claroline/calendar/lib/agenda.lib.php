@@ -9,36 +9,26 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *         - Add entries
  *         - generate an "announce" entries about an entries
  *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLCAL
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @version     1.8 $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLCAL
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Christophe Gesche <moosh@claroline.net>
  */
+
 
 /**
  * get list of all agenda item in the given or current course
  *
  * @param string $order  'ASC' || 'DESC' : ordering of the list.
- * @param string $course_id current :sysCode of the course (leaveblank for current course)
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @param string $courseCode current :sysCode of the course (leaveblank for current course)
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return array of array(`id`, `titre`, `contenu`, `day`, `hour`, `lasting`, `visibility`)
  * @since  1.7
  */
- 
 function agenda_get_item_list($context, $order='DESC')
 {
-
-    /*
-    $c = claro_get_course_data($context[CLARO_CONTEXT_COURSE]);
-    $tbl = claro_sql_get_tbl('course_description',array(CLARO_CONTEXT_TOOLLABEL => 'CLANN'
-                                                       ,CLARO_CONTEXT_COURSE    => $c['sysCode']));
-                                                       */
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($context[CLARO_CONTEXT_COURSE]));
     
     $sql = "SELECT           `id`,
@@ -57,18 +47,19 @@ function agenda_get_item_list($context, $order='DESC')
     return claro_sql_query_fetch_all($sql);
 }
 
+
 /**
  * Delete an event in the given or current course
  *
  * @param integer $event_id id the requested event
- * @param string $course_id current :sysCode of the course (leaveblank for current course)
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @param string $courseCode current :sysCode of the course (leaveblank for current course)
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return result of deletion query
  * @since  1.7
  */
-function agenda_delete_item($event_id, $course_id=null)
+function agenda_delete_item($event_id, $courseCode=null)
 {
-    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
     $sql = "DELETE FROM  `" . $tbl_calendar_event . "`
@@ -81,14 +72,14 @@ function agenda_delete_item($event_id, $course_id=null)
  * Delete an event in the given or current course
  *
  * @param integer $event_id id the requested event
- * @param string $course_id current :sysCode of the course (leaveblank for current course)
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @param string $courseCode current :sysCode of the course (leaveblank for current course)
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return result of deletion query
  * @since  1.7
  */
-function agenda_delete_all_items($course_id=null)
+function agenda_delete_all_items($courseCode=null)
 {
-    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
     
     $sql = "DELETE FROM  `" . $tbl_calendar_event . "`";
@@ -96,21 +87,21 @@ function agenda_delete_all_items($course_id=null)
     return claro_sql_query($sql);
 }
 
+
 /**
  * add an new event in the given or current course
  *
  * @param string   $title   title of the new item
  * @param string   $content content of the new item
  * @param date     $time    publication dat of the item def:now
- * @param string   $course_id sysCode of the course (leaveblank for current course)
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @param string   $courseCode sysCode of the course (leaveblank for current course)
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return id of the new item
  * @since  1.7
  */
-
-function agenda_add_item($title='',$content='', $day=null, $hour=null, $lasting='', $speakers='', $location='', $visibility='SHOW', $course_id=null)
+function agenda_add_item($title='',$content='', $day=null, $hour=null, $lasting='', $speakers='', $location='', $visibility='SHOW', $courseCode=null)
 {
-    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
     if (is_null($day)) $day = date('Y-m-d');
@@ -135,18 +126,17 @@ function agenda_add_item($title='',$content='', $day=null, $hour=null, $lasting=
 /**
  * Update an announcement in the given or current course
  *
- * @param string     $title     title of the new item
- * @param string     $content   content of the new item
- * @param date       $time      publication dat of the item def:now
- * @param string     $course_id sysCode of the course (leaveblank for current course)
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @param string     $title         title of the new item
+ * @param string     $content       content of the new item
+ * @param date       $time          publication dat of the item def:now
+ * @param string     $courseCode    sysCode of the course (leaveblank for current course)
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return handler of query
  * @since  1.7
  */
-
-function agenda_update_item($event_id, $title=null,$content=null, $day=null, $hour=null, $lasting= null, $speakers='', $location=null, $visibility=null, $course_id=null)
+function agenda_update_item($event_id, $title=null,$content=null, $day=null, $hour=null, $lasting= null, $speakers='', $location=null, $visibility=null, $courseCode=null)
 {
-    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
     
     $speakers = (!empty($speakers)) ? ("'".claro_sql_escape($speakers)."'") : ("null");
@@ -177,15 +167,14 @@ function agenda_update_item($event_id, $title=null,$content=null, $day=null, $ho
  * return data for the event  of the given id of the given or current course
  *
  * @param integer $event_id id the requested event
- * @param string  $course_id sysCode of the course (leaveblank for current course)
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @param string  $courseCode sysCode of the course (leaveblank for current course)
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return array(`id`, `title`, `content`, `dayAncient`, `hourAncient`, `lastingAncient`) of the event
  * @since  1.7
  */
-
-function agenda_get_item($event_id, $course_id=null)
+function agenda_get_item($event_id, $courseCode=null)
 {
-    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
     $sql = "SELECT `id`,
                    `titre`      AS `title`,
@@ -206,20 +195,20 @@ function agenda_get_item($event_id, $course_id=null)
 
 }
 
+
 /**
  * return data for the event  of the given id of the given or current course
  *
  * @param integer $event_id id the requested event
  * @param string  $visibility 'SHOW' || 'HIDE'  ordering of the list.
- * @param string  $course_id  sysCode of the course (leaveblank for current course)
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @param string  $courseCode  sysCode of the course (leaveblank for current course)
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return result handler
  * @since  1.7
  */
-
-function agenda_set_item_visibility($event_id, $visibility, $course_id=null)
+function agenda_set_item_visibility($event_id, $visibility, $courseCode=null)
 {
-    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
     $sql = "UPDATE `" . $tbl_calendar_event . "`
@@ -231,15 +220,15 @@ function agenda_set_item_visibility($event_id, $visibility, $course_id=null)
 
 //////////////////////////////////////////////////////////////////////////////
 
+
 /**
- * fetch all agenda item of a user  for a given month
+ * fetch all agenda item of a course for a given month
  *
- * @param array $userCourseList
+ * @param array $thisCourse
  * @param integer $month
  * @param integer $year
  * @return array list of items
  */
- 
 function get_agenda_items_list($thisCourse, $month, $year)
 {
     //FIXME
@@ -247,7 +236,7 @@ function get_agenda_items_list($thisCourse, $month, $year)
     
     $sql = "SELECT `id`,
                    `titre`   AS `title`,
-                   `contenu` AS content,
+                   `contenu` AS `content`,
                                 `day`,
                                 `hour`,
                                 `lasting`,
@@ -260,16 +249,45 @@ function get_agenda_items_list($thisCourse, $month, $year)
     
     return claro_sql_query_fetch_all_rows($sql);
 }
- 
+
+
+/**
+ * fetch the N next agenda item of a course
+ *
+ * @param array $thisCourse
+ * @param integer $nbEvents number of events
+ * @param integer $month
+ * @param integer $year
+ * @return array list of items
+ */
+function get_agenda_next_items_list($thisCourse, $nbEvents, $month, $year)
+{
+    $tbl = claro_sql_get_course_tbl(get_conf('courseTablePrefix'). $thisCourse['db'].get_conf('dbGlu'));
+    
+    $sql = "SELECT `id`,
+                   `titre`   AS `title`,
+                   `contenu` AS `content`,
+                                `day`,
+                                `hour`,
+                                `lasting`,
+                                `location`
+            FROM `" . $tbl['calendar_event'] . "`
+            WHERE YEAR(`day`)  = " . (int) $year  . "
+              AND `visibility` = 'SHOW'
+            ORDER BY `day` ASC, `hour` ASC
+            LIMIT 0, " . (int) $nbEvents;
+    
+    return claro_sql_query_fetch_all_rows($sql);
+}
+
+
 function get_agenda_items_compact_mode($userCourseList, $month, $year)
 {
-    
     $courseDigestList = array();
     
     // get agenda-items for every course
     foreach( $userCourseList as $thisCourse)
     {
-        
         $courseEventList = get_agenda_items_list($thisCourse, $month, $year);
         
         if ( is_array($courseEventList) )
@@ -310,6 +328,7 @@ function get_agenda_items_compact_mode($userCourseList, $month, $year)
     return $courseDigestList;
     
 }
+
 
 function get_agenda_items($userCourseList, $month, $year)
 {
@@ -536,7 +555,6 @@ function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
         $htmlStream .= '</tr>' . "\n\n";
     }
     $htmlStream .= '</table>';
+    
     return $htmlStream;
 }
-
-?>
