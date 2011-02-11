@@ -34,9 +34,9 @@ class csv
      * @var $csvContent array of rows;
      */
     protected $csvContent;
-    
+
     protected $firstLine;
-    
+
     /**
      * constructor
      *
@@ -44,89 +44,89 @@ class csv
      * @param $fieldSeparator field separator
      * @param $enclosedBy fields encolsed by
      *
-     */    
+     */
     public function __construct( $fieldSeparator = ',', $enclosedBy = '"')
     {
         $this->fieldSeparator = $fieldSeparator;
         $this->enclosedBy = $enclosedBy;
         $this->csvContent = array();
     }
-    
+
     /**
-     * load the content of a csv file 
+     * load the content of a csv file
      *
      * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
      * @param $fileName name of the csv file
      * @return boolean
-     * 
-     */    
+     *
+     */
     public function load( $fileName )
-    {        
+    {
         $this->fileName = $fileName;
-        
+
         if( !is_file($this->fileName) )
         {
             return false;
         }
-        
+
         if( !$handle = fopen($this->fileName, "r") )
         {
             return false;
         }
-        
+
         $this->firstLine = fgets( $handle);
-        
+
         rewind( $handle);
-        
+
         $content = array();
         while( ( $row = fgetcsv( $handle, 0, $this->fieldSeparator, $this->enclosedBy) ) !== FALSE)
         {
             $content[] = $row;
         }
-        
+
         $this->setCSVContent( $content );
-        
+
         return true;
     }
-    
+
     public function getFirstLine()
     {
         return $this->firstLine;
     }
-    
+
     /**
      * set the content of csvContent
      *
      * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
      * @param $content
-     * 
-     */    
+     *
+     */
     public function setCSVContent( $content )
     {
         $this->csvContent = $content;
     }
-    
+
     /**
      * get the content of csvContent
      *
      * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
      * @return $csvContent array of rows
-     * 
+     *
      */
     public function getCSVContent()
     {
         return $this->csvContent;
     }
-    
+
     /**
      * create an usable array with all the data
      *
      * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
      * @param $content array that need to be changed in an usable array
      * @param $useFirstLine use the first line of the array to define cols
-     * @param $keys 
+     * @param $keys
      * @return $useableArray converted array
-     * 
+     *
      */
     public function createUsableArray( $content, $useFirstLine = true, $keys = null)
     {
@@ -134,24 +134,24 @@ class csv
         {
             return false;
         }
-        
+
         if( $useFirstLine )
         {
             $keys = $content[0];
             unset($content[0]);
         }
-        
+
         if( !(!is_null( $keys ) && is_array( $keys ) && count( $keys )) )
         {
             return false;
         }
-        
+
         $useableArray = array();
         foreach( $keys as $col )
         {
             $useableArray[$col] = array();
         }
-        
+
         foreach( $content as $i => $row)
         {
             foreach( $row as $j => $r)
@@ -160,23 +160,23 @@ class csv
                 {
                     if($j == $col)
                     {
-                        $useableArray[$val][$i] = $r;                        
-                    }                    
+                        $useableArray[$val][$i] = $r;
+                    }
                 }
             }
         }
-        
+
         return $useableArray;
-        
+
     }
-    
+
     /**
      * check the value of user id field
      *
      * @param $data user id value
      * @return string or null
-     * 
-     */    
+     *
+     */
     protected function checkUserIdField( $data )
     {
         $errors = array();
@@ -184,24 +184,24 @@ class csv
         {
             if( !(is_numeric( $value ) && $value >= 0) )
             {
-              $errors[] =  get_lang('User ID must be a number at line %key', array( '%key' => $key )); 
+              $errors[] =  get_lang('User ID must be a number at line %key', array( '%key' => $key ));
             }
             elseif( array_search( $value, $data) != $key )
             {
               $errors[] = get_lang('User ID seems to be duplicate at line %key', array( '%key' => $key ));
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * check the value of the email field
      *
      * @param $data email value
      * @return string or null
      *
-     **/    
+     **/
     protected function checkEmailField( $data )
     {
         $errors = array();
@@ -219,13 +219,13 @@ class csv
                }
             }
         }
-        
+
         return $errors;
     }
-    
+
     /**
      * check the defined format
-     * 
+     *
      * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
      * @param $format format used in the csv
      * @param $delim field delimiter
@@ -233,20 +233,20 @@ class csv
      *
      * @return boolean if all requiered fields are defined, return true
      *
-     */    
+     */
     public function format_ok($format, $delim, $enclosedBy)
     {
         $fieldarray = explode($delim,$format);
         if ($enclosedBy == 'dbquote') $enclosedBy = '"';
-    
+
         $username_found = FALSE;
         $password_found = FALSE;
         $firstname_found  = FALSE;
         $lastname_found     = FALSE;
-        
+
         foreach ($fieldarray as $field)
         {
-    
+
             if (!empty($enclosedBy))
             {
                 $fieldTempArray = explode($enclosedBy,$field);
@@ -263,32 +263,32 @@ class csv
             if (trim($field)=='username')
             {
                 $username_found = TRUE;
-            }            
+            }
             /*if ( trim($field) == 'password' )
             {
                 $password_found = TRUE;
             }*/
-            
+
         }
         return ($username_found && $firstname_found && $lastname_found);
     }
-    
-    
+
+
 }
 
 class csvImport extends csv
 {
-    
-    
+
+
     /*public function __construct( $fieldSeparator = ',', $enclosedBy = '"')
     {
         $this->fieldSeparator = $fieldSeparator;
         $this->enclosedBy = $enclosedBy;
         $this->csvContent = array();
     }*/
-    
-    
-    
+
+
+
     /**
      * check each field content based on the key of the array
      *
@@ -296,11 +296,11 @@ class csvImport extends csv
      *
      * @return boolean
      *
-     */    
+     */
     public function checkFieldsErrors( $content )
     {
       $errors = array();
-      
+
       foreach( $content as $key => $values )
       {
         switch( $key )
@@ -310,8 +310,8 @@ class csvImport extends csv
                 $error = $this->checkUserIdField( $values );
                 if( !is_null( $error ) )
                 {
-                    $errors[$key] = $error;    
-                }                
+                    $errors[$key] = $error;
+                }
             }
             break;
             case 'email' :
@@ -319,17 +319,17 @@ class csvImport extends csv
                 $error = $this->checkEmailField( $values );
                 if( !empty( $error ) )
                 {
-                    $errors[$key] = $error;    
-                }                
+                    $errors[$key] = $error;
+                }
             }
             break;
             case 'username' :
-            {                
+            {
                 $error = $this->checkUserNameField( $values );
                 if( !is_null( $error ) )
                 {
-                    $errors[$key] = $error;    
-                }                
+                    $errors[$key] = $error;
+                }
             }
             break;
             case 'groupName' :
@@ -344,16 +344,16 @@ class csvImport extends csv
       }
       return $errors;
     }
-    
-    
-    
+
+
+
     private function checkUserNameField( $data )
     {
       $errors = array();
-      
+
       $tbl_mdb_names = claro_sql_get_main_tbl();
       $tbl_user      = $tbl_mdb_names['user'];
-      
+
       foreach( $data as $key => $value )
       {
         if( empty( $value) )
@@ -375,18 +375,18 @@ class csvImport extends csv
           }
         }
       }
-      
-      
+
+
       return $errors;
     }
-    
-    
+
+
     private function checkUserGroup( $groupNames )
     {
-        
+
         return null;
     }
-    
+
     public function importUsers( $class_id , $updateUserProperties, $sendEmail = 0 )
     {
         $csvContent = $this->getCSVContent();
@@ -394,12 +394,12 @@ class csvImport extends csv
         {
             return false;
         }
-        
+
         if( !(isset($_REQUEST['users']) && count($_REQUEST['users']) ) )
         {
             return false;
         }
-        
+
         if( !( isset( $_SESSION['_csvUsableArray'] ) && is_array( $_SESSION['_csvUsableArray'] ) ) )
         {
             claro_die( get_lang('Not allowed') );
@@ -408,21 +408,21 @@ class csvImport extends csv
         {
             $csvUseableArray = $_SESSION['_csvUsableArray'];
         }
-        
+
         $fields = $csvContent[0];
         unset( $csvContent[0] );
-        
+
         $logs = array();
-        
+
         $tbl_mdb_names  = claro_sql_get_main_tbl();
         $tbl_user       = $tbl_mdb_names['user'];
         $tbl_course_user = $tbl_mdb_names['rel_course_user'];
-        
+
         $tbl_cdb_names = claro_sql_get_course_tbl();
         $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
-        
+
         $groupsImported = array();
-            
+
         foreach( $_REQUEST['users'] as $user_id )
         {
             if(!isset($csvUseableArray['username'][$user_id]))
@@ -441,8 +441,8 @@ class csvImport extends csv
                                      && ! empty( $csvUseableArray['password'][$user_id] )
                                      ? $csvUseableArray['password'][$user_id] : mk_password( 8 );
                 $userInfo['officialCode'] = isset( $csvUseableArray['officialCode'][$user_id] ) ? $csvUseableArray['officialCode'][$user_id] : '';
-                
-                //check user existe if not create is asked                
+
+                //check user existe if not create is asked
                 $resultSearch = user_search( array( 'username' => $userInfo['username'] ), null, true, true );
                 if( !empty($resultSearch))
                 {
@@ -463,22 +463,28 @@ class csvImport extends csv
                 }
                 else
                 {
-                    
+
                     $userId = user_create( $userInfo );
                     if( $userId != 0 )
                     {
+                    	$newUserInfo = user_get_properties($userId);
+	                    if ($newUserInfo['username'] != $userInfo['username'])
+	                    {
+	                    	// if the username fixed is the csv file is too long -> get correct one before sending
+							$userInfo['username'] = $newUserInfo['username'];
+	                    }
                         $logs['success'][] = get_lang( 'User %username created successfully', array( '%username' => $userInfo['username'] ) );
-                       if ( $sendEmail )
-                       {
+                        if ( $sendEmail )
+                        {
                             user_send_registration_mail ($userId, $userInfo);
-                       }
+                        }
                     }
                     else
                     {
                         $logs['errors'][] = get_lang( 'Unable to create user %username', array('%username' => $userInfo['username'] ) );
                     }
                 }
-                
+
                 if( $userId )
                 {
                   //join class if needed
@@ -496,7 +502,7 @@ class csvImport extends csv
                 }
             }
         }
-        
+
         return $logs;
     }
     /**
@@ -515,12 +521,12 @@ class csvImport extends csv
         {
             return false;
         }
-        
+
         if( !(isset($_REQUEST['users']) && count($_REQUEST['users']) ) )
         {
             return false;
         }
-        
+
         if( !( isset( $_SESSION['_csvUsableArray'] ) && is_array( $_SESSION['_csvUsableArray'] ) ) )
         {
             claro_die( get_lang('Not allowed') );
@@ -529,19 +535,19 @@ class csvImport extends csv
         {
             $csvUseableArray = $_SESSION['_csvUsableArray'];
         }
-        
+
         $fields = $csvContent[0];
         unset( $csvContent[0] );
-        
+
         $logs = array();
-        
+
         $tbl_mdb_names  = claro_sql_get_main_tbl();
         $tbl_user       = $tbl_mdb_names['user'];
         $tbl_course_user = $tbl_mdb_names['rel_course_user'];
-        
+
         $tbl_cdb_names = claro_sql_get_course_tbl();
         $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
-        
+
         $groupsImported = array();
         foreach( $_REQUEST['users'] as $user_id )
         {
@@ -569,11 +575,11 @@ class csvImport extends csv
                 {
                   $groupNames = null;
                 }
-                
-                
+
+
                 //check user existe if not create is asked
                 $resultSearch = user_search( array( 'username' => $userInfo['username'] ), null, true, true );
-                
+
                 if( empty($resultSearch))
                 {
                   if( !$canCreateUser )
@@ -595,15 +601,15 @@ class csvImport extends csv
                     else
                     {
                         $logs['errors'][] = get_lang( 'Unable to create user %username', array('%username' => $userInfo['username'] ) );
-                    } 
+                    }
                   }
                 }
                 else
                 {
                   $userId = $resultSearch[0]['uid'];
                   $logs['errors'][] = get_lang( 'User %username not created because it already exists in the database', array( '%username' => $userInfo['username'] ) );
-                }                
-                
+                }
+
                 if( $userId == 0)
                 {
                     $logs['errors'][] = get_lang( 'Unable to add user %username in this course', array('%username' => $userInfo['username'] ) );
@@ -646,16 +652,16 @@ class csvImport extends csv
                           {
                             $groupsImported[$group][] = $userId;
                           }
-                          
+
                         }
                       }
                     }
                   }
-                  
+
                 }
             }
         }
-        
+
         foreach( $groupsImported as $group => $users)
         {
             $GLOBALS['currentCourseRepository'] = claro_get_course_path( $courseId );
@@ -663,13 +669,13 @@ class csvImport extends csv
             if( $groupId == 0 )
             {
                 $logs['errors'][] = get_lang( 'Unable to create group %groupname', array( '%groupname' => $group) );
-                
+
             }
             else
             {
                 foreach( $users as $userId)
                 {
-                    
+
                     $sql = "INSERT INTO `" . $tbl_group_rel_team_user . "`
                             SET user = " . (int) $userId . ",
                                 team = " . (int) $groupId ;
@@ -680,12 +686,12 @@ class csvImport extends csv
                 }
             }
         }
-        
+
         return $logs;
-        
+
     }
-    
-    
+
+
 }
 
 ?>
