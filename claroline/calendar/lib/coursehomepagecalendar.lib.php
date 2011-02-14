@@ -120,7 +120,9 @@ class CourseHomePageCalendar
                 
                 $courseDigestList[$day]['eventList'][] =
                     array(
+                        'id' => $thisEvent['id'],
                         'hour' => $thisEvent['hour'],
+                        'location' => $thisEvent['location'],
                         'courseOfficialCode' => $courseData['officialCode'],
                         'courseSysCode' => $courseData['sysCode'],
                         'content' => $eventLine,
@@ -150,10 +152,16 @@ class CourseHomePageCalendar
                 foreach($agendaItem['eventList'] as $agendaEvent)
                 {
                     $output .= '<dd>'
-                             . '<a href="' . $agendaEvent['url'] . '">'
-                             . $agendaEvent['courseOfficialCode']
-                             . '</a> : ' . "\n"
-                             . $agendaEvent['content'] . "\n"
+                             . '<b>' . $agendaEvent['content'] . '</b>' . "\n"
+                             . (!empty($agendaEvent['hour']) ?
+                                ' | ' . ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($agendaEvent['hour']))) :
+                                '')
+                             . (!empty($agendaEvent['location']) ?
+                                ' | ' . $agendaEvent['location'] :
+                                '')
+                             . ' (<a href="' . $agendaEvent['url'] . '#event' . $agendaEvent['id'] . '">'
+                             . get_lang('more details')
+                             . '</a>)' . "\n"
                              . '</dd>' . "\n";
                 }
             }

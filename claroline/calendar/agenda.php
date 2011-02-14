@@ -3,7 +3,7 @@
  * CLAROLINE
  *
  * - For a Student -> View agenda content
- * - For a Prof    -> 
+ * - For a Prof    ->
  *         - View agenda content
  *         - Update/delete existing entries
  *         - Add entries
@@ -423,7 +423,7 @@ if ($display_form)
     . '<label for="speakers">' . get_lang('Speakers') . '</label>'
     . '</dt>' . "\n"
     . '<dd>'
-    . '<input type="text" name="speakers" id="speakers" size="20" maxlength="200" value="' 
+    . '<input type="text" name="speakers" id="speakers" size="20" maxlength="200" value="'
     . (isset($editedEvent['speakers']) ? (htmlspecialchars($editedEvent['speakers'])) : ('')) . '" /><br/>'
     . '<small>' . get_lang('If more than one, separated by a coma') . '</small>'
     . '</dd>' . "\n"
