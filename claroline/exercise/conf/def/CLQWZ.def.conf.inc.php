@@ -70,7 +70,7 @@ array ('label'         => 'Generate an event in the calendar'
       ,'description'   => 'Automatically insert an event in the calendar at the end date'
       ,'display'       => TRUE
       ,'readonly'      => FALSE
-      ,'default'       => TRUE
+      ,'default'       => FALSE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
       );
