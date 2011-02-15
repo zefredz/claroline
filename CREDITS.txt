@@ -3,7 +3,7 @@
 *******************************************************************************
 
 ------------------------------------------------------------------------------
-                          PROJECT HISTORY
+                                PROJECT HISTORY
 ------------------------------------------------------------------------------
 
 The Claroline project was initiated in 2000 at the Catholic University of
@@ -18,7 +18,7 @@ Claroline Consortium involving several institutions over the world
 (for more details see http://www.claroline.net/en/consortium/consortium-3.html).
 
 ------------------------------------------------------------------------------
-                          CLAROLINE TEAM
+                                CLAROLINE TEAM
 ------------------------------------------------------------------------------
 
 Claroline Core Team :
@@ -62,7 +62,7 @@ Former contributors :
     Marina Zelwer       (marina.zelwer@univ-st-etienne.fr)
 
 ------------------------------------------------------------------------------
-                          SPECIFIC CODE CONTRIBUTIONS
+                                SPECIFIC CODE CONTRIBUTIONS
 ------------------------------------------------------------------------------
 
 Pages authoring tool :          Benjamin Sokay
@@ -105,7 +105,7 @@ Upgrade tool :                  Mathieu Laurent (laurent@cerdecam.be)
                                 Christophe Gesché (gesche@ipm.ucl.ac.be)
 
 ------------------------------------------------------------------------------
-                          EXTERNAL CODE
+                                EXTERNAL CODE
 ------------------------------------------------------------------------------
 
 Forum tool :                    adpated from PHPBB 1.4 (http://www.phpbb.com)
@@ -132,13 +132,16 @@ PEAR Modules :                  http://pear.php.net
 PHP email transport :           based on PHP Mailer class by Brent R. Matzelle
 
 ------------------------------------------------------------------------------
-                                  GRAPHICS
+                                GRAPHICS
 ------------------------------------------------------------------------------
+
+Tango icon set :                by The Tango Desktop Project 
+                                (http://tango.freedesktop.org/)
 
 Famfamfam icon set :            by Mark James (http://www.famfamfam.com/)
 
 ------------------------------------------------------------------------------
-                                  TRANSLATIONS
+                                TRANSLATIONS
 ------------------------------------------------------------------------------
 
 Arab translation :              Yassine Jelman (yjelmam@myrealbox.com)
