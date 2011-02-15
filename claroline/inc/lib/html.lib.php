@@ -43,14 +43,16 @@ function claro_html_menu_vertical($itemList, $attrBloc=array(),$attrItem=array()
         foreach($itemList as $item )
         {
             $htmlStream .= '<li' . $itemAttrString . '>' . "\n"
-            .              $item
-            .              '</li>' . "\n"
-            ;
+                         . $item
+                         . '</li>' . "\n";
         }
         $htmlStream .= '</ul>' . "\n";
     }
     else
-    $htmlStream ='';
+    {
+        $htmlStream = '';
+    }
+    
     return $htmlStream;
 }
 
@@ -70,13 +72,20 @@ function claro_html_menu_vertical_br($itemList, $attrBloc=array())
         if ('class' == $attrName) $classBlocAttr = ' ' . trim($attrValue);
         else $otherBlocAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
     }
-
+    
     $htmlStream = '<div class="menu vmenu ' . $classBlocAttr . '" ' . $otherBlocAttrString . '>' . "\n";
-
+    
     if (! empty($itemList) && is_array($itemList))
     {
-        $htmlStream .= implode('<br />' . "\n",$itemList );
+        $htmlList = '';
+        foreach ($itemList as $item)
+        {
+            $htmlList .= '<li>'.$item.'</li>';
+        }
+        
+        $htmlStream = '<ul class="toolList">'.$htmlList.'</ul>';
     }
+    
     $htmlStream .= '</div>' . "\n";
 
     return $htmlStream;

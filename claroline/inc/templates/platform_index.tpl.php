@@ -17,6 +17,7 @@ if ( claro_is_user_authenticated() ) :
 else :
     // Display preferred language form
     echo claro_display_preferred_language_form();
+    
     // Display login form
     include_template('loginzone.tpl.php');
 endif;

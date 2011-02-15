@@ -18,6 +18,7 @@
         echo claro_html_menu_vertical_br($this->toolLinkListSession, array('id'=>'commonToolListSession'));
         echo '</div>';
     }
+    
     if (is_array($this->toolLinkListStandAlone))
     {
         echo claro_html_menu_vertical_br($this->toolLinkListStandAlone, array('id'=>'commonToolListStandAlone'));

@@ -89,22 +89,6 @@ input[type=text].inputSearch {
     padding-left: 18px;
 }
 
-fieldset {
-    border: 0;
-    margin: 2px;
-    padding: 5px;
-    border-top: 1px solid #eee;
-}
-
-fieldset legend {
-    font-weight: bold;
-    color: #444;
-    margin-left: 20px;
-    padding: 5px;
-    border: 1px solid #eee;
-    background: #fff;
-}
-
 .collapsible a.doCollapse{
     background: transparent url(img/menu-expanded.gif) no-repeat scroll 0 50%;
     padding-left: 1.5em;
@@ -128,6 +112,13 @@ dl.onOneLine dd, fieldset dl dd {
     width: 70%;
     margin: 2px 0;
 }
+
+fieldset {
+    border: 1px solid #eee;
+    margin-bottom: 10px;
+}
+
+fieldset legend { font-weight: bold; }
 
 fieldset dt label {
     margin: 0;
@@ -154,6 +145,23 @@ input.checkbox {
 {
     font-size: 0.8em;
     color: grey;
+}
+
+/* Course form style */
+#courseSettings fieldset {
+    border: 0;
+    margin: 2px;
+    padding: 5px;
+    border-top: 1px solid #eee;
+}
+
+#courseSettings fieldset legend {
+    font-weight: bold;
+    color: #444;
+    margin-left: 20px;
+    padding: 5px;
+    border: 1px solid #eee;
+    background: #fff;
 }
 
 
@@ -218,7 +226,7 @@ input.checkbox {
     text-align: right;
     margin-top: -1px;
     padding: 5px;
-    margin /**/: 0;
+    margin: 0;
 }
 
 #campusBannerLeft {
@@ -226,7 +234,7 @@ input.checkbox {
     text-align: left;
     margin-top: -1px;
     padding: 5px 0px;
-    margin /**/: 0;
+    margin: 0;
 }
 
 
@@ -452,7 +460,7 @@ li.lastBreadCrumbsNode {
 
 #rightSidebar {
     width: 220px;
-    padding: 2px 5px;
+    padding-left: 5px;
     margin: 0;
     float: right;
     border-left: #ccc solid 1px;
@@ -536,6 +544,13 @@ li.lastBreadCrumbsNode {
 #courseTable td.toolList {
     width: 220px;
     border-right: gray solid 1px;
+}
+
+#courseTable ul.toolList
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 
 

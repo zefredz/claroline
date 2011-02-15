@@ -483,6 +483,9 @@ function claro_display_preferred_language_form()
 
     if ( is_array($language_list) && count($language_list) > 1 )
     {
+        $form .= '<div id="languageBox">';
+        $form .= '<div class="header">'.get_lang('Language').'</div>';
+        
         // get the the current language
         $user_language = language::current_language();
 
@@ -492,12 +495,13 @@ function claro_display_preferred_language_form()
         }
 
         // build language selector form
-        $form .= '<form action="'.$_SERVER['PHP_SELF'].'" name="language_selector" method="post" style="margin:5px;">' . "\n" ;
-
-        $form .= claro_html_form_select('language',$languageOption_list,$_SERVER['PHP_SELF'].'?language='.urlencode($user_language),array('id'=>'langSelector', 'onchange'=>'top.location=this.options[selectedIndex].value')) . "\n";
-
-        $form .= '<noscript><input type="submit" value="' . get_lang('Ok') . '" /></noscript>' . "\n";
-        $form .= '</form>' . "\n";
+        $form .= '<form action="'.$_SERVER['PHP_SELF'].'" name="language_selector" method="post">' . "\n"
+               . '<fieldset style="border: 0; margin: 10px 0 15px 0; padding: 5px;">'
+               . claro_html_form_select('language',$languageOption_list,$_SERVER['PHP_SELF'].'?language='.urlencode($user_language),array('id'=>'langSelector', 'onchange'=>'top.location=this.options[selectedIndex].value')) . "\n"
+               . '<noscript><input type="submit" value="' . get_lang('Ok') . '" /></noscript>' . "\n"
+               . '</form>' . "\n"
+               . '</fieldset>' . "\n"
+               . '</div>';
     }
 
     return $form;
