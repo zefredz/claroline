@@ -144,7 +144,7 @@ Famfamfam icon set :            by Mark James (http://www.famfamfam.com/)
                                 TRANSLATIONS
 ------------------------------------------------------------------------------
 
-Arab translation :              Yassine Jelman (yjelmam@myrealbox.com)
+Arabic translation :            Yassine Jelman (yjelmam@myrealbox.com)
                                 Eng.Ali Ismaeel (ali@parmaja.com,a-s-is@scs-net.org)
                                 (http://www.arabeyes.org, http://www.parmaja.com/)
 
@@ -175,13 +175,13 @@ Dutch translation :             Inès Du Four (inesdufour@hotmail.com)
 
 Dutch (Nerderlands) :           de Vries Dominicus (dominiquedevries@tiscali.nl)
 
-French translation:             Jean-Claude Cordier (Jean-Claude.Cordier@univ-rouen.fr)
+French translation :            Jean-Claude Cordier (Jean-Claude.Cordier@univ-rouen.fr)
                                 Paul Muraille (info@tictips.com)
                                 Jean-Roch Meurisse (jean-roch.meurisse@fundp.ac.be)
 
 Finnish translation :           Asmo Koskinen (asmo.koskinen@asmokoskinen.net)
 
-Galician translation:           Maria Jose Rodriges Malmierca
+Galician translation :          Maria Jose Rodriges Malmierca
                                 Gerardo Albela Gonzalez (galbela@uvigo.es)
 
 German translation :            Stiehl Nikolai  (nikolai.stiehl@web.de)
