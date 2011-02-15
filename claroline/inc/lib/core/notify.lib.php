@@ -481,7 +481,7 @@ class ClaroNotification extends EventDriven
         {
             // check that the configuration variable for work event
             // generation is set to true
-            if (get_conf('allow_work_event_generation') == false) return;
+            if (get_conf('allow_work_event_generation', false) == false) return;
 
             // select data from assignment
             $sql = 'SELECT `title`, `description`,
@@ -494,7 +494,7 @@ class ClaroNotification extends EventDriven
         {
             // check that the configuration variable for exercise event
             // generation is set to true
-            if (get_conf('allow_exercise_event_generation') == false) return;
+            if (get_conf('allow_exercise_event_generation', false) == false) return;
 
             // select data from exercise
             $sql = 'SELECT `title`, `description`, `endDate`,
