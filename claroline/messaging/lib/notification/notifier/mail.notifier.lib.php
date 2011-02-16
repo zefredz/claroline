@@ -117,7 +117,16 @@ class MailNotifier implements MessagingNotifier
             return claro_failure::set_failure( get_lang("Mail Notification Failed : You don't have any email address defined in your user profile or the defined email address is not valid." ) );
         }
         
-        self::emailNotification($userDataList, $emailBody,$emailSubject, $userData['mail'], $userData['lastName']." ".$userData['firstName']);
+        self::emailNotification(
+            $userDataList,
+            $emailBody,
+            $emailSubject,
+            $userData['mail'],
+            get_lang( '%firstName %lastName', array(
+                '%firstName' => $userData['lastName'],
+                '%lastName' => $userData['firstName'] ) 
+            )
+        );
     }
     
     /**
