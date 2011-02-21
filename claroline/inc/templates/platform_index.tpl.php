@@ -110,12 +110,21 @@ if ( claro_is_user_authenticated() ) :
             . '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
             . get_lang('New items'). ' ('
             . '<a href="'. htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')) . '" >' . get_lang('to another date') . '</a>';
-                
-        $nbChar = strlen($_SESSION['last_action']);
-        if (substr($_SESSION['last_action'],$nbChar - 8) == '00:00:00' )
+
+        if ($_SESSION['last_action'] != '1970-01-01 00:00:00')
+        {
+           $last_action =  $_SESSION['last_action'];
+        }
+        else
+        {
+            $last_action = date('Y-m-d H:i:s');
+        }
+
+        $nbChar = strlen($last_action);
+        if (substr($last_action,$nbChar - 8) == '00:00:00' )
         {
             echo ' [' . claro_html_localised_date( get_locale('dateFormatNumeric'),
-                strtotime($_SESSION['last_action'])) . ']' ;
+                strtotime($last_action)) . ']';
         }
         
         echo ')</fieldset>' ;
