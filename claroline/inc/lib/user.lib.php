@@ -476,9 +476,8 @@ function user_send_registration_mail ($userId, $data,$courseCode = null)
         if (isset($courseCode))
         {
             $courseData = claro_get_course_data($courseCode);
-            $emailBody .= '
-                     '
-                    . 'User created by '
+            $emailBody .=
+                    get_lang('User created by ')
                     . ' - ' . $courseData['titular']
                     . ' - ' . $courseData['email']
                     . ' ( ' . $courseData['officialCode']

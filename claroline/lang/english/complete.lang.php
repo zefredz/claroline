@@ -2963,3 +2963,4 @@ $_lang['to a previous date'] = 'to a previous date';
 $_lang['Change notification date'] = 'Change notification date';
 $_lang['*.inc.php'] = '*.inc.php';
 $_lang['db glu'] = 'db glu';
+$_lang['User created by '] = 'User created by ';
