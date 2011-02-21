@@ -25,8 +25,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
-$stable = false;
-$is_upgrade_available = false;
+$stable = true;
+$is_upgrade_available = true;
 
 // var version_db  max. 10 chars
 

@@ -113,7 +113,7 @@
             $poweredByOutput = '<div id="poweredBy">'
                 . get_lang('Powered by')
                 . ' <a href="http://www.claroline.net" target="_blank">Claroline</a> '
-                . '&copy; 2001 - 2010'
+                . '&copy; 2001 - 2011'
                 . '</div>'
                 ;
             
