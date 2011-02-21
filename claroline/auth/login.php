@@ -18,7 +18,7 @@
 
 require '../inc/claro_init_global.inc.php';
 
-// Keep the username in session 
+// Keep the username in session
 if (isset($_REQUEST['login']))
 {
     $_SESSION['lastUserName'] = $_REQUEST['login'];
@@ -166,22 +166,21 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
         .    $sourceGidFormField                                          ."\n"
         .    '<legend>' . get_lang('Authentication') . '</legend>'               ."\n"
 
-        .    '<label for="login">'.get_lang('Username').' : </label><br />'   ."\n"
+        .    '<label for="login">'.get_lang('Username').'</label><br />'   ."\n"
         .    '<input type="text" name="login" id="login" size="15" tabindex="1" value="' . $defaultLoginValue . '"/><br />' ."\n"
-
-        .    '<label for="password">'.get_lang('Password').' : </label><br />'   ."\n"
+        .    '<br />'
+        .    '<label for="password">'.get_lang('Password').'</label><br />'   ."\n"
         .    '<input type="password" name="password" id="password" size="15" tabindex="2" autocomplete="off"/><br />'."\n"
         .    '<br />'
         .    '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '                 ."\n"
         .    claro_html_button(get_path('clarolineRepositoryWeb'), get_lang('Cancel'))
         .    '</fieldset>'                                                ."\n"
-        .    '</form>'                                                    ."\n"
-        ;
+        .    '</form>'                                                    ."\n";
 
         $out .= '</td>'                                                    ."\n"
         .    '</tr>'                                                    ."\n"
-        .    '</table>'                                                 ."\n"
-        ;
+        .    '</table>'                                                 ."\n";
+        
     } // end if claro_dispLocalAuthForm
 
     if (get_conf('claro_CasEnabled',false))

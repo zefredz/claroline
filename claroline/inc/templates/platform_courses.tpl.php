@@ -3,13 +3,13 @@
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>
     <h3><?php echo $this->currentCategory->name; ?></h3>
     <p>
-        <small>
-        <?php echo '<a href="' . $_SERVER['PHP_SELF'] . '?category='
-        . urlencode( $this->currentCategory->idParent )
-        . '#categoryContent">&larr;'
-        . get_lang( 'previous level' ); ?>
-        </a>
-        </small>
+        <?php
+        echo '<a href="' . $_SERVER['PHP_SELF'] . '?category='
+           . urlencode( $this->currentCategory->idParent )
+           . '#categoryContent"><span style="font-size: 1.5em;">&larr;</span>'
+           . '<small>' . get_lang( 'previous level' ) . '</small>'
+           . '</a>';
+        ?>
     </p>
 <?php else : ?>
     <h3><?php echo get_lang('Root category'); ?></h3>
@@ -58,12 +58,12 @@
 
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>
 <p>
-    <small>
-    <?php echo '<a href="' . $_SERVER['PHP_SELF'] . '?category='
-    . urlencode( $this->currentCategory->idParent )
-    . '#categoryContent">&larr;'
-    . get_lang( 'previous level' ); ?>
-    </a>
-    </small>
+    <?php
+    echo '<a href="' . $_SERVER['PHP_SELF'] . '?category='
+       . urlencode( $this->currentCategory->idParent )
+       . '#categoryContent"><span style="font-size: 1.5em;">&larr;</span>'
+       . '<small>' . get_lang( 'previous level' ) . '</small>'
+       . '</a>';
+    ?>
 </p>
 <?php endif; ?>

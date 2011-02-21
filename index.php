@@ -51,7 +51,7 @@ else
 if (isset($_REQUEST['logout']))
 {
     if (isset($_SESSION['isVirtualUser']))
-    {        
+    {
         unset($_SESSION['isVirtualUser']);
         claro_redirect(get_conf('rootWeb') . 'claroline/admin/adminusers.php');
         exit();
