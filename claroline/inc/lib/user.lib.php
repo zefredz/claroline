@@ -20,9 +20,6 @@ if ( count( get_included_files() ) == 1 )
  */
 
 require_once(dirname(__FILE__) . '/form.lib.php');
-require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
-require_once get_path('clarolineRepositorySys') . '/messaging/lib/message/messagetosend.lib.php';
-require_once get_path('clarolineRepositorySys') . '/messaging/lib/recipient/singleuserrecipient.lib.php';
 
 /**
  * Initialise user data
@@ -449,6 +446,8 @@ function user_set_platform_admin($status, $userId)
 function user_send_registration_mail ($userId, $data,$courseCode = null)
 {
     require_once dirname(__FILE__) . '/../../inc/lib/sendmail.lib.php';
+    require_once get_path('clarolineRepositorySys') . '/messaging/lib/message/messagetosend.lib.php';
+    require_once get_path('clarolineRepositorySys') . '/messaging/lib/recipient/singleuserrecipient.lib.php';
     
     if ( ! empty($data['email']) )
     {
