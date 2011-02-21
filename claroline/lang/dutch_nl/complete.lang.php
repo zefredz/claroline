@@ -1,8 +1,11 @@
-<?php 
-$_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! Grootte van cursus backup (inbegrepen claroline en vuilnis in oude systemen)';
+<?php
+$_lang['*.inc.php'] = '*.inc.php';
+$_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! Grootte van cursus backup (claroline en vuilnis in oude systemen inbegrepen)';
+$_lang['1 user connected'] = '1 gebruiker online';
 $_lang['%1\$s by %2\$s'] = '%1\$s door %2\$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1\$s gewijzigd op %2\$s door %3\$s';
 $_lang['%chat_filename is now in the document tool. (<em>This file is visible</em>)'] = '%chat_filename bevindt zich nu in de sectie \'documenten\'. (<em>Dit bestand is zichtbaar</em>)';
+$_lang['%countOfUsers users connected'] = '%countOfUsers gebruiker(s) online';
 $_lang['%date not valid'] = '%date ongeldig';
 $_lang['%delay ago'] = '%delay geleden';
 $_lang['%email is not a valid e-mail address.'] = '%email is geen geldig e-mail adres.';
@@ -55,7 +58,8 @@ $_lang['A reply to your topic has been posted'] = 'Er is een antwoord op jouw on
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'Een docent, gekoppeld aan een groep, kan zichzelf in een andere groep als gewone gebruiker inschrijven.';
 $_lang['A user can be a member of maximum %nb groups'] = 'Een gebruiker kan maximum van %nb groep(en) lid zijn';
 $_lang['About'] = 'Over instellingen';
-$_lang['Accept email as valid (best choice)'] = 'Accepteer e-mail als geldig (beste keuze)';
+$_lang['Absolute sys path to the place where are move data of a deleted course.'] = 'Absoluut sys path naar de gegevens van een verwijderde cursus.';
+$_lang['Accept email as valid (best choice)'] = 'Accepteer e-mail (beste keuze)';
 $_lang['Access'] = 'Toegankelijkheid';
 $_lang['Access allowed'] = 'Toegang toegestaan';
 $_lang['Access allowed only to course members (people on the <a href="%url">course user list</a>)'] = 'Alleen toegang voor cursisten (zij die op de <a href="%url">cursuslijst</a> staan)';
@@ -153,13 +157,16 @@ $_lang['All users have been sucessfully unregistered from the class'] = 'Alle ge
 $_lang['All users of the platform'] = 'Alle gebruikers van de Leeromgeving';
 $_lang['All visible submissions'] = 'Alle zichtbare inzendingen';
 $_lang['All your courses are deactivated (see list below)'] = 'Al je cursussen zijn gedeactiveerd (zie de lijst hieronder)';
+$_lang['Allow course access to be public'] = 'Sta toegang tot cursus voor iedereen toe';
 $_lang['Allow course manager to delete their own courses'] = 'Sta een cursusbeheerder toe om zijn of haar eigen cursus te verwijderen.';
+$_lang['Allow download of folder by anonymous users'] = 'Sta download van een map door anonieme gebruikers toe';
 $_lang['Allow enrolment/unenrolment to courses by the users'] = 'Sta gebruikers toe zich voor cursussen in- of uit te schrijven.';
 $_lang['Allow late upload'] = 'Sta upload na afgesproken tijdstip toe';
 $_lang['Allow teacher to download all submissions'] = 'Sta de docent toe alle inzendingen te downloaden';
 $_lang['Allow teachers to subscribe a user in several groups'] = 'Sta docenten toe om een gebruiker in verschillende groepen in te schrijven.';
 $_lang['Allow to modify field'] = 'Sta toe om het veld te wijzigen.';
-$_lang['Allow user to add a picture to their profile'] = 'Sta gebruiker toe een foto in zijn profiel te gebruiken';
+$_lang['Allow user to add a picture to their profile'] = 'Sta gebruiker toe een foto in zijn profiel op te nemen';
+$_lang['Allow user to use html tag in messages'] = 'Sta de gebruiker toe html tags te gebruiken in berichten';
 $_lang['Allow users to see detailed informations about other users'] = 'Sta gebruikers toe gedetaileerde informatie over andere gebruikers in te zien.';
 $_lang['Allowed'] = 'Toegelaten';
 $_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = 'Toegestaan: houdt gebruikersnaam niet bij, gasten mogen de oefening maken.';
@@ -190,11 +197,13 @@ $_lang['Are you sure to delete all messages from this user'] = 'Weet je zeker da
 $_lang['Are you sure to delete all messages older than %date?'] = 'Weet je zeker dat je alle berichten ouder dan %date wilt verwijderen?';
 $_lang['Are you sure to delete all messages?'] = 'Weet je zeker dat je alle berichten wilt verwijderen?';
 $_lang['Are you sure to delete all platform messages?'] = 'Weet je zeker dat je alle berichten van de Leeromgeving wilt verwijderen?';
+$_lang['Are you sure to delete course %name'] = 'Weet je zeker dat je cursus %name wilt verwijderen?';
 $_lang['Are you sure to delete selected message(s) ?'] = 'Weet je zeker dat je het (de) geselecteerde bericht(en) wilt verwijderen?';
 $_lang['Are you sure to delete selected message?'] = 'Weet je zeker dat je het geselecteerde bericht wilt verwijderen?';
 $_lang['Are you sure to delete the course "%course_name" ( %course_code ) ?'] = 'Weet je zeker dat je de cursus "%course_name" ( %course_code ) wilt verwijderen?';
 $_lang['Are you sure to delete the message?'] = 'Weet je zeker dat je het bericht wilt verwijderen?';
 $_lang['Are you sure to delete this group ?'] = 'Weet je zeker dat je deze groep wilt verwijderen?';
+$_lang['Are you sure to delete user %firstname %lastname'] = 'Weet je zeker dat je gebruiker %firstname %lastname wilt verwijderen?';
 $_lang['Are you sure to empty trashbox ?'] = 'Weet je zeker dat je de prullenmand wilt leegmaken?';
 $_lang['Are you sure you want to completely delete this question ?'] = 'Weet je zeker dat je deze vraag geheel wilt verwijderen ?';
 $_lang['Are you sure you want to delete all groups ?'] = 'Weet je zeker dat je alle groepen wilt verwijderen?';
@@ -228,7 +237,6 @@ $_lang['Attach a file'] = 'Voeg een bestand toe';
 $_lang['Attach an existing resource'] = 'Voeg een al bestaande bron toe';
 $_lang['Attached file'] = 'Toegevoegd bestand';
 $_lang['Attached resources'] = 'Toegevoegde bronnen';
-$_lang['Attempt %attemptCount'] = 'Poging %attemptCount';
 $_lang['Attempt %attemptCount on %attempts'] = 'Poging %attemptCount op %attempts';
 $_lang['Attempts'] = 'Pogingen';
 $_lang['Attempts allowed'] = 'Pogingen toegestaan';
@@ -249,7 +257,6 @@ $_lang['Average Time'] = 'Gemiddelde tijd (s.)';
 $_lang['Average score'] = 'Gemiddelde';
 $_lang['Back'] = 'Terug';
 $_lang['Back to administration page'] = 'Terug naar administratie pagina';
-$_lang['Back to class list'] = 'Terug naar de klaslijst';
 $_lang['Back to class members'] = 'Terug naar klasleden';
 $_lang['Back to course list'] = 'Terug naar de cursuslijst';
 $_lang['Back to inbox'] = 'Terug naar de inbox';
@@ -324,6 +331,7 @@ $_lang['Cannot remove tool from course'] = 'Kan het leermiddel niet uit de cursu
 $_lang['Cannot update course database for %course'] = 'Kan de cursusdatabase niet updaten voor %course';
 $_lang['Cannot update database'] = 'Kan de database niet updaten';
 $_lang['Cannot upload file'] = 'Kan het bestand niet uploaden';
+$_lang['Caption'] = 'Toelichting';
 $_lang['Cas settings'] = 'CAS instellingen';
 $_lang['Categories'] = 'Categorieën';
 $_lang['Categories structure is right'] = 'Structuur van Categorieën is correct';
@@ -333,7 +341,7 @@ $_lang['Category code is required'] = 'Code categorie is vereist';
 $_lang['Category created'] = 'Categorie aangemaakt';
 $_lang['Category deleted'] = 'Categorie verwijderd';
 $_lang['Category moved'] = 'Categorie verplaatst';
-$_lang['Category name'] = 'Categorie naam :';
+$_lang['Category name'] = 'Categorie naam:';
 $_lang['Category name is required'] = 'Categorie naam is vereist';
 $_lang['Category needed'] = 'Categorie is een verplicht veld.';
 $_lang['Category updated'] = 'Categorie gewijzigd.';
@@ -370,7 +378,6 @@ $_lang['Class has been unenroled'] = 'Klas is uitgeschreven';
 $_lang['Class members'] = 'Klasleden';
 $_lang['Class not found'] = 'Klas niet gevonden';
 $_lang['Class registered'] = 'Klas geregistreerd';
-$_lang['Class users'] = 'Gebruikers in klas';
 $_lang['Classes'] = 'Klassen';
 $_lang['Clear up event list'] = 'Lijst opschonen';
 $_lang['Clear up event list ?'] = 'De lijst met gebeurtenissen opschonen?';
@@ -427,6 +434,7 @@ $_lang['Course banner - left'] = 'Cursusbanner - links';
 $_lang['Course banner - right'] = 'Cursusbanner - rechts';
 $_lang['Course code'] = 'Cursuscode';
 $_lang['Course code case'] = 'Cursuscode kleine/hoofdletters';
+$_lang['Course code is'] = 'De cursuscode is';
 $_lang['Course code needed'] = 'Cursuscode moet ingevuld worden';
 $_lang['Course code too long'] = 'De cursuscode is te lang';
 $_lang['Course created : %course_name'] = 'Cursus aangemaakt : %course_name';
@@ -445,6 +453,7 @@ $_lang['Course manager cannot unsubscribe himself'] = 'De cursusleider kan zichz
 $_lang['Course manager of %course%(%courseCode%)'] = 'Cursusleider van %course%(%courseCode%)';
 $_lang['Course member (the user is actually enrolled in the course)'] = 'Cursist (de gebruiker is ingeschreven in de cursus)';
 $_lang['Course members'] = 'Cursusleden';
+$_lang['Course name table prefix'] = 'name table prefix van de cursus';
 $_lang['Course not found'] = 'Cursus niet gevonden';
 $_lang['Course options'] = 'Cursusopties';
 $_lang['Course profile'] = 'Cursusprofiel';
@@ -496,6 +505,7 @@ $_lang['Create user account'] = 'AANMELDEN';
 $_lang['Create/edit document'] = 'Maak/bewerk document';
 $_lang['Creating course (it may take a while) ...'] = 'Bezig het aanmaken van een cursus (dit kan enkele ogenblikken duren...)';
 $_lang['Creation of Course Creator account'] = 'Er is een account aangemaakt voor de cursusschrijver';
+$_lang['Crypt passwords'] = 'Versleutelde wachtwoorden';
 $_lang['Current attached file'] = 'Huidig aangehecht bestand';
 $_lang['Current feedback file'] = 'Huidig commentaarbestand';
 $_lang['Current file'] = 'Huidig bestand';
@@ -572,9 +582,11 @@ $_lang['Disable'] = 'Deactiveren';
 $_lang['Disable this option if you are not using the local Claroline password to identify a user'] = 'Schakel deze optie uit als je het locale Claroline wachtwoord om een gebruiker te identificeren niet gebruikt';
 $_lang['Disk quota exceeded, please contact the %administrator'] = 'Disk quota overschreden, neem contact op met de %administrator';
 $_lang['Disk space allowed for documents'] = 'Toegekende diskruimte voor documenten';
+$_lang['Disk space allowed for import learning path'] = 'Schijfruimte beschikbaar voor importeren leertraject';
 $_lang['Disk space allowed for submitted files'] = 'Toegekende diskruimte voor ingediende bestanden en documenten';
 $_lang['Disk space allowed to each course'] = 'Toegekende diskruimte voor elke cursus';
 $_lang['Disk space allowed to each group'] = 'Toegekende diskruimte voor elke groep';
+$_lang['Disk space allowed to import scorm package'] = 'Schijfruimte beschikbaar voor importeren scorm pakket';
 $_lang['Disk space available'] = 'Vrije schijfruimte';
 $_lang['Disk space available : %size'] = 'Vrije schijfruimte : %size';
 $_lang['Disk space occupied : %size'] = 'Gebruikte schijfruimte : %size';
@@ -587,6 +599,7 @@ $_lang['Display a link to the lost password form'] = 'Laat een link zien naar he
 $_lang['Display all feedbacks'] = 'Laat alle commentaren zien';
 $_lang['Display an agreement page before the "create user account" form'] = 'Toon een pagina met overeenkomst voor het formulier "account aanmaken"';
 $_lang['Display authentication login form'] = 'Toon aanmeldingsformulier';
+$_lang['Display banner'] = 'Toont banner';
 $_lang['Display data'] = 'Toont gegevens';
 $_lang['Display file'] = 'Toont bestand';
 $_lang['Display link "Create user account" on the platform homepage.'] = 'Toont de link "account aanmaken" op de startpagina van de Leeromgeving.';
@@ -661,10 +674,10 @@ $_lang['Enable Email notification'] = 'Zet berichtgeving per E-mail aan';
 $_lang['Enable IMS-QTI Export'] = 'Schakel IMS-QTI export in';
 $_lang['Enable RSS in course'] = 'Schakel RSS voor cursus in';
 $_lang['Enable SSO system'] = 'Schakel SSO systeem in';
-$_lang['Enable cache'] = 'zet cache in';
+$_lang['Enable cache'] = 'schakel cache in';
 $_lang['Enable iCal in course'] = 'Schakel iCal voor cursus in';
 $_lang['Enable notification of new items'] = 'Activeer het signaleren van nieuwe items';
-$_lang['Enabling the cache may increase performance'] = 'Bestanden worden altijd aangemaakt in de cache, maar als deze waarde is \'true\', dan worden feedbestanden niet op verzoek opnieuwaangemaakt wanneer ze verlopen.';
+$_lang['Enabling the cache may increase performance'] = 'Bestanden worden altijd aangemaakt in de cache, maar als deze waarde \'ja\' is, dan worden feedbestanden niet op verzoek opnieuw aangemaakt wanneer ze verlopen.';
 $_lang['Encrypt exported password using md5 algorithm'] = 'Versleutel geëxporteerde wachtwoorden d.m.v. md5 algoritme';
 $_lang['End date'] = 'Einddatum';
 $_lang['Enrol as course manager'] = 'Als cursusbeheerder inschrijven';
@@ -691,8 +704,12 @@ $_lang['Error : Name already exists in the learning path or in the module pool']
 $_lang['Error : One or more values are doubled'] = 'Foutmelding: één of meer waarden komen dubbel voor';
 $_lang['Error : cannot read RSS feed (Check feed url and if php setting "allow_url_fopen" is turned on).'] = 'Foutmelding: kan RSS feed niet lezen (Check feed url en kijk of php setting "allow_url_fopen" aan staat).';
 $_lang['Error : no file uploaded'] = 'Foutmelding: geen bestand ge-upload';
+$_lang['Error: no questions list in memory'] = 'Foutmelding: geen lijst met vragen in geheugen';
 $_lang['Error : no zlib extension found'] = 'Foutmelding: Zlib extensie niet gevonden';
+$_lang['Error: unable to delete this list.'] = 'Foutmelding: kan deze lijst niet verwijderen';
+$_lang['Error: unable to load exercise'] = 'Foutmelding: kan de oefening niet laden';
 $_lang['Error : unable to save the questions list'] = 'Foutmelding: kan de lijst met vragen niet bewaren';
+$_lang['Error: unable to save this questions list'] = 'Foutmelding: kan deze lijst met vragen niet bewaren';
 $_lang['Error copying existing SCORM content'] = 'Fout tijdens kopiëren SCORM inhoud';
 $_lang['Error exporting SCORM package'] = 'Fout bij het exporteren van de SCORM package';
 $_lang['Error in SQL statement'] = 'Fout in het SQL commando';
@@ -707,10 +724,6 @@ $_lang['Error while deleting the scripts of the module'] = 'Fout bij het verwijd
 $_lang['Error while parsing manifest'] = 'Fout bij het ontleden (parse) van de lijst';
 $_lang['Error while renaming module folder'] = 'Error bij het hernoemen van de modulemap';
 $_lang['Error!! you cannot unregister a course manager'] = 'Fout!! Je kunt een cursusbeheerder niet uitschrijven';
-$_lang['Error: no questions list in memory'] = 'Foutmelding: geen lijst met vragen in geheugen';
-$_lang['Error: unable to delete this list.'] = 'Foutmelding: kan deze lijst niet verwijderen';
-$_lang['Error: unable to load exercise'] = 'Foutmelding: kan de oefening niet laden';
-$_lang['Error: unable to save this questions list'] = 'Foutmelding: kan deze lijst met vragen niet bewaren';
 $_lang['ErrorInvalidParms'] = 'Fout: ongeldige parameter (gebruik alleen getallen)';
 $_lang['Errors can be ignored to force the import'] = 'Foutmeldingen kunnen genegeerd worden bij het importeren';
 $_lang['Event added to the agenda'] = 'Gebeurtenis toegevoegd aan de agenda.';
@@ -735,7 +748,13 @@ $_lang['Expected choice'] = 'Correct antwoord';
 $_lang['Expiration date needed'] = 'Expiratiedatum nodig';
 $_lang['Expired since'] = 'Vervallen sinds';
 $_lang['Export'] = 'Exporteren';
+$_lang['Export exercise'] = 'Exporteer oefening';
+$_lang['Export in IMS QTI'] = 'Export in IMS QTI';
+$_lang['Export in IMS QTI (Shuffle)'] = 'Export in IMS QTI (Shuffle)';
 $_lang['Export password'] = 'Exporteer wachtwoord';
+$_lang['Export to HTML'] = 'Export naar HTML';
+$_lang['Export to PDF'] = 'Export naar PDF';
+$_lang['Export to PDF (Shuffle)'] = 'Export naar PDF (Shuffle)';
 $_lang['Export user list'] = 'Exporteer gebruikerslijst';
 $_lang['Export username'] = 'Exporteer gebruikersnaam';
 $_lang['External Tool added'] = 'Extern leermiddel toegevoegd.';
@@ -793,6 +812,7 @@ $_lang['Find more available modules on <a href="http://www.claroline.net/">Claro
 $_lang['Finish'] = 'Beëindig';
 $_lang['Finish the test'] = 'Beëindigen';
 $_lang['First'] = 'Eerst';
+$_lang['First Name'] = 'Voornaam';
 $_lang['First name'] = 'Voornaam';
 $_lang['First submission date'] = 'Eerste datum van indiening';
 $_lang['Folder %folder is not writable'] = 'De map %folder heeft geen schrijfrechten';
@@ -817,6 +837,7 @@ $_lang['From language files'] = 'Van taalbestanden';
 $_lang['From script files'] = 'Van scriptbestanden';
 $_lang['Fullscreen'] = 'Volledig scherm';
 $_lang['Function list'] = 'Functielijst';
+$_lang['Garbage'] = 'Rommel';
 $_lang['General'] = 'Algemeen';
 $_lang['General Informations'] = 'Algemene informatie';
 $_lang['General settings'] = 'Algemene instellingen';
@@ -845,7 +866,7 @@ $_lang['Group settings have been modified'] = 'De groepseigenschappen zijn gewij
 $_lang['Group settings modified'] = 'Parameters van deze groep zijn gewijzigd.';
 $_lang['Group user courses by categories'] = 'Groepeer cursussen in categoriën';
 $_lang['Groups'] = 'Groepen';
-$_lang['Groups (from groups tool, only group members can post)'] = 'Groepen (uit sectie\'groepen\', alleen groepsleden kunnen posten)';
+$_lang['Groups (from groups tool, only group members can post)'] = 'Groepen (uit sectie \'groepen\', alleen groepsleden kunnen posten)';
 $_lang['Groups have been filled (or completed) by students present in the \'Users\' list.'] = 'De groepen zijn aangevuld met gebruikers uit de lijst \'Gebruikers\'.';
 $_lang['Groups help'] = 'Groepen helpfunctie';
 $_lang['Groups permissions'] = 'Groepsrechten';
@@ -865,6 +886,7 @@ $_lang['Horizontal space'] = 'Horizontale ruimte';
 $_lang['Host name'] = 'Hostnaam';
 $_lang['Host of CAS server'] = 'Host van de CAS server';
 $_lang['Hour'] = 'Uur';
+$_lang['HTML in posts'] = 'HTML in posts';
 $_lang['Icon'] = 'Icoon';
 $_lang['Id'] = 'Id';
 $_lang['Id of the user to keep'] = 'Id van de gebruiker bewaren';
@@ -888,6 +910,7 @@ $_lang['Image is too big : max size %width%x%height%, %size% bytes'] = 'Plaatje 
 $_lang['Image manager'] = 'Image manager';
 $_lang['Import'] = 'Importeer';
 $_lang['Import a learning path'] = 'Importeer een leertraject';
+$_lang['Import CVS'] = 'Import CVS';
 $_lang['Import done'] = 'Import geslaagd';
 $_lang['Import exercise'] = 'Importeer oefening';
 $_lang['Import failed'] = 'Import mislukt';
@@ -899,7 +922,7 @@ $_lang['Imported packages must consist of a zip file and be SCORM 1.2 conformabl
 $_lang['Impossible to promote as a group tutor a student who is already registered in the group'] = 'Impossible to promote group tutor a student already register to group';
 $_lang['Impossible to unzip file'] = 'Kan het bestand niet uitpakken';
 $_lang['In frames'] = 'In frames';
-$_lang['In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.'] = 'In Ical heeft een gebeurtenis een tjdsduur, in Claroline niet. 3600 seconden = 1 uur.';
+$_lang['In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.'] = 'In Ical heeft een gebeurtenis een tijdsduur, in Claroline niet. 3600 seconden = 1 uur.';
 $_lang['Inbox'] = 'Inbox';
 $_lang['Individual'] = 'Individueel';
 $_lang['Information'] = 'Informatie';
@@ -938,12 +961,12 @@ $_lang['Last'] = 'Laatste';
 $_lang['Last %numberOfMessages messages'] = 'Laatste %numberOfMessages berichten';
 $_lang['Last 31 days'] = 'Laatste 31 dagen';
 $_lang['Last 7 days'] = 'Laatste 7 dagen';
+$_lang['Last Name'] = 'Achternaam';
 $_lang['Last access'] = 'Laatste toegang';
 $_lang['Last attempt'] = 'Laatste poging';
 $_lang['Last computing'] = 'Laatste berekening';
 $_lang['Last download'] = 'Laatste download';
 $_lang['Last edit date'] = 'Datum laatst bewerkt';
-$_lang['Last event length'] = 'Duur van laatste event';
 $_lang['Last message'] = 'Laatste bericht';
 $_lang['Last message was on'] = 'Laatste bericht was op: ';
 $_lang['Last name'] = 'Achternaam';
@@ -964,6 +987,7 @@ $_lang['Learning path progression :'] = 'Leertraject voortgang: ';
 $_lang['Learning paths tracking'] = 'Leertraject bijhouden';
 $_lang['Lecturer(s)'] = 'Docent(en)';
 $_lang['Left'] = 'Links';
+$_lang['Length of course code suffix'] = 'Lengte van de cursuscode suffix';
 $_lang['License'] = 'Licentie';
 $_lang['Life time of cache'] = 'Cache duur';
 $_lang['Limit'] = 'Grens';
@@ -972,6 +996,7 @@ $_lang['Line break'] = 'Line break';
 $_lang['Lines'] = 'Lijnen';
 $_lang['List deleted successfully.'] = 'Lijst met succes verwijderd';
 $_lang['List is empty'] = 'Lijst is leeg';
+$_lang['List of active users for the last %time minutes :'] = 'Lijst met actieve gebruikers voor de laatste %time minuten:';
 $_lang['List of Wiki'] = 'Lijst van Wiki\'s';
 $_lang['Load a new list'] = 'Laad een nieuwe lijst';
 $_lang['Load default format'] = 'Laad standaard format';
@@ -1036,6 +1061,7 @@ $_lang['Maximum conversation lines in chat file'] = 'Maximum aantal lijnen conve
 $_lang['Maximum disk space : %size'] = 'Maximum diskruimte : %size';
 $_lang['Maximum lengh for a nick'] = 'Maximum lengte voor een nickname';
 $_lang['Maximum lines in the active chat file. For performance, it\'s interesting to not work with too big file.'] = 'Maximum aantal lijnen conversatie in het actieve chatbestand. Voor betere prestaties is het beter te werken met een niet al te groot bestand.';
+$_lang['Maximum score'] = 'Maximum score';
 $_lang['Maximum size for an assignment'] = 'Maximum grootte voor een ingediende taak';
 $_lang['Maximum size of a document that a user can upload'] = 'Maximum grootte voor een document dat de gebruiker kan uploaden';
 $_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'Onthoud ze, je hebt ze nodig als je de volgende keer wilt inloggen.';
@@ -1045,6 +1071,7 @@ $_lang['Merging user accounts is not a reversible operation so be careful !'] = 
 $_lang['Merging users will alter the user data and cannot be undone. Are you sure to want to continue ?'] = 'Door het samenvoegen van gebruikers veranderen de gegevens van gebruikers en dat kan niet ongedaan gemaakt worden. Weet je zeker dat je door wilt gaan?';
 $_lang['Message'] = 'Bericht';
 $_lang['Message body'] = 'Bericht';
+$_lang['Message displayed on the file upload pages'] = 'Tekst weergegeven op de pagina "upload bestand"';
 $_lang['Message from your lecturer'] = 'Bericht van je docent';
 $_lang['Message not found'] = 'Bericht niet gevonden';
 $_lang['Message sent'] = 'Bericht verstuurd';
@@ -1061,6 +1088,7 @@ $_lang['Missing field(s)'] = 'Niet ingevuld(e) veld(en)';
 $_lang['Missing images detected'] = 'Ontbrekende plaatjes gedetecteerd';
 $_lang['Missing language files'] = 'Ontbrekende taalbestanden';
 $_lang['Missing module directory'] = 'Ontbrekende modulemap';
+$_lang['Missing or invalid course access'] = 'Ontbrekende of ongeldige cursussleutel';
 $_lang['Missing parameter : %param%'] = 'Ontbrekende parameter: %param%';
 $_lang['Missing parameters'] = 'Ontbrekende parameters';
 $_lang['Missing search keywords'] = 'Keywords zoekopdracht ontbreken';
@@ -1135,6 +1163,7 @@ $_lang['My messages'] = 'Mijn berichten';
 $_lang['My personal course list'] = 'Mijn persoonlijke cursuslijst';
 $_lang['My results'] = 'Mijn resultaten';
 $_lang['My user account'] = 'Mijn profiel';
+$_lang['Mysql Base Path'] = 'Mysql Base Path';
 $_lang['MySQL database settings'] = 'Instellingen MySQL database';
 $_lang['Mysql Repository'] = 'Mysql backup';
 $_lang['Name'] = 'Naam';
@@ -1185,7 +1214,6 @@ $_lang['No description given'] = 'Geen beschrijving opgegeven';
 $_lang['No dock chosen'] = 'Geen dock gekozen';
 $_lang['No dock selected'] = 'Geen dock geselecteerd';
 $_lang['No error'] = 'Geen fout';
-$_lang['No error in file found.'] = 'Geen fout gevonden in bestand.';
 $_lang['No event in the agenda'] = 'Geen gebeurtenissen in de agenda';
 $_lang['No event to display'] = 'Geen gebeurtenis te melden';
 $_lang['No file uploaded'] = 'Geen bestand verstuurd';
@@ -1210,6 +1238,7 @@ $_lang['No score'] = 'Geen score';
 $_lang['No time limitation'] = 'Geen tijdslimiet';
 $_lang['No tool name'] = 'Geen naam voor het leermiddel';
 $_lang['No user found'] = 'Geen gebruiker gevonden';
+$_lang['No user connected'] = 'Geen gebruiker online';
 $_lang['No user to display'] = 'Geen gebruiker om te tonen';
 $_lang['No visible submission'] = 'Geen zichtbare documenten';
 $_lang['No way'] = 'Geen toegang';
@@ -1217,10 +1246,12 @@ $_lang['No, prevent users submitting work after the end date'] = 'Nee, gebruiker
 $_lang['Node Moved, relaunch repair process to complete'] = 'Onderdeel verplaatst, herstart het reparatieproces om het af te maken';
 $_lang['None'] = 'geen enkel';
 $_lang['Not a valid tool'] = 'Geen valide middel';
-$_lang['Not allowed'] = 'Niet toegelaten';
+$_lang['Not Allowed !'] = 'Niet toegestaan!';
+$_lang['Not allowed'] = 'Niet toegestaan';
 $_lang['Not allowed : record usernames in tracking, anonymous users cannot do the exercise.'] = 'Niet toegestaan: traceer gebruikersnamen, gasten kunnen de oefening niet maken.';
 $_lang['Not available'] = 'Niet beschikbaar';
 $_lang['Not found'] = 'Niet gevonden';
+$_lang['Not implemented, name reserved  for future version of Claroline'] = 'Niet gebruikt, naam is gereserveerd voor een toekomstige versie van Claroline';
 $_lang['Not recently connected students :'] = 'Studenten die niet recent aangemeld zijn: ';
 $_lang['Not valid course code'] = 'Geen geldige cursuscode';
 $_lang['Not valid user id'] = 'Geen geldige gebruikers ID';
@@ -1272,13 +1303,14 @@ $_lang['Old password is wrong'] = 'Oud wachtwoord is verkeerd';
 $_lang['Oldest first'] = 'Oudste eerst';
 $_lang['On'] = 'Aan';
 $_lang['On an unique page'] = 'Op 1 pagina';
-$_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO '] = 'Wanneer een gebruiker op het platform inlogt wordt een cookie verstuurd naar zijn/haar browser indien het authenticatieproces correct verloopt. De cookie wordt ook een bepaalde tijdopgeslagen in de interne tabel van het platform. Indien gevraagd, de Claroline SSO';
+$_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO server provides a way to retrieve the user parameters from another server on the internet on the base of this cookie value.'] = 'Wanneer een gebruiker met succes inlogt op het Claroline platform wordt een cookie gestuurd naar zijn browser. Deze cookie wordt tegelijkertijd voor bepaalde tijd opgeslagen in een interne tabel van het Claroline platform. De Claroline SSO server geeft op verzoek aan hoe je de parameters van de gebruiker van een andere server op het internet kunt ophalen op basis van deze cookie.';
 $_lang['One question per page (sequential)'] = 'Eén vraag per pagina (in volgorde)';
 $_lang['Only his own submissions'] = 'Alleen zijn/haar eigen inzendingen';
 $_lang['Only not read'] = 'Alleen niet gelezen';
 $_lang['Only read'] = 'Alleen gelezen';
 $_lang['Only visible for teacher(s) and submitter(s)'] = 'Alleen zichtbaar voor leerkracht(en) en indiener(s)';
 $_lang['Optional'] = 'Optioneel';
+$_lang['Options'] = 'Keuze';
 $_lang['Options for announcements portlet'] = 'Opties voor berichten portlet';
 $_lang['Order'] = 'Volgorde';
 $_lang['Order course by'] = 'Orden cursussen op';
@@ -1347,7 +1379,9 @@ $_lang['Port of CAS server'] = 'Poort van de CAS server';
 $_lang['Portlet'] = 'Portlet';
 $_lang['Posts'] = 'Berichten';
 $_lang['Powered by'] = 'gebruikt het platform';
+$_lang['Prefix course code beginning with number'] = 'Prefix van de cursuscode die begint met een cijfer';
 $_lang['Prefix for course table  / db names'] = 'Prefix voor de cursustabel  / db namen';
+$_lang['Prefix for empty code course'] = 'Prefix voor lege cursuscode';
 $_lang['Prefix for main table names'] = 'Prefix voor de hoofdtabel namen';
 $_lang['Prefix for tracking table names'] = 'Prefix voor de trackingtabel namen';
 $_lang['Preformated text'] = 'Preformated tekst';
@@ -1409,11 +1443,14 @@ $_lang['Register my campus'] = 'Registreer mijn campus';
 $_lang['Register this user to a course'] = 'Schrijf deze gebruiker in voor een cursus';
 $_lang['Register to the class'] = 'Inschrijven in de klas';
 $_lang['Register user'] = 'Gebruiker registreren';
-$_lang['Register user to class'] = 'Gebruiker in klas plaatsen';
+$_lang['Register users to class'] = 'Registreer gebruikers in een klas';
 $_lang['Registered'] = 'Ingeschreven';
 $_lang['Registration'] = 'Inschrijven';
 $_lang['Registration agreement'] = 'Registratie-overeenkomst';
 $_lang['Registration not allowed on the platform'] = 'Registratie niet toegestaan';
+$_lang['Relative path from claroline kernel to root of admin section'] = 'Relative path van claroline kernel naar root van de admin sectie';
+$_lang['Relative path from claroline web to icon set'] = 'Relative path van claroline web naar icon set';
+$_lang['Relative path from root campus to claroline code'] = 'Relative path van root platform naar claroline code';
 $_lang['Relative to the complete platform url'] = 'Relatief t.o.v. de complete platform url.';
 $_lang['Rem. answ.'] = '- antwoord';
 $_lang['Rem. elem.'] = '- element';
@@ -1445,10 +1482,8 @@ $_lang['Retry'] = 'opnieuw';
 $_lang['Reuse'] = 'Hergebruik';
 $_lang['Reuse same shuffle'] = 'Gebruik dezelfde shuffle opnieuw';
 $_lang['Reuse the same shuffle'] = 'Gebruik dezelfde shuffle opnieuw';
-$_lang['Revocation of %firstname %lastname'] = 'Hernoem %firstname %lastname';
+$_lang['Revocation of %firstname %lastname'] = 'Uitschrijving %firstname %lastname';
 $_lang['Right'] = 'Rechten';
-$_lang['Right list'] = 'Lijst met rechten';
-$_lang['Right menu settings'] = 'Instellingen van het rechtenmenu';
 $_lang['Right profile list'] = 'Lijst van het rechtenprofiel';
 $_lang['Rights'] = 'Rechten';
 $_lang['Role'] = 'Rol';
@@ -1487,8 +1522,7 @@ $_lang['Search user'] = 'Zoek gebruiker';
 $_lang['Search user to add to your course'] = 'Zoek gebruiker om voor je cursus in te schrijven';
 $_lang['SecondShort'] = 'sec.';
 $_lang['Secondary manifest found in zip file :'] = 'Tweede manifest gevonden in zip-file:';
-$_lang['See below the files you can edit from this tool.'] = 'Met deze tool kan u de onderstaande bestanden bewerken.';
-$_lang['See user list'] = 'Bekijk gebruikerslijst';
+$_lang['See below the files you can edit from this tool.'] = 'Met deze tool kun je de onderstaande bestanden bewerken.';
 $_lang['Seen'] = 'Gelezen';
 $_lang['Select course in'] = 'Kies cursus in ';
 $_lang['Select course in search results'] = 'Kies cursus in zoekresultaten';
@@ -1496,6 +1530,7 @@ $_lang['Select date'] = 'Kies een datum';
 $_lang['Select in drop down list'] = 'selecteer in drop down lijst';
 $_lang['Select interval'] = 'Kies periode';
 $_lang['Select the tools you want to make visible for your user.'] = 'Selecteer de leermiddelen die je zichtbaar wilt maken voor de gebruiker.';
+$_lang['Select the type for your export :'] = 'Selecteer het type voor export:';
 $_lang['Select the way Claroline send files to a user.'] = 'Selecteer de manier waarop Claroline bestanden zendt naar de gebruiker.';
 $_lang['Select users you want to import in the course'] = 'Selecteer de gebruikers die je in de cursus wilt inschrijven';
 $_lang['Selected Users'] = 'Geselecteerde gebruikers';
@@ -1506,6 +1541,7 @@ $_lang['Send a message to group'] = 'Verstuur een bericht naar de groep';
 $_lang['Send a message to the course'] = 'Stuur cursisten bericht';
 $_lang['Send a message to the user'] = 'Verstuur een bericht naar de gebruiker';
 $_lang['Send account information to user by email'] = 'Stuur accountinformatie naar gebruiker per e-mail';
+$_lang['Send email to new users'] = 'Stuur een email naar nieuwe gebruikers';
 $_lang['Send file using PHP (mask real file location)'] = 'Stuur bestand dat gebruik maakt van PHP (maskeer werkelijke bestandslocatie)';
 $_lang['Send this announcement by internal message to registered students'] = 'Stuur dit bericht met interne post naar geregistreerde gebruikers';
 $_lang['Sender'] = 'Afzender';
@@ -1516,9 +1552,9 @@ $_lang['Sets how the assignment property "default works visibility" acts.  It wi
 $_lang['Sets if user can see only his own submissions (or those from his groups) or if he can see every visible submission.'] = 'Stelt in of een gebruiker alleen zijn eigen inzendingen ziet (of die van zijn groep) of alle zichtbare inzendingen.';
 $_lang['Settings for tutors of group'] = 'Instellingen voor groepsdocenten';
 $_lang['Settings for users of group'] = 'Instellingen voor de gebruikers van groepen';
-$_lang['Settings of the right menu elements'] = 'Instellingen voor de rechter menuonderdelen';
-$_lang['Settings of the tool'] = 'Instellingen voor het onderdeel';
+$_lang['Settings of the tool'] = 'Instellingen voor het leermiddel';
 $_lang['Settings of the user course list'] = 'Instellingen van de cursuslijst van de gebruikers';
+$_lang['Set to No to avoid the creation of public, world accessible, course sites'] = 'Kies NEE om te voorkomen dat de cursus voor iedereen toegankelijk is';
 $_lang['Show'] = 'Laat zien';
 $_lang['Show all'] = 'Laat alles zien';
 $_lang['Show answers'] = 'Toon antwoorden';
@@ -1553,6 +1589,7 @@ $_lang['Store failed'] = 'Opslag mislukt';
 $_lang['Strike'] = 'Strike';
 $_lang['Student'] = 'Cursist';
 $_lang['Students are allowed to self-register in groups'] = 'De cursisten mogen zichzelf in de groepen inschrijven';
+$_lang['Students connected today:'] = 'Students die vandaag aangemeld zijn:';
 $_lang['Style'] = 'Stijl';
 $_lang['Subject'] = 'Onderwerp';
 $_lang['Subject couldn\'t be empty'] = 'Subject kon niet leeg zijn';
@@ -1570,6 +1607,7 @@ $_lang['Support forum'] = 'Ondersteuningsforum';
 $_lang['System Info'] = 'Systeeminfo';
 $_lang['System mail : recipients list'] = 'Systeem mail: lijst met ontvangers';
 $_lang['Take one of these options'] = 'Neem een van deze opties';
+$_lang['Target'] = 'Doel';
 $_lang['Teacher can add a user in his course'] = 'Docent kan een gebruiker aan zijn cursus toevoegen';
 $_lang['Teacher can export user list from his course'] = 'Docent kan gebruikerslijst van zijn cursus exporteren';
 $_lang['Teacher can import user list in his course'] = 'Docent kan een lijst met gebruikers aan zijn cursus toevoegen';
@@ -1578,7 +1616,7 @@ $_lang['Teachers can register new users to the campus'] = 'Docent kan nieuwe geb
 $_lang['Technical Tools'] = 'Technische gereedschappen';
 $_lang['Temporary folder missing'] = 'Map met tijdelijke bestanden ontbreekt';
 $_lang['Text bottom'] = 'Text beneden';
-$_lang['Text displayed if a user tries to enrol in a course requiring a key'] = 'Tekst weergegeven wanneer een gebruiker in een cursus probeert in te schrijven waarvoor een sleutel vereist is.';
+$_lang['Text displayed if a user tries to enrol in a course requiring a key'] = 'Tekst weergegeven wanneer een gebruiker in een cursus probeert in te schrijven waarvoor een sleutel vereist is';
 $_lang['Text displayed if a user tries to enrol in a locked course'] = 'Tekst weergegeven wanneer een gebruiker in een gesloten cursus probeert in te schrijven';
 $_lang['Text displayed on the "Create user account" page'] = 'Tekst weergegeven op de pagina "account aanmaken"';
 $_lang['Text displayed on the "My user account" page'] = 'Tekst weergegeven op de pagina "Mijn profiel"';
@@ -1591,8 +1629,9 @@ $_lang['The class has been moved'] = 'De klas is verplaatst';
 $_lang['The content of this panel is editable in administration '] = 'De inhoud van dit paneel is te wijzigen via de admin pagina\'s';
 $_lang['The course has been successfully deleted'] = 'De cursus is met succes verwijderd';
 $_lang['The course is shown in the courses listing'] = 'De cursus staat in de cursuslijst';
-$_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the co'] = 'Het domein waarvoor de cookie beschikbaar is. Om de cookie voor alle subdomeinen van voorbeeld.com beschikbaar te maken, moet je het op ".example.com" instellen. De . is niet verplicht, maar maakt het compatibel met meer browsers.';
+$_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the cookie only available in the www  subdomain.'] = 'Het domein waarvoor de cookie beschikbaar is. Om de cookie voor alle subdomeinen van voorbeeld.com beschikbaar te maken schrijf je ".voorbeeld.com". De . is niet verplicht, maar maakt de cookie compatibel met meer browsers. Als je www.voorbeeld.com schrijft is de cookie alleen beschikbaar voor het www subdomein.';
 $_lang['The email address is not valid'] = 'Het e-mail adres is niet correct';
+$_lang['The export\'s type is not supported for the moment.'] = 'Het export type wordt momenteel niet ondersteund.';
 $_lang['The fields <em>%field_list</em> are compulsory'] = 'De velden <em>%field_list</em> zijn verplicht';
 $_lang['The file %file doesn\'t exist'] = 'Het bestand %file bestaat niet';
 $_lang['The file to upload is not valid.'] = 'Het te uploaden bestand is niet correct.';
@@ -1606,7 +1645,7 @@ $_lang['The name of the cookie. By default the name is "clarolineSsoCookie"'] = 
 $_lang['The new category has been created.'] = 'De nieuwe categorie is aangemaakt.';
 $_lang['The new class has been created'] = 'De nieuwe klas is aangemaakt';
 $_lang['The new user has been sucessfully created'] = 'De nieuwe gebruiker is met succes aangemaakt';
-$_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /f'] = 'Het adres op de server waar de cookie beschikbaar zal zijn. Indien ingesteld op "/", zal de cookie voor het gehele domein beschikbaar zijn. Indien ingesteld op "/foo/", zal de cookie alleen beschikbaar zijn binnen de /foo/ directory en alle subdirs zoals /f';
+$_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.'] = 'Het adres op de server waarop de cookie beschikbaar is. Indien ingesteld op "/", dan is de cookie beschikbaar voor het hele domein. Indien ingesteld op "/foo/", dan is de cookie alleen beschikbaar in de /foo/ directory en al de sub-directories zoals /foo/bar/ van het domein. De standaard instelling is die voor de directory waarin de cookie recentelijk geplaatst is.';
 $_lang['The requested file <strong>%file</strong> was not found on the platform.'] = 'Het gevraagde bestand <strong>%file</strong> werd niet gevonden.';
 $_lang['The system is unable to send you an e-mail.'] = 'Het systeem kan je geen e-mail sturen.';
 $_lang['The upload has failed. There is not enough space in your directory'] = 'Upload is mislukt. Niet genoeg ruimte in jouw map (harde schijf).';
@@ -1656,17 +1695,20 @@ $_lang['This mail appears already in a previous line of the CSV file.'] = 'Dit m
 $_lang['This module cannot be deactivated'] = 'Deze module kan niet worden uitgeschakeld';
 $_lang['This official code already appears in a previous line of the CSV file.'] = 'Deze officiële code komt reeds voor in een vorige regel van het CSV bestand.';
 $_lang['This official code is already used by another user.'] = 'Deze officiële code wordt al gebruikt door een andere gebruiker.';
-$_lang['This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'] = 'Deze optie voegt een aanvraagmogelijkheid toe aan het formulier voor het gebruikersprofiel, om de status van cursusschrijver aan te vragen. Deze aanvraag wordt per mail naar de beheerder van de Leeromgeving gestuurd.';
+$_lang['This option can be used to prevent web crawlers to download an archive of the folder'] = 'Deze optie kan gebruikt worden om te voorkomen dat web crawlers de bestandslijst van een map downloaden';
+$_lang['This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'] = 'Deze optie voegt een aanvraagmogelijkheid toe aan het formulier voor het gebruikersprofiel om de status van cursusschrijver aan te vragen. Deze aanvraag wordt per mail naar de beheerder van de Leeromgeving gestuurd.';
 $_lang['This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.
 This option allow only to request it, and don\'t prework the answer
-'] = 'Deze optie voegt een aanvraagmogelijkheid toe aan het formulier voor het gebruikersprofiel, om het verwijderen van de gebruiker uit de Leeromgeving aan te vragen. Deze aanvraag wordt per mail naar de beheerder van de Leeromgeving gestuurd.
+'] = 'Deze optie voegt een aanvraagmogelijkheid toe aan het formulier voor het gebruikersprofiel om het verwijderen van de gebruiker uit de Leeromgeving aan te vragen. Deze aanvraag wordt per mail naar de beheerder van de Leeromgeving gestuurd.
 Met deze optie wordt alleen het verzoek gedaan. Het antwoord wordt er niet mee bepaald.';
 $_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'Deze pagina is leeg, klik op \'wijzig deze pagina\' om inhoud toe te voegen';
 $_lang['This page is empty, use the editor to add content.'] = 'Deze pagina is leeg, gebruik de editor om haar van inhoud te voorzien.';
 $_lang['This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>'] = 'Dit wachtwoord is te eenvoudig of lijkt te veel op de gebruikersnaam, voornaam or achternaam.<br> Gebruik een wachtwoord als <code>%passProposed</code>';
 $_lang['This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office  '] = 'Dit prefix maakt het mogelijk om de tabellen makkelijker te ordenen in de DB.';
+$_lang['This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.'] = 'Deze  prefix is toegevoegd aan iedere tabelnaam van de cursus. Hierdoor worden in single database mode alle tabellen van de cursus bij elkaar gezet';
 $_lang['This question is used in several exercises.'] = 'Deze vraag wordt gebruikt in verschillende oefeningen.';
 $_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'Deze renderer wordt gebruikt in TEX/LaTEX formules. Hij is beschikbaar in de \'claroline/inc/lib/\' directory en moet naar de map op de server worden gekopieerd waar CGI programa\'s thuishoren.';
+$_lang['This string is prepend to course database name if it begins with a number'] = 'Deze string wordt voor de  databasenaam van de cursus geplaatst wanneer die met een cijfer begint.';
 $_lang['This tool can not be uninstalled.'] = 'Deze tool kan niet verwijderd worden.';
 $_lang['This user name is already taken'] = 'De gekozen gebruikersnaam is al in gebruik';
 $_lang['This will also delete all works submitted in this assignment !'] = 'Dit zal ook alle bestanden, ingeleverd voor deze taak, verwijderen!';
@@ -1688,9 +1730,7 @@ $_lang['Title'] = 'Titel';
 $_lang['Title added :'] = 'Titel toegevoegd: ';
 $_lang['Title of the wiki'] = 'Titel van Wiki';
 $_lang['To'] = 'naar';
-$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Selecteer een groep gebruikers om een bericht te sturen (selecteer met een * ervoor)
-
- of selecteer enkele gebruikers uit de linker lijst.';
+$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Selecteer een groep gebruikers (selecteer met een * ervoor) of selecteer enkele gebruikers uit de linker lijst om een bericht te sturen';
 $_lang['Today'] = 'Vandaag';
 $_lang['Tool'] = 'leermiddel';
 $_lang['Tool added to course'] = 'leermiddel toegevoegd aan de cursus';
@@ -1745,6 +1785,7 @@ $_lang['Unable to create forum'] = 'Kan dit forum niet aanmaken';
 $_lang['Unable to create frame file'] = 'niet mogelijk om het frame bestand te maken';
 $_lang['Unable to create frame for document %file.'] = 'Er kan geen frame voor bestand %file gemaakt worden.';
 $_lang['Unable to create group %groupname'] = 'Groep %groupname kan niet worden aangemaakt';
+$_lang['Unable to create the archive'] = 'Kan archief niet aanmaken';
 $_lang['Unable to create the SCORM archive'] = 'Niet mogelijk om SCORM archief te maken';
 $_lang['Unable to create the SCORM manifest (imsmanifest.xml)'] = 'niet mogelijk om het SCORM manifest te maken (imsmanifest.xml)';
 $_lang['Unable to create user %username'] = 'Gebruiker %username kan niet worden aangemaakt';
@@ -1759,10 +1800,13 @@ $_lang['Unable to delete external tool'] = 'Kon extern leermiddel niet verwijder
 $_lang['Unable to empty forum'] = 'Niet mogelijk om forum leeg te maken.';
 $_lang['Unable to empty groups'] = 'Niet mogelijk om deze groep leeg te maken';
 $_lang['Unable to enrol you to the course'] = 'Niet mogelijk om je in te schrijven in deze cursus';
+$_lang['Unable to export your topic in HTML format.'] = 'Kan jouw bericht niet in HTML formaat exporteren.';
+$_lang['Unable to export your topic in PDF format.'] = 'Kan jouw bericht niet in PDF formaat exporteren.';
 $_lang['Unable to find the user in the csv'] = 'Gebruiker kan niet worden gevonden in csv';
 $_lang['Unable to load exercise\'s question'] = 'Niet mogelijk om de vragen van de oefening te laden';
 $_lang['Unable to load the exercise'] = 'Niet mogelijk om oefening te laden';
 $_lang['Unable to load the selected format'] = 'Het geselecteerde format kan niet worden geladen';
+$_lang['Unable to load user information'] = 'Kan gebruikersgegevens niet laden';
 $_lang['Unable to reactivate this course'] = 'Deze cursus kan niet gereactiveerd worden';
 $_lang['Unable to read the content of the CSV'] = 'De inhoud van CSV kan niet gelezen worden';
 $_lang['Unable to remove your registration to the course'] = 'niet mogelijk om je inschrijving voor deze cursus ongedaan te maken';
@@ -1777,6 +1821,7 @@ $_lang['Unassigned students'] = 'Gebruiker(s) zonder groep';
 $_lang['Unblock'] = 'Niet-blokkerend';
 $_lang['Unchanged line'] = 'regel onveranderd';
 $_lang['Underline'] = 'Onderstreep';
+$_lang['Unenrol class'] = 'klas uitschrijven';
 $_lang['Unenrol from course'] = 'Uit de cursus verwijderen';
 $_lang['Uninstall'] = 'Deïnstalleer';
 $_lang['Unknow error during unsubscribing'] = 'Onbekende fout bij het uitschrijven';
@@ -1798,9 +1843,10 @@ $_lang['Unregister all users ?'] = 'Alle gebruikers verwijderen?';
 $_lang['Unregister from class'] = 'Uitschrijven uit klas';
 $_lang['Unregister user'] = 'Gebruiker verwijderen';
 $_lang['Unsubscribe'] = 'Uitschrijven';
-$_lang['Until'] = 'tot';
 $_lang['Untitled'] = 'onbenoemd';
 $_lang['Up'] = 'Hoger';
+$_lang['Update properties of users  on CVS import'] = 'Update kenmerken van gebruikers bij CVS import';
+$_lang['Update user\'properties'] = 'Update kenmerken van gebruiker';
 $_lang['Upgrade'] = 'Bijwerken';
 $_lang['Upload'] = 'Upload';
 $_lang['Upload a new file to replace the file'] = 'Stuur een nieuw bestand om het bestaande te vervangen.';
@@ -1833,12 +1879,14 @@ $_lang['User already in class'] = 'Gebruiker zit reeds in de klas';
 $_lang['User attempts'] = 'Gebruikerspogingen';
 $_lang['User banner - left'] = 'Gebruikersbanner - links';
 $_lang['User banner - right'] = 'Gebruikersbanner - rechts';
+$_lang['User can leave course code (officialCode) field empty or not'] = 'Het staat de gebruiker vrij de cursuscode (officialCode) in te vullen';
 $_lang['User can leave course title field empty or not'] = 'Gebruiker kan het titelveld van de cursus al dan niet leeg laten';
 $_lang['User can leave email field empty or not'] = 'Gebruiker kan het e-mailveld van de cursus al dan niet leeg laten';
 $_lang['User course settings'] = 'Instellingen van de cursusgebruiker';
 $_lang['User has been sucessfully registered to the class'] = 'Gebruiker is met succes ingeschreven in de klas';
 $_lang['User has been sucessfully unregistered from the class'] = 'De gebruiker is met succes uitgeschreven uit de klas';
 $_lang['User id'] = 'Gebruikers-ID';
+$_lang['User id missing'] = 'Gebruikers ID ontbreekt';
 $_lang['User is not valid'] = 'Ongeldige gebruiker';
 $_lang['User is now course manager'] = 'De gebruiker is nu cursusleider';
 $_lang['User is now student for this course'] = 'De gebruiker is nu cursist in deze cursus';
@@ -1849,6 +1897,8 @@ $_lang['User picture'] = 'Plaatje van gebruiker';
 $_lang['User picture added'] = 'Plaatje van gebruiker toegevoegd';
 $_lang['User picture deleted'] = 'Plaatje van gebruiker verwijderd';
 $_lang['User profile'] = 'Gebruikersprofiel';
+$_lang['User profile %username created successfully'] = 'Gebruikersprofiel %username met succes aangemaakt';
+$_lang['User profile %username updated successfully'] = 'Update gebruikersprofiel %username met succes uitgevoerd';
 $_lang['User profile box'] = 'Profiel van gebruiker';
 $_lang['User profile options'] = 'Opties gebruikersprofiel';
 $_lang['User registered in a course having an unexisting (deprecated) status'] = 'Gebruiker die ten onrechte staat ingeschreven voor een cursus.';
@@ -1858,6 +1908,7 @@ $_lang['User settings'] = 'Voorkeurinstellingen gebruiker';
 $_lang['User to keep not found'] = 'Gebruiker die behouden moet blijven niet gevonden';
 $_lang['User to remove not found'] = 'Gebruiker die verwijderd moet worden niet gevonden';
 $_lang['User unregistered'] = 'De gebruiker werd uitgeschreven';
+$_lang['User(s) online'] = 'Gebruiker(s) online';
 $_lang['User\'s course'] = 'Cursussen van gebruiker';
 $_lang['User\'s course settings'] = 'Cursusinstellingen gebruiker\'s';
 $_lang['Username'] = 'Gebruikersnaam';
@@ -1920,12 +1971,13 @@ $_lang['Weighting'] = 'Weging';
 $_lang['Welcome text displayed on the homepage'] = 'Welkomsttekst op de startpagina';
 $_lang['Welcome text displayed to anonymous users'] = 'Welkomsttekst voor bezoekers (anoniem)';
 $_lang['Welcome text displayed to authenticated users'] = 'Welkomsttekst voor geregistreerde gebruikers';
-$_lang['When iCal File is regenerated, make the RDF version.'] = 'Wanneer de iCal File geregenereerd wordt, gebruik de RDF versie.';
-$_lang['When iCal File is regenerated, make the ics version.'] = 'Wanneer de iCal File geregenereerd wordt, gebruik de ics versie.';
-$_lang['When iCal File is regenerated, make the xml version.'] = 'Wanneer de iCal File geregenereerd wordt, gebruik de xml versie.';
+$_lang['When iCal File is regenerated, make the RDF version.'] = 'Wanneer de iCal File geregenereerd wordt, gebruik dan de RDF versie.';
+$_lang['When iCal File is regenerated, make the ics version.'] = 'Wanneer de iCal File geregenereerd wordt, gebruik dan de ics versie.';
+$_lang['When iCal File is regenerated, make the xml version.'] = 'Wanneer de iCal File geregenereerd wordt, gebruik dan de xml versie.';
 $_lang['When users click on a document, it opens a new window'] = 'Wanneer gebruikers op een document klikken, opent dit in een nieuw venster';
 $_lang['When users click on a submitted file, it opens a new window'] = 'Wanneer gebruikers op een ingediend bestand klikken, opent dit in een nieuw venster';
 $_lang['Where is your package ?'] = 'Waar is jouw package?';
+$_lang['Whether include tutors in the displayed member list'] = 'Of de cursusbegeleiders worden weergegeven in de ledenlijst';
 $_lang['Which parts of the profile can be changed?'] = 'Welke onderdelen van het profiel mogen gewijzigd worden?';
 $_lang['Wiki'] = 'Wiki';
 $_lang['Wiki %TITLE% exported to course documents. (this file is visible)'] = 'Wiki %TITLE% geëxporteerd naar cursusdocumenten. (dit bestand is zichtbaar)';
@@ -1962,7 +2014,7 @@ $_lang['You are not a member of this group'] = 'Je bent geen lid van deze groep'
 $_lang['You are not allowed to create pages'] = 'Je mag geen pagina\'s aanmaken.';
 $_lang['You are not allowed to edit this page'] = 'Je mag deze pagina niet wijzigingen.';
 $_lang['You are not allowed to read this page'] = 'Je mag deze pagina niet lezen.';
-$_lang['You are not enrolled to any course on this platform or all your courses are deactivated'] = 'Je bent in geen enkele cursus op dit platform ingeschreven of al jouw cursussen zijn gedeactiveerd';
+$_lang['You are not enrolled to any course on this platform or all your courses are deactivated'] = 'Je bent in geen enkele cursus op dit platform ingeschreven of al jouw cursussen zijn gedeactiveerd.';
 $_lang['You are not in a course'] = 'Je bent niet ingeschreven in een cursus';
 $_lang['You are now a member of this group.'] = 'Je bent nu deelnemer van deze groep.';
 $_lang['You are receiving this notification because you are watching a topic on the forum of one of your courses.'] = 'Je krijgt dit bericht omdat je een onderwerp volgt op het forum van één van jouw cursussen.';
@@ -1973,7 +2025,7 @@ $_lang['You can force the case  of course code'] = 'Je kunt verplichten dat de c
 $_lang['You can not change your own settings!'] = 'Je kunt je eigen instellingen niet veranderen!';
 $_lang['You can not remove a group forum. You have to remove the group first'] = 'Je kunt geen groepsforum verwijderen. Je moet eerst de groep verwijderen';
 $_lang['You can now create your  course'] = 'Je kunt nu uw cursus aanmaken.';
-$_lang['You can now select, in the list, the courses you want to access'] = 'Je kunt nu uit het cursusaanbod de cursussen selecteren die je wilt gebruiken.';
+$_lang['You can now select, in the list, the courses you want to access'] = 'Je kunt nu uit het cursusaanbod de cursussen kiezen die je wilt gebruiken.';
 $_lang['You can set access rights for users using the following grid :'] = 'Je kunt de toegangsrechten voor gebruikers wijzigen in de volgende tabel:';
 $_lang['You can\'t move %facultyCode in the same category !'] = 'Je kunt %facultyCode niet in dezelfde categorie verplaatsen!';
 $_lang['You can\'t remove a group forum. You have to remove the group first'] = 'Je kunt geen groepsforum verwijderen. Je moet eerst de groep verwijderen';
@@ -2010,7 +2062,7 @@ $_lang['Your mother is'] = 'Jouw moeder is';
 $_lang['Your password has been emailed to'] = 'Je wachtwoord is verstuurd naar ';
 $_lang['Your password(s) is (are) recorded in an external authentication system outside the platform.'] = 'Je wachtwoord(en) is (zijn) opgeslagen in een extern authenticatiesysteem.';
 $_lang['Your progression in this module'] = 'Je voortgang in deze module';
-$_lang['Your registration'] = 'Jouw registratie';
+$_lang['Your registration'] = 'Registratie';
 $_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'Je verzoek cursusschrijver te worden is verzonden naar de beheerder';
 $_lang['Your request to remove your account has been sent'] = 'Je verzoek je account te verwijderen is verzonden';
 $_lang['Your search did not match any courses'] = 'Je zoekopdracht leverde geen cursussen op.';
@@ -2029,11 +2081,11 @@ Je bent nu geregistreerd op %siteName
     Login naam:  %username
     Wachtwoord: %password
     Het adres van %siteName is: %rootWeb
-    
+
 Zijn er vragen of problemen, neem dan gerust contact op.
-    
-Met vriendelijke groeten,
-%administratorName
+
+    Met vriendelijke groeten,
+    %administratorName
 
 --
 Beheerder %administratorName
@@ -2042,8 +2094,7 @@ E-mail : %administratorEmail
     ';
 $_lang['blockAssignmentsHelp'] = '<p>
 Het leermiddel \'Taken\' biedt een publicatiegelegenheid voor cursisten.
-De cursusleider maakt een of meer taken aan (met keuze uit verschillende publicatie mogelijkheden). 
-De cursisten gaan die taak vervolgens maken en publiceren.
+De cursusleider maakt een of meer taken aan (met keuze uit verschillende publicatie mogelijkheden). De cursisten gaan die taak vervolgens maken en publiceren.
 <br /><br />
 
 Elke taak biedt een aantal alternatieven:
@@ -2051,23 +2102,19 @@ Een publicatie kan een bestand en/of tekst zijn, en een publicatie kan individue
 groep worden aangeboden.
  <br /><br />
 
-Cursisten hebben de mogelijkheid hun werk na het indienen nog te wijzigen naar aanleiding van het commentaar van de cursusleider 
-op het ingeleverde werk.
+Cursisten hebben de mogelijkheid hun werk na het indienen nog te wijzigen naar aanleiding van het commentaar van de cursusleider op het ingeleverde werk.
 </p>
 <hr />
 
 <h4>Een taak aanmaken</h4>
 <p>
-Om een nieuwe taak aan te maken moet de cursusleider in het leermiddel \'Taken\' de link \'Maak een nieuwe taak\' 
-aanklikken.
+Om een nieuwe taak aan te maken moet de cursusleider in het leermiddel \'Taken\' de link \'Maak een nieuwe taak\' aanklikken.
 <p>Het formulier dat dan getoond wordt vraagt de cursusbeheerder om:
 </p>
 <ul><li> De naam van de taak.
 </li><li> Een omschrijving: wat de taak inhoudt, wat er van de cursisten verwacht wordt.
 </li><li> Wat dient te worden ingediend:
-<ul><li> Bestand: elk uploadbaar type bestand. (NB. er is een grens aan de grootte 
-van de bestanden die je kunt uploaden.) 
-Er kan een korte beschrijving van het bestand worden meegegegeven bij het uploaden.
+<ul><li> Bestand: elk uploadbaar type bestand. (NB. er is een grens aan de grootte van de bestanden die je kunt uploaden.) Er kan een korte beschrijving van het bestand worden meegegegeven bij het uploaden.
 
 </li><li> Alleen tekst: Een tekst (mogelijk met opmaak).
 </li><li> Tekst met toegevoegd bestand: een tekst (mogelijk met opmaak) en een bestand (optioneel)
@@ -2089,17 +2136,12 @@ mogen zijn voor andere gebruikers of niet.
 <p>Een commentaar (feedback) is een correcte versie van de taak. Om automatisch feedback toe te voegen, klik op de titel van de taak en vervolgens op \'Bewerk automatische feedback\'.
 <p>Deze feedback kan bestaan uit een tekst en/of een bestand.
 De cursusleider kan kiezen wanneer dit automatische commentaar aan de gebruikers getoond wordt: na de einddatum van de taak, of meteen nadat het werk werd ingediend.
-
-
 </p>
 
 <hr />
 <h4>Werken</h4>
 <p>Werken (inzendingen) zijn de publicaties/teksten die de gebruikers uploaden.</p>
-<p>Voor elke taak toont het leermiddel een lijst van alle cursisten,
- en voor elke cursist de titel van het eerste werk dat hij heeft ingediend, 
-het aantal ingediende werken en het aantal commentaren. 
-De lijst van werken van een gebruiker kan opgevraagd worden door op de gebruikersnaam te klikken.
+<p>Voor elke taak toont het leermiddel een lijst van alle cursisten, en voor elke cursist de titel van het eerste werk dat hij heeft ingediend, het aantal ingediende werken en het aantal commentaren. De lijst van werken van een gebruiker kan opgevraagd worden door op de gebruikersnaam te klikken.
 </p>
 <p><strong>Een werk indienen</strong></p>
 <p>Indien de gebruiker het recht heeft werk in te dienen, wordt er een link naar een formulier getoond.
@@ -2109,8 +2151,7 @@ De lijst van werken van een gebruiker kan opgevraagd worden door op de gebruiker
 Hij kan ook commentaar leveren op het werk.
 </p>
 <ul>
-<li> <strong>Wijzigen</strong>&nbsp;: 
-Via dit pictogram kan de gebruiker de inhoud van het werk wijzigen. Dit is het geval voor de cursusleider, voor de gebruiker, of voor de groep waar hij in zit.
+<li> <strong>Wijzigen</strong>&nbsp;: Via dit pictogram kan de gebruiker de inhoud van het werk wijzigen. Dit is het geval voor de cursusleider, voor de gebruiker, of voor de groep waar hij in zit.
 
 </li>
 <li> <strong>Verwijderen</strong>&nbsp;: Hiermee kan de cursusleider een werk verwijderen.
@@ -2122,9 +2163,7 @@ Via dit pictogram kan de gebruiker de inhoud van het werk wijzigen. Dit is het g
 (zoals bij de \'Documenten\'). Op het pictogram klikken maakt het werk zichtbaar.
 
 </li>
-<li> <strong>Commentaar toevoegen</strong>&nbsp;: 
-Via deze link kan de cursusleider commentaar toevoegen aan een werk.
- Dit kan een tekst en/of een bestand zijn. Het kan een privé commentaar zijn, zodat alleen de cursusleider en de indiener van het werk het commentaar kunnen zien.
+<li> <strong>Commentaar toevoegen</strong>&nbsp;: Via deze link kan de cursusleider commentaar toevoegen aan een werk. Dit kan een tekst en/of een bestand zijn. Het kan een privé commentaar zijn, zodat alleen de cursusleider en de indiener van het werk het commentaar kunnen zien.
 </li>
 </ul>';
 $_lang['blockClaroMainHelp'] = '<br /><p><b>Student</b></p><p>Om cursussen te bezoeken, die toegankelijk zijn vanaf de Claroline startpagina, is het voldoende te klikken op de code van de cursus in de cursuslijst, zonder dat een voorafgaande registratie noodzakelijk is.</p><p>Om toegang tot de cursussen te krijgen, die niet toegankelijk zijn vanaf de startpagina van de leeromgeving, is het wel noodzakelijk om zich voorafgaand aan te melden. <b>Aanmelding > Vul je persoonlijke gegevens in > Actie: Inschrijven voor cursussen > Selecteer de cursussen en klik op Ok.</b></p><p>Een e-mail zal worden opgestuurd waarin je gebruikersnaam en wachtwoord ter herinnering worden meegedeeld.</p><hr noshade size=1><p><b>docent</b></p><p><b>Cursussite aanmaken</b></p><p>Zo ga je te werk: <b>Registratie > Vul alle velden in en kies \'cursussen aanmaken\' als actie > Klik Ok > Voer de naam van de cursus in. Selecteer een  of een vakgroep. Voer de referentie van de cursus in  > Klik Ok </b>. Je komt op je persoonlijke pagina in Claroline terecht. Hier vind je de lijst van cursussen waarin je geregistreerd bent. Klik op de naam van de cursus die je hebt aangemaakt. Je komt in een \'lege\' cursus terecht. Leeg in die zin dat er alleen voorbeeld-items zijn aangebracht, om je te helpen bij de confrontatie met blanco pagina\'s. Bij je aanmelding kreeg je een e-mail, waarin je gebruikersnaam en wachtwoord ter herinnering zijn meegedeeld.</p><p>Als er een probleem is, neem contact op met je Claroline-beheerder. Je kunt ook een bericht publiceren op het supportforum van <a href=http://www.claroline.net>http://www.claroline.net</a>.</p>';
@@ -2256,7 +2295,6 @@ Om een meerkeuzevraag te maken: <br />
 <b>Invulvragen</b>
 <p>Hiermee kun je een tekst met invulruimtes creëren. Het doel is om cursisten woorden te laten invullen die ontbreken in de tekst.<br /><br />
 	Om een invulruimte te creëren, plaats je een woord tussen vierkante haakjes [zoals hier].<br /><br />
-	
 	<!--Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br /><br />-->
 	Bewaar je tekst. Vervolgens kun je gewicht toekennen aan elke invulruimte.
 	Bijvoorbeeld: voor een vraag met 5 invulruimtes die 10 punten waard is kun je 2 punten toekennen aan iedere invulruimte.
@@ -2280,7 +2318,7 @@ Geef een gewicht aan elk goed koppel, daarna kun je je vraag bewaren.</p>
 <p>Om een oefening zichtbaar of onzichtbaar te maken voor cursisten, klik je op het oog in de kolom \'zichtbaarheid\'.</p>
 <hr />
 <b>Oefening exporteren</b>
-<p>Door op \'exporteren\' te klikken start je een download van de oefening. 
+<p>Door op \'exporteren\' te klikken start je een download van de oefening.
 <hr />
 <b>Oefening testen</b>
 <p>Je kunt een oefening testen door op haar naam te klikken in de oefeningenlijst.</p>
@@ -2290,12 +2328,10 @@ Geef een gewicht aan elk goed koppel, daarna kun je je vraag bewaren.</p>
 <br /><br />
 Door voor deze optie te kiezen, krijgt elke cursist de vragen telkens in een andere volgorde te zien.
 <br /><br />
-Als u veel vragen hebt, kunt u ook slechts een bepaald aantal vragen laten trekken uit de volledige vragenlijst van de oefening.
 </p>
 <hr />
 <b>Verzameling van alle vragen</b>
-<p>Als je een oefening wist, blijven de individuele vragen 
-van die oefening bewaard, zodat ze opnieuw kunnen worden gebruikt. Je vindt ze in de \'Lijst met alle vragen\'.<br /><br />
+<p>Als je een oefening wist, blijven de individuele vragen van die oefening bewaard, zodat ze opnieuw kunnen worden gebruikt. Je vindt ze in de \'Lijst met alle vragen\'.<br /><br />
 Deze algemene lijst van vragen laat je ook toe om een vraag in meerdere oefeningen tegelijk te gebruiken.<br /><br />
 Standaard worden in de lijst alle vragen van je cursus getoond.
 Je kunt dit overzicht verfijnen met behulp van het rolmenu \'Filter\'.
@@ -2303,7 +2339,7 @@ Bijvoorbeeld: kies de naam van een oefening uit het uitschuifmenu en dan zie je 
 <br /><br />
 Je kunt ook de \'wees\' vragen tonen; dit zijn vragen die niet behoren tot een oefening.</p>';
 $_lang['blockFeedbackHelp'] = 'Commentaar is optioneel. Je kunt er bijvoorbeeld de juiste uitwerking van de taak weergeven. Als er tekst toegevoegd wordt, zal die aan de gebruikers getoond worden volgens de \'toon commentaar\' configuratie.';
-$_lang['blockForumsHelp'] = 'Het forum is een leermiddel waarin gesprekken in de vorm van geschreven, asynchrone tekst kunnen worden gevoerd. Een forum verschilt van e-mails, omdat het gesprek plaats vindt in een openbare of semi-openbare ruimte, waarin in principe een onbeperkt aantal mensen actief kan zijn.</p><p>Om het forum van Claroline te gebruiken, is alleen de internet browser nodig (Netscape, Explorer...), en geen e-mailprogramma (Eudora, Outlook, Safari...).</p><p>Om de forums te organiseren, moet je op \'beheren\' klikken. 
+$_lang['blockForumsHelp'] = 'Het forum is een leermiddel waarin gesprekken in de vorm van geschreven, asynchrone tekst kunnen worden gevoerd. Een forum verschilt van e-mails, omdat het gesprek plaats vindt in een openbare of semi-openbare ruimte, waarin in principe een onbeperkt aantal mensen actief kan zijn.</p><p>Om het forum van Claroline te gebruiken, is alleen de internet browser nodig (Netscape, Explorer...), en geen e-mailprogramma (Eudora, Outlook, Safari...).</p><p>Om de forums te organiseren, moet je op \'beheren\' klikken.
 De berichten zijn hiërarchisch georganiseerd:<b>Categorie > Forum > Onderwerp > Antwoord</b>.</p><p>Het is aan te raden om het forum, voor activering, te organiseren in categorieën en forums, zodat de deelnemers aan het forum op een gestructureerde wijze kunnen posten. De deelnemers zelf zijn verantwoordelijk voor de onderwerpen en de antwoorden.</p>
 <p>Je kunt forums toevoegen in de hoofdcategorie, of de titel wijzigen, of andere categorieën aanmaken waarin je nieuwe forums plaatst.<p></p>Een categorie zonder forum zal niet verschijnen en is niet bruikbaar.<p></p>Als je bijvoorbeeld een categorie \'gesprekken in kleine groepen\' aanmaakt, dan zul je een aantal forums moeten aanmaken in deze tweede categorie, zoals bijvoorbeeld \'groep 1\', \'groep 2\', \'groep 3\', enz.</p>';
 $_lang['blockGroupsHelp'] = '<p><b>Inleiding</b></p>
@@ -2332,20 +2368,14 @@ Deze invulmethodes kunnen gecombineerd worden gebruikt. Bijvoorbeeld: De geregis
 $_lang['blockHomepageHelp'] = '
 	Je bevindt je op de startpagina van een cursus. Hier zie je verschillende ikoontjes
 die de cursusonderdelen weergeven: forum, mededelingen, documenten... De
-meeste onderdelen zijn al ingevuld met voorbeeldmateriaal: een 
-korte tekst, een hyperlink.
+meeste onderdelen zijn al ingevuld met voorbeeldmateriaal: een korte tekst, een hyperlink.
 Die zijn als voorbeeld gegeven en kun je zelf wijzigen of verwijderen.</p>
 <p>De startpagina van een cursussite bevat als inleiding \'Dit is
-  de inleidingstekst van de cursus.\' 
-  Je kunt deze tekst eenvoudig wijzigen door op het \'editeren\' potlood te
+  de inleidingstekst van de cursus.\' Je kunt deze tekst eenvoudig wijzigen door op het \'editeren\' potlood te
   klikken. <b>Tip:
   Gebruik deze tekst om je cursisten wegwijs te maken op jouw cursussite. Dit kan
   ook handig zijn voor het melden van veranderingen op de cursussite</b>.</p>
-<p>Wanneer je een site creëert 
-zijn de meeste onderdelen standaard al geactiveerd (Agenda, Forum, 
-Oefeningen...). Het is aan te bevelen die functies 
-die je niet gebruikt te inactiveren. Hierdoor worden ze 
-onzichtbaar voor de studenten en verliezen de gebruikers en bezoekers geen tijd door te zoeken op verkeerde plaatsen.</p>
+<p>Wanneer je een site creëert zijn de meeste onderdelen standaard al geactiveerd (Agenda, Forum, Oefeningen...). Het is aan te bevelen die functies die je niet gebruikt te inactiveren. Hierdoor worden ze onzichtbaar voor de studenten en verliezen de gebruikers en bezoekers geen tijd door te zoeken op verkeerde plaatsen.</p>
 <p>Je kunt ook links en pagina\'s toevoegen aan de startpagina. Gebruik daarvoor de tool \'Link toevoegen aan de startpagina\'. De pagina\'s en de links die je toevoegt, kun je inactiveren en nadien verwijderen.  Dit verschilt van de standaardfuncties, die je kunt inactiveren, maar niet verwijderen.</p><p>Je krijgt tevens de keuze je cursus zichtbaar of onzichtbaar in de cursuslijst te plaatsen. Het kan wenselijk zijn een cursus \'in aanmaak\' niet in de cursuslijst te laten verschijnen (zie functie \'Eigenschappen van de cursus\') zodat niemand zich kan aanmelden zolang de cursus in ontwikkeling is.</p>
 ';
 $_lang['blockIntroCourse'] = 'Je bent op de homepage van de cursus.<br /><br />Op deze pagina kun je:
@@ -2373,20 +2403,17 @@ E-mail: %email
 Commentaar: %comment
 Link: %url';
 $_lang['blockRequestUserRevoquationMail'] = '%time
-Herroepen van %firstname %lastname
-Gebruiker : %user_id
-Naam : %firstname %lastname
-E-mail : %email
-Login : %login
-Paswoord : %password
-Commentaar : %comment
-Link : %url';
+Uitschrijven van %firstname %lastname
+Gebruiker: %user_id
+Naam: %firstname %lastname
+E-mail: %email
+Login: %login
+Paswoord: %password
+Commentaar: %comment
+Link: %url';
 $_lang['blockTextZoneHelp'] = 'Deze tekstzone wordt aan iedere gebruiker getoond. De platformbeheerder kan de inhoud wijzigen of hem verwijderen door de <b>%textZoneFile</b> aan te passen.';
 $_lang['blockUsedInSeveralPath'] = 'Deze oefening wordt gebruikt in een of meerdere leertrajecten. Als je haar verwijdert, zal ze niet langer beschikbaar zijn in het leertraject.';
 $_lang['blockUsersHelp'] = '<b>Beheersrechten</b>
-<p>Om een medelesgever, assistent, tutor of iemand anders toe te laten uw cursussite, al dan niet samen met u, te beheren, moet u eerst deze persoon voor uw cursus inschrijven (of ervoor zorgen hij ingeschreven word).  Vervolgens wijzigt u zijn rechten door te klikken op de wijzigingsfunctie onder ofwel de kolom Tutor of de kolom Beheerder op de rij van de medelesgever.</p><hr />
-<b>Medelesgevers</b>
-<p>Om de naam van de medelesgever te laten verschijnen bij de naam van uw cursus in de cursuslijst, gebruik de pagina \'cursuseigenschappen’ op de startpagina van uw cursussite. Deze wijziging toont de medelesgever niet automatisch als een gebruiker van de cursus. Dit zijn twee verschillende stappen</p><hr />
 <b>Gebruiker toevoegen</b>
 <p>Om een gebruiker toe te voegen aan je cursus, vul de velden in en klik op \'Ok\'. De persoon zal zijn gebruikersnaam en wachtwoord via e-mail krijgen toegestuurd, samen met de bevestiging van zijn registratie, behalve als je geen e-mailadres hebt ingevuld.</p>';
 $_lang['blockWarningRemoveInstallDirectory'] = '<b>Opgelet :</b> De dir die je install-scripts bevat (<code>claroline/install/</code>) is nog steeds bereikbaar via het web. Dit betekent dat iedereen die dat wil je huidige installatie volledig kan vernietigen. We raden je ten zeerste aan om deze map te verwijderen of anderzijds af te sluiten.';
@@ -2444,19 +2471,10 @@ om een text te veranderen in een link kunt u ook : <code>[WikiWord|text]</code>.
 <li><strong>Pre(formated tekst)</strong>: zet een spatie voor iedere regel van preformated tekst.</li>
 </ul></dd>
 <dt>Inline elements</dt>
-<dd><ul><li>Automatic punctuation correction active : An unbreakable space will precede each of the following symbols ";","?",":" and "!".&nbsp;;</li>
-<li><strong>Emphasis</strong> : surround your text with two single quotes <code>\'\'text\'\'</code>&nbsp;;</li>
-<li><strong>Strong emphasis</strong> : surround your text with three single quotes underscores <code>\'\'\'text\'\'\'</code>&nbsp;;</li>
-<li><strong>Forced line break</strong> : <code>%%%</code>&nbsp;;</li>
-<li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
-<li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
-<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Image</strong> : same as Hyperlinks<br />Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br />This syntax is deprecated, consider o use the following one&nbsp;;</li>
-<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br />The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
+<dd><ul>
+<li>Selecteer de tekst die aangepast moet worden en maak gebruik van de iconen \'vet\', \'schuin\', \'onderstreept\', \'doorgehaald\' en \'citaat\'.
+<li><strong>Forced line break</strong>: <code>%%%</code></li>
 <li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
-<li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
-<li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
-<li><strong>Code</strong> : <code>@@code here@@</code>&nbsp;;</li>
 <li><strong>Footnote</strong> : <code>$$footnote text$$</code>.</li>
 </ul></dd>
 </dl>';
@@ -2464,6 +2482,7 @@ $_lang['boolean'] = 'boolean';
 $_lang['click to zoom in'] = 'Klik om in te zoomen.';
 $_lang['click to zoom out'] = 'Klik om uit te zoomen';
 $_lang['count'] = 'aantal';
+$_lang['db glu'] = 'db glu';
 $_lang['delete failed for module %module'] = 'verwijderen mislukt voor module %module';
 $_lang['delete succeeded for module %module'] = 'verwijderen geslaagd voor module %module';
 $_lang['denotes new items'] = 'verwijst naar nieuwe items';
@@ -2493,10 +2512,14 @@ $_lang['my group'] = 'mijn groep';
 $_lang['my supervision'] = 'onder mijn beheer';
 $_lang['new group(s)'] = 'nieuwe groep(en)';
 $_lang['number'] = 'aantal';
+$_lang['on bottom'] = 'aan de onderkant';
 $_lang['only for new works'] = 'alleen voor nieuwe werken';
+$_lang['on top'] = 'aan de bovenkant';
 $_lang['open'] = 'open';
 $_lang['previous level'] = 'Vorig niveau';
 $_lang['register'] = 'zich inschrijven';
+$_lang['relative path from root campus to courses'] = 'relative path van platform-root naar cursussen';
+$_lang['relative path from root web to user pic repository'] = 'relative path van web-root naar gebruikersmap voor afbeeldingen';
 $_lang['relpath'] = 'relpath';
 $_lang['rich'] = 'rijk';
 $_lang['sampleForumDescription'] = 'Verwijder dit m.b.v. forum admin';
@@ -2505,8 +2528,7 @@ $_lang['sampleForumMainCategory'] = 'Algemeen';
 $_lang['sampleForumMessage'] = 'Wanneer je het Testforum verwijdert, zal ook elk onderwerp hierin verwijderd worden.';
 $_lang['sampleForumTitle'] = 'Test forum';
 $_lang['sampleForumTopicTitle'] = 'Voorbeeldbericht';
-$_lang['sampleLearnPathDescription'] = 'Dit is een voorbeeld van een leertraject. 
-Je vindt er een voorbeeldoefening en een voorbeelddocument.';
+$_lang['sampleLearnPathDescription'] = 'Dit is een voorbeeld van een leertraject. Je vindt er een voorbeeldoefening en een voorbeelddocument.';
 $_lang['sampleLearnPathDocumentDescription'] = 'Je kunt elk bestaand document in de verzameling documenten uit deze cursus gebruiken.';
 $_lang['sampleLearnPathDocumentTitle'] = 'voorbeeld-document';
 $_lang['sampleLearnPathQuizDescription'] = 'Je kunt elke oefening uit de verzameling oefeningen van de cursus gebruiken.';
@@ -2533,86 +2555,13 @@ $_lang['syspath'] = 'syspath';
 $_lang['to'] = 'tot';
 $_lang['tutor'] = 'docent';
 $_lang['uncompress zipped (.zip) file on the server'] = 'ZIP bestand (.zip) decomprimeren';
+$_lang['unique id of the platform'] = 'uniek id van het platform';
 $_lang['unknow recipient type'] = 'onbekend recipient type';
 $_lang['unknown'] = 'onbekend';
 $_lang['unlimited'] = 'onbegrensd';
 $_lang['urlpath'] = 'urlpath';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'Waarschuwing: De installatie kan de omschrijving van het leertraject niet vinden en heeft een standaardtekst gebruikt. Je dient die te veranderen.';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'Waarschuwing: De installatie kan de naam van het leertraject niet vinden en heeft een standaardtekst gebruikt. Je dient deze te veranderen.';
-$_lang['write n-1 times without check if (others) cached files are or not deprecated'] = 'schrijf n-1 tijden zonder te controleren of (andere) gecachte bestanden al dan niet vernietigd zijn';
+$_lang['write n-1 times without check if (others) cached files are or not deprecated'] = 'schrijf n-1 maal zonder te controleren of (andere) gecachte bestanden al dan niet vernietigd zijn';
 $_lang['wrote'] = 'schreef';
-$_lang['Absolute sys path to the place where are move data of a deleted course.'] = 'Absoluut path naar de locatie waar data van een verwijderde cursus verplaatst zijn.' ;
-$_lang['Allow user to use html tag in messages'] = 'Laat gebruiker toe een html tag in de boodschappen te gebruiken.' ;
-$_lang['Are you sure to delete course %name'] = 'Wilt u cursus%naam verwijderen ?' ;
-$_lang['Are you sure to delete user %firstname %lastname'] =  'Wilt u gebruiker %voornaam %naam verwijderen ?' ;
-$_lang['Course code is'] = 'cursus code is' ;
-$_lang['Course name table prefix'] = 'tabel voorvoegsel cursusnaam' ;
-$_lang['Crypt passwords'] = 'crypt paswoorden' ;
-$_lang['Disk space allowed for import learning path'] = 'Diskruimte toegelaten voor het importeren van een leertraject'; 
-$_lang['Disk space allowed to import scorm package'] = 'Diskruimte toegelaten voor het importeren van scorm package';
-$_lang['Display banner'] = 'Toon banner';
-$_lang['Export exercise'] = 'Exporteer oefening' ;
-$_lang['Export in IMS QTI'] = 'Exporteer in IMS QTI';
-$_lang['Export in IMS QTI (Shuffle)'] = 'Exporteer in IMS QTI (Shuffle)';
-$_lang['Export to HTML'] = 'Exporteer naar HTML';
-$_lang['Export to PDF'] = 'Exporteer naar PDF';
-$_lang['Export to PDF (Shuffle)'] = 'Exporteer naar PDF (Shuffle)';
-$_lang['Garbage'] = 'Prullenmand';
-$_lang['HTML in posts'] = 'HTML in posts';
-$_lang['Import CVS'] = 'Importeer CVS';
-$_lang['Length of course code suffix'] = 'achtervoegsel lengte van cursuscode ';
-$_lang['Maximum score'] = 'Maximum score';
-$_lang['Missing or invalid course access'] = 'Ontbrekende of ongeldige cursustoegang';
-$_lang['Mysql Base Path'] = 'Mysql Base Path';
-$_lang['Not Allowed !'] = 'Niet toegelaten !';
-$_lang['Not implemented, name reserved  for future version of Claroline'] = 'Niet toegepast, naam is gereserveerd voor een toekomstige versie van Claroline';
-$_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO server provides a way to retrieve the user parameters from another server on the internet on the base of this cookie value.'] = 'Van zodra een gebruiker aanlogt bij het Claroline platform wordt een cookie gestuurd naar de gebruikersbrowser als de logon slaagt. De waarde van de cookie wordt opgeslagen in een interne tabel van het Claroline platform voor een bepaalde tijd. Wanneer het gevraagd wordt levert de Claroline SSO server een manier om de gebruikersparameters vanop een andere server op het internet op basis van deze cookie waarde terug te vinden.';
-$_lang['Prefix course code beginning with number'] = 'Voorvoegsel van de cursuscode begint met nummer';
-$_lang['Prefix for empty code course'] = 'voorvoegsel voor lege cursuscode';
-$_lang['Register users to class'] = 'Schrijf gebruikers in in een klas';
-$_lang['Relative path from claroline kernel to root of admin section'] = 'Relatief pad van de Claroline kernel naar de basis van de admin sectie';
-$_lang['Relative path from claroline web to icon set'] = 'Relatief pad van de Claroline website naar het icoonset';
-$_lang['Relative path from root campus to claroline code'] = 'Relatief pad van de basiscampus naar de Claroline code';
-$_lang['Select the type for your export :'] = 'Selecteer het type voor uw exporteeropdracht :';
-$_lang['Students connected today:'] = 'Vandaag aangemelde studenten:';
-$_lang['Target'] = 'doel';
-$_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the cookie only available in the www  subdomain.'] = 'Het domein dat de cookie beschikbaar is. Om de cookie beschikbaar te maken op alle subdomeinen van example.com, dient u dit op « example.com » te zetten. De . is niet vereist maar maakt het compatibel met meerdere browsers. Door dit op www.example.com te zetten wordt de cookie enkel beschikbaar in het www subdomein.';
-$_lang['The export\'s type is not supported for the moment.'] = 'Het export type wordt momenteel niet ondersteund.';
-$_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.'] = 'Het pad op de server waarin de cookie beschikbaar is. Als dit op « / » staat zal de cookie beschikbaar zijn in het ganse domein. Als dit op « /foo/ » staat zal de cookie enkel beschikbaar zijn binnen de /foo/ directory en alle subdirectory\'s zoals /foo/bar of domein. De standaardwaarde is het huidige directory waar de cookie in geplaatst is.';
-$_lang['This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.'] = 'Dit voorvoegsel is toegevoegd aan elke cursustabel naam. Dit is nuttig in de enkelvoudige database modus daar het alle cursustabellen groepeert.';
-$_lang['This feature is use for institute with  blind users. 
- I fact, System would be ehanced to activate this view user by user'] = 'Dit kenmerk wordt gebruikt voor instituten met anonime gebruikers.  
- Eigenlijk zal het systeem verbeteren door dit beeld gebruiker voor gebruiker te activeren.';
-$_lang['This is the physical path to databases storage. This path is  optional, use by the quota and size.'] = 'dit is het fysische pad tot database opslag. Dit pad is optioneel, gebruik door quota en grootte.';
-$_lang['This string is prepend to course database name if it begins with a number'] = 'Deze reeks wordt aan de cursusdatabase naam toegevoegd als het met een nummer begint';
-$_lang['To find a table name, the choose database name is prepend to the table name.
-db glu is use between these two name.
-
-In multi db mode, IT MUST be a dot.
-In single db mode, IT CAN\'T be a dot.
-'] = 'Om een tabelnaam te vinden, is de gekozen database naam toegevoegd aan de tabelnaam.
-db glu wordt gebruikt tussen deze twee namen.
-
-In meervoudige db modus, MOET dit een punt zijn.
-In enkelvoudige db modus, KAN dit een punt zijn.
-';
-$_lang['Unable to create the archive'] = 'Niet mogelijk om het archief te creëren';
-$_lang['Unable to export your topic in HTML format.'] = 'Niet mogelijk om uw toci in html formaat te exporteren';
-$_lang['Unable to export your topic in PDF format.'] = 'Niet mogelijk om uw topic in pdf formaat te exporteren.';
-$_lang['Unable to load user information'] = 'Niet mogelijk om gebruikers informatie te laden';
-$_lang['Unenrol class'] = 'klas uitschrijven';
-$_lang['Update properties of users  on CVS import'] = 'Update gebruikersinstellingen op CVS import';
-$_lang['Update user\'properties'] = 'Update gebruikersinstellingen';
-$_lang['User can leave course code (officialCode) field empty or not'] = 'Gebruiker heeft de keuze om het cursuscode veld (officiële code) al dan niet leeg laten';
-$_lang['User id missing'] = 'Gebruikers id ontbreekt';
-$_lang['User profile %username created successfully'] = 'Creatie gebruikersprofiel %username is geslaagd';
-$_lang['User profile %username updated successfully'] = 'Update gebruikersprofiel %username geslaagd';
-$_lang['Whether include tutors in the displayed member list'] = 'Of de opleider deel uitmaakt van de getoonde deelnemerslijst';
-$_lang['db glu'] = 'db glu';
-$_lang['filename for one file module inclusion'] = 'bestandsnaam voor een ingesloten bestandsmodule';
-$_lang['on bottom'] = 'naar beneden';
-$_lang['on top'] = 'naar boven';
-$_lang['relative path from root campus to courses'] = 'relatief pad van de basiscampus naar de cursussen';
-$_lang['relative path from root web to user pic repository'] = 'relatief pad van de basiswebsite naar de gebruikers afbeeldingen opslagplaats';
-$_lang['unique id of the platform'] = 'Uniek id van het platform';
 ?>
