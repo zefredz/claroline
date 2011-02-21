@@ -2029,8 +2029,7 @@ You are registered on %siteName
     Is : %rootWeb
     In case of problems, contact us.
     Yours sincerely,
-    %administratorName
---
+
 Manager %administratorName
 T. %administratorPhone
 Email : %administratorEmail
@@ -2173,9 +2172,7 @@ The address of  the course is :
 In case of problems, contact us.
 
 Yours sincerely,
-%administratorName
 
---
 Manager : %administratorName
 Phone : %administratorPhone
 Email : %administratorEmail

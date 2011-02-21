@@ -2028,8 +2028,7 @@ Vous êtes à présent inscrit(e) sur %siteName
     L\'adresse de %siteName est %rootWeb
     En cas de problème, n\'hésitez pas à nous contacter.
     Cordialement,
-    %administratorName
---
+
 Administrateur(s) : %administratorName
 Tel : %administratorPhone
 E-mail : %administratorEmail';
@@ -2189,9 +2188,7 @@ L\'adresse du cours est :
 En cas de problème n\'hésitez pas à nous contacter.
 
 Cordialement,
-%administratorName
 
---
 Administrateur(s) : %administratorName
 Tel : %administratorPhone
 E-mail : %administratorEmail';
