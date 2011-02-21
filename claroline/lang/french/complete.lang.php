@@ -2050,11 +2050,11 @@ Vous êtes à présent inscrit(e) sur %siteName
     L\'adresse de %siteName est %rootWeb
     En cas de problème, n\'hésitez pas à nous contacter.
     Cordialement,
-    %administratorName
---
+
 Administrateur(s) : %administratorName
 Tel : %administratorPhone
-E-mail : %administratorEmail';
+E-mail : %administratorEmail
+';
 $_lang['blockAssignmentsHelp'] = '<p>L\'outil Travaux permet aux étudiants de poster un fichier qu\'ils jugent intéressant pour les autres membres du cours ou qu\'un gestionnaire de cours leur a demandé de lui envoyer. Cet outil peut être utilisé de différentes manières, selon la façon dont le gestionnaire de cours l\'a configuré.</p>
 <p>Plusieurs sessions de travaux peuvent exister simultanément, avec pour chacune des objectifs et des contraintes différentes. Un travail peut être un fichier, un texte ou un texte accompagné d\'un fichier. Un travail peut également être posté à titre individuel ou au nom d\'un groupe d\'utilisateurs.</p>
 
@@ -2211,12 +2211,11 @@ L\'adresse du cours est :
 En cas de problème n\'hésitez pas à nous contacter.
 
 Cordialement,
-%administratorName
 
---
 Administrateur(s) : %administratorName
 Tel : %administratorPhone
-E-mail : %administratorEmail';
+E-mail : %administratorEmail
+';
 $_lang['blockDefaultLearningPathComment'] = 'Ceci est le texte d\'introduction du parcours pédagogique. Pour le remplacer par votre propre texte, cliquez ci-dessous sur <b>modifier</b>.';
 $_lang['blockDefaultModuleAddedComment'] = 'Ceci est un texte additionnel de présentation du module. Il est spécifique à ce parcours pédagogique. Pour le remplacer par votre propre texte, cliquez sur <b>Modifier</b> ci-dessous.';
 $_lang['blockDefaultModuleComment'] = 'Ceci est un texte de présentation module, il apparaîtra dans chaque parcours contenant ce module. Pour le remplacer par votre propre texte, cliquez sur <b>Modifier</b> ci-dessous.';
@@ -3052,4 +3051,5 @@ $_lang['Visibility options'] = 'Options de visibilité';
 $_lang['Visible from'] = 'Visible à partir de';
 $_lang['Visible until'] = 'Visible jusqu\'à';
 $_lang['You cannot delete a category having sub categories'] = 'Vous ne pouvez pas supprimer une catégorie possédant des sous-catégories';
+$_lang['User created by '] = 'Utilisateur créé par ';
 ?>

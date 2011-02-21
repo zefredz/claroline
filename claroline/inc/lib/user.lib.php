@@ -438,7 +438,7 @@ function user_set_platform_admin($status, $userId)
  * @return boolean
  */
 
-function user_send_registration_mail ($userId, $data)
+function user_send_registration_mail ($userId, $data, $courseCode = null)
 {
     require_once dirname(__FILE__) . '/../../inc/lib/sendmail.lib.php';
     
@@ -463,6 +463,21 @@ function user_send_registration_mail ($userId, $data)
         '%administratorEmail'=> get_conf('administrator_email')
         )
         );
+
+                // add information about course manager if user created in course
+        if (isset($courseCode))
+        {
+            $courseData = claro_get_course_data($courseCode);
+            $emailBody .=
+                    get_lang('User created by ')
+                    . ' - ' . $courseData['titular']
+                    . ' - ' . $courseData['email']
+                    . ' ( ' . $courseData['officialCode']
+                    . ' - ' . $courseData['name']
+                    . ' )'
+            ;
+
+        }
 
         if ( claro_mail_user($userId, $emailBody, $emailSubject) ) return true;
         else                                                       return false;

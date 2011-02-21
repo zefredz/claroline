@@ -2035,12 +2035,11 @@ You are registered on %siteName
     Is : %rootWeb
     In case of problems, contact us.
     Yours sincerely,
-    %administratorName
---
+
 Manager %administratorName
 T. %administratorPhone
 Email : %administratorEmail
-    ';
+';
 $_lang['blockAssignmentsHelp'] = '<p>
 Assignment tool is a publication area for students. The course manager creates one or several assignment ( different zones of publication ) where the students will be able to publish their work.<br /><br />
 Each assignment can have different objectives or requirements : publication must be a file, or a text or a text and a file, publication can be made for a groupe instead of for a single user,...<br /><br />
@@ -2179,9 +2178,7 @@ The address of  the course is :
 In case of problems, contact us.
 
 Yours sincerely,
-%administratorName
 
---
 Manager : %administratorName
 Phone : %administratorPhone
 Email : %administratorEmail
@@ -3019,5 +3016,5 @@ $_lang['This topic is now locked'] = 'This topic is now locked';
 $_lang['This topic is now open to new contributions'] = 'This topic is now open to new contributions';
 $_lang['Topic title changed successfully'] = 'Topic title changed successfully';
 $_lang['You are not allowed to access this forum'] = 'You are not allowed to access this forum';
-
+$_lang['User created by '] = 'User created by ';
 ?>
