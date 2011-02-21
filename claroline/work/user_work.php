@@ -682,7 +682,7 @@ if($is_allowedToEditAll)
                     . '<a href="'.$url.'">' . $submission->getTitle() .'</a>' . "\n"
                     ;
                     
-                    $message = new PlatformMessageToSend( $subject,$body );
+                    $message = new MessageToSend( claro_get_current_user_id(),$subject,$body );
                     
                     // TODO use official code everywhere : $message->setCourse(claro_get_current_course_data('officialCode'));
                     $message->setCourse(claro_get_current_course_id());
@@ -896,7 +896,7 @@ if( $is_allowedToSubmit )
                     . '<a href="'.$url.'">' . $wrkForm['wrkTitle'] .'</a>' . "\n"
                     ;
 
-                    $message = new PlatformMessageToSend( $subject,$body );
+                    $message = new MessageToSend( claro_get_current_user_id(),$subject,$body );
                     // TODO use official code everywhere : $message->setCourse(claro_get_current_course_data('officialCode'));
                     $message->setCourse(claro_get_current_course_id());
                     $message->setTools('CLWRK');
