@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['*.inc.php'] = '*.inc.php';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! Grootte van cursus backup (claroline en vuilnis in oude systemen inbegrepen)';
 $_lang['1 user connected'] = '1 gebruiker online';
@@ -2081,9 +2081,9 @@ Je bent nu geregistreerd op %siteName
     Login naam:  %username
     Wachtwoord: %password
     Het adres van %siteName is: %rootWeb
-
+    
 Zijn er vragen of problemen, neem dan gerust contact op.
-
+    
     Met vriendelijke groeten,
     %administratorName
 
@@ -2318,7 +2318,7 @@ Geef een gewicht aan elk goed koppel, daarna kun je je vraag bewaren.</p>
 <p>Om een oefening zichtbaar of onzichtbaar te maken voor cursisten, klik je op het oog in de kolom \'zichtbaarheid\'.</p>
 <hr />
 <b>Oefening exporteren</b>
-<p>Door op \'exporteren\' te klikken start je een download van de oefening.
+<p>Door op \'exporteren\' te klikken start je een download van de oefening. 
 <hr />
 <b>Oefening testen</b>
 <p>Je kunt een oefening testen door op haar naam te klikken in de oefeningenlijst.</p>
@@ -2339,7 +2339,7 @@ Bijvoorbeeld: kies de naam van een oefening uit het uitschuifmenu en dan zie je 
 <br /><br />
 Je kunt ook de \'wees\' vragen tonen; dit zijn vragen die niet behoren tot een oefening.</p>';
 $_lang['blockFeedbackHelp'] = 'Commentaar is optioneel. Je kunt er bijvoorbeeld de juiste uitwerking van de taak weergeven. Als er tekst toegevoegd wordt, zal die aan de gebruikers getoond worden volgens de \'toon commentaar\' configuratie.';
-$_lang['blockForumsHelp'] = 'Het forum is een leermiddel waarin gesprekken in de vorm van geschreven, asynchrone tekst kunnen worden gevoerd. Een forum verschilt van e-mails, omdat het gesprek plaats vindt in een openbare of semi-openbare ruimte, waarin in principe een onbeperkt aantal mensen actief kan zijn.</p><p>Om het forum van Claroline te gebruiken, is alleen de internet browser nodig (Netscape, Explorer...), en geen e-mailprogramma (Eudora, Outlook, Safari...).</p><p>Om de forums te organiseren, moet je op \'beheren\' klikken.
+$_lang['blockForumsHelp'] = 'Het forum is een leermiddel waarin gesprekken in de vorm van geschreven, asynchrone tekst kunnen worden gevoerd. Een forum verschilt van e-mails, omdat het gesprek plaats vindt in een openbare of semi-openbare ruimte, waarin in principe een onbeperkt aantal mensen actief kan zijn.</p><p>Om het forum van Claroline te gebruiken, is alleen de internet browser nodig (Netscape, Explorer...), en geen e-mailprogramma (Eudora, Outlook, Safari...).</p><p>Om de forums te organiseren, moet je op \'beheren\' klikken. 
 De berichten zijn hiërarchisch georganiseerd:<b>Categorie > Forum > Onderwerp > Antwoord</b>.</p><p>Het is aan te raden om het forum, voor activering, te organiseren in categorieën en forums, zodat de deelnemers aan het forum op een gestructureerde wijze kunnen posten. De deelnemers zelf zijn verantwoordelijk voor de onderwerpen en de antwoorden.</p>
 <p>Je kunt forums toevoegen in de hoofdcategorie, of de titel wijzigen, of andere categorieën aanmaken waarin je nieuwe forums plaatst.<p></p>Een categorie zonder forum zal niet verschijnen en is niet bruikbaar.<p></p>Als je bijvoorbeeld een categorie \'gesprekken in kleine groepen\' aanmaakt, dan zul je een aantal forums moeten aanmaken in deze tweede categorie, zoals bijvoorbeeld \'groep 1\', \'groep 2\', \'groep 3\', enz.</p>';
 $_lang['blockGroupsHelp'] = '<p><b>Inleiding</b></p>
