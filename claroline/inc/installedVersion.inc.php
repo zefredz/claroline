@@ -30,7 +30,7 @@ $is_upgrade_available = true;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.9.7';
+$new_version = '1.9.8';
 $new_version_branch = '1.9';
 
 if (!$is_upgrade_available)
