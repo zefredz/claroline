@@ -441,7 +441,7 @@ function render_course_in_dl_list($course, $hot = false, $displayIconAccess = tr
     
     // Display course's manager email
     $managerString = (isset($course['email']) && claro_is_user_authenticated()) ?
-        ('<a href="mailto:' . $course['email'] . '">' . $managerString . '</a>') :
+        ('<a href="mailto:' . $course['email'] . '">' . $course['titular'] . '</a>') :
         (htmlspecialchars( $course['titular'] . $courseLanguageTxt ));
     
     // Don't give a link to the course if the user is in pending state
