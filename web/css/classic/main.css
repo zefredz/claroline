@@ -61,11 +61,8 @@ label {
 
 input, textarea, button, select {
     border: 1px solid #aaa;
+    background: none;
     color: #369;
-}
-
-select {
-    min-width: 150px;
 }
 
 input[type=submit], input[type=reset], input[type=button], button {
@@ -164,6 +161,12 @@ input.checkbox {
     background: #fff;
 }
 
+/* Redirector field */
+#redirector select {
+    background: none;
+    border: 1px solid #EEE;
+}
+
 
 /******************************************************************************
                         CLAROLINE PAGE
@@ -206,9 +209,11 @@ input.checkbox {
 }
 
 
-#platformBanner #siteName {
+#platformBanner #siteName a {
     letter-spacing: 3px;
     font-size: 1.3em;
+    font-weight: 900;
+    text-shadow: 0px 0px 9px #000; 
 }
 
 #platformBanner #institution {

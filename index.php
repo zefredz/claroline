@@ -5,7 +5,7 @@
  * Campus Home Page
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLINDEX
  * @author      Claro Team <cvs@claroline.net>
@@ -14,12 +14,11 @@
 unset($includePath); // prevent hacking
 
 // Flag forcing the 'current course' reset, as we're not anymore inside a course
+$cidReset = true;
+$tidReset = true;
+$_SESSION['courseSessionCode'] = null;
 
-$cidReset = TRUE;
-$tidReset = TRUE;
-
-// Include Library and configuration file
-
+// Include Library and configuration files
 require './claroline/inc/claro_init_global.inc.php'; // main init
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
@@ -31,15 +30,78 @@ else
 {
     require_once get_path('incRepositorySys') . '/lib/courselist.lib.php';
     
+    // Category browser
     $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
-    $categoryBrowser    = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
+    $categoryBrowser = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
     $templateCategoryBrowser = $categoryBrowser->getTemplate();
     
+    // User course (activated and deactivated) lists
+    $userCourseList = render_user_course_list();
+    $userCourseListDesactivated = render_user_course_list_desactivated();
+    
+    $templateMyCourses = new CoreTemplate('mycourses.tpl.php');
+    $templateMyCourses->assign('userCourseList', $userCourseList);
+    $templateMyCourses->assign('userCourseListDesactivated', $userCourseListDesactivated);
+    
+    // User commands
+    $userCommands = array();
+    
+    if (claro_is_user_authenticated())
+    {
+        $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="claroCmd">'
+                        . '<img src="' . get_icon_url('mycourses') . '" alt="" /> '
+                        . get_lang('My course list')
+                        . '</a>' . "\n";
+        
+        // 'Create Course Site' command. Only available for teacher.
+        if (claro_is_allowed_to_create_course())
+        {
+            $userCommands[] = '<a href="claroline/course/create.php" class="claroCmd">'
+                            . '<img src="' . get_icon_url('courseadd') . '" alt="" /> '
+                            . get_lang('Create a course site')
+                            . '</a>' . "\n";
+        }
+        elseif ( $GLOBALS['currentUser']->isCourseCreator )
+        {
+            $userCommands[] = '<span class="claroCmdDisabled">'
+                            . '<img src="' . get_icon_url('courseadd') . '" alt="" /> '
+                            . get_lang('Create a course site')
+                            . '</span>' . "\n";
+        }
+        
+        if (get_conf('allowToSelfEnroll',true))
+        {
+            $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqReg&amp;categoryId=0" class="claroCmd">'
+                            . '<img src="' . get_icon_url('enroll') . '" alt="" /> '
+                            . get_lang('Enrol on a new course')
+                            . '</a>' . "\n";
+            
+            $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqUnreg" class="claroCmd">'
+                            . '<img src="' . get_icon_url('unenroll') . '" alt="" /> '
+                            . get_lang('Remove course enrolment')
+                            . '</a>' . "\n";
+        }
+        
+        $userCommands[] = '<a href="claroline/course/platform_courses.php" class="claroCmd">'
+                        . '<img src="' . get_icon_url('course') . '" alt="" /> '
+                        . get_lang('All platform courses')
+                        . '</a>' . "\n";
+    }
+    
+    // Last user action
+    $lastUserAction = ($_SESSION['last_action'] != '1970-01-01 00:00:00') ?
+        $_SESSION['last_action'] :
+        date('Y-m-d H:i:s');
+    
+    // Main template
     $template = new CoreTemplate('platform_index.tpl.php');
     $template->assign('templateCategoryBrowser', $templateCategoryBrowser);
+    $template->assign('templateMyCourses', $templateMyCourses);
+    $template->assign('userCommands', $userCommands);
+    $template->assign('lastUserAction', $lastUserAction);
     
     $claroline->display->body->setContent($template->render());
-
+    
     if (!(isset($_REQUEST['logout']) && isset($_SESSION['isVirtualUser'])))
     {
         echo $claroline->display->render();

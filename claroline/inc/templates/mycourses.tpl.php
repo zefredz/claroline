@@ -43,11 +43,11 @@
     });
 </script>
 
+<div id="myCourseList">
 <?php
-
+//Display activated courses list
 echo claro_html_tool_title(get_lang('My course list'));
 
-//Display activated courses list
 if( !empty( $this->userCourseList ) ) :
     echo $this->userCourseList; // Comes from render_user_course_list();
 
@@ -64,5 +64,5 @@ if ( !empty( $this->userCourseListDesactivated ) ) :
     echo claro_html_tool_title(get_lang('Deactivated course list'));
     echo $this->userCourseListDesactivated; // Comes from render_user_course_list_desactivated();
 endif;
-
 ?>
+</div>
