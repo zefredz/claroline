@@ -4,16 +4,11 @@
  *
  * Prupose list of course to enroll or leave
  *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package AUTH
- *
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     AUTH
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -21,7 +16,7 @@ require '../inc/claro_init_global.inc.php';
 require_once get_path('incRepositorySys').'/lib/courselist.lib.php';
 
 $nameTools  = get_lang('User\'s course');
-$noPHP_SELF = TRUE;
+$noPHP_SELF = true;
 
 /*---------------------------------------------------------------------
 Security Check
@@ -99,7 +94,7 @@ else
         && !empty($uidToEdit)
         )
     {
-        $userSettingMode = TRUE;
+        $userSettingMode = true;
     }
     
     if ( !empty($fromAdmin) ) $inURL    .= '&amp;fromAdmin=' . $_REQUEST['fromAdmin'];
@@ -334,6 +329,7 @@ User course list to unregister
 if ( $cmd == 'rqUnreg' )
 {
     $coursesList = get_user_course_list($userId);
+    $inactiveCourseList = get_user_course_list_desactivated($userId);
     $displayMode = DISPLAY_USER_COURSES;
 } // end if ($cmd == 'rqUnreg')
 
@@ -758,6 +754,62 @@ switch ( $displayMode )
                 ;
             } // foreach $coursesList as $thisCourse
 
+            $out .= '</table>' . "\n"
+            .    '</blockquote>' . "\n"
+            ;
+        }
+        
+        $is_allowedToUnregisterFromInactive =
+            get_conf('crslist_UserCanUnregFromInactiveCourses', false)
+            || claro_is_platform_admin();
+        
+        if ( count($inactiveCourseList) > 0 )
+        {
+            $out .= '<blockquote>' . "\n"
+            .    claro_html_tool_title(get_lang('Deactivated course list'))
+            .    '<table class="claroTable">' . "\n"
+            ;
+            
+            foreach ($inactiveCourseList as $thisCourse)
+            {
+                $out .= '<tr>' . "\n"
+                .    '<td>' . "\n"
+                .    $thisCourse['title'] . '<br />' . "\n"
+                .    '<small>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['titular'] . '</small>'
+                .    '</td>' . "\n"
+                .    '<td>' . "\n"
+                ;
+                
+                if ( $thisCourse['isCourseManager'] != 1 && $is_allowedToUnregisterFromInactive )
+                {
+                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnreg&amp;course=' . $thisCourse['sysCode'] . $inURL . '"'
+                    .    ' onclick="javascript:if(!confirm(\''
+                    .    clean_str_for_javascript(get_lang('Are you sure you want to remove this course from your list ?'))
+                    .    '\')) return false;">' . "\n"
+                    .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unsubscribe') . '" />' . "\n"
+                    .    '</a>' . "\n"
+                    ;
+                }
+                else
+                {
+                    if ( $thisCourse['isCourseManager'] == 1 )
+                    {
+                        $out .= '<span class="highlight">'
+                        .    get_lang('Course manager')
+                        .    '</span>' . "\n"
+                        ;
+                    }
+                    else
+                    {
+                        $out .= "-\n";
+                    }
+                }
+                
+                $out .= '</td>' . "\n"
+                .    '</tr>' . "\n"
+                ;
+            } // foreach $courseList as $thisCourse
+            
             $out .= '</table>' . "\n"
             .    '</blockquote>' . "\n"
             ;

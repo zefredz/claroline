@@ -114,7 +114,8 @@ array (
        'crslist_DisplayPendingToAllUsers',
        'crslist_DisplayDisableToAllUsers',
        'crslist_DisplayUnpublishedToAllUsers',
-       'crslist_DisplayExpiredToAllUsers'
+       'crslist_DisplayExpiredToAllUsers',
+       'crslist_UserCanUnregFromInactiveCourses'
       );
 
 $conf_def['section']['ADVANCED']['label']='Advanced settings';
@@ -747,6 +748,16 @@ array ( 'description' => 'Choose the mode for URL for file download. Warning : P
 
 $conf_def_property_list['crslist_DisplayPendingToAllUsers'] =
 array ('label'       => 'Display pending courses in members\' course list'
+      ,'description' => ''
+      ,'default'     => FALSE
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );
+
+$conf_def_property_list['crslist_UserCanUnregFromInactiveCourses'] =
+array ('label'       => 'Allow users to unregister from inactive, pending, expired or unpublished courses'
       ,'description' => ''
       ,'default'     => FALSE
       ,'type'        => 'boolean'
