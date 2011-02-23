@@ -311,9 +311,7 @@ $out .= '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 * session_register("forumId");
 */
 
-.   claro_html_menu_vertical_br($toolLinkList)
-.   '<br /><br />' . "\n"
-;
+.   claro_html_list($toolLinkList) . "\n";
 
 if ($is_allowedToManage)
 {
@@ -423,7 +421,7 @@ if(count($groupMemberList) > 0)
         .    '</a>';
         
         if(current_user_is_allowed_to_send_message_to_user($thisGroupMember['id']))
-        {        
+        {
             $out .= ' - <a href="'
                 . htmlspecialchars(Url::Contextualize(
                     '../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId=' . (int) $thisGroupMember['id'] ))
