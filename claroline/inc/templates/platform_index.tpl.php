@@ -47,32 +47,23 @@
     if ( claro_is_user_authenticated() ) :
         ?>
         
-        <div id="userCommands">
-            <p><?php echo claro_html_menu_horizontal( $this->userCommands ); ?></p>
-        </div>
+        <table class="homepageTable">
+          <tr>
+          
+            <td class="userCommands">
+                <?php echo claro_html_tool_title(get_lang('User commands')); ?>
+                <?php echo claro_html_list( $this->userCommands ); ?>
+            </td>
+            <td class="myCourseList">
+                <?php echo claro_html_tool_title(get_lang('My course list')); ?>
+                <?php echo $this->templateMyCourses->render(); ?>
+            </td>
+          
+          </tr>
+        </table>
         
         <?php
-        // User course (activated and deactivated) lists
-        echo $this->templateMyCourses->render();
-        ?>
-        
-        <fieldset class="captionBlock">
-            <img class="iconDefinitionList" src="<?php  echo get_icon_url('hot'); ?>" alt="<?php echo get_lang('New items'); ?>" />
-            <?php echo get_lang('New items'); ?>
-            (<a href="<?php echo htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')); ?>"><?php echo get_lang('to another date'); ?></a>)
-            <?php
-            if (substr($this->lastUserAction, strlen($this->lastUserAction) - 8) == '00:00:00' ) :
-                echo ' ['
-                   . claro_html_localised_date(
-                        get_locale('dateFormatNumeric'),
-                        strtotime($this->lastUserAction))
-                   . ']';
-            endif;
-            ?>
-        </fieldset>
-        
-        <?php
-        
+    
     else :
         if ( ! get_conf('course_categories_hidden_to_anonymous',false) ) :
             echo $this->templateCategoryBrowser->render();

@@ -947,7 +947,7 @@ class ClaroCourse
                 . '</label>'
                 . '</dt>'
                 . '<dd>'
-                . '<table>'
+                . '<table class="categoriesSelection">'
                 . '<tr>'
                 . '<td>'
                 . '<label for="mslist1">' . get_lang('Linked categories') . '</label><br/>'
@@ -955,7 +955,7 @@ class ClaroCourse
                 . $linkedCategoriesListHtml
                 . '</select>'
                 . '</td>'
-                . '<td>'
+                . '<td class="arrows">'
                 . '<a href="#" class="msadd"><img src="'.get_icon_url('go_right').'" /></a>'
                 . '</input><br/><br/>'
                 . '<a href="#" class="msremove"><img src="'.get_icon_url('go_left').'" /></a>'

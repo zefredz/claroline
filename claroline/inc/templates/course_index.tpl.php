@@ -2,7 +2,7 @@
 
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
-<table id="courseTable">
+<table class="courseTable">
 <tr>
 <td class="toolList">
     <?php
@@ -12,16 +12,16 @@
         && !empty($this->toolLinkListSession) )
     {
         echo '<div class="sourceToolPanel"><h3>' . get_lang('Course') . '</h3>';
-        echo claro_html_menu_vertical_br($this->toolLinkListSource, array('id'=>'commonToolListSource'));
+        echo claro_html_list($this->toolLinkListSource, array('id'=>'commonToolListSource'));
         echo '</div>';
         echo '<div class="sessionToolPanel"><h3>' . get_lang('Session') . '</h3>';
-        echo claro_html_menu_vertical_br($this->toolLinkListSession, array('id'=>'commonToolListSession'));
+        echo claro_html_list($this->toolLinkListSession, array('id'=>'commonToolListSession'));
         echo '</div>';
     }
     
     if (is_array($this->toolLinkListStandAlone))
     {
-        echo claro_html_menu_vertical_br($this->toolLinkListStandAlone, array('id'=>'commonToolListStandAlone'));
+        echo claro_html_list($this->toolLinkListStandAlone, array('id'=>'commonToolListStandAlone'));
     }
     ?>
     
@@ -29,7 +29,7 @@
     
     <?php
     if ( claro_is_allowed_to_edit() ) :
-        echo claro_html_menu_vertical_br($this->courseManageToolLinkList,  array('id'=>'courseManageToolList'));
+        echo claro_html_list($this->courseManageToolLinkList,  array('id'=>'courseManageToolList'));
     endif;
     ?>
     
@@ -64,10 +64,6 @@
     </span>
     
     <?php endif; ?>
-</td>
-
-<td width="20">
-    &nbsp;
 </td>
 
 <td class="coursePortletList">
