@@ -539,13 +539,14 @@ function render_user_course_list_desactivated()
             }
             
             $url = get_path('url') . '/claroline/course/index.php?cid='
-                 .    htmlspecialchars($course['sysCode']) ;
+                 . htmlspecialchars($course['sysCode']) ;
             
             $urlSettings = Url::Contextualize( get_path('url') . '/claroline/course/settings.php?cidReq='
                          . htmlspecialchars($course['sysCode']. '&cmd=exEnable') ) ;
             
             $out .= '<dt>' . "\n"
-                  . '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="Icon URL" /> ';
+                  . '<img class="iconDefinitionList" src="' . get_icon_url('course_deactivated')
+                  . '" alt="'.get_lang('Course deactivated').'" /> ';
             
             if ( $course['status']=='pending' )
             {
