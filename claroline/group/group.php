@@ -452,6 +452,11 @@ if (DISP_GROUP_LIST == $display )
           LEFT JOIN `" . $tbl_GroupsUsers . "` `ug2`
           ON `ug2`.`team` = `g`.`id`
 
+          # Limitation aux inscrits du cours
+          INNER JOIN `" . $tbl_CoursUsers . "` AS `cu` ON `cu`.user_id = `ug2`.`user`
+
+          WHERE `cu`.`code_cours` = '" . $currentCourseId ."'
+
           GROUP BY `g`.`id`";
 
     $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
