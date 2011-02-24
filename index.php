@@ -30,10 +30,17 @@ else
 {
     require_once get_path('incRepositorySys') . '/lib/courselist.lib.php';
     
+    
+    // Main template
+    $template = new CoreTemplate('platform_index.tpl.php');
+    
+    
     // Category browser
     $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
     $categoryBrowser = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
     $templateCategoryBrowser = $categoryBrowser->getTemplate();
+    
+    $template->assign('templateCategoryBrowser', $templateCategoryBrowser);
     
     // User course (activated and deactivated) lists
     $userCourseList = render_user_course_list();
@@ -43,16 +50,20 @@ else
     $templateMyCourses->assign('userCourseList', $userCourseList);
     $templateMyCourses->assign('userCourseListDesactivated', $userCourseListDesactivated);
     
+    $template->assign('templateMyCourses', $templateMyCourses);
+    
     // Last user action
     $lastUserAction = ($_SESSION['last_action'] != '1970-01-01 00:00:00') ?
         $_SESSION['last_action'] :
         date('Y-m-d H:i:s');
     
+    $template->assign('lastUserAction', $lastUserAction);
     
-    $userCommands = array();
     
     if (claro_is_user_authenticated())
     {
+        $userCommands = array();
+        
         // User commands
         $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="userCommandsItem">'
                         . '<img src="' . get_icon_url('mycourses') . '" alt="" /> '
@@ -104,19 +115,16 @@ else
                             (''))
                         . '</a>' . "\n";
         
+        $template->assign('userCommands', $userCommands);
+        
         // User profilebox
         FromKernel::uses('display/userprofilebox.lib');
         $userProfileBox = new UserProfileBox(true);
+        
+        $template->assign('userProfileBox', $userProfileBox);
     }
     
-    // Main template
-    $template = new CoreTemplate('platform_index.tpl.php');
-    $template->assign('templateCategoryBrowser', $templateCategoryBrowser);
-    $template->assign('templateMyCourses', $templateMyCourses);
-    $template->assign('userCommands', $userCommands);
-    $template->assign('lastUserAction', $lastUserAction);
-    $template->assign('userProfileBox', $userProfileBox);
-    
+    // Render
     $claroline->display->body->setContent($template->render());
     
     if (!(isset($_REQUEST['logout']) && isset($_SESSION['isVirtualUser'])))
