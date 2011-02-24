@@ -1,16 +1,12 @@
 <?php // $Id$
 /**
  * CLAROLINE
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package ADMIN
- *
- * @author claro team <cvs@claroline.net>
- * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     ADMIN
+ * @author      claro team <cvs@claroline.net>
+ * @author      Dimitri Rambout <dimitri.rambout@uclouvain.be>
  */
 
 $cidReset=true;
@@ -99,33 +95,33 @@ $out .= '<table cellspacing="5" align="center">' . "\n"
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_icon_url('user') . '" alt="" />&nbsp;'.get_lang('Users'))
-.    claro_html_menu_vertical($menu['AdminUser'])
+.    claro_html_list($menu['AdminUser'], array('class' => 'adminUser'))
 .    '</td>' . "\n"
 .    '<td nowrap="nowrap">'
 .    claro_html_tool_title('<img src="' . get_icon_url('course') . '" alt="" />&nbsp;'.get_lang('Courses'))
-.    claro_html_menu_vertical($menu['AdminCourse']) . "\n"
+.    claro_html_list($menu['AdminCourse'], array('class' => 'adminCourse')) . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_icon_url('settings') . '" alt="" />&nbsp;'.get_lang('Platform')) . "\n"
-.    claro_html_menu_vertical($menu['AdminPlatform']) . "\n"
+.    claro_html_list($menu['AdminPlatform'], array('class' => 'adminPlatform')) . "\n"
 .    '</td>' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_icon_url('claroline') . '" alt="" />&nbsp;Claroline.net')
-.    claro_html_menu_vertical($menu['AdminClaroline'])
+.    claro_html_list($menu['AdminClaroline'], array('class' => 'adminClaroline'))
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Tools'))
-.    claro_html_menu_vertical($menu['AdminTechnical'])
+.    claro_html_list($menu['AdminTechnical'], array('class' => 'adminTechnical'))
 .    '</td>' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_icon_url('mail_close') . '" alt="" />&nbsp;'.get_lang('Communication'))
-.    claro_html_menu_vertical($menu['Communication'])
+.    claro_html_list($menu['Communication'], array('class' => 'adminCommunication'))
 .    '</td>' . "\n"
 .    '</tr>'
 ;
@@ -136,7 +132,7 @@ if( !empty($menu['ExtraTools']) )
     $out .= '<tr valign="top">' . "\n"
     .    '<td nowrap="nowrap">' . "\n"
     .    claro_html_tool_title('<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Administration tools'))
-    .    claro_html_menu_vertical($menu['ExtraTools'])
+    .    claro_html_list($menu['ExtraTools'], array('class' => 'adminExtraTools'))
     .    '</td>' . "\n"
     .    '<td nowrap="nowrap">' . "\n"
     .    '&nbsp;'

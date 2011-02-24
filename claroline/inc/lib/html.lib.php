@@ -20,46 +20,8 @@ if ( count( get_included_files() ) == 1 )
 
 
 /**
- * Display a item list as vertical menu.
- *
- * @param array $itemList each item are include in a list.
- *
- * @return string html
- */
-function claro_html_menu_vertical($itemList, $attrBloc=array(),$attrItem=array())
-{
-    $classBlocAttr = '';
-    $otherBlocAttrString = '';
-    foreach ($attrBloc as $attrName => $attrValue)
-    {
-        if ('class' == $attrName) $classBlocAttr = ' ' . trim($attrValue);
-        else $otherBlocAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
-    }
-    $itemAttrString = '';
-    foreach ($attrItem as $attrName => $attrValue) $itemAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
-
-    if (! empty($itemList) && is_array($itemList))
-    {
-        $htmlStream = '<ul class="menu vmenu ' . $classBlocAttr . '" ' . $otherBlocAttrString . '>' . "\n";
-        foreach($itemList as $item )
-        {
-            $htmlStream .= '<li' . $itemAttrString . '>' . "\n"
-                         . $item
-                         . '</li>' . "\n";
-        }
-        $htmlStream .= '</ul>' . "\n";
-    }
-    else
-    {
-        $htmlStream = '';
-    }
-    
-    return $htmlStream;
-}
-
-
-/**
-* Return an HTML item list (<ul>)
+* Return an HTML item list (<ul>).
+* Add CSS classes or other attributes through the $attrBloc array.
 *
 * @param array $itemList
 * @param array $attrBloc

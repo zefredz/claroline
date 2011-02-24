@@ -151,7 +151,7 @@ $out .= claro_html_tool_title( array('mainTitle'=>$nameTools ) )
 
 if ( $display == DISP_REGISTRATION_SUCCEED )
 {
-    $out .= claro_html_menu_vertical($newUserMenu);
+    $out .= claro_html_list($newUserMenu);
 }
 else // $display == DISP_REGISTRATION_FORM;
 
