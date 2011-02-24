@@ -6,10 +6,8 @@
     
     <?php
     if ( claro_is_user_authenticated() ) :
-        FromKernel::uses('display/userprofilebox.lib');
-        
-        $userProfileBox = new UserProfileBox(true);
-        echo $userProfileBox->render();
+        // Display user profilebox
+        echo $this->userProfileBox->render();
         
     else :
         // Display preferred language form
@@ -38,13 +36,13 @@
     
     // Home page presentation texts
     if( claro_is_user_authenticated() ) :
-        include_textzone( 'textzone_top.authenticated.inc.html' );
+        include_textzone('textzone_top.authenticated.inc.html');
     else :
-        include_textzone( 'textzone_top.anonymous.inc.html' );
+        include_textzone('textzone_top.anonymous.inc.html');
     endif;
     
     
-    if ( claro_is_user_authenticated() ) :
+    if (claro_is_user_authenticated()) :
         ?>
         
         <table class="homepageTable">
@@ -65,7 +63,7 @@
         <?php
     
     else :
-        if ( ! get_conf('course_categories_hidden_to_anonymous',false) ) :
+        if (!get_conf('course_categories_hidden_to_anonymous',false)) :
             echo $this->templateCategoryBrowser->render();
         endif;
     endif;

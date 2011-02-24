@@ -48,11 +48,12 @@ else
         $_SESSION['last_action'] :
         date('Y-m-d H:i:s');
     
-    // User commands
+    
     $userCommands = array();
     
     if (claro_is_user_authenticated())
     {
+        // User commands
         $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="userCommandsItem">'
                         . '<img src="' . get_icon_url('mycourses') . '" alt="" /> '
                         . get_lang('My course list')
@@ -91,7 +92,7 @@ else
                         . '<img src="' . get_icon_url('course') . '" alt="" /> '
                         . get_lang('All platform courses')
                         . '</a>' . "\n";
-    
+        
         $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'" class="userCommandsItem">'
                         . '<img class="iconDefinitionList" src="'.get_icon_url('hot').'" alt="'.get_lang('New items').'" />'
                         . ' '.get_lang('New items').' '
@@ -102,6 +103,10 @@ else
                                 strtotime($lastUserAction)).']') :
                             (''))
                         . '</a>' . "\n";
+        
+        // User profilebox
+        FromKernel::uses('display/userprofilebox.lib');
+        $userProfileBox = new UserProfileBox(true);
     }
     
     // Main template
@@ -110,6 +115,7 @@ else
     $template->assign('templateMyCourses', $templateMyCourses);
     $template->assign('userCommands', $userCommands);
     $template->assign('lastUserAction', $lastUserAction);
+    $template->assign('userProfileBox', $userProfileBox);
     
     $claroline->display->body->setContent($template->render());
     

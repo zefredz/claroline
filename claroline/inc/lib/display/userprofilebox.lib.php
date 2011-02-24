@@ -8,10 +8,9 @@ FromKernel::uses('user.lib');
 * CLAROLINE
 *
 * User account summary
-* TODO : Merge with user account display in tracking and move to inc/lib
 *
 * @version      1.9 $Revision$
-* @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+* @copyright    (c) 2001-2010, Universite catholique de Louvain (UCL)
 * @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
 * @package      DESKTOP
 * @author       Claroline team <info@claroline.net>
@@ -20,9 +19,9 @@ FromKernel::uses('user.lib');
 
 class UserProfileBox implements Display
 {
-
     protected $condensedMode;
     protected $userId;
+    
     
     public function __construct( $condensedMode = false )
     {
@@ -30,20 +29,24 @@ class UserProfileBox implements Display
         $this->userId = claro_get_current_user_id();
     }
     
+    
     public function setUserId( $userId )
     {
         $this->userId = (int) $userId;
     }
-
-    // render content
+    
+    
+    /**
+     * Render content
+     */
     public function render()
     {
         CssLoader::getInstance()->load( 'profile', 'all' );
-        
         load_kernel_config('user_profile');
         
         $userData = user_get_properties( $this->userId );
         
+        $pictureUrl = '';
         if ( get_conf('allow_profile_picture') )
         {
             $picturePath = user_get_picture_path( $userData );
@@ -57,71 +60,23 @@ class UserProfileBox implements Display
                 $pictureUrl = get_icon_url('nopicture');
             }
         }
-        $output = '<div id="userProfileBox">' . "\n"
-            . '<div class="header" id="userProfileTitle">' . "\n"
-            . ($this->condensedMode && $this->userId == claro_get_current_user_id()
-                ? '<a href="'.get_path('clarolineRepositoryWeb').'desktop/index.php">'
-                : '')
-            . htmlspecialchars($userData['firstname']) . '&nbsp;' . htmlspecialchars($userData['lastname'])
-            . ($this->condensedMode ? '</a>' : '')
-            . '</div>' . "\n"
-            . '<div id="userProfile">' . "\n"
-            ;
         
-        if ( get_conf('allow_profile_picture') )
-        {
-            $output .= '<div id="userPicture"><img src="' . $pictureUrl . '" alt="' . get_lang('avatar') . '" /></div>' . "\n";
-        }
+        $userFullName = htmlspecialchars(
+            get_lang('%firstName %lastName',
+                array('%firstName' => $userData['firstname'],
+                      '%lastName' => $userData['lastname'])
+            )
+        );
         
-        $output .='<div id="userDetails">'
-            . '<p><span>' . get_lang('User') . '</span><br /> ' . htmlspecialchars(get_lang('%firstName %lastName', array('%firstName' => $userData['firstname'], '%lastName' => $userData['lastname']) ) ) . '</p>' . "\n"
-            . '<p><span>' . get_lang('Email') . '</span><br /> '
-            . (!empty($userData['email']) ? htmlspecialchars($userData['email']) : '-' )
-            . '</p>' . "\n"
-            ;
-        
-        if ( ! $this->condensedMode )
-        {
-            $output .= '<p><span>' . get_lang('Phone') . '</span><br /> '
-                . (!empty($userData['phone']) ? htmlspecialchars($userData['phone']) : '-' )
-                . '</p>' . "\n"
-                . '<p><span>' . get_lang('Administrative code') . '</span><br /> '
-                . (!empty($userData['officialCode']) ? htmlspecialchars($userData['officialCode']) : '-' )
-                . '</p>' . "\n"
-                . '<p>'
-                ;
-            
-            if ( get_conf( 'is_trackingEnabled' ) )
-            {
-                $output .= '<a class="claroCmd" href="'.get_path('clarolineRepositoryWeb')
-                    .'tracking/userReport.php?userId='.claro_get_current_user_id()
-                    . claro_url_relay_context('&amp;') . '">' . "\n"
-                    . '<img src="' . get_icon_url('statistics') . '" alt="" />' . "\n"
-                    . ' ' . get_lang('View my statistics')
-                    . '</a>'
-                    . '</p>'
-                    ;
-            }
-        }
-        
-        $output .= '<p>'
-            . '<a class="claroCmd" href="'.get_path('clarolineRepositoryWeb').'auth/profile.php">' . "\n"
-            . '<img src="' . get_icon_url('edit') . '" alt="" />' . "\n"
-            . ' ' . get_lang('Edit')
-            . '</a>'
-            . '</p>'
-            ;
-            
         $dock = new ClaroDock( 'userProfileBox' );
         
-        $output .= '</div>' . "\n" // details
-            . '</div>' . "\n" // portletContent
-            . ( !$this->condensedMode ? '<div id="userProfileBoxDock">'. $dock->render() .'</div>' : '' )
-            . '</div>' . "\n" // portletRightMenu
-            ;
-
-        $this->content = $output;
-
-        return $this->content;
+        $template = new CoreTemplate('user_profilebox.tpl.php');
+        $template->assign('pictureUrl', $pictureUrl);
+        $template->assign('userFullName', $userFullName);
+        $template->assign('dock', $dock);
+        $template->assign('condensedMode', $this->condensedMode);
+        $template->assign('userData', $userData);
+        
+        return $template->render();
     }
 }
