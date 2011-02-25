@@ -251,7 +251,8 @@ function get_forum_settings($forumId)
                    `f`.`forum_type`   `forum_type`,
                    `f`.`cat_id`       `cat_id`,
                    `f`.`forum_order`  `forum_rank`,
-                   `f`.`group_id`      `idGroup`
+                   `f`.`group_id`      `idGroup`,
+                   `f`.`is_anonymous` `is_anonymous`
             FROM `" . $tbl_forums."` `f`
             WHERE `f`.`forum_id` = '" . (int) $forumId."'" ;
 
@@ -367,6 +368,37 @@ function is_forum_notification_requested($forumId, $userId)
     else                                            return false;
 }
 
+function is_forum_anonymous( $forumId = false , $topicId = false )
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    
+    if ( $forumId )
+    {
+        return Claroline::getDatabase()->query( "
+            SELECT
+                is_anonymous
+            FROM
+                `{$tbl_cdb_names['bb_forums']}` AS F
+            WHERE
+                F.forum_id = " . Claroline::getDatabase()->escape( $forumId )
+        )->fetch( Database_ResultSet::FETCH_VALUE ) == 'anonymous';
+    }
+    elseif ( $topicId )
+    {
+        return Claroline::getDatabase()->query( "
+            SELECT
+                is_anonymous
+            FROM
+                `{$tbl_cdb_names['bb_forums']}` AS F
+            INNER JOIN
+                `{$tbl_cdb_names['bb_topics']}` AS T
+            ON
+                T.forum_id = F.forum_id
+            WHERE
+                T.topic_id = " . Claroline::getDatabase()->escape( $topicId )
+        )->fetch( Database_ResultSet::FETCH_VALUE ) == 'anonymous';
+    }
+}
 
 function trig_forum_notification($forumId)
 {
@@ -405,6 +437,7 @@ function trig_forum_notification($forumId)
         $recipient->addUserId($list['user_id']);
     }
     
+    $senderId = is_forum_anonymous( $forumId ) ? 0 : claro_get_current_user_id();
     
     $message = new PlatformMessageToSend($subject,$message);
     $message->setCourse(claro_get_current_course_id());
@@ -501,7 +534,7 @@ function get_post_settings($postId)
 
 
 function create_new_post($topicId, $forumId, $userId, $time, $posterIp
-                        , $userLastname, $userFirstname, $message, $course_id=NULL)
+                        , $userLastname, $userFirstname, $message, $is_anonymous='not_anonymous', $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_forums           = $tbl_cdb_names['bb_forums'];
@@ -510,7 +543,6 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
     $tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
 
     // CREATE THE POST SETTINGS
-
     $sql = "INSERT INTO `" . $tbl_posts . "`
             SET topic_id  = '" . (int) $topicId . "',
                 forum_id  = '" . (int) $forumId . "',
@@ -519,7 +551,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
                 poster_ip = '" . claro_sql_escape($posterIp) . "',
                 nom       = '" . claro_sql_escape($userLastname) . "',
                 prenom    = '" . claro_sql_escape($userFirstname) . "'";
-
+    
     $postId = claro_sql_query_insert_id($sql);
 
     if ($postId)
@@ -702,7 +734,8 @@ function trig_topic_notification($topicId)
 
     $sql = "SELECT notif.user_id
             FROM `" . $tbl_user_notify . "` AS notif
-            WHERE notif.topic_id = " . (int) $topicId ;
+            WHERE notif.topic_id = " . (int) $topicId ."
+            AND notif.user_id !=" . claro_get_current_user_id();
     
     $notifyResult = claro_sql_query($sql);
     
@@ -713,6 +746,8 @@ function trig_topic_notification($topicId)
     $url_forum = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . claro_get_current_course_id();
 
     // send mail to registered user for notification
+    $senderId = is_forum_anonymous( false , $topicId ) ? 0 : claro_get_current_user_id();
+    
     $message = get_lang('You are receiving this notification because you are watching a topic on the forum of one of your courses.') . '<br/>' . "\n"
     . get_lang('View topic') . '<br/>' . "\n"
     . '<a href="' . $url_topic . '">' . $url_topic . '</a><br/><br/>' . "\n"
@@ -730,7 +765,6 @@ function trig_topic_notification($topicId)
         $recipient->addUserId($list['user_id']);
     }
     
-    
     $message = new PlatformMessageToSend($subject,$message);
     $message->setCourse(claro_get_current_course_id());
     $message->setTools('CLFRM');
@@ -740,7 +774,6 @@ function trig_topic_notification($topicId)
         $message->setGroup(claro_get_current_group_id());
     }
     
-    //$message->sendTo($recipient);
     $recipient->sendMessage($message);
 }
 
@@ -1457,7 +1490,7 @@ function delete_forum($forum_id)
  *
  */
 
-function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $group_id = null, $course_id=NULL)
+function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $is_anonymous='not_anonymous', $group_id = null, $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
@@ -1483,7 +1516,8 @@ function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $g
                 forum_moderator = 1,
                 cat_id          = " . (int) $cat_id . ",
                 forum_type      = 0,
-                forum_order     = " . (int) $order ;
+                forum_order     = " . (int) $order .",
+                is_anonymous       = '" . $is_anonymous . "'";
 
     return claro_sql_query_insert_id($sql);
 }
@@ -1704,7 +1738,8 @@ function get_forum_list()
                    f.forum_access, f.forum_moderator,
                    f.forum_topics, f.forum_posts, f.forum_last_post_id,
                    f.cat_id, f.forum_type, f.forum_order,
-            p.poster_id, p.post_time, f.group_id
+                   f.group_id, f.is_anonymous,
+                   p.poster_id, p.post_time
             FROM `" . $tbl_forums . "` AS f
             LEFT JOIN `" . $tbl_posts . "` AS p
                    ON p.post_id = f.forum_last_post_id

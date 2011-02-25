@@ -73,6 +73,7 @@ if ($topicSettingList)
     $forum_cat_id       = $forumSettingList['cat_id'    ];
     $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
     $lastPostId         = $topicSettingList['topic_last_post_id'];
+    $is_anonymous       = $forumSettingList['is_anonymous'];
 
     /*
     * Check if the topic isn't attached to a group,  or -- if it is attached --,
@@ -166,11 +167,11 @@ else
 
     $out .= claro_html_tool_title(get_lang('Forums'),
     $is_allowedToEdit ? 'help_forum.php' : false);
-
+    
     if( claro_is_allowed_to_edit() )
     {
         $out .= '<div style="float: right;">' . "\n"
-        .   '<img src=' . get_icon_url('html') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&topic=' . $topic_id )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
+        .   '<img src="' . get_icon_url('html') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&topic=' . $topic_id )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
         .   '<img src="'. get_icon_url('mime/pdf') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=PDF&topic=' . $topic_id ) ) . '" target="_blank">' . get_lang( 'Export to PDF' ) .'</a>' . "\n"
         .   '</div>'
         ;
@@ -178,10 +179,15 @@ else
 
     $out .= disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, 0, $topic_subject);
 
+    if ( $is_anonymous == 'anonymous' )
+    {
+        $out .= '<p><strong>' . get_lang( 'This is an anonymous thread. However, in case of outrageous content, its author can be identified.' ) . '</strong></p>';
+    }
+    
     if ($forum_post_allowed)
     {
         $toolList = disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
-
+        
         if ( count($postList) > 2 ) // if less than 2 las message is visible
         {
             $start_last_message = ( ceil($totalPosts / get_conf('posts_per_page')) -1 ) * get_conf('posts_per_page') ;
@@ -192,23 +198,44 @@ else
             .             '&amp;start=' . $start_last_message
             .             '#post' . $lastPostId
             ;
-
+            
             $toolList[] = claro_html_cmd_link(htmlspecialchars(Url::Contextualize($lastMsgUrl)),get_lang('Last message'));
         }
-
+        
         $out .= claro_html_menu_horizontal($toolList);
     }
 
     $out .= $postLister->disp_pager_tool_bar($pagerUrl);
-
+    
+//// correction dec 01 2009 >>>>>>
+    $pictureUrl = array();
+    
+    foreach( $postList as $thisPost )
+    {
+        $userData = user_get_properties( $thisPost['poster_id'] );
+        $picturePath = user_get_picture_path( $userData );
+    
+        if ( $picturePath && file_exists( $picturePath ) )
+        {
+            $pictureUrl[$thisPost['poster_id']] = user_get_picture_url( $userData );
+        }
+        else
+        {
+            $pictureUrl[$thisPost['poster_id']] = null;
+        }
+    }
+//// <<<<<<< correction dec 01 2009
+    
     $form = new PhpTemplate( get_module_path( 'CLFRM' ) . '/templates/forum_viewtopic.tpl.php' );
-
+    
     $form->assign( 'forum_id', $forum_id );
     $form->assign( 'topic_id', $topic_id );
     $form->assign( 'topic_subject', $topic_subject );
     $form->assign( 'postList', $postList );
     $form->assign( 'is_allowedToEdit', $is_allowedToEdit );
-
+    $form->assign( 'is_anonymous' , $is_anonymous );
+    $form->assign( 'pictureUrl' , $pictureUrl ); //// line added dec 01 2009
+    
     if (claro_is_user_authenticated())
     {
         $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
@@ -217,7 +244,7 @@ else
     {
         $date = null;
     }
-
+    
     $form->assign( 'date', $date );
     $form->assign( 'is_a_notified_ressource', $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id ) );
     $out .= $form->render();
@@ -229,7 +256,7 @@ else
             . '?topic=' . $topic_id
             . '&amp;forum=' . $forum_id
         );
-
+            
         $toolBar[] = claro_html_cmd_link( htmlspecialchars( $replyUrl )
                                         , '<img src="' . get_icon_url('reply') . '" alt="" />'
                                         . ' '

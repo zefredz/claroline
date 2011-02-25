@@ -54,6 +54,23 @@ class exportHTML extends export
   
   public function export()
   {
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_forums           = $tbl_cdb_names['bb_forums'];
+    $tbl_topics           = $tbl_cdb_names['bb_topics'];
+    
+    $sql = "SELECT
+                F.is_anonymous
+            FROM
+                `" . $tbl_forums ."` AS F
+            INNER JOIN
+                `" . $tbl_topics ."` AS T
+            ON
+                `T`.`topic_id` = '" . (int) $this->getTopicId() . "'
+            WHERE
+                `F`.`forum_id` = `T`.`forum_id`";
+    
+    $is_anonymous = claro_sql_query_get_single_value( $sql );
+    
     $postsList = $this->loadTopic( $this->getTopicId() );
     
     $topicInfo = get_topic_settings( $this->getTopicId() );
@@ -69,6 +86,7 @@ class exportHTML extends export
     $form->assign( 'postList', $postsList );
     $form->assign( 'claro_notifier', false );
     $form->assign( 'is_allowedToEdit', false );
+    $form->assign( 'is_anonymous', $is_anonymous );
     
     $form->assign( 'date', null );
     

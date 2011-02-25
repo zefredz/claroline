@@ -42,6 +42,10 @@ require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/user_info.lib.php';
 require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
+/// BEGIN ajout pour UCLINE
+require_once get_module_path( 'UCONLINE' ) . '/lib/skype.account.class.php';
+/// END ajout pour UCLine
+
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php' );
 
 $nameTools = get_lang('User');
@@ -295,6 +299,23 @@ elseif ($displayMode == 'viewContentList') // default display
 
 if( $displayMode != "viewContentList" ) claro_set_display_mode_available(false);
 
+/// BEGIN ajout pour UCLine
+$skypeAccount = new SkypeAccount( $userIdViewed );
+$skypeName = $skypeAccount->getSkypeName();
+
+if ( $skypeName )
+{
+    $skypeStatus = '<a href="skype:' . $skypeName . '?call">' . "\n"
+                   .'<img src="http://mystatus.skype.com/smallclassic/' . $skypeName . '"
+                        style="border: none;" width="100" height="15" alt="" />' . "\n"
+                   .'</a>';
+}
+else
+{
+    $skypeStatus = '<em>' . get_lang( 'None' ) . '</em>';
+}
+/// END ajout pour UCLine
+
 //////////////////////////////
 // OUTPUT
 //////////////////////////////
@@ -313,6 +334,23 @@ $out .= claro_html_tool_title($nameTools)
 .    '</p>' . "\n"
 .    claro_html_msg_list($messageList)
 ;
+
+/// BEGIN ajout pour UCLine
+$userData = user_get_properties( $userIdViewed );
+
+$picturePath = user_get_picture_path( $userData );
+
+if ( $picturePath && file_exists( $picturePath ) )
+{
+    $pictureUrl = user_get_picture_url( $userData );
+}
+else
+{
+    $pictureUrl = get_icon_url('nopicture');
+}
+
+$out .= '<div id="rightSidebar"><img src="' . $pictureUrl . '" alt="' . get_lang('avatar') . '" /></div>';
+/// END ajout pour UCLine
 
 if ($displayMode == "viewDefEdit")
 {
@@ -482,6 +520,11 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<tr class="headerX">' . "\n"
         .    '<th align="left">'.get_lang('Name').'</th>' . "\n"
         .    '<th align="left">'.get_lang('Profile').'</th>' . "\n"
+
+/// BEGIN ajout pour UCLine
+        .    '<th aling="left">'.get_lang( 'Skype account' ).'</th>' . "\n"
+/// END ajout pour UCLine
+
         .    '<th align="left">'.get_lang('Role').'</th>' . "\n"
         .    '<th>'.get_lang('Group Tutor').'</th>' . "\n"
         .    '<th>'.get_lang('Course manager').'</th>' . "\n"
@@ -493,6 +536,11 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<tr align="center">' . "\n"
         .    '<td align="left"><b>'.htmlize($mainUserInfo['firstName']).' '.htmlize($mainUserInfo['lastName']).'</b></td>' . "\n"
         .    '<td align="left">'.htmlize(claro_get_profile_name($mainUserInfo['profileId'])).'</td>' . "\n"
+
+/// BEGIN ajout pour UCLine
+        .    '<td align="center">'. $skypeStatus . '</td>' . "\n"
+/// END ajout pour UCLine
+
         .    '<td>'.htmlize($mainUserInfo['role']).'</td>' . "\n"
         .    '<td>'.$mainUserInfo['tutor'].'</td>'
         .    '<td>'.$mainUserInfo['isCourseManager'].'</td>'
@@ -555,7 +603,7 @@ elseif ($displayMode == "viewContentList") // default display
     }
 
     $catList = claro_user_info_get_course_user_info($userIdViewed);
-
+    
     if ($catList)
     {
         foreach ($catList as $thisCat)

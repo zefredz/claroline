@@ -2713,6 +2713,17 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <dd><code>||first cell|second cell|...||</code>&nbsp;: table row (on one line)</dd>
 <dd><code>|}</code>&nbsp;: end of table (must be on a new ligne)</dd>
 </dl>
+<h2>Colourized text</h2>
+<dl>
+<dt>Colour code ( html hexadecimal triplet )</dt>
+<dd><code>//#XXXXXX|Text to be colourized//</code></dd>
+<dd>( example :  <code>//#50AF22|Hello//</code>  will display  <span style="color: #50AF22;">Hello</span> )</dd>
+</dl>
+<dl>
+<dt>Named colours ( CSS )</dt>
+<dd><code>//colour_name|Text to be colourized//</code></dd>
+<dd>( example : <code>//red|Hello//</code> will display <span style="color: red;">Hello</span> )</dd>
+</dl>
 <h2>Special commands</h2>
 <dl>
 <dt>Raw HTML inclusion</dt>

@@ -56,21 +56,53 @@ class export
   protected function loadTopic( $topicId )
   {
     $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_forums           = $tbl_cdb_names['bb_forums'];
+    $tbl_topics           = $tbl_cdb_names['bb_topics'];
     $tbl_posts            = $tbl_cdb_names['bb_posts'];
     $tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
     
-    $sql = "SELECT  p.`post_id`,   p.`topic_id`,  p.`forum_id`,
-                    p.`poster_id`, p.`post_time`, p.`poster_ip`,
-                    p.`nom` lastname, p.`prenom` firstname,
-                    pt.`post_text`
-
-           FROM     `" . $tbl_posts . "`      p,
-                    `" . $tbl_posts_text . "` pt
-
-           WHERE    topic_id  = '" . (int) $topicId . "'
-             AND    p.post_id = pt.`post_id`
-
-           ORDER BY post_id";
+    $sql = "SELECT
+                F.is_anonymous
+            FROM
+                `" . $tbl_forums ."` AS F
+            INNER JOIN
+                `" . $tbl_topics ."` AS T
+            ON
+                `T`.`topic_id` = '" . (int) $topicId . "'
+            WHERE
+                `F`.`forum_id` = `T`.`forum_id`";
+    
+    $is_anonymous = claro_sql_query_get_single_value( $sql );
+    
+    if ( $is_anonymous == 'not_anonymous' )
+    {
+        $sql = "SELECT  p.`post_id`,   p.`topic_id`,  p.`forum_id`,
+                        p.`poster_id`, p.`post_time`, p.`poster_ip`,
+                        p.`nom` lastname, p.`prenom` firstname,
+                        pt.`post_text`
+    
+               FROM     `" . $tbl_posts . "`      p,
+                        `" . $tbl_posts_text . "` pt
+    
+               WHERE    topic_id  = '" . (int) $topicId . "'
+                 AND    p.post_id = pt.`post_id`
+    
+               ORDER BY post_id";
+    }
+    else
+    {
+        $sql = "SELECT  p.`post_id`,   p.`topic_id`,  p.`forum_id`,
+                        p.`poster_id`, p.`post_time`, p.`poster_ip`,
+                        pt.`post_text`
+    
+               FROM     `" . $tbl_posts . "`      p,
+                        `" . $tbl_posts_text . "` pt
+    
+               WHERE    topic_id  = '" . (int) $topicId . "'
+                 AND    p.post_id = pt.`post_id`
+    
+               ORDER BY post_id";
+    }
     
     $postsList = claro_sql_query_fetch_all( $sql );
     

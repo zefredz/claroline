@@ -81,6 +81,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
     if ( isset($_POST['language']) )       $user_data['language'] = trim($_POST['language']);
     if ( isset($_POST['isCourseCreator'])) $user_data['isCourseCreator'] = (int) $_POST['isCourseCreator'];
     if ( isset($_POST['is_admin']) )       $user_data['is_admin'] = (bool) $_POST['is_admin'];
+    if ( isset($_REQUEST['skype']) )       $user_data['skype'] = trim($_REQUEST['skype']); //// MODIF POUR UCLINE
     
     if ( isset($_POST['delPicture']) && $_POST['delPicture'] =='true' )
     {
@@ -172,9 +173,10 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
     if ( count($messageList) == 0 )
     {
         if ( empty($user_data['password'])) unset($user_data['password']);
-
+        
         user_set_properties($userId, $user_data);  // if no error update use setting
-
+        user_set_skype_name($userId, $user_data['skype']); //// MODIF POOUR UCLINE
+        
         if ( $userId == claro_get_current_user_id()  )// re-init system to take new settings in account
         {
             $uidReset = true;

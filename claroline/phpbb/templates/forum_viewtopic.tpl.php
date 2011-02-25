@@ -21,18 +21,23 @@ endif; //end not anonymous user
 <?php foreach( $this->postList as $thisPost ) : ?>
 <div id="post<?php echo $thisPost['post_id']; ?>" class="threadPost">
   <div class="threadPostInfo">
-    <?php  
-    if( user_get_picture_path( user_get_properties( $thisPost['poster_id'] ) )
-     && file_exists( user_get_picture_path( user_get_properties( $thisPost['poster_id'] ) ) )
-     ) :
-    ?>
-    <div class="threadPosterPicture"><img src="<?php echo user_get_picture_url( user_get_properties( $thisPost['poster_id'] ) ); ?>" alt=" " /></div>
-    <?php
-    endif;
-    ?>
-    <span style="font-weight: bold;"><?php echo $thisPost[ 'firstname' ]; ?> <?php echo $thisPost[ 'lastname' ]; ?></span>
-    <br />
     <small><?php echo claro_html_localised_date(get_locale('dateTimeFormatLong'), datetime_to_timestamp( $thisPost['post_time']) ); ?></small>
+    <br />
+    <?php if ( $this->is_anonymous == 'not_anonymous' ) : ?>
+    <?php if( !is_null( $this->pictureUrl[$thisPost['poster_id']] ) ) : ?><div class="threadPosterPicture"><img src="<?php echo $this->pictureUrl[$thisPost['poster_id']]; ?>" alt=" " /></div><?php endif; ?>
+    <span style="font-weight: bold;"><?php echo $thisPost[ 'firstname' ]; ?> <?php echo $thisPost[ 'lastname' ]; ?></span>
+    <?php elseif ( claro_get_current_user_id() == $thisPost['poster_id'] ) : ?>
+    <span style="font-weight: bold; color: red;">
+        <?php echo get_lang('You posted this'); ?>
+    </span>
+    <?php elseif ( claro_is_platform_admin() ) : ?>
+    <span style="font-weight: bold;">
+        <a href="<?php echo htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?uInfo=' . (int) $thisPost['poster_id'] ) ); ?>">
+            <?php echo get_lang( 'Who posted that?' ); ?>
+        </a>
+    </span>
+    <?php endif; ?>
+
   </div>
   <div class="threadPostContent">
     <span class="threadPostIcon <?php echo (claro_is_user_authenticated() && $this->is_a_notified_ressource ? 'item hot' : 'item' ); ?>"><img src="<?php echo get_icon_url( 'post' ); ?>" alt="" /></span><br />

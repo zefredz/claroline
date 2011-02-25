@@ -265,7 +265,8 @@ if( $displayForm )
     //title
     $out .= '<dt><label for="title">' . get_lang('Title') . '&nbsp;<span class="required">*</span>&nbsp;:' . '</label></dt>' . "\n"
     .   '<dd>'
-    .   '<input type="text" name="title" id="title" size="60" maxlength="200" value="'. htmlspecialchars( $form['title'] ).'" />'
+//    .   '<input type="text" name="title" id="title" size="60" maxlength="200" value="'.$form['title'].'" />'
+    .   '<textarea name="title" rows="3" cols="80">' . htmlspecialchars( $form['title'] ) . '</textarea>'
     .   '</dd>' . "\n";
     
     //description

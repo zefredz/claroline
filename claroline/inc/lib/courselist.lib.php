@@ -520,11 +520,14 @@ function render_course_dt_in_dd_list($course, $hot = false, $iconAccess = true)
     .    htmlspecialchars($course['sysCode'])
     ;
 
-        if ( $iconAccess )
+    $iconUrl = get_icon_url( 'course' );
+    /*
+    if ( $iconAccess )
     {
         $iconUrl = get_course_access_icon( $course['access'] );
     }
-    else $iconUrl = get_icon_url('course') ;
+    else $iconUrl = get_icon_url('course');
+    */
     
     $managerString = htmlspecialchars( $course['titular'] . $course_language_txt );
     if( isset( $course['email'] ) && claro_is_user_authenticated() )

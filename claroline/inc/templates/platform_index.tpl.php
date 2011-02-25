@@ -100,31 +100,24 @@ if ( claro_is_user_authenticated() ) :
         require get_path( 'incRepositorySys' ) . '/index_platformcourses.inc.php';
         if( !( isset( $_REQUEST['category'] ) && '' == trim( $_REQUEST['category'] ) ) )
         {
-            echo render_access_mode_caption_block();
+            //echo render_access_mode_caption_block();
         }
     }
     else
     {
         // DISPLAY USER OWN COURSE LIST
         require get_path( 'incRepositorySys' ) . '/index_mycourses.inc.php';        
+       /* 
         if (claro_is_allowed_to_create_course())
             echo render_access_mode_caption_block();
-        
+        */
+       /* 
         echo '<fieldset class="captionBlock">'
         	. '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
         	. get_lang('New items'). ' ('
             . '<a href="'. htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')) . '" >' . get_lang('to another date') . '</a>';
 
-        if ($_SESSION['last_action'] != '1970-01-01 00:00:00')
-        {
-           $last_action =  $_SESSION['last_action'];
-        }
-        else
-        {
-            $last_action = date('Y-m-d H:i:s');
-        }
-
-        $nbChar = strlen($last_action);
+        $nbChar = strlen($_SESSION['last_action']);
         if (substr($_SESSION['last_action'],$nbChar - 8) == '00:00:00' )
         {
             echo ' [' . claro_html_localised_date( get_locale('dateFormatNumeric'),
@@ -132,6 +125,7 @@ if ( claro_is_user_authenticated() ) :
         }
         
         echo ')</fieldset>' ;
+        */
     }
 else :
     if ( ! get_conf('course_categories_hidden_to_anonymous',false) )
@@ -140,7 +134,7 @@ else :
         require get_path( 'incRepositorySys' ) . '/index_platformcourses.inc.php';
         if ( !empty( $_REQUEST['category'] ) || ( isset( $_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' ) )
         {
-            echo render_access_mode_caption_block();
+            //echo render_access_mode_caption_block();
         }
     }
 endif;

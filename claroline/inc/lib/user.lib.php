@@ -20,6 +20,9 @@ if ( count( get_included_files() ) == 1 )
  */
 
 require_once(dirname(__FILE__) . '/form.lib.php');
+require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
+require_once get_path('clarolineRepositorySys') . '/messaging/lib/message/messagetosend.lib.php';
+require_once get_path('clarolineRepositorySys') . '/messaging/lib/recipient/singleuserrecipient.lib.php';
 
 /**
  * Initialise user data
@@ -42,6 +45,9 @@ function user_initialise()
         'email'           => '',
         'phone'           => '',
         'picture'         => '',
+    //// BEGIN MODIF POUR UCLINE
+        'skype'           => '',
+    //// END MODIF POUR UCLINE
     );
 }
 
@@ -57,23 +63,27 @@ function user_initialise()
 function user_get_properties($userId)
 {
     $tbl = claro_sql_get_main_tbl();
-
-    $sql = "SELECT                 user_id,
-                    nom         AS lastname,
-                    prenom      AS firstname,
-                                   username,
-                                   email,
-                                   language,
-                    authSource  AS authsource,
-                    pictureUri  AS picture,
-                                   officialCode,
-                                   officialEmail,
-                    phoneNumber AS phone,
-                                   isCourseCreator,
-                                   isPlatformAdmin
-            FROM   `" . $tbl['user'] . "`
-            WHERE  `user_id` = " . (int) $userId;
-
+    //// ATTENTION : REQUETE MODIFIEE POUR UCLINE : skype
+    $sql = "SELECT  U.user_id,
+                    U.nom           AS lastname,
+                    U.prenom        AS firstname,
+                    U.username,
+                    U.email,
+                    U.language,
+                    U.authSource    AS authsource,
+                    U.pictureUri    AS picture,
+                    U.officialCode,
+                    U.officialEmail,
+                    U.phoneNumber   AS phone,
+                    U.isCourseCreator,
+                    U.isPlatformAdmin,
+                    P.propertyValue AS skype
+            FROM   `" . $tbl['user'] . "` AS U
+            LEFT JOIN `" . $tbl['user_property'] . "` AS P
+            ON P.userId = U.user_id
+            AND P.propertyId = 'skypeName'
+            WHERE U.user_id = " . (int) $userId;
+            
     $result = claro_sql_query_get_single_row($sql);
 
     if ( $result ) return $result;
@@ -168,10 +178,9 @@ function user_set_properties($userId, $propertyList)
     {
         $propertyList['isPlatformAdmin'] = $propertyList['isPlatformAdmin'] ? 1 :0;
     }
-
-
+    
     // BUILD QUERY
-
+    
     $sqlColumnList = array('nom'             => 'lastname',
                            'prenom'          => 'firstname',
                            'username'        => 'username',
@@ -245,7 +254,7 @@ function user_delete($userId)
     $sqlList = array(
 
     "DELETE FROM `" . $tbl['user']            . "` WHERE user_id         = " . (int) $userId ,
-    "DELETE FROM `" . $tbl['tracking_event']   . "` WHERE user_id   = " . (int) $userId ,
+    "DELETE FROM `" . $tbl['tracking_event']  . "` WHERE user_id         = " . (int) $userId ,
     "DELETE FROM `" . $tbl['rel_class_user']  . "` WHERE user_id         = " . (int) $userId ,
     "DELETE FROM `" . $tbl['sso']             . "` WHERE user_id         = " . (int) $userId ,
 
@@ -445,10 +454,6 @@ function user_set_platform_admin($status, $userId)
 
 function user_send_registration_mail ($userId, $data,$courseCode = null)
 {
-    require_once dirname(__FILE__) . '/../../inc/lib/sendmail.lib.php';
-    require_once get_path('clarolineRepositorySys') . '/messaging/lib/message/messagetosend.lib.php';
-    require_once get_path('clarolineRepositorySys') . '/messaging/lib/recipient/singleuserrecipient.lib.php';
-    
     if ( ! empty($data['email']) )
     {
         // email subjet
@@ -982,7 +987,7 @@ function user_html_form($data, $form_type='registration')
     }
     else
     {
-        $profile_editable = array('name','official_code','login','password','email','phone','language','picture');
+        $profile_editable = array('name','official_code','login','password','email','phone','language','picture',/**/'skype'/**/); //// MODIF POUR UCLINE
     }
 
     // display registration form
@@ -1205,6 +1210,18 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_readonly_text('phone', $data['phone'], get_lang('Phone'));
     }
+    
+    //// BEGIN MODIF POUR UCLINE
+    // Skype account
+    if ( in_array('skype',$profile_editable) )
+    {
+        $html .= form_input_text('skype', $data['skype'], get_lang('Skype account') );
+    }
+    else
+    {
+        $html .= form_readonly_text('skype', $data['skype'], get_lang('Skype account'));
+    }
+    //// END MODIF POUR UCLINE
 
     // Group Tutor
     if ( 'add_new_user' == $form_type )
@@ -1750,3 +1767,33 @@ function user_get_extra_data($userId)
     }
     return $extraInfo;
 }
+
+//// BEGIN MODIF POUR UCLINE
+function user_set_skype_name( $userId , $skypeName )
+{
+    $tbl = claro_sql_get_main_tbl();
+    
+    if ( Claroline::getDatabase()->query( "
+            SELECT propertyValue
+            FROM `{$tbl['user_property']}`
+            WHERE userId = " . Claroline::getDatabase()->escape( (int)$userId ) . "
+            AND propertyId = 'skypeName'" )->numRows() )
+    {
+        return Claroline::getDatabase()->exec( "
+            UPDATE `{$tbl['user_property']}`
+            SET propertyValue = " . Claroline::getDatabase()->quote( $skypeName ) . "
+            WHERE userId = " . Claroline::getDatabase()->escape( (int)$userId ) . "
+            AND propertyId = 'skypeName'" );
+    }
+    else
+    {
+        return Claroline::getDatabase()->exec( "
+            INSERT INTO `{$tbl['user_property']}`
+            SET
+                propertyValue = " . Claroline::getDatabase()->quote( $skypeName ) . ",
+                userId = " . Claroline::getDatabase()->escape( (int)$userId ) . ",
+                propertyId = 'skypeName'" );
+    }
+}
+//// END MODIF POUR UCLINE
+

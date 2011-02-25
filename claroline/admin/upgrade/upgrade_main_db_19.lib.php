@@ -53,7 +53,7 @@ function upgrade_main_database_module_to_19 ()
             
             $toolList = claro_sql_query_fetch_all_rows( $sql );
             
-            $groupTools = array('CLDOC','CLWIKI','CLCHT', 'CLFRM');
+            $groupTools = array('CLDOC','CLWIKI','CLCHT', 'CLFRM', 'CLCAL');
             
             foreach ( $toolList as $tool )
             {

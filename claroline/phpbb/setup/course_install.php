@@ -39,7 +39,7 @@
                                , NULL
                                , '".claro_sql_escape(get_lang('sampleForumTitle'))."'
                                , '".claro_sql_escape(get_lang('sampleForumDescription'))."'
-                               ,2,1,1,1,1,2,0,1)");
+                               ,2,1,1,1,1,2,0,1,'not_anonymous')");
                                
         claro_sql_query("INSERT INTO `".$TABLEPHPBBTOPICS
             ."` VALUES (1,'"

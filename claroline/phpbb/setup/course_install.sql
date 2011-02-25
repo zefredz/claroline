@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_forums`(
     cat_id int(10),
     forum_type int(10) DEFAULT '0',
     forum_order int(10) DEFAULT '0',
+    is_anonymous enum('anonymous','not_anonymous') NOT NULL DEFAULT 'not_anonymous',
     PRIMARY KEY (forum_id),
     KEY forum_last_post_id (forum_last_post_id)
 ) TYPE=MyISAM;

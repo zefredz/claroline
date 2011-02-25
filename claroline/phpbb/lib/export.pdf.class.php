@@ -92,6 +92,9 @@ class exportPDF extends export
     
     foreach( $postsList as $post )
     {
+      if ( ! isset( $post['firstname'] ) ) $post['firstname'] = '';
+      if ( ! isset( $post['lastname'] ) )  $post['lastname'] = '';
+      
       $htmlContent .= '<tr>' . "\n"
       .   '<td style="width: 150px; background-color: #EEEEEE;">' . "\n"
       .   '<div style="font-weight: bold;">' . claro_utf8_encode( $post['firstname'] . ' ' . $post['lastname'], get_conf( 'charset' ) ) .'</div>' . "\n"

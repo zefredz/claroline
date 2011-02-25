@@ -186,6 +186,7 @@ $_lang['Announcements'] = 'Annonces';
 $_lang['Announcements list has been cleared up'] = 'Toutes les annonces ont été supprimées';
 $_lang['Anonymous'] = 'Anonyme';
 $_lang['Anonymous attempts'] = 'Essais anonymes';
+$_lang['Anonymous forum'] = 'Forum anonyme';
 $_lang['Anonymous users access count :'] = 'Nombre d\'accès d\'utilisateurs anonymes&nbsp;: ';
 $_lang['Answer'] = 'Réponses';
 $_lang['Answer type'] = 'Type de réponse';
@@ -1358,6 +1359,7 @@ $_lang['Platform administrator'] = 'Administrateur de la plateforme';
 $_lang['Platform language'] = 'Langue de la plateforme';
 $_lang['Platform local path '] = 'Dossier système de la plateforme';
 $_lang['Platform logo url'] = 'URL du logo de la plateforme';
+$_lang['Platform message'] = 'Message de la plateforme';
 $_lang['Platform name'] = 'Nom de la plateforme';
 $_lang['Platform statistics'] = 'Statistiques de la plateforme';
 $_lang['Platform web URL'] = 'URL de la plateforme';
@@ -1668,6 +1670,7 @@ $_lang['This course is currently not described'] = 'La description de ce cours n
 $_lang['This course requires a key for enrolment'] = 'L\'inscription à ce cours nécessite une clé';
 $_lang['This day'] = 'Aujourd\'hui';
 $_lang['This feature is not ready.'] = 'Cette option n\'est pas disponible';
+$_lang['This is an anonymous thread. However, in case of outrageous content, its author can be identified.'] = 'Ce forum est anonyme. Toutefois, l\'administrateur de la plateforme peut, à la demande du gestionnaire de cours, identifier l\'auteur d\'éventuels propos litigieux.';
 $_lang['This is probably a bad idea to set as hidden'] = 'Rendre le cours invisible est déconseillé';
 $_lang['This is the faculty, department or school where the course is delivered'] = 'Faculté, département, école, etc. où le cours est dispensé';
 $_lang['This is the main page of the Wiki %s. Click on \'\'\'Edit\'\'\' to modify the content.'] = 'Ceci est la page principale du wiki %s. Cliquez sur \'\'\'Editer\'\'\' pour en modifier le contenu.';
@@ -1911,6 +1914,7 @@ $_lang['WARNING : you are going to delete this wiki and all its pages. Are you s
 $_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = 'Attention : cette page n\'est qu\'un aperçu. Vos modifications n\'ont pas encore été enregistrées. Pour les enregistrer, cliquez sur <strong>Enregistrer</strong> au bas de la page.';
 $_lang['Warn users when they loose their session on the platform'] = 'Avertit les utilisateurs quand leur session est perdue.';
 $_lang['Warning : chosen date is in the future'] = 'Attention : la date choisie est dans le futur';
+$_lang['Warning: once set, this option cannot be changed'] = 'Attention! Ce choix est définitif!';
 $_lang['Warning the system distinguishes uppercase (capital) and lowercase (small) letters'] = 'Attention, le système fait la distinction entre majuscules et minuscules.';
 $_lang['Warning: When you delete a message keep in mind that it will be deleted for every user.
         <br /><br />You cannot retrieve deleted messages!'] = 'Attention : la suppression d\'un message s\'applique à tous les utilisateurs.<br /><br />Les messages supprimés ne peuvent être récupérés!';
@@ -1927,6 +1931,7 @@ $_lang['When users click on a document, it opens a new window'] = 'Quand un util
 $_lang['When users click on a submitted file, it opens a new window'] = 'Quand un utilisateur clique sur un fichier soumis, il est affiché dans une nouvelle fenêtre';
 $_lang['Where is your package ?'] = 'Où est situé votre package ?';
 $_lang['Which parts of the profile can be changed?'] = 'Quels sont les éléments du profil qui peuvent être modifiés ?';
+$_lang['Who posted that?'] = 'Identifier l\'intervenant';
 $_lang['Wiki'] = 'Wiki';
 $_lang['Wiki %TITLE% exported to course documents. (this file is visible)'] = 'Le wiki %TITLE% est maintenant enregistré dans l\'outil Documents et liens. (<em>Ce fichier est visible</em>)';
 $_lang['Wiki : %s'] = 'Wiki : %s';
@@ -1992,6 +1997,7 @@ $_lang['You must select some users'] = 'Commencez par sélectionner les utilisate
 $_lang['You must specify the CSV format used in your file'] = 'Vous devez spécifier le format CSV utilisé dans votre fichier';
 $_lang['You must upload a zip file'] = 'L\'archive à importer doit être au format .zip';
 $_lang['You need to be authenticated with your %sitename account'] = 'Vous devez être identifié auprès de %sitename';
+$_lang['You posted this'] = 'Vous avez posté ceci';
 $_lang['You typed two different passwords'] = 'Vous avez entré deux mots de passe différents';
 $_lang['You\'ve been enroled on the course'] = 'Vous êtes désormais inscrit au cours';
 $_lang['Your account has expired, please contact the platform adminitrator.'] = 'Votre compte a expiré, merci de contacter l\'administrateur.';
@@ -2732,6 +2738,18 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
 <dd><code>||premi&egrave;re cellule|deuxi&egrave;me cellule|...||</code>&nbsp;: ligne de tableau (sur une ligne)</dd>
 <dd><code>|}</code>&nbsp;: fin de tableau (doit être sur une nouvelle ligne)</dd>
 </dl>
+<h2>Textes colorés</h2>
+<dl>
+<dt>Code couleur ( triplet héxadécimal )</dt>
+<dd><code>//#XXXXXX|Texte à colorer//</code></dd>
+<dd>( exemple :  <code>//#50AF22|Bonjour//</code>  va donner  <span style="color: #50AF22;">Bonjour</span> )</dd>
+</dl>
+<dl>
+<dt><a href="couleurs_web.html">Couleurs nommées</a> ( CSS )</dt>
+<dd><code>//nom_de_la_couleur|Texte à colorer//</code></dd>
+<dd>( exemple : <code>//red|Bonjour//</code> va donner <span style="color: red;">Bonjour</span> )</dd>
+</dl>
+<em>Note &agrave; l\'intention des utilisateurs de MacOS : </em>La barre verticale "|" s\'obtient avec la combinaison des touches MAJ+alt+L
 <h2>Commandes spéciales</h2>
 <dl>
 <dt>Inclusion de code HTML</dt>
@@ -2831,7 +2849,7 @@ $_lang['CSV file is in the bad format'] = 'Le fichier CSV n\'est pas au bon form
 $_lang['Code already exists for an other category'] = 'Le code existe déjà dans une autre catégorie';
 $_lang['Contact your administrator to reactivate it.'] = 'Contactez l\'administrateur pour le réactiver.';
 $_lang['Course code too long'] = 'Le code du Cours est trop long';
-$_lang['Deactivated course list'] = 'Liste de cours désactivés';
+$_lang['Deactivated course list'] = 'Liste des cours désactivés';
 $_lang['Expired since'] = 'Expiré depuis';
 $_lang['Invalid email address at line %key'] = 'Adresse E-mail non valide à la ligne %key';
 $_lang['LaTeX Equation Editor'] = 'Editeur d\'Equation LaTeX';
