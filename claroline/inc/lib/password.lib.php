@@ -4,7 +4,7 @@
  * Random password generator
  *
  * @version     1.0
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Christophe Gesche <moosh@claroline.net>
  * @author      Frederic Minne <frederic.minne@uclouvain.be>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html

@@ -240,7 +240,7 @@ class Claro_Html_Sanitizer
                 , array( &$this, '_removeStyleCallback' )
                 , $str );
         }
-            
+        
         return $str;
     }
     

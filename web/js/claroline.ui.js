@@ -7,70 +7,35 @@ $(document).ready(function(){
  * Markup should be something like 
  * <div ... class="collapsible"><a ... class="doCollapse" /><div ... class="collapsible-wrapped" /></div> 
  */
-
-expand = function(collapsible) {
-    $(collapsible).removeClass('collapsed');
-    
-    $(".collapsible-wrapper",collapsible).slideDown({
-          duration: 'fast',
-          easing: 'linear',
-          complete: function() {
-            collapseScrollIntoView(this.parentNode);
-            this.parentNode.animating = false;
-          },
-          step: function() {
-            // Scroll the fieldset into view
-            collapseScrollIntoView(this.parentNode);
-          }
-        });
-}
-
-collapse = function(collapsible) {
-    $(collapsible).addClass('collapsed');
-    $(".collapsible-wrapper",collapsible).slideUp("fast");
-}
-
 registerCollapseBehavior = function() {
     $(".collapsed .collapsible-wrapper").hide();
     
     $(".collapsible a.doCollapse").click(function(){
         var collapsible = $(this).parents('.collapsible:first')[0];
-        
+
         if ($(collapsible).is('.collapsed')) {
-        
-            expand(collapsible);
-        
+            $(collapsible).removeClass('collapsed');
+            
+            $(".collapsible-wrapper",collapsible).slideDown({
+                  duration: 'fast',
+                  easing: 'linear',
+                  complete: function() {
+                    collapseScrollIntoView(this.parentNode);
+                    this.parentNode.animating = false;
+                  },
+                  step: function() {
+                    // Scroll the fieldset into view
+                    collapseScrollIntoView(this.parentNode);
+                  }
+                });
+        } else {
+            $(collapsible).addClass('collapsed');
+            $(".collapsible-wrapper",collapsible).slideUp("fast");
         }
-        else {
-        
-            collapse(collapsible);
-        
-        }
-        
-        return false;
-    });
-    
-    $(".expand-all").click(function(){
-        $(".collapsible").each(function(){
-            
-            expand($(this));
-            
-        });
-        
-        return false;
-    });
-    
-    $(".collapse-all").click(function(){
-        $(".collapsible").each(function(){
-            
-            collapse($(this));
-            
-        });
         
         return false;
     });
 };
-
 /**
  * Scroll a given fieldset into view as much as possible.
  * This function is part of the Drupal js library

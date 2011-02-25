@@ -1,1 +1,0 @@
-DROP TABLE IF EXISTS `__CL_COURSE__tool_intro`;

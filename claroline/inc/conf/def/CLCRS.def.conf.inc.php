@@ -7,14 +7,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/Config
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  * @package COURSE
  */
@@ -57,19 +57,6 @@ array (
       , 'defaultVisibilityOnCourseCreation'
       );
 
-$conf_def['section']['registration']['label']='Course registration settings';
-$conf_def['section']['registration']['description']='';
-$conf_def['section']['registration']['properties'] =
-array (
-        'registrationRestrictedThroughCategories'
-      );
-
-$conf_def['section']['courses_layouts']['label']='Courses layouts';
-$conf_def['section']['courses_layouts']['description'] = 'You can personalize the layout of each course';
-$conf_def['section']['courses_layouts']['properties'] = array();
-
-
-
 $conf_def_property_list['fill_course_example'] =
 array ('label'       => 'Fill courses tools with material example'
       ,'description' => ''
@@ -92,8 +79,7 @@ array ('label'       => 'Course code case'
                                 ,'nochange'=>'dont change case'
                                 )
       );
-
-/*
+      /*
 $conf_def_property_list['defaultVisibilityForANewCourse'] =
 array ('label'       => 'Default course access'
       ,'description' => ''
@@ -146,6 +132,7 @@ array ('label'       => 'Default course access'
                                 )
       );
 
+
 $conf_def_property_list['defaultRegistrationOnCourseCreation'] =
 array ('label'       => 'Default course enrolment'
       ,'description' => ''
@@ -155,18 +142,6 @@ array ('label'       => 'Default course enrolment'
       ,'readonly'    => FALSE
       ,'acceptedValue' => array ('TRUE' => 'New Registration allowed'
                                 ,'FALSE'=> 'New registration denied'
-                                )
-      );
-
-$conf_def_property_list['registrationRestrictedThroughCategories'] =
-array ('label'       => 'Category\'s registration restriction'
-      ,'description' => ''
-      ,'default'     => FALSE
-      ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      ,'acceptedValue' => array ('TRUE' => 'Restricted to category\'s users'
-                                ,'FALSE'=> 'Not restricted'
                                 )
       );
 
@@ -268,15 +243,5 @@ $conf_def_property_list['showLinkToDeleteThisCourse']
                                   ,'FALSE' => 'No'
                                   )
         );
-/*
-$conf_def_property_list['infosCoursesStyles'] =
-array ('label'       => 'Personalize the look of your courses\' pages'
-      ,'description' => 'You can personalize the style of each course.  '
-                      . 'To do so, just put a file named "style.php" in the '
-                      . 'course\'s directory'
-      ,'default'     => null
-      ,'type'        => ''
-      ,'acceptedValue' => array ()
-      );
-*/
+
 ?>

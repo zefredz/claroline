@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 |   as published by the Free Software Foundation; either version 2
 |   of the License, or (at your option) any later version.
 +----------------------------------------------------------------------+
-| Authors: Sï¿½bastien Piraux
+| Authors: Sébastien Piraux
 +----------------------------------------------------------------------+
 */
 

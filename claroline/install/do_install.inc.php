@@ -17,7 +17,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -101,7 +101,7 @@ if($statsDbName != $mainDbName)
     if(!$singleDbForm)
     {
         // multi DB mode AND tracking has its own DB so create it
-        mysql_query("CREATE DATABASE `" . $statsDbName . "`");
+        claro_sql_query("CREATE DATABASE `" . $statsDbName . "`");
         
         if (mysql_errno() >0)
         {

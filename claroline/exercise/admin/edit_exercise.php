@@ -4,7 +4,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -265,7 +265,7 @@ if( $displayForm )
     //title
     $out .= '<dt><label for="title">' . get_lang('Title') . '&nbsp;<span class="required">*</span>&nbsp;:' . '</label></dt>' . "\n"
     .   '<dd>'
-    .   '<input type="text" name="title" id="title" size="60" maxlength="200" value="'. htmlspecialchars($form['title']) .'" />'
+    .   '<input type="text" name="title" id="title" size="60" maxlength="200" value="'. htmlspecialchars( $form['title'] ).'" />'
     .   '</dd>' . "\n";
     
     //description
@@ -529,7 +529,6 @@ else
     .     '<tr class="headerX">' . "\n"
     .     '<th>' . get_lang('Id') . '</th>' . "\n"
     .     '<th>' . get_lang('Question') . '</th>' . "\n"
-    .    '<th>' . get_lang('Category') . '</th>' . "\n"
     .     '<th>' . get_lang('Answer type') . '</th>' . "\n"
     .     '<th>' . get_lang('Modify') . '</th>' . "\n"
     .     '<th>' . get_lang('Delete') . '</th>' . "\n"
@@ -552,7 +551,6 @@ else
             .     '<td align="center">' . $question['id'] . '</td>' . "\n"
             .     '<td>'.$question['title'].'</td>' . "\n";
 
-			$out .= '<td>'. getCategoryTitle( $question['id_category']) .'</td>' . "\n";
             // answer type
             $out .= '<td><small>'.$localizedQuestionType[$question['type']].'</small></td>' . "\n";
 
@@ -608,7 +606,7 @@ else
     else
     {
         $out .= '<tr>' . "\n"
-        .     '<td colspan="8">' . get_lang('Empty') . '</td>' . "\n"
+        .     '<td colspan="7">' . get_lang('Empty') . '</td>' . "\n"
         .     '</tr>' . "\n\n";
     }
     $out .= '</tbody>' . "\n\n"

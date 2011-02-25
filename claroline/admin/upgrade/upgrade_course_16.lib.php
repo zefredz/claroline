@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  * 
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  * 
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -440,3 +440,5 @@ function tracking_upgrade_to_16($course_code)
     }
     return false;
 }
+
+?>

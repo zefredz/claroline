@@ -4,13 +4,18 @@
  *
  * This tool manage properties of an exiting course
  *
- * @version     1.9 $Revision$
- * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      claroline Team <cvs@claroline.net>
- * @author      Dimitri Rambout <dimitri.rambout@uclouvain.be>
- *              old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_info/infocours.php
- * @package     CLCRS
+ * @version 1.9 $Revision$
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author claroline Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ *
+ * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_info/infocours.php
+ *
+ * @package CLCRS
+ *
  */
 
 $gidReset = true;
@@ -39,20 +44,20 @@ require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 
-// Initialisation
+// initialisation
 define('DISP_COURSE_EDIT_FORM',__LINE__);
 define('DISP_COURSE_RQ_DELETE',__LINE__);
 
 $dialogBox = new DialogBox();
 
-$cmd            = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
-$adminContext   = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
-$courseType     = isset($_REQUEST['courseType']) ? ($_REQUEST['courseType']) : null;
-$current_cid    = null;
-$display        = DISP_COURSE_EDIT_FORM;
+$cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
+$adminContext = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
+$current_cid = null;
+$display = DISP_COURSE_EDIT_FORM;
+
+// New course object
 
 $course = new ClaroCourse();
-
 
 // Initialise current course id
 
@@ -111,7 +116,7 @@ if ( $course->load($current_cid) )
             {
                 $dialogBox->success(get_lang('This course has been activated and is now available on this platform'));
             }
-            else
+            else 
             {
                 $dialogBox->error(get_lang('Unable to reactivate this course'));
             }
@@ -124,7 +129,7 @@ if ( $course->load($current_cid) )
             {
                 $dialogBox->success(get_lang('This course has been activated and is now available on this platform'));
             }
-            else
+            else 
             {
                 $dialogBox->error(get_lang('Unable to reactivate this course'));
             }
@@ -138,13 +143,13 @@ if ( $course->load($current_cid) )
     if ( $cmd == 'exEdit' )
     {
         $course->handleForm();
-        
+
         if ( $course->validate() )
         {
             if ( $course->save() )
             {
                 $dialogBox->success( get_lang('The information have been modified') ) ;
-                
+
                 if ( ! $adminContext )
                 {
                     // force reload of the "course session" of the user
@@ -180,7 +185,7 @@ if ( $course->load($current_cid) )
         }
         else
         {
-            $dialogBox->error( get_lang('Unable to delete') );
+            $dialogBox->error( get_lang('Unable to save') );
         }
     }
 
@@ -215,7 +220,8 @@ $links[] = '<a class="claroCmd" href="'. htmlspecialchars(Url::Contextualize( ge
 .          get_lang("Main Group Settings")
 .          '</a>' ;
 
-// Add tracking link
+// add tracking link
+
 if ( get_conf('is_trackingEnabled') )
 {
     $links[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'tracking/courseReport.php' )) . '">'
@@ -224,7 +230,8 @@ if ( get_conf('is_trackingEnabled') )
     .          '</a>' ;
 }
 
-// Add delete course link
+// add delete course link
+
 if ( get_conf('showLinkToDeleteThisCourse') )
 {
     $paramString = $course->getHtmlParamList('GET');

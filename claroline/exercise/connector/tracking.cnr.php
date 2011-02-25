@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision: 415 $
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -166,10 +166,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                 .    '<td>'.(round($result['average']*10)/10).'</td>' . "\n"
                 .    '<td>'.claro_html_duration(floor($result['avgTime'])).'</td>' . "\n"
                 .    '<td>'.(int) $result['attempts'].'</td>' . "\n"
-                .    '<td>'. claro_html_localised_date( 
-                            get_locale('dateTimeFormatLong'), 
-                            strtotime($result['lastAttempt'])
-                        ) . "</td> \n"
+                .    '<td>'.$result['lastAttempt'].'</td>' . "\n"
                 .    '</tr>' . "\n";
     
                 // details
@@ -193,13 +190,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                     foreach ( $exerciseDetails as $details )
                     {
                         $html .= '<tr>' . "\n"
-                        .    '<td><small>' . "\n"
-                        .        '<a href="'.get_module_url('CLQWZ') . '/track_exercise_details.php?trackedExId='.$details['id'].'">'
-                        .           claro_html_localised_date( 
-                                        get_locale('dateTimeFormatLong'), 
-                                        strtotime($details['date'])
-                                    )
-                        .       '</a></small></td>' . "\n"
+                        .    '<td><small><a href="'.get_module_url('CLQWZ') . '/track_exercise_details.php?trackedExId='.$details['id'].'">'.$details['date'].'</a></small></td>' . "\n"
                         .    '<td><small>'.$details['result'].'/'.$details['weighting'].'</small></td>' . "\n"
                         .    '<td><small>'.claro_html_duration($details['time']).'</small></td>' . "\n"
                         .    '</tr>' . "\n";

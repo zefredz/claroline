@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -46,7 +46,7 @@ $is_allowedToCreate = ( $is_courseManager && get_conf('is_coursemanager_allowed_
 
 if( !$is_allowedToImport )
 {
-  claro_die(get_lang('Not allowed'));
+    claro_die(get_lang('Not allowed'));
 }
 
 $courseId = claro_get_current_course_id();

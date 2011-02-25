@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author Claro Team <cvs@claroline.net>
@@ -56,6 +56,7 @@ if ( claro_is_user_authenticated() )
             . '</dl>'
         . '</fieldset>'
         . '<input type="submit" class="claroButton" name="notificationDate" value="' . get_lang('Ok') . '" />' . "\n"
+        . '<input type="hidden" name="askBy" value="index.php"'
         . '</form>' . "\n";
     }
     Claroline::getDisplay()->body->appendContent( $output );

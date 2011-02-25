@@ -6,7 +6,7 @@
  * Resource Resolver for the Document tool
  *
  * @version 1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author claroline Team <cvs@claroline.net>
  * @package CLDOC
@@ -275,18 +275,18 @@ class CLDOC_Navigator implements ModuleResourceNavigator
 
             natcasesort( $dirList );
             natcasesort( $fileList );
-
+            
             $resourceList = new LinkerResourceIterator;
 
             foreach ( $dirList as $relativePath )
             {
                 $isVisible = true;
-                
+
                 if ( array_key_exists( $relativePath, $fileProperties ) )
                 {
                     $isVisible = $fileProperties[$relativePath]['visibility'] != 'i' ? true : false;
                 }
-                
+
                 $resourceList->addResource( $this->createResourceLocator(
                     $locator->getCourseId(), $relativePath, $isVisible, true, $groupId )
                 );
@@ -305,7 +305,7 @@ class CLDOC_Navigator implements ModuleResourceNavigator
                     $locator->getCourseId(), $relativePath, $isVisible, false, $groupId )
                 );
             }
-
+            
             return $resourceList;
         }
     }
@@ -318,7 +318,7 @@ class CLDOC_Navigator implements ModuleResourceNavigator
             format_url_path( $relativePath ),
             $groupId
         );
-                
+
         $fileResource = new LinkerResource(
             basename($relativePath),
             $fileLoc,
@@ -326,7 +326,7 @@ class CLDOC_Navigator implements ModuleResourceNavigator
             $isVisible,
             $isNavigable
         );
-                
+
         return $fileResource;
     }
 }

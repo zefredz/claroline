@@ -54,7 +54,7 @@ else                                                                            
 			</select>
 		</fieldset>
 	</div>
-	<div class="mceActionPanel">
+	<div class="mceActionPanel">		
 		<div style="float: right">
 			<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
 		</div>

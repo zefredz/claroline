@@ -3,7 +3,7 @@
  * CLAROLINE
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -24,7 +24,6 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-include claro_get_conf_repository() . 'course_main.conf.php';
 
 // CHECK INCOMING DATAS
 if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=='')) {unset($_REQUEST['cidToEdit']);}
@@ -61,9 +60,6 @@ if (isset($_REQUEST['action'    ])) $_SESSION['admin_user_action'    ] = trim($_
 
 if (isset($_REQUEST['order_crit'])) $_SESSION['admin_user_order_crit'] = trim($_REQUEST['order_crit']);
 if (isset($_REQUEST['dir'       ])) $_SESSION['admin_user_dir'       ] = ($_REQUEST['dir'] == 'DESC' ? 'DESC' : 'ASC' );
-
-JavascriptLoader::getInstance()->load('jquery.qtip');
-
 $addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
 
 $dialogBox = new DialogBox();
@@ -71,9 +67,10 @@ $dialogBox = new DialogBox();
 //TABLES
 //declare needed tables
 
-// Deal with interbreadcrumbs
+// Deal with interbredcrumps
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
+
 $nameTools = get_lang('User list');
 
 
@@ -89,11 +86,11 @@ switch ( $cmd )
     {
         if( user_delete($userIdReq) )
         {
-           $dialogBox->success( get_lang('Deletion of the user was done sucessfully') );
+           $dialogBox->success( get_lang('Deletion of the user was done sucessfully') ); 
         }
         else
         {
-            $dialogBox->error( get_lang('You can not change your own settings!') );
+            $dialogBox->error( get_lang('You can not change your own settings!') );   
         }
     }
     break;
@@ -101,7 +98,7 @@ switch ( $cmd )
     {
         if( empty( $userIdReq ) )
         {
-            $dialogBox->error( get_lang('User id missing') );
+            $dialogBox->error( get_lang('User id missing') );   
         }
         else
         {
@@ -113,9 +110,11 @@ switch ( $cmd )
                 .    ' | '
                 .    '<a href="'.$_SERVER['PHP_SELF'].'">'.get_lang('No').'</a>'."\n");
             }
-        }
+            
+        }        
     }
 }
+
 $searchInfo = prepare_search();
 
 $isSearched    = $searchInfo['isSearched'];
@@ -160,143 +159,100 @@ foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 }
 
 $userList = $myPager->get_result_list();
+
 if (is_array($userList))
 {
-    $tbl_mdb_names              = claro_sql_get_main_tbl();
-    $tbl_course                 = $tbl_mdb_names['course'];
-    $tbl_category               = $tbl_mdb_names['category'];
-    $tbl_rel_course_user        = $tbl_mdb_names['rel_course_user'];
-    $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
-    
+    $tbl_mdb_names = claro_sql_get_main_tbl();
     foreach ($userList as $userKey => $user)
     {
-        // Count number of courses
-        $sql = "SELECT count(DISTINCT code_cours) AS qty_course
-                FROM `" . $tbl_rel_course_user . "`
-                WHERE user_id = '". (int) $user['user_id'] ."'
-                GROUP BY user_id";
-        
+        $sql ="SELECT count(DISTINCT code_cours) AS qty_course
+                 FROM `" . $tbl_mdb_names['rel_course_user'] . "`
+                 WHERE user_id = '". (int) $user['user_id'] ."'
+                 GROUP BY user_id";
         $userList[$userKey]['qty_course'] = (int) claro_sql_query_get_single_value($sql);
-        
-        // Count number of categories
-        $sql = "SELECT COUNT(ca.id) FROM `{$tbl_category}` AS ca
-                
-                LEFT JOIN `{$tbl_rel_course_category}` AS rcc
-                ON ca.id = rcc.categoryId
-                
-                LEFT JOIN `{$tbl_course}` AS co
-                ON rcc.courseId = co.cours_id
-                
-                LEFT JOIN `{$tbl_rel_course_user}` AS rcu
-                ON rcu.code_cours = co.code
-                
-                WHERE rcc.rootCourse = 1
-                AND rcu.user_id = ".(int) $user['user_id']."
-                
-                GROUP BY ca.id";
-                
-        $userList[$userKey]['qty_category'] = (int) claro_sql_query_get_single_value($sql);
     }
 }
 
 $userGrid = array();
+
 if (is_array($userList))
-foreach ($userList as $userKey => $user)
 {
-
-    $userGrid[$userKey]['user_id']   = $user['user_id'];
-    $userGrid[$userKey]['name']      = $user['name'];
-    $userGrid[$userKey]['firstname'] = $user['firstname'];
-    $userEmailLabel=null;
-    if ( !empty($_SESSION['admin_user_search']) )
+    foreach ($userList as $userKey => $user)
     {
-        $bold_search = str_replace('*','.*',$_SESSION['admin_user_search']);
-
-        $userGrid[$userKey]['name'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['name']);
-        $userGrid[$userKey]['firstname'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['firstname']);
-        $userEmailLabel  = preg_replace('/(' . $bold_search . ')/i', '<b>\\1</b>' , $user['email']);
-    }
+        // var_dump( $user );
     
-    $userGrid[$userKey]['officialCode'] = empty($user['officialCode']) ? ' - ' : $user['officialCode'];
-    $userGrid[$userKey]['email'] = claro_html_mailTo($user['email'], $userEmailLabel);
+        $userGrid[$userKey]['user_id']   = $user['user_id'];
+        $userGrid[$userKey]['name']      = $user['name'];
+        $userGrid[$userKey]['firstname'] = $user['firstname'];
+        
+        $userEmailLabel=null;
+        
+        if ( !empty($_SESSION['admin_user_search']) )
+        {
+            $bold_search = str_replace('*','.*',$_SESSION['admin_user_search']);
     
-    $userGrid[$userKey]['isCourseCreator'] =  ( $user['isCourseCreator']?get_lang('Course creator'):get_lang('User'));
+            $userGrid[$userKey]['name'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['name']);
+            $userGrid[$userKey]['firstname'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['firstname']);
+            $userEmailLabel  = preg_replace('/(' . $bold_search . ')/i', '<b>\\1</b>' , $user['email']);
+        }
+        
+        $userGrid[$userKey]['officialCode'] = empty($user['officialCode']) ? ' - ' : $user['officialCode'];
+        
+        $userGrid[$userKey]['authSource'] = $user['authSource'];
+        
+        $userGrid[$userKey]['email'] = claro_html_mailTo($user['email'], $userEmailLabel);
     
-    if ( $user['isPlatformAdmin'] )
-    {
-        $userGrid[$userKey]['isCourseCreator'] .= '<br /><span class="highlight">' . get_lang('Administrator').'</span>';
-    }
-    $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
-    .                                 '?uidToEdit=' . $user['user_id']
-    .                                 '&amp;cfrom=ulist' . $addToURL . '">'
-    .                                 '<img src="' . get_icon_url('usersetting') . '" alt="' . get_lang('User settings') . '" />'
-    .                                 '</a>';
+        $userGrid[$userKey]['isCourseCreator'] =  ( $user['isCourseCreator']?get_lang('Course creator'):get_lang('User'));
     
+        if ( $user['isPlatformAdmin'] )
+        {
+            $userGrid[$userKey]['isCourseCreator'] .= '<br /><span class="highlight">' . get_lang('Administrator').'</span>';
+        }
+        
+        $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
+        .                                 '?uidToEdit=' . $user['user_id']
+        .                                 '&amp;cfrom=ulist' . $addToURL . '">'
+        .                                 '<img src="' . get_icon_url('usersetting') . '" alt="' . get_lang('User settings') . '" />'
+        .    '</a>'
+        ;
+        
+        
+        
+        $userGrid[$userKey]['qty_course'] = '<a href="adminusercourses.php?uidToEdit=' . $user['user_id']
+        .                                   '&amp;cfrom=ulist' . $addToURL . '">' . "\n"
+        .                                   get_lang('%nb course(s)', array('%nb' => $user['qty_course'])) . "\n"
+        .                                   '</a>' . "\n"
+        ;
     
+        $userGrid[$userKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
+        .                               '?cmd=rqDelete&amp;user_id=' . $user['user_id']
+        .                               '&amp;offset=' . $offset . $addToURL . '" '
+        //.                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');" '
+        .                               ' class="delete" id="'.$user['firstname'].'_' . $user['name'] .'_' . $user['user_id'] .'">' . "\n"
+        .                               '<img src="' . get_icon_url('deluser') . '" alt="' . get_lang('Delete') . '" />' . "\n"
+        .                               '</a> '."\n"
+        ;
     
-    if (get_conf("registrationRestrictedThroughCategories"))
-    {
-        $userGrid[$userKey]['qty_category'] = '<a class="showUserCategory">'
-        .                                   '<span class="' . $user['user_id'] . '"></span>' . "\n"
-        .                                   get_lang('%nb category(ies)', array('%nb' => $user['qty_category'])) . "\n"
-        .                                   '</a>' . "\n";
-    }
-    
-    
-    $userGrid[$userKey]['qty_course'] = '<a class="showUserCourses" href="adminusercourses.php?uidToEdit=' . $user['user_id']
-    .                                   '&amp;cfrom=ulist' . $addToURL . '"><span class="' . $user['user_id'] . '"></span>' . "\n"
-    .                                   get_lang('%nb course(s)', array('%nb' => $user['qty_course'])) . "\n"
-    .                                   '</a>' . "\n"
-    ;
-    
-    $userGrid[$userKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
-    .                               '?cmd=rqDelete&amp;user_id=' . $user['user_id']
-    .                               '&amp;offset=' . $offset . $addToURL . '" '
-    //.                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');" '
-    .                               ' class="delete" id="'.$user['firstname'].'_' . $user['name'] .'_' . $user['user_id'] .'">' . "\n"
-    .                               '<img src="' . get_icon_url('deluser') . '" alt="' . get_lang('Delete') . '" />' . "\n"
-    .                               '</a> '."\n"
-    ;
-
-    if (! $user['isPlatformAdmin'])
-    {
-        $userGrid[$userKey]['login_as'] = '<a href="' . get_conf('rootWeb') . 'index.php?'
-                                                      . 'switchToUser=' . $user['user_id']
-                                                      . '">' . "\n"
-                                            . '<img src="' . get_icon_url('login_as')
-                                               . '" alt="' . get_lang('Login as') . '" />' . "\n"
-                                        . '</a> '."\n";
-    }
-    else
-    {
-        $userGrid[$userKey]['login_as'] = ' - ';
     }
 }
 
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
-// Build the list of columns' titles
-$colTitleList = array (
-    'user_id'           => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Numero') . '</a>',
-    'name'              => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>',
-    'firstname'         => '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>',
-    'officialCode'      => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Administrative code') . '</a>',
-    'email'             => '<a href="' . $sortUrlList['email'] . '">' . get_lang('Email') . '</a>',
-    'isCourseCreator'   => '<a href="' . $sortUrlList['isCourseCreator'] . '">' . get_lang('Status') . '</a>',
-    'settings'          => get_lang('User settings')
-);
-
-if (get_conf("registrationRestrictedThroughCategories"))
-    $colTitleList['qty_category'] = get_lang('Categories');
-    
-$colTitleList['qty_course']    = get_lang('Courses');
-$colTitleList['delete']        = get_lang('Delete');
-$colTitleList['login_as']      = get_lang('Login as');
-
 $userDataGrid = new claro_datagrid();
+
 $userDataGrid->set_grid($userGrid);
 $userDataGrid->set_colHead('name') ;
-$userDataGrid->set_colTitleList($colTitleList);
+$userDataGrid->set_colTitleList(array (
+                 'user_id'=>'<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Numero') . '</a>'
+                ,'name'=>'<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>'
+                ,'firstname'=>'<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>'
+                ,'officialCode'=>'<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Administrative code') . '</a>'
+                ,'authSource' => get_lang('Authentication source')
+                ,'email'=>'<a href="' . $sortUrlList['email'] . '">' . get_lang('Email') . '</a>'
+                ,'isCourseCreator'=>'<a href="' . $sortUrlList['isCourseCreator'] . '">' . get_lang('Status') . '</a>'
+                ,'settings'=> get_lang('User settings')
+                ,'qty_course' => get_lang('Courses')
+                ,'delete'=>get_lang('Delete') ));
 
 if ( count($userGrid)==0 )
 {
@@ -311,7 +267,6 @@ else
                                               , 'officialCode' => array ('align' => 'center')
                                               , 'settings'     => array ('align' => 'center')
                                               , 'delete'       => array ('align' => 'center')
-                                              , 'login_as'     => array ('align' => 'center')
     ));
 }
 
@@ -359,8 +314,7 @@ $out .= '<table width="100%">' . "\n"
 .    '<img src="' . get_icon_url('user') . '" alt="" />'
 .    get_lang('Create user')
 .    '</a>'
-.    '</td>' . "\n"
-.    '<td>' . ''
+.     '</td>' . "\n"
 .    '<td align="right">' . "\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
@@ -371,8 +325,6 @@ $out .= '<table width="100%">' . "\n"
 .    '</form>' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
-.    '<tr>'
-.    '</tr>'
 .    '</table>' . "\n\n"
 ;
 
@@ -383,9 +335,9 @@ $out .= $userDataGrid->render();
 
 if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($url);
 
-
 $out .=
 '<script type="text/javascript">
+//<![CDATA[
     $(document).ready(function(){
     $(".delete").each(function( i )
         {
@@ -402,74 +354,7 @@ $out .=
             $(this).attr("href","'. $_SERVER['PHP_SELF'] .'?cmd=exDelete&user_id=" + id + "&offset=' . $offset . $addToURL . '");
         });
     });
-    
-    $("a.showUserCourses").each(function()
-    {
-        $(this).qtip({
-            content: {
-                url: "./ajax/ajax_requests.php",
-                data: { action: "getUserCourseList", userId: $(this).find("span").attr("class") },
-                method: "get"
-            },
-            
-            show: "mouseover",
-            hide: "mouseout",
-            position: {
-                corner: {
-                    target: "topRight",
-                    tooltip: "bottomRight"
-                }
-            },
-            
-            style: {
-                width: 200,
-                padding: 5,
-                background: "#CCDDEE",
-                color: "black",
-                fontSize: "1em",
-                textAlign: "center",
-                border: {
-                    width: 7,
-                    radius: 5,
-                    color: "#CCDDEE"
-                }
-            }
-        });
-    });
-    
-    $("a.showUserCategory").each(function()
-    {
-        $(this).qtip({
-            content: {
-                url: "./ajax/ajax_requests.php",
-                data: { action: "getUserCategoryList", userId: $(this).find("span").attr("class") },
-                method: "get"
-            },
-            
-            show: "mouseover",
-            hide: "mouseout",
-            position: {
-                corner: {
-                    target: "topRight",
-                    tooltip: "bottomRight"
-                }
-            },
-            
-            style: {
-                width: 200,
-                padding: 5,
-                background: "#CCDDEE",
-                color: "black",
-                fontSize: "1em",
-                textAlign: "center",
-                border: {
-                    width: 7,
-                    radius: 5,
-                    color: "#CCDDEE"
-                }
-            }
-        });
-    });
+//]]>
 </script>';
 
 $claroline->display->body->appendContent($out);
@@ -544,7 +429,7 @@ function get_sql_filtered_user_list()
         $sql .= " AND (U.nom LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%'
                   OR U.prenom LIKE '%".claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%' ";
         $sql .= " OR U.email LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%'";
-        $sql .= " OR U.username LIKE '". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%'";
+        $sql .= " OR U.username LIKE '". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%'";        
         $sql .= " OR U.officialCode = '". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."')";
     }
 
@@ -652,5 +537,4 @@ function prepare_search()
 
     return $searchInfo;
 }
-
 ?>

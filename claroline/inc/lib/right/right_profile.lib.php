@@ -10,8 +10,8 @@ if ( count( get_included_files() ) == 1 )
  *
  * Library profile
  *
- * @version     1.10 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     RIGHT
  * @author      Claro Team <cvs@claroline.net>
@@ -133,7 +133,7 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
     static $cachedProfileId = null ;
     static $cachedCourseId = null ;
     static $cachedCourseProfileRightList = null ;
-
+ 
     // load courseId
     if ( is_null($courseId) )
     {
@@ -315,7 +315,7 @@ function claro_is_allowed_tool_edit ($tid = null, $profileId = null, $courseId =
 function claro_is_tool_activated ($tid, $courseId)
 {
     global $_mainToolId;
-
+    
     static $activation = false;
     static $toolCourseActivation = false;
 
@@ -325,34 +325,34 @@ function claro_is_tool_activated ($tid, $courseId)
         if ( !empty($_mainToolId) ) $tid = $_mainToolId ;
         else                        return false ;
     }
-
+    
     // load course id
     if ( is_null($courseId) )
     {
         if ( claro_is_in_a_course() ) $courseId = claro_get_current_course_id() ;
         else                 return false ;
     }
-
+    
     // tool platform activation cache
     if ( !$activation )
     {
         $activation = array();
-
+        
         $tbl_mdb_names = claro_sql_get_main_tbl();
-
+    
         $sql = " SELECT t.id, m.activation
                  FROM `" . $tbl_mdb_names['module'] . "` as m,
                       `" . $tbl_mdb_names['tool'] . "` as t
                  WHERE t.claro_label = m.label";
-
+    
         $tool_activationTmp = claro_sql_query_fetch_all_rows($sql);
-
+        
         foreach ( $tool_activationTmp as $tool )
         {
             $activation[$tool['id']] = $tool['activation'];
         }
     }
-
+    
     $tool_activation = $activation[$tid];
 
     if ( $tool_activation == 'activated' )
@@ -360,26 +360,26 @@ function claro_is_tool_activated ($tid, $courseId)
         if ( claro_is_in_a_course())
         {
             // tool course activation cache
-            if ( ! $toolCourseActivation )
-            {
+            if ( ! $toolCourseActivation ) 
+            {   
                 $tbl_cdb_names = claro_sql_get_course_tbl();
-
+    
                 $sql = " SELECT ctl.tool_id AS tool_id, ctl.activated AS activated
                      FROM `" . $tbl_cdb_names['tool'] . "` as ctl ";
-
+    
                 $tools_activatedInCourse = claro_sql_query_fetch_all_rows($sql);
 
                 $toolCourseActivation = array();
 
                 foreach ( $tools_activatedInCourse as $tool_activatedInCourse )
-                {
+                {   
                     $toolCourseActivation[$tool_activatedInCourse['tool_id']] = $tool_activatedInCourse['activated'];
-                }
-            }
+                }   
+            }   
 
             return isset($toolCourseActivation[$tid]) && $toolCourseActivation[$tid]  == 'true';
         }
-
+        
         return true;
     }
     else
@@ -402,7 +402,7 @@ function claro_is_tool_activated ($tid, $courseId)
 function claro_is_tool_visible ($tid, $courseId)
 {
     global $_mainToolId;
-
+    
     static $toolVisibilityCache = false;
 
     // load tool id
@@ -411,29 +411,29 @@ function claro_is_tool_visible ($tid, $courseId)
         if ( !empty($_mainToolId) ) $tid = $_mainToolId ;
         else                        return false ;
     }
-
+    
     // load course id
     if ( is_null($courseId) )
     {
         if ( claro_is_in_a_course() ) $courseId = claro_get_current_course_id() ;
         else                 return false ;
     }
-
+    
     if ( !$toolVisibilityCache )
     {
         $toolVisibilityCache = array();
-
+        
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
-        $sql = " SELECT tool_id, visibility
+        $sql = " SELECT tool_id, visibility 
                  FROM `" . $tbl_cdb_names['tool'] . "`";
-
+            
         $tool_visibilityTmp = claro_sql_query_fetch_all_rows($sql);
-
+        
         foreach ( $tool_visibilityTmp as $tool )
         {
             $toolVisibilityCache[$tool['tool_id']] = $tool['visibility'];
         }
-
+    
     }
 
     return (boolean) $toolVisibilityCache[$tid] ;

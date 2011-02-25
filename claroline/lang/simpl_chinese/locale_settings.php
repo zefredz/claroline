@@ -4,7 +4,7 @@
  * Simplified Chinese Translation
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
@@ -70,4 +70,5 @@ $dateFormatLong  = '%Y 年 %B  %d 日, %A';
 $dateTimeFormatLong  = '%Y 年 %B  %d 日, %I:%M %p';
 $dateTimeFormatShort = "%y 年 %b 月 %d 日, %I:%M %p";
 $timeNoSecFormat = '%I:%M %p';
+
 ?>

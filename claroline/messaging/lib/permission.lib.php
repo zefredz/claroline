@@ -6,7 +6,7 @@
  * function used for to know if the current user is allowed to send a message
  *
  * @version     1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -33,7 +33,7 @@ function current_user_is_allowed_to_send_message_to_user($userId)
     {
         if (claro_is_group_tutor() || claro_is_course_manager())
         {
-            $userList = get_group_user_list(claro_get_current_group_id(),claro_get_current_course_id());
+            $userList = get_group_user_list(claro_get_current_course_id());
             for ($count=0; $count<count($userList); $count++)
             {
                 if ($userList[$count]['id'] == $userId)

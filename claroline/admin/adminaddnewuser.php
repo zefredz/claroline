@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -151,7 +151,7 @@ $out .= claro_html_tool_title( array('mainTitle'=>$nameTools ) )
 
 if ( $display == DISP_REGISTRATION_SUCCEED )
 {
-    $out .= claro_html_list($newUserMenu);
+    $out .= claro_html_menu_vertical($newUserMenu);
 }
 else // $display == DISP_REGISTRATION_FORM;
 

@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * List of scripts in claroline archive
  *
  * @version 1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -169,6 +169,7 @@ $claroline_script[] = "/inc/htmlarea/popups/insert_image.php";
 $claroline_script[] = "/inc/index_anonymous.inc.php";
 $claroline_script[] = "/inc/index_authenticated.inc.php";
 $claroline_script[] = "/inc/installedVersion.inc.php";
+$claroline_script[] = "/inc/introductionSection.inc.php";
 $claroline_script[] = "/inc/lib/JPSpan/JPSpan.php";
 $claroline_script[] = "/inc/lib/JPSpan/JPSpan/CodeWriter.php";
 $claroline_script[] = "/inc/lib/JPSpan/JPSpan/ErrorHandler.php";

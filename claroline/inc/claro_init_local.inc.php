@@ -8,7 +8,7 @@ if ( count( get_included_files() ) == 1 )
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -30,8 +30,7 @@ if ( count( get_included_files() ) == 1 )
  *
  * All the course informations are store in the $_course array.
  *
- * You can request a group id. It will check if the group Id requested is theexit('WARNING !! Undefined user id: the requested user doesn\'t exist '
-            . 'at line '.__LINE__);
+ * You can request a group id. It will check if the group Id requested is the
  * same as the current one. If it isn't it will update session information from
  * the database. You can also force the course reset if you want ($gidReset).
  *
@@ -129,8 +128,7 @@ if ( count( get_included_files() ) == 1 )
  * int     $_group ['tutorId'    ]
  * int     $_group ['forumId'    ]
  * string  $_group ['directory'  ]
- * int     $_group ['maxMember'  ]exit('WARNING !! Undefined user id: the requested user doesn\'t exist '
-            . 'at line '.__LINE__);
+ * int     $_group ['maxMember'  ]
  *
  * boolean $is_groupMember
  * boolean $is_groupTutor
@@ -203,12 +201,10 @@ if ( count( get_included_files() ) == 1 )
  *    for the current user.
  ******************************************************************************/
 
-require_once dirname(__FILE__) . '/lib/auth/authmanager.lib.php';
-require_once dirname(__FILE__) . '/lib/kernel/user.lib.php';
-require_once dirname(__FILE__) . '/lib/user.lib.php';
-require_once dirname(__FILE__) . '/lib/core/claroline.lib.php';
+FromKernel::uses('auth/authmanager.lib','kernel/user.lib','core/claroline.lib');
 
-// Load authentication config files
+// require claro_get_conf_repository() .  'auth.drivers.conf.php';
+
 require_once claro_get_conf_repository() .  'auth.sso.conf.php';
 require_once claro_get_conf_repository() .  'auth.cas.conf.php';
 require_once claro_get_conf_repository() .  'auth.extra.conf.php';
@@ -322,39 +318,6 @@ if ( $logout && !empty($_SESSION['_uid']) )
 
 if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 {
-    if (isset($_REQUEST['switchToUser']))
-    {
-        if (! empty($_SESSION['_user']['isPlatformAdmin']))
-        {
-            if ((bool) $_SESSION['_user']['isPlatformAdmin'] === true)
-            {
-                $targetId = $_REQUEST['switchToUser'];
-
-                if (user_is_admin($targetId))
-                {
-                    exit('ERROR !! You cannot access another administrator account !');
-                }
-                
-                try
-                {
-                    $currentUser = Claro_CurrentUser::getInstance($targetId, true);
-                    $currentUser->saveToSession();
-                    
-                }
-                catch (Exception $ex)
-                {
-                    exit('ERROR !! Undefined user id: the requested user doesn\'t exist'
-                         . 'at line '.__LINE__);
-                }
-                
-                $_SESSION['_uid']             = $targetId;
-                $_SESSION['isVirtualUser']    = true;
-                $_SESSION['is_platformAdmin'] = $_SESSION['_user']['isPlatformAdmin'];
-                $_SESSION['is_allowedCreateCourse'] = $_SESSION['_user']['isCourseCreator'];
-            }
-        }
-    }
-    
     // uid is in session => login already done, continue with this value
     $_uid = $_SESSION['_uid'];
     
@@ -362,7 +325,7 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
         ? $_SESSION['is_platformAdmin']
         : false
         ;
-
+    
     $is_allowedCreateCourse = !empty($_SESSION['is_allowedCreateCourse'])
         ? $_SESSION['is_allowedCreateCourse']
         : false
@@ -370,7 +333,7 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 }
 else
 {
-    // $_uid     = null;   // uid not in session ? prevent any hacking
+    //$_uid     = null;   // uid not in session ? prevent any hacking
     $uidReset = false;
     
     // Unset current user authentication :
@@ -394,9 +357,9 @@ else
         unset( $_SESSION['_user'] );
     }
     
-    // CAS
+    // CAS 
 
-    if ( get_conf('claro_CasEnabled', false)
+    if ( get_conf('claro_CasEnabled', false) 
          && isset($_REQUEST['authModeReq'])
          && $_REQUEST['authModeReq'] == 'CAS'
          )
@@ -404,18 +367,18 @@ else
         require get_path('rootSys').'/claroline/auth/extauth/cas/casProcess.inc.php';
     }
     
-    // SHIBBOLETH ( PROBABLY BROKEN !!!! )
+    // SHIBBOLETH ( BROKEN !!!! )
     
-    if ( get_conf('claro_ShibbolethEnabled',false) )
+    /*if ( get_conf('claro_ShibbolethEnabled',false) )
     {
         require get_path('rootSys').'/claroline/auth/extauth/shibboleth/shibbolethProcess.inc.php';
-    }
+    }*/
 
     if ( $login && $password ) // $login && $password are given to log in
     {
         // reinitalize all session variables
         session_unset();
-
+        
         $claro_loginRequested = true;
         
         try
@@ -455,9 +418,9 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
 {
     try
     {
-        if (!$currentUser)
+        if ( !$currentUser )
         {
-            $currentUser = Claro_CurrentUser::getInstance($_uid);
+            $currentUser = Claro_CurrentUser::getInstance($_uid); //, true);
         }
         
         // User login
@@ -482,7 +445,7 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
             if ( $currentUser->firstLogin() )
             {
                 // first login for a not self registred (e.g. registered by a teacher)
-                // do nothing (code may be added later)
+                // do nothing (code may be added later)                
                 $currentUser->updateCreatorId();
                 $_SESSION['firstLogin'] = true;
             }
@@ -515,8 +478,7 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
     }
     catch ( Exception $e )
     {
-        exit('WARNING !! Undefined user id: the requested user doesn\'t exist '
-            . 'at line '.__LINE__);
+        exit('WARNING UNDEFINED UID !! The requested user doesn\'t exist ');
     }
 }
 else
@@ -548,8 +510,7 @@ if ( $cidReset ) // course session data refresh requested
 
         if ($_course == false)
         {
-            die('WARNING !! The course\'s datas couldn\'t be loaded at line '
-                .__LINE__.'.  Please contact your platform administrator.');
+            die('WARNING !! claro_get_course_data() in INIT FAILED ! '.__LINE__);
         }
 
         $_cid    = $_course['sysCode'];
@@ -558,8 +519,7 @@ if ( $cidReset ) // course session data refresh requested
 
         if ($_groupProperties == false)
         {
-            die('WARNING !! The group\'s properties couldn\'t be loaded at line '
-                .__LINE__.'.  Please contact your platform administrator.');
+            die('WARNING !! claro_get_main_group_properties() in INIT FAILED !  '.__LINE__);
         }
     }
     else
@@ -630,19 +590,13 @@ if ( $uidReset || $cidReset ) // session data refresh requested
 
         $_courseUser = null; // not used
     }
-    
-    $is_courseAllowed = (bool)
-    (
+
+    $is_courseAllowed = (bool) (
         ( $_course['visibility']
-          && ( $_course['access'] == 'public'
-               || ( $_course['access'] == 'platform'
-                    && claro_is_user_authenticated()
-                  )
-             )
-        )
+            && ( $_course['access'] == 'public'
+                || ( $_course['access'] == 'platform' && claro_is_user_authenticated() )  ) )
         || $is_courseMember
-        || $is_platformAdmin
-    ); // here because it's a right and not a state
+        || $is_platformAdmin ); // here because it's a right and not a state
 }
 else // else of if ($uidReset || $cidReset) - continue with the previous values
 {
@@ -680,8 +634,8 @@ else // else of if ($uidReset || $cidReset) - continue with the previous values
 
 // Installed module in course if available in platform and not in course
 if ( $_cid
-    && is_array( $_course )
-    && isset($_course['dbNameGlu'])
+    && is_array( $_course ) 
+    && isset($_course['dbNameGlu']) 
     && !empty($_course['dbNameGlu'])
     && trim($_course['dbNameGlu']) )
 {
@@ -692,7 +646,7 @@ if ( $_cid
     
     // 1. get tool list from main db
     
-    $mainCourseToolList = claro_get_main_course_tool_list();
+    $mainCourseToolList = claro_get_main_course_tool_list(); 
     
     // 2. get list af already installed tools from course
     
@@ -708,6 +662,8 @@ if ( $_cid
             WHERE ctl.installed = 'true'";
     
     $courseToolList = claro_sql_query_fetch_all_rows($sql);
+    
+    // var_dump( $courseToolList );
     
     $tmp = array();
     
@@ -808,9 +764,7 @@ if ( $tidReset || $cidReset ) // session data refresh requested
             
             if ( ! in_array( $tlabelReq, $activatedModules ) )
             {
-                exit('WARNING !! Undefined Tlabel or Tid: your script declare '
-                    . 'be a tool wich is not registred at line '.__LINE__.'.  '
-                    . 'Please contact your platform administrator.');
+                exit('WARNING UNDEFINED TLABEL OR TID !! Your script declare be a tool wich is not registred');
             }
             else
             {
@@ -876,9 +830,7 @@ if ( $gidReset || $cidReset ) // session data refresh requested
         }
         else
         {
-            claro_die('WARNING !! Undefined groupd id: the requested group '
-                . ' doesn\'t exist at line '.__LINE__.'.  '
-                . 'Please contact your platform administrator.');
+            claro_die('WARNING UNDEFINED GID !! The requested group doesn\'t exist');
         }
     }
     else  // Keys missing => not anymore in the group - course relation
@@ -1112,3 +1064,39 @@ $_SESSION['is_toolAllowed'] = $is_toolAllowed;
  ---------------------------------------------------------------------------*/
 
 $_SESSION['_courseToolList'] = $_courseToolList;
+
+/*===========================================================================
+  Load configuration files
+  @todo Move to claro_init_global
+ ===========================================================================*/
+
+// Course tools
+if (isset($_cid) && $_courseTool['label'])
+{
+    $config_code = rtrim($_courseTool['label'],'_');
+
+    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
+    {
+        include claro_get_conf_repository() . $config_code . '.conf.php';
+    }
+        
+    if ( claro_is_in_a_course()
+        && file_exists(get_conf('coursesRepositorySys') . $_course['path'] . '/conf/' . $config_code . '.conf.php'))
+    {
+        require get_conf('coursesRepositorySys') . $_course['path'] . '/conf/' . $config_code . '.conf.php';
+    }
+}
+// Other modules
+elseif ( $tlabelReq )
+{
+    $config_code = rtrim($tlabelReq,'_');
+
+    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
+    {
+        include claro_get_conf_repository() . $config_code . '.conf.php';
+
+        pushClaroMessage("Loading configuration file "
+            . claro_get_conf_repository() . $config_code
+            . '.conf.php','debug');
+    }
+}

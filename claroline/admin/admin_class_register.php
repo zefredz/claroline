@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -199,12 +199,12 @@ else
 
     // Display pager
 
-    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ). ( isset( $_REQUEST['search'] ) ? '&search=' . $_REQUEST['search'] : '' ) );
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ) . ( isset( $_REQUEST['search'] ) ? '&search=' . $_REQUEST['search'] : '' ) );
 
     // Display list of users
     // start table...
 
-	if ($search == '')
+    if ($search == '')
 	{
 	    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 	    .    '<thead>' . "\n"
@@ -294,7 +294,7 @@ else
 
     //Pager
 
-    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ). ( isset( $_REQUEST['search'] ) ? '&search=' . $_REQUEST['search'] : '' ) );
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ) . ( isset( $_REQUEST['search'] ) ? '&search=' . $_REQUEST['search'] : '' ) );
 
 }
 

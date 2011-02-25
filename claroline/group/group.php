@@ -20,7 +20,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -458,7 +458,7 @@ if (DISP_GROUP_LIST == $display )
           WHERE `cu`.`code_cours` = '" . $currentCourseId ."'
 
           GROUP BY `g`.`id`";
-
+    
     $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
     $groupPager = new claro_sql_pager($sql, $offset,20);
 

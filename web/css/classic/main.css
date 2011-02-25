@@ -1,11 +1,8 @@
-/**
- $Id: main.css 12824 2011-01-28 15:03:27Z abourguignon $
- **/
-
 
 /******************************************************************************
-                        MAIN HTML MARKUP
-******************************************************************************/
+                              MAIN HTML TAGS STYLE
+ $Id: default.css 11434 2008-10-28 10:48:51 +0000 (mar., 28 oct. 2008) fragile_be $
+ ******************************************************************************/
 
 html {
     margin: 0;
@@ -27,7 +24,7 @@ body {
     font-size: 100%;
 }
 
-a:link, a:visited {
+a:link, a:visited  {
     color: #369;
     text-decoration: none;
 }
@@ -42,34 +39,24 @@ a img {
     text-decoration: none;
 }
 
-small {
-    font-size: 0.9em;
+.spacer {
+    clear: both;
 }
 
 ul {
     list-style-type: square;
 }
 
-table td {
-    vertical-align: top;
-}
-
-.spacer {
-    clear: both;
-}
-
-
 /******************************************************************************
-                        FORMS MARKUP
-******************************************************************************/
+                                    FORMS
+ ******************************************************************************/
 
 label {
     cursor: pointer;
 }
 
-input, textarea, button, select {
+input, textarea, button, select{
     border: 1px solid #aaa;
-    background: none;
     color: #369;
 }
 
@@ -89,12 +76,25 @@ input[type=submit]:hover, button:hover, input[type=button]:hover {
     color: #fff;
 }
 
-input[type=text].inputSearch {
+input[type=text].inputSearch
+{
     background: url('../../img/search.png') no-repeat top left #fff;
     padding-left: 18px;
 }
 
-.collapsible a.doCollapse {
+fieldset {
+    border: 0;
+    margin: 2px;
+    padding: 5px;
+    border-top: 1px solid #eee;
+}
+
+fieldset legend {
+    font-weight: bold;
+    color: #444;
+}
+
+.collapsible a.doCollapse{
     background: transparent url(img/menu-expanded.gif) no-repeat scroll 0 50%;
     padding-left: 1.5em;
 }
@@ -103,7 +103,7 @@ input[type=text].inputSearch {
     background: transparent url(img/menu-collapsed.gif) no-repeat scroll 0 50%;
 }
 
-dl.onOneLine dt, fieldset dl dt {
+fieldset dl dt {
     clear: both;
     float: left;
     width: 20%;
@@ -111,19 +111,12 @@ dl.onOneLine dt, fieldset dl dt {
     margin: 2px 0;
 }
 
-dl.onOneLine dd, fieldset dl dd {
+fieldset dl dd {
     float: left;
     padding: 1px;
     width: 70%;
     margin: 2px 0;
 }
-
-fieldset {
-    border: 1px solid #eee;
-    margin-bottom: 10px;
-}
-
-fieldset legend { font-weight: bold; }
 
 fieldset dt label {
     margin: 0;
@@ -132,9 +125,9 @@ fieldset dt label {
 }
 
 .captionBlock {
-    width:45em;
-    padding-left:2px;
-    margin-left:0;
+	width:45em;
+	padding-left:2px;
+	margin-left:0;
 }
 
 input.radio,
@@ -146,59 +139,21 @@ input.checkbox {
     width: 1em;
 }
 
-.notice {
-    font-size: 0.8em;
-    color: grey;
-}
-
-/* Course form style */
-#courseSettings fieldset {
-    border: 0;
-    margin: 2px;
-    padding: 5px;
-    border-top: 1px solid #eee;
-}
-
-#courseSettings fieldset legend {
-    font-weight: bold;
-    color: #444;
-    margin-left: 20px;
-    padding: 5px;
-    border: 1px solid #eee;
-    background: #fff;
-}
-
-#courseSettings table.categoriesSelection select {
-    width: 250px;
-}
-
-#courseSettings table.categoriesSelection td.arrows {
-    vertical-align: middle;
-}
-
-/* Redirector field */
-#redirector select {
-    background: none;
-    border: 1px solid #EEE;
-}
-
 
 /******************************************************************************
-                        CLAROLINE PAGE
-******************************************************************************/
-
+                             CLAROLINE PAGE
+ ******************************************************************************/
 #claroPage {
     
 }
 
-
 /******************************************************************************
-                        CLAROLINE HEADER
-******************************************************************************/
+                              CLAROLINE BANNER
+ ******************************************************************************/
 
-/*-----------------------------------------------------------------------------
-                        PLATFORM BANNER
------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------
+                                  PLATFORM BANNER
+----------------------------------------------------------------------------*/
 
 #platformBanner {
     margin: 0;
@@ -206,6 +161,7 @@ input.checkbox {
     color: #fff;
     font-weight: bold;
     background: url('img/bg_header.gif') repeat-x top left #c5d4e2;
+    /*border-top: 3px solid #010065;*/
 }
 
 #platformBanner a,
@@ -223,11 +179,9 @@ input.checkbox {
 }
 
 
-#platformBanner #siteName a {
+#platformBanner #siteName {
     letter-spacing: 3px;
     font-size: 1.3em;
-    font-weight: 900;
-    text-shadow: 0px 0px 9px #000; 
 }
 
 #platformBanner #institution {
@@ -235,37 +189,36 @@ input.checkbox {
     font-size: 1.3em;
 }
 
-
-/*-----------------------------------------------------------------------------
-                        CAMPUS BANNER
------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------
+                                  CAMPUS BANNER
+----------------------------------------------------------------------------*/
 
 #campusBannerRight {
     float: right;
     text-align: right;
     margin-top: -1px;
     padding: 5px;
-    margin: 0;
+    margin /**/: 0;
 }
 
 #campusBannerLeft {
     float: left;
     text-align: left;
     margin-top: -1px;
-    padding: 5px 0px;
-    margin: 0;
+    padding: 5px;
+    margin /**/: 0;
 }
 
 
-/*-----------------------------------------------------------------------------
-                        USER BANNER
------------------------------------------------------------------------------*/
+ /*----------------------------------------------------------------------------
+                                   USER BANNER
+ ----------------------------------------------------------------------------*/
 
 #userBanner {
     color: #999;
     font-weight: bold;
     font-size: 0.8em;
-    padding: 1px 15px;
+    padding: 1px 5px;
     background: url('img/bg_userbanner.png') repeat-x bottom left #fdf4de;
     border-top: 1px #999 solid;
     border-bottom: 1px #999 solid;
@@ -302,13 +255,11 @@ input.checkbox {
     text-align: left;
 }
 
-
-/*-----------------------------------------------------------------------------
-                        COURSE BANNER
------------------------------------------------------------------------------*/
-
+ /*----------------------------------------------------------------------------
+                                  COURSE BANNER
+ ----------------------------------------------------------------------------*/
 #courseBanner {
-    padding: 4px 15px;
+    padding: 4px;
     color: #369;
     font-size: 0.8em;
     font-weight: bold;
@@ -372,27 +323,28 @@ input.checkbox {
     margin: 0;
 }
 
-#courseBannerRight #redirector select {
+#courseBannerRight #redirector select
+{
     padding: 0;
     margin: 0;
 }
 
-#courseBannerRight #redirector option {
+#courseBannerRight #redirector option
+{
     margin: 2px 1px;
     padding: 1px 0 1px 0;
     padding-left: 20px;
 }
 
-
-/*-----------------------------------------------------------------------------
-                        BREAD CRUMB TRAIL
------------------------------------------------------------------------------*/
+ /*----------------------------------------------------------------------------
+                                  BREAD CRUMB TRAIL
+ ----------------------------------------------------------------------------*/
 
 #breadcrumbLine {
     font-size: 0.8em;
     color: #666;
     border: none;
-    padding : 2px 15px;
+    padding : 2px 5px;
 }
 
 #breadcrumbLine hr {
@@ -442,10 +394,9 @@ li.lastBreadCrumbsNode {
     list-style: none;
 }
 
-
 /******************************************************************************
-                        CLAROLINE BODY
-******************************************************************************/
+                             CLAROLINE BODY
+ ******************************************************************************/
 
 #claroBody {
     padding:15px;
@@ -459,7 +410,7 @@ li.lastBreadCrumbsNode {
 }
 
 #claroBody a.item:hover,
-#claroBody a.item:active {
+#claroBody a.item:active  {
     color: #111C99;
 }
 
@@ -478,10 +429,10 @@ li.lastBreadCrumbsNode {
 }
 
 #rightSidebar {
-    width: 220px;
-    padding-left: 5px;
+    padding: 2px 5px;
     margin: 0;
     float: right;
+    width: 220px;
     border-left: #ccc solid 1px;
 }
 
@@ -489,14 +440,13 @@ li.lastBreadCrumbsNode {
     padding: 2px 5px 2px 2px;
     margin-right: 240px;
 }
-
-
 /******************************************************************************
-                        CLAROLINE FOOTER
-******************************************************************************/
+                              CLAROLINE FOOTER
+ ******************************************************************************/
 
 #campusFooter {
-    margin: 25px 0;
+    margin: 0;
+    margin-top : 25px;
     padding: 5px 15px;
     font-size: 0.7em;
     color: #666;
@@ -540,91 +490,32 @@ li.lastBreadCrumbsNode {
     font-style: italic;
 }
 
-
 /******************************************************************************
-                        COURSE PAGE
-******************************************************************************/
-
-/*-----------------------------------------------------------------------------
-                        COURSE TABLE
------------------------------------------------------------------------------*/
-
-table.courseTable {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
-table.courseTable td {
-    vertical-align: top;
-}
-
-table.courseTable td.toolList {
-    width: 220px;
-    padding-right: 20px; 
-    border-right: gray solid 1px;
-}
-
-table.courseTable td.coursePortletList { 
-    padding-left: 20px; 
-}
-
-
-/*-----------------------------------------------------------------------------
-                        COURSE TOOL LIST
------------------------------------------------------------------------------*/
-
-#commonToolList img {
+    Course tool list
+ ******************************************************************************/
+#commonToolList img
+{
     vertical-align: text-bottom;
     padding: 1px 0;
 }
 
-#commonToolList a {
+#commonToolList a 
+{
     padding-top: 2px;
-    padding-bottom: 2px;
+    padding-bottom: 2px;    
     margin: 2px 0;
 }
 
-#courseManageToolList {
+#courseManageToolList
+{
     padding-left: 16px;
-}
-
-table.courseTable td.toolList ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-
-
+} 
 /******************************************************************************
-                        PLATFORM HOMEPAGE
-******************************************************************************/
+    CLAROLINE COMMAND LINKS
+ ******************************************************************************/
 
-table.homepageTable td.spacer {
-    width: 30px;
-}
-
-table.homepageTable td.userCommands ul {
-    margin: 0 0 10px 0;
-    padding: 0;
-    list-style-type: none;
-}
-
-table.homepageTable td.userCommands {
-    padding-right: 20px; 
-}
-
-table.homepageTable td.myCourseList { 
-    padding-left: 20px; 
-}
-
-
-/******************************************************************************
-                        COMMAND LINKS
-******************************************************************************/
-
-.claroCmd, .claroCmdDisabled {
+.claroCmd, .claroCmdDisabled
+{
     font-size: 0.9em;
 }
 
@@ -665,11 +556,11 @@ th .claroCmdDisabled {
 }
 
 .claroCmd img,
-.claroCmdDisabled img {
+.claroCmdDisabled img
+{
     vertical-align: text-bottom;
     padding: 0 1px;
 }
-
 /*
  * Classes family to emphase some item in the tool interface.
  * These two classes has to be used together to work correctly.
@@ -693,11 +584,10 @@ th .claroCmdDisabled {
 }
 
 .hot {
-    padding-left: 15px;
     background: url('../../img/hot.png') no-repeat center left;
 }
 
-a.item:visited {
+a.item:visited{
     color: #369;
 }
 
@@ -705,22 +595,25 @@ a.item:visited {
  *Visually the same as the claroTable headerX but can be used outside of a table 
  * best on a block type tag
  */
-.header {
+.header
+{
     color: #693;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
     background-color: #EDF1E3;
     border-bottom: 1px #96BB7A solid;
-    margin: 0;
+    margin: 3px 0px;
     font-size: 100%;
 }
 
-.claroBlock {
+.claroBlock 
+{
     width: 99%;
     margin: 5px auto;
 }
 
-.claroBlockHeader {
+.claroBlockHeader
+{
     color: #693;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
@@ -729,7 +622,8 @@ a.item:visited {
     border-bottom: 1px #96BB7A solid;
 }
 
-.claroBlockSuperHeader {
+.claroBlockSuperHeader
+{
     color: #693;
     background-color: #DEEECE;
     border-bottom: 2px #87B665 solid;
@@ -737,38 +631,43 @@ a.item:visited {
     font-weight: bold;
 }
 
-.claroBlockHeader img {
+.claroBlockHeader img
+{
     vertical-align: text-bottom;
 }
 
-.claroBlockContent {
+.claroBlockContent
+{
     border-bottom: 1px solid #eee;
     padding: 5px;
 }
 
-dl.userCourseList {
-    margin: 5px 0 10px 0;
-    padding-left: 0;
+dl.userCourseList
+{
+    padding-left: 30px;
 }
 
-.userCourseList dt {
+.userCourseList dt
+{
     margin: 0;
     padding: 0;
+    padding-left: 16px;
 }
 
-.userCourseList dd {
+.userCourseList dd
+{
     margin: 0;
-    padding: 0 0 5px 20px;
+    padding: 0 0 0 32px;
 }
 
-.userCourseList dt a, .userCourseList dd small {
-    padding: 0;
+.userCourseList dt a, .userCourseList dd small
+{
+    padding-left: 3px;
 }
-
 
 /******************************************************************************
-                        CLAROLINE TABLES
-******************************************************************************/
+                             CLAROLINE TABLE
+ ******************************************************************************/
 
 /* Uniformize claroline table format. The class provide 3 header type
  *
@@ -853,7 +752,8 @@ dl.userCourseList {
     font-weight: bold;
 }
 
-.claroTable img {
+.claroTable img
+{
     vertical-align: text-bottom;
 }
 
@@ -871,14 +771,16 @@ dl.userCourseList {
     text-align: center;
 }
 
-.claroTable .headerX th a {
+.claroTable .headerX th a
+{
     font-weight: bold !important ;
     color: #693;
     text-decoration : underline;
 }
 
 .claroTable .headerX th a:active,
-.claroTable .headerX th a:hover {
+.claroTable .headerX th a:hover
+{
     color: #693 !important;
     text-decoration : underline;
 }
@@ -957,105 +859,10 @@ dl.userCourseList {
     padding: 1px 10px;
     
 }
-
-
 /******************************************************************************
-                        INTERNAL MESSAGING
-******************************************************************************/
-
-/*TR line for platform message*/
-.platformMessage { 
-    background-color: #fee5c3;
-}
-
-/*TR line for unread message*/
-.unreadMessage {
-    background-color: #e6e5e5;
-    font-weight: bold;
-}
-
-
-.unreadMessage a, 
-.unreadMessage a:link ,
-.unreadMessage a:active ,
-.unreadMessage a:hover ,
-.unreadMessage a:visited {
-    font-weight: bold;
-}
-
-.im_context {
-    /*color: #CCC;*/
-}
-
-.im_list_action, .im_list_selection {
-    text-align: center;
-}
-
-#im_paging {
-    text-align: center;
-}
-
-.imInfoBlock {
-    background: #eee;
-    border-left: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    padding: 5px 10px;
-    margin: 0;
-}
-
-#im_message .header {
-    margin: 0;
-}
-
-.imInfo .imInfoTitle {
-    font-weight: bold;
-    padding-right: 5px;
-}
-
-.imInfo .imInfoValue {
-    
-}
-
-.imContent {
-    padding: 0 15px;
-    margin-top: 3px;
-}
-
-.imCmdList {
-   padding-top: 3px; 
-   margin-left: 0px;
-   float: right;
-}
-
-
-/******************************************************************************
-                        DEBUG BAR
-******************************************************************************/
-
-.debugBar {
-    padding: 3px 5px;
-    color: #F99;
-    background-color:#A33;
-    font-size: 70%;
-}
-
-.debugBar a,
-.debugBar a:link,
-.debugBar a:visited {
-    color: #E6F;
-}
-
-.debugBar .claroDialogBox {
-    color: #990000;
-}
-
-
-/******************************************************************************
-                        MISCELLANEOUS
-******************************************************************************/
-
-.spoiler a {
+                             VARIOUS CLAROLINE CSS CLASS
+ ******************************************************************************/
+.spoiler a{
     padding-left: 17px;
     background: url('../../img/spoiler.png') bottom left no-repeat;
 }
@@ -1088,7 +895,7 @@ dl.userCourseList {
 }
 
 /* specific styling for dialog box messages */
-.claroDialogBox {
+.claroDialogBox {    
     margin-top: 10px; 
     margin-bottom: 10px; 
     padding: 5px 5px 5px 20px; 
@@ -1097,31 +904,31 @@ dl.userCourseList {
     border-left: 2px solid #ccc;
 }
 
-.boxInfo {
+.boxInfo {    
     border-left: 2px solid #ccc;
     background: #F9F7ED url('img/bg_boxinfo.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
-.boxSuccess {
+.boxSuccess {    
     border-left: 2px solid #090;
     background: #F9F7ED url('img/bg_boxsuccess.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
-.boxWarning {
+.boxWarning {    
     border-left: 2px solid #900;
     background: #F9F7ED url('img/bg_boxwarning.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
-.boxError {
+.boxError {    
     border-left: 2px solid #900;
     background: #F9F7ED url('img/bg_boxerror.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
-.boxQuestion {
+.boxQuestion {    
     border-left: 2px solid #369;
     background: #F9F7ED url('img/bg_boxquestion.png') bottom right no-repeat;
     padding-right: 83px;
@@ -1238,9 +1045,10 @@ a:visited.invisible {
 }
 
 .claroToolTitle {
-    margin: 15px 0 5px 0;
+    margin: 10px 0 5px 0;
     padding: 0 0 0 15px;
     font-weight: bold;
+    border-bottom: 1px solid #DEDEDE;
     background-image: url(img/arrow_green.gif);
     background-position: 0px 5px;
     background-repeat: no-repeat;
@@ -1253,6 +1061,10 @@ a:visited.invisible {
 .comment {
     font-size : 0.9em;
     margin-left: 30px;
+}
+
+small {
+    font-size : 0.9em;
 }
 
 /*
@@ -1298,7 +1110,7 @@ a:visited.invisible {
     border-bottom: 4px solid #693;
 }
 
-form tr.admin td {
+form tr.admin td{
     background-color : #EDF1E3;
     border: 1px solid #630;
     margin: 10px 10px 10px 10px;
@@ -1311,54 +1123,109 @@ form tr.admin td {
     text-align:center;
 }
 
-ul.user_list {
-    list-style-type:none;
+
+/******************************************************************************
+                            INTERNAL MESSAGING
+ ******************************************************************************/
+
+/*TR line for platform message*/
+.platformMessage { 
+    background-color: #fee5c3;
 }
 
-ul.user_list li {
-    float:left;
-    position:relative;
-    width:100px;
-    padding:0;
-    margin:5px;
-    background:#ccc;
+/*TR line for unread message*/
+.unreadMessage {
+    background-color: #e6e5e5;
+    font-weight: bold;
 }
 
-ul.user_list li img.edit_link {
-    position:absolute;
-    right:0; top:0;
-    z-index:100;
-    display:none;
+
+.unreadMessage a, 
+.unreadMessage a:link ,
+.unreadMessage a:active ,
+.unreadMessage a:hover ,
+.unreadMessage a:visited
+{
+    font-weight: bold;
 }
 
-ul.user_list li:hover img.edit_link {
-    display:block;
+.im_context 
+{
+    /*color: #CCC;*/
 }
 
-ul.courses {
-    list-style-type:none; 
-    padding:0;
+.im_list_action, .im_list_selection
+{
+    text-align: center;
 }
 
-ul.courses li {
-    margin-bottom:10px;
+#im_paging
+{
+    text-align: center;
 }
 
-ul.courses dd {
-    margin:0;
-    font-size:.8em;
+.imInfoBlock 
+{
+    background: #eee;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;    
+    padding: 5px 10px;
+    margin: 0;
 }
 
-h4 {
-    margin-bottom:5px;
+#im_message .header
+{
+    margin: 0;    
 }
 
-/* Use it to highlight admin tools */
-dl.admin-control dd {
-    background:#F9F7ED; 
-    border:1px solid #AA3333;
+.imInfo .imInfoTitle
+{
+    font-weight: bold;
+    padding-right: 5px;
 }
 
-.centerContent {
+.imInfo .imInfoValue
+{
+}
+
+.imContent
+{
+    padding: 0 15px;
+    margin-top: 3px;
+}
+
+.imCmdList
+{
+   padding-top: 3px; 
+   margin-left: 0px;
+   float: right;
+}
+
+/******************************************************************************
+                                    DEBUG BAR
+ ******************************************************************************/
+
+.debugBar
+{
+    color: #F99;
+    background-color:#A33;
+    padding: 3px;
+    font-size: 70%;
+}
+
+.debugBar a,
+.debugBar a:link,
+.debugBar a:visited
+{
+    color: #E6F;
+}
+
+/******************************************************************************
+                                   Center content
+ ******************************************************************************/
+ 
+.centerContent
+{
     text-align:center;
 }

@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -357,7 +357,7 @@ class Exercise
      */
     function getQuestionList()
     {
-        $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, REQ.`rank`, Q.`id_category` 
+        $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, REQ.`rank`
                  FROM `" . $this->tblRelExerciseQuestion . "` AS REQ,
                       `" . $this->tblQuestion . "` AS Q
                 WHERE REQ.`exerciseId` = " . (int) $this->id . "

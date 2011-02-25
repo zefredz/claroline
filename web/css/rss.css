@@ -1,8 +1,8 @@
-/**
- $Id: default.css 11434 2008-10-28 10:48:51 +0000 (mar., 28 oct. 2008) fragile_be $
- 
- CSS for RSS feed in claroline
- **/
+/* $Id: rss.css 9685 2007-12-07 12:48:27 +0000 (ven., 07 déc. 2007) mla $
+
+CSS for RSS feed in claroline
+
+*/
 
 rss, channel, item, title, description, link, pubDate
 {

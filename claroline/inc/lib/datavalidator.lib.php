@@ -28,8 +28,8 @@
  *     echo explode(', ', $validator->getErrorList() );
  *   }
  *   
- * @version     1.10 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Hugues Peeters <hugues.peeters@advalvas.be>
  * @license     http://www.gnu.org/copyleft/gpl.html

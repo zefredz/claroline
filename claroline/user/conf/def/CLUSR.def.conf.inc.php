@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -166,7 +166,7 @@ array('label'         => 'Teacher can export username'
                               ,'FALSE'=>'No'
                               )
 );
-     
+
 $conf_def_property_list['export_user_id'] =
 array('label'         => 'Teacher can export user id'
      ,'default'       => FALSE
@@ -177,7 +177,7 @@ array('label'         => 'Teacher can export user id'
                               ,'FALSE'=>'No'
                               )
 );
-
+     
 $conf_def_property_list['export_user_password'] =
 array('label'         => 'Teacher can export password'
      ,'default'       => FALSE

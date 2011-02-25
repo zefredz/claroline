@@ -4,7 +4,7 @@
  *
  * @version 1.8
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -540,6 +540,8 @@ $LPNumber = mysql_num_rows($result);
 $iterator = 1;
 
 $is_blocked = false;
+$display_comment = false;
+
 while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 {
     //modify style if the file is recently added since last login
@@ -733,10 +735,11 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
     }
     else   //else of !$is_blocked condition , we have already been blocked before, so we continue beeing blocked : we don't display any links to next paths any longer
     {
-        $out .= '<td align="left">'
-        .    '<img src="' . get_icon_url('learnpath') . '" alt="" />'
+        $display_comment = true;
+        
+        $out .= '<td align="left"><span class="item'.$classItem.'">'
+        .    '<img src="' . get_icon_url('learnpath') . '" alt="" />  '
         .    $list['name']
-        .    $list['minRaw']
         .    '</td>' . "\n"
         ;
     }
@@ -905,6 +908,15 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         ;
     }
     $out .= '</tr>' . "\n";
+    
+    if ( $display_comment )
+    {
+        $out .= '<tr>' . "\n"
+        .   '<td colspan="2"><span class="comment">'
+        .   get_lang( 'You must complete the previous item in order to access to this one' )
+        .   '</span></td></tr>' . "\n";
+    }
+    
     $iterator++;
 
 } // end while

@@ -7,7 +7,7 @@
  * class providing classes and methods to deal with the kernel and the page
  * display
  *
- * @version     1.10 $Revision$
+ * @version     1.9 $Revision$
  * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -104,7 +104,7 @@ class Claroline
             die( $e );
         }
     }
-
+    
     /**
      * Add a label at the top of the module stack
      * @param string $label
@@ -113,7 +113,7 @@ class Claroline
     {
         array_push( $this->moduleLabelStack, $label );
     }
-
+    
     /**
      * Remove the modulke label at the top of the module stack
      */
@@ -121,7 +121,7 @@ class Claroline
     {
         array_pop( $this->moduleLabelStack );
     }
-
+    
     /**
      * Get the label of the current module
      * @return string or false
@@ -189,7 +189,7 @@ class Claroline
 
         return self::$instance;
     }
-
+    
     /**
      * Get the current display object
      * @return Display which can be a ClaroPage or ClaroFramesetPage according
@@ -208,7 +208,7 @@ class Claroline
     {
         self::getInstance()->setDisplayType( $displayType );
     }
-
+    
     /**
      * Helper to log a message
      * @param string $type
@@ -222,7 +222,7 @@ class Claroline
     protected static $db = false;
     // Database link
     protected static $database = false;
-
+    
     /**
      * Get the current database connection object
      * @return Claroline_Database_Connection
@@ -232,34 +232,59 @@ class Claroline
         if ( ! self::$database )
         {
             // self::initMainDatabase();
-            self::$database = new Claroline_Database_Connection();//self::$db);
+            self::$database = new Claroline_Database_Connection(self::$db);
             self::$database->connect();
         }
         
         return self::$database;
     }
-
-    /**
-     * Initialize the database for claro_sql_* legacy code
-     * @return void
-     * @throws Exception when the database connection cannot be created
-     * @deprecated since 1.10
-     */
+    
     public static function initMainDatabase()
     {
-        if ( !self::$db )
+        if ( self::$db )
         {
-            self::$db = self::getDatabase()->getDbLink();
+            return;
         }
         
+        if ( ! defined('CLIENT_FOUND_ROWS') ) define('CLIENT_FOUND_ROWS', 2);
+        // NOTE. For some reasons, this flag is not always defined in PHP.
+        
+        self::$db = @mysql_connect(
+            get_conf('dbHost'),
+            get_conf('dbLogin'),
+            get_conf('dbPass'),
+            false,
+            CLIENT_FOUND_ROWS );
+        
+        if ( ! self::$db )
+        {
+            throw new Exception ( 'FATAL ERROR ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER.' );
+        }
+        
+        // NOTE. CLIENT_FOUND_ROWS is required to make claro_sql_query_affected_rows()
+        // work properly. When using UPDATE, MySQL will not update columns where the new
+        // value is the same as the old value. This creates the possiblity that
+        // mysql_affected_rows() may not actually equal the number of rows matched,
+        // only the number of rows that were literally affected by the query.
+        // But this behavior can be changed by setting the CLIENT_FOUND_ROWS flag in
+        // mysql_connect(). mysql_affected_rows() will return then the number of rows
+        // matched, even if none are updated.
+        
+        $selectResult = mysql_select_db( get_conf('mainDbName'), self::$db);
+        
+        if ( ! $selectResult )
+        {
+            throw new Exception ( 'FATAL ERROR ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.' );
+        }
+
         if ($GLOBALS['statsDbName'] == '')
         {
             $GLOBALS['statsDbName'] = get_conf('mainDbName');
         }
     }
-
+    
     protected static $_ajaxServiceBroker = false;
-
+        
     /**
      * Get kernel Ajax Service Broker instance
      * @return Ajax_Remote_Service_Broker
@@ -271,7 +296,7 @@ class Claroline
         {
             self::$_ajaxServiceBroker = new Ajax_Remote_Service_Broker();
         }
-
+        
         return self::$_ajaxServiceBroker;
     }
 }

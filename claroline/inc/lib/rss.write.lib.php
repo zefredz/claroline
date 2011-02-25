@@ -1,10 +1,15 @@
 <?php // $Id$
 
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLRSS
  * @since       1.9
@@ -14,65 +19,91 @@
  * @see         http://rss.scripting.com/
  */
 
+
+/**
+ * This lib use
+ * * cache lite
+ * * rssendar/class.rss.inc.php
+ *
+ */
+
 define('RSS_FILE_EXT', 'xml');
 
 include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
 include_once claro_get_conf_repository() . 'rss.conf.php';
 
-require_once dirname(__FILE__) . '/thirdparty/feedcreator.class.php';
-
 function build_rss($context)
 {
     if (is_array($context) && count($context) > 0)
     {
+        include_once dirname(__FILE__) . '/thirdparty/pear/XML/Serializer.php';
 
-        $rss = new UniversalFeedCreator();
+        $rssRepositoryCacheSys = get_path('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/');
+        if (!file_exists($rssRepositoryCacheSys))
+        {
+            require_once dirname(__FILE__) . '/fileManage.lib.php';
+            claro_mkdir($rssRepositoryCacheSys, CLARO_FILE_PERMISSIONS, true);
+            if (!file_exists($rssRepositoryCacheSys))
+            return claro_failure::set_failure('CANT_CREATE_RSS_DIR');
+        }
+        
+        $outEnc = 'utf-8';
+        $inEnc = get_conf('charset');
 
+        $options = array(
+        'indent'    => '    ',
+        'linebreak' => "\n",
+        'typeHints' => FALSE,
+        'addDecl'   => TRUE,
+        'encoding'  => $outEnc,
+        'rootName'  => 'rss',
+        'defaultTagName' => 'item',
+        'rootAttributes' => array('version' => '2.0', 'xmlns:dc'=>'http://purl.org/dc/elements/1.1/')
+        );
+
+        $rssFilePath = $rssRepositoryCacheSys . '/' ;
         if (array_key_exists(CLARO_CONTEXT_COURSE,$context))
         {
-            // $rssFilePath .= $context[CLARO_CONTEXT_COURSE] . '.';
+            $rssFilePath .= $context[CLARO_CONTEXT_COURSE] . '.';
 
             $_course = claro_get_course_data($context[CLARO_CONTEXT_COURSE]);
-
-            $rss->title = '[' . get_conf('siteName') . '] '.$_course['officialCode'];
-            $rss->description = $_course['name'];
-            $rss->editor = $_course['titular'] == '' ? get_conf('administrator_name') : $_course['titular'];
-            $rss->editorEmail = $_course['email'] == '' ? get_conf('administrator_email') : $_course['email'];
-            $rss->link = get_path('rootWeb') .  get_path('coursesRepositoryAppend') . claro_get_course_path();
-            $rss->generator = 'Feedcreator';
-
+            $rssTitle = '[' . get_conf('siteName') . '] '.$_course['officialCode'];
+            $rssDescription = $_course['name'];
+            $rssEmail = $_course['email'] == '' ? get_conf('administrator_email') : $_course['email'];
+            $rssLink = get_path('rootWeb') .  get_path('coursesRepositoryAppend') . claro_get_course_path();
             if (array_key_exists(CLARO_CONTEXT_GROUP,$context))
             {
-                // $rssFilePath .= 'g'.$context[CLARO_CONTEXT_GROUP] . '.';
-                $rss->title .= '[' . get_lang('Group') . $context[CLARO_CONTEXT_GROUP] . ']';
-                $rss->description .= get_lang('Group') . $context[CLARO_CONTEXT_GROUP];
+                $rssFilePath .= 'g'.$context[CLARO_CONTEXT_GROUP] . '.';
+                $rssTitle .= '[' . get_lang('Group') . $context[CLARO_CONTEXT_GROUP] . ']';
+                $rssDescription .= get_lang('Group') . $context[CLARO_CONTEXT_GROUP];
             }
         }
         else
         {
-            $rss->title = '[' . get_conf('siteName') . '] '.$_course['officialCode'];
-            $rss->description = $_course['name'];
-            $rss->editor = get_conf('administrator_name');
-            $rss->editorEmail = get_conf('administrator_email');
-            $rss->link = get_path('rootWeb');
+            $rssEmail = '';
         }
 
-        $rss->language = get_locale('iso639_1_code');
-        $rss->docs = 'http://blogs.law.harvard.edu/tech/rss';
-        $rss->pubDate = date("r",time());
+        $rssFilePath = $rssFilePath . RSS_FILE_EXT;
+
+
+        $data['channel'] = array(
+        'title'          => $rssTitle,
+        'description'    => $rssDescription,
+        'link'           => $rssLink,
+        'generator'      => 'Claroline-PEARSerializer',
+        'webMaster'      => get_conf('administrator_email'),
+        'managingEditor' => $rssEmail,
+        'language'       => get_locale('iso639_1_code'),
+        'docs'           => 'http://blogs.law.harvard.edu/tech/rss',
+        'pubDate'        => date("r",time())
+        );
 
         $toolLabelList = rss_get_tool_compatible_list();
 
-        //var_dump($toolLabelList);
-        $rssItems = array();
 
-        foreach ( $toolLabelList as $toolLabel )
+
+        foreach ($toolLabelList as $toolLabel)
         {
-            /*var_dump(is_tool_activated_in_course(
-                get_tool_id_from_module_label( $toolLabel ),
-                $context[CLARO_CONTEXT_COURSE]
-            ));*/
-
             if ( is_tool_activated_in_course(
                 get_tool_id_from_module_label( $toolLabel ),
                 $context[CLARO_CONTEXT_COURSE]
@@ -82,50 +113,52 @@ function build_rss($context)
                 {
                     install_module_in_course( $toolLabel,$context[CLARO_CONTEXT_COURSE] );
                 }
-
+                
                 $rssToolLibPath = get_module_path($toolLabel) . '/connector/rss.write.cnr.php';
                 $rssToolFuncName =  $toolLabel . '_write_rss';
-
-                if ( file_exists( $rssToolLibPath ) )
+                if ( file_exists($rssToolLibPath)
+                )
                 {
                     include_once $rssToolLibPath;
-
                     if (function_exists($rssToolFuncName))
                     {
-                        $rssItems = array_merge( $rssItems, call_user_func($rssToolFuncName, $context ) );
+                        $rssItems = call_user_func($rssToolFuncName, $context );
+                        $data['channel'] = array_merge($data['channel'], $rssItems);
                     }
                 }
             }
         }
 
-        $sortDate = array();
-
-        foreach ( $rssItems as $key => $rssItem )
+        foreach ($data['channel'] as $itemKey => $item)
         {
-            $sortDate[$key] = $rssItem['pubDate'];
+            // $data['channel'][$itemKey][x] = filter($item[x]);
+            $data['channel'][$itemKey]['title'] = trim(strip_tags($item['title']));
+            $data['channel'][$itemKey]['title'] = (empty($data['channel'][$itemKey]['title'])?get_lang('Item').':'.$itemKey:$data['channel'][$itemKey]['title'] );
         }
 
-        // die(var_export($sortDate, true));
+        $serializer = new XML_Serializer($options);
 
-        array_multisort( $sortDate, SORT_DESC, $rssItems );
-
-        foreach ( $rssItems as $rssItem )
+        if ($serializer->serialize($data))
         {
-            $item = new FeedItem();
-            $item->title = claro_utf8_encode( $rssItem['title'], get_conf('charset') );
-            $item->description = claro_utf8_encode( $rssItem['description'] );
-            $item->category = $rssItem['category'];
-            $item->guid = $rssItem['guid'];
-            $item->link = $rssItem['link'];
-            $item->date = $rssItem['pubDate'];
+            if( is_writable($rssFilePath)
+                || (!file_exists($rssFilePath) && is_writable(dirname($rssFilePath))))
+            {
+                $contents = iconv( $inEnc, $outEnc, $serializer->getSerializedData() );
+                
+                if ( false === file_put_contents( $rssFilePath, $contents ) )
+                {
+                    return claro_failure::set_failure('CANT_OPEN_RSS_FILE');
+                }
+            }
+            else
+            {
+                return claro_failure::set_failure('CANT_OPEN_RSS_FILE_READ_ONLY');
+            }
 
-            $rss->addItem( $item );
         }
-
-        return $rss->outputFeed("RSS2.0");
+        return $rssFilePath;
 
     }
-
     return false;
 
 }
@@ -162,7 +195,7 @@ function rss_get_tool_compatible_list()
             )
             {
                 require_once $rssToolLibPath;
-
+                
                 if (function_exists($rssToolFuncName))
                 {
                     $rssToolList[] = $toolLabel;

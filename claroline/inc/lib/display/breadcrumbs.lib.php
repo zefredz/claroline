@@ -6,7 +6,7 @@
  * BreadCrumbs
  *
  * @version     1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -40,9 +40,9 @@ if ( count( get_included_files() ) == 1 )
  *      --> a > b > c > d > e
  *
  * FIXME : reverse order for prepend !!!!
- *
+ *  
  * @version     1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -184,7 +184,7 @@ class BreadCrumbsNode
 
         if ( ! empty( $this->icon ) )
         {
-            $nodeHtml .= claro_html_icon( 'home', null, null ).'&nbsp;';
+            $nodeHtml .= claro_html_icon( 'home', null, null );
         }
 
         $nodeHtml .= htmlspecialchars( $this->name );

@@ -5,8 +5,8 @@
 /**
  * Authentication Manager
  *
- * @version     1.10 $Revision$
- * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2009 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -62,7 +62,10 @@ class AuthManager
             
             if ( $driver->authenticate() )
             {
-                if ( $uid = AuthUserTable::registered( $username, $driver->getAuthSource() ) )
+
+                $uid = AuthUserTable::registered( $username, $driver->getAuthSource() );
+                
+                if ( $uid )
                 {
                     if ( $driver->userUpdateAllowed() )
                     {
@@ -151,7 +154,9 @@ class AuthUserTable
         
         if ( $res->numRows() )
         {
-            return $res->fetch(Database_ResultSet::FETCH_VALUE);
+            $uidArr = $res->fetch();
+            
+            return (int) $uidArr['user_id'];
         }
         else
         {

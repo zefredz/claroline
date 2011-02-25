@@ -1,5 +1,3 @@
-<!-- $Id$ -->
-
 <form action="adminusers.php" method="get" >
 <table border="0">
   <tr>

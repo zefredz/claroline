@@ -1,19 +1,23 @@
 <?php // $Id$
 /**
  * CLAROLINE
- * @version     1.9 $Revision$
- * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     ADMIN
- * @author      claro team <cvs@claroline.net>
- * @author      Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package ADMIN
+ *
+ * @author claro team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  */
-
 $cidReset=true;
 $gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
-// SECURITY CHECK
+//SECURITY CHECK
+
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
@@ -22,8 +26,8 @@ require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 //------------------------
 //  USED SESSION VARIABLES
 //------------------------
+// clean session of possible previous search information. : COURSE
 
-// Clean session of possible previous search information. : COURSE
 unset($_SESSION['admin_course_code']);
 unset($_SESSION['admin_course_search']);
 unset($_SESSION['admin_course_intitule']);
@@ -34,7 +38,7 @@ unset($_SESSION['admin_course_subscription']);
 unset($_SESSION['admin_course_order_crit']);
 
 
-// Deal with session variables clean session variables from previous search : USER
+// deal with session variables clean session variables from previous search : USER
 
 // TODO : this unset would disapear
 unset($_SESSION['admin_user_search']);
@@ -53,7 +57,7 @@ $menu['AdminClaroline'] = get_menu_item_list('AdminClaroline');
 $menu['AdminPlatform']  = get_menu_item_list('AdminPlatform');
 $menu['AdminTechnical'] = get_menu_item_list('AdminTechnical');
 $menu['Communication']  = get_menu_item_list('Communication');
-$menu['ExtraTools']     = get_menu_item_list('ExtraTools');
+$menu['ExtraTools'] = get_menu_item_list('ExtraTools');
 
 
 
@@ -61,10 +65,11 @@ $menu['ExtraTools']     = get_menu_item_list('ExtraTools');
 // DISPLAY
 //----------------------------------
 
-// Deal with interbreadcrumbs and title variable
+// Deal with interbredcrumps  and title variable
+
 $nameTools = get_lang('Administration');
 
-// no sense because not allowed with claro_is_platform_admin()
+//  no sense because not allowed with claro_is_platform_admin()
 // but  claro_is_platform_admin() would be later replaced by get_user_property ('can view admin menu')
 $is_allowedToAdmin     = claro_is_platform_admin();
 
@@ -73,6 +78,7 @@ if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'
 {
     $dialogBox->warning( get_block('blockWarningRemoveInstallDirectory') );
 }
+
 // ----- is install visible ----- end
 
 $register_globals_value = ini_get('register_globals');
@@ -83,6 +89,20 @@ if ( ! empty($register_globals_value) && strtolower($register_globals_value) != 
 }
 
 
+        // Work arround if old tracking database exists
+        if ((get_conf('mainDbName') != get_conf('statsDbName')) || (get_conf('mainTblPrefix') != get_conf('statsTblPrefix')))
+        {
+            $sql = ' SHOW TABLES IN ' . get_conf('mainDbName') . ' LIKE  "' .get_conf('mainTblPrefix') . 'tracking_event"' ;
+            $result =  Claroline::getDatabase()->exec($sql);
+
+            if ($result <= 0)
+            {
+                if (get_conf('mainDbName') != get_conf('statsDbName'))
+                    $dialogBox->warning( get_lang('Please transfer tables from database ' . get_conf('statsDbName') . ' to  database ' . get_conf('mainDbName') . ' and modify the main configuration'));
+                if (get_conf('mainTblPrefix') != get_conf('statsTblPrefix'))
+                    $dialogBox->warning( get_lang('Please modify prefix of statistic tables from ' . get_conf('statsTblPrefix') . ' to ' . get_conf('mainTblPrefix') . ' and modify the main configuration'));
+            }
+        }
 $out = '';
 
 $out .= claro_html_tool_title($nameTools)
@@ -95,33 +115,33 @@ $out .= '<table cellspacing="5" align="center">' . "\n"
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_icon_url('user') . '" alt="" />&nbsp;'.get_lang('Users'))
-.    claro_html_list($menu['AdminUser'], array('class' => 'adminUser'))
+.    claro_html_menu_vertical($menu['AdminUser'])
 .    '</td>' . "\n"
 .    '<td nowrap="nowrap">'
 .    claro_html_tool_title('<img src="' . get_icon_url('course') . '" alt="" />&nbsp;'.get_lang('Courses'))
-.    claro_html_list($menu['AdminCourse'], array('class' => 'adminCourse')) . "\n"
+.    claro_html_menu_vertical($menu['AdminCourse']) . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_icon_url('settings') . '" alt="" />&nbsp;'.get_lang('Platform')) . "\n"
-.    claro_html_list($menu['AdminPlatform'], array('class' => 'adminPlatform')) . "\n"
+.    claro_html_menu_vertical($menu['AdminPlatform']) . "\n"
 .    '</td>' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_icon_url('claroline') . '" alt="" />&nbsp;Claroline.net')
-.    claro_html_list($menu['AdminClaroline'], array('class' => 'adminClaroline'))
+.    claro_html_menu_vertical($menu['AdminClaroline'])
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Tools'))
-.    claro_html_list($menu['AdminTechnical'], array('class' => 'adminTechnical'))
+.    claro_html_menu_vertical($menu['AdminTechnical'])
 .    '</td>' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_icon_url('mail_close') . '" alt="" />&nbsp;'.get_lang('Communication'))
-.    claro_html_list($menu['Communication'], array('class' => 'adminCommunication'))
+.    claro_html_menu_vertical($menu['Communication'])
 .    '</td>' . "\n"
 .    '</tr>'
 ;
@@ -132,7 +152,7 @@ if( !empty($menu['ExtraTools']) )
     $out .= '<tr valign="top">' . "\n"
     .    '<td nowrap="nowrap">' . "\n"
     .    claro_html_tool_title('<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Administration tools'))
-    .    claro_html_list($menu['ExtraTools'], array('class' => 'adminExtraTools'))
+    .    claro_html_menu_vertical($menu['ExtraTools'])
     .    '</td>' . "\n"
     .    '<td nowrap="nowrap">' . "\n"
     .    '&nbsp;'
@@ -189,7 +209,7 @@ function get_menu_item_list($type)
 
         $menu['AdminCourse'][] = claro_html_tool_link('admincourses.php',                   get_lang('Course list'));
         $menu['AdminCourse'][] = claro_html_tool_link('../course/create.php?adminContext=1', get_lang('Create course'));
-        $menu['AdminCourse'][] = claro_html_tool_link('admin_category.php',                      get_lang('Manage course categories'));
+        $menu['AdminCourse'][] = claro_html_tool_link('admincats.php',                      get_lang('Manage course categories'));
 
 
         $menu['AdminPlatform'][] = claro_html_tool_link('tool/config_list.php', get_lang('Configuration'));

@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 )
 * FIXME : move to annoucements module
 *
 * @version      1.9 $Revision$
-* @copyright    (c) 2001-2010, Universite catholique de Louvain (UCL)
+* @copyright    (c) 2001-2008 Universite catholique de Louvain (UCL)
 * @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
 * @package      DESKTOP
 * @author       Claroline team <info@claroline.net>
@@ -48,45 +48,30 @@ class CLANN_Portlet extends UserDesktopPortlet
             $output .= '<dl id="portletMyAnnouncements">';
             foreach($announcementEventList as $announcementItem)
             {
-                // Hide hidden and expired elements
-                $isVisible = (bool) ($announcementItem['visibility'] == 'SHOW') ? (1) : (0);
-                $isOffDeadline = (bool)
-                    (
-                        (isset($announcementItem['visibleFrom'])
-                            && strtotime($announcementItem['visibleFrom']) > time()
-                        )
-                        ||
-                        (isset($announcementItem['visibleUntil'])
-                            && time() >= strtotime($announcementItem['visibleUntil'])
-                        )
-                    ) ? (1) : (0);
-                
-                if ( $isVisible && !$isOffDeadline )
+
+                $output .= '<dt>' . "\n"
+                .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="" />'
+                .    '<small>'
+                .    '<a href="' . $announcementItem['url'] . '">'
+                .    $announcementItem['title']
+                .    '</a>' . "\n"
+                .    '</small>' . "\n"
+                .    '</dt>' . "\n"
+                ;
+
+                foreach($announcementItem['eventList'] as $announcementEvent)
                 {
-                    $output .= '<dt>' . "\n"
-                    .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="" />'
-                    .    '<small>'
+                    $output .= '<dd>'
+                    .    '<small>'  . "\n"
                     .    '<a href="' . $announcementItem['url'] . '">'
-                    .    $announcementItem['title']
-                    .    '</a>' . "\n"
+                    .    $announcementItem['courseOfficialCode']
+                    .    '</a> : ' . "\n"
+                    .    '<small>'  . "\n"
+                    .    $announcementEvent['content'] . "\n"
                     .    '</small>' . "\n"
-                    .    '</dt>' . "\n"
+                    .    '</small>' . "\n"
+                    .    '</dd>' . "\n"
                     ;
-                    
-                    foreach($announcementItem['eventList'] as $announcementEvent)
-                    {
-                        $output .= '<dd>'
-                        .    '<small>'  . "\n"
-                        .    '<a href="' . $announcementItem['url'] . '">'
-                        .    $announcementItem['courseOfficialCode']
-                        .    '</a> : ' . "\n"
-                        .    '<small>'  . "\n"
-                        .    $announcementEvent['content'] . "\n"
-                        .    '</small>' . "\n"
-                        .    '</small>' . "\n"
-                        .    '</dd>' . "\n"
-                        ;
-                    }
                 }
             }
             $output .= '</dl>';

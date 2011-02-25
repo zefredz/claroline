@@ -6,8 +6,8 @@
  * As from 1.9.6 replaces $cmd = 'exDownload' in both work.php and work_list.php
  * As from 1.9.6 uses pclzip instead of zip.lib
  *
- * @version     1.10 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
  * @author      Jean-Roch Meurisse <jmeuriss@fundp.ac.be>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -109,7 +109,7 @@ if( get_conf( 'allow_download_all_submissions' ) )
     {
         mkdir( $downloadArchiveFolderPath, CLARO_FILE_PERMISSIONS, true );
     }
-
+    
     $downloadArchiveFilePath = $downloadArchiveFolderPath . '/' . $zipName;
 
     $sql = "SELECT `id`, 
@@ -148,7 +148,7 @@ if( get_conf( 'allow_download_all_submissions' ) )
                 {
                     mkdir( $zipPath . '/' . get_lang( 'Assignment' ) . '_' . $result['assignment_id'] . '/', CLARO_FILE_PERMISSIONS, true );
                 }
-
+                
                 $assigDir = '/' . get_lang( 'Assignment' ) . '_' . $result['assignment_id'] . '/';
             }
             else
@@ -157,7 +157,7 @@ if( get_conf( 'allow_download_all_submissions' ) )
             }
 
             $assignmentPath = get_path( 'coursesRepositorySys' ) . claro_get_course_path(claro_get_current_course_id()) . '/work/assig_' . (int)$result['assignment_id'] . '/';
-            
+                       
             //  count author's submissions for the name of directory
             if( $result['authors'] != $previousAuthors )
             {
@@ -209,7 +209,7 @@ if( get_conf( 'allow_download_all_submissions' ) )
             
             file_put_contents( $zipPath . '/' . $submissionPrefix . $txtFileName, $htmlContent );
         }
-
+        
         $zipFile = new PclZip( $downloadArchiveFilePath );
         $created = $zipFile->create( $zipPath, PCLZIP_OPT_REMOVE_PATH, $zipPath );
         

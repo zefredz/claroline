@@ -8,7 +8,7 @@
 * User desktop index
 *
 * @version      1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+* @copyright    (c) 2001-2008 Universite catholique de Louvain (UCL)
 * @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
 * @package      DESKTOP
 * @author       Claroline team <info@claroline.net>
@@ -16,9 +16,9 @@
 */
 
 // reset course and groupe
-$cidReset = true;
-$gidReset = true;
-$uidRequired = true;
+$cidReset = TRUE;
+$gidReset = TRUE;
+$uidRequired = TRUE;
 
 // load Claroline kernel
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';

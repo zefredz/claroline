@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -42,7 +42,8 @@ class CLDOC_CourseTrackingRenderer extends CourseTrackingRenderer
                     WHERE `type` = 'download'
                       AND `group_id` IS NULL
                     GROUP BY `data`
-                    ORDER BY substring_index(data,'\"',-2)";
+                    ORDER BY substring_index(data,'\"',-2)
+                ";
 
         $results = claro_sql_query_fetch_all($sql);
 

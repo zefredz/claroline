@@ -10,14 +10,14 @@ if ( count( get_included_files() ) == 1 )
  *
  * Course user library contains function to manage users registration and properties in course
  *
- * @version     1.9 $Revision$
- * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLUSR
- * @author      Claro Team <cvs@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
- * @author      Mathieu Laurent <laurent@cerdecam.be>
- * @author      Hugues Peeters <hugues.peeters@advalvas.be>
+ * @version 1.9 $Revision$
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package CLUSR
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ * @author Hugues Peeters <hugues.peeters@advalvas.be>
  */
 
 /**
@@ -31,20 +31,18 @@ if ( count( get_included_files() ) == 1 )
 
 function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false, $register_by_class = false)
 {
-    $tbl_mdb_names       = claro_sql_get_main_tbl();
+    $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user            = $tbl_mdb_names['user'];
-    $tbl_course          = $tbl_mdb_names['course'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
-    // previously check if the users are already registered on the platform
+    // previously check if the user are already registered on the platform
     $sql = "SELECT COUNT(user_id)
             FROM `" . $tbl_user . "`
             WHERE user_id = " . (int) $userId ;
 
     if (  claro_sql_query_get_single_value($sql) == 0 )
     {
-        // the user isn't registered to the platform
-        return claro_failure::set_failure('user_not_found');
+        return claro_failure::set_failure('user_not_found'); // the user isn't registered to the platform
     }
     else
     {
@@ -52,7 +50,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
         $sql = "SELECT count_user_enrol, count_class_enrol
                 FROM `" . $tbl_rel_course_user . "`
                 WHERE user_id = " . (int) $userId . "
-                AND code_cours = '" . claro_sql_escape($courseCode) . "'";
+                  AND code_cours ='" . claro_sql_escape($courseCode) . "'";
 
         $course_user_list = claro_sql_query_get_single_row($sql);
 
@@ -70,7 +68,6 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
                         `count_class_enrol` = " . $count_class_enrol . "
                     WHERE `user_id` = ". (int)$userId . "
                     AND  `code_cours` = '" . claro_sql_escape($courseCode) . "'";
-            
             if ( claro_sql_query($sql) ) return true;
             else                         return false;
         }
@@ -79,64 +76,31 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             // first registration to the course
             $count_user_enrol = 0;
             $count_class_enrol = 0;
-            
-            // previously check the registration type ('open' or 'validation')
-            // and the user limit
-            $sql = "SELECT registration, userLimit
-                    FROM `" . $tbl_course . "`
-                    WHERE code = '" . claro_sql_escape($courseCode) . "'";
-            
-            $course_registration = claro_sql_query_get_single_row($sql);
-            
-            // If a validation is requested for this course: isPending is true
-            // If the user is course manager, never flag him as "pending"
-            $isPending = ($course_registration['registration'] == 'validation' && !$admin) ? 1 : 0;
-            
-            if ($course_registration['userLimit'] > 0)
-            {
-                $sql = "SELECT COUNT(user_id) AS nbUsers
-                        FROM `" . $tbl_rel_course_user . "`
-                        WHERE code_cours = '" . claro_sql_escape($courseCode) . "'";
-                
-                $course_nb_users = claro_sql_query_get_single_row($sql);
-            }
-            
-            $userLimitReached = (!empty($course_nb_users) && $course_nb_users['nbUsers'] >= $course_registration['userLimit'] && !$admin) ? true : false;
-            
-            if (!$userLimitReached)
-            {
-                if ( ! $register_by_class )  $count_user_enrol = 1;
-                else                         $count_class_enrol = 1;
-                
-                // TODO
-                if ( $admin ) $profileId = claro_get_profile_id('manager');
-                else          $profileId = claro_get_profile_id('user');
-                
-                $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
-                        SET code_cours      = '" . claro_sql_escape($courseCode) . "',
-                            user_id         = " . (int) $userId . ",
-                            profile_id      = " . (int) $profileId . ",
-                            isCourseManager = " . (int) ($admin ? 1 : 0 ) . ",
-                            isPending       = " . $isPending . ",
-                            tutor           = " . (int) ($tutor ? 1 : 0) . ",
-                            count_user_enrol = " . $count_user_enrol . ",
-                            count_class_enrol = " . $count_class_enrol ;
-                
-                if ( claro_sql_query($sql) ) return true;
-                else                         return false;
-            }
-            else
-            {
-                return claro_failure::set_failure('user_limit_reached');
-            }
+
+            if ( ! $register_by_class )  $count_user_enrol = 1;
+            else                         $count_class_enrol = 1;
+
+            // TODO
+            if ( $admin ) $profileId = claro_get_profile_id('manager');
+            else          $profileId = claro_get_profile_id('user');
+
+            $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
+                    SET code_cours = '" . claro_sql_escape($courseCode) . "',
+                        user_id    = " . (int) $userId . ",
+                        profile_id = " . (int) $profileId . ",
+                        isCourseManager = " . (int) ($admin ? 1 : 0 ) . ",
+                        tutor  = " . (int) ($tutor ? 1 : 0) . ",
+                        count_user_enrol = " . $count_user_enrol . ",
+                        count_class_enrol = " . $count_class_enrol ;
+
+            if ( claro_sql_query($sql) ) return true;
+            else                         return false;
         }
     } // end else user register in the platform
 }
 
 /**
- * Check if the registration flag of the given course set to "open"
- * or "validation", if the course statut is "enable" or "date"
- * and, in this case, if we are in the date limits.
+ * Check if the registration flag of the given course is "open"
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
  * @param string $courseId - sys code of the course
  * @return boolean
@@ -146,36 +110,35 @@ function is_course_registration_allowed($courseId)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course = $tbl_mdb_names['course'];
-    
+
     $curdate = date('Y-m-d H:i:s', time());
-    
-    $sql = "
-        SELECT count(*) AS registration_allowed
-        FROM `" . $tbl_course . "` AS `course`
-        WHERE `course`.`code` = '" . claro_sql_escape($courseId) . "'
-        AND (
-              `course`.`registration` = 'open'
-              OR
-              `course`.`registration` = 'validation'
-            )
-        AND ( `course`.`status` = 'enable'
-                OR (
-                     `course`.`status` = 'date'
-                        AND (
-                              `course`.`creationDate` < '". $curdate ."'
-                              OR
-                              `course`.`creationDate` IS NULL OR UNIX_TIMESTAMP( `course`.`creationDate` ) = 0
-                            )
-                        AND (
-                              '". $curdate ."' < `course`.`expirationDate`
-                              OR
-                              `course`.`expirationDate` IS NULL
-                            )
+
+    $sql = " 
+        SELECT
+            count(*) AS registration_allowed
+        FROM
+            `" . $tbl_course . "` AS `cours`
+        WHERE
+            `cours`.`code` = '" . claro_sql_escape($courseId) . "'
+        AND
+            `cours`.`registration` = 'open'
+        AND
+            ( `cours`.`status` = 'enable'
+                OR
+                    ( `cours`.`status` = 'date'
+                        AND
+                            ( `cours`.`creationDate` < '". $curdate ."'
+                                OR `cours`.`creationDate` IS NULL OR UNIX_TIMESTAMP( `cours`.`creationDate` ) = 0
+                        )
+                        AND
+                            ( '". $curdate ."' < `cours`.`expirationDate`
+                                OR `cours`.`expirationDate` IS NULL
+                        )
                     )
             )";
-    
+
     $courseRegistrationList = claro_sql_query_get_single_value($sql);
-    
+
     return (bool) ($courseRegistrationList) ;
 }
 
@@ -270,13 +233,13 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
             $tbl_group_team        = $tbl_cdb_names['group_team'         ];
             $tbl_userinfo_content  = $tbl_cdb_names['userinfo_content'   ];
 
-           $sqlList = array();
+           $sqlList = array(); 
            $toolCLFRM =  get_module_data('CLFRM');
            
            if (is_tool_activated_in_course($toolCLFRM['id'],$thisUserEnrolCourse['code_cours']))
            {
                $sqlList = array(
-                    "DELETE FROM `" . $tbl_bb_notify        . "` WHERE user_id = " . (int) $userId );
+            		"DELETE FROM `" . $tbl_bb_notify        . "` WHERE user_id = " . (int) $userId );          
            }
             
             array_push($sqlList,
@@ -661,7 +624,7 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
 }
 
 /**
- * return the list of user of the course in parameter. It use by default the
+ * return the list of user of the course in parameter. It use by default the 
  * current course identification
  *
  * @param char $courseId course identication

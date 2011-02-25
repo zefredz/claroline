@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -82,8 +82,8 @@ $userGroupRegCount = group_count_group_of_a_user(claro_get_current_user_id());
 
 // The previous request compute the quantity of subscription for the current user.
 // the following request compare with the quota of subscription allowed to each student
-$userGroupQuotaExceeded = (bool) (  $_groupProperties ['nbGroupPerUser'] <= $userGroupRegCount
-&& ! is_null($_groupProperties['nbGroupPerUser']) && ($_groupProperties ['nbGroupPerUser'] != 'ALL' )); // no limit assign to group per user;
+$userGroupQuotaExceeded = (bool) (   $_groupProperties ['nbGroupPerUser'] <= $userGroupRegCount)
+&& ! is_null($_groupProperties['nbGroupPerUser']); // no limit assign to group per user;
 
 $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
 && ( ! $groupMemberQuotaExceeded )
@@ -311,7 +311,9 @@ $out .= '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 * session_register("forumId");
 */
 
-.   claro_html_list($toolLinkList) . "\n";
+.   claro_html_menu_vertical_br($toolLinkList)
+.   '<br /><br />' . "\n"
+;
 
 if ($is_allowedToManage)
 {
@@ -421,7 +423,7 @@ if(count($groupMemberList) > 0)
         .    '</a>';
         
         if(current_user_is_allowed_to_send_message_to_user($thisGroupMember['id']))
-        {
+        {        
             $out .= ' - <a href="'
                 . htmlspecialchars(Url::Contextualize(
                     '../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId=' . (int) $thisGroupMember['id'] ))

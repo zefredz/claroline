@@ -18,5 +18,4 @@
     $claroline->notification->addListener( 'work_added',                'calendarAddEvent' );
     $claroline->notification->addListener( 'work_deleted',              'calendarDeleteEvent' );
     $claroline->notification->addListener( 'work_updated',              'calendarUpdateEvent' );
-
 ?>

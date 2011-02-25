@@ -7,7 +7,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  * @package UPGRADE
@@ -16,7 +16,7 @@
  */
 
 $new_version_branch = '';
-$patternVarVersion = '/^1.10/';
+$patternVarVersion = '/^1.9/';
 // Initialise Upgrade
 require 'upgrade_init_global.inc.php';
 

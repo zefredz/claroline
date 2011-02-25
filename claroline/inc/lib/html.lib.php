@@ -12,60 +12,79 @@ if ( count( get_included_files() ) == 1 )
  * uniformised output.
  *
  * @version     1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      see 'credits' file
  * @package     HTML
  */
 
-
 /**
-* Return an HTML item list (<ul>).
-* Add CSS classes or other attributes through the $attrBloc array.
-*
-* @param array $itemList
-* @param array $attrBloc
-*
-* @return string $htmlStream
-*/
-function claro_html_list($itemList, $attrBloc=array())
+ * Display a item list as vertical menu.
+ *
+ * @param array $itemList each item are include in a list.
+ *
+ * @return string html
+ */
+function claro_html_menu_vertical($itemList, $attrBloc=array(),$attrItem=array())
 {
-    $classBlocAttr          = '';
-    $otherBlocAttrString    = '';
-    $htmlStream             = '';
-    
+    $classBlocAttr = '';
+    $otherBlocAttrString = '';
     foreach ($attrBloc as $attrName => $attrValue)
     {
-        if ($attrName == 'class')
-            $classBlocAttr = ' ' . trim($attrValue);
-        else
-            $otherBlocAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
+        if ('class' == $attrName) $classBlocAttr = ' ' . trim($attrValue);
+        else $otherBlocAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
     }
-    
-    if (!empty($classBlocAttr))
-        $classBlocAttr = 'class="'.$classBlocAttr.'"';
-    
-    
+    $itemAttrString = '';
+    foreach ($attrItem as $attrName => $attrValue) $itemAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
+
     if (! empty($itemList) && is_array($itemList))
     {
-        $htmlList = '';
-        
-        foreach ($itemList as $item)
+        $htmlStream = '<ul class="menu vmenu ' . $classBlocAttr . '" ' . $otherBlocAttrString . '>' . "\n";
+        foreach($itemList as $item )
         {
-            $htmlList .= '<li>'.$item.'</li>';
+            $htmlStream .= '<li' . $itemAttrString . '>' . "\n"
+            .              $item
+            .              '</li>' . "\n"
+            ;
         }
-        
-        $htmlStream = '<ul ' . $classBlocAttr . ' ' . $otherBlocAttrString . '>'
-                    . $htmlList
-                    . '</ul>';
+        $htmlStream .= '</ul>' . "\n";
     }
-    
+    else
+    $htmlStream ='';
+    return $htmlStream;
+}
+
+/**
+* display a item list as vertical menu.
+*
+* @param array $itemList each item are include in a list.
+*
+* @return string html
+*/
+function claro_html_menu_vertical_br($itemList, $attrBloc=array())
+{
+    $classBlocAttr = '';
+    $otherBlocAttrString = '';
+    foreach ($attrBloc as $attrName => $attrValue)
+    {
+        if ('class' == $attrName) $classBlocAttr = ' ' . trim($attrValue);
+        else $otherBlocAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
+    }
+
+    $htmlStream = '<div class="menu vmenu ' . $classBlocAttr . '" ' . $otherBlocAttrString . '>' . "\n";
+
+    if (! empty($itemList) && is_array($itemList))
+    {
+        $htmlStream .= implode('<br />' . "\n",$itemList );
+    }
+    $htmlStream .= '</div>' . "\n";
+
     return $htmlStream;
 }
 
 
 /**
- * Display a item list as vertical menu.
+ * display a item list as vertical menu.
  *
  * @param array $itemList each item are include in a list.
  *
@@ -87,7 +106,6 @@ function claro_html_menu_horizontal($itemList)
         return '';
     }
 }
-
 
 /**
  * Prepare an array of link following a list of section
@@ -117,7 +135,7 @@ function claro_html_menu_horizontal($itemList)
             $section_name = $section_def['label'];
             
             $tabList[]= '<a ' . ( $section == $section_selected ? ('class="' . $currentClassName . '"') : '' )
-            . ' href="' . $_SERVER['PHP_SELF'] . '?section=' . htmlspecialchars($section)
+            . ' href="' . $_SERVER['PHP_SELF'] . '?section=' . htmlspecialchars($section) 
                                                . htmlspecialchars($url_params). '">'
             . get_lang($section_name) . '</a>';
 
@@ -126,6 +144,7 @@ function claro_html_menu_horizontal($itemList)
     return $tabList;
     
 }
+
 
 
 /**
@@ -180,7 +199,6 @@ function claro_html_cmd_link($url,$label,$attributeList=array())
 
 }
 
-
 /**
 * Return the claroline sytled url for a link to a tool
 *
@@ -209,7 +227,6 @@ function claro_html_link($url,$label,$attributeList=array())
 
 }
 
-
 /**
 * Prepare the display of a clikcable button
 *
@@ -225,6 +242,7 @@ function claro_html_link($url,$label,$attributeList=array())
 * @param string $confirmMessage (optionnal) introduce a javascript confirmation popup
 * @return string the button
 */
+
 function claro_html_button($url, $text, $confirmMessage = '')
 {
 
@@ -248,17 +266,17 @@ function claro_html_button($url, $text, $confirmMessage = '')
 /**
  * Displays a title inc claroline wich can be relooked by css
  *
- * @author Christophe Gesche <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @param  string $title
  * @param  string $level 1->7
  *
  * @return void
  */
+
 function claro_html_title($title, $level)
 {
     return '<h'.$level.' class="claroTitle claroTitle' . $level . '" >' . $title . '</h'.$level.' >';
 }
-
 
 /**
 * Displays the title of a tool. Optionally, there can be a subtitle below
@@ -278,6 +296,7 @@ function claro_html_title($title, $level)
 *                               'subTitle'
 * @return void
 */
+
 function claro_html_tool_title($titlePart, $helpUrl = false)
 {
     // if titleElement is simply a string transform it into an array
@@ -338,6 +357,7 @@ function claro_html_tool_title($titlePart, $helpUrl = false)
 *
 * @return string html string for a message box
 */
+
 function claro_html_message_box($message)
 {
     $effectiveContent = trim(strip_tags($message));
@@ -366,6 +386,7 @@ function claro_html_message_box($message)
 *
 * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
 */
+
 function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', $homeImg = null)
 {
     // trail of only one element has no sense ...
@@ -412,12 +433,13 @@ function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
 /**
 * Function used to draw a progression bar
 *
-* @author Piraux Sebastien <pir@cerdecam.be>
+* @author Piraux Sébastien <pir@cerdecam.be>
 *
 * @param integer $progress progression in pourcent
 * @param integer $factor will be multiply by 100 to have the full size of the bar
 * (i.e. 1 will give a 100 pixel wide bar)
 */
+
 function claro_html_progress_bar ($progress, $factor)
 {
     $maxSize  = $factor * 100; //pixels
@@ -449,7 +471,7 @@ function claro_html_progress_bar ($progress, $factor)
 * In most of cases  function message_box() is enough.
 *
 * @param array $msgArrBody of array of blocs containing array of messages
-* @author Christophe Gesche <moosh@claroline.net>
+* @author Christophe Gesché <moosh@claroline.net>
 * @version 1.0
 * @see  message_box()
 *
@@ -464,6 +486,7 @@ function claro_html_progress_bar ($progress, $factor)
 * and the rendering is set by by priority
 *
 */
+
 function claro_html_msg_list($msgArrBody, $return=true)
 {
     $msgBox = '';
@@ -497,16 +520,19 @@ function claro_html_msg_list($msgArrBody, $return=true)
 }
 
 
+
 /**
 * prepare the 'option' html tag for the claro_disp_nested_select_menu()
 * function
 *
-* @author Christophe Gesche <moosh@claroline.net>
+* @author Christophe Gesché <moosh@claroline.net>
 * @author Hugues Peeters <hugues.peeters@claroline.net>
 * @param array $elementList
 * @param integer  $deepness (optionnal, default is 0)
 * @return array of option list
 */
+
+
 function claro_html_nestedArrayToOptionList($elementList, $deepness = 0)
 {
     foreach($elementList as $thisElement)
@@ -526,7 +552,6 @@ function claro_html_nestedArrayToOptionList($elementList, $deepness = 0)
     return  $optionTagList;
 }
 
-
 /**
 * prepare a mailto link
 *
@@ -540,7 +565,6 @@ function claro_html_mailTo($mail,$mailLabel=null)
     $mailHtml = '<a href="mailto:' . $mail . '" class="email" >' . $mailLabel . '</a>';
     return $mailHtml;
 }
-
 
 /**
 * Insert a Wysiwyg editor inside a form instead of a textarea
@@ -556,8 +580,9 @@ function claro_html_mailTo($mail,$mailLabel=null)
 * @return string html output for standard textarea or Wysiwyg editor
 *
 * @author Hugues Peeters <hugues.peeters@claroline.net>
-* @author Sebastien Piraux <pir@cerdecam.be>
+* @author Sébastien Piraux <pir@cerdecam.be>
 */
+
 function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='',$type='advanced')
 {
     if( !get_conf('claro_editor') ) $claro_editor = 'tiny_mce';
@@ -572,7 +597,7 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
     $incPath = get_path('rootSys') . 'claroline/editor/' . $claro_editor;
     $editorPath = get_conf('urlAppend') . '/claroline/editor/';
     $webPath = $editorPath . $claro_editor;
-    
+
     $isSafariOn_iPhone = preg_match("!Mobile/.*?Safari/.*?!", $_SERVER['HTTP_USER_AGENT']);
 
     if( !$isSafariOn_iPhone && file_exists($incPath . '/editor.class.php') )
@@ -611,18 +636,15 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
     return $returnString;
 }
 
-
 function claro_html_simple_textarea($name, $content = '')
 {
     return claro_html_textarea_editor($name, $content, 20, 80, '', 'simple');
 }
 
-
 function claro_html_advanced_textarea($name, $content = '')
 {
     return claro_html_textarea_editor($name, $content, 20, 80, '', 'advanced');
 }
-
 
 /**
  *
@@ -650,9 +672,9 @@ DEFINE('DG_ORDER_COLS_BY_TITLE','DG_ORDER_COLS_BY_TITLE'.__FILE__.__LINE__);
  * set_caption(string 'caption');
  * set_counterLine(bool 'dispCounter')
  * set_colDecoration(string columnName,string pattern, array param)
- *
+ * 
  * @package HTML
- * @author Christophe Gesche <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  */
 class claro_datagrid
@@ -674,14 +696,12 @@ class claro_datagrid
     private $dispIdCol = true;
     private $internalKey = 0;
 
-
     function claro_datagrid($datagrid = null)
     {
         if (!is_null($datagrid))    $this->set_grid($datagrid);
 
         $this->set_idLineType('none');
     }
-
 
     /**
      * set data grid
@@ -723,6 +743,7 @@ class claro_datagrid
     }
 
 
+
     /**
      * set the  isLineType option
      *
@@ -731,6 +752,7 @@ class claro_datagrid
      */
     function set_idLineType( $idLineType)
     {
+
         //* manage idLine option
         $this->idLineType = $idLineType;
         switch (strtolower($idLineType))
@@ -743,7 +765,6 @@ class claro_datagrid
         }
     }
 
-
     /**
      * set the  idLineShift option
      *
@@ -754,26 +775,26 @@ class claro_datagrid
         $this->idLineShift = $idLineShift;
     }
 
-
     /**
      * set the  hideColsWithoutTitle option
      * if hideColsWithoutTitle is true, only cols present in the colTitleList are shown in the rendered grid
      * @param boolean $hideColsWithoutTitle set if  the cols of grid
      * withouth title would be displayed
      */
+
     function set_hideColsWithoutTitle( $hideColsWithoutTitle)
     {
         if (is_bool($hideColsWithoutTitle)) $this->hideColsWithoutTitle = $hideColsWithoutTitle;
         else                                trigger_error('boolean attempt',E_USER_NOTICE);
     }
 
-
     /**
      * set the  hideColsWithoutTitle option
      * if hideColsWithoutTitle is true, only cols present in the colTitleList are shown in the rendered grid
      * @param boolean $hideColsWithoutTitle set if  the cols of grid
      * withouth title would be displayed
      */
+
     function set_orderColBy( $orderCols)
     {
         if (in_array($orderCols,array(DG_ORDER_COLS_BY_GRID,DG_ORDER_COLS_BY_TITLE)))
@@ -786,12 +807,12 @@ class claro_datagrid
         }
     }
 
-
     /**
      * set the  colTitleList option
      *
      * @param array $colTitleList array('colName'=>'colTitle')
      */
+
     function set_colTitleList( $colTitleList, $hideColsWithoutTitle=false)
     {
         $this->set_hideColsWithoutTitle($hideColsWithoutTitle);
@@ -805,30 +826,31 @@ class claro_datagrid
      *
      * @param array $colAttributeList array('colName'=> array('attribName'=>'attribValue'))
      */
+
     function set_colAttributeList( $colAttributeList)
     {
         $this->colAttributeList = $colAttributeList;
 
     }
 
-
     /**
      * set the  colAttributeList option
      *
      * @param array $colAttributeList array('colName'=> array('attribName'=>'attribValue'))
      */
+
     function set_noRowMessage( $htmlNoRowMessage)
     {
         $this->htmlNoRowMessage = $htmlNoRowMessage;
 
     }
 
-
     /**
      * set the caption
      *
      * @param string $caption array('colName'=>'colTitle')
      */
+
     function set_caption($caption)
     {
         $this->caption =  '<caption>' . $caption . '</caption>';
@@ -840,6 +862,7 @@ class claro_datagrid
      *
      * @param string $caption array('colName'=>'colTitle')
      */
+
     function set_colHead( $colHeadName)
     {
         $this->colHead = $colHeadName;
@@ -851,47 +874,48 @@ class claro_datagrid
      *
      * @param integer $counterLine
      */
+
     function showCounterLine()
     {
         $this->dispCounter = true;
     }
 
-
     /**
      * Add a decoration on a column
-     *
-     * add, or overide a column by a content build from a template and where
+     * 
+     * add, or overide a column by a content build from a template and where 
      * tags are replace by data from each lines
      *
      * $myDataList[]=array('id'=>1,'pid'=>'foo',);
      * $dg = new claro_datagrid($myDataList);
      * $dg->set_colDecoration('edit','<a href="?cmd=edit&amp;id=%id&amp;pid=%pid">edit</a>', array('id','pid'));
      * $dg->set_colDecoration('foo','<strong>%foo</strong>', array('foo'));
-     *
+     * 
      * The first decoration add a third column called edit. and  using id and pid from line to fill %id and %pid;
-     * The second decoration overite the existing column 'foo' by the same content between <strong> tags
-     *
+     * The second decoration overite the existing column 'foo' by the same content between <strong> tags 
+     *  
      *
      * @param string $colName
      * @param string $decorationPattern
      * @param array $tag
-     *
+     * 
      * @since 1.9
      * @return the current list
      */
+    
     function set_colDecoration($colName,$decorationPattern, $tag)
     {
         $this->decorationList[$colName] = array( 'decorationPattern' => $decorationPattern
                                          , 'tagList' => $tag);
-        return $this->decorationList;
+        return $this->decorationList;            
     }
-    
     
     function render()
     {
         $stream = '';
         if (is_array($this->datagrid) )//&& count($this->datagrid))
         {
+
             /**
              * Build attributes for column
              * In  W3C <COL> seems be the good usage but browser don't follow the tag
@@ -988,7 +1012,7 @@ class claro_datagrid
                         {
                             // Decore content
                             $dataCell = $this->decorationList[$colId]['decorationPattern'];
-                            foreach ($this->decorationList[$colId]['tagList'] as $tagName)
+                            foreach ($this->decorationList[$colId]['tagList'] as $tagName) 
                             {
                                 if (isset($dataLine[$tagName]))
                                 $dataCell = str_replace('%'.$tagName,$dataLine[$tagName],$dataCell);
@@ -1053,9 +1077,10 @@ class claro_datagrid
  * was trigged
  *
  * @param boolean $cidRequired - if the course id is required to leave the form
- * @author Christophe gesche <moosh@claroline.net>
+ * @author Christophe gesché <moosh@claroline.net>
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  */
+
 function claro_disp_auth_form($cidRequired = false)
 {
     // TODO check if it does not break the CAS mechanism
@@ -1091,7 +1116,6 @@ function claro_disp_auth_form($cidRequired = false)
     die(); // necessary to prevent any continuation of the application
 }
 
-
 /**
  * function claro_build_nested_select_menu($name, $elementList)
  * Build in a relevant way 'select' menu for an HTML form containing nested data
@@ -1116,6 +1140,7 @@ function claro_disp_auth_form($cidRequired = false)
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  */
+
 function claro_build_nested_select_menu($name, $elementList)
 {
     return '<select name="' . $name . '">' . "\n"
@@ -1123,7 +1148,6 @@ function claro_build_nested_select_menu($name, $elementList)
     .      '</select>' .  "\n"
     ;
 }
-
 
 /**
  * prepare the 'option' html tag for the claro_disp_nested_select_menu()
@@ -1136,6 +1160,7 @@ function claro_build_nested_select_menu($name, $elementList)
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  *
  */
+
 function prepare_option_tags($elementList, $deepness = 0)
 {
     foreach($elementList as $thisElement)
@@ -1158,7 +1183,6 @@ function prepare_option_tags($elementList, $deepness = 0)
     return  $optionTagList;
 }
 
-
 /**
  * Checks if the string has been written html style (ie &eacute; etc)
  *
@@ -1166,11 +1190,11 @@ function prepare_option_tags($elementList, $deepness = 0)
  * @param string $string
  * @return boolean true if the string is written in html style, false otherwise
  */
+
 function is_htmlspecialcharized($string)
 {
     return (bool) preg_match('/(&[a-z]+;)|(&#[0-9]+;)/', $string);
 }
-
 
 /**
  * function that cleans php string for javascript
@@ -1182,7 +1206,7 @@ function is_htmlspecialcharized($string)
  * @param $str string original string
  * @return string : cleaned string
  *
- * @author Piraux Sebastien <pir@cerdecam.be>
+ * @author Piraux Sébastien <pir@cerdecam.be>
  *
  */
 function clean_str_for_javascript( $str )
@@ -1200,7 +1224,6 @@ function clean_str_for_javascript( $str )
 
     return $output;
 }
-
 
 /**
  * Remove comments and noise from MS Office 2007 pasted-text that causes
@@ -1225,7 +1248,6 @@ function cleanup_mso2007_text ( $string )
     return $string;
 }
 
-
 /**
  * Parse the user text (e.g. stored in database)
  * before displaying it to the screen
@@ -1235,6 +1257,7 @@ function cleanup_mso2007_text ( $string )
  * @return string : parsed user text
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  */
+
 function claro_parse_user_text($userText)
 {
     $userText = cleanup_mso2007_text( $userText );
@@ -1252,7 +1275,6 @@ function claro_parse_user_text($userText)
 
     return $userText;
 }
-
 
 /**
  * Find all spoiler tags in text and replace them by html
@@ -1283,12 +1305,11 @@ function make_spoiler($text)
     return $out;
 }
 
-
 function clean_spoilerStart($match)
 {
     if(isset($match[4]))
     {
-        return '[spoiler /'.$match[4].'/]';
+        return '[spoiler /'.$match[4].'/]';    
     }
     else
     {
@@ -1297,12 +1318,10 @@ function clean_spoilerStart($match)
     
 }
 
-
 function clean_spoilerEnd($match)
 {
     return '[/spoiler]';
 }
-
 
 /**
  * Callback function used by make_spoiler function
@@ -1342,7 +1361,7 @@ function renderTex($text)
         $text = preg_replace_callback(  '/\[tex\](.+?)\[\/tex\]/i',
                                         'renderTexCallback',
                                         $text
-                            );
+                            );        
     }
     else
     {
@@ -1358,7 +1377,6 @@ function renderTex($text)
     return $text;
 }
 
-
 function renderTexCallback( $matches )
 {
     if(isset($matches[1]))
@@ -1371,10 +1389,8 @@ function renderTexCallback( $matches )
     else
     {
         return false;
-    }
+    }    
 }
-
-
 /**
  * Completes url contained in the text with "<a href ...".
  * However the function simply returns the submitted text without any
@@ -1398,6 +1414,7 @@ function renderTexCallback( $matches )
  * @author Rewritten by Nathan Codding - Feb 6, 2001.
  * @author completed by Hugues Peeters - July 22, 2002
  */
+
 function make_clickable($text)
 {
 
@@ -1496,7 +1513,7 @@ function htmlize($phrase)
 
 /**
  * convert a duration in seconds to a human readable duration
- * @author Sebastien Piraux <pir@cerdecam.be>
+ * @author Sébastien Piraux <pir@cerdecam.be>
  * @param integer duration time in seconds to convert to a human readable duration
  */
 
@@ -1675,7 +1692,7 @@ function claro_html_breadcrumb()
 
 /**
  * Create a navigation tab bar
- *
+ * 
  * @param array $section_list associative array of tabs tab id => tab label
  * @param string $section_selected_id selected tab id
  * @param array $url_params associative array of additionnal parameters

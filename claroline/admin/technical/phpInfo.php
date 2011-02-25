@@ -7,7 +7,7 @@
  * - credits
  *
  * @version 1.8 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Université catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -46,7 +46,6 @@ $nameTools = get_lang('System Info');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $is_allowedToAdmin = claro_is_platform_admin();
-
 if ($is_allowedToAdmin)
 {
     $htmlHeadXtra[] = phpinfo_getStyle();
@@ -86,6 +85,7 @@ if ($is_allowedToAdmin)
         </a>
     </li>
 </ul>
+
 
 <div class="phpInfoContents">
 <?php
