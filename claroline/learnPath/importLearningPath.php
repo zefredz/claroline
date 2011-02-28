@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux S�bastien <pir@cerdecam.be>
+ * @author Piraux Sebastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -732,7 +732,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     break;
                 }
             }
-        } // if sizeof (...�
+        } // if sizeof()
         else
         {
             $errorFound = true;

@@ -14,13 +14,13 @@ if ( count( get_included_files() ) == 1 )
  * @see http://www.claroline.net/wiki/CLCRS/
  * @package COURSE
  * @author  Claro Team <cvs@claroline.net>
- * @author  Muret Beno�t <muret_ben@hotmail.com>
+ * @author  Muret Benoit <muret_ben@hotmail.com>
  */
 
 
 /**
   * Delete a directory.
-  * 
+  *
   * @param string $dir    the directory deleting
   * @return boolean whether success true
   *
@@ -51,7 +51,7 @@ function delete_directory($dir)
 
 /**
   * Create a command to create a selectBox with the language.
-  * 
+  *
   * @param string $selected the language selected
   * @return the command to create the selectBox
   * @todo merge this with  claro_disp_select_box
@@ -81,7 +81,7 @@ function create_select_box_language($selected=NULL)
 
 /**
   * Return an array with the language.
-  * 
+  *
   * @return an array with the language
   */
 function language_exists()
@@ -266,7 +266,7 @@ function claro_get_course_manager_id($cid = NULL)
     {
         if(!claro_is_in_a_course())
         {
-            return false;    
+            return false;
         }
         
         $cid = claro_get_current_course_id();

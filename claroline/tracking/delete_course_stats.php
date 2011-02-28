@@ -7,7 +7,7 @@
  * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
  *
  * @author Sebastien Piraux  <seb@claroline.net>
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  *
  */
 

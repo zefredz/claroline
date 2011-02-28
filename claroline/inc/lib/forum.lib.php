@@ -257,7 +257,7 @@ function get_forum_settings($forumId)
 
     $result = claro_sql_query_fetch_all($sql);
 
-    if ( count($result) == 1) 
+    if ( count($result) == 1)
     {
         switch( $result[0]['forum_type'] )
         {
@@ -267,10 +267,10 @@ function get_forum_settings($forumId)
         }
         return $result[0];
     }
-    else 
+    else
     {
         return false;
-    }                     
+    }
 }
 
 /**
@@ -352,7 +352,7 @@ function cancel_forum_notification($forumId = null, $userId = null)
         .      ( ( count($conditionList) > 0) ? " WHERE " . implode(" AND ", $conditionList) : "" );
     
         if (claro_sql_query($sql) == false) return false;
-        else                                return true;   
+        else                                return true;
     }
 }
 
@@ -845,7 +845,7 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
     }
 
     // no need to display it with only a page
-    if (count($pageList) > 1) 
+    if (count($pageList) > 1)
     {
         $out .= '<small>(' . implode(', ', $pageList) . ')</small>';
     }
@@ -1003,7 +1003,7 @@ class postLister
         /**
      * return count of post of the current topic
      *
-     * @author Christophe Gesch� <moosh@claroline.net>
+     * @author Christophe Gesche <moosh@claroline.net>
      * @return array post list
      */
 
@@ -1047,7 +1047,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
             $toolList[] =
             claro_html_cmd_link(
                 htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
-                    . '/viewtopic.php?forum=' . $forum_id 
+                    . '/viewtopic.php?forum=' . $forum_id
                     . '&amp;cmd=rqPost&amp;mode=add') )
                 , '<img src="' . get_icon_url('topic') . '" alt="" /> '
                 . get_lang('New topic')
@@ -1135,7 +1135,7 @@ function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0
     {
         $bc->appendNode( new BreadCrumbsNode(
                         $forum_name,
-                        htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') 
+                        htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
                         . '/viewforum.php?forum=' . $forum_id ) )
                         ));
 
@@ -1163,7 +1163,7 @@ function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0
                 $bc->appendNode( new BreadCrumbsNode( get_lang( 'Edit post' ) ) );
                 break ;
             
-            case 'quote' : 
+            case 'quote' :
                 $bc->appendNode( new BreadCrumbsNode(
                                 $topic_name,
                                 htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
@@ -1769,9 +1769,9 @@ function get_post_list( $topic_id )
                    p.`nom` lastname, p.`prenom` firstname,
                    pt.`post_text`
               FROM `" . $tbl_posts . "` p,
-                   `" . $tbl_posts_text . "` pt 
-             WHERE `topic_id` = " . (int) $topic_id . " 
-               AND  p.`post_id` = pt.`post_id` 
+                   `" . $tbl_posts_text . "` pt
+             WHERE `topic_id` = " . (int) $topic_id . "
+               AND  p.`post_id` = pt.`post_id`
           ORDER BY `post_id`";
 
      return claro_sql_query_fetch_all( $sql );
@@ -1886,7 +1886,7 @@ function update_topic_title( $topicId, $topicTitle )
 
     if ( !empty( $topicTitle ) )
     {
-        $update = 
+        $update =
                 "UPDATE `" . $tbl['bb_topics'] . "`
                     SET `topic_title` = " . Claroline::getDatabase()->quote( $topicTitle ) . "
                   WHERE `topic_id` = " . (int) $topicId;
@@ -1905,7 +1905,7 @@ function update_topic_title( $topicId, $topicTitle )
 function set_topic_lock_status( $topicId, $lock )
 {
     $tbl = claro_sql_get_course_tbl();
-    $update = 
+    $update =
             "UPDATE `" . $tbl['bb_topics'] . "`
                 SET `topic_status` = " . (int)$lock . "
               WHERE `topic_id` = " . (int) $topicId;
@@ -1916,7 +1916,7 @@ function set_topic_lock_status( $topicId, $lock )
 /**
  * Delete all post of a topic
  *
- * @param int $topicId 
+ * @param int $topicId
  * @return boolean - true if it succeed, false otherwise
  */
 
@@ -1928,7 +1928,7 @@ function delete_all_posts_in_topic( $topicId )
     $tbl_post_text = $tbl['bb_posts_text'];
 
     $delete = "
-        DELETE 
+        DELETE
           FROM `" . $tbl['bb_posts_text'] . "`
          WHERE `post_id` IN (SELECT `post_id`
                                FROM `" . $tbl_post . "`
@@ -1937,7 +1937,7 @@ function delete_all_posts_in_topic( $topicId )
     $deletedTextCount = Claroline::getDatabase()->affectedRows();
     
     $delete = "
-        DELETE 
+        DELETE
           FROM `" . $tbl['bb_posts'] . "`
          WHERE `topic_id` = " . (int)$topicId;
     if( false === Claroline::getDatabase()->exec( $delete ) ) return false;
@@ -1953,14 +1953,14 @@ function delete_topic( $topicId )
     {
         $tbl = claro_sql_get_course_tbl();
         $query = "
-            SELECT `forum_id` 
-              FROM `" . $tbl['bb_topics'] . "` 
+            SELECT `forum_id`
+              FROM `" . $tbl['bb_topics'] . "`
              WHERE `topic_id` = " . (int)$topicId;
         $forum = Claroline::getDatabase()->query( $query )->fetch();
 
         $delete = "
-            DELETE 
-              FROM `" . $tbl['bb_topics'] . "` 
+            DELETE
+              FROM `" . $tbl['bb_topics'] . "`
              WHERE `topic_id` = " . (int)$topicId;
         if( false === Claroline::getDatabase()->exec( $delete ) ) return false;
         
@@ -1970,14 +1970,14 @@ function delete_topic( $topicId )
              WHERE `topic_id` = " . (int)$topicId;
         if( false === Claroline::getDatabase()->exec( $delete ) ) return false;
 
-        if ( sync( $forum['forum_id'] ) ) 
+        if ( sync( $forum['forum_id'] ) )
         {
             return true;
         }
-        else 
+        else
         {
-            return false;             
-        }        
+            return false;
+        }
     }
     else
     {
@@ -1999,7 +1999,7 @@ function get_access_mode_to_group_forum( $forum )
         $tutorGroupList = array();
     }
     $is_groupPrivate   = claro_get_current_group_properties_data( 'private' );
-    $group_id = is_null( $forum['group_id'] ) ? null : (int)$forum['group_id'];            
+    $group_id = is_null( $forum['group_id'] ) ? null : (int)$forum['group_id'];
     if( !is_null( $group_id ) )
     {
         if( in_array( $group_id, $userGroupList )

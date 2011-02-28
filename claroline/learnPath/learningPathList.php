@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux S�bastien <pir@cerdecam.be>
+ * @author Piraux Sebastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -100,11 +100,11 @@ if ( $cmd == 'export' )
     $scorm = new ScormExport($_REQUEST['path_id']);
     if ( !$scorm->export() )
     {
-        $dialogBox->title( get_lang('Error exporting SCORM package') );        
+        $dialogBox->title( get_lang('Error exporting SCORM package') );
         foreach( $scorm->getError() as $error)
         {
             $dialogBox->error( $error );
-        }        
+        }
     }
 } // endif $cmd == export
 

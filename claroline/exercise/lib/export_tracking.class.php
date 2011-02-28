@@ -1,19 +1,17 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
-/*
-+----------------------------------------------------------------------+
-| CLAROLINE 1.6                                                        |
-+----------------------------------------------------------------------+
-| Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)      |
-+----------------------------------------------------------------------+
-|   This program is free software; you can redistribute it and/or
-|   modify it under the terms of the GNU General Public License
-|   as published by the Free Software Foundation; either version 2
-|   of the License, or (at your option) any later version.
-+----------------------------------------------------------------------+
-| Authors: S�bastien Piraux
-+----------------------------------------------------------------------+
-*/
+
+/**
+ * CLAROLINE 1.6
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * @copyright    (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @author Sebastien Piraux
+ */
 
 include_once get_path('incRepositorySys') . '/lib/csv.class.php';
 
@@ -348,7 +346,7 @@ function export_question_tracking($quId, $exId = '')
 
     switch($question->getType())
     {
-        case 'TF': 
+        case 'TF':
             $cvsTrack = new csvTrackTrueFalse($question, $exId);
             break;
         case 'MCUA':

@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @see http://www.claroline.net/wiki/index.php/Config
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  *
  * @package COURSE
  */

@@ -22,19 +22,19 @@ if ( count( get_included_files() ) == 1 )
 
 /// GET VALUES FROM INIT
 /// 5 types of  values/Function
-/// 1� Is in the context
-/// 2� Get ID
-/// 3� Get Values/properties
-/// 4� Get right
-/// 5� get_init : generic function  to prepare 4st previous during  developpement
-/// 6� read data in DB
+/// 1. Is in the context
+/// 2. Get ID
+/// 3. Get Values/properties
+/// 4. Get right
+/// 5. get_init : generic function  to prepare 4st previous during  developpement
+/// 6. read data in DB
 
-/// 1� Is in the context
+/// 1. Is in the context
 
 /**
  * Return the init status
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 function claro_is_user_authenticated()
@@ -45,7 +45,7 @@ function claro_is_user_authenticated()
 /**
  * Return the init status
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 // replace is_null(claro_get_current_course_id())
@@ -57,7 +57,7 @@ function claro_is_in_a_course()
 /**
  * Return the init status
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 // replace is_null(claro_get_current_course_id())
@@ -69,7 +69,7 @@ function claro_is_in_a_group()
 /**
  * Return the init status
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 // replace is_null(get_current_tool_id()) , isset($_tid) ....
@@ -79,13 +79,13 @@ function claro_is_in_a_tool()
     return ! is_null($GLOBALS['_tid']);
 }
 
-/// 2� Get ID
+/// 2. Get ID
 
 
 /**
  * Return the init status
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 function claro_get_current_user_id()
@@ -96,7 +96,7 @@ function claro_get_current_user_id()
 /**
  * Return the init status
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 
@@ -108,7 +108,7 @@ function claro_get_current_course_id()
 /**
  * Return the init status
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 
@@ -120,7 +120,7 @@ function claro_get_current_group_id()
 /**
  * Return the init status
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 
@@ -174,18 +174,18 @@ function clear_current_module_label()
  * @param string $param config parameter
  * @param mixed $default (optionnal) - set a defaut to return value
  *                                     if no paramater with such a name is found.
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return string param value
  * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
 */
 
-/// 3� Get Values/properties
+/// 3. Get Values/properties
 
 /**
  * Return data of the current course
  *
  * @param string or null $dataName name of field, or null to keep an array of all fields
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return string or array of string
  */
 function claro_get_current_course_data($dataName=null)
@@ -204,7 +204,7 @@ function claro_get_current_course_data($dataName=null)
  * Return group properties for the current course
  *
  * @param string or null $dataName property name, or null to keep an array of all properties
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return array of all value or value of given property name
  */
 function claro_get_current_group_properties_data($dataName=null)
@@ -226,7 +226,7 @@ function claro_get_current_group_properties_data($dataName=null)
  * Return data of the current user
  *
  * @param string or null $dataName name of field, or null to keep an array of all fields
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return string or array of string
  */
 
@@ -246,7 +246,7 @@ function claro_get_current_user_data($dataName=null)
  * Return properties for the current group
  *
  * @param string or null $dataName property name, or null to keep an array of all properties
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return array of all value or value of given property name
  */
 function claro_get_current_group_data($dataName=null)
@@ -266,7 +266,7 @@ function claro_get_current_group_data($dataName=null)
  * Return properties for the current user in the current course
  *
  * @param string or null $dataName property name, or null to keep an array of all properties
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return array of all value or value of given property name
  */
 
@@ -290,7 +290,7 @@ function claro_get_current_course_user_data($dataName=null)
  * Return properties for the current tool
  *
  * @param string or null $dataName property name, or null to keep an array of all properties
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return array of all value or value of given property name
  */
 
@@ -310,7 +310,7 @@ function claro_get_current_course_tool_data($dataName=null)
  * Return tool listbfor the current course
  *
  * @param string or null $dataName property name, or null to keep an array of all properties
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return array of all value or value of given property name
  */
 
@@ -335,12 +335,12 @@ function claro_get_current_course_tool_list_data($dataName=null)
 
 }
 
-/// 4� Get right
+/// 4. Get right
 
 /**
  * Return the right of the current user
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 
@@ -352,7 +352,7 @@ function claro_is_course_member()
 /**
  * Return the right of the current user
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return
 boolean
  */
@@ -364,7 +364,7 @@ function claro_is_course_tutor()
 /**
  * Return the right of the current user
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 function  claro_is_platform_admin()
@@ -375,7 +375,7 @@ function  claro_is_platform_admin()
 /**
  * Return the right of the current user
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 function  claro_is_course_admin()
@@ -388,7 +388,7 @@ function  claro_is_course_admin()
 /**
  * Return the right of the current user
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 function  claro_is_course_manager()
@@ -399,7 +399,7 @@ function  claro_is_course_manager()
 /**
  * Return the right of the current user
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 
@@ -411,7 +411,7 @@ function claro_is_course_allowed()
 /**
  * Return the right of the current user
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 
@@ -423,7 +423,7 @@ function  claro_is_allowed_to_create_course()
 /**
  * Return the right of the current user
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 
@@ -435,7 +435,7 @@ function  claro_is_group_member()
 /**
  * Return the right of the current user
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 
@@ -447,7 +447,7 @@ function  claro_is_group_tutor()
 /**
  * Return the right of the current user
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 
@@ -459,7 +459,7 @@ function  claro_is_group_allowed()
 /**
  * Return the right of the current user
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
 
@@ -492,13 +492,13 @@ function claro_is_module_allowed()
     }
 }
 
-// 5� Generic get_init
+// 5. Generic get_init
 /**
  * Return the value of a Claroline configuration parameter
  * @param string $param config parameter
  * @param mixed $default (optionnal) - set a defaut to return value
  *                                     if no paramater with such a name is found.
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return string param value
  * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
  */
@@ -543,7 +543,7 @@ function get_init($param)
 }
 
 
-/// 6� read data in DB
+/// 6. read data in DB
 
 /**
  * Fetch datas of the given user in the given course
@@ -552,7 +552,7 @@ function get_init($param)
  * @param integer $uid user id
  * @param bool $ignoreCache true to for read in database instead of cache
  * @return array('role')
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  */
 
 function claro_get_course_user_data($cid,$uid,$ignoreCache=false)
@@ -568,7 +568,7 @@ function claro_get_course_user_data($cid,$uid,$ignoreCache=false)
  * @param integer $uid user id
  * @param bool $ignoreCache true to for read in database instead of cache
  * @return array('_profileId','is_courseMember','is_courseTutor','is_courseAdmin')
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  */
 
 function claro_get_course_user_privilege($cid,$uid,$ignoreCache=false)
@@ -591,7 +591,7 @@ function claro_get_course_user_privilege($cid,$uid,$ignoreCache=false)
  * @return array(data( array('role')), 'privilege'(array('_profileId','is_courseMember','is_courseTutor','is_courseAdmin')))
  * @see claro_get_course_user_data($cid,$uid,$ignoreCache=false)
  * @see claro_get_course_user_privilege($cid,$uid,$ignoreCache=false)
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  */
 
 

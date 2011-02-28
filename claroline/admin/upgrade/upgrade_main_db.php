@@ -15,7 +15,7 @@
  * @package UPGRADE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
  */

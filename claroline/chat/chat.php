@@ -15,7 +15,7 @@
  * @package CLCHT
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  */

@@ -26,7 +26,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package COURSE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  *
  */
 
@@ -85,16 +85,16 @@ function delete_course($code, $sourceCourseId)
     if (!is_null($sourceCourseId))
     {
         // Does the source course still have session courses ?
-        $sql = "SELECT COUNT(cours_id) AS nbSessionCourses 
-                FROM `" . $tbl_course . "` 
+        $sql = "SELECT COUNT(cours_id) AS nbSessionCourses
+                FROM `" . $tbl_course . "`
                 WHERE sourceCourseId = " . (int) $sourceCourseId;
         
         $result = claro_sql_query_get_single_row($sql);
         
         if ( $result['nbSessionCourses'] == 0 )
         {
-            $sql = "UPDATE `" . $tbl_course . "` 
-                    SET isSourceCourse = 0 
+            $sql = "UPDATE `" . $tbl_course . "`
+                    SET isSourceCourse = 0
                     WHERE cours_id = " . (int) $sourceCourseId;
             
             claro_sql_query($sql);
@@ -188,7 +188,7 @@ function delete_course($code, $sourceCourseId)
 
 /**
  * create link between a course and categories.
- * 
+ *
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @param  int      id of course
  * @param  array    collection of categories
@@ -201,7 +201,7 @@ function link_course_categories ( $courseId, $categories )
     $tbl_rel_course_category   = $tbl_mdb_names['rel_course_category'];
     
     // Insert categories
-    $sql = "INSERT INTO `" . $tbl_rel_course_category . "` (courseId, categoryId, rootCourse) 
+    $sql = "INSERT INTO `" . $tbl_rel_course_category . "` (courseId, categoryId, rootCourse)
             VALUES ";
     for ($i=0; $i < count($categories); $i++)
     {
@@ -219,10 +219,10 @@ function link_course_categories ( $courseId, $categories )
 
 /**
  * delete link between a course and its associated categories.
- * 
+ *
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @param  int      id of course
- * @param  array    collection of categories 
+ * @param  array    collection of categories
  *                  (leave it empty to unlink ALL categories)
  * @return boolean  success
  * @since  1.10
@@ -249,7 +249,7 @@ function unlink_course_categories ( $courseId, $categories = array() )
         $categoriesIdsRestriction = " AND categoryId IN (" . $categoriesIds . ")";
     }
     
-    $sql = "DELETE FROM `" . $tbl_rel_course_category . "` 
+    $sql = "DELETE FROM `" . $tbl_rel_course_category . "`
             WHERE courseId=" . (int) $courseId . $categoriesIdsRestriction;
     
     return claro_sql_query($sql);
@@ -258,7 +258,7 @@ function unlink_course_categories ( $courseId, $categories = array() )
 
 /**
  * count the number of categories associated to a course
- * 
+ *
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @param  int      id of course
  * @return int      number of categories associated
@@ -270,7 +270,7 @@ function count_course_categories ( $courseId )
     $tbl_rel_course_category   = $tbl_mdb_names['rel_course_category'];
     
     $sql = "SELECT COUNT(courseId) AS nbCategoriesLined
-            FROM `" . $tbl_rel_course_category . "` 
+            FROM `" . $tbl_rel_course_category . "`
             WHERE courseId = " . (int) $courseId;
     
     if ($result = claro_sql_query_get_single_row($sql))

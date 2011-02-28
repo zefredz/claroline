@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 )
 
 /**
  * CLAROLINE
- * 
+ *
  * @version 1.9 $Revision$
  * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -73,7 +73,7 @@ function get_info_course($cid)
  * @param  string $course_id (optionnal)  If not set, it use the current course
  *         will be taken.
  * @return string path
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @since 1.7
  */
 function claro_get_course_name($cid=NULL)
@@ -90,7 +90,7 @@ function claro_get_course_name($cid=NULL)
  * @param  string $course_id (optionnal)  If not set, it use the current course
  *         will be taken.
  * @return string path
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @since 1.7
  */
 function claro_get_course_officialCode($cid=NULL)
@@ -168,7 +168,7 @@ function get_course_tool_list($cid)
 
 /**
  * Save a course property in 'course_properties' table
- * @param  string $propertyName 
+ * @param  string $propertyName
  * @param  string $propertyValue
  * @param  string $cid
  * @return boolean true on success, false on failure
@@ -179,27 +179,27 @@ function save_course_property( $propertyName, $propertyValue, $cid )
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_course_properties = $tbl_cdb_names['course_properties'];
-    $check = 
+    $check =
         "SELECT `id`
-           FROM `" . $tbl_course_properties . "` 
-          WHERE `name` = " . Claroline::getDatabase()->quote( $propertyName ) . " 
+           FROM `" . $tbl_course_properties . "`
+          WHERE `name` = " . Claroline::getDatabase()->quote( $propertyName ) . "
             AND `category` = 'MAIN'";
     $exists = Claroline::getDatabase()->query( $check )->numRows();
     if( $exists )
     {
-        $statement = 
-            "UPDATE `" . $tbl_course_properties . "` 
-                SET `value` = " . Claroline::getDatabase()->quote( $propertyValue ) . " 
-              WHERE `name` = " . Claroline::getDatabase()->quote( $propertyName ) . " 
+        $statement =
+            "UPDATE `" . $tbl_course_properties . "`
+                SET `value` = " . Claroline::getDatabase()->quote( $propertyValue ) . "
+              WHERE `name` = " . Claroline::getDatabase()->quote( $propertyName ) . "
                 AND `category` = 'MAIN'";
     }
     else
     {
-        $statement = 
-            "INSERT INTO `" . $tbl_course_properties . "` 
+        $statement =
+            "INSERT INTO `" . $tbl_course_properties . "`
                      SET `name` = " . Claroline::getDatabase()->quote( $propertyName ) . ",
                          `value` = " . Claroline::getDatabase()->quote( $propertyValue ) . ",
-                         `category` = 'MAIN'";  
+                         `category` = 'MAIN'";
     }
     return Claroline::getDatabase()->exec( $statement );
 }

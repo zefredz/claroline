@@ -261,7 +261,7 @@ function user_delete($userId)
 
 /**
  * @return list of users wich have admin status
- * @author Christophe Gesch� <Moosh@claroline.net>
+ * @author Christophe Gesche <Moosh@claroline.net>
  *
  */
 
@@ -280,7 +280,7 @@ function claro_get_uid_of_platform_admin()
 
 /**
  * @return list of users wich have status to receipt REQUESTS
- * @author Christophe Gesch� <Moosh@claroline.net>
+ * @author Christophe Gesche <Moosh@claroline.net>
  *
  */
 
@@ -305,7 +305,7 @@ function claro_get_uid_of_request_admin()
 
 /**
  * @return list of users wich have status to receive system notification
- * @author Christophe Gesch� <Moosh@claroline.net>
+ * @author Christophe Gesche <Moosh@claroline.net>
  *
  */
 
@@ -330,7 +330,7 @@ function claro_get_uid_of_platform_contact()
 
 /**
  * @return list of users wich have status to receive system notification
- * @author Christophe Gesch� <Moosh@claroline.net>
+ * @author Christophe Gesche <Moosh@claroline.net>
  *
  */
 

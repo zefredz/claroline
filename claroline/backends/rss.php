@@ -6,9 +6,9 @@
  *
  *
  * @version     1.9 $Revision$
-* @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright    (c) 2001-2010, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
- * @author      Christophe Gesch� <moosh@claroline.net>
+ * @author      Christophe Gesche <moosh@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2.0

@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 )
  * @see         http://www.claroline.net/wiki/index.php/CLGRP
  * @package     CLGRP
  * @author      Claro Team <cvs@claroline.net>
- * @author      Christophe Gesch� <moosh@claroline.net>
+ * @author      Christophe Gesche <moosh@claroline.net>
  * @author      Hugues Peeters <hugues.peeters@claroline.net>
  *
  */
@@ -234,7 +234,7 @@ function deleteAllGroups()
  * @param integer $nbGroupPerUser
  * @param string  $course_id course context where the  group(s) can be founded
  *
- * @author Chrisptophe Gesch� <moosh@claroline.net>,
+ * @author Chrisptophe Gesche <moosh@claroline.net>,
  * @author Hugues Peeters     <hugues.peeters@claroline.net>
  *
  * @return void
@@ -385,7 +385,7 @@ function fill_in_groups($nbGroupPerUser, $course_id )
  * @return integer user qty in the given course
  * @throws claro_failure
  *
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  *
  */
 function group_count_students_in_course($course_id)
@@ -404,7 +404,7 @@ function group_count_students_in_course($course_id)
  * Count users in all groups.
  * @param interger (optional) course_id
  * @return interger user quantity
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @todo TODO : rename this function or change it. count include non student users.
  */
 function group_count_students_in_groups($course_id=null)
@@ -424,7 +424,7 @@ function group_count_students_in_groups($course_id=null)
  * @param interger (optional) group_id
  * @param interger (optional) course_id
  * @return interger user quantity
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @todo TODO : rename this function or change it. count include non student users.
  */
 function group_count_students_in_group($group_id,$course_id=null)
@@ -445,7 +445,7 @@ function group_count_students_in_group($group_id,$course_id=null)
  * @param integer $user_id
  * @param integer (optional) course_id
  * @return integer Count of groups where a given user is ennrolled in a given (o current) course
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  *
  */
 function group_count_group_of_a_user($user_id, $course_id=null)
@@ -571,7 +571,7 @@ function get_course_tutor_list($currentCourseId)
  * Tool_list (with clarolabel and tid come from tool tables and  group properties and localinit)
  * @param $course_id
  * @param boolean $active, if set to true, only activated tools of the platform must be returned
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @return array
  */
 function get_group_tool_list($course_id=NULL,$active = true)
@@ -788,7 +788,7 @@ function get_current_course_group_properties()
         $db_groupProperties = array(
             'self_registration' => 0,
             'private' => 1
-        );  
+        );
     }
     
     $groupProperties = array();

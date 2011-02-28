@@ -24,7 +24,7 @@ if ( count( get_included_files() ) == 1 )
  * @package COURSE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @author Frederic Minne <zefredz@claroline.net>
  *
  */
@@ -48,7 +48,7 @@ require_once get_path('includePath') . '/lib/course_user.lib.php';
  * - ["currentCourseDbName"]        : Must be unique it's the database name.
  * - ["currentCourseRepository"]    : Must be unique in /get_path('coursesRepositorySys')/
  *
- * @todo actually if suffix is not unique  the next append and not  replace
+ * @todo actually if suffix is not unique the next append and not replace
  * @todo add param listing keyg wich wouldbe identical
  * @todo manage an error on brake for too many try
  * @todo $keysCourseCode is always
@@ -70,10 +70,13 @@ function define_course_keys ($wantedCode,
     $nbCharFinalSuffix = get_conf('nbCharFinalSuffix','3');
 
     // $keys["currentCourseCode"] is the "public code"
-
+    
+    //FIXME FIXME FIXME
+    /*
     $wantedCode =  strtr($wantedCode,
     '�����������������������������������������������������������',
     'AAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy');
+    */
 
     //$wantedCode = strtoupper($wantedCode);
     $charToReplaceByUnderscore = '- ';
@@ -217,7 +220,7 @@ function define_course_keys ($wantedCode,
  * @param  string $courseRepository path from $coursesRepositorySys to root of course
  * @param  string $courseId         sysId of course
  * @return boolean
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @author Frederic Minne <zefredz@claroline.net>
  */
@@ -292,7 +295,7 @@ function prepare_course_repository($courseRepository, $courseId)
  *
  * @param  string courseDbName partial dbName form course table tu build real DbName
  * @return boolean
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @author Frederic Minne <zefredz@claroline.net>
  */
 function install_course_database( $courseDbName )
@@ -388,7 +391,7 @@ function setup_course_tools( $courseDbName, $language, $courseDirectory )
  * @param string    $registration ('open', 'close' or 'validation')
  * @param string    $registrationKey
  * @return bool     success;
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  */
 function register_course( $courseSysCode, $courseScreenCode, $sourceCourseId,
                           $courseRepository, $courseDbName,

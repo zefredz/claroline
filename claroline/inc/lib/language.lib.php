@@ -570,7 +570,7 @@ function get_lang_weekday_name_list($size='long')
 
 /**
  * Display a date at localized format
- * @author Christophe Gesch� <gesche@ipm.ucl.ac.be>
+ * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
  * @param formatOfDate
          see http://www.php.net/manual/en/function.strftime.php
          for syntax to use for this string
@@ -599,7 +599,6 @@ function claro_html_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
 
     if ($timestamp == -1) $timestamp = claro_time();
 
-    // avec un ereg on fait nous m�me le replace des jours et des mois
     // with the ereg  we  replace %aAbB of date format
     //(they can be done by the system when  locale date aren't aivailable
 
