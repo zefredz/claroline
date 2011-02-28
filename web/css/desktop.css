@@ -40,7 +40,7 @@
 .portlet .iconDefinitionList
 {
     list-style-position:inside;
-    margin:0 0.5em 0 0;
+    margin:0;
     padding:0;
 }
 
@@ -62,13 +62,13 @@
     width: 30%;
     margin: 0;
     height: 300px;
-    padding: 0.3em 1em 0.3em 1em;
+    padding: 0;
     text-align: center;
 }
 
 #portletMycalendar .details {
     min-width: 200px;
-    margin-left: 33%;
+    margin-left: 280px;
     padding: 0 1em 0.1em 1em;
     height: 300px;
     overflow: auto;
@@ -111,12 +111,12 @@
 
 #portletMyCourseList dd
 {
-    padding: 0 0 0 32px;
+    padding: 0 0 0 20px;
 }
 
 #portletMyCourseList dt
 {
-    padding-left: 16px;
+    padding-left: 0px;
 }
 
 #portletMyAnnouncements {

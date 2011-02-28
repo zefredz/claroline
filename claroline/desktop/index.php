@@ -147,20 +147,14 @@ $jsloader->load('jquery');
 $cssLoader = CssLoader::getInstance();
 $cssLoader->load('desktop','all');
 
-$output = '';
-
-$nameTools = get_lang('My desktop');
-
-$output .= claro_html_tool_title($nameTools);
-
-$output .= $dialogBox->render();
+$template = new CoreTemplate('user_desktop.tpl.php');
 
 $userProfileBox = new UserProfileBox();
 
-$output .= '<div id="rightSidebar">' . $userProfileBox->render() . '</div>';
+$template->assign('dialogBox', $dialogBox);
+$template->assign('userProfileBox', $userProfileBox);
+$template->assign('outPortlet', $outPortlet);
 
-$output .= '<div id="leftContent">' . $outPortlet . '</div>';
-
-$claroline->display->body->appendContent($output);
+$claroline->display->body->appendContent($template->render());
 
 echo $claroline->display->render();

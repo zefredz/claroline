@@ -42,7 +42,7 @@
                     <?php echo (!empty($this->userData['phone']) ? htmlspecialchars($this->userData['phone']) : '-' ); ?>
                 </p>
                 <p>
-                    <span><?php echo get_lang('Administrative code'); ?></span><br /> '
+                    <span><?php echo get_lang('Administrative code'); ?></span><br />
                     <?php echo (!empty($this->userData['officialCode']) ? htmlspecialchars($this->userData['officialCode']) : '-' ); ?>
                 </p>
                 <?php

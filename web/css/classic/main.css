@@ -486,7 +486,7 @@ li.lastBreadCrumbsNode {
 }
 
 #leftContent {
-    padding: 2px 5px 2px 2px;
+    padding: 0;
     margin-right: 240px;
 }
 
@@ -716,7 +716,7 @@ a.item:visited {
 }
 
 .claroBlock {
-    width: 99%;
+    width: 100%;
     margin: 5px auto;
 }
 
@@ -1361,4 +1361,8 @@ dl.admin-control dd {
 
 .centerContent {
     text-align:center;
+}
+
+.separator {
+    font-weight: normal;
 }

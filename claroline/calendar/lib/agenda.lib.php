@@ -318,7 +318,10 @@ function get_agenda_items_compact_mode($userCourseList, $month, $year)
                         'courseOfficialCode' => $thisCourse['officialCode'],
                         'courseSysCode' => $thisCourse['sysCode'],
                         'content' => $eventLine,
-                        'url' => get_path('url').'/claroline/calendar/agenda.php?cidReq=' . $thisCourse['sysCode']
+                        'url' => get_path('url')
+                               . '/claroline/calendar/agenda.php?cidReq='
+                               . $thisCourse['sysCode']
+                               . '#event'.$thisEvent['id']
                     );
 
             }

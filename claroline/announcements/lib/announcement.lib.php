@@ -85,24 +85,25 @@ function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $
     $curdate = claro_mktime();
     
     $sql = "SELECT '" . claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`, \n"
-            . "'" . claro_sql_escape($thisCourse['officialCode']) ."'     AS `courseOfficialCode`, \n"
-            . "'CLANN'                                              AS `toolLabel`, \n"
-            . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`, \n"
-            . "CONCAT(`title`,' - ',`contenu`)                      AS `content`, \n"
-            . "`visibility`, \n"
-            . "`visibleFrom`, \n"
-            . "`visibleUntil` \n"
-            . "FROM `" . $tableAnn . "` \n"
-            . "WHERE CONCAT(`title`, `contenu`) != '' \n"
-            . ( $startTime ? '' : "AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', (double)$startTime)."' \n" )
-            . ( $visibleOnly ? "  AND visibility = 'SHOW' \n" : '' )
-            . "            AND (UNIX_TIMESTAMP(`visibleFrom`) < '". $curdate ."'
-                                 OR `visibleFrom` IS NULL OR UNIX_TIMESTAMP(`visibleFrom`)=0
-                               )
-                           AND ('". $curdate ."' < UNIX_TIMESTAMP(`visibleUntil`) OR `visibleUntil` IS NULL)"
-            . "ORDER BY `date` DESC \n"
-            . ( $limit ? "LIMIT " . (int) $limit : '' )
-            ;
+         . "'" . claro_sql_escape($thisCourse['officialCode']) ."'  AS `courseOfficialCode`, \n"
+         . "'CLANN'                                                 AS `toolLabel`, \n"
+         . "CONCAT(`temps`, ' ', '00:00:00')                        AS `date`, \n"
+         . "`id`                                                    AS `id`, \n"
+         . "`title`                                                 AS `title`, \n"
+         . "`contenu`                                               AS `content`, \n"
+         . "`visibility`, \n"
+         . "`visibleFrom`, \n"
+         . "`visibleUntil` \n"
+         . "FROM `" . $tableAnn . "` \n"
+         . "WHERE CONCAT(`title`, `contenu`) != '' \n"
+         . ( $startTime ? '' : "AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', (double)$startTime)."' \n" )
+         . ( $visibleOnly ? "  AND visibility = 'SHOW' \n" : '' )
+         . "            AND (UNIX_TIMESTAMP(`visibleFrom`) < '". $curdate ."'
+                              OR `visibleFrom` IS NULL OR UNIX_TIMESTAMP(`visibleFrom`)=0
+                            )
+                        AND ('". $curdate ."' < UNIX_TIMESTAMP(`visibleUntil`) OR `visibleUntil` IS NULL)"
+         . "ORDER BY `date` DESC \n"
+         . ( $limit ? "LIMIT " . (int) $limit : '' );
     
     return claro_sql_query_fetch_all_rows($sql);
 }
@@ -119,19 +120,18 @@ function announcement_get_items_portlet($personnalCourseList)
         {
             foreach($courseEventList as $thisEvent)
             {
-                
-                $eventTitle = trim(strip_tags($thisCourse['title']));
-                if ( $eventTitle == '' )
+                $courseTitle = trim(strip_tags($thisCourse['title']));
+                if ( $courseTitle == '' )
                 {
-                    $eventTitle    = substr($eventTitle, 0, 60) . (strlen($eventTitle) > 60 ? ' (...)' : '');
+                    $courseTitle = substr($courseTitle, 0, 60) . (strlen($courseTitle) > 60 ? ' (...)' : '');
                 }
                 
                 $eventContent = trim(strip_tags($thisEvent['content']));
                 if ( $eventContent == '' )
                 {
-                    $eventContent    = substr($eventContent, 0, 60) . (strlen($eventContent) > 60 ? ' (...)' : '');
+                    $eventContent = substr($eventContent, 0, 60) . (strlen($eventContent) > 60 ? ' (...)' : '');
                 }
-              
+                
                 $courseOfficialCode = $thisEvent['courseOfficialCode'];
                 
                 if(!array_key_exists($courseOfficialCode, $courseDigestList))
@@ -139,21 +139,27 @@ function announcement_get_items_portlet($personnalCourseList)
                     $courseDigestList[$courseOfficialCode] = array();
                     $courseDigestList[$courseOfficialCode]['eventList'] = array();
                     $courseDigestList[$courseOfficialCode]['courseOfficialCode'] = $courseOfficialCode;
-                    $courseDigestList[$courseOfficialCode]['title'] = $eventTitle;
+                    $courseDigestList[$courseOfficialCode]['title'] = $courseTitle;
                     $courseDigestList[$courseOfficialCode]['visibility'] = $thisEvent['visibility'];
                     $courseDigestList[$courseOfficialCode]['visibleFrom'] = $thisEvent['visibleFrom'];
                     $courseDigestList[$courseOfficialCode]['visibleUntil'] = $thisEvent['visibleUntil'];
-                    $courseDigestList[$courseOfficialCode]['url'] = get_path('url').'/claroline/announcements/announcements.php?cidReq=' . $thisEvent['courseSysCode'];
+                    $courseDigestList[$courseOfficialCode]['url'] = get_path('url')
+                        . '/claroline/announcements/announcements.php?cidReq='
+                        . $thisEvent['courseSysCode'];
                 }
                 
                 $courseDigestList[$courseOfficialCode]['eventList'][] =
                     array(
                         'courseSysCode' => $thisEvent['courseSysCode'],
                         'toolLabel' => $thisEvent['toolLabel'],
+                        'title' => $thisEvent['title'],
                         'content' => $eventContent,
-                        'date' => $thisEvent['date']
+                        'date' => $thisEvent['date'],
+                        'url' => get_path('url')
+                            . '/claroline/announcements/announcements.php?cidReq='
+                            . $thisEvent['courseSysCode']
+                            . '#announcement'.$thisEvent['id']
                     );
-                
             }
         }
     }

@@ -635,7 +635,8 @@ if ($displayList)
                     ($thisAnnouncement['time']));
 
                 $output .= '<div class="claroBlock">' . "\n"
-                .   '<h4 class="claroBlockHeader">'
+                .   '<h4 id="announcement'.$thisAnnouncement['id'].'" '
+                .   'class="claroBlockHeader">'
                 .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
                 .   '<img src="' . get_icon_url('announcement') . '" alt="" /> '
                 .   get_lang('Published on')

@@ -8,17 +8,16 @@ if ( count( get_included_files() ) == 1 )
 }
 
 /**
-* CLAROLINE
-*
-* User desktop : course list portlet
-*
-* @version      1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
-* @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
-* @package      DESKTOP
-* @author       Claroline team <info@claroline.net>
-*
-*/
+ * CLAROLINE
+ *
+ * User desktop : course list portlet
+ *
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     DESKTOP
+ * @author      Claroline team <info@claroline.net>
+ */
 
 uses('courselist.lib');
 // we need CLHOME conf file for render_user_course_list function
@@ -32,11 +31,9 @@ class MyCourseList extends UserDesktopPortlet
         
         $out = '';
         
+        // If the desktop is the default home page, display commands
         if (get_conf('display_user_desktop'))
         {
-            /**
-             * Commands line
-             */
             $userCommands = array();
             
             if (claro_is_allowed_to_create_course()) // 'Create Course Site' command. Only available for teacher.
@@ -60,7 +57,7 @@ class MyCourseList extends UserDesktopPortlet
                 .    '<img src="' . get_icon_url('enroll') . '" alt="" /> '
                 .    get_lang('Enrol on a new course')
                 .    '</a>';
-            
+                
                 $userCommands[] = '<a href="'.get_path('clarolineRepositoryWeb').'auth/courses.php?cmd=rqUnreg" class="claroCmd">'
                 .    '<img src="' . get_icon_url('unenroll') . '" alt="" /> '
                 .    get_lang('Remove course enrolment')
@@ -71,26 +68,27 @@ class MyCourseList extends UserDesktopPortlet
                 . claro_html_menu_horizontal( $userCommands )
                 . '</p>' . "\n";
         }
-        else
-        {
-            $out .= '<p><a class="claroCmd" href="'.get_path('url')
-                . '/index.php#myCourseList">'
-                . '<img src="' . get_icon_url('edit') . '" alt="" /> '
-                . get_lang('Edit')
-                . '</a></p>';
-        }
-
+        
         $out .= '<div id="portletMyCourseList">'
         . render_user_course_list()
         . '</div>' . "\n";
-
+        
         $this->content = $out;
-
+        
         return $this->content;
     }
-
+    
+    
     public function renderTitle()
     {
-        return get_lang('My course list');
+        $output = get_lang('My course list')
+                . ' <span class="separator">|</span> '
+                . '<a href="'.get_path('url')
+                . '/index.php#myCourseList">'
+                . '<img src="' . get_icon_url('edit') . '" alt="" /> '
+                . get_lang('Manage my course list')
+                . '</a>';
+        
+        return $output;
     }
 }

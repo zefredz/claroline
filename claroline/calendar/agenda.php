@@ -549,7 +549,7 @@ foreach ( $eventList as $thisEvent )
          * Display the event date
          */
         $output .= '<div class="claroBlock">' . "\n"
-        .   '<h4 class="claroBlockHeader">'
+        .   '<h4 id = "event' . $thisEvent['id'] . '" class="claroBlockHeader">'
         .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
         .   '<img src="' . get_icon_url('agenda') . '" alt="" /> '
         .    ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
@@ -564,7 +564,6 @@ foreach ( $eventList as $thisEvent )
          * Display the event content
          */
         .   '<div class="claroBlockContent">' . "\n"
-        .   '<a href="#" name="event' . $thisEvent['id'] . '"></a>'. "\n"
 
         .   '<div class="' . $cssInvisible . '">' . "\n"
         .    ( empty($thisEvent['title']  ) ? '' : '<p><strong>' . htmlspecialchars($thisEvent['title']) . '</strong></p>' . "\n" )
