@@ -93,13 +93,13 @@ function delete_groups($groupIdList = 'ALL')
 
     require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
     require_once get_path('incRepositorySys') . '/lib/forum.lib.php';
-    
+
     if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLWIKI'), claro_get_current_course_id() )
         && is_tool_activated_in_groups( claro_get_current_course_id(), 'CLWIKI' ) )
     {
         delete_group_wikis( $groupIdList );
     }
-    
+
     if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLFRM'), claro_get_current_course_id() )
         && is_tool_activated_in_groups( claro_get_current_course_id(), 'CLFRM' ) )
     {
@@ -525,10 +525,11 @@ function create_group($prefixGroupName, $maxMember)
         , '' // forum description
         , 2  // means forum post allowed,
         , (int) GROUP_FORUMS_CATEGORY
+        ,''
         , $createdGroupId
         );
     }
-    
+
     if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLWIKI'), claro_get_current_course_id() )
         && is_tool_activated_in_groups( claro_get_current_course_id(), 'CLWIKI' ) )
     {
@@ -659,11 +660,11 @@ function get_user_group_list($userId,$course=null)
     {
         $course = claro_get_current_course_id();
     }
-    
+
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course));
     $tbl_group_team          = $tbl_cdb_names['group_team'];
     $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
-    
+
     $mainTableName = get_module_main_tbl(array('user','rel_course_user'));
 
     $userGroupList = array();
@@ -719,7 +720,7 @@ function get_group_user_list($gid, $courseId =  NULL)
 {
     $mainTableName = get_module_main_tbl(array('user','rel_course_user'));
     $courseTableName = get_module_course_tbl(array('group_rel_team_user'), $courseId);
-    
+
     $sql = "SELECT `user`.`user_id` AS `id`, `user`.`nom` AS `lastName`, `user`.`prenom` AS `firstName`, `user`.`email`
         FROM `" . $mainTableName['user'] . "` AS `user`
         INNER JOIN `" . $courseTableName['group_rel_team_user'] . "` AS `user_group`
@@ -728,7 +729,7 @@ function get_group_user_list($gid, $courseId =  NULL)
             ON `user`.`user_id` = `course_user`.`user_id`
         WHERE `user_group`.`team`= '" . $gid . "'
         AND `course_user`.`code_cours` = '" . $courseId ."'";
-    
+
     return claro_sql_query_fetch_all($sql);
 }
 
@@ -744,7 +745,7 @@ function get_group_list_user_id_list($gidList,$courseId = NULL)
 
     $courseTableName = get_module_course_tbl(array('group_team','group_rel_team_user'),$courseId);
     $mainTableName = get_module_main_tbl(array('user','rel_course_user'));
-    
+
     $sql = "SELECT `user_group`.`user`
             FROM `".$courseTableName['group_rel_team_user']."` AS `user_group`
             INNER JOIN `" . $mainTableName['rel_course_user'] . "` AS `cu`
@@ -754,7 +755,7 @@ function get_group_list_user_id_list($gidList,$courseId = NULL)
     $groupMemberList = claro_sql_query_fetch_all($sql);
 
     $userIdList = array();
-    
+
     if ( is_array($groupMemberList) && !empty($groupMemberList) )
     {
         foreach ( $groupMemberList as $groupMember )
@@ -762,7 +763,7 @@ function get_group_list_user_id_list($gidList,$courseId = NULL)
             $userIdList[] = $groupMember['user'];
         }
     }
-    
+
     return $userIdList;
 }
 
@@ -773,14 +774,14 @@ function get_group_list_user_id_list($gidList,$courseId = NULL)
 function get_current_course_group_properties()
 {
     $tbl = claro_sql_get_course_tbl();
-    
+
     $sql_getGroupProperties = "SELECT name, value\n"
         . "FROM `{$tbl['course_properties']}`\n"
         . "WHERE category = 'GROUP'"
         ;
 
     $db_groupProperties = claro_sql_query_fetch_all( $sql_getGroupProperties );
-    
+
     if ( ! $db_groupProperties )
     {
         // throw new Exception("Cannot load group properties for {$courseId}");
@@ -790,26 +791,26 @@ function get_current_course_group_properties()
             'private' => 1
         );
     }
-    
+
     $groupProperties = array();
-    
+
     foreach($db_groupProperties as $currentProperty)
     {
         $groupProperties[$currentProperty['name']] = (int) $currentProperty['value'];
     }
-    
+
     $groupProperties ['registrationAllowed'] =  (bool) ($groupProperties['self_registration'] == 1);
     unset ( $groupProperties['self_registration'] );
     $groupProperties ['private'] =  (bool) ($groupProperties['private'] == 1);
 
     $groupProperties['tools'] = array();
-    
+
     $groupToolList = get_group_tool_label_list();
-    
+
     foreach ( $groupToolList as $thisGroupTool )
     {
         $groupTLabel = $thisGroupTool['label'];
-        
+
         if ( array_key_exists( $groupTLabel, $groupProperties ) )
         {
             $groupProperties ['tools'] [$groupTLabel] = (bool) ($groupProperties[$groupTLabel] == 1);
@@ -820,7 +821,7 @@ function get_current_course_group_properties()
             $groupProperties ['tools'] [$groupTLabel] = false;
         }
     }
-    
+
     return $groupProperties;
 }
 
@@ -830,6 +831,6 @@ function get_current_course_group_properties()
 function is_tool_available_in_current_course_groups( $moduleLabel )
 {
     $gp = get_current_course_group_properties();
-    
+
     return isset( $gp['tools'][$moduleLabel] ) && $gp['tools'][$moduleLabel];
 }
