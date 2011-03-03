@@ -68,7 +68,7 @@ class UserProfileBox implements Display
             )
         );
         
-        $dock = new ClaroDock( 'userProfileBox' );
+        $dock = new ClaroDock('userProfileBox');
         
         $template = new CoreTemplate('user_profilebox.tpl.php');
         $template->assign('pictureUrl', $pictureUrl);

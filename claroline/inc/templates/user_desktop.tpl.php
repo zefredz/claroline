@@ -8,6 +8,8 @@
 
 <div id="rightSidebar">
     <?php echo $this->userProfileBox->render(); ?>
+    
+    <?php include_textzone('textzone_right.inc.html'); ?>
 </div>
 
 <div id="leftContent">

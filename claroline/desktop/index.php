@@ -28,7 +28,7 @@ if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 // load libraries
 uses('user.lib', 'utils/finder.lib');
 require_once dirname(__FILE__) . '/lib/portlet.lib.php';
-// require_once dirname(__FILE__) . '/lib/userprofilebox.lib.php';
+
 FromKernel::uses('display/userprofilebox.lib');
 
 $dialogBox = new DialogBox();
@@ -150,7 +150,7 @@ $cssLoader->load('desktop','all');
 
 $template = new CoreTemplate('user_desktop.tpl.php');
 
-$userProfileBox = new UserProfileBox();
+$userProfileBox = new UserProfileBox(false);
 
 $template->assign('dialogBox', $dialogBox);
 $template->assign('userProfileBox', $userProfileBox);

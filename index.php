@@ -115,7 +115,7 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
         
         // User profilebox
         FromKernel::uses('display/userprofilebox.lib');
-        $userProfileBox = new UserProfileBox(true);
+        $userProfileBox = new UserProfileBox(false);
         
         $template->assign('userProfileBox', $userProfileBox);
     }
