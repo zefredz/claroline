@@ -1,11 +1,13 @@
-<?php
+<?php // $Id: index.php 9923 2008-04-10 15:03:09Z fragile_be $
+
 /**
  * CLAROLINE
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
+ * @version     $Revision: 11767 $
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claro Team <cvs@claroline.net>
+ * @since       1.10
  */
 
 require_once dirname(__FILE__) . '/inc/claro_init_global.inc.php';
@@ -20,7 +22,7 @@ if ( claro_is_user_authenticated() )
     $display_form = true;
     
     if (((isset($_REQUEST['fday']) && is_numeric($_REQUEST['fday'])))
-        && ((isset($_REQUEST['fmonth']) && is_numeric($_REQUEST['fmonth']))) 
+        && ((isset($_REQUEST['fmonth']) && is_numeric($_REQUEST['fmonth'])))
         && ((isset($_REQUEST['fyear']) && is_numeric($_REQUEST['fyear']))))
     {
         $_SESSION['last_action'] = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'] . ' 00:00:00';
@@ -62,6 +64,6 @@ if ( claro_is_user_authenticated() )
     
     echo Claroline::getDisplay()->render();
 
-}   
+}
 else claro_redirect('index.php');
 ?>
