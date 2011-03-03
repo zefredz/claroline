@@ -227,26 +227,27 @@ class ClaroBanner extends CoreTemplate
     {
         if( claro_is_user_authenticated() )
         {
-            $userToolUrlList = array();
+            $userToolUrlListLeft    = array();
+            $userToolUrlListRight   = array();
             
             if (get_conf(get_conf('display_former_homepage')))
             {
                 
             }
             
-            $userToolUrlList[]  = '<a href="'
+            $userToolUrlListLeft[]  = '<a href="'
                 . get_path('clarolineRepositoryWeb')
                 . 'desktop/index.php" target="_top">'
                 . get_lang('My desktop').'</a>'
                 ;
             
-            $userToolUrlList[]  = '<a href="'
+            $userToolUrlListLeft[]  = '<a href="'
                 . get_path('clarolineRepositoryWeb')
                 . 'auth/profile.php" target="_top">'
                 . get_lang('My user account').'</a>'
                 ;
 
-            $userToolUrlList[]  = '<a href="'
+            $userToolUrlListLeft[]  = '<a href="'
                 . get_path('clarolineRepositoryWeb')
                 . 'messaging" target="_top">'
                 . get_lang('My messages').'</a>'
@@ -254,21 +255,24 @@ class ClaroBanner extends CoreTemplate
             
             if(claro_is_platform_admin())
             {
-                $userToolUrlList[] = '<a href="'
+                $userToolUrlListLeft[] = '<a href="'
                     . get_path('clarolineRepositoryWeb')
                     .'admin/" target="_top">'
                     . get_lang('Platform administration'). '</a>'
                     ;
             }
-
-            $userToolUrlList[] = '<a href="'.  get_path('url')
+            
+            $userToolUrlListRight[] = '<a href="'.  get_path('url')
                 . '/index.php?logout=true" target="_top">'
                 . get_lang('Logout').'</a>'
                 ;
-
-            $this->assign('userToolList'
-                , claro_html_menu_horizontal($userToolUrlList));
-                
+            
+            $this->assign('userToolListRight'
+                , claro_html_menu_horizontal($userToolUrlListRight));
+            
+            $this->assign('userToolListLeft'
+                , claro_html_menu_horizontal($userToolUrlListLeft));
+            
             $this->showBlock('userBanner');
         }
         else

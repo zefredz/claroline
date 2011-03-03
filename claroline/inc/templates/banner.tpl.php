@@ -47,10 +47,12 @@
             , array(  '%firstName' => $this->user['firstName']
                     , '%lastName' => $this->user['lastName'] ) ) ?> :
         </span>
-        <?php echo $this->userToolList; ?>
+        <?php echo $this->userToolListLeft; ?>
+        
         <?php include_dock('userBannerLeft'); ?>
     </div>
     <div id="userBannerRight">
+        <?php echo $this->userToolListRight; ?>
         <?php include_dock('userBannerRight'); ?>
     </div>
 
