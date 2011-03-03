@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
@@ -20,7 +20,7 @@ $localLangName = " �?رنسية ";
 $iso639_1_code = "ar";
 $iso639_2_code = "ara";
 
-$langNameOfLang['arabic']        = "arabian";
+$langNameOfLang['arabic']        = "العربية";
 $langNameOfLang['brazilian']     = "brazilian";
 $langNameOfLang['bulgarian']     = "bulgarian";
 $langNameOfLang['catalan']       = "catalan";
@@ -57,12 +57,12 @@ $number_thousands_separator = ',';
 $number_decimal_separator = '.';
 $byteUnits = array('Octets', 'Ko', 'Mo', 'Go');
 
-$langDay_of_weekNames['init'] = array('D', 'L', 'M', 'M', 'J', 'V', 'S');
-$langDay_of_weekNames['short'] = array('Di', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam');
+$langDay_of_weekNames['init'] = array('الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت');
+$langDay_of_weekNames['short'] = array('الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت');
 $langDay_of_weekNames['long'] = array('الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت');
 
-$langMonthNames['init']  = array('J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D');
-$langMonthNames['short'] = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+$langMonthNames['init']  = array('يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر');
+$langMonthNames['short'] = array('يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر');
 $langMonthNames['long'] = array('يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر');
 
 
