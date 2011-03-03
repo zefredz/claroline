@@ -5,13 +5,13 @@
  * This is the index page of sdk tools
  *
  * @version 1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package SDK
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
- * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  */
 

@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     1.10 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC
  *  LICENSE version 2 or later
  * @author      see 'credits' file
@@ -278,7 +278,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
  * CLAROLINE mySQL query wrapper. It also provides a debug display which works
  * when the CLARO_DEBUG_MODE constant flag is set to on (true)
  *
- * @author Hugues Peeters    <peeters@ipm.ucl.ac.be>,
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author Christophe Gesch√© <moosh@claroline.net>
  * @param  string  $sqlQuery   - the sql query
  * @param  handler $dbHandler  - optional
@@ -430,7 +430,7 @@ function claro_sql_insert_id($dbHandler = '#')
  * @param ressource (optional) - result pointer
  * @return  names of the specified field index
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
  *  in database/database.lib.php instead
  */

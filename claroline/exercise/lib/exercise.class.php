@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -752,7 +752,7 @@ class Exercise
     /**
      * get quiz end message
      *
-     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @return string
      */
      function getQuizEndMessage()
@@ -762,7 +762,7 @@ class Exercise
      /**
       * set end form information
       *
-      * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
       * @param string $value
       */
      function setQuizEndMessage($value)
@@ -853,7 +853,7 @@ class Exercise
     /**
      * get use same shuffle
      *
-     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @return int
      */
     function getUseSameShuffle()
@@ -864,7 +864,7 @@ class Exercise
     /**
      * set use same shuffle
      *
-     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param int $value
      */
     function setUseSameShuffle($value)

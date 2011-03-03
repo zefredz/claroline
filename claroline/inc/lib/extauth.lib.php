@@ -4,7 +4,7 @@
  * External Authentication library
  *
  * @version     1.10 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -17,7 +17,7 @@
  * and the PEAR Auth library. It allows to use external authentication system
  * for claroline login process
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @deprecated  since Claroline 1.9, use AuthManager and AuthDriver instead
  */
 class ExternalAuthentication
@@ -27,7 +27,7 @@ class ExternalAuthentication
     /**
      * constructor.
      *
-     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param string $extAuthType
      * @param string $authOptionList
      */
@@ -70,7 +70,7 @@ class ExternalAuthentication
     /**
      * check if user is authenticated
      *
-     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @return
      */
     function isAuth()
@@ -81,7 +81,7 @@ class ExternalAuthentication
     /**
      * record user data into the claroline system
      *
-     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param array $extAuthAttribNameList - list that make correspondance
      *        between claroline attribute names and the external authentication
      *        system attribute name
@@ -188,7 +188,7 @@ class ExternalAuthentication
     /**
      * get the current uid of the logged usser
      *
-     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @return int
      */
     function getUid()

@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLCOURSELIST
  * @author      Claro Team <cvs@claroline.net>
@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/clarocategoriesbrowser.class.php';
  * a platform admin, this function will not return source courses having
  * session courses.
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @param  string       $keyword course code from the cours table
  * @param  mixed        $userId  null or valid id of a user (default:null)

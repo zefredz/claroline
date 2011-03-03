@@ -6,14 +6,14 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLAUTH
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 
 require '../inc/claro_init_global.inc.php';

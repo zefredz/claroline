@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -16,8 +16,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLDOC
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be> (core)
- * @author Frederic Minne <minne@ipm.ucl.ac.be>   (gallery)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  */
 

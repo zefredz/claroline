@@ -5,7 +5,7 @@
  * MYSQL Datetime YYYY-MM-DD hh:mm:ss to Javascript Date conversion library
  *
  * @version     1.0 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license      http://www.gnu.org/licenses/lgpl-3.0.txt
  *              GNU LESSER GENERAL PUBLIC LICENSE Version 3.0 or later

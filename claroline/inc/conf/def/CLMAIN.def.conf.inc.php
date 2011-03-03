@@ -6,7 +6,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * CLAROLINE main configuration file variable definitions
  *
  * @version 1.10 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/config_def/
  * @author Claro Team <cvs@claroline.net>

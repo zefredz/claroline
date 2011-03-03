@@ -6,7 +6,7 @@
  * Strangly, the is nothing to edit role and courseTutor status
  *
  * @version 1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -142,7 +142,7 @@ if ( 'culist'== $ccfrom )//coming from courseuser list
 {
     $displayBackToCU = TRUE;
 }
-elseif ('uclist'== $ccfrom)//coming from usercourse list
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
 {
     $displayBackToUC = TRUE;
 }

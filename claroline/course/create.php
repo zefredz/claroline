@@ -9,13 +9,13 @@
  * - Done
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLCRS/
  * @package     COURSE
  *              old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/create_course/add_course.php
  * @author      Claro Team <cvs@claroline.net>
- * @author      Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @since       1.9
  *
  */

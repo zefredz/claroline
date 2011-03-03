@@ -5,7 +5,7 @@
  *
  * @version 0.1 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -37,7 +37,7 @@ function getIdCounter()
  * 2) the method prepareManifestResource create a string like <resource></resource> with the correct
  * attribute based on the item
  *
- * @author Dimitri Rambout <dimitri.rambout@uclouvain.be> * 
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 class CLQWZ_ScormExport extends PathScormExport
 {
@@ -53,7 +53,7 @@ class CLQWZ_ScormExport extends PathScormExport
   /**
    * Constructor
    *
-   * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
    */
   public function __construct()
   {
@@ -63,7 +63,7 @@ class CLQWZ_ScormExport extends PathScormExport
   /**
    * Create files (quiz) needed in the export of this module
    *
-   * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
    * @param int $quizId id of the Quiz
    * @param object $item item of the path
    * @param string $destDir path when the files need to be copied
@@ -246,7 +246,7 @@ class CLQWZ_ScormExport extends PathScormExport
   /**
    * Create a resource for the manifest
    *
-   * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
    * @param array $item item's data
    * @param string $destDir
    * @param object $locator locator of the file
@@ -263,7 +263,7 @@ class CLQWZ_ScormExport extends PathScormExport
   /**
    * Return the error
    *
-   * @author Dimtiri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
    * @return string $error
    */
   public function getError()

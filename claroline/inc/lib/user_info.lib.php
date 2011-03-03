@@ -11,11 +11,11 @@ if ( count( get_included_files() ) == 1 )
  * Provide function to work on  personnal editable info  of each user
  * 
  * @version     1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Gesché <moosh@claroline.net>
- * @author      Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @package     CLUSR
  */
 

@@ -4,14 +4,14 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLUSR
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  */
 FromKernel::Uses( 'password.lib' );
@@ -40,7 +40,7 @@ class csv
     /**
      * constructor
      *
-     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param $fieldSeparator field separator
      * @param $enclosedBy fields encolsed by
      *
@@ -55,7 +55,7 @@ class csv
     /**
      * load the content of a csv file
      *
-     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param $fileName name of the csv file
      * @return boolean
      *
@@ -97,7 +97,7 @@ class csv
     /**
      * set the content of csvContent
      *
-     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param $content
      *
      */
@@ -109,7 +109,7 @@ class csv
     /**
      * get the content of csvContent
      *
-     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @return $csvContent array of rows
      *
      */
@@ -121,7 +121,7 @@ class csv
     /**
      * create an usable array with all the data
      *
-     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param $content array that need to be changed in an usable array
      * @param $useFirstLine use the first line of the array to define cols
      * @param $keys
@@ -226,7 +226,7 @@ class csv
     /**
      * check the defined format
      *
-     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param $format format used in the csv
      * @param $delim field delimiter
      * @param $enclosedBy char used to enclose fields

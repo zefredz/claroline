@@ -4,7 +4,7 @@
  *
  * @version 1.7 $Revision$
  *
- * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @author claro team <cvs@claroline.net>
  * @author Antonio Apostoliu <antonio.apostoliu@meteo.inmh.ro>

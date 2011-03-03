@@ -10,7 +10,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -19,7 +19,7 @@
  * @author Claro Team <cvs@claroline.net>
  * @author Eric Remy <eremy@rmwc.edu>
  * @author Toon Van Hoecke <Toon.VanHoecke@UGent.be>
- * @author Hugues Peeters <peeter@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  */
 

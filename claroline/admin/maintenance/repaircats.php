@@ -5,7 +5,7 @@
  * This tool try to repair a broken category tree
  *
  * @version 1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLTREE
@@ -13,7 +13,7 @@
  * @package CLTREE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @deprecated since 1.10
  *
  */

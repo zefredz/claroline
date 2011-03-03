@@ -7,7 +7,7 @@
  * contains function to manage l10n
  *
  * @version     1.10 $Revision$
- * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLUSR
  * @package     CLUSR
@@ -570,7 +570,7 @@ function get_lang_weekday_name_list($size='long')
 
 /**
  * Display a date at localized format
- * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param formatOfDate
          see http://www.php.net/manual/en/function.strftime.php
          for syntax to use for this string

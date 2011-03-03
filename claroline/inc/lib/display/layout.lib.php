@@ -4,10 +4,10 @@
  * Claroline Layout library
  *
  * @version     Claroline 1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     kernel.display
- * @author      Frederic Minne <frederic.minne@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 
 interface Layout extends Display {};

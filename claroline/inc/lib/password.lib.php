@@ -4,9 +4,9 @@
  * Random password generator
  *
  * @version     1.0
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Christophe Gesche <moosh@claroline.net>
- * @author      Frederic Minne <frederic.minne@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  *              GNU AFFERO GENERAL PUBLIC LICENSE version 3
  */
@@ -19,7 +19,7 @@ define ( 'MK_PASSWORD_MIN_LENGTH', 8 );
  * @param       int $length number of characters (min 8, default 12);
  * @return      string password
  * @author      Christophe Gesche <moosh@claroline.net>
- * @author      Frederic Minne <frederic.minne@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 function mk_password( $length = MK_PASSWORD_DEFAULT_LENGTH )
 {

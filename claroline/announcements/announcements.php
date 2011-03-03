@@ -35,7 +35,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLANN
@@ -44,9 +44,9 @@
  */
 
 /*
-* Originally written  by Thomas Depraetere <depraetere@ipm.ucl.ac.be> 15 January 2002.
-* Partially rewritten by Hugues Peeters <peeters@ipm.ucl.ac.be> 19 April 2002.
-* Rewritten again     by Hugues Peeters <peeters@ipm.ucl.ac.be> 5 April 2004
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
 */
 
 define('CONFVAL_LOG_ANNOUNCEMENT_INSERT', FALSE);

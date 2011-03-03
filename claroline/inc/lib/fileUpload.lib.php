@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * FILE UPLOAD LIBRARY
  *
  * @version     1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLDOC
  * @author      Hugues Peeters <hugues@claroline.net>
@@ -229,7 +229,7 @@ function get_extension_from_mime_type($mimeType)
 }
 
 /**
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param string $extension (doc, rtf, ...)
  * @return string - corresponding mime type
  */

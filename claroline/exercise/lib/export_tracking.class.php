@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
  *
- * @copyright    (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author Sebastien Piraux
  */
 
@@ -399,7 +399,7 @@ function export_exercise_tracking($exId)
 /**
  * Exports the students's result for an exercise into a csv file
  * Shows the overall result for each student
- * @author frederic.fervaille@uclouvain.be
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 class ExoExportByUser extends csv
 {
@@ -494,7 +494,7 @@ class ExoExportByUser extends csv
 /**
  * Exports the students's result for an exercise into a csv file
  * Shows for each question : the best score, the worst score and the average score
- * @author frederic.fervaille@uclouvain.be
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 class ExoExportByQuestion extends csv
 {

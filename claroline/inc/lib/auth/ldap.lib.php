@@ -4,8 +4,8 @@
  * LDAP connection classes
  *
  * @version     2.5
- * @copyright   2001-2010 Universite catholique de Louvain (UCL)
- * @author      Frederic Minne <frederic.minne@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  *              GNU AFFERO GENERAL PUBLIC LICENSE version 3 
  */

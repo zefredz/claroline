@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * Library for forum tool
  *
  * @version     1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @copyright   (C) 2001 The phpBB Group
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
@@ -201,7 +201,7 @@ function sync($forumId, $topicId = null)
  *
  * @param string SQL DATETIME or DATE
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @return int unix time stamp
  */
@@ -233,7 +233,7 @@ function datetime_to_timestamp($dateTime)
 /**
  * Get the forum settings of a forum
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param  int $forumId
  * @param  int $topicId (optional)
  * @return array forum settings or false
@@ -276,7 +276,7 @@ function get_forum_settings($forumId)
 /**
  * Get topic settings of a topic
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param  int $topicId
  * @return array topic settings
  */
@@ -303,7 +303,7 @@ function get_topic_settings($topicId)
 
 /**
  *
- * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param int $userId
  * @param int $forumId
  * @return void
@@ -331,7 +331,7 @@ function request_forum_notification($forumId, $userId)
 
 /**
  *
- * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param int $userId
  * @param int $forumId (optionnal)
  * @return void
@@ -359,7 +359,7 @@ function cancel_forum_notification($forumId = null, $userId = null)
 
 /**
  *
- * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param int $userId
  * @param int $forumId
  * @return bool
@@ -434,7 +434,7 @@ function trig_forum_notification($forumId)
 /**
  * create a new topic
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param string $subject
  * @param string $time
  * @param int $forumId
@@ -475,7 +475,7 @@ function create_new_topic($subject, $time, $forumId
 /**
  * get the main settings of a post
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param int $postId
  * @return array containing poster_id, forum_id, topic_id and post_time
  */
@@ -574,7 +574,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
 /**
  *
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 
 
@@ -604,7 +604,7 @@ function update_post($post_id, $topic_id, $message, $subject = '')
 /**
  *
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param int $postId
  * @param int $topciId
  * @param int $forumId
@@ -634,7 +634,7 @@ function delete_post($postId, $topicId, $forumId)
 
 /**
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param int $userId
  * @param int $topicId
  * @return void
@@ -658,7 +658,7 @@ function request_topic_notification($topicId, $userId)
 
 /**
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param int $userId
  * @param int $topicId (optionnal)
  * @return void
@@ -683,7 +683,7 @@ function cancel_topic_notification($topicId = null, $userId = null)
 
 /**
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param int $userId
  * @param int $topicId
  * @return bool
@@ -758,7 +758,7 @@ function trig_topic_notification($topicId)
 /**
  * Display formated message with several 'return to ...' possibility
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param string $message
  * @param int $forumId (optional)
  * @param int $topicId (optional)
@@ -801,7 +801,7 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
  * Display a mini pager. At the opposite of the claro_sql_pager, it doesn't
  * depend of SQL, but you have to know before the total count of item.
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param string $url - url to be used
  * @param string $offsetParam - param to introduce to call the pager offset
  * @param int    $total - total number of items
@@ -861,7 +861,7 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
  * class building a list of all topic of a specific forum, with pager option
  * The class is actually based on the claro_sql_pager class
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @see    claro_sql_pager class
  * @package CLFRM
  */
@@ -873,7 +873,7 @@ class topicLister
     /**
      * class constructor
      *
-     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param int $forumId     id of the current forum
      * @param int $start       post where to start
      * @param int $postPerPage number of post to display per page
@@ -903,7 +903,7 @@ class topicLister
     /**
      * return all the topic list of the current forum
      *
-     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @return array post list
      */
 
@@ -915,7 +915,7 @@ class topicLister
     /**
      * display a pager tool bar
      *
-     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param string $url page where to point
      * @return void
      */
@@ -931,7 +931,7 @@ class topicLister
  * Class building a list of all the post of specific topic, with pager options
  * The class is actually based on the claro_sql_pager class
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @see    claro_sql_pager class
  * @package CLFRM
  */
@@ -943,7 +943,7 @@ class postLister
     /**
      * class constructor
      *
-     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param int $topicId     id of the current topic
      * @param int $start       post where to start
      * @param int $postPerPage number of post to display per page
@@ -978,7 +978,7 @@ class postLister
     /**
      * return all the post list of the current topic
      *
-     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @return array post list
      */
 
@@ -990,7 +990,7 @@ class postLister
     /**
      * display a pager tool bar
      *
-     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param string $url page where to point
      * @return void
      */
@@ -1249,7 +1249,7 @@ function forum_group_tool_list($gid, $active = true)
  * @param int $forumId forum id
  * @return boolean - true if it succeed, flase otherwise
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 
 function delete_all_post_in_forum($forumId)

@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -131,7 +131,7 @@ foreach ($userCourseList as $courseKey => $course)
         $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('Student') . '" />';
     }
 
-    $userCourseGrid[$courseKey]['edit_course_user'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
     .                                                 '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Course manager') . '" title="' . get_lang('User\'s course settings') . '" />'
     .                                                 '</a>'
     ;
