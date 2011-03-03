@@ -1,22 +1,20 @@
 <?php // $Id$
+
+if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * This file describe the parameter for user tool
+ * This file describe the parameter for user tool.
  *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/Config
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLUSR
- *
+ * @version     1.8 $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/Config
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     CLUSR
  */
+
 // TOOL
 $conf_def['config_code']  = 'CLSSO';
 $conf_def['config_file']  = 'auth.sso.conf.php';
@@ -59,7 +57,7 @@ array ( 'ssoEnabled'
 $conf_def_property_list['ssoEnabled'] =
 array ('label'         => 'Enable SSO system'
       ,'description'   => 'If false, other fields are optional'
-      ,'default'       => FALSE
+      ,'default'       => false
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -103,5 +101,3 @@ array ( 'label'         => 'SSO authentication key list'
       , 'default'       => 'array()'
       , 'type'          => 'string'
       );
-
-?>

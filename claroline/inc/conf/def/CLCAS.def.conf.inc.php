@@ -1,22 +1,20 @@
 <?php // $Id$
+
+if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * This file describe the parameter for user tool
+ * This file describe the parameter for user tool.
  *
  * @version 1.8 $Revision$
- *
  * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @see http://www.claroline.net/wiki/index.php/Config
- *
  * @author Claro Team <cvs@claroline.net>
- *
  * @package CLUSR
- *
  */
+
 // TOOL
 $conf_def['config_code'] = 'CLAUTH';
 $conf_def['config_file'] = 'auth.cas.conf.php';
@@ -39,7 +37,7 @@ array ( 'claro_CasEnabled'
 $conf_def_property_list['claro_CasEnabled'] =
 array ('label'         => 'Enable CAS system'
       ,'description'   => 'If false, other fields are optional'
-      ,'default'       => FALSE
+      ,'default'       => false
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -78,11 +76,9 @@ array ('label'         => 'Root of CAS server'
 $conf_def_property_list['claro_CasGlobalLogout'] =
 array ('label'         => 'Logout user from CAS server when user logout from Claroline'
       ,'description'   => ''
-      ,'default'       => FALSE
+      ,'default'       => false
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
                                 )
-      );      
-
-?>
+      );

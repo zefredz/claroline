@@ -1,26 +1,21 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * This file describe the parameter for profil editor
+ * This file describe the parameter for profil editor.
  *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/Config
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLPROFIL
- *
+ * @version     1.8 $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/Config
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     CLPROFIL
  */
 
 // CONFIG HEADER
-
 $conf_def['config_code'] = 'CLPROFIL';
 $conf_def['config_name'] = 'User profile options';
 //$conf_def['description'] = '';
@@ -39,7 +34,7 @@ array ( 'show_agreement_panel'
 $conf_def_property_list['show_agreement_panel'] =
 array ( 'label'         => 'Display an agreement page before the "create user account" form'
       ,'description'   => 'The content of this panel is editable in administration '
-      , 'default'       => FALSE
+      , 'default'       => false
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Yes'
                                  ,'FALSE' => 'No'
@@ -60,7 +55,7 @@ array ( 'profile_editable'
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
 array ( 'label'         => 'Official code is'
-      , 'default'       => TRUE
+      , 'default'       => true
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Optional'
                                  ,'FALSE' => 'Required'
@@ -70,7 +65,7 @@ array ( 'label'         => 'Official code is'
 $conf_def_property_list['userMailCanBeEmpty'] =
 array ( 'label'         => 'Email is'
       , 'description'   => 'Accept email as valid (best choice)'
-      , 'default'       => TRUE
+      , 'default'       => true
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('FALSE' => 'Required'
                                  ,'TRUE'  => 'Optional'
@@ -80,7 +75,7 @@ array ( 'label'         => 'Email is'
 $conf_def_property_list['ask_for_official_code'] =
 array ( 'label'         => 'Ask the official code'
       , 'description'   => 'Display the field official code in form'
-      , 'default'       => TRUE
+      , 'default'       => true
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE' => 'Yes'
                                  ,'FALSE'  => 'No'
@@ -106,7 +101,7 @@ array ( 'label'         => 'Profile form'
 $conf_def_property_list['allow_profile_picture'] =
 array ( 'label'         => 'Allow user to add a picture to their profile'
       , 'description'   => ''
-      , 'default'       => TRUE
+      , 'default'       => true
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE' => 'Yes'
                                  ,'FALSE'  => 'No'
@@ -117,7 +112,7 @@ array ( 'label'         => 'Allow user to add a picture to their profile'
 
 $conf_def['section']['readonly']['label'] = 'Allow to modify field';
 //$conf_def['section']['readonly']['description'] = '';
-$conf_def['section']['readonly']['display'] = FALSE;
+$conf_def['section']['readonly']['display'] = false;
 $conf_def['section']['readonly']['properties'] =
 array (
       );
@@ -125,7 +120,7 @@ array (
 $conf_def_property_list['SECURE_PASSWORD_REQUIRED'] =
 array ('label'         => 'Password security check'
       ,'description'   => 'Check if the password is not too easy to find'
-      ,'default'       => FALSE
+      ,'default'       => false
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -136,7 +131,7 @@ array ('label'         => 'Password security check'
 // Section view
 
 $conf_def['section']['view']['label'] = 'Display data';
-$conf_def['section']['view']['display'] = FALSE;
+$conf_def['section']['view']['display'] = false;
 //$conf_def['section']['view']['description'] = '';
 $conf_def['section']['view']['properties'] =
 array (
@@ -156,7 +151,7 @@ $conf_def_property_list['can_request_course_creator_status'] =
 array ( 'label'         => 'Display "Request a Course Creator status"'
       , 'description'   => 'This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'
       , 'display'       => true
-      , 'default'       => FALSE
+      , 'default'       => false
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -168,7 +163,7 @@ array ( 'label'         => 'Display "Request to be deleted from the platform"'
       , 'description'   => 'This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.'."\n"
                          .'This option allow only to request it, and don\'t prework the answer'."\n"
       , 'display'       => true
-      , 'default'       => FALSE
+      , 'default'       => false
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Yes'
                                  ,'FALSE' => 'No'
@@ -179,13 +174,11 @@ array ( 'label'         => 'Display "Request to be deleted from the platform"'
 $conf_def_property_list['allowSelfRegProf'] =
 array ('label'       => 'Creation of Course Creator account'
        ,'description' => 'Are users allowed to create themselves a Course Creator account ?'
-      ,'default'     => TRUE
+      ,'default'     => true
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'On'
                                 ,'FALSE' => 'Off'
                                 )
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
+      ,'display'     => true
+      ,'readonly'    => false
       );
-
-?>

@@ -1,29 +1,25 @@
 <?php //$Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * This file describe the parameter for the home page of the campus
+ * This file describe the parameter for the home page of the campus.
  *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/Config
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLHOME
- *
+ * @version     1.8 $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/Config
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     CLHOME
  */
 
 // TOOL
-$conf_def['config_code'] = 'CLHOME';
-$conf_def['config_file'] = 'CLHOME.conf.php';
-$conf_def['config_name'] = 'Home page';
-$conf_def['config_class']='platform';
+$conf_def['config_code']    = 'CLHOME';
+$conf_def['config_file']    = 'CLHOME.conf.php';
+$conf_def['config_name']    = 'Home page';
+$conf_def['config_class']   = 'platform';
 
 $conf_def['section']['courselist']['label']='Course list';
 $conf_def['section']['courselist']['description']='Settings of the user course list';
@@ -39,14 +35,13 @@ $conf_def['section']['display']['properties'] =
 array ( 'display_user_desktop' );
 
 //PROPERTIES
-
 $conf_def_property_list['course_order_by']
 = array ('label'     => 'Order course by'
         ,'description' => ''
         ,'default'   => 'official_code'
         ,'type'      => 'enum'
-        ,'display'       => TRUE
-        ,'readonly'      => FALSE
+        ,'display'       => true
+        ,'readonly'      => false
         ,'acceptedValue' => array ( 'official_code'=> 'Course code',
                                     'course_title' => 'Course title' )
         );
@@ -56,8 +51,8 @@ $conf_def_property_list['categories_order_by']
         ,'description' => ''
         ,'default'   => 'rank'
         ,'type'      => 'enum'
-        ,'display'       => TRUE
-        ,'readonly'      => FALSE
+        ,'display'       => true
+        ,'readonly'      => false
         ,'acceptedValue' => array ( 'rank'=> 'Rank',
                                     'alpha_asc' => 'Alphabetical ascending',
                                     'alpha_desc' => 'Alphabetical descending' )
@@ -68,8 +63,8 @@ $conf_def_property_list['course_categories_hidden_to_anonymous']
         ,'description' => ''
         ,'default'   => false
         ,'type'      => 'boolean'
-        ,'display'       => TRUE
-        ,'readonly'      => FALSE
+        ,'display'       => true
+        ,'readonly'      => false
         ,'acceptedValue' => array ( 'TRUE'=> 'Yes',
                                     'FALSE' => 'No' )
         );
@@ -79,8 +74,8 @@ $conf_def_property_list['userCourseListGroupByCategories']
         ,'description' => ''
         ,'default'   => false
         ,'type'      => 'boolean'
-        ,'display'       => TRUE
-        ,'readonly'      => FALSE
+        ,'display'       => true
+        ,'readonly'      => false
         ,'acceptedValue' => array ( 'TRUE'=> 'Yes',
                                     'FALSE' => 'No' )
         );
@@ -90,9 +85,8 @@ $conf_def_property_list['display_user_desktop']
         ,'description' => ''
         ,'default'   => false
         ,'type'      => 'boolean'
-        ,'display'       => TRUE
-        ,'readonly'      => FALSE
+        ,'display'       => true
+        ,'readonly'      => false
         ,'acceptedValue' => array ( 'TRUE'=> 'Yes',
                                     'FALSE' => 'No' )
         );
-?>

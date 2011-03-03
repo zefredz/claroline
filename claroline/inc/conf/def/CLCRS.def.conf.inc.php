@@ -1,22 +1,19 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * This file describe the parameter for Course creation tool config file
+ * This file describe the parameter for Course creation tool config file.
  *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/Config
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesche <moosh@claroline.net>
- *
- * @package COURSE
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/Config
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Christophe Gesche <moosh@claroline.net>
+ * @package     COURSE
  */
 
 $conf_def['config_code']='CLCRS';
@@ -73,7 +70,7 @@ $conf_def['section']['courses_layouts']['properties'] = array();
 $conf_def_property_list['fill_course_example'] =
 array ('label'       => 'Fill courses tools with material example'
       ,'description' => ''
-      ,'default'     => TRUE
+      ,'default'     => true
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE' => 'Yes'
                                 ,'FALSE'=> 'No'
@@ -85,37 +82,21 @@ array ('label'       => 'Course code case'
       ,'description' => 'You can force the case  of course code'
       ,'default'     => 'upper'
       ,'type'        => 'enum'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
+      ,'display'     => true
+      ,'readonly'    => false
       ,'acceptedValue' => array ('upper'=>'Force to uppercase the course code'
                                 ,'lower'=>'Force to lowercase the course code'
                                 ,'nochange'=>'dont change case'
                                 )
       );
 
-/*
-$conf_def_property_list['defaultVisibilityForANewCourse'] =
-array ('label'       => 'Default course access'
-      ,'description' => ''
-      ,'default'     => '2'
-      ,'type'        => 'enum'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      ,'acceptedValue' => array ('0'=>'Private&nbsp;+ New registration denied'
-                                ,'1'=>'Private&nbsp+ New Registration allowed'
-                                ,'2'=>'Public&nbsp;&nbsp;+ New Registration allowed'
-                                ,'3'=>'Public&nbsp;&nbsp;+ New Registration denied'
-                                )
-      );
-*/
-
 $conf_def_property_list['allowPublicCourses'] =
 array ('label'       => 'Allow course access to be public'
       ,'description' => 'Set to No to avoid the creation of public, world accessible, course sites'
-      ,'default'     => TRUE
+      ,'default'     => true
       ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
+      ,'display'     => true
+      ,'readonly'    => false
       ,'acceptedValue' => array ('TRUE' => 'Yes'
                                 ,'FALSE'=> 'No'
                                 )
@@ -124,10 +105,10 @@ array ('label'       => 'Allow course access to be public'
 $conf_def_property_list['defaultVisibilityOnCourseCreation'] =
 array ('label'       => 'Default course visibility'
       ,'description' => 'This is probably a bad idea to set as hidden'
-      ,'default'     => TRUE
+      ,'default'     => true
       ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
+      ,'display'     => true
+      ,'readonly'    => false
       ,'acceptedValue' => array ('TRUE' => 'Show'
                                 ,'FALSE'=> 'Hidden'
                                 )
@@ -138,8 +119,8 @@ array ('label'       => 'Default course access'
       ,'description' => ''
       ,'default'     => 'public'
       ,'type'        => 'enum'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
+      ,'display'     => true
+      ,'readonly'    => false
       ,'acceptedValue' => array ('public' => 'Public'
                                 ,'private'=> 'Reserved to course members'
                                 ,'platform'=> 'Reserved to platform members'
@@ -149,10 +130,10 @@ array ('label'       => 'Default course access'
 $conf_def_property_list['defaultRegistrationOnCourseCreation'] =
 array ('label'       => 'Default course enrolment'
       ,'description' => ''
-      ,'default'     => TRUE
+      ,'default'     => true
       ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
+      ,'display'     => true
+      ,'readonly'    => false
       ,'acceptedValue' => array ('TRUE' => 'New Registration allowed'
                                 ,'FALSE'=> 'New registration denied'
                                 )
@@ -161,10 +142,10 @@ array ('label'       => 'Default course enrolment'
 $conf_def_property_list['registrationRestrictedThroughCategories'] =
 array ('label'       => 'Category\'s registration restriction'
       ,'description' => ''
-      ,'default'     => FALSE
+      ,'default'     => false
       ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
+      ,'display'     => true
+      ,'readonly'    => false
       ,'acceptedValue' => array ('TRUE' => 'Restricted to category\'s users'
                                 ,'FALSE'=> 'Not restricted'
                                 )
@@ -174,7 +155,7 @@ array ('label'       => 'Category\'s registration restriction'
 $conf_def_property_list['human_code_needed'] =
 array ('label'       => 'Course code is'
       ,'description' => 'User can leave course code (officialCode) field empty or not'
-      ,'default'     => TRUE
+      ,'default'     => true
       ,'type'        => 'boolean'
       ,'display'     => false
       ,'readonly'    => true
@@ -186,7 +167,7 @@ array ('label'       => 'Course code is'
 $conf_def_property_list['human_label_needed'] =
 array ('label'       => 'Course Title is'
       ,'description' => 'User can leave course title field empty or not'
-      ,'default'     => TRUE
+      ,'default'     => true
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE'=>'Required'
                               ,'FALSE'=>'Optional'
@@ -196,10 +177,10 @@ array ('label'       => 'Course Title is'
 $conf_def_property_list['course_email_needed'] =
 array ('label'       => 'Course email is'
       ,'description' => 'User can leave email field empty or not'
-      ,'default'     => FALSE
+      ,'default'     => false
       ,'type'        => 'boolean'
       ,'display'     => true
-      ,'readonly'    => FALSE
+      ,'readonly'    => false
       ,'acceptedValue' => array ('TRUE'=>'Required'
                               ,'FALSE'=>'Optional'
                               )
@@ -208,10 +189,10 @@ array ('label'       => 'Course email is'
 $conf_def_property_list['extLinkNameNeeded'] =
 array ('label'       => 'Department name'
       ,'description' => ''
-      ,'default'     => FALSE
+      ,'default'     => false
       ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
+      ,'display'     => true
+      ,'readonly'    => false
       ,'acceptedValue' => array ('TRUE'=>'Required'
                               ,'FALSE'=>'Optional'
                               )
@@ -219,10 +200,10 @@ array ('label'       => 'Department name'
 $conf_def_property_list['extLinkUrlNeeded'] =
 array ('label'       => 'Department website'
       ,'description' => ''
-      ,'default'     => FALSE
+      ,'default'     => false
       ,'type'        => 'boolean'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
+      ,'display'     => true
+      ,'readonly'    => false
       ,'acceptedValue' => array ('TRUE'=>'Required'
                               ,'FALSE'=>'Optional'
                               )
@@ -232,16 +213,16 @@ $conf_def_property_list['prefixAntiNumber'] =
 array ('label'       => 'Prefix course code beginning with number'
       ,'description' => 'This string is prepend to course database name if it begins with a number'
       ,'default'     => 'No'
-      ,'display'     => FALSE
-      ,'readonly'    => TRUE
+      ,'display'     => false
+      ,'readonly'    => true
       ,'type'        => 'string'
       );
 
 $conf_def_property_list['prefixAntiEmpty'] =
 array ('label'       => 'Prefix for empty code course'
       ,'default'     => 'Course'
-      ,'display'     => FALSE
-      ,'readonly'    => TRUE
+      ,'display'     => false
+      ,'readonly'    => true
       ,'type'        => 'string'
       );
 
@@ -249,8 +230,8 @@ $conf_def_property_list['nbCharFinalSuffix'] =
 array ('label'       => 'Length of course code suffix'
       ,'technicalInfo'=> 'Length of suffix added when key is already exist'
       ,'default'     => 3
-      ,'display'     => FALSE
-      ,'readonly'    => TRUE
+      ,'display'     => false
+      ,'readonly'    => true
       ,'type'        => 'integer'
       ,'acceptedValue' => array ('min'=> 1
                                 ,'max'=> 10)
@@ -261,22 +242,10 @@ array ('label'       => 'Length of course code suffix'
 $conf_def_property_list['showLinkToDeleteThisCourse']
 = array ('label'     => 'Delete course allowed'
         ,'description' => 'Allow course manager to delete their own courses'
-        ,'default'   => TRUE
+        ,'default'   => true
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
         ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                   ,'FALSE' => 'No'
                                   )
         );
-/*
-$conf_def_property_list['infosCoursesStyles'] =
-array ('label'       => 'Personalize the look of your courses\' pages'
-      ,'description' => 'You can personalize the style of each course.  '
-                      . 'To do so, just put a file named "style.php" in the '
-                      . 'course\'s directory'
-      ,'default'     => null
-      ,'type'        => ''
-      ,'acceptedValue' => array ()
-      );
-*/
-?>
