@@ -2,47 +2,6 @@
 
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("img.qtip").each(function()
-        {
-            $(this).qtip({
-                content: $(this).attr("alt"),
-                
-                show: "mouseover",
-                hide: "mouseout",
-                position: {
-                    corner: {
-                        target: "topRight",
-                        tooltip: "bottomRight"
-                    }
-                },
-                
-                style: {
-                    width: "auto",
-                    padding: 5,
-                    background: "#CCDDEE",
-                    color: "black",
-                    fontSize: "1em",
-                    textAlign: "center",
-                    border: {
-                        width: 7,
-                        radius: 5,
-                        color: "#CCDDEE"
-                    },
-                    tip: "bottomLeft"
-                },
-               position: {
-                  corner: {
-                     target: "topRight",
-                     tooltip: "bottomLeft"
-                  }
-               }
-            });
-        });
-    });
-</script>
-
 <?php
 //Display activated courses list
 

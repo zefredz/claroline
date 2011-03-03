@@ -22,18 +22,14 @@ $_SESSION['courseSessionCode'] = null;
 require './claroline/inc/claro_init_global.inc.php'; // main init
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
-if (get_conf('display_user_desktop'))
-{
-    require_once get_path('clarolineRepositorySys') . '/desktop/index.php';
-}
-else
+
+if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
 {
     require_once get_path('incRepositorySys') . '/lib/courselist.lib.php';
-    
+    JavascriptLoader::getInstance()->load('courseList');
     
     // Main template
     $template = new CoreTemplate('platform_index.tpl.php');
-    
     
     // Category browser
     $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
@@ -132,9 +128,12 @@ else
         echo $claroline->display->render();
     }
 }
+else
+{
+    require_once get_path('clarolineRepositorySys') . '/desktop/index.php';
+}
 
-// logout request : delete session data
-
+// Logout request : delete session data
 if (isset($_REQUEST['logout']))
 {
     if (isset($_SESSION['isVirtualUser']))
@@ -143,7 +142,7 @@ if (isset($_REQUEST['logout']))
         claro_redirect(get_conf('rootWeb') . 'claroline/admin/adminusers.php');
         exit();
     }
-
+    
     // notify that a user has just loggued out
     if (isset($logout_uid)) // Set  by local_init
     {

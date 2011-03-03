@@ -2,50 +2,52 @@
  $Id: default.css 11434 2008-10-28 10:48:51 +0000 (mar., 28 oct. 2008) fragile_be $
  **/
 
-/* portlet */
-
-.portlet 
-{
+/* Portlet */
+.portlet h4 {
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    padding: 0;
 }
 
-.portletTitle
-{
-
+.portlet dl, 
+.portlet dt, 
+.portlet dd {
+    margin: 0;
+    padding: 0;
 }
 
-.portletContent
-{
+.portlet ul, 
+.portlet dl {
+    margin-bottom: 15px;
+}
+
+.portletContent {
     margin-top: 0.3em;
     padding: 5px;
 }
 
-.porletIcon
-{
+.porletIcon {
     float:right;
     margin:auto;
     padding:0;
 }
 
-.portlet dl, .portlet dt, .portlet dd
-{
-    margin: 0;
-    padding: 0;
+.portlet dd {
+    margin-bottom: 0.5em;
 }
 
-.portlet dt
-{
-    margin-top: 0.5em;
-}
-
-.portlet .iconDefinitionList
-{
+.portlet .iconDefinitionList {
     list-style-position:inside;
     margin:0;
     padding:0;
 }
 
-/* portlet right menu  */
+/* Portlet courselist */
+dl.userCourseList dd {
+    margin-left: 20px;
+}
 
+/* Portlet right menu  */
 .portletRightMenu {
     padding: 2px;
     margin: 10px 0 0 0;
@@ -53,8 +55,7 @@
     width:200px;
 }
 
-/* portlet mycalendar */
-
+/* portlet Mycalendar */
 #portletMycalendar .calendar {
     min-width: 250px;
     float: left;
@@ -77,6 +78,10 @@
  
 #portletMycalendar .dayWithEvent {
     background-color:silver;
+}
+
+dl.calendarDetails dd {
+    margin-left: 20px;
 }
 
 
@@ -109,13 +114,11 @@
     _height: expression( Math.min(parseInt(this.offsetHeight), 100) ); */
 }
 
-#portletMyCourseList dd
-{
+#portletMyCourseList dd {
     padding: 0 0 0 20px;
 }
 
-#portletMyCourseList dt
-{
+#portletMyCourseList dt {
     padding-left: 0px;
 }
 

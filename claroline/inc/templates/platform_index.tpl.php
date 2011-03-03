@@ -27,6 +27,7 @@
 <div id="leftContent">
     
     <?php
+    // Home page presentation texts
     include_textzone( 'textzone_top.inc.html', '<div style="text-align: center">
     <img src="'.get_icon_url('logo').'" border="0" alt="Claroline logo" />
     <p><strong>Claroline Open Source e-Learning</strong></p>
@@ -34,7 +35,6 @@
     
     include_dock('campusHomePageTop');
     
-    // Home page presentation texts
     if( claro_is_user_authenticated() ) :
         include_textzone('textzone_top.authenticated.inc.html');
     else :
@@ -49,7 +49,7 @@
           <tr>
           
             <td class="userCommands">
-                <?php echo claro_html_tool_title(get_lang('User commands')); ?>
+                <?php echo claro_html_tool_title(get_lang('Manage my courses')); ?>
                 <?php echo claro_html_list( $this->userCommands ); ?>
             </td>
             <td class="myCourseList">

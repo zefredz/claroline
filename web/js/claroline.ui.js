@@ -5,9 +5,10 @@ $(document).ready(function(){
 
 /*
  * Markup should be something like 
- * <div ... class="collapsible"><a ... class="doCollapse" /><div ... class="collapsible-wrapped" /></div> 
+ * <div ... class="collapsible">
+ *     <a ... class="doCollapse" />
+ *     <div ... class="collapsible-wrapped" /></div> 
  */
-
 expand = function(collapsible) {
     $(collapsible).removeClass('collapsed');
     

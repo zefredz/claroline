@@ -32,7 +32,7 @@ array ( 'course_order_by',
 $conf_def['section']['display']['label']='Display';
 $conf_def['section']['display']['description']='Manage the home page\'s display';
 $conf_def['section']['display']['properties'] =
-array ( 'display_user_desktop' );
+array ( 'display_former_homepage' );
 
 //PROPERTIES
 $conf_def_property_list['course_order_by']
@@ -80,8 +80,8 @@ $conf_def_property_list['userCourseListGroupByCategories']
                                     'FALSE' => 'No' )
         );
         
-$conf_def_property_list['display_user_desktop']
-= array ('label'     => 'Display user\'s desktop instead of the normal home page'
+$conf_def_property_list['display_former_homepage']
+= array ('label'     => 'Display former Claroline\'s home page instead of user\'s desktop'
         ,'description' => ''
         ,'default'   => false
         ,'type'      => 'boolean'

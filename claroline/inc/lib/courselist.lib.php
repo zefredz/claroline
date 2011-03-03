@@ -411,7 +411,7 @@ function render_course_in_dl_list($course, $hot = false, $displayIconAccess = tr
     
     // Display a manager icon if the user is manager of the course
     $userStatusImg = (isset($course['isCourseManager']) && $course['isCourseManager'] == 1 ) ?
-        ('&nbsp;&nbsp;<img class="qtip" src="' . get_icon_url('manager') . '" alt="'.get_lang('Course manager').'" />') :
+        ('&nbsp;&nbsp;<img class="qtip" src="' . get_icon_url('manager') . '" alt="'.get_lang('You are manager of this course').'" />') :
         ('');
     
     // Show course language if not the same of the platform
@@ -555,7 +555,7 @@ function render_user_course_list_desactivated()
                     $out.= '<a href="' . htmlspecialchars( $url ) . '">'
                          . htmlspecialchars($courseTitle)
                          . '</a>' . "\n"
-                         . '<img class="qtip" src="'.get_icon_url('manager').'" alt="'.get_lang('Course manager').'" /> '
+                         . '<img class="qtip" src="'.get_icon_url('manager').'" alt="'.get_lang('You are manager of this course').'" /> '
                          . '[<a href="'.$urlSettings.'">'.get_lang('Reactivate it').'</a>]';
                 }
                 elseif ( get_conf( 'crslist_DisplayPendingToAllUsers', false ) )

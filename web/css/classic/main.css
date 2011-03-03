@@ -496,8 +496,8 @@ li.lastBreadCrumbsNode {
 ******************************************************************************/
 
 #campusFooter {
-    margin: 25px 0;
-    padding: 5px 15px;
+    margin: 0;
+    padding: 15px 15px;
     font-size: 0.7em;
     color: #666;
     background: url('img/bg_footer.jpg') repeat-x top left #fff;
@@ -563,7 +563,7 @@ table.courseTable td {
 table.courseTable td.toolList {
     width: 220px;
     padding-right: 20px; 
-    border-right: gray solid 1px;
+    border-right: 1px solid #ccc;
 }
 
 table.courseTable td.coursePortletList { 

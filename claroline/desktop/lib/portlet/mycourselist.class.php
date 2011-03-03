@@ -29,49 +29,86 @@ class MyCourseList extends UserDesktopPortlet
     {
         global $platformLanguage;
         
+        JavascriptLoader::getInstance()->load('courseList');
+        
         $out = '';
         
-        // If the desktop is the default home page, display commands
-        if (get_conf('display_user_desktop'))
+        // Last user action
+        $lastUserAction = (isset($_SESSION['last_action']) &&
+            $_SESSION['last_action'] != '1970-01-01 00:00:00') ?
+            $_SESSION['last_action'] :
+            date('Y-m-d H:i:s');
+        
+        $userCommands = array();
+        
+        // User commands
+        // 'Create Course Site' command. Only available for teacher.
+        if (claro_is_allowed_to_create_course())
         {
-            $userCommands = array();
-            
-            if (claro_is_allowed_to_create_course()) // 'Create Course Site' command. Only available for teacher.
-            {
-                $userCommands[] = '<a href="'.get_path('clarolineRepositoryWeb').'course/create.php" class="claroCmd">'
-                .    '<img src="' . get_icon_url('courseadd') . '" alt="" /> '
-                .    get_lang('Create a course site')
-                .    '</a>';
-            }
-            elseif ( $GLOBALS['currentUser']->isCourseCreator )
-            {
-                $userCommands[] = '<span class="claroCmdDisabled">'
-                .    '<img src="' . get_icon_url('courseadd') . '" alt="" /> '
-                .    get_lang('Create a course site')
-                .    '</span>';
-            }
-            
-            if (get_conf('allowToSelfEnroll',true))
-            {
-                $userCommands[] = '<a href="'.get_path('clarolineRepositoryWeb').'auth/courses.php?cmd=rqReg&amp;categoryId=0" class="claroCmd">'
-                .    '<img src="' . get_icon_url('enroll') . '" alt="" /> '
-                .    get_lang('Enrol on a new course')
-                .    '</a>';
-                
-                $userCommands[] = '<a href="'.get_path('clarolineRepositoryWeb').'auth/courses.php?cmd=rqUnreg" class="claroCmd">'
-                .    '<img src="' . get_icon_url('unenroll') . '" alt="" /> '
-                .    get_lang('Remove course enrolment')
-                .    '</a>';
-            }
-            
-            $out .= '<a name="myCourseList"></a><p>'
-                . claro_html_menu_horizontal( $userCommands )
-                . '</p>' . "\n";
+            $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/create.php')).'" class="userCommandsItem">'
+                            . '<img src="' . get_icon_url('courseadd') . '" alt="" /> '
+                            . get_lang('Create a course site')
+                            . '</a>' . "\n";
+        }
+        elseif ( $GLOBALS['currentUser']->isCourseCreator )
+        {
+            $userCommands[] = '<span class="userCommandsItemDisabled">'
+                            . '<img src="' . get_icon_url('courseadd') . '" alt="" /> '
+                            . get_lang('Create a course site')
+                            . '</span>' . "\n";
         }
         
-        $out .= '<div id="portletMyCourseList">'
-        . render_user_course_list()
-        . '</div>' . "\n";
+        if (get_conf('allowToSelfEnroll',true))
+        {
+            $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg&amp;categoryId=0')).'" class="userCommandsItem">'
+                            . '<img src="' . get_icon_url('enroll') . '" alt="" /> '
+                            . get_lang('Enrol on a new course')
+                            . '</a>' . "\n";
+            
+            $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqUnreg')).'" class="userCommandsItem">'
+                            . '<img src="' . get_icon_url('unenroll') . '" alt="" /> '
+                            . get_lang('Remove course enrolment')
+                            . '</a>' . "\n";
+        }
+        
+        $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/platform_courses.php')).'" class="userCommandsItem">'
+                        . '<img src="' . get_icon_url('course') . '" alt="" /> '
+                        . get_lang('All platform courses')
+                        . '</a>' . "\n";
+        
+        $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'" class="userCommandsItem">'
+                        . '<img class="iconDefinitionList" src="'.get_icon_url('hot').'" alt="'.get_lang('New items').'" />'
+                        . ' '.get_lang('New items').' '
+                        . get_lang('to another date')
+                        . ((substr($lastUserAction, strlen($lastUserAction) - 8) == '00:00:00' ) ?
+                            (' ['.claro_html_localised_date(
+                                get_locale('dateFormatNumeric'),
+                                strtotime($lastUserAction)).']') :
+                            (''))
+                        . '</a>' . "\n";
+        
+        $userCourseList = render_user_course_list();
+        $userCourseListDesactivated = render_user_course_list_desactivated();
+        
+        $out .= '<table class="homepageTable">'
+              . '<tr>'
+              . '<td class="userCommands">'
+              . '<h4>'.get_lang('Manage my courses').'</h4>'
+              . claro_html_list($userCommands)
+              . '</td>'
+              . '<td class="myCourseList">'
+              . '<h4>'.get_lang('My course list').'</h4>'
+              . $userCourseList;
+              
+        if (!empty($userCourseListDesactivated))
+        {
+            $out .= '<h4>'.get_lang('Deactivated course list').'</h4>'
+                  . $userCourseListDesactivated;
+        }
+        
+        $out .= '</td>'
+              . '</tr>'
+              . '</table>';
         
         $this->content = $out;
         
@@ -81,13 +118,7 @@ class MyCourseList extends UserDesktopPortlet
     
     public function renderTitle()
     {
-        $output = get_lang('My course list')
-                . ' <span class="separator">|</span> '
-                . '<a href="'.get_path('url')
-                . '/index.php#myCourseList">'
-                . '<img src="' . get_icon_url('edit') . '" alt="" /> '
-                . get_lang('Manage my course list')
-                . '</a>';
+        $output = get_lang('My course list');
         
         return $output;
     }

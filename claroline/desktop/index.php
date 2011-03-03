@@ -3,17 +3,17 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
-* CLAROLINE
-*
-* User desktop index
-*
-* @version      1.9 $Revision$
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
-* @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
-* @package      DESKTOP
-* @author       Claroline team <info@claroline.net>
-*
-*/
+ * CLAROLINE
+ *
+ * User desktop index
+ *
+ * @version      1.9 $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package      DESKTOP
+ * @author       Claroline team <info@claroline.net>
+ *
+ */
 
 // reset course and groupe
 $cidReset = true;
@@ -143,6 +143,7 @@ else
 
 $jsloader = JavascriptLoader::getInstance();
 $jsloader->load('jquery');
+$jsloader->load('claroline.ui');
 
 $cssLoader = CssLoader::getInstance();
 $cssLoader->load('desktop','all');

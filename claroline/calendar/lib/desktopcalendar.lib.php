@@ -238,7 +238,7 @@ var UserDesktopCalendar = {
         $output .= '<div class="calendar">'.$this->ajaxMiniCalendar($agendaItemList).'</div>';
         
         $output .= '<div class="details">' . "\n"
-                 . '<dl>' . "\n";
+                 . '<dl class="calendarDetails">' . "\n";
         
         if($agendaItemList)
         {

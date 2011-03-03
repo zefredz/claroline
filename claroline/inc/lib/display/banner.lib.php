@@ -69,7 +69,7 @@ class ClaroBanner extends CoreTemplate
      */
     public function hideBreadcrumbLine()
     {
-        $this->breadcrumbLine = false;  
+        $this->breadcrumbLine = false;
     }
     
     /**
@@ -229,15 +229,15 @@ class ClaroBanner extends CoreTemplate
         {
             $userToolUrlList = array();
             
+            if (get_conf(get_conf('display_former_homepage')))
+            {
+                
+            }
+            
             $userToolUrlList[]  = '<a href="'
                 . get_path('clarolineRepositoryWeb')
                 . 'desktop/index.php" target="_top">'
                 . get_lang('My desktop').'</a>'
-                ;
-            
-            $userToolUrlList[]= '<a href="'.  get_path('url')
-                . '/index.php" target="_top">'
-                . get_lang('My course list').'</a>'
                 ;
             
             $userToolUrlList[]  = '<a href="'
@@ -250,7 +250,7 @@ class ClaroBanner extends CoreTemplate
                 . get_path('clarolineRepositoryWeb')
                 . 'messaging" target="_top">'
                 . get_lang('My messages').'</a>'
-                ;    
+                ;
             
             if(claro_is_platform_admin())
             {
