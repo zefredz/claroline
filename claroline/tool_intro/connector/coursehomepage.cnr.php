@@ -57,7 +57,7 @@ class CLTI_Portlet extends CourseHomePagePortlet
             $output .= '<dt></dt>'
                      . '<dd>' . "\n"
                      . '<img class="iconDefinitionList" src="' . get_icon_url('course_description', 'CLDSC') . '" alt="Description icon" />'
-                     . ' ' . get_lang('No description to display') . "\n"
+                     . ' ' . get_lang('No description') . "\n"
                      . '</dd>' . "\n";
         }
         

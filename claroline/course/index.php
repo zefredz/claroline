@@ -94,7 +94,7 @@ if (claro_is_course_manager())
         }
         else
         {
-            $dialogBox->error(get_lang('Can\'t find this portlet'));
+            $dialogBox->error(get_lang('Cannot find this portlet'));
         }
         
         $portlet = new $portletClass();

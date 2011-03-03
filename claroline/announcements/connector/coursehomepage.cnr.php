@@ -115,7 +115,7 @@ class CLANN_Portlet extends CourseHomePagePortlet
                      . '<dt></dt>' . "\n"
                      . '<dd class="last">'
                      . '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="Announcement icon" />'
-                     . ' ' . get_lang('No announce to display') . "\n"
+                     . ' ' . get_lang('No announcement') . "\n"
                      . '</dd>' . "\n"
                      . '</dl>' . "\n" . "\n"
                      ;

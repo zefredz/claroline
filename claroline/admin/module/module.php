@@ -353,7 +353,7 @@ switch ($item)
 {
     case 'GLOBAL':
     {
-        $out .= claro_html_tool_title(array('subTitle' => get_lang('Platform Settings')));
+        $out .= claro_html_tool_title(array('subTitle' => get_lang('Platform settings')));
         
         $out .= '<dl class="onOneLine">';
 
@@ -365,7 +365,7 @@ switch ($item)
         elseif ( 'activated' == $module['activation'] )
         {
             $activ_form  = 'deactiv';
-            $action_link = '<a href="' 
+            $action_link = '<a href="'
                 . htmlspecialchars( $_SERVER['PHP_SELF']
                 . '?cmd='.$activ_form.'&module_id='.$module['module_id']
                 . '&item=GLOBAL' )
@@ -378,7 +378,7 @@ switch ($item)
         else
         {
             $activ_form  = 'activ';
-            $action_link = '<a href="' 
+            $action_link = '<a href="'
                 . htmlspecialchars( $_SERVER['PHP_SELF']
                 . '?cmd='.$activ_form.'&module_id='
                 . $module['module_id'].'&item=GLOBAL')
@@ -422,7 +422,7 @@ switch ($item)
             elseif ( 'AUTOMATIC' == $module['activateInCourses'] )
             {
                 $activ_form  = 'coursedeactiv';
-                $action_link = '<a href="' 
+                $action_link = '<a href="'
                     . htmlspecialchars( $_SERVER['PHP_SELF']
                     . '?cmd='.$activ_form.'&module_id='.$module['module_id']
                     . '&item=GLOBAL')
@@ -435,7 +435,7 @@ switch ($item)
             else
             {
                 $activ_form  = 'courseactiv';
-                $action_link = '<a href="' 
+                $action_link = '<a href="'
                     . htmlspecialchars($_SERVER['PHP_SELF']
                     . '?cmd='.$activ_form.'&module_id='
                     . $module['module_id'].'&item=GLOBAL')
@@ -478,7 +478,7 @@ switch ($item)
             elseif ( 'PLATFORM_ADMIN' == $module['accessManager'] )
             {
                 $activ_form  = 'activcoursemanager';
-                $action_link = '<a href="' 
+                $action_link = '<a href="'
                     . htmlspecialchars( $_SERVER['PHP_SELF']
                     . '?cmd='.$activ_form.'&module_id='.$module['module_id']
                     . '&item=GLOBAL')
@@ -491,7 +491,7 @@ switch ($item)
             else
             {
                 $activ_form  = 'activplatformadmin';
-                $action_link = '<a href="' 
+                $action_link = '<a href="'
                     . htmlspecialchars( $_SERVER['PHP_SELF']
                     . '?cmd='.$activ_form.'&module_id='
                     . $module['module_id'].'&item=GLOBAL')
@@ -646,7 +646,7 @@ switch ($item)
         $moduleDescription = trim( $module['description'] );
 
         $moduleDescription = (empty( $moduleDescription ) )
-            ? get_lang('No description given')
+            ? get_lang('No description')
             : $moduleDescription
             ;
 

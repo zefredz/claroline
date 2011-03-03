@@ -1,4 +1,5 @@
 <?php 
+
 $_lang['%path is missing'] = '%path is missing';
 $_lang['%requiredMark required field'] = '%requiredMark required field';
 $_lang['A database will be created for each course.'] = 'A database will be created for each course.';
@@ -15,7 +16,7 @@ $_lang['Build your course category tree in %administration | %manage course cate
 $_lang['Campus'] = 'Campus';
 $_lang['Campus URL'] = 'Campus URL';
 $_lang['Campus contact'] = 'Campus contact';
-$_lang['Campus name'] = 'Site name';
+$_lang['Campus name'] = 'Campus name';
 $_lang['Change database names'] = 'Change database names';
 $_lang['Claroline %version Installation Wizard'] = 'Claroline %version Installation Wizard';
 $_lang['Claroline cannot write to %path'] = 'Claroline cannot write to %path';
@@ -34,7 +35,7 @@ $_lang['Database <em>%dbName</em> is not valid.'] = 'Database <em>%dbName</em> i
 $_lang['Database host'] = 'Database host';
 $_lang['Database mode'] = 'Database mode';
 $_lang['Database name'] = 'Database name';
-$_lang['Database name is too Long'] = 'Database name is too long';
+$_lang['Database name is too Long'] = 'Database name is too Long';
 $_lang['Database name must begin with a letter'] = 'Database name must begin with a letter';
 $_lang['Database names'] = 'Database names';
 $_lang['Database password'] = 'Database password';
@@ -67,7 +68,7 @@ $_lang['Institution name'] = 'Institution name';
 $_lang['Invalid name. Only letters, digits and _ are allowed'] = 'Invalid name. Only letters, digits and _ are allowed';
 $_lang['Ko'] = 'Ko';
 $_lang['Last check before install'] = 'Last check before install';
-$_lang['Last name'] = 'Name';
+$_lang['Last name'] = 'Last name';
 $_lang['License'] = 'License';
 $_lang['Login'] = 'Login';
 $_lang['Main database'] = 'Main database';
@@ -89,7 +90,7 @@ $_lang['Password'] = 'Password';
 $_lang['Password storage'] = 'Password storage';
 $_lang['Path to courses repository (relative to the URL above)'] = 'Path to courses repository (relative to the URL above)';
 $_lang['Permission problems.'] = 'Permission problems.';
-$_lang['Platform Settings'] = 'Platform Settings';
+$_lang['Platform settings'] = 'Platform settings';
 $_lang['Please check the values you entered.'] = 'Please check the values you entered.';
 $_lang['Please enter missing information'] = 'Please enter missing information';
 $_lang['Please read the license and click &quot;Next&quot; to accept it.'] = 'Please read the license and click &quot;Next&quot; to accept it.';
@@ -108,7 +109,7 @@ $_lang['Recommended value'] = 'Recommended value';
 $_lang['Related organization'] = 'Related organization';
 $_lang['Required php extensions'] = 'Required php extensions';
 $_lang['Requirements'] = 'Requirements';
-$_lang['Retry'] = 'retry';
+$_lang['Retry'] = 'Retry';
 $_lang['Self-registration'] = 'Self-registration';
 $_lang['Server requirements'] = 'Server requirements';
 $_lang['Server unavailable'] = 'Server unavailable';
@@ -122,7 +123,7 @@ $_lang['Table prefixes'] = 'Table prefixes';
 $_lang['The installer has detected an existing Claroline platform on your system.'] = 'The installer has detected an existing Claroline platform on your system.';
 $_lang['This version is not considered stable and is not intended for production.'] = 'This version is not considered stable and is not intended for production.';
 $_lang['To perform a full re-installation click on the "Next" button below.'] = 'To perform a full re-installation click on the "Next" button below.';
-$_lang['To upgrade Claroline, click <a href="%url">here</a>'] = 'To upgrade Claroline click <a href="%url">here</a>';
+$_lang['To upgrade Claroline, click <a href="%url">here</a>'] = 'To upgrade Claroline, click <a href="%url">here</a>';
 $_lang['To upgrade Claroline, please wait for the next stable release.'] = 'To upgrade Claroline, please wait for the next stable release.';
 $_lang['Tracking database'] = 'Tracking database';
 $_lang['Tracking tables'] = 'Tracking tables';
@@ -144,4 +145,3 @@ $_lang['a database is created at each course creation'] = 'a database is created
 $_lang['e.g.'] = 'e.g.';
 $_lang['empty'] = 'empty';
 $_lang['or'] = 'or';
-?>
