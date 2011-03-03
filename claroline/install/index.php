@@ -1,21 +1,16 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * GOAL : install claroline 1.8 on server
+ * Claroline installer.
  *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2010, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/install/
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package INSTALL
- *
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2010, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/install/
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     INSTALL
  */
 
 
@@ -2305,17 +2300,17 @@ echo $htmlNextPrevButton;
     <div id="footerLeft">
         <a href="http://www.claroline.net">http://www.claroline.net</a>
     </div>
-
-
+    
+    
     <div id="footerRight">
     <?php get_lang('For help ask on %clarolineForumLink', array('%clarolineForumLink' => '<a href="http://forum.claroline.net" target="_blank">http://forum.claroline.net</a>')); ?>
     </div>
-
-
+    
+    
     <div id="footerCenter">
-    <?php echo get_lang('Powered by %clarolineLink', array('%clarolineLink' => '<a href="http://www.claroline.net" target="_blank">Claroline</a>')); ?> &copy; 2001 - 2009
+    <?php echo get_lang('Powered by %clarolineLink', array('%clarolineLink' => '<a href="http://www.claroline.net">Claroline</a>')); ?> &copy; 2001 - 2011
     </div>
-
+    
     </div>
 </div>
 
