@@ -42,6 +42,22 @@
     padding:0;
 }
 
+/* Distinct claroTables inside portlets */
+.portlet table.claroTable thead tr td,
+.portlet table.claroTable tbody tr td {
+    color: #444444;
+}
+.portlet table.claroTable thead tr td.highlight,
+.portlet table.claroTable tbody tr td.highlight {
+    color: #FFF;
+    background: #444444;
+}
+.portlet table.claroTable thead tr th,
+.portlet table.claroTable tbody tr th {
+    color: #444444;
+    border-bottom: 1px solid #444444;
+}
+
 /* Portlet courselist */
 dl.userCourseList dd {
     margin-left: 20px;
@@ -62,7 +78,6 @@ dl.userCourseList dd {
     max-width: 30%;
     width: 30%;
     margin: 0;
-    height: 300px;
     padding: 0;
     text-align: center;
 }
@@ -71,13 +86,11 @@ dl.userCourseList dd {
     min-width: 200px;
     margin-left: 280px;
     padding: 0 1em 0.1em 1em;
-    height: 300px;
     overflow: auto;
-    /* border-left: 1px solid #ccc; */
 }
  
 #portletMycalendar .dayWithEvent {
-    background-color:silver;
+    background-color: #EDF1E3;
 }
 
 dl.calendarDetails dd {
@@ -128,4 +141,8 @@ dl.calendarDetails dd {
     
     /* IE hack 
     _height: expression( Math.min(parseInt(this.offsetHeight), 100) ); */
+}
+
+#portletMyAnnouncements dd {
+    margin: 0 0 0 20px;
 }

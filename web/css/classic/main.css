@@ -847,7 +847,7 @@ dl.userCourseList {
 .claroTable .superHeader th,
 .claroTable th.superHeader {
     color: #693;
-    background-color: #DEEECE;
+    background-color: #EDF1E3;
     border-bottom: 2px #87B665 solid;
     padding: 2px 5px 2px 5px;
     font-weight: bold;
@@ -855,10 +855,6 @@ dl.userCourseList {
 
 .claroTable img {
     vertical-align: text-bottom;
-}
-
-.claroTable .superHeader a {
-    color: #693;
 }
 
 .claroTable .headerY th,
@@ -918,7 +914,7 @@ dl.userCourseList {
     color: #73A244;
     padding: 2px 5px 2px 5px;
 }
-.claroTable td.highlight {
+.claroTable tbody tr td.highlight {
     vertical-align: top;
     color: #CD853F;
     padding: 2px 5px 2px 5px;
