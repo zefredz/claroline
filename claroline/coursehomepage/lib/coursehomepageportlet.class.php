@@ -3,17 +3,17 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
-* CLAROLINE
-*
-* Course home page portlet class
-*
-* @version      1.9 $Revision$
+ * CLAROLINE
+ *
+ * Course home page portlet class
+ *
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
-* @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
-* @package      DESKTOP
-* @author       Antonin Bourguignon <antonin.bourguignon@claroline.net>
-* @author       Claroline team <info@claroline.net>
-*/
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     DESKTOP
+ * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
+ * @author      Claroline team <info@claroline.net>
+ */
 
 require_once get_path('includePath') . '/lib/portlet.class.php';
 
