@@ -107,7 +107,7 @@ function calendar_upgrade_to_110 ($course_code)
            case 3 :
 
                 // Add the attribute group_id into the course table
-                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` ADD group_id INT(4) NOT NULL DEFAULT 0";
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` ADD `group_id` INT(4) NOT NULL DEFAULT 0";
 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
                 else return $step;
