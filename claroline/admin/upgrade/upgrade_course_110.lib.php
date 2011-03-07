@@ -96,12 +96,22 @@ function calendar_upgrade_to_110 ($course_code)
                 
             case 2 :
                 
-                // Add the attribute sourceCourseId to the course table
+                // Change the attribute location
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` CHANGE `location` `location` VARCHAR(150) NULL DEFAULT NULL";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
                 else return $step;
                 
+                unset($sqlForUpdate);
+
+           case 3 :
+
+                // Add the attribute group_id into the course table
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` ADD group_id INT(4) NOT NULL DEFAULT 0";
+
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                else return $step;
+
                 unset($sqlForUpdate);
                 
             default :
