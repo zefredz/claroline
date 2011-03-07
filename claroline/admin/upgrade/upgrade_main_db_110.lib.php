@@ -266,6 +266,17 @@ function upgrade_cours_user_to_110 ()
             else return $step;
 
             unset($sqlForUpdate);
+
+
+        case 3 :
+
+            // Add the field isPending
+            $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['rel_course_user'] . "` ADD `enrollment_date` DATETIME NULL ";
+            //
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+
+            unset($sqlForUpdate);
         default :
 
             $step = set_upgrade_status($tool, 0);

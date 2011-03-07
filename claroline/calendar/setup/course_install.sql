@@ -8,5 +8,6 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__calendar_event` (
     `speakers` varchar(150),
     `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
     `location` varchar(150),
+    `group_id` INT(4) NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 ) TYPE=MyISAM;
