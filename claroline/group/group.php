@@ -452,11 +452,11 @@ if (DISP_GROUP_LIST == $display )
           LEFT JOIN `" . $tbl_GroupsUsers . "` `ug2`
           ON `ug2`.`team` = `g`.`id`
 
-          # Limit to regsitered users
-          INNER JOIN `" . $tbl_CoursUsers . "` AS `cu` ON `cu`.user_id = `ug2`.`user`
-          AND `cu`.`code_cours` = '" . $currentCourseId ."'
+          # limit to registered users
+          #INNER JOIN `" . $tbl_CoursUsers . "` AS `cu` ON `cu`.user_id = `ug2`.`user`
+          #AND `cu`.`code_cours` = '" . $currentCourseId ."'
 
-          WHERE `cu`.`code_cours` = '" . $currentCourseId ."'
+          #WHERE `cu`.`code_cours` = '" . $currentCourseId ."'
 
           GROUP BY `g`.`id`";
     
