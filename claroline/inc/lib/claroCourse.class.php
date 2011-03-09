@@ -999,6 +999,25 @@ class ClaroCourse
                 . '</span>'
             : '';
         
+        // Course titular
+        $html .= '<dt>'
+            . '<label for="course_titular">' . get_lang('Lecturer(s)')
+            . '</label></dt>'
+            . '<dd><input type="text"  id="course_titular" name="course_titular" value="' . htmlspecialchars($this->titular) . '" size="60" />'
+            . '</dd>' . "\n";
+        
+        // Course titular email
+        $html .= '<dt>'
+            . '<label for="course_email">'
+            . get_lang('Email')
+            . (get_conf('course_email_needed')?'<span class="required">*</span> ':'')
+            . '</label>'
+            . '</dt>'
+            . '<dd>'
+            . '<input type="text" id="course_email" name="course_email" value="' . htmlspecialchars($this->email) . '" size="60" maxlength="255" />'
+            . '</dd>'
+            . "\n";
+        
         // Course access
         $html .= '<dt>' . get_lang('Course access') . '<span class="required">*</span></dt>'
             . '<dd>'
@@ -1065,28 +1084,9 @@ class ClaroCourse
         // SECOND SECTION: optionnals
         $html .= '</dl></div></fieldset>'
             . '<fieldset  class="collapsible collapsed" id="options">' . "\n"
-            . '<legend><a href="#" class="doCollapse">'.get_lang('Options').'</a></legend>'
+            . '<legend><a href="#" class="doCollapse">'.get_lang('Optionnal parameters').'</a></legend>'
             . '<div class="collapsible-wrapper">'
             . '<dl>' . "\n";
-        
-        // Course titular
-        $html .= '<dt>'
-            . '<label for="course_titular">' . get_lang('Lecturer(s)')
-            . '</label></dt>'
-            . '<dd><input type="text"  id="course_titular" name="course_titular" value="' . htmlspecialchars($this->titular) . '" size="60" />'
-            . '</dd>' . "\n";
-        
-        // Course email
-        $html .= '<dt>'
-            . '<label for="course_email">'
-            . get_lang('Email')
-            . (get_conf('course_email_needed')?'<span class="required">*</span> ':'')
-            . '</label>'
-            . '</dt>'
-            . '<dd>'
-            . '<input type="text" id="course_email" name="course_email" value="' . htmlspecialchars($this->email) . '" size="60" maxlength="255" />'
-            . '</dd>'
-            . "\n";
         
         // Course department name
         $html .= '<dt>'
