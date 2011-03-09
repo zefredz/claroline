@@ -22,7 +22,7 @@
 <?php echo claro_html_menu_vertical_br($this->toolLinkList, array('id'=>'commonToolList')); ?>
 <br />
 
-<?php 
+<?php
 if ( claro_is_allowed_to_edit() ) :
     echo claro_html_menu_vertical_br($this->courseManageToolLinkList,  array('id'=>'courseManageToolList'));
 endif;
@@ -30,7 +30,7 @@ endif;
 
 <?php if ( claro_is_user_authenticated() ) : ?>
 <br />
-<span style='font-size:8pt'> 
+<span style='font-size:8pt'>
 <?php
     echo '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
     	. get_lang('New items'). ' ('
