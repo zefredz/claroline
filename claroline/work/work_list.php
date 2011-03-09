@@ -1,19 +1,15 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
+ * @version     1.8 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/CLWRK/
- *
- * @package CLWRK
- *
- * @author Claro Team <cvs@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/CLWRK/
+ * @package     CLWRK
+ * @author      Claro Team <cvs@claroline.net>
+ * @since       1.8
  */
 
 $tlabelReq = 'CLWRK';
@@ -22,7 +18,6 @@ require '../inc/claro_init_global.inc.php';
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 require_once './lib/assignment.class.php';
-//require_once './lib/submission.class.php';
 
 include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
@@ -300,8 +295,8 @@ $showOnlyVisibleCondition = '';
 
 if( ! $is_allowedToEditAll )
 {
-    if( !get_conf('show_only_author') ) $submissionConditionList[] = "`S`.`visibility` = 'VISIBLE'";
-    $feedbackConditionList[]   = "(`S`.`visibility` = 'VISIBLE' AND `FB`.`visibility` = 'VISIBLE')";
+    if( !get_conf('show_only_author') ) $submissionConditionList[] = "`s`.`visibility` = 'VISIBLE'";
+    $feedbackConditionList[]   = "(`s`.`visibility` = 'VISIBLE' AND `fb`.`visibility` = 'VISIBLE')";
 
     if( !empty($userGroupList)  )
     {
@@ -310,13 +305,13 @@ if( ! $is_allowedToEditAll )
         {
             $userGroupIdList[] = $userGroup['id'];
         }
-        $submissionConditionList[] = "S.group_id IN ("  . implode(', ', array_map( 'intval', $userGroupIdList) ) . ")";
-        $feedbackConditionList[]   = "FB.group_id IN (" . implode(', ', array_map( 'intval', $userGroupIdList) ) . ")";
+        $submissionConditionList[] = "s.group_id IN ("  . implode(', ', array_map( 'intval', $userGroupIdList) ) . ")";
+        $feedbackConditionList[]   = "fb.group_id IN (" . implode(', ', array_map( 'intval', $userGroupIdList) ) . ")";
     }
     elseif ( claro_is_user_authenticated() )
     {
-        $submissionConditionList[] = "`S`.`user_id` = "      . (int) claro_get_current_user_id();
-        $feedbackConditionList[]   = "`FB`.`original_id` = " . (int) claro_get_current_user_id();
+        $submissionConditionList[] = "`s`.`user_id` = "      . (int) claro_get_current_user_id();
+        $feedbackConditionList[]   = "`fb`.`original_id` = " . (int) claro_get_current_user_id();
     }
 }
 
@@ -330,36 +325,36 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 {
     if( ! $is_allowedToEditAll ) $showOnlyVisibleCondition = " HAVING `submissionCount` > 0";
 
-    $sql = "SELECT `U`.`user_id`                        AS `authId`,
-                   CONCAT(`U`.`nom`, ' ', `U`.`prenom`) AS `name`,
-                   `S`.`title`,
-                   COUNT(`S`.`id`)                      AS `submissionCount`,
-                   COUNT(`FB`.`id`)                     AS `feedbackCount`,
-                   MAX(`FB`.`score`)                   AS `maxScore`,
-                   MAX(`S`.`last_edit_date`)         AS `last_edit_date`
+    $sql = "SELECT `u`.`user_id`                        AS `authId`,
+                   CONCAT(`u`.`nom`, ' ', `u`.`prenom`) AS `name`,
+                   `s`.`title`,
+                   COUNT(DISTINCT(`s`.`id`))            AS `submissionCount`,
+                   COUNT(DISTINCT(`fb`.`id`))           AS `feedbackCount`,
+                   MAX(`fb`.`score`)                    AS `maxScore`,
+                   MAX(`s`.`last_edit_date`)            AS `last_edit_date`
 
             #GET USER LIST
-            FROM  `" . $tbl_user . "` AS `U`
+            FROM  `" . $tbl_user . "` AS `u`
 
             #ONLY FROM COURSE
-            INNER JOIN  `" . $tbl_rel_course_user . "` AS `CU`
-                    ON  `U`.`user_id` = `CU`.`user_id`
-                   AND `CU`.`code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
+            INNER JOIN  `" . $tbl_rel_course_user . "` AS `cu`
+                    ON  `u`.`user_id` = `cu`.`user_id`
+                   AND `cu`.`code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
 
             # SEARCH ON SUBMISSIONS
-            LEFT JOIN `" . $tbl_wrk_submission . "` AS `S`
-                   ON ( `S`.`assignment_id` = " . (int) $req['assignmentId'] . " OR `S`.`assignment_id` IS NULL)
-                  AND `S`.`user_id` = `U`.`user_id`
-                  AND `S`.`original_id` IS NULL
+            LEFT JOIN `" . $tbl_wrk_submission . "` AS `s`
+                   ON ( `s`.`assignment_id` = " . (int) $req['assignmentId'] . " OR `s`.`assignment_id` IS NULL)
+                  AND `s`.`user_id` = `u`.`user_id`
+                  AND `s`.`original_id` IS NULL
             " . $submissionFilterSql . "
 
              # SEARCH ON FEEDBACKS
-            LEFT JOIN `".$tbl_wrk_submission."` as `FB`
-                   ON `FB`.`parent_id` = `S`.`id`
+            LEFT JOIN `".$tbl_wrk_submission."` as `fb`
+                   ON `fb`.`parent_id` = `s`.`id`
              " . $feedbackFilterSql . "
 
-            GROUP BY `U`.`user_id`,
-                     `S`.`original_id`
+            GROUP BY `u`.`user_id`,
+                     `s`.`original_id`
              " . $showOnlyVisibleCondition
     ;
 
@@ -368,25 +363,25 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 
     if( !isset($sortKeyList['submissionCount']) ) $sortKeyList['submissionCount'] = SORT_DESC;
 
-    $sortKeyList['S.last_edit_date'] = SORT_DESC;
-    $sortKeyList['FB.last_edit_date'] = SORT_DESC;
+    $sortKeyList['s.last_edit_date'] = SORT_DESC;
+    $sortKeyList['fb.last_edit_date'] = SORT_DESC;
 
-    $sortKeyList['CU.isCourseManager'] = SORT_ASC;
-    $sortKeyList['CU.tutor']  = SORT_DESC;
-    $sortKeyList['U.nom']     = SORT_ASC;
-    $sortKeyList['U.prenom']  = SORT_ASC;
+    $sortKeyList['cu.isCourseManager'] = SORT_ASC;
+    $sortKeyList['cu.tutor']  = SORT_DESC;
+    $sortKeyList['u.nom']     = SORT_ASC;
+    $sortKeyList['u.prenom']  = SORT_ASC;
 
     // get last submission titles
-    $sql2 = "SELECT `S`.`user_id` as `authId`, `S`.`title`, DATE(`S`.`last_edit_date`) as date
-                FROM `" . $tbl_wrk_submission . "` AS `S`
-            LEFT JOIN `" . $tbl_wrk_submission . "` AS `S2`
-                ON `S`.`user_id` = `S2`.`user_id`
-                AND `S2`.`assignment_id` = ". (int) $req['assignmentId']."
-                AND `S`.`last_edit_date` < `S2`.`last_edit_date`
-                AND `S`.`parent_id` IS NULL
-            WHERE `S2`.`user_id` IS NULL
-                AND `S`.`original_id` IS NULL
-                AND `S`.`assignment_id` = ". (int) $req['assignmentId']."
+    $sql2 = "SELECT `s`.`user_id` as `authId`, `s`.`title`, DATE(`s`.`last_edit_date`) as date
+                FROM `" . $tbl_wrk_submission . "` AS `s`
+            LEFT JOIN `" . $tbl_wrk_submission . "` AS `s2`
+                ON `s`.`user_id` = `s2`.`user_id`
+                AND `s2`.`assignment_id` = ". (int) $req['assignmentId']."
+                AND `s`.`last_edit_date` < `s2`.`last_edit_date`
+                AND `s`.`parent_id` IS NULL
+            WHERE `s2`.`user_id` IS NULL
+                AND `s`.`original_id` IS NULL
+                AND `s`.`assignment_id` = ". (int) $req['assignmentId']."
             " . $submissionFilterSql . "";
 }
 else  // $assignment->getAssignmentType() == 'GROUP'
@@ -395,30 +390,30 @@ else  // $assignment->getAssignmentType() == 'GROUP'
     /**
      * USER GROUP INFORMATIONS
      */
-    $sql = "SELECT `G`.`id`            AS `authId`,
-                   `G`.`name`,
-                   `S`.`title`,
-                   COUNT(`S`.`id`)     AS `submissionCount`,
-                   COUNT(`FB`.`id`)    AS `feedbackCount`,
-                   MAX(`FB`.`score`)   AS `maxScore`,
-                   MAX(`S`.`last_edit_date`)         AS `last_edit_date`
+    $sql = "SELECT `g`.`id`            AS `authId`,
+                   `g`.`name`,
+                   `s`.`title`,
+                   COUNT(DISTINCT(`s`.`id`))     AS `submissionCount`,
+                   COUNT(DISTINCT(`fb`.`id`))    AS `feedbackCount`,
+                   MAX(`fb`.`score`)   AS `maxScore`,
+                   MAX(`s`.`last_edit_date`)         AS `last_edit_date`
 
-        FROM `" . $tbl_group_team . "` AS `G`
+        FROM `" . $tbl_group_team . "` AS `g`
 
         # SEARCH ON SUBMISSIONS
-        LEFT JOIN `".$tbl_wrk_submission."` AS `S`
-               ON `S`.`group_id` = `G`.`id`
-              AND (`S`.`assignment_id` = " . $req['assignmentId'] . " OR `S`.`assignment_id` IS NULL )
-              AND `S`.`original_id` IS NULL
+        LEFT JOIN `".$tbl_wrk_submission."` AS `s`
+               ON `s`.`group_id` = `g`.`id`
+              AND (`s`.`assignment_id` = " . $req['assignmentId'] . " OR `s`.`assignment_id` IS NULL )
+              AND `s`.`original_id` IS NULL
         " . $submissionFilterSql . "
 
         # SEARCH ON FEEBACKS
-        LEFT JOIN `" . $tbl_wrk_submission . "` as `FB`
-               ON `FB`.`parent_id` = `S`.`id`
+        LEFT JOIN `" . $tbl_wrk_submission . "` as `fb`
+               ON `fb`.`parent_id` = `s`.`id`
         " . $feedbackFilterSql ."
 
-        GROUP BY `G`.`id`,          # group by 'group'
-                 `S`.`original_id`"
+        GROUP BY `g`.`id`,          # group by 'group'
+                 `s`.`original_id`"
         ;
 
     if ( isset($_GET['sort']) && isset($_GET['dir']) )         $sortKeyList[$_GET['sort']] = $_GET['dir'];
@@ -426,21 +421,21 @@ else  // $assignment->getAssignmentType() == 'GROUP'
 
     if( !isset($sortKeyList['submissionCount']) ) $sortKeyList['submissionCount'] = SORT_DESC;
 
-    $sortKeyList['S.last_edit_date'] = SORT_ASC;
-    $sortKeyList['FB.last_edit_date'] = SORT_ASC;
+    $sortKeyList['s.last_edit_date'] = SORT_ASC;
+    $sortKeyList['fb.last_edit_date'] = SORT_ASC;
 
-    $sortKeyList['G.name'] = SORT_ASC;
+    $sortKeyList['g.name'] = SORT_ASC;
 
     // get last submission titles
-    $sql2 = "SELECT `S`.`group_id` as `authId`, `S`.`title`, DATE(`S`.`last_edit_date`) as date
-                FROM `" . $tbl_wrk_submission . "` AS `S`
-            LEFT JOIN `" . $tbl_wrk_submission . "` AS `S2`
-                ON `S`.`group_id` = `S2`.`group_id`
-                AND `S2`.`assignment_id` = ". (int) $req['assignmentId']."
-                AND `S`.`last_edit_date` < `S2`.`last_edit_date`
-            WHERE `S2`.`group_id` IS NULL
-                AND `S`.`original_id` IS NULL
-                AND `S`.`assignment_id` = ". (int) $req['assignmentId']."
+    $sql2 = "SELECT `s`.`group_id` as `authId`, `s`.`title`, DATE(`s`.`last_edit_date`) as date
+                FROM `" . $tbl_wrk_submission . "` AS `s`
+            LEFT JOIN `" . $tbl_wrk_submission . "` AS `s2`
+                ON `s`.`group_id` = `s2`.`group_id`
+                AND `s2`.`assignment_id` = ". (int) $req['assignmentId']."
+                AND `s`.`last_edit_date` < `s2`.`last_edit_date`
+            WHERE `s2`.`group_id` IS NULL
+                AND `s`.`original_id` IS NULL
+                AND `s`.`assignment_id` = ". (int) $req['assignmentId']."
             " . $submissionFilterSql . "";
 }
 
