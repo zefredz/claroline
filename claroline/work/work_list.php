@@ -333,10 +333,10 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
     $sql = "SELECT `U`.`user_id`                        AS `authId`,
                    CONCAT(`U`.`nom`, ' ', `U`.`prenom`) AS `name`,
                    `S`.`title`,
-                   COUNT(`S`.`id`)                      AS `submissionCount`,
-                   COUNT(`FB`.`id`)                     AS `feedbackCount`,
-                   MAX(`FB`.`score`)                   AS `maxScore`,
-                   MAX(`S`.`last_edit_date`)         AS `last_edit_date`
+                   COUNT(DISTINCT(`S`.`id`))            AS `submissionCount`,
+                   COUNT(DISTINCT(`FB`.`id`))           AS `feedbackCount`,
+                   MAX(`FB`.`score`)                    AS `maxScore`,
+                   MAX(`S`.`last_edit_date`)            AS `last_edit_date`
 
             #GET USER LIST
             FROM  `" . $tbl_user . "` AS `U`
@@ -395,13 +395,13 @@ else  // $assignment->getAssignmentType() == 'GROUP'
     /**
      * USER GROUP INFORMATIONS
      */
-    $sql = "SELECT `G`.`id`            AS `authId`,
+    $sql = "SELECT `G`.`id`                     AS `authId`,
                    `G`.`name`,
                    `S`.`title`,
-                   COUNT(`S`.`id`)     AS `submissionCount`,
-                   COUNT(`FB`.`id`)    AS `feedbackCount`,
+                   COUNT(DISTINCT(`S`.`id`))    AS `submissionCount`,
+                   COUNT(DISTINCT(`FB`.`id`))   AS `feedbackCount`,
                    MAX(`FB`.`score`)   AS `maxScore`,
-                   MAX(`S`.`last_edit_date`)         AS `last_edit_date`
+                   MAX(`S`.`last_edit_date`)    AS `last_edit_date`
 
         FROM `" . $tbl_group_team . "` AS `G`
 

@@ -20,9 +20,6 @@ if ( count( get_included_files() ) == 1 )
  */
 
 require_once(dirname(__FILE__) . '/form.lib.php');
-require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
-require_once get_path('clarolineRepositorySys') . '/messaging/lib/message/messagetosend.lib.php';
-require_once get_path('clarolineRepositorySys') . '/messaging/lib/recipient/singleuserrecipient.lib.php';
 
 /**
  * Initialise user data
