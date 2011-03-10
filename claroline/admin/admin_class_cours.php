@@ -1,17 +1,16 @@
 <?php //$Id$
+
 /**
  * CLAROLINE
  *
- * this tool manage the
+ * Management tools for courses' classes.
  *
- * @version 1.9
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Damien Garros <dgarros@univ-catholyon.fr>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Damien Garros <dgarros@univ-catholyon.fr>
  */
+
 $userPerPage = 20; // numbers of cours to display on the same page
 
 // initialisation of global variables and used libraries
@@ -227,5 +226,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

@@ -1,23 +1,21 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * this tool manage the new users
+ * Management tools for new users.
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 define('DISP_REGISTRATION_SUCCEED','DISP_REGISTRATION_SUCCEED');
 define('DISP_REGISTRATION_FORM','DISP_REGISTRATION_FORM');
-$cidReset = TRUE;
-$gidReset = TRUE;
-$tidReset = TRUE;
+$cidReset = true;
+$gidReset = true;
+$tidReset = true;
 require '../inc/claro_init_global.inc.php';
 
 // Security Check
@@ -165,5 +163,3 @@ else // $display == DISP_REGISTRATION_FORM;
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

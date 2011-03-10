@@ -3,7 +3,7 @@
 /**
  * CLAROLINE
  *
- * Management tools for categories' tree
+ * Management tools for categories' tree.
  *
  * @version     $Revision: 11767 $
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -12,7 +12,6 @@
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @since       1.10
  */
-
 
 // Reset session variables
 $cidReset = true; // course id

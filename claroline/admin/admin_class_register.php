@@ -1,18 +1,17 @@
 <?php //$Id$
+
 /**
  * CLAROLINE
  *
- * this tool manage the
+ * Management tools for users registration to classes.
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
- * @author  Guillaume Lederer <lederer@cerdecam.be>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Guillaume Lederer <lederer@cerdecam.be>
  */
+
 // initialisation of global variables and used libraries
 
 require '../inc/claro_init_global.inc.php';
@@ -301,5 +300,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

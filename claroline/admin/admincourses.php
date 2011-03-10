@@ -1,21 +1,16 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * List courses aivailable on the platform and prupose admin link to it
+ * Management tools for the platform's courses.
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/COURSE/
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package COURSE
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/COURSE/
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     COURSE
  */
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
@@ -63,11 +58,11 @@ $nameTools = get_lang('Course list');
 
 /**
  * USED SESSION VARIABLES
- * 
+ *
  * Deal with session variables for search criteria (depends where we come from):
  * 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
  * 2 ) we must be able to arrive with new critera for a new search.
- * 
+ *
  * Clean session from  previous search if necessary
  */
 if ( $resetFilter )
@@ -96,7 +91,7 @@ $dialogBox = new DialogBox();
 
 
 // Parse command
-if (!empty($courseCode)) 
+if (!empty($courseCode))
 {
     $courseToDelete = new ClaroCourse();
     $courseToDelete->load($courseCode);
@@ -108,7 +103,7 @@ else
 
 if ('exDelete' == $cmd)
 {
-    if ( !is_null($courseToDelete) ) 
+    if ( !is_null($courseToDelete) )
     {
         // Cannot delete a course if it has session courses
         if ( !ClaroCourse::isSourceCourse($courseId) )
@@ -159,9 +154,9 @@ if ('delete' == $do)
 
 /**
  * PREPARE DISPLAY
- * 
- * Display contains 2 parts: 
- * 
+ *
+ * Display contains 2 parts:
+ *
  * 1/ Filter/search panel
  * 2/ List of datas
  */
@@ -331,7 +326,7 @@ foreach($courseList as $numLine => $courseLine)
     // Label
     $courseDataList[$numLine]['intitule'] =  '<a href="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($courseLine['sysCode']) . '">'
     .                                        $courseLine['intitule']
-    .                                        '</a>' 
+    .                                        '</a>'
                                              . ((!is_null($courseLine['sourceCourseId']))?(' ['.get_lang('Session').']'):(''))
                                              . (($courseLine['isSourceCourse'])?(' ['.get_lang('Source').']'):(''));
     
@@ -356,7 +351,7 @@ foreach($courseList as $numLine => $courseLine)
     
     // Course Settings
     $courseDataList[$numLine]['cmdSetting'] = '<a href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?adminContext=1'
-    .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist' 
+    .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist'
     .                                         ((!is_null($courseLine['sourceCourseId']))?('&amp;courseType=session'):('')) . '">'
     .                                         '<img src="' . get_icon_url('settings') . '" alt="" />'
     // .                                         '</a>'
@@ -455,7 +450,7 @@ $out .=
             var course = _id.substr(0,_id.indexOf("__"));
             
             $(this).click(function(){
-               return confirmation(" " + course ); 
+               return confirmation(" " + course );
             });
             $(this).attr("href","' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&delCode=" + id + "'.$addToURL.'");
         });
@@ -469,7 +464,7 @@ echo $claroline->display->render();
 
 /**
  * Prepares the sql request to select courses in database.
- * 
+ *
  * @return string $sql
  */
 function prepare_get_filtred_course_list()
@@ -478,44 +473,44 @@ function prepare_get_filtred_course_list()
 
     $sqlFilter = array();
     // Prepare filter deal with KEY WORDS classification call
-    if (isset($_SESSION['admin_course_search'])) 
+    if (isset($_SESSION['admin_course_search']))
         $sqlFilter[] = "(  co.`intitule`  LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'" . "\n"
                      . "   OR co.`administrativeNumber` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'" . "\n"
                      . ")";
     
     // Deal with ADVANCED SEARCH parmaters call
-    if (isset($_SESSION['admin_course_intitule']) && !empty($_SESSION['admin_course_intitule']) ) 
+    if (isset($_SESSION['admin_course_intitule']) && !empty($_SESSION['admin_course_intitule']) )
         $sqlFilter[] = "(co.`intitule` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_intitule'])) ."%')";
-    if (isset($_SESSION['admin_course_code']) && !empty($_SESSION['admin_course_code']) ) 
+    if (isset($_SESSION['admin_course_code']) && !empty($_SESSION['admin_course_code']) )
         $sqlFilter[] = "(co.`administrativeNumber` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_code'])) ."%')";
-    if (isset($_SESSION['admin_course_language'])) 
+    if (isset($_SESSION['admin_course_language']))
         $sqlFilter[] = "(co.`language` = '". claro_sql_escape($_SESSION['admin_course_language']) ."')";
     
     if (isset($_SESSION['admin_course_visibility']))
     {
-        if ($_SESSION['admin_course_visibility'] == 'invisible') 
+        if ($_SESSION['admin_course_visibility'] == 'invisible')
             $sqlFilter[]= "co.`visibility`='INVISIBLE'";
-        elseif ($_SESSION['admin_course_visibility'] == 'visible'  ) 
+        elseif ($_SESSION['admin_course_visibility'] == 'visible'  )
             $sqlFilter[]= "co.`visibility`='VISIBLE'";
     }
     
     if (isset($_SESSION['admin_course_access']))
     {
-        if ($_SESSION['admin_course_access'] == 'public' ) 
+        if ($_SESSION['admin_course_access'] == 'public' )
             $sqlFilter[]= "co.`access`='public'";
-        elseif ($_SESSION['admin_course_access'] == 'private') 
+        elseif ($_SESSION['admin_course_access'] == 'private')
             $sqlFilter[]= "co.`access`='private'";
-        elseif ($_SESSION['admin_course_access'] == 'platform') 
+        elseif ($_SESSION['admin_course_access'] == 'platform')
             $sqlFilter[]= "co.`access`='platform'";
     }
     
     if (isset($_SESSION['admin_course_subscription']))   // type of subscription allowed is used
     {
-        if ($_SESSION['admin_course_subscription']     == 'allowed') 
+        if ($_SESSION['admin_course_subscription']     == 'allowed')
             $sqlFilter[]= "co.`registration`='OPEN'";
-        elseif ($_SESSION['admin_course_subscription'] == 'denied' ) 
+        elseif ($_SESSION['admin_course_subscription'] == 'denied' )
             $sqlFilter[]= "co.`registration`='CLOSE'";
-        elseif ($_SESSION['admin_course_subscription'] == 'key' ) 
+        elseif ($_SESSION['admin_course_subscription'] == 'key' )
             $sqlFilter[]= "co.`registration`='OPEN' AND CHAR_LENGTH(co.`registrationKey`) != 0";
     }
     

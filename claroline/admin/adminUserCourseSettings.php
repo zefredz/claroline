@@ -1,25 +1,22 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
-  * This tool edit status of user in a course
- * Strangly, the is nothing to edit role and courseTutor status
+ * This tool edit status of user in a course.
  *
- * @version 1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLUSR
- *
- * @package CLUSR
- * @package CLCOURSES
- *
- * @author Claro Team <cvs@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/CLUSR
+ * @package     CLUSR
+ * @package     CLCOURSES
+ * @author      Claro Team <cvs@claroline.net>
  */
 
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+$cidReset = true;
+$gidReset = true;
+$tidReset = true;
 
 require '../inc/claro_init_global.inc.php';
 
@@ -72,7 +69,7 @@ switch ($cmd)
 
         if ( isset($_REQUEST['profileId']) )
         {
-            $properties['profileId'] = $_REQUEST['profileId'];            
+            $properties['profileId'] = $_REQUEST['profileId'];
         }
 
         if ( isset($_REQUEST['isTutor']) )
@@ -142,7 +139,7 @@ if ( 'culist'== $ccfrom )//coming from courseuser list
 {
     $displayBackToCU = TRUE;
 }
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+elseif ('uclist'== $ccfrom)//coming from usercourse list
 {
     $displayBackToUC = TRUE;
 }
@@ -215,5 +212,3 @@ $out .= course_user_html_form ( $courseUserProperties, $cidToEdit, $uidToEdit, $
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

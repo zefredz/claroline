@@ -1,26 +1,22 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * prupose to admin to register  his claroline on claroline.net worldwild list
+ * Gives the possibility to an administrator to register
+ * his Claroline platform on claroline.net's worldwild list.
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @see http://www.claroline.net/wiki/index.php/ADMIN
- *
  * @author Claro Team <cvs@claroline.net>
  * @author Sébastien Piraux <pir@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
  */
 
+$cidReset = true;
+$gidReset = true;
 
-$cidReset=true;
-$gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
@@ -425,5 +421,3 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

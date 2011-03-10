@@ -1,19 +1,18 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
- * @version 1.9 $Revision$
  *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package ADMIN
- *
- * @author claro team <cvs@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     ADMIN
+ * @author      claro team <cvs@claroline.net>
  */
 
-
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+$cidReset = true;
+$gidReset = true;
+$tidReset = true;
 
 require '../inc/claro_init_global.inc.php';
 
@@ -118,5 +117,3 @@ $out .= claro_html_tool_title($nameTools)
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

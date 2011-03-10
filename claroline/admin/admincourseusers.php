@@ -1,20 +1,16 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * This tool list user of a course but in admin section
+ * Management tools for users registered to a specific course.
  *
- * @version 1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLUSR
- *
- * @package CLUSR
- *
- * @author Claro Team <cvs@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/CLUSR
+ * @package     CLUSR
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 $cidReset=true;$gidReset=true;$tidReset=true;
@@ -240,5 +236,3 @@ $out .= '<p>' . claro_html_menu_horizontal($command_list) . '</p>'
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

@@ -1,24 +1,21 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * Show news read from claroline.net
+ * Show news read from claroline.net.
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/CLNEWS/
- *
- * @author Claro Team <cvs@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @package CLNEWS
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/CLNEWS/
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     CLNEWS
  */
-$cidReset=true;$gidReset=true;
+
+$cidReset = true;
+$gidReset = true;
+
 require '../inc/claro_init_global.inc.php';
 
 // Security check
@@ -88,4 +85,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-?>

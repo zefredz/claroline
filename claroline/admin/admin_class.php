@@ -1,17 +1,15 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * this tool manage the classes
+ * Management tools for classes.
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
- * @author  Guillaume Lederer <lederer@cerdecam.be>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Guillaume Lederer <lederer@cerdecam.be>
  */
 
 //Used libraries
@@ -176,7 +174,7 @@ switch ( $cmd )
         }
         else
         {
-            if ( class_set_properties($form_data['class_id'],$form_data['class_name']) ) 
+            if ( class_set_properties($form_data['class_id'],$form_data['class_name']) )
             {
                 $dialogBox->success( get_lang('Name of the class has been changed') );
             }
@@ -305,11 +303,11 @@ $out .= '<p>'
 
 if ( class_exist ())
 {
-    $out .= ' | ' .  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exEmptyAll" 
+    $out .= ' | ' .  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exEmptyAll"
     onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Empty all classes ?')) . '\')){return true;}else{return false;}">'
     .    '<img src="' . get_icon_url('class') . '" />' . get_lang('Empty all classes')
     .    '</a> '
-    . ' | ' . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" 
+    . ' | ' . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll"
     onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Delete all classes ?')) . '\')){return true;}else{return false;}">'
     .    '<img src="' . get_icon_url('class') . '" />' . get_lang('Delete all classes')
     .    '</a> ';
@@ -350,5 +348,3 @@ $out .= '</tbody>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

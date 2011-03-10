@@ -1,20 +1,21 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
+ * Management tools for users' profiles.
  *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package ADMIN
- *
- * @author Guillaume Lederer <lederer@claroline.net>
- * @author claro team <cvs@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     ADMIN
+ * @author      Guillaume Lederer <lederer@claroline.net>
+ * @author      claro team <cvs@claroline.net>
  */
 
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+$cidReset = true;
+$gidReset = true;
+$tidReset = true;
 
 define( 'CSRF_PROTECTED', true );
 
@@ -299,5 +300,3 @@ $out .=
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

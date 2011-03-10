@@ -1,18 +1,19 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
  * This is the index page of sdk tools
  *
- * @version 1.9 $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package SDK
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     SDK
  *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Christophe Gesche <moosh@claroline.net>
+ * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  */
 
 require '../../inc/claro_init_global.inc.php';

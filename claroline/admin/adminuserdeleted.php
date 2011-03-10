@@ -1,25 +1,23 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
  * This script is used to delete a user from the platform in the admin
- * tool from the page to visualize the user profile (adminprofile.php)
+ * tool from the page to visualize the user's profile (adminprofile.php)
  * and display a confirmation message to the admin.
  *
- * @version 1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLTREE
- *
- * @package CLUSR
- *
- * @author Claro Team <cvs@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/CLTREE
+ * @package     CLUSR
+ * @author      Claro Team <cvs@claroline.net>
  */
 
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+$cidReset = true;
+$gidReset = true;
+$tidReset = true;
 
 require '../inc/claro_init_global.inc.php';
 
@@ -97,5 +95,3 @@ $out .= '<p>'
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
