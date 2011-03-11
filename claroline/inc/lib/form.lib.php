@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 )
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLCRS/
  * @package     FORM
@@ -209,33 +209,41 @@ function claro_html_form_select( $select_name, $list_option, $preselect=null, $a
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-function claro_html_option_list($list_option, $preselect, $reverted = false)
+function claro_html_option_list( $list_option, $preselect, $reverted = false )
 {
     $html_option_list ='';
 
-    if( is_array( $list_option ) )
+    if ( is_array( $list_option ) )
     {
         
         if ( ! $reverted )
         {
-            foreach($list_option as $option_label => $option_value)
+            foreach ( $list_option as $option_label => $option_value )
             {
                 $html_option_list .= '<option value="' . $option_value . '"'
-                .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
-                .                    htmlspecialchars($option_label)
-                .                    '</option >' . "\n"
-                ;
+                    . ( $option_value ==  $preselect
+                        ? ' selected="selected" '
+                        : '' )
+                    . '>'
+                    . htmlspecialchars( $option_label )
+                    . '</option >'
+                    . "\n"
+                    ;
             }
         }
         else
         {
-            foreach($list_option as $option_value => $option_label)
+            foreach ( $list_option as $option_value => $option_label )
             {
                 $html_option_list .= '<option value="' . $option_value . '"'
-                .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
-                .                    htmlspecialchars($option_label)
-                .                    '</option >' . "\n"
-                ;
+                    . ( $option_value ==  $preselect
+                        ? ' selected="selected" '
+                        : '' )
+                    . '>'
+                    . htmlspecialchars( $option_label )
+                    . '</option >'
+                    . "\n"
+                    ;
             }
         }
 
@@ -243,7 +251,7 @@ function claro_html_option_list($list_option, $preselect, $reverted = false)
     }
     else
     {
-        trigger_error('$list_option would be array()', E_USER_NOTICE);
+        trigger_error( '$list_option would be array()', E_USER_NOTICE );
         return false;
     }
 
