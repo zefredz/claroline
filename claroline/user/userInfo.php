@@ -314,6 +314,23 @@ $out .= claro_html_tool_title($nameTools)
 .    claro_html_msg_list($messageList)
 ;
 
+/// BEGIN ajout pour UCLine
+$userData = user_get_properties( $userIdViewed );
+
+$picturePath = user_get_picture_path( $userData );
+
+if ( $picturePath && file_exists( $picturePath ) )
+{
+    $pictureUrl = user_get_picture_url( $userData );
+}
+else
+{
+    $pictureUrl = get_icon_url('nopicture');
+}
+
+$out .= '<div id="rightSidebar"><img src="' . $pictureUrl . '" alt="' . get_lang('avatar') . '" /></div>';
+/// END ajout pour UCLine
+
 if ($displayMode == "viewDefEdit")
 {
     /* CATEGORIES DEFINITIONS : EDIT */
