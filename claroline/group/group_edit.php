@@ -5,21 +5,17 @@
  * This script edit userlist of a group and group propreties
  *
  * @version 1.9 $Revision$
- *
- * @copyright 2001-2009 Universite catholique de Louvain (UCL)
- *
+ * @copyright 2001-2011 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @see http://www.claroline.net/wiki/index.php/CLGRP
- *
  * @package CLGRP
- *
  * @author Claro Team <cvs@claroline.net>
- *
  */
 
 $tlabelReq = 'CLGRP';
+
 require '../inc/claro_init_global.inc.php';
+
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 
@@ -109,10 +105,10 @@ $tbl_bb_forum                = $tbl_cdb_names['bb_forums'];
 $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
 $tbl_group_team              = $tbl_cdb_names['group_team'];
 
-$currentCourseId     = claro_get_current_course_id();
-$_groupProperties = claro_get_current_group_properties_data();
-$myStudentGroup      = claro_get_current_group_data();
-$nbMaxGroupPerUser   = $_groupProperties ['nbGroupPerUser'];
+$currentCourseId        = claro_get_current_course_id();
+$_groupProperties       = claro_get_current_group_properties_data();
+$myStudentGroup         = claro_get_current_group_data();
+$nbMaxGroupPerUser      = $_groupProperties ['nbGroupPerUser'];
 
 if ( isset($_REQUEST['name']) ) $name = trim($_REQUEST['name']);
 else                            $name = '';
@@ -135,28 +131,28 @@ else                               $ingroup = array();
 if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 {
     $sql = "UPDATE`" . $tbl_group_team . "`
-            SET `name`        = '" . claro_sql_escape($name) . "',
-                `description` = '" . claro_sql_escape($description) . "',
-                `maxStudent`  = " . (is_null($maxMember) ? 'NULL' : "'" . (int) $maxMember . "'") .",
+            SET `name`        = '" . claro_sql_escape( $name ) . "',
+                `description` = '" . claro_sql_escape( $description ) . "',
+                `maxStudent`  = " . ( is_null( $maxMember ) ? 'NULL' : "'" . (int) $maxMember . "'" ) .",
                 `tutor`       = '" . (int) $tutor ."'
             WHERE `id`        = '" . (int) claro_get_current_group_id() . "'";
 
 
     // Update main group settings
-    $updateStudentGroup = claro_sql_query($sql);
+    $updateStudentGroup = claro_sql_query( $sql );
 
     // UPDATE FORUM NAME
     $sql = 'UPDATE `' . $tbl_bb_forum . '`
             SET `forum_name` ="' . claro_sql_escape($name).'"
             WHERE `forum_id` ="' . $myStudentGroup['forumId'] . '"';
 
-    claro_sql_query($sql);
+    claro_sql_query( $sql );
 
     // Count number of members
-    $numberMembers = count($ingroup);
+    $numberMembers = count( $ingroup );
 
     // every letter introduced in field drives to 0
-    settype($maxMember, 'integer');
+    settype( $maxMember, 'integer' );
 
     // Insert new list of members
     if ( $maxMember < $numberMembers AND $maxMember != '0' )
@@ -169,16 +165,16 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
         // Delete all members of this group
         $sql = 'DELETE FROM `' . $tbl_group_rel_team_user . '` WHERE `team` = "' . (int)claro_get_current_group_id() . '"';
 
-        $delGroupUsers = claro_sql_query($sql);
+        $delGroupUsers = claro_sql_query( $sql );
         $numberMembers--;
 
-        for ($i = 0; $i <= $numberMembers; $i++)
+        for ( $i = 0; $i <= $numberMembers; $i++ )
         {
             $sql = "INSERT INTO `" . $tbl_group_rel_team_user . "`
                     SET user = " . (int) $ingroup[$i] . ",
                         team = " . (int) claro_get_current_group_id() ;
 
-            $registerUserGroup = claro_sql_query($sql);
+            $registerUserGroup = claro_sql_query( $sql );
         }
 
         $dialogBox->success( get_lang("Group settings modified") );
@@ -195,21 +191,26 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 }    // end if $modify
 // SELECT TUTORS
 
-$tutorList = get_course_tutor_list($currentCourseId);
+$tutorList = get_course_tutor_list( $currentCourseId );
 
 // AND student_group.id='claro_get_current_group_id()'    // This statement is DEACTIVATED
 
 $tutor_list=array();
+
 $tutor_list[get_lang("(none)")] = 0;
+
 foreach ($tutorList as $myTutor)
 {
-    $tutor_list[htmlspecialchars($myTutor['name'] . ' ' . $myTutor['firstname'])]= $myTutor['userId'];
+    $tutor_list[htmlspecialchars( $myTutor['name'] . ' ' . $myTutor['firstname'] )] = $myTutor['userId'];
 }
 
 $usersInGroupList = get_group_member_list();
 
 // Student registered to the course but inserted in no group
-$limitNumOfGroups = (is_null($nbMaxGroupPerUser) || $nbMaxGroupPerUser == 0  ? "" :  " AND nbg < " . (int) $nbMaxGroupPerUser);
+$limitNumOfGroups = ( is_null($nbMaxGroupPerUser) || $nbMaxGroupPerUser == 0 )
+    ? ""
+    : " AND nbg < " . (int) $nbMaxGroupPerUser
+    ;
 
 // Initialise userNotInGroupList to empty array
 $userNotInGroupList = array();
@@ -243,119 +244,53 @@ $sql = "SELECT `u`.`user_id`        AS `user_id`,
         #`nbg`, #disabled because different of  right box
         UPPER(`u`.`nom`), UPPER(`u`.`prenom`), `u`.`user_id`";
 
-$result = claro_sql_query_fetch_all($sql);
+$result = claro_sql_query_fetch_all( $sql );
 
 
 foreach ($result AS $myNotMember )
 {
-    $label = htmlspecialchars( ucwords( strtolower( $myNotMember['lastName'])) . ' ' . ucwords(strtolower($myNotMember['firstName'] )) . ($myNotMember['role']!=''?' (' . $myNotMember['role'] . ')':'') )
-    .    ( $nbMaxGroupPerUser > 1 ?' (' . $myNotMember['nbg'] . ')' : '' )
-    ;
+    $label = htmlspecialchars(
+        ucwords( strtolower( $myNotMember['lastName'] ) )
+        . ' '
+        . ucwords( strtolower( $myNotMember['firstName'] ) )
+        . ( $myNotMember['role'] != ''
+            ? ' (' . $myNotMember['role'] . ')'
+            : '' )
+        . ( $nbMaxGroupPerUser > 1
+            ? ' (' . $myNotMember['nbg'] . ')'
+            : '' )
+        );
+
     $userNotInGroupList[$myNotMember['user_id']] = $label;
 }
-$thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
 
-$out = '';
+$thisGroupMaxMember = is_null( $myStudentGroup['maxMember'] )
+    ? '-'
+    : $myStudentGroup['maxMember']
+    ;
 
-$out .= claro_html_tool_title(array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
+$claroline->display->body->appendContent(
+    claro_html_tool_title(
+        array(
+            'supraTitle' => get_lang("Groups"),
+            'mainTitle' => $nameTools
+        )
+    )
+);
 
-$out .= $dialogBox->render();
+$claroline->display->body->appendContent( $dialogBox->render() );
 
-$out .= '<form name="groupedit" method="post" action="'
-.    htmlspecialchars(
-        $_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . claro_get_current_group_id() )
-.    '">' . "\n"
-.    claro_form_relay_context()
-.    '<table border="0" cellspacing="3" cellpadding="5">' . "\n"
-.    '<tr valign="top">' . "\n"
-.    '<td align="right">' . "\n"
-.    '<label for="name" >' . get_lang("Group name") . '</label> : ' . "\n"
-.    '</td>' . "\n"
-.    '<td colspan="2">' . "\n"
-.    '<input type="text" name="name" id="name" size="40" value="' . htmlspecialchars($myStudentGroup['name']) . '" />' . "\n"
-.    '</td>' . "\n"
-.    '<td>' . "\n"
-.    '<a href="group_space.php?gidReq=' . claro_get_current_group_id() . '">' . "\n"
-.    '<img src="' . get_icon_url('group') . '" alt="" />' . "\n"
-.    '&nbsp;' . get_lang("Area for this group") . '</a>' . "\n"
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '<tr valign="top">' . "\n"
-.    '<td align="right">' . "\n"
-.    '<label for="description">' . "\n"
-.    get_lang("Description") . ' ' . get_lang("(optional)") . "\n"
-.    '</label> :' . "\n"
-.    '</td>' . "\n"
-.    '<td colspan="3">' . "\n"
-.    '<textarea name="description" id="description" rows="4 "cols="70" >' . "\n"
-.    htmlspecialchars($myStudentGroup['description']) . "\n"
-.    '</textarea>' . "\n"
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '' . "\n"
-.    '<tr valign="top">' . "\n"
-.    '<td align="right">' . "\n"
-.    '<label for="tutor">' . "\n"
-.    get_lang("Group Tutor") . '</label> : ' . "\n"
-.    '</td>' . "\n"
-.    '<td colspan="2">' . "\n"
-.    claro_html_form_select('tutor',$tutor_list,$myStudentGroup['tutorId'],array('id'=>'tutor')) . "\n"
-.    '&nbsp;&nbsp;'
-.    '<small>'
-.    '<a href="../user/user.php?gidReset=true">'
-.    get_lang("User list")
-.    '</a>'
-.    '</small>'
-.    '</td>'
-.    '<td>'
-.    '<label for="maxMember">' . get_lang("Max.") . '</label> '
+$tpl = new CoreTemplate('group_edit.tpl.php');
 
-.   '<input type="text" name="maxMember" id="maxMember" size="2" value="' .  htmlspecialchars($thisGroupMaxMember) . '" />' . "\n"
+$tpl->assign( 'groupName',  $myStudentGroup['name'] );
+$tpl->assign( 'groupDescription',  $myStudentGroup['description'] );
+$tpl->assign( 'tutorList', $tutor_list );
+$tpl->assign( 'groupTutorId', $myStudentGroup['tutorId'] );
+$tpl->assign( 'groupMaxMember',  $thisGroupMaxMember );
+$tpl->assign( 'usersNotInGroupList', $userNotInGroupList );
+$tpl->assign( 'usersInGroupList', $usersInGroupList );
 
-.    get_lang("seats (optional)")
-.    '</td>'
-.    '</tr>'
-################### STUDENTS IN AND OUT GROUPS #######################
-.    '<tr valign="top">'
-.    '<td align="right">'
-.    '<label for="ingroup">' . get_lang("Group members") . '</label>'
-.    ' : '
-.    '</td>' . "\n"
-.    '<td>'
-.    claro_html_form_select('ingroup[]',$usersInGroupList,'',array('id'=>'ingroup', 'size'=>'8', 'multiple'=>'multiple'),true)
-.    '<br />' . "\n"
-.    '<br />' . "\n"
-.    '<input type="submit" value="' . get_lang("Ok") . '" name="modify" onclick="selectAll(this.form.elements[\'ingroup\'],true)" />' . "\n"
-.    '</td>' . "\n"
-.    '<td>' . "\n"
-.    '<!-- ' . "\n"
-.    'WATCH OUT ! form elements are called by numbers "form.element[3]"...' . "\n"
-.    'because select name contains "[]" causing a javascript element name problem' . "\n"
-.    ' -->' . "\n"
-.    '<br />' . "\n"
-.    '<br />' . "\n"
-.    '<input type="button" onclick="move(this.form.elements[\'ingroup\'],this.form.elements[\'nogroup\'])" value="   >>   " />' . "\n"
-.    '<br />' . "\n"
-.    '<input type="button" onclick="move(this.form.elements[\'nogroup\'],this.form.elements[\'ingroup\'])" value="   <<   " />' . "\n"
-.    '</td>' . "\n"
-.    '<td>' . "\n"
-.    claro_html_form_select('nogroup[]',$userNotInGroupList,'',array('id'=>'nogroup', 'size'=>'8', 'multiple'=>'multiple'), true) . "\n"
-.    '<br />' . "\n"
-;
-
-if ( get_conf('multiGroupAllowed') ) $out .= get_lang("Users not in this group");
-else                                 $out .= get_lang("Unassigned students");
-
-$out .= '</td>'
-.    '</tr>'
-.    '<tr valign="top">'
-.    '<td colspan="4">&nbsp;</td>'
-.    '</tr>'
-.    '</table>'
-.    '</form>'
-;
-
-$claroline->display->body->appendContent($out);
+$claroline->display->body->appendContent( $tpl->render() );
 
 echo $claroline->display->render();
 
@@ -366,10 +301,17 @@ echo $claroline->display->render();
  * @param unknown_type $context
  * @return unknown
  */
-function get_group_member_list($context=array())
+function get_group_member_list( $context = array() )
 {
-    $currentCourseId = array_key_exists(CLARO_CONTEXT_COURSE, $context) ? $context['CLARO_CONTEXT_COURSE'] : claro_get_current_course_id();
-    $currentGroupId  = array_key_exists(CLARO_CONTEXT_GROUP, $context) ? $context['CLARO_CONTEXT_GROUP'] : claro_get_current_group_id();
+    $currentCourseId = array_key_exists( CLARO_CONTEXT_COURSE, $context )
+        ? $context['CLARO_CONTEXT_COURSE']
+        : claro_get_current_course_id()
+        ;
+
+    $currentGroupId  = array_key_exists( CLARO_CONTEXT_GROUP, $context )
+        ? $context['CLARO_CONTEXT_GROUP']
+        : claro_get_current_group_id()
+        ;
 
     $tblc = claro_sql_get_course_tbl();
     $tblm = claro_sql_get_main_tbl();
@@ -390,16 +332,23 @@ function get_group_member_list($context=array())
           AND   `ug`.`user`      = `u`.`user_id`
         ORDER BY UPPER(`u`.`nom`), UPPER(`u`.`prenom`), `u`.`user_id`";
 
-    $resultMember = claro_sql_query_fetch_all($sql);
+    $resultMember = claro_sql_query_fetch_all( $sql );
+
     $usersInGroupList=array();
+
     foreach ($resultMember as $thisMember )
     {
-        $label = htmlspecialchars(ucwords(strtolower($thisMember['name']))
-        . ' ' . ucwords(strtolower($thisMember['firstname']))
-        . ($thisMember['role']!=''?' (' . $thisMember['role'] . ')':''));
+        $label = htmlspecialchars(
+            ucwords( strtolower( $thisMember['name'] ) )
+            . ' '
+            . ucwords( strtolower( $thisMember['firstname'] ) )
+            . ( $thisMember['role']!=''
+                ? ' (' . $thisMember['role'] . ')'
+                : '' )
+        );
+
         $usersInGroupList[$thisMember['user_id']] = $label;
     }
+
     return $usersInGroupList;
 }
-
-?>

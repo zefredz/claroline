@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * This is not a thematic lib
  *
  * @version 1.9 $Revision$
- * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2011 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
  *  version 2 or later
  * @author Claro Team <cvs@claroline.net> for additionnal authors see the
@@ -215,9 +215,10 @@ function claro_get_main_group_properties($courseId)
 
         $propertyList = array();
 
-        $propertyList ['registrationAllowed'] =  ($tempList['self_registration'] == 1);
-        $propertyList ['private'            ] =  ($tempList['private']           == 1);
-        $propertyList ['nbGroupPerUser'     ] =  $tempList['nbGroupPerUser'];
+        $propertyList ['registrationAllowed'] =  isset( $tempList['self_registration'] ) && $tempList['self_registration'] == 1;
+        $propertyList ['unregistrationAllowed'] =  isset($tempList['self_unregistration']) && $tempList['self_unregistration'] == 1;
+        $propertyList ['private'            ] =  !isset( $tempList['private'] ) || $tempList['private']  == 1;
+        $propertyList ['nbGroupPerUser'     ] =  isset( $tempList['nbGroupPerUser'] ) ? $tempList['nbGroupPerUser'] : 1;
 
         $propertyList['tools'] = array();
         
