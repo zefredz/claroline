@@ -247,6 +247,7 @@ foreach ($result AS $myNotMember )
     ;
     $userNotInGroupList[$myNotMember['user_id']] = $label;
 }
+
 $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
 
 $out = '';
@@ -255,101 +256,19 @@ $out .= claro_html_tool_title(array('supraTitle' => get_lang("Groups"), 'mainTit
 
 $out .= $dialogBox->render();
 
-$out .= '<form name="groupedit" method="post" action="'
-.    htmlspecialchars(
-        $_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . claro_get_current_group_id() )
-.    '">' . "\n"
-.    claro_form_relay_context()
-.    '<table border="0" cellspacing="3" cellpadding="5">' . "\n"
-.    '<tr valign="top">' . "\n"
-.    '<td align="right">' . "\n"
-.    '<label for="name" >' . get_lang("Group name") . '</label> : ' . "\n"
-.    '</td>' . "\n"
-.    '<td colspan="2">' . "\n"
-.    '<input type="text" name="name" id="name" size="40" value="' . htmlspecialchars($myStudentGroup['name']) . '" />' . "\n"
-.    '</td>' . "\n"
-.    '<td>' . "\n"
-.    '<a href="group_space.php?gidReq=' . claro_get_current_group_id() . '">' . "\n"
-.    '<img src="' . get_icon_url('group') . '" alt="" />' . "\n"
-.    '&nbsp;' . get_lang("Area for this group") . '</a>' . "\n"
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '<tr valign="top">' . "\n"
-.    '<td align="right">' . "\n"
-.    '<label for="description">' . "\n"
-.    get_lang("Description") . ' ' . get_lang("(optional)") . "\n"
-.    '</label> :' . "\n"
-.    '</td>' . "\n"
-.    '<td colspan="3">' . "\n"
-.    '<textarea name="description" id="description" rows="4 "cols="70" >' . "\n"
-.    htmlspecialchars($myStudentGroup['description']) . "\n"
-.    '</textarea>' . "\n"
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '' . "\n"
-.    '<tr valign="top">' . "\n"
-.    '<td align="right">' . "\n"
-.    '<label for="tutor">' . "\n"
-.    get_lang("Group Tutor") . '</label> : ' . "\n"
-.    '</td>' . "\n"
-.    '<td colspan="2">' . "\n"
-.    claro_html_form_select('tutor',$tutor_list,$myStudentGroup['tutorId'],array('id'=>'tutor')) . "\n"
-.    '&nbsp;&nbsp;'
-.    '<small>'
-.    '<a href="../user/user.php?gidReset=true">'
-.    get_lang("User list")
-.    '</a>'
-.    '</small>'
-.    '</td>'
-.    '<td>'
-.    '<label for="maxMember">' . get_lang("Max.") . '</label> '
-
-.   '<input type="text" name="maxMember" id="maxMember" size="2" value="' .  htmlspecialchars($thisGroupMaxMember) . '" />' . "\n"
-
-.    get_lang("seats (optional)")
-.    '</td>'
-.    '</tr>'
-################### STUDENTS IN AND OUT GROUPS #######################
-.    '<tr valign="top">'
-.    '<td align="right">'
-.    '<label for="ingroup">' . get_lang("Group members") . '</label>'
-.    ' : '
-.    '</td>' . "\n"
-.    '<td>'
-.    claro_html_form_select('ingroup[]',$usersInGroupList,'',array('id'=>'ingroup', 'size'=>'8', 'multiple'=>'multiple'),true)
-.    '<br />' . "\n"
-.    '<br />' . "\n"
-.    '<input type="submit" value="' . get_lang("Ok") . '" name="modify" onclick="selectAll(this.form.elements[\'ingroup\'],true)" />' . "\n"
-.    '</td>' . "\n"
-.    '<td>' . "\n"
-.    '<!-- ' . "\n"
-.    'WATCH OUT ! form elements are called by numbers "form.element[3]"...' . "\n"
-.    'because select name contains "[]" causing a javascript element name problem' . "\n"
-.    ' -->' . "\n"
-.    '<br />' . "\n"
-.    '<br />' . "\n"
-.    '<input type="button" onclick="move(this.form.elements[\'ingroup\'],this.form.elements[\'nogroup\'])" value="   >>   " />' . "\n"
-.    '<br />' . "\n"
-.    '<input type="button" onclick="move(this.form.elements[\'nogroup\'],this.form.elements[\'ingroup\'])" value="   <<   " />' . "\n"
-.    '</td>' . "\n"
-.    '<td>' . "\n"
-.    claro_html_form_select('nogroup[]',$userNotInGroupList,'',array('id'=>'nogroup', 'size'=>'8', 'multiple'=>'multiple'), true) . "\n"
-.    '<br />' . "\n"
-;
-
-if ( get_conf('multiGroupAllowed') ) $out .= get_lang("Users not in this group");
-else                                 $out .= get_lang("Unassigned students");
-
-$out .= '</td>'
-.    '</tr>'
-.    '<tr valign="top">'
-.    '<td colspan="4">&nbsp;</td>'
-.    '</tr>'
-.    '</table>'
-.    '</form>'
-;
-
 $claroline->display->body->appendContent($out);
+
+$tpl = new CoreTemplate('group_edit.tpl.php');
+
+$tpl->assign( 'groupName',  $myStudentGroup['name'] );
+$tpl->assign( 'groupDescription',  $myStudentGroup['description'] );
+$tpl->assign( 'tutorList', $tutor_list );
+$tpl->assign( 'groupTutorId', $myStudentGroup['tutorId'] );
+$tpl->assign( 'groupMaxMember',  $thisGroupMaxMember );
+$tpl->assign( 'usersNotInGroupList', $userNotInGroupList );
+$tpl->assign( 'usersInGroupList', $usersInGroupList );
+
+$claroline->display->body->appendContent($tpl->render());
 
 echo $claroline->display->render();
 
