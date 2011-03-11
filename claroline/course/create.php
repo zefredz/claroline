@@ -172,7 +172,7 @@ if ( claro_is_platform_admin()
     if( $display == DISP_COURSE_CREATION_FORM || $display == DISP_COURSE_CREATION_FAILED )
     {
         // display form
-        $out .= $course->displayForm($backUrl, $sourceCourseId);
+        $out .= $course->displayForm($backUrl);
     }
     elseif ( $display == DISP_COURSE_CREATION_PROGRESS )
     {
