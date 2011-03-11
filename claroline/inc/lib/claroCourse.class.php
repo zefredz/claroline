@@ -890,6 +890,20 @@ class ClaroCourse
             }
         }
         
+        $publicDisabled = !(get_conf('allowPublicCourses', true) || claro_is_platform_admin())
+            ? ' disabled="disabled"'
+            : '';
+        
+        $publicCssClass = !(get_conf('allowPublicCourses', true) || claro_is_platform_admin())
+            ? ' class="notice"'
+            : '';
+        
+        $publicMessage = $this->access != 'public' && !(get_conf('allowPublicCourses', true) || claro_is_platform_admin())
+            ? '<br /><span class="notice">'
+                . get_lang('If you need to create a public course, please contact the platform administrator')
+                . '</span>'
+            : '';
+        
         $cancelUrl = is_null($cancelUrl) ?
             get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($this->courseId) :
             $cancelUrl;
