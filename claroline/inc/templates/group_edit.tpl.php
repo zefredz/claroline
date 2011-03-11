@@ -87,64 +87,75 @@
         <!-- ################### STUDENTS IN AND OUT GROUPS ####################### -->
         <tr valign="top">
             <td align="right">
+                <?php echo get_lang('Users');?> :
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr valign="top">
+            <td align="right">
+                &nbsp;
+            </td>
+            <td>
                 <label for="ingroup">
                     <?php echo get_lang("Group members");?>
                 </label> :
+                <br />
+                <?php
+                    echo claro_html_form_select(
+                        'ingroup[]',
+                        $this->usersInGroupList,
+                        '',
+                        array('id'=>'ingroup', 'size'=>'8', 'multiple'=>'multiple'),
+                        true
+                    );
+                ?>
+                <br />
+                <input
+                    type="submit"
+                    value="<?php echo get_lang("Ok"); ?>"
+                    name="modify"
+                    onclick="selectAll(this.form.elements['ingroup'],true)"
+                 />
             </td>
-        <td>
-            <?php
-                echo claro_html_form_select(
-                    'ingroup[]',
-                    $this->usersInGroupList,
-                    '',
-                    array('id'=>'ingroup', 'size'=>'8', 'multiple'=>'multiple'),
-                    true
-                );
-            ?>
-            <br />
-            <br />
-            <input
-                type="submit"
-                value="<?php echo get_lang("Ok"); ?>"
-                name="modify"
-                onclick="selectAll(this.form.elements['ingroup'],true)"
-             />
-        </td>
-        <td>
-            <!--
-            WATCH OUT ! form elements are called by numbers "form.element[3]"...
-            because select name contains "[]" causing a javascript element name problem
-             -->
-            <br />
-            <br />
-            <input
-                type="button"
-                onclick="move(this.form.elements['ingroup'],this.form.elements['nogroup'])"
-                value="   >>   "
-             />
-            <br />
-            <input
-                type="button"
-                onclick="move(this.form.elements['nogroup'],this.form.elements['ingroup'])"
-                value="   <<   "
-             />
-        </td>
             <td>
+                <!--
+                WATCH OUT ! form elements are called by numbers "form.element[3]"...
+                because select name contains "[]" causing a javascript element name problem
+                 -->
+                <br />
+                <br />
+                <input
+                    type="button"
+                    onclick="move(this.form.elements['ingroup'],this.form.elements['nogroup'])"
+                    value="   >>   "
+                 />
+                <br />
+                <input
+                    type="button"
+                    onclick="move(this.form.elements['nogroup'],this.form.elements['ingroup'])"
+                    value="   <<   "
+                 />
+            </td>
+            <td align="right">
+                <label for="nogroup">
+                    <?php if ( get_conf('multiGroupAllowed') ): ?>
+                        <?php echo get_lang("Users not in this group");?>
+                    <?php else: ?>
+                        <?php echo get_lang("Unassigned students");?>
+                    <?php endif; ?>
+                </label> :
+                <br />
                 <?php
                     echo claro_html_form_select(
                         'nogroup[]',
                         $this->usersNotInGroupList,
                         '',
-                        array('id'=>'nogroup', 'size'=>'8', 'multiple'=>'multiple'),
+                        array( 'id'=>'nogroup', 'size'=>'8', 'multiple'=>'multiple' ),
                         true
                     );
                 ?>
-                <br />
-                <?php if ( get_conf('multiGroupAllowed') ): ?>
-                    <?php echo get_lang("Users not in this group");?>
-                <?php else: ?>
-                    <?php echo get_lang("Unassigned students");?>
-                <?php endif; ?>
             </td>
         </tr>
         <tr valign="top">
