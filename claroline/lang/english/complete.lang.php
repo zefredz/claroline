@@ -2964,3 +2964,4 @@ $_lang['Change notification date'] = 'Change notification date';
 $_lang['*.inc.php'] = '*.inc.php';
 $_lang['db glu'] = 'db glu';
 $_lang['User created by '] = 'User created by ';
+$_lang['Students are allowed to unregister from their group(s)'] = 'Students are allowed to unregister from their group(s)';

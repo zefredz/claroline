@@ -105,6 +105,7 @@ if ( count( get_included_files() ) == 1 )
  * PROPERTIES IN ALL GROUPS OF THE COURSE
  *
  * boolean $_groupProperties ['registrationAllowed']
+ * boolean $_groupProperties ['unregistrationAllowed']
  * boolean $_groupProperties ['private'            ]
  * int     $_groupProperties ['nbGroupPerUser'     ]
  * boolean $_groupProperties ['tools'] ['CLFRM']
