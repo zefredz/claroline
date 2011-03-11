@@ -173,15 +173,24 @@ function claro_html_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=null, $reverted = false)
+function claro_html_form_select( $select_name, $list_option, $preselect=null, $attr=null, $reverted = false )
 {
     $html_select = '<select name="' . $select_name . '" ';
-    if (is_array($attr)) foreach($attr as $attr_name=>$attr_value)
-    $html_select .=' ' . $attr_name . '="' . $attr_value . '" ';
+
+    if ( is_array( $attr ) )
+    {
+        foreach($attr as $attr_name=>$attr_value)
+        {
+            $html_select .= ' ' . $attr_name . '="' . $attr_value . '" ';
+
+        }
+    }
+        
     $html_select .= '>' . "\n"
-    .                claro_html_option_list($list_option,$preselect, $reverted)
-    .               '</select>' . "\n"
-    ;
+        . claro_html_option_list( $list_option, $preselect, $reverted )
+        . '</select>' . "\n"
+        ;
+
 
     return $html_select;
 }
@@ -203,8 +212,10 @@ function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=
 function claro_html_option_list($list_option, $preselect, $reverted = false)
 {
     $html_option_list ='';
-    if(is_array($list_option))
+
+    if( is_array( $list_option ) )
     {
+        
         if ( ! $reverted )
         {
             foreach($list_option as $option_label => $option_value)
@@ -227,6 +238,7 @@ function claro_html_option_list($list_option, $preselect, $reverted = false)
                 ;
             }
         }
+
         return $html_option_list;
     }
     else
