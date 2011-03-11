@@ -30,7 +30,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 function agenda_get_item_list($context, $order='DESC')
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($context[CLARO_CONTEXT_COURSE]));
-    
+
     $sql = "SELECT           `id`,
                 `titre`   AS `title`,
                 `contenu` AS `content`,
@@ -41,10 +41,11 @@ function agenda_get_item_list($context, $order='DESC')
                              `visibility`,
                              `location`
         FROM `" . $tbl['calendar_event'] . "`
+        WHERE group_id = " . (int)claro_get_current_group_id() . "
         ORDER BY `day` " . ('DESC' == $order?'DESC':'ASC') . "
         , `hour` " . ('DESC' == $order?'DESC':'ASC');
-    
-    return claro_sql_query_fetch_all($sql);
+
+    return claro_sql_query_fetch_all($sql); 
 }
 
 
@@ -81,9 +82,8 @@ function agenda_delete_all_items($courseCode=null)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
-    
-    $sql = "DELETE FROM  `" . $tbl_calendar_event . "`";
-    
+
+    $sql = "DELETE FROM  `" . $tbl_calendar_event . "` WHERE group_id=" . (int)claro_get_current_group_id();
     return claro_sql_query($sql);
 }
 
@@ -117,7 +117,8 @@ function agenda_add_item($title='',$content='', $day=null, $hour=null, $lasting=
             visibility  = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "',
             lasting     = '" . claro_sql_escape(trim($lasting)) . "',
             speakers    = " . $speakers . ",
-            location    = '". claro_sql_escape(trim($location)) ."'";
+            location    = '". claro_sql_escape(trim($location)) ."'
+            group_id    = " . (int)claro_get_current_group_id();
     
     return claro_sql_query_insert_id($sql);
 }
@@ -156,7 +157,7 @@ function agenda_update_item($event_id, $title=null,$content=null, $day=null, $ho
         $sql = "UPDATE `" . $tbl_calendar_event . "`
                 SET " . implode(', ',$sqlSet) ."
                 WHERE `id` = " . (int) $event_id ;
-
+        
         return claro_sql_query($sql);
     }
     else return null;
@@ -185,14 +186,12 @@ function agenda_get_item($event_id, $courseCode=null)
                    `speakers`     AS `speakers`,
                    `location`   AS `location`
             FROM `" . $tbl_calendar_event . "`
-
             WHERE `id` = " . (int) $event_id ;
-
+    
     $event = claro_sql_query_get_single_row($sql);
-
+    
     if ($event) return $event;
     else        return claro_failure::set_failure('EVENT_ENTRY_UNKNOW');
-
 }
 
 
@@ -216,7 +215,6 @@ function agenda_set_item_visibility($event_id, $visibility, $courseCode=null)
                   WHERE id =  " . (int) $event_id ;
     return  claro_sql_query($sql);
 }
-
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -331,7 +329,6 @@ function get_agenda_items_compact_mode($userCourseList, $month, $year)
     return $courseDigestList;
     
 }
-
 
 function get_agenda_items($userCourseList, $month, $year)
 {
