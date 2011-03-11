@@ -33,7 +33,7 @@
                     &nbsp;
                     <?php echo get_lang("Area for this group"); ?>
                 </a>
-            </td>'
+            </td>
         </tr>
         <tr valign="top">
             <td align="right">
