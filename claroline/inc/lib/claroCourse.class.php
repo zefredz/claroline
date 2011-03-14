@@ -274,12 +274,12 @@ class ClaroCourse
             $tbl_course_properties = $tbl_cdb_names['course_properties'];
             
             if ( ! $this->useExpirationDate) $this->expirationDate = null;
-
+            
             $sqlExpirationDate = is_null($this->expirationDate)
                 ? 'NULL'
                 : 'FROM_UNIXTIME(' . claro_sql_escape($this->expirationDate) . ')'
                 ;
-
+            
             $sqlCreationDate = is_null($this->publicationDate)
                 ? 'NULL'
                 : 'FROM_UNIXTIME(' . claro_sql_escape($this->publicationDate) . ')'
@@ -850,6 +850,10 @@ class ClaroCourse
      */
     public function displayForm ($cancelUrl=null)
     {
+        /*
+         * The javascript required to manage multiple selects is
+         * contained in claroline.js.
+         */
         JavascriptLoader::getInstance()->load('courseForm');
         JavascriptLoader::getInstance()->load('expand');
         
