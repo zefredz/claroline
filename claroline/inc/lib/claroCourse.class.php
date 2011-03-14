@@ -914,6 +914,7 @@ class ClaroCourse
         
         $template = new CoreTemplate('course_form.tpl.php');
         $template->assign('formAction', $_SERVER['PHP_SELF']);
+        $template->assign('relayContext', claro_form_relay_context());
         $template->assign('course', $this);
         $template->assign('linkedCategoriesListHtml', $linkedCategoriesListHtml);
         $template->assign('unlinkedCategoriesListHtml', $unlinkedCategoriesListHtml);

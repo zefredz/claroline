@@ -1,7 +1,7 @@
 <!-- $Id$ -->
 
 <form method="post" class="msform" id="courseSettings" action="<?php echo $this->formAction; ?>">
-    <?php echo claro_form_relay_context(); ?>
+    <?php echo $this->relayContext ?>
     <input type="hidden" name="cmd" value="<?php echo (empty($this->course->courseId)?'rqProgress':'exEdit'); ?>" />
     <input type="hidden" name="course_id" value="<?php echo (empty($this->course->id)?'':$this->course->id); ?>" />
     <input type="hidden" name="course_isSourceCourse" value="<?php echo (empty($this->course->isSourceCourse)?'':$this->course->isSourceCourse); ?>" />
@@ -62,7 +62,7 @@
                     </label>
                 </dt>
                 <dd>
-                    <table class="categoriesSelection">
+                    <table class="multiselect">
                       <tr>
                         <td>
                             <label for="mslist1">
@@ -362,8 +362,6 @@
     </dl>
 </form>
 
-<p>
-    <span class="notice">
-        <?php echo get_lang('<span class="required">*</span> denotes required field'); ?>
-    </span>
+<p class="notice">
+    <?php echo get_lang('<span class="required">*</span> denotes required field'); ?>
 </p>

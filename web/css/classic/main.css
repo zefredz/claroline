@@ -151,6 +151,15 @@ input.checkbox {
     color: grey;
 }
 
+/* Multiselect table */
+table.multiselect select {
+    width: 250px;
+}
+
+table.multiselect td.arrows {
+    vertical-align: middle;
+}
+
 /* Course form style */
 #courseSettings fieldset {
     border: 0;
@@ -166,14 +175,6 @@ input.checkbox {
     padding: 5px;
     border: 1px solid #eee;
     background: #fff;
-}
-
-#courseSettings table.categoriesSelection select {
-    width: 250px;
-}
-
-#courseSettings table.categoriesSelection td.arrows {
-    vertical-align: middle;
 }
 
 /* Redirector field */
