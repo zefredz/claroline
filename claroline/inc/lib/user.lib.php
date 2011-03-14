@@ -37,6 +37,7 @@ function user_initialise()
         'email'           => '',
         'phone'           => '',
         'picture'         => '',
+        'skype'           => '',
     );
 }
 
@@ -968,7 +969,7 @@ function user_html_form($data, $form_type='registration')
     }
     else
     {
-        $profile_editable = array('name','official_code','login','password','email','phone','language','picture');
+        $profile_editable = array('name','official_code','login','password','email','phone','language','picture','skype');
     }
 
     // display registration form
@@ -1191,7 +1192,18 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_readonly_text('phone', $data['phone'], get_lang('Phone'));
     }
-
+    
+    // Skype account
+    $skype = get_user_property( $data[ 'user_id' ] , 'skype' );
+    if ( in_array('skype',$profile_editable) )
+    {
+        $html .= form_input_text('skype', $skype, get_lang('Skype account') );
+    }
+    else
+    {
+        $html .= form_readonly_text('skype', $skype, get_lang('Skype account'));
+    }
+    
     // Group Tutor
     if ( 'add_new_user' == $form_type )
     {

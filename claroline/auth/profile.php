@@ -99,6 +99,7 @@ if ( isset($_REQUEST['applyChange']) )
     if ( isset($_REQUEST['officialEmail']) && in_array('email',$profile_editable) )        $user_data['officialEmail'] = trim($_REQUEST['officialEmail']);
     if ( isset($_REQUEST['phone']) && in_array('phone',$profile_editable) )                $user_data['phone'] = trim($_REQUEST['phone']);
     if ( isset($_REQUEST['language']) && in_array('language',$profile_editable) )          $user_data['language'] = trim($_REQUEST['language']);
+    if ( isset($_REQUEST['skype']) && in_array('skype',$profile_editable) )                $user_data['skype'] = trim($_REQUEST['skype']);
     
     
     if ( isset($_REQUEST['delPicture']) && $_REQUEST['delPicture'] =='true' )
@@ -200,6 +201,7 @@ if ( isset($_REQUEST['applyChange']) )
     {
         // if no error update use setting
         user_set_properties(claro_get_current_user_id(), $user_data);
+        set_user_property(claro_get_current_user_id(), $user_data['skype']);
         $claroline->log('PROFILE_UPDATE', array('user'=>claro_get_current_user_id()));
 
         // re-init the system to take new settings in account

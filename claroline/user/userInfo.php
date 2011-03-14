@@ -295,6 +295,21 @@ elseif ($displayMode == 'viewContentList') // default display
 
 if( $displayMode != "viewContentList" ) claro_set_display_mode_available(false);
 
+
+$skypeName = get_user_property( $userIdViewed , 'skype' );
+
+if ( $skypeName )
+{
+    $skypeStatus = '<a href="skype:' . $skypeName . '?call">' . "\n"
+                   .'<img src="http://mystatus.skype.com/smallclassic/' . $skypeName . '"
+                        style="border: none;" width="100" height="15" alt="" />' . "\n"
+                   .'</a>';
+}
+else
+{
+    $skypeStatus = '<em>' . get_lang( 'None' ) . '</em>';
+}
+
 //////////////////////////////
 // OUTPUT
 //////////////////////////////
@@ -314,9 +329,7 @@ $out .= claro_html_tool_title($nameTools)
 .    claro_html_msg_list($messageList)
 ;
 
-/// BEGIN display user's picture
 $userData = user_get_properties( $userIdViewed );
-
 $picturePath = user_get_picture_path( $userData );
 
 if ( $picturePath && file_exists( $picturePath ) )
@@ -329,7 +342,6 @@ else
 }
 
 $out .= '<div id="rightSidebar"><img src="' . $pictureUrl . '" alt="' . get_lang('avatar') . '" /></div>';
-/// END display user's picture
 
 if ($displayMode == "viewDefEdit")
 {
@@ -499,6 +511,7 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<tr class="headerX">' . "\n"
         .    '<th align="left">'.get_lang('Name').'</th>' . "\n"
         .    '<th align="left">'.get_lang('Profile').'</th>' . "\n"
+        .    '<th aling="left">'.get_lang( 'Skype account' ).'</th>' . "\n"
         .    '<th align="left">'.get_lang('Role').'</th>' . "\n"
         .    '<th>'.get_lang('Group Tutor').'</th>' . "\n"
         .    '<th>'.get_lang('Course manager').'</th>' . "\n"
@@ -510,6 +523,7 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<tr align="center">' . "\n"
         .    '<td align="left"><b>'.htmlize($mainUserInfo['firstName']).' '.htmlize($mainUserInfo['lastName']).'</b></td>' . "\n"
         .    '<td align="left">'.htmlize(claro_get_profile_name($mainUserInfo['profileId'])).'</td>' . "\n"
+        .    '<td align="center">'. $skypeStatus . '</td>' . "\n"
         .    '<td>'.htmlize($mainUserInfo['role']).'</td>' . "\n"
         .    '<td>'.$mainUserInfo['tutor'].'</td>'
         .    '<td>'.$mainUserInfo['isCourseManager'].'</td>'
@@ -572,7 +586,7 @@ elseif ($displayMode == "viewContentList") // default display
     }
 
     $catList = claro_user_info_get_course_user_info($userIdViewed);
-
+    
     if ($catList)
     {
         foreach ($catList as $thisCat)
