@@ -54,19 +54,19 @@ $dialogBox = new DialogBox();
 // ============================
 
 // Users' administration menu
-$menu['AdminUser'][] = '<form name="searchUser" action="adminusers.php" method="get" >' . "\n"
+$menu['AdminUser'][] = '<form name="searchUser" action="admin_users.php" method="get" >' . "\n"
                      . '<label for="search_user">' . get_lang('User') . '</label><br />'
                      . '<input name="search" id="search_user" />&nbsp;'
                      . '<input type="submit" value="' . get_lang('Search') . '" />'
                      . '&nbsp;'
                      . '<small>'
-                     . '<a href="advancedUserSearch.php">'
+                     . '<a href="advanced_user_search.php">'
                      . get_lang('Advanced')
                      . '</a>'
                      . '</small>'
                      . '</form>';
 
-$menu['AdminUser'][] = claro_html_tool_link('adminusers.php', get_lang('User list'));
+$menu['AdminUser'][] = claro_html_tool_link('admin_users.php', get_lang('User list'));
 $menu['AdminUser'][] = claro_html_tool_link('../messaging/sendmessage.php?cmd=rqMessageToAllUsers', get_lang('Send a message to all users'));
 $menu['AdminUser'][] = claro_html_tool_link('adminaddnewuser.php', get_lang('Create user'));
 $menu['AdminUser'][] = claro_html_tool_link('../user/AddCSVusers.php?AddType=adminTool', get_lang('Add a user list'));
@@ -76,14 +76,14 @@ $menu['AdminUser'][] = claro_html_tool_link('../desktop/config.php', get_lang('M
 $menu['AdminUser'][] = claro_html_tool_link('adminmergeuser.php', get_lang('Merge user accounts') );
 
 // Courses' administration menu
-$menu['AdminCourse'][] = '<form name="searchCourse" action="admincourses.php" method="get" >' . "\n"
+$menu['AdminCourse'][] = '<form name="searchCourse" action="admin_courses.php" method="get" >' . "\n"
                        . '<label for="search_course">' . get_lang('Course') . '</label><br />' . "\n"
                        . '<input name="search" id="search_course" />&nbsp;'
                        . '<input type="submit" value="' . get_lang('Search'). '" />'
-                       . '&nbsp;<small><a href="advancedCourseSearch.php">' . get_lang('Advanced') . '</a></small>' . "\n"
+                       . '&nbsp;<small><a href="advanced_course_search.php">' . get_lang('Advanced') . '</a></small>' . "\n"
                        . '</form>';
 
-$menu['AdminCourse'][] = claro_html_tool_link('admincourses.php', get_lang('Course list'));
+$menu['AdminCourse'][] = claro_html_tool_link('admin_courses.php', get_lang('Course list'));
 $menu['AdminCourse'][] = claro_html_tool_link('../course/create.php?adminContext=1', get_lang('Create course'));
 $menu['AdminCourse'][] = claro_html_tool_link('admin_category.php', get_lang('Manage course categories'));
 

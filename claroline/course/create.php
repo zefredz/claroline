@@ -40,7 +40,7 @@ require_once get_path('incRepositorySys') . '/lib/user.lib.php'; // for claro_ge
 require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
 require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
-require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
+require_once get_path('incRepositorySys') . '/lib/clarocourse.class.php';
 
 define('DISP_COURSE_CREATION_FORM'     ,__LINE__);
 define('DISP_COURSE_CREATION_SUCCEED'  ,__LINE__);

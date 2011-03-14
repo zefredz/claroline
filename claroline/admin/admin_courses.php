@@ -25,7 +25,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 // Initialisation of global variables and used libraries
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
+require_once get_path('incRepositorySys') . '/lib/clarocourse.class.php';
 
 // Check incoming data
 $offsetC            = isset($_REQUEST['offsetC']) ? $_REQUEST['offsetC'] : '0';
@@ -394,7 +394,7 @@ $courseDataGrid->set_idLineType('none');
 $courseDataGrid->set_colHead('officialCode') ;
 
 $courseDataGrid->set_noRowMessage( get_lang('There is no course matching such criteria') . '<br />'
-.    '<a href="advancedCourseSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>');
+.    '<a href="advanced_course_search.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>');
 
 
 /**
@@ -427,7 +427,7 @@ $out .= '<table width="100%">' . "\n\n"
 .    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search" />' . "\n"
 .    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
 .    '<input type="hidden" name="newsearch" value="yes" />' . "\n"
-.    '[<a class="claroCmd" href="advancedCourseSearch.php' . $addtoAdvanced . '">'
+.    '[<a class="claroCmd" href="advanced_course_search.php' . $addtoAdvanced . '">'
 .    get_lang('Advanced')
 .    '</a>]'    . "\n"
 .    '</form>'  . "\n\n"

@@ -184,7 +184,7 @@ else
     $out .= '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$class_id.'">'.
          get_lang('Class members').'</a></p>'."\n";
 
-    if (isset($_REQUEST['cfrom']) && ($_REQUEST['cfrom']=='clist')) $out .= claro_html_button('admincourses.php', get_lang('Back to course list'));
+    if (isset($_REQUEST['cfrom']) && ($_REQUEST['cfrom']=='clist')) $out .= claro_html_button('admin_courses.php', get_lang('Back to course list'));
 
     // Display search form
     $out .= '<div style="text-align: right">'."\n"

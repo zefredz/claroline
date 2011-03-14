@@ -522,7 +522,7 @@ function profile_send_request_course_creator_status($explanation)
     '%lastname'  => $_user['lastName'],
     '%email'     => $_user['mail'],
     '%comment'   => $explanation,
-    '%url'       => rtrim( get_path('rootWeb'), '/' ) . '/claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
+    '%url'       => rtrim( get_path('rootWeb'), '/' ) . '/claroline/admin/admin_profile.php?uidToEdit=' . claro_get_current_user_id()
     )
     );
 
@@ -569,7 +569,7 @@ function profile_send_request_revoquation($explanation,$login,$password)
     '%login'     => $login,
     '%password'  => '**********',
     '%comment'   => nl2br($explanation),
-    '%url'       => rtrim( get_path('rootWeb'), '/' ) . '/claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
+    '%url'       => rtrim( get_path('rootWeb'), '/' ) . '/claroline/admin/admin_profile.php?uidToEdit=' . claro_get_current_user_id()
     )
     );
 

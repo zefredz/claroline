@@ -80,7 +80,7 @@ if ( $cmd == 'registration' )
             
             $newUserMenu[]= claro_html_cmd_link( '../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $inserted_uid . '&amp;category=&amp;fromAdmin=settings'
                                                , get_lang('Register this user to a course'));
-            $newUserMenu[]= claro_html_cmd_link( 'adminprofile.php?uidToEdit=' . $inserted_uid . '&amp;category='
+            $newUserMenu[]= claro_html_cmd_link( 'admin_profile.php?uidToEdit=' . $inserted_uid . '&amp;category='
                                                , get_lang('User settings'));
             $newUserMenu[]= claro_html_cmd_link( 'adminaddnewuser.php'
                                                , get_lang('Create another new user'));

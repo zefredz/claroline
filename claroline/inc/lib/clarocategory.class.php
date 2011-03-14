@@ -18,7 +18,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 require_once dirname(__FILE__) . '/backlog.class.php'; // Manage the backlog entries
 require_once dirname(__FILE__) . '/category.lib.inc.php'; // Contains all MySQL requests for this class
-require_once dirname(__FILE__) . '/claroCourse.class.php';
+require_once dirname(__FILE__) . '/clarocourse.class.php';
 require_once dirname(__FILE__) . '/course.lib.inc.php'; // Contains certain usefull functions for this class: claro_get_lang_flat_list(), ...
 require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
 

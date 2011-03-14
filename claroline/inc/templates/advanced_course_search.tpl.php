@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 
-<form action="admincourses.php" method="get" >
+<form action="admin_courses.php" method="get">
 <fieldset>
 
 <dl>

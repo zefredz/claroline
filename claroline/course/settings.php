@@ -37,7 +37,7 @@ require_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
-require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
+require_once get_path('incRepositorySys') . '/lib/clarocourse.class.php';
 
 // Initialisation
 define('DISP_COURSE_EDIT_FORM',__LINE__);
@@ -75,7 +75,7 @@ if ( $adminContext && claro_is_platform_admin() )
     $course->addHtmlParam('cidToEdit',$current_cid);
 
     // Back url
-    $backUrl = get_path('rootAdminWeb') . 'admincourses.php' ;
+    $backUrl = get_path('rootAdminWeb') . 'admin_courses.php' ;
 }
 elseif ( claro_is_in_a_course() )
 {
@@ -171,7 +171,7 @@ if ( $course->load($current_cid) )
             $claroline->log( 'DELETION COURSE' , array ('courseName' => $course->title, 'uid' => claro_get_current_user_id()));
             if( $adminContext )
             {
-                claro_redirect( get_path('rootAdminWeb') . '/admincourses.php');
+                claro_redirect( get_path('rootAdminWeb') . '/admin_courses.php');
             }
             else
             {

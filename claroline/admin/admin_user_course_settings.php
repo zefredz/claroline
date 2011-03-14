@@ -153,7 +153,7 @@ $cmd_menu[] = '<a class="claroCmd" href="adminuserunregistered.php'
 .             '</a>'
 ;
 
-$cmd_menu[] = '<a class="claroCmd" href="adminprofile.php'
+$cmd_menu[] = '<a class="claroCmd" href="admin_profile.php'
 .             '?uidToEdit=' . $uidToEdit . '">'
 .             get_lang('User settings')
 .             '</a>'

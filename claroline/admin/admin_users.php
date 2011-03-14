@@ -229,7 +229,7 @@ foreach ($userList as $userKey => $user)
     {
         $userGrid[$userKey]['isCourseCreator'] .= '<br /><span class="highlight">' . get_lang('Administrator').'</span>';
     }
-    $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
+    $userGrid[$userKey]['settings'] = '<a href="admin_profile.php'
     .                                 '?uidToEdit=' . $user['user_id']
     .                                 '&amp;cfrom=ulist' . $addToURL . '">'
     .                                 '<img src="' . get_icon_url('usersetting') . '" alt="' . get_lang('User settings') . '" />'
@@ -305,7 +305,7 @@ if ( count($userGrid)==0 )
 {
     $userDataGrid->set_noRowMessage( '<center>'.get_lang('No user to display') . "\n"
     .    '<br />' . "\n"
-    .    '<a href="advancedUserSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a></center>' . "\n"
+    .    '<a href="advanced_user_search.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a></center>' . "\n"
     );
 }
 else
@@ -370,7 +370,7 @@ $out .= '<table width="100%">' . "\n"
 .    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" />' . "\n"
 .    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
 .    '<input type="hidden" name="newsearch" value="yes" />' . "\n"
-.    '&nbsp;[<a class="claroCmd" href="advancedUserSearch.php' . $addtoAdvanced . '" >' . get_lang('Advanced') . '</a>]' . "\n"
+.    '&nbsp;[<a class="claroCmd" href="advanced_user_search.php' . $addtoAdvanced . '" >' . get_lang('Advanced') . '</a>]' . "\n"
 .    '</form>' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
