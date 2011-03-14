@@ -91,9 +91,6 @@ $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
 $is_allowedToSelfRegInGroup  = (bool) $is_allowedToSelfRegInGroup && claro_is_in_a_course() && ( ! claro_is_group_member() ) && claro_is_course_member();
 $is_allowedToSelfUnregInGroup  = (bool) $_groupProperties ['unregistrationAllowed'] && claro_is_in_a_course() && claro_is_group_member() && claro_is_course_member();
 
-pushClaroMessage(var_export($_groupProperties,true),'debug');
-pushClaroMessage(var_export($is_allowedToSelfUnregInGroup,true),'debug');
-
 $is_allowedToDocAccess = (bool) ( claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor());
 $is_allowedToChatAccess     = (bool) (     claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor() );
 
