@@ -1,5 +1,5 @@
 /**
- $Id$
+ $Id: main.css 12911 2011-02-28 12:29:32Z abourguignon $
  **/
 
 
@@ -1087,41 +1087,36 @@ dl.userCourseList {
 /* specific styling for dialog box messages */
 .claroDialogBox {
     margin-top: 10px; 
-    margin-bottom: 10px; 
-    padding: 5px 5px 5px 20px; 
-    border: 1px solid #ccc;
+    margin-bottom: 15px; 
+    padding: 5px 85px 5px 20px; 
+    border: 1px solid #CCC;
+    border-left: 5px solid #CCC;
     background: #F9F7ED;
-    border-left: 2px solid #ccc;
 }
 
 .boxInfo {
-    border-left: 2px solid #ccc;
+    border-color: #ccc;
     background: #F9F7ED url('img/bg_boxinfo.png') bottom right no-repeat;
-    padding-right: 83px;
 }
 
 .boxSuccess {
-    border-left: 2px solid #090;
+    border-color: #090;
     background: #F9F7ED url('img/bg_boxsuccess.png') bottom right no-repeat;
-    padding-right: 83px;
 }
 
 .boxWarning {
-    border-left: 2px solid #900;
+    border-color: #FFBA00;
     background: #F9F7ED url('img/bg_boxwarning.png') bottom right no-repeat;
-    padding-right: 83px;
 }
 
 .boxError {
-    border-left: 2px solid #900;
+    border-color: #900;
     background: #F9F7ED url('img/bg_boxerror.png') bottom right no-repeat;
-    padding-right: 83px;
 }
 
 .boxQuestion {
-    border-left: 2px solid #369;
+    border-color: #369;
     background: #F9F7ED url('img/bg_boxquestion.png') bottom right no-repeat;
-    padding-right: 83px;
 }
 
 .claroDialogMsg { padding: 2px 5px 1px 20px; }

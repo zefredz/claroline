@@ -1,21 +1,16 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
  * This script edit userlist of a group and group propreties
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLGRP
- *
- * @package CLGRP
- *
- * @author Claro Team <cvs@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/CLGRP
+ * @package     CLGRP
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 $tlabelReq = 'CLGRP';

@@ -3,7 +3,9 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Dialog Box
+ * CLAROLINE
+ *
+ * Dialog box.
  *
  * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -304,7 +306,6 @@ class DialogBox implements Display
             return '<div class="claroDialogBox ' . $boxClass . '">' . "\n"
                 . implode( "\n", $out )
                 . '</div>' . "\n\n"
-                . '<p class="spacer"></p>' . "\n\n"
                 ;
         }
         else

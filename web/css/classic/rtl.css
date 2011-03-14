@@ -1,8 +1,8 @@
 /**
- $Id: default.css 11434 2008-10-28 10:48:51 +0000 (mar., 28 oct. 2008) fragile_be $
+ $Id: rtl.css 12911 2011-02-28 12:29:32Z abourguignon $
  **/
 
- body {
+body {
     direction: ltr;
 }
 
