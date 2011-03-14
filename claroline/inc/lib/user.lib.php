@@ -1194,14 +1194,18 @@ function user_html_form($data, $form_type='registration')
     }
     
     // Skype account
-    $skype = get_user_property( $data[ 'user_id' ] , 'skype' );
-    if ( in_array('skype',$profile_editable) )
+    if ( isset( $data[ 'user_id' ] ) )
     {
-        $html .= form_input_text('skype', $skype, get_lang('Skype account') );
-    }
-    else
-    {
-        $html .= form_readonly_text('skype', $skype, get_lang('Skype account'));
+        $skype = get_user_property( $data[ 'user_id' ] , 'skype' );
+        
+        if ( in_array('skype',$profile_editable) )
+        {
+            $html .= form_input_text('skype', $skype, get_lang('Skype account') );
+        }
+        else
+        {
+            $html .= form_readonly_text('skype', $skype, get_lang('Skype account'));
+        }
     }
     
     // Group Tutor

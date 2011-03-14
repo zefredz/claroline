@@ -1619,6 +1619,7 @@ $_lang['Simple'] = 'Simple';
 $_lang['Single'] = 'Unique';
 $_lang['Single Sign On'] = 'Authentification unique (SSO)';
 $_lang['Size'] = 'Taille';
+$_lang['Skype account'] = 'Compte Skype';
 $_lang['Software versions'] = 'Versions des logiciels';
 $_lang['Sql installation query failed'] = 'La requête SQL d\'installation a échoué';
 $_lang['Sql installation query succeeded'] = 'La requête SQL d\'installation a réussi';
