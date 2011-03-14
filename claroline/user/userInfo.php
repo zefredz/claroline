@@ -296,7 +296,7 @@ elseif ($displayMode == 'viewContentList') // default display
 if( $displayMode != "viewContentList" ) claro_set_display_mode_available(false);
 
 
-$skypeName = get_user_property( $userIdViewed , 'skype' );
+$skypeName = get_user_property( $userIdViewed , 'skypeName' );
 
 if ( $skypeName )
 {
