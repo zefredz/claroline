@@ -200,7 +200,7 @@ if ( isset($_REQUEST['applyChange']) )
     {
         // if no error update use setting
         user_set_properties(claro_get_current_user_id(), $user_data);
-        user_set_skype_name(claro_get_current_user_id(), $user_data['skype']); //// MODIF POUR UCLINE
+        set_user_property(claro_get_current_user_id(), $user_data['skype']);
         $claroline->log('PROFILE_UPDATE', array('user'=>claro_get_current_user_id()));
 
         // re-init the system to take new settings in account

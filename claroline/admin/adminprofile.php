@@ -1,20 +1,21 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
+ * Management tools for users' profiles.
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package ADMIN
- *
- * @author Guillaume Lederer <lederer@claroline.net>
- * @author claro team <cvs@claroline.net>
+ * @version     $Revision$
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     ADMIN
+ * @author      Guillaume Lederer <lederer@claroline.net>
+ * @author      claro team <cvs@claroline.net>
  */
 
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+$cidReset = true;
+$gidReset = true;
+$tidReset = true;
 
 define( 'CSRF_PROTECTED', true );
 
@@ -81,7 +82,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
     if ( isset($_POST['language']) )       $user_data['language'] = trim($_POST['language']);
     if ( isset($_POST['isCourseCreator'])) $user_data['isCourseCreator'] = (int) $_POST['isCourseCreator'];
     if ( isset($_POST['is_admin']) )       $user_data['is_admin'] = (bool) $_POST['is_admin'];
-    if ( isset($_REQUEST['skype']) )       $user_data['skype'] = trim($_REQUEST['skype']); //// MODIF POUR UCLINE
+    if ( isset($_REQUEST['skype']) )       $user_data['skype'] = trim($_REQUEST['skype']);
     
     if ( isset($_POST['delPicture']) && $_POST['delPicture'] =='true' )
     {
@@ -175,7 +176,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
         if ( empty($user_data['password'])) unset($user_data['password']);
         
         user_set_properties($userId, $user_data);  // if no error update use setting
-        user_set_skype_name($userId, $user_data['skype']); //// MODIF POOUR UCLINE
+        user_set_skype_name($userId, $user_data['skype']);
         
         if ( $userId == claro_get_current_user_id()  )// re-init system to take new settings in account
         {
@@ -301,5 +302,3 @@ $out .=
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
