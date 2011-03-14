@@ -1,39 +1,35 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  *
  * List of scripts in claroline archive
  *
- * @version 1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package MAINTENANCE
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Mathieu Laurent <laurent@cerdecam.be>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     MAINTENANCE
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Mathieu Laurent <laurent@cerdecam.be>
  */
 
-$claroline_script[] = "/admin/adminUserCourseSettings.php";
+$claroline_script[] = "/admin/admin_user_course_settings.php";
 $claroline_script[] = "/admin/admin_class.php";
 $claroline_script[] = "/admin/admin_class_course_registered.php";
 $claroline_script[] = "/admin/admin_class_register.php";
 $claroline_script[] = "/admin/admin_class_user.php";
 $claroline_script[] = "/admin/adminaddnewuser.php";
 $claroline_script[] = "/admin/admincats.php";
-$claroline_script[] = "/admin/admincourses.php";
+$claroline_script[] = "/admin/admin_courses.php";
 $claroline_script[] = "/admin/admincourseusers.php";
-$claroline_script[] = "/admin/adminprofile.php";
+$claroline_script[] = "/admin/admin_profile.php";
 $claroline_script[] = "/admin/adminregisteruser.php";
 $claroline_script[] = "/admin/adminusercourses.php";
 $claroline_script[] = "/admin/adminuserdeleted.php";
-$claroline_script[] = "/admin/adminusers.php";
+$claroline_script[] = "/admin/admin_users.php";
 $claroline_script[] = "/admin/adminuserunregistered.php";
-$claroline_script[] = "/admin/advancedCourseSearch.php";
-$claroline_script[] = "/admin/advancedUserSearch.php";
+$claroline_script[] = "/admin/advanced_course_search.php";
+$claroline_script[] = "/admin/advanced_user_search.php";
 $claroline_script[] = "/admin/campusLog.php";
 $claroline_script[] = "/admin/campusProblem.php";
 $claroline_script[] = "/admin/checkIfHtAccessIsPresent.php";
@@ -209,7 +205,6 @@ $claroline_script[] = "/inc/lib/event/notifier.php";
 $claroline_script[] = "/inc/lib/events.lib.inc.php";
 $claroline_script[] = "/inc/lib/export.lib.inc.php";
 $claroline_script[] = "/inc/lib/extauth.lib.php";
-$claroline_script[] = "/inc/lib/faculty.lib.inc.php";
 $claroline_script[] = "/inc/lib/fileDisplay.lib.php";
 $claroline_script[] = "/inc/lib/fileManage.lib.php";
 $claroline_script[] = "/inc/lib/fileUpload.lib.php";
