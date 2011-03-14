@@ -12,7 +12,7 @@
 
 
 require '../inc/claro_init_global.inc.php';
-require_once get_path('incRepositorySys') . '/lib/clarocourse.class.php';
+require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 include claro_get_conf_repository() . 'rss.conf.php';
 
 $cid = ( isset($_REQUEST['cid']) ) ? $_REQUEST['cid'] : '';
