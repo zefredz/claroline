@@ -362,7 +362,9 @@ $out .= '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 * session_register("forumId");
 */
 
-.   claro_html_list( $toolLinkList, array( 'class' => 'groupToolList' ) ) . "\n";
+.   claro_html_list( $toolLinkList, array( 'class' => 'groupToolList' ) ) . "\n"
+. '<br />'
+;
 
 if ($is_allowedToManage)
 {
