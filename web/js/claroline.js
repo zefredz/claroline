@@ -7,7 +7,7 @@
 // Claroline namespace
 var Claroline = {};
 
-Claroline.version = '1.9 rev. $Revision$';
+Claroline.version = '1.10 rev. $Revision$';
 
 Claroline.lang = {};
 
