@@ -25,10 +25,9 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('
 
 $out = '';
 
-$out .= claro_html_tool_title(array('mainTitle'=>$nameTools));
-
-$out .= '<ul>'."\n"
-      . '<li><a href="./disk_usage.php">' . get_lang('Disk usage') . '</a></li>'."\n"
+$out .= claro_html_tool_title(array('mainTitle'=>$nameTools))
+      . '<ul>'."\n"
+      . '<li><a href="./files_stats.php">' . get_lang('Files statistics') . '</a></li>'."\n"
       . '<li><a href="./phpInfo.php">' . get_lang('PHP system information') . '</a></li>'."\n"
       . '</ul>'."\n";
 
