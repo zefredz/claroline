@@ -139,6 +139,15 @@ input.checkbox {
     width: 1em;
 }
 
+/* Multiselect table */
+table.multiselect select {
+    width: 250px;
+}
+
+table.multiselect td.arrows {
+    vertical-align: middle;
+}
+
 
 /******************************************************************************
                              CLAROLINE PAGE
