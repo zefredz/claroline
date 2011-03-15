@@ -14,7 +14,9 @@
  */
 
 $tlabelReq = 'CLGRP';
+
 require '../inc/claro_init_global.inc.php';
+
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 
@@ -39,10 +41,10 @@ $tbl_bb_forum                = $tbl_cdb_names['bb_forums'];
 $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
 $tbl_group_team              = $tbl_cdb_names['group_team'];
 
-$currentCourseId     = claro_get_current_course_id();
-$_groupProperties = claro_get_current_group_properties_data();
-$myStudentGroup      = claro_get_current_group_data();
-$nbMaxGroupPerUser   = $_groupProperties ['nbGroupPerUser'];
+$currentCourseId        = claro_get_current_course_id();
+$_groupProperties       = claro_get_current_group_properties_data();
+$myStudentGroup         = claro_get_current_group_data();
+$nbMaxGroupPerUser      = $_groupProperties ['nbGroupPerUser'];
 
 if ( isset($_REQUEST['name']) ) $name = trim($_REQUEST['name']);
 else                            $name = '';
@@ -65,28 +67,28 @@ else                               $ingroup = array();
 if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 {
     $sql = "UPDATE`" . $tbl_group_team . "`
-            SET `name`        = '" . claro_sql_escape($name) . "',
-                `description` = '" . claro_sql_escape($description) . "',
-                `maxStudent`  = " . (is_null($maxMember) ? 'NULL' : "'" . (int) $maxMember . "'") .",
+            SET `name`        = '" . claro_sql_escape( $name ) . "',
+                `description` = '" . claro_sql_escape( $description ) . "',
+                `maxStudent`  = " . ( is_null( $maxMember ) ? 'NULL' : "'" . (int) $maxMember . "'" ) .",
                 `tutor`       = '" . (int) $tutor ."'
             WHERE `id`        = '" . (int) claro_get_current_group_id() . "'";
 
 
     // Update main group settings
-    $updateStudentGroup = claro_sql_query($sql);
+    $updateStudentGroup = claro_sql_query( $sql );
 
     // UPDATE FORUM NAME
     $sql = 'UPDATE `' . $tbl_bb_forum . '`
             SET `forum_name` ="' . claro_sql_escape($name).'"
             WHERE `forum_id` ="' . $myStudentGroup['forumId'] . '"';
 
-    claro_sql_query($sql);
+    claro_sql_query( $sql );
 
     // Count number of members
-    $numberMembers = count($ingroup);
+    $numberMembers = count( $ingroup );
 
     // every letter introduced in field drives to 0
-    settype($maxMember, 'integer');
+    settype( $maxMember, 'integer' );
 
     // Insert new list of members
     if ( $maxMember < $numberMembers AND $maxMember != '0' )
@@ -99,16 +101,16 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
         // Delete all members of this group
         $sql = 'DELETE FROM `' . $tbl_group_rel_team_user . '` WHERE `team` = "' . (int)claro_get_current_group_id() . '"';
 
-        $delGroupUsers = claro_sql_query($sql);
+        $delGroupUsers = claro_sql_query( $sql );
         $numberMembers--;
 
-        for ($i = 0; $i <= $numberMembers; $i++)
+        for ( $i = 0; $i <= $numberMembers; $i++ )
         {
             $sql = "INSERT INTO `" . $tbl_group_rel_team_user . "`
                     SET user = " . (int) $ingroup[$i] . ",
                         team = " . (int) claro_get_current_group_id() ;
 
-            $registerUserGroup = claro_sql_query($sql);
+            $registerUserGroup = claro_sql_query( $sql );
         }
 
         $dialogBox->success( get_lang("Group settings modified") );
@@ -125,19 +127,24 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 }    // end if $modify
 // SELECT TUTORS
 
-$tutorList = get_course_tutor_list($currentCourseId);
+$tutorList = get_course_tutor_list( $currentCourseId );
 
 // AND student_group.id='claro_get_current_group_id()'    // This statement is DEACTIVATED
 
 $tutor_list=array();
+
 $tutor_list[get_lang("(none)")] = 0;
+
 foreach ($tutorList as $myTutor)
 {
-    $tutor_list[htmlspecialchars($myTutor['name'] . ' ' . $myTutor['firstname'])]= $myTutor['userId'];
+    $tutor_list[htmlspecialchars( $myTutor['name'] . ' ' . $myTutor['firstname'] )] = $myTutor['userId'];
 }
 
 // Student registered to the course but inserted in no group
-$limitNumOfGroups = (is_null($nbMaxGroupPerUser) || $nbMaxGroupPerUser == 0  ? "" :  " AND nbg < " . (int) $nbMaxGroupPerUser);
+$limitNumOfGroups = ( is_null($nbMaxGroupPerUser) || $nbMaxGroupPerUser == 0 )
+    ? ""
+    : " AND nbg < " . (int) $nbMaxGroupPerUser
+    ;
 
 // Get the users not in group
 $sql = "SELECT `u`.`user_id`        AS `user_id`,
@@ -229,11 +236,18 @@ echo $claroline->display->render();
  * @param array     context
  * @return array    list of users
  */
-function get_group_member_list($context = array())
+function get_group_member_list( $context = array() )
 {
-    $currentCourseId = array_key_exists(CLARO_CONTEXT_COURSE, $context) ? $context['CLARO_CONTEXT_COURSE'] : claro_get_current_course_id();
-    $currentGroupId  = array_key_exists(CLARO_CONTEXT_GROUP, $context) ? $context['CLARO_CONTEXT_GROUP'] : claro_get_current_group_id();
+    $currentCourseId = array_key_exists( CLARO_CONTEXT_COURSE, $context )
+        ? $context['CLARO_CONTEXT_COURSE']
+        : claro_get_current_course_id()
+        ;
     
+    $currentGroupId  = array_key_exists( CLARO_CONTEXT_GROUP, $context )
+        ? $context['CLARO_CONTEXT_GROUP']
+        : claro_get_current_group_id()
+        ;
+
     $tblc = claro_sql_get_course_tbl();
     $tblm = claro_sql_get_main_tbl();
     
@@ -264,5 +278,6 @@ function get_group_member_list($context = array())
         . ($member['role']!=''?' (' . $member['role'] . ')':''));
         $usersInGroupList[$member['user_id']] = $label;
     }
+
     return $usersInGroupList;
 }

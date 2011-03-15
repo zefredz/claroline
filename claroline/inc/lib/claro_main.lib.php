@@ -486,9 +486,10 @@ function claro_get_main_group_properties($courseId)
 
         $propertyList = array();
 
-        $propertyList ['registrationAllowed'] =  ($tempList['self_registration'] == 1);
-        $propertyList ['private'            ] =  ($tempList['private']           == 1);
-        $propertyList ['nbGroupPerUser'     ] =  $tempList['nbGroupPerUser'];
+        $propertyList ['registrationAllowed'] =  isset( $tempList['self_registration'] ) && $tempList['self_registration'] == 1;
+        $propertyList ['unregistrationAllowed'] =  isset($tempList['self_unregistration']) && $tempList['self_unregistration'] == 1;
+        $propertyList ['private'            ] =  !isset( $tempList['private'] ) || $tempList['private']  == 1;
+        $propertyList ['nbGroupPerUser'     ] =  isset( $tempList['nbGroupPerUser'] ) ? $tempList['nbGroupPerUser'] : 1;
 
         $propertyList['tools'] = array();
         
