@@ -43,7 +43,7 @@ function claro_html_list($itemList, $attrBloc=array())
     }
     
     if (!empty($classBlocAttr))
-        $classBlocAttr = 'class="'.$classBlocAttr.'"';
+        $classBlocAttr = 'class="'.trim($classBlocAttr).'"';
     
     
     if (! empty($itemList) && is_array($itemList))

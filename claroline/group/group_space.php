@@ -294,7 +294,7 @@ foreach($toolList as $thisTool)
 
     if ( ! empty($url) )
     {
-        $toolLinkList[] = '<a class="' . $style . ' item' . $classItem . '" href="' . htmlspecialchars(Url::Contextualize($url)) . '">'
+        $toolLinkList[] = '<a class="' . trim( $style . ' item' . $classItem ) . '" href="' . htmlspecialchars(Url::Contextualize($url)) . '">'
         .                 '<img src="' . $icon . '" alt="" />&nbsp;'
         .                 $toolName
         .                 '</a>' . "\n"
@@ -302,7 +302,7 @@ foreach($toolList as $thisTool)
     }
     else
     {
-        $toolLinkList[] = '<span ' . $style . '>'
+        $toolLinkList[] = '<span ' . trim( $style ) . '>'
         .                 '<img src="' . $icon . '" alt="" />&nbsp;'
         .                 $toolName
         .                 '</span>' . "\n"
@@ -351,7 +351,7 @@ if ( $is_allowedToSelfUnregInGroup && !array_key_exists('unregistration',$_REQUE
 
 $out .= '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 .    '<tr>'  . "\n"
-.    '<td style="border-right: 1px solid gray;" valign="top" width="220">'  . "\n"
+.    '<td style="border-right: 1px solid gray;" valign="top" width="220" class="toolList">'  . "\n"
 
 /*
 * Vars needed to determine group File Manager and group Forum
@@ -362,7 +362,7 @@ $out .= '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 * session_register("forumId");
 */
 
-.   claro_html_list($toolLinkList) . "\n";
+.   claro_html_list( $toolLinkList, array( 'class' => 'groupToolList' ) ) . "\n";
 
 if ($is_allowedToManage)
 {
