@@ -1,15 +1,15 @@
 <?php // $Id$
+
 /**
- * Claroline
+ * CLAROLINE
  *
- * This  tool compute the disk Usage of each course.
- * @version 1.9 $Revision$
+ * This tool compute the disk usage of each course.
+ *
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author  Christophe Gesché <moosh@claroline.net>
- * @package maintenance
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Christophe Gesche <moosh@claroline.net>
+ * @package     maintenance
  */
 
 require_once '../../inc/claro_init_global.inc.php';
@@ -277,5 +277,3 @@ function get_db_size($tdb)
         return false;
     }
 }
-
-?>
