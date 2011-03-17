@@ -58,7 +58,7 @@ class ClaroCategory
     /**
      * Constructor
      */
-    public function __construct  ($id = null, $name = null, $code = null, $parentId = null, $rank = null, $visible = 1, $canHaveCoursesChild = 1, $rootCourse = null)
+    public function __construct ($id = null, $name = null, $code = null, $parentId = null, $rank = null, $visible = 1, $canHaveCoursesChild = 1, $rootCourse = null)
     {
         $this->id                   = $id;
         $this->name                 = $name;

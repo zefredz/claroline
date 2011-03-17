@@ -613,68 +613,36 @@ function check_duplicate_officialcode_userlist($userlist)
     return $errors;
 }
 
+
 /**
  * Class needed for parsing CSV files
- *
- *
  */
-
 class CSV
 {
-    var $raw_data;
-    var $new_data;
-    var $mapping;
-    var $results = array();
-    var $errors = array();
-    var $validFormat; //boolean variable set to true if the format useed in the file is usable in Claroline user database
-
-    function CRLFclean()
-    {
-        $replace = array(
-               "\n",
-               "\r",
-               "\r\n"
-           );
-        $this->raw_data = str_replace($replace,"\n",$this->raw_data);
-    }
-    function validKEY($v)
-    {
-        return ereg_replace("[^a-zA-Z0-9_\s]","",$v);
-    }
-
-    function stripENCLOSED(&$v,$eb)
-    {
-        if($eb!='' AND strpos($v,$eb)!==false)
-        {
-            if($v[0]==$eb)
-                $v = substr($v,1,strlen($v));
-            if($v[strlen($v)-1]==$eb)
-                $v = substr($v,0,-1);
-                $v = stripslashes($v);
-        }
-        else
-            return;
-    }
-
-/**
- *
- *
- * @param
- * @param
- * @param  $linedef FIRSTLINE means we take the first line of the file as the definition of the fields
- * @param
- *
- * @return $errors : an array of boolean where $errors[$i] is TRUE if there is an error with entry $i in the given 2D array.
- *
- *
- */
-
-
-    function CSV($filename,$delim=';',$linedef,$enclosed_by='',$eol="\n")
+    public $raw_data;
+    public $new_data;
+    public $mapping;
+    public $results = array();
+    public $errors = array();
+    public $validFormat; //boolean variable set to true if the format useed in the file is usable in Claroline user database
+    
+    
+    /**
+     * Constructor.
+     *
+     * @param   $filename
+     * @param   $delim
+     * @param   $linedef FIRSTLINE means we take the first line of the file as the definition of the fields
+     * @param   $enclosed_by
+     * @param   $eol
+     *
+     * @return $errors : an array of boolean where $errors[$i] is TRUE if there is an error with entry $i in the given 2D array.
+     */
+    public function __construct ($filename, $delim=';', $linedef, $enclosed_by='', $eol="\n")
     {
         //open the file
         $this->raw_data = implode('',file($filename));
-
+        
         // make sure all CRLF's are consistent
         $this->CRLFclean();
         // use custom $eol (if exists)
@@ -701,14 +669,14 @@ class CSV
         {
             $skipFirstLine = FALSE;
         }
-
+        
         //Create array with the fields format in the file :
-
+        
         $temp = @explode($delim,$linedef);
         if (!empty($enclosed_by))
         {
             $temporary = array();
-
+            
             foreach ($temp as $tempfield)
             {
                 $fieldTempArray = explode($enclosed_by,$tempfield);
@@ -716,21 +684,21 @@ class CSV
             }
             $temp = $temporary;
         }
-
+        
         //check if the used format is ok for Claroline
-
+        
         $this->validFormat = claro_CSV_format_ok($linedef, $delim, $enclosed_by);
-
+        
         if (!($this->validFormat)) return array();
-
-
+        
+        
         foreach($temp AS $field_index=>$field_value)
         {
             $this->mapping[] = $this->validKEY($field_value);
         }
-
+        
         // fill the 2D array using the keys given
-
+        
         foreach($this->new_data AS $index1=>$line)
         {
             if (trim($line)=='')
@@ -738,10 +706,10 @@ class CSV
                 // skip empty lines
                 continue;
             }
-
+            
             // explode the line with the delimitator
             $temp = @explode($delim,$line);
-
+            
             if ( count($temp)==0 )
             {
                 // line didn't split properly so record error
@@ -761,11 +729,42 @@ class CSV
             }
             unset($data_set);
         }
-
+        
         return $this->results;
     }
-
-    function error($msg)
+    
+    
+    public function CRLFclean()
+    {
+        $replace = array("\n", "\r", "\r\n");
+        $this->raw_data = str_replace($replace, "\n", $this->raw_data);
+    }
+    
+    
+    public function validKEY($v)
+    {
+        return ereg_replace("[^a-zA-Z0-9_\s]", "", $v);
+    }
+    
+    
+    public function stripENCLOSED(&$v, $eb)
+    {
+        if($eb!='' AND strpos($v, $eb)!==false)
+        {
+            if($v[0]==$eb)
+                $v = substr($v, 1, strlen($v));
+            if($v[strlen($v)-1]==$eb)
+                $v = substr($v, 0, -1);
+                $v = stripslashes($v);
+        }
+        else
+        {
+            return;
+        }
+    }
+    
+    
+    public function error($msg)
     {
         exit(
            '<hr size="1" noshade>'.
@@ -777,8 +776,9 @@ class CSV
            '<hr size="1" noshade>'
            );
     }
-
-    function help()
+    
+    
+    public function help()
     {
         print(
            "<hr size=1 noshade>".
