@@ -139,6 +139,15 @@ input.checkbox {
     width: 1em;
 }
 
+/* Multiselect table */
+table.multiselect select {
+    width: 250px;
+}
+
+table.multiselect td.arrows {
+    vertical-align: middle;
+}
+
 
 /******************************************************************************
                              CLAROLINE PAGE
@@ -1219,11 +1228,6 @@ form tr.admin td{
 .debugBar a:visited
 {
     color: #E6F;
-}
-
-.debugBar .claroDialogBox
-{
-    color: #990000;
 }
 
 /******************************************************************************
