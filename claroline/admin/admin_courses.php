@@ -25,7 +25,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 // Initialisation of global variables and used libraries
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/clarocourse.class.php';
+require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 
 // Check incoming data
 $offsetC            = isset($_REQUEST['offsetC']) ? $_REQUEST['offsetC'] : '0';
