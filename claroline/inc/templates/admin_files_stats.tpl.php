@@ -1,10 +1,10 @@
 <!-- $Id$ -->
 
 <p>
-    <?php echo get_lang('Vous avez choisi d\'isoler les fichiers de type %types', array('%types' => implode(', ', $this->extensions))); ?><br/>
+    <?php echo get_lang('You\'ve chosen to isolate the following extensions: %types', array('%types' => implode(', ', $this->extensions))); ?><br/>
 </p>
 <p>
-    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?view_as=csv">Exporter en CSV</a>
+    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?view_as=csv"><?php echo get_lang('Export into CSV'); ?></a>
 </p>
 
 <table class="claroTable emphaseLineemphaseLine">

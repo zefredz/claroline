@@ -108,7 +108,7 @@ $menu['AdminClaroline'][] = claro_html_tool_link('clarolinenews.php', get_lang('
 
 // Technical's administration menu
 $menu['AdminTechnical'][] = claro_html_tool_link('technical/phpInfo.php', get_lang('System Info'));
-$menu['AdminTechnical'][] = claro_html_tool_link('technical/files_stats.php', get_lang('Files Info'));
+$menu['AdminTechnical'][] = claro_html_tool_link('technical/files_stats.php', get_lang('Files statistics'));
 
 if ( get_conf('DEVEL_MODE', false) == true )
 {

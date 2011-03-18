@@ -25,20 +25,29 @@ if (!claro_is_user_authenticated()) claro_disp_auth_form();
 if (!claro_is_platform_admin()) claro_die(get_lang('Not allowed'));
 
 // Breadcrumb
-$nameTools = get_lang('Files Statistics');
+$nameTools = get_lang('Files statistics');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $viewAs = (isset($_GET['view_as']) && in_array($_GET['view_as'], array('html', 'csv')) ?
     $_GET['view_as'] : 'html');
 
 // Params
-$extensions         = array('jpg', 'pdf', 'doc', 'avi');
+$extensions         = explode(',', get_conf('filesStatsExtensions'));
 $coursesDirectory   = get_path('coursesRepositorySys');
 
 // Run
 $courses        = ClaroCourse::getAllCourses();
 $allExtensions  = array_merge($extensions, array('others', 'sum'));
 $stats          = array();
+
+// Refresh and progression
+/*
+if ( $display == DISPLAY_RESULT_PANEL && ($count_course_upgraded + $count_course_error ) < $count_course )
+{
+    $refresh_time = 20;
+    $htmlHeadXtra[] = '<meta http-equiv="refresh" content="'. $refresh_time  .'" />'."\n";
+}
+*/
 
 foreach ($courses as $course)
 {
@@ -114,6 +123,7 @@ elseif ($viewAs == 'csv')
     $csvExporter = new CsvExporter(', ', '"');
     $out = $csvExporter->exportAndSend(get_lang('files_stats'), $csvTab);
 }
+
 
 
 
