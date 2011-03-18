@@ -52,12 +52,6 @@ function confirmation (name)
 }
 </script>'; // TODO error in the display of questions marks in this string
 
-// Initialize output
-$out = '';
-
-// Display page title
-$out .= claro_html_tool_title($nameTools);
-
 switch ( $cmd )
 {
     // Display form to create a new category
@@ -215,99 +209,17 @@ switch ( $cmd )
     break;
 }
 
-// Display dialog box
-$out .= $dialogBox->render();
-
-// Display categories array
+// Get categories
 $categories = claroCategory::getAllCategories();
 
-    // "Create category" link
-$out .=
-     '<p>'
-.    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-.    '<img src="' . get_icon_url('category') . '" />' . get_lang('Create a category')
-.    '</a>'
-.    '</p>' . "\n";
-
-if ((get_conf('categories_order_by') != 'rank'))
-    $out .=
-            '<p>'.get_block('blockCategoriesOrderInfo').'</p>';
-    // Array header
-$out .=
-     '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
-.    '<thead>' . "\n"
-.    '<tr class="headerX">' . "\n"
-     // Array titles
-.    '<th>' . get_lang('Category label') . '</th>' . "\n"
-.    '<th>' . get_lang('Dedicated course') . '</th>' . "\n"
-.    '<th>' . get_lang('Courses') . '</th>' . "\n"
-.    '<th>' . get_lang('Visibility') . '</th>' . "\n"
-.    '<th>' . get_lang('Edit') . '</th>' . "\n"
-.    '<th>' . get_lang('Delete') . '</th>' . "\n"
-.    ((get_conf('categories_order_by') == 'rank')?
-        ('<th colspan="2">' . get_lang('Order') . '</th>'."\n"):
-        (''))
-.    '</tr>' . "\n"
-.    '</thead>' . "\n";
-
-    // Array body
-$out .=
-    '<tbody>' . "\n";
-
-if (count($categories) == 0)
-{
-    $out .= '<tr><td colspan="7">'
-        .get_lang('There are no cateogries right now.  Use the link above to add some.')
-        .'</td></tr>';
-}
-else
-{
-    //TODO: hide uparrows/downarrows when they are useless/ineffective (get_icon_url('move_up/down'))
-    foreach ($categories as $elmt)
-    {
-        $out .=
-            '<tr>'
-        .   '<td>' . str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ')</td>'
-        .   '<td>' . (!is_null($elmt['dedicatedCourse']) ? ($elmt['dedicatedCourse'] . ' (' . $elmt['dedicatedCourseCode'] . ')') : ('')) . '</td>'
-        .   '<td align="center">' . $elmt['nbCourses'] . '</td>'
-        .   '<td align="center">'
-        .       '<a href="' . htmlspecialchars(URL::Contextualize('?cmd=exVisibility&amp;categoryId=' . $elmt['id'])) . '">' . "\n"
-        .       '<img src="' . get_icon_url($elmt['visible']?'visible':'invisible') . '" alt="Change visibility" />' . "\n"
-        .       '</a>'
-        .   '</td>'
-        .   '<td align="center">'
-        .       '<a href="' . htmlspecialchars(URL::Contextualize('?cmd=rqEdit&amp;categoryId=' . $elmt['id'])) . '">' . "\n"
-        .       '<img src="' . get_icon_url('edit') . '" alt="Edit category" />' . "\n"
-        .       '</a>'
-        .   '</td>'
-        .   '<td align="center">'
-        .       '<a href="' . htmlspecialchars(URL::Contextualize('?cmd=exDelete&amp;categoryId=' . $elmt['id'])) . '"'
-        .        ' onclick="return confirmation(\'' . clean_str_for_javascript($elmt['name']) . '\');">' . "\n"
-        .       '<img src="' . get_icon_url('delete') . '" alt="Delete category" />' . "\n"
-        .       '</a>'
-        .   '</td>'
-        .    ((get_conf('categories_order_by') == 'rank')?
-                ('<td align="center">'
-        .       '<a href="' . htmlspecialchars(URL::Contextualize('?cmd=exMoveUp&amp;categoryId=' . $elmt['id'])) . '">' . "\n"
-        .       '<img src="' . get_icon_url('move_up') . '" alt="Move up category" />' . "\n"
-        .       '</a>'
-        .   '</td>'
-        .   '<td align="center">'
-        .       '<a href="' . htmlspecialchars(URL::Contextualize('?cmd=exMoveDown&amp;categoryId=' . $elmt['id'])) . '">' . "\n"
-        .       '<img src="' . get_icon_url('move_down') . '" alt="Move down category" />' . "\n"
-        .       '</a>'
-        .   '</td>'):
-                (''))
-        .   '</tr>';
-    }
-}
-
-$out .=
-    '</tbody>'
-.   '</table>' . "\n";
+// Dispaly
+$template = new CoreTemplate('admin_category.tpl.php');
+$template->assign('nameTools', $nameTools);
+$template->assign('dialogBox', $dialogBox);
+$template->assign('categories', $categories);
 
 // Append output
-$claroline->display->body->appendContent($out);
+$claroline->display->body->appendContent($template->render());
 
 // Generate output
 echo $claroline->display->render();
