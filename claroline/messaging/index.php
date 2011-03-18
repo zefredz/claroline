@@ -3,9 +3,11 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * index of internal messaging system
+ * CLAROLINE.
  *
- * @version     1.9 $Revision$
+ * index of internal messaging system.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
