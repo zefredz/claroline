@@ -117,7 +117,7 @@ function agenda_add_item($title='',$content='', $day=null, $hour=null, $lasting=
             visibility  = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "',
             lasting     = '" . claro_sql_escape(trim($lasting)) . "',
             speakers    = " . $speakers . ",
-            location    = '". claro_sql_escape(trim($location)) ."'
+            location    = '". claro_sql_escape(trim($location)) ."',
             group_id    = " . (int)claro_get_current_group_id();
     
     return claro_sql_query_insert_id($sql);
