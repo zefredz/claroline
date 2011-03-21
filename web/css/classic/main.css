@@ -69,7 +69,7 @@ label {
 
 input, textarea, button, select {
     border: 1px solid #aaa;
-    background: none;
+    background: #fff;
     color: #369;
 }
 
