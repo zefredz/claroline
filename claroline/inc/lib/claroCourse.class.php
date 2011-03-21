@@ -1,11 +1,9 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
- * Course Class
+ * Course Class.
  *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -23,9 +21,6 @@ require_once dirname(__FILE__) . '/clarocategory.class.php';
 require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
 require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
 
-$jsLoader = JavascriptLoader::getInstance();
-$jsLoader->load( 'claroline.ui');
-
 class ClaroCourse
 {
     // Identifier
@@ -33,46 +28,46 @@ class ClaroCourse
     
     // Code (sometimes named sysCode)
     public $courseId;
-
+    
     // Boolean: 1 = source course, 0 = session course
     public $isSourceCourse;
-
+    
     // Identifier of the source course (only for session courses)
     public $sourceCourseId;
-
+    
     // Name
     public $title;
-
+    
     // Official code
     public $officialCode;
-
+    
     // Titular
     public $titular;
-
+    
     // Email
     public $email;
-
+    
     // Array of categories (clarocategory.class.php)
     public $categories;
-
+    
     // Depatment Name
     public $departmentName;
-
+    
     // Department Url
     public $extLinkUrl;
-
+    
     // Language of the course
     public $language;
-
+    
     // Course access (true = public, false = private)
     public $access;
-
+    
     // Course visibility (true = shown, false = hidden)
     public $visibility;
-
+    
     // registration (true = open, false = close)
     public $registration;
-
+    
     // registration key
     public $registrationKey;
     
@@ -90,13 +85,14 @@ class ClaroCourse
     
     // userLimit
     public $userLimit;
-
+    
     // Backlog object
     public $backlog;
-
+    
     // List of GET or POST parameters
     public $htmlParamList = array();
-
+    
+    
     /**
      * Constructor
      */
@@ -128,7 +124,7 @@ class ClaroCourse
         $this->useExpirationDate    = false;
         $this->status               = 'enable';
         $this->userLimit            = 0;
-
+        
         $this->backlog = new Backlog();
     }
     
@@ -850,12 +846,8 @@ class ClaroCourse
      */
     public function displayForm ($cancelUrl=null)
     {
-        /*
-         * The javascript required to manage multiple selects is
-         * contained in claroline.js.
-         */
+        JavascriptLoader::getInstance()->load('claroline.ui');
         JavascriptLoader::getInstance()->load('courseForm');
-        JavascriptLoader::getInstance()->load('expand');
         
         $languageList   = claro_get_lang_flat_list();
         $categoriesList = claroCategory::getAllCategoriesFlat();

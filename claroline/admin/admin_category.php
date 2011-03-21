@@ -212,7 +212,7 @@ switch ( $cmd )
 // Get categories
 $categories = claroCategory::getAllCategories();
 
-// Dispaly
+// Display
 $template = new CoreTemplate('admin_category.tpl.php');
 $template->assign('nameTools', $nameTools);
 $template->assign('dialogBox', $dialogBox);

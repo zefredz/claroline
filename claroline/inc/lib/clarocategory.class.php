@@ -1,7 +1,5 @@
 <?php // $Id: add_course.lib.inc.php 12608 2010-09-15 11:20:46Z abourguignon $
 
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
@@ -26,35 +24,32 @@ class ClaroCategory
 {
     // Identifier
     public $id;
-
+    
     // Name
     public $name;
-
+    
     // Code
     public $code;
-
+    
     // Identifier of the parent category
     public $parentId;
-
+    
     // Position in the tree's level
     public $rank;
-
+    
     // Visibility
     public $visible;
-
+    
     // Allowed to possess children (true = yes, false = no)
     public $canHaveCoursesChild;
     
     // Dedicated course (identifier of the course)
     public $rootCourse;
-
+    
     // Backlog object
     public $backlog;
-
-    // List of GET or POST parameters
-    public $htmlParamList = array();
-
-
+    
+    
     /**
      * Constructor
      */
@@ -81,7 +76,7 @@ class ClaroCategory
     public function load ($id)
     {
         $data = claro_get_cat_datas($id);
-
+        
         if ( !$data )
         {
             claro_failure::set_failure('category_not_found');
@@ -283,18 +278,6 @@ class ClaroCategory
             return array();
         }
         
-    }
-    
-    
-    /**
-     * Optimize categories ranks in database, filling possible
-     * gaps between them.
-     *
-     * @return int      number of gaps filled
-     */
-    public static function optimizeRanks ( )
-    {
-        // TODO
     }
     
     
@@ -551,7 +534,7 @@ class ClaroCategory
         //TODO don't get how this function actually works
         
         $success = true ;
-
+        
         // Configuration array, define here which field can be left empty or not
         //TODO make it more accurate using function get_conf('human_label_needed');
         $fieldRequiredStateList['name']                 = true;
@@ -560,7 +543,7 @@ class ClaroCategory
         $fieldRequiredStateList['rank']                 = false;
         $fieldRequiredStateList['visible']              = true;
         $fieldRequiredStateList['canHaveCoursesChild']  = true;
-
+        
         // Validate category name
         if ( is_null($this->name) && $fieldRequiredStateList['name'] )
         {
@@ -568,7 +551,7 @@ class ClaroCategory
             $this->backlog->failure(get_lang('Category name is required'));
             $success = false ;
         }
-
+        
         // Validate category code
         if ( is_null($this->code) && $fieldRequiredStateList['code'] )
         {
@@ -624,7 +607,7 @@ class ClaroCategory
             $this->backlog->failure(get_lang('Category must be authorized or not to have courses children'));
             $success = false;
         }
-
+        
         return $success;
     }
     
@@ -679,27 +662,24 @@ class ClaroCategory
             }
         }
         
-        // TODO cancelUrl cannot be null
         // TODO use a template
         
         if ( is_null($cancelUrl) )
             $cancelUrl = get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($this->id);
-
+        
         $html = '';
-
+        
         $html .= '<form method="post" id="categorySettings" action="' . $_SERVER['PHP_SELF'] . '" >' . "\n"
             . claro_form_relay_context()
             . '<input type="hidden" name="cmd" value="' . (empty($this->id)?'exAdd':'exEdit') . '" />' . "\n"
-            . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
-
-            . $this->getHtmlParamList('POST');
-
+            . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
+        
         $html .= '<fieldset>' . "\n"
             . '<dl>' . "\n";
             
         // Category identifier
         $html .= '<input type="hidden" name="category_id" value="' . $this->id . '" />' . "\n";
-
+        
         // Category name
         $html .= '<dt>'
             . '<label for="category_name">'
@@ -710,7 +690,7 @@ class ClaroCategory
             . '<input type="text" name="category_name" id="category_name" value="' . htmlspecialchars($this->name) . '" size="30" maxlength="100" />'
             . (empty($this->id) ? '<br /><small>'.get_lang('e.g. <em>Sciences of Economics</em>').'</small>':'')
             . '</dd>' . "\n" ;
-
+        
         // Category code
         $html .= '<dt>'
             . '<label for="category_code">'
@@ -720,7 +700,7 @@ class ClaroCategory
             . '<dd><input type="text" id="category_code" name="category_code" value="' . htmlspecialchars($this->code) . '" size="30" maxlength="12" />'
             . (empty($this->id) ? '<br /><small>'.get_lang('max. 12 characters, e.g. <em>ROM2121</em>').'</small>':'')
             . '</dd>' . "\n" ;
-
+        
         // Category's parent
         $html .= '<dt>'
             . '<label for="category_parent">'
@@ -731,10 +711,10 @@ class ClaroCategory
             . $categoriesHtmlList
             . '</select>'
             . '</dd>' . "\n" ;
-
+        
         // Category's rank
         $html .= '<input type="hidden" name="category_rank" value="' . (empty($this->rank)?0:$this->rank) . '" />'."\n";
-
+        
         // Category's visibility
         $html .= '<dt>'
             . get_lang('Category visibility')
@@ -749,7 +729,7 @@ class ClaroCategory
             . '&nbsp;'
             . '<label for="hidden">' . get_lang('Hidden') . '</label>'
             . '</dd>' . "\n" ;
-
+        
         // Category's right to possess courses
         $html .= '<dt>'
             . get_lang('Can have courses')
@@ -784,56 +764,11 @@ class ClaroCategory
             . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
             . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
             . '</form>' . "\n";
-
+        
         return $html;
     }
     
     
-    /**
-     * Add html parameter to list.
-     *
-     * @param string        $name input name
-     * @param string        $value input value
-     */
-    public function addHtmlParam($name, $value)
-    {
-        $this->htmlParamList[$name] = $value;
-    }
-    
-    
-    /**
-     * Get html representing parameter list depending on method (POST for form, GET for URL's').
-     *
-     * @param string        $method GET OR POST (default: GET)
-     * @return string       html output of params for $method method
-     */
-    public function getHtmlParamList($method = 'GET')
-    {
-        if ( empty($this->htmlParamList) ) return '';
-
-        $html = '';
-
-        if ( $method == 'POST' )
-        {
-            foreach ( $this->htmlParamList as $name => $value )
-            {
-                $html .= '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '" />' . "\n" ;
-            }
-        }
-        else // GET
-        {
-            $params = array();
-            foreach ( $this->htmlParamList as $name => $value )
-            {
-                $params[] = rawurlencode($name) . '=' . rawurlencode($value);
-            }
-
-            $html = implode('&amp;', $params );
-        }
-
-        return $html;
-    }
-
     public function __toString()
     {
         return "[{$this->code}] {$this->name}";
