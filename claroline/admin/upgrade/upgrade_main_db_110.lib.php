@@ -57,16 +57,27 @@ function upgrade_category_to_110 ()
         case 2 :
             // Insert root category
             $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "`
-                                (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`)
+                                ( `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`)
                                 VALUES
-                                (0, 'Root', 'ROOT', NULL, 0, 0, 0)";
+                                ( 'Root', 'ROOT', NULL, 0, 0, 0)";
                         
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
             
             unset($sqlForUpdate);
 
-        case 3:
+        case 3 :
+            // Update root category to 0
+            $sqlForUpdate[] = " UPDATE `" . $tbl_mdb_names['category'] . "`
+                                SET `id` = 0
+                                WHERE `code` = 'ROOT';";
+
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step;
+
+            unset($sqlForUpdate);
+
+        case 4:
             
             // Insert all previous categories ("faculties") in the new table `category`
             $sql = "SELECT f1.`id`, f1.`name`, f1.`code`, f1.`code_P`, f1.`treePos`, f1.`nb_childs`, f1.`canHaveCoursesChild`, f1.`canHaveCatChild`, f2.`id` as idParent
@@ -100,7 +111,7 @@ function upgrade_category_to_110 ()
                 $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "`
                                    ( `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`)
                                    VALUES
-                                   ( '" . $category['name'] . "', '" . $category['code'] . "', " . $category['idParent'] . ", " . $rank . ", $visibile, " . $category['canHaveCoursesChild'] . ")";
+                                   ( '" . addslashes($category['name']) . "', '" . $category['code'] . "', " . $category['idParent'] . ", " . $rank . ", $visibile, " . $category['canHaveCoursesChild'] . ")";
             }
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
