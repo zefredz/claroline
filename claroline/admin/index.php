@@ -66,14 +66,14 @@ $menu['AdminUser'][] = '<form name="searchUser" action="admin_users.php" method=
                      . '</small>'
                      . '</form>';
 
-$menu['AdminUser'][] = claro_html_tool_link('admin_users.php', get_lang('User list'));
-$menu['AdminUser'][] = claro_html_tool_link('../messaging/sendmessage.php?cmd=rqMessageToAllUsers', get_lang('Send a message to all users'));
-$menu['AdminUser'][] = claro_html_tool_link('adminaddnewuser.php', get_lang('Create user'));
-$menu['AdminUser'][] = claro_html_tool_link('../user/AddCSVusers.php?AddType=adminTool', get_lang('Add a user list'));
-$menu['AdminUser'][] = claro_html_tool_link('admin_class.php', get_lang('Manage classes'));
-$menu['AdminUser'][] = claro_html_tool_link('right/profile_list.php', get_lang('Right profile list'));
-$menu['AdminUser'][] = claro_html_tool_link('../desktop/config.php', get_lang('Manage user desktop'));
-$menu['AdminUser'][] = claro_html_tool_link('adminmergeuser.php', get_lang('Merge user accounts') );
+$menu['AdminUser'][] = '<a href="admin_users.php">'.get_lang('User list').'</a>';
+$menu['AdminUser'][] = '<a href="../messaging/sendmessage.php?cmd=rqMessageToAllUsers>'.get_lang('Send a message to all users').'</a>';
+$menu['AdminUser'][] = '<a href="adminaddnewuser.php">'.get_lang('Create user').'</a>';
+$menu['AdminUser'][] = '<a href="../user/AddCSVusers.php?AddType=adminTool">'.get_lang('Add a user list').'</a>';
+$menu['AdminUser'][] = '<a href="admin_class.php">'.get_lang('Manage classes').'</a>';
+$menu['AdminUser'][] = '<a href="right/profile_list.php">'.get_lang('Right profile list').'</a>';
+$menu['AdminUser'][] = '<a href="../desktop/config.php">'.get_lang('Manage user desktop').'</a>';
+$menu['AdminUser'][] = '<a href="adminmergeuser.php">'.get_lang('Merge user accounts').'</a>';
 
 // Courses' administration menu
 $menu['AdminCourse'][] = '<form name="searchCourse" action="admin_courses.php" method="get" >' . "\n"
@@ -83,37 +83,38 @@ $menu['AdminCourse'][] = '<form name="searchCourse" action="admin_courses.php" m
                        . '&nbsp;<small><a href="advanced_course_search.php">' . get_lang('Advanced') . '</a></small>' . "\n"
                        . '</form>';
 
-$menu['AdminCourse'][] = claro_html_tool_link('admin_courses.php', get_lang('Course list'));
-$menu['AdminCourse'][] = claro_html_tool_link('../course/create.php?adminContext=1', get_lang('Create course'));
-$menu['AdminCourse'][] = claro_html_tool_link('admin_category.php', get_lang('Manage course categories'));
+$menu['AdminCourse'][] = '<a href="admin_courses.php">'.get_lang('Course list').'</a>';
+$menu['AdminCourse'][] = '<a href="../course/create.php?adminContext=1">'.get_lang('Create course').'</a>';
+$menu['AdminCourse'][] = '<a href="admin_category.php">'.get_lang('Manage course categories').'</a>';
 
 // Platform's administration menu
-$menu['AdminPlatform'][] = claro_html_tool_link('tool/config_list.php', get_lang('Configuration'));
-$menu['AdminPlatform'][] = claro_html_tool_link('managing/editFile.php',get_lang('Edit text zones'));
-$menu['AdminPlatform'][] = claro_html_tool_link('module/module_list.php', get_lang('Modules'));
-$menu['AdminPlatform'][] = claro_html_tool_link('adminmailsystem.php', get_lang('Manage administrator email notifications'));
-$menu['AdminPlatform'][] = claro_html_tool_link('../tracking/platformReport.php', get_lang('Platform statistics'));
-$menu['AdminPlatform'][] = claro_html_tool_link('campusProblem.php', get_lang('Scan technical fault'));
+$menu['AdminPlatform'][] = '<a href="tool/config_list.php">'.get_lang('Configuration').'</a>';
+$menu['AdminPlatform'][] = '<a href="managing/editFile.php">'.get_lang('Edit text zones').'</a>';
+$menu['AdminPlatform'][] = '<a href="module/module_list.php">'.get_lang('Modules').'</a>';
+$menu['AdminPlatform'][] = '<a href="adminmailsystem.php">'.get_lang('Manage administrator email notifications').'</a>';
+$menu['AdminPlatform'][] = '<a href="../tracking/platformReport.php">'.get_lang('Platform statistics').'</a>';
+$menu['AdminPlatform'][] = '<a href="campusProblem.php">'.get_lang('Scan technical fault').'</a>';
 
 if (file_exists(dirname(__FILE__) . '/maintenance/checkmails.php'))
 {
-    $menu['AdminPlatform'][] = claro_html_tool_link('maintenance/checkmails.php', get_lang('Check and Repair emails of users'));
+    $menu['AdminPlatform'][] = '<a href="maintenance/checkmails.php">'.get_lang('Check and Repair emails of users').'</a>';
 }
-$menu['AdminPlatform'][] = claro_html_tool_link('upgrade/index.php', get_lang('Upgrade'));
+$menu['AdminPlatform'][] = '<a href="upgrade/index.php">'.get_lang('Upgrade').'</a>';
 
 // Claroline's administration menu
-$menu['AdminClaroline'][] = claro_html_tool_link('registerCampus.php', get_lang('Register my campus'));
-$menu['AdminClaroline'][] = claro_html_tool_link('http://forum.claroline.net/', get_lang('Support forum'));
-$menu['AdminClaroline'][] = claro_html_tool_link('clarolinenews.php', get_lang('Claroline.net news'));
+$menu['AdminClaroline'][] = '<a href="registerCampus.php">'.get_lang('Register my campus').'</a>';
+$menu['AdminClaroline'][] = '<a href="http://forum.claroline.net/">'.get_lang('Support forum').'</a>';
+$menu['AdminClaroline'][] = '<a href="clarolinenews.php">'.get_lang('Claroline.net news').'</a>';
 
 // Technical's administration menu
-$menu['AdminTechnical'][] = claro_html_tool_link('technical/phpInfo.php', get_lang('System Info'));
-$menu['AdminTechnical'][] = claro_html_tool_link('technical/files_stats.php', get_lang('Files statistics'));
+$menu['AdminTechnical'][] = '<a href="technical/phpInfo.php">'.get_lang('System Info').'</a>';
+$menu['AdminTechnical'][] = '<a href="technical/files_stats.php">'.get_lang('Files statistics').'</a> '
+                          . '(<a href="technical/files_stats.php?view_as=csv">CSV</a>)';
 
 if ( get_conf('DEVEL_MODE', false) == true )
 {
-    $menu['AdminTechnical'][] = claro_html_tool_link('xtra/sdk/translation_index.php', get_lang('Translation Tools'));
-    $menu['AdminTechnical'][] = claro_html_tool_link('devTools', get_lang('Devel Tools'));
+    $menu['AdminTechnical'][] = '<a href="xtra/sdk/translation_index.php">'.get_lang('Translation Tools').'</a>';
+    $menu['AdminTechnical'][] = '<a href="devTools">'.get_lang('Devel Tools').'</a>';
 }
 
 // Communication's administration menu
