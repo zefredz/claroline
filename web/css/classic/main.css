@@ -7,12 +7,15 @@
                         MAIN HTML MARKUP
 ******************************************************************************/
 
+* {
+    /* IE bug ! Initial value should be set in % as IE cannot handle em if character size is modified by user */
+   font-size: 100%;
+}
+
 html {
     margin: 0;
     padding: 0;
     height: 100%;
-    /* IE bug ! Initial value should be set in % as IE cannot handle em if character size is modified by user */
-    font-size: 100%;
 }
 
 body {
@@ -23,8 +26,6 @@ body {
     text-align: left;
     font-family: Arial, Verdana, Helvetica, Sans-Serif;
     height: 100%;
-    /* IE bug ! Initial value should be set in % as IE cannot handle em if character size is modified by user */
-    font-size: 100%;
 }
 
 a:link, a:visited {
