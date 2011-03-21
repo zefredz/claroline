@@ -36,7 +36,7 @@
         <?php echo claro_html_tool_title('<img src="' . get_icon_url('mail_close') . '" alt="" />&nbsp;'.get_lang('Communication')); ?>
         <?php echo claro_html_list($this->menu['Communication'], array('class' => 'adminCommunication')); ?>
     </td>
-</tr>'
+</tr>
 
 
 <?php if (!empty($this->menu['ExtraTools'])) : ?>
