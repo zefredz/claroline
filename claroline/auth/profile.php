@@ -1,31 +1,25 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * This script prupose to user to edit his own profile
+ * This script prupose to user to edit his own profile.
  *
- * @version 1.9 $Revision$
- *
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/Auth/
- *
- * @author Claro Team <cvs@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @package Auth
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/Auth/
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     Auth
  */
 
 /*=====================================================================
 Init Section
 =====================================================================*/
 
-$cidReset = TRUE;
-$gidReset = TRUE;
-$uidRequired = TRUE;
+$cidReset = true;
+$gidReset = true;
+$uidRequired = true;
 
 require '../inc/claro_init_global.inc.php';
 
@@ -247,7 +241,7 @@ elseif ( get_conf('can_request_revoquation')
         {
             case 'EXPLANATION_EMPTY' :
                 $dialogBox->error( get_lang('You left some required fields empty') );
-                $noQUERY_STRING = TRUE;
+                $noQUERY_STRING = true;
                 ClaroBreadCrumbs::getInstance()->prepend( $nameTools, $_SERVER['PHP_SELF'] );
                 $nameTools = get_lang('Request to remove this account');
                 $display = DISP_REQUEST_REVOQUATION;
@@ -261,7 +255,7 @@ elseif (  !claro_is_allowed_to_create_course()
     && 'reqCCstatus' == $cmd )
 {
     // display course creator status form
-    $noQUERY_STRING = TRUE;
+    $noQUERY_STRING = true;
     $display = DISP_REQUEST_COURSE_CREATOR_STATUS;
     ClaroBreadCrumbs::getInstance()->prepend( $nameTools, $_SERVER['PHP_SELF'] );
     $nameTools = get_lang('Request course creation status');
@@ -270,7 +264,7 @@ elseif ( get_conf('can_request_revoquation')
     && 'reqRevoquation' == $cmd )
 {
     // display revoquation form
-    $noQUERY_STRING = TRUE;
+    $noQUERY_STRING = true;
     ClaroBreadCrumbs::getInstance()->prepend( $nameTools, $_SERVER['PHP_SELF'] );
     $nameTools = get_lang('Request to remove this account');
     $display = DISP_REQUEST_REVOQUATION;
@@ -279,7 +273,7 @@ elseif ( 'editExtraInfo' == $cmd
     && 0 < count($extraInfoDefList) )
 {
     // display revoquation form
-    $noQUERY_STRING = TRUE;
+    $noQUERY_STRING = true;
     $display = DISP_MOREINFO_FORM;
     ClaroBreadCrumbs::getInstance()->prepend( $nameTools, $_SERVER['PHP_SELF'] );
     $nameTools = get_lang('Complementary fields');
@@ -389,7 +383,7 @@ switch ( $display )
             $currentValue = array_key_exists($extraInfoDef['propertyId'],$userInfo)
             ? $userInfo[$extraInfoDef['propertyId']]
             : $extraInfoDef['defaultValue'];
-            $requirement = (bool) (TRUE == $extraInfoDef['required']);
+            $requirement = (bool) (true == $extraInfoDef['required']);
 
             $labelExtraInfoDef = $extraInfoDef['label'];
             $out .= form_input_text('extraInfoList['.htmlentities($extraInfoDef['propertyId']).']',$currentValue,get_lang($labelExtraInfoDef),$requirement);
@@ -410,7 +404,6 @@ switch ( $display )
         break;
 
     case DISP_REQUEST_COURSE_CREATOR_STATUS :
-
 
         $out .= '<p>' . get_lang('Fill in the text area to motivate your request and then submit the form to send it to platform administrators') . '</p>';
 
@@ -457,5 +450,3 @@ switch ( $display )
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
