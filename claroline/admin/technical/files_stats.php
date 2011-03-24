@@ -30,60 +30,109 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('
 
 $viewAs = (isset($_GET['view_as']) && in_array($_GET['view_as'], array('html', 'csv')) ?
     $_GET['view_as'] : 'html');
+$lastTreatedCourseId = (!empty($_SESSION['lastTreatedCourseId']) ? (int) $_SESSION['lastTreatedCourseId'] : 0);
+$stats = (!empty($_SESSION['progressingStats']) ? $_SESSION['progressingStats'] : array());
 
 // Params
 $extensions         = explode(',', get_conf('filesStatsExtensions'));
 $coursesDirectory   = get_path('coursesRepositorySys');
+$coursesPool        = 2;
 
 // Run
-$courses        = ClaroCourse::getAllCourses();
 $allExtensions  = array_merge($extensions, array('others', 'sum'));
-$stats          = array();
+$dialogBox = new DialogBox();
 
-// Refresh and progression
-/*
-if ( $display == DISPLAY_RESULT_PANEL && ($count_course_upgraded + $count_course_error ) < $count_course )
-{
-    $refresh_time = 20;
-    $htmlHeadXtra[] = '<meta http-equiv="refresh" content="'. $refresh_time  .'" />'."\n";
-}
-*/
+// Get courses
+$tbl_mdb_names              = claro_sql_get_main_tbl();
+$tbl_course                 = $tbl_mdb_names['course'];
 
-foreach ($courses as $course)
+$req = "SELECT c.cours_id               AS id,
+               c.titulaires             AS titulars,
+               c.code                   AS sysCode,
+               c.isSourceCourse         AS isSourceCourse,
+               c.sourceCourseId         AS sourceCourseId,
+               c.intitule               AS title,
+               c.administrativeNumber   AS officialCode,
+               c.directory
+               
+        FROM `" . $tbl_course . "` AS c
+        WHERE c.cours_id > ".$lastTreatedCourseId."
+        ORDER BY c.cours_id ASC
+        LIMIT 0, ".$coursesPool;
+
+$sql = Claroline::getDatabase()->query($req);
+
+$i = 0;
+
+if ($sql->count() > 0)
 {
-    $coursePath = $coursesDirectory.'/'.$course['sysCode'];
-    $courseStats = array();
-    
-    foreach($allExtensions as $ext)
+    foreach ($sql as $course)
     {
-        $courseStats[$ext]['count']  = 0;
-        $courseStats[$ext]['size']   = 0;
-    }
-    
-    foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($coursePath)) as $file)
-    {
-        if ($file->getType() == 'file')
+        $coursePath = $coursesDirectory.'/'.$course['directory'];
+        $courseStats = array();
+        
+        // Initialize statistics to 0
+        foreach($allExtensions as $ext)
         {
-            $type = strtolower(pathinfo( $file->getFilename(), PATHINFO_EXTENSION ));
-            
-            if (in_array($type, $extensions))
+            $courseStats[$ext]['count']  = 0;
+            $courseStats[$ext]['size']   = 0;
+        }
+        
+        // Browse the file system
+        foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($coursePath)) as $file)
+        {
+            if ($file->getType() == 'file')
             {
-                $courseStats[$type]['count'] ++;
-                $courseStats[$type]['size'] += $file->getSize();
+                $type = strtolower(pathinfo( $file->getFilename(), PATHINFO_EXTENSION ));
+                
+                if (in_array($type, $extensions))
+                {
+                    $courseStats[$type]['count'] ++;
+                    $courseStats[$type]['size'] += $file->getSize();
+                }
+                else
+                {
+                    $courseStats['others']['count'] ++;
+                    $courseStats['others']['size'] += $file->getSize();
+                }
+                
+                $courseStats['sum']['count'] ++;
+                $courseStats['sum']['size'] += $file->getSize();
             }
-            else
-            {
-                $courseStats['others']['count'] ++;
-                $courseStats['others']['size'] += $file->getSize();
-            }
+        }
+        
+        $stats[$course['sysCode']]['courseTitle'] = $course['title'];
+        $stats[$course['sysCode']]['courseTitulars'] = $course['titulars'];
+        $stats[$course['sysCode']]['courseStats'] = $courseStats;
+        
+        $i++;
+        
+        // Courses pool's limit reached ?
+        if ($i == $coursesPool)
+        {
+            $_SESSION['lastTreatedCourseId'] = $course['id'];
+            $_SESSION['progressingStats'] = $stats;
             
-            $courseStats['sum']['count'] ++;
-            $courseStats['sum']['size'] += $file->getSize();
+            $htmlHeadXtra[] = '<meta http-equiv="refresh" content="1" />'."\n";
+            
+            break;
         }
     }
+}
+
+// All courses treated ?
+if ($i < $coursesPool && !$sql->valid())
+{
+    $dialogBox->success(get_lang('All courses treated !'));
     
-    $stats[$course['sysCode']]['courseTitle'] = $course['title'];
-    $stats[$course['sysCode']]['courseStats'] = $courseStats;
+    unset($_SESSION['lastTreatedCourseId']);
+    unset($_SESSION['progressingStats']);
+    
+    ksort($stats);
+}
+else
+{
+    $dialogBox->warning(get_lang('Statistics in progress, don\'t refresh until further instructions !'));
 }
 
 
@@ -93,6 +142,7 @@ foreach ($courses as $course)
 if ($viewAs == 'html')
 {
     $template = new CoreTemplate('admin_files_stats.tpl.php');
+    $template->assign('dialogBox', $dialogBox);
     $template->assign('extensions', $extensions);
     $template->assign('allExtensions', $allExtensions);
     $template->assign('stats', $stats);
@@ -110,6 +160,7 @@ elseif ($viewAs == 'csv')
         
         $csvSubTab['courseCode'] = $key;
         $csvSubTab['courseTitle'] = $elmt['courseTitle'];
+        $csvSubTab['courseTitulars'] = $elmt['courseTitulars'];
         
         foreach ($elmt['courseStats'] as $key => $elmt)
         {
@@ -121,7 +172,8 @@ elseif ($viewAs == 'csv')
     }
     
     $csvExporter = new CsvExporter(', ', '"');
-    $out = $csvExporter->exportAndSend(get_lang('files_stats'), $csvTab);
+    $fileName = get_lang('files_stats').'_'.claro_date('d-m-Y');
+    $out = $csvExporter->exportAndSend($fileName, $csvTab);
 }
 
 
