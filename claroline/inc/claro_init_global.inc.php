@@ -1,9 +1,6 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
  * CLAROLINE
@@ -214,7 +211,7 @@ if (isset($_cid) && $_courseTool['label'])
         && file_exists( get_conf('coursesRepositorySys')
             . $_course['path'] . '/conf/' . $config_code . '.conf.php' ) )
     {
-        require get_conf('coursesRepositorySys') . $_course['path'] 
+        require get_conf('coursesRepositorySys') . $_course['path']
             . '/conf/' . $config_code . '.conf.php';
 
         pushClaroMessage("Loading configuration file "
@@ -261,8 +258,8 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
     }
     
     if ( $tlabelReq !== 'CLGRP'
-        && claro_is_in_a_group() 
-        && ( !claro_is_group_allowed() 
+        && claro_is_in_a_group()
+        && ( !claro_is_group_allowed()
         || ( !claro_is_allowed_to_edit()
             && !is_tool_activated_in_groups($_cid, $tlabelReq) ) ) )
     {

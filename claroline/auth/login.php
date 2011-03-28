@@ -1,19 +1,15 @@
-<?php # $Id$
+<?php // $Id$
+
 /**
  * CLAROLINE
  *
- * This script allows users to log on platform and back to requested ressource
+ * This script allows users to log on platform and back to requested ressource.
  *
- * @version 1.9 $Revision$
- *
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLAUTH
- *
- * @author Claro Team <cvs@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLAUTH
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -381,4 +377,3 @@ else // LOGIN SUCCEEDED
         }
     }
 }
-?>
