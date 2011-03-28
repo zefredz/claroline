@@ -13,7 +13,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author Sebastien Piraux
  */
 
-include_once get_path('incRepositorySys') . '/lib/csv.class.php';
+include_once get_path('incRepositorySys') . '/../user/csv.class.php';
 
 include_once dirname(__FILE__) . '/question.class.php';
 
