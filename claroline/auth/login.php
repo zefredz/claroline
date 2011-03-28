@@ -17,7 +17,7 @@ require '../inc/claro_init_global.inc.php';
 // Keep the username in session
 if (isset($_REQUEST['login']))
 {
-    $_SESSION['lastUserName'] = $_REQUEST['login'];
+    $_SESSION['lastUserName'] = htmlspecialchars($_REQUEST['login']);
 }
 
 // Capture the source of the authentication's trigger to get back to it
@@ -97,12 +97,12 @@ $uidRequired = true;
 // The script needs the user to be authentificated
 if (!claro_is_user_authenticated() && $uidRequired)
 {
-    $defaultLoginValue= '';
-    $dialogBox = new DialogBox;
+    $defaultLoginValue  = '';
+    $dialogBox          = new DialogBox;
     
     if (isset($_SESSION['lastUserName']))
     {
-        $defaultLoginValue = $_SESSION['lastUserName'];
+        $defaultLoginValue = htmlspecialchars($_SESSION['lastUserName']);
         unset($_SESSION['lastUserName']);
     }
     

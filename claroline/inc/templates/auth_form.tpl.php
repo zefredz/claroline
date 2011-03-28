@@ -13,7 +13,7 @@
                 <?php echo $this->sourceGidFormField; ?>
                 
                 <label for="login"><?php echo get_lang('Username'); ?></label><br />
-                <input type="text" name="login" id="login" size="15" tabindex="1" value="<?php echo $this->defaultLoginValue; ?>"/><br />
+                <input type="text" name="login" id="login" size="15" tabindex="1" value="<?php echo htmlspecialchars_decode($this->defaultLoginValue); ?>"/><br />
                 <br />
                 <label for="password"><?php echo get_lang('Password'); ?></label><br />
                 <input type="password" name="password" id="password" size="15" tabindex="2" autocomplete="off"/><br />
