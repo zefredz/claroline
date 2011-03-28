@@ -5,29 +5,29 @@
  *
  * This script prupose to user to edit his own profile.
  *
- * @version     1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/Auth/
  * @author      Claro Team <cvs@claroline.net>
- * @package     Auth
+ * @package     AUTH
  */
 
 /*=====================================================================
 Init Section
 =====================================================================*/
 
-$cidReset = true;
-$gidReset = true;
-$uidRequired = true;
+$cidReset       = true;
+$gidReset       = true;
+$uidRequired    = true;
 
 require '../inc/claro_init_global.inc.php';
 
-if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if( !claro_is_user_authenticated() ) claro_disp_auth_form();
 
-$dialogBox = new DialogBox();
-$display = '';
-$error = false;
+$dialogBox  = new DialogBox();
+$display    = '';
+$error      = false;
 
 // include configuration files
 include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
@@ -82,18 +82,18 @@ if ( isset($_REQUEST['applyChange']) )
     $profile_editable = get_conf('profile_editable');
 
     // get params form the form
-    if ( isset($_REQUEST['lastname']) && in_array('name',$profile_editable) )              $user_data['lastname'] = trim($_REQUEST['lastname']);
-    if ( isset($_REQUEST['firstname']) && in_array('name',$profile_editable) )             $user_data['firstname'] = trim($_REQUEST['firstname']);
-    if ( isset($_REQUEST['officialCode']) && in_array('official_code',$profile_editable) ) $user_data['officialCode'] = trim($_REQUEST['officialCode']);
-    if ( isset($_REQUEST['username']) && in_array('login',$profile_editable) )             $user_data['username'] = trim($_REQUEST['username' ]);
-    if ( isset($_REQUEST['old_password']) && in_array('password',$profile_editable) )      $user_data['old_password'] = trim($_REQUEST['old_password']);
-    if ( isset($_REQUEST['password']) && in_array('password',$profile_editable) )          $user_data['password'] = trim($_REQUEST['password']);
-    if ( isset($_REQUEST['password_conf']) && in_array('password',$profile_editable) )     $user_data['password_conf'] = trim($_REQUEST['password_conf']);
-    if ( isset($_REQUEST['email']) && in_array('email',$profile_editable) )                $user_data['email'] = trim($_REQUEST['email']);
-    if ( isset($_REQUEST['officialEmail']) && in_array('email',$profile_editable) )        $user_data['officialEmail'] = trim($_REQUEST['officialEmail']);
-    if ( isset($_REQUEST['phone']) && in_array('phone',$profile_editable) )                $user_data['phone'] = trim($_REQUEST['phone']);
-    if ( isset($_REQUEST['language']) && in_array('language',$profile_editable) )          $user_data['language'] = trim($_REQUEST['language']);
-    if ( isset($_REQUEST['skype']) && in_array('skype',$profile_editable) )                $user_data['skype'] = trim($_REQUEST['skype']);
+    if ( isset($_REQUEST['lastname']) && in_array('name',$profile_editable) )              $user_data['lastname'] = trim(strip_tags($_REQUEST['lastname']));
+    if ( isset($_REQUEST['firstname']) && in_array('name',$profile_editable) )             $user_data['firstname'] = trim(strip_tags($_REQUEST['firstname']));
+    if ( isset($_REQUEST['officialCode']) && in_array('official_code',$profile_editable) ) $user_data['officialCode'] = trim(strip_tags($_REQUEST['officialCode']));
+    if ( isset($_REQUEST['username']) && in_array('login',$profile_editable) )             $user_data['username'] = trim(strip_tags($_REQUEST['username' ]));
+    if ( isset($_REQUEST['old_password']) && in_array('password',$profile_editable) )      $user_data['old_password'] = trim(strip_tags($_REQUEST['old_password']));
+    if ( isset($_REQUEST['password']) && in_array('password',$profile_editable) )          $user_data['password'] = trim(strip_tags($_REQUEST['password']));
+    if ( isset($_REQUEST['password_conf']) && in_array('password',$profile_editable) )     $user_data['password_conf'] = trim(strip_tags($_REQUEST['password_conf']));
+    if ( isset($_REQUEST['email']) && in_array('email',$profile_editable) )                $user_data['email'] = trim(strip_tags($_REQUEST['email']));
+    if ( isset($_REQUEST['officialEmail']) && in_array('email',$profile_editable) )        $user_data['officialEmail'] = trim(strip_tags($_REQUEST['officialEmail']));
+    if ( isset($_REQUEST['phone']) && in_array('phone',$profile_editable) )                $user_data['phone'] = trim(strip_tags($_REQUEST['phone']));
+    if ( isset($_REQUEST['language']) && in_array('language',$profile_editable) )          $user_data['language'] = trim(strip_tags($_REQUEST['language']));
+    if ( isset($_REQUEST['skype']) && in_array('skype',$profile_editable) )                $user_data['skype'] = trim(strip_tags($_REQUEST['skype']));
     
     
     if ( isset($_REQUEST['delPicture']) && $_REQUEST['delPicture'] =='true' )
@@ -311,12 +311,14 @@ switch ( $display )
             .                 '</a>'
             ;
         }
+        
         // display request course creator status
         if ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status') )
         {
             $profileMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] . '?cmd=reqCCstatus' . claro_url_relay_context('&amp;')
                                                 , get_lang('Request course creation status') );
         }
+        
         // display user revoquation
         if ( get_conf('can_request_revoquation') )
         {
