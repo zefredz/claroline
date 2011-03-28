@@ -232,7 +232,7 @@ function upgrade_main_database_course_class_to_18 ()
                 `courseId` varchar(40) NOT NULL,
                 `classId` int(11) NOT NULL default '0',
                 PRIMARY KEY  (`courseId`,`classId`) ) 
-                TYPE=MyISAM ";
+                ENGINE=MyISAM ";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -271,7 +271,7 @@ function upgrade_main_database_module_to_18 ()
               `type`       enum('tool','applet')            NOT NULL default 'applet',
               `script_url` char(255)                        NOT NULL default 'entry.php',
               PRIMARY KEY  (`id`)
-            ) TYPE=MyISAM";
+            ) ENGINE=MyISAM";
             
             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$tbl_mdb_names['module_info'] . "` (
               id             smallint     NOT NULL auto_increment,
@@ -284,7 +284,7 @@ function upgrade_main_database_module_to_18 ()
               website        varchar(255) default NULL,
               license        varchar(50)  default NULL,
               PRIMARY KEY (id)
-            ) TYPE=MyISAM AUTO_INCREMENT=0";
+            ) ENGINE=MyISAM AUTO_INCREMENT=0";
             
             $sqlForUpdate[]= "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['dock'] . "` (
               id        smallint unsigned NOT NULL auto_increment,
@@ -292,7 +292,7 @@ function upgrade_main_database_module_to_18 ()
               name      varchar(50)          NOT NULL default '',
               rank      tinyint  unsigned NOT NULL default '0',
               PRIMARY KEY  (id)
-            ) TYPE=MyISAM AUTO_INCREMENT=0";
+            ) ENGINE=MyISAM AUTO_INCREMENT=0";
                         
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -435,7 +435,7 @@ function upgrade_main_database_right_to_18 ()
                `required` tinyint(4) default '0',
                PRIMARY KEY  (`profile_id`),
                KEY `type` (`type`)
-            )TYPE=MyISAM " ;
+            )ENGINE=MyISAM " ;
              
             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$tbl_mdb_names['right_action'] . "` (
                `id` int(11) NOT NULL auto_increment,
@@ -447,7 +447,7 @@ function upgrade_main_database_right_to_18 ()
                PRIMARY KEY  (`id`),
                KEY `tool_id` (`tool_id`),
                KEY `type` (`type`)
-             )TYPE=MyISAM ";
+             )ENGINE=MyISAM ";
              
              $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$tbl_mdb_names['right_rel_profile_action'] . "` (
                `profile_id` int(11) NOT NULL,
@@ -455,7 +455,7 @@ function upgrade_main_database_right_to_18 ()
                `courseId`  varchar(40) NOT NULL default '',
                `value` tinyint(4) default '0',
                PRIMARY KEY  (`profile_id`,`action_id`,`courseId`)
-             ) TYPE=MyISAM ";
+             ) ENGINE=MyISAM ";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -548,7 +548,7 @@ function upgrade_main_database_user_property_to_18 ()
               `propertyValue` varchar(255) NOT NULL default '',
               `scope`         varchar(45) NOT NULL default '',
               PRIMARY KEY  (`scope`(2),`propertyId`,`userId`)
-            ) TYPE=MyISAM ";
+            ) ENGINE=MyISAM ";
 
             $sqlForUpdate[]= "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['property_definition'] . "` (
               `propertyId` varchar(50) NOT NULL default '',
@@ -562,7 +562,7 @@ function upgrade_main_database_user_property_to_18 ()
               `acceptedValue` text NOT NULL,
               PRIMARY KEY  (`contextScope`(2),`propertyId`),
               KEY `rank` (`rank`)
-            ) TYPE=MyISAM ";
+            ) ENGINE=MyISAM ";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;

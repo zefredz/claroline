@@ -549,7 +549,7 @@ function tracking_upgrade_to_19($course_code)
                       `type` varchar(60) NOT NULL DEFAULT '',
                       `data` text NOT NULL,
                       PRIMARY KEY  (`id`)
-                    ) TYPE=MyISAM;";
+                    ) ENGINE=MyISAM;";
                 
                 if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step;
@@ -752,7 +752,7 @@ function forum_upgrade_to_19( $course_code )
                         `forum_id` int(10) NOT NULL default '0',
                         PRIMARY KEY  (`notify_id`),
                         KEY `SECONDARY` (`user_id`,`forum_id`)
-                    ) TYPE=MyISAM;";
+                    ) ENGINE=MyISAM;";
                 
                 if( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step;
