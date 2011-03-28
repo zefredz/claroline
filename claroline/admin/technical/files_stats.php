@@ -110,6 +110,7 @@ if ($sql->count() > 0)
         // Courses pool's limit reached ?
         if ($i == $coursesPool)
         {
+            $_SESSION['inProgress'] = true;
             $_SESSION['lastTreatedCourseId'] = $course['id'];
             $_SESSION['progressingStats'] = $stats;
             
@@ -127,53 +128,59 @@ if ($i < $coursesPool && !$sql->valid())
     
     unset($_SESSION['lastTreatedCourseId']);
     unset($_SESSION['progressingStats']);
+    unset($_SESSION['inProgress']);
     
     ksort($stats);
 }
-else
+
+
+
+
+if (!isset($_SESSION['inProgress']))
 {
-    $dialogBox->warning(get_lang('Statistics in progress, don\'t refresh until further instructions !'));
-}
-
-
-
-
-
-if ($viewAs == 'html')
-{
-    $template = new CoreTemplate('admin_files_stats.tpl.php');
-    $template->assign('dialogBox', $dialogBox);
-    $template->assign('extensions', $extensions);
-    $template->assign('allExtensions', $allExtensions);
-    $template->assign('stats', $stats);
-    
-    $claroline->display->body->appendContent($template->render());
-    
-    echo $claroline->display->render();
-}
-elseif ($viewAs == 'csv')
-{
-    $csvTab = array();
-    foreach ($stats as $key => $elmt)
+    if ($viewAs == 'html')
     {
-        $csvSubTab = array();
+        $template = new CoreTemplate('admin_files_stats.tpl.php');
+        $template->assign('dialogBox', $dialogBox);
+        $template->assign('extensions', $extensions);
+        $template->assign('allExtensions', $allExtensions);
+        $template->assign('stats', $stats);
         
-        $csvSubTab['courseCode'] = $key;
-        $csvSubTab['courseTitle'] = $elmt['courseTitle'];
-        $csvSubTab['courseTitulars'] = $elmt['courseTitulars'];
+        $claroline->display->body->appendContent($template->render());
         
-        foreach ($elmt['courseStats'] as $key => $elmt)
+        echo $claroline->display->render();
+    }
+    elseif ($viewAs == 'csv')
+    {
+        $csvTab = array();
+        foreach ($stats as $key => $elmt)
         {
-            $csvSubTab[$key.'_count'] = $elmt['count'];
-            $csvSubTab[$key.'_size'] = format_bytes($elmt['size']);
+            $csvSubTab = array();
+            
+            $csvSubTab['courseCode'] = $key;
+            $csvSubTab['courseTitle'] = $elmt['courseTitle'];
+            $csvSubTab['courseTitulars'] = $elmt['courseTitulars'];
+            
+            foreach ($elmt['courseStats'] as $key => $elmt)
+            {
+                $csvSubTab[$key.'_count'] = $elmt['count'];
+                $csvSubTab[$key.'_size'] = format_bytes($elmt['size']);
+            }
+            
+            $csvTab[] = $csvSubTab;
         }
         
-        $csvTab[] = $csvSubTab;
+        $csvExporter = new CsvExporter(', ', '"');
+        $fileName = get_lang('files_stats').'_'.claro_date('d-m-Y');
+        $out = $csvExporter->exportAndSend($fileName, $csvTab);
     }
+}
+else
+{
+    $dialogBox->warning(get_lang('Statistics in progress, please don\'t refresh until further instructions !'));
     
-    $csvExporter = new CsvExporter(', ', '"');
-    $fileName = get_lang('files_stats').'_'.claro_date('d-m-Y');
-    $out = $csvExporter->exportAndSend($fileName, $csvTab);
+    $claroline->display->body->appendContent($dialogBox->render());
+    echo $claroline->display->render();
 }
 
 
