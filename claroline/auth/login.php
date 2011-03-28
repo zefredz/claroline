@@ -368,4 +368,3 @@ else // LOGIN SUCCEEDED
         }
     }
 }
-?>
