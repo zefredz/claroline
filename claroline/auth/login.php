@@ -17,7 +17,7 @@ require '../inc/claro_init_global.inc.php';
 // Keep the username in session
 if (isset($_REQUEST['login']))
 {
-    $_SESSION['lastUserName'] = htmlspecialchars($_REQUEST['login']);
+    $_SESSION['lastUserName'] = strip_tags($_REQUEST['login']);
 }
 
 // Capture the source of the authentication's trigger to get back to it
@@ -55,7 +55,6 @@ else
 
 // Immediatly redirect to the CAS authentication process
 // If CAS is the only authentication system enabled
-
 if (get_conf('claro_CasEnabled',false) && ! get_conf('claro_displayLocalAuthForm',true))
 {
     claro_redirect($_SERVER['PHP_SELF'] . '?authModeReq=CAS&sourceUrl='.urlencode($sourceUrl));
@@ -63,33 +62,32 @@ if (get_conf('claro_CasEnabled',false) && ! get_conf('claro_displayLocalAuthForm
 
 if ( $sourceUrl )
 {
-    $sourceUrlFormField = '<input type="hidden" name="sourceUrl" value="'.htmlspecialchars($sourceUrl).'" />';
+    $sourceUrl = htmlspecialchars($sourceUrl);
 }
 else
 {
-    $sourceUrlFormField = '';
+    $sourceUrl = '';
 }
 
 if (claro_is_in_a_course())
 {
-    $sourceCidFormField = '<input type="hidden" name="sourceCid" value="' . htmlspecialchars(claro_get_current_course_id()) . '" />';
+    $sourceCid = htmlspecialchars(claro_get_current_course_id());
 }
 else
 {
-    $sourceCidFormField = '';
+    $sourceCid = '';
 }
 
 if (claro_is_in_a_group())
 {
-    $sourceGidFormField = '<input type="hidden" name="sourceGid" value="' . htmlspecialchars(claro_get_current_group_id()) . '" />';
+    $sourceGid = htmlspecialchars(claro_get_current_group_id());
 }
 else
 {
-    $sourceGidFormField = '';
+    $sourceGid = '';
 }
 
 $cidRequired = (isset($_REQUEST['cidRequired']) ? $_REQUEST['cidRequired'] : false);
-$cidRequiredFormField = ($cidRequired ? '<input type="hidden" name="cidRequired" value="true" />' : '');
 
 //TODO: possibility to continue in anonymous
 $uidRequired = true;
@@ -102,7 +100,7 @@ if (!claro_is_user_authenticated() && $uidRequired)
     
     if (isset($_SESSION['lastUserName']))
     {
-        $defaultLoginValue = htmlspecialchars($_SESSION['lastUserName']);
+        $defaultLoginValue = strip_tags($_SESSION['lastUserName']);
         unset($_SESSION['lastUserName']);
     }
     
@@ -110,7 +108,7 @@ if (!claro_is_user_authenticated() && $uidRequired)
     {
         if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
         {
-            if ( AuthManager::getFailureMessage() )
+            if (AuthManager::getFailureMessage())
             {
                 // need to use get_lang two times...
                 $dialogBox->error( get_lang( AuthManager::getFailureMessage() ) );
@@ -120,7 +118,7 @@ if (!claro_is_user_authenticated() && $uidRequired)
                 $dialogBox->error( get_lang('Login failed.') . ' ' . get_lang('Please try again.') );
             }
             
-            if ( get_conf('allowSelfReg',false))
+            if (get_conf('allowSelfReg', false))
             {
                 $dialogBox->warning( get_lang('If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.',array('%url'=> get_path('url') . '/claroline/auth/inscription.php')) );
             }
@@ -146,10 +144,10 @@ if (!claro_is_user_authenticated() && $uidRequired)
     $template = new CoreTemplate('auth_form.tpl.php');
     $template->assign('dialogBox', $dialogBox);
     $template->assign('formAction', $formAction);
-    $template->assign('sourceUrlFormField', $sourceUrlFormField);
-    $template->assign('cidRequiredFormField', $cidRequiredFormField);
-    $template->assign('sourceCidFormField', $sourceCidFormField);
-    $template->assign('sourceGidFormField', $sourceGidFormField);
+    $template->assign('sourceUrl', $sourceUrl);
+    $template->assign('sourceCid', $sourceCid);
+    $template->assign('sourceGid', $sourceGid);
+    $template->assign('cidRequired', $cidRequired);
     $template->assign('defaultLoginValue', $defaultLoginValue);
     $template->assign('sourceUrl', $sourceUrl);
     
@@ -173,10 +171,10 @@ elseif (!claro_is_in_a_course() && $cidRequired)
     
     $template = new CoreTemplate('select_course_form.tpl.php');
     $template->assign('formAction', $_SERVER['PHP_SELF']);
-    $template->assign('sourceUrlFormField', $sourceUrlFormField);
-    $template->assign('cidRequiredFormField', $cidRequiredFormField);
-    $template->assign('sourceCidFormField', $sourceCidFormField);
-    $template->assign('sourceGidFormField', $sourceGidFormField);
+    $template->assign('sourceUrl', $sourceUrl);
+    $template->assign('sourceCid', $sourceCid);
+    $template->assign('sourceGid', $sourceGid);
+    $template->assign('cidRequired', $cidRequired);
     $template->assign('courseList', $courseList);
     
     $claroline->display->body->appendContent($template->render());

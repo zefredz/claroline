@@ -7,16 +7,19 @@
         <?php echo $this->dialogBox->render(); ?>
         <form class="claroLoginForm" action ="<?php echo $this->formAction; ?>" method="post">
             <fieldset>
-                <?php echo $this->sourceUrlFormField; ?>
-                <?php echo $this->cidRequiredFormField; ?>
-                <?php echo $this->sourceCidFormField; ?>
-                <?php echo $this->sourceGidFormField; ?>
+                <input type="hidden" name="sourceUrl" value="<?php echo $this->sourceUrl; ?>" />
+                <input type="hidden" name="sourceCid" value="<?php echo $this->sourceCid; ?>" />
+                <input type="hidden" name="sourceGid" value="<?php echo $this->sourceGid; ?>" />
+                
+                <?php if ($this->cidRequired) : ?>
+                <input type="hidden" name="cidRequired" value="true" />
+                <?php endif; ?>
                 
                 <label for="login"><?php echo get_lang('Username'); ?></label><br />
-                <input type="text" name="login" id="login" size="15" tabindex="1" value="<?php echo htmlspecialchars_decode($this->defaultLoginValue); ?>"/><br />
+                <input type="text" name="login" id="login" size="15" tabindex="1" value="<?php echo htmlspecialchars($this->defaultLoginValue); ?>"/><br />
                 <br />
                 <label for="password"><?php echo get_lang('Password'); ?></label><br />
-                <input type="password" name="password" id="password" size="15" tabindex="2" autocomplete="off"/><br />
+                <input type="password" name="password" id="password" size="15" tabindex="2" autocomplete="off" /><br />
                 <br />
                 <input type="submit" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
                 <?php echo claro_html_button(get_path('clarolineRepositoryWeb'), get_lang('Cancel')); ?>
