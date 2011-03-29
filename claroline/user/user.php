@@ -1,9 +1,11 @@
 <?php // $Id$
 
 /**
- * User list tool
+ * CLAROLINE
  *
- * @version     1.9 $Revision$
+ * Management tools for the users of a specific course.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>

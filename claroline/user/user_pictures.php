@@ -1,12 +1,16 @@
 <?php //$Id$
+
 /**
  * CLAROLINE
- * @version     1.10 $Revision$
+ *
+ * Display all the pictures for a specific course list of users.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     USER
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
- * @since 1.10
+ * @since       1.10
  */
 
 /*=====================================================================
