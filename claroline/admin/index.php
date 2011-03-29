@@ -67,7 +67,7 @@ $menu['AdminUser'][] = '<form name="searchUser" action="admin_users.php" method=
                      . '</form>';
 
 $menu['AdminUser'][] = '<a href="admin_users.php">'.get_lang('User list').'</a>';
-$menu['AdminUser'][] = '<a href="../messaging/sendmessage.php?cmd=rqMessageToAllUsers>'.get_lang('Send a message to all users').'</a>';
+$menu['AdminUser'][] = '<a href="../messaging/sendmessage.php?cmd=rqMessageToAllUsers">'.get_lang('Send a message to all users').'</a>';
 $menu['AdminUser'][] = '<a href="adminaddnewuser.php">'.get_lang('Create user').'</a>';
 $menu['AdminUser'][] = '<a href="../user/AddCSVusers.php?AddType=adminTool">'.get_lang('Add a user list').'</a>';
 $menu['AdminUser'][] = '<a href="admin_class.php">'.get_lang('Manage classes').'</a>';
