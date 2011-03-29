@@ -188,7 +188,7 @@ function user_set_properties($userId, $propertyList)
 
     foreach($sqlColumnList as $columnName => $propertyName)
     {
-        if ( array_key_exists($propertyName, $propertyList) && ($propertyList[$propertyName] !== ''))
+        if ( array_key_exists($propertyName, $propertyList) && !is_null($propertyList[$propertyName]) )
         {
             $setList[] = $columnName . "= '"
             . claro_sql_escape($propertyList[$propertyName]). "'";
