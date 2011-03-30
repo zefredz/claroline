@@ -1,17 +1,13 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLAUTH
- *
- * @author Claro Team <cvs@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLAUTH
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 define('DISP_REGISTRATION_FORM',__LINE__);
@@ -42,28 +38,27 @@ if ( '' == $agreementText && file_exists('./textzone_inscription.inc.html'))
 }
 
 
-if ( get_conf('allowSelfReg',false) )
+if ( get_conf('allowSelfReg', false) )
 {
     // Initialise variables
-    $error = false;
-    $messageList = array();
-    $mailSent = false;
-
+    $error          = false;
+    $messageList    = array();
+    $mailSent       = false;
+    
     // Initialise field variable from subscription form
-
     $user_data = user_initialise();
-
+    
     if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
     else                           $cmd = '';
-
+    
     /**
      * Main Section
      */
-
+    
     if ( 'registration' == $cmd )
     {
         // get params from the form
-
+        
         if ( isset($_REQUEST['lastname']) )      $user_data['lastname']      = strip_tags(trim($_REQUEST['lastname'])) ;
         if ( isset($_REQUEST['firstname']) )     $user_data['firstname']     = strip_tags(trim($_REQUEST['firstname'])) ;
         if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode']  = strip_tags(trim($_REQUEST['officialCode'])) ;
@@ -75,20 +70,19 @@ if ( get_conf('allowSelfReg',false) )
         if ( isset($_REQUEST['phone']) )         $user_data['phone']  = trim($_REQUEST['phone']);
         if ( isset($_REQUEST['isCourseCreator']))$user_data['isCourseCreator'] = (int) $_REQUEST['isCourseCreator'];
         if ( isset($_REQUEST['language']) )      $user_data['language'] = $_REQUEST['language'];
-
+        
         // validate forum params
-
+        
         $messageList = user_validate_form_registration($user_data);
-
+        
         if ( count($messageList) == 0 )
         {
-            // register the new user in the claroline platform
-
+            // Register the new user in the claroline platform
+            
             $_uid = user_create($user_data);
-
+            
             if ( claro_is_user_authenticated() )
             {
-
                 // add value in session
                 $_user = user_get_properties(claro_get_current_user_id());
                 $_user['firstName'] = $_user['firstname'];
@@ -96,21 +90,20 @@ if ( get_conf('allowSelfReg',false) )
                 $_user['mail'     ] = $_user['email'];
                 $_user['lastLogin'] = claro_time() - (24 * 60 * 60); // DATE_SUB(CURDATE(), INTERVAL 1 DAY)
                 $is_allowedCreateCourse = ($user_data['isCourseCreator'] == 1) ? TRUE : FALSE ;
-
+                
                 $_SESSION['_uid'] = claro_get_current_user_id();
                 $_SESSION['_user'] = $_user;
                 $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
-
+                
                 // track user login
                 $claroline->notifier->event( 'user_login', array('data' => array('ip' => $_SERVER['REMOTE_ADDR']) ) );
-
+                
                 // last user login date is now
                 $user_last_login_datetime = 0; // used as a unix timestamp it will correspond to : 1 1 1970
                 $_SESSION['user_last_login_datetime'] = $user_last_login_datetime;
-
+                
                 // send info to user by email
                 $mailSent = user_send_registration_mail(claro_get_current_user_id(), $user_data);
-
             } // if _uid
             else
             {
@@ -122,18 +115,15 @@ if ( get_conf('allowSelfReg',false) )
                 {
                     $messageList[] = get_lang('Unknown error');
                 }
-
             }
-
         } // end register user
         else
         {
-            // user validate form return error messages
+            // User validate form return error messages
             $error = true;
         }
-
     }
-
+    
     if ( 'registration' == $cmd && $error == false )
     {
         $display = DISP_REGISTRATION_SUCCEED;
@@ -145,7 +135,6 @@ if ( get_conf('allowSelfReg',false) )
     {
         $display = DISP_REGISTRATION_FORM;
         $subscriptionText = claro_text_zone::get_content('textzone_inscription_form');
-
     }
     else
     {
@@ -172,24 +161,22 @@ ClaroBreadCrumbs::getInstance()->append( get_lang('Create user account'), 'inscr
 $out = '';
 
 // Display Title
-
 $out .= claro_html_tool_title(get_lang('Create user account'));
 
 if ( DISP_REGISTRATION_SUCCEED == $display )
 {
-    // registration succeeded
-
-
+    // Registration succeeded
+    
     $out .= '<p>'  . "\n"
     .    get_lang('Dear %firstname %lastname, your personal settings have been registered.', array('%firstname'=>$user_data['firstname'],'%lastname'=>$user_data['lastname']))  . "\n"
     ;
-
+    
     if ( $mailSent ) $out .= '<br />' . "\n" . get_lang('An email has been sent to help you remember your user name and password.');
     $out .= '</p>' . "\n";
-
+    
     if ( claro_is_allowed_to_create_course() ) $out .= '<p>' . get_lang('You can now create your  course') . '</p>' . "\n";
     else                                       $out .= '<p>' . get_lang('You can now select, in the list, the courses you want to access') . '</p>' . "\n";
-
+    
     $out .= '<form action="../../index.php?cidReset=1" >'
     .    '<input type="submit" name="next" value="' . get_lang('Next') . '" />' . "\n"
     .    '</form>' . "\n"
@@ -197,8 +184,6 @@ if ( DISP_REGISTRATION_SUCCEED == $display )
 }
 elseif ( DISP_REGISTRATION_AGREEMENT == $display )
 {
-
-
     if ( trim ($agreementText) != '')
     {
         $out .= '<div class="info">'
@@ -206,7 +191,7 @@ elseif ( DISP_REGISTRATION_AGREEMENT == $display )
         .    '</div>'
         ;
     }
-
+    
     $out .= '<br />'
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" >'
     .    '<input type="hidden" name="cmd" value="agree" />' . "\n"
@@ -217,26 +202,25 @@ elseif ( DISP_REGISTRATION_AGREEMENT == $display )
 }
 elseif (  DISP_REGISTRATION_NOT_ALLOWED == $display )
 {
-
     $out .= claro_html_msg_list(array(array('info'=>    get_lang('Subscription not allowed'))));
-
+    
     $out .= '<br />'
     .    '<form action="' . get_conf('rootWeb','/') . '" >'
     .    '<input type="submit" name="next" value="' . get_lang('Ok') . '" />' . "\n"
     .    '</form>' . "\n"
     ;
 }
-elseif ( DISP_REGISTRATION_FORM == $display  )
+elseif ( DISP_REGISTRATION_FORM == $display )
 {
-    //  if registration failed display error message
-
+    // If registration failed display error message
+    
     if ( count($messageList) > 0 )
     {
         $dialogBox = new DialogBox();
         $dialogBox->error( implode('<br />', $messageList) );
         $out .= $dialogBox->render();
     }
-
+    
     if ( trim ($subscriptionText) != '')
     {
         $out .= '<div class="info subscribe">'
@@ -244,16 +228,10 @@ elseif ( DISP_REGISTRATION_FORM == $display  )
         .    '</div>'
         ;
     }
-
-    $out .= user_html_form_registration($user_data);
-}
-else
-{
-    // DISPLAY ERROR
+    
+    $out .= user_html_form();
 }
 
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

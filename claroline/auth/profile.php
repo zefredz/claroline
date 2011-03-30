@@ -56,9 +56,9 @@ CONTROLER Section
 
 $extraInfoDefList = get_userInfoExtraDefinitionList();
 
-
+$userId = claro_get_current_user_id();
 $user_data = user_initialise();
-$user_data = user_get_properties(claro_get_current_user_id());
+$user_data = user_get_properties($userId);
 
 $acceptedCmdList = array( 'exCCstatus'
                         , 'exRevoquation'
@@ -367,7 +367,7 @@ switch ( $display )
         $out .= '<p>'
         .    claro_html_menu_horizontal($profileMenu)
         .    '</p>'
-        .    user_html_form_profile($user_data)
+        .    user_html_form($userId)
         ;
 
         break;

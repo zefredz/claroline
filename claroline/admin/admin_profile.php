@@ -46,7 +46,7 @@ $dialogBox = new DialogBox;
 
 // see which user we are working with ...
 
-if ( empty($_REQUEST['uidToEdit']) ) claro_redirect('adminusers.php');
+if ( empty($_REQUEST['uidToEdit']) ) claro_redirect('admin_users.php');
 else                                 $userId = $_REQUEST['uidToEdit'];
 
 $user_data = user_get_properties($userId);
@@ -81,7 +81,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
     if ( isset($_POST['phone']) )          $user_data['phone'] = trim($_POST['phone']);
     if ( isset($_POST['language']) )       $user_data['language'] = trim($_POST['language']);
     if ( isset($_POST['isCourseCreator'])) $user_data['isCourseCreator'] = (int) $_POST['isCourseCreator'];
-    if ( isset($_POST['is_admin']) )       $user_data['is_admin'] = (bool) $_POST['is_admin'];
+    if ( isset($_POST['isAdmin']) )        $user_data['isAdmin'] = (bool) $_POST['isAdmin'];
     if ( isset($_REQUEST['skype']) )       $user_data['skype'] = trim($_REQUEST['skype']);
     
     if ( isset($_POST['delPicture']) && $_POST['delPicture'] =='true' )
@@ -188,7 +188,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
         $dialogBox->success( get_lang('Changes have been applied to the user settings') );
 
         // set user admin parameter
-        if ( $user_data['is_admin'] ) user_set_platform_admin(true, $userId);
+        if ( $user_data['isAdmin'] ) user_set_platform_admin(true, $userId);
         else                          user_set_platform_admin(false, $userId);
 
         //$messageList[] = get_lang('Changes have been applied to the user settings');
@@ -213,7 +213,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 // Prepend in reverse order !!!
 if( isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist')
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('User list'), get_path('rootAdminWeb') . 'adminusers.php' );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('User list'), get_path('rootAdminWeb') . 'admin_users.php' );
 }
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
@@ -229,7 +229,7 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$user_data['is_admin'] = user_is_admin($userId);
+$user_data['isAdmin'] = user_is_admin($userId);
 
 
 $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
@@ -251,12 +251,16 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
 .             '</a>'
 ;
 
+$cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">'
+.             '<img src="' . get_icon_url('course') . '" alt="'.get_lang('User course list').'" /> ' . get_lang('User course list')
+.             '</a>'
+;
+
 $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
 .             '?uidToEdit=' . $userId
 .             '&amp;cmd=rqDelete" '
-//.             'onclick="return confirmation(\'' . $user_data['username'] . '\');"
 .             ' id="delete" >'
-.             '<img src="' . get_icon_url('deluser') . '" /> '
+.             '<img src="' . get_icon_url('deluser') . '" alt="'.get_lang('Delete user').'" /> '
 .             get_lang('Delete user')
 .             '</a>'
 ;
@@ -270,27 +274,14 @@ $cmd_menu[] = '<a class="claroCmd" href="../messaging/sendmessage.php'
 
 if (isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist' ) // if we come form user list, we must display go back to list
 {
-    $cmd_menu[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to user list') . '</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="admin_users.php" >' . get_lang('Back to user list') . '</a>';
 }
 
 /**
  * DISPLAY
  */
 
-$out = '';
-
-// Display tool title
-$out .= claro_html_tool_title($nameTools)
-.   $dialogBox->render()
-// Display "form and info" about the user
-.    '<p>'
-.    claro_html_menu_horizontal($cmd_menu)
-.    '</p>'
-.    user_html_form_admin_user_profile($user_data)
-;
-if (!is_null($dgExtra)) $out .= $dgExtra->render();
-
-$out .=
+$htmlHeadXtra[] =
 '<script type="text/javascript">
     $(document).ready(function(){
         $("#delete").click(function(){
@@ -298,6 +289,20 @@ $out .=
         }).attr("href","adminuserdeleted.php?uidToEdit=' . $userId . '&cmd=exDelete");
     });
 </script>';
+
+$out = '';
+
+// Display tool title
+$out .= claro_html_tool_title($nameTools)
+.   $dialogBox->render()
+// Display "form and info" about the user
+.   '<p>'
+.   claro_html_menu_horizontal($cmd_menu)
+.   '</p>'
+.   user_html_form($userId)
+;
+
+if (!is_null($dgExtra)) $out .= $dgExtra->render();
 
 $claroline->display->body->appendContent($out);
 

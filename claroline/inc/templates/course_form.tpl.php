@@ -359,6 +359,7 @@
             <input type="submit" name="changeProperties" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
             <?php echo claro_html_button($this->cancelUrl, get_lang('Cancel')); ?>
         </dt>
+        <dd></dd>
     </dl>
 </form>
 

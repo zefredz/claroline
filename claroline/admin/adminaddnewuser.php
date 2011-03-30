@@ -49,7 +49,7 @@ else                           $cmd = '';
 if ( $cmd == 'registration' )
 {
     // get params from the form
-
+    
     if ( isset($_REQUEST['lastname']) )      $user_data['lastname']      = strip_tags(trim($_REQUEST['lastname'])) ;
     if ( isset($_REQUEST['firstname']) )     $user_data['firstname']     = strip_tags(trim($_REQUEST['firstname'])) ;
     if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode']  = strip_tags(trim($_REQUEST['officialCode'])) ;
@@ -60,12 +60,12 @@ if ( $cmd == 'registration' )
     if ( isset($_REQUEST['language']) )      $user_data['language']   = trim($_REQUEST['language']);
     if ( isset($_REQUEST['phone']) )         $user_data['phone']         = trim($_REQUEST['phone']);
     if ( isset($_REQUEST['isCourseCreator']) ) $user_data['isCourseCreator'] = (int) $_REQUEST['isCourseCreator'];
-
+    
     $user_data['language'] = null;
     // validate forum params
-
+    
     $messageList = user_validate_form_registration($user_data);
-
+    
     if ( count($messageList) == 0 )
     {
         // register the new user in the claroline platform
@@ -86,7 +86,7 @@ if ( $cmd == 'registration' )
                                                , get_lang('Create another new user'));
             $newUserMenu[]= claro_html_cmd_link( 'index.php'
                                                , get_lang('Back to administration page'));
-
+            
             $display = DISP_REGISTRATION_SUCCEED;
             // send a mail to the user
             if (false !== user_send_registration_mail($inserted_uid,$user_data))
@@ -98,7 +98,6 @@ if ( $cmd == 'registration' )
                 $dialogBox->warning( get_lang('No mail sent to user') );
                 // TODO  display in a popup "To Print" with  content to give to user.
             };
-
         }
     }
     else
@@ -132,7 +131,7 @@ $htmlHeadXtra[] =
 /* end of hack */
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
-$noQUERY_STRING   = TRUE;
+$noQUERY_STRING   = true;
 
 if ( $display == DISP_REGISTRATION_FORM )
 {
@@ -144,20 +143,16 @@ $out = '';
 // Display title
 
 $out .= claro_html_tool_title( array('mainTitle'=>$nameTools ) )
-.    $dialogBox->render()
-;
+      . $dialogBox->render();
 
 if ( $display == DISP_REGISTRATION_SUCCEED )
 {
     $out .= claro_html_list($newUserMenu);
 }
 else // $display == DISP_REGISTRATION_FORM;
-
 {
     //  if registration failed display error message
-
-    $out .= user_html_form_admin_add_new_user($user_data)
-    ;
+    $out .= user_html_form();
 }
 
 $claroline->display->body->appendContent($out);

@@ -71,7 +71,7 @@ $userData['password'     ] = isset($_REQUEST['password'        ]) ? trim($_REQUE
 $userData['password_conf'] = isset($_REQUEST['password_conf'   ]) ? trim($_REQUEST['password_conf'          ])  : null;
 
 $userData['status'     ] = isset($_REQUEST['status'     ]) ? (int)  $_REQUEST['status'     ] : null;
-$userData['tutor'      ] = isset($_REQUEST['tutor'      ]) ? (bool) $_REQUEST['tutor'      ] : null;
+$userData['courseTutor'] = isset($_REQUEST['courseTutor']) ? (bool) $_REQUEST['courseTutor'] : null;
 $userData['courseAdmin'] = isset($_REQUEST['courseAdmin']) ? (bool) $_REQUEST['courseAdmin'] : null;
 
 $userData['confirmUserCreate'] = isset($_REQUEST['confirmUserCreate']) ? $_REQUEST['confirmUserCreate'] : null;
@@ -192,7 +192,7 @@ if ( $cmd == 'registration' )
 
     if ( $userId )
     {
-        $courseRegSucceed = user_add_to_course($userId, claro_get_current_course_id(), $userData['courseAdmin'], $userData['tutor'],false);
+        $courseRegSucceed = user_add_to_course($userId, claro_get_current_course_id(), $userData['courseAdmin'], $userData['courseTutor'],false);
         Console::log(
             "{$userId} enroled to course "
             .  claro_get_current_course_id()
@@ -281,10 +281,10 @@ else
     if ($displayResultTable) //display result of search (if any)
     {
         $enrollmentLabel = $userData['courseAdmin'] ? get_lang('Enrol as teacher') : get_lang('Enrol as student');
-        $enrollmentLabel .= $userData['tutor'] ? '&nbsp;-&nbsp;' . get_lang('tutor') : '';
+        $enrollmentLabel .= $userData['courseTutor'] ? '&nbsp;-&nbsp;' . get_lang('tutor') : '';
                 
         $regUrlAddParam = '';
-        if ( $userData['tutor'        ] ) $regUrlAddParam .= '&amp;tutor=1';
+        if ( $userData['courseTutor'   ] ) $regUrlAddParam .= '&amp;courseTutor=1';
         if ( $userData['courseAdmin'  ] ) $regUrlAddParam .= '&amp;courseAdmin=1';
 
         $out .= '<a name="resultTable"></a>'
@@ -358,7 +358,7 @@ else
         {
             $out .= '<p>' . get_lang('Add user manually') . ' :</p>'
             .    '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n"
-            .    user_html_form_add_new_user($userData)
+            .   user_html_form()
             ;
         }
         else
@@ -374,5 +374,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

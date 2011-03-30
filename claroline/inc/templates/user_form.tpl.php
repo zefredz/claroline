@@ -1,9 +1,5 @@
 <!-- $Id$ -->
 
-<?php echo claro_html_tool_title($this->formTitle); ?>
-
-<?php echo $this->dialogBox->render(); ?>
-
 <form action="<?php echo $this->formAction; ?>" method="post" enctype="multipart/form-data">
     <?php echo $this->relayContext ?>
     <input type="hidden" id="cmd" name="cmd" value="registration" />
@@ -61,7 +57,7 @@
             <dt>
                 <label for="officialCode">
                     <?php echo get_lang('Administrative code'); ?>
-                    <?php if (get_conf('userOfficialCodeCanBeEmpty')) : ?>
+                    <?php if (!get_conf('userOfficialCodeCanBeEmpty')) : ?>
                     <span class="required">*</span>
                     <?php endif; ?>
                 </label>
@@ -88,13 +84,13 @@
             </dd>
             <?php endif; ?>
             
-            <?php if (get_conf('allow_profile_picture') && !empty($this->data['user_id'])) : ?>
+            <?php if (get_conf('allow_profile_picture') && in_array('picture', $this->editableFields) && !empty($this->data['user_id'])) : ?>
             <dt>
                 <label for="picture">
                     <?php echo get_lang('User picture'); ?>
                 </label>
             </dt>
-            <?php if (in_array('picture', $this->editableFields)) : ?>
+            <?php if (!empty($this->pictureUrl)) : ?>
             <dd>
                 <img class="userPicture" src="<?php echo $this->pictureUrl; ?>" alt="<?php echo get_lang('User picture'); ?>" />
                 <br />
@@ -126,6 +122,15 @@
         </legend>
         
         <dl>
+            <?php if (empty($this->data['user_id'])) : ?>
+            <dt></dt>
+            <dd>
+                <p class="notice">
+                    <?php echo get_lang('Choose now a username and a password for the user account'); ?><br />
+                    <?php echo get_lang('Memorize them, you will use them the next time you will enter to this site.'); ?>
+                </p>
+            </dd>
+            <?php endif; ?>
             <?php if (!empty($this->data['user_id']) && claro_is_platform_admin()) : ?>
             <dt>
                 <?php echo get_lang('User id'); ?>
@@ -134,20 +139,8 @@
                 <?php echo $this->data['user_id']; ?>
             </dd>
             <?php endif; ?>
-            <dt>
-                <label for="email">
-                    <?php echo get_lang('Email'); ?>
-                </label>
-            </dt>
-            <dd>
-                <?php if (in_array('email', $this->editableFields)) : ?>
-                <input type="text" name="email" id="email" size="40" value="<?php echo htmlspecialchars($this->data['email']); ?>" />
-                <?php else : ?>
-                <?php echo htmlspecialchars($this->data['email']); ?>
-                <?php endif; ?>
-            </dd>
             
-            <?php if (!empty($this->data['username']) && !in_array(strtolower($this->data['authsource']), array('claroline', 'clarocrypt'))) : ?>
+            <?php if (!empty($this->data['username']) && !empty($this->data['authsource']) && !in_array(strtolower($this->data['authsource']), array('claroline', 'clarocrypt'))) : ?>
             <dt>
                 <?php echo get_lang('Username'); ?>
                 <span class="required">*</span>
@@ -226,6 +219,18 @@
         
         <dl>
             <dt>
+                <label for="email">
+                    <?php echo get_lang('Email'); ?>
+                </label>
+            </dt>
+            <dd>
+                <?php if (in_array('email', $this->editableFields)) : ?>
+                <input type="text" name="email" id="email" size="40" value="<?php echo htmlspecialchars($this->data['email']); ?>" />
+                <?php else : ?>
+                <?php echo htmlspecialchars($this->data['email']); ?>
+                <?php endif; ?>
+            </dd>
+            <dt>
                 <label for="phone">
                     <?php echo get_lang('Phone'); ?>
                 </label>
@@ -251,4 +256,69 @@
             </dd>
         </dl>
     </fieldset>
+    
+    
+    
+    <!-- FOURTH SECTION: permissions -->
+    <fieldset>
+        <legend>
+            <?php echo get_lang('Permissions'); ?>
+        </legend>
+        
+        <dl>
+            <dt>
+                <?php echo get_lang('Role'); ?>
+            </dt>
+            <dd>
+                <?php if (get_conf('allowSelfRegProf')) : ?>
+                <input name="isCourseCreator" id="follow" value="0" type="radio"<?php if (!$this->data['isCourseCreator']) : ?> checked="checked"<?php endif; ?> /><label for="follow"><?php echo get_lang('Follow courses'); ?></label><br />
+                <input name="isCourseCreator" id="create" value="1" type="radio"<?php if ($this->data['isCourseCreator']) : ?> checked="checked"<?php endif; ?> /><label for="create"><?php echo get_lang('Create course'); ?></label>
+                <?php endif; ?>
+            </dd>
+            <?php if (claro_is_platform_admin()) : ?>
+            <dt>
+                <?php echo get_lang('Is platform admin'); ?>
+            </dt>
+            <dd>
+                <input type="radio" name="isAdmin" value="1" id="isAdmin"<?php if ($this->data['isPlatformAdmin']) : ?> checked="checked"<?php endif; ?> />
+                <label for="isAdmin"><?php echo get_lang('Yes'); ?></label><br />
+                <input type="radio" name="isAdmin" value="0"  id="isNotAdmin"<?php if (!$this->data['isPlatformAdmin']) : ?> checked="checked"<?php endif; ?> />
+                <label for="isNotAdmin"><?php echo get_lang('No'); ?></label>
+            </dd>
+            <?php endif; ?>
+            
+            <?php if (claro_is_in_a_course()) : ?>
+            <dt>
+                <?php echo get_lang('Course tutor'); ?>
+            </dt>
+            <dd>
+                <input type="radio" name="courseTutor" value="1" id="courseTutorYes"<?php if ($this->data['courseTutor']) : ?> checked="checked"<?php endif; ?> /><label for="courseTutorYes"><?php echo get_lang('Yes'); ?></label><br />
+                <input type="radio" name="courseTutor" value="0" id="courseTutorNo"<?php if (!$this->data['courseTutor']) : ?> checked="checked"<?php endif; ?> /><label for="courseTutorNo"><?php echo get_lang('No'); ?></label>
+            </dd>
+            
+            <dt>
+                <?php echo get_lang('Course manager'); ?>
+            </dt>
+            <dd>
+                <input type="radio" name="courseAdmin" value="1" id="courseAdminYes"<?php if ($this->data['courseAdmin']) : ?> checked="checked"<?php endif; ?> /><label for="courseAdminYes"><?php echo get_lang('Yes'); ?></label><br />
+                <input type="radio" name="courseAdmin" value="0" id="courseAdminNo"<?php if (!$this->data['courseAdmin']) : ?> checked="checked"<?php endif; ?> /><label for="courseAdminNo"><?php echo get_lang('No'); ?></label>
+            </dd>
+            <?php endif; ?>
+        </dl>
+    </fieldset>
+    
+    <dl>
+        <dt>
+            <input type="submit" name="applyChange" id="applyChange" value="<?php echo get_lang('Ok'); ?>" />
+            <?php if (claro_is_in_a_course()) : ?>
+            <input type="submit" name="applySearch" id="applySearch" value="<?php echo get_lang('Search'); ?>" />
+            <?php endif; ?>
+            <?php echo claro_html_button($this->cancelUrl, get_lang('Cancel')); ?>
+        </dt>
+        <dd></dd>
+    </dl>
 </form>
+
+<p class="notice">
+    <?php echo get_lang('<span class="required">*</span> denotes required field'); ?>
+</p>
