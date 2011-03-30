@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__course_description` (
     `lastEditDate` DATETIME NOT NULL,
     `visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
     PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;

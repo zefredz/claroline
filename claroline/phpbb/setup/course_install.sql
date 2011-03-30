@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_categories` (
     cat_title varchar(100),
     cat_order int(10),
     PRIMARY KEY (cat_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_forums`(
     forum_id int(10) NOT NULL auto_increment,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_forums`(
     forum_order int(10) DEFAULT '0',
     PRIMARY KEY (forum_id),
     KEY forum_last_post_id (forum_last_post_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_posts`(
     post_id int(10) NOT NULL auto_increment,
@@ -35,13 +35,13 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_posts`(
     KEY forum_id (forum_id),
     KEY topic_id (topic_id),
     KEY poster_id (poster_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_posts_text` (
     post_id int(10) DEFAULT '0' NOT NULL,
     post_text text,
     PRIMARY KEY (post_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_priv_msgs` (
     msg_id int(10) NOT NULL auto_increment,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_priv_msgs` (
     msg_text text,
     PRIMARY KEY (msg_id),
     KEY to_userid (to_userid)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_topics` (
     topic_id int(10) NOT NULL auto_increment,
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_topics` (
     PRIMARY KEY (topic_id),
     KEY forum_id (forum_id),
     KEY topic_last_post_id (topic_last_post_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_users` (
     user_id int(10) NOT NULL auto_increment,
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_users` (
     user_actkey varchar(32),
     user_newpasswd varchar(32),
     PRIMARY KEY (user_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_whosonline` (
     id int(3) NOT NULL auto_increment,
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_whosonline` (
     username varchar(40),
     forum int(10),
     PRIMARY KEY (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_rel_topic_userstonotify` (
     `notify_id` int(10) NOT NULL auto_increment,
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_rel_topic_userstonotify` (
     `topic_id` int(10) NOT NULL default '0',
     PRIMARY KEY  (`notify_id`),
     KEY `SECONDARY` (`user_id`,`topic_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_rel_forum_userstonotify` (
     `notify_id` int(10) NOT NULL auto_increment,
@@ -128,4 +128,4 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_rel_forum_userstonotify` (
     `forum_id` int(10) NOT NULL default '0',
     PRIMARY KEY  (`notify_id`),
     KEY `SECONDARY` (`user_id`,`forum_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;

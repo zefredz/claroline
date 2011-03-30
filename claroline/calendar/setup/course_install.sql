@@ -10,4 +10,4 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__calendar_event` (
     `location` varchar(150),
     `group_id` INT(4) NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;

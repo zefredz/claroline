@@ -195,7 +195,7 @@ function linker_upgrade_to_17($course_code)
                             `id` int(11) NOT NULL auto_increment,
                             `src_id` int(11) NOT NULL default '0',
                             `dest_id` int(11) NOT NULL default '0',
-                            `creation_time` timestamp(14) NOT NULL,
+                            `creation_time` timestamp NOT NULL,
                             PRIMARY KEY  (`id`)
                             ) ENGINE=MyISAM";
                        

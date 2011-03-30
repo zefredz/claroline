@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__tool_list` (
     `activated` ENUM('true','false') NOT NULL DEFAULT 'true',
     `installed` ENUM('true','false') NOT NULL DEFAULT 'true',
 PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__course_properties` (
     `id` int(11) NOT NULL auto_increment,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__course_properties` (
     `value` varchar(255) default NULL,
     `category` varchar(255) default NULL,
     PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__tool_intro` (
     `id` int(11) NOT NULL auto_increment,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__tool_intro` (
     `rank` int(11) default '1',
     `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
 PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__userinfo_content` (
    `id` int(10) unsigned NOT NULL auto_increment,
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__userinfo_content` (
    `content` text,
    PRIMARY KEY  (`id`),
    KEY `user_id` (`user_id`)
-) TYPE=MyISAM COMMENT='content of users information';
+) ENGINE=MyISAM COMMENT='content of users information';
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__userinfo_def` (
    `id` int(10) unsigned NOT NULL auto_increment,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__userinfo_def` (
    `nbLine` int(10) unsigned NOT NULL default '5',
    `rank` tinyint(3) unsigned NOT NULL default '0',
    PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='categories definition for user information of a course';
+) ENGINE=MyISAM COMMENT='categories definition for user information of a course';
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__group_team` (
     id int(11) NOT NULL auto_increment,
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__group_team` (
     maxStudent int(11) NULL default '0',
     secretDirectory varchar(30) NOT NULL default '0',
 PRIMARY KEY  (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__group_rel_team_user` (
     id int(11) NOT NULL auto_increment,
@@ -67,22 +67,22 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__group_rel_team_user` (
     status int(11) NOT NULL default '0',
     role varchar(50) NOT NULL default '',
 PRIMARY KEY  (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__lnk_links` (
     `id` int(11) NOT NULL auto_increment,
     `src_id` int(11) NOT NULL default '0',
     `dest_id` int(11) NOT NULL default '0',
-    `creation_time` timestamp(14) NOT NULL,
+    `creation_time` timestamp NOT NULL,
 PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__lnk_resources` (
     `id` int(11) NOT NULL auto_increment,
     `crl` text NOT NULL,
     `title` text NOT NULL,
 PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__tracking_event` (
   `id` int(11) NOT NULL auto_increment,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__tracking_event` (
   PRIMARY KEY  (`id`),
   KEY `tool` (`tool_id`),
   KEY `user` (`user_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__document` (
     `id` int(4) NOT NULL auto_increment,
@@ -103,4 +103,4 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__document` (
     `visibility` char(1) DEFAULT 'v' NOT NULL,
     `comment` varchar(255),
     PRIMARY KEY (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
