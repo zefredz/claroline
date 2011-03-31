@@ -54,10 +54,10 @@ $dialogBox = new DialogBox();
 // ============================
 
 // Users' administration menu
-$menu['AdminUser'][] = '<form name="searchUser" action="admin_users.php" method="get" >' . "\n"
-                     . '<label for="search_user">' . get_lang('User') . '</label><br />'
-                     . '<input name="search" id="search_user" />&nbsp;'
-                     . '<input type="submit" value="' . get_lang('Search') . '" />'
+$menu['AdminUser'][] = get_lang('Sear for a user').'<br />'
+                     . '<form name="searchUser" action="admin_users.php" method="get">' . "\n"
+                     . '<input type="text" name="search" id="search_user" />&nbsp;'
+                     . '<input type="submit" value="' . get_lang('Go') . '" />'
                      . '&nbsp;'
                      . '<small>'
                      . '<a href="advanced_user_search.php">'
@@ -76,10 +76,10 @@ $menu['AdminUser'][] = '<a href="../desktop/config.php">'.get_lang('Manage user 
 $menu['AdminUser'][] = '<a href="adminmergeuser.php">'.get_lang('Merge user accounts').'</a>';
 
 // Courses' administration menu
-$menu['AdminCourse'][] = '<form name="searchCourse" action="admin_courses.php" method="get" >' . "\n"
-                       . '<label for="search_course">' . get_lang('Course') . '</label><br />' . "\n"
-                       . '<input name="search" id="search_course" />&nbsp;'
-                       . '<input type="submit" value="' . get_lang('Search'). '" />'
+$menu['AdminCourse'][] = get_lang('Search for a course').'<br />'
+                       . '<form name="searchCourse" action="admin_courses.php" method="get">' . "\n"
+                       . '<input type="text" name="search" id="search_course" />&nbsp;'
+                       . '<input type="submit" value="' . get_lang('Go'). '" />'
                        . '&nbsp;<small><a href="advanced_course_search.php">' . get_lang('Advanced') . '</a></small>' . "\n"
                        . '</form>';
 
@@ -92,14 +92,12 @@ $menu['AdminPlatform'][] = '<a href="tool/config_list.php">'.get_lang('Configura
 $menu['AdminPlatform'][] = '<a href="managing/editFile.php">'.get_lang('Edit text zones').'</a>';
 $menu['AdminPlatform'][] = '<a href="module/module_list.php">'.get_lang('Modules').'</a>';
 $menu['AdminPlatform'][] = '<a href="adminmailsystem.php">'.get_lang('Manage administrator email notifications').'</a>';
-$menu['AdminPlatform'][] = '<a href="../tracking/platformReport.php">'.get_lang('Platform statistics').'</a>';
-$menu['AdminPlatform'][] = '<a href="campusProblem.php">'.get_lang('Scan technical fault').'</a>';
+
 
 if (file_exists(dirname(__FILE__) . '/maintenance/checkmails.php'))
 {
     $menu['AdminPlatform'][] = '<a href="maintenance/checkmails.php">'.get_lang('Check and Repair emails of users').'</a>';
 }
-$menu['AdminPlatform'][] = '<a href="upgrade/index.php">'.get_lang('Upgrade').'</a>';
 
 // Claroline's administration menu
 $menu['AdminClaroline'][] = '<a href="registerCampus.php">'.get_lang('Register my campus').'</a>';
@@ -116,6 +114,10 @@ if ( get_conf('DEVEL_MODE', false) == true )
     $menu['AdminTechnical'][] = '<a href="xtra/sdk/translation_index.php">'.get_lang('Translation Tools').'</a>';
     $menu['AdminTechnical'][] = '<a href="devTools">'.get_lang('Devel Tools').'</a>';
 }
+
+$menu['AdminTechnical'][] = '<a href="../tracking/platform_report.php">'.get_lang('Platform statistics').'</a>';
+$menu['AdminTechnical'][] = '<a href="campusProblem.php">'.get_lang('Scan technical fault').'</a>';
+$menu['AdminTechnical'][] = '<a href="upgrade/index.php">'.get_lang('Upgrade').'</a>';
 
 // Communication's administration menu
 $menu['Communication'][] = '<a href="../messaging/admin.php">'.get_lang('Internal messaging').'</a>';

@@ -1,14 +1,12 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @author Sebastien Piraux <seb@claroline.net>
- *
- * @package CLTRACK
+ * @author      Sebastien Piraux <seb@claroline.net>
+ * @package     CLTRACK
  */
 
 /*
@@ -56,7 +54,7 @@ $cssLoader->load( 'tracking', 'screen');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('Platform statistics');
 
-$html = '';    
+$html = '';
 
 $html .= claro_html_tool_title( $nameTools );
 
@@ -192,14 +190,6 @@ $sql = "SELECT count(*)
 $count = claro_sql_query_get_single_value($sql);
 $content .= '&nbsp;&nbsp;&nbsp;' . get_lang('Number of courses') . ' : ' . $count.'<br />'."\n";
 
-//--  number of courses by faculte
-$sql = "SELECT `faculte`, count( * ) AS `nbr`
-          FROM `" . $tbl_course . "`
-         WHERE `faculte` IS NOT NULL
-         GROUP BY `faculte`";
-
-$content .= buildTab2Col($sql, get_lang('Number of courses by faculty'));
-
 //--  number of courses by language
 $sql = "SELECT `language`, count( * ) AS `nbr`
           FROM `" . $tbl_course . "`
@@ -255,15 +245,6 @@ $sql = "SELECT C.`code`, count( CU.user_id ) as `nb`
             ORDER BY nb DESC";
 
 $content .= buildTab2Col($sql, get_lang('Number of users by course'));
-
-//--  number of users by faculte
-$sql = "SELECT C.`faculte`, count( CU.`user_id` ) AS `nbr`
-            FROM `" . $tbl_course . "` C, `" . $tbl_rel_course_user . "` CU
-            WHERE CU.`code_cours` = C.`code`
-                AND C.`faculte` IS NOT NULL
-            GROUP BY C.`faculte`";
-
-$content .= buildTab2Col($sql, get_lang('Number of users by faculty'));
 
 //--  number of users by status
 $sql = "SELECT `isCourseCreator`, count( `user_id` ) AS `nbr`
@@ -365,7 +346,7 @@ $html .= renderStatBlock( $header, $content, $footer);
 /*
  * Output rendering
  */
+
 $claroline->display->body->setContent($html);
 
 echo $claroline->display->render();
-?>
