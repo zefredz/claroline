@@ -112,7 +112,7 @@ else
     foreach ($box as $key => $message)
     {
         $recipientList = $message->getRecipientList();
-        //var_dump($recipientList);
+        
         $content .= '<tr';
         if ($message->isPlatformMessage())
         {

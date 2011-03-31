@@ -127,7 +127,7 @@
     <!-- SECOND SECTION: platform's account -->
     <fieldset>
         <legend>
-            <?php echo get_lang('Platform\'s account'); ?>
+            <?php echo get_lang('User account'); ?>
         </legend>
         
         <dl>

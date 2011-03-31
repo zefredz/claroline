@@ -193,8 +193,6 @@ class CLWIKI_Navigator implements ModuleResourceNavigator
                 
                 foreach ( $res as $page )
                 {
-                    // var_dump( $page );
-                    
                     $pageLoc = new ClarolineResourceLocator(
                         $locator->getCourseId(),
                         'CLWIKI',

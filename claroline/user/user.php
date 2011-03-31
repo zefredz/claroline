@@ -421,7 +421,7 @@ $out .= '<br/>'
             get_path('clarolineRepositoryWeb') . 'user/user_pictures.php'
             ))
             , '<img src="' . get_icon_url('picture') . '" alt="" />'
-            . get_lang('Users\'s pictures'));
+            . get_lang('Users\' pictures'));
 
 
 /*----------------------------------------------------------------------

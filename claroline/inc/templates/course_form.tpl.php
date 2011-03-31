@@ -217,7 +217,7 @@
     <!-- SECOND SECTION: optionnal settings -->
     <fieldset  class="collapsible collapsed" id="options">
         <legend>
-            <a href="#" class="doCollapse"><?php echo get_lang('Optionnal parameters'); ?></a>
+            <a href="#" class="doCollapse"><?php echo get_lang('Optionnal settings'); ?></a>
         </legend>
         <div class="collapsible-wrapper">
             <dl>

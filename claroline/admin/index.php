@@ -54,7 +54,7 @@ $dialogBox = new DialogBox();
 // ============================
 
 // Users' administration menu
-$menu['AdminUser'][] = get_lang('Sear for a user').'<br />'
+$menu['AdminUser'][] = get_lang('Search for a user').'<br />'
                      . '<form name="searchUser" action="admin_users.php" method="get">' . "\n"
                      . '<input type="text" name="search" id="search_user" />&nbsp;'
                      . '<input type="submit" value="' . get_lang('Go') . '" />'

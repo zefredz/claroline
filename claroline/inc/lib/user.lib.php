@@ -1101,7 +1101,7 @@ function user_html_form($userId = null)
             }
         );
     </script>';
-    var_dump($userData);
+    
     $template = new CoreTemplate('user_form.tpl.php');
     $template->assign('formAction', $_SERVER['PHP_SELF']);
     $template->assign('relayContext', claro_form_relay_context());
@@ -1267,7 +1267,7 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
 function user_display_preferred_language_select_box()
 {
     $language_list = get_language_to_display_list();
-    var_dump($language_list);
+    
     $form = '';
     
     if ( is_array($language_list) && count($language_list) > 1 )
