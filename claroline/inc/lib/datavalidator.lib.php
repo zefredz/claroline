@@ -27,7 +27,7 @@
  *   {
  *     echo explode(', ', $validator->getErrorList() );
  *   }
- *   
+ *
  * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
@@ -127,7 +127,7 @@ class DataValidator
             if ( ! array_key_exists($dataKey, $this->dataList) )
             {
                 $this->wrongDataList[]    = $dataKey;
-                $this->errorMessageList[] = 'UNDEFINED INDEX';
+                $this->errorMessageList[] = 'UNDEFINED INDEX <i>'.$dataKey.'</i>';
                 continue;
             }
 
@@ -147,7 +147,7 @@ class DataValidator
             if ( ! array_key_exists($dataKey, $this->dataList) )
             {
                 $this->wrongDataList[]    = $dataKey;
-                $this->errorMessageList[] = 'UNDEFINED INDEX';
+                $this->errorMessageList[] = 'UNDEFINED INDEX <i>'.$dataKey.'</i>';
                 continue;
             }
 
