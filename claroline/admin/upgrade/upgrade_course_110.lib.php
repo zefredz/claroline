@@ -45,7 +45,7 @@ function announcements_upgrade_to_110 ($course_code)
                 // Add the attribute sourceCourseId to the course table
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "announcement` ADD `visibleFrom` DATE NULL DEFAULT NULL AFTER `contenu`";
                 
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step;
                 
                 unset($sqlForUpdate);
@@ -55,7 +55,7 @@ function announcements_upgrade_to_110 ($course_code)
                 // Add the attribute sourceCourseId to the course table
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "announcement` ADD `visibleUntil` DATE NULL DEFAULT NULL AFTER `visibleFrom`";
                 
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step;
                 
                 unset($sqlForUpdate);
@@ -89,7 +89,7 @@ function calendar_upgrade_to_110 ($course_code)
                 // Add the attribute sourceCourseId to the course table
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` ADD `speakers` VARCHAR(150) NULL DEFAULT NULL AFTER `lasting`";
                 
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step;
                 
                 unset($sqlForUpdate);
@@ -99,7 +99,7 @@ function calendar_upgrade_to_110 ($course_code)
                 // Change the attribute location
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` CHANGE `location` `location` VARCHAR(150) NULL DEFAULT NULL";
                 
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step;
                 
                 unset($sqlForUpdate);
@@ -109,7 +109,7 @@ function calendar_upgrade_to_110 ($course_code)
                 // Add the attribute group_id into the course table
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "calendar_event` ADD `group_id` INT(4) NOT NULL DEFAULT 0";
 
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step;
 
                 unset($sqlForUpdate);
@@ -145,7 +145,7 @@ function exercise_upgrade_to_110 ($course_code)
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_question` ADD `id_category` INT(11) NULL DEFAULT '0' AFTER `grade`";
                 
                 upgrade_apply_sql($sqlForUpdate);
-                $step = set_upgrade_status($tool, $step+1);
+                $step = set_upgrade_status($tool, $step+1, $course_code);
                 
                 unset($sqlForUpdate);
                 
@@ -155,7 +155,7 @@ function exercise_upgrade_to_110 ($course_code)
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking` ADD INDEX `user_id` (`user_id`)";
                 
                 upgrade_apply_sql($sqlForUpdate);
-                $step = set_upgrade_status($tool, $step+1);
+                $step = set_upgrade_status($tool, $step+1, $course_code);
                 
                 unset($sqlForUpdate);
                 
@@ -165,7 +165,7 @@ function exercise_upgrade_to_110 ($course_code)
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking` ADD INDEX `exo_id` (`exo_id`)";
                 
                 upgrade_apply_sql($sqlForUpdate);
-                $step = set_upgrade_status($tool, $step+1);
+                $step = set_upgrade_status($tool, $step+1, $course_code);
                 
                 unset($sqlForUpdate);
                 
@@ -175,7 +175,7 @@ function exercise_upgrade_to_110 ($course_code)
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking_questions` ADD INDEX `exercise_track_id` (`exercise_track_id`)";
                 
                 upgrade_apply_sql($sqlForUpdate);
-                $step = set_upgrade_status($tool, $step+1);
+                $step = set_upgrade_status($tool, $step+1, $course_code);
                 
                 unset($sqlForUpdate);
                 
@@ -185,7 +185,7 @@ function exercise_upgrade_to_110 ($course_code)
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking_questions` ADD INDEX `question_id` (`question_id`)";
                 
                 upgrade_apply_sql($sqlForUpdate);
-                $step = set_upgrade_status($tool, $step+1);
+                $step = set_upgrade_status($tool, $step+1, $course_code);
                 
                 unset($sqlForUpdate);
                 
@@ -195,10 +195,21 @@ function exercise_upgrade_to_110 ($course_code)
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_tracking_answers` ADD INDEX `details_id` (`details_id`)";
                 
                 upgrade_apply_sql($sqlForUpdate);
-                $step = set_upgrade_status($tool, $step+1);
+                $step = set_upgrade_status($tool, $step+1, $course_code);
                 
                 unset($sqlForUpdate);
-                
+
+             case 7 :
+                $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $currentCourseDbNameGlu . "qwz_users_random_questions` (
+                                    `id` int(11) NOT NULL auto_increment,
+                                    `user_id` int(11) NOT NULL,
+                                    `exercise_id` int(11) NOT NULL,
+                                    `questions` text NOT NULL,
+                                    PRIMARY KEY  (`id`)
+                                  ) ENGINE=MyISAM;";
+                $step = set_upgrade_status( $tool, $step+1, $course_code);
+
+
             default :
                 
                 $step = set_upgrade_status($tool, 0);
@@ -258,7 +269,7 @@ function tool_intro_upgrade_to_110 ($course_code)
                     $sqlForUpdate = array();
                 }
                 
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step;
                 
                 unset($sqlForUpdate);

@@ -28,6 +28,9 @@ if( !$is_allowedToEdit )
     exit();
 }
 
+require_once '../lib/add_missing_table.lib.php';
+init_qwz_questions_categories ();
+
 // tool libraries
 include_once '../lib/exercise.class.php';
 include_once '../lib/question.class.php';
