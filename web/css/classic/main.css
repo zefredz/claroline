@@ -1,5 +1,5 @@
 /**
- $Id: main.css 12911 2011-02-28 12:29:32Z abourguignon $
+ $Id$
  **/
 
 
@@ -1410,4 +1410,11 @@ dl.admin-control dd {
 
 .separator {
     font-weight: normal;
+}
+
+img.userPicture {
+    border: 5px solid #fff;
+    -moz-box-shadow: 0 0 15px #999;
+    -webkit-box-shadow: 0 0 15px #999;
+    box-shadow: 0 0 15px #999;
 }
