@@ -19,7 +19,7 @@
     <div id="userProfile">
         <?php
         if ( get_conf('allow_profile_picture') ) :
-            echo '<div id="userPicture"><img src="' . $this->pictureUrl . '" alt="' . get_lang('avatar') . '" /></div>';
+            echo '<div id="userPicture"><img class="userPicture" src="' . $this->pictureUrl . '" alt="' . get_lang('User picture') . '" /></div>';
         
         endif;
         ?>
