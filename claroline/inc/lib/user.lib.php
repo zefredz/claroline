@@ -19,7 +19,7 @@ require_once(dirname(__FILE__) . '/form.lib.php');
 
 /**
  * Initialise user data.
- * 
+ *
  * @return  array with user data
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
@@ -911,7 +911,7 @@ function is_official_code_available($official_code, $userId=null)
 
 /**
  * Display form to edit or add user to the platform.
- * 
+ *
  * @param $userId int
  */
 function user_html_form($userId = null)
@@ -945,6 +945,9 @@ function user_html_form($userId = null)
         // Initialize user's data
         $userData = user_initialise();
         
+        // No user's picture
+        $pictureUrl = '';
+        
         // Editable fields
         $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
     }
@@ -952,7 +955,6 @@ function user_html_form($userId = null)
     
     
     $template = new CoreTemplate('user_form.tpl.php');
-    $template->assign('formTitle', $formTitle);
     $template->assign('formAction', $_SERVER['PHP_SELF']);
     $template->assign('relayContext', claro_form_relay_context());
     $template->assign('cancelUrl', htmlspecialchars(Url::Contextualize($_SERVER['HTTP_REFERER'])));
