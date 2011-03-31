@@ -34,7 +34,7 @@
             </dt>
             <dd>
                 <?php if (in_array('name', $this->editableFields)) : ?>
-                <input type="text" size="40" id="lastname" name="lastname" value="<?php echo $this->data['lastname']; ?>" />
+                <input type="text" id="lastname" name="lastname" value="<?php echo $this->data['lastname']; ?>" />
                 <?php else : ?>
                 <?php echo $this->data['lastname']; ?>
                 <?php endif; ?>
@@ -47,7 +47,7 @@
             </dt>
             <dd>
                 <?php if (in_array('name', $this->editableFields)) : ?>
-                <input type="text" size="40" id="firstname" name="firstname" value="<?php echo $this->data['firstname']; ?>" />
+                <input type="text" id="firstname" name="firstname" value="<?php echo $this->data['firstname']; ?>" />
                 <?php else : ?>
                 <?php echo $this->data['firstname']; ?>
                 <?php endif; ?>
@@ -64,7 +64,7 @@
             </dt>
             <?php if (in_array('official_code', $this->editableFields)) : ?>
             <dd>
-                <input type="text" size="40" id="officialCode" name="officialCode" value="<?php echo $this->data['officialCode']; ?>" />
+                <input type="text" id="officialCode" name="officialCode" value="<?php echo $this->data['officialCode']; ?>" />
             </dd>
             <?php else : ?>
             <dd>
@@ -75,12 +75,18 @@
             
             <?php if (!empty($this->languages)) : ?>
             <dt>
-                <label for="language_selector">
+                <label for="language">
                     <?php echo get_lang('Language'); ?>
                 </label>
             </dt>
             <dd>
-                <?php echo $this->languages ?>
+                <select id="language" name="language">
+                <?php foreach ($this->languages as $key => $elmt) : ?>
+                    <option value="<?php echo $elmt; ?>"<?php if (!empty($this->data['language']) && $elmt == $this->data['language']) : ?> selected="selected"<?php endif; ?>>
+                        <?php echo $key; ?>
+                    </option>
+                <?php endforeach; ?>
+                </select>
             </dd>
             <?php endif; ?>
             
@@ -96,6 +102,9 @@
                 <br />
                 <input type="checkbox" name="delPicture" id="delPicture" value="true" />
                 <label for="delPicture"><?php echo get_lang('Delete picture'); ?></label>
+                <?php if (!empty($this->data['picture'])) : ?>
+                <input type="hidden" name="userPicture" id="userPicture" value="<?php echo $this->data['picture']; ?>" />
+                <?php endif; ?>
             </dd>
             <?php else : ?>
             <dd>
@@ -158,20 +167,20 @@
             </dt>
             <dd>
                 <?php if (in_array('login', $this->editableFields)) : ?>
-                <input type="text" name="username" id="username" size="40" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
+                <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
                 <?php else : ?>
                 <?php echo htmlspecialchars($this->data['username']); ?>
                 <?php endif; ?>
             </dd>
             <?php if (in_array('password', $this->editableFields)) : ?>
-            <?php if (!empty($this->data['user_id']) && !claro_is_platform_admin()) : ?>
+            <?php if (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id()) : ?>
             <dt>
                 <label for="old_password">
                     <?php echo get_lang('Old password'); ?>
                 </label>
             </dt>
             <dd>
-                <input type="password" autocomplete="off" name="old_password" id="old_password" size="40" />
+                <input type="password" autocomplete="off" name="old_password" id="old_password" />
             </dd>
             <?php endif; ?>
             
@@ -186,7 +195,7 @@
                 </label>
             </dt>
             <dd>
-                <input type="password" autocomplete="off" name="password" id="password" size="40" />
+                <input type="password" autocomplete="off" name="password" id="password" />
             </dd>
             <dt>
                 <label for="password_conf">
@@ -200,7 +209,7 @@
                 </label>
             </dt>
             <dd>
-                <input type="password" autocomplete="off" name="password_conf" id="password_conf" size="40" />
+                <input type="password" autocomplete="off" name="password_conf" id="password_conf" />
             </dd>
             
             <?php endif; ?>
@@ -225,7 +234,7 @@
             </dt>
             <dd>
                 <?php if (in_array('email', $this->editableFields)) : ?>
-                <input type="text" name="email" id="email" size="40" value="<?php echo htmlspecialchars($this->data['email']); ?>" />
+                <input type="text" name="email" id="email" value="<?php echo htmlspecialchars($this->data['email']); ?>" />
                 <?php else : ?>
                 <?php echo htmlspecialchars($this->data['email']); ?>
                 <?php endif; ?>
@@ -237,7 +246,7 @@
             </dt>
             <dd>
                 <?php if (in_array('phone', $this->editableFields)) : ?>
-                <input type="text" value="<?php echo $this->data['phone']; ?>" name="phone" id="phone" size="40" />
+                <input type="text" value="<?php echo $this->data['phone']; ?>" name="phone" id="phone" />
                 <?php else : ?>
                 <?php echo $this->data['phone']; ?>
                 <?php endif; ?>
@@ -249,7 +258,7 @@
             </dt>
             <dd>
                 <?php if (in_array('skype', $this->editableFields)) : ?>
-                <input type="text" value="<?php echo $this->data['skype']; ?>" name="skype" id="skype" size="40" />
+                <input type="text" value="<?php echo $this->data['skype']; ?>" name="skype" id="skype" />
                 <?php else : ?>
                 <?php echo $this->data['skype']; ?>
                 <?php endif; ?>
@@ -267,41 +276,25 @@
         
         <dl>
             <dt>
-                <?php echo get_lang('Role'); ?>
+                <?php echo get_lang('Platform role'); ?>
             </dt>
             <dd>
-                <?php if (get_conf('allowSelfRegProf')) : ?>
-                <input name="isCourseCreator" id="follow" value="0" type="radio"<?php if (!$this->data['isCourseCreator']) : ?> checked="checked"<?php endif; ?> /><label for="follow"><?php echo get_lang('Follow courses'); ?></label><br />
-                <input name="isCourseCreator" id="create" value="1" type="radio"<?php if ($this->data['isCourseCreator']) : ?> checked="checked"<?php endif; ?> /><label for="create"><?php echo get_lang('Create course'); ?></label>
+                <?php if (get_conf('allowSelfRegProf') ||claro_is_platform_admin()) : ?>
+                <input type="radio" name="platformRole" id="student" value="student"<?php if (!$this->data['isCourseCreator'] && !$this->data['isPlatformAdmin']) : ?> checked="checked"<?php endif; ?><?php if ($this->data['user_id'] == claro_get_current_user_id()) : ?> disabled="disabled"<?php endif; ?> /><label for="student"><?php echo get_lang('Follow courses'); ?> (<?php echo get_lang('student'); ?>)</label><br />
+                <input type="radio" name="platformRole" id="courseManager" value="courseManager"<?php if ($this->data['isCourseCreator']) : ?> checked="checked"<?php endif; ?><?php if ($this->data['user_id'] == claro_get_current_user_id()) : ?> disabled="disabled"<?php endif; ?> /><label for="courseManager"><?php echo get_lang('Create courses'); ?> (<?php echo get_lang('teacher'); ?>)</label><br />
+                <?php if (claro_is_platform_admin()) : ?>
+                <input type="radio" name="platformRole" id="platformAdmin" value="platformAdmin"<?php if ($this->data['isPlatformAdmin']) : ?> checked="checked"<?php endif; ?><?php if ($this->data['user_id'] == claro_get_current_user_id()) : ?> disabled="disabled"<?php endif; ?> /><label for="platformAdmin"><?php echo get_lang('Manage platform'); ?> (<?php echo get_lang('administrator'); ?>)</label>
+                <?php endif; ?>
                 <?php endif; ?>
             </dd>
-            <?php if (claro_is_platform_admin()) : ?>
-            <dt>
-                <?php echo get_lang('Is platform admin'); ?>
-            </dt>
-            <dd>
-                <input type="radio" name="isAdmin" value="1" id="isAdmin"<?php if ($this->data['isPlatformAdmin']) : ?> checked="checked"<?php endif; ?> />
-                <label for="isAdmin"><?php echo get_lang('Yes'); ?></label><br />
-                <input type="radio" name="isAdmin" value="0"  id="isNotAdmin"<?php if (!$this->data['isPlatformAdmin']) : ?> checked="checked"<?php endif; ?> />
-                <label for="isNotAdmin"><?php echo get_lang('No'); ?></label>
-            </dd>
-            <?php endif; ?>
             
             <?php if (claro_is_in_a_course()) : ?>
             <dt>
-                <?php echo get_lang('Course tutor'); ?>
+                <?php echo get_lang('Role in this course'); ?>
             </dt>
             <dd>
-                <input type="radio" name="courseTutor" value="1" id="courseTutorYes"<?php if ($this->data['courseTutor']) : ?> checked="checked"<?php endif; ?> /><label for="courseTutorYes"><?php echo get_lang('Yes'); ?></label><br />
-                <input type="radio" name="courseTutor" value="0" id="courseTutorNo"<?php if (!$this->data['courseTutor']) : ?> checked="checked"<?php endif; ?> /><label for="courseTutorNo"><?php echo get_lang('No'); ?></label>
-            </dd>
-            
-            <dt>
-                <?php echo get_lang('Course manager'); ?>
-            </dt>
-            <dd>
-                <input type="radio" name="courseAdmin" value="1" id="courseAdminYes"<?php if ($this->data['courseAdmin']) : ?> checked="checked"<?php endif; ?> /><label for="courseAdminYes"><?php echo get_lang('Yes'); ?></label><br />
-                <input type="radio" name="courseAdmin" value="0" id="courseAdminNo"<?php if (!$this->data['courseAdmin']) : ?> checked="checked"<?php endif; ?> /><label for="courseAdminNo"><?php echo get_lang('No'); ?></label>
+                <input type="checkbox" name="courseTutor" value="1" id="courseTutorYes"<?php if ($this->data['courseTutor']) : ?> checked="checked"<?php endif; ?> /><label for="courseTutorYes"><?php echo get_lang('Course tutor'); ?></label><br />
+                <input type="checkbox" name="courseAdmin" value="1" id="courseAdminYes"<?php if ($this->data['courseAdmin']) : ?> checked="checked"<?php endif; ?> /><label for="courseAdminYes"><?php echo get_lang('Course manager'); ?></label>
             </dd>
             <?php endif; ?>
         </dl>

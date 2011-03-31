@@ -8,44 +8,144 @@
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLUSR
- * @author      Claro Team <cvs@claroline.net>
  * @author      Christophe Gesche <moosh@claroline.net>
  * @author      Mathieu Laurent <laurent@cerdecam.be>
  * @author      Hugues Peeters <hugues.peeters@advalvas.be>
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 require_once(dirname(__FILE__) . '/form.lib.php');
 
 
 /**
- * Initialise user data.
+ * Initialise user data and handle user's form inputs if any.
  *
- * @return  array with user data
- * @author Mathieu Laurent <laurent@cerdecam.be>
+ * @return $userData array
+ * @todo: this is not a simple initialisation anymore
  */
 function user_initialise()
 {
     $userData = array();
     
+    $userData['user_id']        = isset($_REQUEST['uidToEdit'])?(int) $_REQUEST['uidToEdit']:'';
     $userData['lastname']       = isset($_REQUEST['lastname'])?trim(strip_tags($_REQUEST['lastname'])):'';
     $userData['firstname']      = isset($_REQUEST['firstname'])?trim(strip_tags($_REQUEST['firstname'])):'';
     $userData['officialCode']   = isset($_REQUEST['officialCode'])?trim(strip_tags($_REQUEST['officialCode'])):'';
     $userData['officialEmail']  = isset($_REQUEST['officialEmail'])?trim(strip_tags($_REQUEST['officialEmail'])):'';
+    $userData['language']       = isset($_REQUEST['language'])?trim(strip_tags($_REQUEST['language'])):'';
+    $userData['picture']        = isset($_REQUEST['userPicture'])?trim(strip_tags($_REQUEST['userPicture'])):'';
     $userData['username']       = isset($_REQUEST['username'])?trim(strip_tags($_REQUEST['username'])):'';
+    $userData['old_password']   = isset($_REQUEST['old_password'])?trim(strip_tags($_REQUEST['old_password'])):'';
     $userData['password']       = isset($_REQUEST['password'])?trim(strip_tags($_REQUEST['password'])):'';
     $userData['password_conf']  = isset($_REQUEST['password_conf'])?trim(strip_tags($_REQUEST['password_conf'])):'';
-    $userData['language']       = isset($_REQUEST['language'])?trim(strip_tags($_REQUEST['language'])):'';
     $userData['email']          = isset($_REQUEST['email'])?trim(strip_tags($_REQUEST['email'])):'';
     $userData['phone']          = isset($_REQUEST['phone'])?trim(strip_tags($_REQUEST['phone'])):'';
-    $userData['picture']        = isset($_REQUEST['picture'])?trim(strip_tags($_REQUEST['picture'])):'';
     $userData['skype']          = isset($_REQUEST['skype'])?trim(strip_tags($_REQUEST['skype'])):'';
-    $userData['isCourseCreator'] = isset($_REQUEST['isCourseCreator'])?trim(strip_tags($_REQUEST['isCourseCreator'])):'';
-    $userData['isPlatformAdmin'] = isset($_REQUEST['isPlatformAdmin'])?trim(strip_tags($_REQUEST['isPlatformAdmin'])):'';
-    $userData['courseTutor']    = isset($_REQUEST['courseTutor'])?trim(strip_tags($_REQUEST['courseTutor'])):'';
-    $userData['courseAdmin']    = isset($_REQUEST['courseAdmin'])?trim(strip_tags($_REQUEST['courseAdmin'])):'';
+    $userData['isCourseCreator'] = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'courseManager');
+    $userData['isPlatformAdmin'] = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'platformAdmin'
+                                           || isset($userData['user_id']) && $userData['user_id'] == claro_get_current_user_id() && claro_is_platform_admin());
+    $userData['courseTutor']    = (bool) !empty($_REQUEST['courseTutor']);
+    $userData['courseAdmin']    = (bool) !empty($_REQUEST['courseAdmin']);
     
     return $userData;
 }
+
+
+/**
+ * Handle user's profile picture modification
+ * (based on $_REQUEST['delPicture'] and $_FILE['picture'].
+ *
+ * @return  $feedback array (yes, it is kinda ugly)
+ */
+function user_handle_profile_picture($userData)
+{
+    $feedback = array(
+        'success' => false,
+        'messages' => array(),
+        'pictureName' => '');
+    
+    // Handle user picture
+    if (!empty($_REQUEST['delPicture']))
+    {
+        $picturePath = user_get_picture_path($userData);
+        
+        if ($picturePath)
+        {
+            claro_delete_file( $picturePath );
+            $feedback['success'] = true;
+            $feedback['messages'][] = get_lang("User picture deleted");
+        }
+        else
+        {
+            $feedback['messages'][] = get_lang("Cannot delete user picture");
+        }
+    }
+    
+    if (isset($_FILES['picture']['name'])
+        && $_FILES['picture']['size'] > 0)
+    {
+        $fileName = $_FILES['picture']['name'];
+        $fileTmpName = $_FILES['picture']['tmp_name'];
+        
+        if (is_uploaded_file($fileTmpName))
+        {
+            // Is it an picture ?
+            if (is_image($fileName))
+            {
+                // Does it meet the platform's requirements
+                list($width, $height, $type, $attr) = getimagesize($fileTmpName);
+                
+                if ($width > 0 && $width <= get_conf('maxUserPictureWidth', 150)
+                    && $height > 0 && $height <= get_conf('maxUserPictureHeight', 200)
+                    && $_FILES['picture']['size'] <= get_conf('maxUserPictureSize', 100*1024))
+                {
+                    $uploadDir = user_get_private_folder_path($userData['user_id']);
+                    
+                    if (!file_exists($uploadDir))
+                    {
+                        claro_mkdir($uploadDir, CLARO_FILE_PERMISSIONS, true);
+                    }
+                    
+                    // User's picture successfully treated
+                    if (false !== ($pictureName = treat_uploaded_file(
+                            $_FILES['picture'],
+                            $uploadDir,
+                            '',
+                            1000000000000)))
+                    {
+                        $feedback['success'] = true;
+                        $feedback['messages'][] = get_lang("User picture added");
+                        $feedback['pictureName'] = $pictureName;
+                    }
+                    else
+                    {
+                        $feedback['messages'][] = get_lang("Cannot upload file");
+                    }
+                }
+                else
+                {
+                    $feedback['messages'][] =
+                        get_lang("Image is too big : max size %width%x%height%, %size% bytes", array(
+                                    '%width%' => get_conf('maxUserPictureWidth', 150),
+                                    '%height%' => get_conf('maxUserPictureHeight', 200),
+                                    '%size%' => get_conf('maxUserPictureHeight', 100*1024)
+                                ));
+                }
+            }
+            else
+            {
+                $feedback['messages'][] = get_lang("Invalid file format, use gif, jpg or png");
+            }
+        }
+        else
+        {
+            $feedback['messages'][] = get_lang('Upload failed');
+        }
+    }
+    
+    return $feedback;
+}
+
 
 /**
  * Get common user data on the platform
@@ -159,27 +259,25 @@ function user_create($settingList, $creatorId = null)
 function user_set_properties($userId, $propertyList)
 {
     $tbl = claro_sql_get_main_tbl();
-
-    // SPECIAL CASE
-
-    if ( array_key_exists('isCourseCreator', $propertyList) )
+    
+    if (array_key_exists('isCourseCreator', $propertyList))
     {
-        $propertyList['isCourseCreator'] = $propertyList['isCourseCreator'] ? 1 :0;
+        $propertyList['isCourseCreator'] = $propertyList['isCourseCreator'] ? 1 : 0;
     }
-
-    if ( array_key_exists('password', $propertyList) && get_conf('userPasswordCrypted'))
+    
+    if (array_key_exists('password', $propertyList) && get_conf('userPasswordCrypted'))
     {
         $propertyList['password'] = md5($propertyList['password']);
     }
-
-    if ( array_key_exists('isPlatformAdmin', $propertyList) )
+    
+    // Only an administrator can grant a user to administrator statuts
+    if (array_key_exists('isPlatformAdmin', $propertyList) && claro_is_platform_admin())
     {
-        $propertyList['isPlatformAdmin'] = $propertyList['isPlatformAdmin'] ? 1 :0;
+        $propertyList['isPlatformAdmin'] = $propertyList['isPlatformAdmin'] ? 1 : 0;
     }
-
-
-    // BUILD QUERY
-
+    
+    
+    // Build query
     $sqlColumnList = array('nom'             => 'lastname',
                            'prenom'          => 'firstname',
                            'username'        => 'username',
@@ -191,9 +289,9 @@ function user_set_properties($userId, $propertyList)
                            'language'        => 'language',
                            'pictureUri'      => 'picture',
                            'isPlatformAdmin' => 'isPlatformAdmin');
-
+    
     $setList = array();
-
+    
     foreach($sqlColumnList as $columnName => $propertyName)
     {
         if ( array_key_exists($propertyName, $propertyList) && (! is_null($propertyList[$propertyName])) )
@@ -202,25 +300,26 @@ function user_set_properties($userId, $propertyList)
             . claro_sql_escape($propertyList[$propertyName]). "'";
         }
     }
-
+    
     if ( count($setList) > 0)
     {
         $sql = "UPDATE  `" . $tbl['user'] . "`
                 SET ". implode(', ', $setList) . "
                 WHERE user_id  = " . (int) $userId ;
-    
+        
         if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
         else                                           return false;
     }
 }
 
+
 /**
- * Delete user form claroline platform
+ * Delete user form claroline platform.
+ *
  * @author Mathieu Laurent <laurent@cerdecam.be>
  * @param int $userId
  * @return boolean 'true' if it succeeds, 'false' otherwise
  */
-
 function user_delete($userId)
 {
     require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
@@ -601,7 +700,6 @@ function profile_send_request_revoquation($explanation,$login,$password)
  * @author Damien Seguy
  * @return string : the new password
  */
-
 function generate_passwd($nb=8)
 {
 
@@ -648,6 +746,7 @@ function generate_passwd($nb=8)
     return $retour;
 }
 
+
 /**
  * Check an email
  * @version 1.0
@@ -656,7 +755,6 @@ function generate_passwd($nb=8)
  * @return boolean state of validity.
  * @author Christophe Gesche <moosh@claroline.net>
  */
-
 function is_well_formed_email_address($address)
 {
     $regexp = "/[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i";
@@ -665,17 +763,18 @@ function is_well_formed_email_address($address)
     return preg_match($regexp, $address);
 }
 
+
 /**
  * validate form registration
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @param array $data from the form
  * @return array with error messages
  */
-
 function user_validate_form_registration($data)
 {
     return user_validate_form('registration', $data);
 }
+
 
 /**
  * validate form profile
@@ -684,14 +783,15 @@ function user_validate_form_registration($data)
  * @param int $userId id of the user account currently edited
  * @return array with error messages
  */
-
 function user_validate_form_profile($data, $userId)
 {
     return user_validate_form('profile', $data, $userId);
 }
 
+
 /**
- * validate form profile from user administration
+ * validate form profile from user administration.
+ *
  * @author Frederic Minne <zefredz@claroline.net>
  * @param array $data to fill the form
  * @param int $userId id of the user account currently edited
@@ -702,8 +802,10 @@ function user_validate_form_admin_user_profile($data, $userId)
     return user_validate_form('admin_user_profile', $data, $userId);
 }
 
+
 /**
- * validate user form
+ * Validate user form.
+ *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @author Frederic Minne <zefredz@claroline.net>
  * @param string $mode 'registration' or 'profile' or 'admin_user_profile'
@@ -714,26 +816,36 @@ function user_validate_form_admin_user_profile($data, $userId)
 function user_validate_form($formMode, $data, $userId = null)
 {
     require_once dirname(__FILE__) .'/datavalidator.lib.php';
-
+    
+    //TODO: introduce editable fields in the validation
+    if (empty($userId) || claro_is_platform_admin())
+    {
+        $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
+    }
+    else
+    {
+        $editableFields = get_conf('profile_editable');
+    }
+    
     $validator = new DataValidator();
     $validator->setDataList($data);
-
+    
     $validator->addRule('lastname' , get_lang('You left some required fields empty'), 'required');
     $validator->addRule('firstname', get_lang('You left some required fields empty'), 'required');
     $validator->addRule('username' , get_lang('You left some required fields empty'), 'required');
     $validator->addRule('username' , get_lang('Username is too long (maximum 20 characters)'), 'maxlength',20);
-
-    if ( ! get_conf('userMailCanBeEmpty') )
+    
+    if ( !get_conf('userMailCanBeEmpty') )
     {
         $validator->addRule('email', get_lang('You left some required fields empty'), 'required');
     }
-
-    if ( ! get_conf('userOfficialCodeCanBeEmpty') )
+    
+    if ( !get_conf('userOfficialCodeCanBeEmpty') )
     {
         $validator->addRule('officialCode', get_lang('You left some required fields empty'), 'required');
     }
-
-    if(array_key_exists('password',$data) || array_key_exists('password_conf',$data))
+    
+    if (array_key_exists('password',$data) || array_key_exists('password_conf',$data))
     {
         if ( $formMode != 'registration'
             && $formMode != 'admin_user_profile' )
@@ -759,33 +871,31 @@ function user_validate_form($formMode, $data, $userId = null)
             )
             );
         }
-
+        
         $validator->addRule('password', get_lang('You typed two different passwords'), 'compare', $data['password_conf']);
     }
-
+    
     $validator->addRule('email'  , get_lang('The email address is not valid'), 'email');
-
-    if ( 'registration' == $formMode)
+    
+    if ('registration' == $formMode)
     {
         $validator->addRule('password_conf', get_lang('You left some required fields empty'), 'required');
-        $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available');
-        $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available');
-        $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
+        $validator->addRule('officialCode', get_lang('This official code is already used by another user.'), 'is_official_code_available');
+        $validator->addRule('username', get_lang('This user name is already taken'), 'is_username_available');
+        $validator->addRule('password', get_lang('You left some required fields empty'), 'required');
     }
     else // profile mode
     {
-        /*
-         * FIX for the empty password issue
-         */
+        // FIX for the empty password issue
         if ( !empty( $data['password'] ) || !empty( $data['password_conf'] ) )
         {
-            $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
+            $validator->addRule('password', get_lang('You left some required fields empty'), 'required');
         }
-
-        $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
-        $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available', $userId);
+        
+        $validator->addRule('officialCode', get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
+        $validator->addRule('username', get_lang('This user name is already taken'), 'is_username_available', $userId);
     }
-
+    
     if ( $validator->validate() )
     {
         return array();
@@ -795,6 +905,7 @@ function user_validate_form($formMode, $data, $userId = null)
         return array_unique($validator->getErrorList());
     }
 }
+
 
 /**
  * Check if the authentication fassword for the given user
@@ -939,7 +1050,27 @@ function user_html_form($userId = null)
         
         // Editable fields
         $editableFields = get_conf('profile_editable');
+        
+        // A few javascript
+        $htmlHeadXtra[] =
+        "<script>
+        function confirmation (name)
+        {
+            if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure to delete'))." \"+ name + \"? \"))
+                {return true;}
+            else
+                {return false;}
+        }"
+        .
+        '<script type="text/javascript">
+            $(document).ready(function(){
+                $("#delete").click(function(){
+                    return confirmation("' . $userData['firstname'] . " " . $userData['lastname'] .'");
+                }).attr("href","adminuserdeleted.php?uidToEdit=' . $userId . '&cmd=exDelete");
+            });
+        </script>';
     }
+    // If it's a new user (no given user id)
     else
     {
         // Initialize user's data
@@ -952,16 +1083,33 @@ function user_html_form($userId = null)
         $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
     }
     
+    if (!empty($_SERVER['HTTP_REFERER']))
+    {
+        $cancelUrl = $_SERVER['HTTP_REFERER'];
+    }
+    else
+    {
+        $cancelUrl = $_SERVER['PHP_SELF'];
+    }
     
-    
+    // Hack to prevent autocompletion from browser
+    $htmlHeadXtra[] =
+    '<script type="text/javascript">
+        $(document).ready(
+            function() {
+                $("#password").val("");
+            }
+        );
+    </script>';
+    var_dump($userData);
     $template = new CoreTemplate('user_form.tpl.php');
     $template->assign('formAction', $_SERVER['PHP_SELF']);
     $template->assign('relayContext', claro_form_relay_context());
-    $template->assign('cancelUrl', htmlspecialchars(Url::Contextualize($_SERVER['HTTP_REFERER'])));
+    $template->assign('cancelUrl', htmlspecialchars(Url::Contextualize($cancelUrl)));
     $template->assign('editableFields', $editableFields);
     $template->assign('data', $userData);
     $template->assign('pictureUrl', $pictureUrl);
-    $template->assign('languages', user_display_preferred_language_select_box());
+    $template->assign('languages', get_language_to_display_list());
     
     return $template->render();
 }
@@ -1119,9 +1267,9 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
 function user_display_preferred_language_select_box()
 {
     $language_list = get_language_to_display_list();
-
+    var_dump($language_list);
     $form = '';
-
+    
     if ( is_array($language_list) && count($language_list) > 1 )
     {
         // get the the current language

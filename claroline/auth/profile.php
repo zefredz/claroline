@@ -57,8 +57,8 @@ CONTROLER Section
 $extraInfoDefList = get_userInfoExtraDefinitionList();
 
 $userId = claro_get_current_user_id();
-$user_data = user_initialise();
-$user_data = user_get_properties($userId);
+$userData = user_initialise();
+$userData = user_get_properties($userId);
 
 $acceptedCmdList = array( 'exCCstatus'
                         , 'exRevoquation'
@@ -79,134 +79,54 @@ else
 
 if ( isset($_REQUEST['applyChange']) )
 {
-    $profile_editable = get_conf('profile_editable');
-
-    // get params form the form
-    if ( isset($_REQUEST['lastname']) && in_array('name',$profile_editable) )              $user_data['lastname'] = trim(strip_tags($_REQUEST['lastname']));
-    if ( isset($_REQUEST['firstname']) && in_array('name',$profile_editable) )             $user_data['firstname'] = trim(strip_tags($_REQUEST['firstname']));
-    if ( isset($_REQUEST['officialCode']) && in_array('official_code',$profile_editable) ) $user_data['officialCode'] = trim(strip_tags($_REQUEST['officialCode']));
-    if ( isset($_REQUEST['username']) && in_array('login',$profile_editable) )             $user_data['username'] = trim(strip_tags($_REQUEST['username' ]));
-    if ( isset($_REQUEST['old_password']) && in_array('password',$profile_editable) )      $user_data['old_password'] = trim(strip_tags($_REQUEST['old_password']));
-    if ( isset($_REQUEST['password']) && in_array('password',$profile_editable) )          $user_data['password'] = trim(strip_tags($_REQUEST['password']));
-    if ( isset($_REQUEST['password_conf']) && in_array('password',$profile_editable) )     $user_data['password_conf'] = trim(strip_tags($_REQUEST['password_conf']));
-    if ( isset($_REQUEST['email']) && in_array('email',$profile_editable) )                $user_data['email'] = trim(strip_tags($_REQUEST['email']));
-    if ( isset($_REQUEST['officialEmail']) && in_array('email',$profile_editable) )        $user_data['officialEmail'] = trim(strip_tags($_REQUEST['officialEmail']));
-    if ( isset($_REQUEST['phone']) && in_array('phone',$profile_editable) )                $user_data['phone'] = trim(strip_tags($_REQUEST['phone']));
-    if ( isset($_REQUEST['language']) && in_array('language',$profile_editable) )          $user_data['language'] = trim(strip_tags($_REQUEST['language']));
-    if ( isset($_REQUEST['skype']) && in_array('skype',$profile_editable) )                $user_data['skype'] = trim(strip_tags($_REQUEST['skype']));
-    
-    
-    if ( isset($_REQUEST['delPicture']) && $_REQUEST['delPicture'] =='true' )
-    {
-        $picturePath = user_get_picture_path( $user_data );
-        
-        if ( $picturePath )
-        {
-            claro_delete_file( $picturePath );
-            $user_data['picture'] = '';
-            $dialogBox->success(get_lang("User picture deleted"));
-        }
-        else
-        {
-            $dialogBox->error(get_lang("Cannot delete user picture"));
-        }
-    }
+    // Get params form the form
+    $userData = user_initialise();
     
     // Handle user picture
+    $pictureUpdated = user_handle_profile_picture($userData);
     
-    if ( isset($_FILES['picture']['name'])
-        && $_FILES['picture']['size'] > 0 )
+    if ($pictureUpdated['success'])
     {
-        $fileName = $_FILES['picture']['name'];
-        $fileTmpName = $_FILES['picture']['tmp_name'];
-        
-        if ( is_uploaded_file( $fileTmpName ) )
+        $userData['picture'] = $pictureUpdated['pictureName'];
+        foreach ($pictureUpdated['messages'] as $success)
         {
-            if ( is_image( $fileName ) )
-            {
-                list($width, $height, $type, $attr) = getimagesize($fileTmpName);
-                
-                if ( $width > 0 && $width <= get_conf( 'maxUserPictureWidth', 150 )
-                    && $height > 0 && $height <= get_conf( 'maxUserPictureHeight', 200 )
-                    && $_FILES['picture']['size'] <= get_conf( 'maxUserPictureSize', 100*1024 )
-                )
-                {
-                    $uploadDir = user_get_private_folder_path($user_data['user_id']);
-                    
-                    if ( ! file_exists( $uploadDir ) )
-                    {
-                        claro_mkdir( $uploadDir, CLARO_FILE_PERMISSIONS, true );
-                    }
-                    
-                    if ( false !== ( $pictureName = treat_uploaded_file(
-                            $_FILES['picture'],
-                            $uploadDir,
-                            '',
-                            1000000000000 ) ) )
-                    {
-                        // Update Database
-                        $user_data['picture'] = $pictureName;
-                        $dialogBox->success(get_lang("User picture added"));
-                    }
-                    else
-                    {
-                        // Handle Error
-                        $dialogBox->error(get_lang("Cannot upload file"));
-                    }
-                }
-                else
-                {
-                    // Handle error
-                    $dialogBox->error(
-                        get_lang("Image is too big : max size %width%x%height%, %size% bytes"
-                            , array(
-                                    '%width%' => get_conf( 'maxUserPictureWidth', 150 ),
-                                    '%height%' => get_conf( 'maxUserPictureHeight', 200 ),
-                                    '%size%' => get_conf( 'maxUserPictureHeight', 100*1024 )
-                                ) ) );
-                }
-            }
-            else
-            {
-                // Handle error
-                $dialogBox->error(get_lang("Invalid file format, use gif, jpg or png"));
-            }
-        }
-        else
-        {
-            // Handle error
-            $dialogBox->error(get_lang('Upload failed'));
+            $dialogBox->success($success);
         }
     }
-
-    // manage password.
-
-    if (empty($user_data['password']) && empty($user_data['password_conf']))
+    else
     {
-        unset ($user_data['password']);
-        unset ($user_data['password_conf']);
+        foreach ($pictureUpdated['messages'] as $error)
+        {
+            $dialogBox->error($error);
+        }
     }
-
-    // validate forum params
-
-    $errorMsgList = user_validate_form_profile($user_data, claro_get_current_user_id());
-
+    
+    // Manage password
+    if (empty($userData['password']) && empty($userData['password_conf']))
+    {
+        unset ($userData['password']);
+        unset ($userData['password_conf']);
+    }
+    
+    // Validate form params
+    $errorMsgList = user_validate_form_profile($userData, claro_get_current_user_id());
+    
     if ( count($errorMsgList) == 0 )
     {
         // if no error update use setting
-        user_set_properties(claro_get_current_user_id(), $user_data);
-        set_user_property(claro_get_current_user_id(), 'skype', $user_data['skype']);
+        user_set_properties(claro_get_current_user_id(), $userData);
+        set_user_property(claro_get_current_user_id(), 'skype', $userData['skype']);
+        
         $claroline->log('PROFILE_UPDATE', array('user'=>claro_get_current_user_id()));
-
+        
         // re-init the system to take new settings in account
-
         $uidReset = true;
         include dirname(__FILE__) . '/../inc/claro_init_local.inc.php';
         $dialogBox->success( get_lang('The information have been modified') );
-
+        
         // Initialise
-        $user_data = user_get_properties(claro_get_current_user_id());
-
+        $userData = user_get_properties(claro_get_current_user_id());
+        
     } // end if $userSettingChangeAllowed
     else
     {
@@ -217,7 +137,6 @@ if ( isset($_REQUEST['applyChange']) )
         }
         $error = true;
     }
-
 }
 elseif ( ! claro_is_allowed_to_create_course()
     && get_conf('can_request_course_creator_status')
@@ -293,7 +212,7 @@ elseif ( 'exMoreInfo' == $cmd
 }
 
 // Initialise
-$user_data['userExtraInfoList'] =  get_user_property_list(claro_get_current_user_id());
+$userData['userExtraInfoList'] =  get_user_property_list(claro_get_current_user_id());
 
 $profileMenu =  array();
 
@@ -335,15 +254,6 @@ switch ( $display )
 **********************************************************************/
 $jsloader = JavascriptLoader::getInstance();
 $jsloader->load('jquery');
-
-$htmlHeadXtra[] =
-'<script type="text/javascript">
-    $(document).ready(
-        function() {
-            $("#password").val("");
-        }
-    );
-</script>';
 
 $out = '';
 
