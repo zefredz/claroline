@@ -450,7 +450,6 @@ if ( !class_exists('ScormExport') )
                 return false;
             }
             
-            // var_dump( get_path('clarolineRepositorySys') . '../web/css/' . $claro_stylesheet );
             // Check css to use
             if( file_exists( get_path( 'clarolineRepositorySys' ) . '../platform/css/' . $claro_stylesheet ) )
             {

@@ -1048,21 +1048,23 @@ function user_html_form($userId = null)
             $pictureUrl = '';
         }
         
+        // Get current language
+        $currentLanguage = !empty($userData['language'])?$userData['language']:language::current_language();
+        
         // Editable fields
         $editableFields = get_conf('profile_editable');
         
         // A few javascript
         $htmlHeadXtra[] =
-        "<script>
-        function confirmation (name)
-        {
-            if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure to delete'))." \"+ name + \"? \"))
-                {return true;}
-            else
-                {return false;}
-        }"
-        .
         '<script type="text/javascript">
+            function confirmation (name)
+            {
+                if (confirm("'.clean_str_for_javascript(get_lang('Are you sure to delete')).'"+ name + "?"))
+                {return true;}
+                else
+                {return false;}
+            }
+            
             $(document).ready(function(){
                 $("#delete").click(function(){
                     return confirmation("' . $userData['firstname'] . " " . $userData['lastname'] .'");
@@ -1079,6 +1081,9 @@ function user_html_form($userId = null)
         // No user's picture
         $pictureUrl = '';
         
+        // Prefered language
+        $currentLanguage = language::current_language();
+        
         // Editable fields
         $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
     }
@@ -1092,7 +1097,7 @@ function user_html_form($userId = null)
         $cancelUrl = $_SERVER['PHP_SELF'];
     }
     
-    // Hack to prevent autocompletion from browser
+    // Hack to prevent autocompletion of password fields from browser
     $htmlHeadXtra[] =
     '<script type="text/javascript">
         $(document).ready(
@@ -1109,6 +1114,7 @@ function user_html_form($userId = null)
     $template->assign('editableFields', $editableFields);
     $template->assign('data', $userData);
     $template->assign('pictureUrl', $pictureUrl);
+    $template->assign('currentLanguage', $currentLanguage);
     $template->assign('languages', get_language_to_display_list());
     
     return $template->render();

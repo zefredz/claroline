@@ -269,16 +269,14 @@ switch ( $display )
         if ( trim ($profileText) != '')
         {
             $out .= '<div class="info profileEdit">'
-            .    $profileText
-            .    '</div>'
-            ;
+                  . $profileText
+                  . '</div>';
         }
 
         $out .= '<p>'
-        .    claro_html_menu_horizontal($profileMenu)
-        .    '</p>'
-        .    user_html_form($userId)
-        ;
+              . claro_html_menu_horizontal($profileMenu)
+              . '</p>'
+              . user_html_form($userId);
 
         break;
 
@@ -286,9 +284,8 @@ switch ( $display )
 
         // display request course creator form
         $out .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-        .    '<input type="hidden" name="cmd" value="exMoreInfo" />' . "\n"
-        .    '<table>' . "\n"
-        ;
+              . '<input type="hidden" name="cmd" value="exMoreInfo" />' . "\n"
+              . '<table>' . "\n";
 
         foreach ($extraInfoDefList as $extraInfoDef)
         {
@@ -303,16 +300,15 @@ switch ( $display )
         }
 
         $out .= '<tr valign="top">' . "\n"
-        .    '<td>' . get_lang('Submit') . ': </td>' . "\n"
-        .    '<td>'
-        .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
-        .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
-        .    '</td>'
-        .    '</tr>' . "\n"
-        .     form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> denotes required field') . '</small>')
-        .    '</table>' . "\n"
-        .    '</form>' . "\n"
-        ;
+              . '<td>' . get_lang('Submit') . ': </td>' . "\n"
+              . '<td>'
+              . '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
+              . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
+              . '</td>'
+              . '</tr>' . "\n"
+              .  form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> denotes required field') . '</small>')
+              . '</table>' . "\n"
+              . '</form>' . "\n";
         break;
 
     case DISP_REQUEST_COURSE_CREATOR_STATUS :
@@ -321,17 +317,16 @@ switch ( $display )
 
         // display request course creator form
         $out .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-        .    '<input type="hidden" name="cmd" value="exCCstatus" />' . "\n"
-        .    '<table>' . "\n"
-        .    form_input_textarea('explanation','',get_lang('Comment'),true,6)
-        .    '<tr valign="top">' . "\n"
-        .    '<td>' . get_lang('Submit') . ': </td>' . "\n"
-        .    '<td><input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
-        .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
-        .    '</td></tr>' . "\n"
-        .    '</table>' . "\n"
-        .    '</form>' . "\n"
-        ;
+              . '<input type="hidden" name="cmd" value="exCCstatus" />' . "\n"
+              . '<table>' . "\n"
+              . form_input_textarea('explanation','',get_lang('Comment'),true,6)
+              . '<tr valign="top">' . "\n"
+              . '<td>' . get_lang('Submit') . ': </td>' . "\n"
+              . '<td><input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
+              . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
+              . '</td></tr>' . "\n"
+              . '</table>' . "\n"
+              . '</form>' . "\n";
 
         break;
 
@@ -340,20 +335,19 @@ switch ( $display )
         {
 
             $out .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-            .    '<input type="hidden" name="cmd" value="exRevoquation" />' . "\n"
-            .    '<table>' . "\n"
-            .    form_input_text('loginToDelete','',get_lang('Username'),true)
-            .    form_input_password('passwordToDelete','',get_lang('Password'),true)
-            .    form_input_textarea('explanation','',get_lang('Comment'),true,6)
-            .    '<tr valign="top">' . "\n"
-            .    '<td>' . get_lang('Delete my account') . ': </td>' . "\n"
-            .    '<td>'
-            .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
-            .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
-            .    '</td></tr>' . "\n"
-            .    '</table>' . "\n"
-            .    '</form>' . "\n"
-            ;
+                  . '<input type="hidden" name="cmd" value="exRevoquation" />' . "\n"
+                  . '<table>' . "\n"
+                  . form_input_text('loginToDelete','',get_lang('Username'),true)
+                  . form_input_password('passwordToDelete','',get_lang('Password'),true)
+                  . form_input_textarea('explanation','',get_lang('Comment'),true,6)
+                  . '<tr valign="top">' . "\n"
+                  . '<td>' . get_lang('Delete my account') . ': </td>' . "\n"
+                  . '<td>'
+                  . '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
+                  . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
+                  . '</td></tr>' . "\n"
+                  . '</table>' . "\n"
+                  . '</form>' . "\n";
         }
         break;
 

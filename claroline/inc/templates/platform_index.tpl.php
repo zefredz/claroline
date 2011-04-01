@@ -8,7 +8,7 @@
         <?php echo $this->userProfileBox->render(); ?>
         
     <?php else : ?>
-        <?php if (!empty($this->languages)) : ?>
+        <?php if (!empty($this->languages) && count($this->languages) > 1) : ?>
         
         <div id="languageBox">
             <div class="header"><?php echo get_lang('Language'); ?></div>

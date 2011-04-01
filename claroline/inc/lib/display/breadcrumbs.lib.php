@@ -93,8 +93,6 @@ class BreadCrumbs implements Display
                 $nodeStr .= '<li class="breadCrumbsNode">';
             }
 
-            // var_dump( $node );
-
             $nodeStr .= $node->render();
 
             if ( $currentNode == $lastNode )
@@ -189,8 +187,6 @@ class BreadCrumbsNode
 
         $nodeHtml .= htmlspecialchars( $this->name );
 
-        // var_dump( $this->name );
-
         if ( ! empty( $this->url ) )
         {
             $nodeHtml .= '</a>';
@@ -284,7 +280,6 @@ class ClaroBreadCrumbs extends BreadCrumbs
         if ( array_key_exists( 'interbredcrump', $GLOBALS )
             && is_array( $GLOBALS['interbredcrump'] ) )
         {
-            // var_dump( $GLOBALS['interbredcrump'] );
             foreach ( $GLOBALS['interbredcrump'] as $node )
             {
                 $this->append( $node['name'], $node['url'] );

@@ -184,9 +184,6 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat,
 
     $working2Darray = array_swap_cols_and_rows($_SESSION['claro_csv_userlist'],$cols);
 
-    //var_dump($_SESSION['claro_csv_userlist']);
-    //var_dump($working2Darray);
-
     //look for possible new errors
 
     $mail_synthax_error           = check_email_synthax_userlist($working2Darray);

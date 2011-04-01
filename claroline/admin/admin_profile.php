@@ -107,7 +107,6 @@ if ( isset($_REQUEST['applyChange']) ) // For formular modification
         }
         
         // Save informations
-        var_dump($userData);
         user_set_properties($userId, $userData);
         set_user_property($userId, 'skype', $userData['skype']);
         

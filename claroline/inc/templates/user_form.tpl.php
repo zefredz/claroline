@@ -82,7 +82,7 @@
             <dd>
                 <select id="language" name="language">
                 <?php foreach ($this->languages as $key => $elmt) : ?>
-                    <option value="<?php echo $elmt; ?>"<?php if (!empty($this->data['language']) && $elmt == $this->data['language']) : ?> selected="selected"<?php endif; ?>>
+                    <option value="<?php echo $elmt; ?>"<?php if ($elmt == $this->currentLanguage) : ?> selected="selected"<?php endif; ?>>
                         <?php echo $key; ?>
                     </option>
                 <?php endforeach; ?>
@@ -279,11 +279,11 @@
                 <?php echo get_lang('Platform role'); ?>
             </dt>
             <dd>
-                <?php if (get_conf('allowSelfRegProf') ||claro_is_platform_admin()) : ?>
-                <input type="radio" name="platformRole" id="student" value="student"<?php if (!$this->data['isCourseCreator'] && !$this->data['isPlatformAdmin']) : ?> checked="checked"<?php endif; ?><?php if ($this->data['user_id'] == claro_get_current_user_id()) : ?> disabled="disabled"<?php endif; ?> /><label for="student"><?php echo get_lang('Follow courses'); ?> (<?php echo get_lang('student'); ?>)</label><br />
-                <input type="radio" name="platformRole" id="courseManager" value="courseManager"<?php if ($this->data['isCourseCreator']) : ?> checked="checked"<?php endif; ?><?php if ($this->data['user_id'] == claro_get_current_user_id()) : ?> disabled="disabled"<?php endif; ?> /><label for="courseManager"><?php echo get_lang('Create courses'); ?> (<?php echo get_lang('teacher'); ?>)</label><br />
+                <?php if (get_conf('allowSelfRegProf') || claro_is_platform_admin()) : ?>
+                <input type="radio" name="platformRole" id="student" value="student"<?php if (!$this->data['isCourseCreator'] && !$this->data['isPlatformAdmin']) : ?> checked="checked"<?php endif; ?><?php if (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id()) : ?> disabled="disabled"<?php endif; ?> /><label for="student"><?php echo get_lang('Follow courses'); ?> (<?php echo get_lang('student'); ?>)</label><br />
+                <input type="radio" name="platformRole" id="courseManager" value="courseManager"<?php if ($this->data['isCourseCreator']) : ?> checked="checked"<?php endif; ?><?php if (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id()) : ?> disabled="disabled"<?php endif; ?> /><label for="courseManager"><?php echo get_lang('Create courses'); ?> (<?php echo get_lang('teacher'); ?>)</label><br />
                 <?php if (claro_is_platform_admin()) : ?>
-                <input type="radio" name="platformRole" id="platformAdmin" value="platformAdmin"<?php if ($this->data['isPlatformAdmin']) : ?> checked="checked"<?php endif; ?><?php if ($this->data['user_id'] == claro_get_current_user_id()) : ?> disabled="disabled"<?php endif; ?> /><label for="platformAdmin"><?php echo get_lang('Manage platform'); ?> (<?php echo get_lang('administrator'); ?>)</label>
+                <input type="radio" name="platformRole" id="platformAdmin" value="platformAdmin"<?php if ($this->data['isPlatformAdmin']) : ?> checked="checked"<?php endif; ?><?php if (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id()) : ?> disabled="disabled"<?php endif; ?> /><label for="platformAdmin"><?php echo get_lang('Manage platform'); ?> (<?php echo get_lang('administrator'); ?>)</label>
                 <?php endif; ?>
                 <?php endif; ?>
             </dd>
