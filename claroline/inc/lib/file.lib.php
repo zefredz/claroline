@@ -348,6 +348,7 @@ function claro_send_file( $path, $name = '', $charset = null )
     }
 }
 
+
 /**
  * Send a stream over HTTP
  * @param   string $stream file stream
@@ -370,7 +371,7 @@ function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
     {
         $mimeType = get_mime_on_ext( $name );
     }
-
+    
     header( 'Content-Type: ' . $mimeType . $charset );
         
     // IE no-cache bug
@@ -382,7 +383,7 @@ function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
     header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + $lifetime ) .' GMT' );
     header( 'Pragma: ' );
     
-    // Patch proposed by Diego Conde Pérez <dconde@uvigo.es> - Universidade de Vigo
+    // Patch proposed by Diego Conde <dconde@uvigo.es> - Universidade de Vigo
     // It seems that with the combination of OfficeXP and Internet Explorer 6 the
     // downloading of powerpoints fails sometimes. I captured the network packets
     // and the viewer of the office doesn't send all the needed cookies,
@@ -405,6 +406,8 @@ function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
     
     return strlen( $stream );
 }
+
+
 /**
  * Remove /.. ../ from file path
  * @param   string $path file path
