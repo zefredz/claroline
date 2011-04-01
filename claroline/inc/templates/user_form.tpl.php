@@ -174,6 +174,10 @@
             </dd>
             <?php if (in_array('password', $this->editableFields)) : ?>
             <?php if (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id()) : ?>
+            <dt></dt>
+            <dd>
+                <p class="notice"><?php echo get_lang('Enter new password twice to change, leave empty to keep it'); ?></p>
+            </dd>
             <dt>
                 <label for="old_password">
                     <?php echo get_lang('Old password'); ?>
