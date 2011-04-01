@@ -293,12 +293,12 @@
             
             <?php if (claro_is_platform_admin()) : ?>
             <!-- Course status -->
-            <dl class="admin-control">
+            <dl>
                 
                 <dt>
                     <?php echo get_lang('Status'); ?>
                 </dt>
-                <dd>
+                <dd class="adminControl">
                     <input type="radio" id="course_status_enable" name="course_status_selection" value="enable"<?php echo ($this->course->status == 'enable' ? ' checked="checked"':''); ?> />&nbsp;
                     <label for="course_status_enable">
                         <?php echo get_lang('Available'); ?>

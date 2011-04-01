@@ -90,6 +90,13 @@ input[type=submit]:hover, button:hover, input[type=button]:hover {
     color: #fff;
 }
 
+input[type=radio], input[type=checkbox] {
+    border: 0;
+    margin: 0.1em 0.5em 0.1em 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
 input[type=text].inputSearch {
     background: url('../../img/search.png') no-repeat top left #fff;
     padding-left: 18px;
@@ -1399,9 +1406,13 @@ h4 {
 }
 
 /* Use it to highlight admin tools */
-dl.admin-control dd {
-    background:#F9F7ED; 
-    border:1px solid #AA3333;
+dd.adminControl, 
+div.adminControl, 
+span.adminControl {
+    background:#F9F7E1;
+    padding: 2px 5px 2px 5px;
+    margin-left: -10px;
+    border-left: 5px solid #AA3333;
 }
 
 .centerContent {
