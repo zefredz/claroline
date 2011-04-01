@@ -7,7 +7,7 @@
  *
  * Dialog box.
  *
- * @version     1.10 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -313,5 +313,4 @@ class DialogBox implements Display
             return '';
         }
     }
-
 }

@@ -1,125 +1,119 @@
 <?php // $Id$
 
-    // vim: expandtab sw=4 ts=4 sts=4:
+// vim: expandtab sw=4 ts=4 sts=4:
+
+/**
+ * Claroline page footer.
+ *
+ * @version     $Revision$
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @author      Frederic Minne <zefredz@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     display
+ */
+ 
+class ClaroFooter extends CoreTemplate
+{
+    private static $instance = false;
     
-    if ( count( get_included_files() ) == 1 )
+    private $hidden = false;
+    
+    public function __construct()
     {
-        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+        parent::__construct('footer.tpl.php');
     }
     
-    /**
-     * Claroline page footer
-     *
-     * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
-     * @author      Claroline Team <info@claroline.net>
-     * @author      Frederic Minne <zefredz@claroline.net>
-     * @license     http://www.gnu.org/copyleft/gpl.html
-     *              GNU GENERAL PUBLIC LICENSE version 2 or later
-     * @package     display
-     */
-     
-    class ClaroFooter extends CoreTemplate
+    public static function getInstance()
     {
-        private static $instance = false;
-        
-        private $hidden = false;
-
-        public function __construct()
+        if ( ! self::$instance )
         {
-            parent::__construct('footer.tpl.php');
+            self::$instance = new ClaroFooter;
         }
         
-        public static function getInstance()
+        return self::$instance;
+    }
+    
+    public function hide()
+    {
+        $this->hidden = true;
+    }
+    
+    public function show()
+    {
+        $this->hidden = false;
+    }
+    
+    public function render()
+    {
+        if ( $this->hidden )
         {
-            if ( ! self::$instance )
-            {
-                self::$instance = new ClaroFooter;
-            }
-
-            return self::$instance;
+            return '<!-- footer hidden -->' . "\n";
         }
         
-        function hide()
+        $currentCourse =  claro_get_current_course_data();
+        
+        if ( claro_is_in_a_course() )
         {
-            $this->hidden = true;
-        }
-
-        function show()
-        {
-            $this->hidden = false;
-        }
-
-        public function render()
-        {
-            if ( $this->hidden )
-            {
-                return '<!-- footer hidden -->' . "\n";
-            }
-            
-            $currentCourse =  claro_get_current_course_data();
-            
-            if ( claro_is_in_a_course() )
-            {
-                $courseManagerOutput = '<div id="courseManager">'
-                    . get_lang('Manager(s) for %course_code'
-                        , array('%course_code' => $currentCourse['officialCode']) )
-                    . ' : '
-                    ;
-                    
-                $currentCourseTitular = empty ( $currentCourse['titular'] )
-                    ? get_lang ( 'Course manager' )
-                    : $currentCourse['titular']
-                    ;
-
-                if ( empty($currentCourse['email']) )
-                {
-                    $courseManagerOutput .= '<a href="' . get_module_url('CLUSR') . '/user.php">'. $currentCourseTitular.'</a>';
-                }
-                else
-                {
-                    $courseManagerOutput .= '<a href="mailto:' . $currentCourse['email'] . '?body=' . $currentCourse['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . $currentCourseTitular . '</a>';
-                }
+            $courseManagerOutput = '<div id="courseManager">'
+                . get_lang('Manager(s) for %course_code'
+                    , array('%course_code' => $currentCourse['officialCode']) )
+                . ' : '
+                ;
                 
-                $courseManagerOutput .= '</div>';
-                
-                $this->assign( 'courseManager', $courseManagerOutput );
+            $currentCourseTitular = empty ( $currentCourse['titular'] )
+                ? get_lang ( 'Course manager' )
+                : $currentCourse['titular']
+                ;
+            
+            if ( empty($currentCourse['email']) )
+            {
+                $courseManagerOutput .= '<a href="' . get_module_url('CLUSR') . '/user.php">'. $currentCourseTitular.'</a>';
             }
             else
             {
-                $this->assign( 'courseManager', '' );
+                $courseManagerOutput .= '<a href="mailto:' . $currentCourse['email'] . '?body=' . $currentCourse['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . $currentCourseTitular . '</a>';
             }
             
-            $platformManagerOutput = '<div id="platformManager">'
-                . get_lang('Administrator for %site_name'
-                    , array('%site_name'=>get_conf('siteName'))). ' : '
-                . '<a href="mailto:' . get_conf('administrator_email')
-                . '?subject=[' . rawurlencode( get_conf('siteName') ) . ']'.'">'
-                . get_conf('administrator_name')
-                . '</a>'
-                ;
-
-            if ( get_conf('administrator_phone') != '' )
-            {
-                $platformManagerOutput .= '<br />' . "\n"
-                    . get_lang('Phone : %phone_number'
-                        , array('%phone_number' => get_conf('administrator_phone'))) ;
-            }
-
-            $platformManagerOutput .= '</div>';
+            $courseManagerOutput .= '</div>';
             
-            $this->assign( 'platformManager', $platformManagerOutput );
-            
-            $poweredByOutput = '<div id="poweredBy">'
-                . get_lang('Powered by')
-                . ' <a href="http://www.claroline.net" target="_blank">Claroline</a> '
-                . '&copy; 2001 - 2011'
-                . '</div>'
-                ;
-            
-            $this->assign( 'poweredBy', $poweredByOutput );
-            
-            return parent::render();
+            $this->assign( 'courseManager', $courseManagerOutput );
         }
-    } 
-?>
+        else
+        {
+            $this->assign( 'courseManager', '' );
+        }
+        
+        $platformManagerOutput = '<div id="platformManager">'
+            . get_lang('Administrator for %site_name'
+                , array('%site_name'=>get_conf('siteName'))). ' : '
+            . '<a href="mailto:' . get_conf('administrator_email')
+            . '?subject=[' . rawurlencode( get_conf('siteName') ) . ']'.'">'
+            . get_conf('administrator_name')
+            . '</a>'
+            ;
+        
+        if ( get_conf('administrator_phone') != '' )
+        {
+            $platformManagerOutput .= '<br />' . "\n"
+                . get_lang('Phone : %phone_number'
+                    , array('%phone_number' => get_conf('administrator_phone'))) ;
+        }
+        
+        $platformManagerOutput .= '</div>';
+        
+        $this->assign( 'platformManager', $platformManagerOutput );
+        
+        $poweredByOutput = '<div id="poweredBy">'
+            . get_lang('Powered by')
+            . ' <a href="http://www.claroline.net" target="_blank">Claroline</a> '
+            . '&copy; 2001 - 2011'
+            . '</div>'
+            ;
+        
+        $this->assign( 'poweredBy', $poweredByOutput );
+        
+        return parent::render();
+    }
+}

@@ -5,7 +5,7 @@
 /**
  * PHP-based templating system
  *
- * @version     1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -67,7 +67,7 @@ class PhpTemplate implements Display
     }
     
     /**
-     * Show a block in the template given its name 
+     * Show a block in the template given its name
      * (ie set the variable with the block name to true)
      * @param   string $blockName
      */
@@ -77,7 +77,7 @@ class PhpTemplate implements Display
     }
     
     /**
-     * Hide a block in the template given its name 
+     * Hide a block in the template given its name
      * (ie set the variable with the block name to false)
      * @param   string $blockName
      */
