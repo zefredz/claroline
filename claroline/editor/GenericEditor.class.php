@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package EDITOR
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Sébastien Piraux <pir@cerdecam.be>
+ * @author Sebastien Piraux <pir@cerdecam.be>
  *
  */
  
@@ -52,7 +52,7 @@ class GenericEditor
     /**
      * @var $webPath path to access via the web to the directory of the editor
      */
-    var $webPath;      
+    var $webPath;
 
     function GenericEditor( $name,$content,$rows,$cols,$optAttrib,$webPath )
     {
@@ -61,7 +61,7 @@ class GenericEditor
         $this->rows = $rows;
         $this->cols = $cols;
         $this->optAttrib = $optAttrib;
-        $this->webPath = $webPath;    
+        $this->webPath = $webPath;
     }
 
 
