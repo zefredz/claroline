@@ -75,7 +75,7 @@ if ( $adminContext && claro_is_platform_admin() )
     $course->addHtmlParam('cidToEdit',$current_cid);
 
     // Back url
-    $backUrl = get_path('rootAdminWeb') . 'admin_courses.php' ;
+    $backUrl = get_path('rootAdminWeb') . 'admincourses.php' ;
 }
 elseif ( claro_is_in_a_course() )
 {
@@ -171,7 +171,7 @@ if ( $course->load($current_cid) )
             $claroline->log( 'DELETION COURSE' , array ('courseName' => $course->title, 'uid' => claro_get_current_user_id()));
             if( $adminContext )
             {
-                claro_redirect( get_path('rootAdminWeb') . '/admin_courses.php');
+                claro_redirect( get_path('rootAdminWeb') . '/admincourses.php');
             }
             else
             {

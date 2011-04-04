@@ -4,35 +4,51 @@
 
 <?php echo $this->dialogBox->render(); ?>
 
-<ul class="adminPanel">
-    <li>
-        <h3><?php echo '<img src="' . get_icon_url('user') . '" alt="" />&nbsp;'.get_lang('Users'); ?></h3>
+<table style="white-space:nowrap; vertical-align: top;" cellspacing="5" align="center">
+<tr>
+    <td>
+        <?php echo claro_html_tool_title('<img src="' . get_icon_url('user') . '" alt="" />&nbsp;'.get_lang('Users')); ?>
         <?php echo claro_html_list($this->menu['AdminUser'], array('class' => 'adminUser')); ?>
-    </li>
-    <li>
-        <h3><?php echo '<img src="' . get_icon_url('course') . '" alt="" />&nbsp;'.get_lang('Courses'); ?></h3>
+    </td>
+    <td>
+        <?php echo claro_html_tool_title('<img src="' . get_icon_url('course') . '" alt="" />&nbsp;'.get_lang('Courses')); ?>
         <?php echo claro_html_list($this->menu['AdminCourse'], array('class' => 'adminCourse')); ?>
-    </li>
-    <li>
-        <h3><?php echo '<img src="' . get_icon_url('settings') . '" alt="" />&nbsp;'.get_lang('Platform\' configuration'); ?></h3>
+    </td>
+</tr>
+
+<tr>
+    <td>
+        <?php echo claro_html_tool_title('<img src="' . get_icon_url('settings') . '" alt="" />&nbsp;'.get_lang('Platform')); ?>
         <?php echo claro_html_list($this->menu['AdminPlatform'], array('class' => 'adminPlatform')); ?>
-    </li>
-    <li>
-        <h3><?php echo '<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Tools'); ?></h3>
-        <?php echo claro_html_list($this->menu['AdminTechnical'], array('class' => 'adminTechnical')); ?>
-    </li>
-    <li>
-        <h3><?php echo '<img src="' . get_icon_url('claroline') . '" alt="" />&nbsp;Claroline.net'; ?></h3>
+    </td>
+    <td>
+        <?php echo claro_html_tool_title('<img src="' . get_icon_url('claroline') . '" alt="" />&nbsp;Claroline.net'); ?>
         <?php echo claro_html_list($this->menu['AdminClaroline'], array('class' => 'adminClaroline')); ?>
-    </li>
-    <?php if (!empty($this->menu['ExtraTools'])) : ?>
-    <li>
-        <h3><?php echo '<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Administration modules'); ?></h3>
-        <?php echo claro_html_list($this->menu['ExtraTools'], array('class' => 'adminExtraTools')); ?>
-    </li>
-    <?php endif; ?>
-    <li>
-        <h3><?php echo '<img src="' . get_icon_url('mail_close') . '" alt="" />&nbsp;'.get_lang('Communication'); ?></h3>
+    </td>
+</tr>
+
+<tr>
+    <td>
+        <?php echo claro_html_tool_title('<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Tools')); ?>
+        <?php echo claro_html_list($this->menu['AdminTechnical'], array('class' => 'adminTechnical')); ?>
+    </td>
+    <td>
+        <?php echo claro_html_tool_title('<img src="' . get_icon_url('mail_close') . '" alt="" />&nbsp;'.get_lang('Communication')); ?>
         <?php echo claro_html_list($this->menu['Communication'], array('class' => 'adminCommunication')); ?>
-    </li>
-</ul>
+    </td>
+</tr>'
+
+
+<?php if (!empty($this->menu['ExtraTools'])) : ?>
+<tr>
+    <td>
+        <?php echo claro_html_tool_title('<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Administration tools')); ?>
+        <?php echo claro_html_list($this->menu['ExtraTools'], array('class' => 'adminExtraTools')); ?>
+    </td>
+    <td>
+        &nbsp;
+    </td>
+</tr>
+<?php endif; ?>
+
+</table>

@@ -394,7 +394,7 @@ $courseDataGrid->set_idLineType('none');
 $courseDataGrid->set_colHead('officialCode') ;
 
 $courseDataGrid->set_noRowMessage( get_lang('There is no course matching such criteria') . '<br />'
-.    '<a href="advanced_course_search.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>');
+.    '<a href="advancedCourseSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>');
 
 
 /**
@@ -427,7 +427,7 @@ $out .= '<table width="100%">' . "\n\n"
 .    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search" />' . "\n"
 .    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
 .    '<input type="hidden" name="newsearch" value="yes" />' . "\n"
-.    '[<a class="claroCmd" href="advanced_course_search.php' . $addtoAdvanced . '">'
+.    '[<a class="claroCmd" href="advancedCourseSearch.php' . $addtoAdvanced . '">'
 .    get_lang('Advanced')
 .    '</a>]'    . "\n"
 .    '</form>'  . "\n\n"

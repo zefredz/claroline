@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 
-<form action="admin_users.php" method="get">
+<form action="adminusers.php" method="get" >
 <table border="0">
   <tr>
     <td align="right">

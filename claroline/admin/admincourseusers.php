@@ -139,7 +139,7 @@ foreach($userList as $lineId => $user)
                                                   . ' title="' . get_lang('Student') . '" />' ;
     }
 
-    $userDataList[$lineId]['cmd_cu_edit'] = '<a href="admin_user_course_settings.php'
+    $userDataList[$lineId]['cmd_cu_edit'] = '<a href="adminUserCourseSettings.php'
                                             . '?cidToEdit=' . $cidToEdit
                                             . '&amp;uidToEdit=' . $user['user_id'] . '&amp;ccfrom=culist">'
                                             . '<img src="' . get_icon_url('edit') .'" alt="' . get_lang('Edit') . '"/>'
@@ -211,7 +211,7 @@ $command_list[] = '<a class="claroCmd" href="adminregisteruser.php'
 ;
 if ($cfrom=='clist')
 {
-    $command_list[] = '<a class="claroCmd" href="admin_courses.php">' . get_lang('Back to course list') . '</a>';
+    $command_list[] = '<a class="claroCmd" href="admincourses.php">' . get_lang('Back to course list') . '</a>';
 }
 
 /*********

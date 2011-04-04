@@ -85,7 +85,7 @@ $out = '';
 
 $out .= claro_html_tool_title($nameTools . ' : ');
 
-$tpl = new CoreTemplate('advanced_course_search.tpl.php');
+$tpl = new PhpTemplate( get_path( 'incRepositorySys' ) . '/templates/advancedCourseSearch.tpl.php' );
 
 $tpl->assign('code', $code);
 $tpl->assign('intitule', $intitule);

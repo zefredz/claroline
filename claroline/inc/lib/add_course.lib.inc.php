@@ -419,7 +419,7 @@ function register_course( $courseSysCode, $courseScreenCode, $sourceCourseId,
         return claro_failure::set_failure('wrong registration value');
     }
     
-    // Optionnal settings
+    // Optionnal parameters
     $languageCourse = (!empty($languageCourse)) ? $languageCourse : 'english';
     
     $sourceCourseId = (!is_null($sourceCourseId) && !empty($sourceCourseId)) ?
@@ -586,10 +586,9 @@ function fill_course_properties( $courseDbName )
     $sql = "INSERT "
         . "INTO `{$currentCourseDbNameGlu}course_properties`(`name`, `value`, `category`)\n"
         . "VALUES\n"
-        . "('self_registration'     , '1', 'GROUP'),\n"
-        . "('self_unregistration'   , '0', 'GROUP'),\n"
-        . "('nbGroupPerUser'        , '1', 'GROUP'),\n"
-        . "('private'               , '1', 'GROUP')"
+        . "('self_registration', '1', 'GROUP'),\n"
+        . "('nbGroupPerUser'   , '1', 'GROUP'),\n"
+        . "('private'          , '1', 'GROUP')"
         ;
         
     $groupToolList = get_group_tool_label_list();

@@ -94,6 +94,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $wikiList = $store->getWikiListByGroup( $groupId );
         }
 
+        // var_dump( $wikiList );
+
         if ( is_array( $wikiList ) && count( $wikiList ) > 0 )
         {
           foreach ( $wikiList as $wiki )

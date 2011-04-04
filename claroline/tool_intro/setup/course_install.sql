@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__tool_intro` (
   `rank` int(11) DEFAULT '1',
   `visibility` enum('SHOW','HIDE') NOT NULL DEFAULT 'SHOW',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM;
+) TYPE=MyISAM;
 

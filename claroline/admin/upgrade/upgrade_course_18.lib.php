@@ -124,7 +124,7 @@ function group_upgrade_to_18($course_code)
                             `value` varchar(255) default NULL,
                             `category` varchar(255) default NULL,
                             PRIMARY KEY  (`id`)
-                        ) ENGINE=MyISAM ";
+                        ) TYPE=MyISAM ";
 
                 if ( upgrade_sql_query($sql_step1) )
                 {
@@ -333,7 +333,7 @@ function quiz_upgrade_to_18 ($course_code)
                     `attempts` tinyint(4) NOT NULL default '0',
                     `anonymousAttempts` enum('ALLOWED','NOTALLOWED') NOT NULL default 'NOTALLOWED',
                     PRIMARY KEY  (`id`)
-                    ) ENGINE=MyISAM ";
+                    ) TYPE=MyISAM ";
 
                 $sql_step1[] = "CREATE TABLE `". $currentCourseDbNameGlu . "qwz_question` (
                     `id` int(11) NOT NULL auto_increment,
@@ -343,13 +343,13 @@ function quiz_upgrade_to_18 ($course_code)
                     `type` enum('MCUA','MCMA','TF','FIB','MATCHING') NOT NULL default 'MCUA',
                     `grade` float NOT NULL default '0',
                     PRIMARY KEY  (`id`)
-                    ) ENGINE=MyISAM ";
+                    ) TYPE=MyISAM ";
 
                 $sql_step1[] = "CREATE TABLE `" . $currentCourseDbNameGlu . "qwz_rel_exercise_question` (
                     `exerciseId` int(11) NOT NULL,
                     `questionId` int(11) NOT NULL,
                     `rank` int(11) NOT NULL default '0'
-                    ) ENGINE=MyISAM ";
+                    ) TYPE=MyISAM ";
 
                 $sql_step1[] = "CREATE TABLE `" . $currentCourseDbNameGlu . "qwz_answer_truefalse` (
                     `id` int(11) NOT NULL auto_increment,
@@ -360,7 +360,7 @@ function quiz_upgrade_to_18 ($course_code)
                     `falseGrade` float NOT NULL,
                     `correctAnswer` enum('TRUE','FALSE') NOT NULL,
                     PRIMARY KEY  (`id`)
-                    ) ENGINE=MyISAM ";
+                    ) TYPE=MyISAM ";
 
                 $sql_step1[] = "CREATE TABLE `" . $currentCourseDbNameGlu . "qwz_answer_multiple_choice` (
                     `id` int(11) NOT NULL auto_increment,
@@ -370,7 +370,7 @@ function quiz_upgrade_to_18 ($course_code)
                     `grade` float NOT NULL,
                     `comment` text NOT NULL,
                     PRIMARY KEY  (`id`)
-                    ) ENGINE=MyISAM ";
+                    ) TYPE=MyISAM ";
 
                 $sql_step1[] = "CREATE TABLE `" . $currentCourseDbNameGlu . "qwz_answer_fib` (
                     `id` int(11) NOT NULL auto_increment,
@@ -380,7 +380,7 @@ function quiz_upgrade_to_18 ($course_code)
                     `wrongAnswerList` text NOT NULL,
                     `type` tinyint(4) NOT NULL,
                     PRIMARY KEY  (`id`)
-                    ) ENGINE=MyISAM ";
+                    ) TYPE=MyISAM ";
 
                 $sql_step1[] = "CREATE TABLE `" . $currentCourseDbNameGlu . "qwz_answer_matching` (
                     `id` int(11) NOT NULL auto_increment,
@@ -390,7 +390,7 @@ function quiz_upgrade_to_18 ($course_code)
                     `grade` float NOT NULL default '0',
                     `code` varchar(32) default NULL,
                     PRIMARY KEY  (`id`)
-                    ) ENGINE=MyISAM ";
+                    ) TYPE=MyISAM ";
 
                 if ( upgrade_apply_sql($sql_step1) )
                 {

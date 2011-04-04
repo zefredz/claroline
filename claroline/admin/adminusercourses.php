@@ -129,7 +129,7 @@ foreach ($userCourseList as $courseKey => $course)
         $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('Student') . '" />';
     }
 
-    $userCourseGrid[$courseKey]['edit_course_user'] = '<a href="admin_user_course_settings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
+    $userCourseGrid[$courseKey]['edit_course_user'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
     .                                                 '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Course manager') . '" title="' . get_lang('User\'s course settings') . '" />'
     .                                                 '</a>'
     ;
@@ -195,12 +195,12 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$cmdList[] =  '<a class="claroCmd" href="admin_profile.php?uidToEdit=' . $uidToEdit . '">' . get_lang('User settings') . '</a>';
+$cmdList[] =  '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '">' . get_lang('User settings') . '</a>';
 $cmdList[] =  '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . get_lang('Enrol to a new course') . '</a>';
 
 if ( 'ulist' == $cfrom )  //if we come from user list, we must display go back to list
 {
-    $cmdList[] = '<a class="claroCmd" href="admin_users.php">' . get_lang('Back to user list') . '</a>';
+    $cmdList[] = '<a class="claroCmd" href="adminusers.php">' . get_lang('Back to user list') . '</a>';
 }
 
 //----------------------------------

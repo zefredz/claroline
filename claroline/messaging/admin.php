@@ -3,9 +3,7 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
- *
- * Index of administrator page.
+ * index of administrator page
  *
  * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -16,7 +14,9 @@
  * @package     internal_messaging
  */
 
-$cidReset = true;
+
+
+$cidReset = TRUE; 
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 // manager of the admin message box
 require_once dirname(__FILE__) . '/lib/messagebox/adminmessagebox.lib.php';
@@ -77,3 +77,5 @@ $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Adminis
 $claroline->display->body->appendContent($content);
 
 echo $claroline->display->render();
+
+?>

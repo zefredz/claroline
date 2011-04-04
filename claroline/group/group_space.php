@@ -5,11 +5,17 @@
  * This tool is "groupe_home" + "group_user"
  *
  * @version 1.9 $Revision$
- * @copyright 2001-2011 Universite catholique de Louvain (UCL)
+ *
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @see http://www.claroline.net/wiki/index.php/CLGRP
+ *
  * @package CLGRP
+ *
  * @author Claro Team <cvs@claroline.net>
+ *
  */
 
 $cidNeeded = true;
@@ -89,7 +95,7 @@ $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
        )));
 
 $is_allowedToSelfRegInGroup  = (bool) $is_allowedToSelfRegInGroup && claro_is_in_a_course() && ( ! claro_is_group_member() ) && claro_is_course_member();
-$is_allowedToSelfUnregInGroup  = (bool) $_groupProperties ['unregistrationAllowed'] && claro_is_in_a_course() && claro_is_group_member() && claro_is_course_member();
+
 
 
 $is_allowedToDocAccess = (bool) ( claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor());
@@ -151,50 +157,6 @@ if ( isset($_REQUEST['regDone']) )
 {
     $dialogBox->success( get_lang("You are now a member of this group.") );
 }
-
-if( isset($_REQUEST['unregistration']) )
-{
-    //RECHECK if subscribe is aivailable
-    if( claro_is_course_member() && claro_is_group_member() && $is_allowedToSelfUnregInGroup)
-    {
-        if( isset($_REQUEST['doUnreg']) )
-        {
-            //RECHECK if subscribe is aivailable
-            if( claro_is_course_member() && claro_is_group_member() && $is_allowedToSelfUnregInGroup)
-            {
-
-                $sql = "DELETE FROM `" . $tbl_group_rel_team_user . "`
-                WHERE `user` = " . (int) claro_get_current_user_id() . "
-                AND    `team` = " . (int) claro_get_current_group_id()
-                    ;
-
-                if (claro_sql_query($sql))
-                {
-                    // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
-                    claro_redirect( dirname($_SERVER['PHP_SELF']) . '/group.php?gidReset=1&unregDone=1');
-                    exit();
-
-                }
-            }
-        }
-        else // Confirm reg
-        {
-            $dialogBox->form( get_lang('Confirm your unsubscription from the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
-            .          '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
-            .          claro_form_relay_context()
-            .          '<input type="hidden" name="unregistration" value="1" />' . "\n"
-            .          '<input type="hidden" name="doUnreg" value="1" />' . "\n"
-            .          '<br />' . "\n"
-            .          '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
-            .          claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
-            .          '</form>' . "\n"
-            );
-
-        }
-
-    }
-}
-
 
 
 /********************************
@@ -294,7 +256,7 @@ foreach($toolList as $thisTool)
 
     if ( ! empty($url) )
     {
-        $toolLinkList[] = '<a class="' . trim( $style . ' item' . $classItem ) . '" href="' . htmlspecialchars(Url::Contextualize($url)) . '">'
+        $toolLinkList[] = '<a class="' . $style . ' item' . $classItem . '" href="' . htmlspecialchars(Url::Contextualize($url)) . '">'
         .                 '<img src="' . $icon . '" alt="" />&nbsp;'
         .                 $toolName
         .                 '</a>' . "\n"
@@ -302,7 +264,7 @@ foreach($toolList as $thisTool)
     }
     else
     {
-        $toolLinkList[] = '<span ' . trim( $style ) . '>'
+        $toolLinkList[] = '<span ' . $style . '>'
         .                 '<img src="' . $icon . '" alt="" />&nbsp;'
         .                 $toolName
         .                 '</span>' . "\n"
@@ -336,22 +298,9 @@ if($is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST))
     ;
 }
 
-if ( $is_allowedToSelfUnregInGroup && !array_key_exists('unregistration',$_REQUEST) )
-{
-    $out .= '<p>' . "\n"
-    .    claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
-                            $_SERVER['PHP_SELF'] . '?unregistration=1' ))
-                            , '<img src="' . get_icon_url('unenroll') . '"'
-                            .     ' alt="' . get_lang("Remove me from this group") . '" />'
-    .                       get_lang("Remove me from this group")
-                            )
-    .    '</p>'
-    ;
-}
-
 $out .= '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 .    '<tr>'  . "\n"
-.    '<td style="border-right: 1px solid gray;" valign="top" width="220" class="toolList">'  . "\n"
+.    '<td style="border-right: 1px solid gray;" valign="top" width="220">'  . "\n"
 
 /*
 * Vars needed to determine group File Manager and group Forum
@@ -362,9 +311,7 @@ $out .= '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 * session_register("forumId");
 */
 
-.   claro_html_list( $toolLinkList, array( 'class' => 'groupToolList' ) ) . "\n"
-. '<br />'
-;
+.   claro_html_list($toolLinkList) . "\n";
 
 if ($is_allowedToManage)
 {
@@ -502,3 +449,5 @@ $out .= '</td>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

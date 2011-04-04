@@ -134,7 +134,6 @@ array ( 'userPasswordCrypted'
       , 'claro_brailleViewMode'
       , 'javascriptCompression'
       , 'ajaxRemoteServiceBrokerEnabled'
-      , 'filesStatsExtensions'
       // , 'secureDocumentDownload'
       );
 
@@ -667,15 +666,6 @@ array ('label'       => 'Enable Ajax Remote Service broker'
       ,'display'     => true
       ,'readonly'    => false
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
-      );
-
-$conf_def_property_list['filesStatsExtensions'] =
-array ('label'       => 'Files extensions'
-      ,'description' => 'Chose the files extensions you want to monitor when producing files statistics.  Separate each extension with a quote (e.g.: doc,pdf,jpg).'
-      ,'default'     => 'doc,pdf,jpg'
-      ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
       );
 
 $conf_def_property_list['courseCreationAllowed'] =

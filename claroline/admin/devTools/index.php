@@ -3,14 +3,17 @@
 /**
  * CLAROLINE
  *
- * This is the index page of sdk tools.
+ * This is the index page of sdk tools
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     SDK
+ *
  * @author      Claro Team <cvs@claroline.net>
  * @author      Christophe Gesche <moosh@claroline.net>
+ * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 
 require '../../inc/claro_init_global.inc.php';
@@ -22,10 +25,10 @@ if (!claro_is_platform_admin())
 if ( get_conf('DEVEL_MODE',false))
 {
     $devtoolsList = array();
-    if (file_exists('./fillUser.php'))        $devtoolsList[] = '<a href="fillUser.php">'.get_lang('Create fake users').'</a>';
-    if (file_exists('./fillCourses.php'))     $devtoolsList[] = '<a href="fillCourses.php">'.get_lang('Create fake courses').'</a>';
-    if (file_exists('./fillTree.php'))        $devtoolsList[] = '<a href="fillTree.php">'.get_lang('Create fake categories').'</a>';
-    if (file_exists('./fillToolCourses.php')) $devtoolsList[] = '<a href="fillToolCourses.php">'.get_lang('Create item into courses tools').'</a>';
+    if (file_exists('./fillUser.php'))        $devtoolsList[] = claro_html_tool_link('fillUser.php',  get_lang('Create fake users'));
+    if (file_exists('./fillCourses.php'))     $devtoolsList[] = claro_html_tool_link('fillCourses.php',  get_lang('Create fake courses'));
+    if (file_exists('./fillTree.php'))        $devtoolsList[] = claro_html_tool_link('fillTree.php',  get_lang('Create fake categories'));
+    if (file_exists('./fillToolCourses.php')) $devtoolsList[] = claro_html_tool_link('fillToolCourses.php',  get_lang('Create item into courses tools'));
 }
 
 $nameTools = get_lang('Development Tools');
@@ -36,6 +39,7 @@ $out = '';
 
 $out .= claro_html_tool_title($nameTools);
 
+// TODO use claro_disp_title
 $out .= '<h4>' . get_lang('Translations') . '</h4>'
       . '<ul>'
       . '<li><a href="../xtra/sdk/translation_index.php">' . get_lang('Translations') . '</a></li>'

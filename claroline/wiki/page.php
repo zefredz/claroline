@@ -319,6 +319,8 @@
                 $searchEngine = new WikiSearchEngine( $con, $config );
                 $searchResult = $searchEngine->searchInWiki( $pattern, $wikiId, CLWIKI_SEARCH_ANY );
 
+//                var_dump($searchResult);
+
                 if ( $searchEngine->hasError() )
                 {
                     claro_die( $searchEngine->getError() );

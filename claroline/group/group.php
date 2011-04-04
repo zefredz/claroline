@@ -19,10 +19,15 @@
  * complete listing of  groups member is not aivailable. the  unsorted info is in user tool
  *
  * @version 1.9 $Revision$
- * @copyright 2001-2011 Universite catholique de Louvain (UCL)
+ *
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @see http://www.claroline.net/wiki/index.php/CLGRP
+ *
  * @package CLGRP
+ *
  * @author Claro Team <cvs@claroline.net>
  *
  */
@@ -96,11 +101,6 @@ $tools['chat'    ] = $_groupProperties['tools']['CLCHT' ];*/
 
 $dialogBox = new DialogBox();
 //// **************** ACTIONS ***********************
-
-if ( isset($_REQUEST['regDone']) )
-{
-    $dialogBox->success( get_lang("You have been removed of the group.") );
-}
 
 $display_groupadmin_manager = (bool) $is_allowedToManage;
 
@@ -303,10 +303,6 @@ if ( $is_allowedToManage )
                                               ? (int) $_REQUEST['self_registration']
                                               : 0;
 
-        $newPropertyList['self_unregistration'] = isset($_REQUEST['self_unregistration'])
-                                              ? (int) $_REQUEST['self_unregistration']
-                                              : 0;
-
         $newPropertyList['private'          ] = isset($_REQUEST['private'] )
                                               ? (int) $_REQUEST['private']
                                               : $private = 0;
@@ -378,7 +374,11 @@ if ( $is_allowedToManage )
         )
         );
 
-        $groupPrivate    = $_groupProperties['private'];
+        $groupPrivate    = $_groupProperties['private'        ];
+        /* $groupHaveForum  = $_groupProperties['tools']['CLFRM' ];
+        $groupHaveDocs   = $_groupProperties['tools']['CLDOC' ];
+        $groupHaveWiki   = $_groupProperties['tools']['CLWIKI'];
+        $groupHaveChat   = $_groupProperties['tools']['CLCHT' ];*/
 
     }    // end if $submit
 
@@ -453,10 +453,10 @@ if (DISP_GROUP_LIST == $display )
           ON `ug2`.`team` = `g`.`id`
           
           # Limit to regsitered users
-          #INNER JOIN `" . $tbl_CoursUsers . "` AS `cu` ON `cu`.user_id = `ug2`.`user`
-          #AND `cu`.`code_cours` = '" . $currentCourseId ."'
+          INNER JOIN `" . $tbl_CoursUsers . "` AS `cu` ON `cu`.user_id = `ug2`.`user`
+          AND `cu`.`code_cours` = '" . $currentCourseId ."'
 
-          #WHERE `cu`.`code_cours` = '" . $currentCourseId ."'
+          WHERE `cu`.`code_cours` = '" . $currentCourseId ."'
 
           GROUP BY `g`.`id`";
 
@@ -810,3 +810,5 @@ $out .= '</tbody>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

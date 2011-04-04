@@ -410,7 +410,7 @@ else
     {
         if ( $fromAdmin == 'settings' )
         {
-            $backUrl   = '../admin/admin_profile.php?uidToEdit=' . $userId;
+            $backUrl   = '../admin/adminprofile.php?uidToEdit=' . $userId;
             $backLabel = get_lang('Back to user settings');
         }
         if ( $fromAdmin == 'usercourse' ) // admin tool used: list of a user's courses.
