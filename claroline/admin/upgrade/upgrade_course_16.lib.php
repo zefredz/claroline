@@ -220,7 +220,7 @@ function assignment_upgrade_to_16($course_code)
                 `prefill_doc_path` varchar(200) NOT NULL default '',
                 `prefill_submit` enum('ENDDATE','AFTERPOST') NOT NULL default 'ENDDATE',
                 PRIMARY KEY  (`id`)
-                ) ENGINE=MyISAM"; 
+                ) TYPE=MyISAM"; 
 /*                      
             $sql_step1[] = "UPDATE `".$currentCourseDbNameGlu."wrk_assignment` 
                 SET 
@@ -245,7 +245,7 @@ function assignment_upgrade_to_16($course_code)
                 `original_id` int(11) default NULL,
                 `score` smallint(3) default NULL,
                 PRIMARY KEY  (`id`)
-                ) ENGINE=MyISAM";
+                ) TYPE=MyISAM";
                 if ( ! upgrade_apply_sql($sql_step1) ) return $step;
                 $step = set_upgrade_status($tool, 2, $course_code);
     
@@ -419,7 +419,7 @@ function tracking_upgrade_to_16($course_code)
                   `access_tid` int(10) default NULL,
                   `access_tlabel` varchar(8) default NULL,
                   PRIMARY KEY  (`access_id`)
-                ) ENGINE=MyISAM COMMENT='Record informations about access to course or tools'";            
+                ) TYPE=MyISAM COMMENT='Record informations about access to course or tools'";            
                 if ( ! upgrade_apply_sql($sql_step2) ) return $step;
                 $step = set_upgrade_status($tool, 3, $course_code);
 

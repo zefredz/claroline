@@ -467,6 +467,47 @@ function get_translation_of_language($language)
     }
 }
 
+/**
+*   Displays a form (drop down menu) so the user can select his/her preferred language.
+*   The form works with or without javascript
+*   TODO : need some refactoring there is a lot of function to get platform language
+*/
+
+function claro_display_preferred_language_form()
+{
+    require_once(dirname(__FILE__).'/form.lib.php');
+
+    $language_list = get_language_to_display_list();
+
+    $form = '';
+
+    if ( is_array($language_list) && count($language_list) > 1 )
+    {
+        $form .= '<div id="languageBox">';
+        $form .= '<div class="header">'.get_lang('Language').'</div>';
+        
+        // get the the current language
+        $user_language = language::current_language();
+
+        foreach ( $language_list as $key => $value )
+        {
+            $languageOption_list[$key] = $_SERVER['PHP_SELF'].'?language='.urlencode($value);
+        }
+
+        // build language selector form
+        $form .= '<form action="'.$_SERVER['PHP_SELF'].'" name="language_selector" method="post">' . "\n"
+               . '<fieldset style="border: 0; margin: 10px 0 15px 0; padding: 5px;">'
+               . claro_html_form_select('language',$languageOption_list,$_SERVER['PHP_SELF'].'?language='.urlencode($user_language),array('id'=>'langSelector', 'onchange'=>'top.location=this.options[selectedIndex].value')) . "\n"
+               . '<noscript><input type="submit" value="' . get_lang('Ok') . '" /></noscript>' . "\n"
+               . '</form>' . "\n"
+               . '</fieldset>' . "\n"
+               . '</div>';
+    }
+
+    return $form;
+}
+
+
 
 /**
  * return an array with names of months
@@ -476,6 +517,8 @@ function get_translation_of_language($language)
  *                           'short' or 'abbr' for abbreviation
  * @return array of 12 strings (0 = january)
  */
+
+
 function get_lang_month_name_list($size='long')
 {
     global $langMonthNames ;

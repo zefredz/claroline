@@ -8,11 +8,6 @@
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLUSR
  * @author      Claro Team <cvs@claroline.net>
- *
- * @deprecated  This php class just manages CSV for users and should be
- *              renamed (at least); it's not a generic CSV class.
- *              Plese, use the generic CsvExporter class instead.  You'll find
- *              it there: claroline/inc/lib/csvexporter.class.php.
  */
 
 FromKernel::Uses( 'password.lib' );
@@ -44,7 +39,7 @@ class csv
      * @param $fieldSeparator field separator
      * @param $enclosedBy fields encolsed by
      */
-    public function __construct($fieldSeparator = ',', $enclosedBy = '"')
+    public function __construct( $fieldSeparator = ',', $enclosedBy = '"')
     {
         $this->fieldSeparator = $fieldSeparator;
         $this->enclosedBy = $enclosedBy;

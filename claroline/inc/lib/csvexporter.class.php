@@ -54,6 +54,28 @@ class CsvExporter
     
     
     /**
+     * Convert data array into csv string and send it to the user.
+     *
+     * @param string $filename
+     * @param array $dataArray
+     * @return string $csv
+     */
+    public function exportAndSend ($filename, $dataArray)
+    {
+        $csv = $this->export($dataArray);
+        
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Length: " . strlen($csv));
+        
+        // Output to browser with appropriate mime type
+        header("Content-type: text/csv");
+        header("Content-Disposition: attachment; filename=$filename");
+        
+        echo $csv;
+    }
+    
+    
+    /**
      * Wrap a row in quotes.
      *
      * @param <type> $row

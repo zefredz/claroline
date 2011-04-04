@@ -419,7 +419,7 @@ function register_course( $courseSysCode, $courseScreenCode, $sourceCourseId,
         return claro_failure::set_failure('wrong registration value');
     }
     
-    // Optionnal settings
+    // Optionnal parameters
     $languageCourse = (!empty($languageCourse)) ? $languageCourse : 'english';
     
     $sourceCourseId = (!is_null($sourceCourseId) && !empty($sourceCourseId)) ?

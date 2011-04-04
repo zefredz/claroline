@@ -1,9 +1,7 @@
 <!-- $Id$ -->
 
-<?php echo $this->dialogBox->render(); ?>
-
 <p>
-    <?php echo get_lang('You\'ve chosen to isolate the following extensions: %types.  If you wish to modify these extensions, check the advanced platform settings', array('%types' => implode(', ', $this->extensions))); ?><br/>
+    <?php echo get_lang('You\'ve chosen to isolate the following extensions: %types', array('%types' => implode(', ', $this->extensions))); ?><br/>
 </p>
 <p>
     <a href="<?php echo $_SERVER['PHP_SELF']; ?>?view_as=csv"><?php echo get_lang('Export into CSV'); ?></a>
@@ -14,7 +12,6 @@
   <tr class="headerX">
     <th><?php echo get_lang('Course code'); ?></th>
     <th><?php echo get_lang('Course title'); ?></th>
-    <th><?php echo get_lang('Lecturer(s)'); ?></th>
     <?php
     foreach ($this->allExtensions as $ext) :
     ?>
@@ -42,8 +39,7 @@
   ?>
      <tr>
         <td style="font-weight: bold;"><?php echo $courseCode; ?></td>
-        <td><?php echo $courseInfos['courseTitle']; ?></td>
-        <td><?php echo $courseInfos['courseTitulars']; ?></td>
+        <td style="font-weight: bold;"><?php echo $courseInfos['courseTitle']; ?></td>
         <?php
         foreach ($courseInfos['courseStats'] as $courseStats) :
         ?>

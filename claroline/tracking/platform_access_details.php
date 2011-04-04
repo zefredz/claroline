@@ -70,12 +70,12 @@ else
 /*
  * Output
  */
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Platform statistics'),'platform_report.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Platform statistics'),'platformReport.php' );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $nameTools = get_lang('Traffic Details');
 
-$html = '';
+$html = '';    
 
 $html .= claro_html_tool_title( $nameTools );
 
@@ -100,7 +100,7 @@ switch($period)
 $html .= '</strong></p>'."\n\n";
 
 $html .= '<p><small>'."\n";
-$html .= get_lang('Period').' : '
+$html .= get_lang('Period').' : ' 
 .   '[<a href="'.$_SERVER['PHP_SELF'].'?period=year&reqdate='.$reqdate.'&displayType=month">'
 .   ( $period == 'year' ? '<strong>' . get_lang('Year') . '</strong>' : get_lang('Year') )
 .    '</a>]'."\n"

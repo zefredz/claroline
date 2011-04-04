@@ -109,6 +109,8 @@ $offset       = (isset($_REQUEST['offset'])       ? $_REQUEST['offset']       : 
 $pagerSortDir = (isset($_REQUEST['dir' ])         ? $_REQUEST['dir' ]         : SORT_ASC);
 $_cleanInput['selectInput'] = (isset($_REQUEST['selectInput'])     ? $_REQUEST['selectInput']     : null );
 
+// var_dump( $_REQUEST['activateOnInstall'] );
+
 $notAutoActivateInCourses = ( array_key_exists( 'notAutoActivateInCourses', $_REQUEST )
     && $_REQUEST['notAutoActivateInCourses'] == 'on' )
     ? true

@@ -129,6 +129,34 @@ function claro_html_menu_horizontal($itemList)
 
 
 /**
+ * Return the claroline sytled url for a link to a tool
+ *
+ * @param string $url
+ * @param string $label
+ * @param array $attributeList array of array(attributeName,attributeValue)
+ * @return string html stream
+ */
+function claro_html_tool_link($url,$label,$attributeList=array())
+{
+    $attributeConcat = 'class="toollink" ';
+
+    if (is_array($attributeList))
+    {
+        foreach ($attributeList as $key => $attribute)
+        {
+            $attributeConcat .= (is_array($attribute) ? $attribute['name'].'="'.$attribute['value'].'" ' : $key.'="'.$attribute.'" ');
+        }
+    }
+    else trigger_error('$attributeList would be an array', E_USER_WARNING);
+    return '<a href="' . $url . '" ' . $attributeConcat . ' >'
+    .       $label
+    .       '</a>' . "\n"
+    ;
+
+}
+
+
+/**
 * Return the claroline sytled url for a link to a tool
 *
 * @param string $url

@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_exercise` (
     `anonymousAttempts` enum('ALLOWED','NOTALLOWED') NOT NULL default 'NOTALLOWED',
     `quizEndMessage` text NOT NULL,
     PRIMARY KEY  (`id`)
-) ENGINE=MyISAM;
+) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_question` (
     `id` int(11) NOT NULL auto_increment,
@@ -25,13 +25,13 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_question` (
     `grade` float NOT NULL default '0',
     `id_category` int(11) NOT NULL default '0',
     PRIMARY KEY  (`id`)
-) ENGINE=MyISAM;
+) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_rel_exercise_question` (
     `exerciseId` int(11) NOT NULL,
     `questionId` int(11) NOT NULL,
     `rank` int(11) NOT NULL default '0'
-) ENGINE=MyISAM;
+) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_answer_truefalse` (
     `id` int(11) NOT NULL auto_increment,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_answer_truefalse` (
     `falseGrade` float NOT NULL,
     `correctAnswer` enum('TRUE','FALSE') NOT NULL,
     PRIMARY KEY  (`id`)
-) ENGINE=MyISAM;
+) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_answer_multiple_choice` (
     `id` int(11) NOT NULL auto_increment,
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_answer_multiple_choice` (
     `grade` float NOT NULL,
     `comment` text NOT NULL,
     PRIMARY KEY  (`id`)
-) ENGINE=MyISAM;
+) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_answer_fib` (
     `id` int(11) NOT NULL auto_increment,
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_answer_fib` (
     `wrongAnswerList` text NOT NULL,
     `type` tinyint(4) NOT NULL,
     PRIMARY KEY  (`id`)
-) ENGINE=MyISAM;
+) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_answer_matching` (
     `id` int(11) NOT NULL auto_increment,
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_answer_matching` (
     `grade` float NOT NULL default '0',
     `code` varchar(32) default NULL,
     PRIMARY KEY  (`id`)
-) ENGINE=MyISAM;
+) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_tracking` (
     `id` int(11) NOT NULL auto_increment,
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_tracking` (
     PRIMARY KEY  (`id`),
     KEY `user_id` (`user_id`),
     KEY `exo_id` (`exo_id`)
-) ENGINE=MyISAM  COMMENT='Record informations about exercices';
+) TYPE=MyISAM  COMMENT='Record informations about exercices';
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_tracking_questions` (
     `id` int(11) NOT NULL auto_increment,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_tracking_questions` (
     PRIMARY KEY  (`id`),
     KEY `exercise_track_id` (`exercise_track_id`),
     KEY `question_id` (`question_id`)
-) ENGINE=MyISAM  COMMENT='Record answers of students in exercices';
+) TYPE=MyISAM  COMMENT='Record answers of students in exercices';
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_tracking_answers` (
     `id` int(11) NOT NULL auto_increment,
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_tracking_answers` (
     `answer` text NOT NULL,
     PRIMARY KEY  (`id`),
     KEY `details_id` (`details_id`)
-) ENGINE=MyISAM  COMMENT='';
+) TYPE=MyISAM  COMMENT='';
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_users_random_questions` (
   `id` int(11) NOT NULL auto_increment,
@@ -119,4 +119,4 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_questions_categories` (
     `title` varchar(50) NOT NULL,
     `description` TEXT,
    PRIMARY KEY (`id`)
-) ENGINE=MyISAM COMMENT='Record the categories of questions';
+) TYPE=MyISAM COMMENT='Record the categories of questions';

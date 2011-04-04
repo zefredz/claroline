@@ -40,14 +40,14 @@ function upgrade_category_to_110 ()
                                 `canHaveCoursesChild` tinyint(1) NOT NULL DEFAULT '1',
                                 PRIMARY KEY (`id`),
                                 UNIQUE KEY `code` (`code`)
-                                ) ENGINE=MyISAM";
+                                ) TYPE=MyISAM";
             
             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['rel_course_category'] . "` (
                                 `courseId` int(11) NOT NULL,
                                 `categoryId` int(11) NOT NULL,
                                 `rootCourse` tinyint(1) NOT NULL DEFAULT '0',
                                 PRIMARY KEY (`courseId`,`categoryId`)
-                                ) ENGINE=MyISAM";
+                                ) TYPE=MyISAM";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
@@ -316,7 +316,7 @@ function upgrade_coursehomepage_to_110 ()
               `visible` tinyint(4) NOT NULL,
               PRIMARY KEY (`id`),
               UNIQUE KEY `courseId` (`courseId`,`label`)
-            ) ENGINE=MyISAM";
+            ) TYPE=MyISAM";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
@@ -330,7 +330,7 @@ function upgrade_coursehomepage_to_110 ()
               `label` varchar(10) NOT NULL,
               `name` varchar(255) NOT NULL,
               PRIMARY KEY (`label`)
-            ) ENGINE=MyISAM";
+            ) TYPE=MyISAM";
             //
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
@@ -378,7 +378,7 @@ function upgrade_event_resource_to_110 ()
               `course_code` VARCHAR(40) NOT NULL,
               PRIMARY KEY (`event_id`, `resource_id`, `tool_id`, `course_code`),
               UNIQUE KEY (`event_id`, `course_code`)
-            ) ENGINE=MyISAM";
+            ) TYPE=MyISAM";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;

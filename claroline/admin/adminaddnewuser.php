@@ -41,7 +41,7 @@ $dialogBox = new DialogBox;
  =====================================================================*/
 
 // Initialise field variable from subscription form
-$userData = user_initialise();
+$user_data = user_initialise();
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = '';
@@ -49,20 +49,28 @@ else                           $cmd = '';
 if ( $cmd == 'registration' )
 {
     // get params from the form
-    $userData = user_initialise();
-    
-    $userData['language'] = null;
+
+    if ( isset($_REQUEST['lastname']) )      $user_data['lastname']      = strip_tags(trim($_REQUEST['lastname'])) ;
+    if ( isset($_REQUEST['firstname']) )     $user_data['firstname']     = strip_tags(trim($_REQUEST['firstname'])) ;
+    if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode']  = strip_tags(trim($_REQUEST['officialCode'])) ;
+    if ( isset($_REQUEST['username']) )      $user_data['username']      = strip_tags(trim($_REQUEST['username']));
+    if ( isset($_REQUEST['password']) )      $user_data['password']      = trim($_REQUEST['password']);
+    if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf'] = trim($_REQUEST['password_conf']);
+    if ( isset($_REQUEST['email']) )         $user_data['email']         = strip_tags(trim($_REQUEST['email'])) ;
+    if ( isset($_REQUEST['language']) )      $user_data['language']   = trim($_REQUEST['language']);
+    if ( isset($_REQUEST['phone']) )         $user_data['phone']         = trim($_REQUEST['phone']);
+    if ( isset($_REQUEST['isCourseCreator']) ) $user_data['isCourseCreator'] = (int) $_REQUEST['isCourseCreator'];
+
+    $user_data['language'] = null;
     // validate forum params
-    
-    $messageList = user_validate_form_registration($userData);
-    
+
+    $messageList = user_validate_form_registration($user_data);
+
     if ( count($messageList) == 0 )
     {
         // register the new user in the claroline platform
-        $userId = user_create($userData);
-        set_user_property($userId, 'skype', $userData['skype']);
-        
-        if (false===$userId)
+        $inserted_uid = user_create($user_data);
+        if (false===$inserted_uid)
         {
             $dialogBox->error( claro_failure::get_last_failure() );
         }
@@ -70,19 +78,18 @@ if ( $cmd == 'registration' )
         {
             $dialogBox->success( get_lang('The new user has been sucessfully created') );
             
-            $newUserMenu[]= claro_html_cmd_link( '../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $userId . '&amp;category=&amp;fromAdmin=settings'
+            $newUserMenu[]= claro_html_cmd_link( '../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $inserted_uid . '&amp;category=&amp;fromAdmin=settings'
                                                , get_lang('Register this user to a course'));
-            $newUserMenu[]= claro_html_cmd_link( 'admin_profile.php?uidToEdit=' . $userId . '&amp;category='
+            $newUserMenu[]= claro_html_cmd_link( 'admin_profile.php?uidToEdit=' . $inserted_uid . '&amp;category='
                                                , get_lang('User settings'));
             $newUserMenu[]= claro_html_cmd_link( 'adminaddnewuser.php'
                                                , get_lang('Create another new user'));
             $newUserMenu[]= claro_html_cmd_link( 'index.php'
                                                , get_lang('Back to administration page'));
-            
+
             $display = DISP_REGISTRATION_SUCCEED;
-            
-            // Send a mail to the user
-            if (false !== user_send_registration_mail($userId, $userData))
+            // send a mail to the user
+            if (false !== user_send_registration_mail($inserted_uid,$user_data))
             {
                 $dialogBox->success( get_lang('Mail sent to user') );
             }
@@ -91,11 +98,12 @@ if ( $cmd == 'registration' )
                 $dialogBox->warning( get_lang('No mail sent to user') );
                 // TODO  display in a popup "To Print" with  content to give to user.
             };
+
         }
     }
     else
     {
-        // User validate form return error messages
+        // user validate form return error messages
         if( is_array($messageList) && !empty($messageList) )
         {
             foreach( $messageList as $message )
@@ -110,9 +118,21 @@ if ( $cmd == 'registration' )
 /*=====================================================================
   Display Section
  =====================================================================*/
+/* hack to prevent autocompletion from browser */
+JavascriptLoader::getInstance()->load('jquery');
+
+$htmlHeadXtra[] =
+'<script type="text/javascript">
+    $(document).ready(
+        function() {
+            $("#password").val("");
+        }
+    );
+</script>';
+/* end of hack */
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
-$noQUERY_STRING   = true;
+$noQUERY_STRING   = TRUE;
 
 if ( $display == DISP_REGISTRATION_FORM )
 {
@@ -122,16 +142,22 @@ if ( $display == DISP_REGISTRATION_FORM )
 $out = '';
 
 // Display title
+
 $out .= claro_html_tool_title( array('mainTitle'=>$nameTools ) )
-      . $dialogBox->render();
+.    $dialogBox->render()
+;
 
 if ( $display == DISP_REGISTRATION_SUCCEED )
 {
     $out .= claro_html_list($newUserMenu);
 }
 else // $display == DISP_REGISTRATION_FORM;
+
 {
-    $out .= user_html_form();
+    //  if registration failed display error message
+
+    $out .= user_html_form_admin_add_new_user($user_data)
+    ;
 }
 
 $claroline->display->body->appendContent($out);
