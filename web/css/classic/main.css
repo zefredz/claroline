@@ -69,18 +69,19 @@ label {
 }
 
 input, textarea, button, select {
+    color: #369;
+}
+
+input[type=text], input[type=password], 
+input[type=submit], input[type=button], 
+input[type=reset], textarea, select {
     border: 1px solid #aaa;
     background: #fff;
-    color: #369;
 }
 
 input[type=submit], input[type=reset], input[type=button], button {
     margin-left: 2px;
-    color: #666;
     margin-top: 5px;
-}
-
-input[type=submit], input[type=reset], input[type=button], button {
     background: #fff;
     color: #000;
 }
@@ -92,7 +93,7 @@ input[type=submit]:hover, button:hover, input[type=button]:hover {
 
 input[type=radio], input[type=checkbox] {
     border: 0;
-    margin: 0.1em 0.5em 0.1em 0;
+    margin: 0.1em 0.2em 0.1em 0;
     padding: 0;
     vertical-align: middle;
 }
