@@ -196,16 +196,15 @@ if ( $cmd == 'registration' )
 
 if ($cmd == 'applySearch')
 {
-    // search on username, official_code, ...
-
-    $displayResultTable = TRUE;
-
+    // Search on username, official_code, ...
+    $displayResultTable = true;
+    
     if ( ! (   empty($userData['lastname'    ])
             && empty($userData['email'       ])
             && empty($userData['username'    ])
             && empty($userData['officialCode']) ) )
     {
-
+    
         $userList = user_search( array('lastname'     => $userData['lastname'],
                                        'firstname'      => $userData['firstname'],
                                        'email'        => $userData['email'],
@@ -319,19 +318,22 @@ else
               . '<hr />';
     }
     
-    //display form to add a user
+    // Display form to add a user
     if ($displayForm)
     {
-        if( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+        if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
         {
-            $out .= '<p>' . get_lang('Add user manually') . ' :</p>'
-                  . '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n"
+            $dialogBox->info(get_lang('New users will receive an e-mail with their user name and password'));
+            
+            $out .= $dialogBox->render() . "\n"
                   . user_html_form();
         }
         else
         {
+            $dialogBox->info(get_lang('Fill in one or more search criteria, select user profile parameters for your course and press \'Search\''));
+            
             $out .= '<p>' . get_lang('Search user to add to your course') . ' :</p>'
-                  . '<p>' . get_lang('Fill in one or more search criteria, select user profile parameters for your course and press \'Search\'') . '</p>' . "\n"
+                  . $dialogBox->render() . "\n"
                   . user_html_search_form($userData);
         }
     }
