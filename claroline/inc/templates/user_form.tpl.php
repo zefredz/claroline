@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 
-<form action="<?php echo $this->formAction; ?>" method="post" enctype="multipart/form-data">
+<form id="userSettings" method="post" action="<?php echo $this->formAction; ?>" enctype="multipart/form-data">
     <?php echo $this->relayContext ?>
     <input type="hidden" id="cmd" name="cmd" value="registration" />
     <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
