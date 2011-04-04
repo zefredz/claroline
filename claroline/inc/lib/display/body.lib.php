@@ -1,128 +1,134 @@
 <?php // $Id$
 
-// vim: expandtab sw=4 ts=4 sts=4:
-
-/**
- * Class used to configure and display the page body.
- *
- * @version     $Revision$
+    // vim: expandtab sw=4 ts=4 sts=4:
+    
+    /**
+     * Class used to configure and display the page body
+     *
+     * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @author      Claroline Team <info@claroline.net>
- * @author      Frederic Minne <zefredz@claroline.net>
- * @license     http://www.gnu.org/copyleft/gpl.html
- *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     display
- */
-
-class ClaroBody extends CoreTemplate
-{
-    protected $content = '';
-    protected $claroBodyHidden = false;
-    protected $inPopup = false;
+     * @author      Claroline Team <info@claroline.net>
+     * @author      Frederic Minne <zefredz@claroline.net>
+     * @license     http://www.gnu.org/copyleft/gpl.html
+     *              GNU GENERAL PUBLIC LICENSE version 2 or later
+     * @package     display
+     */
     
-    public function __construct()
+    if ( count( get_included_files() ) == 1 )
     {
-        parent::__construct('body.tpl.php');
+        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
-    /**
-     * Hide the claroBody div in the body
-     */
-    public function hideClaroBody()
+    class ClaroBody extends CoreTemplate
     {
-        $this->claroBodyHidden = true;
-    }
-    
-    /**
-     * Display the claroBody div in the body
-     */
-    public function showClaroBody()
-    {
-        $this->claroBodyHidden = false;
-    }
-    
-    /**
-     * Show 'Close window' buttons
-     */
-    public function popupMode()
-    {
-        $this->inPopup = true;
-    }
-    
-    /**
-     * Set the content of the page
-     * @param   string content
-     */
-    public function setContent( $content)
-    {
-        $this->content = $content;
-    }
-    
-    /**
-     * Append a string to the content of the page
-     * @param   string str
-     */
-    public function appendContent( $str )
-    {
-        $this->content .= $str;
-    }
-    
-    /**
-     * Clear the content of the paget
-     */
-    public function clearContent()
-    {
-        $this->setContent('');
-    }
-    
-    /**
-     * Return the content of the page
-     * @return  string  pagecontent
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-    
-    /**
-     * Render the page body
-     * @return  string
-     */
-    public function render()
-    {
-        if ( ! $this->claroBodyHidden )
+        protected $content = '';
+        protected $claroBodyHidden = false;
+        protected $inPopup = false;
+        
+        public function __construct()
         {
-            $this->assign('claroBodyStart', true);
-            $this->assign('claroBodyEnd', true);
-        }
-        else
-        {
-            $this->assign('claroBodyStart', false);
-            $this->assign('claroBodyEnd', false);
+            parent::__construct('body.tpl.php');
         }
         
-        // automatic since $this->content already exists
-        // $this->assign('content', $this->getContent() );
-        
-        $output = parent::render();
-        
-        if ( $this->inPopup )
+        /**
+         * Hide the claroBody div in the body
+         */
+        public function hideClaroBody()
         {
-            $output = PopupWindowHelper::popupEmbed($output);
+            $this->claroBodyHidden = true;
         }
+        
+        /**
+         * Display the claroBody div in the body
+         */
+        public function showClaroBody()
+        {
+            $this->claroBodyHidden = false;
+        }
+        
+        /**
+         * Show 'Close window' buttons
+         */
+        public function popupMode()
+        {
+            $this->inPopup = true;
+        }
+        
+        /**
+         * Set the content of the page
+         * @param   string content
+         */
+        public function setContent( $content)
+        {
+            $this->content = $content;
+        }
+        
+        /**
+         * Append a string to the content of the page
+         * @param   string str
+         */
+        public function appendContent( $str )
+        {
+            $this->content .= $str;
+        }
+        
+        /**
+         * Clear the content of the paget
+         */
+        public function clearContent()
+        {
+            $this->setContent('');
+        }
+        
+        /**
+         * Return the content of the page
+         * @return  string  pagecontent
+         */
+        public function getContent()
+        {
+            return $this->content;
+        }
+        
+        /**
+         * Render the page body
+         * @return  string
+         */
+        public function render()
+        {
+            if ( ! $this->claroBodyHidden )
+            {
+                $this->assign('claroBodyStart', true);
+                $this->assign('claroBodyEnd', true);
+            }
+            else
+            {
+                $this->assign('claroBodyStart', false);
+                $this->assign('claroBodyEnd', false);
+            }
             
-        return $output;
-    }
-    
-    protected static $instance = false;
-    
-    public static function getInstance()
-    {
-        if ( ! self::$instance )
-        {
-            self::$instance = new self;
+            // automatic since $this->content already exists
+            // $this->assign('content', $this->getContent() );
+            
+            $output = parent::render();
+            
+            if ( $this->inPopup )
+            {
+                $output = PopupWindowHelper::popupEmbed($output);
+            }
+                
+            return $output;
         }
         
-        return self::$instance;
+        protected static $instance = false;
+        
+        public static function getInstance()
+        {
+            if ( ! self::$instance )
+            {
+                self::$instance = new self;
+            }
+
+            return self::$instance;
+        }
     }
-}
+?>

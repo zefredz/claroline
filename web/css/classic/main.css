@@ -76,7 +76,11 @@ input, textarea, button, select {
 
 input[type=submit], input[type=reset], input[type=button], button {
     margin-left: 2px;
+    color: #666;
     margin-top: 5px;
+}
+
+input[type=submit], input[type=reset], input[type=button], button {
     background: #fff;
     color: #000;
 }
@@ -88,8 +92,7 @@ input[type=submit]:hover, button:hover, input[type=button]:hover {
 
 input[type=radio], input[type=checkbox] {
     border: 0;
-    background: transparent;
-    margin: 0.1em 0.2em 0.1em 0;
+    margin: 0.1em 0.5em 0.1em 0;
     padding: 0;
     vertical-align: middle;
 }
@@ -142,27 +145,41 @@ fieldset dt label {
     margin-left:0;
 }
 
+input.radio,
+input.checkbox {
+    cursor: pointer;
+    height: 1em;
+    margin: 0;
+    vertical-align: middle;
+    width: 1em;
+}
+
 .notice {
     font-size: 0.8em;
-    color: #999;
+    color: grey;
 }
 
 /* Multiselect table */
 table.multiselect select {
     width: 250px;
-    height: 150px;
 }
 
 table.multiselect td.arrows {
     vertical-align: middle;
 }
 
-/* Specific fieldset and legend styles */
-#courseSettings fieldset legend, 
-#userSettings fieldset legend  {
+/* Course form style */
+#courseSettings fieldset {
+    border: 0;
+    margin: 2px;
+    padding: 5px;
+    border-top: 1px solid #eee;
+}
+
+#courseSettings fieldset legend {
     font-weight: bold;
     color: #444;
-    margin-left: 0px;
+    margin-left: 20px;
     padding: 5px;
     border: 1px solid #eee;
     background: #fff;
@@ -661,7 +678,7 @@ ul.adminPanel li ul li {
 -----------------------------------------------------------------------------*/
 
 table.adminPanel input[type=text] {
-    width: 90px;
+    width: 100px;
 }
 
 
@@ -1408,7 +1425,7 @@ span.adminControl {
 
 img.userPicture {
     border: 5px solid #fff;
-    -moz-box-shadow: 0px 0px 15px #999;
-    -webkit-box-shadow: 0px 0px 15px #999;
-    box-shadow: 0px 0px 15px #999;
+    -moz-box-shadow: 0 0 15px #999;
+    -webkit-box-shadow: 0 0 15px #999;
+    box-shadow: 0 0 15px #999;
 }
