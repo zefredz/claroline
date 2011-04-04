@@ -1,22 +1,25 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * This tool edit status of user in a course.
+  * This tool edit status of user in a course
+ * Strangly, the is nothing to edit role and courseTutor status
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/CLUSR
- * @package     CLUSR
- * @package     CLCOURSES
- * @author      Claro Team <cvs@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLUSR
+ *
+ * @package CLUSR
+ * @package CLCOURSES
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
  */
 
-$cidReset = true;
-$gidReset = true;
-$tidReset = true;
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
@@ -69,7 +72,7 @@ switch ($cmd)
 
         if ( isset($_REQUEST['profileId']) )
         {
-            $properties['profileId'] = $_REQUEST['profileId'];
+            $properties['profileId'] = $_REQUEST['profileId'];            
         }
 
         if ( isset($_REQUEST['isTutor']) )
@@ -139,7 +142,7 @@ if ( 'culist'== $ccfrom )//coming from courseuser list
 {
     $displayBackToCU = TRUE;
 }
-elseif ('uclist'== $ccfrom)//coming from usercourse list
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
 {
     $displayBackToUC = TRUE;
 }
@@ -153,7 +156,7 @@ $cmd_menu[] = '<a class="claroCmd" href="adminuserunregistered.php'
 .             '</a>'
 ;
 
-$cmd_menu[] = '<a class="claroCmd" href="admin_profile.php'
+$cmd_menu[] = '<a class="claroCmd" href="adminprofile.php'
 .             '?uidToEdit=' . $uidToEdit . '">'
 .             get_lang('User settings')
 .             '</a>'
@@ -212,3 +215,5 @@ $out .= course_user_html_form ( $courseUserProperties, $cidToEdit, $uidToEdit, $
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

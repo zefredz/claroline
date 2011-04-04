@@ -3,7 +3,7 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * BreadCrumbs.
+ * BreadCrumbs
  *
  * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -13,7 +13,14 @@
  * @package     KERNEL
  */
 
-/*
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
+/**
+ * Breadcrumps
+ *
  *  Usage :
  *
  *      ClaroBreadCrumbs::getInstance()->prepend( $name, $url );
@@ -46,9 +53,9 @@
 class BreadCrumbs implements Display
 {
     // protected $breadCrumbs = array();
-    protected $prependBc    = array();
-    protected $currentNode  = array();
-    protected $appendBc     = array();
+    protected $prependBc = array();
+    protected $currentNode = array();
+    protected $appendBc = array();
     
     public function render()
     {
@@ -85,6 +92,8 @@ class BreadCrumbs implements Display
             {
                 $nodeStr .= '<li class="breadCrumbsNode">';
             }
+
+            // var_dump( $node );
 
             $nodeStr .= $node->render();
 
@@ -180,6 +189,8 @@ class BreadCrumbsNode
 
         $nodeHtml .= htmlspecialchars( $this->name );
 
+        // var_dump( $this->name );
+
         if ( ! empty( $this->url ) )
         {
             $nodeHtml .= '</a>';
@@ -273,6 +284,7 @@ class ClaroBreadCrumbs extends BreadCrumbs
         if ( array_key_exists( 'interbredcrump', $GLOBALS )
             && is_array( $GLOBALS['interbredcrump'] ) )
         {
+            // var_dump( $GLOBALS['interbredcrump'] );
             foreach ( $GLOBALS['interbredcrump'] as $node )
             {
                 $this->append( $node['name'], $node['url'] );

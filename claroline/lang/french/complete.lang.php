@@ -331,7 +331,7 @@ $_lang['Cannot find <i>manifest</i> file in the package.<br /> File not found : 
 $_lang['Cannot find module'] = 'Impossible de trouver le module';
 $_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = 'Un fichier XML d\'initialisation est introuvable.<br /> Fichier manquant&nbsp;: ';
 $_lang['Cannot find this portlet'] = 'Portlet introuvable';
-$_lang['Cannot find user'] = 'Utilisateur introuvable';
+$_lang['Cannot find user'] = 'Utilisateur inconnu';
 $_lang['Cannot give manager rights to guest or anonymous users.'] = 'Les profils anonyme et invité ne peuvent pas avoir de droits étendus.';
 $_lang['Cannot load portlets'] = 'Les éléments du bureau n\'ont pas pu être chargés';
 $_lang['Cannot merge one user account with itself'] = 'Impossible de fusionner un compte utilisateur avec lui-même';
@@ -380,7 +380,7 @@ $_lang['Choose "No" if you use microsoft active directory (by default this authe
 $_lang['Choose a course'] = 'Choisissez un cours';
 $_lang['Choose a course to access this page.'] = 'Choisissez un cours pour accéder à cette page.';
 $_lang['Choose a date'] = 'Choisissez une date';
-$_lang['Choose now a username and a password for the user account'] = 'Saisissez l\'identifiant et le mot de passe de votre compte utilisateur.';
+$_lang['Choose now a username and a password for the user account'] = 'Saisissez un identifiant et un mot de passe de votre compte utilisateur.';
 $_lang['Choose one'] = '- Choisissez une catégorie -';
 $_lang['Choose the mode for URL for file download. Warning : Pretty URL mode don\'t work with IIS.'] = 'Sélectionnez le type d\'URL à utiliser pour le téléchargement de fichiers. Attention : Pretty URL ne fonctionne pas avec IIS';
 $_lang['Choose "Yes" to notify students when you add feedback information to their works'] = 'Choisissez "Oui" pour prévenir les étudiants par courriel lorsque vous ajoutez une correction à leurs travaux.';
@@ -1619,7 +1619,6 @@ $_lang['Simple'] = 'Simple';
 $_lang['Single'] = 'Unique';
 $_lang['Single Sign On'] = 'Authentification unique (SSO)';
 $_lang['Size'] = 'Taille';
-$_lang['Skype account'] = 'Compte Skype';
 $_lang['Software versions'] = 'Versions des logiciels';
 $_lang['Sql installation query failed'] = 'La requête SQL d\'installation a échoué';
 $_lang['Sql installation query succeeded'] = 'La requête SQL d\'installation a réussi';
@@ -1675,7 +1674,7 @@ $_lang['Text displayed on the right column'] = 'Texte affiché dans la colonne de
 $_lang['Text only (text required, no file)'] = 'Texte seul (texte obligatoire, pas de fichier)';
 $_lang['Text top'] = 'Haut du texte';
 $_lang['Text with attached file (text required, file optional)'] = 'Texte avec un fichier joint (texte obligatoire, fichier facultatif)';
-$_lang['The Ajax Remote Service broker can be used by some modules to access remote services using AJAX requests and JSON'] = 'Le gestionnaire d\'appels distants via AJAX permet à certains modules d\'utiliser des services distants via AJAX et JSON';
+$_lang['The Ajax Remote Service broker can be used by some modules to access remote services using AJAX requests and JSON'] = 'le gestionnaire d\'appels distants via AJAX permet à certains modules d\'utiliser des services distants via AJAX et JSON';
 $_lang['The changes have been carried out correctly'] = 'Les changements ont été effectués correctement';
 $_lang['The class has been moved'] = 'Classe déplacée';
 $_lang['The content of this panel is editable in administration '] = 'Le contenu de cette page est éditable dans l\'administration';
@@ -1920,7 +1919,7 @@ $_lang['User can leave email field empty or not'] = 'Définit si le gestionnaire 
 $_lang['User course settings'] = 'Paramètres de l\'utilisateur pour ce cours';
 $_lang['User has been sucessfully registered to the class'] = 'Utilisateur inscrit à la classe';
 $_lang['User has been sucessfully unregistered from the class'] = 'Utilisateur désinscrit de la classe';
-$_lang['User id'] = 'Numéro identifiant';
+$_lang['User id'] = 'Numéro';
 $_lang['User is not valid'] = 'Utilisateur non valide';
 $_lang['User is now course manager'] = 'L\'utilisateur est désormais gestionnaire du cours';
 $_lang['User is now student for this course'] = 'L\'utilisateur est désormais étudiant de ce cours';
@@ -2813,18 +2812,6 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
 <dd><code>||premi&egrave;re cellule|deuxi&egrave;me cellule|...||</code>&nbsp;: ligne de tableau (sur une ligne)</dd>
 <dd><code>|}</code>&nbsp;: fin de tableau (doit être sur une nouvelle ligne)</dd>
 </dl>
-<h2>Textes colorés</h2>
-<dl>
-<dt>Code couleur ( triplet héxadécimal )</dt>
-<dd><code>//#XXXXXX|Texte à colorer//</code></dd>
-<dd>( exemple :  <code>//#50AF22|Bonjour//</code>  va donner  <span style="color: #50AF22;">Bonjour</span> )</dd>
-</dl>
-<dl>
-<dt><a href="couleurs_web.html">Couleurs nommées</a> ( CSS )</dt>
-<dd><code>//nom_de_la_couleur|Texte à colorer//</code></dd>
-<dd>( exemple : <code>//red|Bonjour//</code> va donner <span style="color: red;">Bonjour</span> )</dd>
-</dl>
-<em>Note &agrave; l\'intention des utilisateurs de MacOS : </em>La barre verticale "|" s\'obtient avec la combinaison des touches MAJ+alt+L
 <h2>Commandes spéciales</h2>
 <dl>
 <dt>Inclusion de code HTML</dt>
@@ -2924,7 +2911,7 @@ $_lang['CSV file is in the bad format'] = 'Le fichier CSV n\'est pas au bon form
 $_lang['Code already exists for an other category'] = 'Le code existe déjà dans une autre catégorie';
 $_lang['Contact your administrator to reactivate it.'] = 'Contactez l\'administrateur pour le réactiver.';
 $_lang['Course code too long'] = 'Le code du Cours est trop long';
-$_lang['Deactivated course list'] = 'Liste des cours désactivés';
+$_lang['Deactivated course list'] = 'Liste de cours désactivés';
 $_lang['Expired since'] = 'Expiré depuis';
 $_lang['Invalid email address at line %key'] = 'Adresse E-mail non valide à la ligne %key';
 $_lang['LaTeX Equation Editor'] = 'Editeur d\'Equation LaTeX';
@@ -3123,66 +3110,4 @@ $_lang['Visible from'] = 'Visible à partir de';
 $_lang['Visible until'] = 'Visible jusqu\'à';
 $_lang['You cannot delete a category having sub categories'] = 'Vous ne pouvez pas supprimer une catégorie possédant des sous-catégories';
 $_lang['User created by '] = 'Utilisateur créé par ';
-$_lang['Administration modules'] = 'Modules d\'administration';
-$_lang['All courses treated !'] = 'Tous les cours ont été traités !';
-$_lang['Change visibility'] = 'Modifier la visibilité';
-$_lang['Chose the files extensions you want to monitor when producing files statistics.  Separate each extension with a quote (e.g.: doc,pdf,jpg).'] = 'Sélectionner les extensions de fichier que vous souhaitez monitorer lors de la production des statistiques sur les fichiers.  Séparez chaque extention avec une virgule (p.ex.: doc,pdf, jpg).';
-$_lang['Confirm your unsubscription from the group &quot;<b>%group_name</b>&quot;'] = 'Confirmez votre désinscription du groupe &quot;<b>%group_name</b>&quot;';
-$_lang['Course name table prefix'] = 'Préfixe de table de cours';
-$_lang['Course tutor'] = 'Tuteur du cours';
-$_lang['Create courses'] = 'Créer des cours';
-$_lang['Delete category'] = 'Supprimer la catégorie';
-$_lang['Files extensions'] = 'Extensions de fichiers';
-$_lang['Files statistics'] = 'Statistiques des fichiers';
-$_lang['Go'] = 'Go';
-$_lang['HTML in posts'] = 'HTML dans les posts';
-$_lang['Import CVS'] = 'Importer CVS';
-$_lang['Manage platform'] = 'Gérer la plateforme';
-$_lang['Move down category'] = 'Déplacer la catégorie vers le bas';
-$_lang['Move up category'] = 'Déplacer la catégorie vers le haut';
-$_lang['Nb'] = 'Nb';
-$_lang['No title'] = 'Pas de titre';
-$_lang['No user id'] = 'Pas d\'id utilisateur';
-$_lang['Not Allowed !'] = 'Pas autorisé !';
-$_lang['Optional settings'] = 'Paramètres optionnels';
-$_lang['Other informations'] = 'Autres informations';
-$_lang['Permissions'] = 'Permissions';
-$_lang['Personal informations'] = 'Informations personnelles';
-$_lang['Platform role'] = 'Rôle au sein de la plateforme';
-$_lang['Platform\' configuration'] = 'Configuration de la plateforme';
-$_lang['User account'] = 'Compte utilisateur';
-$_lang['Presentation'] = 'Présentation';
-$_lang['Remove me from this group'] = 'Me retirer de ce groupe';
-$_lang['Role in this course'] = 'Rôle dans ce cours';
-$_lang['SMTP port'] = 'SMTP port';
-$_lang['SMTP security layer'] = 'SMTP security layer';
-$_lang['SSL'] = 'SSL';
-$_lang['Search for a user'] = 'Rechercher un utilisateur';
-$_lang['Search for a course'] = 'Rechercher un cours';
-$_lang['Seats'] = 'Sièges';
-$_lang['Show always language in the course list'] = 'Toujours montrer le langage dans la liste de cours';
-$_lang['Statistics in progress, please don\'t refresh until further instructions !'] = 'Statistiques en cours de calcul, ne pas rafraîchir jusqu\'aux prochaines instructions !';
-$_lang['Students are allowed to unregister from their group(s)'] = 'Les étudiants sont autorisés à se désinscrire de leurs groupes';
-$_lang['The users limit for this course has been reached'] = 'Le nombre d\'utilisateurs maximal de ce cours a été atteint';
-$_lang['There are no courses in this category'] = 'Il n\'y a pas de cours dans cette catégorie';
-$_lang['User course list'] = 'Liste de cours de l\'utilisateur';
-$_lang['User created by'] = 'Utilisateur créé par';
-$_lang['User id missing'] = 'Identifiant utilisateur manquant';
-$_lang['User profile %username created successfully'] = 'L\'utilisateur %username a bien été créé';
-$_lang['User profile %username updated successfully'] = 'L\'utilisateur %username a bien été mis à jour';
-$_lang['User unvalidated'] = 'Utilisateur dévalidé';
-$_lang['User validated'] = 'Utilisateur validé';
-$_lang['Users in group'] = 'Users in group';
-$_lang['Users\' pictures'] = 'Images des utilisateurs';
-$_lang['View all my messages'] = 'Voir tous mes messages';
-$_lang['View source course'] = 'Voir le cours source';
-$_lang['View user list'] = 'Voir la liste des utilisateurs';
-$_lang['You are manager of this course'] = 'Vous êtes gestionnaire de ce cours';
-$_lang['You have to validate users to give them access to this course through the <a href="%url">course user list</a>'] = 'Vous devez valider les utilisateurs afin de leur donner acces à ce cours, et ce via la <a href="%url">liste des utilisateurs du cours</a>';
-$_lang['You\'ve chosen to isolate the following extensions: %types.  If you wish to modify these extensions, check the advanced platform settings'] = 'Vous avez choisi d\'isoler les extensions suivantes: %types.  Si vous désirez modifier cette liste d\'extensions, rendez-vous dans la configuration avancée de la plateforme';
-$_lang['administrator'] = 'administrateur';
-$_lang['e.g. <em>Sciences of Economics</em>'] = 'p. ex. <em>Sciences économiques</em>';
-$_lang['student'] = 'étudiant';
-$_lang['teacher'] = 'professeur';
-$_lang['unique id of the platform'] = 'unique id of the platform';
 ?>

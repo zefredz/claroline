@@ -21,7 +21,7 @@
         KEY `parent` (`parent_id`),
         KEY `group` (`group_id`),
         KEY `last_edit` (`last_edit_date`)
-    ) ENGINE=MyISAM;
+    ) TYPE=MyISAM;
     
     CREATE INDEX `assigid` ON `__CL_COURSE__wrk_submission` ( `assignment_id` );
     
@@ -40,4 +40,4 @@
         `prefill_doc_path` varchar(200) NOT NULL default '',
         `prefill_submit` enum('ENDDATE','AFTERPOST') NOT NULL default 'ENDDATE',
         PRIMARY KEY  (`id`)
-    ) ENGINE=MyISAM;
+    ) TYPE=MyISAM;

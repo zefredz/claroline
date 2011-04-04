@@ -1,17 +1,18 @@
 <?php //$Id$
-
 /**
  * CLAROLINE
  *
- * Management tools for users registration to classes.
+ * this tool manage the
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claro Team <cvs@claroline.net>
- * @author      Guillaume Lederer <lederer@cerdecam.be>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author  Guillaume Lederer <lederer@cerdecam.be>
  */
-
 // initialisation of global variables and used libraries
 
 require '../inc/claro_init_global.inc.php';
@@ -184,7 +185,7 @@ else
     $out .= '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$class_id.'">'.
          get_lang('Class members').'</a></p>'."\n";
 
-    if (isset($_REQUEST['cfrom']) && ($_REQUEST['cfrom']=='clist')) $out .= claro_html_button('admin_courses.php', get_lang('Back to course list'));
+    if (isset($_REQUEST['cfrom']) && ($_REQUEST['cfrom']=='clist')) $out .= claro_html_button('admincourses.php', get_lang('Back to course list'));
 
     // Display search form
     $out .= '<div style="text-align: right">'."\n"
@@ -300,3 +301,5 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

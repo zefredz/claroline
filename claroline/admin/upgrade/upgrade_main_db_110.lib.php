@@ -40,14 +40,14 @@ function upgrade_category_to_110 ()
                                 `canHaveCoursesChild` tinyint(1) NOT NULL DEFAULT '1',
                                 PRIMARY KEY (`id`),
                                 UNIQUE KEY `code` (`code`)
-                                ) ENGINE=MyISAM";
+                                ) TYPE=MyISAM";
             
             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['rel_course_category'] . "` (
                                 `courseId` int(11) NOT NULL,
                                 `categoryId` int(11) NOT NULL,
                                 `rootCourse` tinyint(1) NOT NULL DEFAULT '0',
                                 PRIMARY KEY (`courseId`,`categoryId`)
-                                ) ENGINE=MyISAM";
+                                ) TYPE=MyISAM";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
@@ -57,27 +57,16 @@ function upgrade_category_to_110 ()
         case 2 :
             // Insert root category
             $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "`
-                                ( `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`)
+                                (`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`)
                                 VALUES
-                                ( 'Root', 'ROOT', NULL, 0, 0, 0)";
+                                (0, 'Root', 'ROOT', NULL, 0, 0, 0)";
                         
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
             
             unset($sqlForUpdate);
 
-        case 3 :
-            // Update root category to 0
-            $sqlForUpdate[] = " UPDATE `" . $tbl_mdb_names['category'] . "`
-                                SET `id` = 0
-                                WHERE `code` = 'ROOT';";
-
-            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
-            else return $step;
-
-            unset($sqlForUpdate);
-
-        case 4:
+        case 3:
             
             // Insert all previous categories ("faculties") in the new table `category`
             $sql = "SELECT f1.`id`, f1.`name`, f1.`code`, f1.`code_P`, f1.`treePos`, f1.`nb_childs`, f1.`canHaveCoursesChild`, f1.`canHaveCatChild`, f2.`id` as idParent
@@ -111,7 +100,7 @@ function upgrade_category_to_110 ()
                 $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "`
                                    ( `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`)
                                    VALUES
-                                   ( '" . addslashes($category['name']) . "', '" . $category['code'] . "', " . $category['idParent'] . ", " . $rank . ", $visibile, " . $category['canHaveCoursesChild'] . ")";
+                                   ( '" . $category['name'] . "', '" . $category['code'] . "', " . $category['idParent'] . ", " . $rank . ", $visibile, " . $category['canHaveCoursesChild'] . ")";
             }
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -316,7 +305,7 @@ function upgrade_coursehomepage_to_110 ()
               `visible` tinyint(4) NOT NULL,
               PRIMARY KEY (`id`),
               UNIQUE KEY `courseId` (`courseId`,`label`)
-            ) ENGINE=MyISAM";
+            ) TYPE=MyISAM";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
@@ -330,7 +319,7 @@ function upgrade_coursehomepage_to_110 ()
               `label` varchar(10) NOT NULL,
               `name` varchar(255) NOT NULL,
               PRIMARY KEY (`label`)
-            ) ENGINE=MyISAM";
+            ) TYPE=MyISAM";
             //
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
@@ -378,7 +367,7 @@ function upgrade_event_resource_to_110 ()
               `course_code` VARCHAR(40) NOT NULL,
               PRIMARY KEY (`event_id`, `resource_id`, `tool_id`, `course_code`),
               UNIQUE KEY (`event_id`, `course_code`)
-            ) ENGINE=MyISAM";
+            ) TYPE=MyISAM";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;

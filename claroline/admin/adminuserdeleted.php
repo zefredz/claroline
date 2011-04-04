@@ -1,23 +1,25 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
  * This script is used to delete a user from the platform in the admin
- * tool from the page to visualize the user's profile (admin_profile.php)
+ * tool from the page to visualize the user profile (adminprofile.php)
  * and display a confirmation message to the admin.
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/CLTREE
- * @package     CLUSR
- * @author      Claro Team <cvs@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLTREE
+ *
+ * @package CLUSR
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
  */
 
-$cidReset = true;
-$gidReset = true;
-$tidReset = true;
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
@@ -44,7 +46,7 @@ $req['uidToEdit'] = (isset($_REQUEST['uidToEdit']) && ctype_digit($_REQUEST['uid
 
 
 $cmdList[] = '<a class="claroCmd" href="index.php" >' . get_lang('Back to administration page') . '</a>';
-$cmdList[] = '<a class="claroCmd" href="admin_users.php" >' . get_lang('Back to user list') . '</a>';
+$cmdList[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to user list') . '</a>';
 
 $dialogBox = new DialogBox();
 
@@ -73,7 +75,7 @@ elseif( $cmd == 'rqDelete' && $req['uidToEdit'] )
         $dialogBox->question( get_lang('Are you sure to delete user %firstname %lastname', array('%firstname' => $user_properties['firstname'], '%lastname' => $user_properties['lastname'])).'<br/><br/>'."\n"
         .    '<a href="adminuserdeleted.php?cmd=exDelete&amp;uidToEdit='.$req['uidToEdit'].'">'.get_lang('Yes').'</a>'
         .    ' | '
-        .    '<a href="admin_profile.php?uidToEdit='.$req['uidToEdit'].'">'.get_lang('No').'</a>'."\n");
+        .    '<a href="adminprofile.php?uidToEdit='.$req['uidToEdit'].'">'.get_lang('No').'</a>'."\n");
     }
 }
 else $dialogBox->error( get_lang('Unable to delete') );
@@ -95,3 +97,5 @@ $out .= '<p>'
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

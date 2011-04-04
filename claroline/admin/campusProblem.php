@@ -1,22 +1,29 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
+ * This tool run some check to detect abnormal situation
  *
- * This tool run some check to detect abnormal situation.
- * This script is a set of independant tests on the data.
- * Theses tests check if data are logical.
- * This script use Cache_lite.
- *
- * @version     1.9 $Revision$
+ * @version 1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/ADMIN
- * @author      Sébastien Piraux <pir@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see http://www.claroline.net/wiki/index.php/ADMIN
+ * @author Sébastien Piraux <pir@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
- * @todo separate checking and output
- * @todo protect "showall" when there is nothing in cache
+ *
+ */
+
+/**
+ * This script is a set of independant tests on the data
+ *
+ * Theses tests check if data are logical.
+ *
+ * This script use Cache_lite
+ *
+ * @todo TODO : separate checking and output.
+ * @todo TODO : protect "showall" when there is nothing in cache.
+ *
  */
 
 define('DISP_RESULT',__LINE__);
@@ -741,3 +748,5 @@ switch ($display)
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

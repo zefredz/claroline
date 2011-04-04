@@ -150,14 +150,14 @@ function tracking_upgrade_to_17($course_code)
                                 `question_id` int(11) NOT NULL default '0',
                                 `result` float NOT NULL default '0',
                                 PRIMARY KEY  (`id`)
-                                ) ENGINE=MyISAM COMMENT='Record answers of students in exercices'";
+                                ) TYPE=MyISAM COMMENT='Record answers of students in exercices'";
             
                 $sql_step1[] = "CREATE TABLE IF NOT EXISTS `" . $currentCourseDbNameGlu . "track_e_exe_answers` (
                                 `id` int(11) NOT NULL auto_increment,
                                 `details_id` int(11) NOT NULL default '0',
                                 `answer` text NOT NULL,
                                 PRIMARY KEY  (`id`)
-                                ) ENGINE=MyISAM COMMENT=''";
+                                ) TYPE=MyISAM COMMENT=''";
         
                 if ( !upgrade_apply_sql($sql_step1) ) return $step;
                 $step = set_upgrade_status($tool, 0, $course_code);
@@ -195,16 +195,16 @@ function linker_upgrade_to_17($course_code)
                             `id` int(11) NOT NULL auto_increment,
                             `src_id` int(11) NOT NULL default '0',
                             `dest_id` int(11) NOT NULL default '0',
-                            `creation_time` timestamp NOT NULL,
+                            `creation_time` timestamp(14) NOT NULL,
                             PRIMARY KEY  (`id`)
-                            ) ENGINE=MyISAM";
+                            ) TYPE=MyISAM";
                        
                 $sql_step1[] = "CREATE TABLE IF NOT EXISTS `". $currentCourseDbNameGlu ."lnk_resources` (
                             `id` int(11) NOT NULL auto_increment,
                             `crl` text NOT NULL,
                             `title` text NOT NULL,
                             PRIMARY KEY  (`id`)
-                            ) ENGINE=MyISAM";
+                            ) TYPE=MyISAM";
 
                 if ( ! upgrade_apply_sql($sql_step1) ) return $step;
                 $step = set_upgrade_status($tool, 0, $course_code);

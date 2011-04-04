@@ -7,15 +7,12 @@
                         MAIN HTML MARKUP
 ******************************************************************************/
 
-* {
-    /* IE bug ! Initial value should be set in % as IE cannot handle em if character size is modified by user */
-   font-size: 100%;
-}
-
 html {
     margin: 0;
     padding: 0;
     height: 100%;
+    /* IE bug ! Initial value should be set in % as IE cannot handle em if character size is modified by user */
+    font-size: 100%;
 }
 
 body {
@@ -26,6 +23,8 @@ body {
     text-align: left;
     font-family: Arial, Verdana, Helvetica, Sans-Serif;
     height: 100%;
+    /* IE bug ! Initial value should be set in % as IE cannot handle em if character size is modified by user */
+    font-size: 100%;
 }
 
 a:link, a:visited {
@@ -70,13 +69,17 @@ label {
 
 input, textarea, button, select {
     border: 1px solid #aaa;
-    background: #fff;
+    background: none;
     color: #369;
 }
 
 input[type=submit], input[type=reset], input[type=button], button {
     margin-left: 2px;
+    color: #666;
     margin-top: 5px;
+}
+
+input[type=submit], input[type=reset], input[type=button], button {
     background: #fff;
     color: #000;
 }
@@ -84,14 +87,6 @@ input[type=submit], input[type=reset], input[type=button], button {
 input[type=submit]:hover, button:hover, input[type=button]:hover {
     background-color: #369;
     color: #fff;
-}
-
-input[type=radio], input[type=checkbox] {
-    border: 0;
-    background: transparent;
-    margin: 0.1em 0.2em 0.1em 0;
-    padding: 0;
-    vertical-align: middle;
 }
 
 input[type=text].inputSearch {
@@ -142,30 +137,43 @@ fieldset dt label {
     margin-left:0;
 }
 
+input.radio,
+input.checkbox {
+    cursor: pointer;
+    height: 1em;
+    margin: 0;
+    vertical-align: middle;
+    width: 1em;
+}
+
 .notice {
     font-size: 0.8em;
-    color: #999;
+    color: grey;
 }
 
-/* Multiselect table */
-table.multiselect select {
-    width: 250px;
-    height: 150px;
+/* Course form style */
+#courseSettings fieldset {
+    border: 0;
+    margin: 2px;
+    padding: 5px;
+    border-top: 1px solid #eee;
 }
 
-table.multiselect td.arrows {
-    vertical-align: middle;
-}
-
-/* Specific fieldset and legend styles */
-#courseSettings fieldset legend, 
-#userSettings fieldset legend  {
+#courseSettings fieldset legend {
     font-weight: bold;
     color: #444;
-    margin-left: 0px;
+    margin-left: 20px;
     padding: 5px;
     border: 1px solid #eee;
     background: #fff;
+}
+
+#courseSettings table.categoriesSelection select {
+    width: 250px;
+}
+
+#courseSettings table.categoriesSelection td.arrows {
+    vertical-align: middle;
 }
 
 /* Redirector field */
@@ -588,16 +596,6 @@ table.courseTable td.toolList ul {
     list-style-type: none;
 }
 
-/*-----------------------------------------------------------------------------
-                        GROUP TOOL LIST
------------------------------------------------------------------------------*/
-
-ul.groupToolList {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-
 
 /******************************************************************************
                         PLATFORM HOMEPAGE
@@ -620,50 +618,6 @@ table.homepageTable td.userCommands {
 table.homepageTable td.myCourseList { 
     padding-left: 20px; 
 }
-
-
-/******************************************************************************
-                        ADMIN PANEL
-******************************************************************************/
-
-/*-----------------------------------------------------------------------------
-                        ADMIN TABLE
------------------------------------------------------------------------------*/
-
-ul.adminPanel {
-    list-style-type: none;
-}
-
-ul.adminPanel li {
-    float: left;
-    padding: 0;
-    width: 300px;
-}
-
-ul.adminPanel li ul {
-    width: 100%;
-    height: 190px;
-    list-style: square inside;
-    margin-left: 0;
-    padding-left: 1em;
-    text-indent: -1em;
-}
-
-ul.adminPanel li ul li {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    
-}
-
-/*-----------------------------------------------------------------------------
-                        ADMIN TABLE FORMS
------------------------------------------------------------------------------*/
-
-table.adminPanel input[type=text] {
-    width: 90px;
-}
-
 
 
 /******************************************************************************
@@ -974,7 +928,9 @@ dl.userCourseList {
     background-color: #EDEDED;
 }
 
-/* Pager */
+/**
+ * Pager
+ */
 .claroPager {
     text-align: center;
 }
@@ -1130,36 +1086,41 @@ dl.userCourseList {
 /* specific styling for dialog box messages */
 .claroDialogBox {
     margin-top: 10px; 
-    margin-bottom: 15px; 
-    padding: 5px 85px 5px 20px; 
-    border: 1px solid #CCC;
-    border-left: 5px solid #CCC;
+    margin-bottom: 10px; 
+    padding: 5px 5px 5px 20px; 
+    border: 1px solid #ccc;
     background: #F9F7ED;
+    border-left: 2px solid #ccc;
 }
 
 .boxInfo {
-    border-color: #ccc;
+    border-left: 2px solid #ccc;
     background: #F9F7ED url('img/bg_boxinfo.png') bottom right no-repeat;
+    padding-right: 83px;
 }
 
 .boxSuccess {
-    border-color: #090;
+    border-left: 2px solid #090;
     background: #F9F7ED url('img/bg_boxsuccess.png') bottom right no-repeat;
+    padding-right: 83px;
 }
 
 .boxWarning {
-    border-color: #FFBA00;
+    border-left: 2px solid #900;
     background: #F9F7ED url('img/bg_boxwarning.png') bottom right no-repeat;
+    padding-right: 83px;
 }
 
 .boxError {
-    border-color: #900;
+    border-left: 2px solid #900;
     background: #F9F7ED url('img/bg_boxerror.png') bottom right no-repeat;
+    padding-right: 83px;
 }
 
 .boxQuestion {
-    border-color: #369;
+    border-left: 2px solid #369;
     background: #F9F7ED url('img/bg_boxquestion.png') bottom right no-repeat;
+    padding-right: 83px;
 }
 
 .claroDialogMsg { padding: 2px 5px 1px 20px; }
@@ -1389,13 +1350,9 @@ h4 {
 }
 
 /* Use it to highlight admin tools */
-dd.adminControl, 
-div.adminControl, 
-span.adminControl {
-    background:#F9F7E1;
-    padding: 2px 5px 2px 5px;
-    margin-left: -10px;
-    border-left: 5px solid #AA3333;
+dl.admin-control dd {
+    background:#F9F7ED; 
+    border:1px solid #AA3333;
 }
 
 .centerContent {
@@ -1404,11 +1361,4 @@ span.adminControl {
 
 .separator {
     font-weight: normal;
-}
-
-img.userPicture {
-    border: 5px solid #fff;
-    -moz-box-shadow: 0px 0px 15px #999;
-    -webkit-box-shadow: 0px 0px 15px #999;
-    box-shadow: 0px 0px 15px #999;
 }

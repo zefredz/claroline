@@ -1,22 +1,23 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * Offers a multifield search tool for courses.
+ * Offers a multifield search tool for courses
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     COURSE
- * @subpackage  CLADMIN
- * @author      Claro Team <cvs@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package COURSE
+ * @subpackage CLADMIN
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 
-$cidReset = true;
-$gidReset = true;
-$tidReset = true;
-
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
@@ -85,7 +86,7 @@ $out = '';
 
 $out .= claro_html_tool_title($nameTools . ' : ');
 
-$tpl = new CoreTemplate('advanced_course_search.tpl.php');
+$tpl = new PhpTemplate( get_path( 'incRepositorySys' ) . '/templates/advancedCourseSearch.tpl.php' );
 
 $tpl->assign('code', $code);
 $tpl->assign('intitule', $intitule);
@@ -140,7 +141,7 @@ function build_select_faculty($elem,$father,$editFather,$space)
 
 /**
  * Return all courses category order by treepos.
- *
+ * 
  * @return array (id, name, code, idParent, rank, visible, canHaveCoursesChild)
  */
 function  course_category_get_list()
@@ -161,3 +162,5 @@ ORDER BY idParent, rank";
 
     return claro_sql_query_fetch_all($sql_searchCategory);
 }
+
+?>

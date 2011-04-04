@@ -1,16 +1,20 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * Management tools for users registered to a specific course.
+ * This tool list user of a course but in admin section
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/CLUSR
- * @package     CLUSR
- * @author      Claro Team <cvs@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLUSR
+ *
+ * @package CLUSR
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
  */
 
 $cidReset=true;$gidReset=true;$tidReset=true;
@@ -139,7 +143,7 @@ foreach($userList as $lineId => $user)
                                                   . ' title="' . get_lang('Student') . '" />' ;
     }
 
-    $userDataList[$lineId]['cmd_cu_edit'] = '<a href="admin_user_course_settings.php'
+    $userDataList[$lineId]['cmd_cu_edit'] = '<a href="adminUserCourseSettings.php'
                                             . '?cidToEdit=' . $cidToEdit
                                             . '&amp;uidToEdit=' . $user['user_id'] . '&amp;ccfrom=culist">'
                                             . '<img src="' . get_icon_url('edit') .'" alt="' . get_lang('Edit') . '"/>'
@@ -211,7 +215,7 @@ $command_list[] = '<a class="claroCmd" href="adminregisteruser.php'
 ;
 if ($cfrom=='clist')
 {
-    $command_list[] = '<a class="claroCmd" href="admin_courses.php">' . get_lang('Back to course list') . '</a>';
+    $command_list[] = '<a class="claroCmd" href="admincourses.php">' . get_lang('Back to course list') . '</a>';
 }
 
 /*********
@@ -236,3 +240,5 @@ $out .= '<p>' . claro_html_menu_horizontal($command_list) . '</p>'
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

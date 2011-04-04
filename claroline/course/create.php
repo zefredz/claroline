@@ -1,5 +1,4 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
@@ -16,7 +15,9 @@
  * @package     COURSE
  *              old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/create_course/add_course.php
  * @author      Claro Team <cvs@claroline.net>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @since       1.9
+ *
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -171,7 +172,7 @@ if ( claro_is_platform_admin()
     if( $display == DISP_COURSE_CREATION_FORM || $display == DISP_COURSE_CREATION_FAILED )
     {
         // display form
-        $out .= $course->displayForm($backUrl);
+        $out .= $course->displayForm($backUrl, $sourceCourseId);
     }
     elseif ( $display == DISP_COURSE_CREATION_PROGRESS )
     {

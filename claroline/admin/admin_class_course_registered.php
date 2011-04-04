@@ -1,16 +1,18 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * Management tools for users registered to courses.
+ * this tool manage the
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claro Team <cvs@claroline.net>
- * @author      Guillaume Lederer <lederer@cerdecam.be>
- * @author      Christophe Gesche <moosh@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Guillaume Lederer <lederer@cerdecam.be>
+ * @author Christophe Gesché <moosh@claroline.net>
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -97,3 +99,5 @@ $out .=  '<p>'
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

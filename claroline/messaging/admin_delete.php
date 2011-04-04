@@ -3,11 +3,9 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * page of deleting message for the administrator
  *
- * Allow the administrator to delete messages.
- *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
@@ -16,7 +14,8 @@
  * @package     internal_messaging
  */
 
-$cidReset = true;
+
+$cidReset = TRUE; 
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 // manager of the admin message box
 require_once dirname(__FILE__) . '/lib/messagebox/adminmessagebox.lib.php';
@@ -199,7 +198,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
     {
         $subTitle = get_lang('Delete platform messages');
         $displayRemovePlatformMessageConfirmation = TRUE;
-    }
+    }  
     elseif ( 'exPlatformMessage' == $_REQUEST['cmd'] )
     {
         $subTitle = get_lang('Delete platform messages');
@@ -250,7 +249,7 @@ if ($displayRemoveFromUserConfirmation)
     $confirmation =
          get_lang('Are you sur to delete user\'s message?')
         .'<br /><br />'
-        .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exFromUser&amp;userId='.$userId.'">'.get_lang('Yes').'</a> | <a href="admin.php">'.get_lang('No').'</a>'
+        .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exFromUser&amp;userId='.$userId.'">'.get_lang('Yes').'</a> | <a href="admin.php">'.get_lang('No').'</a>' 
         ;
     $dialogBox = new DialogBox();
     $dialogBox->question($confirmation);
@@ -281,7 +280,7 @@ if ($displaySearchUser)
     $form =
          '<form action="" method="post">'
         .get_lang('User').': <input type="text" name="search" value="'.$search.'" class="inputSearch" />'
-        .'<input type="submit" value="'.get_lang('Search').'" />'
+        .'<input type="submit" value="'.get_lang('Search').'" />' 
         .'</form>'
         ;
         
@@ -295,7 +294,7 @@ if ($displaySearchUser)
 if ($displayResultUserSearch)
 {
     
-    $arg_sorting = makeArgLink($arguments,array('fieldOrder','order'));
+    $arg_sorting = makeArgLink($arguments,array('fieldOrder','order'));  
     if ($arg_sorting == "")
     {
         $linkSorting = $_SERVER['PHP_SELF']."?fieldOrder=";
@@ -304,7 +303,7 @@ if ($displayResultUserSearch)
     {
         $linkSorting = $_SERVER['PHP_SELF'] . '?' . $arg_sorting . '&amp;fieldOrder=';
     }
-    $arg_delete = makeArgLink($arguments);
+    $arg_delete = makeArgLink($arguments);  
     if ($arg_sorting == "")
     {
         $linkDelete = $_SERVER['PHP_SELF'] . '?';
@@ -350,12 +349,12 @@ if ($displayResultUserSearch)
                 . '<td>' . $user['id'] . '</td>' . "\n"
                 . '<td>' . get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($user['firstname']), '%lastName' => htmlspecialchars($user['lastname']))).'</td>'."\n"
                 . '<td>' . $user['username'] . '</td>' . "\n"
-                . '<td align="center">'
+                . '<td align="center">' 
                 . '<a href="' . $linkDelete . 'cmd=rqFromUser&amp;userId=' . $user['id'] . '" '
                 . ' onclick="return deleteMessageFromUser(\'' . $linkDelete . 'cmd=exFromUser&amp;userId=' . $user['id'] . '\')">'
                 . '<img src="'.get_icon_url('delete').'" alt="'.get_lang('Delete messages').'" /></a></td>' . "\n"
                 . '</tr>' . "\n\n"
-                ;
+                ; 
         }
      }
      else
@@ -364,14 +363,14 @@ if ($displayResultUserSearch)
               '<tr>'."\n"
              .'<td colspan="4">'.get_lang('Empty').'</td>' ."\n"
              .'</tr>'."\n\n"
-             ;
+             ; 
      }
      $content .=
         '</table>'
        ;
      if ($userList->getNumberOfPage() > 1)
      {
-         $arg_paging = makeArgLink($arguments,array('page'));
+         $arg_paging = makeArgLink($arguments,array('page'));  
          if ($arg_paging == "")
          {
              $linkPaging = $_SERVER['PHP_SELF']."?page=";
@@ -441,7 +440,7 @@ if ($displayRemoveOlderThanConfirmation)
         $dialogBox = new DialogBox();
         $dialogBox->setBoxType('question');
         $dialogBox->question(get_lang('Are you sure to delete all messages older than %date?', array('%date'=>$date)) );
-        $dialogBox->warning(get_lang('There is no way to restore deleted messages.'));
+        $dialogBox->warning(get_lang('There is no way to restore deleted messages.'));     
         $dialogBox->info('<br /><br /><a href="'.$_SERVER['PHP_SELF'].'?cmd=exOlderThan&amp;date='.urlencode($_REQUEST['date']).'">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>');
         $content .= '<br />'.$dialogBox->render();
     }
@@ -463,12 +462,12 @@ if ($displayRemoveOlderThanValidated)
 // ------------ platform message
 
 if ($displayRemovePlatformMessageConfirmation)
-{
+{    
     
     $dialogBox = new DialogBox();
     $dialogBox->setBoxType('question');
     $dialogBox->question(get_lang('Are you sure to delete all platform messages?') );
-    $dialogBox->warning(get_lang('There is no way to restore deleted messages.'));
+    $dialogBox->warning(get_lang('There is no way to restore deleted messages.'));     
     $dialogBox->info('<br /><br /><a href="'.$_SERVER['PHP_SELF'] . '?cmd=exPlatformMessage">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>');
     $content .= '<br />'.$dialogBox->render();
 }
@@ -498,3 +497,5 @@ $claroline->display->body->appendContent(claro_html_tool_title($title));
 $claroline->display->body->appendContent($content);
 
 echo $claroline->display->render();
+
+?>

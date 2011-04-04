@@ -45,7 +45,7 @@ function upgrade_main_database_to_17 ()
               `date` datetime default '0000-00-00 00:00:00',
               PRIMARY KEY  (`id`),
               KEY `course_id` (`course_code`)
-            ) ENGINE=MyISAM";
+            ) TYPE=MyISAM";
 
             // add enrollment key
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` ADD `enrollment_key` varchar(255) default NULL";

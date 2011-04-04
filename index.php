@@ -1,5 +1,4 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
@@ -31,10 +30,6 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
     
     // Main template
     $template = new CoreTemplate('platform_index.tpl.php');
-    
-    // Languages
-    $template->assign('languages', get_language_to_display_list());
-    $template->assign('currentLanguage', language::current_language());
     
     // Category browser
     $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
@@ -144,7 +139,7 @@ if (isset($_REQUEST['logout']))
     if (isset($_SESSION['isVirtualUser']))
     {
         unset($_SESSION['isVirtualUser']);
-        claro_redirect(get_conf('rootWeb') . 'claroline/admin/admin_users.php');
+        claro_redirect(get_conf('rootWeb') . 'claroline/admin/adminusers.php');
         exit();
     }
     

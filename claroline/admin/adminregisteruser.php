@@ -1,21 +1,24 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * Management tools to register users to platform courses.
+ * This script list member of campus and  propose to subscribe it to the given course
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/CLADMIN/
- * @author      Claro Team <cvs@claroline.net>
- * @package     CLUSR
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/CLADMIN/
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @package CLUSR
+ *
  */
 
-$cidReset = true;
-$gidReset = true;
-$tidReset = true;
+$cidReset = TRUE; $gidReset = TRUE; $tidReset = TRUE;
 
 // initialisation of global variables and used libraries
 require '../inc/claro_init_global.inc.php';
@@ -392,3 +395,5 @@ $out .= '</tbody></table>'
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

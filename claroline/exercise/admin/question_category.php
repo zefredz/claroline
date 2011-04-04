@@ -18,9 +18,6 @@ require '../../inc/claro_init_global.inc.php';
 
 if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
-require_once '../lib/add_missing_table.lib.php';
-init_qwz_questions_categories ();
-
 claro_set_display_mode_available(true);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();

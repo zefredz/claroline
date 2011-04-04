@@ -3,12 +3,12 @@
 /**
  * PHP version 5
  *
- * @version     $Revision$
- * @license     http://www.gnu.org/licenses/agpl-3.0-standalone.html AGPL Affero General Public License
- * @copyright   Copyright 2010 Claroline Consortium
- * @author      Claro Team <cvs@claroline.net>
- * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
- * @since       1.10
+ * @version $Revision$
+ * @license http://www.gnu.org/licenses/agpl-3.0-standalone.html AGPL Affero General Public License
+ * @copyright Copyright 2010 Claroline Consortium
+ * @author Claro Team <cvs@claroline.net>
+ * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
+ * @since 1.10
  *
  */
 

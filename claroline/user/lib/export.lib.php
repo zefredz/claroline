@@ -89,7 +89,7 @@ class csvUserList extends csv
         
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->course_id));
 
-        $tbl_team = $tbl_cdb_names['group_team'];
+        $tbl_team = $tbl_cdb_names['group_team'];        
         $tbl_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
         
         $username = ( claro_is_platform_admin() && get_conf( 'export_sensitive_data_for_admin', false ) )
@@ -122,11 +122,11 @@ class csvUserList extends csv
                        `U`.`prenom`       AS `firstname`,
                        {$username}
                        {$password}
-                       `U`.`email`        AS `email`,
+                       `U`.`email`        AS `email`, 
                        `U`.`officialCode`     AS `officialCode`,
                        GROUP_CONCAT(`G`.`id`) AS `groupId`,
                        GROUP_CONCAT(`G`.`name`) AS `groupName`
-               FROM
+               FROM 
                     (
                     `" . $tbl_user . "`           AS `U`,
                     `" . $tbl_rel_course_user . "` AS `CU`
@@ -142,11 +142,13 @@ class csvUserList extends csv
 
         $userList = claro_sql_query_fetch_all($sql);
 
+        // var_dump( $userList ); die();
+
         // build recordlist with good values for answers
         if( is_array($userList) && !empty($userList) )
         {
             // add titles at row 0, for that get the keys of the first row of array
-            $this->recordList[0] = array_keys($userList[0]);
+            $this->recordList[0] = array_keys($userList[0]); 
 
             $i = 1;
 
@@ -154,6 +156,7 @@ class csvUserList extends csv
 
             foreach( $userList as  $user )
             {
+                // var_dump($user);
                 $userIdList[$user['userId']] = $i;
 
                 if ( !( ( claro_is_platform_admin() && get_conf( 'export_sensitive_data_for_admin', false ) )

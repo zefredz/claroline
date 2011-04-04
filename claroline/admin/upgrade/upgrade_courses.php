@@ -1,20 +1,20 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
  * This script Upgrade course database and course space.
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
- * @package     UPGRADE
- * @author      Claro Team <cvs@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
- * @author      Mathieu Laurent <laurent@cerdecam.be>
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ * @package UPGRADE
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
  */
-
 $new_version_branch = '';
 // Initialise Upgrade
 require 'upgrade_init_global.inc.php';
@@ -52,11 +52,11 @@ DEFINE ('DISPLAY_RESULT_PANEL', __LINE__);
 if ( isset($_REQUEST['verbose']) ) $verbose = true;
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = false;
+else                           $cmd = FALSE;
 
 $upgradeCoursesError = isset($_REQUEST['upgradeCoursesError'])
                      ? $_REQUEST['upgradeCoursesError']
-                     : false;
+                     : FALSE;
 
 if ( $cmd == 'run')
 {
@@ -68,11 +68,7 @@ else
 }
 
 // Get start time
-$mtime = microtime();
-$mtime = explode(' ',$mtime);
-$mtime = $mtime[1] + $mtime[0];
-$starttime = $mtime;
-$steptime =$starttime;
+$mtime = microtime();$mtime = explode(' ',$mtime);$mtime = $mtime[1] + $mtime[0];$starttime = $mtime;$steptime =$starttime;
 
 // count course to upgrade
 $count_course_upgraded = count_course_upgraded($new_version_branch);

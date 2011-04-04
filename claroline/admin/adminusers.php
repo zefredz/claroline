@@ -1,20 +1,17 @@
 <?php //$Id$
-
 /**
  * CLAROLINE
+ * @version 1.9 $Revision$
  *
- * Management tools for platform's users.
- *
- * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     ADMIN
- * @author      Guillaume Lederer <lederer@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package ADMIN
+ *
+ * @author Guillaume Lederer <lederer@claroline.net>
  */
-
-$cidReset = true;
-$gidReset = true;
-$tidReset = true;
+$cidReset = TRUE; $gidReset = TRUE; $tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
@@ -229,7 +226,7 @@ foreach ($userList as $userKey => $user)
     {
         $userGrid[$userKey]['isCourseCreator'] .= '<br /><span class="highlight">' . get_lang('Administrator').'</span>';
     }
-    $userGrid[$userKey]['settings'] = '<a href="admin_profile.php'
+    $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
     .                                 '?uidToEdit=' . $user['user_id']
     .                                 '&amp;cfrom=ulist' . $addToURL . '">'
     .                                 '<img src="' . get_icon_url('usersetting') . '" alt="' . get_lang('User settings') . '" />'
@@ -305,7 +302,7 @@ if ( count($userGrid)==0 )
 {
     $userDataGrid->set_noRowMessage( '<center>'.get_lang('No user to display') . "\n"
     .    '<br />' . "\n"
-    .    '<a href="advanced_user_search.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a></center>' . "\n"
+    .    '<a href="advancedUserSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a></center>' . "\n"
     );
 }
 else
@@ -370,7 +367,7 @@ $out .= '<table width="100%">' . "\n"
 .    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" />' . "\n"
 .    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
 .    '<input type="hidden" name="newsearch" value="yes" />' . "\n"
-.    '&nbsp;[<a class="claroCmd" href="advanced_user_search.php' . $addtoAdvanced . '" >' . get_lang('Advanced') . '</a>]' . "\n"
+.    '&nbsp;[<a class="claroCmd" href="advancedUserSearch.php' . $addtoAdvanced . '" >' . get_lang('Advanced') . '</a>]' . "\n"
 .    '</form>' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
@@ -655,3 +652,5 @@ function prepare_search()
 
     return $searchInfo;
 }
+
+?>

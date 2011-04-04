@@ -3,12 +3,12 @@
 /**
  * Claroline Course Tool List management script
  *
- * @version     1.10 $Revision$
+ * @version 1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
- *              version 2 or later
- * @package     CLHOME
- * @author      Claro Team <cvs@claroline.net>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
+ *  version 2 or later
+ * @package CLHOME
+ * @author Claro Team <cvs@claroline.net>
  */
 
 $gidReset = true; // If user is here. It means he isn't in any group space now.

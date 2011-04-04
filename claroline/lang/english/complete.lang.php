@@ -2719,18 +2719,6 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <dd><code>||first cell|second cell|...||</code>&nbsp;: table row (on one line)</dd>
 <dd><code>|}</code>&nbsp;: end of table (must be on a new ligne)</dd>
 </dl>
-<h2>Colored text</h2>
-<dl>
-<dt>Color code (three hexadecimal pairs for red, green and blue)</dt>
-<dd><code>//#XXXXXX|text//</code></dd>
-<dd>( example :  <code>//#50AF22|Hello//</code>  will produce  <span style="color: #50AF22;">Hello</span> )</dd>
-</dl>
-<dl>
-<dt><a href="couleurs_web.html">Color names</a> ( CSS )</dt>
-<dd><code>//color_name|Text//</code></dd>
-<dd>( exemple : <code>//red|Hello//</code> will produce <span style="color: red;">Hello</span> )</dd>
-</dl>
-<em>For Mac OS X users :</em> you can produce the pipe character "|" by pressing Shift+alt+L
 <h2>Special commands</h2>
 <dl>
 <dt>Raw HTML inclusion</dt>

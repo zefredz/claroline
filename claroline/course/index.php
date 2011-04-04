@@ -342,7 +342,6 @@ if (claro_is_allowed_to_edit())
     }
 }
 
-
 // Display header
 $template = new CoreTemplate('course_index.tpl.php');
 $template->assign('dialogBox', $dialogBox);

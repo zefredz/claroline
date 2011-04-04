@@ -1,11 +1,9 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
+ * User list tool
  *
- * Management tools for the users of a specific course.
- *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -421,7 +419,7 @@ $out .= '<br/>'
             get_path('clarolineRepositoryWeb') . 'user/user_pictures.php'
             ))
             , '<img src="' . get_icon_url('picture') . '" alt="" />'
-            . get_lang('Users\' pictures'));
+            . get_lang('Users\'s pictures'));
 
 
 /*----------------------------------------------------------------------

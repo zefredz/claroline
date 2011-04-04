@@ -1,22 +1,22 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * Management tools for users research.
+ * @version 1.9 $Revision$
  *
- * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLUSR
- * @author      Claro Team <cvs@claroline.net>
- * @author      Guillaume Lederer <lederer@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLUSR
+ *
+ * @author claro team <cvs@claroline.net>
+ * @author Guillaume Lederer <lederer@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 
-$cidReset = true;
-$gidReset = true;
-$tidReset = true;
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
@@ -74,7 +74,7 @@ $action_list[get_lang('Platform administrator')] = 'plateformadmin';
 $out = '';
 $out .= claro_html_tool_title($nameTools . ' : ');
 
-$tpl = new CoreTemplate('advanced_user_search.tpl.php');
+$tpl = new PhpTemplate( get_path( 'incRepositorySys' ) . '/templates/advancedUserSearch.tpl.php' );
 $tpl->assign('lastName', $lastName);
 $tpl->assign('firstName', $firstName);
 $tpl->assign('userName', $userName);
@@ -88,3 +88,5 @@ $out .= $tpl->render();
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

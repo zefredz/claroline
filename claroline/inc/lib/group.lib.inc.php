@@ -88,9 +88,8 @@ function delete_groups($groupIdList = 'ALL')
 
     $tbl_c_names = claro_sql_get_course_tbl();
 
-    $tbl_groups         = $tbl_c_names['group_team'         ];
-    $tbl_groupsUsers    = $tbl_c_names['group_rel_team_user'];
-    $tbl_courseCalendar = $tbl_c_names['calendar_event'     ];
+    $tbl_groups      = $tbl_c_names['group_team'         ];
+    $tbl_groupsUsers = $tbl_c_names['group_rel_team_user'];
 
     require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
     require_once get_path('incRepositorySys') . '/lib/forum.lib.php';
@@ -184,21 +183,12 @@ function delete_groups($groupIdList = 'ALL')
                                     # ".__FUNCTION__."
                                     # ".__FILE__."
                                     # ".__LINE__;
-        
-         $sql_cleanOutGroupEvent = "DELETE FROM `" . $tbl_courseCalendar . "`
-                                    WHERE group_id IN (" . implode(' , ', $groupList['id']) . ")
-                                    # ".__FUNCTION__."
-                                    # ".__FILE__."
-                                    # ".__LINE__;
 
         // Deleting group record in table
         $deletedGroupNumber = claro_sql_query_affected_rows($sql_deleteGroup);
 
         // Delete all members of deleted group(s)
         claro_sql_query($sql_cleanOutGroupUsers);
-        
-        // Delete all calendar events for deleted group(s)
-        claro_sql_query($sql_cleanOutGroupEvent);
 
         /**
          * Archive and delete the group files

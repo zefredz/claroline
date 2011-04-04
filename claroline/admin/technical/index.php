@@ -1,16 +1,21 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * This is the index page of sdk tools.
+ * This is the index page of sdk tools
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     SDK
- * @author      Claro Team <cvs@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package SDK
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ *
  */
 
 require '../../inc/claro_init_global.inc.php';
@@ -25,12 +30,22 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('
 
 $out = '';
 
-$out .= claro_html_tool_title(array('mainTitle'=>$nameTools))
-      . '<ul>'."\n"
-      . '<li><a href="./files_stats.php">' . get_lang('Files statistics') . '</a></li>'."\n"
-      . '<li><a href="./phpInfo.php">' . get_lang('PHP system information') . '</a></li>'."\n"
-      . '</ul>'."\n";
+$out .= claro_html_tool_title(
+    array(
+    'mainTitle'=>$nameTools
+    )
+    );
+
+
+// TODO : cuse claro disp menu v
+$out .= '<ul>
+  <li><a href="./diskUsage.php">' . get_lang('Disk usage') . '</a></li>
+  <li><a href="./phpInfo.php">' . get_lang('PHP system information') . '</a></li>
+ </ul>'
+ ;
 
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

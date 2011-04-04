@@ -377,40 +377,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $tag = '';
             $attr = '';
-            
-            $trimmedStr = trim( $str , '"' );
-            
-            $matches = array();
-            
-            if ( preg_match( '/^color([0-9])/' , $trimmedStr , $matches ) )
-            {
-                $colorCodeList = array(
-                    0 => '#DD0000',
-                    1 => '#006600',
-                    2 => '#0000DD',
-                    3 => '#660099',
-                    4 => '#008888',
-                    5 => '#55AA22',
-                    6 => '#888800',
-                    7 => '#DE8822',
-                    8 => '#804020',
-                    9 => '#990022',
-                );
-                
-                $colorCode = isset( $colorCodeList[ (int)$matches[ 1 ] ] )
-                    ? $colorCodeList[ (int)$matches[ 1 ] ]
-                    : '#000000';
-                
-                $trimmedStr = 'color';
-            }
-            elseif ( preg_match( '/^color\(([a-zA-Z]+|#[a-fA-F0-9]{3}|#[a-fA-F0-9]{6})\)/' , $trimmedStr , $matches ) )
-            {
-                $colorCode = $matches[ 1 ];
-                
-                $trimmedStr = 'color';
-            }
-            
-            switch( $trimmedStr )
+
+            switch( trim( $str, '"' ) )
             {
                 // start of html block
                 case 'start_html':
@@ -447,19 +415,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     $this->addAtEnd[] = '<script type="text/javascript">createTOC();</script>';
                     break;
                 }
-                
-                case 'color':
-                {
-                    $str = '<span style="color: ' . $colorCode . ';">';
-                    break;
-                }
-                
-                case '/color':
-                {
-                    $str = '</span>';
-                    break;
-                }
-                
                 // embedded html
                 default:
                 {
@@ -471,7 +426,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     $str = $this->san->sanitize( $str );
                 }
             }
-            
+
             return $str;
         }
 
@@ -729,8 +684,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             'u' => array('__','__'),
             'note' => array('$$','$$'),
             'word' => array('¶¶¶','¶¶¶'),
-            'macro' => array('"""','"""'),
-            'color' => array('//','//')
+            'macro' => array('"""','"""')
           );
 
           # Suppression des tags selon les options
@@ -795,108 +749,5 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
           $this->escape_table = $this->all_tags;
           array_walk($this->escape_table,create_function('&$a','$a = \'\\\\\'.$a;'));
        }
-    
-        function __makeTag(&$tree,&$tag,$position,&$j,&$attr,&$type)
-        {
-            $res = '';
-            $closed = false;
-    
-            $itag = $this->close_tags[$tag];
-    
-            # Recherche fermeture
-            for ($i=$position+1;$i<count($tree);$i++)
-            {
-                if ($tree[$i] == $itag)
-                {
-                    $closed = true;
-                    break;
-                }
-            }
-    
-            # Résultat
-            if ($closed)
-            {
-                for ($i=$position+1;$i<count($tree);$i++)
-                {
-                    if ($tree[$i] != $itag)
-                    {
-                        $res .= $tree[$i];
-                    }
-                    else
-                    {
-                        switch ($tag)
-                        {
-                            case 'a':
-                                $res = $this->__parseLink($res,$tag,$attr,$type);
-                                break;
-                            case 'img':
-                                $type = 'close';
-                                $res = $this->__parseImg($res,$attr);
-                                break;
-                            case 'acronym':
-                                $res = $this->__parseAcronym($res,$attr);
-                                break;
-                            case 'q':
-                                $res = $this->__parseQ($res,$attr);
-                                break;
-                            case 'anchor':
-                                $tag = 'a';
-                                $res = $this->__parseAnchor($res,$attr);
-                                break;
-                            case 'note':
-                                $tag = '';
-                                $res = $this->__parseNote($res);
-                                break;
-                            case 'word':
-                                $res = $this->parseWikiWord($res,$tag,$attr,$type);
-                                break;
-                            case 'macro':
-                                $res = $this->parseMacro($res,$tag,$attr,$type);
-                                break;
-                            case 'color':
-                                $res = $this->__parseColor($res,$tag,$attr,$type);
-                                break;
-                            default :
-                                $res = $this->__inlineWalk($res);
-                                break;
-                        }
-    
-                        if ($type == 'open' && $tag != '') {
-                            $res .= '</'.$tag.'>';
-                        }
-                        $j = $i;
-                        break;
-                    }
-                }
-    
-                return $res;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        
-        function __parseColor($str, &$tag, &$attr, &$type )
-        {
-            $n_str = $this->__inlineWalk($str);
-            $data = $this->__splitTagsAttr($n_str );
-            
-            $tag = "span";
-            $type= "open";
-            
-            if (count($data ) == 1)
-            {
-                $content = $str;
-                $attr = ' style="color: #000000"';
-            }
-            elseif (count($data ) > 1 )
-            {
-                $attr = ' style="color: ' . trim( $data[ 0 ] ) .'"';
-                $content = $data[ 1 ];
-            }
-            
-            return $content;
-        }
     }
 ?>
