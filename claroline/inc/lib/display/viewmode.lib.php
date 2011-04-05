@@ -17,10 +17,15 @@
 class ClaroViewMode implements Display
 {
     private static $instance = false;
-
+    
+    
+    /**
+     * Contructor.
+     */
     private function __construct()
     {
     }
+    
     
     public function render()
     {
@@ -47,10 +52,14 @@ class ClaroViewMode implements Display
         return $out;
     }
     
+    
+    /**
+     * Render a dropdown list to switch "student" and "course manager" mode.
+     */
     private function renderViewModeSwitch()
     {
         $out = '';
-
+        
         if ( isset($_REQUEST['View mode']) )
         {
             $out .= claro_html_tool_view_option($_REQUEST['View mode']);
@@ -59,7 +68,7 @@ class ClaroViewMode implements Display
         {
             $out .= claro_html_tool_view_option();
         }
-
+        
         if ( claro_is_in_a_course() && ! claro_is_platform_admin() && ! claro_is_course_member() )
         {
             $out .= ' | <a href="' . get_path('clarolineRepositoryWeb')
@@ -70,12 +79,16 @@ class ClaroViewMode implements Display
                 . '</a>'
                 ;
         }
-
+        
         $out .= "\n";
         
         return $out;
     }
     
+    
+    /**
+     * Render a link to register.
+     */
     private function renderRegistrationLink()
     {
         return '<a href="'
@@ -88,6 +101,10 @@ class ClaroViewMode implements Display
             ;
     }
     
+    
+    /**
+     * Render a link to log in.
+     */
     private function renderLoginLink()
     {
         return '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/login.php'
@@ -103,14 +120,15 @@ class ClaroViewMode implements Display
             . '</a>'
             ;
     }
-
+    
+    
     public static function getInstance()
     {
         if ( ! ClaroViewMode::$instance )
         {
             ClaroViewMode::$instance = new ClaroViewMode;
         }
-
+        
         return ClaroViewMode::$instance;
     }
 }

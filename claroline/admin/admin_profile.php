@@ -62,7 +62,7 @@ else
     $userData = user_get_properties($userId);
     $user_extra_data = user_get_extra_data($userId);
 }
-        
+
 if (!empty($user_extra_data) && count($user_extra_data) > 0)
 {
     $dgExtra = new claro_datagrid(user_get_extra_data($userId));

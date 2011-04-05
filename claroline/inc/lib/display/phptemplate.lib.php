@@ -3,7 +3,9 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * PHP-based templating system
+ * CLAROLINE
+ *
+ * PHP-based templating system.
  *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
