@@ -48,53 +48,44 @@
 <!-- User Banner -->
 <div id="userBanner">
     <div id="userBannerLeft">
-        <span id="userName">
-        <?php echo get_lang( '%firstName %lastName'
-            , array(  '%firstName' => $this->user['firstName']
-                    , '%lastName' => $this->user['lastName'] ) ) ?> :
-        </span>
-        <?php echo $this->userToolListLeft; ?>
+        <ul class="menu">
+            <?php foreach($this->userToolListLeft as $menuItem) : ?>
+            <li><?php echo $menuItem; ?></li>
+            <?php endforeach; ?>
+        </ul>
         
         <?php include_dock('userBannerLeft'); ?>
     </div>
     
     <div id="userBannerRight">
-        <?php echo $this->userToolListRight; ?>
+        <ul class="menu">
+            <li class="userName">
+                <?php
+                echo get_lang('%firstName %lastName', array(
+                    '%firstName' => $this->user['firstName'],
+                    '%lastName' => $this->user['lastName']));
+                ?>
+            </li>
+            <?php foreach($this->userToolListRight as $menuItem) : ?>
+            <li><?php echo $menuItem; ?></li>
+            <?php endforeach; ?>
+        </ul>
         <?php include_dock('userBannerRight'); ?>
     </div>
     
     <div class="spacer"></div>
 </div>
-<!-- End of User Banner -->
-<?php endif; ?>
-
-<?php if ( $this->courseBanner ): ?>
-<!-- Course Banner -->
-<div id="courseBanner">
-    <div id="courseBannerLeft">
-        <div id="course">
-            <h2 id="courseName">
-            <?php echo link_to_course($this->course['name']
-                , $this->course['sysCode'], array('target' => '_top')); ?>
-            </h2>
-            <span id="courseCode">
-            <?php echo "{$this->course['officialCode']} - {$this->course['titular']}"; ?>
-            </span>
-        </div>
-        
-        <?php include_dock('courseBannerLeft'); ?>
-    </div>
-    <div id="courseBannerRight">
-        <?php if(claro_is_course_allowed()) : ?>
-        <?php echo $this->courseToolSelector; ?>
-        <?php endif; ?>
-        
-        <?php include_dock('courseBannerRight'); ?>
+<?php else : ?>
+<div id="userBanner">
+    <div id="userBannerRight">
+        <ul class="menu">
+            <li><?php echo $this->viewmode->render(); ?></li>
+        </ul>
     </div>
     
     <div class="spacer"></div>
 </div>
-<!-- End of Course Banner -->
+<!-- End of User Banner -->
 <?php endif; ?>
 
 <?php if ( $this->breadcrumbLine ): ?>
@@ -106,7 +97,9 @@
     </div>
     
     <div id="toolViewOption">
+        <?php if (claro_is_user_authenticated()) : ?>
         <?php echo $this->viewmode->render(); ?>
+        <?php endif; ?>
     </div>
     
     <div class="spacer"></div>

@@ -3,6 +3,8 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
+ * CLAROLINE
+ *
  * Class used to configure and display the page banners.
  *
  * @version     $Revision$
@@ -23,7 +25,7 @@ class ClaroBanner extends CoreTemplate
     protected $hidden = false;
     public $breadcrumbs;
     public $viewmode;
-
+    
     public function __construct()
     {
         $this->breadcrumbs = ClaroBreadCrumbs::getInstance();
@@ -98,7 +100,6 @@ class ClaroBanner extends CoreTemplate
                 
                 foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
                 {
-
                     if (isset($_courseToolDatas['name'])
                         && !is_null($_courseToolDatas['name'])
                         && isset($_courseToolDatas['label']))
@@ -126,7 +127,6 @@ class ClaroBanner extends CoreTemplate
                     foreach($_courseToolList as $_courseToolKey => $_courseToolData)
                     {
                         //find correct url to access current tool
-
                         if (isset($_courseToolData['url']))
                         {
                             if (!empty($_courseToolData['label']))
@@ -144,7 +144,6 @@ class ClaroBanner extends CoreTemplate
                             }
                             
                             // reset group to access course tool
-
                             if (claro_is_in_a_group() && !$_courseToolData['external'])
                             {
                                 $_toolDataUrl = strpos($_courseToolData['url'], '?') !== false
@@ -158,7 +157,7 @@ class ClaroBanner extends CoreTemplate
                             }
                         }
                         
-                        //find correct url for icon of the tool
+                        // Find correct url for icon of the tool
                         // External tool
                         if( empty($_courseToolData['label']) )
                         {
@@ -175,7 +174,7 @@ class ClaroBanner extends CoreTemplate
                             $_toolIconUrl = get_icon_url('tool');
                         }
                         
-                        // select "groups" in group context instead of tool
+                        // Select "groups" in group context instead of tool
                         if ( claro_is_in_a_group() )
                         {
                             $toolSelected = $_courseToolData['label'] == 'CLGRP' ? 'selected="selected"' : '';
@@ -238,12 +237,6 @@ class ClaroBanner extends CoreTemplate
             
             $userToolUrlListLeft[]  = '<a href="'
                 . get_path('clarolineRepositoryWeb')
-                . 'auth/profile.php" target="_top">'
-                . get_lang('My user account').'</a>'
-                ;
-
-            $userToolUrlListLeft[]  = '<a href="'
-                . get_path('clarolineRepositoryWeb')
                 . 'messaging" target="_top">'
                 . get_lang('My messages').'</a>'
                 ;
@@ -257,16 +250,20 @@ class ClaroBanner extends CoreTemplate
                     ;
             }
             
+            $userToolUrlListRight[]  = '<a href="'
+                . get_path('clarolineRepositoryWeb')
+                . 'auth/profile.php" target="_top">'
+                . get_lang('My user account').'</a>'
+                ;
+            
             $userToolUrlListRight[] = '<a href="'.  get_path('url')
                 . '/index.php?logout=true" target="_top">'
                 . get_lang('Logout').'</a>'
                 ;
             
-            $this->assign('userToolListRight'
-                , claro_html_menu_horizontal($userToolUrlListRight));
+            $this->assign('userToolListRight', $userToolUrlListRight);
             
-            $this->assign('userToolListLeft'
-                , claro_html_menu_horizontal($userToolUrlListLeft));
+            $this->assign('userToolListLeft', $userToolUrlListLeft);
             
             $this->showBlock('userBanner');
         }

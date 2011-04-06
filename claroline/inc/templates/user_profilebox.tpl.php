@@ -3,7 +3,7 @@
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
 <div id="userProfileBox">
-    <div class="header" id="userProfileTitle">
+    <div class="claroBlockHeader" id="userProfileTitle">
         <?php
         if ($this->condensedMode && $this->userData['user_id'] == claro_get_current_user_id()) :
             echo '<a href="'.get_path('clarolineRepositoryWeb').'desktop/index.php">'
