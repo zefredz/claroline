@@ -78,7 +78,8 @@ function upgrade_category_to_110 ()
             
         case 4:
             // Insert all previous categories ("faculties") in the new table `category`
-            $sql = "SELECT f1.`id`, f1.`name`, f1.`code`, f1.`code_P`, f1.`treePos`, f1.`nb_childs`, f1.`canHaveCoursesChild`, f1.`canHaveCatChild`, f2.`id` as idParent
+            $sql = "SELECT f1.`id`, f1.`name`, f1.`code`, f1.`code_P`, f1.`treePos`, f1.`nb_childs`,
+                    f1.`canHaveCoursesChild`, f1.`canHaveCatChild`, f2.`id` as idParent
                     FROM `" . get_conf('mainTblPrefix') . "faculte` f1, `" . get_conf('mainTblPrefix') . "faculte` f2
                     WHERE f1.code_P = f2.code OR f1.code_P IS NULL
                     GROUP BY f1.id
@@ -89,7 +90,7 @@ function upgrade_category_to_110 ()
             $tempIdParent     = null;
             $rank             = 0;
             $visibile         = 1; // Change this value if you want to change the default value of visibility (1 or 0)
-            foreach ( $categoriesList as $category )
+            foreach ($categoriesList as $category)
             {
                 // Manage the rank
                 if ($tempIdParent != $category['idParent'])
@@ -101,7 +102,7 @@ function upgrade_category_to_110 ()
                 {
                     $rank++;
                 }
-                if ( $category['idParent'] == 1)
+                if ($category['idParent'] == 1 || empty($category['code_P']) || empty($category['idParent']))
                 {
                     $category['idParent'] = 0;
                 }
