@@ -28,9 +28,9 @@ if ( count( get_included_files() ) == 1 )
 function renderStatBlock($header,$content,$footer = '')
 {
     $html = '<div class="statBlock">' . "\n"
-    .     ' <div class="blockHeader">' . "\n"
+    .     ' <h3 class="blockHeader">' . "\n"
     .     $header
-    .     ' </div>' . "\n"
+    .     ' </h3>' . "\n"
     .     ' <div class="blockContent">' . "\n"
     .     $content
     .     ' </div>' . "\n"

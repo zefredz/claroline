@@ -773,7 +773,7 @@ a.item:visited {
     margin: 5px auto;
 }
 
-.claroBlockHeader {
+.blockHeader {
     color: #444;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
@@ -790,7 +790,7 @@ a.item:visited {
     font-weight: bold;
 }
 
-.claroBlockHeader img {
+.blockHeader img {
     vertical-align: text-bottom;
 }
 
@@ -911,12 +911,13 @@ dl.userCourseList {
 }
 
 .claroTable .headerY th,
-.claroTable .headerX th {
-    color: #693;
+.claroTable .headerX th, 
+.claroTable thead th {
+    color: #444;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
-    background-color: #EDF1E3;
-    border-bottom: 1px #96BB7A solid;
+    background-color: #eee;
+    border-bottom: 1px #444 solid;
     text-align: center;
 }
 
@@ -1418,4 +1419,8 @@ img.userPicture {
     -moz-box-shadow: 0px 0px 15px #999;
     -webkit-box-shadow: 0px 0px 15px #999;
     box-shadow: 0px 0px 15px #999;
+}
+
+.userName {
+    color: #669933;
 }

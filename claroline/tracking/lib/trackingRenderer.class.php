@@ -16,9 +16,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 
     /**
-     * This class defines main methods used in the tracking renderers for 
+     * This class defines main methods used in the tracking renderers for
      * course related tracking data
-     * 
+     *
      * @abstract
      */
     abstract class CourseTrackingRenderer
@@ -30,9 +30,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         public function render()
         {
             $html = '<div class="statBlock">' . "\n"
-            .    ' <div class="blockHeader">' . "\n"
+            .    ' <h3 class="blockHeader">' . "\n"
             .    $this->renderHeader()
-            .    ' </div>' . "\n"
+            .    ' </h3>' . "\n"
             .    ' <div class="blockContent">' . "\n"
             .    $this->renderContent()
             .    ' </div>' . "\n"
@@ -40,7 +40,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             .    $this->renderFooter()
             .    ' </div>' . "\n"
             .    '</div>' . "\n";
-    
+            
             return $html;
         }
         
@@ -65,9 +65,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     }
     
     /**
-     * This class defines main methods used in the tracking renderers for 
+     * This class defines main methods used in the tracking renderers for
      * user related tracking data in course
-     * 
+     *
      * @abstract
      */
     abstract class UserTrackingRenderer
@@ -80,9 +80,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         public function render()
         {
             $html = '<div class="statBlock">' . "\n"
-            .    ' <div class="blockHeader">' . "\n"
+            .    ' <h3 class="blockHeader">' . "\n"
             .    $this->renderHeader()
-            .    ' </div>' . "\n"
+            .    ' </h3>' . "\n"
             .    ' <div class="blockContent">' . "\n"
             .    $this->renderContent()
             .    ' </div>' . "\n"
@@ -90,26 +90,26 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             .    $this->renderFooter()
             .    ' </div>' . "\n"
             .    '</div>' . "\n";
-    
+            
             return $html;
         }
         
         /**
          * Render part of display (header) used in render class
          * @abstract
-         */        
+         */
         abstract protected function renderHeader();
         
         /**
          * Render part of display (header) used in render class
          * @abstract
-         */        
+         */
         abstract protected function renderContent();
         
         /**
          * Render part of display (header) used in render class
          * @abstract
-         */        
+         */
         abstract protected function renderFooter();
     }
 

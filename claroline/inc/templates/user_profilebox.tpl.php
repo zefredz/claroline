@@ -3,19 +3,17 @@
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
 <div id="userProfileBox">
-    <div class="claroBlockHeader" id="userProfileTitle">
-        <?php
-        if ($this->condensedMode && $this->userData['user_id'] == claro_get_current_user_id()) :
-            echo '<a href="'.get_path('clarolineRepositoryWeb').'desktop/index.php">'
-               . $this->userFullName
-               . '</a>';
-        
-        else :
-            echo $this->userFullName;
-        
-        endif;
-        ?>
-    </div>
+    <h3 class="blockHeader">
+        <span class="userName">
+            <?php if ($this->condensedMode && $this->userData['user_id'] == claro_get_current_user_id()) : ?>
+                <a href="<?php echo get_path('clarolineRepositoryWeb'); ?>desktop/index.php">
+                    <?php echo $this->userFullName; ?>
+                </a>
+            <?php else : ?>
+                <?php echo $this->userFullName; ?>
+            <?php endif; ?>
+        </span>
+    </h3>
     <div id="userProfile">
         <?php
         if ( get_conf('allow_profile_picture') ) :

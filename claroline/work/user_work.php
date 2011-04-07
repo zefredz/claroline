@@ -1476,7 +1476,7 @@ if( $dispWrkLst )
             // title (and edit links)
             $out .= '<div class="'. $visStyle . $style .'">' . "\n"
             
-            .    '<h4 class="'. ( !$is_feedback ? 'claroBlockSuperHeader':'claroBlockHeader') . '">' . "\n"
+            .    '<h4 class="'. ( !$is_feedback ? 'claroBlockSuperHeader':'blockHeader') . '">' . "\n"
             .    $san->sanitize( $thisWrk['title'] ) . "\n"
             .    '</h4>' . "\n"
             ;

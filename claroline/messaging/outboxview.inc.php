@@ -94,14 +94,14 @@ else
     $linkSort = $linkPage."?".$arg_sort."&amp;";
 }
     
-$content .= '<table class="claroTable emphaseLine" width="100%">'."\n";
-$content .= '<tr class ="headerX"> '."\n"
-                .'<th>'.get_lang("Subject").'</th>'."\n"
-                .'<th>'.get_lang("Recipient").'</th> '."\n"
-                .'<th><a href="'.$linkSort.'fieldOrder=date&amp;order='.$nextOrder.'">'.get_lang("Date").'</a></th>'."\n"
-                ;
-
-$content .= '</tr>'."\n\n";
+$content .= '<table class="claroTable emphaseLine" width="100%">'."\n"
+          . '<thead>'
+          . '<tr> '."\n"
+          . '<th>'.get_lang("Subject").'</th>'."\n"
+          . '<th>'.get_lang("Recipient").'</th> '."\n"
+          . '<th><a href="'.$linkSort.'fieldOrder=date&amp;order='.$nextOrder.'">'.get_lang("Date").'</a></th>'."\n"
+          . '</tr>'."\n"
+          . '</thead>'."\n";
 
 if ($box->getNumberOfMessage() == 0)
 {

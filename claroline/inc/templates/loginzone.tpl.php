@@ -3,7 +3,7 @@
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
 <div id="loginBox">
-<div class="header"><?php echo get_lang('Authentication'); ?></div>
+<h3 class="blockHeader"><?php echo get_lang('Authentication'); ?></h3>
 
 <?php if ( get_conf('claro_CasEnabled') ) : ?>
 <!-- CAS login hyperlink -->

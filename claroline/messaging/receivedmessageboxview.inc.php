@@ -168,12 +168,14 @@ else
     $linkSort = $linkPage."?".$arg_sort."&amp;";
 }
 
-$content .= '<table class="claroTable emphaseLine" width="100%">'."\n\n";
-$content .= '<tr class ="headerX"> '."\n"
-            .'<th>'.get_lang("Subject").'</th>'."\n"
-            .'<th><a href="'.$linkSort.'fieldOrder=sender&amp;order='.$nextOrder.'">'.get_lang("Sender").'</a></th>'."\n"
-            .'<th><a href="'.$linkSort.'fieldOrder=date&amp;order='.$nextOrder.'">'.get_lang("Date").'</a></th>'."\n"
-            .'<th class="im_list_action">';
+$content .= '<table class="claroTable emphaseLine" width="100%">'."\n\n"
+          . '<thead>'."\n"
+          . '<tr> '."\n"
+          . '<th>'.get_lang("Subject").'</th>'."\n"
+          . '<th><a href="'.$linkSort.'fieldOrder=sender&amp;order='.$nextOrder.'">'.get_lang("Sender").'</a></th>'."\n"
+          . '<th><a href="'.$linkSort.'fieldOrder=date&amp;order='.$nextOrder.'">'.get_lang("Date").'</a></th>'."\n"
+          . '<th class="im_list_action">'."\n"
+          . '</thead>'."\n";
 if ($link_arg['box'] == "inbox")
 {
    $content .= get_lang("Delete");

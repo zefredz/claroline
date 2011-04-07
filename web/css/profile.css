@@ -2,16 +2,6 @@
  $Id$
  **/
 
-
-#userProfileBox {
-}
-
-#userProfileBox #userProfileTitle
-{
-    /*color: #669933;
-    font-weight: bold;*/
-}
-
 #userProfileBox #userProfile
 {
     margin-top: 0.3em;

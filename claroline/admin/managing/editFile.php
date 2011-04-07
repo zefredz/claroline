@@ -168,11 +168,13 @@ if( $display == DISP_FILE_LIST || $display == DISP_EDIT_FILE || $display == DISP
    .    get_lang('See below the files you can edit from this tool.')
    .    '</p>' . "\n"
    .    '<table cellspacing="2" cellpadding="2" border="0" class="claroTable emphaseLine">' . "\n"
-   .    '<tr class="headerX">' . "\n"
-   .    '<th >' . get_lang('Description') . '</th>' . "\n"
-   .    '<th >' . get_lang('Edit') . '</th>' . "\n"
-   .    '<th >' . get_lang('Preview') . '</th>' . "\n"
+   .    '<thead>'
+   .    '<tr>' . "\n"
+   .    '<th>' . get_lang('Description') . '</th>' . "\n"
+   .    '<th>' . get_lang('Edit') . '</th>' . "\n"
+   .    '<th>' . get_lang('Preview') . '</th>' . "\n"
    .    '</tr>' . "\n"
+   .    '</thead>' . "\n"
    ;
 
     foreach ( $textZoneList as $idFile => $textZone )
