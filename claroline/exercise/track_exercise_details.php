@@ -1,17 +1,16 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * This page display global information about
+ * This page display global information about.
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author claro team <info@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      claro team <info@claroline.net>
  */
+
 require '../inc/claro_init_global.inc.php';
 
 include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
