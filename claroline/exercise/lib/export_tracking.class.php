@@ -2,7 +2,7 @@
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
- * CLAROLINE 1.6
+ * CLAROLINE
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,9 +22,9 @@ class csvTrackTrueFalse extends csv
     var $question;
     var $exId;
     
-    function csvTrackTrueFalse($question, $exId = '')
+    function __construct($question, $exId = '')
     {
-        parent::csv(); // call constructor of parent class
+        parent::__construct(); // call constructor of parent class
         
         $this->question = $question;
         $this->exId = $exId;
@@ -107,9 +107,9 @@ class csvTrackMultipleChoice extends csv
     var $question;
     var $exId;
 
-    function csvTrackMultipleChoice($question, $exId = '')
+    function __construct($question, $exId = '')
     {
-        parent::csv(); // call constructor of parent class
+        parent::__construct(); // call constructor of parent class
         
         $this->question = $question;
         $this->exId = $exId;
@@ -185,9 +185,9 @@ class csvTrackFIB extends csv
     var $question;
     var $exerciseId;
 
-    function csvTrackFIB($question, $exId = '')
+    function __construct($question, $exId = '')
     {
-        parent::csv(); // call constructor of parent class
+        parent::__construct(); // call constructor of parent class
         
         $this->question = $question;
         $this->exId = $exId;
@@ -261,9 +261,9 @@ class csvTrackMatching extends csv
     var $question;
     var $exerciseId;
 
-    function csvTrackMatching($question, $exId = '')
+    function __construct($question, $exId = '')
     {
-        parent::csv(); // call constructor of parent class
+        parent::__construct(); // call constructor of parent class
         
         $this->question = $question;
         $this->exId = $exId;
@@ -334,7 +334,6 @@ class csvTrackMatching extends csv
 
 /**
  * @return string csv data or empty string
- *
  */
 function export_question_tracking($quId, $exId = '')
 {
@@ -409,7 +408,7 @@ class ExoExportByUser extends csv
     */
     public function __construct( $exId )
     {
-        parent::csv(); // call parent class's constructor
+        parent::__construct(); // call parent class's constructor
         
         $this->exId = $exId;
     }
@@ -504,7 +503,7 @@ class ExoExportByQuestion extends csv
     */
     public function __construct( $exId )
     {
-        parent::csv(); // call parent class's constructor
+        parent::__construct(); // call parent class's constructor
         
         $this->exId = $exId;
     }
