@@ -135,14 +135,12 @@ if ( !empty($dock) )
 
     $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
     .    '<thead>'
-    .    '<tr align="center" valign="top">'
+    .    '<tr class="headerX" align="center" valign="top">'
     .    '<th>' . get_lang('Icon')               . '</th>'
     .    '<th>' . get_lang('Module name')        . '</th>'
     .    '<th colspan="2">' . get_lang('Order')           .'</th>'
     .    '<th>' . get_lang('Remove from the dock')          . '</th>'
-    .    '</tr>'
-    .    '</thead>'
-    .    '<tbody>'
+    .    '</tr><tbody>'
     ;
 
     $iteration = 1;
@@ -209,7 +207,7 @@ if ( !empty($dock) )
             .    '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />'
             .    '</a>'
             ;
-        }
+        }        
         else
         {
             $out .= '&nbsp;';

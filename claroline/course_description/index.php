@@ -409,18 +409,26 @@ if ( count($descList) )
             }
 
             $out .= '<div class="claroBlock">' . "\n"
-            .   '<h3 class="blockHeader">'
+            .   '<h4 class="claroBlockHeader">'
             .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
-            .   (!empty($thisDesc['title'])?htmlspecialchars($thisDesc['title']):'')
-            .   '</span>' . "\n"
-            .   '</h3>' . "\n"
+            ;
+
+            if ( trim($thisDesc['title']) == '' )
+                $out .= '&nbsp;';
+            else
+                $out .= htmlspecialchars($thisDesc['title']);
+                
+            $out .= '</span>' . "\n"
+            .   '</h4>' . "\n"
             
             .   '<div class="claroBlockContent">' . "\n"
             .   '<a href="#" name="ann' . $thisDesc['id'] . '"></a>'. "\n"
-            
+
             .   '<div class="' . $cssInvisible . '">' . "\n"
             .   claro_parse_user_text($thisDesc['content']) . "\n"
-            .   '</div>' . "\n";
+            .   '</div>' . "\n"
+            
+            ;
 
             $hasDisplayedItems = true;
 

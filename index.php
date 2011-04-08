@@ -54,7 +54,7 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
     $template->assign('templateMyCourses', $templateMyCourses);
     
     // Last user action
-    $lastUserAction = (isset($_SESSION['last_action']) && $_SESSION['last_action'] != '1970-01-01 00:00:00') ?
+    $lastUserAction = ($_SESSION['last_action'] != '1970-01-01 00:00:00') ?
         $_SESSION['last_action'] :
         date('Y-m-d H:i:s');
     
@@ -110,7 +110,7 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
                         . ' '.get_lang('New items').' '
                         . get_lang('to another date')
                         . ((substr($lastUserAction, strlen($lastUserAction) - 8) == '00:00:00' ) ?
-                            (' <br />['.claro_html_localised_date(
+                            (' ['.claro_html_localised_date(
                                 get_locale('dateFormatNumeric'),
                                 strtotime($lastUserAction)).']') :
                             (''))

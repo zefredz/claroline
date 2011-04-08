@@ -1,11 +1,8 @@
-/**
- * attributes.js
+ /**
+ * $Id: editor_plugin_src.js 42 2006-08-08 14:32:24Z spocke $
  *
- * Copyright 2009, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://tinymce.moxiecode.com/license
- * Contributing: http://tinymce.moxiecode.com/contributing
+ * @author Moxiecode - based on work by Andrew Tetlaw
+ * @copyright Copyright © 2004-2006, Moxiecode Systems AB, All rights reserved.
  */
 
 function init() {
@@ -53,6 +50,7 @@ function insertAction() {
 	var inst = tinyMCEPopup.editor;
 	var elm = inst.selection.getNode();
 
+	tinyMCEPopup.execCommand("mceBeginUndoLevel");	
 	setAllAttribs(elm);
 	tinyMCEPopup.execCommand("mceEndUndoLevel");
 	tinyMCEPopup.close();
@@ -71,7 +69,21 @@ function setAttrib(elm, attrib, value) {
 			value = valueElm.value;
 	}
 
-	dom.setAttrib(elm, attrib.toLowerCase(), value);
+	if (value != "") {
+		dom.setAttrib(elm, attrib.toLowerCase(), value);
+
+		if (attrib == "style")
+			attrib = "style.cssText";
+
+		if (attrib.substring(0, 2) == 'on')
+			value = 'return true;' + value;
+
+		if (attrib == "class")
+			attrib = "className";
+
+		elm[attrib]=value;
+	} else
+		elm.removeAttribute(attrib);
 }
 
 function setAllAttribs(elm) {

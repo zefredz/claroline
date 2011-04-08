@@ -11,7 +11,7 @@
         <?php if (!empty($this->languages) && count($this->languages) > 1) : ?>
         
         <div id="languageBox">
-            <h3 class="blockHeader"><?php echo get_lang('Language'); ?></h3>
+            <div class="header"><?php echo get_lang('Language'); ?></div>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" name="language_selector" method="post">
             <fieldset style="border: 0; margin: 10px 0 15px 0; padding: 5px;">
                 <select onchange="top.location=this.options[selectedIndex].value" id="langSelector" name="language">

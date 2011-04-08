@@ -56,7 +56,7 @@ $dialogBox = new DialogBox();
 // Users' administration menu
 $menu['AdminUser'][] = get_lang('Search for a user').'<br />'
                      . '<form name="searchUser" action="admin_users.php" method="get">' . "\n"
-                     . '<input type="text" name="search" id="search_user" class="inputSearch" />&nbsp;'
+                     . '<input type="text" name="search" id="search_user" />&nbsp;'
                      . '<input type="submit" value="' . get_lang('Go') . '" />'
                      . '&nbsp;'
                      . '<small>'
@@ -78,7 +78,7 @@ $menu['AdminUser'][] = '<a href="adminmergeuser.php">'.get_lang('Merge user acco
 // Courses' administration menu
 $menu['AdminCourse'][] = get_lang('Search for a course').'<br />'
                        . '<form name="searchCourse" action="admin_courses.php" method="get">' . "\n"
-                       . '<input type="text" name="search" id="search_course" class="inputSearch" />&nbsp;'
+                       . '<input type="text" name="search" id="search_course" />&nbsp;'
                        . '<input type="submit" value="' . get_lang('Go'). '" />'
                        . '&nbsp;<small><a href="advanced_course_search.php">' . get_lang('Advanced') . '</a></small>' . "\n"
                        . '</form>';

@@ -1,11 +1,8 @@
-/**
- * del.js
+ /**
+ * $Id: editor_plugin_src.js 42 2006-08-08 14:32:24Z spocke $
  *
- * Copyright 2009, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://tinymce.moxiecode.com/license
- * Contributing: http://tinymce.moxiecode.com/contributing
+ * @author Moxiecode - based on work by Andrew Tetlaw
+ * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 function init() {
@@ -21,17 +18,17 @@ function setElementAttribs(elm) {
 	setAllCommonAttribs(elm);
 	setAttrib(elm, 'datetime');
 	setAttrib(elm, 'cite');
-	elm.removeAttribute('data-mce-new');
 }
 
 function insertDel() {
 	var elm = tinyMCEPopup.editor.dom.getParent(SXE.focusElement, 'DEL');
 
+	tinyMCEPopup.execCommand('mceBeginUndoLevel');
 	if (elm == null) {
 		var s = SXE.inst.selection.getContent();
 		if(s.length > 0) {
 			insertInlineElement('del');
-			var elementArray = SXE.inst.dom.select('del[data-mce-new]');
+			var elementArray = tinymce.grep(SXE.inst.dom.select('del'), function(n) {return n.id == '#sxe_temp_del#';});
 			for (var i=0; i<elementArray.length; i++) {
 				var elm = elementArray[i];
 				setElementAttribs(elm);
@@ -43,6 +40,16 @@ function insertDel() {
 	tinyMCEPopup.editor.nodeChanged();
 	tinyMCEPopup.execCommand('mceEndUndoLevel');
 	tinyMCEPopup.close();
+}
+
+function insertInlineElement(en) {
+	var ed = tinyMCEPopup.editor, dom = ed.dom;
+
+	ed.getDoc().execCommand('FontName', false, 'mceinline');
+	tinymce.each(dom.select(tinymce.isWebKit ? 'span' : 'font'), function(n) {
+		if (n.style.fontFamily == 'mceinline' || n.face == 'mceinline')
+			dom.replace(dom.create(en), n, 1);
+	});
 }
 
 function removeDel() {

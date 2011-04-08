@@ -1,35 +1,29 @@
 /**
- * editor_plugin_src.js
- *
- * Copyright 2009, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://tinymce.moxiecode.com/license
- * Contributing: http://tinymce.moxiecode.com/contributing
- */
+* $Id$
+*
+* @author Moxiecode
+* @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+*/
 
 (function() {
 	/**
-	 * Auto Resize
-	 * 
-	 * This plugin automatically resizes the content area to fit its content height.
-	 * It will retain a minimum height, which is the height of the content area when
-	 * it's initialized.
-	 */
+	* Auto Resize
+	* 
+	* This plugin automatically resizes the content area to fit its content height.
+	* It will retain a minimum height, which is the height of the content area when
+	* it's initialized.
+	*/
 	tinymce.create('tinymce.plugins.AutoResizePlugin', {
 		/**
-		 * Initializes the plugin, this will be executed after the plugin has been created.
-		 * This call is done before the editor instance has finished it's initialization so use the onInit event
-		 * of the editor instance to intercept that event.
-		 *
-		 * @param {tinymce.Editor} ed Editor instance that the plugin is initialized in.
-		 * @param {string} url Absolute URL to where the plugin is located.
-		 */
+		* Initializes the plugin, this will be executed after the plugin has been created.
+		* This call is done before the editor instance has finished it's initialization so use the onInit event
+		* of the editor instance to intercept that event.
+		*
+		* @param {tinymce.Editor} ed Editor instance that the plugin is initialized in.
+		* @param {string} url Absolute URL to where the plugin is located.
+		*/
 		init : function(ed, url) {
-			var t = this, oldSize = 0;
-
-			if (ed.getParam('fullscreen_is_enabled'))
-				return;
+			var t = this;
 
 			/**
 			 * This method gets executed each time the editor needs to resize.
@@ -40,18 +34,12 @@
 				// Get height differently depending on the browser used
 				myHeight = tinymce.isIE ? b.scrollHeight : de.offsetHeight;
 
-				// Bottom margin
-				myHeight = t.bottom_margin + myHeight;
-
 				// Don't make it smaller than the minimum height
 				if (myHeight > t.autoresize_min_height)
 					resizeHeight = myHeight;
 
 				// Resize content element
-				if ( resizeHeight !== oldSize ) {
-					DOM.setStyle(DOM.get(ed.id + '_ifr'), 'height', resizeHeight + 'px');
-					oldSize = resizeHeight;
-				}
+				DOM.setStyle(DOM.get(ed.id + '_ifr'), 'height', resizeHeight + 'px');
 
 				// if we're throbbing, we'll re-throb to match the new size
 				if (t.throbbing) {
@@ -65,8 +53,15 @@
 			// Define minimum height
 			t.autoresize_min_height = ed.getElement().offsetHeight;
 
-			// Add margin at the bottom for better UX
-			t.bottom_margin = parseInt( ed.getParam('autoresize_bottom_margin', 50) );
+			// Things to do when the editor is ready
+			ed.onInit.add(function(ed, l) {
+				// Show throbber until content area is resized properly
+				ed.setProgressState(true);
+				t.throbbing = true;
+
+				// Hide scrollbars
+				ed.getBody().style.overflowY = "hidden";
+			});
 
 			// Add appropriate listeners for resizing content area
 			ed.onChange.add(resize);
@@ -75,43 +70,31 @@
 			ed.onKeyUp.add(resize);
 			ed.onPostRender.add(resize);
 
-			if (ed.getParam('autoresize_on_init', true)) {
-				// Things to do when the editor is ready
-				ed.onInit.add(function(ed, l) {
-					// Show throbber until content area is resized properly
-					ed.setProgressState(true);
-					t.throbbing = true;
+			ed.onLoadContent.add(function(ed, l) {
+				resize();
 
-					// Hide scrollbars
-					ed.getBody().style.overflowY = "hidden";
-				});
-
-				ed.onLoadContent.add(function(ed, l) {
+				// Because the content area resizes when its content CSS loads,
+				// and we can't easily add a listener to its onload event,
+				// we'll just trigger a resize after a short loading period
+				setTimeout(function() {
 					resize();
 
-					// Because the content area resizes when its content CSS loads,
-					// and we can't easily add a listener to its onload event,
-					// we'll just trigger a resize after a short loading period
-					setTimeout(function() {
-						resize();
-
-						// Disable throbber
-						ed.setProgressState(false);
-						t.throbbing = false;
-					}, 1250);
-				});
-			}
+					// Disable throbber
+					ed.setProgressState(false);
+					t.throbbing = false;
+				}, 1250);
+			});
 
 			// Register the command so that it can be invoked by using tinyMCE.activeEditor.execCommand('mceExample');
 			ed.addCommand('mceAutoResize', resize);
 		},
 
 		/**
-		 * Returns information about the plugin as a name/value array.
-		 * The current keys are longname, author, authorurl, infourl and version.
-		 *
-		 * @return {Object} Name/value array containing information about the plugin.
-		 */
+		* Returns information about the plugin as a name/value array.
+		* The current keys are longname, author, authorurl, infourl and version.
+		*
+		* @return {Object} Name/value array containing information about the plugin.
+		*/
 		getInfo : function() {
 			return {
 				longname : 'Auto Resize',

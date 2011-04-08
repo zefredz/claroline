@@ -27,9 +27,9 @@ abstract class Portlet implements Display
     public function render()
     {
         return '<div class="claroBlock portlet">' . "\n"
-             . '<h3 class="blockHeader">' . "\n"
+             . '<div class="claroBlockHeader">' . "\n"
              . $this->renderTitle() . "\n"
-             . '</h3>' . "\n"
+             . '</div>' . "\n"
              . '<div class="claroBlockContent">' . "\n"
              . $this->renderContent()
              . '</div>' . "\n"

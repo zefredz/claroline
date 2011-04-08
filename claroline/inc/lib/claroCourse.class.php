@@ -453,47 +453,6 @@ class ClaroCourse
     
     
     /**
-     * Get any related course to the current course (parent or child).
-     *
-     * @return array    courses
-     * @since 1.10
-     */
-    public function getRelatedCourses()
-    {
-        // Declare needed tables
-        $tbl_mdb_names              = claro_sql_get_main_tbl();
-        $tbl_course                 = $tbl_mdb_names['course'];
-        
-        $sql = "SELECT c.cours_id               AS id,
-                       c.titulaires             AS titular,
-                       c.code                   AS sysCode,
-                       c.sourceCourseId         AS sourceCourseId,
-                       c.intitule               AS title,
-                       c.administrativeNumber   AS officialCode,
-                       c.language,
-                       c.directory,
-                       c.visibility,
-                       c.access,
-                       c.registration,
-                       c.email,
-                       c.status,
-                       c.userLimit
-                FROM `" . $tbl_course . "` AS c
-                WHERE c.sourceCourseId = " . $this->id . "
-                OR c.cours_id = " . $this->id;
-        
-        if (!empty($this->sourceCourseId))
-        {
-            $sql .= "
-                OR cours_id = " . $this->sourceCourseId . "
-                OR c.sourceCourseId = " . $this->sourceCourseId;
-        }
-        
-        return claro_sql_query_fetch_all($sql);
-    }
-    
-    
-    /**
      * Get all courses in database ordered by label.  If a category identifier
      * is specified, only get courses linked to this category.  You can also
      * specify visibility.

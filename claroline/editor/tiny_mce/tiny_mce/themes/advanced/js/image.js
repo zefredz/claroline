@@ -77,7 +77,7 @@ var ImageDialog = {
 			args.style = this.styleVal;
 
 		tinymce.extend(args, {
-			src : f.src.value.replace(/ /g, '%20'),
+			src : f.src.value,
 			alt : f.alt.value,
 			width : f.width.value,
 			height : f.height.value
@@ -87,8 +87,6 @@ var ImageDialog = {
 
 		if (el && el.nodeName == 'IMG') {
 			ed.dom.setAttribs(el, args);
-			tinyMCEPopup.editor.execCommand('mceRepaint');
-			tinyMCEPopup.editor.focus();
 		} else {
 			ed.execCommand('mceInsertContent', false, '<img id="__mce_tmp" />', {skip_undo : 1});
 			ed.dom.setAttribs('__mce_tmp', args);
@@ -153,8 +151,8 @@ var ImageDialog = {
 			}
 
 			// Merge
-			st = tinyMCEPopup.dom.parseStyle(dom.serializeStyle(st), 'img');
-			this.styleVal = dom.serializeStyle(st, 'img');
+			st = tinyMCEPopup.dom.parseStyle(dom.serializeStyle(st));
+			this.styleVal = dom.serializeStyle(st);
 		}
 	},
 

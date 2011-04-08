@@ -1,7 +1,5 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
@@ -14,15 +12,20 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * This code would be splited by task for the 1.8 Stable but code inside
  * function won't change, so let's go to write it.
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
- * @package     UPGRADE
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ *
+ * @package UPGRADE
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Mathieu Laurent   <mla@claroline.net>
- * @author Christophe Gesche <moosh@claroline.net>
+ * @author Christophe GeschÃ© <moosh@claroline.net>
+ *
  */
 
 /*===========================================================================
@@ -52,14 +55,14 @@ function tool_list_upgrade_to_19 ($course_code)
         switch( $step = get_upgrade_status($tool,$course_code) )
         {
             case 1 :
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list`
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` 
                               ADD `activated` ENUM('true','false') NOT NULL DEFAULT 'true'";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
                 
             case 2 :
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list`
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` 
                               ADD `installed` ENUM('true','false') NOT NULL DEFAULT 'true'";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, 0, $course_code);
@@ -101,7 +104,7 @@ function chat_upgrade_to_19 ($course_code)
         switch( $step = get_upgrade_status($tool,$course_code) )
         {
             
-            case 1 :
+            case 1 : 
                 // get all chat files
                 log_message("Search in ". $courseChatPath);
                 $it = new DirectoryIterator($courseChatPath);
@@ -122,7 +125,7 @@ function chat_upgrade_to_19 ($course_code)
                     {
                         // group chat
                         log_message("Try to export group chat : " . $file->getFilename() );
-                        // get groupId
+                        // get groupId 
                         $matches = array();
                         preg_match('/\w+\.(\d+)\.chat\.html/', $file->getFilename(), $matches);
                         if( isset($matches[1]) )
@@ -137,7 +140,7 @@ function chat_upgrade_to_19 ($course_code)
                         
                         if( ! ($groupData = claro_get_group_data(array(CLARO_CONTEXT_COURSE => $course_code, CLARO_CONTEXT_GROUP => $groupId))) )
                         {
-                            // group cannot be found, save in document
+                            // group cannot be found, save in document 
                             $exportFileDir = $coursePath.'/document/recovered_chat/';
                             log_message('Cannot find group so save chat filename in course : '. $file->getFilename());
                         }
@@ -186,7 +189,7 @@ function chat_upgrade_to_19 ($course_code)
                 if ( !$error ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
                 
-            case 2 :
+            case 2 : 
                 // activate new chat in each course
                 $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
 
@@ -230,7 +233,7 @@ function course_description_upgrade_to_19 ($course_code)
         {
             case 1 :
                 // id becomes int(11)
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description`
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description` 
                               CHANGE `id` `id` int(11) NOT NULL auto_increment";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
@@ -240,7 +243,7 @@ function course_description_upgrade_to_19 ($course_code)
                 
             case 2 :
                 // add category field
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description`
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description` 
                               ADD `category` int(11) NOT NULL DEFAULT '-1'";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
@@ -250,7 +253,7 @@ function course_description_upgrade_to_19 ($course_code)
             
             case 3 :
                 // rename update to lastEditDate
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description`
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description` 
                               CHANGE `upDate` `lastEditDate` datetime NOT NULL";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
@@ -272,7 +275,7 @@ function course_description_upgrade_to_19 ($course_code)
                                 SET `visibility` = IF(`visibility` = 'SHOW' ,'VISIBLE','INVISIBLE')";
                 
                 //#3
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description`
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description` 
                               CHANGE `visibility` `visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE'";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
@@ -331,14 +334,14 @@ function quiz_upgrade_to_19 ($course_code)
                 
             case 2 :
                 // qwz_tracking - rename table
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "track_e_exercices`
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "track_e_exercices` 
                                 RENAME TO `". $currentCourseDbNameGlu ."qwz_tracking`";
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
                 
                 unset($sqlForUpdate);
                 
-            case 3 :
+            case 3 : 
                 // qwz_tracking - rename fields
                 $sqlForUpdate[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
                                 CHANGE `exe_id`         `id`        int(11) NOT NULL auto_increment,
@@ -354,9 +357,9 @@ function quiz_upgrade_to_19 ($course_code)
                 
                 unset($sqlForUpdate);
 
-            case 4 :
+            case 4 : 
                  // qwz_tracking_questions - rename table
-                $sqlForUpdate[] = "ALTER TABLE `". $currentCourseDbNameGlu . "track_e_exe_details`
+                $sqlForUpdate[] = "ALTER TABLE `". $currentCourseDbNameGlu . "track_e_exe_details` 
                                 RENAME TO `". $currentCourseDbNameGlu . "qwz_tracking_questions`";
 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
@@ -364,9 +367,9 @@ function quiz_upgrade_to_19 ($course_code)
                 
                 unset($sqlForUpdate);
                 
-            case 5 :
+            case 5 : 
                 // qwz_tracking_answers - rename table
-                $sqlForUpdate[] = "ALTER TABLE `". $currentCourseDbNameGlu . "track_e_exe_answers`
+                $sqlForUpdate[] = "ALTER TABLE `". $currentCourseDbNameGlu . "track_e_exe_answers` 
                                 RENAME TO `". $currentCourseDbNameGlu . "qwz_tracking_answers`";
 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
@@ -428,7 +431,7 @@ function calendar_upgrade_to_19($course_code)
         switch( $step = get_upgrade_status($tool,$course_code) )
         {
             case 1 :
-                $sql = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."calendar_event`
+                $sql = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."calendar_event` 
                         ADD `location` varchar(50)";
                 
                 if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1, $course_code);
@@ -561,10 +564,10 @@ function tracking_upgrade_to_19($course_code)
 }
 
 /**
- * Move tracking data from old tables to new ones.
+ * Move tracking data from old tables to new ones.  
  * Note that exercise tracking update is made in quiz_upgrade_to_19 function
  * and that tmp table is mostly created to insert in date order data from different old tables
- * to the new one
+ * to the new one 
  *
  * @param integer $course_code
  * @return upgrade status
@@ -590,7 +593,7 @@ function tracking_data_upgrade_to_19( $course_code )
     
                 unset( $sql );
                 
-            case 2 :
+            case 2 : 
                 // get total number of rows in track_e_access
                 $sql = "SELECT COUNT(*)
                             FROM `". $currentCourseDbNameGlu . "track_e_access`";
@@ -604,17 +607,17 @@ function tracking_data_upgrade_to_19( $course_code )
                     UpgradeTrackingOffset::store($offset);
                     
                     $query = "SELECT `access_id`, `access_user_id`, `access_date`, `access_tid`
-                                FROM `". $currentCourseDbNameGlu . "track_e_access`
+                                FROM `". $currentCourseDbNameGlu . "track_e_access` 
                             ORDER BY `access_date`, `access_id`
                                LIMIT ".$offset.", 250";
                     // then copy these 250 rows to tracking_event
                     $eventList = claro_sql_query_fetch_all_rows( $query );
     
                     // build query to insert all 250 rows
-                    $sql = "INSERT INTO `" . $currentCourseDbNameGlu . "tracking_event`
-                            ( `user_id`, `tool_id`, `date`, `type`, `data` )
-                            VALUES
-                            ";
+                    $sql = "INSERT INTO `" . $currentCourseDbNameGlu . "tracking_event` 
+                            ( `user_id`, `tool_id`, `date`, `type`, `data` ) 
+                            VALUES 
+                            "; 
                     //inject former data into new table structure
                     foreach( $eventList as $event )
                     {
@@ -624,12 +627,12 @@ function tracking_data_upgrade_to_19( $course_code )
                         $type = !is_null( $event['access_tid'] ) ? 'tool_access' : 'course_access';
                         $data = '';
                         
-                        $sql .= "("
-                             . $user_id . ","
-                             . $tool_id . ","
+                        $sql .= "(" 
+                             . $user_id . "," 
+                             . $tool_id . "," 
                              . "'" . claro_sql_escape( $date ) . "',"
-                             . "'" . claro_sql_escape( $type ) . "',"
-                             . "'" . claro_sql_escape( $data ) . "'),\n";
+                             . "'" . claro_sql_escape( $type ) . "'," 
+                             . "'" . claro_sql_escape( $data ) . "'),\n";  
                     }
                     unset( $eventList );
                     
@@ -661,17 +664,17 @@ function tracking_data_upgrade_to_19( $course_code )
                     UpgradeTrackingOffset::store($offset);
                     
                     $query = "SELECT `down_id`, `down_user_id`, `down_date`, `down_doc_path`
-                                FROM `". $currentCourseDbNameGlu . "track_e_downloads`
+                                FROM `". $currentCourseDbNameGlu . "track_e_downloads` 
                             ORDER BY `down_date`, `down_id`
                                LIMIT ".$offset.", 250";
                     // then copy these 250 rows to tracking_event
                     $eventList = claro_sql_query_fetch_all_rows( $query );
     
                     // build query to insert all 250 rows
-                    $sql = "INSERT INTO `" . $currentCourseDbNameGlu . "tracking_event`
-                            ( `user_id`, `tool_id`, `date`, `type`, `data` )
-                            VALUES
-                            ";
+                    $sql = "INSERT INTO `" . $currentCourseDbNameGlu . "tracking_event` 
+                            ( `user_id`, `tool_id`, `date`, `type`, `data` ) 
+                            VALUES 
+                            "; 
                     //inject former data into new table structure
                     foreach( $eventList as $event )
                     {
@@ -681,12 +684,12 @@ function tracking_data_upgrade_to_19( $course_code )
                         $type = 'download';
                         $data = serialize( array( 'url' => $event['down_doc_path'] ) );
                             
-                        $sql .= "("
-                             . $user_id . ","
-                             . $tool_id . ","
+                        $sql .= "(" 
+                             . $user_id . "," 
+                             . $tool_id . "," 
                              . "'" . claro_sql_escape( $date ) . "',"
-                             . "'" . claro_sql_escape( $type ) . "',"
-                             . "'" . claro_sql_escape( $data ) . "'),\n";
+                             . "'" . claro_sql_escape( $type ) . "'," 
+                             . "'" . claro_sql_escape( $data ) . "'),\n";  
                     }
                     unset( $eventList );
                     
@@ -710,9 +713,9 @@ function tracking_data_upgrade_to_19( $course_code )
                 $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "tracking_event` ADD `id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST";
                 
                 if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
-                else return $step ;
+                else return $step ; 
                 
-            case 5 :
+            case 5 : 
                 //drop deprecated tracking tables and temporary table
                 $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . $currentCourseDbNameGlu . "track_e_uploads`";
                 $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . $currentCourseDbNameGlu . "track_e_access`";

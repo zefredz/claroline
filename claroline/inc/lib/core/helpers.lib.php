@@ -100,7 +100,7 @@ function link_to_claro ( $text, $url = null, $context = null, $attributes = null
  */
 function link_to_course ( $text, $courseId, $attributes = null )
 {
-    $url = get_path('url') . '/claroline/course/index.php?cid='.$courseId;
+    $url = get_path( 'url' ) . '/claroline/course/index.php?cid='.$courseId;
     $urlObj = new Url( $url );
     
     $url = $urlObj->toUrl();
@@ -191,7 +191,7 @@ function include_textzone( $textzone, $defaultContent = null )
         include $textzonePath;
     }
     else
-    {
+    {    
         if( !is_null( $defaultContent) )
         {
             echo $defaultContent;
@@ -227,14 +227,14 @@ function link_to_css( $css, $media = 'all' )
 {
     if( file_exists(get_path('clarolineRepositorySys') . '../platform/css/' . $css) )
     {
-        return '<link rel="stylesheet" type="text/css" href="'
+        return '<link rel="stylesheet" type="text/css" href="' 
             . get_path('clarolineRepositoryWeb') . '../platform/css/' . $css
             . '" media="'.$media.'" />'
             ;
     }
     elseif( file_exists(get_path('rootSys') . 'web/css/' . $css) )
     {
-        return '<link rel="stylesheet" type="text/css" href="'
+        return '<link rel="stylesheet" type="text/css" href="' 
             . get_path( 'url' ) . '/web/css/' . $css
             . '" media="'.$media.'" />'
             ;

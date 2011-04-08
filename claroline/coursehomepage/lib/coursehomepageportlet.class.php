@@ -391,9 +391,9 @@ abstract class CourseHomePagePortlet extends Portlet
         if ($this->visible)
         {
             $out = '<div class="claroBlock portlet">' . "\n"
-                 . '<h3 class="blockHeader">' . "\n"
+                 . '<div class="claroBlockHeader">' . "\n"
                  . $this->renderTitle() . $commands . "\n"
-                 . '</h3>' . "\n"
+                 . '</div>' . "\n"
                  . '<div class="claroBlockContent">' . "\n"
                  . $this->renderContent()
                  . '</div>' . "\n"
@@ -403,9 +403,9 @@ abstract class CourseHomePagePortlet extends Portlet
         {
             // If not visible, only render the title bar
             $out = '<div class="claroBlock portlet">' . "\n"
-                 . '<h4 class="blockHeader hidden">' . "\n"
+                 . '<div class="claroBlockHeader hidden">' . "\n"
                  . $this->renderTitle() . $commands . "\n"
-                 . '</h4>' . "\n"
+                 . '</div>' . "\n"
                  . '</div>' . "\n\n";
         }
         

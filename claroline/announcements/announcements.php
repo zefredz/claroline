@@ -635,13 +635,14 @@ if ($displayList)
                     ($thisAnnouncement['time']));
 
                 $output .= '<div class="claroBlock">' . "\n"
-                .   '<h3 id="announcement'.$thisAnnouncement['id'].'" class="blockHeader">'
+                .   '<h4 id="announcement'.$thisAnnouncement['id'].'" '
+                .   'class="claroBlockHeader">'
                 .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
                 .   '<img src="' . get_icon_url('announcement') . '" alt="" /> '
                 .   get_lang('Published on')
                 .   ' : ' . claro_html_localised_date( get_locale('dateFormatLong'), strtotime($last_post_date))
                 .   '</span>' . "\n"
-                .   '</h3>' . "\n"
+                .   '</h4>' . "\n"
                 
                 .   '<div class="claroBlockContent">' . "\n"
                 .   '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"

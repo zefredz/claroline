@@ -49,11 +49,6 @@ small {
 
 ul {
     list-style-type: square;
-    list-style-position: inside;
-    margin-left: 0;
-    padding-left: 1em;
-    text-indent: -1em;
-
 }
 
 table td {
@@ -61,15 +56,6 @@ table td {
 }
 
 .spacer {
-    clear: both;
-}
-
-.clearer {
-    width: 0;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    visibility: hidden;
     clear: both;
 }
 
@@ -90,7 +76,11 @@ input, textarea, button, select {
 
 input[type=submit], input[type=reset], input[type=button], button {
     margin-left: 2px;
+    color: #666;
     margin-top: 5px;
+}
+
+input[type=submit], input[type=reset], input[type=button], button {
     background: #fff;
     color: #000;
 }
@@ -102,14 +92,13 @@ input[type=submit]:hover, button:hover, input[type=button]:hover {
 
 input[type=radio], input[type=checkbox] {
     border: 0;
-    background: transparent;
-    margin: 0.1em 0.2em 0.1em 0;
+    margin: 0.1em 0.5em 0.1em 0;
     padding: 0;
     vertical-align: middle;
 }
 
 input[type=text].inputSearch {
-    background: url(../../img/search.png) no-repeat top left #fff;
+    background: url('../../img/search.png') no-repeat top left #fff;
     padding-left: 18px;
 }
 
@@ -156,27 +145,41 @@ fieldset dt label {
     margin-left:0;
 }
 
+input.radio,
+input.checkbox {
+    cursor: pointer;
+    height: 1em;
+    margin: 0;
+    vertical-align: middle;
+    width: 1em;
+}
+
 .notice {
     font-size: 0.8em;
-    color: #999;
+    color: grey;
 }
 
 /* Multiselect table */
 table.multiselect select {
     width: 250px;
-    height: 150px;
 }
 
 table.multiselect td.arrows {
     vertical-align: middle;
 }
 
-/* Specific fieldset and legend styles */
-#courseSettings fieldset legend, 
-#userSettings fieldset legend  {
+/* Course form style */
+#courseSettings fieldset {
+    border: 0;
+    margin: 2px;
+    padding: 5px;
+    border-top: 1px solid #eee;
+}
+
+#courseSettings fieldset legend {
     font-weight: bold;
     color: #444;
-    margin-left: 0px;
+    margin-left: 20px;
     padding: 5px;
     border: 1px solid #eee;
     background: #fff;
@@ -202,10 +205,6 @@ table.multiselect td.arrows {
                         CLAROLINE HEADER
 ******************************************************************************/
 
-#topBanner {
-    background: url(img/bg_header.gif) repeat-x scroll left top #C5D4E2;
-}
-
 /*-----------------------------------------------------------------------------
                         PLATFORM BANNER
 -----------------------------------------------------------------------------*/
@@ -215,6 +214,7 @@ table.multiselect td.arrows {
     padding: 10px 15px 10px 15px;
     color: #fff;
     font-weight: bold;
+    background: url('img/bg_header.gif') repeat-x top left #c5d4e2;
 }
 
 #platformBanner a,
@@ -271,68 +271,125 @@ table.multiselect td.arrows {
 -----------------------------------------------------------------------------*/
 
 #userBanner {
-    height: 30px;
-    margin: 0;
-    padding: 0 15px;
-    border: 0;
     color: #999;
     font-weight: bold;
     font-size: 0.8em;
-    text-align: left;
-    overflow: hidden;
+    padding: 1px 15px;
+    background: url('img/bg_userbanner.png') repeat-x bottom left #fdf4de;
+    border-top: 1px #999 solid;
+    border-bottom: 1px #999 solid;
+}
+
+#userBanner #userName {
+    color: #693;
+    font-weight: bold;
+    margin: 0;
 }
 
 #userBanner a,
 #userBanner a:link,
 #userBanner a:visited {
-    color: #336699;
     text-decoration: none;
+    color: #369;
+    font-weight: normal;
 }
 
 #userBanner a:hover,
 #userBanner a:active {
-    color: #111C99;
-    text-decoration: none;
+    color: #369;
+    text-decoration: underline;
+    font-weight: normal;
 }
 
 #userBannerRight {
     float: right;
+    text-align: right;
 }
 
 #userBannerLeft {
     float: left;
+    text-align: left;
 }
 
-#userBanner ul.menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    text-indent: 0;
+
+/*-----------------------------------------------------------------------------
+                        COURSE BANNER
+-----------------------------------------------------------------------------*/
+
+#courseBanner {
+    padding: 4px 15px;
+    color: #369;
+    font-size: 0.8em;
+    font-weight: bold;
 }
 
-#userBanner ul.menu li {
+#courseBanner #course {
     float: left;
-    border-right: 1px dotted #fff;
-    text-align: center;
-    line-height: 2.4em;
+    text-align: left;
 }
 
-#userBanner ul.menu li:last-child {
-    border-right: 0;
+#courseBanner #course span {
+       display: block;
 }
 
-#userBanner ul.menu li a {
-    display:block;
-    height: 30px;
+#courseBanner #courseToolList {
+    float: right;
+    text-align: right;
+}
+
+#courseBanner #courseName {
+    padding: 0;
     margin: 0;
-    padding: 0 5px;
-    background: #fff;
+    text-indent: 12px;
+    background-image: url(img/arrow_blue.gif);
+    background-position: left;
+    background-repeat: no-repeat;
 }
 
-#userBanner ul.menu li.userName {
+#courseBanner a,
+#courseBanner a:link,
+#courseBanner a:visited {
+    color: #369;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+#courseBanner a:hover,
+#courseBanner a:active {
     color: #693;
-    background: #eee;
+    text-decoration: underline;
+    font-weight: normal;
+}
+
+#courseBanner #courseCode {
+}
+
+#courseBanner form {
+    padding-top: 5px;
+    margin: 0;
+}
+
+#courseBannerRight {
+    float: right;
+    text-align: right;
+    margin: 0;
+}
+
+#courseBannerLeft {
+    float: left;
+    text-align: left;
+    margin: 0;
+}
+
+#courseBannerRight #redirector select {
+    padding: 0;
+    margin: 0;
+}
+
+#courseBannerRight #redirector option {
+    margin: 2px 1px;
+    padding: 1px 0 1px 0;
+    padding-left: 20px;
 }
 
 
@@ -344,8 +401,7 @@ table.multiselect td.arrows {
     font-size: 0.8em;
     color: #666;
     border: none;
-    padding : 10px 15px 5px 15px;
-    background: #fff;
+    padding : 2px 15px;
 }
 
 #breadcrumbLine hr {
@@ -359,6 +415,18 @@ table.multiselect td.arrows {
 #breadcrumbLine #toolViewOption {
     float: right;
     text-align: right;
+}
+
+#breadcrumbLine a:link,
+#breadcrumbLine a:visited {
+    color: #693;
+    font-weight: normal;
+}
+
+#breadcrumbLine a:hover,
+#breadcrumbLine a:active {
+    color: #999;
+    font-weight: normal;
 }
 
 ul.breadCrumbs {
@@ -391,6 +459,7 @@ li.lastBreadCrumbsNode {
 #claroBody {
     padding:15px;
     font-size: 0.8em;
+    background: url('img/bg_body.jpg') repeat-x top left #fff;
 }
 
 #claroBody a:hover,
@@ -440,7 +509,7 @@ li.lastBreadCrumbsNode {
     padding: 15px 15px;
     font-size: 0.7em;
     color: #666;
-    background: url(img/bg_footer.jpg) repeat-x top left #fff;
+    background: url('img/bg_footer.jpg') repeat-x top left #fff;
 }
 
 #campusFooter a:link,
@@ -486,86 +555,14 @@ li.lastBreadCrumbsNode {
 ******************************************************************************/
 
 /*-----------------------------------------------------------------------------
-                        COURSE TABS
+                        COURSE TABLE
 -----------------------------------------------------------------------------*/
-
-ul.coursesTabs {
-    margin: 0 0 0 10px;
-    padding: 0;
-    border: 0;
-    text-indent: 0;
-    list-style-type: none;
-}
-
-ul.coursesTabs li {
-    float: left;
-    margin: 0 10px -2px 0;
-    text-align: center;
-    font-weight: bold;
-    background: url(img/bg_tab.png) repeat-x bottom #eee;
-}
-
-ul.coursesTabs li a {
-    display: block;
-    width: 100px;
-    height: 30px;
-    line-height: 2.4em;
-}
-
-ul.coursesTabs li.more a {
-    width: 30px;
-}
-
-ul.coursesTabs li.current, 
-ul.coursesTabs li:hover {
-    background: #ddd;
-}
-
-div.tabbedCourse {
-    padding: 0;
-    border-width: 2px;
-    border-style: solid;
-    border-color: #ddd;
-}
-
-
-/*-----------------------------------------------------------------------------
-                        COURSE INFOS
------------------------------------------------------------------------------*/
-
-.courseInfos {
-    padding: 10px;
-    background: #ddd;
-}
-
-.courseInfos h2 {
-    float: left;
-    margin: 0;
-    padding: 0 5px 0 0;
-    font-size: 2em;
-    text-transform: uppercase;
-}
-
-.courseInfos p {
-    float: left;
-    margin: 0;
-    padding: 0 0 0 5px;
-    border-left:1px dotted black;
-}
-
-
-/*-----------------------------------------------------------------------------
-                        COURSE CONTENT
------------------------------------------------------------------------------*/
-
-.courseContent {
-    padding: 10px;
-}
 
 table.courseTable {
     width: 100%;
     margin: 0;
     padding: 0;
+    border: 0;
 }
 
 table.courseTable td {
@@ -574,7 +571,7 @@ table.courseTable td {
 
 table.courseTable td.toolList {
     width: 220px;
-    padding-right: 20px;
+    padding-right: 20px; 
     border-right: 1px solid #ccc;
 }
 
@@ -598,9 +595,14 @@ table.courseTable td.coursePortletList {
     margin: 2px 0;
 }
 
+#courseManageToolList {
+    padding-left: 16px;
+}
+
 table.courseTable td.toolList ul {
-    list-style-type: none;
     margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 
 /*-----------------------------------------------------------------------------
@@ -624,6 +626,7 @@ table.homepageTable td.spacer {
 
 table.homepageTable td.userCommands ul {
     margin: 0 0 10px 0;
+    padding: 0;
     list-style-type: none;
 }
 
@@ -658,6 +661,9 @@ ul.adminPanel li ul {
     width: 100%;
     height: 190px;
     list-style: square inside;
+    margin-left: 0;
+    padding-left: 1em;
+    text-indent: -1em;
 }
 
 ul.adminPanel li ul li {
@@ -672,7 +678,7 @@ ul.adminPanel li ul li {
 -----------------------------------------------------------------------------*/
 
 table.adminPanel input[type=text] {
-    width: 90px;
+    width: 100px;
 }
 
 
@@ -745,9 +751,13 @@ th .claroCmdDisabled {
  *  </ul>
  */
 
+.item {
+    padding-left: 16px;
+}
+
 .hot {
     padding-left: 15px;
-    background: url(../../img/hot.png) no-repeat center left;
+    background: url('../../img/hot.png') no-repeat center left;
 }
 
 a.item:visited {
@@ -773,13 +783,13 @@ a.item:visited {
     margin: 5px auto;
 }
 
-.blockHeader {
-    color: #444;
+.claroBlockHeader {
+    color: #693;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
     margin: 0;
-    background: #eee;
-    border-bottom: 1px solid #444;
+    background-color: #EDF1E3;
+    border-bottom: 1px #96BB7A solid;
 }
 
 .claroBlockSuperHeader {
@@ -790,7 +800,7 @@ a.item:visited {
     font-weight: bold;
 }
 
-.blockHeader img {
+.claroBlockHeader img {
     vertical-align: text-bottom;
 }
 
@@ -911,13 +921,12 @@ dl.userCourseList {
 }
 
 .claroTable .headerY th,
-.claroTable .headerX th, 
-.claroTable thead th {
-    color: #444;
+.claroTable .headerX th {
+    color: #693;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
-    background-color: #eee;
-    border-bottom: 1px #444 solid;
+    background-color: #EDF1E3;
+    border-bottom: 1px #96BB7A solid;
     text-align: center;
 }
 
@@ -1105,7 +1114,7 @@ dl.userCourseList {
 
 .spoiler a {
     padding-left: 17px;
-    background: url(../../img/spoiler.png) bottom left no-repeat;
+    background: url('../../img/spoiler.png') bottom left no-repeat;
 }
 
 .spoilerContent {
@@ -1139,7 +1148,7 @@ dl.userCourseList {
 .claroDialogBox {
     margin-top: 10px; 
     margin-bottom: 15px; 
-    padding: 5px 85px 5px 10px; 
+    padding: 5px 85px 5px 20px; 
     border: 1px solid #CCC;
     border-left: 5px solid #CCC;
     background: #F9F7ED;
@@ -1147,35 +1156,35 @@ dl.userCourseList {
 
 .boxInfo {
     border-color: #ccc;
-    background: #F9F7ED url(img/bg_boxinfo.png) bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxinfo.png') bottom right no-repeat;
 }
 
 .boxSuccess {
     border-color: #090;
-    background: #F9F7ED url(img/bg_boxsuccess.png) bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxsuccess.png') bottom right no-repeat;
 }
 
 .boxWarning {
     border-color: #FFBA00;
-    background: #F9F7ED url(img/bg_boxwarning.png) bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxwarning.png') bottom right no-repeat;
 }
 
 .boxError {
     border-color: #900;
-    background: #F9F7ED url(img/bg_boxerror.png) bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxerror.png') bottom right no-repeat;
 }
 
 .boxQuestion {
     border-color: #369;
-    background: #F9F7ED url(img/bg_boxquestion.png) bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxquestion.png') bottom right no-repeat;
 }
 
 .claroDialogMsg { padding: 2px 5px 1px 20px; }
 .claroDialogBox .msgInfo { } /* I _really_ don't think there is a need for an icon here */
-.claroDialogBox .msgSuccess { background: url(../../img/success.png) top left no-repeat; }
-.claroDialogBox .msgWarning { background: url(../../img/warning.png) top left no-repeat; }
-.claroDialogBox .msgError { background: url(../../img/error.png) top left no-repeat; }
-.claroDialogBox .msgQuestion { background: url(../../img/question.png) top left no-repeat; }
+.claroDialogBox .msgSuccess { background: url('../../img/success.png') top left no-repeat; }
+.claroDialogBox .msgWarning { background: url('../../img/warning.png') top left no-repeat; }
+.claroDialogBox .msgError { background: url('../../img/error.png') top left no-repeat; }
+.claroDialogBox .msgQuestion { background: url('../../img/question.png') top left no-repeat; }
 .claroDialogBox .msgForm { padding: 3px 20px; }
 .claroDialogBox .msgTitle { font-weight: bold; }
 
@@ -1416,11 +1425,7 @@ span.adminControl {
 
 img.userPicture {
     border: 5px solid #fff;
-    -moz-box-shadow: 0px 0px 15px #999;
-    -webkit-box-shadow: 0px 0px 15px #999;
-    box-shadow: 0px 0px 15px #999;
-}
-
-.userName {
-    color: #669933;
+    -moz-box-shadow: 0 0 15px #999;
+    -webkit-box-shadow: 0 0 15px #999;
+    box-shadow: 0 0 15px #999;
 }
