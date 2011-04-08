@@ -458,13 +458,14 @@ class answerTrueFalse
             $html .= html_ask_duplicate();
         }
 
-        $html .=
-            '<tr class="headerX">' . "\n"
+        $html .= '<thead>' . "\n"
+            . '<tr>' . "\n"
             . '<th>' . get_lang('Expected choice') . '</th>' . "\n"
             . '<th>' . get_lang('Answer') . '</th>' . "\n"
             . '<th>' . get_lang('Comment') . '</th>' . "\n"
             . '<th>' . get_lang('Weighting') . '</th>' . "\n"
-            . '</tr>' . "\n\n"
+            . '</tr>' . "\n"
+            . '</thead>' . "\n"
 
             . '<tr>' . "\n"
             . '<td valign="top" align="center">'

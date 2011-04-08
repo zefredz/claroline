@@ -522,7 +522,7 @@ switch ( $displayMode )
             {
             
                 $out .= '<thead>' . "\n"
-                .    '<tr class="headerX">' . "\n"
+                .    '<tr>' . "\n"
                 .    '<th>&nbsp;</th>' . "\n"
                 .    '<th>' . get_lang('Enrol as student') . '</th>' . "\n"
                 .    '<th>' . get_lang('Enrol as teacher') . '</th>' . "\n"
@@ -533,7 +533,7 @@ switch ( $displayMode )
             elseif ( $fromAdmin == 'class' )
             {
                 $out .= '<thead>' . "\n"
-                .    '<tr class="headerX">' . "\n"
+                .    '<tr>' . "\n"
                 .    '<th>&nbsp;</th>' . "\n"
                 .    '<th>' . get_lang('Enrol class') . '</th>' . "\n"
                 .    '</tr>' . "\n"

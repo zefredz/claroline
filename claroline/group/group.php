@@ -1,4 +1,5 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
@@ -18,17 +19,15 @@
  *  - remove (all) groups
  * complete listing of  groups member is not aivailable. the  unsorted info is in user tool
  *
- * @version 1.9 $Revision$
- * @copyright 2001-2011 Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see http://www.claroline.net/wiki/index.php/CLGRP
- * @package CLGRP
- * @author Claro Team <cvs@claroline.net>
- *
+ * @version     $Revision$
+ * @copyright   2001-2011 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/CLGRP
+ * @package     CLGRP
+ * @author      Claro Team <cvs@claroline.net>
  */
 
-//**************** INITIALISATION************************
-
+// Initialisation
 $tlabelReq = 'CLGRP';
 DEFINE('DISP_GROUP_LIST', __LINE__);
 DEFINE('DISP_GROUP_SELECT_FOR_ACTION', __LINE__);
@@ -592,10 +591,10 @@ $out .=                                                         "\n"
 
 $sortUrlList = $groupPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
-$out .= '<tr class="headerX" align="center">' . "\n"
+$out .= '<tr align="center">' . "\n"
 .    '<th align="left">'
 .    '&nbsp;<a href="'.htmlspecialchars(Url::Contextualize( $sortUrlList['name'] )).'">'.get_lang("Groups") . '</a>'
-.    '</th>'                               . "\n"
+.    '</th>' . "\n"
 ;
 
 if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
@@ -636,7 +635,7 @@ else
  /*-------------
       DISPLAY
    -------------*/
-if( $groupList ) 
+if( $groupList )
 {
     foreach ($groupList as $thisGroup)
     {

@@ -1,20 +1,20 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.10 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package CLDOC
- * @author Hugues Peeters <hugues@claroline.net>
- * @author Claro Team <cvs@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLDOC
+ * @author      Hugues Peeters <hugues@claroline.net>
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 /**
  *
  * DESCRIPTION:
- * ****
+ *
  * This PHP script allow user to manage files and directories on a remote http server.
  *  The user can : - navigate trough files and directories.
  *                 - upload a file
@@ -104,14 +104,14 @@ if (claro_is_in_a_group() && claro_is_group_allowed())
 {
     $_group = claro_get_current_group_data();
 
-    $groupContext      = TRUE;
-    $courseContext     = FALSE;
+    $groupContext      = true;
+    $courseContext     = false;
 
     $maxFilledSpace    = get_conf('maxFilledSpace_for_groups');
     $courseDir         = claro_get_course_path() . '/group/' . claro_get_current_group_data('directory');
 
     $is_allowedToEdit  = claro_is_group_member() ||  claro_is_group_tutor()|| claro_is_course_manager();
-    $is_allowedToUnzip =  FALSE;
+    $is_allowedToUnzip =  false;
 
     if ( ! claro_is_group_allowed() )
     {
@@ -120,13 +120,13 @@ if (claro_is_in_a_group() && claro_is_group_allowed())
 }
 else
 {
-    $groupContext     = FALSE;
-    $courseContext    = TRUE;
+    $groupContext     = false;
+    $courseContext    = true;
 
     $courseDir   = claro_get_course_path().'/document';
 
     // initialise view mode tool
-    claro_set_display_mode_available(TRUE);
+    claro_set_display_mode_available(true);
 
     $is_allowedToEdit  = claro_is_allowed_to_edit();
     $is_allowedToUnzip = claro_is_allowed_to_edit();
@@ -429,7 +429,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                 // comment
                 $form .= '<p>' . "\n"
                 .    '<label for="comment">'.get_lang('Add a comment (optional)').'</label><br />' . "\n"
-                .    '<textarea rows=2 cols=50 id="comment" name="comment">' . htmlspecialchars($oldComment) . '</textarea><br />' . "\n" 
+                .    '<textarea rows=2 cols=50 id="comment" name="comment">' . htmlspecialchars($oldComment) . '</textarea><br />' . "\n"
                 .    '</p>' . "\n";
             }
 
@@ -915,7 +915,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                       .claro_html_button(htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']. '?cmd=exChDir&file='.base64_encode(claro_dirname($_REQUEST['file'])))), get_lang('Cancel'))
                      .'</form>' . "\n";
                      
-        $dialogBox->form( $form );                     
+        $dialogBox->form( $form );
 
     } // end if cmd == rqEdit
 
@@ -1029,7 +1029,7 @@ if ('rqSearch' == $cmd )
                     . '<input type="submit" value="' . get_lang('Search' ) . '" />&nbsp;'
                     . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. base64_encode($cwd))), get_lang("Cancel"))
                     . $searchMsg
-                    . '</form>' . "\n" 
+                    . '</form>' . "\n"
     );
 }
 
@@ -2065,7 +2065,7 @@ $out .= claro_html_tool_title($titleElement,
             .'</th>' . "\n"
             .'</tr>' . "\n";
 
-        $out .= '<tr class="headerX" align="center" valign="top">' . "\n";
+        $out .= '<tr align="center" valign="top">' . "\n";
 
         # Patch to avoid E_NOTICE when no files in directory empty
         # FIXME find a more elegant way to solve the problem

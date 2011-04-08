@@ -189,7 +189,7 @@ else // $filter == 'all'
 //-- prepare query
 if ( !is_null($categoryId))
 {
-     // Filter on categories 
+     // Filter on categories
          $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, Q.`id_category`
               FROM `".$tbl_quiz_question."` AS Q
               WHERE 1 = 1
@@ -302,7 +302,7 @@ $out .= $myPager->disp_pager_tool_bar($pagerUrl);
 //-- list
 $out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
 .     '<thead>' . "\n"
-.     '<tr class="headerX">' . "\n"
+.     '<tr>' . "\n"
 .     '<th>' . get_lang('Id') . '</th>' . "\n"
 .     '<th>' . get_lang('Question') . '</th>' . "\n"
 .     '<th>' . get_lang('Category') . '</th>' . "\n"

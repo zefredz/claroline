@@ -1,18 +1,13 @@
-<?php
+<?php // $Id$
 
 /**
  * CLAROLINE
  *
- * @version 0.1 $Revision$
- *
+ * @version     0.1 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLQWZ
- *
- * @author Dimitri Rambout
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLQWZ
+ * @author      Dimitri Rambout
  */
 
 function getIdCounter()
@@ -147,15 +142,18 @@ class CLQWZ_ScormExport extends PathScormExport
         }
         $questionPonderationList[] = $scormQuestion->getGrade();
 
-        $pageBody .=
-            '<tr class="headerX">' . "\n"
+        $pageBody .= '<thead>' . "\n"
+        .    '<tr>' . "\n"
         .    '<th>'.get_lang('Question').' '.$questionCount.'</th>' . "\n"
-        .    '</tr>' . "\n";
+        .    '</tr>' . "\n"
+        .    '</thead>' . "\n";
 
         $pageBody .=
-            '<tr>' . "\n" . '<td>' . "\n"
-        .    $scormQuestion->export() . "\n"
-        .    '</td>' . "\n" . '</tr>' . "\n";
+          '<tr>' . "\n"
+        . '<td>' . "\n"
+        . $scormQuestion->export() . "\n"
+        . '</td>' . "\n"
+        . '</tr>' . "\n";
     }
     
     $pageEnd = '

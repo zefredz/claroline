@@ -45,7 +45,7 @@ function agenda_get_item_list($context, $order='DESC')
         ORDER BY `day` " . ('DESC' == $order?'DESC':'ASC') . "
         , `hour` " . ('DESC' == $order?'DESC':'ASC');
 
-    return claro_sql_query_fetch_all($sql); 
+    return claro_sql_query_fetch_all($sql);
 }
 
 
@@ -479,7 +479,7 @@ function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
 
     $htmlStream .= '</th>' . "\n"
     .    '</tr>' . "\n"
-    .    '<tr class="headerX">' ."\n"
+    .    '<tr>' ."\n"
     ;
 
     for ( $iterator = 1; $iterator < 8; $iterator++)

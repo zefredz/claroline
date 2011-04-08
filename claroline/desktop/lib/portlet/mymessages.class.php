@@ -40,7 +40,7 @@ class MyMessages extends UserDesktopPortlet
         
         $output .= '<table class="claroTable emphaseLine" width="99%" border="0" cellspacing="2">' . "\n"
                  . '<thead>' . "\n"
-                 . '<tr class="headerX" align="center" valign="top">' . "\n"
+                 . '<tr align="center" valign="top">' . "\n"
                  . '<th>&nbsp;</th>' . "\n"
                  . '<th>' . get_lang('Subject') . '</th>' . "\n"
                  . '<th>' . get_lang('Sender') . '</th>' . "\n"

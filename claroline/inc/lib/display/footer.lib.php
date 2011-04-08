@@ -3,6 +3,8 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
+ * CLAROLINE
+ *
  * Claroline page footer.
  *
  * @version     $Revision$
@@ -105,12 +107,11 @@ class ClaroFooter extends CoreTemplate
         
         $this->assign( 'platformManager', $platformManagerOutput );
         
-        $poweredByOutput = '<div id="poweredBy">'
+        $poweredByOutput = '<span class="poweredBy">'
             . get_lang('Powered by')
             . ' <a href="http://www.claroline.net" target="_blank">Claroline</a> '
             . '&copy; 2001 - 2011'
-            . '</div>'
-            ;
+            . '</span>';
         
         $this->assign( 'poweredBy', $poweredByOutput );
         

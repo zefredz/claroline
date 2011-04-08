@@ -84,7 +84,7 @@ if( !is_null($cmd) )
 			            {
 			                $dialogBox->success( get_lang('Category updated') );
 			            }
-			        }	
+			        }
 			    }
 			    else
 			    {
@@ -100,7 +100,7 @@ if( !is_null($cmd) )
 		    }
 		}
 	}
-	if( $cmd=='add' ) 
+	if( $cmd=='add' )
 	{
     	$questionCategory->load();
     	$catId = -1;
@@ -232,7 +232,7 @@ $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 $out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
 .     '<thead>' . "\n"
-.     '<tr class="headerX">' . "\n"
+.     '<tr>' . "\n"
 .     '<th>' . get_lang('Title') . '</th>' . "\n";
 
 $colspan = 1;

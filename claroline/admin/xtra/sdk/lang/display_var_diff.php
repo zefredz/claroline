@@ -18,7 +18,7 @@ if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 /*
- * This script displays all the variables 
+ * This script displays all the variables
  * with the same name and a different content.
  */
 
@@ -41,7 +41,7 @@ $starttime = get_time();
 
 $resultPerPage = 50;
 
-if (isset($_REQUEST['offset'])) 
+if (isset($_REQUEST['offset']))
 {
     $offset = $_REQUEST['offset'];
 }
@@ -54,7 +54,7 @@ else
 $dialogBox = new DialogBox();
 $nameTools = 'Display variables difference';
 
-$urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
+$urlSDK = $rootAdminWeb . 'xtra/sdk/';
 $urlTranslation = $urlSDK . 'translation_index.php';
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Translation Tools'), $urlTranslation );
@@ -70,11 +70,11 @@ $dialogBox->title('Change language');
 
 $form = "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
 
-if (isset($_REQUEST['language'])) 
+if (isset($_REQUEST['language']))
 {
     $language = $_REQUEST['language'];
 }
-else 
+else
 {
     $language = DEFAULT_LANGUAGE ;
 }
@@ -82,7 +82,7 @@ else
 // display select box with language in the table
 
 
-$sql = "SELECT DISTINCT language 
+$sql = "SELECT DISTINCT language
         FROM ". $tbl_translation . "
         ORDER BY language ";
 $results = claro_sql_query($sql);
@@ -90,7 +90,7 @@ $results = claro_sql_query($sql);
 $form .= "<select name=\"language\">";
 while($result=mysql_fetch_row($results))
 {
-    if ($result[0] == $language) 
+    if ($result[0] == $language)
     {
         $form .= "<option value=$result[0] selected=\"selected\">" . $result[0] . "</option>";
     }
@@ -140,7 +140,7 @@ echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
 
 echo "<table class=\"claroTable\" width=\"100%\">
 <thead>
-<tr class=\"headerX\">
+<tr>
 <th>N°</th>
 <th>language</th>
 <th>varName</th>
@@ -164,7 +164,7 @@ foreach ($results as $result)
      if ($color == true)
      {
         echo "<tr style=\"background-color: #ccc;\">";
-     } 
+     }
      else
      {
         echo "<tr>";
@@ -194,7 +194,7 @@ $totaltime = ($endtime - $starttime);
 
 echo "<p><em>Execution time: $totaltime</em></p>";
 
-// display footer 
+// display footer
 
 include($includePath."/claro_init_footer.inc.php");
 

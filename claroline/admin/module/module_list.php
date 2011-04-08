@@ -849,7 +849,7 @@ if ( $myPager->get_next_offset() ) $out .= $myPager->disp_pager_tool_bar('module
 
 $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n\n"
 .    '<thead>' . "\n"
-.    '<tr class="headerX">' . "\n"
+.    '<tr>' . "\n"
 .    '<th>' . get_lang('Icon')                . '</th>' . "\n"
 .    '<th>' . get_lang('Module name')         . '</th>' . "\n";
 

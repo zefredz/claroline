@@ -247,7 +247,7 @@ if ( !empty($class_id) )
     // start table...
     $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
     .    '<thead>'
-    .    '<tr class="headerX" align="center" valign="top">'
+    .    '<tr align="center" valign="top">'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=user_id&amp;chdir=yes">' . get_lang('User id') . '</a></th>'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=nom&amp;chdir=yes">' . get_lang('Last name') . '</a></th>'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=prenom&amp;chdir=yes">' . get_lang('First name') . '</a></th>'

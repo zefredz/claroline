@@ -42,7 +42,7 @@ $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_lp_module = $tbl_cdb_names['lp_module'];
 $tbl_lp_asset = $tbl_cdb_names['lp_asset'];
 
-// learning path 
+// learning path
 // new module CLLP
 $inLP = (claro_called_from() == 'CLLP')? true : false;
 
@@ -662,7 +662,7 @@ if( !$inLP )
     
     $out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
     .     '<thead>' . "\n"
-    .     '<tr class="headerX">' . "\n"
+    .     '<tr>' . "\n"
     .     '<th>' . get_lang('Exercise title') . '</th>' . "\n";
     
     $colspan = 1;

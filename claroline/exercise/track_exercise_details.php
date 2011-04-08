@@ -350,11 +350,13 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 
         foreach( $questionList as $question )
         {
-            $out .= '<tr class="headerX">' . "\n"
-            .     '<th>'
-            .     get_lang('Question') . ' ' . $questionIterator
-            .     '</th>' . "\n"
-            .     '</tr>' . "\n\n";
+            $out .= '<thead>'
+            .   '<tr>' . "\n"
+            .   '<th>'
+            .   get_lang('Question') . ' ' . $questionIterator
+            .   '</th>' . "\n"
+            .   '</tr>' . "\n"
+            .   '</thead>'."\n";
 
             $out .= '<tr>'
             .     '<td>' . "\n";

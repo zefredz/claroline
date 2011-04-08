@@ -502,12 +502,14 @@ class answerMultipleChoice
         }
 
         $html .= '<table class="claroTable" >' . "\n"
-        .   '<tr class="headerX">' . "\n"
-        .    '<th>' . get_lang('Expected choice') . '</th>' . "\n"
-        .    '<th>' . get_lang('Answer') . '</th>' . "\n"
-        .    '<th>' . get_lang('Comment') . '</th>' . "\n"
-        .    '<th>' . get_lang('Weighting') . '</th>' . "\n"
-        .    '</tr>' . "\n\n";
+        .   '<thead>'
+        .   '<tr>' . "\n"
+        .   '<th>' . get_lang('Expected choice') . '</th>' . "\n"
+        .   '<th>' . get_lang('Answer') . '</th>' . "\n"
+        .   '<th>' . get_lang('Comment') . '</th>' . "\n"
+        .   '<th>' . get_lang('Weighting') . '</th>' . "\n"
+        .   '</tr>' . "\n"
+        .   '</thead>'."\n";
 
         $i = 1;
         foreach( $this->answerList as $answer )

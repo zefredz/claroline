@@ -476,8 +476,10 @@ li.lastBreadCrumbsNode {
 }
 
 
-#campusFooterCenter #poweredBy {
+#campusFooterCenter .poweredBy {
+    padding-left: 20px;
     font-style: italic;
+    background: url(../../img/claroline.png) no-repeat left center;
 }
 
 
@@ -899,9 +901,9 @@ dl.userCourseList {
 
 .claroTable .superHeader th,
 .claroTable th.superHeader {
-    color: #693;
-    background-color: #EDF1E3;
-    border-bottom: 2px #87B665 solid;
+    color: #444;
+    background-color: #eee;
+    border-bottom: 2px #444 solid;
     padding: 2px 5px 2px 5px;
     font-weight: bold;
 }
@@ -919,18 +921,6 @@ dl.userCourseList {
     background-color: #eee;
     border-bottom: 1px #444 solid;
     text-align: center;
-}
-
-.claroTable .headerX th a {
-    font-weight: bold !important ;
-    color: #693;
-    text-decoration : underline;
-}
-
-.claroTable .headerX th a:active,
-.claroTable .headerX th a:hover {
-    color: #693 !important;
-    text-decoration : underline;
 }
 
 /* extension of claroTable class for Image Viewer */

@@ -317,7 +317,7 @@ $out .= '</p>' . "\n";
 //display cols headers
 $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
-.    '<tr class="headerX">'
+.    '<tr>'
 .    '<th>' . get_lang('Classes') . '</th>'
 .    '<th>' . get_lang('Users') . '</th>'
 .    '<th>' . get_lang('Courses') . '</th>'
@@ -336,7 +336,7 @@ if(display_tree_class_in_admin($class_list))
 else
 {
     $out .= "\n"
-    .    '<tr class="headerX">'
+    .    '<tr>'
     .    '<td colspan="6" class="centerContent">' . get_lang('Empty') . '</td>'
     .    '</tr>' . "\n"
     ;
