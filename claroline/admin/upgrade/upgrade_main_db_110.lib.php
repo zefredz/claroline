@@ -28,7 +28,6 @@ function upgrade_category_to_110 ()
     switch( $step = get_upgrade_status($tool) )
     {
         case 1 :
-            
             // Create new tables `category` and `rel_course_category`
             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['category'] . "` (
                                 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -48,12 +47,12 @@ function upgrade_category_to_110 ()
                                 `rootCourse` tinyint(1) NOT NULL DEFAULT '0',
                                 PRIMARY KEY (`courseId`,`categoryId`)
                                 ) ENGINE=MyISAM";
-
+            
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
-
+            
             unset($sqlForUpdate);
-
+            
         case 2 :
             // Insert root category
             $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "`
@@ -65,22 +64,22 @@ function upgrade_category_to_110 ()
             else return $step;
             
             unset($sqlForUpdate);
-
+            
         case 3 :
             // Update root category to 0
             $sqlForUpdate[] = " UPDATE `" . $tbl_mdb_names['category'] . "`
                                 SET `id` = 0
                                 WHERE `code` = 'ROOT';";
-
+            
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
-
-            unset($sqlForUpdate);
-
-        case 4:
             
+            unset($sqlForUpdate);
+            
+        case 4:
             // Insert all previous categories ("faculties") in the new table `category`
-            $sql = "SELECT f1.`id`, f1.`name`, f1.`code`, f1.`code_P`, f1.`treePos`, f1.`nb_childs`, f1.`canHaveCoursesChild`, f1.`canHaveCatChild`, f2.`id` as idParent
+            $sql = "SELECT f1.`id`, f1.`name`, f1.`code`, f1.`code_P`, f1.`treePos`, f1.`nb_childs`,
+                    f1.`canHaveCoursesChild`, f1.`canHaveCatChild`, f2.`id` as idParent
                     FROM `" . get_conf('mainTblPrefix') . "faculte` f1, `" . get_conf('mainTblPrefix') . "faculte` f2
                     WHERE f1.code_P = f2.code OR f1.code_P IS NULL
                     GROUP BY f1.id
@@ -91,7 +90,7 @@ function upgrade_category_to_110 ()
             $tempIdParent     = null;
             $rank             = 0;
             $visibile         = 1; // Change this value if you want to change the default value of visibility (1 or 0)
-            foreach ( $categoriesList as $category )
+            foreach ($categoriesList as $category)
             {
                 // Manage the rank
                 if ($tempIdParent != $category['idParent'])
@@ -103,15 +102,15 @@ function upgrade_category_to_110 ()
                 {
                     $rank++;
                 }
-                if ( $category['idParent'] == 1)
+                if ($category['idParent'] == 1 || empty($category['code_P']) || empty($category['idParent']))
                 {
                     $category['idParent'] = 0;
                 }
                 
                 $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "`
-                                   ( `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`)
+                                   ( `id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`)
                                    VALUES
-                                   ( '" . addslashes($category['name']) . "', '" . $category['code'] . "', " . $category['idParent'] . ", " . $rank . ", $visibile, " . $category['canHaveCoursesChild'] . ")";
+                                   ( " . (int) $category['id'] . ", '" . addslashes($category['name']) . "', '" . $category['code'] . "', " . $category['idParent'] . ", " . $rank . ", $visibile, " . $category['canHaveCoursesChild'] . ")";
             }
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -119,8 +118,7 @@ function upgrade_category_to_110 ()
             
             unset($sqlForUpdate);
             
-        case 4 :
-            
+        case 5 :
             // Associate courses to new categories through `rel_course_categories`
             $sql = "SELECT co.cours_id AS courseId, ca.id AS categoryId
                     FROM `" . $tbl_mdb_names['course'] . "` co, `" . get_conf('mainTblPrefix') . "faculte` f, `" . $tbl_mdb_names['category'] . "` ca
@@ -143,28 +141,26 @@ function upgrade_category_to_110 ()
             
             unset($sqlForUpdate);
             
-        case 5 :
-            
+        case 6 :
             // Drop deprecated attribute "faculte" from `cours` table
             $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['course'] . "` DROP `faculte`";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
-
+            
             unset($sqlForUpdate);
             
-        case 6 :
-            
+        case 7 :
             // Drop deprecated table `faculty`
             $sqlForUpdate[] = "DROP TABLE `" . get_conf('mainTblPrefix') . "faculte`";
-
+            
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
-
+            
             unset($sqlForUpdate);
-
+            
         default :
-
+            
             $step = set_upgrade_status($tool, 0);
             return $step;
 
