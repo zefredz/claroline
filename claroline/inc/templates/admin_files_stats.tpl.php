@@ -26,6 +26,7 @@
   <tr>
     <th> </th>
     <th> </th>
+    <th> </th>
     <?php
     foreach ($this->allExtensions as $ext) :
     ?>
