@@ -349,7 +349,7 @@ if ($can_import_user_list)
 {
     // Add CSV file of user link
     $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
-                                        get_module_url('CLUSR').'/AddCSVusers.php'
+                                        get_module_url('CLUSR').'/addcsvusers.php'
                                          . '?AddType=userTool'))
                                      , '<img src="' . get_icon_url('import_list') . '" alt="" />'
                                      . get_lang('Add a user list')

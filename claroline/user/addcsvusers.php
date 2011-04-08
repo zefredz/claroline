@@ -1,20 +1,15 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * tool for bulk subscribe.
+ * Tool for bulk subscribe.
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLUSR
- *
- * @author Claro Team <cvs@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLUSR
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 //$tlabelReq = 'CLUSR';
@@ -74,7 +69,7 @@ if (claro_is_in_a_course())
 {
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php'.(!is_null($courseId) ? '?cid='.$courseId : '') );
 }
-else 
+else
 {
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Platform administration'), get_path('rootAdminWeb'));
 }
@@ -137,7 +132,7 @@ switch( $cmd )
         .   ' <option value="" '.$blank_selected.' >' . get_lang('None') . ' </option>' . "\n"
         .   '</select><br />' . "\n"
         .   '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-        .   '</form>'; 
+        .   '</form>';
         
         $dialogBox->form( $chFormatForm );
     }
@@ -151,9 +146,9 @@ switch( $cmd )
             break;
         }
         
-        $csv = new csv();
+        $csvImport = new CsvImport();
         
-        if( ! $csv->format_ok($_REQUEST['usedFormat'], $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']) )
+        if( ! $csvImport->format_ok($_REQUEST['usedFormat'], $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']) )
         {
             $dialogBox->error( get_lang('ERROR: The format you gave is not compatible with Claroline') );
             break;
@@ -186,8 +181,8 @@ else
 {
   if( empty($_SESSION['CSV_CancelButton']) )
   {
-    $_SESSION['CSV_CancelButton'] = '../index.php'; 
-  }  
+    $_SESSION['CSV_CancelButton'] = '../index.php';
+  }
 }
 $backButtonUrl = $_SESSION['CSV_CancelButton'];
 
@@ -229,7 +224,7 @@ $content_default .= '<input type="checkbox" name="sendEmailToUserCreated" value=
 				   .'<label for="sendEmailToUserCreated">' . get_lang('Send email to new users') . ' ' . '</label>' . "\n"
 				   .'<br /><br />' . "\n";
 
-if (get_conf('update_user_properties')) 
+if (get_conf('update_user_properties'))
 {
 	    $content_default .= '<input type="checkbox" name="updateUserProperties" value="1" id="updateUserProperties" />' . "\n"
         				   .'<label for="updateUserProperties">' . get_lang('Update user\'properties ') . ' ' . '</label>' . "\n"
@@ -244,7 +239,7 @@ switch( $step )
 {
     case 2 : // Import users in course
     {
-        $csvImport = new csvImport( $_SESSION['CSV_fieldSeparator'], $_SESSION['CSV_enclosedBy'] = '"');
+        $csvImport = new CsvImport( $_SESSION['CSV_fieldSeparator'], $_SESSION['CSV_enclosedBy'] = '"');
             
         if( !( isset($_SESSION['_csvImport']) && isset($_SESSION['_csvUsableArray'] ) ) )
         {
@@ -254,7 +249,7 @@ switch( $step )
         else
         {
             $csvContent = $_SESSION['_csvImport'];
-            $csvImport->setCSVContent( $csvContent );            
+            $csvImport->setCSVContent( $csvContent );
             if(is_null($courseId))
             {
                 if(!claro_is_platform_admin() )
@@ -299,7 +294,7 @@ switch( $step )
             else
             {
                 $dialogBox->success( 'Users imported successfully');
-            }           
+            }
         }
     }
     break;
@@ -313,7 +308,7 @@ switch( $step )
         }
         else
         {
-            $csvImport = new csvImport( $_SESSION['CSV_fieldSeparator'], $_SESSION['CSV_enclosedBy'] = '"');
+            $csvImport = new CsvImport( $_SESSION['CSV_fieldSeparator'], $_SESSION['CSV_enclosedBy'] = '"');
             if( ! $csvImport->load( $_FILES['CSVfile']['tmp_name'] ) )
             {
                 $dialogBox->error(get_lang('Unable to read the content of the CSV'));
@@ -343,7 +338,7 @@ switch( $step )
                     $firstLine = $csvImport->getFirstLine();
                 }
                 
-                $csvUseableArray = $csvImport->createUsableArray( $csvImport->getCSVContent(), $firstLineFormat, $keys) ;
+                $csvUseableArray = createArrayForCsvUsage($csvImport->getCSVContent(), $firstLineFormat, $keys) ;
                 $_SESSION['_csvUsableArray'] = $csvUseableArray;
                 $errors = $csvImport->checkFieldsErrors( $csvUseableArray );
                 
@@ -376,18 +371,18 @@ switch( $step )
                             {
                               $errorsDisplayed .= '<div>' . $e . '</div>';
                             }
-                          }                          
+                          }
                         }
                         if(!empty($errorsDisplayed))
                         {
-                          $dialogBox->error($errorsDisplayed); 
-                        }                        
+                          $dialogBox->error($errorsDisplayed);
+                        }
                     }
                     
                     $content .= '<br />' . get_lang('Select users you want to import in the course') . '<br />'
                     .   (count($errors) ? get_lang('Errors can be ignored to force the import') : '') . "\n" . '<br />' . "\n";
                     
-                    $content .= '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" >' . "\n"                    
+                    $content .= '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" >' . "\n"
                     .   '<input type="hidden" name="step" value="2" />' . "\n"
                     .   '<input type="hidden" name="class_id" value="' . $class_id .'" />' . "\n"
                     .   '<input type="hidden" name="updateUserProperties" value="' . $updateUserProperties . '" />' . "\n"
@@ -413,13 +408,13 @@ switch( $step )
                     {
                         $content .= '<tr>' . "\n"
                         .   '<td style="text-align: center;"><input type="checkbox" name="users[]" value="'. $key .'" class="checkAll" checked="checked"  /></td>' . "\n";
-                        ;                        
+                        ;
                         foreach( $data as $d )
                         {
                             $content .= '<td>' . (!empty($d) ? $d : '&nbsp;') . '</td>' . "\n";
                         }
                         //$content .= '<td></td>' . "\n";
-                        $content .= '</tr>' . "\n";                        
+                        $content .= '</tr>' . "\n";
                     }
                     
                     $content .=   '</table>' . "\n"
@@ -429,12 +424,12 @@ switch( $step )
                     ;
                 }
                 
-            }            
+            }
         }
     }
     break;
     default :
-    {   
+    {
         if( isset($_SESSION['_csvImport']) )
         {
             unset($_SESSION['_csvImport']);
@@ -449,7 +444,7 @@ switch( $step )
         {
             unset( $_SESSION['_csvKeys'] );
         }
-        $content .= $content_default; 
+        $content .= $content_default;
     }
 }
 
@@ -476,4 +471,52 @@ $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
 
-?>
+
+/**
+ * Create an array that you can use to generate CSV (array of array).
+ *
+ * @param $content array that need to be changed in an usable array
+ * @param $useFirstLine use the first line of the array to define cols
+ * @param $keys
+ * @return $useableArray converted array
+ */
+function createArrayForCsvUsage($content, $useFirstLine = true, $keys = null)
+{
+    if( !is_array( $content ) )
+    {
+        return false;
+    }
+    
+    if( $useFirstLine )
+    {
+        $keys = $content[0];
+        unset($content[0]);
+    }
+    
+    if( !(!is_null( $keys ) && is_array( $keys ) && count( $keys )) )
+    {
+        return false;
+    }
+    
+    $useableArray = array();
+    foreach( $keys as $col )
+    {
+        $useableArray[$col] = array();
+    }
+    
+    foreach( $content as $i => $row)
+    {
+        foreach( $row as $j => $r)
+        {
+            foreach($keys as $col => $val )
+            {
+                if($j == $col)
+                {
+                    $useableArray[$val][$i] = $r;
+                }
+            }
+        }
+    }
+    
+    return $useableArray;
+}
