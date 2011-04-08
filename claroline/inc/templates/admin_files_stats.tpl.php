@@ -11,7 +11,7 @@
 
 <table class="claroTable emphaseLineemphaseLine">
 <thead>
-  <tr class="headerX">
+  <tr>
     <th><?php echo get_lang('Course code'); ?></th>
     <th><?php echo get_lang('Course title'); ?></th>
     <th><?php echo get_lang('Lecturer(s)'); ?></th>
@@ -24,6 +24,7 @@
     ?>
   </tr>
   <tr>
+    <th> </th>
     <th> </th>
     <th> </th>
     <?php

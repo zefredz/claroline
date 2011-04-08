@@ -117,6 +117,17 @@ class csv
     
     
     /**
+     * Alias for the getCSVcontent method.
+     *
+     * @deprecated
+     */
+    public function export()
+    {
+        return $this->getCSVcontent();
+    }
+    
+    
+    /**
      * Create an usable array with all the data.
      *
      * @param $content array that need to be changed in an usable array
