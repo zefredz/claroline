@@ -3185,4 +3185,6 @@ $_lang['e.g. <em>Sciences of Economics</em>'] = 'p. ex. <em>Sciences économiques
 $_lang['student'] = 'étudiant';
 $_lang['teacher'] = 'professeur';
 $_lang['unique id of the platform'] = 'unique id of the platform';
+$_lang['Headlines'] = 'Editorial';
+$_lang['Calendar'] = 'Calendrier';
 ?>
