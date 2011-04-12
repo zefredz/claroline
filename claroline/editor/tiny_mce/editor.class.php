@@ -194,4 +194,3 @@ class editor extends GenericEditor
         return true;
     }
 }
-?>
