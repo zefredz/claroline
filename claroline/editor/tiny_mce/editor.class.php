@@ -16,7 +16,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package EDITOR
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Sébastien Piraux <pir@cerdecam.be>
+ * @author Sï¿½bastien Piraux <pir@cerdecam.be>
  *
  */
 
@@ -42,7 +42,7 @@ class editor extends GenericEditor
     /**
      * constructor
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sï¿½bastien Piraux <pir@cerdecam.be>
      * @param string $name content for attribute name and id of textarea
      * @param string $content content of the textarea
      * @param string $rows number of lines of textarea
@@ -194,4 +194,3 @@ class editor extends GenericEditor
         return true;
     }
 }
-?>
