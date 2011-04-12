@@ -23,7 +23,7 @@ class CsvExporter
      *
      * @param char $delimitor
      */
-    public function  __construct ($delimiter, $quote)
+    public function __construct($delimiter, $quote)
     {
         $this->delimiter    = $delimiter;
         $this->quote        = $quote;
