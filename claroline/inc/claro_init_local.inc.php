@@ -297,7 +297,7 @@ if ( is_null( $gidReset ) )
     }
 }*/
 
-$login    = isset($_REQUEST['login'   ]) ? trim( strip_tags( $_REQUEST['login'   ] ) )  : null;
+$login    = isset($_REQUEST['login'   ]) ? trim( $_REQUEST['login'   ] )  : null;
 $password = isset($_REQUEST['password']) ? trim( $_REQUEST['password'] ) : null;
 
 /*---------------------------------------------------------------------------
