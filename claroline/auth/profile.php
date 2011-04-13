@@ -39,12 +39,12 @@ $error = false;
 include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
 
 // include library files
-include_once get_path('incRepositorySys') . '/lib/user.lib.php';
-include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
-include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
-include_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
-include_once get_path('incRepositorySys') . '/lib/image.lib.php';
-include_once get_path('incRepositorySys') . '/lib/display/dialogBox.lib.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
+require_once get_path('incRepositorySys') . '/lib/image.lib.php';
+require_once get_path('incRepositorySys') . '/lib/display/dialogBox.lib.php';
 
 $nameTools = get_lang('My user account');
 
@@ -101,13 +101,13 @@ if ( isset($_REQUEST['applyChange']) )
         $user_data['username'] = trim(strip_tags($_REQUEST['username' ]));
 
     if ( isset($_REQUEST['old_password']) && in_array('password',$profile_editable) )      
-        $user_data['old_password'] = trim(strip_tags($_REQUEST['old_password']));
+        $user_data['old_password'] = trim($_REQUEST['old_password']);
 
     if ( isset($_REQUEST['password']) && in_array('password',$profile_editable) )          
-        $user_data['password'] = trim(strip_tags($_REQUEST['password']));
+        $user_data['password'] = trim($_REQUEST['password']);
 
     if ( isset($_REQUEST['password_conf']) && in_array('password',$profile_editable) )     
-        $user_data['password_conf'] = trim(strip_tags($_REQUEST['password_conf']));
+        $user_data['password_conf'] = trim($_REQUEST['password_conf']);
 
     if ( isset($_REQUEST['email']) && in_array('email',$profile_editable) )                
         $user_data['email'] = trim(strip_tags($_REQUEST['email']));
