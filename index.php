@@ -27,7 +27,7 @@ include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
 {
     require_once get_path('incRepositorySys') . '/lib/courselist.lib.php';
-    JavascriptLoader::getInstance()->load('courseList');
+    JavascriptLoader::getInstance()->load('course_list');
     
     // Main template
     $template = new CoreTemplate('platform_index.tpl.php');
