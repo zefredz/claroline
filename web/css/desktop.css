@@ -130,7 +130,7 @@ dl.calendarDetails dd {
     background: transparent url(../../claroline/desktop/img/show.png) no-repeat top left; 
 }
 
-#portletMyCourseList {
+.myCourseList {
     max-height: 20em;
     overflow: auto;
     

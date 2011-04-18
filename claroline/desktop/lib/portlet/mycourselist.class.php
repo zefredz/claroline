@@ -98,7 +98,7 @@ class MyCourseList extends UserDesktopPortlet
               . '</td>'
               . '<td class="myCourseList">'
               . '<h4>'.get_lang('My course list').'</h4>'
-              . $userCourseList;
+              . '<div class="myCourseList">'.$userCourseList.'</div>';
               
         if (!empty($userCourseListDesactivated))
         {
