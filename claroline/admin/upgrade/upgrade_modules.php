@@ -43,6 +43,7 @@ if ( isset($_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'run' )
     
     $deactivatedModules = array();
     $readOnlyModules = array( 'CLDOC', 'CLGRP', 'CLUSR' );
+    $version = '';
     
     foreach ( $modules as $module )
     {
