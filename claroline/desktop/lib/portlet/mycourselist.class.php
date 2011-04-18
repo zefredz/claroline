@@ -29,7 +29,7 @@ class MyCourseList extends UserDesktopPortlet
     {
         global $platformLanguage;
         
-        JavascriptLoader::getInstance()->load('courseList');
+        JavascriptLoader::getInstance()->load('course_list');
         
         $out = '';
         

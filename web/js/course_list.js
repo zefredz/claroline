@@ -33,7 +33,7 @@ $(document).ready(function(){
             },
            position: {
               corner: {
-                 target: "topRight",
+                 target: "topCenter",
                  tooltip: "bottomLeft"
               }
            }
