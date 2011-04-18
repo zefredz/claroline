@@ -1090,6 +1090,13 @@ dl.userCourseList {
 
 
 /******************************************************************************
+                        QTIP
+******************************************************************************/
+
+
+
+
+/******************************************************************************
                         MISCELLANEOUS
 ******************************************************************************/
 
@@ -1161,7 +1168,7 @@ dl.userCourseList {
 }
 
 .claroDialogMsg { padding: 2px 5px 1px 20px; }
-.claroDialogBox .msgInfo { } /* I _really_ don't think there is a need for an icon here */
+.claroDialogBox .msgInfo { background: url(../../img/information.png) top left no-repeat; } /* I _really_ don't think there is a need for an icon here */ /* Event with this one ? */
 .claroDialogBox .msgSuccess { background: url(../../img/success.png) top left no-repeat; }
 .claroDialogBox .msgWarning { background: url(../../img/warning.png) top left no-repeat; }
 .claroDialogBox .msgError { background: url(../../img/error.png) top left no-repeat; }

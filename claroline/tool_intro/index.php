@@ -31,7 +31,6 @@ require_once get_module_path('CLTI').'/lib/toolintroductioniterator.class.php';
 $introId            = (!empty($_REQUEST['introId'])?((int) $_REQUEST['introId']):(null));
 $introCmd           = (!empty($_REQUEST['introCmd'])?($_REQUEST['introCmd']):(null));
 $isAllowedToEdit    = claro_is_allowed_to_edit();
-$output             = '';
 
 set_current_module_label('CLINTRO');
 
@@ -59,7 +58,7 @@ if (isset($introCmd) && $isAllowedToEdit)
     if ($introCmd == 'rqAdd')
     {
         $toolIntro = new ToolIntro();
-        $output .= $toolIntro->renderForm();
+        $toolIntroForm = $toolIntro->renderForm();
     }
     
     if ($introCmd == 'rqEd')
@@ -67,7 +66,7 @@ if (isset($introCmd) && $isAllowedToEdit)
         $toolIntro = new ToolIntro($introId);
         if($toolIntro->load())
         {
-            $output .= $toolIntro->renderForm();
+            $toolIntroForm = $toolIntro->renderForm();
         }
     }
     
@@ -188,32 +187,40 @@ if (isset($introCmd) && $isAllowedToEdit)
     }
 }
 
+
+
 // Display
-
-$output .= $dialogBox->render();
-
-$output .= '<p>'
-         . '<a href="'
-         . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?introCmd=rqAdd')).'">'
-         . '<img src="' . get_icon_url('default_new') . '" alt="' . get_lang('New introduction') . '" /> '
-         . get_lang('New item').'</a>'
-         . '</p>';
-
 $toolIntroIterator = new ToolIntroductionIterator(claro_get_current_course_id());
 
-if (!empty($toolIntroIterator))
+$toolIntroductions = '';
+$toolIntroForm = (empty($toolIntroForm) ? '' : $toolIntroForm);
+
+if ($toolIntroIterator->count() > 0)
 {
     foreach ($toolIntroIterator as $toolIntro)
     {
-        $output .= $toolIntro->render();
+        $toolIntroductions .= $toolIntro->render();
     }
 }
 else
 {
-    $output .= '<div class="HelpText">' . "\n"
-             . get_block('blockIntroCourse') . "\n"
-             . '</div>' . "\n";
+    $toolIntro = new ToolIntro();
+    
+    $dialogBox->info(get_lang('There\'s no headline for this course right now.  Use the form below to add a new one.'));
+    
+    $toolIntroForm = $toolIntro->renderForm();
 }
+
+$output = '';
+$output .= $dialogBox->render()
+         . '<p>'
+         . '<a href="'
+         . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?introCmd=rqAdd')).'">'
+         . '<img src="' . get_icon_url('default_new') . '" alt="' . get_lang('New introduction') . '" /> '
+         . get_lang('New item').'</a>'
+         . '</p>'
+         . $toolIntroForm
+         . $toolIntroductions;
 
 // Append output
 $claroline->display->body->appendContent($output);
