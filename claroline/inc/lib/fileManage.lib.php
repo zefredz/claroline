@@ -792,12 +792,36 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
     {
         case 'update' :
 
-            // Find and update assets that are concerned by this move
+            // if the path did not change, don't change it !
+            if ( empty($newPath) )
+            {
+                return false;
+            }
 
-            $sql = "UPDATE `" . $TABLEASSET . "`
-                    SET `path` = CONCAT('" . claro_sql_escape($newPath) . "',
-                                        SUBSTRING(`path`, LENGTH('" . claro_sql_escape($oldPath) . "')+1) )
-                    WHERE {$modifier} `path` LIKE '" . claro_sql_escape($oldPath) . "%'";
+            // Find and update assets that are concerned by this move
+            $sql = "SELECT `path` FROM `" . $TABLEASSET . "` WHERE {$modifier} `path` = '" . claro_sql_escape($oldPath) . "%'";
+
+            $result = claro_sql_query($sql);
+
+            $num = mysql_num_rows($result);
+
+            // the document with the exact path exists
+            if ( $num )
+            {
+
+                $sql = "UPDATE `" . $TABLEASSET . "`
+                        SET `path` = '" . claro_sql_escape($newPath) . "'
+                        WHERE {$modifier} `path` = '" . claro_sql_escape($oldPath) . "'";
+            }
+            // a document in the renamed directory exists
+            else
+            {
+                $sql = "UPDATE `" . $TABLEASSET . "`
+                        SET path = CONCAT('" . claro_sql_escape($newPath) . "',
+                                   SUBSTRING(path, LENGTH('" . claro_sql_escape($oldPath) . "')+1) )
+                        WHERE {$modifier} path = '" . claro_sql_escape($oldPath) . "'
+                        OR {$modifier} path LIKE '" . claro_sql_escape($oldPath) . "/%'";
+            }
 
             claro_sql_query($sql);
 
