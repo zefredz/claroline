@@ -792,6 +792,12 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
     {
         case 'update' :
 
+            // if the path did not change, don't change it !
+            if ( empty($newPath) )
+            {
+                return false;
+            }
+
             // Find and update assets that are concerned by this move
             $sql = "SELECT `path` FROM `" . $TABLEASSET . "` WHERE {$modifier} `path` = '" . claro_sql_escape($oldPath) . "%'";
 
