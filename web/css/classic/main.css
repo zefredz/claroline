@@ -161,6 +161,10 @@ fieldset dt label {
     color: #999;
 }
 
+table.multiselect {
+    margin-left: -3px;
+}
+
 /* Multiselect table */
 table.multiselect select {
     width: 250px;
