@@ -488,18 +488,18 @@ switch ( $displayMode )
                 $nbCourses = claroCategory::countAllCourses($category['id']);
                 $nbSubCategories = claroCategory::countAllSubCategories($category['id']);
                 
-                $out .= '<li>' . "\n";
-                
                 // If the category contains something else (subcategory or course),
                 // make a link to access to these ressources
                 if ($nbCourses + $nbSubCategories > 0)
-                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;categoryId="
+                {
+                    $out .= '<li><a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;categoryId="
                           . urlencode( $category['id'] ) . $inURL . '">'
-                          . $category['name'] . '</a>';
+                          . $category['name'] . '</a></li>';
+                }
                 else
-                    $out .= $category['name'];
-                
-                $out .= '</li>' . "\n";
+                {
+                    $out .= '<li>'.$category['name'].'</li>';
+                }
             }
             
             $out .= '</ul>' . "\n";
