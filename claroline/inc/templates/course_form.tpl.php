@@ -279,13 +279,14 @@
                 </dd>
                 
                 <dt>
-                    <?php echo get_lang('Maximum number of users'); ?>
+                    <?php echo get_lang('Maximum number of students'); ?>
                 </dt>
                 <dd>
                     <input type="text" name="course_userLimit" id="course_userLimit" value="<?php echo $this->course->userLimit; ?>" />
                     <br />
                     <span class="notice">
-                        <?php echo get_lang('Leave this field empty or use 0 if you don\'t want to limit the number of users in this course'); ?>
+                        <?php echo get_lang('Leave this field empty or use 0 if you don\'t want to limit the number of users in this course'); ?><br />
+                        <?php echo get_lang('This limit doesn\'t include course\'s tutors and managers'); ?>
                     </span>
                 </dd>
                 

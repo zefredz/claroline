@@ -94,14 +94,16 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             
             if ($course_registration['userLimit'] > 0)
             {
-                $sql = "SELECT COUNT(user_id) AS nbUsers
+                $sql = "SELECT COUNT(user_id) AS nbStudents
                         FROM `" . $tbl_rel_course_user . "`
-                        WHERE code_cours = '" . claro_sql_escape($courseCode) . "'";
+                        WHERE code_cours = '" . claro_sql_escape($courseCode) . "'
+                        AND tutor = 0
+                        AND isCourseManager = 0";
                 
                 $course_nb_users = claro_sql_query_get_single_row($sql);
             }
             
-            $userLimitReached = (!empty($course_nb_users) && $course_nb_users['nbUsers'] >= $course_registration['userLimit'] && !$admin) ? true : false;
+            $userLimitReached = (!empty($course_nb_users) && $course_nb_users['nbStudents'] >= $course_registration['userLimit'] && !$admin) ? true : false;
             
             if (!$userLimitReached)
             {

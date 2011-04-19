@@ -1099,7 +1099,7 @@ $_lang['Maximum conversation lines in chat file'] = 'Nombre maximum de lignes da
 $_lang['Maximum disk space : %size'] = 'Espace disque maximum : %size';
 $_lang['Maximum lengh for a nick'] = 'Taille maximum du pseudo';
 $_lang['Maximum lines in the active chat file. For performance, it\'s interesting to not work with too big file.'] = 'Nombre maximum de lignes dans le fichier de discussion. Il est préférable de ne pas utiliser de trop gros fichiers.';
-$_lang['Maximum number of users'] = 'Nombre maximal d\'utilisateurs';
+$_lang['Maximum number of students'] = 'Nombre maximal d\'étudiants';
 $_lang['Maximum score'] = 'Note maximale';
 $_lang['Maximum size for an assignment'] = 'Taille maximum d\'un travail';
 $_lang['Maximum size of a document that a user can upload'] = 'Taille maximum autorisée pour le chargement d\'un document sur la plateforme';
@@ -3187,4 +3187,5 @@ $_lang['teacher'] = 'professeur';
 $_lang['unique id of the platform'] = 'unique id of the platform';
 $_lang['Headlines'] = 'Editorial';
 $_lang['Calendar'] = 'Calendrier';
+$_lang['This limit doesn\'t include course\'s tutors and managers'] = 'Cette limite ne tient pas compte des tuteurs et gestionnaires du cours'
 ?>
