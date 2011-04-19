@@ -9,11 +9,14 @@ var Claroline = {};
 
 Claroline.version = '1.10 rev. $Revision$';
 
-Claroline.lang = {};
+Claroline.lang = function(langVar){
+    //TODO: not implemented yet...
+    return langVar;
+};
 
 Claroline.getLang = function(langVar) {
-    if ( Claroline.lang[langVar] ){
-        return Claroline.lang[langVar];
+    if ( Claroline.lang(langVar) ){
+        return Claroline.lang(langVar);
     }
     else {
         return langVar;
@@ -69,14 +72,14 @@ Claroline.spoil = function(item) {
 
 $(document).ready( function (){
     // this is the core function of Claroline's jQuery implementation
-
+    
     // ajax activity shower
     $("#loading").hide();
-
+    
     $("#loading").ajaxStart(function(){
         $(this).show();
     });
-
+    
     $("#loading").ajaxStop(function(){
         $(this).hide();
     });
@@ -128,15 +131,15 @@ function isNull(a)
 function dump(arr,level) {
     var dumped_text = "";
     if(!level) level = 0;
-
+    
     //The padding given at the beginning of the line.
     var level_padding = "";
     for(var j=0;j<level+1;j++) level_padding += "    ";
-
+    
     if(typeof(arr) == 'object') { //Array/Hashes/Objects
         for(var item in arr) {
             var value = arr[item];
-
+            
             if(typeof(value) == 'object') { //If it is an array,
                 dumped_text += level_padding + "'" + item + "' ...\n";
                 dumped_text += dump(value,level+1);
