@@ -21,17 +21,17 @@
     
     <ul>
     <?php foreach( $this->categoriesList as $category ) : ?>
-        <li>
         
         <?php if (claroCategory::countAllCourses($category['id']) + claroCategory::countAllSubCategories($category['id']) > 0) : ?>
-           <?php echo '<a href="' . $_SERVER['PHP_SELF'] . '?category='
+        <li>
+            <?php echo '<a href="' . $_SERVER['PHP_SELF'] . '?category='
             . urlencode( $category['id'] ) . '#categoryContent">'
             . $category['name'] . '</a>'; ?>
+        </li>
         <?php else : ?>
-            <?php echo $category['name']; ?>
+            <li><?php echo $category['name']; ?></li>
         <?php endif; ?>
         
-        </li>
     <?php endforeach; ?>
     </ul>
     
