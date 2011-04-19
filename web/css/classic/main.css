@@ -139,6 +139,10 @@ input.checkbox {
     width: 1em;
 }
 
+table.multiselect {
+    margin-left: -3px;
+}
+
 /* Multiselect table */
 table.multiselect select {
     width: 250px;
