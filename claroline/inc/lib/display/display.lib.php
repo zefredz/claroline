@@ -66,10 +66,15 @@ class PopupWindowHelper
     }
 }
 
+
+/**
+ * Interface for any class that offers a view.
+ */
 interface Display
 {
     public function render();
 }
+
 
 /**
  * Claroline script embed class
@@ -238,6 +243,7 @@ class ClaroPage implements Display
     }
 }
 
+
 /**
  * Claroline html frame class
  *
@@ -340,6 +346,7 @@ class ClaroFrame implements Display
     }
 }
 
+
 /**
  * Claroline html frameset class
  *
@@ -420,6 +427,7 @@ class ClaroFrameset implements Display
         return $html;
     }
 }
+
 
 /**
  * Claroline html frameset class

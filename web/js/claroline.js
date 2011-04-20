@@ -13,7 +13,7 @@ Claroline.lang = {};
 
 /*
  * Usage : Claroline.setLangArray({
- *  'Not allowed': 'Non autorisé'
+ *  'Not allowed': 'Non autorise'
  * });
  */
 Claroline.setLangArray = function ( langArray ) {

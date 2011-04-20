@@ -1411,6 +1411,11 @@ $_SERVER['QUERY_STRING'] = '';
 
 
 // Display (3 view modes: image, thumbnails or files)
+$jslang = new JavascriptLanguage;
+$jslang->addLangVar('Click to zoom out');
+$jslang->addLangVar('Click to zoom in');
+ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+
 JavascriptLoader::getInstance()->load('documents');
 
 $out = '';

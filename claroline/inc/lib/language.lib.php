@@ -670,7 +670,7 @@ function claro_utf8_encode_array( &$var )
 
 /*
  * Usage :
- * 
+ *
  * $jslang = new JavascriptLanguage;
  * $jslang->addLangVar('User list');
  * // ...
