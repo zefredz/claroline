@@ -677,7 +677,7 @@ function claro_utf8_encode_array( &$var )
  * ClaroHeader::getInstance()->addInlineJavascript( $jslang->render() );
  * Claroline.getLang('User list');
 */
-class JavascriptLanguage implements Display
+class JavascriptLanguage
 {
     protected $lang = array();
 
