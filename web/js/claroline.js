@@ -9,14 +9,22 @@ var Claroline = {};
 
 Claroline.version = '1.10 rev. $Revision$';
 
-Claroline.lang = function(langVar){
-    //TODO: not implemented yet...
-    return langVar;
-};
+Claroline.lang = {};
+
+/*
+ * Usage : Claroline.setLangArray({
+ *  'Not allowed': 'Non autorisé'
+ * });
+ */
+Claroline.setLangArray = function ( langArray ) {
+    for ( var langVar in langArray ) {
+        Claroline.lang[langVar] = langArray[langVar];
+    }
+}
 
 Claroline.getLang = function(langVar) {
-    if ( Claroline.lang(langVar) ){
-        return Claroline.lang(langVar);
+    if ( Claroline.lang[langVar] ){
+        return Claroline.lang[langVar];
     }
     else {
         return langVar;

@@ -667,3 +667,51 @@ function claro_utf8_encode_array( &$var )
         array_walk( $var, 'claro_utf8_encode_array' );
     }
 }
+
+/*
+ * Usage :
+ * 
+ * $jslang = new JavascriptLanguage;
+ * $jslang->addLangVar('User list');
+ * // ...
+ * ClaroHeader::getInstance()->addInlineJavascript( $jslang->render() );
+ * Claroline.getLang('User list');
+*/
+class JavascriptLanguage implements Display
+{
+    protected $lang = array();
+
+    public function addLangVar( $langVar, $langValue = null )
+    {
+        if ( empty ($langValue ) )
+        {
+            $this->lang[$langVar] = get_lang($langVar);
+        }
+        else
+        {
+            $this->lang[$langVar] = $langValue;
+        }
+
+        return $this;
+    }
+
+    public function render()
+    {
+        $out = '<script type="text/javascript">' . "\n";
+
+        $out .= "Claroline.setLangArray( {"."\n";
+
+        foreach ( $this->lang as $langVar => $langValue )
+        {
+            $langVar = str_replace ("'", "\\'",$langVar);
+            $langValue = str_replace ("'", "\\'",$langValue);
+            $out .= "'$langVar':'$langValue'";
+        }
+
+        $out .= "});\n"
+            . "</script>\n"
+            ;
+
+        return $out;
+    }
+}
