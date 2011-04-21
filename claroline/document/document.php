@@ -1400,7 +1400,7 @@ $fileList = $fileLister->get_result_list();
 if ( $docView == 'image' )
 {
     $noQUERY_STRING = true;
-    $claroBodyOnload[] = "zoomOut();";
+    $claroBodyOnload[] = "CLDOC.zoomOut();";
 }
 
 $nameTools = get_lang("Documents and Links");
@@ -2042,7 +2042,7 @@ else
                       .'<a href="' . htmlspecialchars(Url::Contextualize(
                         $_SERVER['PHP_SELF'] . '?cmd=exRm&amp;file=' . $cmdFileName ))
                       . '" '
-                      .'onclick="return confirmation(\''.clean_str_for_javascript($dspFileName).'\');">'
+                      .'onclick="return CLDOC.confirmation(\''.clean_str_for_javascript($dspFileName).'\');">'
                       .'<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
                       .'</a>'
                       .'</td>' . "\n";

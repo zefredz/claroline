@@ -1,4 +1,6 @@
-function confirmation(name)
+var CLDOC = {};
+
+CLDOC.confirmation = function (name)
 {
     if (confirm(Claroline.getLang('Are you sure to delete '+ name +' ?')))
     {
@@ -13,46 +15,46 @@ function confirmation(name)
 var nOriginalHeight;
 var nOriginalWidth;
 
-function zoomIn()
+CLDOC.zoomIn = function()
 {
     var oImage = document.getElementById('mainImage');
     
     oImage.width = nOriginalWidth;
     oImage.height = nOriginalHeight;
     
-    oImage.onclick = function(){zoomOut();};
+    oImage.onclick = function(){CLDOC.zoomOut();};
     oImage.setAttribute( 'title', Claroline.getLang('Click to zoom out') );
 }
 
-function zoomOut()
+CLDOC.zoomOut = function()
 {
     var oImage = document.getElementById('mainImage');
     
     nOriginalHeight = oImage.height;
     nOriginalWidth = oImage.width;
     
-    var nNewWidth = getWindowWidth() - Math.floor(getWindowWidth() / 10);
+    var nNewWidth = CLDOC.getWindowWidth() - Math.floor(CLDOC.getWindowWidth() / 10);
     
     if ( nNewWidth < nOriginalWidth )
     {
-        var nNewHeight = computeHeight ( nNewWidth );
+        var nNewHeight = CLDOC.computeHeight ( nNewWidth );
         	
         oImage.width = nNewWidth;
         oImage.height = nNewHeight;
         	
-        oImage.onclick = function(){zoomIn();};
+        oImage.onclick = function(){CLDOC.zoomIn();};
         oImage.setAttribute( 'title', Claroline.getLang('Click to zoom in') );
     }
 }
 
-function computeHeight( nWidth )
+CLDOC.computeHeight = function ( nWidth )
 {
     var nScaleFactor = nWidth / nOriginalWidth;
     var nNewHeight = nOriginalHeight * nScaleFactor;
     return Math.floor( nNewHeight );
 }
 
-function getWindowWidth()
+CLDOC.getWindowWidth = function()
 {
     var ww = 0;
     
