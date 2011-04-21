@@ -700,13 +700,17 @@ class JavascriptLanguage
         $out = '<script type="text/javascript">' . "\n";
 
         $out .= "Claroline.setLangArray( {"."\n";
+        
+        $tmp = array();
 
         foreach ( $this->lang as $langVar => $langValue )
         {
             $langVar = str_replace ("'", "\\'",$langVar);
             $langValue = str_replace ("'", "\\'",$langValue);
-            $out .= "'$langVar':'$langValue'";
+            $tmp[] = "'$langVar':'$langValue'";
         }
+        
+        $out .= implode(",\n", $tmp );
 
         $out .= "});\n"
             . "</script>\n"
