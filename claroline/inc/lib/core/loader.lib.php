@@ -71,7 +71,7 @@ class JavascriptLoader
                 }
                 
                 $mtime = '';
-                
+                /*
                 if ( get_conf('javascriptCompression', true)
                     && file_exists( $tryPath . '/min/' . $lib . '.js' )  )
                 {    
@@ -94,7 +94,11 @@ class JavascriptLoader
                     {
                         pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.js', 'debug');
                     }
-                }
+                }*/
+
+                    $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/' . $lib . '.js';
+
+                    $mtime = filemtime($tryPath . '/' . $lib . '.js');
                 
                 ClaroHeader::getInstance()->addHtmlHeader(
                     '<script src="'.$this->libraries[$tryPath . '/' . $lib . '.js'].'?'.$mtime.'" type="text/javascript"></script>'
