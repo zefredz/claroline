@@ -250,31 +250,31 @@ class From
     }
     
     /**
-     * Load a list of connectors from a given module
-     * Usage : From::module(ModuleLable)->loadConnectors( list of connectors );
+     * Load a list of plugins from a given module
+     * Usage : From::module(ModuleLable)->loadPlugins( list of connectors );
      * @since Claroline 1.9.6
-     * @params  list of connectors
-     * @return  array of not found connectors
+     * @params  list of plugins
+     * @return  array of not found plugins
      */
-    public function loadConnectors()
+    public function loadPlugins()
     {
         $args = func_get_args();
         $notFound = array();
         
         foreach ( $args as $cnr )
         {
-            if ( substr($cnr, -4) !== '.php' && substr( $cnr, -4 ) === '.cnr' )            
+            if ( substr($cnr, -4) !== '.php' && substr( $cnr, -4 ) === '.lib' )            
             {
                 $cnr .= '.php';
             }
-            elseif ( substr($cnr, -8) !== '.cnr.php' )
+            elseif ( substr($cnr, -8) !== '.lib.php' )
             {
-                $cnr .= '.cnr.php';
+                $cnr .= '.lib.php';
             }
             
             $cnr = protect_against_file_inclusion( $cnr );
             
-            $cnrPath = get_module_path( $this->moduleLabel ) . '/connector/' . $cnr;
+            $cnrPath = get_module_path( $this->moduleLabel ) . '/plugins/' . $cnr;
             
             if ( file_exists( $cnrPath ) )
             {
@@ -284,7 +284,7 @@ class From
             {
                 if ( claro_debug_mode() )
                 {
-                    throw new Exception( "Cannot load connector {$cnrPath}" );
+                    throw new Exception( "Cannot load plugin {$cnrPath}" );
                 }
                 
                 $notFound[] = $cnr;
