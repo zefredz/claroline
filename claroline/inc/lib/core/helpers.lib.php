@@ -210,7 +210,7 @@ function include_textzone( $textzone, $defaultContent = null )
     if( claro_is_platform_admin() )
     {
         echo '<p>' . "\n"
-        .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file='.$textzone.'">' . "\n"
+        .    '<a href="'.get_path('rootAdminWeb').'managing/editFile.php?cmd=rqEdit&amp;file='.$textzone.'">' . "\n"
         .    '<img src="'.get_icon_url('edit').'" alt="" />' . get_lang('Edit text zone') . "\n"
         .    '</a>' . "\n"
         .    '</p>' . "\n";
