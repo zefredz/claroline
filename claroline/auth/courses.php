@@ -86,6 +86,7 @@ Define user we are working with...
 ---------------------------------------------------------------------*/
 
 $inURL = ''; // parameters to add in URL
+$inactiveCourseList = array();
 
 if ( !claro_is_platform_admin() )
 {
