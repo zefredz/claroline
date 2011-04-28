@@ -45,6 +45,7 @@ $userSettingMode    = FALSE;
 $dialogBox = new DialogBox();
 $courseList = array();
 $categoryList = array();
+$inactiveCourseList = array();
 
 /*---------------------------------------------------------------------
 Define Display
