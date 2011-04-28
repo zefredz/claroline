@@ -45,6 +45,7 @@ $userSettingMode    = FALSE;
 $dialogBox = new DialogBox();
 $courseList = array();
 $categoryList = array();
+$inactiveCourseList = array();
 
 /*---------------------------------------------------------------------
 Define Display
@@ -86,7 +87,6 @@ Define user we are working with...
 ---------------------------------------------------------------------*/
 
 $inURL = ''; // parameters to add in URL
-$inactiveCourseList = array();
 
 if ( !claro_is_platform_admin() )
 {
