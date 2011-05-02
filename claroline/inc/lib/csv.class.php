@@ -20,8 +20,30 @@ FromKernel::uses('csvexporter.class');
 
 class Csv extends CsvExporter
 {
+    public $recordList = array();
+    
     public function __construct($delimiter, $quote)
     {
         parent::__construct($delimiter, $quote);
+    }
+    
+    /**
+     * Alias for the constructor.
+     *
+     * @deprecated
+     */
+    public function csv($delimiter, $quote)
+    {
+        self::__construct($delimiter, $quote);
+    }
+    
+    /**
+     * Alias for parent's method export().
+     *
+     * @deprecated
+     */
+    public function export()
+    {
+        parent::export($this->recordList);
     }
 }
