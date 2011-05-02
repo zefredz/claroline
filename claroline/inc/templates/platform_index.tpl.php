@@ -57,7 +57,7 @@
     if (claro_is_user_authenticated()) :
         ?>
         
-        <table class="homepageTable">
+        <table>
           <tr>
           
             <td class="userCommands">

@@ -2,13 +2,6 @@
  $Id$
  **/
 
-.claroBlock
-{
-    padding: 0;
-    margin: 0 0 15px 0;
-    width: 100%;
-}
-
 td.coursePortletList .claroDialogBox { margin-top:0; }
 
 dl#portletAnnouncements dd, 
@@ -33,8 +26,4 @@ dl#portletAbout dd.last
 div#portletMycalendar dl dd
 {
     margin-left: 20px;
-}
-div.blockHeader.hidden
-{
-    color: #666;
 }

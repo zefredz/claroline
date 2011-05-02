@@ -11,13 +11,13 @@
 </div>
 
 <div id="leftContent">
-    <div class="claroBlock portlet collapsible collapsed">
-        <h3 class="blockHeader">
+    <div class="portlet collapsible collapsed">
+        <h1>
             <?php echo get_lang('Presentation'); ?>
             <span class="separator">|</span>
             <a href="#" class="doCollapse"><?php echo get_lang('View all'); ?></a>
-        </h3>
-        <div class="claroBlockContent collapsible-wrapper">
+        </h1>
+        <div class="content collapsible-wrapper">
             <?php include_textzone('textzone_top.authenticated.inc.html'); ?>
         </div>
     </div>

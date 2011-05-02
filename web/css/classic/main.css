@@ -488,6 +488,89 @@ li.lastBreadCrumbsNode {
 
 
 /******************************************************************************
+                        PORTLETS
+******************************************************************************/
+
+.portlet {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.portlet .content {
+    margin-top: 0.3em;
+    padding: 5px;
+}
+
+.portlet h1 {
+    color: #444;
+    font-weight: bold;
+    padding: 2px 5px 2px 5px;
+    margin: 0;
+    background: #eee;
+    border-bottom: 1px solid #444;
+}
+
+.portlet.hidden h1
+{
+    color: #888;
+}
+
+.portlet h2, 
+.portlet h3, 
+.portlet h4 {
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    padding: 0;
+}
+
+.portlet dl, 
+.portlet dt, 
+.portlet dd {
+    margin: 0;
+    padding: 0;
+}
+
+.portlet ul, 
+.portlet dl {
+    margin-bottom: 15px;
+}
+
+.portlet dd {
+    margin-bottom: 0.5em;
+}
+
+.porletIcon {
+    float:right;
+    margin:auto;
+    padding:0;
+}
+
+.portlet .iconDefinitionList {
+    list-style-position:inside;
+    margin:0;
+    padding:0;
+}
+
+/* Distinct claroTables inside portlets */
+.portlet table.claroTable thead tr td,
+.portlet table.claroTable tbody tr td {
+    color: #444444;
+    background: #f3f7e8;
+}
+.portlet table.claroTable thead tr td.highlight,
+.portlet table.claroTable tbody tr td.highlight {
+    color: #FFF;
+    background: #444444;
+}
+.portlet table.claroTable thead tr th,
+.portlet table.claroTable tbody tr th {
+    color: #444444;
+    background: #f3f7e8;
+    border-bottom: 1px solid #444444;
+}
+
+
+/******************************************************************************
                         COURSE PAGE
 ******************************************************************************/
 
@@ -617,28 +700,6 @@ ul.groupToolList {
     margin: 0;
     padding: 0;
     list-style-type: none;
-}
-
-
-/******************************************************************************
-                        PLATFORM HOMEPAGE
-******************************************************************************/
-
-table.homepageTable td.spacer {
-    width: 30px;
-}
-
-table.homepageTable td.userCommands ul {
-    margin: 0 0 10px 0;
-    list-style-type: none;
-}
-
-table.homepageTable td.userCommands {
-    padding-right: 20px; 
-}
-
-table.homepageTable td.myCourseList { 
-    padding-left: 20px; 
 }
 
 
@@ -1424,4 +1485,9 @@ img.userPicture {
 
 .userName {
     color: #669933;
+}
+
+.userCommands ul {
+    margin: 0 0 10px 0;
+    list-style-type: none;
 }

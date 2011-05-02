@@ -17,6 +17,13 @@
 
 abstract class Portlet implements Display
 {
+    private $label;
+    
+    public function __construct($label)
+    {
+        $this->label = $label;
+    }
+    
     // Render title
     abstract public function renderTitle();
     
@@ -26,11 +33,11 @@ abstract class Portlet implements Display
     // Render all
     public function render()
     {
-        return '<div class="claroBlock portlet">' . "\n"
-             . '<h3 class="blockHeader">' . "\n"
+        return '<div class="portlet'.(!empty($this->label)?' '.$this->label:'').'">' . "\n"
+             . '<h1>' . "\n"
              . $this->renderTitle() . "\n"
-             . '</h3>' . "\n"
-             . '<div class="claroBlockContent">' . "\n"
+             . '</h1>' . "\n"
+             . '<div class="content">' . "\n"
              . $this->renderContent()
              . '</div>' . "\n"
              . '</div>' . "\n\n";

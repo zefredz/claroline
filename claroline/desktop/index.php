@@ -113,7 +113,7 @@ $outPortlet = '';
 
 $portletList = $portletList->loadAll( true );
 
-if ( is_array( $portletList ) )
+if ( !empty( $portletList ) )
 {
     foreach ( $portletList as $portlet )
     {
@@ -125,15 +125,15 @@ if ( is_array( $portletList ) )
                 pushClaroMessage("User desktop : class {$portlet['label']} not found !");
                 continue;
             }
-
-            $portlet = new $portlet['label']();
-
+            
+            $portlet = new $portlet['label']($portlet['label']);
+            
             if( ! $portlet instanceof UserDesktopPortlet )
             {
                 pushClaroMessage("{$portlet['label']} is not a valid user desktop portlet !");
                 continue;
             }
-
+            
             $outPortlet .= $portlet->render();
         }
         catch (Exception $e )
@@ -142,8 +142,8 @@ if ( is_array( $portletList ) )
             
             $portletDialog->error(
                 get_lang(
-                    'An error occured while loading the portlet : %error%', 
-                    array( 
+                    'An error occured while loading the portlet : %error%',
+                    array(
                         '%error%' => $e->getMessage()
                     )
                 )

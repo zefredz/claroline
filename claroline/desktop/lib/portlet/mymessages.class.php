@@ -26,9 +26,10 @@ class MyMessages extends UserDesktopPortlet
 {
     protected $inbox;
     
-    
-    public function __construct()
+    public function __construct($label)
     {
+        parent::__construct($label);
+        
         $this->inbox = new InBox;
         $this->inbox->getMessageStrategy()->setNumberOfMessagePerPage( get_conf('myboxNumberOfMessage',5) );
     }

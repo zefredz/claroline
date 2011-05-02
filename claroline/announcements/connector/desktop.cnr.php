@@ -25,8 +25,10 @@ uses('courselist.lib');
 
 class CLANN_Portlet extends UserDesktopPortlet
 {
-    public function __construct()
+    public function __construct($label)
     {
+        parent::__construct($label);
+        
         if (file_exists(claro_get_conf_repository() . 'CLANN.conf.php'))
         {
             include claro_get_conf_repository() . 'CLANN.conf.php';

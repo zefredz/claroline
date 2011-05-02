@@ -90,15 +90,16 @@ class MyCourseList extends UserDesktopPortlet
         $userCourseList = render_user_course_list();
         $userCourseListDesactivated = render_user_course_list_desactivated();
         
-        $out .= '<table class="homepageTable">'
+        $out .= '<table>'
+              . '<tbody>'
               . '<tr>'
               . '<td class="userCommands">'
-              . '<h4>'.get_lang('Manage my courses').'</h4>'
+              . '<h2>'.get_lang('Manage my courses').'</h2>'
               . claro_html_list($userCommands)
               . '</td>'
-              . '<td class="myCourseList">'
-              . '<h4>'.get_lang('My course list').'</h4>'
-              . '<div class="myCourseList">'.$userCourseList.'</div>';
+              . '<td class="userCourseList">'
+              . '<h2>'.get_lang('My course list').'</h2>'
+              . $userCourseList;
               
         if (!empty($userCourseListDesactivated))
         {
@@ -108,6 +109,7 @@ class MyCourseList extends UserDesktopPortlet
         
         $out .= '</td>'
               . '</tr>'
+              . '</tbody>'
               . '</table>';
         
         $this->content = $out;

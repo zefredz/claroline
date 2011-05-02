@@ -63,13 +63,13 @@
             
             <?php
                 if ( claro_is_allowed_to_edit() ) :
-                    echo '<div class="claroBlock">'."\n"
+                    echo '<p>'."\n"
                        . '<a href="'
                        . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                        . '?portletCmd=rqAdd')).'">'
                        . '<img src="'.get_icon_url('default_new').'" alt="'.get_lang('Add a new portlet').'" /> '
                        . get_lang('Add a portlet to your course homepage').'</a>'."\n"
-                       . '</div>';
+                       . '</p>';
                 endif;
                 
                 if ($this->portletIterator->count() > 0)
