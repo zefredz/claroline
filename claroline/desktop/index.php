@@ -117,22 +117,48 @@ if ( is_array( $portletList ) )
 {
     foreach ( $portletList as $portlet )
     {
-        // load portlet
-        if( ! class_exists( $portlet['label'] ) )
+        try
         {
-            pushClaroMessage("User desktop : class {$portlet['label']} not found !");
-            continue;
+            // load portlet
+            if( ! class_exists( $portlet['label'] ) )
+            {
+                pushClaroMessage("User desktop : class {$portlet['label']} not found !");
+                continue;
+            }
+
+            $portlet = new $portlet['label']();
+
+            if( ! $portlet instanceof UserDesktopPortlet )
+            {
+                pushClaroMessage("{$portlet['label']} is not a valid user desktop portlet !");
+                continue;
+            }
+
+            $outPortlet .= $portlet->render();
         }
-        
-        $portlet = new $portlet['label']();
-    
-        if( ! $portlet instanceof UserDesktopPortlet )
+        catch (Exception $e )
         {
-            pushClaroMessage("{$portlet['label']} is not a valid user desktop portlet !");
-            continue;
+            $portletDialog = new DialogBox();
+            
+            $portletDialog->error(
+                get_lang(
+                    'An error occured while loading the portlet : %error%', 
+                    array( 
+                        '%error%' => $e->getMessage()
+                    )
+                )
+            );
+            
+            $outPortlet .= '<div class="claroBlock portlet">'
+                . '<h3 class="blockHeader">' . "\n"
+                . $portlet->renderTitle()
+                . '</h3>' . "\n"
+                . '<div class="claroBlockContent">' . "\n"
+                . $portletDialog->render()
+                . '</div>' . "\n"
+                . '</div>' . "\n\n"
+                ;
         }
-        
-        $outPortlet .= $portlet->render();
     }
 }
 else
