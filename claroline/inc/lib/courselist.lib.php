@@ -758,7 +758,7 @@ function render_user_course_list()
     }
     unset($userCategoryList);
     
-    $out = '';
+    $out = '<dl class="userCourseList">';
     
     // Display
     if( get_conf('userCourseListGroupByCategories') )
@@ -767,7 +767,7 @@ function render_user_course_list()
         {
             if (!empty($category['courseList']) || !empty($category['rootCourse']))
             {
-                $out .= '<h4 id="'.$category['categoryId'].'">'
+                $out .= '<dt><h4 id="'.$category['categoryId'].'"></dt>'
                       . $category['trail']
                       . (!empty($category['rootCourse']) ?
                       ' [<a href="'
@@ -775,8 +775,7 @@ function render_user_course_list()
                       . htmlspecialchars($category['rootCourse']['sysCode'])
                       .'">'.get_lang('Infos').'</a>]' :
                       '')
-                      . '</h4>'."\n"
-                      . '<dl class="userCourseList">';
+                      . '</h4>'."\n";
                 
                 if (!empty($category['courseList']))
                 {
@@ -790,7 +789,6 @@ function render_user_course_list()
                     $out .= '<dt>'.get_lang('There are no courses in this category').'</dt>';
                 }
             }
-            $out .= '</dl>';
         }
     }
     else
@@ -798,8 +796,6 @@ function render_user_course_list()
         // Display list
         if (count($reorganizedUserCourseList))
         {
-            $out .= '<dl class="userCourseList">'."\n";
-            
             foreach($reorganizedUserCourseList as $course)
             {
                 if (($course['rootCourse'] != 1 && $course['isSourceCourse'] != 1)
@@ -810,10 +806,10 @@ function render_user_course_list()
                     $out .= render_course_in_dl_list($course, $course['hot'], $displayIconAccess);
                 }
             }
-            
-            $out .= '</dl>' . "\n";
         }
     }
+    
+    $out .= '</dl>' . "\n";
     
     return $out;
 }
