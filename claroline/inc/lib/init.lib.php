@@ -481,6 +481,15 @@ function claro_is_module_allowed()
 
     if ( $moduleData['type'] == 'tool' )
     {
+        $contextList = get_module_context_list( $moduleLabel );
+        
+        // pushClaroMessage(var_export(iterator_to_array($contextList), true),'kernel');
+        
+        if ( !claro_is_in_a_course() && in_array( 'platform', iterator_to_array($contextList) ) )
+        {
+            return get_module_data( $moduleLabel,'activation' ) == 'activated';
+        }
+        
         // if a course tool, use claro_is_tool_allowed
         return claro_is_tool_allowed();
     }
