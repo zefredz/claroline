@@ -937,3 +937,32 @@ function change_module_activation_in_groups ( $database, $moduleLabel, $courseId
          " );
     }
 }
+
+/**
+ * Get the context list of a module
+ * @param string $moduleLabel
+ * @return Iterator 
+ */
+function get_module_context_list( $moduleLabel )
+{
+    $tbl = claro_sql_get_main_tbl();
+    
+    $sqlModuleLabel = Claroline::getDatabase()->quote($moduleLabel);
+    
+    $contextList = Claroline::getDatabase()->query("
+        SELECT 
+            `mc`.`context` AS `context`
+        FROM 
+            `{$tbl['module_contexts']}` AS `mc`
+        LEFT JOIN 
+            `{$tbl['module']}` AS `m`
+        ON 
+            `m`.`id` = `mc`.`module_id`
+        WHERE 
+            `m`.`label` = {$sqlModuleLabel}
+    ");
+    
+    $contextList->setFetchMode(Mysql_ResultSet::FETCH_COLUMN);
+    
+    return $contextList;
+}
