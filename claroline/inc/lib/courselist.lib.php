@@ -767,7 +767,8 @@ function render_user_course_list()
         {
             if (!empty($category['courseList']) || !empty($category['rootCourse']))
             {
-                $out .= '<dt><h4 id="'.$category['categoryId'].'"></dt>'
+                $out .= '<dt>'."\n"
+                      . '<h4 id="'.$category['categoryId'].'">'
                       . $category['trail']
                       . (!empty($category['rootCourse']) ?
                       ' [<a href="'
@@ -775,7 +776,8 @@ function render_user_course_list()
                       . htmlspecialchars($category['rootCourse']['sysCode'])
                       .'">'.get_lang('Infos').'</a>]' :
                       '')
-                      . '</h4>'."\n";
+                      . '</h4>'."\n"
+                      . '</dt>'."\n";
                 
                 if (!empty($category['courseList']))
                 {

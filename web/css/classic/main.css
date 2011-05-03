@@ -867,7 +867,7 @@ a.item:visited {
 }
 
 dl.userCourseList {
-    margin: 5px 0 10px 0;
+    margin: 0 0 10px 0;
     padding-left: 0;
 }
 
@@ -883,6 +883,10 @@ dl.userCourseList {
 
 .userCourseList dt a, .userCourseList dd small {
     padding: 0;
+}
+
+.userCourseList h4 {
+    margin: 0;
 }
 
 
