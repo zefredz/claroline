@@ -44,6 +44,6 @@ class Csv extends CsvExporter
      */
     public function export()
     {
-        parent::export($this->recordList);
+        echo parent::export($this->recordList);
     }
 }
