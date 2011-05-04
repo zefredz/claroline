@@ -3187,5 +3187,6 @@ $_lang['teacher'] = 'professeur';
 $_lang['unique id of the platform'] = 'unique id of the platform';
 $_lang['Headlines'] = 'Editorial';
 $_lang['Calendar'] = 'Calendrier';
-$_lang['This limit doesn\'t include course\'s tutors and managers'] = 'Cette limite ne tient pas compte des tuteurs et gestionnaires du cours'
+$_lang['This limit doesn\'t include course\'s tutors and managers'] = 'Cette limite ne tient pas compte des tuteurs et gestionnaires du cours';
+$_lang['Manage my account'] = 'Gérer mon compte';
 ?>

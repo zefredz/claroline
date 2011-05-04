@@ -253,7 +253,7 @@ class ClaroBanner extends CoreTemplate
             $userToolUrlListRight[]  = '<a href="'
                 . get_path('clarolineRepositoryWeb')
                 . 'auth/profile.php" target="_top">'
-                . get_lang('My user account').'</a>'
+                . get_lang('Manage my account').'</a>'
                 ;
             
             $userToolUrlListRight[] = '<a href="'.  get_path('url')
