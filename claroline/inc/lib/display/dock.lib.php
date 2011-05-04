@@ -198,14 +198,16 @@ class ClaroDock implements Display
                 
                 if ( $this->useList() && count( $this->appletList ) > 0 )
                 {
-                    $claro_buffer->append( "<li id=\"".$this->name."_".$applet['label']."\" class=\"applet\">\n" );
+                    $claro_buffer->append( "<li 
+                        id=\"dock-".$this->name."-applet-".$applet['label']."\" 
+                        class=\"applet dock-".$this->name." applet-".$applet['label']."\">\n" );
                 }
 
                 include_once $applet['path'];      
                 
                 if ( $this->useList() && count( $this->appletList ) > 0 )
                 {
-                    $claro_buffer->append( "</li>\n" );
+                    $claro_buffer->append( "\n</li>\n" );
                 }
             }
             else
