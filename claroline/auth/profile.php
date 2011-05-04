@@ -135,6 +135,7 @@ if ( isset($_REQUEST['applyChange']) )
         {
             $dialogBox->error($errorMsg);
         }
+        
         $error = true;
     }
 }
@@ -219,26 +220,26 @@ $profileMenu =  array();
 switch ( $display )
 {
     case DISP_PROFILE_FORM :
-        // display user tracking link
+        // Display user tracking link
         $profileText = claro_text_zone::get_content('textzone_edit_profile_form');
         
         if( get_conf('is_trackingEnabled') )
         {
-            // display user tracking link
+            // Display user tracking link
             $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/userReport.php?userId='.claro_get_current_user_id() . claro_url_relay_context('&amp;') . '">'
             .                 '<img src="' . get_icon_url('statistics') . '" alt="" />&nbsp;' . get_lang('View my statistics')
             .                 '</a>'
             ;
         }
         
-        // display request course creator status
+        // Display request course creator status
         if ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status') )
         {
             $profileMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] . '?cmd=reqCCstatus' . claro_url_relay_context('&amp;')
                                                 , get_lang('Request course creation status') );
         }
         
-        // display user revoquation
+        // Display user revoquation
         if ( get_conf('can_request_revoquation') )
         {
             $profileMenu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
@@ -246,6 +247,12 @@ switch ( $display )
                                                  , get_lang('Delete my account')
                                                  ) ;
         }
+        
+        if (claro_is_platform_admin())
+        {
+            $dialogBox->info(get_lang('As a platform administrator, you can edit any field you want, even if this field isn\'t editable for other users.<br />You can check the list of editable fields in your platform\'s configuration.'));
+        }
+        
         break;
 }
 

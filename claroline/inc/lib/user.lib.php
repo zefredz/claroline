@@ -817,7 +817,6 @@ function user_validate_form($formMode, $data, $userId = null)
 {
     require_once dirname(__FILE__) .'/datavalidator.lib.php';
     
-    //TODO: introduce editable fields in the validation
     if (empty($userId) || claro_is_platform_admin())
     {
         $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
@@ -830,22 +829,29 @@ function user_validate_form($formMode, $data, $userId = null)
     $validator = new DataValidator();
     $validator->setDataList($data);
     
-    $validator->addRule('lastname' , get_lang('You left some required fields empty'), 'required');
-    $validator->addRule('firstname', get_lang('You left some required fields empty'), 'required');
-    $validator->addRule('username' , get_lang('You left some required fields empty'), 'required');
-    $validator->addRule('username' , get_lang('Username is too long (maximum 20 characters)'), 'maxlength',20);
+    if (in_array('name', $editableFields))
+    {
+        $validator->addRule('lastname' , get_lang('You left some required fields empty'), 'required');
+        $validator->addRule('firstname', get_lang('You left some required fields empty'), 'required');
+    }
     
-    if ( !get_conf('userMailCanBeEmpty') )
+    if (in_array('username', $editableFields))
+    {
+        $validator->addRule('username' , get_lang('You left some required fields empty'), 'required');
+        $validator->addRule('username' , get_lang('Username is too long (maximum 20 characters)'), 'maxlength',20);
+    }
+    
+    if (in_array('email', $editableFields) && !get_conf('userMailCanBeEmpty'))
     {
         $validator->addRule('email', get_lang('You left some required fields empty'), 'required');
     }
     
-    if ( !get_conf('userOfficialCodeCanBeEmpty') )
+    if (in_array('official_code', $editableFields) && !get_conf('userOfficialCodeCanBeEmpty'))
     {
         $validator->addRule('officialCode', get_lang('You left some required fields empty'), 'required');
     }
     
-    if (array_key_exists('password',$data) || array_key_exists('password_conf',$data))
+    if (in_array('password', $editableFields) && (array_key_exists('password',$data) || array_key_exists('password_conf',$data)))
     {
         if ( $formMode != 'registration'
             && $formMode != 'admin_user_profile' )
@@ -1051,9 +1057,6 @@ function user_html_form($userId = null)
         // Get current language
         $currentLanguage = !empty($userData['language'])?$userData['language']:language::current_language();
         
-        // Editable fields
-        $editableFields = get_conf('profile_editable');
-        
         // A few javascript
         $htmlHeadXtra[] =
         '<script type="text/javascript">
@@ -1083,9 +1086,16 @@ function user_html_form($userId = null)
         
         // Prefered language
         $currentLanguage = language::current_language();
-        
-        // Editable fields
+    }
+    
+    // Editable fields
+    if (empty($userId) || claro_is_platform_admin())
+    {
         $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
+    }
+    else
+    {
+        $editableFields = get_conf('profile_editable');
     }
     
     if (!empty($_SERVER['HTTP_REFERER']))
