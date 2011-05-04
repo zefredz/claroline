@@ -172,7 +172,7 @@ class ClaroDock implements Display
     public function render()
     {
         $claro_buffer = new ClaroBuffer;
-
+        
         $claro_buffer->append("\n" . '<!-- ' . $this->name.' -->' . "\n");
         
         
@@ -198,22 +198,22 @@ class ClaroDock implements Display
                 
                 if ( $this->useList() && count( $this->appletList ) > 0 )
                 {
-                    $claro_buffer->append( "<li 
-                        id=\"dock-".$this->name."-applet-".$applet['label']."\" 
-                        class=\"applet dock-".$this->name." applet-".$applet['label']."\">\n" );
+                    $claro_buffer->append( "<li
+                        id=\"dock-".$this->name."-applet-".$applet['label']."\"
+                        class=\"applet dock-".$this->name." applet-".$applet['label']."\"><span>\n" );
                 }
                 else
                 {
-                    $claro_buffer->append( "<span 
-                        id=\"dock-".$this->name."-applet-".$applet['label']."\" 
+                    $claro_buffer->append( "<span
+                        id=\"dock-".$this->name."-applet-".$applet['label']."\"
                         class=\"applet dock-".$this->name." applet-".$applet['label']."\">\n" );
                 }
 
-                include_once $applet['path'];      
+                include_once $applet['path'];
                 
                 if ( $this->useList() && count( $this->appletList ) > 0 )
                 {
-                    $claro_buffer->append( "\n</li>\n" );
+                    $claro_buffer->append( "\n</span></li>\n" );
                 }
                 else
                 {

@@ -8,13 +8,12 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * This lib contain many parts of frequently used function.
  * This is not a thematic lib
  *
- * @version 1.10 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
- *          version 2 or later
- * @author Claro Team <cvs@claroline.net> for additionnal authors see the
- *         'credits.txt' file
- * @package kernel
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
+ *              version 2 or later
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     kernel
  *
  * @todo why do we need that much identifiers for a module ?!?
  * @todo use Exceptions instead of claro_failure
@@ -1287,13 +1286,13 @@ function claro_html_tool_view_option($viewModeRequested = false)
             .                get_lang('Student')
             .                '</a>'
             ;
-            $courseAdminButton = '<b>' . get_lang('Course manager') . '</b>';
+            $courseAdminButton = '<b class="userName">' . get_lang('Course manager') . '</b>';
 
             break;
 
         case 'STUDENT' :
 
-            $studentButton     = '<b>'.get_lang('Student').'</b>';
+            $studentButton     = '<b class="userName">'.get_lang('Student').'</b>';
             $courseAdminButton = '<a href="' . $url . $sep . 'viewMode=COURSE_ADMIN">'
             . get_lang('Course manager')
             . '</a>';

@@ -50,11 +50,10 @@
     <div id="userBannerLeft">
         <ul class="menu">
             <?php foreach($this->userToolListLeft as $menuItem) : ?>
-            <li><?php echo $menuItem; ?></li>
+            <li><span><?php echo $menuItem; ?></span></li>
             <?php endforeach; ?>
             <?php include_dock('userBannerLeft', true); ?>
         </ul>
-        
         
     </div>
     
@@ -68,7 +67,7 @@
                 ?>
             </li>
             <?php foreach($this->userToolListRight as $menuItem) : ?>
-            <li><?php echo $menuItem; ?></li>
+            <li><span><?php echo $menuItem; ?></span></li>
             <?php endforeach; ?>
             <?php include_dock('userBannerRight', true); ?>
         </ul>

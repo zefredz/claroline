@@ -317,26 +317,28 @@ table.multiselect td.arrows {
 
 #userBanner ul.menu li {
     float: left;
-    border-right: 1px dotted #fff;
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 30px;
     text-align: center;
     line-height: 2.4em;
-}
-
-#userBanner ul.menu li:last-child {
-    border-right: 0;
-}
-
-#userBanner ul.menu li > a, #userBanner ul.menu li.applet {
-    display:block;
-    height: 30px;
-    margin: 0;
-    padding: 0 5px;
     background: #fff;
 }
 
+#userBanner ul.menu li span {
+    padding: 0 5px;
+    border-right: 1px solid #CCC;
+}
+
 #userBanner ul.menu li.userName {
+    padding: 0 20px 0 5px;
     color: #693;
-    background: #eee;
+    background: #eee url(img/bg_username.png) no-repeat right center;
+}
+
+#userBanner ul.menu li:last-child a {
+    border-right: 0;
 }
 
 
