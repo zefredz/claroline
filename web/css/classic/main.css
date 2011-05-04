@@ -337,7 +337,7 @@ table.multiselect td.arrows {
     background: #eee url(img/bg_username.png) no-repeat right center;
 }
 
-#userBanner ul.menu li:last-child a {
+#userBanner ul.menu li:last-child span {
     border-right: 0;
 }
 
