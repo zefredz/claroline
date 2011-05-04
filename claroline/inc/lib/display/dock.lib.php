@@ -202,12 +202,22 @@ class ClaroDock implements Display
                         id=\"dock-".$this->name."-applet-".$applet['label']."\" 
                         class=\"applet dock-".$this->name." applet-".$applet['label']."\">\n" );
                 }
+                else
+                {
+                    $claro_buffer->append( "<span 
+                        id=\"dock-".$this->name."-applet-".$applet['label']."\" 
+                        class=\"applet dock-".$this->name." applet-".$applet['label']."\">\n" );
+                }
 
                 include_once $applet['path'];      
                 
                 if ( $this->useList() && count( $this->appletList ) > 0 )
                 {
                     $claro_buffer->append( "\n</li>\n" );
+                }
+                else
+                {
+                    $claro_buffer->append( "\n</span>\n" );
                 }
             }
             else
