@@ -131,16 +131,33 @@ class DockAppletList
 
 class ClaroDock implements Display
 {
-    private $name;
-    private $appletList;
+    protected $name;
+    protected $appletList;
+    protected $_useList = false;
 
-    public function __construct($name)
+    public function __construct( $name )
     {
         $this->name = $name;
         $this->loadAppletList();
     }
     
-    function getName()
+    /**
+     * @since Claroline 1.10
+     */
+    public function mustUseList()
+    {
+        $this->_useList = true;
+    }
+    
+    /**
+     * @since Claroline 1.10
+     */
+    protected function useList()
+    {
+        return $this->_useList;
+    }
+    
+    public function getName()
     {
         return $this->name;
     }
@@ -157,6 +174,8 @@ class ClaroDock implements Display
         $claro_buffer = new ClaroBuffer;
 
         $claro_buffer->append("\n" . '<!-- ' . $this->name.' -->' . "\n");
+        
+        
         
         foreach ( $this->appletList as $applet )
         {
@@ -176,8 +195,18 @@ class ClaroDock implements Display
             {
                 load_module_config();
                 Language::load_module_translation();
-            
-                include_once $applet['path'];
+                
+                if ( $this->useList() && count( $this->appletList ) > 0 )
+                {
+                    $claro_buffer->append( "<li id=\"".$this->name."_".$applet['label']."\" class=\"applet\">\n" );
+                }
+
+                include_once $applet['path'];      
+                
+                if ( $this->useList() && count( $this->appletList ) > 0 )
+                {
+                    $claro_buffer->append( "</li>\n" );
+                }
             }
             else
             {

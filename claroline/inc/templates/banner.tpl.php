@@ -52,9 +52,10 @@
             <?php foreach($this->userToolListLeft as $menuItem) : ?>
             <li><?php echo $menuItem; ?></li>
             <?php endforeach; ?>
+            <?php include_dock('userBannerLeft', true); ?>
         </ul>
         
-        <?php include_dock('userBannerLeft'); ?>
+        
     </div>
     
     <div id="userBannerRight">
@@ -69,8 +70,9 @@
             <?php foreach($this->userToolListRight as $menuItem) : ?>
             <li><?php echo $menuItem; ?></li>
             <?php endforeach; ?>
+            <?php include_dock('userBannerRight', true); ?>
         </ul>
-        <?php include_dock('userBannerRight'); ?>
+        
     </div>
     
     <div class="spacer"></div>

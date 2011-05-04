@@ -126,12 +126,20 @@ function link_to_tool ( $text, $toolLabel = null, $context = null, $attributes =
 
 /**
  * Include the rendering of the given dock
- * @param string dock name
+ * @param string $dockName dock name
+ * @param boolean $useList use <li> in rendering
+ * @since Claroline 1.10
  * @return string rendering
  */
-function include_dock( $dockName )
+function include_dock( $dockName, $useList = false )
 {
     $dock = new ClaroDock( $dockName );
+    
+    if ( $useList )
+    {
+        $dock->mustUseList();
+    }
+    
     echo $dock->render();
 }
 
