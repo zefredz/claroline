@@ -31,7 +31,7 @@ try
     $cmd = $userInput->get('cmd', 'getResourceList');
     
     $locator = isset( $_REQUEST['crl'] ) && ! empty( $_REQUEST['crl'] )
-            ? ClarolineResourceLocator::parse($_REQUEST['crl'])
+            ? ClarolineResourceLocator::parse(rawurldecode($_REQUEST['crl']))
             : ResourceLinker::$Navigator->getCurrentLocator( array() );
             ;
     
