@@ -22,7 +22,7 @@ class Csv extends CsvExporter
 {
     public $recordList = array();
     
-    public function __construct($delimiter, $quote)
+    public function __construct($delimiter = ',', $quote = '"')
     {
         parent::__construct($delimiter, $quote);
     }
@@ -44,6 +44,6 @@ class Csv extends CsvExporter
      */
     public function export()
     {
-        echo parent::export($this->recordList);
+        return parent::export($this->recordList);
     }
 }

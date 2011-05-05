@@ -12,7 +12,7 @@
  * @author Sebastien Piraux
  */
 
-include_once get_path('incRepositorySys') . '/../user/csv.class.php';
+include_once get_path('incRepositorySys') . '/lib/csv.class.php';
 include_once dirname(__FILE__) . '/question.class.php';
 
 class CsvTrackTrueFalse extends Csv
@@ -254,6 +254,7 @@ class CsvTrackFIB extends Csv
     }
 }
 
+
 class CsvTrackMatching extends Csv
 {
     public $question;
@@ -330,6 +331,7 @@ class CsvTrackMatching extends Csv
     }
 }
 
+
 /**
  * @return string csv data or empty string
  */
@@ -344,26 +346,26 @@ function export_question_tracking($quId, $exId = '')
     switch($question->getType())
     {
         case 'TF':
-            $cvsTrack = new CsvTrackTrueFalse($question, $exId);
+            $csvTrack = new CsvTrackTrueFalse($question, $exId);
             break;
         case 'MCUA':
         case 'MCMA':
-            $cvsTrack = new CsvTrackMultipleChoice($question, $exId);
+            $csvTrack = new CsvTrackMultipleChoice($question, $exId);
             break;
         case 'FIB':
-            $cvsTrack = new CsvTrackFIB($question, $exId);
+            $csvTrack = new CsvTrackFIB($question, $exId);
             break;
         case 'MATCHING':
-            $cvsTrack = new CsvTrackMatching($question, $exId);
+            $csvTrack = new CsvTrackMatching($question, $exId);
             break;
         default:
             break;
     }
 
-    if( isset($cvsTrack) )
+    if( isset($csvTrack) )
     {
-        $cvsTrack->buildRecords();
-        return $cvsTrack->export();
+        $csvTrack->buildRecords();
+        return $csvTrack->export();
     }
     else
     {
@@ -488,6 +490,7 @@ class ExoExportByUser extends Csv
         return $this->export();
     }
 }
+
 
 /**
  * Exports the students's result for an exercise into a csv file
