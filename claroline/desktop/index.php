@@ -42,24 +42,24 @@ try
     $portletList = new PortletList;
     
     $fileFinder = new Claro_FileFinder_Extension( KERNEL_PORTLETS_PATH, '.class.php', false );
-
+    
     foreach ( $fileFinder as $file )
     {
         // Require portlet file
         require_once $file->getPathname();
-
+        
         // Compute portlet class name from file name
         $pos = strpos( $file->getFilename(), '.' );
         $className = substr( $file->getFilename(), '0', $pos );
-
+        
         // Load portlet from database
         $portletInDB = $portletList->loadPortlet( $className );
-
+        
         if( !$portletInDB )
         {
             if( class_exists($className) )
             {
-                $portlet = new $className();
+                $portlet = new $className($portletInDB['label']);
                 
                 $portletList->addPortlet( $className, $portlet->renderTitle() );
             }
@@ -85,13 +85,13 @@ try
             $className = "{$moduleLabel}_Portlet";
             
             $portletInDB = $portletList->loadPortlet($className);
-
+            
             // si present en db on passe
             if( !$portletInDB )
             {
                 if ( class_exists($className) )
                 {
-                    $portlet = new $className();
+                    $portlet = new $className($portletInDB['label']);
                     $portletList->addPortlet( $className, $portlet->renderTitle() );
                 }
             }
