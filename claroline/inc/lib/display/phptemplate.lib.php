@@ -151,12 +151,22 @@ class ModuleTemplate extends PhpTemplate
         $template = secure_file_path( $template );
         $moduleLabel = secure_file_path( $moduleLabel );
         
+        // Custom template file for the installed campus
         $customTemplatePath = get_path('rootSys') . 'platform/templates/'.$moduleLabel.'/'.$template;
+        
+        // Version specific template file
+        $defaultVersionTemplatePath = get_module_path($moduleLabel) . '/templates/1_10/'.$template;
+        
+        // Default template path
         $defaultTemplatePath = get_module_path($moduleLabel) . '/templates/'.$template;
         
         if ( file_exists( $customTemplatePath ) )
         {
             parent::__construct( $customTemplatePath );
+        }
+        elseif ( file_exists( $defaultVersionTemplatePath ) )
+        {
+            parent::__construct( $defaultVersionTemplatePath );
         }
         elseif ( file_exists( $defaultTemplatePath ) )
         {
