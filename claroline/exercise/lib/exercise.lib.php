@@ -299,7 +299,7 @@ function track_exercise_details($exerciseTrackId, $questionId, $values, $questio
 
 function change_img_url_for_pdf( $str )
 {
-    $pattern = '/(.*?)<img (.*?)src=(\'|")(.*?)url=(.*?)=&(.*?)(\'|")(.*?)>(.*?)/is';
+    $pattern = '/(.*?)<img (.*?)src=(\'|")(.*?)url=(.*?)=&(.*?)(\'|")(.*?)>(.*?)$/is';
     
     if( ! preg_match( $pattern, urldecode( $str ), $matches) )
     {

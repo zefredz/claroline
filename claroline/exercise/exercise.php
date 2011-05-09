@@ -366,7 +366,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
           .   '</tr>' . "\n"
           ;
           // Question description
-          if( trim( htmlspecialchars( strip_tags( claro_utf8_encode( $question['description'], get_conf('charset') ) ) ) ) )
+          if( trim( htmlspecialchars( claro_utf8_encode( $question['description'], get_conf('charset')  ) ) ) )
           {
             $htmlcontent .= '<tr>' . "\n"
             .   '<td colspan="2" style="font-size: x-small; font-style: italic;">' . claro_utf8_encode( change_img_url_for_pdf( $question['description'] ), get_conf('charset') ) .'</td>' . "\n"
@@ -658,7 +658,7 @@ if( !$inLP )
     
     $out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
     .     '<thead>' . "\n"
-    .     '<tr>' . "\n"
+    .     '<tr class="headerX">' . "\n"
     .     '<th>' . get_lang('Exercise title') . '</th>' . "\n";
     
     $colspan = 1;
