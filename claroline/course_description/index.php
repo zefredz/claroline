@@ -99,7 +99,7 @@ if ( $is_allowedToEdit && !is_null($cmd) )
         {
             $description->setCategory($_REQUEST['descCategory']);
         }
-
+        
         if ( $description->validate() )
         {
             // Update description
@@ -127,58 +127,30 @@ if ( $is_allowedToEdit && !is_null($cmd) )
             $cmd = 'rqEdit';
         }
     }
-
+    
+    
     /*-------------------------------------------------------------------------
         REQUEST DESCRIPTION ITEM EDITION
     -------------------------------------------------------------------------*/
-
+    
     if ( $cmd == 'rqEdit' )
     {
         claro_set_display_mode_available(false);
-
-        if ( isset($tipList[$category]['isEditable']) )
-        {
-            $tipIsTitleEditable = $tipList[$category]['isEditable'];
-        }
-        else
-        {
-            $tipIsTitleEditable = true;
-        }
-
-        if ( !empty($tipList[$category]['title']) )
-        {
-            $tipPresetTitle = $tipList[$category]['title'];
-        }
-        else
-        {
-            $tipPresetTitle = '';
-        }
-
-        if ( !empty($tipList[$category]['question']) )
-        {
-            $tipQuestion = $tipList[$category]['question'];
-        }
-        else
-        {
-            $tipQuestion = '';
-        }
-
-        if ( !empty($tipList[$category]['information']) )
-        {
-            $tipInformation = $tipList[$category]['information'];
-        }
-        else
-        {
-            $tipInformation = '';
-        }
-
-
+        
+        // Manage the tips
+        $tips['isTitleEditable']    = isset($tipList[$category]['isEditable']) ? $tipList[$category]['isEditable'] : true;
+        $tips['presetTitle']        = !empty($tipList[$category]['title']) ? htmlspecialchars($tipList[$category]['title']) : '';
+        $tips['question']           = !empty($tipList[$category]['question']) ? $tipList[$category]['question'] : '';
+        $tips['information']        = !empty($tipList[$category]['information']) ? $tipList[$category]['information'] : '';
+        
         $displayForm = true;
     }
-
+    
+    
     /*-------------------------------------------------------------------------
         DELETE DESCRIPTION ITEM
     -------------------------------------------------------------------------*/
+    
     if ( $cmd == 'exDelete' )
     {
         if ( $description->delete() )
@@ -191,31 +163,28 @@ if ( $is_allowedToEdit && !is_null($cmd) )
             $dialogBox->error( get_lang("Unable to delete") );
         }
     }
-
-
+    
+    
     /*-------------------------------------------------------------------------
         EDIT  VISIBILITY DESCRIPTION ITEM
     -------------------------------------------------------------------------*/
+    
     if ( $cmd == 'mkVis' )
     {
         $description->setVisibility('VISIBLE');
-
+        
         if ( $description->save() )
         {
             $eventNotifier->notifyCourseEvent('course_description_visible',claro_get_current_course_id(), claro_get_current_tool_id(), $descId, claro_get_current_group_id(), '0');
         }
     }
-
+    
     if ( $cmd == 'mkInvis' )
     {
         $description->setVisibility('INVISIBLE');
-
         $description->save();
     }
-
 }
-
-/*---------------------------------------------------------------------------*/
 
 
 
@@ -247,108 +216,32 @@ if ( $is_allowedToEdit )
     /**************************************************************************
     EDIT FORM DISPLAY
     **************************************************************************/
-
+    
     if ( isset($displayForm) && $displayForm )
     {
-        $out .= '<form  method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">' . "\n"
-        .    claro_form_relay_context() . "\n"
-        .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-        .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
-
-        if ( !is_null($descId) )
-        {
-            $out .= '<input type="hidden" name="descId" value="' . (int) $descId . '" />' . "\n"
-            .    '<input type="hidden" name="descCategory" value="' . htmlspecialchars( $description->getCategory() ) . '" />' . "\n";
-        }
-        else
-        {
-             $out .= '<input type="hidden" name="descCategory" value="' . htmlspecialchars( $category ) . '" />' . "\n";
-        }
-
-        $out .= "\n" . '<table border="0">' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td colspan="2">' . "\n\n"
-
-        .    '<p>' . "\n"
-        .    '<label for="descTitle">' . "\n"
-        .    '<b>' . get_lang('Title') . ' : </b>' . "\n"
-        .    '</label>' . "\n"
-        .    '</p>' . "\n"
-
-        .    '<p>' . "\n";
-
-        if ( $tipIsTitleEditable )
-        {
-            $out .= '<input type="text" name="descTitle" id="descTitle" size="50" value="' . htmlspecialchars($description->getTitle()) . '" />' . "\n";
-        }
-        else
-        {
-            $out .= htmlspecialchars($tipPresetTitle) . "\n"
-            .    '<input type="hidden" name="descTitle" id="descTitle" value="'. htmlspecialchars($tipPresetTitle) .'" />' . "\n";
-        }
-
-        $out .= '</p>' . "\n\n"
-
-        .    '<p>' . "\n"
-        .    '<label for="descContent">' . "\n"
-        .    '<b>' . get_lang('Content') . ' : </b>' . "\n"
-        .    '</label>' . "\n"
-        .    '</p>' . "\n\n"
-
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-
-        .    '<tr>' . "\n"
-        .    '<td>'."\n"
-        .    claro_html_textarea_editor('descContent', $description->getContent(), 20, 80 )."\n"
-
-        .    '<p>' . "\n"
-        .    '<input type="submit" name="save" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
-        .    claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel'))
-        .    '</p>' . "\n"
-
-        .    '</td>'  . "\n"
-
-        .    '<td valign="top">' . "\n"
-        ;
-
-        if ( !empty($tipQuestion) )
-        {
-            $out .= "\n" . '<h4>' . get_lang("Question to lecturer") . '</h4>' . "\n"
-            .    '<p>' . $tipQuestion . '</p>' . "\n\n"
-            ;
-        }
-
-        if ( !empty($tipInformation) )
-        {
-            $out .= "\n" . '<h4>' . get_lang("Information to give to students") . '</h4>' . "\n"
-            .    '<p>' . $tipInformation . '</p>' . "\n\n"
-            ;
-        }
-
-
-        $out .= '</td>' . "\n"
-        .    '</tr>'   . "\n"
-        .    '</table>'. "\n"
-        .    '</form>' . "\n"
-        ;
-
+        $template = new CoreTemplate('course_description_form.tpl.php');
+        $template->assign('formAction', htmlspecialchars($_SERVER['PHP_SELF']));
+        $template->assign('relayContext', claro_form_relay_context());
+        $template->assign('descId', (int) $descId);
+        $template->assign('category', $category);
+        $template->assign('tips', $tips);
+        $template->assign('description', $description);
+        
+        $out .= $template->render();
     } // end if display form
     else
     {
-
         /**************************************************************************
         ADD FORM DISPLAY
         **************************************************************************/
-
+        
         $out .= "\n\n"
-        .    '<br />' . "\n"
-        .    '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">' . "\n"
-        .    claro_form_relay_context()
-        .    '<input type="hidden" name="cmd" value="rqEdit" />' . "\n"
-        .    '<select name="category">' . "\n"
-        ;
-
+              . '<br />' . "\n"
+              . '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">' . "\n"
+              . claro_form_relay_context()
+              . '<input type="hidden" name="cmd" value="rqEdit" />' . "\n"
+              . '<select name="category">' . "\n";
+        
         if ( is_array($tipList) && !empty($tipList) )
         {
             foreach ( $tipList as $key => $tip )
@@ -362,26 +255,27 @@ if ( $is_allowedToEdit )
                         break;
                     }
                 }
-
+                
                 if ( ($alreadyUsed) == false)
                 {
                     $out .= '<option value="' . $key . '">' . htmlspecialchars($tip['title']) . '</option>' . "\n";
                 }
             }
         }
-
+        
         $out .= '<option value="-1">' . get_lang("Other") . '</option>' . "\n"
-        .    '</select>' . "\n"
-        .    '<input type="submit" name="add" value="' . get_lang('Add') . '" />' . "\n"
-        .    '</form>' . "\n"
-        .    '<br />' . "\n"
-        ;
+              . '</select>' . "\n"
+              . '<input type="submit" name="add" value="' . get_lang('Add') . '" />' . "\n"
+              . '</form>' . "\n"
+              . '<br />' . "\n";
     }
 } // end if is_allowedToEdit
+
 
 /******************************************************************************
 DESCRIPTION LIST DISPLAY
 ******************************************************************************/
+
 $hasDisplayedItems = false;
 
 if ( count($descList) )
@@ -407,7 +301,7 @@ if ( count($descList) )
             {
                 $cssInvisible = ' invisible';
             }
-
+            
             $out .= '<div class="claroBlock">' . "\n"
             .   '<h3 class="blockHeader">'
             .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
@@ -421,9 +315,9 @@ if ( count($descList) )
             .   '<div class="' . $cssInvisible . '">' . "\n"
             .   claro_parse_user_text($thisDesc['content']) . "\n"
             .   '</div>' . "\n";
-
+            
             $hasDisplayedItems = true;
-
+            
             if ( $is_allowedToEdit )
             {
                 $out .= '<div class="claroBlockCmd">' . "\n"
@@ -436,7 +330,7 @@ if ( count($descList) )
                 .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisDesc['title']))) . '\')) return false;">'
                 .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
                 .    '</a>' . "\n";
-
+                
                 // visibility
                 if ($thisDesc['visibility'] == 'VISIBLE')
                 {
@@ -450,14 +344,13 @@ if ( count($descList) )
                     .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Visible') . '" />'
                     .    '</a>' . "\n";
                 }
-
+                
                 $out .= '</div>' . "\n"; // claroBlockCmd
             }
-
+            
             $out .= '</div>' . "\n" // claroBlockContent
             .    '</div>' . "\n\n"; // claroBlock
         }
-
     }
 }
 
@@ -469,5 +362,3 @@ if ( !$hasDisplayedItems )
 Claroline::getInstance()->display->setContent($out);
 
 echo Claroline::getInstance()->display->render();
-
-?>
