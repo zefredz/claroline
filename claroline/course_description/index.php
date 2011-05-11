@@ -69,20 +69,15 @@ else
  */
 $dialogBox = new DialogBox();
 
-if ( $is_allowedToEdit && !is_null($cmd) )
+if ($is_allowedToEdit && !empty($cmd))
 {
     $description = new CourseDescription();
-
-    if ( !is_null($descId) && !$description->load($descId) )
+    
+    if (!empty($descId))
     {
-        // description must be load but cannot, cancel any command
-        $cmd = null;
-        $descId = null;
+        $description->load($descId);
     }
-
-    /*> > > > > > > > > > > > COMMANDS < < < < < < < < < < < < */
-
-
+    
     if ( $cmd == 'exEdit' )
     {
         if ( isset($_REQUEST['descTitle']) )
@@ -123,7 +118,6 @@ if ( $is_allowedToEdit && !is_null($cmd) )
         }
         else
         {
-            // $dialogBox->error( get_lang('Unkown problem') );
             $cmd = 'rqEdit';
         }
     }
@@ -188,16 +182,11 @@ if ( $is_allowedToEdit && !is_null($cmd) )
 
 
 
-/*
- * Load the description elements
- */
 
+// Load the description elements
 $descList = course_description_get_item_list();
 
-/*
- * Output
- */
-
+//Display
 $nameTools = get_lang('Course description');
 
 $noQUERY_STRING = true; // to remove parameters in the last breadcrumb link
@@ -207,8 +196,6 @@ $noQUERY_STRING = true; // to remove parameters in the last breadcrumb link
 $out = '';
 
 $out .= claro_html_tool_title($nameTools);
-
-//-- dialogBox
 $out .= $dialogBox->render();
 
 if ( $is_allowedToEdit )
@@ -219,7 +206,7 @@ if ( $is_allowedToEdit )
     
     if ( isset($displayForm) && $displayForm )
     {
-        $template = new CoreTemplate('course_description_form.tpl.php');
+        $template = new ModuleTemplate($tlabelReq, 'form.tpl.php');
         $template->assign('formAction', htmlspecialchars($_SERVER['PHP_SELF']));
         $template->assign('relayContext', claro_form_relay_context());
         $template->assign('descId', (int) $descId);
@@ -235,21 +222,15 @@ if ( $is_allowedToEdit )
         ADD FORM DISPLAY
         **************************************************************************/
         
-        $out .= "\n\n"
-              . '<br />' . "\n"
-              . '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">' . "\n"
-              . claro_form_relay_context()
-              . '<input type="hidden" name="cmd" value="rqEdit" />' . "\n"
-              . '<select name="category">' . "\n";
-        
+        $htmlOptionsList = '';
         if ( is_array($tipList) && !empty($tipList) )
         {
             foreach ( $tipList as $key => $tip )
             {
                 $alreadyUsed = false;
-                foreach ( $descList as $thisDesc )
+                foreach ( $descList as $description )
                 {
-                    if ( $thisDesc['category'] == $key )
+                    if ( $description['category'] == $key )
                     {
                         $alreadyUsed = true;
                         break;
@@ -258,16 +239,17 @@ if ( $is_allowedToEdit )
                 
                 if ( ($alreadyUsed) == false)
                 {
-                    $out .= '<option value="' . $key . '">' . htmlspecialchars($tip['title']) . '</option>' . "\n";
+                    $htmlOptionsList .= '<option value="' . $key . '">' . htmlspecialchars($tip['title']) . '</option>' . "\n";
                 }
             }
         }
         
-        $out .= '<option value="-1">' . get_lang("Other") . '</option>' . "\n"
-              . '</select>' . "\n"
-              . '<input type="submit" name="add" value="' . get_lang('Add') . '" />' . "\n"
-              . '</form>' . "\n"
-              . '<br />' . "\n";
+        $template = new ModuleTemplate($tlabelReq, 'select.tpl.php');
+        $template->assign('formAction', htmlspecialchars($_SERVER['PHP_SELF']));
+        $template->assign('relayContext', claro_form_relay_context());
+        $template->assign('optionsList', $htmlOptionsList);
+        
+        $out .= $template->render();
     }
 } // end if is_allowedToEdit
 
@@ -276,88 +258,25 @@ if ( $is_allowedToEdit )
 DESCRIPTION LIST DISPLAY
 ******************************************************************************/
 
-$hasDisplayedItems = false;
-
-if ( count($descList) )
+if (claro_is_user_authenticated())
 {
-    if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
+    $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
+}
 
-    foreach ( $descList as $thisDesc )
+$visibleDescList = array();
+foreach ($descList as $description)
+{
+    // Remove invisible items
+    if (($description['visibility'] == 'VISIBLE'
+        || ($description['visibility'] == 'INVISIBLE' && $is_allowedToEdit)))
     {
-        if (($thisDesc['visibility'] == 'INVISIBLE' && $is_allowedToEdit) || $thisDesc['visibility'] == 'VISIBLE')
-        {
-            //modify style if the file is recently added since last login
-            if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisDesc['id']))
-            {
-                $cssItem = 'item hot';
-            }
-            else
-            {
-                $cssItem = 'item';
-            }
-            
-            $cssInvisible = '';
-            if ($thisDesc['visibility'] == 'INVISIBLE')
-            {
-                $cssInvisible = ' invisible';
-            }
-            
-            $out .= '<div class="claroBlock">' . "\n"
-            .   '<h3 class="blockHeader">'
-            .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
-            .   (!empty($thisDesc['title'])?htmlspecialchars($thisDesc['title']):'')
-            .   '</span>' . "\n"
-            .   '</h3>' . "\n"
-            
-            .   '<div class="claroBlockContent">' . "\n"
-            .   '<a href="#" name="ann' . $thisDesc['id'] . '"></a>'. "\n"
-            
-            .   '<div class="' . $cssInvisible . '">' . "\n"
-            .   claro_parse_user_text($thisDesc['content']) . "\n"
-            .   '</div>' . "\n";
-            
-            $hasDisplayedItems = true;
-            
-            if ( $is_allowedToEdit )
-            {
-                $out .= '<div class="claroBlockCmd">' . "\n"
-                // edit
-                .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;descId=' . (int) $thisDesc['id'] )) . '">'
-                .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
-                .    '</a>' . "\n"
-                // delete
-                .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;descId=' . (int) $thisDesc['id'] )) . '"'
-                .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisDesc['title']))) . '\')) return false;">'
-                .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
-                .    '</a>' . "\n";
-                
-                // visibility
-                if ($thisDesc['visibility'] == 'VISIBLE')
-                {
-                    $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkInvis&amp;descId=' . (int) $thisDesc['id'] )) . '">'
-                    .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Invisible') . '" />'
-                    .    '</a>' . "\n";
-                }
-                else
-                {
-                    $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkVis&amp;descId=' . (int) $thisDesc['id'] )) . '">'
-                    .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Visible') . '" />'
-                    .    '</a>' . "\n";
-                }
-                
-                $out .= '</div>' . "\n"; // claroBlockCmd
-            }
-            
-            $out .= '</div>' . "\n" // claroBlockContent
-            .    '</div>' . "\n\n"; // claroBlock
-        }
+        $visibleDescList[] = $description;
     }
 }
 
-if ( !$hasDisplayedItems )
-{
-    $out .= "\n" . '<p>' . get_lang("This course is currently not described") . '</p>' . "\n";
-}
+$template = new ModuleTemplate($tlabelReq, 'list.tpl.php');
+$template->assign('descriptionList', $visibleDescList);
+$out .= $template->render();
 
 Claroline::getInstance()->display->setContent($out);
 

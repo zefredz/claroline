@@ -404,6 +404,10 @@ li.lastBreadCrumbsNode {
     color: #111C99;
 }
 
+#claroBody a.item {
+    border: 0;
+}
+
 #claroBody a.item:hover,
 #claroBody a.item:active {
     color: #111C99;
@@ -490,19 +494,22 @@ li.lastBreadCrumbsNode {
 
 
 /******************************************************************************
-                        PORTLETS
+                        PORTLETS and ITEMS
 ******************************************************************************/
 
+.item,
 .portlet {
     margin-bottom: 5px;
     border-bottom: 1px solid #eee;
 }
 
+.item .content,
 .portlet .content {
     margin-top: 0.3em;
     padding: 5px;
 }
 
+.item h1,
 .portlet h1 {
     color: #444;
     font-weight: bold;
@@ -512,11 +519,16 @@ li.lastBreadCrumbsNode {
     border-bottom: 1px solid #444;
 }
 
+.item.hidden h1,
+.item.hidden .content, 
 .portlet.hidden h1
 {
     color: #888;
 }
 
+.item h2, 
+.item h3, 
+.item h4, 
 .portlet h2, 
 .portlet h3, 
 .portlet h4 {
@@ -525,6 +537,9 @@ li.lastBreadCrumbsNode {
     padding: 0;
 }
 
+.item dl, 
+.item dt, 
+.item dd,
 .portlet dl, 
 .portlet dt, 
 .portlet dd {
@@ -532,11 +547,14 @@ li.lastBreadCrumbsNode {
     padding: 0;
 }
 
+.item ul, 
+.item dl, 
 .portlet ul, 
 .portlet dl {
     margin-bottom: 15px;
 }
 
+.item dd, 
 .portlet dd {
     margin-bottom: 0.5em;
 }

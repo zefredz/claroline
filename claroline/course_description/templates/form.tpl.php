@@ -1,12 +1,12 @@
 <!-- $Id$ -->
 
-<form  method="post" action="<?php echo $this->formAction; ?>">
+<form method="post" action="<?php echo $this->formAction; ?>">
     <fieldset>
         <?php echo $this->relayContext ?>
         <input type="hidden" name="cmd" value="exEdit" />
         <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
         
-        <?php if (!is_null($this->descId)) : ?>
+        <?php if (!empty($this->descId)) : ?>
         <input type="hidden" name="descId" value="<?php echo $this->descId; ?>" />
         <input type="hidden" name="descCategory" value="<?php echo htmlspecialchars($this->description->getCategory()); ?>" />
         <?php else : ?>
