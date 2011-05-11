@@ -80,7 +80,7 @@
 <div id="userBanner">
     <div id="userBannerRight">
         <ul class="menu">
-            <li><?php echo $this->viewmode->render(); ?></li>
+            <li><span><?php echo $this->viewmode->render(); ?></span></li>
         </ul>
     </div>
     
