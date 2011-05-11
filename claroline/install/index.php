@@ -874,7 +874,9 @@ elseif ($display == DISP_WELCOME)
         .    '</div>'."\n\n"
         ;
     }
-
+	$mysql_ver = mysql_get_client_info();
+	// remove mysqlnd from client info string, if found
+	$mysql_ver = preg_replace('/^mysqlnd /', '', $client_ver);
     echo '<p>'
     .    get_lang('Please, read thoroughly the <a href="%installFileUrl">%installFileName</a> document before proceeding to installation.', array('%installFileUrl' => '../../INSTALL.txt','%installFileName'=>'INSTALL.txt'))
     .    '</p>'
@@ -889,7 +891,7 @@ elseif ($display == DISP_WELCOME)
     .    '</tr>'
     .    '<tr>'
     .    '<td>MySQL version >= 4.3</td>'
-    .    '<td>' . ( version_compare(mysql_get_client_info(), $requiredMySqlVersion, ">=" ) ? '<span class="ok">'.get_lang('Ok').'</span>':'<span class="ko">Ko</span>') . ' (' . mysql_get_client_info(). ')</td>'
+    .    '<td>' . ( version_compare($mysql_ver, $requiredMySqlVersion, ">=" ) ? '<span class="ok">'.get_lang('Ok').'</span>':'<span class="ko">Ko</span>') . ' (' . mysql_get_client_info(). ')</td>'
     .    '</tr>'
  
     .    '<tr>'
