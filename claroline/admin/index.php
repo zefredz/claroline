@@ -106,8 +106,7 @@ $menu['AdminClaroline'][] = '<a href="clarolinenews.php">'.get_lang('Claroline.n
 
 // Technical's administration menu
 $menu['AdminTechnical'][] = '<a href="technical/phpInfo.php">'.get_lang('System Info').'</a>';
-$menu['AdminTechnical'][] = '<a href="technical/files_stats.php">'.get_lang('Files statistics').'</a> '
-                          . '(<a href="technical/files_stats.php?view_as=csv">CSV</a>)';
+$menu['AdminTechnical'][] = '<a href="technical/files_stats.php">'.get_lang('Files statistics').'</a>';
 
 if ( get_conf('DEVEL_MODE', false) == true )
 {
