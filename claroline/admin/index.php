@@ -233,8 +233,7 @@ function get_menu_item_list($type)
         $menu['AdminClaroline'][] = claro_html_tool_link('clarolinenews.php',              get_lang('Claroline.net news'));
 
         $menu['AdminTechnical'][] = claro_html_tool_link('technical/phpInfo.php',    get_lang('System Info'));
-        $menu['AdminTechnical'][] = '<a href="technical/files_stats.php">'.get_lang('Files statistics').'</a> '
-                                  . '(<a href="technical/files_stats.php?view_as=csv">CSV</a>)';
+        $menu['AdminTechnical'][] = '<a href="technical/files_stats.php">'.get_lang('Files statistics').'</a>';
 
         if ( get_conf('DEVEL_MODE', false) == TRUE )
         {
