@@ -113,7 +113,16 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
             $registerUserGroup = claro_sql_query( $sql );
         }
 
-        $dialogBox->success( get_lang("Group settings modified") );
+        $dialogBox->success( get_lang("Group settings modified")  
+            . '<br />'
+            . '<a href="'.htmlspecialchars(Url::Contextualize('./group_space.php' ) ).'">'
+            .   get_lang("Group area")
+            . '</a>' 
+            . '&nbsp;-&nbsp;'
+            . '<a href="'.htmlspecialchars(Url::Contextualize('./group.php' ) ).'">'
+            .   get_lang("Groups")
+            . '</a>'
+        );
 
     }    // else
 
