@@ -56,9 +56,11 @@
                 <?php echo htmlspecialchars($this->group['name']); ?>
                 </a>
             </h3>
+            <?php if ( basename($_SERVER['PHP_SELF']) != 'group_space.php' ): ?>
             <p>
                 <?php echo get_group_tool_menu( claro_get_current_group_id()); ?>
             </p>
+            <?php endif; ?>
             </div>
             <?php endif; ?>
             <hr class="clearer" />
