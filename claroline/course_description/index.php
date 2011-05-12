@@ -191,8 +191,6 @@ $nameTools = get_lang('Course description');
 
 $noQUERY_STRING = true; // to remove parameters in the last breadcrumb link
 
-// include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
 Claroline::getDisplay()->body->appendContent(claro_html_tool_title($nameTools));
 Claroline::getDisplay()->body->appendContent($dialogBox->render());
 
