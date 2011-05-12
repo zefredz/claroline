@@ -1192,58 +1192,6 @@ function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0
 }
 
 /**
- * @param
- * @param boolean $active if set to true, only actvated tool will be considered for display
- */
-
-function forum_group_tool_list($gid, $active = true)
-{
-    $courseId = claro_get_current_course_id();
-    include_once(dirname(__FILE__) . '/group.lib.inc.php');
-    $groupToolList = get_group_tool_list($courseId,$active);
-
-    $is_allowedToDocAccess      = (bool) (   claro_is_course_manager()
-                                      || claro_is_group_member()
-                                      ||  claro_is_group_tutor());
-
-    $is_allowedToChatAccess     = (bool) (     claro_is_course_manager()
-                                       || claro_is_group_member()
-                                       ||  claro_is_group_tutor() );
-
-    // group space links
-
-    $toolList[] =
-    claro_html_cmd_link(
-        htmlspecialchars(Url::Contextualize( get_module_url('CLGRP').'/group_space.php' ))
-        , '<img src="' . get_icon_url('group') . '" alt="" />&nbsp;'
-        . get_lang('Group area')
-    );
-
-    $courseGroupData= claro_get_main_group_properties( $courseId );
-
-    foreach ($groupToolList as $groupTool)
-    {
-        if ('CLFRM' !== $groupTool['label']
-            && is_tool_activated_in_groups($courseId, $groupTool['label'])
-            && ( isset($courseGroupData['tools'][$groupTool['label']])
-                && $courseGroupData['tools'][$groupTool['label']] ) )
-        {
-            $toolList[] = claro_html_cmd_link(
-                htmlspecialchars(Url::Contextualize(
-                get_module_url($groupTool['label'])
-                . '/' . $groupTool['url'] ))
-                , '<img src="' . get_module_url($groupTool['label']) . '/' . ($groupTool['icon']) . '" alt="" />'
-                . '&nbsp;'
-                . claro_get_tool_name ($groupTool['label'])
-                , array('class' => $groupTool['visibility'] ? 'visible':'invisible')
-            );
-        }
-    }
-
-    return $toolList;
-}
-
-/**
  * Delete all post and topics from a sepcific forum
  *
  * @param int $forumId forum id

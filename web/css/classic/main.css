@@ -666,6 +666,20 @@ div.tabbedCourse {
     border-left:1px dotted black;
 }
 
+.groupInfos h3 {
+    float: left;
+    margin: 0;
+    padding: 0 5px 0 0;
+    text-transform: uppercase;
+}
+
+.groupInfos p {
+    float: left;
+    margin: 0;
+    padding: 0 0 0 5px;
+    border-left:1px dotted black;
+}
+
 
 /*-----------------------------------------------------------------------------
                         COURSE CONTENT

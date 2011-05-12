@@ -46,6 +46,21 @@
                 <b><?php echo $this->course['officialCode']; ?></b><br />
                 <?php echo $this->course['titular']; ?>
             </p>
+            <?php if ( claro_is_in_a_group() ): ?>
+            <hr class="clearer" />
+            <div class="groupInfos">
+            <h3>
+                <a
+                    href="<?php echo htmlspecialchars(Url::contextualize(
+                        get_module_url('CLGRP').'/group_space.php')); ?>">
+                <?php echo htmlspecialchars($this->group['name']); ?>
+                </a>
+            </h3>
+            <p>
+                <?php echo get_group_tool_menu( claro_get_current_group_id()); ?>
+            </p>
+            </div>
+            <?php endif; ?>
             <hr class="clearer" />
         </div>
         
