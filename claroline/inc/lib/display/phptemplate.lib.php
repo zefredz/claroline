@@ -126,6 +126,14 @@ class CoreTemplate extends PhpTemplate
         if ( claro_is_in_a_course() )
         {
             $this->course = claro_get_current_course_data();
+            
+            require_once dirname(__FILE__) . '/../claroCourse.class.php';
+            
+            $this->courseObject = new ClaroCourse();
+            $this->courseObject->load(claro_get_current_course_id());
+
+            // Fetch related courses
+            $this->relatedCourses = $this->courseObject->getRelatedCourses();
         }
         
         if ( claro_is_user_authenticated() )
