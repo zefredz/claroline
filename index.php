@@ -105,16 +105,17 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
                         . get_lang('All platform courses')
                         . '</a>' . "\n";
         
-        $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'" class="userCommandsItem">'
-                        . '<img class="iconDefinitionList" src="'.get_icon_url('hot').'" alt="'.get_lang('New items').'" />'
+        $userCommands[] = '<img class="iconDefinitionList" src="'.get_icon_url('hot').'" alt="'.get_lang('New items').'" />'
                         . ' '.get_lang('New items').' '
+                        . '(<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'" class="userCommandsItem">'
                         . get_lang('to another date')
+                        . '</a>)'
                         . ((substr($lastUserAction, strlen($lastUserAction) - 8) == '00:00:00' ) ?
                             (' <br />['.claro_html_localised_date(
                                 get_locale('dateFormatNumeric'),
                                 strtotime($lastUserAction)).']') :
                             (''))
-                        . '</a>' . "\n";
+                        . "\n";
         
         $template->assign('userCommands', $userCommands);
         

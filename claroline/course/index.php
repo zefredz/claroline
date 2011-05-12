@@ -257,15 +257,16 @@ $lastUserAction = (isset($_SESSION['last_action']) && $_SESSION['last_action'] !
     date('Y-m-d H:i:s');
 
 $otherToolsList[] = '<img class="iconDefinitionList" src="'.get_icon_url('hot').'" alt="'.get_lang('New items').'" />'
-                    . '<em><small>' . get_lang('New items')
-                    .' (<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'">'
-                    . get_lang('to another date')
-                    . ((substr($lastUserAction, strlen($lastUserAction) - 8) == '00:00:00' ) ?
+                  . ' '.get_lang('New items').' '
+                  . '(<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'">'
+                  . get_lang('to another date')
+                   . '</a>)'
+                  . ((substr($lastUserAction, strlen($lastUserAction) - 8) == '00:00:00' ) ?
                       (' <br />['.claro_html_localised_date(
                           get_locale('dateFormatNumeric'),
                           strtotime($lastUserAction)).']') :
                       (''))
-                    . '</a>)</small></em>' . "\n";
+                  . "\n";
 
 // Generate tool list for managment of the course
 $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')  . 'course/tools.php' )) . '">'

@@ -11,6 +11,8 @@
 
     <?php if (claro_is_user_authenticated() && !empty($this->otherToolsList)) : ?>
     
+    <br />
+    
     <ul>
         <?php foreach ($this->otherToolsList as $otherTool) : ?>
         
