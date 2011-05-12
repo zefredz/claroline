@@ -193,8 +193,8 @@ $noQUERY_STRING = true; // to remove parameters in the last breadcrumb link
 
 // include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
-Claroline::getInstance()->display->body->appendContent(claro_html_tool_title($nameTools));
-Claroline::getInstance()->display->body->appendContent($dialogBox->render());
+Claroline::getDisplay()->body->appendContent(claro_html_tool_title($nameTools));
+Claroline::getDisplay()->body->appendContent($dialogBox->render());
 
 if ( $is_allowedToEdit )
 {
@@ -212,7 +212,7 @@ if ( $is_allowedToEdit )
         $template->assign('tips', $tips);
         $template->assign('description', $description);
         
-        Claroline::getInstance()->display->body->appendContent($template->render());
+        Claroline::getDisplay()->body->appendContent($template->render());
     } // end if display form
     else
     {
@@ -247,7 +247,7 @@ if ( $is_allowedToEdit )
         $template->assign('relayContext', claro_form_relay_context());
         $template->assign('optionsList', $htmlOptionsList);
         
-        Claroline::getInstance()->display->body->appendContent($template->render());
+        Claroline::getDisplay()->body->appendContent($template->render());
     }
 } // end if is_allowedToEdit
 
@@ -274,7 +274,5 @@ foreach ($descList as $description)
 
 $template = new ModuleTemplate($tlabelReq, 'list.tpl.php');
 $template->assign('descriptionList', $visibleDescList);
-
-Claroline::getInstance()->display->body->appendContent($template->render());
 
 echo Claroline::getInstance()->display->render();
