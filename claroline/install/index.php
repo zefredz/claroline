@@ -414,8 +414,8 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
     $stepStatus[DISP_DB_NAMES_SETTING] = 'V';
     $regexpPatternForDbName = '/^[a-z0-9][a-z0-9_-]*$/i';
     // Now mysql connect param are ok, try  to use given DBNames
-    // 1° check given string
-    // 2° check if db exists
+    // 1ï¿½ check given string
+    // 2ï¿½ check if db exists
 
     $databaseParam_ok = TRUE;
     if ($singleDbForm) $dbStatsForm = $dbNameForm;
@@ -887,11 +887,11 @@ elseif ($display == DISP_WELCOME)
     .    '<tbody>' . "\n"
     .    '<tr>'
     .    '<td>Php version >= 5.2</td>'
-    .    '<td>' . ( version_compare(phpversion(), $requiredPhpVersion, ">=" ) ? '<span class="ok">'.get_lang('Ok').'</span>':'<span class="ko">Ko</span>') . ' (' . phpversion() . ')</td>'
+    .    '<td>' . ( version_compare(phpversion(), $requiredPhpVersion, ">=" ) ? '<span class="ok">'.get_lang('Ok').'</span>':'<span class="ko">'.get_lang('Ko').'</span>') . ' (' . phpversion() . ')</td>'
     .    '</tr>'
     .    '<tr>'
     .    '<td>MySQL version >= 4.3</td>'
-    .    '<td>' . ( version_compare($mysql_ver, $requiredMySqlVersion, ">=" ) ? '<span class="ok">'.get_lang('Ok').'</span>':'<span class="ko">Ko</span>') . ' (' . mysql_get_client_info(). ')</td>'
+    .    '<td>' . ( version_compare($mysql_ver, $requiredMySqlVersion, ">=" ) ? '<span class="ok">'.get_lang('Ok').'</span>':'<span class="ko">'.get_lang('Ko').'</span>') . ' (' . mysql_get_client_info(). ')</td>'
     .    '</tr>'
  
     .    '<tr>'
