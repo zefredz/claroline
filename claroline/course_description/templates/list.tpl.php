@@ -12,7 +12,7 @@
     </div>
     
     <?php if (claro_is_allowed_to_edit()) : ?>
-    <div class="claroBlockCmd">
+    <div class="manageTools">
         <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;descId=' . (int) $description['id'])); ?>">
         <img src="<?php echo get_icon_url('edit'); ?>" alt="<?php get_lang('Modify'); ?>" />
         </a>

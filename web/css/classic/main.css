@@ -497,6 +497,10 @@ li.lastBreadCrumbsNode {
                         PORTLETS and ITEMS
 ******************************************************************************/
 
+/**
+Use .item to easily display lists of items (announces, descriptions, ...)
+Use .portlet for desktop or course portlets
+**/
 .item,
 .portlet {
     margin-bottom: 5px;
@@ -825,6 +829,10 @@ th .claroCmdDisabled {
 .hot {
     padding-left: 15px;
     background: url(../../img/hot.png) no-repeat center left;
+}
+
+.toolList .hot {
+    margin-left: -15px;
 }
 
 a.item:visited {

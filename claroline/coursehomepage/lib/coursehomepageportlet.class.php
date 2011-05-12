@@ -278,16 +278,15 @@ abstract class CourseHomePagePortlet extends Portlet
     }
     
     
-    public function swapVisibility()
+    public function makeVisible()
     {
-        if ($this->visible == 1)
-        {
-            $this->visible = 0;
-        }
-        else
-        {
-            $this->visible = 1;
-        }
+        $this->visible = 1;
+    }
+    
+    
+    public function makeInvisible()
+    {
+        $this->visible = 0;
     }
     
     
@@ -370,7 +369,8 @@ abstract class CourseHomePagePortlet extends Portlet
                    . '">'
                    . '<img src="' . get_icon_url('go_down') . '" alt="'.get_lang('Move down').'" />'
                    . '</a> <a href="'
-                   . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd=swapVisibility&portletLabel='.$this->label.'&portletId='.$this->id))
+                   . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd='
+                   . ($this->visible?get_lang('makeInvisible'):get_lang('makeVisible')) . '&portletLabel='.$this->label.'&portletId='.$this->id))
                    . '" title="'
                    . ($this->visible?get_lang('Hide this item'):get_lang('Show this item')). '">'
                    . '<img src="'

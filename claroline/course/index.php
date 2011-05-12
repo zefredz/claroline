@@ -118,12 +118,24 @@ if (claro_is_course_manager())
             $dialogBox->success(get_lang('Portlet deleted'));
         }
     }
-    elseif ($portletCmd == 'swapVisibility' && !empty($portletId))
+    elseif ($portletCmd == 'makeVisible' && !empty($portletId))
     {
         $portlet = new $portletClass();
         if ($portlet->load($portletId))
         {
-            $portlet->swapVisibility();
+            $portlet->makeVisible();
+            if($portlet->save())
+            {
+                $dialogBox->success(get_lang('Portlet visibility modified'));
+            }
+        }
+    }
+    elseif ($portletCmd == 'makeInvisible' && !empty($portletId))
+    {
+        $portlet = new $portletClass();
+        if ($portlet->load($portletId))
+        {
+            $portlet->makeInvisible();
             if($portlet->save())
             {
                 $dialogBox->success(get_lang('Portlet visibility modified'));
