@@ -59,6 +59,16 @@ class ClaroBody extends CoreTemplate
     }
     
     /**
+     * Prepend a string before the content of the page
+     * @param   string str
+     * @since Claroline 1.10.5
+     */
+    public function prependContent( $str )
+    {
+        $this->setContent( $str . $this->getContent() );
+    }
+    
+    /**
      * Append a string to the content of the page
      * @param   string str
      */
