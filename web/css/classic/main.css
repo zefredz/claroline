@@ -671,23 +671,13 @@ div.tabbedCourse {
     padding: 10px;
 }
 
-table.courseTable {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-table.courseTable td {
-    vertical-align: top;
-}
-
-table.courseTable td.toolList {
+.toolList {
     width: 220px;
     padding-right: 20px;
     border-right: 1px solid #ccc;
 }
 
-table.courseTable td.coursePortletList { 
+.coursePortletList { 
     padding-left: 20px; 
 }
 
@@ -707,7 +697,7 @@ table.courseTable td.coursePortletList {
     margin: 2px 0;
 }
 
-table.courseTable td.toolList ul {
+.toolList ul {
     list-style-type: none;
     margin: 0;
 }

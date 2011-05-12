@@ -1,8 +1,6 @@
 <!-- $Id$ -->
 
-    <table class="courseTable">
-      <tr>
-        <td class="toolList">
+    <div id="leftSidebar" class="toolList">
             <?php
             if (is_array($this->toolLinkList))
             {
@@ -25,9 +23,8 @@
                 echo claro_html_list($this->courseManageToolLinkList,  array('id'=>'courseManageToolList'));
             endif;
             ?>
-        </td>
-        
-        <td class="coursePortletList">
+    </div>
+    <div id="rightContent" class="coursePortletList">
             <?php
                 echo $this->dialogBox->render();
             ?>
@@ -58,6 +55,5 @@
                     echo get_block('blockIntroCourse');
                 }
             ?>
-        </td>
-      </tr>
-    </table>
+    </div>
+    <hr class="clearer" />
