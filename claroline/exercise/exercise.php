@@ -403,7 +403,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
                 
                 $htmlcontent .= '<tr>' . "\n"
                 .   '<td style="background-color: #EEE; text-align: center; width: 30px;">[   ]</td>' . "\n"
-                .   '<td style="background-color: #EEE; width: 475px;">' . htmlspecialchars( strip_tags( claro_utf8_encode( $answer['answer'], get_conf('charset') ) ) ) . '</td>' . "\n"
+                .   '<td style="background-color: #EEE; width: 475px;">' .  claro_utf8_encode( change_img_url_for_pdf($answer['answer']), get_conf('charset') ) . '</td>' . "\n"
                 .   '</tr>'
                 ;
                 
@@ -418,7 +418,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
                 
                 $htmlcontent .= '<tr>' . "\n"
                 .   '<td style="background-color: #EEE; text-align: center; width: 30px;">O</td>' . "\n"
-                .   '<td style="background-color: #EEE; width: 475px;">' . htmlspecialchars( strip_tags( claro_utf8_encode( $answer['answer'], get_conf('charset') ) ) ) . '</td>' . "\n"
+                .   '<td style="background-color: #EEE; width: 475px;">' .  claro_utf8_encode( change_img_url_for_pdf($answer['answer']), get_conf('charset') ) . '</td>' . "\n"
                 .   '</tr>'
                 ;
                 
