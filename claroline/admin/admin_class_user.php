@@ -188,7 +188,7 @@ $cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'
 .             '</a>'
 ;
 
-$cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'user/AddCSVusers.php'
+$cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'user/addcsvusers.php'
 .             '?AddType=adminClassTool&amp;class_id='.$class_id.'">'
 .             '<img src="' . get_icon_url('import_list') . '" /> '
 .             get_lang('Add a user list in class')

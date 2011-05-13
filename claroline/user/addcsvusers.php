@@ -24,7 +24,7 @@ require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php' ;
 //require_once get_path('incRepositorySys') . '/lib/import_csv.lib.php';
 
-require_once './csv.class.php';
+require_once './csvimport.class.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
