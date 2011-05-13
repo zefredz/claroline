@@ -256,40 +256,48 @@ function link_to_css( $css, $media = 'all' )
  * @param
  * @param boolean $active if set to true, only actvated tool will be considered for display
  */
-function get_group_tool_menu($gid, $active = true)
+function get_group_tool_menu( $gid = null, $courseId = null, $active = true )
 {
-    $courseId = claro_get_current_course_id();
+    if ( is_null( $gid ) )
+    {
+        $gid = claro_get_current_group_id();
+    }
+    
+    if ( is_null( $courseId ) )
+    {
+        $courseId = claro_get_current_course_id();
+    }
     
     require_once dirname(__FILE__) . '/../group.lib.inc.php';
     
-    $groupToolList = get_group_tool_list($courseId,$active);
+    $groupToolList = get_group_tool_list( $courseId, $active );
 
     // group space links
 
-    $toolList[] =
+    /* $toolList[] =
     claro_html_cmd_link(
         htmlspecialchars(Url::Contextualize( get_module_url('CLGRP').'/group_space.php' ))
         , '<img src="' . get_icon_url('group') . '" alt="" />&nbsp;'
         . get_lang('Group area')
-    );
+    ); */
 
     $courseGroupData= claro_get_main_group_properties( $courseId );
 
-    foreach ($groupToolList as $groupTool)
+    foreach ( $groupToolList as $groupTool )
     {
-        if ( is_tool_activated_in_groups($courseId, $groupTool['label'])
-            && ( isset($courseGroupData['tools'][$groupTool['label']])
+        if ( is_tool_activated_in_groups( $courseId, $groupTool['label'] )
+            && ( isset( $courseGroupData['tools'][$groupTool['label']] )
                 && $courseGroupData['tools'][$groupTool['label']] 
             ) 
         )
         {
             $toolList[] = claro_html_cmd_link(
                 htmlspecialchars(Url::Contextualize(
-                get_module_url($groupTool['label'])
-                . '/' . $groupTool['url'] ))
+                    get_module_url($groupTool['label'])
+                    . '/' . $groupTool['url'] ))
                 , '<img src="' . get_module_url($groupTool['label']) . '/' . ($groupTool['icon']) . '" alt="" />'
-                . '&nbsp;'
-                . claro_get_tool_name ($groupTool['label'])
+                    . '&nbsp;'
+                    . claro_get_tool_name ($groupTool['label'])
                 , array('class' => $groupTool['visibility'] ? 'visible':'invisible')
             );
         }
