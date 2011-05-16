@@ -31,7 +31,7 @@ try
     $cmd = $userInput->get('cmd', 'getResourceList');
     
     $locator = isset( $_REQUEST['crl'] ) && ! empty( $_REQUEST['crl'] )
-            ? ClarolineResourceLocator::parse($_REQUEST['crl'])
+            ? ClarolineResourceLocator::parse( rawurldecode( $_REQUEST['crl'] ) )
             : ResourceLinker::$Navigator->getCurrentLocator( array() );
             ;
     
@@ -64,7 +64,6 @@ try
     {
         $resourceLinkerResolver = new ResourceLinkerResolver;
         $url = $resourceLinkerResolver->resolve( $locator );
-        $url = get_conf( 'rootWeb' ) . '..' . $url;
         $response = new Json_Response( array( 'url' => $url ) );
     }
     else
@@ -93,6 +92,8 @@ try
 }
 catch (Exception $e )
 {
+    /*var_dump( $_REQUEST['crl'] );
+    die();*/
     $response = new Json_Exception( $e );
 }
 
