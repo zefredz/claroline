@@ -34,7 +34,8 @@ $stats = (!empty($_SESSION['progressingStats']) ? $_SESSION['progressingStats'] 
 // Params
 $cmd                = (!empty($_REQUEST['cmd'])) ? $_REQUEST['cmd'] : '';
 $inProgress         = (!empty($_SESSION['inProgress']) && $_SESSION['inProgress'] == true) ? true : false;
-$extensions         = explode(',', get_conf('filesStatsExtensions'));
+$extensionsFromConf = get_conf('filesStatsExtensions');
+$extensions         = (!empty($extensionsFromConf) ? explode(',', get_conf('filesStatsExtensions')) : array());
 $coursesDirectory   = get_path('coursesRepositorySys');
 $coursesPool        = 2;
 
@@ -146,6 +147,16 @@ if ($cmd == 'run' || $inProgress)
     
     if (!isset($_SESSION['inProgress']))
     {
+        if (!empty($extensions))
+        {
+            $dialogBox->info(get_lang('You\'ve chosen to isolate the following extensions: %types.  If you wish to modify these extensions, check the advanced platform settings', array('%types' => implode(', ', $extensions))));
+        }
+        else
+        {
+            $dialogBox->info(get_lang('You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings'));
+        }
+        
+        
         if ($viewAs == 'html')
         {
             $template = new CoreTemplate('admin_files_stats.tpl.php');
@@ -153,6 +164,7 @@ if ($cmd == 'run' || $inProgress)
             $template->assign('extensions', $extensions);
             $template->assign('allExtensions', $allExtensions);
             $template->assign('stats', $stats);
+            $template->assign('formAction', $_SERVER['PHP_SELF']);
             
             $claroline->display->body->appendContent($template->render());
             
@@ -197,7 +209,16 @@ else
     $dialogBox = new DialogBox();
     $dialogBox->warning(get_lang('Caution: building files\' statistics is a pretty heavy work.  It might take a while and a lot of resources, depending of the size of your campus.'));
     
-    $template = new CoreTemplate('admin_files_stats_form.tpl.php');
+    if (!empty($extensions))
+    {
+        $dialogBox->info(get_lang('You\'ve chosen to isolate the following extensions: %types.  If you wish to modify these extensions, check the advanced platform settings', array('%types' => implode(', ', $extensions))));
+    }
+    else
+    {
+        $dialogBox->info(get_lang('You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings'));
+    }
+    
+    $template = new CoreTemplate('admin_files_stats.tpl.php');
     $template->assign('dialogBox', $dialogBox);
     $template->assign('extensions', $extensions);
     $template->assign('formAction', $_SERVER['PHP_SELF']);
