@@ -274,6 +274,9 @@ class CsvImport extends Csv
                     $userId = $resultSearch[0]['uid'];
                     if (get_conf('update_user_properties') && $updateUserProperties)
                     {
+                       //  never update password
+                       unset($userInfo['password']);
+                      
                         if (user_set_properties($userId, $userInfo))
                         $logs['success'][] = get_lang( 'User profile %username updated successfully', array( '%username' => $userInfo['username'] ) );
                         if ( $sendEmail )
