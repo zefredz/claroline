@@ -573,6 +573,13 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
 
                     if (file_exists($installPhpScript))
                     {
+                        language::load_translation( );
+                        language::load_locale_settings( );
+                        language::load_module_translation( $module_info['LABEL'] );
+                        // FIXME : config file for the modukle should exist here
+                        // or we need a postinstall script !
+                        // load_module_config( $module_info['LABEL'] );
+                        
                         // FIXME this is very dangerous !!!!
                         require $installPhpScript;
                         $backlog->info(get_lang( 'Module installation script called' ));
@@ -864,7 +871,13 @@ function uninstall_module($moduleId, $deleteModuleData = true)
         $uninstallPhpScript = get_module_path($module['label']) . '/setup/uninstall.php';
         if (file_exists( $uninstallPhpScript ))
         {
+            language::load_translation( );
+            language::load_locale_settings( );
+            language::load_module_translation( $module['label'] );
+            load_module_config( $module['label'] );
+            
             require $uninstallPhpScript;
+            
             $backlog->info( get_lang('Module uninstallation script called') );
         }
 
