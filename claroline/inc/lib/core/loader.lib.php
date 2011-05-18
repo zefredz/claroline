@@ -6,20 +6,13 @@
  * Loader classes for CSS and Javascript
  *
  * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright   2001-2011 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     KERNEL
  */
-
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
-FromKernel::uses('file.lib');
 
 /**
  * Javascript loader singleton class
@@ -33,11 +26,7 @@ class JavascriptLoader
     private function __construct()
     {
         $this->libraries = array();
-        $this->pathList = array(
-            get_module_path( get_current_module_label() ) . '/js' => get_module_url( get_current_module_label() ) . '/js',
-            get_path( 'rootSys' ) . 'web/js' => get_path('url') . '/web/js',
-            './js' => './js'
-        );
+        $this->pathList = array();
     }
 
     public function getLibraries()
@@ -58,6 +47,12 @@ class JavascriptLoader
      */
     public function load( $lib )
     {
+        $this->pathList = array(
+            get_module_path( get_current_module_label() ) . '/js' => get_module_url( get_current_module_label() ) . '/js',
+            get_path( 'rootSys' ) . 'web/js' => get_path('url') . '/web/js',
+            './js' => './js'
+        );
+        
         $lib = secure_file_path( $lib );
         
         foreach ( $this->pathList as $tryPath => $tryUrl )
@@ -76,7 +71,7 @@ class JavascriptLoader
                 }
                 
                 $mtime = '';
-                
+                /*
                 if ( get_conf('javascriptCompression', true)
                     && file_exists( $tryPath . '/min/' . $lib . '.js' )  )
                 {    
@@ -99,7 +94,11 @@ class JavascriptLoader
                     {
                         pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.js', 'debug');
                     }
-                }
+                }*/
+                
+                    $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/' . $lib . '.js';
+
+                    $mtime = filemtime($tryPath . '/' . $lib . '.js');
                 
                 ClaroHeader::getInstance()->addHtmlHeader(
                     '<script src="'.$this->libraries[$tryPath . '/' . $lib . '.js'].'?'.$mtime.'" type="text/javascript"></script>'
@@ -180,12 +179,7 @@ class CssLoader
     private function __construct()
     {
         $this->css = array();
-        $this->pathList = array(
-            get_module_path( get_current_module_label() ) . '/css' => get_module_url( get_current_module_label() ) . '/css',
-            get_path( 'rootSys' ) . 'web/css' => get_path('url') . '/web/css',
-            get_path( 'rootSys' ) . 'claroline/css' => get_path('url') . '/claroline/css', // this stay there for legacy but should be removed.
-            './css' => './css'
-        );
+        $this->pathList = array();
     }
 
     public function getCss()
@@ -202,10 +196,24 @@ class CssLoader
      * Load a css file
      * @param   string lib css file url relative to one of the
      *  declared css paths
-     * @return  boolean true if the library was found, false else
+     * @return  boolean true if the library was found, false if not
      */
     public function load( $css, $media = 'all' )
     {
+        $this->pathList = array(
+            get_path('rootSys') . 'platform/css/' . get_current_module_label()
+                => get_path('url') . '/platform/css/' . get_current_module_label(),
+            get_module_path( get_current_module_label() ) . '/css'
+                => get_module_url( get_current_module_label() ) . '/css',
+            get_path('rootSys') . 'platform/css'
+                => get_path('url') . '/platform/css', // <-- is this useful or not ?
+            get_path( 'rootSys' ) . 'web/css'
+                => get_path('url') . '/web/css',
+            /* get_path( 'rootSys' ) . 'claroline/css'
+                => get_path('url') . '/claroline/css', */ // <-- this stay there for legacy but should be removed.
+            './css' => './css'
+        );
+        
         $css = secure_file_path( $css );
 
         foreach ( $this->pathList as $tryPath => $tryUrl )
@@ -254,48 +262,77 @@ class CssLoader
     public function loadFromModule( $moduleLabel, $lib, $media = 'all' )
     {
         $lib = secure_file_path( $lib );
+        $moduleLabel = secure_file_path( $moduleLabel );
+        
+        if ( ! get_module_data( $moduleLabel ) )
+        {
+            pushClaroMessage(__Class__."::{$moduleLabel} does not exists", 'error');
+            return false;
+        }
         
         if ( claro_debug_mode() )
         {
-            pushClaroMessage(__Class__."::Try to find {$lib} in {$moduleLabel}", 'debug');
+            pushClaroMessage(__Class__."::Try to find {$lib} for {$moduleLabel}", 'debug');
         }
         
-        $path = get_module_path( $moduleLabel ) . '/css/' . $lib . '.css';
-        $url = get_module_url( $moduleLabel ) . '/css/' . $lib . '.css';
+        $cssPath = array(
+            0 => array(
+                'path' => get_path('rootSys') . 'platform/css/' . $moduleLabel . '/' . $lib . '.css',
+                'url' => get_path('url') . '/platform/css/' . $moduleLabel . '/' . $lib . '.css',
+            ),
+            1 => array(
+                'path' => get_module_path( $moduleLabel ) . '/css/' . $lib . '.css',
+                'url' => get_module_url( $moduleLabel ) . '/css/' . $lib . '.css'
+            )
+        );
         
-        if ( file_exists( $path ) )
+        /*$path = get_module_path( $moduleLabel ) . '/css/' . $lib . '.css';
+        $url = get_module_url( $moduleLabel ) . '/css/' . $lib . '.css';*/
+
+        foreach ( $cssPath as $cssTry )
         {
-            if ( array_key_exists( $path, $this->css ) )
+            $path = $cssTry['path'];
+            $url = $cssTry['url'];
+
+            if ( claro_debug_mode() )
             {
+                pushClaroMessage(__Class__."::Try {$path}::{$url} for {$moduleLabel}", 'debug');
+            }
+
+            if ( file_exists( $path ) )
+            {
+                if ( array_key_exists( $path, $this->css ) )
+                {
+                    return false;
+                }
+
+                $this->css[$path] = array(
+                    'url' => $url . '?' . filemtime($path),
+                    'media' => $media
+                );
+
+                if ( claro_debug_mode() )
+                {
+                        pushClaroMessage(__Class__."::Use {$path}::{$url} for {$moduleLabel}", 'debug');
+                }
+
+                ClaroHeader::getInstance()->addHtmlHeader(
+                    '<link rel="stylesheet" type="text/css"'
+                    . ' href="'. $url.'"'
+                    . ' media="'.$media.'" />'
+                );
+
+                return true;
+            }
+            else
+            {
+                if ( claro_debug_mode() )
+                {
+                        pushClaroMessage(__Class__."::Cannot found css {$lib} for {$moduleLabel}", 'error');
+                }
+
                 return false;
             }
-            
-            $this->css[$path] = array(
-                'url' => $url . '?' . filemtime($path),
-                'media' => $media
-            );
-            
-            if ( claro_debug_mode() )
-            {
-                pushClaroMessage(__Class__."::Use {$path}::{$url}", 'debug');
-            }
-            
-            ClaroHeader::getInstance()->addHtmlHeader(
-                '<link rel="stylesheet" type="text/css"'
-                . ' href="'. $url.'"'
-                . ' media="'.$media.'" />'
-            );
-            
-            return true;
-        }
-        else
-        {
-            if ( claro_debug_mode() )
-            {
-                pushClaroMessage(__Class__."::Cannot found {$lib} in {$moduleLabel}", 'error');
-            }
-            
-            return false;
         }
     }
 

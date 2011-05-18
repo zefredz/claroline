@@ -436,6 +436,7 @@ function install_module_script_in_course( $moduleLabel, $courseId )
         language::load_translation( );
         language::load_locale_settings( );
         language::load_module_translation( $moduleLabel );
+        load_module_config( $moduleLabel );
 
         require_once $phpPath;
     }
