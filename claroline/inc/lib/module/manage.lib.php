@@ -566,6 +566,17 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                             }
                         }
                     }
+                    
+                    // generate the conf if a def file exists
+                    if ( file_exists( get_module_path($module_info['LABEL'])
+                        . '/conf/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
+                    {
+                        require_once dirname(__FILE__) . '/../config.lib.inc.php';
+                        $config = new Config($module_info['LABEL']);
+                        list ($confMessage, $status ) = generate_conf($config);
+
+                        $backlog->info($confMessage);
+                    }
 
                     // call install.php after initialising database in case it requires database to run
                     if ( isset( $installPhpScript ) ) unset ( $installPhpScript );
@@ -576,9 +587,7 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                         language::load_translation( );
                         language::load_locale_settings( );
                         language::load_module_translation( $module_info['LABEL'] );
-                        // FIXME : config file for the modukle should exist here
-                        // or we need a postinstall script !
-                        // load_module_config( $module_info['LABEL'] );
+                        load_module_config( $module_info['LABEL'] );
                         
                         // FIXME this is very dangerous !!!!
                         require $installPhpScript;
@@ -610,17 +619,6 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                     else
                     {
                         $backlog->success(get_lang( 'Module cache update succeeded' ));
-                    }
-
-                    //7- generate the conf if a def file exists
-                    if ( file_exists( get_module_path($module_info['LABEL'])
-                        . '/conf/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
-                    {
-                        require_once dirname(__FILE__) . '/../config.lib.inc.php';
-                        $config = new Config($module_info['LABEL']);
-                        list ($confMessage, $status ) = generate_conf($config);
-
-                        $backlog->info($confMessage);
                     }
                 }
             }
