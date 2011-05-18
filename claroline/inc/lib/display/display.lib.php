@@ -185,11 +185,32 @@ class ClaroPage implements Display
     public function render()
     {
         try
-        {
-            $this->header->sendHttpHeaders();
+        {   
+            $this->_globalVarsCompat();
+            
+            $contents = '';
+                
+            if ( ! $this->bannerAtEnd )
+            {
+                $contents .= $this->banner->render() . "\n";
+            }
     
+            $contents .= $this->body->render();
+            
+            if ( $this->bannerAtEnd )
+            {
+                $contents .= $this->banner->render() . "\n";
+            }
+    
+            $contents .= $this->footer->render() . "\n";
+    
+            if ( claro_debug_mode() )
+            {
+                $contents .= claro_disp_debug_banner();
+            }
+            
             $output = '';
-    
+            
             $output .= $this->header->render();
             
             if ( true === get_conf( 'warnSessionLost', true ) && claro_get_current_user_id() )
@@ -197,35 +218,18 @@ class ClaroPage implements Display
                 $this->jsBodyOnload[] = 'claro_session_loss_countdown(' . ini_get('session.gc_maxlifetime') . ');';
             }
             
-            $this->_globalVarsCompat();
-    
             $output .= '<body dir="' . get_locale('text_dir') . '"'
                 .    ( !empty( $this->jsBodyOnload ) ? ' onload="' . implode('', $this->jsBodyOnload ) . '" ':'')
                 .    '>' . "\n"
                 ;
-                
-            if ( ! $this->bannerAtEnd )
-            {
-                $output .= $this->banner->render() . "\n";
-            }
-    
-            $output .= $this->body->render();
             
-            if ( $this->bannerAtEnd )
-            {
-                $output .= $this->banner->render() . "\n";
-            }
-    
-            $output .= $this->footer->render() . "\n";
-    
-            if ( claro_debug_mode() )
-            {
-                $output .= claro_disp_debug_banner();
-            }
+            $output .= $contents;
     
             $output .= '</body>' . "\n";
     
             $output .= '</html>' . "\n";
+            
+            $this->header->sendHttpHeaders();
     
             return $output;
         }

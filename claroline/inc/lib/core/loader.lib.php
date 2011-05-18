@@ -28,11 +28,7 @@ class JavascriptLoader
     private function __construct()
     {
         $this->libraries = array();
-        $this->pathList = array(
-            get_module_path( get_current_module_label() ) . '/js' => get_module_url( get_current_module_label() ) . '/js',
-            get_path( 'rootSys' ) . 'web/js' => get_path('url') . '/web/js',
-            './js' => './js'
-        );
+        $this->pathList = array();
     }
 
     public function getLibraries()
@@ -53,6 +49,12 @@ class JavascriptLoader
      */
     public function load( $lib )
     {
+        $this->pathList = array(
+            get_module_path( get_current_module_label() ) . '/js' => get_module_url( get_current_module_label() ) . '/js',
+            get_path( 'rootSys' ) . 'web/js' => get_path('url') . '/web/js',
+            './js' => './js'
+        );
+        
         $lib = secure_file_path( $lib );
         
         foreach ( $this->pathList as $tryPath => $tryUrl )
@@ -179,19 +181,7 @@ class CssLoader
     private function __construct()
     {
         $this->css = array();
-        $this->pathList = array(
-            get_path('rootSys') . 'platform/css/' . get_current_module_label()
-                => get_path('url') . '/platform/css/' . get_current_module_label(),
-            get_module_path( get_current_module_label() ) . '/css'
-                => get_module_url( get_current_module_label() ) . '/css',
-            get_path('rootSys') . 'platform/css'
-                => get_path('url') . '/platform/css', // <-- is this useful or not ?
-            get_path( 'rootSys' ) . 'web/css'
-                => get_path('url') . '/web/css',
-            /* get_path( 'rootSys' ) . 'claroline/css'
-                => get_path('url') . '/claroline/css', */ // <-- this stay there for legacy but should be removed.
-            './css' => './css'
-        );
+        $this->pathList = array();
     }
 
     public function getCss()
@@ -212,6 +202,20 @@ class CssLoader
      */
     public function load( $css, $media = 'all' )
     {
+        $this->pathList = array(
+            get_path('rootSys') . 'platform/css/' . get_current_module_label()
+                => get_path('url') . '/platform/css/' . get_current_module_label(),
+            get_module_path( get_current_module_label() ) . '/css'
+                => get_module_url( get_current_module_label() ) . '/css',
+            get_path('rootSys') . 'platform/css'
+                => get_path('url') . '/platform/css', // <-- is this useful or not ?
+            get_path( 'rootSys' ) . 'web/css'
+                => get_path('url') . '/web/css',
+            /* get_path( 'rootSys' ) . 'claroline/css'
+                => get_path('url') . '/claroline/css', */ // <-- this stay there for legacy but should be removed.
+            './css' => './css'
+        );
+        
         $css = secure_file_path( $css );
 
         foreach ( $this->pathList as $tryPath => $tryUrl )
