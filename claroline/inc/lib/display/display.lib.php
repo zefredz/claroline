@@ -2,11 +2,6 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * Display library.
  *
@@ -19,9 +14,13 @@ if ( count( get_included_files() ) == 1 )
  * @package     display
  */
 
-FromKernel::uses( 'display/phptemplate.lib', 'display/header.lib', 'display/body.lib'
-    , 'display/footer.lib', 'display/dock.lib', 'display/banner.lib'
-    , 'display/dialogBox.lib' );
+require_once dirname(__FILE__) . '/phptemplate.lib.php';
+require_once dirname(__FILE__) . '/header.lib.php';
+require_once dirname(__FILE__) . '/body.lib.php';
+require_once dirname(__FILE__) . '/footer.lib.php'; 
+require_once dirname(__FILE__) . '/dock.lib.php';
+require_once dirname(__FILE__) . '/banner.lib.php';
+require_once dirname(__FILE__) . '/dialogBox.lib.php';
 
 /**
  * Popup helper
