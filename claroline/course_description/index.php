@@ -273,4 +273,6 @@ foreach ($descList as $description)
 $template = new ModuleTemplate($tlabelReq, 'list.tpl.php');
 $template->assign('descriptionList', $visibleDescList);
 
+Claroline::getDisplay()->body->appendContent($template->render());
+
 echo Claroline::getInstance()->display->render();
