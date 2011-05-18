@@ -14,8 +14,6 @@
  * @package     kernel.core
  */
 
-dirname(__FILE__) . '/../file.lib.php';
-
 /**
  * Javascript loader singleton class
  */
