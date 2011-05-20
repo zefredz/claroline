@@ -10,13 +10,6 @@ $(document).ready(function(){
             
             show: "mouseover",
             hide: "mouseout",
-            position: {
-                corner: {
-                    target: "topRight",
-                    tooltip: "bottomRight"
-                }
-            },
-            
             style: {
                 width: "auto",
                 padding: 5,
