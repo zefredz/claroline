@@ -196,7 +196,7 @@ else
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-$toolLinkList = array();
+/*$toolLinkList = array();
 
 // Generate tool lists
 $toolListSource = claro_get_course_tool_list($cidReq, $_profileId, true);
@@ -300,7 +300,7 @@ if( get_conf('is_trackingEnabled') )
                                 . '<img src="' . get_icon_url('statistics') . '" alt="" /> '
                                 . get_lang('Statistics')
                                 . '</a>';
-}
+}*/
 
 
 // Fetch the portlets
@@ -362,13 +362,17 @@ if (claro_is_allowed_to_edit())
 JavascriptLoader::getInstance()->load('jquery.qtip');
 JavascriptLoader::getInstance()->load('course_home_page');
 
+
+
+
 $template = new CoreTemplate('course_index.tpl.php');
 $template->assign('dialogBox', $dialogBox);
 $template->assign('relatedCourses', $relatedCourses);
-$template->assign('toolLinkList', $toolLinkList);
-$template->assign('courseManageToolLinkList', $courseManageToolLinkList);
-$template->assign('otherToolsList', $otherToolsList);
 $template->assign('portletIterator', $portletiterator);
+// $template->assign( 'courseToolList', $courseToolList->render() );
+/*$template->assign('toolLinkList', $toolLinkList);
+$template->assign('courseManageToolLinkList', $courseManageToolLinkList);
+$template->assign('otherToolsList', $otherToolsList);*/
 
 $claroline->display->body->setContent($template->render());
 

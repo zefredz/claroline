@@ -312,4 +312,3 @@ function get_group_tool_menu( $gid = null, $courseId = null, $active = true )
         return '';
     }
 }
-

@@ -1,37 +1,7 @@
 <!-- $Id$ -->
 
-<div id="leftSidebar" class="toolList">
-    <?php
-        if (is_array($this->toolLinkList)):
 
-            echo claro_html_list($this->toolLinkList);
-
-        endif;
-    ?>
-
-    <?php if (claro_is_user_authenticated() && !empty($this->otherToolsList)) : ?>
-    
-    <br />
-    
-    <ul>
-        <?php foreach ($this->otherToolsList as $otherTool) : ?>
-        
-        <li><?php echo $otherTool; ?></li>
-        
-        <?php endforeach; ?>
-    </ul>
-    
-    <?php endif; ?>
-
-    <br />
-
-    <?php
-        if ( claro_is_allowed_to_edit() ) :
-            echo claro_html_list($this->courseManageToolLinkList,  array('id'=>'courseManageToolList'));
-        endif;
-    ?>
-</div>
-<div id="rightContent" class="coursePortletList">
+    <div class="coursePortletList">
         <?php
             echo $this->dialogBox->render();
         ?>
@@ -62,5 +32,4 @@
                 echo get_block('blockIntroCourse');
             }
         ?>
-</div>
-<hr class="clearer" />
+    </div>

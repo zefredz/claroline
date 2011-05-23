@@ -106,7 +106,34 @@ $(document).ready( function (){
             $(this).attr("selected", "selected");
         });
     });
+    
+    if ( $('#toggleLeftMenu') ) {
+        
+        $('#toggleLeftMenu').click( 
+            getLeftMenuToggleFunction()
+        );
+    }
 });
+
+
+function getLeftMenuToggleFunction() {
+    
+    var originalLeftMargin = $('#rightContent').css('margin-left');
+    
+    return function() {
+        
+        $('#leftSidebar').toggle();
+
+        if ( $('#rightContent').css('margin-left') == originalLeftMargin ) {
+            $('#rightContent').css('margin-left', 0 );
+        }
+        else {
+            $('#rightContent').css('margin-left', originalLeftMargin );
+        }
+        
+        return false;
+    }
+}
 
 // here should also come :
 

@@ -14,10 +14,13 @@
  * @package     display
  */
 
+require_once dirname(__FILE__) . '/course.lib.php';
+
 class ClaroBody extends CoreTemplate
 {
     protected $content = '';
     protected $claroBodyHidden = false;
+    protected $courseTitleAndTools = true;
     protected $inPopup = false;
     
     public function __construct()
@@ -39,6 +42,16 @@ class ClaroBody extends CoreTemplate
     public function showClaroBody()
     {
         $this->claroBodyHidden = false;
+    }
+    
+    public function hideCourseTitleAndTools()
+    {
+        $this->hideBlock('courseTitleAndTools');
+    }
+    
+    public function showCourseTitleAndTools()
+    {
+        $this->showBlock('courseTitleAndTools');
     }
     
     /**
@@ -100,6 +113,11 @@ class ClaroBody extends CoreTemplate
      */
     public function render()
     {
+        if ( claro_is_in_a_course() )
+        {
+            $this->assign( 'courseToolList',  new CurrentCourseToolListBlock() );
+        }
+        
         if ( ! $this->claroBodyHidden )
         {
             $this->assign('claroBodyStart', true);
@@ -114,11 +132,15 @@ class ClaroBody extends CoreTemplate
         // automatic since $this->content already exists
         // $this->assign('content', $this->getContent() );
         
-        $output = parent::render();
         
         if ( $this->inPopup )
         {
-            $output = PopupWindowHelper::popupEmbed($output);
+            $this->hideCourseTitleAndTools();
+            $output = PopupWindowHelper::popupEmbed( parent::render() );
+        }
+        else
+        {
+            $output = parent::render();
         }
             
         return $output;

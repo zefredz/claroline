@@ -692,7 +692,7 @@ div.tabbedCourse {
 .toolList {
     width: 220px;
     padding-right: 20px;
-    border-right: 1px solid #ccc;
+    /* border-right: 1px solid #ccc; */
 }
 
 .coursePortletList { 

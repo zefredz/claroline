@@ -122,12 +122,14 @@ class ClaroPage implements Display
         $this->body->popupMode();
         $this->banner->hide();
         $this->footer->hide();
+        $this->body->hideCourseTitleAndTools();
     }
 
     public function frameMode()
     {
         $this->banner->hide();
         $this->footer->hide();
+        $this->body->hideCourseTitleAndTools();
     }
     
     private function _globalVarsCompat()
@@ -236,11 +238,11 @@ class ClaroPage implements Display
         {
             if ( claro_debug_mode() )
             {
-                claro_die( $e->__toString() );
+                die( $e->__toString() );
             }
             else
             {
-                claro_die( $e->getMessage() );
+                die( $e->getMessage() );
             }
         }
     }
