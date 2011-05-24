@@ -15,7 +15,7 @@ require '../inc/claro_init_global.inc.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 include claro_get_conf_repository() . 'rss.conf.php';
 
-$cid = ( isset($_REQUEST['cid']) ) ? $_REQUEST['cid'] : '';
+$cid = ( isset($_REQUEST['cidReq']) ) ? $_REQUEST['cidReq'] : '';
 $nameTools = get_lang('Manage session courses');
 
 if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
