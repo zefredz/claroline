@@ -17,10 +17,11 @@
 require_once dirname(__FILE__) . '/phptemplate.lib.php';
 require_once dirname(__FILE__) . '/header.lib.php';
 require_once dirname(__FILE__) . '/body.lib.php';
-require_once dirname(__FILE__) . '/footer.lib.php'; 
+require_once dirname(__FILE__) . '/footer.lib.php';
 require_once dirname(__FILE__) . '/dock.lib.php';
 require_once dirname(__FILE__) . '/banner.lib.php';
 require_once dirname(__FILE__) . '/dialogBox.lib.php';
+require_once dirname(__FILE__) . '/tooltitle.lib.php';
 
 /**
  * Popup helper
@@ -186,7 +187,7 @@ class ClaroPage implements Display
     public function render()
     {
         try
-        {   
+        {
             $this->_globalVarsCompat();
             
             $contents = '';

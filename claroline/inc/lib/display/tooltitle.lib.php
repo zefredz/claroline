@@ -102,15 +102,24 @@ class ToolTitle implements Display
         // Title parts
         if (!empty($this->superTitle))
         {
-            $out .= '<span class="superTitle">'.$this->superTitle.'</span><hr class="clearer" />'."\n";
+            $out .= '<span class="toolTitle superTitle">'.$this->superTitle.'</span><hr class="clearer" />'."\n";
         }
         
-        $out .= '<h3 class="mainTitle">'.$this->mainTitle.'</h3>'."\n"
+        if (empty($this->toolList))
+        {
+            $style = ' style="border-right: 0"';
+        }
+        else
+        {
+            $style = '';
+        }
+        
+        $out .= '<h1 class="toolTitle mainTitle"'.$style.'>'.$this->mainTitle.'</h1>'."\n"
               . $toolList;
         
         if (!empty($this->superTitle))
         {
-            $out .= '<hr class="clearer" /><span class="subTitle">'.$this->subTitle.'</span>'."\n";
+            $out .= '<hr class="clearer" /><span class="toolTitle subTitle">'.$this->subTitle.'</span>'."\n";
         }
         
         // Help link
@@ -119,8 +128,8 @@ class ToolTitle implements Display
             $out .= '<a class="help" href="'.$this->helpUrl.'"></a>'."\n";
         }
         
-        $out .= '</div>'
-              . '<hr class="clearer" />'."\n";
+        $out .= '</div>'."\n"
+              . '<br /><br />'."\n";
         
         return $out;
     }
