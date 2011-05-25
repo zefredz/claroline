@@ -6,7 +6,7 @@
         <?php
         echo '<a href="' . $_SERVER['PHP_SELF'] . '?category='
            . urlencode( $this->currentCategory->idParent )
-           . '#categoryContent"><span style="font-size: 1.5em;">&larr;</span>'
+           . '#categoryContent"><span style="font-size: 1.5em;">&larr;</span> '
            . '<small>' . get_lang( 'previous level' ) . '</small>'
            . '</a>';
         ?>
@@ -61,7 +61,7 @@
     <?php
     echo '<a href="' . $_SERVER['PHP_SELF'] . '?category='
        . urlencode( $this->currentCategory->idParent )
-       . '#categoryContent"><span style="font-size: 1.5em;">&larr;</span>'
+       . '#categoryContent"><span style="font-size: 1.5em;">&larr;</span> '
        . '<small>' . get_lang( 'previous level' ) . '</small>'
        . '</a>';
     ?>
