@@ -15,13 +15,13 @@ require '../inc/claro_init_global.inc.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 include claro_get_conf_repository() . 'rss.conf.php';
 
-$cid = ( isset($_REQUEST['cidReq']) ) ? $_REQUEST['cidReq'] : '';
+$cid = claro_get_current_course_id();
 $nameTools = get_lang('Manage session courses');
 
 if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $toolRepository = get_path('clarolineRepositoryWeb');
-claro_set_display_mode_available(TRUE);
+claro_set_display_mode_available(true);
 
 if (!empty($cid))
 {
@@ -38,6 +38,4 @@ $template->assign('courseId', $course->id);
 
 $claroline->display->body->setContent($template->render());
 
-
 echo $claroline->display->render();
-?>
