@@ -38,6 +38,11 @@
             $this->_htmlXtraHeaders = array();
             $this->_httpXtraHeaders = array();
             $this->_toolName = '';
+            
+            if ( claro_debug_mode() )
+            {
+                $this->addInlineJavascript("var claro_debug_mode = true;");
+            }
         }
 
         public static function getInstance()
