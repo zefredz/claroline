@@ -1,21 +1,16 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
  * Main script for work tool
  *
- * @version 1.8 $Revision$
- *
+ * @version     1.8 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/CLWRK/
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLWRK
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/CLWRK/
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     CLWRK
  */
 
 $tlabelReq = 'CLWRK';
@@ -475,114 +470,131 @@ else
 
 
 
-    /*--------------------------------------------------------------------
-                                  LIST
-      --------------------------------------------------------------------*/
-    // if user come from a group
-    if ( claro_is_in_a_group() && claro_is_group_allowed() )
-    {
-        // select only the group assignments
-        $sql = "SELECT `id`,
-                        `title`,
-                        `def_submission_visibility`,
-                          `visibility`,
-                        `assignment_type`,
-                        `authorized_content`,
-                        unix_timestamp(`start_date`) as `start_date_unix`,
-                        unix_timestamp(`end_date`) as `end_date_unix`
-                FROM `" . $tbl_wrk_assignment . "`
-                WHERE `assignment_type` = 'GROUP'";
+/*--------------------------------------------------------------------
+                              LIST
+  --------------------------------------------------------------------*/
+// if user come from a group
+if ( claro_is_in_a_group() && claro_is_group_allowed() )
+{
+    // select only the group assignments
+    $sql = "SELECT `id`,
+                    `title`,
+                    `def_submission_visibility`,
+                      `visibility`,
+                    `assignment_type`,
+                    `authorized_content`,
+                    unix_timestamp(`start_date`) as `start_date_unix`,
+                    unix_timestamp(`end_date`) as `end_date_unix`
+            FROM `" . $tbl_wrk_assignment . "`
+            WHERE `assignment_type` = 'GROUP'";
 
-        if( !claro_is_allowed_to_edit() )
-        {
-            $sql .= " AND `visibility` = 'VISIBLE' ";
-        }
-        
-        if ( isset($_GET['sort']) )
-        {
-            $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
-        }
-        else
-        {
-            $sortKeyList['end_date']    = SORT_ASC;
-            $sortKeyList['title']    = SORT_ASC;
-        }
-            
+    if( !claro_is_allowed_to_edit() )
+    {
+        $sql .= " AND `visibility` = 'VISIBLE' ";
+    }
+    
+    if ( isset($_GET['sort']) )
+    {
+        $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
     }
     else
     {
-        $sql = "SELECT `id`,
-                        `title`,
-                        `def_submission_visibility`,
-                        `visibility`,
-                        `assignment_type`,
-                        unix_timestamp(`start_date`) as `start_date_unix`,
-                        unix_timestamp(`end_date`) as `end_date_unix`
-                FROM `" . $tbl_wrk_assignment . "`";
-
-        if( !claro_is_allowed_to_edit() )
-        {
-            $sql .= " WHERE `visibility` = 'VISIBLE' ";
-        }
-
-        if ( isset($_GET['sort']) )
-        {
-            $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
-        }
-        else
-        {
-            $sortKeyList['end_date']    = SORT_ASC;
-            $sortKeyList['title']    = SORT_ASC;
-        }
-            
+        $sortKeyList['end_date']    = SORT_ASC;
+        $sortKeyList['title']    = SORT_ASC;
     }
+        
+}
+else
+{
+    $sql = "SELECT `id`,
+                    `title`,
+                    `def_submission_visibility`,
+                    `visibility`,
+                    `assignment_type`,
+                    unix_timestamp(`start_date`) as `start_date_unix`,
+                    unix_timestamp(`end_date`) as `end_date_unix`
+            FROM `" . $tbl_wrk_assignment . "`";
 
-    $offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? $_REQUEST['offset'] : 0;
-    $assignmentPager = new claro_sql_pager($sql, $offset, $assignmentsPerPage);
-
-    foreach($sortKeyList as $thisSortKey => $thisSortDir)
+    if( !claro_is_allowed_to_edit() )
     {
-        $assignmentPager->add_sort_key( $thisSortKey, $thisSortDir);
+        $sql .= " WHERE `visibility` = 'VISIBLE' ";
     }
 
-    $assignmentList = $assignmentPager->get_result_list();
+    if ( isset($_GET['sort']) )
+    {
+        $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
+    }
+    else
+    {
+        $sortKeyList['end_date']    = SORT_ASC;
+        $sortKeyList['title']    = SORT_ASC;
+    }
+        
+}
+
+$offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? $_REQUEST['offset'] : 0;
+$assignmentPager = new claro_sql_pager($sql, $offset, $assignmentsPerPage);
+
+foreach($sortKeyList as $thisSortKey => $thisSortDir)
+{
+    $assignmentPager->add_sort_key( $thisSortKey, $thisSortDir);
+}
+
+$assignmentList = $assignmentPager->get_result_list();
+
+// Help URL
+$helpUrl = $is_allowedToEdit ? 'help_work.php' : null;
+
+// Tool list
+if( $is_allowedToEdit )
+{
+    $toolList[] = array(
+        'img' => 'assignment',
+        'name' => get_lang('Create a new assignment'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqMkAssig'))
+    );
+    
+    if( get_conf('allow_download_all_submissions') )
+    {
+        $toolList[] = array(
+            'img' => 'save',
+            'name' => get_lang('Download submissions'),
+            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqDownload'))
+        );
+    }
+    
+    if( get_conf( 'mail_notification', false ) && !get_conf( 'automatic_mail_notification', false ) )
+    {
+        $toolList[] = array(
+            'img' => 'settings',
+            'name' => get_lang('Assignments preferences'),
+            'url' => htmlspecialchars(Url::Contextualize('work_settings.php'))
+        );
+    }
+}
 
 $out = '';
-/*--------------------------------------------------------------------
-                    TOOL TITLE
-    --------------------------------------------------------------------*/
-
-$out .= claro_html_tool_title($nameTools, $is_allowedToEdit ? 'help_work.php' : false);
+$out .= claro_html_tool_title($nameTools, $helpUrl, $toolList);
 
 
 if ($is_allowedToEdit)
 {
-
-    /*--------------------------------------------------------------------
-                            DIALOG BOX SECTION
-      --------------------------------------------------------------------*/
-
     $out .= $dialogBox->render();
-
-    /*--------------------------------------------------------------------
-                          CREATE AND EDIT FORM
-      --------------------------------------------------------------------*/
+    
+    // Form
     if ( isset($displayAssigForm) && $displayAssigForm )
     {
-
         $out .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" enctype="multipart/form-data">' . "\n"
         .   '<input type="hidden" name="claroFormId" value="' . uniqid('') .'" />' . "\n"
         .   '<input type="hidden" name="cmd" value="' . $cmdToSend .'" />' . "\n"
         ;
-    
+        
         if( !is_null($assigId) )
         {
-    
             $out .= '<input type="hidden" name="assigId" value="'. $assigId .'" />' . "\n"
             ;
-    
         }
-    
+        
         $out .= '<table cellpadding="5" width="100%">
           <tr>
             <td valign="top"><label for="title">' . get_lang('Assignment title') . '&nbsp;:</label></td>
@@ -679,7 +691,6 @@ if ($is_allowedToEdit)
           </tr>
           </table>
         </form>';
-
     }
 }
 
@@ -689,38 +700,6 @@ if ($is_allowedToEdit)
 // if we don't display assignment form
 if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 {
-    /*--------------------------------------------------------------------
-                        ADMIN LINKS
-      --------------------------------------------------------------------*/
-    $cmdMenu = array();
-    if( $is_allowedToEdit )
-    {
-        // link to create a new assignment
-        $cmdMenu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                         . '?cmd=rqMkAssig'
-                                         . claro_url_relay_context('&amp;')
-                                         , '<img src="' . get_icon_url('assignment') . '" alt="" />'
-                                         . get_lang('Create a new assignment')
-                                         );
-
-        if( get_conf('allow_download_all_submissions') )
-        {
-            $cmdMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-            .      '?cmd=rqDownload">'
-            .     '<img src="' . get_icon_url('save') . '" alt="" />'.get_lang('Download submissions').'</a>'
-            .     "\n"
-            ;
-        }
-        if( get_conf( 'mail_notification', false ) && !get_conf( 'automatic_mail_notification', false ) )
-        {
-            $cmdMenu[] = '<a class="claroCmd" href="work_settings.php">' . "\n"
-            .     '<img src="' . get_icon_url( 'settings' ) . '" alt="" />' . get_lang( 'Assignments preferences' ) . "\n"
-            .     '</a>' . "\n";
-        }
-    }
-
-    if( !empty($cmdMenu) ) $out .= '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
-
     $headerUrl = $assignmentPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
     $out .= $assignmentPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
@@ -792,14 +771,14 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         $out .= '<tr ' . $style . '>'."\n"
         .    '<td>' . "\n";
         
-        $assignmentUrl = 'work_list.php?assigId=' . $anAssignment['id'];    
+        $assignmentUrl = 'work_list.php?assigId=' . $anAssignment['id'];
         
         if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
         {
             if( !isset($anAssignment['authorized_content']) || $anAssignment['authorized_content'] != 'TEXT' )
             {
-                $assignmentUrl = 'work_list.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] 
-                . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) 
+                $assignmentUrl = 'work_list.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id']
+                . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl'])
                 . '&amp;gidReq=' . claro_get_current_group_id();
             }
         }
@@ -890,12 +869,8 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     }
     $out .= '</tbody>' . "\n"
     .     '</table>' . "\n\n";
-
-
 }
 
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
