@@ -21,7 +21,7 @@ class ToolTitle implements Display
     public $subTitle;
     
     /**
-     * Array of array('name' => $name, 'url' => $url) of tools
+     * Array of array('img' => $iconUrl, 'name' => $name, 'url' => $url, 'params' => $param) of tools
      */
     public $toolList;
     
@@ -108,7 +108,16 @@ class ToolTitle implements Display
                     $styleLi = ' class="hidden"';
                 }
                 
-                $tools .= '<li'.$styleLi.'><a'.$styleA.' href="'.$tool['url'].'">'
+                $params = '';
+                if (!empty($tool['params']))
+                {
+                    foreach($tool['params'] as $key => $value)
+                    {
+                        $params .= ' '.$key.'="'.$value.'"';
+                    }
+                }
+                
+                $tools .= '<li'.$styleLi.'><a'.$styleA.$params.' href="'.$tool['url'].'">'
                       . $tool['name'].'</a></li>'."\n";
                 
                 $i++;
