@@ -1101,6 +1101,92 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
     return $toolList;
 }
 
+/**
+ * Same function than disp_forum_toolbar(), but returns an array instead
+ * of an HTML string.
+ *
+ * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
+ * @return Array of Array
+ */
+
+function disp_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
+{
+    global $forum_name, $topic_title;
+
+    $toolList = array();
+
+    switch ( $pagetype )
+    {
+        // 'index' is covered by default
+
+        case 'newtopic':
+
+            break;
+
+        case 'reply':
+
+            break;
+
+
+        case 'viewforum':
+
+            $toolList[] = array(
+                'img' => 'topic',
+                'name' => get_lang('New topic'),
+                'url' => htmlspecialchars(Url::Contextualize(get_module_url( 'CLFRM' )
+                    . '/viewtopic.php?forum=' . $forum_id
+                    . '&amp;cmd=rqPost&amp;mode=add'))
+            );
+            break;
+
+        case 'viewtopic':
+
+            $toolList[] = array(
+                'img' => 'reply',
+                'name' => get_lang('Reply'),
+                'url' => htmlspecialchars(Url::Contextualize(get_module_url( 'CLFRM' )
+                    . '/viewtopic.php?topic=' . $topic_id
+                    . '&amp;cmd=rqPost&amp;mode=reply'))
+            );
+            break;
+
+        // 'Register' is covered by default
+
+        case 'index':
+
+            if ( claro_is_allowed_to_edit() )
+            {
+
+                $toolList[] = array(
+                    'img' => 'folder_new',
+                    'name' => get_lang('Create category'),
+                    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                        . '?cmd=rqMkCat'))
+                );
+
+                $toolList[] = array(
+                    'img' => 'forum',
+                    'name' => get_lang('Create forum'),
+                    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                        . '?cmd=rqMkForum'))
+                );
+            }
+            break;
+    }
+
+    if ( ! in_array($pagetype, array( 'add', 'reply', 'edit', 'quote' ) ) )
+    {
+        $toolList[] = array(
+            'img' => 'search',
+            'name' => get_lang('Search'),
+            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLFRM')
+                . '/index.php?cmd=rqSearch'))
+        );
+    }
+    
+    return $toolList;
+}
+
 function disp_search_box()
 {
     if (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'rqSearch' )
