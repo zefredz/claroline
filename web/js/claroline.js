@@ -113,6 +113,22 @@ $(document).ready( function (){
             getLeftMenuToggleFunction()
         );
     }
+    
+    // show tools
+    $('.toolList li.hidden').hide();
+    
+    $('.toolList a.more').click(function() {
+        if ($('.toolList a.more').hasClass('clicked'))
+        {
+            $('.toolList li.hidden').hide();
+            $('.toolList a.more').removeClass('clicked').text('»');
+        }
+        else
+        {
+            $('.toolList li.hidden').show();
+            $('.toolList a.more').addClass('clicked').text('«');
+        }
+    });
 });
 
 
