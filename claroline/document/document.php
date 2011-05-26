@@ -1439,9 +1439,79 @@ if( ($docView == 'image' || $docView == 'thumbnails') && isset($fileList) )
     $imageList = get_image_list($fileList, $is_allowedToEdit);
 }
 
+// Build the tool list
+$toolList = array();
+
+/*
+ * if the $curDirName is empty, we're in the root point
+ * and we can't go to a parent dir
+ */
+if ($curDirName || $cmd == 'exSearch')
+{
+    $toolList[] = array(
+        'img' => 'parent',
+        'name' => get_lang('Up'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.download_url_encode($parentDir)))
+    );
+}
+
+$toolList[] = array(
+    'img' => 'search',
+    'name' => get_lang('Search'),
+    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqSearch&amp;cwd='.$cmdCurDirPath ))
+);
+
+if ( trim($searchPattern) != '')
+    $downloadArgument = 'searchPattern='.rawurlencode($searchPattern);
+else
+    $downloadArgument = 'file='. download_url_encode($curDirPath);
+
+if ( claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFolder', false) )
+{
+    if( isset($fileList) && count($fileList) > 0 )
+    {
+        // Download current folder
+        $toolList[] = array(
+            'img' => 'save',
+            'name' => get_lang('Download current directory'),
+            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exDownload&amp;'.$downloadArgument))
+        );
+    }
+}
+
+
+if ($is_allowedToEdit)
+{
+    // Create directory, document, hyperlink or upload file
+    $toolList[] = array(
+        'img' => 'upload',
+        'name' => get_lang('Upload file'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqUpload&amp;cwd='.$cmdCurDirPath))
+    );
+    
+    $toolList[] = array(
+        'img' => 'folder',
+        'name' => get_lang('Create directory'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqMkDir&amp;cwd='.$cmdCurDirPath))
+    );
+    
+    $toolList[] = array(
+        'img' => 'link',
+        'name' => get_lang('Create hyperlink'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqMkUrl&amp;cwd='.$cmdCurDirPath))
+    );
+    
+    $toolList[] = array(
+        'img' => 'html',
+        'name' => get_lang('Create Document'),
+        'url' => htmlspecialchars(Url::Contextualize( 'rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.$cmdCurDirPath))
+    );
+}
+
+$helpUrl = $is_allowedToEdit ? 'help_document.php' : null;
+
 // Display title
-$out .= claro_html_tool_title($titleElement,
-                      $is_allowedToEdit ? 'help_document.php' : false);
+$out .= claro_html_tool_title($titleElement, $helpUrl, $toolList, 3);
 
 // Display dialog box
 $out .= $dialogBox->render();
@@ -1756,103 +1826,7 @@ else
         $searchCmdUrl = '&amp;cmd=exSearch&amp;searchPattern=' . rawurlencode( $_REQUEST['searchPattern'] );
     }
     
-    // Go to the parent directory
-    $links = array();
-    
-    if ($curDirName || $cmd == 'exSearch') /* if the $curDirName is empty, we're in the root point
-                                              and we can't go to a parent dir */
-    {
-        $links[] = '<a class="claroCmd" href="'
-                 . htmlspecialchars(Url::Contextualize(
-                    $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.download_url_encode($parentDir)))
-                 .'">' . "\n"
-                 . '<img src="'. get_icon_url('parent') . '" alt="" />&nbsp;'
-                 . get_lang('Up')
-                 . '</a>'
-                 ;
-    }
-    else
-    {
-        $links[] = '<span class="claroCmdDisabled">'
-            .      '<img src="' . get_icon_url('parentdisabled') . '" alt="" />&nbsp;'
-            .      get_lang('Up')
-            .      '</span>';
-    }
-    
-    
-    
-    $links[] = '<a class="claroCmd" href="'
-        . htmlspecialchars(Url::Contextualize(
-            $_SERVER['PHP_SELF'].'?cmd=rqSearch&amp;cwd='.$cmdCurDirPath ))
-        . '">&nbsp;'
-        .      '<img src="' . get_icon_url('search') . '" alt="" />&nbsp;'
-        .      get_lang('Search')
-        .      '</a>'
-        ;
-    
-    if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.rawurlencode($searchPattern);
-    else                             $downloadArgument = 'file='. download_url_encode($curDirPath);
-    
-    if ( claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFolder', false) )
-    {
-        if( isset($fileList) && count($fileList) > 0 )
-        {
-            // Download current folder
-           $links[] = '<a class="claroCmd" href="'
-                . htmlspecialchars(Url::Contextualize(
-                    $_SERVER['PHP_SELF'].'?cmd=exDownload&amp;'.$downloadArgument ))
-                .'" rel="nofollow">'
-                .'<img src="' . get_icon_url('save') . '" alt="" />&nbsp;'
-                .get_lang('Download current directory')
-                .'</a>';
-        }
-        else
-        {
-            // Download current folder disabled
-            $links[] = '<span class="claroCmdDisabled" >'
-                .'<img src="' . get_icon_url('save') . '" alt="" />&nbsp;'
-                .get_lang('Download current directory')
-                .'</span>';
-        }
-    }
-    
-    
-    if ($is_allowedToEdit)
-    {
-        // CREATE DIRECTORY - UPLOAD FILE - CREATE HYPERLINK
-        $links[] = '<a class="claroCmd" href="'
-            .htmlspecialchars(Url::Contextualize(
-                $_SERVER['PHP_SELF'].'?cmd=rqUpload&amp;cwd='.$cmdCurDirPath ))
-            .'">'
-            .'<img src="' . get_icon_url('upload') . '" alt="" />&nbsp;'
-            .get_lang('Upload file')
-            .'</a>';
-        
-        $links[] = '<a class="claroCmd" href="'
-            .htmlspecialchars(Url::Contextualize(
-                $_SERVER['PHP_SELF'].'?cmd=rqMkDir&amp;cwd='.$cmdCurDirPath ))
-            .'">'
-            .'<img src="' . get_icon_url('folder') . '" alt="" />&nbsp;'
-            .get_lang('Create directory')
-            .'</a>';
-        
-        $links[] = '<a class="claroCmd" href="'
-            .htmlspecialchars(Url::Contextualize(
-                $_SERVER['PHP_SELF'].'?cmd=rqMkUrl&amp;cwd='.$cmdCurDirPath ))
-            .'">'
-            .'<img src="' . get_icon_url('link') . '" alt="" />&nbsp;'
-            .get_lang('Create hyperlink')
-            .'</a>';
-        
-        $links[] = '<a class="claroCmd" href="'
-            .htmlspecialchars(Url::Contextualize( 'rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.$cmdCurDirPath )).'">'
-            .'<img src="' . get_icon_url('html') . '" alt="" />&nbsp;'
-            .get_lang('Create Document')
-            .'</a>';
-    }
-    
-    $out .= '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n"
-          . claro_html_document_breadcrumb($curDirPath)
+    $out .= claro_html_document_breadcrumb($curDirPath)
           .'<table class="claroTable emphaseLine" width="100%">'
           . '<thead>'
           . "\n";
