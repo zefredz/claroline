@@ -47,6 +47,21 @@ small {
     font-size: 0.9em;
 }
 
+h1, 
+h2, 
+h3, 
+h4, 
+h5 {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+h1 {font-size: 2em;}
+h2 {font-size: 1.5em;}
+h3 {font-size: 1.2em;}
+h4 {font-size: 1.1em;}
+h5 {font-size: 1.0em;}
+
 ul {
     list-style-type: square;
     list-style-position: inside;
@@ -414,7 +429,7 @@ li.lastBreadCrumbsNode {
 }
 
 #leftSidebar {
-    padding: 2px 5px;
+    padding: 0;
     margin: 0;
     float: left;
     width: 220px;
@@ -422,8 +437,8 @@ li.lastBreadCrumbsNode {
 }
 
 #rightContent {
-    padding: 2px 2px 2px 5px;
-    margin-left: 240px;
+    padding: 0;
+    margin-left: 230px;
 
 }
 
@@ -508,6 +523,8 @@ Use .portlet for desktop or course portlets
 }
 
 .item .content,
+.item .lnk_link_panel,
+.item .manageTools,
 .portlet .content {
     margin-top: 0.3em;
     padding: 5px;
@@ -515,10 +532,12 @@ Use .portlet for desktop or course portlets
 
 .item h1,
 .portlet h1 {
-    color: #444;
-    font-weight: bold;
-    padding: 2px 5px 2px 5px;
     margin: 0;
+    padding: 2px 5px 2px 5px;
+    text-transform: none;
+    font-size: 1em;
+    font-weight: bold;
+    color: #444;
     background: #eee;
     border-bottom: 1px solid #444;
 }
@@ -689,16 +708,6 @@ div.tabbedCourse {
     padding: 10px;
 }
 
-.toolList {
-    width: 220px;
-    padding-right: 20px;
-    /* border-right: 1px solid #ccc; */
-}
-
-.coursePortletList { 
-    padding-left: 20px; 
-}
-
 
 /*-----------------------------------------------------------------------------
                         COURSE TOOL LIST
@@ -735,57 +744,61 @@ ul.groupToolList {
                         TOOL TITLE
 ******************************************************************************/
 
-.toolTitle .superTitle, 
-.toolTitle .mainTitle, 
-.toolTitle .subTitle {
+.toolTitleBlock {margin-bottom: 10px;}
+
+.toolTitleBlock .superTitle, 
+.toolTitleBlock .mainTitle, 
+.toolTitleBlock .subTitle {
     margin: 0;
     padding: 0;
 }
 
-.toolTitle .mainTitle {
-    float: left;
-    margin-right: 5px;
+.toolTitleBlock .mainTitle {
+    white-space: nowrap;
+    height: 100%;
     padding-right: 5px;
-    font-size: 2em;
+    font-weight: normal;
     text-transform: uppercase;
-    border-right: 1px dotted black;
 }
 
-.toolTitle .subTitle { font-style: italic; }
+.toolTitleBlock .subTitle, 
+.toolTitleBlock .superTitle {
+    color: #666;
+    letter-spacing: 0.2em;
+}
 
-.toolTitle ul.toolList {
-    width: auto;
+.toolTitleBlock ul.toolList {
     margin: 0;
-    padding: 0;
-    border: 0;
+    padding-left: 5px;
+    border-left: 1px dotted black;
     list-style-type: none;
     text-indent: 0;
 }
 
-.toolTitle ul.toolList li {
-    float: left;
+.toolTitleBlock ul.toolList li {
+    display: inline-block;
     margin: 0;
     padding: 0;
     border: 0;
 }
 
-.toolTitle ul.toolList li a {
+.toolTitleBlock ul.toolList li a {
     display: block;
     height: 16px;
-    margin: 1px;
+    margin: 0 0 3px 0;
     padding: 0;
-    border: 5px solid #CCC;
+    border: 5px solid #DDD;
     font-weight: bold;
-    background-color: #CCC;
+    background-color: #DDD;
     border-radius: 3px;
 }
 
-.toolTitle ul.toolList li a:hover {
-    background-color: #BBB;
-    border: 5px solid #BBB;
+.toolTitleBlock ul.toolList li a:hover {
+    background-color: #CCC;
+    border: 5px solid #CCC;
 }
 
-.toolTitle ul.toolList li a.help {
+.toolTitleBlock ul.toolList li a.help {
     width: 16px;
     border-color: #CCDDEE;
     background-color: #CCDDEE;
@@ -793,12 +806,19 @@ ul.groupToolList {
     background-repeat: no-repeat;
 }
 
-.toolTitle ul.toolList li a.help:hover {
+.toolTitleBlock ul.toolList li a.help:hover {
     border-color: #BBCCDD;
     background-color: #BBCCDD;
 }
 
-
+.toolTitleBlock table, 
+.toolTitleBlock tr,
+.toolTitleBlock td {
+    margin: 0; 
+    padding: 0;
+    border: 0;
+    border-collapse:collapse;
+}
 
 
 /******************************************************************************
@@ -831,6 +851,9 @@ ul.adminPanel li ul li {
     border: 0;
     
 }
+
+ul.adminPanel h2 {font-size: 1.1em;}
+ul.adminPanel h3 {font-size: 1em;}
 
 /*-----------------------------------------------------------------------------
                         ADMIN TABLE FORMS
@@ -961,6 +984,13 @@ a.item:visited {
 
 .blockHeader img {
     vertical-align: text-bottom;
+}
+
+h1.blockHeader, 
+h2.blockHeader, 
+h3.blockHeader {
+    font-size: 1em;
+    text-transform: none;
 }
 
 .claroBlockContent {
@@ -1305,8 +1335,7 @@ dl.userCourseList {
 
 /* specific styling for dialog box messages */
 .claroDialogBox {
-    margin-top: 10px; 
-    margin-bottom: 15px; 
+    margin: 0 0 15px 0; 
     padding: 5px 85px 5px 10px; 
     border: 1px solid #CCC;
     border-left: 5px solid #CCC;
@@ -1522,27 +1551,28 @@ form tr.admin td {
     text-align:center;
 }
 
-ul.user_list {
+ul.userList {
     list-style-type:none;
 }
 
-ul.user_list li {
+ul.userList li {
     float:left;
     position:relative;
     width:100px;
-    padding:0;
+    padding:5px;
     margin:5px;
+    text-indent: 0;
     background:#ccc;
 }
 
-ul.user_list li img.edit_link {
+ul.userList li img.edit_link {
     position:absolute;
     right:0; top:0;
     z-index:100;
     display:none;
 }
 
-ul.user_list li:hover img.edit_link {
+ul.userList li:hover img.edit_link {
     display:block;
 }
 
@@ -1593,7 +1623,26 @@ img.userPicture {
     color: #669933;
 }
 
+td.userCommands {padding-right: 10px;}
+
 .userCommands ul {
     margin: 0 0 10px 0;
     list-style-type: none;
+}
+
+.userCommands h1, 
+.userCourseList h1 {
+    font-size: 1.3em;
+}
+
+.userCommands h2, 
+.userCourseList h2 {
+    font-size: 1.2em;
+}
+
+.userCommands h3,
+.userCommands h4,
+.userCourseList h3,
+.userCourseList h4 {
+    font-size: 1em;
 }
