@@ -21,16 +21,21 @@ class ToolTitle implements Display
     public $subTitle;
     
     /**
-     * Array of array('name' => $name, 'url' => $url)
+     * Array of array('name' => $name, 'url' => $url) of tools
      */
     public $toolList;
     
     /**
-     * String url
+     * int $showTools number of displayed tools
+     */
+    public $showTools;
+    
+    /**
+     * String $helpUrl
      */
     public $helpUrl;
     
-    public function __construct($titleParts, $helpUrl = null, $toolList = array())
+    public function __construct($titleParts, $helpUrl = null, $toolList = array(), $showTools = null)
     {
         if (is_array($titleParts))
         {
@@ -61,43 +66,68 @@ class ToolTitle implements Display
         {
             $this->toolList = $toolList;
         }
+        
+        if (!empty($showTools) && is_int($showTools))
+        {
+            $this->showTools = $showTools;
+        }
+        else
+        {
+            $showTools = null;
+        }
     }
     
     public function render()
     {
         // Tool list and help
+        $toolList = '';
         if (!empty($this->toolList))
         {
-            $toolList = '<ul class="toolList">'."\n";
-            
+            $help = '';
             if (!empty($this->helpUrl))
             {
-                $toolList .= '<li><a class="help" href="'.$this->helpUrl.'">&nbsp;</a></li>'."\n";
+                $help .= '<li><a class="help" href="#" '
+                       . "onclick=\"MyWindow=window.open('". get_path('clarolineRepositoryWeb') . "help/" . $this->helpUrl . "',"
+                       . "'MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
+                       . '&nbsp;</a></li>'."\n";
             }
             
+            $tools = '';
+            $i = 0;
             foreach ($this->toolList as $tool)
             {
+                $styleA = '';
                 if (!empty($tool['img']))
                 {
-                    $style= ' style="background-image: url('.get_icon_url($tool['img']).'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"';
-                }
-                else
-                {
-                    $style = '';
+                    $styleA = ' style="background-image: url('.get_icon_url($tool['img']).'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"';
                 }
                 
-                $toolList .= '<li><a'.$style.' href="'.$tool['url'].'">'
+                $styleLi = '';
+                if (!empty($this->showTools) && $i >= $this->showTools)
+                {
+                    $styleLi = ' class="hidden"';
+                }
+                
+                $tools .= '<li'.$styleLi.'><a'.$styleA.' href="'.$tool['url'].'">'
                       . $tool['name'].'</a></li>'."\n";
+                
+                $i++;
             }
             
-            $toolList .= '</ul>'."\n";
-        }
-        else
-        {
-            $toolList = '';
+            $more = '';
+            if (!empty($this->showTools) && count($this->toolList) > $this->showTools)
+            {
+                $more = '<li><a class="more" href="#">&raquo;</a></li>';
+            }
+            
+            $toolList .= '<ul class="toolList">'."\n"
+                       . $help
+                       . $tools
+                       . $more
+                       . '</ul>'."\n";
         }
         
-        $out = '<div class="toolTitle">';
+        $out = '<div class="toolTitleBlock">';
         
         // Title parts
         if (!empty($this->superTitle))
@@ -114,8 +144,11 @@ class ToolTitle implements Display
             $style = '';
         }
         
-        $out .= '<h1 class="toolTitle mainTitle"'.$style.'>'.$this->mainTitle.'</h1>'."\n"
-              . $toolList;
+        $out .= '<table><tr><td>'
+              . '<h1 class="toolTitle mainTitle"'.$style.'>'.$this->mainTitle.'</h1>'."\n"
+              . '</td><td>'
+              . $toolList
+              . '</td></tr></table>';
         
         if (!empty($this->superTitle))
         {
@@ -128,8 +161,7 @@ class ToolTitle implements Display
             $out .= '<a class="help" href="'.$this->helpUrl.'"></a>'."\n";
         }
         
-        $out .= '</div>'."\n"
-              . '<br /><br />'."\n";
+        $out .= '</div>'."\n";
         
         return $out;
     }
