@@ -267,11 +267,28 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url(
 
 $nameTools = get_lang('Question pool');
 
+// Tool list
+$toolList = array();
+
+if( !is_null($exId) )
+{
+    $toolList[] = array(
+        'img' => 'back',
+        'name' => get_lang('Go back to the exercise'),
+        'url' => htmlspecialchars(Url::Contextualize('edit_exercise.php?exId='.$exId))
+    );
+}
+
+$toolList[] = array(
+    'img' => 'default_new',
+    'name' => get_lang('New question'),
+    'url' => htmlspecialchars(Url::Contextualize('edit_question.php?cmd=rqEdit'))
+);
+
 $out = '';
-
-$out .= claro_html_tool_title($nameTools);
-
+$out .= claro_html_tool_title($nameTools, null, $toolList);
 $out .= $dialogBox->render();
+
 
 //-- filter listbox
 $attr['onchange'] = 'filterForm.submit()';
@@ -287,14 +304,6 @@ $out .= "\n"
 .     '</noscript>' . "\n"
 .     '</p>' . "\n"
 .     '</form>' . "\n\n";
-
-if( !is_null($exId) )
-{
-    $cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'">&lt;&lt; '.get_lang('Go back to the exercise').'</a>';
-}
-$cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?cmd=rqEdit">'.get_lang('New question').'</a>';
-
-$out .= claro_html_menu_horizontal($cmd_menu);
 
 //-- pager
 $out .= $myPager->disp_pager_tool_bar($pagerUrl);

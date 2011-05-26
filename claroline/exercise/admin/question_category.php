@@ -1,15 +1,12 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 $tlabelReq = 'CLQWZ';
@@ -53,61 +50,61 @@ $dialogBox = new DialogBox();
 
 if( !is_null($cmd) )
 {
-	$questionCategory = new QuestionCategory();
+    $questionCategory = new QuestionCategory();
 
-	if (!is_null($catId))
-	{
-		$questionCategory->setId($catId);
-		if ( ( $cmd=='rqEdit' ) || ( $cmd=='exEdit' ))
-		{
-			$questionCategory->load();
-			if ($cmd == 'rqEdit' )
-		    {
-		    	$form['title']                 = $questionCategory->getTitle();
-		    	$form['description']           = $questionCategory->getDescription();
-		    }
-		    
-		    if ($cmd == 'exEdit'  && $catId)
-		    {
-		    	$questionCategory->setTitle($_REQUEST['title']);
-		    	$questionCategory->setDescription($_REQUEST['description']);
-		
-			    if( $questionCategory->validate() )
-			    {
-			        if( $questionCategory->save() )
-			        {
-			            if( $catId == -1 )
-			            {
-			                $dialogBox->success( get_lang('Category created') );
-			            }
-			            else
-			            {
-			                $dialogBox->success( get_lang('Category updated') );
-			            }
-			        }
-			    }
-			    else
-			    {
-			    	if( claro_failure::get_last_failure() == 'category_no_title' )
-			        {
-			            $dialogBox->error( get_lang('Field \'%name\' is required', array('%name' => get_lang('Title'))) );
-			        }
-			        else if( claro_failure::get_last_failure() == 'category_already_exists' )
-			        {
-			            $dialogBox->error( get_lang('Category alreday exists') );
-			        }
-			    }
-		    }
-		}
-	}
-	if( $cmd=='add' )
-	{
-    	$questionCategory->load();
-    	$catId = -1;
-    	$form['title']                 = '';
-    	$form['description']           = '';
-    	$cmd = 'rqEdit';
-	}
+    if (!is_null($catId))
+    {
+        $questionCategory->setId($catId);
+        if ( ( $cmd=='rqEdit' ) || ( $cmd=='exEdit' ))
+        {
+            $questionCategory->load();
+            if ($cmd == 'rqEdit' )
+            {
+                $form['title']                 = $questionCategory->getTitle();
+                $form['description']           = $questionCategory->getDescription();
+            }
+            
+            if ($cmd == 'exEdit'  && $catId)
+            {
+                $questionCategory->setTitle($_REQUEST['title']);
+                $questionCategory->setDescription($_REQUEST['description']);
+        
+                if( $questionCategory->validate() )
+                {
+                    if( $questionCategory->save() )
+                    {
+                        if( $catId == -1 )
+                        {
+                            $dialogBox->success( get_lang('Category created') );
+                        }
+                        else
+                        {
+                            $dialogBox->success( get_lang('Category updated') );
+                        }
+                    }
+                }
+                else
+                {
+                    if( claro_failure::get_last_failure() == 'category_no_title' )
+                    {
+                        $dialogBox->error( get_lang('Field \'%name\' is required', array('%name' => get_lang('Title'))) );
+                    }
+                    else if( claro_failure::get_last_failure() == 'category_already_exists' )
+                    {
+                        $dialogBox->error( get_lang('Category alreday exists') );
+                    }
+                }
+            }
+        }
+    }
+    if( $cmd=='add' )
+    {
+        $questionCategory->load();
+        $catId = -1;
+        $form['title']                 = '';
+        $form['description']           = '';
+        $cmd = 'rqEdit';
+    }
     
     if( $cmd == 'exDel' && $catId )
     {
@@ -165,12 +162,22 @@ $nameTools = get_lang('Question categories');
 
 $noQUERY_STRING = true;
 
+// Tool list
+$toolList = array();
+
+if($is_allowedToEdit)
+{
+    $toolList[] = array(
+        'img' => 'quiz_new',
+        'name' => get_lang('New category'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=add'))
+    );
+}
+
 $out = '';
-
-$out .= claro_html_tool_title($nameTools);
-
-//-- dialogBox
 $out .=  $dialogBox->render();
+$out .= claro_html_tool_title($nameTools, null, $toolList);
+
 
 if( $displayForm )
 {
@@ -214,16 +221,6 @@ if( $displayForm )
     $out .= '</table>' . "\n\n"
     .     '</form>' . "\n\n";
 }
-
-//-- claroCmd
-$cmd_menu = array();
-
-if($is_allowedToEdit)
-{
-    $cmd_menu[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=add"><img src="' . get_icon_url('quiz_new') . '" alt="" />' . get_lang('New category').'</a>';
-}
-
-$out .= claro_html_menu_horizontal($cmd_menu);
 
 //-- pager
 $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
