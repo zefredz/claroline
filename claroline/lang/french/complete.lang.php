@@ -1956,6 +1956,7 @@ $_lang['Users help'] = 'Aide de l\'outil \'Utilisateurs\'';
 $_lang['Users list'] = 'Liste des utilisateurs';
 $_lang['Users not in this group'] = 'Utilisateurs non inscrits à ce groupe';
 $_lang['Users statistics'] = 'Statistiques des utilisateurs';
+$_lang['User statistics'] = 'Statistiques de l\'utilisateur';
 $_lang['Users with similar settings exist on the system yet'] = 'Un profil utilisateur semblable existe déjà sur la plateforme';
 $_lang['Users\' Clicks'] = 'Nombre d\'utilisateurs différents';
 $_lang['UsersMin'] = 'utilisateurs';

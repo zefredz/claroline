@@ -59,16 +59,14 @@
         
         <table>
           <tr>
-          
             <td class="userCommands">
-                <?php echo claro_html_tool_title(get_lang('Manage my courses')); ?>
+                <h1><?php echo get_lang('Manage my courses'); ?></h1>
                 <?php echo claro_html_list( $this->userCommands ); ?>
             </td>
-            <td class="myCourseList">
-                <?php echo claro_html_tool_title(get_lang('My course list')); ?>
+            <td class="userCourseList">
+                <h1><?php echo get_lang('My course list'); ?></h1>
                 <?php echo $this->templateMyCourses->render(); ?>
             </td>
-          
           </tr>
         </table>
         
