@@ -381,44 +381,40 @@ if ( $is_allowedToManage )
 
     }    // end if $submit
 
-    // Create new groups
-    $groupadmin_manager_menu[] =  claro_html_cmd_link( htmlspecialchars( Url::Contextualize(
-                                                        $_SERVER['PHP_SELF']
-                                                     . '?cmd=rqMkGroup' ))
-                                                     , '<img src="' . get_icon_url('group') . '" alt="" />'
-    .                            get_lang("Create new group(s)")
-                                                     );
-    // Delete all groups
-    $groupadmin_manager_menu[] =  claro_html_cmd_link( htmlspecialchars( Url::Contextualize(
-                                                    $_SERVER['PHP_SELF']
-                                                     . '?cmd=exDelGroup&id=ALL' ))
-                                                     , '<img src="' . get_icon_url('delete') . '" alt="" />'
-    .                            get_lang("Delete all groups")
-                                                     , array('onclick'=>'return confirmationDelete();')
-                                                     );
-    // Fill groups
-    $groupadmin_manager_menu[] = claro_html_cmd_link( htmlspecialchars( Url::Contextualize(
-                                                    $_SERVER['PHP_SELF']
-                                                    . '?cmd=exFillGroup' ))
-                                                    , '<img src="' . get_icon_url('fill') . '" alt="" />'
-    .                            get_lang("Fill groups (automatically)")
-                                                    , array('onclick'=>'return confirmationFill()')
-                                                    );
-    // Empty all groups
-    $groupadmin_manager_menu[] = claro_html_cmd_link( htmlspecialchars( Url::Contextualize(
-                                                     $_SERVER['PHP_SELF']
-                                                     . '?cmd=exEmptyGroup' ))
-                                                     , '<img src="' . get_icon_url('sweep') . '" alt="" />'
-    .                            get_lang("Empty all groups")
-                                                     , array('onclick' => 'return confirmationEmpty();')
-                                                     );
-    // Main group settings
-    $groupadmin_manager_menu[] =  claro_html_cmd_link( htmlspecialchars( Url::Contextualize(
-                                                     'group_properties.php' ))
-                                                      , '<img src="' . get_icon_url('settings') . '" alt="" />'
-                                                      . get_lang("Main Group Settings"));
-
-
+    // Tool list
+    $toolList = array();
+    
+    $toolList[] = array(
+        'img' => 'group',
+        'name' => get_lang('Create new group(s)'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqMkGroup'))
+    );
+    
+    $toolList[] = array(
+        'img' => 'delete',
+        'name' => get_lang('Delete all groups'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=ALL')),
+        'params' => array('onclick' => 'return confirmationDelete();')
+    );
+    
+    $toolList[] = array(
+        'img' => 'fill',
+        'name' => get_lang('Fill groups (automatically)'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exFillGroup'))
+    );
+    
+    $toolList[] = array(
+        'img' => 'sweep',
+        'name' => get_lang('Empty all groups'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exEmptyGroup')),
+        'params' => array('onclick' => 'return confirmationEmpty();')
+    );
+    
+    $toolList[] = array(
+        'img' => 'settings',
+        'name' => get_lang('Main Group Settings'),
+        'url' => htmlspecialchars(Url::Contextualize('group_properties.php'))
+    );
 } // end if is_allowedToManage
 
 
@@ -535,7 +531,7 @@ $htmlHeadXtra[] =
 
 $out = '';
 
-$out .= claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools, null, $toolList, 3);
 
 /*-------------
   MESSAGE BOX
@@ -546,8 +542,6 @@ $out .= $dialogBox->render();
 /*==========================
 COURSE ADMIN ONLY
 ==========================*/
-if ( $display_groupadmin_manager ) $out .= '<p>' . claro_html_menu_horizontal($groupadmin_manager_menu) . '</p>';
-
 /**
   VIEW COMMON TO STUDENT & TEACHERS
    - List of existing groups
