@@ -1,17 +1,14 @@
 <?php  // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.8
- *
+ * @version     1.8 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Piraux Sebastien <pir@cerdecam.be>
- * @author Lederer Guillaume <led@cerdecam.be>
- *
- * @package CLLNP
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Piraux Sebastien <pir@cerdecam.be>
+ * @author      Lederer Guillaume <led@cerdecam.be>
+ * @package     CLLNP
  *
  * DESCRIPTION:
  * ************
@@ -36,7 +33,6 @@
 
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
-$cmdMenu = array();
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
@@ -426,25 +422,40 @@ if (isset($sortDirection) && $sortDirection)
     }
 }
 // DISPLAY
-$cmdMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] .'?cmd=create'. claro_url_relay_context('&amp;'),get_lang('Create a new learning path'));
-$cmdMenu[] = claro_html_cmd_link('importLearningPath.php' . claro_url_relay_context('?'),get_lang('Import a learning path'));
-$cmdMenu[] = claro_html_cmd_link('modules_pool.php' . claro_url_relay_context('?'),      get_lang('Pool of modules'));
-$cmdMenu[] = claro_html_cmd_link( get_path('clarolineRepositoryWeb') . 'tracking/learnPath_detailsAllPath.php'. claro_url_relay_context('?'),get_lang('Learning paths tracking'));
-
-$out = '';
-
-$out .= claro_html_tool_title($nameTools);
-
-$out .= $dialogBox->render();
+// Tool list
+$toolList = array();
 
 if($is_allowedToEdit)
 {
-    // Display links to create and import a learning path
-    $out .= '<p>'
-    .    claro_html_menu_horizontal($cmdMenu)
-    .    '</p>'
-    ;
+    $toolList[] = array(
+        'img' => '',
+        'name' => get_lang('Create a new learning path'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] .'?cmd=create'))
+    );
+    
+    $toolList[] = array(
+        'img' => '',
+        'name' => get_lang('Import a learning path'),
+        'url' => htmlspecialchars(Url::Contextualize('importLearningPath.php'))
+    );
+    
+    $toolList[] = array(
+        'img' => '',
+        'name' => get_lang('Pool of modules'),
+        'url' => htmlspecialchars(Url::Contextualize('modules_pool.php'))
+    );
+    
+    $toolList[] = array(
+        'img' => '',
+        'name' => get_lang('Learning paths tracking'),
+        'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'tracking/learnPath_detailsAllPath.php'))
+    );
 }
+
+$out = '';
+$out .= claro_html_tool_title($nameTools, null, $toolList, 2);
+$out .= $dialogBox->render();
+
 
 // Display list of available training paths
 
@@ -954,5 +965,3 @@ $out .= '</tfoot>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
