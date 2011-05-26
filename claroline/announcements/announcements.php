@@ -109,9 +109,8 @@ $dialogBox = new DialogBox();
  * COMMANDS SECTION (COURSE MANAGER ONLY)
  */
 
-$id  = isset($_REQUEST['id'])  ? (int) $_REQUEST['id']   : 0;
-$cmd = isset($_REQUEST['cmd']) ? $cmd = $_REQUEST['cmd'] : '';
-$cmdList=array();
+$id     = isset($_REQUEST['id'])  ? (int) $_REQUEST['id']   : 0;
+$cmd    = isset($_REQUEST['cmd']) ? $cmd = $_REQUEST['cmd'] : '';
 
 if($is_allowedToEdit) // check teacher status
 {
@@ -395,6 +394,10 @@ if ($displayList)
 
 $displayButtonLine = (bool) $is_allowedToEdit && ( empty($cmd) || $cmd != 'rqEdit' || $cmd != 'rqCreate' ) ;
 
+// Tool list
+$cmdList = array();
+$toolList = array();
+
 if ( $displayButtonLine )
 {
     $cmdList[] = '<a class="claroCmd" href="'
@@ -403,6 +406,12 @@ if ( $displayButtonLine )
         . get_lang('Add announcement')
         . '</a>' . "\n"
         ;
+        
+    $toolList[] = array(
+        'img' => 'announcement_new',
+        'name' => get_lang('Add announcement'),
+        'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqCreate' ))
+    );
 
     $cmdList[] = '<a class="claroCmd" href="'
         . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann')) . '">'
@@ -410,6 +419,12 @@ if ( $displayButtonLine )
         . get_lang('Messages to selected users')
         . '</a>' . "\n"
         ;
+        
+    $toolList[] = array(
+        'img' => 'mail_close',
+        'name' => get_lang('Messages to selected users'),
+        'url' => htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann'))
+    );
     
     if (($announcementQty > 0 ))
     {
@@ -420,16 +435,13 @@ if ( $displayButtonLine )
             . get_lang('Clear up list of announcements')
             . '</a>' . "\n"
             ;
+        
+        $toolList[] = array(
+            'img' => 'delete',
+            'name' => get_lang('Clear up list of announcements'),
+            'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll' ))
+        );
     }
-    else
-    {
-        $cmdList[] = '<span class="claroCmdDisabled" >'
-            . '<img src="' . get_icon_url('delete') . '" alt="" />'
-            . get_lang('Clear up list of announcements')
-            . '</span>' . "\n"
-            ;
-    }
-
 }
 
 
@@ -444,18 +456,15 @@ $output = '';
 
 if ( !empty( $subTitle ) )
 {
-    $output .= claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
+    $titleParts = array('mainTitle' => $nameTools, 'subTitle' => $subTitle);
 }
 else
 {
-    $output .= claro_html_tool_title( $nameTools );
+    $titleParts = $nameTools;
 }
 
+$output .= claro_html_tool_title($titleParts, null, $toolList);
 $output .= $dialogBox->render();
-
-$output .= '<p>'
-         . claro_html_menu_horizontal($cmdList)
-         . '</p>';
 
 
 /**
