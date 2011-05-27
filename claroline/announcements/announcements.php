@@ -49,9 +49,9 @@
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
 */
 
-define('CONFVAL_LOG_ANNOUNCEMENT_INSERT', FALSE);
-define('CONFVAL_LOG_ANNOUNCEMENT_DELETE', FALSE);
-define('CONFVAL_LOG_ANNOUNCEMENT_UPDATE', FALSE);
+define('CONFVAL_LOG_ANNOUNCEMENT_INSERT', false);
+define('CONFVAL_LOG_ANNOUNCEMENT_DELETE', false);
+define('CONFVAL_LOG_ANNOUNCEMENT_UPDATE', false);
 
 
 /**
@@ -84,7 +84,7 @@ ResourceLinker::init();
 require claro_get_conf_repository() . 'ical.conf.php';
 require claro_get_conf_repository() . 'rss.conf.php';
 
-claro_set_display_mode_available(TRUE);
+claro_set_display_mode_available(true);
 
 // Set flag following depending on settings
 $is_allowedToEdit = claro_is_allowed_to_edit();
@@ -97,8 +97,8 @@ $tbl_course_user = $tbl_cdb_names['rel_course_user'];
 $tbl_user        = $tbl_cdb_names['user'];
 
 // Default display
-$displayForm = FALSE;
-$displayList = TRUE;
+$displayForm = false;
+$displayList = true;
 
 $subTitle = '';
 
@@ -126,7 +126,7 @@ if($is_allowedToEdit) // check teacher status
         }
     }
     
-    $autoExportRefresh = FALSE;
+    $autoExportRefresh = false;
     if ( !empty($cmd) )
     {
         // Move announcements up or down
@@ -148,7 +148,7 @@ if($is_allowedToEdit) // check teacher status
                 
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) $claroline->log('ANNOUNCEMENT',array('DELETE_ENTRY'=>$id));
                 $eventNotifier->notifyCourseEvent('anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
-                $autoExportRefresh = TRUE;
+                $autoExportRefresh = true;
                 
                 #linker_delete_resource();
             }
@@ -168,7 +168,7 @@ if($is_allowedToEdit) // check teacher status
                 
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) $claroline->log('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
                 $eventNotifier->notifyCourseEvent('all_anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $announcementList , claro_get_current_group_id(), '0');
-                $autoExportRefresh = TRUE;
+                $autoExportRefresh = true;
                 
                 #linker_delete_all_tool_resources();
             }
@@ -186,7 +186,7 @@ if($is_allowedToEdit) // check teacher status
             
             // Get the announcement to modify
             $announcement = announcement_get_item($id);
-            $displayForm = TRUE;
+            $displayForm = true;
             $nextCommand = 'exEdit';
         
         }
@@ -208,7 +208,7 @@ if($is_allowedToEdit) // check teacher status
             {
                 $dialogBox->success( get_lang('Visibility modified') );
             }
-            $autoExportRefresh = TRUE;
+            $autoExportRefresh = true;
         }
         
         // Require new announcement's creation
@@ -216,7 +216,7 @@ if($is_allowedToEdit) // check teacher status
         {
             $subTitle = get_lang('Add announcement');
             claro_set_display_mode_available(false);
-            $displayForm = TRUE;
+            $displayForm = true;
             $nextCommand = 'exCreate';
             $announcement=array();
         }
@@ -278,7 +278,7 @@ if($is_allowedToEdit) // check teacher status
                         
                         $eventNotifier->notifyCourseEvent('anouncement_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
                         if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE) $claroling->log('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
-                        $autoExportRefresh = TRUE;
+                        $autoExportRefresh = true;
                     }
                 }
                 else
@@ -311,7 +311,7 @@ if($is_allowedToEdit) // check teacher status
                         
                         $eventNotifier->notifyCourseEvent('anouncement_added',claro_get_current_course_id(), claro_get_current_tool_id(), $insert_id, claro_get_current_group_id(), '0');
                         if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) $claroline->log('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
-                        $autoExportRefresh = TRUE;
+                        $autoExportRefresh = true;
                     }
                 }
                 else
@@ -643,20 +643,20 @@ if ($displayList)
                     ($thisAnnouncement['visibleFrom']) :
                     ($thisAnnouncement['time']));
 
-                $output .= '<div class="claroBlock">' . "\n"
-                .   '<h3 id="announcement'.$thisAnnouncement['id'].'" class="blockHeader">'
+                $output .= '<div class="item">' . "\n"
+                .   '<h1 id="announcement'.$thisAnnouncement['id'].'">'
                 .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
                 .   '<img src="' . get_icon_url('announcement') . '" alt="" /> '
                 .   get_lang('Published on')
                 .   ' : ' . claro_html_localised_date( get_locale('dateFormatLong'), strtotime($last_post_date))
                 .   '</span>' . "\n"
-                .   '</h3>' . "\n"
+                .   '</h1>' . "\n"
                 
-                .   '<div class="claroBlockContent">' . "\n"
+                .   '<div class="content">' . "\n"
                 .   '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
 
                 .   '<div class="' . $cssInvisible . '">' . "\n"
-                .   ($title ? '<p><strong>' . htmlspecialchars($title) . '</strong></p>' . "\n"
+                .   ($title ? '<h2>' . htmlspecialchars($title) . '</h2>' . "\n"
                     : ''
                     )
                 .   claro_parse_user_text($content) . "\n"
@@ -668,7 +668,7 @@ if ($displayList)
 
                 if ($is_allowedToEdit)
                 {
-                    $output .= '<div class="claroBlockCmd">'
+                    $output .= '<div class="manageTools">'
                         // EDIT Request LINK
                         . '<a href="'
                         . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']

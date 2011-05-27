@@ -138,6 +138,7 @@ function announcement_get_items_portlet($personnalCourseList)
                 {
                     $courseDigestList[$courseOfficialCode] = array();
                     $courseDigestList[$courseOfficialCode]['eventList'] = array();
+                    $courseDigestList[$courseOfficialCode]['id'] = $thisEvent['id'];
                     $courseDigestList[$courseOfficialCode]['courseOfficialCode'] = $courseOfficialCode;
                     $courseDigestList[$courseOfficialCode]['title'] = $courseTitle;
                     $courseDigestList[$courseOfficialCode]['visibility'] = $thisEvent['visibility'];
@@ -150,6 +151,7 @@ function announcement_get_items_portlet($personnalCourseList)
                 
                 $courseDigestList[$courseOfficialCode]['eventList'][] =
                     array(
+                        'id' => $thisEvent['id'],
                         'courseSysCode' => $thisEvent['courseSysCode'],
                         'toolLabel' => $thisEvent['toolLabel'],
                         'title' => $thisEvent['title'],
@@ -413,5 +415,3 @@ function move_entry($item_id, $cmd, $course_id=null)
     }
     return true;
 }
-
-?>

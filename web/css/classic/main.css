@@ -1636,7 +1636,7 @@ img.userPicture {
     color: #669933;
 }
 
-td.userCommands {padding-right: 10px;}
+td.userCommands {padding-right: 20px;}
 
 .userCommands ul {
     margin: 0 0 10px 0;

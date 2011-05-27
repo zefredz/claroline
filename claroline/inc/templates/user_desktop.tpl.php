@@ -1,9 +1,5 @@
 <!-- $Id$ -->
 
-<?php echo claro_html_tool_title(get_lang(get_lang('My desktop'))); ?>
-
-<?php echo $this->dialogBox->render(); ?>
-
 <div id="rightSidebar">
     <?php echo $this->userProfileBox->render(); ?>
     
@@ -11,6 +7,9 @@
 </div>
 
 <div id="leftContent">
+    <?php echo claro_html_tool_title(get_lang(get_lang('My desktop'))); ?>
+    
+    <?php echo $this->dialogBox->render(); ?>
     <div class="portlet collapsible collapsed">
         <h1>
             <?php echo get_lang('Presentation'); ?>

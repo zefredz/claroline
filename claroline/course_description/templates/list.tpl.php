@@ -4,6 +4,7 @@
 <?php foreach ($this->descriptionList as $description) : ?>
 <div class="item<?php if ($description['visibility'] == 'INVISIBLE') : ?> hidden<?php endif; ?>">
     <h1>
+        <img src="<?php echo get_icon_url('icon'); ?>" alt="" />
         <?php echo htmlspecialchars($description['title']); ?>
     </h1>
     <div class="content">

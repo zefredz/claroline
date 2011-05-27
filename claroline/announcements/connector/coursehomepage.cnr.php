@@ -16,39 +16,17 @@
  * @since       1.10
  */
 
+require_once get_module_path( 'CLANN' ) . '/lib/announcement.lib.php';
+
 class CLANN_Portlet extends CourseHomePagePortlet
 {
     public function renderContent()
     {
-        // Select announcements for this course
-        $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseCode));
-        $tbl_announcement   = $tbl['announcement'];
+        $output = '';
+        $course = claro_get_current_course_data();
+        $course['db'] = $course['dbName'];
         
-        $currentCourseData  = claro_get_course_data($this->courseCode);
-        $curdate            = claro_mktime();
-        $output             = '';
-        
-        $sql = "SELECT `id`, " . "\n"
-                . Claroline::getDatabase()->quote($currentCourseData['sysCode']) . " AS `courseSysCode`, " . "\n"
-                . Claroline::getDatabase()->quote($currentCourseData['officialCode']) . " AS `courseOfficialCode`, " . "\n"
-                . "'CLANN'                                              AS `toolLabel`, " . "\n"
-                . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`, " . "\n"
-                . "CONCAT(`title`,' - ',`contenu`)                      AS `content`, " . "\n"
-                . "`title`, " . "\n"
-                . "`visibility`, " . "\n"
-                . "`visibleFrom`, " . "\n"
-                . "`visibleUntil` " . "\n"
-                . "FROM `" . $tbl_announcement . "` " . "\n"
-                . "WHERE CONCAT(`title`, `contenu`) != '' " . "\n"
-                . "AND visibility = 'SHOW' " . "\n"
-                . "            AND (UNIX_TIMESTAMP(`visibleFrom`) < '" . $curdate . "'
-                                     OR `visibleFrom` IS NULL OR UNIX_TIMESTAMP(`visibleFrom`) = 0
-                                   )
-                               AND ('" . $curdate . "' < UNIX_TIMESTAMP(`visibleUntil`) OR `visibleUntil` IS NULL)"
-                . "ORDER BY `date` DESC" . "\n"
-                ;
-        
-        $announcementList = Claroline::getDatabase()->query($sql);
+        $announcementList = announcement_get_course_item_list_portlet($course);
         
         // Manage announcement's datas
         if($announcementList)
@@ -61,7 +39,7 @@ class CLANN_Portlet extends CourseHomePagePortlet
                 // Generate announcement URL
                 $announcementItem['url'] = get_path('url')
                     . '/claroline/announcements/announcements.php?cidReq='
-                    . $currentCourseData['sysCode'];
+                    . $course['sysCode'];
                 
                 // Generate announcement title and content
                 $announcementItem['title'] = trim(strip_tags($announcementItem['title']));
@@ -96,9 +74,8 @@ class CLANN_Portlet extends CourseHomePagePortlet
                 {
                     $content = substr($announcementItem['content'], 0, $displayChar)
                              . '... <a href="'
-                             . htmlspecialchars(Url::Contextualize(get_module_url( 'CLANN' )
-                             . '/announcements.php#ann' . $announcementItem['id'])) . '">'
-                             . '<b>' . get_lang('Read more') . '</b></a>';
+                             . htmlspecialchars(Url::Contextualize($announcementItem['url'])) . '">'
+                             . '<b>' . get_lang('Read more &raquo;') . '</b></a>';
                 }
                 else
                 {

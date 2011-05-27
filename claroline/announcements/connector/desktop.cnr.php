@@ -73,6 +73,21 @@ class CLANN_Portlet extends UserDesktopPortlet
                     
                     foreach($announcementItem['eventList'] as $announcementEvent)
                     {
+                        // Prepare the render
+                        $displayChar = 250;
+                        
+                        if (strlen($announcementEvent['content']) > $displayChar)
+                        {
+                            $content = substr($announcementEvent['content'], 0, $displayChar)
+                                     . '... <a href="'
+                                     . htmlspecialchars(Url::Contextualize($announcementEvent['url'])) . '">'
+                                     . '<b>' . get_lang('Read more &raquo;') . '</b></a>';
+                        }
+                        else
+                        {
+                            $content = $announcementEvent['content'];
+                        }
+                        
                         $output .= '<dd>'
                                  . '<a href="' . $announcementEvent['url'] . '">'
                                  . $announcementItem['courseOfficialCode']
@@ -81,7 +96,7 @@ class CLANN_Portlet extends UserDesktopPortlet
                                     $announcementEvent['title'] :
                                     get_lang('No title')) . "\n"
                                  . ' - '
-                                 . $announcementEvent['content'] . "\n"
+                                 . $content . "\n"
                                  . '</dd>' . "\n";
                     }
                 }
