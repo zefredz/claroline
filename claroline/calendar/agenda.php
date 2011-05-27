@@ -146,22 +146,20 @@ if ( $is_allowedToEdit )
             }
 
             // notify that a new agenda event has been posted
-
             $eventNotifier->notifyCourseEvent('agenda_event_added', claro_get_current_course_id(), claro_get_current_tool_id(), $entryId, claro_get_current_group_id(), '0');
             $autoExportRefresh = true;
-
         }
         else
         {
             $dialogBox->error( get_lang('Unable to add the event to the agenda') );
         }
     }
-
+    
+    
     /*------------------------------------------------------------------------
     EDIT EVENT COMMAND
     --------------------------------------------------------------------------*/
-
-
+    
     if ( 'exEdit' == $cmd )
     {
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
@@ -192,11 +190,12 @@ if ( $is_allowedToEdit )
             }
         }
     }
-
+    
+    
     /*------------------------------------------------------------------------
     DELETE EVENT COMMAND
     --------------------------------------------------------------------------*/
-
+    
     if ( 'exDelete' == $cmd && !empty($id) )
     {
 
@@ -218,11 +217,12 @@ if ( $is_allowedToEdit )
 
         // linker_delete_resource();
     }
-
+    
+    
     /*----------------------------------------------------------------------------
     DELETE ALL EVENTS COMMAND
     ----------------------------------------------------------------------------*/
-
+    
     if ( 'exDeleteAll' == $cmd )
     {
         if ( agenda_delete_all_items())
@@ -243,10 +243,12 @@ if ( $is_allowedToEdit )
 
         // linker_delete_all_tool_resources();
     }
+    
+    
     /*-------------------------------------------------------------------------
     EDIT EVENT VISIBILITY
     ---------------------------------------------------------------------------*/
-
+    
     if ( 'mkShow' == $cmd  || 'mkHide' == $cmd )
     {
         if ($cmd == 'mkShow')
@@ -265,11 +267,12 @@ if ( $is_allowedToEdit )
 
         agenda_set_item_visibility($id, $visibility);
     }
-
+    
+    
     /*------------------------------------------------------------------------
     EVENT EDIT
     --------------------------------------------------------------------------*/
-
+    
     if ( 'rqEdit' == $cmd  || 'rqAdd' == $cmd  )
     {
         claro_set_display_mode_available(false);
@@ -368,8 +371,8 @@ $titleParts = array('mainTitle' => $nameTools, 'subTitle' => $subTitle);
 //TODO this tool could use a template
 
 $output = '';
-$output .= $dialogBox->render();
 $output .= claro_html_tool_title($titleParts, null, $toolList);
+$output .= $dialogBox->render();
 
 if ($display_form)
 {
@@ -390,77 +393,78 @@ if ($display_form)
     $output .= $template->render();
 }
 
-$monthBar     = '';
-
 if ( count($eventList) < 1 )
 {
     $output .= "\n" . '<blockquote>' . get_lang('No event in the agenda') . '</blockquote>' . "\n";
 }
 
-$nowBarAlreadyShowed = false;
+$nowBarAlreadyShown = false;
+$monthBar           = '';
 
-if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
+if (claro_is_user_authenticated())
+{
+    $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
+}
 
 foreach ( $eventList as $thisEvent )
 {
     if (('HIDE' == $thisEvent['visibility'] && $is_allowedToEdit)
         || 'SHOW' == $thisEvent['visibility'])
     {
-        //modify style if the event is recently added since last login
+        // Modify style if the event is recently added since last login
         if (claro_is_user_authenticated()
             && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisEvent['id']))
         {
-            $cssItem = 'item hot';
+            $cssItem = ' hot';
         }
         else
         {
-            $cssItem = 'item';
+            $cssItem = '';
         }
-
+        
         $cssInvisible = '';
         if ($thisEvent['visibility'] == 'HIDE')
         {
             $cssInvisible = ' invisible';
         }
-
-        // TREAT "NOW" BAR CASE
-        if ( ! $nowBarAlreadyShowed )
+        
+        // Treat the "now bar" case
+        if ( ! $nowBarAlreadyShown )
         if (( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) > time() ) &&  'ASC' == $orderDirection )
         ||
         ( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) < time() ) &&  'DESC' == $orderDirection )
         )
         {
-            // add monthbar is now bar is the first (or only one) item for this month
+            // Add monthbar if now bar is the first (or only one) item for this month
             // current time month monthBar display
             if ($monthBar != date('mY',time()))
             {
                 $monthBar = date('mY',time());
-
+                
                 $output .= '<h2>' . "\n"
                          . ucfirst(claro_html_localised_date('%B %Y', time()))
                          . '</h2>' . "\n";
             }
-
+            
             // 'NOW' bar
             $output .= '<h3 class="highlight">'
                      . '<a name="today">'
                      . '<i>'
                      . ucfirst(claro_html_localised_date( get_locale('dateFormatLong'))) . ' '
                      . ucfirst(strftime( get_locale('timeNoSecFormat')))
-                     . ' -- '
+                     . ' &mdash; '
                      . get_lang('Now')
                      . '</i>'
                      . '</a>'
                      . '</h3>' . "\n";
             
-            $nowBarAlreadyShowed = true;
+            $nowBarAlreadyShown = true;
         }
-
+        
         /*
          * Display the month bar when the current month
          * is different from the current month bar
          */
-
         if ( $monthBar != date( 'mY', strtotime($thisEvent['day']) ) )
         {
             $monthBar = date('mY', strtotime($thisEvent['day']));
@@ -469,38 +473,32 @@ foreach ( $eventList as $thisEvent )
                      . ucfirst(claro_html_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
                      . '</h2>' . "\n";
         }
-
-        /*
-         * Display the event date
-         */
+        
+        // Event date
         $output .= '<div class="item">' . "\n"
-        .   '<h1 id = "event' . $thisEvent['id'] . '" class="blockHeader">'
-        .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
+        .   '<h1 id="event' . $thisEvent['id'] . '">'
+        .   '<span class="item'. $cssItem . $cssInvisible .'">' . "\n"
         .   '<img src="' . get_icon_url('agenda') . '" alt="" /> '
-        .    ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
-        .    ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($thisEvent['hour'])))
-        .    ( empty($thisEvent['lasting']) ? ('') : (' | '.get_lang('Lasting')) . ' : ' . $thisEvent['lasting'] )
-        .    ( empty($thisEvent['location']) ? ('') : (' | '.get_lang('Location')) . ' : ' . $thisEvent['location'] )
-        .    ( empty($thisEvent['speakers']) ? ('') : (' | '.get_lang('Speakers')) . ' : ' . $thisEvent['speakers'] )
+        .   ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
+        .   ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($thisEvent['hour'])))
+        .   ( empty($thisEvent['lasting']) ? ('') : (' | '.get_lang('Lasting')) . ' : ' . $thisEvent['lasting'] )
+        .   ( empty($thisEvent['location']) ? ('') : (' | '.get_lang('Location')) . ' : ' . $thisEvent['location'] )
+        .   ( empty($thisEvent['speakers']) ? ('') : (' | '.get_lang('Speakers')) . ' : ' . $thisEvent['speakers'] )
         .   '</span>' . "\n"
         .   '</h1>' . "\n"
         
-        /*
-         * Display the event content
-         */
+        // Event content
         .   '<div class="content">' . "\n"
-
         .   '<div class="' . $cssInvisible . '">' . "\n"
-        .    ( empty($thisEvent['title']  ) ? '' : '<p><strong>' . htmlspecialchars($thisEvent['title']) . '</strong></p>' . "\n" )
-        .    ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
-        .   '</div>' . "\n";
+        .   ( empty($thisEvent['title']  ) ? '' : '<h2>' . htmlspecialchars($thisEvent['title']) . '</h2>' . "\n" )
+        .   ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
+        .   '</div>' . "\n"
+        .   '</div>' . "\n"; // content
         
-            $output .= '</div>' . "\n"; // content
-
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisEvent['id'] ) );
         $output .= ResourceLinker::renderLinkList( $currentLocator );
     }
-
+    
     if ($is_allowedToEdit)
     {
         $output .= '<div class="manageTools">'
@@ -512,7 +510,7 @@ foreach ( $eventList as $thisEvent )
         .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         ;
-
+        
         //  Visibility
         if ('SHOW' == $thisEvent['visibility'])
         {
@@ -532,7 +530,6 @@ foreach ( $eventList as $thisEvent )
     }
     
     $output .= '</div>' . "\n\n"; // item
-
 } // end while
 
 Claroline::getDisplay()->body->appendContent($output);
