@@ -476,24 +476,24 @@ foreach ( $eventList as $thisEvent )
         
         // Event date
         $output .= '<div class="item">' . "\n"
-        .   '<h1 id="event' . $thisEvent['id'] . '">'
-        .   '<span class="item'. $cssItem . $cssInvisible .'">' . "\n"
-        .   '<img src="' . get_icon_url('agenda') . '" alt="" /> '
-        .   ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
-        .   ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($thisEvent['hour'])))
-        .   ( empty($thisEvent['lasting']) ? ('') : (' | '.get_lang('Lasting')) . ' : ' . $thisEvent['lasting'] )
-        .   ( empty($thisEvent['location']) ? ('') : (' | '.get_lang('Location')) . ' : ' . $thisEvent['location'] )
-        .   ( empty($thisEvent['speakers']) ? ('') : (' | '.get_lang('Speakers')) . ' : ' . $thisEvent['speakers'] )
-        .   '</span>' . "\n"
-        .   '</h1>' . "\n"
+                 . '<h1 id="event' . $thisEvent['id'] . '">'
+                 . '<span class="item'. $cssItem . $cssInvisible .'">' . "\n"
+                 . '<img src="' . get_icon_url('agenda') . '" alt="" /> '
+                 . ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
+                 . ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($thisEvent['hour'])))
+                 . ( empty($thisEvent['lasting']) ? ('') : (' | '.get_lang('Lasting')) . ' : ' . $thisEvent['lasting'] )
+                 . ( empty($thisEvent['location']) ? ('') : (' | '.get_lang('Location')) . ' : ' . $thisEvent['location'] )
+                 . ( empty($thisEvent['speakers']) ? ('') : (' | '.get_lang('Speakers')) . ' : ' . $thisEvent['speakers'] )
+                 . '</span>' . "\n"
+                 . '</h1>' . "\n";
         
-        // Event content
-        .   '<div class="content">' . "\n"
-        .   '<div class="' . $cssInvisible . '">' . "\n"
-        .   ( empty($thisEvent['title']  ) ? '' : '<h2>' . htmlspecialchars($thisEvent['title']) . '</h2>' . "\n" )
-        .   ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
-        .   '</div>' . "\n"
-        .   '</div>' . "\n"; // content
+        // Event title and content
+        $output .= '<div class="content">' . "\n"
+                 . '<div class="' . $cssInvisible . '">' . "\n"
+                 . ( empty($thisEvent['title']  ) ? '' : '<h2>' . htmlspecialchars($thisEvent['title']) . '</h2>' . "\n" )
+                 . ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
+                 . '</div>' . "\n"
+                 . '</div>' . "\n";
         
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisEvent['id'] ) );
         $output .= ResourceLinker::renderLinkList( $currentLocator );
@@ -502,31 +502,29 @@ foreach ( $eventList as $thisEvent )
     if ($is_allowedToEdit)
     {
         $output .= '<div class="manageTools">'
-        .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] )) . '">'
-        .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
-        .    '</a> '
-        .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] )) . '" '
-        .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisEvent['title']))) . '\')) return false;">'
-        .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
-        .    '</a>'
-        ;
+                 . '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] )) . '">'
+                 . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
+                 . '</a> '
+                 . '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] )) . '" '
+                 . ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisEvent['title']))) . '\')) return false;">'
+                 . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
+                 . '</a>';
         
         //  Visibility
         if ('SHOW' == $thisEvent['visibility'])
         {
             $output .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] )) . '">'
-            .    '<img src="' . get_icon_url('visible') . '" alt="" />'
-            .    '</a>' . "\n";
+                     . '<img src="' . get_icon_url('visible') . '" alt="" />'
+                     . '</a>' . "\n";
         }
         else
         {
             $output .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisEvent['id'] )) . '">'
-            .    '<img src="' . get_icon_url('invisible') . '" alt="" />'
-            .    '</a>' . "\n"
-            ;
+                     . '<img src="' . get_icon_url('invisible') . '" alt="" />'
+                     . '</a>' . "\n";
         }
         
-        $output .= '</div>' . "\n"; // claroBlockCmd
+        $output .= '</div>' . "\n"; // manageTools
     }
     
     $output .= '</div>' . "\n\n"; // item
