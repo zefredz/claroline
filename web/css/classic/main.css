@@ -560,6 +560,19 @@ Use .portlet for desktop or course portlets
     padding: 0;
 }
 
+.item h2, 
+.portlet h2 {
+    margin: 0 0 3px 0;
+    font-size: 1.0em;
+}
+
+.item h3, 
+.portlet h3 {
+    margin: 0 0 3px 0;
+    font-size: 1.0em;
+    text-transform: none;
+}
+
 .item dl, 
 .item dt, 
 .item dd,

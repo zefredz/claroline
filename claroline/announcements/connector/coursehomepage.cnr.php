@@ -28,7 +28,8 @@ class CLANN_Portlet extends CourseHomePagePortlet
         $curdate            = claro_mktime();
         $output             = '';
         
-        $sql = "SELECT " . Claroline::getDatabase()->quote($currentCourseData['sysCode']) . " AS `courseSysCode`, " . "\n"
+        $sql = "SELECT `id`, " . "\n"
+                . Claroline::getDatabase()->quote($currentCourseData['sysCode']) . " AS `courseSysCode`, " . "\n"
                 . Claroline::getDatabase()->quote($currentCourseData['officialCode']) . " AS `courseOfficialCode`, " . "\n"
                 . "'CLANN'                                              AS `toolLabel`, " . "\n"
                 . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`, " . "\n"
@@ -89,18 +90,32 @@ class CLANN_Portlet extends CourseHomePagePortlet
                     ) ? (1) : (0);
                 
                 // Prepare the render
+                $displayChar = 250;
+                
+                if (strlen($announcementItem['content']) > $displayChar)
+                {
+                    $content = substr($announcementItem['content'], 0, $displayChar)
+                             . '... <a href="'
+                             . htmlspecialchars(Url::Contextualize(get_module_url( 'CLANN' )
+                             . '/announcements.php#ann' . $announcementItem['id'])) . '">'
+                             . '<b>' . get_lang('Read more') . '</b></a>';
+                }
+                else
+                {
+                    $content = $announcementItem['content'];
+                }
+                
                 if ( $isVisible && !$isOffDeadline )
                 {
                     $output .= '<dt>' . "\n"
-                             . '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="" /> '
+                             . '<h2><img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="'.get_lang('Announcement').'" /> '
                              . '<a href="' . $announcementItem['url'] . '">'
                              . $announcementItem['title']
-                             . '</a>' . "\n"
+                             . '</a></h2>' . "\n"
                              . '</dt>' . "\n"
                              . '<dd'.($i == count($announcementList)-1?' class="last"':'').'>' . "\n"
-                             . $announcementItem['content'] . "\n"
-                             . '</dd>' . "\n"
-                             ;
+                             . $content . "\n"
+                             . '</dd>' . "\n";
                 }
                 
                 $i++;
@@ -117,8 +132,7 @@ class CLANN_Portlet extends CourseHomePagePortlet
                      . '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="Announcement icon" />'
                      . ' ' . get_lang('No announcement') . "\n"
                      . '</dd>' . "\n"
-                     . '</dl>' . "\n" . "\n"
-                     ;
+                     . '</dl>' . "\n\n";
         }
         
         return $output;
