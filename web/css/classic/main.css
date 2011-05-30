@@ -52,7 +52,6 @@ h2,
 h3, 
 h4, 
 h5 {
-    text-transform: uppercase;
     font-weight: bold;
 }
 
@@ -538,7 +537,7 @@ Use .portlet for desktop or course portlets
     font-size: 1em;
     font-weight: bold;
     color: #444;
-    background: #eee;
+    background-color: #eee;
     border-bottom: 1px solid #444;
 }
 
@@ -877,7 +876,6 @@ table.adminPanel input[type=text] {
 }
 
 
-
 /******************************************************************************
                         COMMAND LINKS
 ******************************************************************************/
@@ -928,6 +926,11 @@ th .claroCmdDisabled {
     padding: 0 1px;
 }
 
+
+/******************************************************************************
+                        HOT STUFF (new events)
+******************************************************************************/
+
 /*
  * Classes family to emphase some item in the tool interface.
  * These two classes has to be used together to work correctly.
@@ -948,15 +951,18 @@ th .claroCmdDisabled {
 
 .hot {
     padding-left: 15px;
-    background: url(../../img/hot.png) no-repeat center left;
+    background-image: url(../../img/hot.png);
+    background-repeat: no-repeat;
+    background-position: center left;
 }
 
 .toolList .hot {
     margin-left: -15px;
 }
 
-a.item:visited {
-    color: #369;
+.item h1.hot, 
+.portlet h1.hot {
+    padding: 2px 5px 2px 15px;
 }
 
 /*

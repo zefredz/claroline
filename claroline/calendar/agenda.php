@@ -77,21 +77,15 @@ $cmd = ( isset($_REQUEST['cmd']) ) ?$_REQUEST['cmd']: null;
 
 $dialogBox = new DialogBox();
 
-if     ( 'rqAdd' == $cmd )  $subTitle = get_lang('Add an event');
-elseif ( 'rqEdit' == $cmd ) $subTitle = get_lang('Edit Event');
-else                        $subTitle = '';
-
-//-- order direction
-if( !empty($_REQUEST['order']) )
-    $orderDirection = strtoupper($_REQUEST['order']);
-elseif( !empty($_SESSION['orderDirection']) )
-    $orderDirection = strtoupper($_SESSION['orderDirection']);
-else
-    $orderDirection = 'ASC';
-
+// Order direction
 $acceptedValues = array('DESC','ASC');
 
-if( ! in_array($orderDirection, $acceptedValues) )
+if (!empty($_REQUEST['order'])
+    && in_array(strtoupper($_REQUEST['order']), $acceptedValues))
+{
+    $orderDirection = strtoupper($_REQUEST['order']);
+}
+else
 {
     $orderDirection = 'ASC';
 }
@@ -114,7 +108,7 @@ if ( $is_allowedToEdit )
     $title      = ( isset($_REQUEST['title']) ) ? (trim($_REQUEST['title'])) : ('');
     $content    = ( isset($_REQUEST['content']) ) ? (trim($_REQUEST['content'])) : ('');
     $lasting    = ( isset($_REQUEST['lasting']) ) ? (trim($_REQUEST['lasting'])) : ('');
-    $speakers     = ( isset($_REQUEST['speakers']) ) ? (trim($_REQUEST['speakers'])) : ('');
+    $speakers   = ( isset($_REQUEST['speakers']) ) ? (trim($_REQUEST['speakers'])) : ('');
     $location   = ( isset($_REQUEST['location']) ) ? (trim($_REQUEST['location'])) : ('');
     
     $autoExportRefresh = false;
@@ -123,7 +117,7 @@ if ( $is_allowedToEdit )
     {
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
         $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
-
+        
         $entryId = agenda_add_item($title, $content, $date_selection, $hour, $lasting, $speakers, $location) ;
         
         if ( $entryId != false )
@@ -198,11 +192,10 @@ if ( $is_allowedToEdit )
     
     if ( 'exDelete' == $cmd && !empty($id) )
     {
-
         if ( agenda_delete_item($id) )
         {
             $dialogBox->success( get_lang('Event deleted from the agenda') );
-
+            
             $eventNotifier->notifyCourseEvent('agenda_event_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
             $autoExportRefresh = true;
             if ( CONFVAL_LOG_CALENDAR_DELETE )
@@ -214,7 +207,7 @@ if ( $is_allowedToEdit )
         {
             $dialogBox->error( get_lang('Unable to delete event from the agenda') );
         }
-
+        
         // linker_delete_resource();
     }
     
@@ -319,7 +312,7 @@ $noQUERY_STRING = true;
 
 $eventList = agenda_get_item_list($currentContext,$orderDirection);
 
-// Build the tool list
+// Tool list
 $toolList = array();
 
 $toolList[] = array(
@@ -364,6 +357,13 @@ if ( count($eventList) > 0 )
     );
 }
 
+// Title parts
+if     ( 'rqAdd' == $cmd )  $subTitle = get_lang('Add an event');
+elseif ( 'rqEdit' == $cmd ) $subTitle = get_lang('Edit Event');
+elseif ($orderDirection == 'ASC') $subTitle = get_lang('Sorted in ascending order (from January to December)');
+elseif ($orderDirection == 'DESC') $subTitle = get_lang('Sorted in descending order (from December to January)');
+else                        $subTitle = '';
+
 $titleParts = array('mainTitle' => $nameTools, 'subTitle' => $subTitle);
 
 
@@ -393,142 +393,53 @@ if ($display_form)
     $output .= $template->render();
 }
 
-if ( count($eventList) < 1 )
-{
-    $output .= "\n" . '<blockquote>' . get_lang('No event in the agenda') . '</blockquote>' . "\n";
-}
-
-$nowBarAlreadyShown = false;
-$monthBar           = '';
-
 if (claro_is_user_authenticated())
 {
     $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
 }
 
+$preparedEventList = array();
 foreach ( $eventList as $thisEvent )
 {
     if (('HIDE' == $thisEvent['visibility'] && $is_allowedToEdit)
         || 'SHOW' == $thisEvent['visibility'])
     {
-        // Modify style if the event is recently added since last login
+        // Hot item ?
         if (claro_is_user_authenticated()
             && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisEvent['id']))
         {
-            $cssItem = ' hot';
+            $thisEvent['hot'] = true;
         }
         else
         {
-            $cssItem = '';
+            $thisEvent['hot'] = false;
         }
         
-        $cssInvisible = '';
-        if ($thisEvent['visibility'] == 'HIDE')
+        // Visible item ?
+        if ($thisEvent['visibility'] == 'SHOW')
         {
-            $cssInvisible = ' invisible';
+            $thisEvent['visibility'] = true;
         }
-        
-        // Treat the "now bar" case
-        if ( ! $nowBarAlreadyShown )
-        if (( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) > time() ) &&  'ASC' == $orderDirection )
-        ||
-        ( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) < time() ) &&  'DESC' == $orderDirection )
-        )
+        else
         {
-            // Add monthbar if now bar is the first (or only one) item for this month
-            // current time month monthBar display
-            if ($monthBar != date('mY',time()))
-            {
-                $monthBar = date('mY',time());
-                
-                $output .= '<h2>' . "\n"
-                         . ucfirst(claro_html_localised_date('%B %Y', time()))
-                         . '</h2>' . "\n";
-            }
-            
-            // 'NOW' bar
-            $output .= '<h3 class="highlight">'
-                     . '<a name="today">'
-                     . '<i>'
-                     . ucfirst(claro_html_localised_date( get_locale('dateFormatLong'))) . ' '
-                     . ucfirst(strftime( get_locale('timeNoSecFormat')))
-                     . ' &mdash; '
-                     . get_lang('Now')
-                     . '</i>'
-                     . '</a>'
-                     . '</h3>' . "\n";
-            
-            $nowBarAlreadyShown = true;
+            $thisEvent['visibility'] = false;
         }
         
-        /*
-         * Display the month bar when the current month
-         * is different from the current month bar
-         */
-        if ( $monthBar != date( 'mY', strtotime($thisEvent['day']) ) )
-        {
-            $monthBar = date('mY', strtotime($thisEvent['day']));
-            
-            $output .= '<h2>'
-                     . ucfirst(claro_html_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
-                     . '</h2>' . "\n";
-        }
-        
-        // Event date
-        $output .= '<div class="item">' . "\n"
-                 . '<h1 id="event' . $thisEvent['id'] . '">'
-                 . '<span class="item'. $cssItem . $cssInvisible .'">' . "\n"
-                 . '<img src="' . get_icon_url('agenda') . '" alt="" /> '
-                 . ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
-                 . ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($thisEvent['hour'])))
-                 . ( empty($thisEvent['lasting']) ? ('') : (' | '.get_lang('Lasting')) . ' : ' . $thisEvent['lasting'] )
-                 . ( empty($thisEvent['location']) ? ('') : (' | '.get_lang('Location')) . ' : ' . $thisEvent['location'] )
-                 . ( empty($thisEvent['speakers']) ? ('') : (' | '.get_lang('Speakers')) . ' : ' . $thisEvent['speakers'] )
-                 . '</span>' . "\n"
-                 . '</h1>' . "\n";
-        
-        // Event title and content
-        $output .= '<div class="content">' . "\n"
-                 . '<div class="' . $cssInvisible . '">' . "\n"
-                 . ( empty($thisEvent['title']  ) ? '' : '<h2>' . htmlspecialchars($thisEvent['title']) . '</h2>' . "\n" )
-                 . ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
-                 . '</div>' . "\n"
-                 . '</div>' . "\n";
-        
+        // Linked resources ?
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisEvent['id'] ) );
-        $output .= ResourceLinker::renderLinkList( $currentLocator );
+        
+        $thisEvent['currentLocator'] = $currentLocator;
     }
     
-    if ($is_allowedToEdit)
-    {
-        $output .= '<div class="manageTools">'
-                 . '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] )) . '">'
-                 . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
-                 . '</a> '
-                 . '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] )) . '" '
-                 . ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisEvent['title']))) . '\')) return false;">'
-                 . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
-                 . '</a>';
-        
-        //  Visibility
-        if ('SHOW' == $thisEvent['visibility'])
-        {
-            $output .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] )) . '">'
-                     . '<img src="' . get_icon_url('visible') . '" alt="" />'
-                     . '</a>' . "\n";
-        }
-        else
-        {
-            $output .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisEvent['id'] )) . '">'
-                     . '<img src="' . get_icon_url('invisible') . '" alt="" />'
-                     . '</a>' . "\n";
-        }
-        
-        $output .= '</div>' . "\n"; // manageTools
-    }
-    
-    $output .= '</div>' . "\n\n"; // item
-} // end while
+    $preparedEventList[] = $thisEvent;
+}
+
+
+$template = new ModuleTemplate($tlabelReq, 'list.tpl.php');
+$template->assign('eventList', $preparedEventList);
+$template->assign('orderDirection', $orderDirection);
+$output .= $template->render();
+
 
 Claroline::getDisplay()->body->appendContent($output);
 
