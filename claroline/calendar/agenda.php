@@ -370,9 +370,8 @@ $titleParts = array('mainTitle' => $nameTools, 'subTitle' => $subTitle);
 // Display
 //TODO this tool could use a template
 
-$output = '';
-$output .= claro_html_tool_title($titleParts, null, $toolList);
-$output .= $dialogBox->render();
+Claroline::getDisplay()->body->appendContent(claro_html_tool_title($titleParts, null, $toolList));
+Claroline::getDisplay()->body->appendContent($dialogBox->render());
 
 if ($display_form)
 {
@@ -390,7 +389,7 @@ if ($display_form)
     $template->assign('cmd', $nextCommand);
     $template->assign('event', $editedEvent);
     
-    $output .= $template->render();
+    Claroline::getDisplay()->body->appendContent($template->render());
 }
 
 if (claro_is_user_authenticated())
@@ -438,9 +437,6 @@ foreach ( $eventList as $thisEvent )
 $template = new ModuleTemplate($tlabelReq, 'list.tpl.php');
 $template->assign('eventList', $preparedEventList);
 $template->assign('orderDirection', $orderDirection);
-$output .= $template->render();
-
-
-Claroline::getDisplay()->body->appendContent($output);
+Claroline::getDisplay()->body->appendContent($template->render());
 
 echo Claroline::getDisplay()->render();
