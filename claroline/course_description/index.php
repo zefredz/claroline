@@ -259,19 +259,37 @@ if (claro_is_user_authenticated())
     $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
 }
 
-$visibleDescList = array();
+$preparedDescList = array();
 foreach ($descList as $description)
 {
+    if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $description['id']))
+    {
+        $description['hot'] = true;
+    }
+    else
+    {
+        $description['hot'] = false;
+    }
+    
     // Remove invisible items
     if (($description['visibility'] == 'VISIBLE'
         || ($description['visibility'] == 'INVISIBLE' && $is_allowedToEdit)))
     {
-        $visibleDescList[] = $description;
+        if ($description['visibility'] == 'VISIBLE')
+        {
+            $description['visible'] = 1;
+        }
+        else
+        {
+            $description['visible'] = 0;
+        }
+        
+        $preparedDescList[] = $description;
     }
 }
 
 $template = new ModuleTemplate($tlabelReq, 'list.tpl.php');
-$template->assign('descriptionList', $visibleDescList);
+$template->assign('descriptionList', $preparedDescList);
 
 Claroline::getDisplay()->body->appendContent($template->render());
 

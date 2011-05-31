@@ -49,3 +49,5 @@
     <p><?php echo $this->tips['information']; ?></p>
     <?php endif; ?>
 </form>
+
+<hr />
