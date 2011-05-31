@@ -16,7 +16,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package EDITOR
  *
  * @author Claro Team <cvs@claroline.net>
- * @author S�bastien Piraux <pir@cerdecam.be>
+ * @author Sebastien Piraux <pir@cerdecam.be>
  *
  */
 
@@ -42,7 +42,7 @@ class editor extends GenericEditor
     /**
      * constructor
      *
-     * @author S�bastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $name content for attribute name and id of textarea
      * @param string $content content of the textarea
      * @param string $rows number of lines of textarea
@@ -152,7 +152,7 @@ class editor extends GenericEditor
     public function getDefaultJs()
     {
         // ok, it's not cool to use global for that but it has to be shared between instances
-        // TODO find a cool way to do that        
+        // TODO find a cool way to do that
         global $_isDefaultJsLoaded;
         
         $html = '';

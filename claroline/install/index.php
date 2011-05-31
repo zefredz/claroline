@@ -414,8 +414,8 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
     $stepStatus[DISP_DB_NAMES_SETTING] = 'V';
     $regexpPatternForDbName = '/^[a-z0-9][a-z0-9_-]*$/i';
     // Now mysql connect param are ok, try  to use given DBNames
-    // 1� check given string
-    // 2� check if db exists
+    // 1. check given string
+    // 2. check if db exists
 
     $databaseParam_ok = TRUE;
     if ($singleDbForm) $dbStatsForm = $dbNameForm;
