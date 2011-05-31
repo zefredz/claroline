@@ -74,6 +74,14 @@ table td {
     vertical-align: top;
 }
 
+hr {
+    height: 1px;
+    margin: 10px 0;
+    border-top: 1px solid #EEEEEE;
+    color: #EEEEEE;
+}
+
+
 .spacer {
     clear: both;
 }
