@@ -417,11 +417,11 @@ foreach ( $eventList as $thisEvent )
         // Visible item ?
         if ($thisEvent['visibility'] == 'SHOW')
         {
-            $thisEvent['visibility'] = true;
+            $thisEvent['visible'] = true;
         }
         else
         {
-            $thisEvent['visibility'] = false;
+            $thisEvent['visible'] = false;
         }
         
         // Linked resources ?
