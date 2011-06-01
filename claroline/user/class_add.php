@@ -126,8 +126,8 @@ $htmlHeadXtra[] =
     }
 </script>';
 
-// Tool list
-$toolList[] = array(
+// Command list
+$cmdList[] = array(
     'img' => 'back',
     'name' => get_lang('Back to list'),
     'url' => htmlspecialchars(Url::Contextualize('user.php')),
@@ -136,10 +136,9 @@ $toolList[] = array(
 
 
 $out = '';
-$out .= claro_html_tool_title(get_lang('Enrol class'), null, $toolList);
+$out .= claro_html_tool_title(get_lang('Enrol class'), null, $cmdList);
 
 // Display Forms or dialog box (if needed)
-
 $out .= claro_html_msg_list($dialogBoxMsg);
 
 // Display cols headers

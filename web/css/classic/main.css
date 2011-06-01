@@ -787,7 +787,7 @@ ul.groupToolList {
     letter-spacing: 0.2em;
 }
 
-.toolTitleBlock ul.toolList {
+.toolTitleBlock ul.commandList {
     margin: 0;
     padding-left: 5px;
     border-left: 1px dotted black;
@@ -795,14 +795,14 @@ ul.groupToolList {
     text-indent: 0;
 }
 
-.toolTitleBlock ul.toolList li {
+.toolTitleBlock ul.commandList li {
     display: inline-block;
     margin: 0;
     padding: 0;
     border: 0;
 }
 
-.toolTitleBlock ul.toolList li a {
+.toolTitleBlock ul.commandList li a {
     display: block;
     height: 16px;
     margin: 0 0 3px 0;
@@ -813,12 +813,12 @@ ul.groupToolList {
     border-radius: 3px;
 }
 
-.toolTitleBlock ul.toolList li a:hover {
+.toolTitleBlock ul.commandList li a:hover {
     background-color: #CCC;
     border: 5px solid #CCC;
 }
 
-.toolTitleBlock ul.toolList li a.help {
+.toolTitleBlock ul.commandList li a.help {
     width: 16px;
     border-color: #CCDDEE;
     background-color: #CCDDEE;
@@ -826,7 +826,7 @@ ul.groupToolList {
     background-repeat: no-repeat;
 }
 
-.toolTitleBlock ul.toolList li a.help:hover {
+.toolTitleBlock ul.commandList li a.help:hover {
     border-color: #BBCCDD;
     background-color: #BBCCDD;
 }

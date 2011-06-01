@@ -422,38 +422,36 @@ if (isset($sortDirection) && $sortDirection)
     }
 }
 // DISPLAY
-// Tool list
-$toolList = array();
+// Command list
+$cmdList = array();
 
 if($is_allowedToEdit)
 {
-    $toolList[] = array(
-        'img' => '',
+    $cmdList[] = array(
+        'img' => 'default_new',
         'name' => get_lang('Create a new learning path'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] .'?cmd=create'))
     );
     
-    $toolList[] = array(
-        'img' => '',
+    $cmdList[] = array(
+        'img' => 'import',
         'name' => get_lang('Import a learning path'),
         'url' => htmlspecialchars(Url::Contextualize('importLearningPath.php'))
     );
     
-    $toolList[] = array(
-        'img' => '',
+    $cmdList[] = array(
         'name' => get_lang('Pool of modules'),
         'url' => htmlspecialchars(Url::Contextualize('modules_pool.php'))
     );
     
-    $toolList[] = array(
-        'img' => '',
+    $cmdList[] = array(
         'name' => get_lang('Learning paths tracking'),
         'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'tracking/learnPath_detailsAllPath.php'))
     );
 }
 
 $out = '';
-$out .= claro_html_tool_title($nameTools, null, $toolList, 2);
+$out .= claro_html_tool_title($nameTools, null, $cmdList, 2);
 $out .= $dialogBox->render();
 
 

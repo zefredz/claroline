@@ -78,60 +78,6 @@ Claroline.spoil = function(item) {
     return false;
 };
 
-$(document).ready( function (){
-    // this is the core function of Claroline's jQuery implementation
-    
-    // ajax activity shower
-    $("#loading").hide();
-    
-    $("#loading").ajaxStart(function(){
-        $(this).show();
-    });
-    
-    $("#loading").ajaxStop(function(){
-        $(this).hide();
-    });
-    
-    // multiple select
-    $('.msadd').click(function() {
-        return !$('#mslist1 option:selected').remove().appendTo('#mslist2');
-    });
-    
-    $('.msremove').click(function() {
-        return !$('#mslist2 option:selected').remove().appendTo('#mslist1');
-    });
-    
-    $('.msform').submit(function() {
-        $('#mslist1 option').each(function(i) {
-            $(this).attr("selected", "selected");
-        });
-    });
-    
-    if ( $('#toggleLeftMenu') ) {
-        
-        $('#toggleLeftMenu').click( 
-            getLeftMenuToggleFunction()
-        );
-    }
-    
-    // show tools
-    $('.toolList li.hidden').hide();
-    
-    $('.toolList a.more').click(function() {
-        if ($('.toolList a.more').hasClass('clicked'))
-        {
-            $('.toolList li.hidden').hide();
-            $('.toolList a.more').removeClass('clicked').text('»');
-        }
-        else
-        {
-            $('.toolList li.hidden').show();
-            $('.toolList a.more').addClass('clicked').text('«');
-        }
-    });
-});
-
-
 function getLeftMenuToggleFunction() {
     
     var originalLeftMargin = $('#rightContent').css('margin-left');
@@ -203,3 +149,40 @@ function dump(arr,level) {
     }
     return dumped_text;
 }
+
+$(document).ready(function(){
+    // this is the core function of Claroline's jQuery implementation
+    
+    // ajax activity shower
+    $("#loading").hide();
+    
+    $("#loading").ajaxStart(function(){
+        $(this).show();
+    });
+    
+    $("#loading").ajaxStop(function(){
+        $(this).hide();
+    });
+    
+    // multiple select
+    $('.msadd').click(function() {
+        return !$('#mslist1 option:selected').remove().appendTo('#mslist2');
+    });
+    
+    $('.msremove').click(function() {
+        return !$('#mslist2 option:selected').remove().appendTo('#mslist1');
+    });
+    
+    $('.msform').submit(function() {
+        $('#mslist1 option').each(function(i) {
+            $(this).attr("selected", "selected");
+        });
+    });
+    
+    if ( $('#toggleLeftMenu') ) {
+        
+        $('#toggleLeftMenu').click( 
+            getLeftMenuToggleFunction()
+        );
+    }
+});

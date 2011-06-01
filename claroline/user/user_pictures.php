@@ -62,10 +62,10 @@ $sql = "SELECT `user`.`user_id`      AS `user_id`,
 
 $result = Claroline::getDatabase()->query($sql);
 
-// Tool list
-$toolList = array();
+// Command list
+$cmdList = array();
 
-$toolList[] = array(
+$cmdList[] = array(
     'img' => 'back',
     'name' => get_lang('User list'),
     'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'user/user.php'))
@@ -74,7 +74,7 @@ $toolList[] = array(
 
 // Display
 $out = '';
-$out .= claro_html_tool_title($nameTools, null, $toolList)
+$out .= claro_html_tool_title($nameTools, null, $cmdList)
       . '<ul class="userList">';
 foreach ($result as $userKey => $user)
 {

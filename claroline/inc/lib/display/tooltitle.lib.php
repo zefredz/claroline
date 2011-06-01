@@ -14,6 +14,58 @@
  * @package     DISPLAY
  */
 
+/**
+ * How to use ?
+ * ============
+ *
+ * 1st option: create a new ToolTitle object and render it.
+ * --------------------------------------------------------
+ *
+ * $toolTitle = new ToolTitle(
+ *      array('superTitle' => 'My Section',
+ *            'mainTitle' => 'My page',
+ *            'subTitle' => 'List items of this page'
+ *      ),
+ *
+ *      'www.help.tld',
+ *
+ *      array(array(
+ *            'img' => 'new_item',
+ *            'name' => 'Add a new item',
+ *            'url' => './add.php'),
+ *            array(
+ *            'name' => 'List the 5 last items',
+ *            'url' => './list5.php'),
+ *            array(
+ *            'img' => 'delete',
+ *            'name' => 'Delete all the items',
+ *            'url' => './delete.php',
+ *            'params' => array('class' => 'caution')
+ *      ),
+ *
+ *      3
+ * );
+ *
+ * echo $toolTitle->render();
+ *
+ *
+ * 2nd option: use the helper claro_html_tool_title().
+ * ---------------------------------------------------
+ *
+ * echo claro_html_tool_title(sames params than in 1st option);
+ *
+ *
+ * Note: put tooltips on your commands.
+ * ------------------------------------
+ *
+ * If you wish to give more information about a command, you can simply
+ * put it in the "title" attribute of the command (use the "params" entry
+ * of the assoc array).  This title will be rendered in a tooltip
+ * when the mouse is over the command.
+ */
+
+
+
 class ToolTitle implements Display
 {
     public $superTitle;
@@ -21,21 +73,21 @@ class ToolTitle implements Display
     public $subTitle;
     
     /**
-     * Array of array('img' => $iconUrl, 'name' => $name, 'url' => $url, 'params' => $param) of tools
+     * Array of array('img' => $iconUrl, 'name' => $name, 'url' => $url, 'params' => $param) of commands
      */
-    public $toolList;
+    public $commandList;
     
     /**
-     * int $showTools number of displayed tools
+     * int $showCommands number of displayed commands
      */
-    public $showTools;
+    public $showCommands;
     
     /**
      * String $helpUrl
      */
     public $helpUrl;
     
-    public function __construct($titleParts, $helpUrl = null, $toolList = array(), $showTools = null)
+    public function __construct($titleParts, $helpUrl = null, $commandList = array(), $showCommands = null)
     {
         if (is_array($titleParts))
         {
@@ -62,26 +114,33 @@ class ToolTitle implements Display
             $this->helpUrl = $helpUrl;
         }
         
-        if (!empty($toolList))
+        if (!empty($commandList))
         {
-            $this->toolList = $toolList;
+            $this->commandList = $commandList;
         }
         
-        if (!empty($showTools) && is_int($showTools))
+        if (!empty($showCommands) && is_int($showCommands))
         {
-            $this->showTools = $showTools;
+            $this->showCommands = $showCommands;
         }
         else
         {
-            $showTools = null;
+            $showCommands = null;
         }
     }
     
+    /**
+     * TODO: move it into a template
+     */
     public function render()
     {
-        // Tool list and help
-        $toolList = '';
-        if (!empty($this->toolList))
+        // We'll need qtips for tooltips
+        JavascriptLoader::getInstance()->load('jquery.qtip');
+        JavascriptLoader::getInstance()->load('tooltitle');
+        
+        // Command list and help
+        $commandList = '';
+        if (!empty($this->commandList))
         {
             $help = '';
             if (!empty($this->helpUrl))
@@ -92,48 +151,49 @@ class ToolTitle implements Display
                        . '&nbsp;</a></li>'."\n";
             }
             
-            $tools = '';
+            $commands = '';
             $i = 0;
-            foreach ($this->toolList as $tool)
+            foreach ($this->commandList as $command)
             {
                 $styleA = '';
-                if (!empty($tool['img']))
+                if (!empty($command['img']))
                 {
-                    $styleA = ' style="background-image: url('.get_icon_url($tool['img']).'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"';
+                    $styleA = ' style="background-image: url('.get_icon_url($command['img']).'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"';
                 }
                 
                 $styleLi = '';
-                if (!empty($this->showTools) && $i >= $this->showTools)
+                if (!empty($this->showCommands) && $i >= $this->showCommands)
                 {
                     $styleLi = ' class="hidden"';
                 }
                 
                 $params = '';
-                if (!empty($tool['params']))
+                if (!empty($command['params']))
                 {
-                    foreach($tool['params'] as $key => $value)
+                    foreach($command['params'] as $key => $value)
                     {
                         $params .= ' '.$key.'="'.$value.'"';
                     }
                 }
                 
-                $tools .= '<li'.$styleLi.'><a'.$styleA.$params.' href="'.$tool['url'].'">'
-                      . $tool['name'].'</a></li>'."\n";
+                $commands .= '<li'.$styleLi.'>'
+                           . '<a'.$styleA.$params.' href="'.$command['url'].'">'
+                           . $command['name'].'</a></li>'."\n";
                 
                 $i++;
             }
             
             $more = '';
-            if (!empty($this->showTools) && count($this->toolList) > $this->showTools)
+            if (!empty($this->showCommands) && count($this->commandList) > $this->showCommands)
             {
                 $more = '<li><a class="more" href="#">&raquo;</a></li>';
             }
             
-            $toolList .= '<ul class="toolList">'."\n"
-                       . $help
-                       . $tools
-                       . $more
-                       . '</ul>'."\n";
+            $commandList .= '<ul class="commandList">'."\n"
+                          . $help
+                          . $commands
+                          . $more
+                          . '</ul>'."\n";
         }
         
         $out = '<div class="toolTitleBlock">';
@@ -144,7 +204,7 @@ class ToolTitle implements Display
             $out .= '<span class="toolTitle superTitle">'.$this->superTitle.'</span>'."\n";
         }
         
-        if (empty($this->toolList))
+        if (empty($this->commandList))
         {
             $style = ' style="border-right: 0"';
         }
@@ -156,7 +216,7 @@ class ToolTitle implements Display
         $out .= '<table><tr><td>'
               . '<h1 class="toolTitle mainTitle"'.$style.'>'.$this->mainTitle.'</h1>'."\n"
               . '</td><td>'
-              . $toolList
+              . $commandList
               . '</td></tr></table>';
         
         if (!empty($this->subTitle))

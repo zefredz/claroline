@@ -312,10 +312,10 @@ $noQUERY_STRING = true;
 
 $eventList = agenda_get_item_list($currentContext,$orderDirection);
 
-// Tool list
-$toolList = array();
+// Command list
+$cmdList = array();
 
-$toolList[] = array(
+$cmdList[] = array(
     'name' => get_lang('Today'),
     'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '#today'))
 );
@@ -325,7 +325,7 @@ if ( count($eventList) > 0 )
 {
     if ( $orderDirection == 'DESC' )
     {
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'reverse',
             'name' => get_lang('Oldest first'),
             'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?order=asc'))
@@ -333,7 +333,7 @@ if ( count($eventList) > 0 )
     }
     else
     {
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'reverse',
             'name' => get_lang('Newest first'),
             'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?order=desc'))
@@ -341,7 +341,7 @@ if ( count($eventList) > 0 )
     }
 }
 
-$toolList[] = array(
+$cmdList[] = array(
     'img' => 'agenda_new',
     'name' => get_lang('Add an event'),
     'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqAdd' ))
@@ -349,7 +349,7 @@ $toolList[] = array(
 
 if ( count($eventList) > 0 )
 {
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'delete',
         'name' => get_lang('Clear up event list'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDeleteAll')) . '" '
@@ -370,7 +370,7 @@ $titleParts = array('mainTitle' => $nameTools, 'subTitle' => $subTitle);
 // Display
 //TODO this tool could use a template
 
-Claroline::getDisplay()->body->appendContent(claro_html_tool_title($titleParts, null, $toolList));
+Claroline::getDisplay()->body->appendContent(claro_html_tool_title($titleParts, null, $cmdList));
 Claroline::getDisplay()->body->appendContent($dialogBox->render());
 
 if ($display_form)

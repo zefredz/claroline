@@ -764,8 +764,8 @@ switch( $action )
     }
 }
 
-// Tool list
-$toolList = array();
+// Command list
+$cmdList = array();
 
 // Check javascript
 $javascriptEnabled = claro_is_javascript_enabled();
@@ -838,7 +838,7 @@ if ( 'recent' != $action && 'all' != $action
 
     if ( 'show' == $action || 'edit' == $action || 'history' == $action )
     {
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'back',
             'name' => get_lang("Back to page"),
             'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
@@ -853,7 +853,7 @@ if ( 'recent' != $action && 'all' != $action
         // Show context
         if ( 'show' == $action || 'edit' == $action || 'diff' == $action )
         {
-            $toolList[] = array(
+            $cmdList[] = array(
                 'img' => 'edit',
                 'name' => get_lang("Edit this page"),
                 'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
@@ -869,7 +869,7 @@ if ( 'recent' != $action && 'all' != $action
         || 'history' == $action || 'diff' == $action )
     {
         // active
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'versions',
             'name' => get_lang("Page history"),
             'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
@@ -1455,7 +1455,7 @@ switch( $action )
 }
 
 $output = '';
-$output .= claro_html_tool_title($toolTitle, $helpUrl, $toolList);
+$output .= claro_html_tool_title($toolTitle, $helpUrl, $cmdList);
 $output .= $dialogBox->render();
 $output .= $out;
 

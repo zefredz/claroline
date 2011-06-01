@@ -381,36 +381,36 @@ if ( $is_allowedToManage )
 
     }    // end if $submit
 
-    // Tool list
-    $toolList = array();
+    // Command list
+    $cmdList = array();
     
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'group',
         'name' => get_lang('Create new group(s)'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqMkGroup'))
     );
     
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'delete',
         'name' => get_lang('Delete all groups'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=ALL')),
         'params' => array('onclick' => 'return confirmationDelete();')
     );
     
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'fill',
         'name' => get_lang('Fill groups (automatically)'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exFillGroup'))
     );
     
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'sweep',
         'name' => get_lang('Empty all groups'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exEmptyGroup')),
         'params' => array('onclick' => 'return confirmationEmpty();')
     );
     
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'settings',
         'name' => get_lang('Main Group Settings'),
         'url' => htmlspecialchars(Url::Contextualize('group_properties.php'))
@@ -531,7 +531,7 @@ $htmlHeadXtra[] =
 
 $out = '';
 
-$out .= claro_html_tool_title($nameTools, null, $toolList, 3);
+$out .= claro_html_tool_title($nameTools, null, $cmdList, 3);
 
 /*-------------
   MESSAGE BOX

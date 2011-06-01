@@ -1,17 +1,14 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
+ * @version     1.8 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Piraux Sebastien <pir@cerdecam.be>
- * @author Lederer Guillaume <led@cerdecam.be>
- *
- * @package CLLNP
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Piraux Sebastien <pir@cerdecam.be>
+ * @author      Lederer Guillaume <led@cerdecam.be>
+ * @package     CLLNP
  */
 
 function get_xml_charset( $xml )
@@ -1131,5 +1128,3 @@ else // if method == 'post'
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

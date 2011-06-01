@@ -334,8 +334,8 @@ if ( count($userListId)> 0 )
 
 $nameTools = get_lang('Users');
 
-// Tool list
-$toolList = array();
+// Command list
+$cmdList = array();
 
 if ($can_add_single_user)
 {
@@ -346,7 +346,7 @@ if ($can_add_single_user)
                                      . get_lang('Add a user')
                                      )
                                      ;
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'user',
         'name' => get_lang('Add a user'),
         'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR') . '/user_add.php'))
@@ -362,7 +362,7 @@ if ($can_import_user_list)
                                      , '<img src="' . get_icon_url('import_list') . '" alt="" />'
                                      . get_lang('Add a user list')
                                      );
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'import_list',
         'name' => get_lang('Add a user list'),
         'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
@@ -378,7 +378,7 @@ if ($can_export_user_list)
                                      , '<img src="' . get_icon_url('export') . '" alt="" />'
                                      . get_lang('Export user list')
                                      );
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'export',
         'name' => get_lang('Export user list'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=export'))
@@ -393,7 +393,7 @@ if ($can_import_user_class)
                                      , '<img src="' . get_icon_url('class') . '" alt="" />'
                                      . get_lang('Enrol class')
                                      );
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'class',
         'name' => get_lang('Enrol class'),
         'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
@@ -409,7 +409,7 @@ if ($can_send_message_to_course)
                                      , '<img src="' . get_icon_url('mail_send') . '" alt="" />'
                                      . get_lang("Send a message to the course")
                                      );
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'mail_send',
         'name' => get_lang("Send a message to the course"),
         'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
@@ -421,7 +421,7 @@ $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize( get_modu
                                  , '<img src="' . get_icon_url('group') . '" alt="" />'
                                  . get_lang('Group management')
                                  );
-$toolList[] = array(
+$cmdList[] = array(
     'img' => 'group',
     'name' => get_lang('Group management'),
     'url' => htmlspecialchars(Url::Contextualize(get_module_entry_url('CLGRP')))
@@ -433,14 +433,14 @@ $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize($_SERVER[
                                  . get_lang('Unregister all students')
                                  , array('onclick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
                                  );
-$toolList[] = array(
+$cmdList[] = array(
     'img' => 'unenroll',
     'name' => get_lang('Unregister all students'),
     'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
         . '?cmd=unregister&amp;user_id=allStudent'))
 );
 
-$toolList[] = array(
+$cmdList[] = array(
     'img' => 'picture',
     'name' => get_lang('Users\' pictures'),
     'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
@@ -461,9 +461,9 @@ Display section
   =====================================================================*/
 
 $out = '';
-$out .= claro_html_tool_title($titleParts, $helpUrl, $toolList, 3);
+$out .= claro_html_tool_title($titleParts, $helpUrl, $cmdList, 3);
 
-// Display Forms or dialog box(if needed)
+// Display Forms or dialog box (if needed)
 $out .= $dialogBox->render();
 
 

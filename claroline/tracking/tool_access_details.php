@@ -83,9 +83,9 @@ else
  */
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics'), 'courseReport.php' );
 
-$nameTools = get_lang('Details');
+$nameTools = get_lang('Statistics');
 
-$html = '';    
+$html = '';
 
 $langMonthNames = get_locale('langMonthNames');
 
@@ -104,10 +104,20 @@ else
 
 if( $is_allowedToTrack )
 {
-    $title['mainTitle'] = $nameTools;
-    $title['subTitle'] = claro_get_tool_name(claro_get_tool_id_from_course_tid($toolId));
-
-    $html .= claro_html_tool_title( $title );
+    // Title parts
+    $titleParts['mainTitle'] = $nameTools;
+    $titleParts['subTitle'] = get_lang('Details for the tool')
+                            . ': '
+                            . claro_get_tool_name(claro_get_tool_id_from_course_tid($toolId));
+    
+    // Command list
+    $cmdList = array();
+    
+    $cmdList[] = array(
+        'name' => get_lang('View list of all tools'),
+        'url' => './courseReport.php');
+    
+    $html .= claro_html_tool_title($titleParts, null, $cmdList);
     
     $langDay_of_weekNames = get_locale('langDay_of_weekNames');
     switch($period)
@@ -128,9 +138,8 @@ if( $is_allowedToTrack )
             $html .= $langDay_of_weekNames['long'][date('w' , $reqdate)].date(' d ' , $reqdate).$langMonthNames['long'][date('n', $reqdate)-1].date(' Y' , $reqdate)."\n";
             break;
     }
-
+    
     $html .= '<p>' . "\n"
-    .    '<small>' . "\n"
     .   '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$reqdate.'">'
     .   ( $period == 'month' ? '<strong>' . get_lang('Month') . '</strong>' : get_lang('Month') )
     .   '</a>]'."\n"
@@ -141,7 +150,7 @@ if( $is_allowedToTrack )
     .   ( $period == 'day' ? '<strong>' . get_lang('Day') . '</strong>' : get_lang('Day') )
     .   '</a>]'."\n"
     .   '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
-
+    
     switch($period)
     {
         case "month" :
@@ -166,11 +175,7 @@ if( $is_allowedToTrack )
                 .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$nextReqDate.'">'.get_lang('Next day').'</a>]'."\n";
             break;
     }
-
-    $html .= '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
-        .'[<a href="./courseReport.php">'.get_lang('View list of all tools').'</a>]'."\n"
-        .'</small>'."\n"
-        .'</p>'."\n";
+    
     // display information about this period
     switch($period)
     {

@@ -1439,8 +1439,8 @@ if( ($docView == 'image' || $docView == 'thumbnails') && isset($fileList) )
     $imageList = get_image_list($fileList, $is_allowedToEdit);
 }
 
-// Build the tool list
-$toolList = array();
+// Command list
+$cmdList = array();
 
 /*
  * if the $curDirName is empty, we're in the root point
@@ -1448,14 +1448,14 @@ $toolList = array();
  */
 if ($curDirName || $cmd == 'exSearch')
 {
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'parent',
         'name' => get_lang('Up'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.download_url_encode($parentDir)))
     );
 }
 
-$toolList[] = array(
+$cmdList[] = array(
     'img' => 'search',
     'name' => get_lang('Search'),
     'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqSearch&amp;cwd='.$cmdCurDirPath ))
@@ -1471,7 +1471,7 @@ if ( claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFo
     if( isset($fileList) && count($fileList) > 0 )
     {
         // Download current folder
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'save',
             'name' => get_lang('Download current directory'),
             'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exDownload&amp;'.$downloadArgument))
@@ -1483,25 +1483,25 @@ if ( claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFo
 if ($is_allowedToEdit)
 {
     // Create directory, document, hyperlink or upload file
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'upload',
         'name' => get_lang('Upload file'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqUpload&amp;cwd='.$cmdCurDirPath))
     );
     
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'folder',
         'name' => get_lang('Create directory'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqMkDir&amp;cwd='.$cmdCurDirPath))
     );
     
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'link',
         'name' => get_lang('Create hyperlink'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqMkUrl&amp;cwd='.$cmdCurDirPath))
     );
     
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'html',
         'name' => get_lang('Create Document'),
         'url' => htmlspecialchars(Url::Contextualize( 'rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.$cmdCurDirPath))
@@ -1511,7 +1511,7 @@ if ($is_allowedToEdit)
 $helpUrl = $is_allowedToEdit ? 'help_document.php' : null;
 
 // Display title
-$out .= claro_html_tool_title($titleElement, $helpUrl, $toolList, 3);
+$out .= claro_html_tool_title($titleElement, $helpUrl, $cmdList, 3);
 
 // Display dialog box
 $out .= $dialogBox->render();

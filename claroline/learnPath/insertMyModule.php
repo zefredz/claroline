@@ -1,17 +1,14 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
+ * @version     1.8 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Piraux Sébastien <pir@cerdecam.be>
- * @author Lederer Guillaume <led@cerdecam.be>
- *
- * @package CLLNP
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Piraux Sébastien <pir@cerdecam.be>
+ * @author      Lederer Guillaume <led@cerdecam.be>
+ * @package     CLLNP
  */
 
 /*======================================
@@ -142,7 +139,7 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
             $atleastOne = TRUE;
             $nb++;
         }
-    }     
+    }
 } //end if ADD command
 
 //STEP ONE : display form to add module of the course that are not in this path yet
@@ -255,5 +252,3 @@ $out .= display_path_content();
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

@@ -553,8 +553,8 @@ switch( $action )
 // Help URL
 $helpUrl = htmlspecialchars(Url::Contextualize("../wiki/help_wiki.php?help=admin"));
 
-// Tool list
-$toolList = array();
+// Command list
+$cmdList = array();
 
 switch( $action )
 {
@@ -570,13 +570,13 @@ switch( $action )
                 , array( '%TITLE%' => $wikiTitle ) )
             . '</blockquote>';
             
-            $toolList[] = array(
+            $cmdList[] = array(
                 'name' => get_lang("Go to documents tool"),
                 'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLDOC')
                     . '/document.php?gidReset=1'))
             );
             
-            $toolList[] = array(
+            $cmdList[] = array(
                 'name' => get_lang("Go back to Wiki list"),
                 'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
             );
@@ -632,14 +632,14 @@ switch( $action )
         
         if ( ( $groupId && claro_is_group_member() ) || $is_allowedToAdmin )
         {
-            $toolList[] = array(
+            $cmdList[] = array(
                 'img' => 'wiki_new',
                 'name' => get_lang("Create a new Wiki"),
                 'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?action=rqEdit'))
             );
         }
         
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'search',
             'name' => get_lang("Search"),
             'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?action=rqSearch'))
@@ -821,7 +821,7 @@ switch( $action )
 }
 
 $output = '';
-$output .= claro_html_tool_title($toolTitle, $helpUrl, $toolList);
+$output .= claro_html_tool_title($toolTitle, $helpUrl, $cmdList);
 $output .= $dialogBox->render();
 $output .= $out;
 

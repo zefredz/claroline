@@ -30,7 +30,8 @@ $(document).ready(function(){
                     color: "#CCDDEE"
                 },
                 tip: "bottomLeft"
-            },
+           },
+           
            position: {
               corner: {
                  target: "topCenter",

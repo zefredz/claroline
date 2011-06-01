@@ -545,10 +545,10 @@ $assignmentList = $assignmentPager->get_result_list();
 // Help URL
 $helpUrl = $is_allowedToEdit ? 'help_work.php' : null;
 
-// Tool list
+// Command list
 if( $is_allowedToEdit )
 {
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'assignment',
         'name' => get_lang('Create a new assignment'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqMkAssig'))
@@ -556,7 +556,7 @@ if( $is_allowedToEdit )
     
     if( get_conf('allow_download_all_submissions') )
     {
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'save',
             'name' => get_lang('Download submissions'),
             'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqDownload'))
@@ -565,7 +565,7 @@ if( $is_allowedToEdit )
     
     if( get_conf( 'mail_notification', false ) && !get_conf( 'automatic_mail_notification', false ) )
     {
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'settings',
             'name' => get_lang('Assignments preferences'),
             'url' => htmlspecialchars(Url::Contextualize('work_settings.php'))
@@ -574,7 +574,7 @@ if( $is_allowedToEdit )
 }
 
 $out = '';
-$out .= claro_html_tool_title($nameTools, $helpUrl, $toolList);
+$out .= claro_html_tool_title($nameTools, $helpUrl, $cmdList);
 
 
 if ($is_allowedToEdit)
@@ -585,112 +585,84 @@ if ($is_allowedToEdit)
     if ( isset($displayAssigForm) && $displayAssigForm )
     {
         $out .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" enctype="multipart/form-data">' . "\n"
-        .   '<input type="hidden" name="claroFormId" value="' . uniqid('') .'" />' . "\n"
-        .   '<input type="hidden" name="cmd" value="' . $cmdToSend .'" />' . "\n"
-        ;
+              . '<input type="hidden" name="claroFormId" value="' . uniqid('') .'" />' . "\n"
+              . '<input type="hidden" name="cmd" value="' . $cmdToSend .'" />' . "\n"
+              . '<fieldset>';
         
         if( !is_null($assigId) )
         {
-            $out .= '<input type="hidden" name="assigId" value="'. $assigId .'" />' . "\n"
-            ;
+            $out .= '<input type="hidden" name="assigId" value="'. $assigId .'" />' . "\n";
         }
         
-        $out .= '<table cellpadding="5" width="100%">
-          <tr>
-            <td valign="top"><label for="title">' . get_lang('Assignment title') . '&nbsp;:</label></td>
-            <td><input type="text" name="title" id="title" size="50" maxlength="200" value=" ' . htmlspecialchars($assignment->getTitle()) . '" /></td>
-          </tr>
-    
-          <tr>
-            <td valign="top"><label for="description">' . get_lang('Description') . '&nbsp;:<br /></label></td>
-            <td>' . "\n";
-        
-        $out .= claro_html_textarea_editor('description', $assignment->getDescription());
-        $out .= ' </td>
-          </tr>
-    
-          <tr>
-            <td valign="top">'. get_lang('Submission type') .'&nbsp;:</td>
-            <td>
-              <input type="radio" name="authorized_content" id="authorizeFile" value="FILE" '.( $assignment->getSubmissionType() == "FILE" ? 'checked="checked"' : '') . ' />
+        $out .= '<dl>'
+              
+              . '<dt><label for="title">' . get_lang('Assignment title') . '</label></dt>'
+              . '<dd><input type="text" name="title" id="title" size="50" maxlength="200" value=" ' . htmlspecialchars($assignment->getTitle()) . '" /></dd>'
+              
+              . '<dt><label for="description">' . get_lang('Description') . '<br /></label></dt>'
+              . '<dd>' . claro_html_textarea_editor('description', $assignment->getDescription()) . '</dd>'
+              
+              . '<dt>'. get_lang('Submission type') .'</dt>'
+              . '<dd>'
+              . '<input type="radio" name="authorized_content" id="authorizeFile" value="FILE" '.( $assignment->getSubmissionType() == "FILE" ? 'checked="checked"' : '') . ' />
                 <label for="authorizeFile">&nbsp;'. get_lang('File (file required, description text optional)') .'</label>
                 <br />
-              <input type="radio" name="authorized_content" id="authorizeText" value="TEXT" '. ( $assignment->getSubmissionType() == "TEXT" ?  'checked="checked"' : '') . '/>
+                <input type="radio" name="authorized_content" id="authorizeText" value="TEXT" '. ( $assignment->getSubmissionType() == "TEXT" ?  'checked="checked"' : '') . '/>
                 <label for="authorizeText">&nbsp;'. get_lang('Text only (text required, no file)') .'</label>
                 <br />
-              <input type="radio" name="authorized_content" id="authorizeTextFile" value="TEXTFILE" '. ( $assignment->getSubmissionType() == "TEXTFILE" ? 'checked="checked"' : '') . ' />
-                <label for="authorizeTextFile">&nbsp;'. get_lang('Text with attached file (text required, file optional)') .'</label>
-                <br />
-            </td>
-          </tr>
-    
-          <tr>
-            <td valign="top">'. get_lang('Assignment type') .'&nbsp;:</td>
-            <td>
-              <input type="radio" name="assignment_type" id="individual" value="INDIVIDUAL" '. ( $assignment->getAssignmentType() == "INDIVIDUAL" ? 'checked="checked"' : '') .' />
+                <input type="radio" name="authorized_content" id="authorizeTextFile" value="TEXTFILE" '. ( $assignment->getSubmissionType() == "TEXTFILE" ? 'checked="checked"' : '') . ' />
+                <label for="authorizeTextFile">&nbsp;'. get_lang('Text with attached file (text required, file optional)') .'</label>'
+              . '</dd>'
+              
+              . '<dt>'. get_lang('Assignment type') .'</dt>'
+              . '<dd>'
+              . '<input type="radio" name="assignment_type" id="individual" value="INDIVIDUAL" '. ( $assignment->getAssignmentType() == "INDIVIDUAL" ? 'checked="checked"' : '') .' />
                 <label for="individual">&nbsp;'. get_lang('Individual') .'</label>
                 <br />
-              <input type="radio" name="assignment_type" id="group" value="GROUP" '. ( $assignment->getAssignmentType() == "GROUP" ?  'checked="checked"' : '' ) . ' />
-                <label for="group">&nbsp;' . get_lang('Groups (from groups tool, only group members can post)') . '</label>
+                <input type="radio" name="assignment_type" id="group" value="GROUP" '. ( $assignment->getAssignmentType() == "GROUP" ?  'checked="checked"' : '' ) . ' />
+                <label for="group">&nbsp;' . get_lang('Groups (from groups tool, only group members can post)') . '</label>'
+              . '</dd>'
+              
+              . '<dt>' . get_lang('Start date') .'</dt>'
+              . '<dd>'
+              . claro_html_date_form('startDay', 'startMonth', 'startYear', $assignment_data['start_date'], 'long') . ' ' . claro_html_time_form('startHour', 'startMinute', $assignment_data['start_date'])
+              . '<p class="notice">' . get_lang('(d/m/y hh:mm)') . '</p>'
+              . '</dd>'
+              
+              . '<dt>' . get_lang('End date') . '</dt>'
+              . '<dd>'
+              . claro_html_date_form('endDay', 'endMonth', 'endYear', $assignment_data['end_date'], 'long') . ' ' . claro_html_time_form('endHour', 'endMinute', $assignment_data['end_date'])
+              . '<p class="notice">' . get_lang('(d/m/y hh:mm)') . '</p>'
+              . '</dd>'
+              
+              . '<dt>' . get_lang('Allow late upload') . '</dt>'
+              . '<dd>
+                <input type="radio" name="allow_late_upload" id="allowUpload" value="YES" ' . ( $assignment->getAllowLateUpload() == "YES" ?  'checked="checked"' : '' ) . ' />
+                <label for="allowUpload">&nbsp;' . get_lang('Yes, allow users to submit works after end date') . '</label>
                 <br />
-            </td>
-          </tr>
-    
-          <tr>
-            <td valign="top">' . get_lang('Start date') .'&nbsp;:</td>
-            <td>';
-            
-    
-        $out .= claro_html_date_form('startDay', 'startMonth', 'startYear', $assignment_data['start_date'], 'long') . ' ' . claro_html_time_form('startHour', 'startMinute', $assignment_data['start_date'])
-        .   '&nbsp;<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
-        ;
-        $out .= '    </td>
-          </tr>
-    
-          <tr>
-            <td valign="top">' . get_lang('End date') . '&nbsp;:</td>
-            <td>';
-    
-        $out .= claro_html_date_form('endDay', 'endMonth', 'endYear', $assignment_data['end_date'], 'long') . ' ' . claro_html_time_form('endHour', 'endMinute', $assignment_data['end_date'])
-        .   '&nbsp;<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
-        ;
-    
-        $out .= '    </td>
-          </tr>
-    
-          <tr>
-            <td valign="top">' . get_lang('Allow late upload') . '&nbsp;:</td>
-            <td>
-            <input type="radio" name="allow_late_upload" id="allowUpload" value="YES" ' . ( $assignment->getAllowLateUpload() == "YES" ?  'checked="checked"' : '' ) . ' />
-              <label for="allowUpload">&nbsp;' . get_lang('Yes, allow users to submit works after end date') . '</label>
-              <br />
-            <input type="radio" name="allow_late_upload" id="preventUpload" value="NO" '. ( $assignment->getAllowLateUpload() == "NO" ? 'checked="checked"' : '' ) . ' />
-              <label for="preventUpload">&nbsp;' . get_lang('No, prevent users submitting work after the end date') . '</label>
-              <br />
-            </td>
-          </tr>
-    
-          <tr>
-            <td valign="top">' . get_lang('Default works visibility') . '&nbsp;:</td>
-            <td>
-              <input type="radio" name="def_submission_visibility" id="visible" value="VISIBLE" '.( $assignment->getDefaultSubmissionVisibility() == "VISIBLE" ? 'checked="checked"' : '') . ' />
+                <input type="radio" name="allow_late_upload" id="preventUpload" value="NO" '. ( $assignment->getAllowLateUpload() == "NO" ? 'checked="checked"' : '' ) . ' />
+                <label for="preventUpload">&nbsp;' . get_lang('No, prevent users submitting work after the end date') . '</label>'
+              . '</dd>'
+              
+              . '<dt>' . get_lang('Default works visibility') . '</dt>'
+              . '<dd>
+                <input type="radio" name="def_submission_visibility" id="visible" value="VISIBLE" '.( $assignment->getDefaultSubmissionVisibility() == "VISIBLE" ? 'checked="checked"' : '') . ' />
                 <label for="visible">&nbsp;' . get_lang('Visible for all users') . '</label>
                 <br />
-              <input type="radio" name="def_submission_visibility" id="invisible" value="INVISIBLE" '. ( $assignment->getDefaultSubmissionVisibility() == "INVISIBLE" ? 'checked="checked"' : '') . ' />
-                <label for="invisible">&nbsp;'. get_lang('Only visible for teacher(s) and submitter(s)') . '</label>
-                <br />
-            </td>
-          </tr>
-    
-          <tr>
-            <td>&nbsp;</td>
-            <td>
-              <input type="submit" name="submitAssignment" value="'. get_lang('Ok') .'" />&nbsp;
-              '. claro_html_button((isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'.'), get_lang('Cancel')) .'
-            </td>
-          </tr>
-          </table>
-        </form>';
+                <input type="radio" name="def_submission_visibility" id="invisible" value="INVISIBLE" '. ( $assignment->getDefaultSubmissionVisibility() == "INVISIBLE" ? 'checked="checked"' : '') . ' />
+                <label for="invisible">&nbsp;'. get_lang('Only visible for teacher(s) and submitter(s)') . '</label>'
+              . '</dd>'
+              
+              . '<dt>&nbsp;</dt>'
+              . '<dd>'
+              . '<input type="submit" name="submitAssignment" value="'. get_lang('Ok') .'" />&nbsp;'
+              . claro_html_button((isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'.'), get_lang('Cancel'))
+              . '</dd>'
+              
+              . '</dl>'
+              
+              . '</fieldset>'
+              . '</form>';
     }
 }
 

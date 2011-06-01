@@ -627,12 +627,12 @@ $out = '';
 
 if( !$inLP )
 {
-    // Tool list
-    $toolList = array();
+    // Command list
+    $cmdList = array();
     
     if(get_conf('is_trackingEnabled') && claro_is_user_authenticated())
     {
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'statistics',
             'name' => get_lang('My results'),
             'url' => htmlspecialchars(Url::Contextualize('../tracking/userReport.php?userId='.claro_get_current_user_id()))
@@ -641,32 +641,32 @@ if( !$inLP )
     
     if($is_allowedToEdit)
     {
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'quiz_new',
             'name' => get_lang('New exercise'),
             'url' => htmlspecialchars(Url::Contextualize('admin/edit_exercise.php?cmd=rqEdit'))
         );
         
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'question_pool',
             'name' => get_lang('Question pool'),
             'url' => htmlspecialchars(Url::Contextualize('admin/question_pool.php'))
         );
         
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'question_pool',
             'name' => get_lang('Question categories'),
             'url' => htmlspecialchars(Url::Contextualize('admin/question_category.php'))
         );
         
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'import',
             'name' => get_lang('Import exercise'),
             'url' => htmlspecialchars(Url::Contextualize('exercise.php?cmd=rqImport'))
         );
     }
     
-    $out .= claro_html_tool_title($nameTools, $helpUrl, $toolList);
+    $out .= claro_html_tool_title($nameTools, $helpUrl, $cmdList);
     $out .= $dialogBox->render();
     
     //-- pager

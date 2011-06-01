@@ -408,33 +408,18 @@ if ($displayList)
 
 $displayButtonLine = (bool) $is_allowedToEdit && ( empty($cmd) || $cmd != 'rqEdit' || $cmd != 'rqCreate' ) ;
 
-// Tool list
+// Command list
 $cmdList = array();
-$toolList = array();
 
 if ( $displayButtonLine )
 {
-    $cmdList[] = '<a class="claroCmd" href="'
-        . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqCreate' )) . '">'
-        . '<img src="' . get_icon_url('announcement_new') . '" alt="" />'
-        . get_lang('Add announcement')
-        . '</a>' . "\n"
-        ;
-        
-    $toolList[] = array(
+    $cmdList[] = array(
         'img' => 'announcement_new',
         'name' => get_lang('Add announcement'),
         'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqCreate' ))
     );
-
-    $cmdList[] = '<a class="claroCmd" href="'
-        . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann')) . '">'
-        . '<img src="' . get_icon_url('mail_close') . '" alt="" />'
-        . get_lang('Messages to selected users')
-        . '</a>' . "\n"
-        ;
-        
-    $toolList[] = array(
+    
+    $cmdList[] = array(
         'img' => 'mail_close',
         'name' => get_lang('Messages to selected users'),
         'url' => htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann'))
@@ -442,15 +427,7 @@ if ( $displayButtonLine )
     
     if (($announcementQty > 0 ))
     {
-        $cmdList[] = '<a class="claroCmd" href="'
-            . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll' )) . '" '
-            . ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up list of announcements')) . ' ?\')){return true;}else{return false;}">'
-            . '<img src="' . get_icon_url('delete') . '" alt="" />'
-            . get_lang('Clear up list of announcements')
-            . '</a>' . "\n"
-            ;
-        
-        $toolList[] = array(
+        $cmdList[] = array(
             'img' => 'delete',
             'name' => get_lang('Clear up list of announcements'),
             'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll' ))
@@ -479,7 +456,7 @@ else
     $titleParts = $nameTools;
 }
 
-Claroline::getDisplay()->body->appendContent(claro_html_tool_title($titleParts, null, $toolList));
+Claroline::getDisplay()->body->appendContent(claro_html_tool_title($titleParts, null, $cmdList));
 Claroline::getDisplay()->body->appendContent($dialogBox->render());
 
 
