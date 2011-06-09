@@ -264,7 +264,7 @@ function get_and_unzip_uploaded_package()
       && treat_uploaded_file( $_FILES['uploadedModule']
                             , $moduleRepositorySys
                             , $uploadDir
-                            , get_conf('maxFilledSpaceForModule' , 10000000)
+                            , get_conf('maxFilledSpaceForModule' , 20000000)
                             , 'unzip'
                             , true)
                             )
