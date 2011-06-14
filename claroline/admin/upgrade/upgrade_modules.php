@@ -51,7 +51,9 @@ if ( isset($_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'run' )
         
         if ( $manifest )
         {
-            $version = $manifest['CLAROLINE_MAX_VERSION'];
+            $version = array_key_exists( 'CLAROLINE_MAX_VERSION' , $manifest )
+                     ? $manifest['CLAROLINE_MAX_VERSION']
+                     : $manifest['CLAROLINE_MIN_VERSION'];
             
             if ( ! in_array( $module['label'], $readOnlyModules ) && ! preg_match( $patternVarVersion, $version ) )
             {
