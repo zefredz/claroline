@@ -7,5 +7,5 @@
     <label for="title"><strong><?php echo get_lang( 'New topic title' ) ?> : </strong></label><br />
     <input type="text" name="title" id="title" value="<?php echo $this->topicTitle ?>" /><br /><br />
     <input type="submit" value="<?php echo get_lang( 'Ok' ) ?>" />&nbsp; 
-    <?php echo claro_html_button( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] ) ), get_lang( 'Cancel' ) )?>
+    <?php echo claro_html_button( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forumId ) ), get_lang( 'Cancel' ) )?>
 </form>
