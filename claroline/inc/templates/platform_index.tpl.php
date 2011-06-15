@@ -55,8 +55,8 @@
     
     
     if (claro_is_user_authenticated()) :
-        ?>
-        
+    ?>
+    
         <table>
           <tr>
             <td class="userCommands">
@@ -69,9 +69,8 @@
             </td>
           </tr>
         </table>
-        
-        <?php
     
+    <?php
     else :
         if (!get_conf('course_categories_hidden_to_anonymous',false)) :
             echo $this->templateCategoryBrowser->render();

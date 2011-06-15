@@ -758,46 +758,57 @@ function render_user_course_list()
     }
     unset($userCategoryList);
     
-    $out = '<dl class="userCourseList">';
     
     // Display
+    $out = '';
+    
+    // Courses organized by categories
     if( get_conf('userCourseListGroupByCategories') )
     {
-        foreach ($reorganizedUserCategoryList as $category)
+        if (count($reorganizedUserCategoryList) > 0)
         {
-            if (!empty($category['courseList']) || !empty($category['rootCourse']))
+            foreach ($reorganizedUserCategoryList as $category)
             {
-                $out .= '<dt>'."\n"
-                      . '<h4 id="'.$category['categoryId'].'">'
-                      . $category['trail']
-                      . (!empty($category['rootCourse']) ?
-                      ' [<a href="'
-                      . get_path('url') . '/claroline/course/index.php?cid='
-                      . htmlspecialchars($category['rootCourse']['sysCode'])
-                      .'">'.get_lang('Infos').'</a>]' :
-                      '')
-                      . '</h4>'."\n"
-                      . '</dt>'."\n";
+                $out .= '<dl class="userCourseList">';
                 
-                if (!empty($category['courseList']))
+                if (!empty($category['courseList']) || !empty($category['rootCourse']))
                 {
-                    foreach ($category['courseList'] as $course)
+                    $out .= '<dt>'."\n"
+                          . '<h4 id="'.$category['categoryId'].'">'
+                          . $category['trail']
+                          . (!empty($category['rootCourse']) ?
+                          ' [<a href="'
+                          . get_path('url') . '/claroline/course/index.php?cid='
+                          . htmlspecialchars($category['rootCourse']['sysCode'])
+                          .'">'.get_lang('Infos').'</a>]' :
+                          '')
+                          . '</h4>'."\n"
+                          . '</dt>'."\n";
+                    
+                    if (!empty($category['courseList']))
                     {
-                        $out .= render_course_in_dl_list($course, $course['hot']);
+                        foreach ($category['courseList'] as $course)
+                        {
+                            $out .= render_course_in_dl_list($course, $course['hot']);
+                        }
+                    }
+                    else
+                    {
+                        $out .= '<dt>'.get_lang('There are no courses in this category').'</dt>';
                     }
                 }
-                else
-                {
-                    $out .= '<dt>'.get_lang('There are no courses in this category').'</dt>';
-                }
             }
+            
+            $out .= '</dl>';
         }
     }
+    // Simple course list
     else
     {
-        // Display list
-        if (count($reorganizedUserCourseList))
+        if (count($reorganizedUserCourseList) > 0)
         {
+            $out .= '<dl class="userCourseList">';
+            
             foreach($reorganizedUserCourseList as $course)
             {
                 if (($course['rootCourse'] != 1 && $course['isSourceCourse'] != 1)
@@ -808,10 +819,10 @@ function render_user_course_list()
                     $out .= render_course_in_dl_list($course, $course['hot'], $displayIconAccess);
                 }
             }
+            
+            $out .= '</dl>' . "\n";
         }
     }
-    
-    $out .= '</dl>' . "\n";
     
     return $out;
 }
