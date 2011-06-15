@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours` (
   PRIMARY KEY  (`cours_id`),
   KEY `administrativeNumber` (`administrativeNumber`),
   KEY `faculte` (`faculte`)
-) TYPE=MyISAM COMMENT='data of courses';
+) ENGINE=MyISAM COMMENT='data of courses';
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__user` (
   `user_id` INT(11)  UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__user` (
   `isCourseCreator` TINYINT(4) DEFAULT 0,
    PRIMARY KEY  (`user_id`),
   KEY `loginpass` (`username`,`password`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
     
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours_user` (
   `code_cours` VARCHAR(40) NOT NULL DEFAULT '0',
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours_user` (
   `isCourseManager` tinyINT(4) NOT NULL DEFAULT 0,
    PRIMARY KEY  (`code_cours`,`user_id`),
   KEY `isCourseManager` (`isCourseManager`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__faculte` (
   id                    INT(11) NOT NULL AUTO_INCREMENT,
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__faculte` (
   KEY `code_P` (`code_P`),
   KEY `treePos` (`treePos`)
 
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__course_tool` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__course_tool` (
   `access_manager` ENUM('PLATFORM_ADMIN','COURSE_ADMIN') NOT NULL DEFAULT 'COURSE_ADMIN',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `claro_label` (`claro_label`)
-) TYPE=MyISAM COMMENT='based definiton of the claroline tool used in each course';
+) ENGINE=MyISAM COMMENT='based definiton of the claroline tool used in each course';
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__class` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__class` (
   `class_parent_id` INT(11) DEFAULT NULL,
   `class_level` INT(11) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='classe_id, name, classe_parent_id, classe_level';
+) ENGINE=MyISAM COMMENT='classe_id, name, classe_parent_id, classe_level';
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__rel_class_user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -111,19 +111,19 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__rel_class_user` (
   PRIMARY KEY  (`id`),
   KEY `user_id` (`user_id`),
   KEY `class_id` (`class_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__rel_course_class` (
     `courseId` VARCHAR(40) NOT NULL,
     `classId` INT(11) NOT NULL DEFAULT '0',
     PRIMARY KEY  (`courseId`,`classId`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__config_file` (
   `config_code` VARCHAR(30) NOT NULL DEFAULT '',
   `config_hash` VARCHAR(40) NOT NULL DEFAULT '',
   PRIMARY KEY  (`config_code` )
-) TYPE=MyISAM  AVG_ROW_LENGTH=48;
+) ENGINE=MyISAM  AVG_ROW_LENGTH=48;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__sso` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__sso` (
   `rec_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` INT(11) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__notify` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__notify` (
   `date` DATETIME DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`),
   KEY `course_id` (`course_code`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__upgrade_status` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__upgrade_status` (
     `claro_label` VARCHAR( 8 ) ,
     `status` TINYINT NOT NULL ,
     PRIMARY KEY ( `id` )
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__module` (
   `id`         INT(11)    UNSIGNED             NOT NULL AUTO_INCREMENT,
@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__module` (
   `type`       VARCHAR(10)                      NOT NULL DEFAULT 'applet',
   `script_url` char(255)                        NOT NULL DEFAULT 'entry.php',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__module_info` (
   id             SMALLINT     NOT NULL AUTO_INCREMENT,
@@ -174,13 +174,13 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__module_info` (
   website        VARCHAR(255) DEFAULT NULL,
   license        VARCHAR(50)  DEFAULT NULL,
   PRIMARY KEY (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__module_contexts` (
   module_id INTEGER UNSIGNED NOT NULL,
   context VARCHAR(60) NOT NULL DEFAULT 'course',
   PRIMARY KEY(`module_id`,`context`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__dock` (
   id        SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__dock` (
   name      VARCHAR(50) NOT NULL DEFAULT '',
   rank      TINYINT  UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY  (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__right_profile` (
   `profile_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__right_profile` (
   `required` TINYINT(4) DEFAULT '0',
   PRIMARY KEY  (`profile_id`),
   KEY `type` (`type`)
-)TYPE=MyISAM;
+)ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__right_action` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__right_action` (
   PRIMARY KEY  (`id`),
   KEY `tool_id` (`tool_id`),
   KEY `type` (`type`)
-)TYPE=MyISAM;
+)ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__right_rel_profile_action` (
   `profile_id` INT(11) NOT NULL,
@@ -224,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__right_rel_profile_action` (
   `courseId`  VARCHAR(40) NOT NULL DEFAULT '',
   `value` TINYINT(4) DEFAULT '0',
   PRIMARY KEY  (`profile_id`,`action_id`,`courseId`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__property_definition` (
   `propertyId` VARCHAR(50) NOT NULL DEFAULT '',
@@ -238,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__property_definition` (
   `acceptedValue` TEXT NOT NULL,
   PRIMARY KEY  (`contextScope`,`propertyId`),
   KEY `rank` (`rank`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS  `__CL_MAIN__user_property` (
   `userId`        INT(10) UNSIGNED NOT NULL DEFAULT '0',
@@ -246,7 +246,7 @@ CREATE TABLE IF NOT EXISTS  `__CL_MAIN__user_property` (
   `propertyValue` VARCHAR(255) NOT NULL DEFAULT '',
   `scope`         VARCHAR(45) NOT NULL DEFAULT '',
   PRIMARY KEY  (`scope`,`propertyId`,`userId`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # INTERNAL MESSAGING SYSTEM
 
@@ -286,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet` (
   `visibility` ENUM ('visible','invisible') DEFAULT 'visible' NOT NULL,
   `activated` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY  (`label`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet_data` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -294,7 +294,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet_data` (
   `idUser` int(11) NOT NULL,
   `data` text NOT NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # STATS TABLE
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__tracking_event` (
@@ -308,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__tracking_event` (
   PRIMARY KEY  (`id`),
   KEY `course_id` (`course_code`),
   KEY `user_tracking` (`user_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # LOG TABLE
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__log` (
@@ -323,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__log` (
   PRIMARY KEY  (`id`),
   KEY `course_id` (`course_code`),
   KEY `user_log` (`user_id`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # EVENT-RESOURCE TABLE
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__event_resource` (
@@ -333,7 +333,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__event_resource` (
   `course_code` VARCHAR(40) NOT NULL,
   PRIMARY KEY (`event_id`, `resource_id`, `tool_id`, `course_code`),
   UNIQUE KEY (`event_id`, `course_code`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # INSERT COMMANDS
 

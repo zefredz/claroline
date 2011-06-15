@@ -446,4 +446,4 @@ Claroline::getDatabase()->exec("CREATE TABLE IF NOT EXISTS `{$main_tblList['even
                                     `course_code` VARCHAR(40) NOT NULL,
                                     PRIMARY KEY (`event_id`, `resource_id`, `tool_id`, `course_code`),
                                     UNIQUE KEY (`event_id`, `course_code`)
-                                ) TYPE=MyISAM");
+                                ) ENGINE=MyISAM");

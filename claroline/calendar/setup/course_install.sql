@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__calendar_event` (
     `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
     `location` varchar(50),
     PRIMARY KEY (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;

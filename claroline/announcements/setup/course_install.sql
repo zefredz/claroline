@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__announcement` (
     `ordre` mediumint(11) NOT NULL default '0',
     `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
     PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='announcements table';
+) ENGINE=MyISAM COMMENT='announcements table';
