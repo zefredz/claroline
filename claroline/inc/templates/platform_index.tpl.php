@@ -1,7 +1,5 @@
 <!-- $Id$ -->
 
-<?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
-
 <div id="rightSidebar">
     
     <?php if ( claro_is_user_authenticated() ) : ?>
@@ -52,31 +50,31 @@
     else :
         include_textzone('textzone_top.anonymous.inc.html');
     endif;
-    
-    
-    if (claro_is_user_authenticated()) :
     ?>
     
-        <table>
-          <tr>
-            <td class="userCommands">
-                <h1><?php echo get_lang('Manage my courses'); ?></h1>
-                <?php echo claro_html_list( $this->userCommands ); ?>
-            </td>
-            <td class="userCourseList">
-                <h1><?php echo get_lang('My course list'); ?></h1>
-                <?php echo $this->templateMyCourses->render(); ?>
-            </td>
-          </tr>
-        </table>
+    <?php if (claro_is_user_authenticated()) : ?>
+    <table>
+      <tr>
+        <td class="userCommands">
+            <h1><?php echo get_lang('Manage my courses'); ?></h1>
+            <?php echo claro_html_list( $this->userCommands ); ?>
+        </td>
+        <td class="userCourseList">
+            <h1><?php echo get_lang('My course list'); ?></h1>
+            <?php echo $this->templateMyCourses->render(); ?>
+        </td>
+      </tr>
+    </table>
+    
+    <?php else : ?>
+        <?php if (!get_conf('course_categories_hidden_to_anonymous',false)) : ?>
+            <?php echo $this->templateCategoryBrowser->render(); ?>
+        <?php endif; ?>
+        
+        <?php echo $this->templateCourseSearchBox->render(); ?>
+    <?php endif; ?>
     
     <?php
-    else :
-        if (!get_conf('course_categories_hidden_to_anonymous',false)) :
-            echo $this->templateCategoryBrowser->render();
-        endif;
-    endif;
-    
     include_dock('campusHomePageBottom');
     ?>
     

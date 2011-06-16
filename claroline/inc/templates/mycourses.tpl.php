@@ -1,8 +1,7 @@
 <!-- $Id$ -->
 
 <?php
-//Display activated courses list
-
+//Display user's activated courses list
 if( !empty( $this->userCourseList ) ) :
     echo $this->userCourseList; // Comes from render_user_course_list();
 
@@ -14,7 +13,7 @@ else :
 
 endif;
 
-//Display deactivated courses list
+//Display user's deactivated courses list
 if ( !empty( $this->userCourseListDesactivated ) ) :
     echo claro_html_tool_title(get_lang('Deactivated course list'));
     echo $this->userCourseListDesactivated; // Comes from render_user_course_list_desactivated();

@@ -43,7 +43,32 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
     
     $template->assign('templateCategoryBrowser', $templateCategoryBrowser);
     
-    // User course (activated and deactivated) lists
+    // Manage the search box and search results
+    $foundCourseList = '';
+    $keyword = '';
+    
+    if (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search')
+    {
+        $keyword = !empty($_REQUEST['keyword']) ? $_REQUEST['keyword'] : '';
+        
+        $searchResult = search_course($keyword);
+        
+        if (!empty($searchResult))
+        {
+            foreach($searchResult as $course)
+            {
+                $foundCourseList .= render_course_in_dl_list($course);
+            }
+        }
+    }
+    
+    $templateCourseSearchBox = new CoreTemplate('course_search_box.tpl.php');
+    $templateCourseSearchBox->assign('courseList', $foundCourseList);
+    $templateCourseSearchBox->assign('keyword', $keyword);
+    
+    $template->assign('templateCourseSearchBox', $templateCourseSearchBox);
+    
+    // User course (activated and deactivated) lists and search results (if any)
     $userCourseList = render_user_course_list();
     $userCourseListDesactivated = render_user_course_list_desactivated();
     

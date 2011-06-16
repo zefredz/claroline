@@ -182,7 +182,7 @@ class ClaroCategoriesBrowser
         $this->getCoursesWithoutSourceCourses():
         $this->getCoursesWithoutSessionCourses();
         
-        $template = new CoreTemplate('platform_courses.tpl.php');
+        $template = new CoreTemplate('categorybrowser.tpl.php');
         $template->assign('currentCategory', $currentCategory);
         $template->assign('categoryBrowser', $this);
         $template->assign('categoriesList', $categoriesList);
