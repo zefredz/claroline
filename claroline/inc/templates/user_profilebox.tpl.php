@@ -62,8 +62,8 @@
             
             <p>
                 <a class="claroCmd" href="<?php  echo get_path('clarolineRepositoryWeb'); ?>auth/profile.php">
-                <img src="<?php echo get_icon_url('edit'); ?>" alt="<?php echo get_lang('Edit'); ?>" />
-                <?php echo get_lang('Edit'); ?>
+                <img src="<?php echo get_icon_url('edit'); ?>" alt="<?php echo get_lang('Manage my account'); ?>" />
+                <?php echo get_lang('Manage my account'); ?>
                 </a>
             </p>
         </div>
