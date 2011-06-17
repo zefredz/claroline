@@ -131,7 +131,8 @@ input[type=radio], input[type=checkbox] {
 }
 
 input[type=text].inputSearch {
-    background: url(../../img/search.png) no-repeat top left #fff;
+    background: url(../../img/search.png) no-repeat #fff;
+    background-position: 1px 1px;
     padding-left: 18px;
 }
 

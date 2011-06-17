@@ -3,13 +3,8 @@
 <h3><label for="keyword"><?php echo get_lang( 'Search from keyword' ); ?></label></h3>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
     <input type="hidden" name="cmd" value="search" />
-    <input type="text" name="keyword" id="keyword" />
-    &nbsp;
-    <button type="submit">
-        <span style="background-image: url(<?php echo get_icon_url('search'); ?>); background-repeat: no-repeat; background-position: left center; padding-left: 20px;">
-            <?php echo get_lang( 'Search' ); ?>
-        </span>
-    </button>
+    <input type="text" name="keyword" id="keyword" class="inputSearch" />
+    <input type="button" value="<?php echo get_lang('Search'); ?>" />
 </form>
 
 <?php if (!empty($this->keyword)) : ?>
