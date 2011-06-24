@@ -240,23 +240,15 @@ if ( $cmd == 'exReg' )
         if ( claro_is_platform_admin()
         || ( is_null($courseRegistrationKey) || empty($courseRegistrationKey) )
         || ( isset($_REQUEST['registrationKey'] )
-        && strtolower(trim($_REQUEST['registrationKey'] )) == strtolower(trim($courseRegistrationKey))) )
+             && strtolower(trim($_REQUEST['registrationKey'] )) == strtolower(trim($courseRegistrationKey))
+           )
+        )
         {
-            //Is it a session course ?
-            $tempCourse = claro_get_course_data($courseCode);
-            
-            if (isset($tempCourse) && !empty($tempCourse['sourceCourseId']))
-            {
-                //It's a session course: register the user to this course AND the source course
-                $sourceCourseCode = ClaroCourse::getCodeFromId($tempCourse['sourceCourseId']);
-                user_add_to_course($userId, $sourceCourseCode, false, false, false);
-            }
-            
             //Try to register user
             if ( user_add_to_course($userId, $courseCode, false, false, false) )
             {
                 $claroline->log('COURSE_SUBSCRIBE',array('user'=>$userId,'course'=>$courseCode));
-
+                
                 if ( claro_get_current_user_id() != $uidToEdit )
                 {
                     //Message for admin
@@ -319,7 +311,6 @@ if ( $cmd == 'exReg' )
         }
         $dialogBox->info( get_lang('Please contact the course manager : %email' , array ('%email' => '<a href="mailto:'.$courseData['email'] . '?body=' . $courseData['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseData['titular']) . '</a>')) );
     }
-
 } // end if ($cmd == 'exReg')
 
 /*----------------------------------------------------------------------------
