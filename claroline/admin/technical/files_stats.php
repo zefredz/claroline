@@ -34,7 +34,8 @@ $stats = (!empty($_SESSION['progressingStats']) ? $_SESSION['progressingStats'] 
 // Params
 $cmd                = (!empty($_REQUEST['cmd'])) ? $_REQUEST['cmd'] : '';
 $inProgress         = (!empty($_SESSION['inProgress']) && $_SESSION['inProgress'] == true) ? true : false;
-$extensions         = explode(',', get_conf('filesStatsExtensions'));
+$extensionsFromConf = get_conf('filesStatsExtensions');
+$extensions         = (!empty($extensionsFromConf) ? explode(',', get_conf('filesStatsExtensions')) : array('doc','pdf','jpg'));
 $coursesDirectory   = get_path('coursesRepositorySys');
 $coursesPool        = 2;
 
@@ -53,6 +54,7 @@ if ($cmd == 'run' || $inProgress)
                    c.code                   AS sysCode,
                    c.intitule               AS title,
                    c.administrativeNumber   AS officialCode,
+                   c.faculte                AS category,
                    c.directory
                    
             FROM `" . $tbl_course . "` AS c
@@ -81,6 +83,8 @@ if ($cmd == 'run' || $inProgress)
             // Browse the file system
             foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($coursePath)) as $file)
             {
+                try
+                {
                 if ($file->getType() == 'file')
                 {
                     $type = strtolower(pathinfo( $file->getFilename(), PATHINFO_EXTENSION ));
@@ -100,10 +104,16 @@ if ($cmd == 'run' || $inProgress)
                     $courseStats['sum']['size'] += $file->getSize();
                 }
             }
+                catch(Exception $ex)
+                {
+                    $dialogBox->error( $ex->getMessage() );
+                }
+            }
             
             $stats[$course['sysCode']]['courseTitle'] = $course['title'];
             $stats[$course['sysCode']]['courseTitulars'] = $course['titulars'];
             $stats[$course['sysCode']]['courseStats'] = $courseStats;
+            $stats[$course['sysCode']]['courseCategory'] = $course['category']  ;
             
             $i++;
             
@@ -144,6 +154,16 @@ if ($cmd == 'run' || $inProgress)
     
     if (!isset($_SESSION['inProgress']))
     {
+        if (!empty($extensions))
+        {
+            $dialogBox->info(get_lang('You\'ve chosen to isolate the following extensions: %types.  If you wish to modify these extensions, check the advanced platform settings', array('%types' => implode(', ', $extensions))));
+        }
+        else
+        {
+            $dialogBox->info(get_lang('You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings'));
+        }
+
+
         if ($viewAs == 'html')
         {
             $template = new CoreTemplate('admin_files_stats.tpl.php');
@@ -151,6 +171,7 @@ if ($cmd == 'run' || $inProgress)
             $template->assign('extensions', $extensions);
             $template->assign('allExtensions', $allExtensions);
             $template->assign('stats', $stats);
+            $template->assign('formAction', $_SERVER['PHP_SELF']);
             
             $claroline->display->body->appendContent($template->render());
             
@@ -159,6 +180,26 @@ if ($cmd == 'run' || $inProgress)
         elseif ($viewAs == 'csv')
         {
             $csvTab = array();
+
+            // title line
+            $csvSubTab['courseCode'] = get_lang('Course code');
+            $csvSubTab['courseTitle'] = get_lang('Course title');
+            $csvSubTab['courseTitulars'] = get_lang('Lecturer(s)');
+            $csvSubTab['courseCategory'] = get_lang('Category');
+
+            foreach ($extensions as $key => $ext)
+            {
+              $csvSubTab[$key.'_count'] = 'Quantity of ' . get_lang($ext);
+              $csvSubTab[$key.'_size'] = 'Size of ' . get_lang($ext) . ' in KB';
+            }
+            $csvSubTab['other_count'] = 'Quantity of other files' ;
+            $csvSubTab['other_size'] = 'Size of other files' ;
+
+            $csvSubTab['sum_count'] = 'Total quantity of files' ;
+            $csvSubTab['sum_size'] = 'Total size' ;
+
+            $csvTab[] = $csvSubTab;
+            
             foreach ($stats as $key => $elmt)
             {
                 $csvSubTab = array();
@@ -166,25 +207,28 @@ if ($cmd == 'run' || $inProgress)
                 $csvSubTab['courseCode'] = $key;
                 $csvSubTab['courseTitle'] = $elmt['courseTitle'];
                 $csvSubTab['courseTitulars'] = $elmt['courseTitulars'];
+                $csvSubTab['courseCategory'] = $elmt['courseCategory'];
                 
                 foreach ($elmt['courseStats'] as $key => $elmt)
                 {
                     $csvSubTab[$key.'_count'] = $elmt['count'];
-                    $csvSubTab[$key.'_size'] = format_bytes($elmt['size']);
+                    $csvSubTab[$key.'_size'] = round($elmt['size']/1024, 2);
                 }
                 
                 $csvTab[] = $csvSubTab;
             }
             
-            $csvExporter = new CsvExporter(', ', '"');
-            $fileName = get_lang('files_stats').'_'.claro_date('d-m-Y');
+            $csvExporter = new CsvExporter(';', '"');
+            $fileName = get_lang('files_stats').'_'.claro_date('d-m-Y').'.txt';
             $stream = $csvExporter->export($csvTab);
             claro_send_stream($stream, $fileName, 'text/csv');
         }
     }
     else
     {
-        $dialogBox->warning(get_lang('Statistics in progress, please don\'t refresh until further instructions !'));
+        $dialogBox->warning(get_lang('Statistics in progress, please don\'t refresh until further instructions ! ') .
+                                        get_lang('Course actually treated : '). $course['title'] .
+                                        get_lang(' Number of course treated : ' ). count($stats) );
         
         $claroline->display->body->appendContent($dialogBox->render());
         echo $claroline->display->render();
@@ -195,6 +239,15 @@ else
     $dialogBox = new DialogBox();
     $dialogBox->warning(get_lang('Caution: building files\' statistics is a pretty heavy work.  It might take a while and a lot of resources, depending of the size of your campus.'));
     
+    if (!empty($extensions))
+    {
+        $dialogBox->info(get_lang('You\'ve chosen to isolate the following extensions: %types.  If you wish to modify these extensions, check the advanced platform settings', array('%types' => implode(', ', $extensions))));
+    }
+    else
+    {
+        $dialogBox->info(get_lang('You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings'));
+    }
+
     $template = new CoreTemplate('admin_files_stats_form.tpl.php');
     $template->assign('dialogBox', $dialogBox);
     $template->assign('extensions', $extensions);
@@ -223,3 +276,4 @@ function format_bytes($size)
     for ($i = 0; $size >= 1024 && $i < 4; $i++) $size /= 1024;
     return round($size, 2).$units[$i];
 }
+
