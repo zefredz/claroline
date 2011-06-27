@@ -88,9 +88,11 @@ function getLeftMenuToggleFunction() {
 
         if ( $('#rightContent').css('margin-left') == originalLeftMargin ) {
             $('#rightContent').css('margin-left', 0 );
+            $.cookie('claro_toolBarStatus','masked');
         }
         else {
             $('#rightContent').css('margin-left', originalLeftMargin );
+            $.cookie('claro_toolBarStatus','unmasked');
         }
         
         return false;
@@ -184,5 +186,10 @@ $(document).ready(function(){
         $('#toggleLeftMenu').click( 
             getLeftMenuToggleFunction()
         );
+        
+        /* check if the user has previously masked the bar */
+        if ( $.cookie('claro_toolBarStatus') == 'masked' ) {
+            $('#toggleLeftMenu').click();
+        }
     }
 });

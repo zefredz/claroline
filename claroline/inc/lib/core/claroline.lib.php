@@ -170,6 +170,7 @@ class Claroline
         }
         
         JavascriptLoader::getInstance()->load('jquery');
+        JavascriptLoader::getInstance()->load('jquery.cookie');
         JavascriptLoader::getInstance()->load('claroline');
     }
     
