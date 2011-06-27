@@ -80,18 +80,18 @@ Claroline.spoil = function(item) {
 
 function getLeftMenuToggleFunction() {
     
-    var originalLeftMargin = $('#rightContent').css('margin-left');
+    var originalLeftMargin = $('#courseRightContent').css('margin-left');
     
     return function() {
         
-        $('#leftSidebar').toggle();
+        $('#courseLeftSidebar').toggle();
 
-        if ( $('#rightContent').css('margin-left') == originalLeftMargin ) {
-            $('#rightContent').css('margin-left', 0 );
+        if ( $('#courseRightContent').css('margin-left') == originalLeftMargin ) {
+            $('#courseRightContent').css('margin-left', 0 );
             $.cookie('claro_toolBarStatus','masked');
         }
         else {
-            $('#rightContent').css('margin-left', originalLeftMargin );
+            $('#courseRightContent').css('margin-left', originalLeftMargin );
             $.cookie('claro_toolBarStatus','unmasked');
         }
         

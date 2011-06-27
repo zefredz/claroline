@@ -94,13 +94,13 @@
 
             <hr class="clearer" />
 
-            <div id="leftSidebar">
+            <div id="courseLeftSidebar">
                 <div class="toolList">
                 <?php echo $this->courseToolList->render(); ?>                    
                 </div>
             </div>
             
-            <div id="rightContent">            
+            <div id="courseRightContent">            
 <?php endif; ?>
 
 <!-- Page content -->

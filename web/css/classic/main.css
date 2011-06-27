@@ -436,6 +436,20 @@ li.lastBreadCrumbsNode {
     color: #111C99;
 }
 
+#courseLeftSidebar {
+    padding: 0;
+    margin: 0;
+    float: left;
+    width: 220px;
+    border-right: #ccc solid 1px;
+}
+
+#courseRightContent {
+    padding: 0;
+    margin-left: 230px;
+
+}
+
 #leftSidebar {
     padding: 0;
     margin: 0;
