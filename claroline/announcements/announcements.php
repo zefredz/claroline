@@ -495,6 +495,7 @@ if ($displayList)
     if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
     
     $preparedAnnList = array();
+    $lastPostDate = '';
     foreach ( $announcementList as $thisAnn )
     {
         // Hide hidden and out of deadline elements
