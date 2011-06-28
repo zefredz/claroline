@@ -4,7 +4,7 @@
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
     <input type="hidden" name="cmd" value="search" />
     <input type="text" name="keyword" id="keyword" class="inputSearch" />
-    <input type="button" value="<?php echo get_lang('Search'); ?>" />
+    <input type="submit" value="<?php echo get_lang('Search'); ?>" />
 </form>
 
 <?php if (!empty($this->keyword)) : ?>

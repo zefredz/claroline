@@ -45,17 +45,9 @@
 
 
 <!-- COURSES (belonging to the current category) -->
-<?php if ( count($this->coursesList) > 0 ) : ?>
 <h4><?php echo get_lang( 'Courses in this category' ); ?></h4>
 
-<dl class="userCourseList">
-    <?php foreach( $this->coursesList as $course ) : ?>
-        <?php echo render_course_in_dl_list( $course, false ); ?>
-    <?php endforeach; ?>
-</dl>
-
-<?php endif; ?>
-
+<?php echo $this->templateCourseList->render(); ?>
 
 
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>

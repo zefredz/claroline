@@ -1,21 +1,20 @@
 <!-- $Id$ -->
 
-<?php
-//Display user's activated courses list
-if( !empty( $this->userCourseList ) ) :
-    echo $this->userCourseList; // Comes from render_user_course_list();
+<?php if (!empty( $this->userCourseList)) : ?>
+<h1><?php echo get_lang('My course list'); ?></h1>
+<?php echo $this->userCourseList; // Comes from render_user_course_list(); ?>
 
-elseif( empty( $this->userCourseListDesactivated ) ) :
-    echo get_lang('You are not enrolled to any course on this platform or all your courses are deactivated');
+<?php elseif (empty($this->userCourseListDesactivated)) : ?>
+<?php echo get_lang('You are not enrolled to any course on this platform or all your courses are deactivated'); ?>
 
-else :
-    echo get_lang( 'All your courses are deactivated (see list below)' );
+<?php else : ?>
+<?php echo get_lang( 'All your courses are deactivated (see list below)' ); ?>
 
-endif;
+<?php endif; ?>
 
-//Display user's deactivated courses list
-if ( !empty( $this->userCourseListDesactivated ) ) :
-    echo claro_html_tool_title(get_lang('Deactivated course list'));
-    echo $this->userCourseListDesactivated; // Comes from render_user_course_list_desactivated();
-endif;
-?>
+
+<?php if (!empty($this->userCourseListDesactivated)) : ?>
+<h1><?php echo get_lang('Deactivated course list'); ?></h1>
+<?php echo $this->userCourseListDesactivated; // Comes from render_user_course_list_desactivated(); ?>
+
+<?php endif; ?>

@@ -36,12 +36,21 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
     $template->assign('languages', get_language_to_display_list());
     $template->assign('currentLanguage', language::current_language());
     
+    // Last user action
+    $lastUserAction = (isset($_SESSION['last_action']) && $_SESSION['last_action'] != '1970-01-01 00:00:00') ?
+        $_SESSION['last_action'] :
+        date('Y-m-d H:i:s');
+    
+    $template->assign('lastUserAction', $lastUserAction);
+    
+    
     // Category browser
     $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
     $categoryBrowser = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
     $templateCategoryBrowser = $categoryBrowser->getTemplate();
     
     $template->assign('templateCategoryBrowser', $templateCategoryBrowser);
+    
     
     // Manage the search box and search results
     $foundCourseList = '';
@@ -59,6 +68,8 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
             {
                 $foundCourseList .= render_course_in_dl_list($course);
             }
+            
+            $foundCourseList = '<dl class="courseList">'.$foundCourseList.'</dl>';
         }
     }
     
@@ -67,6 +78,7 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
     $templateCourseSearchBox->assign('keyword', $keyword);
     
     $template->assign('templateCourseSearchBox', $templateCourseSearchBox);
+    
     
     // User course (activated and deactivated) lists and search results (if any)
     $userCourseList = render_user_course_list();
@@ -77,13 +89,6 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
     $templateMyCourses->assign('userCourseListDesactivated', $userCourseListDesactivated);
     
     $template->assign('templateMyCourses', $templateMyCourses);
-    
-    // Last user action
-    $lastUserAction = (isset($_SESSION['last_action']) && $_SESSION['last_action'] != '1970-01-01 00:00:00') ?
-        $_SESSION['last_action'] :
-        date('Y-m-d H:i:s');
-    
-    $template->assign('lastUserAction', $lastUserAction);
     
     
     if (claro_is_user_authenticated())
@@ -150,6 +155,7 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
         
         $template->assign('userProfileBox', $userProfileBox);
     }
+    
     
     // Render
     $claroline->display->body->setContent($template->render());

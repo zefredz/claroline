@@ -1040,27 +1040,33 @@ h3.blockHeader {
     padding: 5px;
 }
 
-dl.userCourseList {
+dl.courseList {
+    display: inline-block;
     margin: 0 0 10px 0;
     padding-left: 0;
 }
 
-.userCourseList dt {
+.courseList dt {
     margin: 0;
     padding: 0;
 }
 
-.userCourseList dd {
-    margin: 0;
+.courseList dd {
+    margin: 0 0 5px 0;
     padding: 0 0 5px 20px;
+    border-bottom: 1px solid #CCCCCC;
 }
 
-.userCourseList dt a, .userCourseList dd small {
-    padding: 0;
+.courseList dd:last-child {
+    border-bottom: 0;
 }
 
-.userCourseList h4 {
+.courseList h4 {
     margin: 0;
+}
+
+.courseList img.action {
+    float: right;
 }
 
 
@@ -1666,6 +1672,7 @@ img.userPicture {
 }
 
 td.userCommands {padding-right: 20px;}
+td.userCourseList {padding-left: 20px;}
 
 .userCommands ul {
     margin: 0 0 10px 0;

@@ -34,7 +34,7 @@ $(document).ready(function(){
            
            position: {
               corner: {
-                 target: "topCenter",
+                 target: "topMiddle",
                  tooltip: "bottomLeft"
               }
            }
