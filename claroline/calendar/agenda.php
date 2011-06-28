@@ -341,11 +341,14 @@ if ( count($eventList) > 0 )
     }
 }
 
-$cmdList[] = array(
-    'img' => 'agenda_new',
-    'name' => get_lang('Add an event'),
-    'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqAdd' ))
-);
+if (claro_is_allowed_to_edit())
+{
+    $cmdList[] = array(
+        'img' => 'agenda_new',
+        'name' => get_lang('Add an event'),
+        'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqAdd' ))
+    );
+}
 
 if ( count($eventList) > 0 )
 {
