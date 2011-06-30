@@ -28,6 +28,7 @@
     <th><?php echo get_lang('Course code'); ?></th>
     <th><?php echo get_lang('Course title'); ?></th>
     <th><?php echo get_lang('Lecturer(s)'); ?></th>
+    <th><?php echo get_lang('Category'); ?></th>
     <?php
     foreach ($this->allExtensions as $ext) :
     ?>
@@ -40,6 +41,8 @@
     <th> </th>
     <th> </th>
     <th> </th>
+    <th> </th>
+
     <?php
     foreach ($this->allExtensions as $ext) :
     ?>
@@ -58,6 +61,12 @@
         <td style="font-weight: bold;"><?php echo $courseCode; ?></td>
         <td><?php echo $courseInfos['courseTitle']; ?></td>
         <td><?php echo $courseInfos['courseTitulars']; ?></td>
+        <td>
+        <?php
+        foreach ($courseInfos['courseCategory'] as $cat)
+            echo $cat . '<BR>';
+        ?>
+        </td>
         <?php
         foreach ($courseInfos['courseStats'] as $courseStats) :
         ?>

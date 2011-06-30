@@ -35,9 +35,9 @@ $stats = (!empty($_SESSION['progressingStats']) ? $_SESSION['progressingStats'] 
 $cmd                = (!empty($_REQUEST['cmd'])) ? $_REQUEST['cmd'] : '';
 $inProgress         = (!empty($_SESSION['inProgress']) && $_SESSION['inProgress'] == true) ? true : false;
 $extensionsFromConf = get_conf('filesStatsExtensions');
-$extensions         = (!empty($extensionsFromConf) ? explode(',', get_conf('filesStatsExtensions')) : array());
+$extensions         = (!empty($extensionsFromConf) ? explode(',', get_conf('filesStatsExtensions')) : array('doc','pdf','jpg'));
 $coursesDirectory   = get_path('coursesRepositorySys');
-$coursesPool        = 2;
+$coursesPool        = 4;
 
 // Run
 if ($cmd == 'run' || $inProgress)
@@ -48,6 +48,8 @@ if ($cmd == 'run' || $inProgress)
     // Get courses
     $tbl_mdb_names              = claro_sql_get_main_tbl();
     $tbl_course                 = $tbl_mdb_names['course'];
+    $tbl_category               = $tbl_mdb_names['category'];
+    $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
     
     $req = "SELECT c.cours_id               AS id,
                    c.titulaires             AS titulars,
@@ -84,30 +86,51 @@ if ($cmd == 'run' || $inProgress)
             // Browse the file system
             foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($coursePath)) as $file)
             {
-                if ($file->getType() == 'file')
+                try 
                 {
-                    $type = strtolower(pathinfo( $file->getFilename(), PATHINFO_EXTENSION ));
-                    
-                    if (in_array($type, $extensions))
+                    if ($file->getType() == 'file')
                     {
-                        $courseStats[$type]['count'] ++;
-                        $courseStats[$type]['size'] += $file->getSize();
+                        $type = strtolower(pathinfo( $file->getFilename(), PATHINFO_EXTENSION ));
+
+                        if (in_array($type, $extensions))
+                        {
+                            $courseStats[$type]['count'] ++;
+                            $courseStats[$type]['size'] += $file->getSize();
+                        }
+                        else
+                        {
+                            $courseStats['others']['count'] ++;
+                            $courseStats['others']['size'] += $file->getSize();
+                        }
+
+                        $courseStats['sum']['count'] ++;
+                        $courseStats['sum']['size'] += $file->getSize();
                     }
-                    else
-                    {
-                        $courseStats['others']['count'] ++;
-                        $courseStats['others']['size'] += $file->getSize();
-                    }
-                    
-                    $courseStats['sum']['count'] ++;
-                    $courseStats['sum']['size'] += $file->getSize();
+                }
+                catch(Exception $ex)
+                {
+                    $dialogBox->error( $ex->getMessage() );
                 }
             }
             
             $stats[$course['sysCode']]['courseTitle'] = $course['title'];
             $stats[$course['sysCode']]['courseTitulars'] = $course['titulars'];
             $stats[$course['sysCode']]['courseStats'] = $courseStats;
+
+            // Get categories datas
+            $cat = array();
             
+            $sql2 = "SELECT cat.name  AS categoryName
+                    FROM `" . $tbl_category . "` AS cat
+                    LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
+                    ON ( cat.id = rcc.categoryId )
+                    WHERE rcc.courseId = '" . $course['id'] . "'";
+
+            $arrayCat = Claroline::getDatabase()->query($sql2);
+            foreach ($arrayCat as $item)
+                    $cat[] .= $item['categoryName'];
+            $stats[$course['sysCode']]['courseCategory']= $cat;
+
             $i++;
             
             // Courses pool's limit reached ?
@@ -173,32 +196,58 @@ if ($cmd == 'run' || $inProgress)
         elseif ($viewAs == 'csv')
         {
             $csvTab = array();
-            foreach ($stats as $key => $elmt)
+
+            // title line
+            $csvSubTab['courseCode'] = get_lang('Course code');
+            $csvSubTab['courseTitle'] = get_lang('Course title');
+            $csvSubTab['courseTitulars'] = get_lang('Lecturer(s)');
+
+            foreach ($extensions as $key => $ext)
             {
+              $csvSubTab[$key.'_count'] = 'Quantity of ' . get_lang($ext);
+              $csvSubTab[$key.'_size'] = 'Size of ' . get_lang($ext) . ' in KB';
+            }
+            $csvSubTab['other_count'] = 'Quantity of other files' ;
+            $csvSubTab['other_size'] = 'Size of other files' ;
+
+            $csvSubTab['sum_count'] = 'Total quantity of files' ;
+            $csvSubTab['sum_size'] = 'Total size' ;
+
+            $csvSubTab['courseCategory'] = get_lang('Category');
+
+            $csvTab[] = $csvSubTab;
+
+            foreach ($stats as $key => $elmt)
+            {     
                 $csvSubTab = array();
                 
                 $csvSubTab['courseCode'] = $key;
                 $csvSubTab['courseTitle'] = $elmt['courseTitle'];
                 $csvSubTab['courseTitulars'] = $elmt['courseTitulars'];
                 
-                foreach ($elmt['courseStats'] as $key => $elmt)
+                foreach ($elmt['courseStats'] as $key => $elmt2)
                 {
-                    $csvSubTab[$key.'_count'] = $elmt['count'];
-                    $csvSubTab[$key.'_size'] = format_bytes($elmt['size']);
+                    $csvSubTab[$key.'_count'] = $elmt2['count'];
+                    $csvSubTab[$key.'_size'] = round($elmt2['size']/1024, 2);
                 }
-                
+
+                foreach ($elmt['courseCategory'] as $key => $cat)
+                $csvSubTab[$key . '_courseCategory'] = $cat;
+
                 $csvTab[] = $csvSubTab;
             }
             
-            $csvExporter = new CsvExporter(', ', '"');
-            $fileName = get_lang('files_stats').'_'.claro_date('d-m-Y');
+            $csvExporter = new CsvExporter(';', '"');
+            $fileName = get_lang('files_stats').'_'.claro_date('d-m-Y').'.txt';
             $stream = $csvExporter->export($csvTab);
             claro_send_stream($stream, $fileName, 'text/csv');
         }
     }
     else
     {
-        $dialogBox->warning(get_lang('Statistics in progress, please don\'t refresh until further instructions !'));
+        $dialogBox->warning(get_lang('Statistics in progress, please don\'t refresh until further instructions ! ') .
+                                        get_lang('Course actually treated : '). $course['title'] .
+                                        get_lang(' Number of course treated : ' ). count($stats) );
         
         $claroline->display->body->appendContent($dialogBox->render());
         echo $claroline->display->render();
@@ -208,7 +257,7 @@ else
 {
     $dialogBox = new DialogBox();
     $dialogBox->warning(get_lang('Caution: building files\' statistics is a pretty heavy work.  It might take a while and a lot of resources, depending of the size of your campus.'));
-    
+
     if (!empty($extensions))
     {
         $dialogBox->info(get_lang('You\'ve chosen to isolate the following extensions: %types.  If you wish to modify these extensions, check the advanced platform settings', array('%types' => implode(', ', $extensions))));
@@ -225,7 +274,7 @@ else
     $template->assign('cancelUrl', get_path('rootAdminWeb'));
     
     $claroline->display->body->appendContent($template->render());
-    
+
     echo $claroline->display->render();
 }
 
