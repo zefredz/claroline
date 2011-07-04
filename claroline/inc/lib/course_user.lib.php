@@ -118,8 +118,6 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
                 // If this course is a session course, enrol to the source course
                 if ($course['sourceCourseId'])
                 {
-                    echo "C'est un cours session !";
-                    
                     $sourceCourseCode = ClaroCourse::getCodeFromId($course['sourceCourseId']);
                     
                     $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
