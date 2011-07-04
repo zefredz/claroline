@@ -1,4 +1,4 @@
-<!-- $Id: course_list.tpl.php 13201 2011-05-23 11:26:07Z zefredz $ -->
+<!-- $Id$ -->
 
 <?php
 
