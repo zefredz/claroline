@@ -228,7 +228,7 @@ if ($cmd == 'run' || $inProgress)
                 foreach ($elmt['courseStats'] as $key => $elmt2)
                 {
                     $csvSubTab[$key.'_count'] = $elmt2['count'];
-                    $csvSubTab[$key.'_size'] = round($elmt2['size']/1024, 2);
+                    $csvSubTab[$key.'_size'] = round($elmt2['size']/1024);
                 }
 
                 foreach ($elmt['courseCategory'] as $key => $cat)
