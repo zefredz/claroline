@@ -21,7 +21,7 @@ class CLCAL_Resolver implements ModuleResourceResolver
     {
         if ( $locator->hasResourceId() )
         {
-            return get_module_entry_url('CLCAL') . "#event{$locator->getResourceId()}";
+            return get_module_entry_url('CLCAL') . "#item{$locator->getResourceId()}";
         }
         else
         {

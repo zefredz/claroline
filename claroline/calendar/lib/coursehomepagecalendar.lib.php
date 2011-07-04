@@ -160,7 +160,7 @@ class CourseHomePageCalendar
                              . (!empty($agendaEvent['location']) ?
                                 ' | ' . $agendaEvent['location'] :
                                 '')
-                             . ' (<a href="' . $agendaEvent['url'] . '#event' . $agendaEvent['id'] . '">'
+                             . ' (<a href="' . $agendaEvent['url'] . '#item' . $agendaEvent['id'] . '">'
                              . get_lang('more details')
                              . '</a>)' . "\n"
                              . '</dd>' . "\n";
