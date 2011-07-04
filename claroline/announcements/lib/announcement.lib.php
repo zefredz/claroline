@@ -158,7 +158,7 @@ function announcement_get_items_portlet($personnalCourseList)
                         'url' => get_path('url')
                             . '/claroline/announcements/announcements.php?cidReq='
                             . $thisEvent['courseSysCode']
-                            . '#announcement'.$thisEvent['id']
+                            . '#item'.$thisEvent['id']
                     );
             }
         }
