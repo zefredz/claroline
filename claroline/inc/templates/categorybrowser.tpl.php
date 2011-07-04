@@ -2,7 +2,7 @@
 
 <!-- CURRENT CATEGORY (default: root category) -->
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>
-<h3><?php echo $this->currentCategory->name; ?></h3>
+<h3 id="categoryContent"><?php echo $this->currentCategory->name; ?></h3>
 
 <p>
     <a href="<?php echo $_SERVER['PHP_SELF']; ?>?category=<?php echo urlencode( $this->currentCategory->idParent ); ?>#categoryContent">
