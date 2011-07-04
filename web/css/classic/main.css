@@ -130,8 +130,20 @@ input[type=radio], input[type=checkbox] {
     vertical-align: middle;
 }
 
-input[type=text].inputSearch {
+input.inputSearch {
     background: url(../../img/search.png) no-repeat #fff;
+    background-position: 1px 1px;
+    padding-left: 18px;
+}
+
+input.inputLogin {
+    background: url(../../img/user.png) no-repeat #fff;
+    background-position: 1px 1px;
+    padding-left: 18px;
+}
+
+input.inputPassword {
+    background: url(../../img/login_as.png) no-repeat #fff;
     background-position: 1px 1px;
     padding-left: 18px;
 }
