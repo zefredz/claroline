@@ -661,9 +661,10 @@ function render_user_course_list()
     {
         if (count($reorganizedUserCategoryList) > 0)
         {
+            $out .= '<dl class="courseList">';
+            
             foreach ($reorganizedUserCategoryList as $category)
             {
-                $out .= '<dl class="courseList">';
                 
                 if (!empty($category['courseList']) || !empty($category['rootCourse']))
                 {
@@ -693,8 +694,9 @@ function render_user_course_list()
                 }
             }
             
-            $out .= '</dl>';
         }
+        
+        $out .= '</dl>';
     }
     // Simple course list
     else
