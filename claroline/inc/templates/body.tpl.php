@@ -12,14 +12,15 @@
     <?php if (!empty($this->relatedCourses)) : ?>
     
     <ul class="coursesTabs">
-        
         <?php foreach ($this->relatedCourses as $relatedCourse) : ?>
         
-        <li<?php if ($relatedCourse['id'] == $this->course['id']) : ?> class="current"<?php endif; ?>>
-            <a class="qtip" 
+        <li class="<?php echo $relatedCourse['id']; ?>
+            <?php if (empty($relatedCourse['sourceCourseId'])) : ?> sourceCourse<?php endif; ?>
+            <?php if ($relatedCourse['id'] == $this->course['id']) : ?> current<?php endif; ?>">
+            <a class="qtip"
                href="<?php echo htmlspecialchars(Url::Contextualize(
-                   get_path('clarolineRepositoryWeb') . 'course/index.php', 
-                   array('cid'=>$relatedCourse['sysCode']))); ?>" 
+                   get_path('clarolineRepositoryWeb') . 'course/index.php',
+                   array('cid'=>$relatedCourse['sysCode']))); ?>"
                    title="<?php echo $relatedCourse['title']; ?>">
                 <?php echo $relatedCourse['officialCode']; ?>
             </a>
@@ -31,10 +32,10 @@
     </ul>
     
     <?php endif; ?> <!-- related course -->
-
-    <hr class="clearer" />
-
-    <div class="tabbedCourse">
+    
+    <div class="clearer"></div>
+    
+    <div class="tabbedCourse<?php if ($this->course['isSourceCourse']) : ?> sourceCourse<?php endif; ?>">
         
         <div class="courseInfos">
             <h2>
@@ -61,8 +62,8 @@
                 <?php if ( basename($_SERVER['PHP_SELF']) != 'group_space.php' ): ?>
                 
             <p>
-                <?php echo get_group_tool_menu( 
-                    claro_get_current_group_id(), 
+                <?php echo get_group_tool_menu(
+                    claro_get_current_group_id(),
                     claro_get_current_course_id() ); ?>
             </p>
             
@@ -96,11 +97,11 @@
 
             <div id="courseLeftSidebar">
                 <div class="toolList">
-                <?php echo $this->courseToolList->render(); ?>                    
+                <?php echo $this->courseToolList->render(); ?>
                 </div>
             </div>
             
-            <div id="courseRightContent">            
+            <div id="courseRightContent">
 <?php endif; ?>
 
 <!-- Page content -->

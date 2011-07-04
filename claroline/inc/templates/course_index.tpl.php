@@ -1,11 +1,10 @@
 <!-- $Id$ -->
 
-
     <div class="coursePortletList">
         <?php
             echo $this->dialogBox->render();
         ?>
-
+        
         <?php
             if ( claro_is_allowed_to_edit() ) :
                 echo '<p>'."\n"
@@ -16,7 +15,7 @@
                    . get_lang('Add a portlet to your course homepage').'</a>'."\n"
                    . '</p>';
             endif;
-
+            
             if ($this->portletIterator->count() > 0)
             {
                 foreach ($this->portletIterator as $portlet)
