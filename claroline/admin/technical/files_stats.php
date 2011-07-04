@@ -212,7 +212,7 @@ if ($cmd == 'run' || $inProgress)
                 foreach ($elmt['courseStats'] as $key => $elmt)
                 {
                     $csvSubTab[$key.'_count'] = $elmt['count'];
-                    $csvSubTab[$key.'_size'] = round($elmt['size']/1024, 2);
+                    $csvSubTab[$key.'_size'] = round($elmt['size']/1024);
                 }
                 
                 $csvTab[] = $csvSubTab;
