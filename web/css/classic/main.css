@@ -752,12 +752,12 @@ div.tabbedCourse {
 
 /* Source courses */
 ul.coursesTabs li.sourceCourse {
-    background: #c1d1e1;
+    background-color: #c1d1e1;
 }
 
 ul.coursesTabs li.sourceCourse.current, 
 div.tabbedCourse.sourceCourse .courseInfos {
-    background: #c1d1e1;
+    background-color: #c1d1e1;
 }
 
 div.tabbedCourse.sourceCourse {
