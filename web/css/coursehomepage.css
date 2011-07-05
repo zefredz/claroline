@@ -18,8 +18,8 @@ dl#portletAbout dd
     padding-bottom: 10px;
     border-bottom: 1px solid #EDF1E3;
 }
-dl#portletAnnouncements dd.last, 
-dl#portletAbout dd.last
+dl#portletAnnouncements dd:last-child, 
+dl#portletAbout dd:last-child
 {
     border-bottom: 0;
 }

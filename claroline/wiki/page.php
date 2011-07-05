@@ -1228,7 +1228,7 @@ switch( $action )
             $out .= $wikiRenderer->render( $content );
             $out .= '</div>' . "\n";
 
-            $out .= '<div style="clear:both;"><!-- spacer --></div>' . "\n";
+            $out .= '<div class="clearer"><!-- spacer --></div>' . "\n";
         }
 
         break;

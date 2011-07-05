@@ -467,6 +467,7 @@ class ClaroCourse
         $sql = "SELECT c.cours_id               AS id,
                        c.titulaires             AS titular,
                        c.code                   AS sysCode,
+                       c.isSourceCourse         AS isSourceCourse,
                        c.sourceCourseId         AS sourceCourseId,
                        c.intitule               AS title,
                        c.administrativeNumber   AS officialCode,

@@ -77,18 +77,6 @@ claro_set_display_mode_available(true);
 // Manage portlets
 if (claro_is_course_manager())
 {
-    if ($portletCmd == 'rqAdd')
-    {
-        $form = CourseHomePagePortlet::renderForm();
-        if ($form)
-        {
-            $dialogBox->form($form);
-        }
-        else
-        {
-            $dialogBox->error(get_lang('No more portlet available for this course'));
-        }
-    }
     if ($portletCmd == 'exAdd')
     {
         $portletPath = get_module_path( $portletLabel )
@@ -107,6 +95,10 @@ if (claro_is_course_manager())
         if($portlet->save())
         {
             $dialogBox->success(get_lang('Portlet created'));
+        }
+        else
+        {
+            $dialogBox->error(get_lang('Can\'t create this portlet (%portlet)', array('%portlet' => $portlet->getLabel())));
         }
     }
     if ($portletCmd == 'delete' && !empty($portletId))
@@ -357,6 +349,8 @@ if (claro_is_allowed_to_edit())
     }
 }
 
+// Get the portlets buttons
+$form = claro_is_course_manager() ? CourseHomePagePortlet::renderForm() : '';
 
 // Display
 JavascriptLoader::getInstance()->load('jquery.qtip');
@@ -367,12 +361,9 @@ JavascriptLoader::getInstance()->load('course_home_page');
 
 $template = new CoreTemplate('course_index.tpl.php');
 $template->assign('dialogBox', $dialogBox);
+$template->assign('form', $form);
 $template->assign('relatedCourses', $relatedCourses);
 $template->assign('portletIterator', $portletiterator);
-// $template->assign( 'courseToolList', $courseToolList->render() );
-/*$template->assign('toolLinkList', $toolLinkList);
-$template->assign('courseManageToolLinkList', $courseManageToolLinkList);
-$template->assign('otherToolsList', $otherToolsList);*/
 
 $claroline->display->body->setContent($template->render());
 

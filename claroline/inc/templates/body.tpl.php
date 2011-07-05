@@ -15,7 +15,7 @@
         <?php foreach ($this->relatedCourses as $relatedCourse) : ?>
         
         <li class="<?php echo $relatedCourse['id']; ?>
-            <?php if (empty($relatedCourse['sourceCourseId'])) : ?> sourceCourse<?php endif; ?>
+            <?php if ($relatedCourse['isSourceCourse']) : ?> sourceCourse<?php endif; ?>
             <?php if ($relatedCourse['id'] == $this->course['id']) : ?> current<?php endif; ?>">
             <a class="qtip"
                href="<?php echo htmlspecialchars(Url::Contextualize(
@@ -48,7 +48,7 @@
             
             <?php if ( claro_is_in_a_group() ): ?>
             
-            <hr class="clearer" />
+            <div class="clearer"></div>
             <div class="groupInfos">
             <h3>
                 <a
@@ -58,17 +58,15 @@
                 </a>
             </h3>
                 
+            <?php if ( basename($_SERVER['PHP_SELF']) != 'group_space.php' ): ?>
             
-                <?php if ( basename($_SERVER['PHP_SELF']) != 'group_space.php' ): ?>
-                
             <p>
                 <?php echo get_group_tool_menu(
                     claro_get_current_group_id(),
                     claro_get_current_course_id() ); ?>
             </p>
             
-            
-                <?php endif; ?> <!-- basename -->
+            <?php endif; ?> <!-- basename -->
             
             </div>
             
@@ -80,10 +78,10 @@
             
             <?php endif; ?> <!-- in a group -->
             
-            <hr class="clearer" />
+            <div class="clearer"></div>
         </div>
         
-        <hr class="clearer" />
+        <div class="clearer"></div>
 
         <div class="courseContent">
             
@@ -93,7 +91,7 @@
                 </a>
             </div>
 
-            <hr class="clearer" />
+            <div class="clearer"></div>
 
             <div id="courseLeftSidebar">
                 <div class="toolList">
@@ -111,7 +109,7 @@
 <?php if (claro_is_in_a_course() && $this->courseTitleAndTools ): ?>
 
             </div> <!-- rightContent -->
-            <hr class="clearer" />
+            <div class="clearer"></div>
         </div> <!-- courseContent -->
     </div> <!-- tabedCourse -->
 

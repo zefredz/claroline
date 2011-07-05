@@ -77,8 +77,8 @@ table td {
 hr {
     height: 1px;
     margin: 10px 0;
-    border-top: 1px solid #EEEEEE;
-    color: #EEEEEE;
+    border-top: 1px solid #DDDDDD;
+    color: #DDDDDD;
 }
 
 
@@ -173,7 +173,7 @@ dl.onOneLine dd, fieldset dl dd {
 }
 
 fieldset {
-    border: 1px solid #eee;
+    border: 1px solid #DDDDDD;
     margin-bottom: 10px;
 }
 
@@ -217,14 +217,14 @@ table.multiselect td.arrows {
     color: #444;
     margin-left: 0px;
     padding: 5px;
-    border: 1px solid #eee;
+    border: 1px solid #DDDDDD;
     background: #fff;
 }
 
 /* Redirector field */
 #redirector select {
     background: none;
-    border: 1px solid #EEE;
+    border: 1px solid #DDDDDD;
 }
 
 
@@ -369,7 +369,7 @@ table.multiselect td.arrows {
 #userBanner ul.menu li.userName {
     padding: 0 20px 0 5px;
     color: #693;
-    background: #eee url(img/bg_username.png) no-repeat right center;
+    background: #DDDDDD url(img/bg_username.png) no-repeat right center;
 }
 
 #userBanner ul.menu li:last-child span {
@@ -553,7 +553,7 @@ Use .portlet for desktop or course portlets
 .item,
 .portlet {
     margin-bottom: 5px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #DDDDDD;
 }
 
 .item .content,
@@ -572,7 +572,7 @@ Use .portlet for desktop or course portlets
     font-size: 1em;
     font-weight: bold;
     color: #444;
-    background-color: #eee;
+    background-color: #DDDDDD;
     border-bottom: 1px solid #444;
 }
 
@@ -682,7 +682,7 @@ ul.coursesTabs li {
     padding-top: 3px;
     text-align: center;
     font-weight: bold;
-    background: url(img/bg_tab.png) repeat-x bottom #eee;
+    background: url(img/bg_tab.png) repeat-x bottom #EEEEEE;
 }
 
 ul.coursesTabs li a {
@@ -833,21 +833,26 @@ ul.groupToolList {
 }
 
 .toolTitleBlock ul.commandList {
-    margin: 0;
     padding-left: 5px;
     border-left: 1px dotted black;
+}
+
+ul.commandList {
+    margin: 0;
+    padding: 0;
+    border: 0;
     list-style-type: none;
     text-indent: 0;
 }
 
-.toolTitleBlock ul.commandList li {
+ul.commandList li {
     display: inline-block;
     margin: 0;
     padding: 0;
     border: 0;
 }
 
-.toolTitleBlock ul.commandList li a {
+ul.commandList li a {
     display: block;
     height: 16px;
     margin: 0 0 3px 0;
@@ -858,12 +863,12 @@ ul.groupToolList {
     border-radius: 3px;
 }
 
-.toolTitleBlock ul.commandList li a:hover {
+ul.commandList li a:hover {
     background-color: #CCC;
     border: 5px solid #CCC;
 }
 
-.toolTitleBlock ul.commandList li a.help {
+ul.commandList li a.help {
     width: 16px;
     border-color: #CCDDEE;
     background-color: #CCDDEE;
@@ -871,7 +876,7 @@ ul.groupToolList {
     background-repeat: no-repeat;
 }
 
-.toolTitleBlock ul.commandList li a.help:hover {
+ul.commandList li a.help:hover {
     border-color: #BBCCDD;
     background-color: #BBCCDD;
 }
@@ -1042,7 +1047,7 @@ th .claroCmdDisabled {
     font-weight: bold;
     padding: 2px 5px 2px 5px;
     margin: 0;
-    background: #eee;
+    background: #DDDDDD;
     border-bottom: 1px solid #444;
 }
 
@@ -1066,7 +1071,7 @@ h3.blockHeader {
 }
 
 .claroBlockContent {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #DDDDDD;
     padding: 5px;
 }
 
@@ -1181,7 +1186,7 @@ dl.courseList {
 .claroTable .superHeader th,
 .claroTable th.superHeader {
     color: #444;
-    background-color: #eee;
+    background-color: #DDDDDD;
     border-bottom: 2px #444 solid;
     padding: 2px 5px 2px 5px;
     font-weight: bold;
@@ -1197,7 +1202,7 @@ dl.courseList {
     color: #444;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
-    background-color: #eee;
+    background-color: #DDDDDD;
     border-bottom: 1px #444 solid;
     text-align: center;
 }
@@ -1313,7 +1318,7 @@ dl.courseList {
 }
 
 .imInfoBlock {
-    background: #eee;
+    background: #DDDDDD;
     border-left: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     border-right: 1px solid #ccc;

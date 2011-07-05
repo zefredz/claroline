@@ -110,6 +110,20 @@ abstract class CourseHomePagePortlet extends Portlet
      */
     public function insert()
     {
+        // Verify that the portlet doesn't already exist
+        $sql = "SELECT id
+                FROM `".$this->tblRelCoursePortlet."`
+                WHERE `courseId` = ".(int) $this->courseId."
+                AND `label` = ".Claroline::getDatabase()->quote($this->label);
+        
+        $res = Claroline::getDatabase()->query($sql);
+        $portlet = $res->fetch(Database_ResultSet::FETCH_ASSOC);
+        
+        if (!empty($portlet))
+        {
+            return false;
+        }
+        
         // Select the current highest rank
         $sql = "SELECT MAX(rank) AS maxRank
                 FROM `".$this->tblRelCoursePortlet."`
@@ -300,7 +314,7 @@ abstract class CourseHomePagePortlet extends Portlet
     /**
      * Render form
      *
-     * @return mixed false or string with the html form
+     * @return string with the html form (empty if nothing to display)
      */
     public static function renderForm()
     {
@@ -326,26 +340,21 @@ abstract class CourseHomePagePortlet extends Portlet
         $availablePortletList = '';
         if (!$res->isEmpty())
         {
+            $cmdList = '';
+            
             foreach ($res as $portlet)
             {
-                $availablePortletList .= '<option value="'.$portlet['label'].'">'
-                                       . get_lang($portlet['name'])
-                                       . '</option>';
+                $cmdList .= '<li>'."\n"
+                          . '<a style="background-image: url('.get_icon_url('add').'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"'
+                          . 'href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd=exAdd&portletLabel='.$portlet['label'])).'&courseId='.ClaroCourse::getIdFromCode(claro_get_current_course_id()).'">'."\n"
+                          . get_lang('Add a new portlet') . ': ' . get_lang($portlet['name'])."\n"
+                          . '</a>'."\n"
+                          . '</li>'."\n";
             }
             
-            $availablePortletList = '<select id="portletLabel" name="portletLabel" />'
-                                  . $availablePortletList . '</select>';
+            $cmdList = '<ul class="commandList">'.$cmdList.'</ul>';
             
-            $out = '<form method="post" action="'
-                 . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd=exAdd')) . '" >' . "\n"
-                 . $availablePortletList . '<br/>' . "\n"
-                 . '<input type="hidden" name="courseId" value="'
-                 . ClaroCourse::getIdFromCode(claro_get_current_course_id()).'" />'
-                 . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-                 . claro_html_button(Url::Contextualize($_SERVER['PHP_SELF']), get_lang('Cancel')) . "\n"
-                 . '</form>';
-            
-            return $out;
+            return $cmdList;
         }
         else
         {
@@ -425,5 +434,11 @@ abstract class CourseHomePagePortlet extends Portlet
         {
             $this->visible = $visibility;
         }
+    }
+    
+    
+    public function getLabel()
+    {
+        return $this->label;
     }
 }
