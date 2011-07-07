@@ -783,6 +783,7 @@ a#toggleLeftMenu {
     top: 50%;
     width: 10px;
     height: 20px;
+    outline: none;
 }
 
 a#toggleLeftMenu.show {
