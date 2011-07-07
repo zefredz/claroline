@@ -82,20 +82,13 @@
         </div>
         
         <div class="clearer"></div>
-
+        
         <div class="courseContent">
             
-            <div id="toggleCourseToolBar">
-                <a href="#" class="claroCmd" id="toggleLeftMenu">
-                    <?php echo get_lang("Display/hide course tool list"); ?>
-                </a>
-            </div>
-
-            <div class="clearer"></div>
-
             <div id="courseLeftSidebar">
                 <div class="toolList">
-                <?php echo $this->courseToolList->render(); ?>
+                    <a href="#" id="toggleLeftMenu" class="qtip hide" title="<?php echo get_lang("Display/hide course tool list"); ?>"> </a>
+                    <?php echo $this->courseToolList->render(); ?>
                 </div>
             </div>
             
