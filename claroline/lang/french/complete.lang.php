@@ -623,6 +623,7 @@ $_lang['Display data'] = 'Afficher les données';
 $_lang['Display disabled courses in members\' course list'] = 'Afficher les cours inactifs dans la liste de cours des utilisateurs';
 $_lang['Display expired courses in members\' course list'] = 'Afficher les cours expirés dans la liste de cours des utilisateurs';
 $_lang['Display file'] = 'Afficher le fichier';
+$_lang['Display/hide course tool list'] = 'Montrer/cacher la liste des outils';
 $_lang['Display link "Create user account" on the platform homepage.'] = 'Afficher le lien "Créer un compte utilisateur" sur la page d\'accueil.';
 $_lang['Display links to enrol/unenrol to course on the homepage of the user'] = 'Afficher les liens "M\'inscrire à un cours" et "Me désinscrire d\'un cours" sur la page d\'accueil de l\'utilisateur';
 $_lang['Display of detailed answers is not authorized.'] = 'L\'affichage du détail des réponses n\'est pas autorisé';
