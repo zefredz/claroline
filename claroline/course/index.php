@@ -353,12 +353,6 @@ if (claro_is_allowed_to_edit())
 $form = claro_is_course_manager() ? CourseHomePagePortlet::renderForm() : '';
 
 // Display
-JavascriptLoader::getInstance()->load('jquery.qtip');
-JavascriptLoader::getInstance()->load('course_home_page');
-
-
-
-
 $template = new CoreTemplate('course_index.tpl.php');
 $template->assign('dialogBox', $dialogBox);
 $template->assign('form', $form);

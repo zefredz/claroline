@@ -343,6 +343,12 @@ if ( claro_is_user_authenticated() && claro_is_in_a_course() )
     $claroline->notifier->event( 'course_access' );
 }
 
+// Load course home page javascript
+if ( claro_is_in_a_course() )
+{
+    JavascriptLoader::getInstance()->load('course_home_page');
+}
+
 if ( claro_is_in_a_group() )
 {
     $claroline->notification->addListener( 'group_deleted', 'modificationDelete' );

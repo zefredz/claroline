@@ -735,8 +735,6 @@ function render_user_course_list()
  */
 function render_course_in_dl_list($course, $hot = false, $displayIconAccess = true)
 {
-    JavascriptLoader::getInstance()->load('jquery.qtip');
-    
     $out = '';
     
     $classItem = ($hot) ? 'hot' : '';

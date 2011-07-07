@@ -135,7 +135,6 @@ class ToolTitle implements Display
     public function render()
     {
         // We'll need qtips for tooltips
-        JavascriptLoader::getInstance()->load('jquery.qtip');
         JavascriptLoader::getInstance()->load('tooltitle');
         
         // Command list and help

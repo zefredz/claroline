@@ -175,7 +175,6 @@ class ClaroCategoriesBrowser
      */
     function getTemplate()
     {
-        JavascriptLoader::getInstance()->load('jquery.qtip');
         JavascriptLoader::getInstance()->load('course_list');
         
         $currentCategory    = $this->get_current_category_settings();

@@ -871,8 +871,8 @@ ul.commandList li a {
 }
 
 ul.commandList li a:hover {
-    background-color: #DDDDDD;
-    border: 5px solid #DDDDDD;
+    background-color: #CCCCCC;
+    border: 5px solid #CCCCCC;
 }
 
 ul.commandList li a.help {
