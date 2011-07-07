@@ -94,14 +94,14 @@ function getLeftMenuToggleFunction() {
                 .css('height', originalHeight)
             $('#courseRightContent').css('margin-left', 0);
             $('#toggleLeftMenu').removeClass('hide').addClass('show');
-            $.cookie('claro_toolBarStatus','masked');
+            $.cookie('claro_toolBarStatus','masked',{path:'/'});
         }
         else {
             $('#courseRightContent').css('margin-left', originalLeftMargin );
             $('#courseLeftSidebar')
             .css('width', originalWidth );
             $('#toggleLeftMenu').removeClass('show').addClass('hide');
-            $.cookie('claro_toolBarStatus','unmasked');
+            $.cookie('claro_toolBarStatus','unmasked',{path:'/'});
         }
         
         return false;
