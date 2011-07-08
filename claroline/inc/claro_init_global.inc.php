@@ -343,12 +343,6 @@ if ( claro_is_user_authenticated() && claro_is_in_a_course() )
     $claroline->notifier->event( 'course_access' );
 }
 
-// Load course home page javascript
-if ( claro_is_in_a_course() )
-{
-    JavascriptLoader::getInstance()->load('course_home_page');
-}
-
 if ( claro_is_in_a_group() )
 {
     $claroline->notification->addListener( 'group_deleted', 'modificationDelete' );
@@ -443,6 +437,28 @@ if ( isset($_POST['claroFormId']) )
          {
             array_pop( $_SESSION['claroFormIdList'] );
          }
+    }
+}
+
+/*----------------------------------------------------------------------
+  Load default javascript libraries
+ ----------------------------------------------------------------------*/
+
+JavascriptLoader::getInstance()->load('jquery');
+JavascriptLoader::getInstance()->load('jquery.qtip');
+JavascriptLoader::getInstance()->load('jquery.cookie');
+JavascriptLoader::getInstance()->load('claroline');
+// add other default platform javascript here
+
+// Load course home page javascript
+if ( claro_is_in_a_course() )
+{
+    JavascriptLoader::getInstance()->load('course_home_page');
+    // add other default course javascript here
+    
+    if ( claro_is_in_a_group() )
+    {
+        // add other default group javascript here
     }
 }
 
