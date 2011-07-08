@@ -47,7 +47,7 @@ class CourseHomePagePortletIterator implements Iterator, Countable
             }
             else
             {
-                echo "Le fichier {$portletPath} est introuvable<br/>";
+                echo get_lang("Can\'t find the file %portletPath", array('%portletPath' => $portletPath));
             }
             
             if (class_exists($portletName))
@@ -58,11 +58,9 @@ class CourseHomePagePortletIterator implements Iterator, Countable
                 
                 $this->portlets[] = $portlet;
             }
-            
-            #TODO debug
             else
             {
-                echo "Can't find the class {$portletName}_portlet<br/>";
+                echo get_lang("Can't find the class %portletName_portlet", array('%portletName' => $portletName));
                 return false;
             }
         }

@@ -75,7 +75,7 @@ $toolRepository = get_path('clarolineRepositoryWeb');
 claro_set_display_mode_available(true);
 
 // Manage portlets
-if (claro_is_course_manager())
+if (claro_is_course_manager() && !empty($portletClass))
 {
     if ($portletCmd == 'exAdd')
     {
@@ -92,7 +92,7 @@ if (claro_is_course_manager())
         
         $portlet = new $portletClass();
         $portlet->handleForm();
-        if($portlet->save())
+        if ($portlet->save())
         {
             $dialogBox->success(get_lang('Portlet created'));
         }
@@ -101,47 +101,47 @@ if (claro_is_course_manager())
             $dialogBox->error(get_lang('Can\'t create this portlet (%portlet)', array('%portlet' => $portlet->getLabel())));
         }
     }
-    if ($portletCmd == 'delete' && !empty($portletId))
+    if ($portletCmd == 'delete' && !empty($portletId) && class_exists($portletClass))
     {
         $portlet = new $portletClass();
         $portlet->load($portletId);
-        if($portlet->delete())
+        if ($portlet->delete())
         {
             $dialogBox->success(get_lang('Portlet deleted'));
         }
     }
-    elseif ($portletCmd == 'makeVisible' && !empty($portletId))
+    elseif ($portletCmd == 'makeVisible' && !empty($portletId) && class_exists($portletClass))
     {
         $portlet = new $portletClass();
         if ($portlet->load($portletId))
         {
             $portlet->makeVisible();
-            if($portlet->save())
+            if ($portlet->save())
             {
                 $dialogBox->success(get_lang('Portlet visibility modified'));
             }
         }
     }
-    elseif ($portletCmd == 'makeInvisible' && !empty($portletId))
+    elseif ($portletCmd == 'makeInvisible' && !empty($portletId) && class_exists($portletClass))
     {
         $portlet = new $portletClass();
         if ($portlet->load($portletId))
         {
             $portlet->makeInvisible();
-            if($portlet->save())
+            if ($portlet->save())
             {
                 $dialogBox->success(get_lang('Portlet visibility modified'));
             }
         }
     }
-    elseif ($portletCmd == 'moveUp' && !empty($portletId))
+    elseif ($portletCmd == 'moveUp' && !empty($portletId) && class_exists($portletClass))
     {
         $portlet = new $portletClass();
         $portlet->load($portletId);
         
         if ($portlet->load($portletId))
         {
-            if($portlet->moveUp())
+            if ($portlet->moveUp())
             {
                 $dialogBox->success(get_lang('Portlet moved up'));
             }
@@ -151,12 +151,12 @@ if (claro_is_course_manager())
             }
         }
     }
-    elseif ($portletCmd == 'moveDown' && !empty($portletId))
+    elseif ($portletCmd == 'moveDown' && !empty($portletId) && class_exists($portletClass))
     {
         $portlet = new $portletClass();
         if ($portlet->load($portletId))
         {
-            if($portlet->moveDown())
+            if ($portlet->moveDown())
             {
                 $dialogBox->success(get_lang('Portlet moved down'));
             }
@@ -350,12 +350,12 @@ if (claro_is_allowed_to_edit())
 }
 
 // Get the portlets buttons
-$form = claro_is_course_manager() ? CourseHomePagePortlet::renderForm() : '';
+$activablePortlets = claro_is_course_manager() ? CourseHomePagePortlet::getActivablePortlets() : array();
 
 // Display
 $template = new CoreTemplate('course_index.tpl.php');
 $template->assign('dialogBox', $dialogBox);
-$template->assign('form', $form);
+$template->assign('activablePortlets', $activablePortlets);
 $template->assign('relatedCourses', $relatedCourses);
 $template->assign('portletIterator', $portletiterator);
 

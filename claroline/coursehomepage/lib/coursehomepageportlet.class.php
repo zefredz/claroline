@@ -193,6 +193,19 @@ abstract class CourseHomePagePortlet extends Portlet
      */
     public function delete()
     {
+        // Verify that the portlet doesn't already exist
+        $sql = "SELECT id
+                FROM `".$this->tblRelCoursePortlet."`
+                WHERE `id` = " . (int) $this->id;
+        
+        $res = Claroline::getDatabase()->query($sql);
+        $portlet = $res->fetch(Database_ResultSet::FETCH_ASSOC);
+        
+        if (empty($portlet))
+        {
+            return false;
+        }
+        
         $sql = "DELETE FROM `".$this->tblRelCoursePortlet."`
                 WHERE `id` = " . (int) $this->id;
         
@@ -312,11 +325,11 @@ abstract class CourseHomePagePortlet extends Portlet
     
     
     /**
-     * Render form
+     * Return a list of activable portlets for the current course.
      *
-     * @return string with the html form (empty if nothing to display)
+     * @return array list of activable portlets
      */
-    public static function renderForm()
+    public static function getActivablePortlets()
     {
         $courseCode = claro_get_current_course_id();
         
@@ -337,28 +350,13 @@ abstract class CourseHomePagePortlet extends Portlet
         
         $res = Claroline::getDatabase()->query($sql);
         
-        $availablePortletList = '';
         if (!$res->isEmpty())
         {
-            $cmdList = '';
-            
-            foreach ($res as $portlet)
-            {
-                $cmdList .= '<li>'."\n"
-                          . '<a style="background-image: url('.get_icon_url('add').'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"'
-                          . 'href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd=exAdd&portletLabel='.$portlet['label'])).'&courseId='.ClaroCourse::getIdFromCode(claro_get_current_course_id()).'">'."\n"
-                          . get_lang('Add a new portlet') . ': ' . get_lang($portlet['name'])."\n"
-                          . '</a>'."\n"
-                          . '</li>'."\n";
-            }
-            
-            $cmdList = '<ul class="commandList">'.$cmdList.'</ul>';
-            
-            return $cmdList;
+            return $res;
         }
         else
         {
-            return false;
+            return array();
         }
     }
     
