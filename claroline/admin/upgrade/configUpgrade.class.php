@@ -16,7 +16,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CONFIG
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesche <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
  */

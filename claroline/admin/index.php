@@ -56,7 +56,7 @@ $dialogBox = new DialogBox();
 // Users' administration menu
 $menu['AdminUser'][] = get_lang('Search for a user').'<br />'
                      . '<form name="searchUser" action="admin_users.php" method="get">' . "\n"
-                     . '<input type="text" name="search" id="search_user" class="inputSearch" />&nbsp;'
+                     . '<input type="text" name="search" id="search_user" />&nbsp;'
                      . '<input type="submit" value="' . get_lang('Go') . '" />'
                      . '&nbsp;'
                      . '<small>'
@@ -69,7 +69,7 @@ $menu['AdminUser'][] = get_lang('Search for a user').'<br />'
 $menu['AdminUser'][] = '<a href="admin_users.php">'.get_lang('User list').'</a>';
 $menu['AdminUser'][] = '<a href="../messaging/sendmessage.php?cmd=rqMessageToAllUsers">'.get_lang('Send a message to all users').'</a>';
 $menu['AdminUser'][] = '<a href="adminaddnewuser.php">'.get_lang('Create user').'</a>';
-$menu['AdminUser'][] = '<a href="../user/addcsvusers.php?AddType=adminTool">'.get_lang('Add a user list').'</a>';
+$menu['AdminUser'][] = '<a href="../user/AddCSVusers.php?AddType=adminTool">'.get_lang('Add a user list').'</a>';
 $menu['AdminUser'][] = '<a href="admin_class.php">'.get_lang('Manage classes').'</a>';
 $menu['AdminUser'][] = '<a href="right/profile_list.php">'.get_lang('Right profile list').'</a>';
 $menu['AdminUser'][] = '<a href="../desktop/config.php">'.get_lang('Manage user desktop').'</a>';
@@ -78,7 +78,7 @@ $menu['AdminUser'][] = '<a href="adminmergeuser.php">'.get_lang('Merge user acco
 // Courses' administration menu
 $menu['AdminCourse'][] = get_lang('Search for a course').'<br />'
                        . '<form name="searchCourse" action="admin_courses.php" method="get">' . "\n"
-                       . '<input type="text" name="search" id="search_course" class="inputSearch" />&nbsp;'
+                       . '<input type="text" name="search" id="search_course" />&nbsp;'
                        . '<input type="submit" value="' . get_lang('Go'). '" />'
                        . '&nbsp;<small><a href="advanced_course_search.php">' . get_lang('Advanced') . '</a></small>' . "\n"
                        . '</form>';
@@ -106,7 +106,8 @@ $menu['AdminClaroline'][] = '<a href="clarolinenews.php">'.get_lang('Claroline.n
 
 // Technical's administration menu
 $menu['AdminTechnical'][] = '<a href="technical/phpInfo.php">'.get_lang('System Info').'</a>';
-$menu['AdminTechnical'][] = '<a href="technical/files_stats.php">'.get_lang('Files statistics').'</a>';
+$menu['AdminTechnical'][] = '<a href="technical/files_stats.php">'.get_lang('Files statistics').'</a> '
+                          . '(<a href="technical/files_stats.php?view_as=csv">CSV</a>)';
 
 if ( get_conf('DEVEL_MODE', false) == true )
 {

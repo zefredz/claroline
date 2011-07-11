@@ -152,7 +152,7 @@ var UserDesktopCalendar = {
     
         $htmlStream .= '</th>' . "\n"
         .    '</tr>' . "\n"
-        .    '<tr>' ."\n"
+        .    '<tr class="headerX">' ."\n"
         ;
     
         for ( $iterator = 1; $iterator < 8; $iterator++)

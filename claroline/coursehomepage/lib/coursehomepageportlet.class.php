@@ -110,20 +110,6 @@ abstract class CourseHomePagePortlet extends Portlet
      */
     public function insert()
     {
-        // Verify that the portlet doesn't already exist
-        $sql = "SELECT id
-                FROM `".$this->tblRelCoursePortlet."`
-                WHERE `courseId` = ".(int) $this->courseId."
-                AND `label` = ".Claroline::getDatabase()->quote($this->label);
-        
-        $res = Claroline::getDatabase()->query($sql);
-        $portlet = $res->fetch(Database_ResultSet::FETCH_ASSOC);
-        
-        if (!empty($portlet))
-        {
-            return false;
-        }
-        
         // Select the current highest rank
         $sql = "SELECT MAX(rank) AS maxRank
                 FROM `".$this->tblRelCoursePortlet."`
@@ -193,19 +179,6 @@ abstract class CourseHomePagePortlet extends Portlet
      */
     public function delete()
     {
-        // Verify that the portlet doesn't already exist
-        $sql = "SELECT id
-                FROM `".$this->tblRelCoursePortlet."`
-                WHERE `id` = " . (int) $this->id;
-        
-        $res = Claroline::getDatabase()->query($sql);
-        $portlet = $res->fetch(Database_ResultSet::FETCH_ASSOC);
-        
-        if (empty($portlet))
-        {
-            return false;
-        }
-        
         $sql = "DELETE FROM `".$this->tblRelCoursePortlet."`
                 WHERE `id` = " . (int) $this->id;
         
@@ -305,15 +278,16 @@ abstract class CourseHomePagePortlet extends Portlet
     }
     
     
-    public function makeVisible()
+    public function swapVisibility()
     {
-        $this->visible = 1;
-    }
-    
-    
-    public function makeInvisible()
-    {
-        $this->visible = 0;
+        if ($this->visible == 1)
+        {
+            $this->visible = 0;
+        }
+        else
+        {
+            $this->visible = 1;
+        }
     }
     
     
@@ -325,11 +299,11 @@ abstract class CourseHomePagePortlet extends Portlet
     
     
     /**
-     * Return a list of activable portlets for the current course.
+     * Render form
      *
-     * @return array list of activable portlets
+     * @return mixed false or string with the html form
      */
-    public static function getActivablePortlets()
+    public static function renderForm()
     {
         $courseCode = claro_get_current_course_id();
         
@@ -350,13 +324,33 @@ abstract class CourseHomePagePortlet extends Portlet
         
         $res = Claroline::getDatabase()->query($sql);
         
+        $availablePortletList = '';
         if (!$res->isEmpty())
         {
-            return $res;
+            foreach ($res as $portlet)
+            {
+                $availablePortletList .= '<option value="'.$portlet['label'].'">'
+                                       . get_lang($portlet['name'])
+                                       . '</option>';
+            }
+            
+            $availablePortletList = '<select id="portletLabel" name="portletLabel" />'
+                                  . $availablePortletList . '</select>';
+            
+            $out = '<form method="post" action="'
+                 . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd=exAdd')) . '" >' . "\n"
+                 . $availablePortletList . '<br/>' . "\n"
+                 . '<input type="hidden" name="courseId" value="'
+                 . ClaroCourse::getIdFromCode(claro_get_current_course_id()).'" />'
+                 . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+                 . claro_html_button(Url::Contextualize($_SERVER['PHP_SELF']), get_lang('Cancel')) . "\n"
+                 . '</form>';
+            
+            return $out;
         }
         else
         {
-            return array();
+            return false;
         }
     }
     
@@ -376,8 +370,7 @@ abstract class CourseHomePagePortlet extends Portlet
                    . '">'
                    . '<img src="' . get_icon_url('go_down') . '" alt="'.get_lang('Move down').'" />'
                    . '</a> <a href="'
-                   . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd='
-                   . ($this->visible?get_lang('makeInvisible'):get_lang('makeVisible')) . '&portletLabel='.$this->label.'&portletId='.$this->id))
+                   . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd=swapVisibility&portletLabel='.$this->label.'&portletId='.$this->id))
                    . '" title="'
                    . ($this->visible?get_lang('Hide this item'):get_lang('Show this item')). '">'
                    . '<img src="'
@@ -397,11 +390,11 @@ abstract class CourseHomePagePortlet extends Portlet
         
         if ($this->visible)
         {
-            $out = '<div class="portlet">' . "\n"
-                 . '<h1>' . "\n"
+            $out = '<div class="claroBlock portlet">' . "\n"
+                 . '<div class="claroBlockHeader">' . "\n"
                  . $this->renderTitle() . $commands . "\n"
-                 . '</h1>' . "\n"
-                 . '<div class="content">' . "\n"
+                 . '</div>' . "\n"
+                 . '<div class="claroBlockContent">' . "\n"
                  . $this->renderContent()
                  . '</div>' . "\n"
                  . '</div>' . "\n\n";
@@ -409,10 +402,10 @@ abstract class CourseHomePagePortlet extends Portlet
         else
         {
             // If not visible, only render the title bar
-            $out = '<div class="portlet hidden">' . "\n"
-                 . '<h1>' . "\n"
+            $out = '<div class="claroBlock portlet">' . "\n"
+                 . '<div class="claroBlockHeader hidden">' . "\n"
                  . $this->renderTitle() . $commands . "\n"
-                 . '</h1>' . "\n"
+                 . '</div>' . "\n"
                  . '</div>' . "\n\n";
         }
         
@@ -432,11 +425,5 @@ abstract class CourseHomePagePortlet extends Portlet
         {
             $this->visible = $visibility;
         }
-    }
-    
-    
-    public function getLabel()
-    {
-        return $this->label;
     }
 }

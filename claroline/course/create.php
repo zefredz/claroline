@@ -190,3 +190,5 @@ if ( claro_is_platform_admin()
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

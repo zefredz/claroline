@@ -11,17 +11,6 @@ Claroline.version = '1.10 rev. $Revision$';
 
 Claroline.lang = {};
 
-/*
- * Usage : Claroline.setLangArray({
- *  'Not allowed': 'Non autorise'
- * });
- */
-Claroline.setLangArray = function ( langArray ) {
-    for ( var langVar in langArray ) {
-        Claroline.lang[langVar] = langArray[langVar];
-    }
-}
-
 Claroline.getLang = function(langVar) {
     if ( Claroline.lang[langVar] ){
         return Claroline.lang[langVar];
@@ -78,35 +67,35 @@ Claroline.spoil = function(item) {
     return false;
 };
 
-function getLeftMenuToggleFunction() {
+$(document).ready( function (){
+    // this is the core function of Claroline's jQuery implementation
+
+    // ajax activity shower
+    $("#loading").hide();
+
+    $("#loading").ajaxStart(function(){
+        $(this).show();
+    });
+
+    $("#loading").ajaxStop(function(){
+        $(this).hide();
+    });
     
-    var originalLeftMargin     = $('#courseRightContent').css('margin-left');
-    var originalWidth         = $('#courseLeftSidebar').css('width');
-    var originalHeight         = $('#courseLeftSidebar').css('height');
+    // multiple select
+    $('.msadd').click(function() {
+        return !$('#mslist1 option:selected').remove().appendTo('#mslist2');
+    });
     
-    return function() {
-        
-        $('#courseToolListBlock').toggle();
-        
-        if ( $('#courseRightContent').css('margin-left') == originalLeftMargin ) {
-            $('#courseLeftSidebar')
-                .css('width', 0)
-                .css('height', originalHeight)
-            $('#courseRightContent').css('margin-left', 0);
-            $('#toggleLeftMenu').removeClass('hide').addClass('show');
-            $.cookie('claro_toolBarStatus','masked',{path:'/'});
-        }
-        else {
-            $('#courseRightContent').css('margin-left', originalLeftMargin );
-            $('#courseLeftSidebar')
-            .css('width', originalWidth );
-            $('#toggleLeftMenu').removeClass('show').addClass('hide');
-            $.cookie('claro_toolBarStatus','unmasked',{path:'/'});
-        }
-        
-        return false;
-    }
-}
+    $('.msremove').click(function() {
+        return !$('#mslist2 option:selected').remove().appendTo('#mslist1');
+    });
+    
+    $('.msform').submit(function() {
+        $('#mslist1 option').each(function(i) {
+            $(this).attr("selected", "selected");
+        });
+    });
+});
 
 // here should also come :
 
@@ -139,15 +128,15 @@ function isNull(a)
 function dump(arr,level) {
     var dumped_text = "";
     if(!level) level = 0;
-    
+
     //The padding given at the beginning of the line.
     var level_padding = "";
     for(var j=0;j<level+1;j++) level_padding += "    ";
-    
+
     if(typeof(arr) == 'object') { //Array/Hashes/Objects
         for(var item in arr) {
             var value = arr[item];
-            
+
             if(typeof(value) == 'object') { //If it is an array,
                 dumped_text += level_padding + "'" + item + "' ...\n";
                 dumped_text += dump(value,level+1);
@@ -160,45 +149,3 @@ function dump(arr,level) {
     }
     return dumped_text;
 }
-
-$(document).ready(function(){
-    // this is the core function of Claroline's jQuery implementation
-    
-    // ajax activity shower
-    $("#loading").hide();
-    
-    $("#loading").ajaxStart(function(){
-        $(this).show();
-    });
-    
-    $("#loading").ajaxStop(function(){
-        $(this).hide();
-    });
-    
-    // multiple select
-    $('.msadd').click(function() {
-        return !$('#mslist1 option:selected').remove().appendTo('#mslist2');
-    });
-    
-    $('.msremove').click(function() {
-        return !$('#mslist2 option:selected').remove().appendTo('#mslist1');
-    });
-    
-    $('.msform').submit(function() {
-        $('#mslist1 option').each(function(i) {
-            $(this).attr("selected", "selected");
-        });
-    });
-    
-    if ( $('#toggleLeftMenu') ) {
-        
-        $('#toggleLeftMenu').click( 
-            getLeftMenuToggleFunction()
-        );
-        
-        /* check if the user has previously masked the bar */
-        if ( $.cookie('claro_toolBarStatus') == 'masked' ) {
-            $('#toggleLeftMenu').click();
-        }
-    }
-});

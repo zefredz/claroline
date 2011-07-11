@@ -264,7 +264,7 @@ function get_and_unzip_uploaded_package()
       && treat_uploaded_file( $_FILES['uploadedModule']
                             , $moduleRepositorySys
                             , $uploadDir
-                            , get_conf('maxFilledSpaceForModule' , 20000000)
+                            , get_conf('maxFilledSpaceForModule' , 10000000)
                             , 'unzip'
                             , true)
                             )
@@ -566,17 +566,6 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                             }
                         }
                     }
-                    
-                    // generate the conf if a def file exists
-                    if ( file_exists( get_module_path($module_info['LABEL'])
-                        . '/conf/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
-                    {
-                        require_once dirname(__FILE__) . '/../config.lib.inc.php';
-                        $config = new Config($module_info['LABEL']);
-                        list ($confMessage, $status ) = generate_conf($config);
-
-                        $backlog->info($confMessage);
-                    }
 
                     // call install.php after initialising database in case it requires database to run
                     if ( isset( $installPhpScript ) ) unset ( $installPhpScript );
@@ -584,11 +573,6 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
 
                     if (file_exists($installPhpScript))
                     {
-                        language::load_translation( );
-                        language::load_locale_settings( );
-                        language::load_module_translation( $module_info['LABEL'] );
-                        load_module_config( $module_info['LABEL'] );
-                        
                         // FIXME this is very dangerous !!!!
                         require $installPhpScript;
                         $backlog->info(get_lang( 'Module installation script called' ));
@@ -619,6 +603,17 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                     else
                     {
                         $backlog->success(get_lang( 'Module cache update succeeded' ));
+                    }
+
+                    //7- generate the conf if a def file exists
+                    if ( file_exists( get_module_path($module_info['LABEL'])
+                        . '/conf/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
+                    {
+                        require_once dirname(__FILE__) . '/../config.lib.inc.php';
+                        $config = new Config($module_info['LABEL']);
+                        list ($confMessage, $status ) = generate_conf($config);
+
+                        $backlog->info($confMessage);
                     }
                 }
             }
@@ -869,13 +864,7 @@ function uninstall_module($moduleId, $deleteModuleData = true)
         $uninstallPhpScript = get_module_path($module['label']) . '/setup/uninstall.php';
         if (file_exists( $uninstallPhpScript ))
         {
-            language::load_translation( );
-            language::load_locale_settings( );
-            language::load_module_translation( $module['label'] );
-            load_module_config( $module['label'] );
-            
             require $uninstallPhpScript;
-            
             $backlog->info( get_lang('Module uninstallation script called') );
         }
 

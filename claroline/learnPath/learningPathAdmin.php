@@ -1,13 +1,16 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     1.8 $Revision$
+ * @version 1.8 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claroline team
- * @package     CLLNP
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claroline team
+ *
+ * @package CLLNP
  *
  *  DESCRIPTION:
  *  ***********
@@ -696,3 +699,5 @@ $out .= "</table>";
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

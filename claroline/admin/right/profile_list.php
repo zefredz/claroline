@@ -160,9 +160,10 @@ switch ( $display )
         $out .= $profilePager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
         // Display table header
+
         $out .= '<table class="claroTable emphaseLine" width="100%" >' . "\n"
             . '<thead>' . "\n"
-            . '<tr>' . "\n"
+            . '<tr class="headerX">' . "\n"
             . '<th>' . get_lang('Name') . '</th>' . "\n"
             . '<th>' . get_lang('Description') . '</th>' . "\n"
             . '<th>' . get_lang('Edit') .'</th>' . "\n"

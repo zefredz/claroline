@@ -31,6 +31,7 @@ require_once get_module_path('CLTI').'/lib/toolintroductioniterator.class.php';
 $introId            = (!empty($_REQUEST['introId'])?((int) $_REQUEST['introId']):(null));
 $introCmd           = (!empty($_REQUEST['introCmd'])?($_REQUEST['introCmd']):(null));
 $isAllowedToEdit    = claro_is_allowed_to_edit();
+$output             = '';
 
 set_current_module_label('CLINTRO');
 
@@ -58,7 +59,7 @@ if (isset($introCmd) && $isAllowedToEdit)
     if ($introCmd == 'rqAdd')
     {
         $toolIntro = new ToolIntro();
-        $toolIntroForm = $toolIntro->renderForm();
+        $output .= $toolIntro->renderForm();
     }
     
     if ($introCmd == 'rqEd')
@@ -66,7 +67,7 @@ if (isset($introCmd) && $isAllowedToEdit)
         $toolIntro = new ToolIntro($introId);
         if($toolIntro->load())
         {
-            $toolIntroForm = $toolIntro->renderForm();
+            $output .= $toolIntro->renderForm();
         }
     }
     
@@ -187,40 +188,32 @@ if (isset($introCmd) && $isAllowedToEdit)
     }
 }
 
-
-
 // Display
-$toolIntroIterator = new ToolIntroductionIterator(claro_get_current_course_id());
 
-$toolIntroductions = '';
-$toolIntroForm = (empty($toolIntroForm) ? '' : $toolIntroForm);
+$output .= $dialogBox->render();
 
-if ($toolIntroIterator->count() > 0)
-{
-    foreach ($toolIntroIterator as $toolIntro)
-    {
-        $toolIntroductions .= $toolIntro->render();
-    }
-}
-else
-{
-    $toolIntro = new ToolIntro();
-    
-    $dialogBox->info(get_lang('There\'s no headline for this course right now.  Use the form below to add a new one.'));
-    
-    $toolIntroForm = $toolIntro->renderForm();
-}
-
-$output = '';
-$output .= $dialogBox->render()
-         . '<p>'
+$output .= '<p>'
          . '<a href="'
          . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?introCmd=rqAdd')).'">'
          . '<img src="' . get_icon_url('default_new') . '" alt="' . get_lang('New introduction') . '" /> '
          . get_lang('New item').'</a>'
-         . '</p>'
-         . $toolIntroForm
-         . $toolIntroductions;
+         . '</p>';
+
+$toolIntroIterator = new ToolIntroductionIterator(claro_get_current_course_id());
+
+if (!empty($toolIntroIterator))
+{
+    foreach ($toolIntroIterator as $toolIntro)
+    {
+        $output .= $toolIntro->render();
+    }
+}
+else
+{
+    $output .= '<div class="HelpText">' . "\n"
+             . get_block('blockIntroCourse') . "\n"
+             . '</div>' . "\n";
+}
 
 // Append output
 $claroline->display->body->appendContent($output);

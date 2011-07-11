@@ -358,12 +358,12 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__event_resource` (
 
 # INSERT COMMANDS
 INSERT INTO `__CL_MAIN__category` 
-(`name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
+(`id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
 VALUES
-('Root', 'ROOT', NULL, 0, 0, 0), 
-('Sciences', 'SC', 0, 1, 1, 1), 
-('Economics', 'ECO', 0, 2, 1, 1), 
-('Humanities', 'HUMA', 0, 3, 1, 1);
+('', 'Root', 'ROOT', NULL, 0, 0, 0), 
+('', 'Sciences', 'SC', 0, 1, 1, 1), 
+('', 'Economics', 'ECO', 0, 2, 1, 1), 
+('', 'Humanities', 'HUMA', 0, 3, 1, 1);
 
 UPDATE `__CL_MAIN__category` 
 SET `id` = 0 

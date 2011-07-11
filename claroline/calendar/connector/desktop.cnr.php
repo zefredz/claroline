@@ -30,7 +30,7 @@ class CLCAL_Portlet extends UserDesktopPortlet
         $output = '<div id="portletMycalendar">' . "\n"
             . '<img src="'.get_icon_url('loading').'" alt="" />' . "\n"
             . '</div>' . "\n"
-            . '<div class="clearer"></div>' . "\n"
+            . '<div style="clear:both;"></div>' . "\n"
             ;
         
         $output .= "<script type=\"text/javascript\">

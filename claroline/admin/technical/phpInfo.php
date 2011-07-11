@@ -139,7 +139,7 @@ if ($is_allowedToAdmin)
         ?>
         <table class="claroTable">
             <thead>
-                <tr>
+                <tr class="headerX">
                     <th scope="col">Software</th>
                     <th scope="col">Version</th>
                 </tr>

@@ -1,7 +1,5 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
@@ -19,12 +17,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * ordre      : order of the announcement display
  *              (the announcements are display in desc order)
  *
- * @version     1.8 $Revision$
+ * @version 1.8 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLANN
- * @author      Claro Team <cvs@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLANN
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesch� <moosh@claroline.net>
  */
 
 
@@ -136,7 +138,6 @@ function announcement_get_items_portlet($personnalCourseList)
                 {
                     $courseDigestList[$courseOfficialCode] = array();
                     $courseDigestList[$courseOfficialCode]['eventList'] = array();
-                    $courseDigestList[$courseOfficialCode]['id'] = $thisEvent['id'];
                     $courseDigestList[$courseOfficialCode]['courseOfficialCode'] = $courseOfficialCode;
                     $courseDigestList[$courseOfficialCode]['title'] = $courseTitle;
                     $courseDigestList[$courseOfficialCode]['visibility'] = $thisEvent['visibility'];
@@ -149,7 +150,6 @@ function announcement_get_items_portlet($personnalCourseList)
                 
                 $courseDigestList[$courseOfficialCode]['eventList'][] =
                     array(
-                        'id' => $thisEvent['id'],
                         'courseSysCode' => $thisEvent['courseSysCode'],
                         'toolLabel' => $thisEvent['toolLabel'],
                         'title' => $thisEvent['title'],
@@ -158,7 +158,7 @@ function announcement_get_items_portlet($personnalCourseList)
                         'url' => get_path('url')
                             . '/claroline/announcements/announcements.php?cidReq='
                             . $thisEvent['courseSysCode']
-                            . '#item'.$thisEvent['id']
+                            . '#announcement'.$thisEvent['id']
                     );
             }
         }
@@ -349,7 +349,7 @@ function announcement_set_item_visibility($announcement_id, $visibility, $course
  * @param  string $cmd       'UP' or 'DOWN'
  * @return true;
  *
- * @author Christophe Gesche <moosh@claroline.net>
+ * @author Christophe Gesch� <moosh@claroline.net>
  */
 function move_entry($item_id, $cmd, $course_id=null)
 {
@@ -370,10 +370,10 @@ function move_entry($item_id, $cmd, $course_id=null)
     
     if ( $sortDirection )
     {
-        $sql = "SELECT id,
+        $sql = "SELECT          id,
                        ordre AS rank
-                FROM `" . $tbl['announcement'] . "`
-                ORDER BY `ordre` " . $sortDirection;
+            FROM `" . $tbl['announcement'] . "`
+            ORDER BY `ordre` " . $sortDirection;
         
         $result = claro_sql_query($sql);
         $thisAnnouncementRankFound = false;
@@ -399,7 +399,7 @@ function move_entry($item_id, $cmd, $course_id=null)
                     WHERE id =  '" . $nextAnnouncementId . "'";
                 claro_sql_query($sql);
 
-                return true;
+                break;
             }
 
             // STEP 1 : FIND THE ORDER OF THE ANNOUNCEMENT
@@ -410,10 +410,8 @@ function move_entry($item_id, $cmd, $course_id=null)
                 $thisAnnouncementRankFound = true;
             }
         }
-        
-        if (!$thisAnnouncementRankFound)
-        {
-            return false;
-        }
     }
+    return true;
 }
+
+?>

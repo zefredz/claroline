@@ -603,7 +603,6 @@ $_lang['Display data'] = 'Display data';
 $_lang['Display disabled courses in members\' course list'] = 'Display disabled courses in members\' course list';
 $_lang['Display expired courses in members\' course list'] = 'Display expired courses in members\' course list';
 $_lang['Display file'] = 'Display file';
-$_lang['Display/hide course tool list'] = 'Display/hide course tool list';
 $_lang['Display link "Create user account" on the platform homepage.'] = 'Display link "Create user account" on the platform homepage.';
 $_lang['Display links to enrol/unenrol to course on the homepage of the user'] = 'Display links to enrol/unenrol to course on the homepage of the user';
 $_lang['Display of detailed answers is not authorized.'] = 'Display of detailed answers is not authorized.';

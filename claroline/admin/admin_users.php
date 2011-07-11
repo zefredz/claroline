@@ -65,6 +65,8 @@ if (isset($_REQUEST['action'    ])) $_SESSION['admin_user_action'    ] = trim($_
 if (isset($_REQUEST['order_crit'])) $_SESSION['admin_user_order_crit'] = trim($_REQUEST['order_crit']);
 if (isset($_REQUEST['dir'       ])) $_SESSION['admin_user_dir'       ] = ($_REQUEST['dir'] == 'DESC' ? 'DESC' : 'ASC' );
 
+JavascriptLoader::getInstance()->load('jquery.qtip');
+
 $addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
 
 $dialogBox = new DialogBox();
@@ -384,8 +386,94 @@ $out .= $userDataGrid->render();
 
 if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($url);
 
-JavascriptLoader::getInstance()->load('jquery.qtip');
-JavascriptLoader::getInstance()->load('admin_users');
+
+$out .=
+'<script type="text/javascript">
+    $(document).ready(function(){
+    $(".delete").each(function( i )
+        {
+            var _id = $(this).attr("id");
+            var id = _id.substr(_id.lastIndexOf("_") + 1 );
+            var firstname = _id.substr(0,_id.indexOf("_"));
+            var lastname = _id.substr(_id.indexOf("_") + 1 );
+            lastname = lastname.substr(0, lastname.lastIndexOf("_"));
+            
+            $(this).click(function()
+            {
+                return confirmation(" " + firstname + " " + lastname);
+            });
+            $(this).attr("href","'. $_SERVER['PHP_SELF'] .'?cmd=exDelete&user_id=" + id + "&offset=' . $offset . $addToURL . '");
+        });
+    });
+    
+    $("a.showUserCourses").each(function()
+    {
+        $(this).qtip({
+            content: {
+                url: "./ajax/ajax_requests.php",
+                data: { action: "getUserCourseList", userId: $(this).find("span").attr("class") },
+                method: "get"
+            },
+            
+            show: "mouseover",
+            hide: "mouseout",
+            position: {
+                corner: {
+                    target: "topRight",
+                    tooltip: "bottomRight"
+                }
+            },
+            
+            style: {
+                width: 200,
+                padding: 5,
+                background: "#CCDDEE",
+                color: "black",
+                fontSize: "1em",
+                textAlign: "center",
+                border: {
+                    width: 7,
+                    radius: 5,
+                    color: "#CCDDEE"
+                }
+            }
+        });
+    });
+    
+    $("a.showUserCategory").each(function()
+    {
+        $(this).qtip({
+            content: {
+                url: "./ajax/ajax_requests.php",
+                data: { action: "getUserCategoryList", userId: $(this).find("span").attr("class") },
+                method: "get"
+            },
+            
+            show: "mouseover",
+            hide: "mouseout",
+            position: {
+                corner: {
+                    target: "topRight",
+                    tooltip: "bottomRight"
+                }
+            },
+            
+            style: {
+                width: 200,
+                padding: 5,
+                background: "#CCDDEE",
+                color: "black",
+                fontSize: "1em",
+                textAlign: "center",
+                border: {
+                    width: 7,
+                    radius: 5,
+                    color: "#CCDDEE"
+                }
+            }
+        });
+    });
+</script>';
 
 $claroline->display->body->appendContent($out);
 

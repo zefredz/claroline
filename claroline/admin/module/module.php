@@ -1,15 +1,15 @@
 <?php // $Id$
 
 /**
- * Claroline extension modules settings script.
+ * Claroline extension modules settings script
  *
- * @version     $Revision$
+ * @version 1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
  *  version 2 or later
- * @package     ADMIN
- * @author      Claro team <cvs@claroline.net>
- * @since       1.8
+ * @package ADMIN
+ * @author claro team <cvs@claroline.net>
+ * @since 1.8
  */
 
 require '../../inc/claro_init_global.inc.php';
@@ -547,11 +547,14 @@ switch ($item)
             //choose the dock radio button list display
             if ( is_array($dockList) && $module['type']!='tool')
             {
-                $out .= '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="post">'
-                      . '<dt>' . get_lang('Display') . ' : </dt>' ."\n"
-                      . '<dd>' ."\n"
-                      . '<table>' ."\n"
-                      . '<tbody>' ."\n";
+                $out .= '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="post">';
+
+                $out .= '<table>' . "\n";
+
+                $out .= '<tr>' ."\n"
+                .    '<td syle="align:right" colspan="2">' . get_lang('Display'). '&nbsp;:</td>' ."\n"
+                .    '</tr>' ."\n"
+                    ;
 
                 $i = 1;
 
@@ -561,6 +564,7 @@ switch ($item)
                     if (in_array($dockId,$dock_checked)) $is_checked = 'checked="checked"'; else $is_checked = "";
 
                     $out .= '<tr>' ."\n"
+                    .    '<td>&nbsp;</td>' ."\n"
                     .    '<td>' ."\n"
                     .    '<input type="checkbox" name="displayDockList[]" value="' . $dockId . '" id="displayDock_' . $i . '" ' . $is_checked . ' />'
                     .    '<label for="displayDock_' . $i . '">' . $dockName . '</label>'
@@ -572,15 +576,15 @@ switch ($item)
                 }
 
                 // display submit button
-                $out .= '<tr>' ."\n"
-                .    '<td>' . get_lang('Save') . '&nbsp;:' . "\n"
+                $out .= '<tr><td colspan="2">&nbsp;</td></tr>' . "\n"
+                .    '<tr>' ."\n"
+                .    '<td style="text-align:right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
+                .    '<td >'
                 .    '<input type="hidden" name="cmd" value="movedock" />'. "\n"
                 .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'. "\n"
                 .    claro_html_button(htmlspecialchars($_SERVER['HTTP_REFERER']), get_lang('Cancel')) . '</td>' . "\n"
                 .    '</tr>' . "\n"
-                .    '</tbody>' . "\n"
                 .    '</table>' . "\n"
-                .    '</dd>'
                 .    '</form>'
                 ;
             }

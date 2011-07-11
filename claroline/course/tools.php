@@ -1,9 +1,7 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
- *
- * Claroline Course Tool List management script.
+ * Claroline Course Tool List management script
  *
  * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -513,7 +511,7 @@ elseif ( $currentSection == 'extLinks' )
     
     .    '<table class="claroTable" >'."\n\n"
     .    '<thead>'."\n"
-    .    '<tr>'."\n"
+    .    '<tr class="headerX">'."\n"
     .    '<th>'.get_lang('Tools').'</th>'."\n"
     .    '<th>'.get_lang('Visibility').'</th>'."\n"
     .    '<th>'.get_lang('Edit').'</th>'."\n"
@@ -639,7 +637,7 @@ elseif ( $currentSection == 'toolList' )
     $out .= '<blockquote>' . "\n"
         . '<table class="claroTable emphaseLine" style="width: 100%" >'."\n\n"
         . '<thead>'."\n"
-        . '<tr>'."\n"
+        . '<tr class="headerX">'."\n"
         . '<th>'.get_lang('Tool').'</th>'."\n"
         . '<th>'.get_lang('Remove from course').'</th>'."\n"
         . '</tr>'."\n"
@@ -691,7 +689,7 @@ elseif ( $currentSection == 'toolList' )
     $out .= '<blockquote>' . "\n"
         . '<table class="claroTable emphaseLine" style="width: 100%" >'."\n\n"
         . '<thead>'."\n"
-        . '<tr>'."\n"
+        . '<tr class="headerX">'."\n"
         . '<th>'.get_lang('Tool').'</th>'."\n"
         . '<th>'.get_lang('Add to course').'</th>'."\n"
         . '</tr>'."\n"

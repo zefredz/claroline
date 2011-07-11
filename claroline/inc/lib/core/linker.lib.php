@@ -1253,8 +1253,8 @@ class ResourceLinker
         
         if ( count( $linkList ) )
         {
-            $htmlLinkList .= '<h2 class="lnk_link_list">'
-                . get_lang('Attached resources') . '</h2>'
+            $htmlLinkList .= '<h4 class="lnk_link_list">'
+                . get_lang('Attached resources') . '</h4>'
                 . "\n"
                 ;
                 

@@ -438,7 +438,6 @@ function install_module_script_in_course( $moduleLabel, $courseId )
         language::load_translation( );
         language::load_locale_settings( );
         language::load_module_translation( $moduleLabel );
-        load_module_config( $moduleLabel );
 
         require_once $phpPath;
     }
@@ -939,34 +938,4 @@ function change_module_activation_in_groups ( $database, $moduleLabel, $courseId
                 `category` = 'GROUP'
          " );
     }
-}
-
-
-/**
- * Get the context list of a module
- * @param string $moduleLabel
- * @return Iterator 
- */
-function get_module_context_list( $moduleLabel )
-{
-    $tbl = claro_sql_get_main_tbl();
-    
-    $sqlModuleLabel = Claroline::getDatabase()->quote($moduleLabel);
-    
-    $contextList = Claroline::getDatabase()->query("
-        SELECT 
-            `mc`.`context` AS `context`
-        FROM 
-            `{$tbl['module_contexts']}` AS `mc`
-        LEFT JOIN 
-            `{$tbl['module']}` AS `m`
-        ON 
-            `m`.`id` = `mc`.`module_id`
-        WHERE 
-            `m`.`label` = {$sqlModuleLabel}
-    ");
-    
-    $contextList->setFetchMode(Mysql_ResultSet::FETCH_COLUMN);
-    
-    return $contextList;
 }

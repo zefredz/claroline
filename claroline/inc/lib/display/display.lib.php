@@ -2,10 +2,15 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
- * Display library.
+ * Display library
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -14,14 +19,9 @@
  * @package     display
  */
 
-require_once dirname(__FILE__) . '/phptemplate.lib.php';
-require_once dirname(__FILE__) . '/header.lib.php';
-require_once dirname(__FILE__) . '/body.lib.php';
-require_once dirname(__FILE__) . '/footer.lib.php';
-require_once dirname(__FILE__) . '/dock.lib.php';
-require_once dirname(__FILE__) . '/banner.lib.php';
-require_once dirname(__FILE__) . '/dialogBox.lib.php';
-require_once dirname(__FILE__) . '/tooltitle.lib.php';
+FromKernel::uses( 'display/phptemplate.lib', 'display/header.lib', 'display/body.lib'
+    , 'display/footer.lib', 'display/dock.lib', 'display/banner.lib'
+    , 'display/dialogBox.lib' );
 
 /**
  * Popup helper
@@ -66,15 +66,10 @@ class PopupWindowHelper
     }
 }
 
-
-/**
- * Interface for any class that offers a view.
- */
 interface Display
 {
     public function render();
 }
-
 
 /**
  * Claroline script embed class
@@ -123,14 +118,12 @@ class ClaroPage implements Display
         $this->body->popupMode();
         $this->banner->hide();
         $this->footer->hide();
-        $this->body->hideCourseTitleAndTools();
     }
 
     public function frameMode()
     {
         $this->banner->hide();
         $this->footer->hide();
-        $this->body->hideCourseTitleAndTools();
     }
     
     private function _globalVarsCompat()
@@ -188,31 +181,10 @@ class ClaroPage implements Display
     {
         try
         {
-            $this->_globalVarsCompat();
-            
-            $contents = '';
-                
-            if ( ! $this->bannerAtEnd )
-            {
-                $contents .= $this->banner->render() . "\n";
-            }
+            $this->header->sendHttpHeaders();
     
-            $contents .= $this->body->render();
-            
-            if ( $this->bannerAtEnd )
-            {
-                $contents .= $this->banner->render() . "\n";
-            }
-    
-            $contents .= $this->footer->render() . "\n";
-    
-            if ( claro_debug_mode() )
-            {
-                $contents .= claro_disp_debug_banner();
-            }
-            
             $output = '';
-            
+    
             $output .= $this->header->render();
             
             if ( true === get_conf( 'warnSessionLost', true ) && claro_get_current_user_id() )
@@ -220,18 +192,35 @@ class ClaroPage implements Display
                 $this->jsBodyOnload[] = 'claro_session_loss_countdown(' . ini_get('session.gc_maxlifetime') . ');';
             }
             
+            $this->_globalVarsCompat();
+    
             $output .= '<body dir="' . get_locale('text_dir') . '"'
                 .    ( !empty( $this->jsBodyOnload ) ? ' onload="' . implode('', $this->jsBodyOnload ) . '" ':'')
                 .    '>' . "\n"
                 ;
+                
+            if ( ! $this->bannerAtEnd )
+            {
+                $output .= $this->banner->render() . "\n";
+            }
+    
+            $output .= $this->body->render();
             
-            $output .= $contents;
+            if ( $this->bannerAtEnd )
+            {
+                $output .= $this->banner->render() . "\n";
+            }
+    
+            $output .= $this->footer->render() . "\n";
+    
+            if ( claro_debug_mode() )
+            {
+                $output .= claro_disp_debug_banner();
+            }
     
             $output .= '</body>' . "\n";
     
             $output .= '</html>' . "\n";
-            
-            $this->header->sendHttpHeaders();
     
             return $output;
         }
@@ -239,16 +228,15 @@ class ClaroPage implements Display
         {
             if ( claro_debug_mode() )
             {
-                die( $e->__toString() );
+                claro_die( $e->__toString() );
             }
             else
             {
-                die( $e->getMessage() );
+                claro_die( $e->getMessage() );
             }
         }
     }
 }
-
 
 /**
  * Claroline html frame class
@@ -352,7 +340,6 @@ class ClaroFrame implements Display
     }
 }
 
-
 /**
  * Claroline html frameset class
  *
@@ -433,7 +420,6 @@ class ClaroFrameset implements Display
         return $html;
     }
 }
-
 
 /**
  * Claroline html frameset class

@@ -189,7 +189,7 @@ else // $filter == 'all'
 //-- prepare query
 if ( !is_null($categoryId))
 {
-     // Filter on categories
+     // Filter on categories 
          $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, Q.`id_category`
               FROM `".$tbl_quiz_question."` AS Q
               WHERE 1 = 1
@@ -267,28 +267,11 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url(
 
 $nameTools = get_lang('Question pool');
 
-// Tool list
-$toolList = array();
-
-if( !is_null($exId) )
-{
-    $toolList[] = array(
-        'img' => 'back',
-        'name' => get_lang('Go back to the exercise'),
-        'url' => htmlspecialchars(Url::Contextualize('edit_exercise.php?exId='.$exId))
-    );
-}
-
-$toolList[] = array(
-    'img' => 'default_new',
-    'name' => get_lang('New question'),
-    'url' => htmlspecialchars(Url::Contextualize('edit_question.php?cmd=rqEdit'))
-);
-
 $out = '';
-$out .= claro_html_tool_title($nameTools, null, $toolList);
-$out .= $dialogBox->render();
 
+$out .= claro_html_tool_title($nameTools);
+
+$out .= $dialogBox->render();
 
 //-- filter listbox
 $attr['onchange'] = 'filterForm.submit()';
@@ -305,13 +288,21 @@ $out .= "\n"
 .     '</p>' . "\n"
 .     '</form>' . "\n\n";
 
+if( !is_null($exId) )
+{
+    $cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'">&lt;&lt; '.get_lang('Go back to the exercise').'</a>';
+}
+$cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?cmd=rqEdit">'.get_lang('New question').'</a>';
+
+$out .= claro_html_menu_horizontal($cmd_menu);
+
 //-- pager
 $out .= $myPager->disp_pager_tool_bar($pagerUrl);
 
 //-- list
 $out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
 .     '<thead>' . "\n"
-.     '<tr>' . "\n"
+.     '<tr class="headerX">' . "\n"
 .     '<th>' . get_lang('Id') . '</th>' . "\n"
 .     '<th>' . get_lang('Question') . '</th>' . "\n"
 .     '<th>' . get_lang('Category') . '</th>' . "\n"

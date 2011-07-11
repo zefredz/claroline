@@ -163,7 +163,7 @@ else
     // TODO datagrid
     $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
     .    '<thead>'
-    .    '<tr align="center" valign="top">'
+    .    '<tr class="headerX" align="center" valign="top">'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=code&amp;chdir=yes">' . get_lang('Course code') . '</a></th>'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=intitule&amp;chdir=yes">' . get_lang('Course title') . '</a></th>'
     .     '<th>' . get_lang('Course settings') . '</th>'

@@ -1,5 +1,11 @@
 <!-- $Id$ -->
 
+<?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
+
+<?php echo claro_html_tool_title(get_lang(get_lang('My desktop'))); ?>
+
+<?php echo $this->dialogBox->render(); ?>
+
 <div id="rightSidebar">
     <?php echo $this->userProfileBox->render(); ?>
     
@@ -7,16 +13,13 @@
 </div>
 
 <div id="leftContent">
-    <?php echo claro_html_tool_title(get_lang(get_lang('My desktop'))); ?>
-    
-    <?php echo $this->dialogBox->render(); ?>
-    <div class="portlet collapsible collapsed">
-        <h1>
+    <div class="claroBlock portlet collapsible collapsed">
+        <div class="claroBlockHeader">
             <?php echo get_lang('Presentation'); ?>
             <span class="separator">|</span>
             <a href="#" class="doCollapse"><?php echo get_lang('View all'); ?></a>
-        </h1>
-        <div class="content collapsible-wrapper">
+        </div>
+        <div class="claroBlockContent collapsible-wrapper">
             <?php include_textzone('textzone_top.authenticated.inc.html'); ?>
         </div>
     </div>

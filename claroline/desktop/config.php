@@ -95,7 +95,7 @@ $output .= $dialogBox->render();
 $output .= '<table class="claroTable emphaseLine" '
     .   'width="100%" border="0" cellspacing="2">' . "\n"
     . '<thead>' . "\n"
-    . '<tr align="center" valign="top">' . "\n"
+    . '<tr class="headerX" align="center" valign="top">' . "\n"
     . '<th>' . get_lang('Title') . '</th>' . "\n"
     . '<th>' . get_lang('Visibility') . '</th>' . "\n"
     . '<th colspan="2">' . get_lang('Order') . '</th>' . "\n"

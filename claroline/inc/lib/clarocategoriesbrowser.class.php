@@ -175,23 +175,18 @@ class ClaroCategoriesBrowser
      */
     function getTemplate()
     {
-        JavascriptLoader::getInstance()->load('course_list');
-        
         $currentCategory    = $this->get_current_category_settings();
         $categoriesList     = $this->get_sub_category_list();
         
-        $courseList = (!is_null(claro_get_current_user_id())) ?
-            $this->getCoursesWithoutSourceCourses():
-            $this->getCoursesWithoutSessionCourses();
+        $coursesList = (!is_null(claro_get_current_user_id())) ?
+        $this->getCoursesWithoutSourceCourses():
+        $this->getCoursesWithoutSessionCourses();
         
-        $templateCourseList = new CoreTemplate('course_list.tpl.php');
-        $templateCourseList->assign('courseList', $courseList);
-            
-        $template = new CoreTemplate('categorybrowser.tpl.php');
+        $template = new CoreTemplate('platform_courses.tpl.php');
         $template->assign('currentCategory', $currentCategory);
         $template->assign('categoryBrowser', $this);
         $template->assign('categoriesList', $categoriesList);
-        $template->assign('templateCourseList', $templateCourseList);
+        $template->assign('coursesList', $coursesList);
         
         return $template;
     }

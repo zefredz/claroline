@@ -46,7 +46,7 @@ if ( ! claro_is_platform_admin() )
 $content = "";
 $arguments = array();
 
-$displayTable = true;
+$displayTable = TRUE;
 
 $acceptedSearch = array('fromUser','olderThan','timeInterval','platformMessage');
 $acceptedCommand = array('rqDeleteSelection','exDeleteSelection','rqDeleteMessage','exDeleteMessage');
@@ -437,17 +437,15 @@ if ($displayTable)
             ;
     $content .= '<br />'
        .'<table class="claroTable emphaseLine" width="100%">'."\n\n"
-       .'<thead>'
-       .'<tr>'."\n"
+       .'<tr class ="headerX">'."\n"
        .'<th>&nbsp;</th>'."\n"
        .'<th>'.get_lang('Subject').'</th>'."\n"
        .'<th><a href="'.$orderLink.'fieldOrder=name">'.get_lang('Sender').'</a></th>'."\n"
        .'<th><a href="'.$orderLink.'fieldOrder=username">'.get_lang('Username').'</a></th>'."\n"
        .'<th><a href="'.$orderLink.'fieldOrder=date">'.get_lang('Date').'</a></th>'."\n"
        .'<th class="im_list_action">'.get_lang('Delete').'</th>'."\n"
-       .'</tr>'."\n"
-       .'</thead>'."\n";
-    
+       .'</tr>'."\n\n"
+       ;
     if ($box->getNumberOfMessage() == 0)
     {
         $content .= '<tfoot>' . "\n"

@@ -43,7 +43,6 @@ if ( isset($_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'run' )
     
     $deactivatedModules = array();
     $readOnlyModules = array( 'CLDOC', 'CLGRP', 'CLUSR' );
-    $version = '';
     
     foreach ( $modules as $module )
     {
@@ -51,9 +50,7 @@ if ( isset($_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'run' )
         
         if ( $manifest )
         {
-            $version = array_key_exists( 'CLAROLINE_MAX_VERSION' , $manifest )
-                     ? $manifest['CLAROLINE_MAX_VERSION']
-                     : $manifest['CLAROLINE_MIN_VERSION'];
+            $version = $manifest['CLAROLINE_MAX_VERSION'];
             
             if ( ! in_array( $module['label'], $readOnlyModules ) && ! preg_match( $patternVarVersion, $version ) )
             {

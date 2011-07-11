@@ -30,11 +30,10 @@ $(document).ready(function(){
                     color: "#CCDDEE"
                 },
                 tip: "bottomLeft"
-           },
-           
+            },
            position: {
               corner: {
-                 target: "topMiddle",
+                 target: "topRight",
                  tooltip: "bottomLeft"
               }
            }
