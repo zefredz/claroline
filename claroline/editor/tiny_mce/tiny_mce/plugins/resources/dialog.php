@@ -24,6 +24,7 @@ else                                                                            
 	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
 	<script type="text/javascript" src="js/dialog.js"></script>
 	<script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/jquery.js"></script>
+    <script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/claroline.js"></script>
 	<script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/claroline.ui.js"></script>
     <script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/jquery.livequery.js"></script>

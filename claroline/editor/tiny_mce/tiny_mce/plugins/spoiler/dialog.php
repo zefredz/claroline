@@ -31,6 +31,7 @@ if( $cmd == 'rqSpoiler' )
 	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
 	<script type="text/javascript" src="js/dialog.js"></script>
 	<script type="text/javascript" src="<?php echo get_path( 'rootWeb' ); ?>web/js/jquery.js"></script>
+    <script type="text/javascript" src="<?php echo get_path( 'rootWeb' ); ?>web/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="<?php echo get_path( 'rootWeb' ); ?>web/js/claroline.js"></script>
 	<script type="text/javascript" src="<?php echo get_path( 'rootWeb' ); ?>web/js/claroline.ui.js"></script>
 	<?php echo link_to_css( get_conf('claro_stylesheet') . '/main.css', 'screen, projection, tv' );?>
