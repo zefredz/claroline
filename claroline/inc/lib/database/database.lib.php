@@ -8,14 +8,14 @@
  * and being compatible to the old Claroline kernel database connection.
  *
  * This library provides the following interfaces :
- * 
+ *
  * 1. Database_Connection interface provided to allow implementation of other
  * database connections
  * 2. Database_ResultSet interface provided to allow implementation of other
  * database result sets
- * 
+ *
  * This library provides the following classes :
- * 
+ *
  * 1. Claroline_Database_Connection is an adapter provided by the Claroline core
  *  class through Claroline::getDatabase() static method call
  * 2. Mysql_Database_connection is an adapater build upon the mysql extension
@@ -26,7 +26,7 @@
  * 4. Database_Connection_Exception exception class specific to database
  *  connections
  *
- * @version     1.10 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -473,7 +473,7 @@ extends
 interface Database_Object
 {
     /**
-     * 
+     *
      * @param array $data
      */
     public static function getInstance( $data );
@@ -566,7 +566,7 @@ interface Database_ResultSet extends SeekableIterator, Countable
  */
 class Mysql_ResultSet implements Database_ResultSet
 {
-    protected   
+    protected
         $mode,
         $className,
         $idx,
@@ -722,7 +722,7 @@ class Mysql_ResultSet implements Database_ResultSet
      * Count the number of rows in the result set
      * Usage :
      *      $size = count( $resultSet );
-     * 
+     *
      * @see     Countable
      * @return  int size of the result set (ie number of rows)
      */
@@ -801,7 +801,7 @@ class Mysql_ResultSet implements Database_ResultSet
      * Usage :
      *      $resultSet->seek( 5 );
      *      $r = $resultSet->fetch();
-     *      
+     *
      * @see     SeekableIterator
      * @param   int $idx
      * @return  void

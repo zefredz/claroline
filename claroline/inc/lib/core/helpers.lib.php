@@ -3,9 +3,11 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Helper functions and classes
+ * CLAROLINE
  *
- * @version     1.10 $Revision$
+ * Helper functions and classes.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -128,7 +130,7 @@ function link_to_tool ( $text, $toolLabel = null, $context = null, $attributes =
  * Include the rendering of the given dock
  * @param string $dockName dock name
  * @param boolean $useList use <li> in rendering
- * @since Claroline 1.10
+ * @since 1.10
  * @return string rendering
  */
 function include_dock( $dockName, $useList = false )
@@ -287,8 +289,8 @@ function get_group_tool_menu( $gid = null, $courseId = null, $active = true )
     {
         if ( is_tool_activated_in_groups( $courseId, $groupTool['label'] )
             && ( isset( $courseGroupData['tools'][$groupTool['label']] )
-                && $courseGroupData['tools'][$groupTool['label']] 
-            ) 
+                && $courseGroupData['tools'][$groupTool['label']]
+            )
         )
         {
             $toolList[] = claro_html_cmd_link(

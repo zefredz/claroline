@@ -1,9 +1,9 @@
 *****************************************************
-                CLAROLINE 1.10
+                CLAROLINE 1.11
 *****************************************************
 
-Thank you for downloading Claroline 1.10. This text will guide you
-through the basics of installation and operation of Claroline 1.10. Please
+Thank you for downloading Claroline 1.11. This text will guide you
+through the basics of installation and operation of Claroline 1.11. Please
 ensure you read this fully BEFORE proceeding with the installation.
 
 TABLE OF CONTENTS :
@@ -36,7 +36,7 @@ Claroline should work on the following Operating systems :
       Don't hesitate to notify us of any problem encountered on other
       Linux distributions or UNIX systems.
 
-To install Claroline 1.10 on a computer, whether locally or remotely,
+To install Claroline 1.11 on a computer, whether locally or remotely,
 you need the following on your machine :
 
 1. A web server. We recommend the use Apache, but Claroline is known to work
@@ -171,7 +171,7 @@ Claroline between two minor versions of the same major version (let's say
 The upgrade works only from Claroline 1.5.x, 1.6.x, 1.7.x., 1.8.x and 1.9.x.
 
 Older Claroline versions should upgrade first to Claroline 1.5.x before
-upgrade to Claroline 1.10.x
+upgrade to Claroline 1.11.x
 
 Before upgrading we heavily recommend you do A FULL BACKUP of the previous
 Claroline directories and databases. If you are unsure how to achieve this
@@ -218,23 +218,23 @@ copy the new CLCHAT module to this directory.
     2.3.3 UPDGRADE FROM A PREVIOUS CLAROLINE MINOR VERSION
 
 Follow the following instructions to upgrade to a new minor version of the same
-major version of Claroline (for example to upgrade from Claroline 1.10.0 to
-1.10.4)
+major version of Claroline (for example to upgrade from Claroline 1.11.0 to
+1.11.4)
 
 Before upgrading we heavily recommend you do A FULL BACKUP of the previous
 Claroline directories and databases. If you are unsure how to achieve this
 please ask your hosting provider for advice.
 
-1. Download 'claroline-1_10_x.tar.gz'
+1. Download 'claroline-1_11_x.tar.gz'
 
-   Windows : download 'claroline-1_10_x.zip'
+   Windows : download 'claroline-1_11_x.zip'
 
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline-1_10_x.tar.gz
+    tar -zxvf claroline-1_11_x.tar.gz
 
-   Windows : unzip 'claroline-1_10_x.zip'
+   Windows : unzip 'claroline-1_11_x.zip'
 
 
 3. Replace your previous 'claroline' and 'web' folders with the new ones.

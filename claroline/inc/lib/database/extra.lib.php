@@ -3,10 +3,12 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
+ * CLAROLINE
+ *
  * Light Object-Oriented Database Layer for Claroline :
  * Advanced API
  *
- * @version     1.10 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -101,7 +103,7 @@ class Database_Multiple_Query
             } // end if (in string)
             
             // lets skip comments (/*, -- and #)
-            else if (($char == '-' && $sql_len > $i + 2 && $sql[$i + 1] == '-' && $sql[$i + 2] <= ' ') 
+            else if (($char == '-' && $sql_len > $i + 2 && $sql[$i + 1] == '-' && $sql[$i + 2] <= ' ')
                 || $char == '#' || ($char == '/' && $sql_len > $i + 1 && $sql[$i + 1] == '*'))
             {
                 $i = strpos($sql, $char == '/' ? '*/' : "\n", $i);

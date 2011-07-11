@@ -3,9 +3,11 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
+ * CLAROLINE
+ *
  * Objects used to represent groups in the platform.
  *
- * @version     1.10 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -166,7 +168,7 @@ implements
         $sql = "SELECT
                     status,
                     role
-                FROM 
+                FROM
                     `{$tbl_c_names['group_rel_team_user']}`
                 WHERE
                     `user` = {$userObj->userId}

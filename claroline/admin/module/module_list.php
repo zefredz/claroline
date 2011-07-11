@@ -1,14 +1,16 @@
 <?php // $Id$
 
 /**
+ * CLAROLINE
+ *
  * Claroline extension modules management script.
  *
- * @version 1.10
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
- *  version 2 or later
- * @package ADMIN
- * @author claro team <cvs@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
+ *              version 2 or later
+ * @package     ADMIN
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 $cidReset = true ;

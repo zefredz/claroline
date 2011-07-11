@@ -3,9 +3,11 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Loader classes for CSS and Javascript
+ * CLAROLINE
  *
- * @version     1.10 $Revision$
+ * Loader classes for CSS and Javascript.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -74,7 +76,7 @@ class JavascriptLoader
                 /*
                 if ( get_conf('javascriptCompression', true)
                     && file_exists( $tryPath . '/min/' . $lib . '.js' )  )
-                {    
+                {
                     $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/min/' . $lib . '.js';
                     
                     $mtime = filemtime($tryPath . '/min/' . $lib . '.js');

@@ -3,9 +3,11 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
+ * CLAROLINE
+ *
  * Ajax utility functions and classes
  *
- * @version     1.10 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -118,7 +120,7 @@ class Ajax_Request
      */
     public function __construct( $class, $method, $params = array() )
     {
-        $this->klass = $class; 
+        $this->klass = $class;
         $this->method = $method;
         $this->params = $params;
     }

@@ -3,9 +3,11 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Url manipulation library
+ * CLAROLINE
  *
- * @version     1.10 $Revision$
+ * Url manipulation library.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -273,7 +275,7 @@ class Url
 
     /**
      * @since   Claroline 1.9
-     * @return  string 
+     * @return  string
      */
     public function  __toString()
     {

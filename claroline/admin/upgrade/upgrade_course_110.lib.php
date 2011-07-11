@@ -12,13 +12,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * This code would be splited by task for the 1.8 Stable but code inside
  * function won't change, so let's go to write it.
  *
- * @version     1.10 $Revision: 12380 $
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     UPGRADE
  * @author      Claro Team <cvs@claroline.net>
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
- *
  */
 
 /*===========================================================================

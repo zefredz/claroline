@@ -1,13 +1,13 @@
 /*
-    $Id$
-    
-    Main Claroline javascript library
+ $Id$
+ 
+ Main Claroline javascript library
  */
 
 // Claroline namespace
 var Claroline = {};
 
-Claroline.version = '1.10 rev. $Revision$';
+Claroline.version = '1.11 rev. $Revision$';
 
 Claroline.lang = {};
 

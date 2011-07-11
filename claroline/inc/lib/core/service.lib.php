@@ -3,11 +3,13 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
+ * CLAROLINE
+ *
  * Service architecture, provides
  *  - Service classes
  *  - Dispatcher class
  *
- * @version     1.10 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -126,7 +128,7 @@ class ObScriptService extends ScriptService
 
 /**
  * Service dispatcher
- * Receive a requested service identifier and executes the corresponding 
+ * Receive a requested service identifier and executes the corresponding
  * service. Dispatcher is like a routing table.
  */
 class Dispatcher
@@ -171,10 +173,10 @@ class Dispatcher
      * Bind a service to a service identifier
      * @param   request string service identifier
      * @param   service Service service object
-     * @param   overwrite boolean overwrites an existing entry 
+     * @param   overwrite boolean overwrites an existing entry
      *  with the same identifier
      * @return  boolean true if binding succeeds, else returns false
-     */ 
+     */
     public function bind( $request, $service, $overwrite = false )
     {
         if ( $overwrite || ! array_key_exists( $request, $this->registry ) )
@@ -223,7 +225,7 @@ class Dispatcher
      * @param   request string service identifier
      * @param   service Service service object
      * @return  boolean true if binding succeeds, else returns false
-     */ 
+     */
     public function rebind( $request, $service )
     {
         return $this->bind( $request, $service, true );

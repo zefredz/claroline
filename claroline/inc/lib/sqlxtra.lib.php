@@ -3,13 +3,12 @@
 /**
  * CLAROLINE
  *
- * @version    1.10 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license    http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *  version 2 or later
- * @author     see 'credits' file
- * @package    KERNEL
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *              version 2 or later
+ * @author      see 'credits' file
+ * @package     KERNEL
  */
 
 /**
@@ -116,7 +115,7 @@ function PMA_splitSqlFile( $sql )
         } // end if (in string)
         
         // lets skip comments (/*, -- and #)
-        else if (($char == '-' && $sql_len > $i + 2 && $sql[$i + 1] == '-' && $sql[$i + 2] <= ' ') 
+        else if (($char == '-' && $sql_len > $i + 2 && $sql[$i + 1] == '-' && $sql[$i + 2] <= ' ')
             || $char == '#' || ($char == '/' && $sql_len > $i + 1 && $sql[$i + 1] == '*'))
         {
             $i = strpos($sql, $char == '/' ? '*/' : "\n", $i);

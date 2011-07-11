@@ -1,14 +1,15 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.10 $Revision$
- *
+ * @version $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package CLMANAGE
- * @author Claro Team <cvs@claroline.net>
- * @todo use modifiy is use in a cmd request
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLMANAGE
+ * @author      Claro Team <cvs@claroline.net>
+ *
+ * @todo        use modifiy is use in a cmd request
  */
 
 define('DISP_FILE_LIST', __LINE__);

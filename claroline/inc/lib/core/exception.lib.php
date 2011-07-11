@@ -3,9 +3,11 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Exception library
+ * CLAROLINE
  *
- * @version     1.10 $Revision$
+ * Exception library.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -23,7 +25,7 @@ if ( count( get_included_files() ) == 1 )
 
 /**
  * Class to convert a PHP error to an Exception
- * 
+ *
  * taken from php.net online PHP manual
  */
 class PHP_Error_Exception extends Exception
@@ -39,7 +41,7 @@ class PHP_Error_Exception extends Exception
 /**
  * Error handler to convert PHP errors to Exceptions and so have
  * only one error handling system to handle
- * 
+ *
  * taken from php.net online PHP manual
  */
 function exception_error_handler( $code, $message, $file, $line )
@@ -47,12 +49,14 @@ function exception_error_handler( $code, $message, $file, $line )
     throw new PHP_Error_Exception( $code, $message, $file, $line );
 }
 
+/*
 // Standard Exceptions
 
-//    class FileNotFoundException extends Exception
-//    {
-//        public function __construct( $filePath )
-//        {
-//            parent::__construct( "File {$filePath} not found" );
-//        }
-//    }
+class FileNotFoundException extends Exception
+{
+    public function __construct( $filePath )
+    {
+        parent::__construct( "File {$filePath} not found" );
+    }
+}
+ */

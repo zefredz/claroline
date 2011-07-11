@@ -1,12 +1,15 @@
 <?php // $Id$
+
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
+ * CLAROLINE
+ *
  * Script handling the download of assignments
  * As from 1.9.6 replaces $cmd = 'exDownload' in both work.php and work_list.php
  * As from 1.9.6 uses pclzip instead of zip.lib
  *
- * @version     1.10 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
  * @author      Jean-Roch Meurisse <jmeuriss@fundp.ac.be>
@@ -48,7 +51,7 @@ if( $assignmentId )
     $assignment->load( $assignmentId );
 }
 
-if( get_conf( 'allow_download_all_submissions' ) ) 
+if( get_conf( 'allow_download_all_submissions' ) )
 {
     $courseTbl = claro_sql_get_course_tbl();
     $submissionTbl = $courseTbl['wrk_submission'];
@@ -94,7 +97,7 @@ if( get_conf( 'allow_download_all_submissions' ) )
     {
         $assignmentRestriction = '';
         $zipPath = get_path( 'coursesRepositorySys' ) . claro_get_course_path(claro_get_current_course_id()) . '/work/tmp';
-        $zipName = claro_get_current_course_id() . '_' . replace_dangerous_char( get_lang( 'Assignments' ) ) . $wanted . '.zip';      
+        $zipName = claro_get_current_course_id() . '_' . replace_dangerous_char( get_lang( 'Assignments' ) ) . $wanted . '.zip';
     }
     else
     {
@@ -112,7 +115,7 @@ if( get_conf( 'allow_download_all_submissions' ) )
 
     $downloadArchiveFilePath = $downloadArchiveFolderPath . '/' . $zipName;
 
-    $sql = "SELECT `id`, 
+    $sql = "SELECT `id`,
                    `assignment_id`,
                    `authors`,
                    `submitted_text`,
@@ -122,9 +125,9 @@ if( get_conf( 'allow_download_all_submissions' ) )
                    `last_edit_date`
               FROM `" . $submissionTbl . "`
              WHERE `parent_id` IS NULL "
-                   . $assignmentRestriction 
+                   . $assignmentRestriction
                    . $sqlDateCondition . "
-          ORDER BY `authors`, 
+          ORDER BY `authors`,
                    `creation_date`";
 
     if( !is_dir( $zipPath ) )
@@ -213,10 +216,10 @@ if( get_conf( 'allow_download_all_submissions' ) )
         $zipFile = new PclZip( $downloadArchiveFilePath );
         $created = $zipFile->create( $zipPath, PCLZIP_OPT_REMOVE_PATH, $zipPath );
         
-        if ( !$created ) 
+        if ( !$created )
         {
             $dialogBox->error( get_lang( 'Unable to create the archive' ) );
-        } 
+        }
         else
         {
             claro_delete_file( $zipPath );

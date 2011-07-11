@@ -3,9 +3,11 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Debug bar
+ * CLAROLINE
  *
- * @version     1.10 $Revision$
+ * Debug bar.
+ *
+ * @version     Revision: 12923 $
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>

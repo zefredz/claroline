@@ -3,9 +3,11 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Main core library
+ * CLAROLINE
  *
- * @version     1.10 $Revision$
+ * Main core library.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -112,7 +114,7 @@ function uses()
             else
             {
                 // error not found
-                if ( claro_debug_mode() ) 
+                if ( claro_debug_mode() )
                 {
                     throw new Exception( "Lib not found $lib" );
                 }
@@ -263,7 +265,7 @@ class From
         
         foreach ( $args as $cnr )
         {
-            if ( substr($cnr, -4) !== '.php' && substr( $cnr, -4 ) === '.lib' )            
+            if ( substr($cnr, -4) !== '.php' && substr( $cnr, -4 ) === '.lib' )
             {
                 $cnr .= '.php';
             }

@@ -3,6 +3,8 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
+ * CLAROLINE
+ *
  * Ajax Broker script
  *
  * Usage:
@@ -10,7 +12,7 @@
  *      Claroline::ajaxServiceBroker()->register( .... );
  *  2. Execute AJAX requests on get_path('url').'/claroline/backends/ajaxbroker.php'
  *
- * @version     1.10 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -53,5 +55,3 @@ catch (Exception $e )
 header('Content-type: application/json; charset=utf-8');
 echo $response->toJson();
 exit;
-
-

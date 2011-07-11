@@ -1,9 +1,11 @@
 <?php // $Id$
 
 /**
- * PHP COMPAT For PHP backward compatibility
+ * CLAROLINE
  *
- * @version     1.10 $Revision$
+ * PHP COMPAT For PHP backward compatibility.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
