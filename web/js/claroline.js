@@ -94,14 +94,14 @@ function getLeftMenuToggleFunction() {
                 .css('height', originalHeight)
             $('#courseRightContent').css('margin-left', 0);
             $('#toggleLeftMenu').removeClass('hide').addClass('show');
-            $.cookie('claro_toolBarStatus','masked',{path:'/'});
+            // $.cookie('claro_toolBarStatus','masked',{path:'/'});
         }
         else {
             $('#courseRightContent').css('margin-left', originalLeftMargin );
             $('#courseLeftSidebar')
             .css('width', originalWidth );
             $('#toggleLeftMenu').removeClass('show').addClass('hide');
-            $.cookie('claro_toolBarStatus','unmasked',{path:'/'});
+            // $.cookie('claro_toolBarStatus','unmasked',{path:'/'});
         }
         
         return false;
@@ -197,8 +197,8 @@ $(document).ready(function(){
         );
         
         /* check if the user has previously masked the bar */
-        if ( $.cookie('claro_toolBarStatus') == 'masked' ) {
+        /*if ( $.cookie('claro_toolBarStatus') == 'masked' ) {
             $('#toggleLeftMenu').click();
-        }
+        }*/
     }
 });
