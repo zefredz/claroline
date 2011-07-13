@@ -215,7 +215,7 @@ foreach ( $usersInGroupList as $key => $val )
 $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
 
 $template = new CoreTemplate('group_form.tpl.php');
-$template->assign('formAction', htmlspecialchars($_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . claro_get_current_group_id()));
+$template->assign('formAction', htmlspecialchars( $_SERVER['PHP_SELF'] . '?edit=yes&gidReq=' .  claro_get_current_group_id() ) );
 $template->assign('relayContext', claro_form_relay_context());
 $template->assign('groupName', htmlspecialchars($myStudentGroup['name']));
 $template->assign('groupId', claro_get_current_group_id());
