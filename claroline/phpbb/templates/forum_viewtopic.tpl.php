@@ -85,7 +85,6 @@ endif; //end not anonymous user
         </p>
     <?php endif; ?>
   </div>
-  <div class="spacer"></div>
 </div>
 <?php endforeach; ?>
 </div>
