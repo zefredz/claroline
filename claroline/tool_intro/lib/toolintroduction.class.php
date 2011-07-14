@@ -172,8 +172,7 @@ class ToolIntro implements Display
         
         // Insert datas
         $sql = "INSERT INTO `".$this->tblToolIntro."`
-                SET `id` = '',
-                    `tool_id` = ". (int) $this->toolId .",
+                SET `tool_id` = ". (int) $this->toolId .",
                     `title` = " . Claroline::getDatabase()->quote($this->title) . ",
                     `display_date` = NULL,
                     `content` = " . Claroline::getDatabase()->quote($this->content) . ",
