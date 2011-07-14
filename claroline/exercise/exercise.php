@@ -42,7 +42,7 @@ $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_lp_module = $tbl_cdb_names['lp_module'];
 $tbl_lp_asset = $tbl_cdb_names['lp_asset'];
 
-// learning path 
+// learning path
 // new module CLLP
 $inLP = (claro_called_from() == 'CLLP')? true : false;
 
@@ -370,7 +370,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
           .   '</tr>' . "\n"
           ;
           // Question description
-          if( trim( htmlspecialchars( strip_tags( claro_utf8_encode( $question['description'], get_conf('charset') ) ) ) ) )
+          if( trim( htmlspecialchars( claro_utf8_encode( $question['description'], get_conf('charset')  ) ) ) )
           {
             $htmlcontent .= '<tr>' . "\n"
             .   '<td colspan="2" style="font-size: x-small; font-style: italic;">' . claro_utf8_encode( change_img_url_for_pdf( $question['description'] ), get_conf('charset') ) .'</td>' . "\n"
