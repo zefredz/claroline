@@ -141,7 +141,7 @@ function claro_rename_file($oldFilePath, $newFilePath)
             else
             {
                 return false;
-            }   
+            }
         }
         else
         {
@@ -282,10 +282,10 @@ function claro_dirname($filePath)
 function index_dir($dirPath, $mode = 'ALL' )
 {
     $files = array();
-    if( is_dir($dirPath) ) 
+    if( is_dir($dirPath) )
     {
         $fh = opendir($dirPath);
-        while( ( $fileName = readdir($fh) ) !== false ) 
+        while( ( $fileName = readdir($fh) ) !== false )
         {
             // loop through the files, skipping . and .., and recursing if necessary
             if( $fileName == '.' || $fileName == '..' || $fileName == 'CVS' ) continue;
@@ -304,7 +304,7 @@ function index_dir($dirPath, $mode = 'ALL' )
             }
         }
         closedir($fh);
-    } 
+    }
     else
     {
         // false if the function was called with an invalid non-directory argument
@@ -352,7 +352,7 @@ function form_dir_list($file, $baseWorkDir)
 
     $dirList = index_and_sort_dir($baseWorkDir);
 
-    $dialogBox = '<strong>' . get_lang('Move') . '</strong>' . "\n" 
+    $dialogBox = '<strong>' . get_lang('Move') . '</strong>' . "\n"
     ."<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
                  .    claro_form_relay_context()
                  ."<input type=\"hidden\" name=\"cmd\" value=\"exMv\" />\n"
@@ -483,8 +483,8 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
  * create a tmp directory
  *
  * @param string  $dir
- * @param string  $prefix 
- * @param int     $mode  
+ * @param string  $prefix
+ * @param int     $mode
  * @return string full pathname
  */
 function claro_mkdir_tmp($dir, $prefix = 'tmp', $mode = 0777)
@@ -791,15 +791,38 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
     switch ($type)
     {
         case 'update' :
-
+            
+            // If the path did not change, don't change it !
+            if ( empty($newPath) )
+            {
+                return false;
+            }
+            
             // Find and update assets that are concerned by this move
+            $sql = "SELECT `path` FROM `" . $TABLEASSET . "` WHERE {$modifier} `path` = '" . claro_sql_escape($oldPath) . "%'";
+            $result = claro_sql_query($sql);
+            
+            $num = mysql_num_rows($result);
 
-            $sql = "UPDATE `" . $TABLEASSET . "`
-                    SET `path` = CONCAT('" . claro_sql_escape($newPath) . "',
-                                        SUBSTRING(`path`, LENGTH('" . claro_sql_escape($oldPath) . "')+1) )
-                    WHERE {$modifier} `path` LIKE '" . claro_sql_escape($oldPath) . "%'";
+            // The document with the exact path exists
+            if ( $num )
+            {
 
-            claro_sql_query($sql);
+                $sql = "UPDATE `" . $TABLEASSET . "`
+                        SET `path` = '" . claro_sql_escape($newPath) . "'
+                        WHERE {$modifier} `path` = '" . claro_sql_escape($oldPath) . "'";
+            }
+            // A document in the renamed directory exists
+            else
+            {
+                $sql = "UPDATE `" . $TABLEASSET . "`
+                        SET path = CONCAT('" . claro_sql_escape($newPath) . "',
+                                   SUBSTRING(path, LENGTH('" . claro_sql_escape($oldPath) . "')1) )
+                        WHERE {$modifier} path = '" . claro_sql_escape($oldPath) . "'
+                        OR {$modifier} path LIKE '" . claro_sql_escape($oldPath) . "/%'";
+            }
+
+             claro_sql_query($sql);
 
             break;
 
