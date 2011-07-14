@@ -51,7 +51,7 @@ define('CLARO_FILE_PERMISSIONS', 0777);
 
 // verbose mode
 
-if ( defined(CLARO_DEBUG_MODE) && CLARO_DEBUG_MODE )
+if ( defined('CLARO_DEBUG_MODE') && CLARO_DEBUG_MODE )
 {
     $verbose = true;
 }
@@ -113,8 +113,8 @@ require_once dirname(__FILE__) . '/upgrade.lib.php';
  * @see http://dev.mysql.com/doc/mysql/en/error-handling.html
  */
 
-$accepted_error_list = array(1017,1050,1060,1062,1065,1091,1146);
-$accepted_error_list = array(1060);
+$accepted_error_list = array(1060,1061);
+
 
 /*
  * Initialize version variables
