@@ -35,9 +35,9 @@ function user_initialise()
     $userData['language']       = isset($_REQUEST['language'])?trim(strip_tags($_REQUEST['language'])):'';
     $userData['picture']        = isset($_REQUEST['userPicture'])?trim(strip_tags($_REQUEST['userPicture'])):'';
     $userData['username']       = isset($_REQUEST['username'])?trim(strip_tags($_REQUEST['username'])):'';
-    $userData['old_password']   = isset($_REQUEST['old_password'])?trim(strip_tags($_REQUEST['old_password'])):'';
-    $userData['password']       = isset($_REQUEST['password'])?trim(strip_tags($_REQUEST['password'])):'';
-    $userData['password_conf']  = isset($_REQUEST['password_conf'])?trim(strip_tags($_REQUEST['password_conf'])):'';
+    $userData['old_password']   = isset($_REQUEST['old_password'])?trim($_REQUEST['old_password']):'';
+    $userData['password']       = isset($_REQUEST['password'])?trim($_REQUEST['password']):'';
+    $userData['password_conf']  = isset($_REQUEST['password_conf'])?trim($_REQUEST['password_conf']):'';
     $userData['email']          = isset($_REQUEST['email'])?trim(strip_tags($_REQUEST['email'])):'';
     $userData['phone']          = isset($_REQUEST['phone'])?trim(strip_tags($_REQUEST['phone'])):'';
     $userData['skype']          = isset($_REQUEST['skype'])?trim(strip_tags($_REQUEST['skype'])):'';
