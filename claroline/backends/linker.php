@@ -64,7 +64,6 @@ try
     {
         $resourceLinkerResolver = new ResourceLinkerResolver;
         $url = $resourceLinkerResolver->resolve( $locator );
-        $url = get_conf( 'rootWeb' ) . '..' . $url;
         $response = new Json_Response( array( 'url' => $url ) );
     }
     else
