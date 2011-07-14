@@ -510,11 +510,30 @@ if ($displayList)
                     && time() > strtotime($thisAnn['visibleUntil'])+86400
                 )
             ) ? (1) : (0);
+
+        if ( !$isVisible || $isOffDeadline )
+        {
+            $thisAnn['visible'] = false;
+        }
+        else
+        {
+            $thisAnn['visible'] = true;
+        }
+
         
         if (($is_allowedToEdit || ( $isVisible && !$isOffDeadline)))
         {
             // Flag hot items
-            if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisAnn['id']))
+            if (claro_is_user_authenticated() 
+                && $claro_notifier->is_a_notified_ressource(
+                    claro_get_current_course_id(), 
+                    $date, 
+                    claro_get_current_user_id(), 
+                    claro_get_current_group_id(), 
+                    claro_get_current_tool_id(), 
+                    $thisAnn['id']
+                )
+            )
             {
                 $thisAnn['hot'] = true;
             }
@@ -522,16 +541,7 @@ if ($displayList)
             {
                 $thisAnn['hot'] = false;
             }
-            
-            if ( !$isVisible || $isOffDeadline )
-            {
-                $thisAnn['visible'] = false;
-            }
-            else
-            {
-                $thisAnn['visible'] = true;
-            }
-            
+
             $thisAnn['content'] = make_clickable($thisAnn['content']);
             
             // Post time format in MySQL date format
