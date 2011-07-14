@@ -5,31 +5,32 @@
 /**
  * CLAROLINE
  *
- * User desktop index
+ * User desktop index.
  *
- * @version      1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package      DESKTOP
- * @author       Claroline team <info@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     DESKTOP
+ * @author      Claroline team <info@claroline.net>
  */
 
-// reset course and groupe
-$cidReset = true;
-$gidReset = true;
-$uidRequired = true;
+// Reset course and groupe
+$cidReset       = true;
+$gidReset       = true;
+$uidRequired    = true;
 
-// load Claroline kernel
+// Load Claroline kernel
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
 if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
-// load libraries
+// Load libraries
 uses('user.lib', 'utils/finder.lib');
 require_once dirname(__FILE__) . '/lib/portlet.lib.php';
 
+// Breadcrumb
 FromKernel::uses('display/userprofilebox.lib');
+ClaroBreadCrumbs::getInstance()->append(get_lang('My desktop'), get_path('clarolineRepositoryWeb').'desktop/index.php');
 
 $dialogBox = new DialogBox();
 
@@ -41,24 +42,24 @@ try
     $portletList = new PortletList;
     
     $fileFinder = new Claro_FileFinder_Extension( KERNEL_PORTLETS_PATH, '.class.php', false );
-
+    
     foreach ( $fileFinder as $file )
     {
         // Require portlet file
         require_once $file->getPathname();
-
+        
         // Compute portlet class name from file name
         $pos = strpos( $file->getFilename(), '.' );
         $className = substr( $file->getFilename(), '0', $pos );
-
+        
         // Load portlet from database
         $portletInDB = $portletList->loadPortlet( $className );
-
+        
         if( !$portletInDB )
         {
             if( class_exists($className) )
             {
-                $portlet = new $className();
+                $portlet = new $className($portletInDB['label']);
                 
                 $portletList->addPortlet( $className, $portlet->renderTitle() );
             }
@@ -84,13 +85,13 @@ try
             $className = "{$moduleLabel}_Portlet";
             
             $portletInDB = $portletList->loadPortlet($className);
-
+            
             // si present en db on passe
             if( !$portletInDB )
             {
                 if ( class_exists($className) )
                 {
-                    $portlet = new $className();
+                    $portlet = new $className($portletInDB['label']);
                     $portletList->addPortlet( $className, $portlet->renderTitle() );
                 }
             }
@@ -112,26 +113,52 @@ $outPortlet = '';
 
 $portletList = $portletList->loadAll( true );
 
-if ( is_array( $portletList ) )
+if ( !empty( $portletList ) )
 {
     foreach ( $portletList as $portlet )
     {
-        // load portlet
-        if( ! class_exists( $portlet['label'] ) )
+        try
         {
-            pushClaroMessage("User desktop : class {$portlet['label']} not found !");
-            continue;
+            // load portlet
+            if( ! class_exists( $portlet['label'] ) )
+            {
+                pushClaroMessage("User desktop : class {$portlet['label']} not found !");
+                continue;
+            }
+            
+            $portlet = new $portlet['label']($portlet['label']);
+            
+            if( ! $portlet instanceof UserDesktopPortlet )
+            {
+                pushClaroMessage("{$portlet['label']} is not a valid user desktop portlet !");
+                continue;
+            }
+            
+            $outPortlet .= $portlet->render();
         }
-        
-        $portlet = new $portlet['label']();
-    
-        if( ! $portlet instanceof UserDesktopPortlet )
+        catch (Exception $e )
         {
-            pushClaroMessage("{$portlet['label']} is not a valid user desktop portlet !");
-            continue;
+            $portletDialog = new DialogBox();
+            
+            $portletDialog->error(
+                get_lang(
+                    'An error occured while loading the portlet : %error%',
+                    array(
+                        '%error%' => $e->getMessage()
+                    )
+                )
+            );
+            
+            $outPortlet .= '<div class="claroBlock portlet">'
+                . '<h3 class="blockHeader">' . "\n"
+                . $portlet->renderTitle()
+                . '</h3>' . "\n"
+                . '<div class="claroBlockContent">' . "\n"
+                . $portletDialog->render()
+                . '</div>' . "\n"
+                . '</div>' . "\n\n"
+                ;
         }
-        
-        $outPortlet .= $portlet->render();
     }
 }
 else
