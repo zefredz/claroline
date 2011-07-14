@@ -519,29 +519,28 @@ if ($displayList)
         {
             $thisAnn['visible'] = true;
         }
-
+        
+        // Flag hot items
+        if (claro_is_user_authenticated() 
+            && $claro_notifier->is_a_notified_ressource(
+                claro_get_current_course_id(), 
+                $date, 
+                claro_get_current_user_id(), 
+                claro_get_current_group_id(), 
+                claro_get_current_tool_id(), 
+                $thisAnn['id']
+            )
+        )
+        {
+            $thisAnn['hot'] = true;
+        }
+        else
+        {
+            $thisAnn['hot'] = false;
+        }
         
         if (($is_allowedToEdit || ( $isVisible && !$isOffDeadline)))
         {
-            // Flag hot items
-            if (claro_is_user_authenticated() 
-                && $claro_notifier->is_a_notified_ressource(
-                    claro_get_current_course_id(), 
-                    $date, 
-                    claro_get_current_user_id(), 
-                    claro_get_current_group_id(), 
-                    claro_get_current_tool_id(), 
-                    $thisAnn['id']
-                )
-            )
-            {
-                $thisAnn['hot'] = true;
-            }
-            else
-            {
-                $thisAnn['hot'] = false;
-            }
-
             $thisAnn['content'] = make_clickable($thisAnn['content']);
             
             // Post time format in MySQL date format
