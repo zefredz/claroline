@@ -243,11 +243,12 @@ function tool_intro_upgrade_to_110 ($course_code)
                             WHERE `tool_id` <= 0";
                 
                 $sql = mysql_query($req);
+                $sqlForUpdate = array();
                 
                 $res = mysql_fetch_assoc($sql);
                 
                 // If yes: create a portlet for this course in `rel_course_portlet`
-                if (isset($res['nbToolIntro']) && $res['nbToolIntro'] > 0)
+                if ($sql)
                 {
                     // Select the id of the course (int)
                     $req = "SELECT cours_id AS courseId
@@ -263,6 +264,25 @@ function tool_intro_upgrade_to_110 ($course_code)
                             (courseId, rank, label, visible)
                             VALUES
                             ('".$res['courseId']."', 1, 'CLTI', 1)";
+                    
+                     // If yes: create a portlet for this course in `rel_course_portlet`
+                     if (isset($res['nbToolIntro']) && $res['nbToolIntro'] > 0)
+                     {
+                         // Select the id of the course (int)
+                         $req = "SELECT cours_id AS courseId
+                                 FROM `" . get_conf('mainTblPrefix') . "cours`
+                                 WHERE `code` = '".$course_code."'";
+                         
+                         $sql = mysql_query($req);
+                         
+                         $res = mysql_fetch_assoc($sql);
+                         
+                         // Insert the portlet
+                         $sqlForUpdate[] = "INSERT INTO `" . get_conf('mainTblPrefix') . "rel_course_portlet`
+                                 (courseId, rank, label, visible)
+                                 VALUES
+                                 ('".$res['courseId']."', 1, 'CLTI', 1)";
+                     }
                 }
                 else
                 {
