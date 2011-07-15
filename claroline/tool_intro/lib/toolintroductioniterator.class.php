@@ -42,7 +42,7 @@ class ToolIntroductionIterator implements Iterator, Countable
                 $this->courseCode,
                 $toolIntro['tool_id'],
                 $toolIntro['title'],
-                claro_parse_user_text($toolIntro['content']),
+                $toolIntro['content'],
                 $toolIntro['rank'],
                 $toolIntro['display_date'],
                 $toolIntro['visibility']

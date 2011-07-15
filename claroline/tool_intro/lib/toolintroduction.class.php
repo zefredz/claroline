@@ -393,7 +393,7 @@ class ToolIntro implements Display
     public function render()
     {
         $output = '<div class="toolIntro">'."\n"
-            . '<p>'.$this->content.'</p>'."\n";
+            . '<p>'.claro_parse_user_text($this->content).'</p>'."\n";
         
         // Display attached resources (if any)
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(array('id' => $this->id));
