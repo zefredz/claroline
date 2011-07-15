@@ -200,6 +200,7 @@ $_lang['Are notification emails sent automatically or on demand (configurable in
 $_lang['Are users allowed to create themselves a Course Creator account ?'] = 'Donner la possibilité aux utilisateurs de créer des utilisateurs avec les droits de gestionnaire de cours ?';
 $_lang['Are you sur to delete user\'s message?'] = 'Voulez-vous vraiment supprimer les messages de cet utilisateur ?';
 $_lang['Are you sure to delete'] = 'Voulez-vous vraiment supprimer ?';
+$_lang['Are you sure to delete %name ?'] = 'Voulez-vous vraiment supprimer %name ?';
 $_lang['Are you sure to delete "%title" ?'] = 'Voulez-vous vraiment supprimer l\'entrée "%title" ?';
 $_lang['Are you sure to delete all messages from this user'] = 'Voulez-vous vraiment supprimer tous les messages provenant de cet utilisateur ?';
 $_lang['Are you sure to delete all messages older than %date?'] = 'Voulez-vous vraiment supprimer tous les messages antérieurs au %date ?';

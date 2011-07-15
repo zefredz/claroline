@@ -22,9 +22,15 @@ Claroline.setLangArray = function ( langArray ) {
     }
 }
 
-Claroline.getLang = function(langVar) {
+Claroline.getLang = function(langVar, arr) {
     if ( Claroline.lang[langVar] ){
-        return Claroline.lang[langVar];
+        str = Claroline.lang[langVar];
+        
+        for (var i in arr)
+        {
+            str = str.replace(i, arr[i]);
+        }
+        return str;
     }
     else {
         return langVar;

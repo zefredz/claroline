@@ -1,3 +1,7 @@
+/*
+    $Id$
+ */
+
 var CLDOC = {};
 
 CLDOC.confirmation = function (name)

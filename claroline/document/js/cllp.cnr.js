@@ -1,4 +1,8 @@
-$(document).ready(function() {    
+/*
+    $Id: admin_users.js 13286 2011-07-04 17:06:07Z abourguignon $
+ */
+
+$(document).ready(function() {
 
     doInitialize();
     // flag to know i
