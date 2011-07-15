@@ -1,16 +1,14 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
- *
  * Claroline extension modules management script.
  *
- * @version     $Revision$
+ * @version 1.10
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
- *              version 2 or later
- * @package     ADMIN
- * @author      Claro Team <cvs@claroline.net>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
+ *  version 2 or later
+ * @package ADMIN
+ * @author claro team <cvs@claroline.net>
  */
 
 $cidReset = true ;
@@ -851,7 +849,7 @@ if ( $myPager->get_next_offset() ) $out .= $myPager->disp_pager_tool_bar('module
 
 $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n\n"
 .    '<thead>' . "\n"
-.    '<tr>' . "\n"
+.    '<tr class="headerX">' . "\n"
 .    '<th>' . get_lang('Icon')                . '</th>' . "\n"
 .    '<th>' . get_lang('Module name')         . '</th>' . "\n";
 

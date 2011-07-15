@@ -1,8 +1,6 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
- *
  * DataValidator class
  * Validates the content of data chained into an array according to a set
  * of defined rules. You can define your own validation rules (by creating
@@ -30,7 +28,7 @@
  *     echo explode(', ', $validator->getErrorList() );
  *   }
  *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Hugues Peeters <hugues.peeters@advalvas.be>

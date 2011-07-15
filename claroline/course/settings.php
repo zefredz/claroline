@@ -273,3 +273,5 @@ elseif( $display == DISP_COURSE_RQ_DELETE )
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

@@ -1,14 +1,17 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     1.8 $Revision$
+ * @version 1.8 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sébastien <pir@cerdecam.be>
- * @author      Lederer Guillaume <led@cerdecam.be>
- * @package     CLLNP
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
  */
 
 /*======================================
@@ -163,10 +166,10 @@ $out .= '</tr>'."\n\n"
 if (!isset($globalProg)) $globalProg = 0;
 
 foreach ($flatElementList as $module)
-{
+{ 
     if( $module['scoreMax'] > 0 && $module['raw'] > 0 )
     {
-        $raw = min($module['raw'],$module['scoreMax']); // fix when raw is > than scoreMax (it can be ...)
+        $raw = min($module['raw'],$module['scoreMax']); // fix when raw is > than scoreMax (it can be ...) 
         $progress = round($raw/$module['scoreMax']*100);
     }
     else
@@ -323,3 +326,5 @@ $out .= '</table>'."\n\n";
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

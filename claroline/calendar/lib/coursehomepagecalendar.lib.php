@@ -144,10 +144,9 @@ class CourseHomePageCalendar
             foreach($courseDigestList as $agendaItem)
             {
                 $output .= '<dt>' . "\n"
-                         . '<h2><img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="Calendar" />&nbsp;'
+                         . '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="Calendar" />&nbsp;'
                          . claro_html_localised_date( get_locale('dateFormatLong'),
                                 strtotime($agendaItem['date']) )
-                         . '</h2>' . "\n"
                          . '</dt>' . "\n";
                 
                 foreach($agendaItem['eventList'] as $agendaEvent)
@@ -160,7 +159,7 @@ class CourseHomePageCalendar
                              . (!empty($agendaEvent['location']) ?
                                 ' | ' . $agendaEvent['location'] :
                                 '')
-                             . ' (<a href="' . $agendaEvent['url'] . '#item' . $agendaEvent['id'] . '">'
+                             . ' (<a href="' . $agendaEvent['url'] . '#event' . $agendaEvent['id'] . '">'
                              . get_lang('more details')
                              . '</a>)' . "\n"
                              . '</dd>' . "\n";

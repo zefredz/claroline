@@ -1,11 +1,9 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
- *
  * Claroline extension modules management library
  *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html
  *      GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -69,8 +67,8 @@ function get_module_info($moduleId)
 
 /**
 * Gest the list of module type already installed
-* @return array of string
-*
+* @return array of string 
+* 
 */
 function claro_get_module_types()
 {
@@ -262,11 +260,11 @@ function get_and_unzip_uploaded_package()
     // treat_uploaded_file : Executes all the necessary operation to upload the file in the document tool
     // TODO this function would be splited.
     
-    if ( preg_match('/.zip$/i', $_FILES['uploadedModule']['name'])
+    if ( preg_match('/.zip$/i', $_FILES['uploadedModule']['name']) 
       && treat_uploaded_file( $_FILES['uploadedModule']
                             , $moduleRepositorySys
                             , $uploadDir
-                            , get_conf('maxFilledSpaceForModule' , 20000000)
+                            , get_conf('maxFilledSpaceForModule' , 10000000)
                             , 'unzip'
                             , true)
                             )
@@ -274,7 +272,7 @@ function get_and_unzip_uploaded_package()
         $backlog_message[] = get_lang('Files dezipped sucessfully in %path', array ('%path' => $modulePath )) ;
     }
     else
-    {
+    {   
         $backlog_message[] = get_lang('Impossible to unzip file');
         claro_delete_file($modulePath);
         return claro_failure::set_failure($backlog_message);
@@ -311,7 +309,7 @@ function unzip_package( $packageFileName )
     $uploadDir         = str_replace($moduleRepositorySys,'',$uploadDirFullPath);
     $modulePath        = $moduleRepositorySys.$uploadDir.'/';
     
-    if ( preg_match('/.zip$/i', $packageFileName)
+    if ( preg_match('/.zip$/i', $packageFileName) 
       && treat_secure_file_unzip($packageFileName, $uploadDir, $moduleRepositorySys, get_conf('maxFilledSpaceForModule' , 10000000),true))
     {
         $backlog_message[] = get_lang('Files dezipped sucessfully in %path', array ('%path' => $modulePath )) ;
@@ -541,7 +539,7 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                 {
                    $backlog->failure(get_lang("Error while renaming module folder").
                    ' from:' . $currentPlace  .
-                   ' to:' . $destPath
+                   ' to:' . $destPath  
                    );
                 }
                 else
@@ -568,17 +566,6 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                             }
                         }
                     }
-                    
-                    // generate the conf if a def file exists
-                    if ( file_exists( get_module_path($module_info['LABEL'])
-                        . '/conf/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
-                    {
-                        require_once dirname(__FILE__) . '/../config.lib.inc.php';
-                        $config = new Config($module_info['LABEL']);
-                        list ($confMessage, $status ) = generate_conf($config);
-
-                        $backlog->info($confMessage);
-                    }
 
                     // call install.php after initialising database in case it requires database to run
                     if ( isset( $installPhpScript ) ) unset ( $installPhpScript );
@@ -586,11 +573,6 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
 
                     if (file_exists($installPhpScript))
                     {
-                        language::load_translation( );
-                        language::load_locale_settings( );
-                        language::load_module_translation( $module_info['LABEL'] );
-                        load_module_config( $module_info['LABEL'] );
-                        
                         // FIXME this is very dangerous !!!!
                         require $installPhpScript;
                         $backlog->info(get_lang( 'Module installation script called' ));
@@ -621,6 +603,17 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                     else
                     {
                         $backlog->success(get_lang( 'Module cache update succeeded' ));
+                    }
+
+                    //7- generate the conf if a def file exists
+                    if ( file_exists( get_module_path($module_info['LABEL'])
+                        . '/conf/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
+                    {
+                        require_once dirname(__FILE__) . '/../config.lib.inc.php';
+                        $config = new Config($module_info['LABEL']);
+                        list ($confMessage, $status ) = generate_conf($config);
+
+                        $backlog->info($confMessage);
                     }
                 }
             }
@@ -871,13 +864,7 @@ function uninstall_module($moduleId, $deleteModuleData = true)
         $uninstallPhpScript = get_module_path($module['label']) . '/setup/uninstall.php';
         if (file_exists( $uninstallPhpScript ))
         {
-            language::load_translation( );
-            language::load_locale_settings( );
-            language::load_module_translation( $module['label'] );
-            load_module_config( $module['label'] );
-            
             require $uninstallPhpScript;
-            
             $backlog->info( get_lang('Module uninstallation script called') );
         }
 
@@ -951,7 +938,7 @@ function uninstall_module($moduleId, $deleteModuleData = true)
         claro_sql_query($sql);
         
         $sql = "DELETE FROM `" . $tbl['module_contexts'] . "`
-                WHERE `module_id` = " . (int) $moduleId;
+                WHERE `module_id` = " . (int) $moduleId;        
         claro_sql_query($sql);
 
         // 4-Manage right - Delete read action
@@ -1087,7 +1074,7 @@ function unregister_module_from_courses( $moduleId )
     $moduleInfo =  get_module_info($moduleId);
     $tbl = claro_sql_get_main_tbl();
 
-    $sql = "SELECT id AS tool_id
+    $sql = "SELECT id AS tool_id 
               FROM `" . $tbl['tool']."`
              WHERE claro_label = '".$moduleInfo['label']."'";
     $tool_to_delete = claro_sql_query_get_single_row($sql);
@@ -1841,7 +1828,7 @@ function get_course_tool_min_rank()
 /**
  * Check  if the  given  file path point on a claroline package file
  * @param string $packagePath
- * @return boolean
+ * @return boolean 
  */
 function is_package_file($packagePath)
 {

@@ -5,7 +5,7 @@
 /**
  * Authentication Manager
  *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -46,8 +46,8 @@ class AuthManager
         {
             // avoid issues with session collision when many users connect from
             // the same computer at the same time with the same browser session !
-            if ( AuthUserTable::userExists( $username ) )
-            {
+            if ( AuthUserTable::userExists( $username ) ) 
+            {   
                 self::setFailureMessage( get_lang( "There is already an account with this username." ) );
                 return false;
             }
@@ -86,8 +86,8 @@ class AuthManager
                 elseif ( $driver->userRegistrationAllowed() )
                 {
                     // duplicate code here to avoid issue with multiple requests on a busy server !
-                    if ( AuthUserTable::userExists( $username ) )
-                    {
+                    if ( AuthUserTable::userExists( $username ) ) 
+                    {   
                         self::setFailureMessage( get_lang( "There is already an account with this username." ) );
                         return false;
                     }
@@ -226,7 +226,7 @@ class AuthUserTable
         
         $tbl = claro_sql_get_main_tbl();
         
-        $sql = ( $uid ? 'UPDATE' : 'INSERT INTO' )
+        $sql = ( $uid ? 'UPDATE' : 'INSERT INTO' ) 
             . " `{$tbl['user']}`\n"
             . "SET " . implode(",\n", $preparedList ) . "\n"
             . ( $uid ? "WHERE  user_id = " . (int) $uid : '' )

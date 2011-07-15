@@ -3,11 +3,9 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
- *
  * Objects used to represent a user in the platform.
  *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -109,14 +107,14 @@ class Claro_User extends KernelObject
         $tbl = claro_sql_get_main_tbl();
             
         $userProperties = Claroline::getDatabase()->query("
-            SELECT
-                propertyId AS name,
-                propertyValue AS value,
+            SELECT 
+                propertyId AS name, 
+                propertyValue AS value, 
                 scope
-            FROM
+            FROM 
                 `{$tbl['user_property']}`
-            WHERE
-                userId = " . (int) $this->_userId . ";
+            WHERE 
+                userId = " . (int) $this->_userId . ";    
         ");
 
         $userProperties->setFetchMode(Database_ResultSet::FETCH_OBJECT);

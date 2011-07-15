@@ -284,11 +284,9 @@ if ($displayForm)
     .    '<div class="userList">'."\n"
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'."\n"
     .    '<input type="hidden" name="cmd" value="exSendMessage" />'."\n"
-    .    '<table class="multiselect">'."\n"
-    .    '<tr>'."\n"
-    .    '<td>'."\n"
+    .    '<table><tr><td>'."\n"
     .    get_lang('User list') . '<br/>'."\n"
-    .    '<select name="nocorreo[]" size="15" multiple="multiple" id="mslist1">' . "\n"
+    .    '<select name="nocorreo[]" size="15" multiple="multiple">' . "\n"
     ;
 
     if ( $groupList )
@@ -331,18 +329,15 @@ if ($displayForm)
     // element name problem List of selected users
 
     $content .= '</select></td>' . "\n"
-    .    '<td class="arrows">'
-    .    '<a href="#" class="msadd"><img src="' . get_icon_url('go_right') . '" /></a>'
-    .    '<br /><br />'
-    .    '<a href="#" class="msremove"><img src="' . get_icon_url('go_left') . '" /></a>'
+    .    '<td>'
+    .    '<input type="button" onclick="move(this.form.elements[\'nocorreo[]\'],this.form.elements[\'incorreo[]\'])" value="   >>   " /><br/><br/>' . "\n"
+    .    '<input type="button" onclick="move(this.form.elements[\'incorreo[]\'],this.form.elements[\'nocorreo[]\'])" value="   <<   " />' . "\n"
     .    '</td>'
     .    '<td>'
     .    get_lang('Selected Users')."<br/>" . "\n"
-    .    '<select name="incorreo[]" size="15" multiple="multiple" id="mslist2">'
+    .    '<select name="incorreo[]" size="15" multiple="multiple" style="width:200" >'
     .    '</select>'."\n"
-    .    '</td>'
-    .    '</tr>'
-    .    '</table>'."\n"
+    .    '</td></tr></table>'."\n"
     .    '<div class="composeMessage">'."\n"
     .    '<br/>'.get_lang('Subject') . '<br />' . "\n"
     .    '<input type="text" name="subject" maxlength="255" size="40" />'

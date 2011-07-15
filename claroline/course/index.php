@@ -9,10 +9,11 @@
  *              old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_home/course_home.php
  * @package     CLHOME
  * @author      Claro Team <cvs@claroline.net>
+ * @since       1.9
  */
 
 
-// If user is here, that means he isn't neither in specific group space
+// If user is here, it means he isn't neither in specific group space
 // nor a specific course tool now. So it's careful to reset the group
 // and tool settings
 
@@ -32,20 +33,18 @@ require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 require_once get_path('clarolineRepositorySys') . 'coursehomepage/lib/coursehomepageportlet.class.php';
 require_once get_path('clarolineRepositorySys') . 'coursehomepage/lib/coursehomepageportletiterator.class.php';
 
-// Instanciate dialog box
-$dialogBox = new DialogBox();
 
 // Display the auth form if necessary
 // Also redirect if no cid specified
 if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
-if (empty($cidReq))
-{
-    claro_die(get_lang('Cannot find course'));
-}
-
-// Fetch this course's portlets
 $portletiterator = new CourseHomePagePortletIterator(ClaroCourse::getIdFromCode($cidReq));
+
+include claro_get_conf_repository() . 'rss.conf.php';
+
+// Include the course home page special CSS
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load('coursehomepage', 'all');
 
 // Include specific CSS if any
 if ( claro_is_in_a_course()
@@ -58,24 +57,33 @@ if ( claro_is_in_a_course()
         . $_course['path'] . '/css/course.css" />');
 }
 
-// Instantiate course
-$thisCourse = new ClaroCourse();
-$thisCourse->load($cidReq);
+// Instanciate dialog box
+$dialogBox = new DialogBox();
 
-// Fetch related courses
-$relatedCourses = $thisCourse->getRelatedCourses();
-
-include claro_get_conf_repository() . 'rss.conf.php';
-
-// Include the course home page special CSS
-CssLoader::getInstance()->load('coursehomepage', 'all');
+if (isset($cidReq))
+{
+    $thisCourse = new ClaroCourse();
+    $thisCourse->load($cidReq);
+}
 
 $toolRepository = get_path('clarolineRepositoryWeb');
 claro_set_display_mode_available(true);
 
 // Manage portlets
-if (claro_is_course_manager() && !empty($portletClass))
+if (claro_is_course_manager())
 {
+    if ($portletCmd == 'rqAdd')
+    {
+        $form = CourseHomePagePortlet::renderForm();
+        if ($form)
+        {
+            $dialogBox->form($form);
+        }
+        else
+        {
+            $dialogBox->error(get_lang('No more portlet available for this course'));
+        }
+    }
     if ($portletCmd == 'exAdd')
     {
         $portletPath = get_module_path( $portletLabel )
@@ -91,56 +99,40 @@ if (claro_is_course_manager() && !empty($portletClass))
         
         $portlet = new $portletClass();
         $portlet->handleForm();
-        if ($portlet->save())
+        if($portlet->save())
         {
             $dialogBox->success(get_lang('Portlet created'));
         }
-        else
-        {
-            $dialogBox->error(get_lang('Can\'t create this portlet (%portlet)', array('%portlet' => $portlet->getLabel())));
-        }
     }
-    if ($portletCmd == 'delete' && !empty($portletId) && class_exists($portletClass))
+    if ($portletCmd == 'delete' && !empty($portletId))
     {
         $portlet = new $portletClass();
         $portlet->load($portletId);
-        if ($portlet->delete())
+        if($portlet->delete())
         {
             $dialogBox->success(get_lang('Portlet deleted'));
         }
     }
-    elseif ($portletCmd == 'makeVisible' && !empty($portletId) && class_exists($portletClass))
+    elseif ($portletCmd == 'swapVisibility' && !empty($portletId))
     {
         $portlet = new $portletClass();
         if ($portlet->load($portletId))
         {
-            $portlet->makeVisible();
-            if ($portlet->save())
+            $portlet->swapVisibility();
+            if($portlet->save())
             {
                 $dialogBox->success(get_lang('Portlet visibility modified'));
             }
         }
     }
-    elseif ($portletCmd == 'makeInvisible' && !empty($portletId) && class_exists($portletClass))
-    {
-        $portlet = new $portletClass();
-        if ($portlet->load($portletId))
-        {
-            $portlet->makeInvisible();
-            if ($portlet->save())
-            {
-                $dialogBox->success(get_lang('Portlet visibility modified'));
-            }
-        }
-    }
-    elseif ($portletCmd == 'moveUp' && !empty($portletId) && class_exists($portletClass))
+    elseif ($portletCmd == 'moveUp' && !empty($portletId))
     {
         $portlet = new $portletClass();
         $portlet->load($portletId);
         
         if ($portlet->load($portletId))
         {
-            if ($portlet->moveUp())
+            if($portlet->moveUp())
             {
                 $dialogBox->success(get_lang('Portlet moved up'));
             }
@@ -150,12 +142,12 @@ if (claro_is_course_manager() && !empty($portletClass))
             }
         }
     }
-    elseif ($portletCmd == 'moveDown' && !empty($portletId) && class_exists($portletClass))
+    elseif ($portletCmd == 'moveDown' && !empty($portletId))
     {
         $portlet = new $portletClass();
         if ($portlet->load($portletId))
         {
-            if ($portlet->moveDown())
+            if($portlet->moveDown())
             {
                 $dialogBox->success(get_lang('Portlet moved down'));
             }
@@ -187,131 +179,133 @@ else
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-/*$toolLinkList = array();
+$sourceCourseCode = ClaroCourse::getCodeFromId(claro_get_current_course_data('sourceCourseId'));
 
-// Generate tool lists
-$toolListSource = claro_get_course_tool_list($cidReq, $_profileId, true);
-
-foreach ($toolListSource as $thisTool)
+if (isset($sourceCourseCode))
 {
-    // Special case when display mode is student and tool invisible doesn't display it
-    if ( ( claro_get_tool_view_mode() == 'STUDENT' ) && ! $thisTool['visibility']  )
+    // Call a session course
+    $_SESSION['courseSessionCode'][$sourceCourseCode] = claro_get_current_course_id();
+    $courseCode['session'] =  claro_get_current_course_id();
+    $courseCode['source'] = $sourceCourseCode;
+}
+else
+{
+    if (isset($_SESSION['courseSessionCode'][claro_get_current_course_id()]) )
     {
-        continue;
-    }
-    
-    if (isset($thisTool['label'])) // standart claroline tool or module of type tool
-    {
-        $thisToolName = $thisTool['name'];
-        $toolName = get_lang($thisToolName);
-        
-        // Trick to find how to build URL, must be IMPROVED
-        $url = htmlspecialchars( get_module_url($thisTool['label']) . '/' . $thisTool['url'] . '?cidReset=true&cidReq=' . $cidReq);
-        $icon = get_module_url($thisTool['label']) .'/'. $thisTool['icon'];
-        $htmlId = 'id="' . $thisTool['label'] . '"';
-        $removableTool = false;
-    }
-    else   // External tool added by course manager
-    {
-        if ( ! empty($thisTool['external_name'])) $toolName = $thisTool['external_name'];
-        else $toolName = '<i>no name</i>';
-        $url = htmlspecialchars( trim($thisTool['url']) );
-        $icon = get_icon_url('link');
-        $htmlId = '';
-        $removableTool = true;
-    }
-    
-    $style = !$thisTool['visibility']? 'invisible ' : '';
-    $classItem = (in_array($thisTool['id'], $modified_tools)) ? ' hot' : '';
-    
-    if ( !empty($url) )
-    {
-        $toolLinkList[] = '<a '.$htmlId.'class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
-                              . '<img class="clItemTool"  src="' . $icon . '" alt="" />&nbsp;'
-                              . $toolName
-                              . '</a>' . "\n";
+        // Call a source course
+        $courseCode['source'] = claro_get_current_course_id();
+        $courseCode['session'] =  $_SESSION['courseSessionCode'][$courseCode['source']];
     }
     else
+        $courseCode['standAlone'] = claro_get_current_course_id();
+}
+
+$toolLinkList = array(
+    'source' => array(),
+    'session' => array(),
+    'standAlone' => array()
+);
+
+// Generate tool lists
+foreach ($courseCode as $key => $course)
+{
+    $toolListSource = claro_get_course_tool_list($course, $_profileId, true);
+    $toolLinkListSource = array();
+    
+    foreach ($toolListSource as $thisTool)
     {
-        $toolLinkList[] = '<span ' . $style . '>'
-                              . '<img class="clItemTool" src="' . $icon . '" alt="" />&nbsp;'
-                              . $toolName
-                              . '</span>' . "\n";
+        // Special case when display mode is student and tool invisible doesn't display it
+        if ( ( claro_get_tool_view_mode() == 'STUDENT' ) && ! $thisTool['visibility']  )
+        {
+            continue;
+        }
+        
+        if (isset($thisTool['label'])) // standart claroline tool or module of type tool
+        {
+            $thisToolName = $thisTool['name'];
+            $toolName = get_lang($thisToolName);
+            
+            // Trick to find how to build URL, must be IMPROVED
+            $url = htmlspecialchars( get_module_url($thisTool['label']) . '/' . $thisTool['url'] . '?cidReset=true&cidReq=' .$course);
+            $icon = get_module_url($thisTool['label']) .'/'. $thisTool['icon'];
+            $htmlId = 'id="' . $thisTool['label'] . '"';
+            $removableTool = false;
+        }
+        else   // External tool added by course manager
+        {
+            if ( ! empty($thisTool['external_name'])) $toolName = $thisTool['external_name'];
+            else $toolName = '<i>no name</i>';
+            $url = htmlspecialchars( trim($thisTool['url']) );
+            $icon = get_icon_url('link');
+            $htmlId = '';
+            $removableTool = true;
+        }
+        
+        $style = !$thisTool['visibility']? 'invisible ' : '';
+        $classItem = (in_array($thisTool['id'], $modified_tools)) ? ' hot' : '';
+        
+        if ( ! empty($url) )
+        {
+            $toolLinkList[$key][] = '<a '.$htmlId.'class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
+            .                 '<img class="clItemTool"  src="' . $icon . '" alt="" />&nbsp;'
+            .                 $toolName
+            .                 '</a>' . "\n"
+            ;
+        }
+        else
+        {
+            $toolLinkList[$key][] = '<span ' . $style . '>'
+            .                 '<img class="clItemTool" src="' . $icon . '" alt="" />&nbsp;'
+            .                 $toolName
+            .                 '</span>' . "\n"
+            ;
+        }
     }
 }
 
-$otherToolsList = array();
-
-// Notifications to another date
-$lastUserAction = (isset($_SESSION['last_action']) && $_SESSION['last_action'] != '1970-01-01 00:00:00') ?
-    $_SESSION['last_action'] :
-    date('Y-m-d H:i:s');
-
-$otherToolsList[] = '<img class="iconDefinitionList" src="'.get_icon_url('hot').'" alt="'.get_lang('New items').'" />'
-                  . ' '.get_lang('New items').' '
-                  . '(<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'">'
-                  . get_lang('to another date')
-                   . '</a>)'
-                  . ((substr($lastUserAction, strlen($lastUserAction) - 8) == '00:00:00' ) ?
-                      (' <br />['.claro_html_localised_date(
-                          get_locale('dateFormatNumeric'),
-                          strtotime($lastUserAction)).']') :
-                      (''))
-                  . "\n";
-
 // Generate tool list for managment of the course
 $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')  . 'course/tools.php' )) . '">'
-                            . '<img src="' . get_icon_url('edit') . '" alt="" /> '
-                            . get_lang('Edit Tool list')
-                            . '</a>';
-
+.                             '<img src="' . get_icon_url('edit') . '" alt="" /> '
+.                             get_lang('Edit Tool list')
+.                             '</a>'
+;
 $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( $toolRepository . 'course/settings.php' )) . '">'
-                            . '<img src="' . get_icon_url('settings') . '" alt="" /> '
-                            . get_lang('Course settings')
-                            . '</a>';
-
+.                             '<img src="' . get_icon_url('settings') . '" alt="" /> '
+.                             get_lang('Course settings')
+.                             '</a>'
+;
 if ( !ClaroCourse::isSessionCourse($thisCourse->id) )
 {
     $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/session_courses.php', array('cid'=>$thisCourse->id) )) . '">'
-                                . '<img src="' . get_icon_url('duplicate') . '" alt="" /> '
-                                . get_lang("Manage session courses")
-                                . '</a>' ;
+    .                             '<img src="' . get_icon_url('duplicate') . '" alt="" /> '
+    .                             get_lang("Manage session courses")
+    .                             '</a>' ;
 }
 else
 {
     $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/index.php', array('cid'=>ClaroCourse::getCodeFromId($thisCourse->sourceCourseId)) )) . '">'
-                                . '<img src="' . get_icon_url('default') . '" alt="" /> '
-                                . get_lang("View source course")
-                                . '</a>' ;
+    .                             '<img src="' . get_icon_url('default') . '" alt="" /> '
+    .                             get_lang("View source course")
+    .                             '</a>' ;
 }
 
 if( get_conf('is_trackingEnabled') )
 {
     $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( $toolRepository . 'tracking/courseReport.php' )) . '">'
-                                . '<img src="' . get_icon_url('statistics') . '" alt="" /> '
-                                . get_lang('Statistics')
-                                . '</a>';
-}*/
+    .                             '<img src="' . get_icon_url('statistics') . '" alt="" /> '
+    .                             get_lang('Statistics')
+    .                             '</a>'
+    ;
+}
 
 
 // Fetch the portlets
 $portletiterator = new CourseHomePagePortletIterator(ClaroCourse::getIdFromCode($cidReq));
 
-
-// Fetch the session courses (if any)
-if (ClaroCourse::isSourceCourse($thisCourse->id))
-{
-    $sessionCourses = $thisCourse->getSessionCourses();
-}
-else
-{
-    $sessionCourses = array();
-}
-
 // Notices for course managers
 if (claro_is_allowed_to_edit())
 {
-    if ($thisCourse->status == 'pending')
+    if ( $thisCourse->status == 'pending' )
     {
         $dialogBox->warning(
             get_lang('This course is deactivated: you can reactive it from your course list'));
@@ -348,16 +342,17 @@ if (claro_is_allowed_to_edit())
     }
 }
 
-// Get the portlets buttons
-$activablePortlets = claro_is_course_manager() ? CourseHomePagePortlet::getActivablePortlets() : array();
 
-// Display
+// Display header
 $template = new CoreTemplate('course_index.tpl.php');
 $template->assign('dialogBox', $dialogBox);
-$template->assign('activablePortlets', $activablePortlets);
-$template->assign('relatedCourses', $relatedCourses);
+$template->assign('toolLinkListSource', $toolLinkList['source']);
+$template->assign('toolLinkListSession', $toolLinkList['session']);
+$template->assign('toolLinkListStandAlone', $toolLinkList['standAlone']);
+$template->assign('courseManageToolLinkList', $courseManageToolLinkList);
 $template->assign('portletIterator', $portletiterator);
 
 $claroline->display->body->setContent($template->render());
+
 
 echo $claroline->display->render();

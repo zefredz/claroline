@@ -240,15 +240,23 @@ if ( $cmd == 'exReg' )
         if ( claro_is_platform_admin()
         || ( is_null($courseRegistrationKey) || empty($courseRegistrationKey) )
         || ( isset($_REQUEST['registrationKey'] )
-             && strtolower(trim($_REQUEST['registrationKey'] )) == strtolower(trim($courseRegistrationKey))
-           )
-        )
+        && strtolower(trim($_REQUEST['registrationKey'] )) == strtolower(trim($courseRegistrationKey))) )
         {
+            //Is it a session course ?
+            $tempCourse = claro_get_course_data($courseCode);
+            
+            if (isset($tempCourse) && !empty($tempCourse['sourceCourseId']))
+            {
+                //It's a session course: register the user to this course AND the source course
+                $sourceCourseCode = ClaroCourse::getCodeFromId($tempCourse['sourceCourseId']);
+                user_add_to_course($userId, $sourceCourseCode, false, false, false);
+            }
+            
             //Try to register user
             if ( user_add_to_course($userId, $courseCode, false, false, false) )
             {
                 $claroline->log('COURSE_SUBSCRIBE',array('user'=>$userId,'course'=>$courseCode));
-                
+
                 if ( claro_get_current_user_id() != $uidToEdit )
                 {
                     //Message for admin
@@ -311,6 +319,7 @@ if ( $cmd == 'exReg' )
         }
         $dialogBox->info( get_lang('Please contact the course manager : %email' , array ('%email' => '<a href="mailto:'.$courseData['email'] . '?body=' . $courseData['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseData['titular']) . '</a>')) );
     }
+
 } // end if ($cmd == 'exReg')
 
 /*----------------------------------------------------------------------------
@@ -427,7 +436,7 @@ else
 } // end if ( $cmd == 'rqReg' && ( !empty($categoryId) || !empty($parentCategoryId) ) )
 
 $backUrl .= $inURL; //notify userid of the user we are working with in admin mode and that we come from admin
-$backLink = '<p><a href="' . $backUrl . '" title="' . $backLabel. '" ><span style="background-image: url(/claroline110/web/img/back.png?1306417565); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"> ' . $backLabel . ' </span></a></p>' . "\n\n";
+$backLink = '<p><small><a href="' . $backUrl . '" title="' . $backLabel. '" >&larr; ' . $backLabel . '</a></small></p>' . "\n\n";
 
 $out = '';
 
@@ -479,18 +488,18 @@ switch ( $displayMode )
                 $nbCourses = claroCategory::countAllCourses($category['id']);
                 $nbSubCategories = claroCategory::countAllSubCategories($category['id']);
                 
+                $out .= '<li>' . "\n";
+                
                 // If the category contains something else (subcategory or course),
                 // make a link to access to these ressources
                 if ($nbCourses + $nbSubCategories > 0)
-                {
-                    $out .= '<li><a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;categoryId="
+                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;categoryId="
                           . urlencode( $category['id'] ) . $inURL . '">'
-                          . $category['name'] . '</a></li>';
-                }
+                          . $category['name'] . '</a>';
                 else
-                {
-                    $out .= '<li>'.$category['name'].'</li>';
-                }
+                    $out .= $category['name'];
+                
+                $out .= '</li>' . "\n";
             }
             
             $out .= '</ul>' . "\n";
@@ -513,7 +522,7 @@ switch ( $displayMode )
             {
             
                 $out .= '<thead>' . "\n"
-                .    '<tr>' . "\n"
+                .    '<tr class="headerX">' . "\n"
                 .    '<th>&nbsp;</th>' . "\n"
                 .    '<th>' . get_lang('Enrol as student') . '</th>' . "\n"
                 .    '<th>' . get_lang('Enrol as teacher') . '</th>' . "\n"
@@ -524,7 +533,7 @@ switch ( $displayMode )
             elseif ( $fromAdmin == 'class' )
             {
                 $out .= '<thead>' . "\n"
-                .    '<tr>' . "\n"
+                .    '<tr class="headerX">' . "\n"
                 .    '<th>&nbsp;</th>' . "\n"
                 .    '<th>' . get_lang('Enrol class') . '</th>' . "\n"
                 .    '</tr>' . "\n"

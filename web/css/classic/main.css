@@ -12,17 +12,20 @@
    font-size: 100%;
 }
 
-html, body {
+html {
     margin: 0;
     padding: 0;
     height: 100%;
 }
 
 body {
+    margin: 0;
+    padding: 0;
     color: #444;
     background: #FFF;
     text-align: left;
     font-family: Arial, Verdana, Helvetica, Sans-Serif;
+    height: 100%;
 }
 
 a:link, a:visited {
@@ -44,51 +47,15 @@ small {
     font-size: 0.9em;
 }
 
-h1, 
-h2, 
-h3, 
-h4, 
-h5 {
-    font-weight: bold;
-}
-
-h1 {font-size: 2em;}
-h2 {font-size: 1.6em;}
-h3 {font-size: 1.3em;}
-h4 {font-size: 1.1em;}
-h5 {font-size: 1.0em;}
-
 ul {
     list-style-type: square;
-    list-style-position: inside;
-    margin-left: 0;
-    padding-left: 1em;
-    text-indent: -1em;
-
 }
 
 table td {
     vertical-align: top;
 }
 
-hr {
-    height: 1px;
-    margin: 10px 0;
-    border-top: 1px solid #DDDDDD;
-    color: #DDDDDD;
-}
-
-
 .spacer {
-    clear: both;
-}
-
-.clearer {
-    width: 0;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    visibility: hidden;
     clear: both;
 }
 
@@ -109,7 +76,11 @@ input, textarea, button, select {
 
 input[type=submit], input[type=reset], input[type=button], button {
     margin-left: 2px;
+    color: #666;
     margin-top: 5px;
+}
+
+input[type=submit], input[type=reset], input[type=button], button {
     background: #fff;
     color: #000;
 }
@@ -121,27 +92,13 @@ input[type=submit]:hover, button:hover, input[type=button]:hover {
 
 input[type=radio], input[type=checkbox] {
     border: 0;
-    background: transparent;
-    margin: 0.1em 0.2em 0.1em 0;
+    margin: 0.1em 0.5em 0.1em 0;
     padding: 0;
     vertical-align: middle;
 }
 
-input.inputSearch {
-    background: url(../../img/search.png) no-repeat #fff;
-    background-position: 1px 1px;
-    padding-left: 18px;
-}
-
-input.inputLogin {
-    background: url(../../img/user.png) no-repeat #fff;
-    background-position: 1px 1px;
-    padding-left: 18px;
-}
-
-input.inputPassword {
-    background: url(../../img/login_as.png) no-repeat #fff;
-    background-position: 1px 1px;
+input[type=text].inputSearch {
+    background: url('../../img/search.png') no-repeat top left #fff;
     padding-left: 18px;
 }
 
@@ -170,7 +127,7 @@ dl.onOneLine dd, fieldset dl dd {
 }
 
 fieldset {
-    border: 1px solid #DDDDDD;
+    border: 1px solid #eee;
     margin-bottom: 10px;
 }
 
@@ -188,40 +145,50 @@ fieldset dt label {
     margin-left:0;
 }
 
-.notice {
-    font-size: 0.8em;
-    color: #999;
+input.radio,
+input.checkbox {
+    cursor: pointer;
+    height: 1em;
+    margin: 0;
+    vertical-align: middle;
+    width: 1em;
 }
 
-table.multiselect {
-    margin-left: -3px;
+.notice {
+    font-size: 0.8em;
+    color: grey;
 }
 
 /* Multiselect table */
 table.multiselect select {
-    min-width: 250px;
-    height: 150px;
+    width: 250px;
 }
 
 table.multiselect td.arrows {
     vertical-align: middle;
 }
 
-/* Specific fieldset and legend styles */
-#courseSettings fieldset legend, 
-#userSettings fieldset legend  {
+/* Course form style */
+#courseSettings fieldset {
+    border: 0;
+    margin: 2px;
+    padding: 5px;
+    border-top: 1px solid #eee;
+}
+
+#courseSettings fieldset legend {
     font-weight: bold;
     color: #444;
-    margin-left: 0px;
+    margin-left: 20px;
     padding: 5px;
-    border: 1px solid #DDDDDD;
+    border: 1px solid #eee;
     background: #fff;
 }
 
 /* Redirector field */
 #redirector select {
     background: none;
-    border: 1px solid #DDDDDD;
+    border: 1px solid #EEE;
 }
 
 
@@ -238,10 +205,6 @@ table.multiselect td.arrows {
                         CLAROLINE HEADER
 ******************************************************************************/
 
-#topBanner {
-    background: url(img/bg_header.gif) repeat-x scroll left top #C5D4E2;
-}
-
 /*-----------------------------------------------------------------------------
                         PLATFORM BANNER
 -----------------------------------------------------------------------------*/
@@ -251,6 +214,7 @@ table.multiselect td.arrows {
     padding: 10px 15px 10px 15px;
     color: #fff;
     font-weight: bold;
+    background: url('img/bg_header.gif') repeat-x top left #c5d4e2;
 }
 
 #platformBanner a,
@@ -307,70 +271,125 @@ table.multiselect td.arrows {
 -----------------------------------------------------------------------------*/
 
 #userBanner {
-    height: 30px;
-    margin: 0;
-    padding: 0 15px;
-    border: 0;
     color: #999;
     font-weight: bold;
     font-size: 0.8em;
-    text-align: left;
-    overflow: hidden;
+    padding: 1px 15px;
+    background: url('img/bg_userbanner.png') repeat-x bottom left #fdf4de;
+    border-top: 1px #999 solid;
+    border-bottom: 1px #999 solid;
+}
+
+#userBanner #userName {
+    color: #693;
+    font-weight: bold;
+    margin: 0;
 }
 
 #userBanner a,
 #userBanner a:link,
 #userBanner a:visited {
-    color: #336699;
     text-decoration: none;
+    color: #369;
+    font-weight: normal;
 }
 
 #userBanner a:hover,
 #userBanner a:active {
-    color: #111C99;
-    text-decoration: none;
+    color: #369;
+    text-decoration: underline;
+    font-weight: normal;
 }
 
 #userBannerRight {
     float: right;
+    text-align: right;
 }
 
 #userBannerLeft {
     float: left;
+    text-align: left;
 }
 
-#userBanner ul.menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    text-indent: 0;
+
+/*-----------------------------------------------------------------------------
+                        COURSE BANNER
+-----------------------------------------------------------------------------*/
+
+#courseBanner {
+    padding: 4px 15px;
+    color: #369;
+    font-size: 0.8em;
+    font-weight: bold;
 }
 
-#userBanner ul.menu li {
+#courseBanner #course {
     float: left;
-    display: block;
-    margin: 0;
+    text-align: left;
+}
+
+#courseBanner #course span {
+       display: block;
+}
+
+#courseBanner #courseToolList {
+    float: right;
+    text-align: right;
+}
+
+#courseBanner #courseName {
     padding: 0;
-    height: 30px;
-    text-align: center;
-    line-height: 2.4em;
-    background: #fff;
+    margin: 0;
+    text-indent: 12px;
+    background-image: url(img/arrow_blue.gif);
+    background-position: left;
+    background-repeat: no-repeat;
 }
 
-#userBanner ul.menu li span {
-    padding: 0 5px;
-    border-right: 1px solid #DDDDDD;
+#courseBanner a,
+#courseBanner a:link,
+#courseBanner a:visited {
+    color: #369;
+    text-decoration: none;
+    font-weight: normal;
 }
 
-#userBanner ul.menu li.userName {
-    padding: 0 20px 0 5px;
+#courseBanner a:hover,
+#courseBanner a:active {
     color: #693;
-    background: #DDDDDD url(img/bg_username.png) no-repeat right center;
+    text-decoration: underline;
+    font-weight: normal;
 }
 
-#userBanner ul.menu li:last-child span {
-    border-right: 0;
+#courseBanner #courseCode {
+}
+
+#courseBanner form {
+    padding-top: 5px;
+    margin: 0;
+}
+
+#courseBannerRight {
+    float: right;
+    text-align: right;
+    margin: 0;
+}
+
+#courseBannerLeft {
+    float: left;
+    text-align: left;
+    margin: 0;
+}
+
+#courseBannerRight #redirector select {
+    padding: 0;
+    margin: 0;
+}
+
+#courseBannerRight #redirector option {
+    margin: 2px 1px;
+    padding: 1px 0 1px 0;
+    padding-left: 20px;
 }
 
 
@@ -382,8 +401,7 @@ table.multiselect td.arrows {
     font-size: 0.8em;
     color: #666;
     border: none;
-    padding : 10px 15px 5px 15px;
-    background: #fff;
+    padding : 2px 15px;
 }
 
 #breadcrumbLine hr {
@@ -397,6 +415,18 @@ table.multiselect td.arrows {
 #breadcrumbLine #toolViewOption {
     float: right;
     text-align: right;
+}
+
+#breadcrumbLine a:link,
+#breadcrumbLine a:visited {
+    color: #693;
+    font-weight: normal;
+}
+
+#breadcrumbLine a:hover,
+#breadcrumbLine a:active {
+    color: #999;
+    font-weight: normal;
 }
 
 ul.breadCrumbs {
@@ -429,6 +459,7 @@ li.lastBreadCrumbsNode {
 #claroBody {
     padding:15px;
     font-size: 0.8em;
+    background: url('img/bg_body.jpg') repeat-x top left #fff;
 }
 
 #claroBody a:hover,
@@ -436,42 +467,22 @@ li.lastBreadCrumbsNode {
     color: #111C99;
 }
 
-#claroBody a.item {
-    border: 0;
-}
-
 #claroBody a.item:hover,
 #claroBody a.item:active {
     color: #111C99;
 }
 
-#courseLeftSidebar {
-    position: relative;
-    width: 220px;
-    margin: 0;
-    padding: 0;
-    border-right: 1px solid #DDDDDD;
-    float: left;
-}
-
-#courseRightContent {
-    margin-left: 220px;
-    padding-left: 10px;
-    border-left: 1px solid #DDDDDD;
-
-}
-
 #leftSidebar {
-    padding: 0;
+    padding: 2px 5px;
     margin: 0;
     float: left;
     width: 220px;
-    border-right: #DDDDDD solid 1px;
+    border-right: #ccc solid 1px;
 }
 
 #rightContent {
-    padding: 0;
-    margin-left: 230px;
+    padding: 2px 2px 2px 5px;
+    margin-left: 240px;
 
 }
 
@@ -480,7 +491,7 @@ li.lastBreadCrumbsNode {
     padding-left: 5px;
     margin: 0;
     float: right;
-    border-left: #DDDDDD solid 1px;
+    border-left: #ccc solid 1px;
 }
 
 #leftContent {
@@ -498,7 +509,7 @@ li.lastBreadCrumbsNode {
     padding: 15px 15px;
     font-size: 0.7em;
     color: #666;
-    background: url(img/bg_footer.jpg) repeat-x top left #fff;
+    background: url('img/bg_footer.jpg') repeat-x top left #fff;
 }
 
 #campusFooter a:link,
@@ -534,128 +545,8 @@ li.lastBreadCrumbsNode {
 }
 
 
-#campusFooterCenter .poweredBy {
-    padding-left: 20px;
+#campusFooterCenter #poweredBy {
     font-style: italic;
-    background: url(../../img/claroline.png) no-repeat left center;
-}
-
-
-/******************************************************************************
-                        PORTLETS and ITEMS
-******************************************************************************/
-
-/**
-Use .item to easily display lists of items (announces, descriptions, ...)
-Use .portlet for desktop or course portlets
-**/
-.item,
-.portlet {
-    margin-bottom: 5px;
-    border-bottom: 1px solid #DDDDDD;
-}
-
-.item .content,
-.item .lnk_link_panel,
-.item .manageTools,
-.portlet .content {
-    margin-top: 0.3em;
-    padding: 5px;
-}
-
-.item h1,
-.portlet h1 {
-    margin: 0;
-    padding: 2px 5px 2px 5px;
-    text-transform: none;
-    font-size: 1em;
-    font-weight: bold;
-    color: #444;
-    background-color: #DDDDDD;
-    border-bottom: 1px solid #444;
-}
-
-.item.hidden h1,
-.item.hidden .content, 
-.portlet.hidden h1
-{
-    color: #888;
-}
-
-.item h2, 
-.item h3, 
-.item h4, 
-.portlet h2, 
-.portlet h3, 
-.portlet h4 {
-    font-weight: bold;
-    margin: 0 0 5px 0;
-    padding: 0;
-}
-
-.item h2, 
-.portlet h2 {
-    margin: 0 0 3px 0;
-    font-size: 1.0em;
-}
-
-.item h3, 
-.portlet h3 {
-    margin: 0 0 3px 0;
-    font-size: 1.0em;
-    text-transform: none;
-}
-
-.item dl, 
-.item dt, 
-.item dd,
-.portlet dl, 
-.portlet dt, 
-.portlet dd {
-    margin: 0;
-    padding: 0;
-}
-
-.item ul, 
-.item dl, 
-.portlet ul, 
-.portlet dl {
-    margin-bottom: 15px;
-}
-
-.item dd, 
-.portlet dd {
-    margin-bottom: 0.5em;
-}
-
-.porletIcon {
-    float:right;
-    margin:auto;
-    padding:0;
-}
-
-.portlet .iconDefinitionList {
-    list-style-position:inside;
-    margin:0;
-    padding:0;
-}
-
-/* Distinct claroTables inside portlets */
-.portlet table.claroTable thead tr td,
-.portlet table.claroTable tbody tr td {
-    color: #444444;
-    background: #f3f7e8;
-}
-.portlet table.claroTable thead tr td.highlight,
-.portlet table.claroTable tbody tr td.highlight {
-    color: #FFF;
-    background: #444444;
-}
-.portlet table.claroTable thead tr th,
-.portlet table.claroTable tbody tr th {
-    color: #444444;
-    background: #f3f7e8;
-    border-bottom: 1px solid #444444;
 }
 
 
@@ -664,112 +555,28 @@ Use .portlet for desktop or course portlets
 ******************************************************************************/
 
 /*-----------------------------------------------------------------------------
-                        COURSE TABS
+                        COURSE TABLE
 -----------------------------------------------------------------------------*/
 
-ul.coursesTabs {
-    margin: 0 0 0 10px;
+table.courseTable {
+    width: 100%;
+    margin: 0;
     padding: 0;
     border: 0;
-    text-indent: 0;
-    list-style-type: none;
 }
 
-ul.coursesTabs li {
-    float: left;
-    margin: 0 10px 0 0;
-    padding-top: 3px;
-    text-align: center;
-    font-weight: bold;
-    background: url(img/bg_tab.png) repeat-x bottom #EEEEEE;
+table.courseTable td {
+    vertical-align: top;
 }
 
-ul.coursesTabs li a {
-    display: block;
-    width: 100px;
-    height: 30px;
-    line-height: 2.4em;
+table.courseTable td.toolList {
+    width: 220px;
+    padding-right: 20px; 
+    border-right: 1px solid #ccc;
 }
 
-ul.coursesTabs li.more a {
-    width: 30px;
-}
-
-ul.coursesTabs li.current, 
-ul.coursesTabs li:hover {
-    background: #ddd;
-    padding-top: 0;
-    border-top: 3px solid #336699;
-}
-
-div.tabbedCourse {
-    padding: 0;
-    border-width: 2px;
-    border-style: solid;
-    border-color: #ddd;
-}
-
-
-/*-----------------------------------------------------------------------------
-                        COURSE INFOS
------------------------------------------------------------------------------*/
-
-.courseInfos {
-    padding: 10px;
-    background: #ddd;
-}
-
-.courseInfos h2 {
-    float: left;
-    margin: 0;
-    padding: 0 5px 0 0;
-    border-right: 1px dotted black;
-    font-size: 2em;
-    text-transform: uppercase;
-}
-
-.courseInfos p {
-    float: left;
-    margin: 0;
-    padding: 0 0 0 5px;
-}
-
-.groupInfos h3 {
-    float: left;
-    margin: 0;
-    padding: 0 5px 0 0;
-    text-transform: uppercase;
-}
-
-.groupInfos p {
-    float: left;
-    margin: 0;
-    padding: 0 0 0 5px;
-    border-left:1px dotted black;
-}
-
-
-/* Source courses */
-ul.coursesTabs li.sourceCourse {
-    background-color: #c1d1e1;
-}
-
-ul.coursesTabs li.sourceCourse.current, 
-div.tabbedCourse.sourceCourse .courseInfos {
-    background-color: #c1d1e1;
-}
-
-div.tabbedCourse.sourceCourse {
-    border-color: #c1d1e1;
-}
-
-
-/*-----------------------------------------------------------------------------
-                        COURSE CONTENT
------------------------------------------------------------------------------*/
-
-.courseContent {
-    padding: 10px;
+table.courseTable td.coursePortletList { 
+    padding-left: 20px; 
 }
 
 
@@ -777,28 +584,25 @@ div.tabbedCourse.sourceCourse {
                         COURSE TOOL LIST
 -----------------------------------------------------------------------------*/
 
-a#toggleLeftMenu {
-    display: block;
-    position: absolute;
-    top: 50%;
-    width: 10px;
-    height: 20px;
-    outline: none;
+#commonToolList img {
+    vertical-align: text-bottom;
+    padding: 1px 0;
 }
 
-a#toggleLeftMenu.show {
-    background: url(img/arrow_right.png) no-repeat;
-    right: -10px;
+#commonToolList a {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin: 2px 0;
 }
 
-a#toggleLeftMenu.hide {
-    background: url(img/arrow_left.png) no-repeat;
-    right: 0;
+#courseManageToolList {
+    padding-left: 16px;
 }
 
-.toolList ul {
-    list-style-type: none;
+table.courseTable td.toolList ul {
     margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 
 /*-----------------------------------------------------------------------------
@@ -813,88 +617,25 @@ ul.groupToolList {
 
 
 /******************************************************************************
-                        TOOL TITLE
+                        PLATFORM HOMEPAGE
 ******************************************************************************/
 
-.toolTitleBlock {margin-bottom: 10px;}
+table.homepageTable td.spacer {
+    width: 30px;
+}
 
-.toolTitleBlock .superTitle, 
-.toolTitleBlock .mainTitle, 
-.toolTitleBlock .subTitle {
-    margin: 0;
+table.homepageTable td.userCommands ul {
+    margin: 0 0 10px 0;
     padding: 0;
-}
-
-.toolTitleBlock .mainTitle {
-    white-space: nowrap;
-    height: 100%;
-    padding-right: 5px;
-    font-weight: normal;
-    text-transform: uppercase;
-}
-
-.toolTitleBlock .subTitle, 
-.toolTitleBlock .superTitle {
-    color: #666;
-    letter-spacing: 0.2em;
-}
-
-.toolTitleBlock ul.commandList {
-    padding-left: 5px;
-    border-left: 1px dotted black;
-}
-
-ul.commandList {
-    margin: 0;
-    padding: 0;
-    border: 0;
     list-style-type: none;
-    text-indent: 0;
 }
 
-ul.commandList li {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    border: 0;
+table.homepageTable td.userCommands {
+    padding-right: 20px; 
 }
 
-ul.commandList li a {
-    display: block;
-    height: 16px;
-    margin: 0 0 3px 0;
-    padding: 0;
-    border: 5px solid #DDD;
-    font-weight: bold;
-    background-color: #DDD;
-    border-radius: 3px;
-}
-
-ul.commandList li a:hover {
-    background-color: #CCCCCC;
-    border: 5px solid #CCCCCC;
-}
-
-ul.commandList li a.help {
-    width: 16px;
-    border-color: #CCDDEE;
-    background-color: #CCDDEE;
-    background-image: url(../../img/help.png);
-    background-repeat: no-repeat;
-}
-
-ul.commandList li a.help:hover {
-    border-color: #BBCCDD;
-    background-color: #BBCCDD;
-}
-
-.toolTitleBlock table, 
-.toolTitleBlock tr,
-.toolTitleBlock td {
-    margin: 0; 
-    padding: 0;
-    border: 0;
-    border-collapse:collapse;
+table.homepageTable td.myCourseList { 
+    padding-left: 20px; 
 }
 
 
@@ -920,6 +661,9 @@ ul.adminPanel li ul {
     width: 100%;
     height: 190px;
     list-style: square inside;
+    margin-left: 0;
+    padding-left: 1em;
+    text-indent: -1em;
 }
 
 ul.adminPanel li ul li {
@@ -929,16 +673,14 @@ ul.adminPanel li ul li {
     
 }
 
-ul.adminPanel h2 {font-size: 1.1em;}
-ul.adminPanel h3 {font-size: 1em;}
-
 /*-----------------------------------------------------------------------------
                         ADMIN TABLE FORMS
 -----------------------------------------------------------------------------*/
 
 table.adminPanel input[type=text] {
-    width: 90px;
+    width: 100px;
 }
+
 
 
 /******************************************************************************
@@ -991,11 +733,6 @@ th .claroCmdDisabled {
     padding: 0 1px;
 }
 
-
-/******************************************************************************
-                        HOT STUFF (new events)
-******************************************************************************/
-
 /*
  * Classes family to emphase some item in the tool interface.
  * These two classes has to be used together to work correctly.
@@ -1014,20 +751,17 @@ th .claroCmdDisabled {
  *  </ul>
  */
 
+.item {
+    padding-left: 16px;
+}
+
 .hot {
     padding-left: 15px;
-    background-image: url(../../img/hot.png);
-    background-repeat: no-repeat;
-    background-position: center left;
+    background: url('../../img/hot.png') no-repeat center left;
 }
 
-.toolList .hot {
-    margin-left: -15px;
-}
-
-.item h1.hot, 
-.portlet h1.hot {
-    padding: 2px 5px 2px 15px;
+a.item:visited {
+    color: #369;
 }
 
 /*
@@ -1038,7 +772,7 @@ th .claroCmdDisabled {
     color: #693;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
-    background-color: #EEEEEE;
+    background-color: #EDF1E3;
     border-bottom: 1px #96BB7A solid;
     margin: 0;
     font-size: 100%;
@@ -1049,13 +783,13 @@ th .claroCmdDisabled {
     margin: 5px auto;
 }
 
-.blockHeader {
-    color: #444;
+.claroBlockHeader {
+    color: #693;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
     margin: 0;
-    background: #DDDDDD;
-    border-bottom: 1px solid #444;
+    background-color: #EDF1E3;
+    border-bottom: 1px #96BB7A solid;
 }
 
 .claroBlockSuperHeader {
@@ -1066,49 +800,32 @@ th .claroCmdDisabled {
     font-weight: bold;
 }
 
-.blockHeader img {
+.claroBlockHeader img {
     vertical-align: text-bottom;
 }
 
-h1.blockHeader, 
-h2.blockHeader, 
-h3.blockHeader {
-    font-size: 1em;
-    text-transform: none;
-}
-
 .claroBlockContent {
-    border-bottom: 1px solid #DDDDDD;
+    border-bottom: 1px solid #eee;
     padding: 5px;
 }
 
-dl.courseList {
-    display: inline-block;
-    margin: 0 0 10px 0;
+dl.userCourseList {
+    margin: 5px 0 10px 0;
     padding-left: 0;
 }
 
-.courseList dt {
+.userCourseList dt {
     margin: 0;
     padding: 0;
 }
 
-.courseList dd {
-    margin: 0 0 5px 0;
-    padding: 0 0 5px 20px;
-    border-bottom: 1px solid #DDDDDD;
-}
-
-.courseList dd:last-child {
-    border-bottom: 0;
-}
-
-.courseList h4 {
+.userCourseList dd {
     margin: 0;
+    padding: 0 0 5px 20px;
 }
 
-.courseList img.action {
-    float: right;
+.userCourseList dt a, .userCourseList dd small {
+    padding: 0;
 }
 
 
@@ -1192,9 +909,9 @@ dl.courseList {
 
 .claroTable .superHeader th,
 .claroTable th.superHeader {
-    color: #444;
-    background-color: #DDDDDD;
-    border-bottom: 2px #444 solid;
+    color: #693;
+    background-color: #EDF1E3;
+    border-bottom: 2px #87B665 solid;
     padding: 2px 5px 2px 5px;
     font-weight: bold;
 }
@@ -1204,14 +921,25 @@ dl.courseList {
 }
 
 .claroTable .headerY th,
-.claroTable .headerX th, 
-.claroTable thead th {
-    color: #444;
+.claroTable .headerX th {
+    color: #693;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
-    background-color: #DDDDDD;
-    border-bottom: 1px #444 solid;
+    background-color: #EDF1E3;
+    border-bottom: 1px #96BB7A solid;
     text-align: center;
+}
+
+.claroTable .headerX th a {
+    font-weight: bold !important ;
+    color: #693;
+    text-decoration : underline;
+}
+
+.claroTable .headerX th a:active,
+.claroTable .headerX th a:hover {
+    color: #693 !important;
+    text-decoration : underline;
 }
 
 /* extension of claroTable class for Image Viewer */
@@ -1313,7 +1041,7 @@ dl.courseList {
 }
 
 .im_context {
-    /*color: #DDDDDD;*/
+    /*color: #CCC;*/
 }
 
 .im_list_action, .im_list_selection {
@@ -1325,10 +1053,10 @@ dl.courseList {
 }
 
 .imInfoBlock {
-    background: #DDDDDD;
-    border-left: 1px solid #DDDDDD;
-    border-bottom: 1px solid #DDDDDD;
-    border-right: 1px solid #DDDDDD;
+    background: #eee;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
     padding: 5px 10px;
     margin: 0;
 }
@@ -1381,19 +1109,12 @@ dl.courseList {
 
 
 /******************************************************************************
-                        QTIP
-******************************************************************************/
-
-
-
-
-/******************************************************************************
                         MISCELLANEOUS
 ******************************************************************************/
 
 .spoiler a {
     padding-left: 17px;
-    background: url(../../img/spoiler.png) bottom left no-repeat;
+    background: url('../../img/spoiler.png') bottom left no-repeat;
 }
 
 .spoilerContent {
@@ -1409,7 +1130,7 @@ dl.courseList {
  */
 
 .claroMessageBox {
-    background-color : #EEEEEE;
+    background-color : #EDF1E3;
     border: 1px #693 solid;
     margin-left: 5px;
     font-size: 0.9em;
@@ -1425,44 +1146,45 @@ dl.courseList {
 
 /* specific styling for dialog box messages */
 .claroDialogBox {
-    margin: 0 0 15px 0; 
-    padding: 5px 85px 5px 10px; 
-    border: 1px solid #DDDDDD;
-    border-left: 5px solid #DDDDDD;
+    margin-top: 10px; 
+    margin-bottom: 15px; 
+    padding: 5px 85px 5px 20px; 
+    border: 1px solid #CCC;
+    border-left: 5px solid #CCC;
     background: #F9F7ED;
 }
 
 .boxInfo {
-    border-color: #DDDDDD;
-    background: #F9F7ED url(img/bg_boxinfo.png) bottom right no-repeat;
+    border-color: #ccc;
+    background: #F9F7ED url('img/bg_boxinfo.png') bottom right no-repeat;
 }
 
 .boxSuccess {
     border-color: #090;
-    background: #F9F7ED url(img/bg_boxsuccess.png) bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxsuccess.png') bottom right no-repeat;
 }
 
 .boxWarning {
     border-color: #FFBA00;
-    background: #F9F7ED url(img/bg_boxwarning.png) bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxwarning.png') bottom right no-repeat;
 }
 
 .boxError {
     border-color: #900;
-    background: #F9F7ED url(img/bg_boxerror.png) bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxerror.png') bottom right no-repeat;
 }
 
 .boxQuestion {
     border-color: #369;
-    background: #F9F7ED url(img/bg_boxquestion.png) bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxquestion.png') bottom right no-repeat;
 }
 
 .claroDialogMsg { padding: 2px 5px 1px 20px; }
-.claroDialogBox .msgInfo { background: url(../../img/information.png) top left no-repeat; } /* I _really_ don't think there is a need for an icon here */ /* Event with this one ? */
-.claroDialogBox .msgSuccess { background: url(../../img/success.png) top left no-repeat; }
-.claroDialogBox .msgWarning { background: url(../../img/warning.png) top left no-repeat; }
-.claroDialogBox .msgError { background: url(../../img/error.png) top left no-repeat; }
-.claroDialogBox .msgQuestion { background: url(../../img/question.png) top left no-repeat; }
+.claroDialogBox .msgInfo { } /* I _really_ don't think there is a need for an icon here */
+.claroDialogBox .msgSuccess { background: url('../../img/success.png') top left no-repeat; }
+.claroDialogBox .msgWarning { background: url('../../img/warning.png') top left no-repeat; }
+.claroDialogBox .msgError { background: url('../../img/error.png') top left no-repeat; }
+.claroDialogBox .msgQuestion { background: url('../../img/question.png') top left no-repeat; }
 .claroDialogBox .msgForm { padding: 3px 20px; }
 .claroDialogBox .msgTitle { font-weight: bold; }
 
@@ -1540,7 +1262,7 @@ a:visited.invisible {
 
 .claroRightMenu {
     background : #e7f2c1;
-    background-color : #EEEEEE;
+    background-color : #EDF1E3;
     border: 1px #693 solid;
     padding: 10px;
 }
@@ -1621,7 +1343,7 @@ a:visited.invisible {
 }
 
 #navlist li a:hover {
-    border-bottom: 4px solid #EEEEEE;
+    border-bottom: 4px solid #EDF1E3;
 }
 
 #navlist li a.current {
@@ -1629,7 +1351,7 @@ a:visited.invisible {
 }
 
 form tr.admin td {
-    background-color : #EEEEEE;
+    background-color : #EDF1E3;
     border: 1px solid #630;
     margin: 10px 10px 10px 10px;
 
@@ -1641,28 +1363,27 @@ form tr.admin td {
     text-align:center;
 }
 
-ul.userList {
+ul.user_list {
     list-style-type:none;
 }
 
-ul.userList li {
+ul.user_list li {
     float:left;
     position:relative;
     width:100px;
-    padding:5px;
+    padding:0;
     margin:5px;
-    text-indent: 0;
-    background:#DDDDDD;
+    background:#ccc;
 }
 
-ul.userList li img.edit_link {
+ul.user_list li img.edit_link {
     position:absolute;
     right:0; top:0;
     z-index:100;
     display:none;
 }
 
-ul.userList li:hover img.edit_link {
+ul.user_list li:hover img.edit_link {
     display:block;
 }
 
@@ -1704,36 +1425,7 @@ span.adminControl {
 
 img.userPicture {
     border: 5px solid #fff;
-    -moz-box-shadow: 0px 0px 15px #999;
-    -webkit-box-shadow: 0px 0px 15px #999;
-    box-shadow: 0px 0px 15px #999;
-}
-
-.userName {
-    color: #669933;
-}
-
-td.userCommands {padding-right: 20px;}
-td.userCourseList {padding-left: 20px;}
-
-.userCommands ul {
-    margin: 0 0 10px 0;
-    list-style-type: none;
-}
-
-.userCommands h1, 
-.userCourseList h1 {
-    font-size: 1.3em;
-}
-
-.userCommands h2, 
-.userCourseList h2 {
-    font-size: 1.2em;
-}
-
-.userCommands h3,
-.userCommands h4,
-.userCourseList h3,
-.userCourseList h4 {
-    font-size: 1em;
+    -moz-box-shadow: 0 0 15px #999;
+    -webkit-box-shadow: 0 0 15px #999;
+    box-shadow: 0 0 15px #999;
 }

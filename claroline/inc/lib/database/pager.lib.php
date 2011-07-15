@@ -3,11 +3,9 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
- *
  * Database Pager Classes
  *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -292,7 +290,7 @@ class Mysql_Pager implements Claro_Pager_Interface, Claro_Sortable
      * Set the number of items by page. If set to 0, all items
      * are going to be returned on one single page by getPage()
      * (same as calling the getAll() method)
-     *
+     * 
      * @param   int $pageSize
      */
     public function setPageSize( $pageSize )
@@ -303,7 +301,7 @@ class Mysql_Pager implements Claro_Pager_Interface, Claro_Sortable
     /**
      * Get all the results on one page. This method will use
      * the sort by fields.
-     *
+     * 
      * @return  Database_ResultSet
      * @throws  Claro_Database_Exception
      */
@@ -321,7 +319,7 @@ class Mysql_Pager implements Claro_Pager_Interface, Claro_Sortable
      * to countPages().
      * If pageSize set to 0, calling getPage() is the same as calling
      * getAll(). In this case only 0 is a valid page number.
-     *
+     * 
      * @param   int $pageNumber number of the page needed
      * @return  Database_ResultSet
      * @throws  Claro_Database_Exception if an error occurs while

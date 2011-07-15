@@ -3,12 +3,10 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * Embed script output into Claroline layout
  *
- * Embed script output into Claroline layout.
- *
- * @version     $Revision$
- * @deprecated  since Claroline 1.9
+ * @version     1.10 $Revision$
+ * @deprecated since Claroline 1.9
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html

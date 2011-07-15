@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 
-<form id="userSettings" method="post" action="<?php echo $this->formAction; ?>" enctype="multipart/form-data">
+<form action="<?php echo $this->formAction; ?>" method="post" enctype="multipart/form-data">
     <?php echo $this->relayContext ?>
     <input type="hidden" id="cmd" name="cmd" value="registration" />
     <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
@@ -37,7 +37,6 @@
                 <input type="text" id="lastname" name="lastname" value="<?php echo $this->data['lastname']; ?>" />
                 <?php else : ?>
                 <?php echo $this->data['lastname']; ?>
-                <input type="hidden" id="lastname" name="lastname" value="<?php echo $this->data['lastname']; ?>" />
                 <?php endif; ?>
             </dd>
             <dt>
@@ -51,7 +50,6 @@
                 <input type="text" id="firstname" name="firstname" value="<?php echo $this->data['firstname']; ?>" />
                 <?php else : ?>
                 <?php echo $this->data['firstname']; ?>
-                <input type="hidden" id="firstname" name="firstname" value="<?php echo $this->data['firstname']; ?>" />
                 <?php endif; ?>
             </dd>
             
@@ -71,7 +69,6 @@
             <?php else : ?>
             <dd>
                 <?php echo $this->data['officialCode']; ?>
-                <input type="hidden" id="officialCode" name="officialCode" value="<?php echo $this->data['officialCode']; ?>" />
             </dd>
             <?php endif; ?>
             <?php endif; ?>
@@ -173,15 +170,10 @@
                 <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
                 <?php else : ?>
                 <?php echo htmlspecialchars($this->data['username']); ?>
-                <input type="hidden" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
                 <?php endif; ?>
             </dd>
             <?php if (in_array('password', $this->editableFields)) : ?>
             <?php if (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id()) : ?>
-            <dt></dt>
-            <dd>
-                <p class="notice"><?php echo get_lang('Enter new password twice to change, leave empty to keep it'); ?></p>
-            </dd>
             <dt>
                 <label for="old_password">
                     <?php echo get_lang('Old password'); ?>
@@ -245,7 +237,6 @@
                 <input type="text" name="email" id="email" value="<?php echo htmlspecialchars($this->data['email']); ?>" />
                 <?php else : ?>
                 <?php echo htmlspecialchars($this->data['email']); ?>
-                <input type="hidden" name="email" id="email" value="<?php echo htmlspecialchars($this->data['email']); ?>" />
                 <?php endif; ?>
             </dd>
             <dt>
@@ -258,7 +249,6 @@
                 <input type="text" value="<?php echo $this->data['phone']; ?>" name="phone" id="phone" />
                 <?php else : ?>
                 <?php echo $this->data['phone']; ?>
-                <input type="hidden" value="<?php echo $this->data['phone']; ?>" name="phone" id="phone" />
                 <?php endif; ?>
             </dd>
             <dt>
@@ -271,7 +261,6 @@
                 <input type="text" value="<?php echo $this->data['skype']; ?>" name="skype" id="skype" />
                 <?php else : ?>
                 <?php echo $this->data['skype']; ?>
-                <input type="hidden" value="<?php echo $this->data['skype']; ?>" name="skype" id="skype" />
                 <?php endif; ?>
             </dd>
         </dl>

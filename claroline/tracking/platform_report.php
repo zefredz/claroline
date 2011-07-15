@@ -47,7 +47,8 @@ $tbl_tracking_event  = $tbl_mdb_names['tracking_event'];
 /*
  * Output
  */
-CssLoader::getInstance()->load( 'tracking', 'screen');
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'tracking', 'screen');
 
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );

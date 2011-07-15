@@ -115,6 +115,7 @@ require_once dirname(__FILE__) . '/upgrade.lib.php';
 
 $accepted_error_list = array(1060,1061);
 
+
 /*
  * Initialize version variables
  */

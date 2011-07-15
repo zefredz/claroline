@@ -273,16 +273,8 @@ class answerMultipleChoice
                 }
                 else
                 {
-                    if( $this->multipleAnswer )
-                    {
-                        // if multiple answer score must be negative
-                        $this->answerList[$i]['grade'] = 0 - abs(castToFloat($_REQUEST[$grade]));
-                    }
-                    else
-                    {
-                        // if single answer score can be positive
-                        $this->answerList[$i]['grade'] = abs(castToFloat($_REQUEST[$grade]));
-                    }
+                    // incorrect answer must have negative score
+                    $this->answerList[$i]['grade'] = 0 - abs(castToFloat($_REQUEST[$grade]));
                 }
             }
             else
@@ -510,14 +502,12 @@ class answerMultipleChoice
         }
 
         $html .= '<table class="claroTable" >' . "\n"
-        .   '<thead>'
-        .   '<tr>' . "\n"
-        .   '<th>' . get_lang('Expected choice') . '</th>' . "\n"
-        .   '<th>' . get_lang('Answer') . '</th>' . "\n"
-        .   '<th>' . get_lang('Comment') . '</th>' . "\n"
-        .   '<th>' . get_lang('Weighting') . '</th>' . "\n"
-        .   '</tr>' . "\n"
-        .   '</thead>'."\n";
+        .   '<tr class="headerX">' . "\n"
+        .    '<th>' . get_lang('Expected choice') . '</th>' . "\n"
+        .    '<th>' . get_lang('Answer') . '</th>' . "\n"
+        .    '<th>' . get_lang('Comment') . '</th>' . "\n"
+        .    '<th>' . get_lang('Weighting') . '</th>' . "\n"
+        .    '</tr>' . "\n\n";
 
         $i = 1;
         foreach( $this->answerList as $answer )

@@ -35,11 +35,9 @@
  */
 
 /**
- * CLAROLINE
+ * Claroline Resource Linker library
  *
- * Claroline Resource Linker library.
- *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -1255,8 +1253,8 @@ class ResourceLinker
         
         if ( count( $linkList ) )
         {
-            $htmlLinkList .= '<h2 class="lnk_link_list">'
-                . get_lang('Attached resources') . '</h2>'
+            $htmlLinkList .= '<h4 class="lnk_link_list">'
+                . get_lang('Attached resources') . '</h4>'
                 . "\n"
                 ;
                 

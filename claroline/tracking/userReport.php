@@ -1,12 +1,14 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @author      Sebastien Piraux <seb@claroline.net>
- * @package     CLTRACK
+ *
+ * @author Sebastien Piraux <seb@claroline.net>
+ *
+ * @package CLTRACK
  */
 
 /*
@@ -101,7 +103,8 @@ if( !is_array($userData) )
 /*
  * Output
  */
-CssLoader::getInstance()->load( 'tracking', 'screen');
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'tracking', 'screen');
 
 $nameTools = get_lang('Statistics');
 ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF'] . '?userId=' . $userId ) ) );
@@ -117,7 +120,6 @@ else
 
 $output = '';
 
-
 /*
  * Output of : user information
  */
@@ -130,8 +132,6 @@ $output .= '<div id="rightSidebar">' . $userProfileBox->render() . '</div>';
  * Output of : course list if required
  */
 $output .= '<div id="leftContent">' . "\n";
-$output .= claro_html_tool_title(get_lang('User statistics'));
-
 if( $canSwitchCourses && count($userCourseList) )
 {
     $displayedCourseList = array();
@@ -157,7 +157,7 @@ if( $canSwitchCourses && count($userCourseList) )
     .     '<label for="cidReq">'.get_lang('Choose a course').'&nbsp;:&nbsp;</label>' . "\n"
     .     claro_html_form_select('cidReq', $displayedCourseList, $courseId, $attr) . "\n"
     .     '<input type="submit" id="buttonOK" value="'.get_lang('Ok').'" />' . "\n"
-    .     '</p>' . "\n"
+    .     '</p>' . "\n"    
     .     '</form>' . "\n"
     ;
 
@@ -173,7 +173,7 @@ else
 }
 
 /*
- * Prepare rendering :
+ * Prepare rendering : 
  * Load and loop through available tracking renderers
  * Order of renderers blocks is arranged using "first found, first display" in the registry
  * Modify the registry to change the load order if required
@@ -182,7 +182,7 @@ else
 $trackingRendererRegistry = TrackingRendererRegistry::getInstance(claro_get_current_course_id());
 
 if( ! is_null($courseId) )
-{
+{ 
     // we need user tracking renderers in course context
     $userTrackingRendererList = $trackingRendererRegistry->getUserRendererList(TrackingRendererRegistry::COURSE);
 }
@@ -211,3 +211,5 @@ $("#buttonOK").hide();
 $claroline->display->body->setContent($output);
 
 echo $claroline->display->render();
+
+?>

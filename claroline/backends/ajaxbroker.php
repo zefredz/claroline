@@ -10,7 +10,7 @@
  *      Claroline::ajaxServiceBroker()->register( .... );
  *  2. Execute AJAX requests on get_path('url').'/claroline/backends/ajaxbroker.php'
  *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -45,7 +45,7 @@ try
         $response = Claroline::ajaxServiceBroker()->handle($ajaxRequest);
     }
 }
-catch ( Exception $e )
+catch (Exception $e )
 {
     $response = new Json_Exception( $e );
 }

@@ -25,10 +25,8 @@ uses('courselist.lib');
 
 class CLANN_Portlet extends UserDesktopPortlet
 {
-    public function __construct($label)
+    public function __construct()
     {
-        parent::__construct($label);
-        
         if (file_exists(claro_get_conf_repository() . 'CLANN.conf.php'))
         {
             include claro_get_conf_repository() . 'CLANN.conf.php';
@@ -73,21 +71,6 @@ class CLANN_Portlet extends UserDesktopPortlet
                     
                     foreach($announcementItem['eventList'] as $announcementEvent)
                     {
-                        // Prepare the render
-                        $displayChar = 250;
-                        
-                        if (strlen($announcementEvent['content']) > $displayChar)
-                        {
-                            $content = substr($announcementEvent['content'], 0, $displayChar)
-                                     . '... <a href="'
-                                     . htmlspecialchars(Url::Contextualize($announcementEvent['url'])) . '">'
-                                     . '<b>' . get_lang('Read more &raquo;') . '</b></a>';
-                        }
-                        else
-                        {
-                            $content = $announcementEvent['content'];
-                        }
-                        
                         $output .= '<dd>'
                                  . '<a href="' . $announcementEvent['url'] . '">'
                                  . $announcementItem['courseOfficialCode']
@@ -96,7 +79,7 @@ class CLANN_Portlet extends UserDesktopPortlet
                                     $announcementEvent['title'] :
                                     get_lang('No title')) . "\n"
                                  . ' - '
-                                 . $content . "\n"
+                                 . $announcementEvent['content'] . "\n"
                                  . '</dd>' . "\n";
                     }
                 }

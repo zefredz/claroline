@@ -173,7 +173,7 @@ class ClaroCourse
             $this->status             = $course_data['status'];
             $this->userLimit          = $course_data['userLimit'];
             
-            pushClaroMessage($course_data['publicationDate'],'debug');
+            pushClaroMessage($course_data['publicationDate']);
             
             $this->useExpirationDate = isset($this->expirationDate);
             
@@ -449,48 +449,6 @@ class ClaroCourse
             return $sessionCourses;
         else
             return array();
-    }
-    
-    
-    /**
-     * Get any related course to the current course (parent or child).
-     *
-     * @return array    courses
-     * @since 1.10
-     */
-    public function getRelatedCourses()
-    {
-        // Declare needed tables
-        $tbl_mdb_names              = claro_sql_get_main_tbl();
-        $tbl_course                 = $tbl_mdb_names['course'];
-        
-        $sql = "SELECT c.cours_id               AS id,
-                       c.titulaires             AS titular,
-                       c.code                   AS sysCode,
-                       c.isSourceCourse         AS isSourceCourse,
-                       c.sourceCourseId         AS sourceCourseId,
-                       c.intitule               AS title,
-                       c.administrativeNumber   AS officialCode,
-                       c.language,
-                       c.directory,
-                       c.visibility,
-                       c.access,
-                       c.registration,
-                       c.email,
-                       c.status,
-                       c.userLimit
-                FROM `" . $tbl_course . "` AS c
-                WHERE c.sourceCourseId = " . $this->id . "
-                OR c.cours_id = " . $this->id;
-        
-        if (!empty($this->sourceCourseId))
-        {
-            $sql .= "
-                OR cours_id = " . $this->sourceCourseId . "
-                OR c.sourceCourseId = " . $this->sourceCourseId;
-        }
-        
-        return claro_sql_query_fetch_all($sql);
     }
     
     
@@ -888,7 +846,8 @@ class ClaroCourse
      */
     public function displayForm ($cancelUrl=null)
     {
-        JavascriptLoader::getInstance()->load('course_form');
+        JavascriptLoader::getInstance()->load('claroline.ui');
+        JavascriptLoader::getInstance()->load('courseForm');
         
         $languageList   = claro_get_lang_flat_list();
         $categoriesList = claroCategory::getAllCategoriesFlat();

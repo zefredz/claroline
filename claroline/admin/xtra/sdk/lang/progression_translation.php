@@ -39,7 +39,7 @@ $starttime = get_time();
 
 $resultPerPage = 50;
 
-if (isset($_REQUEST['offset']))
+if (isset($_REQUEST['offset'])) 
 {
     $offset = $_REQUEST['offset'];
 }
@@ -61,7 +61,7 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('
 include get_path('incRepositorySys')."/claro_init_header.inc.php";
 
 // count different variables in script
-$sql = " SELECT count(DISTINCT varName)
+$sql = " SELECT count(DISTINCT varName) 
         FROM " . $tbl_used_lang . "";
 
 $results = claro_sql_query($sql);
@@ -78,7 +78,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     {
         $language = $_REQUEST['lang'];
     }
-    else
+    else 
     {
         $language = DEFAULT_LANGUAGE ;
     }
@@ -87,13 +87,13 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     printf("<h4>Missing variables in %s</h4>",$language);
     
     // count missing lang var in devel complete file for this language
-    $sql = " SELECT DISTINCT u.varName, u.sourceFile
-             FROM ". $tbl_used_lang . " u
-             LEFT JOIN " . $tbl_translation . " t ON
+    $sql = " SELECT DISTINCT u.varName, u.sourceFile 
+             FROM ". $tbl_used_lang . " u 
+             LEFT JOIN " . $tbl_translation . " t ON 
              (
-                u.varName = t.varName
+                u.varName = t.varName 
                 AND t.language=\"" . $language . "\"
-             )
+             ) 
              WHERE t.varContent is NULL
              ORDER BY u.varName, u.sourceFile ";
     
@@ -107,7 +107,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     // display table header
     echo "<table class=\"claroTable\" width=\"100%\" >\n";
     echo "<thead>"
-         . "<tr>"
+         . "<tr class=\"headerX\">"
          . "<th>VarName</th>"
          . "<th>SourceFile</th>"
          . "</tr>"
@@ -119,7 +119,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     $color = true;
     
     // browse missing variables
-    foreach ( $result_missing_var as $row_missing_var )
+    foreach ( $result_missing_var as $row_missing_var ) 
     {
         // get values
         $sourceFile = $row_missing_var['sourceFile'];
@@ -133,7 +133,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
         if ($color)
         {
             echo "<tr style=\"background-color: #ccc;\">\n";
-        }
+        } 
         else
         {
             echo "<tr>\n";
@@ -163,14 +163,14 @@ else
      */
 
     // get all languages
-    $sql = " SELECT DISTINCT language
+    $sql = " SELECT DISTINCT language 
              FROM " . $tbl_translation . "";
     $result_language = claro_sql_query($sql);
 
     // display table header
     echo "<table class=\"claroTable\">\n";
     echo "<thead>
-          <tr>
+          <tr class=\"headerX\">
            <th>Language</th>
            <th>Translated</th>
            <th>To translate</th>
@@ -179,19 +179,19 @@ else
           </thead>
           <tbody>\n";
     
-    while ($row_language = mysql_fetch_array($result_language))
+    while ($row_language = mysql_fetch_array($result_language)) 
     {
         // get language
         $language = $row_language['language'];
     
         // count missing lang var in devel complete file for this language
-        $sql = " SELECT count(DISTINCT u.varName)
-                 FROM ". $tbl_used_lang . " u
-                 LEFT JOIN " . $tbl_translation . " t ON
+        $sql = " SELECT count(DISTINCT u.varName) 
+                 FROM ". $tbl_used_lang . " u 
+                 LEFT JOIN " . $tbl_translation . " t ON 
                  (
-                    u.varName = t.varName
+                    u.varName = t.varName 
                     AND t.language=\"" . $language . "\"
-                 )
+                 ) 
                  WHERE t.varContent is NOT NULL ";
         
         // execute query and get result
@@ -215,13 +215,13 @@ else
         if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'export' )
         {
             echo $count_var_to_translate;
-        }
+        } 
         else
         {
             echo "<a href=\"" . $_SERVER['PHP_SELF'] . "?exCmd=ToTranslate&lang=" . $language . "\">" . $count_var_to_translate . "</a>";
         }
         
-        echo "</td>\n"
+        echo "</td>\n" 
              . "<td style=\"text-align: right\">" . $pourcent_progession . " %</td>\n"
              . "</tr>\n";
     }
@@ -236,7 +236,7 @@ $totaltime = ($endtime - $starttime);
 
 echo "<p><em>Execution time: $totaltime</em></p>";
 
-// display footer
+// display footer 
 
 include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 

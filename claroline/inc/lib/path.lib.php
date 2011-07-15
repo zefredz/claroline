@@ -33,7 +33,7 @@ $clarolineRepositorySys = Http://www.domain.tld/whereisMyCampus/claroline
  * Return a common path of claroline
  *
  * @param string $pathKey key name of the path ( varname in previous version of claroline)
- * @author Christophe GeschÃ© <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @return path
  */
 function get_path($pathKey)

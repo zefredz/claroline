@@ -1,14 +1,14 @@
 <?php // $Id$
 
 /**
- * Claroline extension modules settings script.
+ * Claroline extension modules settings script
  *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
- *  version 2 or later
+ *              version 2 or later
  * @package     ADMIN
- * @author      Claro team <cvs@claroline.net>
+ * @author      Claro Team <cvs@claroline.net>
  * @since       1.8
  */
 

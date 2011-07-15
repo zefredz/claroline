@@ -3,13 +3,11 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
- *
  * Singleton class to represent the Claroline platform. This is a utility
  * class providing classes and methods to deal with the kernel and the page
- * display.
+ * display
  *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -170,6 +168,9 @@ class Claroline
             default:
                 throw new Exception( 'Invalid display type' );
         }
+        
+        JavascriptLoader::getInstance()->load('jquery');
+        JavascriptLoader::getInstance()->load('claroline');
     }
     
     // Singleton instance

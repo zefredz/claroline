@@ -5,7 +5,7 @@
 /**
  * Ajax utility functions and classes
  *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -143,14 +143,13 @@ class Ajax_Request
 
     /**
      * Get the parameters for the invoked method
-     * @param  bool $getInputValidator return a Claro_Input_validator instead of an array
-     * @return array method parameters or Claro_Input_validator
+     * @return array method parameters
      */
     public function getParameters( $getInputValidator = false )
     {
         if ( $getInputValidator )
         {
-            return new Claro_Input_Validator( 
+            return new Claro_Input_Validator(
                 new Claro_Input_Array( $this->params ) );
         }
         else
@@ -391,6 +390,7 @@ class Ajax_Remote_Service_Broker
                             'method' => $request->getMethod(),
                             'parameters' => $request->getParameters(),
                             'response' => $response
+                        
                         ));
                     }
                     else

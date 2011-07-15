@@ -23,8 +23,10 @@ class CLCAL_Portlet extends CourseHomePagePortlet
     public function renderContent()
     {
         $output = '<div id="portletMycalendar">' . "\n"
-            . '<img src="'.get_icon_url('loading').'" alt="'.get_lang('Loading').'" />' . "\n"
-            . '</div>' . "\n";
+            . '<img src="'.get_icon_url('loading').'" alt="" />' . "\n"
+            . '</div>' . "\n"
+            . '<div style="clear:both;"></div>' . "\n"
+            ;
         
         $output .= "<script type=\"text/javascript\">
 $(document).ready( function(){

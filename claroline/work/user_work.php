@@ -967,7 +967,8 @@ if( !$dispWrkForm && !$dispWrkDet )
 /*--------------------------------------------------------------------
                     HEADER
     --------------------------------------------------------------------*/
-CssLoader::getInstance()->load( 'clwrk', 'screen');
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'clwrk', 'screen');
 
 $htmlHeadXtra[] =
 '<script type="text/javascript">
@@ -1475,7 +1476,7 @@ if( $dispWrkLst )
             // title (and edit links)
             $out .= '<div class="'. $visStyle . $style .'">' . "\n"
             
-            .    '<h4 class="'. ( !$is_feedback ? 'claroBlockSuperHeader':'blockHeader') . '">' . "\n"
+            .    '<h4 class="'. ( !$is_feedback ? 'claroBlockSuperHeader':'claroBlockHeader') . '">' . "\n"
             .    $san->sanitize( $thisWrk['title'] ) . "\n"
             .    '</h4>' . "\n"
             ;

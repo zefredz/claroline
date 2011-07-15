@@ -1,4 +1,4 @@
-# Claroline Database version 1.11
+# Claroline Database version 1.10
 
 # MAIN TABLES
 

@@ -187,8 +187,6 @@ if (isset($introCmd) && $isAllowedToEdit)
     }
 }
 
-
-
 // Display
 $toolIntroIterator = new ToolIntroductionIterator(claro_get_current_course_id());
 
