@@ -39,8 +39,8 @@ class CLTI_Portlet extends CourseHomePagePortlet
                 // Display attached resources (if any)
                 $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(array('id' => $introItem->getId()));
                 $currentLocator->setModuleLabel('CLINTRO');
-                $currentLocator->setResourceId($introItem->getId()
-                );
+                $currentLocator->setResourceId($introItem->getId());
+                
                 $resources = ResourceLinker::renderLinkList($currentLocator);
                 
                 // Prepare the render
