@@ -47,7 +47,7 @@ class CLTI_Portlet extends CourseHomePagePortlet
                 $output .= '<dt>' . "\n"
                          . '</dt>' . "\n"
                          . '<dd'.(!$toolIntroIterator->hasNext()?' class="last"':'').'>' . "\n"
-                         . $introItem->getContent() . "\n"
+                         . claro_parse_user_text($introItem->getContent()) . "\n"
                          . $resources
                          . '</dd>' . "\n";
             }
