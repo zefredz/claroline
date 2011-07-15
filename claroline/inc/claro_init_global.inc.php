@@ -448,6 +448,7 @@ JavascriptLoader::getInstance()->load('jquery');
 JavascriptLoader::getInstance()->load('jquery.qtip');
 JavascriptLoader::getInstance()->load('jquery.cookie');
 JavascriptLoader::getInstance()->load('claroline');
+JavascriptLoader::getInstance()->load('claroline.ui');
 // add other default platform javascript here
 
 // Load course home page javascript
