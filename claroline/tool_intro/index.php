@@ -31,7 +31,6 @@ require_once get_module_path('CLTI').'/lib/toolintroductioniterator.class.php';
 $introId            = (!empty($_REQUEST['introId'])?((int) $_REQUEST['introId']):(null));
 $introCmd           = (!empty($_REQUEST['introCmd'])?($_REQUEST['introCmd']):(null));
 $isAllowedToEdit    = claro_is_allowed_to_edit();
-$output             = '';
 
 set_current_module_label('CLINTRO');
 
@@ -59,7 +58,7 @@ if (isset($introCmd) && $isAllowedToEdit)
     if ($introCmd == 'rqAdd')
     {
         $toolIntro = new ToolIntro();
-        $output .= $toolIntro->renderForm();
+        $toolIntroForm = $toolIntro->renderForm();
     }
     
     if ($introCmd == 'rqEd')
@@ -67,7 +66,7 @@ if (isset($introCmd) && $isAllowedToEdit)
         $toolIntro = new ToolIntro($introId);
         if($toolIntro->load())
         {
-            $output .= $toolIntro->renderForm();
+            $toolIntroForm = $toolIntro->renderForm();
         }
     }
     
