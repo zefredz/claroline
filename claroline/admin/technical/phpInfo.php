@@ -1,5 +1,4 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
@@ -7,11 +6,14 @@
  * - configuration of Claroline, PHP, Mysql, Webserver
  * - credits
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author :    Christophe Gesche <moosh@claroline.net>
- * @package     MAINTENANCE
+ * @version 1.8 $Revision$
+ * @copyright (c) 2001-2006 Université catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author : Christophe Gesché <moosh@claroline.net>
+ *
+ * @package MAINTENANCE
  */
 
 require '../../inc/claro_init_global.inc.php';
@@ -40,10 +42,10 @@ if( ! isset($clarolineVersion) )  $clarolineVersion= 'X';
 
 $nameTools = get_lang('System Info');
 
+//ClaroBreadCrumbs::getInstance()->prepend( get_lang('Technical Tools'), get_path('rootAdminWeb').'technical' );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $is_allowedToAdmin = claro_is_platform_admin();
-
 if ($is_allowedToAdmin)
 {
     $htmlHeadXtra[] = phpinfo_getStyle();
@@ -83,6 +85,7 @@ if ($is_allowedToAdmin)
         </a>
     </li>
 </ul>
+
 
 <div class="phpInfoContents">
 <?php
@@ -139,7 +142,7 @@ if ($is_allowedToAdmin)
         ?>
         <table class="claroTable">
             <thead>
-                <tr>
+                <tr class="headerX">
                     <th scope="col">Software</th>
                     <th scope="col">Version</th>
                 </tr>

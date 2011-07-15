@@ -1,14 +1,17 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     1.8 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sébastien <pir@cerdecam.be>
- * @author      Lederer Guillaume <led@cerdecam.be>
- * @package     CLLNP
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
  *
  * This is the page where the list of modules of the course present
  * on the platform can be browsed
@@ -182,14 +185,14 @@ switch( $cmd )
             else
             {
                 $dialogBox = new DialogBox();
-                $dialogBox->error( get_lang('Error : Name already exists in the learning path or in the module pool') );
+                $dialogBox->error( get_lang('Error : Name already exists in the learning path or in the module pool') );                
                 $out .= $dialogBox->render();
             }
         }
         else
         {
             $dialogBox = new DialogBox();
-            $dialogBox->error(get_lang('Name cannot be empty'));
+            $dialogBox->error(get_lang('Name cannot be empty'));            
             $out .= $dialogBox->render();
         }
         break;
@@ -324,3 +327,5 @@ $out .= '</tbody>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

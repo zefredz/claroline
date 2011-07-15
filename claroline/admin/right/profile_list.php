@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -160,9 +160,10 @@ switch ( $display )
         $out .= $profilePager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
         // Display table header
+
         $out .= '<table class="claroTable emphaseLine" width="100%" >' . "\n"
             . '<thead>' . "\n"
-            . '<tr>' . "\n"
+            . '<tr class="headerX">' . "\n"
             . '<th>' . get_lang('Name') . '</th>' . "\n"
             . '<th>' . get_lang('Description') . '</th>' . "\n"
             . '<th>' . get_lang('Edit') .'</th>' . "\n"

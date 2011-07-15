@@ -11,14 +11,14 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLAUTH
  *
  * @author Claro Team <cvs@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -128,8 +128,8 @@ if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
             }
             
             $emailBody .= "\r\n\r\n"
-                        . get_lang( 'This new password has been automatically generated. Once logged in, feel free to change it.' );
-
+                            . get_lang( 'This new password has been automatically generated. Once logged in, feel free to change it.' );
+            
             // send message
             if( claro_mail_user($userList[0]['uid'], $emailBody, $emailSubject) )
             {

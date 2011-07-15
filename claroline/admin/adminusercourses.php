@@ -1,22 +1,24 @@
 <?php // $Id$
-
 /**
- * CLAROLINE
+ * Claroline
  *
- * Management tools for users subscriptions.
+ * This tools admin courses subscription of one user
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLADMIN
- * @author      Claro Team <cvs@claroline.net>
- * @author      Guillaume Lederer <guim@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLADMIN
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Guillaume Lederer <guim@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
 
-$cidReset = true;
-$gidReset = true;
-$tidReset = true;
+$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 include_once get_path('incRepositorySys') . '/lib/user.lib.php';
@@ -129,7 +131,7 @@ foreach ($userCourseList as $courseKey => $course)
         $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('Student') . '" />';
     }
 
-    $userCourseGrid[$courseKey]['edit_course_user'] = '<a href="admin_user_course_settings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
+    $userCourseGrid[$courseKey]['edit_course_user'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
     .                                                 '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Course manager') . '" title="' . get_lang('User\'s course settings') . '" />'
     .                                                 '</a>'
     ;
@@ -195,12 +197,12 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$cmdList[] =  '<a class="claroCmd" href="admin_profile.php?uidToEdit=' . $uidToEdit . '">' . get_lang('User settings') . '</a>';
+$cmdList[] =  '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '">' . get_lang('User settings') . '</a>';
 $cmdList[] =  '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . get_lang('Enrol to a new course') . '</a>';
 
 if ( 'ulist' == $cfrom )  //if we come from user list, we must display go back to list
 {
-    $cmdList[] = '<a class="claroCmd" href="admin_users.php">' . get_lang('Back to user list') . '</a>';
+    $cmdList[] = '<a class="claroCmd" href="adminusers.php">' . get_lang('Back to user list') . '</a>';
 }
 
 //----------------------------------
@@ -265,3 +267,5 @@ function prepare_sql_get_courses_of_a_user($userId=null)
 
     return $sql;
 }
+
+?>

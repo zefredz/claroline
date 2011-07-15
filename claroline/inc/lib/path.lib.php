@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * built url and system paths
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      see 'credits' file
  * @since       claroline 1.8.3
@@ -33,7 +33,7 @@ $clarolineRepositorySys = Http://www.domain.tld/whereisMyCampus/claroline
  * Return a common path of claroline
  *
  * @param string $pathKey key name of the path ( varname in previous version of claroline)
- * @author Christophe GeschÃ© <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @return path
  */
 function get_path($pathKey)

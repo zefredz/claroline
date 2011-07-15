@@ -1,16 +1,21 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * This tool list classes and prupose to subscribe it to the current course.
+ * This tool list classes and prupose to subscribe it  to the current course.
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/CLUSR
- * @author      Claro Team <cvs@claroline.net>
- * @package     CLUSR
+ * @version 1.8 $Revision$
+ *
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLUSR
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @package CLUSR
+ *
  */
 
 $tlabelReq = 'CLUSR';
@@ -126,23 +131,23 @@ $htmlHeadXtra[] =
     }
 </script>';
 
-// Command list
-$cmdList[] = array(
-    'img' => 'back',
-    'name' => get_lang('Back to list'),
-    'url' => htmlspecialchars(Url::Contextualize('user.php')),
-    'params' => array('onclick' => 'return confirmationEmpty();')
-);
-
 
 $out = '';
-$out .= claro_html_tool_title(get_lang('Enrol class'), null, $cmdList);
+
+// Display tool title
+
+$out .= claro_html_tool_title(get_lang('Enrol class'))
 
 // Display Forms or dialog box (if needed)
-$out .= claro_html_msg_list($dialogBoxMsg);
 
-// Display cols headers
-$out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
+.    claro_html_msg_list($dialogBoxMsg)
+
+// display tool links
+.    '<p>'
+.    claro_html_cmd_link('user.php'  . claro_url_relay_context('?') , get_lang('Back to list'))
+.    '</p>'
+// display cols headers
+.    '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX">' . "\n"
 .    '<th>' . get_lang('Classes') . '</th>' . "\n"
@@ -151,7 +156,7 @@ $out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "
 .    '</tr>' . "\n"
 .    '</thead>' . "\n"
 .    '<tbody>' . "\n"
-// Display Class list (or tree)
+// display Class list (or tree)
 .    ( empty($classList)
         ? '<tr><td colspan="3">'.get_lang('Nothing to display').'</td></tr>'
         : display_tree_class_in_user($classList, claro_get_current_course_id()) )
@@ -162,3 +167,5 @@ $out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

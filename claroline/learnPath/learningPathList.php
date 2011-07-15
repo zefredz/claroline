@@ -1,14 +1,17 @@
 <?php  // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     1.8 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sebastien <pir@cerdecam.be>
- * @author      Lederer Guillaume <led@cerdecam.be>
- * @package     CLLNP
+ * @version 1.8
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux S�bastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
  *
  * DESCRIPTION:
  * ************
@@ -33,6 +36,7 @@
 
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
+$cmdMenu = array();
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
@@ -96,11 +100,11 @@ if ( $cmd == 'export' )
     $scorm = new ScormExport($_REQUEST['path_id']);
     if ( !$scorm->export() )
     {
-        $dialogBox->title( get_lang('Error exporting SCORM package') );
+        $dialogBox->title( get_lang('Error exporting SCORM package') );        
         foreach( $scorm->getError() as $error)
         {
             $dialogBox->error( $error );
-        }
+        }        
     }
 } // endif $cmd == export
 
@@ -422,38 +426,25 @@ if (isset($sortDirection) && $sortDirection)
     }
 }
 // DISPLAY
-// Command list
-$cmdList = array();
+$cmdMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] .'?cmd=create'. claro_url_relay_context('&amp;'),get_lang('Create a new learning path'));
+$cmdMenu[] = claro_html_cmd_link('importLearningPath.php' . claro_url_relay_context('?'),get_lang('Import a learning path'));
+$cmdMenu[] = claro_html_cmd_link('modules_pool.php' . claro_url_relay_context('?'),      get_lang('Pool of modules'));
+$cmdMenu[] = claro_html_cmd_link( get_path('clarolineRepositoryWeb') . 'tracking/learnPath_detailsAllPath.php'. claro_url_relay_context('?'),get_lang('Learning paths tracking'));
+
+$out = '';
+
+$out .= claro_html_tool_title($nameTools);
+
+$out .= $dialogBox->render();
 
 if($is_allowedToEdit)
 {
-    $cmdList[] = array(
-        'img' => 'default_new',
-        'name' => get_lang('Create a new learning path'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] .'?cmd=create'))
-    );
-    
-    $cmdList[] = array(
-        'img' => 'import',
-        'name' => get_lang('Import a learning path'),
-        'url' => htmlspecialchars(Url::Contextualize('importLearningPath.php'))
-    );
-    
-    $cmdList[] = array(
-        'name' => get_lang('Pool of modules'),
-        'url' => htmlspecialchars(Url::Contextualize('modules_pool.php'))
-    );
-    
-    $cmdList[] = array(
-        'name' => get_lang('Learning paths tracking'),
-        'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'tracking/learnPath_detailsAllPath.php'))
-    );
+    // Display links to create and import a learning path
+    $out .= '<p>'
+    .    claro_html_menu_horizontal($cmdMenu)
+    .    '</p>'
+    ;
 }
-
-$out = '';
-$out .= claro_html_tool_title($nameTools, null, $cmdList, 2);
-$out .= $dialogBox->render();
-
 
 // Display list of available training paths
 
@@ -549,6 +540,8 @@ $LPNumber = mysql_num_rows($result);
 $iterator = 1;
 
 $is_blocked = false;
+$display_comment = false;
+
 while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 {
     //modify style if the file is recently added since last login
@@ -742,10 +735,11 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
     }
     else   //else of !$is_blocked condition , we have already been blocked before, so we continue beeing blocked : we don't display any links to next paths any longer
     {
-        $out .= '<td align="left">'
-        .    '<img src="' . get_icon_url('learnpath') . '" alt="" />'
+        $display_comment = true;
+        
+        $out .= '<td align="left"><span class="item'.$classItem.'">'
+        .    '<img src="' . get_icon_url('learnpath') . '" alt="" />  '
         .    $list['name']
-        .    $list['minRaw']
         .    '</td>' . "\n"
         ;
     }
@@ -914,6 +908,15 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         ;
     }
     $out .= '</tr>' . "\n";
+    
+    if ( $display_comment )
+    {
+        $out .= '<tr>' . "\n"
+        .   '<td colspan="2"><span class="comment">'
+        .   get_lang( 'You must complete the previous item in order to access to this one' )
+        .   '</span></td></tr>' . "\n";
+    }
+    
     $iterator++;
 
 } // end while
@@ -963,3 +966,5 @@ $out .= '</tfoot>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

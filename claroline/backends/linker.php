@@ -6,7 +6,7 @@
  * Claroline Resource Linker ajax backend
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -31,7 +31,7 @@ try
     $cmd = $userInput->get('cmd', 'getResourceList');
     
     $locator = isset( $_REQUEST['crl'] ) && ! empty( $_REQUEST['crl'] )
-            ? ClarolineResourceLocator::parse(rawurldecode($_REQUEST['crl']))
+            ? ClarolineResourceLocator::parse( rawurldecode( $_REQUEST['crl'] ) )
             : ResourceLinker::$Navigator->getCurrentLocator( array() );
             ;
     
@@ -92,6 +92,8 @@ try
 }
 catch (Exception $e )
 {
+    /*var_dump( $_REQUEST['crl'] );
+    die();*/
     $response = new Json_Exception( $e );
 }
 

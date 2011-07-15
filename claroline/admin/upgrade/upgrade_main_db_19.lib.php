@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.9 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -17,7 +17,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Mathieu Laurent   <mla@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  *
  */
 
@@ -40,7 +40,7 @@ function upgrade_main_database_module_to_19 ()
                 module_id INTEGER UNSIGNED NOT NULL,
                 context VARCHAR(60) NOT NULL DEFAULT 'course',
                 PRIMARY KEY(`module_id`,`context`)
-               ) ENGINE=MyISAM";
+               ) TYPE=MyISAM";
                         
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -365,7 +365,7 @@ function upgrade_main_database_desktop_to_19 ()
                         `visibility` ENUM ('visible','invisible') DEFAULT 'visible' NOT NULL,
                         `activated` int(11) NOT NULL DEFAULT 1,
                         PRIMARY KEY  (`label`)
-                       ) ENGINE=MyISAM";
+                       ) TYPE=MyISAM";
                        
             $sqlForUpdate[] = "
                 CREATE 
@@ -375,7 +375,7 @@ function upgrade_main_database_desktop_to_19 ()
                         `idUser` int(11) NOT NULL,
                         `data` text NOT NULL,
                         PRIMARY KEY  (`id`)
-                       ) ENGINE=MyISAM;";
+                       ) TYPE=MyISAM;";
                        
             $sqlForUpdate[] = "           
                 INSERT INTO `" . $tbl_mdb_names['desktop_portlet'] . "` 
@@ -489,7 +489,7 @@ function upgrade_main_database_tracking_to_19 ()
                          PRIMARY KEY  (`id`),
                          KEY `course_id` (`course_code`),
                          KEY `user_tracking` (`user_id`)
-                       ) ENGINE=MyISAM";
+                       ) TYPE=MyISAM";
                        
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -513,7 +513,7 @@ function upgrade_main_database_tracking_to_19 ()
                         PRIMARY KEY  (`id`),
                         KEY `course_id` (`course_code`),
                         KEY `user_log` (`user_id`)
-                       ) ENGINE=MyISAM";
+                       ) TYPE=MyISAM";
                        
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;

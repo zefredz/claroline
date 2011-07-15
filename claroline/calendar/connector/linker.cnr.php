@@ -6,7 +6,7 @@
  * Resource Resolver for the Calendar tool
  *
  * @version 1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author claroline Team <cvs@claroline.net>
  * @package CLCAL
@@ -21,7 +21,7 @@ class CLCAL_Resolver implements ModuleResourceResolver
     {
         if ( $locator->hasResourceId() )
         {
-            return get_module_entry_url('CLCAL') . "#item{$locator->getResourceId()}";
+            return get_module_entry_url('CLCAL') . "#event{$locator->getResourceId()}";
         }
         else
         {

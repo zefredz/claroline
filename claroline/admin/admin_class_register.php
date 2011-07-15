@@ -1,17 +1,18 @@
 <?php //$Id$
-
 /**
  * CLAROLINE
  *
- * Management tools for users registration to classes.
+ * this tool manage the
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claro Team <cvs@claroline.net>
- * @author      Guillaume Lederer <lederer@cerdecam.be>
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author  Guillaume Lederer <lederer@cerdecam.be>
  */
-
 // initialisation of global variables and used libraries
 
 require '../inc/claro_init_global.inc.php';
@@ -184,7 +185,7 @@ else
     $out .= '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$class_id.'">'.
          get_lang('Class members').'</a></p>'."\n";
 
-    if (isset($_REQUEST['cfrom']) && ($_REQUEST['cfrom']=='clist')) $out .= claro_html_button('admin_courses.php', get_lang('Back to course list'));
+    if (isset($_REQUEST['cfrom']) && ($_REQUEST['cfrom']=='clist')) $out .= claro_html_button('admincourses.php', get_lang('Back to course list'));
 
     // Display search form
     $out .= '<div style="text-align: right">'."\n"
@@ -198,16 +199,16 @@ else
 
     // Display pager
 
-    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ). ( isset( $_REQUEST['search'] ) ? '&search=' . $_REQUEST['search'] : '' ) );
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ) . ( isset( $_REQUEST['search'] ) ? '&search=' . $_REQUEST['search'] : '' ) );
 
     // Display list of users
     // start table...
 
-	if ($search == '')
+    if ($search == '')
 	{
 	    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 	    .    '<thead>' . "\n"
-	    .    '<tr align="center" valign="top">'
+	    .    '<tr class="headerX" align="center" valign="top">'
 	    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=user_id&amp;chdir=yes">' . get_lang('User id') . '</a></th>' . "\n"
 	    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=nom&amp;chdir=yes"    >' . get_lang('Last name') . '</a></th>' . "\n"
 	    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=prenom&amp;chdir=yes" >' . get_lang('First name') . '</a></th>' . "\n"
@@ -222,7 +223,7 @@ else
 	{
 		 $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 	    .    '<thead>' . "\n"
-	    .    '<tr align="center" valign="top">'
+	    .    '<tr class="headerX" align="center" valign="top">'
 	    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;search='.$search.'&amp;order_crit=user_id&amp;chdir=yes">' . get_lang('User id') . '</a></th>' . "\n"
 	    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;search='.$search.'&amp;order_crit=nom&amp;chdir=yes"    >' . get_lang('Last name') . '</a></th>' . "\n"
 	    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;search='.$search.'&amp;order_crit=prenom&amp;chdir=yes" >' . get_lang('First name') . '</a></th>' . "\n"
@@ -293,10 +294,12 @@ else
 
     //Pager
 
-    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ). ( isset( $_REQUEST['search'] ) ? '&search=' . $_REQUEST['search'] : '' ) );
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ) . ( isset( $_REQUEST['search'] ) ? '&search=' . $_REQUEST['search'] : '' ) );
 
 }
 
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

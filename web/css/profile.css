@@ -1,6 +1,11 @@
-/**
- $Id$
- **/
+#userProfileBox {
+}
+
+#userProfileBox #userProfileTitle
+{
+    /*color: #669933;
+    font-weight: bold;*/
+}
 
 #userProfileBox #userProfile
 {
@@ -20,6 +25,6 @@
 }
 
 #userProfileBox #userDetails span {
-    font-size: 0.9em;
+    font-size: small;
     font-weight: bold;
 }

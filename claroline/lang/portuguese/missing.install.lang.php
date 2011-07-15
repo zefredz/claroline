@@ -90,7 +90,7 @@ $_lang['Password'] = 'Password';
 $_lang['Password storage'] = 'Password storage';
 $_lang['Path to courses repository (relative to the URL above)'] = 'Path to courses repository (relative to the URL above)';
 $_lang['Permission problems.'] = 'Permission problems.';
-$_lang['Platform settings'] = 'Platform settings';
+$_lang['Platform Settings'] = 'Platform Settings';
 $_lang['Please check the values you entered.'] = 'Please check the values you entered.';
 $_lang['Please enter missing information'] = 'Please enter missing information';
 $_lang['Please read the license and click &quot;Next&quot; to accept it.'] = 'Please read the license and click &quot;Next&quot; to accept it.';
@@ -145,3 +145,5 @@ $_lang['a database is created at each course creation'] = 'a database is created
 $_lang['e.g.'] = 'e.g.';
 $_lang['empty'] = 'empty';
 $_lang['or'] = 'or';
+
+?>

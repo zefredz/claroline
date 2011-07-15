@@ -1,14 +1,19 @@
 <?php // $Id$
 
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *              version 2 or later
- * @author      see 'credits' file
- * @package     KERNEL
+ * @version    1.9 $Revision$
+ * @copyright  (c) 2001-2010 Universite catholique de Louvain (UCL)
+ * @license    http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author     see 'credits' file
+ * @package    KERNEL
+ *
  */
 
 /**
@@ -115,7 +120,7 @@ function PMA_splitSqlFile( $sql )
         } // end if (in string)
         
         // lets skip comments (/*, -- and #)
-        else if (($char == '-' && $sql_len > $i + 2 && $sql[$i + 1] == '-' && $sql[$i + 2] <= ' ')
+        else if (($char == '-' && $sql_len > $i + 2 && $sql[$i + 1] == '-' && $sql[$i + 2] <= ' ') 
             || $char == '#' || ($char == '/' && $sql_len > $i + 1 && $sql[$i + 1] == '*'))
         {
             $i = strpos($sql, $char == '/' ? '*/' : "\n", $i);

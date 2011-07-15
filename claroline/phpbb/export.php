@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -219,5 +219,3 @@ $out .= $dialogBox->render();
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

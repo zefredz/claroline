@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -967,7 +967,8 @@ if( !$dispWrkForm && !$dispWrkDet )
 /*--------------------------------------------------------------------
                     HEADER
     --------------------------------------------------------------------*/
-CssLoader::getInstance()->load( 'clwrk', 'screen');
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'clwrk', 'screen');
 
 $htmlHeadXtra[] =
 '<script type="text/javascript">
@@ -1449,8 +1450,10 @@ if( $dispWrkLst )
                     )
                 ;
 
-            if( $thisWrk['visibility'] == "INVISIBLE" && $is_allowedToEditAll )    $visStyle = ' invisible ';
-            else                                                                $visStyle = '';
+            if( $thisWrk['visibility'] == "INVISIBLE" && $is_allowedToEditAll )
+                $visStyle = ' invisible ';
+            else
+                $visStyle = '';
 
             if( $is_feedback )  $style = ' feedback ';
             else                $style = ' work';
@@ -1472,10 +1475,13 @@ if( $dispWrkLst )
                 $txtForText = get_lang('File description');
             }
             
+            $san = new Claro_Html_Sanitizer();
+            $san->allowStyle();
+            
             // title (and edit links)
             $out .= '<div class="'. $visStyle . $style .'">' . "\n"
             
-            .    '<h4 class="'. ( !$is_feedback ? 'claroBlockSuperHeader':'blockHeader') . '">' . "\n"
+            .    '<h4 class="'. ( !$is_feedback ? 'claroBlockSuperHeader':'claroBlockHeader') . '">' . "\n"
             .    $san->sanitize( $thisWrk['title'] ) . "\n"
             .    '</h4>' . "\n"
             ;

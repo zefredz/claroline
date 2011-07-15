@@ -5,8 +5,8 @@
 /**
  * Authentication Manager
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2009 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -46,8 +46,8 @@ class AuthManager
         {
             // avoid issues with session collision when many users connect from
             // the same computer at the same time with the same browser session !
-            if ( AuthUserTable::userExists( $username ) )
-            {
+            if ( AuthUserTable::userExists( $username ) ) 
+            {   
                 self::setFailureMessage( get_lang( "There is already an account with this username." ) );
                 return false;
             }
@@ -62,7 +62,10 @@ class AuthManager
             
             if ( $driver->authenticate() )
             {
-                if ( $uid = AuthUserTable::registered( $username, $driver->getAuthSource() ) )
+
+                $uid = AuthUserTable::registered( $username, $driver->getAuthSource() );
+                
+                if ( $uid )
                 {
                     if ( $driver->userUpdateAllowed() )
                     {
@@ -86,8 +89,8 @@ class AuthManager
                 elseif ( $driver->userRegistrationAllowed() )
                 {
                     // duplicate code here to avoid issue with multiple requests on a busy server !
-                    if ( AuthUserTable::userExists( $username ) )
-                    {
+                    if ( AuthUserTable::userExists( $username ) ) 
+                    {   
                         self::setFailureMessage( get_lang( "There is already an account with this username." ) );
                         return false;
                     }
@@ -151,7 +154,9 @@ class AuthUserTable
         
         if ( $res->numRows() )
         {
-            return $res->fetch(Database_ResultSet::FETCH_VALUE);
+            $uidArr = $res->fetch();
+            
+            return (int) $uidArr['user_id'];
         }
         else
         {
@@ -226,7 +231,7 @@ class AuthUserTable
         
         $tbl = claro_sql_get_main_tbl();
         
-        $sql = ( $uid ? 'UPDATE' : 'INSERT INTO' )
+        $sql = ( $uid ? 'UPDATE' : 'INSERT INTO' ) 
             . " `{$tbl['user']}`\n"
             . "SET " . implode(",\n", $preparedList ) . "\n"
             . ( $uid ? "WHERE  user_id = " . (int) $uid : '' )

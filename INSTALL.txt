@@ -1,9 +1,9 @@
 *****************************************************
-                CLAROLINE 1.11
+                CLAROLINE 1.9
 *****************************************************
 
-Thank you for downloading Claroline 1.11. This text will guide you
-through the basics of installation and operation of Claroline 1.11. Please
+Thank you for downloading Claroline 1.9. This text will guide you
+through the basics of installation and operation of Claroline 1.9. Please
 ensure you read this fully BEFORE proceeding with the installation.
 
 TABLE OF CONTENTS :
@@ -36,7 +36,7 @@ Claroline should work on the following Operating systems :
       Don't hesitate to notify us of any problem encountered on other
       Linux distributions or UNIX systems.
 
-To install Claroline 1.11 on a computer, whether locally or remotely,
+To install Claroline 1.9 on a computer, whether locally or remotely,
 you need the following on your machine :
 
 1. A web server. We recommend the use Apache, but Claroline is known to work
@@ -97,22 +97,22 @@ with IIS too and should work on any PHP-compatible web server.
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline-1_10_x.tar.gz
+    tar -zxvf claroline19x.tar.gz
 
-   Windows : unzip 'claroline-1_10_x.zip' with your favorite application.
+   Windows : unzip 'claroline19x.zip' with your favorite application.
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
    to your website on web server (whether web root or subdirectory).
    'index.php' should remain where it is, outside 'claroline' directory.
    
-   UNIX and Linux : copy the claroline-1_10_x directory to the document root
-   of your web server (typically /var/www/).
+   UNIX and Linux : copy the claroline19x directory to the document root of your
+   web server (typically /var/www/).
    
    Windows with wampserver : drag and drop the claroline19x
    directory to the wampserver ducument root folder, typically
    c:\Program Files\wamp\www\
    
-   MacOSX with MAMP : drag and drop the claroline-1_10_x
+   MacOSX with MAMP : drag and drop the claroline19x
    directory to the MAMP document root folder /Applications/MAMP/htdocs/
 
 4. The following folders need to be readable, writeable and executable
@@ -122,8 +122,8 @@ with IIS too and should work on any PHP-compatible web server.
     - claroline19x/module and all its subfolders
    
    You can change the access rights from the command line under UNIX or Linux :
-    chmod ugo+w claroline-1_10_x/
-    chmod -R ugo+w claroline-1_10_x/module
+    chmod ugo+w claroline19x/
+    chmod -R ugo+w claroline19x/module
 
 4. Open Web Browser and go to
 
@@ -153,7 +153,7 @@ with IIS too and should work on any PHP-compatible web server.
 Claroline version numbers are of the form 1.X.Y where X and Y are two numbers.
 X is called the major version number, while Y is called the minor version number
 
-For example : in version number 1.9.1, 9 is the major version number and 0 is
+For example : in version number 1.9.0, 9 is the major version number and 0 is
 the minor version number
 
 In other words, Claroline major versions differ by the major version number (for
@@ -164,29 +164,29 @@ This is important for the Claroline upgrade process. If you want to upgrade
 Claroline between two different major version (let's say 1.8 and 1.9), you
 have to follow the instructions in section 2.2.2. If you want to upgrade
 Claroline between two minor versions of the same major version (let's say
-1.9.1 and 1.9.4), you have to follow the instructions given in section 2.2.3.
+1.9.1 and 1.9.4), you have to follow the instructions given in section 2.3.3.
 
     2.2.2 UPDGRADE FROM PREVIOUS CLAROLINE MAJOR VERSION
 
-The upgrade works only from Claroline 1.5.x, 1.6.x, 1.7.x., 1.8.x and 1.9.x.
+The upgrade works only from Claroline 1.5.x, 1.6.x, 1.7.x. and 1.8.x.
 
 Older Claroline versions should upgrade first to Claroline 1.5.x before
-upgrade to Claroline 1.11.x
+upgrade to Claroline 1.9.x
 
 Before upgrading we heavily recommend you do A FULL BACKUP of the previous
 Claroline directories and databases. If you are unsure how to achieve this
 please ask your hosting provider for advice.
 
-1. Download 'claroline110x.tar.gz'
+1. Download 'claroline19x.tar.gz'
 
-   Windows : download 'claroline-1_10_x.zip'
+   Windows : download 'claroline19x.zip'
 
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline-1_10_x.tar.gz
+    tar -zxvf claroline19x.tar.gz
 
-   Windows : unzip 'claroline-1_10_x.zip'
+   Windows : unzip 'claroline19x.zip'
 
 
 3. Replace your previous claroline directory and index.php by the new ones.
@@ -218,23 +218,23 @@ copy the new CLCHAT module to this directory.
     2.3.3 UPDGRADE FROM A PREVIOUS CLAROLINE MINOR VERSION
 
 Follow the following instructions to upgrade to a new minor version of the same
-major version of Claroline (for example to upgrade from Claroline 1.11.0 to
-1.11.4)
+major version of Claroline (for example to upgrade from Claroline 1.9.0 to
+1.9.4)
 
 Before upgrading we heavily recommend you do A FULL BACKUP of the previous
 Claroline directories and databases. If you are unsure how to achieve this
 please ask your hosting provider for advice.
 
-1. Download 'claroline-1_11_x.tar.gz'
+1. Download 'claroline19x.tar.gz'
 
-   Windows : download 'claroline-1_11_x.zip'
+   Windows : download 'claroline19x.zip'
 
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline-1_11_x.tar.gz
+    tar -zxvf claroline19x.tar.gz
 
-   Windows : unzip 'claroline-1_11_x.zip'
+   Windows : unzip 'claroline19x.zip'
 
 
 3. Replace your previous 'claroline' and 'web' folders with the new ones.

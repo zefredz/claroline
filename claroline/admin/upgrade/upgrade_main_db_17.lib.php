@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -45,7 +45,7 @@ function upgrade_main_database_to_17 ()
               `date` datetime default '0000-00-00 00:00:00',
               PRIMARY KEY  (`id`),
               KEY `course_id` (`course_code`)
-            ) ENGINE=MyISAM";
+            ) TYPE=MyISAM";
 
             // add enrollment key
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` ADD `enrollment_key` varchar(255) default NULL";
@@ -81,3 +81,5 @@ function upgrade_main_database_to_17 ()
 
     return false;
 }
+
+?>

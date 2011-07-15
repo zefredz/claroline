@@ -14,7 +14,7 @@
  * - update course repository content
  *
  * @version 1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -32,15 +32,15 @@
   Init Section
  =====================================================================*/
 
-$cidReset                   = true;
-$gidReset                   = true;
-$currentClarolineVersion    = null;
-$currentDbVersion           = null;
+$cidReset = TRUE;
+$gidReset = TRUE;
+$currentClarolineVersion=null;
+$currentDbVersion=null;
 
 if ( ! file_exists('../../inc/currentVersion.inc.php') )
 {
     // if this file doesn't exist, the current version is < claroline 1.6
-    $platform_id = md5(realpath('../../inc/conf/def/CLMAIN.def.conf.inc.php'));
+    $platform_id =  md5(realpath('../../inc/conf/def/CLMAIN.def.conf.inc.php'));
 }
 
 // Initialise
@@ -51,8 +51,8 @@ if (!claro_is_platform_admin()) upgrade_disp_auth_form();
 
 // Pattern for this new stable version
 
-$patternVarVersion = '/^1.10/';
-$patternSqlVersion = '1.10%';
+$patternVarVersion = '/^1.9/';
+$patternSqlVersion = '1.9%';
 
 // Display definition
 
@@ -235,7 +235,7 @@ switch ($display)
             </ul>
             <h3>To do:</h3>
             <ul>
-            <li><a href="upgrade_courses.php">Step 3 of 4: courses upgrade</a> - ' . $count_course_to_upgrade . ' course(s) to upgrade.</li>
+            <li><a href="upgrade_courses.php">Step 3 of 4: courses upgrade</a> - ' . $count_course_to_upgrade . 'course(s) to upgrade.</li>
             <li>Step 4 of 4: disable incompatible modules</li>
             </ul>';
 

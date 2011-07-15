@@ -9,12 +9,12 @@ if ( count( get_included_files() ) == 1 )
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/config_def/
  * @package     KERNEL
  * @author      Claro Team <cvs@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author      Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  */
 
@@ -168,7 +168,7 @@ function claro_move_file($sourcePath, $targetPath)
     if (realpath($sourcePath) == realpath($targetPath) ) return true;
 
     // check to not copy a directory inside itself
-    if (   is_dir($sourcePath)
+    if ( is_dir($sourcePath)
         && preg_match('/^' . str_replace( '/' , '\/' , $sourcePath ) . '\//', $targetPath . '/') )
         return claro_failure::set_failure('MOVE INSIDE ITSELF');
 
@@ -599,7 +599,7 @@ function claro_search_file($searchPattern             , $baseDirPath,
  * convert search string coming from the user interface
  * to a Perl Compatible Regular Expression (PCRE)
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param string search string
  * @return string Perl Compatible Regular Expression
  */

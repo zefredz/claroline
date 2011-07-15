@@ -6,7 +6,7 @@
  * mailnofifier class
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2009 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -117,7 +117,16 @@ class MailNotifier implements MessagingNotifier
             return claro_failure::set_failure( get_lang("Mail Notification Failed : You don't have any email address defined in your user profile or the defined email address is not valid." ) );
         }
         
-        self::emailNotification($userDataList, $emailBody,$emailSubject, $userData['mail'], $userData['lastName']." ".$userData['firstName']);
+        self::emailNotification(
+            $userDataList,
+            $emailBody,
+            $emailSubject,
+            $userData['mail'],
+            get_lang( '%firstName %lastName', array(
+                '%firstName' => $userData['lastName'],
+                '%lastName' => $userData['firstName'] ) 
+            )
+        );
     }
     
     /**

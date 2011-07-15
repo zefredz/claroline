@@ -4,7 +4,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @author Sebastien Piraux <seb@claroline.net>
  *
@@ -150,7 +150,8 @@ $accessList = claro_sql_query_fetch_all($sqlAccessDates);
 /*
  * Output
  */
-CssLoader::getInstance()->load( 'tracking', 'screen');
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'tracking', 'screen');
 
 // initialize output
 $claroline->setDisplayType( CL_PAGE );

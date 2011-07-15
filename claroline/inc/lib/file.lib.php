@@ -3,12 +3,10 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * File handling functions
  *
- * File handling functions.
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -44,7 +42,7 @@ class ClaroGarbageCollector
         if ( is_dir( $this->path ) )
         {
             Console::debug('GC Called in '.$this->path);
-
+            
             // Delete archive files older than one hour
             $tempDirectoryFiles = new DirectoryIterator( $this->path );
 
@@ -58,9 +56,9 @@ class ClaroGarbageCollector
                         {
                             Console::debug(
                                 'Unlink '
-                                    . $tempDirectoryFile->getPathName()
-                                    . " mtime: ".$tempDirectoryFile->getMTime()
-                                    . "; expire: ".$this->expire
+                                . $tempDirectoryFile->getPathName()
+                                . " mtime: ".$tempDirectoryFile->getMTime()
+                                . "; expire: ".$this->expire
                             );
 
                             unlink( $tempDirectoryFile->getPathName() );
@@ -97,35 +95,35 @@ function get_file_upload_errstring_from_errno( $errorLevel )
     
     switch( $errorLevel )
     {
-        case UPLOAD_ERR_OK:
+        case UPLOAD_ERR_OK: 
         {
             $details = get_lang('No error');
         }
-        case UPLOAD_ERR_INI_SIZE:
+        case UPLOAD_ERR_INI_SIZE: 
         {
             $details = get_lang('File too large. Notice : Max file size %size', array ( '%size' => get_cfg_var('upload_max_filesize')) );
         }   break;
-        case UPLOAD_ERR_FORM_SIZE:
+        case UPLOAD_ERR_FORM_SIZE: 
         {
             $details = get_lang('File size exceeds');
         }   break;
-        case UPLOAD_ERR_PARTIAL:
+        case UPLOAD_ERR_PARTIAL: 
         {
             $details = get_lang('File upload incomplete');
         }   break;
-        case UPLOAD_ERR_NO_FILE:
+        case UPLOAD_ERR_NO_FILE: 
         {
             $details = get_lang('No file uploaded');
         }   break;
-        case UPLOAD_ERR_NO_TMP_DIR:
+        case UPLOAD_ERR_NO_TMP_DIR: 
         {
             $details = get_lang('Temporary folder missing');
         }   break;
-        case UPLOAD_ERR_CANT_WRITE:
+        case UPLOAD_ERR_CANT_WRITE: 
         {
             $details = get_lang('Failed to write file to disk');
         }   break;
-        default:
+        default: 
         {
             $details = get_lang('Unknown error code %errCode%'
                 , array('%errCode%' => $errorLevel ));
@@ -152,7 +150,7 @@ function get_file_extension ( $fileName )
  * Get file MIME type from file name based on extension
  * @param string $fileName name of the file
  * @return string file MIME type
- *
+ * 
  */
 function get_mime_on_ext($fileName)
 {
@@ -297,8 +295,8 @@ function get_mime_on_ext($fileName)
  * @param   string $path file path
  * @param   string $name file name to force (optional)
  * @return  true on success,
- *          false if file not found or file empty,
- *          set a claro_failure if file not found
+ *          false if file not found or file empty, 
+ *          set a claro_failure if file not found 
  */
 function claro_send_file( $path, $name = '', $charset = null )
 {
@@ -323,12 +321,12 @@ function claro_send_file( $path, $name = '', $charset = null )
         header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + $lifetime ) .' GMT' );
         header( 'Pragma: ' );
         
-        // Patch proposed by Diego Conde <dconde@uvigo.es> - Universidade de Vigo
-        // It seems that with the combination of OfficeXP and Internet Explorer 6 the
-        // downloading of powerpoints fails sometimes. I captured the network packets
-        // and the viewer of the office doesn't send all the needed cookies,
-        // therefore claroline redirects the viewer to the login page because its not
-        // correctly authenticated.
+        // Patch proposed by Diego Conde Pérez <dconde@uvigo.es> - Universidade de Vigo
+        // It seems that with the combination of OfficeXP and Internet Explorer 6 the 
+        // downloading of powerpoints fails sometimes. I captured the network packets 
+        // and the viewer of the office doesn't send all the needed cookies, 
+        // therefore claroline redirects the viewer to the login page because its not 
+        // correctly authenticated. 
         if ( strtolower( pathinfo( $path, PATHINFO_EXTENSION ) ) == "ppt" )
         {
             // force file name for ppt
@@ -338,7 +336,7 @@ function claro_send_file( $path, $name = '', $charset = null )
         {
             // force file name for other files
             header( 'Content-Disposition: inline; filename="' . $name . '"' );
-        }
+        } 
         
         header( 'Content-Length: '. filesize( $path ) );
         
@@ -349,7 +347,6 @@ function claro_send_file( $path, $name = '', $charset = null )
         return claro_failure::set_failure( 'FILE_NOT_FOUND' );
     }
 }
-
 
 /**
  * Send a stream over HTTP
@@ -373,7 +370,7 @@ function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
     {
         $mimeType = get_mime_on_ext( $name );
     }
-    
+
     header( 'Content-Type: ' . $mimeType . $charset );
         
     // IE no-cache bug
@@ -385,12 +382,12 @@ function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
     header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + $lifetime ) .' GMT' );
     header( 'Pragma: ' );
     
-    // Patch proposed by Diego Conde <dconde@uvigo.es> - Universidade de Vigo
-    // It seems that with the combination of OfficeXP and Internet Explorer 6 the
-    // downloading of powerpoints fails sometimes. I captured the network packets
-    // and the viewer of the office doesn't send all the needed cookies,
-    // therefore claroline redirects the viewer to the login page because its not
-    // correctly authenticated.
+    // Patch proposed by Diego Conde Pérez <dconde@uvigo.es> - Universidade de Vigo
+    // It seems that with the combination of OfficeXP and Internet Explorer 6 the 
+    // downloading of powerpoints fails sometimes. I captured the network packets 
+    // and the viewer of the office doesn't send all the needed cookies, 
+    // therefore claroline redirects the viewer to the login page because its not 
+    // correctly authenticated. 
     if ( strtolower( pathinfo( $name, PATHINFO_EXTENSION ) ) == "ppt" )
     {
         // force file name for ppt
@@ -400,7 +397,7 @@ function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
     {
         // force file name for other files
         header( 'Content-Disposition: inline; filename="' . $name . '"' );
-    }
+    } 
     
     header( 'Content-Length: '. strlen( $stream ) );
     
@@ -408,7 +405,6 @@ function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
     
     return strlen( $stream );
 }
-
 
 /**
  * Remove /.. ../ from file path
@@ -433,10 +429,10 @@ function secure_file_path( $path )
 
 /**
  * Read a file from the file system and echo it
- *
+ * 
  * Workaround for the readfile bug in PHP 5.0.4 and with host where
  * PHP readfile is deactivated
- *
+ * 
  * @param   string $path file path
  * @param   boolean $retbytes return file length (default true)
  * @return  int file length if $retbytes
@@ -604,10 +600,8 @@ function replace_dangerous_char($string, $strict = 'loose')
     $search[] = '^';  $replace[] = '-';
     $search[] = '[';  $replace[] = '-';
     $search[] = ']';  $replace[] = '-';
-    //FIXME FIXME FIXME
-    /*
-    $search[] = 'ï¿½';  $replace[] = 'o';
-    */
+    // $search[] = '..';  $replace[] = '';
+    $search[] = '°';  $replace[] = 'o';
 
 
     foreach($search as $key=>$char )
@@ -615,16 +609,14 @@ function replace_dangerous_char($string, $strict = 'loose')
         $string = str_replace($char, $replace[$key], $string);
     }
     
+    // TODO FIXME is this valid in all charsets ???
     if ($strict == 'strict')
     {
         $string = str_replace('-', '_', $string);
         $string = str_replace("'", '', $string);
-        //FIXME FIXME FIXME
-        /*
-        $string = strtr($string,
-                        'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',
-                        'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
-        */
+        /*$string = strtr($string,
+                        'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
+                        'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');*/
     }
 
     return $string;

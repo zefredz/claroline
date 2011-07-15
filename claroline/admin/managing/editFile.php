@@ -1,15 +1,15 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLMANAGE
- * @author      Claro Team <cvs@claroline.net>
+ * @version 1.9 $Revision$
  *
- * @todo        use modifiy is use in a cmd request
+ * @copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package CLMANAGE
+ * @author Claro Team <cvs@claroline.net>
+ * @todo use modifiy is use in a cmd request
  */
 
 define('DISP_FILE_LIST', __LINE__);
@@ -169,13 +169,11 @@ if( $display == DISP_FILE_LIST || $display == DISP_EDIT_FILE || $display == DISP
    .    get_lang('See below the files you can edit from this tool.')
    .    '</p>' . "\n"
    .    '<table cellspacing="2" cellpadding="2" border="0" class="claroTable emphaseLine">' . "\n"
-   .    '<thead>'
-   .    '<tr>' . "\n"
-   .    '<th>' . get_lang('Description') . '</th>' . "\n"
-   .    '<th>' . get_lang('Edit') . '</th>' . "\n"
-   .    '<th>' . get_lang('Preview') . '</th>' . "\n"
+   .    '<tr class="headerX">' . "\n"
+   .    '<th >' . get_lang('Description') . '</th>' . "\n"
+   .    '<th >' . get_lang('Edit') . '</th>' . "\n"
+   .    '<th >' . get_lang('Preview') . '</th>' . "\n"
    .    '</tr>' . "\n"
-   .    '</thead>' . "\n"
    ;
 
     foreach ( $textZoneList as $idFile => $textZone )

@@ -12,7 +12,7 @@
     $claroline->notification->addListener( 'agenda_event_modified',     'modificationDefault' );
     $claroline->notification->addListener( 'agenda_event_deleted',      'modificationDelete' );
     $claroline->notification->addListener( 'agenda_event_invisible',    'modificationDelete' );
-
+    
     $claroline->notification->addListener( 'agenda_event_deleted',      'deleteEventResource' );
     $claroline->notification->addListener( 'agenda_event_list_deleted', 'deleteEventResourceList' );
 ?>

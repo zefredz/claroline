@@ -1,13 +1,18 @@
-<?php // $Id$
+<?php
 
 /**
  * CLAROLINE
  *
- * @version     0.1 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLQWZ
- * @author      Dimitri Rambout
+ * @version 0.1 $Revision$
+ *
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLQWZ
+ *
+ * @author Dimitri Rambout
+ *
  */
 
 function getIdCounter()
@@ -32,7 +37,7 @@ function getIdCounter()
  * 2) the method prepareManifestResource create a string like <resource></resource> with the correct
  * attribute based on the item
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be> * 
  */
 class CLQWZ_ScormExport extends PathScormExport
 {
@@ -48,7 +53,7 @@ class CLQWZ_ScormExport extends PathScormExport
   /**
    * Constructor
    *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+   * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
    */
   public function __construct()
   {
@@ -58,7 +63,7 @@ class CLQWZ_ScormExport extends PathScormExport
   /**
    * Create files (quiz) needed in the export of this module
    *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+   * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
    * @param int $quizId id of the Quiz
    * @param object $item item of the path
    * @param string $destDir path when the files need to be copied
@@ -142,23 +147,20 @@ class CLQWZ_ScormExport extends PathScormExport
         }
         $questionPonderationList[] = $scormQuestion->getGrade();
 
-        $pageBody .= '<thead>' . "\n"
-        .    '<tr>' . "\n"
+        $pageBody .=
+            '<tr class="headerX">' . "\n"
         .    '<th>'.get_lang('Question').' '.$questionCount.'</th>' . "\n"
-        .    '</tr>' . "\n"
-        .    '</thead>' . "\n";
+        .    '</tr>' . "\n";
 
         $pageBody .=
-          '<tr>' . "\n"
-        . '<td>' . "\n"
-        . $scormQuestion->export() . "\n"
-        . '</td>' . "\n"
-        . '</tr>' . "\n";
+            '<tr>' . "\n" . '<td>' . "\n"
+        .    $scormQuestion->export() . "\n"
+        .    '</td>' . "\n" . '</tr>' . "\n";
     }
     
     $pageEnd = '
     <tr>
-        <td align="center"><br /><input type="button" value="' . get_lang('Ok') . '" onclick="calcScore()" /></td>
+        <td align="center"><br /><input type="button" value="' . get_lang('Finish') . '" onclick="calcScore()" /></td>
     </tr>
     </table>
     </form>
@@ -190,17 +192,17 @@ class CLQWZ_ScormExport extends PathScormExport
             {
                 rawScore = CalculateRawScore(document, ' . getIdCounter() . ', fillAnswerList);
                 var score = Math.max(Math.round(rawScore * 100 / weighting), 0);
-                var oldScore = doLMSGetValue("cmi.score.raw");
+                //var oldScore = doLMSGetValue("cmi.score.raw");
     
                 doLMSSetValue("cmi.score.max", weighting);
                 doLMSSetValue("cmi.score.min", 0);
     
                 computeTime();
     
-                if (score > oldScore) // Update only if score is better than the previous time.
-                {
+                /*if (score > oldScore) // Update only if score is better than the previous time.
+                {*/
                     doLMSSetValue("cmi.raw", rawScore);
-                }
+                /*}*/
                 
                 var oldStatus = doLMSGetValue( "cmi.completion_status" )
                 if (score >= raw_to_pass)
@@ -244,7 +246,7 @@ class CLQWZ_ScormExport extends PathScormExport
   /**
    * Create a resource for the manifest
    *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+   * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
    * @param array $item item's data
    * @param string $destDir
    * @param object $locator locator of the file
@@ -261,7 +263,7 @@ class CLQWZ_ScormExport extends PathScormExport
   /**
    * Return the error
    *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+   * @author Dimtiri Rambout <dimitri.rambout@uclouvain.be>
    * @return string $error
    */
   public function getError()

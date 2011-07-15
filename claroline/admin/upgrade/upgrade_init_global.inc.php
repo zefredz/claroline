@@ -51,7 +51,7 @@ define('CLARO_FILE_PERMISSIONS', 0777);
 
 // verbose mode
 
-if ( defined('CLARO_DEBUG_MODE') && CLARO_DEBUG_MODE )
+if ( defined(CLARO_DEBUG_MODE) && CLARO_DEBUG_MODE )
 {
     $verbose = true;
 }
@@ -81,8 +81,6 @@ session_start();
   Include main library
   ----------------------------------------------------------------------*/
 
-require_once $includePath . '/lib/core/core.lib.php';
-require_once $includePath . '/lib/core/claroline.lib.php';
 require_once $includePath . '/lib/claro_main.lib.php';
 require_once $includePath . '/lib/fileManage.lib.php';
 
@@ -98,7 +96,7 @@ $clarolineRepositorySys = get_conf('rootSys') . $clarolineRepositoryAppend;
 
 require_once $includePath . '/lib/config.lib.inc.php';
 require_once dirname(__FILE__) . '/configUpgrade.class.php';
-require_once dirname(__FILE__) . '/upgrade.lib.php';
+require_once 'upgrade.lib.php';
 
 /**
  * List of accepted error - See MySQL error codes :
@@ -113,7 +111,8 @@ require_once dirname(__FILE__) . '/upgrade.lib.php';
  * @see http://dev.mysql.com/doc/mysql/en/error-handling.html
  */
 
-$accepted_error_list = array(1060,1061);
+$accepted_error_list = array(1017,1050,1060,1062,1065,1091,1146);
+$accepted_error_list = array(1060);
 
 /*
  * Initialize version variables
@@ -268,3 +267,5 @@ else                $_SESSION['_uid'] = null; // unset
 if ( isset($is_platformAdmin) ) $_SESSION['is_platformAdmin'] = $is_platformAdmin;
 else                            $_SESSION['is_platformAdmin'] = null;
 
+
+?>

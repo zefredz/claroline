@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -32,8 +32,6 @@ array ( 'allow_html'
       , 'posts_per_page'
       , 'topics_per_page'
       , 'clfrm_notification_enabled'
-      , 'clfrm_anonymity_enabled'
-      , 'confirm_not_anonymous'
       );
 
 //PROPERTIES
@@ -79,26 +77,4 @@ $conf_def_property_list['clfrm_notification_enabled']
         ,'display'     => TRUE
         ,'readonly'    => FALSE
         ,'acceptedValue' => array ('TRUE'=>'On', 'FALSE' => 'Off')
-        );
-        
-$conf_def_property_list['clfrm_anonymity_enabled']
-= array ('label'     => 'Allow anonymity management'
-        ,'description' => 'Choose "Yes" to give course managers the possibility to allow anonymous posting in forums.'
-        ,'display'       => false
-        ,'default'   => TRUE
-        ,'type'        => 'boolean'
-        ,'display'     => TRUE
-        ,'readonly'    => FALSE
-        ,'acceptedValue' => array ('TRUE'=>'Yes', 'FALSE' => 'No')
-        );
-        
-$conf_def_property_list['confirm_not_anonymous']
-= array ('label'     => 'Confirm signed posts'
-        ,'description' => 'Choose "Yes" to display a confirmation message when users sign posts in anonymous forums'
-        ,'display'       => false
-        ,'default'   => TRUE
-        ,'type'        => 'boolean'
-        ,'display'     => TRUE
-        ,'readonly'    => FALSE
-        ,'acceptedValue' => array ('TRUE'=>'Yes', 'FALSE' => 'No')
         );

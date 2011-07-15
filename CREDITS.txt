@@ -1,9 +1,9 @@
 *******************************************************************************
-                            CLAROLINE 1.10 - CREDITS
+                            CLAROLINE 1.9 - CREDITS
 *******************************************************************************
 
 ------------------------------------------------------------------------------
-                                PROJECT HISTORY
+                          PROJECT HISTORY
 ------------------------------------------------------------------------------
 
 The Claroline project was initiated in 2000 at the Catholic University of
@@ -18,25 +18,18 @@ Claroline Consortium involving several institutions over the world
 (for more details see http://www.claroline.net/en/consortium/consortium-3.html).
 
 ------------------------------------------------------------------------------
-                                CLAROLINE TEAM
+                          CLAROLINE TEAM
 ------------------------------------------------------------------------------
 
 Claroline Core Team :
 
-    From Claroline Consortium :
-    
-    Philippe Dekimpe        (dkp@ecam.be)
-    Antonin Bourguignon     (antonin.bourguignon@claroline.net)
-    Stephane Klein          (stephane.klein@claroline.net)
-    
-    From Université catholique de Louvain :
+    Frédéric Minne      (zefredz@claroline.net) aka ZeFredz
+    Dimitri Rambout     (dim@claroline.net) aka Dim
+    Frédéric Fervaille  (ffervaille@claroline.net)
 
-    Frédéric Minne          (zefredz@claroline.net) aka ZeFredz
-    Frédéric Fervaille      (ffervaille@claroline.net)
-    
-    From Haute Ecole Léonard de Vinci :
-    
-    Philippe Van Eerdenbrugghe (systho@gmail.com)
+Team from Cerdecam :
+
+    Philippe Dekimpe    (dkp@ecam.be)
 
 Active contributors :
 
@@ -55,14 +48,13 @@ Former members of the Claroline Team :
     Nicolas Leblanc     (Developer - CERDECAM)
     Hugues Peeters      (Developer and Project Manager - UCL)
     Aurelien Van Hamme  (Developer - CERDECAM)
-    Dimitri Rambout     (Developer - UCL)
 
 Former contributors :
 
     Marina Zelwer       (marina.zelwer@univ-st-etienne.fr)
 
 ------------------------------------------------------------------------------
-                                SPECIFIC CODE CONTRIBUTIONS
+                          SPECIFIC CODE CONTRIBUTIONS
 ------------------------------------------------------------------------------
 
 Pages authoring tool :          Benjamin Sokay
@@ -105,7 +97,7 @@ Upgrade tool :                  Mathieu Laurent (laurent@cerdecam.be)
                                 Christophe Gesché (gesche@ipm.ucl.ac.be)
 
 ------------------------------------------------------------------------------
-                                EXTERNAL CODE
+                          EXTERNAL CODE
 ------------------------------------------------------------------------------
 
 Forum tool :                    adpated from PHPBB 1.4 (http://www.phpbb.com)
@@ -132,19 +124,10 @@ PEAR Modules :                  http://pear.php.net
 PHP email transport :           based on PHP Mailer class by Brent R. Matzelle
 
 ------------------------------------------------------------------------------
-                                GRAPHICS
+                                  TRANSLATIONS
 ------------------------------------------------------------------------------
 
-Tango icon set :                by The Tango Desktop Project 
-                                (http://tango.freedesktop.org/)
-
-Famfamfam icon set :            by Mark James (http://www.famfamfam.com/)
-
-------------------------------------------------------------------------------
-                                TRANSLATIONS
-------------------------------------------------------------------------------
-
-Arabic translation :            Yassine Jelman (yjelmam@myrealbox.com)
+Arab translation :              Yassine Jelman (yjelmam@myrealbox.com)
                                 Eng.Ali Ismaeel (ali@parmaja.com,a-s-is@scs-net.org)
                                 (http://www.arabeyes.org, http://www.parmaja.com/)
 
@@ -175,13 +158,13 @@ Dutch translation :             Inès Du Four (inesdufour@hotmail.com)
 
 Dutch (Nerderlands) :           de Vries Dominicus (dominiquedevries@tiscali.nl)
 
-French translation :            Jean-Claude Cordier (Jean-Claude.Cordier@univ-rouen.fr)
+French translation:             Jean-Claude Cordier (Jean-Claude.Cordier@univ-rouen.fr)
                                 Paul Muraille (info@tictips.com)
                                 Jean-Roch Meurisse (jean-roch.meurisse@fundp.ac.be)
 
 Finnish translation :           Asmo Koskinen (asmo.koskinen@asmokoskinen.net)
 
-Galician translation :          Maria Jose Rodriges Malmierca
+Galician translation:           Maria Jose Rodriges Malmierca
                                 Gerardo Albela Gonzalez (galbela@uvigo.es)
 
 German translation :            Stiehl Nikolai  (nikolai.stiehl@web.de)
@@ -211,6 +194,7 @@ Italian translation :           Maurizio Guercio  (mguercio@libero.it),
 Indonesian translation :        Ery Atmodjo (eryatmodjo@yahoo.com)
 
 Japanese translation :          Akira Yoshii (yoshii@cc.hokkyodai.ac.jp)
+                                Associate Prof. Naoto KIMRUA  Department of Commerce, Takushoku University (nkimura@tsukimidai.net)
 
 Persian translation :           Elnaz Sarbar (elnaz.s@gmail.com)
 
@@ -260,11 +244,10 @@ Deepfear, Netcraft and Siegfried from the Zone-H Team
 
 The Digital Security Research Group [DSecRG] <http://www.dsec.ru>
 
-Fernando Munoz and dimkrayan on the Claroline.net forum
+Fernando Munoz on the Claroline.net forum
 
 Gerendi Sandor Attila <http://gsasec.blogspot.com/>
 
 =========================================================================
-    Europe, Belgium, Louvain-la-Neuve
-    $Date$
+        Europe, Belgium, Louvain-la-Neuve - $Date$
 ================================== END ===================================

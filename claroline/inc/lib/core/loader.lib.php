@@ -3,17 +3,15 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * Loader classes for CSS and Javascript
  *
- * Loader classes for CSS and Javascript.
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2011 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.core
+ * @package     KERNEL
  */
 
 /**
@@ -76,7 +74,7 @@ class JavascriptLoader
                 /*
                 if ( get_conf('javascriptCompression', true)
                     && file_exists( $tryPath . '/min/' . $lib . '.js' )  )
-                {
+                {    
                     $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/min/' . $lib . '.js';
                     
                     $mtime = filemtime($tryPath . '/min/' . $lib . '.js');
@@ -97,7 +95,7 @@ class JavascriptLoader
                         pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.js', 'debug');
                     }
                 }*/
-
+                
                     $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/' . $lib . '.js';
 
                     $mtime = filemtime($tryPath . '/' . $lib . '.js');
@@ -265,7 +263,7 @@ class CssLoader
     {
         $lib = secure_file_path( $lib );
         $moduleLabel = secure_file_path( $moduleLabel );
-
+        
         if ( ! get_module_data( $moduleLabel ) )
         {
             pushClaroMessage(__Class__."::{$moduleLabel} does not exists", 'error');
@@ -276,7 +274,7 @@ class CssLoader
         {
             pushClaroMessage(__Class__."::Try to find {$lib} for {$moduleLabel}", 'debug');
         }
-
+        
         $cssPath = array(
             0 => array(
                 'path' => get_path('rootSys') . 'platform/css/' . $moduleLabel . '/' . $lib . '.css',
@@ -315,7 +313,7 @@ class CssLoader
 
                 if ( claro_debug_mode() )
                 {
-                    pushClaroMessage(__Class__."::Use {$path}::{$url} for {$moduleLabel}", 'debug');
+                        pushClaroMessage(__Class__."::Use {$path}::{$url} for {$moduleLabel}", 'debug');
                 }
 
                 ClaroHeader::getInstance()->addHtmlHeader(
@@ -330,7 +328,7 @@ class CssLoader
             {
                 if ( claro_debug_mode() )
                 {
-                    pushClaroMessage(__Class__."::Cannot found css {$lib} for {$moduleLabel}", 'error');
+                        pushClaroMessage(__Class__."::Cannot found css {$lib} for {$moduleLabel}", 'error');
                 }
 
                 return false;

@@ -4,7 +4,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -115,7 +115,6 @@ if( $cmd == 'exEdit' )
 
     $question->setTitle($_REQUEST['title']);
     $question->setDescription($_REQUEST['description']);
-    $question->setCategoryId($_REQUEST['categoryId']); 
     
     if( is_null($quId) ) $question->setType($_REQUEST['type']);
 
@@ -133,7 +132,7 @@ if( $cmd == 'exEdit' )
             if( !$question->setAttachment($_FILES['attachment']) )
             {
                 // throw error
-                $dialogBox->error( get_lang(claro_failure::get_last_failure()  ) );
+                echo claro_failure::get_last_failure();
             }
         }
 
@@ -177,7 +176,6 @@ if( $cmd == 'rqEdit' )
     $form['description']         = $question->getDescription();
     $form['attachment']            = $question->getAttachment();
     $form['type']                 = $question->getType();
-    $form['categoryId']           = $question->getCategoryId();
 
     $displayForm = true;
 }
@@ -245,28 +243,13 @@ if( $displayForm )
     // title
     $out .= '<tr>' . "\n"
     .     '<td valign="top"><label for="title">'.get_lang('Title').'&nbsp;<span class="required">*</span>&nbsp;:</label></td>' . "\n"
-    .     '<td><input type="text" name="title" id="title" size="60" maxlength="200" value="'.htmlspecialchars($form['title']).'" /></td>' . "\n"
+    .     '<td><input type="text" name="title" id="title" size="60" maxlength="200" value="'. htmlspecialchars($form['title']) .'" /></td>' . "\n"
     .     '</tr>' . "\n\n";
 
     // description
     $out .= '<tr>' . "\n"
     .     '<td valign="top"><label for="description">'.get_lang('Description').'&nbsp;:</label></td>' . "\n"
     .     '<td>'.claro_html_textarea_editor('description', $form['description']).'</td>' . "\n"
-    .     '</tr>' . "\n\n";
-
-	$questionCategoryList = getQuestionCategoryList();
-    // category
-    $out .=  '<tr>' . "\n"
-    .     '<td valign="top"><label for="category">'.get_lang('Category').'&nbsp;:</label></td>' . "\n"
-    .     '<td><select name="categoryId"><option value="0">';
-    foreach ($questionCategoryList as $category)
-    {
-        $out .= '<option value="'.$category['id'].'"' 
-            .( $category['id'] == $form['categoryId']?'selected="selected"':' ' )
-            .'>'.$category['title'].'</option>';
-    }
-    $out .= '</option>'
-    .'</td>' . "\n"
     .     '</tr>' . "\n\n";
 
     // attached file
@@ -359,7 +342,7 @@ else
                 . get_lang('Edit answers')
                 . '</a>';
                 
-    $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit">'
+   $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit">'
                 . get_lang('New question')
                 . '</a>';
 

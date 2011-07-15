@@ -1,15 +1,18 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLTRACK
- * @author      Claro Team <cvs@claroline.net>
+ * @version 1.9 $Revision$
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLTRACK
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ *
  */
-
 $tlabelReq = 'CLQWZ';
 
 require '../inc/claro_init_global.inc.php';
@@ -43,9 +46,9 @@ $tbl_user            = $tbl_mdb_names['user'             ];
 $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise',
                                                'qwz_question',
                                                'qwz_rel_exercise_question',
-                                               'qwz_tracking',
-                                               'qwz_tracking_questions'
-                                        ),
+                                               'qwz_tracking', 
+                                               'qwz_tracking_questions' 
+                                        ), 
                                         claro_get_current_course_id() );
                                         
 $tbl_qwz_exercise = $tbl_cdb_names['qwz_exercise'];
@@ -197,18 +200,16 @@ if ( get_conf('is_trackingEnabled') )
     $out .= '<p><b>'.get_lang('Statistics by user').'</b>&nbsp;'.
             '<a href="'.$_SERVER['PHP_SELF'].htmlspecialchars('?exportCsv=2&exId=').$exId.'">['.get_lang('Export').']</a></p>'."\n";
     // display tab header
-    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
-        .'<thead>'."\n"
-        .'<tr align="center" valign="top">'."\n"
+    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n".'<thead>'."\n"
+        .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th>'.get_lang('Student').'</th>'."\n"
         .'<th>'.get_lang('Worst score').'</th>'."\n"
         .'<th>'.get_lang('Best score').'</th>'."\n"
         .'<th>'.get_lang('Average score').'</th>'."\n"
         .'<th>'.get_lang('Attempts').'</th>'."\n"
         .'<th>'.get_lang('Average Time').'</th>'."\n"
-        .'</tr>'."\n"
-        .'</thead>'."\n"
-        .'<tbody>'."\n\n";
+          .'</tr>'."\n".'</thead>'."\n\n"
+          .'<tbody>'."\n\n";
 
     // display tab content
     foreach( $exo_users_details as $exo_users_detail )
@@ -259,16 +260,14 @@ if ( get_conf('is_trackingEnabled') )
     $out .= '<p><b>'.get_lang('Statistics by question').'</b>&nbsp;'."\n".
             '<a href="'.$_SERVER['PHP_SELF'].htmlspecialchars('?exportCsv=3&exId=').$exId.'">['.get_lang('Export').']</a></p>'."\n";
     // display tab header
-    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
-        .'<thead>'."\n"
-        .'<tr align="center" valign="top">'."\n"
+    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n".'<thead>'."\n"
+        .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th>'.get_lang('Question title').'</th>'."\n"
         .'<th>'.get_lang('Worst score').'</th>'."\n"
         .'<th>'.get_lang('Best score').'</th>'."\n"
         .'<th>'.get_lang('Average score').'</th>'."\n"
-        .'</tr>'."\n"
-        .'</thead>'."\n\n"
-        .'<tbody>'."\n\n";
+          .'</tr>'."\n".'</thead>'."\n\n"
+          .'<tbody>'."\n\n";
     // display tab content
     foreach ( $exo_questions_details as $exo_questions_detail )
     {

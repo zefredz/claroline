@@ -35,23 +35,20 @@
  */
 
 /**
- * CLAROLINE
+ * Claroline Resource Linker library
  *
- * Claroline Resource Linker library.
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.core
+ * @package     core.linker
  */
 
-require_once dirname(__FILE__) . '/url.lib.php';
-require_once dirname(__FILE__) . '/../group.lib.inc.php';
+FromKernel::uses('core/url.lib', 'group.lib.inc');
 
-interface ResourceLocator
+interface ResourceLocator 
 {
 }
 
@@ -67,7 +64,7 @@ class ClarolineResourceLocator implements ResourceLocator
             $resourceId,
             $teamId;
             
-    public function __construct(
+    public function __construct( 
             $courseId = null,
             $moduleLabel = null,
             $resourceId = null,
@@ -386,7 +383,7 @@ class LinkerResource
 }
 
 /**
- * Defines a resource that contains other resources such as
+ * Defines a resource that contains other resources such as 
  * a tool or a directory in document tool
  *
  */
@@ -636,7 +633,7 @@ class CourseResolver
 {
     public function resolve( ResourceLocator $locator )
     {
-        return get_path('clarolineRepositoryWeb') . 'course/index.php?cid='.$locator->getCourseId();
+        return get_path('clarolineRepositoryWeb') . 'course/index.php?cid='.$locator->getCourseId(); 
     }
     
     public function getResourceName( ResourceLocator $locator )
@@ -1255,8 +1252,8 @@ class ResourceLinker
         
         if ( count( $linkList ) )
         {
-            $htmlLinkList .= '<h2 class="lnk_link_list">'
-                . get_lang('Attached resources') . '</h2>'
+            $htmlLinkList .= '<h4 class="lnk_link_list">'
+                . get_lang('Attached resources') . '</h4>'
                 . "\n"
                 ;
                 

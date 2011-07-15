@@ -3,12 +3,10 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * Dialog Box
  *
- * Dialog box.
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2.0 or later
@@ -36,7 +34,7 @@ class DialogBox implements Display
         $_dialogBox = array(),
         $_size = array(),
         $_boxType = 'auto';
-
+    
     /**
      * @since Claroline 1.9.6
      **/
@@ -73,7 +71,7 @@ class DialogBox implements Display
     {
         $this->message( $msg, self::DIALOG_INFO );
         $this->_size[self::DIALOG_INFO]++;
-
+        
         return $this;
     }
 
@@ -87,7 +85,7 @@ class DialogBox implements Display
     {
         $this->message( $msg, self::DIALOG_SUCCESS );
         $this->_size[self::DIALOG_SUCCESS]++;
-
+        
         return $this;
     }
 
@@ -101,10 +99,10 @@ class DialogBox implements Display
     {
         $this->message( $msg, self::DIALOG_WARNING );
         $this->_size[self::DIALOG_WARNING]++;
-
+        
         return $this;
     }
-
+    
     /*
      * Add an error message
      * @param $msg string text to show in dialog
@@ -115,7 +113,7 @@ class DialogBox implements Display
     {
         $this->message( $msg, self::DIALOG_ERROR );
         $this->_size[self::DIALOG_ERROR]++;
-
+        
         return $this;
     }
 
@@ -129,7 +127,7 @@ class DialogBox implements Display
     {
         $this->message( $msg, self::DIALOG_QUESTION );
         $this->_size[self::DIALOG_QUESTION]++;
-
+        
         return $this;
     }
 
@@ -143,7 +141,7 @@ class DialogBox implements Display
     {
         $this->message( $msg, self::DIALOG_FORM );
         $this->_size[self::DIALOG_FORM]++;
-
+        
         return $this;
     }
 
@@ -157,7 +155,7 @@ class DialogBox implements Display
     {
         $this->message( $msg, self::DIALOG_TITLE );
         $this->_size[self::DIALOG_TITLE]++;
-
+        
         return $this;
     }
 
@@ -171,7 +169,7 @@ class DialogBox implements Display
     private function message( $msg, $type )
     {
         $this->_dialogBox[] = array( 'type' => $type, 'msg' => $msg );
-
+        
         return $this;
     }
 
@@ -184,10 +182,10 @@ class DialogBox implements Display
     public function setBoxType( $boxType )
     {
         $this->_boxType = $boxType;
-
+        
         return $this;
     }
-
+    
     /*
      * returns html required to display the dialog box
      * @return string
@@ -208,32 +206,32 @@ class DialogBox implements Display
                     case self::DIALOG_INFO:
                         $class = 'msgInfo';
                     break;
-
+                
                     case self::DIALOG_SUCCESS:
                         $class = 'msgSuccess';
                     break;
-
+                
                     case self::DIALOG_WARNING:
                         $class = 'msgWarning';
                     break;
-
+                
                     case self::DIALOG_ERROR:
                         $class = 'msgError';
                     break;
-
+                
                     case self::DIALOG_QUESTION:
                         $class = 'msgQuestion';
                     break;
-
+                
                     case self::DIALOG_FORM:
                         // forms must always be in a div
                         $class = 'msgForm';
                     break;
-
+                
                     case self::DIALOG_TITLE:
                         $class = 'msgTitle';
                     break;
-
+                
                     default:
                         $class = 'msgMessage';
                     break;
@@ -247,7 +245,7 @@ class DialogBox implements Display
             switch( $this->_boxType )
             {
                 case 'auto' :
-
+                    
                      // order is important first meet is choosed
                     if( $this->_size[self::DIALOG_ERROR] > 0 )
                     {
@@ -273,39 +271,40 @@ class DialogBox implements Display
                     {
                         $boxClass = '';
                     }
-
+                    
                 break;
-
+            
                 case 'info' :
                     $boxClass = 'boxInfo';
                 break;
-
+            
                 case 'success' :
                     $boxClass = 'boxSuccess';
                 break;
-
+            
                 case 'warning' :
                     $boxClass = 'boxWarning';
                 break;
-
+            
                 case 'error' :
                     $boxClass = 'boxError';
                 break;
-
+            
                 case 'question' :
                     $boxClass = 'boxQuestion';
                 break;
-
-                default :
+            
+                default : 
                     $boxClass = '';
                 break;
             }
-
-            // todo check that the floating div + spacer do not break design
-
+       
+            // todo check that the floating div + spacer do not break design 
+             
             return '<div class="claroDialogBox ' . $boxClass . '">' . "\n"
                 . implode( "\n", $out )
                 . '</div>' . "\n\n"
+                . '<p class="spacer"></p>' . "\n\n"
                 ;
         }
         else
@@ -313,4 +312,5 @@ class DialogBox implements Display
             return '';
         }
     }
+
 }

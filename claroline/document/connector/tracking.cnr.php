@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -16,7 +16,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 
 class CLDOC_CourseTrackingRenderer extends CourseTrackingRenderer
-{
+{   
     private $tbl_course_tracking_event;
     
     public function __construct($courseId)
@@ -42,18 +42,17 @@ class CLDOC_CourseTrackingRenderer extends CourseTrackingRenderer
                     WHERE `type` = 'download'
                       AND `group_id` IS NULL
                     GROUP BY `data`
-                    ORDER BY substring_index(data,'\"',-2)";
+                    ORDER BY substring_index(data,'\"',-2)
+                ";
 
         $results = claro_sql_query_fetch_all($sql);
 
         $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
-            .'<thead>'."\n"
-            .'<tr>'."\n"
+            .'<thead><tr class="headerX">'."\n"
             .'<th>&nbsp;'.get_lang('Document').'&nbsp;</th>'."\n"
             .'<th>&nbsp;'.get_lang('Users Downloads').'&nbsp;</th>'."\n"
             .'<th>&nbsp;'.get_lang('Total Downloads').'&nbsp;</th>'."\n"
-            .'</tr>'."\n"
-            .'</thead>'."\n"
+            .'</tr></thead>'."\n"
             .'<tbody>'."\n"
             ;
         if( !empty($results) && is_array($results) )
@@ -101,10 +100,10 @@ TrackingRendererRegistry::registerCourse('CLDOC_CourseTrackingRenderer');
 
 
 /*
- *
+ * 
  */
 class CLDOC_UserTrackingRenderer extends UserTrackingRenderer
-{
+{   
     private $tbl_course_tracking_event;
     
     public function __construct($courseId, $userId)
@@ -130,7 +129,7 @@ class CLDOC_UserTrackingRenderer extends UserTrackingRenderer
         
         $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
         .    '<thead>' . "\n"
-        .    '<tr>' . "\n"
+        .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Document').'</th>' . "\n"
         .    '<th>' . get_lang('Last download').'</th>' . "\n"
         .    '<th>' . get_lang('Downloads').'</th>' . "\n"
@@ -176,7 +175,7 @@ class CLDOC_UserTrackingRenderer extends UserTrackingRenderer
     }
     
     private function prepareContent()
-    {
+    {    
         $sql = "SELECT `data`,
                     UNIX_TIMESTAMP(`date`) AS `unix_date`,
                     COUNT(`user_id`) AS `downloads`

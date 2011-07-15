@@ -6,7 +6,7 @@
  * recipient list class
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -45,27 +45,27 @@ abstract class RecipientList
     public final function sendMessage($message)
     {
         $recipientListID = $this->getRecipientList();
-
+        
         if (!is_array($recipientListID))
         {
             throw new Exception("");
         }
-
+        
         if (empty($recipientListID))
         {
             return false;
         }
-
+        
         $messageId = $this->addMessage($message);
         
         $this->sendMessageToUser($recipientListID,$messageId);
         
         MessagingUserNotifier::notify($recipientListID,$message,$messageId);
-
+        
         return $messageId;
-
+    
     }
-
+    
     /**
      * create the message in the message table and return the identification of this
      *
@@ -87,7 +87,7 @@ abstract class RecipientList
         {
             $sender = (int) $messageToSend->getSender();
         }
-
+        
         if (!is_null($messageToSend->getCourseCode()))
         {
             $course = "'".claro_sql_escape($messageToSend->getCourseCode())."'";
@@ -114,7 +114,7 @@ abstract class RecipientList
         {
             $tools = "NULL";
         }
-
+        
         // add the message in the table of messages and retrieves the ID
         $addInternalMessageSQL =
             "INSERT INTO `".$tableName['im_message']."` \n"
@@ -122,7 +122,7 @@ abstract class RecipientList
             . "VALUES ($sender,'".$subject."','".$message."', '\n" 
             . date( "Y-m-d H:i:s", claro_time() ) . "',".$course.",".$group.",".$tools.")\n"
             ;
-
+        
         // try to read the last ID inserted if the request pass
         if (claro_sql_query($addInternalMessageSQL))
         {
@@ -133,7 +133,7 @@ abstract class RecipientList
             throw new Exception(claro_sql_errno().":".claro_sql_error());
         }
     }
-
+    
     /**
      * Send the message to member of user list
      *

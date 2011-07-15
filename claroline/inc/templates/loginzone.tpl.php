@@ -1,9 +1,4 @@
-<!-- $Id$ -->
-
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
-
-<div id="loginBox">
-<h3 class="blockHeader"><?php echo get_lang('Authentication'); ?></h3>
 
 <?php if ( get_conf('claro_CasEnabled') ) : ?>
 <!-- CAS login hyperlink -->
@@ -29,29 +24,32 @@ $(document).ready( function(){
 <?php else: ?>
 <form class="claroLoginForm" action="<?php echo get_path('clarolineRepositoryWeb'); ?>auth/login.php" method="post">
 <?php endif; ?>
-    <fieldset style="border: 0; margin: 10px 0 15px 0; padding: 5px;">
-        <label for="login"><?php echo get_lang('Username'); ?></label><br />
-        <input type="text" name="login" id="login" class="inputLogin" size="12" tabindex="1" /><br />
-        <br />
-        <label for="password"><?php echo get_lang('Password'); ?></label><br />
-        <input type="password" name="password" id="password" class="inputPassword" size="12" tabindex="2" /><br />
-        <br />
-        <input type="submit" value="<?php echo get_lang('Enter'); ?>" name="submitAuth" tabindex="3" />
-    </fieldset>
+<fieldset style="padding: 7px;">
+<legend><?php echo get_lang('Authentication'); ?> : </legend>
+<label for="login">
+<?php echo get_lang('Username'); ?><br />
+<input type="text" name="login" id="login" size="12" tabindex="1" /><br />
+</label>
+<label for="password" >
+<?php echo get_lang('Password'); ?><br />
+<input type="password" name="password" id="password" size="12" tabindex="2" /><br />
+</label>
+<input type="submit" value="<?php echo get_lang('Enter'); ?>" name="submitAuth" tabindex="3" />
+</fieldset>
 </form>
 
-<p style="padding: 5px;">
 <?php   if( get_conf('claro_displayLostPasswordLink', true) ) : ?>
 <!-- "Lost Password" -->
-<a href="<?php echo get_path('clarolineRepositoryWeb'); ?>auth/lostPassword.php"><?php echo get_lang('Lost password'); ?></a><br />
+<p>
+<a href="<?php echo get_path('clarolineRepositoryWeb'); ?>auth/lostPassword.php"><?php echo get_lang('Lost password'); ?></a>
+</p>
 <?php   endif; ?>
 
 <?php   if( get_conf('allowSelfReg') ) : ?>
 <!-- "Create user Account" -->
-<a href="<?php echo get_path('clarolineRepositoryWeb'); ?>auth/inscription.php"><?php echo get_lang('Create user account'); ?></a><br />
-<?php   endif; ?>
+<p>
+<a href="<?php echo get_path('clarolineRepositoryWeb'); ?>auth/inscription.php"><?php echo get_lang('Create user account'); ?></a>
 </p>
+<?php   endif; ?>
 
 <?php endif; ?>
-
-</div>

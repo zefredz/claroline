@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -1408,7 +1408,7 @@ function delete_exercise_asset($exerciseId)
 }
 
 /**
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be
  *
  * @param $pathId integer id of a learnPath
  * @return boolean true if learnpath is blocked, false instead

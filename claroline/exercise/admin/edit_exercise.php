@@ -4,12 +4,12 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author Claro Team <cvs@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 
@@ -176,7 +176,7 @@ if( $cmd == 'rqEdit' )
     $form['displayType']         = $exercise->getDisplayType();
     $form['randomize']             = (boolean) $exercise->getShuffle() > 0;
     $form['questionDrawn']        = $exercise->getShuffle();
-    $form['useSameShuffle']      = (boolean) $exercise->getUseSameShuffle();
+    $form['useSameShuffle']      = (boolean) $exercise->getUseSameShuffle(); 
     $form['showAnswers']         = $exercise->getShowAnswers();
 
     $form['startDate']             = $exercise->getStartDate(); // unix
@@ -236,7 +236,11 @@ else
     ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?exId='.$exId );
 }
 
-CssLoader::getInstance()->load( 'exercise', 'screen');
+$jsLoader = JavascriptLoader::getInstance();
+$jsLoader->load( 'claroline.ui');
+
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'exercise', 'screen');
 
 $out = '';
 
@@ -261,7 +265,7 @@ if( $displayForm )
     //title
     $out .= '<dt><label for="title">' . get_lang('Title') . '&nbsp;<span class="required">*</span>&nbsp;:' . '</label></dt>' . "\n"
     .   '<dd>'
-    .   '<input type="text" name="title" id="title" size="60" maxlength="200" value="'. htmlspecialchars($form['title']) .'" />'
+    .   '<input type="text" name="title" id="title" size="60" maxlength="200" value="'. htmlspecialchars( $form['title'] ).'" />'
     .   '</dd>' . "\n";
     
     //description
@@ -276,9 +280,9 @@ if( $displayForm )
     .   '<input type="radio" name="displayType" id="displayTypeOne" value="ONEPAGE" class="radio" '
     .   ( $form['displayType'] == 'ONEPAGE'?' checked="checked"':' ') . ' />&nbsp;'
     .   '<label for="displayTypeOne">' . get_lang('On an unique page') . '</label>' . "\n"
-    .   '<br />' . "\n"
+    .   '<br />' . "\n"    
     .   '<input type="radio" name="displayType" id="displayTypeSeq" value="SEQUENTIAL" class="radio" '
-    .   ( $form['displayType'] == 'SEQUENTIAL'?' checked="checked"':' ') . ' />&nbsp;'
+    .   ( $form['displayType'] == 'SEQUENTIAL'?' checked="checked"':' ') . ' />&nbsp;'    
     .   '<label for="displayTypeSeq">' . get_lang('One question per page (sequential)') . '</label>' . "\n"
     .   '</dd>' . "\n";
     
@@ -311,9 +315,9 @@ if( $displayForm )
         .   '</div><div>'
         .   '<input type="checkbox" name="useSameShuffle" value="1" class="checkbox" '
         .   ($form['useSameShuffle'] ? ' checked="checked"' : ' ') . '/>&nbsp;'
-        .   get_lang('Reuse the same shuffle')
+        .   get_lang('Reuse the same shuffle')        
         .   '</div>'
-        .   '</dd>' . "\n";
+        .   '</dd>' . "\n";        
         
     }
     
@@ -376,7 +380,7 @@ if( $displayForm )
     .  '<br />'
     .  '<input type="radio" name="anonymousAttempts" id="anonymousAttemptsNotAllowed" value="NOTALLOWED"'
     .  ( $form['anonymousAttempts'] == 'NOTALLOWED'?' checked="checked"':' ') . ' />'
-    .  ' <label for="anonymousAttemptsNotAllowed">'.get_lang('Not allowed : record usernames in tracking, anonymous users cannot do the exercise.').'</label>'
+    .  ' <label for="anonymousAttemptsNotAllowed">'.get_lang('Not allowed : record usernames in tracking, anonymous users cannot do the exercise.').'</label>'    
     .   '</dd>';
     
     // show answers
@@ -412,7 +416,7 @@ if( $displayForm )
     .   '<div style="text-align: center;">'
     .     '<input type="submit" name="" id="" value="'.get_lang('Ok').'" />&nbsp;&nbsp;'
     .     claro_html_button('../exercise.php', get_lang("Cancel") )
-    .   '</div>';
+    .   '</div>';   
     
     $out .= '</form>' . "\n\n";
 }
@@ -439,7 +443,7 @@ else
         .   get_lang('Reuse same shuffle').'&nbsp;: '
         .   ( $exercise->getUseSameShuffle() ? get_lang('Yes') : get_lang('No') )
         .   '</li>' . "\n";
-    }
+    }    
     
     $out .= '</ul>' . "\n";
     
@@ -522,10 +526,9 @@ else
 
     $out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
     .     '<thead>' . "\n"
-    .     '<tr>' . "\n"
+    .     '<tr class="headerX">' . "\n"
     .     '<th>' . get_lang('Id') . '</th>' . "\n"
     .     '<th>' . get_lang('Question') . '</th>' . "\n"
-    .     '<th>' . get_lang('Category') . '</th>' . "\n"
     .     '<th>' . get_lang('Answer type') . '</th>' . "\n"
     .     '<th>' . get_lang('Modify') . '</th>' . "\n"
     .     '<th>' . get_lang('Delete') . '</th>' . "\n"
@@ -548,7 +551,6 @@ else
             .     '<td align="center">' . $question['id'] . '</td>' . "\n"
             .     '<td>'.$question['title'].'</td>' . "\n";
 
-			$out .= '<td>'. getCategoryTitle( $question['id_category']) .'</td>' . "\n";
             // answer type
             $out .= '<td><small>'.$localizedQuestionType[$question['type']].'</small></td>' . "\n";
 
@@ -604,7 +606,7 @@ else
     else
     {
         $out .= '<tr>' . "\n"
-        .     '<td colspan="8">' . get_lang('Empty') . '</td>' . "\n"
+        .     '<td colspan="7">' . get_lang('Empty') . '</td>' . "\n"
         .     '</tr>' . "\n\n";
     }
     $out .= '</tbody>' . "\n\n"

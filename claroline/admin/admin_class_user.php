@@ -1,14 +1,16 @@
 <?php //$Id$
-
 /**
  * CLAROLINE
  *
- * Management tools for users registration to classes.
+ * this tool manage the
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claro Team <cvs@claroline.net>
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claro Team <cvs@claroline.net>
  */
 
 // initialisation of global variables and used libraries
@@ -188,7 +190,7 @@ $cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'
 .             '</a>'
 ;
 
-$cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'user/addcsvusers.php'
+$cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'user/AddCSVusers.php'
 .             '?AddType=adminClassTool&amp;class_id='.$class_id.'">'
 .             '<img src="' . get_icon_url('import_list') . '" /> '
 .             get_lang('Add a user list in class')
@@ -247,7 +249,7 @@ if ( !empty($class_id) )
     // start table...
     $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
     .    '<thead>'
-    .    '<tr align="center" valign="top">'
+    .    '<tr class="headerX" align="center" valign="top">'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=user_id&amp;chdir=yes">' . get_lang('User id') . '</a></th>'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=nom&amp;chdir=yes">' . get_lang('Last name') . '</a></th>'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=prenom&amp;chdir=yes">' . get_lang('First name') . '</a></th>'
@@ -314,3 +316,5 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

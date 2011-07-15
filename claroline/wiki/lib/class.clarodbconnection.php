@@ -8,7 +8,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      *
      * @version 1.8 $Revision$
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @copyright 2001-2006 Universite catholique de Louvain (UCL)
      *
      * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
      * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -16,6 +16,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
      *
      * @author Frederic Minne <zefredz@gmail.com>
+     * @deprecated use Claroline_Database_Connection class from
+     *  inc/lib/database/database.lib.php instead
      *
      * @package Wiki
      */

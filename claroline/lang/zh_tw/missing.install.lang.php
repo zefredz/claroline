@@ -18,8 +18,9 @@ $_lang['Next'] = 'Next';
 $_lang['No'] = 'No';
 $_lang['Ok'] = 'Ok';
 $_lang['Password'] = 'Password';
-$_lang['Platform settings'] = 'Platform settings';
 $_lang['Retry'] = 'Retry';
 $_lang['User'] = 'User';
 $_lang['Users'] = 'Users';
 $_lang['Yes'] = 'Yes';
+
+?>

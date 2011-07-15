@@ -1,12 +1,15 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
 
 /**
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLKERNEL
  * @author      Claro Team <cvs@claroline.net>
@@ -74,15 +77,13 @@ $imgRepositoryAppend    = get_path('imgRepositoryAppend');
 $imgRepositorySys       = get_path('imgRepositorySys');
 $imgRepositoryWeb       = get_path('imgRepositoryWeb');
 
-/*
- * Path to the PEAR library. PEAR stands for "PHP Extension and Application
- * Repository". It is a framework and distribution system for reusable PHP
- * components. More on http://pear.php.net.
- * Claroline is provided with the basic PEAR components needed by the
- * application in the "claroline/inc/lib/pear" directory. But, server
- * administator can redirect to their own PEAR library directory by setting
- * its path to the PEAR_LIB_PATH constant.x
- */
+// Path to the PEAR library. PEAR stands for "PHP Extension and Application
+// Repository". It is a framework and distribution system for reusable PHP
+// components. More on http://pear.php.net.
+// Claroline is provided with the basic PEAR components needed by the
+// application in the "claroline/inc/lib/pear" directory. But, server
+// administator can redirect to their own PEAR library directory by setting
+// its path to the PEAR_LIB_PATH constant.
 
 define('PEAR_LIB_PATH', get_path('incRepositorySys') . '/lib/thirdparty/pear');
 
@@ -190,50 +191,6 @@ Claroline::initDisplay();
 // Assign the Claroline singleton to a variable for more convenience
 $claroline = Claroline::getInstance();
 
-/*===========================================================================
-                     Load configuration files
- ===========================================================================*/
-
-// Course tools
-if (isset($_cid) && $_courseTool['label'])
-{
-    $config_code = rtrim($_courseTool['label'],'_');
-
-    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
-    {
-        include claro_get_conf_repository() . $config_code . '.conf.php';
-        pushClaroMessage("Loading configuration file "
-            . claro_get_conf_repository() . $config_code
-            . '.conf.php','debug');
-    }
-
-    if ( claro_is_in_a_course()
-        && file_exists( get_conf('coursesRepositorySys')
-            . $_course['path'] . '/conf/' . $config_code . '.conf.php' ) )
-    {
-        require get_conf('coursesRepositorySys') . $_course['path']
-            . '/conf/' . $config_code . '.conf.php';
-
-        pushClaroMessage("Loading configuration file "
-            . get_conf('coursesRepositorySys') . $_course['path']
-            . '/conf/' . $config_code . '.conf.php', 'debug');
-    }
-}
-// Other modules
-elseif ( $tlabelReq )
-{
-    $config_code = rtrim($tlabelReq,'_');
-
-    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
-    {
-        include claro_get_conf_repository() . $config_code . '.conf.php';
-
-        pushClaroMessage("Loading configuration file "
-            . claro_get_conf_repository() . $config_code
-            . '.conf.php','debug');
-    }
-}
-
 if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
 {
     /*----------------------------------------------------------------------
@@ -245,7 +202,9 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
         claro_die(get_lang('Not allowed'));
     }
     
-    if ( $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed() )
+    
+    if ( $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed()
+        && ! ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] && ($tlabelReq == 'CLQWZ' || $tlabelReq == 'CLDOC') ) ) // WORKAROUND FOR OLD LP
     {
         if ( ! claro_is_user_authenticated() )
         {
@@ -258,8 +217,8 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
     }
     
     if ( $tlabelReq !== 'CLGRP'
-        && claro_is_in_a_group()
-        && ( !claro_is_group_allowed()
+        && claro_is_in_a_group() 
+        && ( !claro_is_group_allowed() 
         || ( !claro_is_allowed_to_edit()
             && !is_tool_activated_in_groups($_cid, $tlabelReq) ) ) )
     {
@@ -441,29 +400,6 @@ if ( isset($_POST['claroFormId']) )
 }
 
 /*----------------------------------------------------------------------
-  Load default javascript libraries
- ----------------------------------------------------------------------*/
-
-JavascriptLoader::getInstance()->load('jquery');
-JavascriptLoader::getInstance()->load('jquery.qtip');
-JavascriptLoader::getInstance()->load('jquery.cookie');
-JavascriptLoader::getInstance()->load('claroline');
-JavascriptLoader::getInstance()->load('claroline.ui');
-// add other default platform javascript here
-
-// Load course home page javascript
-if ( claro_is_in_a_course() )
-{
-    JavascriptLoader::getInstance()->load('course_home_page');
-    // add other default course javascript here
-    
-    if ( claro_is_in_a_group() )
-    {
-        // add other default group javascript here
-    }
-}
-
-/*----------------------------------------------------------------------
   Find MODULES's includes to add and include them using a cache system
  ----------------------------------------------------------------------*/
 
@@ -496,3 +432,18 @@ if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )
     $claroline->display->header->addHtmlHeader('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
     .' href="' . get_path('url') . '/claroline/backends/rss.php?cidReq=' . claro_get_current_course_id() . '" />' );
 }
+
+/*----------------------------------------------------------------------
+  Create the main table 'event_resource' if it doesn't exist
+  ----------------------------------------------------------------------*/
+
+$main_tblList = get_module_main_tbl(array('event_resource'));
+
+Claroline::getDatabase()->exec("CREATE TABLE IF NOT EXISTS `{$main_tblList['event_resource']}` (
+                                    `event_id` INTEGER NOT NULL,
+                                    `resource_id` INTEGER NOT NULL,
+                                    `tool_id` INTEGER NOT NULL,
+                                    `course_code` VARCHAR(40) NOT NULL,
+                                    PRIMARY KEY (`event_id`, `resource_id`, `tool_id`, `course_code`),
+                                    UNIQUE KEY (`event_id`, `course_code`)
+                                ) ENGINE=MyISAM");

@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 )
 * FIXME : move to calendar module
 *
 * @version      1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+* @copyright    (c) 2001-2008 Universite catholique de Louvain (UCL)
 * @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
 * @package      DESKTOP
 * @author       Claroline team <info@claroline.net>
@@ -30,13 +30,13 @@ class CLCAL_Portlet extends UserDesktopPortlet
         $output = '<div id="portletMycalendar">' . "\n"
             . '<img src="'.get_icon_url('loading').'" alt="" />' . "\n"
             . '</div>' . "\n"
-            . '<div class="clearer"></div>' . "\n"
+            . '<div style="clear:both;"></div>' . "\n"
             ;
         
         $output .= "<script type=\"text/javascript\">
 $(document).ready( function(){
     $('#portletMycalendar').load('"
-        .get_module_url('CLCAL')."/ajaxHandler.php', { location : 'userdesktop' });
+        .get_module_url('CLCAL')."/ajaxHandler.php');
 });
 </script>";
 

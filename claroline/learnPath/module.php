@@ -1,14 +1,17 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     1.8 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sébastien <pir@cerdecam.be>
- * @author      Lederer Guillaume <led@cerdecam.be>
- * @package     CLLNP
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
  */
 
 /*======================================
@@ -388,3 +391,5 @@ if( $is_allowedToEdit ) // for teacher only
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>
