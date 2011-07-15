@@ -118,7 +118,7 @@ class Ajax_Request
      */
     public function __construct( $class, $method, $params = array() )
     {
-        $this->klass = $class; 
+        $this->klass = $class;
         $this->method = $method;
         $this->params = $params;
     }
@@ -145,9 +145,17 @@ class Ajax_Request
      * Get the parameters for the invoked method
      * @return array method parameters
      */
-    public function getParameters()
+    public function getParameters( $getInputValidator = false )
     {
-        return $this->params;
+        if ( $getInputValidator )
+        {
+            return new Claro_Input_Validator(
+                new Claro_Input_Array( $this->params ) );
+        }
+        else
+        {
+            return $this->params;
+        }
     }
 
     public function  __toString()
@@ -380,8 +388,9 @@ class Ajax_Remote_Service_Broker
                         return new Json_Response(array(
                             'class' => $request->getClass(),
                             'method' => $request->getMethod(),
-                            'params' => $request->getParameters(),
-                            'reponse' => $response
+                            'parameters' => $request->getParameters(),
+                            'response' => $response
+                        
                         ));
                     }
                     else
