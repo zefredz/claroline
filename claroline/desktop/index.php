@@ -167,13 +167,7 @@ else
 }
 
 // Generate Script Output
-
-$jsloader = JavascriptLoader::getInstance();
-$jsloader->load('jquery');
-$jsloader->load('claroline.ui');
-
-$cssLoader = CssLoader::getInstance();
-$cssLoader->load('desktop','all');
+CssLoader::getInstance()->load('desktop','all');
 
 $template = new CoreTemplate('user_desktop.tpl.php');
 

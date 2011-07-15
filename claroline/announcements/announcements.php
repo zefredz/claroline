@@ -69,10 +69,6 @@ $context = claro_get_current_context(CLARO_CONTEXT_COURSE);
 // Local lib
 require_once './lib/announcement.lib.php';
 
-// JS for expand/collapse actions
-$jsLoader = JavascriptLoader::getInstance();
-$jsLoader->load( 'claroline.ui');
-
 // get some shared lib
 require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 // require_once get_path('clarolineRepositorySys') . '/linker/linker.inc.php';

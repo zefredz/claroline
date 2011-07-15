@@ -68,8 +68,7 @@ $relatedCourses = $thisCourse->getRelatedCourses();
 include claro_get_conf_repository() . 'rss.conf.php';
 
 // Include the course home page special CSS
-$cssLoader = CssLoader::getInstance();
-$cssLoader->load('coursehomepage', 'all');
+CssLoader::getInstance()->load('coursehomepage', 'all');
 
 $toolRepository = get_path('clarolineRepositoryWeb');
 claro_set_display_mode_available(true);

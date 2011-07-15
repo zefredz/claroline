@@ -78,8 +78,7 @@ $portletList = $portletList->loadAll();
 
 // Display
 
-$cssLoader = CssLoader::getInstance();
-$cssLoader->load('desktop','all');
+CssLoader::getInstance()->load('desktop','all');
 
 ClaroBreadCrumbs::getInstance()->prepend(
     get_lang('Administration'),

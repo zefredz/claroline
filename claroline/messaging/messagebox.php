@@ -67,7 +67,6 @@ else
     $title = get_lang('My messages');
 }
 
-$cssLoader = CssLoader::getInstance();
 $linkPage = $_SERVER['PHP_SELF'];
 
 $acceptedValues = array('inbox','outbox','trashbox');

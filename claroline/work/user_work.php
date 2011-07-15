@@ -967,8 +967,7 @@ if( !$dispWrkForm && !$dispWrkDet )
 /*--------------------------------------------------------------------
                     HEADER
     --------------------------------------------------------------------*/
-$cssLoader = CssLoader::getInstance();
-$cssLoader->load( 'clwrk', 'screen');
+CssLoader::getInstance()->load( 'clwrk', 'screen');
 
 $htmlHeadXtra[] =
 '<script type="text/javascript">

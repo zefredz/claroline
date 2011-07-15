@@ -533,9 +533,6 @@ if( $inLP )
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), 'exercise.php' );
 
-$jsLoader = JavascriptLoader::getInstance();
-$jsLoader->load( 'claroline.ui');
-
 $out = '';
 
 $nameTools = $exercise->getTitle();

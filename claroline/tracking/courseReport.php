@@ -37,8 +37,7 @@ require_once dirname( __FILE__ ) . '/lib/trackingRendererRegistry.class.php';
 /*
  * Output
  */
-$cssLoader = CssLoader::getInstance();
-$cssLoader->load( 'tracking', 'screen');
+CssLoader::getInstance()->load( 'tracking', 'screen');
 
 // initialize output
 $claroline->setDisplayType( CL_PAGE );

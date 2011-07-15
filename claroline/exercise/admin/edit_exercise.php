@@ -236,11 +236,7 @@ else
     ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?exId='.$exId );
 }
 
-$jsLoader = JavascriptLoader::getInstance();
-$jsLoader->load( 'claroline.ui');
-
-$cssLoader = CssLoader::getInstance();
-$cssLoader->load( 'exercise', 'screen');
+CssLoader::getInstance()->load( 'exercise', 'screen');
 
 $out = '';
 

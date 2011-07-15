@@ -888,7 +888,6 @@ class ClaroCourse
      */
     public function displayForm ($cancelUrl=null)
     {
-        JavascriptLoader::getInstance()->load('claroline.ui');
         JavascriptLoader::getInstance()->load('course_form');
         
         $languageList   = claro_get_lang_flat_list();

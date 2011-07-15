@@ -101,8 +101,7 @@ if( !is_array($userData) )
 /*
  * Output
  */
-$cssLoader = CssLoader::getInstance();
-$cssLoader->load( 'tracking', 'screen');
+CssLoader::getInstance()->load( 'tracking', 'screen');
 
 $nameTools = get_lang('Statistics');
 ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF'] . '?userId=' . $userId ) ) );
