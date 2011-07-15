@@ -3,8 +3,6 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
- *
  * Ajax utility functions and classes
  *
  * @version     $Revision$
@@ -145,11 +143,20 @@ class Ajax_Request
 
     /**
      * Get the parameters for the invoked method
-     * @return array method parameters
+     * @param  bool $getInputValidator return a Claro_Input_validator instead of an array
+     * @return array method parameters or Claro_Input_validator
      */
-    public function getParameters()
+    public function getParameters( $getInputValidator = false )
     {
-        return $this->params;
+        if ( $getInputValidator )
+        {
+            return new Claro_Input_Validator( 
+                new Claro_Input_Array( $this->params ) );
+        }
+        else
+        {
+            return $this->params;
+        }
     }
 
     public function  __toString()
@@ -382,8 +389,8 @@ class Ajax_Remote_Service_Broker
                         return new Json_Response(array(
                             'class' => $request->getClass(),
                             'method' => $request->getMethod(),
-                            'params' => $request->getParameters(),
-                            'reponse' => $response
+                            'parameters' => $request->getParameters(),
+                            'response' => $response
                         ));
                     }
                     else

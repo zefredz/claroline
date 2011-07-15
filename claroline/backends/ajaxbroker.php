@@ -3,8 +3,6 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
- *
  * Ajax Broker script
  *
  * Usage:
@@ -47,7 +45,7 @@ try
         $response = Claroline::ajaxServiceBroker()->handle($ajaxRequest);
     }
 }
-catch (Exception $e )
+catch ( Exception $e )
 {
     $response = new Json_Exception( $e );
 }
@@ -55,3 +53,5 @@ catch (Exception $e )
 header('Content-type: application/json; charset=utf-8');
 echo $response->toJson();
 exit;
+
+
