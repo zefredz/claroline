@@ -1228,7 +1228,7 @@ class ResourceLinker
         return '<div id="lnk_panel">' . "\n"
             . '<div id="lnk_selected_resources"></div>' . "\n"
             . '<p id="lnk_toggle">' . "\n"
-            . '<a href="#" id="lnk_show_browser">'.get_lang('Attach an existing resource').'</a>' . "\n"
+            . '<a href="#" id="lnk_show_browser" class="attach">'.get_lang('Attach an existing resource').'</a>' . "\n"
             . '<a href="#" id="lnk_hide_browser">'.get_lang('Close').'</a>' . "\n"
             . '</p>' . "\n"
             . '<div id="lnk_browser">' . "\n"

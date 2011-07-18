@@ -1738,3 +1738,8 @@ td.userCourseList {padding-left: 20px;}
 .userCourseList h4 {
     font-size: 1em;
 }
+
+.attach {
+    padding-left: 16px;
+    background: url(../../img/attach.png) no-repeat left center;
+}
