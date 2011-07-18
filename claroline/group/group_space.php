@@ -1,15 +1,16 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * This tool is "groupe_home" + "group_user"
+ * This tool is "groupe_home" + "group_user".
  *
- * @version 1.9 $Revision$
- * @copyright 2001-2011 Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see http://www.claroline.net/wiki/index.php/CLGRP
- * @package CLGRP
- * @author Claro Team <cvs@claroline.net>
+ * @version     $Revision$
+ * @copyright   2001-2011 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/CLGRP
+ * @package     CLGRP
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 $cidNeeded = true;
@@ -149,8 +150,8 @@ if( isset($_REQUEST['registration']) )
 
 if ( isset($_REQUEST['regDone']) )
 {
-    $dialogBox->success( 
-        get_lang("You are now a member of this group.") 
+    $dialogBox->success(
+        get_lang("You are now a member of this group.")
     );
 }
 
@@ -318,13 +319,13 @@ foreach($toolList as $thisTool)
  * DISPLAY SECTION
  ******************/
 
-Claroline::getDisplay()->body->appendContent( 
-    claro_html_tool_title( 
+Claroline::getDisplay()->body->appendContent(
+    claro_html_tool_title(
         array(
             'supraTitle'=> get_lang("Groups"),
             'mainTitle' => claro_get_current_group_data('name') . ' <img src="' . get_icon_url('group') . '" alt="" />'
         )
-    ) 
+    )
 );
 
 $groupSpaceTemplate = new CoreTemplate('group_space.tpl.php');
@@ -332,14 +333,14 @@ $groupSpaceTemplate = new CoreTemplate('group_space.tpl.php');
 $groupSpaceTemplate->assign( 'dialogBox', $dialogBox );
 
 
-$groupSpaceTemplate->assign( 
-    'displayRegistrationLink', 
-    $is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST) 
+$groupSpaceTemplate->assign(
+    'displayRegistrationLink',
+    $is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST)
 );
 
-$groupSpaceTemplate->assign( 
-    'displayUnregistrationLink', 
-    $is_allowedToSelfUnregInGroup && !array_key_exists('unregistration',$_REQUEST) 
+$groupSpaceTemplate->assign(
+    'displayUnregistrationLink',
+    $is_allowedToSelfUnregInGroup && !array_key_exists('unregistration',$_REQUEST)
 );
 
 $groupSpaceTemplate->assign( 'toolLinkList', $toolLinkList );

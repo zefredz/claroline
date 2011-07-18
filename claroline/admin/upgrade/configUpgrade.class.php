@@ -1,24 +1,20 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * Config class to upgrade configuration file
+ * Config class to upgrade configuration file.
  *
- * @version 1.8 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/config_def/
- *
- * @package CONFIG
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesche <moosh@claroline.net>
- * @author Mathieu Laurent <laurent@cerdecam.be>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/config_def/
+ * @package     CONFIG
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Christophe Gesche <moosh@claroline.net>
+ * @author      Mathieu Laurent <laurent@cerdecam.be>
  */
 
 require_once dirname(__FILE__) . '/../../inc/lib/config.class.php';
@@ -104,4 +100,5 @@ class ConfigUpgrade extends Config
     }
 
 }
+
 ?>

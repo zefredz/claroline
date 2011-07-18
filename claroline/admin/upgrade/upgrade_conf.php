@@ -1,26 +1,24 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * Initialize conf settings
- * Try to read  current values in current conf files
- * Build new conf file content with these settings
+ * Initialize conf settings.
+ * Try to read  current values in current conf files.
+ * Build new conf file content with these settings.
  * write it.
  *
- * @version 1.9 $Revision$
+ * @version     $Revision$
  *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.7
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     UPGRADE
  *
- * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.7
- *
- * @package UPGRADE
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
- * @author Mathieu Laurent <laurent@cerdecam.be>
- *
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Christophe Gesche <moosh@claroline.net>
+ * @author      Mathieu Laurent <laurent@cerdecam.be>
  */
 
 /*=====================================================================
@@ -288,5 +286,3 @@ switch ($display)
 
 // Display footer
 echo upgrade_disp_footer();
-
-?>

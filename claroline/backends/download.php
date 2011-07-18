@@ -1,10 +1,12 @@
 <?php // $Id$
 
 /**
- * Download a file given it's file location within a course or group document
- * directory
+ * CLAROLINE
  *
- * @version     1.9 $Revision$
+ * Download a file given it's file location within a course or group document
+ * directory.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -226,5 +228,3 @@ else
 }
 
 die();
-
-?>

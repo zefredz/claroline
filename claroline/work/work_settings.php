@@ -2,13 +2,13 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Course-level properties for CLWRK tool
+ * Course-level properties for CLWRK tool.
  *
  * Currently available properties
  *  1. Send notification to course manager when a new submission is posted
  *  2. Send notification to students when a feedback is added
  *
- * @version     1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
  * @author      Jean-Roch Meurisse <jmeuriss@fundp.ac.be>
@@ -37,7 +37,7 @@ try
     //init user input handler
     $userInput = Claro_UserInput::getInstance();
     $userInput->setValidatorForAll( new Claro_Validator_ValueType( 'string' ) );
-    $cmd = $userInput->get( 'cmd' );                    
+    $cmd = $userInput->get( 'cmd' );
     
     if( 'savePrefs' == $cmd )
     {
@@ -49,7 +49,7 @@ try
         if( $errorCount > 0 )
         {
             $dialogBox->error( get_lang( 'Error while saving notification preferences' ) );
-        }        
+        }
         else
         {
             $dialogBox->success( get_lang( 'Notification preferences saved' ) );
@@ -128,4 +128,3 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang( 'Assignments' ), 'index.php'
 $claroline->display->body->appendContent( $out );
 
 echo $claroline->display->render();
-

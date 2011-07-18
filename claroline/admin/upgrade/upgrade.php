@@ -1,4 +1,5 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
@@ -13,19 +14,16 @@
  * - update course db
  * - update course repository content
  *
- * @version 1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     UPGRADE
  *
- * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
- *
- * @package UPGRADE
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
- * @author Mathieu Laurent <laurent@cerdecam.be>
- *
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Christophe Gesche <moosh@claroline.net>
+ * @author      Mathieu Laurent <laurent@cerdecam.be>
  */
 
 /*=====================================================================
@@ -253,5 +251,3 @@ switch ($display)
 
 // Display footer
 echo upgrade_disp_footer();
-
-?>

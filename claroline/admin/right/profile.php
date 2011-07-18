@@ -3,18 +3,13 @@
 /**
  * CLAROLINE
  *
- * Edit right & action of a profile
+ * Edit right & action of a profile.
  *
- * @version 1.8 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package RIGHT
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     RIGHT
  */
 
 require '../../inc/claro_init_global.inc.php';
@@ -46,7 +41,7 @@ if ( !empty($profile_id) )
 
     if ( $profile->load($profile_id) )
     {
-        // load profile tool right    
+        // load profile tool right
         $profileRight = new RightProfileToolRight();
         $profileRight->load($profile);
 
@@ -145,5 +140,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

@@ -1,15 +1,12 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 $tlabelReq = 'CLQWZ';
@@ -115,7 +112,7 @@ if( $cmd == 'exEdit' )
 
     $question->setTitle($_REQUEST['title']);
     $question->setDescription($_REQUEST['description']);
-    $question->setCategoryId($_REQUEST['categoryId']); 
+    $question->setCategoryId($_REQUEST['categoryId']);
     
     if( is_null($quId) ) $question->setType($_REQUEST['type']);
 
@@ -261,7 +258,7 @@ if( $displayForm )
     .     '<td><select name="categoryId"><option value="0">';
     foreach ($questionCategoryList as $category)
     {
-        $out .= '<option value="'.$category['id'].'"' 
+        $out .= '<option value="'.$category['id'].'"'
             .( $category['id'] == $form['categoryId']?'selected="selected"':' ' )
             .'>'.$category['title'].'</option>';
     }
@@ -373,5 +370,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

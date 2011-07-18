@@ -1,20 +1,16 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * The script works with the
- *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package UPGRADE
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Mathieu Laurent <mathieu@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     UPGRADE
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Mathieu Laurent <mathieu@claroline.net>
  */
 
 /**
@@ -744,5 +740,4 @@ class UpgradeTrackingOffset
             unlink(dirname(__FILE__) . self::$path);
         }
     }
-    
 }

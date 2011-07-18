@@ -1,25 +1,26 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
  * This tool has been written to edit Claroline's settings.
  *
- * In the old version of Claroline, there was a central config 
- * file.  In the new releases a conf repository was build with 
+ * In the old version of Claroline, there was a central config
+ * file.  In the new releases a conf repository was build with
  * config files.
  *
- * To avoid overwriting on the following release, it 
- * was renamed from .conf.inc.php to .conf.inc.php.dist.  
+ * To avoid overwriting on the following release, it
+ * was renamed from .conf.inc.php to .conf.inc.php.dist.
  * Installer was enable to rename from .conf.inc.php.dist
  * to .conf.inc.php.
  *
- * The current config file is build to merge new and active 
+ * The current config file is build to merge new and active
  * settings.
  *
  * The system has been modified deeper than previous evolution.
  * Tools are released with a conf definition file.
  *
- * For each property, this file defines a name, a place and 
+ * For each property, this file defines a name, a place and
  * also some control to define accepted content.
  *
  *
@@ -31,7 +32,7 @@
  * - renaming or deletion of properties from config
  * - locking  of edit file (this tools can't really be
  *   in the active part of the day in prod)
- *   I need to change that to let admin sleep during 
+ *   I need to change that to let admin sleep during
  *   the night
  *
  * To make transition,
@@ -39,25 +40,20 @@
  *   and their values.
  * - this script should continue to generate a def conf file.
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/config_def/
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CONFIG
  *
- * @see http://www.claroline.net/wiki/config_def/
- *
- * @package CONFIG
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Mathieu Laurent   <mla@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Mathieu Laurent <mla@claroline.net>
+ * @author      Christophe Gesche <moosh@claroline.net>
  */
 
-$cidReset=TRUE;
-$gidReset=TRUE;
+$cidReset=true;
+$gidReset=true;
 
 // include init and library files
 
@@ -191,5 +187,3 @@ if ( !empty($form) )
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

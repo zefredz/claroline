@@ -1,19 +1,16 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLTRACK
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Sébastien Piraux <piraux@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLTRACK
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Sebastien Piraux <piraux@claroline.net>
  */
+
 $tlabelReq = 'CLQWZ';
 
 require '../inc/claro_init_global.inc.php';
@@ -57,10 +54,10 @@ $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise',
                                                'qwz_answer_truefalse',
                                                'qwz_answer_fib',
                                                'qwz_answer_matching',
-                                               'qwz_tracking', 
+                                               'qwz_tracking',
                                                'qwz_tracking_questions',
                                                'qwz_tracking_answers'
-                                        ), 
+                                        ),
                                         claro_get_current_course_id() );
 
 $tbl_qwz_question                 = $tbl_cdb_names['qwz_question'];
@@ -410,12 +407,12 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                 // expected choice image
                 $out .= '<img src="';
                 // choose image to display
-                if ($question->getType() != 'MCMA') 
+                if ($question->getType() != 'MCMA')
                 {
                     if( $result['correct'] )    $out .= get_icon_url('radio_on') . '" alt="(X)"';
                     else                        $out .= get_icon_url('radio_off') . '" alt="( )"';
                 }
-                else   
+                else
                 {
                     if( $result['correct'] )    $out .= get_icon_url('checkbox_on') . '" alt="(X)"';
                     else                        $out .= get_icon_url('checkbox_off') . '" alt="( )"';
@@ -644,5 +641,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

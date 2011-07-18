@@ -3,16 +3,14 @@
 /**
  * CLAROLINE
  *
- * Upgrade modules database
+ * Upgrade modules database.
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
- * @package UPGRADE
- * @author Claro Team <cvs@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ * @package     UPGRADE
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 $new_version_branch = '';
@@ -116,4 +114,3 @@ switch ($display)
 
 // Display footer
 echo upgrade_disp_footer();
-

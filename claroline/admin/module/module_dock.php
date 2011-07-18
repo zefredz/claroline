@@ -1,15 +1,13 @@
-<?php
+<?php // $Id$
+
 /**
  * CLAROLINE
- * @version 1.8
  *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package ADMIN
- *
- * @author claro team <cvs@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     ADMIN
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 require '../../inc/claro_init_global.inc.php';
@@ -242,5 +240,3 @@ if ( !empty($dock) )
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

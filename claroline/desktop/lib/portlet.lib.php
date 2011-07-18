@@ -10,13 +10,13 @@ if ( count( get_included_files() ) == 1 )
 /**
  * CLAROLINE
  *
- * User desktop portlet classes
+ * User desktop portlet classes.
  *
- * @version     1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     DESKTOP
- * @author      Claroline team <info@claroline.net>
+ * @author      Claroline Team <info@claroline.net>
  */
 
 require_once get_path('includePath') . '/lib/portlet.class.php';

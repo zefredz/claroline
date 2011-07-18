@@ -7,11 +7,11 @@
  *
  * User desktop index.
  *
- * @version      1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package      DESKTOP
- * @author       Claroline team <info@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     DESKTOP
+ * @author      Claroline team <info@claroline.net>
  */
 
 // reset course and groupe

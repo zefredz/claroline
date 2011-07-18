@@ -5,9 +5,9 @@
 /**
 * CLAROLINE
 *
-* User desktop administration index
+* User desktop administration index.
 *
-* @version      1.9 $Revision$
+* @version      $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
 * @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
 * @package      DESKTOP
@@ -16,9 +16,9 @@
 */
 
 // reset course and groupe
-$cidReset = TRUE;
-$gidReset = TRUE;
-$uidRequired = TRUE;
+$cidReset = true;
+$gidReset = true;
+$uidRequired = true;
 
 // load Claroline kernel
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';

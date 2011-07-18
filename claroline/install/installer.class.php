@@ -9,21 +9,15 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * Moved from install.lib.inc.php to avoid fatal error in PHP4 before checking
  * requirements.
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/Install
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
- * @author Sebastien Piraux <seb@claroline.net>
- * @author Frederic Minne <zefredz@claroline.net>
- *
- * @package INSTALL
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/Install
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Christophe Gesche <moosh@claroline.net>
+ * @author      Sebastien Piraux <seb@claroline.net>
+ * @author      Frederic Minne <zefredz@claroline.net>
+ * @package     INSTALL
  */
 
 /**
@@ -145,7 +139,7 @@ class ClaroInstaller
             } // end if (in string)
             
             // lets skip comments (/*, -- and #)
-            else if (($char == '-' && $sql_len > $i + 2 && $sql[$i + 1] == '-' && $sql[$i + 2] <= ' ') 
+            else if (($char == '-' && $sql_len > $i + 2 && $sql[$i + 1] == '-' && $sql[$i + 2] <= ' ')
                 || $char == '#' || ($char == '/' && $sql_len > $i + 1 && $sql[$i + 1] == '*'))
             {
                 $i = strpos($sql, $char == '/' ? '*/' : "\n", $i);

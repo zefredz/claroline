@@ -1,10 +1,11 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * This tool manage properties of an exiting course
+ * This tool manage properties of an exiting course.
  *
- * @version     1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      claroline Team <cvs@claroline.net>

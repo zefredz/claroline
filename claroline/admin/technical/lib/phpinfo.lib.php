@@ -1,135 +1,132 @@
 <?php // $Id$
 
-    // vim: expandtab sw=4 ts=4 sts=4 foldmethod=marker:
-    
-    /**
-     * CLAROLINE
-     *
-     * PHP Info utility library
-     *
-     * @version 1.8 $Revision$
+// vim: expandtab sw=4 ts=4 sts=4 foldmethod=marker:
+
+/**
+ * CLAROLINE
+ *
+ * PHP Info utility library.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
-     *
-     * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
-     *
-     * @author : Frédéric Minne <zefredz@claroline.net>
-     *
-     * @package MAINTENANCE
-     */
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Frédéric Minne <zefredz@claroline.net>
+ * @package     MAINTENANCE
+ */
+
+/**
+ * Returns phpinfo without html, head and body tags
+ * @return  string
+ */
+function phpinfoNoHtml()
+{
+    ob_start();
+    phpinfo();
+    $content = ob_get_contents();
+    ob_end_clean();
     
-    /**
-     * Returns phpinfo without html, head and body tags
-     * @return  string
-     */ 
-    function phpinfoNoHtml()
-    {
-        ob_start();
-        phpinfo();
-        $content = ob_get_contents();
-        ob_end_clean();
-        
-        return phpinfo_extractContent( $content );
-    }
+    return phpinfo_extractContent( $content );
+}
+
+/**
+ * Returns phpinfo without html, head and body tags
+ * @return  string
+ */
+function phpcreditsNoHtml()
+{
+    ob_start();
+    phpcredits();
+    $content = ob_get_contents();
+    ob_end_clean();
     
-    /**
-     * Returns phpinfo without html, head and body tags
-     * @return  string
-     */ 
-    function phpcreditsNoHtml()
-    {
-        ob_start();
-        phpcredits();
-        $content = ob_get_contents();
-        ob_end_clean();
-        
-        return phpcredits_extractContent( $content );
-    }
+    return phpcredits_extractContent( $content );
+}
+
+/**
+ * Returns string without html, head and body tags (based on phpinfo output)
+ * @return  string
+ */
+function phpinfo_extractContent( $str )
+{
+    $contentArr =preg_split( '~(\r\n|\r|\n)~', $str );
     
-    /**
-     * Returns string without html, head and body tags (based on phpinfo output)
-     * @return  string
-     */
-    function phpinfo_extractContent( $str )
+    $extract = array();
+    $startCapture = false;
+    
+    foreach ( $contentArr as $line )
     {
-        $contentArr =preg_split( '~(\r\n|\r|\n)~', $str );
+        $line = trim( $line );
         
-        $extract = array();
-        $startCapture = false;
-        
-        foreach ( $contentArr as $line )
+        if ( preg_match( '~^\<table~', $line ) )
         {
-            $line = trim( $line );
-            
-            if ( preg_match( '~^\<table~', $line ) )
-            {
-                $startCapture = true;
-                $extract[] = $line;
-            }
-            elseif ( preg_match( '~\</table\>~', $line ) )
-            {
-                $startCapture = false;
-                $extract[] = $line;
-            }
-            elseif ( $startCapture && !empty( $line ) )
-            {
-                $extract[] = $line;
-            }
-            else
-            {
-                //skip
-            }
+            $startCapture = true;
+            $extract[] = $line;
         }
-        
-        $extract = implode( "\n", $extract );
-        
-        return $extract;
-    }
-    
-    /**
-     * Returns string without html, head and body tags (based on phpinfo output)
-     * @return  string
-     */
-    function phpcredits_extractContent( $str )
-    {
-        $contentArr =preg_split( '~(\r\n|\r|\n)~', $str );
-        
-        $extract = array();
-        $startCapture = false;
-        
-        foreach ( $contentArr as $line )
+        elseif ( preg_match( '~\</table\>~', $line ) )
         {
-            $line = trim( $line );
-            
-            if ( preg_match( '~\<body~', $line ) )
-            {
-                $startCapture = true;
-            }
-            elseif ( preg_match( '~\</body~', $line ) )
-            {
-                $startCapture = false;
-            }
-            elseif ( $startCapture && !empty( $line ) )
-            {
-                $extract[] = $line;
-            }
-            else
-            {
-                //skip
-            }
+            $startCapture = false;
+            $extract[] = $line;
         }
-        
-        $extract = implode( "\n", $extract );
-        
-        return $extract;
+        elseif ( $startCapture && !empty( $line ) )
+        {
+            $extract[] = $line;
+        }
+        else
+        {
+            //skip
+        }
     }
     
-    /**
-     * Get phpinfo style sheet
-     * @return  string
-     */
-    function phpinfo_getStyle()
+    $extract = implode( "\n", $extract );
+    
+    return $extract;
+}
+
+/**
+ * Returns string without html, head and body tags (based on phpinfo output)
+ * @return  string
+ */
+function phpcredits_extractContent( $str )
+{
+    $contentArr =preg_split( '~(\r\n|\r|\n)~', $str );
+    
+    $extract = array();
+    $startCapture = false;
+    
+    foreach ( $contentArr as $line )
     {
-        return '<style type="text/css">
+        $line = trim( $line );
+        
+        if ( preg_match( '~\<body~', $line ) )
+        {
+            $startCapture = true;
+        }
+        elseif ( preg_match( '~\</body~', $line ) )
+        {
+            $startCapture = false;
+        }
+        elseif ( $startCapture && !empty( $line ) )
+        {
+            $extract[] = $line;
+        }
+        else
+        {
+            //skip
+        }
+    }
+    
+    $extract = implode( "\n", $extract );
+    
+    return $extract;
+}
+
+/**
+ * Get phpinfo style sheet
+ * @return  string
+ */
+function phpinfo_getStyle()
+{
+    return '<style type="text/css">
 .phpInfoContents table {border-collapse: collapse;}
 .phpInfoContents .center {text-align: center;}
 .phpInfoContents .center table { margin-left: auto; margin-right: auto; text-align: left;}
@@ -151,5 +148,6 @@
 .phpInfoContents .v-notrun {background-color:#cccccc;color:#000000;}
 .phpInfoContents .v-error {background-color:#F6AE15;color:#000000;font-weight:bold;}
 </style>';
-    }
+}
+
 ?>

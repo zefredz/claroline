@@ -1,31 +1,25 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * Function to update course tool 1.7 to 1.8
- *
+ * Function to update course tool 1.7 to 1.8.
  * - READ THE SAMPLE AND COPY PASTE IT
- *
  * - ADD TWICE MORE COMMENT THAT YOU THINK NEEDED
  *
  * This code would be splited by task for the 1.8 Stable but code inside
  * function won't change, so let's go to write it.
  *
- * @version 1.8 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
- *
- * @package UPGRADE
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Mathieu Laurent   <mla@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ * @package     UPGRADE
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Mathieu Laurent   <mla@claroline.net>
+ * @author      Christophe Gesché <moosh@claroline.net>
  */
 
 /*===========================================================================
@@ -51,7 +45,7 @@ function course_repository_upgrade_to_18 ($course_code)
                 
                 if ( is_writable($currentcoursePathSys) )
                 {
-                    if ( !is_dir($currentcoursePathSys) ) 
+                    if ( !is_dir($currentcoursePathSys) )
                         claro_mkdir($currentcoursePathSys);
                     if ( !is_dir($currentcoursePathSys.'/chat') )
                         claro_mkdir($currentcoursePathSys.'/chat');
@@ -246,7 +240,7 @@ function tool_list_upgrade_to_18 ($course_code)
 
             case 2 :
                 
-                $sql_step2 = "DELETE FROM `" . $currentCourseDbNameGlu . "tool_list` 
+                $sql_step2 = "DELETE FROM `" . $currentCourseDbNameGlu . "tool_list`
                               WHERE `access` <> 'ALL' AND `access` <> 'COURSE_ADMIN' ";
 
                 if ( upgrade_sql_query($sql_step2) )
@@ -260,7 +254,7 @@ function tool_list_upgrade_to_18 ($course_code)
 
             case 3 :
 
-                $sql_step3 = "UPDATE `" . $currentCourseDbNameGlu . "tool_list` 
+                $sql_step3 = "UPDATE `" . $currentCourseDbNameGlu . "tool_list`
                       SET `visibility` = 1
                       WHERE `access` = 'ALL' ";
 
@@ -431,10 +425,10 @@ function quiz_upgrade_to_18 ($course_code)
                             VALUES
                             ";
                             
-                $rankList = array();            
+                $rankList = array();
                 while ( ( $row = mysql_fetch_array($result) ) )
                 {
-                    if( isset($rankList[$row['exercice_id']]) ) 
+                    if( isset($rankList[$row['exercice_id']]) )
                     {
                         $rankList[$row['exercice_id']]++;
                     }
@@ -443,7 +437,7 @@ function quiz_upgrade_to_18 ($course_code)
                         $rankList[$row['exercice_id']] = 1;
                     }
                     
-                    $sql_upgrade_qwz_rel_values[] = "(".$row['exercice_id'].",".$row['question_id'].",".$rankList[$row['exercice_id']].")";                    
+                    $sql_upgrade_qwz_rel_values[] = "(".$row['exercice_id'].",".$row['question_id'].",".$rankList[$row['exercice_id']].")";
                 }
                 
                 if( !empty($sql_upgrade_qwz_rel_values) )
@@ -460,20 +454,20 @@ function quiz_upgrade_to_18 ($course_code)
                     return $step;
                 }
                 
-        // handle answers        
-        case 3 :                
+        // handle answers
+        case 3 :
                 // add MCMA AND MCUA answers (let id auto increment)
                 $sql_step3[] = "INSERT IGNORE INTO `". $currentCourseDbNameGlu . "qwz_answer_multiple_choice`
                  (questionId,answer,correct,grade,comment)
                  SELECT A.question_id,A.reponse,A.correct,A.ponderation,A.comment
                     FROM `".$currentCourseDbNameGlu."quiz_answer` AS A, `".$currentCourseDbNameGlu."quiz_question` AS Q
-                    WHERE A.question_id = Q.id 
+                    WHERE A.question_id = Q.id
                      AND ( Q.type = 1 OR Q.type = 2 )"; // Q.type = mcma or mcua
 
                 // add FIB answers
                 $sql = "SELECT Q.id, A.reponse
                     FROM `".$currentCourseDbNameGlu."quiz_answer` AS A, `".$currentCourseDbNameGlu."quiz_question` AS Q
-                    WHERE A.question_id = Q.id 
+                    WHERE A.question_id = Q.id
                      AND Q.type = 3"; // Q.type = FIB
 
                 $result = claro_sql_query($sql);
@@ -481,7 +475,7 @@ function quiz_upgrade_to_18 ($course_code)
                 if ( ! $result ) return $step;
 
                 while ( ( $row = mysql_fetch_array($result) ) )
-                {                
+                {
                     $reponse = explode( '::',$row['reponse']);
                     
                      $answer = (isset($reponse[0]))?$reponse[0]:'';
@@ -502,7 +496,7 @@ function quiz_upgrade_to_18 ($course_code)
                              '" . claro_sql_escape($type) . "'
                             )";
 
-                    if ( ! upgrade_sql_query($sql) )  
+                    if ( ! upgrade_sql_query($sql) )
                     {
                         return $step;
                     }
@@ -514,7 +508,7 @@ function quiz_upgrade_to_18 ($course_code)
 
                 $sql = "SELECT A.id, A.question_id, A.reponse, A.correct, A.ponderation
                     FROM `".$currentCourseDbNameGlu."quiz_answer` AS A, `".$currentCourseDbNameGlu."quiz_question` AS Q
-                    WHERE A.question_id = Q.id 
+                    WHERE A.question_id = Q.id
                      AND Q.type = 4"; // Q.type = MATCHING
 
                 $result = claro_sql_query($sql);
@@ -522,11 +516,11 @@ function quiz_upgrade_to_18 ($course_code)
                 if ( ! $result ) return $step;
                 
                 while ( ( $row = mysql_fetch_array($result) ) )
-                {                
+                {
                     $answerId = $row['question_id'].'-'.$row['id'];
                        $code = md5(uniqid(''));
 
-                       $answerList[$answerId]['questionId'] = $row['question_id'];                       
+                       $answerList[$answerId]['questionId'] = $row['question_id'];
                        $answerList[$answerId]['answer'] = $row['reponse'];
                        $answerList[$answerId]['code'] = $code;
                        
@@ -547,13 +541,13 @@ function quiz_upgrade_to_18 ($course_code)
                 {
                     if( $answer['match'] != 0 )
                     {
-                        // find the matching right proposal code for all left proposals                        
+                        // find the matching right proposal code for all left proposals
                         $matchingAnswerId = $answer['questionId'].'-'.$answer['match'];
 
-                        if( isset($answerList[$matchingAnswerId]['code']) ) 
+                        if( isset($answerList[$matchingAnswerId]['code']) )
                         {
                             $answer['match'] = $answerList[$matchingAnswerId]['code'];
-                        }                        
+                        }
                     }
                     // else right proposal, leave match to 'NULL' value
                     
@@ -565,10 +559,10 @@ function quiz_upgrade_to_18 ($course_code)
                              '" . claro_sql_escape($answer['answer']) . "',
                              " . ($answer['match']==0?'NULL':"'".$answer['match']."'"). ",
                              '" . $answer['grade'] . "',
-                             '" . $answer['code'] . "'                            
+                             '" . $answer['code'] . "'
                             )";
 
-                    if ( ! upgrade_sql_query($sql) )  
+                    if ( ! upgrade_sql_query($sql) )
                     {
                         return $step;
                     }
@@ -580,7 +574,7 @@ function quiz_upgrade_to_18 ($course_code)
 
                 $sql = "SELECT A.id, A.question_id, A.reponse, A.correct, A.comment, A.ponderation
                     FROM `".$currentCourseDbNameGlu."quiz_answer` AS A, `".$currentCourseDbNameGlu."quiz_question` AS Q
-                    WHERE A.question_id = Q.id 
+                    WHERE A.question_id = Q.id
                      AND Q.type = 5"; // Q.type = TF
                      
                 $result = claro_sql_query($sql);
@@ -589,7 +583,7 @@ function quiz_upgrade_to_18 ($course_code)
                 
                 // build an answer array that looks like the new db format
                 while ( ( $row = mysql_fetch_array($result) ) )
-                {   
+                {
                     $answerId = $row['question_id'];
                         
                     $answerList[$answerId]['questionId'] = $answerId;
@@ -611,7 +605,7 @@ function quiz_upgrade_to_18 ($course_code)
                 }
 
                 foreach( $answerList as $answerId => $answer)
-                {                    
+                {
                     
                     $sql = "INSERT INTO `" . $currentCourseDbNameGlu . "qwz_answer_truefalse`
                             (`questionId`,`trueFeedback`, `trueGrade`,`falseFeedback`,`falseGrade`,`correctAnswer`)
@@ -620,15 +614,15 @@ function quiz_upgrade_to_18 ($course_code)
                              '" . claro_sql_escape($answer['trueFeedback']) . "',
                              '" . $answer['trueGrade'] . "',
                              '" . claro_sql_escape($answer['falseFeedback']) . "',
-                             '" . $answer['falseGrade'] . "',                             
-                             '" . $answer['correctAnswer'] . "'                         
+                             '" . $answer['falseGrade'] . "',
+                             '" . $answer['correctAnswer'] . "'
                             )";
 
-                    if ( ! upgrade_sql_query($sql) )  
+                    if ( ! upgrade_sql_query($sql) )
                     {
                         return $step;
                     }
-                }                                                                    
+                }
                                                
                 if ( upgrade_apply_sql($sql_step3) )
                 {
@@ -639,7 +633,7 @@ function quiz_upgrade_to_18 ($course_code)
                     return $step;
                 }
                 
-        case 4 : 
+        case 4 :
                 // move attached files
                 $sql = "SELECT id, attached_file
                     FROM `".$currentCourseDbNameGlu."quiz_question`";
@@ -649,9 +643,9 @@ function quiz_upgrade_to_18 ($course_code)
                 if ( ! $result ) return $step;
 
                 while ( ( $row = mysql_fetch_array($result) ) )
-                {  
+                {
                     // create new folder
-                    $exe_dirname = $currentcoursePathSys.'exercise'; // is also the dir where file where in previous versions                  
+                    $exe_dirname = $currentcoursePathSys.'exercise'; // is also the dir where file where in previous versions
 
                     if ( !is_dir($exe_dirname) )
                     {
@@ -691,9 +685,9 @@ function quiz_upgrade_to_18 ($course_code)
 
         case 5 :
                 
-                $sql_step5 = "DROP TABLE `".$currentCourseDbNameGlu."quiz_answer`, 
+                $sql_step5 = "DROP TABLE `".$currentCourseDbNameGlu."quiz_answer`,
                                          `".$currentCourseDbNameGlu."quiz_question`,
-                                         `".$currentCourseDbNameGlu."quiz_rel_test_question`, 
+                                         `".$currentCourseDbNameGlu."quiz_rel_test_question`,
                                          `".$currentCourseDbNameGlu."quiz_test`";
 
                 if ( upgrade_sql_query($sql_step5) )
@@ -714,11 +708,11 @@ function quiz_upgrade_to_18 ($course_code)
 }
 
 /**
- * Function to upgrade tool intro 
+ * Function to upgrade tool intro
  */
 
 function tool_intro_upgrade_to_18 ($course_code)
-{    
+{
     global $currentCourseVersion, $currentcoursePathSys;
 
     $versionRequiredToProceed = '/^1.7/';
@@ -797,7 +791,7 @@ function tracking_upgrade_to_18($course_code)
         {
             case 1 :
 
-                $sql = "UPDATE `".$currentCourseDbNameGlu."track_e_access` 
+                $sql = "UPDATE `".$currentCourseDbNameGlu."track_e_access`
                         SET access_tlabel = TRIM(TRAILING '_' FROM access_tlabel)";
                 
                 if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 2, $course_code);
@@ -805,7 +799,7 @@ function tracking_upgrade_to_18($course_code)
 
             case 2 :
 
-                $sql = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` 
+                $sql = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices`
                         CHANGE `exe_exo_id` `exe_exo_id` int(11)";
                 
                 if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 0, $course_code);

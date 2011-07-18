@@ -5,12 +5,11 @@
 /**
  * Resource Resolver for the Document tool
  *
- * @version 1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author claroline Team <cvs@claroline.net>
- * @package CLDOC
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claroline Team <cvs@claroline.net>
+ * @package     CLDOC
  */
 
 FromKernel::uses('fileManage.lib', 'file.lib', 'fileDisplay.lib');
@@ -257,7 +256,7 @@ class CLDOC_Navigator implements ModuleResourceNavigator
                 
                 if ( $locator->hasResourceId() )
                 {
-                    $relativePath = '/' . ltrim( 
+                    $relativePath = '/' . ltrim(
                          ltrim( $locator->getResourceId(), '/' )
                         . '/' . ltrim( $relativePath, '/' ), '/' )
                         ;

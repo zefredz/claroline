@@ -1,5 +1,7 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
@@ -15,21 +17,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * third block is building paths
  * Forth block check some right
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/Install
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesche <moosh@claroline.net>
- *
- * @package INSTALL
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/Install
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Christophe Gesche <moosh@claroline.net>
+ * @package     INSTALL
  *
  * @todo check if dbexist would be improve for check if table exists, not if db exist.
- *
  */
 
 try
