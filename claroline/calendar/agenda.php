@@ -387,7 +387,7 @@ if ($display_form)
     }
     
     $template = new ModuleTemplate($tlabelReq, 'form.tpl.php');
-    $template->assign('formAction', htmlspecialchars($_SERVER['PHP_SELF']));
+    $template->assign('formAction', Url::Contextualize($_SERVER['PHP_SELF']));
     $template->assign('relayContext', claro_form_relay_context());
     $template->assign('cmd', $nextCommand);
     $template->assign('event', $editedEvent);

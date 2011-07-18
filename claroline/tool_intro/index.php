@@ -3,7 +3,8 @@
 /**
  * CLAROLINE
  *
- * Manage tools' introductions
+ * Manage tools' introductions.
+ * Caution: this module uses two labels: CLINTRO and CLTI.
  *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)

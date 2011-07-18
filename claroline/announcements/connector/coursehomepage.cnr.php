@@ -86,8 +86,8 @@ class CLANN_Portlet extends CourseHomePagePortlet
                 {
                     $output .= '<dt>' . "\n"
                              . '<h2><img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="'.get_lang('Announcement').'" /> '
-                             . '<a href="' . $announcementItem['url'] . '">'
-                             . $announcementItem['title']
+                             . '<a href="' . $announcementItem['url'] . '#item'.$announcementItem['id'].'">'
+                             . (!empty($announcementItem['title']) ? $announcementItem['title'] : get_lang('No title'))
                              . '</a></h2>' . "\n"
                              . '</dt>' . "\n"
                              . '<dd'.($i == count($announcementList)-1?' class="last"':'').'>' . "\n"

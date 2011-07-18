@@ -1,8 +1,9 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * The script works with the 'annoucement' tables in the main claroline table
+ * The script works with the 'annoucement' tables in the main claroline table.
  *
  * DB Table structure:
  * ---
@@ -33,21 +34,12 @@
  *            announcement list
  *            form to fill new or modified announcement
  *
- * @version 1.8 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLANN
- *
- * @author Claro Team <cvs@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLANN
+ * @author      Claro Team <cvs@claroline.net>
  */
-
-/*
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
-*/
 
 define('CONFVAL_LOG_ANNOUNCEMENT_INSERT', false);
 define('CONFVAL_LOG_ANNOUNCEMENT_DELETE', false);
@@ -197,7 +189,7 @@ if($is_allowedToEdit) // check teacher status
             // Get the announcement to modify
             $announcement = announcement_get_item($id);
             $displayForm = true;
-            $nextCommand = 'exEdit';
+            $formCmd = 'exEdit';
         
         }
         
@@ -227,7 +219,7 @@ if($is_allowedToEdit) // check teacher status
             $subTitle = get_lang('Add announcement');
             claro_set_display_mode_available(false);
             $displayForm = true;
-            $nextCommand = 'exCreate';
+            $formCmd = 'exCreate';
             $announcement=array();
         }
         
@@ -473,9 +465,9 @@ if ( $displayForm )
     }
     
     $template = new ModuleTemplate($tlabelReq, 'form.tpl.php');
-    $template->assign('formAction', htmlspecialchars($_SERVER['PHP_SELF']));
+    $template->assign('formAction', Url::Contextualize($_SERVER['PHP_SELF']));
     $template->assign('relayContext', claro_form_relay_context());
-    $template->assign('cmd', $nextCommand);
+    $template->assign('cmd', $formCmd);
     $template->assign('announcement', $announcement);
     
     Claroline::getDisplay()->body->appendContent($template->render());
@@ -517,13 +509,13 @@ if ($displayList)
         }
         
         // Flag hot items
-        if (claro_is_user_authenticated() 
+        if (claro_is_user_authenticated()
             && $claro_notifier->is_a_notified_ressource(
-                claro_get_current_course_id(), 
-                $date, 
-                claro_get_current_user_id(), 
-                claro_get_current_group_id(), 
-                claro_get_current_tool_id(), 
+                claro_get_current_course_id(),
+                $date,
+                claro_get_current_user_id(),
+                claro_get_current_group_id(),
+                claro_get_current_tool_id(),
                 $thisAnn['id']
             )
         )

@@ -1,7 +1,9 @@
 <!-- $Id$ -->
 
-<form method="post" action="<?php echo $this->formAction; ?>">
+<form method="post" action="<?php echo htmlspecialchars($this->formAction); ?>">
     <fieldset>
+        <legend><?php echo get_lang('Basic settings'); ?></legend>
+        
         <?php echo $this->relayContext ?>
         <input type="hidden" name="cmd" value="<?php echo $this->cmd; ?>" />
         <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
@@ -33,6 +35,7 @@
     
     <fieldset id="advancedInformation" class="collapsible collapsed">
         <legend><a href="#" class="doCollapse"><?php echo get_lang('Visibility options'); ?></a></legend>
+        
         <div class="collapsible-wrapper">
             <dl>
                 <dt>
@@ -75,7 +78,11 @@
         </div>
     </fieldset>
     
-    <?php echo ResourceLinker::renderLinkerBlock(); ?>
+    <fieldset>
+        <legend><?php echo get_lang('Attached resources'); ?></legend>
+        
+        <?php echo ResourceLinker::renderLinkerBlock(); ?>
+    </fieldset>
     
     <input type="submit" class="claroButton" name="submitEvent" value="<?php echo get_lang('Ok'); ?>" />
     <?php echo claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel')); ?>

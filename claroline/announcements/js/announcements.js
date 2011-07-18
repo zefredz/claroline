@@ -1,3 +1,7 @@
+/*
+$Id$
+*/
+
 $(document).ready(function(){
     $("#visible").click(function(){
         $("#enable_visible_from").attr("disabled", false);
