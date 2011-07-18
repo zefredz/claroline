@@ -74,7 +74,8 @@ table td {
 hr {
     height: 1px;
     margin: 10px 0;
-    border-top: 1px solid #DDDDDD;
+    border: 0;
+    background-color: #DDDDDD;
     color: #DDDDDD;
 }
 
