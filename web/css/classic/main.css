@@ -129,19 +129,19 @@ input[type=radio], input[type=checkbox] {
 }
 
 input.inputSearch {
-    background: url(../../img/search.png) no-repeat #fff;
+    background: url(img/search.png) no-repeat #fff;
     background-position: 1px 1px;
     padding-left: 18px;
 }
 
 input.inputLogin {
-    background: url(../../img/user.png) no-repeat #fff;
+    background: url(img/user.png) no-repeat #fff;
     background-position: 1px 1px;
     padding-left: 18px;
 }
 
 input.inputPassword {
-    background: url(../../img/login_as.png) no-repeat #fff;
+    background: url(img/login_as.png) no-repeat #fff;
     background-position: 1px 1px;
     padding-left: 18px;
 }
@@ -538,7 +538,7 @@ li.lastBreadCrumbsNode {
 #campusFooterCenter .poweredBy {
     padding-left: 20px;
     font-style: italic;
-    background: url(../../img/claroline.png) no-repeat left center;
+    background: url(img/claroline.png) no-repeat left center;
 }
 
 
@@ -880,7 +880,7 @@ ul.commandList li a.help {
     width: 16px;
     border-color: #CCDDEE;
     background-color: #CCDDEE;
-    background-image: url(../../img/help.png);
+    background-image: url(img/help.png);
     background-repeat: no-repeat;
 }
 
@@ -1017,7 +1017,7 @@ th .claroCmdDisabled {
 
 .hot {
     padding-left: 15px;
-    background-image: url(../../img/hot.png);
+    background-image: url(img/hot.png);
     background-repeat: no-repeat;
     background-position: center left;
 }
@@ -1394,7 +1394,7 @@ dl.courseList {
 
 .spoiler a {
     padding-left: 17px;
-    background: url(../../img/spoiler.png) bottom left no-repeat;
+    background: url(img/spoiler.png) bottom left no-repeat;
 }
 
 .spoilerContent {
@@ -1459,11 +1459,11 @@ dl.courseList {
 }
 
 .claroDialogMsg { padding: 2px 5px 1px 20px; }
-.claroDialogBox .msgInfo { background: url(../../img/information.png) top left no-repeat; } /* I _really_ don't think there is a need for an icon here */ /* Event with this one ? */
-.claroDialogBox .msgSuccess { background: url(../../img/success.png) top left no-repeat; }
-.claroDialogBox .msgWarning { background: url(../../img/warning.png) top left no-repeat; }
-.claroDialogBox .msgError { background: url(../../img/error.png) top left no-repeat; }
-.claroDialogBox .msgQuestion { background: url(../../img/question.png) top left no-repeat; }
+.claroDialogBox .msgInfo { background: url(img/information.png) top left no-repeat; } /* I _really_ don't think there is a need for an icon here */ /* Event with this one ? */
+.claroDialogBox .msgSuccess { background: url(img/success.png) top left no-repeat; }
+.claroDialogBox .msgWarning { background: url(img/warning.png) top left no-repeat; }
+.claroDialogBox .msgError { background: url(img/error.png) top left no-repeat; }
+.claroDialogBox .msgQuestion { background: url(img/question.png) top left no-repeat; }
 .claroDialogBox .msgForm { padding: 3px 20px; }
 .claroDialogBox .msgTitle { font-weight: bold; }
 
@@ -1741,5 +1741,5 @@ td.userCourseList {padding-left: 20px;}
 
 .attach {
     padding-left: 16px;
-    background: url(../../img/attach.png) no-repeat left center;
+    background: url(img/attach.png) no-repeat left center;
 }
