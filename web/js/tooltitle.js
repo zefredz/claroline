@@ -1,3 +1,5 @@
+
+
 $(document).ready(function(){
     // show/hide tooltitle's commands
     $('.commandList li.hidden').hide();
@@ -6,12 +8,12 @@ $(document).ready(function(){
         if ($('.commandList a.more').hasClass('clicked'))
         {
             $('.commandList li.hidden').hide();
-            $('.commandList a.more').removeClass('clicked').text('»');
+            $('.commandList a.more').removeClass('clicked').html('&raquo;');
         }
         else
         {
             $('.commandList li.hidden').show();
-            $('.commandList a.more').addClass('clicked').text('«');
+            $('.commandList a.more').addClass('clicked').html('&laquo;');
         }
     });
     
