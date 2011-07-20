@@ -1470,12 +1470,12 @@ function claro_get_user_course_list($user_id = null)
     {
         $user_id = claro_get_current_user_id();
     }
-
+    
     $tbl_mdb_names       = claro_sql_get_main_tbl();
-
+    
     $tbl_course          = $tbl_mdb_names['course'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
-
+    
     $sql = "SELECT course.cours_id             AS courseId,
                    course.code                 AS sysCode,
                    course.isSourceCourse       AS isSourceCourse,
