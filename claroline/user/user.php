@@ -341,11 +341,6 @@ if ($can_add_single_user)
 {
 
     // Add a user link
-    $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(get_module_url('CLUSR').'/user_add.php'))
-                                     , '<img src="' . get_icon_url('user') . '" alt="" />'
-                                     . get_lang('Add a user')
-                                     )
-                                     ;
     $cmdList[] = array(
         'img' => 'user',
         'name' => get_lang('Add a user'),
@@ -356,12 +351,6 @@ if ($can_add_single_user)
 if ($can_import_user_list)
 {
     // Add CSV file of user link
-    $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
-                                        get_module_url('CLUSR').'/addcsvusers.php'
-                                         . '?AddType=userTool'))
-                                     , '<img src="' . get_icon_url('import_list') . '" alt="" />'
-                                     . get_lang('Add a user list')
-                                     );
     $cmdList[] = array(
         'img' => 'import_list',
         'name' => get_lang('Add a user list'),
@@ -373,11 +362,6 @@ if ($can_import_user_list)
 if ($can_export_user_list)
 {
     // Export CSV file of user link
-    $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
-                                        $_SERVER['PHP_SELF'] . '?cmd=export' ))
-                                     , '<img src="' . get_icon_url('export') . '" alt="" />'
-                                     . get_lang('Export user list')
-                                     );
     $cmdList[] = array(
         'img' => 'export',
         'name' => get_lang('Export user list'),
@@ -388,11 +372,6 @@ if ($can_export_user_list)
 if ($can_import_user_class)
 {
     // Add a class link
-    $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
-                                        get_module_url('CLUSR') . '/class_add.php' ))
-                                     , '<img src="' . get_icon_url('class') . '" alt="" />'
-                                     . get_lang('Enrol class')
-                                     );
     $cmdList[] = array(
         'img' => 'class',
         'name' => get_lang('Enrol class'),
@@ -404,11 +383,6 @@ if ($can_import_user_class)
 if ($can_send_message_to_course)
 {
     // Main group settings
-    $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
-                                     get_path('clarolineRepositoryWeb') . 'messaging/sendmessage.php?cmd=rqMessageToCourse' ))
-                                     , '<img src="' . get_icon_url('mail_send') . '" alt="" />'
-                                     . get_lang("Send a message to the course")
-                                     );
     $cmdList[] = array(
         'img' => 'mail_send',
         'name' => get_lang("Send a message to the course"),
@@ -417,22 +391,12 @@ if ($can_send_message_to_course)
     );
 }
 
-$userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize( get_module_entry_url('CLGRP') ))
-                                 , '<img src="' . get_icon_url('group') . '" alt="" />'
-                                 . get_lang('Group management')
-                                 );
 $cmdList[] = array(
     'img' => 'group',
     'name' => get_lang('Group management'),
     'url' => htmlspecialchars(Url::Contextualize(get_module_entry_url('CLGRP')))
 );
 
-$userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-                                 . '?cmd=unregister&amp;user_id=allStudent' ))
-                                 , '<img src="' . get_icon_url('unenroll') . '" alt="" />'
-                                 . get_lang('Unregister all students')
-                                 , array('onclick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
-                                 );
 $cmdList[] = array(
     'img' => 'unenroll',
     'name' => get_lang('Unregister all students'),
