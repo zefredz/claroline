@@ -416,6 +416,10 @@ if ( $is_allowedToManage )
         'url' => htmlspecialchars(Url::Contextualize('group_properties.php'))
     );
 } // end if is_allowedToManage
+else
+{
+    $cmdList = array();
+}
 
 
 ////**************** OUTPUT ************************
