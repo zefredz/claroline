@@ -35,6 +35,7 @@ $conf_def['section']['LAYOUT']['properties'] =
 array ( 'claro_stylesheet'
       , 'siteLogo'
       , 'institutionLogo'
+      , 'displayAllCommandsLinkByDefault'
       );
 
 $conf_def['section']['LANGUAGE']['label']='Language';
@@ -156,6 +157,16 @@ array ('label'       => 'Platform logo url'
       ,'type'        => 'string'
       ,'display'     => true
       ,'readonly'    => false
+      );
+
+$conf_def_property_list['displayAllCommandsLinkByDefault'] =
+array ( 'label'       => 'Show all the commands in tool titles'
+      , 'description' => ''
+      ,'default'     => false
+      ,'type'        => 'boolean'
+      , 'display'     => true
+      , 'readonly'    => false
+      ,'acceptedValue' => array ('TRUE'=>'Yes', 'FALSE' => 'No')
       );
 
 // Institution
