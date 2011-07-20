@@ -3,7 +3,7 @@
 /**
  * CLAROLINE
  *
- * Campus Home Page
+ * Campus Home Page.
  *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -81,7 +81,7 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
     
     
     // User course (activated and deactivated) lists and search results (if any)
-    $userCourseList = render_user_course_list();
+    $userCourseList             = render_user_course_list();
     $userCourseListDesactivated = render_user_course_list_desactivated();
     
     $templateMyCourses = new CoreTemplate('mycourses.tpl.php');

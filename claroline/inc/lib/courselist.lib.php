@@ -563,7 +563,8 @@ function render_user_course_list()
     
     // Use the course id as array index, exclude disable courses
     // and flag hot courses
-    $reorganizedUserCourseList = array();
+    $reorganizedUserCourseList  = array();
+    $tempSessionCourses         = array();
     foreach ($userCourseList as $course)
     {
         // Do not include "disable", "pending", "trash" or "date" courses
@@ -578,16 +579,37 @@ function render_user_course_list()
             )
         );
         
+        // Flag hot courses
+        $course['hot'] = (bool) in_array($course['sysCode'], $modified_course);
+        
         if (!isset($reorganizedUserCourseList[$course['courseId']]) && $courseIsEnable)
         {
-            // Flag hot courses
-            $course['hot'] = (bool) in_array($course['sysCode'], $modified_course);
-            
-            // Finaly, include the course in the final list
-            $reorganizedUserCourseList[$course['courseId']] = $course;
+            // If it's not a session course, include it in the final list
+            if (empty($course['sourceCourseId']))
+            {
+                $reorganizedUserCourseList[$course['courseId']] = $course;
+            }
+            // If it's a session course, put it aside for now,
+            // we'll get back to it later
+            else
+            {
+                $tempSessionCourses[$course['sourceCourseId']][] = $course;
+            }
         }
     }
     unset($userCourseList);
+    
+    // Merge courses and their session courses (if any)
+    foreach ($tempSessionCourses as $sourceCourseId => $sessionCourses)
+    {
+        $reorganizedUserCourseList[$sourceCourseId]['sessionCourses'] = $sessionCourses;
+    }
+    unset($tempSessionCourses);
+    
+    
+    // Now, $reorganizedUserCourseList contains all user's courses and, for
+    // each course, its eventual session courses.
+    
     
     // Get the categories informations for these courses
     $userCategoryList   = ClaroCategory::getCoursesCategories($reorganizedUserCourseList);
@@ -820,9 +842,22 @@ function render_course_in_dl_list($course, $hot = false, $displayIconAccess = tr
           . '<img class="qtip iconDefinitionList" src="' . $iconUrl . '" alt="'.$courseAccess.'" /> '
           . '<span'.(!empty($classItem) ? ' class="'.$classItem.'"' : '').'>'.$courseLink . '</span>' . "\n"
           . '</dt>' . "\n"
-          . '<dd>'
-          . $managerString
-          . '</dd>' . "\n";
+          . '<dd>' . "\n"
+          . $managerString . "\n";
+          
+    if (!empty($course['sessionCourses']))
+    {
+        $out .= '<dl>' . "\n";
+        
+        foreach ($course['sessionCourses'] as $sessionCourse)
+        {
+            $out .= render_course_in_dl_list($sessionCourse, $sessionCourse['hot']) . "\n";
+        }
+        
+        $out .= '</dl>' . "\n";
+    }
+    
+    $out .= '</dd>' . "\n\n";
     
     return $out;
 }
