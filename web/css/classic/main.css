@@ -102,20 +102,25 @@ label {
     cursor: pointer;
 }
 
-input, textarea, button, select {
-    border: 1px solid #aaa;
-    background: #fff;
+input, textarea, select {
+    padding: 2px 0.5em;
+    border: 1px solid #CCC;
+    background: #FFF;
 }
 
 input[type=submit], input[type=reset], input[type=button], button {
-    margin-left: 2px;
-    margin-top: 5px;
-    background: #fff;
+    margin: 5px 0 0 0;
+    padding: 1px 0.5em;
+    border: 1px solid #114477;
+    background: url(img/bg_button.png) repeat-x top #336699;
+    box-shadow: none;
+    color: #FFF;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 input[type=submit]:hover, button:hover, input[type=button]:hover {
-    background-color: #369;
-    color: #fff;
+    background-color: #225588;
 }
 
 input[type=radio], input[type=checkbox] {
@@ -128,7 +133,7 @@ input[type=radio], input[type=checkbox] {
 
 input.inputSearch {
     background: url(img/search.png) no-repeat #fff;
-    background-position: 1px 1px;
+    background-position: 2px 2px;
     padding-left: 18px;
 }
 

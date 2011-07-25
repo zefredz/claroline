@@ -36,7 +36,7 @@ $(document).ready( function(){
         <label for="password"><?php echo get_lang('Password'); ?></label><br />
         <input type="password" name="password" id="password" class="inputPassword" size="12" tabindex="2" /><br />
         <br />
-        <input type="submit" value="<?php echo get_lang('Enter'); ?>" name="submitAuth" tabindex="3" />
+        <button type="submit" tabindex="3"><?php echo get_lang('Enter'); ?></button>
     </fieldset>
 </form>
 
