@@ -765,7 +765,7 @@ function render_course_in_dl_list($course, $hot = false, $displayIconAccess = tr
     
     // Display a manager icon if the user is manager of the course
     $userStatusImg = (isset($course['isCourseManager']) && $course['isCourseManager'] == 1 ) ?
-        ('&nbsp;&nbsp;<img class="qtip" src="' . get_icon_url('manager') . '" alt="'.get_lang('You are manager of this course').'" />') :
+        ('&nbsp;&nbsp;<img class="qtip action" src="' . get_icon_url('manager') . '" alt="'.get_lang('You are manager of this course').'" />') :
         ('');
     
     // Show course language if not the same of the platform
