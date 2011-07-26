@@ -35,9 +35,9 @@ if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=='')) {unset($_RE
 $validCmdList = array('rqDelete', 'exDelete');
 $cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
 $userIdReq = (int) (isset($_REQUEST['user_id']) ? $_REQUEST['user_id']: null);
+
 // USED SESSION VARIABLES
 // clean session if needed
-
 if (isset($_REQUEST['newsearch']) && $_REQUEST['newsearch'] == 'yes')
 {
     unset($_SESSION['admin_user_search'   ]);
@@ -53,7 +53,6 @@ if (isset($_REQUEST['newsearch']) && $_REQUEST['newsearch'] == 'yes')
 // deal with session variables for search criteria, it depends where we come from :
 // 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
 // 2 ) we must be able to arrive with new critera for a new search.
-
 if (isset($_REQUEST['search'    ])) $_SESSION['admin_user_search'    ] = trim($_REQUEST['search'    ]);
 if (isset($_REQUEST['firstName' ])) $_SESSION['admin_user_firstName' ] = trim($_REQUEST['firstName' ]);
 if (isset($_REQUEST['lastName'  ])) $_SESSION['admin_user_lastName'  ] = trim($_REQUEST['lastName'  ]);
@@ -73,13 +72,11 @@ $dialogBox = new DialogBox();
 //declare needed tables
 
 // Deal with interbreadcrumbs
-
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('User list');
 
 
 $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
-//TABLES
 
 //------------------------------------
 // Execute COMMAND section
@@ -250,12 +247,11 @@ foreach ($userList as $userKey => $user)
     .                                   '</a>' . "\n"
     ;
     
-    $userGrid[$userKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
-    .                               '?cmd=rqDelete&amp;user_id=' . $user['user_id']
-    .                               '&amp;offset=' . $offset . $addToURL . '" '
-    //.                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');" '
-    .                               ' class="delete" id="'.$user['firstname'].'_' . $user['name'] .'_' . $user['user_id'] .'">' . "\n"
-    .                               '<img src="' . get_icon_url('deluser') . '" alt="' . get_lang('Delete') . '" />' . "\n"
+    $userGrid[$userKey]['delete'] = '<a href="' . htmlspecialchars($_SERVER['PHP_SELF']
+    .                               '?cmd=exDelete&user_id=' . $user['user_id']
+    .                               '&offset=' . $offset . $addToURL) . '" '
+    .                               'onclick="return ADMIN.confirmationDel(\''.clean_str_for_javascript($user['firstname'].' ' . $user['name'] .' (' . $user['user_id']).')\');">' . "\n"
+    .                               '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
     .                               '</a> '."\n"
     ;
 
@@ -322,28 +318,24 @@ else
 
 
 //PREPARE
-// javascript confirm pop up declaration
-$htmlHeadXtra[] =
-'<script type="text/javascript">
-        function confirmation (name)
-        {
-            if (confirm("'.clean_str_for_javascript(get_lang('Are you sure to delete')).'" + name + "? "))
-                {return true;}
-            else
-                {return false;}
-        }'
-."\n".'</script>'."\n";
+// Javascript confirm pop up declaration for header
+$jslang = new JavascriptLanguage;
+$jslang->addLangVar('Are you sure to delete %name ?');
+ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+
+JavascriptLoader::getInstance()->load('admin');
+JavascriptLoader::getInstance()->load('admin_users');
 
 $out = '';
 
 // Display tool title
 $cmdList = array();
 
-    $cmdList[] = array(
-        'img' => 'user',
-        'name' => get_lang('Create user'),
-        'url' => 'adminaddnewuser.php'
-    );
+$cmdList[] = array(
+    'img' => 'user',
+    'name' => get_lang('Create user'),
+    'url' => 'adminaddnewuser.php'
+);
 
 $out .= claro_html_tool_title($nameTools, null, $cmdList);
 

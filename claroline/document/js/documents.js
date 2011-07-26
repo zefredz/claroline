@@ -6,7 +6,9 @@ var CLDOC = {};
 
 CLDOC.confirmation = function (name)
 {
-    if (confirm(Claroline.getLang('Are you sure to delete '+ name +' ?')))
+    var arr = {"%name" : name};
+    
+    if (confirm(Claroline.getLang('Are you sure to delete %name ?', arr)))
     {
         return true;
     }
