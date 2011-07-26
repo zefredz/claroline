@@ -164,7 +164,7 @@
                 
                 <!-- Course registration + registration key -->
                 <dt>
-                    <?php echo get_lang('Optional settings'); ?><span class="required">*</span>
+                    <?php echo get_lang('Registration settings'); ?><span class="required">*</span>
                 </dt>
                 <dd>
                     <img src="<?php echo get_icon_url('enroll_allowed'); ?>"  alt="" />
