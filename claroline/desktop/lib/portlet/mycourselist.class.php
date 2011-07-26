@@ -2,15 +2,12 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
  * CLAROLINE
  *
- * User desktop : course list portlet
+ * User desktop : course list portlet.
  *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -88,6 +85,7 @@ class MyCourseList extends UserDesktopPortlet
                         . '</a>' . "\n";
         
         $userCourseList = render_user_course_list();
+        
         $userCourseListDesactivated = render_user_course_list_desactivated();
         
         $out .= '<table>'

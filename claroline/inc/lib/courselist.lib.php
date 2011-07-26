@@ -729,13 +729,9 @@ function render_user_course_list()
             
             foreach($reorganizedUserCourseList as $course)
             {
-                if (($course['rootCourse'] != 1 && $course['isSourceCourse'] != 1)
-                    || $course['isCourseManager'])
-                {
-                    $displayIconAccess = ($course['isCourseManager'] || claro_is_platform_admin()) ?
-                        (true) : (false);
-                    $out .= render_course_in_dl_list($course, $course['hot'], $displayIconAccess);
-                }
+                $displayIconAccess = ($course['isCourseManager'] || claro_is_platform_admin()) ?
+                    (true) : (false);
+                $out .= render_course_in_dl_list($course, $course['hot'], $displayIconAccess);
             }
             
             $out .= '</dl>' . "\n";
