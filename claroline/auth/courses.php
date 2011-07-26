@@ -171,7 +171,7 @@ if(!$userInfo)
         }
         break;
         
-        default:
+        default :
         {
             $msg = get_lang('User is not valid');
         }
@@ -199,12 +199,18 @@ if ( $cmd == 'exUnreg' )
                 $dialogBox->error( get_lang('You cannot unsubscribe the last course manager of the course') );
             }
             break;
+            
             case 'course_manager_cannot_unsubscribe_himself' :
             {
                 $dialogBox->error( get_lang('Course manager cannot unsubscribe himself') );
             }
             break;
-            default : $dialogBox->error( get_lang('Unable to remove your registration to the course') );
+            
+            default :
+            {
+                $dialogBox->error( get_lang('Unable to remove your registration to the course') );
+            }
+            break;
         }
     }
     
@@ -282,8 +288,13 @@ if ( $cmd == 'exReg' )
                     {
                         $dialogBox->warning( get_lang('The users limit for this course has been reached') );
                     }
+                    break;
                     
-                    default: $dialogBox->error( get_lang('Unable to enrol you to the course') );
+                    default :
+                    {
+                        $dialogBox->error( get_lang('Unable to enrol you to the course') );
+                    }
+                    break;
                 }
             }
             
@@ -360,7 +371,6 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
     
     else
     {
-        
         if ($fromAdmin == 'class')
             $user = null;
         else
@@ -397,7 +407,6 @@ if ( $cmd == 'rqReg' && ( !empty($categoryId) || !empty($parentCategoryId) ) )
 }
 else
 {
-
     if ( $userSettingMode == true ) //enroll page accessed by admin tool to set user settings
     {
         if ( $fromAdmin == 'settings' )
@@ -416,7 +425,7 @@ else
         $backUrl   = '../admin/admin_class_user.php?';
         if (isset($_SESSION['admin_user_class_id']))
         {
-        	$backUrl .= 'class_id='. $_SESSION['admin_user_class_id'];
+            $backUrl .= 'class_id='. $_SESSION['admin_user_class_id'];
         }
         $backLabel = get_lang('Back to the class');
     }
@@ -428,7 +437,7 @@ else
 } // end if ( $cmd == 'rqReg' && ( !empty($categoryId) || !empty($parentCategoryId) ) )
 
 $backUrl .= $inURL; //notify userid of the user we are working with in admin mode and that we come from admin
-$backLink = '<p><a href="' . $backUrl . '" title="' . $backLabel. '" ><span style="background-image: url(/claroline110/web/img/back.png?1306417565); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"> ' . $backLabel . ' </span></a></p>' . "\n\n";
+$backLink = '<p><a href="' . $backUrl . '" title="' . $backLabel. '" ><span style="background-image: url('.get_icon_url('back').'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"> ' . $backLabel . ' </span></a></p>' . "\n\n";
 
 $out = '';
 
@@ -507,7 +516,6 @@ switch ( $displayMode )
         if ( count($coursesList) > 0 )
         {
             $out .= '<h4>' . get_lang('Course list') . '</h4>' . "\n"
-            .    '<blockquote>' . "\n"
             .    '<table class="claroTable emphaseLine" >' . "\n" ;
             
             if ( $userSettingMode ) // Display links to enroll as student and also as teacher (but not for a class)
@@ -663,24 +671,16 @@ switch ( $displayMode )
 
             $out .= '</tbody>' . "\n"
             .    '</table>' . "\n"
-            .    '</blockquote>' . "\n"
             ;
         }
 
         // Form: Search a course with a keyword
-
-        $out .= '<blockquote>' . "\n"
-        .    '<p><label for="keyword">' . get_lang('Search from keyword') . '</label> : </p>' . "\n"
-        .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-        .    '<input type="hidden" name="cmd" value="rqReg" />' . "\n"
-        .    '<input type="hidden" name="fromAdmin" value="' . $fromAdmin . '" />' . "\n"
-        .    '<input type="hidden" name="uidToEdit" value="' . $uidToEdit . '" />' . "\n"
-        .    '<input type="text" name="keyword" id="keyword" />' . "\n"
-        .    '&nbsp;<input type="submit" value="' . get_lang('Search') . '" />' . "\n"
-        .    '</form>' . "\n"
-        .    '</blockquote>' . "\n"
-        ;
-    }   break;
+        $templateSearchBox = new CoreTemplate('course_search_box.tpl.php');
+        
+        $out .= $templateSearchBox->render();
+        
+    }
+    break;
 
     /*---------------------------------------------------------------------
     Display message
@@ -693,7 +693,8 @@ switch ( $displayMode )
 
         $out .= $dialogBox->render();
 
-    }   break;
+    }
+    break;
 
     /*---------------------------------------------------------------------
     Display user courses ( Default display)
@@ -701,7 +702,6 @@ switch ( $displayMode )
 
     case DISPLAY_USER_COURSES :
     {
-
         $out .= claro_html_tool_title( array('mainTitle' => get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'],
         'subTitle' => get_lang('Remove course from your personal course list')));
         
@@ -709,9 +709,7 @@ switch ( $displayMode )
         
         if ( count($coursesList) > 0 )
         {
-            $out .= '<blockquote>' . "\n"
-            .    '<table class="claroTable">' . "\n"
-            ;
+            $out .= '<table class="claroTable">' . "\n";
 
             foreach ($coursesList as $thisCourse)
             {
@@ -746,9 +744,7 @@ switch ( $displayMode )
                 ;
             } // foreach $coursesList as $thisCourse
 
-            $out .= '</table>' . "\n"
-            .    '</blockquote>' . "\n"
-            ;
+            $out .= '</table>' . "\n";
         }
         
         $is_allowedToUnregisterFromInactive =
@@ -757,10 +753,8 @@ switch ( $displayMode )
         
         if ( count($inactiveCourseList) > 0 )
         {
-            $out .= '<blockquote>' . "\n"
-            .    claro_html_tool_title(get_lang('Deactivated course list'))
-            .    '<table class="claroTable">' . "\n"
-            ;
+            $out .= claro_html_tool_title(get_lang('Deactivated course list'))
+                  . '<table class="claroTable">' . "\n";
             
             foreach ($inactiveCourseList as $thisCourse)
             {
@@ -802,9 +796,7 @@ switch ( $displayMode )
                 ;
             } // foreach $courseList as $thisCourse
             
-            $out .= '</table>' . "\n"
-            .    '</blockquote>' . "\n"
-            ;
+            $out .= '</table>' . "\n";
         }
     }
     break;
@@ -836,7 +828,8 @@ switch ( $displayMode )
         
         $out .= $dialogBox->render();
         
-    }   break;
+    }
+    break;
 
     case DISPLAY_REGISTRATION_DISABLED_FORM :
     {
@@ -846,8 +839,8 @@ switch ( $displayMode )
 
         $out .= $dialogBox->render();
 
-    }   break;
-
+    }
+    break;
 
 } // end of switch ($displayMode)
 

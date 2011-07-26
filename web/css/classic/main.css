@@ -103,7 +103,7 @@ label {
 }
 
 input, textarea, select {
-    padding: 2px 0.5em;
+    padding: 2px;
     border: 1px solid #CCC;
     background: #FFF;
 }
