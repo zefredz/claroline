@@ -471,12 +471,6 @@ function register_course( $courseSysCode, $courseScreenCode, $sourceCourseId,
         return false;
     }
     
-    // Add user to course
-    if ( user_add_to_course($uidCreator, $courseSysCode, true, true) === false )
-    {
-        return false;
-    }
-    
     // Did we insert a session couse ?
     if (!is_null($sourceCourseId))
     {

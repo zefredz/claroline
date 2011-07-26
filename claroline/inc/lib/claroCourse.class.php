@@ -238,6 +238,7 @@ class ClaroCourse
                    ,               $this->userLimit )
                 && install_course_database( $courseDbName )
                 && install_course_tools( $courseDbName, $this->language, $courseDirectory )
+                && user_add_to_course($GLOBALS['_uid'], $courseSysCode, true, true)
                 )
             {
                 // Set course id
