@@ -1,4 +1,6 @@
-
+/*
+ * $Id$
+ */
 
 $(document).ready(function(){
     // show/hide tooltitle's commands
@@ -14,46 +16,6 @@ $(document).ready(function(){
         {
             $('.commandList li.hidden').show();
             $('.commandList a.more').addClass('clicked').html('&laquo;');
-        }
-    });
-    
-    // tooltips on the tools' titles
-    $(".commandList li a").each(function() {
-        if ($(this).attr("title")) {
-            $(this).qtip({
-                content: $(this).attr("title"),
-                
-                show: "mouseover",
-                hide: "mouseout",
-                position: {
-                    corner: {
-                        target: "topRight",
-                        tooltip: "bottomRight"
-                    }
-                },
-                
-                style: {
-                    width: "auto",
-                    padding: 5,
-                    background: "#CCDDEE",
-                   color: "black",
-                    fontSize: "0.9em",
-                    textAlign: "center",
-                    border: {
-                       width: 7,
-                        radius: 5,
-                        color: "#CCDDEE"
-                    },
-                    tip: 'bottomMiddle'
-               },
-               
-               position: {
-                  corner: {
-                     target: "topMiddle",
-                     tooltip: "bottomMiddle"
-                  }
-               }
-            });
         }
     });
 });

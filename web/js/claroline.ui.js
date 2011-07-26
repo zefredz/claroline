@@ -1,3 +1,7 @@
+/*
+ * $Id: claroline.js 13324 2011-07-15 09:32:30Z abourguignon $
+ */
+
 $(document).ready(function(){
     registerCollapseBehavior();
 });
@@ -72,9 +76,10 @@ registerCollapseBehavior = function() {
     });
 };
 
+
 /**
  * Scroll a given fieldset into view as much as possible.
- * This function is part of the Drupal js library
+ * This function is part of the Drupal js library.
  */
 collapseScrollIntoView = function (node) {
   var h = self.innerHeight || document.documentElement.clientHeight || $('body')[0].clientHeight || 0;
@@ -91,3 +96,53 @@ collapseScrollIntoView = function (node) {
     }
   }
 };
+
+
+/**
+ * Manage the qtips.  Simply add a CSS class "qtip" to an <img> or a 
+ * <a> tag to add a qtip on it, displaying the "title" or "alt" (in that order)
+ * value on mouseover.
+ * If you deserve other renders for specifi uses of qtips, write another 
+ * js cript dedicated to this use, and use a class like "qtip-custom" to 
+ * refer to it.
+ */
+$(document).ready(function(){
+    $(".qtip").each(function()
+    {
+        $(this).qtip({
+            content: $(this).attr("title") != '' ? 
+                    $(this).attr("title") : $(this).attr("alt"),
+            
+            show: "mouseover",
+            hide: "mouseout",
+            position: {
+                corner: {
+                    target: "topRight",
+                    tooltip: "bottomRight"
+                }
+            },
+            
+            style: {
+                width: "auto",
+                padding: 5,
+                background: "#CCDDEE",
+                color: "black",
+                fontSize: "0.9em",
+                textAlign: "center",
+                border: {
+                    width: 7,
+                    radius: 5,
+                    color: "#CCDDEE"
+                },
+                tip: "bottomLeft"
+           },
+           
+           position: {
+              corner: {
+                 target: "topMiddle",
+                 tooltip: "bottomLeft"
+              }
+           }
+        });
+    });
+});

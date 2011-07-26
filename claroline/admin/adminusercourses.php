@@ -31,7 +31,7 @@ $dialogBox = new DialogBox();
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-// FILER INPUT
+// Filter input
 $validCmdList = array('unsubscribe',);
 $cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
 
@@ -42,20 +42,13 @@ $uidToEdit = (int) (isset($_REQUEST['uidToEdit']) ?  $_REQUEST['uidToEdit'] : nu
 $courseId = (isset($_REQUEST['courseId'])?$_REQUEST['courseId']:null);
 $do = null;
 
-//// FILTER INPUT FOR PAGING/SORTING : $offset, $sort, $dir
-
+// Filter input for pading/sorting : $offset, $sort, $dir
 $offset = (int) (!isset($_REQUEST['offset'])) ? 0 :  $_REQUEST['offset'];
 $pagerSortKey = isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 'name';
 $pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
 
 
-//----------------------------------
-// ANALYSE COMMAND
-//----------------------------------
-
-/**
- * this maner to manage problem would be more discuss.  uidToEdit can neve empty....
- */
+// Parse command
 $userData = user_get_properties($uidToEdit);
 
 if ((false === $userData) || $uidToEdit != $userData['user_id']) $dialogBox->error( get_lang('Not valid user id') );
@@ -66,10 +59,7 @@ if ('unsubscribe' == $cmd)
     else                    $do = 'rem_user';
 }
 
-//----------------------------------
-// EXECUTE COMMAND
-//----------------------------------
-
+// Execute command
 if ('rem_user' == $do )
 {
     if ( user_remove_from_course($uidToEdit,$courseId,true,false) )
@@ -81,24 +71,20 @@ if ('rem_user' == $do )
         switch ( claro_failure::get_last_failure() )
         {
             case 'cannot_unsubscribe_the_last_course_manager' :
-
                 $dialogBox->error( get_lang('You cannot unsubscribe the last course manager of the course') );
                 break;
+            
             case 'course_manager_cannot_unsubscribe_himself' :
-
                 $dialogBox->error( get_lang('Course manager cannot unsubscribe himself') );
                 break;
+            
             default :
                 $dialogBox->error( get_lang('Unknow error during unsubscribing') );
         }
     }
 }
 
-// needed to display the name of the user we are watching
-
-
-if ('ulist' == $cfrom) $addToUrl = '&amp;cfrom=ulist';
-else                   $addToUrl = '';
+$addToUrl = ('ulist' == $cfrom ? '&amp;cfrom=ulist' : '');
 
 $sqlUserCourseList = prepare_sql_get_courses_of_a_user($uidToEdit);
 
@@ -110,23 +96,23 @@ $userCourseGrid = array();
 
 foreach ($userCourseList as $courseKey => $course)
 {
-    $userCourseGrid[$courseKey]['officialCode']   = $course['officialCode'];
+    $userCourseGrid[$courseKey]['officialCode'] = $course['officialCode'];
     
     $iconUrl = get_course_access_icon( $course['access'] );
     
-    $userCourseGrid[$courseKey]['name']      = '<img class="iconDefinitionList" src="' . $iconUrl . '" alt="" />'
-                                            . '<a href="'. get_path( 'clarolineRepositoryWeb' ) . 'course/index.php?cid=' . htmlspecialchars( $course['sysCode'] ) . '">' . $course['name']. '</a><br />' . $course['titular'];
-
-
+    $userCourseGrid[$courseKey]['name'] = '<img class="iconDefinitionList" src="' . $iconUrl . '" alt="" />'
+                                        . '<a href="'. get_path( 'clarolineRepositoryWeb' ) . 'course/index.php?cid=' . htmlspecialchars( $course['sysCode'] ) . '">' . $course['name']. '</a><br />' . $course['titular'];
+    
+    
     $userCourseGrid[$courseKey]['profileId'] = claro_get_profile_name($course['profileId']);
-
+    
     if ( $course['isCourseManager'] )
     {
-        $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_icon_url('manager') . '" alt="' . get_lang('Course manager') . '" />';
+        $userCourseGrid[$courseKey]['isCourseManager'] = '<img class="qtip" src="' . get_icon_url('manager') . '" alt="' . get_lang('Course manager') . '" />';
     }
     else
     {
-        $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('Student') . '" />';
+        $userCourseGrid[$courseKey]['isCourseManager'] = '<img class="qtip" src="' . get_icon_url('user') . '" alt="' . get_lang('Student') . '" />';
     }
 
     $userCourseGrid[$courseKey]['edit_course_user'] = '<a href="admin_user_course_settings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
@@ -140,11 +126,10 @@ foreach ($userCourseList as $courseKey => $course)
     .    $addToUrl
     .    '&amp;courseId=' . htmlspecialchars($course['sysCode'])
     .    '&amp;offset=' . $offset . '"'
-    .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
+    .    ' onclick="return ADMIN.confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
     .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Delete') . '" />' . "\n"
     .    '</a>' . "\n"
     ;
-
 }
 
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF'].'?uidToEdit='. $uidToEdit);
@@ -171,60 +156,67 @@ if ( 0 == count($userCourseGrid)  )
 else
 {
     $userCourseDataGrid->set_colAttributeList(array ( 'officialCode' => array ('align' => 'left')
-    , 'name'            => array ('align' => 'left')
-    , 'isCourseManager' => array ('align' => 'center')
-    , 'edit_course_user' => array ('align' => 'center')
-    , 'delete'          => array ('align' => 'center')
+    , 'name'                => array ('align' => 'left')
+    , 'isCourseManager'     => array ('align' => 'center')
+    , 'edit_course_user'    => array ('align' => 'center')
+    , 'delete'              => array ('align' => 'center')
     ));
 }
 
-//display title
-// initialisation of global variables and used libraries
+// Initialisation of global variables and used libraries
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
-$nameTools = get_lang('User Course list') . ' : ' . $userData['firstname'] . ' ' . $userData['lastname'];
+$nameTools = get_lang('User course list');
 
-// javascript confirm pop up declaration
-$htmlHeadXtra[] =
-"<script>
-            function confirmationUnReg (name)
-            {
-                if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))." \"+ name + \"? \"))
-                    {return true;}
-                else
-                    {return false;}
-            }
-            </script>";
+// Javascript confirm pop up declaration for header
+$jslang = new JavascriptLanguage;
+$jslang->addLangVar('Are you sure you want to unregister %name ?');
+ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
 
-$cmdList[] =  '<a class="claroCmd" href="admin_profile.php?uidToEdit=' . $uidToEdit . '">' . get_lang('User settings') . '</a>';
-$cmdList[] =  '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . get_lang('Enrol to a new course') . '</a>';
+JavascriptLoader::getInstance()->load('admin');
+
+// Command list
+$cmdList[] = array(
+    'img' => 'usersetting',
+    'name' => get_lang('User settings'),
+    'url' => 'admin_profile.php?uidToEdit=' . $uidToEdit
+);
+
+$cmdList[] = array(
+    'img' => 'course',
+    'name' => get_lang('Enrol to a new course'),
+    'url' => '../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse'
+);
 
 if ( 'ulist' == $cfrom )  //if we come from user list, we must display go back to list
 {
-    $cmdList[] = '<a class="claroCmd" href="admin_users.php">' . get_lang('Back to user list') . '</a>';
+    $cmdList[] = array(
+        'img' => 'back',
+        'name' => get_lang('Back to user list'),
+        'url' => 'admin_users.php'
+    );
 }
 
-//----------------------------------
-// DISPLAY VIEWS
-//----------------------------------
-
+// Display
 $out = '';
 
-$out .= claro_html_tool_title($nameTools);
+$titleParts = array(
+    'mainTitle' => $nameTools,
+    'subTitle' => $userData['firstname'] . ' ' . $userData['lastname']);
 
-// display forms and dialogBox, alphabetic choice,...
+$out .= claro_html_tool_title($titleParts, null, $cmdList);
 
+// Display forms and dialogBox, alphabetic choice,...
 $out .= $dialogBox->render();
 
-$out .= '<p>'
-.    claro_html_menu_horizontal($cmdList)
-.    '</p>'
-.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit)
-.    $userCourseDataGrid->render()
-.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit) ;
+$out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit)
+      . $userCourseDataGrid->render()
+      . $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit) ;
 
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+
 
 /**
  * prepare sql to get a list of course of a given user
@@ -232,15 +224,13 @@ echo $claroline->display->render();
  * @param integer $userId id of you to fetch courses
  * @return string : mysql statement
  */
-
 function prepare_sql_get_courses_of_a_user($userId=null)
 {
     if (is_null($userId)) $userId = claro_get_current_user_id();
     $tbl_mdb_names       = claro_sql_get_main_tbl();
     $tbl_course          = $tbl_mdb_names['course'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
-
-
+    
     $sql = "SELECT `C`.`code`              AS `sysCode`,
                    `C`.`intitule`          AS `name`,
                    `C`.`administrativeNumber` AS `officialCode`,
@@ -262,6 +252,6 @@ function prepare_sql_get_courses_of_a_user($userId=null)
                  `" . $tbl_rel_course_user . "` AS CU
             WHERE CU.`code_cours` = C.`code`
               AND CU.`user_id` = " . (int) $userId;
-
+    
     return $sql;
 }

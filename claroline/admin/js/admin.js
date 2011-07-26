@@ -4,11 +4,25 @@
 
 var ADMIN = {};
 
-ADMIN.confirmation = function (name)
+ADMIN.confirmationDel = function (name)
 {
     var arr = {"%name" : name};
     
     if (confirm(Claroline.getLang('Are you sure to delete %name ?', arr)))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+ADMIN.confirmationUnReg = function (name)
+{
+    var arr = {"%name" : name};
+    
+    if (confirm(Claroline.getLang('Are you sure you want to unregister %name ?', arr)))
     {
         return true;
     }

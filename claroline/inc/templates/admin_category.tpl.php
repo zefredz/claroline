@@ -56,7 +56,7 @@
     </td>
     <td align="center">
        <a href="<?php echo htmlspecialchars(URL::Contextualize('?cmd=exDelete&amp;categoryId=' . $elmt['id'])); ?>"
-        onclick="return ADMIN.confirmation('<?php echo clean_str_for_javascript($elmt['name']); ?>');">
+        onclick="return ADMIN.confirmationDel('<?php echo clean_str_for_javascript($elmt['name']); ?>');">
        <img src="<?php echo get_icon_url('delete'); ?>" alt="<?php echo get_lang('Delete category'); ?>" />
        </a>
     </td>

@@ -337,7 +337,15 @@ $htmlHeadXtra[] =
 $out = '';
 
 // Display tool title
-$out .= claro_html_tool_title($nameTools) . "\n\n";
+$cmdList = array();
+
+    $cmdList[] = array(
+        'img' => 'user',
+        'name' => get_lang('Create user'),
+        'url' => 'adminaddnewuser.php'
+    );
+
+$out .= claro_html_tool_title($nameTools, null, $cmdList);
 
 //Display selectbox and advanced search link
 
@@ -356,12 +364,6 @@ $out .= $dialogBox->render();
 
 $out .= '<table width="100%">' . "\n"
 .    '<tr>' . "\n"
-.    '<td>' . '<a class="claroCmd" href="adminaddnewuser.php">'
-.    '<img src="' . get_icon_url('user') . '" alt="" />'
-.    get_lang('Create user')
-.    '</a>'
-.    '</td>' . "\n"
-.    '<td>' . ''
 .    '<td align="right">' . "\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
@@ -384,7 +386,6 @@ $out .= $userDataGrid->render();
 
 if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($url);
 
-JavascriptLoader::getInstance()->load('jquery.qtip');
 JavascriptLoader::getInstance()->load('admin_users');
 
 $claroline->display->body->appendContent($out);

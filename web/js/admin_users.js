@@ -1,5 +1,5 @@
 /*
-    $Id$
+ * $Id$
  */
 
 $(document).ready(function(){
