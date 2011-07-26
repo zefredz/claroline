@@ -18,7 +18,6 @@ include_once get_path('incRepositorySys') . '/lib/right/profile.class.php';
 include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 
 // Security check
-
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
@@ -112,9 +111,18 @@ $offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? $_REQUE
 $profilePager = new claro_sql_pager($sql,$offset, $itemPerPage);
 $profileList = $profilePager->get_result_list();
 
+// Command list
+$cmdList = array();
+
+$cmdList[] = array(
+    'img' => 'default_new',
+    'name' => get_lang('Add new profile'),
+    'url' => $_SERVER['PHP_SELF'] . '?cmd=rqAdd'
+);
+
 // Display
 
-// define breadcrumb
+// Define breadcrumb
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools          = get_lang('Course profile list');
 $noQUERY_STRING     = TRUE;
@@ -129,11 +137,11 @@ switch ( $display )
 
         if ( !empty($profile->id) )
         {
-            $out .= claro_html_tool_title(get_lang('Add new profile'));
+            $out .= claro_html_tool_title(get_lang('Add new profile', null, $cmdList));
         }
         else
         {
-            $out .= claro_html_tool_title(get_lang('Edit profile'));
+            $out .= claro_html_tool_title(get_lang('Edit profile', null, $cmdList));
         }
 
         if ( ! empty($form) )
@@ -145,12 +153,7 @@ switch ( $display )
     case DISPLAY_LIST :
 
         // List of course profile
-
-        $out .= claro_html_tool_title(get_lang('Course profile list'));
-
-        $out .= '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-             . get_lang('Add new profile')
-             . '</a></p>' . "\n" ;
+        $out .= claro_html_tool_title(get_lang('Course profile list'), null, $cmdList);
 
         // Pager display
         $out .= $profilePager->disp_pager_tool_bar($_SERVER['PHP_SELF']);

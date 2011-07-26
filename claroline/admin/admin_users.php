@@ -318,7 +318,7 @@ else
 
 
 //PREPARE
-// Javascript confirm pop up declaration for header
+// Javascript
 $jslang = new JavascriptLanguage;
 $jslang->addLangVar('Are you sure to delete %name ?');
 ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
@@ -328,7 +328,7 @@ JavascriptLoader::getInstance()->load('admin_users');
 
 $out = '';
 
-// Display tool title
+// Command list
 $cmdList = array();
 
 $cmdList[] = array(

@@ -207,9 +207,19 @@ switch ( $cmd )
 // Get categories
 $categories = claroCategory::getAllCategories();
 
+// Command list
+$cmdList = array();
+
+$cmdList[] = array(
+    'img' => 'default_new',
+    'name' => get_lang('Create a category'),
+    'url' => $_SERVER['PHP_SELF'] . '?cmd=rqAdd'
+);
+
 // Display
 $template = new CoreTemplate('admin_category.tpl.php');
-$template->assign('nameTools', $nameTools);
+
+$template->assign('title', claro_html_tool_title($nameTools, null, $cmdList));
 $template->assign('dialogBox', $dialogBox);
 $template->assign('categories', $categories);
 

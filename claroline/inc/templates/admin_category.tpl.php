@@ -1,15 +1,8 @@
 <!-- $Id$ -->
 
-<?php echo claro_html_tool_title($this->nameTools); ?>
+<?php echo $this->title; ?>
 
 <?php echo $this->dialogBox->render(); ?>
-
-<p>
-    <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?cmd=rqAdd">
-        <img src="<?php echo get_icon_url('default_new'); ?>" alt="<?php echo get_lang('Category'); ?>" />
-        <?php echo get_lang('Create a category'); ?>
-    </a>
-</p>
 
 <?php if (get_conf('categories_order_by') != 'rank') : ?>
 <p>

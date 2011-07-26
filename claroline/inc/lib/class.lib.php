@@ -246,7 +246,7 @@ function move_class($class_id, $class_id_towards)
         {
             return claro_failure::set_failure('class_not_found'); // the parent class doesn't exist
         }
-        else 
+        else
         {
             $class_level = $result[0]['class_level'] +1;
         }
@@ -260,7 +260,7 @@ function move_class($class_id, $class_id_towards)
 
     //Move class
     $sql_update="UPDATE `" . $tbl_class . "`
-                 SET class_parent_id= " . $class_id_towards . ", 
+                 SET class_parent_id= " . $class_id_towards . ",
                  class_level = ". $class_level ."
                  WHERE id= " . (int) $class_id;
     claro_sql_query($sql_update);
@@ -797,30 +797,30 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_user.php?class_id=' . $cur_class['id'] . '">' . "\n"
-                .    '<img src="' . get_icon_url('user') . '" alt="" />' . "\n"
+                .    '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />' . "\n"
                 .    '(' . $qty_user . '  ' . get_lang('UsersMin') . ')' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                   .    '<a href="'.get_path('clarolineRepositoryWeb').'admin/admin_class_cours.php?class_id='.$cur_class['id'].'">' . "\n"
-                  .    '<img src="' . get_icon_url('course') . '" alt="" /> '
+                  .    '<img src="' . get_icon_url('course') . '" alt="' . get_lang('Course') . '" /> '
                   .    '('.$qty_cours.'  '.get_lang('Course').') ' . "\n"
                   .    '</a>' . "\n"
                   .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                .    '<img src="' . get_icon_url('edit') . '" alt="" />' . "\n"
+                .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMove&amp;class_id=' . $cur_class['id'] . '&class_name=' . $cur_class['name'] . '">' . "\n"
-                .    '<img src="' . get_icon_url('move') . '" alt="" />' . "\n"
+                .    '<img src="' . get_icon_url('move') . '" alt="' . get_lang('Move') . '" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;class_id=' . $cur_class['id'] . '"'
-                .    ' onclick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' . "\n"
-                .    '<img src="' . get_icon_url('delete') . '" alt="" />' . "\n"
+                .    ' onclick="return ADMIN.confirmationDel(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' . "\n"
+                .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '</tr>' . "\n"
@@ -1122,6 +1122,26 @@ function getSubClasses($class_id)
 }
 
 
+/**
+ * return list of class.
+ *
+ * @since 1.11
+ * @return array(`id`,`name`,`class_parent_id`,`course_id`)
+ */
+
+function get_class_list()
+{
+    $tbl = claro_sql_get_main_tbl();
+    
+    $sql = "SELECT id,
+                   class_parent_id,
+                   name
+            FROM `" . $tbl['class'] . "`
+            ORDER BY `name`";
+    
+    return claro_sql_query_fetch_all($sql);
+}
+
 
 /**
  * return list of class subscribed to a given course.
@@ -1145,6 +1165,7 @@ function get_class_list_by_course($courseId)
                ON CC.`classId` = C.`id`
               AND CC.`courseId` = '" . claro_sql_escape($courseId) . "'
         ORDER BY C.`name`";
+    
     return claro_sql_query_fetch_all($sql);
 }
 
@@ -1168,8 +1189,9 @@ function get_class_list_of_course($courseId)
         FROM `" . $tbl['class'] . "` C
         LEFT JOIN `" . $tbl['rel_course_class'] . "` CC
                ON CC.`classId` = C.`id`
-        WHERE CC.`courseId` = '" . claro_sql_escape($courseId) . "'         
+        WHERE CC.`courseId` = '" . claro_sql_escape($courseId) . "'
         ORDER BY C.`name`";
+    
     return claro_sql_query_fetch_all($sql);
 }
 
@@ -1188,8 +1210,8 @@ function get_class_list_user_id_list($classId)
     
 
      $sql = "
-        SELECT DISTINCT user_id                  
-        FROM `" .  $tbl['rel_class_user'] . "` 
+        SELECT DISTINCT user_id
+        FROM `" .  $tbl['rel_class_user'] . "`
         WHERE `class_id`
             in (" . $classIdList . ")";
      
@@ -1224,14 +1246,14 @@ function delete_all_classes()
         $classId = $thisClass['id'];
         // find all the students enrolled in that class
         $sql2 = "
-            SELECT user_id from `" . $tbl['rel_class_user'] . "` 
+            SELECT user_id from `" . $tbl['rel_class_user'] . "`
             WHERE class_id = '" . claro_sql_escape($classId) . "'";
         $thisClassUser = claro_sql_query_fetch_all($sql2);
          
         // Find all the courses to whom the class is enrolled
         $sql2 = "
-            SELECT courseId 
-            FROM `" . $tbl['rel_course_class'] . "` 
+            SELECT courseId
+            FROM `" . $tbl['rel_course_class'] . "`
             WHERE classId = '" . claro_sql_escape($classId) . "'";
         $searchResultList2 = claro_sql_query_fetch_all($sql2);
         foreach ($searchResultList2  as $thisCourse)
@@ -1270,14 +1292,14 @@ function empty_all_class()
         $classId = $thisClass['id'];
         // find all the students enrolled in that class
         $sql2 = "
-            SELECT user_id from `" . $tbl['rel_class_user'] . "` 
+            SELECT user_id from `" . $tbl['rel_class_user'] . "`
             WHERE class_id = '" . claro_sql_escape($classId) . "'";
         $thisClassUser = claro_sql_query_fetch_all($sql2);
          
         // Find all the courses to whom the class is enrolled
         $sql2 = "
-            SELECT courseId 
-            FROM `" . $tbl['rel_course_class'] . "` 
+            SELECT courseId
+            FROM `" . $tbl['rel_course_class'] . "`
             WHERE classId = '" . claro_sql_escape($classId) . "'";
         $searchResultList2 = claro_sql_query_fetch_all($sql2);
         foreach ($searchResultList2  as $thisCourse)

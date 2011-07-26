@@ -257,14 +257,14 @@ function claro_html_title($title, $level)
 * @param array $toolList
 * @return void
 */
-function claro_html_tool_title($titleParts, $helpUrl = null, $toolList = array(), $showTools = null)
+function claro_html_tool_title($titleParts, $helpUrl = null, $cmdList = array(), $showCmd = null)
 {
     if ( get_conf('displayAllCommandsLinkByDefault', false ) )
     {
-        $showTools = count($toolList);
+        $showCmd = count($cmdList);
     }
     
-    $toolTitle = new ToolTitle($titleParts, $helpUrl, $toolList, $showTools);
+    $toolTitle = new ToolTitle($titleParts, $helpUrl, $cmdList, $showCmd);
     
     return $toolTitle->render();
 }
