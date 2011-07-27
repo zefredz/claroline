@@ -1,5 +1,5 @@
 /*
- * $Id: claroline.js 13324 2011-07-15 09:32:30Z abourguignon $
+ * $Id$
  */
 
 $(document).ready(function(){
