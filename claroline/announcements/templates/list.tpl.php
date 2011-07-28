@@ -8,7 +8,7 @@
     <h1<?php if ($announcement['hot']) : ?> class="hot"<?php endif; ?> id="item<?php echo $announcement['id']; ?>">
         <img src="<?php echo get_icon_url('announcement'); ?>" alt="<?php echo get_lang('Announcement'); ?>" />
         <?php echo get_lang('Published on'); ?>:
-        <?php echo claro_html_localised_date( get_locale('dateFormatLong'), strtotime($this->lastPostDate)); ?>
+        <?php echo claro_html_localised_date( get_locale('dateFormatLong'), strtotime($announcement['time'])); ?>
     </h1>
     
     <div class="content">
