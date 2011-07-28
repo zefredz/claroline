@@ -106,7 +106,7 @@ class CLANN_Portlet extends UserDesktopPortlet
                      . '<dl>' . "\n"
                      . '<dt>' . "\n"
                      . '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="" />'
-                     . ' '.get_lang('No event to display') . "\n"
+                     . ' '.get_lang('No announcement to display') . "\n"
                      . '</dt>' . "\n"
                      . '</dl>' . "\n";
         }
