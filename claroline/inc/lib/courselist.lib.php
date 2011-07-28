@@ -602,9 +602,22 @@ function render_user_course_list()
     // Merge courses and their session courses (if any)
     foreach ($tempSessionCourses as $sourceCourseId => $sessionCourses)
     {
+        /*
+         * Sometimes, a session course could not find its associated source
+         * course in the user course list.  Simply because, for some reason,
+         * this user isn't registered to the source course anymore, but is
+         * still registered in the session course.
+         */
         if (!empty($reorganizedUserCourseList[$sourceCourseId]['sessionCourses']))
         {
             $reorganizedUserCourseList[$sourceCourseId]['sessionCourses'] = $sessionCourses;
+        }
+        else
+        {
+            foreach ($sessionCourses as $course)
+            {
+                $reorganizedUserCourseList[$course['courseId']] = $course;
+            }
         }
     }
     unset($tempSessionCourses);
