@@ -602,7 +602,10 @@ function render_user_course_list()
     // Merge courses and their session courses (if any)
     foreach ($tempSessionCourses as $sourceCourseId => $sessionCourses)
     {
-        $reorganizedUserCourseList[$sourceCourseId]['sessionCourses'] = $sessionCourses;
+        if (!empty($reorganizedUserCourseList[$sourceCourseId]['sessionCourses']))
+        {
+            $reorganizedUserCourseList[$sourceCourseId]['sessionCourses'] = $sessionCourses;
+        }
     }
     unset($tempSessionCourses);
     
