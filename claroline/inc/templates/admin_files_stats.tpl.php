@@ -1,5 +1,7 @@
 <!-- $Id$ -->
 
+<?php echo claro_html_tool_title(get_lang('Files statistics')); ?>
+
 <?php echo $this->dialogBox->render(); ?>
 
 <table style="margin: 5px 0 10px 0; padding: 0;">
