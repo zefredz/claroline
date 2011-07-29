@@ -32,7 +32,7 @@ class Csv extends CsvExporter
      *
      * @deprecated
      */
-    public function csv($delimiter, $quote)
+    public function csv($delimiter = ',', $quote = '"')
     {
         self::__construct($delimiter, $quote);
     }
