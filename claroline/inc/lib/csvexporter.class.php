@@ -3,7 +3,7 @@
 /**
  * CLAROLINE
  *
- * CSV class
+ * CSV exporter class.
  *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -23,7 +23,7 @@ class CsvExporter
      *
      * @param char $delimitor
      */
-    public function  __construct ($delimiter, $quote)
+    public function __construct($delimiter, $quote)
     {
         $this->delimiter    = $delimiter;
         $this->quote        = $quote;
