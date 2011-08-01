@@ -608,7 +608,7 @@ function render_user_course_list()
          * this user isn't registered to the source course anymore, but is
          * still registered in the session course.
          */
-        if (!empty($reorganizedUserCourseList[$sourceCourseId]['sessionCourses']))
+        if (!empty($reorganizedUserCourseList[$sourceCourseId]))
         {
             $reorganizedUserCourseList[$sourceCourseId]['sessionCourses'] = $sessionCourses;
         }
