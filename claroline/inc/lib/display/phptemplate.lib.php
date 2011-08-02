@@ -134,6 +134,7 @@ class CoreTemplate extends PhpTemplate
 
             // Fetch related courses
             $this->relatedCourses = $this->courseObject->getRelatedCourses();
+            $this->relatedUserCourses = $this->courseObject->getRelatedUserCourses(claro_get_current_user_id());
             
             if ( claro_is_in_a_group() )
             {

@@ -66,7 +66,7 @@ class ClaroBody extends CoreTemplate
      * Set the content of the page
      * @param   string content
      */
-    public function setContent( $content)
+    public function setContent( $content )
     {
         $this->content = $content;
     }

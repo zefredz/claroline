@@ -62,9 +62,6 @@ if ( claro_is_in_a_course()
 $thisCourse = new ClaroCourse();
 $thisCourse->load($cidReq);
 
-// Fetch related courses
-$relatedCourses = $thisCourse->getRelatedCourses();
-
 include claro_get_conf_repository() . 'rss.conf.php';
 
 // Include the course home page special CSS
@@ -355,7 +352,6 @@ $activablePortlets = claro_is_course_manager() ? CourseHomePagePortlet::getActiv
 $template = new CoreTemplate('course_index.tpl.php');
 $template->assign('dialogBox', $dialogBox);
 $template->assign('activablePortlets', $activablePortlets);
-$template->assign('relatedCourses', $relatedCourses);
 $template->assign('portletIterator', $portletiterator);
 
 $claroline->display->body->setContent($template->render());

@@ -496,6 +496,55 @@ class ClaroCourse
     
     
     /**
+     * Get related course to the current course (parent or child) for a
+     * given user.
+     *
+     * @return array    courses
+     * @since 1.11
+     */
+    public function getRelatedUserCourses($userId)
+    {
+        // Declare needed tables
+        $tbl_mdb_names              = claro_sql_get_main_tbl();
+        $tbl_course                 = $tbl_mdb_names['course'];
+        $tbl_rel_user_courses       = $tbl_mdb_names['rel_course_user'];
+        
+        $sql = "SELECT c.cours_id               AS id,
+                       c.titulaires             AS titular,
+                       c.code                   AS sysCode,
+                       c.isSourceCourse         AS isSourceCourse,
+                       c.sourceCourseId         AS sourceCourseId,
+                       c.intitule               AS title,
+                       c.administrativeNumber   AS officialCode,
+                       c.language,
+                       c.directory,
+                       c.visibility,
+                       c.access,
+                       c.registration,
+                       c.email,
+                       c.status,
+                       c.userLimit
+                FROM `" . $tbl_course . "` AS c
+                
+                RIGHT JOIN `" . $tbl_rel_user_courses . "` AS rcu
+                ON rcu.user_id = " . (int) $userId . "
+                AND rcu.code_cours = c.code
+                
+                WHERE c.sourceCourseId = " . $this->id . "
+                OR c.cours_id = " . $this->id;
+        
+        if (!empty($this->sourceCourseId))
+        {
+            $sql .= "
+                OR cours_id = " . $this->sourceCourseId . "
+                OR c.sourceCourseId = " . $this->sourceCourseId;
+        }
+        
+        return claro_sql_query_fetch_all($sql);
+    }
+    
+    
+    /**
      * Get all courses in database ordered by label.  If a category identifier
      * is specified, only get courses linked to this category.  You can also
      * specify visibility.
