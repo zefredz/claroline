@@ -404,13 +404,13 @@ if ( $displayButtonLine )
     $cmdList[] = array(
         'img' => 'announcement_new',
         'name' => get_lang('Add announcement'),
-        'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqCreate' ))
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqCreate'))
     );
     
     $cmdList[] = array(
         'img' => 'mail_close',
         'name' => get_lang('Messages to selected users'),
-        'url' => htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann'))
+        'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann'))
     );
     
     if (($announcementQty > 0 ))
@@ -418,7 +418,7 @@ if ( $displayButtonLine )
         $cmdList[] = array(
             'img' => 'delete',
             'name' => get_lang('Clear up list of announcements'),
-            'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll' ))
+            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDeleteAll'))
         );
     }
 }

@@ -215,7 +215,8 @@ elseif ( 'exMoreInfo' == $cmd
 // Initialise
 $userData['userExtraInfoList'] =  get_user_property_list(claro_get_current_user_id());
 
-$profileMenu =  array();
+// Command list
+$cmdList = array();
 
 switch ( $display )
 {
@@ -226,26 +227,30 @@ switch ( $display )
         if( get_conf('is_trackingEnabled') )
         {
             // Display user tracking link
-            $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/userReport.php?userId='.claro_get_current_user_id() . claro_url_relay_context('&amp;') . '">'
-            .                 '<img src="' . get_icon_url('statistics') . '" alt="" />&nbsp;' . get_lang('View my statistics')
-            .                 '</a>'
-            ;
+            $cmdList[] = array(
+                'img' => 'statistics',
+                'name' => get_lang('View my statistics'),
+                'url' => htmlspecialchars(Url::Contextualize(get_conf('urlAppend') . '/claroline/tracking/userReport.php?userId='.claro_get_current_user_id()))
+            );
         }
         
         // Display request course creator status
         if ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status') )
         {
-            $profileMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] . '?cmd=reqCCstatus' . claro_url_relay_context('&amp;')
-                                                , get_lang('Request course creation status') );
+            $cmdList[] = array(
+                'name' => get_lang('Request course creation status'),
+                'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=reqCCstatus'))
+            );
         }
         
         // Display user revoquation
         if ( get_conf('can_request_revoquation') )
         {
-            $profileMenu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                 . '?cmd=reqRevoquation' . claro_url_relay_context('&amp;')
-                                                 , get_lang('Delete my account')
-                                                 ) ;
+            $cmdList[] = array(
+                'img' => 'delete',
+                'name' => get_lang('Delete my account'),
+                'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=reqRevoquation'))
+            );
         }
         
         if (claro_is_platform_admin())
@@ -256,56 +261,45 @@ switch ( $display )
         break;
 }
 
-/**********************************************************************
-    View Section
-**********************************************************************/
-$jsloader = JavascriptLoader::getInstance();
-$jsloader->load('jquery');
-
+// Display
 $out = '';
 
-$out .= claro_html_tool_title($nameTools);
-
-$out .= $dialogBox->render();
+$out .= claro_html_tool_title($nameTools, null, $cmdList)
+      . $dialogBox->render();
 
 switch ( $display )
 {
     case DISP_PROFILE_FORM :
-
-        // display form profile
+        
+        // Display form profile
         if ( trim ($profileText) != '')
         {
             $out .= '<div class="info profileEdit">'
                   . $profileText
                   . '</div>';
         }
-
-        $out .= '<p>'
-              . claro_html_menu_horizontal($profileMenu)
-              . '</p>'
-              . user_html_form($userId);
-
+        
+        $out .= user_html_form($userId);
         break;
 
     case DISP_MOREINFO_FORM :
-
-        // display request course creator form
+        
+        // Display request course creator form
         $out .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
               . '<input type="hidden" name="cmd" value="exMoreInfo" />' . "\n"
               . '<table>' . "\n";
-
+        
         foreach ($extraInfoDefList as $extraInfoDef)
         {
             $currentValue = array_key_exists($extraInfoDef['propertyId'],$userInfo)
             ? $userInfo[$extraInfoDef['propertyId']]
             : $extraInfoDef['defaultValue'];
             $requirement = (bool) (true == $extraInfoDef['required']);
-
+            
             $labelExtraInfoDef = $extraInfoDef['label'];
             $out .= form_input_text('extraInfoList['.htmlentities($extraInfoDef['propertyId']).']',$currentValue,get_lang($labelExtraInfoDef),$requirement);
-
         }
-
+        
         $out .= '<tr valign="top">' . "\n"
               . '<td>' . get_lang('Submit') . ': </td>' . "\n"
               . '<td>'
@@ -319,10 +313,10 @@ switch ( $display )
         break;
 
     case DISP_REQUEST_COURSE_CREATOR_STATUS :
-
+        
         $out .= '<p>' . get_lang('Fill in the text area to motivate your request and then submit the form to send it to platform administrators') . '</p>';
-
-        // display request course creator form
+        
+        // Display request course creator form
         $out .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
               . '<input type="hidden" name="cmd" value="exCCstatus" />' . "\n"
               . '<table>' . "\n"
@@ -334,13 +328,12 @@ switch ( $display )
               . '</td></tr>' . "\n"
               . '</table>' . "\n"
               . '</form>' . "\n";
-
         break;
 
     case DISP_REQUEST_REVOQUATION :
+        
         if ( get_conf('can_request_revoquation') )
         {
-
             $out .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
                   . '<input type="hidden" name="cmd" value="exRevoquation" />' . "\n"
                   . '<table>' . "\n"

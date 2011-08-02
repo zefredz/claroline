@@ -210,10 +210,30 @@ else
 }
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
 
+// Command list
+$cmdList = array();
+
+$cmdList[] = array(
+    'img' => 'edit',
+    'name' => get_lang('Edit question'),
+    'url' => htmlspecialchars(Url::Contextualize('./edit_question.php?exId='.$exId.'&cmd=rqEdit&quId='.$quId))
+);
+
+$cmdList[] = array(
+    'img' => 'edit',
+    'name' => get_lang('Edit answers'),
+    'url' => htmlspecialchars(Url::Contextualize('./edit_answers.php?exId='.$exId.'&cmd=rqEdit&quId='.$quId))
+);
+
+$cmdList[] = array(
+    'img' => 'default_new',
+    'name' => get_lang('New question'),
+    'url' => htmlspecialchars(Url::Contextualize('./edit_question.php?exId='.$exId.'&cmd=rqEdit'))
+);
 
 $out = '';
 
-$out .= claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools, null, $cmdList);
 
 // dialog box if required
 $out .= $dialogBox->render();
@@ -346,25 +366,7 @@ if( $displayForm )
 }
 else
 {
-    $cmd_menu = array();
-    $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit&amp;quId='.$quId.'">'
-                . '<img src="' . get_icon_url('edit') . '" alt="" />'
-                . get_lang('Edit question')
-                . '</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="./edit_answers.php?exId='.$exId.'&amp;cmd=rqEdit&amp;quId='.$quId.'">'
-                . '<img src="' . get_icon_url('edit') . '" alt="" />'
-                . get_lang('Edit answers')
-                . '</a>';
-                
-    $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit">'
-                . get_lang('New question')
-                . '</a>';
-
-    $out .= claro_html_menu_horizontal($cmd_menu);
-
     $out .= $question->getQuestionAnswerHtml();
-
-
 }
 
 $claroline->display->body->appendContent($out);

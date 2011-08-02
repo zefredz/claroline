@@ -98,6 +98,26 @@ if( !is_array($userData) )
     claro_die( get_lang('Cannot find user') );
 }
 
+
+// Command list
+$cmdList = array();
+
+if( $canSwitchCourses && count($userCourseList) )
+{
+    $cmdList[] = array(
+        'name' => get_lang('View platform statistics'),
+        'url' => htmlspecialchars('userReport.php?cidReset=true&userId='.(int) $userId)
+    );
+}
+else
+{
+    $cmdList[] = array(
+        'img' => 'back',
+        'name' => get_lang('Back to user list'),
+        'url' => htmlspecialchars(Url::Contextualize(get_path('url').'/claroline/user/user.php'))
+    );
+}
+
 /*
  * Output
  */
@@ -130,7 +150,7 @@ $output .= '<div id="rightSidebar">' . $userProfileBox->render() . '</div>';
  * Output of : course list if required
  */
 $output .= '<div id="leftContent">' . "\n";
-$output .= claro_html_tool_title(get_lang('User statistics'));
+$output .= claro_html_tool_title(get_lang('User statistics'), null, $cmdList);
 
 if( $canSwitchCourses && count($userCourseList) )
 {
@@ -153,7 +173,6 @@ if( $canSwitchCourses && count($userCourseList) )
     .     '<form method="get" name="filterForm" action="'.htmlspecialchars(Url::Contextualize( 'userReport.php')).'">' . "\n"
     .     '<input type="hidden" name="userId" value="'.(int) $userId.'" />' . "\n"
     .     '<p>' . "\n"
-    .     '<a class="claroCmd" href="userReport.php?cidReset=true&amp;userId='.(int) $userId.'">'.get_lang('View platform statistics').'</a> &nbsp;|&nbsp; ' . "\n"
     .     '<label for="cidReq">'.get_lang('Choose a course').'&nbsp;:&nbsp;</label>' . "\n"
     .     claro_html_form_select('cidReq', $displayedCourseList, $courseId, $attr) . "\n"
     .     '<input type="submit" id="buttonOK" value="'.get_lang('Ok').'" />' . "\n"
@@ -161,15 +180,6 @@ if( $canSwitchCourses && count($userCourseList) )
     .     '</form>' . "\n"
     ;
 
-}
-else
-{
-    $output .= '<p>'
-    .     '<a href="'.get_path('url').'/claroline/user/user.php' . claro_url_relay_context('?') . '"><small>'
-    .    '&lt;&lt;&nbsp;'
-    .    get_lang('Back to user list')
-    .    '</small></a>' . "\n"
-    .     '</p>' . "\n";
 }
 
 /*

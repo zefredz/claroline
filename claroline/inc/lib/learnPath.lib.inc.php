@@ -346,16 +346,16 @@ function nameBox($type, $mode)
  {
     switch($contentType)
     {
-        case CTDOCUMENT_ : 
+        case CTDOCUMENT_ :
             return get_icon_url('document', 'CLDOC');
             break;
-        case CTEXERCISE_ : 
+        case CTEXERCISE_ :
             return get_icon_url('quiz', 'CLQWZ');
             break;
-        case CTSCORM_ : 
+        case CTSCORM_ :
             return get_icon_url('scorm');
             break;
-        default : 
+        default :
             return get_icon_url('default');
             break;
     }
@@ -664,19 +664,22 @@ function display_my_exercises($dialogBox)
         $_dialogBox->form( $dialogBox );
         $out .= $_dialogBox->render();
     }
-    $out .= '<table class="claroTable" width="100%" border="0" cellspacing="">'."\n\n"
-    .    '<tr class="headerX" align="center" valign="top">'."\n"
+    
+    $out .= '<form method="post" name="addmodule" action="' . $_SERVER['PHP_SELF'] . '?cmdglobal=add">'."\n";
+    
+    $out .= '<table class="claroTable emphaseLine">'."\n\n"
+    .    '<thead>'
+    .    '<tr align="center" valign="top">'."\n"
     .    '<th width="10%">'
     .    get_lang('Add module(s)')
     .    '</th>'."\n"
     .    '<th>'
     .    get_lang('Exercises')
     .    '</th>'."\n"
-    .    '</tr>'."\n\n"
-    ;
-
+    .    '</tr>'."\n"
+    .    '</thead>'."\n\n";
+    
     // Display available modules
-    $out .= '<form method="post" name="addmodule" action="' . $_SERVER['PHP_SELF'] . '?cmdglobal=add">'."\n";
     $atleastOne = FALSE;
     $sql = "SELECT `id`, `title`, `description`
             FROM `" . $tbl_quiz_exercise . "`
@@ -686,36 +689,26 @@ function display_my_exercises($dialogBox)
     if( is_array($exercises) && !empty($exercises) )
     {
         $out .= '<tbody>' . "\n\n";
-
+        
         foreach ( $exercises as $exercise )
         {
             $out .= '<tr>'."\n"
-            .    '<td align="center">'
+            .    '<td style="vertical-align:top; text-align: center;">'
             .    '<input type="checkbox" name="check_' . $exercise['id'] . '" id="check_' . $exercise['id'] . '" value="' . $exercise['id'] . '" />'
             .    '</td>'."\n"
-            .    '<td align="left">'
+            .    '<td>'
             .    '<label for="check_'.$exercise['id'].'" >'
             .    '<img src="' . get_icon_url('quiz', 'CLQWZ') . '" alt="" /> '
             .    $exercise['title']
             .    '</label>'
+            .    (!empty($exercise['description']) ? '<p><small>' . claro_parse_user_text($exercise['description']) . '</small></p>' : '')
             .    '</td>'."\n"
             .    '</tr>'."\n\n"
             ;
-
-            // COMMENT
-
-            if( !empty($exercise['description']) )
-            {
-                $out .= '<tr>'."\n"
-                .    '<td>&nbsp;</td>'."\n"
-                .    '<td>'
-                .    '<small>' . claro_parse_user_text($exercise['description']) . '</small>'
-                .    '</td>'."\n"
-                .    '</tr>'."\n\n"
-                ;
-            }
+            
             $atleastOne = true;
         }//end while another module to display
+        
         $out .= '</tbody>'."\n\n";
     }
 
@@ -730,27 +723,17 @@ function display_my_exercises($dialogBox)
         .     '</tr>'."\n\n"
         ;
     }
+    
+    $out .= '</tfoot>'."\n\n"
+    .    '</table>'."\n\n";
 
     // Display button to add selected modules
-
-    $out .= '<tr>'."\n"
-    .    '<td colspan="2">'
-    .    '<hr noshade size="1">'
-    .    '</td>'."\n"
-    .     '</tr>'."\n\n"
-    ;
     if( $atleastOne )
     {
-        $out .= '<tr>'."\n"
-        .     '<td colspan="2">'
-        .    '<input type="submit" name="insertExercise" value="'.get_lang('Add module(s)').'" />'
-        .    '</td>'."\n"
-        .     '</tr>'."\n\n"
-        ;
+        $out .= '<input type="submit" name="insertExercise" value="'.get_lang('Add selection').'" />';
     }
-    $out .= '</form>'."\n\n"
-    .    '</tfoot>'."\n\n"
-    .    '</table>'."\n\n"
+    
+    $out .= '</form><br /><br />'."\n\n"
     .    '<!-- end of display_my_exercises output -->' . "\n"
     ;
     
@@ -1412,8 +1395,8 @@ function delete_exercise_asset($exerciseId)
  *
  * @param $pathId integer id of a learnPath
  * @return boolean true if learnpath is blocked, false instead
- * 
- **/ 
+ *
+ **/
 
 function is_learnpath_accessible( $pathId )
 {
@@ -1496,7 +1479,7 @@ function is_learnpath_accessible( $pathId )
              elseif( $moduleNumber == 0 && $upperLock == 'CLOSE' )
              {
                  $blocked = true;
-             } 
+             }
             
         }
     }
