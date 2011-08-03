@@ -79,13 +79,7 @@ $jslang = new JavascriptLanguage;
 $jslang->addLangVar('Are you sure you want to uninstall the module %name ?');
 ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
 
-/*
- * Can't find any way to include js the usual way
- * (JavascriptLoader::getInstance()->load()) because 'admin' is not considered
- * like a module.  The admin.js file will be included via <script> tags, in
- * the output (see further in this script), until we find a better solution.
- */
-$jsToInclude = '<script type="text/javascript" src="../js/admin.js"></script>';
+JavascriptLoader::getInstance()->load('admin');
 
 //CONFIG and DEVMOD vars :
 
@@ -817,9 +811,6 @@ $cmdList[] = array(
 $noQUERY_STRING = true ;
 
 $out = '';
-
-// Include js
-$out .= $jsToInclude;
 
 // Title
 $out .= claro_html_tool_title ( $nameTools, null, $cmdList )

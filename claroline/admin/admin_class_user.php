@@ -30,18 +30,12 @@ $tbl_user       = $tbl_mdb_names['user'];
 $tbl_class      = $tbl_mdb_names['user_category'];
 $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 
-// javascript confirm pop up declaration
+// Javascript confirm pop up declaration for header
+$jslang = new JavascriptLanguage;
+$jslang->addLangVar('Are you sure you want to unregister %name ?');
+ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
 
-$htmlHeadXtra[] =
-         "<script>
-         function confirmationUnReg (name)
-         {
-             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))."\"+ name + \"? \"))
-                 {return true;}
-             else
-                 {return false;}
-         }
-         </script>";
+JavascriptLoader::getInstance()->load('admin');
 
 //------------------------------------
 // Main section
@@ -274,7 +268,7 @@ if ( !empty($class_id) )
          .    '<td align="center">'  ."\n"
          .    '<a href="'.$_SERVER['PHP_SELF']
          .    '?cmd=unsubscribe&amp;offset='.$offset.'&amp;user_id='.$list['user_id'].'&amp;class_id='.$class_id.'" '
-         .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($list['prenom'] . ' ' . $list['nom']).'\');">' . "\n"
+         .    ' onclick="return ADMIN.confirmationUnReg(\''.clean_str_for_javascript($list['prenom'] . ' ' . $list['nom']).'\');">' . "\n"
          .    '<img src="' . get_icon_url('unenroll') . '" alt="" />' . "\n"
          .    '</a>' . "\n"
          .    '</td></tr>' . "\n"

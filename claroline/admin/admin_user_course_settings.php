@@ -121,17 +121,12 @@ if ( isset($uidToEdit) )
 // PREPARE DISPLAY
 //------------------------------------
 
-// javascript confirm pop up declaration
-$htmlHeadXtra[] =
-            "<script>
-            function confirmationUnReg (name)
-            {
-                if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))." \"+ name + \"? \"))
-                    {return true;}
-                else
-                    {return false;}
-            }
-            </script>";
+// Javascript confirm pop up declaration for header
+$jslang = new JavascriptLanguage;
+$jslang->addLangVar('Are you sure you want to unregister %name ?');
+ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+
+JavascriptLoader::getInstance()->load('admin');
 
 $displayBackToCU = false;
 $displayBackToUC = false;
@@ -148,7 +143,7 @@ $cmd_menu[] = '<a class="claroCmd" href="adminuserunregistered.php'
 .             '?cidToEdit=' . $cidToEdit
 .             '&amp;cmd=UnReg'
 .             '&amp;uidToEdit=' . $uidToEdit . '" '
-.             ' onclick="return confirmationUnReg(\'' . clean_str_for_javascript(htmlspecialchars($courseUserProperties['firstName']) . ' ' . htmlspecialchars($courseUserProperties['lastName'])) . '\');">'
+.             ' onclick="return ADMINconfirmationUnReg(\'' . clean_str_for_javascript(htmlspecialchars($courseUserProperties['firstName']) . ' ' . htmlspecialchars($courseUserProperties['lastName'])) . '\');">'
 .             get_lang('Unsubscribe')
 .             '</a>'
 ;
