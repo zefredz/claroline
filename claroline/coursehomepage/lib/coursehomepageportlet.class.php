@@ -377,7 +377,7 @@ abstract class CourseHomePagePortlet extends Portlet
                    . '<img src="' . get_icon_url('go_down') . '" alt="'.get_lang('Move down').'" />'
                    . '</a> <a href="'
                    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd='
-                   . ($this->visible?get_lang('makeInvisible'):get_lang('makeVisible')) . '&portletLabel='.$this->label.'&portletId='.$this->id))
+                   . ($this->visible?'makeInvisible':'makeVisible') . '&portletLabel='.$this->label.'&portletId='.$this->id))
                    . '" title="'
                    . ($this->visible?get_lang('Hide this item'):get_lang('Show this item')). '">'
                    . '<img src="'

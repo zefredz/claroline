@@ -122,22 +122,22 @@ if($is_allowedToEdit) // check teacher status
         {
             if (move_entry($id, 'DOWN'))
             {
-                $dialogBox->success(get_lang('Announcement has been moved down'));
+                $dialogBox->success(get_lang('Item has been moved down'));
             }
             else
             {
-                $dialogBox->error(get_lang('Announcement can\'t be moved down'));
+                $dialogBox->error(get_lang('Item can\'t be moved down'));
             }
         }
         if ( 'exMvUp' == $cmd )
         {
             if (move_entry($id, 'UP'))
             {
-                $dialogBox->success(get_lang('Announcement has been moved up'));
+                $dialogBox->success(get_lang('Item has been moved up'));
             }
             else
             {
-                $dialogBox->error(get_lang('Announcement can\'t be moved up'));
+                $dialogBox->error(get_lang('Item can\'t be moved up'));
             }
         }
         
