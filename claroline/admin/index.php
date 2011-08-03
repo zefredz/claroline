@@ -110,7 +110,6 @@ $menu['AdminTechnical'][] = '<a href="technical/files_stats.php">'.get_lang('Fil
 
 if ( get_conf('DEVEL_MODE', false) == true )
 {
-    $menu['AdminTechnical'][] = '<a href="xtra/sdk/translation_index.php">'.get_lang('Translation Tools').'</a>';
     $menu['AdminTechnical'][] = '<a href="devTools">'.get_lang('Devel Tools').'</a>';
 }
 

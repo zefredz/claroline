@@ -36,11 +36,6 @@ $out = '';
 
 $out .= claro_html_tool_title($nameTools);
 
-$out .= '<h4>' . get_lang('Translations') . '</h4>'
-      . '<ul>'
-      . '<li><a href="../xtra/sdk/translation_index.php">' . get_lang('Translations') . '</a></li>'
-      . '</ul>';
-
 if (0 < count($devtoolsList))
 {
     $out .= claro_html_tool_title(get_lang('Filling'))
