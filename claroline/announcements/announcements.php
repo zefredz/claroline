@@ -418,7 +418,8 @@ if ( $displayButtonLine )
         $cmdList[] = array(
             'img' => 'delete',
             'name' => get_lang('Clear up list of announcements'),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDeleteAll'))
+            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDeleteAll')),
+            'params' => array('onclick' => 'return CLANN.confirmationDelAll()')
         );
     }
 }
@@ -430,6 +431,11 @@ if ( $displayButtonLine )
 
 $nameTools = get_lang('Announcements');
 $noQUERY_STRING = true;
+
+// Javascript confirm pop up declaration for header
+$jslang = new JavascriptLanguage;
+$jslang->addLangVar('Are you sure you want to delete all the announcements ?');
+ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
 
 JavascriptLoader::getInstance()->load('announcements');
 

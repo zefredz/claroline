@@ -1,6 +1,20 @@
 /*
-$Id$
-*/
+ * $Id$
+ */
+
+var CLANN = {};
+
+CLANN.confirmationDelAll = function ()
+{
+    if (confirm(Claroline.getLang('Are you sure you want to delete all the announcements ?')))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
 $(document).ready(function(){
     $("#visible").click(function(){
