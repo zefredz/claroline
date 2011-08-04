@@ -3,6 +3,7 @@
 class CurrentCourseToolListBlock implements Display
 {
     protected
+        $courseCode,
         $courseId,
         $profileId,
         $template,
@@ -11,13 +12,14 @@ class CurrentCourseToolListBlock implements Display
     
     public function __construct()
     {
-        $this->courseId = claro_get_current_course_id();
+        $this->courseCode = claro_get_current_course_id();
+        $this->courseId = ClaroCourse::getIdFromCode($this->courseCode);
         $this->userId = claro_get_current_user_id();
         $this->profileId = claro_get_current_user_profile_id_in_course();
         $this->viewMode = claro_get_tool_view_mode();
         $this->courseObject = new ClaroCourse();
-        $this->courseObject->load($this->courseId);
-        $this->currentCourseContext = Claro_Context::getUrlContext(array( CLARO_CONTEXT_COURSE => $this->courseId ));
+        $this->courseObject->load($this->courseCode);
+        $this->currentCourseContext = Claro_Context::getUrlContext(array( CLARO_CONTEXT_COURSE => $this->courseCode ));
         
         $this->template = new CoreTemplate('coursetoollist.tpl.php');
     }
@@ -29,7 +31,7 @@ class CurrentCourseToolListBlock implements Display
     
     protected function getUserLastAction()
     {
-        return ( 
+        return (
             (isset($_SESSION['last_action']) && $_SESSION['last_action'] != '1970-01-01 00:00:00')
                 ? $_SESSION['last_action']
                 : date('Y-m-d H:i:s')
@@ -46,7 +48,7 @@ class CurrentCourseToolListBlock implements Display
         if ( $this->userId )
         {
             $date = $claro_notifier->get_notification_date( $this->userId );
-            $modified_tools = $claro_notifier->get_notified_tools( $this->courseId, $date, $this->userId );
+            $modified_tools = $claro_notifier->get_notified_tools( $this->courseCode, $date, $this->userId );
         }
         else
         {
@@ -56,7 +58,7 @@ class CurrentCourseToolListBlock implements Display
         $toolLinkList = array();
 
         // Generate tool lists
-        $toolListSource = claro_get_course_tool_list( $this->courseId, $this->profileId, true);
+        $toolListSource = claro_get_course_tool_list( $this->courseCode, $this->profileId, true);
 
         foreach ( $toolListSource as $thisTool )
         {
@@ -142,18 +144,12 @@ class CurrentCourseToolListBlock implements Display
                                     . get_lang('Course settings')
                                     . '</a>';
 
-        if ( !ClaroCourse::isSessionCourse($this->courseId) )
+        if ( !ClaroCourse::isSessionCourse($this->courseCode) )
         {
-            $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/session_courses.php', $this->currentCourseContext /* , array( 'cid' => $this->courseId ) */ )) . '">'
+            $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')
+                                        . 'course/create.php', array('course_sourceCourseId'=>$this->courseId) )) . '">'
                                         . '<img src="' . get_icon_url('duplicate') . '" alt="" /> '
-                                        . get_lang("Manage session courses")
-                                        . '</a>' ;
-        }
-        else
-        {
-            $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/index.php', array('cid'=>ClaroCourse::getCodeFromId($this->courseObject->sourceCourseId)) )) . '">'
-                                        . '<img src="' . get_icon_url('default') . '" alt="" /> '
-                                        . get_lang("View source course")
+                                        . get_lang("Create a session course")
                                         . '</a>' ;
         }
 
