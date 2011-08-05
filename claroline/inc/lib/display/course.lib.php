@@ -144,7 +144,7 @@ class CurrentCourseToolListBlock implements Display
                                     . get_lang('Course settings')
                                     . '</a>';
 
-        if ( !ClaroCourse::isSessionCourse($this->courseCode) )
+        if ( !ClaroCourse::isSessionCourse($this->courseId) )
         {
             $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')
                                         . 'course/create.php', array('course_sourceCourseId'=>$this->courseId) )) . '">'
