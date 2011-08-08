@@ -56,8 +56,9 @@ class CLTI_Portlet extends CourseHomePagePortlet
         {
             $output .= '<dt></dt>'
                      . '<dd>' . "\n"
-                     . '<img class="iconDefinitionList" src="' . get_icon_url('course_description', 'CLDSC') . '" alt="Description icon" />'
-                     . ' ' . get_lang('No description') . "\n"
+                     . ' ' . get_lang('No headline') . '. ' 
+                     . '<a href="' . htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=rqAdd')) . '">' 
+                     . get_lang('Would you like to add one ?') . '</a>' . "\n"
                      . '</dd>' . "\n";
         }
         
@@ -68,7 +69,10 @@ class CLTI_Portlet extends CourseHomePagePortlet
     
     public function renderTitle()
     {
-        $output = get_lang('Headlines');
+        $output = '<img ' 
+                . 'src="' . get_icon_url('headline', 'CLTI')  . '"'
+                . 'alt="' . get_lang('Headline') . '" /> '
+                . get_lang('Headlines');
         
         if (claro_is_allowed_to_edit())
         {

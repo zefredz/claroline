@@ -567,6 +567,11 @@ Use .portlet for desktop or course portlets
     border-bottom: 1px solid #444;
 }
 
+.item h1 img,
+.portlet h1 img {
+    margin-bottom: -2px;
+}
+
 .item.hidden h1,
 .item.hidden .content, 
 .portlet.hidden h1

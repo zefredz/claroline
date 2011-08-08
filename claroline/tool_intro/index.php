@@ -49,7 +49,7 @@ JavascriptLoader::getInstance()->load('tool_intro');
 // Instanciate dialog box
 $dialogBox = new DialogBox();
 
-
+$toolIntroForm = '';
 
 if (isset($cmd) && $isAllowedToEdit)
 {
@@ -203,7 +203,7 @@ $cmdList = array();
 if (claro_is_allowed_to_edit())
 {
     $cmdList[] = array(
-        'img' => 'default_new',
+        'img' => 'headline_new',
         'name' => get_lang('New headline'),
         'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?cmd=rqAdd'))
     );
@@ -211,23 +211,23 @@ if (claro_is_allowed_to_edit())
 
 $toolIntroIterator = new ToolIntroductionIterator(claro_get_current_course_id());
 
-$toolIntroductions = '';
-$toolIntroForm = (empty($toolIntroForm) ? '' : $toolIntroForm);
+$toolIntroductionList = '';
 
 if ($toolIntroIterator->count() > 0)
 {
     foreach ($toolIntroIterator as $toolIntro)
     {
-        $toolIntroductions .= $toolIntro->render();
+        $toolIntroductionList .= $toolIntro->render();
     }
 }
 else
 {
+    // If there's no item, display the form to add one
     $toolIntro = new ToolIntro();
     
     $dialogBox->info(get_lang('There\'s no headline for this course right now.  Use the form below to add a new one.'));
     
-    $toolIntroForm = $toolIntro->renderForm();
+    $toolIntroForm = (empty($toolIntroForm) ? $toolIntro->renderForm() : $toolIntroForm);
 }
 
 Claroline::getDisplay()->body->appendContent(claro_html_tool_title(get_lang('Headlines'), null, $cmdList));
@@ -235,7 +235,7 @@ Claroline::getDisplay()->body->appendContent($dialogBox->render());
 
 $output = '';
 $output .= $toolIntroForm
-         . $toolIntroductions;
+         . $toolIntroductionList;
 
 // Append output
 Claroline::getDisplay()->body->appendContent($output);

@@ -106,7 +106,6 @@ class CLANN_Portlet extends CourseHomePagePortlet
                      . '<dl>' . "\n"
                      . '<dt></dt>' . "\n"
                      . '<dd class="last">'
-                     . '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="Announcement icon" />'
                      . ' ' . get_lang('No announcement') . "\n"
                      . '</dd>' . "\n"
                      . '</dl>' . "\n\n";
@@ -117,7 +116,10 @@ class CLANN_Portlet extends CourseHomePagePortlet
     
     public function renderTitle()
     {
-        $output = get_lang('Latest announcements');
+        $output = '<img '
+                . 'src="' . get_icon_url('announcement', 'CLANN') . '" ' 
+                . 'alt="Announcement icon" /> '
+                . get_lang('Latest announcements');
         
         if (claro_is_allowed_to_edit())
         {

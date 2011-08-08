@@ -170,7 +170,6 @@ class CourseHomePageCalendar
         else
         {
             $output .= '<dt>' . "\n"
-                     . '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="" />&nbsp;'
                      . get_lang('No event to display') . "\n"
                      . '</dt>' . "\n";
         }
