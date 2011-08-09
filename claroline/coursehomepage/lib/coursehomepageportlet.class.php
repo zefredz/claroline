@@ -124,27 +124,16 @@ abstract class CourseHomePagePortlet extends Portlet
             return false;
         }
         
-        // Select the current highest rank
-        $sql = "SELECT MAX(rank) AS maxRank
-                FROM `".$this->tblRelCoursePortlet."`
-                WHERE `courseId` = ".(int) $this->courseId;
+        // All exiting portlets' rank get incremented by 1
+        $sql = "UPDATE `".$this->tblRelCoursePortlet."`
+                SET `rank` = `rank`+1";
         
-        $res = Claroline::getDatabase()->query($sql);
-        $portlet = $res->fetch(Database_ResultSet::FETCH_ASSOC);
-        
-        if ($portlet)
-        {
-            $this->rank = $portlet['maxRank']+1;
-        }
-        else
-        {
-            $this->rank = 1;
-        }
+        Claroline::getDatabase()->exec($sql);
         
         // Insert datas
         $sql = "INSERT INTO `".$this->tblRelCoursePortlet."`
                 SET `courseId` = ". (int) $this->courseId .",
-                    `rank` = " . (int) $this->rank . ",
+                    `rank` = 1,
                     `label` = " . Claroline::getDatabase()->quote($this->label) . ",
                     `visible` = " . (int) $this->visible;
         

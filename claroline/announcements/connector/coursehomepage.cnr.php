@@ -85,7 +85,7 @@ class CLANN_Portlet extends CourseHomePagePortlet
                 if ( $isVisible && !$isOffDeadline )
                 {
                     $output .= '<dt>' . "\n"
-                             . '<h2><img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="'.get_lang('Announcement').'" /> '
+                             . '<h2> '
                              . '<a href="' . $announcementItem['url'] . '#item'.$announcementItem['id'].'">'
                              . (!empty($announcementItem['title']) ? $announcementItem['title'] : get_lang('No title'))
                              . '</a></h2>' . "\n"
@@ -117,7 +117,7 @@ class CLANN_Portlet extends CourseHomePagePortlet
     public function renderTitle()
     {
         $output = '<img '
-                . 'src="' . get_icon_url('announcement', 'CLANN') . '" ' 
+                . 'src="' . get_icon_url('announcement', 'CLANN') . '" '
                 . 'alt="Announcement icon" /> '
                 . get_lang('Latest announcements');
         

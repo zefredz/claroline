@@ -784,8 +784,8 @@ function render_course_in_dl_list($course, $hot = false, $displayIconAccess = tr
     if ( (get_conf('platformLanguage') != $course['language']) || get_conf('showAlwaysLanguageInCourseList',false) )
     {
         $courseLanguageTxt = (!empty($langNameOfLang[$course['language']])) ?
-            (' - ' . ucfirst($langNameOfLang[$course['language']])) :
-            (' - ' . ucfirst($course['language']));
+            (' &ndash; ' . htmlspecialchars(ucfirst($langNameOfLang[$course['language']]))) :
+            (' &ndash; ' . htmlspecialchars(ucfirst($course['language'])));
     }
     else
     {
@@ -808,7 +808,7 @@ function render_course_in_dl_list($course, $hot = false, $displayIconAccess = tr
     // Display course's manager email
     $managerString = (isset($course['email']) && claro_is_user_authenticated()) ?
         ('<a href="mailto:' . $course['email'] . '">' . $course['titular'] . '</a>') :
-        (htmlspecialchars( $course['titular'] . $courseLanguageTxt ));
+        ( $course['titular'] . $courseLanguageTxt );
     
     // Don't give a link to the course if the user is in pending state
     $isUserPending = ($course['access'] == 'private' && isset($course['isPending']) && $course['isPending'] == 1) ?

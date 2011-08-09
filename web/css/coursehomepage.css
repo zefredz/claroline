@@ -23,7 +23,3 @@ dl#portletAbout dd:last-child
 {
     border-bottom: 0;
 }
-div#portletMycalendar dl dd
-{
-    margin-left: 20px;
-}
