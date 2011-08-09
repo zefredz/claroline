@@ -146,6 +146,25 @@ input.inputSearch {
     background: transparent url(img/menu-collapsed.gif) no-repeat scroll 0 50%;
 }
 
+fieldset {
+    border: 1px solid #DDDDDD;
+    margin-bottom: 10px;
+}
+
+fieldset legend { font-weight: bold; }
+
+fieldset dt label {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.claroDialogBox fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
 dl.onOneLine dt, fieldset dl dt {
     clear: both;
     float: left;
@@ -161,28 +180,22 @@ dl.onOneLine dd, fieldset dl dd {
     margin: 2px 0;
 }
 
-fieldset {
-    border: 1px solid #DDDDDD;
-    margin-bottom: 10px;
-}
-
-fieldset legend { font-weight: bold; }
-
-fieldset dt label {
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-}
-
 .captionBlock {
     width:45em;
     padding-left:2px;
     margin-left:0;
 }
 
-.notice {
-    font-size: 0.8em;
+/* Notice: for forms' help and guidance */
+/* Comment: for documents and exercices comments */
+.notice, 
+.comment {
+    font-size: 0.9em;
     color: #999;
+} 
+
+.comment {
+    margin-left: 30px;
 }
 
 table.multiselect {
@@ -1579,15 +1592,6 @@ a:visited.invisible {
     background-image: url(img/arrow_green.gif);
     background-position: 0px 5px;
     background-repeat: no-repeat;
-}
-
-/*
- * 'comment' is used for comment of documents, forum description, ...
- */
-
-.comment {
-    font-size : 0.9em;
-    margin-left: 30px;
 }
 
 /*

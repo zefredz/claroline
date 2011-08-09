@@ -3,10 +3,10 @@
 /**
  * CLAROLINE
  *
- * @version     1.8 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claroline team
+ * @author      Claroline Team
  * @package     CLLNP
  *
  *  DESCRIPTION:
@@ -38,6 +38,7 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
+// Add a few Javascript to the header
 $htmlHeadXtra[] =
             "<script>
             function confirmation (txt)
@@ -49,10 +50,11 @@ $htmlHeadXtra[] =
             }
             </script>";
 
+// Manage breadcrumbs
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
 
 $nameTools = get_lang('Learning path');
-$_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb
+$_SERVER['QUERY_STRING'] =''; // used for the breadcrumb
                               // when one need to add a parameter after the filename
 
 // use viewMode
@@ -61,7 +63,7 @@ claro_set_display_mode_available(true);
 // permissions
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-//lib of document tool
+// lib of document tool
 require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
 
 // tables names
@@ -75,11 +77,10 @@ $TABLEUSERMODULEPROGRESS= claro_get_current_course_data('dbNameGlu') . "lp_user_
 
 $dialogBox = new DialogBox();
 
-//lib of this tool
+// lib of this tool
 require_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
 
 // $_SESSION
-
 if ( isset($_GET['path_id']) && $_GET['path_id'] > 0 )
 {
       $_SESSION['path_id'] = (int) $_GET['path_id'];
@@ -99,16 +100,86 @@ if ( !$is_allowedToEdit )
     exit();
 }
 
-// main page
+// select details of learning path to display
+$sql = "SELECT lp.`learnPath_id`,
+        lp.`name`,
+        lp.`comment`,
+        lp.`lock`,
+        lp.`visibility`,
+        lp.`rank`
+        FROM `".$TABLELEARNPATH."` AS lp
+        WHERE lp.`learnPath_id` = ". (int) $_SESSION['path_id'];
+$query = claro_sql_query($sql);
 
-//####################################################################################\\
-//################################# COMMANDS #########################################\\
-//####################################################################################\\
+$LPDetails = mysql_fetch_array($query);
 
-$cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
+// parse commands
+$cmd = ( isset($_REQUEST['cmd']) ) ? $_REQUEST['cmd'] : '';
 
 switch($cmd)
 {
+    // REQUEST EDIT
+    case "rqEdit" :
+        if (isset($_SESSION['path_id']))
+        {
+            $dialogBox->form( "\n\n"
+            . '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+            . '<fieldset>' . "\n"
+            . claro_form_relay_context()
+            . '<h4>' . get_lang('Edit this learning path') . '</h4>' . "\n"
+            . '<dl>' . "\n"
+            . '<dt><label for="newName">' . get_lang('Title') . '</label></dt>' . "\n"
+            . '<dd>' . "\n"
+            . '<input type="text" name="newName" id="newName" size="50" maxlength="255" value="'.htmlspecialchars( claro_utf8_decode( $LPDetails['name'], get_conf( 'charset' ) ) ).'" />' . "\n"
+            . '</dd>' . "\n"
+            . '<dt><label for="newComment">' . get_lang('Comment') . '</label></dt>' . "\n"
+            . '<dd>' . "\n"
+            . claro_html_textarea_editor('newComment', $LPDetails['comment'], 15, 55)
+            . '</dd>' . "\n"
+            . '</dl>' . "\n"
+            . '</fieldset>' . "\n"
+            . '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
+            . '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
+            . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+            . '</form>' . "\n"
+            );
+        }
+        else
+        {
+            $dialogBox->error( get_lang('Wrong operation') );
+        }
+
+        break;
+    
+    // EXECUTE EDIT
+    case "exEdit" :
+        // Name must be unique
+        $sql = "SELECT COUNT(`name`)
+                             FROM `" . $TABLELEARNPATH . "`
+                            WHERE `name` = '" . claro_sql_escape($_POST['newName']) . "'
+                              AND !(`learnPath_id` = " . (int) $_SESSION['path_id'] . ")";
+        $num = claro_sql_query_get_single_value($sql);
+        
+        if ($num == 0)  // name doesn't already exists
+        {
+            $sql = "UPDATE `" . $TABLELEARNPATH . "`
+                    SET `name` = '" . claro_sql_escape($_POST['newName']) ."',
+                        `comment` = '" . claro_sql_escape($_POST['newComment']) . "'
+                    WHERE `learnPath_id` = " . (int) $_SESSION['path_id'];
+            
+            if (claro_sql_query($sql))
+            {
+                $dialogBox->success(get_lang('Learning path updated'));
+            }
+        }
+        else
+        {
+            $dialogBox->error(get_lang('Error : Name already exists in the learning path or in the module pool') . '<br />');
+        }
+        
+        
+        break;
+    
     // MODULE DELETE
     case "delModule" :
         //--- BUILD ARBORESCENCE OF MODULES IN LEARNING PATH
@@ -148,7 +219,7 @@ switch($cmd)
         $extendedList = array();
         while ($list = mysql_fetch_array($result, MYSQL_ASSOC))
         {
-          $extendedList[] = $list;
+            $extendedList[] = $list;
         }
 
         //-- set the visibility for module cmdid and his children if it is a label
@@ -302,12 +373,9 @@ switch($cmd)
 
 }
 
-// IF ORDER COMMAND RECEIVED
-// CHANGE ORDER
-
+// change sorting if required
 if (isset($sortDirection) && $sortDirection)
 {
-
     // get list of modules with same parent as the moved module
     $sql = "SELECT LPM.`learnPath_module_id`, LPM.`rank`
             FROM (`".$TABLELEARNPATHMODULE."` AS LPM, `".$TABLELEARNPATH."` AS LP)
@@ -324,7 +392,6 @@ if (isset($sortDirection) && $sortDirection)
     {
         // STEP 2 : FOUND THE NEXT ANNOUNCEMENT ID AND ORDER.
         //          COMMIT ORDER SWAP ON THE DB
-
         if (isset($thisLPMOrderFound)&& $thisLPMOrderFound == true)
         {
 
@@ -352,22 +419,87 @@ if (isset($sortDirection) && $sortDirection)
         }
     }
 }
-// select details of learning path to display
 
-$sql = "SELECT *
-        FROM `".$TABLELEARNPATH."`
-        WHERE `learnPath_id` = ". (int)$_SESSION['path_id'];
-$query = claro_sql_query($sql);
-$LPDetails = mysql_fetch_array($query);
+//####################################################################################\\
+//############################ create label && change pos forms  #####################\\
+//####################################################################################\\
 
-/*================================================================
-                      DISPLAY
-  ================================================================*/
+if (isset($displayCreateLabelForm) && $displayCreateLabelForm)
+{
+    $dialogBox->form( '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
+    .            claro_form_relay_context()
+    .            '<h4>'
+    .            '<label for="newLabel">'
+    .            get_lang('Create a new label / title in this learning path')
+    .            '</label>'
+    .            '</h4>' . "\n"
+    .            '<input type="text" name="newLabel" id="newLabel" maxlength="255" />' . "\n"
+    .            '<input type="hidden" name="cmd" value="createLabel" />' . "\n"
+    .            '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+    .            '</form>'
+    )
+    ;
+}
 
+if (isset($displayChangePosForm) && $displayChangePosForm)
+{
+    $dialogBox->form( '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
+    .             claro_form_relay_context()
+    .             '<h4>'
+    .             get_lang('Move') . " ' " . $moduleInfos['name']." ' ".get_lang('To') . '</h4>'
+
+    // Build select input - $elementList has been declared in the previous big cmd case
+    .             claro_build_nested_select_menu("newPos",$elementList)
+    .             '<input type="hidden" name="cmd" value="changePos" />' . "\n"
+    .             '<input type="hidden" name="cmdid" value="' . $_REQUEST['cmdid'] . '" />' . "\n"
+    .             '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+    .             '</form>'
+    )
+    ;
+}
+
+// Command list
+$cmdList = array();
+
+if ($is_allowedToEdit)
+{
+    $cmdList[] = array(
+        'img' => 'edit',
+        'name' => get_lang('Edit details'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+              . '?cmd=rqEdit&path_id=' . (int) $_SESSION['path_id']))
+    );
+}
+$cmdList[] = array(
+    'name' => get_lang('Add a document'),
+    'url' => htmlspecialchars(Url::Contextualize('insertMyDoc.php'))
+);
+$cmdList[] = array(
+    'name' => get_lang('Add an exercise'),
+    'url' => htmlspecialchars(Url::Contextualize('insertMyExercise.php'))
+);
+$cmdList[] = array(
+    'name' => get_lang('Add a module of this course'),
+    'url' => htmlspecialchars(Url::Contextualize('insertMyModule.php'))
+);
+$cmdList[] = array(
+    'name' => get_lang('Create label'),
+    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=createLabel'))
+);
+
+
+// Display
 $out = '';
 
-// display title
-$out .= claro_html_tool_title($nameTools);
+// Render title
+$titleParts = array(
+    'mainTitle' => $nameTools,
+    'subTitle' => $LPDetails['name']);
+
+$out .= claro_html_tool_title($titleParts, null, $cmdList);
+
+// Render dialog box
+$out .= $dialogBox->render();
 
 //####################################################################################\\
 //############################ LEARNING PATH NAME BOX ################################\\
@@ -398,64 +530,6 @@ else
 {
     $out .= commentBox(LEARNINGPATH_, DISPLAY_);
 }
-
-//####################################################################################\\
-//############################ create label && change pos forms  #####################\\
-//####################################################################################\\
-
-if (isset($displayCreateLabelForm) && $displayCreateLabelForm)
-{
-    $dialogBox->form( '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
-    .            claro_form_relay_context()
-    .            '<h4>'
-    .            '<label for="newLabel">'
-    .            get_lang('Create a new label / title in this learning path')
-    .            '</label>'
-    .            '</h4>' . "\n"
-    .            '<input type="text" name="newLabel" id="newLabel" maxlength="255" />' . "\n"
-    .            '<input type="hidden" name="cmd" value="createLabel" />' . "\n"
-    .            '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-    .            '</form>'
-    )
-    ;
-}
-
-if (isset($displayChangePosForm) && $displayChangePosForm)
-{
-    $dialogBoxContent = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
-    .            claro_form_relay_context()
-    .            '<h4>'
-    .            get_lang('Move') . " ' " . $moduleInfos['name']." ' ".get_lang('To') . '</h4>'
-    ;
-    // build select input - $elementList has been declared in the previous big cmd case
-    $dialogBoxContent .= claro_build_nested_select_menu("newPos",$elementList)
-    .             '<input type="hidden" name="cmd" value="changePos" />' . "\n"
-    .             '<input type="hidden" name="cmdid" value="' . $_REQUEST['cmdid'] . '" />' . "\n"
-    .             '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-    .             '</form>'
-    ;
-    $dialogBox->form( $dialogBoxContent );
-}
-
-//####################################################################################\\
-//############################### DIALOG BOX SECTION #################################\\
-//####################################################################################\\
-
-$out .= $dialogBox->render();
-
-//####################################################################################\\
-//######################### LEARNING PATH COURSEADMIN LINKS ##########################\\
-//####################################################################################\\
-
-$cmdMenu[] = claro_html_cmd_link('insertMyDoc.php'. claro_url_relay_context('?'), get_lang('Add a document'));
-$cmdMenu[] = claro_html_cmd_link('insertMyExercise.php'. claro_url_relay_context('?'), get_lang('Add an exercise'));
-$cmdMenu[] = claro_html_cmd_link('insertMyModule.php' . claro_url_relay_context('?'), get_lang('Add a module of this course'));
-$cmdMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] . '?cmd=createLabel'. claro_url_relay_context('&amp;'), get_lang('Create label'));
-
-$out .= '<p>'
-.    claro_html_menu_horizontal($cmdMenu)
-.    '</p>'
-;
 
 //####################################################################################\\
 //######################### LEARNING PATH LIST CONTENT ###############################\\

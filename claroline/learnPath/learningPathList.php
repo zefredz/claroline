@@ -350,18 +350,16 @@ switch ( $cmd )
         {
             $dialogBox->form( "\n\n"
             . '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+            . '<fieldset>'
             . claro_form_relay_context()
             . '<h4>' . get_lang('Create a new learning path') . '</h4>' . "\n"
-            . '<label for="newPathName">' . get_lang('Title') . ' : </label>' . "\n"
-            . '<br />' . "\n"
-            . '<input type="text" name="newPathName" id="newPathName" maxlength="255" />' . "\n"
-            . '<br />' . "\n"
-            . '<br />' . "\n"
-            . '<label for="newComment">' . get_lang('Comment') . ' : </label>' . "\n"
-            . '<br />' . "\n"
-            . '<textarea id="newComment" name="newComment" rows="2" cols="50">'
-            . '</textarea>' . "\n"
-            . '<br /><br />' . "\n"
+            . '<dl>'
+            . '<dt><label for="newPathName">' . get_lang('Title') . '</label></dt>' . "\n"
+            . '<dd><input type="text" name="newPathName" id="newPathName" maxlength="255" /></dd>' . "\n"
+            . '<dt><label for="newComment">' . get_lang('Comment') . '</label></dt>' . "\n"
+            . '<dd>' . claro_html_textarea_editor('newComment', '', 15, 55) . '</dd>'
+            . '</dl>' . "\n"
+            . '</fieldset>' . "\n"
             . '<input type="hidden" name="cmd" value="create" />' . "\n"
             . '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
             . claro_html_button('learningPathList.php', get_lang('Cancel'))

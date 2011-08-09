@@ -31,6 +31,15 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::C
 
 $nameTools = get_lang('Add a document');
 
+// Command list
+$cmdList = array();
+
+$cmdList[] = array(
+    'img' => 'back',
+    'name' => get_lang('Back to learning path administration'),
+    'url' => htmlspecialchars(Url::Contextualize('learningPathAdmin.php'))
+);
+
 $out = '';
 
 // tables names
@@ -124,7 +133,7 @@ function buildRequestModules()
 
 // display title
 
-$out .= claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools, null, $cmdList);
 
 // FORM SENT
 /*
@@ -457,7 +466,6 @@ $out .= display_my_documents($dialogBox) ;
 //####################################################################################\\
 
 $out .= claro_html_tool_title(get_lang('Learning path content'));
-$out .= '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
 
 // display list of modules used by this learning path
 $out .= display_path_content();

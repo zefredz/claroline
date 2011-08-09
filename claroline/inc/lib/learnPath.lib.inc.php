@@ -1,21 +1,18 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
  * This functions library is used by most of the pages of the learning path tool
  *
- * @version version 1.8 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Piraux Sébastien <pir@cerdecam.be>
- * @author Lederer Guillaume <led@cerdecam.be>
- *
- * @package CLLNP
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Piraux Sébastien <pir@cerdecam.be>
+ * @author      Lederer Guillaume <led@cerdecam.be>
+ * @package     CLLNP
  */
 
 
@@ -199,23 +196,6 @@ function commentBox($type, $mode)
         {
             // display comment
             $out .= "<p>".claro_parse_user_text($currentComment)."</p>";
-            // display edit and delete links if user as the right to see it
-            if ( $is_allowedToEdit )
-            {
-
-                $out .= '<p>' . "\n"
-                .    '<small>' . "\n"
-                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=update' . $col_name . '">' . "\n"
-                .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />' . "\n"
-                .    '</a>' . "\n"
-                .    '<a href="' . $_SERVER['PHP_SELF'].'?cmd=del' . $col_name . '" '
-                .    ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript(get_lang('Please confirm your choice')).'\')) return false;">' . "\n"
-                .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
-                .    '</a>' . "\n"
-                .    '</small>' . "\n"
-                .    '</p>' . "\n"
-                ;
-            }
         }
     }
 
@@ -320,13 +300,8 @@ function nameBox($type, $mode)
         $currentName = claro_sql_query_get_single_value($sql);
 
         $out .= '<h4>'
-        .    claro_utf8_decode( $currentName, get_conf( 'charset' ) );
-
-        if ( $is_allowedToEdit )
-            $out .= '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
-            .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
-            .    '</a>' . "\n";
-        $out .= '</h4>'."\n\n";
+        .    claro_utf8_decode( $currentName, get_conf( 'charset' ) )
+        .    '</h4>'."\n\n";
     }
 
     return $out;
@@ -508,10 +483,12 @@ function display_path_content()
     $out = '';
     
     $out .= "\n".'<table class="claroTable" width="100%"  border="0" cellspacing="2">'."\n\n"
+    .    '<thead>'."\n"
     .    '<tr class="headerX" align="center" valign="top">'."\n"
     .    '<th colspan="' . ($maxDeep+1).'">' . get_lang('Module') . '</th>'."\n"
     .    '</tr>'."\n\n"
-    .     '<tbody>'."\n"
+    .    '</thead>'."\n"
+    .    '<tbody>'."\n"
     ;
 
     foreach ($flatElementList as $module)
@@ -701,7 +678,7 @@ function display_my_exercises($dialogBox)
             .    '<img src="' . get_icon_url('quiz', 'CLQWZ') . '" alt="" /> '
             .    $exercise['title']
             .    '</label>'
-            .    (!empty($exercise['description']) ? '<p><small>' . claro_parse_user_text($exercise['description']) . '</small></p>' : '')
+            .    (!empty($exercise['description']) ? '<div class="comment">' . claro_parse_user_text($exercise['description']) . '</div>' : '')
             .    '</td>'."\n"
             .    '</tr>'."\n\n"
             ;
@@ -712,20 +689,17 @@ function display_my_exercises($dialogBox)
         $out .= '</tbody>'."\n\n";
     }
 
-    $out .= '<tfoot>'."\n\n";
-
     if( !$atleastOne )
     {
         $out .= '<tr>'."\n"
         .     '<td colspan="2" align="center">'
-        .    get_lang('There is no exercise for the moment')
-        .    '</td>'."\n"
+        .     get_lang('There is no exercise for the moment')
+        .     '</td>'."\n"
         .     '</tr>'."\n\n"
         ;
     }
     
-    $out .= '</tfoot>'."\n\n"
-    .    '</table>'."\n\n";
+    $out .= '</table>'."\n\n";
 
     // Display button to add selected modules
     if( $atleastOne )
@@ -796,13 +770,15 @@ function display_my_documents($dialogBox)
         $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChDir&amp;file=' . $cmdParentDir . '">' . "\n"
         .    '<img src="' . get_icon_url('parent') . '" hspace="5" alt="" /> '."\n"
         .    '<small>' . get_lang('Up') . '</small>' . "\n"
-        .    '</a>' . "\n"
-        ;
+        .    '</a>' . "\n";
     }
     /* CURRENT DIRECTORY */
-    $out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">';
-    if ( $curDirName ) /* if the $curDirName is empty, we're in the root point
-    and there is'nt a dir name to display */
+    $out .= '<table class="claroTable emphaseLine">'
+          . '<thead>';
+    
+    // If the $curDirName is empty, we're in the root point
+    // and there is'nt a dir name to display
+    if ( $curDirName )
     {
         $out .= '<!-- current dir name -->' . "\n"
         .    '<tr>' . "\n"
@@ -810,17 +786,17 @@ function display_my_documents($dialogBox)
         .    '<img src="' . get_icon_url('opendir') . '" vspace=2 hspace=5 alt="" /> ' . "\n"
         .    $dspCurDirName . "\n"
         .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        ;
+        .    '</tr>' . "\n";
     }
-
-    $out .= '<tr class="headerX" align="center" valign="top">'
-    .    '<th>' . get_lang('Add module(s)') . '</th>' . "\n"
+    
+    $out .= '<tr align="center" valign="top">' . "\n"
+    .    '<th width="10%">' . get_lang('Add module(s)') . '</th>' . "\n"
     .    '<th>' . get_lang('Name') . '</th>' . "\n"
     .    '<th>' . get_lang('Size') . '</th>' . "\n"
     .    '<th>' . get_lang('Date') . '</th>' . "\n"
-    .    '</tr><tbody>' . "\n"
-    ;
+    .    '</tr>'
+    .    '</thead>'
+    .    '<tbody>' . "\n";
 
 
     /*--------------------------------------
@@ -881,12 +857,12 @@ function display_my_documents($dialogBox)
                 $urlFileName = $_SERVER['PHP_SELF'] . '?openDir=' . $cmdFileName;
             }
 
-            $out .= '<tr align="center" ' . $style . '>'."\n";
+            $out .= '<tr ' . $style . '>'."\n";
 
             if ($fileList['type'][$fileKey] == A_FILE)
             {
                 $iterator++;
-                $out .= '<td>'
+                $out .= '<td style="vertical-align:top; text-align: center;">'
                 .    '<input type="checkbox" name="insertDocument_' . $iterator . '" id="insertDocument_' . $iterator . '" value="' . $curDirPath . "/" . $fileName . '" />'
                 .    '</td>' . "\n"
                 ;
@@ -896,13 +872,24 @@ function display_my_documents($dialogBox)
             {
                 $out .= '<td>&nbsp;</td>';
             }
-            $out .= '<td align="left">'
+            $out .= '<td>'
             .    '<a href="' . $urlFileName . '" ' . $style . '>'
-            .    '<img src="' . get_icon_url( $image ) . '" hspace="5" alt="" /> ' . $dspFileName . '</a>'
-            .    '</td>'."\n"
-            .    '<td><small>' . $size . '</small></td>' . "\n"
-            .    '<td><small>' . $date . '</small></td>' . "\n"
-            ;
+            .    '<img src="' . get_icon_url( $image ) . '" hspace="5" alt="" /> ' . $dspFileName . '</a>';
+            
+            // Comments
+            if ($fileList['comment'][$fileKey] != "" )
+            {
+                $fileList['comment'][$fileKey] = htmlspecialchars($fileList['comment'][$fileKey]);
+                $fileList['comment'][$fileKey] = claro_parse_user_text($fileList['comment'][$fileKey]);
+                
+                $out .= '<div class="comment">'
+                      . $fileList['comment'][$fileKey]
+                      . '</div>'."\n";
+            }
+            
+            $out .= '</td>'."\n"
+                  . '<td><small>' . $size . '</small></td>' . "\n"
+                  . '<td><small>' . $date . '</small></td>' . "\n";
 
             /* NB : Before tracking implementation the url above was simply
             * "<a href=\"",$urlFileName,"\"",$style,">"
@@ -910,47 +897,31 @@ function display_my_documents($dialogBox)
 
 
             $out .= '</tr>' . "\n";
-
-            /* COMMENTS */
-
-            if ($fileList['comment'][$fileKey] != "" )
-            {
-                $fileList['comment'][$fileKey] = htmlspecialchars($fileList['comment'][$fileKey]);
-                $fileList['comment'][$fileKey] = claro_parse_user_text($fileList['comment'][$fileKey]);
-
-                $out .= '<tr align="left">'."\n"
-                    .'<td>&nbsp;</td>'."\n"
-                    .'<td colspan="'.$colspan.'">'."\n"
-                    .'<div class="comment">'
-                    .$fileList['comment'][$fileKey]
-                    .'</div>'."\n"
-                    .'</td>'."\n"
-                    .'</tr>'."\n";
-            }
         }  // end each ($fileList)
+        
         // form button
-        $out .= '</tbody><tfoot>'
-            .'<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
-
-        $out .= '<tr>'."\n"
-            .'<td colspan="'.$colspan.'" align="left">'."\n"
-            .'<input type="hidden" name="openDir" value="'.$curDirPath.'" />'."\n"
-            .'<input type="hidden" name="maxDocForm" value ="'.$iterator.'" />'."\n"
-            .'<input type="submit" name="submitInsertedDocument" value="'.get_lang('Add module(s)').'" />'."\n"
-            .'</td>'."\n"
-            .'</tr>'."\n";
+        $out .= '</tbody>'
+              . '</table>'."\n\n"
+              . '<input type="hidden" name="openDir" value="'.$curDirPath.'" />'."\n"
+              . '<input type="hidden" name="maxDocForm" value ="'.$iterator.'" />'."\n"
+              . '<input type="submit" name="submitInsertedDocument" value="'.get_lang('Add selection').'" />';
     } // end if ( $fileList)
     else
     {
-        $out .= '<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
+        $out .= '<tr>'."\n"
+        .     '<td colspan="2" align="center">'
+        .    get_lang('There is no document for the moment')
+        .    '</td>'."\n"
+        .    '</tr>'."\n"
+        .    '</tbody>'
+        .    '</table>'."\n\n";
     }
 
-    $out .= '</tfoot></table>'."\n"
-        .'</form>'."\n"
-        .'<!-- end of display_my_documents output -->'."\n";
+    $out .= '</form>'."\n"
+          . '<br /><br />'
+          . '<!-- end of display_my_documents output -->'."\n";
     
     return $out;
-
 }
 
 /**
