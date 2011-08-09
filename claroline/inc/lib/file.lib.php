@@ -15,7 +15,7 @@
  * @package     KERNEL
  */
 
-require_once dirname(__FILE__) . '/core/url.lib';
+require_once dirname(__FILE__) . '/core/url.lib.php';
 
 /**
  * Garbage collector : remove old files from a given folder
