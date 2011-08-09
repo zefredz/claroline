@@ -28,9 +28,10 @@
         
         <?php endforeach; ?>
         
-        <!-- Hide it until it's completely implemented
-            <li class="more"><a href="#more">&raquo;</a></li>
-        -->
+        <?php
+            // Hide it until it's completely implemented
+            //<li class="more"><a href="#more">&raquo;</a></li>
+        ?>
     </ul>
     
     <?php endif; ?> <!-- related course -->
