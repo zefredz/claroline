@@ -685,7 +685,7 @@ class ClaroCategory
             . '<label for="category_name">'
             . get_lang('Category name')
             . (get_conf('human_label_needed') ? '<span class="required">*</span> ':'')
-            .'</label>&nbsp;:</dt>'
+            .'</label></dt>'
             . '<dd>'
             . '<input type="text" name="category_name" id="category_name" value="' . htmlspecialchars($this->name) . '" size="30" maxlength="100" />'
             . (empty($this->id) ? '<br /><small>'.get_lang('e.g. <em>Sciences of Economics</em>').'</small>':'')
@@ -696,7 +696,7 @@ class ClaroCategory
             . '<label for="category_code">'
             . get_lang('Category code')
             . '<span class="required">*</span> '
-            . '</label>&nbsp;:</dt>'
+            . '</label></dt>'
             . '<dd><input type="text" id="category_code" name="category_code" value="' . htmlspecialchars($this->code) . '" size="30" maxlength="12" />'
             . (empty($this->id) ? '<br /><small>'.get_lang('max. 12 characters, e.g. <em>ROM2121</em>').'</small>':'')
             . '</dd>' . "\n" ;
@@ -705,7 +705,7 @@ class ClaroCategory
         $html .= '<dt>'
             . '<label for="category_parent">'
             . get_lang('Parent category')
-            . '</label>&nbsp;:</dt>'
+            . '</label></dt>'
             . '<dd>'
             . '<select  id="category_parent" name="category_parent" />'
             . $categoriesHtmlList
@@ -718,13 +718,12 @@ class ClaroCategory
         // Category's visibility
         $html .= '<dt>'
             . get_lang('Category visibility')
-            . '<span class="required">*</span> '
-            . ' :'
+            . '<span class="required">*</span>'
             . '</dt>'
             . '<dd>'
             . '<input type="radio" id="visible" name="category_visible" value="1" ' . (( $this->visible == 1 || !isset($this->visible) ) ? 'checked="checked"' : null ) . ' />'
             . '&nbsp;'
-            . '<label for="visible">' . get_lang('Visible') . '</label><br/>'
+            . '<label for="visible">' . get_lang('Visible') . '</label><br />'
             . '<input type="radio" id="hidden" name="category_visible" value="0" ' . (( $this->visible == 0 && isset($this->visible) ) ? 'checked="checked"' : null ) . ' />'
             . '&nbsp;'
             . '<label for="hidden">' . get_lang('Hidden') . '</label>'
@@ -733,16 +732,15 @@ class ClaroCategory
         // Category's right to possess courses
         $html .= '<dt>'
             . get_lang('Can have courses')
-            . '<span class="required">*</span> '
-            . ' :'
+            . '<span class="required">*</span>'
             . '</dt>'
             . '<dd>'
             . '<input type="radio" id="can_have_courses" name="category_can_have_courses" value="1" ' . (( $this->canHaveCoursesChild == 1 || !isset($this->canHaveCoursesChild) ) ? 'checked="checked"':'' ) . ' />'
             . '&nbsp;'
-            . '<label for="can_have_courses">' . get_lang('Yes') . '</label><br/>'
+            . '<label for="can_have_courses">' . get_lang('Yes') . '</label><br />'
             . '<input type="radio" id="cant_have_courses" name="category_can_have_courses" value="0" ' . (( $this->canHaveCoursesChild == 0 && isset($this->canHaveCoursesChild) ) ? 'checked="checked"':'' ) . ' />'
             . '&nbsp;'
-            . '<label for="cant_have_courses">' . get_lang('No') . '</label><br/>'
+            . '<label for="cant_have_courses">' . get_lang('No') . '</label><br />'
             . '<small>'.get_lang('Authorize the category to possess courses or not (opened or closed category)').'</small>'
             . '</dd>' . "\n" ;
             
@@ -750,17 +748,17 @@ class ClaroCategory
         $html .= '<dt>'
             . '<label for="category_root_course">'
             . get_lang('Category\'s board')
-            . '</label>&nbsp;:</dt>'
+            . '</label></dt>'
             . '<dd>'
             . '<select  id="category_root_course" name="category_root_course" />'
             . $coursesHtmlList
-            . '</select><br/>'
+            . '</select><br />'
             . '<small>'.get_lang('Dedicate a course to this category.  The course has to be linked to the category first.').'</small>'
             . '</dd>' . "\n" ;
             
         // Form's footer
-        $html .= '</fieldset>' . "\n"
-            . '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br/>' . "\n"
+        $html .= '</dl></fieldset>' . "\n"
+            . '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br />' . "\n"
             . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
             . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
             . '</form>' . "\n";
