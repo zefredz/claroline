@@ -36,6 +36,11 @@ class Claro_Course extends KernelObject
     {
         $this->_courseId = $courseId;
     }
+    
+    public function load()
+    {
+        $this->loadFromDatabase();
+    }
 
     /**
      * Load course properties and group properties from database
