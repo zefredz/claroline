@@ -48,7 +48,7 @@ class Claro_User extends KernelObject
         
         $sql = "SELECT "
             . "`user`.`user_id` AS userId,\n"
-            // . "`user`.`username`,\n"
+            . "`user`.`username`,\n"
             . "`user`.`prenom` AS firstName,\n"
             . "`user`.`nom` AS lastName,\n"
             . "`user`.`email`AS `mail`,\n"
