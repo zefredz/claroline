@@ -15,7 +15,7 @@
  * @package     KERNEL
  */
 
-FromKernel::uses( 'core/url.lib' );
+require_once dirname(__FILE__) . '/core/url.lib';
 
 /**
  * Garbage collector : remove old files from a given folder
@@ -545,9 +545,11 @@ function download_url_decode( $str )
  * Get the url to download the file at the given file path
  * @param string $file path to the file
  * @param array $context
+ * @param string $moduleLabel
+ * @since Claroline 1.10.5
  * @return string url to the file
  */
-function claro_get_file_download_url( $file, $context = null )
+function claro_get_file_download_url( $file, $context = null, $moduleLabel = null )
 {
     $file = download_url_encode( $file );
     
@@ -571,6 +573,11 @@ function claro_get_file_download_url( $file, $context = null )
     else
     {
         $urlObj->relayCurrentContext();
+    }
+    
+    if ( $moduleLabel )
+    {
+        $urlObj->addParam( 'moduleLabel', $moduleLabel );
     }
 
     return $urlObj->toUrl();
