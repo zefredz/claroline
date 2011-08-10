@@ -484,7 +484,7 @@ reset($userList);
 
 foreach ( $userList as $thisUser )
 {
-    // User name column
+    // Username column
     $i++;
     $out .= '<tr align="center" valign="top">'."\n"
        . '<td align="left">'

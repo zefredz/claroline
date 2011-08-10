@@ -323,7 +323,7 @@ else
     {
         if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
         {
-            $dialogBox->info(get_lang('New users will receive an e-mail with their user name and password'));
+            $dialogBox->info(get_lang('New users will receive an e-mail with their username and password'));
             
             $out .= $dialogBox->render() . "\n"
                   . user_html_form();

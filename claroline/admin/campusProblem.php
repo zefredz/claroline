@@ -12,7 +12,7 @@
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/ADMIN
- * @author      Sébastien Piraux <pir@claroline.net>
+ * @author      Sï¿½bastien Piraux <pir@claroline.net>
  * @author      Christophe Gesche <moosh@claroline.net>
  *
  * @todo separate checking and output
@@ -144,7 +144,7 @@ switch ($display)
                 $out .= '-'
                 .    ' &nbsp;&nbsp;'
                 .    '<b>'
-                .    get_lang('Accounts with same <i>User name</i>')
+                .    get_lang('Accounts with same <i>Username</i>')
                 .    '</b>'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<small>'
@@ -170,7 +170,7 @@ switch ($display)
                 $out .= '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-                .    get_lang('Accounts with same <i>User name</i>')
+                .    get_lang('Accounts with same <i>Username</i>')
                 .    '</a>' . "\n"
                 ;
             }
@@ -458,7 +458,7 @@ switch ($display)
                 //--  multiple account with same username AND same password (for compatibility with previous versions)
                 $out .= '- &nbsp;&nbsp;'
                 .    '<b>'
-                .    get_lang('Accounts with same <i>User name</i> AND same <i>Password</i>')
+                .    get_lang('Accounts with same <i>Username</i> AND same <i>Password</i>')
                 .    '</b>'
                 .    '&nbsp;&nbsp;&nbsp;<small>'
                 .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
@@ -505,7 +505,7 @@ switch ($display)
                 $out .= '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-                .    get_lang('Accounts with same <i>User name</i> AND same <i>Password</i>')
+                .    get_lang('Accounts with same <i>Username</i> AND same <i>Password</i>')
                 .    '</a>'
                 ;
             }

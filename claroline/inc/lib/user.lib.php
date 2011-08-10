@@ -887,7 +887,7 @@ function user_validate_form($formMode, $data, $userId = null)
     {
         $validator->addRule('password_conf', get_lang('You left some required fields empty'), 'required');
         $validator->addRule('officialCode', get_lang('This official code is already used by another user.'), 'is_official_code_available');
-        $validator->addRule('username', get_lang('This user name is already taken'), 'is_username_available');
+        $validator->addRule('username', get_lang('This username is already taken'), 'is_username_available');
         $validator->addRule('password', get_lang('You left some required fields empty'), 'required');
     }
     else // profile mode
@@ -899,7 +899,7 @@ function user_validate_form($formMode, $data, $userId = null)
         }
         
         $validator->addRule('officialCode', get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
-        $validator->addRule('username', get_lang('This user name is already taken'), 'is_username_available', $userId);
+        $validator->addRule('username', get_lang('This username is already taken'), 'is_username_available', $userId);
     }
     
     if ( $validator->validate() )

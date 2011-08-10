@@ -667,7 +667,7 @@ function upgrade_disp_auth_form()
 
         .'<legend>Login</legend>'."\n"
 
-        .'<label for="username">User name : </label><br />'."\n"
+        .'<label for="username">Username : </label><br />'."\n"
         .'<input type="text" name="login" id="username" /><br />'."\n"
 
         .'<label for="password">Password : </label><br />'."\n"
