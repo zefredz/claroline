@@ -124,7 +124,7 @@ class DataValidator
 
         foreach( $this->requiredDataList as $refKey => $dataKey )
         {
-            if ( ! array_key_exists($dataKey, $this->dataList) )
+            if ( ! array_key_exists($dataKey, $this->dataList) && !empty($dataKey) )
             {
                 $this->wrongDataList[]    = $dataKey;
                 $this->errorMessageList[] = 'UNDEFINED INDEX <i>'.$dataKey.'</i>';

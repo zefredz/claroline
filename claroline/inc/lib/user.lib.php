@@ -835,7 +835,7 @@ function user_validate_form($formMode, $data, $userId = null)
         $validator->addRule('firstname', get_lang('You left some required fields empty'), 'required');
     }
     
-    if (in_array('username', $editableFields))
+    if (in_array('login', $editableFields))
     {
         $validator->addRule('username' , get_lang('You left some required fields empty'), 'required');
         $validator->addRule('username' , get_lang('Username is too long (maximum 20 characters)'), 'maxlength',20);
@@ -1057,9 +1057,6 @@ function user_html_form($userId = null)
         // Get current language
         $currentLanguage = !empty($userData['language'])?$userData['language']:language::current_language();
         
-        // Editable fields
-        $editableFields = get_conf('profile_editable');
-        
         // A few javascript
         $htmlHeadXtra[] =
         '<script type="text/javascript">
@@ -1089,9 +1086,16 @@ function user_html_form($userId = null)
         
         // Prefered language
         $currentLanguage = language::current_language();
-        
-        // Editable fields
+    }
+    
+    // Editable fields
+    if (empty($userId) || claro_is_platform_admin())
+    {
         $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
+    }
+    else
+    {
+        $editableFields = get_conf('profile_editable');
     }
     
     if (!empty($_SERVER['HTTP_REFERER']))
