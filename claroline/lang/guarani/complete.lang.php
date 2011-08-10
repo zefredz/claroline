@@ -23,8 +23,8 @@ $_lang['Access'] = 'Jeikeha';
 $_lang['Access control management'] = 'Jeikeha reko mba\'ekuaa';
 $_lang['Access count'] = 'Mboy jeiképa';
 $_lang['Accounts with same <i>Email</i>'] = 'Kuénta orekóva <i>Pareha</i> pete&#297;cha';
-$_lang['Accounts with same <i>User name</i>'] = 'Kuénta orekóva <i>Poruhára réra</i> pete&#297;cha';
-$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Kuénta orekóva <i>Poruhára réra</i> ha <i>Ñe\'&#7869;kañy</i> pete&#297;cha';
+$_lang['Accounts with same <i>Username</i>'] = 'Kuénta orekóva <i>Poruhára réra</i> pete&#297;cha';
+$_lang['Accounts with same <i>Username</i> AND same <i>Password</i>'] = 'Kuénta orekóva <i>Poruhára réra</i> ha <i>Ñe\'&#7869;kañy</i> pete&#297;cha';
 $_lang['Action'] = 'Apopy';
 $_lang['Add'] = 'Emo&#297;';
 $_lang['Add a category'] = 'Emo&#297; kategoria pyahu';
@@ -545,7 +545,7 @@ $_lang['New chat'] = 'Ñomongeta\'i pyahu';
 $_lang['New exercise'] = 'Tembiapor&atilde; pyahu';
 $_lang['New question'] = 'Porandu pyahu';
 $_lang['New topic'] = 'Eñepyr&#361; téma pyahu';
-$_lang['New users will receive an e-mail with their user name and password'] = 'Poruhára kuéra ipyahúvape ojerahaukáta marandu, hero
+$_lang['New users will receive an e-mail with their username and password'] = 'Poruhára kuéra ipyahúvape ojerahaukáta marandu, hero
  ha iñe\'&#7869;kañy reheve';
 $_lang['Newest first'] = 'Ipyahuvéva tenonde';
 $_lang['Next'] = 'Péva rire';
@@ -788,7 +788,7 @@ $_lang['This official code already appears in a previous line of the CSV file.']
 $_lang['This official code is already used by another user.'] = 'Ko papanga oñeme\'&#7869;ma ambue puruhárape, emoambuemína.';
 $_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'Ko togue nandi, ejopy he\'ihápe \'Emoambue ko togue\'
  rehai ha&#285;ua reipotáva oreko';
-$_lang['This user name is already taken'] = 'Ko poruhára réra ojeporúma';
+$_lang['This username is already taken'] = 'Ko poruhára réra ojeporúma';
 $_lang['This will also delete all works submitted in this assignment !'] = 'Kóva avei ohundipaitéta tembiapo kuéra ojerahauka va\'ekue
  ko tembiapor&atilde; ñeme\'&#7869;me!';
 $_lang['Thumbnails'] = 'Ta\'anga tembiechar&atilde;';

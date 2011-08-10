@@ -16,8 +16,8 @@ $_lang['Access'] = 'دسترسی';
 $_lang['Access control management'] = 'مدیریت کنترل دسترسی';
 $_lang['Access count'] = 'شمارش دسترسی';
 $_lang['Accounts with same <i>Email</i>'] = 'حساب‌هایی با <i>پست الکترونیکی</i> یکسان';
-$_lang['Accounts with same <i>User name</i>'] = 'حساب‌هایی با <i>نام کاربری</i> یکسان';
-$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'حساب‌هایی با <i>نام کاربری</i> یکسان و <i>گذرواژه‌ی</i> یکسان';
+$_lang['Accounts with same <i>Username</i>'] = 'حساب‌هایی با <i>نام کاربری</i> یکسان';
+$_lang['Accounts with same <i>Username</i> AND same <i>Password</i>'] = 'حساب‌هایی با <i>نام کاربری</i> یکسان و <i>گذرواژه‌ی</i> یکسان';
 $_lang['Action'] = 'کنش';
 $_lang['Add'] = 'اضافه کردن';
 $_lang['Add a category'] = 'اضافه کردن مقوله';
@@ -483,7 +483,7 @@ $_lang['New chat'] = 'گپ جدید';
 $_lang['New exercise'] = 'تمرین جدید';
 $_lang['New question'] = 'سئوال جدید';
 $_lang['New topic'] = 'موضوع جدید';
-$_lang['New users will receive an e-mail with their user name and password'] = 'کاربران جدید پست الکترونیکی‌ای شامل نام‌کاربری و گذرواژه‌شان دریافت خواهند کرد';
+$_lang['New users will receive an e-mail with their username and password'] = 'کاربران جدید پست الکترونیکی‌ای شامل نام‌کاربری و گذرواژه‌شان دریافت خواهند کرد';
 $_lang['Newest first'] = 'اول جدیدترین';
 $_lang['Next'] = 'بعد';
 $_lang['Next day'] = 'روز بعد';
@@ -695,7 +695,7 @@ $_lang['This mail appears already in a previous line of the CSV file.'] = 'ای�
 $_lang['This official code already appears in a previous line of the CSV file.'] = 'این کد رسمی قبلاً در خط قبلی پرونده‌ی CSV استفاده شده است.';
 $_lang['This official code is already used by another user.'] = 'این کد رسمی قبلاً توسط کاربر دیگری استفاده شده است.';
 $_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'این صفحه خالی است، برای اضافه کردن محتوا روی \'ویرایش این صفحه\' کلیک کنید';
-$_lang['This user name is already taken'] = 'این نام کاربری قبلاً گرفته شده است';
+$_lang['This username is already taken'] = 'این نام کاربری قبلاً گرفته شده است';
 $_lang['This will also delete all works submitted in this assignment !'] = 'این کار تمام کارهای فرستاده شده به این تکلیف را حذف خواهد کرد!';
 $_lang['Thumbnails'] = 'مسطوره‌ها';
 $_lang['Time'] = 'زمان';

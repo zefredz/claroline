@@ -732,7 +732,7 @@ $_lang['Allow user to add a picture to their profile'] = 'تسمح للمستخ�
 $_lang['Allow users to see detailed informations about other users'] = 'السماح للمستخدمين  معرفة معلومات تفصيلية عن المستخدمين الآخرين';
 $_lang['Allowed with enrolment key'] = 'مسموح مع مفتاح التسجيل';
 $_lang['Also delete module main database'] = ' حذف وحدة قاعدة البيانات الرئيسية أيضا ';
-$_lang['An email has been sent to help you remember your user name and password.'] = ' تم إرسال بريد إلكتروني لمساعدتك على تذكر اسم المستخدم وكلمة السر.';
+$_lang['An email has been sent to help you remember your username and password.'] = ' تم إرسال بريد إلكتروني لمساعدتك على تذكر اسم المستخدم وكلمة السر.';
 $_lang['Cannot be changed'] = 'لا يمكن تغييره';
 $_lang['Image is too big : max size %width%x%height%, %size% bytes'] = '  bytes %size%,%height%x%, %width%  صورة كبيرة : الحجم الأقصى';
 $_lang['A user can be a member of maximum %nb groups'] = 'يمكن لمستخدم أن يكون عضو في %nb مجموعة على الأكثر';
@@ -916,7 +916,7 @@ $_lang['Allow user to add a picture to their profile'] = 'تسمح للمستخ�
 $_lang['Allow users to see detailed informations about other users'] = 'السماح للمستخدمين  معرفة معلومات تفصيلية عن المستخدمين الآخرين';
 $_lang['Allowed with enrolment key'] = 'مسموح مع مفتاح التسجيل';
 $_lang['Also delete module main database'] = ' حذف وحدة قاعدة البيانات الرئيسية أيضا ';
-$_lang['An email has been sent to help you remember your user name and password.'] = ' .تم إرسال بريد إلكتروني لمساعدتك على تذكر اسم المستخدم وكلمة السر';
+$_lang['An email has been sent to help you remember your username and password.'] = ' .تم إرسال بريد إلكتروني لمساعدتك على تذكر اسم المستخدم وكلمة السر';
 $_lang['Are you sure to delete "%title" ?'] = 'هل أنت متأكد من حذف "%title" ؟';
 $_lang['All user\'s message have been deleted'] = '   تم حذف  جميع رسائل المستخدم';
 $_lang['Are you sure to delete selected message(s) ?'] = ' هل أنت متأكد من حذف الرسائل المختارة؟';
@@ -1516,8 +1516,8 @@ $_lang['Access'] = 'الوصول';
 $_lang['Access control management'] = 'إدارة التحكم بالوصول';
 $_lang['Access count'] = 'عدد مرات الوصول';
 $_lang['Accounts with same <i>Email</i>'] = 'حسابات لها نفس  <i>البريد الإلكتروني</i>';
-$_lang['Accounts with same <i>User name</i>'] = 'حسابات لها نفس <i>اسم المستخدم</i>';
-$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'حسابات لها نفس  <i>اسم المستخدم</i> و نفس <i>كلمة السر</i>';
+$_lang['Accounts with same <i>Username</i>'] = 'حسابات لها نفس <i>اسم المستخدم</i>';
+$_lang['Accounts with same <i>Username</i> AND same <i>Password</i>'] = 'حسابات لها نفس  <i>اسم المستخدم</i> و نفس <i>كلمة السر</i>';
 $_lang['Action'] = 'عمل';
 $_lang['Add'] = 'إضافة';
 $_lang['Add a category'] = 'إضافة تصنيف';
@@ -2023,7 +2023,7 @@ $_lang['New chat'] = 'دردشة جديدة';
 $_lang['New exercise'] = 'تمرين جديد';
 $_lang['New question'] = 'سؤال جديد';
 $_lang['New topic'] = 'مشاركة جديدة';
-$_lang['New users will receive an e-mail with their user name and password'] = 'سيستقبل المستخدمون الجدد رسالة إلكترونية تحوي اسم المستخدم و كلمة المرور الخاصة بهم.';
+$_lang['New users will receive an e-mail with their username and password'] = 'سيستقبل المستخدمون الجدد رسالة إلكترونية تحوي اسم المستخدم و كلمة المرور الخاصة بهم.';
 $_lang['Newest first'] = 'الأحدث اولاً';
 $_lang['Next'] = 'التالي';
 $_lang['Next day'] = 'غداً';
@@ -2252,7 +2252,7 @@ $_lang['This mail appears already in a previous line of the CSV file.'] = 'عن�
 $_lang['This official code already appears in a previous line of the CSV file.'] = 'الرمز الإداري ظاهر مسبقاً في السطر السابق من ملف CSV. ';
 $_lang['This official code is already used by another user.'] = 'هذا الرمز الإداري مستخدم من قبل طالب أخر';
 $_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'هذه الصفحة فارغة , انقر على \'تحرير هذه الصفحة\' لإضافة محتوى الصفحة';
-$_lang['This user name is already taken'] = 'هذا الاسم محجوز من قبل شخص آخر';
+$_lang['This username is already taken'] = 'هذا الاسم محجوز من قبل شخص آخر';
 $_lang['This will also delete all works submitted in this assignment !'] = '! سيؤدي هذا أيضاً إلى حذف جميع الأعمال المرسلة لهذه الوظيفة !';
 $_lang['Thumbnails'] = 'صور مصغرة';
 $_lang['Time'] = 'الوقت (ثانية)';
