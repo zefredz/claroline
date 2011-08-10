@@ -200,6 +200,28 @@ if( $cmd == 'rqEdit' )
     $displayForm = true;
 }
 
+// Command list
+$cmdList = array();
+
+$cmdList[] = array(
+    'img' => 'back',
+    'name' => get_lang('Back to the exercise list'),
+    'url' => htmlspecialchars(Url::Contextualize('../exercise.php'))
+);
+$cmdList[] = array(
+    'img' => 'edit',
+    'name' => get_lang('Edit exercise settings'),
+    'url' => htmlspecialchars(Url::Contextualize('./edit_exercise.php?exId='.$exId.'&cmd=rqEdit'))
+);
+$cmdList[] = array(
+    'img' => 'default_new',
+    'name' => get_lang('New question'),
+    'url' => htmlspecialchars(Url::Contextualize('./edit_question.php?exId='.$exId.'&cmd=rqEdit'))
+);
+$cmdList[] = array(
+    'name' => get_lang('Get a question from another exercise'),
+    'url' => htmlspecialchars(Url::Contextualize('./question_pool.php?exId='.$exId))
+);
 
 
 /*
@@ -236,7 +258,7 @@ CssLoader::getInstance()->load( 'exercise', 'screen');
 
 $out = '';
 
-$out .= claro_html_tool_title($toolTitle);
+$out .= claro_html_tool_title($toolTitle, null, $cmdList);
 
 // dialog box if required
 $out .= $dialogBox->render();
@@ -497,21 +519,6 @@ else
     . '</div>' . "\n" // collapsible-wrapper
     . '</div>' . "\n" // collaspible
     . '<br />' . "\n";
-
-    //-- claroCmd
-    $cmd_menu = array();
-    $cmd_menu[] = '<a class="claroCmd" href="../exercise.php' . claro_url_relay_context('?') . '">'
-                . '&lt;&lt; ' . get_lang('Back to the exercise list')
-                . '</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'&amp;cmd=rqEdit'. claro_url_relay_context('&amp;') .'">'
-                . '<img src="' . get_icon_url('edit') . '" alt="" />'
-                . get_lang('Edit exercise settings')
-                . '</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit">'.get_lang('New question').'</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="./question_pool.php?exId='.$exId.'">'.get_lang('Get a question from another exercise').'</a>';
-
-
-    $out .= claro_html_menu_horizontal($cmd_menu);
 
     //-- question list
     $questionList = $exercise->getQuestionList();

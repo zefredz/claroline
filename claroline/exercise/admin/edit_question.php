@@ -261,20 +261,20 @@ if( $displayForm )
     //--
     // title
     $out .= '<tr>' . "\n"
-    .     '<td valign="top"><label for="title">'.get_lang('Title').'&nbsp;<span class="required">*</span>&nbsp;:</label></td>' . "\n"
+    .     '<td valign="top"><label for="title">'.get_lang('Title').'&nbsp;<span class="required">*</span></label></td>' . "\n"
     .     '<td><input type="text" name="title" id="title" size="60" maxlength="200" value="'.htmlspecialchars($form['title']).'" /></td>' . "\n"
     .     '</tr>' . "\n\n";
 
     // description
     $out .= '<tr>' . "\n"
-    .     '<td valign="top"><label for="description">'.get_lang('Description').'&nbsp;:</label></td>' . "\n"
+    .     '<td valign="top"><label for="description">'.get_lang('Description').'</label></td>' . "\n"
     .     '<td>'.claro_html_textarea_editor('description', $form['description']).'</td>' . "\n"
     .     '</tr>' . "\n\n";
 
 	$questionCategoryList = getQuestionCategoryList();
     // category
     $out .=  '<tr>' . "\n"
-    .     '<td valign="top"><label for="category">'.get_lang('Category').'&nbsp;:</label></td>' . "\n"
+    .     '<td valign="top"><label for="category">'.get_lang('Category').'</label></td>' . "\n"
     .     '<td><select name="categoryId"><option value="0">';
     foreach ($questionCategoryList as $category)
     {
@@ -290,7 +290,7 @@ if( $displayForm )
     if( !empty($form['attachment']) )
     {
         $out .= '<tr>' . "\n"
-        .     '<td valign="top">'.get_lang('Current file').'&nbsp;:</td>' . "\n"
+        .     '<td valign="top">'.get_lang('Current file').'</td>' . "\n"
         .     '<td>'
         .     '<a href="'.$question->getQuestionDirWeb().$form['attachment'].'" target="_blank">'.$form['attachment'].'</a><br />'
         .     '<input type="checkbox" name="delAttachment" id="delAttachment" /><label for="delAttachment"> '.get_lang('Delete attached file').'</label>'
@@ -299,7 +299,7 @@ if( $displayForm )
     }
 
     $out .= '<tr>' . "\n"
-    .     '<td valign="top"><label for="description">'.get_lang('Attached file').'&nbsp;:</label></td>' . "\n"
+    .     '<td valign="top"><label for="description">'.get_lang('Attached file').'</label></td>' . "\n"
     .     '<td><input type="file" name="attachment" id="attachment" size="30" /></td>' . "\n"
     .     '</tr>' . "\n\n";
 
@@ -307,7 +307,7 @@ if( $displayForm )
     if( is_null($quId) )
     {
         $out .= '<tr>' . "\n"
-        .     '<td valign="top">'.get_lang('Answer type').'&nbsp;:</td>' . "\n"
+        .     '<td valign="top">'.get_lang('Answer type').'</td>' . "\n"
         .     '<td>' . "\n"
         .     '<input type="radio" name="type" id="MCUA" value="MCUA"'
         .     ( $form['type'] == 'MCUA'?' checked="checked"':' ') . ' />'
