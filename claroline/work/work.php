@@ -3,14 +3,15 @@
 /**
  * CLAROLINE
  *
- * Main script for work tool
+ * Main script for work tool.
  *
- * @version     1.8 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLWRK/
  * @author      Claro Team <cvs@claroline.net>
  * @package     CLWRK
+ * @since       1.8
  */
 
 $tlabelReq = 'CLWRK';
@@ -546,6 +547,8 @@ $assignmentList = $assignmentPager->get_result_list();
 $helpUrl = $is_allowedToEdit ? 'help_work.php' : null;
 
 // Command list
+$cmdList = array();
+
 if( $is_allowedToEdit )
 {
     $cmdList[] = array(

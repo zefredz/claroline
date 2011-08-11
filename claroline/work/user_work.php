@@ -1,19 +1,15 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/CLWRK/
- *
- * @package CLWRK
- *
- * @author Claro Team <cvs@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/CLWRK/
+ * @package     CLWRK
+ * @author      Claro Team <cvs@claroline.net>
+ * @since       1.8
  */
 
 $tlabelReq = 'CLWRK';
@@ -1079,7 +1075,9 @@ if( $is_allowedToSubmit )
             }
 
             $out .= '<h4>'.$txtForFormTitle.'</h4>'."\n"
-                  .'<p><small><a href="'.$_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId.'">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small></p>'."\n"
+                  .'<p><a href="'.$_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId.'">'
+                  .'<span style="background-image: url(/claroline111/web/img/back.png?1310394806); background-repeat: no-repeat; background-position: left center; padding-left: 20px;">'
+                  .get_lang('Back').'</span></a></p>'."\n"
                   .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?assigId='.$assignmentId.'&amp;authId='.$_REQUEST['authId'].'" enctype="multipart/form-data">'."\n"
                   .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                   .'<input type="hidden" name="cmd" value="'.$cmdToSend.'" />'."\n";
@@ -1093,42 +1091,39 @@ if( $is_allowedToSubmit )
                 $out .= '<input type="hidden" name="gradedWrkId" value="'.$_REQUEST['gradedWrkId'].'" />'."\n";
             }
 
-            $out .=  '<table width="100%">'."\n"
-                  .'<tr>'."\n"
-                  .'<td valign="top"><label for="wrkTitle">'.get_lang('Title').'&nbsp;*&nbsp;:</label></td>'."\n"
-                  .'<td><input type="text" name="wrkTitle" id="wrkTitle" size="50" maxlength="200" value="'.htmlspecialchars($form['wrkTitle']).'" /></td>'."\n"
-                  .'</tr>'."\n\n"
-                  .'<tr>'."\n"
-                  .'<td valign="top"><label for="wrkAuthors">'.get_lang('Author(s)').'&nbsp;*&nbsp;:</label></td>'."\n"
-                  .'<td><input type="text" name="wrkAuthors" id="wrkAuthors" size="50" maxlength="200" value="'.htmlspecialchars($form['wrkAuthors']).'" /></td>'."\n"
-                  .'</tr>'."\n\n";
+            $out .=  '<fieldset>'."\n"
+                  .'<dl>'."\n"
+                  .'<dt><label for="wrkTitle">'.get_lang('Title').'&nbsp;<span class="required">*</span></label></dt>'."\n"
+                  .'<dd><input type="text" name="wrkTitle" id="wrkTitle" size="50" maxlength="200" value="'.htmlspecialchars($form['wrkTitle']).'" /></dd>'."\n"
+                  .'<dt><label for="wrkAuthors">'.get_lang('Author(s)').'&nbsp;<span class="required">*</span></label></dt>'."\n"
+                  .'<dd><input type="text" name="wrkAuthors" id="wrkAuthors" size="50" maxlength="200" value="'.htmlspecialchars($form['wrkAuthors']).'" /></dd>'."\n";
 
             // display the list of groups of the user
             if( $assignment->getAssignmentType() == "GROUP" &&
                     !empty($userGroupList) || (claro_is_course_manager() && claro_is_in_a_group() )
                 )
             {
-                $out .= '<tr>'."\n"
-                      .'<td valign="top"><label for="wrkGroup">'.get_lang('Group').'&nbsp;:</label></td>'."\n";
+                $out .= '<dt><label for="wrkGroup">'.get_lang('Group').'</label></dt>'."\n";
 
                 if( claro_is_in_a_group() )
                 {
-                    $out .= '<td>'."\n"
+                    $out .= '<dd>'."\n"
                           .'<input type="hidden" name="wrkGroup" value="' . claro_get_current_group_id() . '" />'
                           .claro_get_current_group_data('name')
-                          .'</td>'."\n";
+                          .'</dd>'."\n";
                 }
                 elseif(isset($_REQUEST['authId']) )
                 {
-                    $out .= '<td>'."\n"
+                    $out .= '<dd>'."\n"
                           .'<input type="hidden" name="wrkGroup" value="'.$_REQUEST['authId'].'" />'
                           .$userGroupList[$_REQUEST['authId']]['name']
-                          .'</td>'."\n";
+                          .'</dd>'."\n";
                 }
                 else
                 {
                     // this part is mainly for courseadmin as he have a link in the workList to submit a work
-                    $out .= '<td>'."\n".'<select name="wrkGroup" id="wrkGroup">'."\n";
+                    $out .= '<dd>'."\n"
+                          . '<select name="wrkGroup" id="wrkGroup">'."\n";
                     foreach( $userGroupList as $group )
                     {
                           $out .= '<option value="'.$group['id'].'"';
@@ -1139,9 +1134,8 @@ if( $is_allowedToSubmit )
                           $out .= '>'.$group['name'].'</option>'."\n";
                     }
                     $out .= '</select>'."\n"
-                          .'</td>'."\n";
+                          . '</dd>'."\n";
                 }
-                $out .= '</tr>'."\n\n";
             }
 
             // display file box
@@ -1150,8 +1144,7 @@ if( $is_allowedToSubmit )
                   // if we are in edit mode and that a file can be edited : display the url of the current file and the file box to change it
                   if( isset($form['wrkUrl']) )
                   {
-                        $out .= '<tr>'."\n"
-                              .'<td valign="top">';
+                        $out .= '<dt>';
                         // display a different text according to the context
                         if( $assignmentContent == "TEXT"  )
                         {
@@ -1175,9 +1168,9 @@ if( $is_allowedToSubmit )
                                             .    '&amp;workId=' . $_REQUEST['wrkId']
                                             .    '&amp;cidReq=' . claro_get_current_course_id() ;
 
-                            $out .= '&nbsp;:<input type="hidden" name="currentWrkUrl" value="'.$form['wrkUrl'].'" />'
-                            .     '</td>'."\n"
-                            .     '<td>'
+                            $out .= '<input type="hidden" name="currentWrkUrl" value="'.$form['wrkUrl'].'" />'
+                            .     '</dt>'."\n"
+                            .     '<dd>'
                             .     '<a href="'.$completeWrkUrl.'" ' . $target . '>'.$form['wrkUrl'].'</a>'
                             .     '<br />';
 
@@ -1188,21 +1181,18 @@ if( $is_allowedToSubmit )
                                 .     '<label for="delAttachedFile">'.get_lang('Check this box to delete the attached file').'</label>' . "\n";
                             }
                             $out .= get_lang('Upload a new file to replace the file').'</td>'."\n"
-                            .     '</tr>'."\n\n";
+                            .     '</dd>'."\n\n";
                         }
                         else
                         {
                               $out .= '&nbsp;:'
-                                    .'</td>'."\n"
-                                    .'<td>'
+                                    .'</dd>'
                                     .get_lang('- none -')
-                                    .'</td>'."\n"
-                                    .'</tr>'."\n\n";
+                                    .'</dd>'."\n\n";
                         }
                   }
 
-                $out .= '<tr>'."\n"
-                    .'<td valign="top"><label for="wrkFile">';
+                $out .= '<dt><label for="wrkFile">';
 
                 // display a different text according to the context
                 if( $assignmentContent == "TEXTFILE" || $is_feedback )
@@ -1213,9 +1203,9 @@ if( $is_allowedToSubmit )
                 else
                 {
                     // if the file is required and the text is only a description of the file
-                    $out .= get_lang('Upload document').'&nbsp;*';
+                    $out .= get_lang('Upload document').'&nbsp;<span class="required">*</span>';
                 }
-                $out .= '&nbsp;:</label></td>'."\n";
+                $out .= '</label></dt>'."\n";
                 if( !empty($submitGroupWorkUrl) )
                 {
                     // Secure download
@@ -1231,19 +1221,19 @@ if( $is_allowedToSubmit )
                         $groupWorkUrl = 'backends/download.php?url=' . rawurlencode($file) . '&amp;cidReq=' . urlencode(claro_get_current_course_id()).'&amp;gidReq=' . claro_get_current_group_id();
                     }
 
-                    $out .= '<td>'
+                    $out .= '<dd>'
                         .'<input type="hidden" name="submitGroupWorkUrl" value="'.htmlspecialchars($submitGroupWorkUrl).'" />'
                         .'<a href="' . get_path('clarolineRepositoryWeb') . $groupWorkUrl .'">'.basename($file).'</a>'
-                        .'</td>'."\n";
+                        .'</dd>'."\n";
                 }
                 else
                 {
                   $maxFileSize = min(get_max_upload_size($maxFilledSpace,$assignment->getAssigDirSys()), $fileAllowedSize);
 
-                  $out .= '<td>' . "\n"
+                  $out .= '<dd>' . "\n"
                   .    '<input type="file" name="wrkFile" id="wrkFile" size="30" /><br />'
                   .    '<small>'.get_lang('Max file size : %size', array( '%size' => format_file_size($maxFileSize))).'</small></td>'."\n"
-                        .'</tr>'."\n\n";
+                        .'</dd>'."\n\n";
                 }
             }
 
@@ -1251,43 +1241,38 @@ if( $is_allowedToSubmit )
             {
                 // display standard html textarea
                 // used for description of an uploaded file
-                $out .= '<tr>'."\n"
-                .    '<td valign="top">'
+                $out .= '<dt>'
                 .    '<label for="wrkTxt">'
                 .    get_lang('File description')
-                .    '&nbsp;:<br /></label></td>'
-                .    '<td>'."\n"
+                .    '<br /></label>'
+                .    '</dt>'
+                .    '<dd>'."\n"
                 .    '<textarea name="wrkTxt" cols="40" rows="10">'.$form['wrkTxt'].'</textarea>'
-                .    '</td>'."\n"
-                .    '</tr>'."\n\n";
+                .    '</dd>'."\n";
             }
             elseif( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" || $is_feedback )
             {
                 // display enhanced textarea using claro_html_textarea_editor
-                $out .= '<tr>'."\n"
-                .    '<td valign="top">'
+                $out .= '<dt>'
                 .    '<label for="wrkTxt">'
                 .    get_lang('Answer')
-                .    '&nbsp;*&nbsp;:</label></td>'."\n"
-                .    '<td>'
+                .    '&nbsp;<span class="required">*</span></label></dt>'."\n"
+                .    '<dd>'
                 .    claro_html_textarea_editor('wrkTxt', $form['wrkTxt'])
-                .    '</td>'."\n"
-                .    '</tr>'."\n\n";
+                .    '</dd>'."\n\n";
             }
 
             if( $is_feedback )
             {
-                $out .= '<tr>'."\n"
-                .    '<td valign="top">'
+                $out .= '<dt>'
                 .    '<label for="wrkPrivFbk">'
                 .    get_lang('Private feedback')
-                .    '&nbsp;:<br />'
+                .    '<br />'
                 .    '<small>'.get_lang('Course administrator only').'</small>'
-                .    '</label></td>'
-                .    '<td>'."\n"
+                .    '</label></dt>'
+                .    '<dd>'."\n"
                 .    '<textarea name="wrkPrivFbk" cols="40" rows="10">'. $san->sanitize( $form['wrkPrivFbk'] ) .'</textarea>'
-                .    '</td>'."\n"
-                .    '</tr>'."\n\n";
+                .    '</dd>'."\n\n";
                 
                 // if this is a correction we have to add an input for the score/grade/results/points
                 $wrkScoreField = '<select name="wrkScore" id="wrkScore">'."\n"
@@ -1309,23 +1294,19 @@ if( $is_allowedToSubmit )
                     $wrkScoreField .= '>'.$i.'</option>'."\n";
                 }
                 $wrkScoreField .= '</select> %';
-                $out .= '<tr>'."\n"
-                .    '<td valign="top"><label for="wrkScore">'.get_lang('Score').'&nbsp;&nbsp;:</label></td>'."\n"
-                .    '<td>'
+                $out .= '<dt><label for="wrkScore">'.get_lang('Score').'</label></dt>'."\n"
+                .    '<dd>'
                 .    $wrkScoreField
-                .    '</td>'
-                .    '</tr>'."\n\n";
+                .    '</dd>'."\n\n";
             }
 
-            $out .= '<tr>'."\n"
-            .    '<td>&nbsp;</td>'."\n"
-            .    '<td>'
+            $out .= '</dl>'."\n"
+            .    '</fieldset>'."\n\n"
             .    '<input type="submit" name="submitWrk" value="'.get_lang('Ok').'" />'."\n"
-            .    '</td>'."\n"
-            .    '</tr>'."\n\n"
-            .    '</table>'."\n\n"
-            .    '</form>'
-            .    '<small>* : '.get_lang('Required').'</small>';
+            .    '</form>'."\n\n"
+            .    '<p class="notice">'
+            .    get_lang('<span class="required">*</span> denotes required field')
+            .    '</p>';
       }
 }
 
@@ -1690,5 +1671,3 @@ if( $dispWrkLst )
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

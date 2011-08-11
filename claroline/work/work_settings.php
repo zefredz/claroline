@@ -2,6 +2,8 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
+ * CLAROLINE
+ *
  * Course-level properties for CLWRK tool.
  *
  * Currently available properties
@@ -15,7 +17,7 @@
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     CLWORK
- * @since       Claroline 1.9.5
+ * @since       1.9.5
  */
 
 $tlabelReq = 'CLWRK';

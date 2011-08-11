@@ -1,19 +1,15 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/CLWRK/
- *
- * @package CLWRK
- *
- * @author Claro Team <cvs@claroline.net>
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/CLWRK/
+ * @package     CLWRK
+ * @author      Claro Team <cvs@claroline.net>
+ * @since       1.8
  */
 
 $tlabelReq = 'CLWRK';
@@ -362,5 +358,3 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

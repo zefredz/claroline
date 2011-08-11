@@ -277,19 +277,19 @@ if( $displayForm )
     .   '<dl>' . "\n";
     
     //title
-    $out .= '<dt><label for="title">' . get_lang('Title') . '&nbsp;<span class="required">*</span>&nbsp;:' . '</label></dt>' . "\n"
+    $out .= '<dt><label for="title">' . get_lang('Title') . '&nbsp;<span class="required">*</span>' . '</label></dt>' . "\n"
     .   '<dd>'
     .   '<input type="text" name="title" id="title" size="60" maxlength="200" value="'. htmlspecialchars($form['title']) .'" />'
     .   '</dd>' . "\n";
     
     //description
-    $out .= '<dt><label for="description">' . get_lang('Description') . '&nbsp;:</label></dt>' . "\n"
+    $out .= '<dt><label for="description">' . get_lang('Description') . '</label></dt>' . "\n"
     .   '<dd>'
     .   '<div style="width: 700px;">' . claro_html_textarea_editor('description', $form['description']) . '</div>'
     .   '</dd>' . "\n";
     
     // exercise type
-    $out .= '<dt>' . get_lang('Exercise type') . '&nbsp;:</dt>' . "\n"
+    $out .= '<dt>' . get_lang('Exercise type') . '</dt>' . "\n"
     .   '<dd>' . "\n"
     .   '<input type="radio" name="displayType" id="displayTypeOne" value="ONEPAGE" class="radio" '
     .   ( $form['displayType'] == 'ONEPAGE'?' checked="checked"':' ') . ' />&nbsp;'
@@ -311,7 +311,7 @@ if( $displayForm )
             $questionDrawnOptions[$i] = $i;
         }
         
-        $out .= '<dt><label for="randomize">' . get_lang('Random questions').'&nbsp;:</label></dt>' . "\n"
+        $out .= '<dt><label for="randomize">' . get_lang('Random questions').'</label></dt>' . "\n"
         .   '<dd>'
         .   '<div>'
         .   '<input type="checkbox" name="randomize" id="randomize" class="checkbox" '
@@ -346,14 +346,14 @@ if( $displayForm )
     .   '<dl>' . "\n";
     
     // start date
-    $out .= '<dt>' . get_lang('Start date') . '&nbsp;:</dt>' . "\n"
+    $out .= '<dt>' . get_lang('Start date') . '</dt>' . "\n"
     .   '<dd>'
     .   claro_html_date_form('startDay', 'startMonth', 'startYear', $form['startDate'], 'long')." - ".claro_html_time_form("startHour", "startMinute", $form['startDate'])
     .     '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
     .   '</dd>' . "\n";
     
     // stop date
-    $out .= '<dt><label for="useEndDate">' . get_lang('End date') . '&nbsp;:</label></dt>' . "\n"
+    $out .= '<dt><label for="useEndDate">' . get_lang('End date') . '</label></dt>' . "\n"
     .   '<dd>'
     .   '<input type="checkbox" name="useEndDate" id="useEndDate" '
     .   ( $form['useEndDate']?' checked="checked"':' ') . '/>'
@@ -363,7 +363,7 @@ if( $displayForm )
     .   '</dd>' . "\n";
     
     // time limit
-    $out .= '<dt><label for="useTimeLimit">' . get_lang('Time limit') . '&nbsp;:</label></dt>' . "\n"
+    $out .= '<dt><label for="useTimeLimit">' . get_lang('Time limit') . '</label></dt>' . "\n"
     .   '<dd>'
     .   '<input type="checkbox" name="useTimeLimit" id="useTimeLimit" '
     .   ( $form['useTimeLimit']?' checked="checked"':' ') . '/>'
@@ -373,7 +373,7 @@ if( $displayForm )
     .   '</dd>' . "\n";
     
     // attempts allowed
-    $out .= '<dt><label for="attempts">' . get_lang('Attempts allowed') . '&nbsp;:</label></dt>' . "\n"
+    $out .= '<dt><label for="attempts">' . get_lang('Attempts allowed') . '</label></dt>' . "\n"
     .   '<dd>'
     .   '<select name="attempts" id="attempts">' . "\n"
     .   '<option value="0"' . ( $form['attempts'] < 1?' selected="selected"':' ') . '>' . get_lang('unlimited') . '</option>' . "\n"
@@ -386,7 +386,7 @@ if( $displayForm )
     .   '</dd>' . "\n";
     
     //anonymous attempts
-    $out .= '<dt>' . get_lang('Anonymous attempts') . '&nbsp;:</dt>' . "\n"
+    $out .= '<dt>' . get_lang('Anonymous attempts') . '</dt>' . "\n"
     .   '<dd>'
     .   '<input type="radio" name="anonymousAttempts" id="anonymousAttemptsAllowed" value="ALLOWED"'
     .  ( $form['anonymousAttempts'] == 'ALLOWED'?' checked="checked"':' ') . ' />'
@@ -398,7 +398,7 @@ if( $displayForm )
     .   '</dd>';
     
     // show answers
-    $out .= '<dt>' . get_lang('Show answers') . '&nbsp;:</dt>' . "\n"
+    $out .= '<dt>' . get_lang('Show answers') . '</dt>' . "\n"
     .   '<dd>'
     .   '<input type="radio" name="showAnswers" id="showAnswerAlways" value="ALWAYS"'
     .   ( $form['showAnswers'] == 'ALWAYS'?' checked="checked"':' ') . ' />'
@@ -414,7 +414,7 @@ if( $displayForm )
     .   '</dd>';
     
     // end form information
-    $out .= '<dt>' . get_lang('Quiz end message') . '&nbsp;:</dt>' . "\n"
+    $out .= '<dt>' . get_lang('Quiz end message') . '</dt>' . "\n"
     .   '<dd>'
     .   '<div style="width: 700px;">' . claro_html_textarea_editor('quizEndMessage', $form['quizEndMessage']) . '</div>'
     .   '</dd>';

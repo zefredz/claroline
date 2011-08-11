@@ -3,7 +3,7 @@
 /**
  * CLAROLINE
  *
- * @version     1.8 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLWRK/
@@ -542,6 +542,39 @@ $showAfterPost = (bool)
                  );
 
 
+// Command list
+$cmdList = array();
+
+if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
+{
+    // Link to create a new assignment
+    $cmdList[] = array(
+        'name' => get_lang('Submit a work'),
+        'url' => htmlspecialchars(Url::Contextualize('user_work.php?authId='
+               . claro_get_current_user_id()
+               . '&cmd=rqSubWrk'
+               . '&assigId='.$req['assignmentId']))
+    );
+}
+
+if ( $is_allowedToEditAll )
+{
+    $cmdList[] = array(
+        'name' => get_lang('Edit automatic feedback'),
+        'url' => htmlspecialchars(Url::Contextualize('feedback.php?cmd=rqEditFeedback'
+               . '&assigId=' . $req['assignmentId']))
+    );
+    
+    if( get_conf('allow_download_all_submissions') )
+    {
+        $cmdList[] = array(
+            'img' => 'save',
+            'name' => get_lang('Download submissions'),
+            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqDownload'
+                   . '&assigId=' . $req['assignmentId']))
+        );
+    }
+}
 
 
  /**
@@ -556,7 +589,7 @@ $showAfterPost = (bool)
 
 $out = '';
 
-$out .= claro_html_tool_title($pageTitle);
+$out .= claro_html_tool_title($pageTitle, null, $cmdList);
 
 /**
  * ASSIGNMENT INFOS
@@ -636,20 +669,6 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
     ;
 }
 
-/**
- * COMMAND LINKS
- */
-$cmdMenu = array();
-if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
-{
-    // link to create a new assignment
-    $cmdMenu[] = claro_html_cmd_link( 'user_work.php?authId=' . claro_get_current_user_id()
-                                    . '&amp;cmd=rqSubWrk'
-                                    . '&amp;assigId=' . $req['assignmentId']
-                                    . claro_url_relay_context('&amp;')
-                                    , get_lang('Submit a work'));
-}
-
 if ( $is_allowedToEditAll )
 {
     // Submission download requested
@@ -669,32 +688,13 @@ if ( $is_allowedToEditAll )
          .    claro_html_button('work_list.php?assigId='.$req['assignmentId'], get_lang('Cancel'))
          .        '</form>'."\n"
         ;
-
+        
         $dialogBox->form($downloadForm);
     }
-
-    $cmdMenu[] = claro_html_cmd_link( 'feedback.php?cmd=rqEditFeedback'
-                                    . '&amp;assigId=' . $req['assignmentId']
-                                    . claro_url_relay_context('&amp;')
-                                    , get_lang('Edit automatic feedback')
-                                    );
-                                    
-    if( get_conf('allow_download_all_submissions') )
-    {
-        $cmdMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=rqDownload&amp;assigId=' . $req['assignmentId'] . claro_url_relay_context('&amp;')
-                                    , '<img src="' . get_icon_url('save') . '" alt="" />' . get_lang('Download submissions')
-                                    );
-    }
-
 }
 
-/*--------------------------------------------------------------------
-                        DIALOG BOX SECTION
-  --------------------------------------------------------------------*/
-
+// Render dialog box
 $out .= $dialogBox->render();
-
-if( !empty($cmdMenu) ) $out .= '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
 
 
 /**
@@ -779,5 +779,3 @@ $out .= '</tbody>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
