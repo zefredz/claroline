@@ -1,10 +1,5 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
@@ -27,11 +22,25 @@ if ( count( get_included_files() ) == 1 )
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
  * @param int $user_id user ID from the course_user table
  * @param string $course_code course code from the cours table
+ * @param boolean $admin
+ * @param boolean $tutor
+ * @param boolean $register_by_class
+ * @param boolean $useAuthProfilePermissions set to true to use authentication 
+ *  source specific options when registering a user
  * @return boolean TRUE  if it succeeds, FALSE otherwise
  */
 
-function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false, $register_by_class = false)
+function user_add_to_course(
+    $userId, $courseCode, $admin = false, $tutor = false, 
+    $register_by_class = false, $useAuthProfilePermissions = false )
 {
+    if ( $useAuthProfilePermissions )
+    {
+        $authProfilePermissions = new CourseAuthProfilePermission( 
+            AuthProfileManager::getUserAuthProfile($userId), 
+            $courseCode );
+    }
+    
     $tbl_mdb_names          = claro_sql_get_main_tbl();
     $tbl_user               = $tbl_mdb_names['user'];
     $tbl_course             = $tbl_mdb_names['course'];
@@ -92,7 +101,8 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             
             // If a validation is requested for this course: isPending is true
             // If the user is course manager, never flag him as "pending"
-            $isPending = ($course_registration['registration'] == 'validation' && !$admin) ? 1 : 0;
+            $isPending = ( $authProfilePermissions->getCourseRegistrationMode() == 'validation'
+                && !$admin ) ? 1 : 0;
             
             if ($course_registration['userLimit'] > 0)
             {
@@ -113,7 +123,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
                 else                         $count_class_enrol = 1;
                 
                 if ( $admin ) $profileId = claro_get_profile_id('manager');
-                else          $profileId = claro_get_profile_id('user');
+                else          $profileId = claro_get_profile_id($authProfilePermissions->getCourseProfile());
                 
                 // If this course is a session course, enrol to the source course
                 if ($course['sourceCourseId'])

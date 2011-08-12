@@ -222,7 +222,7 @@ Subscribe to a course
 ----------------------------------------------------------------------------*/
 
 if ( $cmd == 'exReg' )
-{
+{    
     //Does the category prevent registration ?
     if((get_conf('registrationRestrictedThroughCategories')
         && ClaroCategory::isRegistredToCategory($userId, $categoryId))
@@ -237,10 +237,14 @@ if ( $cmd == 'exReg' )
         $categoryRestricted = true;
     }
     
+    $authProfilePerms = new CourseAuthProfilePermission( 
+        AuthProfileManager::getUserAuthProfile( $userId ), 
+        $courseCode );
+    
     //If the current user is a platform admin OR
     //(if the course is open AND if the category doesn't prevent registration)
     if ( claro_is_platform_admin() ||
-        (is_course_registration_allowed($courseCode) && !$categoryRestricted) )
+        ( $authProfilePerms->isRegistrationAllowed() && !$categoryRestricted ) )
     {
         $courseRegistrationKey = get_course_registration_key($courseCode);
         
@@ -252,7 +256,7 @@ if ( $cmd == 'exReg' )
         )
         {
             //Try to register user
-            if ( user_add_to_course($userId, $courseCode, false, false, false) )
+            if ( user_add_to_course( $userId, $courseCode, false, false, false, true ) )
             {
                 $claroline->log('COURSE_SUBSCRIBE',array('user'=>$userId,'course'=>$courseCode));
                 

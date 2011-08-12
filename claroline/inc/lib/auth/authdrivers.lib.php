@@ -27,12 +27,20 @@ interface AuthDriver
     public function userUpdateAllowed();
     
     public function getFailureMessage();
+
+    public function getAuthProfileOptions();
 }
 
 abstract class AbstractAuthDriver implements AuthDriver
 {
     protected $userId = null;
     protected $extAuthIgnoreUpdateList = array();
+    protected $authProfileOptions = array(
+        'courseRegistrationAllowed' => null,
+        'courseEnrolmentMode' => null, 
+        'defaultCourseProfile' => null, 
+        'editableProfileFields' => null 
+    );
     protected $username = null, $password = null;
     protected $extraMessage = null;
     
@@ -83,6 +91,15 @@ abstract class AbstractAuthDriver implements AuthDriver
     {
         return false;
     }
+
+    /**
+     * @since 1.9.9
+     * @return <type>
+     */
+    public function getAuthProfileOptions()
+    {
+        return $this->authProfileOptions;
+    }
 }
 
 class UserDisabledAuthDriver extends AbstractAuthDriver
@@ -113,6 +130,16 @@ class UserDisabledAuthDriver extends AbstractAuthDriver
     public function getFilteredUserData()
     {
         return array();
+    }
+
+    public function getAuthProfileOptions()
+    {
+        return array(
+            'courseRegistrationAllowed' => null,
+            'courseEnrolmentMode' => null,
+            'defaultCourseProfile' => null,
+            'editableProfileFields' => null
+        );
     }
 }
 
@@ -325,6 +352,15 @@ class PearAuthDriver extends AbstractAuthDriver
         $this->extAuthAttribNameList = $driverConfig['extAuthAttribNameList'];
         $this->extAuthAttribTreatmentList = $driverConfig['extAuthAttribTreatmentList'];
         $this->extAuthIgnoreUpdateList = $driverConfig['extAuthAttribToIgnore'];
+
+        $this->authProfileOptions = isset($driverConfig['authProfileOptions'])
+            ? $driverConfig['authProfileOptions']
+            : array( 
+                'courseRegistrationAllowed' => null,
+                'courseEnrolmentMode' => null, 
+                'defaultCourseProfile' => null, 
+                'editableProfileFields' => null )
+            ;
     }
     
     public function userRegistrationAllowed()

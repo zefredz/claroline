@@ -19,6 +19,7 @@ require_once dirname(__FILE__) . '/../core/claroline.lib.php';
 require_once dirname(__FILE__) . '/../database/database.lib.php';
 require_once dirname(__FILE__) . '/../kernel/user.lib.php';
 require_once dirname(__FILE__) . '/authdrivers.lib.php';
+require_once dirname(__FILE__) . '/authprofile.lib.php';
 require_once dirname(__FILE__) . '/ldapauthdriver.lib.php';
 
 class AuthManager
@@ -62,7 +63,10 @@ class AuthManager
             
             if ( $driver->authenticate() )
             {
-                if ( $uid = AuthUserTable::registered( $username, $driver->getAuthSource() ) )
+
+                $uid = AuthUserTable::registered( $username, $driver->getAuthSource() );
+                
+                if ( $uid )
                 {
                     if ( $driver->userUpdateAllowed() )
                     {
@@ -151,7 +155,9 @@ class AuthUserTable
         
         if ( $res->numRows() )
         {
-            return $res->fetch(Database_ResultSet::FETCH_VALUE);
+            $uidArr = $res->fetch();
+            
+            return (int) $uidArr['user_id'];
         }
         else
         {
