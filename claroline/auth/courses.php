@@ -221,8 +221,145 @@ if ( $cmd == 'exUnreg' )
 Subscribe to a course
 ----------------------------------------------------------------------------*/
 
+/*
+ * PROPOSAL: new way to manage the "exReg" command, trying to make it clearer
+ *
+ * Antonin Bourguignon <antonin.bourguignon@claroline.net>
+ * $Id$
+
 if ( $cmd == 'exReg' )
-{    
+{
+    $isUserAllowedToEnrol = true;
+    
+    // 1/ Does the category prevent registration ?
+    if(get_conf('registrationRestrictedThroughCategories'))
+    {
+        // Is the user registered to this category ?
+        if (!ClaroCategory::isRegistredToCategory($userId, $categoryId))
+        {
+            $isUserAllowedToEnrol = false;
+            $dialogBox->error(get_lang('You have to be registered to this course\'s category in order to enrol the course'));
+        }
+    }
+    
+    // 2/ Is there a users limit set for this course ?
+    if ($course->userLimit != 0)
+    {
+        // Does the limit allow new enrolments ?
+        if (claro_count_course_students >= $course->userLimit)
+        {
+            $isUserAllowedToEnrol = false;
+            $dialogBox->error(get_lang('The users limit for this course has been reached'));
+        }
+    }
+    
+    // 3/ Is there a registration key set for this course ?
+    if (isset($course->registrationKey))
+    {
+        if (strtolower(trim($_REQUEST['registrationKey'])) != strtolower(trim($courseRegistrationKey)))
+        {
+            $isUserAllowedToEnrol = false;
+            $dialogBox->error(get_lang('Wrong enrolment key'));
+            
+            $displayMode = DISPLAY_REGISTRATION_KEY_FORM;
+        }
+    }
+    
+    // 4/ Does the "registration" state of this course allow new enrolments ?
+    $valuesAllowingEnrolment = array('open', 'validation');
+    if (!in_array($course->registration, $valuesAllowingEnrolment))
+    {
+        $isUserAllowedToEnrol = false;
+        $dialogBox->error(get_lang('This course currently does not allow new enrolments (registration: %registration)'), array('%registration' => $course->registration));
+    }
+    
+    // 5/ Does the "status" state of this course allow new enrolments ?
+    $valuesAllowingEnrolment = array('enable', 'date');
+    if (!in_array($course->registration, $valuesAllowingEnrolment))
+    {
+        $isUserAllowedToEnrol = false;
+        $dialogBox->error(get_lang('This course currently does not allow new enrolments (status: %status)', array('%status' => $course->status)));
+    }
+    
+    // 5'/ If the "status" is set to "date", does the current date allow
+    // new enrolments ?
+    elseif ($course->registration == 'date')
+    {
+        $curdate = date('Y-m-d H:i:s', time());
+        
+        if ($course->publicationDate >= $curdate)
+        {
+            $isUserAllowedToEnrol = false;
+            $dialogBox->error(
+                get_lang('This course will be enabled on the %date',
+                array('%date' => claro_date('d/m/Y', $thisCourse->publicationDate))));
+        }
+        
+        if ($course->expirationDate <= $curdate)
+        {
+            $isUserAllowedToEnrol = false;
+            $dialogBox->error(
+                get_lang('This course ha been disabled on the %date',
+                array('%date' => claro_date('d/m/Y', $thisCourse->publicationDate))));
+        }
+    }
+    
+    // 6/ Fred's updates
+    $authProfilePerms = new CourseAuthProfilePermission(
+    AuthProfileManager::getUserAuthProfile( $userId ),
+    $courseCode );
+    
+    if (!$authProfilePerms->isRegistrationAllowed())
+    {
+        $isUserAllowedToEnrol = false;
+        $dialogBox->error(get_lang(''));
+    }
+    
+    // Now, is the user allowed to enrol ?
+    if (claro_is_platform_admin() || $isUserAllowedToEnrol)
+    {
+        if ( user_add_to_course( $userId, $courseCode, false, false, false, true ) )
+        {
+            $claroline->log('COURSE_SUBSCRIBE', array('user'=>$userId,'course'=>$courseCode));
+            
+            if ( claro_get_current_user_id() != $uidToEdit )
+            {
+                //Message for admin
+                $dialogBox->success( get_lang('The user has been enroled to the course') );
+            }
+            else
+            {
+                $dialogBox->success( get_lang('You\'ve been enroled on the course') );
+            }
+            
+            if ( !empty($_REQUEST['asTeacher']) && claro_is_platform_admin() )
+            {
+                $properties['isCourseManager']  = 1;
+                $properties['role']             = get_lang('Course manager');
+                $properties['tutor']            = 1;
+                user_set_course_properties($userId, $courseCode, $properties);
+            }
+        }
+        
+        $displayMode = DISPLAY_MESSAGE_SCREEN;
+    }
+    else
+    {
+        $courseData = claro_get_course_data($courseCode);
+        $displayMode = isset($displayMode) ? $displayMode : DISPLAY_REGISTRATION_DISABLED_FORM;
+        
+        $explanation = get_locked_course_explanation($courseCode);
+        if( $explanation )
+        {
+            $dialogBox->error( $explanation );
+        }
+        $dialogBox->info( get_lang('Please contact the course manager : %email' , array ('%email' => '<a href="mailto:'.$courseData['email'] . '?body=' . $courseData['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseData['titular']) . '</a>')) );
+    }
+} // end if ($cmd == 'exReg')
+*/
+
+if ( $cmd == 'exReg' )
+{
     //Does the category prevent registration ?
     if((get_conf('registrationRestrictedThroughCategories')
         && ClaroCategory::isRegistredToCategory($userId, $categoryId))
@@ -237,8 +374,8 @@ if ( $cmd == 'exReg' )
         $categoryRestricted = true;
     }
     
-    $authProfilePerms = new CourseAuthProfilePermission( 
-        AuthProfileManager::getUserAuthProfile( $userId ), 
+    $authProfilePerms = new CourseAuthProfilePermission(
+        AuthProfileManager::getUserAuthProfile( $userId ),
         $courseCode );
     
     //If the current user is a platform admin OR

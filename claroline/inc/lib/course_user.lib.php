@@ -5,7 +5,7 @@
  *
  * Course user library contains function to manage users registration and properties in course
  *
- * @version     1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLUSR
@@ -25,25 +25,25 @@
  * @param boolean $admin
  * @param boolean $tutor
  * @param boolean $register_by_class
- * @param boolean $useAuthProfilePermissions set to true to use authentication 
+ * @param boolean $useAuthProfilePermissions set to true to use authentication
  *  source specific options when registering a user
  * @return boolean TRUE  if it succeeds, FALSE otherwise
  */
 
 function user_add_to_course(
-    $userId, $courseCode, $admin = false, $tutor = false, 
+    $userId, $courseCode, $admin = false, $tutor = false,
     $register_by_class = false, $useAuthProfilePermissions = false )
 {
     if ( $useAuthProfilePermissions )
     {
-        $authProfilePermissions = new CourseAuthProfilePermission( 
-            AuthProfileManager::getUserAuthProfile($userId), 
+        $authProfilePermissions = new CourseAuthProfilePermission(
+            AuthProfileManager::getUserAuthProfile($userId),
             $courseCode );
     }
     else
     {
-        $authProfilePermissions = new CourseAuthProfilePermission( 
-            new AuthProfile(), 
+        $authProfilePermissions = new CourseAuthProfilePermission(
+            new AuthProfile(),
             $courseCode );
     }
     
@@ -702,14 +702,14 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
  * return the list of user of the course in parameter. It use by default the
  * current course identification
  *
- * @param char $courseId course identication
+ * @param string $courseCode course identication
  * @return array of int
  */
-function claro_get_course_user_list($courseId = NULL)
+function claro_get_course_user_list($courseCode = NULL)
 {
-    if($courseId == NULL)
+    if($courseCode == NULL)
     {
-        $courseId = claro_get_current_course_id();
+        $courseCode = claro_get_current_course_id();
     }
     
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -728,7 +728,30 @@ function claro_get_course_user_list($courseId = NULL)
                FROM `" . $tbl_users . "`           AS user,
                     `" . $tbl_rel_course_user . "` AS course_user
                WHERE `user`.`user_id`=`course_user`.`user_id`
-               AND   `course_user`.`code_cours`='" . claro_sql_escape($courseId) . "'";
+               AND   `course_user`.`code_cours`='" . claro_sql_escape($courseCode) . "'";
     
     return claro_sql_query_fetch_all_rows($sqlGetUsers);
+}
+
+/**
+ * Count the number of students (excluding tutors and managers)
+ * enroled to a course.
+ *
+ * @param string $courseCode course identication
+ * @return int
+ */
+function claro_count_course_students($courseCode = null)
+{
+    if($courseCode == null)
+    {
+        $courseCode = claro_get_current_course_id();
+    }
+    
+    $sql = "SELECT COUNT(user_id) AS nbStudents
+            FROM `" . $tbl_rel_course_user . "`
+            WHERE code_cours = '" . claro_sql_escape($courseCode) . "'
+            AND tutor = 0
+            AND isCourseManager = 0";
+    
+    return (int) claro_sql_query_get_single_row($sql);
 }
