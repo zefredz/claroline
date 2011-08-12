@@ -40,6 +40,12 @@ function user_add_to_course(
             AuthProfileManager::getUserAuthProfile($userId), 
             $courseCode );
     }
+    else
+    {
+        $authProfilePermissions = new CourseAuthProfilePermission( 
+            new AuthProfile(), 
+            $courseCode );
+    }
     
     $tbl_mdb_names          = claro_sql_get_main_tbl();
     $tbl_user               = $tbl_mdb_names['user'];
