@@ -308,7 +308,7 @@
                     
                     <input type="radio" id="course_status_date" name="course_status_selection" value="date" <?php echo ($this->course->status == 'date' ? ' checked="checked"':''); ?> />&nbsp;
                     <label for="course_status_date">
-                        <?php echo get_lang('Available'); ?>&nbsp;'<?php echo get_lang('from'); ?> (<?php echo get_lang('included'); ?>)
+                        <?php echo get_lang('Available'); ?>&nbsp;<?php echo get_lang('from'); ?> (<?php echo get_lang('included'); ?>)
                     </label>
                     <?php echo claro_html_date_form('course_publicationDay', 'course_publicationMonth', 'course_publicationYear', $this->course->publicationDate, 'numeric'); ?>&nbsp;
                     <span class="notice"><?php echo get_lang('(d/m/y)'); ?></span>
