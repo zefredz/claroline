@@ -81,7 +81,10 @@ else
         }
         else
         {
-            $downloader = new Claro_Generic_Module_Downloader($moduleLabel);
+            $downloader = false;
+            // $downloader = new Claro_Generic_Module_Downloader($moduleLabel);
+            
+            pushClaroMessage( 'No downloader found for module '.strip_tags( $moduleLabel ), 'warning' );
         }
     }
     else
@@ -89,7 +92,7 @@ else
         $downloader = new Claro_PlatformDocumentsDownloader();
     }
     
-    if ( $downloader->isAllowedToDownload( $requestUrl) ) 
+    if ( $downloader && $downloader->isAllowedToDownload( $requestUrl) ) 
     {
         $pathInfo = $downloader->getFilePath( $requestUrl );
         
