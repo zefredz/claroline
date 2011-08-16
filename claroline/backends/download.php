@@ -59,20 +59,34 @@ else
     }
     else
     {
-        $moduleLabel = 'CLDOC';
+        if ( !claro_is_in_a_course() )
+        {
+            $moduleLabel = null;
+        }
+        else
+        {
+            $moduleLabel = 'CLDOC';
+        }
     }
     
-    $connectorPath = secure_file_path(get_module_path( $moduleLabel ) . '/connector/downloader.cnr.php');
-    
-    if ( file_exists( $connectorPath ) )
+    if ( $moduleLabel )
     {
-        require_once $connectorPath;
-        $className = $moduleLabel.'_Downloader';
-        $downloader = new $className( $moduleLabel );
+        $connectorPath = secure_file_path(get_module_path( $moduleLabel ) . '/connector/downloader.cnr.php');
+
+        if ( file_exists( $connectorPath ) )
+        {
+            require_once $connectorPath;
+            $className = $moduleLabel.'_Downloader';
+            $downloader = new $className( $moduleLabel );
+        }
+        else
+        {
+            $downloader = new Claro_Generic_Module_Downloader($moduleLabel);
+        }
     }
     else
     {
-        $downloader = new Claro_Generic_Module_Downloader($moduleLabel);
+        $downloader = new Claro_PlatformDocumentsDownloader();
     }
     
     if ( $downloader->isAllowedToDownload( $requestUrl) ) 

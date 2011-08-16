@@ -18,7 +18,7 @@
  * Module Downloader Interface
  * @since Claroline 1.10.5
  */
-interface Claro_Module_Downloader
+interface Claro_Downloader
 {
     /**
      * Check if the current user can acces the requested file
@@ -35,11 +35,25 @@ interface Claro_Module_Downloader
     public function getFilePath( $requestedUrl );
 }
 
+class Claro_PlatformDocumentsDownloader implements Claro_Downloader
+{
+    public function isAllowedToDownload( $requestedUrl )
+    {
+        return true;
+    }
+    
+    public function getFilePath( $requestedUrl )
+    {
+        return realpath( rtrim( str_replace( '\\', '/', get_path('rootSys') ), '/' ) 
+            . '/platform/document' . '/' . $requestedUrl );
+    }
+}
+
 /**
  * Generic module downloader : implements the default rules. Can be replaced by
  * a connector in a specific module to implement specific behaviour.
  */
-class Claro_Generic_Module_Downloader implements Claro_Module_Downloader
+class Claro_Generic_Module_Downloader implements Claro_Downloader
 {
     protected $moduleLabel;
     
@@ -56,11 +70,7 @@ class Claro_Generic_Module_Downloader implements Claro_Module_Downloader
         {
             $contextList = get_module_context_list( $this->moduleLabel );
 
-            if ( !claro_is_in_a_course() 
-                && in_array( 'platform', iterator_to_array($contextList) ) )
-            {
-                return get_module_data( $this->moduleLabel,'activation' ) == 'activated';
-            }
+            
 
             if ( claro_is_in_a_course() )
             {
@@ -97,6 +107,17 @@ class Claro_Generic_Module_Downloader implements Claro_Module_Downloader
                     {
                         $is_toolAllowed = true;
                     }
+                }
+            }
+            else
+            {
+                if ( in_array( 'platform', iterator_to_array($contextList) ) )
+                {
+                    $is_toolAllowed = get_module_data( $this->moduleLabel,'activation' ) == 'activated';
+                }
+                else
+                {
+                    $is_toolAllowed = false;
                 }
             }
             
@@ -146,7 +167,6 @@ class Claro_Generic_Module_Downloader implements Claro_Module_Downloader
         }
         else
         {
-            // what's the default behaviour for platform files ?
             return true;
         }
     }
