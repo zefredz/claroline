@@ -169,12 +169,33 @@ if (isset($introCmd) && $isAllowedToEdit)
         }
     }
     
-    if ( $introCmd == 'mkVisible' || $introCmd == 'mkInvisible' )
+    if ($introCmd == 'mkVisible')
     {
         $toolIntro = new ToolIntro($introId);
-        if($toolIntro->load())
+        
+        if ($toolIntro->load())
         {
-            $toolIntro->swapVisibility();
+            $toolIntro->setVisibility('SHOW');
+            
+            if ($toolIntro->save())
+            {
+                $dialogBox->success( get_lang('Introduction\' visibility modified') );
+            }
+            else
+            {
+                $dialogBox->error( get_lang('This introduction\'s visibility can\'t be modified') );
+            }
+        }
+    }
+    
+    if ($introCmd == 'mkInvisible')
+    {
+        $toolIntro = new ToolIntro($introId);
+        
+        if ($toolIntro->load())
+        {
+            $toolIntro->setVisibility('HIDE');
+            
             if ($toolIntro->save())
             {
                 $dialogBox->success( get_lang('Introduction\' visibility modified') );
