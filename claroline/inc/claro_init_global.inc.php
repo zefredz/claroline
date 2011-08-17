@@ -454,7 +454,6 @@ JavascriptLoader::getInstance()->load('claroline.ui');
 // Load course home page javascript
 if ( claro_is_in_a_course() )
 {
-    JavascriptLoader::getInstance()->load('course_home_page');
     // add other default course javascript here
     
     if ( claro_is_in_a_group() )
