@@ -147,6 +147,7 @@ if (isset($cmd) && $isAllowedToEdit)
     if ($cmd == 'exMvUp')
     {
         $toolIntro = new ToolIntro($id);
+        
         if($toolIntro->load())
         {
             if ($toolIntro->moveUp())
@@ -163,7 +164,7 @@ if (isset($cmd) && $isAllowedToEdit)
     if ($cmd == 'exMvDown')
     {
         $toolIntro = new ToolIntro($id);
-        $toolIntro->load();
+        
         if($toolIntro->load())
         {
             if ($toolIntro->moveDown())
@@ -180,9 +181,11 @@ if (isset($cmd) && $isAllowedToEdit)
     if ( $cmd == 'mkVisible' || $cmd == 'mkInvisible' )
     {
         $toolIntro = new ToolIntro($id);
+        
         if($toolIntro->load())
         {
             $toolIntro->swapVisibility();
+            
             if ($toolIntro->save())
             {
                 $dialogBox->success( get_lang('Introduction\' visibility modified') );
