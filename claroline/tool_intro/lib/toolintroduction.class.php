@@ -199,10 +199,12 @@ class ToolIntro implements Display
      */
     public function update()
     {
-        $sql = "UPDATE `".$this->tblToolIntro."`
+        $sql = "UPDATE `" . $this->tblToolIntro . "`
                 SET `title` = " . Claroline::getDatabase()->quote($this->title) . ",
+                    `tool_id` = " . (int) $this->toolId . ",
                     `display_date` = NULL,
                     `content` = " . Claroline::getDatabase()->quote($this->content) . ",
+                    `rank` = " . (int) $this->rank . ",
                     `visibility` = " . Claroline::getDatabase()->quote($this->visibility) . "
                 WHERE `id` = " . (int) $this->id;
         
@@ -350,19 +352,6 @@ class ToolIntro implements Display
         else
         {
             return false;
-        }
-    }
-    
-    
-    public function swapVisibility()
-    {
-        if ($this->visibility == 'SHOW')
-        {
-            $this->setVisibility('HIDE');
-        }
-        else
-        {
-            $this->setVisibility('SHOW');
         }
     }
     
