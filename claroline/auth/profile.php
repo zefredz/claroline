@@ -82,22 +82,25 @@ if ( isset($_REQUEST['applyChange']) )
     // Get params form the form
     $userData = user_initialise();
     
-    // Handle user picture
-    $pictureUpdated = user_handle_profile_picture($userData);
-    
-    if ($pictureUpdated['success'])
+    if ( get_conf('allow_profile_picture', true) )
     {
-        $userData['picture'] = $pictureUpdated['pictureName'];
-        foreach ($pictureUpdated['messages'] as $success)
+        // Handle user picture
+        $pictureUpdated = user_handle_profile_picture($userData);
+
+        if ($pictureUpdated['success'])
         {
-            $dialogBox->success($success);
+            $userData['picture'] = $pictureUpdated['pictureName'];
+            foreach ($pictureUpdated['messages'] as $success)
+            {
+                $dialogBox->success($success);
+            }
         }
-    }
-    else
-    {
-        foreach ($pictureUpdated['messages'] as $error)
+        else
         {
-            $dialogBox->error($error);
+            foreach ($pictureUpdated['messages'] as $error)
+            {
+                $dialogBox->error($error);
+            }
         }
     }
     

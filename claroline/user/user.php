@@ -407,12 +407,15 @@ if ($is_allowedToEdit)
     );
 }
 
-$cmdList[] = array(
-    'img' => 'picture',
-    'name' => get_lang('Users\' pictures'),
-    'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
-        . 'user/user_pictures.php'))
-);
+if ( get_conf('allow_profile_picture', true) )
+{
+    $cmdList[] = array(
+        'img' => 'picture',
+        'name' => get_lang('Users\' pictures'),
+        'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
+            . 'user/user_pictures.php'))
+    );
+}
 
 // Tool name
 $titleParts = array(
