@@ -18,7 +18,7 @@ require get_module_path('CLTI').'/lib/toolintroduction.class.php';
 class ToolIntroductionIterator implements Iterator, Countable
 {
     private     $courseCode;
-    private     $toolIntroductions = array();
+    private     $toolIntroductions;
     protected   $n = 0;
     
     public function __construct($courseCode)
@@ -33,32 +33,19 @@ class ToolIntroductionIterator implements Iterator, Countable
                 FROM `{$tblToolIntro}`
                 ORDER BY rank ASC";
         
-        $result = Claroline::getDatabase()->query($sql);
-        
-        foreach($result as $toolIntro)
-        {
-            $toolIntro = new ToolIntro(
-                $toolIntro['id'],
-                $this->courseCode,
-                $toolIntro['tool_id'],
-                $toolIntro['title'],
-                $toolIntro['content'],
-                $toolIntro['rank'],
-                $toolIntro['display_date'],
-                $toolIntro['visibility']
-            );
-            $this->toolIntroductions[] = $toolIntro;
-        }
+        $this->toolIntroductions = Claroline::getDatabase()->query($sql);
     }
     
     public function rewind()
     {
         $this->n = 0;
+        $this->toolIntroductions->rewind();
     }
     
     public function next()
     {
         $this->n++;
+        $this->toolIntroductions->next();
     }
     
     public function key()
@@ -68,21 +55,34 @@ class ToolIntroductionIterator implements Iterator, Countable
     
     public function current()
     {
-        return $this->toolIntroductions[$this->n];
+        $toolIntro = $this->toolIntroductions->current();
+        
+        $toolIntroObj = new ToolIntro(
+                $toolIntro['id'],
+                $this->courseCode,
+                $toolIntro['tool_id'],
+                $toolIntro['title'],
+                $toolIntro['content'],
+                $toolIntro['rank'],
+                $toolIntro['display_date'],
+                $toolIntro['visibility']
+            );
+        
+        return $toolIntroObj;
     }
     
     public function valid()
     {
-        return ($this->n < count($this->toolIntroductions));
+        return $this->toolIntroductions->valid();
     }
     
     public function count()
     {
-        return count($this->toolIntroductions);
+        return $this->toolIntroductions->count();
     }
     
     public function hasNext()
     {
-        return ($this->n < count($this->toolIntroductions)-1);
+        return ( $this->n < $this->count() -1 );
     }
 }
