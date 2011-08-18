@@ -33,6 +33,15 @@ require_once dirname( __FILE__ ) . '/lib/trackingRendererRegistry.class.php';
  * Init some other vars
  */
 
+// Command list
+$cmdList = array();
+
+$cmdList[] = array(
+    'img' => 'delete',
+    'name' => get_lang('Delete all course statistics'),
+    'url' => htmlspecialchars(Url::Contextualize('delete_course_stats.php'))
+);
+
 
 /*
  * Output
@@ -50,18 +59,11 @@ $html .= claro_html_tool_title(
                 array(
                     'mainTitle' => $nameTools,
                     'subTitle'  => get_lang('Statistics of course : %courseCode', array('%courseCode' => claro_get_current_course_data('officialCode')))
-                )
+                ),
+                null,
+                $cmdList
             );
 
-// display link to delete all course stats
-$links[] = '<a class="claroCmd"  href="delete_course_stats.php">'
-            .    '<img src="' . get_icon_url('delete') . '" alt="" />'
-            .    get_lang('Delete all course statistics')
-            .    '</a>'."\n"
-            ;
-
-$html .= '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n\n" ;
-            
 /*
  * Prepare rendering :
  * Load and loop through available tracking renderers
