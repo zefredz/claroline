@@ -1,5 +1,7 @@
 <?php // $Id$
 
+require_once dirname(__FILE__) . '/auth/authprofile.lib.php';
+
 /**
  * CLAROLINE
  *

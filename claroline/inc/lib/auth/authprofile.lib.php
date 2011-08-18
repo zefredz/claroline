@@ -1,5 +1,8 @@
 <?php // $Id$
 
+require_once dirname(__FILE__) . '/../claroCourse.class.php';
+require_once dirname(__FILE__) . '/authmanager.lib.php';
+
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
