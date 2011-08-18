@@ -30,12 +30,21 @@ class AuthProfile
         $userId,
         $authSource;
     
+    /**
+     *
+     * @param int $userId
+     * @param string $authSource 
+     */
     public function __construct( $userId, $authSource )
     {
         $this->userId = $userId;
         $this->authSource = $authSource;
     }
     
+    /**
+     * Get the user id
+     * @return int 
+     */
     public function getUserId()
     {
         return $this->userId;
@@ -110,8 +119,16 @@ class AuthProfile
     }
 }
 
+/**
+ * Auth profile factory
+ */
 class AuthProfileManager
 {
+    /**
+     * Get the authentication profile for the given user id
+     * @param int $userId
+     * @return AuthProfile 
+     */
     public function getUserAuthProfile( $userId )
     {
         if ( $userId != claro_get_current_user_id() )
@@ -142,6 +159,9 @@ class AuthProfileManager
     }
 }
 
+/**
+ * Class toregister a user to a course
+ */
 class CourseUserRegistration
 {
     const 
@@ -194,6 +214,10 @@ class CourseUserRegistration
         }
     }
     
+    /**
+     * Get the status of the user registration
+     * @return int
+     */
     public function getStatus()
     {
         return $this->status;
@@ -208,16 +232,25 @@ class CourseUserRegistration
         return $this->errorMessage;
     }
     
+    /**
+     * User should be added as a course admin
+     */
     public function setCourseAdmin()
     {
         $this->admin = true;
     }
     
+    /**
+     * User should be added as a course tutor
+     */
     public function setCourseTutor()
     {
         $this->tutor = true;
     }
     
+    /**
+     * User added through a class
+     */
     public function setClassRegistrationMode()
     {
         $this->registerByClass = true;
@@ -481,6 +514,10 @@ class CourseUserRegistration
         }
     }
     
+    /**
+     * Is the registration allowed in the current course
+     * @return boolean 
+     */
     protected function isCourseRegistrationAllowed()
     {
         $curdate = claro_time();
@@ -547,6 +584,11 @@ class CourseUserRegistration
         return $isUserAllowedToEnrol;
     }
     
+    /**
+     * If the course registration requires registration to the course category,
+     * check if the user is register to the category
+     * @return boolean 
+     */
     protected function isAllowedToRegisterToCategory()
     {
         if ( $this->isSuperUser )
@@ -571,6 +613,10 @@ class CourseUserRegistration
         }
     }
     
+    /**
+     * Check if there the user number limit is not exceded in the course
+     * @return type 
+     */
     protected function isUserLimitExceeded()
     {
         if ( $this->course->userLimit != 0 
@@ -584,6 +630,10 @@ class CourseUserRegistration
         }
     }
     
+    /**
+     * Count the number of non manager users in the course
+     * @return boolean 
+     */
     protected function countCourseUsers()
     {
         $tbl_mdb_names          = claro_sql_get_main_tbl();
