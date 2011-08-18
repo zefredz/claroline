@@ -1393,8 +1393,6 @@ if( $dispWrkLst )
                                 || $work['user_id'] == claro_get_current_user_id()
                                 || isset($userGroupList[$work['group_id']]);
         
-        var_dump($is_allowedToViewThisWrk);
-        
         if( $work['visibility'] == 'VISIBLE' || $is_allowedToViewThisWrk )
         {
             $wrkAndFeedbackLst[] = $work;
