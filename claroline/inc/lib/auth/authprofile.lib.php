@@ -15,6 +15,7 @@ require_once dirname(__FILE__) . '/authmanager.lib.php';
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     kernel.auth
+ * @since       1.11
  */
 
 /**
