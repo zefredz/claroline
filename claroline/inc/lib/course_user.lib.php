@@ -21,14 +21,11 @@ require_once dirname(__FILE__) . '/auth/authprofile.lib.php';
  * Subscribe a specific user to a specific course.  If this course is a session
  * course, the user will also be subscribed to the source course.
  *
- * @author Hugues Peeters <hugues.peeters@advalvas.be>
- * @param int $user_id user ID from the course_user table
- * @param string $course_code course code from the cours table
+ * @param int $userId user ID from the course_user table
+ * @param string $courseCode course code from the cours table
  * @param boolean $admin
  * @param boolean $tutor
  * @param boolean $register_by_class
- * @param boolean $useAuthProfilePermissions set to true to use authentication
- *  source specific options when registering a user
  * @return boolean TRUE  if it succeeds, FALSE otherwise
  */
 
@@ -639,7 +636,11 @@ function claro_get_course_user_list($courseCode = NULL)
     return claro_sql_query_fetch_all_rows($sqlGetUsers);
 }
 
-
+/**
+ * Get the number of pending users in a given course
+ * @param string $courseId (optional, current course will be used if not given)
+ * @return int 
+ */
 function claro_count_pending_users( $courseId = null )
 {
     if ( !$courseId )
