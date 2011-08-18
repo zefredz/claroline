@@ -337,72 +337,75 @@ $nameTools = get_lang('Users');
 // Command list
 $cmdList = array();
 
-if ($can_add_single_user)
+if ($is_allowedToEdit)
 {
-
-    // Add a user link
+    if ($can_add_single_user)
+    {
+    
+        // Add a user link
+        $cmdList[] = array(
+            'img' => 'user',
+            'name' => get_lang('Add a user'),
+            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR') . '/user_add.php'))
+        );
+    }
+    
+    if ($can_import_user_list)
+    {
+        // Add CSV file of user link
+        $cmdList[] = array(
+            'img' => 'import_list',
+            'name' => get_lang('Add a user list'),
+            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
+                .'/addcsvusers.php?AddType=userTool'))
+        );
+    }
+    
+    if ($can_export_user_list)
+    {
+        // Export CSV file of user link
+        $cmdList[] = array(
+            'img' => 'export',
+            'name' => get_lang('Export user list'),
+            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=export'))
+        );
+    }
+    
+    if ($can_import_user_class)
+    {
+        // Add a class link
+        $cmdList[] = array(
+            'img' => 'class',
+            'name' => get_lang('Enrol class'),
+            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
+                . '/class_add.php'))
+        );
+    }
+    
+    if ($can_send_message_to_course)
+    {
+        // Main group settings
+        $cmdList[] = array(
+            'img' => 'mail_send',
+            'name' => get_lang("Send a message to the course"),
+            'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
+                . 'messaging/sendmessage.php?cmd=rqMessageToCourse'))
+        );
+    }
+    
     $cmdList[] = array(
-        'img' => 'user',
-        'name' => get_lang('Add a user'),
-        'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR') . '/user_add.php'))
+        'img' => 'group',
+        'name' => get_lang('Group management'),
+        'url' => htmlspecialchars(Url::Contextualize(get_module_entry_url('CLGRP')))
+    );
+    
+    $cmdList[] = array(
+        'img' => 'unenroll',
+        'name' => get_lang('Unregister all students'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            . '?cmd=unregister&amp;user_id=allStudent'))
     );
 }
-
-if ($can_import_user_list)
-{
-    // Add CSV file of user link
-    $cmdList[] = array(
-        'img' => 'import_list',
-        'name' => get_lang('Add a user list'),
-        'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
-            .'/addcsvusers.php?AddType=userTool'))
-    );
-}
-
-if ($can_export_user_list)
-{
-    // Export CSV file of user link
-    $cmdList[] = array(
-        'img' => 'export',
-        'name' => get_lang('Export user list'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=export'))
-    );
-}
-
-if ($can_import_user_class)
-{
-    // Add a class link
-    $cmdList[] = array(
-        'img' => 'class',
-        'name' => get_lang('Enrol class'),
-        'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
-            . '/class_add.php'))
-    );
-}
-
-if ($can_send_message_to_course)
-{
-    // Main group settings
-    $cmdList[] = array(
-        'img' => 'mail_send',
-        'name' => get_lang("Send a message to the course"),
-        'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
-            . 'messaging/sendmessage.php?cmd=rqMessageToCourse'))
-    );
-}
-
-$cmdList[] = array(
-    'img' => 'group',
-    'name' => get_lang('Group management'),
-    'url' => htmlspecialchars(Url::Contextualize(get_module_entry_url('CLGRP')))
-);
-
-$cmdList[] = array(
-    'img' => 'unenroll',
-    'name' => get_lang('Unregister all students'),
-    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-        . '?cmd=unregister&amp;user_id=allStudent'))
-);
 
 $cmdList[] = array(
     'img' => 'picture',

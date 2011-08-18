@@ -348,16 +348,16 @@ if (claro_is_allowed_to_edit())
         'name' => get_lang('Add an event'),
         'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqAdd' ))
     );
-}
-
-if ( count($eventList) > 0 )
-{
-    $cmdList[] = array(
-        'img' => 'delete',
-        'name' => get_lang('Clear up event list'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDeleteAll')) . '" '
-               . ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list ?')) . '\')) return false;'
-    );
+    
+    if ( count($eventList) > 0 )
+    {
+        $cmdList[] = array(
+            'img' => 'delete',
+            'name' => get_lang('Clear up event list'),
+            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDeleteAll')) . '" '
+                   . ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list ?')) . '\')) return false;'
+        );
+    }
 }
 
 // Title parts
