@@ -468,7 +468,8 @@ if ( $is_allowedToEdit ) // EDIT COMMANDS
        . '<th>'.get_lang('Edit').'</th>'."\n"
        . '<th>'.get_lang('Unregister').'</th>'."\n";
        
-       if ($course['registration'] == 'validation')
+       if ( $course['registration'] == 'validation' 
+           || claro_count_pending_users(claro_get_current_course_id()) > 0 )
        {
            $out .= '<th>'.get_lang('Validation').'</th>'."\n" ;
        }
@@ -605,7 +606,8 @@ foreach ( $userList as $thisUser )
         $out .= '</td>' . "\n";
 
         // User's validation column
-        if ($course['registration'] == 'validation')
+        if ( $course['registration'] == 'validation' 
+            || claro_count_pending_users(claro_get_current_course_id()) > 0 )
         {
             $out .= '<td>';
             

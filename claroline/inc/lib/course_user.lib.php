@@ -638,3 +638,21 @@ function claro_get_course_user_list($courseCode = NULL)
     
     return claro_sql_query_fetch_all_rows($sqlGetUsers);
 }
+
+
+function claro_count_pending_users( $courseId = null )
+{
+    if ( !$courseId )
+    {
+        $courseId = claro_get_current_course_id();
+    }
+    
+    $tbl_mdb_names          = claro_sql_get_main_tbl();
+    $tbl_rel_course_user    = $tbl_mdb_names['rel_course_user'];
+
+    return Claroline::getDatabase()->query("
+        SELECT *
+        FROM `{$tbl_rel_course_user}`
+        WHERE code_cours = " . Claroline::getDatabase()->quote($courseId) . "
+        AND isPending = 1")->numRows();
+}
