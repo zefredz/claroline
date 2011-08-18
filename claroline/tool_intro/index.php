@@ -54,7 +54,7 @@ $toolIntroForm = '';
 if ( isset( $cmd ) && $isAllowedToEdit )
 {
     // Set linker's params
-    if ( $id && in_array( $cmd, array() ) )
+    if ( $id )
     {
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
             array('id' => (int) $id));
