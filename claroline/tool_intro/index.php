@@ -59,12 +59,16 @@ if ( isset( $cmd ) && $isAllowedToEdit )
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
             array('id' => (int) $id));
     }
+    else
+    {
+        $currentLocator = null;
+    }
     
     // CRUD
     if ( $cmd == 'rqAdd' )
     {
         
-        ResourceLinker::setCurrentLocator($currentLocator);
+        // ResourceLinker::setCurrentLocator($currentLocator);
         $toolIntro = new ToolIntro();
         $toolIntroForm = $toolIntro->renderForm();
     }
