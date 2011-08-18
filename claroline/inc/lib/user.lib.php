@@ -41,6 +41,7 @@ function user_initialise()
     $userData['email']          = isset($_REQUEST['email'])?trim(strip_tags($_REQUEST['email'])):'';
     $userData['phone']          = isset($_REQUEST['phone'])?trim(strip_tags($_REQUEST['phone'])):'';
     $userData['skype']          = isset($_REQUEST['skype'])?trim(strip_tags($_REQUEST['skype'])):'';
+    $userData['isStudent']      = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'student');
     $userData['isCourseCreator'] = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'courseManager');
     $userData['isPlatformAdmin'] = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'platformAdmin'
                                            || isset($userData['user_id']) && $userData['user_id'] == claro_get_current_user_id() && claro_is_platform_admin());

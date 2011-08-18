@@ -57,7 +57,7 @@ CONTROLER Section
 $extraInfoDefList = get_userInfoExtraDefinitionList();
 
 $userId = claro_get_current_user_id();
-$userData = user_initialise();
+
 $userData = user_get_properties($userId);
 
 $acceptedCmdList = array( 'exCCstatus'
