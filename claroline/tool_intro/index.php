@@ -51,34 +51,34 @@ $dialogBox = new DialogBox();
 
 $toolIntroForm = '';
 
-if (isset($cmd) && $isAllowedToEdit)
+if ( isset( $cmd ) && $isAllowedToEdit )
 {
     // Set linker's params
-    if ($id)
+    if ( $id && in_array( $cmd, array() ) )
     {
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
             array('id' => (int) $id));
-        
-        ResourceLinker::setCurrentLocator($currentLocator);
     }
     
     // CRUD
-    if ($cmd == 'rqAdd')
+    if ( $cmd == 'rqAdd' )
     {
+        
+        ResourceLinker::setCurrentLocator($currentLocator);
         $toolIntro = new ToolIntro();
         $toolIntroForm = $toolIntro->renderForm();
     }
-    
-    if ($cmd == 'rqEd')
+    elseif ($cmd == 'rqEd')
     {
+        
+        ResourceLinker::setCurrentLocator($currentLocator);
         $toolIntro = new ToolIntro($id);
         if($toolIntro->load())
         {
             $toolIntroForm = $toolIntro->renderForm();
         }
     }
-    
-    if ($cmd == 'exAdd')
+    elseif ($cmd == 'exAdd')
     {
         $toolIntro = new ToolIntro();
         $toolIntro->handleForm();
@@ -104,8 +104,7 @@ if (isset($cmd) && $isAllowedToEdit)
             $claroline->notifier->notifyCourseEvent('introsection_created', claro_get_current_course_id(), claro_get_current_tool_id(), $toolIntro->getId(), claro_get_current_group_id(), '0');
         }
     }
-    
-    if ($cmd == 'exEd')
+    elseif ($cmd == 'exEd')
     {
         $toolIntro = new ToolIntro($id);
         $toolIntro->handleForm();
@@ -130,8 +129,7 @@ if (isset($cmd) && $isAllowedToEdit)
             $claroline->notifier->notifyCourseEvent('introsection_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $toolIntro->getId(), claro_get_current_group_id(), '0');
         }
     }
-    
-    if ($cmd == 'exDel')
+    elseif ($cmd == 'exDel')
     {
         $toolIntro = new ToolIntro($id);
         
@@ -142,9 +140,8 @@ if (isset($cmd) && $isAllowedToEdit)
             //TODO linker_delete_resource('CLINTRO_');
         }
     }
-    
     // Modify rank and visibility
-    if ($cmd == 'exMvUp')
+    elseif ($cmd == 'exMvUp')
     {
         $toolIntro = new ToolIntro($id);
         
@@ -160,8 +157,7 @@ if (isset($cmd) && $isAllowedToEdit)
             }
         }
     }
-    
-    if ($cmd == 'exMvDown')
+    elseif ($cmd == 'exMvDown')
     {
         $toolIntro = new ToolIntro($id);
         
@@ -177,8 +173,7 @@ if (isset($cmd) && $isAllowedToEdit)
             }
         }
     }
-    
-    if ($cmd == 'mkVisible')
+    elseif ($cmd == 'mkVisible')
     {
         $toolIntro = new ToolIntro($id);
         
@@ -196,8 +191,7 @@ if (isset($cmd) && $isAllowedToEdit)
             }
         }
     }
-    
-    if ($cmd == 'mkInvisible')
+    elseif ($cmd == 'mkInvisible')
     {
         $toolIntro = new ToolIntro($id);
         
