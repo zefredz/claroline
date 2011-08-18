@@ -1095,8 +1095,6 @@ function user_html_form($userId = null)
     }
     else
     {
-        AuthProfileManager::getUserAuthProfile( $userId );
-        
         $editableFields = AuthProfileManager::getUserAuthProfile( $userId )->getEditableProfileFields(); // get_conf('profile_editable');
     }
     
