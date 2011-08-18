@@ -6,7 +6,9 @@ require_once dirname(__FILE__) . '/authmanager.lib.php';
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Authentication Profiles
+ * Authentication Profiles API is used to give specific rights to a user based 
+ * on his authentication source. This library provides a new course registration 
+ * mechanism that uses those profile to enrol a user in a course.
  *
  * @version     1.11 $Revision$
  * @copyright   2001-2011 Universite catholique de Louvain (UCL)
@@ -53,7 +55,7 @@ class AuthProfile
     
     /**
      * Set the authentication profile options. Contains
-     *  $data['canRegisterToCourses'] with value true, false or null (let the platform decide)
+     *  $data['courseRegistrationAllowed'] with value true, false or null (let the platform decide)
      *  $data['courseEnrolmentMode'] with value 'open', 'close', 'validation' or null (let the platform decide)
      *  $data['defaultCourseProfile'] profile attributed by default to the user when registering to a new course or null
      *  $data['editableProfileFields'] array of editable fileds in the user profile or null
@@ -89,6 +91,15 @@ class AuthProfile
             $this->editableProfileFields = get_conf('profile_editable');
         }
         
+        if ( isset ( $data['courseRegistrationAllowed'] ) && ! is_null($data['courseRegistrationAllowed']) )
+        {
+            $this->courseRegistrationAllowed = $data['courseRegistrationAllowed'];
+        }
+        else
+        {
+            $this->courseRegistrationAllowed = get_conf( 'allowToSelfEnroll', true );
+        }
+        
         return $this;
     }
     
@@ -117,6 +128,15 @@ class AuthProfile
     public function getEditableProfileFields()
     {
         return $this->editableProfileFields;
+    }
+    
+    /**
+     * Is the user allowed to enrol in a course
+     * @return boolean
+     */
+    public function isProfileAllowedToRegisterInCourse()
+    {
+        return $this->courseRegistrationAllowed;
     }
 }
 
@@ -455,7 +475,7 @@ class CourseUserRegistration
             return true;
         }
 
-        if ( get_conf( 'allowToSelfEnroll', true ) )
+        if ( $this->userAuthProfile->isProfileAllowedToRegisterInCourse() )
         {
 
             if( $this->isCourseRegistrationAllowed() )
@@ -470,7 +490,7 @@ class CourseUserRegistration
         else
         {
             $this->status = self::STATUS_REGISTRATION_NOTAVAILABLE;
-            $this->errorMessage = get_lang('Course self-enrolment is not allowed on this platform.');
+            $this->errorMessage = get_lang('Your profile does not allow you to register to course.');
             return false;
         }
     }
