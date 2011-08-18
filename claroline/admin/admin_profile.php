@@ -129,59 +129,76 @@ if ( isset($_REQUEST['applyChange']) ) // For formular modification
 } // if apply changes
 
 
-// Commands menu
+// Command list
+$cmdList = array();
+
 if (!empty($userId))
 {
-    $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
-                . '?cmd=rqReg'
-                . '&amp;uidToEdit=' . $userId
-                . '&amp;fromAdmin=settings'
-                . '&amp;category=" >'
-                . '<img src="' . get_icon_url('enroll') . '" /> '
-                . get_lang('Enrol to a new course')
-                . '</a>';
+    $cmdList[] = array(
+        'img' => 'enroll',
+        'name' => get_lang('Enrol to a new course'),
+        'url' => htmlspecialchars('../auth/courses.php'
+               . '?cmd=rqReg'
+               . '&uidToEdit=' . $userId
+               . '&fromAdmin=settings'
+               . '&category=')
+    );
     
-    $cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
-                . '?Femail=' . urlencode($userData['email'])
-                . '&amp;searchPassword=1" >'
-                . '<img src="' . get_icon_url('mail_close') . '" /> '
-                . get_lang('Send account information to user by email')
-                . '</a>';
+    $cmdList[] = array(
+        'img' => 'mail_close',
+        'name' => get_lang('Send account information to user by email'),
+        'url' => htmlspecialchars('../auth/lostPassword.php'
+               . '?Femail=' . urlencode($userData['email'])
+               . '&searchPassword=1')
+    );
     
-    $cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $userData['user_id'] . '">'
-                . '<img src="' . get_icon_url('course') . '" alt="'.get_lang('User course list').'" /> ' . get_lang('User course list')
-                . '</a>';
+    $cmdList[] = array(
+        'img' => 'course',
+        'name' => get_lang('User course list'),
+        'url' => htmlspecialchars('adminusercourses.php?uidToEdit='
+               . $userData['user_id'])
+    );
     
-    $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
-                . '?uidToEdit='.$userId.'&amp;cmd=rqDelete" '.' id="delete" >'
-                . '<img src="' . get_icon_url('deluser') . '" alt="'.get_lang('Delete user').'" /> '
-                . get_lang('Delete user')
-                . '</a>';
+    $cmdList[] = array(
+        'img' => 'deluser',
+        'name' => get_lang('Delete user'),
+        'url' => htmlspecialchars('adminuserdeleted.php'
+               . '?uidToEdit='.$userId.'&cmd=rqDelete')
+    );
     
-    $cmd_menu[] = '<a class="claroCmd" href="../messaging/sendmessage.php'
-                . '?cmd=rqMessageToUser'
-                . '&amp;userId='.$userId.'">'
-                . get_lang('Send a message to the user')
-                . '</a>';
+    $cmdList[] = array(
+        'name' => get_lang('Send a message to the user'),
+        'url' => htmlspecialchars('../messaging/sendmessage.php'
+               . '?cmd=rqMessageToUser'
+               . '&userId='.$userId)
+    );
     
     if (isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist' ) // if we come form user list, we must display go back to list
     {
-        $cmd_menu[] = '<a class="claroCmd" href="admin_users.php" >' . get_lang('Back to user list') . '</a>';
+        $cmdList[] = array(
+            'img' => 'back',
+            'name' => get_lang('Back to user list'),
+            'url' => htmlspecialchars('admin_users.php')
+        );
     }
 }
 
 
 // Display
 $out = '';
-$out .= claro_html_tool_title(get_lang('User settings'))
+
+// Tool title
+$titleParts = array(
+    'mainTitle' => get_lang('User settings'),
+    'subTitle' => $userData['firstname'].' '.$userData['lastname']
+);
+
+$out .= claro_html_tool_title($titleParts, null, $cmdList, 4)
       . $dialogBox->render();
 
-if (!empty($cmd_menu))
+if (!empty($userId))
 {
-    $out .= '<p>'
-          . claro_html_menu_horizontal($cmd_menu)
-          . '</p>'
-          . user_html_form($userId);
+    $out .= user_html_form($userId);
 }
 
 if (!empty($dgExtra))
