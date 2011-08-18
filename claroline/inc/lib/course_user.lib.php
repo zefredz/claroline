@@ -27,6 +27,7 @@ require_once dirname(__FILE__) . '/auth/authprofile.lib.php';
  * @param boolean $tutor
  * @param boolean $register_by_class
  * @return boolean TRUE  if it succeeds, FALSE otherwise
+ * @deprecated use ClaroUserRegistration from auth/authprofile.lib.php instead
  */
 
 function user_add_to_course(
