@@ -190,7 +190,7 @@
                         <?php echo get_lang('Allowed with enrolment key'); ?>
                     </label>
                     &nbsp;
-                    <input type="text" id="registrationKey" name="course_registrationKey" value="<?php echo htmlspecialchars($this->course->registrationKey); ?>" />
+                    <input type="text" id="course_registrationKey" name="course_registrationKey" value="<?php echo htmlspecialchars($this->course->registrationKey); ?>" />
                     </blockquote>
                     
                     <img src="<?php echo get_icon_url('enroll_forbidden'); ?>"  alt="" />

@@ -6,13 +6,13 @@ $(document).ready(function() {
     var courseRegistrationEnable = function(){
         $("#registration_validation").attr("disabled", false);
         $("#registration_key").attr("disabled", false);
-        $("#registrationKey").attr("disabled", false);
+        $("#course_registrationKey").attr("disabled", false);
     };
     
     var courseRegistrationDisable = function(){
         $("#registration_validation").attr("disabled", true);
         $("#registration_key").attr("disabled", true);
-        $("#registrationKey").attr("disabled", true);
+        $("#course_registrationKey").attr("disabled", true);
     };
     
     $("#registration_true").click(courseRegistrationEnable);
@@ -112,4 +112,14 @@ $(document).ready(function() {
     else {
         courseStatusDisabled();
     }
+    
+    $("#registration_key").click(function(){
+        if ( $("#registration_key").attr("checked") ) 
+        {
+            $("#course_registrationKey").attr("disabled", false);
+        }
+        else {
+            $("#course_registrationKey").attr("disabled", true);
+        }
+    });
 });
