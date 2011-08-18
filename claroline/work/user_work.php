@@ -964,6 +964,13 @@ if( !$dispWrkForm && !$dispWrkDet )
     --------------------------------------------------------------------*/
 CssLoader::getInstance()->load( 'clwrk', 'screen');
 
+// Javascript confirm pop up declaration for header
+$jslang = new JavascriptLanguage;
+$jslang->addLangVar('Are you sure to delete %name ?');
+ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+
+JavascriptLoader::getInstance()->load('work');
+
 $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
@@ -1617,7 +1624,7 @@ if( $dispWrkLst )
                 .    '&amp;cmd=exRmWrk'
                 .    '&amp;assigId=' . $assignmentId
                 .    '&amp;wrkId=' . $work['id'] . '" '
-                .    'onclick="return confirmation(\'' . clean_str_for_javascript($work['title']) . '\');">'
+                .    'onclick="return WORK.confirmationDel(\'' . clean_str_for_javascript($work['title']) . '\');">'
                 .    '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
                 .    '</a>' . "\n"
                 ;
