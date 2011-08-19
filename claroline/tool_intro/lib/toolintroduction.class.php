@@ -381,53 +381,58 @@ class ToolIntro implements Display
     
     public function render()
     {
-        $output = '<div class="toolIntro">'."\n"
-            . '<p>'.claro_parse_user_text($this->content).'</p>'."\n";
+        $output = '';
         
-        // Display attached resources (if any)
-        $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(array('id' => $this->id));
-        $output .= ResourceLinker::renderLinkList($currentLocator);
-        
-        // Admin commands
-        if (claro_is_allowed_to_edit())
+        if ($this->getVisibility() == 'SHOW' || claro_is_allowed_to_edit())
         {
-            $output .= '<a class="claroCmd" href="'
-                . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                . '?introCmd=rqEd&amp;introId='.$this->id ))
-                .'" title="'.get_lang('Edit this item').'">'
-                . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
-                . '</a>' . "\n"
-                . '<a class="claroCmd" href="'
-                . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                . '?introCmd=exDel&amp;introId=' . $this->id ))
-                . '" title="'.get_lang('Delete this item').'"'
-                . 'onclick="javascript:if(!confirm(\''
-                . clean_str_for_javascript( get_lang('Confirm Operation') . ' : ' . get_lang('Delete') ).'\')) '
-                . 'return false;">'
-                . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
-                . '</a>' . "\n"
-                . '<a class="claroCmd" href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-                . '?introCmd=exMvUp&amp;introId='.$this->id)).'" title="'.get_lang('Move this item up').'">'
-                . '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
-                . '</a> '
-                . ' <a class="claroCmd" href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-                . '?introCmd=exMvDown&amp;introId='.$this->id)).'" title="'.get_lang('Move this item down').'">'
-                . '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
-                . '</a>'
-                . '<a class="claroCmd" href="'
-                . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-                . '?introCmd='
-                . (($this->visibility == 'SHOW')?('mkInvisible'):('mkVisible'))
-                . '&amp;introId='.$this->id)).'" '
-                . 'title = "'
-                . (($this->visibility == 'SHOW')?(get_lang('Hide this item')):(get_lang('Show this item'))).'">'
-                . '<img src="'
-                . (($this->visibility == 'SHOW')?(get_icon_url('visible')):(get_icon_url('invisible')))
-                . '" alt="'.get_lang('Swap visibility').'" />'
-                . '</a>';
+            $output .= '<div class="toolIntro">'."\n"
+                     . '<p>'.claro_parse_user_text($this->content).'</p>'."\n";
+            
+            // Display attached resources (if any)
+            $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(array('id' => $this->id));
+            $output .= ResourceLinker::renderLinkList($currentLocator);
+            
+            // Admin commands
+            if (claro_is_allowed_to_edit())
+            {
+                $output .= '<a class="claroCmd" href="'
+                    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?introCmd=rqEd&amp;introId='.$this->id ))
+                    .'" title="'.get_lang('Edit this item').'">'
+                    . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
+                    . '</a>' . "\n"
+                    . '<a class="claroCmd" href="'
+                    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?introCmd=exDel&amp;introId=' . $this->id ))
+                    . '" title="'.get_lang('Delete this item').'"'
+                    . 'onclick="javascript:if(!confirm(\''
+                    . clean_str_for_javascript( get_lang('Confirm Operation') . ' : ' . get_lang('Delete') ).'\')) '
+                    . 'return false;">'
+                    . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
+                    . '</a>' . "\n"
+                    . '<a class="claroCmd" href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                    . '?introCmd=exMvUp&amp;introId='.$this->id)).'" title="'.get_lang('Move this item up').'">'
+                    . '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
+                    . '</a> '
+                    . ' <a class="claroCmd" href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                    . '?introCmd=exMvDown&amp;introId='.$this->id)).'" title="'.get_lang('Move this item down').'">'
+                    . '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
+                    . '</a>'
+                    . '<a class="claroCmd" href="'
+                    . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                    . '?introCmd='
+                    . (($this->visibility == 'SHOW')?('mkInvisible'):('mkVisible'))
+                    . '&amp;introId='.$this->id)).'" '
+                    . 'title = "'
+                    . (($this->visibility == 'SHOW')?(get_lang('Hide this item')):(get_lang('Show this item'))).'">'
+                    . '<img src="'
+                    . (($this->visibility == 'SHOW')?(get_icon_url('visible')):(get_icon_url('invisible')))
+                    . '" alt="'.get_lang('Swap visibility').'" />'
+                    . '</a>';
+            }
+            
+            $output .= '</div>';
         }
-        
-        $output .= '</div>';
         
         return $output;
     }
