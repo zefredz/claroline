@@ -33,33 +33,42 @@ class CLTI_Portlet extends CourseHomePagePortlet
         
         if ($toolIntroIterator->count() > 0)
         {
+            $introList = '';
             
             foreach ($toolIntroIterator as $introItem)
             {
-                // Display attached resources (if any)
-                $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(array('id' => $introItem->getId()));
-                $currentLocator->setModuleLabel('CLINTRO');
-                $currentLocator->setResourceId($introItem->getId());
-                
-                $resources = ResourceLinker::renderLinkList($currentLocator);
-                
-                // Prepare the render
-                $output .= '<dt>' . "\n"
-                         . '</dt>' . "\n"
-                         . '<dd'.(!$toolIntroIterator->hasNext()?' class="last"':'').'>' . "\n"
-                         . claro_parse_user_text($introItem->getContent()) . "\n"
-                         . $resources
-                         . '</dd>' . "\n";
+                if ($introItem->getVisibility() == 'SHOW')
+                {
+                    // Display attached resources (if any)
+                    $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(array('id' => $introItem->getId()));
+                    $currentLocator->setModuleLabel('CLINTRO');
+                    $currentLocator->setResourceId($introItem->getId());
+                    
+                    $resources = ResourceLinker::renderLinkList($currentLocator);
+                    
+                    // Prepare the render
+                    $introList .= '<dt>' . "\n"
+                             . '</dt>' . "\n"
+                             . '<dd'.(!$toolIntroIterator->hasNext()?' class="last"':'').'>' . "\n"
+                             . claro_parse_user_text($introItem->getContent()) . "\n"
+                             . $resources
+                             . '</dd>' . "\n";
+                }
             }
         }
-        else
+        
+        if ($toolIntroIterator->count() == 0 || empty($introList))
         {
             $output .= '<dt></dt>'
                      . '<dd>' . "\n"
-                     . ' ' . get_lang('No headline') . '. ' 
-                     . '<a href="' . htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=rqAdd')) . '">' 
+                     . ' ' . get_lang('No headline') . '. '
+                     . '<a href="' . htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=rqAdd')) . '">'
                      . get_lang('Would you like to add one ?') . '</a>' . "\n"
                      . '</dd>' . "\n";
+        }
+        else
+        {
+            $output .= $introList;
         }
         
         $output .= '</dl>';
@@ -69,7 +78,7 @@ class CLTI_Portlet extends CourseHomePagePortlet
     
     public function renderTitle()
     {
-        $output = '<img ' 
+        $output = '<img '
                 . 'src="' . get_icon_url('headline', 'CLTI')  . '"'
                 . 'alt="' . get_lang('Headline') . '" /> '
                 . get_lang('Headlines');

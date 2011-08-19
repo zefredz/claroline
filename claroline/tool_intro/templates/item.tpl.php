@@ -1,5 +1,6 @@
 <!-- $Id$ -->
 
+<?php if ($this->intro->getVisibility() == 'SHOW' || claro_is_allowed_to_edit()) : ?>
 <div class="item<?php if ($this->intro->getVisibility() != 'SHOW') : ?> hidden<?php endif; ?>">
     <div class="content">
         <p><?php echo claro_parse_user_text($this->intro->getContent()); ?></p>
@@ -42,3 +43,4 @@
     </div>
     <?php endif; ?>
 </div>
+<?php endif; ?>
