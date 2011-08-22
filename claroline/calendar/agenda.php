@@ -303,11 +303,9 @@ if ( $is_allowedToEdit )
 
 } // end id is_allowed to edit
 
-/**
- *     DISPLAY SECTION
- *
- */
 
+
+// Display
 $noQUERY_STRING = true;
 
 $eventList = agenda_get_item_list($currentContext,$orderDirection);
@@ -431,9 +429,12 @@ foreach ( $eventList as $thisEvent )
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisEvent['id'] ) );
         
         $thisEvent['currentLocator'] = $currentLocator;
+        
+        if (($is_allowedToEdit || $thisEvent['visible']))
+        {
+            $preparedEventList[] = $thisEvent;
+        }
     }
-    
-    $preparedEventList[] = $thisEvent;
 }
 
 
