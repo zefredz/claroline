@@ -1576,19 +1576,19 @@ if ($docView == 'image' && isset($imageList) && count($imageList) > 0)
     
     $docViewToolbar[] = '<a class="claroCmd" href="'
          . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-            . '?docView=files&amp;cmd=exChDir&amp;file='
+            . '?docView=files&cmd=exChDir&file='
             . base64_encode($curDirPath) . $searchCmdUrl ))
          . '">'
-         . '<img src="' . get_icon_url('document') . '" alt="" />'
+         . '<img src="' . get_icon_url('document') . '" alt="" /> '
          . get_lang('File list')
          . '</a>';
     
     $docViewToolbar[] = '<a class="claroCmd" href="'
          .  htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-            . '?docView=thumbnails&amp;cwd='
+            . '?docView=thumbnails&cwd='
             . rawurlencode($curDirPath) . $searchCmdUrl ))
          . '">'
-         . '<img src="' . get_icon_url('image') . '" alt="" />'
+         . '<img src="' . get_icon_url('image') . '" alt="" /> '
          . get_lang('Thumbnails').'</a>';
     
     // Image description table
@@ -1731,14 +1731,14 @@ elseif ($docView == 'thumbnails' ) // thumbnails mode
     
     $docViewToolbar[] = '<a class="claroCmd" href="'
          . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-            . '?docView=files&amp;cmd=exChDir&amp;file='
+            . '?docView=files&cmd=exChDir&amp;file='
             . base64_encode($curDirPath) . $searchCmdUrl ))
          . '">'
-         . '<img src="' . get_icon_url('document') . '" alt="" />' . "\n"
+         . '<img src="' . get_icon_url('document') . '" alt="" /> ' . "\n"
          . get_lang('File list') . '</a>';
          
     $docViewToolbar[] = '<span class="claroCmdDisabled">'
-        . '<img src="' . get_icon_url('image') . '" alt="" />'
+        . '<img src="' . get_icon_url('image') . '" alt="" /> ' . "\n"
         . get_lang('Thumbnails').'</span>'
         ;
     
@@ -1774,8 +1774,8 @@ elseif ($docView == 'thumbnails' ) // thumbnails mode
             // link to previous page
               $out .= '<a href="'
                    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                        . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
-                        . '&amp;page=' . ($page - 1) . $searchCmdUrl ))
+                        . '?docView=thumbnails&cwd=' . rawurlencode($curDirPath)
+                        . '&page=' . ($page - 1) . $searchCmdUrl ))
                    . '">&lt;&lt;&nbsp;&nbsp;page&nbsp;'
                    . ($page - 1) . '</a>' . "\n";
         }
@@ -1795,8 +1795,8 @@ elseif ($docView == 'thumbnails' ) // thumbnails mode
             // link to next page
             $out .= '<a href="'
                   . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                        . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
-                        . '&amp;page=' . ($page + 1) . $searchCmdUrl ))
+                        . '?docView=thumbnails&cwd=' . rawurlencode($curDirPath)
+                        . '&page=' . ($page + 1) . $searchCmdUrl ))
                   . '">'. get_lang('Page') .'&nbsp;'
                   . ($page + 1) . '&nbsp;&nbsp;&gt;&gt;</a>' . "\n";
         }
@@ -1856,7 +1856,7 @@ else
          .  htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
          . '?docView=thumbnails&cwd='. $curDirPath . $searchCmdUrl ))
          .'">'
-         . '<img src="' . get_icon_url('image') . '" alt="" />'
+         . '<img src="' . get_icon_url('image') . '" alt="" /> ' . "\n"
          . get_lang('Thumbnails').'</a>';
     
     $out .= '<!-- current dir name line -->' . "\n"
