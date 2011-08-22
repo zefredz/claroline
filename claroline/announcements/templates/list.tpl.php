@@ -16,7 +16,10 @@
         <?php if (!empty($announcement['content'])) : ?><?php echo claro_parse_user_text($announcement['content']); ?><?php endif; ?>
     </div>
     
+    <?php if (!empty($announcement['currentLocator'])) : ?>
     <?php echo ResourceLinker::renderLinkList($announcement['currentLocator']); ?>
+    
+    <?php endif; ?>
     
     <?php if (claro_is_course_manager()) : ?>
     <div class="manageTools">

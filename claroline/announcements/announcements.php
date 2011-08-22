@@ -533,21 +533,22 @@ if ($displayList)
             $thisAnn['hot'] = false;
         }
         
-        if (($is_allowedToEdit || ( $isVisible && !$isOffDeadline)))
-        {
-            $thisAnn['content'] = make_clickable($thisAnn['content']);
-            
-            // Post time format in MySQL date format
-            $lastPostDate = ((isset($thisAnn['visibleFrom'])) ?
-                ($thisAnn['visibleFrom']) :
-                ($thisAnn['time']));
-            
-            // Set the current locator
-            $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisAnn['id'] ) );
-            $thisAnn['currentLocator'] = $currentLocator;
-        }
+        $thisAnn['content'] = make_clickable($thisAnn['content']);
         
-        $preparedAnnList[] = $thisAnn;
+        // Post time format in MySQL date format
+        $lastPostDate = ((isset($thisAnn['visibleFrom'])) ?
+            ($thisAnn['visibleFrom']) :
+            ($thisAnn['time']));
+        
+        // Set the current locator
+        $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisAnn['id'] ) );
+        $thisAnn['currentLocator'] = $currentLocator;
+        
+        
+        if (($is_allowedToEdit || ($isVisible && !$isOffDeadline)))
+        {
+            $preparedAnnList[] = $thisAnn;
+        }
     }
     
     $template = new ModuleTemplate($tlabelReq, 'list.tpl.php');
