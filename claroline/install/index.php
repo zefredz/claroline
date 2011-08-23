@@ -874,7 +874,7 @@ elseif ($display == DISP_WELCOME)
         .    '</div>'."\n\n"
         ;
     }
-    $mysql_ver = mysql_get_client_info();
+    
     // remove mysqlnd from client info string, if found
     $mysql_ver = preg_replace('/^mysqlnd /', '', mysql_get_client_info());
     echo '<p>'
