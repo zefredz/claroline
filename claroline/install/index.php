@@ -874,16 +874,16 @@ elseif ($display == DISP_WELCOME)
         .    '</div>'."\n\n"
         ;
     }
-	$mysql_ver = mysql_get_client_info();
-	// remove mysqlnd from client info string, if found
-	$mysql_ver = preg_replace('/^mysqlnd /', '', $client_ver);
+    $mysql_ver = mysql_get_client_info();
+    // remove mysqlnd from client info string, if found
+    $mysql_ver = preg_replace('/^mysqlnd /', '', mysql_get_client_info());
     echo '<p>'
     .    get_lang('Please, read thoroughly the <a href="%installFileUrl">%installFileName</a> document before proceeding to installation.', array('%installFileUrl' => '../../INSTALL.txt','%installFileName'=>'INSTALL.txt'))
     .    '</p>'
     .    '<fieldset>' . "\n"
-    .     '<legend>'.get_lang('Server requirements').'</legend>' . "\n"
+    .    '<legend>'.get_lang('Server requirements').'</legend>' . "\n"
     
-    .     '<table class="requirements">'
+    .    '<table class="requirements">'
     .    '<tbody>' . "\n"
     .    '<tr>'
     .    '<td>Php version >= 5.2</td>'
@@ -968,32 +968,32 @@ elseif ($display == DISP_WELCOME)
     .    '<tr>' . "\n"
     .    '<td>Display errors</td>' . "\n"
     .    '<td>Off</td>' . "\n"
-    .     '<td>' . check_php_setting('display_errors', 'OFF') . '</td>' . "\n"
+    .    '<td>' . check_php_setting('display_errors', 'OFF') . '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
     .    '<td>Register globals</td>' . "\n"
     .    '<td>Off</td>' . "\n"
-    .     '<td>' . check_php_setting('register_globals', 'OFF') . '</td>' . "\n"
+    .    '<td>' . check_php_setting('register_globals', 'OFF') . '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
     .    '<td>Magic quotes GPC</td>' . "\n"
     .    '<td>Off</td>' . "\n"
-    .     '<td>' . check_php_setting('magic_quotes_gpc', 'OFF') . '</td>' . "\n"
+    .    '<td>' . check_php_setting('magic_quotes_gpc', 'OFF') . '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
     .    '<td>File uploads</td>' . "\n"
     .    '<td>On</td>' . "\n"
-    .     '<td>' . check_php_setting('file_uploads', 'ON') . '</td>' . "\n"
+    .    '<td>' . check_php_setting('file_uploads', 'ON') . '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
     .    '<td>Upload max filesize</td>' . "\n"
     .    '<td>8-100M</td>' . "\n"
-    .     '<td>' . ini_get('upload_max_filesize') . '</td>' . "\n"
+    .    '<td>' . ini_get('upload_max_filesize') . '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
     .    '<td>Post max size</td>' . "\n"
     .    '<td>8-100M</td>' . "\n"
-    .     '<td>' . ini_get('post_max_size') . '</td>' . "\n"
+    .    '<td>' . ini_get('post_max_size') . '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</tbody>' . "\n"
     .    '</table>' . "\n\n"
@@ -1226,8 +1226,8 @@ elseif ($display == DISP_WELCOME)
     }
     
     echo '</tbody>' . "\n"
-    .   '</table>' . "\n"
-    .   '</fieldset>' . "\n\n"
+    .    '</table>' . "\n"
+    .    '</fieldset>' . "\n\n"
     ;
 
 }
@@ -1393,7 +1393,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
     
     echo '<fieldset>' . "\n"
     .    '<legend>'.get_lang('Database names').'</legend>' . "\n"
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="dbNameForm"><span class="required">*</span> '.($singleDbForm ? get_lang('Database name'):get_lang('Main database')).'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1409,7 +1409,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
                                                             : '<br/>INFO : ' . count($existingDbs) . ' databases found<br/><select size="8" ><option>' . implode('</option><option>', $existingDbs) . '</option></select>')
                                  : '')
      */
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="mainTblPrefixForm">'.get_lang('Prefix for main tables').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1498,8 +1498,8 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     {
         echo '<div class="claroDialogBox boxError">'  . "\n"
         .    '<p>' . "\n"
-        .     '<strong>'.get_lang('Error').'</strong> : '
-        .     get_lang('Please enter missing information')
+        .    '<strong>'.get_lang('Error').'</strong> : '
+        .    get_lang('Please enter missing information')
         .    '</p>' . "\n"
         .    '<p>'  . "\n"
         .    ( is_array($missing_admin_data) ? 'Fill in '.implode(', ',$missing_admin_data) .'<br />' : '' )
@@ -1512,7 +1512,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     echo '<fieldset>' . "\n"
     .    '<legend>'.get_lang('Administrator details').'</legend>' . "\n"
 
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="loginForm"><span class="required">*</span> '.get_lang('Login').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1522,7 +1522,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="passForm"><span class="required">*</span> '.get_lang('Password').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1532,7 +1532,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="adminEmailForm"><span class="required">*</span> '.get_lang('Email').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1542,7 +1542,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
         
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="adminNameForm"><span class="required">*</span> '.get_lang('Last name').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1552,7 +1552,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="adminSurnameForm"><span class="required">*</span> '.get_lang('First name').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1583,7 +1583,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '<fieldset>' . "\n"
     .    '<legend>'.get_lang('Campus').'</legend>' . "\n"
 
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="campusForm"><span class="required">*</span> '.get_lang('Name').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1592,7 +1592,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
 
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="urlForm"><span class="required">*</span> '.get_lang('Absolute URL').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1601,7 +1601,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
 
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="courseRepositoryForm">'.get_lang('Path to courses repository (relative to the URL above)').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1610,7 +1610,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
 
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="languageForm"><span class="required">*</span> '.get_lang('Main language').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1627,7 +1627,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '<fieldset>' . "\n"
     .    '<legend>'.get_lang('User').'</legend>' . "\n"
 
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<span class="required">*</span> ' . "\n"
     .    get_lang('Self-registration') . "\n"
@@ -1641,7 +1641,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<span class="required">*</span> ' . "\n"
     .    get_lang('Password storage') . "\n"
@@ -1671,10 +1671,10 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '</h2>'  . "\n"
     .    $msg_missing_administrative_data
     
-    .     '<fieldset>' . "\n"
+    .    '<fieldset>' . "\n"
     .    '<legend>'.get_lang('Related organization').'</legend>' . "\n"
     
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="institutionForm">'.get_lang('Institution name').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1683,7 +1683,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="institutionUrlForm">'.get_lang('Institution URL').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1697,7 +1697,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '<fieldset>' . "\n"
     .    '<legend>'.get_lang('Campus contact').'</legend>' . "\n"
 
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="contactNameForm"><span class="required">*</span> '.get_lang('Contact name').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1706,7 +1706,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="contactEmailForm"><span class="required">*</span> '.get_lang('Contact email').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1715,7 +1715,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     
-    .     '<div class="row">' . "\n"
+    .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
     .    '<label for="contactPhoneForm">'.get_lang('Contact phone').'</label>' . "\n"
     .    '</div>' . "\n"
@@ -1780,14 +1780,14 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     .    htmlspecialchars((empty($dbPassForm) ? '--empty--' : $dbPassForm))
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
-
+    
     .    '</table>' . "\n\n"
     
     .    '<table class="checkList">' . "\n\n"
     .    '<tr class="checkSubTitle">'
     .    '<th colspan="2">' . get_lang('Database usage') . '</th>'
     .    '<tr>' . "\n"
-            
+    
     .    '<tr class="check">' . "\n"
     .    '<td class="checkTitle">' . "\n"
     .    get_lang('Database mode') . ' : ' . "\n"
@@ -1871,7 +1871,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     }
         
     echo '</table>' . "\n\n"
-    .     '</fieldset>' . "\n"
+    .    '</fieldset>' . "\n"
 
     .    '<fieldset>' . "\n"
     .    '<legend>'.$panelTitle[DISP_ADMINISTRATOR_SETTING].'</legend>' . "\n"
