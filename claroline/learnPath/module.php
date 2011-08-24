@@ -3,12 +3,13 @@
 /**
  * CLAROLINE
  *
- * @version     1.8 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Piraux Sébastien <pir@cerdecam.be>
  * @author      Lederer Guillaume <led@cerdecam.be>
  * @package     CLLNP
+ * @since       1.8
  */
 
 /*======================================
@@ -162,13 +163,32 @@ if( !$is_allowedToEdit
     exit();
 }
 
+// Back button
+if ($is_allowedToEdit)
+{
+    $pathBack = "./learningPathAdmin.php";
+}
+else
+{
+    $pathBack = "./learningPath.php";
+}
+
+// Command list
+$cmdList = array();
+
+$cmdList[] = array(
+    'img' => 'back',
+    'name' => get_lang('Back to module list'),
+    'url' => $pathBack);
+
+// Display
 $out = '';
+
+$out .= claro_html_tool_title(get_lang('Module edition'), null, $cmdList);
 
 //####################################################################################\\
 //################################## MODULE NAME BOX #################################\\
 //####################################################################################\\
-
-$out .= '<br />'."\n";
 
 $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
 
@@ -183,7 +203,6 @@ else
 
 if($module['contentType'] != CTLABEL_ )
 {
-
     //####################################################################################\\
     //############################### MODULE COMMENT BOX #################################\\
     //####################################################################################\\
@@ -201,7 +220,7 @@ if($module['contentType'] != CTLABEL_ )
     {
         $out .= commentBox(MODULE_, DISPLAY_);
     }
-
+    
     //#### ADDED COMMENT #### courseAdmin can always modify this ####\\
     // this is a comment for THIS module in THIS learning path
     if ( $cmd == "updatespecificComment" )
@@ -217,18 +236,6 @@ if($module['contentType'] != CTLABEL_ )
         $out .= commentBox(LEARNINGPATHMODULE_, DISPLAY_);
     }
 } //  if($module['contentType'] != CTLABEL_ )
-
-//back button
-if ($is_allowedToEdit)
-{
-    $pathBack = "./learningPathAdmin.php";
-}
-else
-{
-    $pathBack = "./learningPath.php";
-}
-
-$out .= '<small><a href="'.$pathBack.'"><< '.get_lang('Back to list').'</a></small><br /><br />'."\n\n";
 
 //####################################################################################\\
 //############################ PROGRESS  AND  START LINK #############################\\
@@ -344,12 +351,12 @@ if($module['contentType'] != CTLABEL_) //
     {
 
         $out .= '<center>'."\n"
-        .    '<form action="./navigation/viewer.php" method="post">' . "\n"
-            . claro_form_relay_context()
-        .    '<input type="submit" value="' . get_lang('Start Module') . '" />'."\n"
-        .    '</form>' . "\n"
-        .    '</center>' . "\n\n"
-        ;
+              . '<form action="./navigation/viewer.php" method="post">' . "\n"
+              . claro_form_relay_context()
+              . '<input type="submit" value="' . get_lang('Start Module') . '" />'."\n"
+              . '</form>' . "\n"
+              . '</center>' . "\n\n"
+              ;
     }
     else
     {

@@ -461,28 +461,23 @@ if (isset($displayChangePosForm) && $displayChangePosForm)
 // Command list
 $cmdList = array();
 
-if ($is_allowedToEdit)
-{
-    $cmdList[] = array(
-        'img' => 'edit',
-        'name' => get_lang('Edit details'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-              . '?cmd=rqEdit&path_id=' . (int) $_SESSION['path_id']))
-    );
-}
 $cmdList[] = array(
+    'img' => 'add',
     'name' => get_lang('Add a document'),
     'url' => htmlspecialchars(Url::Contextualize('insertMyDoc.php'))
 );
 $cmdList[] = array(
+    'img' => 'add',
     'name' => get_lang('Add an exercise'),
     'url' => htmlspecialchars(Url::Contextualize('insertMyExercise.php'))
 );
 $cmdList[] = array(
+    'img' => 'add',
     'name' => get_lang('Add a module of this course'),
     'url' => htmlspecialchars(Url::Contextualize('insertMyModule.php'))
 );
 $cmdList[] = array(
+    'img' => 'add',
     'name' => get_lang('Create label'),
     'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=createLabel'))
 );
@@ -634,7 +629,7 @@ foreach ($flatElementList as $module)
 
         $contentType_alt = selectAlt($module['contentType']);
         $out .= "<a href=\"module.php?module_id=".$module['module_id']."\">"
-            . "<img src=\"" . $moduleImg . "\" alt=\"".$contentType_alt."\" >"
+            . "<img src=\"" . $moduleImg . "\" alt=\"".$contentType_alt."\" > "
             . htmlspecialchars( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ) )
             . "</a>";
     }

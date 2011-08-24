@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * This functions library is used by most of the pages of the learning path tool
+ * This functions library is used by most of the pages of the learning path tool.
  *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -82,11 +82,13 @@ function commentBox($type, $mode)
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
     
     $out = '';
+    
     // globals
     global $is_allowedToEdit;
+    
     // will be set 'true' if the comment has to be displayed
     $dsp = false;
-
+    
     // those vars will be used to build sql queries according to the comment type
     switch ( $type )
     {
@@ -118,7 +120,7 @@ function commentBox($type, $mode)
                                         AND `module_id` = " . (int) $_SESSION['module_id'];  // use backticks ( ` ) for col names and simple quote ( ' ) for string
             break;
     }
-
+    
     // update mode
     // allow to chose between
     // - update and show the comment and the pencil and the delete cross (UPDATE_)
@@ -128,10 +130,10 @@ function commentBox($type, $mode)
         if ( isset($_POST['insertCommentBox']) )
         {
             $sql = "UPDATE `" . $tbl_name . "`
-                           SET `" . $col_name . "` = \"". claro_sql_escape($_POST['insertCommentBox'])."\"
-                         WHERE " . $where_cond;
+                    SET `" . $col_name . "` = \"". claro_sql_escape($_POST['insertCommentBox'])."\"
+                    WHERE " . $where_cond;
             claro_sql_query($sql);
-
+            
             if($mode == UPDATE_)
                 $dsp = true;
             elseif($mode == UPDATENOTSHOWN_)
@@ -144,20 +146,18 @@ function commentBox($type, $mode)
                        FROM `" . $tbl_name . "`
                       WHERE " . $where_cond;
             $oldComment = claro_sql_query_get_single_value($sql);
-
+            
             $out .= '<form method="post" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
-                .claro_html_textarea_editor('insertCommentBox', $oldComment, 15, 55).'<br />' . "\n"
-                .'<input type="hidden" name="cmd" value="update' . $col_name . '" />'
-                .'<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-                .'<br />' . "\n"
-                .'</form>' . "\n"
-            ;
+                  . claro_html_textarea_editor('insertCommentBox', $oldComment, 15, 55).'<br />' . "\n"
+                  . '<input type="hidden" name="cmd" value="update' . $col_name . '" />'
+                  . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+                  . '<br />' . "\n"
+                  . '</form>' . "\n";
         }
-
     }
-
+    
     // delete mode
-    if ( $mode == DELETE_ && $is_allowedToEdit)
+    if ( $mode == DELETE_ && $is_allowedToEdit )
     {
         $sql =  "UPDATE `" . $tbl_name . "`
                  SET `" . $col_name . "` = ''
@@ -165,37 +165,67 @@ function commentBox($type, $mode)
         claro_sql_query($sql);
         $dsp = TRUE;
     }
-
+    
     // display mode only or display was asked by delete mode or update mode
     if ( $mode == DISPLAY_ || $dsp == TRUE )
     {
         $sql = "SELECT `".$col_name."`
                 FROM `" . $tbl_name . "`
                 WHERE " . $where_cond;
-
+        
         $currentComment = claro_sql_query_get_single_value($sql);
-
+        
         // display nothing if this is default comment and not an admin
         if ( ($currentComment == $defaultTxt) && !$is_allowedToEdit ) return '';
-
+        
         if ( empty($currentComment) )
         {
             // if no comment and user is admin : display link to add a comment
             if ( $is_allowedToEdit )
             {
+                $textLink = '';
+                if ($type == MODULE_)
+                {
+                    $textLink = get_lang('Add a comment to this module');
+                }
+                elseif ($type == LEARNINGPATHMODULE_)
+                {
+                    $textLink = get_lang('Add a specific comment to this module');
+                }
+                else
+                {
+                    $textLink = get_lang('Add a comment');
+                }
+                
                 $out .= '<p>' . "\n"
-                .    claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                        . '?cmd=update' . $col_name . claro_url_relay_context('&amp;')
-                                        ,  get_lang('Add a comment')
-                                        )
-                .    '</p>' . "\n"
-                ;
+                      . claro_html_cmd_link(
+                            $_SERVER['PHP_SELF']
+                            . '?cmd=update' . $col_name . claro_url_relay_context('&amp;'),
+                            $textLink
+                      )
+                      . '</p>' . "\n";
             }
         }
         else
         {
             // display comment
             $out .= "<p>".claro_parse_user_text($currentComment)."</p>";
+            // display edit and delete links if user as the right to see it
+            if ( $is_allowedToEdit )
+            {
+                $out .= '<p>' . "\n"
+                .    '<small>' . "\n"
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=update' . $col_name . '">' . "\n"
+                .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />' . "\n"
+                .    '</a>' . "\n"
+                .    '<a href="' . $_SERVER['PHP_SELF'].'?cmd=del' . $col_name . '" '
+                .    ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript(get_lang('Please confirm your choice')).'\')) return false;">' . "\n"
+                .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
+                .    '</a>' . "\n"
+                .    '</small>' . "\n"
+                .    '</p>' . "\n"
+                ;
+            }
         }
     }
 
@@ -224,7 +254,7 @@ function nameBox($type, $mode)
     global $urlAppend;
 
     // $dsp will be set 'true' if the comment has to be displayed
-    $dsp = FALSE;
+    $dsp = false;
 
     // those vars will be used to build sql queries according to the name type
     switch ( $type )
@@ -262,12 +292,12 @@ function nameBox($type, $mode)
                                     WHERE " . $where_cond;
 
                 claro_sql_query($sql);
-                $dsp = TRUE;
+                $dsp = true;
             }
             else
             {
                 $out .= get_lang('Error : Name already exists in the learning path or in the module pool') . '<br />';
-                $dsp = TRUE;
+                $dsp = true;
             }
         }
         else // display form
@@ -300,8 +330,13 @@ function nameBox($type, $mode)
         $currentName = claro_sql_query_get_single_value($sql);
 
         $out .= '<h4>'
-        .    claro_utf8_decode( $currentName, get_conf( 'charset' ) )
-        .    '</h4>'."\n\n";
+        .    claro_utf8_decode( $currentName, get_conf( 'charset' ) );
+
+        if ( $is_allowedToEdit )
+            $out .= '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
+            .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
+            .    '</a>' . "\n"
+            .    '</h4>'."\n\n";
     }
 
     return $out;
@@ -427,10 +462,10 @@ function is_num($var)
         if ( $ascii >= 48 && $ascii <= 57)
             continue;
         else
-            return FALSE;
+            return false;
     }
 
-    return TRUE;
+    return true;
 }
 
 
@@ -657,7 +692,7 @@ function display_my_exercises($dialogBox)
     .    '</thead>'."\n\n";
     
     // Display available modules
-    $atleastOne = FALSE;
+    $atleastOne = false;
     $sql = "SELECT `id`, `title`, `description`
             FROM `" . $tbl_quiz_exercise . "`
             ORDER BY  `title`, `id`";
@@ -1184,10 +1219,10 @@ function isScormTime($time)
     $mask = "/^[0-9]{2,4}:[0-9]{2}:[0-9]{2}.?[0-9]?[0-9]?$/";
     if (preg_match($mask,$time))
      {
-       return TRUE;
+       return true;
      }
 
-    return FALSE;
+    return false;
 }
 
  /**
@@ -1221,10 +1256,10 @@ function addScormTime($time1, $time2)
 
           // calculate the resulting added hours, secondes, ... for result
 
-          $primesReport = FALSE;
-          $secondesReport = FALSE;
-          $minutesReport = FALSE;
-          $hoursReport = FALSE;
+          $primesReport = false;
+          $secondesReport = false;
+          $minutesReport = false;
+          $hoursReport = false;
 
         //calculate primes
 
@@ -1234,7 +1269,7 @@ function addScormTime($time1, $time2)
           if ($total_primes >= 100)
           {
             $total_primes -= 100;
-            $primesReport = TRUE;
+            $primesReport = true;
           }
 
         //calculate secondes
@@ -1244,7 +1279,7 @@ function addScormTime($time1, $time2)
           if ($total_secondes >= 60)
           {
             $total_secondes -= 60;
-            $secondesReport = TRUE;
+            $secondesReport = true;
           }
 
         //calculate minutes
@@ -1254,7 +1289,7 @@ function addScormTime($time1, $time2)
           if ($total_minutes >= 60)
           {
             $total_minutes -= 60;
-            $minutesReport = TRUE;
+            $minutesReport = true;
           }
 
         //calculate hours
@@ -1264,7 +1299,7 @@ function addScormTime($time1, $time2)
           if ($total_hours >= 10000)
           {
             $total_hours -= 10000;
-            $hoursReport = TRUE;
+            $hoursReport = true;
           }
 
         // construct and return result string

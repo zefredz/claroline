@@ -1,19 +1,16 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Piraux Sébastien <pir@cerdecam.be>
- * @author Lederer Guillaume <led@cerdecam.be>
- *
- * @package CLLNP
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Piraux Sébastien <pir@cerdecam.be>
+ * @author      Lederer Guillaume <led@cerdecam.be>
+ * @package     CLLNP
+ * @since       1.8
  */
 
 function lp_display_document($TABLEASSET)
@@ -22,7 +19,7 @@ function lp_display_document($TABLEASSET)
 
   // Update infos about asset
   $sql = "SELECT `path`
-           FROM `".$TABLEASSET."`
+          FROM `".$TABLEASSET."`
           WHERE `module_id` = ". (int)$_SESSION['module_id'];
   $assetPath = claro_sql_query_get_single_value($sql);
   
@@ -58,5 +55,3 @@ function lp_display_document($TABLEASSET)
     
     return $out;
 }
-
-?>
