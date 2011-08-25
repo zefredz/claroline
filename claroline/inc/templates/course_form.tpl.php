@@ -132,7 +132,7 @@
                 
                 <!-- Course access -->
                 <dt>
-                    <?php echo get_lang('Course access'); ?><span class="required">*</span>
+                    <?php echo get_lang('Course access'); ?> <span class="required">*</span>
                 </dt>
                 <dd>
                     <img src="<?php echo get_icon_url('access_open'); ?>" alt="<?php echo get_lang('open'); ?>" />
@@ -164,7 +164,7 @@
                 
                 <!-- Course registration + registration key -->
                 <dt>
-                    <?php echo get_lang('Registration settings'); ?><span class="required">*</span>
+                    <?php echo get_lang('Registration settings'); ?> <span class="required">*</span>
                 </dt>
                 <dd>
                     <img src="<?php echo get_icon_url('enroll_allowed'); ?>"  alt="" />
