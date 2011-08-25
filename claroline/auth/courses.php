@@ -229,7 +229,7 @@ if ( $cmd == 'exReg' )
     $courseObj = new ClaroCourse;
     $courseObj->load($courseCode);
     
-    $courseRegistration = new CourseUserRegistration( 
+    $courseRegistration = new CourseUserRegistration(
         AuthProfileManager::getUserAuthProfile($userId),
         $courseObj,
         $registrationKey,
@@ -282,8 +282,8 @@ if ( $cmd == 'exReg' )
             {
                 $displayMode = DISPLAY_REGISTRATION_DISABLED_FORM;
                 $dialogBox->error( $courseRegistration->getErrorMessage() );
-                $dialogBox->info( 
-                    get_lang('Please contact the course manager : %email' , 
+                $dialogBox->info(
+                    get_lang('Please contact the course manager : %email' ,
                     array ('%email' => '<a href="mailto:'.$courseObj->email . '?body=' . $courseObj->officialCode . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseObj->titular) . '</a>')) );
             }
             break;
@@ -725,7 +725,7 @@ switch ( $displayMode )
             get_conf('crslist_UserCanUnregFromInactiveCourses', false)
             || claro_is_platform_admin();
         
-        if ( count($inactiveCourseList) > 0 )
+        if ( isset($inactiveCourseList) && count($inactiveCourseList) > 0 )
         {
             $out .= claro_html_tool_title(get_lang('Deactivated course list'))
                   . '<table class="claroTable">' . "\n";
