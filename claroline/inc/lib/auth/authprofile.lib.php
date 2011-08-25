@@ -518,6 +518,12 @@ class CourseUserRegistration
     {
         if ( $this->course->registration == 'open' && !empty( $this->course->registrationKey ) )
         {
+            if( empty( $this->givenCourseKey ) )
+            {
+                $this->errorMessage = get_lang('This course requires a key for enrolment');
+                $this->status = self::STATUS_KEYVALIDATION_FAILED;
+                return false;
+            }
             if ( $this->givenCourseKey != $this->course->registrationKey )
             {
                 $this->errorMessage = get_lang('Invalid enrolment key given');

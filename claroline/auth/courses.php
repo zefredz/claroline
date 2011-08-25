@@ -783,8 +783,6 @@ switch ( $displayMode )
         $out .= claro_html_tool_title( array('mainTitle' => get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'],
         'subTitle' => get_lang('Enrol to %course', array('%course' => $courseName) )));
         
-        $dialogBox->title(get_lang('This course requires a key for enrolment'));
-        
         $dialogBox->form('<p><small>(' . get_lang('If you do not have the key, please contact the course manager') . ')</small></p>' . "\n"
         .     get_locked_course_by_key_explanation($courseCode)
         .     '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
