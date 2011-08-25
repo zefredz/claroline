@@ -633,7 +633,7 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
             $course_user_data['role'] = $cuData['role']; // not used
             
             $course_user_privilege['_profileId']        = $cuData['profileId'];
-            $course_user_privilege['is_courseMember']   = true;
+            $course_user_privilege['is_courseMember']   = (bool) ($cuData['isPending' ] == 0 );
             $course_user_privilege['is_courseTutor']    = (bool) ($cuData['tutor' ] == 1 );
             $course_user_privilege['is_courseAdmin']    = (bool) ($cuData['isCourseManager'] == 1 );
         }
