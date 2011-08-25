@@ -13,6 +13,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
+require '../inc/lib/course_user.lib.php';
 
 // Keep the username in session
 if (isset($_REQUEST['login']))
@@ -197,13 +198,23 @@ else
         {
             if ( claro_is_user_authenticated() )
             {
-                // Display link to student to enrol to this course
-                $out .= '<p align="center">'           ."\n"
-                      . get_lang('Your user profile doesn\'t seem to be enrolled on this course').'<br />'
-                      . get_lang('If you wish to enrol on this course') . ' : '
-                      . ' <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
-                      . get_lang('Enrolment').'</a>' ."\n"
-                      . '</p>'          ."\n";
+                if (claro_is_course_registration_pending())
+                {
+                    // Display link to student to enrol to this course
+                    $out .= '<p align="center">' . "\n"
+                          . get_lang('You are currently in a pending state: you won\'t be able to access this course\'s content until the course manager grants you the access.') . "\n"
+                          . '</p>' . "\n";
+                }
+                else
+                {
+                    // Display link to student to enrol to this course
+                    $out .= '<p align="center">' . "\n"
+                          . get_lang('Your user profile doesn\'t seem to be enrolled on this course').'<br />'
+                          . get_lang('If you wish to enrol on this course') . ' : '
+                          . ' <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
+                          . get_lang('Enrolment').'</a>' . "\n"
+                          . '</p>' . "\n";
+                }
             }
             elseif ( get_conf('allowSelfReg') )
             {

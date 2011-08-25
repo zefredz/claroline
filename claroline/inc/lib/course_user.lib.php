@@ -37,7 +37,7 @@ function user_add_to_course(
     $courseObj = new ClaroCourse();
     $courseObj->load($courseCode);
     
-    $courseRegistration = new CourseUserRegistration( 
+    $courseRegistration = new CourseUserRegistration(
         AuthProfileManager::getUserAuthProfile($userId),
         $courseObj,
         null,
@@ -68,7 +68,7 @@ function user_add_to_course(
         // @todo should throw an exception here
         Console::error(
             "Cannot register user {$userId} in course {$courseCode} ["
-            . $courseRegistration->getStatus() . ":" 
+            . $courseRegistration->getStatus() . ":"
             . $courseRegistration->getErrorMessage()."]" );
             
         return false;
@@ -640,7 +640,7 @@ function claro_get_course_user_list($courseCode = NULL)
 /**
  * Get the number of pending users in a given course
  * @param string $courseId (optional, current course will be used if not given)
- * @return int 
+ * @return int
  */
 function claro_count_pending_users( $courseId = null )
 {
@@ -651,10 +651,27 @@ function claro_count_pending_users( $courseId = null )
     
     $tbl_mdb_names          = claro_sql_get_main_tbl();
     $tbl_rel_course_user    = $tbl_mdb_names['rel_course_user'];
-
+    
     return Claroline::getDatabase()->query("
         SELECT *
         FROM `{$tbl_rel_course_user}`
         WHERE code_cours = " . Claroline::getDatabase()->quote($courseId) . "
         AND isPending = 1")->numRows();
+}
+
+function claro_is_course_registration_pending( $courseId = null, $userId = null )
+{
+    if ( !$courseId )
+    {
+        $courseId = claro_get_current_course_id();
+    }
+    
+    if ( !$userId )
+    {
+        $userId = claro_get_current_user_id();
+    }
+    
+    $privileges = claro_get_course_user_privilege($courseId, $userId);
+    
+    return $privileges['is_coursePending'];
 }

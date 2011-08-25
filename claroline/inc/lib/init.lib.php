@@ -529,9 +529,9 @@ function get_init($param)
     , '_courseUser'            // claro_get_current_course_user_data(field=all)
     , '_courseTool'            // claro_get_current_course_tool_data(field=all)
     , '_courseToolList'        // claro_get_current_course_tool_list_data(field=all)
-    , 'is_courseMember'        // claro_is_courseMember()
-    , 'is_courseTutor'         // claro_is_courseTutor()
-    , 'is_courseAdmin'         // claro_is_courseAdmin()
+    , 'is_courseMember'        // claro_is_course_member()
+    , 'is_courseTutor'         // claro_is_course_tutor()
+    , 'is_courseAdmin'         // claro_is_course_admin()
     , 'is_courseAllowed'       // claro_is_course_allowed()
     , 'is_allowedCreateCourse' // claro_is_allowed_to_create_course() or claro_is_course_creator()
     , 'is_groupMember'         // claro_is_groupMember()
@@ -633,13 +633,15 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
             $course_user_data['role'] = $cuData['role']; // not used
             
             $course_user_privilege['_profileId']        = $cuData['profileId'];
+            $course_user_privilege['is_coursePending']  = (bool) ($cuData['isPending' ]);
             $course_user_privilege['is_courseMember']   = (bool) ($cuData['isPending' ] == 0 );
-            $course_user_privilege['is_courseTutor']    = (bool) ($cuData['tutor' ] == 1 );
+            $course_user_privilege['is_courseTutor']    = (bool) ($cuData['tutor'] == 1 );
             $course_user_privilege['is_courseAdmin']    = (bool) ($cuData['isCourseManager'] == 1 );
         }
         else // this user has no status related to this course
         {
             $course_user_privilege['_profileId']        = claro_get_profile_id('guest');
+            $course_user_privilege['is_coursePending']  = false;
             $course_user_privilege['is_courseMember']   = false;
             $course_user_privilege['is_courseAdmin']    = false;
             $course_user_privilege['is_courseTutor']    = false;

@@ -15,6 +15,8 @@
  * @since       1.9
  */
 
+require '../course_user.lib.php';
+
 class ClaroViewMode implements Display
 {
     private static $instance = false;
@@ -43,7 +45,15 @@ class ClaroViewMode implements Display
             && ( claro_is_in_a_course() && !claro_is_course_member() )
             && claro_get_current_course_data('registrationAllowed') )
         {
-            $out .= $this->renderRegistrationLink();
+            if (claro_is_course_registration_pending())
+            {
+                $out .= '<img src="'.get_icon_url('untick').'" alt="off" /> '
+                      . '<b>'.get_lang('You are not validated').'</b>';
+            }
+            else
+            {
+                $out .= $this->renderRegistrationLink();
+            }
         }
         elseif ( claro_is_display_mode_available() )
         {

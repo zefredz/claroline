@@ -602,12 +602,12 @@ foreach ( $userList as $thisUser )
             $tips = '';
             if ($thisUser['isPending'])
             {
-                $icon = 'off';
+                $icon = 'untick';
                 $tips = 'Enable this user';
             }
             else
             {
-                $icon = 'on';
+                $icon = 'tick';
                 $tips = 'Disable this user';
             }
             
