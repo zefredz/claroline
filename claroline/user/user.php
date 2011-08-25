@@ -468,10 +468,10 @@ if ( $is_allowedToEdit ) // EDIT COMMANDS
        . '<th>'.get_lang('Edit').'</th>'."\n"
        . '<th>'.get_lang('Unregister').'</th>'."\n";
        
-       if ( $course['registration'] == 'validation' 
+       if ( $course['registration'] == 'validation'
            || claro_count_pending_users(claro_get_current_course_id()) > 0 )
        {
-           $out .= '<th>'.get_lang('Validation').'</th>'."\n" ;
+           $out .= '<th>'.get_lang('Activation').'</th>'."\n" ;
        }
 }
 
@@ -606,7 +606,7 @@ foreach ( $userList as $thisUser )
         $out .= '</td>' . "\n";
 
         // User's validation column
-        if ( $course['registration'] == 'validation' 
+        if ( $course['registration'] == 'validation'
             || claro_count_pending_users(claro_get_current_course_id()) > 0 )
         {
             $out .= '<td>';
@@ -617,13 +617,13 @@ foreach ( $userList as $thisUser )
                 $tips = '';
                 if ($thisUser['isPending'])
                 {
-                    $icon = 'untick';
-                    $tips = 'Validate this user';
+                    $icon = 'off';
+                    $tips = 'Enable this user';
                 }
                 else
                 {
-                    $icon = 'tick';
-                    $tips = 'Unvalidate this user';
+                    $icon = 'on';
+                    $tips = 'Disable this user';
                 }
                 $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                 .    '?cmd=validation&amp;user_id=' . $thisUser['user_id'] )) . '&amp;offset='.$offset . '" '

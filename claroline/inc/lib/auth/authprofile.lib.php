@@ -6,8 +6,8 @@ require_once dirname(__FILE__) . '/authmanager.lib.php';
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Authentication Profiles API is used to give specific rights to a user based 
- * on his authentication source. This library provides a new course registration 
+ * Authentication Profiles API is used to give specific rights to a user based
+ * on his authentication source. This library provides a new course registration
  * mechanism that uses those profile to enrol a user in a course.
  *
  * @version     1.11 $Revision$
@@ -36,7 +36,7 @@ class AuthProfile
     /**
      *
      * @param int $userId
-     * @param string $authSource 
+     * @param string $authSource
      */
     public function __construct( $userId, $authSource )
     {
@@ -46,7 +46,7 @@ class AuthProfile
     
     /**
      * Get the user id
-     * @return int 
+     * @return int
      */
     public function getUserId()
     {
@@ -148,7 +148,7 @@ class AuthProfileManager
     /**
      * Get the authentication profile for the given user id
      * @param int $userId
-     * @return AuthProfile 
+     * @return AuthProfile
      */
     public function getUserAuthProfile( $userId )
     {
@@ -185,20 +185,20 @@ class AuthProfileManager
  */
 class CourseUserRegistration
 {
-    const 
+    const
         STATUS_OK = 0,
         STATUS_REGISTRATION_FAILED = 1,
         STATUS_KEYVALIDATION_FAILED = 2,
         STATUS_SYSTEM_ERROR = 4,
         STATUS_REGISTRATION_NOTAVAILABLE = 8;
     
-    protected 
-        $admin = false, 
-        $tutor = false, 
+    protected
+        $admin = false,
+        $tutor = false,
         $registerByClass = false,
-        $userAuthProfile, 
-        $course, 
-        $givenCourseKey, 
+        $userAuthProfile,
+        $course,
+        $givenCourseKey,
         $categoryId;
     
     protected $status = 0, $errorMessage = '';
@@ -210,9 +210,9 @@ class CourseUserRegistration
      * @param type $givenCourseKey optionnal given registration key (default null)
      * @param type $categoryId optionnal given categoryId (default null)
      */
-    public function __construct( 
-        AuthProfile $userAuthProfile, 
-        ClaroCourse $course, 
+    public function __construct(
+        AuthProfile $userAuthProfile,
+        ClaroCourse $course,
         $givenCourseKey = null,
         $categoryId = null )
     {
@@ -222,11 +222,11 @@ class CourseUserRegistration
         $this->categoryId = $categoryId;
         
         // is the user doing the registration a super user ?
-        if ( claro_is_in_a_course() 
+        if ( claro_is_in_a_course()
             && claro_get_current_course_id() == $this->course->courseId )
         {
-            $this->isSuperUser = claro_is_platform_admin() 
-                || claro_is_course_manager() 
+            $this->isSuperUser = claro_is_platform_admin()
+                || claro_is_course_manager()
                 || claro_is_allowed_tool_edit( get_module_data( 'CLUSER', 'id' ) );
         }
         else
@@ -305,11 +305,11 @@ class CourseUserRegistration
         $tbl_rel_course_user    = $tbl_mdb_names['rel_course_user'];
 
         if (  Claroline::getDatabase()->query("
-            SELECT 
+            SELECT
                 user_id
-            FROM 
+            FROM
                 `{$tbl_user}`
-            WHERE 
+            WHERE
                 user_id = " . Claroline::getDatabase()->escape($userId) )->numRows() == 0 )
         {
             $this->status = self::STATUS_SYSTEM_ERROR;
@@ -320,13 +320,13 @@ class CourseUserRegistration
         {
             // Previously check if the user isn't already subscribed to the course
             $courseUserListResultSet = Claroline::getDatabase()->query( "
-                SELECT 
+                SELECT
                     count_user_enrol, count_class_enrol
-                FROM 
+                FROM
                     `{$tbl_rel_course_user}`
-                WHERE 
+                WHERE
                     user_id = " . Claroline::getDatabase()->escape($userId) . "
-                AND 
+                AND
                     code_cours = " . Claroline::getDatabase()->quote($courseCode) );
 
             if ( $courseUserListResultSet->numRows() > 0 )
@@ -337,7 +337,7 @@ class CourseUserRegistration
                 $count_class_enrol = (int) $course_user_list->count_class_enrol;
 
                 // Increment the count of registration by the user or class
-                if ( ! $this->registerByClass )  
+                if ( ! $this->registerByClass )
                 {
                     $count_user_enrol = 1;
                 }
@@ -347,15 +347,15 @@ class CourseUserRegistration
                 }
 
                 if ( !Claroline::getDatabase()->exec("
-                    UPDATE 
+                    UPDATE
                         `{$tbl_rel_course_user}`
-                    SET 
+                    SET
                         `count_user_enrol` = " . $count_user_enrol . ",
                         `count_class_enrol` = " . $count_class_enrol . "
-                    WHERE 
+                    WHERE
                         user_id = " . Claroline::getDatabase()->escape($userId) . "
-                    AND 
-                        code_cours = " . Claroline::getDatabase()->quote($courseCode) 
+                    AND
+                        code_cours = " . Claroline::getDatabase()->quote($courseCode)
                 ) )
                 {
                     $this->status = self::STATUS_SYSTEM_ERROR;
@@ -374,8 +374,8 @@ class CourseUserRegistration
                 $count_class_enrol = 0;
 
                 // If a validation is requested for this course: isPending is true
-                // If the user is course manager, never flag him as "pending"
-                $isPending = !$this->admin && $this->isValidationRequired() ? 1 : 0;
+                // If the current user is course manager: isPending is false
+                $isPending = !$this->admin && $this->isValidationRequired() ? true : false;
 
 
                 if ( ! $this->registerByClass )
@@ -406,7 +406,7 @@ class CourseUserRegistration
                                 user_id         = " . (int) $userId . ",
                                 profile_id      = " . (int) $profileId . ",
                                 isCourseManager = " . (int) ($this->admin ? 1 : 0 ) . ",
-                                isPending       = " . $isPending . ",
+                                isPending       = " . (int) ($isPending ? 1 : 0) . ",
                                 tutor           = " . (int) ($this->tutor ? 1 : 0) . ",
                                 count_user_enrol = " . $count_user_enrol . ",
                                 count_class_enrol = " . $count_class_enrol ) )
@@ -422,7 +422,7 @@ class CourseUserRegistration
                             user_id         = " . (int) $userId . ",
                             profile_id      = " . (int) $profileId . ",
                             isCourseManager = " . (int) ($this->admin ? 1 : 0 ) . ",
-                            isPending       = " . $isPending . ",
+                            isPending       = " . (int) ($isPending ? 1 : 0) . ",
                             tutor           = " . (int) ($this->tutor ? 1 : 0) . ",
                             count_user_enrol = " . $count_user_enrol . ",
                             count_class_enrol = " . $count_class_enrol ) )
@@ -466,7 +466,7 @@ class CourseUserRegistration
     
     /**
      * Is the user allowed to enrol to the course
-     * @return boolean 
+     * @return boolean
      */
     protected function isRegistrationAllowed()
     {
@@ -507,7 +507,7 @@ class CourseUserRegistration
     
     /**
      * Get the profile name in the course
-     * @return string 
+     * @return string
      */
     protected function getCourseProfile ()
     {
@@ -543,7 +543,7 @@ class CourseUserRegistration
     
     /**
      * Is the registration allowed in the current course
-     * @return boolean 
+     * @return boolean
      */
     protected function isCourseRegistrationAllowed()
     {
@@ -566,7 +566,7 @@ class CourseUserRegistration
             $isUserAllowedToEnrol = false;
             $this->status = self::STATUS_REGISTRATION_NOTAVAILABLE;
             $this->errorMessage = get_lang(
-                'This course currently does not allow new enrolments (registration: %registration)', 
+                'This course currently does not allow new enrolments (registration: %registration)',
                 array('%registration' => $this->getCourseRegistrationMode()) );
         }
         elseif ( !in_array( $this->course->status, array('enable', 'date') ) )
@@ -574,7 +574,7 @@ class CourseUserRegistration
             $isUserAllowedToEnrol = false;
             $this->status = self::STATUS_REGISTRATION_NOTAVAILABLE;
             $this->errorMessage = get_lang(
-                'This course currently does not allow new enrolments (status: %status)', 
+                'This course currently does not allow new enrolments (status: %status)',
                 array('%status' => $this->course->status));
         }
         elseif ( $this->course->status == 'date' && !empty($this->course->publicationDate) && $this->course->publicationDate >= $curdate )
@@ -594,13 +594,13 @@ class CourseUserRegistration
                 array('%date' => claro_date('d/m/Y', $this->course->expirationDate)));
             
         }
-        elseif ( $this->course->status == 'date' 
+        elseif ( $this->course->status == 'date'
             && ( empty($this->course->expirationDate) && empty($this->course->publicationDate) ) )
         {
             $isUserAllowedToEnrol = false;
             $this->status = self::STATUS_SYSTEM_ERROR;
             $this->errorMessage = get_lang('This course is not available');
-            Console::error( 
+            Console::error(
                 "Invalid publication and expiration date for course " . $this->course->courseId );
         }
         else
@@ -614,7 +614,7 @@ class CourseUserRegistration
     /**
      * If the course registration requires registration to the course category,
      * check if the user is register to the category
-     * @return boolean 
+     * @return boolean
      */
     protected function isAllowedToRegisterToCategory()
     {
@@ -642,11 +642,11 @@ class CourseUserRegistration
     
     /**
      * Check if there the user number limit is not exceded in the course
-     * @return type 
+     * @return type
      */
     protected function isUserLimitExceeded()
     {
-        if ( $this->course->userLimit != 0 
+        if ( $this->course->userLimit != 0
             && $this->countCourseUsers() >= $this->course->userLimit )
         {
             return true;
@@ -659,7 +659,7 @@ class CourseUserRegistration
     
     /**
      * Count the number of non manager users in the course
-     * @return boolean 
+     * @return boolean
      */
     protected function countCourseUsers()
     {

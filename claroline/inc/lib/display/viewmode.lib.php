@@ -5,13 +5,14 @@
 /**
  * View mode block.
  *
- * @version     1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     display
+ * @since       1.9
  */
 
 class ClaroViewMode implements Display
@@ -74,7 +75,7 @@ class ClaroViewMode implements Display
             $out .= ' | <a href="' . get_path('clarolineRepositoryWeb')
                 . 'auth/courses.php?cmd=exReg&course='
                 . claro_get_current_course_id().'">'
-                . claro_html_icon( 'enroll' )
+                . claro_html_icon( 'enroll' ) . ' '
                 . '<b>' . get_lang('Enrolment') . '</b>'
                 . '</a>'
                 ;
@@ -95,7 +96,7 @@ class ClaroViewMode implements Display
             . get_path('clarolineRepositoryWeb')
             . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id()
             . '">'
-            . claro_html_icon( 'enroll' )
+            . claro_html_icon( 'enroll' ) . ' '
             . '<b>' . get_lang('Enrolment') . '</b>'
             . '</a>'
             ;
