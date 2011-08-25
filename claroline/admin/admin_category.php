@@ -211,7 +211,7 @@ $categories = claroCategory::getAllCategories();
 $cmdList = array();
 
 $cmdList[] = array(
-    'img' => 'default_new',
+    'img' => 'category_new',
     'name' => get_lang('Create a category'),
     'url' => $_SERVER['PHP_SELF'] . '?cmd=rqAdd'
 );
