@@ -44,18 +44,11 @@ include claro_get_conf_repository() . 'user_profile.conf.php';
    JavaScript - Delete Confirmation
   ----------------------------------------------------------------------*/
 
-$htmlHeadXtra[] =
-'
-<script type="text/javascript">
-function confirmation (name)
-{
-    if (confirm(" ' . clean_str_for_javascript(get_lang('Are you sure to delete')) . ' "+ name + " ?"))
-        {return true;}
-    else
-        {return false;}
-}
-</script>
-';
+$jslang = new JavascriptLanguage;
+$jslang->addLangVar('Are you sure to delete %name ?');
+ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+
+JavascriptLoader::getInstance()->load('user');
 
 /*----------------------------------------------------------------------
    Variables
@@ -466,13 +459,8 @@ if ( $is_allowedToEdit ) // EDIT COMMANDS
     $out .= '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['tutor'])).'">'.get_lang('Group Tutor').'</a></th>'."\n"
        . '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['isCourseManager'])).'">'.get_lang('Course manager').'</a></th>'."\n"
        . '<th>'.get_lang('Edit').'</th>'."\n"
-       . '<th>'.get_lang('Unregister').'</th>'."\n";
-       
-       if ( $course['registration'] == 'validation'
-           || claro_count_pending_users(claro_get_current_course_id()) > 0 )
-       {
-           $out .= '<th>'.get_lang('Activation').'</th>'."\n" ;
-       }
+       . '<th>'.get_lang('Unregister').'</th>'."\n"
+       . '<th>'.get_lang('Activation').'</th>'."\n" ;
 }
 
 $out .= '</tr>'."\n"
@@ -498,7 +486,7 @@ foreach ( $userList as $thisUser )
        . '<img src="' . get_icon_url('user') . '" alt="" />'."\n"
        . '<small>' . $i . '</small>'."\n"
        . '&nbsp;';
-
+    
     if ( $is_allowedToEdit || get_conf('linkToUserInfo') )
     {
         $out .= '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?uInfo=' . (int) $thisUser['user_id'] )) . '">'
@@ -593,7 +581,7 @@ foreach ( $userList as $thisUser )
         {
             $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
             .    '?cmd=unregister&amp;user_id=' . $thisUser['user_id'] )) . '&amp;offset='.$offset . '" '
-            .    'onclick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
+            .    'onclick="return CLUSR.confirmation(\''.clean_str_for_javascript($thisUser['nom'].' '.$thisUser['prenom']).'\');">'
             .    '<img alt="' . get_lang('Unregister') . '" src="' . get_icon_url('unenroll') . '" />'
             .    '</a>'
             ;
@@ -602,44 +590,41 @@ foreach ( $userList as $thisUser )
         {
             $out .= '&nbsp;';
         }
-
+        
         $out .= '</td>' . "\n";
-
+        
         // User's validation column
-        if ( $course['registration'] == 'validation'
-            || claro_count_pending_users(claro_get_current_course_id()) > 0 )
+        $out .= '<td>' . "\n";
+        
+        if ($thisUser['user_id'] != claro_get_current_user_id())
         {
-            $out .= '<td>';
-            
-            if ($thisUser['user_id'] != claro_get_current_user_id())
+            $icon = '';
+            $tips = '';
+            if ($thisUser['isPending'])
             {
-                $icon = '';
-                $tips = '';
-                if ($thisUser['isPending'])
-                {
-                    $icon = 'off';
-                    $tips = 'Enable this user';
-                }
-                else
-                {
-                    $icon = 'on';
-                    $tips = 'Disable this user';
-                }
-                $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-                .    '?cmd=validation&amp;user_id=' . $thisUser['user_id'] )) . '&amp;offset='.$offset . '" '
-                .    ' title="'.get_lang($tips).'">'
-                .    '<img alt="' . get_lang('Validation') . '" src="' . get_icon_url($icon) . '" />'
-                .    '</a>'
-                ;
+                $icon = 'off';
+                $tips = 'Enable this user';
             }
             else
             {
-                $out .= '&nbsp;';
+                $icon = 'on';
+                $tips = 'Disable this user';
             }
-    
-            $out .= '</td>' . "\n";
+            
+            $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            .    '?cmd=validation&amp;user_id=' . $thisUser['user_id'] )) . '&amp;offset='.$offset . '" '
+            .    ' title="'.get_lang($tips).'">'
+            .    '<img alt="' . get_lang('Validation') . '" src="' . get_icon_url($icon) . '" />'
+            .    '</a>'
+            ;
         }
-
+        else
+        {
+            $out .= '&nbsp;';
+        }
+        
+        $out .= '</td>' . "\n";
+        
     }  // END - is_allowedToEdit
 
     $out .= '</tr>'."\n";

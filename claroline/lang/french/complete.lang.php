@@ -933,7 +933,7 @@ $_lang['If the user is existing in the platform, he will be added to the course 
 $_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'Si vous n\'utilisez pas le système de mots de passe intégré pour l\'authentification, désactivez cette option pour ne pas afficher le formulaire d\'identification';
 $_lang['If you do not have the key, please contact the course manager'] = 'Si vous ne disposez pas de la clé d\'inscription, contactez le gestionnaire de cours';
 $_lang['If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.'] = 'Si vous n\'êtes pas encore enregistré sur la plateforme, utilisez le <a href="%url">formulaire de création de compte</a>.';
-$_lang['If you wish to enrol on this course'] = 'Si vous souhaitez vous inscrire à ce cours,';
+$_lang['If you wish to enrol on this course'] = 'Si vous souhaitez vous inscrire à ce cours';
 $_lang['Image URL'] = 'URL de l\'image';
 $_lang['Image Viewer'] = 'Visionneuse d\'images';
 $_lang['Image description'] = 'Description de l\'image';
@@ -2098,7 +2098,7 @@ $_lang['Your request to remove your account has been sent'] = 'La demande de sup
 $_lang['Your search did not match any courses'] = 'Aucun cours ne correspond aux critères de recherche spécifiés';
 $_lang['Your time is %time'] = 'Votre temps est de %time';
 $_lang['Your total score is %score'] = 'Vous avez obtenu un total de %score';
-$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Vous ne semblez pas être inscrit à ce cours, ou être en attente de validation pour ce cours';
+$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Vous ne semblez pas être inscrit à ce cours.';
 $_lang['Zip file uploaded and uncompressed'] = ' L\'archive .zip a été récupérée et décompressée';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'L\'extension php \'zlib\' est nécessaire pour utiliser outil. Contactez l\'administrateur de la plateforme.';
 $_lang['all students'] = 'Tous les étudiants';
