@@ -13,7 +13,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-require '../inc/lib/course_user.lib.php';
+require_once get_path('incRepositorySys').'/lib/course_user.lib.php';
 
 // Keep the username in session
 if (isset($_REQUEST['login']))
