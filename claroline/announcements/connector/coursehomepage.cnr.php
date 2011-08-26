@@ -92,6 +92,19 @@ class CLANN_Portlet extends CourseHomePagePortlet
                              . '</dt>' . "\n"
                              . '<dd'.($i == count($announcementList)-1?' class="last"':'').'>' . "\n"
                              . $content . "\n"
+                             . (claro_is_allowed_to_edit() ?
+                               '<div class="manageTools"><a
+                                    href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLANN').'/announcements.php?cmd=rqEdit&id='.$announcementItem['id'])).'"
+                                    title="'.get_lang('Edit this item').'">
+                                    <img src="'.get_icon_url('edit').'" alt="'.get_lang('Edit').'" />
+                                </a>
+                                
+                                <a
+                                    href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLANN').'/announcements.php?cmd=exDelete&id='.$announcementItem['id'])).'"
+                                    title="'.get_lang('Delete this item').'">
+                                    <img src="'.get_icon_url('delete').'" alt="'.get_lang('Delete').'" />
+                                </a></div>' :
+                               '')
                              . '</dd>' . "\n";
                 }
                 
