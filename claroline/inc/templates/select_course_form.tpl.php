@@ -28,7 +28,7 @@
         <?php else : ?>
             <p align="center">
                 <?php echo get_lang('If you wish to enrol on this course'); ?>:
-                <a href="<?php get_path('clarolineRepositoryWeb'); ?>auth/courses.php?cmd=rqReg">
+                <a href="<?php echo get_path('clarolineRepositoryWeb'); ?>auth/courses.php?cmd=rqReg">
                     <?php echo get_lang('Enrolment'); ?>
                 </a>
             </p>
