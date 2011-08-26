@@ -23,30 +23,30 @@
     
     <?php if (claro_is_course_manager()) : ?>
     <div class="manageTools">
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $announcement['id'])); ?>">
+        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqEdit&id=' . $announcement['id'])); ?>">
             <img src="<?php echo get_icon_url('edit'); ?>" alt="<?php echo get_lang('Modify'); ?>" />
         </a>
         
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $announcement['id'])); ?>"
+        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDelete&id=' . $announcement['id'])); ?>"
          onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $announcement['title']))); ?>')) return false;">
             <img src="<?php echo get_icon_url('delete'); ?>" alt="<?php echo get_lang('Delete'); ?>" />
         </a>
         
         <?php if ($announcement['visible']) : ?>
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $announcement['id'])); ?>">
+        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkHide&id=' . $announcement['id'])); ?>">
             <img src="<?php echo get_icon_url('visible'); ?>" alt="<?php echo get_lang('Make invisible'); ?>" />
         </a>
         <?php else : ?>
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $announcement['id'])); ?>">
+        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkShow&id=' . $announcement['id'])); ?>">
             <img src="<?php echo get_icon_url('invisible'); ?>" alt="<?php echo get_lang('Make visible'); ?>" />
         </a>
         <?php endif; ?>
         
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $announcement['id'])); ?>">
+        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exMvUp&id=' . $announcement['id'])); ?>">
             <img src="<?php echo get_icon_url('move_up'); ?>" alt="<?php echo get_lang('Move up'); ?>" />
         </a>
         
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $announcement['id'])); ?>">
+        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exMvDown&id=' . $announcement['id'])); ?>">
             <img src="<?php echo get_icon_url('move_down'); ?>" alt="<?php echo get_lang('Move down'); ?>" />
         </a>
     </div>
