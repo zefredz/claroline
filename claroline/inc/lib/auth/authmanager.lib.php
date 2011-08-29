@@ -5,7 +5,7 @@
 /**
  * Authentication Manager
  *
- * @version     $Revision$
+ * @version     Claroline 1.11 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -18,9 +18,16 @@
 require_once dirname(__FILE__) . '/../core/claroline.lib.php';
 require_once dirname(__FILE__) . '/../database/database.lib.php';
 require_once dirname(__FILE__) . '/../kernel/user.lib.php';
+
 require_once dirname(__FILE__) . '/authdrivers.lib.php';
-require_once dirname(__FILE__) . '/authprofile.lib.php';
 require_once dirname(__FILE__) . '/ldapauthdriver.lib.php';
+
+if ( get_conf( 'claro_loadDeprecatedPearAuthDriver', true ) )
+{
+    require_once dirname(__FILE__) . '/pearauthdriver.lib.php';
+}
+
+require_once dirname(__FILE__) . '/authprofile.lib.php';
 
 class AuthManager
 {
@@ -314,7 +321,9 @@ class AuthDriverManager
                         
                     if ( class_exists( $driverClass ) )
                     {
-                        self::$drivers[$driverConfig['driver']['authSourceName']] = new $driverClass( $driverConfig );
+                        $driver = new $driverClass;
+                        $driver->setDriverOptions( $driverConfig );
+                        self::$drivers[$driverConfig['driver']['authSourceName']] = $driver;
                     }
                     else
                     {
@@ -326,7 +335,10 @@ class AuthDriverManager
                             
                             if ( class_exists( $driverClass ) )
                             {
-                                self::$drivers[$driverConfig['driver']['authSourceName']] = new $driverClass( $driverConfig );
+                                $driver = new $driverClass;
+                                $driver->setDriverOptions( $driverConfig );
+                                self::$drivers[$driverConfig['driver']['authSourceName']] = $driver;
+                                
                             }
                             else
                             {

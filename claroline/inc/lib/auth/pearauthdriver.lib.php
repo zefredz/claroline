@@ -1,38 +1,37 @@
-<?php
+<?php // $Id$
+
+// vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * LDAP Authentication Driver
+ * PEAR-based Authentication Driver
  *
- * @version     2.5
+ * @version     1.11 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
- *              GNU AFFERO GENERAL PUBLIC LICENSE version 3
+ * @author      Claroline Team <info@claroline.net>
+ * @author      Frederic Minne <zefredz@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     kernel.auth
+ * @deprecated  since Claroline 1.11
  */
 
-require_once dirname(__FILE__) . '/ldap.lib.php';
-require_once dirname(__FILE__) . '/authdrivers.lib.php';
-
-class ClaroLdapAuthDriver extends AbstractAuthDriver
+class PearAuthDriver extends AbstractAuthDriver
 {
     protected $driverConfig;
-    
+    protected $authType;
     protected $authSourceName;
+    protected $userRegistrationAllowed;
+    protected $userUpdateAllowed;
+    protected $extAuthOptionList;
+    protected $extAuthAttribNameList;
+    protected $extAuthAttribTreatmentList;
     
-    protected
-        $userRegistrationAllowed,
-        $userUpdateAllowed;
-        
-    protected
-        $extAuthOptionList,
-        $extAuthAttribNameList,
-        $extAuthAttribTreatmentList;
-        
-    protected $user;
+    protected $auth;
     
-    public function setDriverOptions( $driverConfig )
+    public function setDriverOptions($driverConfig)
     {
         $this->driverConfig = $driverConfig;
+        $this->authType = $driverConfig['driver']['authSourceType'];
         $this->authSourceName = $driverConfig['driver']['authSourceName'];
         
         $this->userRegistrationAllowed = isset( $driverConfig['driver']['userRegistrationAllowed'] )
@@ -49,7 +48,6 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
         $this->extAuthAttribTreatmentList = $driverConfig['extAuthAttribTreatmentList'];
         $this->extAuthIgnoreUpdateList = $driverConfig['extAuthAttribToIgnore'];
 
-        // @since 1.9.9 
         $this->authProfileOptions = isset($driverConfig['authProfileOptions'])
             ? $driverConfig['authProfileOptions']
             : array( 
@@ -58,44 +56,6 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
                 'defaultCourseProfile' => null, 
                 'editableProfileFields' => null )
             ;
-    }
-    
-    public function authenticate()
-    {
-        $auth = new Claro_Ldap(
-            $this->extAuthOptionList['url'],
-            $this->extAuthOptionList['port'],
-            $this->extAuthOptionList['basedn']
-        );
-        
-        try
-        {
-            $auth->connect();
-            
-            $userAttr = isset($this->extAuthOptionList['userattr']) ? $this->extAuthOptionList['userattr'] : null;
-            $userFilter = isset($this->extAuthOptionList['userfilter']) ? $this->extAuthOptionList['userfilter'] : null;
-            
-            $user = $auth->getUser($this->username, $userFilter, $userAttr);
-            
-            if ( $user )
-            {
-                if( $auth->authenticate( $user->getDn(), $this->password ) )
-                {
-                    $this->user = $user;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-        catch ( Exception $e )
-        {
-            $this->setFailureMessage($e->getMessage());
-            Console::error($e->getMessage());
-            return false;
-        }
     }
     
     public function userRegistrationAllowed()
@@ -113,6 +73,35 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
         return $this->authSourceName;
     }
     
+    public function authenticate()
+    {
+        if ( empty( $this->username ) || empty( $this->password ) )
+        {
+            return false;
+        }
+        
+        $_POST['username'] = $this->username;
+        $_POST['password'] = $this->password;
+        
+        if ( $this->authType === 'LDAP')
+        {
+            // CASUAL PATCH (Nov 21 2005) : due to a sort of bug in the
+            // PEAR AUTH LDAP container, we add a specific option wich forces
+            // to return attributes to a format compatible with the attribute
+            // format of the other AUTH containers
+
+            $this->extAuthOptionList ['attrformat'] = 'AUTH';
+        }
+        
+        require_once 'Auth/Auth.php';
+
+        $this->auth = new Auth( $this->authType, $this->extAuthOptionList, '', false);
+
+        $this->auth->start();
+        
+        return $this->auth->getAuth();
+    }
+    
     public function getUserData()
     {
         $userAttrList = array('lastname'     => NULL,
@@ -123,15 +112,12 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
                           'phoneNumber'  => NULL,
                           'isCourseCreator' => NULL,
                           'authSource'   => NULL);
-        
+
         foreach($this->extAuthAttribNameList as $claroAttribName => $extAuthAttribName)
         {
             if ( ! is_null($extAuthAttribName) )
             {
-                if ( ! is_null($this->user->$extAuthAttribName) )
-                {
-                    $userAttrList[$claroAttribName] = $this->user->$extAuthAttribName;
-                }
+                $userAttrList[$claroAttribName] = $this->auth->getAuthData($extAuthAttribName);
             }
         }
         
@@ -156,8 +142,13 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
 
         /* Two fields retrieving info from another source ... */
 
-        $userAttrList['loginName' ] = $this->user->getUid();
+        $userAttrList['loginName' ] = $this->auth->getUsername();
         $userAttrList['authSource'] = $this->authSourceName;
+        
+        if ( isset($userAttrList['status']) )
+        {
+            $userAttrList['isCourseCreator'] = ($userAttrList['status'] == 1) ? 1 : 0;
+        }
         
         return $userAttrList;
     }
