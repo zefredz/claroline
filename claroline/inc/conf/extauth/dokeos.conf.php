@@ -9,6 +9,7 @@
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     CLAUTH
+ * @deprecated  since Claroline 1.11
  */
 
 if ( count( get_included_files() ) == 1 )
