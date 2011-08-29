@@ -237,15 +237,19 @@ function link_to_css( $css, $media = 'all' )
 {
     if( file_exists(get_path('clarolineRepositorySys') . '../platform/css/' . $css) )
     {
+        $date = filemtime(get_path('clarolineRepositorySys') . '../platform/css/' . $css);
+        
         return '<link rel="stylesheet" type="text/css" href="'
-            . get_path('clarolineRepositoryWeb') . '../platform/css/' . $css
+            . get_path('clarolineRepositoryWeb') . '../platform/css/' . $css . "?{$date}"
             . '" media="'.$media.'" />'
             ;
     }
     elseif( file_exists(get_path('rootSys') . 'web/css/' . $css) )
     {
+        $date = filemtime(get_path('rootSys') . 'web/css/' . $css);
+        
         return '<link rel="stylesheet" type="text/css" href="'
-            . get_path( 'url' ) . '/web/css/' . $css
+            . get_path( 'url' ) . '/web/css/' . $css . "?{$date}"
             . '" media="'.$media.'" />'
             ;
     }
