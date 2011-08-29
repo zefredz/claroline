@@ -1,4 +1,18 @@
-<?php
+<?php // $Id$
+
+// vim: expandtab sw=4 ts=4 sts=4:
+
+/**
+ * Course tool list display class
+ *
+ * @version     Claroline 1.11 $Revision$
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @author      Frederic Minne <zefredz@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     display
+ */
 
 class CurrentCourseToolListBlock implements Display
 {
@@ -27,6 +41,11 @@ class CurrentCourseToolListBlock implements Display
     public function setViewMode( $viewMode )
     {
         $this->viewMode = $viewMode;
+    }
+    
+    protected function getCurrentToolLabel()
+    {
+        return $GLOBALS['tlabelReq'];
     }
     
     protected function getUserLastAction()
@@ -91,10 +110,11 @@ class CurrentCourseToolListBlock implements Display
 
             $style = !$thisTool['visibility']? 'invisible ' : '';
             $classItem = (in_array($thisTool['id'], $modified_tools)) ? ' hot' : '';
+            $classCurrent = ( isset($thisTool['label']) && $thisTool['label'] == $GLOBALS['tlabelReq'] ) ? ' currentTool' : '';
 
-            if ( !empty($url) )
+            if ( !empty( $url ) )
             {
-                $toolLinkList[] = '<a '.$htmlId.'class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
+                $toolLinkList[] = '<a '.$htmlId.'class="' . $style . 'item' . $classItem . $classCurrent . '" href="' . $url . '">'
                                       . '<img class="clItemTool"  src="' . $icon . '" alt="" />&nbsp;'
                                       . $toolName
                                       . '</a>' . "\n";
