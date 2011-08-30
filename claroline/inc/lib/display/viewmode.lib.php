@@ -3,9 +3,9 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * View mode block.
+ * View mode block. Display view mode switch, enrolment link and login link
  *
- * @version     $Revision$
+ * @version     Claroline 1.11 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -19,13 +19,13 @@ require_once get_path('incRepositorySys').'/lib/course_user.lib.php';
 
 class ClaroViewMode implements Display
 {
-    private static $instance = false;
+    protected static $instance = false;
     
     
     /**
      * Contructor.
      */
-    private function __construct()
+    protected function __construct()
     {
     }
     
@@ -47,8 +47,8 @@ class ClaroViewMode implements Display
         {
             if (claro_is_course_registration_pending())
             {
-                $out .= '<img src="'.get_icon_url('untick').'" alt="off" /> '
-                      . '<b>'.get_lang('You are not validated').'</b>';
+                $out .= '<img src="'.get_icon_url('warning').'" alt="off" /> '
+                      . '<b>'.get_lang('Your enrolment to this course has not been validated yet').'</b>';
             }
             else
             {
@@ -80,17 +80,6 @@ class ClaroViewMode implements Display
             $out .= claro_html_tool_view_option();
         }
         
-        if ( claro_is_in_a_course() && ! claro_is_platform_admin() && ! claro_is_course_member() )
-        {
-            $out .= ' | <a href="' . get_path('clarolineRepositoryWeb')
-                . 'auth/courses.php?cmd=exReg&course='
-                . claro_get_current_course_id().'">'
-                . claro_html_icon( 'enroll' ) . ' '
-                . '<b>' . get_lang('Enrolment') . '</b>'
-                . '</a>'
-                ;
-        }
-        
         $out .= "\n";
         
         return $out;
@@ -103,8 +92,9 @@ class ClaroViewMode implements Display
     private function renderRegistrationLink()
     {
         return '<a href="'
-            . get_path('clarolineRepositoryWeb')
-            . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id()
+            . htmlspecialchars( get_path('clarolineRepositoryWeb')
+                . 'auth/courses.php?cmd=exReg&course='
+                . claro_get_current_course_id() )
             . '">'
             . claro_html_icon( 'enroll' ) . ' '
             . '<b>' . get_lang('Enrolment') . '</b>'
@@ -118,14 +108,15 @@ class ClaroViewMode implements Display
      */
     private function renderLoginLink()
     {
-        return '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/login.php'
-            . '?sourceUrl='
-            . urlencode( base64_encode(
-                ( isset( $_SERVER['HTTPS'])
-                    && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1)
-                    ? 'https://'
-                    : 'http://' )
-                . $_SERVER['HTTP_HOST'] . strip_tags( $_SERVER['REQUEST_URI'] ) ) )
+        return '<a href="' 
+            . htmlspecialchars( get_path('clarolineRepositoryWeb') . 'auth/login.php'
+                . '?sourceUrl='
+                . urlencode( base64_encode(
+                    ( isset( $_SERVER['HTTPS'])
+                        && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1)
+                        ? 'https://'
+                        : 'http://' )
+                    . $_SERVER['HTTP_HOST'] . strip_tags( $_SERVER['REQUEST_URI'] ) ) ) )
             . '" target="_top">'
             . get_lang('Login')
             . '</a>'
