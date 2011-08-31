@@ -102,9 +102,9 @@ abstract class AbstractAuthDriver implements AuthDriver
         $userRegistrationAllowed = false,
         $userUpdateAllowed = false,
         
-        $extAuthOptionList,
-        $extAuthAttribNameList,
-        $extAuthAttribTreatmentList,
+        $extAuthOptionList = array(),
+        $extAuthAttribNameList = array(),
+        $extAuthAttribTreatmentList = array(),
         $extAuthIgnoreUpdateList = array(),
         
         $authProfileOptions = array(
@@ -122,6 +122,17 @@ abstract class AbstractAuthDriver implements AuthDriver
     public function setDriverOptions( $driverConfig )
     {
         $this->driverConfig = $driverConfig;
+        
+        if ( ! isset( $driverConfig['driver'] ) )
+        {
+            throw new Exception("Missing mandatory driver properties");
+        }
+        
+        if ( ! isset( $driverConfig['driver']['authSourceName'] ) )
+        {
+            throw new Exception("Missing mandatory driver authentication source name");
+        }
+        
         $this->authSourceName = $driverConfig['driver']['authSourceName'];
         
         $this->userRegistrationAllowed = isset( $driverConfig['driver']['userRegistrationAllowed'] )
@@ -133,12 +144,27 @@ abstract class AbstractAuthDriver implements AuthDriver
             : false
             ;
             
-        $this->extAuthOptionList = $driverConfig['extAuthOptionList'];
-        $this->extAuthAttribNameList = $driverConfig['extAuthAttribNameList'];
-        $this->extAuthAttribTreatmentList = $driverConfig['extAuthAttribTreatmentList'];
-        $this->extAuthIgnoreUpdateList = $driverConfig['extAuthAttribToIgnore'];
+        $this->extAuthOptionList = isset( $driverConfig['extAuthOptionList'] )
+            ? $driverConfig['extAuthOptionList']
+            : array()
+            ;
+        
+        $this->extAuthAttribNameList = isset( $driverConfig['extAuthAttribNameList'] )
+            ? $driverConfig['extAuthAttribNameList']
+            : array()
+            ;
+        
+        $this->extAuthAttribTreatmentList = isset( $driverConfig['extAuthAttribTreatmentList'] )
+            ? $driverConfig['extAuthAttribTreatmentList']
+            : array()
+            ;
+        
+        $this->extAuthIgnoreUpdateList = isset( $driverConfig['extAuthAttribToIgnore'] )
+            ? $driverConfig['extAuthAttribToIgnore']
+            : array()
+            ;
 
-        // @since 1.9.9 
+        // @since 1.11 
         $this->authProfileOptions = isset($driverConfig['authProfileOptions'])
             ? $driverConfig['authProfileOptions']
             : array( 
@@ -157,6 +183,11 @@ abstract class AbstractAuthDriver implements AuthDriver
     public function getFailureMessage()
     {
         return $this->extraMessage;
+    }
+    
+    public function getAuthSource()
+    {
+        return $this->authSourceName;
     }
     
     public function setAuthenticationParams( $username, $password )
@@ -274,11 +305,6 @@ class LocalDatabaseAuthDriver extends AbstractAuthDriver
         return false;
     }
     
-    public function getAuthSource()
-    {
-        return $this->authSourceName;
-    }
-    
     public function getUserData()
     {
         return null;
@@ -298,6 +324,11 @@ class ClarolineLocalAuthDriver extends LocalDatabaseAuthDriver
     public function getAuthSource()
     {
         return 'claroline';
+    }
+    
+    public function setDriverOptions($driverConfig)
+    {
+        // skip
     }
 }
 
@@ -365,16 +396,16 @@ class TemporaryAccountAuthDriver extends LocalDatabaseAuthDriver
         }
     }
     
-    public function getUserData()
+    public function setDriverOptions($driverConfig)
     {
-        return null;
+        // skip
     }
 }
 
 /**
  * Deactivated user accounts have the 'disabled' authentication source in database
  */
-class UserDisabledAuthDriver extends AbstractAuthDriver
+class UserDisabledAuthDriver extends LocalDatabaseAuthDriver
 {
     public function getFailureMessage()
     {
@@ -394,38 +425,8 @@ class UserDisabledAuthDriver extends AbstractAuthDriver
         return false;
     }
     
-    public function getUserData()
-    {
-        return null;
-    }
-    
-    public function getFilteredUserData()
-    {
-        return array();
-    }
-
-    public function getAuthProfileOptions()
-    {
-        return array(
-            'courseRegistrationAllowed' => null,
-            'courseEnrolmentMode' => null,
-            'defaultCourseProfile' => null,
-            'editableProfileFields' => null
-        );
-    }
-    
-    public function userRegistrationAllowed()
-    {
-        return false;
-    }
-    
-    public function userUpdateAllowed()
-    {
-        return false;
-    }
-    
     public function setDriverOptions($driverConfig)
     {
-        parent::setDriverOptions($driverConfig);// nothing to do;
+        // skip
     }
 }

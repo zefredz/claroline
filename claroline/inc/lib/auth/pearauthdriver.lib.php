@@ -28,51 +28,6 @@ class PearAuthDriver extends AbstractAuthDriver
     
     protected $auth;
     
-    public function setDriverOptions($driverConfig)
-    {
-        $this->driverConfig = $driverConfig;
-        $this->authType = $driverConfig['driver']['authSourceType'];
-        $this->authSourceName = $driverConfig['driver']['authSourceName'];
-        
-        $this->userRegistrationAllowed = isset( $driverConfig['driver']['userRegistrationAllowed'] )
-            ? $driverConfig['driver']['userRegistrationAllowed']
-            : false
-            ;
-        $this->userUpdateAllowed = isset( $driverConfig['driver']['userUpdateAllowed'] )
-            ? $driverConfig['driver']['userUpdateAllowed']
-            : false
-            ;
-            
-        $this->extAuthOptionList = $driverConfig['extAuthOptionList'];
-        $this->extAuthAttribNameList = $driverConfig['extAuthAttribNameList'];
-        $this->extAuthAttribTreatmentList = $driverConfig['extAuthAttribTreatmentList'];
-        $this->extAuthIgnoreUpdateList = $driverConfig['extAuthAttribToIgnore'];
-
-        $this->authProfileOptions = isset($driverConfig['authProfileOptions'])
-            ? $driverConfig['authProfileOptions']
-            : array( 
-                'courseRegistrationAllowed' => null,
-                'courseEnrolmentMode' => null, 
-                'defaultCourseProfile' => null, 
-                'editableProfileFields' => null )
-            ;
-    }
-    
-    public function userRegistrationAllowed()
-    {
-        return $this->userRegistrationAllowed;
-    }
-    
-    public function userUpdateAllowed()
-    {
-        return $this->userUpdateAllowed;
-    }
-    
-    public function getAuthSource()
-    {
-        return $this->authSourceName;
-    }
-    
     public function authenticate()
     {
         if ( empty( $this->username ) || empty( $this->password ) )
