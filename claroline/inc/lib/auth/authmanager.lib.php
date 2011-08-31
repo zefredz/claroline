@@ -308,16 +308,20 @@ class AuthDriverManager
         if ( $driverConfig['driver']['enabled'] == true )
         {
             $driverClass = $driverConfig['driver']['class'];
-
+            
+            // search for kernel drivers
             if ( class_exists( $driverClass ) )
             {
                 $driver = new $driverClass;
                 $driver->setDriverOptions( $driverConfig );
                 self::$drivers[$driverConfig['driver']['authSourceName']] = $driver;
             }
+            // search for user defined drivers
             else
             {
-                $driverPath = dirname(__FILE__). '/drivers/' . strtolower($driverClass).'.lib.php';
+                $driverPath = get_path('rootSys') 
+                    . 'platform/conf/extauth/drivers/' 
+                    . strtolower($driverClass).'.drv.php';
 
                 if ( file_exists($driverPath) )
                 {
