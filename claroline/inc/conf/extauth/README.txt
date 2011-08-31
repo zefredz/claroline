@@ -1,2 +1,0 @@
-
-THIS FILE HAVE BEEN MOVED TO claroline/auth/README.txt
