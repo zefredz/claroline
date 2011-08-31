@@ -3,7 +3,7 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Authentication Drivers
+ * Authentication Drivers. See AUTHENTICATION.txt for more details
  *
  * @version     1.11 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -14,25 +14,81 @@
  * @package     kernel.auth
  */
 
+/**
+ * Authentication Driver interface
+ */
 interface AuthDriver
 {
+    /**
+     * Set the options from the driver configuration file
+     * @see AUTHENTICATION.txt for details about the option array
+     * @param array $driverConfig
+     */
     public function setDriverOptions( $driverConfig );
     
+    /**
+     * Set the authentication parameters used by the driver
+     * @param string $username
+     * @param string $password
+     */
     public function setAuthenticationParams( $username, $password );
+    
+    /**
+     * Authenticate the user
+     * @return boolean true if authentication succeeds, false if authentication 
+     *  fails
+     */
     public function authenticate();
     
+    /**
+     * Get user data from the authentication source
+     * @return array
+     */
     public function getUserData();
+    
+    /**
+     * Get filtered user data
+     * @return array
+     */
     public function getFilteredUserData();
+    
+    /**
+     * Get the authentication source name
+     * @return string
+     */
     public function getAuthSource();
     
+    /**
+     * Does this authentication source allow new users to register to the platform
+     * @return boolean
+     */
     public function userRegistrationAllowed();
+    
+    /**
+     * Does this authentication source allow to update user profile information
+     * @return boolean
+     */
     public function userUpdateAllowed();
     
+    /**
+     * Get failure message if authentication have failed
+     * @return string
+     */
     public function getFailureMessage();
-
+    
+    /**
+     * Get options for user auth profile
+     * @see authprofile.lib.php
+     * @return array
+     * @since Claroline 1.11
+     */
     public function getAuthProfileOptions();
 }
 
+/**
+ * Abstract Authentication Driver defining generic common methods
+ * @see AuthDriver
+ */
 abstract class AbstractAuthDriver implements AuthDriver
 {
     protected 
@@ -131,25 +187,25 @@ abstract class AbstractAuthDriver implements AuthDriver
     
     public function userRegistrationAllowed()
     {
-        return false;
+        return $this->userRegistrationAllowed;
     }
     
     public function userUpdateAllowed()
     {
-        return false;
+        return $this->userUpdateAllowed;
     }
 
-    /**
-     * @since 1.9.9
-     * @return <type>
-     */
     public function getAuthProfileOptions()
     {
         return $this->authProfileOptions;
     }
 }
 
-abstract class LocalDatabaseAuthDriver extends AbstractAuthDriver
+/**
+ * Generic Authentication Driver using the Claroline database to authenticate 
+ * users
+ */
+class LocalDatabaseAuthDriver extends AbstractAuthDriver
 {
     protected $userId;
     
@@ -210,12 +266,12 @@ abstract class LocalDatabaseAuthDriver extends AbstractAuthDriver
     
     public function userRegistrationAllowed()
     {
-        return $this->userRegistrationAllowed;
+        return false;
     }
     
     public function userUpdateAllowed()
     {
-        return $this->userUpdateAllowed;
+        return false;
     }
     
     public function getAuthSource()
@@ -234,6 +290,9 @@ abstract class LocalDatabaseAuthDriver extends AbstractAuthDriver
     }
 }
 
+/**
+ * Default Claroline Authentication Driver
+ */
 class ClarolineLocalAuthDriver extends LocalDatabaseAuthDriver
 {
     public function getAuthSource()
@@ -242,6 +301,11 @@ class ClarolineLocalAuthDriver extends LocalDatabaseAuthDriver
     }
 }
 
+/**
+ * Temporary Account Authentication Driver using the user properties table to
+ * get the expiration date of the account
+ * @TODO Create an administration page to manage thos accounts
+ */
 class TemporaryAccountAuthDriver extends LocalDatabaseAuthDriver
 {
     protected $failureMsg = null;
@@ -307,6 +371,9 @@ class TemporaryAccountAuthDriver extends LocalDatabaseAuthDriver
     }
 }
 
+/**
+ * Deactivated user accounts have the 'disabled' authentication source in database
+ */
 class UserDisabledAuthDriver extends AbstractAuthDriver
 {
     public function getFailureMessage()
@@ -362,4 +429,3 @@ class UserDisabledAuthDriver extends AbstractAuthDriver
         parent::setDriverOptions($driverConfig);// nothing to do;
     }
 }
-
