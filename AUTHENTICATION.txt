@@ -2,14 +2,30 @@
                     CLAROLINE AUTHENTICATION SYSTEM
                     for Claroline 1.11
 
+PRELIMINARY NOTES
 
-The external driver configuration is not the easiest feature of Claroline. 
-If you need some more information or some help, don't hesitate to go to 
-http://forum.claroline.net and ask for it !
+    1. The external driver configuration is not the easiest feature of 
+    Claroline. 
+    If you need some more information or some help, don't hesitate to go to 
+    http://forum.claroline.net and ask for it !
 
-This document doens't treat single-sign on authentication using CAS, Shibboleth 
-or any other Single-Sign On (SSO) system.
-  
+    2. This document doens't treat single-sign on authentication using CAS, 
+    Shibboleth or any other Single-Sign On (SSO) system.
+
+----
+
+TABLE OF CONTENTS
+
+    A. CLAROLINE AUTHENTICATION SYSTEM
+        A.1. AUTHENTICATION SOURCES
+        A.2. AUTHENTICATION DRIVERS
+        A.3. AUTHENTICATION PROCESS
+        A.4. ENABLING AUTHENTICATION DRIVERS
+        A.5. DRIVER LOADING MECHANISMS
+        A.6. WRITING A CUSTOM DRIVER
+    B. AUTHENTICATION DRIVER CONFIGURATION
+
+----
 
 A. CLAROLINE AUTHENTICATION SYSTEM
 
@@ -21,7 +37,7 @@ A. CLAROLINE AUTHENTICATION SYSTEM
     The authentication system is invoked by the Claroline authentication system 
     when a user try to connect to the platform.
 
-    AUTHENTICATION SOURCE
+    A.1. AUTHENTICATION SOURCES
 
     Each user accounts in Claroline has got an authentication source property in
     the user table (authSource fields). By default the authentication source is 
@@ -41,7 +57,7 @@ A. CLAROLINE AUTHENTICATION SYSTEM
         used for example to disable a user account by setting the authSource 
         field to 'disabled' or to change the authentication source of a user.
 
-    AUTHENTICATION DRIVER
+    A.2. AUTHENTICATION DRIVERS
 
     An authentication driver is represented by two elements :
 
@@ -78,7 +94,7 @@ A. CLAROLINE AUTHENTICATION SYSTEM
     old one ! We strongly advise you to upgrade your LDAP driver to use the new 
     one given in example in inc/conf/extauth/ldap.conf.php
 
-    AUTHENTICATION PROCESS
+    A.3. AUTHENTICATION PROCESS
 
     The authentication sywtem will look at the database and search for a user 
     account matching the given username. 
@@ -106,7 +122,7 @@ A. CLAROLINE AUTHENTICATION SYSTEM
     authentication source can be disbaled in the driver configuration 
     (see below).
 
-    ENABLING AUTHENTICATION DRIVERS
+    A.4. ENABLING AUTHENTICATION DRIVERS
 
     To use one an authentication driver
 
@@ -117,7 +133,7 @@ A. CLAROLINE AUTHENTICATION SYSTEM
         the parameters to your  own context. Do not forget to enable it by 
         setting the 'enabled' option to TRUE (see section B. below).
 
-        DRIVER LOADING MECHANISMS
+    A.5. DRIVER LOADING MECHANISMS
 
     Since Claroline 1.11, the avalaible authentrication drivers can be loaded 
     in two different ways : 
@@ -139,7 +155,7 @@ A. CLAROLINE AUTHENTICATION SYSTEM
     platform/conf/extauth directory (see ENABLING AUTHENTIOCATION DRIVERS and
     section B. for details).
 
-    WRITING A CUSTOM DRIVER
+    A.6. WRITING A CUSTOM DRIVER
     
     To write your own authentication driver class, you can extend one of the 
     classes provided by Claroline (see claroline/inc/lid/auth) or implement the
