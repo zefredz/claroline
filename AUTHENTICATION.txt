@@ -45,9 +45,17 @@ A. CLAROLINE AUTHENTICATION SYSTEM
 
     An authentication driver is represented by two elements :
 
-    1. an authentication driver class which is written in PHP code
+    1. an authentication driver class which is written in PHP code and contains 
+        the instruction needed to authenticate one user
     2. an authentication driver configuration file also in PHP code (see section 
         B below)
+
+    One driver class can be used in several authentication driver configuration 
+    files, but one driver configuration file uses to only one authentication 
+    driver.
+
+    The authentication source is linked to the driver configuration file (see 
+    section B. below).
 
     Claroline provides two driver classes you can use directly : 
     
@@ -75,28 +83,26 @@ A. CLAROLINE AUTHENTICATION SYSTEM
     The authentication sywtem will look at the database and search for a user 
     account matching the given username. 
 
-    Two different process can happen then :
+    Two different subprocesses can happen :
 
     1. No record concerning this user are found into the Claroline system, so it 
     attempts to authenticate this user using the available authentication 
     drivers (see DRIVER LOADING MECHANISMS below). 
-
-    If the user is found it founds it, Claroline creates the user profile into 
-    its own user table and copy the user data provided by the corresponding 
-    authentication source through the driver API and set the authentication 
-    source name in the database to the authentication source declared by the 
-    driver.
+    If the user is found on the authentication source, Claroline creates the 
+    user profile into its own user table and copy the user data provided by the 
+    corresponding authentication source through the driver API and set the 
+    authentication source name in the database to the authentication source 
+    declared by the driver.
 
     2. A record record concerning this user is already stored into the Claroline 
     authentication system. Claroline will load the corresponding authentication 
     driver to check if this user account is still allowed to connect with this 
     password. 
-
     If the anthentication is successful, Claroline will also update the user 
     data stored into the database with the information provided by the 
     authentication source.
 
-    Both the account creation and the account information update from an 
+    NOTE: Both the account creation and the account information update from an 
     authentication source can be disbaled in the driver configuration 
     (see below).
 
@@ -153,24 +159,27 @@ A. CLAROLINE AUTHENTICATION SYSTEM
 
 B. AUTHENTICATION DRIVER CONFIGURATION
 
-    The configuration of an authentication driver is written using PHP array 
-    syntax.
+    The configuration options of an authentication driver are written in the 
+    $driverConfig associative array, one option corresponding to one key of the 
+    array.
 
     The available options are :
 
-    1. $driverConfig['driver'] describes the properties of the driver
+    1. $driverConfig['driver']: describes the properties of the driver. 
+    This entry have several sub options :
 
-    - 'enabled' : tell the kernel to use this driver or not
-    - 'userRegistrationAllowed' : tell the kernel if the driver is allowed to 
-        create a new user in Claroline
-    - 'userUpdateAllowed' : tell the kernel if the driver is allowed to update 
-        an existing user in Claroline
-    - 'class' : the PHP class used for the driver. If you are only modifying the
-        parameters of an existing driver, do not edit this one. 
-    - 'authSourceType' set the technical type of the of the external 
-        authentication source (deprecated, only used for PEAR-based 
-        authentication)
-    - 'authSourceName' : set the identity of the external authentication source 
+        - 'enabled' : tell the kernel to use this driver or not
+        - 'userRegistrationAllowed' : tell the kernel if the driver is allowed 
+            to create a new user in Claroline
+        - 'userUpdateAllowed' : tell the kernel if the driver is allowed to 
+            update an existing user in Claroline
+        - 'class' : the PHP class used for the driver. If you are only modifying 
+            the parameters of an existing driver, do not edit this one. 
+        - 'authSourceType' set the technical type of the of the external 
+            authentication source (deprecated, only used for PEAR-based 
+            authentication)
+        - 'authSourceName' : set the authentication source corresponding to the 
+            driver
 
     example:
         
@@ -185,7 +194,7 @@ B. AUTHENTICATION DRIVER CONFIGURATION
 
         );
 
-    2. $driverConfig['extAuthOptionList'] : set the parameters needed to connect 
+    2. $driverConfig['extAuthOptionList']: set the parameters needed to connect 
     to the external authentication source and the field to to retrieve in it.
 
     example :
@@ -201,7 +210,7 @@ B. AUTHENTICATION DRIVER CONFIGURATION
 
         );
 
-    3. $driverConfig['extAuthAttribNameList'] : set how the data retrieved from 
+    3. $driverConfig['extAuthAttribNameList']: set how the data retrieved from 
     the external authentication source matches the Claroline data structure. The 
     keys are the Claroline attributes and the value are the authentication 
     external attributes.    
@@ -218,7 +227,7 @@ B. AUTHENTICATION DRIVER CONFIGURATION
 
         );
 
-    4. $driverConfig['extAuthAttribTreatmentList'] : set any optional 
+    4. $driverConfig['extAuthAttribTreatmentList']: set any optional 
     preliminary treatment to the data retrieved from the external authentication 
     source before committing it into Claroline. The keys are the concerned 
     Claroline attribute, and the values are the name of the function which make 
@@ -239,7 +248,7 @@ B. AUTHENTICATION DRIVER CONFIGURATION
 
         );
 
-    5. $driverConfig['extAuthAttribToIgnore'] : set the list of attributes from 
+    5. $driverConfig['extAuthAttribToIgnore']: set the list of attributes from 
     the external authentication system to ignore when updating the data of a 
     user. This is mainly used to prevent an external authentication system to
     overwrite attributes set by the platform administrator.
@@ -250,7 +259,7 @@ B. AUTHENTICATION DRIVER CONFIGURATION
             'isCourseCreator'
         );
 
-    6. $driverConfig['authProfileOptions'] : define user profile options 
+    6. $driverConfig['authProfileOptions']: define user profile options 
     specific for the user authenticated with this authentication source. 
 
     The available options are
