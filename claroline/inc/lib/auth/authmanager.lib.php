@@ -319,6 +319,13 @@ class AuthDriverManager
             // search for user defined drivers
             else
             {
+                // load dynamic drivers
+                if ( ! file_exists ( get_path('rootSys') . 'platform/conf/extauth/drivers' ) )
+                {
+                    FromKernel::uses('fileManage.lib');
+                    claro_mkdir(get_path('rootSys') . 'platform/conf/extauth/drivers', CLARO_FILE_PERMISSIONS, true );
+                }
+                
                 $driverPath = get_path('rootSys') 
                     . 'platform/conf/extauth/drivers/' 
                     . strtolower($driverClass).'.drv.php';
