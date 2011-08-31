@@ -17,7 +17,7 @@ NB: The external driver configuration is not the easiest feature of Claroline.
 If you need some more information or some help, don't hesitate to go to 
 http://forum.claroline.net and ask for it !
 
-WARNING!
+A. PRELIMINARY WARNING!
 
     The PEAR-based authentication is not maintained anymore and is 
     deprecated, which means that a lot of old external authentication drivers 
@@ -30,42 +30,74 @@ WARNING!
     We strongly advise you to upgrade your LDAP driver to use the new one given
     in example in inc/conf/extauth/ldap.conf.php
 
+B. AUTHENTICATION SOURCE AND DRIVER INVOKATION
 
-                                 HOW IT WORKS ?
+    Each user accounts in Claroline has got an authentication source property in
+    the user table (authSource fields). By default the authentication source is 
+    'claroline' meaning that the platform will use the default authentication 
+    driver based on the local database.
 
-These drivers can be called by the Claroline authentication system in two 
-circumstances.
+    Each authentication source correspond to an authentication driver, and each 
+    driver must declare its authentication source in the its configuration file 
+    (see below).
 
-1. When a user has never logged to the platform beforehand, ant try to log in to 
-Claroline for the first time. No record concerning this user are found into the 
-Claroline system, so it attempts to look for this user on the external 
-authentication systems list specified by its configuration file. When it founds 
-it, Claroline duplicates the user profile into its own user table, stating that 
-it comes for this specific external authentication system.
+    The authentication source can be set in two ways :
 
-2. When a user log to the platform next time. A record concerning this user is 
-already stored into the Claroline system. From this record Claroline is able to 
-know from where does this user profile comes. And it try to connect to the 
-concerned external authentication system to check if this user account is still 
-allowed to connect with this password. It also takes the occasion to update from 
-the external authentication system the user data stored into the Claroline 
-system.
+    1. automatically when a user account is created by an authentication driver. 
+        This is the normal behaviour.
 
-                                HOW TO LOAD A DRIVER ?
+    2. by manually changing the value of authSource in the database. This is 
+        used for example to disable a user account by setting the authSource 
+        field to 'disabled' or to change the authentication source of a user.
 
-To use one of these drivers
+    The authentication drivers is invoked by the Claroline authentication system 
+    when a user try to connect to the platform. 
 
-1. Open the concerned driver into a text editor and adapt the parameters to your 
-own context. Do not forget to enable it (see below).
+    The authentication sywtem will look at the database and search for a user 
+    account matching the given username. 
 
-2. Copy the modified driver to the platform/conf/extauth directory.
+    Two different process can happen then :
 
+    1. No record concerning this user are found into the Claroline system, so it 
+    attempts to authenticate this user using the available authentication 
+    drivers (see below). 
 
-                                DRIVER CONFIGURATION OPTIONS
+    If the user is found it founds it, Claroline creates the user profile into 
+    its own user table and copy the user data provided by the corresponding 
+    authentication source through the driver API and set the authentication 
+    source name in the database to the authentication source declared by the 
+    driver.
 
-The configuration of a driver contains the following options :
+    2. A record record concerning this user is already stored into the Claroline 
+    authentication system. Claroline will load the corresponding authentication 
+    driver to check if this user account is still allowed to connect with this 
+    password. 
 
-1. $driverConfig['driver'] describes the properties of the driver
+    If the anthentication is successful, Claroline will also update the user 
+    data stored into the database with the information provided by the 
+    authentication source.
+
+    Both the account creation and the account information update from an 
+    authentication source can be disbaled in the driver configuration 
+    (see below). 
+    
+
+C. HOW TO ENABLE A DRIVER ?
+
+    To use one of these drivers
+
+    1. Copy the driver configuration from claroline/inc/conf/extauth to 
+        platform/conf/extauth directory.
+
+    2. Open the driver configuration file into a text editor and adapt 
+        the parameters to your  own context. Do not forget to enable it by 
+        setting the 'enabled' option to TRUE (see below).
+
+D. SETTING THE DRIVER CONFIGURATION OPTIONS
+
+    The configuration of a driver contains the following options :
+
+    1. $driverConfig['driver'] describes the properties of the driver
 
     - 'enabled' : tell the kernel to use this driver or not
 
@@ -104,8 +136,8 @@ The configuration of a driver contains the following options :
         example : 'authSourceName' => 'phpnuke';
 
 
-2. $driverConfig['extAuthOptionList'] : set the parameters needed to connect to 
-    the external authentication source and the field to to retrieve in it.
+    2. $driverConfig['extAuthOptionList'] : set the parameters needed to connect 
+    to the external authentication source and the field to to retrieve in it.
 
     example :
 
@@ -120,8 +152,8 @@ The configuration of a driver contains the following options :
 
         );
 
-3. $driverConfig['extAuthAttribNameList'] : set how the data retrieved from the 
-    external authentication source matches the Claroline data structure. The 
+    3. $driverConfig['extAuthAttribNameList'] : set how the data retrieved from 
+    the external authentication source matches the Claroline data structure. The 
     keys are the Claroline attributes and the value are the authentication 
     external attributes.    
 
@@ -137,7 +169,7 @@ The configuration of a driver contains the following options :
 
         );
 
-4. $driverConfig['extAuthAttribTreatmentList'] : set any optional preliminary 
+    4. $driverConfig['extAuthAttribTreatmentList'] : set any optional preliminary 
     treatment to the data retrieved from the external authentication source 
     before committing it into Claroline. The keys are the concerned Claroline 
     attribute, and the values are the name of the function which make the 
@@ -158,9 +190,9 @@ The configuration of a driver contains the following options :
 
         );
 
-5. $driverConfig['extAuthAttribToIgnore'] : set the list of attributes from the
-    external authentication system to ignore when updating the data of a user.
-    This is mainly   used to prevent an external authentication system to
+    5. $driverConfig['extAuthAttribToIgnore'] : set the list of attributes from 
+    the external authentication system to ignore when updating the data of a 
+    user. This is mainly used to prevent an external authentication system to
     overwrite attributes set by the platform administrator.
 
     example : 
@@ -169,10 +201,10 @@ The configuration of a driver contains the following options :
             'isCourseCreator'
         );
 
-6. $driverConfig['authProfileOptions'] : define user profile options specific 
-   for the user authenticated with this authentication source. 
+    6. $driverConfig['authProfileOptions'] : define user profile options specific 
+    for the user authenticated with this authentication source. 
 
-   The available options are
+    The available options are
 
     - 'courseRegistrationAllowed': true or false, if false the users cannot 
         enrol to courses by themselves
@@ -195,15 +227,16 @@ The configuration of a driver contains the following options :
             'editableProfileFields' => array('email') 
         );
 
-7. In addition, each driver can define a specific driver PHP class or one or 
+    7. In addition, each driver can define a specific driver PHP class or one or 
     more specific functions to process the data retreived from the 
     authentication source.
 
-                            DRIVER LOADING
+E. DRIVER LOADING MECHANISMS
 
-Since Claroline 1.11, drivers can be loaded in two different ways : automatic 
-drivers discovery based on the contents of the platform/conf/extauth directory, 
-or loading using a driver list in file platform/conf/extauth/drivers.list
+    Since Claroline 1.11, drivers can be loaded in two different ways : 
+    automatic drivers discovery based on the contents of the 
+    platform/conf/extauth directory, or loading using a driver list in file 
+    platform/conf/extauth/drivers.list
 
     example of driver.list contents (one configuration file by line) :
 
@@ -212,13 +245,13 @@ or loading using a driver list in file platform/conf/extauth/drivers.list
 
     will load first the ldap driver then the joomla driver
 
-In this second case, the driver will be loaded in the order they are set in the 
-drivers.list file.
+    In this second case, the driver will be loaded in the order they are set in 
+    the drivers.list file.
     
-In both case the driver configuration files must be located in the 
-platform/conf/extauth directory.
+    In both case the driver configuration files must be located in the 
+    platform/conf/extauth directory.
 
-                            CREDITS
+F. CREDITS
 
 Originaly created by Hugues Peeters <peeters@ipm.ucl.ac.be>
 New system written and maintained by the Claroline Team <info@claroline.net>
