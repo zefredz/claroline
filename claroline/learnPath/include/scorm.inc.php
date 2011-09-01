@@ -65,5 +65,3 @@ function lp_display_scorm( $TABLELEARNPATHMODULE )
 }
 
 
-
-?>

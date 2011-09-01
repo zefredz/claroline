@@ -281,7 +281,7 @@ if ( !class_exists('ScormExport') )
             $questionPonderationList = array();
 
             // Keep track of correct texts for fill-in type questions
-            // TODO La variable $fillAnswerList n'apparaît qu'une fois
+            // TODO La variable $fillAnswerList n'apparaï¿½t qu'une fois
             $fillAnswerList = array();
 
             // Display each question
@@ -829,4 +829,4 @@ if ( !class_exists('ScormExport') )
 
     }
 } // !class_exists(ScormExport)
-?>
+

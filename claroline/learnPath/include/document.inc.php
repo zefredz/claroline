@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sébastien <pir@cerdecam.be>
+ * @author      Piraux Sï¿½bastien <pir@cerdecam.be>
  * @author      Lederer Guillaume <led@cerdecam.be>
  * @package     CLLNP
  * @since       1.8

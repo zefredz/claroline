@@ -8,4 +8,3 @@
 
 header('Location:../../../');
 exit();
-?>
