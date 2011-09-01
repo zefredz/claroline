@@ -16,7 +16,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author      Claroline Team <info@claroline.net>
  */
 
-uses('courselist.lib');
+FromKernel::uses('courselist.lib');
+
 // we need CLHOME conf file for render_user_course_list function
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
