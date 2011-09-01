@@ -238,21 +238,44 @@ class ClaroCourse
                    ,               $this->userLimit )
                 && install_course_database( $courseDbName )
                 && install_course_tools( $courseDbName, $this->language, $courseDirectory )
-                && user_add_to_course($GLOBALS['_uid'], $courseSysCode, true, true)
+                // && user_add_to_course($GLOBALS['_uid'], $courseSysCode, true, true)
                 )
             {
-                // Set course id
-                $this->courseId = $courseSysCode;
+                $courseObj = new ClaroCourse();
+                $courseObj->load($courseSysCode);
 
-                // Notify event manager
-                $args['courseSysCode'  ] = $courseSysCode;
-                $args['courseDbName'   ] = $courseDbName;
-                $args['courseDirectory'] = $courseDirectory;
-                $args['courseCategory' ] = $this->categories;
+                $courseRegistration = new CourseUserRegistration(
+                    AuthProfileManager::getUserAuthProfile($GLOBALS['_uid']),
+                    $courseObj,
+                    null,
+                    null
+                );
+                
+                $courseRegistration->setCourseAdmin();
+                $courseRegistration->setCourseTutor();
+                $courseRegistration->doNotRegisterToSourceCourse();
+                
+                if ( $courseRegistration->addUser() )
+                {
+                
+                    // Set course id
+                    $this->courseId = $courseSysCode;
 
-                $GLOBALS['eventNotifier']->notifyEvent("course_created",$args);
+                    // Notify event manager
+                    $args['courseSysCode'  ] = $courseSysCode;
+                    $args['courseDbName'   ] = $courseDbName;
+                    $args['courseDirectory'] = $courseDirectory;
+                    $args['courseCategory' ] = $this->categories;
 
-                return true;
+                    $GLOBALS['eventNotifier']->notifyEvent("course_created",$args);
+
+                    return true;
+                }
+                else
+                {
+                    $this->backlog->failure( $courseRegistration->getErrorMessage() );
+                    return false;
+                }
             }
             else
             {

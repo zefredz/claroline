@@ -199,6 +199,7 @@ class CourseUserRegistration
         $userAuthProfile,
         $course,
         $givenCourseKey,
+        $registerToSourceCourse = false,
         $categoryId;
     
     protected $status = 0, $errorMessage = '';
@@ -267,6 +268,11 @@ class CourseUserRegistration
     public function setCourseTutor()
     {
         $this->tutor = true;
+    }
+    
+    public function doNotRegisterToSourceCourse()
+    {
+        $this->registerToSourceCourse = false;
     }
     
     /**
@@ -397,7 +403,7 @@ class CourseUserRegistration
                 }
 
                 // If this course is a session course, enrol to the source course
-                if ( $this->course->sourceCourseId )
+                if ( $this->registerToSourceCourse && $this->course->sourceCourseId )
                 {
                     $sourceCourseCode = ClaroCourse::getCodeFromId( $this->course->sourceCourseId );
 
