@@ -41,7 +41,13 @@ $hide_body = true;
 
 // Turn off session lost
 $warnSessionLost = false ;
-// footer
-$hide_footer = true;
 
-echo $claroline->display->render();
+if ( method_exists( Claroline::getDisplay()->body, 'hideCourseTitleAndTools' ) )
+{
+    Claroline::getDisplay()->body->hideCourseTitleAndTools();
+}
+
+// footer
+Claroline::getDisplay()->footer->hide();
+
+echo Claroline::getDisplay()->render();
