@@ -63,8 +63,6 @@ class AuthProfile
      */
     public function setAuthDriverOptions( $data )
     {
-        var_dump($data);
-        
         if ( isset($data['courseEnrolmentMode']) )
         {
             $this->courseEnrolmentMode = $data['courseEnrolmentMode'];
@@ -518,10 +516,6 @@ class CourseUserRegistration
     
     protected function checkRegistrationKey()
     {
-        var_dump($this->userAuthProfile);
-        var_dump($this->course);
-        var_dump($this->getCourseRegistrationMode());
-        
         if ( $this->getCourseRegistrationMode() == 'open' && !empty( $this->course->registrationKey ) )
         {
             if( empty( $this->givenCourseKey ) )
