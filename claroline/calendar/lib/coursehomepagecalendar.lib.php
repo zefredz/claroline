@@ -15,9 +15,9 @@
  * @since       1.10
  */
 
-FromKernel::uses('user.lib');
+FromKernel::uses('user.lib','courselist.lib');
 From::Module('CLCAL')->uses('agenda.lib');
-uses('courselist.lib');
+
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
 class CourseHomePageCalendar

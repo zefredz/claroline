@@ -14,7 +14,7 @@
  * @package     internal_messaging
  */
 
-uses('utils/finder.lib.php');
+FromKernel::uses('utils/finder.lib.php');
 
 class MessagingUserNotifier
 {

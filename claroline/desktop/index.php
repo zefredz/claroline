@@ -25,7 +25,7 @@ require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php
 if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
 // load libraries
-uses('user.lib', 'utils/finder.lib');
+FromKernel::uses('user.lib', 'utils/finder.lib');
 require_once dirname(__FILE__) . '/lib/portlet.lib.php';
 
 // Breadcrumb

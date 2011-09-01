@@ -27,7 +27,7 @@ if( ! claro_is_platform_admin() ) claro_die( get_lang('Not allowed') );
 /*
  * Libraries
  */
-uses( 'user.lib', 'courselist.lib' );
+FromKernel::uses( 'user.lib', 'courselist.lib' );
 
 // todo move this lib in tracking/lib
 require_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';

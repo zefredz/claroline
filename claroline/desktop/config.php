@@ -29,7 +29,7 @@ if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed') );
 
 require_once dirname(__FILE__) . '/lib/portlet.lib.php';
-uses( 'utils/input.lib', 'utils/validator.lib' );
+FromKernel::uses( 'utils/input.lib', 'utils/validator.lib' );
 
 $dialogBox = new DialogBox;
 

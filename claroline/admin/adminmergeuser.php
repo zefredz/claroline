@@ -27,7 +27,7 @@ if ( ! claro_is_platform_admin() )
     claro_die(get_lang('Not allowed'));
 }
 
-uses( 'utils/input.lib', 'utils/validator.lib', 'display/dialogBox.lib', 'admin/mergeuser.lib', 'user.lib' );
+FromKernel::uses( 'utils/input.lib', 'utils/validator.lib', 'display/dialogBox.lib', 'admin/mergeuser.lib', 'user.lib' );
 
 try
 {
