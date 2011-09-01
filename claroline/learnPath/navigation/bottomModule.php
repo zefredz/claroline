@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -28,6 +28,4 @@ $hide_body = TRUE;
 // Turn off session lost
 $warnSessionLost = false ;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-?>
+echo $claroline->display->render();
