@@ -22,17 +22,12 @@
  */
 require '../../inc/claro_init_global.inc.php';
 // header
-$hide_banner = TRUE;
-$hide_body = TRUE;
 
 // Turn off session lost
 $warnSessionLost = false ;
 
 
-if ( method_exists( Claroline::getDisplay()->body, 'hideCourseTitleAndTools' ) )
-{
-    Claroline::getDisplay()->body->hideCourseTitleAndTools();
-}
+Claroline::getDisplay()->body->hideCourseTitleAndTools();
 
 Claroline::getDisplay()->banner->hide();
 echo Claroline::getDisplay()->render();
