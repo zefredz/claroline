@@ -1,4 +1,4 @@
-<!-- $Id: file.tpl.php 13260 2011-06-15 13:32:01Z abourguignon $ -->
+<!-- $Id$ -->
 
 <h3><label for="keyword"><?php echo get_lang( 'Search from keyword' ); ?></label></h3>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
