@@ -48,7 +48,9 @@ if ($is_allowedToAdmin)
 {
     $htmlHeadXtra[] = phpinfo_getStyle();
 
-    echo claro_html_tool_title( array( 'mainTitle'=>$nameTools, 'subTitle'=> get_conf('siteName') ) );
+    $claroline->display->body->appendContent( 
+        claro_html_tool_title( 
+            array( 'mainTitle'=>$nameTools, 'subTitle'=> get_conf('siteName') ) ) );
 
     $cmd = array_key_exists( 'cmd', $_REQUEST ) ? $_REQUEST['cmd'] : 'versions';
     $ext = array_key_exists( 'ext', $_REQUEST ) ? $_REQUEST['ext'] : '';
