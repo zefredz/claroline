@@ -282,6 +282,7 @@ function claro_html_tool_title($titleParts, $helpUrl = null, $cmdList = array(),
 * @since 1.8
 *
 * @return string html string for a message box
+* @deprecated since Claroline 1.11 use DialogBox class instead
 */
 function claro_html_message_box($message)
 {
