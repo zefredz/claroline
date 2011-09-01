@@ -1021,7 +1021,7 @@ function claro_disp_auth_form($cidRequired = false)
     }
     else // HTTP header has already been sent - impossible to relocate
     {
-        echo '<p align="center">'
+        Claroline::getDisplay()->body->appendContent( '<p align="center">'
         .    'WARNING ! Login Required <br />'
         .    'Click '
         .    '<a href="' . get_path('url') . '/claroline/auth/login.php'
@@ -1029,9 +1029,9 @@ function claro_disp_auth_form($cidRequired = false)
         .    'here'
         .    '</a>'
         .    '</p>'
-        ;
+        );
 
-        require get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+        Claroline::getDisplay()->render();
     }
 
     die(); // necessary to prevent any continuation of the application

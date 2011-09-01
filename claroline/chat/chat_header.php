@@ -26,14 +26,12 @@ $noPHP_SELF = TRUE;
 // Turn off session lost
 $warnSessionLost = false ;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 $_group = claro_get_current_group_data();
 
 $titleElement['mainTitle'] = $nameTools;
+
 if ( claro_is_in_a_group() ) $titleElement['supraTitle'] = claro_get_current_group_data('name');
 
-echo claro_html_tool_title($titleElement);
+$claroline->display->body->appendContent( claro_html_tool_title($titleElement) );
 
-$hide_footer = TRUE;
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-?>
+echo $claroline->display->render();

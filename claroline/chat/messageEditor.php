@@ -13,7 +13,7 @@
  * @package CLCHT
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  */
@@ -53,9 +53,7 @@ $hide_banner = TRUE;
 // Turn off session lost
 $warnSessionLost = false ;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
-
-echo '<form name="chatForm" action="messageList.php#final" method="post" target="messageList" onsubmit="return prepare_message();">' . "\n"
+Claroline::getDisplay()->body->appendContent( '<form name="chatForm" action="messageList.php#final" method="post" target="messageList" onsubmit="return prepare_message();">' . "\n"
 .    claro_form_relay_context()
 .    '<input type="text"    name="msg" size="80" />' . "\n"
 .    '<input type="hidden"  name="chatLine" />' . "\n"
@@ -63,7 +61,6 @@ echo '<form name="chatForm" action="messageList.php#final" method="post" target=
 .    '<br />' . "\n"
 .    '' . "\n"
 .    claro_html_menu_horizontal($cmdMenu)
-.    '</form>';
+.    '</form>' );
 
-include  get_path('incRepositorySys') . '/claro_init_footer.inc.php' ;
-?>
+Claroline::getDisplay()->render();

@@ -4,7 +4,6 @@ require '../inc/claro_init_global.inc.php';
 $nameTools = get_lang('Groups help');
 $hide_banner = true;
 $hide_footer = true;
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 $out = '';
 
@@ -16,5 +15,3 @@ $claroline->setDisplayType(Claroline::POPUP);
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

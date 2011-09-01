@@ -47,12 +47,13 @@ $is_allowedToAdmin = claro_is_platform_admin();
 if ($is_allowedToAdmin)
 {
     $htmlHeadXtra[] = phpinfo_getStyle();
-    include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
     echo claro_html_tool_title( array( 'mainTitle'=>$nameTools, 'subTitle'=> get_conf('siteName') ) );
 
     $cmd = array_key_exists( 'cmd', $_REQUEST ) ? $_REQUEST['cmd'] : 'versions';
     $ext = array_key_exists( 'ext', $_REQUEST ) ? $_REQUEST['ext'] : '';
+    
+    ob_start();
 
 ?>
 
@@ -179,5 +180,10 @@ else // is not allowed
 </div>
 
 <?php
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-?>
+
+$contents = ob_get_contents();
+ob_end_clean();
+
+$claroline->display->body->appendContent( $contents );
+
+echo $claroline->display->render();
