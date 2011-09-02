@@ -103,9 +103,21 @@ function delete_course($code)
 
     if ($currentCourseId == $code)
     {
-        $currentCourseDbName    = $this_course['dbName'];
-        $currentCourseDbNameGlu = $this_course['dbNameGlu'];
+        $currentCourseDbName    = trim($this_course['dbName']);
+        $currentCourseDbNameGlu = trim($this_course['dbNameGlu']);
         $currentCoursePath      = trim( $this_course['path'] );
+        
+        if ( empty( $currentCourseDbName ) )
+        {
+            // This is bad !
+            throw new Exception("Missing db name");
+        }
+        
+        if ( empty( $currentCourseDbNameGlu ) )
+        {
+            // This is bad !
+            throw new Exception("Missing db name glu");
+        }
 
         if(get_conf('singleDbEnabled'))
         // IF THE PLATFORM IS IN MONO DATABASE MODE
