@@ -98,6 +98,7 @@ class ClaroCourse
      */
     public function __construct ($creatorFirstName = '', $creatorLastName = '', $creatorEmail = '')
     {
+        load_kernel_config('CLHOME');
         $this->id                   = null;
         $this->courseId             = '';
         $this->isSourceCourse       = null;
@@ -117,7 +118,7 @@ class ClaroCourse
             : get_conf('defaultAccessOnCourseCreation')
             ;
         $this->visibility           = get_conf('defaultVisibilityOnCourseCreation');
-        $this->registration         = get_conf('defaultRegistrationOnCourseCreation') ;
+        $this->registration         = get_conf('defaultRegistrationOnCourseCreation') ? 'open' : 'close' ;
         $this->registrationKey      = '';
         $this->publicationDate      = time();
         $this->expirationDate       = 0;
