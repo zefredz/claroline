@@ -56,6 +56,12 @@ function delete_course($code, $sourceCourseId)
 
     $this_course = claro_get_course_data($code);
     $currentCourseId = $this_course['sysCode'];
+    
+    if ( empty( $currentCourseId ) )
+    {
+        // This is bad !
+        throw new Exception("Missing course id");
+    }
 
     // Delete user registrations into this course
     $sql = 'DELETE FROM `' . $tbl_rel_course_user . '`
