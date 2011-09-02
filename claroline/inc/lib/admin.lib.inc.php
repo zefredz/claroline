@@ -99,7 +99,7 @@ function delete_course($code)
     {
         $currentCourseDbName    = $this_course['dbName'];
         $currentCourseDbNameGlu = $this_course['dbNameGlu'];
-        $currentCoursePath      = $this_course['path'];
+        $currentCoursePath      = trim( $this_course['path'] );
 
         if(get_conf('singleDbEnabled'))
         // IF THE PLATFORM IS IN MONO DATABASE MODE
@@ -143,14 +143,25 @@ function delete_course($code)
         }
 
         // MOVE THE COURSE DIRECTORY INTO THE COURSE GARBAGE COLLECTOR
+        
+        if ( empty( $currentCoursePath ) )
+        {
+            Console::error("DELETE_COURSE : Try to delete a course repository with no folder name {$currentCourseId} !");
+            
+            return true;
+        }
 
-        if(file_exists(get_conf('coursesRepositorySys') . $currentCoursePath . '/'))
+        if( file_exists(get_conf('coursesRepositorySys') . $currentCoursePath . '/') )
         {
             claro_mkdir(get_conf('garbageRepositorySys'), CLARO_FILE_PERMISSIONS, true);
 
             rename(get_conf('coursesRepositorySys') . $currentCoursePath . '/',
             get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')
             );
+        }
+        else
+        {
+            Console::warning( "DELETE_COURSE : Course directory not found {$currentCoursePath} for course {$currentCourseId}");
         }
         // else pushClaroMessage('dir was already deleted');
 
