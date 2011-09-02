@@ -270,11 +270,6 @@ class CourseUserRegistration
         $this->tutor = true;
     }
     
-    public function doNotRegisterToSourceCourse()
-    {
-        $this->registerToSourceCourse = false;
-    }
-    
     /**
      * User added through a class
      */
@@ -402,27 +397,45 @@ class CourseUserRegistration
                     $profileId = claro_get_profile_id($this->getCourseProfile());
                 }
 
-                // If this course is a session course, enrol to the source course
-                if ( $this->registerToSourceCourse && $this->course->sourceCourseId )
+                // if this course is a session course, enrol to the source course
+                
+                if ( $this->course->sourceCourseId )
                 {
                     $sourceCourseCode = ClaroCourse::getCodeFromId( $this->course->sourceCourseId );
+                    
+                    // only enrol the user to the source course only if he is not already there
+                    
+                    $sourceCourseUserListResultSet = Claroline::getDatabase()->query( "
+                        SELECT
+                            count_user_enrol, count_class_enrol
+                        FROM
+                            `{$tbl_rel_course_user}`
+                        WHERE
+                            user_id = " . Claroline::getDatabase()->escape($userId) . "
+                        AND
+                            code_cours = " . Claroline::getDatabase()->quote($sourceCourseCode) );
 
-                    if ( !Claroline::getDatabase()->exec("INSERT INTO `" . $tbl_rel_course_user . "`
-                            SET code_cours      = " . Claroline::getDatabase()->quote( $sourceCourseCode )  . ",
-                                user_id         = " . (int) $userId . ",
-                                profile_id      = " . (int) $profileId . ",
-                                isCourseManager = " . (int) ($this->admin ? 1 : 0 ) . ",
-                                isPending       = " . (int) ($isPending ? 1 : 0) . ",
-                                tutor           = " . (int) ($this->tutor ? 1 : 0) . ",
-                                count_user_enrol = " . $count_user_enrol . ",
-                                count_class_enrol = " . $count_class_enrol ) )
+                    if ( $sourceCourseUserListResultSet->numRows() == 0 )
                     {
-                        $this->status = self::STATUS_SYSTEM_ERROR;
-                        $this->errorMessage = get_lang('Cannot register user in source course');
-                        return false;
+                        if ( !Claroline::getDatabase()->exec("INSERT INTO `" . $tbl_rel_course_user . "`
+                                SET code_cours      = " . Claroline::getDatabase()->quote( $sourceCourseCode )  . ",
+                                    user_id         = " . (int) $userId . ",
+                                    profile_id      = " . (int) $profileId . ",
+                                    isCourseManager = " . (int) ($this->admin ? 1 : 0 ) . ",
+                                    isPending       = " . (int) ($isPending ? 1 : 0) . ",
+                                    tutor           = " . (int) ($this->tutor ? 1 : 0) . ",
+                                    count_user_enrol = " . $count_user_enrol . ",
+                                    count_class_enrol = " . $count_class_enrol ) )
+                        {
+                            $this->status = self::STATUS_SYSTEM_ERROR;
+                            $this->errorMessage = get_lang('Cannot register user in source course');
+                            return false;
+                        }
                     }
                 }
-
+                
+                // register user to new session course
+                
                 if ( !Claroline::getDatabase()->exec("INSERT INTO `" . $tbl_rel_course_user . "`
                         SET code_cours      = " . Claroline::getDatabase()->quote( $courseCode )  . ",
                             user_id         = " . (int) $userId . ",

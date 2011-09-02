@@ -253,7 +253,6 @@ class ClaroCourse
                 
                 $courseRegistration->setCourseAdmin();
                 $courseRegistration->setCourseTutor();
-                $courseRegistration->doNotRegisterToSourceCourse();
                 
                 if ( $courseRegistration->addUser() )
                 {
