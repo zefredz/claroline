@@ -75,8 +75,8 @@ class CLTI_Portlet extends CourseHomePagePortlet
             $output .= '<dt></dt>'
                      . '<dd>' . "\n"
                      . ' ' . get_lang('No headline') . '. '
-                     . '<a href="' . htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=rqAdd')) . '">'
-                     . get_lang('Would you like to add one ?') . '</a>' . "\n"
+                     . (claro_is_allowed_to_edit() ? '<a href="' . htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=rqAdd')) . '">'
+                     . get_lang('Would you like to add one ?') . '</a>' . "\n" : '')
                      . '</dd>' . "\n";
         }
         else
