@@ -258,9 +258,23 @@ class ClaroCategory
                     LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
                     ON c.id = rcc.categoryId
                     
-                    WHERE rcc.courseId IN ({$coursesIds})
-                    
-                    ORDER BY c.name";
+                    WHERE rcc.courseId IN ({$coursesIds})";
+            
+            if (get_conf('categories_order_by', 'rank') == 'rank')
+            {
+                $sql .= "
+                    ORDER BY c.rank";
+            }
+            elseif  (get_conf('categories_order_by') == 'alpha_asc')
+            {
+                $sql .= "
+                    ORDER BY c.name ASC";
+            }
+            else
+            {
+                $sql .= "
+                    ORDER BY c.name DESC";
+            }
             
             $result = Claroline::getDatabase()->query($sql);
             
