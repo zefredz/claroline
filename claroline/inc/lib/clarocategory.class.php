@@ -1,11 +1,11 @@
-<?php // $Id: add_course.lib.inc.php 12608 2010-09-15 11:20:46Z abourguignon $
+<?php // $Id$
 
 /**
  * CLAROLINE
  *
  * ClaroCategory Class
  *
- * @version $Revision: 11894 $
+ * @version $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author Claro Team <cvs@claroline.net>
