@@ -198,12 +198,9 @@ else
         {
             if ( claro_is_user_authenticated() )
             {
-                if (claro_is_course_registration_pending())
+                if (claro_is_current_user_enrolment_pending())
                 {
-                    // Display link to student to enrol to this course
-                    $out .= '<p align="center">' . "\n"
-                          . get_lang('You are currently in a pending state: you won\'t be able to access this course\'s content until the course manager grants you the access.') . "\n"
-                          . '</p>' . "\n";
+                    // enrolment pending message displayed by body.tpl
                 }
                 else
                 {

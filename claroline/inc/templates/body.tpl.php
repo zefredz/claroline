@@ -97,6 +97,19 @@
             
             <div id="courseRightContent">
 <?php endif; ?>
+                
+<?php if (claro_is_current_user_enrolment_pending()): ?>
+<?php
+    $dialogBox = new DialogBox();
+    $dialogBox->warning(
+        get_lang('Your enrolment to this course has not been validated yet')
+        .'<br />'
+        . get_lang( 'You won\'t be able to access all this course\'s content and/or features until the course manager grants you the access.' ) 
+    );
+
+    echo $dialogBox->render();
+?>
+<?php endif; ?>
 
 <!-- Page content -->
 <?php echo $this->content;?>

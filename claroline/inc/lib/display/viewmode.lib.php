@@ -45,10 +45,10 @@ class ClaroViewMode implements Display
             && ( claro_is_in_a_course() && !claro_is_course_member() )
             && claro_get_current_course_data('registrationAllowed') )
         {
-            if (claro_is_course_registration_pending())
+            if (claro_is_current_user_enrolment_pending())
             {
                 $out .= '<img src="'.get_icon_url('warning').'" alt="off" /> '
-                      . '<b>'.get_lang('Your enrolment to this course has not been validated yet').'</b>';
+                      . '<b>'.get_lang('Enrolment pending').'</b>';
             }
             else
             {
