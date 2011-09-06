@@ -27,8 +27,10 @@ require_once get_path( 'incRepositorySys' ) . '/lib/user.lib.php';
 
 //init general purpose vars
 claro_set_display_mode_available( true );
+
 $is_allowedToEdit = claro_is_allowed_to_edit()
                     || ( claro_is_group_tutor() && !claro_is_course_manager() );
+
 $dialogBox = new DialogBox();
 
 //handle user input and possible associated exceptions
@@ -48,6 +50,7 @@ try
         $userInput->setValidator( 'mode', new Claro_Validator_AllowedList( array( 'add', 'reply', 'quote' ) ) );
         $userInput->setValidator( 'mode', new Claro_Validator_NotEmpty() );
     }
+    
     $userInput->setValidator( 'forum', new Claro_Validator_ValueType( 'numeric' ) );
     $userInput->setValidator( 'forum', new Claro_Validator_NotEmpty() );
     $userInput->setValidator( 'topic', new Claro_Validator_ValueType( 'numeric' ) );
@@ -180,7 +183,7 @@ else
 }
 
 //check access rights
-$is_postAllowed = ( $forumSettingList['forum_access'] != 0 
+$is_postAllowed = ( !claro_is_current_user_enrolment_pending() && $forumSettingList['forum_access'] != 0 
                     && ( !$topicId || !$topicSettingList['topic_status'] ) ) 
                     ? true 
                     : false;
@@ -188,7 +191,8 @@ $is_viewAllowed = !is_null( $forumSettingList['idGroup'] )
                   && !( ( $forumSettingList['idGroup'] == claro_get_current_group_id() ) 
                         || claro_is_in_a_group() || claro_is_group_allowed() ) 
                   ? false
-                  : true;                 
+                  : true;  
+
 // NOTE : $forumSettingList['idGroup'] != claro_get_current_group_id() is necessary to prevent any hacking
 // attempt like rewriting the request without $cidReq. If we are in group
 // forum and the group of the concerned forum isn't the same as the session
