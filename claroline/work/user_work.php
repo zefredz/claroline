@@ -1251,9 +1251,9 @@ if( $is_allowedToSubmit )
                   $maxFileSize = min(get_max_upload_size($maxFilledSpace,$assignment->getAssigDirSys()), $fileAllowedSize);
 
                   $out .= '<dd>' . "\n"
-                  .    '<input type="file" name="wrkFile" id="wrkFile" size="30" /><br />'
-                  .    '<small>'.get_lang('Max file size : %size', array( '%size' => format_file_size($maxFileSize))).'</small></td>'."\n"
-                        .'</dd>'."\n\n";
+                        . '<input type="file" name="wrkFile" id="wrkFile" size="30" /><br />'
+                        . '<p class="notice">'.get_lang('Max file size : %size', array( '%size' => format_file_size($maxFileSize))).'</p></td>'."\n"
+                        . '</dd>'."\n\n";
                 }
             }
 
