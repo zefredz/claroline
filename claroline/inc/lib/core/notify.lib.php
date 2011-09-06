@@ -486,7 +486,7 @@ class ClaroNotification extends EventDriven
             // select data from assignment
             $sql = 'SELECT `title`, `description`,
                            `end_date` AS endDate, `visibility` ' .
-                   'FROM ' . $workTable . ' ' .
+                   'FROM `' . $workTable . '` ' .
                    'WHERE `id` = ' . $rid;
             $result = claro_sql_query_fetch_all($sql);
         }
@@ -500,7 +500,7 @@ class ClaroNotification extends EventDriven
             $sql = 'SELECT `title`, `description`, `endDate`,
                            CAST(`endDate` AS SIGNED) AS integerDate,
                            `visibility` ' .
-                   'FROM ' . $exerciseTable . ' ' .
+                   'FROM `' . $exerciseTable . '` ' .
                    'WHERE `id` = ' . $rid;
             $result = claro_sql_query_fetch_all($sql);
 
@@ -520,7 +520,7 @@ class ClaroNotification extends EventDriven
                          $visibility = 'HIDE' ;
 
         // insert a new event in the calendar
-        $sql = 'INSERT INTO ' . $calendarTable . ' ' .
+        $sql = 'INSERT INTO `' . $calendarTable . '` ' .
                'SET `titre`      = \'' . $result[0]['title'] . '\', ' .
                    '`contenu`    = \'' . $result[0]['description'] . '\', ' .
                    '`day`        = \'' . $date[0] . '\', ' .
@@ -571,7 +571,7 @@ class ClaroNotification extends EventDriven
             $eventId = $result[0]['event_id'];
 
             // delete the event in the calendar
-            $sql = 'DELETE FROM ' . $calendarTable . ' ' .
+            $sql = 'DELETE FROM `' . $calendarTable . '` ' .
                    'WHERE `id` = ' . $eventId;
             claro_sql_query($sql);
 
@@ -624,7 +624,7 @@ class ClaroNotification extends EventDriven
             {
                 // select new data from the work table
                 $sql = 'SELECT `title`, `description`, `end_date` as endDate, `visibility` ' .
-                       'FROM ' . $workTable . ' ' .
+                       'FROM `' . $workTable . '` ' .
                        'WHERE `id` = ' . $rid;
                 $result = claro_sql_query_fetch_all($sql);
             }
@@ -632,7 +632,7 @@ class ClaroNotification extends EventDriven
             {
                 // select new data from the exercise table
                 $sql = 'SELECT `title`, `description`, `endDate`, `visibility` ' .
-                       'FROM ' . $exerciseTable . ' ' .
+                       'FROM `' . $exerciseTable . '` ' .
                        'WHERE `id` = ' . $rid;
                 $result = claro_sql_query_fetch_all($sql);
             }
@@ -647,7 +647,7 @@ class ClaroNotification extends EventDriven
                              $visibility = 'HIDE' ;
 
             // update the corresponding event in the calendar
-            $sql = 'UPDATE ' . $calendarTable . ' ' .
+            $sql = 'UPDATE `' . $calendarTable . '` ' .
                    'SET `titre`      = \'' . $result[0]['title'] . '\', ' .
                        '`contenu`    = \'' . $result[0]['description'] . '\', ' .
                        '`day`        = \'' . $date[0] . '\', ' .
