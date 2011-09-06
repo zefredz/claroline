@@ -29,8 +29,9 @@ $portletClass   = (isset($portletLabel) ? ($portletLabel.'_portlet') : null);
 
 require '../inc/claro_init_global.inc.php';
 require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
-require_once get_path('clarolineRepositorySys') . 'coursehomepage/lib/coursehomepageportlet.class.php';
-require_once get_path('clarolineRepositorySys') . 'coursehomepage/lib/coursehomepageportletiterator.class.php';
+
+require_once dirname(__FILE__) . '/coursehomepage/lib/coursehomepageportlet.class.php';
+require_once dirname(__FILE__) . '/coursehomepage/lib/coursehomepageportletiterator.class.php';
 
 // Instanciate dialog box
 $dialogBox = new DialogBox();
