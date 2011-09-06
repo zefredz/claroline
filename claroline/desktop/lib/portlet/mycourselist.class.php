@@ -27,8 +27,6 @@ class MyCourseList extends UserDesktopPortlet
     {
         global $platformLanguage;
         
-        JavascriptLoader::getInstance()->load('course_list');
-        
         $out = '';
         
         // Last user action
