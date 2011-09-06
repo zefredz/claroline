@@ -600,7 +600,7 @@ if ($is_allowedToEdit)
         $out .= '<dl>'
               
               . '<dt><label for="title">' . get_lang('Assignment title') . '</label></dt>'
-              . '<dd><input type="text" name="title" id="title" size="50" maxlength="200" value=" ' . htmlspecialchars($assignment->getTitle()) . '" /></dd>'
+              . '<dd><input type="text" name="title" id="title" size="50" maxlength="200" value="' . htmlspecialchars($assignment->getTitle()) . '" /></dd>'
               
               . '<dt><label for="description">' . get_lang('Description') . '<br /></label></dt>'
               . '<dd>' . claro_html_textarea_editor('description', $assignment->getDescription()) . '</dd>'
