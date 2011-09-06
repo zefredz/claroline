@@ -199,9 +199,15 @@ class ClaroCourse
             // Insert
             $keys = define_course_keys ($this->officialCode,'',get_conf('dbNamePrefix'));
             
-            $courseSysCode      = $keys['currentCourseId'];
-            $courseDbName       = $keys['currentCourseDbName'];
-            $courseDirectory    = $keys['currentCourseRepository'];
+            $courseSysCode      = trim($keys['currentCourseId']);
+            $courseDbName       = trim($keys['currentCourseDbName']);
+            $courseDirectory    = trim($keys['currentCourseRepository']);
+            
+            if ( empty($courseSysCode) || empty($courseDbName) || empty($courseDirectory) )
+            {
+                throw new Exception("Error missing data for course {$this->officialCode}");
+            }
+            
             if ( ! $this->useExpirationDate) $this->expirationDate = 'NULL';
             
             // Session courses are created without categories links:
@@ -239,7 +245,6 @@ class ClaroCourse
                    ,               $this->userLimit )
                 && install_course_database( $courseDbName )
                 && install_course_tools( $courseDbName, $this->language, $courseDirectory )
-                // && user_add_to_course($GLOBALS['_uid'], $courseSysCode, true, true)
                 )
             {
                 $courseObj = new ClaroCourse();
