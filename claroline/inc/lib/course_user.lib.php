@@ -675,3 +675,8 @@ function claro_is_course_registration_pending( $courseId = null, $userId = null 
     
     return $privileges['is_coursePending'];
 }
+
+function claro_is_current_user_enrolment_pending()
+{
+    return !claro_is_platform_admin() && claro_is_course_registration_pending();
+}
