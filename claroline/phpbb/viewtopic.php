@@ -35,6 +35,7 @@ $dialogBox = new DialogBox();
 try
 {
     $userInput = Claro_UserInput::getInstance();
+    
     if( $is_allowedToEdit )
     {
         $userInput->setValidator( 'cmd', new Claro_Validator_AllowedList( array( 'rqPost', 'exSavePost', 'exDelete', 'show', 'exNotify', 'exdoNotNotify' ) ) );
@@ -65,6 +66,7 @@ try
     $forumId = $topicId = $postId = 0;
     $start = $userInput->get( 'start', 0 );
     $viewall = $userInput->get( 'viewall', 0 );
+    
     switch( $cmd )
     {
         case 'rqPost' :
@@ -101,9 +103,10 @@ catch( Exception $ex )
 {
     if( claro_debug_mode() )
     {
-        $dialogBox->error( '<pre>' . $ex->__toString() . '</pre>' );
-        claro_die( '<pre>' . $ex->__toString() . '</pre>' );
+        pushClaroMessage( '<pre>' . $ex->__toString() . '</pre>', 'error' );
+        // claro_die( '<pre>' . $ex->__toString() . '</pre>' );
     }
+    
     if( $ex instanceof Claro_Validator_Exception )
     {
         switch( $cmd )
