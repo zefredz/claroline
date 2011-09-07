@@ -405,7 +405,7 @@ $nameTools = get_lang( 'Forums' );
 
 $pagetype = !empty( $editMode ) ? $editMode : 'viewtopic';
 
-$out .= claro_html_tool_title( $nameTools, $is_allowedToEdit ? 'help_forum.php' : false );
+$out .= claro_html_tool_title( $nameTools, $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : false );
 if( claro_is_allowed_to_edit() && $topicId )
 {
     $out .= '<div style="float: right;">' . "\n"

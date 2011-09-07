@@ -277,7 +277,7 @@ $nameTools = get_lang( 'Forums' );
 
 $pagetype = 'viewforum';
 
-$out .= claro_html_tool_title( get_lang( 'Forums' ), $is_allowedToEdit ? 'help_forum.php' : false );
+$out .= claro_html_tool_title( get_lang( 'Forums' ), $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : false );
 
 if( !$viewAllowed )
 {

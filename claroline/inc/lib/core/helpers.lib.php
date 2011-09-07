@@ -318,3 +318,17 @@ function get_group_tool_menu( $gid = null, $courseId = null, $active = true )
         return '';
     }
 }
+
+function get_help_page_url( $block, $module = 'platform' )
+{
+    $helpUrl = new Url( get_path('url').'/claroline/help/index.php' );
+    
+    if ( $module )
+    {
+        $helpUrl->addParam( 'module', $module );
+    }
+    
+    $helpUrl->addParam( 'block', $block );
+    
+    return $helpUrl->toUrl();
+}

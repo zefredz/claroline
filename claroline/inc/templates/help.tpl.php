@@ -3,12 +3,12 @@
 <table width="100%" border="0" cellpadding="1" cellspacing="1">
 <tr>
   <td align="left" valign="top">
-    <?php echo '<h4>' . get_lang('Assignments help') . '</h4>'; ?>
+    <h4><?php echo get_lang('%module% help',array('%module%' => ucfirst($this->module))); ?></h4>
   </td>
 </tr>
 <tr>
   <td>
-    <?php echo get_lang('blockAssignmentsHelp'); ?>
+    <?php echo get_block($this->block); ?> 
   </td>
 </tr>
 </table>

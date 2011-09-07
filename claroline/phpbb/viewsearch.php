@@ -101,7 +101,7 @@ $noPHP_SELF       = true;
 $out = '';
 
 $out .= claro_html_tool_title(get_lang('Forums'),
-                           $is_allowedToEdit ? 'help_forum.php' : false);
+                           $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : false);
 
 $out .= claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
 .    disp_forum_breadcrumb($pagetype, null, null, null)

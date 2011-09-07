@@ -535,7 +535,7 @@ $nameTools = get_lang( 'Forums' );
 
 $pagetype  = 'index';
 
-$helpUrl = $is_allowedToEdit ? 'help_forum.php' : null;
+$helpUrl = $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : null;
 
 $toolList = disp_forum_toolbar_array( $pagetype, 0, 0, 0 );
 

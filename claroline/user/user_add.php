@@ -243,7 +243,7 @@ if ( $courseRegSucceed )
 $out = '';
 
 $out .= claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
-                'help_user.php');
+                get_help_page_url('blockUsersHelp', 'CLUSR'));
 $out .= $dialogBox->render();
 
 if ( $courseRegSucceed )

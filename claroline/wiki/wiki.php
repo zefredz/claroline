@@ -551,7 +551,7 @@ switch( $action )
 }
 
 // Help URL
-$helpUrl = htmlspecialchars(Url::Contextualize("../wiki/help_wiki.php?help=admin"));
+$helpUrl = htmlspecialchars(get_help_page_url('blockWikiHelpAdminContent','CLWIKI'));
 
 // Command list
 $cmdList = array();

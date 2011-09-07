@@ -417,7 +417,7 @@ $titleParts = array(
 );
 
 // Help url
-$helpUrl = $is_allowedToEdit ? 'help_user.php' : null;
+$helpUrl = $is_allowedToEdit ? get_help_page_url('blockUsersHelp', 'CLUSR') : null;
 
 /*=====================================================================
 Display section

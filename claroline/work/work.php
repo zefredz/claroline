@@ -544,7 +544,7 @@ foreach($sortKeyList as $thisSortKey => $thisSortDir)
 $assignmentList = $assignmentPager->get_result_list();
 
 // Help URL
-$helpUrl = $is_allowedToEdit ? 'help_work.php' : null;
+$helpUrl = $is_allowedToEdit ? get_help_page_url('blockAssignmentsHelp','CLWRK') : null;
 
 // Command list
 $cmdList = array();

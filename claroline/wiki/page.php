@@ -881,7 +881,7 @@ if ( 'recent' != $action && 'all' != $action
     
     if ( 'edit' == $action || 'diff' == $action )
     {
-        $helpUrl = 'help_wiki.php?help=syntax';
+        $helpUrl = get_help_page_url('blockWikiHelpSyntaxContent', 'CLWIKI');
     }
 
 }

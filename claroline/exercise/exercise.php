@@ -621,7 +621,7 @@ $exerciseList = $myPager->get_result_list();
 // Display
 $nameTools = get_lang('Exercises');
 $noQUERY_STRING = true;
-$helpUrl = $is_allowedToEdit ? 'help_exercise.php' : null;
+$helpUrl = $is_allowedToEdit ? get_help_page_url('blockExercisesHelp','CLQWZ') : null;
 
 $out = '';
 
