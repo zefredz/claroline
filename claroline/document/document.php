@@ -399,45 +399,56 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
 
             $form = '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post" enctype="multipart/form-data">'
+            .    '<fieldset>'
             .    claro_form_relay_context()
             .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
             .    '<input type="hidden" name="cmd" value="exUpload" />' . "\n"
             .    '<input type="hidden" name="cwd" value="' . htmlspecialchars($cwd) . '" />' . "\n"
+            .    '<dl>'
             // upload file
-            .    '<label for="userFile">' . get_lang('File') . '&nbsp;<span class="required">*</span></label>' .  '<br />' . "\n"
-            .     '<input type="file" id="userFile" name="userFile" /><br />' . "\n"
+            .    '<dt><label for="userFile">' . get_lang('File') . '&nbsp;<span class="required">*</span></label>' .  '</dt>' . "\n"
+            .    '<dd>'
+            .    '<input type="file" id="userFile" name="userFile" />' . "\n"
             // size and space infos
-            .      '<small>' . get_lang("Max file size") .' : ' . format_file_size( $maxUploadSize ) . '</small><br />' . "\n"
-            .      '<small>' . get_lang("Disk space available") . ' : ' .  claro_html_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1) . "\n"
-            .      format_file_size($remainingDiskSpace)
-            .     '</small>' . "\n";
-                       
+            .    '<p class="notice">' . get_lang("Max file size") .' : ' . format_file_size( $maxUploadSize ) . '</p>' . "\n"
+            .    '</dd>'
+            .    '<dt>' . get_lang("Disk space available") . '</dt>'
+            .    '<dd>'
+            .    claro_html_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1)
+            .    ' <span class="notice">' . format_file_size($remainingDiskSpace) . '</span>'
+            .    '</dd>' . "\n";
+            
             if ($is_allowedToUnzip)
             {
                 // uncompress
-                $form .= '<p>' . "\n"
-
-                .    '<img src="' . get_icon_url('mime/package-x-generic') . '" alt="" />'
+                $form .= '<dt>' . "\n"
+                .    '<label for="uncompress"><img src="' . get_icon_url('mime/package-x-generic') . '" alt="" /> '
+                .    get_lang('uncompress zipped (.zip) file on the server').'</label>' . "\n"
+                .    '</dt>'
+                .    '<dd>'
                 .    '<input type="checkbox" id="uncompress" name="uncompress" value="1" />'
-                .    '<label for="uncompress">'.get_lang('uncompress zipped (.zip) file on the server').'</label>' . "\n"
-                .    '</p>' . "\n";
+                .    '</dd>' . "\n";
             }
 
             if ($courseContext)
             {
                 if (!isset($oldComment)) $oldComment = "";
                 // comment
-                $form .= '<p>' . "\n"
-                .    '<label for="comment">'.get_lang('Add a comment (optional)').'</label><br />' . "\n"
-                .    '<textarea rows=2 cols=50 id="comment" name="comment">' . htmlspecialchars($oldComment) . '</textarea><br />' . "\n"
-                .    '</p>' . "\n";
+                $form .= '<dt>' . "\n"
+                .    '<label for="comment">'.get_lang('Comment').'</label>'
+                .    '</dt>' . "\n"
+                .    '<dd>'
+                .    '<textarea rows=2 cols=50 id="comment" name="comment">' . htmlspecialchars($oldComment) . '</textarea>' . "\n"
+                .    '</dd>' . "\n";
             }
-
-            $form .= '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br />' . "\n"
+            
+            $form .= '</dl>'
+            .    '</fieldset>'
+            .    '<p><span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '</p>' . "\n"
             .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
             .    claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. base64_encode($cwd))), get_lang('Cancel'))
             .    '</form>';
-                       
+            
             $dialogBox->form( $form );
         }
     }
