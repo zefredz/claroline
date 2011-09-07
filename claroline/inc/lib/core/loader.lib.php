@@ -3,9 +3,11 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Loader classes for CSS and Javascript
+ * CLAROLINE
  *
- * @version     1.10 $Revision$
+ * Loader classes for CSS and Javascript.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -13,8 +15,6 @@
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     kernel.core
  */
-
-dirname(__FILE__) . '/../file.lib.php';
 
 /**
  * Javascript loader singleton class
@@ -28,11 +28,7 @@ class JavascriptLoader
     private function __construct()
     {
         $this->libraries = array();
-        $this->pathList = array(
-            get_module_path( get_current_module_label() ) . '/js' => get_module_url( get_current_module_label() ) . '/js',
-            get_path( 'rootSys' ) . 'web/js' => get_path('url') . '/web/js',
-            './js' => './js'
-        );
+        $this->pathList = array();
     }
 
     public function getLibraries()
@@ -53,6 +49,12 @@ class JavascriptLoader
      */
     public function load( $lib )
     {
+        $this->pathList = array(
+            get_module_path( get_current_module_label() ) . '/js' => get_module_url( get_current_module_label() ) . '/js',
+            get_path( 'rootSys' ) . 'web/js' => get_path('url') . '/web/js',
+            './js' => './js'
+        );
+        
         $lib = secure_file_path( $lib );
         
         foreach ( $this->pathList as $tryPath => $tryUrl )
@@ -71,10 +73,10 @@ class JavascriptLoader
                 }
                 
                 $mtime = '';
-                
+                /*
                 if ( get_conf('javascriptCompression', true)
                     && file_exists( $tryPath . '/min/' . $lib . '.js' )  )
-                {    
+                {
                     $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/min/' . $lib . '.js';
                     
                     $mtime = filemtime($tryPath . '/min/' . $lib . '.js');
@@ -94,7 +96,11 @@ class JavascriptLoader
                     {
                         pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.js', 'debug');
                     }
-                }
+                }*/
+
+                    $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/' . $lib . '.js';
+
+                    $mtime = filemtime($tryPath . '/' . $lib . '.js');
                 
                 ClaroHeader::getInstance()->addHtmlHeader(
                     '<script src="'.$this->libraries[$tryPath . '/' . $lib . '.js'].'?'.$mtime.'" type="text/javascript"></script>'
@@ -175,19 +181,7 @@ class CssLoader
     private function __construct()
     {
         $this->css = array();
-        $this->pathList = array(
-            get_path('rootSys') . 'platform/css/' . get_current_module_label()
-                => get_path('url') . '/platform/css/' . get_current_module_label(),
-            get_module_path( get_current_module_label() ) . '/css'
-                => get_module_url( get_current_module_label() ) . '/css',
-            get_path('rootSys') . 'platform/css'
-                => get_path('url') . '/platform/css', // <-- is this useful or not ?
-            get_path( 'rootSys' ) . 'web/css'
-                => get_path('url') . '/web/css',
-            /* get_path( 'rootSys' ) . 'claroline/css'
-                => get_path('url') . '/claroline/css', */ // <-- this stay there for legacy but should be removed.
-            './css' => './css'
-        );
+        $this->pathList = array();
     }
 
     public function getCss()
@@ -208,6 +202,20 @@ class CssLoader
      */
     public function load( $css, $media = 'all' )
     {
+        $this->pathList = array(
+            get_path('rootSys') . 'platform/css/' . get_current_module_label()
+                => get_path('url') . '/platform/css/' . get_current_module_label(),
+            get_module_path( get_current_module_label() ) . '/css'
+                => get_module_url( get_current_module_label() ) . '/css',
+            get_path('rootSys') . 'platform/css'
+                => get_path('url') . '/platform/css', // <-- is this useful or not ?
+            get_path( 'rootSys' ) . 'web/css'
+                => get_path('url') . '/web/css',
+            /* get_path( 'rootSys' ) . 'claroline/css'
+                => get_path('url') . '/claroline/css', */ // <-- this stay there for legacy but should be removed.
+            './css' => './css'
+        );
+        
         $css = secure_file_path( $css );
 
         foreach ( $this->pathList as $tryPath => $tryUrl )
