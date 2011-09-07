@@ -22,7 +22,8 @@ define ( 'BACKLOG_INFO',   'BACKLOG_INFO' );
 
 /**
  * Backlog class
- * @deprecated since Claroline 1.10, use exceptions instead
+ * @deprecated since Claroline 1.10, use exceptions, Console.lib or DialogBox 
+ *  instead
  */
 class Backlog
 {

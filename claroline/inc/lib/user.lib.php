@@ -323,7 +323,7 @@ function user_set_properties($userId, $propertyList)
  */
 function user_delete($userId)
 {
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
+    require_once dirname(__FILE__) . '/course_user.lib.php';
 
     if ( claro_get_current_user_id() == $userId ) // user cannot remove himself of the platform
     {
@@ -553,9 +553,9 @@ function user_set_platform_admin($status, $userId)
 
 function user_send_registration_mail ($userId, $data, $courseCode = null)
 {
-    require_once dirname(__FILE__) . '/../../inc/lib/sendmail.lib.php';
-    require_once get_path('clarolineRepositorySys') . '/messaging/lib/message/messagetosend.lib.php';
-    require_once get_path('clarolineRepositorySys') . '/messaging/lib/recipient/singleuserrecipient.lib.php';
+    require_once dirname(__FILE__) . '/sendmail.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/singleuserrecipient.lib.php';
     
     if ( ! empty($data['email']) )
     {

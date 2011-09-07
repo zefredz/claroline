@@ -93,7 +93,7 @@ function delete_groups($groupIdList = 'ALL')
     $tbl_courseCalendar = $tbl_c_names['calendar_event'     ];
 
     require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
-    require_once get_path('incRepositorySys') . '/lib/forum.lib.php';
+    require_once dirname(__FILE__) . '/forum.lib.php';
 
     if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLWIKI'), claro_get_current_course_id() )
         && is_tool_activated_in_groups( claro_get_current_course_id(), 'CLWIKI' ) )

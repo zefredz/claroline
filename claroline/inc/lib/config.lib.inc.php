@@ -16,11 +16,12 @@ if ( count( get_included_files() ) == 1 )
  * @see     http://www.claroline.net/wiki/config_def/
  * @package CONFIG
  * @author  Claro Team <cvs@claroline.net>
- * @author  Christophe Gesché <moosh@claroline.net>
+ * @author  Christophe Geschï¿½ <moosh@claroline.net>
  * @author  Mathieu Laurent <laurent@cerdecam.be>
  */
 
 require_once dirname(__FILE__) . '/config.class.php';
+require_once dirname(__FILE__) . '/module/manage.lib.php';
 
 /**
  * Proceed to rename conf.php.dist file in unexisting .conf.php files
@@ -178,8 +179,6 @@ function generate_conf(&$config,$properties = null)
 function get_def_folder_list ( $type = 'all' )
 {
     $folderList = array();
-
-    require_once get_path('incRepositorySys') . '/lib/module/manage.lib.php';
 
     // Kernel folder configuration folder
     if ( $type == 'kernel' || $type == 'all') $folderList[] = get_path('incRepositorySys') . '/conf/def';

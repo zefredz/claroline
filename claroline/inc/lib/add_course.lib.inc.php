@@ -29,7 +29,7 @@ if ( count( get_included_files() ) == 1 )
  *
  */
 
-require_once get_path('includePath') . '/lib/course_user.lib.php';
+require_once dirname(__FILE__) . '/course_user.lib.php';
 
 
 /**

@@ -15,6 +15,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @since 1.6
  */
 
+require_once dirname(__FILE__) . '/user.lib.php' ;
+require_once dirname(__FILE__) . '/course_user.lib.php' ;
+
 /**
  * Get class data on the platform
  *
@@ -116,7 +119,7 @@ function class_set_properties ( $classId, $className, $parentId = 0 )
 
 function delete_class($class_id)
 {
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
+    
 
     $tbl_mdb_names      = claro_sql_get_main_tbl();
     $tbl_user           = $tbl_mdb_names['user'];
@@ -292,8 +295,6 @@ function move_class($class_id, $class_id_towards)
 
 function register_class_to_course($class_id, $course_code)
 {
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
-
     $tbl_mdb_names  = claro_sql_get_main_tbl();
     $tbl_class        = $tbl_mdb_names['class'];
     $tbl_class_user   = $tbl_mdb_names['rel_class_user'];
@@ -414,8 +415,6 @@ function register_class_to_course($class_id, $course_code)
 
 function unregister_class_to_course($class_id, $course_code)
 {
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
-
     $tbl_mdb_names      = claro_sql_get_main_tbl();
     $tbl_user           = $tbl_mdb_names['user'];
     $tbl_class_user     = $tbl_mdb_names['rel_class_user'];
@@ -501,8 +500,6 @@ function unregister_class_to_course($class_id, $course_code)
 
 function user_add_to_class($user_id,$class_id)
 {
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
-
     $user_id  = (int)$user_id;
     $class_id = (int)$class_id;
 
@@ -591,9 +588,6 @@ function user_add_to_class($user_id,$class_id)
 
 function user_remove_to_class($user_id,$class_id)
 {
-    require_once get_path('incRepositorySys') . '/lib/user.lib.php' ;
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
-
     $user_id  = (int)$user_id;
       $class_id = (int)$class_id;
 
@@ -1235,7 +1229,6 @@ function get_class_list_user_id_list($classId)
  */
 function delete_all_classes()
 {
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
     $tbl = claro_sql_get_main_tbl();
     
     $sql = "
@@ -1281,7 +1274,6 @@ function delete_all_classes()
  */
 function empty_all_class()
 {
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
     $tbl = claro_sql_get_main_tbl();
     
     $sql = "
