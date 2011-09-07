@@ -264,17 +264,17 @@ class ClaroCategory
             if (get_conf('categories_order_by', 'rank') == 'rank')
             {
                 $sql .= "
-                    ORDER BY c.rank";
+                    ORDER BY c.`rank`";
             }
             elseif  (get_conf('categories_order_by') == 'alpha_asc')
             {
                 $sql .= "
-                    ORDER BY c.name ASC";
+                    ORDER BY c.`name` ASC";
             }
             else
             {
                 $sql .= "
-                    ORDER BY c.name DESC";
+                    ORDER BY c.`name` DESC";
             }
             
             $result = Claroline::getDatabase()->query($sql);
