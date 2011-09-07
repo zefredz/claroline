@@ -133,7 +133,7 @@ array ( 'userPasswordCrypted'
       , 'DEVEL_MODE'
       , 'warnSessionLost'
       , 'claro_brailleViewMode'
-      , 'javascriptCompression'
+      #, 'javascriptCompression'
       , 'ajaxRemoteServiceBrokerEnabled'
       , 'filesStatsExtensions'
       // , 'secureDocumentDownload'
@@ -637,7 +637,8 @@ array ('label'       => 'Session lost warning'
       ,'readonly'    => false
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
-      
+
+/*
 $conf_def_property_list['javascriptCompression'] =
 array ('label'       => 'Javascript compression'
       ,'description' => 'Compress javascript files. This option should be set to off only for debugging.'
@@ -647,6 +648,7 @@ array ('label'       => 'Javascript compression'
       ,'readonly'    => false
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
+*/
 
 $conf_def_property_list['DEVEL_MODE'] =
 array ('label'       => 'Development mode'
