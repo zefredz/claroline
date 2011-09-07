@@ -139,16 +139,20 @@ class ToolTitle implements Display
         
         // Command list and help
         $commandList = '';
+        
+        $help = '';
+        
+        if (!empty($this->helpUrl))
+        {
+            $help .= '<li><a class="help" href="#" '
+                   . "onclick=\"MyWindow=window.open('" . $this->helpUrl . "',"
+                   . "'MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
+                   . '&nbsp;</a></li>'."\n";
+        }
+        
         if (!empty($this->commandList))
         {
-            $help = '';
-            if (!empty($this->helpUrl))
-            {
-                $help .= '<li><a class="help" href="#" '
-                       . "onclick=\"MyWindow=window.open('". get_path('clarolineRepositoryWeb') . "help/" . $this->helpUrl . "',"
-                       . "'MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
-                       . '&nbsp;</a></li>'."\n";
-            }
+            
             
             $commands = '';
             $i = 0;
@@ -194,6 +198,12 @@ class ToolTitle implements Display
                           . $more
                           . '</ul>'."\n";
         }
+        else
+        {
+            $commandList .= '<ul class="commandList">'."\n"
+                          . $help
+                          . '</ul>'."\n";
+        }
         
         $out = '<div class="toolTitleBlock">';
         
@@ -203,7 +213,7 @@ class ToolTitle implements Display
             $out .= '<span class="toolTitle superTitle">'.$this->superTitle.'</span>'."\n";
         }
         
-        if (empty($this->commandList))
+        if (empty($commandList))
         {
             $style = ' style="border-right: 0"';
         }
