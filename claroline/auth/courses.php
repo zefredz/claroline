@@ -14,7 +14,7 @@
 
 require '../inc/claro_init_global.inc.php';
 
-require_once get_path('incRepositorySys').'/lib/courselist.lib.php';
+require_once dirname(__FILE__) . '/../inc/lib/courselist.lib.php';
 require_once dirname(__FILE__) . '/../inc/lib/coursesearchbox.class.php';
 
 $nameTools  = get_lang('User\'s course');
