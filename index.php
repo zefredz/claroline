@@ -22,6 +22,7 @@ $_SESSION['courseSessionCode'] = null;
 // Include Library and configuration files
 require './claroline/inc/claro_init_global.inc.php'; // main init
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
+require_once dirname(__FILE__) . '/claroline/inc/lib/coursesearchbox.class.php';
 
 
 if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
@@ -53,31 +54,9 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
     
     
     // Manage the search box and search results
-    $foundCourseList = '';
-    $keyword = '';
+    $searchBox = new CourseSearchBox($_SERVER['REQUEST_URI']);
     
-    if (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search')
-    {
-        $keyword = !empty($_REQUEST['keyword']) ? $_REQUEST['keyword'] : '';
-        
-        $searchResult = search_course($keyword);
-        
-        if (!empty($searchResult))
-        {
-            foreach($searchResult as $course)
-            {
-                $foundCourseList .= render_course_in_dl_list($course);
-            }
-            
-            $foundCourseList = '<dl class="courseList">'.$foundCourseList.'</dl>';
-        }
-    }
-    
-    $templateCourseSearchBox = new CoreTemplate('course_search_box.tpl.php');
-    $templateCourseSearchBox->assign('courseList', $foundCourseList);
-    $templateCourseSearchBox->assign('keyword', $keyword);
-    
-    $template->assign('templateCourseSearchBox', $templateCourseSearchBox);
+    $template->assign('templateCourseSearchBox', $searchBox->getTemplate());
     
     
     // User course (activated and deactivated) lists and search results (if any)

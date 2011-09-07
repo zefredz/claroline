@@ -15,6 +15,7 @@
 require '../inc/claro_init_global.inc.php';
 
 require_once get_path('incRepositorySys').'/lib/courselist.lib.php';
+require_once dirname(__FILE__) . '/../inc/lib/coursesearchbox.class.php';
 
 $nameTools  = get_lang('User\'s course');
 $noPHP_SELF = true;
@@ -649,10 +650,9 @@ switch ( $displayMode )
         }
 
         // Form: Search a course with a keyword
-        $templateSearchBox = new CoreTemplate('course_search_box.tpl.php');
+        $searchBox = new CourseSearchBox($_SERVER['REQUEST_URI']);
         
-        $out .= $templateSearchBox->render();
-        
+        $out .= $searchBox->render();
     }
     break;
 
