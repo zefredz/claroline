@@ -3030,4 +3030,5 @@ $_lang['This topic is now open to new contributions'] = 'This topic is now open 
 $_lang['Topic title changed successfully'] = 'Topic title changed successfully';
 $_lang['You are not allowed to access this forum'] = 'You are not allowed to access this forum';
 $_lang['User created by '] = 'User created by ';
+$_lang['blockCategoriesOrderInfo'] = 'Attention: you can order categories, but your current platform configuration does not use that order for categories display.  Check the configuration if you wish to edit this setting.';
 ?>

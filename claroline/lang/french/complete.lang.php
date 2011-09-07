@@ -3225,4 +3225,5 @@ $_lang['You don\'t have chosen any extension to isolate.  If you wish to isolate
 $_lang['You have been removed of the group.'] = 'Vous avez été retiré du groupe.';
 $_lang['files_stats'] = 'statistiques_fichiers';
 $_lang['more details'] = 'plus de détails';
+$_lang['blockCategoriesOrderInfo'] = 'Attention: vous pouvez ordonner vos catégories, mais la configuration actuelle de votre plateforme n\'utilise pas cet ordre pour l\'affichage.  Rendez-vous dans la configuration si vous souhaitez modifier ce paramètre.';
 ?>

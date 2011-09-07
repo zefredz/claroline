@@ -160,15 +160,21 @@ function claro_get_categories($parent, $visibility)
             AND c.visible = " . $visibility;
     }
     
-    if ( get_conf('categories_order_by') == 'rank' )
+    if (get_conf('categories_order_by', 'rank') == 'rank')
+    {
         $sql .= "
             ORDER BY c.`rank`";
-    elseif ( get_conf('categories_order_by') == 'alpha_asc' )
+    }
+    elseif  (get_conf('categories_order_by') == 'alpha_asc')
+    {
         $sql .= "
             ORDER BY c.`name` ASC";
-    elseif ( get_conf('categories_order_by') == 'alpha_desc' )
+    }
+    else
+    {
         $sql .= "
             ORDER BY c.`name` DESC";
+    }
     
     return Claroline::getDatabase()->query($sql);
 }

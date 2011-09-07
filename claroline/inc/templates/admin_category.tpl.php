@@ -4,7 +4,7 @@
 
 <?php echo $this->dialogBox->render(); ?>
 
-<?php if (get_conf('categories_order_by') != 'rank') : ?>
+<?php if (get_conf('categories_order_by', 'rank') != 'rank') : ?>
 <p>
     <?php echo get_block('blockCategoriesOrderInfo'); ?>
 </p>
@@ -19,9 +19,7 @@
     <th><?php echo get_lang('Visibility'); ?></th>
     <th><?php echo get_lang('Edit'); ?></th>
     <th><?php echo get_lang('Delete'); ?></th>
-    <?php if (get_conf('categories_order_by') == 'rank') : ?>
     <th colspan="2"><?php echo get_lang('Order'); ?></th>
-    <?php endif; ?>
   </tr>
 </thead>
 <tbody>
