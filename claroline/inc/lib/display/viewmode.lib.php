@@ -15,7 +15,7 @@
  * @since       1.9
  */
 
-require_once get_path('incRepositorySys').'/lib/course_user.lib.php';
+require_once dirname(__FILE__).'/../course_user.lib.php';
 
 class ClaroViewMode implements Display
 {
