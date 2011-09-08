@@ -247,8 +247,8 @@ class ClaroCourse
                 && install_course_tools( $courseDbName, $this->language, $courseDirectory )
                 )
             {
-                $courseObj = new ClaroCourse();
-                $courseObj->load($courseSysCode);
+                $courseObj = new Claro_Course($courseSysCode);
+                $courseObj->load();
 
                 $courseRegistration = new CourseUserRegistration(
                     AuthProfileManager::getUserAuthProfile($GLOBALS['_uid']),

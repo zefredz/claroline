@@ -1,6 +1,6 @@
 <?php // $Id$
 
-require_once dirname(__FILE__) . '/../claroCourse.class.php';
+require_once dirname(__FILE__) . '/../kernel/course.lib.php';
 require_once dirname(__FILE__) . '/authmanager.lib.php';
 
 // vim: expandtab sw=4 ts=4 sts=4:
@@ -207,13 +207,13 @@ class CourseUserRegistration
     /**
      *
      * @param AuthProfile $userAuthProfile profile of the user we want to enrol to the cours
-     * @param ClaroCourse $course object representing the course
+     * @param Claro_Course $course kernel object representing the course
      * @param type $givenCourseKey optionnal given registration key (default null)
      * @param type $categoryId optionnal given categoryId (default null)
      */
     public function __construct(
         AuthProfile $userAuthProfile,
-        ClaroCourse $course,
+        Claro_Course $course,
         $givenCourseKey = null,
         $categoryId = null )
     {

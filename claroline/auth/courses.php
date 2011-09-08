@@ -227,8 +227,8 @@ if ( $cmd == 'exReg' )
     $registrationKey = isset($_REQUEST['registrationKey']) ? $_REQUEST['registrationKey'] : null;
     $categoryId = isset($_REQUEST['categoryId']) ? $_REQUEST['categoryId'] : null;
     
-    $courseObj = new ClaroCourse;
-    $courseObj->load($courseCode);
+    $courseObj = new Claro_Course($courseCode);
+    $courseObj->load();
     
     $courseRegistration = new CourseUserRegistration(
         AuthProfileManager::getUserAuthProfile($userId),

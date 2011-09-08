@@ -82,8 +82,8 @@ session_start();
   ----------------------------------------------------------------------*/
 
 require_once $includePath . '/lib/core/core.lib.php';
-require_once $includePath . '/lib/core/claroline.lib.php';
 require_once $includePath . '/lib/claro_main.lib.php';
+require_once $includePath . '/lib/core/claroline.lib.php';
 require_once $includePath . '/lib/fileManage.lib.php';
 
 // conf variables

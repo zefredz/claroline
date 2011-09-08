@@ -34,8 +34,8 @@ function user_add_to_course(
     $userId, $courseCode, $admin = false, $tutor = false,
     $register_by_class = false )
 {
-    $courseObj = new ClaroCourse();
-    $courseObj->load($courseCode);
+    $courseObj = new Claro_Course($courseCode);
+    $courseObj->load();
     
     $courseRegistration = new CourseUserRegistration(
         AuthProfileManager::getUserAuthProfile($userId),
