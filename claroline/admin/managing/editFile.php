@@ -81,7 +81,8 @@ if ( !is_null($fileId) )
     {
         $text = isset($_REQUEST['textContent']) ? trim($_REQUEST['textContent']) : null;
 
-        if( !file_exists($textZoneList[$fileId]['filename']) )
+        if( !file_exists($textZoneList[$fileId]['filename']) 
+            && !file_exists( dirname($textZoneList[$fileId]['filename']) ) )
         {
             claro_mkdir(dirname($textZoneList[$fileId]['filename']),CLARO_FILE_PERMISSIONS,true);
         }
