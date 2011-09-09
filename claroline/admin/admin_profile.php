@@ -188,10 +188,19 @@ if (!empty($userId))
 $out = '';
 
 // Tool title
-$titleParts = array(
-    'mainTitle' => get_lang('User settings'),
-    'subTitle' => $userData['firstname'].' '.$userData['lastname']
-);
+if ( !empty( $userId ) )
+{
+    $titleParts = array(
+        'mainTitle' => get_lang('User settings'),
+        'subTitle' => $userData['firstname'].' '.$userData['lastname']
+    );
+}
+else
+{
+    $titleParts = array(
+        'mainTitle' => get_lang('User settings')
+    );
+}
 
 $out .= claro_html_tool_title($titleParts, null, $cmdList, 4)
       . $dialogBox->render();
