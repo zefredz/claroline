@@ -35,6 +35,11 @@ class Claro_Course extends KernelObject
         $this->_courseId = $courseId;
     }
 
+    public function load()
+    {
+        $this->loadFromDatabase();
+    }
+
     /**
      * Load course properties and group properties from database
      */
@@ -53,7 +58,7 @@ class Claro_Course extends KernelObject
     protected function loadCourseKernelData()
     {
         // get course data from main
-        $tbl =  claro_sql_get_tbl(array('cours','faculte',));
+        $tbl =  claro_sql_get_main_tbl();
         
         $sqlCourseId = Claroline::getDatabase()->quote($this->_courseId);
 
@@ -61,9 +66,12 @@ class Claro_Course extends KernelObject
             SELECT
                 c.code                  AS courseId,
                 c.code                  AS sysCode,
-                c.cours_id              AS courseDbId,
+                c.cours_id              AS id,
+                c.isSourceCourse        AS isSourceCourse,
+                c.sourceCourseId        AS sourceCourseId,
                 c.intitule              AS name,
                 c.administrativeNumber  AS officialCode,
+                c.administrativeNumber  AS administrativeNumber,
                 c.directory             AS path,
                 c.dbName                AS dbName,
                 c.titulaires            AS titular,
@@ -75,9 +83,13 @@ class Claro_Course extends KernelObject
                 c.access                AS access,
                 c.registration          AS registration,
                 c.registrationKey       AS registrationKey,
-                c.diskQuota             AS diskQuota
+                c.diskQuota             AS diskQuota,
+                UNIX_TIMESTAMP(c.creationDate)          AS publicationDate,
+                UNIX_TIMESTAMP(c.expirationDate)        AS expirationDate,
+                c.status                AS status,
+                c.userLimit             AS userLimit
             FROM
-                `{$tbl['cours']}`   AS c
+                `{$tbl['course']}`   AS c
             WHERE
                 c.code = {$sqlCourseId};
         ";
@@ -111,7 +123,7 @@ class Claro_Course extends KernelObject
      */
     protected function loadCourseCategories()
     {
-        $tbl = claro_sql_get_course_tbl( $this->_rawData['dbNameGlu'] );
+        $tbl = claro_sql_get_main_tbl();
 
         $categoriesDataList = Claroline::getDatabase()->query("
             SELECT
@@ -188,12 +200,12 @@ class Claro_Course extends KernelObject
                     `{$tbl['course_properties']}`
                 WHERE
                     category = 'GROUP';
-            ")
-            ->fetch();
+            ");
         
         if ( ! $db_groupProperties )
         {
-            throw new Exception("Cannot load group properties for {$courseId}");
+            // throw new Exception
+            Console::warning("Cannot load group properties for {$courseId}");
         }
         
         $groupProperties = array();
@@ -204,13 +216,16 @@ class Claro_Course extends KernelObject
         }
         
         $groupProperties ['registrationAllowed'] =  ($groupProperties['self_registration'] == 1);
-        unset ( $groupProperties['self_registration'] );
+        unset($groupProperties['self_registration']);
+
+        $groupProperties ['unregistrationAllowed'] =  (isset($groupProperties['self_unregistration']) && $groupProperties['self_unregistration'] == 1);
+        unset($groupProperties['self_unregistration']);
 
         $groupProperties ['private'] =  ($groupProperties['private'] == 1);
 
         $groupProperties['tools'] = array();
         
-        $groupToolList = get_group_tool_label_list();
+        $groupToolList = get_activated_group_tool_label_list( $this->_courseId );
         
         foreach ( $groupToolList as $thisGroupTool )
         {
