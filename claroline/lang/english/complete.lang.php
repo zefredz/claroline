@@ -460,6 +460,7 @@ $_lang['Course options'] = 'Course options';
 $_lang['Course profile'] = 'Course profile';
 $_lang['Course profile list'] = 'Course profile list';
 $_lang['Course progression'] = 'Course progression ';
+$_lang['Course session creation is allowed on the platform'] = 'Course session creation is allowed on the platform';
 $_lang['Course settings'] = 'Course settings';
 $_lang['Course statistics are now empty'] = 'Course statistics are now empty';
 $_lang['Course title'] = 'Course title';

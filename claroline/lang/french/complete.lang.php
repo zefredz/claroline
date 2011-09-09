@@ -479,6 +479,7 @@ $_lang['Course profile'] = 'Profil d\'accès aux cours';
 $_lang['Course profile list'] = 'Liste des profils d\'accès aux cours';
 $_lang['Course progression'] = 'Progression dans le cours';
 $_lang['Course settings'] = 'Paramètres du cours';
+$_lang['Course session creation is allowed on the platform'] = 'La creation de cours sessions est autorisée sur la plateforme';
 $_lang['Course statistics are now empty'] = 'Statistiques du cours effacées';
 $_lang['Course title'] = 'Intitulé du cours';
 $_lang['Course title needed'] = 'L\'intitulé est obligatoire';
