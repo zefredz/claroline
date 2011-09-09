@@ -117,7 +117,7 @@ class ClaroCourse
             : get_conf('defaultAccessOnCourseCreation')
             ;
         $this->visibility           = get_conf('defaultVisibilityOnCourseCreation');
-        $this->registration         = get_conf('defaultRegistrationOnCourseCreation') ;
+        $this->registration         = get_conf('defaultRegistrationOnCourseCreation') ? 'open' : 'close' ;
         $this->registrationKey      = '';
         $this->publicationDate      = time();
         $this->expirationDate       = 0;
