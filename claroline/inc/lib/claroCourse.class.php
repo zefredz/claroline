@@ -688,7 +688,7 @@ class ClaroCourse
             }
         }
         
-        if ( isset($_REQUEST['registration_key']) && isset($_REQUEST['course_registrationKey']) )
+        if ( isset($_REQUEST['registration_key']) || isset($_REQUEST['course_registrationKey']) )
         {
             $this->registrationKey = trim(strip_tags($_REQUEST['course_registrationKey']));
         }
