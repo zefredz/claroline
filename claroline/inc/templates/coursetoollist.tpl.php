@@ -24,7 +24,7 @@
     <br />
 
     <?php
-        if ( claro_is_allowed_to_edit() ) :
+        if ( claro_is_course_manager() || claro_is_platform_admin() ) :
             echo claro_html_list($this->courseManageToolLinkList,  array('id'=>'courseManageToolList'));
         endif;
     ?>
