@@ -200,7 +200,9 @@ class CourseUserRegistration
         $course,
         $givenCourseKey,
         $registerToSourceCourse = false,
-        $categoryId;
+        $categoryId,
+        $ignoreRegistrationKeyCheck = false,
+        $ignoreCategoryRegistrationCheck = false;
     
     protected $status = 0, $errorMessage = '';
     
@@ -264,6 +266,16 @@ class CourseUserRegistration
         $this->categoryId = $categoryId;
     }
     
+    public function ignoreRegistrationKeyCheck()
+    {
+        $this->ignoreRegistrationKeyCheck = true;
+    }
+    
+    public function ignoreCategoryRegistrationCheck()
+    {
+        $this->ignoreCategoryRegistrationCheck = true;
+    }
+    
     /**
      * User should be added as a course admin
      */
@@ -298,12 +310,6 @@ class CourseUserRegistration
         if ( !$this->isRegistrationAllowed() )
         {
             
-            return false;
-        }
-        
-        if ( !$this->checkRegistrationKey() )
-        {
-            $this->status = self::STATUS_KEYVALIDATION_FAILED;
             return false;
         }
         
@@ -509,7 +515,22 @@ class CourseUserRegistration
 
             if( $this->isCourseRegistrationAllowed() )
             {
-                return $this->checkRegistrationKey();
+                if ( $this->ignoreRegistrationKeyCheck )
+                {
+                    return true;
+                }
+                else
+                {
+                    if ( $this->checkRegistrationKey() )
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        $this->status = self::STATUS_KEYVALIDATION_FAILED;
+                        return false;
+                    }
+                }
             }
             else
             {
@@ -578,7 +599,9 @@ class CourseUserRegistration
     {
         $curdate = claro_time();
         
-        if ( !is_null( $this->categoryId ) && ! $this->isAllowedToRegisterToCategory() )
+        if ( !$this->ignoreCategoryRegistrationCheck 
+            && !is_null( $this->categoryId ) 
+            && ! $this->isAllowedToRegisterToCategory() )
         {
             $this->status = self::STATUS_REGISTRATION_FAILED;
             $isUserAllowedToEnrol = false;

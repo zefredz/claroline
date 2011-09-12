@@ -257,6 +257,9 @@ class ClaroCourse
                     null
                 );
                 
+                $courseRegistration->ignoreRegistrationKeyCheck();
+                $courseRegistration->ignoreCategoryRegistrationCheck();
+                
                 $courseRegistration->setCourseAdmin();
                 $courseRegistration->setCourseTutor();
                 
