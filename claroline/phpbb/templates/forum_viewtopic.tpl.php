@@ -57,6 +57,7 @@ endif; //end not anonymous user
     <br />
     <small><?php echo claro_html_localised_date( get_locale( 'dateTimeFormatLong' ), datetime_to_timestamp( $thisPost['post_time'] ) ); ?></small>
   </div>
+    <div style="clear:right;"></div>
   <div class="threadPostContent">
     <?php $itemClass = claro_is_user_authenticated()
                        && $this->claro_notifier->is_a_notified_ressource( claro_get_current_course_id(), $this->claro_notifier->get_notification_date( claro_get_current_user_id() ), claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this->forum_id . "-" . $this->topic_id . "-" . $thisPost['post_id'] )
