@@ -254,6 +254,16 @@ class CourseUserRegistration
         return $this->errorMessage;
     }
     
+    public function setUserRegistrationKey( $registrationKey )
+    {
+        $this->givenCourseKey = $registrationKey;
+    }
+    
+    public function setCategoryId( $categoryId )
+    {
+        $this->categoryId = $categoryId;
+    }
+    
     /**
      * User should be added as a course admin
      */
