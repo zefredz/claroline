@@ -51,8 +51,12 @@ else                            $name = '';
 
 if ( isset($_REQUEST['description']) ) $description = trim($_REQUEST['description']);
 else                                   $description = '';
-if ( isset($_REQUEST['maxMember']) && ctype_digit($_REQUEST['maxMember']) && (trim($_REQUEST['maxMember']) != '') ) $maxMember = (int) $_REQUEST['maxMember'];
-else                                                                        $maxMember = NULL;
+
+if ( isset($_REQUEST['maxMember'])
+    && ctype_digit($_REQUEST['maxMember'])
+    && (trim($_REQUEST['maxMember']) != ''
+    && (int)$_REQUEST['maxMember'] > 0 ) ) $maxMember = (int)$_REQUEST['maxMember'];
+else $maxMember = NULL;
 
 if ( isset($_REQUEST['tutor']) ) $tutor = (int) $_REQUEST['tutor'];
 else                             $tutor = 0;
