@@ -220,6 +220,8 @@ class ClaroCategory
         {
             $flatList[] = array(
                 'id' =>     $category['id'],
+                'canHaveCoursesChild' => $category['canHaveCoursesChild'],
+                'visible' => $category['visible'],
                 'path' =>   self::getPath($category['id'], $categoriesList, $separator)
             );
         }
