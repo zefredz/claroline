@@ -702,7 +702,7 @@ class ClaroCategory
             .'</label></dt>'
             . '<dd>'
             . '<input type="text" name="category_name" id="category_name" value="' . htmlspecialchars($this->name) . '" size="30" maxlength="100" />'
-            . (empty($this->id) ? '<br /><small>'.get_lang('e.g. <em>Sciences of Economics</em>').'</small>':'')
+            . (empty($this->id) ? '<br /><span class="notice">'.get_lang('e.g. <em>Sciences of Economics</em>').'</span>':'')
             . '</dd>' . "\n" ;
         
         // Category code
@@ -712,7 +712,7 @@ class ClaroCategory
             . '<span class="required">*</span> '
             . '</label></dt>'
             . '<dd><input type="text" id="category_code" name="category_code" value="' . htmlspecialchars($this->code) . '" size="30" maxlength="12" />'
-            . (empty($this->id) ? '<br /><small>'.get_lang('max. 12 characters, e.g. <em>ROM2121</em>').'</small>':'')
+            . (empty($this->id) ? '<br /><span class="notice">'.get_lang('max. 12 characters, e.g. <em>ROM2121</em>').'</span>':'')
             . '</dd>' . "\n" ;
         
         // Category's parent
@@ -755,7 +755,7 @@ class ClaroCategory
             . '<input type="radio" id="cant_have_courses" name="category_can_have_courses" value="0" ' . (( $this->canHaveCoursesChild == 0 && isset($this->canHaveCoursesChild) ) ? 'checked="checked"':'' ) . ' />'
             . '&nbsp;'
             . '<label for="cant_have_courses">' . get_lang('No') . '</label><br />'
-            . '<small>'.get_lang('Authorize the category to possess courses or not (opened or closed category)').'</small>'
+            . '<span class="notice">'.get_lang('Authorize the category to possess courses or not (opened or closed category)').'</span>'
             . '</dd>' . "\n" ;
             
         // Category's dedicated course/board
@@ -767,7 +767,7 @@ class ClaroCategory
             . '<select  id="category_root_course" name="category_root_course" />'
             . $coursesHtmlList
             . '</select><br />'
-            . '<small>'.get_lang('Dedicate a course to this category.  The course has to be linked to the category first.').'</small>'
+            . '<span class="notice">'.get_lang('Dedicate a course to this category.  The course has to be linked to the category first.').'</span>'
             . '</dd>' . "\n" ;
             
         // Form's footer
