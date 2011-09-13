@@ -599,7 +599,7 @@ if ($is_allowedToEdit)
         
         $out .= '<dl>'
               
-              . '<dt><label for="title">' . get_lang('Assignment title') . '</label></dt>'
+              . '<dt><label for="title">' . get_lang('Assignment title') . ' <span class="required">*</span></label></dt>'
               . '<dd><input type="text" name="title" id="title" size="50" maxlength="200" value="' . htmlspecialchars($assignment->getTitle()) . '" /></dd>'
               
               . '<dt><label for="description">' . get_lang('Description') . '<br /></label></dt>'
@@ -844,6 +844,13 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     }
     $out .= '</tbody>' . "\n"
     .     '</table>' . "\n\n";
+}
+
+if ( isset($displayAssigForm) && $displayAssigForm )
+{
+    $out .= '<div style="padding-top: 5px;"><small><span class="required">*</span>'
+          . get_lang( 'Denotes required fields' )
+          . '</small></div>';
 }
 
 $claroline->display->body->appendContent($out);
