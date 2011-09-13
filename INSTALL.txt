@@ -177,16 +177,16 @@ Before upgrading we heavily recommend you do A FULL BACKUP of the previous
 Claroline directories and databases. If you are unsure how to achieve this
 please ask your hosting provider for advice.
 
-1. Download 'claroline110x.tar.gz'
+1. Download 'claroline-1_11_x.tar.gz'
 
-   Windows : download 'claroline-1_10_x.zip'
+   Windows : download 'claroline-1_11_x.zip'
 
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline-1_10_x.tar.gz
+    tar -zxvf claroline-1_11_x.tar.gz
 
-   Windows : unzip 'claroline-1_10_x.zip'
+   Windows : unzip 'claroline-1_11_x.zip'
 
 
 3. Replace your previous claroline directory and index.php by the new ones.
