@@ -212,6 +212,10 @@ table.multiselect td.arrows {
     vertical-align: middle;
 }
 
+table.multiselect option.hidden {
+    color: #777777;
+}
+
 /* Specific fieldset and legend styles */
 #courseSettings fieldset legend, 
 #userSettings fieldset legend  {
