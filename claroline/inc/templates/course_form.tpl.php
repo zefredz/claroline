@@ -91,7 +91,8 @@
                     </table>
                     <?php if (empty($this->course->courseId)) : ?>
                     <span class="notice">
-                        <?php echo get_lang('Feel free not to associate courses to any categories.'); ?>
+                        <?php echo get_lang('Feel free not to associate courses to any categories.'); ?><br />
+                        <?php echo get_lang('The categories appearing in grey are invisible categories.'); ?>
                     </span>
                     <?php endif; ?>
                 </dd>

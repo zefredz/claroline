@@ -168,6 +168,10 @@ table.multiselect td.arrows {
     vertical-align: middle;
 }
 
+table.multiselect option.hidden {
+    color: #777777;
+}
+
 /* Course form style */
 #courseSettings fieldset {
     border: 0;

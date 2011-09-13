@@ -769,6 +769,7 @@ class ClaroCourse
         }
         
         // Validate categories
+        /*
         foreach ($this->categories as $category)
         {
             if (!$category->canHaveCoursesChild && !claro_is_platform_admin())
@@ -777,6 +778,7 @@ class ClaroCourse
                 $success = false ;
             }
         }
+        */
         
         return $success;
     }
@@ -884,7 +886,9 @@ class ClaroCourse
             // Dispatch in the lists
             if ( $match )
             {
-                $linkedCategoriesListHtml .= '<option value="'
+                $linkedCategoriesListHtml .= '<option '
+                    . (!$category['visible'] ? 'class="hidden" ' : '')
+                    . 'value="'
                     . $category['id'] . '">' . $category['path']
                     . '</option>' . "\n";
             }
@@ -892,7 +896,9 @@ class ClaroCourse
             {
                 if ($category['canHaveCoursesChild'] || claro_is_platform_admin())
                 {
-                    $unlinkedCategoriesListHtml .= '<option value="'
+                    $unlinkedCategoriesListHtml .= '<option '
+                        . (!$category['visible'] ? 'class="hidden" ' : '')
+                        . 'value="'
                         . $category['id'] . '">' . $category['path']
                         . '</option>' . "\n";
                 }
