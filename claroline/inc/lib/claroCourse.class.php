@@ -899,6 +899,16 @@ class ClaroCourse
             }
         }
         
+        // Validate categories
+        foreach ($this->categories as $category)
+        {
+            if (!$category->canHaveCoursesChild && !claro_is_platform_admin())
+            {
+                $this->backlog->failure(get_lang('The category <i>%category</i> can\'t contain courses', array('%category' => $category->name)));
+                $success = false ;
+            }
+        }
+        
         return $success;
     }
     
@@ -1010,9 +1020,12 @@ class ClaroCourse
             }
             else
             {
-                $unlinkedCategoriesListHtml .= '<option value="'
-                    . $category['id'] . '">' . $category['path']
-                    . '</option>' . "\n";
+                if ($category['canHaveCoursesChild'] || claro_is_platform_admin())
+                {
+                    $unlinkedCategoriesListHtml .= '<option value="'
+                        . $category['id'] . '">' . $category['path']
+                        . '</option>' . "\n";
+                }
             }
         }
         
