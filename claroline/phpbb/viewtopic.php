@@ -1,7 +1,7 @@
 <?php // $Id$
 /**
  * Claroline forum tool
- * 
+ *
  * Script handling topics and posts in forum tool (new topics, replies, topic review, etc.)
  * As from Claroline 1.9.6, gathers functionality of deprecated scripts newtopic.php, reply.php and editpost.php
  *
@@ -74,29 +74,69 @@ try
     {
         case 'rqPost' :
             $editMode = $userInput->getMandatory( 'mode' );
-            if( 'add' == $editMode ) $forumId = $userInput->getMandatory( 'forum' );
-            elseif( 'reply' == $editMode ) $topicId = $userInput->getMandatory( 'topic' );
-            else $postId = $userInput->getMandatory( 'post' ); 
+            
+            if( 'add' == $editMode )
+            {
+                $forumId = $userInput->getMandatory( 'forum' );
+            }
+            elseif( 'reply' == $editMode )
+            {
+                $topicId = $userInput->getMandatory( 'topic' );
+            }
+            elseif( 'quote' == $editMode )
+            {
+                $topicId = $userInput->getMandatory( 'topic' );
+                $postId = $userInput->getMandatory( 'post' );
+            }
+            else
+            {
+                $postId = $userInput->getMandatory( 'post' );
+            }
             break;
+            
         case 'exSavePost' :
             $editMode = $userInput->getMandatory( 'mode' );
-            if( 'add' == $editMode ) $forumId = $userInput->getMandatory( 'forum' );
-            elseif( 'reply' == $editMode ) $topicId = $userInput->getMandatory( 'topic' );
-            else $postId = $userInput->getMandatory( 'post' ); 
+            
+            if( 'add' == $editMode ) {
+                $forumId = $userInput->getMandatory( 'forum' );
+            }
+            elseif( 'reply' == $editMode )
+            {
+                $topicId = $userInput->getMandatory( 'topic' );
+            }
+            elseif( 'quote' == $editMode )
+            {
+                $topicId = $userInput->getMandatory( 'topic' );
+                $postId = $userInput->getMandatory( 'post' );
+            }
+            else
+            {
+                $postId = $userInput->getMandatory( 'post' );
+            }
+            
             $message = $userInput->getMandatory( 'message' );
             $message = preg_replace( '/<script[^\>]*>|<\/script>|(onabort|onblur|onchange|onclick|ondbclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload)\s*=\s*"[^"]+"/i', '', $message );
-            if( 'add' == $editMode || 'edit' == $editMode ) $subject = trim( $userInput->getMandatory( 'subject' ) );
+            
+            if( 'add' == $editMode || 'edit' == $editMode )
+            {
+                $subject = trim( $userInput->getMandatory( 'subject' ) );
+            }
+            
             $is_post_anonymous = $userInput->get( 'anonymous_post', 0 );
             break;
+            
         case 'exDelete' :
             $postId = $userInput->getMandatory( 'post' );
             break;
+            
         case 'exNotify' :
             $topicId = $userInput->getMandatory( 'topic' );
             break;
+            
         case 'exdoNotNotify' :
             $topicId = $userInput->getMandatory( 'topic' );
             break;
+            
         case 'show' :
             $topicId = $userInput->getMandatory( 'topic' );
             break;
@@ -134,7 +174,7 @@ catch( Exception $ex )
             case 'show' :
                 $dialogBox->error( get_lang( 'Unknown topic' ) );
                 break;
-            default : 
+            default :
                 claro_die( get_lang( 'Not allowed' ) );
         }
     }
@@ -147,20 +187,24 @@ catch( Exception $ex )
         $dialogBox->error( get_lang( 'Unexpected error' ) );
     }
 }
-  
-    //TODO handle these with ajax calls
-    $userInput->setValidator( 'notification', new Claro_Validator_ValueType( 'string' ) );
-    $notify = $userInput->get( 'notification', '' );
 
-                        
-//collect forum-topic-post settings and init some vars            
-if( false !== $postSettingList = get_post_settings( $postId ) )
+
+//TODO handle these with ajax calls
+$userInput->setValidator( 'notification', new Claro_Validator_ValueType( 'string' ) );
+$notify = $userInput->get( 'notification', '' );
+
+
+//collect forum-topic-post settings and init some vars
+$postSettingList = get_post_settings( $postId );
+$topicSettingList = get_topic_settings( $topicId );
+
+if( false !== $postSettingList && $editMode != 'quote' )
 {
     $forumSettingList = get_forum_settings( $postSettingList['forum_id'] );
     $topicSettingList = get_topic_settings( $postSettingList['topic_id'] );
     $topicId = $topicSettingList['topic_id'];
 }
-elseif( false !== $topicSettingList = get_topic_settings( $topicId ) )
+elseif( false !== $topicSettingList )
 {
     $forumSettingList = get_forum_settings( $topicSettingList['forum_id'] );
     $forumId = $forumSettingList['forum_id'];
@@ -183,15 +227,15 @@ else
 }
 
 //check access rights
-$is_postAllowed = ( !claro_is_current_user_enrolment_pending() && $forumSettingList['forum_access'] != 0 
-                    && ( !$topicId || !$topicSettingList['topic_status'] ) ) 
-                    ? true 
+$is_postAllowed = ( !claro_is_current_user_enrolment_pending() && $forumSettingList['forum_access'] != 0
+                    && ( !$topicId || !$topicSettingList['topic_status'] ) )
+                    ? true
                     : false;
 $is_viewAllowed = !is_null( $forumSettingList['idGroup'] )
-                  && !( ( $forumSettingList['idGroup'] == claro_get_current_group_id() ) 
-                        || claro_is_in_a_group() || claro_is_group_allowed() ) 
+                  && !( ( $forumSettingList['idGroup'] == claro_get_current_group_id() )
+                        || claro_is_in_a_group() || claro_is_group_allowed() )
                   ? false
-                  : true;  
+                  : true;
 
 // NOTE : $forumSettingList['idGroup'] != claro_get_current_group_id() is necessary to prevent any hacking
 // attempt like rewriting the request without $cidReq. If we are in group
@@ -215,16 +259,17 @@ else
         {
             $dialogBox->error( 'Error while deleting post' );
         }
+        
         $cmd = 'show';
     }
     elseif( 'exSavePost' == $cmd )
-    {        
+    {
         $error = false;
         //this test should be handled by a "html not empty" validator
         if ( trim( strip_tags( $message ) ) == '' )
         {
-            $dialogBox->error( get_lang( 'You cannot post an empty message' ) ); 
-            $error = true;          
+            $dialogBox->error( get_lang( 'You cannot post an empty message' ) );
+            $error = true;
         }
         else
         {
@@ -232,7 +277,7 @@ else
             $userLastname  = $is_post_anonymous ? 'anonymous' : claro_get_current_user_data( 'lastName' );
             $userFirstname = $is_post_anonymous ? '' : claro_get_current_user_data( 'firstName' );
             $poster_ip     = $_SERVER['REMOTE_ADDR'];
-    
+            
             $time = date( 'Y-m-d H:i' );
             
             // record new topic if required
@@ -240,7 +285,7 @@ else
             {
                 if( '' == $subject )
                 {
-                    $dialogBox->error( get_lang( 'Subject cannot be empty' ) );  
+                    $dialogBox->error( get_lang( 'Subject cannot be empty' ) );
                     $error = true;
                 }
                 if( false !== $topicId = create_new_topic( $subject, $time, $forumId, claro_get_current_user_id(), $userFirstname, $userLastname ) )
@@ -250,7 +295,7 @@ else
                     // send message to user registered for notifications of new topics in this forum
                     trig_forum_notification( $forumId );
                     if( false !== $postId = create_new_post( $topicId, $forumId, claro_get_current_user_id(), $time, $poster_ip, $userLastname, $userFirstname, $message ) )
-                    { 
+                    {
                         $eventNotifier->notifyCourseEvent( 'forum_new_post', claro_get_current_course_id(), claro_get_current_tool_id(), $forumId . '-' . $topicId . '-' . $postId, claro_get_current_group_id(), 0 );
                     }
                     else
@@ -265,7 +310,7 @@ else
             {
                 if( '' == $subject && is_first_post( $topicId, $postId ) )
                 {
-                    $dialogBox->error( get_lang( 'Subject cannot be empty' ) );  
+                    $dialogBox->error( get_lang( 'Subject cannot be empty' ) );
                     $error = true;
                 }
                 else
@@ -281,7 +326,7 @@ else
                 // send message to user registered for notifications of new posts in this topic
                 trig_topic_notification( $topicId );
                 $eventNotifier->notifyCourseEvent( 'forum_answer_topic', claro_get_current_course_id(), claro_get_current_tool_id(), $forumId . '-' . $topicId, claro_get_current_group_id(), 0 );
-                $eventNotifier->notifyCourseEvent( 'forum_new_post', claro_get_current_course_id(), claro_get_current_tool_id(), $forumId . '-' . $topicId . '-' . $postId, claro_get_current_group_id(), 0 );                              
+                $eventNotifier->notifyCourseEvent( 'forum_new_post', claro_get_current_course_id(), claro_get_current_tool_id(), $forumId . '-' . $topicId . '-' . $postId, claro_get_current_group_id(), 0 );
             }
             else
             {
@@ -289,21 +334,25 @@ else
                 $error = true;
             }
         }
-        if( $error ) 
+        if( $error )
         {
             $cmd = 'rqPost';
         }
-        else 
+        else
         {
             $cmd = 'show';
         }
     }
+    
+    
     if( 'rqPost' == $cmd )
-    {        
+    {
         if( 'edit' != $editMode || $is_allowedToEdit )
         {
             if( 'quote' == $editMode && $postSettingList )
             {
+                
+                
                 $identity = 'anonymous' == $postSettingList['poster_lastname'] ? get_lang( 'Anonymous contributor wrote :' ) : $postSettingList['poster_firstname'] . '&nbsp;' . $postSettingList['poster_lastname'] . '&nbsp;' . get_lang( 'wrote :' );
                 $quotedPost = preg_replace('#</textarea>#si', '&lt;/TEXTAREA&gt;', $postSettingList['post_text'] );
                 $message = '<span style="margin-left:20px;font-weight:bold;">' . $identity . '</span><br/>';
@@ -311,7 +360,7 @@ else
                 $subject = '';
             }
             elseif( 'edit' == $editMode )
-            { 
+            {
                 $message = preg_replace('#</textarea>#si', '&lt;/TEXTAREA&gt;', $postSettingList['post_text'] );
                 if( is_first_post( $topicId, $postId ) )
                 {
@@ -324,7 +373,7 @@ else
                 $message = '';
             }
             $form = new ModuleTemplate( 'CLFRM', 'forum_editpost.tpl.php' );
-        
+            
             $form->assign( 'nextCommand', 'exSavePost' );
             $form->assign( 'editMode', $editMode );
             $form->assign( 'forumId', $forumSettingList['forum_id'] );
@@ -343,12 +392,12 @@ else
         }
     }
     //notification commands should be handled by ajax calls
-    if( 'exNotify' == $cmd ) 
+    if( 'exNotify' == $cmd )
     {
         request_topic_notification( $topicId, claro_get_current_user_id() );
         $cmd = 'show';
     }
-    elseif( 'exdoNotNotify' == $cmd ) 
+    elseif( 'exdoNotNotify' == $cmd )
     {
         cancel_topic_notification( $topicId, claro_get_current_user_id() );
         $cmd = 'show';
@@ -365,8 +414,8 @@ if( 'default' == $anonymityStatus && !$is_allowedToEdit && get_conf( 'confirm_no
     $htmlHeadXtra[] =
     '<script type="text/javascript">
     $(document).ready(function(){
-        $(".confirm").click(function(){       
-            if( $("#anonymous_cb").length <= 0 || $("#anonymous_cb").is(":checked") ) 
+        $(".confirm").click(function(){
+            if( $("#anonymous_cb").length <= 0 || $("#anonymous_cb").is(":checked") )
             {
                 return true;
             }
@@ -430,8 +479,8 @@ if( 'show' != $cmd )
     {
         $info = '<tr valign="top">' . "\n"
         .    '<td>&nbsp;</td>'
-        .    '<td><strong>' 
-        . get_lang( 'Contributions to this forum are anonymous by default!<br/>' ) 
+        .    '<td><strong>'
+        . get_lang( 'Contributions to this forum are anonymous by default!<br/>' )
         . get_lang( 'If you want to sign your post all the same, uncheck the checkbox above the "OK" button' )
         . '</strong></td>'
         . '</tr>'
@@ -441,8 +490,8 @@ if( 'show' != $cmd )
     {
         $info = '<tr valign="top">' . "\n"
         . '<td>&nbsp;</td>'
-        . '<td><strong>' 
-        . get_lang( 'This forum allows anonymous contributions!<br/>' ) 
+        . '<td><strong>'
+        . get_lang( 'This forum allows anonymous contributions!<br/>' )
         . get_lang( 'If do not want to sign your post, check the checkbox above the "OK" button' )
         . '</strong></td>'
         . '</tr>'
@@ -471,7 +520,7 @@ if( $topicSettingList )
     // get post and use pager
     if( !$viewall )
     {
-    $postLister = new postLister( $topicId, $start, get_conf( 'posts_per_page' ) );
+        $postLister = new postLister( $topicId, $start, get_conf( 'posts_per_page' ) );
     }
     else
     {
@@ -482,9 +531,9 @@ if( $topicSettingList )
     $postList   = $postLister->get_post_list();
     $totalPosts = $postLister->sqlPager->get_total_item_count();
     $pagerUrl   = htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?topic=' . $topicId ) );
-
+    
     //increment topic view count if required
-    if ( $incrementViewCount ) 
+    if ( $incrementViewCount )
     {
         increase_topic_view_count( $topicId );
         $claro_notifier->is_a_notified_ressource( claro_get_current_course_id(), $claro_notifier->get_notification_date( claro_get_current_user_id() ), claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forumId . "-" . $topicId );
@@ -496,9 +545,9 @@ if( $topicSettingList )
         $toolList = disp_forum_toolbar( 'viewtopic', $forumSettingList['forum_id'], $forumSettingList['cat_id'], $topicId );
         
         if ( count( $postList ) > 2 ) // if less than 2 las message is visible
-        { 
+        {
             $start_last_message = ( ceil( $totalPosts / get_conf( 'posts_per_page' ) ) -1 ) * get_conf( 'posts_per_page' );
-
+            
             $lastMsgUrl = Url::Contextualize( $_SERVER['PHP_SELF']
             .             '?forum=' . $forumSettingList['forum_id']
             .             '&amp;topic=' . $topicId
@@ -522,11 +571,11 @@ if( $topicSettingList )
         
         $out .= '<p>' . claro_html_menu_horizontal( $toolList ) . '</p>';
     }
-
+    
     $out .= $postLister->disp_pager_tool_bar( $pagerUrl );
     try
     {
-        $display = new ModuleTemplate( 'CLFRM' , 'forum_viewtopic.tpl.php' ); 
+        $display = new ModuleTemplate( 'CLFRM' , 'forum_viewtopic.tpl.php' );
         $display->assign( 'forum_id', $forumId );
         $display->assign( 'topic_id', $topicId );
         $display->assign( 'topic_subject', $topicSettingList['topic_title'] );
@@ -558,8 +607,7 @@ if( $topicSettingList )
                                         );
         $out .= '<p>' . claro_html_menu_horizontal( $toolBar ) . '</p>';
     }
-
-
+    
     $out .= $postLister->disp_pager_tool_bar( $pagerUrl );
 }
 
