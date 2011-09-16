@@ -29,7 +29,7 @@ class MailNotifier implements MessagingNotifier
      * notify by email the user of the reception of a message
      *
      * @param array of int: $userDataList user identificatin list
-     * @param MessageToSend $message message envoyé
+     * @param MessageToSend $message message envoyï¿½
      * @param int $messageId identification of the message
      * 
      */
@@ -101,7 +101,10 @@ class MailNotifier implements MessagingNotifier
                     . '<br /><br />'
                // footer
                     . '-- <br />'
-                    . $userData[ 'firstName' ] . ' ' . $userData[ 'lastName' ] . "<br />"
+                    . get_lang( '%firstName %lastName', array(
+                        '%firstName' => $userData['firstName'],
+                        '%lastName' => $userData['lastName'] ) 
+                    ) . "<br />"
                     .$stringManager
                     . '<br /><br /><a href="' . get_conf('rootWeb') . '">' . get_conf('siteName') . '</a><br />'
                     . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . get_lang('Administrator')  . ': <a href="mailto:' . get_conf('administrator_email') . '">' . get_conf('administrator_name') . '</a><br />'
@@ -117,7 +120,16 @@ class MailNotifier implements MessagingNotifier
             return claro_failure::set_failure( get_lang("Mail Notification Failed : You don't have any email address defined in your user profile or the defined email address is not valid." ) );
         }
         
-        self::emailNotification($userDataList, $emailBody,$emailSubject, $userData['mail'], $userData['lastName']." ".$userData['firstName']);
+        self::emailNotification(
+            $userDataList,
+            $emailBody,
+            $emailSubject,
+            $userData['mail'],
+            get_lang( '%firstName %lastName', array(
+                '%firstName' => $userData['firstName'],
+                '%lastName' => $userData['lastName'] ) 
+            )
+        );
     }
     
     /**
