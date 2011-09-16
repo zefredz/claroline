@@ -1336,7 +1336,7 @@ if ( count($filePathList) > 0 )
         {
             $fileAttributeList['type'] = A_FILE;
             $fileAttributeList['size'] = claro_get_file_size($baseWorkDir.$thisFile);
-            $fileAttributeList['date'] = filectime($baseWorkDir.$thisFile);
+            $fileAttributeList['date'] = filemtime($baseWorkDir.$thisFile);
         }
 
         $xtraAttributeKey = array_search($thisFile, $xtraAttributeList['path']);
