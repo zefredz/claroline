@@ -101,7 +101,10 @@ class MailNotifier implements MessagingNotifier
                     . '<br /><br />'
                // footer
                     . '-- <br />'
-                    . $userData[ 'firstName' ] . ' ' . $userData[ 'lastName' ] . "<br />"
+                    . get_lang( '%firstName %lastName', array(
+                        '%firstName' => $userData['firstName'],
+                        '%lastName' => $userData['lastName'] ) 
+                    ) . "<br />"
                     .$stringManager
                     . '<br /><br /><a href="' . get_conf('rootWeb') . '">' . get_conf('siteName') . '</a><br />'
                     . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . get_lang('Administrator')  . ': <a href="mailto:' . get_conf('administrator_email') . '">' . get_conf('administrator_name') . '</a><br />'
@@ -123,8 +126,8 @@ class MailNotifier implements MessagingNotifier
             $emailSubject,
             $userData['mail'],
             get_lang( '%firstName %lastName', array(
-                '%firstName' => $userData['lastName'],
-                '%lastName' => $userData['firstName'] ) 
+                '%firstName' => $userData['firstName'],
+                '%lastName' => $userData['lastName'] ) 
             )
         );
     }
