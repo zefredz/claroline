@@ -67,7 +67,7 @@ endif; //end not anonymous user
     <?php echo claro_parse_user_text( $thisPost[ 'post_text' ] ); ?>
     <?php if( $this->is_post_allowed ) :?>
         <p>
-        <a class="claroCmd" href="<?php  echo htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?post=' . $thisPost['post_id'] . '&amp;cmd=rqPost&amp;mode=quote' ) ); ?>">
+        <a class="claroCmd" href="<?php  echo htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic=' . $thisPost['topic_id'] . '&amp;post=' . $thisPost['post_id'] . '&amp;cmd=rqPost&amp;mode=quote' ) ); ?>">
             <img src="<?php echo get_icon_url('post'); ?>" alt="<?php echo get_lang('Quote'); ?>" />
             <?php echo get_lang( 'Quote' ) ?>
           </a>
@@ -85,7 +85,6 @@ endif; //end not anonymous user
         </p>
     <?php endif; ?>
   </div>
-  <div class="spacer"></div>
 </div>
 <?php endforeach; ?>
 </div>
