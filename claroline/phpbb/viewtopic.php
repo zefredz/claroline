@@ -65,10 +65,11 @@ try
     $userInput->setValidator( 'viewall', new Claro_Validator_ValueType( 'numeric' ) );
     
     //gather user input values
-    $cmd = $userInput->get( 'cmd', 'show' );
-    $forumId = $topicId = $postId = 0;
-    $start = $userInput->get( 'start', 0 );
-    $viewall = $userInput->get( 'viewall', 0 );
+    $cmd        = $userInput->get( 'cmd', 'show' );
+    $forumId    = $topicId = $postId = 0;
+    $start      = $userInput->get( 'start', 0 );
+    $viewall    = $userInput->get( 'viewall', 0 );
+    $editMode   = '';
     
     switch( $cmd )
     {
@@ -111,15 +112,22 @@ try
             }
             else
             {
+                $topicId = $userInput->getMandatory( 'topic' );
                 $postId = $userInput->getMandatory( 'post' );
             }
             
             $message = $userInput->getMandatory( 'message' );
             $message = preg_replace( '/<script[^\>]*>|<\/script>|(onabort|onblur|onchange|onclick|ondbclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload)\s*=\s*"[^"]+"/i', '', $message );
             
-            if( 'add' == $editMode || 'edit' == $editMode )
+            if( 'add' == $editMode ||
+                ( 'edit' == $editMode && is_first_post( $topicId, $postId ) )
+            )
             {
                 $subject = trim( $userInput->getMandatory( 'subject' ) );
+            }
+            else
+            {
+                $subject = '';
             }
             
             $is_post_anonymous = $userInput->get( 'anonymous_post', 0 );
@@ -365,6 +373,10 @@ else
                 if( is_first_post( $topicId, $postId ) )
                 {
                     $subject = $topicSettingList['topic_title'];
+                }
+                else
+                {
+                    $subject = '';
                 }
             }
             elseif( 'add' == $editMode || 'reply' == $editMode )
