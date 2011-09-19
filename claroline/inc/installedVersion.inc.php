@@ -23,6 +23,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author Claro Team <cvs@claroline.net>
  *
  */
+
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 $stable = true;
