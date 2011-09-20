@@ -435,6 +435,7 @@ $noQUERY_STRING = true;
 // Javascript confirm pop up declaration for header
 $jslang = new JavascriptLanguage;
 $jslang->addLangVar('Are you sure you want to delete all the announcements ?');
+$jslang->addLangVar('Are you sure to delete %name ?');
 ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
 
 JavascriptLoader::getInstance()->load('announcements');

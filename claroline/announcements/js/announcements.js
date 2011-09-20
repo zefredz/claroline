@@ -4,6 +4,20 @@
 
 var CLANN = {};
 
+CLANN.confirmationDel = function (name)
+{
+    var arr = {"%name" : name};
+    
+    if (confirm(Claroline.getLang('Are you sure to delete %name ?', arr)))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 CLANN.confirmationDelAll = function ()
 {
     if (confirm(Claroline.getLang('Are you sure you want to delete all the announcements ?')))

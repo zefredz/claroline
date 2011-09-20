@@ -191,7 +191,7 @@ if( $is_allowedToEdit && $cmd == 'exDownload' && get_conf('allow_download_all_su
     }
 
     $sql = "SELECT `id`,
-            `assignment_id`,
+             `assignment_id`,
              `authors`,
              `submitted_text`,
              `submitted_doc_path`,
@@ -445,16 +445,12 @@ if ($is_allowedToEdit)
 /*--------------------------------------------------------------------
                             HEADER
   --------------------------------------------------------------------*/
-$htmlHeadXtra[] =
-'<script type="text/javascript">
-function confirmation (name)
-{
-    if (confirm("' . clean_str_for_javascript(get_lang('Are you sure to delete')) . ' "+ name + " ? ' . clean_str_for_javascript(get_lang('This will also delete all works submitted in this assignment !')) . ' " ))
-        {return true;}
-    else
-        {return false;}
-}
-</script>';
+
+$jslang = new JavascriptLanguage;
+$jslang->addLangVar('Are you sure to delete %name ?');
+ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+
+JavascriptLoader::getInstance()->load('work');
 
 if ( ( isset($displayAssigForm) && $displayAssigForm ) )
 {
@@ -803,7 +799,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
             .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" /></a>'
             .    '</td>' . "\n"
             .    '<td align="center">'
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRmAssig&amp;assigId=' . $anAssignment['id'] . '" onclick="return confirmation(\'' . clean_str_for_javascript($anAssignment['title']) . '\');">'
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRmAssig&amp;assigId=' . $anAssignment['id'] . '" onclick="return WORK.confirmationDel(\'' . clean_str_for_javascript($anAssignment['title']) . '\');">'
             .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" /></a>'
             .    '</td>' . "\n"
             .    '<td align="center">'
