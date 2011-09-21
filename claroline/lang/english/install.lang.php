@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['%path is missing'] = '%path is missing';
 $_lang['%requiredMark required field'] = '%requiredMark required field';
 $_lang['A database will be created for each course.'] = 'A database will be created for each course.';
@@ -89,7 +89,7 @@ $_lang['Password'] = 'Password';
 $_lang['Password storage'] = 'Password storage';
 $_lang['Path to courses repository (relative to the URL above)'] = 'Path to courses repository (relative to the URL above)';
 $_lang['Permission problems.'] = 'Permission problems.';
-$_lang['Platform Settings'] = 'Platform Settings';
+$_lang['Platform settings'] = 'Platform Settings';
 $_lang['Please check the values you entered.'] = 'Please check the values you entered.';
 $_lang['Please enter missing information'] = 'Please enter missing information';
 $_lang['Please read the license and click &quot;Next&quot; to accept it.'] = 'Please read the license and click &quot;Next&quot; to accept it.';

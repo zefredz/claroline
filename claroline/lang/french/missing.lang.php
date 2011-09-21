@@ -4,15 +4,7 @@ $_lang['Define the security layer. options are : tls, ssl or clear (default clea
 $_lang['Disk space allowed for import learning path'] = 'Disk space allowed for import learning path';
 $_lang['Disk space allowed to import scorm package'] = 'Disk space allowed to import scorm package';
 $_lang['Encrypt exported password using md5 algorithm for teacher'] = 'Encrypt exported password using md5 algorithm for teacher';
-$_lang['Export in IMS QTI'] = 'Export in IMS QTI';
-$_lang['Export in IMS QTI (Shuffle)'] = 'Export in IMS QTI (Shuffle)';
-$_lang['Export into CSV'] = 'Export into CSV';
-$_lang['Export to PDF (Shuffle)'] = 'Export to PDF (Shuffle)';
-$_lang['Forum Index'] = 'Forum Index';
-$_lang['Garbage'] = 'Garbage';
 $_lang['Give a port number used to contact SMTP the SMTP server(s) if no port is specified in the hostname (default: 25)'] = 'Give a port number used to contact SMTP the SMTP server(s) if no port is specified in the hostname (default: 25)';
-$_lang['Length of course code suffix'] = 'Length of course code suffix';
-$_lang['Missing or invalid course access'] = 'Missing or invalid course access';
 $_lang['Mysql Base Path'] = 'Mysql Base Path';
 $_lang['Not implemented, name reserved  for future version of Claroline'] = 'Not implemented, name reserved  for future version of Claroline';
 $_lang['Not restricted'] = 'Not restricted';
@@ -48,19 +40,16 @@ db glu is use between these two name.
 In multi db mode, IT MUST be a dot.
 In single db mode, IT CAN\'T be a dot.
 ';
-$_lang['Unenrol class'] = 'Unenrol class';
 $_lang['Update properties of users  on CVS import'] = 'Update properties of users  on CVS import';
-$_lang['Update user\'properties'] = 'Update user\'properties';
 $_lang['User can leave course code (officialCode) field empty or not'] = 'User can leave course code (officialCode) field empty or not';
 $_lang['Whether include tutors in the displayed member list'] = 'Whether include tutors in the displayed member list';
+$_lang['Would you like to add one ?'] = 'Would you like to add one ?';
 $_lang['You can set a specific no-reply address used by the the platform email notification system. If none provided the administrator email will be used.'] = 'You can set a specific no-reply address used by the the platform email notification system. If none provided the administrator email will be used.';
 $_lang['You have been removed of the group.'] = 'You have been removed of the group.';
-$_lang['blockCategoriesOrderInfo'] = 'blockCategoriesOrderInfo';
 $_lang['clear'] = 'clear';
 $_lang['db glu'] = 'db glu';
 $_lang['filename for one file module inclusion'] = 'filename for one file module inclusion';
 $_lang['files_stats'] = 'files_stats';
-$_lang['more details'] = 'more details';
 $_lang['on bottom'] = 'on bottom';
 $_lang['on top'] = 'on top';
 $_lang['relative path from root campus to courses'] = 'relative path from root campus to courses';
