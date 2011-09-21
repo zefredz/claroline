@@ -145,5 +145,3 @@ $_lang['a database is created at each course creation'] = 'a database is created
 $_lang['e.g.'] = 'e.g.';
 $_lang['empty'] = 'empty';
 $_lang['or'] = 'or';
-
-?>

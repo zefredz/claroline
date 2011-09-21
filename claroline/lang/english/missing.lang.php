@@ -1,4 +1,31 @@
 <?php 
 
-
-?>
+$_lang['All courses treated !'] = 'All courses treated !';
+$_lang['Allow users to unregister from inactive, pending, expired or unpublished courses'] = 'Allow users to unregister from inactive, pending, expired or unpublished courses';
+$_lang['Caution: building files\' statistics is a pretty heavy work.  It might take a while and a lot of resources, depending of the size of your campus.'] = 'Caution: building files\' statistics is a pretty heavy work.  It might take a while and a lot of resources, depending of the size of your campus.';
+$_lang['Chose the files extensions you want to monitor when producing files statistics.  Separate each extension with a quote (e.g.: doc,pdf,jpg).'] = 'Chose the files extensions you want to monitor when producing files statistics.  Separate each extension with a quote (e.g.: doc,pdf,jpg).';
+$_lang['Confirm your unsubscription from the group &quot;<b>%group_name</b>&quot;'] = 'Confirm your unsubscription from the group &quot;<b>%group_name</b>&quot;';
+$_lang['Course actually treated :'] = 'Course actually treated :';
+$_lang['Encrypt exported password using md5 algorithm for teacher'] = 'Encrypt exported password using md5 algorithm for teacher';
+$_lang['Export into CSV'] = 'Export into CSV';
+$_lang['Files extensions'] = 'Files extensions';
+$_lang['Files statistics'] = 'Files statistics';
+$_lang['Get CSV statistics'] = 'Get CSV statistics';
+$_lang['Get HTML statistics'] = 'Get HTML statistics';
+$_lang['Nb'] = 'Nb';
+$_lang['Number of course treated :'] = 'Number of course treated :';
+$_lang['Platform admin can export username, user_id and password'] = 'Platform admin can export username, user_id and password';
+$_lang['Please modify prefix of statistic tables from statsTblPrefix'] = 'Please modify prefix of statistic tables from statsTblPrefix';
+$_lang['Please transfer tables from database statsDbName'] = 'Please transfer tables from database statsDbName';
+$_lang['Remove me from this group'] = 'Remove me from this group';
+$_lang['Statistics in progress, please don\'t refresh until further instructions !'] = 'Statistics in progress, please don\'t refresh until further instructions !';
+$_lang['Teacher can export password'] = 'Teacher can export password';
+$_lang['Teacher can export user id'] = 'Teacher can export user id';
+$_lang['Teacher can export username'] = 'Teacher can export username';
+$_lang['User created by'] = 'User created by';
+$_lang['You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings'] = 'You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings';
+$_lang['You have been removed of the group.'] = 'You have been removed of the group.';
+$_lang['You\'ve chosen to isolate the following extensions: %types.  If you wish to modify these extensions, check the advanced platform settings'] = 'You\'ve chosen to isolate the following extensions: %types.  If you wish to modify these extensions, check the advanced platform settings';
+$_lang['files_stats'] = 'files_stats';
+$_lang['other date'] = 'other date';
+$_lang['to another date'] = 'to another date';

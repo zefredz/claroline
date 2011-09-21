@@ -22,5 +22,3 @@ $_lang['Retry'] = 'Retry';
 $_lang['User'] = 'User';
 $_lang['Users'] = 'Users';
 $_lang['Yes'] = 'Yes';
-
-?>
