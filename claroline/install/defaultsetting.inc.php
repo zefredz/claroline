@@ -1,27 +1,30 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
  * This script set default content at init of install
  * Most of def value are from def file.
- * Special case are set are. def file would evoluate to deprecate this script.
+ * Special case are set are. def file would evoluate to deprecate this script
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Install
- * @author      Claro Team <cvs@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
- * @package     INSTALL
+ * @version 1.9 $Revision$
+ *
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Install
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
+ * @package INSTALL
+ *
  */
-
 include_once '../inc/conf/def/CLMAIN.def.conf.inc.php';
 
 /*
- *
+ * 
  */
 $installLanguage = 'english';
 
@@ -80,3 +83,6 @@ $adminEmailForm    = $conf_def_property_list['administrator_email']['default'];
 $contactNameForm     = '*not set*'; // This magic value is use to detect if the content is edit or not.
 $contactPhoneForm    = ''; // if <not set> is found, the data form admin are copied
 $contactEmailForm    = '*not set*'; // This tips  permit to  empty these fields
+
+
+?>

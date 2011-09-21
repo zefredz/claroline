@@ -1,152 +1,49 @@
 <?php // $Id$
 
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
  * User lib contains function to manage users on the platform
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLUSR
- * @author      Christophe Gesche <moosh@claroline.net>
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Christophe Gesché <moosh@claroline.net>
  * @author      Mathieu Laurent <laurent@cerdecam.be>
  * @author      Hugues Peeters <hugues.peeters@advalvas.be>
- * @author      Claro Team <cvs@claroline.net>
  */
 
 require_once(dirname(__FILE__) . '/form.lib.php');
 
-
 /**
- * Initialise user data and handle user's form inputs if any.
- *
- * @return $userData array
- * @todo: this is not a simple initialisation anymore
+ * Initialise user data
+ * @return  array with user data
+ * @author Mathieu Laurent <laurent@cerdecam.be>
  */
+
 function user_initialise()
 {
-    $userData = array();
-    
-    $userData['user_id']        = isset($_REQUEST['uidToEdit'])?(int) $_REQUEST['uidToEdit']:'';
-    $userData['lastname']       = isset($_REQUEST['lastname'])?trim(strip_tags($_REQUEST['lastname'])):'';
-    $userData['firstname']      = isset($_REQUEST['firstname'])?trim(strip_tags($_REQUEST['firstname'])):'';
-    $userData['officialCode']   = isset($_REQUEST['officialCode'])?trim(strip_tags($_REQUEST['officialCode'])):'';
-    $userData['officialEmail']  = isset($_REQUEST['officialEmail'])?trim(strip_tags($_REQUEST['officialEmail'])):'';
-    $userData['language']       = isset($_REQUEST['language'])?trim(strip_tags($_REQUEST['language'])):'';
-    $userData['picture']        = isset($_REQUEST['userPicture'])?trim(strip_tags($_REQUEST['userPicture'])):'';
-    $userData['username']       = isset($_REQUEST['username'])?trim(strip_tags($_REQUEST['username'])):'';
-    $userData['old_password']   = isset($_REQUEST['old_password'])?trim($_REQUEST['old_password']):'';
-    $userData['password']       = isset($_REQUEST['password'])?trim($_REQUEST['password']):'';
-    $userData['password_conf']  = isset($_REQUEST['password_conf'])?trim($_REQUEST['password_conf']):'';
-    $userData['email']          = isset($_REQUEST['email'])?trim(strip_tags($_REQUEST['email'])):'';
-    $userData['phone']          = isset($_REQUEST['phone'])?trim(strip_tags($_REQUEST['phone'])):'';
-    $userData['skype']          = isset($_REQUEST['skype'])?trim(strip_tags($_REQUEST['skype'])):'';
-    $userData['isStudent']      = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'student');
-    $userData['isCourseCreator'] = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'courseManager');
-    $userData['isPlatformAdmin'] = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'platformAdmin'
-                                           || isset($userData['user_id']) && $userData['user_id'] == claro_get_current_user_id() && claro_is_platform_admin());
-    $userData['courseTutor']    = (bool) !empty($_REQUEST['courseTutor']);
-    $userData['courseAdmin']    = (bool) !empty($_REQUEST['courseAdmin']);
-    
-    return $userData;
+    return array(
+        'lastname'        => '',
+        'firstname'       => '',
+        'officialCode'    => '',
+        'officialEmail'   => '',
+        'username'        => '',
+        'password'        => '',
+        'password_conf'   => '',
+        'isCourseCreator' => '',
+        'language'        => '',
+        'email'           => '',
+        'phone'           => '',
+        'picture'         => '',
+    );
 }
-
-
-/**
- * Handle user's profile picture modification
- * (based on $_REQUEST['delPicture'] and $_FILE['picture'].
- *
- * @return  $feedback array (yes, it is kinda ugly)
- */
-function user_handle_profile_picture($userData)
-{
-    $feedback = array(
-        'success' => false,
-        'messages' => array(),
-        'pictureName' => '');
-    
-    // Handle user picture
-    if (!empty($_REQUEST['delPicture']))
-    {
-        $picturePath = user_get_picture_path($userData);
-        
-        if ($picturePath)
-        {
-            claro_delete_file( $picturePath );
-            $feedback['success'] = true;
-            $feedback['messages'][] = get_lang("User picture deleted");
-        }
-        else
-        {
-            $feedback['messages'][] = get_lang("Cannot delete user picture");
-        }
-    }
-    
-    if (isset($_FILES['picture']['name'])
-        && $_FILES['picture']['size'] > 0)
-    {
-        $fileName = $_FILES['picture']['name'];
-        $fileTmpName = $_FILES['picture']['tmp_name'];
-        
-        if (is_uploaded_file($fileTmpName))
-        {
-            // Is it an picture ?
-            if (is_image($fileName))
-            {
-                // Does it meet the platform's requirements
-                list($width, $height, $type, $attr) = getimagesize($fileTmpName);
-                
-                if ($width > 0 && $width <= get_conf('maxUserPictureWidth', 150)
-                    && $height > 0 && $height <= get_conf('maxUserPictureHeight', 200)
-                    && $_FILES['picture']['size'] <= get_conf('maxUserPictureSize', 100*1024))
-                {
-                    $uploadDir = user_get_private_folder_path($userData['user_id']);
-                    
-                    if (!file_exists($uploadDir))
-                    {
-                        claro_mkdir($uploadDir, CLARO_FILE_PERMISSIONS, true);
-                    }
-                    
-                    // User's picture successfully treated
-                    if (false !== ($pictureName = treat_uploaded_file(
-                            $_FILES['picture'],
-                            $uploadDir,
-                            '',
-                            1000000000000)))
-                    {
-                        $feedback['success'] = true;
-                        $feedback['messages'][] = get_lang("User picture added");
-                        $feedback['pictureName'] = $pictureName;
-                    }
-                    else
-                    {
-                        $feedback['messages'][] = get_lang("Cannot upload file");
-                    }
-                }
-                else
-                {
-                    $feedback['messages'][] =
-                        get_lang("Image is too big : max size %width%x%height%, %size% bytes", array(
-                                    '%width%' => get_conf('maxUserPictureWidth', 150),
-                                    '%height%' => get_conf('maxUserPictureHeight', 200),
-                                    '%size%' => get_conf('maxUserPictureHeight', 100*1024)
-                                ));
-                }
-            }
-            else
-            {
-                $feedback['messages'][] = get_lang("Invalid file format, use gif, jpg or png");
-            }
-        }
-        else
-        {
-            $feedback['messages'][] = get_lang('Upload failed');
-        }
-    }
-    
-    return $feedback;
-}
-
 
 /**
  * Get common user data on the platform
@@ -179,14 +76,8 @@ function user_get_properties($userId)
 
     $result = claro_sql_query_get_single_row($sql);
 
-    if ($result)
-    {
-        return $result;
-    }
-    else
-    {
-        return claro_failure::set_failure('user_not_found');
-    }
+    if ( $result ) return $result;
+    else           return claro_failure::set_failure('user_not_found');
 }
 
 /**
@@ -260,25 +151,27 @@ function user_create($settingList, $creatorId = null)
 function user_set_properties($userId, $propertyList)
 {
     $tbl = claro_sql_get_main_tbl();
-    
-    if (array_key_exists('isCourseCreator', $propertyList))
+
+    // SPECIAL CASE
+
+    if ( array_key_exists('isCourseCreator', $propertyList) )
     {
-        $propertyList['isCourseCreator'] = $propertyList['isCourseCreator'] ? 1 : 0;
+        $propertyList['isCourseCreator'] = $propertyList['isCourseCreator'] ? 1 :0;
     }
-    
-    if (array_key_exists('password', $propertyList) && get_conf('userPasswordCrypted'))
+
+    if ( array_key_exists('password', $propertyList) && get_conf('userPasswordCrypted'))
     {
         $propertyList['password'] = md5($propertyList['password']);
     }
-    
-    // Only an administrator can grant a user to administrator statuts
-    if (array_key_exists('isPlatformAdmin', $propertyList) && claro_is_platform_admin())
+
+    if ( array_key_exists('isPlatformAdmin', $propertyList) )
     {
-        $propertyList['isPlatformAdmin'] = $propertyList['isPlatformAdmin'] ? 1 : 0;
+        $propertyList['isPlatformAdmin'] = $propertyList['isPlatformAdmin'] ? 1 :0;
     }
-    
-    
-    // Build query
+
+
+    // BUILD QUERY
+
     $sqlColumnList = array('nom'             => 'lastname',
                            'prenom'          => 'firstname',
                            'username'        => 'username',
@@ -290,40 +183,39 @@ function user_set_properties($userId, $propertyList)
                            'language'        => 'language',
                            'pictureUri'      => 'picture',
                            'isPlatformAdmin' => 'isPlatformAdmin');
-    
+
     $setList = array();
-    
+
     foreach($sqlColumnList as $columnName => $propertyName)
     {
-        if ( array_key_exists($propertyName, $propertyList) && (! is_null($propertyList[$propertyName])) )
+        if ( array_key_exists($propertyName, $propertyList) && !is_null($propertyList[$propertyName]) )
         {
             $setList[] = $columnName . "= '"
             . claro_sql_escape($propertyList[$propertyName]). "'";
         }
     }
-    
+
     if ( count($setList) > 0)
     {
         $sql = "UPDATE  `" . $tbl['user'] . "`
                 SET ". implode(', ', $setList) . "
                 WHERE user_id  = " . (int) $userId ;
-        
+
         if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
         else                                           return false;
     }
 }
 
-
 /**
- * Delete user form claroline platform.
- *
+ * Delete user form claroline platform
  * @author Mathieu Laurent <laurent@cerdecam.be>
  * @param int $userId
  * @return boolean 'true' if it succeeds, 'false' otherwise
  */
+
 function user_delete($userId)
 {
-    require_once dirname(__FILE__) . '/course_user.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 
     if ( claro_get_current_user_id() == $userId ) // user cannot remove himself of the platform
     {
@@ -374,7 +266,7 @@ function user_delete($userId)
 
 /**
  * @return list of users wich have admin status
- * @author Christophe Gesche <Moosh@claroline.net>
+ * @author Christophe Gesché <Moosh@claroline.net>
  *
  */
 
@@ -393,7 +285,7 @@ function claro_get_uid_of_platform_admin()
 
 /**
  * @return list of users wich have status to receipt REQUESTS
- * @author Christophe Gesche <Moosh@claroline.net>
+ * @author Christophe Gesché <Moosh@claroline.net>
  *
  */
 
@@ -418,7 +310,7 @@ function claro_get_uid_of_request_admin()
 
 /**
  * @return list of users wich have status to receive system notification
- * @author Christophe Gesche <Moosh@claroline.net>
+ * @author Christophe Gesché <Moosh@claroline.net>
  *
  */
 
@@ -443,7 +335,7 @@ function claro_get_uid_of_platform_contact()
 
 /**
  * @return list of users wich have status to receive system notification
- * @author Christophe Gesche <Moosh@claroline.net>
+ * @author Christophe Gesché <Moosh@claroline.net>
  *
  */
 
@@ -551,11 +443,11 @@ function user_set_platform_admin($status, $userId)
  * @return boolean
  */
 
-function user_send_registration_mail ($userId, $data, $courseCode = null)
+function user_send_registration_mail ($userId, $data,$courseCode = null)
 {
-    require_once dirname(__FILE__) . '/sendmail.lib.php';
-    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
-    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/singleuserrecipient.lib.php';
+    require_once dirname(__FILE__) . '/../../inc/lib/sendmail.lib.php';
+    require_once get_path('clarolineRepositorySys') . '/messaging/lib/message/messagetosend.lib.php';
+    require_once get_path('clarolineRepositorySys') . '/messaging/lib/recipient/singleuserrecipient.lib.php';
     
     if ( ! empty($data['email']) )
     {
@@ -579,7 +471,7 @@ function user_send_registration_mail ($userId, $data, $courseCode = null)
         )
         );
 
-                // add information about course manager if user created in course
+        // add information about course manager if user created in course
         if (isset($courseCode))
         {
             $courseData = claro_get_course_data($courseCode);
@@ -594,13 +486,21 @@ function user_send_registration_mail ($userId, $data, $courseCode = null)
 
         }
 
-        if ( claro_mail_user($userId, $emailBody, $emailSubject) ) return true;
-        else                                                       return false;
+        $message = new MessageToSend(claro_get_current_user_id(),$emailSubject,$emailBody);
+        $message->setSender(get_conf('administrator_email'));
+
+        $recipient = new SingleUserRecipient($userId);
+
+        //$message->sendTo($recipient);
+        return $recipient->sendMessage($message);
     }
-    else
-    {
-        return false;
-    }
+//        if ( claro_mail_user($userId, $emailBody, $emailSubject) ) return true;
+//        else                                                       return false;
+//    }
+//    else
+//    {
+//        return false;
+//    }
 
 }
 
@@ -634,7 +534,7 @@ function profile_send_request_course_creator_status($explanation)
     '%lastname'  => $_user['lastName'],
     '%email'     => $_user['mail'],
     '%comment'   => $explanation,
-    '%url'       => rtrim( get_path('rootWeb'), '/' ) . '/claroline/admin/admin_profile.php?uidToEdit=' . claro_get_current_user_id()
+    '%url'       => rtrim( get_path('rootWeb'), '/' ) . '/claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
     )
     );
 
@@ -645,7 +545,7 @@ function profile_send_request_course_creator_status($explanation)
     
     $recipient->sendMessage($message);
     
-    return true;
+    return true;   
 }
 
 /**
@@ -681,7 +581,7 @@ function profile_send_request_revoquation($explanation,$login,$password)
     '%login'     => $login,
     '%password'  => '**********',
     '%comment'   => nl2br($explanation),
-    '%url'       => rtrim( get_path('rootWeb'), '/' ) . '/claroline/admin/admin_profile.php?uidToEdit=' . claro_get_current_user_id()
+    '%url'       => rtrim( get_path('rootWeb'), '/' ) . '/claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
     )
     );
 
@@ -701,6 +601,7 @@ function profile_send_request_revoquation($explanation,$login,$password)
  * @author Damien Seguy
  * @return string : the new password
  */
+
 function generate_passwd($nb=8)
 {
 
@@ -747,23 +648,23 @@ function generate_passwd($nb=8)
     return $retour;
 }
 
-
 /**
- * Check an email
+ * Check an email based on RFC 2822. Regex from http://www.regular-expressions.info/email.html
  * @version 1.0
  * @param  string $email email to check
  *
  * @return boolean state of validity.
  * @author Christophe Gesche <moosh@claroline.net>
  */
+
 function is_well_formed_email_address($address)
 {
     $regexp = "/[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i";
-
-    //  $regexp = '^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$';
+    
+    //  $regexp = '/^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$/i';
+    //  $regexp = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";
     return preg_match($regexp, $address);
 }
-
 
 /**
  * validate form registration
@@ -771,11 +672,11 @@ function is_well_formed_email_address($address)
  * @param array $data from the form
  * @return array with error messages
  */
+
 function user_validate_form_registration($data)
 {
     return user_validate_form('registration', $data);
 }
-
 
 /**
  * validate form profile
@@ -784,15 +685,14 @@ function user_validate_form_registration($data)
  * @param int $userId id of the user account currently edited
  * @return array with error messages
  */
+
 function user_validate_form_profile($data, $userId)
 {
     return user_validate_form('profile', $data, $userId);
 }
 
-
 /**
- * validate form profile from user administration.
- *
+ * validate form profile from user administration
  * @author Frederic Minne <zefredz@claroline.net>
  * @param array $data to fill the form
  * @param int $userId id of the user account currently edited
@@ -803,10 +703,8 @@ function user_validate_form_admin_user_profile($data, $userId)
     return user_validate_form('admin_user_profile', $data, $userId);
 }
 
-
 /**
- * Validate user form.
- *
+ * validate user form
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @author Frederic Minne <zefredz@claroline.net>
  * @param string $mode 'registration' or 'profile' or 'admin_user_profile'
@@ -817,42 +715,26 @@ function user_validate_form_admin_user_profile($data, $userId)
 function user_validate_form($formMode, $data, $userId = null)
 {
     require_once dirname(__FILE__) .'/datavalidator.lib.php';
-    
-    if (empty($userId) || claro_is_platform_admin())
-    {
-        $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
-    }
-    else
-    {
-        $editableFields = get_conf('profile_editable');
-    }
-    
+
     $validator = new DataValidator();
     $validator->setDataList($data);
-    
-    if (in_array('name', $editableFields))
-    {
-        $validator->addRule('lastname' , get_lang('You left some required fields empty'), 'required');
-        $validator->addRule('firstname', get_lang('You left some required fields empty'), 'required');
-    }
-    
-    if (in_array('login', $editableFields))
-    {
-        $validator->addRule('username' , get_lang('You left some required fields empty'), 'required');
-        $validator->addRule('username' , get_lang('Username is too long (maximum 20 characters)'), 'maxlength',20);
-    }
-    
-    if (in_array('email', $editableFields) && !get_conf('userMailCanBeEmpty'))
+
+    $validator->addRule('lastname' , get_lang('You left some required fields empty'), 'required');
+    $validator->addRule('firstname', get_lang('You left some required fields empty'), 'required');
+    $validator->addRule('username' , get_lang('You left some required fields empty'), 'required');
+    $validator->addRule('username' , get_lang('Username is too long (maximum 20 characters)'), 'maxlength',20);
+
+    if ( ! get_conf('userMailCanBeEmpty') )
     {
         $validator->addRule('email', get_lang('You left some required fields empty'), 'required');
     }
-    
-    if (in_array('official_code', $editableFields) && !get_conf('userOfficialCodeCanBeEmpty'))
+
+    if ( ! get_conf('userOfficialCodeCanBeEmpty') )
     {
         $validator->addRule('officialCode', get_lang('You left some required fields empty'), 'required');
     }
-    
-    if (in_array('password', $editableFields) && (array_key_exists('password',$data) || array_key_exists('password_conf',$data)))
+
+    if(array_key_exists('password',$data) || array_key_exists('password_conf',$data))
     {
         if ( $formMode != 'registration'
             && $formMode != 'admin_user_profile' )
@@ -878,31 +760,33 @@ function user_validate_form($formMode, $data, $userId = null)
             )
             );
         }
-        
+
         $validator->addRule('password', get_lang('You typed two different passwords'), 'compare', $data['password_conf']);
     }
-    
+
     $validator->addRule('email'  , get_lang('The email address is not valid'), 'email');
-    
-    if ('registration' == $formMode)
+
+    if ( 'registration' == $formMode)
     {
         $validator->addRule('password_conf', get_lang('You left some required fields empty'), 'required');
-        $validator->addRule('officialCode', get_lang('This official code is already used by another user.'), 'is_official_code_available');
-        $validator->addRule('username', get_lang('This username is already taken'), 'is_username_available');
-        $validator->addRule('password', get_lang('You left some required fields empty'), 'required');
+        $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available');
+        $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available');
+        $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
     }
     else // profile mode
     {
-        // FIX for the empty password issue
+        /*
+         * FIX for the empty password issue
+         */
         if ( !empty( $data['password'] ) || !empty( $data['password_conf'] ) )
         {
-            $validator->addRule('password', get_lang('You left some required fields empty'), 'required');
+            $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
         }
-        
-        $validator->addRule('officialCode', get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
-        $validator->addRule('username', get_lang('This username is already taken'), 'is_username_available', $userId);
+
+        $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
+        $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available', $userId);
     }
-    
+
     if ( $validator->validate() )
     {
         return array();
@@ -912,7 +796,6 @@ function user_validate_form($formMode, $data, $userId = null)
         return array_unique($validator->getErrorList());
     }
 }
-
 
 /**
  * Check if the authentication fassword for the given user
@@ -1026,111 +909,420 @@ function is_official_code_available($official_code, $userId=null)
     else                                               return false;
 }
 
+/**
+ * Display user form registration
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ * @param $data array to fill the form
+ */
+
+function user_html_form_registration($data)
+{
+   return user_html_form($data,'registration');
+}
 
 /**
- * Display form to edit or add user to the platform.
- *
- * @param $userId int
+ * Display user form profile
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ * @param $data array to fill the form
  */
-function user_html_form($userId = null)
+
+function user_html_form_profile($data)
 {
-    // If the user exists (given user id)
-    if (!empty($userId))
+    return user_html_form($data,'profile');
+
+}
+
+/**
+ * Display user form registration
+ *
+ * @param $data array to fill the form
+ *
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
+ */
+
+function user_html_form_add_new_user($data)
+{
+    return user_html_form($data,'add_new_user');
+}
+
+/**
+ * Display user admin form registration
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ * @param $data array to fill the form
+ */
+
+function user_html_form_admin_add_new_user($data)
+{
+    return user_html_form($data,'admin_add_new_user');
+}
+
+/**
+ * Display user admin form registration
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ * @param $data array to fill the form
+ */
+
+function user_html_form_admin_user_profile($data)
+{
+    return user_html_form($data,'admin_user_profile');
+}
+
+/**
+ * Display form to edit or add user to the platform
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ * @param $data array to fill the form
+ */
+
+function user_html_form($data, $form_type='registration')
+{
+    if ( $form_type == 'profile' )
     {
-        // Get user's general informations
-        $userData = user_get_properties($userId);
-        
-        // Get user's skype account
-        $userData['skype'] = get_user_property($userId, 'skype');
-        
-        // Get user's picture
-        $picturePath = user_get_picture_path($userData);
-        
-        if ($picturePath && file_exists($picturePath))
+        $profile_editable = get_conf('profile_editable');
+    }
+    else
+    {
+        $profile_editable = array('name','official_code','login','password','email','phone','language','picture');
+    }
+
+    // display registration form
+    $html = '<form action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '" method="post" enctype="multipart/form-data" >' . "\n"
+    .       claro_form_relay_context()
+
+    // hidden fields
+    .       form_input_hidden('cmd', 'registration')
+    .       form_input_hidden('claroFormId', uniqid('') )
+    .       ( claro_is_user_authenticated() ? form_input_hidden('csrf_token', $_SESSION['csrf_token'] ) : '' )
+    ;
+
+    if ( array_key_exists('confirmUserCreate', $data) )
+    {
+        $html .= form_input_hidden('confirmUserCreate', $data['confirmUserCreate'] ? 1 : 0);
+
+    }
+
+    // table begin
+    $html .= '<table class="claroRecord" cellpadding="3" cellspacing="0" border="0">' . "\n";
+
+    // user id
+    if ( 'admin_user_profile' == $form_type )
+    {
+        $html .= form_input_hidden('uidToEdit', $data['user_id']);
+        $html .= form_row( get_lang('User id') . '&nbsp;: ', $data['user_id']);
+
+    }
+
+    if ( in_array('name',$profile_editable) )
+    {
+        $html .= form_input_text('lastname', $data['lastname'], get_lang('Last name'), true);
+    }
+    else
+    {
+        $html .= form_readonly_text('lastname', $data['lastname'], get_lang('Last name'));
+    }
+
+
+    if ( in_array('name',$profile_editable) )
+    {
+        $html .= form_input_text('firstname', $data['firstname'], get_lang('First name'), true);
+    }
+    else
+    {
+        $html .= form_readonly_text('firstname', $data['firstname'], get_lang('First name'));
+    }
+
+    // OFFICIAL CODE
+    if ( get_conf('ask_for_official_code') )
+    {
+        if ( in_array('official_code',$profile_editable) )
         {
-            $pictureUrl = user_get_picture_url($userData);
+            $html .= form_input_text('officialCode', $data['officialCode'],
+            get_lang('Administrative code'),
+            get_conf('userOfficialCodeCanBeEmpty') ? false : true );
         }
         else
         {
-            $pictureUrl = '';
+            $html .= form_readonly_text('officialCode', $data['officialCode'],get_lang('Administrative code'));
+        }
+    }
+
+    // Display language select box
+
+    $language_select_box = user_display_preferred_language_select_box();
+
+    if ( !empty($language_select_box) )
+    {
+        $html .= form_row('<label for="language_selector">' . get_lang('Language') . '&nbsp;:</label>',
+        $language_select_box );
+    }
+    
+    if ( get_conf('allow_profile_picture')
+        && ( $form_type == 'profile' || $form_type == 'admin_user_profile' )
+        && in_array('picture',$profile_editable) )
+    {
+        // $picture = claro_get_current_user_data('picture');
+        $picturePath = user_get_picture_path( $data );
+        
+        if ( $picturePath && file_exists( $picturePath ) )
+        {
+            $pictureUrl = user_get_picture_url( $data );
+            $html .= form_row( get_lang('User picture') . ' :', '<img class="userPicture" src="'.$pictureUrl.'" />');
+            $html .= form_row( '&nbsp;'
+                , '<input type="checkbox" name="delPicture" id="delPicture" value="true" />'
+                . '<label for="delPicture">'.get_lang('Delete picture').'</label>' );
+        }
+        else
+        {
+            $html .= form_input_file( 'picture', get_lang('User picture'), false );
+            // $html .= form_row( '&nbsp;', '<img class="userPicture" src="'.get_icon_url('nopicture').'" />');
+            $html .= form_row( '&nbsp;'
+                , '<small>'.get_lang("max size %width%x%height%, %size% bytes"
+                    , array(
+                            '%width%' => get_conf( 'maxUserPictureWidth', 150 ),
+                            '%height%' => get_conf( 'maxUserPictureHeight', 200 ),
+                            '%size%' => get_conf( 'maxUserPictureHeight', 100*1024 )
+                        ) ) . '</small>' );
+            // $html .= form_row( '&nbsp;', get_lang('No picture') );
+        }
+    }
+
+    if (     isset($data['authsource'])
+    && strtolower($form_type) == 'profile'
+    && (    strtolower($data['authsource']) != 'claroline'
+    && strtolower($data['authsource']) != 'clarocrypt'
+    )
+    )
+    {
+        // DISABLE MODIFICATION OF USERNAME AND PASSWORD WITH EXTERNAL AUTENTICATION
+        $html .= form_readonly_text('username',htmlspecialchars($data['username']),get_lang('Username'));
+    }
+    else
+    {
+        $html .= form_row('&nbsp;', '&nbsp;');
+
+        if ( ( strtolower($form_type) == 'profile' || strtolower($form_type) == 'admin_user_profile' ) && in_array('password',$profile_editable))
+        {
+            $html .= form_row('&nbsp;',
+            '<small>'
+            .'(' . get_lang('Enter new password twice to change, leave empty to keep it') . ')'
+            .'</small>');
+
+            $required_password = false;
+            
+            if ( strtolower($form_type) == 'admin_user_profile' )
+            {
+                $old_password_required_to_change = false;
+            }
+            else
+            {
+                $old_password_required_to_change = true;
+            }
+        }
+        else
+        {
+            if ( 'registration' == $form_type )
+            {
+                $html .= form_row('&nbsp;',
+                '<small>'
+                . get_lang('Choose now a username and a password for the user account') . '<br />'
+                . get_lang('Memorize them, you will use them the next time you will enter to this site.') . '<br />'
+                . '</small>');
+            }
+
+            $required_password = true;
+            $old_password_required_to_change = false;
         }
         
-        // Get current language
-        $currentLanguage = !empty($userData['language'])?$userData['language']:language::current_language();
-        
-        // A few javascript
-        $htmlHeadXtra[] =
-        '<script type="text/javascript">
-            function confirmation (name)
+        if ( 'registration' == $form_type )
+        {
+            if ( $required_password )
             {
-                if (confirm("'.clean_str_for_javascript(get_lang('Are you sure to delete')).'"+ name + "?"))
-                {return true;}
-                else
-                {return false;}
+                $password_label = form_required_field(get_lang('Password'));
+            }
+            else
+            {
+                $password_label = get_lang('Password');
+            }
+        }
+        else
+        {
+            if ( $required_password )
+            {
+                $password_label = form_required_field(get_lang('New password'));
+            }
+            else
+            {
+                $password_label = get_lang('New password');
+            }
+        }
+
+        if ( in_array('login',$profile_editable) )
+        {
+            $html .= form_input_text( 'username', $data['username'], get_lang('Username'), true);
+        }
+        else
+        {
+            $html .= form_readonly_text( 'username', $data['username'], get_lang('Username'));
+        }
+
+        if ( in_array('password',$profile_editable) )
+        {
+            if ( $old_password_required_to_change )
+            {
+                $html .= form_row('<label for="old_password">' . get_lang('Old password') . '&nbsp;:</label>',
+                '<input type="password" size="40" id="old_password" name="old_password"  autocomplete="off" />');
             }
             
-            $(document).ready(function(){
-                $("#delete").click(function(){
-                    return confirmation("' . $userData['firstname'] . " " . $userData['lastname'] .'");
-                }).attr("href","adminuserdeleted.php?uidToEdit=' . $userId . '&cmd=exDelete");
-            });
-        </script>';
-    }
-    // If it's a new user (no given user id)
-    else
-    {
-        // Initialize user's data
-        $userData = user_initialise();
-        
-        // No user's picture
-        $pictureUrl = '';
-        
-        // Prefered language
-        $currentLanguage = language::current_language();
-    }
-    
-    // Editable fields
-    if (empty($userId) || claro_is_platform_admin())
-    {
-        $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
-    }
-    else
-    {
-        $editableFields = AuthProfileManager::getUserAuthProfile( $userId )->getEditableProfileFields(); // get_conf('profile_editable');
-    }
-    
-    if (!empty($_SERVER['HTTP_REFERER']))
-    {
-        $cancelUrl = $_SERVER['HTTP_REFERER'];
-    }
-    else
-    {
-        $cancelUrl = $_SERVER['PHP_SELF'];
-    }
-    
-    // Hack to prevent autocompletion of password fields from browser
-    $htmlHeadXtra[] =
-    '<script type="text/javascript">
-        $(document).ready(
-            function() {
-                $("#password").val("");
-            }
-        );
-    </script>';
-    
-    $template = new CoreTemplate('user_form.tpl.php');
-    $template->assign('formAction', $_SERVER['PHP_SELF']);
-    $template->assign('relayContext', claro_form_relay_context());
-    $template->assign('cancelUrl', htmlspecialchars(Url::Contextualize($cancelUrl)));
-    $template->assign('editableFields', $editableFields);
-    $template->assign('data', $userData);
-    $template->assign('pictureUrl', $pictureUrl);
-    $template->assign('currentLanguage', $currentLanguage);
-    $template->assign('languages', get_language_to_display_list());
-    
-    return $template->render();
-}
+            // password
+            $html .= form_row('<label for="password">' . $password_label . '&nbsp;:</label>',
+            '<input type="password" size="40" id="password" name="password"  autocomplete="off" />');
 
+            // password confirmation
+            $html .= form_row('<label for="password_conf">' . $password_label . '&nbsp;:<br/>'
+            . ' <small>(' . get_lang('Confirmation') . ')</small></label>',
+            '<input type="password" size="40" id="password_conf" name="password_conf" />');
+        }
+
+        $html .= form_row('&nbsp;', '&nbsp;');
+    }
+
+    // Email
+    if ( in_array('email',$profile_editable) )
+    {
+        $html .= form_input_text('email', $data['email'], get_lang('Email'), get_conf('userMailCanBeEmpty') ? false : true);
+    }
+    else
+    {
+        $html .= form_readonly_text('email', $data['email'], get_lang('Email'));
+    }
+
+    // Phone
+    if ( in_array('phone',$profile_editable) )
+    {
+        $html .= form_input_text('phone', $data['phone'], get_lang('Phone') );
+    }
+    else
+    {
+        $html .= form_readonly_text('phone', $data['phone'], get_lang('Phone'));
+    }
+
+    // Group Tutor
+    if ( 'add_new_user' == $form_type )
+    {
+        $html .= form_row(get_lang('Group Tutor') . '&nbsp;: ',
+
+        '<input type="radio" name="tutor" value="1" id="tutorYes" '
+        . ($data['tutor']?'checked="checked"':'') . ' />'
+        . '<label for="tutorYes">' . get_lang('Yes') . '</label>'
+
+        . '<input type="radio" name="tutor" value="0"  id="tutorNo" '
+        . (!$data['tutor']?'checked="checked"':'') . ' />'
+        . '<label for="tutorNo">' . get_lang('No') . '</label>');
+    }
+
+    // Course manager of the course
+    if ( 'add_new_user' == $form_type )
+    {
+        $html .= form_row(get_lang('Manager') . '&nbsp;: ',
+        '<input type="radio" name="courseAdmin" value="1" id="courseAdminYes" '
+        . ($data['courseAdmin'] ? 'checked="checked"' : '') . ' />'
+        . '<label for="courseAdminYes">' . get_lang('Yes') . '</label>'
+        . '<input type="radio" name="courseAdmin" value="0" id="courseAdminNo" '
+        . ($data['courseAdmin'] ? '' : 'checked="checked"') . ' />'
+        . '<label for="courseAdminNo">' . get_lang('No') . '</label>');
+    }
+
+    // Course Creator
+    if ( ( get_conf('allowSelfRegProf') && 'registration' == $form_type) || 'admin_add_new_user' == $form_type || 'admin_user_profile' == $form_type )
+    {
+        $html .= form_row( get_lang('Action') .'&nbsp;: ',
+        '<input type="radio" name="isCourseCreator" id="follow"'
+        .' value="0" '
+        . (!$data['isCourseCreator']? ' checked="checked"' : '') . ' />'
+        . '<label for="follow">' . get_lang('Follow courses') . '</label>'
+        . '<br />'
+        . '<input type="radio" name="isCourseCreator" id="create"'
+        . ' value="1"   '
+        . ($data['isCourseCreator']? ' checked="checked"'  :'') . ' />'
+        . '<label for="create">' . get_lang('Create course') . '</label>');
+    }
+
+    // Platform administrator
+    if ( 'admin_user_profile' == $form_type)
+    {
+        $html .= form_row(get_lang('Is platform admin') .'&nbsp;: ',
+        '<input type="radio" name="is_admin" value="1" id="admin_form_yes" ' . ($data['is_admin']?'checked':'') . ' />'
+        . '<label for="admin_form_yes">' . get_lang('Yes') . '</label>'
+        . '<input type="radio" name="is_admin" value="0"  id="admin_form_no" ' . (!$data['is_admin']?'checked':'') . ' />'
+        . '<label for="admin_form_no">' . get_lang('No') . '</label>');
+    }
+
+    // Submit
+    if ( 'registration' == $form_type )
+    {
+        $html .= form_row( get_lang('Create') . '&nbsp;: ',
+        '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
+        . claro_html_button(get_conf('urlAppend').'/index.php', get_lang('Cancel')) );
+    }
+    elseif ( 'admin_add_new_user' == $form_type)
+    {
+        $html .= form_row( get_lang('Create') . '&nbsp;: ' ,
+        '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
+        . claro_html_button(htmlspecialchars(Url::Contextualize( $_SERVER['HTTP_REFERER'] )), get_lang('Cancel')) );
+    }
+    elseif ('add_new_user' == $form_type )
+    {
+        $html .= form_row( '&nbsp;'
+                         , '<input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
+                         . '<input type="submit" name="applySearch" id="applySearch" value="' . get_lang('Search') . '" />&nbsp;'
+                         . claro_html_button(htmlspecialchars(Url::Contextualize( $_SERVER['HTTP_REFERER'] )), get_lang('Cancel'))
+                         );
+    }
+    else
+    {
+        $html .= form_row('<label for="applyChange">' . get_lang('Save changes') . ' : </label>',
+        ' <input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
+        // @TODO : if $_SERVER['HTTP_REFERER'] not set find a best value than '' 
+        . claro_html_button(isset($_SERVER['HTTP_REFERER'])?htmlspecialchars(Url::Contextualize($_SERVER['HTTP_REFERER'])):'', get_lang('Cancel')) );
+    }
+
+    $html .= form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> denotes required field') . '</small>');
+
+    // Personnal course list
+    if ( 'admin_user_profile' == $form_type )
+    {
+        $html .= form_row('&nbsp;',
+        '<a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">'
+        . '<img src="' . get_icon_url('course') . '" alt="" />' . get_lang('PersonalCourseList')
+        . '</a>');
+    }
+
+    if (array_key_exists('userExtraInfoList',$data))
+    {
+        global $extraInfoDefList;
+        foreach ($data['userExtraInfoList'] as $userExtraInfoId => $userExtraInfoValue)
+        {
+            if (array_key_exists($userExtraInfoId,$extraInfoDefList))
+            {
+                $label = $extraInfoDefList[$userExtraInfoId]['label'];
+                $html .= form_row( get_lang($label) . '&nbsp:',$userExtraInfoValue);
+            }
+        }
+
+        if ( 0 < count($extraInfoDefList))
+        $html .= form_row( ''
+                         , claro_html_cmd_link( htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo' ))
+                                              , '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
+                                              )
+                         );
+    }
+
+    $html .= '</table>' . "\n"
+    .        '</form>' . "\n"
+    ;
+
+    return $html;
+}
 
 /**
  * Display form to search already registered users to add to course
@@ -1153,7 +1345,7 @@ function user_html_search_form( $data )
     $html .= '<table class="claroRecord" cellpadding="3" cellspacing="0" border="0">' . "\n";
 
     // display search criteria
-    $html .= form_input_text( 'lastname', '', get_lang( 'Last name' ), false );
+    $html .= form_input_text( 'lastname', '', get_lang( 'Last name' ), false );   
     $html .= form_input_text( 'firstname', '', get_lang( 'First name' ), false );
     if ( get_conf( 'ask_for_official_code' ) )
     {
@@ -1171,7 +1363,7 @@ function user_html_search_form( $data )
                 
                         . '<input type="radio" name="tutor" value="0"  id="tutorNo" '
                         . ( !$data['tutor'] ? 'checked="checked"' : '' ) . ' />'
-                        . '<label for="tutorNo">' . get_lang( 'No' ) . '</label>'
+                        . '<label for="tutorNo">' . get_lang( 'No' ) . '</label>' 
                         );
    
     $html .= form_row( get_lang( 'Manager' ) . '&nbsp;: ',
@@ -1180,10 +1372,10 @@ function user_html_search_form( $data )
                         . '<label for="courseAdminYes">' . get_lang( 'Yes' ) . '</label>'
                         . '<input type="radio" name="courseAdmin" value="0" id="courseAdminNo" '
                         . ( $data['courseAdmin'] ? '' : 'checked="checked"' ) . ' />'
-                        . '<label for="courseAdminNo">' . get_lang( 'No' ) . '</label>'
+                        . '<label for="courseAdminNo">' . get_lang( 'No' ) . '</label>' 
                         );
     
-    // Submit
+    // Submit  
     $html .= form_row( '&nbsp;',
                          '<input type="submit" name="applySearch" id="applySearch" value="' . get_lang( 'Search' ) . '" />&nbsp;'
                          . claro_html_button( htmlspecialchars( Url::Contextualize( $_SERVER['HTTP_REFERER'] ) ), get_lang( 'Cancel' ) )
@@ -1205,6 +1397,8 @@ function user_html_search_form( $data )
  *        define if all submited criterion has to be set.
  * @param boolean $strictCompare (optional)
  *        define if criterion comparison use wildcard or not
+ * @param boolean $ignoreDisabledAccounts (optional)
+ *        define disabled accounts are ignored or not (default : ignored)
  * @return array : existing users who met the criterions
  */
 
@@ -1257,7 +1451,7 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
 
     if ( count($sqlCritList) > 0) $sql .= 'WHERE ' . implode(" $operator ", $sqlCritList);
     
-    // ignore disabled account if needed
+    // ignore disabled account if needed 
     if ( $ignoreDisabledAccounts )
     {
         if ( count($sqlCritList) > 0)
@@ -1269,9 +1463,9 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
             $sql .= "WHERE U.authSource != 'disabled' ";
         }
     }
-    
+
     $sql .= " ORDER BY U.nom, U.prenom";
-    
+
     return claro_sql_query_fetch_all($sql);
 }
 
@@ -1284,9 +1478,9 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
 function user_display_preferred_language_select_box()
 {
     $language_list = get_language_to_display_list();
-    
+
     $form = '';
-    
+
     if ( is_array($language_list) && count($language_list) > 1 )
     {
         // get the the current language
@@ -1460,56 +1654,30 @@ function delete_userInfoExtraDefinition($propertyId, $contextScope )
 
 }
 
-/**
- * Return the list of user's courses
- * @param int $user_id
- * @return array $userCourseList
- */
-function claro_get_user_course_list($user_id = null)
+function claro_get_user_course_list($user_id = null) 
 {
     if(is_null($user_id))
     {
         $user_id = claro_get_current_user_id();
     }
-    
+
     $tbl_mdb_names       = claro_sql_get_main_tbl();
-    
+
     $tbl_course          = $tbl_mdb_names['course'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
-    
-    $sql = "SELECT course.cours_id             AS courseId,
-                   course.code                 AS sysCode,
-                   course.isSourceCourse       AS isSourceCourse,
-                   course.sourceCourseId       AS sourceCourseId,
-                   course.administrativeNumber AS officialCode,
-                   course.dbName               AS db,
-                   course.language             AS language,
-                   course.intitule             AS title,
-                   course.titulaires           AS titular,
-                   course.visibility           AS visibility,
-                   course.access               AS access,
-                   course.registration         AS registration,
-                   course.directory            AS dir,
-                   course.creationDate         AS creationDate,
-                   course.expirationDate       AS expirationDate,
-                   course.status               AS status,
-                   course_user.isCourseManager AS isCourseManager
-            
-            FROM    `" . $tbl_course . "`          AS course,
-                    `" . $tbl_rel_course_user . "` AS course_user
-            
-            WHERE course.code         = course_user.code_cours
-            AND   course_user.user_id = " . (int) $user_id . "
-            ";
-            
-            if (get_conf('course_order_by') == 'course_title')
-            {
-                $sql .= "ORDER BY course.intitule";
-            }
-            else
-            {
-                $sql .= "ORDER BY course.administrativeNumber";
-            }
+
+    $sql = "SELECT cours.code                 AS sysCode,
+                   cours.administrativeNumber AS officialCode,
+                   cours.intitule             AS title,
+                   cours.titulaires           AS t,
+                   cours.dbName               AS db,
+                   cours.directory            AS dir
+
+            FROM    `" . $tbl_course . "`          AS cours,
+                    `" . $tbl_rel_course_user . "` AS cours_user
+
+            WHERE cours.code         = cours_user.code_cours
+            AND   cours_user.user_id = " . (int) $user_id ;
 
     $userCourseList = claro_sql_query_fetch_all($sql);
 

@@ -6,7 +6,7 @@
  * mailnofifier class
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2009 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -29,7 +29,7 @@ class MailNotifier implements MessagingNotifier
      * notify by email the user of the reception of a message
      *
      * @param array of int: $userDataList user identificatin list
-     * @param MessageToSend $message message envoyï¿½
+     * @param MessageToSend $message message envoyé
      * @param int $messageId identification of the message
      * 
      */

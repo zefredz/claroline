@@ -7,7 +7,7 @@
 
 .threadPostIcon
 {
-    float: right;
+    float: right;    
 }
 
 .threadPostInfo
@@ -19,10 +19,8 @@
 
 .threadPosterPicture img
 {
-    border: 1px solid #ccc;
+    border: 1px solid #ccc;    
     margin: 2px;
-    max-height: 100px;
-    max-width: 180px;
 }
 
 .threadPostContent
@@ -30,5 +28,4 @@
     align: top;
     margin-left: 210px;
     padding: 3px;
-    min-height: 160px;
 }

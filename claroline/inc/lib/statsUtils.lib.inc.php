@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 )
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLTRACK
  * @author      Claro Team <cvs@claroline.net>
@@ -28,9 +28,9 @@ if ( count( get_included_files() ) == 1 )
 function renderStatBlock($header,$content,$footer = '')
 {
     $html = '<div class="statBlock">' . "\n"
-    .     ' <h3 class="blockHeader">' . "\n"
+    .     ' <div class="blockHeader">' . "\n"
     .     $header
-    .     ' </h3>' . "\n"
+    .     ' </div>' . "\n"
     .     ' <div class="blockContent">' . "\n"
     .     $content
     .     ' </div>' . "\n"

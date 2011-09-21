@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -458,14 +458,13 @@ class answerTrueFalse
             $html .= html_ask_duplicate();
         }
 
-        $html .= '<thead>' . "\n"
-            . '<tr>' . "\n"
+        $html .=
+            '<tr class="headerX">' . "\n"
             . '<th>' . get_lang('Expected choice') . '</th>' . "\n"
             . '<th>' . get_lang('Answer') . '</th>' . "\n"
             . '<th>' . get_lang('Comment') . '</th>' . "\n"
             . '<th>' . get_lang('Weighting') . '</th>' . "\n"
-            . '</tr>' . "\n"
-            . '</thead>' . "\n"
+            . '</tr>' . "\n\n"
 
             . '<tr>' . "\n"
             . '<td valign="top" align="center">'

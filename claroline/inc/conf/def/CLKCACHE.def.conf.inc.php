@@ -1,18 +1,22 @@
 <?php //$Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
- * This file describe the parameter for forum tool.
+ * This file describe the parameter for forum tool
  *
  * @version 1.8 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ *
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @see http://www.claroline.net/wiki/index.php/Config
+ *
  * @author Claro Team <cvs@claroline.net>
+ *
  * @package CLCACHE
+ *
  */
 
 // TOOL
@@ -51,3 +55,4 @@ $conf_def_property_list['cache_automaticCleaningFactor']
         ,'acceptedValue' => array ( 'min'=>0
                                   , 'max'=>1000)
         );
+?>

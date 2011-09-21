@@ -1,16 +1,14 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
+ * @version 1.9
  *
- * Claroline extension modules management script.
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
- *              version 2 or later
- * @package     ADMIN
- * @author      Claro Team <cvs@claroline.net>
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package ADMIN
+ * @author claro team <cvs@claroline.net>
  */
 
 $cidReset = true ;
@@ -70,29 +68,34 @@ $tbl = claro_sql_get_tbl(array('module_tool'));
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
+// $msgList= array();
 $dialogBox = new DialogBox;
 
 $nameTools = get_lang('Modules');
 
-// Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure you want to uninstall the module %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
-
-JavascriptLoader::getInstance()->load('admin');
+$htmlHeadXtra[] =
+"<script type=\"text/javascript\">
+function confirmation (name)
+{
+    if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure you want to uninstall the module "))." \"+ name + \" ?\"))
+        {return true;}
+    else
+        {return false;}
+}
+</script>" ;
 
 //CONFIG and DEVMOD vars :
 
 //TODO remove pagination
 $modulePerPage = 1000;
 
-$typeLabel['']          = get_lang('No name');
-$typeLabel['tool']      = get_lang('Tools');
-$typeLabel['applet']    = get_lang('Applets');
-$typeLabel['admin']     = get_lang('Administration tools');
-$typeLabel['lang']      = get_lang('Language packs');
-$typeLabel['theme']     = get_lang('Themes');
-$typeLabel['extauth']   = get_lang('External authentication drivers');
+$typeLabel['']        = get_lang('No name');
+$typeLabel['tool']    = get_lang('Tools');
+$typeLabel['applet']  = get_lang('Applets');
+$typeLabel['admin']  = get_lang('Administration tools');
+$typeLabel['lang']    = get_lang('Language packs');
+$typeLabel['theme']   = get_lang('Themes');
+$typeLabel['extauth'] = get_lang('External authentication drivers');
 
 $moduleTypeList = array( 'tool', 'applet', 'admin' );
 
@@ -104,7 +107,9 @@ $dockname     = (isset($_REQUEST['dockname'])     ? $_REQUEST['dockname']     : 
 $typeReq      = (isset($_REQUEST['typeReq'])      ? $_REQUEST['typeReq']      : 'tool');
 $offset       = (isset($_REQUEST['offset'])       ? $_REQUEST['offset']       : 0 );
 $pagerSortDir = (isset($_REQUEST['dir' ])         ? $_REQUEST['dir' ]         : SORT_ASC);
-$_cleanInput['selectInput'] = (isset($_REQUEST['selectInput'])     ? $_REQUEST['selectInput'] : null );
+$_cleanInput['selectInput'] = (isset($_REQUEST['selectInput'])     ? $_REQUEST['selectInput']     : null );
+
+// var_dump( $_REQUEST['activateOnInstall'] );
 
 $notAutoActivateInCourses = ( array_key_exists( 'notAutoActivateInCourses', $_REQUEST )
     && $_REQUEST['notAutoActivateInCourses'] == 'on' )
@@ -163,7 +168,7 @@ switch ( $cmd )
             $dialogBox->error( Backlog_Reporter::report( $summary, $details ) );
         }
         break;
-    
+
     case 'desactiv' :
         list( $backlog, $success ) = deactivate_module($module_id);
         $details = $backlog->output();
@@ -178,24 +183,24 @@ switch ( $cmd )
             $dialogBox->error( Backlog_Reporter::report( $summary, $details ) );
         }
         break;
-        
+
     case 'mvUp' :
             if(!is_null($courseToolId))
             {
                 move_module_tool($courseToolId, 'up');
             }
             break;
-        
+
     case 'mvDown' :
             if(!is_null($courseToolId))
             {
                 move_module_tool($courseToolId, 'down');
             }
             break;
-        
+
     case 'exUninstall' :
         $moduleInfo = get_module_info ( $module_id ) ;
-        
+
         if (in_array ( $moduleInfo [ 'label' ], $old_tool_array ))
         {
             $dialogBox->error( get_lang ( 'This tool can not be uninstalled.' ) );
@@ -203,9 +208,9 @@ switch ( $cmd )
         else
         {
             list ( $backlog, $success ) = uninstall_module ( $module_id, $deleteModuleDatabase ) ;
-            
+
             $details = $backlog->output () ;
-            
+
             if ($success)
             {
                 $summary = get_lang ( 'Module uninstallation succeeded' ) ;
@@ -260,7 +265,7 @@ switch ( $cmd )
 
 
         pushClaroMessage(__LINE__ . '<pre>$_FILES ='.var_export($_FILES,1).'</pre>','dbg');
-        
+
         if (array_key_exists ( 'uploadedModule', $_FILES )
             || array_key_exists ( 'packageCandidatePath', $_REQUEST ))
         {
@@ -276,7 +281,7 @@ switch ( $cmd )
                 {
                     $summary = get_lang ( 'Module upload failed' ) ;
                     $details = get_file_upload_error_message ( $_FILES [ 'uploadedModule' ] ) ;
-                    
+
                     $dialogBox->error( Backlog_Reporter::report( $summary, $details ) );
                 }
                 else
@@ -292,7 +297,7 @@ switch ( $cmd )
                     {
                         $summary = get_lang ( 'Module unpackaging failed' ) ;
                         $details = implode ( "<br />\n", claro_failure::get_last_failure () ) ;
-                        
+
                         $dialogBox->error( Backlog_Reporter::report( $summary, $details ) );
                     }
                 }
@@ -332,15 +337,15 @@ switch ( $cmd )
             }
 
             pushClaroMessage ( __LINE__ . '<pre>$modulePath =' . var_export ( $modulePath, 1 ) . '</pre>', 'dbg' ) ;
-            
+
             // OK TO TRY TO INSTALL ?
             if ($moduleInstallable)
             {
 
                 list ( $backlog, $module_id ) = install_module ( $modulePath ) ;
-                
+
                 $details = $backlog->output () ;
-                
+
                 if (false !== $module_id)
                 {
 
@@ -440,12 +445,12 @@ switch ( $cmd )
         {
             $inputPackage [] = 'local' ;
         }
-        
+
         if (get_conf ( 'can_install_upload_module', true ))
         {
             $inputPackage [] = 'upload' ;
         }
-        
+
         if (get_conf ( 'can_install_curl_module', false ))
         {
             $inputPackage [] = 'curl' ;
@@ -466,11 +471,11 @@ switch ( $cmd )
                           . claro_html_button('../tool/config_edit.php?config_code=CLMAIN&section=ADVANCED', get_lang('Go to config'))
                     );
                 break ;
-            
+
                 case 1 : //Direct display
                     $_cleanInput['selectInput'] = $selectInput = $inputPackage [ 0 ];
                 break ;
-            
+
                 default : // SELECT ONE
                     $dialogBox->form(
                           '<form action="' . $_SERVER [ 'PHP_SELF' ] . '" method="GET">' . "\n"
@@ -479,19 +484,19 @@ switch ( $cmd )
                         . get_lang('Where is your package ?')  . '<br />' . "\n"
 
                         . (get_conf ( 'can_install_upload_module', true ) ?
-                        
+
                           '<input name="selectInput" value="upload"  id="zipOnYouComputerServer" type="radio" checked="checked" />'
                         . '<label for="zipOnYouComputerServer" >' . get_lang ( 'Package on your computer (zip only)' ) . '</label>' . '<br />'
                         :'')
 
                         . (get_conf ( 'can_install_local_module', false ) ?
-                        
+
                           '<input name="selectInput"  value="local" id="packageOnServer" type="radio" />'
                         . '<label for="packageOnServer" >' . get_lang ( 'Package on server (zipped or not)' ) . '</label>' . '<br />'
                         :'')
-                        
+
                         . (get_conf ( 'can_install_curl_module', false ) ?
-                        
+
                           '<input name="selectInput" value="curl" id="zipOnThirdServer" type="radio" />'
                         . '<label for="zipOnThirdServer" >' . get_lang ( 'Package on the net (zip only)' ) . '</label>' . '<br />'
                         :'')
@@ -536,14 +541,14 @@ switch ( $cmd )
                     .  claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) ) . '</form>' . "\n"
                 );
             break ;
-        
+
             case 'local' :
                 $dialogBox->warning(
                      '<p>' . "\n"
                     . get_lang ( 'Imported modules must be compatible with your Claroline version.' ) . '<br />' . "\n"
                     . get_lang ( 'Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.' ) . '</p>' . "\n\n"
                 );
-                
+
                 $dialogBox->form(
                       '<form enctype="multipart/form-data" action="' . $_SERVER [ 'PHP_SELF' ] . '" method="GET">' . "\n"
                     . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />'
@@ -564,13 +569,13 @@ switch ( $cmd )
                     . claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) ) . '</form>' . "\n"
                 );
             break ;
-        
+
             case 'curl' :
                 $dialogBox->error(
                      '<p>' . "\n"
                     . get_lang ( 'This feature is not ready.' ) . '</p>' . "\n\n"
                 );
-                
+
                 $dialogBox->warning(
                     '<p>' . "\n"
                     . get_lang ( 'Imported modules must consist of a zip file and be compatible with your Claroline version.' ) . '<br />' . "\n"
@@ -625,7 +630,7 @@ switch ( $cmd )
                         . get_lang('Error while deleting module files')
                         . '</p>' . "\n"
                     );
-                    
+
                     $success = false;
                 }
             }
@@ -635,7 +640,7 @@ switch ( $cmd )
         {
             $summary  = get_lang('Module installation failed');
             $details = get_lang('Missing module directory');
-            
+
             $dialogBox->error( Backlog_Reporter::report( $summary, $details ) );
         }
     }
@@ -653,12 +658,12 @@ switch ( $cmd )
                 {
                     list ( $backlog, $module_id ) = install_module ( $modulePath, true ) ;
                     $details = $backlog->output () ;
-                    
+
                     if (false !== $module_id)
                     {
                         $moduleInfo = get_module_info ( $module_id ) ;
                         $typeReq = $moduleInfo [ 'type' ] ;
-                        
+
                         $dialogBox->success( get_lang ( 'Module installation succeeded' ) );
                     } else
                     {
@@ -721,7 +726,7 @@ switch($typeReq)
         ;
         $orderType = "ORDER BY `def_rank` \n";
         break;
-    
+
      default :
         $sqlSelectType = "" ;
         $sqlJoinType = "" ;
@@ -794,15 +799,8 @@ foreach ($modules_found['folder'] as $module_folder)
 $course_tool_min_rank = get_course_tool_min_rank();
 $course_tool_max_rank = get_course_tool_max_rank();
 
-// Command list
-$cmdList = array();
 
-$cmdList[] = array(
-    'name' => get_lang('Install module'),
-    'url' => 'module_list.php?cmd=rqInstall'
-);
-
-
+$moduleMenu[] = claro_html_cmd_link('module_list.php?cmd=rqInstall', get_lang('Install module'));
 //----------------------------------
 // DISPLAY
 //----------------------------------
@@ -812,18 +810,22 @@ $noQUERY_STRING = true ;
 
 $out = '';
 
-// Title
-$out .= claro_html_tool_title ( $nameTools, null, $cmdList )
+//display title
 
-// Display Forms or dialog box(if needed)
+$out .= claro_html_tool_title ( $nameTools )
+
+//Display Forms or dialog box(if needed)
 .    $dialogBox->render()
+.    claro_html_menu_horizontal ( $moduleMenu )
 
-// Display tabbed navbar
+//display tabbed navbar
+
 .    '<div>' . "\n"
 .    '<ul id="navlist">' . "\n"
 ;
 
-// Display the module type tabbed naviguation bar
+//display the module type tabbed naviguation bar
+
 foreach ($moduleTypeList as $type)
 {
     if ($typeReq == $type)
@@ -840,13 +842,16 @@ $out .= '</ul>' . "\n"
 .    '</div>' . "\n"
 ;
 
-// Display Pager list
+//Display list
+
+//Display Pager list
 if ( $myPager->get_next_offset() ) $out .= $myPager->disp_pager_tool_bar('module_list.php?typeReq=' . $typeReq);
 
-// Start table...
+// start table...
+
 $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n\n"
 .    '<thead>' . "\n"
-.    '<tr>' . "\n"
+.    '<tr class="headerX">' . "\n"
 .    '<th>' . get_lang('Icon')                . '</th>' . "\n"
 .    '<th>' . get_lang('Module name')         . '</th>' . "\n";
 
@@ -870,10 +875,10 @@ $out .= '<th>' . get_lang('Properties')          . '</th>' . "\n"
 // Start the list of modules...
 foreach($moduleList as $module)
 {
-    // Display settings...
+    //display settings...
     $class_css = ($module['activation'] == 'activated') ? '' : ' class="invisible" ';
 
-    // Find icon
+    //find icon
     $modulePath = get_module_path($module['label']);
 
     if (array_key_exists('icon',$module) && file_exists(get_module_path($module['label']) . '/' . $module['icon']))
@@ -893,11 +898,13 @@ foreach($moduleList as $module)
         $icon = '<small>' . get_lang('No icon') . '</small>';
     }
 
-    // Module_id and icon column
+
+    //module_id and icon column
+
     $out .=  "\n"  . '<tr ' . $class_css . '>' . "\n"
     .    '<td align="center">' . $icon . '</td>' . "\n";
 
-    // Name column
+    //name column
 
     $moduleName = $module['name'];
 
@@ -910,7 +917,8 @@ foreach($moduleList as $module)
         $out .= '<td align="left">' . get_lang($moduleName) . '</td>' . "\n";
     }
 
-    // Displaying location column
+    //displaying location column
+
     if ( $module['type'] == 'applet' )
     {
         $out .= '<td align="left"><small>';
@@ -930,7 +938,7 @@ foreach($moduleList as $module)
     }
     else
     {
-        // Up command
+        //up command
         if (isset( $module[ 'rank' ] ) && $course_tool_min_rank != $module [ 'rank' ])
         {
             $out .= '<td align="center">'
@@ -944,7 +952,7 @@ foreach($moduleList as $module)
             $out .= '<td>&nbsp;</td>' . "\n" ;
         }
 
-        // Down command
+        //down command
         if (isset( $module[ 'rank' ] ) && $course_tool_max_rank != $module [ 'rank' ])
         {
             $out .= '<td align="center">'
@@ -959,19 +967,22 @@ foreach($moduleList as $module)
         }
     }
 
-    // Properties link
+    //Properties link
+
     $out .= '<td align="center">'
     .    '<a href="module.php?module_id='.$module['id'].'">'
     .    '<img src="' . get_icon_url('settings') . '" alt="' . get_lang('Properties') . '" />'
     .    '</a>'
     .    '</td>' . "\n";
 
-    // Uninstall link
+    //uninstall link
+
     if (!in_array($module['label'],$nonuninstalable_tool_array))
     {
         $out .= '<td align="center">'
-        .    '<a onclick="return ADMIN.confirmationUninstall(\''.clean_str_for_javascript($module['name']).'\');" '
-        .    'href="'.htmlspecialchars('module_list.php?module_id=' . $module['id'] . '&typeReq='.$typeReq.'&cmd=exUninstall').'" >'
+        // .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=exUninstall"'
+        // .    ' onclick="return confirmation(\'' . $module['name'].'\');">'
+        .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=rqUninstall" >'
         .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         .    '</td>' . "\n";
@@ -982,7 +993,9 @@ foreach($moduleList as $module)
         $out .= '<td align="center">-</td>' . "\n" ;
     }
 
-    // Activation link
+    //activation link
+
+
     $out .= '<td align="center" >' ;
 
     if (in_array ( $module [ 'label' ], $undeactivable_tool_array ))
@@ -1017,12 +1030,13 @@ foreach($moduleList as $module)
     ;
 }
 
-// End table
+//end table...
 $out .= '</tbody>' . "\n"
 .    '</table>' . "\n\n"
 ;
 
 //Display BOTTOM Pager list
+
 if ( $myPager->get_previous_offset() ) $out .= $myPager->disp_pager_tool_bar ( 'module_list.php?typeReq=' . $typeReq ) ;
 
 $claroline->display->body->appendContent($out);

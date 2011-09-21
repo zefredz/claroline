@@ -1,12 +1,18 @@
 <?php // $Id$
 
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
- * Language library.  Contains function to manage l10n.
+ * language library
+ * contains function to manage l10n
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLUSR
  * @package     CLUSR
@@ -466,6 +472,43 @@ function get_translation_of_language($language)
     }
 }
 
+/**
+*   Displays a form (drop down menu) so the user can select his/her preferred language.
+*   The form works with or without javascript
+*   TODO : need some refactoring there is a lot of function to get platform language
+*/
+
+function claro_display_preferred_language_form()
+{
+    require_once(dirname(__FILE__).'/form.lib.php');
+
+    $language_list = get_language_to_display_list();
+
+    $form = '';
+
+    if ( is_array($language_list) && count($language_list) > 1 )
+    {
+        // get the the current language
+        $user_language = language::current_language();
+
+        foreach ( $language_list as $key => $value )
+        {
+            $languageOption_list[$key] = $_SERVER['PHP_SELF'].'?language='.urlencode($value);
+        }
+
+        // build language selector form
+        $form .= '<form action="'.$_SERVER['PHP_SELF'].'" name="language_selector" method="post" style="margin:5px;">' . "\n" ;
+
+        $form .= claro_html_form_select('language',$languageOption_list,$_SERVER['PHP_SELF'].'?language='.urlencode($user_language),array('id'=>'langSelector', 'onchange'=>'top.location=this.options[selectedIndex].value')) . "\n";
+
+        $form .= '<noscript><input type="submit" value="' . get_lang('Ok') . '" /></noscript>' . "\n";
+        $form .= '</form>' . "\n";
+    }
+
+    return $form;
+}
+
+
 
 /**
  * return an array with names of months
@@ -475,6 +518,8 @@ function get_translation_of_language($language)
  *                           'short' or 'abbr' for abbreviation
  * @return array of 12 strings (0 = january)
  */
+
+
 function get_lang_month_name_list($size='long')
 {
     global $langMonthNames ;
@@ -526,7 +571,7 @@ function get_lang_weekday_name_list($size='long')
 
 /**
  * Display a date at localized format
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Christophe Gesch� <gesche@ipm.ucl.ac.be>
  * @param formatOfDate
          see http://www.php.net/manual/en/function.strftime.php
          for syntax to use for this string
@@ -555,6 +600,7 @@ function claro_html_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
 
     if ($timestamp == -1) $timestamp = claro_time();
 
+    // avec un ereg on fait nous m�me le replace des jours et des mois
     // with the ereg  we  replace %aAbB of date format
     //(they can be done by the system when  locale date aren't aivailable
 
@@ -664,57 +710,5 @@ function claro_utf8_encode_array( &$var )
     else
     {
         array_walk( $var, 'claro_utf8_encode_array' );
-    }
-}
-
-/*
- * Usage :
- *
- * $jslang = new JavascriptLanguage;
- * $jslang->addLangVar('User list');
- * // ...
- * ClaroHeader::getInstance()->addInlineJavascript( $jslang->render() );
- * Claroline.getLang('User list');
-*/
-class JavascriptLanguage
-{
-    protected $lang = array();
-
-    public function addLangVar( $langVar, $langValue = null )
-    {
-        if ( empty ($langValue ) )
-        {
-            $this->lang[$langVar] = get_lang($langVar);
-        }
-        else
-        {
-            $this->lang[$langVar] = $langValue;
-        }
-
-        return $this;
-    }
-
-    public function render()
-    {
-        $out = '<script type="text/javascript">' . "\n";
-
-        $out .= "Claroline.setLangArray( {"."\n";
-        
-        $tmp = array();
-
-        foreach ( $this->lang as $langVar => $langValue )
-        {
-            $langVar = str_replace ("'", "\\'",$langVar);
-            $langValue = str_replace ("'", "\\'",$langValue);
-            $tmp[] = "'$langVar':'$langValue'";
-        }
-        
-        $out .= implode(",\n", $tmp );
-
-        $out .= "});\n"
-            . "</script>\n"
-            ;
-
-        return $out;
     }
 }

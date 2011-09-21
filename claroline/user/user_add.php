@@ -1,18 +1,15 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * This tool allow to add a user in a specific course (and in the platform).
- *
- * @version     1.8 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/CLUSR
- * @author      Claro Team <cvs@claroline.net>
- * @package     CLUSR
+ * This tool allow to add a user in his course (an din the platform)
+ * @version 1.8 $Revision$
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see http://www.claroline.net/wiki/index.php/CLUSR
+ * @author Claro Team <cvs@claroline.net>
+ * @package CLUSR
  */
-
 /*=====================================================================
  Init Section
  =====================================================================*/
@@ -25,7 +22,7 @@ require '../inc/claro_init_global.inc.php';
 // Security check
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
-$can_add_single_user = (bool) (claro_is_course_manager()
+$can_add_single_user     = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_enroll_single_user') )
                      || claro_is_platform_admin();
 if ( ! $can_add_single_user ) claro_die(get_lang('Not allowed'));
@@ -60,6 +57,19 @@ if ( (isset($_REQUEST['applySearch'] ) && ( $_REQUEST['applySearch'] != '' )))
 {
     $cmd = 'applySearch';
 }
+
+$userData['lastname'     ] = isset($_REQUEST['lastname'        ]) ? strip_tags(trim($_REQUEST['lastname'    ])) : null;
+$userData['firstname'    ] = isset($_REQUEST['firstname'       ]) ? strip_tags(trim($_REQUEST['firstname'   ])) : null;
+$userData['officialCode' ] = isset($_REQUEST['officialCode'    ]) ? strip_tags(trim($_REQUEST['officialCode'])) : null;
+$userData['username'     ] = isset($_REQUEST['username'        ]) ? strip_tags(trim($_REQUEST['username'    ])) : null;
+$userData['email'        ] = isset($_REQUEST['email'           ]) ? strip_tags(trim($_REQUEST['email'       ])) : null;
+$userData['phone'        ] = isset($_REQUEST['phone'           ]) ? strip_tags(trim($_REQUEST['phone'       ])) : null;
+$userData['password'     ] = isset($_REQUEST['password'        ]) ? trim($_REQUEST['password'               ])  : null;
+$userData['password_conf'] = isset($_REQUEST['password_conf'   ]) ? trim($_REQUEST['password_conf'          ])  : null;
+
+$userData['status'     ] = isset($_REQUEST['status'     ]) ? (int)  $_REQUEST['status'     ] : null;
+$userData['tutor'      ] = isset($_REQUEST['tutor'      ]) ? (bool) $_REQUEST['tutor'      ] : null;
+$userData['courseAdmin'] = isset($_REQUEST['courseAdmin']) ? (bool) $_REQUEST['courseAdmin'] : null;
 
 $userData['confirmUserCreate'] = isset($_REQUEST['confirmUserCreate']) ? $_REQUEST['confirmUserCreate'] : null;
 
@@ -105,7 +115,6 @@ if ( $cmd == 'registration' )
 
              $displayResultTable = true;
         }
-        // User's registration will need a confirmation
         elseif (    ! $userData['confirmUserCreate']
                  && ! ( empty($userData['lastname']) && empty($userData['email']) ) )
         {
@@ -180,7 +189,7 @@ if ( $cmd == 'registration' )
 
     if ( $userId )
     {
-        $courseRegSucceed = user_add_to_course($userId, claro_get_current_course_id(), $userData['courseAdmin'], $userData['courseTutor'],false);
+        $courseRegSucceed = user_add_to_course($userId, claro_get_current_course_id(), $userData['courseAdmin'], $userData['tutor'],false);
         Console::log(
             "{$userId} enroled to course "
             .  claro_get_current_course_id()
@@ -196,15 +205,16 @@ if ( $cmd == 'registration' )
 
 if ($cmd == 'applySearch')
 {
-    // Search on username, official_code, ...
-    $displayResultTable = true;
-    
+    // search on username, official_code, ...
+
+    $displayResultTable = TRUE;
+
     if ( ! (   empty($userData['lastname'    ])
             && empty($userData['email'       ])
             && empty($userData['username'    ])
             && empty($userData['officialCode']) ) )
     {
-    
+
         $userList = user_search( array('lastname'     => $userData['lastname'],
                                        'firstname'      => $userData['firstname'],
                                        'email'        => $userData['email'],
@@ -239,11 +249,24 @@ if ( $courseRegSucceed )
 /*=====================================================================
  Display Section
  =====================================================================*/
+/* hack to prevent autocompletion from browser */
+$jsloader = JavascriptLoader::getInstance();
+$jsloader->load('jquery');
+
+$htmlHeadXtra[] =
+'<script type="text/javascript">
+    $(document).ready(
+        function() {
+            $("#password").val("");
+        }
+    );
+</script>';
+/* end of hack */
 
 $out = '';
 
 $out .= claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
-                get_help_page_url('blockUsersHelp', 'CLUSR'));
+                'help_user.php');
 $out .= $dialogBox->render();
 
 if ( $courseRegSucceed )
@@ -255,86 +278,92 @@ else
     if ($displayResultTable) //display result of search (if any)
     {
         $enrollmentLabel = $userData['courseAdmin'] ? get_lang('Enrol as teacher') : get_lang('Enrol as student');
-        $enrollmentLabel .= $userData['courseTutor'] ? '&nbsp;-&nbsp;' . get_lang('tutor') : '';
+        $enrollmentLabel .= $userData['tutor'] ? '&nbsp;-&nbsp;' . get_lang('tutor') : '';
                 
         $regUrlAddParam = '';
-        if ( $userData['courseTutor'   ] ) $regUrlAddParam .= '&amp;courseTutor=1';
+        if ( $userData['tutor'        ] ) $regUrlAddParam .= '&amp;tutor=1';
         if ( $userData['courseAdmin'  ] ) $regUrlAddParam .= '&amp;courseAdmin=1';
-        
+
         $out .= '<a name="resultTable"></a>'
-              . '<table id="resultTable" class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"
-              . '<thead>' . "\n"
-              . '<tr class="superHeader">'
-              . '<th colspan="6">' . get_lang('Search result') . '</th>'
-              . '</tr>'
-              . '<tr class="headerX" align="center" valign="top">' . "\n"
-              . '<th>' . get_lang('Last name')           . '</th>' . "\n"
-              . '<th>' . get_lang('First name')          . '</th>' . "\n"
-              . '<th>' . get_lang('Administrative code') . '</th>' . "\n"
-              . '<th>' . get_lang('Username')               . '</th>' . "\n"
-              . '<th>' . get_lang('Email')               . '</th>' . "\n"
-              . '<th>' . $enrollmentLabel            . '</th>' . "\n"
-              . '</tr>' . "\n"
-              . '</thead>' . "\n"
-              . '<tbody>' . "\n";
-        
+        .    '<table id="resultTable" class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"
+        .    '<thead>' . "\n"
+        .    '<tr class="superHeader">'
+        .    '<th colspan="6">' . get_lang('Search result') . '</th>'
+        .    '</tr>'
+        .    '<tr class="headerX" align="center" valign="top">' . "\n"
+        .    '<th>' . get_lang('Last name')           . '</th>' . "\n"
+        .    '<th>' . get_lang('First name')          . '</th>' . "\n"
+        .    '<th>' . get_lang('Administrative code') . '</th>' . "\n"
+        .    '<th>' . get_lang('Username')               . '</th>' . "\n"
+        .    '<th>' . get_lang('Email')               . '</th>' . "\n"
+        .    '<th>' . $enrollmentLabel            . '</th>' . "\n"
+        .    '</tr>' . "\n"
+        .    '</thead>' . "\n"
+        .    '<tbody>' . "\n"
+        ;
+
         foreach ($userList as $thisUser)
         {
            $out .= '<tr valign="top">' . "\n"
-                 . '<td>' . htmlspecialchars($thisUser['lastname'    ]) . '</td>' . "\n"
-                 . '<td>' . htmlspecialchars($thisUser['firstname'   ]) . '</td>' . "\n"
-                 . '<td>' . htmlspecialchars($thisUser['officialCode']) . '</td>' . "\n"
-                 . '<td>' . htmlspecialchars($thisUser['username'    ]) . '</td>' . "\n"
-                 . '<td>' . htmlspecialchars($thisUser['email'       ]) . '</td>' . "\n"
-                 . '<td align="center">' . "\n";
-            
+           .    '<td>' . htmlspecialchars($thisUser['lastname'    ]) . '</td>' . "\n"
+           .    '<td>' . htmlspecialchars($thisUser['firstname'   ]) . '</td>' . "\n"
+           .    '<td>' . htmlspecialchars($thisUser['officialCode']) . '</td>' . "\n"
+           .    '<td>' . htmlspecialchars($thisUser['username'   ]) . '</td>' . "\n"
+           .    '<td>' . htmlspecialchars($thisUser['email'       ]) . '</td>' . "\n"
+           .    '<td align="center">' . "\n"
+           ;
+
             // deal with already registered users found in result
             if ( empty($thisUser['registered']) )
             {
                 $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                      . '?cmd=registration'
-                      . '&amp;userId=' . $thisUser['uid'] . $regUrlAddParam )) . '">'
-                      . '<img src="' . get_icon_url('enroll') . '" alt="' . $enrollmentLabel . '" />'
-                      . '</a>';
+                .    '?cmd=registration'
+                .    '&amp;userId=' . $thisUser['uid'] . $regUrlAddParam )) . '">'
+                .    '<img src="' . get_icon_url('enroll') . '" alt="' . $enrollmentLabel . '" />'
+                .    '</a>'
+                ;
             }
             else
             {
                 $out .= '<span class="highlight">'
-                      . get_lang('Already enroled')
-                      . '</span>';
+                .    get_lang('Already enroled')
+                .    '</span>'
+                ;
             }
-            
+
             $out .= '</td>' . "\n"
-                  . '</tr>' . "\n";
+            .    '</tr>' . "\n"
+            ;
         }
-        
+
         if ( sizeof($userList) == 0 )
         {
             $out .= '<td align="center" colspan="5">' . get_lang('No user found') . '</td>';
         }
-        
+
         $out .= '</tbody>'
-              . '</table>'
-              . '<hr />';
+        .    '</table>'
+        .    '<hr />'
+        ;
     }
-    
-    // Display form to add a user
+
+    //display form to add a user
+
     if ($displayForm)
     {
-        if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+        if( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
         {
-            $dialogBox->info(get_lang('New users will receive an e-mail with their username and password'));
-            
-            $out .= $dialogBox->render() . "\n"
-                  . user_html_form();
+            $out .= '<p>' . get_lang('Add user manually') . ' :</p>'
+            .    '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n"
+            .    user_html_form_add_new_user($userData)
+            ;
         }
         else
         {
-            $dialogBox->info(get_lang('Fill in one or more search criteria, select user profile parameters for your course and press \'Search\''));
-            
             $out .= '<p>' . get_lang('Search user to add to your course') . ' :</p>'
-                  . $dialogBox->render() . "\n"
-                  . user_html_search_form($userData);
+            .    '<p>' . get_lang('Fill in one or more search criteria, select user profile parameters for your course and press \'Search\'') . '</p>' . "\n"
+            .    user_html_search_form($userData)
+            ;
         }
     }
 } // end else of if ( $courseRegSucceed )
@@ -342,3 +371,5 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

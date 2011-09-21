@@ -3,17 +3,15 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * Url manipulation library
  *
- * Url manipulation library.
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.core
+ * @package     @package     kernel.core
  */
 
 /**
@@ -272,9 +270,9 @@ class Url
         
         return $url;
     }
-
+    
     /**
-     * @since   Claroline 1.9
+     * @since   Claroline 1.10
      * @return  string
      */
     public function  __toString()
@@ -304,3 +302,10 @@ class Url
         return $urlObj->toUrl();
     }
 }
+
+/*$url = new Url('http://www.claroline.net?forum_id=3&plop=gnome#4');
+$url->addParam('path','/img/blue.gif');
+
+$url->port=3306;
+
+var_Dump($url->toUrl());*/

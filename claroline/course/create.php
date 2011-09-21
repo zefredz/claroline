@@ -1,22 +1,29 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * This script manages the creation of a course.
- * It contains 3 panels:
+ * This  script  manage the creation of a new course.
+ *
+ * it contain 3 panel
  * - Form
  * - Wait
  * - Done
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/CLCRS/
- * @package     COURSE
- *              old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/create_course/add_course.php
- * @author      Claro Team <cvs@claroline.net>
- * @since       1.9
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/CLCRS/
+ *
+ * @package COURSE
+ *
+ * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/create_course/add_course.php
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ *
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -51,24 +58,16 @@ $display = DISP_COURSE_CREATION_FORM; // default display
 
 $dialogBox = new DialogBox();
 
-$cmd                = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
-$adminContext       = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
-
-// $sourceCourseId has a value only if we're about to create a session course; it's null otherwise
-$sourceCourseId = isset($_REQUEST['course_sourceCourseId']) ? (int) $_REQUEST['course_sourceCourseId'] : null;
+$cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
+$adminContext = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
 
 // New course object
 $thisUser = claro_get_current_user_data();
 $course = new ClaroCourse($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
 
-if (!is_null($sourceCourseId))
-{
-    $course->sourceCourseId = $sourceCourseId;
-}
-
 if ( $adminContext && claro_is_platform_admin() )
 {
-    // From admin, add param to form
+    // from admin, add param to form
     $course->addHtmlParam('adminContext','1');
 }
 
@@ -78,7 +77,7 @@ if ( claro_is_platform_admin()
     if ( $cmd == 'exEdit' )
     {
         $course->handleForm();
-        
+    
         if( $course->validate() )
         {
             if( $course->save() )
@@ -86,12 +85,12 @@ if ( claro_is_platform_admin()
                 // include the platform language file with all language variables
                 language::load_translation();
                 language::load_locale_settings();
-                
+    
                 $course->mailAdministratorOnCourseCreation($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
-                
+    
                 $dialogBox->success( get_lang('You have just created the course website')
                 .            ' : ' . '<strong>' . $course->officialCode . '</strong>' );
-                
+    
                 $display = DISP_COURSE_CREATION_SUCCEED;
             }
             else
@@ -113,12 +112,13 @@ if ( claro_is_platform_admin()
     
         if( $course->validate() )
         {
-            // Trig a waiting screen as course creation may take a while...
+            // Trig a waiting screen as course creation may take a while ...
+    
             $progressUrl = $course->buildProgressUrl();
     
             $htmlHeadXtra[] = '<meta http-equiv="REFRESH" content="0; URL=' . $progressUrl . '">';
     
-            // Display "progression" page
+            // display "progression" page
             $dialogBox->info( get_lang('Creating course (it may take a while) ...') . '<br />' . "\n"
             .      '<p align="center">'
             .      '<img src="' . get_icon_url('processing') . '" alt="" />'
@@ -138,11 +138,11 @@ if ( claro_is_platform_admin()
 }
 
 // Set navigation url
+
 if ( $adminContext && claro_is_platform_admin() )
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Create course'), get_path('clarolineRepositoryWeb') . 'course/create.php?adminContext=1' );
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
-    $backUrl = get_path('rootAdminWeb') ;
+    $backUrl =  get_path('rootAdminWeb') ;
 }
 else
 {
@@ -161,7 +161,7 @@ if ( ! get_conf('courseCreationAllowed', true) )
 
 $out = '';
 
-$out .=  claro_html_tool_title(get_lang('Create a course website'));
+$out .= claro_html_tool_title(get_lang('Create a course website'));
 
 $out .= $dialogBox->render();
 
@@ -190,3 +190,5 @@ if ( claro_is_platform_admin()
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

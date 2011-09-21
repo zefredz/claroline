@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision: 415 $
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -16,7 +16,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 
 class CLQWZ_CourseTrackingRenderer extends CourseTrackingRenderer
-{
+{   
     private $tbl_qwz_exercise;
     private $tbl_qwz_tracking;
     
@@ -49,7 +49,7 @@ class CLQWZ_CourseTrackingRenderer extends CourseTrackingRenderer
         $results = claro_sql_query_fetch_all($sql);
         
         $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
-        .   '<thead><tr>'."\n"
+        .   '<thead><tr class="headerX">'."\n"
         .   '<th>&nbsp;'.get_lang('Exercises').'&nbsp;</th>'."\n"
         .   '<th>&nbsp;'.get_lang('User attempts').'&nbsp;</th>'."\n"
         .   '<th>&nbsp;'.get_lang('Total attempts').'&nbsp;</th>'."\n"
@@ -96,10 +96,10 @@ TrackingRendererRegistry::registerCourse('CLQWZ_CourseTrackingRenderer');
 
 
 /*
- *
+ * 
  */
 class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
-{
+{   
     private $tbl_qwz_exercise;
     private $tbl_qwz_tracking;
     
@@ -137,7 +137,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
         .    '   $(this).next(".exerciseDetails").toggle();'
         .    '   return false;'
         .    '  });'
-        .    ' });'
+        .    ' });' 
         .    '</script>'."\n\n";
         
         $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
@@ -166,10 +166,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                 .    '<td>'.(round($result['average']*10)/10).'</td>' . "\n"
                 .    '<td>'.claro_html_duration(floor($result['avgTime'])).'</td>' . "\n"
                 .    '<td>'.(int) $result['attempts'].'</td>' . "\n"
-                .    '<td>'. claro_html_localised_date(
-                            get_locale('dateTimeFormatLong'),
-                            strtotime($result['lastAttempt'])
-                        ) . "</td> \n"
+                .    '<td>'.$result['lastAttempt'].'</td>' . "\n"
                 .    '</tr>' . "\n";
     
                 // details
@@ -182,24 +179,18 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                     .    '<td colspan="6" class="noHover">' . "\n"
                     .    '<table class="claroTable emphaseLine" cellspacing="1" cellpadding="2" border="0" width="100%" style="width: 99%;">' . "\n"
                     .    '<thead>' . "\n"
-                    .    '<tr>' . "\n"
+                    .    '<tr class="headerX">' . "\n"
                     .    '<th><small>' . get_lang('Date').'</small></th>' . "\n"
                     .    '<th><small>' . get_lang('Score').'</small></th>' . "\n"
                     .    '<th><small>' . get_lang('Time').'</small></th>' . "\n"
                     .    '</tr>' . "\n"
                     .    '</thead>' . "\n"
                     .    '<tbody>' . "\n";
-                    
+    
                     foreach ( $exerciseDetails as $details )
                     {
                         $html .= '<tr>' . "\n"
-                        .    '<td><small>' . "\n"
-                        .        '<a href="'.get_module_url('CLQWZ') . '/track_exercise_details.php?trackedExId='.$details['id'].'">'
-                        .           claro_html_localised_date(
-                                        get_locale('dateTimeFormatLong'),
-                                        strtotime($details['date'])
-                                    )
-                        .       '</a></small></td>' . "\n"
+                        .    '<td><small><a href="'.get_module_url('CLQWZ') . '/track_exercise_details.php?trackedExId='.$details['id'].'">'.$details['date'].'</a></small></td>' . "\n"
                         .    '<td><small>'.$details['result'].'/'.$details['weighting'].'</small></td>' . "\n"
                         .    '<td><small>'.claro_html_duration($details['time']).'</small></td>' . "\n"
                         .    '</tr>' . "\n";

@@ -9,6 +9,4 @@
 
     $claroline->notification->addListener( 'forum_new_topic',       'modificationDefault' );
     $claroline->notification->addListener( 'forum_answer_topic',    'modificationDefault' );
-    $claroline->notification->addListener( 'forum_new_post',    'modificationDefault' );
-    $claroline->notification->addListener( 'forum_read_topic',    'modificationDefault' );
 ?>

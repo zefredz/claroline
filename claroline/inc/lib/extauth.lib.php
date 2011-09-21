@@ -1,12 +1,10 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
- *
  * External Authentication library
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -19,7 +17,7 @@
  * and the PEAR Auth library. It allows to use external authentication system
  * for claroline login process
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @deprecated  since Claroline 1.9, use AuthManager and AuthDriver instead
  */
 class ExternalAuthentication
@@ -29,7 +27,7 @@ class ExternalAuthentication
     /**
      * constructor.
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
      * @param string $extAuthType
      * @param string $authOptionList
      */
@@ -72,7 +70,7 @@ class ExternalAuthentication
     /**
      * check if user is authenticated
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
      * @return
      */
     function isAuth()
@@ -83,7 +81,7 @@ class ExternalAuthentication
     /**
      * record user data into the claroline system
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
      * @param array $extAuthAttribNameList - list that make correspondance
      *        between claroline attribute names and the external authentication
      *        system attribute name
@@ -190,7 +188,7 @@ class ExternalAuthentication
     /**
      * get the current uid of the logged usser
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
      * @return int
      */
     function getUid()

@@ -1,136 +1,122 @@
 <?php // $Id$
 
-// vim: expandtab sw=4 ts=4 sts=4:
-
-/**
- * View mode block. Display view mode switch, enrolment link and login link
- *
- * @version     Claroline 1.11 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @author      Claroline Team <info@claroline.net>
- * @author      Frederic Minne <zefredz@claroline.net>
- * @license     http://www.gnu.org/copyleft/gpl.html
- *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     display
- * @since       1.9
- */
-
-require_once dirname(__FILE__).'/../course_user.lib.php';
-
-class ClaroViewMode implements Display
-{
-    protected static $instance = false;
+    // vim: expandtab sw=4 ts=4 sts=4:
     
-    
-    /**
-     * Contructor.
-     */
-    protected function __construct()
+    if ( count( get_included_files() ) == 1 )
     {
+        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
-    
-    
-    public function render()
+
+    /**
+     * View mode block
+     *
+     * @version     1.9 $Revision$
+     * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+     * @author      Claroline Team <info@claroline.net>
+     * @author      Frederic Minne <zefredz@claroline.net>
+     * @license     http://www.gnu.org/copyleft/gpl.html
+     *              GNU GENERAL PUBLIC LICENSE version 2 or later
+     * @package     display
+     */
+
+    class ClaroViewMode implements Display
     {
-        $out = '';
-        
-        if ( !claro_is_user_authenticated() )
+        private static $instance = false;
+
+        private function __construct()
         {
-            if( get_conf('claro_displayLocalAuthForm',true) == true )
-            {
-                $out .= $this->renderLoginLink();
-            }
         }
-        elseif ( ( !claro_is_platform_admin() )
-            && ( claro_is_in_a_course() && !claro_is_course_member() )
-            && claro_get_current_course_data('registrationAllowed') )
+        
+        public function render()
         {
-            if (claro_is_current_user_enrolment_pending())
+            $out = '';
+            
+            if ( !claro_is_user_authenticated() )
             {
-                $out .= '<img src="'.get_icon_url('warning').'" alt="off" /> '
-                      . '<b>'.get_lang('Enrolment pending').'</b>';
+                if( get_conf('claro_displayLocalAuthForm',true) == true )
+                {
+                    $out .= $this->renderLoginLink();   
+                }                
             }
-            else
+            elseif ( ( !claro_is_platform_admin() )
+                && ( claro_is_in_a_course() && !claro_is_course_member() )
+                && claro_get_current_course_data('registrationAllowed') )
             {
                 $out .= $this->renderRegistrationLink();
             }
+            elseif ( claro_is_display_mode_available() )
+            {
+                $out .= $this->renderViewModeSwitch();
+            }
+            
+            return $out;
         }
-        elseif ( claro_is_display_mode_available() )
+        
+        private function renderViewModeSwitch()
         {
-            $out .= $this->renderViewModeSwitch();
+            $out = '';
+
+            if ( isset($_REQUEST['View mode']) )
+            {
+                $out .= claro_html_tool_view_option($_REQUEST['View mode']);
+            }
+            else
+            {
+                $out .= claro_html_tool_view_option();
+            }
+
+            if ( claro_is_in_a_course() && ! claro_is_platform_admin() && ! claro_is_course_member() )
+            {
+                $out .= ' | <a href="' . get_path('clarolineRepositoryWeb')
+                    . 'auth/courses.php?cmd=exReg&course='
+                    . claro_get_current_course_id().'">'
+                    . claro_html_icon( 'enroll' )
+                    . '<b>' . get_lang('Enrolment') . '</b>'
+                    . '</a>'
+                    ;
+            }
+
+            $out .= "\n";
+            
+            return $out;
         }
         
-        return $out;
-    }
-    
-    
-    /**
-     * Render a dropdown list to switch "student" and "course manager" mode.
-     */
-    private function renderViewModeSwitch()
-    {
-        $out = '';
-        
-        if ( isset($_REQUEST['View mode']) )
+        private function renderRegistrationLink()
         {
-            $out .= claro_html_tool_view_option($_REQUEST['View mode']);
+            return '<a href="'
+                . get_path('clarolineRepositoryWeb')
+                . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id()
+                . '">'
+                . claro_html_icon( 'enroll' )
+                . '<b>' . get_lang('Enrolment') . '</b>'
+                . '</a>'  
+                ;
         }
-        else
+        
+        private function renderLoginLink()
         {
-            $out .= claro_html_tool_view_option();
-        }
-        
-        $out .= "\n";
-        
-        return $out;
-    }
-    
-    
-    /**
-     * Render a link to register.
-     */
-    private function renderRegistrationLink()
-    {
-        return '<a href="'
-            . htmlspecialchars( get_path('clarolineRepositoryWeb')
-                . 'auth/courses.php?cmd=exReg&course='
-                . claro_get_current_course_id() )
-            . '">'
-            . claro_html_icon( 'enroll' ) . ' '
-            . '<b>' . get_lang('Enrolment') . '</b>'
-            . '</a>'
-            ;
-    }
-    
-    
-    /**
-     * Render a link to log in.
-     */
-    private function renderLoginLink()
-    {
-        return '<a href="' 
-            . htmlspecialchars( get_path('clarolineRepositoryWeb') . 'auth/login.php'
+            return '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/login.php'
                 . '?sourceUrl='
                 . urlencode( base64_encode(
                     ( isset( $_SERVER['HTTPS'])
                         && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1)
                         ? 'https://'
                         : 'http://' )
-                    . $_SERVER['HTTP_HOST'] . strip_tags( $_SERVER['REQUEST_URI'] ) ) ) )
-            . '" target="_top">'
-            . get_lang('Login')
-            . '</a>'
-            ;
-    }
-    
-    
-    public static function getInstance()
-    {
-        if ( ! ClaroViewMode::$instance )
-        {
-            ClaroViewMode::$instance = new ClaroViewMode;
+                    . $_SERVER['HTTP_HOST'] . strip_tags( $_SERVER['REQUEST_URI'] ) ) )
+                . '" target="_top">'
+                . get_lang('Login')
+                . '</a>'
+                ;
         }
-        
-        return ClaroViewMode::$instance;
+
+        public static function getInstance()
+        {
+            if ( ! ClaroViewMode::$instance )
+            {
+                ClaroViewMode::$instance = new ClaroViewMode;
+            }
+
+            return ClaroViewMode::$instance;
+        }
     }
-}
+?>

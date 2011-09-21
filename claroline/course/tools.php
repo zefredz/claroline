@@ -1,16 +1,15 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * Claroline Course Tool List management script.
+ * @version 1.9 $Revision$
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
- *              version 2 or later
- * @package     CLHOME
- * @author      Claro Team <cvs@claroline.net>
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLHOME
+ * @author Claro Team <cvs@claroline.net>
  */
 
 $gidReset = true; // If user is here. It means he isn't in any group space now.
@@ -347,27 +346,27 @@ if ( 'exAddTool' == $cmd )
     else
     {
         $moduleData = get_module_data($toolLabel);
-        
+
         if ( $moduleData['access_manager'] == 'COURSE_ADMIN'
             || claro_is_platform_admin() )
         {
             // get tool id
             $toolId = get_tool_id_from_module_label( $toolLabel );
-
+            
             if ( $toolId )
             {
                 if ( ! is_module_registered_in_course( $toolId, claro_get_current_course_id()) )
                 {
                     register_module_in_single_course( $toolId, claro_get_current_course_id() );
                 }
-
+                
                 // update course_tool.activated
                 if ( update_course_tool_activation_in_course( $toolId,
                                                              claro_get_current_course_id(),
                                                              true ) )
                 {
                     set_module_visibility_in_course( $toolId, $_cid, true );
-
+                    
                     $dialogBox->success( get_lang('Tool added to course') );
                     $cidReset = TRUE;
                     $cidReq   = claro_get_current_course_id();
@@ -386,7 +385,7 @@ if ( 'exAddTool' == $cmd )
                             );
                         }
                     }
-
+    
                     include get_path('incRepositorySys') . '/claro_init_local.inc.php';
                 }
                 else
@@ -402,7 +401,7 @@ if ( 'exAddTool' == $cmd )
         else
         {
             $dialogBox->error( get_lang('This tool is activable by the platform administrator only') );
-        }
+}
     }
 }
 
@@ -513,7 +512,7 @@ elseif ( $currentSection == 'extLinks' )
     
     .    '<table class="claroTable" >'."\n\n"
     .    '<thead>'."\n"
-    .    '<tr>'."\n"
+    .    '<tr class="headerX">'."\n"
     .    '<th>'.get_lang('Tools').'</th>'."\n"
     .    '<th>'.get_lang('Visibility').'</th>'."\n"
     .    '<th>'.get_lang('Edit').'</th>'."\n"
@@ -639,7 +638,7 @@ elseif ( $currentSection == 'toolList' )
     $out .= '<blockquote>' . "\n"
         . '<table class="claroTable emphaseLine" style="width: 100%" >'."\n\n"
         . '<thead>'."\n"
-        . '<tr>'."\n"
+        . '<tr class="headerX">'."\n"
         . '<th>'.get_lang('Tool').'</th>'."\n"
         . '<th>'.get_lang('Remove from course').'</th>'."\n"
         . '</tr>'."\n"
@@ -691,7 +690,7 @@ elseif ( $currentSection == 'toolList' )
     $out .= '<blockquote>' . "\n"
         . '<table class="claroTable emphaseLine" style="width: 100%" >'."\n\n"
         . '<thead>'."\n"
-        . '<tr>'."\n"
+        . '<tr class="headerX">'."\n"
         . '<th>'.get_lang('Tool').'</th>'."\n"
         . '<th>'.get_lang('Add to course').'</th>'."\n"
         . '</tr>'."\n"
@@ -719,7 +718,7 @@ elseif ( $currentSection == 'toolList' )
             {
                 $action_link = '<em>'.get_lang('Activable only by the platform administrator !').'</em>';
             }
-
+                
             $out .= '<tr>'
                 . '<td><img src="'
                 . $inactiveTool['icon'] . '" alt="" /> '

@@ -1,20 +1,24 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
- * Function to upgrade course tool 1.5 to 1.6.
+ * Function to upgrade course tool 1.5 to 1.6
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
- * @package     UPGRADE
- * @author      Claro Team <cvs@claroline.net>
- * @author      Mathieu Laurent   <mla@claroline.net>
- * @author      Christophe Gesché <moosh@claroline.net>
+ * @version 1.8 $Revision$
+ * 
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ *
+ * @package UPGRADE
+ * 
+ * @author Claro Team <cvs@claroline.net>
+ * @author Mathieu Laurent   <mla@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
 
 /*===========================================================================
@@ -32,12 +36,12 @@ function upgrade_to_16_remove_deprecated_tool($course_code)
     if ( preg_match($versionRequiredToProceed, $currentCourseVersion) )
     {
         switch ( $step = get_upgrade_status($tool,$course_code) )
-        {
+        { 
             case 1 :  // STEP 1 DROP UNUSED TABLE
-                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."pages`";
+                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."pages`"; 
                 if ( ! upgrade_apply_sql($sql_step1) ) return $step;
                 $step = set_upgrade_status($tool, 0, $course_code);
-            default :
+            default : 
                 return $step;
         }
     }
@@ -47,7 +51,7 @@ function upgrade_to_16_remove_deprecated_tool($course_code)
 /**
  * Upgrade forum tool to 1.6
  * IN 1.6 intro table has new column to prepare multi-intro orderable
- * Job for this upgrade
+ * Job for this upgrade 
  * STEP 1 drop all unused tables
  */
 
@@ -65,20 +69,20 @@ function forum_upgrade_to_16($course_code)
         {
          
             case 1 : // STEP 1 drop all unused tables
-                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_access`";
-                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_banlist`";
-                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_config`";
-                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_disallow`";
-                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_forum_access`";
-                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_forum_mods`";
-                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_headermetafooter`";
-                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_ranks`";
-                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_sessions`";
-                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_themes`";
-                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_words`";
+                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_access`"; 
+                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_banlist`"; 
+                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_config`"; 
+                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_disallow`"; 
+                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_forum_access`"; 
+                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_forum_mods`"; 
+                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_headermetafooter`"; 
+                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_ranks`"; 
+                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_sessions`"; 
+                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_themes`"; 
+                $sql_step1[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."bb_words`"; 
                 if ( ! upgrade_apply_sql($sql_step1) ) return $step;
                 $step = set_upgrade_status($tool, 0, $course_code);
-            default :
+            default : 
                 return $step;
         }
     }
@@ -103,17 +107,17 @@ function quizz_upgrade_to_16($course_code)
             case 1 :  // STEP 1 UPDATE TABLES STRUCTURES
                 $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_question` " .
                                "CHANGE `picture_name` `attached_file` varchar(50) default ''";
-                $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_question` " .
+                $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_question` " . 
                                "CHANGE `ponderation` `ponderation` float unsigned default NULL";
                 $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` " .
                                "ADD `max_time` smallint(5) unsigned NOT NULL default '0'";
-                $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` " .
+                $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` " . 
                                "ADD `max_attempt` tinyint(3) unsigned NOT NULL default '0'";
-                $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` ".
+                $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` ". 
                                "ADD `show_answer` enum('ALWAYS','NEVER','LASTTRY') NOT NULL default 'ALWAYS'";
-                $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` " .
+                $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` " . 
                                "ADD `anonymous_attempts` enum('YES','NO') NOT NULL default 'YES'";
-                $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` ".
+                $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` ". 
                                "ADD `start_date` datetime NOT NULL default '0000-00-00 00:00:00'";
                 $sql_step1[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."quiz_test` ".
                                "ADD `end_date` datetime NOT NULL default '0000-00-00 00:00:00'";
@@ -126,12 +130,12 @@ function quizz_upgrade_to_16($course_code)
                 if ( ! upgrade_apply_sql($sql_step1) ) return $step;
                 $step = set_upgrade_status($tool, 2, $course_code);
             case 2 : // STEP 2 Create The new table
-                if ( quizz_upgrade_to_16_step_2() === false )
+                if ( quizz_upgrade_to_16_step_2() === false ) 
                 {
                     return $step;
                 }
                 $step = set_upgrade_status($tool, 0, $course_code);
-            default :
+            default : 
                 return $step;
         }
     }
@@ -194,8 +198,8 @@ function assignment_upgrade_to_16($course_code)
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     {
         switch( $step = get_upgrade_status($tool,$course_code) )
-        {
-            case 1 :
+        {         
+            case 1 :  
     
             /**
              * STEP 1 Create new work table
@@ -216,13 +220,13 @@ function assignment_upgrade_to_16($course_code)
                 `prefill_doc_path` varchar(200) NOT NULL default '',
                 `prefill_submit` enum('ENDDATE','AFTERPOST') NOT NULL default 'ENDDATE',
                 PRIMARY KEY  (`id`)
-                ) ENGINE=MyISAM";
-/*
-            $sql_step1[] = "UPDATE `".$currentCourseDbNameGlu."wrk_assignment`
-                SET
+                ) TYPE=MyISAM"; 
+/*                      
+            $sql_step1[] = "UPDATE `".$currentCourseDbNameGlu."wrk_assignment` 
+                SET 
                 `end_date` = '".date('Y-m-d H:i:00', mktime( date('H'),date('i'),0,date('m'), date('d'), date('Y')+1 ) )."'
                 WHERE `end_date` = '0000-00-00 00:00:00'
-                ";
+                ";        
 */
             $sql_step1[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."wrk_submission` (
                 `id` int(11) NOT NULL auto_increment,
@@ -241,7 +245,7 @@ function assignment_upgrade_to_16($course_code)
                 `original_id` int(11) default NULL,
                 `score` smallint(3) default NULL,
                 PRIMARY KEY  (`id`)
-                ) ENGINE=MyISAM";
+                ) TYPE=MyISAM";
                 if ( ! upgrade_apply_sql($sql_step1) ) return $step;
                 $step = set_upgrade_status($tool, 2, $course_code);
     
@@ -251,7 +255,7 @@ function assignment_upgrade_to_16($course_code)
                  * STEP 2 : Create a new assignment
                  */
     
-                // get work intro in tool
+                // get work intro in tool 
                 $sql_work_intro = "SELECT ti.texte_intro
                                     FROM `" . $currentCourseDbNameGlu . "tool_list` tl,
                                          `" . $currentCourseDbNameGlu . "tool_intro` ti,
@@ -262,13 +266,13 @@ function assignment_upgrade_to_16($course_code)
                 
                 $work_intro = claro_sql_query_get_single_value($sql_work_intro);
                 
-                if ( $work_intro === FALSE ) $work_intro = '';
+                if ( $work_intro === FALSE ) $work_intro = '';            
                 
-                $sql_step2[] = "INSERT INTO `".$currentCourseDbNameGlu."wrk_assignment`
+                $sql_step2[] = "INSERT INTO `".$currentCourseDbNameGlu."wrk_assignment` 
                     SET `id` = 1,
-                    `title` = 'Assignments',
-                    `description`= '" . mysql_real_escape_string($work_intro) . "',
-                    `visibility` = 'VISIBLE',
+                    `title` = 'Assignments', 
+                    `description`= '" . mysql_real_escape_string($work_intro) . "', 
+                    `visibility` = 'VISIBLE', 
                     `def_submission_visibility` = 'VISIBLE',
                     `assignment_type` = 'INDIVIDUAL',
                     `authorized_content` = 'FILE',
@@ -296,23 +300,23 @@ function assignment_upgrade_to_16($course_code)
 
                 $teacher_uid = $teacher[0]['uid'];
                 
-                // if no course manager, you are enrolled in as
+                // if no course manager, you are enrolled in as            
                 if ( !is_numeric($teacher_uid) )
                 {
                     $teacher_uid = $_uid;
-                    $sql_set_teacher = "INSERT INTO `". $tbl_rel_course_user . "`
+                    $sql_set_teacher = "INSERT INTO `". $tbl_rel_course_user . "`  
                                         SET `user_id` = '" . $teacher_uid . "'
                                              , `code_cours` = '" . $course_code . "'
                                              , `role` = 'Course missing manager';";
-                    if ( ! claro_sql_query($sql_set_teacher) ) return $step;
+                    if ( ! claro_sql_query($sql_set_teacher) ) return $step;            
                     log_message('Warning : Course '.$course_code.' has no teacher, you are enrolled in as course manager.');
                 }
     
                 // add old work in submission of course manager
                 $sql_step3[] = "INSERT IGNORE INTO `".$currentCourseDbNameGlu."wrk_submission`
                  (assignment_id,user_id,title,visibility,authors,submitted_text,submitted_doc_path)
-                 SELECT 1, '". $teacher_uid ."', titre, IF(accepted,'VISIBLE','INVISIBLE'), auteurs, description, url
-                    FROM `".$currentCourseDbNameGlu."assignment_doc`";
+                 SELECT 1, '". $teacher_uid ."', titre, IF(accepted,'VISIBLE','INVISIBLE'), auteurs, description, url 
+                    FROM `".$currentCourseDbNameGlu."assignment_doc`";  
     
                 if ( ! upgrade_apply_sql($sql_step3) ) return $step;
                 $step = set_upgrade_status($tool, 4, $course_code);
@@ -323,8 +327,8 @@ function assignment_upgrade_to_16($course_code)
                  * STEP 4 : Update document path of submissions
                  */
     
-                $sql_step4[] = "UPDATE `".$currentCourseDbNameGlu."wrk_submission`
-                                SET submitted_doc_path = REPLACE (`submitted_doc_path` ,'work/','')";
+                $sql_step4[] = "UPDATE `".$currentCourseDbNameGlu."wrk_submission` 
+                                SET submitted_doc_path = REPLACE (`submitted_doc_path` ,'work/','')";            
                 if ( ! upgrade_apply_sql($sql_step4) ) return $step;
                 $step = set_upgrade_status($tool, 5, $course_code);
     
@@ -346,11 +350,11 @@ function assignment_upgrade_to_16($course_code)
                     }
                 }
                 
-                // move assignment from work to work/assig_1
+                // move assignment from work to work/assig_1                
                 if ( is_dir($work_dirname) )
                 {
                     if ( ( $handle = opendir($work_dirname) ) )
-                    {
+                    {   
                         while ( FALSE !== ($file = readdir($handle)) )
                         {
                             if ( is_dir($work_dirname.$file) ) continue;
@@ -363,18 +367,18 @@ function assignment_upgrade_to_16($course_code)
                 
                         }
                         closedir($handle);
-                    }
-                }
+                    }                    
+                }            
                 $step = set_upgrade_status($tool, 6, $course_code);
     
-            case 6 :
+            case 6 : 
                 /**
                  * STEP 6 Drop deprecated assignment_doc
                  */
-                // $sql_step6[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."assignment_doc`";
+                // $sql_step6[] = "DROP TABLE IF EXISTS `".$currentCourseDbNameGlu."assignment_doc`"; 
                 // if ( ! upgrade_apply_sql($sql_step6) ) return $step;
                 $step = set_upgrade_status($tool, 0, $course_code);
-            default :
+            default : 
                 return $step;
         } // end switch
     }
@@ -415,24 +419,26 @@ function tracking_upgrade_to_16($course_code)
                   `access_tid` int(10) default NULL,
                   `access_tlabel` varchar(8) default NULL,
                   PRIMARY KEY  (`access_id`)
-                ) ENGINE=MyISAM COMMENT='Record informations about access to course or tools'";
+                ) TYPE=MyISAM COMMENT='Record informations about access to course or tools'";            
                 if ( ! upgrade_apply_sql($sql_step2) ) return $step;
                 $step = set_upgrade_status($tool, 3, $course_code);
 
             case 3 : // STEP 3 Update tracking Table
 
-                $sql_step3[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` " .
+                $sql_step3[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` " . 
                                "ADD `exe_time`  mediumint(8) NOT NULL default '0'";
-                $sql_step3[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` " .
+                $sql_step3[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` " . 
                                "CHANGE `exe_result` `exe_result` float NOT NULL default '0'";
-                $sql_step3[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` " .
+                $sql_step3[] = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` " . 
                                "CHANGE `exe_weighting` `exe_weighting` float NOT NULL default '0'";
 
                 if ( ! upgrade_apply_sql($sql_step3) ) return $step;
                 $step = set_upgrade_status($tool, 0, $course_code);
-            default :
+            default : 
                 return $step;
         }
     }
     return false;
 }
+
+?>

@@ -1,13 +1,11 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
- *
  * Download a file given it's file location within a course or group document
- * directory.
+ * directory
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2007 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2.0
@@ -18,7 +16,6 @@ require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
 require_once get_path('incRepositorySys') . '/lib/url.lib.php';
 require_once get_path('incRepositorySys') . '/lib/file.lib.php';
-require_once get_path('incRepositorySys') . '/lib/core/downloader.lib.php';
 
 $nameTools = get_lang('Display file');
 
@@ -46,6 +43,12 @@ if ( is_download_url_encoded($requestUrl) )
     $requestUrl = download_url_decode( $requestUrl );
 }
 
+/*if ( ! claro_is_in_a_course() && file_exists( rtrim( get_path('rootSys'), '/' ) . '/platform/img' . $requestUrl ) )
+{
+    var_dump($requestUrl);
+    exit();
+}*/
+
 if ( empty($requestUrl) )
 {
     $isDownloadable = false ;
@@ -53,74 +56,96 @@ if ( empty($requestUrl) )
 }
 else
 {
-    if ( isset( $_REQUEST['moduleLabel'] ) && !empty( $_REQUEST['moduleLabel'] ) )
+    if ( claro_is_in_a_course() )
     {
-        $moduleLabel = $_REQUEST['moduleLabel'];
-    }
-    else
-    {
-        if ( !claro_is_in_a_course() )
-        {
-            $moduleLabel = null;
-        }
-        else
-        {
-            $moduleLabel = 'CLDOC';
-        }
-    }
+        $_course = claro_get_current_course_data();
+        $_group  = claro_get_current_group_data();
     
-    if ( $moduleLabel )
-    {
-        $connectorPath = secure_file_path(get_module_path( $moduleLabel ) . '/connector/downloader.cnr.php');
-
-        if ( file_exists( $connectorPath ) )
+        if (claro_is_in_a_group())
         {
-            require_once $connectorPath;
-            $className = $moduleLabel.'_Downloader';
-            $downloader = new $className( $moduleLabel );
+            $groupContext  = true;
+            $courseContext = false;
+            $is_allowedToEdit = claro_is_group_member() ||  claro_is_group_tutor() || claro_is_course_manager();
         }
         else
         {
-            $downloader = false;
-            // $downloader = new Claro_Generic_Module_Downloader($moduleLabel);
+            $groupContext  = false;
+            $courseContext = true;
+            $is_allowedToEdit = claro_is_course_manager();
+        }
+    
+        if ($courseContext)
+        {
+            $courseTblList = claro_sql_get_course_tbl();
+            $tbl_document =  $courseTblList['document'];
             
-            pushClaroMessage( 'No downloader found for module '.strip_tags( $moduleLabel ), 'warning' );
-        }
-    }
-    else
-    {
-        $downloader = new Claro_PlatformDocumentsDownloader();
-    }
+            if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
+            {
+                $modifier = '';
+            }
+            else
+            {
+                $modifier = 'BINARY ';
+            }
     
-    if ( $downloader && $downloader->isAllowedToDownload( $requestUrl) ) 
-    {
-        $pathInfo = $downloader->getFilePath( $requestUrl );
-        
-        // use slashes instead of backslashes in file path
-        if (claro_debug_mode() )
-        {
-            pushClaroMessage('<p>File path : ' . $pathInfo . '</p>','pathInfo');
+            $sql = "SELECT visibility
+                    FROM `{$tbl_document}`
+                    WHERE {$modifier} path = '".claro_sql_escape($requestUrl)."'";
+    
+            $docVisibilityStatus = claro_sql_query_get_single_value($sql);
+    
+            if (    ( ! is_null($docVisibilityStatus) ) // hidden document can only be viewed by course manager
+                 && $docVisibilityStatus == 'i'
+                 && ( ! $is_allowedToEdit ) )
+            {
+                $isDownloadable = false ;
+                $dialogBox->error( get_lang('Not allowed') );
+            }
         }
-
-        $pathInfo = secure_file_path( $pathInfo );
-
-        // Check if path exists in course folder
-        if ( ! file_exists($pathInfo) || is_dir($pathInfo) )
+    
+        if (claro_is_in_a_group() && claro_is_group_allowed())
         {
-            $isDownloadable = false ;
-
-            $dialogBox->title( get_lang('Not found') );
-            $dialogBox->error( get_lang('The requested file <strong>%file</strong> was not found on the platform.',
-                                    array('%file' => basename($pathInfo) ) ) );
+            $intermediatePath = get_path('coursesRepositorySys') . claro_get_course_path(). '/group/'.claro_get_current_group_data('directory');
+        }
+        else
+        {
+            $intermediatePath = get_path('coursesRepositorySys') . claro_get_course_path(). '/document';
         }
     }
     else
     {
-        $isDownloadable = false;
-        
-        pushClaroMessage('downloader said no!', 'debug');
-        
-        $dialogBox->title( get_lang('Not allowed') );
+        $intermediatePath = rtrim( str_replace( '\\', '/', get_path('rootSys') ), '/' ) . '/platform/document';
+    }
+
+    if ( get_conf('secureDocumentDownload') && $GLOBALS['is_Apache'] )
+    {
+        // pretty url
+        $pathInfo = realpath( $intermediatePath . '/' . $requestUrl);
+    }
+    else
+    {
+        // TODO check if we can remove rawurldecode
+        $pathInfo = $intermediatePath
+                    . implode ( '/',
+                            array_map('rawurldecode', explode('/',$requestUrl)));
+    }
+
+    // use slashes instead of backslashes in file path
+    if (claro_debug_mode() )
+    {
+        pushClaroMessage('<p>File path : ' . $pathInfo . '</p>','pathInfo');
+    }
+
+    $pathInfo = secure_file_path( $pathInfo );
+
+    // Check if path exists in course folder
+    if ( ! file_exists($pathInfo) || is_dir($pathInfo) )
+    {
+        $isDownloadable = false ;
+
+        $dialogBox->title( get_lang('Not found') );
+        $dialogBox->error( get_lang('The requested file <strong>%file</strong> was not found on the platform.',
+                                array('%file' => basename($pathInfo) ) ) );
     }
 }
 
@@ -201,3 +226,5 @@ else
 }
 
 die();
+
+?>

@@ -1,14 +1,17 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     1.8 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sébastien <pir@cerdecam.be>
- * @author      Lederer Guillaume <led@cerdecam.be>
- * @package     CLLNP
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
  */
 
 /*======================================
@@ -26,15 +29,6 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path'), Url::Contex
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
 
 $nameTools = get_lang('Add a module of this course');
-
-// Command list
-$cmdList = array();
-
-$cmdList[] = array(
-    'img' => 'back',
-    'name' => get_lang('Back to learning path administration'),
-    'url' => htmlspecialchars(Url::Contextualize('learningPathAdmin.php'))
-);
 
 $out = '';
 
@@ -112,7 +106,7 @@ function buildRequestModules()
 
 // display title
 
-$out .= claro_html_tool_title($nameTools, null, $cmdList);
+$out .= claro_html_tool_title($nameTools);
 
 //COMMAND ADD SELECTED MODULE(S):
 
@@ -148,7 +142,7 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
             $atleastOne = TRUE;
             $nb++;
         }
-    }
+    }     
 } //end if ADD command
 
 //STEP ONE : display form to add module of the course that are not in this path yet
@@ -157,23 +151,25 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
 
 $result = claro_sql_query(buildRequestModules());
 
+$out .= '<table class="claroTable" width="100%">'."\n"
+       .'<thead>'."\n"
+       .'<tr class="headerX">'."\n"
+       .'<th width="10%">'
+       .get_lang('Add')
+       .'</th>'."\n"
+       .'<th>'
+       .get_lang('Module')
+       .'</th>'."\n"
+       .'</tr>'."\n"
+       .'</thead>'."\n\n"
+       .'<tbody>'."\n\n";
+
 // Display available modules
 $out .= '<form name="addmodule" action="'.$_SERVER['PHP_SELF'].'?cmdglobal=add">'."\n"
-      . claro_form_relay_context()."\n"
-      . '<table class="claroTable">'."\n"
-      . '<thead>'."\n"
-      . '<tr align="center" valign="top">'."\n"
-      . '<th width="10%">'
-      . get_lang('Add module(s)')
-      . '</th>'."\n"
-      . '<th>'
-      . get_lang('Module')
-      . '</th>'."\n"
-      . '</tr>'."\n"
-      . '</thead>'."\n\n"
-      . '<tbody>'."\n\n";
+.    claro_form_relay_context()
+;
 
-$atleastOne = false;
+$atleastOne = FALSE;
 
 while ($list=mysql_fetch_array($result))
 {
@@ -186,43 +182,62 @@ while ($list=mysql_fetch_array($result))
     $contentType_alt = selectAlt($list['contentType']);
 
     $out .= '<tr>'."\n"
-          . '<td style="vertical-align:top; text-align: center;">'."\n"
-          . '<input type="checkbox" name="check_'.$list['module_id'].'" id="check_'.$list['module_id'].'" />'."\n"
-          . '</td>'."\n"
-          . '<td align="left">'."\n"
-          . '<label for="check_' . $list['module_id'] . '" >'
-          . '<img hspace="5" src="' . $moduleImg . '" alt="' . $contentType_alt . '" /> '
-          . $list['name']
-          . '</label>' . "\n"
-          . (($list['comment'] != null) ? '<div class="comment">'.$list['comment'].'</small>'.'</div>'."\n\n" : '')
-          . '</td>'."\n"
-          . '</tr>'."\n\n";
-    
-    $atleastOne = true;
+        .'<td align="center">'."\n"
+        .'<input type="checkbox" name="check_'.$list['module_id'].'" id="check_'.$list['module_id'].'" />'."\n"
+        .'</td>'."\n"
+        .'<td align="left">'."\n"
+        .'<label for="check_' . $list['module_id'] . '" >'
+        .'<img src="' . $moduleImg . '" alt="' . $contentType_alt . '" />'
+        . $list['name']
+        . '</label>' . "\n"
+        .'</td>'."\n"
+        .'</tr>'."\n\n";
+
+    // COMMENT
+
+    if ($list['comment'] != null)
+    {
+        $out .= '<tr>'."\n"
+            .'<td>&nbsp;</td>'."\n"
+            .'<td>'."\n"
+            .'<small>'.$list['comment'].'</small>'."\n"
+            .'</td>'."\n"
+            .'</tr>'."\n\n";
+    }
+    $atleastOne = TRUE;
 
 }//end while another module to display
+
+$out .= "\n".'</tbody>'."\n\n".'<tfoot>'."\n\n";
 
 if ( !$atleastOne )
 {
     $out .= '<tr>'."\n"
-        . '<td colspan="2" align="center">'
-        . get_lang('All modules of this course are already used in this learning path.')
-        . '</td>'."\n"
-        . '</tr>'."\n";
+        .'<td colspan="2" align="center">'
+        .get_lang('All modules of this course are already used in this learning path.')
+        .'</td>'."\n"
+        .'</tr>'."\n";
 }
-
-$out .= '</tbody>'."\n"
-      . '</table>'."\n";
-
+$out .= '<tr>'
+    .'<td colspan="6"><hr noshade size="1"></td>'
+    .'</tr>'."\n"
+    ;
 // Display button to add selected modules
+
 if ( $atleastOne )
 {
-    $out .= '<input type="submit" value="'.get_lang('Add selection').'" />'."\n"
-        . '<input type="hidden" name="cmdglobal" value="add" />'."\n";
+    $out .= '<tr>'."\n"
+        .'<td colspan="2">'."\n"
+        .'<input type="submit" value="'.get_lang('Add module(s)').'" />'."\n"
+        .'<input type="hidden" name="cmdglobal" value="add" />'."\n"
+        .'</td>'."\n"
+        .'</tr>'."\n";
 }
 
-$out .= '</form>'
-      . '<br /><br />';
+$out .= "\n" . '</tfoot>' . "\n\n"
+.    '</form>' . "\n"
+.    '</table>'
+;
 
 //####################################################################################\\
 //################################## MODULES LIST ####################################\\
@@ -231,9 +246,14 @@ $out .= '</form>'
 // display subtitle
 $out .= claro_html_tool_title(get_lang('Learning path content'));
 
+// display back link to return to the LP administration
+$out .= '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;' . get_lang('Back to learning path administration') . '</a>';
+
 // display list of modules used by this learning path
 $out .= display_path_content();
 
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

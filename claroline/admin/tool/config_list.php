@@ -1,24 +1,28 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * This script display list of configuration file.
+ * This script display list of configuration file
  *
- * @version     $Revision$ *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL) *
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE *
- * @see         http://www.claroline.net/wiki/config_def/
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/config_def/
  *
  * @package CONFIG
  *
- * @author      Claro Team <cvs@claroline.net>
- * @author      Mathieu Laurent <mla@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
+ * @author Claro Team <cvs@claroline.net>
+ * @author Mathieu Laurent   <mla@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ *
  */
 
-$cidReset=true;
-$gidReset=true;
+$cidReset=TRUE;
+$gidReset=TRUE;
 
 // include init and library files
 
@@ -34,7 +38,7 @@ require_once get_path('incRepositorySys') . '/lib/config.lib.inc.php';
 // define
 $nameTools          = get_lang('Configuration');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
-$noQUERY_STRING     = true;
+$noQUERY_STRING     = TRUE;
 
 /* ************************************************************************** */
 /*  INITIALISE VAR
@@ -121,3 +125,5 @@ if ( is_array($def_class_list) )
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

@@ -1,22 +1,29 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
+ * This tool run some check to detect abnormal situation
  *
- * This tool run some check to detect abnormal situation.
- * This script is a set of independant tests on the data.
+ * @version 1.9 $Revision$
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see http://www.claroline.net/wiki/index.php/ADMIN
+ * @author Sébastien Piraux <pir@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ *
+ *
+ */
+
+/**
+ * This script is a set of independant tests on the data
+ *
  * Theses tests check if data are logical.
- * This script use Cache_lite.
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/ADMIN
- * @author      Sï¿½bastien Piraux <pir@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
+ * This script use Cache_lite
  *
- * @todo separate checking and output
- * @todo protect "showall" when there is nothing in cache
+ * @todo TODO : separate checking and output.
+ * @todo TODO : protect "showall" when there is nothing in cache.
+ *
  */
 
 define('DISP_RESULT',__LINE__);
@@ -144,7 +151,7 @@ switch ($display)
                 $out .= '-'
                 .    ' &nbsp;&nbsp;'
                 .    '<b>'
-                .    get_lang('Accounts with same <i>Username</i>')
+                .    get_lang('Accounts with same <i>User name</i>')
                 .    '</b>'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<small>'
@@ -170,7 +177,7 @@ switch ($display)
                 $out .= '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-                .    get_lang('Accounts with same <i>Username</i>')
+                .    get_lang('Accounts with same <i>User name</i>')
                 .    '</a>' . "\n"
                 ;
             }
@@ -458,7 +465,7 @@ switch ($display)
                 //--  multiple account with same username AND same password (for compatibility with previous versions)
                 $out .= '- &nbsp;&nbsp;'
                 .    '<b>'
-                .    get_lang('Accounts with same <i>Username</i> AND same <i>Password</i>')
+                .    get_lang('Accounts with same <i>User name</i> AND same <i>Password</i>')
                 .    '</b>'
                 .    '&nbsp;&nbsp;&nbsp;<small>'
                 .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
@@ -505,7 +512,7 @@ switch ($display)
                 $out .= '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-                .    get_lang('Accounts with same <i>Username</i> AND same <i>Password</i>')
+                .    get_lang('Accounts with same <i>User name</i> AND same <i>Password</i>')
                 .    '</a>'
                 ;
             }
@@ -741,3 +748,5 @@ switch ($display)
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

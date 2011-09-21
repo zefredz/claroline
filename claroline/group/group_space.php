@@ -1,16 +1,15 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * This tool is "groupe_home" + "group_user".
+ * This tool is "groupe_home" + "group_user"
  *
- * @version     $Revision$
- * @copyright   2001-2011 Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/CLGRP
- * @package     CLGRP
- * @author      Claro Team <cvs@claroline.net>
+ * @version 1.9 $Revision$
+ * @copyright 2001-2011 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see http://www.claroline.net/wiki/index.php/CLGRP
+ * @package CLGRP
+ * @author Claro Team <cvs@claroline.net>
  */
 
 $cidNeeded = true;
@@ -77,8 +76,8 @@ $userGroupRegCount = group_count_group_of_a_user(claro_get_current_user_id());
 
 // The previous request compute the quantity of subscription for the current user.
 // the following request compare with the quota of subscription allowed to each student
-$userGroupQuotaExceeded = (bool) (  $_groupProperties ['nbGroupPerUser'] <= $userGroupRegCount
-&& ! is_null($_groupProperties['nbGroupPerUser']) && ($_groupProperties ['nbGroupPerUser'] != 'ALL' )); // no limit assign to group per user;
+$userGroupQuotaExceeded = (bool) (   $_groupProperties ['nbGroupPerUser'] <= $userGroupRegCount)
+&& ! is_null($_groupProperties['nbGroupPerUser']); // no limit assign to group per user;
 
 $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
 && ( ! $groupMemberQuotaExceeded )
@@ -91,7 +90,6 @@ $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
 
 $is_allowedToSelfRegInGroup  = (bool) $is_allowedToSelfRegInGroup && claro_is_in_a_course() && ( ! claro_is_group_member() ) && claro_is_course_member();
 $is_allowedToSelfUnregInGroup  = (bool) $_groupProperties ['unregistrationAllowed'] && claro_is_in_a_course() && claro_is_group_member() && claro_is_course_member();
-
 
 $is_allowedToDocAccess = (bool) ( claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor());
 $is_allowedToChatAccess     = (bool) (     claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor() );
@@ -150,9 +148,7 @@ if( isset($_REQUEST['registration']) )
 
 if ( isset($_REQUEST['regDone']) )
 {
-    $dialogBox->success(
-        get_lang("You are now a member of this group.")
-    );
+    $dialogBox->success( get_lang("You are now a member of this group.") );
 }
 
 if( isset($_REQUEST['unregistration']) )
@@ -293,12 +289,11 @@ foreach($toolList as $thisTool)
 
     // see if tool name must be displayed 'as containing new items' (a red ball by default)  or not
     $classItem = '';
-    
     if (in_array($thisTool['id'], $modified_tools)) $classItem = " hot";
 
     if ( ! empty($url) )
     {
-        $toolLinkList[] = '<a class="' . trim( $style . ' item' . $classItem ) . '" href="' . htmlspecialchars(Url::Contextualize($url)) . '">'
+        $toolLinkList[] = '<a class="' . $style . ' item' . $classItem . '" href="' . htmlspecialchars(Url::Contextualize($url)) . '">'
         .                 '<img src="' . $icon . '" alt="" />&nbsp;'
         .                 $toolName
         .                 '</a>' . "\n"
@@ -306,7 +301,7 @@ foreach($toolList as $thisTool)
     }
     else
     {
-        $toolLinkList[] = '<span ' . trim( $style ) . '>'
+        $toolLinkList[] = '<span ' . $style . '>'
         .                 '<img src="' . $icon . '" alt="" />&nbsp;'
         .                 $toolName
         .                 '</span>' . "\n"
@@ -319,31 +314,83 @@ foreach($toolList as $thisTool)
  * DISPLAY SECTION
  ******************/
 
-Claroline::getDisplay()->body->appendContent(
-    claro_html_tool_title(
-        array(
-            'supraTitle'=> get_lang("Groups"),
-            'mainTitle' => claro_get_current_group_data('name') . ' <img src="' . get_icon_url('group') . '" alt="" />'
-        )
-    )
-);
+$out = '';
 
-$groupSpaceTemplate = new CoreTemplate('group_space.tpl.php');
+$out .= claro_html_tool_title( array('supraTitle'=> get_lang("Groups"),
+                                  'mainTitle' => claro_get_current_group_data('name') . ' <img src="' . get_icon_url('group') . '" alt="" />'));
 
-$groupSpaceTemplate->assign( 'dialogBox', $dialogBox );
+$out .= $dialogBox->render();
 
 
-$groupSpaceTemplate->assign(
-    'displayRegistrationLink',
-    $is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST)
-);
+if($is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST))
+{
+    $out .= '<p>' . "\n"
+    .    claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+                            $_SERVER['PHP_SELF'] . '?registration=1' ))
+                            , '<img src="' . get_icon_url('enroll') . '"'
+                            .     ' alt="' . get_lang("Add me to this group") . '" />'
+    .                       get_lang("Add me to this group")
+                            )
+    .    '</p>'
+    ;
+}
 
-$groupSpaceTemplate->assign(
-    'displayUnregistrationLink',
-    $is_allowedToSelfUnregInGroup && !array_key_exists('unregistration',$_REQUEST)
-);
+if ( $is_allowedToSelfUnregInGroup && !array_key_exists('unregistration',$_REQUEST) )
+{
+    $out .= '<p>' . "\n"
+    .    claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+                            $_SERVER['PHP_SELF'] . '?unregistration=1' ))
+                            , '<img src="' . get_icon_url('unenroll') . '"'
+                            .     ' alt="' . get_lang("Remove me from this group") . '" />'
+    .                       get_lang("Remove me from this group")
+                            )
+    .    '</p>'
+    ;
+}
 
-$groupSpaceTemplate->assign( 'toolLinkList', $toolLinkList );
+$out .= '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
+.    '<tr>'  . "\n"
+.    '<td style="border-right: 1px solid gray;" valign="top" width="220">'  . "\n"
+
+/*
+* Vars needed to determine group File Manager and group Forum
+* They are unregistered when opening group.php once again.
+*
+* session_register("secretDirectory");
+* session_register("userGroupId");
+* session_register("forumId");
+*/
+
+.   claro_html_menu_vertical_br($toolLinkList)
+.   '<br /><br />' . "\n"
+;
+
+if ($is_allowedToManage)
+{
+    $out .= claro_html_cmd_link( htmlspecialchars(Url::Contextualize('group_edit.php'))
+                            , '<img src="' . get_icon_url('edit') . '"'
+                            .     ' alt="' . get_lang("Edit this group") . '" />'
+                            .    get_lang("Edit this group")
+                            );
+}
+
+if (current_user_is_allowed_to_send_message_to_current_group())
+{
+    $out .= '<br />'.claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+                            '../messaging/sendmessage.php?cmd=rqMessageToGroup&amp;' ))
+                            , '<img src="' . get_icon_url('mail_send') . '" alt="" />' . get_lang("Send a message to group")
+                            );
+}
+
+$out .= '</td>' . "\n"
+.    '<td width="20">' . "\n"
+.    '&nbsp;' . "\n"
+.    '</td>' . "\n"
+.    '<td valign="top">' . "\n"
+.    '<b>' . "\n"
+.    get_lang("Description") . "\n"
+.    '</b> :' . "\n"
+;
 
 /*----------------------------------------------------------------------------
 DISPLAY GROUP DESCRIPTION
@@ -351,18 +398,60 @@ DISPLAY GROUP DESCRIPTION
 
 if( strlen(claro_get_current_group_data('description')) > 0)
 {
-    $groupSpaceTemplate->assign( 'groupDescription', claro_get_current_group_data('description') );
+    $out .= '<br /><br />' . "\n"
+    .    claro_get_current_group_data('description')
+    ;
 }
 else // Show 'none' if no description
 {
-    $groupSpaceTemplate->assign( 'groupDescription', get_lang("(none)") );
+    $out .= get_lang("(none)");
 }
+
+$out .= '<br /><br />'
+.    '<b>'
+.    get_lang("Group Tutor")
+.    '</b> :'
+;
 
 /*----------------------------------------------------------------------------
 DISPLAY GROUP TUTOR INFORMATION
 ----------------------------------------------------------------------------*/
 
-$groupSpaceTemplate->assign( 'tutorDataList', $tutorDataList );
+if (count($tutorDataList) > 0)
+{
+    $out .= '<br /><br />' . "\n";
+    foreach($tutorDataList as $thisTutor)
+    {
+        $out .= '<span class="item">'
+        .    htmlspecialchars( $thisTutor['lastName'] . ' ' . $thisTutor['firstName'] )
+        ;
+        
+        if(current_user_is_allowed_to_send_message_to_user($thisTutor['id']))
+        {
+            $out .= ' - <a href="'.htmlspecialchars(Url::Contextualize(
+              '../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId=' . (int)$thisTutor['id'] ))
+              . '">'
+              // . '<img src="' . get_icon_url('mail_send') . '" alt="" />'
+              . get_lang('Send a message')
+              . '</a>'
+              ;
+        }
+          
+        $out .= '</span>'
+        .    '<br />'
+        ;
+    }
+}
+else
+{
+    $out .= get_lang("(none)");
+}
+
+$out .= '<br /><br />
+
+<b>' . get_lang("Group members") . '</b> : '
+;
+
 
 /*----------------------------------------------------------------------------
 DISPLAY GROUP MEMBER LIST
@@ -372,9 +461,43 @@ $context = Claro_Context::getCurrentContext();
 $context[CLARO_CONTEXT_GROUP] = null;
 $urlContext = Claro_Context::getUrlContext( $context );
 
-$groupSpaceTemplate->assign( 'urlContext', $urlContext );
-$groupSpaceTemplate->assign( 'groupMemberList', $groupMemberList );
+if(count($groupMemberList) > 0)
+{
+    $out .= '<br /><br />' . "\n";
+    foreach($groupMemberList as $thisGroupMember)
+    {
+        $out .= '<a href="'
+        .    htmlspecialchars(Url::Contextualize('../user/userInfo.php?uInfo=' . $thisGroupMember['id'], $urlContext  ))
+        .    '" class="item">'
+        .    $thisGroupMember['lastName'] . ' ' . $thisGroupMember['firstName']
+        .    '</a>';
+        
+        if(current_user_is_allowed_to_send_message_to_user($thisGroupMember['id']))
+        {        
+            $out .= ' - <a href="'
+                . htmlspecialchars(Url::Contextualize(
+                    '../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId=' . (int) $thisGroupMember['id'] ))
+                . '">'
+                // . '<img src="' . get_icon_url('mail_send') . '" alt="" />'
+                . get_lang('Send a message')
+                . '</a>'
+                ;
+        }
+        
+        $out .= '<br />' . "\n";
+    }
+}
+else
+{
+    $out .= get_lang('(none)');
+}
 
-Claroline::getDisplay()->body->appendContent( $groupSpaceTemplate->render() );
 
-echo Claroline::getDisplay()->render();
+$out .= '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '</table>' . "\n"
+;
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();

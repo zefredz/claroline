@@ -3,12 +3,10 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
- *
- * Allow the administrator to search through the messages.
+ * page of search for administrator
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -16,7 +14,9 @@
  * @package     internal_messaging
  */
 
-$cidReset = true;
+
+
+$cidReset = TRUE; 
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 // manager of the admin message box
 require_once dirname(__FILE__) . '/lib/messagebox/adminmessagebox.lib.php';
@@ -46,7 +46,7 @@ if ( ! claro_is_platform_admin() )
 $content = "";
 $arguments = array();
 
-$displayTable = true;
+$displayTable = TRUE;
 
 $acceptedSearch = array('fromUser','olderThan','timeInterval','platformMessage');
 $acceptedCommand = array('rqDeleteSelection','exDeleteSelection','rqDeleteMessage','exDeleteMessage');
@@ -112,7 +112,7 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
     
     if ($arguments['search'] == 'fromUser')
     {
-        $name = isset($_REQUEST['name']) ? trim(strip_tags($_REQUEST['name'])) : NULL;
+        $name = isset($_REQUEST['name']) ? trim(strip_tags($_REQUEST['name'])) : NULL; 
         $subTitle = get_lang('All messages from a user');
         if (is_null($name) || $name == "")
         {
@@ -200,7 +200,7 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
         }
         else
         {
-            $strategy->setStrategy(AdminBoxStrategy::DATED_INTERVAL ,
+            $strategy->setStrategy(AdminBoxStrategy::DATED_INTERVAL , 
                 array('date1' => strtotime($year1.'-'.$month1.'-'.$day1)
                     ,'date2' => strtotime($year2.'-'.$month2.'-'.$day2)));
         }
@@ -210,7 +210,7 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
     {
         $subTitle = get_lang('All platform messages');
         $strategy->setStrategy(AdminBoxStrategy::PLATFORM_MESSAGE);
-    }
+    }    
 }
 else
 {
@@ -222,14 +222,14 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
     
     $cmd = $_REQUEST['cmd'];
     
-    if ($cmd == "exDeleteSelection" && isset($_REQUEST['msg'])
+    if ($cmd == "exDeleteSelection" && isset($_REQUEST['msg']) 
             && is_array($_REQUEST['msg']))
     {
         
         $box->deleteMessageList($_REQUEST['msg']);
     }
     
-    if ($cmd == "rqDeleteSelection" && isset($_REQUEST['msg'])
+    if ($cmd == "rqDeleteSelection" && isset($_REQUEST['msg']) 
             && is_array($_REQUEST['msg']))
     {
         
@@ -243,7 +243,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
         }
         
         $form .= '<input type="submit" value="'.get_lang('Yes').'" /> '."\n"
-                .'<a href=""><input type="button" value="'.get_lang('No').'" /></a>'   ."\n"
+                .'<a href=""><input type="button" value="'.get_lang('No').'" /></a>'   ."\n"              
                 .'</form>'."\n\n"
                 ;
         
@@ -255,7 +255,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
     
     if ($cmd == "rqDeleteMessage" && ! is_null($messageId))
     {
-        $argDelete = makeArgLink($arguments);
+        $argDelete = makeArgLink($arguments);  
         if ($argDelete == "")
         {
             $linkDelete = $_SERVER['PHP_SELF']."?";
@@ -274,7 +274,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
         $dialogbox = new DialogBox();
         $dialogbox->question($deleteConfirmation);
         
-        $content .= $dialogbox->render();
+        $content .= $dialogbox->render(); 
     }
     
     if ($cmd == "exDeleteMessage" && ! is_null($messageId))
@@ -308,7 +308,7 @@ if ($arguments['search'] == 'fromUser')
         $name = "";
     }
     
-    $searchForm =
+    $searchForm = 
         '<form action="'.$_SERVER['PHP_SELF'].'?search=fromUser" method="post">'."\n"
        .'<input type="text" name="name" value="'.$name.'" class="inputSearch" />'."\n"
        .'<input type="submit" value="'.get_lang("Search").'" />'."\n"
@@ -338,7 +338,7 @@ if ($arguments['search'] == 'olderThan')
                 $("#dateinput").datepicker({dateFormat: \'dd/mm/yy\'});
             });
         </script>';
-    $claroline->display->header->addHtmlHeader($javascript);
+    $claroline->display->header->addHtmlHeader($javascript);   
     $disp = "\n"
         . get_lang('Select date') . '<br />'."\n"
         . '<form action="'.$_SERVER['PHP_SELF'].'?search=olderThan" method="post">'."\n"
@@ -375,10 +375,10 @@ if ($arguments['search'] == 'timeInterval')
             $(document).ready( function(){
                 $(".daterange").datepicker({dateFormat: \'dd/mm/yy\', beforeShow: customRange});
                 
-                function customRange(input) {
-                    return {minDate: (input.id == \'dateinput2\' ? $(\'#dateinput1\').datepicker(\'getDate\') : null),
-                    maxDate: (input.id == \'dateinput1\' ? $(\'#dateinput2\').datepicker(\'getDate\') : null)};
-                }
+                function customRange(input) { 
+                    return {minDate: (input.id == \'dateinput2\' ? $(\'#dateinput1\').datepicker(\'getDate\') : null), 
+                    maxDate: (input.id == \'dateinput1\' ? $(\'#dateinput2\').datepicker(\'getDate\') : null)}; 
+                } 
             });
         </script>';
     $claroline->display->header->addHtmlHeader($javascript);
@@ -437,30 +437,28 @@ if ($displayTable)
             ;
     $content .= '<br />'
        .'<table class="claroTable emphaseLine" width="100%">'."\n\n"
-       .'<thead>'
-       .'<tr>'."\n"
+       .'<tr class ="headerX">'."\n"
        .'<th>&nbsp;</th>'."\n"
        .'<th>'.get_lang('Subject').'</th>'."\n"
        .'<th><a href="'.$orderLink.'fieldOrder=name">'.get_lang('Sender').'</a></th>'."\n"
        .'<th><a href="'.$orderLink.'fieldOrder=username">'.get_lang('Username').'</a></th>'."\n"
        .'<th><a href="'.$orderLink.'fieldOrder=date">'.get_lang('Date').'</a></th>'."\n"
        .'<th class="im_list_action">'.get_lang('Delete').'</th>'."\n"
-       .'</tr>'."\n"
-       .'</thead>'."\n";
-    
+       .'</tr>'."\n\n"
+       ;
     if ($box->getNumberOfMessage() == 0)
     {
-        $content .= '<tfoot>' . "\n"
+        $content .= '<tfoot>' . "\n" 
         .   '<tr>' . "\n"
         .   '<td colspan="6">' . get_lang('No result') . '</td>' . "\n"
         .   '</tr>' . "\n"
         .   '</tfoot>' . "\n"
-        .   '</table>' . "\n"
+        .   '</table>' . "\n"   
            ;
     }
-    else
+    else 
     {
-        $argDelete = makeArgLink($arguments);
+        $argDelete = makeArgLink($arguments);  
         if ($argDelete == "")
         {
             $linkDelete = $_SERVER['PHP_SELF']."?";
@@ -491,7 +489,7 @@ if ($displayTable)
         {
             $userData = user_get_properties($message->getSender());
             
-            $content .=
+            $content .= 
                 '<tr>'."\n"
                 .'<td class="im_list_selection"><input type="checkbox" name="msg[]" value="'.$message->getId().'" /></td>'."\n"
                 .'<td><a href="readmessage.php?messageId='.$message->getId().'&amp;type=received">'.htmlspecialchars($message->getSubject()).'</a></td>'."\n"
@@ -516,11 +514,11 @@ if ($displayTable)
     if ($box->getNumberOfPage()>1)
     {
         // number of page to display in the page before and after thecurrent page
-        $nbPageToDisplayBeforeAndAfterCurrentPage = 1;
+        $nbPageToDisplayBeforeAndAfterCurrentPage = 1;        
         
         $content .= '<div id="im_paging">';
         
-        $arg_paging = makeArgLink($arguments,array('page'));
+        $arg_paging = makeArgLink($arguments,array('page'));  
         if ($arg_paging == "")
         {
             $linkPaging = $_SERVER['PHP_SELF']."?page=";
@@ -553,3 +551,5 @@ $claroline->display->body->appendContent(claro_html_tool_title($title));
 $claroline->display->body->appendContent($content);
 
 echo $claroline->display->render();
+
+?>

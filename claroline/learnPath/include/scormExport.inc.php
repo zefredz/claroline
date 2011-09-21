@@ -1,16 +1,19 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Amand Tihon <amand.tihon@alrj.org>
- * @package     CLLNP
- * @subpackage  navigation
- * @since       1.8
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Amand Tihon amand.tihon@alrj.org
+ *
+ * @package CLLNP
+ * @subpackage navigation
+ *
  */
 
 /*
@@ -60,12 +63,10 @@ if ( !class_exists('ScormExport') )
     include_once get_path('incRepositorySys') . "/lib/thirdparty/pclzip/pclzip.lib.php";
 
     require_once dirname(__FILE__).'/../../exercise/lib/exercise.class.php';
-    require_once dirname(__FILE__).'/../../exercise/lib/exercise.lib.php';
     require_once dirname(__FILE__).'/../../exercise/export/scorm/scorm_classes.php';
 
     include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
     include_once get_path('incRepositorySys') . '/lib/form.lib.php';
-    
 
     /**
      * Exports a Learning Path to a SCORM package.
@@ -281,7 +282,7 @@ if ( !class_exists('ScormExport') )
             $questionPonderationList = array();
 
             // Keep track of correct texts for fill-in type questions
-            // TODO La variable $fillAnswerList n'apparaï¿½t qu'une fois
+            // TODO La variable $fillAnswerList n'apparaît qu'une fois
             $fillAnswerList = array();
 
             // Display each question
@@ -447,6 +448,7 @@ if ( !class_exists('ScormExport') )
                 return false;
             }
             
+            // var_dump( get_path('clarolineRepositorySys') . '../web/css/' . $claro_stylesheet );
             // Check css to use
             if( file_exists( get_path( 'clarolineRepositorySys' ) . '../platform/css/' . $claro_stylesheet ) )
             {
@@ -829,4 +831,4 @@ if ( !class_exists('ScormExport') )
 
     }
 } // !class_exists(ScormExport)
-
+?>

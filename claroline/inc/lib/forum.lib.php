@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * Library for forum tool
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @copyright   (C) 2001 The phpBB Group
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
@@ -201,7 +201,7 @@ function sync($forumId, $topicId = null)
  *
  * @param string SQL DATETIME or DATE
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  * @return int unix time stamp
  */
@@ -233,7 +233,7 @@ function datetime_to_timestamp($dateTime)
 /**
  * Get the forum settings of a forum
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  int $forumId
  * @param  int $topicId (optional)
  * @return array forum settings or false
@@ -257,26 +257,14 @@ function get_forum_settings($forumId)
 
     $result = claro_sql_query_fetch_all($sql);
 
-    if ( count($result) == 1)
-    {
-        switch( $result[0]['forum_type'] )
-        {
-            case 0 : $result[0]['anonymity'] = 'forbidden'; break;
-            case 1 : $result[0]['anonymity'] = 'allowed'; break;
-            case 2 : $result[0]['anonymity'] = 'default'; break;
-        }
-        return $result[0];
-    }
-    else
-    {
-        return false;
-    }
+    if ( count($result) == 1) return $result[0];
+    else                      return false;
 }
 
 /**
  * Get topic settings of a topic
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  int $topicId
  * @return array topic settings
  */
@@ -303,7 +291,7 @@ function get_topic_settings($topicId)
 
 /**
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  * @param int $userId
  * @param int $forumId
  * @return void
@@ -331,7 +319,7 @@ function request_forum_notification($forumId, $userId)
 
 /**
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  * @param int $userId
  * @param int $forumId (optionnal)
  * @return void
@@ -352,14 +340,14 @@ function cancel_forum_notification($forumId = null, $userId = null)
         .      ( ( count($conditionList) > 0) ? " WHERE " . implode(" AND ", $conditionList) : "" );
     
         if (claro_sql_query($sql) == false) return false;
-        else                                return true;
+        else                                return true;   
     }
 }
 
 
 /**
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  * @param int $userId
  * @param int $forumId
  * @return bool
@@ -417,6 +405,7 @@ function trig_forum_notification($forumId)
         $recipient->addUserId($list['user_id']);
     }
     
+    
     $message = new PlatformMessageToSend($subject,$message);
     $message->setCourse(claro_get_current_course_id());
     $message->setTools('CLFRM');
@@ -434,7 +423,7 @@ function trig_forum_notification($forumId)
 /**
  * create a new topic
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param string $subject
  * @param string $time
  * @param int $forumId
@@ -475,7 +464,7 @@ function create_new_topic($subject, $time, $forumId
 /**
  * get the main settings of a post
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param int $postId
  * @return array containing poster_id, forum_id, topic_id and post_time
  */
@@ -520,8 +509,8 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
     $tbl_posts            = $tbl_cdb_names['bb_posts'];
     $tbl_posts_text       = $tbl_cdb_names['bb_posts_text'];
 
-
     // CREATE THE POST SETTINGS
+
     $sql = "INSERT INTO `" . $tbl_posts . "`
             SET topic_id  = '" . (int) $topicId . "',
                 forum_id  = '" . (int) $forumId . "',
@@ -530,7 +519,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
                 poster_ip = '" . claro_sql_escape($posterIp) . "',
                 nom       = '" . claro_sql_escape($userLastname) . "',
                 prenom    = '" . claro_sql_escape($userFirstname) . "'";
-    
+
     $postId = claro_sql_query_insert_id($sql);
 
     if ($postId)
@@ -574,7 +563,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
 /**
  *
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  */
 
 
@@ -604,7 +593,7 @@ function update_post($post_id, $topic_id, $message, $subject = '')
 /**
  *
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param int $postId
  * @param int $topciId
  * @param int $forumId
@@ -634,7 +623,7 @@ function delete_post($postId, $topicId, $forumId)
 
 /**
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param int $userId
  * @param int $topicId
  * @return void
@@ -658,7 +647,7 @@ function request_topic_notification($topicId, $userId)
 
 /**
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param int $userId
  * @param int $topicId (optionnal)
  * @return void
@@ -683,7 +672,7 @@ function cancel_topic_notification($topicId = null, $userId = null)
 
 /**
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param int $userId
  * @param int $topicId
  * @return bool
@@ -741,6 +730,7 @@ function trig_topic_notification($topicId)
         $recipient->addUserId($list['user_id']);
     }
     
+    
     $message = new PlatformMessageToSend($subject,$message);
     $message->setCourse(claro_get_current_course_id());
     $message->setTools('CLFRM');
@@ -758,7 +748,7 @@ function trig_topic_notification($topicId)
 /**
  * Display formated message with several 'return to ...' possibility
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param string $message
  * @param int $forumId (optional)
  * @param int $topicId (optional)
@@ -801,7 +791,7 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
  * Display a mini pager. At the opposite of the claro_sql_pager, it doesn't
  * depend of SQL, but you have to know before the total count of item.
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param string $url - url to be used
  * @param string $offsetParam - param to introduce to call the pager offset
  * @param int    $total - total number of items
@@ -845,7 +835,7 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
     }
 
     // no need to display it with only a page
-    if (count($pageList) > 1)
+    if (count($pageList) > 1) 
     {
         $out .= '<small>(' . implode(', ', $pageList) . ')</small>';
     }
@@ -861,7 +851,7 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
  * class building a list of all topic of a specific forum, with pager option
  * The class is actually based on the claro_sql_pager class
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @see    claro_sql_pager class
  * @package CLFRM
  */
@@ -873,7 +863,7 @@ class topicLister
     /**
      * class constructor
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
      * @param int $forumId     id of the current forum
      * @param int $start       post where to start
      * @param int $postPerPage number of post to display per page
@@ -903,7 +893,7 @@ class topicLister
     /**
      * return all the topic list of the current forum
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
      * @return array post list
      */
 
@@ -915,7 +905,7 @@ class topicLister
     /**
      * display a pager tool bar
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
      * @param string $url page where to point
      * @return void
      */
@@ -931,7 +921,7 @@ class topicLister
  * Class building a list of all the post of specific topic, with pager options
  * The class is actually based on the claro_sql_pager class
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @see    claro_sql_pager class
  * @package CLFRM
  */
@@ -943,7 +933,7 @@ class postLister
     /**
      * class constructor
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
      * @param int $topicId     id of the current topic
      * @param int $start       post where to start
      * @param int $postPerPage number of post to display per page
@@ -978,7 +968,7 @@ class postLister
     /**
      * return all the post list of the current topic
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
      * @return array post list
      */
 
@@ -990,7 +980,7 @@ class postLister
     /**
      * display a pager tool bar
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
      * @param string $url page where to point
      * @return void
      */
@@ -1003,7 +993,7 @@ class postLister
         /**
      * return count of post of the current topic
      *
-     * @author Christophe Gesche <moosh@claroline.net>
+     * @author Christophe Gesché <moosh@claroline.net>
      * @return array post list
      */
 
@@ -1046,9 +1036,8 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
             $toolList[] =
             claro_html_cmd_link(
-                htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
-                    . '/viewtopic.php?forum=' . $forum_id
-                    . '&amp;cmd=rqPost&amp;mode=add') )
+                htmlspecialchars(Url::Contextualize( get_module_url('CLFRM')
+                    . '/newtopic.php?forum=' . $forum_id ) )
                 , '<img src="' . get_icon_url('topic') . '" alt="" /> '
                 . get_lang('New topic')
                 );
@@ -1056,11 +1045,12 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
         case 'viewtopic':
 
+
             $toolList[] =
             claro_html_cmd_link(
-                htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
-                    . '/viewtopic.php?topic=' . $topic_id . '&amp;cmd=rqPost&amp;mode=reply' ) )
-               , '<img src="' . get_icon_url( 'reply' ) . '" alt="' . get_lang( 'Reply' ) . '" /> '
+                htmlspecialchars(Url::Contextualize( get_module_url('CLFRM')
+                    . '/reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id ))
+               , '<img src="' . get_icon_url('reply') . '" alt="' . get_lang('Reply') . '" /> '
                . get_lang('Reply')
                );
 
@@ -1091,99 +1081,13 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
             break;
     }
 
-    if ( ! in_array($pagetype, array( 'add', 'reply', 'edit', 'quote' ) ) )
+    if ( ! in_array($pagetype, array('newtopic', 'reply','editpost') ) )
         $toolList[] = claro_html_cmd_link(
             htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') . '/index.php?cmd=rqSearch' ))
             , '<img src="' . get_icon_url('search') . '" alt="" />'
             . get_lang('Search')
         );
         
-    return $toolList;
-}
-
-/**
- * Same function than disp_forum_toolbar(), but returns an array instead
- * of an HTML string.
- *
- * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
- * @return Array of Array
- */
-
-function disp_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
-{
-    global $forum_name, $topic_title;
-
-    $toolList = array();
-
-    switch ( $pagetype )
-    {
-        // 'index' is covered by default
-
-        case 'newtopic':
-
-            break;
-
-        case 'reply':
-
-            break;
-
-
-        case 'viewforum':
-
-            $toolList[] = array(
-                'img' => 'topic',
-                'name' => get_lang('New topic'),
-                'url' => htmlspecialchars(Url::Contextualize(get_module_url( 'CLFRM' )
-                    . '/viewtopic.php?forum=' . $forum_id
-                    . '&amp;cmd=rqPost&amp;mode=add'))
-            );
-            break;
-
-        case 'viewtopic':
-
-            $toolList[] = array(
-                'img' => 'reply',
-                'name' => get_lang('Reply'),
-                'url' => htmlspecialchars(Url::Contextualize(get_module_url( 'CLFRM' )
-                    . '/viewtopic.php?topic=' . $topic_id
-                    . '&amp;cmd=rqPost&amp;mode=reply'))
-            );
-            break;
-
-        // 'Register' is covered by default
-
-        case 'index':
-
-            if ( claro_is_allowed_to_edit() )
-            {
-
-                $toolList[] = array(
-                    'img' => 'folder_new',
-                    'name' => get_lang('Create category'),
-                    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-                        . '?cmd=rqMkCat'))
-                );
-
-                $toolList[] = array(
-                    'img' => 'forum',
-                    'name' => get_lang('Create forum'),
-                    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-                        . '?cmd=rqMkForum'))
-                );
-            }
-            break;
-    }
-
-    if ( ! in_array($pagetype, array( 'add', 'reply', 'edit', 'quote' ) ) )
-    {
-        $toolList[] = array(
-            'img' => 'search',
-            'name' => get_lang('Search'),
-            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLFRM')
-                . '/index.php?cmd=rqSearch'))
-        );
-    }
-    
     return $toolList;
 }
 
@@ -1209,21 +1113,22 @@ function disp_search_box()
     }
 }
 
-function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0, $topic_name = '' )
+function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $topic_name='')
 {
     $bc = new BreadCrumbs;
 
-    $bc->appendNode( new BreadCrumbsNode( get_lang( 'Forum Index' ),
-                    htmlspecialchars( Url::Contextualize( get_module_entry_url('CLFRM') ))
-                    ));
+    $bc->appendNode( new BreadCrumbsNode(
+        'Forum Index',
+        htmlspecialchars( Url::Contextualize( get_module_entry_url('CLFRM') ))
+    ));
 
-    if ( in_array( $pagetype, array( 'viewforum', 'viewtopic', 'add', 'edit', 'reply', 'quote' ) ) )
+    if ( in_array($pagetype, array('viewforum', 'viewtopic', 'editpost', 'reply', 'newtopic') ) )
     {
         $bc->appendNode( new BreadCrumbsNode(
-                        $forum_name,
-                        htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
-                        . '/viewforum.php?forum=' . $forum_id ) )
-                        ));
+            $forum_name,
+            htmlspecialchars(Url::Contextualize(
+                get_module_url('CLFRM') . '/viewforum.php?forum=' . $forum_id ))
+        ));
 
         switch ( $pagetype )
         {
@@ -1234,41 +1139,36 @@ function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0
                 $bc->appendNode( new BreadCrumbsNode( $topic_name ) );
                 break;
 
-            case 'add' :
+            case 'newtopic' :
                 $bc->appendNode( new BreadCrumbsNode(
-                    get_lang( 'New topic' )
+                    get_lang('New topic')
                 ));
                 break ;
 
-            case 'edit' :
+            case 'editpost' :
                 $bc->appendNode( new BreadCrumbsNode(
-                                $topic_name,
-                                htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
-                                . '/viewtopic.php?topic=' . $topic_id ) )
-                                ));
-                $bc->appendNode( new BreadCrumbsNode( get_lang( 'Edit post' ) ) );
-                break ;
-            
-            case 'quote' :
+                    $topic_name,
+                    htmlspecialchars(Url::Contextualize( get_module_url('CLFRM')
+                        . '/viewtopic.php?topic=' . $topic_id ) )
+                ));
                 $bc->appendNode( new BreadCrumbsNode(
-                                $topic_name,
-                                htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
-                                . '/viewtopic.php?topic=' . $topic_id ) )
-                                ));
-                $bc->appendNode( new BreadCrumbsNode( get_lang( 'Reply' ) ) );
+                    get_lang('Edit post')
+                ));
                 break ;
 
             case 'reply' :
                 $bc->appendNode( new BreadCrumbsNode(
-                                $topic_name,
-                                htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
-                                . '/viewtopic.php?topic=' . $topic_id ) )
-                                ));
-                $bc->appendNode( new BreadCrumbsNode( get_lang( 'Reply' ) ) );
+                    $topic_name,
+                    htmlspecialchars(Url::Contextualize(
+                        get_module_url('CLFRM')
+                        . '/viewtopic.php?topic=' . $topic_id ) )
+                ));
+
+                $bc->appendNode( new BreadCrumbsNode( get_lang('Reply') ) );
                 break ;
         }
     }
-    elseif( $pagetype == 'viewsearch' )
+    elseif ($pagetype == 'viewsearch')
     {
             $bc->appendNode( new BreadCrumbsNode( get_lang('Search result'), null ) );
     }
@@ -1278,12 +1178,64 @@ function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0
 }
 
 /**
+ * @param
+ * @param boolean $active if set to true, only actvated tool will be considered for display
+ */
+
+function forum_group_tool_list($gid, $active = true)
+{
+    $courseId = claro_get_current_course_id();
+    include_once(dirname(__FILE__) . '/group.lib.inc.php');
+    $groupToolList = get_group_tool_list($courseId,$active);
+
+    $is_allowedToDocAccess      = (bool) (   claro_is_course_manager()
+                                      || claro_is_group_member()
+                                      ||  claro_is_group_tutor());
+
+    $is_allowedToChatAccess     = (bool) (     claro_is_course_manager()
+                                       || claro_is_group_member()
+                                       ||  claro_is_group_tutor() );
+
+    // group space links
+
+    $toolList[] =
+    claro_html_cmd_link(
+        htmlspecialchars(Url::Contextualize( get_module_url('CLGRP').'/group_space.php' ))
+        , '<img src="' . get_icon_url('group') . '" alt="" />&nbsp;'
+        . get_lang('Group area')
+    );
+
+    $courseGroupData= claro_get_main_group_properties( $courseId );
+
+    foreach ($groupToolList as $groupTool)
+    {
+        if ('CLFRM' !== $groupTool['label'] 
+            && is_tool_activated_in_groups($courseId, $groupTool['label'])
+            && ( isset($courseGroupData['tools'][$groupTool['label']])
+                && $courseGroupData['tools'][$groupTool['label']] ) )
+        {
+            $toolList[] = claro_html_cmd_link(
+                htmlspecialchars(Url::Contextualize(
+                get_module_url($groupTool['label'])
+                . '/' . $groupTool['url'] ))
+                , '<img src="' . get_module_url($groupTool['label']) . '/' . ($groupTool['icon']) . '" alt="" />'
+                . '&nbsp;'
+                . claro_get_tool_name ($groupTool['label'])
+                , array('class' => $groupTool['visibility'] ? 'visible':'invisible')
+            );
+        }
+    }
+
+    return $toolList;
+}
+
+/**
  * Delete all post and topics from a sepcific forum
  *
  * @param int $forumId forum id
  * @return boolean - true if it succeed, flase otherwise
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  */
 
 function delete_all_post_in_forum($forumId)
@@ -1375,28 +1327,17 @@ function update_category_title( $catId, $catTitle )
  * @return boolean true if set.
  */
 
-function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_post_allowed, $cat_id, $anonymity_type='forbidden' )
+function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_post_allowed, $cat_id)
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
     $tbl_forum_forums     = $tbl_cdb_names['bb_forums'];
-    
-    //temporary fix for 1.9 releases : avoids change in database definition (using unused 'forum_type' field)
-    //TODO : use a specific enum field (field name: anonymity) in bb_forum table
-    switch( $anonymity_type )
-    {
-        case 'forbidden' : $forum_type = 0; break;
-        case 'allowed' : $forum_type = 1; break;
-        case 'default' : $forum_type = 2; break;
-        default :  $forum_type = 0; break;
-    }
-    
     $sql = "UPDATE `" . $tbl_forum_forums . "`
             SET `forum_name`     = '" . claro_sql_escape($forum_name) . "',
                 `forum_desc`     = '" . claro_sql_escape($forum_desc) . "',
                 `forum_access`   = " . ($forum_post_allowed ? 2 : 0) . ",
                 `forum_moderator`= 1,
                 `cat_id`         = " . (int) $cat_id . ",
-                `forum_type`     = " . (int) $forum_type . "
+                `forum_type`     = 0
             WHERE `forum_id` = " . (int) $forum_id;
 
     if (claro_sql_query($sql) != false) return true;
@@ -1488,10 +1429,9 @@ function delete_category($cat_id)
 function delete_forum($forum_id)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_forum_forums     = $tbl_cdb_names['bb_forums'];
+    $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
 
     delete_all_post_in_forum($forum_id);
-
 
     $sql = "DELETE FROM `" . $tbl_forum_forums . "`
             WHERE `forum_id` = " . (int) $forum_id ;
@@ -1517,7 +1457,7 @@ function delete_forum($forum_id)
  *
  */
 
-function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $anonymity_type = 'forbidden', $group_id = null, $course_id=NULL)
+function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $group_id = null, $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
@@ -1533,16 +1473,6 @@ function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $a
     list($orderMax) = mysql_fetch_row($result);
     $order = $orderMax + 1;
 
-    //temporary fix for 1.9 releases : avoids change in database definition (using unused 'forum_type' field)
-    //TODO : use a specific enum field (field name: anonymity) in bb_forum table
-    switch( $anonymity_type )
-    {
-        case 'forbidden' : $forum_type = 0; break;
-        case 'allowed' : $forum_type = 1; break;
-        case 'default' : $forum_type = 2; break;
-        default :  $forum_type = 0; break;
-    }
-    
     // add new forum in DB
 
     $sql = "INSERT INTO `" . $tbl_forum_forums . "`
@@ -1552,8 +1482,8 @@ function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $a
                 forum_access    = " . ($forum_post_allowed ? 2 : 0) . ",
                 forum_moderator = 1,
                 cat_id          = " . (int) $cat_id . ",
-                forum_type      = " . (int)$forum_type . ",
-                forum_order     = " . (int) $order;
+                forum_type      = 0,
+                forum_order     = " . (int) $order ;
 
     return claro_sql_query_insert_id($sql);
 }
@@ -1774,41 +1704,13 @@ function get_forum_list()
                    f.forum_access, f.forum_moderator,
                    f.forum_topics, f.forum_posts, f.forum_last_post_id,
                    f.cat_id, f.forum_type, f.forum_order,
-                   f.group_id,
-                   p.poster_id, p.post_time
+            p.poster_id, p.post_time, f.group_id
             FROM `" . $tbl_forums . "` AS f
             LEFT JOIN `" . $tbl_posts . "` AS p
                    ON p.post_id = f.forum_last_post_id
             ORDER BY f.forum_order, f.cat_id, f.forum_id ";
 
      return claro_sql_query_fetch_all($sql);
-}
-
-/**
- * Returns the list of posts within a topic
- *
- * @return array(forum_id, forum_name, forum_desc, forum_access, forum_moderator,
-                 forum_topics, forum_posts, forum_last_post_id, cat_id,
-                 forum_type, forum_order, poster_id, post_time, group_id)
- */
-
-function get_post_list( $topic_id )
-{
-    $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_posts = $tbl_cdb_names['bb_posts'];
-    $tbl_posts_text = $tbl_cdb_names['bb_posts_text'];
-
-    $sql = "SELECT p.`post_id`, p.`topic_id`, p.`forum_id`,
-                   p.`poster_id`, p.`post_time`, p.`poster_ip`,
-                   p.`nom` lastname, p.`prenom` firstname,
-                   pt.`post_text`
-              FROM `" . $tbl_posts . "` p,
-                   `" . $tbl_posts_text . "` pt
-             WHERE `topic_id` = " . (int) $topic_id . "
-               AND  p.`post_id` = pt.`post_id`
-          ORDER BY `post_id`";
-
-     return claro_sql_query_fetch_all( $sql );
 }
 
 /**
@@ -1905,161 +1807,4 @@ function get_group_forum_list ($groupId)
 
     return claro_sql_query_fetch_all_rows($sql);
 
-}
-
-/**
- * Change topic title
- *
- * @param int $topicId
- *  * @param string $newTitle
- * @return boolean true if ok
- */
-function update_topic_title( $topicId, $topicTitle )
-{
-    $tbl = claro_sql_get_course_tbl();
-
-    if ( !empty( $topicTitle ) )
-    {
-        $update =
-                "UPDATE `" . $tbl['bb_topics'] . "`
-                    SET `topic_title` = " . Claroline::getDatabase()->quote( $topicTitle ) . "
-                  WHERE `topic_id` = " . (int) $topicId;
-        return false === Claroline::getDatabase()->exec( $update ) ? false : true;
-    }
-    return false;
-}
-
-/**
- * Change topic lock status
- *
- * @param int $topicId
- * @param boolean $isLocked
- * @return boolean true if ok
- */
-function set_topic_lock_status( $topicId, $lock )
-{
-    $tbl = claro_sql_get_course_tbl();
-    $update =
-            "UPDATE `" . $tbl['bb_topics'] . "`
-                SET `topic_status` = " . (int)$lock . "
-              WHERE `topic_id` = " . (int) $topicId;
-
-    return false === Claroline::getDatabase()->exec( $update ) ? false : true;
-}
-
-/**
- * Delete all post of a topic
- *
- * @param int $topicId
- * @return boolean - true if it succeed, false otherwise
- */
-
-function delete_all_posts_in_topic( $topicId )
-{
-    $tbl = claro_sql_get_course_tbl();
-    $tbl_topics = $tbl['bb_topics'];
-    $tbl_post = $tbl['bb_posts'];
-    $tbl_post_text = $tbl['bb_posts_text'];
-
-    $delete = "
-        DELETE
-          FROM `" . $tbl['bb_posts_text'] . "`
-         WHERE `post_id` IN (SELECT `post_id`
-                               FROM `" . $tbl_post . "`
-                              WHERE `topic_id` = " . (int)$topicId . ")";
-    if( false === Claroline::getDatabase()->exec( $delete ) ) return false;
-    $deletedTextCount = Claroline::getDatabase()->affectedRows();
-    
-    $delete = "
-        DELETE
-          FROM `" . $tbl['bb_posts'] . "`
-         WHERE `topic_id` = " . (int)$topicId;
-    if( false === Claroline::getDatabase()->exec( $delete ) ) return false;
-    $deletedCount = Claroline::getDatabase()->affectedRows();
-    if( $deletedCount != $deletedTextCount ) echo 'weird';
-    return $deletedCount;
-}
-
-function delete_topic( $topicId )
-{
-    $deletedCount = delete_all_posts_in_topic( $topicId );
-    if( $deletedCount !== false )
-    {
-        $tbl = claro_sql_get_course_tbl();
-        $query = "
-            SELECT `forum_id`
-              FROM `" . $tbl['bb_topics'] . "`
-             WHERE `topic_id` = " . (int)$topicId;
-        $forum = Claroline::getDatabase()->query( $query )->fetch();
-
-        $delete = "
-            DELETE
-              FROM `" . $tbl['bb_topics'] . "`
-             WHERE `topic_id` = " . (int)$topicId;
-        if( false === Claroline::getDatabase()->exec( $delete ) ) return false;
-        
-        $delete = "
-            DELETE
-              FROM `" . $tbl['bb_rel_topic_userstonotify'] . "`
-             WHERE `topic_id` = " . (int)$topicId;
-        if( false === Claroline::getDatabase()->exec( $delete ) ) return false;
-
-        if ( sync( $forum['forum_id'] ) )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        return false;
-    }
-}
-
-function get_access_mode_to_group_forum( $forum )
-{
-    if( claro_is_user_authenticated() )
-    {
-        $userGroupList  = get_user_group_list( claro_get_current_user_id() );
-        $userGroupList  = array_keys( $userGroupList );
-        $tutorGroupList = get_tutor_group_list( claro_get_current_user_id() );
-    }
-    else
-    {
-        $userGroupList = array();
-        $tutorGroupList = array();
-    }
-    $is_groupPrivate   = claro_get_current_group_properties_data( 'private' );
-    $group_id = is_null( $forum['group_id'] ) ? null : (int)$forum['group_id'];
-    if( !is_null( $group_id ) )
-    {
-        if( in_array( $group_id, $userGroupList )
-        || in_array( $group_id, $tutorGroupList )
-        || !$is_groupPrivate || claro_is_allowed_to_edit()
-        )
-        {
-            if( is_array( $tutorGroupList ) && in_array( $group_id, $tutorGroupList ) )
-            {
-                $accessMode = 'tutor';
-            }
-            elseif( is_array( $userGroupList ) && in_array( $group_id, $userGroupList ) )
-            {
-                $accessMode = 'member';
-            }
-            else
-            {
-                $accessMode = 'visitor';
-            }
-        }
-        else
-        {
-            $accessMode = 'private';
-        }
-        return $accessMode;
-    }
-
-    return false;
 }

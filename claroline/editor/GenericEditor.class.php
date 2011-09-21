@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package EDITOR
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Sebastien Piraux <pir@cerdecam.be>
+ * @author Sébastien Piraux <pir@cerdecam.be>
  *
  */
  
@@ -52,7 +52,7 @@ class GenericEditor
     /**
      * @var $webPath path to access via the web to the directory of the editor
      */
-    var $webPath;
+    var $webPath;      
 
     function GenericEditor( $name,$content,$rows,$cols,$optAttrib,$webPath )
     {
@@ -61,7 +61,7 @@ class GenericEditor
         $this->rows = $rows;
         $this->cols = $cols;
         $this->optAttrib = $optAttrib;
-        $this->webPath = $webPath;
+        $this->webPath = $webPath;    
     }
 
 

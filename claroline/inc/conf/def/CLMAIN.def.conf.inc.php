@@ -5,12 +5,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE main configuration file variable definitions
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/config_def/
- * @author      Claro Team <cvs@claroline.net>
- * @package     kernel
+ * @version 1.9 $Revision$
+ * @copyright 2001-2010 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see http://www.claroline.net/wiki/config_def/
+ * @author Claro Team <cvs@claroline.net>
+ * @package kernel
  */
 
 // CONFIG HEADER
@@ -35,7 +35,6 @@ $conf_def['section']['LAYOUT']['properties'] =
 array ( 'claro_stylesheet'
       , 'siteLogo'
       , 'institutionLogo'
-      , 'displayAllCommandsLinkByDefault'
       );
 
 $conf_def['section']['LANGUAGE']['label']='Language';
@@ -43,7 +42,6 @@ $conf_def['section']['LANGUAGE']['description']='';
 $conf_def['section']['LANGUAGE']['properties'] =
 array ( 'platformLanguage'
       , 'language_to_display'
-      , 'showAlwaysLanguageInCourseList'
       );
 
 $conf_def['section']['ADMINISTRATOR_SETTING']['label']='Contact';
@@ -90,8 +88,6 @@ $conf_def['section']['SMTP']['label']='SMTP';
 $conf_def['section']['SMTP']['description']='Mail server configuration';
 $conf_def['section']['SMTP']['properties'] =
 array ( 'smtp_host'
-      , 'smtp_port'
-      , 'smtp_secure'
       , 'smtp_username'
       , 'smtp_password'
       );
@@ -99,11 +95,10 @@ array ( 'smtp_host'
 $conf_def['section']['RIGHT']['label']='Right';
 $conf_def['section']['RIGHT']['properties'] =
 array ( 'courseCreationAllowed',
-        'allowSelfReg',
-        'allowToSelfEnroll',
-        'courseSessionAllowed'
+       'allowSelfReg'
+      , 'allowToSelfEnroll'
       );
-
+      
 $conf_def['section']['DOWNLOAD_SETTINGS']['label']='Download';
 $conf_def['section']['DOWNLOAD_SETTINGS']['description']='Configure the way files are downloaded from the platform';
 $conf_def['section']['DOWNLOAD_SETTINGS']['properties'] =
@@ -134,7 +129,7 @@ array ( 'userPasswordCrypted'
       , 'DEVEL_MODE'
       , 'warnSessionLost'
       , 'claro_brailleViewMode'
-      #, 'javascriptCompression'
+      , 'javascriptCompression'
       , 'ajaxRemoteServiceBrokerEnabled'
       , 'filesStatsExtensions'
       // , 'secureDocumentDownload'
@@ -147,8 +142,8 @@ array ('label'       => 'Platform name'
       ,'description' => ''
       ,'default'     => 'Claroline'
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       );
 
 $conf_def_property_list['siteLogo'] =
@@ -156,18 +151,8 @@ array ('label'       => 'Platform logo url'
       ,'description' => 'Display the logo of the platform. (http://www.domain.tld/logo.gif)'
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
-      );
-
-$conf_def_property_list['displayAllCommandsLinkByDefault'] =
-array ( 'label'       => 'Show all the commands in tool titles'
-      , 'description' => ''
-      ,'default'     => false
-      ,'type'        => 'boolean'
-      , 'display'     => true
-      , 'readonly'    => false
-      ,'acceptedValue' => array ('TRUE'=>'Yes', 'FALSE' => 'No')
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       );
 
 // Institution
@@ -176,23 +161,23 @@ array ('label'       => 'Organisation Name'
       ,'default'     => ''
       ,'description' => 'Name displayed in the top banner.'
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       );
 $conf_def_property_list['institution_url'] =
 array ('label'       => 'Organisation website'
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       );
 $conf_def_property_list['institutionLogo'] =
 array ('label'       => 'Organisation logo url'
       ,'description' => 'Display the logo of the organisation. (http://www.domain.tld/logo.gif)'
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       );
 
 // Language
@@ -203,8 +188,8 @@ array ('label'         => 'Platform language'
       ,'default'       => 'english'
       ,'type'          => 'enum'
       , 'acceptedValueType' => 'lang'
-      ,'display'       => true
-      ,'readonly'      => false
+      ,'display'       => TRUE
+      ,'readonly'      => FALSE
       );
 
 $conf_def_property_list['language_to_display'] =
@@ -214,27 +199,17 @@ array ('label'         => 'Personal language selector'
       ,'type'          => 'multi'
       ,'display'       => true
       ,'acceptedValueType' => 'lang'
-      ,'readonly'      => false
+      ,'readonly'      => FALSE
       );
-      
-$conf_def_property_list['showAlwaysLanguageInCourseList'] =
-array ( 'label'       => 'Show always language in the course list'
-      , 'description' => ''
-      ,'default'     => true
-      ,'type'        => 'boolean'
-      , 'display'     => true
-      , 'readonly'    => false
-      ,'acceptedValue' => array ('TRUE'=>'On', 'FALSE' => 'Off')
-      );
-      
+
 // Database settings
 
 $conf_def_property_list['dbHost'] =
 array ('label'       => 'Host name'
       ,'default'     => 'localhost'
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       ,'technicalInfo' => 'The hostname of mysql server'
       );
 
@@ -243,8 +218,8 @@ $conf_def_property_list['dbLogin'] =
 array ('label'       => 'Login'
       ,'default'     => 'root'
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       ,'technicalInfo' => 'The login given by your administrator to connect on the mysql server'
       ,'description' => ''
       );
@@ -254,8 +229,8 @@ $conf_def_property_list['dbPass'] =
 array ('label'       => 'Password'
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       ,'technicalInfo' => 'The clear password'
       );
 
@@ -263,8 +238,8 @@ $conf_def_property_list['dbNamePrefix'] =
 array ('label'       => 'Prefix for course table  / db names'
       ,'default'     => 'c_'
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       ,'description' => 'This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office  '
       ,'technicalInfo' => 'Prefix all created base (for courses) with this string'
       );
@@ -273,8 +248,8 @@ $conf_def_property_list['mainDbName'] =
 array ('label'       => 'Main database name'
       ,'default'     => 'claroline'
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       ,'description' => 'Change this setting only if it\'s absolutely required.'
       );
 
@@ -282,8 +257,8 @@ $conf_def_property_list['mainTblPrefix'] =
 array ('label'       => 'Prefix for main table names'
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => true
+      ,'display'     => TRUE
+      ,'readonly'    => TRUE
       );
 
 
@@ -292,8 +267,8 @@ array ( 'label'       => 'Tracking database name'
       , 'description' => 'This is where tracking and statistics data are stored. This database can be the same as the main database.'
       ,'default'     => 'claroline'
       , 'type'        => 'string'
-      , 'display'     => true
-      , 'readonly'    => false
+      , 'display'     => TRUE
+      , 'readonly'    => FALSE
       );
 
 $conf_def_property_list['statsTblPrefix'] =
@@ -301,8 +276,8 @@ array ( 'label'       => 'Prefix for tracking table names'
       , 'description' => ''
       , 'default'     => ''
       , 'type'        => 'string'
-      , 'display'     => true
-      , 'readonly'    => true
+      , 'display'     => TRUE
+      , 'readonly'    => TRUE
       );
 
 $conf_def_property_list['platform_id'] =
@@ -310,26 +285,26 @@ array ('label'       => 'unique id of the platform'
       ,'type'        => 'string'
       ,'technicalDesc' => 'id for this campus. Would  be unique'
       ,'default'     => md5(realpath(__FILE__))
-      ,'display'     => false
-      ,'readonly'    => true
+      ,'display'     => FALSE
+      ,'readonly'    => TRUE
       );
 
 $conf_def_property_list['is_trackingEnabled'] =
 array ('label'       => 'Tracking'
       ,'description' => 'Log of user activities  on the whole platform (course access, tool use, ...).'
-      ,'default'     => true
+      ,'default'     => TRUE
       ,'type'        => 'boolean'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       ,'acceptedValue' => array ('TRUE'=>'On', 'FALSE' => 'Off')
       );
 
 $conf_def_property_list['singleDbEnabled'] =
 array ('label'       => 'Database mode'
-      ,'default'     => true
+      ,'default'     => TRUE
       ,'type'        => 'boolean'
-      ,'display'     => true
-      ,'readonly'    => true
+      ,'display'     => TRUE
+      ,'readonly'    => TRUE
       ,'acceptedValue' => array ('TRUE'=>'Single', 'FALSE' => 'Multiple')
       );
 
@@ -341,8 +316,8 @@ array ('label'       => 'db glu'
                        .'In single db mode, IT CAN\'T be a dot.'."\n"
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => false
-      ,'readonly'    => true
+      ,'display'     => FALSE
+      ,'readonly'    => TRUE
       );
 
 $conf_def_property_list['courseTablePrefix'] =
@@ -350,8 +325,8 @@ array ('label'       => 'Course name table prefix'
       ,'description' => 'This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.'
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => false
-      ,'readonly'    => false
+      ,'display'     => FALSE
+      ,'readonly'    => FALSE
       );
 
 $conf_def_property_list['mysqlRepositorySys'] =
@@ -359,8 +334,8 @@ array ('label'       => 'Mysql Base Path'
       ,'description' => 'This is the physical path to databases storage. This path is  optional, use by the quota and size.'
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => false
-      ,'readonly'    => false
+      ,'display'     => FALSE
+      ,'readonly'    => FALSE
       );
 
 // SMTP
@@ -370,24 +345,7 @@ array ('label'       => 'SMTP server(s)'
       ,'description' => 'Give a SMTP server name to turn on SMTP mode. (e.g. smtp1.site.com or smtp1.site.com;smtp2.site.com)'
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => true
-      );
-      
-$conf_def_property_list['smtp_port'] =
-array ('label'       => 'SMTP port'
-      ,'description' => 'Give a port number used to contact SMTP the SMTP server(s) if no port is specified in the hostname (default: 25)'
-      ,'default'     => '25'
-      ,'type'        => 'int'
-      ,'display'     => true
-      );
-
-$conf_def_property_list['smtp_secure'] =
-array ('label'       => 'SMTP security layer'
-      ,'description' => 'Define the security layer. options are : tls, ssl or clear (default clear). You need to activate the php_openssl extension in php.ini in order to send mail over ssl or starttls !'
-      ,'default'     => ''
-      ,'type'        => 'enum'
-      ,'display'     => true
-      ,'acceptedValue' => array ('tls'=>'TLS/STARTTLS', 'ssl' => 'SSL', '' => 'clear')
+      ,'display'     => TRUE
       );
 
 $conf_def_property_list['smtp_username'] =
@@ -395,7 +353,7 @@ array ('label'       => 'Username'
       ,'description' => 'Give a username and password to turn on SMTP authentication.'
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => true
+      ,'display'     => TRUE
       );
 
 $conf_def_property_list['smtp_password'] =
@@ -403,7 +361,7 @@ array ('label'       => 'Password'
       ,'description' => ''
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => true
+      ,'display'     => TRUE
       );
 
 // Path
@@ -413,8 +371,8 @@ array ('label'       => 'Platform web URL'
       ,'description' => 'Example : http://www.yourdomain.tld/mycampus/'
       ,'default'     => 'http://www.yourdomain.tld/mycampus/'
       ,'type'        => 'urlpath'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       );
 
 $conf_def_property_list['urlAppend'] =
@@ -422,8 +380,8 @@ array ('label'       => 'URL trail'
       ,'description' => 'Common part of both parameters above.'
       ,'default'     => 'mycampus'
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       ,'technicalInfo' => 'no trailing / in this value'
       );
 
@@ -432,8 +390,8 @@ array ('label'       => 'Platform local path '
       ,'description' => 'Relative to the complete platform url'
       ,'default'     => ''
       ,'type'        => 'syspath'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       ,'technicalInfo' => 'The hostname of mysql server'
       );
 
@@ -461,8 +419,8 @@ array ('label'       => 'Garbage'
       ,'description' => 'Absolute sys path to the place where are move data of a deleted course.'
       ,'default'     => 'tmp/garbage/'
       ,'type'        => 'syspath'
-      ,'display'     => false
-      ,'readonly'    => false
+      ,'display'     => FALSE
+      ,'readonly'    => FALSE
       );
 
 // Layout
@@ -473,17 +431,17 @@ array ('label'       => 'Theme'
       ,'default'     => 'classic'
       ,'type'        => 'enum'
       ,'acceptedValueType' => 'css'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       );
 
 $conf_def_property_list['useTinyMCECompressor'] =
 array ('label'       => 'Use TinyMCE editor compressor'
       ,'description' => 'Makes TinyMCE 75% smaller and a lot faster to load.'
       ,'type'        => 'boolean'
-      ,'default'     => true
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'default'     => TRUE
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
 
@@ -494,32 +452,33 @@ array ('label'       => 'Name'
       ,'description' => ''
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       );
 
 $conf_def_property_list['administrator_email'] =
 array ('label'       => 'E-mail'
       ,'description' => ''
       ,'type'        => 'email'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       );
+
 $conf_def_property_list['administrator_phone'] =
 array ('label'       => 'Phone'
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       );
 
 $conf_def_property_list['no_reply_mail'] =
 array ('label'       => 'No reply email address'
-      ,'description' => 'You can set a specific no-reply address used by the the platform email notification system. If none provided the administrator email will be used.'
+      ,'description' => 'You can set a specific no-reply address used by the platform email notification system. If none provided the administrator email will be used.'
       ,'default'     => ''
       ,'type'        => 'email'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       );
 
 // Latex
@@ -549,27 +508,27 @@ array ('label'       => 'Mathematical renderer URL'
  http://www.integretechpub.com/.'
       ,'default'     => ''
       ,'type'        => 'string'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       );
 
 $conf_def_property_list['userPasswordCrypted'] =
 array ('label'         => 'Crypt passwords'
       ,'technical'     => 'By default use claroCrypt as authType'
-      ,'default'       => false
+      ,'default'       => FALSE
       ,'type'          => 'boolean'
       ,'display'       => false
-      ,'readonly'      => true
+      ,'readonly'      => True
       ,'acceptedValue' => array('TRUE' => 'Yes', 'FALSE' => 'No')
       );
 
 $conf_def_property_list['allowSelfReg'] =
 array ('label'           => 'User account creation allowed'
        ,'description'    => 'Display link "Create user account" on the platform homepage.'
-      ,'default'         => true
+      ,'default'         => TRUE
       ,'type'            => 'boolean'
-      ,'display'         => true
-      ,'readonly'        => false
+      ,'display'         => TRUE
+      ,'readonly'        => FALSE
       ,'acceptedValue' => array('TRUE' => 'Yes', 'FALSE' => 'No')
       );
 
@@ -596,14 +555,14 @@ $conf_def_property_list['imgRepositoryAppend'] =
 array ('label'        => 'Relative path from claroline web to icon set'
       ,'type'        => 'relpath'
       ,'default'     => 'img/'
-      ,'display'     => false
-      ,'readonly'    => true
+      ,'display'     => FALSE
+      ,'readonly'    => TRUE
       );
 
 $conf_def_property_list['userImageRepositoryAppend'] =
 array ('label'        => 'relative path from root web to user pic repository'
       ,'type'        => 'relpath'
-      ,'display'     => false
+      ,'display'     => FALSE
       ,'default'     => 'platform/img/users/'
       );
 
@@ -613,8 +572,8 @@ array ('label'       => 'Debug mode'
       ,'type'        => 'boolean'
       ,'default'     => false
       ,'container'   => 'CONST'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
 
@@ -624,8 +583,8 @@ array ('label'       => 'Profile SQL'
       ,'type'        => 'boolean'
       ,'default'     => false
       ,'container'   => 'CONST'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
 
@@ -633,23 +592,21 @@ $conf_def_property_list['warnSessionLost'] =
 array ('label'       => 'Session lost warning'
       ,'description' => 'Warn users when they loose their session on the platform'
       ,'type'        => 'boolean'
-      ,'default'     => true
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'default'     => TRUE
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
-
-/*
+      
 $conf_def_property_list['javascriptCompression'] =
 array ('label'       => 'Javascript compression'
       ,'description' => 'Compress javascript files. This option should be set to off only for debugging.'
       ,'type'        => 'boolean'
-      ,'default'     => false
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'default'     => FALSE
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
-*/
 
 $conf_def_property_list['DEVEL_MODE'] =
 array ('label'       => 'Development mode'
@@ -657,8 +614,8 @@ array ('label'       => 'Development mode'
       ,'type'        => 'boolean'
       ,'default'     => false
       ,'container'   => 'CONST'
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       ,'acceptedValue' => array ('TRUE'=>'On'
                                ,'FALSE'=>'Off')
       );
@@ -667,9 +624,9 @@ $conf_def_property_list['triggerDebugMode'] =
 array ('label'       => 'Trigger debug mode in url'
       ,'description' => ''
       ,'type'        => 'boolean'
-      ,'default'     => false
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'default'     => FALSE
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
 
@@ -677,9 +634,9 @@ $conf_def_property_list['ajaxRemoteServiceBrokerEnabled'] =
 array ('label'       => 'Enable Ajax Remote Service broker'
       ,'description' => 'The Ajax Remote Service broker can be used by some modules to access remote services using AJAX requests and JSON'
       ,'type'        => 'boolean'
-      ,'default'     => false
-      ,'display'     => true
-      ,'readonly'    => false
+      ,'default'     => FALSE
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
 
@@ -695,17 +652,7 @@ array ('label'       => 'Files extensions'
 $conf_def_property_list['courseCreationAllowed'] =
 array ('label'       => 'Course creation is allowed on the platform'
       ,'description' => ''
-      ,'default'     => true
-      ,'type'        => 'boolean'
-      ,'acceptedValue' => array ('TRUE' => 'Yes'
-                                ,'FALSE'=> 'No'
-                                )
-      );
-
-$conf_def_property_list['courseSessionAllowed'] =
-array ('label'       => 'Course session creation is allowed on the platform'
-      ,'description' => ''
-      ,'default'     => true
+      ,'default'     => TRUE
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE' => 'Yes'
                                 ,'FALSE'=> 'No'
@@ -715,10 +662,10 @@ array ('label'       => 'Course session creation is allowed on the platform'
 $conf_def_property_list['allowToSelfEnroll']
 = array ('label'     => 'Allow enrolment/unenrolment to courses by the users'
         ,'description' => 'Display links to enrol/unenrol to course on the homepage of the user'
-        ,'default'   => true
+        ,'default'   => TRUE
         ,'type'      => 'boolean'
-        ,'display'       => true
-        ,'readonly'      => false
+        ,'display'       => TRUE
+        ,'readonly'      => FALSE
         ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
         );
 
@@ -728,8 +675,8 @@ $conf_def_property_list['module_cache_filename']
         ,'description' => ''
         ,'default'   => 'moduleCache.inc.php'
         ,'type'      => 'filename'
-        ,'display'       => false
-        ,'readonly'      => true
+        ,'display'       => FALSE
+        ,'readonly'      => TRUE
         ,'acceptedValue' => array ( 'pattern'=> '*.inc.php')
         );
 
@@ -746,13 +693,13 @@ array ('label'       => 'Display banner'
 /*$conf_def_property_list['secureDocumentDownload'] =
 array ( 'description' => 'Increase the security of file download. This option only works on Apache Server. To be really secure, this option have to be completed by an .htaccess file on the course folders.'
       , 'label'       => 'Secure document download'
-      , 'default'     => false
+      , 'default'     => FALSE
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'On'
                                  ,'FALSE'=>'Off'
                                )
-      , 'display'     => true
-      , 'readonly'    => false
+      , 'display'     => TRUE
+      , 'readonly'    => FALSE
       );*/
       
 // File Download
@@ -760,41 +707,31 @@ array ( 'description' => 'Increase the security of file download. This option on
 $conf_def_property_list['useSendFile'] =
 array ( 'description' => 'Select the way Claroline send files to a user.'
       , 'label'       => 'Download mechanism'
-      , 'default'     => true
+      , 'default'     => TRUE
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'Send file using PHP (mask real file location)'
                                  ,'FALSE'=>'Redirect to the file'
                                )
-      , 'display'     => true
-      , 'readonly'    => false
+      , 'display'     => TRUE
+      , 'readonly'    => FALSE
       );
       
 $conf_def_property_list['usePrettyUrl'] =
 array ( 'description' => 'Choose the mode for URL for file download. Warning : Pretty URL mode don\'t work with IIS.'
       , 'label'       => 'File url mode'
-      , 'default'     => false
+      , 'default'     => FALSE
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'Pretty URL using PATH_INFO (download.php/path/to/file.ext)'
                                  ,'FALSE'=>'Standard URL using QUERY_STRING (download.php?url=/path/to/file.ext)'
                                )
-      , 'display'     => true
-      , 'readonly'    => false
+      , 'display'     => TRUE
+      , 'readonly'    => FALSE
       );
 
 $conf_def_property_list['crslist_DisplayPendingToAllUsers'] =
 array ('label'       => 'Display pending courses in members\' course list'
       ,'description' => ''
-      ,'default'     => false
-      ,'type'        => 'boolean'
-      ,'acceptedValue' => array ('TRUE' => 'Yes'
-                                ,'FALSE'=> 'No'
-                                )
-      );
-
-$conf_def_property_list['crslist_UserCanUnregFromInactiveCourses'] =
-array ('label'       => 'Allow users to unregister from inactive, pending, expired or unpublished courses'
-      ,'description' => ''
-      ,'default'     => false
+      ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE' => 'Yes'
                                 ,'FALSE'=> 'No'
@@ -804,7 +741,7 @@ array ('label'       => 'Allow users to unregister from inactive, pending, expir
 $conf_def_property_list['crslist_DisplayDisableToAllUsers'] =
 array ('label'       => 'Display disabled courses in members\' course list'
       ,'description' => ''
-      ,'default'     => false
+      ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE' => 'Yes'
                                 ,'FALSE'=> 'No'
@@ -814,7 +751,7 @@ array ('label'       => 'Display disabled courses in members\' course list'
 $conf_def_property_list['crslist_DisplayExpiredToAllUsers'] =
 array ('label'       => 'Display expired courses in members\' course list'
       ,'description' => ''
-      ,'default'     => false
+      ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE' => 'Yes'
                                 ,'FALSE'=> 'No'
@@ -824,7 +761,17 @@ array ('label'       => 'Display expired courses in members\' course list'
 $conf_def_property_list['crslist_DisplayUnpublishedToAllUsers'] =
 array ('label'       => 'Display unpublished courses in members\' course list'
       ,'description' => ''
-      ,'default'     => false
+      ,'default'     => FALSE
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );
+
+$conf_def_property_list['crslist_UserCanUnregFromInactiveCourses'] =
+array ('label'       => 'Allow users to unregister from inactive, pending, expired or unpublished courses'
+      ,'description' => ''
+      ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE' => 'Yes'
                                 ,'FALSE'=> 'No'

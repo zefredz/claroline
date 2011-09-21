@@ -1,20 +1,24 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
- * Sql query to update main database.
+ * Sql query to update main database
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
- * @package     UPGRADE
- * @author      Claro Team <cvs@claroline.net>
- * @author      Mathieu Laurent <mla@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ *
+ * @package UPGRADE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Mathieu Laurent   <mla@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
 
 /*===========================================================================
@@ -42,7 +46,7 @@ function upgrade_main_database_to_16 ()
               `class_parent_id` int(11) default NULL,
               `class_level` int(11) NOT NULL default '0',
               PRIMARY KEY  (`id`)
-            ) ENGINE=MyISAM";
+            ) TYPE=MyISAM";
 
             // Create new table rel_class_user
             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['rel_class_user'] . "` (
@@ -50,7 +54,7 @@ function upgrade_main_database_to_16 ()
               `user_id` int(11) NOT NULL default '0',
               `class_id` int(11) NOT NULL default '0',
               PRIMARY KEY  (`id`)
-            ) ENGINE=MyISAM";
+            ) TYPE=MyISAM";
 
             // Update table user_id
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` CHANGE `user_id` `user_id` int(11) unsigned NOT NULL auto_increment" ;
@@ -64,7 +68,7 @@ function upgrade_main_database_to_16 ()
               `config_code` varchar(30) NOT NULL default '',
               `config_hash` varchar(40) NOT NULL default '',
               PRIMARY KEY  (`config_code` )
-            ) ENGINE=MyISAM  AVG_ROW_LENGTH=48";
+            ) TYPE=MyISAM  AVG_ROW_LENGTH=48";
 
 
             // Create new table sso
@@ -74,7 +78,7 @@ function upgrade_main_database_to_16 ()
               `rec_time` datetime NOT NULL default '0000-00-00 00:00:00',
               `user_id` int(11) NOT NULL default '0',
               PRIMARY KEY  (`id`)
-            ) ENGINE=MyISAM";
+            ) TYPE=MyISAM";
 
             // Update course tool icon
             $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['tool'] . "` SET `icon` = 'announcement.gif' WHERE `claro_label` = 'CLANN___'";
@@ -118,3 +122,5 @@ function upgrade_main_database_to_16 ()
 
     return false;
 }
+
+?>

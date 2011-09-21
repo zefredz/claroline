@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['*.inc.php'] = '*.inc.php';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! Grootte van cursus backup (claroline en vuilnis in oude systemen inbegrepen)';
 $_lang['1 user connected'] = '1 gebruiker online';
@@ -73,8 +73,8 @@ $_lang['Access to course'] = 'Toegang tot de cursus';
 $_lang['Access to platform'] = 'Toegang tot de Leeromgeving';
 $_lang['Accounts to merge'] = 'Accounts om samen te voegen';
 $_lang['Accounts with same <i>Email</i>'] = 'Accounts met dezelfde <i>E-mail</i>';
-$_lang['Accounts with same <i>Username</i>'] = 'Accounts met dezelfde <i>Gebruikersnaam</i>';
-$_lang['Accounts with same <i>Username</i> AND same <i>Password</i>'] = 'Accounts with same <i>Username</i> AND same <i>Password</i>';
+$_lang['Accounts with same <i>User name</i>'] = 'Accounts met dezelfde <i>Gebruikersnaam</i>';
+$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Accounts with same <i>Username</i> AND same <i>Password</i>';
 $_lang['Action'] = 'Actie';
 $_lang['Activate module on install'] = 'Activeer module bij installatie';
 $_lang['Activate on course creation'] = 'Activeer bij aanmaken cursus';
@@ -174,7 +174,7 @@ $_lang['Allowed with enrolment key'] = 'Toegang alleen met sleutel';
 $_lang['Already browsed'] = 'U hebt dit reeds bekeken';
 $_lang['Already enroled'] = 'Reeds ingeschreven';
 $_lang['Also delete module main database'] = 'Verwijder ook de module van de hoofddatabase';
-$_lang['An email has been sent to help you remember your username and password.'] = 'Er is een email naar je verstuurd met je gebruikersnaam en wachtwoord.';
+$_lang['An email has been sent to help you remember your user name and password.'] = 'Er is een email naar je verstuurd met je gebruikersnaam en wachtwoord.';
 $_lang['An error occurred while contacting Claroline.net'] = 'Er is een fout opgetreden tijdens het maken van contact met Claroline.net';
 $_lang['An error occurred.  Learning Path import failed.'] = 'Er is een fout opgetreden. Importeren van leertraject mislukt.';
 $_lang['An invisible tool will be greyed out on your personal interface.'] = ' Een onzichtbaar leermiddel zal in grijs te zien zijn in het overzicht.';
@@ -1186,7 +1186,7 @@ $_lang['New question'] = 'Nieuwe vraag';
 $_lang['New registration denied'] = 'Nieuwe registratie afgewezen';
 $_lang['New submission posted in assignment tool.'] = 'Er werd een nieuwe taak ingediend.';
 $_lang['New topic'] = 'Nieuw onderwerp';
-$_lang['New users will receive an e-mail with their username and password'] = 'Nieuwe gebruikers krijgen een e-mail met hun gebruikersnaam en wachtwoord';
+$_lang['New users will receive an e-mail with their user name and password'] = 'Nieuwe gebruikers krijgen een e-mail met hun gebruikersnaam en wachtwoord';
 $_lang['New window for documents'] = 'Nieuw venster voor documenten';
 $_lang['New window for submitted files'] = 'Nieuw venster voor ingediende bestanden';
 $_lang['Newest first'] = 'Meest recente eerst';
@@ -1709,7 +1709,7 @@ $_lang['This question is used in several exercises.'] = 'Deze vraag wordt gebrui
 $_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'Deze renderer wordt gebruikt in TEX/LaTEX formules. Hij is beschikbaar in de \'claroline/inc/lib/\' directory en moet naar de map op de server worden gekopieerd waar CGI programa\'s thuishoren.';
 $_lang['This string is prepend to course database name if it begins with a number'] = 'Deze string wordt voor de  databasenaam van de cursus geplaatst wanneer die met een cijfer begint.';
 $_lang['This tool can not be uninstalled.'] = 'Deze tool kan niet verwijderd worden.';
-$_lang['This username is already taken'] = 'De gekozen gebruikersnaam is al in gebruik';
+$_lang['This user name is already taken'] = 'De gekozen gebruikersnaam is al in gebruik';
 $_lang['This will also delete all works submitted in this assignment !'] = '! Dit zal alle bestanden, ingeleverd voor deze taak, ook verwijderen !';
 $_lang['This zone is empty'] = 'Deze zone is leeg';
 $_lang['Thumbnail width'] = 'Breedte Thumbnail';
@@ -2083,9 +2083,9 @@ Je bent nu geregistreerd op %siteName
     Login naam:  %username
     Wachtwoord: %password
     Het adres van %siteName is: %rootWeb
-
+    
 Zijn er vragen of problemen, neem dan gerust contact op.
-
+    
 Met vriendelijke groeten,
 %administratorName
 
@@ -2334,7 +2334,7 @@ Geef een gewicht aan elk goed koppel, en dan kunt u uw vraag bewaren.</p>
 <p>Om een oefening open te stellen voor studenten, moet u ze activeren door op de <img src="img/invisible.gif" border="0" align="absmiddle"> tekening naast de oefening te klikken.</p>
 <hr />
 <b>Oefening exporteren</b>
-<p>Door op \'exporteren\' te klikken start je een download van de oefening.
+<p>Door op \'exporteren\' te klikken start je een download van de oefening. 
 <hr />
 <b>Oefening testen</b>
 <p>Je kunt een oefening testen door op haar naam te klikken in de oefeningenlijst.</p>
@@ -2357,7 +2357,7 @@ Bijvoorbeeld: kies de naam van een oefening uit het uitschuifmenu en dan ziet u 
 <br /><br />
 U kunt ook de &quot;wees&quot; vragen tonen; dit zijn vragen die niet behoren tot een oefening..</p>';
 $_lang['blockFeedbackHelp'] = 'Commentaar is optioneel. Het is de correcte versie van de taak. Indien niet leeg zal het getoond worden aan de gebruikers volgens de \'toon commentaar\' configuratie.';
-$_lang['blockForumsHelp'] = 'Het forum is een leermiddel waarin gesprekken in de vorm van geschreven, asynchrone tekst kunnen worden gevoerd. Een forum verschilt van e-mails, omdat het gesprek plaats vindt in een openbare of semi-openbare ruimte, waarin in principe een onbeperkt aantal mensen actief kan zijn.</p><p>Om het forum van Claroline te gebruiken, is alleen de internet browser nodig (Netscape, Explorer...), en geen e-mailprogramma (Eudora, Outlook, Safari...).</p><p>Om de forums te organiseren, moet je op \'beheren\' klikken.
+$_lang['blockForumsHelp'] = 'Het forum is een leermiddel waarin gesprekken in de vorm van geschreven, asynchrone tekst kunnen worden gevoerd. Een forum verschilt van e-mails, omdat het gesprek plaats vindt in een openbare of semi-openbare ruimte, waarin in principe een onbeperkt aantal mensen actief kan zijn.</p><p>Om het forum van Claroline te gebruiken, is alleen de internet browser nodig (Netscape, Explorer...), en geen e-mailprogramma (Eudora, Outlook, Safari...).</p><p>Om de forums te organiseren, moet je op \'beheren\' klikken. 
 De berichten zijn hiërarchisch georganiseerd:<b>Categorie > Forum > Onderwerp > Antwoord</b>.</p><p>Het is aan te raden om het forum, voor activering, te organiseren in categorieën en forums, zodat de deelnemers aan het forum op een gestructureerde wijze kunnen posten. De deelnemers zelf zijn verantwoordelijk voor de onderwerpen en de antwoorden.</p>
 <p>Je kunt forums toevoegen in de hoofdcategorie, of de titel wijzigen, of andere categorieën aanmaken waarin je nieuwe forums plaatst.<p></p>Een categorie zonder forum zal niet verschijnen en is niet bruikbaar.<p></p>Als je bijvoorbeeld een categorie \'gesprekken in kleine groepen\' aanmaakt, dan zul je een aantal forums moeten aanmaken in deze tweede categorie, zoals bijvoorbeeld \'groep 1\', \'groep 2\', \'groep 3\', enz.</p>';
 $_lang['blockGroupsHelp'] = '<p><b>Inleiding</b></p>
@@ -2608,7 +2608,7 @@ $_lang['Are you sure to delete user %firstname %lastname'] =  'Wilt u gebruiker 
 $_lang['Course code is'] = 'cursus code is' ;
 $_lang['Course name table prefix'] = 'tabel voorvoegsel cursusnaam' ;
 $_lang['Crypt passwords'] = 'crypt paswoorden' ;
-$_lang['Disk space allowed for import learning path'] = 'Diskruimte toegelaten voor het importeren van een leertraject';
+$_lang['Disk space allowed for import learning path'] = 'Diskruimte toegelaten voor het importeren van een leertraject'; 
 $_lang['Disk space allowed to import scorm package'] = 'Diskruimte toegelaten voor het importeren van scorm package';
 $_lang['Display banner'] = 'Toon banner';
 $_lang['Export exercise'] = 'Exporteer oefening' ;
@@ -2640,8 +2640,8 @@ $_lang['The domain that the cookie is available.  To make the cookie available o
 $_lang['The export\'s type is not supported for the moment.'] = 'Het export type wordt momenteel niet ondersteund.';
 $_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.'] = 'Het pad op de server waarin de cookie beschikbaar is. Als dit op « / » staat zal de cookie beschikbaar zijn in het ganse domein. Als dit op « /foo/ » staat zal de cookie enkel beschikbaar zijn binnen de /foo/ directory en alle subdirectory\'s zoals /foo/bar of domein. De standaardwaarde is het huidige directory waar de cookie in geplaatst is.';
 $_lang['This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.'] = 'Dit voorvoegsel is toegevoegd aan elke cursustabel naam. Dit is nuttig in de enkelvoudige database modus daar het alle cursustabellen groepeert.';
-$_lang['This feature is use for institute with  blind users.
- I fact, System would be ehanced to activate this view user by user'] = 'Dit kenmerk wordt gebruikt voor instituten met anonime gebruikers.
+$_lang['This feature is use for institute with  blind users. 
+ I fact, System would be ehanced to activate this view user by user'] = 'Dit kenmerk wordt gebruikt voor instituten met anonime gebruikers.  
  Eigenlijk zal het systeem verbeteren door dit beeld gebruiker voor gebruiker te activeren.';
 $_lang['This is the physical path to databases storage. This path is  optional, use by the quota and size.'] = 'dit is het fysische pad tot database opslag. Dit pad is optioneel, gebruik door quota en grootte.';
 $_lang['This string is prepend to course database name if it begins with a number'] = 'Deze reeks wordt aan de cursusdatabase naam toegevoegd als het met een nummer begint';

@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -100,7 +100,6 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
 
         $userLoggedOnCas                  = true;
         $_SESSION['init_CasCheckingDone'] = true;
-        $_SESSION['_user'] = phpCAS::getUser();
     }
     elseif( ! isset($_SESSION['init_CasCheckinDone']) || $_REQUEST['fromCasServer'] == true )
     {
@@ -109,7 +108,6 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
         else                                 $userLoggedOnCas = false;
 
         $_SESSION['init_CasCheckinDone'] = true;
-        $_SESSION['_user'] = phpCAS::getUser(); 
     }
 
     if ($userLoggedOnCas)

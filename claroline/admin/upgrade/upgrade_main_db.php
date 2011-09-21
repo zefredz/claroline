@@ -1,18 +1,23 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * Try to create main database of claroline without remove existing content.
+ * Try to create main database of claroline without remove existing content
  *
- * @version $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version 1.9 $Revision$
+ *
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ *
  * @package UPGRADE
+ *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesche <moosh@claroline.net>
+ * @author Christophe Gesch� <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
  */
 
 /*=====================================================================
@@ -63,7 +68,7 @@ claro_sql_query($sql);
 if ( isset($_REQUEST['verbose']) ) $verbose = true;
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = false;
+else                           $cmd = FALSE;
 
 $display = DISPLAY_WELCOME_PANEL;
 
@@ -79,7 +84,6 @@ if ($cmd == 'run')
     require_once('./upgrade_main_db_17.lib.php');
     require_once('./upgrade_main_db_18.lib.php');
     require_once('./upgrade_main_db_19.lib.php');
-    require_once('./upgrade_main_db_110.lib.php');
 
     $display = DISPLAY_RESULT_PANEL;
 
@@ -274,51 +278,10 @@ switch ( $display )
                 save_current_version_file($currentClarolineVersion, $currentDbVersion);
             }
         } // End of upgrade 1.8 to 1.9
-        
-        /*---------------------------------------------------------------------
-        Upgrade 1.9 to 1.10
-        ---------------------------------------------------------------------*/
-
-        if ( preg_match('/^1.9/',$currentDbVersion) )
-        {
-            $function_list = array('upgrade_category_to_110',
-                                   'upgrade_session_course_to_110',
-                                   'upgrade_course_to_110',
-                                   'upgrade_cours_user_to_110',
-                                   'upgrade_coursehomepage_to_110',
-                                   'upgrade_event_resource_to_110'
-                                    );
-            
-            
-            foreach ( $function_list as $function )
-            {
-                $step = $function();
-                if ( $step > 0 )
-                {
-                    echo 'Error : ' . $function . ' at step . ' . $step . '<br />';
-                    $nbError++;
-                }
-            }
-
-            if ( $nbError == 0 )
-            {
-                // Upgrade 1.9 to 1.10 Succeed
-                echo '<p class="success">The claroline main tables have been successfully upgraded to version 1.10</p>' . "\n";
-                clean_upgrade_status();
-
-                // Database version is 1.10
-                $currentDbVersion = $new_version;
-
-                // Update current version file
-                save_current_version_file($currentClarolineVersion, $currentDbVersion);
-            }
-        } // End of upgrade 1.9 to 1.10
-        
-        
 
         if ( $nbError == 0 )
         {
-            if ( preg_match('/^1.10/',$currentDbVersion) )
+            if ( preg_match('/^1.9/',$currentDbVersion) )
             {
                 echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">Next ></button></p></div>';
             }
@@ -339,3 +302,5 @@ switch ( $display )
 
 // Display footer
 echo upgrade_disp_footer();
+
+?>

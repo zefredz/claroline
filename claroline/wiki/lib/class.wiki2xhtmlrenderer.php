@@ -1,4 +1,5 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
     // vim: expandtab sw=4 ts=4 sts=4:
 
@@ -7,7 +8,7 @@
      *
      * @version 1.8 $Revision$
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @copyright 2001-2006 Universite catholique de Louvain (UCL)
      *
      * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
      * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -23,7 +24,7 @@
     require_once dirname(__FILE__) . '/class.wikistore.php';
     require_once dirname(__FILE__) . '/class.wikipage.php';
 
-    FromKernel::uses( 'utils/htmlsanitizer.lib' );
+    uses( 'utils/htmlsanitizer.lib' );
 
     // PHP < 4.3.0
     if ( ! function_exists('html_entity_decode') )
@@ -42,7 +43,7 @@
 
     }
 
-    define ("WIKI_WORD_PATTERN", '((?<![A-Za-z0-9ï¿½ï¿½-ï¿½ï¿½-ï¿½ï¿½-ï¿½])([A-Zï¿½-ï¿½ï¿½-ï¿½][a-zï¿½ï¿½-ï¿½ï¿½-ï¿½]+){2,}(?![A-Za-z0-9ï¿½ï¿½-ï¿½ï¿½-ï¿½ï¿½-ï¿½]))' );
+    define ("WIKI_WORD_PATTERN", '((?<![A-Za-z0-9µÀ-ÖØ-öø-ÿ])([A-ZÀ-ÖØ-Þ][a-zµß-öø-ÿ]+){2,}(?![A-Za-z0-9µÀ-ÖØ-öø-ÿ]))' );
 
     /**
     * Wiki2xhtml rendering engine
@@ -83,7 +84,7 @@
             $this->setOpt( 'note_str', '<div class="footnotes"><a name="footNotes"></a><h2>Notes</h2>%s</div>' );
             // use urls to link wikipages
             $this->setOpt( 'active_wiki_urls', 1 );
-            // allow inline HTML in wiki (expï¿½rimntal)
+            // allow inline HTML in wiki (expérimntal)
             $this->setOpt( 'inline_html_allowed', 0 );
             // use macros
             $this->setOpt( 'active_macros', 1 );
@@ -127,7 +128,7 @@
                 $type = NULL;
             }
             elseif ($this->getOpt('active_empty')
-                && preg_match('/^ï¿½ï¿½ï¿½(.*)$/',$line,$cap))
+                && preg_match('/^øøø(.*)$/',$line,$cap))
             {
                 $type = NULL;
                 $line = trim($cap[1]);
@@ -162,7 +163,7 @@
                 $mode = $cap[1];
                 $valid = true;
 
-                # Vï¿½rification d'intï¿½gritï¿½
+                # Vérification d'intégrité
                 $dl = ($type != $pre_type) ? 0 : strlen($pre_mode);
                 $d = strlen($mode);
                 $delta = $d-$dl;
@@ -199,7 +200,7 @@
                     $line = trim($cap[2]);
                 }
             }
-            # Prï¿½formatï¿½
+            # Préformaté
             elseif ($this->getOpt('active_pre')
                 && preg_match('/^[ ]{1}(.*)$/',$line,$cap))
             {
@@ -376,40 +377,8 @@
         {
             $tag = '';
             $attr = '';
-            
-            $trimmedStr = trim( $str , '"' );
-            
-            $matches = array();
-            
-            if ( preg_match( '/^color([0-9])/' , $trimmedStr , $matches ) )
-            {
-                $colorCodeList = array(
-                    0 => '#DD0000',
-                    1 => '#006600',
-                    2 => '#0000DD',
-                    3 => '#660099',
-                    4 => '#008888',
-                    5 => '#55AA22',
-                    6 => '#888800',
-                    7 => '#DE8822',
-                    8 => '#804020',
-                    9 => '#990022',
-                );
-                
-                $colorCode = isset( $colorCodeList[ (int)$matches[ 1 ] ] )
-                    ? $colorCodeList[ (int)$matches[ 1 ] ]
-                    : '#000000';
-                
-                $trimmedStr = 'color';
-            }
-            elseif ( preg_match( '/^color\(([a-zA-Z]+|#[a-fA-F0-9]{3}|#[a-fA-F0-9]{6})\)/' , $trimmedStr , $matches ) )
-            {
-                $colorCode = $matches[ 1 ];
-                
-                $trimmedStr = 'color';
-            }
-            
-            switch( $trimmedStr )
+
+            switch( trim( $str, '"' ) )
             {
                 // start of html block
                 case 'start_html':
@@ -446,19 +415,6 @@
                     $this->addAtEnd[] = '<script type="text/javascript">createTOC();</script>';
                     break;
                 }
-                
-                case 'color':
-                {
-                    $str = '<span style="color: ' . $colorCode . ';">';
-                    break;
-                }
-                
-                case '/color':
-                {
-                    $str = '</span>';
-                    break;
-                }
-                
                 // embedded html
                 default:
                 {
@@ -470,7 +426,7 @@
                     $str = $this->san->sanitize( $str );
                 }
             }
-            
+
             return $str;
         }
 
@@ -522,7 +478,7 @@
                 && $this->getOpt('active_auto_img' ) )
             {
                 # On ajoute les dimensions de l'image si locale
-                # Idï¿½e de Stephanie
+                # Idée de Stephanie
                 $img_size = NULL;
                 if (!preg_match('/[a-zA-Z]+:\/\//', $url ) )
                 {
@@ -680,7 +636,7 @@
             // allow links to use wikiwords for wiki page locations
             if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern'))
             {
-                $pageName = preg_replace('/ï¿½ï¿½ï¿½'.$this->getOpt('words_pattern').'ï¿½ï¿½ï¿½/msU', '$1', $pageName);
+                $pageName = preg_replace('/¶¶¶'.$this->getOpt('words_pattern').'¶¶¶/msU', '$1', $pageName);
             }
 
             $fragment = '';
@@ -727,9 +683,8 @@
             'ins' => array('++','++'),
             'u' => array('__','__'),
             'note' => array('$$','$$'),
-            'word' => array('ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½'),
-            'macro' => array('"""','"""'),
-            'color' => array('//','//')
+            'word' => array('¶¶¶','¶¶¶'),
+            'macro' => array('"""','"""')
           );
 
           # Suppression des tags selon les options
@@ -794,108 +749,5 @@
           $this->escape_table = $this->all_tags;
           array_walk($this->escape_table,create_function('&$a','$a = \'\\\\\'.$a;'));
        }
-    
-        function __makeTag(&$tree,&$tag,$position,&$j,&$attr,&$type)
-        {
-            $res = '';
-            $closed = false;
-    
-            $itag = $this->close_tags[$tag];
-    
-            # Recherche fermeture
-            for ($i=$position+1;$i<count($tree);$i++)
-            {
-                if ($tree[$i] == $itag)
-                {
-                    $closed = true;
-                    break;
-                }
-            }
-    
-            # Rï¿½sultat
-            if ($closed)
-            {
-                for ($i=$position+1;$i<count($tree);$i++)
-                {
-                    if ($tree[$i] != $itag)
-                    {
-                        $res .= $tree[$i];
-                    }
-                    else
-                    {
-                        switch ($tag)
-                        {
-                            case 'a':
-                                $res = $this->__parseLink($res,$tag,$attr,$type);
-                                break;
-                            case 'img':
-                                $type = 'close';
-                                $res = $this->__parseImg($res,$attr);
-                                break;
-                            case 'acronym':
-                                $res = $this->__parseAcronym($res,$attr);
-                                break;
-                            case 'q':
-                                $res = $this->__parseQ($res,$attr);
-                                break;
-                            case 'anchor':
-                                $tag = 'a';
-                                $res = $this->__parseAnchor($res,$attr);
-                                break;
-                            case 'note':
-                                $tag = '';
-                                $res = $this->__parseNote($res);
-                                break;
-                            case 'word':
-                                $res = $this->parseWikiWord($res,$tag,$attr,$type);
-                                break;
-                            case 'macro':
-                                $res = $this->parseMacro($res,$tag,$attr,$type);
-                                break;
-                            case 'color':
-                                $res = $this->__parseColor($res,$tag,$attr,$type);
-                                break;
-                            default :
-                                $res = $this->__inlineWalk($res);
-                                break;
-                        }
-    
-                        if ($type == 'open' && $tag != '') {
-                            $res .= '</'.$tag.'>';
-                        }
-                        $j = $i;
-                        break;
-                    }
-                }
-    
-                return $res;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        
-        function __parseColor($str, &$tag, &$attr, &$type )
-        {
-            $n_str = $this->__inlineWalk($str);
-            $data = $this->__splitTagsAttr($n_str );
-            
-            $tag = "span";
-            $type= "open";
-            
-            if (count($data ) == 1)
-            {
-                $content = $str;
-                $attr = ' style="color: #000000"';
-            }
-            elseif (count($data ) > 1 )
-            {
-                $attr = ' style="color: ' . trim( $data[ 0 ] ) .'"';
-                $content = $data[ 1 ];
-            }
-            
-            return $content;
-        }
     }
 ?>

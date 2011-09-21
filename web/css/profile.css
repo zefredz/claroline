@@ -1,6 +1,11 @@
-/**
- $Id$
- **/
+#userProfileBox {
+}
+
+#userProfileBox #userProfileTitle
+{
+    /*color: #669933;
+    font-weight: bold;*/
+}
 
 #userProfileBox #userProfile
 {
@@ -14,21 +19,12 @@
     text-align: center;
 }
 
-#userProfileBox #userPicture img.userPicture {
-    border: 5px solid #fff;
-    -moz-box-shadow: 0px 0px 5px #999;
-    -webkit-box-shadow: 0px 0px 5px #999;
-    box-shadow: 0px 0px 5px #999;
-}
-
 #userProfileBox #userDetails {
     padding-top: 0.5em;
     clear:both;
 }
 
 #userProfileBox #userDetails span {
-    display: inline-block;
-    width: 6em;
-    font-size: 0.9em;
+    font-size: small;
     font-weight: bold;
 }

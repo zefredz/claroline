@@ -97,15 +97,12 @@ var ImageDialog = {
 			style : nl.style.value
 		});
 
-		if (ed.selection.getNode().nodeName == 'IMG') {
-			el = ed.selection.getNode();
-			ed.dom.setAttribs(el, args);
-		}
-		else {
-			el = ed.selection.setNode(ed.dom.create('img', args));
-		}
 
-		if (!el) {
+		el = ed.selection.getNode();
+
+		if (el && el.nodeName == 'IMG') {
+			ed.dom.setAttribs(el, args);
+		} else {
 			ed.execCommand('mceInsertContent', false, '<img id="__mce_tmp" />', {skip_undo : 1});
 			ed.dom.setAttribs('__mce_tmp', args);
 			ed.dom.setAttrib('__mce_tmp', 'id', '');

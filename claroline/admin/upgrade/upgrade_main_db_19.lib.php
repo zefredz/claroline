@@ -1,22 +1,24 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
- * Sql query to update main database.
+ * Sql query to update main database
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ * @version 1.9 $Revision$
  *
- * @package     UPGRADE
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  *
- * @author      Claro Team <cvs@claroline.net>
- * @author      Mathieu Laurent <mla@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ *
+ * @package UPGRADE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Mathieu Laurent   <mla@claroline.net>
+ * @author Christophe Gesch� <moosh@claroline.net>
+ *
  */
 
 
@@ -30,7 +32,7 @@ function upgrade_main_database_module_to_19 ()
     $tool = 'MODULE_19';
 
     switch( $step = get_upgrade_status($tool) )
-    {
+    {           
         case 1 :
 
             // module
@@ -38,7 +40,7 @@ function upgrade_main_database_module_to_19 ()
                 module_id INTEGER UNSIGNED NOT NULL,
                 context VARCHAR(60) NOT NULL DEFAULT 'course',
                 PRIMARY KEY(`module_id`,`context`)
-               ) ENGINE=MyISAM";
+               ) TYPE=MyISAM";
                         
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -80,7 +82,7 @@ function upgrade_main_database_module_to_19 ()
             unset($sqlForUpdate);
         case 3:
             
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['module'] . "`
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['module'] . "` 
                 CHANGE `type` `type` VARCHAR( 10 ) NOT NULL DEFAULT 'applet'";
             $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['module'] . "`
                 SET `name` = 'Announcements'
@@ -108,7 +110,7 @@ function upgrade_main_database_module_to_19 ()
     
     }
       
-    return false;
+    return false;    
 }
 
 /**
@@ -208,7 +210,7 @@ function upgrade_main_database_course_to_19 ()
 
             unset($sqlForUpdate);
         
-        case 7 :
+        case 7 : 
     
             // rename enrollment_key column registrationKey
             
@@ -244,7 +246,7 @@ function upgrade_main_database_user_property_to_19 ()
 
             // create tables
 
-            $sqlForUpdate[]= "ALTER IGNORE TABLE `" . $tbl_mdb_names['user_property'] . "`
+            $sqlForUpdate[]= "ALTER IGNORE TABLE `" . $tbl_mdb_names['user_property'] . "` 
               DROP PRIMARY KEY,
               ADD PRIMARY KEY  (`scope`,`propertyId`,`userId`)
              ";
@@ -258,7 +260,7 @@ function upgrade_main_database_user_property_to_19 ()
 
             // create tables
 
-            $sqlForUpdate[]= "ALTER IGNORE TABLE `" . $tbl_mdb_names['property_definition'] . "`
+            $sqlForUpdate[]= "ALTER IGNORE TABLE `" . $tbl_mdb_names['property_definition'] . "` 
               DROP PRIMARY KEY,
               ADD PRIMARY KEY  (`contextScope`,`propertyId`)
               ";
@@ -293,7 +295,7 @@ function upgrade_main_database_messaging_to_19 ()
 
             // create a new table
             $sqlForUpdate[] = "
-                CREATE
+                CREATE 
                  TABLE IF NOT EXISTS `" . $tbl_mdb_names['im_message'] . "`  (
                         `message_id` int(10) unsigned NOT NULL auto_increment,
                         `sender` int(11) NOT NULL,
@@ -307,7 +309,7 @@ function upgrade_main_database_messaging_to_19 ()
                        ) ENGINE=MyISAM";
                        
             $sqlForUpdate[] = "
-                CREATE
+                CREATE 
                  TABLE IF NOT EXISTS `" . $tbl_mdb_names['im_message_status'] . "`  (
                         `user_id` int(11) NOT NULL,
                         `message_id` int(11) NOT NULL,
@@ -317,7 +319,7 @@ function upgrade_main_database_messaging_to_19 ()
                        ) ENGINE=MyISAM";
                        
             $sqlForUpdate[] = "
-                CREATE
+                CREATE 
                  TABLE IF NOT EXISTS `" . $tbl_mdb_names['im_recipient'] . "`  (
                         `message_id` int(11) NOT NULL,
                         `user_id` int(11) NOT NULL,
@@ -355,7 +357,7 @@ function upgrade_main_database_desktop_to_19 ()
 
             // create a new table
             $sqlForUpdate[] = "
-                CREATE
+                CREATE 
                  TABLE IF NOT EXISTS `" . $tbl_mdb_names['desktop_portlet'] . "`  (
                         `label` varchar(255) NOT NULL,
                         `name` varchar(255) NOT NULL,
@@ -363,20 +365,20 @@ function upgrade_main_database_desktop_to_19 ()
                         `visibility` ENUM ('visible','invisible') DEFAULT 'visible' NOT NULL,
                         `activated` int(11) NOT NULL DEFAULT 1,
                         PRIMARY KEY  (`label`)
-                       ) ENGINE=MyISAM";
+                       ) TYPE=MyISAM";
                        
             $sqlForUpdate[] = "
-                CREATE
+                CREATE 
                  TABLE IF NOT EXISTS `" . $tbl_mdb_names['desktop_portlet_data'] . "`  (
                         `id` INT(11) NOT NULL AUTO_INCREMENT,
                         `label` varchar(255) NOT NULL,
                         `idUser` int(11) NOT NULL,
                         `data` text NOT NULL,
                         PRIMARY KEY  (`id`)
-                       ) ENGINE=MyISAM;";
+                       ) TYPE=MyISAM;";
                        
-            $sqlForUpdate[] = "
-                INSERT INTO `" . $tbl_mdb_names['desktop_portlet'] . "`
+            $sqlForUpdate[] = "           
+                INSERT INTO `" . $tbl_mdb_names['desktop_portlet'] . "` 
                     (`label`, `name`, `rank`, `visibility`, `activated`) VALUES
                     ('mycourselist', 'My course list', 1, 'visible', 0),
                     ('mymessages', 'My messages', 2, 'visible', 0),
@@ -475,7 +477,7 @@ function upgrade_main_database_tracking_to_19 ()
 
             // create a new table
             $sqlForUpdate[] = "
-                CREATE
+                CREATE 
                  TABLE IF NOT EXISTS `" . $tbl_mdb_names['tracking_event'] . "`  (
                          `id` int(11) NOT NULL auto_increment,
                          `course_code` varchar(40) NULL DEFAULT NULL,
@@ -487,7 +489,7 @@ function upgrade_main_database_tracking_to_19 ()
                          PRIMARY KEY  (`id`),
                          KEY `course_id` (`course_code`),
                          KEY `user_tracking` (`user_id`)
-                       ) ENGINE=MyISAM";
+                       ) TYPE=MyISAM";
                        
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -498,7 +500,7 @@ function upgrade_main_database_tracking_to_19 ()
 
             // create a new table
             $sqlForUpdate[] = "
-                CREATE
+                CREATE 
                  TABLE IF NOT EXISTS `" . $tbl_mdb_names['log'] . "`  (
                         `id` INT(11) NOT NULL AUTO_INCREMENT,
                         `course_code` VARCHAR(40) NULL DEFAULT NULL,
@@ -511,7 +513,7 @@ function upgrade_main_database_tracking_to_19 ()
                         PRIMARY KEY  (`id`),
                         KEY `course_id` (`course_code`),
                         KEY `user_log` (`user_id`)
-                       ) ENGINE=MyISAM";
+                       ) TYPE=MyISAM";
                        
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -528,7 +530,7 @@ function upgrade_main_database_tracking_to_19 ()
 }
 
 /**
- * Move tracking data from old tables to new ones.
+ * Move tracking data from old tables to new ones.  
  *
  * @return upgrade status
  */
@@ -540,7 +542,7 @@ function upgrade_main_database_tracking_data_to_19()
 
     switch( $step = get_upgrade_status($tool) )
     {
-        case 1 :
+        case 1 : 
             // drop id to be able to recreate it with correct autoincrement values at last step
             $sql = "ALTER TABLE `" . $tbl_mdb_names['tracking_event'] . "` DROP `id`";
             
@@ -549,7 +551,7 @@ function upgrade_main_database_tracking_data_to_19()
 
             unset( $sql );
             
-        case 2 :
+        case 2 : 
             
             // get total number of rows in track_e_login
             $sql = "SELECT COUNT(*)
@@ -564,21 +566,21 @@ function upgrade_main_database_tracking_data_to_19()
                 UpgradeTrackingOffset::store($offset);
                 
                 $query = "SELECT `login_id`, `login_user_id`, `login_date`, `login_ip`
-                            FROM `". get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "track_e_login`
+                            FROM `". get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "track_e_login` 
                         ORDER BY `login_date`, `login_id`
                            LIMIT ".$offset.", 250";
                 // then copy these 250 rows to tracking_event
                 $eventList = claro_sql_query_fetch_all_rows( $query );
 
                 // build query to insert all 250 rows
-                $sql = "INSERT INTO `" . get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "tracking_event`
-                        ( `user_id`, `date`, `type`, `data` )
-                        VALUES
-                        ";
+                $sql = "INSERT INTO `" . get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "tracking_event` 
+                        ( `user_id`, `date`, `type`, `data` ) 
+                        VALUES 
+                        "; 
                 //inject former data into new table structure
                 foreach( $eventList as $event )
                 {
-                    $sql .= "(" . (int)$event['login_user_id'] . ",'" . claro_sql_escape( $event['login_date'] ) . "','user_login','" . claro_sql_escape( serialize(array('ip' => $event['login_ip'])) ) . "'),\n";
+                    $sql .= "(" . (int)$event['login_user_id'] . ",'" . claro_sql_escape( $event['login_date'] ) . "','user_login','" . claro_sql_escape( serialize(array('ip' => $event['login_ip'])) ) . "'),\n"; 
                 }
                 unset( $eventList );
                 
@@ -610,21 +612,21 @@ function upgrade_main_database_tracking_data_to_19()
                 UpgradeTrackingOffset::store($offset);
                 
                 $query = "SELECT `open_id`, `open_date`
-                            FROM `". get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "track_e_open`
+                            FROM `". get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "track_e_open` 
                         ORDER BY `open_date`, `open_id`
                            LIMIT ".$offset.", 250";
                 // then copy these 250 rows to tracking_event
                 $eventList = claro_sql_query_fetch_all_rows( $query );
 
                 // build query to insert all 250 rows
-                $sql = "INSERT INTO `" . get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "tracking_event`
-                        ( `user_id`, `date`, `type`, `data` )
-                        VALUES
-                        ";
+                $sql = "INSERT INTO `" . get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "tracking_event` 
+                        ( `user_id`, `date`, `type`, `data` ) 
+                        VALUES 
+                        "; 
                 //inject former data into new table structure
                 foreach( $eventList as $event )
                 {
-                    $sql .= "(NULL,'" . claro_sql_escape( $event['open_date'] ) . "','platform_access',''),\n";
+                    $sql .= "(NULL,'" . claro_sql_escape( $event['open_date'] ) . "','platform_access',''),\n"; 
                 }
                 unset( $eventList );
                 
@@ -650,7 +652,7 @@ function upgrade_main_database_tracking_data_to_19()
             if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
             else return $step ;
             
-        case 5 :
+        case 5 : 
             //drop deprecated tracking tables
             $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "track_e_open`";
             $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "track_e_login`";

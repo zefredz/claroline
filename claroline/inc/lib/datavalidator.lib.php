@@ -1,8 +1,6 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
- *
  * DataValidator class
  * Validates the content of data chained into an array according to a set
  * of defined rules. You can define your own validation rules (by creating
@@ -29,9 +27,9 @@
  *   {
  *     echo explode(', ', $validator->getErrorList() );
  *   }
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ *   
+ * @version     1.9 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Hugues Peeters <hugues.peeters@advalvas.be>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -129,7 +127,7 @@ class DataValidator
             if ( ! array_key_exists($dataKey, $this->dataList) )
             {
                 $this->wrongDataList[]    = $dataKey;
-                $this->errorMessageList[] = 'UNDEFINED INDEX <i>'.$dataKey.'</i>';
+                $this->errorMessageList[] = 'UNDEFINED INDEX';
                 continue;
             }
 
@@ -149,7 +147,7 @@ class DataValidator
             if ( ! array_key_exists($dataKey, $this->dataList) )
             {
                 $this->wrongDataList[]    = $dataKey;
-                $this->errorMessageList[] = 'UNDEFINED INDEX <i>'.$dataKey.'</i>';
+                $this->errorMessageList[] = 'UNDEFINED INDEX';
                 continue;
             }
 

@@ -12,11 +12,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @var $version_db_cvs   contain the version of script set
  *                        (different from _file_ because some time there is nothing to change in db)
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     UPGRADE
- * @author      Claro Team <cvs@claroline.net>
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package UPGRADE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
  */
 
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
@@ -26,18 +31,15 @@ $is_upgrade_available = true;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.11.0';
-$new_version_branch = '1.11';
+$new_version = '1.9.10';
+$new_version_branch = '1.9';
 
-if (!$stable)
+if (!$is_upgrade_available)
 {
     $new_version = $new_version . '.[unstable:' . date('yzBs') . ']';
 }
 
-if (!$is_upgrade_available)
-{
-    $new_version = $new_version . '[NO UPGRADE]';
-}
+$requiredPhpVersion = '5.1.6';
+$requiredMySqlVersion = '4.3';
 
-$requiredPhpVersion = '5.2.0';
-$requiredMySqlVersion = '5.0';
+?>

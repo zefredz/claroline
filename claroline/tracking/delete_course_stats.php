@@ -4,10 +4,10 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @author Sebastien Piraux  <seb@claroline.net>
- * @author Christophe Gesche <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  */
 
@@ -107,7 +107,7 @@ if( 'exDelete' == $cmd && 'BEFORE' == $scope )
 
         Console::log( "In course "
             .  claro_get_current_course_id()
-            . " : tracking events before "
+            . " : tracking events before " 
             . date('Y-m-d', $beforeDate)
             . " deleted by " . claro_get_current_user_id(), 'COURSE_RESET_TRACKING_BEFORE' );
     }

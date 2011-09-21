@@ -1,19 +1,24 @@
 <?php // $Id$
-
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * Try to create main database of claroline without remove existing content
+ * 
+ * @version 1.8 $Revision$
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
- * @package     UPGRADE
- * @author      Claro Team <cvs@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
- * @author      Mathieu Laurent <laurent@cerdecam.be>
- * @since       1.6
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ *
+ * @package UPGRADE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ * @since 1.6
+ *
  */
 
 /*=====================================================================
@@ -34,7 +39,7 @@ $nameTools = get_lang('Restore course repository');
 
 // Execute command
 
-if ( isset($_REQUEST['cmd'])
+if ( isset($_REQUEST['cmd']) 
      && ( $_REQUEST['cmd'] == 'exRestore'
           || ( $_REQUEST['cmd'] == 'exMove' && get_path('coursesRepositoryAppend') != 'courses/'  ) ) )
 {
@@ -65,7 +70,7 @@ if ( isset($_REQUEST['cmd'])
     if (mysql_num_rows($res_listCourses))
     {
         $restored_courses =  '<ol>' . "\n";
-        $moved_courses =  '<ol>' . "\n";
+        $moved_courses =  '<ol>' . "\n";        
         
         while ( ( $course = mysql_fetch_array($res_listCourses)) )
         {
@@ -76,7 +81,7 @@ if ( isset($_REQUEST['cmd'])
             {
                 if ( restore_course_repository($currentCourseIDsys,$currentcoursePathSys) )
                 {
-                    $restored_courses .= '<li>' . sprintf('Course repository "%s" updated', $currentcoursePathSys) . '</li>' . "\n";
+                    $restored_courses .= '<li>' . sprintf('Course repository "%s" updated', $currentcoursePathSys) . '</li>' . "\n";       
                 }
             }
             elseif ( $_REQUEST['cmd'] == 'exMove' )
@@ -90,9 +95,9 @@ if ( isset($_REQUEST['cmd'])
                 }
                 else
                 {
-                    $moved_courses.= '<li>' . sprintf('Course repository "%s" moved to "%s"', $currentFolder,$newFolder) . '</li>' . "\n";
+                    $moved_courses.= '<li>' . sprintf('Course repository "%s" moved to "%s"', $currentFolder,$newFolder) . '</li>' . "\n"; 
                 }
-            }
+            }        
         }
         $restored_courses .= '</ol>' . "\n";
         $moved_courses .= '</ol>' . "\n";
@@ -174,7 +179,7 @@ function restore_course_repository($courseId, $courseRepository)
         umask(0);
 
         /**
-            create directory for new tools of claroline 1.5
+            create directory for new tools of claroline 1.5 
         */
     
         if ( !is_dir($courseRepository) ) mkdir($courseRepository, CLARO_FILE_PERMISSIONS);
