@@ -200,6 +200,7 @@ if ($cmd == 'applySearch')
     $displayResultTable = true;
     
     if ( ! (   empty($userData['lastname'    ])
+            && empty($userData['firstname'])
             && empty($userData['email'       ])
             && empty($userData['username'    ])
             && empty($userData['officialCode']) ) )
@@ -310,7 +311,7 @@ else
         
         if ( sizeof($userList) == 0 )
         {
-            $out .= '<td align="center" colspan="5">' . get_lang('No user found') . '</td>';
+            $out .= '<td align="center" colspan="6">' . get_lang('No user found') . '</td>';
         }
         
         $out .= '</tbody>'
