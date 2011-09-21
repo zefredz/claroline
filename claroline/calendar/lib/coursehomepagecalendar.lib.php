@@ -92,10 +92,12 @@ class CourseHomePageCalendar
         $result = Claroline::getDatabase()->query($sql);
         $courseData = $result->fetch(Database_ResultSet::FETCH_ASSOC);
         
+        // Get the current course's events
         $courseEventList = get_agenda_next_items_list($courseData, 10, $this->month, $this->year);
         
         if ( is_array($courseEventList) )
         {
+            // Generate a digest (events grouped by day)
             $courseDigestList = array();
             
             foreach($courseEventList as $thisEvent )
@@ -108,17 +110,16 @@ class CourseHomePageCalendar
                     $eventLine    = substr($eventContent, 0, 60) . (strlen($eventContent) > 60 ? ' (...)' : '');
                 }
                 
-                $eventDate = explode('-', $thisEvent['day']);
-                $day       = intval($eventDate[2]);
+                $eventDate = $thisEvent['day'];
                 
-                if(!array_key_exists($day, $courseDigestList))
+                if(!array_key_exists($eventDate, $courseDigestList))
                 {
-                    $courseDigestList[$day] = array();
-                    $courseDigestList[$day]['eventList'] = array();
-                    $courseDigestList[$day]['date'] = $thisEvent['day'];
+                    $courseDigestList[$eventDate] = array();
+                    $courseDigestList[$eventDate]['eventList'] = array();
+                    $courseDigestList[$eventDate]['date'] = $eventDate;
                 }
                 
-                $courseDigestList[$day]['eventList'][] =
+                $courseDigestList[$eventDate]['eventList'][] =
                     array(
                         'id' => $thisEvent['id'],
                         'hour' => $thisEvent['hour'],
