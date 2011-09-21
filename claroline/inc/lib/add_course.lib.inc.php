@@ -29,7 +29,7 @@ if ( count( get_included_files() ) == 1 )
  *
  */
 
-require_once dirname(__FILE__) . '/course_user.lib.php';
+require_once get_path('includePath') . '/lib/course_user.lib.php';
 
 
 /**
@@ -467,6 +467,12 @@ function register_course( $courseSysCode, $courseScreenCode, $sourceCourseId,
     
     // Insert categories
     if ( link_course_categories ( $courseId, $categories ) === false )
+    {
+        return false;
+    }
+    
+    // Add user to course
+    if ( user_add_to_course($uidCreator, $courseSysCode, true, true) === false )
     {
         return false;
     }

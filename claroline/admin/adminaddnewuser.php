@@ -116,7 +116,7 @@ $noQUERY_STRING   = true;
 
 if ( $display == DISP_REGISTRATION_FORM )
 {
-    $dialogBox->info( get_lang('New users will receive an e-mail with their username and password') );
+    $dialogBox->info( get_lang('New users will receive an e-mail with their user name and password') );
 }
 
 $out = '';

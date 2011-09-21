@@ -1,8 +1,15 @@
 <!-- $Id$ -->
 
-<?php echo $this->title; ?>
+<?php echo claro_html_tool_title($this->nameTools); ?>
 
 <?php echo $this->dialogBox->render(); ?>
+
+<p>
+    <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?cmd=rqAdd">
+        <img src="<?php echo get_icon_url('default_new'); ?>" alt="<?php echo get_lang('Category'); ?>" />
+        <?php echo get_lang('Create a category'); ?>
+    </a>
+</p>
 
 <?php if (get_conf('categories_order_by', 'rank') != 'rank') : ?>
 <p>
@@ -19,7 +26,9 @@
     <th><?php echo get_lang('Visibility'); ?></th>
     <th><?php echo get_lang('Edit'); ?></th>
     <th><?php echo get_lang('Delete'); ?></th>
+    <?php if (get_conf('categories_order_by', 'rank') == 'rank') : ?>
     <th colspan="2"><?php echo get_lang('Order'); ?></th>
+    <?php endif; ?>
   </tr>
 </thead>
 <tbody>
@@ -47,7 +56,7 @@
     </td>
     <td align="center">
        <a href="<?php echo htmlspecialchars(URL::Contextualize('?cmd=exDelete&amp;categoryId=' . $elmt['id'])); ?>"
-        onclick="return ADMIN.confirmationDel('<?php echo clean_str_for_javascript($elmt['name']); ?>');">
+        onclick="return confirmation('<?php echo clean_str_for_javascript($elmt['name']); ?>');">
        <img src="<?php echo get_icon_url('delete'); ?>" alt="<?php echo get_lang('Delete category'); ?>" />
        </a>
     </td>

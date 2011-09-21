@@ -35,9 +35,9 @@ if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=='')) {unset($_RE
 $validCmdList = array('rqDelete', 'exDelete');
 $cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
 $userIdReq = (int) (isset($_REQUEST['user_id']) ? $_REQUEST['user_id']: null);
-
 // USED SESSION VARIABLES
 // clean session if needed
+
 if (isset($_REQUEST['newsearch']) && $_REQUEST['newsearch'] == 'yes')
 {
     unset($_SESSION['admin_user_search'   ]);
@@ -53,6 +53,7 @@ if (isset($_REQUEST['newsearch']) && $_REQUEST['newsearch'] == 'yes')
 // deal with session variables for search criteria, it depends where we come from :
 // 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
 // 2 ) we must be able to arrive with new critera for a new search.
+
 if (isset($_REQUEST['search'    ])) $_SESSION['admin_user_search'    ] = trim($_REQUEST['search'    ]);
 if (isset($_REQUEST['firstName' ])) $_SESSION['admin_user_firstName' ] = trim($_REQUEST['firstName' ]);
 if (isset($_REQUEST['lastName'  ])) $_SESSION['admin_user_lastName'  ] = trim($_REQUEST['lastName'  ]);
@@ -64,6 +65,8 @@ if (isset($_REQUEST['action'    ])) $_SESSION['admin_user_action'    ] = trim($_
 if (isset($_REQUEST['order_crit'])) $_SESSION['admin_user_order_crit'] = trim($_REQUEST['order_crit']);
 if (isset($_REQUEST['dir'       ])) $_SESSION['admin_user_dir'       ] = ($_REQUEST['dir'] == 'DESC' ? 'DESC' : 'ASC' );
 
+JavascriptLoader::getInstance()->load('jquery.qtip');
+
 $addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
 
 $dialogBox = new DialogBox();
@@ -72,11 +75,13 @@ $dialogBox = new DialogBox();
 //declare needed tables
 
 // Deal with interbreadcrumbs
+
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('User list');
 
 
 $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
+//TABLES
 
 //------------------------------------
 // Execute COMMAND section
@@ -247,11 +252,12 @@ foreach ($userList as $userKey => $user)
     .                                   '</a>' . "\n"
     ;
     
-    $userGrid[$userKey]['delete'] = '<a href="' . htmlspecialchars($_SERVER['PHP_SELF']
-    .                               '?cmd=exDelete&user_id=' . $user['user_id']
-    .                               '&offset=' . $offset . $addToURL) . '" '
-    .                               'onclick="return ADMIN.confirmationDel(\''.clean_str_for_javascript($user['firstname'].' ' . $user['name'] .' (' . $user['user_id']).')\');">' . "\n"
-    .                               '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
+    $userGrid[$userKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
+    .                               '?cmd=rqDelete&amp;user_id=' . $user['user_id']
+    .                               '&amp;offset=' . $offset . $addToURL . '" '
+    //.                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');" '
+    .                               ' class="delete" id="'.$user['firstname'].'_' . $user['name'] .'_' . $user['user_id'] .'">' . "\n"
+    .                               '<img src="' . get_icon_url('deluser') . '" alt="' . get_lang('Delete') . '" />' . "\n"
     .                               '</a> '."\n"
     ;
 
@@ -318,26 +324,22 @@ else
 
 
 //PREPARE
-// Javascript
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure to delete %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
-
-JavascriptLoader::getInstance()->load('admin');
-JavascriptLoader::getInstance()->load('admin_users');
+// javascript confirm pop up declaration
+$htmlHeadXtra[] =
+'<script type="text/javascript">
+        function confirmation (name)
+        {
+            if (confirm("'.clean_str_for_javascript(get_lang('Are you sure to delete')).'" + name + "? "))
+                {return true;}
+            else
+                {return false;}
+        }'
+."\n".'</script>'."\n";
 
 $out = '';
 
-// Command list
-$cmdList = array();
-
-$cmdList[] = array(
-    'img' => 'user',
-    'name' => get_lang('Create user'),
-    'url' => 'adminaddnewuser.php'
-);
-
-$out .= claro_html_tool_title($nameTools, null, $cmdList);
+// Display tool title
+$out .= claro_html_tool_title($nameTools) . "\n\n";
 
 //Display selectbox and advanced search link
 
@@ -356,6 +358,12 @@ $out .= $dialogBox->render();
 
 $out .= '<table width="100%">' . "\n"
 .    '<tr>' . "\n"
+.    '<td>' . '<a class="claroCmd" href="adminaddnewuser.php">'
+.    '<img src="' . get_icon_url('user') . '" alt="" />'
+.    get_lang('Create user')
+.    '</a>'
+.    '</td>' . "\n"
+.    '<td>' . ''
 .    '<td align="right">' . "\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
@@ -378,7 +386,94 @@ $out .= $userDataGrid->render();
 
 if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($url);
 
-JavascriptLoader::getInstance()->load('admin_users');
+
+$out .=
+'<script type="text/javascript">
+    $(document).ready(function(){
+    $(".delete").each(function( i )
+        {
+            var _id = $(this).attr("id");
+            var id = _id.substr(_id.lastIndexOf("_") + 1 );
+            var firstname = _id.substr(0,_id.indexOf("_"));
+            var lastname = _id.substr(_id.indexOf("_") + 1 );
+            lastname = lastname.substr(0, lastname.lastIndexOf("_"));
+            
+            $(this).click(function()
+            {
+                return confirmation(" " + firstname + " " + lastname);
+            });
+            $(this).attr("href","'. $_SERVER['PHP_SELF'] .'?cmd=exDelete&user_id=" + id + "&offset=' . $offset . $addToURL . '");
+        });
+    });
+    
+    $("a.showUserCourses").each(function()
+    {
+        $(this).qtip({
+            content: {
+                url: "./ajax/ajax_requests.php",
+                data: { action: "getUserCourseList", userId: $(this).find("span").attr("class") },
+                method: "get"
+            },
+            
+            show: "mouseover",
+            hide: "mouseout",
+            position: {
+                corner: {
+                    target: "topRight",
+                    tooltip: "bottomRight"
+                }
+            },
+            
+            style: {
+                width: 200,
+                padding: 5,
+                background: "#CCDDEE",
+                color: "black",
+                fontSize: "1em",
+                textAlign: "center",
+                border: {
+                    width: 7,
+                    radius: 5,
+                    color: "#CCDDEE"
+                }
+            }
+        });
+    });
+    
+    $("a.showUserCategory").each(function()
+    {
+        $(this).qtip({
+            content: {
+                url: "./ajax/ajax_requests.php",
+                data: { action: "getUserCategoryList", userId: $(this).find("span").attr("class") },
+                method: "get"
+            },
+            
+            show: "mouseover",
+            hide: "mouseout",
+            position: {
+                corner: {
+                    target: "topRight",
+                    tooltip: "bottomRight"
+                }
+            },
+            
+            style: {
+                width: 200,
+                padding: 5,
+                background: "#CCDDEE",
+                color: "black",
+                fontSize: "1em",
+                textAlign: "center",
+                border: {
+                    width: 7,
+                    radius: 5,
+                    color: "#CCDDEE"
+                }
+            }
+        });
+    });
+</script>';
 
 $claroline->display->body->appendContent($out);
 

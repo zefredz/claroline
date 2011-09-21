@@ -12,11 +12,11 @@ if ( count( get_included_files() ) == 1 )
  *
  * User desktop : internal messaging portlet
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     DESKTOP
- * @author      Claroline Team <info@claroline.net>
+ * @author      Claroline team <info@claroline.net>
  */
 
 require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/tools.lib.php';
@@ -26,10 +26,9 @@ class MyMessages extends UserDesktopPortlet
 {
     protected $inbox;
     
-    public function __construct($label)
+    
+    public function __construct()
     {
-        parent::__construct($label);
-        
         $this->inbox = new InBox;
         $this->inbox->getMessageStrategy()->setNumberOfMessagePerPage( get_conf('myboxNumberOfMessage',5) );
     }
@@ -41,7 +40,7 @@ class MyMessages extends UserDesktopPortlet
         
         $output .= '<table class="claroTable emphaseLine" width="99%" border="0" cellspacing="2">' . "\n"
                  . '<thead>' . "\n"
-                 . '<tr align="center" valign="top">' . "\n"
+                 . '<tr class="headerX" align="center" valign="top">' . "\n"
                  . '<th>&nbsp;</th>' . "\n"
                  . '<th>' . get_lang('Subject') . '</th>' . "\n"
                  . '<th>' . get_lang('Sender') . '</th>' . "\n"

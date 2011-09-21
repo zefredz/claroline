@@ -34,7 +34,6 @@ function CLANN_write_rss($context)
             ,                   'link'        => get_path('rootWeb') .'claroline/' . 'announcements/announcements.php?cidReq=' . $courseId . '&l#ann'.$announcementItem['id']
             ,                   'description' => trim(str_replace('<!-- content: html -->','',$announcementItem['content']))
             ,                   'pubDate'     => date('r', stripslashes(strtotime($announcementItem['time'])))
-            ,                   'dc:date'     => date('c', stripslashes(strtotime($announcementItem['time'])))
           //,                   'author'      => $_course['email']
             );
         }

@@ -294,10 +294,8 @@
                 <input type="radio" name="platformRole" id="student" value="student"<?php if (!$this->data['isCourseCreator'] && !$this->data['isPlatformAdmin']) : ?> checked="checked"<?php elseif (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id() && !claro_is_platform_admin()) : ?> disabled="disabled"<?php endif; ?> /><label for="student"><?php echo get_lang('Follow courses'); ?> (<?php echo get_lang('student'); ?>)</label><br />
                 <input type="radio" name="platformRole" id="courseManager" value="courseManager"<?php if ($this->data['isCourseCreator']) : ?> checked="checked"<?php elseif (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id() && !claro_is_platform_admin()) : ?> disabled="disabled"<?php endif; ?> /><label for="courseManager"><?php echo get_lang('Create courses'); ?> (<?php echo get_lang('teacher'); ?>)</label><br />
                 <?php if (claro_is_platform_admin()) : ?>
-                <span class="adminControl"><input type="radio" name="platformRole" id="platformAdmin" value="platformAdmin"<?php if ($this->data['isPlatformAdmin']) : ?> checked="checked"<?php elseif (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id()) : ?> disabled="disabled"<?php endif; ?> /><label for="platformAdmin"><?php echo get_lang('Manage platform'); ?> (<?php echo get_lang('administrator'); ?>)</label></span>
-                
+                <span class="adminControl"><input type="radio" name="platformRole" id="platformAdmin" value="platformAdmin"<?php if ($this->data['isPlatformAdmin']) : ?> checked="checked"<?php endif; ?><?php if (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id()) : ?> disabled="disabled"<?php endif; ?> /><label for="platformAdmin"><?php echo get_lang('Manage platform'); ?> (<?php echo get_lang('administrator'); ?>)</label></span>
                 <?php endif; ?>
-                
                 <?php endif; ?>
             </dd>
             

@@ -5,11 +5,12 @@
 /**
  * Resource Resolver for the exercises tool
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claroline Team <cvs@claroline.net>
- * @package     CLQWZ
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author claroline Team <cvs@claroline.net>
+ * @package CLQWZ
+ *
  */
 
 FromKernel::uses('fileManage.lib', 'file.lib');
@@ -103,7 +104,7 @@ class CLQWZ_Navigator implements ModuleResourceNavigator
         $resourceList = new LinkerResourceIterator();
 
         foreach( $exerciseList as $exercise )
-        {
+        {    
             $fileLoc = new ClarolineResourceLocator(
                 $locator->getCourseId(),
                 'CLQWZ',

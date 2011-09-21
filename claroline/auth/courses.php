@@ -1,11 +1,10 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * Prupose list of course to enroll or leave.
+ * Prupose list of course to enroll or leave
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
@@ -14,8 +13,7 @@
 
 require '../inc/claro_init_global.inc.php';
 
-require_once dirname(__FILE__) . '/../inc/lib/courselist.lib.php';
-require_once dirname(__FILE__) . '/../inc/lib/coursesearchbox.class.php';
+require_once get_path('incRepositorySys').'/lib/courselist.lib.php';
 
 $nameTools  = get_lang('User\'s course');
 $noPHP_SELF = true;
@@ -172,7 +170,7 @@ if(!$userInfo)
         }
         break;
         
-        default :
+        default:
         {
             $msg = get_lang('User is not valid');
         }
@@ -200,18 +198,12 @@ if ( $cmd == 'exUnreg' )
                 $dialogBox->error( get_lang('You cannot unsubscribe the last course manager of the course') );
             }
             break;
-            
             case 'course_manager_cannot_unsubscribe_himself' :
             {
                 $dialogBox->error( get_lang('Course manager cannot unsubscribe himself') );
             }
             break;
-            
-            default :
-            {
-                $dialogBox->error( get_lang('Unable to remove your registration to the course') );
-            }
-            break;
+            default : $dialogBox->error( get_lang('Unable to remove your registration to the course') );
         }
     }
     
@@ -224,78 +216,108 @@ Subscribe to a course
 
 if ( $cmd == 'exReg' )
 {
-    $registrationKey = isset($_REQUEST['registrationKey']) ? $_REQUEST['registrationKey'] : null;
-    $categoryId = isset($_REQUEST['categoryId']) ? $_REQUEST['categoryId'] : null;
-    
-    $courseObj = new Claro_Course($courseCode);
-    $courseObj->load();
-    
-    $courseRegistration = new CourseUserRegistration(
-        AuthProfileManager::getUserAuthProfile($userId),
-        $courseObj,
-        $registrationKey,
-        $categoryId
-    );
-    
-    if ( $courseRegistration->addUser() )
+    //Does the category prevent registration ?
+    if((get_conf('registrationRestrictedThroughCategories')
+        && ClaroCategory::isRegistredToCategory($userId, $categoryId))
+        || (!get_conf('registrationRestrictedThroughCategories')))
     {
-        $claroline->log('COURSE_SUBSCRIBE',array('user'=>$userId,'course'=>$courseCode));
-        
-        $displayMode = DISPLAY_MESSAGE_SCREEN;
-
-        if ( claro_get_current_user_id() != $uidToEdit )
-        {
-            //Message for admin
-            $dialogBox->success( get_lang('The user has been enroled to the course') );
-        }
-        else
-        {
-            $dialogBox->success( get_lang('You\'ve been enroled on the course') );
-        }
-
-        if ( !empty($_REQUEST['asTeacher']) && claro_is_platform_admin() )
-        {
-            $properties['isCourseManager']  = 1;
-            $properties['role']             = get_lang('Course manager');
-            $properties['tutor']            = 1;
-            user_set_course_properties($userId, $courseCode, $properties);
-        }
+        //Category doesn't prevent this user's registration
+        $categoryRestricted = false;
     }
     else
     {
-        switch ($courseRegistration->getStatus())
+        //Category does prevent this user's registration
+        $categoryRestricted = true;
+    }
+    
+    //If the current user is a platform admin OR
+    //(if the course is open AND if the category doesn't prevent registration)
+    if ( claro_is_platform_admin() ||
+        (is_course_registration_allowed($courseCode) && !$categoryRestricted) )
+    {
+        $courseRegistrationKey = get_course_registration_key($courseCode);
+        
+        if ( claro_is_platform_admin()
+        || ( is_null($courseRegistrationKey) || empty($courseRegistrationKey) )
+        || ( isset($_REQUEST['registrationKey'] )
+        && strtolower(trim($_REQUEST['registrationKey'] )) == strtolower(trim($courseRegistrationKey))) )
         {
-            case CourseUserRegistration::STATUS_KEYVALIDATION_FAILED :
+            //Is it a session course ?
+            $tempCourse = claro_get_course_data($courseCode);
+            
+            if (isset($tempCourse) && !empty($tempCourse['sourceCourseId']))
             {
-                $displayMode = DISPLAY_REGISTRATION_KEY_FORM;
-                $dialogBox->error( $courseRegistration->getErrorMessage() );
+                //It's a session course: register the user to this course AND the source course
+                $sourceCourseCode = ClaroCourse::getCodeFromId($tempCourse['sourceCourseId']);
+                user_add_to_course($userId, $sourceCourseCode, false, false, false);
             }
-            break;
+            
+            //Try to register user
+            if ( user_add_to_course($userId, $courseCode, false, false, false) )
+            {
+                $claroline->log('COURSE_SUBSCRIBE',array('user'=>$userId,'course'=>$courseCode));
 
-            case CourseUserRegistration::STATUS_SYSTEM_ERROR :
-            {
-                $displayMode = DISPLAY_MESSAGE_SCREEN;
-                $dialogBox->error( $courseRegistration->getErrorMessage() );
+                if ( claro_get_current_user_id() != $uidToEdit )
+                {
+                    //Message for admin
+                    $dialogBox->success( get_lang('The user has been enroled to the course') );
+                }
+                else
+                {
+                    $dialogBox->success( get_lang('You\'ve been enroled on the course') );
+                }
+                
+                if ( !empty($_REQUEST['asTeacher']) && claro_is_platform_admin() )
+                {
+                    $properties['isCourseManager']  = 1;
+                    $properties['role']             = get_lang('Course manager');
+                    $properties['tutor']            = 1;
+                    user_set_course_properties($userId, $courseCode, $properties);
+                }
             }
-            break;
-
-            case CourseUserRegistration::STATUS_REGISTRATION_NOTAVAILABLE :
+            else
             {
-                $displayMode = DISPLAY_REGISTRATION_DISABLED_FORM;
-                $dialogBox->error( $courseRegistration->getErrorMessage() );
-                $dialogBox->info(
-                    get_lang('Please contact the course manager : %email' ,
-                    array ('%email' => '<a href="mailto:'.$courseObj->email . '?body=' . $courseObj->officialCode . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseObj->titular) . '</a>')) );
+                switch (claro_failure::get_last_failure())
+                {
+                    case 'already_enroled_in_course' :
+                    {
+                        $dialogBox->warning( get_lang('The user is already enroled in this course') );
+                    }
+                    break;
+                    
+                    case 'user_limit_reached' :
+                    {
+                        $dialogBox->warning( get_lang('The users limit for this course has been reached') );
+                    }
+                    
+                    default: $dialogBox->error( get_lang('Unable to enrol you to the course') );
+                }
             }
-            break;
-
-            default :
+            
+            $displayMode = DISPLAY_MESSAGE_SCREEN;
+            
+        } // end else if is_null $courseRegistrationKey
+        else
+        {
+            if ( isset($_REQUEST['registrationKey']) )
             {
-                $displayMode = DISPLAY_MESSAGE_SCREEN;
-                $dialogBox->warning( $courseRegistration->getErrorMessage() );
+                $dialogBox->error( get_lang('Wrong enrolment key') );
             }
-            break;
+            
+            $displayMode = DISPLAY_REGISTRATION_KEY_FORM;
+        } // end else if is_null $courseRegistrationKey
+    }
+    else
+    {
+        $courseData = claro_get_course_data($courseCode);
+        $displayMode = DISPLAY_REGISTRATION_DISABLED_FORM;
+        
+        $explanation = get_locked_course_explanation($courseCode);
+        if( $explanation )
+        {
+            $dialogBox->error( $explanation );
         }
+        $dialogBox->info( get_lang('Please contact the course manager : %email' , array ('%email' => '<a href="mailto:'.$courseData['email'] . '?body=' . $courseData['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseData['titular']) . '</a>')) );
     }
 
 } // end if ($cmd == 'exReg')
@@ -346,6 +368,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
     
     else
     {
+        
         if ($fromAdmin == 'class')
             $user = null;
         else
@@ -382,6 +405,7 @@ if ( $cmd == 'rqReg' && ( !empty($categoryId) || !empty($parentCategoryId) ) )
 }
 else
 {
+
     if ( $userSettingMode == true ) //enroll page accessed by admin tool to set user settings
     {
         if ( $fromAdmin == 'settings' )
@@ -400,7 +424,7 @@ else
         $backUrl   = '../admin/admin_class_user.php?';
         if (isset($_SESSION['admin_user_class_id']))
         {
-            $backUrl .= 'class_id='. $_SESSION['admin_user_class_id'];
+        	$backUrl .= 'class_id='. $_SESSION['admin_user_class_id'];
         }
         $backLabel = get_lang('Back to the class');
     }
@@ -412,7 +436,7 @@ else
 } // end if ( $cmd == 'rqReg' && ( !empty($categoryId) || !empty($parentCategoryId) ) )
 
 $backUrl .= $inURL; //notify userid of the user we are working with in admin mode and that we come from admin
-$backLink = '<p><a href="' . $backUrl . '" title="' . $backLabel. '" ><span style="background-image: url('.get_icon_url('back').'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"> ' . $backLabel . ' </span></a></p>' . "\n\n";
+$backLink = '<p><small><a href="' . $backUrl . '" title="' . $backLabel. '" >&larr; ' . $backLabel . '</a></small></p>' . "\n\n";
 
 $out = '';
 
@@ -464,18 +488,18 @@ switch ( $displayMode )
                 $nbCourses = claroCategory::countAllCourses($category['id']);
                 $nbSubCategories = claroCategory::countAllSubCategories($category['id']);
                 
+                $out .= '<li>' . "\n";
+                
                 // If the category contains something else (subcategory or course),
                 // make a link to access to these ressources
                 if ($nbCourses + $nbSubCategories > 0)
-                {
-                    $out .= '<li><a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;categoryId="
+                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . "?cmd=rqReg&amp;categoryId="
                           . urlencode( $category['id'] ) . $inURL . '">'
-                          . $category['name'] . '</a></li>';
-                }
+                          . $category['name'] . '</a>';
                 else
-                {
-                    $out .= '<li>'.$category['name'].'</li>';
-                }
+                    $out .= $category['name'];
+                
+                $out .= '</li>' . "\n";
             }
             
             $out .= '</ul>' . "\n";
@@ -491,13 +515,14 @@ switch ( $displayMode )
         if ( count($coursesList) > 0 )
         {
             $out .= '<h4>' . get_lang('Course list') . '</h4>' . "\n"
+            .    '<blockquote>' . "\n"
             .    '<table class="claroTable emphaseLine" >' . "\n" ;
             
             if ( $userSettingMode ) // Display links to enroll as student and also as teacher (but not for a class)
             {
             
                 $out .= '<thead>' . "\n"
-                .    '<tr>' . "\n"
+                .    '<tr class="headerX">' . "\n"
                 .    '<th>&nbsp;</th>' . "\n"
                 .    '<th>' . get_lang('Enrol as student') . '</th>' . "\n"
                 .    '<th>' . get_lang('Enrol as teacher') . '</th>' . "\n"
@@ -508,7 +533,7 @@ switch ( $displayMode )
             elseif ( $fromAdmin == 'class' )
             {
                 $out .= '<thead>' . "\n"
-                .    '<tr>' . "\n"
+                .    '<tr class="headerX">' . "\n"
                 .    '<th>&nbsp;</th>' . "\n"
                 .    '<th>' . get_lang('Enrol class') . '</th>' . "\n"
                 .    '</tr>' . "\n"
@@ -646,15 +671,24 @@ switch ( $displayMode )
 
             $out .= '</tbody>' . "\n"
             .    '</table>' . "\n"
+            .    '</blockquote>' . "\n"
             ;
         }
 
         // Form: Search a course with a keyword
-        $searchBox = new CourseSearchBox($_SERVER['REQUEST_URI']);
-        
-        $out .= $searchBox->render();
-    }
-    break;
+
+        $out .= '<blockquote>' . "\n"
+        .    '<p><label for="keyword">' . get_lang('Search from keyword') . '</label> : </p>' . "\n"
+        .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+        .    '<input type="hidden" name="cmd" value="rqReg" />' . "\n"
+        .    '<input type="hidden" name="fromAdmin" value="' . $fromAdmin . '" />' . "\n"
+        .    '<input type="hidden" name="uidToEdit" value="' . $uidToEdit . '" />' . "\n"
+        .    '<input type="text" name="keyword" id="keyword" />' . "\n"
+        .    '&nbsp;<input type="submit" value="' . get_lang('Search') . '" />' . "\n"
+        .    '</form>' . "\n"
+        .    '</blockquote>' . "\n"
+        ;
+    }   break;
 
     /*---------------------------------------------------------------------
     Display message
@@ -667,8 +701,7 @@ switch ( $displayMode )
 
         $out .= $dialogBox->render();
 
-    }
-    break;
+    }   break;
 
     /*---------------------------------------------------------------------
     Display user courses ( Default display)
@@ -676,6 +709,7 @@ switch ( $displayMode )
 
     case DISPLAY_USER_COURSES :
     {
+
         $out .= claro_html_tool_title( array('mainTitle' => get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'],
         'subTitle' => get_lang('Remove course from your personal course list')));
         
@@ -683,7 +717,9 @@ switch ( $displayMode )
         
         if ( count($coursesList) > 0 )
         {
-            $out .= '<table class="claroTable">' . "\n";
+            $out .= '<blockquote>' . "\n"
+            .    '<table class="claroTable">' . "\n"
+            ;
 
             foreach ($coursesList as $thisCourse)
             {
@@ -718,17 +754,21 @@ switch ( $displayMode )
                 ;
             } // foreach $coursesList as $thisCourse
 
-            $out .= '</table>' . "\n";
+            $out .= '</table>' . "\n"
+            .    '</blockquote>' . "\n"
+            ;
         }
         
         $is_allowedToUnregisterFromInactive =
             get_conf('crslist_UserCanUnregFromInactiveCourses', false)
             || claro_is_platform_admin();
         
-        if ( isset($inactiveCourseList) && count($inactiveCourseList) > 0 )
+        if ( count($inactiveCourseList) > 0 )
         {
-            $out .= claro_html_tool_title(get_lang('Deactivated course list'))
-                  . '<table class="claroTable">' . "\n";
+            $out .= '<blockquote>' . "\n"
+            .    claro_html_tool_title(get_lang('Deactivated course list'))
+            .    '<table class="claroTable">' . "\n"
+            ;
             
             foreach ($inactiveCourseList as $thisCourse)
             {
@@ -770,7 +810,9 @@ switch ( $displayMode )
                 ;
             } // foreach $courseList as $thisCourse
             
-            $out .= '</table>' . "\n";
+            $out .= '</table>' . "\n"
+            .    '</blockquote>' . "\n"
+            ;
         }
     }
     break;
@@ -782,6 +824,8 @@ switch ( $displayMode )
         
         $out .= claro_html_tool_title( array('mainTitle' => get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'],
         'subTitle' => get_lang('Enrol to %course', array('%course' => $courseName) )));
+        
+        $dialogBox->title(get_lang('This course requires a key for enrolment'));
         
         $dialogBox->form('<p><small>(' . get_lang('If you do not have the key, please contact the course manager') . ')</small></p>' . "\n"
         .     get_locked_course_by_key_explanation($courseCode)
@@ -800,8 +844,7 @@ switch ( $displayMode )
         
         $out .= $dialogBox->render();
         
-    }
-    break;
+    }   break;
 
     case DISPLAY_REGISTRATION_DISABLED_FORM :
     {
@@ -811,8 +854,8 @@ switch ( $displayMode )
 
         $out .= $dialogBox->render();
 
-    }
-    break;
+    }   break;
+
 
 } // end of switch ($displayMode)
 

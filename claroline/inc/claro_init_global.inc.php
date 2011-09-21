@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLKERNEL
@@ -437,28 +437,6 @@ if ( isset($_POST['claroFormId']) )
          {
             array_pop( $_SESSION['claroFormIdList'] );
          }
-    }
-}
-
-/*----------------------------------------------------------------------
-  Load default javascript libraries
- ----------------------------------------------------------------------*/
-
-JavascriptLoader::getInstance()->load('jquery');
-JavascriptLoader::getInstance()->load('jquery.qtip');
-JavascriptLoader::getInstance()->load('jquery.cookie');
-JavascriptLoader::getInstance()->load('claroline');
-JavascriptLoader::getInstance()->load('claroline.ui');
-// add other default platform javascript here
-
-// Load course home page javascript
-if ( claro_is_in_a_course() )
-{
-    // add other default course javascript here
-    
-    if ( claro_is_in_a_group() )
-    {
-        // add other default group javascript here
     }
 }
 

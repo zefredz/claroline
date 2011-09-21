@@ -14,18 +14,18 @@
  * @author      Claroline team <info@claroline.net>
  */
 
-// reset course and groupe
+// Reset course and groupe
 $cidReset       = true;
 $gidReset       = true;
 $uidRequired    = true;
 
-// load Claroline kernel
+// Load Claroline kernel
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
 if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
-// load libraries
-FromKernel::uses('user.lib', 'utils/finder.lib');
+// Load libraries
+uses('user.lib', 'utils/finder.lib');
 require_once dirname(__FILE__) . '/lib/portlet.lib.php';
 
 // Breadcrumb
@@ -167,7 +167,13 @@ else
 }
 
 // Generate Script Output
-CssLoader::getInstance()->load('desktop','all');
+
+$jsloader = JavascriptLoader::getInstance();
+$jsloader->load('jquery');
+$jsloader->load('claroline.ui');
+
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load('desktop','all');
 
 $template = new CoreTemplate('user_desktop.tpl.php');
 

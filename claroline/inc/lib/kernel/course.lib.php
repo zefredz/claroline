@@ -3,11 +3,9 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * Claroline Course objects
  *
- * Claroline Course objects.
- *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -36,7 +34,7 @@ class Claro_Course extends KernelObject
     {
         $this->_courseId = $courseId;
     }
-    
+
     public function load()
     {
         $this->loadFromDatabase();
@@ -219,7 +217,7 @@ class Claro_Course extends KernelObject
         
         $groupProperties ['registrationAllowed'] =  ($groupProperties['self_registration'] == 1);
         unset($groupProperties['self_registration']);
-        
+
         $groupProperties ['unregistrationAllowed'] =  (isset($groupProperties['self_unregistration']) && $groupProperties['self_unregistration'] == 1);
         unset($groupProperties['self_unregistration']);
 

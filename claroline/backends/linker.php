@@ -3,11 +3,9 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
- *
  * Claroline Resource Linker ajax backend
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -33,7 +31,7 @@ try
     $cmd = $userInput->get('cmd', 'getResourceList');
     
     $locator = isset( $_REQUEST['crl'] ) && ! empty( $_REQUEST['crl'] )
-            ? ClarolineResourceLocator::parse(rawurldecode($_REQUEST['crl']))
+            ? ClarolineResourceLocator::parse($_REQUEST['crl'])
             : ResourceLinker::$Navigator->getCurrentLocator( array() );
             ;
     

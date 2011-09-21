@@ -1,12 +1,16 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claro Team <cvs@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ *
  */
 
 $tlabelReq = 'CLQWZ';
@@ -172,7 +176,7 @@ if( $cmd == 'rqEdit' )
     $form['displayType']         = $exercise->getDisplayType();
     $form['randomize']             = (boolean) $exercise->getShuffle() > 0;
     $form['questionDrawn']        = $exercise->getShuffle();
-    $form['useSameShuffle']      = (boolean) $exercise->getUseSameShuffle();
+    $form['useSameShuffle']      = (boolean) $exercise->getUseSameShuffle(); 
     $form['showAnswers']         = $exercise->getShowAnswers();
 
     $form['startDate']             = $exercise->getStartDate(); // unix
@@ -200,28 +204,6 @@ if( $cmd == 'rqEdit' )
     $displayForm = true;
 }
 
-// Command list
-$cmdList = array();
-
-$cmdList[] = array(
-    'img' => 'back',
-    'name' => get_lang('Back to the exercise list'),
-    'url' => htmlspecialchars(Url::Contextualize('../exercise.php'))
-);
-$cmdList[] = array(
-    'img' => 'edit',
-    'name' => get_lang('Edit exercise settings'),
-    'url' => htmlspecialchars(Url::Contextualize('./edit_exercise.php?exId='.$exId.'&cmd=rqEdit'))
-);
-$cmdList[] = array(
-    'img' => 'default_new',
-    'name' => get_lang('New question'),
-    'url' => htmlspecialchars(Url::Contextualize('./edit_question.php?exId='.$exId.'&cmd=rqEdit'))
-);
-$cmdList[] = array(
-    'name' => get_lang('Get a question from another exercise'),
-    'url' => htmlspecialchars(Url::Contextualize('./question_pool.php?exId='.$exId))
-);
 
 
 /*
@@ -254,11 +236,15 @@ else
     ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?exId='.$exId );
 }
 
-CssLoader::getInstance()->load( 'exercise', 'screen');
+$jsLoader = JavascriptLoader::getInstance();
+$jsLoader->load( 'claroline.ui');
+
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'exercise', 'screen');
 
 $out = '';
 
-$out .= claro_html_tool_title($toolTitle, null, $cmdList);
+$out .= claro_html_tool_title($toolTitle);
 
 // dialog box if required
 $out .= $dialogBox->render();
@@ -277,26 +263,26 @@ if( $displayForm )
     .   '<dl>' . "\n";
     
     //title
-    $out .= '<dt><label for="title">' . get_lang('Title') . '&nbsp;<span class="required">*</span>' . '</label></dt>' . "\n"
+    $out .= '<dt><label for="title">' . get_lang('Title') . '&nbsp;<span class="required">*</span>&nbsp;:' . '</label></dt>' . "\n"
     .   '<dd>'
     .   '<input type="text" name="title" id="title" size="60" maxlength="200" value="'. htmlspecialchars($form['title']) .'" />'
     .   '</dd>' . "\n";
     
     //description
-    $out .= '<dt><label for="description">' . get_lang('Description') . '</label></dt>' . "\n"
+    $out .= '<dt><label for="description">' . get_lang('Description') . '&nbsp;:</label></dt>' . "\n"
     .   '<dd>'
     .   '<div style="width: 700px;">' . claro_html_textarea_editor('description', $form['description']) . '</div>'
     .   '</dd>' . "\n";
     
     // exercise type
-    $out .= '<dt>' . get_lang('Exercise type') . '</dt>' . "\n"
+    $out .= '<dt>' . get_lang('Exercise type') . '&nbsp;:</dt>' . "\n"
     .   '<dd>' . "\n"
     .   '<input type="radio" name="displayType" id="displayTypeOne" value="ONEPAGE" class="radio" '
     .   ( $form['displayType'] == 'ONEPAGE'?' checked="checked"':' ') . ' />&nbsp;'
     .   '<label for="displayTypeOne">' . get_lang('On an unique page') . '</label>' . "\n"
-    .   '<br />' . "\n"
+    .   '<br />' . "\n"    
     .   '<input type="radio" name="displayType" id="displayTypeSeq" value="SEQUENTIAL" class="radio" '
-    .   ( $form['displayType'] == 'SEQUENTIAL'?' checked="checked"':' ') . ' />&nbsp;'
+    .   ( $form['displayType'] == 'SEQUENTIAL'?' checked="checked"':' ') . ' />&nbsp;'    
     .   '<label for="displayTypeSeq">' . get_lang('One question per page (sequential)') . '</label>' . "\n"
     .   '</dd>' . "\n";
     
@@ -311,7 +297,7 @@ if( $displayForm )
             $questionDrawnOptions[$i] = $i;
         }
         
-        $out .= '<dt><label for="randomize">' . get_lang('Random questions').'</label></dt>' . "\n"
+        $out .= '<dt><label for="randomize">' . get_lang('Random questions').'&nbsp;:</label></dt>' . "\n"
         .   '<dd>'
         .   '<div>'
         .   '<input type="checkbox" name="randomize" id="randomize" class="checkbox" '
@@ -329,9 +315,9 @@ if( $displayForm )
         .   '</div><div>'
         .   '<input type="checkbox" name="useSameShuffle" value="1" class="checkbox" '
         .   ($form['useSameShuffle'] ? ' checked="checked"' : ' ') . '/>&nbsp;'
-        .   get_lang('Reuse the same shuffle')
+        .   get_lang('Reuse the same shuffle')        
         .   '</div>'
-        .   '</dd>' . "\n";
+        .   '</dd>' . "\n";        
         
     }
     
@@ -346,14 +332,14 @@ if( $displayForm )
     .   '<dl>' . "\n";
     
     // start date
-    $out .= '<dt>' . get_lang('Start date') . '</dt>' . "\n"
+    $out .= '<dt>' . get_lang('Start date') . '&nbsp;:</dt>' . "\n"
     .   '<dd>'
     .   claro_html_date_form('startDay', 'startMonth', 'startYear', $form['startDate'], 'long')." - ".claro_html_time_form("startHour", "startMinute", $form['startDate'])
     .     '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
     .   '</dd>' . "\n";
     
     // stop date
-    $out .= '<dt><label for="useEndDate">' . get_lang('End date') . '</label></dt>' . "\n"
+    $out .= '<dt><label for="useEndDate">' . get_lang('End date') . '&nbsp;:</label></dt>' . "\n"
     .   '<dd>'
     .   '<input type="checkbox" name="useEndDate" id="useEndDate" '
     .   ( $form['useEndDate']?' checked="checked"':' ') . '/>'
@@ -363,7 +349,7 @@ if( $displayForm )
     .   '</dd>' . "\n";
     
     // time limit
-    $out .= '<dt><label for="useTimeLimit">' . get_lang('Time limit') . '</label></dt>' . "\n"
+    $out .= '<dt><label for="useTimeLimit">' . get_lang('Time limit') . '&nbsp;:</label></dt>' . "\n"
     .   '<dd>'
     .   '<input type="checkbox" name="useTimeLimit" id="useTimeLimit" '
     .   ( $form['useTimeLimit']?' checked="checked"':' ') . '/>'
@@ -373,7 +359,7 @@ if( $displayForm )
     .   '</dd>' . "\n";
     
     // attempts allowed
-    $out .= '<dt><label for="attempts">' . get_lang('Attempts allowed') . '</label></dt>' . "\n"
+    $out .= '<dt><label for="attempts">' . get_lang('Attempts allowed') . '&nbsp;:</label></dt>' . "\n"
     .   '<dd>'
     .   '<select name="attempts" id="attempts">' . "\n"
     .   '<option value="0"' . ( $form['attempts'] < 1?' selected="selected"':' ') . '>' . get_lang('unlimited') . '</option>' . "\n"
@@ -386,7 +372,7 @@ if( $displayForm )
     .   '</dd>' . "\n";
     
     //anonymous attempts
-    $out .= '<dt>' . get_lang('Anonymous attempts') . '</dt>' . "\n"
+    $out .= '<dt>' . get_lang('Anonymous attempts') . '&nbsp;:</dt>' . "\n"
     .   '<dd>'
     .   '<input type="radio" name="anonymousAttempts" id="anonymousAttemptsAllowed" value="ALLOWED"'
     .  ( $form['anonymousAttempts'] == 'ALLOWED'?' checked="checked"':' ') . ' />'
@@ -394,11 +380,11 @@ if( $displayForm )
     .  '<br />'
     .  '<input type="radio" name="anonymousAttempts" id="anonymousAttemptsNotAllowed" value="NOTALLOWED"'
     .  ( $form['anonymousAttempts'] == 'NOTALLOWED'?' checked="checked"':' ') . ' />'
-    .  ' <label for="anonymousAttemptsNotAllowed">'.get_lang('Not allowed : record usernames in tracking, anonymous users cannot do the exercise.').'</label>'
+    .  ' <label for="anonymousAttemptsNotAllowed">'.get_lang('Not allowed : record usernames in tracking, anonymous users cannot do the exercise.').'</label>'    
     .   '</dd>';
     
     // show answers
-    $out .= '<dt>' . get_lang('Show answers') . '</dt>' . "\n"
+    $out .= '<dt>' . get_lang('Show answers') . '&nbsp;:</dt>' . "\n"
     .   '<dd>'
     .   '<input type="radio" name="showAnswers" id="showAnswerAlways" value="ALWAYS"'
     .   ( $form['showAnswers'] == 'ALWAYS'?' checked="checked"':' ') . ' />'
@@ -414,7 +400,7 @@ if( $displayForm )
     .   '</dd>';
     
     // end form information
-    $out .= '<dt>' . get_lang('Quiz end message') . '</dt>' . "\n"
+    $out .= '<dt>' . get_lang('Quiz end message') . '&nbsp;:</dt>' . "\n"
     .   '<dd>'
     .   '<div style="width: 700px;">' . claro_html_textarea_editor('quizEndMessage', $form['quizEndMessage']) . '</div>'
     .   '</dd>';
@@ -430,7 +416,7 @@ if( $displayForm )
     .   '<div style="text-align: center;">'
     .     '<input type="submit" name="" id="" value="'.get_lang('Ok').'" />&nbsp;&nbsp;'
     .     claro_html_button('../exercise.php', get_lang("Cancel") )
-    .   '</div>';
+    .   '</div>';   
     
     $out .= '</form>' . "\n\n";
 }
@@ -457,7 +443,7 @@ else
         .   get_lang('Reuse same shuffle').'&nbsp;: '
         .   ( $exercise->getUseSameShuffle() ? get_lang('Yes') : get_lang('No') )
         .   '</li>' . "\n";
-    }
+    }    
     
     $out .= '</ul>' . "\n";
     
@@ -520,15 +506,30 @@ else
     . '</div>' . "\n" // collaspible
     . '<br />' . "\n";
 
+    //-- claroCmd
+    $cmd_menu = array();
+    $cmd_menu[] = '<a class="claroCmd" href="../exercise.php' . claro_url_relay_context('?') . '">'
+                . '&lt;&lt; ' . get_lang('Back to the exercise list')
+                . '</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'&amp;cmd=rqEdit'. claro_url_relay_context('&amp;') .'">'
+                . '<img src="' . get_icon_url('edit') . '" alt="" />'
+                . get_lang('Edit exercise settings')
+                . '</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit">'.get_lang('New question').'</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="./question_pool.php?exId='.$exId.'">'.get_lang('Get a question from another exercise').'</a>';
+
+
+    $out .= claro_html_menu_horizontal($cmd_menu);
+
     //-- question list
     $questionList = $exercise->getQuestionList();
 
     $out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
     .     '<thead>' . "\n"
-    .     '<tr>' . "\n"
+    .     '<tr class="headerX">' . "\n"
     .     '<th>' . get_lang('Id') . '</th>' . "\n"
     .     '<th>' . get_lang('Question') . '</th>' . "\n"
-    .     '<th>' . get_lang('Category') . '</th>' . "\n"
+    .    '<th>' . get_lang('Category') . '</th>' . "\n"
     .     '<th>' . get_lang('Answer type') . '</th>' . "\n"
     .     '<th>' . get_lang('Modify') . '</th>' . "\n"
     .     '<th>' . get_lang('Delete') . '</th>' . "\n"
@@ -617,3 +618,5 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

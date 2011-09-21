@@ -235,7 +235,7 @@ else
 }
 
 //check access rights
-$is_postAllowed = ( !claro_is_current_user_enrolment_pending() && $forumSettingList['forum_access'] != 0
+$is_postAllowed = ( $forumSettingList['forum_access'] != 0
                     && ( !$topicId || !$topicSettingList['topic_status'] ) )
                     ? true
                     : false;
@@ -466,7 +466,7 @@ $nameTools = get_lang( 'Forums' );
 
 $pagetype = !empty( $editMode ) ? $editMode : 'viewtopic';
 
-$out .= claro_html_tool_title( $nameTools, $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : false );
+$out .= claro_html_tool_title( $nameTools, $is_allowedToEdit ? 'help_forum.php' : false );
 if( claro_is_allowed_to_edit() && $topicId )
 {
     $out .= '<div style="float: right;">' . "\n"

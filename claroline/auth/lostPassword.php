@@ -1,5 +1,4 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
@@ -10,11 +9,16 @@
  * Special case : If the password are encrypted in the database, we have
  * to generate a new one.
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLAUTH
- * @author      Claro Team <cvs@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLAUTH
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -103,7 +107,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
             }
         }
 
-        if ( $passwordFound )
+        if ( $passwordFound ) 
         {
 
             /*
@@ -197,3 +201,5 @@ $out .= $dialogBox->render();
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

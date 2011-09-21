@@ -2,14 +2,17 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
 
 /**
  * CLAROLINE
  *
  * User desktop : MyAnnouncements portlet
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     DESKTOP
@@ -18,14 +21,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 require_once get_module_path( 'CLANN' ) . '/lib/announcement.lib.php';
 
-FromKernel::uses('courselist.lib');
+uses('courselist.lib');
 
 class CLANN_Portlet extends UserDesktopPortlet
 {
-    public function __construct($label)
+    public function __construct()
     {
-        parent::__construct($label);
-        
         if (file_exists(claro_get_conf_repository() . 'CLANN.conf.php'))
         {
             include claro_get_conf_repository() . 'CLANN.conf.php';
@@ -70,21 +71,6 @@ class CLANN_Portlet extends UserDesktopPortlet
                     
                     foreach($announcementItem['eventList'] as $announcementEvent)
                     {
-                        // Prepare the render
-                        $displayChar = 250;
-                        
-                        if (strlen($announcementEvent['content']) > $displayChar)
-                        {
-                            $content = substr($announcementEvent['content'], 0, $displayChar)
-                                     . '... <a href="'
-                                     . htmlspecialchars(Url::Contextualize($announcementEvent['url'])) . '">'
-                                     . '<b>' . get_lang('Read more &raquo;') . '</b></a>';
-                        }
-                        else
-                        {
-                            $content = $announcementEvent['content'];
-                        }
-                        
                         $output .= '<dd>'
                                  . '<a href="' . $announcementEvent['url'] . '">'
                                  . $announcementItem['courseOfficialCode']
@@ -93,7 +79,7 @@ class CLANN_Portlet extends UserDesktopPortlet
                                     $announcementEvent['title'] :
                                     get_lang('No title')) . "\n"
                                  . ' - '
-                                 . $content . "\n"
+                                 . $announcementEvent['content'] . "\n"
                                  . '</dd>' . "\n";
                     }
                 }
@@ -106,7 +92,7 @@ class CLANN_Portlet extends UserDesktopPortlet
                      . '<dl>' . "\n"
                      . '<dt>' . "\n"
                      . '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="" />'
-                     . ' '.get_lang('No announcement to display') . "\n"
+                     . ' '.get_lang('No event to display') . "\n"
                      . '</dt>' . "\n"
                      . '</dl>' . "\n";
         }

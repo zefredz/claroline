@@ -3,9 +3,10 @@
 /**
  * CLAROLINE
  *
- * Language library.  Contains function to manage l10n.
+ * language library
+ * contains function to manage l10n
  *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLUSR
@@ -664,57 +665,5 @@ function claro_utf8_encode_array( &$var )
     else
     {
         array_walk( $var, 'claro_utf8_encode_array' );
-    }
-}
-
-/*
- * Usage :
- *
- * $jslang = new JavascriptLanguage;
- * $jslang->addLangVar('User list');
- * // ...
- * ClaroHeader::getInstance()->addInlineJavascript( $jslang->render() );
- * Claroline.getLang('User list');
-*/
-class JavascriptLanguage
-{
-    protected $lang = array();
-
-    public function addLangVar( $langVar, $langValue = null )
-    {
-        if ( empty ($langValue ) )
-        {
-            $this->lang[$langVar] = get_lang($langVar);
-        }
-        else
-        {
-            $this->lang[$langVar] = $langValue;
-        }
-
-        return $this;
-    }
-
-    public function render()
-    {
-        $out = '<script type="text/javascript">' . "\n";
-
-        $out .= "Claroline.setLangArray( {"."\n";
-        
-        $tmp = array();
-
-        foreach ( $this->lang as $langVar => $langValue )
-        {
-            $langVar = str_replace ("'", "\\'",$langVar);
-            $langValue = str_replace ("'", "\\'",$langValue);
-            $tmp[] = "'$langVar':'$langValue'";
-        }
-        
-        $out .= implode(",\n", $tmp );
-
-        $out .= "});\n"
-            . "</script>\n"
-            ;
-
-        return $out;
     }
 }

@@ -3,14 +3,16 @@
 /**
  * CLAROLINE
  *
- * Upgrade modules database.
+ * Upgrade modules database
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
- * @package     UPGRADE
- * @author      Claro Team <cvs@claroline.net>
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ * @package UPGRADE
+ * @author Claro Team <cvs@claroline.net>
+ *
  */
 
 $new_version_branch = '';
@@ -49,9 +51,7 @@ if ( isset($_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'run' )
         
         if ( $manifest )
         {
-            $version = array_key_exists( 'CLAROLINE_MAX_VERSION' , $manifest )
-                     ? $manifest['CLAROLINE_MAX_VERSION']
-                     : $manifest['CLAROLINE_MIN_VERSION'];
+            $version = $manifest['CLAROLINE_MAX_VERSION'];
             
             if ( ! in_array( $module['label'], $readOnlyModules ) && ! preg_match( $patternVarVersion, $version ) )
             {
@@ -114,3 +114,4 @@ switch ($display)
 
 // Display footer
 echo upgrade_disp_footer();
+

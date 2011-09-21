@@ -41,7 +41,6 @@ function user_initialise()
     $userData['email']          = isset($_REQUEST['email'])?trim(strip_tags($_REQUEST['email'])):'';
     $userData['phone']          = isset($_REQUEST['phone'])?trim(strip_tags($_REQUEST['phone'])):'';
     $userData['skype']          = isset($_REQUEST['skype'])?trim(strip_tags($_REQUEST['skype'])):'';
-    $userData['isStudent']      = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'student');
     $userData['isCourseCreator'] = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'courseManager');
     $userData['isPlatformAdmin'] = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'platformAdmin'
                                            || isset($userData['user_id']) && $userData['user_id'] == claro_get_current_user_id() && claro_is_platform_admin());
@@ -323,7 +322,7 @@ function user_set_properties($userId, $propertyList)
  */
 function user_delete($userId)
 {
-    require_once dirname(__FILE__) . '/course_user.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 
     if ( claro_get_current_user_id() == $userId ) // user cannot remove himself of the platform
     {
@@ -553,9 +552,9 @@ function user_set_platform_admin($status, $userId)
 
 function user_send_registration_mail ($userId, $data, $courseCode = null)
 {
-    require_once dirname(__FILE__) . '/sendmail.lib.php';
-    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
-    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/singleuserrecipient.lib.php';
+    require_once dirname(__FILE__) . '/../../inc/lib/sendmail.lib.php';
+    require_once get_path('clarolineRepositorySys') . '/messaging/lib/message/messagetosend.lib.php';
+    require_once get_path('clarolineRepositorySys') . '/messaging/lib/recipient/singleuserrecipient.lib.php';
     
     if ( ! empty($data['email']) )
     {
@@ -888,7 +887,7 @@ function user_validate_form($formMode, $data, $userId = null)
     {
         $validator->addRule('password_conf', get_lang('You left some required fields empty'), 'required');
         $validator->addRule('officialCode', get_lang('This official code is already used by another user.'), 'is_official_code_available');
-        $validator->addRule('username', get_lang('This username is already taken'), 'is_username_available');
+        $validator->addRule('username', get_lang('This user name is already taken'), 'is_username_available');
         $validator->addRule('password', get_lang('You left some required fields empty'), 'required');
     }
     else // profile mode
@@ -900,7 +899,7 @@ function user_validate_form($formMode, $data, $userId = null)
         }
         
         $validator->addRule('officialCode', get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
-        $validator->addRule('username', get_lang('This username is already taken'), 'is_username_available', $userId);
+        $validator->addRule('username', get_lang('This user name is already taken'), 'is_username_available', $userId);
     }
     
     if ( $validator->validate() )
@@ -1096,7 +1095,7 @@ function user_html_form($userId = null)
     }
     else
     {
-        $editableFields = AuthProfileManager::getUserAuthProfile( $userId )->getEditableProfileFields(); // get_conf('profile_editable');
+        $editableFields = get_conf('profile_editable');
     }
     
     if (!empty($_SERVER['HTTP_REFERER']))
@@ -1471,12 +1470,12 @@ function claro_get_user_course_list($user_id = null)
     {
         $user_id = claro_get_current_user_id();
     }
-    
+
     $tbl_mdb_names       = claro_sql_get_main_tbl();
-    
+
     $tbl_course          = $tbl_mdb_names['course'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
-    
+
     $sql = "SELECT course.cours_id             AS courseId,
                    course.code                 AS sysCode,
                    course.isSourceCourse       AS isSourceCourse,

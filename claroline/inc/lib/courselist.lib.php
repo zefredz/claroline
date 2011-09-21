@@ -390,6 +390,112 @@ function build_category_trail($categoriesList, $requiredId)
 }
 
 
+/**
+ * Return course informations in <dt> and <dd> html tags.
+ * Use it in a <dl> tag (description list).
+ *
+ * @param $course
+ * @param $hot
+ * @param $displayIconAccess
+ * @return string
+ */
+function render_course_in_dl_list($course, $hot = false, $displayIconAccess = true)
+{
+    JavascriptLoader::getInstance()->load('jquery.qtip');
+    
+    $out = '';
+    
+    $classItem = ($hot) ? 'hot' : '';
+    
+    $langNameOfLang = get_locale('langNameOfLang');
+    
+    // Display a manager icon if the user is manager of the course
+    $userStatusImg = (isset($course['isCourseManager']) && $course['isCourseManager'] == 1 ) ?
+        ('&nbsp;&nbsp;<img class="qtip" src="' . get_icon_url('manager') . '" alt="'.get_lang('You are manager of this course').'" />') :
+        ('');
+    
+    // Show course language if not the same of the platform
+    if ( (get_conf('platformLanguage') != $course['language']) || get_conf('showAlwaysLanguageInCourseList',false) )
+    {
+        $courseLanguageTxt = (!empty($langNameOfLang[$course['language']])) ?
+            (' - ' . ucfirst($langNameOfLang[$course['language']])) :
+            (' - ' . ucfirst($course['language']));
+    }
+    else
+    {
+        $courseLanguageTxt = '';
+    }
+    
+    // Display the course title following the platform configuration requirements
+    $courseTitle = (get_conf('course_order_by') == 'official_code') ?
+        ($course['officialCode'] . ' - ' . $course['title']) :
+        ($course['title'] . ' (' . $course['officialCode'] . ')');
+    
+    $url = get_path('url') . '/claroline/course/index.php?cid='
+         . htmlspecialchars($course['sysCode']);
+    
+    // Display an icon following the course's access settings
+    $iconUrl = ($displayIconAccess) ?
+        (get_course_access_icon( $course['access'] )) :
+        (get_icon_url('course'));
+    
+    // Display course's manager email
+    $managerString = (isset($course['email']) && claro_is_user_authenticated()) ?
+        ('<a href="mailto:' . $course['email'] . '">' . $course['titular'] . '</a>') :
+        (htmlspecialchars( $course['titular'] . $courseLanguageTxt ));
+    
+    // Don't give a link to the course if the user is in pending state
+    $isUserPending = ($course['access'] == 'private' && isset($course['isPending']) && $course['isPending'] == 1) ?
+                     (true) :
+                     (false);
+    
+    if ( $isUserPending )
+    {
+        $courseLink = '<a>'
+                    . htmlspecialchars($courseTitle)
+                    . '</a> Blabla '
+                    . $userStatusImg
+                    . ' ['.get_lang('Pending registration').']' . "\n";
+    }
+    else
+    {
+        $courseLink = '<a href="' . htmlspecialchars( $url ) . '">'
+                    . htmlspecialchars($courseTitle)
+                    . '</a>'
+                    . $userStatusImg . "\n";
+    }
+    
+    // Make a nice explicit sentence about the course's access
+    if ($course['access'] == 'public')
+    {
+        $courseAccess = get_lang('Access allowed to anybody (even without login)');
+    }
+    elseif ($course['access'] == 'platform')
+    {
+        $courseAccess = get_lang('Access allowed only to platform members (user registered to the platform)');
+    }
+    elseif ($course['access'] == 'private')
+    {
+        $courseAccess = get_lang('Access allowed only to course members (people on the course user list)');
+    }
+    else
+    {
+        $courseAccess = $course['access'];
+    }
+    
+    
+    $out .= '<dt>' . "\n"
+          . '<img class="qtip iconDefinitionList" src="' . $iconUrl . '" alt="'.$courseAccess.'" /> '
+          . '<span'.(!empty($classItem) ? ' class="'.$classItem.'"' : '').'>'.$courseLink . '</span>' . "\n"
+          . '</dt>' . "\n"
+          . '<dd>'
+          . $managerString
+          . '</dd>' . "\n";
+    
+    return $out;
+}
+
+
 function is_user_allowed_to_see_desactivated_course( $course )
 {
     return claro_is_platform_admin() || $course['isCourseManager'] == '1'
@@ -411,7 +517,7 @@ function render_user_course_list_desactivated()
     //display list
     if (!empty($personnalCourseList) && is_array($personnalCourseList))
     {
-        $out .= '<dl class="courseList">'."\n";
+        $out .= '<dl class="userCourseList">'."\n";
         
         foreach($personnalCourseList as $course)
         {
@@ -563,8 +669,7 @@ function render_user_course_list()
     
     // Use the course id as array index, exclude disable courses
     // and flag hot courses
-    $reorganizedUserCourseList  = array();
-    $tempSessionCourses         = array();
+    $reorganizedUserCourseList = array();
     foreach ($userCourseList as $course)
     {
         // Do not include "disable", "pending", "trash" or "date" courses
@@ -579,53 +684,16 @@ function render_user_course_list()
             )
         );
         
-        // Flag hot courses
-        $course['hot'] = (bool) in_array($course['sysCode'], $modified_course);
-        
         if (!isset($reorganizedUserCourseList[$course['courseId']]) && $courseIsEnable)
         {
-            // If it's not a session course, include it in the final list
-            if (empty($course['sourceCourseId']))
-            {
-                $reorganizedUserCourseList[$course['courseId']] = $course;
-            }
-            // If it's a session course, put it aside for now,
-            // we'll get back to it later
-            else
-            {
-                $tempSessionCourses[$course['sourceCourseId']][] = $course;
-            }
+            // Flag hot courses
+            $course['hot'] = (bool) in_array($course['sysCode'], $modified_course);
+            
+            // Finaly, include the course in the final list
+            $reorganizedUserCourseList[$course['courseId']] = $course;
         }
     }
     unset($userCourseList);
-    
-    // Merge courses and their session courses (if any)
-    foreach ($tempSessionCourses as $sourceCourseId => $sessionCourses)
-    {
-        /*
-         * Sometimes, a session course could not find its associated source
-         * course in the user course list.  Simply because, for some reason,
-         * this user isn't registered to the source course anymore, but is
-         * still registered in the session course.
-         */
-        if (!empty($reorganizedUserCourseList[$sourceCourseId]))
-        {
-            $reorganizedUserCourseList[$sourceCourseId]['sessionCourses'] = $sessionCourses;
-        }
-        else
-        {
-            foreach ($sessionCourses as $course)
-            {
-                $reorganizedUserCourseList[$course['courseId']] = $course;
-            }
-        }
-    }
-    unset($tempSessionCourses);
-    
-    
-    // Now, $reorganizedUserCourseList contains all user's courses and, for
-    // each course, its eventual session courses.
-    
     
     // Get the categories informations for these courses
     $userCategoryList   = ClaroCategory::getCoursesCategories($reorganizedUserCourseList);
@@ -690,64 +758,57 @@ function render_user_course_list()
     }
     unset($userCategoryList);
     
-    
-    // Display
     $out = '';
     
-    // Courses organized by categories
+    // Display
     if( get_conf('userCourseListGroupByCategories') )
     {
-        if (count($reorganizedUserCategoryList) > 0)
+        foreach ($reorganizedUserCategoryList as $category)
         {
-            $out .= '<dl class="courseList">';
-            
-            foreach ($reorganizedUserCategoryList as $category)
+            if (!empty($category['courseList']) || !empty($category['rootCourse']))
             {
+                $out .= '<h4 id="'.$category['categoryId'].'">'
+                      . $category['trail']
+                      . (!empty($category['rootCourse']) ?
+                      ' [<a href="'
+                      . get_path('url') . '/claroline/course/index.php?cid='
+                      . htmlspecialchars($category['rootCourse']['sysCode'])
+                      .'">'.get_lang('Infos').'</a>]' :
+                      '')
+                      . '</h4>'."\n"
+                      . '<dl class="userCourseList">';
                 
-                if (!empty($category['courseList']) || !empty($category['rootCourse']))
+                if (!empty($category['courseList']))
                 {
-                    $out .= '<dt>'."\n"
-                          . '<h4 id="'.$category['categoryId'].'">'
-                          . $category['trail']
-                          . (!empty($category['rootCourse']) ?
-                          ' [<a href="'
-                          . get_path('url') . '/claroline/course/index.php?cid='
-                          . htmlspecialchars($category['rootCourse']['sysCode'])
-                          .'">'.get_lang('Infos').'</a>]' :
-                          '')
-                          . '</h4>'."\n"
-                          . '</dt>'."\n";
-                    
-                    if (!empty($category['courseList']))
+                    foreach ($category['courseList'] as $course)
                     {
-                        foreach ($category['courseList'] as $course)
-                        {
-                            $out .= render_course_in_dl_list($course, $course['hot']);
-                        }
-                    }
-                    else
-                    {
-                        $out .= '<dt>'.get_lang('There are no courses in this category').'</dt>';
+                        $out .= render_course_in_dl_list($course, $course['hot']);
                     }
                 }
+                else
+                {
+                    $out .= '<dt>'.get_lang('There are no courses in this category').'</dt>';
+                }
             }
-            
+            $out .= '</dl>';
         }
-        
-        $out .= '</dl>';
     }
-    // Simple course list
     else
     {
-        if (count($reorganizedUserCourseList) > 0)
+        // Display list
+        if (count($reorganizedUserCourseList))
         {
-            $out .= '<dl class="courseList">';
+            $out .= '<dl class="userCourseList">'."\n";
             
             foreach($reorganizedUserCourseList as $course)
             {
-                $displayIconAccess = ($course['isCourseManager'] || claro_is_platform_admin()) ?
-                    (true) : (false);
-                $out .= render_course_in_dl_list($course, $course['hot'], $displayIconAccess);
+                if (($course['rootCourse'] != 1 && $course['isSourceCourse'] != 1)
+                    || $course['isCourseManager'])
+                {
+                    $displayIconAccess = ($course['isCourseManager'] || claro_is_platform_admin()) ?
+                        (true) : (false);
+                    $out .= render_course_in_dl_list($course, $course['hot'], $displayIconAccess);
+                }
             }
             
             $out .= '</dl>' . "\n";
@@ -759,177 +820,38 @@ function render_user_course_list()
 
 
 /**
- * Return course informations in <dt> and <dd> html tags.
- * Use it in a <dl> tag (description list).
- *
- * @param $course
- * @param $hot
- * @param $displayIconAccess
- * @return string
- */
-function render_course_in_dl_list($course, $hot = false, $displayIconAccess = true)
-{
-    $out = '';
-    
-    $classItem = ($hot) ? 'hot' : '';
-    
-    $langNameOfLang = get_locale('langNameOfLang');
-    
-    // Display a manager icon if the user is manager of the course
-    $userStatusImg = (isset($course['isCourseManager']) && $course['isCourseManager'] == 1 ) ?
-        ('&nbsp;&nbsp;<img class="qtip action" src="' . get_icon_url('manager') . '" alt="'.get_lang('You are manager of this course').'" />') :
-        ('');
-    
-    // Show course language if not the same of the platform
-    if ( (get_conf('platformLanguage') != $course['language']) || get_conf('showAlwaysLanguageInCourseList',false) )
-    {
-        $courseLanguageTxt = (!empty($langNameOfLang[$course['language']])) ?
-            (' &ndash; ' . htmlspecialchars(ucfirst($langNameOfLang[$course['language']]))) :
-            (' &ndash; ' . htmlspecialchars(ucfirst($course['language'])));
-    }
-    else
-    {
-        $courseLanguageTxt = '';
-    }
-    
-    // Display the course title following the platform configuration requirements
-    $courseTitle = (get_conf('course_order_by') == 'official_code') ?
-        ($course['officialCode'] . ' - ' . $course['title']) :
-        ($course['title'] . ' (' . $course['officialCode'] . ')');
-    
-    $url = get_path('url') . '/claroline/course/index.php?cid='
-         . htmlspecialchars($course['sysCode']);
-    
-    // Display an icon following the course's access settings
-    $iconUrl = ($displayIconAccess) ?
-        (get_course_access_icon( $course['access'] )) :
-        (get_icon_url('course'));
-    
-    // Display course's manager email
-    $managerString = (isset($course['email']) && claro_is_user_authenticated()) ?
-        ('<a href="mailto:' . $course['email'] . '">' . $course['titular'] . '</a>') :
-        ( $course['titular'] . $courseLanguageTxt );
-    
-    // Don't give a link to the course if the user is in pending state
-    $isUserPending = ($course['access'] == 'private' && isset($course['isPending']) && $course['isPending'] == 1) ?
-                     (true) :
-                     (false);
-    
-    if ( $isUserPending )
-    {
-        $courseLink = '<a>'
-                    . htmlspecialchars($courseTitle)
-                    . '</a> Blabla '
-                    . $userStatusImg
-                    . ' ['.get_lang('Pending registration').']' . "\n";
-    }
-    else
-    {
-        $courseLink = '<a href="' . htmlspecialchars( $url ) . '">'
-                    . htmlspecialchars($courseTitle)
-                    . '</a>'
-                    . $userStatusImg . "\n";
-    }
-    
-    // Make a nice explicit sentence about the course's access
-    if ($course['access'] == 'public')
-    {
-        $courseAccess = get_lang('Access allowed to anybody (even without login)');
-    }
-    elseif ($course['access'] == 'platform')
-    {
-        $courseAccess = get_lang('Access allowed only to platform members (user registered to the platform)');
-    }
-    elseif ($course['access'] == 'private')
-    {
-        $courseAccess = get_lang('Access allowed only to course members (people on the course user list)');
-    }
-    else
-    {
-        $courseAccess = $course['access'];
-    }
-    
-    
-    $out .= '<dt>' . "\n"
-          . '<img class="qtip iconDefinitionList" src="' . $iconUrl . '" alt="'.$courseAccess.'" /> '
-          . '<span'.(!empty($classItem) ? ' class="'.$classItem.'"' : '').'>'.$courseLink . '</span>' . "\n"
-          . '</dt>' . "\n"
-          . '<dd>' . "\n"
-          . $managerString . "\n";
-          
-    if (!empty($course['sessionCourses']))
-    {
-        $out .= '<dl>' . "\n";
-        
-        foreach ($course['sessionCourses'] as $sessionCourse)
-        {
-            $out .= render_course_in_dl_list($sessionCourse, $sessionCourse['hot']) . "\n";
-        }
-        
-        $out .= '</dl>' . "\n";
-    }
-    
-    $out .= '</dd>' . "\n\n";
-    
-    return $out;
-}
-
-
-/**
  * Get an icon url according to a course access mode ('public', 'private' or 'platform')
  *
  * @param string $accessMode : label of the access mode for which an icon is asked for
  * @return string : the url to the icon
  */
-function get_course_access_icon($access)
+function get_course_access_icon( $accessMode )
 {
-    switch($access)
+    switch( $accessMode )
     {
         case 'private' :
-            $iconUrl = get_icon_url('access_locked');
+            $iconUrl = get_icon_url( 'access_locked' );
             break;
         case 'platform' :
-            $iconUrl = get_icon_url('access_platform');
+            $iconUrl = get_icon_url( 'access_platform' );
             break;
         case 'public' :
-            $iconUrl = get_icon_url('access_open');
+            $iconUrl = get_icon_url( 'access_open' );
             break;
         default :
-            $iconUrl = get_icon_url('course');
+            $iconUrl = get_icon_url( 'course' );
     }
-    
     return $iconUrl;
 }
 
 
-function get_course_access_mode_caption($access)
+function render_access_mode_caption_block()
 {
-    switch($access)
-    {
-        case 'private' :
-            $caption = get_lang('Access allowed only to course members (people on the course user list)');
-            break;
-        case 'platform' :
-            $caption = get_lang('Access allowed only to platform members (user registered to the platform)');
-            break;
-        case 'public' :
-            $caption = get_lang('Access allowed to anybody (even without login)');
-            break;
-        default :
-            $caption = $access;
-    }
-    
-    return $caption;
-}
-
-
-function get_course_locale_lang($language)
-{
-    $langNameOfLang = get_locale('langNameOfLang');
-    
-    $localeLang = (!empty($langNameOfLang[$language])) ?
-        (ucfirst($langNameOfLang[$language])) :
-        (ucfirst($language));
-    
-    return $localeLang;
+    $block = '<fieldset class="captionBlock">' . "\n"
+           . '<legend>' . get_lang( 'Caption' ) . '</legend>' . "\n"
+           . '<img class="iconDefinitionList" src="' . get_course_access_icon('public') . '" alt="public" />' . get_lang( 'Access allowed to anybody (even without login)' ) . '<br />' . "\n"
+           . '<img class="iconDefinitionList" src="' . get_course_access_icon('platform') . '" alt="restricted" />' . get_lang( 'Access allowed only to platform members (user registered to the platform)' ) . '<br />' . "\n"
+           . '<img class="iconDefinitionList" src="' . get_course_access_icon('private') . '"  alt="locked" />' . get_lang( 'Access allowed only to course members (people on the course user list)' ) . "\n"
+           . '</fieldset>';
+    return $block;
 }

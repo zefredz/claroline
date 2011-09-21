@@ -3,8 +3,7 @@
 /**
  * CLAROLINE
  *
- * Manage tools' introductions.
- * Caution: this module uses two labels: CLINTRO and CLTI.
+ * Manage tools' introductions
  *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -29,8 +28,8 @@ $nameTools = get_lang('Headlines');
 // Initialisation of variables and used classes and libraries
 require_once get_module_path('CLTI').'/lib/toolintroductioniterator.class.php';
 
-$id                 = isset($_REQUEST['id'])  ? (int) $_REQUEST['id'] : 0;
-$cmd                = (!empty($_REQUEST['cmd'])?($_REQUEST['cmd']):(null));
+$introId            = (!empty($_REQUEST['introId'])?((int) $_REQUEST['introId']):(null));
+$introCmd           = (!empty($_REQUEST['introCmd'])?($_REQUEST['introCmd']):(null));
 $isAllowedToEdit    = claro_is_allowed_to_edit();
 
 set_current_module_label('CLINTRO');
@@ -39,48 +38,39 @@ set_current_module_label('CLINTRO');
 FromKernel::uses('core/linker.lib');
 ResourceLinker::init();
 
-// Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure to delete %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
-
-JavascriptLoader::getInstance()->load('tool_intro');
-
 // Instanciate dialog box
 $dialogBox = new DialogBox();
 
-$toolIntroForm = '';
 
-if ( isset( $cmd ) && $isAllowedToEdit )
+
+if (isset($introCmd) && $isAllowedToEdit)
 {
     // Set linker's params
-    if ( $id )
+    if ($introId)
     {
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
-            array('id' => (int) $id));
-    }
-    else
-    {
-        $currentLocator = null;
+            array('id' => (int) $introId));
+        
+        ResourceLinker::setCurrentLocator($currentLocator);
     }
     
     // CRUD
-    if ( $cmd == 'rqAdd' )
+    if ($introCmd == 'rqAdd')
     {
         $toolIntro = new ToolIntro();
         $toolIntroForm = $toolIntro->renderForm();
     }
-    elseif ( $cmd == 'rqEd' )
+    
+    if ($introCmd == 'rqEd')
     {
-        
-        ResourceLinker::setCurrentLocator($currentLocator);
-        $toolIntro = new ToolIntro($id);
+        $toolIntro = new ToolIntro($introId);
         if($toolIntro->load())
         {
             $toolIntroForm = $toolIntro->renderForm();
         }
     }
-    elseif ( $cmd == 'exAdd' )
+    
+    if ($introCmd == 'exAdd')
     {
         $toolIntro = new ToolIntro();
         $toolIntro->handleForm();
@@ -106,14 +96,15 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             $claroline->notifier->notifyCourseEvent('introsection_created', claro_get_current_course_id(), claro_get_current_tool_id(), $toolIntro->getId(), claro_get_current_group_id(), '0');
         }
     }
-    elseif ( $cmd == 'exEd' )
+    
+    if ($introCmd == 'exEd')
     {
-        $toolIntro = new ToolIntro($id);
+        $toolIntro = new ToolIntro($introId);
         $toolIntro->handleForm();
         
         //TODO inputs validation
         
-        if ( $toolIntro->save() )
+        if ($toolIntro->save())
         {
             $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
                 array( 'id' => (int) $toolIntro->getId() ) );
@@ -131,9 +122,10 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             $claroline->notifier->notifyCourseEvent('introsection_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $toolIntro->getId(), claro_get_current_group_id(), '0');
         }
     }
-    elseif ( $cmd == 'exDel' )
+    
+    if ($introCmd == 'exDel')
     {
-        $toolIntro = new ToolIntro($id);
+        $toolIntro = new ToolIntro($introId);
         
         if ($toolIntro->delete())
         {
@@ -142,11 +134,11 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             //TODO linker_delete_resource('CLINTRO_');
         }
     }
+    
     // Modify rank and visibility
-    elseif ( $cmd == 'exMvUp' )
+    if ($introCmd == 'exMvUp')
     {
-        $toolIntro = new ToolIntro($id);
-        
+        $toolIntro = new ToolIntro($introId);
         if($toolIntro->load())
         {
             if ($toolIntro->moveUp())
@@ -159,10 +151,11 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             }
         }
     }
-    elseif ( $cmd == 'exMvDown' )
+    
+    if ($introCmd == 'exMvDown')
     {
-        $toolIntro = new ToolIntro($id);
-        
+        $toolIntro = new ToolIntro($introId);
+        $toolIntro->load();
         if($toolIntro->load())
         {
             if ($toolIntro->moveDown())
@@ -175,9 +168,10 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             }
         }
     }
-    elseif ( $cmd == 'mkVisible' )
+    
+    if ($introCmd == 'mkVisible')
     {
-        $toolIntro = new ToolIntro($id);
+        $toolIntro = new ToolIntro($introId);
         
         if ($toolIntro->load())
         {
@@ -193,9 +187,10 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             }
         }
     }
-    elseif ( $cmd == 'mkInvisible' )
+    
+    if ($introCmd == 'mkInvisible')
     {
-        $toolIntro = new ToolIntro($id);
+        $toolIntro = new ToolIntro($introId);
         
         if ($toolIntro->load())
         {
@@ -213,50 +208,41 @@ if ( isset( $cmd ) && $isAllowedToEdit )
     }
 }
 
-
-
 // Display
-$cmdList = array();
-
-if (claro_is_allowed_to_edit())
-{
-    $cmdList[] = array(
-        'img' => 'headline_new',
-        'name' => get_lang('New headline'),
-        'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?cmd=rqAdd'))
-    );
-}
-
 $toolIntroIterator = new ToolIntroductionIterator(claro_get_current_course_id());
 
-$toolIntroductionList = '';
+$toolIntroductions = '';
+$toolIntroForm = (empty($toolIntroForm) ? '' : $toolIntroForm);
 
 if ($toolIntroIterator->count() > 0)
 {
     foreach ($toolIntroIterator as $toolIntro)
     {
-        $toolIntroductionList .= $toolIntro->render();
+        $toolIntroductions .= $toolIntro->render();
     }
 }
 else
 {
-    // If there's no item, display the form to add one
     $toolIntro = new ToolIntro();
     
     $dialogBox->info(get_lang('There\'s no headline for this course right now.  Use the form below to add a new one.'));
     
-    $toolIntroForm = (empty($toolIntroForm) ? $toolIntro->renderForm() : $toolIntroForm);
+    $toolIntroForm = $toolIntro->renderForm();
 }
 
-Claroline::getDisplay()->body->appendContent(claro_html_tool_title(get_lang('Headlines'), null, $cmdList));
-Claroline::getDisplay()->body->appendContent($dialogBox->render());
-
 $output = '';
-$output .= $toolIntroForm
-         . $toolIntroductionList;
+$output .= $dialogBox->render()
+         . '<p>'
+         . '<a href="'
+         . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?introCmd=rqAdd')).'">'
+         . '<img src="' . get_icon_url('default_new') . '" alt="' . get_lang('New introduction') . '" /> '
+         . get_lang('New item').'</a>'
+         . '</p>'
+         . $toolIntroForm
+         . $toolIntroductions;
 
 // Append output
-Claroline::getDisplay()->body->appendContent($output);
+$claroline->display->body->appendContent($output);
 
 // Render output
 echo $claroline->display->render();

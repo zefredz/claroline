@@ -161,7 +161,7 @@ if ( DISP_REGISTRATION_SUCCEED == $display )
     if ( $mailSent )
     {
         $out .= '<br />' . "\n"
-              . get_lang('An email has been sent to help you remember your username and password.');
+              . get_lang('An email has been sent to help you remember your user name and password.');
     }
     
     $out .= '</p>' . "\n";

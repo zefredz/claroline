@@ -1,16 +1,18 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
- * @version     $Revision$
+ * @version 1.8 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sebastien <pir@cerdecam.be>
- * @author      Lederer Guillaume <led@cerdecam.be>
- * @package     CLLNP
- * @since       1.8
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
  */
 
 function lp_display_exercise($cmd, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEASSET, $tbl_quiz_exercise)
@@ -91,3 +93,4 @@ function lp_display_exercise($cmd, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEAS
     return $out;
 }
 
+?>

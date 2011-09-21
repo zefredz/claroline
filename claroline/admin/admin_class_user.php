@@ -30,12 +30,18 @@ $tbl_user       = $tbl_mdb_names['user'];
 $tbl_class      = $tbl_mdb_names['user_category'];
 $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 
-// Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure you want to unregister %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+// javascript confirm pop up declaration
 
-JavascriptLoader::getInstance()->load('admin');
+$htmlHeadXtra[] =
+         "<script>
+         function confirmationUnReg (name)
+         {
+             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))."\"+ name + \"? \"))
+                 {return true;}
+             else
+                 {return false;}
+         }
+         </script>";
 
 //------------------------------------
 // Main section
@@ -182,7 +188,7 @@ $cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'
 .             '</a>'
 ;
 
-$cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'user/addcsvusers.php'
+$cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'user/AddCSVusers.php'
 .             '?AddType=adminClassTool&amp;class_id='.$class_id.'">'
 .             '<img src="' . get_icon_url('import_list') . '" /> '
 .             get_lang('Add a user list in class')
@@ -241,7 +247,7 @@ if ( !empty($class_id) )
     // start table...
     $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
     .    '<thead>'
-    .    '<tr align="center" valign="top">'
+    .    '<tr class="headerX" align="center" valign="top">'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=user_id&amp;chdir=yes">' . get_lang('User id') . '</a></th>'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=nom&amp;chdir=yes">' . get_lang('Last name') . '</a></th>'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=prenom&amp;chdir=yes">' . get_lang('First name') . '</a></th>'
@@ -268,7 +274,7 @@ if ( !empty($class_id) )
          .    '<td align="center">'  ."\n"
          .    '<a href="'.$_SERVER['PHP_SELF']
          .    '?cmd=unsubscribe&amp;offset='.$offset.'&amp;user_id='.$list['user_id'].'&amp;class_id='.$class_id.'" '
-         .    ' onclick="return ADMIN.confirmationUnReg(\''.clean_str_for_javascript($list['prenom'] . ' ' . $list['nom']).'\');">' . "\n"
+         .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($list['prenom'] . ' ' . $list['nom']).'\');">' . "\n"
          .    '<img src="' . get_icon_url('unenroll') . '" alt="" />' . "\n"
          .    '</a>' . "\n"
          .    '</td></tr>' . "\n"

@@ -65,28 +65,7 @@ try
 
     //collect user input
     $cmd = $userInput->get( 'cmd', 'show' );
-    
-    try
-    {
-        $forumId = $userInput->getMandatory( 'forum' );
-    }
-    catch( Exception $e )
-    {
-        if ( ! isset( $forumId ) &&  claro_is_in_a_group() && claro_is_group_allowed() )
-        {
-            $forumId = claro_get_current_group_data( 'forumId' );
-            
-            if ( ! $forumId )
-            {
-                throw $e;
-            }
-        }
-        else
-        {
-            throw $e;
-        }
-    }
-    
+    $forumId = $userInput->getMandatory( 'forum' );
     $start = $userInput->get( 'start', 0 );
     //TODO notification commands should be handled by ajax calls
     if( !in_array( $cmd, array( 'exNotify', 'exdoNotNotify', 'show' ) ) )
@@ -277,7 +256,7 @@ $nameTools = get_lang( 'Forums' );
 
 $pagetype = 'viewforum';
 
-$out .= claro_html_tool_title( get_lang( 'Forums' ), $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : false );
+$out .= claro_html_tool_title( get_lang( 'Forums' ), $is_allowedToEdit ? 'help_forum.php' : false );
 
 if( !$viewAllowed )
 {
@@ -306,6 +285,13 @@ else
     $out .= disp_forum_breadcrumb( $pagetype, $forumId, $forum_name );
     
     $out .= $dialogBox->render();
+
+    //display group tools if in group context
+    if( $currentContext == CLARO_CONTEXT_GROUP )
+    {
+        $groupToolList = forum_group_tool_list( claro_get_current_group_id() );
+        $out .= '<p>' . claro_html_menu_horizontal( $groupToolList ) .'</p>';
+    }
 
     if( $forum_post_allowed )
     {

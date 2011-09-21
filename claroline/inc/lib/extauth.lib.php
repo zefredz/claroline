@@ -1,11 +1,9 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
- *
  * External Authentication library
  *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html

@@ -1,5 +1,5 @@
 <?php // $Id$
-
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -55,7 +55,7 @@ function delete_course($code, $sourceCourseId)
     $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
 
     $this_course = claro_get_course_data($code);
-    $currentCourseId = trim( $this_course['sysCode'] );
+    $currentCourseId = $this_course['sysCode'];
     
     if ( empty( $currentCourseId ) )
     {
@@ -123,7 +123,7 @@ function delete_course($code, $sourceCourseId)
 
     $eventNotifier->notifyEvent("course_deleted",$args);
 
-    if ( $currentCourseId == $code )
+    if ($currentCourseId == $code)
     {
         $currentCourseDbName    = trim($this_course['dbName']);
         $currentCourseDbNameGlu = trim($this_course['dbNameGlu']);
@@ -141,7 +141,7 @@ function delete_course($code, $sourceCourseId)
             throw new Exception("Missing db name glu");
         }
 
-        if( get_conf( 'singleDbEnabled' ) )
+        if(get_conf('singleDbEnabled'))
         // IF THE PLATFORM IS IN MONO DATABASE MODE
         {
             // SEARCH ALL TABLES RELATED TO THE CURRENT COURSE
@@ -161,25 +161,18 @@ function delete_course($code, $sourceCourseId)
             
             // DELETE ALL TABLES OF THE CURRENT COURSE
             $tblSurvivor = array();
-            
             while( false !== ($courseTable = mysql_fetch_array($result,MYSQL_NUM ) ))
             {
                 $tblSurvivor[]=$courseTable[0];
                 //$tblSurvivor[$courseTable]='not deleted';
             }
-            
-            if ( sizeof( $tblSurvivor ) > 0 )
+            if (sizeof($tblSurvivor) > 0)
             {
-                Claroline::getInstance()->log( 
-                    'DELETE_COURSE', 
-                    array_merge(
-                        array (
-                            'DELETED_COURSE_CODE' => $code,
-                            'UNDELETED_TABLE_COUNTER' => sizeof( $tblSurvivor )
-                        ), 
-                        
-                        $tblSurvivor 
-                    )
+                Claroline::getInstance()->log( 'DELETE_COURSE'
+                , array_merge(array ('DELETED_COURSE_CODE'=>$code
+                ,'UNDELETED_TABLE_COUNTER'=>sizeof($tblSurvivor)
+                )
+                , $tblSurvivor )
                 );
             }
         }
@@ -192,32 +185,28 @@ function delete_course($code, $sourceCourseId)
 
         // MOVE THE COURSE DIRECTORY INTO THE COURSE GARBAGE COLLECTOR
 
-        if( !empty( $currentCoursePath ) )
-        {
-            if ( file_exists(get_conf('coursesRepositorySys') . $currentCoursePath . '/') )
-            {
-                claro_mkdir( get_conf('garbageRepositorySys'), CLARO_FILE_PERMISSIONS, true );
-
-                rename (
-                    get_conf('coursesRepositorySys') . $currentCoursePath . '/',
-                    get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')
-                );
-                
-                return true ;
-            }
-            else
-            {
-                Console::warning( "DELETE_COURSE : Course directory not found {$currentCoursePath} for course {$currentCourseId}");
-                
-                return true;
-            }
-        }
-        else
+        if ( empty( $currentCoursePath ) )
         {
             Console::error("DELETE_COURSE : Try to delete a course repository with no folder name {$currentCourseId} !");
             
             return true;
         }
+
+        if( file_exists(get_conf('coursesRepositorySys') . $currentCoursePath . '/') )
+        {
+            claro_mkdir(get_conf('garbageRepositorySys'), CLARO_FILE_PERMISSIONS, true);
+
+            rename(get_conf('coursesRepositorySys') . $currentCoursePath . '/',
+            get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')
+            );
+        }
+        else
+        {
+            Console::warning( "DELETE_COURSE : Course directory not found {$currentCoursePath} for course {$currentCourseId}");
+        }
+        // else pushClaroMessage('dir was already deleted');
+
+        return true ;
     }
     else
     {
@@ -356,5 +345,3 @@ function pr_star_replace($string)
     $string = str_replace("*",'%', $string);
     return $string;
 }
-
-?>

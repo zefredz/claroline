@@ -5,7 +5,7 @@
  *
  * This script allows users to log on platform and back to requested ressource.
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLAUTH
@@ -13,7 +13,6 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-require_once get_path('incRepositorySys').'/lib/course_user.lib.php';
 
 // Keep the username in session
 if (isset($_REQUEST['login']))
@@ -198,20 +197,13 @@ else
         {
             if ( claro_is_user_authenticated() )
             {
-                if (claro_is_current_user_enrolment_pending())
-                {
-                    // enrolment pending message displayed by body.tpl
-                }
-                else
-                {
-                    // Display link to student to enrol to this course
-                    $out .= '<p align="center">' . "\n"
-                          . get_lang('Your user profile doesn\'t seem to be enrolled on this course').'<br />'
-                          . get_lang('If you wish to enrol on this course') . ' : '
-                          . ' <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
-                          . get_lang('Enrolment').'</a>' . "\n"
-                          . '</p>' . "\n";
-                }
+                // Display link to student to enrol to this course
+                $out .= '<p align="center">'           ."\n"
+                      . get_lang('Your user profile doesn\'t seem to be enrolled on this course').'<br />'
+                      . get_lang('If you wish to enrol on this course') . ' : '
+                      . ' <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
+                      . get_lang('Enrolment').'</a>' ."\n"
+                      . '</p>'          ."\n";
             }
             elseif ( get_conf('allowSelfReg') )
             {

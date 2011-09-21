@@ -44,11 +44,18 @@ include claro_get_conf_repository() . 'user_profile.conf.php';
    JavaScript - Delete Confirmation
   ----------------------------------------------------------------------*/
 
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure to delete %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
-
-JavascriptLoader::getInstance()->load('user');
+$htmlHeadXtra[] =
+'
+<script type="text/javascript">
+function confirmation (name)
+{
+    if (confirm(" ' . clean_str_for_javascript(get_lang('Are you sure to delete')) . ' "+ name + " ?"))
+        {return true;}
+    else
+        {return false;}
+}
+</script>
+';
 
 /*----------------------------------------------------------------------
    Variables
@@ -327,107 +334,94 @@ if ( count($userListId)> 0 )
 
 $nameTools = get_lang('Users');
 
-// Command list
-$cmdList = array();
-
-if ($is_allowedToEdit)
+if ($can_add_single_user)
 {
-    if ($can_add_single_user)
-    {
-    
-        // Add a user link
-        $cmdList[] = array(
-            'img' => 'user',
-            'name' => get_lang('Add a user'),
-            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR') . '/user_add.php'))
-        );
-    }
-    
-    if ($can_import_user_list)
-    {
-        // Add CSV file of user link
-        $cmdList[] = array(
-            'img' => 'import_list',
-            'name' => get_lang('Add a user list'),
-            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
-                .'/addcsvusers.php?AddType=userTool'))
-        );
-    }
-    
-    if ($can_export_user_list)
-    {
-        // Export CSV file of user link
-        $cmdList[] = array(
-            'img' => 'export',
-            'name' => get_lang('Export user list'),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=export'))
-        );
-    }
-    
-    if ($can_import_user_class)
-    {
-        // Add a class link
-        $cmdList[] = array(
-            'img' => 'class',
-            'name' => get_lang('Enrol class'),
-            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
-                . '/class_add.php'))
-        );
-    }
-    
-    if ($can_send_message_to_course)
-    {
-        // Main group settings
-        $cmdList[] = array(
-            'img' => 'mail_send',
-            'name' => get_lang("Send a message to the course"),
-            'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
-                . 'messaging/sendmessage.php?cmd=rqMessageToCourse'))
-        );
-    }
-    
-    $cmdList[] = array(
-        'img' => 'group',
-        'name' => get_lang('Group management'),
-        'url' => htmlspecialchars(Url::Contextualize(get_module_entry_url('CLGRP')))
-    );
-    
-    $cmdList[] = array(
-        'img' => 'unenroll',
-        'name' => get_lang('Unregister all students'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-            . '?cmd=unregister&amp;user_id=allStudent'))
-    );
+
+    // Add a user link
+    $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(get_module_url('CLUSR').'/user_add.php'))
+                                     , '<img src="' . get_icon_url('user') . '" alt="" />'
+                                     . get_lang('Add a user')
+                                     )
+                                     ;
 }
 
-if ( get_conf('allow_profile_picture', true) )
+if ($can_import_user_list)
 {
-    $cmdList[] = array(
-        'img' => 'picture',
-        'name' => get_lang('Users\' pictures'),
-        'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
-            . 'user/user_pictures.php'))
-    );
+    // Add CSV file of user link
+    $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+                                        get_module_url('CLUSR').'/AddCSVusers.php'
+                                         . '?AddType=userTool'))
+                                     , '<img src="' . get_icon_url('import_list') . '" alt="" />'
+                                     . get_lang('Add a user list')
+                                     );
 }
 
-// Tool name
-$titleParts = array(
-    'mainTitle' => $nameTools,
-    'subTitle' => '(' . get_lang('number') . ' : ' . $userTotalNb . ')'
-);
+if ($can_export_user_list)
+{
+    // Export CSV file of user link
+    $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+                                        $_SERVER['PHP_SELF'] . '?cmd=export' ))
+                                     , '<img src="' . get_icon_url('export') . '" alt="" />'
+                                     . get_lang('Export user list')
+                                     );
+}
 
-// Help url
-$helpUrl = $is_allowedToEdit ? get_help_page_url('blockUsersHelp', 'CLUSR') : null;
+if ($can_import_user_class)
+{
+    // Add a class link
+    $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+                                        get_module_url('CLUSR') . '/class_add.php' ))
+                                     , '<img src="' . get_icon_url('class') . '" alt="" />'
+                                     . get_lang('Enrol class')
+                                     );
+}
+
+if ($can_send_message_to_course)
+{
+    // Main group settings
+    $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+                                     get_path('clarolineRepositoryWeb') . 'messaging/sendmessage.php?cmd=rqMessageToCourse' ))
+                                     , '<img src="' . get_icon_url('mail_send') . '" alt="" />'
+                                     . get_lang("Send a message to the course")
+                                     );
+}
+
+$userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize( get_module_entry_url('CLGRP') ))
+                                 , '<img src="' . get_icon_url('group') . '" alt="" />'
+                                 . get_lang('Group management')
+                                 );
+
+$userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                                 . '?cmd=unregister&amp;user_id=allStudent' ))
+                                 , '<img src="' . get_icon_url('unenroll') . '" alt="" />'
+                                 . get_lang('Unregister all students')
+                                 , array('onclick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
+                                 );
+
 
 /*=====================================================================
 Display section
   =====================================================================*/
 
 $out = '';
-$out .= claro_html_tool_title($titleParts, $helpUrl, $cmdList, 3);
 
-// Display Forms or dialog box (if needed)
+$out .= claro_html_tool_title($nameTools
+      . ' (' . get_lang('number') . ' : ' . $userTotalNb
+      . ')', $is_allowedToEdit ? 'help_user.php' : false);
+
+// Display Forms or dialog box(if needed)
 $out .= $dialogBox->render();
+
+// Display tool links
+if ( $disp_tool_link ) $out .= claro_html_menu_horizontal($userMenu);
+
+// Display link to the users' pictures
+$out .= '<br/>'
+      . claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+            get_path('clarolineRepositoryWeb') . 'user/user_pictures.php'
+            ))
+            , '<img src="' . get_icon_url('picture') . '" alt="" />'
+            . get_lang('Users\' pictures'));
 
 
 /*----------------------------------------------------------------------
@@ -459,8 +453,12 @@ if ( $is_allowedToEdit ) // EDIT COMMANDS
     $out .= '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['tutor'])).'">'.get_lang('Group Tutor').'</a></th>'."\n"
        . '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['isCourseManager'])).'">'.get_lang('Course manager').'</a></th>'."\n"
        . '<th>'.get_lang('Edit').'</th>'."\n"
-       . '<th>'.get_lang('Unregister').'</th>'."\n"
-       . '<th>'.get_lang('Activation').'</th>'."\n" ;
+       . '<th>'.get_lang('Unregister').'</th>'."\n";
+       
+       if ($course['registration'] == 'validation')
+       {
+           $out .= '<th>'.get_lang('Validation').'</th>'."\n" ;
+       }
 }
 
 $out .= '</tr>'."\n"
@@ -479,14 +477,14 @@ reset($userList);
 
 foreach ( $userList as $thisUser )
 {
-    // Username column
+    // User name column
     $i++;
     $out .= '<tr align="center" valign="top">'."\n"
        . '<td align="left">'
        . '<img src="' . get_icon_url('user') . '" alt="" />'."\n"
        . '<small>' . $i . '</small>'."\n"
        . '&nbsp;';
-    
+
     if ( $is_allowedToEdit || get_conf('linkToUserInfo') )
     {
         $out .= '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?uInfo=' . (int) $thisUser['user_id'] )) . '">'
@@ -581,7 +579,7 @@ foreach ( $userList as $thisUser )
         {
             $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
             .    '?cmd=unregister&amp;user_id=' . $thisUser['user_id'] )) . '&amp;offset='.$offset . '" '
-            .    'onclick="return CLUSR.confirmation(\''.clean_str_for_javascript($thisUser['nom'].' '.$thisUser['prenom']).'\');">'
+            .    'onclick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
             .    '<img alt="' . get_lang('Unregister') . '" src="' . get_icon_url('unenroll') . '" />'
             .    '</a>'
             ;
@@ -590,41 +588,43 @@ foreach ( $userList as $thisUser )
         {
             $out .= '&nbsp;';
         }
-        
+
         $out .= '</td>' . "\n";
-        
+
         // User's validation column
-        $out .= '<td>' . "\n";
-        
-        if ($thisUser['user_id'] != claro_get_current_user_id())
+        if ($course['registration'] == 'validation')
         {
-            $icon = '';
-            $tips = '';
-            if ($thisUser['isPending'])
+            $out .= '<td>';
+            
+            if ($thisUser['user_id'] != claro_get_current_user_id())
             {
-                $icon = 'untick';
-                $tips = 'Enable this user';
+                $icon = '';
+                $tips = '';
+                if ($thisUser['isPending'])
+                {
+                    $icon = 'untick';
+                    $tips = 'Validate this user';
+                }
+                else
+                {
+                    $icon = 'tick';
+                    $tips = 'Unvalidate this user';
+                }
+                $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                .    '?cmd=validation&amp;user_id=' . $thisUser['user_id'] )) . '&amp;offset='.$offset . '" '
+                .    ' title="'.get_lang($tips).'">'
+                .    '<img alt="' . get_lang('Validation') . '" src="' . get_icon_url($icon) . '" />'
+                .    '</a>'
+                ;
             }
             else
             {
-                $icon = 'tick';
-                $tips = 'Disable this user';
+                $out .= '&nbsp;';
             }
-            
-            $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-            .    '?cmd=validation&amp;user_id=' . $thisUser['user_id'] )) . '&amp;offset='.$offset . '" '
-            .    ' title="'.get_lang($tips).'">'
-            .    '<img alt="' . get_lang('Validation') . '" src="' . get_icon_url($icon) . '" />'
-            .    '</a>'
-            ;
+    
+            $out .= '</td>' . "\n";
         }
-        else
-        {
-            $out .= '&nbsp;';
-        }
-        
-        $out .= '</td>' . "\n";
-        
+
     }  // END - is_allowedToEdit
 
     $out .= '</tr>'."\n";

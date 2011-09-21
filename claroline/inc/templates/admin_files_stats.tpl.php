@@ -1,36 +1,20 @@
 <!-- $Id$ -->
 
-<?php echo claro_html_tool_title(get_lang('Files statistics')); ?>
-
 <?php echo $this->dialogBox->render(); ?>
 
-<table style="margin: 5px 0 10px 0; padding: 0;">
-  <tr>
-    <td>
-        <form method="post" action="<?php echo $this->formAction; ?>">
-            <input type="hidden" name="cmd" id="cmd" value="run" />
-            <input type="hidden" name="viewAs" id="viewAs" value="html" />
-            <input type="submit" name="changeProperties" value="<?php echo get_lang('Get HTML statistics'); ?>" />
-        </form>
-    </td>
-    <td>
-        <form method="post" action="<?php echo $this->formAction; ?>">
-            <input type="hidden" name="cmd" id="cmd" value="run" />
-            <input type="hidden" name="viewAs" id="viewAs" value="csv" />
-            <input type="submit" name="changeProperties" value="<?php echo get_lang('Get CSV statistics'); ?>" />
-        </form>
-    </td>
-  </tr>
-</table>
+<p>
+    <?php echo get_lang('You\'ve chosen to isolate the following extensions: %types.  If you wish to modify these extensions, check the advanced platform settings', array('%types' => implode(', ', $this->extensions))); ?><br/>
+</p>
+<p>
+    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?view_as=csv"><?php echo get_lang('Export into CSV'); ?></a>
+</p>
 
-<?php if (!empty($this->stats)) : ?>
 <table class="claroTable emphaseLineemphaseLine">
 <thead>
-  <tr>
+  <tr class="headerX">
     <th><?php echo get_lang('Course code'); ?></th>
     <th><?php echo get_lang('Course title'); ?></th>
     <th><?php echo get_lang('Lecturer(s)'); ?></th>
-    <th><?php echo get_lang('Category'); ?></th>
     <?php
     foreach ($this->allExtensions as $ext) :
     ?>
@@ -43,8 +27,6 @@
     <th> </th>
     <th> </th>
     <th> </th>
-    <th> </th>
-
     <?php
     foreach ($this->allExtensions as $ext) :
     ?>
@@ -63,12 +45,6 @@
         <td style="font-weight: bold;"><?php echo $courseCode; ?></td>
         <td><?php echo $courseInfos['courseTitle']; ?></td>
         <td><?php echo $courseInfos['courseTitulars']; ?></td>
-        <td>
-        <?php
-        foreach ($courseInfos['courseCategory'] as $cat)
-            echo $cat . '<BR>';
-        ?>
-        </td>
         <?php
         foreach ($courseInfos['courseStats'] as $courseStats) :
         ?>
@@ -83,4 +59,3 @@
   ?>
 </tbody>
 </table>
-<?php endif; ?>

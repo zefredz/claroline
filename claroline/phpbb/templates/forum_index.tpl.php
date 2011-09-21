@@ -35,7 +35,7 @@ foreach( $this->categoryList as $thisCategory ) :
                 </a>&nbsp;
                 <?php endif;?>
                 <?php if( $thisCategory['cat_id'] == GROUP_FORUMS_CATEGORY ) : ?>
-                <a href="<?php echo htmlspecialchars( Url::Contextualize( get_module_url( 'CLGRP' ) . '/group.php' ) ) ?>">
+                <a href="<?php echo htmlspecialchars( htmlspecialchars( Url::Contextualize( get_module_url( 'CLGRP' ) . '/group.php' ) ) ) ?>">
                     <img src="<?php echo get_icon_url( 'group' ) ?>" alt="<?php echo get_lang( 'Groups' ) ?>" />
                 </a>&nbsp;
                 <?php endif; ?>
@@ -44,7 +44,7 @@ foreach( $this->categoryList as $thisCategory ) :
         <?php echo htmlspecialchars( $thisCategory['cat_title'] ); ?>
         </th>
     </tr>        
-    <?php if( $thisCategory['forum_count'] == 0 ) : ?>
+    <?php if( $thisCategory['forum_count'] == 0 ) : ?>   
     <tr>
         <td colspan="9" align="center"><?php echo get_lang( 'No forum' ) ?></td>
     </tr>
@@ -105,7 +105,7 @@ foreach( $this->categoryList as $thisCategory ) :
                             &nbsp;<small>(<?php echo get_lang( 'my supervision' ) ?>)</small>
                             <?php elseif( 'member' == $accessMode ) : ?>
                             &nbsp;<small>(<?php echo get_lang( 'my group' ) ?>)</small>
-                            <?php endif; ?>
+                            <?php endif; ?>                        
                         <?php endif; ?>
                     <?php else : ?>
                         <a href="<?php echo htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewforum.php?forum=' . $thisForum['forum_id'] ) ) ?>">
@@ -159,5 +159,5 @@ foreach( $this->categoryList as $thisCategory ) :
             <?php endif; ?>
         </tr>
     <?php endforeach; ?>
-<?php endforeach; ?>
+<?php endforeach; ?>            
 </table>

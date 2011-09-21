@@ -45,7 +45,7 @@ function agenda_get_item_list($context, $order='DESC')
         ORDER BY `day` " . ('DESC' == $order?'DESC':'ASC') . "
         , `hour` " . ('DESC' == $order?'DESC':'ASC');
 
-    return claro_sql_query_fetch_all($sql);
+    return claro_sql_query_fetch_all($sql); 
 }
 
 
@@ -319,7 +319,7 @@ function get_agenda_items_compact_mode($userCourseList, $month, $year)
                         'url' => get_path('url')
                                . '/claroline/calendar/agenda.php?cidReq='
                                . $thisCourse['sysCode']
-                               . '#item'.$thisEvent['id']
+                               . '#event'.$thisEvent['id']
                     );
 
             }
@@ -479,7 +479,7 @@ function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
 
     $htmlStream .= '</th>' . "\n"
     .    '</tr>' . "\n"
-    .    '<tr>' ."\n"
+    .    '<tr class="headerX">' ."\n"
     ;
 
     for ( $iterator = 1; $iterator < 8; $iterator++)

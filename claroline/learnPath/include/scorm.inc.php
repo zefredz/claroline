@@ -1,16 +1,18 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
- * @version     $Revision$
+ * @version 1.8 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sebastien <pir@cerdecam.be>
- * @author      Lederer Guillaume <led@cerdecam.be>
- * @package     CLLNP
- * @since       1.8
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
  */
 
 function lp_display_scorm( $TABLELEARNPATHMODULE )
@@ -52,7 +54,7 @@ function lp_display_scorm( $TABLELEARNPATHMODULE )
         && $learningPath_module[0]['lock'] == 'CLOSE'
         && isset($learningPath_module[0]['raw_to_pass']) ) // this module blocks the user if he doesn't complete
     {
-        $out .= "\n\n"
+        $out .= "\n\n" 
         .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
         .    '<label for="newRaw">' . get_lang('Change minimum raw mark to pass this module (percentage) : ') . '</label>'."\n"
         .    '<input type="text" value="' . htmlspecialchars($learningPath_module[0]['raw_to_pass']) . '" name="newRaw" id="newRaw" size="3" maxlength="3" /> % ' . "\n"
@@ -65,3 +67,5 @@ function lp_display_scorm( $TABLELEARNPATHMODULE )
 }
 
 
+
+?>

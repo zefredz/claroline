@@ -64,10 +64,10 @@ if (false !== $rs = $rss->get($urlNewsClaroline))
         $date = strtotime($item['pubDate']);
 
         $out .= '<div class="claroBlock">'."\n"
-            .'<h3 class="blockHeader">'."\n"
+            .'<h4 class="claroBlockHeader">'."\n"
             .'<a href="'.$href.'">'.$title.'</a>'."\n"
             .'<small> - '.claro_html_localised_date(get_locale('dateFormatLong'),$date).'</small>'."\n"
-            .'</h3>'."\n"
+            .'</h4>'."\n"
             .'<div class="claroBlockContent">' . "\n"
             .$summary."\n"
             .'</div>'."\n"

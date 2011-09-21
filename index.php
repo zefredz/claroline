@@ -3,7 +3,7 @@
 /**
  * CLAROLINE
  *
- * Campus Home Page.
+ * Campus Home Page
  *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -22,13 +22,12 @@ $_SESSION['courseSessionCode'] = null;
 // Include Library and configuration files
 require './claroline/inc/claro_init_global.inc.php'; // main init
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
-require_once dirname(__FILE__) . '/claroline/inc/lib/coursesearchbox.class.php';
 
 
 if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
 {
     require_once get_path('incRepositorySys') . '/lib/courselist.lib.php';
-    JavascriptLoader::getInstance()->load('course_list');
+    JavascriptLoader::getInstance()->load('courseList');
     
     // Main template
     $template = new CoreTemplate('platform_index.tpl.php');
@@ -37,14 +36,6 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
     $template->assign('languages', get_language_to_display_list());
     $template->assign('currentLanguage', language::current_language());
     
-    // Last user action
-    $lastUserAction = (isset($_SESSION['last_action']) && $_SESSION['last_action'] != '1970-01-01 00:00:00') ?
-        $_SESSION['last_action'] :
-        date('Y-m-d H:i:s');
-    
-    $template->assign('lastUserAction', $lastUserAction);
-    
-    
     // Category browser
     $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
     $categoryBrowser = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
@@ -52,15 +43,8 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
     
     $template->assign('templateCategoryBrowser', $templateCategoryBrowser);
     
-    
-    // Manage the search box and search results
-    $searchBox = new CourseSearchBox($_SERVER['REQUEST_URI']);
-    
-    $template->assign('templateCourseSearchBox', $searchBox->getTemplate());
-    
-    
-    // User course (activated and deactivated) lists and search results (if any)
-    $userCourseList             = render_user_course_list();
+    // User course (activated and deactivated) lists
+    $userCourseList = render_user_course_list();
     $userCourseListDesactivated = render_user_course_list_desactivated();
     
     $templateMyCourses = new CoreTemplate('mycourses.tpl.php');
@@ -68,6 +52,13 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
     $templateMyCourses->assign('userCourseListDesactivated', $userCourseListDesactivated);
     
     $template->assign('templateMyCourses', $templateMyCourses);
+    
+    // Last user action
+    $lastUserAction = ($_SESSION['last_action'] != '1970-01-01 00:00:00') ?
+        $_SESSION['last_action'] :
+        date('Y-m-d H:i:s');
+    
+    $template->assign('lastUserAction', $lastUserAction);
     
     
     if (claro_is_user_authenticated())
@@ -114,17 +105,16 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
                         . get_lang('All platform courses')
                         . '</a>' . "\n";
         
-        $userCommands[] = '<img class="iconDefinitionList" src="'.get_icon_url('hot').'" alt="'.get_lang('New items').'" />'
+        $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'" class="userCommandsItem">'
+                        . '<img class="iconDefinitionList" src="'.get_icon_url('hot').'" alt="'.get_lang('New items').'" />'
                         . ' '.get_lang('New items').' '
-                        . '(<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'" class="userCommandsItem">'
                         . get_lang('to another date')
-                        . '</a>)'
                         . ((substr($lastUserAction, strlen($lastUserAction) - 8) == '00:00:00' ) ?
-                            (' <br />['.claro_html_localised_date(
+                            (' ['.claro_html_localised_date(
                                 get_locale('dateFormatNumeric'),
                                 strtotime($lastUserAction)).']') :
                             (''))
-                        . "\n";
+                        . '</a>' . "\n";
         
         $template->assign('userCommands', $userCommands);
         
@@ -134,7 +124,6 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
         
         $template->assign('userProfileBox', $userProfileBox);
     }
-    
     
     // Render
     $claroline->display->body->setContent($template->render());

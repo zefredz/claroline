@@ -14,7 +14,6 @@
 
 require '../inc/claro_init_global.inc.php';
 require '../inc/lib/courselist.lib.php';
-require_once dirname(__FILE__) . '/../inc/lib/coursesearchbox.class.php';
 
 // Build the breadcrumb
 $nameTools = get_lang('Platform courses');
@@ -32,10 +31,6 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' )
 // Display
 $template = $categoryBrowser->getTemplate();
 
-$claroline->display->body->appendContent($template->render());
-
-$searchbox = new CourseSearchBox($_SERVER['REQUEST_URI']);
-
-$claroline->display->body->appendContent($searchbox->render());
+$claroline->display->body->setContent($template->render());
 
 echo $claroline->display->render();

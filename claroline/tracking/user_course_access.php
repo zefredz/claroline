@@ -150,7 +150,8 @@ $accessList = claro_sql_query_fetch_all($sqlAccessDates);
 /*
  * Output
  */
-CssLoader::getInstance()->load( 'tracking', 'screen');
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'tracking', 'screen');
 
 // initialize output
 $claroline->setDisplayType( CL_PAGE );

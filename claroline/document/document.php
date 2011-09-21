@@ -1,20 +1,20 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version 1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLDOC
- * @author      Hugues Peeters <hugues@claroline.net>
- * @author      Claro Team <cvs@claroline.net>
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package CLDOC
+ * @author Hugues Peeters <hugues@claroline.net>
+ * @author Claro Team <cvs@claroline.net>
+ *
  */
 
 /**
  *
  * DESCRIPTION:
- *
+ * ****
  * This PHP script allow user to manage files and directories on a remote http server.
  *  The user can : - navigate trough files and directories.
  *                 - upload a file
@@ -104,14 +104,14 @@ if (claro_is_in_a_group() && claro_is_group_allowed())
 {
     $_group = claro_get_current_group_data();
 
-    $groupContext      = true;
-    $courseContext     = false;
+    $groupContext      = TRUE;
+    $courseContext     = FALSE;
 
     $maxFilledSpace    = get_conf('maxFilledSpace_for_groups');
     $courseDir         = claro_get_course_path() . '/group/' . claro_get_current_group_data('directory');
 
     $is_allowedToEdit  = claro_is_group_member() ||  claro_is_group_tutor()|| claro_is_course_manager();
-    $is_allowedToUnzip =  false;
+    $is_allowedToUnzip =  FALSE;
 
     if ( ! claro_is_group_allowed() )
     {
@@ -120,13 +120,13 @@ if (claro_is_in_a_group() && claro_is_group_allowed())
 }
 else
 {
-    $groupContext     = false;
-    $courseContext    = true;
+    $groupContext     = FALSE;
+    $courseContext    = TRUE;
 
     $courseDir   = claro_get_course_path().'/document';
 
     // initialise view mode tool
-    claro_set_display_mode_available(true);
+    claro_set_display_mode_available(TRUE);
 
     $is_allowedToEdit  = claro_is_allowed_to_edit();
     $is_allowedToUnzip = claro_is_allowed_to_edit();
@@ -399,56 +399,45 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
 
             $form = '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post" enctype="multipart/form-data">'
-            .    '<fieldset>'
             .    claro_form_relay_context()
             .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
             .    '<input type="hidden" name="cmd" value="exUpload" />' . "\n"
             .    '<input type="hidden" name="cwd" value="' . htmlspecialchars($cwd) . '" />' . "\n"
-            .    '<dl>'
             // upload file
-            .    '<dt><label for="userFile">' . get_lang('File') . '&nbsp;<span class="required">*</span></label>' .  '</dt>' . "\n"
-            .    '<dd>'
-            .    '<input type="file" id="userFile" name="userFile" />' . "\n"
+            .    '<label for="userFile">' . get_lang('File') . '&nbsp;<span class="required">*</span></label>' .  '<br />' . "\n"
+            .     '<input type="file" id="userFile" name="userFile" /><br />' . "\n"
             // size and space infos
-            .    '<p class="notice">' . get_lang("Max file size") .' : ' . format_file_size( $maxUploadSize ) . '</p>' . "\n"
-            .    '</dd>'
-            .    '<dt>' . get_lang("Disk space available") . '</dt>'
-            .    '<dd>'
-            .    claro_html_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1)
-            .    ' <span class="notice">' . format_file_size($remainingDiskSpace) . '</span>'
-            .    '</dd>' . "\n";
-            
+            .      '<small>' . get_lang("Max file size") .' : ' . format_file_size( $maxUploadSize ) . '</small><br />' . "\n"
+            .      '<small>' . get_lang("Disk space available") . ' : ' .  claro_html_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1) . "\n"
+            .      format_file_size($remainingDiskSpace)
+            .     '</small>' . "\n";
+                       
             if ($is_allowedToUnzip)
             {
                 // uncompress
-                $form .= '<dt>' . "\n"
-                .    '<label for="uncompress"><img src="' . get_icon_url('mime/package-x-generic') . '" alt="" /> '
-                .    get_lang('uncompress zipped (.zip) file on the server').'</label>' . "\n"
-                .    '</dt>'
-                .    '<dd>'
+                $form .= '<p>' . "\n"
+
+                .    '<img src="' . get_icon_url('mime/package-x-generic') . '" alt="" />'
                 .    '<input type="checkbox" id="uncompress" name="uncompress" value="1" />'
-                .    '</dd>' . "\n";
+                .    '<label for="uncompress">'.get_lang('uncompress zipped (.zip) file on the server').'</label>' . "\n"
+                .    '</p>' . "\n";
             }
 
             if ($courseContext)
             {
                 if (!isset($oldComment)) $oldComment = "";
                 // comment
-                $form .= '<dt>' . "\n"
-                .    '<label for="comment">'.get_lang('Comment').'</label>'
-                .    '</dt>' . "\n"
-                .    '<dd>'
-                .    '<textarea rows=2 cols=50 id="comment" name="comment">' . htmlspecialchars($oldComment) . '</textarea>' . "\n"
-                .    '</dd>' . "\n";
+                $form .= '<p>' . "\n"
+                .    '<label for="comment">'.get_lang('Add a comment (optional)').'</label><br />' . "\n"
+                .    '<textarea rows=2 cols=50 id="comment" name="comment">' . htmlspecialchars($oldComment) . '</textarea><br />' . "\n" 
+                .    '</p>' . "\n";
             }
-            
-            $form .= '</dl>'
-            .    '</fieldset>'
-            .    '<p><span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '</p>' . "\n"
+
+            $form .= '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br />' . "\n"
             .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
             .    claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. base64_encode($cwd))), get_lang('Cancel'))
             .    '</form>';
-            
+                       
             $dialogBox->form( $form );
         }
     }
@@ -926,7 +915,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                       .claro_html_button(htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']. '?cmd=exChDir&file='.base64_encode(claro_dirname($_REQUEST['file'])))), get_lang('Cancel'))
                      .'</form>' . "\n";
                      
-        $dialogBox->form( $form );
+        $dialogBox->form( $form );                     
 
     } // end if cmd == rqEdit
 
@@ -1040,7 +1029,7 @@ if ('rqSearch' == $cmd )
                     . '<input type="submit" value="' . get_lang('Search' ) . '" />&nbsp;'
                     . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. base64_encode($cwd))), get_lang("Cancel"))
                     . $searchMsg
-                    . '</form>' . "\n"
+                    . '</form>' . "\n" 
     );
 }
 
@@ -1408,27 +1397,99 @@ $fileList = $fileLister->get_result_list();
                                     DISPLAY
   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
+$htmlHeadXtra[] =
+"<script type=\"text/javascript\">
+function confirmation (name)
+{
+    if (confirm(\" ".clean_str_for_javascript(get_lang('Are you sure to delete'))." \"+ name + \" ?\"))
+        {return true;}
+    else
+        {return false;}
+}
+</script>";
+
 if ( $docView == 'image' )
 {
     $noQUERY_STRING = true;
-    $claroBodyOnload[] = "CLDOC.zoomOut();";
+    $htmlHeadXtra[] =
+"<script type=\"text/javascript\">
+var nOriginalHeight;
+var nOriginalWidth;
+
+function zoomIn ()
+{
+    var oImage = document.getElementById('mainImage');
+    oImage.width = nOriginalWidth;
+    oImage.height = nOriginalHeight;
+    oImage.onclick = function(){zoomOut();};
+    oImage.setAttribute( 'title', '".clean_str_for_javascript(get_lang("click to zoom out"))."' );
+    // oImage.style.cursor = '-moz-zoom-in';
 }
+
+function zoomOut ()
+{
+    var oImage = document.getElementById('mainImage');
+
+    nOriginalHeight = oImage.height;
+    nOriginalWidth = oImage.width;
+
+    var nNewWidth = getWindowWidth() - Math.floor(getWindowWidth() / 10);
+
+    if ( nNewWidth < nOriginalWidth )
+    {
+        var nNewHeight = computeHeight ( nNewWidth );
+
+        oImage.width = nNewWidth;
+        oImage.height = nNewHeight;
+
+        oImage.onclick = function(){zoomIn();};
+        oImage.setAttribute( 'title', '".clean_str_for_javascript(get_lang("click to zoom in"))."' );
+        // oImage.style.cursor = '-moz-zoom-out';
+    }
+}
+
+function computeHeight( nWidth )
+{
+    var nScaleFactor = nWidth / nOriginalWidth;
+    var nNewHeight = nOriginalHeight * nScaleFactor;
+    return Math.floor( nNewHeight );
+}
+
+function getWindowWidth ()
+{
+    var ww = 0;
+
+    if ( typeof window.innerWidth != 'undefined' )
+    {
+        ww = window.innerWidth;  // NN and Opera version
+    }
+    else
+    {
+        if ( document.documentElement
+            && typeof document.documentElement.clientWidth!='undefined'
+            && document.documentElement.clientWidth != 0 )
+        {
+            ww = document.documentElement.clientWidth;
+        }
+        else
+        {
+            if ( document.body
+                && typeof document.body.clientWidth != 'undefined' )
+            {
+                ww = document.body.clientWidth;
+            }
+        }
+   }
+   return ww;
+}
+</script>";
+    $claroBodyOnload[] = "zoomOut();";
+}//
 
 $nameTools = get_lang("Documents and Links");
 
-// Used for the breadcrumb when one need to add a parameter after the filename
-$_SERVER['QUERY_STRING'] = '';
-
-
-
-// Display (3 view modes: image, thumbnails or files)
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure to delete %name ?');
-$jslang->addLangVar('Click to zoom out');
-$jslang->addLangVar('Click to zoom in');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
-
-JavascriptLoader::getInstance()->load('documents');
+$_SERVER['QUERY_STRING'] = ''; // used for the breadcrumb
+                              // when one need to add a parameter after the filename
 
 $out = '';
 
@@ -1437,7 +1498,8 @@ $dspCurDirPath = htmlspecialchars($curDirPath);
 $cmdCurDirPath = rawurlencode($curDirPath);
 $cmdParentDir  = rawurlencode($parentDir);
 
-// Define toot title and subtitle
+//display toot title and subtitl)e
+
 $titleElement['mainTitle'] = get_lang("Documents and Links");
 
 if ( claro_is_in_a_group() && claro_is_group_allowed())
@@ -1445,678 +1507,820 @@ if ( claro_is_in_a_group() && claro_is_group_allowed())
     $titleElement['supraTitle'] = claro_get_current_group_data('name');
 }
 
-// Get image list from file list
-if( ($docView == 'image' || $docView == 'thumbnails') && isset($fileList) )
-{
-    $imageList = get_image_list($fileList, $is_allowedToEdit);
-}
+$out .= claro_html_tool_title($titleElement,
+                      $is_allowedToEdit ? 'help_document.php' : false);
 
-// Command list
-$cmdList = array();
+    /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+                IMAGE VIEWER
+        = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =*/
 
-/*
- * if the $curDirName is empty, we're in the root point
- * and we can't go to a parent dir
- */
-if ($curDirName || $cmd == 'exSearch')
-{
-    $cmdList[] = array(
-        'img' => 'parent',
-        'name' => get_lang('Up'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.download_url_encode($parentDir)))
-    );
-}
+    /*
+      * get image list from file list
+      */
 
-$cmdList[] = array(
-    'img' => 'search',
-    'name' => get_lang('Search'),
-    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqSearch&amp;cwd='.$cmdCurDirPath ))
-);
-
-if ( trim($searchPattern) != '')
-    $downloadArgument = 'searchPattern='.rawurlencode($searchPattern);
-else
-    $downloadArgument = 'file='. download_url_encode($curDirPath);
-
-if ( claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFolder', false) )
-{
-    if( isset($fileList) && count($fileList) > 0 )
+    if( ($docView == 'image' || $docView == 'thumbnails') && isset($fileList) )
     {
-        // Download current folder
-        $cmdList[] = array(
-            'img' => 'save',
-            'name' => get_lang('Download current directory'),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exDownload&amp;'.$downloadArgument))
-        );
+        $imageList = get_image_list($fileList, $is_allowedToEdit);
     }
-}
+
+    /*--------------------------------------------------------------------
+                           DIALOG BOX SECTION
+      --------------------------------------------------------------------*/
+
+    $out .= $dialogBox->render();
+
+    $is_allowedToEdit ? $colspan = 7 : $colspan = 3;
 
 
-if ($is_allowedToEdit)
-{
-    // Create directory, document, hyperlink or upload file
-    $cmdList[] = array(
-        'img' => 'upload',
-        'name' => get_lang('Upload file'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqUpload&amp;cwd='.$cmdCurDirPath))
-    );
-    
-    $cmdList[] = array(
-        'img' => 'folder',
-        'name' => get_lang('Create directory'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqMkDir&amp;cwd='.$cmdCurDirPath))
-    );
-    
-    $cmdList[] = array(
-        'img' => 'link',
-        'name' => get_lang('Create hyperlink'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqMkUrl&amp;cwd='.$cmdCurDirPath))
-    );
-    
-    $cmdList[] = array(
-        'img' => 'html',
-        'name' => get_lang('Create Document'),
-        'url' => htmlspecialchars(Url::Contextualize( 'rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.$cmdCurDirPath))
-    );
-}
+    /*------------------------------------------------------------------------
+                                     VIEW IMAGE
+      ------------------------------------------------------------------------*/
 
-$helpUrl = $is_allowedToEdit ? get_help_page_url('blockDocumentsHelp','CLDOC') : null;
+    if ($docView == 'image' && isset($imageList) && count($imageList) > 0)
+    {
+        $colspan = 3;
 
-// Display title
-$out .= claro_html_tool_title($titleElement, $helpUrl, $cmdList, 3);
+        // get requested image name
+        if( isset( $_REQUEST['file'] ) && ! isset( $_REQUEST['viewMode'] ) )
+        {
+            $file = $_REQUEST['file'];
+            $fileName = basename( $_REQUEST['file'] );
+        }
+        else
+        {
+            $file = $fileList['path'][$imageList[0]];
+            $fileName = basename( $file );
+        }
 
-// Display dialog box
-$out .= $dialogBox->render();
+        $searchCmdUrl = "";
 
-// Define colspan
-$is_allowedToEdit ? $colspan = 7 : $colspan = 3;
+        if( isset( $_REQUEST['searchPattern'] ) )
+        {
+            $searchCmdUrl = "&amp;cmd=exSearch&amp;searchPattern=" . rawurlencode( $_REQUEST['searchPattern'] );
+        }
 
+        // get requested image key in fileList
+        $imgKey = image_search( $file, $fileList );
 
+        $current = get_current_index($imageList, $imgKey);
 
-/*----------------------------------------------------------------
-                VIEW IMAGES ($docView == 'image')
-----------------------------------------------------------------*/
-if ($docView == 'image' && isset($imageList) && count($imageList) > 0)
-{
-    $colspan = 3;
-    
-    // Get requested image name
-    if( isset( $_REQUEST['file'] ) && ! isset( $_REQUEST['viewMode'] ) )
-    {
-        $file = $_REQUEST['file'];
-        $fileName = basename( $_REQUEST['file'] );
-    }
-    else
-    {
-        $file = $fileList['path'][$imageList[0]];
-        $fileName = basename( $file );
-    }
-    
-    $searchCmdUrl = "";
-    
-    if( isset( $_REQUEST['searchPattern'] ) )
-    {
-        $searchCmdUrl = "&amp;cmd=exSearch&amp;searchPattern=" . rawurlencode( $_REQUEST['searchPattern'] );
-    }
-    
-    // Get requested image key in fileList
-    $imgKey = image_search( $file, $fileList );
-    
-    $current = get_current_index($imageList, $imgKey);
-    
-    $offset = "&amp;offset=" . $current;
-    
-    // Compute absolute path to requested image
-    $doc_url = claro_get_file_download_url( $file );
-    
-    // View Mode Bar
-    if ($cmd == 'exSearch')
-    {
-        $curDirLine = get_lang('Search result');
-    }
-    elseif ($curDirName)
-    {
-           $curDirLine = '<img src="' . get_icon_url('opendir') . '" alt="" />' . "\n"
-           .             $dspCurDirName . "\n"
-           ;
-    }
-    else
-    {
-        $curDirLine = '&nbsp;';
-    }
-    
-    $docViewToolbar[] = '<a class="claroCmd" href="'
-         . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-            . '?docView=files&cmd=exChDir&file='
-            . base64_encode($curDirPath) . $searchCmdUrl ))
-         . '">'
-         . '<img src="' . get_icon_url('document') . '" alt="" /> '
-         . get_lang('File list')
-         . '</a>';
-    
-    $docViewToolbar[] = '<a class="claroCmd" href="'
-         .  htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-            . '?docView=thumbnails&cwd='
-            . rawurlencode($curDirPath) . $searchCmdUrl ))
-         . '">'
-         . '<img src="' . get_icon_url('image') . '" alt="" /> '
-         . get_lang('Thumbnails').'</a>';
-    
-    // Image description table
-    $out .= '<table class="claroTable" width="100%">' . "\n" ;
-    $out .= '<!-- current dir name line -->' . "\n"
-            .'<tr>' . "\n"
-            .'<th class="superHeader" colspan="' . $colspan . '" align="left">' . "\n"
-            .'<div style="float: right;">'. claro_html_menu_horizontal($docViewToolbar) . '</div>'
-            .$curDirLine
-            .'</th>' . "\n"
-            .'</tr>' . "\n";
-    
-    
-    // Tool bar
-    // create image title
-    $imgTitle = htmlspecialchars($fileName);
-    
-    // create image style
-    $titleStyle ='title';
-    
-    // if image invisible set style to invisible
-    if ( isset( $fileList['visibility'] ) &&  $fileList['visibility'][$imgKey] == 'i')
-    {
-        $titleStyle = 'title invisible';
-    } // if invisible
-    
-    $out .= '<tr class="toolbar" valign="top">' . "\n";
-    
-    // Display link to previous image
-    $out .= display_link_to_previous_image($imageList, $fileList, $current);
-    
-    // Display title of current image
-    $out .= '<th class="' . $titleStyle . '">' ."\n"
-          . $imgTitle
-          . '</th>' . "\n";
-    
-    // Display link to previous image
-    $out .= display_link_to_next_image($imageList, $fileList, $current)
-          . '</tr>' . "\n"
-          . '</table>' . "\n";
-    
-    // Display comment about  requested image
-    if ( isset ( $fileList['comment'] ) && $fileList['comment'][$imgKey])
-    {
-        $out .= '<hr />' . "\n"
-              . '<blockquote>' . $fileList['comment'][$imgKey] . '</blockquote>' . "\n";
-    }
-    else
-    {
-        $out .= '<!-- empty -->' . "\n";
-    }
-    
-    
-    // Display current image
-    
-    // System path
-    $imgPath = get_path('coursesRepositorySys') . $courseDir
-        . $file
-        ;
-    
-    // Get image info
-    list($width, $height, $type, $attr ) = getimagesize($imgPath);
-    
-    // Get color depth ! used to get both mime-type and color depth working together
-    $depth = get_image_color_depth( $imgPath );
-    
-    if( version_compare(phpversion(), '4.3.0', '>') )
-    {
-        $mime_type = image_type_to_mime_type($type);
-    }
-    else
-    {
-        $mime_type = get_lang('No mime-type available');
-    }
-    
-    // Display image
-    $out .= '<p style="text-align: center;">'
-          . '<a href="#"><img id="mainImage" src="' . htmlspecialchars($doc_url) . '" alt="' . $fileName . '" /></a>'
-          . '</p>' . "\n"
-          . '<p style="text-align: center;">'
-          . '<a href="' . htmlspecialchars($doc_url) . '">' . get_lang('Direct link to image') . '</a>'
-          . '</p>' . "\n";
-    
-    // Display image info (title, size, color depth, mime-type)
-    $out .= '<br />'
-          . '<small>[ Info : ' . $imgTitle
-          . ' - ' . $width . 'x' . $height
-          . ' - ' .format_file_size($fileList[$imgKey]['size'])
-          . ' - ' . $depth . 'bits'
-          . ' - ' . $mime_type
-          . ' ]</small>' . "\n";
-}
+        $offset = "&amp;offset=" . $current;
 
-/*----------------------------------------------------------------
-                VIEW THUMBNAILS ($docView == 'thumbnails')
-----------------------------------------------------------------*/
-elseif ($docView == 'thumbnails' ) // thumbnails mode
-{
-    // intialize page number
-     $page = 1; // if not set, set to first page
-    
-     if( isset( $_REQUEST['page'] ) )
-    {
-        $page = $_REQUEST['page'];
-    }
-    
-    if( isset( $_REQUEST['offset'] ) )
-    {
-          $page = get_page_number($_REQUEST['offset']);
-    }
-    
-    $searchCmdUrl = "";
-    
-    if( isset( $_REQUEST['searchPattern'] ) )
-    {
-        $searchCmdUrl = '&amp;cmd=exSearch&amp;searchPattern=' . rawurlencode( $_REQUEST['searchPattern'] );
-    }
-    
-    // compute column width
-     $colWidth = round(100 / get_conf('numberOfCols', 3));
-    
-    // display table
-    $out .= "\n" . '<table class="claroTable" width="100%">' . "\n";
-    
-    // View Mode Bar
-    
-    if ($cmd == 'exSearch')
-    {
-        $curDirLine = get_lang('Search result');
-    }
-    elseif ($curDirName)
-    {
-        $curDirLine = '<img src="' . get_icon_url('opendir') . '" alt="" />' . "\n"
-        . $dspCurDirName."\n";
-    }
-    else
-    {
-        $curDirLine = '&nbsp;';
-    }
-    
-    $docViewToolbar[] = '<a class="claroCmd" href="'
-         . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-            . '?docView=files&cmd=exChDir&amp;file='
-            . base64_encode($curDirPath) . $searchCmdUrl ))
-         . '">'
-         . '<img src="' . get_icon_url('document') . '" alt="" /> ' . "\n"
-         . get_lang('File list') . '</a>';
-         
-    $docViewToolbar[] = '<span class="claroCmdDisabled">'
-        . '<img src="' . get_icon_url('image') . '" alt="" /> ' . "\n"
-        . get_lang('Thumbnails').'</span>'
-        ;
-    
-    $colspan = get_conf( 'numberOfCols', 3 );
-    
-    $out .= '<!-- current dir name line -->' . "\n"
-            .'<tr>' . "\n"
-            .'<th class="superHeader" colspan="' . $colspan . '" align="left">' . "\n"
-            .'<div style="float: right;">'. claro_html_menu_horizontal($docViewToolbar) . '</div>'
-            .$curDirLine
-            .'</th>' . "\n"
-            .'</tr>' . "\n";
-    
-    // Toolbar
-    $out .= '<tr class="toolbar">' . "\n"
-          . '<th class="prev" colspan="1" style="width: ' . $colWidth . '%;">' . "\n";
-    
-    if( !isset($imageList) || count($imageList) == 0)
-    {
-        $colspan = get_conf( 'numberOfCols', 3 );
-        
+        // compute absolute path to requested image
+
+        $doc_url = claro_get_file_download_url( $file );
+
+        // Image description table
+        $out .= '<table class="claroTable" width="100%">' . "\n" ;
+
+        // View Mode Bar
+
+        if ($cmd == 'exSearch')
+        {
+            $curDirLine = get_lang('Search result');
+        }
+        elseif ($curDirName)
+        {
+               $curDirLine = '<img src="' . get_icon_url('opendir') . '" alt="" />' . "\n"
+               .             $dspCurDirName . "\n"
+               ;
+        }
+        else
+        {
+            $curDirLine = '&nbsp;';
+        }
+
+        if( $docView == 'files' )
+        {
+            $docViewToolbar[] = '<span class="claroCmdDisabled">'
+                . '<img src="' . get_icon_url('document') . '" alt="" />'
+                . get_lang('File list')
+                . '</span>';
+        }
+        else
+        {
+            $docViewToolbar[] = '<a class="claroCmd" href="'
+                 . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?docView=files&amp;cmd=exChDir&amp;file='
+                    . base64_encode($curDirPath) . $searchCmdUrl ))
+                 . '">'
+                 . '<img src="' . get_icon_url('document') . '" alt="" />'
+                 . get_lang('File list')
+                 . '</a>';
+        }
+
+        if( $docView == 'thumbnails' )
+        {
+            $docViewToolbar[] = '<span class="claroCmdDisabled">'
+                . '<img src="' . get_icon_url('image') . '" alt="" />'
+                . get_lang('Thumbnails').'</span>';
+        }
+        else
+        {
+            $docViewToolbar[] = '<a class="claroCmd" href="'
+                 .  htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?docView=thumbnails&amp;cwd='
+                    . rawurlencode($curDirPath) . $searchCmdUrl ))
+                 . '">'
+                 . '<img src="' . get_icon_url('image') . '" alt="" />'
+                 . get_lang('Thumbnails').'</a>';
+        }
+
         $out .= '<!-- current dir name line -->' . "\n"
-              .'<tr>' . "\n"
-              .'<td colspan="' . $colspan . '" align="left">' . "\n"
-              . get_lang('No image to display')
-              .'</td>' . "\n"
-              .'</tr>' . "\n";
+                .'<tr>' . "\n"
+                .'<th class="superHeader" colspan="' . $colspan . '" align="left">' . "\n"
+                .'<div style="float: right;">'. claro_html_menu_horizontal($docViewToolbar) . '</div>'
+                .$curDirLine
+                .'</th>' . "\n"
+                .'</tr>' . "\n";
+
+
+        // --------------------- tool bar --------------------------------------
+        // create image title
+        $imgTitle = htmlspecialchars($fileName);
+
+        // create image style
+        $titleStyle ='title';
+
+        // if image invisible set style to invisible
+        if ( isset( $fileList['visibility'] ) &&  $fileList['visibility'][$imgKey] == 'i')
+        {
+            $titleStyle = 'title invisible';
+        } // if invisible
+
+        $out .= '<tr class="toolbar" valign="top">' . "\n";
+
+        // --------------------- display link to previous image ------------------
+
+        $out .= display_link_to_previous_image($imageList, $fileList, $current);
+
+        // --------------------- display title of current image ------------------
+
+        $out .= '<th class="' . $titleStyle . '">' ."\n"
+        .    $imgTitle
+        .    '</th>' . "\n"
+        ;
+
+        // --------------------- display link to previous image ------------------
+
+        $out .= display_link_to_next_image($imageList, $fileList, $current);
+
+        $out .= '</tr>' . "\n"
+        .    '</table>' . "\n"
+        ;
+
+        // ---------------------- display comment about  requested image ----------
+
+        if ( isset ( $fileList['comment'] ) && $fileList['comment'][$imgKey])
+        {
+            $out .= '<hr />' . "\n"
+            .    '<blockquote>' . $fileList['comment'][$imgKey] . '</blockquote>' . "\n"
+            ;
+        }
+        else
+        {
+            $out .= '<!-- empty -->' . "\n";
+        }// end if comment
+
+
+        // --------------------- display current image --------------------------
+
+        // system path
+
+
+        $imgPath = get_path('coursesRepositorySys') . $courseDir
+            . $file
+            ;
+
+        // get image info
+        list($width, $height, $type, $attr ) = getimagesize($imgPath);
+
+        // get color depth ! used to get both mime-type and color depth working together
+        $depth = get_image_color_depth( $imgPath );
+
+        // display image
+        $out .= '<p style="text-align: center;"><a href="#"><img id="mainImage" src="' . htmlspecialchars($doc_url) . '" alt="' . $fileName . '" /></a></p>' . "\n" ;
+
+        $out .= '<p style="text-align: center;">'
+            . '<a href="' . htmlspecialchars($doc_url) . '">' . get_lang('Direct link to image') . '</a>'
+            . '</p>' . "\n"
+            ;
+
+        // display image info
+        // -> title and size
+        $out .= '<br /><small>[ Info : ' . $imgTitle . ' - ' . $width
+            . 'x' . $height
+            . ' - ' .format_file_size($fileList[$imgKey]['size'])
+            ;
+
+        // -> color depth
+        $out .= ' - ' . $depth . 'bits';
+
+        // -> mime type
+        if( version_compare(phpversion(), '4.3.0', '>') )
+        {
+            $mime_type = image_type_to_mime_type($type);
+            $out .= " - " . $mime_type ;
+        }
+
+        $out .= ' ]</small>' . "\n";
     }
-    else
+
+    /*-----------------------------------------------------------------------
+                            VIEW THUMBNAILS
+      -----------------------------------------------------------------------*/
+
+    elseif ($docView == 'thumbnails' ) // thumbnails mode
     {
-        if(has_previous_page($imageList, $page))
+        // intialize page number
+         $page = 1; // if not set, set to first page
+
+         if( isset( $_REQUEST['page'] ) )
         {
-            // link to previous page
-              $out .= '<a href="'
-                   . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                        . '?docView=thumbnails&cwd=' . rawurlencode($curDirPath)
-                        . '&page=' . ($page - 1) . $searchCmdUrl ))
-                   . '">&lt;&lt;&nbsp;&nbsp;page&nbsp;'
-                   . ($page - 1) . '</a>' . "\n";
+            $page = $_REQUEST['page'];
+        }
+
+        if( isset( $_REQUEST['offset'] ) )
+        {
+              $page = get_page_number($_REQUEST['offset']);
+        }
+
+        $searchCmdUrl = "";
+
+        if( isset( $_REQUEST['searchPattern'] ) )
+        {
+            $searchCmdUrl = '&amp;cmd=exSearch&amp;searchPattern=' . rawurlencode( $_REQUEST['searchPattern'] );
+        }
+
+        // compute column width
+         $colWidth = round(100 / get_conf('numberOfCols', 3));
+
+        // display table
+        $out .= "\n" . '<table class="claroTable" width="100%">' . "\n";
+
+        // View Mode Bar
+
+        if ($cmd == 'exSearch')
+        {
+            $curDirLine = get_lang('Search result');
+        }
+        elseif ($curDirName)
+        {
+            $curDirLine = '<img src="' . get_icon_url('opendir') . '" alt="" />' . "\n"
+            . $dspCurDirName."\n";
         }
         else
         {
-            $out .= '<!-- empty -->';
+            $curDirLine = '&nbsp;';
         }
-        
-        $out .= '</th>' . "\n"
-              . '<th class="title" colspan="' . (get_conf( 'numberOfCols', 3) - 2) . '">' . "\n"
-              . '<p align="center">' . get_lang('Page') . '&nbsp;' . $page . '</p>'
-              . '</th>' . "\n"
-              . '<th class="next" colspan="1" style="width: ' . $colWidth . '%;">' . "\n";
-        
-        if(has_next_page($imageList, $page))
+
+        if( $docView == 'files' )
         {
-            // link to next page
-            $out .= '<a href="'
-                  . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                        . '?docView=thumbnails&cwd=' . rawurlencode($curDirPath)
-                        . '&page=' . ($page + 1) . $searchCmdUrl ))
-                  . '">'. get_lang('Page') .'&nbsp;'
-                  . ($page + 1) . '&nbsp;&nbsp;&gt;&gt;</a>' . "\n";
+            $docViewToolbar[] = '<span class="claroCmdDisabled">'
+                . '<img src="' . get_icon_url('document') . '" alt="" />' . "\n"
+                . get_lang('File list')
+                . '</span>';
         }
         else
         {
-            $out .= '<!-- empty -->';
+            $docViewToolbar[] = '<a class="claroCmd" href="'
+                 . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?docView=files&amp;cmd=exChDir&amp;file='
+                    . base64_encode($curDirPath) . $searchCmdUrl ))
+                 . '">'
+                 . '<img src="' . get_icon_url('document') . '" alt="" />' . "\n"
+                 . get_lang('File list') . '</a>';
         }
-        
-        $out .= '</th>' . "\n"
-              . '</tr>' . "\n"
-              . display_thumbnails($imageList, $fileList, $page
+        if( $docView == 'thumbnails' )
+        {
+            $docViewToolbar[] = '<span class="claroCmdDisabled">'
+                . '<img src="' . get_icon_url('image') . '" alt="" />'
+                . get_lang('Thumbnails').'</span>'
+                ;
+        }
+        else
+        {
+            $docViewToolbar[] = '<a class="claroCmd" href="'
+                 . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                    . '?docView=thumbnails&amp;cwd='
+                    . rawurlencode($curDirPath . $searchCmdUrl) ))
+                 . '">'
+                 . '<img src="' . get_icon_url('image') . '" alt="" />' . "\n"
+                 . get_lang('Thumbnails').'</a>';
+        }
+
+        $colspan = get_conf( 'numberOfCols', 3 );
+
+        $out .= '<!-- current dir name line -->' . "\n"
+                .'<tr>' . "\n"
+                .'<th class="superHeader" colspan="' . $colspan . '" align="left">' . "\n"
+                .'<div style="float: right;">'. claro_html_menu_horizontal($docViewToolbar) . '</div>'
+                .$curDirLine
+                .'</th>' . "\n"
+                .'</tr>' . "\n";
+
+        // toolbar
+
+        $out .= '<tr class="toolbar">' . "\n";
+        $out .= '<th class="prev" colspan="1" style="width: ' . $colWidth . '%;">' . "\n";
+        if( !isset($imageList) || count($imageList) == 0)
+        {
+            $colspan = get_conf( 'numberOfCols', 3 );
+
+            $out .= '<!-- current dir name line -->' . "\n"
+                .'<tr>' . "\n"
+                .'<td colspan="' . $colspan . '" align="left">' . "\n"
+                . get_lang('No image to display')
+                .'</td>' . "\n"
+                .'</tr>' . "\n";
+        }
+        else
+        {
+            if(has_previous_page($imageList, $page))
+            {
+                // link to previous page
+                  $out .= '<a href="'
+                    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                        . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
+                        . '&amp;page=' . ($page - 1) . $searchCmdUrl ))
+                    . '">&lt;&lt;&nbsp;&nbsp;page&nbsp;'
+                    . ($page - 1) . '</a>' . "\n"
+                    ;
+            }
+            else
+            {
+                $out .= '<!-- empty -->';
+            }
+
+            $out .= '</th>' . "\n";
+
+            $out .= '<th class="title" colspan="' . (get_conf( 'numberOfCols', 3) - 2) . '">' . "\n"
+                . '<p align="center">' . get_lang('Page') . '&nbsp;' . $page . '</p>'
+                . '</th>' . "\n"
+                ;
+
+            $out .= '<th class="next" colspan="1" style="width: ' . $colWidth . '%;">' . "\n"
+                ;
+
+            if(has_next_page($imageList, $page))
+            {
+                // link to next page
+                $out .= '<a href="'
+                    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                        . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
+                        . '&amp;page=' . ($page + 1) . $searchCmdUrl ))
+                    . '">'. get_lang('Page') .'&nbsp;'
+                    . ($page + 1) . '&nbsp;&nbsp;&gt;&gt;</a>' . "\n"
+                    ;
+            }
+            else
+            {
+                $out .= '<!-- empty -->';
+            }
+
+            $out .= '</th>' . "\n";
+            $out .= '</tr>' . "\n";
+
+            $out .= display_thumbnails($imageList, $fileList, $page
                 , get_conf('thumbnailWidth'), $colWidth
                 , get_conf('numberOfCols'), get_conf('numberOfRows') );
-    }
-    
-    $out .= '</table>' . "\n";
-}
 
-/*----------------------------------------------------------------
-                VIEW CURRENT DIRECTORY LINE ($docView == 'files')
-----------------------------------------------------------------*/
-else
-{
-    $searchCmdUrl = '';
-    
-    if( isset( $_REQUEST['searchPattern'] ) )
-    {
-        $searchCmdUrl = '&amp;cmd=exSearch&amp;searchPattern=' . rawurlencode( $_REQUEST['searchPattern'] );
-    }
-    
-    $out .= claro_html_document_breadcrumb($curDirPath)
-          .'<table class="claroTable emphaseLine" width="100%">'
-          . '<thead>'
-          . "\n";
-    
-    // CURRENT DIRECTORY LINE
-    if ($cmd == 'exSearch')
-    {
-        $curDirLine = get_lang('Search result');
-    }
-    elseif ($curDirName)
-    {
-        $curDirLine = '<img src="' . get_icon_url('opendir') . '" alt="" />' . "\n"
-            .$dspCurDirName."\n";
-    }
-    else
-    {
-        $curDirLine = '&nbsp;';
-    }
-    
-    $docViewToolbar[] = '<span class="claroCmdDisabled">'
-        . '<img src="' . get_icon_url('document') . '" alt="" />' . "\n"
-        . get_lang('File list')
-        . '</span>';
-    
-    $docViewToolbar[] = '<a class="claroCmd" href="'
-         .  htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-         . '?docView=thumbnails&cwd='. $curDirPath . $searchCmdUrl ))
-         .'">'
-         . '<img src="' . get_icon_url('image') . '" alt="" /> ' . "\n"
-         . get_lang('Thumbnails').'</a>';
-    
-    $out .= '<!-- current dir name line -->' . "\n"
-          .'<tr>' . "\n"
-          .'<th class="superHeader" colspan="' . $colspan . '" align="left">' . "\n"
-          .'<div style="float: right;">'. claro_html_menu_horizontal($docViewToolbar).'</div>'
-          .$curDirLine
-          .'</th>' . "\n"
-          .'</tr>' . "\n"
-          . '<tr align="center" valign="top">' . "\n";
-    
-    # Patch to avoid E_NOTICE when no files in directory empty
-    # FIXME find a more elegant way to solve the problem
-    if ( count( $sortUrlList ) > 0 )
-    {
-        $out .= '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['path'])).'">'.get_lang('Name').'</a></th>' . "\n"
-              . '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['size'])).'">'.get_lang('Size').'</a></th>' . "\n"
-              . '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['date'])).'">'.get_lang('Last modification date').'</a></th>' . "\n";
-    }
-    else
-    {
-        $out .= '<th>'.get_lang('Name').'</th>' . "\n"
-              . '<th>'.get_lang('Size').'</th>' . "\n"
-              . '<th>'.get_lang('Date').'</th>' . "\n";
-    }
-    
-    if ($is_allowedToEdit)
-    {
-        $out .=  '<th>'.get_lang('Modify').'</th>' . "\n"
-              . '<th>'.get_lang('Delete').'</th>' . "\n"
-              . '<th>'.get_lang('Move').'</th>' . "\n";
-        
-        if ($courseContext)
-        {
-            $out .= '<th>'.get_lang('Visibility').'</th>' . "\n";
         }
-        elseif ($groupContext)
+
+        $out .= '</table>' . "\n";
+
+    }
+    else // current directory line
+    {
+
+        /*------------------------------------------------------------------------
+                                 CURRENT DIRECTORY LINE
+          ------------------------------------------------------------------------*/
+
+        $searchCmdUrl = '';
+
+        if( isset( $_REQUEST['searchPattern'] ) )
         {
-            $out .= '<th>'.get_lang('Publish').'</th>' . "\n";
+            $searchCmdUrl = '&amp;cmd=exSearch&amp;searchPattern=' . rawurlencode( $_REQUEST['searchPattern'] );
         }
-    }
-    
-    $out .= '</tr>' . "\n"
-          . '</thead>'
-          .'<tbody>';
-    
-    /*------------------------------------------------------------------------
-                               DISPLAY FILE LIST
-      ------------------------------------------------------------------------*/
-    
-    // Find the recent documents with the notification system
-    if (claro_is_user_authenticated())
-    {
-        $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
-    }
-    
-    if (!empty($fileList))
-    {
-        foreach($fileList as $thisFile )
+
+        /* GO TO PARENT DIRECTORY */
+
+        $links = array();
+
+        if ($curDirName || $cmd == 'exSearch') /* if the $curDirName is empty, we're in the root point
+                                                  and we can't go to a parent dir */
         {
-            // Note. We've switched from 'each' to 'foreach', as 'each' seems to
-            // poses problems on PHP 4.1, when the array contains only
-            // a single element
-            
-            $dspFileName = htmlspecialchars( basename($thisFile['path']) );
-            $cmdFileName = download_url_encode($thisFile['path']);
-            
-            if ( $thisFile['visibility'] == 'i')
+            $links[] = '<a class="claroCmd" href="'
+                     . htmlspecialchars(Url::Contextualize(
+                        $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.download_url_encode($parentDir)))
+                     .'">' . "\n"
+                     . '<img src="'. get_icon_url('parent') . '" alt="" />&nbsp;'
+                     . get_lang('Up')
+                     . '</a>'
+                     ;
+        }
+        else
+        {
+            $links[] = '<span class="claroCmdDisabled">'
+                .      '<img src="' . get_icon_url('parentdisabled') . '" alt="" />&nbsp;'
+                .      get_lang('Up')
+                .      '</span>';
+        }
+
+
+
+        $links[] = '<a class="claroCmd" href="'
+            . htmlspecialchars(Url::Contextualize(
+                $_SERVER['PHP_SELF'].'?cmd=rqSearch&amp;cwd='.$cmdCurDirPath ))
+            . '">&nbsp;'
+            .      '<img src="' . get_icon_url('search') . '" alt="" />&nbsp;'
+            .      get_lang('Search')
+            .      '</a>'
+            ;
+
+        if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.rawurlencode($searchPattern);
+        else                             $downloadArgument = 'file='. download_url_encode($curDirPath);
+
+        if ( claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFolder', false) )
+        {
+            if( isset($fileList) && count($fileList) > 0 )
             {
-                if ($is_allowedToEdit)
-                {
-                    $style='invisible ';
-                }
-                else
-                {
-                    continue; // skip the display of this file
-                }
+                // Download current folder
+               $links[] = '<a class="claroCmd" href="'
+                    . htmlspecialchars(Url::Contextualize(
+                        $_SERVER['PHP_SELF'].'?cmd=exDownload&amp;'.$downloadArgument ))
+                    .'" rel="nofollow">'
+                    .'<img src="' . get_icon_url('save') . '" alt="" />&nbsp;'
+                    .get_lang('Download current directory')
+                    .'</a>';
             }
             else
             {
-                $style='';
+                // Download current folder disabled
+                $links[] = '<span class="claroCmdDisabled" >'
+                    .'<img src="' . get_icon_url('save') . '" alt="" />&nbsp;'
+                    .get_lang('Download current directory')
+                    .'</span>';
             }
-            
-            //modify style if the file is recently added since last login
-            if (claro_is_user_authenticated()
-                && $claro_notifier->is_a_notified_document(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisFile))
+        }
+
+
+        if ($is_allowedToEdit)
+        {
+            /* CREATE DIRECTORY - UPLOAD FILE - CREATE HYPERLINK */
+
+            $links[] = '<a class="claroCmd" href="'
+                .htmlspecialchars(Url::Contextualize(
+                    $_SERVER['PHP_SELF'].'?cmd=rqUpload&amp;cwd='.$cmdCurDirPath ))
+                .'">'
+                .'<img src="' . get_icon_url('upload') . '" alt="" />&nbsp;'
+                .get_lang('Upload file')
+                .'</a>';
+
+            $links[] = '<a class="claroCmd" href="'
+                .htmlspecialchars(Url::Contextualize(
+                    $_SERVER['PHP_SELF'].'?cmd=rqMkDir&amp;cwd='.$cmdCurDirPath ))
+                .'">'
+                .'<img src="' . get_icon_url('folder') . '" alt="" />&nbsp;'
+                .get_lang('Create directory')
+                .'</a>';
+
+            $links[] = '<a class="claroCmd" href="'
+                .htmlspecialchars(Url::Contextualize(
+                    $_SERVER['PHP_SELF'].'?cmd=rqMkUrl&amp;cwd='.$cmdCurDirPath ))
+                .'">'
+                .'<img src="' . get_icon_url('link') . '" alt="" />&nbsp;'
+                .get_lang('Create hyperlink')
+                .'</a>';
+
+            $links[] = '<a class="claroCmd" href="'
+                .htmlspecialchars(Url::Contextualize( 'rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.$cmdCurDirPath )).'">'
+                .'<img src="' . get_icon_url('html') . '" alt="" />&nbsp;'
+                .get_lang('Create Document')
+                .'</a>';
+        }
+
+        $out .= '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n";
+
+        $out .= claro_html_document_breadcrumb($curDirPath);
+
+        $out .= '<table class="claroTable emphaseLine" width="100%">'
+            . '<thead>'
+            . "\n";
+
+        /* CURRENT DIRECTORY LINE */
+
+        if ($cmd == 'exSearch')
+        {
+            $curDirLine = get_lang('Search result');
+        }
+        elseif ($curDirName)
+        {
+            $curDirLine = '<img src="' . get_icon_url('opendir') . '" alt="" />' . "\n"
+                .$dspCurDirName."\n";
+        }
+        else
+        {
+            $curDirLine = '&nbsp;';
+        }
+
+        if( $docView == 'files' )
+        {
+            $docViewToolbar[] = '<span class="claroCmdDisabled">'
+                . '<img src="' . get_icon_url('document') . '" alt="" />' . "\n"
+                . get_lang('File list')
+                . '</span>';
+        }
+        else
+        {
+            $docViewToolbar[] = '<a class="claroCmd" href="'
+                 . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                 . '?docView=files&amp;cmd=exChDir&amp;file='. base64_encode($curDirPath) . $searchCmdUrl ))
+                 . '">'
+                 . '<img src="' . get_icon_url('document') . '" alt="" />' . "\n"
+                 . get_lang('File list') .'</a>';
+        }
+        if( $docView == 'thumbnails' )
+        {
+            $docViewToolbar[] = '<span class="claroCmdDisabled">'
+                . '<img src="' . get_icon_url('image') . '" alt="" />' . "\n"
+                . get_lang('Thumbnails').'</span>';
+        }
+        else
+        {
+            $docViewToolbar[] = '<a class="claroCmd" href="'
+                 .  htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                 . '?docView=thumbnails&cwd='. $curDirPath . $searchCmdUrl ))
+                 .'">'
+                 . '<img src="' . get_icon_url('image') . '" alt="" />'
+                 . get_lang('Thumbnails').'</a>';
+        }
+
+        $out .= '<!-- current dir name line -->' . "\n"
+            .'<tr>' . "\n"
+            .'<th class="superHeader" colspan="' . $colspan . '" align="left">' . "\n"
+            .'<div style="float: right;">'. claro_html_menu_horizontal($docViewToolbar).'</div>'
+            .$curDirLine
+            .'</th>' . "\n"
+            .'</tr>' . "\n";
+
+        $out .= '<tr class="headerX" align="center" valign="top">' . "\n";
+
+        # Patch to avoid E_NOTICE when no files in directory empty
+        # FIXME find a more elegant way to solve the problem
+        if ( count( $sortUrlList ) > 0 )
+        {
+            $out .= '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['path'])).'">'.get_lang('Name').'</a></th>' . "\n"
+            .    '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['size'])).'">'.get_lang('Size').'</a></th>' . "\n"
+            .    '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['date'])).'">'.get_lang('Last modification date').'</a></th>' . "\n"
+            ;
+        }
+        else
+        {
+            $out .= '<th>'.get_lang('Name').'</th>' . "\n"
+            .    '<th>'.get_lang('Size').'</th>' . "\n"
+            .    '<th>'.get_lang('Date').'</th>' . "\n"
+            ;
+        }
+
+        if ($is_allowedToEdit)
+        {
+            $out .=  '<th>'.get_lang('Modify').'</th>' . "\n"
+                . '<th>'.get_lang('Delete').'</th>' . "\n"
+                . '<th>'.get_lang('Move').'</th>' . "\n";
+
+            if ($courseContext)
             {
-                $classItem=' hot';
+                $out .= '<th>'.get_lang('Visibility').'</th>' . "\n";
             }
-            else // otherwise just display its name normally
+            elseif ($groupContext)
             {
-                $classItem='';
+                $out .= '<th>'.get_lang('Publish').'</th>' . "\n";
             }
-            
-            if ($thisFile['type'] == A_FILE)
+        }
+
+        $out .= '</tr>' . "\n"
+            . '</thead>'
+            .'<tbody>';
+
+        /*------------------------------------------------------------------------
+                                   DISPLAY FILE LIST
+          ------------------------------------------------------------------------*/
+
+        // find the recent documents with the notification system
+
+        if (claro_is_user_authenticated())
+        {
+            $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
+
+        }
+
+        if (!empty($fileList))
+        {
+            foreach($fileList as $thisFile )
             {
-                $image       = choose_image($thisFile['path']);
-                $size        = format_file_size($thisFile['size']);
-                $date        = format_date($thisFile['date']);
-                
-                $urlFileName = htmlspecialchars( claro_get_file_download_url( $thisFile['path'] ) );
-                
-                //$urlFileName = "goto/?doc_url=".rawurlencode($cmdFileName);
-                //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
-                
-                $target = ( get_conf('openNewWindowForDoc') ? 'target="_blank"' : '');
-            }
-            elseif ($thisFile['type'] == A_DIRECTORY)
-            {
-                $image       = 'folder';
-                $size        = '&nbsp;';
-                $date        = '&nbsp;';
-                $urlFileName = htmlspecialchars(Url::Contextualize(
-                    $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='
-                    .$cmdFileName ));
-                
-                $target = '';
-            }
-            
-            $out .= '<tr align="center">' . "\n"
-                .'<td align="left">';
-            
-            if( is_image( $thisFile['path'] ) )
-            {
-                $out .= '<a class="'.$style.' item'.$classItem.'" href="'
-                    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .
-                    '?docView=image&amp;file=' . download_url_encode($thisFile['path']) . '&amp;cwd='
-                    . $curDirPath . $searchCmdUrl ))
-                    .'">';
-            }
-            else
-            {
-                    $out .= '<a class="'.$style.' item'.$classItem.'" href="'.$urlFileName.'" '.$target.' >';
-            } // end if is_image
-            
-            $out .= '<img src="' . get_icon_url($image) . '" alt="" /> '.$dspFileName.'</a>'
-                  . '</td>' . "\n"
-                  .'<td><small>'.$size.'</small></td>' . "\n"
-                  .'<td><small>'.$date.'</small></td>' . "\n";
-            
-            /* NB : Before tracking implementation the url above was simply
-             * "<a href=\"",$urlFileName,"\"",$style,">"
-             */
-            
-            if($is_allowedToEdit)
-            {
-                /* EDIT COMMAND */
-                $out .= '<td>'
-                      .'<a href="'.htmlspecialchars(Url::Contextualize(
-                        $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;file='.$cmdFileName ))
-                      .'">'
-                      .'<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
-                      .'</a>'
-                      .'</td>' . "\n";
-                
-                /* DELETE COMMAND */
-                $out .= '<td>'
-                      .'<a href="' . htmlspecialchars(Url::Contextualize(
-                        $_SERVER['PHP_SELF'] . '?cmd=exRm&amp;file=' . $cmdFileName ))
-                      . '" '
-                      .'onclick="return CLDOC.confirmation(\''.clean_str_for_javascript($dspFileName).'\');">'
-                      .'<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
-                      .'</a>'
-                      .'</td>' . "\n";
-                
-                /* MOVE COMMAND */
-                $out .= '<td>'
-                      .'<a href="' . htmlspecialchars(Url::Contextualize(
-                        $_SERVER['PHP_SELF'] . '?cmd=rqMv&amp;file=' . $cmdFileName ))
-                      . '">'
-                      . '<img src="' . get_icon_url('move') . '" alt="'.get_lang('Move').'" />'
-                      . '</a>'
-                      . '</td>' . "\n"
-                      . '<td>';
-                
-                if ($groupContext)
+                // Note. We've switched from 'each' to 'foreach', as 'each' seems to
+                // poses problems on PHP 4.1, when the array contains only
+                // a single element
+
+                $dspFileName = htmlspecialchars( basename($thisFile['path']) );
+                $cmdFileName = download_url_encode($thisFile['path']);
+
+                if ( $thisFile['visibility'] == 'i')
                 {
-                    /* PUBLISH COMMAND */
-                    if ($thisFile['type'] == A_FILE)
+                    if ($is_allowedToEdit)
                     {
-                        $out .= '<a href="'
-                              . htmlspecialchars(Url::Contextualize( '../work/work.php?'
-                              . 'submitGroupWorkUrl='.$cmdFileName ))
-                              . '">'
-                              . '<small>'.get_lang('Publish').'</small>'
-                              . '</a>';
-                    }
-                    // else noop
-                }
-                elseif($courseContext)
-                {
-                    /* VISIBILITY COMMAND */
-                    if ($thisFile['visibility'] == "i")
-                    {
-                        $out .= '<a href="'
-                              . htmlspecialchars(Url::Contextualize(
-                                $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;file=' . $cmdFileName . '&amp;vis=v'))
-                              . '">'
-                              . '<img src="' . get_icon_url('invisible') . '" alt="'.get_lang('Make visible').'" />'
-                              . '</a>';
+                        $style='invisible ';
                     }
                     else
                     {
-                        $out .= '<a href="'
-                              . htmlspecialchars(Url::Contextualize(
-                                $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;file=' . $cmdFileName . '&amp;vis=i'))
-                              . '">'
-                              . '<img src="' . get_icon_url('visible') . '" alt="'.get_lang('Make invisible').'" />'
-                              . '</a>';
+                        continue; // skip the display of this file
                     }
                 }
-                
-                $out .= '</td>' . "\n";
-            } // end if($is_allowedToEdit)
-            
-            $out .= '</tr>' . "\n";
-            
-            /* COMMENTS */
-            
-            if ( $thisFile['comment'] != '' )
-            {
-                $thisFile['comment'] = htmlspecialchars($thisFile['comment']);
-                $thisFile['comment'] = claro_parse_user_text($thisFile['comment']);
-                
-                $out .= '<tr align="left">' . "\n"
-                      . '<td colspan="' . $colspan . '">'
-                      . '<div class="comment">'
-                      . $thisFile['comment']
-                      . '</div>'
-                      . '</td>' . "\n"
-                      . '</tr>' . "\n";
-            }
-        }               // end each ($fileList)
-        
-    }                   // end if ( $fileList)
-    else
-    {
-        $out .= '<tr align="left">' . "\n"
-              . '<td colspan="' . $colspan . '">'
-              . '<div class="comment">'
-              . get_lang('Nothing to display')
-              . '</div>'
-              . '</td>' . "\n"
-              . '</tr>';
-    }
-    
-    $out .= '</tbody>' . "\n"
-          . '</table>' . "\n";
-} // END ELSE VIEW IMAGE
+                else
+                {
+                    $style='';
+                }
+
+                //modify style if the file is recently added since last login
+
+                if (claro_is_user_authenticated()
+                    && $claro_notifier->is_a_notified_document(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisFile))
+                {
+                    $classItem=' hot';
+                }
+                else // otherwise just display its name normally
+                {
+                    $classItem='';
+                }
+
+
+                if ($thisFile['type'] == A_FILE)
+                {
+                    $image       = choose_image($thisFile['path']);
+                    $size        = format_file_size($thisFile['size']);
+                    $date        = format_date($thisFile['date']);
+
+                    $urlFileName = htmlspecialchars( claro_get_file_download_url( $thisFile['path'] ) );
+
+                    //$urlFileName = "goto/?doc_url=".rawurlencode($cmdFileName);
+                    //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
+
+                    $target = ( get_conf('openNewWindowForDoc') ? 'target="_blank"' : '');
+                }
+                elseif ($thisFile['type'] == A_DIRECTORY)
+                {
+                    $image       = 'folder';
+                    $size        = '&nbsp;';
+                    $date        = '&nbsp;';
+                    $urlFileName = htmlspecialchars(Url::Contextualize(
+                        $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='
+                        .$cmdFileName ));
+
+                    $target = '';
+                }
+
+                $out .= '<tr align="center">' . "\n"
+                    .'<td align="left">';
+
+                if( is_image( $thisFile['path'] ) )
+                {
+                    $out .= '<a class="'.$style.' item'.$classItem.'" href="'
+                        . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .
+                        '?docView=image&amp;file=' . download_url_encode($thisFile['path']) . '&amp;cwd='
+                        . $curDirPath . $searchCmdUrl ))
+                        .'">';
+                }
+                else
+                {
+                        $out .= '<a class="'.$style.' item'.$classItem.'" href="'.$urlFileName.'" '.$target.' >';
+                } // end if is_image
+
+                $out .= '<img src="' . get_icon_url($image) . '" alt="" /> '.$dspFileName.'</a>';
+
+                $out .= '</td>' . "\n"
+
+                    .'<td><small>'.$size.'</small></td>' . "\n"
+                    .'<td><small>'.$date.'</small></td>' . "\n";
+
+                /* NB : Before tracking implementation the url above was simply
+                 * "<a href=\"",$urlFileName,"\"",$style,">"
+                 */
+
+                if($is_allowedToEdit)
+                {
+                    /* EDIT COMMAND */
+
+                    $out .= '<td>'
+                        .'<a href="'.htmlspecialchars(Url::Contextualize(
+                            $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;file='.$cmdFileName ))
+                        .'">'
+                        .'<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
+                        .'</a>'
+                        .'</td>' . "\n";
+
+                    /* DELETE COMMAND */
+
+                    $out .= '<td>'
+                        .'<a href="' . htmlspecialchars(Url::Contextualize(
+                            $_SERVER['PHP_SELF'] . '?cmd=exRm&amp;file=' . $cmdFileName ))
+                        . '" '
+                        .'onclick="return confirmation(\''.clean_str_for_javascript($dspFileName).'\');">'
+                        .'<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
+                        .'</a>'
+                        .'</td>' . "\n";
+
+                    /* MOVE COMMAND */
+                    $out .= '<td>'
+                        .'<a href="' . htmlspecialchars(Url::Contextualize(
+                            $_SERVER['PHP_SELF'] . '?cmd=rqMv&amp;file=' . $cmdFileName ))
+                        . '">'
+                        .'<img src="' . get_icon_url('move') . '" alt="'.get_lang('Move').'" />'
+                        .'</a>'
+                        .'</td>' . "\n";
+
+
+                    $out .= '<td>';
+
+                    if ($groupContext)
+                    {
+                        /* PUBLISH COMMAND */
+
+                        if ($thisFile['type'] == A_FILE)
+                        {
+                            $out .= '<a href="'
+                                .htmlspecialchars(Url::Contextualize( '../work/work.php?'
+                                .'submitGroupWorkUrl='.$cmdFileName ))
+                                . '">'
+                                .'<small>'.get_lang('Publish').'</small>'
+                                .'</a>';
+                        }
+                        // else noop
+                    }
+                    elseif($courseContext)
+                    {
+                        /* VISIBILITY COMMAND */
+
+                        if ($thisFile['visibility'] == "i")
+                        {
+                            $out .= '<a href="'
+                                . htmlspecialchars(Url::Contextualize(
+                                    $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;file=' . $cmdFileName . '&amp;vis=v'))
+                                .'">'
+                                .'<img src="' . get_icon_url('invisible') . '" alt="'.get_lang('Make visible').'" />'
+                                .'</a>';
+                        }
+                        else
+                        {
+                            $out .= '<a href="'
+                                . htmlspecialchars(Url::Contextualize(
+                                    $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;file=' . $cmdFileName . '&amp;vis=i'))
+                                .'">'
+                                .'<img src="' . get_icon_url('visible') . '" alt="'.get_lang('Make invisible').'" />'
+                                .'</a>';
+                        }
+                    }
+
+                    $out .= '</td>' . "\n";
+                } // end if($is_allowedToEdit)
+
+                $out .= '</tr>' . "\n";
+
+                /* COMMENTS */
+
+                if ( $thisFile['comment'] != '' )
+                {
+                    $thisFile['comment'] = htmlspecialchars($thisFile['comment']);
+                    $thisFile['comment'] = claro_parse_user_text($thisFile['comment']);
+
+                    $out .= '<tr align="left">' . "\n"
+                        .'<td colspan="' . $colspan . '">'
+                        .'<div class="comment">'
+                        .$thisFile['comment']
+                        .'</div>'
+                        .'</td>' . "\n"
+                        .'</tr>' . "\n";
+                }
+            }               // end each ($fileList)
+
+        }                   // end if ( $fileList)
+        else
+        {
+            $out .= '<tr align="left">' . "\n"
+                .'<td colspan="' . $colspan . '">'
+                .'<div class="comment">'
+                .get_lang('Nothing to display')
+                .'</div>'
+                .'</td>' . "\n"
+                .'</tr>'
+                ;
+        }
+
+        $out .=    '</tbody>' . "\n"
+                . '</table>' . "\n";
+
+    } // END ELSE VIEW IMAGE
 
 $claroline->display->body->appendContent($out);
 

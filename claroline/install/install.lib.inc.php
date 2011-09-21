@@ -7,15 +7,21 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  *
  * This lib prupose function use by installer.
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Install
- * @author      Claro Team <cvs@claroline.net>
- * @author      Christophe Gesché <moosh@claroline.net>
- * @author      Sebastien Piraux <seb@claroline.net>
- * @author      Frederic Minne <zefredz@claroline.net>
- * @package     INSTALL
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Install
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Sebastien Piraux <seb@claroline.net>
+ * @author Frederic Minne <zefredz@claroline.net>
+ *
+ * @package INSTALL
+ *
  */
 
 /**

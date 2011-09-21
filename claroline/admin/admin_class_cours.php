@@ -35,12 +35,18 @@ $tbl_cours               = $tbl_mdb_names['course'];
 $tbl_course_class          = $tbl_mdb_names['rel_course_class'];
 $tbl_class              = $tbl_mdb_names['class'];
 
-// Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure you want to unregister %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+// javascript confirm pop up declaration
 
-JavascriptLoader::getInstance()->load('admin');
+$htmlHeadXtra[] =
+         "<script>
+         function confirmationUnReg (name)
+         {
+             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))."\"+ name + \"? \"))
+                 {return true;}
+             else
+                 {return false;}
+         }
+         </script>";
 
 //------------------------------------
 // Execute COMMAND section
@@ -157,7 +163,7 @@ else
     // TODO datagrid
     $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
     .    '<thead>'
-    .    '<tr align="center" valign="top">'
+    .    '<tr class="headerX" align="center" valign="top">'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=code&amp;chdir=yes">' . get_lang('Course code') . '</a></th>'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=intitule&amp;chdir=yes">' . get_lang('Course title') . '</a></th>'
     .     '<th>' . get_lang('Course settings') . '</th>'
@@ -186,7 +192,7 @@ else
         .    '<td align="center">'
         .    '<a href="'.$_SERVER['PHP_SELF']
         .    '?cmd=unsubscribe&amp;class_id='.$class_id.'&amp;offset='.$offset.'&amp;course_id='.$list['code'].'" '
-        .    ' onclick="return ADMIN.confirmationUnReg(\''.clean_str_for_javascript($list['code']).'\');">'
+        .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($list['code']).'\');">'
         .    '<img src="' . get_icon_url('unenroll') . '" alt="" />'
         .    '</a>'
         .    '</td>'

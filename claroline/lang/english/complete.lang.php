@@ -75,8 +75,8 @@ $_lang['Access to course'] = 'Access to course';
 $_lang['Access to platform'] = 'Access to platform';
 $_lang['Accounts to merge'] = 'Accounts to merge';
 $_lang['Accounts with same <i>Email</i>'] = 'Accounts with same <i>Email</i>';
-$_lang['Accounts with same <i>Username</i>'] = 'Accounts with same <i>Username</i>';
-$_lang['Accounts with same <i>Username</i> AND same <i>Password</i>'] = 'Accounts with same <i>Username</i> AND same <i>Password</i>';
+$_lang['Accounts with same <i>User name</i>'] = 'Accounts with same <i>User name</i>';
+$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Accounts with same <i>User name</i> AND same <i>Password</i>';
 $_lang['Action'] = 'Action';
 $_lang['Activable only by the platform administrator !'] = 'Activable only by the platform administrator !';
 $_lang['Activate module on install'] = 'Activate module on install';
@@ -175,7 +175,7 @@ $_lang['Allowed with enrolment key'] = 'Allowed with enrolment key';
 $_lang['Already browsed'] = 'Already browsed';
 $_lang['Already enroled'] = 'already enrolled';
 $_lang['Also delete module main database'] = 'Also delete module main database';
-$_lang['An email has been sent to help you remember your username and password.'] = 'An email has been sent to help you remember your username and password.';
+$_lang['An email has been sent to help you remember your user name and password.'] = 'An email has been sent to help you remember your user name and password.';
 $_lang['An error occurred while contacting Claroline.net'] = 'An error occurred while contacting Claroline.net';
 $_lang['An error occurred.  Learning Path import failed.'] = 'An error occurred.  Learning Path import failed.';
 $_lang['An invisible tool will be greyed out on your personal interface.'] = 'An invisible tool will be greyed out on your personal interface.';
@@ -460,7 +460,6 @@ $_lang['Course options'] = 'Course options';
 $_lang['Course profile'] = 'Course profile';
 $_lang['Course profile list'] = 'Course profile list';
 $_lang['Course progression'] = 'Course progression ';
-$_lang['Course session creation is allowed on the platform'] = 'Course session creation is allowed on the platform';
 $_lang['Course settings'] = 'Course settings';
 $_lang['Course statistics are now empty'] = 'Course statistics are now empty';
 $_lang['Course title'] = 'Course title';
@@ -604,7 +603,6 @@ $_lang['Display data'] = 'Display data';
 $_lang['Display disabled courses in members\' course list'] = 'Display disabled courses in members\' course list';
 $_lang['Display expired courses in members\' course list'] = 'Display expired courses in members\' course list';
 $_lang['Display file'] = 'Display file';
-$_lang['Display/hide course tool list'] = 'Display/hide course tool list';
 $_lang['Display link "Create user account" on the platform homepage.'] = 'Display link "Create user account" on the platform homepage.';
 $_lang['Display links to enrol/unenrol to course on the homepage of the user'] = 'Display links to enrol/unenrol to course on the homepage of the user';
 $_lang['Display of detailed answers is not authorized.'] = 'Display of detailed answers is not authorized.';
@@ -1183,7 +1181,7 @@ $_lang['New question'] = 'New question';
 $_lang['New registration denied'] = 'New registration denied';
 $_lang['New submission posted in assignment tool.'] = 'New submission posted in assignment tool.';
 $_lang['New topic'] = 'New topic';
-$_lang['New users will receive an e-mail with their username and password'] = 'New users will receive an e-mail with their username and password';
+$_lang['New users will receive an e-mail with their user name and password'] = 'New users will receive an e-mail with their user name and password';
 $_lang['New window for documents'] = 'New window for documents';
 $_lang['New window for submitted files'] = 'New window for submitted files';
 $_lang['Newest first'] = 'Newest first';
@@ -1695,7 +1693,7 @@ $_lang['This renderer is used for TEX/LaTEX expressions. It is available into th
 $_lang['This tool can not be uninstalled.'] = 'This tool can not be uninstalled.';
 $_lang['This tool is activable by the platform administrator only'] = 'This tool is activable by the platform administrator only';
 $_lang['This tool must be activated manualy in each course'] = 'This tool must be activated manualy in each course';
-$_lang['This username is already taken'] = 'This username is already taken';
+$_lang['This user name is already taken'] = 'This user name is already taken';
 $_lang['This will also delete all works submitted in this assignment !'] = '! This will also delete all works submitted in this assignment !';
 $_lang['This zone is empty'] = 'This zone is empty';
 $_lang['Thumbnail width'] = 'Thumbnail width';
@@ -1868,7 +1866,7 @@ $_lang['User to remove not found'] = 'User to remove not found';
 $_lang['User unregistered'] = 'User unregistered';
 $_lang['User\'s course'] = 'User\'s course';
 $_lang['User\'s course settings'] = 'User\'s course settings';
-$_lang['Username'] = 'Username';
+$_lang['Username'] = 'User name';
 $_lang['Username is too long (maximum 20 characters)'] = 'Username is too long (maximum 20 characters)';
 $_lang['UsernameAppearAlready'] = 'This username appears already in a previous line of the CSV file.';
 $_lang['UsernameUsed'] = 'This username is already used by another user.';
@@ -2022,7 +2020,7 @@ $_lang['Your request to remove your account has been sent'] = 'Your request to r
 $_lang['Your search did not match any courses'] = 'Your search did not match any courses';
 $_lang['Your time is %time'] = 'Your time is %time';
 $_lang['Your total score is %score'] = 'Your total score is %score';
-$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Your user profile doesn\'t seem to be enrolled on this course.';
+$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Your user profile doesn\'t seem to be enrolled on this course, or being pending for this course';
 $_lang['Zip file uploaded and uncompressed'] = ' Zip file uploaded and uncompressed';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Zlib php extension is required to use this tool.  Please contact your platform administrator.';
 $_lang['all students'] = 'all students';
@@ -2576,7 +2574,7 @@ $_lang['blockUsedInSeveralPath'] = 'This exercise is used in one or more learnin
 $_lang['blockUsersHelp'] = '<p>The \'Users\' tool displays user informations in a digest table. Here is below the column descriptions resumed.
 <ul>
 <li>
-<b>Name</b>. By clicking on the username you can see additional informations concerning this user, like e-mail etc.
+<b>Name</b>. By clicking on the user name you can see additional informations concerning this user, like e-mail etc.
 </li>
 <li>
 <b>Roles</b>.

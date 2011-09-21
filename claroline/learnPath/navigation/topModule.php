@@ -1,15 +1,16 @@
 <?php // $Id$
-
 /**
  * CLAROLINE 
  *
- * @version 1.11 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sebastien <pir@cerdecam.be>
- * @author Lederer Guillaume <led@cerdecam.be
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
  * @package CLLNP
  * @subpackage navigation
  *
@@ -36,13 +37,13 @@ else
 $interbredcrump[]= array ("url"=>"../module.php", "name"=> get_lang('Module'));
 //$htmlHeadXtra[] = "<script src=\"APIAdapter.js\" type=\"text/javascript\" language=\"JavaScript\">";
 //header
+$hide_body = true;
 
 // Turn off session lost
 $warnSessionLost = false ;
 
-Claroline::getDisplay()->body->hideCourseTitleAndTools();
-
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 // footer
-Claroline::getDisplay()->footer->hide();
-
-echo Claroline::getDisplay()->render();
+$hide_footer = true;
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+?>

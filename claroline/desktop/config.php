@@ -5,9 +5,9 @@
 /**
 * CLAROLINE
 *
-* User desktop administration index.
+* User desktop administration index
 *
-* @version      $Revision$
+* @version      1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
 * @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
 * @package      DESKTOP
@@ -16,9 +16,9 @@
 */
 
 // reset course and groupe
-$cidReset = true;
-$gidReset = true;
-$uidRequired = true;
+$cidReset = TRUE;
+$gidReset = TRUE;
+$uidRequired = TRUE;
 
 // load Claroline kernel
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
@@ -29,7 +29,7 @@ if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed') );
 
 require_once dirname(__FILE__) . '/lib/portlet.lib.php';
-FromKernel::uses( 'utils/input.lib', 'utils/validator.lib' );
+uses( 'utils/input.lib', 'utils/validator.lib' );
 
 $dialogBox = new DialogBox;
 
@@ -78,7 +78,8 @@ $portletList = $portletList->loadAll();
 
 // Display
 
-CssLoader::getInstance()->load('desktop','all');
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load('desktop','all');
 
 ClaroBreadCrumbs::getInstance()->prepend(
     get_lang('Administration'),
@@ -94,7 +95,7 @@ $output .= $dialogBox->render();
 $output .= '<table class="claroTable emphaseLine" '
     .   'width="100%" border="0" cellspacing="2">' . "\n"
     . '<thead>' . "\n"
-    . '<tr align="center" valign="top">' . "\n"
+    . '<tr class="headerX" align="center" valign="top">' . "\n"
     . '<th>' . get_lang('Title') . '</th>' . "\n"
     . '<th>' . get_lang('Visibility') . '</th>' . "\n"
     . '<th colspan="2">' . get_lang('Order') . '</th>' . "\n"

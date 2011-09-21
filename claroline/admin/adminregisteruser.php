@@ -267,7 +267,7 @@ $out .= '<table width="100%" class="claroTableForm" >'
 
 .    '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
-.    '<tr align="center" valign="top">' . "\n"
+.    '<tr class="headerX" align="center" valign="top">' . "\n"
 .    '<th>'
 
 .    '<a href="' . $_SERVER['PHP_SELF']

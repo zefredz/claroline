@@ -27,7 +27,7 @@ if( ! claro_is_platform_admin() ) claro_die( get_lang('Not allowed') );
 /*
  * Libraries
  */
-FromKernel::uses( 'user.lib', 'courselist.lib' );
+uses( 'user.lib', 'courselist.lib' );
 
 // todo move this lib in tracking/lib
 require_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
@@ -47,7 +47,8 @@ $tbl_tracking_event  = $tbl_mdb_names['tracking_event'];
 /*
  * Output
  */
-CssLoader::getInstance()->load( 'tracking', 'screen');
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'tracking', 'screen');
 
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
