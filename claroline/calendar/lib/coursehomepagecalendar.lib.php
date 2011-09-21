@@ -108,17 +108,16 @@ class CourseHomePageCalendar
                     $eventLine    = substr($eventContent, 0, 60) . (strlen($eventContent) > 60 ? ' (...)' : '');
                 }
                 
-                $eventDate = explode('-', $thisEvent['day']);
-                $day       = intval($eventDate[2]);
+                $eventDate = $thisEvent['day'];
                 
-                if(!array_key_exists($day, $courseDigestList))
+                if(!array_key_exists($eventDate, $courseDigestList))
                 {
-                    $courseDigestList[$day] = array();
-                    $courseDigestList[$day]['eventList'] = array();
-                    $courseDigestList[$day]['date'] = $thisEvent['day'];
+                    $courseDigestList[$eventDate] = array();
+                    $courseDigestList[$eventDate]['eventList'] = array();
+                    $courseDigestList[$eventDate]['date'] = $eventDate;
                 }
                 
-                $courseDigestList[$day]['eventList'][] =
+                $courseDigestList[$eventDate]['eventList'][] =
                     array(
                         'id' => $thisEvent['id'],
                         'hour' => $thisEvent['hour'],
