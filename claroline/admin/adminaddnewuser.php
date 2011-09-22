@@ -40,9 +40,6 @@ $dialogBox = new DialogBox;
   Main Section
  =====================================================================*/
 
-// Initialise field variable from subscription form
-$userData = user_initialise();
-
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = '';
 
