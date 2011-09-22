@@ -279,10 +279,85 @@ class AuthDriverManager
         }
     }
     
+    protected static function loadDriver ( $driverConfigPath )
+    {
+        if ( !file_exists( $driverConfigPath ) )
+        {
+            if ( claro_debug_mode() )
+            {
+                throw new Exception("Driver configuration {$driverConfigPath} not found");
+            }
+
+            Console::error( "Driver configuration {$driverConfigPath} not found" );
+            
+            return;
+        }
+        
+        $driverConfig  = array();
+        
+        include $driverConfigPath;
+        
+        if ( $driverConfig['driver']['enabled'] == true )
+        {
+            $driverClass = $driverConfig['driver']['class'];
+            
+            // search for kernel drivers
+            if ( class_exists( $driverClass ) )
+            {
+                $driver = new $driverClass;
+                $driver->setDriverOptions( $driverConfig );
+                self::$drivers[$driverConfig['driver']['authSourceName']] = $driver;
+            }
+            // search for user defined drivers
+            else
+            {
+                // load dynamic drivers
+                if ( ! file_exists ( get_path('rootSys') . 'platform/conf/extauth/drivers' ) )
+                {
+                    FromKernel::uses('fileManage.lib');
+                    claro_mkdir(get_path('rootSys') . 'platform/conf/extauth/drivers', CLARO_FILE_PERMISSIONS, true );
+                }
+                
+                $driverPath = get_path('rootSys') 
+                    . 'platform/conf/extauth/drivers/' 
+                    . strtolower($driverClass).'.drv.php';
+
+                if ( file_exists($driverPath) )
+                {
+                    require_once $driverPath;
+
+                    if ( class_exists( $driverClass ) )
+                    {
+                        $driver = new $driverClass;
+                        $driver->setDriverOptions( $driverConfig );
+                        self::$drivers[$driverConfig['driver']['authSourceName']] = $driver;
+
+                    }
+                    else
+                    {
+                        if ( claro_debug_mode() )
+                        {
+                            throw new Exception("Driver class {$driverClass} not found");
+                        }
+
+                        Console::error( "Driver class {$driverClass} not found" );
+                    }
+                }
+                else
+                {
+                    if ( claro_debug_mode() )
+                    {
+                        throw new Exception("Driver class {$driverClass} not found");
+                    }
+
+                    Console::error( "Driver class {$driverClass} not found" );
+                }
+            }
+        }
+    }
+    
     protected static function initDriverList()
     {
-        // todo : get from config
-        
         // load static drivers
         self::$drivers = array(
             'claroline' => new ClarolineLocalAuthDriver(),
@@ -298,59 +373,22 @@ class AuthDriverManager
         }
         
         $it = new DirectoryIterator( get_path('rootSys') . 'platform/conf/extauth' );
-        
-        $driverConfig = array();
-        
+            
+        $driversToLoad = array();
+
         foreach ( $it as $file )
         {
-            if ( $file->isFile() )
+            if ( $file->isFile() && substr( $file->getFilename(), -4 ) == '.php' )
             {
-                include $file->getPathname();
-                
-                if ( $driverConfig['driver']['enabled'] == true )
-                {
-                    $driverClass = $driverConfig['driver']['class'];
-                        
-                    if ( class_exists( $driverClass ) )
-                    {
-                        self::$drivers[$driverConfig['driver']['authSourceName']] = new $driverClass( $driverConfig );
-                    }
-                    else
-                    {
-                        $driverPath = dirname(__FILE__). '/drivers/' . strtolower($driverClass).'.lib.php';
-                        
-                        if ( file_exists($driverPath) )
-                        {
-                            require_once $driverPath;
-                            
-                            if ( class_exists( $driverClass ) )
-                            {
-                                self::$drivers[$driverConfig['driver']['authSourceName']] = new $driverClass( $driverConfig );
-                            }
-                            else
-                            {
-                                if ( claro_debug_mode() )
-                                {
-                                    throw new Exception("Driver class {$driverClass} not found");
-                                }
-                                
-                                Console::error( "Driver class {$driverClass} not found" );
-                            }
-                        }
-                        else
-                        {
-                            if ( claro_debug_mode() )
-                            {
-                                throw new Exception("Driver class {$driverClass} not found");
-                            }
-                            
-                            Console::error( "Driver class {$driverClass} not found" );
-                        }
-                    }
-                }
-            }
-            
-            $driverConfig = array();
+                $driversToLoad[] = $file->getPathname();
+            }          
+        }
+
+        sort( $driversToLoad );
+
+        foreach ( $driversToLoad as $driverFile )
+        {
+            self::loadDriver($driverFile);
         }
     }
 }
