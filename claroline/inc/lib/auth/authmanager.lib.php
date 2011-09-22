@@ -304,8 +304,7 @@ class AuthDriverManager
             // search for kernel drivers
             if ( class_exists( $driverClass ) )
             {
-                $driver = new $driverClass;
-                $driver->setDriverOptions( $driverConfig );
+                $driver = new $driverClass( $driverConfig );
                 self::$drivers[$driverConfig['driver']['authSourceName']] = $driver;
             }
             // search for user defined drivers
