@@ -147,8 +147,9 @@ input.inputSearch {
 }
 
 fieldset {
-    border: 1px solid #DDDDDD;
     margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #DDDDDD;
 }
 
 fieldset legend { font-weight: bold; }
