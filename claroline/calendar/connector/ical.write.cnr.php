@@ -63,7 +63,7 @@ function CLCAL_write_ical( $iCal, $context)
                 '', // exeption dates: Array with timestamps of dates that should not be includes in the recurring event
                 0,  // Sets the time in minutes an alarm appears before the event in the programm. no alarm if empty string or 0
                 1, // Status of the event (0 = TENTATIVE, 1 = CONFIRMED, 2 = CANCELLED)
-                get_path('rootWeb') . get_module_url('CLCAL') . '/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $thisEvent['id'], // optional URL for that event
+                get_path('rootWeb') . get_module_url('CLCAL') . '/agenda.php?cidReq=' . $courseId . '#event' . $thisEvent['id'], // optional URL for that event
                 get_locale('iso639_1_code'), // Language of the Strings
                 '' // Optional UID for this event
                 );
@@ -72,4 +72,3 @@ function CLCAL_write_ical( $iCal, $context)
     }
     return $iCal;
 }
-?>

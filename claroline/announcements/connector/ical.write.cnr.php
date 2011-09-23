@@ -67,7 +67,7 @@ function CLANN_write_ical( $iCal, $context)
             array(), // Array with the number of the days the event accures (example: array(0,1,5) = Sunday, Monday, Friday
             0, // Startday of the Week ( 0 = Sunday - 6 = Saturday)
             '', // exeption dates: Array with timestamps of dates that should not be includes in the recurring event
-            get_path('rootWeb') . get_module_url('CLANN') . '/announcements.php?cidReq=' . $courseId . '&amp;l#ann' . $announcementItem['id'], // optional URL for that event
+            get_path('rootWeb') . get_module_url('CLANN') . '/announcements.php?cidReq=' . $courseId . '#ann' . $announcementItem['id'], // optional URL for that event
             get_locale('iso639_1_code'), // Language of the Strings
             '' // Optional UID for this Journal
             );
@@ -75,4 +75,3 @@ function CLANN_write_ical( $iCal, $context)
     }
     return $iCal;
 }
-?>
