@@ -175,18 +175,10 @@ $content .= '<table class="claroTable emphaseLine" width="100%">'."\n\n"
           . '<th><a href="'.$linkSort.'fieldOrder=sender&amp;order='.$nextOrder.'">'.get_lang("Sender").'</a></th>'."\n"
           . '<th><a href="'.$linkSort.'fieldOrder=date&amp;order='.$nextOrder.'">'.get_lang("Date").'</a></th>'."\n"
           . '<th class="im_list_action">'."\n"
-          . '</thead>'."\n";
-if ($link_arg['box'] == "inbox")
-{
-   $content .= get_lang("Delete");
-}
-else
-{
-    $content .= get_lang("Restore");
-}
-$content .=      '</th>'."\n"
-        .'</tr>'."\n\n"
-        ;
+          . '</thead>'."\n"
+          . '<tbody>'."\n"
+          . '</th>'."\n"
+          . '</tr>'."\n\n";
 
 if ($box->getNumberOfMessage() == 0)
 {
@@ -212,7 +204,7 @@ else
     $claroline->display->header->addHtmlHeader($javascriptDelete);
     
     $arg_deleting = makeArgLink($link_arg);
-
+    
     if ($arg_deleting == "")
     {
         $link = $linkPage."?";
@@ -221,7 +213,7 @@ else
     {
         $link = $linkPage."?".$arg_deleting."&amp;";
     }
-
+    
     foreach ($box as $key => $message)
     {
         $content .= '<tr';
@@ -359,7 +351,9 @@ else
                     .'</tr>'."\n\n";
     }
 }
-$content .= '</table>'."\n";
+
+$content .= '</tbody>'."\n"
+          . '</table>'."\n";
 
 // prepare the link to change of page
 if ($box->getNumberOfPage()>1)
