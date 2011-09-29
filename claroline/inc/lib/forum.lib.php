@@ -370,6 +370,9 @@ function is_forum_notification_requested($forumId, $userId)
 
 function trig_forum_notification($forumId)
 {
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_course_user = $tbl_mdb_names['rel_course_user'];
+    
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
 
@@ -377,6 +380,9 @@ function trig_forum_notification($forumId)
 
     $sql = "SELECT notif.user_id
             FROM `" . $tbl_user_notify . "` AS notif
+            JOIN `" . $tbl_course_user . "` AS cu
+            ON notif.user_id = cu.user_id
+            AND cu.code_cours = '". claro_sql_escape(claro_get_current_course_id())."'
             WHERE notif.forum_id = " . (int) $forumId ;
     
     $notifyResult = claro_sql_query($sql);
@@ -695,6 +701,9 @@ function is_topic_notification_requested($topicId, $userId)
 
 function trig_topic_notification($topicId)
 {
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_course_user = $tbl_mdb_names['rel_course_user'];
+    
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
 
@@ -702,6 +711,9 @@ function trig_topic_notification($topicId)
 
     $sql = "SELECT notif.user_id
             FROM `" . $tbl_user_notify . "` AS notif
+            JOIN `" . $tbl_course_user . "` AS cu
+            ON notif.user_id = cu.user_id
+            AND cu.code_cours = '". claro_sql_escape(claro_get_current_course_id())."'
             WHERE notif.topic_id = " . (int) $topicId ;
     
     $notifyResult = claro_sql_query($sql);
@@ -993,7 +1005,7 @@ class postLister
         /**
      * return count of post of the current topic
      *
-     * @author Christophe Gesché <moosh@claroline.net>
+     * @author Christophe Geschï¿½ <moosh@claroline.net>
      * @return array post list
      */
 
