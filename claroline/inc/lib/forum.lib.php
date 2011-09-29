@@ -387,22 +387,21 @@ function trig_forum_notification($forumId)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_rel_user_course = $tbl_mdb_names['rel_course_user'];
     
-    $courseOfficialCode = claro_get_current_course_data('officialCode');
-    global $_course;
+    $courseId = claro_get_current_course_id();
     
     $sql = "SELECT notif.user_id
             FROM `" . $tbl_user_notify . "` AS notif
             INNER JOIN `" . $tbl_rel_user_course ."` AS course
             ON course.user_id = notif.user_id
-            WHERE course.code_cours = '" . $courseOfficialCode . "'
+            WHERE course.code_cours = '" . $courseId . "'
             AND notif.forum_id = " . (int) $forumId;
     
     $notifyResult = claro_sql_query($sql);
     
     $subject      = get_lang('A new topic has been created on your forum');
 
-    $url_forum = get_path('rootWeb') . 'claroline/phpbb/viewforum.php?forum=' .  $forumId . '&cidReq=' . $_course['sysCode'];
-    $url_forum_global = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . claro_get_current_course_id();
+    $url_forum = get_path('rootWeb') . 'claroline/phpbb/viewforum.php?forum=' .  $forumId . '&cidReq=' . $courseId;
+    $url_forum_global = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . $courseId;
 
     // send mail to registered user for notification
     $message = get_lang('You are receiving this notification because you are watching for new topics on the forum of one of your courses.') . '<br/>' . "\n"
@@ -423,7 +422,7 @@ function trig_forum_notification($forumId)
     }
     
     $message = new PlatformMessageToSend($subject,$message);
-    $message->setCourse(claro_get_current_course_id());
+    $message->setCourse($courseId);
     $message->setTools('CLFRM');
     
     if(claro_is_in_a_group())
@@ -716,15 +715,13 @@ function trig_topic_notification($topicId)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_rel_user_course = $tbl_mdb_names['rel_course_user'];
     
-    $courseOfficialCode = claro_get_current_course_data('officialCode');
-
-    global $_course;
-
+    $courseId = claro_get_current_course_id();
+    
     $sql = "SELECT notif.user_id
             FROM `" . $tbl_user_notify . "` AS notif
             INNER JOIN `" . $tbl_rel_user_course ."` AS course
             ON course.user_id = notif.user_id
-            WHERE course.code_cours = '" . $courseOfficialCode . "'
+            WHERE course.code_cours = '" . $courseId . "'
             AND notif.topic_id = " . (int) $topicId;
     
     $notifyResult = claro_sql_query($sql);
@@ -732,8 +729,8 @@ function trig_topic_notification($topicId)
     
     $subject      = get_lang('A reply to your topic has been posted');
 
-    $url_topic = get_path('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
-    $url_forum = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . claro_get_current_course_id();
+    $url_topic = get_path('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $courseId;
+    $url_forum = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . $courseId;
 
     // send mail to registered user for notification
     $message = get_lang('You are receiving this notification because you are watching a topic on the forum of one of your courses.') . '<br/>' . "\n"
@@ -754,7 +751,7 @@ function trig_topic_notification($topicId)
     }
     
     $message = new PlatformMessageToSend($subject,$message);
-    $message->setCourse(claro_get_current_course_id());
+    $message->setCourse($courseId);
     $message->setTools('CLFRM');
     
     if(claro_is_in_a_group())
