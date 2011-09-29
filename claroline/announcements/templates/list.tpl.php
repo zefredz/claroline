@@ -28,7 +28,7 @@
         </a>
         
         <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDelete&id=' . $announcement['id'])); ?>"
-         onclick="return CLANN.confirmationDel('<?php echo clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $announcement['title']))); ?>')">
+         onclick="return CLANN.confirmationDel('<?php echo clean_str_for_javascript($announcement['title']); ?>')">
             <img src="<?php echo get_icon_url('delete'); ?>" alt="<?php echo get_lang('Delete'); ?>" />
         </a>
         
