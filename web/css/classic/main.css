@@ -1098,13 +1098,13 @@ th .claroCmdDisabled {
  * best on a block type tag
  */
 .header {
-    color: #693;
+    color: #444444;
     font-weight: bold;
-    padding: 2px 5px 2px 5px;
-    background-color: #EEEEEE;
-    border-bottom: 1px #96BB7A solid;
+    font-size: 1em;
     margin: 0;
-    font-size: 100%;
+    padding: 2px 5px 2px 5px;
+    border-bottom: 1px solid #444444;
+    background-color: #DDDDDD;
 }
 
 .claroBlock {
