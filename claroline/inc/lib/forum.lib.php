@@ -382,57 +382,76 @@ function is_forum_notification_requested($forumId, $userId)
 
 function trig_forum_notification($forumId)
 {
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_course_user = $tbl_mdb_names['rel_course_user'];
+    
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_rel_user_course = $tbl_mdb_names['rel_course_user'];
-    
-    $courseId = claro_get_current_course_id();
-    
-    $sql = "SELECT notif.user_id
-            FROM `" . $tbl_user_notify . "` AS notif
-            INNER JOIN `" . $tbl_rel_user_course ."` AS course
-            ON course.user_id = notif.user_id
-            WHERE course.code_cours = '" . $courseId . "'
-            AND notif.forum_id = " . (int) $forumId;
-    
-    $notifyResult = claro_sql_query($sql);
-    
-    $subject      = get_lang('A new topic has been created on your forum');
 
-    $url_forum = get_path('rootWeb') . 'claroline/phpbb/viewforum.php?forum=' .  $forumId . '&cidReq=' . $courseId;
-    $url_forum_global = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . $courseId;
+    $sql = "SELECT 
+                notif.user_id
+            FROM 
+                `" . $tbl_user_notify . "` AS notif
+            JOIN 
+                `" . $tbl_course_user . "` AS cu
+            ON 
+                notif.user_id = cu.user_id
+            AND 
+                cu.code_cours = '". claro_sql_escape(claro_get_current_course_id())."'
+            WHERE 
+                notif.forum_id = " . (int) $forumId ;
+    
+    $notifyResult = claro_sql_query_fetch_all_rows($sql);
+    
+    if ( is_array( $notifyResult ) && count( $notifyResult ) )
+    {
+        $subject = get_lang('A new topic has been created on your forum');
 
-    // send mail to registered user for notification
-    $message = get_lang('You are receiving this notification because you are watching for new topics on the forum of one of your courses.') . '<br/>' . "\n"
-    . get_lang('View forum') . '<br/>' . "\n"
-    . '<a href="' . Url::Contextualize($url_forum) . '">' . Url::Contextualize($url_forum) . '</a><br/><br/>' . "\n"
-    . get_lang('View general forum') . '<br/>'
-    . '<a href="' . Url::Contextualize($url_forum_global) . '">' . Url::Contextualize($url_forum_global) . '</a><br/>' . "\n"
-    ;
-    
-    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
-    require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
-    
-    $recipient = new UserListRecipient();
-    
-    while ( ( $list = mysql_fetch_array($notifyResult) ) )
-    {
-        $recipient->addUserId($list['user_id']);
-    }
-    
-    $message = new PlatformMessageToSend($subject,$message);
-    $message->setCourse($courseId);
-    $message->setTools('CLFRM');
-    
-    if(claro_is_in_a_group())
-    {
-        $message->setGroup(claro_get_current_group_id());
-    }
-    
-    //$message->sendTo($recipient);
-    $recipient->sendMessage($message);
-    
+        $url_forum = get_path('rootWeb') 
+            . 'claroline/phpbb/viewforum.php?forum=' 
+            .  $forumId . '&cidReq=' 
+            . claro_get_current_course_id()
+            ;
+        
+        $url_forum_global = get_path('rootWeb') 
+            . 'claroline/phpbb/index.php?cidReq=' 
+            . claro_get_current_course_id()
+            ;
+
+        // send mail to registered user for notification
+        $message = get_lang('You are receiving this notification because you are watching for new topics on the forum of one of your courses.') . '<br/>' . "\n"
+        . get_lang('View forum') . '<br/>' . "\n"
+        . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum)) . '">' 
+            . Url::Contextualize($url_forum) 
+        . '</a><br/><br/>' . "\n"
+        . get_lang('View general forum') . '<br/>'
+        . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum_global)) . '">' 
+            . Url::Contextualize($url_forum_global) 
+        . '</a><br/>' . "\n"
+        ;
+
+        require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+        require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
+
+        $recipient = new UserListRecipient();
+
+        foreach ( $notifyResult as $user )
+        {
+            $recipient->addUserId($user['user_id']);
+        }
+
+        $message = new PlatformMessageToSend($subject,$message);
+        $message->setCourse(claro_get_current_course_id());
+        $message->setTools('CLFRM');
+
+        if(claro_is_in_a_group())
+        {
+            $message->setGroup(claro_get_current_group_id());
+        }
+
+        //$message->sendTo($recipient);
+        $recipient->sendMessage($message);
+    }    
 }
 
 /**
@@ -710,57 +729,76 @@ function is_topic_notification_requested($topicId, $userId)
 
 function trig_topic_notification($topicId)
 {
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_course_user = $tbl_mdb_names['rel_course_user'];
+    
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_rel_user_course = $tbl_mdb_names['rel_course_user'];
     
-    $courseId = claro_get_current_course_id();
+    $sql = "SELECT 
+                notif.user_id
+            FROM 
+                `" . $tbl_user_notify . "` AS notif
+            JOIN 
+                `" . $tbl_course_user . "` AS cu
+            ON 
+                notif.user_id = cu.user_id
+            AND 
+                cu.code_cours = '". claro_sql_escape(claro_get_current_course_id())."'
+            WHERE 
+                notif.topic_id = " . (int) $topicId ;
     
-    $sql = "SELECT notif.user_id
-            FROM `" . $tbl_user_notify . "` AS notif
-            INNER JOIN `" . $tbl_rel_user_course ."` AS course
-            ON course.user_id = notif.user_id
-            WHERE course.code_cours = '" . $courseId . "'
-            AND notif.topic_id = " . (int) $topicId;
+    $notifyResult = claro_sql_query_fetch_all_rows($sql);
     
-    $notifyResult = claro_sql_query($sql);
-    
-    
-    $subject      = get_lang('A reply to your topic has been posted');
-
-    $url_topic = get_path('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $courseId;
-    $url_forum = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . $courseId;
-
-    // send mail to registered user for notification
-    $message = get_lang('You are receiving this notification because you are watching a topic on the forum of one of your courses.') . '<br/>' . "\n"
-    . get_lang('View topic') . '<br/>' . "\n"
-    . '<a href="' . $url_topic . '">' . $url_topic . '</a><br/><br/>' . "\n"
-    . get_lang('View forum') . '<br/>'
-    . '<a href="' . $url_forum . '">' .$url_forum . '</a><br/>' . "\n"
-    ;
-    
-    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
-    require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
-    
-    $recipient = new UserListRecipient();
-    
-    while ( ( $list = mysql_fetch_array($notifyResult) ) )
+    if ( is_array( $notifyResult ) && count( $notifyResult ) )
     {
-        $recipient->addUserId($list['user_id']);
+        $subject = get_lang('A reply to your topic has been posted');
+
+        $url_topic = get_path('rootWeb') 
+            . 'claroline/phpbb/viewtopic.php?topic=' 
+            .  $topicId . '&cidReq=' 
+            . claro_get_current_course_id()
+            ;
+        
+        $url_forum = get_path('rootWeb') 
+            . 'claroline/phpbb/index.php?cidReq=' 
+            . claro_get_current_course_id()
+            ;
+
+        // send mail to registered user for notification
+        $message = get_lang('You are receiving this notification because you are watching a topic on the forum of one of your courses.') . '<br/>' . "\n"
+            . get_lang('View topic') . '<br/>' . "\n"
+            . '<a href="' . htmlspecialchars(Url::Contextualize($url_topic)) . '">' 
+                . Url::Contextualize($url_topic) 
+            . '</a><br/><br/>' . "\n"
+            . get_lang('View forum') . '<br/>'
+            . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum)) . '">' 
+                . Url::Contextualize($url_forum) 
+            . '</a><br/>' . "\n"
+            ;
+    
+        require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+        require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
+
+        $recipient = new UserListRecipient();
+
+        foreach ( $notifyResult as $user )
+        {
+            $recipient->addUserId($user['user_id']);
+        }
+
+        $message = new PlatformMessageToSend($subject,$message);
+        $message->setCourse(claro_get_current_course_id());
+        $message->setTools('CLFRM');
+
+        if(claro_is_in_a_group())
+        {
+            $message->setGroup(claro_get_current_group_id());
+        }
+
+        //$message->sendTo($recipient);
+        $recipient->sendMessage($message);
     }
-    
-    $message = new PlatformMessageToSend($subject,$message);
-    $message->setCourse($courseId);
-    $message->setTools('CLFRM');
-    
-    if(claro_is_in_a_group())
-    {
-        $message->setGroup(claro_get_current_group_id());
-    }
-    
-    //$message->sendTo($recipient);
-    $recipient->sendMessage($message);
 }
 
 
