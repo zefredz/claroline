@@ -1,4 +1,5 @@
-<?php // $Id$ ?>
+<!-- // $Id$ -->
+
 <table class="claroTable emphaseLine" width="100%">
     <tbody>
         <tr class="superHeader">

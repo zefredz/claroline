@@ -1,3 +1,5 @@
+<!-- // $Id$ -->
+
 <h4 class="header">
 <?php
 // Allow user to be have notification for this topic or disable it

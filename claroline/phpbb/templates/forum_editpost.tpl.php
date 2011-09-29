@@ -1,4 +1,5 @@
 <!-- // $Id$ -->
+
 <form id="#formPost" action="<?php echo htmlspecialchars( $_SERVER['PHP_SELF'] )?>" method="post">
     <input type="hidden" name="forum" value="<?php echo $this->forumId ?>" />
     <input type="hidden" name="topic" value="<?php echo $this->topicId ?>" />
@@ -33,4 +34,3 @@
         </tbody>
     </table>
 </form>
-    
