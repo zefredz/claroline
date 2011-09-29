@@ -1,7 +1,7 @@
 .threadPost
 {
     border: 1px #ccc solid;
-    margin: 2px;
+    margin: 2px 0;
     background: transparent url('../img/post_bg.png') repeat-y top left;
 }
 
