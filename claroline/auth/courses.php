@@ -237,6 +237,11 @@ if ( $cmd == 'exReg' )
         $categoryId
     );
     
+    if ( !empty( $classId ) )
+    {
+        $courseRegistration->setClassRegistrationMode();
+    }
+    
     if ( $courseRegistration->addUser() )
     {
         $claroline->log('COURSE_SUBSCRIBE',array('user'=>$userId,'course'=>$courseCode));
