@@ -388,17 +388,17 @@ function trig_forum_notification($forumId)
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
 
-    $sql = "SELECT 
+    $sql = "SELECT
                 notif.user_id
-            FROM 
+            FROM
                 `" . $tbl_user_notify . "` AS notif
-            JOIN 
+            JOIN
                 `" . $tbl_course_user . "` AS cu
-            ON 
+            ON
                 notif.user_id = cu.user_id
-            AND 
+            AND
                 cu.code_cours = '". claro_sql_escape(claro_get_current_course_id())."'
-            WHERE 
+            WHERE
                 notif.forum_id = " . (int) $forumId ;
     
     $notifyResult = claro_sql_query_fetch_all_rows($sql);
@@ -407,26 +407,26 @@ function trig_forum_notification($forumId)
     {
         $subject = get_lang('A new topic has been created on your forum');
 
-        $url_forum = get_path('rootWeb') 
-            . 'claroline/phpbb/viewforum.php?forum=' 
-            .  $forumId . '&cidReq=' 
+        $url_forum = get_path('rootWeb')
+            . 'claroline/phpbb/viewforum.php?forum='
+            .  $forumId . '&cidReq='
             . claro_get_current_course_id()
             ;
         
-        $url_forum_global = get_path('rootWeb') 
-            . 'claroline/phpbb/index.php?cidReq=' 
+        $url_forum_global = get_path('rootWeb')
+            . 'claroline/phpbb/index.php?cidReq='
             . claro_get_current_course_id()
             ;
 
         // send mail to registered user for notification
         $message = get_lang('You are receiving this notification because you are watching for new topics on the forum of one of your courses.') . '<br/>' . "\n"
         . get_lang('View forum') . '<br/>' . "\n"
-        . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum)) . '">' 
-            . Url::Contextualize($url_forum) 
+        . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum)) . '">'
+            . Url::Contextualize($url_forum)
         . '</a><br/><br/>' . "\n"
         . get_lang('View general forum') . '<br/>'
-        . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum_global)) . '">' 
-            . Url::Contextualize($url_forum_global) 
+        . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum_global)) . '">'
+            . Url::Contextualize($url_forum_global)
         . '</a><br/>' . "\n"
         ;
 
@@ -451,7 +451,7 @@ function trig_forum_notification($forumId)
 
         //$message->sendTo($recipient);
         $recipient->sendMessage($message);
-    }    
+    }
 }
 
 /**
@@ -735,17 +735,17 @@ function trig_topic_notification($topicId)
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
     
-    $sql = "SELECT 
+    $sql = "SELECT
                 notif.user_id
-            FROM 
+            FROM
                 `" . $tbl_user_notify . "` AS notif
-            JOIN 
+            JOIN
                 `" . $tbl_course_user . "` AS cu
-            ON 
+            ON
                 notif.user_id = cu.user_id
-            AND 
+            AND
                 cu.code_cours = '". claro_sql_escape(claro_get_current_course_id())."'
-            WHERE 
+            WHERE
                 notif.topic_id = " . (int) $topicId ;
     
     $notifyResult = claro_sql_query_fetch_all_rows($sql);
@@ -754,26 +754,26 @@ function trig_topic_notification($topicId)
     {
         $subject = get_lang('A reply to your topic has been posted');
 
-        $url_topic = get_path('rootWeb') 
-            . 'claroline/phpbb/viewtopic.php?topic=' 
-            .  $topicId . '&cidReq=' 
+        $url_topic = get_path('rootWeb')
+            . 'claroline/phpbb/viewtopic.php?topic='
+            .  $topicId . '&cidReq='
             . claro_get_current_course_id()
             ;
         
-        $url_forum = get_path('rootWeb') 
-            . 'claroline/phpbb/index.php?cidReq=' 
+        $url_forum = get_path('rootWeb')
+            . 'claroline/phpbb/index.php?cidReq='
             . claro_get_current_course_id()
             ;
 
         // send mail to registered user for notification
         $message = get_lang('You are receiving this notification because you are watching a topic on the forum of one of your courses.') . '<br/>' . "\n"
             . get_lang('View topic') . '<br/>' . "\n"
-            . '<a href="' . htmlspecialchars(Url::Contextualize($url_topic)) . '">' 
-                . Url::Contextualize($url_topic) 
+            . '<a href="' . htmlspecialchars(Url::Contextualize($url_topic)) . '">'
+                . Url::Contextualize($url_topic)
             . '</a><br/><br/>' . "\n"
             . get_lang('View forum') . '<br/>'
-            . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum)) . '">' 
-                . Url::Contextualize($url_forum) 
+            . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum)) . '">'
+                . Url::Contextualize($url_forum)
             . '</a><br/>' . "\n"
             ;
     
@@ -1145,6 +1145,85 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
             . get_lang('Search')
         );
         
+    return $toolList;
+}
+
+/**
+ * Get an array containing data in order to build the forum toolbar
+ *
+ * @author Mathieu Laurent <mla@claroline.net>
+ * @return array
+ */
+
+function get_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
+{
+    global $forum_name, $topic_title;
+    
+    $toolList = array();
+    
+    switch ( $pagetype )
+    {
+        // 'index' and 'register' are covered by default
+        case 'newtopic':
+            
+            break;
+        
+        case 'reply':
+            
+            break;
+        
+        case 'viewforum':
+            
+            $toolList[] = array(
+                'img' => 'topic',
+                'name' => get_lang('New topic'),
+                'url' => htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
+                       . '/viewtopic.php?forum=' . $forum_id
+                       . '&amp;cmd=rqPost&amp;mode=add') )
+           );
+            break;
+        
+        case 'viewtopic':
+            
+            $toolList[] = array(
+                'img' => 'reply',
+                'name' => get_lang('Reply'),
+                'url' => htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
+                       . '/viewtopic.php?topic=' . $topic_id . '&amp;cmd=rqPost&amp;mode=reply' ) )
+            );
+            
+            break;
+        
+        case 'index':
+            
+            if ( claro_is_allowed_to_edit() )
+            {
+                $toolList[] = array(
+                    'name' => get_lang('Create category'),
+                    'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                           . '?cmd=rqMkCat' ) )
+                );
+                
+                $toolList[] = array(
+                    'name' => get_lang('Create forum'),
+                    'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                           . '?cmd=rqMkForum' ) )
+                );
+            }
+            
+            break;
+    }
+    
+    if ( ! in_array($pagetype, array( 'add', 'reply', 'edit', 'quote' ) ) )
+    {
+        $toolList[] = array(
+            'img' => 'search',
+            'name' => get_lang('Search'),
+            'url' => htmlspecialchars(Url::Contextualize( get_module_url('CLFRM')
+                   . '/index.php?cmd=rqSearch' ) )
+        );
+    }
+    
     return $toolList;
 }
 

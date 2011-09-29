@@ -430,14 +430,18 @@ ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
 
 JavascriptLoader::getInstance()->load('forum');
 
-//prepare display
+// Prepare display
 $out = '';
+
+// Command list
+$cmdList = array();
 
 $nameTools = get_lang( 'Forums' );
 
 $pagetype = !empty( $editMode ) ? $editMode : 'viewtopic';
 
-$out .= claro_html_tool_title( $nameTools, $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : false );
+// The title is put in the $out var at the end of this script
+
 if( claro_is_allowed_to_edit() && $topicId )
 {
     $out .= '<div style="float: right;">' . "\n"
@@ -493,8 +497,9 @@ if( isset( $form ) )
 {
     $formBox = new DialogBox();
     $formBox->form( $form->render() );
-    $out .= $formBox->render();
-    $out .= '<p>&nbsp;</p>';
+    
+    $out .= $formBox->render()
+          . '<hr />';
 }
 
 //display topic review if any
@@ -525,34 +530,36 @@ if( $topicSettingList )
     
     if( $is_postAllowed )
     {
-        $toolList = disp_forum_toolbar( 'viewtopic', $forumSettingList['forum_id'], $forumSettingList['cat_id'], $topicId );
+        $cmdList = get_forum_toolbar_array( 'viewtopic', $forumSettingList['forum_id'], $forumSettingList['cat_id'], $topicId );
         
         if ( count( $postList ) > 2 ) // if less than 2 las message is visible
         {
             $start_last_message = ( ceil( $totalPosts / get_conf( 'posts_per_page' ) ) -1 ) * get_conf( 'posts_per_page' );
             
             $lastMsgUrl = Url::Contextualize( $_SERVER['PHP_SELF']
-            .             '?forum=' . $forumSettingList['forum_id']
-            .             '&amp;topic=' . $topicId
-            .             '&amp;start=' . $start_last_message
-            .             '#post' . $topicSettingList['topic_last_post_id'] )
-            ;
+                        . '?forum=' . $forumSettingList['forum_id']
+                        . '&amp;topic=' . $topicId
+                        . '&amp;start=' . $start_last_message
+                        . '#post' . $topicSettingList['topic_last_post_id'] );
             
-            $toolList[] = claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $lastMsgUrl ) ), get_lang( 'Last message' ) );
+            $cmdList[] = array(
+                'name' => get_lang( 'Last message' ),
+                'url' => htmlspecialchars( Url::Contextualize( $lastMsgUrl ) )
+            );
             
             if( !$viewall )
             {
                 $viewallUrl = Url::Contextualize( $_SERVER['PHP_SELF']
-                .             '?forum=' . $forumSettingList['forum_id']
-                .             '&amp;topic=' . $topicId
-                .             '&amp;viewall=1' )
-                ;
+                            . '?forum=' . $forumSettingList['forum_id']
+                            . '&amp;topic=' . $topicId
+                            . '&amp;viewall=1' );
                
-                $toolList[] = claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $viewallUrl ) ), get_lang( 'Full review' ) );
+                $cmdList[] = array(
+                    'name' => get_lang( 'Full review' ),
+                    'url' => htmlspecialchars( Url::Contextualize( $viewallUrl ) )
+                );
             }
         }
-        
-        $out .= '<p>' . claro_html_menu_horizontal( $toolList ) . '</p>';
     }
     
     $out .= $postLister->disp_pager_tool_bar( $pagerUrl );
@@ -593,6 +600,10 @@ if( $topicSettingList )
     
     $out .= $postLister->disp_pager_tool_bar( $pagerUrl );
 }
+
+// Page title
+$out = claro_html_tool_title( $nameTools, $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : false, $cmdList )
+     . $out;
 
 ClaroBreadCrumbs::getInstance()->setCurrent( get_lang( 'Forums' ), 'index.php' );
 

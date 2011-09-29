@@ -248,7 +248,7 @@ else
     $forum_name = $forumSettingList['forum_name'];
     $forum_cat_id = $forumSettingList['cat_id'];
     $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
-
+    
     $display_name = $forum_name;
     if( get_conf( 'clfrm_anonymity_enabled', true ) )
     {
@@ -265,14 +265,24 @@ ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
 
 JavascriptLoader::getInstance()->load('forum');
 
-//prepare display
+// Prepare display
 $out = '';
 
 $nameTools = get_lang( 'Forums' );
 
 $pagetype = 'viewforum';
 
-$out .= claro_html_tool_title( get_lang( 'Forums' ), $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : false );
+// Command list
+if( $forum_post_allowed )
+{
+    $cmdList = get_forum_toolbar_array( $pagetype, $forumId, $forum_cat_id, 0 );
+}
+else
+{
+    $cmdList = array();
+}
+
+$out .= claro_html_tool_title( get_lang( 'Forums' ), $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : false, $cmdList );
 
 if( !$viewAllowed )
 {
@@ -281,14 +291,14 @@ if( !$viewAllowed )
 else
 {
     $colspan = $is_allowedToEdit ? 9 : 6;
-
+    
     $is_allowedToEdit = claro_is_allowed_to_edit()
                         || (  claro_is_group_tutor() && !claro_is_course_manager());
                         // (  claro_is_group_tutor()
                         //  is added to give admin status to tutor
                         // && !claro_is_course_manager())
                         // is added  to let course admin, tutor of current group, use student mode
-
+    
     if( claro_is_allowed_to_edit() )
     {
         $out .= '<div style="float: right;">' . "\n"
@@ -301,18 +311,13 @@ else
     $out .= disp_forum_breadcrumb( $pagetype, $forumId, $forum_name );
     
     $out .= $dialogBox->render();
-
-    if( $forum_post_allowed )
-    {
-        $out .= '<p>' . claro_html_menu_horizontal(disp_forum_toolbar( $pagetype, $forumId, $forum_cat_id, 0 ) ) . '</p>';
-    }
     
     $topicLister = new topicLister($forumId, $start, get_conf( 'topics_per_page' ) );
     $topicList   = $topicLister->get_topic_list();
     $pagerUrl = htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewforum.php?forum=' . $forumId ) );
-
+    
     $out .= $topicLister->disp_pager_tool_bar( $pagerUrl );
-
+    
     try
     {
         $display = new ModuleTemplate( 'CLFRM' , 'forum_viewforum.tpl.php' );
@@ -329,7 +334,7 @@ else
     {
         $dialogBox->error( $ex );
     }
-
+    
     $out .= $topicLister->disp_pager_tool_bar($pagerUrl);
 }
 
