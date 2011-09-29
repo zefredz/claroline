@@ -384,16 +384,21 @@ function trig_forum_notification($forumId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
-
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_rel_user_course = $tbl_mdb_names['rel_course_user'];
+    
+    $courseOfficialCode = claro_get_current_course_data('officialCode');
     global $_course;
-
+    
     $sql = "SELECT notif.user_id
             FROM `" . $tbl_user_notify . "` AS notif
-            WHERE notif.forum_id = " . (int) $forumId ;
+            INNER JOIN `" . $tbl_rel_user_course ."` AS course
+            ON course.user_id = notif.user_id
+            WHERE course.code_cours = '" . $courseOfficialCode . "'
+            AND notif.forum_id = " . (int) $forumId;
     
     $notifyResult = claro_sql_query($sql);
     
-    $courseOfficialCode = claro_get_current_course_data('officialCode');
     $subject      = get_lang('A new topic has been created on your forum');
 
     $url_forum = get_path('rootWeb') . 'claroline/phpbb/viewforum.php?forum=' .  $forumId . '&cidReq=' . $_course['sysCode'];
@@ -708,16 +713,23 @@ function trig_topic_notification($topicId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_rel_user_course = $tbl_mdb_names['rel_course_user'];
+    
+    $courseOfficialCode = claro_get_current_course_data('officialCode');
 
     global $_course;
 
     $sql = "SELECT notif.user_id
             FROM `" . $tbl_user_notify . "` AS notif
-            WHERE notif.topic_id = " . (int) $topicId ;
+            INNER JOIN `" . $tbl_rel_user_course ."` AS course
+            ON course.user_id = notif.user_id
+            WHERE course.code_cours = '" . $courseOfficialCode . "'
+            AND notif.topic_id = " . (int) $topicId;
     
     $notifyResult = claro_sql_query($sql);
     
-    $courseOfficialCode = claro_get_current_course_data('officialCode');
+    
     $subject      = get_lang('A reply to your topic has been posted');
 
     $url_topic = get_path('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
