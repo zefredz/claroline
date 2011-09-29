@@ -1,5 +1,18 @@
 <?php // $Id$
 
+/**
+ * CLAROLINE
+ *
+ * @version     $Revision$
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001 The phpBB Group
+ * @author      Claroline Team <info@claroline.net>
+ * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     CLFRM
+ */
+
 $tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
@@ -177,5 +190,3 @@ else foreach ( $searchResultList as $thisPost )
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

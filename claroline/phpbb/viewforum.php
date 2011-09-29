@@ -1,18 +1,18 @@
 <?php // $Id$
+
 /**
- * Claroline forum tool
+ * CLAROLINE
  *
  * Displays the list of topics gathered within a forum.
- * As from 1.9.6 adds administrative commands : edit-delete-block
  *
- * @version 1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001 The phpBB Group
  * @author      Claroline Team <info@claroline.net>
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     CLFRM
- *
  */
 
 $tlabelReq = 'CLFRM';
@@ -52,12 +52,12 @@ try
         $userInput->setValidator( 'cmd', new Claro_Validator_AllowedList( array( 'show', 'exLock', 'exUnlock', 'exDelTopic', 'exEditTopic', 'rqEditTopic', 'exNotify', 'exdoNotNotify' ) ) );
         $userInput->setValidator( 'topic', new Claro_Validator_ValueType( 'numeric' ) );
         $userInput->setValidator( 'topic', new Claro_Validator_NotEmpty() );
-        $userInput->setValidator( 'title', new Claro_Validator_ValueType( 'string' ) );       
+        $userInput->setValidator( 'title', new Claro_Validator_ValueType( 'string' ) );
         $userInput->setValidator( 'title', new Claro_Validator_NotEmpty() );
     }
     else
     {
-        $userInput->setValidator( 'cmd', new Claro_Validator_AllowedList( array( 'show', 'exNotify', 'exdoNotNotify' ) ) );    
+        $userInput->setValidator( 'cmd', new Claro_Validator_AllowedList( array( 'show', 'exNotify', 'exdoNotNotify' ) ) );
     }
     $userInput->setValidator( 'forum', new Claro_Validator_ValueType( 'numeric' ) );
     $userInput->setValidator( 'forum', new Claro_Validator_NotEmpty() );
@@ -91,11 +91,11 @@ try
     //TODO notification commands should be handled by ajax calls
     if( !in_array( $cmd, array( 'exNotify', 'exdoNotNotify', 'show' ) ) )
     {
-        $topicId = $userInput->getMandatory( 'topic' );         
-    } 
+        $topicId = $userInput->getMandatory( 'topic' );
+    }
     if( 'exEditTopic' == $cmd )
     {
-        $topicTitle = $userInput->getMandatory( 'title' ); 
+        $topicTitle = $userInput->getMandatory( 'title' );
     }
 }
 catch( Exception $ex )
@@ -109,21 +109,21 @@ catch( Exception $ex )
         switch( $cmd )
         {
             //notification commands should be handled by ajax calls
-            case 'exNotify' : 
+            case 'exNotify' :
                 $dialogBox->error( get_lang( 'Forum unknown' ) );
-                $cmd = 'show'; 
+                $cmd = 'show';
                 break;
             case 'exDoNotNotify' :
                 $dialogBox->error( get_lang( 'Forum unknown' ) );
-                $cmd = 'show'; 
+                $cmd = 'show';
                 break;
             case 'show' :
                 $dialogBox->error( get_lang( 'Forum unknown' ) );
-                $cmd = 'show'; 
+                $cmd = 'show';
                 break;
             case 'exEdTopic' :
                 $dialogBox->error( get_lang( 'Topic title cannot be empty' ) );
-                $cmd = 'rqEdTopic'; 
+                $cmd = 'rqEdTopic';
                 break;
             default :
                 $dialogBox->error( get_lang( 'Topic unknown' ) );
@@ -157,7 +157,7 @@ if( $is_allowedToEdit )
             {
                 $dialogBox->error( get_lang( 'Error while modifying topic title' ) );
             }
-            break;            
+            break;
         case 'rqEditTopic' :
             $topicSettingList = get_topic_settings( $topicId );
             if( $topicSettingList )
@@ -181,13 +181,13 @@ if( $is_allowedToEdit )
                     {
                         $dialogBox->error( $ex->getMessage() );
                     }
-                }  
+                }
             }
             else
             {
                 $dialogBox->error( get_lang( 'Unknown topic' ) );
-            }  
-            break;   
+            }
+            break;
         case 'exDelTopic' :
             if( delete_topic( $topicId ) )
             {
@@ -235,7 +235,7 @@ if( false === $forumSettingList = get_forum_settings( $forumId ) )
     $viewAllowed = false;
 }
 elseif( !is_null( $forumSettingList['idGroup'] )
-         && ( ( $forumSettingList['idGroup'] != claro_get_current_group_id() ) 
+         && ( ( $forumSettingList['idGroup'] != claro_get_current_group_id() )
                  || !claro_is_in_a_group()
                  || !claro_is_group_allowed() ) )
 {
@@ -258,17 +258,12 @@ else
     $viewAllowed = true;
 }
 
-//add javascript control for "dangerous" commands (delete)   
-$htmlHeadXtra[] =
-    "<script type=\"text/javascript\">
-    function confirm_delete()
-    {
-       if (confirm('". clean_str_for_javascript( get_lang( 'Are you sure to delete' ) ) . "'))
-       {return true;}
-       else
-       {return false;}
-    }
-    </script>";
+// Javascript confirm pop up declaration for header
+$jslang = new JavascriptLanguage;
+$jslang->addLangVar('Are you sure to delete %name ?');
+ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+
+JavascriptLoader::getInstance()->load('forum');
 
 //prepare display
 $out = '';
@@ -320,7 +315,7 @@ else
 
     try
     {
-        $display = new ModuleTemplate( 'CLFRM' , 'forum_viewforum.tpl.php' ); 
+        $display = new ModuleTemplate( 'CLFRM' , 'forum_viewforum.tpl.php' );
         $display->assign( 'forumId', $forumId );
         $display->assign( 'forumName', $display_name );
         $display->assign( 'forumSettings', $forumSettingList );

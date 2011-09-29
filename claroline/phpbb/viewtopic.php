@@ -1,12 +1,14 @@
 <?php // $Id$
+
 /**
- * Claroline forum tool
+ * CLAROLINE
  *
  * Script handling topics and posts in forum tool (new topics, replies, topic review, etc.)
  * As from Claroline 1.9.6, gathers functionality of deprecated scripts newtopic.php, reply.php and editpost.php
  *
- * @version     1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001 The phpBB Group
  * @author      Claroline Team <info@claroline.net>
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -420,44 +422,13 @@ else
 JavaScriptLoader::getInstance()->load( 'forum' );
 CssLoader::getInstance()->load( 'clfrm', 'screen' );
 
-//javascript control to confirm signed posts in anonymous forums
-if( 'default' == $anonymityStatus && !$is_allowedToEdit && get_conf( 'confirm_not_anonymous', 'TRUE' ) == 'TRUE' )
-{
-    $htmlHeadXtra[] =
-    '<script type="text/javascript">
-    $(document).ready(function(){
-        $(".confirm").click(function(){
-            if( $("#anonymous_cb").length <= 0 || $("#anonymous_cb").is(":checked") )
-            {
-                return true;
-            }
-            else
-            {
-                if( confirm("' . clean_str_for_javascript( get_lang( 'Do you really want to sign your contribution ?' ) ) . '"))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        });
-    });
-    </script>';
-}
+// Javascript confirm pop up declaration for header
+$jslang = new JavascriptLanguage;
+$jslang->addLangVar('Are you sure to delete %name ?');
+$jslang->addLangVar('Do you really want to sign your contribution ?');
+ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
 
-//javascript control to confirm deletion of post
-$htmlHeadXtra[] =
-"<script type=\"text/javascript\">
-   function confirm_delete()
-   {
-       if (confirm('". clean_str_for_javascript( get_lang( 'Are you sure to delete' ) ) . "'))
-       {return true;}
-       else
-       {return false;}
-   }
-</script>";
+JavascriptLoader::getInstance()->load('forum');
 
 //prepare display
 $out = '';

@@ -77,7 +77,7 @@ endif; //end not anonymous user
             <img src="<?php echo get_icon_url('edit'); ?>" alt="<?php echo get_lang('Edit'); ?>" />
           </a>
           <?php if( !is_first_post( $this->topic_id, $thisPost['post_id'] ) ) :?>
-          <a class="claroCmd" href="<?php echo htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?post=' . $thisPost['post_id'] . '&amp;cmd=exDelete&amp;submit=submit' ) ); ?>" onclick="return confirm_delete();" >
+          <a class="claroCmd" href="<?php echo htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?post=' . $thisPost['post_id'] . '&amp;cmd=exDelete&amp;submit=submit' ) ); ?>" onclick="return confirmationDel('<?php echo get_lang('this item'); ?>');" >
             <img src="<?php echo get_icon_url('delete'); ?>" alt="<?php echo get_lang('Delete'); ?>" />
           </a>
           <?php endif; ?>

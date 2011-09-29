@@ -22,11 +22,11 @@
             $checked = ( $this->anonymityStatus == 'default' ) ? ' checked=checked' : '';?>
             <tr valign="top">
                 <td align="right"><label for="anonymous_post"><?php echo get_lang( 'Anonymous post' )?></label> : </td>
-                <td><input id="anonymous_cb" type="checkbox" name="anonymous_post" value="1"<?php echo $checked ?>/> </td>
+                <td><input id="anonymous_cb"<?php if (get_conf( 'confirm_not_anonymous', 'TRUE' ) == 'TRUE') : ?> class="confirmAnonymous"<?php endif; ?> type="checkbox" name="anonymous_post" value="1"<?php echo $checked ?>/> </td>
             </tr>
     <?php endif;?>
             <tr valign="top"><td>&nbsp;</td>
-                <td><input class="confirm" type="submit" name="submit" value="<?php echo get_lang( 'Ok' )?>" />&nbsp; 
+                <td><input class="confirm" type="submit" name="submit" value="<?php echo get_lang( 'Ok' )?>" />&nbsp;
                     <?php echo claro_html_button( htmlspecialchars( Url::Contextualize( $_SERVER['HTTP_REFERER'] ) ), get_lang( 'Cancel' ) )?>
                 </td>
             </tr>
