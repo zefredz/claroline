@@ -487,7 +487,7 @@ function user_send_registration_mail ($userId, $data,$courseCode = null)
         }
 
         $message = new MessageToSend(claro_get_current_user_id(),$emailSubject,$emailBody);
-        $message->setSender(get_conf('administrator_email'));
+        //$message->setSender(get_conf('administrator_email'));
 
         $recipient = new SingleUserRecipient($userId);
 

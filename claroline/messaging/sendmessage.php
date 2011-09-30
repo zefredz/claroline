@@ -62,7 +62,7 @@
             $message = "";
         }
         
-        if ($_REQUEST['cmd'] == 'rqMessageToUser' && isset($_REQUEST['userId']))
+        if ($_REQUEST['cmd'] == 'rqMessageToUser' && isset($_REQUEST['userId']) && ($_REQUEST['userId']!=0))
         {
             $userId = (int)$_REQUEST['userId'];
             
