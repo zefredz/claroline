@@ -18,7 +18,12 @@ require get_module_path('CLTI').'/lib/toolintroduction.class.php';
 class ToolIntroductionIterator implements Iterator, Countable
 {
     private     $courseCode;
+    
+    /**
+     * @var Database_ResultSet
+     */
     private     $toolIntroductions;
+    
     protected   $n = 0;
     
     public function __construct($courseCode)
@@ -50,7 +55,7 @@ class ToolIntroductionIterator implements Iterator, Countable
     
     public function key()
     {
-        return 'increment '.$this->n+1;
+        return $this->toolIntroductions->key();
     }
     
     public function current()
