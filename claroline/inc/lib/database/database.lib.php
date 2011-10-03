@@ -543,6 +543,7 @@ interface Database_ResultSet extends SeekableIterator, Countable
      *      FETCH_OBJECT : object representation of the current row
      *      FETCH_CLASS : instance of the class name given
      *      FETCH_VALUE : value of the first field in the current row
+     * @throws Claroline_Database_Exception
      */
     public function fetch( $mode = null, $className = null );
     
@@ -557,6 +558,18 @@ interface Database_ResultSet extends SeekableIterator, Countable
      * @return  boolean
      */
     public function isEmpty();
+
+    /**
+     * Set the name of the resultset key to be used as the row id in the
+     * iterator if not, the rank of the row in the result set will be used
+     * WARNING This will work only with FETCH_ASSOC, FETCH_OBJECT, FETCH_CLASS
+     * and FETCH_BOTH. In FETCH_NUM, FETCH_VALUE and FETCH_ROW mode, the id key
+     * name will be ignored and the return key will be the rank of the row in
+     * the result set not the value of the key $idKeyName !
+     * @param string $idKeyName
+     * @return $this for chaining
+     */
+    public function useId( $idKeyName );
 }
 
 /**
@@ -572,7 +585,9 @@ class Mysql_ResultSet implements Database_ResultSet
         $idx,
         $valid,
         $numrows,
-        $resultSet;
+        $resultSet,
+        $idKeyName,
+        $idKeyValue;
     
     /**
      * @param   resource $result Mysql native resultset
@@ -587,6 +602,8 @@ class Mysql_ResultSet implements Database_ResultSet
             // set to 0 if false;
             $this->numrows = (int) @mysql_num_rows( $this->resultSet );
             $this->idx = 0;
+            $this->idKeyName = null;
+            $this->idKeyValue = null;
         }
         else
         {
@@ -606,6 +623,8 @@ class Mysql_ResultSet implements Database_ResultSet
         unset( $this->mode );
         unset( $this->valid );
         unset( $this->idx );
+        unset( $this->idKeyName );
+        unset( $this->idKeyValue );
     }
     
     // --- Database_ResultSet  ---
@@ -628,6 +647,19 @@ class Mysql_ResultSet implements Database_ResultSet
         }
 
         return $this;
+    }
+    
+    /**
+     * Set the name of the resultset key to be used as the row id in the
+     * iterator if not, the rank of the row in the result set will be used
+     * @param string $idKeyName
+     * @return $this for chaining
+     * @see Database_ResultSet
+     * @since Claroline 1.9.7
+     */
+    public function useId( $idKeyName )
+    {
+        $this->idKeyName = $idKeyName;
     }
     
     /**
@@ -662,6 +694,7 @@ class Mysql_ResultSet implements Database_ResultSet
      *      FETCH_OBJECT : object representation of the current row
      *      FETCH_CLASS : instance of the class name given
      *      FETCH_VALUE : value of the first field in the current row
+     * @throws Claroline_Database_Exception
      */
     public function fetch( $mode = null, $className = null )
     {
@@ -674,17 +707,23 @@ class Mysql_ResultSet implements Database_ResultSet
                 || ! class_exists( $className )
                 || ! is_callable ( array( $className, 'getInstance' ) ) )
             {
-                throw new Exception( "Cannot instanciate class {$className}" );
+                throw new Claroline_Database_Exception( "Cannot instanciate class {$className}" );
             }
 
             $row = @mysql_fetch_array( $this->resultSet, MYSQL_ASSOC );
+
+            $this->setIdFromKeyValue( $mode, $row );
+
             $obj = call_user_func( array($className, 'getInstance' ), $row );
 
             return $obj;
         }
         elseif ( $mode == self::FETCH_OBJECT )
         {
-            return @mysql_fetch_object( $this->resultSet );
+            $row = @mysql_fetch_object( $this->resultSet );
+            $this->setIdFromKeyValue( $mode, $row );
+
+            return $row;
         }
         // FIXME : FETCH_VALUE should not be called twice !
         elseif ( $mode == self::FETCH_VALUE || $mode == self::FETCH_COLUMN )
@@ -696,7 +735,44 @@ class Mysql_ResultSet implements Database_ResultSet
         }
         else
         {
-            return @mysql_fetch_array( $this->resultSet, $this->mysqlFetchMode( $mode ) );
+            $row = @mysql_fetch_array( $this->resultSet, $this->mysqlFetchMode( $mode ) );
+            $this->setIdFromKeyValue( $mode, $row );
+
+            return $row;
+        }
+    }
+
+    /**
+     *
+     * @param <type> $fetchmode
+     * @param <type> $row
+     */
+    protected function setIdFromKeyValue( $mode, $row )
+    {
+        if ( is_null($this->idKeyName) )
+        {
+            $this->idKeyValue = null;
+        }
+        elseif ( $mode == self::FETCH_ASSOC
+            || $mode == self::FETCH_BOTH
+            || $mode == self::FETCH_CLASS
+            || $mode == self::FETCH_OBJECT )
+        {
+            if ( $mode == self::FETCH_OBJECT )
+            {
+                $data = (array)$row;
+            }
+
+            if ( ! array_key_exists( $this->idKeyName, $data) )
+            {
+                throw new Claroline_Database_Exception("Id key {$this->idKeyName} not found in the current row");
+            }
+
+            $this->idKeyValue = $data[$this->idKeyName];
+        }
+        else
+        {
+            $this->idKeyValue = null;
         }
     }
 
@@ -774,6 +850,7 @@ class Mysql_ResultSet implements Database_ResultSet
     public function rewind()
     {
         $this->idx = 0;
+        $this->idKeyValue = null;
         
         if ( $this->numRows() )
         {
@@ -792,7 +869,14 @@ class Mysql_ResultSet implements Database_ResultSet
      */
     public function key()
     {
-        return $this->idx;
+        if ( is_null($this->idKeyValue) )
+        {
+            return $this->idx;
+        }
+        else
+        {
+            return $this->idKeyValue;
+        }
     }
     
     // --- SeekableIterator ---
@@ -809,7 +893,10 @@ class Mysql_ResultSet implements Database_ResultSet
      */
     public function seek( $idx )
     {
-        if ( $idx < $this->numRows() && $idx >= 0 && ! $this->isEmpty() && $this->valid() )
+        if ( $idx < $this->numRows()
+            && $idx >= 0
+            && ! $this->isEmpty()
+            && $this->valid() )
         {
             $this->idx = $idx;
             @mysql_data_seek( $this->resultSet, $this->idx );
