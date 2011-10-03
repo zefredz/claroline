@@ -266,7 +266,7 @@ function claro_html_button($url, $text, $confirmMessage = '')
 /**
  * Displays a title inc claroline wich can be relooked by css
  *
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @param  string $title
  * @param  string $level 1->7
  *
@@ -433,7 +433,7 @@ function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
 /**
 * Function used to draw a progression bar
 *
-* @author Piraux Sébastien <pir@cerdecam.be>
+* @author Piraux Sï¿½bastien <pir@cerdecam.be>
 *
 * @param integer $progress progression in pourcent
 * @param integer $factor will be multiply by 100 to have the full size of the bar
@@ -471,7 +471,7 @@ function claro_html_progress_bar ($progress, $factor)
 * In most of cases  function message_box() is enough.
 *
 * @param array $msgArrBody of array of blocs containing array of messages
-* @author Christophe Gesché <moosh@claroline.net>
+* @author Christophe Geschï¿½ <moosh@claroline.net>
 * @version 1.0
 * @see  message_box()
 *
@@ -525,7 +525,7 @@ function claro_html_msg_list($msgArrBody, $return=true)
 * prepare the 'option' html tag for the claro_disp_nested_select_menu()
 * function
 *
-* @author Christophe Gesché <moosh@claroline.net>
+* @author Christophe Geschï¿½ <moosh@claroline.net>
 * @author Hugues Peeters <hugues.peeters@claroline.net>
 * @param array $elementList
 * @param integer  $deepness (optionnal, default is 0)
@@ -580,7 +580,7 @@ function claro_html_mailTo($mail,$mailLabel=null)
 * @return string html output for standard textarea or Wysiwyg editor
 *
 * @author Hugues Peeters <hugues.peeters@claroline.net>
-* @author Sébastien Piraux <pir@cerdecam.be>
+* @author Sï¿½bastien Piraux <pir@cerdecam.be>
 */
 
 function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='',$type='advanced')
@@ -674,7 +674,7 @@ DEFINE('DG_ORDER_COLS_BY_TITLE','DG_ORDER_COLS_BY_TITLE'.__FILE__.__LINE__);
  * set_colDecoration(string columnName,string pattern, array param)
  * 
  * @package HTML
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  *
  */
 class claro_datagrid
@@ -1077,7 +1077,7 @@ class claro_datagrid
  * was trigged
  *
  * @param boolean $cidRequired - if the course id is required to leave the form
- * @author Christophe gesché <moosh@claroline.net>
+ * @author Christophe geschï¿½ <moosh@claroline.net>
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  */
 
@@ -1206,7 +1206,7 @@ function is_htmlspecialcharized($string)
  * @param $str string original string
  * @return string : cleaned string
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  *
  */
 function clean_str_for_javascript( $str )
@@ -1266,7 +1266,7 @@ function claro_parse_user_text($userText)
     $userText = make_clickable($userText);
     $userText = make_spoiler($userText);
     
-    if( !preg_match('/<!-- content:[^(\-\->)]*-->/', $userText) && !preg_match('/<br ?\/?>/i', $userText))
+    if( !claro_is_html($userText) )
     {
         // only if the content isn't HTML change new line to <br>
         // Note the '<!-- content: html -->' is introduced by HTML Area
@@ -1274,6 +1274,17 @@ function claro_parse_user_text($userText)
     }
 
     return $userText;
+}
+
+/**
+ * Return true if the given text is HTML
+ * @param string $userText
+ * @return bool 
+ */
+function claro_is_html($userText)
+{
+    return ( preg_match('/<!-- content:[^(\-\->)]*-->/', $userText)
+        || preg_match( '#(?<=<)\w+(?=[^<]*?>)#', $userText ) );
 }
 
 /**
@@ -1513,7 +1524,7 @@ function htmlize($phrase)
 
 /**
  * convert a duration in seconds to a human readable duration
- * @author Sébastien Piraux <pir@cerdecam.be>
+ * @author Sï¿½bastien Piraux <pir@cerdecam.be>
  * @param integer duration time in seconds to convert to a human readable duration
  */
 
