@@ -33,6 +33,10 @@ $conf_def['section']['quota']['description']= 'Disk space allowed for submitted 
 $conf_def['section']['quota']['properties'] =
 array ( 'max_file_size_per_works' );
 
+$conf_def['section']['submissions']['label']      = 'Submissions';
+$conf_def['section']['submissions']['description']= 'Other submission options';
+$conf_def['section']['submissions']['properties'] =
+array ( 'clwrk_endDateDelay' );
 
 //PROPERTIES
 
@@ -137,4 +141,14 @@ array ('label'         => 'Generate an event in the calendar'
       ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
       );
 
-?>
+$conf_def_property_list['clwrk_endDateDelay'] =
+array (
+        'label'         => 'Assignment end date delay'
+      , 'description'   => 'Number of days by default between the start date and the end date of an assignment.'
+      , 'default'       => '365'
+      , 'type'           => 'integer'
+      , 'unit'           => 'days'
+      , 'display'      => true
+      , 'readonly'      => FALSE
+      , 'acceptedValue' => array('min'=> '1', 'max' => '3650')
+      );
