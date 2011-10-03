@@ -1,5 +1,5 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
@@ -125,7 +125,11 @@ class Assignment
         $this->submissionType = 'FILE';
         $this->allowLateUpload = 'YES';
         $this->startDate = time(); // now as unix timestamp
-        $this->endDate = strtotime("+1 year"); // one year later
+        
+        $days = (int) get_conf('clwrk_endDateDelay',365);
+        
+        $this->endDate = strtotime("+{$days} days");
+        
         $this->autoFeedbackText = '';
         $this->autoFeedbackFilename = '';
         $this->autoFeedbackSubmitMethod = 'ENDDATE';
