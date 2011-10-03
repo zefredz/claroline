@@ -15,8 +15,11 @@
 class CourseHomePagePortletIterator implements Iterator, Countable
 {
     private     $courseId;
+    
+    /**
+     * @var Database_ResultSet
+     */
     private     $portlets = array();
-    protected   $n = 0;
     
     public function __construct($courseId)
     {
@@ -31,68 +34,70 @@ class CourseHomePagePortletIterator implements Iterator, Countable
                 WHERE `courseId` = {$this->courseId}
                 ORDER BY `rank` ASC";
         
-        $result = Claroline::getDatabase()->query($sql);
-        
-        foreach($result as $portletInfos)
-        {
-            // Require the proper portlet class
-            $portletPath = get_module_path( $portletInfos['label'] )
-            . '/connector/coursehomepage.cnr.php';
-            
-            $portletName = $portletInfos['label'] . '_Portlet';
-            
-            if ( file_exists($portletPath) )
-            {
-                require_once $portletPath;
-            }
-            else
-            {
-                echo get_lang("Can\'t find the file %portletPath", array('%portletPath' => $portletPath));
-            }
-            
-            if (class_exists($portletName))
-            {
-                $portlet = new $portletName($portletInfos['id'], $courseCode,
-                $portletInfos['courseId'], $portletInfos['rank'],
-                $portletInfos['label'], $portletInfos['visible']);
-                
-                $this->portlets[] = $portlet;
-            }
-            else
-            {
-                echo get_lang("Can't find the class %portletName_portlet", array('%portletName' => $portletName));
-                return false;
-            }
-        }
+        $this->portlets = Claroline::getDatabase()->query($sql);
     }
     
     public function rewind()
     {
-        $this->n = 0;
+        $this->portlets->rewind();
     }
     
     public function next()
     {
-        $this->n++;
+        $this->portlets->next();
     }
     
     public function key()
     {
-        return 'increment '.$this->n+1;
+        return $this->portlets->key();
     }
     
     public function current()
     {
-        return $this->portlets[$this->n];
+        $portlet = $this->portlets->current();
+        
+        $portletObj = '';
+        
+        
+        // Require the proper portlet class
+        $portletPath = get_module_path( $portlet['label'] )
+        . '/connector/coursehomepage.cnr.php';
+        
+        $portletName = $portlet['label'] . '_Portlet';
+        
+        if ( file_exists($portletPath) )
+        {
+            require_once $portletPath;
+        }
+        else
+        {
+            throw new Exception("Can\'t find the file %portletPath", array('%portletPath' => $portletPath));
+        }
+        
+        if (class_exists($portletName))
+        {
+            $courseCode     = ClaroCourse::getCodeFromId($this->courseId);
+            
+            $portletObj = new $portletName($portlet['id'], $courseCode,
+            $portlet['courseId'], $portlet['rank'],
+            $portlet['label'], $portlet['visible']);
+            
+            return $portletObj;
+        }
+        else
+        {
+            echo get_lang("Can't find the class %portletName_portlet", array('%portletName' => $portletName));
+            return false;
+        }
     }
     
     public function valid()
     {
-        return $this->n < count($this->portlets);
+        return $this->portlets->valid();
     }
     
     public function count()
     {
-        return count($this->portlets);
+        return $this->portlets->count();
     }
 }

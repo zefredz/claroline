@@ -75,19 +75,20 @@ claro_set_display_mode_available(true);
 // Manage portlets
 if (claro_is_course_manager() && !empty($portletClass))
 {
+    // Require the right class
+    $portletPath = get_module_path( $portletLabel )
+        . '/connector/coursehomepage.cnr.php';
+    if ( file_exists($portletPath) )
+    {
+        require_once $portletPath;
+    }
+    else
+    {
+        throw new Exception(get_lang('Cannot find this portlet'));
+    }
+    
     if ($portletCmd == 'exAdd')
     {
-        $portletPath = get_module_path( $portletLabel )
-            . '/connector/coursehomepage.cnr.php';
-        if ( file_exists($portletPath) )
-        {
-            require_once $portletPath;
-        }
-        else
-        {
-            $dialogBox->error(get_lang('Cannot find this portlet'));
-        }
-        
         $portlet = new $portletClass();
         $portlet->handleForm();
         if ($portlet->save())
@@ -99,7 +100,7 @@ if (claro_is_course_manager() && !empty($portletClass))
             $dialogBox->error(get_lang('Can\'t create this portlet (%portlet)', array('%portlet' => $portlet->getLabel())));
         }
     }
-    if ($portletCmd == 'delete' && !empty($portletId) && class_exists($portletClass))
+    elseif ($portletCmd == 'delete' && !empty($portletId) && class_exists($portletClass))
     {
         $portlet = new $portletClass();
         $portlet->load($portletId);
