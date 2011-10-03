@@ -70,16 +70,18 @@ if ( isset( $cmd ) && $isAllowedToEdit )
         $toolIntro = new ToolIntro();
         $toolIntroForm = $toolIntro->renderForm();
     }
+    
     elseif ( $cmd == 'rqEd' )
     {
-        
         ResourceLinker::setCurrentLocator($currentLocator);
+        
         $toolIntro = new ToolIntro($id);
         if($toolIntro->load())
         {
             $toolIntroForm = $toolIntro->renderForm();
         }
     }
+    
     elseif ( $cmd == 'exAdd' )
     {
         $toolIntro = new ToolIntro();
@@ -106,9 +108,11 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             $claroline->notifier->notifyCourseEvent('introsection_created', claro_get_current_course_id(), claro_get_current_tool_id(), $toolIntro->getId(), claro_get_current_group_id(), '0');
         }
     }
+    
     elseif ( $cmd == 'exEd' )
     {
         $toolIntro = new ToolIntro($id);
+        
         $toolIntro->handleForm();
         
         //TODO inputs validation
@@ -131,6 +135,7 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             $claroline->notifier->notifyCourseEvent('introsection_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $toolIntro->getId(), claro_get_current_group_id(), '0');
         }
     }
+    
     elseif ( $cmd == 'exDel' )
     {
         $toolIntro = new ToolIntro($id);
@@ -142,6 +147,7 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             //TODO linker_delete_resource('CLINTRO_');
         }
     }
+    
     // Modify rank and visibility
     elseif ( $cmd == 'exMvUp' )
     {
@@ -159,6 +165,7 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             }
         }
     }
+    
     elseif ( $cmd == 'exMvDown' )
     {
         $toolIntro = new ToolIntro($id);
@@ -175,6 +182,7 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             }
         }
     }
+    
     elseif ( $cmd == 'mkVisible' )
     {
         $toolIntro = new ToolIntro($id);
@@ -193,6 +201,7 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             }
         }
     }
+    
     elseif ( $cmd == 'mkInvisible' )
     {
         $toolIntro = new ToolIntro($id);
