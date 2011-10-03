@@ -1189,7 +1189,7 @@ function claro_parse_user_text($userText)
     $userText = make_clickable($userText);
     $userText = make_spoiler($userText);
     
-    if( !preg_match('/<!-- content:[^(\-\->)]*-->/', $userText) && !preg_match('/<br ?\/?>/i', $userText))
+    if( !claro_is_html($userText) )
     {
         // only if the content isn't HTML change new line to <br>
         // Note the '<!-- content: html -->' is introduced by HTML Area
@@ -1197,6 +1197,18 @@ function claro_parse_user_text($userText)
     }
 
     return $userText;
+}
+
+
+/**
+ * Return true if the given text is HTML
+ * @param string $userText
+ * @return bool 
+ */
+function claro_is_html($userText)
+{
+    return ( preg_match('/<!-- content:[^(\-\->)]*-->/', $userText)
+        || preg_match( '#(?<=<)\w+(?=[^<]*?>)#', $userText ) );
 }
 
 
