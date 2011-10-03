@@ -55,4 +55,3 @@ array ( 'label'   => 'Enable Email notification'
       , 'display'     => TRUE
       , 'readonly'    => FALSE
       );
-?>

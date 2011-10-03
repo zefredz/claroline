@@ -76,5 +76,3 @@ array ('label'         => 'Display a link to the lost password form'
                                 ,'FALSE' => 'No'
                                 )
       );
-
-?>

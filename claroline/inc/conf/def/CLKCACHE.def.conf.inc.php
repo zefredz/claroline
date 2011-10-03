@@ -55,4 +55,3 @@ $conf_def_property_list['cache_automaticCleaningFactor']
         ,'acceptedValue' => array ( 'min'=>0
                                   , 'max'=>1000)
         );
-?>

@@ -103,5 +103,3 @@ array ( 'label'         => 'SSO authentication key list'
       , 'default'       => 'array()'
       , 'type'          => 'string'
       );
-
-?>

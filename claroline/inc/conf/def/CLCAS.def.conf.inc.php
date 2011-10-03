@@ -84,5 +84,3 @@ array ('label'         => 'Logout user from CAS server when user logout from Cla
                                 ,'FALSE' => 'No'
                                 )
       );      
-
-?>

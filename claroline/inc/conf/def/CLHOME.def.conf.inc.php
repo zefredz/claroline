@@ -66,4 +66,3 @@ $conf_def_property_list['userCourseListGroupByCategories']
         ,'acceptedValue' => array ( 'TRUE'=> 'Yes',
                                     'FALSE' => 'No' )
         );
-?>

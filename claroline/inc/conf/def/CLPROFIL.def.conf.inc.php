@@ -187,5 +187,3 @@ array ('label'       => 'Creation of Course Creator account'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
-
-?>

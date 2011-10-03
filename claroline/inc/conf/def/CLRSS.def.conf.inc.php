@@ -77,4 +77,4 @@ array (
       , 'oldName'       => 'use_rss_cache'
       );
 
-?>
+

@@ -125,5 +125,3 @@ array (
       , 'readonly'      => FALSE
       , 'acceptedValue' => array('min'=> '360', 'max' => '8640000')
       );
-
-?>
