@@ -3,7 +3,8 @@
 /**
  * CLAROLINE
  *
- * Manage tools' introductions
+ * Manage tools' introductions.
+ * Caution: this module uses two labels: CLINTRO and CLTI.
  *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -28,8 +29,8 @@ $nameTools = get_lang('Headlines');
 // Initialisation of variables and used classes and libraries
 require_once get_module_path('CLTI').'/lib/toolintroductioniterator.class.php';
 
-$introId            = (!empty($_REQUEST['introId'])?((int) $_REQUEST['introId']):(null));
-$introCmd           = (!empty($_REQUEST['introCmd'])?($_REQUEST['introCmd']):(null));
+$id                 = (!empty($_REQUEST['introId'])?((int) $_REQUEST['introId']):(null));
+$cmd                = (!empty($_REQUEST['introCmd'])?($_REQUEST['introCmd']):(null));
 $isAllowedToEdit    = claro_is_allowed_to_edit();
 
 set_current_module_label('CLINTRO');
@@ -42,35 +43,38 @@ ResourceLinker::init();
 $dialogBox = new DialogBox();
 
 
-
-if (isset($introCmd) && $isAllowedToEdit)
+if ( isset( $cmd ) && $isAllowedToEdit )
 {
     // Set linker's params
-    if ($introId)
+    if ( $id )
     {
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
-            array('id' => (int) $introId));
-        
-        ResourceLinker::setCurrentLocator($currentLocator);
+            array('id' => (int) $id));
+    }
+    else
+    {
+        $currentLocator = null;
     }
     
     // CRUD
-    if ($introCmd == 'rqAdd')
+    if ( $cmd == 'rqAdd' )
     {
         $toolIntro = new ToolIntro();
         $toolIntroForm = $toolIntro->renderForm();
     }
     
-    if ($introCmd == 'rqEd')
+    elseif ( $cmd == 'rqEd' )
     {
-        $toolIntro = new ToolIntro($introId);
+        ResourceLinker::setCurrentLocator($currentLocator);
+        
+        $toolIntro = new ToolIntro($id);
         if($toolIntro->load())
         {
             $toolIntroForm = $toolIntro->renderForm();
         }
     }
     
-    if ($introCmd == 'exAdd')
+    elseif ( $cmd == 'exAdd' )
     {
         $toolIntro = new ToolIntro();
         $toolIntro->handleForm();
@@ -97,14 +101,14 @@ if (isset($introCmd) && $isAllowedToEdit)
         }
     }
     
-    if ($introCmd == 'exEd')
+    elseif ( $cmd == 'exEd' )
     {
-        $toolIntro = new ToolIntro($introId);
+        $toolIntro = new ToolIntro($id);
         $toolIntro->handleForm();
         
         //TODO inputs validation
         
-        if ($toolIntro->save())
+        if ( $toolIntro->save() )
         {
             $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
                 array( 'id' => (int) $toolIntro->getId() ) );
@@ -123,9 +127,9 @@ if (isset($introCmd) && $isAllowedToEdit)
         }
     }
     
-    if ($introCmd == 'exDel')
+    elseif ( $cmd == 'exDel' )
     {
-        $toolIntro = new ToolIntro($introId);
+        $toolIntro = new ToolIntro($id);
         
         if ($toolIntro->delete())
         {
@@ -136,9 +140,10 @@ if (isset($introCmd) && $isAllowedToEdit)
     }
     
     // Modify rank and visibility
-    if ($introCmd == 'exMvUp')
+    elseif ( $cmd == 'exMvUp' )
     {
-        $toolIntro = new ToolIntro($introId);
+        $toolIntro = new ToolIntro($id);
+        
         if($toolIntro->load())
         {
             if ($toolIntro->moveUp())
@@ -152,10 +157,10 @@ if (isset($introCmd) && $isAllowedToEdit)
         }
     }
     
-    if ($introCmd == 'exMvDown')
+    elseif ( $cmd == 'exMvDown' )
     {
-        $toolIntro = new ToolIntro($introId);
-        $toolIntro->load();
+        $toolIntro = new ToolIntro($id);
+        
         if($toolIntro->load())
         {
             if ($toolIntro->moveDown())
@@ -169,9 +174,9 @@ if (isset($introCmd) && $isAllowedToEdit)
         }
     }
     
-    if ($introCmd == 'mkVisible')
+    elseif ( $cmd == 'mkVisible' )
     {
-        $toolIntro = new ToolIntro($introId);
+        $toolIntro = new ToolIntro($id);
         
         if ($toolIntro->load())
         {
@@ -188,9 +193,9 @@ if (isset($introCmd) && $isAllowedToEdit)
         }
     }
     
-    if ($introCmd == 'mkInvisible')
+    elseif ( $cmd == 'mkInvisible' )
     {
-        $toolIntro = new ToolIntro($introId);
+        $toolIntro = new ToolIntro($id);
         
         if ($toolIntro->load())
         {

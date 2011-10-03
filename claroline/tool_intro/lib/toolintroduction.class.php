@@ -250,11 +250,16 @@ class ToolIntro implements Display
         
         $html .= '<form action="' . Url::Contextualize($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
                . '<input type="hidden" name="claroFormId" value="'.uniqid(time()).'" />'
-               . '<input type="hidden" name="introCmd" value="' . $cmd . '" />'
-               . ($this->id ? '<input type="hidden" name="introId" value="'.$this->id.'" />' : '')
-               . claro_html_textarea_editor('content', trim($this->content))
-               . '<br/>'."\n"
-               ;
+               . '<input type="hidden" name="introCmd" value="' . $cmd . '" />';
+        
+        if ($this->id)
+        {
+            $html .= '<input type="hidden" name="introId" value="'.$this->id.'" />'
+                   . '<input type="hidden" name="rank" value="'.$this->rank.'" />';
+        }
+        
+        $html .= claro_html_textarea_editor('content', trim($this->content))
+               . '<br />'."\n";
         
         if ( isset( $_REQUEST['introId'] ) )
         {
@@ -295,27 +300,27 @@ class ToolIntro implements Display
     public function moveDown()
     {
         // Select the id of the following item
-        $sql = "SELECT `id`
+        $sql = "SELECT `id`, `rank`
                 FROM `".$this->tblToolIntro."`
-                WHERE `rank` = ".(int) ($this->rank+1);
+                WHERE `rank` = (SELECT MIN(`rank`)
+                                FROM `".$this->tblToolIntro."`
+                                WHERE `rank` > ".(int) $this->rank.")";
         
         $res = Claroline::getDatabase()->query($sql);
         $toolIntro = $res->fetch(Database_ResultSet::FETCH_ASSOC);
         
         // If there is a following item, swap the two item's ranks
-        if (!is_null($this->rank) && $toolIntro)
+        if (!is_null($this->rank) && $toolIntro['id'])
         {
-            // Next item's rank is decreased by 1
+            // Next item's rank is decreased
             $sql1 = "UPDATE `".$this->tblToolIntro."`
-                    SET `rank` = " . (int) $this->rank . "
-                    WHERE `id` = " . (int) $toolIntro['id'];
+                     SET `rank` = " . (int) $this->rank . "
+                     WHERE `id` = " . (int) $toolIntro['id'];
             
-            $this->rank = $this->rank+1;
-            
-            // Current item's rank is increased by 1
+            // Current item's rank is increased
             $sql2 = "UPDATE `".$this->tblToolIntro."`
-                    SET `rank` = " . (int) $this->rank . "
-                    WHERE `id` = " . (int) $this->id;
+                     SET `rank` = " . (int) $toolIntro['rank'] . "
+                     WHERE `id` = " . (int) $this->id;
             
             if (Claroline::getDatabase()->exec($sql1) && Claroline::getDatabase()->exec($sql2))
             {
@@ -341,27 +346,27 @@ class ToolIntro implements Display
     public function moveUp()
     {
         // Select the id of the previous item
-        $sql = "SELECT `id`
+        $sql = "SELECT `id`, `rank`
                 FROM `".$this->tblToolIntro."`
-                WHERE `rank` = ".(int) ($this->rank-1);
+                WHERE `rank` = (SELECT MAX(`rank`)
+                                FROM `".$this->tblToolIntro."`
+                                WHERE `rank` < ".(int) $this->rank.")";
         
         $res = Claroline::getDatabase()->query($sql);
         $toolIntro = $res->fetch(Database_ResultSet::FETCH_ASSOC);
         
         // If there is a following item, swap the two item's ranks
-        if (!is_null($this->rank) && $toolIntro)
+        if (!is_null($this->rank) && $toolIntro['id'])
         {
-            // Previous item's rank is increased by 1
+            // Previous item's rank is increased
             $sql1 = "UPDATE `".$this->tblToolIntro."`
-                    SET `rank` = " . (int) $this->rank . "
-                    WHERE `id` = " . (int) $toolIntro['id'];
+                     SET `rank` = " . (int) $this->rank . "
+                     WHERE `id` = " . (int) $toolIntro['id'];
             
-            $this->rank = $this->rank-1;
-            
-            // Current item's rank is decreased by 1
+            // Current item's rank is decreased
             $sql2 = "UPDATE `".$this->tblToolIntro."`
-                    SET `rank` = " . (int) $this->rank . "
-                    WHERE `id` = " . (int) $this->id;
+                     SET `rank` = " . (int) $toolIntro['rank'] . "
+                     WHERE `id` = " . (int) $this->id;
             
             if (Claroline::getDatabase()->exec($sql1) && Claroline::getDatabase()->exec($sql2))
             {
