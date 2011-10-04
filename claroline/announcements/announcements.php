@@ -321,7 +321,7 @@ if($is_allowedToEdit) // check teacher status
                 $msgContent = $content;
                                                
                 // attached resource
-                $body = $msgContent . "\n" .
+                $body = str_replace( get_path('url'), get_path('rootWeb'), $msgContent ) . "\n" .
                     "\n" .
                     ResourceLinker::renderLinkList( $currentLocator, true );
                 ;
