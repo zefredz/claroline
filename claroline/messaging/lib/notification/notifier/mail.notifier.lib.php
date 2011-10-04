@@ -97,7 +97,16 @@ class MailNotifier implements MessagingNotifier
         //-------------------------BODY
         $msgContent = claro_parse_user_text($message->getMessage());
         
-        $emailBody = "<html><head></head><body>" . str_replace( get_path('url'), get_path('rootWeb'), $msgContent )
+        if ( !empty(get_path('url')) )
+        {
+            $msgContent = str_replace( get_path('url'), get_path('rootWeb'), $msgContent );
+        }
+        else
+        {
+            $msgContent = preg_replace( '!href="/!', 'href="'.rtrim(get_path('rootWeb'),'/').'/', $msgContent );
+        }
+        
+        $emailBody = "<html><head></head><body>" . $msgContent
                     . '<br /><br />'
                // footer
                     . '-- <br />'
