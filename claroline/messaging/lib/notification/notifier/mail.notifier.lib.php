@@ -29,7 +29,7 @@ class MailNotifier implements MessagingNotifier
      * notify by email the user of the reception of a message
      *
      * @param array of int: $userDataList user identificatin list
-     * @param MessageToSend $message message envoyé
+     * @param MessageToSend $message message envoyï¿½
      * @param int $messageId identification of the message
      * 
      */
@@ -97,7 +97,7 @@ class MailNotifier implements MessagingNotifier
         //-------------------------BODY
         $msgContent = claro_parse_user_text($message->getMessage());
         
-        $emailBody = "<html><head></head><body>" . $msgContent
+        $emailBody = "<html><head></head><body>" . str_replace( get_path('url'), get_path('rootWeb'), $msgContent )
                     . '<br /><br />'
                // footer
                     . '-- <br />'
