@@ -105,7 +105,7 @@ class MailNotifier implements MessagingNotifier
         }
         else
         {
-            $msgContent = preg_replace( '!href="/!', 'href="'.get_path('rootWeb').'/', $msgContent );
+            $msgContent = preg_replace( '!href="/!', 'href="'.rtrim(get_path('rootWeb'),'/').'/', $msgContent );
         }
         
         $emailBody = "<html><head></head><body>" . $msgContent
