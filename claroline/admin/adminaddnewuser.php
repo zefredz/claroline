@@ -57,7 +57,6 @@ if ( $cmd == 'registration' )
     {
         // register the new user in the claroline platform
         $userId = user_create($userData);
-        set_user_property($userId, 'skype', $userData['skype']);
         
         if (false===$userId)
         {
