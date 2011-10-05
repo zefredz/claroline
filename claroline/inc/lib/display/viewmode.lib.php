@@ -119,4 +119,3 @@
             return ClaroViewMode::$instance;
         }
     }
-?>
