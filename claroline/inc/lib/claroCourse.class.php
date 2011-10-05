@@ -1144,7 +1144,7 @@ class ClaroCourse
     {
         $subject = get_lang('Course created : %course_name',array('%course_name'=> $this->title));
         
-        $body = get_block('blockCourseCreationEmailMessage', array( '%date' => claro_html_localised_date(get_locale('dateTimeFormatLong')),
+        $body = nl2br(get_block('blockCourseCreationEmailMessage', array( '%date' => claro_html_localised_date(get_locale('dateTimeFormatLong')),
                                 '%sitename' => get_conf('siteName'),
                                 '%user_firstname' => $creatorFirstName,
                                 '%user_lastname' => $creatorLastName,
@@ -1155,7 +1155,7 @@ class ClaroCourse
                                 '%course_email' => $this->email,
                                 '%course_categories' => ((is_array($this->categories) && !empty($this->categories)) ? implode(', ',$this->categories) : get_lang('No category')),
                                 '%course_language' => $this->language,
-                                '%course_url' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) );
+                                '%course_url' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) ));
         
         // Get the concerned senders of the email
         $mailToUidList = claro_get_uid_of_system_notification_recipient();
