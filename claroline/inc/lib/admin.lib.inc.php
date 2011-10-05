@@ -26,7 +26,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package COURSE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  *
  */
 
@@ -224,5 +224,3 @@ function pr_star_replace($string)
     $string = str_replace("*",'%', $string);
     return $string;
 }
-
-?>
