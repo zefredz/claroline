@@ -626,7 +626,7 @@ function profile_send_request_course_creator_status($explanation)
     '%lastname' => $_user['lastName'] ) );
 
     $requestMessage_Content =
-    get_block('blockRequestCourseManagerStatusMail',
+    nl2br(get_block('blockRequestCourseManagerStatusMail',
     array( '%time'      => claro_html_localised_date(get_locale('dateFormatLong')),
     '%user_id'   => claro_get_current_user_id(),
     '%firstname' => $_user['firstName'],
@@ -634,7 +634,7 @@ function profile_send_request_course_creator_status($explanation)
     '%email'     => $_user['mail'],
     '%comment'   => $explanation,
     '%url'       => rtrim( get_path('rootWeb'), '/' ) . '/claroline/admin/admin_profile.php?uidToEdit=' . claro_get_current_user_id()
-    )
+    ))
     );
 
     $message = new MessageToSend(claro_get_current_user_id(),$requestMessage_Title,$requestMessage_Content);
@@ -671,7 +671,7 @@ function profile_send_request_revoquation($explanation,$login,$password)
     '%lastname' => $_user['lastName'] ) );
 
     $requestMessage_Content =
-    get_block('blockRequestUserRevoquationMail',
+    nl2br(get_block('blockRequestUserRevoquationMail',
     array('%time'      => claro_html_localised_date(get_locale('dateFormatLong')),
     '%user_id'   => claro_get_current_user_id(),
     '%firstname' => $_user['firstName'],
@@ -681,7 +681,7 @@ function profile_send_request_revoquation($explanation,$login,$password)
     '%password'  => '**********',
     '%comment'   => nl2br($explanation),
     '%url'       => rtrim( get_path('rootWeb'), '/' ) . '/claroline/admin/admin_profile.php?uidToEdit=' . claro_get_current_user_id()
-    )
+    ))
     );
 
     $message = new MessageToSend(claro_get_current_user_id(),$requestMessage_Title,$requestMessage_Content);
