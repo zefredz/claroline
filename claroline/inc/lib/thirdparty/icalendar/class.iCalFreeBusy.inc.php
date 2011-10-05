@@ -386,4 +386,3 @@ class iCalFreeBusy extends iCalBase {
         return $ret;
     } // end function
 } // end class iCalFreeBusy
-?>

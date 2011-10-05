@@ -226,4 +226,3 @@
         
         $content .= getPager($linkPaging,$page,$box->getNumberOfPage());
     }
-?>

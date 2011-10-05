@@ -15,4 +15,3 @@
 
     // server class
     require_once(dirname(__FILE__).'/class.soap_server.php');
-?>

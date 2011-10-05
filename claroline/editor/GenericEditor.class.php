@@ -111,5 +111,3 @@ class GenericEditor
         return $textArea;
     }
 }
-
-?>

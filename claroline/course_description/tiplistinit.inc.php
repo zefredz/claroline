@@ -53,4 +53,3 @@ $tipList[] = array(
     'information'   => get_block('blockCourseDescriptionMethodsOfEvaluationComment1')
 );
 
-?>

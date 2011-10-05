@@ -42,4 +42,3 @@ if (!$is_upgrade_available)
 $requiredPhpVersion = '5.1.6';
 $requiredMySqlVersion = '4.3';
 
-?>

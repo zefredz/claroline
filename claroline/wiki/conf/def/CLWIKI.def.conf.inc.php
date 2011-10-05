@@ -55,4 +55,3 @@ array ('label'         => 'Force text preview before saving it'
                                 )
       );
 
-?>

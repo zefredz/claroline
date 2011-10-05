@@ -60,5 +60,3 @@ function get_tiplistinit()
     include_once dirname(__FILE__) . '/../tiplistinit.inc.php';
     return $tipList;
 }
-
-?>

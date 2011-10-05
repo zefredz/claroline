@@ -609,5 +609,3 @@ function upgrade_main_database_tracking_to_18 ()
       
     return false;
 }
-
-?>

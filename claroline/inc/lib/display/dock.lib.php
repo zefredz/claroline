@@ -198,4 +198,3 @@
             return $claro_buffer->getContent();
         }
     }
-?>

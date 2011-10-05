@@ -85,5 +85,3 @@ function shibbolethUniqueUsername($lastname, $firstname, $lnLen = 10, $fnLen = 1
     }
     return $shibbolethUsername;
 }
-
-?>

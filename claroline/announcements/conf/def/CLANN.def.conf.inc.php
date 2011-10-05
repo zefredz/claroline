@@ -24,4 +24,3 @@ $conf_def_property_list['announcementPortletMaxItems']
         ,'acceptedValue' => array('min' => '0')
         );
 
-?>

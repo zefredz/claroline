@@ -81,4 +81,3 @@ array ( 'label'       => 'Maximum lengh for a nick'
       , 'type'        => 'integer'
       );
 
-?>

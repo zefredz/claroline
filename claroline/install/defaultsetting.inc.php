@@ -84,5 +84,3 @@ $contactNameForm     = '*not set*'; // This magic value is use to detect if the 
 $contactPhoneForm    = ''; // if <not set> is found, the data form admin are copied
 $contactEmailForm    = '*not set*'; // This tips  permit to  empty these fields
 
-
-?>

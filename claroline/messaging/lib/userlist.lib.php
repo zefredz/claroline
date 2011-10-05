@@ -153,4 +153,3 @@ class UserList implements Iterator, Countable
         return count($this->userList);
     }
 }
-?>

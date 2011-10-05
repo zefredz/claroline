@@ -161,5 +161,3 @@ class CLTRACK_ToolAccessTrackingManager extends TrackingManager
 }
 
 TrackingManagerRegistry::register('CLTRACK_ToolAccessTrackingManager');
-
-?>

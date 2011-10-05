@@ -422,4 +422,3 @@
     }
     // ------------------ end of fonction of the trash box
         
-?>

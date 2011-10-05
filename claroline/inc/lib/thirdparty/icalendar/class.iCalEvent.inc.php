@@ -455,4 +455,3 @@ class iCalEvent extends iCalBase {
     } // end function
     /**#@-*/
 } // end class iCalEvent
-?>

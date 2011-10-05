@@ -61,4 +61,3 @@ $claroline->display->body->setContent($template->render());
 
 
 echo $claroline->display->render();
-?>

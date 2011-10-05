@@ -216,4 +216,3 @@ array('label'         => 'Update properties of users  on CVS import'
                               ,'FALSE'=>'No'
                               )
      );
-?>

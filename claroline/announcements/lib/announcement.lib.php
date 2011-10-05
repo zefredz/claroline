@@ -364,5 +364,3 @@ function move_entry($item_id, $cmd, $course_id=NULL)
     }
     return true;
 }
-
-?>

@@ -836,4 +836,3 @@ class answerFillInBlanks
         return $this->response;
     }
 }
-?>

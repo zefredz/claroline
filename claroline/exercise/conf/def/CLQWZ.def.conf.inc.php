@@ -75,4 +75,3 @@ array ('label'         => 'Generate an event in the calendar'
       ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
       );
 
-?>

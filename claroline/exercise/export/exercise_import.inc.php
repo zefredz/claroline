@@ -710,4 +710,3 @@ function elementData($parser,$data)
     }
 }
 
-?>

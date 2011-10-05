@@ -123,4 +123,3 @@
     $content .= getBarMessageBox($currentUserId, $currentSection);
     
     include "outboxview.inc.php";
-?>

@@ -245,4 +245,3 @@ class iCalAlarm extends iCalBase {
         return $ret;
     } // end function
 } // end class iCalAlarm
-?>

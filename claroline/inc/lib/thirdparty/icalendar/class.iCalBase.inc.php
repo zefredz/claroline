@@ -817,4 +817,3 @@ class iCalBase {
     } // end function
     /**#@-*/
 } // end class iCalBase
-?>

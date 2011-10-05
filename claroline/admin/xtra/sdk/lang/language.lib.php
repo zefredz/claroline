@@ -883,6 +883,3 @@ $sql = "INSERT INTO ". $tbl_tr_lang_list ." SET
 
     
 }
-
-
-?>

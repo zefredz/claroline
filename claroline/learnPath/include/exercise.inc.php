@@ -93,4 +93,3 @@ function lp_display_exercise($cmd, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEAS
     return $out;
 }
 
-?>

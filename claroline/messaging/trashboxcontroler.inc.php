@@ -183,4 +183,3 @@
     $content .= getBarMessageBox($currentUserId, $currentSection);
     
     include "receivedmessageboxview.inc.php";
-?>

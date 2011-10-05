@@ -316,6 +316,3 @@ function change_img_url_for_pdf( $str )
     
     return $replace;
 }
-
-
-?>

@@ -152,4 +152,3 @@
 .phpInfoContents .v-error {background-color:#F6AE15;color:#000000;font-weight:bold;}
 </style>';
     }
-?>

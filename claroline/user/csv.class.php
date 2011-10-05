@@ -696,5 +696,3 @@ class csvImport extends csv
 
 
 }
-
-?>

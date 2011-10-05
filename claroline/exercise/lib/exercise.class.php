@@ -1007,4 +1007,3 @@ class Exercise
         return false;
     }
 }
-?>

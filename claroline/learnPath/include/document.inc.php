@@ -58,5 +58,3 @@ function lp_display_document($TABLEASSET)
     
     return $out;
 }
-
-?>

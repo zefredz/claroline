@@ -831,4 +831,3 @@ if ( !class_exists('ScormExport') )
 
     }
 } // !class_exists(ScormExport)
-?>

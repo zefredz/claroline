@@ -529,5 +529,3 @@ function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
     $htmlStream .= '</table>';
     return $htmlStream;
 }
-
-?>

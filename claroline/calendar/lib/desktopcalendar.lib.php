@@ -294,5 +294,3 @@ var UserDesktopCalendar = {
         return $output;
     }
 }
-
-?>
