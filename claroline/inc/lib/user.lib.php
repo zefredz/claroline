@@ -243,7 +243,7 @@ function user_create($settingList, $creatorId = null)
                 phoneNumber     = '". claro_sql_escape($settingList['phone'        ]) ."',
                 password        = '". claro_sql_escape($password) . "',
                 isCourseCreator = " . (int) $settingList['isCourseCreator'] . ",
-                isPlatformAdmin = 0,
+                isPlatformAdmin = " . (int) $settingList['isPlatformAdmin'] . ",
                 creatorId    = " . ($creatorId > 0 ? (int) $creatorId : 'NULL');
     $adminId = claro_sql_query_insert_id($sql);
     if (false !== $adminId) return $adminId;
