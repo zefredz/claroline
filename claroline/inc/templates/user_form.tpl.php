@@ -159,6 +159,7 @@
             </dt>
             <dd>
                 <?php echo htmlspecialchars($this->data['username']); ?>
+                <input type="hidden" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
             </dd>
             
             <?php else : ?>
