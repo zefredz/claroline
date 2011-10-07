@@ -2086,6 +2086,8 @@ $_lang['Your campus has been submitted and is waiting to be validate by Clarolin
 $_lang['Your choice'] = 'Votre choix';
 $_lang['Your daddy is'] = 'Les Anglais vivent au';
 $_lang['Your enrolment on the course has been removed'] = 'Vous avez été désinscrit du cours';
+$_lang['Your enrolment to this course has not been validated yet'] = 'Votre inscription à ce cours est en attente de validation';
+$_lang['You won\'t be able to access all this course\'s content and/or features until the course manager grants you the access.'] = 'Vous ne pourrez accéder à la totalité de son contenu que lorsque le gestionnaire de cours vous y autorisera';
 $_lang['Your file has been renamed to %filename'] = 'Votre fichier a été renommé %filename';
 $_lang['Your message has been deleted'] = 'Votre message a été supprimé.';
 $_lang['Your message has been entered'] = 'Votre message a été enregistré.';
