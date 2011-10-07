@@ -211,6 +211,19 @@ abstract class AbstractAuthDriver implements AuthDriver
             {
                 unset( $data[$key] );
             }
+            elseif ( in_array( $key, $this->extAuthAttribTreatmentList ) )
+            {
+                $treatmentCallback = $this->extAuthAttribTreatmentList[$key];
+                
+                if ( is_callable( $treatmentCallback ) )
+                {
+                    $data[$key] = $treatmentCallback($value);
+                }
+                else
+                {
+                    $data[$key] = $treatmentCallback;
+                }
+            }
         }
         
         return $data;
