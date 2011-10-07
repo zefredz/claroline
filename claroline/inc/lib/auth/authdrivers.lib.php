@@ -33,6 +33,7 @@ abstract class AbstractAuthDriver implements AuthDriver
 {
     protected $userId = null;
     protected $extAuthIgnoreUpdateList = array();
+    protected $extAuthAttribTreatmentList = array();
     protected $username = null, $password = null;
     protected $extraMessage = null;
     
@@ -68,6 +69,19 @@ abstract class AbstractAuthDriver implements AuthDriver
             if ( in_array( $key, $this->extAuthIgnoreUpdateList ) )
             {
                 unset( $data[$key] );
+            }
+            elseif ( in_array( $key, $this->extAuthAttribTreatmentList ) )
+            {
+                $treatmentCallback = $this->extAuthAttribTreatmentList[$key];
+                
+                if ( is_callable( $treatmentCallback ) )
+                {
+                    $data[$key] = $treatmentCallback($value);
+                }
+                else
+                {
+                    $data[$key] = $treatmentCallback;
+                }
             }
         }
         
