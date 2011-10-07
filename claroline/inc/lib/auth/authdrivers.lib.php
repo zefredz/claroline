@@ -33,6 +33,7 @@ abstract class AbstractAuthDriver implements AuthDriver
 {
     protected $userId = null;
     protected $extAuthIgnoreUpdateList = array();
+    protected $extAuthAttribTreatmentList = array();
     protected $username = null, $password = null;
     protected $extraMessage = null;
     
