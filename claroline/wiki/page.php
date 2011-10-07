@@ -728,7 +728,7 @@ $helpUrl = null;
 
 // Tool title
 $toolTitle = array();
-$toolTitle['mainTitle'] = sprintf( get_lang("Wiki : %s"), $wiki->getTitle() );
+$toolTitle['mainTitle'] = sprintf( get_lang('Wiki : %s'), $wiki->getTitle() );
 
 if ( claro_is_in_a_group() )
 {
@@ -961,7 +961,7 @@ switch( $action )
 
         $versionInfo = '('
             . sprintf(
-                get_lang("differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s")
+                get_lang('differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s')
                     , $oldTime, $oldEditorStr, $newTime, $newEditorStr )
             . ')'
             ;
@@ -1072,7 +1072,7 @@ switch( $action )
                 }
 
                 $out .= '<li>'
-                    . sprintf( get_lang("%1\$s modified on %2\$s by %3\$s"), $entry, $time, $userUrl )
+                    . sprintf( get_lang('%1\$s modified on %2\$s by %3\$s'), $entry, $time, $userUrl )
                     . '</li>'
                     . "\n"
                     ;
@@ -1208,7 +1208,7 @@ switch( $action )
                     , strtotime($wikiPage->getCurrentVersionMtime()) )
                     ;
 
-                $versionInfo = sprintf( get_lang("(version of %1\$s modified by %2\$s)"), $mtime, $editorUrl );
+                $versionInfo = sprintf( get_lang('(version of %1\$s modified by %2\$s)'), $mtime, $editorUrl );
 
                 $versionInfo = '&nbsp;<span style="font-size: 40%; font-weight: normal; color: red;">'
                     . $versionInfo . '</span>'
@@ -1376,7 +1376,7 @@ switch( $action )
                     ;
 
                 $out .= '<td>'
-                    . sprintf( get_lang("%1\$s by %2\$s"), $versionUrl, $userUrl )
+                    . sprintf( get_lang('%1\$s by %2\$s'), $versionUrl, $userUrl )
                     . '</td>'
                     . "\n"
                     ;
