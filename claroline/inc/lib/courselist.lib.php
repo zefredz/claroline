@@ -811,24 +811,19 @@ function render_course_in_dl_list($course, $hot = false, $displayIconAccess = tr
         ( $course['titular'] . $courseLanguageTxt );
     
     // Don't give a link to the course if the user is in pending state
-    $isUserPending = ($course['access'] == 'private' && isset($course['isPending']) && $course['isPending'] == 1) ?
+    $isUserPending = isset($course['isPending']) && $course['isPending'] == 1 ?
                      (true) :
                      (false);
     
+    $courseLink = '<a href="'
+                . htmlspecialchars( $url ) . '">'
+                . htmlspecialchars($courseTitle)
+                . '</a>'
+                . $userStatusImg . "\n";
+    
     if ( $isUserPending )
     {
-        $courseLink = '<a>'
-                    . htmlspecialchars($courseTitle)
-                    . '</a> Blabla '
-                    . $userStatusImg
-                    . ' ['.get_lang('Pending registration').']' . "\n";
-    }
-    else
-    {
-        $courseLink = '<a href="' . htmlspecialchars( $url ) . '">'
-                    . htmlspecialchars($courseTitle)
-                    . '</a>'
-                    . $userStatusImg . "\n";
+        $courseLink .= ' ['.get_lang('Pending registration').']' . "\n";
     }
     
     // Make a nice explicit sentence about the course's access
