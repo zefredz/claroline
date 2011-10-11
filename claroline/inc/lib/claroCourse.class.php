@@ -174,8 +174,6 @@ class ClaroCourse
             $this->status             = $course_data['status'];
             $this->userLimit          = $course_data['userLimit'];
             
-            pushClaroMessage($course_data['publicationDate'],'debug');
-            
             $this->useExpirationDate = isset($this->expirationDate);
             
             return true;
