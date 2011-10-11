@@ -34,7 +34,7 @@ implements
     Countable
 {
     //put your code here
-    protected $courseObj, $groupId, $userList, $_rawData;
+    protected $courseObj, $groupId, $userList;
 
     /**
      * @param Claro_Course $courseObj
@@ -45,6 +45,7 @@ implements
         $this->groupId = $groupId;
         $this->courseObj = $courseObj;
         $this->userList = null;
+        $this->sessionVarName = '_group';
     }
 
     /**
@@ -311,7 +312,7 @@ class Claro_CurrentGroupTeam extends Claro_GroupTeam
     /**
      * Load user properties from session
      */
-    public function loadFromSession()
+    /*public function loadFromSession()
     {
         if ( !empty($_SESSION['_group']) )
         {
@@ -322,15 +323,15 @@ class Claro_CurrentGroupTeam extends Claro_GroupTeam
         {
             throw new Exception("Cannot load user data from session for {$this->groupId}");
         }
-    }
+    }*/
 
     /**
      * Save user properties to session
      */
-    public function saveToSession()
+    /*public function saveToSession()
     {
         $_SESSION['_group'] = $this->_rawData;
-    }
+    }*/
 }
 
 /**

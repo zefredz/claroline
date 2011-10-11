@@ -20,6 +20,7 @@
 class KernelObject
 {
     protected $_rawData = array();
+    protected $sessionVarName;
 
     /**
      * Get the value of a property of the object. Magic method called by
@@ -95,5 +96,27 @@ class KernelObject
     public function getRawData()
     {
         return $this->_rawData;
+    }
+    
+    public function saveToSession()
+    {
+        $_SESSION[$this->sessionVarName] = $this->_rawData;
+        pushClaroMessage( "Kernel object {$this->sessionVarName} saved to session", 'debug' );
+    }
+    
+    /**
+     * Load user properties from session
+     */
+    public function loadFromSession()
+    {
+        if ( !empty($_SESSION[$this->sessionVarName]) )
+        {
+            $this->_rawData = $_SESSION[$this->sessionVarName];
+            pushClaroMessage( "Kernel object {$this->sessionVarName} loaded from session", 'debug' );
+        }
+        else
+        {
+            throw new Exception("Cannot load kernel object {$this->sessionVarName} from session");
+        }
     }
 }

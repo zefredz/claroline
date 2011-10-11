@@ -35,6 +35,7 @@ class Claro_Course extends KernelObject
     public function __construct( $courseId )
     {
         $this->_courseId = $courseId;
+        $this->sessionVarName = '_course';
     }
     
     public function load()
@@ -307,7 +308,7 @@ class Claro_CurrentCourse extends Claro_Course
     /**
      * Load the course from the session
      */
-    public function loadFromSession()
+    /*public function loadFromSession()
     {
         if ( !empty($_SESSION['_course']) )
         {
@@ -318,15 +319,15 @@ class Claro_CurrentCourse extends Claro_Course
         {
             throw new Exception("Cannot load course data from session for {$this->_courseId}");
         }
-    }
+    }*/
 
     /**
      * Save the course to the session
      */
-    public function saveToSession()
+    /*public function saveToSession()
     {
         $_SESSION['_course'] = $this->_rawData;
-    }
+    }*/
     
     protected static $instance = false;
 

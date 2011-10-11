@@ -35,6 +35,7 @@ class Claro_User extends KernelObject
     public function __construct( $userId )
     {
         $this->_userId = $userId;
+        $this->sessionVarName = '_user';
     }
 
     /**
@@ -174,7 +175,7 @@ class Claro_CurrentUser extends Claro_User
     /**
      * Load user properties from session
      */
-    public function loadFromSession()
+    /*public function loadFromSession()
     {
         if ( !empty($_SESSION['_user']) )
         {
@@ -185,15 +186,15 @@ class Claro_CurrentUser extends Claro_User
         {
             throw new Exception("Cannot load user data from session for {$this->_userId}");
         }
-    }
+    }*/
 
     /**
      * Save user properties to session
      */
-    public function saveToSession()
+    /*public function saveToSession()
     {
         $_SESSION['_user'] = $this->_rawData;
-    }
+    }*/
 
     /**
      * Is it the first time the user log in to the platform ?
