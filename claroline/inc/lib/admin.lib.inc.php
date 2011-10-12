@@ -202,15 +202,20 @@ function delete_course($code, $sourceCourseId)
                     get_conf('coursesRepositorySys') . $currentCoursePath . '/',
                     get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')
                 );
-                
-                return true ;
             }
             else
             {
                 Console::warning( "DELETE_COURSE : Course directory not found {$currentCoursePath} for course {$currentCourseId}");
-                
-                return true;
             }
+            
+            Claroline::log( 'COURSE_DELETED', array(
+                'courseCode' => $currentCourseId,
+                'courseDbName' => $currentCourseDbName,
+                'courseDbNameGlu' => $currentCourseDbNameGlu,
+                'coursePath' => $currentCoursePath
+            ) );
+            
+            return true;
         }
         else
         {
@@ -357,4 +362,3 @@ function pr_star_replace($string)
     return $string;
 }
 
-?>
