@@ -683,3 +683,236 @@ function claro_is_current_user_enrolment_pending()
 {
     return !claro_is_platform_admin() && claro_is_course_registration_pending();
 }
+
+/**
+ * This class represents one user's privileges in a course.
+ * 
+ * WARNING! this class behaves differently than the init.lib function 
+ * claro_get_course_user_privilege() : 
+ *  1) the platform admin status is not taken into account when evaluating 
+ *      isCourseManager; 
+ *  2) isPending is not taken into account when evaluating isCourseMember
+ */
+class CourseUserPrivileges
+{
+    protected 
+        $userId, 
+        $courseId;
+    
+    protected 
+        $_profileId, 
+        $is_courseAdmin, 
+        $is_courseTutor, 
+        $is_coursePending, 
+        $is_courseMember;
+    
+    /**
+     * Constructor
+     * @param string $courseId course system code
+     * @param int $userId user id
+     */
+    public function __construct( $courseId, $userId )
+    {
+        $this->userId = $userId;
+        $this->courseId = $courseId;
+    }
+    
+    public function load()
+    {
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        
+        $cuData = Claroline::getDatabase()->query("
+            SELECT 
+                cu.profile_id AS profileId,
+                cu.isCourseManager,
+                cu.isPending,
+                cu.tutor
+            FROM 
+                `{$tbl_mdb_names['rel_course_user']}` `cu`
+            WHERE 
+                cu.`user_id`  = " . Claroline::getDatabase()->escape($this->userId) . "
+            AND 
+                cu.`code_cours` = " . Claroline::getDatabase()->quote($this->courseId))->fetch();
+
+        if ( !empty($cuData) )
+        {
+            $this->_profileId        = $cuData['profileId'];
+            $this->is_coursePending  = (bool) ($cuData['isPending' ]);
+            $this->is_courseMember   = true;
+            $this->is_courseTutor    = (bool) ($cuData['tutor'] == 1 );
+            $this->is_courseAdmin    = (bool) ($cuData['isCourseManager'] == 1 );
+        }
+        else // this user has no status related to this course
+        {
+            $this->_profileId        = claro_get_profile_id('guest');
+            $this->is_coursePending  = false;
+            $this->is_courseMember   = false;
+            $this->is_courseTutor    = false;
+            $this->is_courseAdmin    = false;
+        }
+    }
+    
+    /**
+     * Is the user a course manager ?
+     * @return bool
+     */
+    public function isCourseManager()
+    {
+        return $this->is_courseAdmin;
+    }
+    
+    /**
+     * Is the user a member of the course ?
+     * @return bool
+     */
+    public function isCourseMember()
+    {
+        return $this->is_courseMember;
+    }
+    
+    /**
+     * Is the user's enrolment in the course pending ?
+     * @return bool
+     */
+    public function isEnrolmentPending()
+    {
+        return $this->is_coursePending;
+    }
+    
+    /**
+     * Is the user a tutor within the course
+     * @return bool 
+     */
+    public function isCourseTutor()
+    {
+        return $this->is_courseTutor;
+    }
+    
+    /**
+     * Get the user's profile id in the course
+     * @return int
+     */
+    public function getProfileId()
+    {
+        return $this->_profileId;
+    }
+    
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+    
+    public function  getCourseId()
+    {
+        return $this->courseId;
+    }
+}
+
+/**
+ * Course enrolment validation class
+ */
+class UserCourseEnrolmentValidation
+{
+    const 
+        ENROLMENT_PENDING = 1,
+        ENROLMENT_NOTPENDING = 0;
+
+    
+    protected 
+        $privileges, 
+        $course, 
+        $isPending, 
+        $validationCanBeChanged;
+    
+    
+    public function __construct( $courseId, $userId )
+    {
+        $this->privileges = new CourseUserPrivileges($courseId, $userId);
+        $this->privileges->load();
+        
+        $this->course = new Claro_Course($courseId);
+        $this->course->load();
+        
+        if ( $this->privileges->isCourseManager() || !$this->privileges->isCourseMember()  )
+        {
+            $this->validationCanBeChanged = false;
+        }
+        else
+        {
+            $this->validationCanBeChanged = true;
+            
+            if ( $this->privileges->isEnrolmentPending() )
+            {
+                $this->isPending = self::ENROLMENT_PENDING;
+            }
+            else
+            {
+                $this->isPending = self::ENROLMENT_NOTPENDING;
+            }
+        }
+    }
+    
+    public function isModifiable()
+    {
+        return $this->validationCanBeChanged;
+    }
+    
+    public function isPending()
+    {
+        return $this->isPending;
+    }
+    
+    public function grant()
+    {
+        return $this->changeValidation(self::ENROLMENT_NOTPENDING);
+    }
+    
+    public function revoke()
+    {
+        return $this->changeValidation(self::ENROLMENT_PENDING);
+    }
+    
+    protected function changeValidation( $pendingStatus )
+    {
+        if (!$this->isModifiable())
+        {
+            throw new Exception("Cannot change user "
+                . $this->privileges->getUserId()
+                ." enrolment validation in course " 
+                . $this->privileges->getCourseId() );
+        }
+        
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+
+        $updated = Claroline::getDatabase()->exec("
+                UPDATE 
+                    `{$tbl_mdb_names['rel_course_user']}` AS rcu
+                SET 
+                    isPending = " . $pendingStatus . "
+                WHERE 
+                    `rcu`.`user_id` = " . Claroline::getDatabase()->escape($this->privileges->getUserId()) . "
+                AND 
+                    `code_cours` = " . Claroline::getDatabase()->quote($this->privileges->getCourseId()) . "
+                AND 
+                    `isCourseManager` = 0");
+
+        if ($updated)
+        {
+            if ( $this->course->sourceCourseId )
+            {
+                $sourceCourseRegistrationValidation = new self( 
+                    ClaroCourse::getCodeFromId( $this->course->sourceCourseId ),
+                    $this->privileges->getUserId()
+                );
+                
+                $sourceCourseRegistrationValidation->changeValidation( $pendingStatus );
+            }
+            
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}

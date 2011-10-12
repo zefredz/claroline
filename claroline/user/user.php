@@ -180,9 +180,6 @@ if ( $is_allowedToEdit )
         
         if( !empty($csv) )
         {
-            /*header("Content-type: application/csv");
-            header('Content-Disposition: attachment; filename="'.claro_get_current_course_id().'_userlist.csv"');
-            echo $csv;*/
             $courseData = claro_get_current_course_data();
             claro_send_stream( $csv, $courseData[ 'officialCode' ] .'_userlist.csv');
             exit;
@@ -192,43 +189,45 @@ if ( $is_allowedToEdit )
     // Validate a user (if this option is enable for the course)
     if ( $cmd == 'validation' && $req['user_id'])
     {
-        // Get the current pending value
-        $sql = "SELECT `rcu`.`isPending`
-                FROM `" . $tbl_rel_course_user . "` AS rcu
-                WHERE `rcu`.`user_id` = " . $req['user_id'] . "
-                AND   `rcu`.`code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'";
+        $validation = new UserCourseEnrolmentValidation( 
+            claro_get_current_course_id(), 
+            $req['user_id'] 
+        );
         
-        $user = claro_sql_query_get_single_row($sql);
+        $validationChange = isset($_REQUEST['validation']) ? $_REQUEST['validation'] : null;
         
-        // Compute the opposite value
-        $newPendingStatus = null;
-        if ($user['isPending'] == 1)
+        if ( $validation->isModifiable() )
         {
-            $newPendingStatus = 0;
-        }
-        else
-        {
-            $newPendingStatus = 1;
-        }
-        
-        $sql = "UPDATE `" . $tbl_rel_course_user . "` AS rcu
-                SET isPending = " . $newPendingStatus . "
-                WHERE `rcu`.`user_id` = " . $req['user_id'] . "
-                AND `code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
-                AND `isCourseManager` = 0";
-            
-        $updated = claro_sql_query_affected_rows($sql);
-        
-        if ($updated)
-        {
-            if ($newPendingStatus)
+            if ( 'grant' == $validationChange && $validation->isPending() )
             {
-                $dialogBox->success( get_lang('User unvalidated') );
+                if ( $validation->grant() )
+                {
+                    $dialogBox->success( get_lang('This user account is now active in the course') );
+                }
+                else
+                {
+                    $dialogBox->warning( get_lang('No change') );
+                }
+            }
+            elseif( 'revoke' == $validationChange && !$validation->isPending() )
+            {
+                if ( $validation->revoke() )
+                {
+                    $dialogBox->success( get_lang('This user account is not active anymore in this course') );
+                }
+                else
+                {
+                    $dialogBox->warning( get_lang('No change') );
+                }
             }
             else
             {
-                $dialogBox->success( get_lang('User validated') );
+                $dialogBox->warning( get_lang('No change') );
             }
+        }
+        else
+        {
+            $dialogBox->error( get_lang('The user activation cannot be changed') );
         }
     }
 }    // end if allowed to edit
@@ -603,16 +602,18 @@ foreach ( $userList as $thisUser )
             if ($thisUser['isPending'])
             {
                 $icon = 'untick';
-                $tips = 'Enable this user';
+                $tips = 'Click to make this user active in this course';
+                $validationChangeAction = 'grant';
             }
             else
             {
                 $icon = 'tick';
-                $tips = 'Disable this user';
+                $tips = 'Click to make this user inactive in this course';
+                $validationChangeAction = 'revoke';
             }
             
             $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-            .    '?cmd=validation&amp;user_id=' . $thisUser['user_id'] )) . '&amp;offset='.$offset . '" '
+            .    '?cmd=validation&user_id=' . $thisUser['user_id'] )). '&validation='.$validationChangeAction . '&offset='.$offset . '" '
             .    ' title="'.get_lang($tips).'">'
             .    '<img alt="' . get_lang('Validation') . '" src="' . get_icon_url($icon) . '" />'
             .    '</a>'
