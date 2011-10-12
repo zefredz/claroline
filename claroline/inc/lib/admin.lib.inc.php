@@ -188,23 +188,29 @@ function delete_course($code, $sourceCourseId)
         if ( empty( $currentCoursePath ) )
         {
             Console::error("DELETE_COURSE : Try to delete a course repository with no folder name {$currentCourseId} !");
-            
-            return true;
-        }
-
-        if( file_exists(get_conf('coursesRepositorySys') . $currentCoursePath . '/') )
-        {
-            claro_mkdir(get_conf('garbageRepositorySys'), CLARO_FILE_PERMISSIONS, true);
-
-            rename(get_conf('coursesRepositorySys') . $currentCoursePath . '/',
-            get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')
-            );
         }
         else
         {
-            Console::warning( "DELETE_COURSE : Course directory not found {$currentCoursePath} for course {$currentCourseId}");
+            if( file_exists(get_conf('coursesRepositorySys') . $currentCoursePath . '/') )
+            {
+                claro_mkdir(get_conf('garbageRepositorySys'), CLARO_FILE_PERMISSIONS, true);
+
+                rename(get_conf('coursesRepositorySys') . $currentCoursePath . '/',
+                get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')
+                );
+            }
+            else
+            {
+                Console::warning( "DELETE_COURSE : Course directory not found {$currentCoursePath} for course {$currentCourseId}");
+            }
         }
-        // else pushClaroMessage('dir was already deleted');
+        
+        Claroline::log( 'COURSE_DELETED', array(
+            'courseCode' => $currentCourseId,
+            'courseDbName' => $currentCourseDbName,
+            'courseDbNameGlu' => $currentCourseDbNameGlu,
+            'coursePath' => $currentCoursePath
+        ) );
 
         return true ;
     }
