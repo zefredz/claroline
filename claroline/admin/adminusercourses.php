@@ -113,9 +113,9 @@ $userCourseGrid = array();
 foreach ($userCourseList as $courseKey => $course)
 {
     $userCourseGrid[$courseKey]['officialCode']   = $course['officialCode'];
-    
+
     $iconUrl = get_course_access_icon( $course['access'] );
-    
+
     $userCourseGrid[$courseKey]['name']      = '<img class="iconDefinitionList" src="' . $iconUrl . '" alt="" />'
                                             . '<a href="'. get_path( 'clarolineRepositoryWeb' ) . 'course/index.php?cid=' . htmlspecialchars( $course['sysCode'] ) . '">' . $course['name']. '</a><br />' . $course['titular'];
 
@@ -141,6 +141,7 @@ foreach ($userCourseList as $courseKey => $course)
     .                                       '&amp;cmd=unsubscribe'
     .    $addToUrl
     .    '&amp;courseId=' . htmlspecialchars($course['sysCode'])
+    .    '&amp;sort=' . $pagerSortKey . '&amp;dir='.$pagerSortDir
     .    '&amp;offset=' . $offset . '"'
     .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
     .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Delete') . '" />' . "\n"
