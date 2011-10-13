@@ -73,11 +73,11 @@ if ('rem_user' == $do )
             case 'cannot_unsubscribe_the_last_course_manager' :
                 $dialogBox->error( get_lang('You cannot unsubscribe the last course manager of the course') );
                 break;
-            
+
             case 'course_manager_cannot_unsubscribe_himself' :
                 $dialogBox->error( get_lang('Course manager cannot unsubscribe himself') );
                 break;
-            
+
             default :
                 $dialogBox->error( get_lang('Unknow error during unsubscribing') );
         }
@@ -97,15 +97,15 @@ $userCourseGrid = array();
 foreach ($userCourseList as $courseKey => $course)
 {
     $userCourseGrid[$courseKey]['officialCode'] = $course['officialCode'];
-    
+
     $iconUrl = get_course_access_icon( $course['access'] );
-    
+
     $userCourseGrid[$courseKey]['name'] = '<img class="iconDefinitionList" src="' . $iconUrl . '" alt="" />'
                                         . '<a href="'. get_path( 'clarolineRepositoryWeb' ) . 'course/index.php?cid=' . htmlspecialchars( $course['sysCode'] ) . '">' . $course['name']. '</a><br />' . $course['titular'];
-    
-    
+
+
     $userCourseGrid[$courseKey]['profileId'] = claro_get_profile_name($course['profileId']);
-    
+
     if ( $course['isCourseManager'] )
     {
         $userCourseGrid[$courseKey]['isCourseManager'] = '<img class="qtip" src="' . get_icon_url('manager') . '" alt="' . get_lang('Course manager') . '" />';
@@ -125,6 +125,7 @@ foreach ($userCourseList as $courseKey => $course)
     .                                       '&amp;cmd=unsubscribe'
     .    $addToUrl
     .    '&amp;courseId=' . htmlspecialchars($course['sysCode'])
+    .    '&amp;sort=' . $pagerSortKey . '&amp;dir='.$pagerSortDir
     .    '&amp;offset=' . $offset . '"'
     .    ' onclick="return ADMIN.confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
     .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Delete') . '" />' . "\n"
@@ -228,7 +229,7 @@ function prepare_sql_get_courses_of_a_user($userId=null)
     $tbl_mdb_names       = claro_sql_get_main_tbl();
     $tbl_course          = $tbl_mdb_names['course'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
-    
+
     $sql = "SELECT `C`.`code`              AS `sysCode`,
                    `C`.`intitule`          AS `name`,
                    `C`.`administrativeNumber` AS `officialCode`,
@@ -250,6 +251,6 @@ function prepare_sql_get_courses_of_a_user($userId=null)
                  `" . $tbl_rel_course_user . "` AS CU
             WHERE CU.`code_cours` = C.`code`
               AND CU.`user_id` = " . (int) $userId;
-    
+
     return $sql;
 }
