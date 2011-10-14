@@ -80,9 +80,9 @@ abstract class RowToObjectIteratorIterator implements CountableIterator
     
     /**
      * Constructor
-     * @param Iterator $internalIterator must implement the count method too !
+     * @param CountableIterator $internalIterator
      */
-    public function __construct($internalIterator)
+    public function __construct(CountableIterator $internalIterator)
     {
         $this->internalIterator = $internalIterator;
     }
