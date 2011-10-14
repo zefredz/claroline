@@ -35,6 +35,8 @@
  * @package     kernel.database
  */
 
+require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
+
 /**
  * Database Specific Exception
  */
@@ -482,7 +484,7 @@ interface Database_Object
 /**
  * Database_ResultSet generic interface
  */
-interface Database_ResultSet extends SeekableIterator, Countable
+interface Database_ResultSet extends CountableSeekableIterator// SeekableIterator, Countable
 {
     /**
      * Associative array fetch mode constant, default mode if no one specified

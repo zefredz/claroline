@@ -14,7 +14,10 @@
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     kernel.course
+ * @since       Claroline 1.11
  */
+
+require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
 
 /**
  * This class represents one user's privileges in a course.
@@ -216,49 +219,6 @@ class CourseUserPrivilegesList
         
         return $it;
     }
-}
-
-abstract class RowToObjectArrayIterator implements Iterator, Countable
-{
-
-  protected $collection = null;
-  protected $currentIndex = 0;
-  protected $maxIndex;
-  protected $keys = null;
-  
-  public function __construct($array) 
-  {
-
-    $this->collection = $array;
-    $this->maxIndex = count( $array );
-    $this->keys = array_keys( $array );
-  }
-
-  public function key()
-  {
-    return $this->keys[$this->currentIndex];
-  }
-
-  public function next()
-  {
-    ++$this->currentIndex;
-  }
-
-  public function rewind()
-  {
-    $this->currentIndex = 0;
-  }
-
-  public function valid()
-  {
-    return ( isset($this->keys[$this->currentIndex]) );
-  }
-  
-  public function count()
-  {
-      return count($this->collection);
-  }
-  
 }
 
 class CourseUserPrivilegesIterator extends RowToObjectArrayIterator

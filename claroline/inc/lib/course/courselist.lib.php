@@ -13,6 +13,7 @@
 
 
 require_once dirname(__FILE__) . '/../kernel/course.lib.php';
+require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
 require_once dirname(__FILE__) . '/../courselist.lib.php';
 
 
@@ -132,55 +133,16 @@ class SearchedCourseList extends AbstractCourseList
 }
 
 
-class CourseListIterator implements Iterator, Countable
+class CourseListIterator extends RowToObjectIteratorIterator
 {
-    /**
-     * @var Database_ResultSet
-     */
-    protected $courseList;
-    
-    /**
-     * Constructor
-     * @param Database_ResultSet course list
-     */
-    public function __construct($courseList)
-    {
-        $this->courseList = $courseList;
-    }
-    
     public function current ()
     {
-        $courseData = $this->courseList->current();
+        $courseData = $this->internalIterator->current();
         
         $courseObj = new Claro_Course($courseData['courseId']);
         $courseObj->loadFromArray($courseData);
         
         return $courseObj;
-    }
-    
-    public function next ()
-    {
-        return $this->courseList->next();
-    }
-    
-    public function key ()
-    {
-        return $this->courseList->key();
-    }
-    
-    public function valid ()
-    {
-        return $this->courseList->valid();
-    }
-    
-    public function rewind ()
-    {
-        return $this->courseList->rewind();
-    }
-    
-    public function count ()
-    {
-        return $this->courseList->count();
     }
 }
 
