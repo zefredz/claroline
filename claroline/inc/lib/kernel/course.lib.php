@@ -26,7 +26,7 @@ require_once dirname(__FILE__) . '/../database/database.lib.php';
 class Claro_Course extends KernelObject
 {
     protected $_courseId;
-
+    
     /**
      * Constructor
      * @todo use course id (int) instead of course code to identify a course.
@@ -42,7 +42,26 @@ class Claro_Course extends KernelObject
     {
         $this->loadFromDatabase();
     }
-
+    
+    /**
+     * Load course data properties from an array
+     */
+    public function loadFromArray($array)
+    {
+        $this->_rawData = $array;
+        
+        // set bool values
+        $this->_rawData['access'] = $array['access'];
+        $this->_rawData['visibility'] = ('visible' == $array['visibility'] );
+        $this->_rawData['registrationAllowed'] = ('open' == $array['registration'] );
+        
+        // set dbNameGlu
+        $this->_rawData['dbNameGlu'] =
+            get_conf('courseTablePrefix')
+            . $array['dbName']
+            . get_conf('dbGlu');
+    }
+    
     /**
      * Load course properties and group properties from database
      */
@@ -54,7 +73,7 @@ class Claro_Course extends KernelObject
         $this->loadCourseProperties();
         $this->loadGroupProperties();
     }
-
+    
     /**
      * Load course main properties from database
      */
@@ -117,7 +136,7 @@ class Claro_Course extends KernelObject
             . $courseDataList['dbName']
             . get_conf('dbGlu')
             ;
-            
+        
         $this->_rawData = $courseDataList;
     }
 
@@ -127,7 +146,7 @@ class Claro_Course extends KernelObject
     protected function loadCourseCategories()
     {
         $tbl = claro_sql_get_main_tbl();
-
+        
         $categoriesDataList = Claroline::getDatabase()->query("
             SELECT
                 cat.id      AS categoryId,
@@ -144,9 +163,9 @@ class Claro_Course extends KernelObject
             WHERE
                 rcc.courseId = {$this->_rawData['id']};
         ");
-                
+        
         $this->_rawData['categories'] = array();
-
+        
         foreach ( $categoriesDataList as $category )
         {
             $category['visibility'] = ($category['visibility'] == 1);
@@ -275,6 +294,11 @@ class Claro_Course extends KernelObject
      */
     public function __get( $nm )
     {
+        if ( $nm == 'categories' && !isset($this->_rawData['categories']) )
+        {
+            $this->loadCourseCategories();
+        }
+        
         if ( isset ( $this->_rawData[$nm] ) )
         {
             return $this->_rawData[$nm];
