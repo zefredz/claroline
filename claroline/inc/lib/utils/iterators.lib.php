@@ -32,6 +32,10 @@ abstract class RowToObjectArrayIterator implements CountableIterator
   protected $maxIndex;
   protected $keys = null;
   
+  /**
+   *
+   * @param Array $array 
+   */
   public function __construct($array) 
   {
 
@@ -73,9 +77,6 @@ abstract class RowToObjectArrayIterator implements CountableIterator
  */
 abstract class RowToObjectIteratorIterator implements CountableIterator
 {
-    /**
-     * @var Database_ResultSet
-     */
     protected $internalIterator;
     
     /**
