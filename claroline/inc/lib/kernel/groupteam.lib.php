@@ -308,30 +308,6 @@ class Claro_CurrentGroupTeam extends Claro_GroupTeam
 
         parent::__construct( $groupId );
     }
-
-    /**
-     * Load user properties from session
-     */
-    /*public function loadFromSession()
-    {
-        if ( !empty($_SESSION['_group']) )
-        {
-            $this->_rawData = $_SESSION['_group'];
-            pushClaroMessage( "User {$this->groupId} loaded from session", 'debug' );
-        }
-        else
-        {
-            throw new Exception("Cannot load user data from session for {$this->groupId}");
-        }
-    }*/
-
-    /**
-     * Save user properties to session
-     */
-    /*public function saveToSession()
-    {
-        $_SESSION['_group'] = $this->_rawData;
-    }*/
 }
 
 /**
