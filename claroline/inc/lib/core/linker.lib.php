@@ -49,6 +49,7 @@
  */
 
 require_once dirname(__FILE__) . '/url.lib.php';
+require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
 require_once dirname(__FILE__) . '/../group.lib.inc.php';
 
 interface ResourceLocator
@@ -391,7 +392,7 @@ class LinkerResource
  *
  */
 class LinkerResourceIterator
-    implements SeekableIterator, Countable
+    implements CountableSeekableIterator
 {
     protected $elementList;
     

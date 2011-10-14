@@ -11,8 +11,7 @@
  * @since       1.10
  */
 
-
-class CourseHomePagePortletIterator implements Iterator, Countable
+class CourseHomePagePortletIterator implements CountableIterator
 {
     private     $courseId;
     

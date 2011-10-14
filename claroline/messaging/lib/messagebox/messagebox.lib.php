@@ -14,7 +14,7 @@
  * @package     internal_messaging
  */
 
-abstract class MessageBox implements Iterator, Countable
+abstract class MessageBox implements CountableIterator
 {
     protected $messageFilter = NULL;
     protected $messageList = FALSE;

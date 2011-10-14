@@ -15,7 +15,7 @@
 
 require get_module_path('CLTI').'/lib/toolintroduction.class.php';
 
-class ToolIntroductionIterator implements Iterator, Countable
+class ToolIntroductionIterator implements CountableIterator
 {
     private     $courseCode;
     

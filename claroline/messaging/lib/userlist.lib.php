@@ -17,7 +17,7 @@
 
 require_once dirname(__FILE__) . '/userstrategy.lib.php';
 
-class UserList implements Iterator, Countable 
+class UserList implements CountableIterator
 {
 
     protected $userList = FALSE;

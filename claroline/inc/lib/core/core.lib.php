@@ -16,6 +16,8 @@
  * @package     kernel.core
  */
 
+require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
+
 /**
  * Protect file path against arbitrary file inclusion
  * @param   string path, untrusted path
