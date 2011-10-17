@@ -975,10 +975,13 @@ class CourseNavigator implements ResourceNavigator
                     $rootNodeLocator->getCourseId(),
                     $courseTool['label']
                 );
+                
+                $name = get_lang( $courseTool['name'] );
             }
             else
             {
                 $locator = new ExternalResourceLocator( $courseTool['url'] );
+                $name = $courseTool['name'];
             }
             
             if ( ! is_null( $courseTool['label'] )
@@ -992,7 +995,7 @@ class CourseNavigator implements ResourceNavigator
             }
             
             $resource = new LinkerResource(
-                $courseTool['name'],
+                $name,
                 $locator,
                 true,
                 $courseTool['visibility'] ? true : false,
