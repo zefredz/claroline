@@ -446,7 +446,7 @@ function user_send_enroll_to_course_mail($userId, $data, $course=null)
         '%lastname' => $data['lastname'],
         '%courseCode' => $courseData['officialCode'],
         '%courseName' => $courseData['name'],
-        '%coursePath' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . $courseData['sysCode'],
+        '%coursePath' => 'claroline/course/index.php?cid=' . $courseData['sysCode'],
         '%siteName'=> get_conf('siteName'),
         '%rootWeb' => get_path('rootWeb'),
         '%administratorName' => get_conf('administrator_name'),
