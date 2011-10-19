@@ -17,7 +17,7 @@
  */
 
 $_course = array();
-$siteName ='';
+$siteName = '';
 $is_courseAllowed = false;
 
 require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';

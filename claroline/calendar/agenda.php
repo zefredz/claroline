@@ -279,16 +279,16 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $editedEvent['id'            ] = '';
-            $editedEvent['title'         ] = '';
-            $editedEvent['content'       ] = '';
-            $editedEvent['date'] = time();
-            $editedEvent['lastingAncient'] = false;
-            $editedEvent['location'      ] = '';
+            $editedEvent['id']              = '';
+            $editedEvent['title']           = '';
+            $editedEvent['content']         = '';
+            $editedEvent['date']            = time();
+            $editedEvent['lastingAncient']  = false;
+            $editedEvent['location']        = '';
 
             $nextCommand = 'exAdd';
         }
-        $display_form =true;
+        $display_form = true;
     } // end if cmd == 'rqEdit' && cmd == 'rqAdd'
 
     if ( $autoExportRefresh)
@@ -321,6 +321,15 @@ $cmdList[] = array(
 
 if ( count($eventList) > 0 )
 {
+    if ( get_conf('enableICalInCourse') )
+    {
+        $cmdList[] = array(
+            'img' => 'calendar',
+            'name' => get_lang('Download'),
+            'url' => htmlspecialchars(Url::Contextualize( get_path('url').'/claroline/backends/ical.php' ))
+        );
+    }
+    
     if ( $orderDirection == 'DESC' )
     {
         $cmdList[] = array(
