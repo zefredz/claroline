@@ -146,11 +146,11 @@ array ( 'description' => 'This option can be used to prevent users which do not 
       );
 
 $conf_def_property_list['cldoc_customTmpPath'] =
-array ('label'       => 'Custom path to a course temporary zip directory'
-      ,'description' => 'Leave empty to use the default one'
+array ('label'       => 'Path to the temporary zip folder'
+      ,'description' => 'Leave empty to use the default one (which is courses/<COURSEID>/tmp/zip)'
       ,'default'     => ''
       ,'type'        => 'string'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      ,'technicalInfo' => 'Path to course temporary zip folder'
+      ,'technicalInfo' => 'Path to the temporary zip folder'
       );
