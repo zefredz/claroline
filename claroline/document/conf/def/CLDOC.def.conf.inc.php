@@ -33,7 +33,9 @@ $conf_def['section']['main']['label']='Main';
 $conf_def['section']['main']['description']='';
 $conf_def['section']['main']['properties'] =
 array ( 'openNewWindowForDoc'
-       , 'cldoc_allowAnonymousToDownloadFolder');
+       , 'cldoc_allowAnonymousToDownloadFolder'
+       , 'cldoc_allowNonManagersToDownloadFolder'
+       , 'cldoc_customTmpPath' );
 
 
 // CONFIG SECTIONS
@@ -128,4 +130,27 @@ array ( 'description' => 'This option can be used to prevent web crawlers to dow
                                )
       , 'display'     => TRUE
       , 'readonly'    => FALSE
+      );
+
+
+$conf_def_property_list['cldoc_allowNonManagersToDownloadFolder'] =
+array ( 'description' => 'This option can be used to prevent users which do not have manager rights in documents to download an archive of the folder'
+      , 'label'       => 'Allow download of folder by non managers'
+      , 'default'     => TRUE
+      , 'type'        => 'boolean'
+      , 'acceptedValue' => array ('TRUE'=>'Yes'
+                               ,'FALSE'=>'No'
+                               )
+      , 'display'     => TRUE
+      , 'readonly'    => FALSE
+      );
+
+$conf_def_property_list['cldoc_customTmpPath'] =
+array ('label'       => 'Custom path to the temporary directory'
+      ,'description' => 'Leave empty to use the default one'
+      ,'default'     => ''
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'technicalInfo' => 'Path to temporary zip folder'
       );
