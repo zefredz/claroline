@@ -42,15 +42,15 @@ require claro_get_conf_repository() . 'ical.conf.php';
 require claro_get_conf_repository() . 'rss.conf.php';
 
 $context = claro_get_current_context(CLARO_CONTEXT_COURSE);
-define('CONFVAL_LOG_CALENDAR_INSERT', FALSE);
-define('CONFVAL_LOG_CALENDAR_DELETE', FALSE);
-define('CONFVAL_LOG_CALENDAR_UPDATE', FALSE);
+define('CONFVAL_LOG_CALENDAR_INSERT', false);
+define('CONFVAL_LOG_CALENDAR_DELETE', false);
+define('CONFVAL_LOG_CALENDAR_UPDATE', false);
 
 if ( ! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $nameTools = get_lang('Agenda');
 
-claro_set_display_mode_available(TRUE);
+claro_set_display_mode_available(true);
 
 $is_allowedToEdit = claro_is_course_manager();
 
@@ -114,8 +114,8 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
  * COMMANDS SECTION
  */
 
-$display_form = FALSE;
-$display_command = FALSE;
+$display_form = false;
+$display_command = false;
 
 if ( $is_allowedToEdit )
 {
@@ -157,7 +157,7 @@ if ( $is_allowedToEdit )
             // notify that a new agenda event has been posted
 
             $eventNotifier->notifyCourseEvent('agenda_event_added', claro_get_current_course_id(), claro_get_current_tool_id(), $entryId, claro_get_current_group_id(), '0');
-            $autoExportRefresh = TRUE;
+            $autoExportRefresh = true;
 
         }
         else
@@ -193,7 +193,7 @@ if ( $is_allowedToEdit )
                 ResourceLinker::updateLinkList( $currentLocator, $resourceList );
 
                 $eventNotifier->notifyCourseEvent('agenda_event_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
-                $autoExportRefresh = TRUE;
+                $autoExportRefresh = true;
             }
             else
             {
@@ -214,7 +214,7 @@ if ( $is_allowedToEdit )
             $dialogBox->success( get_lang('Event deleted from the agenda') );
 
             $eventNotifier->notifyCourseEvent('agenda_event_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
-            $autoExportRefresh = TRUE;
+            $autoExportRefresh = true;
             if ( CONFVAL_LOG_CALENDAR_DELETE )
             {
                 $claroline->log('CALENDAR',array ('DELETE_ENTRY' => $id));
@@ -262,14 +262,14 @@ if ( $is_allowedToEdit )
         {
             $visibility = 'SHOW';
             $eventNotifier->notifyCourseEvent('agenda_event_visible', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
-            $autoExportRefresh = TRUE;
+            $autoExportRefresh = true;
         }
 
         if ($cmd == 'mkHide')
         {
             $visibility = 'HIDE';
             $eventNotifier->notifyCourseEvent('agenda_event_invisible', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
-            $autoExportRefresh = TRUE;
+            $autoExportRefresh = true;
         }
 
         agenda_set_item_visibility($id, $visibility);
@@ -292,33 +292,25 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $editedEvent['id'            ] = '';
-            $editedEvent['title'         ] = '';
-            $editedEvent['content'       ] = '';
-            $editedEvent['date'] = time();
-            $editedEvent['lastingAncient'] = FALSE;
-            $editedEvent['location'      ] = '';
+            $editedEvent['id']              = '';
+            $editedEvent['title']           = '';
+            $editedEvent['content']         = '';
+            $editedEvent['date']            = time();
+            $editedEvent['lastingAncient']  = false;
+            $editedEvent['location']        = '';
 
             $nextCommand = 'exAdd';
         }
-        $display_form =TRUE;
+        $display_form = true;
     } // end if cmd == 'rqEdit' && cmd == 'rqAdd'
 
     if ('rqEdit' != $cmd  && 'rqAdd' != $cmd ) // display main commands only if we're not in the event form
     {
-        $display_command = TRUE;
+        $display_command = true;
     } // end if diplayMainCommands
 
     if ( $autoExportRefresh)
     {
-        // rss update
-        /*if ( get_conf('enableRssInCourse',1))
-        {
-
-            require_once get_path('incRepositorySys') . '/lib/rss.write.lib.php';
-            build_rss( array(CLARO_CONTEXT_COURSE => claro_get_current_course_id()));
-        }*/
-
         // ical update
         if (get_conf('enableICalInCourse',1) )
         {
@@ -359,16 +351,23 @@ if ( count($eventList) > 0 )
         . ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list ?')) . '\')) return false;">'
         . '<img src="' . get_icon_url('delete') . '" alt="" />'
         . get_lang('Clear up event list')
-        . '</a>'
-        ;
+        . '</a>';
+    
+    if ( get_conf('enableICalInCourse') )
+    {
+        $cmdList[] = '<a class="claroCmd" href="'
+            . htmlspecialchars(Url::Contextualize( get_path('url').'/claroline/backends/ical.php' ))
+            . '" title="'.get_lang('Download').'"><img src="'.  get_icon_url('ical').'" alt="ical" /> '
+            . get_lang('Download') . '</a>' . "\n"
+            . '<br />';
+    }
 }
 else
 {
     $cmdList[]=  '<span class="claroCmdDisabled" >'
         . '<img src="' . get_icon_url('delete') . '" alt="" />'
         . get_lang('Clear up event list')
-        . '</span>'
-        ;
+        . '</span>';
 }
 
 $output = '';
@@ -466,13 +465,12 @@ else
     }
 }
 
-$nowBarAlreadyShowed = FALSE;
+$nowBarAlreadyShowed = false;
 
 if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
 
 foreach ( $eventList as $thisEvent )
 {
-
     if (('HIDE' == $thisEvent['visibility'] && $is_allowedToEdit)
         || 'SHOW' == $thisEvent['visibility'])
     {
