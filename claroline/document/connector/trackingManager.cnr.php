@@ -1,18 +1,15 @@
-<?php
+<?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLDOC
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Sebastien Piraux <pir@cerdecam.be>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLDOC
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Sebastien Piraux <pir@cerdecam.be>
  */
 
 /**
@@ -30,7 +27,7 @@ class CLDOC_TrackingManager extends TrackingManager
     
     public function deleteAll()
     {
-        $sql = "DELETE 
+        $sql = "DELETE
                 FROM `".$this->tbl_course_tracking_event."`
                 WHERE `type` = 'download'";
         
@@ -46,7 +43,7 @@ class CLDOC_TrackingManager extends TrackingManager
     
     public function deleteBefore( $date )
     {
-        $sql = "DELETE 
+        $sql = "DELETE
                 FROM `".$this->tbl_course_tracking_event."`
                 WHERE `type` = 'download'
                   AND `date` < FROM_UNIXTIME('" . (int) $date ."')";
@@ -81,9 +78,8 @@ class CLDOC_TrackingManager extends TrackingManager
         else
         {
             return false;
-        }            
+        }
     }
 }
 
 TrackingManagerRegistry::register('CLDOC_TrackingManager');
-?>

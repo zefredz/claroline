@@ -2,13 +2,13 @@
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
- * Claroline Shibboleth / Switch AAI
+ * CLAROLINE
  *
- * Library and Configuration
+ * Shibboleth / Switch AAI.
+ * Library and configuration.
  *
- * @version 0.4
- *
- * @author Daniel Streiff <daniel.streiff@fh-htwchur.ch>
+ * @version     0.4
+ * @author      Daniel Streiff <daniel.streiff@fh-htwchur.ch>
  */
 
 /**
@@ -85,5 +85,3 @@ function shibbolethUniqueUsername($lastname, $firstname, $lnLen = 10, $fnLen = 1
     }
     return $shibbolethUsername;
 }
-
-?>

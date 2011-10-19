@@ -14,4 +14,3 @@
 
 header('Location:./work.php');
 exit();
-?>

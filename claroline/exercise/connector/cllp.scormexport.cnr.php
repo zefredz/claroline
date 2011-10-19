@@ -269,5 +269,3 @@ class CLQWZ_ScormExport extends PathScormExport
     return $this->error;
   }
 }
-
-?>

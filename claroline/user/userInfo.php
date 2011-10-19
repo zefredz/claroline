@@ -629,5 +629,3 @@ $out .= '<p>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

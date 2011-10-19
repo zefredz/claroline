@@ -89,7 +89,7 @@ if ($cmd ==  'rqMkHtml' )
     .   claro_html_button(htmlspecialchars(Url::Contextualize('./document.php?cmd=exChDir&amp;file='.strip_tags($cwd))), get_lang('Cancel'))
     .   '</p>' . "\n"
     .   '</form>' . "\n"
-    ;    
+    ;
 }
 elseif($cmd == "rqEditHtml" && !empty($file) )
 {
@@ -130,5 +130,3 @@ $out .= '<br />' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

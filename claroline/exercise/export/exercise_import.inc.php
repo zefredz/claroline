@@ -709,5 +709,3 @@ function elementData($parser,$data)
         break;
     }
 }
-
-?>

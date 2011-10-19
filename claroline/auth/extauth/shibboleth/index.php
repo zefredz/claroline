@@ -1,16 +1,15 @@
 <?php // $Id$
 
 /**
- * Claroline Shibboleth / Switch AAI
+ * CLAROLINE
  *
- * Authenticate User with Shibboleth authSource
+ * Shibboleth / Switch AAI.
+ * Authenticate User with Shibboleth authSource.
  *
- * @version 0.4
- *
- * @author Daniel Streiff <daniel.streiff@fh-htwchur.ch>
- *
+ * @version     0.4
+ * @author      Daniel Streiff <daniel.streiff@fh-htwchur.ch>
  */
-        
+
 // Shibboleth attributes available, process login
 $_REQUEST['shibbolethLogin'] = true;
 
@@ -29,7 +28,7 @@ if ( isset($_SERVER[$shibbolethUniqueIdAttr]) )
         }
         else
         {
-            claro_redirect($rootWeb);            
+            claro_redirect($rootWeb);
         }
     }
     else
@@ -43,5 +42,3 @@ else
     // Directory not protected
     claro_die('<center>WARNING ! PROTECT THIS FOLDER IN YOUR WEBSERVER CONFIGURATION.</center>');
 }
-
-?>

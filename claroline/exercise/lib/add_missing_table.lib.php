@@ -1,5 +1,5 @@
-<?php
-/* 
+<?php // $Id$
+/*
  * $id$ To change this template, choose Tools | Templates
  * $id$ and open the template in the editor.
  */
@@ -18,4 +18,3 @@ function init_qwz_questions_categories ()
 
     claro_sql_query($sql);
 }
-?>

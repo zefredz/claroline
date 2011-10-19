@@ -357,7 +357,7 @@ class Exercise
      */
     function getQuestionList()
     {
-        $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, REQ.`rank`, Q.`id_category` 
+        $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, REQ.`rank`, Q.`id_category`
                  FROM `" . $this->tblRelExerciseQuestion . "` AS REQ,
                       `" . $this->tblQuestion . "` AS Q
                 WHERE REQ.`exerciseId` = " . (int) $this->id . "
@@ -409,7 +409,7 @@ class Exercise
      * get last random question list
      * @author Dimitri Rambout <dimitri.rambout@gmail.com>
      * @return array list of id of question used in this exercise or false in error
-     */    
+     */
     function getLastRandomQuestionList($userId, $exerciseId)
     {
        $questions =  $this->loadLastRandomQuestionList( $userId, $exerciseId );
@@ -447,12 +447,12 @@ class Exercise
     
     /**
      * load last random question list
-     * 
+     *
      * @author Dimitri Rambout <dimitri.rambout@gmail.com>
      * @param $userId id of the user
      * @param $exerciseId id of the exercise
      * @return array of id
-     */    
+     */
     function loadLastRandomQuestionList($userId, $exerciseId)
     {
         $sql = "SELECT `questions`
@@ -478,7 +478,7 @@ class Exercise
      * @param $userId id of the user
      * @param $exerciseId id of the exercise
      * @param $questions array of question ids
-     */    
+     */
     function saveRandomQuestionList( $userId, $exerciseId, $thisQuestions)
     {
         
@@ -1007,4 +1007,3 @@ class Exercise
         return false;
     }
 }
-?>

@@ -25,5 +25,3 @@ else
     claro_redirect('./myagenda.php');
 }
 exit();
-
-?>

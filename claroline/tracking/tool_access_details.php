@@ -231,4 +231,3 @@ else // not allowed to track
 $claroline->display->body->setContent($html);
 
 echo $claroline->display->render();
-?>

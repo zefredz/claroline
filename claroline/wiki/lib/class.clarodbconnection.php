@@ -1,206 +1,205 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
-    // vim: expandtab sw=4 ts=4 sts=4:
+// vim: expandtab sw=4 ts=4 sts=4:
 
-    /**
-     * CLAROLINE
-     *
-     * @version 1.8 $Revision$
-     *
+/**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
-     *
-     * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
-     * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-     * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-     * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-     *
-     * @author Frederic Minne <zefredz@gmail.com>
-     *
-     * @package Wiki
-     */
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ *
+ * @author Frederic Minne <zefredz@gmail.com>
+ *
+ * @package Wiki
+ */
 
-    require_once dirname(__FILE__) . "/class.dbconnection.php";
+require_once dirname(__FILE__) . "/class.dbconnection.php";
 
-    class ClarolineDatabaseConnection extends CLWIKI_Database_Connection
+class ClarolineDatabaseConnection extends CLWIKI_Database_Connection
+{
+  
+    function ClarolineDatabaseConnection()
     {
-      
-        function ClarolineDatabaseConnection()
+        // use only in claroline tools
+    }
+
+    function setError( $errmsg = '', $errno = 0 )
+    {
+        if ( $errmsg != '' )
         {
-            // use only in claroline tools
+            $this->error = $errmsg;
+            $this->errno = $errno;
+        }
+        else
+        {
+            $this->error = ( claro_sql_error() !== false ) ? claro_sql_error() : 'Unknown error';
+            $this->errno = ( claro_sql_errno() !== false ) ? claro_sql_errno() : 0;
         }
 
-        function setError( $errmsg = '', $errno = 0 )
-        {
-            if ( $errmsg != '' )
-            {
-                $this->error = $errmsg;
-                $this->errno = $errno;
-            }
-            else
-            {
-                $this->error = ( claro_sql_error() !== false ) ? claro_sql_error() : 'Unknown error';
-                $this->errno = ( claro_sql_errno() !== false ) ? claro_sql_errno() : 0;
-            }
+        $this->connected = false;
+    }
 
-            $this->connected = false;
+    function connect()
+    {
+
+    }
+
+    function close()
+    {
+
+    }
+
+    function executeQuery( $sql )
+    {
+        claro_sql_query( $sql );
+
+        if( claro_sql_errno() != 0 )
+        {
+            $this->setError();
+
+            return 0;
         }
 
-        function connect()
+        return claro_sql_affected_rows( );
+    }
+
+    function getAllObjectsFromQuery( $sql )
+    {
+        $result = claro_sql_query( $sql );
+
+        if ( @mysql_num_rows( $result ) > 0 )
         {
+            $ret= array();
 
-        }
-
-        function close()
-        {
-
-        }
-
-        function executeQuery( $sql )
-        {
-            claro_sql_query( $sql );
-
-            if( claro_sql_errno() != 0 )
+            while( ( $item = @mysql_fetch_object( $result ) ) != false )
             {
-                $this->setError();
-
-                return 0;
+                $ret[] = $item;
             }
-
-            return claro_sql_affected_rows( );
         }
-
-        function getAllObjectsFromQuery( $sql )
+        else
         {
-            $result = claro_sql_query( $sql );
-
-            if ( @mysql_num_rows( $result ) > 0 )
-            {
-                $ret= array();
-
-                while( ( $item = @mysql_fetch_object( $result ) ) != false )
-                {
-                    $ret[] = $item;
-                }
-            }
-            else
-            {
-                $this->setError();
-
-                @mysql_free_result( $result );
-
-                return null;
-            }
+            $this->setError();
 
             @mysql_free_result( $result );
 
-            return $ret;
+            return null;
         }
 
-        function getObjectFromQuery( $sql )
+        @mysql_free_result( $result );
+
+        return $ret;
+    }
+
+    function getObjectFromQuery( $sql )
+    {
+        $result = claro_sql_query( $sql );
+
+        if ( ( $item = @mysql_fetch_object( $result ) ) != false )
         {
-            $result = claro_sql_query( $sql );
+            @mysql_free_result( $result );
 
-            if ( ( $item = @mysql_fetch_object( $result ) ) != false )
+            return $item;
+        }
+        else
+        {
+            $this->setError();
+
+            @mysql_free_result( $result );
+            return null;
+        }
+    }
+
+    function getAllRowsFromQuery( $sql )
+    {
+        $result = claro_sql_query( $sql );
+
+        if ( @mysql_num_rows( $result ) > 0 )
+        {
+            $ret= array();
+
+            while ( ( $item = @mysql_fetch_array( $result ) ) != false )
             {
-                @mysql_free_result( $result );
-
-                return $item;
-            }
-            else
-            {
-                $this->setError();
-
-                @mysql_free_result( $result );
-                return null;
+                $ret[] = $item;
             }
         }
-
-        function getAllRowsFromQuery( $sql )
+        else
         {
-            $result = claro_sql_query( $sql );
-
-            if ( @mysql_num_rows( $result ) > 0 )
-            {
-                $ret= array();
-
-                while ( ( $item = @mysql_fetch_array( $result ) ) != false )
-                {
-                    $ret[] = $item;
-                }
-            }
-            else
-            {
-                $this->setError();
-
-                @mysql_free_result( $result );
-
-                return null;
-            }
+            $this->setError();
 
             @mysql_free_result( $result );
 
-            return $ret;
+            return null;
         }
 
-        function getRowFromQuery( $sql )
-        {
-            $result = claro_sql_query( $sql );
+        @mysql_free_result( $result );
 
-            if ( ( $item = @mysql_fetch_array( $result ) ) != false )
+        return $ret;
+    }
+
+    function getRowFromQuery( $sql )
+    {
+        $result = claro_sql_query( $sql );
+
+        if ( ( $item = @mysql_fetch_array( $result ) ) != false )
+        {
+            @mysql_free_result( $result );
+
+            return $item;
+        }
+        else
+        {
+            $this->setError();
+
+            @mysql_free_result( $result );
+
+            return null;
+        }
+    }
+
+    function queryReturnsResult( $sql )
+    {
+        $result = claro_sql_query( $sql );
+
+        if ( claro_sql_errno() == 0 )
+        {
+
+            if ( @mysql_num_rows( $result ) > 0 )
             {
                 @mysql_free_result( $result );
 
-                return $item;
+                return true;
             }
             else
             {
-                $this->setError();
-
                 @mysql_free_result( $result );
-
-                return null;
-            }
-        }
-
-        function queryReturnsResult( $sql )
-        {
-            $result = claro_sql_query( $sql );
-
-            if ( claro_sql_errno() == 0 )
-            {
-
-                if ( @mysql_num_rows( $result ) > 0 )
-                {
-                    @mysql_free_result( $result );
-
-                    return true;
-                }
-                else
-                {
-                    @mysql_free_result( $result );
-
-                    return false;
-                }
-            }
-            else
-            {
-                $this->setError();
 
                 return false;
             }
         }
-
-        function getLastInsertID()
+        else
         {
-            if ( $this->hasError() )
-            {
-                return 0;
-            }
-            else
-            {
-                return claro_sql_insert_id();
-            }
+            $this->setError();
+
+            return false;
         }
     }
-?>
+
+    function getLastInsertID()
+    {
+        if ( $this->hasError() )
+        {
+            return 0;
+        }
+        else
+        {
+            return claro_sql_insert_id();
+        }
+    }
+}

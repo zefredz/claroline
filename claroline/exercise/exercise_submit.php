@@ -983,5 +983,3 @@ $content .= $out;
 $claroline->display->body->appendContent($content);
 
 echo $claroline->display->render();
-
-?>

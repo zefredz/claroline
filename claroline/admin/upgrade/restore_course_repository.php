@@ -208,5 +208,3 @@ function restore_course_repository($courseId, $courseRepository)
     }
 
 }
-
-?>

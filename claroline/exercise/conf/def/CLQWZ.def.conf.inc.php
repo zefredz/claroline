@@ -1,23 +1,19 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * This file describe the parameter for user tool
+ * This file describe the parameter for user tool.
  *
- * @version 1.8 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/Config
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLUSR
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/Config
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     CLUSR
  */
+
 // TOOL
 $conf_def['config_code'] = 'CLQWZ';
 $conf_def['config_file'] = 'CLQWZ.conf.php';
@@ -74,5 +70,3 @@ array ('label'         => 'Generate an event in the calendar'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
       );
-
-?>

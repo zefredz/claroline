@@ -5,7 +5,7 @@
 /**
  * CLAROLINE.
  *
- * index of internal messaging system.
+ * Index of internal messaging system.
  *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -19,4 +19,3 @@
 
 header('Location:./messagebox.php?box=inbox');
 exit();
-?>

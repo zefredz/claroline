@@ -58,7 +58,7 @@ $titleTab['subTitle'] = get_lang('Progression of users on all learning paths');
 
 $out .= claro_html_tool_title($titleTab);
 
-if ( get_conf('is_trackingEnabled') ) 
+if ( get_conf('is_trackingEnabled') )
 {
     // display a list of user and their respective progress
     
@@ -132,5 +132,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

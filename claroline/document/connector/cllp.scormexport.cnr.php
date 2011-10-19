@@ -119,5 +119,3 @@ class CLDOC_ScormExport extends PathScormExport
     return $this->error;
   }
 }
-
-?>

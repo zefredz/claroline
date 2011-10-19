@@ -80,10 +80,10 @@ foreach ( $profileList as $thisProfile )
     $out .= '<br />' . "\n"
     .    '<em>' . get_lang($thisProfile['description']) . '</em>' . "\n"
     .    '<td>' . "\n"
-    .    '<a href="profile.php?cmd=rqEdit&display_profile='. $thisProfile['id'].'">' 
+    .    '<a href="profile.php?cmd=rqEdit&display_profile='. $thisProfile['id'].'">'
     .    '<img src="' .  get_icon_url('settings') . '" alt="' . get_lang('Rights') . '" />' . "\n"
-    .    '</a>' . "\n" 
-    .    '</td>' . "\n" 
+    .    '</a>' . "\n"
+    .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     ;
 }
@@ -93,5 +93,3 @@ $out .= '</tbody></table>';
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

@@ -178,4 +178,3 @@ if (isset($_REQUEST['logout']))
 
 // Hide breadcrumbs and view mode on platform home page
 // $claroline->display->banner->hideBreadcrumbLine();
-?>

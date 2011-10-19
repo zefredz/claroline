@@ -2,9 +2,9 @@
 /*
  * If this file is *empty* it only tells to learning path that resources of this tool may
  * be linked in a learning path and will use some SCORM API calls to records progress
- * 
+ *
  * Navigator and resolvers defined in linker.cnr.php may also be overwritten in this file
- * to resolve to another url or to offer different navigation possibilities. 
+ * to resolve to another url or to offer different navigation possibilities.
  */
 
 FromKernel::uses('fileManage.lib', 'file.lib');
@@ -75,4 +75,3 @@ class CLDOC_Resolver implements ModuleResourceResolver
         return str_replace( '/', ' > ', $path );
     }
 }
-?>

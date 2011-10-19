@@ -76,8 +76,4 @@ class export
     
     return $postsList;
   }
-  
-  
 }
-
-?>

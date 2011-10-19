@@ -998,4 +998,3 @@ class QuestionCategory
         return false;
     }
 }
-?>

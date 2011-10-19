@@ -17,7 +17,7 @@
 require '../inc/claro_init_global.inc.php';
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed')) ; 
+if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed')) ;
 
 // path id can not be empty, return to the list of learning paths
 if( empty($_REQUEST['path_id']) )
@@ -60,7 +60,7 @@ require_once(get_path('incRepositorySys').'/lib/learnPath.lib.inc.php');
 
 $out = '';
 
-if ( get_conf('is_trackingEnabled') )  
+if ( get_conf('is_trackingEnabled') )
 {
 
     if ( !empty($_REQUEST['path_id']) )
@@ -68,7 +68,7 @@ if ( get_conf('is_trackingEnabled') )
         $path_id = (int) $_REQUEST['path_id'];
 
         // get infos about the learningPath
-        $sql = "SELECT `name` 
+        $sql = "SELECT `name`
                 FROM `".$TABLELEARNPATH."`
                 WHERE `learnPath_id` = ". (int)$path_id;
 
@@ -81,9 +81,9 @@ if ( get_conf('is_trackingEnabled') )
             $titleTab['subTitle'] = htmlspecialchars($learnPathName);
             $out .= claro_html_tool_title($titleTab);
 
-            // display a list of user and their respective progress    
+            // display a list of user and their respective progress
             $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
-                    FROM `".$TABLEUSER."` AS U, 
+                    FROM `".$TABLEUSER."` AS U,
                          `".$TABLECOURSUSER."` AS CU
                     WHERE U.`user_id`= CU.`user_id`
                     AND CU.`code_cours` = '". claro_sql_escape(claro_get_current_course_id()) ."'";
@@ -126,5 +126,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

@@ -35,7 +35,7 @@ $inLP = (claro_called_from() == 'CLLP')? true : false;
 
 if( !$inLP )
 {
-   claro_redirect('../document.php'); 
+   claro_redirect('../document.php');
 }
 
 
@@ -77,4 +77,3 @@ $out .= '<div>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-?>

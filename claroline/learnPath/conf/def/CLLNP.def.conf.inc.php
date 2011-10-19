@@ -41,4 +41,3 @@ $conf_def_property_list['maxFilledSpace_for_import']
         ,'container' => 'VAR'
         ,'acceptedValue' => array('min' => '1024')
         );
-?>

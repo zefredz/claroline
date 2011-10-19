@@ -1,22 +1,18 @@
-<?php
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php // $Id$
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLTRACK
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Sebastien Piraux <pir@cerdecam.be>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLTRACK
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Sebastien Piraux <pir@cerdecam.be>
  */
-/*
+
+/**
  * This class is the manager for course access
- * 
  */
 class CLTRACK_CourseAccessTrackingManager extends TrackingManager
 {
@@ -65,7 +61,7 @@ class CLTRACK_CourseAccessTrackingManager extends TrackingManager
     {
         if( !is_null($date) && !empty($date) )
         {
-            $dateCondition = " AND `T`.`date` < FROM_UNIXTIME('" . (int) $date . "')";            
+            $dateCondition = " AND `T`.`date` < FROM_UNIXTIME('" . (int) $date . "')";
         }
         
         $sql = "DELETE
@@ -81,7 +77,7 @@ class CLTRACK_CourseAccessTrackingManager extends TrackingManager
         else
         {
             return false;
-        }            
+        }
     }
 }
 
@@ -140,7 +136,7 @@ class CLTRACK_ToolAccessTrackingManager extends TrackingManager
     {
         if( !is_null($date) && !empty($date) )
         {
-            $dateCondition = " AND `date` < FROM_UNIXTIME('" . (int) $date . "')";            
+            $dateCondition = " AND `date` < FROM_UNIXTIME('" . (int) $date . "')";
         }
         
         $sql = "DELETE
@@ -156,10 +152,8 @@ class CLTRACK_ToolAccessTrackingManager extends TrackingManager
         else
         {
             return false;
-        }            
+        }
     }
 }
 
 TrackingManagerRegistry::register('CLTRACK_ToolAccessTrackingManager');
-
-?>

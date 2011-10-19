@@ -100,5 +100,3 @@ class ConfigUpgrade extends Config
     }
 
 }
-
-?>

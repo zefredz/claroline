@@ -1,4 +1,5 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
@@ -18,4 +19,3 @@
 
 header( "Location:../../../" );
 exit();
-?>

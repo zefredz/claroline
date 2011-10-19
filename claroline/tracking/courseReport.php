@@ -1,12 +1,14 @@
-<?php // $Id: courseReport.php 9858 2008-03-11 07:49:45Z gregk84 $
+<?php // $Id: courselist.lib.php 13685 2011-10-14 12:42:41Z zefredz $
 
 /**
  * CLAROLINE
  *
- * @version     1.9 $Revision: 9858 $
+ * @version     $Revision: 12923 $
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @author      Sebastien Piraux <seb@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLTRACK
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Sebastien Piraux <pir@cerdecam.be>
  */
 
 /*
@@ -89,5 +91,3 @@ foreach( $courseTrackingRendererList as $ctr )
 $claroline->display->body->setContent($html);
 
 echo $claroline->display->render();
-
-?>

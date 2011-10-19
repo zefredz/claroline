@@ -614,4 +614,3 @@ class Qti2AnswerMatching extends answerMatching
         $this->save();
     }
 }
-?>
