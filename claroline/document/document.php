@@ -1092,7 +1092,7 @@ if ('exDownload' == $cmd )
         {
             $downloadArchiveFile = rtrim( $downloadArchivePath, '/' )
                 . '/' . claro_get_current_course_id() 
-                . '_' . uniqid('') . '.zip';
+                . '_CLDOC_' . uniqid('') . '.zip';
         }
         
         if ( ! is_dir( $downloadArchivePath ) )
