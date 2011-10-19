@@ -58,11 +58,11 @@
         &nbsp;&nbsp;
         
         <?php if (isset($course['isCourseManager']) && $course['isCourseManager']) : ?>
-        <img class="action qtip"
+        <img class="role qtip"
             src="<?php echo get_icon_url('manager'); ?>"
             alt="<?php echo get_lang('You are manager of this course'); ?>" />
         <?php else : ?>
-        <img class="action qtip"
+        <img class="role qtip"
             src="<?php echo get_icon_url('user'); ?>"
             alt="<?php echo get_lang('You are enrolled to this course'); ?>" />
         

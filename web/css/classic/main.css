@@ -860,7 +860,7 @@ dl.courseList h4 {
     margin: 0;
 }
 
-dl.courseList img.action {
+dl.courseList .role {
     float: right;
 }
 
