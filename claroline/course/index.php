@@ -122,25 +122,40 @@ foreach ($toolList as $thisTool)
     }
 }
 
-    $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')  . 'course/tools.php' )) . '">'
-    .                             '<img src="' . get_icon_url('edit') . '" alt="" /> '
-    .                             get_lang('Edit Tool list')
-    .                             '</a>'
-    ;
-    $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( $toolRepository . 'course/settings.php' )) . '">'
-    .                             '<img src="' . get_icon_url('settings') . '" alt="" /> '
-    .                             get_lang('Course settings')
-    .                             '</a>'
-    ;
+$courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')  . 'course/tools.php' )) . '">'
+.                             '<img src="' . get_icon_url('edit') . '" alt="" /> '
+.                             get_lang('Edit Tool list')
+.                             '</a>'
+;
+$courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( $toolRepository . 'course/settings.php' )) . '">'
+.                             '<img src="' . get_icon_url('settings') . '" alt="" /> '
+.                             get_lang('Course settings')
+.                             '</a>'
+;
 
-    if( get_conf('is_trackingEnabled') )
+if( get_conf('is_trackingEnabled') )
+{
+    $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( $toolRepository . 'tracking/courseReport.php' )) . '">'
+    .                             '<img src="' . get_icon_url('statistics') . '" alt="" /> '
+    .                             get_lang('Statistics')
+    .                             '</a>'
+    ;
+}
+
+//@since Claroline 1.9.10
+$extraManageToolList = get_course_manage_module_list(true);
+
+if ( $extraManageToolList )
+{
+    foreach ( $extraManageToolList as $extraManageTool )
     {
-        $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( $toolRepository . 'tracking/courseReport.php' )) . '">'
-        .                             '<img src="' . get_icon_url('statistics') . '" alt="" /> '
-        .                             get_lang('Statistics')
+        $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_module_entry_url($extraManageTool['label'] ) ) ) . '">'
+        .                             '<img src="' . get_module_icon_url($extraManageTool['label'], $extraManageTool['icon'], 'settings') . '" alt="" /> '
+        .                             get_lang($extraManageTool['name'])
         .                             '</a>'
         ;
     }
+}
 
 // Display header
 
@@ -152,4 +167,3 @@ $claroline->display->body->setContent($template->render());
 
 
 echo $claroline->display->render();
-?>
