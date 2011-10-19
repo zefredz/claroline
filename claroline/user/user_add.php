@@ -17,6 +17,9 @@
 $tlabelReq = 'CLUSR';
 $gidReset = true;
 
+define ( 'CLUSER_SEARCH_FORM', 'CLUSER_SEARCH_FORM' );
+define ( 'CLUSER_ADD_FORM', 'CLUSER_ADD_FORM' );
+
 require '../inc/claro_init_global.inc.php';
 
 // Security check
@@ -67,7 +70,6 @@ $userData['phone'        ] = isset($_REQUEST['phone'           ]) ? strip_tags(t
 $userData['password'     ] = isset($_REQUEST['password'        ]) ? trim($_REQUEST['password'               ])  : null;
 $userData['password_conf'] = isset($_REQUEST['password_conf'   ]) ? trim($_REQUEST['password_conf'          ])  : null;
 
-$userData['status'     ] = isset($_REQUEST['status'     ]) ? (int)  $_REQUEST['status'     ] : null;
 $userData['tutor'      ] = isset($_REQUEST['tutor'      ]) ? (bool) $_REQUEST['tutor'      ] : null;
 $userData['courseAdmin'] = isset($_REQUEST['courseAdmin']) ? (bool) $_REQUEST['courseAdmin'] : null;
 
@@ -78,6 +80,20 @@ $userId = isset($_REQUEST['userId']) ? (int) $_REQUEST['userId'] : null;
 $displayResultTable = false;
 $displayForm        = true;
 $errorMsgList       = array();
+$formToDisplay = CLUSER_SEARCH_FORM;
+
+if ( $cmd == 'registration' || $cmd == 'rqRegistration' )
+{
+    if ( ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() ) )
+    {
+        $formToDisplay = CLUSER_ADD_FORM;
+    }
+    else
+    {
+        $dialogBox->error(get_lang('Not allowed'));
+        $cmd = null;
+    }
+}
 
 if ( $cmd == 'registration' )
 {
@@ -203,7 +219,7 @@ if ( $cmd == 'registration' )
     }
 } // end if $cmd == 'registration'
 
-if ($cmd == 'applySearch')
+if ( $cmd == 'applySearch' )
 {
     // search on username, official_code, ...
 
@@ -348,22 +364,64 @@ else
     }
 
     //display form to add a user
-
-    if ($displayForm)
+    if ( $displayForm )
     {
-        if( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+        if ( ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+            && $formToDisplay == CLUSER_ADD_FORM )
         {
-            $out .= '<p>' . get_lang('Add user manually') . ' :</p>'
-            .    '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n"
-            .    user_html_form_add_new_user($userData)
-            ;
+            //if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+            {
+                $out .= '<p>'
+                    . '<a class="claroCmd" href="'
+                    .  htmlspecialchars( Url::Contextualize(
+                        $_SERVER['PHP_SELF']))
+                    . '">'
+                    . '<img src="'.get_icon_url('search').'" alt="" />'
+                    . get_lang('Search for an existing user')
+                    . '</a>'
+                    . ' | '
+                    . '<span class="claroCmdDisabled">'
+                    . '<img src="'.get_icon_url('user').'" alt="" />'
+                    . get_lang('Create a new user').'</span>'
+                    . '</p>'
+                    ;
+            }
+            
+            //if( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+            {
+                $tpl = new CoreTemplate('course_user_add.tpl.php');
+            
+                $out .= $tpl->render();
+            }
+            /*else
+            {
+                // claro_die(get_lang('Not allowed'));
+            }*/
         }
         else
         {
-            $out .= '<p>' . get_lang('Search user to add to your course') . ' :</p>'
-            .    '<p>' . get_lang('Fill in one or more search criteria, select user profile parameters for your course and press \'Search\'') . '</p>' . "\n"
-            .    user_html_search_form($userData)
-            ;
+            if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+            {
+                $out .= '<p>'
+                    . '<span class="claroCmdDisabled">'
+                    . '<img src="'.get_icon_url('search').'" alt="" />'
+                    . get_lang('Search for an existing user')
+                    . '</span>'
+                    . ' | '
+                    . '<a class="claroCmd" href="'
+                    .  htmlspecialchars( Url::Contextualize(
+                        $_SERVER['PHP_SELF']
+                        . '?cmd=rqRegistration'))
+                    . '">'
+                    . '<img src="'.get_icon_url('user').'" alt="" />'
+                    . get_lang('Create a new user').'</a>'
+                    . '</p>'
+                    ;
+            }
+            
+            $tpl = new CoreTemplate('course_user_search.tpl.php');
+            
+            $out .= $tpl->render();            
         }
     }
 } // end else of if ( $courseRegSucceed )
@@ -371,5 +429,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

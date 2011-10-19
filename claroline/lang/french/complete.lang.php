@@ -2906,3 +2906,5 @@ $_lang['*.inc.php'] = '*.inc.php';
 $_lang['db glu'] = 'db glu';
 $_lang['User created by '] = 'Utilisateur créé par ';
 $_lang['Students are allowed to unregister from their group(s)'] = 'Les étudiants sont autorisés à se déinscrire eux-mêmes de leur(s) groupe(s)';
+$_lang['Create a new user'] = 'Créer un nouvel utilisateur';
+$_lang['Search for an existing user'] = 'Rechercher un utilisateur existant';
