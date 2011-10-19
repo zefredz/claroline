@@ -243,15 +243,7 @@ function get_menu_item_list($type)
 
         $menu['Communication'][] = '<a href="../messaging/admin.php">'.get_lang('Internal messaging').'</a>';
         
-        $tbl = claro_sql_get_main_tbl();
-        
-        $sql = "SELECT `label`, `name`\n"
-            . "FROM `{$tbl['module']}`\n"
-            . "WHERE `type` = 'admin'\n"
-            . "AND `activation` = 'activated'"
-            ;
-        
-        $adminModuleList = claro_sql_query_fetch_all_rows( $sql );
+        $adminModuleList = get_admin_module_list(true);
         
         if ( $adminModuleList )
         {
@@ -272,5 +264,3 @@ function get_menu_item_list($type)
 
     return $item_list;
 }
-
-?>

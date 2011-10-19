@@ -942,7 +942,7 @@ function change_module_activation_in_groups ( $database, $moduleLabel, $courseId
 /**
  * Get the context list of a module
  * @param string $moduleLabel
- * @return Iterator 
+ * @return Database_Resultset 
  */
 function get_module_context_list( $moduleLabel )
 {
@@ -966,4 +966,93 @@ function get_module_context_list( $moduleLabel )
     $contextList->setFetchMode(Mysql_ResultSet::FETCH_COLUMN);
     
     return $contextList;
+}
+
+/**
+ * Get url of a module icon
+ * @param string $moduleLabel label of the module
+ * @param string $default default icon
+ * @return string
+ * @since Claroline 1.9.10, 1.10.7, 1.11
+ */
+function get_module_icon_url( $moduleLabel, $moduleIcon = null, $default = 'exe' )
+{
+    if ( !empty($moduleIcon) && file_exists(get_module_path($moduleLabel) . '/' . $moduleIcon))
+    {
+        $icon = get_module_url($moduleLabel) . '/' . $moduleIcon;
+    }
+    elseif (file_exists(get_module_path($moduleLabel) . '/icon.png'))
+    {
+        $icon = get_module_url($moduleLabel) . '/icon.png';
+    }
+    elseif (file_exists(get_module_path($moduleLabel) . '/icon.gif'))
+    {
+        $icon = get_module_url($moduleLabel) . '/icon.gif';
+    }
+    else
+    {
+        $icon = get_icon_url($default);
+    }
+    
+    return $icon;
+}
+
+/**
+ * Get the list of course management modules
+ * @param bool $onlyActivated
+ * @return Database_Resultset [id,label,name,icon,activation]
+ * @since Claroline 1.9.10, 1.10.7, 1.11
+ */
+function get_course_manage_module_list( $onlyActivated = true )
+{
+    return get_module_list_by_type( 'crsmanage', $onlyActivated );
+}
+
+/**
+ * Get the list of platform administration modules
+ * @param bool $onlyActivated
+ * @return Database_Resultset [id,label,name,icon,activation]
+ * @since Claroline 1.9.10, 1.10.7, 1.11
+ */
+function get_admin_module_list( $onlyActivated = true )
+{
+    return get_module_list_by_type( 'admin', $onlyActivated );
+}
+
+
+/**
+ * Get the list of modules by type
+ * @param bool $onlyActivated
+ * @return Database_Resultset [id,label,name,icon,activation]
+ * @since Claroline 1.9.10, 1.10.7, 1.11
+ */
+function get_module_list_by_type( $type, $onlyActivated = true )
+{
+    $tbl = claro_sql_get_main_tbl();
+    
+    if ( $onlyActivated )
+    {
+        $activation = "AND `activation` = 'activated'";
+    }
+    else
+    {
+        $activation = '';
+    }
+    
+    return Claroline::getDatabase()->query("
+        SELECT 
+            M.`id`, 
+            M.`label`, 
+            M.`name`, 
+            CT.`icon`,
+            M.`activation`
+        FROM 
+            `{$tbl['module']}` AS M
+        LEFT JOIN 
+            `{$tbl['tool']}` AS CT
+        ON 
+            CT.`claro_label`= M.label
+        WHERE 
+            M.`type` = ".Claroline::getDatabase()->quote($type)."
+        {$activation}" );
 }
