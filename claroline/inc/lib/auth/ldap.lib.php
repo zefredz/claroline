@@ -107,11 +107,12 @@ class Claro_Ldap_DataObject
  */
 class Claro_Ldap_User extends Claro_Ldap_DataObject
 {
-    protected $dn;
+    protected $dn, $userAttr;
     
-    public function __construct( $dn, $data )
+    public function __construct( $dn, $data, $userAttr = null )
     {
         $this->dn = $dn;
+        $this->userAttr = $userAttr;
         parent::__construct( $data );
     }
 
@@ -140,7 +141,14 @@ class Claro_Ldap_User extends Claro_Ldap_DataObject
      */
     public function getUid()
     {
-        return $this->uid;
+        if ( empty( $this->userAttr ) )
+        {
+            return $this->uid;
+        }
+        else
+        {
+            return $this->data[$userAttr];
+        }
     }
 }
 
@@ -242,7 +250,7 @@ class Claro_Ldap
             // get the data of the user as an array
             $entries = @ldap_get_entries( $this->ds, $sr );
             // user object from the dn and the entries corresponding to the user
-            $user = new Claro_Ldap_User( ldap_get_dn( $this->ds, $re ), $entries[0] );
+            $user = new Claro_Ldap_User( ldap_get_dn( $this->ds, $re ), $entries[0], $userAttr );
 
             return $user;
         }

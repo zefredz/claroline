@@ -26,11 +26,20 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
     protected
         $extAuthOptionList,
         $extAuthAttribNameList,
-        $extAuthAttribTreatmentList;
+        $extAuthAttribTreatmentList,
+        $userAttr,
+        $userFilter,
+        $userSelfBindAuth,
+        $useBindDn;
         
     protected $user;
     
     public function __construct( $driverConfig )
+    {
+        $this->setDriverOptions( $driverConfig );
+    }
+    
+    public function setDriverOptions( $driverConfig )
     {
         $this->driverConfig = $driverConfig;
         $this->authSourceName = $driverConfig['driver']['authSourceName'];
@@ -48,6 +57,26 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
         $this->extAuthAttribNameList = $driverConfig['extAuthAttribNameList'];
         $this->extAuthAttribTreatmentList = $driverConfig['extAuthAttribTreatmentList'];
         $this->extAuthIgnoreUpdateList = $driverConfig['extAuthAttribToIgnore'];
+
+        $this->userSelfBindAuth = isset( $driverConfig['extAuthOptionList']['userSelfBindAuth'] )
+            ? $driverConfig['extAuthOptionList']['userSelfBindAuth'] 
+            : false
+            ;
+        
+        $this->useBindDn = isset( $driverConfig['extAuthOptionList']['useBindDn'] )
+            ? $driverConfig['extAuthOptionList']['useBindDn'] 
+            : false
+            ;
+        
+        $this->userAttr = isset($this->extAuthOptionList['userattr']) 
+            ? $this->extAuthOptionList['userattr'] 
+            : 'uid'
+            ;
+            
+        $this->userFilter = isset($this->extAuthOptionList['userfilter']) 
+            ? $this->extAuthOptionList['userfilter'] 
+            : null
+            ;
     }
     
     public function authenticate()
@@ -62,14 +91,41 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
         {
             $auth->connect();
             
-            $userAttr = isset($this->extAuthOptionList['userattr']) ? $this->extAuthOptionList['userattr'] : null;
-            $userFilter = isset($this->extAuthOptionList['userfilter']) ? $this->extAuthOptionList['userfilter'] : null;
+            // no anonymous bind
+            // user can search
+            if( $this->userSelfBindAuth == 'true')
+            {
+                $searchdn = "{$this->userAttr}={$this->username},".$this->extAuthOptionList['basedn'];
+                $searchpw = $this->password;
+                
+                $auth->bind( $searchdn, $searchpw );
+            }
+            // user cannot search
+            elseif ( $this->useBindDn )
+            {
+                $searchdn = $this->extAuthOptionList['binddn'];
+                $searchpw = $this->extAuthOptionList['bindpw']; 
+                
+                $auth->bind( $searchdn, $searchpw );
+            }
+            
+            // search user
             
             $user = $auth->getUser($this->username, $userFilter, $userAttr);
             
             if ( $user )
             {
-                if( $auth->authenticate( $user->getDn(), $this->password ) )
+                if( $this->userSelfBindAuth == 'true')
+                {
+                    $binddn = "{$this->userAttr}={$this->username},".$this->extAuthOptionList['basedn'];
+                }
+                else
+                {
+                    $binddn = $user->getDn();
+                }
+                
+                
+                if( $auth->authenticate( $binddn, $this->password ) )
                 {
                     $this->user = $user;
                     return true;
