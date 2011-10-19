@@ -2,7 +2,7 @@
 
 /**
  * LDAP authentication driver version 2
- * This is an example using anonymous LDAP search
+ * This is an example using a given dn and password for LDAP search
  *
  * @version     1.11 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
@@ -27,6 +27,9 @@ $driverConfig['extAuthOptionList'] = array(
     'basedn'   => 'ou=people,o=example,c=com',
     'userattr' => 'uid',
     'userfilter' => '(objectClass=person)',
+    'userBindDn' => true, // set to true if your server does not allow anonymous bind
+    'binddn' => 'uid=login,ou=people,o=example,c=com', // dn for non anonymous search
+    'binbpw' => 'password' // password for noanonymous search
 );
 
 $driverConfig['extAuthAttribNameList'] = array(
