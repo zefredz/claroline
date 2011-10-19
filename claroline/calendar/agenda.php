@@ -481,6 +481,13 @@ if ( count($eventList) < 1 )
 }
 else
 {
+    $output .= '<a class="claroCmd" href="'
+        . htmlspecialchars(Url::Contextualize( get_path('url').'/claroline/backends/ical.php' ))
+        .'" title="'.get_lang('Download').'"><img src="'.  get_icon_url('ical').'" alt="ical" /></a>' . "\n"
+        ;
+    
+    $output .= '<br />';
+    
     if ( $orderDirection == 'DESC' )
     {
         $output .= '<br /><a href="'
