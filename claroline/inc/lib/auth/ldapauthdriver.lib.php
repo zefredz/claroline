@@ -116,7 +116,7 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
             
             // search user
             
-            $user = $auth->getUser($this->username, $userFilter, $userAttr);
+            $user = $auth->getUser($this->username, $this->userFilter, $this->userAttr);
             
             if ( $user )
             {
