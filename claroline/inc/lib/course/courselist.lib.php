@@ -7,6 +7,7 @@
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLCOURSELIST
+ * @author      Antonin Bourguignon <antonin.bourguignon@gmail.com>
  * @author      Claro Team <cvs@claroline.net>
  * @since       1.11
  */
@@ -109,7 +110,7 @@ class CategoryCourseList extends AbstractCourseList
     
     public function getIterator()
     {
-        
+        //@todo
     }
 }
 
@@ -128,14 +129,14 @@ class SearchedCourseList extends AbstractCourseList
     
     public function getIterator()
     {
-        
+        //@todo
     }
 }
 
 
 class CourseListIterator extends RowToObjectIteratorIterator
 {
-    public function current ()
+    public function current()
     {
         $courseData = $this->internalIterator->current();
         
@@ -143,6 +144,202 @@ class CourseListIterator extends RowToObjectIteratorIterator
         $courseObj->loadFromArray($courseData);
         
         return $courseObj;
+    }
+}
+
+
+class CourseTree
+{
+    /**
+     * @var CourseTreeNode
+     */
+    protected $tree;
+    
+    /**
+     * Constructor.
+     * @param CourseListIterator
+     */
+    public function __construct($courseListIterator)
+    {
+        $root = new CourseTreeNode(null);
+        
+        $tempNodesList = array();
+        
+        foreach ($courseListIterator as $course)
+        {
+            $ctn = new CourseTreeNode($course->id);
+            $ctn->setCourse($course);
+            
+            // Is it a source course ?
+            if ($course->isSourceCourse)
+            {
+                // Can we find it in the temp list ?
+                if (isset($tempNodesList[$course->id]))
+                {
+                    // Merge it from the temp list to the actual tree
+                    $root->appendChild($tempNodesList[$course->id]);
+                    unset($tempNodesList[$course->id]);
+                    
+                    #echo "On MERGE le cours SOURCE {$course->id} dans l'arbre<br/>";
+                }
+                else
+                {
+                    // Add it to the tree
+                    $root->appendChild($ctn);
+                    
+                    #echo "On AJOUTE le cours SOURCE {$course->id} dans l'arbre<br/>";
+                }
+            }
+            
+            // Is it a session course ?
+            elseif ($course->sourceCourseId)
+            {
+                // Is the parent in the tree ?
+                if ($root->getChild($course->sourceCourseId))
+                {
+                    // Append the child to its parent in the tree
+                    $root->getChild($course->sourceCourseId)->appendChild($ctn);
+                    
+                    #echo "On AJOUTE le cours SESSION {$course->id} dans l'arbre<br/>";
+                }
+                // Is the parent in the temp list ?
+                elseif (isset($tempNodesList[$course->sourceCourseId]))
+                {
+                    // Append the child to its parent in the temp list
+                    $tempNodesList[$course->sourceCourseId]->appendChild($ctn);
+                    
+                    #echo "On AJOUTE le cours SESSION {$course->id} dans la temp<br/>";
+                }
+                else
+                {
+                    // Add the parent and its child in the temp list
+                    $ctnp = new CourseTreeNode($course->sourceCourseId);
+                    $ctnp->appendChild($ctn);
+                    
+                    $tempNodesList[$ctnp->id] = $ctnp;
+                    
+                    #echo "On AJOUTE le cours SOURCE {$course->sourceCourseId} et son enfant {$course->id} dans la liste<br/>";
+                }
+            }
+            
+            // It seems to be a regular course
+            else
+            {
+                // Add it to the tree
+                $root->appendChild($ctn);
+                
+                #echo "On AJOUTE le cours NORMAL {$course->id} dans l'arbre<br/>";
+            }
+        }
+        
+        $this->tree = $root;
+    }
+    
+    public function __toString()
+    {
+        return self::render();
+    }
+    
+    public function render($node = null, $level = 0, $out = '')
+    {
+        if (!isset($node))
+        {
+            $currentNode = $this->tree;
+        }
+        else
+        {
+            $currentNode = $node;
+            
+            $out .= str_repeat('_', $level-1)."Je suis le node <b>{$currentNode->id}</b><br />";
+        }
+        
+        if ($currentNode->hasChildren())
+        {
+            $level++;
+            foreach ($currentNode->getChildren() as $childNode)
+            {
+                self::render($childNode, $level, &$out);
+            }
+        }
+        
+        return $out;
+    }
+}
+
+
+class CourseTreeNode
+{
+    /**
+     * @var int
+     */
+    public $id;
+    
+    /**
+     * @var Claro_Course
+     */
+    protected $course;
+    
+    /**
+     * @var array of CourseNode (array index: int course id)
+     */
+    protected $children;
+    
+    /**
+     * Constructor.
+     * @param int id
+     */
+    public function __construct($id)
+    {
+        $this->id = $id;
+        $this->children = array();
+    }
+    
+    /**
+     * @param CourseTreeNode
+     */
+    public function appendChild($node)
+    {
+        $this->children[$node->id] = $node;
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function hasChildren()
+    {
+        return !empty($this->children);
+    }
+    
+    /**
+     * @return array of CourseTreeNode
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+    
+    /**
+     * @param int id
+     * @return CourseTreeNode (null if doesn't exist)
+     */
+    public function getChild($id)
+    {
+        if (!empty($this->children[$id]))
+        {
+            return $this->children[$id];
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    /**
+     * @param Claro_Course
+     */
+    public function setCourse($course)
+    {
+        $this->course = $course;
     }
 }
 
@@ -158,16 +355,18 @@ Class CourseListView implements Display
      * Constructor
      * @param CourseListIterator
      */
-    public function __construct($courseList)
+    public function __construct($courseList, $courseUserPrivilegesList)
     {
         $this->courseList = $courseList;
+        $this->courseUserPrivilegesList = $courseUserPrivilegesList;
     }
     
     public function render()
     {
-        $tpl = new CoreTemplate('new_course_list.tpl.php');
+        $tpl = new CoreTemplate('user_course_list.tpl.php');
         
         $tpl->assign('courseList', $this->courseList);
+        $tpl->assign('cupList', $this->courseUserPrivilegesList);
         
         return $tpl->render();
     }

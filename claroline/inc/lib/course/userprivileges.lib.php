@@ -21,24 +21,24 @@ require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
 
 /**
  * This class represents one user's privileges in a course.
- * 
- * WARNING! this class behaves differently than the init.lib function 
- * claro_get_course_user_privilege() : 
- *  1) the platform admin status is not taken into account when evaluating 
- *      isCourseManager; 
+ *
+ * WARNING! this class behaves differently than the init.lib function
+ * claro_get_course_user_privilege() :
+ *  1) the platform admin status is not taken into account when evaluating
+ *      isCourseManager;
  *  2) isPending is not taken into account when evaluating isCourseMember
  */
 class CourseUserPrivileges
 {
-    protected 
-        $userId, 
+    protected
+        $userId,
         $courseId;
     
-    protected 
-        $_profileId, 
-        $is_courseAdmin, 
-        $is_courseTutor, 
-        $is_coursePending, 
+    protected
+        $_profileId,
+        $is_courseAdmin,
+        $is_courseTutor,
+        $is_coursePending,
         $is_courseMember;
     
     /**
@@ -57,16 +57,16 @@ class CourseUserPrivileges
         $tbl_mdb_names = claro_sql_get_main_tbl();
         
         $cuData = Claroline::getDatabase()->query("
-            SELECT 
+            SELECT
                 cu.profile_id AS profileId,
                 cu.isCourseManager,
                 cu.isPending,
                 cu.tutor
-            FROM 
+            FROM
                 `{$tbl_mdb_names['rel_course_user']}` `cu`
-            WHERE 
+            WHERE
                 cu.`user_id`  = " . Claroline::getDatabase()->escape($this->userId) . "
-            AND 
+            AND
                 cu.`code_cours` = " . Claroline::getDatabase()->quote($this->courseId))->fetch();
 
         if ( !empty($cuData) )
@@ -116,7 +116,7 @@ class CourseUserPrivileges
     
     /**
      * Is the user a tutor within the course
-     * @return bool 
+     * @return bool
      */
     public function isCourseTutor()
     {
@@ -182,15 +182,15 @@ class CourseUserPrivilegesList
         $tbl_mdb_names = claro_sql_get_main_tbl();
         
         $coursePrivilegesList = Claroline::getDatabase()->query("
-            SELECT 
-                cu.`code_cours` AS courseId,
+            SELECT
+                cu.code_cours AS courseId,
                 cu.profile_id AS profileId,
                 cu.isCourseManager,
                 cu.isPending,
                 cu.tutor
-            FROM 
+            FROM
                 `{$tbl_mdb_names['rel_course_user']}` `cu`
-            WHERE 
+            WHERE
                 cu.`user_id`  = " . Claroline::getDatabase()->escape($this->userId) );
         
         foreach ( $coursePrivilegesList as $coursePrivileges )
