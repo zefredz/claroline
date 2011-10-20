@@ -148,6 +148,11 @@ class CourseListIterator extends RowToObjectIteratorIterator
 }
 
 
+/**
+ * Manage source and session courses tree structure.
+ * Is implemented in a way that can only handle a two level depth tree.
+ * That's why the class is CourseTree and not Tree.
+ */
 class CourseTree
 {
     /**
