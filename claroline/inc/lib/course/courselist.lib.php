@@ -152,6 +152,7 @@ class CourseTree
 {
     /**
      * @var CourseTreeNode
+     * @todo Not sure about the name of this var
      */
     protected $tree;
     
@@ -161,12 +162,14 @@ class CourseTree
      */
     public function __construct($courseListIterator)
     {
+        // Root of the course tree
         $root = new CourseTreeNode(null);
         
         $tempNodesList = array();
         
         foreach ($courseListIterator as $course)
         {
+            // Create a new course tree node
             $ctn = new CourseTreeNode($course->id);
             $ctn->setCourse($course);
             
@@ -176,6 +179,8 @@ class CourseTree
                 // Can we find it in the temp list ?
                 if (isset($tempNodesList[$course->id]))
                 {
+                    $tempNodesList[$course->id]->setCourse($course);
+                    
                     // Merge it from the temp list to the actual tree
                     $root->appendChild($tempNodesList[$course->id]);
                     unset($tempNodesList[$course->id]);
@@ -216,6 +221,12 @@ class CourseTree
                     $ctnp = new CourseTreeNode($course->sourceCourseId);
                     $ctnp->appendChild($ctn);
                     
+                    /*
+                     * Note that the parent doesn't have any course data yet.
+                     * Those data will have to be loaded later, when the parent
+                     * will be found in the course list iterator
+                     * ($courseListIterator), before getting merged in the tree.
+                     */
                     $tempNodesList[$ctnp->id] = $ctnp;
                     
                     #echo "On AJOUTE le cours SOURCE {$course->sourceCourseId} et son enfant {$course->id} dans la liste<br/>";
@@ -232,15 +243,58 @@ class CourseTree
             }
         }
         
+        /*
+         * The tree should be fully builded now BUT...
+         * What if one (or more) session course don't have their parent
+         * in the course list iterator ($courseListIterator) ?  That could
+         * happen (on rare occasions), so it has to be supported.
+         *
+         * The nodes wich belong to what we'll call "unfound parents"
+         * will be reasigned to an "adoptive parent" node and appended
+         * at the end of the tree.
+         */
+        if (!empty($tempNodesList))
+        {
+            // Set an adoptive node
+            $adoptiveParent = new CourseTreeNode(null);
+            
+            foreach ($tempNodesList as $unfoundParentNode)
+            {
+                // If the unfound parent has children
+                if ($unfoundParentNode->hasChildren())
+                {
+                    // Reasign each orphan node to the adoptive parent node
+                    foreach ($unfoundParentNode->getChildren() as $orphanNode)
+                    {
+                        $adoptiveParent->appendChild($orphanNode);
+                    }
+                }
+                
+                unset($unfoundParentNode);
+            }
+            
+            // Append the adoptive parent node at the end of the tree
+            $root->appendChild($adoptiveParent);
+        }
+        
         $this->tree = $root;
+    }
+    
+    /**
+     * @return CourseTreeNode
+     * @todo Not sure about the name of this method
+     */
+    public function getRootNode()
+    {
+        return $this->tree;
     }
     
     public function __toString()
     {
-        return self::render();
+        return self::recursiveToString();
     }
     
-    public function render($node = null, $level = 0, $out = '')
+    public function recursiveToString($node = null, $level = 0, $out = '')
     {
         if (!isset($node))
         {
@@ -250,7 +304,16 @@ class CourseTree
         {
             $currentNode = $node;
             
-            $out .= str_repeat('_', $level-1)."Je suis le node <b>{$currentNode->id}</b><br />";
+            $out .= str_repeat('_', $level-1)
+                  . get_lang('I\'m node <b>%id</b>', array('%id' => $currentNode->id))
+                  . ($currentNode->hasChildren() ?
+                        get_lang(
+                            ' and i have %nbChildren children',
+                            array('%nbChildren' => $currentNode->countChildren())
+                        ) :
+                        ''
+                    )
+                  . '<br />';
         }
         
         if ($currentNode->hasChildren())
@@ -258,7 +321,7 @@ class CourseTree
             $level++;
             foreach ($currentNode->getChildren() as $childNode)
             {
-                self::render($childNode, $level, &$out);
+                self::recursiveToString($childNode, $level, &$out);
             }
         }
         
@@ -311,6 +374,14 @@ class CourseTreeNode
     }
     
     /**
+     * @return int number of children
+     */
+    public function countChildren()
+    {
+        return count($this->children);
+    }
+    
+    /**
      * @return array of CourseTreeNode
      */
     public function getChildren()
@@ -327,6 +398,21 @@ class CourseTreeNode
         if (!empty($this->children[$id]))
         {
             return $this->children[$id];
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    /**
+     * @return Claro_Course (null if empty)
+     */
+    public function getCourse()
+    {
+        if (!empty($this->course))
+        {
+            return $this->course;
         }
         else
         {
@@ -354,6 +440,7 @@ Class CourseListView implements Display
     /**
      * Constructor
      * @param CourseListIterator
+     * @param CourseUserPrivilegesList
      */
     public function __construct($courseList, $courseUserPrivilegesList)
     {
@@ -371,3 +458,34 @@ Class CourseListView implements Display
         return $tpl->render();
     }
 }
+
+
+Class CourseTreeView implements Display
+{
+    /**
+     * @var CourseTreeNode
+     */
+    protected $courseTreeRootNode;
+    
+    /**
+     * Constructor
+     * @param CourseTree
+     * @param CourseUserPrivilegesList
+     */
+    public function __construct($courseTreeNode, $courseUserPrivilegesList)
+    {
+        $this->courseTreeRootNode = $courseTreeNode;
+        $this->courseUserPrivilegesList = $courseUserPrivilegesList;
+    }
+    
+    public function render()
+    {
+        $tpl = new CoreTemplate('user_course_tree.tpl.php');
+        
+        $tpl->assign('courseTreeRootNode', $this->courseTreeRootNode);
+        $tpl->assign('cupList', $this->courseUserPrivilegesList);
+        
+        return $tpl->render();
+    }
+}
+
