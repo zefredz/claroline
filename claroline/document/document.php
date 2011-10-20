@@ -2265,8 +2265,8 @@ $out .= claro_html_tool_title($titleElement,
                         if ($thisFile['type'] == A_FILE)
                         {
                             $out .= '<a href="'
-                                .htmlspecialchars(Url::Contextualize( '../work/work.php?'
-                                .'submitGroupWorkUrl='.$cmdFileName ))
+                                .htmlspecialchars(Url::Contextualize( get_module_url('CLWRK').'/work.php?'
+                                .'submitGroupWorkUrl='.urlencode($thisFile['path']) ))
                                 . '">'
                                 .'<small>'.get_lang('Publish').'</small>'
                                 .'</a>';
