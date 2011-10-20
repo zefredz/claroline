@@ -20,6 +20,7 @@ else
 
 if ( $moduleName = get_module_data($module, 'moduleName') )
 {
+    load_module_language($module);
     $tpl->assign('module', $moduleName);
 }
 else
