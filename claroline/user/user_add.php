@@ -82,13 +82,21 @@ $displayForm        = true;
 $errorMsgList       = array();
 $formToDisplay = CLUSER_SEARCH_FORM;
 
-if ( $cmd == 'registration' || $cmd == 'rqRegistration' )
+if ( $cmd == 'rqRegistration' )
 {
     if ( ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() ) )
     {
         $formToDisplay = CLUSER_ADD_FORM;
     }
     else
+    {
+        $dialogBox->error(get_lang('Not allowed'));
+        $cmd = null;
+    }
+}
+elseif ( $cmd == 'registration' && ! $userId )
+{
+    if ( ! ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() ) )
     {
         $dialogBox->error(get_lang('Not allowed'));
         $cmd = null;
