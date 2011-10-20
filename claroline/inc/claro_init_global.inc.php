@@ -213,7 +213,6 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
         }
         else
         {
-            throw new Exception(__LINE__);
             claro_die( get_lang( 'Not allowed' ) );
         }
     }
@@ -225,7 +224,6 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
         || ( !claro_is_allowed_to_edit()
             && !is_tool_activated_in_groups($_cid, $tlabelReq) ) ) )
     {
-        throw new Exception(__LINE__);
         claro_die( get_lang( 'Not allowed' ) );
     }
 
