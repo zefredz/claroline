@@ -29,6 +29,7 @@ array ( 'fill_course_example'
       , 'prefixAntiNumber'
       , 'prefixAntiEmpty'
       , 'showLinkToDeleteThisCourse'
+      , 'courseSessionAllowed'
       , 'nbCharFinalSuffix'
       , 'forceCodeCase'
       );
@@ -249,3 +250,13 @@ $conf_def_property_list['showLinkToDeleteThisCourse']
                                   ,'FALSE' => 'No'
                                   )
         );
+
+$conf_def_property_list['courseSessionAllowed'] =
+array ('label'       => 'Course session creation is allowed on the platform'
+      ,'description' => ''
+      ,'default'     => true
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
+      );

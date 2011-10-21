@@ -100,8 +100,7 @@ $conf_def['section']['RIGHT']['label']='Right';
 $conf_def['section']['RIGHT']['properties'] =
 array ( 'courseCreationAllowed',
         'allowSelfReg',
-        'allowToSelfEnroll',
-        'courseSessionAllowed'
+        'allowToSelfEnroll'
       );
 
 $conf_def['section']['DOWNLOAD_SETTINGS']['label']='Download';
@@ -694,16 +693,6 @@ array ('label'       => 'Files extensions'
 
 $conf_def_property_list['courseCreationAllowed'] =
 array ('label'       => 'Course creation is allowed on the platform'
-      ,'description' => ''
-      ,'default'     => true
-      ,'type'        => 'boolean'
-      ,'acceptedValue' => array ('TRUE' => 'Yes'
-                                ,'FALSE'=> 'No'
-                                )
-      );
-
-$conf_def_property_list['courseSessionAllowed'] =
-array ('label'       => 'Course session creation is allowed on the platform'
       ,'description' => ''
       ,'default'     => true
       ,'type'        => 'boolean'
