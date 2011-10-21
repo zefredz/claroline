@@ -159,7 +159,7 @@ class CourseTree
      * @var CourseTreeNode
      * @todo Not sure about the name of this var
      */
-    protected $tree;
+    protected $root;
     
     /**
      * Constructor.
@@ -175,8 +175,8 @@ class CourseTree
         foreach ($courseListIterator as $course)
         {
             // Create a new course tree node
-            $ctn = new CourseTreeNode($course->id);
-            $ctn->setCourse($course);
+            $node = new CourseTreeNode($course->id);
+            $node->setCourse($course);
             
             // Is it a source course ?
             if ($course->isSourceCourse)
@@ -189,15 +189,11 @@ class CourseTree
                     // Merge it from the temp list to the actual tree
                     $root->appendChild($tempNodesList[$course->id]);
                     unset($tempNodesList[$course->id]);
-                    
-                    #echo "On MERGE le cours SOURCE {$course->id} dans l'arbre<br/>";
                 }
                 else
                 {
                     // Add it to the tree
-                    $root->appendChild($ctn);
-                    
-                    #echo "On AJOUTE le cours SOURCE {$course->id} dans l'arbre<br/>";
+                    $root->appendChild($node);
                 }
             }
             
@@ -208,23 +204,19 @@ class CourseTree
                 if ($root->getChild($course->sourceCourseId))
                 {
                     // Append the child to its parent in the tree
-                    $root->getChild($course->sourceCourseId)->appendChild($ctn);
-                    
-                    #echo "On AJOUTE le cours SESSION {$course->id} dans l'arbre<br/>";
+                    $root->getChild($course->sourceCourseId)->appendChild($node);
                 }
                 // Is the parent in the temp list ?
                 elseif (isset($tempNodesList[$course->sourceCourseId]))
                 {
                     // Append the child to its parent in the temp list
-                    $tempNodesList[$course->sourceCourseId]->appendChild($ctn);
-                    
-                    #echo "On AJOUTE le cours SESSION {$course->id} dans la temp<br/>";
+                    $tempNodesList[$course->sourceCourseId]->appendChild($node);
                 }
                 else
                 {
                     // Add the parent and its child in the temp list
-                    $ctnp = new CourseTreeNode($course->sourceCourseId);
-                    $ctnp->appendChild($ctn);
+                    $parentNode = new CourseTreeNode($course->sourceCourseId);
+                    $parentNode->appendChild($node);
                     
                     /*
                      * Note that the parent doesn't have any course data yet.
@@ -232,9 +224,7 @@ class CourseTree
                      * will be found in the course list iterator
                      * ($courseListIterator), before getting merged in the tree.
                      */
-                    $tempNodesList[$ctnp->id] = $ctnp;
-                    
-                    #echo "On AJOUTE le cours SOURCE {$course->sourceCourseId} et son enfant {$course->id} dans la liste<br/>";
+                    $tempNodesList[$course->sourceCourseId] = $parentNode;
                 }
             }
             
@@ -242,9 +232,7 @@ class CourseTree
             else
             {
                 // Add it to the tree
-                $root->appendChild($ctn);
-                
-                #echo "On AJOUTE le cours NORMAL {$course->id} dans l'arbre<br/>";
+                $root->appendChild($node);
             }
         }
         
@@ -282,7 +270,7 @@ class CourseTree
             $root->appendChild($adoptiveParent);
         }
         
-        $this->tree = $root;
+        $this->root = $root;
     }
     
     /**
@@ -291,7 +279,7 @@ class CourseTree
      */
     public function getRootNode()
     {
-        return $this->tree;
+        return $this->root;
     }
     
     public function __toString()
@@ -303,14 +291,14 @@ class CourseTree
     {
         if (!isset($node))
         {
-            $currentNode = $this->tree;
+            $currentNode = $this->root;
         }
         else
         {
             $currentNode = $node;
             
             $out .= str_repeat('_', $level-1)
-                  . get_lang('I\'m node <b>%id</b>', array('%id' => $currentNode->id))
+                  . get_lang('I\'m node <b>%id</b>', array('%id' => $currentNode->getId()))
                   . ($currentNode->hasChildren() ?
                         get_lang(
                             ' and i have %nbChildren children',
@@ -340,7 +328,7 @@ class CourseTreeNode
     /**
      * @var int
      */
-    public $id;
+    protected $id;
     
     /**
      * @var Claro_Course
@@ -423,6 +411,22 @@ class CourseTreeNode
         {
             return null;
         }
+    }
+    
+    /**
+     * @return int node id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    /**
+     * @param int node id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
     
     /**
