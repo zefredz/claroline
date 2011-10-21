@@ -224,7 +224,7 @@ class ClaroBanner extends CoreTemplate
             $userToolUrlListLeft    = array();
             $userToolUrlListRight   = array();
             
-            if (get_conf(get_conf('display_former_homepage')))
+            if (get_conf('display_former_homepage'))
             {
                 
             }
