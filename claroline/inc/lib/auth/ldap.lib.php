@@ -147,7 +147,7 @@ class Claro_Ldap_User extends Claro_Ldap_DataObject
         }
         else
         {
-            return $this->__get($userAttr);
+            return $this->__get($this->userAttr);
         }
     }
 }
