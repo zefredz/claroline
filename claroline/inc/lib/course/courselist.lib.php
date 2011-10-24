@@ -284,10 +284,10 @@ class CourseTree
     
     public function __toString()
     {
-        return self::recursiveToString();
+        return $this->recursiveToString();
     }
     
-    protected static function recursiveToString($node = null, $level = 0, $out = '')
+    protected function recursiveToString($node = null, $level = 0, $out = '')
     {
         if (!isset($node))
         {
