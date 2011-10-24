@@ -579,3 +579,33 @@ Class CourseTreeNodeAnonymousView implements Display
         return $tpl->render();
     }
 }
+
+
+Class CourseTreeNodeDesactivatedView implements Display
+{
+    /**
+     * @var CourseTreeNode
+     */
+    protected $courseTreeNodeDesactivated;
+    
+    /**
+     * Constructor
+     * @param CourseTreeNode
+     * @param CourseUserPrivilegesList
+     */
+    public function __construct($courseTreeNode, $courseUserPrivilegesList)
+    {
+        $this->courseTreeNodeDesactivated = $courseTreeNode;
+        $this->courseUserPrivilegesList = $courseUserPrivilegesList;
+    }
+    
+    public function render()
+    {
+        $tpl = new CoreTemplate('course_tree_node_desactivated.tpl.php');
+        
+        $tpl->assign('node', $this->courseTreeNodeDesactivated);
+        $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
+        
+        return $tpl->render();
+    }
+}

@@ -307,7 +307,52 @@ class Claro_Course extends KernelObject
         
         return $this->_rawData['categories'];
     }
-
+    
+    /**
+     * Return true if the course is activated, false otherwise.
+     *
+     * A course is desactivated if:
+     * - its status is 'disable' OR 'pending' OR 'trash'
+     * - its status is 'date' AND
+     *   - the current date is < to its publication date OR
+     *     the current date is > to its expiration date
+     *
+     * @return boolean
+     */
+    public function isCourseActivated()
+    {
+        $currentDate = claro_mktime();
+        
+        if ($this->status == 'disable' ||
+            $this->status == 'pending' ||
+            $this->status == 'trash')
+        {
+            return false;
+        }
+        elseif ($this->status == 'date')
+        {
+            if ($currentDate < $this->publicationDate ||
+                $currentDate > $this->expirationDate)
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
+    /**
+     * Return true if the course is visible, false otherwise.
+     *
+     * @return boolean
+     */
+    public function isCourseVisible()
+    {
+        return (bool) $this->visibility;
+    }
+    
     /**
      * Overwrite KernelObjet::__get to get properties from both main properties
      * and additionnal properties.

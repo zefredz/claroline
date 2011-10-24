@@ -4,10 +4,19 @@
 <dl class="courseList">
     <?php foreach ($this->courseTreeRootNode->getChildren() as $courseTreeNode) : ?>
         <?php if ($courseTreeNode->hasCourse()) : ?>
-        <?php
-            $nodeView = new CourseTreeNodeView($courseTreeNode, $this->courseUserPrivilegesList);
-            echo $nodeView->render();
-        ?>
+            <?php if ($courseTreeNode->getCourse()->isCourseActivated()) : ?>
+            <?php
+                $childNodeView = new CourseTreeNodeView($courseTreeNode, $this->courseUserPrivilegesList);
+                echo $childNodeView->render();
+            ?>
+            
+            <?php else : ?>
+            <?php
+                $childNodeView = new CourseTreeNodeDesactivatedView($courseTreeNode, $this->courseUserPrivilegesList);
+                echo $childNodeView->render();
+            ?>
+            
+            <?php endif; ?>
         
         <?php else : ?>
         <?php

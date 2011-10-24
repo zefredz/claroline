@@ -6,12 +6,22 @@
         src="<?php echo get_course_access_icon($this->node->getCourse()->access); ?>"
         alt="<?php echo htmlspecialchars(get_course_access_mode_caption($this->node->getCourse()->access)); ?>" />
     
+    <?php if ($this->courseUserPrivilegesList->getCoursePrivileges($this->node->getCourse()->courseId)->isCourseManager() || claro_is_platform_admin()) : ?>
     <a href="<?php echo htmlspecialchars(get_path('url')
         .'/claroline/course/index.php?cid='.$this->node->getCourse()->sysCode); ?>">
         <?php echo htmlspecialchars($this->node->getCourse()->officialCode); ?>
         &ndash;
         <?php echo htmlspecialchars($this->node->getCourse()->name); ?>
     </a>
+    
+    <?php else : ?>
+    <span class="desactivated">
+    <?php echo htmlspecialchars($this->node->getCourse()->officialCode); ?>
+    &ndash;
+    <?php echo htmlspecialchars($this->node->getCourse()->name); ?>
+    </span>
+    
+    <?php endif; ?>
     
     <span class="role">
     <?php if ($this->courseUserPrivilegesList->getCoursePrivileges($this->node->getCourse()->courseId)->isCourseManager()) : ?>
@@ -44,20 +54,11 @@
     <?php if ($this->node->hasChildren()) : ?>
     <dl>
     <?php foreach ($this->node->getChildren() as $childNode) : ?>
-        <?php if ($childNode->getCourse()->isCourseActivated()) : ?>
         <?php
             $childNodeView = new CourseTreeNodeView($childNode, $this->courseUserPrivilegesList);
             echo $childNodeView->render();
         ?>
-        
-        <?php else : ?>
-        <?php
-            $childNodeView = new CourseTreeNodeDesactivatedView($childNode, $this->courseUserPrivilegesList);
-            echo $childNodeView->render();
-        ?>
-        
-        <?php endif; ?>
-        
+    
     <?php endforeach; ?>
     </dl>
     
