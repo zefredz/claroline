@@ -352,10 +352,13 @@ class CourseTreeNode
     
     /**
      * @param CourseTreeNode
+     * @return $this for chaining
      */
     public function appendChild($node)
     {
         $this->children[$node->id] = $node;
+        
+        return $this;
     }
     
     /**
@@ -431,18 +434,24 @@ class CourseTreeNode
     
     /**
      * @param int node id
+     * @return $this for chaining
      */
     public function setId($id)
     {
         $this->id = $id;
+        
+        return $this;
     }
     
     /**
      * @param Claro_Course
+     * @return $this for chaining
      */
     public function setCourse($course)
     {
         $this->course = $course;
+        
+        return $this;
     }
 }
 
