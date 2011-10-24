@@ -367,6 +367,14 @@ class CourseTreeNode
     }
     
     /**
+     * @return boolean
+     */
+    public function hasCourse()
+    {
+        return !empty($this->course);
+    }
+    
+    /**
      * @return int number of children
      */
     public function countChildren()
@@ -477,6 +485,11 @@ Class CourseTreeView implements Display
     protected $courseTreeRootNode;
     
     /**
+     * @var CourseUserPrivilegesList
+     */
+    protected $courseUserPrivilegesList;
+    
+    /**
      * Constructor
      * @param CourseTree
      * @param CourseUserPrivilegesList
@@ -489,12 +502,71 @@ Class CourseTreeView implements Display
     
     public function render()
     {
-        $tpl = new CoreTemplate('user_course_tree.tpl.php');
+        $tpl = new CoreTemplate('course_tree.tpl.php');
         
         $tpl->assign('courseTreeRootNode', $this->courseTreeRootNode);
-        $tpl->assign('cupList', $this->courseUserPrivilegesList);
+        $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
         
         return $tpl->render();
     }
 }
 
+
+Class CourseTreeNodeView implements Display
+{
+    /**
+     * @var CourseTreeNode
+     */
+    protected $courseTreeNode;
+    
+    /**
+     * Constructor
+     * @param CourseTreeNode
+     * @param CourseUserPrivilegesList
+     */
+    public function __construct($courseTreeNode, $courseUserPrivilegesList)
+    {
+        $this->courseTreeNode = $courseTreeNode;
+        $this->courseUserPrivilegesList = $courseUserPrivilegesList;
+    }
+    
+    public function render()
+    {
+        $tpl = new CoreTemplate('course_tree_node.tpl.php');
+        
+        $tpl->assign('node', $this->courseTreeNode);
+        $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
+        
+        return $tpl->render();
+    }
+}
+
+
+Class CourseTreeNodeAnonymousView implements Display
+{
+    /**
+     * @var CourseTreeNode
+     */
+    protected $courseTreeNodeAnonymous;
+    
+    /**
+     * Constructor
+     * @param CourseTreeNode
+     * @param CourseUserPrivilegesList
+     */
+    public function __construct($courseTreeNode, $courseUserPrivilegesList)
+    {
+        $this->courseTreeNodeAnonymous = $courseTreeNode;
+        $this->courseUserPrivilegesList = $courseUserPrivilegesList;
+    }
+    
+    public function render()
+    {
+        $tpl = new CoreTemplate('course_tree_node_anonymous.tpl.php');
+        
+        $tpl->assign('node', $this->courseTreeNodeAnonymous);
+        $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
+        
+        return $tpl->render();
+    }
+}
