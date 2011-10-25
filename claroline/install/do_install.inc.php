@@ -398,18 +398,26 @@ try
         {
             $modulePath = get_module_path($claroLabel);
 
-            if (file_exists($modulePath))
+            if ( file_exists( $modulePath ) )
             {
-                $moduleId = register_module( $modulePath );
-
-                if (false !== activate_module($moduleId))
+                list( $backlog, $moduleId ) = install_module( $modulePath, false, false );
+                
+                if ( !$moduleId )
                 {
-                    trigger_error('module (id:' . $moduleId . ' ) not activated ',E_USER_WARNING );
+                    Console::warning($backlog->output());
+                    trigger_error( $backlog->output(), E_USER_WARNING );
+                }
+
+                if ( false !== activate_module( $moduleId ) )
+                {
+                    Console::warning('module (id:' . $moduleId . ',label:'.$moduleLabel.') not activated ');
+                    trigger_error('module (id:' . $moduleId . ',label:'.$moduleLabel.') not activated ', E_USER_WARNING );
                 }
 
             }
             else
             {
+                Console::warning('module path not found: ' . $modulePath );
                 trigger_error('module path not found' ,E_USER_WARNING );
             }
         }
@@ -428,12 +436,12 @@ try
             foreach ( $config_code_list as $config_code )
             {
                 // new config object
-                $config = new Config($config_code);
+                $config = new Config( $config_code );
 
                 //generate conf
-                list ($message, $configToolError) = generate_conf($config,$form_value_list);
+                list ( $message, $configToolError ) = generate_conf($config,$form_value_list);
 
-                if ($configToolError)
+                if ( $configToolError )
                 {
                     $configError = true;
                     $messageConfigErrorList[] = $message;
