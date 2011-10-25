@@ -319,7 +319,7 @@ class Claro_Course extends KernelObject
      *
      * @return boolean
      */
-    public function isCourseActivated()
+    public function isActivated()
     {
         $currentDate = claro_mktime();
         
@@ -348,7 +348,7 @@ class Claro_Course extends KernelObject
      *
      * @return boolean
      */
-    public function isCourseVisible()
+    public function isVisible()
     {
         return (bool) $this->visibility;
     }

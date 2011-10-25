@@ -44,7 +44,7 @@
     <?php if ($this->node->hasChildren()) : ?>
     <dl>
     <?php foreach ($this->node->getChildren() as $childNode) : ?>
-        <?php if ($childNode->getCourse()->isCourseActivated()) : ?>
+        <?php if ($childNode->getCourse()->isActivated()) : ?>
         <?php
             $childNodeView = new CourseTreeNodeView($childNode, $this->courseUserPrivilegesList);
             echo $childNodeView->render();
