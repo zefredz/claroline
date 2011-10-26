@@ -1,15 +1,20 @@
-tinyMCE.init({
+/*
+ * $Id: announcements.js 13598 2011-09-20 15:44:52Z abourguignon $
+ */
 
+tinyMCE.init({
     //-- general
     mode : "textareas",
     editor_selector : "simpleMCE",
     // plugins must be the same as in tinyMCE_GZ.init
     plugins : "claroimage,paste,safari,texformula,spoiler,resources",
     theme : "advanced",
+    skin : "claroline",
+    skin_variant : "silver",
     browsers : "safari,msie,gecko,opera",
     directionality : text_dir,
     gecko_spellcheck : true,
-
+    
     //-- url
     convert_urls : false,
     relative_urls : false,

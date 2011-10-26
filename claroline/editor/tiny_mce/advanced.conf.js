@@ -1,3 +1,7 @@
+/*
+ * $Id: announcements.js 13598 2011-09-20 15:44:52Z abourguignon $
+ */
+
 function getElementsByClass( searchClass, domNode, tagName) {
     if (domNode == null) domNode = document;
     if (tagName == null) tagName = '*';
@@ -17,17 +21,19 @@ var baseURI = tinyMCE.baseURI.path;
 
 tinyMCE.init({
 
-	//-- general
+    //-- general
     mode : "textareas",
     editor_selector : "advancedMCE",
     // plugins must be the same as in tinyMCE_GZ.init
     plugins : "template,media,paste,table,safari,claroimage,dailytube,texformula,spoiler,resources",
     theme : "advanced",
+    skin : "claroline",
+    skin_variant : "silver",
     browsers : "safari,msie,gecko,opera",
-	directionality : text_dir,
-	gecko_spellcheck : true,
-	
-	//-- url
+    directionality : text_dir,
+    gecko_spellcheck : true,
+    
+    //-- url
     convert_urls : false,
     relative_urls : false,
     
@@ -45,7 +51,7 @@ tinyMCE.init({
     
     //-- cleanup/output
     apply_source_formatting : true,
-	cleanup_on_startup : true,
+    cleanup_on_startup : true,
     entity_encoding : "raw",
     extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
     
