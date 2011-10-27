@@ -529,6 +529,11 @@ Class CourseTreeNodeView implements Display
     protected $courseTreeNode;
     
     /**
+     * @var CourseUserPrivilegesList
+     */
+    protected $courseUserPrivilegesList;
+    
+    /**
      * Constructor
      * @param CourseTreeNode
      * @param CourseUserPrivilegesList
