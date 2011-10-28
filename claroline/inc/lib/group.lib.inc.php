@@ -92,7 +92,7 @@ function delete_groups($groupIdList = 'ALL')
     $tbl_groupsUsers = $tbl_c_names['group_rel_team_user'];
 
     require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
-    require_once get_path('incRepositorySys') . '/lib/forum.lib.php';
+    require_once dirname(__FILE__) . '/forum.lib.php';
     
     if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLWIKI'), claro_get_current_course_id() )
         && is_tool_activated_in_groups( claro_get_current_course_id(), 'CLWIKI' ) )
@@ -410,9 +410,12 @@ function group_count_students_in_course($course_id)
 function group_count_students_in_groups($course_id=null)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $mainTableName = get_module_main_tbl(array('rel_course_user'));
 
-    $sql = "SELECT COUNT(user)
-            FROM `" . $tbl_cdb_names['group_rel_team_user'] . "`";
+    $sql = "SELECT COUNT(DISTINCT(`gu`.`user`))
+            FROM `" . $tbl_cdb_names['group_rel_team_user'] . "` as `gu`
+            INNER JOIN `" . $mainTableName['rel_course_user'] . "` AS `cu`
+                ON `cu`.user_id = `gu`.`user`";
     return (int) claro_sql_query_get_single_value($sql);
 }
 
@@ -427,10 +430,13 @@ function group_count_students_in_groups($course_id=null)
 function group_count_students_in_group($group_id,$course_id=null)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $mainTableName = get_module_main_tbl(array('rel_course_user'));
 
-    $sql = "SELECT COUNT(user)
-            FROM `" . $tbl_cdb_names['group_rel_team_user'] . "`
-            WHERE `team` = ". (int) $group_id;
+    $sql = "SELECT COUNT(DISTINCT(`gu`.`user`))
+            FROM `" . $tbl_cdb_names['group_rel_team_user'] . "` AS `gu`
+            INNER JOIN `" . $mainTableName['rel_course_user'] . "` AS `cu`
+                ON `cu`.user_id = `gu`.`user`
+            WHERE `gu`.`team` = ". (int) $group_id;
     return (int) claro_sql_query_get_single_value($sql);
 }
 
@@ -649,9 +655,16 @@ ORDER BY tl.rank
 
 function get_user_group_list($userId,$course=null)
 {
+    if ( !is_null( $course ) )
+    {
+        $course = claro_get_current_course_id();
+    }
+
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course));
     $tbl_group_team          = $tbl_cdb_names['group_team'];
     $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
+
+    $mainTableName = get_module_main_tbl(array('user','rel_course_user'));
 
     $userGroupList = array();
 
@@ -659,6 +672,8 @@ function get_user_group_list($userId,$course=null)
             FROM `" . $tbl_group_rel_team_user . "` as `tu`
             INNER JOIN `" . $tbl_group_team . "`    as `t`
               ON `tu`.`team` = `t`.`id`
+            INNER JOIN `" . $mainTableName['rel_course_user'] . "` AS `cu`
+                ON `cu`.user_id = `tu`.`user`
             WHERE `tu`.`user` = " . (int) $userId ;
 
     $groupList = claro_sql_query_fetch_all($sql);
@@ -702,14 +717,17 @@ function get_tutor_group_list($uid)
 
 function get_group_user_list($gid, $courseId =  NULL)
 {
-    $mainTableName = get_module_main_tbl(array('user'));
+    $mainTableName = get_module_main_tbl(array('user','rel_course_user'));
     $courseTableName = get_module_course_tbl(array('group_rel_team_user'), $courseId);
     
-    $sql = "SELECT `user_id` AS `id`, `nom` AS `lastName`, `prenom` AS `firstName`, `email`
-        FROM `" . $mainTableName['user'] . "` `user`, `" . $courseTableName['group_rel_team_user'] . "` `user_group`
+    $sql = "SELECT `user`.`user_id` AS `id`, `user`.`nom` AS `lastName`, `user`.`prenom` AS `firstName`, `user`.`email`
+        FROM `" . $mainTableName['user'] . "` AS `user`
+        INNER JOIN `" . $courseTableName['group_rel_team_user'] . "` AS `user_group`
+            ON `user`.`user_id` = `user_group`.`user`
+        INNER JOIN `" . $mainTableName['rel_course_user'] . "`AS `course_user`
+            ON `user`.`user_id` = `course_user`.`user_id`
         WHERE `user_group`.`team`= '" . $gid . "'
-        AND   `user_group`.`user`= `user`.`user_id`";
-    
+        AND `course_user`.`code_cours` = '" . $courseId ."'";
     
     return claro_sql_query_fetch_all($sql);
 }
