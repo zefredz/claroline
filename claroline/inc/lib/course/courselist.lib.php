@@ -100,6 +100,70 @@ class UserCourseList extends AbstractCourseList
 
 
 /**
+ * List of courses for a specific category.
+ */
+class CategoryCourseList extends AbstractCourseList
+{
+    /**
+     * @var int user id
+     */
+    protected $categoryId;
+    
+    public function __construct($categoryId)
+    {
+        $this->categoryId = $categoryId;
+    }
+    
+    public function getIterator()
+    {
+        $tbl_mdb_names              = claro_sql_get_main_tbl();
+        $tbl_courses                = $tbl_mdb_names['course'];
+        $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
+        
+        $curdate = claro_mktime();
+        
+        $sql = "SELECT
+                c.code                  AS courseId,
+                c.code                  AS sysCode,
+                c.cours_id              AS id,
+                c.isSourceCourse        AS isSourceCourse,
+                c.sourceCourseId        AS sourceCourseId,
+                c.intitule              AS name,
+                c.administrativeNumber  AS officialCode,
+                c.administrativeNumber  AS administrativeNumber,
+                c.directory             AS path,
+                c.dbName                AS dbName,
+                c.titulaires            AS titular,
+                c.email                 AS email,
+                c.language              AS language,
+                c.extLinkUrl            AS extLinkUrl,
+                c.extLinkName           AS extLinkName,
+                c.visibility            AS visibility,
+                c.access                AS access,
+                c.registration          AS registration,
+                c.registrationKey       AS registrationKey,
+                c.diskQuota             AS diskQuota,
+                UNIX_TIMESTAMP(c.creationDate)          AS publicationDate,
+                UNIX_TIMESTAMP(c.expirationDate)        AS expirationDate,
+                c.status                AS status,
+                c.userLimit             AS userLimit
+                
+                FROM `" . $tbl_courses . "` AS c
+                
+                JOIN `" . $tbl_rel_course_category . "` AS rcc
+                ON rcc.courseId = c.cours_id
+                AND rcc.categoryId = " . (int) $this->categoryId . "
+                
+                ORDER BY UPPER(administrativeNumber), intitule";
+        
+        $result = Claroline::getDatabase()->query($sql);
+        
+        return new CourseListIterator($result);
+    }
+}
+
+
+/**
  * List of courses for a specific user and a specific category
  */
 class UserCategoryCourseList extends AbstractCourseList
@@ -570,14 +634,14 @@ Class CourseTreeView implements Display
     /**
      * Constructor
      * @param CourseTree
-     * @param CourseUserPrivilegesList
-     * @param Database_ResultSet
-     * @param int
+     * @param CourseUserPrivilegesList (default: null)
+     * @param Database_ResultSet (default: null)
+     * @param int (default: null)
      */
     public function __construct(
         $courseTreeNode,
-        $courseUserPrivilegesList,
-        $categoryList, 
+        $courseUserPrivilegesList = null,
+        $categoryList = null, 
         $selectedViewCategory = null
     )
     {
