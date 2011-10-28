@@ -69,7 +69,7 @@ if ($cmd == 'run' || $inProgress)
     
     $i = 0;
     
-    if ($sql->count() > 0)
+    if ( count($sql) > 0 )
     {
         foreach ($sql as $course)
         {

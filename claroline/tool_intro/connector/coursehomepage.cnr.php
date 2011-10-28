@@ -31,7 +31,7 @@ class CLTI_Portlet extends CourseHomePagePortlet
         
         $toolIntroIterator = new ToolIntroductionIterator($this->courseCode);
         
-        if ($toolIntroIterator->count() > 0)
+        if ( count( $toolIntroIterator ) > 0)
         {
             $introList = '';
             
@@ -70,7 +70,7 @@ class CLTI_Portlet extends CourseHomePagePortlet
             }
         }
         
-        if ($toolIntroIterator->count() == 0 || empty($introList))
+        if ( count( $toolIntroIterator ) == 0 || empty($introList))
         {
             $output .= '<dt></dt>'
                      . '<dd>' . "\n"

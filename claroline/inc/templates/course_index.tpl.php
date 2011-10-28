@@ -19,7 +19,7 @@
         <?php endif; ?>
         
         <?php
-            if ($this->portletIterator->count() > 0)
+            if ( count( $this->portletIterator ) > 0)
             {
                 foreach ($this->portletIterator as $portlet)
                 {
@@ -29,7 +29,7 @@
                     }
                 }
             }
-            elseif ($this->portletIterator->count() == 0 && claro_is_allowed_to_edit())
+            elseif ( count( $this->portletIterator ) == 0 && claro_is_allowed_to_edit())
             {
                 echo get_block('blockIntroCourse');
             }

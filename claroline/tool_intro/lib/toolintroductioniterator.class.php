@@ -83,7 +83,7 @@ class ToolIntroductionIterator implements CountableIterator
     
     public function count()
     {
-        return $this->toolIntroductions->count();
+        return count( $this->toolIntroductions );
     }
     
     public function hasNext()

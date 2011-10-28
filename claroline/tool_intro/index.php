@@ -240,7 +240,7 @@ $toolIntroIterator = new ToolIntroductionIterator(claro_get_current_course_id())
 
 $toolIntroductionList = '';
 
-if ($toolIntroIterator->count() > 0)
+if ( count( $toolIntroIterator ) > 0)
 {
     foreach ($toolIntroIterator as $toolIntro)
     {

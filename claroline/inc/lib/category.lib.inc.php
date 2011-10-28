@@ -76,7 +76,7 @@ function claro_get_previous_cat_datas($rank, $idParent)
     $result = Claroline::getDatabase()->query($sql);
     
     // Are there any predecessors ?
-    $nbPredecessors = $result->count();
+    $nbPredecessors = count( $result );
     
     if ( $nbPredecessors > 0 )
     {
@@ -116,7 +116,7 @@ function claro_get_following_cat_datas($rank, $idParent)
     $result = Claroline::getDatabase()->query($sql);
     
     // Are there any successors ?
-    $nbSuccessors = $result->count();
+    $nbSuccessors = count( $result );
     
     if ( $nbSuccessors > 0 )
     {

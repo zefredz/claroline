@@ -110,6 +110,6 @@ abstract class RowToObjectIteratorIterator implements CountableIterator
     
     public function count ()
     {
-        return $this->internalIterator->count();
+        return count( $this->internalIterator );
     }
 }

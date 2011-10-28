@@ -97,6 +97,6 @@ class CourseHomePagePortletIterator implements CountableIterator
     
     public function count()
     {
-        return $this->portlets->count();
+        return count( $this->portlets );
     }
 }
