@@ -233,7 +233,8 @@ function get_and_unzip_uploaded_package()
     {
         $backlog_message[] = get_lang('Upload failed');
     }
-    require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
+
+    require_once dirname(__FILE__) . '/../thirdparty/pclzip/pclzip.lib.php';
 
     if (!function_exists('gzopen'))
     {
@@ -293,7 +294,8 @@ function unzip_package( $packageFileName )
     $backlog_message = array();
 
     //1- Unzip folder in a new repository in claroline/module
-    require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
+    require_once dirname(__FILE__) . '/../thirdparty/pclzip/pclzip.lib.php';
+    
     if (!function_exists('gzopen'))
     {
         $backlog_message[] = get_lang('Error : no zlib extension found');
@@ -567,12 +569,28 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                         }
                     }
 
+                    // generate the conf if a def file exists
+                    if ( file_exists( get_module_path($module_info['LABEL'])
+                        . '/conf/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
+                    {
+                        require_once dirname(__FILE__) . '/../config.lib.inc.php';
+                        $config = new Config($module_info['LABEL']);
+                        list ($confMessage, $status ) = generate_conf($config);
+
+                        $backlog->info($confMessage);
+                    }
+
                     // call install.php after initialising database in case it requires database to run
                     if ( isset( $installPhpScript ) ) unset ( $installPhpScript );
                     $installPhpScript = get_module_path($module_info['LABEL']) . '/setup/install.php';
 
                     if (file_exists($installPhpScript))
                     {
+                        language::load_translation( );
+                        language::load_locale_settings( );
+                        language::load_module_translation( $module_info['LABEL'] );
+                        load_module_config( $module_info['LABEL'] );
+                        
                         // FIXME this is very dangerous !!!!
                         require $installPhpScript;
                         $backlog->info(get_lang( 'Module installation script called' ));
@@ -603,17 +621,6 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                     else
                     {
                         $backlog->success(get_lang( 'Module cache update succeeded' ));
-                    }
-
-                    //7- generate the conf if a def file exists
-                    if ( file_exists( get_module_path($module_info['LABEL'])
-                        . '/conf/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
-                    {
-                        require_once dirname(__FILE__) . '/../config.lib.inc.php';
-                        $config = new Config($module_info['LABEL']);
-                        list ($confMessage, $status ) = generate_conf($config);
-
-                        $backlog->info($confMessage);
                     }
                 }
             }
@@ -864,7 +871,13 @@ function uninstall_module($moduleId, $deleteModuleData = true)
         $uninstallPhpScript = get_module_path($module['label']) . '/setup/uninstall.php';
         if (file_exists( $uninstallPhpScript ))
         {
+            language::load_translation( );
+            language::load_locale_settings( );
+            language::load_module_translation( $module['label'] );
+            load_module_config( $module['label'] );
+            
             require $uninstallPhpScript;
+            
             $backlog->info( get_lang('Module uninstallation script called') );
         }
 

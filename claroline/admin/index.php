@@ -123,16 +123,9 @@ $menu['AdminTechnical'][] = '<a href="upgrade/index.php">'.get_lang('Upgrade').'
 $menu['Communication'][] = '<a href="../messaging/admin.php">'.get_lang('Internal messaging').'</a>';
 
 // Extra tools' administration menu
-$tbl = claro_sql_get_main_tbl();
+$adminModuleList = get_admin_module_list();
 
-$sql = "SELECT `label`, `name`\n"
-     . "FROM `{$tbl['module']}`\n"
-     . "WHERE `type` = 'admin'\n"
-     . "AND `activation` = 'activated'";
-
-$adminModuleList = Claroline::getDatabase()->query($sql);
-
-if ($adminModuleList->count() > 0)
+if (count($adminModuleList) > 0)
 {
     foreach ( $adminModuleList as $module )
     {

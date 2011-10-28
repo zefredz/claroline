@@ -92,12 +92,13 @@ $modulePerPage = 1000;
 $typeLabel['']        = get_lang('No name');
 $typeLabel['tool']    = get_lang('Tools');
 $typeLabel['applet']  = get_lang('Applets');
+$typeLabel['crsmanage'] = get_lang('Course management tools');
 $typeLabel['admin']  = get_lang('Administration tools');
-$typeLabel['lang']    = get_lang('Language packs');
-$typeLabel['theme']   = get_lang('Themes');
-$typeLabel['extauth'] = get_lang('External authentication drivers');
+//$typeLabel['lang']    = get_lang('Language packs');
+//$typeLabel['theme']   = get_lang('Themes');
+//$typeLabel['extauth'] = get_lang('External authentication drivers');
 
-$moduleTypeList = array( 'tool', 'applet', 'admin' );
+$moduleTypeList = get_available_module_types();
 
 
 $cmd          = (isset($_REQUEST['cmd'])          ? $_REQUEST['cmd']          : null);
@@ -879,26 +880,25 @@ foreach($moduleList as $module)
     //find icon
     $modulePath = get_module_path($module['label']);
 
-    if (array_key_exists('icon',$module) && file_exists(get_module_path($module['label']) . '/' . $module['icon']))
+    switch ( $typeReq )
     {
-        $icon = '<img src="' . get_module_url($module['label']) . '/' . $module['icon'] . '" alt="" />';
-    }
-    elseif (file_exists(get_module_path($module['label']) . '/icon.png'))
-    {
-        $icon = '<img src="' . get_module_url($module['label']) . '/icon.png" alt="" />';
-    }
-    elseif (file_exists(get_module_path($module['label']) . '/icon.gif'))
-    {
-        $icon = '<img src="' . get_module_url($module['label']) . '/icon.gif" alt="" />';
-    }
-    else
-    {
-        $icon = '<small>' . get_lang('No icon') . '</small>';
+        case 'crsmanage':
+        case 'admin':
+            $moduleDefaultIcon = 'settings';
+            break;
+        default:
+            $moduleDefaultIcon = 'exe';
+            break;
     }
 
+    $iconUrl = get_module_icon_url( 
+        $module['label'] , 
+        array_key_exists('icon',$module) ? $module['icon'] : null, 
+        $moduleDefaultIcon );
 
-    //module_id and icon column
+    $icon = '<img src="'.$iconUrl.'" alt="" />';
 
+    // Module_id and icon column
     $out .=  "\n"  . '<tr ' . $class_css . '>' . "\n"
     .    '<td align="center">' . $icon . '</td>' . "\n";
 
@@ -1034,7 +1034,6 @@ $out .= '</tbody>' . "\n"
 ;
 
 //Display BOTTOM Pager list
-
 if ( $myPager->get_previous_offset() ) $out .= $myPager->disp_pager_tool_bar ( 'module_list.php?typeReq=' . $typeReq ) ;
 
 $claroline->display->body->appendContent($out);

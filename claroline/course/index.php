@@ -298,6 +298,21 @@ if( get_conf('is_trackingEnabled') )
     ;
 }
 
+//@since Claroline 1.9.10
+$extraManageToolList = get_course_manage_module_list(true);
+
+if ( $extraManageToolList )
+{
+    foreach ( $extraManageToolList as $extraManageTool )
+    {
+        $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_module_entry_url($extraManageTool['label'] ) ) ) . '">'
+        .                             '<img src="' . get_module_icon_url($extraManageTool['label'], $extraManageTool['icon'], 'settings') . '" alt="" /> '
+        .                             get_lang($extraManageTool['name'])
+        .                             '</a>'
+        ;
+    }
+}
+
 
 // Fetch the portlets
 $portletiterator = new CourseHomePagePortletIterator(ClaroCourse::getIdFromCode($cidReq));
