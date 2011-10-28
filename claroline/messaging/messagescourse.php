@@ -152,13 +152,14 @@
         * Get group list of this course
         */
         $courseTableName = get_module_course_tbl(array('group_team','group_rel_team_user'));
-        $sql = "SELECT `g`.`id`,
-                       `g`.`name`,
-                        COUNT(`gu`.`id`) AS `userNb`
-                FROM `" . $courseTableName['group_team'] . "` AS `g` "
-                . "LEFT JOIN `" . $courseTableName['group_rel_team_user'] . "` AS `gu`
-                ON `g`.`id` = `gu`.`team`
-                GROUP BY `g`.`id`";
+        $mainTableName = claro_sql_get_main_tbl();
+        
+        $sql = "SELECT 
+                    `g`.`id`,
+                    `g`.`name`,
+                    0 AS `userNb`
+                FROM 
+                    `" . $courseTableName['group_team'] . "` AS `g`";
     
         $groupSelect = claro_sql_query_fetch_all($sql);
     
@@ -168,7 +169,37 @@
         {
             foreach ( $groupSelect as $groupData  )
             {
-                $groupList[] = $groupData;
+                $groupList[$groupData['id']] = $groupData;
+            }
+        }
+        
+        $sql = "SELECT 
+                    `g`.`id`,
+                    COUNT(`gu`.`id`) AS `userNb`
+                FROM 
+                    `" . $courseTableName['group_team'] . "` AS `g` 
+                LEFT JOIN 
+                    `" . $courseTableName['group_rel_team_user'] . "` AS `gu`
+                ON 
+                    `g`.`id` = `gu`.`team`
+                JOIN 
+                    `".$mainTableName['rel_course_user']."` AS cu
+                ON 
+                    `gu`.`user` = cu.user_id
+                AND 
+                    cu.code_cours = '".claro_sql_escape(claro_get_current_course_id())."'
+                GROUP BY `g`.`id`";
+    
+        $groupNbrList = claro_sql_query_fetch_all($sql);
+    
+        if ( is_array($groupNbrList) && !empty($groupNbrList) )
+        {
+            foreach ( $groupNbrList as $groupNbr  )
+            {
+                if ( isset( $groupList[$groupNbr['id']] ) )
+                {
+                    $groupList[$groupNbr['id']]['userNb'] = $groupNbr['userNb'];
+                }
             }
         }
         

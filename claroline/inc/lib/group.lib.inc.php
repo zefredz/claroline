@@ -723,12 +723,26 @@ function get_group_user_list($gid, $courseId =  NULL)
 function get_group_list_user_id_list($gidList,$courseId = NULL)
 {
     $groupIdList = implode(', ',$gidList);
+    
+    $courseId = is_null($courseId) ? claro_get_current_course_id() : $courseId;
 
     $courseTableName = get_module_course_tbl(array('group_team','group_rel_team_user'),$courseId);
     
-    $sql = "SELECT `user`
-            FROM `".$courseTableName['group_rel_team_user']."` AS `user_group`
-            WHERE `team` IN (".$groupIdList.")";
+    $mainTableName = claro_sql_get_main_tbl();
+    
+    $sql = "SELECT 
+                `user_group`.`user`
+            FROM 
+                `".$courseTableName['group_rel_team_user']."` AS `user_group`
+            JOIN 
+                `".$mainTableName['rel_course_user']."` AS cu
+            ON 
+                `user_group`.`user` = cu.user_id
+            AND 
+                cu.code_cours = '".claro_sql_escape($courseId)."'
+                    
+            WHERE 
+                `user_group`.`team` IN (".$groupIdList.")";
 
     $groupMemberList = claro_sql_query_fetch_all($sql);
 
