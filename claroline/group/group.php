@@ -436,7 +436,7 @@ if (DISP_GROUP_LIST == $display )
                    `g`.`description`     AS description,
 
                    `ug`.`user`        AS is_member
-                    ,COUNT(`ug2`.`id`) AS nbMember
+                    ,COUNT(`cu`.`user_id`) AS nbMember
 
           FROM `" . $tbl_Groups . "` `g`
 
@@ -453,8 +453,8 @@ if (DISP_GROUP_LIST == $display )
           ON `ug2`.`team` = `g`.`id`
 
           # limit to registered users
-          #INNER JOIN `" . $tbl_CoursUsers . "` AS `cu` ON `cu`.user_id = `ug2`.`user`
-          #AND `cu`.`code_cours` = '" . $currentCourseId ."'
+          LEFT JOIN `" . $tbl_CoursUsers . "` AS `cu` ON `cu`.user_id = `ug2`.`user`
+          AND `cu`.`code_cours` = '" . $currentCourseId ."'
 
           #WHERE `cu`.`code_cours` = '" . $currentCourseId ."'
 
