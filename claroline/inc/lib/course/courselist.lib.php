@@ -35,6 +35,9 @@ abstract class AbstractCourseList implements CourseList
 }
 
 
+/**
+ * List of courses for a specific user.
+ */
 class UserCourseList extends AbstractCourseList
 {
     /**
@@ -96,21 +99,77 @@ class UserCourseList extends AbstractCourseList
 }
 
 
-class CategoryCourseList extends AbstractCourseList
+/**
+ * List of courses for a specific user and a specific category
+ */
+class UserCategoryCourseList extends AbstractCourseList
 {
+    /**
+     * @var int user id
+     */
+    protected $userId;
+    
     /**
      * @var int category id
      */
     protected $categoryId;
     
-    public function __construct($categoryId)
+    public function __construct($userId, $categoryId)
     {
+        $this->userId = $userId;
         $this->categoryId = $categoryId;
     }
     
     public function getIterator()
     {
-        //@todo
+        $tbl_mdb_names              = claro_sql_get_main_tbl();
+        $tbl_courses                = $tbl_mdb_names['course'];
+        $tbl_rel_course_user        = $tbl_mdb_names['rel_course_user'];
+        $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
+        
+        $curdate = claro_mktime();
+        
+        $sql = "SELECT
+                c.code                  AS courseId,
+                c.code                  AS sysCode,
+                c.cours_id              AS id,
+                c.isSourceCourse        AS isSourceCourse,
+                c.sourceCourseId        AS sourceCourseId,
+                c.intitule              AS name,
+                c.administrativeNumber  AS officialCode,
+                c.administrativeNumber  AS administrativeNumber,
+                c.directory             AS path,
+                c.dbName                AS dbName,
+                c.titulaires            AS titular,
+                c.email                 AS email,
+                c.language              AS language,
+                c.extLinkUrl            AS extLinkUrl,
+                c.extLinkName           AS extLinkName,
+                c.visibility            AS visibility,
+                c.access                AS access,
+                c.registration          AS registration,
+                c.registrationKey       AS registrationKey,
+                c.diskQuota             AS diskQuota,
+                UNIX_TIMESTAMP(c.creationDate)          AS publicationDate,
+                UNIX_TIMESTAMP(c.expirationDate)        AS expirationDate,
+                c.status                AS status,
+                c.userLimit             AS userLimit
+                
+                FROM `" . $tbl_courses . "` AS c
+                
+                JOIN `" . $tbl_rel_course_user . "` AS rcu
+                ON rcu.code_cours = c.code
+                AND rcu.user_id = " . (int) $this->userId . "
+                
+                JOIN `" . $tbl_rel_course_category . "` AS rcc
+                ON rcc.courseId = c.cours_id
+                AND rcc.categoryId = " . (int) $this->categoryId . "
+                
+                ORDER BY UPPER(administrativeNumber), intitule";
+        
+        $result = Claroline::getDatabase()->query($sql);
+        
+        return new CourseListIterator($result);
     }
 }
 
@@ -497,16 +556,35 @@ Class CourseTreeView implements Display
      * @var CourseUserPrivilegesList
      */
     protected $courseUserPrivilegesList;
+
+    /**
+     * @var Database_ResultSet
+     */
+    protected $categoryList;
+
+    /**
+     * @var int id of selected category to view
+     */
+    protected $selectedViewCategory;
     
     /**
      * Constructor
      * @param CourseTree
      * @param CourseUserPrivilegesList
+     * @param Database_ResultSet
+     * @param int
      */
-    public function __construct($courseTreeNode, $courseUserPrivilegesList)
+    public function __construct(
+        $courseTreeNode,
+        $courseUserPrivilegesList,
+        $categoryList, 
+        $selectedViewCategory = null
+    )
     {
         $this->courseTreeRootNode = $courseTreeNode;
         $this->courseUserPrivilegesList = $courseUserPrivilegesList;
+        $this->categoryList = $categoryList;
+        $this->selectedViewCategory = $selectedViewCategory;
     }
     
     public function render()
@@ -515,6 +593,8 @@ Class CourseTreeView implements Display
         
         $tpl->assign('courseTreeRootNode', $this->courseTreeRootNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
+        $tpl->assign('categoryList', $this->categoryList);
+        $tpl->assign('selectedViewCategory', $this->selectedViewCategory);
         
         return $tpl->render();
     }

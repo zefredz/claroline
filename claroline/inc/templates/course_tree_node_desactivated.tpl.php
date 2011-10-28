@@ -10,7 +10,7 @@
                 $this->node->getCourse()->access)); ?>" />
     
     <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
-        $this->node->getCourse()->courseId )->isCourseManager() 
+        $this->node->getCourse()->courseId )->isCourseManager()
         || claro_is_platform_admin() ) : ?>
     
     <a href="<?php echo htmlspecialchars(get_path('url')
@@ -34,34 +34,30 @@
     
     <?php endif; ?>
     
-    <span class="role">
-        
     <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
         $this->node->getCourse()->courseId)->isCourseManager() ) : ?>
-        
-    [Manager]
+    
+        <img class="role qtip" src="<?php echo get_icon_url('manager'); ?>" alt="<?php echo get_lang('You are manager of this course'); ?>" />
     
     <?php elseif ( $this->courseUserPrivilegesList->getCoursePrivileges(
         $this->node->getCourse()->courseId)->isCourseTutor() ) : ?>
     
-    [Tutor]
+        <span class="role">[Tutor]</span>
     
     <?php elseif ( $this->courseUserPrivilegesList->getCoursePrivileges(
         $this->node->getCourse()->courseId)->isCourseMember() ) : ?>
     
-    [Member]
+        <img class="role qtip" src="<?php echo get_icon_url('user'); ?>" alt="<?php echo get_lang('You are user of this course'); ?>" />
     
     <?php elseif ( $this->courseUserPrivilegesList->getCoursePrivileges(
         $this->node->getCourse()->courseId)->isEnrolmentPending() ) : ?>
     
-    [Pending]
+        <span class="role">[Pending]</span>
     
     <?php endif; ?>
-    
-    </span>
 </dt>
 <dd>
-    <?php if ( isset($this->node->getCourse()->email ) 
+    <?php if ( isset($this->node->getCourse()->email )
         && claro_is_user_authenticated() ) : ?>
     
     <a href="mailto:<?php echo $this->node->getCourse()->email; ?>">
@@ -86,7 +82,7 @@
         
         <?php
             $childNodeView = new CourseTreeNodeView(
-                $childNode, 
+                $childNode,
                 $this->courseUserPrivilegesList);
             
             echo $childNodeView->render();
