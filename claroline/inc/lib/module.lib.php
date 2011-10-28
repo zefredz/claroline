@@ -576,12 +576,22 @@ function get_module_course_tbl( $arrTblName, $courseCode = null )
     {
         throw new Exception('Invalid course !');
     }
+    
+    $courseTblKernel = claro_sql_get_course_tbl($currentCourseDbNameGlu);
 
     $arrToReturn = array();
 
     foreach ( $arrTblName as $name )
     {
-        $arrToReturn[$name] = $currentCourseDbNameGlu . $name;
+        if ( is_array($courseTblKernel) && array_key_exists($name, $courseTblKernel))
+        {
+            $arrToReturn[$name] = $courseTblKernel[$name];
+        }
+        else
+        {
+            $arrToReturn[$name] = $currentCourseDbNameGlu . $name;
+        }
+        
     }
 
     return $arrToReturn;
@@ -594,12 +604,22 @@ function get_module_course_tbl( $arrTblName, $courseCode = null )
  */
 function get_module_main_tbl( $arrTblName )
 {
+    $mainTblKernel = claro_sql_get_main_tbl();
+    
     $mainDbNameGlu = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix');
+    
     $arrToReturn = array();
 
     foreach ( $arrTblName as $name )
     {
-        $arrToReturn[$name] = $mainDbNameGlu . $name;
+        if ( array_key_exists( $name, $mainTblKernel) )
+        {
+            $arrToReturn[$name] = $mainTblKernel[$name];
+        }
+        else
+        {
+            $arrToReturn[$name] = $mainDbNameGlu . $name;
+        }
     }
 
     return $arrToReturn;
