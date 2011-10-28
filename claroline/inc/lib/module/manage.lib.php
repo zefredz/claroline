@@ -2052,3 +2052,57 @@ function allow_module_activation_by_course_manager( $moduleLabel, $courseManager
             claro_label = " . Claroline::getDatabase()->quote( $moduleLabel ) . ";
     ");
 }
+
+/**
+ * Get the count of modules by type.
+ * @param bool $onlyActivated set to true to count only activated module 
+ *      (default)
+ * @return array [type => count]
+ * @since Claroline 1.9.10, 1.10.7, 1.11
+ */
+function count_modules_by_type( $onlyActivated = true )
+{
+    $cnt = array();
+    
+    foreach ( get_available_module_types() as $moduleType )
+    {
+        $cnt[$moduleType] = 0;
+    }
+    
+    $tbl = claro_sql_get_main_tbl();
+    
+    if ( $onlyActivated )
+    {
+        $activation = "WHERE `activation` = 'activated'";
+    }
+    else
+    {
+        $activation = "WHERE 1 = 1";
+    }
+    
+    $rs = Claroline::getDatabase()->query("
+        SELECT 
+            `type`,
+            COUNT(*) AS `count`
+        FROM 
+            `{$tbl['module']}`
+        {$activation}
+        GROUP BY `type`" );
+    
+    foreach ( $rs as $moduleTypeCount )
+    {
+        $cnt[$moduleTypeCount['type']] = $moduleTypeCount['count'];
+    }
+    
+    return $cnt;
+}
+
+/**
+ * Get the list of module types available on the platform
+ * @return type 
+ * @since Claroline 1.9.10, 1.10.7, 1.11
+ */
+function get_available_module_types()
+{
+    return array( 'tool', 'applet', 'crsmanage', 'admin' );
+}
