@@ -163,7 +163,7 @@ class CLLNP_Navigator implements ModuleResourceNavigator
                 $path['name'],
                 $fileLoc,
                 true,
-                ($path['visibility'] == 'VISIBLE' ? true : false),
+                ($path['visibility'] == 'SHOW' ? true : false),
                 false
             );
 
