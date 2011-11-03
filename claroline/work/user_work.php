@@ -1403,7 +1403,7 @@ if( $dispWrkLst )
             foreach( $feedbackLst as $feedback )
             {
                 if( $feedback['parent_id'] == $thisWrk['id']
-                    && ( $feedback['visibility'] == 'VISIBLE' || $is_allowedToEditAll || $is_allowedToViewThisWrk )
+                    && ( ( $feedback['visibility'] == 'VISIBLE' && $is_allowedToViewThisWrk ) || $is_allowedToEditAll )
                     )
                 {
                     $wrkAndFeedbackLst[] = $feedback;
