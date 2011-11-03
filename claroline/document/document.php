@@ -1035,9 +1035,10 @@ if ('rqSearch' == $cmd )
 
 if ('exDownload' == $cmd )
 {
-    if ( 
-        ( claro_is_user_authenticated() && ( claro_is_allowed_to_edit() || get_conf('cldoc_allowNonManagersToDownloadFolder', true) ) ) 
-        || get_conf( 'cldoc_allowAnonymousToDownloadFolder', true ) 
+    if ( ( claro_is_user_authenticated() 
+            && ( claro_is_allowed_to_edit() || get_conf('cldoc_allowNonManagersToDownloadFolder', true) ) ) 
+        || ( get_conf('cldoc_allowNonManagersToDownloadFolder', true) 
+            && get_conf( 'cldoc_allowAnonymousToDownloadFolder', true ) ) 
     )
     {
         /*
@@ -1956,7 +1957,8 @@ $out .= claro_html_tool_title($titleElement,
 
         if ( ( claro_is_user_authenticated() 
                 && ( claro_is_allowed_to_edit() || get_conf('cldoc_allowNonManagersToDownloadFolder', true) ) ) 
-            || get_conf( 'cldoc_allowAnonymousToDownloadFolder', true ) 
+            || ( get_conf('cldoc_allowNonManagersToDownloadFolder', true) 
+                && get_conf( 'cldoc_allowAnonymousToDownloadFolder', true ) ) 
         )
         {
             if( isset($fileList) && count($fileList) > 0 )
