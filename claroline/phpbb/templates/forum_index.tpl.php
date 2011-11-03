@@ -121,12 +121,9 @@ foreach( $this->categoryList as $thisCategory ) :
             <td align="center"><small><?php echo $thisForum['post_time'] > 0 ? claro_html_localised_date( get_locale( 'dateTimeFormatShort' ), datetime_to_timestamp( $thisForum['post_time'] ) ) : get_lang( 'No post' ) ?></small></td>
             <?php if( $this->is_allowedToEdit ) : ?>
             <td align="center">
-                <?php if ( is_null( $thisForum['group_id'] ) ) : ?>
                 <a href="<?php echo get_lang( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqEdForum&amp;forumId=' . $thisForum['forum_id'] ) ) ) ?>">
                 <img src="<?php echo get_icon_url( 'edit' ) ?>" alt="<?php echo get_lang( 'Edit' ) ?>" />
                 </a>
-                <?php else : ?>&nbsp;
-                <?php endif; ?>
             </td> 
             <td align="center">
                 <a href="<?php echo get_lang( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exEmptyForum&amp;forumId=' . $thisForum['forum_id'] ) ) ) ?>" onclick="return confirm_empty('<?php echo clean_str_for_javascript( $thisForum['forum_name'] ) ?>');">
