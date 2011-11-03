@@ -138,7 +138,7 @@ elseif ( $forumSettingList )
             $time = date('Y-m-d H:i');
 
             // prevent to go further if the fields are actually empty
-            if ( strip_tags($message) == '' || $subject == '' )
+            if ( strip_tags($message,'<img><audio><video><embed><object><canvas>') == '' || $subject == '' )
             {
                 $dialogBox->error( get_lang('You cannot post an empty message') );
                 $error = TRUE;

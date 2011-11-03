@@ -115,7 +115,7 @@ elseif ( $topicSettingList )
 
         if ( isset($_REQUEST['submit']) )
         {
-            if ( trim(strip_tags($message)) != '' )
+            if ( trim(strip_tags($message,'<img><audio><video><embed><object><canvas>')) != '' )
             {
 
                 if ( get_conf('allow_html') == 0 || isset($html) ) $message = htmlspecialchars($message);
