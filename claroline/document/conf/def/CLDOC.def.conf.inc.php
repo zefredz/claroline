@@ -33,8 +33,8 @@ $conf_def['section']['main']['label']='Main';
 $conf_def['section']['main']['description']='';
 $conf_def['section']['main']['properties'] =
 array ( 'openNewWindowForDoc'
-       , 'cldoc_allowAnonymousToDownloadFolder'
        , 'cldoc_allowNonManagersToDownloadFolder'
+       , 'cldoc_allowAnonymousToDownloadFolder'
        , 'cldoc_customTmpPath' );
 
 
