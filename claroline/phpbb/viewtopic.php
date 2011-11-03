@@ -276,7 +276,7 @@ else
     {
         $error = false;
         //this test should be handled by a "html not empty" validator
-        if ( trim( strip_tags( $message ) ) == '' )
+        if ( trim( strip_tags( $message , '<img><audio><video><embed><object>' ) ) == '' )
         {
             $dialogBox->error( get_lang( 'You cannot post an empty message' ) );
             $error = true;
