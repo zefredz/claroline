@@ -245,7 +245,9 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
         claro_die(get_lang('Not allowed'));
     }
     
-    if ( $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed() )
+    if ( $tlabelReq !== 'CLWRK' && $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed()
+        && ! ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] 
+        && ( $tlabelReq == 'CLQWZ' || $tlabelReq == 'CLDOC') ) ) // WORKAROUND FOR OLD LP
     {
         if ( ! claro_is_user_authenticated() )
         {
@@ -258,6 +260,7 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
     }
     
     if ( $tlabelReq !== 'CLGRP'
+        && $tlabelReq !== 'CLWRK'
         && claro_is_in_a_group()
         && ( !claro_is_group_allowed()
         || ( !claro_is_allowed_to_edit()

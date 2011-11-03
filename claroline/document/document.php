@@ -1046,7 +1046,11 @@ if ('rqSearch' == $cmd )
 
 if ('exDownload' == $cmd )
 {
-    if ( claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFolder', false) )
+    if ( ( claro_is_user_authenticated() 
+            && ( claro_is_allowed_to_edit() || get_conf('cldoc_allowNonManagersToDownloadFolder', true) ) ) 
+        || ( get_conf('cldoc_allowNonManagersToDownloadFolder', true) 
+            && get_conf( 'cldoc_allowAnonymousToDownloadFolder', true ) )
+    )
     {
         /*
          * PREPARE THE FILE COLLECTION
@@ -1088,11 +1092,20 @@ if ('exDownload' == $cmd )
         require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
     
         // Build archive in tmp course folder
-        $downloadArchivePath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp/zip';
-        $downloadArchiveFile = $downloadArchivePath . '/' . uniqid('') . '.zip';
-    
-        // Create the temp dir if it doesn't exist
-        // or do a cleanup before creating the zipfile
+        
+        $downloadArchivePath = get_conf('cldoc_customTmpPath', '');
+        
+        if ( empty($downloadArchivePath) )
+        {          
+            $downloadArchivePath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp/zip';
+            $downloadArchiveFile = $downloadArchivePath . '/' . uniqid('') . '.zip';
+        }
+        else
+        {
+            $downloadArchiveFile = rtrim( $downloadArchivePath, '/' )
+                . '/' . claro_get_current_course_id() 
+                . '_CLDOC_' . uniqid('') . '.zip';
+        }
     
         if ( ! is_dir( $downloadArchivePath ) )
         {
@@ -1478,7 +1491,11 @@ if ( trim($searchPattern) != '')
 else
     $downloadArgument = 'file='. download_url_encode($curDirPath);
 
-if ( claro_is_user_authenticated() || get_conf('cldoc_allowAnonymousToDownloadFolder', false) )
+if ( ( claro_is_user_authenticated() 
+        && ( claro_is_allowed_to_edit() || get_conf('cldoc_allowNonManagersToDownloadFolder', true) ) ) 
+    || ( get_conf('cldoc_allowNonManagersToDownloadFolder', true) 
+        && get_conf( 'cldoc_allowAnonymousToDownloadFolder', true ) )
+)
 {
     if( isset($fileList) && count($fileList) > 0 )
     {
@@ -2049,11 +2066,11 @@ else
                     if ($thisFile['type'] == A_FILE)
                     {
                         $out .= '<a href="'
-                              . htmlspecialchars(Url::Contextualize( '../work/work.php?'
-                              . 'submitGroupWorkUrl='.$cmdFileName ))
-                              . '">'
-                              . '<small>'.get_lang('Publish').'</small>'
-                              . '</a>';
+                            .htmlspecialchars(Url::Contextualize( get_module_url('CLWRK').'/work.php?'
+                            .'submitGroupWorkUrl='.urlencode($thisFile['path']) ))
+                            . '">'
+                            .'<small>'.get_lang('Publish').'</small>'
+                            .'</a>';
                     }
                     // else noop
                 }
@@ -2123,6 +2140,13 @@ $claroline->display->body->appendContent($out);
 echo $claroline->display->render();
 
 // call the garbage collector to remove temporary files
-$tmpZipPath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp/zip';
+
+$tmpZipPath = get_conf('cldoc_customTmpPath', '');
+
+if ( empty($tmpZipPath) )
+{
+    $tmpZipPath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp/zip';
+}
+
 $gc = new ClaroGarbageCollector( $tmpZipPath, 3600 );
 $gc->run();
