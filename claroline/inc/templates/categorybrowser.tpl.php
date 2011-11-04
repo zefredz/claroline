@@ -7,7 +7,7 @@
 <p>
     <a href="<?php echo $_SERVER['PHP_SELF']; ?>?category=<?php echo urlencode( $this->currentCategory->idParent ); ?>#categoryContent">
         <span style="background-image: url(<?php echo get_icon_url('back'); ?>); background-repeat: no-repeat; background-position: left center; padding-left: 20px;">
-            <?php echo get_lang( 'previous level' ); ?>
+            <?php echo get_lang('parent category'); ?>
         </span>
     </a>
 </p>
@@ -20,12 +20,12 @@
 
 
 <!-- SUB CATEGORIES (with link to go deeper when possible) -->
-<?php if ( count($this->categoriesList) - 1 >= 0 ) : ?>
+<?php if ( count($this->categoryList) - 1 >= 0 ) : ?>
 
 <h4><?php echo get_lang('Sub categories'); ?></h4>
 
 <ul>
-<?php foreach( $this->categoriesList as $category ) : ?>
+<?php foreach( $this->categoryList as $category ) : ?>
     
     <?php if (claroCategory::countAllCourses($category['id']) + claroCategory::countAllSubCategories($category['id']) > 0) : ?>
     <li>
@@ -54,7 +54,7 @@
 <p>
     <a href="<?php echo $_SERVER['PHP_SELF']; ?>?category=<?php echo urlencode( $this->currentCategory->idParent ); ?>#categoryContent">
         <span style="background-image: url(<?php echo get_icon_url('back'); ?>); background-repeat: no-repeat; background-position: left center; padding-left: 20px;">
-            <?php echo get_lang( 'previous level' ); ?>
+            <?php echo get_lang('parent category'); ?>
         </span>
     </a>
 </p>

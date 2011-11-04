@@ -14,6 +14,7 @@
 
 
 require_once dirname(__FILE__) . '/clarocategory.class.php';
+require_once dirname(__FILE__) . '/course/courselist.lib.php';
 
 class ClaroCategoriesBrowser
 {
@@ -27,7 +28,7 @@ class ClaroCategoriesBrowser
     public $curentCategory;
     
     // List of categories
-    public $categoriesList;
+    public $categoryList;
     
     // List of courses
     public $coursesList;
@@ -47,7 +48,7 @@ class ClaroCategoriesBrowser
         
         $this->currentCategory  = new claroCategory();
         $this->currentCategory->load($categoryId);
-        $this->categoriesList   = claroCategory::getCategories($categoryId, 1);
+        $this->categoryList     = claroCategory::getCategories($categoryId, 1);
         $this->coursesList      = claroCourse::getRestrictedCourses($categoryId, $userId);
     }
     
@@ -71,8 +72,8 @@ class ClaroCategoriesBrowser
      */
     function get_sub_category_list()
     {
-        if (!empty($this->categoriesList))
-            return $this->categoriesList;
+        if (!empty($this->categoryList))
+            return $this->categoryList;
         else
             return array();
     }
@@ -176,20 +177,41 @@ class ClaroCategoriesBrowser
         JavascriptLoader::getInstance()->load('course_list');
         
         $currentCategory    = $this->get_current_category_settings();
-        $categoriesList     = $this->get_sub_category_list();
+        $categoryList       = $this->get_sub_category_list();
+        $userId             = claro_get_current_user_id();
         
-        $courseList = (!is_null(claro_get_current_user_id())) ?
-            $this->getCoursesWithoutSourceCourses():
-            $this->getCoursesWithoutSessionCourses();
+        // CourseListIterator
+        $categoryCourseList = new CategoryCourseList($this->categoryId);
+        $courseListIterator = $categoryCourseList->getIterator();
         
-        $templateCourseList = new CoreTemplate('course_list.tpl.php');
-        $templateCourseList->assign('courseList', $courseList);
+        // User rights
+        if ($userId)
+        {
+            $privilegeList = new CourseUserPrivilegesList($userId);
+            $privilegeList->load();
+        }
+        else
+        {
+            $privilegeList = null;
+        }
+        
+        // Hot courses
+        $date = Claroline::getInstance()->notification->get_notification_date($userId);
+        $modifiedCourseList = Claroline::getInstance()->notification->get_notified_courses($date, $userId);
+        
+        // Course tree
+        $courseTree = new CourseTree($courseListIterator);
+        
+        $courseListView = new CourseTreeView(
+            $courseTree->getRootNode(), 
+            $privilegeList,
+            $modifiedCourseList);
             
         $template = new CoreTemplate('categorybrowser.tpl.php');
         $template->assign('currentCategory', $currentCategory);
         $template->assign('categoryBrowser', $this);
-        $template->assign('categoriesList', $categoriesList);
-        $template->assign('templateCourseList', $templateCourseList);
+        $template->assign('categoryList', $categoryList);
+        $template->assign('templateCourseList', $courseListView);
         
         return $template;
     }
