@@ -212,20 +212,9 @@ class ClaroCategory
      */
     public static function getAllCategoriesFlat ( $separator = ' > ' )
     {
-        $categoriesList = self::getAllCategories();
+        $categoryList = self::getAllCategories();
         
-        $flatList = array();
-        foreach ($categoriesList as $category)
-        {
-            $flatList[] = array(
-                'id' =>     $category['id'],
-                'canHaveCoursesChild' => $category['canHaveCoursesChild'],
-                'visible' => $category['visible'],
-                'path' =>   self::getPath($category['id'], $categoriesList, $separator)
-            );
-        }
-        
-        return $flatList;
+        return ClaroCategory::flatCategoryList($categoryList, $separator);
     }
     
     
@@ -301,9 +290,9 @@ class ClaroCategory
      * Return a list of categories associated to a list of courses
      *
      * @param int user id
-     * @return Database_ResultSet list of categories associated to the user
+     * @return array list of categories associated to the user
      */
-    public static function getUserCategories ( $userId )
+    public static function getUserCategoriesFlat ( $userId, $separator = '>' )
     {
         // Get table name
         $tbl_mdb_names              = claro_sql_get_main_tbl();
@@ -312,7 +301,11 @@ class ClaroCategory
         $tbl_category               = $tbl_mdb_names['category'];
         $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
 
-        $sql = "SELECT ca.id, ca.name 
+        $sql = "SELECT ca.id, 
+                       ca.name, 
+                       ca.visible, 
+                       ca.canHaveCoursesChild,
+                       ca.idParent
 
                 FROM `{$tbl_category}` AS ca
 
@@ -330,8 +323,32 @@ class ClaroCategory
                 GROUP BY ca.id";
 
         $result = Claroline::getDatabase()->query($sql);
+        $result->setFetchMode(Mysql_ResultSet::FETCH_ASSOC);
 
-        return $result;
+        return ClaroCategory::flatCategoryList($result, $separator);
+    }
+    
+    
+    /**
+     * Turn an array of categories into an array of "flat" categories 
+     * (each array entry contains the whole path to a category).
+     *
+     * @return array
+     */
+    public static function flatCategoryList($categoryList, $separator)
+    {
+        $flatList = array();
+        foreach ($categoryList as $category)
+        {
+            $flatList[] = array(
+                'id' =>     $category['id'],
+                'canHaveCoursesChild' => $category['canHaveCoursesChild'],
+                'visible' => $category['visible'],
+                'path' =>   self::getPath($category['id'], $categoryList, $separator)
+            );
+        }
+        
+        return $flatList;
     }
     
     
