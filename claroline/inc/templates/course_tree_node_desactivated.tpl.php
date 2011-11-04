@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 
-<dt>
+<dt class="desactivated">
     <img
         class="access qtip"
         src="<?php echo get_course_access_icon(
@@ -8,31 +8,6 @@
         alt="<?php echo htmlspecialchars(
             get_course_access_mode_caption(
                 $this->node->getCourse()->access)); ?>" />
-    
-    <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
-        $this->node->getCourse()->courseId )->isCourseManager()
-        || claro_is_platform_admin() ) : ?>
-    
-    <a href="<?php echo htmlspecialchars(get_path('url')
-        .'/claroline/course/index.php?cid='.$this->node->getCourse()->sysCode); ?>">
-        
-        <?php echo htmlspecialchars($this->node->getCourse()->officialCode); ?>
-        &ndash;
-        <?php echo htmlspecialchars($this->node->getCourse()->name); ?>
-        
-    </a>
-    
-    <?php else : ?>
-    
-    <span class="desactivated">
-        
-    <?php echo htmlspecialchars($this->node->getCourse()->officialCode); ?>
-    &ndash;
-    <?php echo htmlspecialchars($this->node->getCourse()->name); ?>
-    
-    </span>
-    
-    <?php endif; ?>
     
     <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
         $this->node->getCourse()->courseId)->isCourseManager() ) : ?>
@@ -55,8 +30,30 @@
         <span class="role">[Pending]</span>
     
     <?php endif; ?>
+    
+    <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
+        $this->node->getCourse()->courseId )->isCourseManager()
+        || claro_is_platform_admin() ) : ?>
+    
+    <a href="<?php echo htmlspecialchars(get_path('url')
+        .'/claroline/course/index.php?cid='.$this->node->getCourse()->sysCode); ?>">
+        
+        <?php echo htmlspecialchars($this->node->getCourse()->officialCode); ?>
+        &ndash;
+        <?php echo htmlspecialchars($this->node->getCourse()->name); ?>
+        
+    </a>
+    
+    <?php else : ?>
+        
+    <?php echo htmlspecialchars($this->node->getCourse()->officialCode); ?>
+    &ndash;
+    <?php echo htmlspecialchars($this->node->getCourse()->name); ?>
+    
+    <?php endif; ?>
 </dt>
 <dd>
+    <span>
     <?php if ( isset($this->node->getCourse()->email )
         && claro_is_user_authenticated() ) : ?>
     
@@ -93,5 +90,5 @@
     </dl>
     
     <?php endif; ?>
-    
+    </span>
 </dd>

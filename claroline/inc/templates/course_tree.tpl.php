@@ -11,7 +11,7 @@
 
         <?php foreach ($this->categoryList as $category) : ?>
         <option value="<?php echo $category['id']; ?>"<?php if(isset($this->selectedViewCategory) && $this->selectedViewCategory == $category['id']) : ?> selected="selected"<?php endif; ?>>
-            <?php echo $category['name']; ?>
+            <?php echo $category['path']; ?>
         </option>
 
         <?php endforeach; ?>

@@ -838,7 +838,7 @@ ul.groupToolList {
 dl.courseList {
     display: inline-block;
     margin: 0 0 10px 0;
-    padding-left: 0;
+    padding: 0;
 }
 
 dl.courseList dt {
@@ -856,6 +856,10 @@ dl.courseList dd:last-child {
     border-bottom: 0;
 }
 
+dl.courseList dd span {
+    margin-right: 16px;
+}
+
 dl.courseList h4 {
     margin: 0;
 }
@@ -865,7 +869,7 @@ dl.courseList .role {
     margin-left: 10px;
 }
 
-dl.courseList .desactivated {
+dl.courseList dt.desactivated {
     color: #999
 }
 
