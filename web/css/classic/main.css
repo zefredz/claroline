@@ -856,10 +856,6 @@ dl.courseList dd:last-child {
     border-bottom: 0;
 }
 
-dl.courseList dd span {
-    margin-right: 16px;
-}
-
 dl.courseList h4 {
     margin: 0;
 }

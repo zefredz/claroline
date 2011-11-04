@@ -579,36 +579,6 @@ class CourseTreeNode
 }
 
 
-Class CourseListView implements Display
-{
-    /**
-     * @var CourseListIterator
-     */
-    protected $courseList;
-    
-    /**
-     * Constructor
-     * @param CourseListIterator
-     * @param CourseUserPrivilegesList
-     */
-    public function __construct($courseList, $courseUserPrivilegesList)
-    {
-        $this->courseList = $courseList;
-        $this->courseUserPrivilegesList = $courseUserPrivilegesList;
-    }
-    
-    public function render()
-    {
-        $tpl = new CoreTemplate('user_course_list.tpl.php');
-        
-        $tpl->assign('courseList', $this->courseList);
-        $tpl->assign('cupList', $this->courseUserPrivilegesList);
-        
-        return $tpl->render();
-    }
-}
-
-
 Class CourseTreeView implements Display
 {
     /**
@@ -635,18 +605,21 @@ Class CourseTreeView implements Display
      * Constructor
      * @param CourseTree
      * @param CourseUserPrivilegesList (default: null)
+     * @param array of id of modified courses (hot courses)
      * @param Database_ResultSet (default: null)
      * @param int (default: null)
      */
     public function __construct(
         $courseTreeNode,
         $courseUserPrivilegesList = null,
+        $courseModifiedList = null,
         $categoryList = null, 
         $selectedViewCategory = null
     )
     {
         $this->courseTreeRootNode = $courseTreeNode;
         $this->courseUserPrivilegesList = $courseUserPrivilegesList;
+        $this->modifiedCourseList = $courseModifiedList;
         $this->categoryList = $categoryList;
         $this->selectedViewCategory = $selectedViewCategory;
     }
@@ -657,6 +630,7 @@ Class CourseTreeView implements Display
         
         $tpl->assign('courseTreeRootNode', $this->courseTreeRootNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
+        $tpl->assign('modifiedCourseList', $this->modifiedCourseList);
         $tpl->assign('categoryList', $this->categoryList);
         $tpl->assign('selectedViewCategory', $this->selectedViewCategory);
         
@@ -678,14 +652,20 @@ Class CourseTreeNodeView implements Display
     protected $courseUserPrivilegesList;
     
     /**
+     * @var array of course codes (id)
+     */
+    protected $modifiedCourseList;
+    
+    /**
      * Constructor
      * @param CourseTreeNode
      * @param CourseUserPrivilegesList
      */
-    public function __construct($courseTreeNode, $courseUserPrivilegesList)
+    public function __construct($courseTreeNode, $courseUserPrivilegesList, $modifiedCourseList)
     {
         $this->courseTreeNode = $courseTreeNode;
         $this->courseUserPrivilegesList = $courseUserPrivilegesList;
+        $this->modifiedCourseList = $modifiedCourseList;
     }
     
     public function render()
@@ -694,6 +674,7 @@ Class CourseTreeNodeView implements Display
         
         $tpl->assign('node', $this->courseTreeNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
+        $tpl->assign('modifiedCourseList', $this->modifiedCourseList);
         
         return $tpl->render();
     }
@@ -712,10 +693,11 @@ Class CourseTreeNodeAnonymousView implements Display
      * @param CourseTreeNode
      * @param CourseUserPrivilegesList
      */
-    public function __construct($courseTreeNode, $courseUserPrivilegesList)
+    public function __construct($courseTreeNode, $courseUserPrivilegesList, $modifiedCourseList)
     {
         $this->courseTreeNodeAnonymous = $courseTreeNode;
         $this->courseUserPrivilegesList = $courseUserPrivilegesList;
+        $this->modifiedCourseList = $modifiedCourseList;
     }
     
     public function render()
@@ -724,6 +706,7 @@ Class CourseTreeNodeAnonymousView implements Display
         
         $tpl->assign('node', $this->courseTreeNodeAnonymous);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
+        $tpl->assign('modifiedCourseList', $this->modifiedCourseList);
         
         return $tpl->render();
     }

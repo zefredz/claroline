@@ -9,6 +9,8 @@
             get_course_access_mode_caption(
                 $this->node->getCourse()->access ) ); ?>" />
     
+    <?php if (!empty($this->courseUserPrivilegesList)) : ?>
+    
     <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
         $this->node->getCourse()->courseId)->isCourseManager() ) : ?>
     
@@ -30,8 +32,13 @@
         <span class="role">[Pending]</span>
     
     <?php endif; ?>
-        
-    <a href="<?php echo htmlspecialchars(get_path('url')
+    
+    <?php endif; ?>
+    
+    <a <?php if (!empty($this->modifiedCourseList) 
+        && in_array($this->node->getCourse()->courseId, $this->modifiedCourseList)) : 
+        ?>class="hot"<?php endif; ?>
+        href="<?php echo htmlspecialchars(get_path('url')
         .'/claroline/course/index.php?cid='.$this->node->getCourse()->sysCode); ?>">
         <?php echo htmlspecialchars( $this->node->getCourse()->officialCode) ; ?>
         &ndash;

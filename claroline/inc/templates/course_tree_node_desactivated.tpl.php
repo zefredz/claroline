@@ -1,6 +1,8 @@
 <!-- $Id$ -->
 
-<dt class="desactivated">
+<dt class="desactivated<?php if (!empty($this->modifiedCourseList) 
+    && in_array($this->node->getCourse()->courseId, $this->modifiedCourseList)) : 
+    ?> hot<?php endif; ?>">
     <img
         class="access qtip"
         src="<?php echo get_course_access_icon(
@@ -8,6 +10,8 @@
         alt="<?php echo htmlspecialchars(
             get_course_access_mode_caption(
                 $this->node->getCourse()->access)); ?>" />
+    
+    <?php if (!empty($this->courseUserPrivilegesList)) : ?>
     
     <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
         $this->node->getCourse()->courseId)->isCourseManager() ) : ?>
@@ -31,11 +35,16 @@
     
     <?php endif; ?>
     
+    <?php endif; ?>
+    
     <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
         $this->node->getCourse()->courseId )->isCourseManager()
         || claro_is_platform_admin() ) : ?>
     
-    <a href="<?php echo htmlspecialchars(get_path('url')
+    <a <?php if (!empty($this->modifiedCourseList) 
+        && in_array($this->node->getCourse()->courseId, $this->modifiedCourseList)) : 
+        ?>class="hot"<?php endif; ?>
+        href="<?php echo htmlspecialchars(get_path('url')
         .'/claroline/course/index.php?cid='.$this->node->getCourse()->sysCode); ?>">
         
         <?php echo htmlspecialchars($this->node->getCourse()->officialCode); ?>
