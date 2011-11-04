@@ -13,9 +13,10 @@
     <?php foreach ( $this->node->getChildren() as $childNode ) : ?>
         
         <?php
-            $childNodeView = new CourseTreeNodeView( 
+            $childNodeView = new CourseTreeNodeView(
                 $childNode, 
-                $this->courseUserPrivilegesList );
+                $this->courseUserPrivilegesList,
+                $this->modifiedCourseList);
             
             echo $childNodeView->render();
         ?>

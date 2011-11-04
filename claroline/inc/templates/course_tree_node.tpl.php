@@ -72,13 +72,21 @@
         
         <?php if ($childNode->getCourse()->isActivated()) : ?>
         <?php
-            $childNodeView = new CourseTreeNodeView($childNode, $this->courseUserPrivilegesList);
+            $childNodeView = new CourseTreeNodeView(
+                $childNode, 
+                $this->courseUserPrivilegesList,
+                $this->modifiedCourseList);
+            
             echo $childNodeView->render();
         ?>
         
         <?php else : ?>
         <?php
-            $childNodeView = new CourseTreeNodeDesactivatedView($childNode, $this->courseUserPrivilegesList);
+            $childNodeView = new CourseTreeNodeDesactivatedView(
+                $childNode, 
+                $this->courseUserPrivilegesList,
+                $this->modifiedCourseList);
+            
             echo $childNodeView->render();
         ?>
         
