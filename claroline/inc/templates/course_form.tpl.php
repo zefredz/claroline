@@ -139,7 +139,7 @@
                     <img src="<?php echo get_icon_url('access_open'); ?>" alt="<?php echo get_lang('open'); ?>" />
                     <input type="radio"<?php echo $this->publicDisabled; ?> id="access_public" name="course_access" value="public" <?php echo ($this->course->access == 'public' ? 'checked="checked"':''); ?> />
                     &nbsp;
-                    <label for="access_public"<?php echo $this->publicCssClass; ?>">
+                    <label for="access_public"<?php echo $this->publicCssClass; ?>>
                         <?php echo get_lang('Access allowed to anybody (even without login)'); ?>
                     </label>
                     <?php echo $this->publicMessage; ?>
