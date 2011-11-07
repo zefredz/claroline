@@ -661,7 +661,10 @@ Class CourseTreeNodeView implements Display
      * @param CourseTreeNode
      * @param CourseUserPrivilegesList
      */
-    public function __construct($courseTreeNode, $courseUserPrivilegesList, $modifiedCourseList)
+    public function __construct(
+        $courseTreeNode, 
+        $courseUserPrivilegesList = null, 
+        $modifiedCourseList = array())
     {
         $this->courseTreeNode = $courseTreeNode;
         $this->courseUserPrivilegesList = $courseUserPrivilegesList;
@@ -689,13 +692,26 @@ Class CourseTreeNodeAnonymousView implements Display
     protected $courseTreeNodeAnonymous;
     
     /**
+     * @var CourseUserPrivilegesList
+     */
+    protected $courseUserPrivilegesList;
+    
+    /**
+     * @var array of course codes (id)
+     */
+    protected $modifiedCourseList;
+    
+    /**
      * Constructor
      * @param CourseTreeNode
      * @param CourseUserPrivilegesList
      */
-    public function __construct($courseTreeNode, $courseUserPrivilegesList, $modifiedCourseList)
+    public function __construct(
+        $courseTreeNodeAnonymous, 
+        $courseUserPrivilegesList = null, 
+        $modifiedCourseList = array())
     {
-        $this->courseTreeNodeAnonymous = $courseTreeNode;
+        $this->courseTreeNodeAnonymous = $courseTreeNodeAnonymous;
         $this->courseUserPrivilegesList = $courseUserPrivilegesList;
         $this->modifiedCourseList = $modifiedCourseList;
     }
@@ -721,14 +737,28 @@ Class CourseTreeNodeDesactivatedView implements Display
     protected $courseTreeNodeDesactivated;
     
     /**
+     * @var CourseUserPrivilegesList
+     */
+    protected $courseUserPrivilegesList;
+    
+    /**
+     * @var array of course codes (id)
+     */
+    protected $modifiedCourseList;
+    
+    /**
      * Constructor
      * @param CourseTreeNode
      * @param CourseUserPrivilegesList
      */
-    public function __construct($courseTreeNode, $courseUserPrivilegesList)
+    public function __construct(
+        $courseTreeNodeDesactivated, 
+        $courseUserPrivilegesList = null, 
+        $modifiedCourseList = array())
     {
-        $this->courseTreeNodeDesactivated = $courseTreeNode;
+        $this->courseTreeNode = $courseTreeNode;
         $this->courseUserPrivilegesList = $courseUserPrivilegesList;
+        $this->modifiedCourseList = $modifiedCourseList;
     }
     
     public function render()
