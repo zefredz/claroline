@@ -410,8 +410,10 @@ class CourseTree
         return $this->recursiveToString();
     }
     
-    protected function recursiveToString($node = null, $level = 0, $out = '')
+    protected function recursiveToString($node = null, $level = 0)
     {
+        $out = '';
+        
         if (!isset($node))
         {
             $currentNode = $this->root;
@@ -437,7 +439,7 @@ class CourseTree
             $level++;
             foreach ($currentNode->getChildren() as $childNode)
             {
-                self::recursiveToString($childNode, $level, &$out);
+                $out .= $this->recursiveToString($childNode, $level);
             }
         }
         
