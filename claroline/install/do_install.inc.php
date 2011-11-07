@@ -404,20 +404,20 @@ try
                 
                 if ( !$moduleId )
                 {
-                    Console::warning($backlog->output());
+                    // Console::warning($backlog->output());
                     trigger_error( $backlog->output(), E_USER_WARNING );
                 }
 
                 if ( false !== activate_module( $moduleId ) )
                 {
-                    Console::warning('module (id:' . $moduleId . ',label:'.$moduleLabel.') not activated ');
+                    // Console::warning('module (id:' . $moduleId . ',label:'.$moduleLabel.') not activated ');
                     trigger_error('module (id:' . $moduleId . ',label:'.$moduleLabel.') not activated ', E_USER_WARNING );
                 }
 
             }
             else
             {
-                Console::warning('module path not found: ' . $modulePath );
+                // Console::warning('module path not found: ' . $modulePath );
                 trigger_error('module path not found' ,E_USER_WARNING );
             }
         }
