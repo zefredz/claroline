@@ -235,7 +235,7 @@ else
 }
 
 //check access rights
-$is_postAllowed = ( $forumSettingList['forum_access'] != 0
+$is_postAllowed = (  claro_is_course_member() && $forumSettingList['forum_access'] != 0
                     && ( !$topicId || !$topicSettingList['topic_status'] ) )
                     ? true
                     : false;
