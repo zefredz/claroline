@@ -5,7 +5,7 @@
 /**
  * Claroline notification system
  *
- * @version     1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -40,6 +40,7 @@ function load_current_module_listeners()
         }
     }
 }
+
 
 class ClaroNotifier extends EventGenerator
 {
@@ -1148,5 +1149,49 @@ class ClaroNotification extends EventDriven
     public function get_last_action_before_login_date($user_id)
     {
         return $this->getLastActionBeforeLoginDate($user_id);
+    }
+}
+
+
+class NotifiedCourseList 
+{
+    /**
+     * @var array of course id (code)
+     */
+    protected $notifiedCourseIdList;
+    
+    /**
+     * Constructor
+     * @param String date (format: 2011-11-09 14:39:00; default: null)
+     * @param int $userId 
+     */
+    public function __construct($userId, $date = null)
+    {
+        if (empty($date))
+        {
+            $date = Claroline::getInstance()->notification->getNotificationDate($userId);
+        }
+        
+        $this->notifiedCourseIdList = Claroline::getInstance()
+            ->notification->get_notified_courses($date, $userId);
+    }
+    
+    /**
+     * Return true if the course has been notified, false otherwise
+     * @param String course id (code)
+     * @return boolean
+     */
+    public function isCourseNotified($courseId)
+    {
+        return in_array($courseId, $this->notifiedCourseIdList);
+    }
+    
+    /**
+     * Return true if the course has been notified, false otherwise
+     * @return ArrayIterator
+     */
+    public function getNotifiedCourseIdList()
+    {
+        return new ArrayIterator($this->notifiedCourseIdList);
     }
 }
