@@ -38,7 +38,7 @@
                 $childNodeView = new CourseTreeNodeView(
                     $courseTreeNode,
                     $this->courseUserPrivilegesList,
-                    $this->modifiedCourseList);
+                    $this->notifiedCourseList);
                 
                 echo $childNodeView->render();
             ?>
@@ -49,7 +49,7 @@
                 $childNodeView = new CourseTreeNodeDesactivatedView(
                     $courseTreeNode,
                     $this->courseUserPrivilegesList,
-                    $this->modifiedCourseList);
+                    $this->notifiedCourseList);
                 
                 echo $childNodeView->render();
             ?>

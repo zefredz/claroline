@@ -16,7 +16,7 @@
             $childNodeView = new CourseTreeNodeView(
                 $childNode, 
                 $this->courseUserPrivilegesList,
-                $this->modifiedCourseList);
+                $this->notifiedCourseList);
             
             echo $childNodeView->render();
         ?>

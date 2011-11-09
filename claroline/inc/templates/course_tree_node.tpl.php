@@ -37,8 +37,8 @@
     
     <?php endif; ?>
     
-    <a <?php if (!empty($this->modifiedCourseList) 
-        && in_array($this->node->getCourse()->courseId, $this->modifiedCourseList)) : 
+    <a <?php if (!empty($this->notifiedCourseList) 
+        && $this->notifiedCourseList->isCourseNotified($this->node->getCourse()->courseId)) : 
         ?>class="hot"<?php endif; ?>
         href="<?php echo htmlspecialchars(get_path('url')
         .'/claroline/course/index.php?cid='.$this->node->getCourse()->sysCode); ?>">
@@ -77,7 +77,7 @@
             $childNodeView = new CourseTreeNodeView(
                 $childNode, 
                 $this->courseUserPrivilegesList,
-                $this->modifiedCourseList);
+                $this->notifiedCourseList);
             
             echo $childNodeView->render();
         ?>
@@ -87,7 +87,7 @@
             $childNodeView = new CourseTreeNodeDesactivatedView(
                 $childNode, 
                 $this->courseUserPrivilegesList,
-                $this->modifiedCourseList);
+                $this->notifiedCourseList);
             
             echo $childNodeView->render();
         ?>

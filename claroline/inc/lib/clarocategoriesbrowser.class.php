@@ -196,8 +196,8 @@ class ClaroCategoriesBrowser
         }
         
         // Hot courses
-        $date = Claroline::getInstance()->notification->get_notification_date($userId);
-        $modifiedCourseList = Claroline::getInstance()->notification->get_notified_courses($date, $userId);
+        $notifiedCourseListObject = new NotifiedCourseList($userId);
+        $notifiedCourseList = $notifiedCourseListObject->getNotifiedCourseIdList();
         
         // Course tree
         $courseTree = new CourseTree($courseListIterator);
@@ -205,7 +205,7 @@ class ClaroCategoriesBrowser
         $courseListView = new CourseTreeView(
             $courseTree->getRootNode(), 
             $privilegeList,
-            $modifiedCourseList);
+            $notifiedCourseList);
             
         $template = new CoreTemplate('categorybrowser.tpl.php');
         $template->assign('currentCategory', $currentCategory);

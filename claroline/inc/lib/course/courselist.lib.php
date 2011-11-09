@@ -592,6 +592,11 @@ class CourseTreeView implements Display
      * @var CourseUserPrivilegesList
      */
     protected $courseUserPrivilegesList;
+    
+    /**
+     * @var NotifiedCourseList
+     */
+    protected $notifiedCourseList;
 
     /**
      * @var Database_ResultSet
@@ -607,21 +612,21 @@ class CourseTreeView implements Display
      * Constructor
      * @param CourseTree
      * @param CourseUserPrivilegesList (default: null)
-     * @param array of id of modified courses (hot courses)
+     * @param NotifiedCourseList
      * @param Database_ResultSet (default: null)
      * @param int (default: null)
      */
     public function __construct(
         $courseTreeNode,
         $courseUserPrivilegesList = null,
-        $courseModifiedList = null,
+        $notifiedCourseList = null,
         $categoryList = null, 
         $selectedViewCategory = null
     )
     {
         $this->courseTreeRootNode = $courseTreeNode;
         $this->courseUserPrivilegesList = $courseUserPrivilegesList;
-        $this->modifiedCourseList = $courseModifiedList;
+        $this->notifiedCourseList = $notifiedCourseList;
         $this->categoryList = $categoryList;
         $this->selectedViewCategory = $selectedViewCategory;
     }
@@ -632,7 +637,7 @@ class CourseTreeView implements Display
         
         $tpl->assign('courseTreeRootNode', $this->courseTreeRootNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
-        $tpl->assign('modifiedCourseList', $this->modifiedCourseList);
+        $tpl->assign('notifiedCourseList', $this->notifiedCourseList);
         $tpl->assign('categoryList', $this->categoryList);
         $tpl->assign('selectedViewCategory', $this->selectedViewCategory);
         
@@ -654,23 +659,24 @@ abstract class AbstractCourseTreeNodeView implements Display
     protected $courseUserPrivilegesList;
     
     /**
-     * @var array of course codes (id)
+     * @var NotifiedCourseList
      */
-    protected $modifiedCourseList;
+    protected $notifiedCourseList;
     
     /**
      * Constructor
      * @param CourseTreeNode
-     * @param CourseUserPrivilegesList
+     * @param CourseUserPrivilegesList (default: null)
+     * @param NotifiedCourseList (default: null)
      */
     public function __construct(
         $courseTreeNode, 
         $courseUserPrivilegesList = null, 
-        $modifiedCourseList = array())
+        $notifiedCourseList = null)
     {
         $this->courseTreeNode = $courseTreeNode;
         $this->courseUserPrivilegesList = $courseUserPrivilegesList;
-        $this->modifiedCourseList = $modifiedCourseList;
+        $this->notifiedCourseList = $notifiedCourseList;
     }
 }
 
@@ -683,7 +689,7 @@ class CourseTreeNodeView extends AbstractCourseTreeNodeView
         
         $tpl->assign('node', $this->courseTreeNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
-        $tpl->assign('modifiedCourseList', $this->modifiedCourseList);
+        $tpl->assign('notifiedCourseList', $this->notifiedCourseList);
         
         return $tpl->render();
     }
@@ -698,7 +704,7 @@ class CourseTreeNodeAnonymousView extends AbstractCourseTreeNodeView
         
         $tpl->assign('node', $this->courseTreeNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
-        $tpl->assign('modifiedCourseList', $this->modifiedCourseList);
+        $tpl->assign('notifiedCourseList', $this->notifiedCourseList);
         
         return $tpl->render();
     }
@@ -713,7 +719,7 @@ class CourseTreeNodeDesactivatedView extends AbstractCourseTreeNodeView
         
         $tpl->assign('node', $this->courseTreeNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
-        $tpl->assign('modifiedCourseList', $this->modifiedCourseList);
+        $tpl->assign('notifiedCourseList', $this->notifiedCourseList);
         
         return $tpl->render();
     }
