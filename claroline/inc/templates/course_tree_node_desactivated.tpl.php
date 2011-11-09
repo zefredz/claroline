@@ -26,12 +26,14 @@
     <?php elseif ( $this->courseUserPrivilegesList->getCoursePrivileges(
         $this->node->getCourse()->courseId)->isCourseMember() ) : ?>
     
-        <img class="role qtip" src="<?php echo get_icon_url('user'); ?>" alt="<?php echo get_lang('You are user of this course'); ?>" />
-    
-    <?php elseif ( $this->courseUserPrivilegesList->getCoursePrivileges(
-        $this->node->getCourse()->courseId)->isEnrolmentPending() ) : ?>
-    
+        <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId)->isEnrolmentPending() ) : ?>
         <span class="role">[Pending]</span>
+        
+        <?php else : ?>
+        <img class="role qtip" src="<?php echo get_icon_url('user'); ?>" alt="<?php echo get_lang('You are user of this course'); ?>" />
+        
+        <?php endif; ?>
     
     <?php endif; ?>
     
