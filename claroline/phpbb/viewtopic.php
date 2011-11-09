@@ -237,10 +237,12 @@ else
 }
 
 //check access rights
-$is_postAllowed = ( !claro_is_current_user_enrolment_pending() && $forumSettingList['forum_access'] != 0
+$is_postAllowed = ( !claro_is_current_user_enrolment_pending() && claro_is_course_member() 
+                    && $forumSettingList['forum_access'] != 0
                     && ( !$topicId || !$topicSettingList['topic_status'] ) )
                     ? true
                     : false;
+
 $is_viewAllowed = !is_null( $forumSettingList['idGroup'] )
                   && !( ( $forumSettingList['idGroup'] == claro_get_current_group_id() )
                         || claro_is_in_a_group() || claro_is_group_allowed() )
