@@ -989,7 +989,7 @@ class ClaroCourse
     {
         JavascriptLoader::getInstance()->load('course_form');
         
-        $languageList   = claro_get_lang_flat_list();
+        $languageList = get_language_to_display_list('availableLanguagesForCourses');
         $categoriesList = claroCategory::getAllCategoriesFlat();
         
         $linkedCategoriesListHtml   = ''; // Categories linked to the course

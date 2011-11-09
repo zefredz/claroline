@@ -430,18 +430,18 @@ function get_language_list()
     }
 }
 
-function get_language_to_display_list()
+function get_language_to_display_list( $param = 'language_to_display' )
 {
     global $platformLanguage;
 
     $language_list = array();
 
-    $language_to_display_list = get_conf('language_to_display');
+    $language_to_display_list = get_conf( $param );
     $language_to_display_list[] = $platformLanguage;
 
     foreach ( $language_to_display_list as $language )
     {
-        $key = get_translation_of_language($language);
+        $key = ucfirst( get_translation_of_language($language) );
         $value = $language;
         $language_list[$key] = $value;
     }

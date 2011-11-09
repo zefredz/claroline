@@ -32,6 +32,7 @@ array ( 'fill_course_example'
       , 'courseSessionAllowed'
       , 'nbCharFinalSuffix'
       , 'forceCodeCase'
+      , 'availableLanguagesForCourses'
       );
 
 $conf_def['section']['needed']['label']='Course information requirements';
@@ -89,6 +90,16 @@ array ('label'       => 'Course code case'
                                 ,'lower'=>'Force to lowercase the course code'
                                 ,'nochange'=>'dont change case'
                                 )
+      );
+
+$conf_def_property_list['availableLanguagesForCourses'] =
+array ('label'         => 'Course language selector'
+      ,'description'   => 'Available languages for course websites'
+      ,'default'       => array()
+      ,'type'          => 'multi'
+      ,'display'       => true
+      ,'acceptedValueType' => 'lang'
+      ,'readonly'      => false
       );
 
 $conf_def_property_list['allowPublicCourses'] =
