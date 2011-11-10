@@ -197,7 +197,6 @@ class ClaroCategoriesBrowser
         
         // Hot courses
         $notifiedCourseListObject = new NotifiedCourseList($userId);
-        $notifiedCourseList = $notifiedCourseListObject->getNotifiedCourseIdList();
         
         // Course tree
         $courseTree = new CourseTree($courseListIterator);
@@ -205,7 +204,7 @@ class ClaroCategoriesBrowser
         $courseListView = new CourseTreeView(
             $courseTree->getRootNode(), 
             $privilegeList,
-            $notifiedCourseList);
+            $notifiedCourseListObject);
             
         $template = new CoreTemplate('categorybrowser.tpl.php');
         $template->assign('currentCategory', $currentCategory);
