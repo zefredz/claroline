@@ -167,11 +167,36 @@ class CourseUserPrivileges
     }
 }
 
+class CourseAnonymousUserPriveleges extends CourseUserPrivileges
+{
+    public function __construct($courseId)
+    {
+        parent::__construct($courseId, null);
+    }
+    
+    public function load()
+    {
+        $priv->_profileId        = claro_get_profile_id('anonymous');
+        $priv->is_coursePending  = false;
+        $priv->is_courseMember   = false;
+        $priv->is_courseTutor    = false;
+        $priv->is_courseAdmin    = false;
+    }
+    
+    public function fromArray( $courseId, $data = null )
+    {
+        $priv = new self( $courseId );
+        $priv->load();
+        
+        return $priv;
+    }
+}
+
 class CourseUserPrivilegesList
 {
     protected $userId, $coursePrivilegesList;
     
-    public function __construct( $userId )
+    public function __construct( $userId = null )
     {
         $this->userId = $userId;
         $this->coursePrivilegesList = array();
@@ -179,35 +204,45 @@ class CourseUserPrivilegesList
     
     public function load()
     {
-        $tbl_mdb_names = claro_sql_get_main_tbl();
-        
-        $coursePrivilegesList = Claroline::getDatabase()->query("
-            SELECT
-                cu.code_cours AS courseId,
-                cu.profile_id AS profileId,
-                cu.isCourseManager,
-                cu.isPending,
-                cu.tutor
-            FROM
-                `{$tbl_mdb_names['rel_course_user']}` `cu`
-            WHERE
-                cu.`user_id`  = " . Claroline::getDatabase()->escape($this->userId) );
-        
-        foreach ( $coursePrivilegesList as $coursePrivileges )
+        if ( $this->userId )
         {
-            $this->coursePrivilegesList[$coursePrivileges['courseId']] = $coursePrivileges;
+            $tbl_mdb_names = claro_sql_get_main_tbl();
+
+            $coursePrivilegesList = Claroline::getDatabase()->query("
+                SELECT
+                    cu.code_cours AS courseId,
+                    cu.profile_id AS profileId,
+                    cu.isCourseManager,
+                    cu.isPending,
+                    cu.tutor
+                FROM
+                    `{$tbl_mdb_names['rel_course_user']}` `cu`
+                WHERE
+                    cu.`user_id`  = " . Claroline::getDatabase()->escape($this->userId) );
+
+            foreach ( $coursePrivilegesList as $coursePrivileges )
+            {
+                $this->coursePrivilegesList[$coursePrivileges['courseId']] = $coursePrivileges;
+            }
         }
     }
     
     public function getCoursePrivileges( $courseCode )
     {
-        if ( isset( $this->coursePrivilegesList[$courseCode] ) )
+        if ( ! $this->userId )
         {
-            $priv = CourseUserPrivileges::fromArray($this->userId, $courseCode, $this->coursePrivilegesList[$courseCode] );
+            $priv = CourseAnonymousUserPriveleges::fromArray( $courseCode );
         }
         else
         {
-            $priv = CourseUserPrivileges::fromArray($this->userId, $courseCode);
+            if ( isset( $this->coursePrivilegesList[$courseCode] ) )
+            {
+                $priv = CourseUserPrivileges::fromArray($this->userId, $courseCode, $this->coursePrivilegesList[$courseCode] );
+            }
+            else
+            {
+                $priv = CourseUserPrivileges::fromArray($this->userId, $courseCode);
+            }
         }
         
         return $priv;
@@ -239,6 +274,13 @@ class CourseUserPrivilegesIterator extends RowToObjectArrayIterator
             throw new Exception("Missing courseId in data");
         }
         
-        return CourseUserPrivileges::fromArray( $this->userId, $data['courseId'], $data );
+        if ( $this->userId )
+        {
+            return CourseUserPrivileges::fromArray( $this->userId, $data['courseId'], $data );
+        }
+        else
+        {
+            return CourseAnonymousUserPriveleges::fromArray( $data['courseId'], $data );
+        }
     }
 }
