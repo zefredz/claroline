@@ -176,11 +176,11 @@ class CourseAnonymousUserPriveleges extends CourseUserPrivileges
     
     public function load()
     {
-        $priv->_profileId        = claro_get_profile_id('anonymous');
-        $priv->is_coursePending  = false;
-        $priv->is_courseMember   = false;
-        $priv->is_courseTutor    = false;
-        $priv->is_courseAdmin    = false;
+        $this->_profileId        = claro_get_profile_id('anonymous');
+        $this->is_coursePending  = false;
+        $this->is_courseMember   = false;
+        $this->is_courseTutor    = false;
+        $this->is_courseAdmin    = false;
     }
     
     public function fromArray( $courseId )
