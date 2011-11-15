@@ -25,7 +25,7 @@ include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 require_once dirname(__FILE__) . '/claroline/inc/lib/coursesearchbox.class.php';
 
 
-if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
+if (get_conf('display_former_homepage', false) || !claro_is_user_authenticated())
 {
     require_once get_path('incRepositorySys') . '/lib/courselist.lib.php';
     JavascriptLoader::getInstance()->load('course_list');
@@ -45,34 +45,26 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
     $template->assign('lastUserAction', $lastUserAction);
     
     
-    // Category browser
-    $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
-    $categoryBrowser = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
-    $templateCategoryBrowser = $categoryBrowser->getTemplate();
-    
-    $template->assign('templateCategoryBrowser', $templateCategoryBrowser);
-    
-    
     // Manage the search box and search results
     $searchBox = new CourseSearchBox($_SERVER['REQUEST_URI']);
     
     $template->assign('templateCourseSearchBox', $searchBox->getTemplate());
     
     
-    // User course (activated and deactivated) lists and search results (if any)
-    $userCourseList             = render_user_course_list();
-    $userCourseListDesactivated = render_user_course_list_desactivated();
-    
-    $templateMyCourses = new CoreTemplate('mycourses.tpl.php');
-    $templateMyCourses->assign('userCourseList', $userCourseList);
-    $templateMyCourses->assign('userCourseListDesactivated', $userCourseListDesactivated);
-    
-    $template->assign('templateMyCourses', $templateMyCourses);
-    
-    
     if (claro_is_user_authenticated())
     {
+        // User course (activated and deactivated) lists and search results (if any)
+        $userCourseList             = render_user_course_list();
+        $userCourseListDesactivated = render_user_course_list_desactivated();
+        
+        $templateMyCourses = new CoreTemplate('mycourses.tpl.php');
+        $templateMyCourses->assign('userCourseList', $userCourseList);
+        $templateMyCourses->assign('userCourseListDesactivated', $userCourseListDesactivated);
+        
+        $template->assign('templateMyCourses', $templateMyCourses);
+        
         $userCommands = array();
+        
         
         // User commands
         $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="userCommandsItem">'
@@ -133,6 +125,15 @@ if (get_conf('display_former_homepage') || !claro_is_user_authenticated())
         $userProfileBox = new UserProfileBox(false);
         
         $template->assign('userProfileBox', $userProfileBox);
+    }
+    else
+    {
+        // Category browser
+        $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
+        $categoryBrowser = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
+        $templateCategoryBrowser = $categoryBrowser->getTemplate();
+        
+        $template->assign('templateCategoryBrowser', $templateCategoryBrowser);
     }
     
     
