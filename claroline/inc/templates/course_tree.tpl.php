@@ -2,7 +2,7 @@
 
 <?php if (count($this->categoryList) > 0) : ?>
 
-<form method="post" action="test.php">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
     <label for="viewCategory">Category selection</label>
     <select id="viewCategory" name="viewCategory">
         <option value="">
