@@ -171,6 +171,7 @@ class ClaroCategoriesBrowser
     /**
      * @return template object
      * @since 1.10
+     * @todo write a CategoryBrowserView class (implementing Display)
      */
     function getTemplate()
     {
@@ -180,37 +181,14 @@ class ClaroCategoriesBrowser
         $categoryList       = $this->get_sub_category_list();
         $userId             = claro_get_current_user_id();
         
-        // CourseListIterator
-        $categoryCourseList = new CategoryCourseList($this->categoryId);
-        $courseListIterator = $categoryCourseList->getIterator();
-        
-        // User rights
-        if ($userId)
-        {
-            $privilegeList = new CourseUserPrivilegesList($userId);
-            $privilegeList->load();
-        }
-        else
-        {
-            $privilegeList = null;
-        }
-        
-        // Hot courses
-        $notifiedCourseListObject = new NotifiedCourseList($userId);
-        
-        // Course tree
-        $courseTree = new CourseTree($courseListIterator);
-        
-        $courseListView = new CourseTreeView(
-            $courseTree->getRootNode(), 
-            $privilegeList,
-            $notifiedCourseListObject);
+        $courseTreeView = 
+            CourseTreeNodeViewFactory::getCategoryCourseTreeView($this->categoryId);
             
         $template = new CoreTemplate('categorybrowser.tpl.php');
         $template->assign('currentCategory', $currentCategory);
         $template->assign('categoryBrowser', $this);
         $template->assign('categoryList', $categoryList);
-        $template->assign('templateCourseList', $courseListView);
+        $template->assign('courseTreeView', $courseTreeView);
         
         return $template;
     }

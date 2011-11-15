@@ -54,19 +54,28 @@ if (get_conf('display_former_homepage', false) || !claro_is_user_authenticated()
     if (claro_is_user_authenticated())
     {
         // User course (activated and deactivated) lists and search results (if any)
-        $userCourseList             = render_user_course_list();
-        $userCourseListDesactivated = render_user_course_list_desactivated();
+        if (empty($_REQUEST['viewCategory']))
+        {
+            $courseTreeView = 
+                CourseTreeNodeViewFactory::getUserCourseTreeView(
+                    claro_get_current_user_id()
+                );
+        }
+        else
+        {
+            $courseTreeView = 
+                CourseTreeNodeViewFactory::getUserCategoryCourseTreeView(
+                    claro_get_current_user_id(), $_REQUEST['viewCategory']
+                );
+        }
+
         
-        $templateMyCourses = new CoreTemplate('mycourses.tpl.php');
-        $templateMyCourses->assign('userCourseList', $userCourseList);
-        $templateMyCourses->assign('userCourseListDesactivated', $userCourseListDesactivated);
-        
-        $template->assign('templateMyCourses', $templateMyCourses);
-        
-        $userCommands = array();
+        $template->assign('templateMyCourses', $courseTreeView);
         
         
         // User commands
+        $userCommands = array();
+        
         $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="userCommandsItem">'
                         . '<img src="' . get_icon_url('mycourses') . '" alt="" /> '
                         . get_lang('My course list')

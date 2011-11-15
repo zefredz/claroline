@@ -47,7 +47,7 @@
 <!-- COURSES (belonging to the current category) -->
 <h4><?php echo get_lang( 'Courses in this category' ); ?></h4>
 
-<?php echo $this->templateCourseList->render(); ?>
+<?php echo $this->courseTreeView->render(); ?>
 
 
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>
