@@ -724,3 +724,108 @@ class CourseTreeNodeDesactivatedView extends AbstractCourseTreeNodeView
         return $tpl->render();
     }
 }
+
+
+class CourseTreeNodeViewFactory
+{
+    /**
+     * @param int user id
+     * @return CourseTreeView 
+     */
+    static public function getUserCourseTreeView($userId)
+    {
+        // CourseListIterator
+        $courseList = new UserCourseList($userId);
+        $courseListIterator = $courseList->getIterator();
+        
+        // User rights
+        $privilegeList = new CourseUserPrivilegesList($userId);
+        $privilegeList->load();
+        
+        // Hot courses
+        $notifiedCourseList = new NotifiedCourseList($userId);
+        
+        // User categories
+        $userCategoryList = ClaroCategory::getUserCategoriesFlat($userId);
+        
+        // Selected category
+        $selectedCategoryId = isset($_REQUEST['viewCategory']) ? 
+            (int) $_REQUEST['viewCategory'] : 
+            null;
+        
+        // Course tree
+        $courseTree = new CourseTree($courseListIterator);
+        
+        $courseTreeView = new CourseTreeView(
+            $courseTree->getRootNode(), 
+            $privilegeList,
+            $notifiedCourseList, 
+            $userCategoryList,
+            $selectedCategoryId);
+        
+        return $courseTreeView;
+    }
+    
+    /**
+     * @param int category id
+     * @return CourseTreeView 
+     */
+    static public function getCategoryCourseTreeView($categoryId)
+    {
+        // CourseListIterator
+        $courseList = new CategoryCourseList($categoryId);
+        $courseListIterator = $courseList->getIterator();
+        
+        // Course tree
+        $courseTree = new CourseTree($courseListIterator);
+        
+        $courseTreeView = new CourseTreeView(
+            $courseTree->getRootNode());
+        
+        return $courseTreeView;
+    }
+    
+    /**
+     * @param int user id
+     * @param int category id
+     * @return CourseTreeView 
+     */
+    static public function getUserCategoryCourseTreeView($userId, $categoryId)
+    {
+        // CourseListIterator
+        $courseList = new UserCategoryCourseList($userId, $categoryId);
+        $courseListIterator = $courseList->getIterator();
+        
+        // User rights
+        $privilegeList = new CourseUserPrivilegesList($userId);
+        $privilegeList->load();
+        
+        // Hot courses
+        $notifiedCourseList = new NotifiedCourseList($userId);
+        
+        // User categories
+        $userCategoryList = ClaroCategory::getUserCategoriesFlat($userId);
+        
+        // Selected category
+        $selectedCategoryId = isset($_REQUEST['viewCategory']) ? 
+            (int) $_REQUEST['viewCategory'] : 
+            null;
+        
+        // Course tree
+        $courseTree = new CourseTree($courseListIterator);
+        
+        $courseTreeView = new CourseTreeView(
+            $courseTree->getRootNode(), 
+            $privilegeList,
+            $notifiedCourseList, 
+            $userCategoryList,
+            $selectedCategoryId);
+        
+        return $courseTreeView;
+    }
+    
+    static public function getSearchedCourseTreeView($keyword)
+    {
+        //@todo
+    }
+}
