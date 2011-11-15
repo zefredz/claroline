@@ -183,7 +183,7 @@ class CourseAnonymousUserPriveleges extends CourseUserPrivileges
         $priv->is_courseAdmin    = false;
     }
     
-    public function fromArray( $courseId, $data = null )
+    public function fromArray( $courseId )
     {
         $priv = new self( $courseId );
         $priv->load();
@@ -280,7 +280,7 @@ class CourseUserPrivilegesIterator extends RowToObjectArrayIterator
         }
         else
         {
-            return CourseAnonymousUserPriveleges::fromArray( $data['courseId'], $data );
+            return CourseAnonymousUserPriveleges::fromArray( $data['courseId'] );
         }
     }
 }
