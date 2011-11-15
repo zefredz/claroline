@@ -167,7 +167,7 @@ class CourseUserPrivileges
     }
 }
 
-class CourseAnonymousUserPriveleges extends CourseUserPrivileges
+class CourseAnonymousUserPrivileges extends CourseUserPrivileges
 {
     public function __construct($courseId)
     {
@@ -231,7 +231,7 @@ class CourseUserPrivilegesList
     {
         if ( ! $this->userId )
         {
-            $priv = CourseAnonymousUserPriveleges::fromArray( $courseCode );
+            $priv = CourseAnonymousUserPrivileges::fromArray( $courseCode );
         }
         else
         {
@@ -280,7 +280,7 @@ class CourseUserPrivilegesIterator extends RowToObjectArrayIterator
         }
         else
         {
-            return CourseAnonymousUserPriveleges::fromArray( $data['courseId'] );
+            return CourseAnonymousUserPrivileges::fromArray( $data['courseId'] );
         }
     }
 }
