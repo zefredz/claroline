@@ -183,7 +183,7 @@ class CourseAnonymousUserPrivileges extends CourseUserPrivileges
         $this->is_courseAdmin    = false;
     }
     
-    public function fromArray( $courseId )
+    public static function fromArray( $courseId )
     {
         $priv = new self( $courseId );
         $priv->load();
