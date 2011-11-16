@@ -48,7 +48,7 @@ $tbl_cdb_names = claro_sql_get_course_tbl();
 // learning path 
 // new module CLLP
 $inLP = (claro_called_from() == 'CLLP')? true : false;
-$inOldLP = !( isset($_SESSION['inPathMode']) &&  $_SESSION['inPathMode'] );
+$inOldLP = ( isset($_SESSION['inPathMode']) &&  $_SESSION['inPathMode'] );
 
 // old learning path tool 
 if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
