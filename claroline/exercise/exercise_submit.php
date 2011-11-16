@@ -48,8 +48,10 @@ $tbl_cdb_names = claro_sql_get_course_tbl();
 // learning path 
 // new module CLLP
 $inLP = (claro_called_from() == 'CLLP')? true : false;
+$inOldLP = ( isset($_SESSION['inPathMode']) &&  $_SESSION['inPathMode'] );
+
 // old learning path tool 
-if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
+if( $inOldLP )
 {
     require_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
 
@@ -103,8 +105,7 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
         // load successfull
         // exercise must be visible or in learning path to be displayed to a student
         if( $exercise->getVisibility() != 'VISIBLE' && !$is_allowedToEdit 
-        && ( ! (isset($_SESSION['inPathMode']) ||  $_SESSION['inPathMode'] ||  $inLP ) )
-         )
+            && !( $inOldLP ||  $inLP ) )
         {
             $dialogBox->error( get_lang( 'The exercise is not available' ) );
         
