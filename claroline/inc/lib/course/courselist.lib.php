@@ -56,8 +56,6 @@ class UserCourseList extends AbstractCourseList
         $tbl_courses                = $tbl_mdb_names['course'];
         $tbl_rel_course_user        = $tbl_mdb_names['rel_course_user'];
         
-        $curdate = claro_mktime();
-        
         $sql = "SELECT
                 c.code                  AS courseId,
                 c.code                  AS sysCode,
@@ -119,8 +117,6 @@ class CategoryCourseList extends AbstractCourseList
         $tbl_mdb_names              = claro_sql_get_main_tbl();
         $tbl_courses                = $tbl_mdb_names['course'];
         $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
-        
-        $curdate = claro_mktime();
         
         $sql = "SELECT
                 c.code                  AS courseId,
@@ -191,8 +187,6 @@ class UserCategoryCourseList extends AbstractCourseList
         $tbl_rel_course_user        = $tbl_mdb_names['rel_course_user'];
         $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
         
-        $curdate = claro_mktime();
-        
         $sql = "SELECT
                 c.code                  AS courseId,
                 c.code                  AS sysCode,
@@ -252,7 +246,48 @@ class SearchedCourseList extends AbstractCourseList
     
     public function getIterator()
     {
-        //@todo
+        $tbl_mdb_names              = claro_sql_get_main_tbl();
+        $tbl_courses                = $tbl_mdb_names['course'];
+        
+        $upperKeyword = Claroline::getDatabase()->quote(strtoupper($keyword));
+        
+        $sql = "SELECT
+                c.code                  AS courseId,
+                c.code                  AS sysCode,
+                c.cours_id              AS id,
+                c.isSourceCourse        AS isSourceCourse,
+                c.sourceCourseId        AS sourceCourseId,
+                c.intitule              AS name,
+                c.administrativeNumber  AS officialCode,
+                c.administrativeNumber  AS administrativeNumber,
+                c.directory             AS path,
+                c.dbName                AS dbName,
+                c.titulaires            AS titular,
+                c.email                 AS email,
+                c.language              AS language,
+                c.extLinkUrl            AS extLinkUrl,
+                c.extLinkName           AS extLinkName,
+                c.visibility            AS visibility,
+                c.access                AS access,
+                c.registration          AS registration,
+                c.registrationKey       AS registrationKey,
+                c.diskQuota             AS diskQuota,
+                UNIX_TIMESTAMP(c.creationDate)          AS publicationDate,
+                UNIX_TIMESTAMP(c.expirationDate)        AS expirationDate,
+                c.status                AS status,
+                c.userLimit             AS userLimit
+                
+                FROM `" . $tbl_courses . "` AS c
+                
+                WHERE UPPER(administrativeNumber) LIKE '%" . $upperKeyword . "%'
+                OR UPPER(intitule) LIKE '%" . $upperKeyword . "%'
+                OR UPPER(titulaires) LIKE '%" . $upperKeyword . "%'
+                
+                ORDER BY UPPER(administrativeNumber), intitule";
+        
+        $result = Claroline::getDatabase()->query($sql);
+        
+        return new CourseListIterator($result);
     }
 }
 
