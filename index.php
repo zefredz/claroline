@@ -68,10 +68,8 @@ if (get_conf('display_former_homepage', false) || !claro_is_user_authenticated()
                     claro_get_current_user_id(), $_REQUEST['viewCategory']
                 );
         }
-
         
         $template->assign('templateMyCourses', $courseTreeView);
-        
         
         // User commands
         $userCommands = array();

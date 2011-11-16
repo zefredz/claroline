@@ -60,6 +60,7 @@
             <?php echo claro_html_list( $this->userCommands ); ?>
         </td>
         <td class="userCourseList">
+            <h1><?php echo get_lang('My course list'); ?></h1>
             <?php echo $this->templateMyCourses->render(); ?>
         </td>
       </tr>
