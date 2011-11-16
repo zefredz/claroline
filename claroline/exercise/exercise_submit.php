@@ -51,7 +51,7 @@ $inLP = (claro_called_from() == 'CLLP')? true : false;
 $inOldLP = ( isset($_SESSION['inPathMode']) &&  $_SESSION['inPathMode'] );
 
 // old learning path tool 
-if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
+if( $inOldLP )
 {
     require_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
 
