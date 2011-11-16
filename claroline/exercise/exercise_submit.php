@@ -104,8 +104,9 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
     {
         // load successfull
         // exercise must be visible or in learning path to be displayed to a student
-        if( $exercise->getVisibility() != 'VISIBLE' && !$is_allowedToEdit 
-        && ( $inOldLP ||  $inLP ) )
+        if( 
+            $exercise->getVisibility() != 'VISIBLE' && !$is_allowedToEdit 
+            && !( $inOldLP ||  $inLP ) )
         {
             $dialogBox->error( get_lang( 'The exercise is not available' ) );
         
