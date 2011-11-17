@@ -48,7 +48,7 @@ if (get_conf('display_former_homepage', false) || !claro_is_user_authenticated()
     // Manage the search box and search results
     $searchBox = new CourseSearchBox($_SERVER['REQUEST_URI']);
     
-    $template->assign('templateCourseSearchBox', $searchBox->getTemplate());
+    $template->assign('searchBox', $searchBox);
     
     
     if (claro_is_user_authenticated())

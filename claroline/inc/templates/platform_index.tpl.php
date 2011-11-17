@@ -71,7 +71,7 @@
             <?php echo $this->templateCategoryBrowser->render(); ?>
         <?php endif; ?>
         
-        <?php echo $this->templateCourseSearchBox->render(); ?>
+        <?php echo $this->searchBox->render(); ?>
     <?php endif; ?>
     
     <?php

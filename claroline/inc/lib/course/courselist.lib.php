@@ -77,8 +77,8 @@ class UserCourseList extends AbstractCourseList
                 c.registration          AS registration,
                 c.registrationKey       AS registrationKey,
                 c.diskQuota             AS diskQuota,
-                UNIX_TIMESTAMP(c.creationDate)          AS publicationDate,
-                UNIX_TIMESTAMP(c.expirationDate)        AS expirationDate,
+                UNIX_TIMESTAMP(c.creationDate)      AS publicationDate,
+                UNIX_TIMESTAMP(c.expirationDate)    AS expirationDate,
                 c.status                AS status,
                 c.userLimit             AS userLimit
                 
@@ -139,8 +139,8 @@ class CategoryCourseList extends AbstractCourseList
                 c.registration          AS registration,
                 c.registrationKey       AS registrationKey,
                 c.diskQuota             AS diskQuota,
-                UNIX_TIMESTAMP(c.creationDate)          AS publicationDate,
-                UNIX_TIMESTAMP(c.expirationDate)        AS expirationDate,
+                UNIX_TIMESTAMP(c.creationDate)      AS publicationDate,
+                UNIX_TIMESTAMP(c.expirationDate)    AS expirationDate,
                 c.status                AS status,
                 c.userLimit             AS userLimit
                 
@@ -208,8 +208,8 @@ class UserCategoryCourseList extends AbstractCourseList
                 c.registration          AS registration,
                 c.registrationKey       AS registrationKey,
                 c.diskQuota             AS diskQuota,
-                UNIX_TIMESTAMP(c.creationDate)          AS publicationDate,
-                UNIX_TIMESTAMP(c.expirationDate)        AS expirationDate,
+                UNIX_TIMESTAMP(c.creationDate)      AS publicationDate,
+                UNIX_TIMESTAMP(c.expirationDate)    AS expirationDate,
                 c.status                AS status,
                 c.userLimit             AS userLimit
                 
@@ -249,7 +249,7 @@ class SearchedCourseList extends AbstractCourseList
         $tbl_mdb_names              = claro_sql_get_main_tbl();
         $tbl_courses                = $tbl_mdb_names['course'];
         
-        $upperKeyword = Claroline::getDatabase()->quote(strtoupper($keyword));
+        $upperKeyword = addslashes(strtoupper($this->keyword));
         
         $sql = "SELECT
                 c.code                  AS courseId,
@@ -272,8 +272,8 @@ class SearchedCourseList extends AbstractCourseList
                 c.registration          AS registration,
                 c.registrationKey       AS registrationKey,
                 c.diskQuota             AS diskQuota,
-                UNIX_TIMESTAMP(c.creationDate)          AS publicationDate,
-                UNIX_TIMESTAMP(c.expirationDate)        AS expirationDate,
+                UNIX_TIMESTAMP(c.creationDate)      AS publicationDate,
+                UNIX_TIMESTAMP(c.expirationDate)    AS expirationDate,
                 c.status                AS status,
                 c.userLimit             AS userLimit
                 
@@ -616,6 +616,11 @@ class CourseTreeNode
 }
 
 
+/**
+ * The CourseTreeView renders the base of a course tree.  The course tree 
+ * contains nodes (CourseTreeNode) rendered through the CourseTreeNodeView 
+ * class.
+ */
 class CourseTreeView implements Display
 {
     /**
@@ -634,7 +639,7 @@ class CourseTreeView implements Display
     protected $notifiedCourseList;
 
     /**
-     * @var Database_ResultSet
+     * @var Database_ResultSet list of categories
      */
     protected $categoryList;
 
@@ -647,9 +652,9 @@ class CourseTreeView implements Display
      * Constructor
      * @param CourseTree
      * @param CourseUserPrivilegesList (default: null)
-     * @param NotifiedCourseList
-     * @param Database_ResultSet (default: null)
-     * @param int (default: null)
+     * @param NotifiedCourseList (default: null)
+     * @param Database_ResultSet list of categories (default: null)
+     * @param int id of selected category (default: null)
      */
     public function __construct(
         $courseTreeNode,
@@ -859,8 +864,22 @@ class CourseTreeNodeViewFactory
         return $courseTreeView;
     }
     
+    /**
+     * @param String keyword
+     * @return CourseTreeView 
+     */
     static public function getSearchedCourseTreeView($keyword)
     {
-        //@todo
+        // CourseListIterator
+        $courseList = new SearchedCourseList($keyword);
+        $courseListIterator = $courseList->getIterator();
+        
+        // Course tree
+        $courseTree = new CourseTree($courseListIterator);
+        
+        $courseTreeView = new CourseTreeView(
+            $courseTree->getRootNode());
+        
+        return $courseTreeView;
     }
 }

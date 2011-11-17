@@ -56,7 +56,8 @@ class CourseSearchBox implements Display
     
     private function fetchResults()
     {
-        $this->searchResults = search_course($this->keyword);
+        $this->searchResults = 
+            CourseTreeNodeViewFactory::getSearchedCourseTreeView($this->keyword);
     }
     
     public function getTemplate()
@@ -68,7 +69,7 @@ class CourseSearchBox implements Display
         
         $templateCourseSearchBox = new CoreTemplate('course_search_box.tpl.php');
         $templateCourseSearchBox->assign('formAction', $this->formAction);
-        $templateCourseSearchBox->assign('courseList', $this->searchResults);
+        $templateCourseSearchBox->assign('courseTree', $this->searchResults);
         $templateCourseSearchBox->assign('keyword', $this->keyword);
         
         return $templateCourseSearchBox;
