@@ -19,12 +19,10 @@ require_once dirname(__FILE__) . '/clarocategoriesbrowser.class.php';
  * a platform admin, this function will not return source courses having
  * session courses.
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
  * @param  string       $keyword course code from the cours table
  * @param  mixed        $userId  null or valid id of a user (default:null)
- *
  * @return array        course parameters
+ * @deprecated use SearchedCourseList instead
  */
 function search_course($keyword, $userId = null)
 {
@@ -144,6 +142,7 @@ function search_course($keyword, $userId = null)
  * @param boolean $categories wheter true, get categories informations (default: false)
  * @return array (list of course) of array (course settings) of the given user
  * @todo search and merge other instance of this functionality (claro_get_user_course_list())
+ * @deprecated use UserCourseList instead
  */
 function get_user_course_list($userId, $renew = false, $categories = false)
 {
@@ -237,6 +236,7 @@ function get_user_course_list($userId, $renew = false, $categories = false)
  * @param boolean $renew whether true, force to read databaseingoring an existing cache.
  * @return array (list of course) of array (course settings) of the given user.
  * @todo search and merge other instance of this functionality
+ * @deprecated use UserCourseList instead
  */
 function get_user_course_list_desactivated($userId, $renew = false)
 {
@@ -265,10 +265,10 @@ function get_user_course_list_desactivated($userId, $renew = false)
                        course.status,
                        UNIX_TIMESTAMP(course.expirationDate) AS expirationDate,
                        UNIX_TIMESTAMP(course.creationDate)     AS creationDate
-
+                       
                        FROM `" . $tbl_courses . "`           AS course,
                             `" . $tbl_link_user_courses . "` AS course_user
-
+                       
                        WHERE course.code         = course_user.code_cours
                          AND course_user.user_id = " . (int) $userId . "
                          AND (course.`status` = 'disable'
@@ -279,7 +279,7 @@ function get_user_course_list_desactivated($userId, $renew = false)
                                        )
                                   )
                               ) " ;
-
+        
         if ( get_conf('course_order_by') == 'official_code' )
         {
             $sql .= " ORDER BY UPPER(`administrativeNumber`), `title`";
@@ -288,10 +288,10 @@ function get_user_course_list_desactivated($userId, $renew = false)
         {
             $sql .= " ORDER BY `title`, UPPER(`administrativeNumber`)";
         }
-
+        
         $userCourseListDesactivated = claro_sql_query_fetch_all($sql);
     }
-
+    
     return $userCourseListDesactivated;
 }
 
@@ -400,6 +400,12 @@ function is_user_allowed_to_see_desactivated_course( $course )
 }
 
 
+/**
+ * Returns a courses list for the current user.
+ *
+ * @return string       list of courses (HTML format)
+ * @deprecated use UserCourseList and CourseTreeView instead
+ */
 function render_user_course_list_desactivated()
 {
     $personnalCourseList = get_user_course_list_desactivated(claro_get_current_user_id());
@@ -548,6 +554,7 @@ function render_user_course_list_desactivated()
  * Returns a courses list for the current user.
  *
  * @return string       list of courses (HTML format)
+ * @deprecated use UserCourseList and CourseTreeView instead
  */
 function render_user_course_list()
 {
@@ -766,6 +773,7 @@ function render_user_course_list()
  * @param $hot
  * @param $displayIconAccess
  * @return string
+ * @deprecated use UserCourseList and CourseTreeView instead
  */
 function render_course_in_dl_list($course, $hot = false, $displayIconAccess = true)
 {
