@@ -175,8 +175,6 @@ class ClaroCategoriesBrowser
      */
     function getTemplate()
     {
-        JavascriptLoader::getInstance()->load('course_list');
-        
         $currentCategory    = $this->get_current_category_settings();
         $categoryList       = $this->get_sub_category_list();
         $userId             = claro_get_current_user_id();
