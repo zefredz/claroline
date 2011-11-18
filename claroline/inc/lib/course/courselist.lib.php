@@ -29,9 +29,42 @@ interface CourseList
 
 abstract class AbstractCourseList implements CourseList
 {
+    const ORDER_BY_OFFICIAL_CODE = 'UPPER(`administrativeNumber`), `intitule`';
+    
+    const ORDER_BY_TITLE = '`intitule`, UPPER(`administrativeNumber`)';
+    
     /**
-     * @todo implement here the orderBy, orderDirection, etc.
+     * @var String
      */
+    protected $orderBy;
+    
+    public function __construct()
+    {
+        if (get_conf('course_order_by') == 'official_code')
+        {
+            $this->orderBy = self::ORDER_BY_OFFICIAL_CODE;
+        }
+        else
+        {
+            $this->orderBy = self::ORDER_BY_TITLE;
+        }
+    }
+    
+    /**
+     * @param String
+     */
+    public function setOrderBy($orderBy)
+    {
+        
+    }
+    
+    /**
+     * @param String
+     */
+    public function setOrderDirection($orderDirection)
+    {
+        
+    }
 }
 
 
@@ -47,6 +80,8 @@ class UserCourseList extends AbstractCourseList
     
     public function __construct($userId)
     {
+        parent::__construct();
+        
         $this->userId = $userId;
     }
     
@@ -88,7 +123,7 @@ class UserCourseList extends AbstractCourseList
                 ON rcu.code_cours = c.code
                 AND rcu.user_id = " . (int) $this->userId . "
                 
-                ORDER BY UPPER(administrativeNumber), intitule";
+                ORDER BY " . $this->orderBy . " ASC";
         
         $result = Claroline::getDatabase()->query($sql);
         
@@ -109,6 +144,8 @@ class CategoryCourseList extends AbstractCourseList
     
     public function __construct($categoryId)
     {
+        parent::__construct();
+        
         $this->categoryId = $categoryId;
     }
     
@@ -150,7 +187,7 @@ class CategoryCourseList extends AbstractCourseList
                 ON rcc.courseId = c.cours_id
                 AND rcc.categoryId = " . (int) $this->categoryId . "
                 
-                ORDER BY UPPER(administrativeNumber), intitule";
+                ORDER BY " . $this->orderBy . " ASC";
         
         $result = Claroline::getDatabase()->query($sql);
         
@@ -176,6 +213,8 @@ class UserCategoryCourseList extends AbstractCourseList
     
     public function __construct($userId, $categoryId)
     {
+        parent::__construct();
+        
         $this->userId = $userId;
         $this->categoryId = $categoryId;
     }
@@ -223,7 +262,7 @@ class UserCategoryCourseList extends AbstractCourseList
                 ON rcc.courseId = c.cours_id
                 AND rcc.categoryId = " . (int) $this->categoryId . "
                 
-                ORDER BY UPPER(administrativeNumber), intitule";
+                ORDER BY " . $this->orderBy . " ASC";
         
         $result = Claroline::getDatabase()->query($sql);
         
@@ -241,6 +280,8 @@ class SearchedCourseList extends AbstractCourseList
     
     public function __construct($keyword)
     {
+        parent::__construct();
+        
         $this->keyword = $keyword;
     }
     
@@ -283,7 +324,7 @@ class SearchedCourseList extends AbstractCourseList
                 OR UPPER(intitule) LIKE '%" . $upperKeyword . "%'
                 OR UPPER(titulaires) LIKE '%" . $upperKeyword . "%'
                 
-                ORDER BY UPPER(administrativeNumber), intitule";
+                ORDER BY " . $this->orderBy . " ASC";
         
         $result = Claroline::getDatabase()->query($sql);
         
