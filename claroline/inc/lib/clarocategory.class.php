@@ -327,6 +327,49 @@ class ClaroCategory
 
         return ClaroCategory::flatCategoryList($result, $separator);
     }
+
+
+    /**
+     * Return a list of categories associated to a list of courses
+     *
+     * @param int user id
+     * @return Database_ResultSet list of categories associated to the user
+     */
+    public static function getUserCategories ( $userId, $separator = '>' )
+    {
+        // Get table name
+        $tbl_mdb_names              = claro_sql_get_main_tbl();
+        $tbl_course                 = $tbl_mdb_names['course'];
+        $tbl_rel_course_user        = $tbl_mdb_names['rel_course_user'];
+        $tbl_category               = $tbl_mdb_names['category'];
+        $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
+
+        $sql = "SELECT ca.id, 
+                       ca.name, 
+                       ca.visible, 
+                       ca.canHaveCoursesChild,
+                       ca.idParent
+
+                FROM `{$tbl_category}` AS ca
+
+                JOIN `{$tbl_rel_course_category}` AS rcc
+                ON ca.id = rcc.categoryId
+
+                JOIN `{$tbl_course}` AS co
+                ON rcc.courseId = co.cours_id
+
+                JOIN `{$tbl_rel_course_user}` AS rcu
+                ON rcu.code_cours = co.code
+
+                WHERE rcu.user_id = {$userId}
+
+                GROUP BY ca.id";
+
+        $result = Claroline::getDatabase()->query($sql);
+        $result->setFetchMode(Mysql_ResultSet::FETCH_ASSOC);
+
+        return $result;
+    }
     
     
     /**

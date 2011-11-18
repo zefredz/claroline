@@ -827,7 +827,7 @@ class CourseTreeNodeViewFactory
         $notifiedCourseList = new NotifiedCourseList($userId);
         
         // User categories
-        $userCategoryList = ClaroCategory::getUserCategoriesFlat($userId);
+        $userCategoryList = ClaroCategory::getUserCategories($userId);
         
         // Selected category
         $selectedCategoryId = isset($_REQUEST['viewCategory']) ? 
@@ -885,7 +885,7 @@ class CourseTreeNodeViewFactory
         $notifiedCourseList = new NotifiedCourseList($userId);
         
         // User categories
-        $userCategoryList = ClaroCategory::getUserCategoriesFlat($userId);
+        $userCategoryList = ClaroCategory::getUserCategories($userId);
         
         // Selected category
         $selectedCategoryId = isset($_REQUEST['viewCategory']) ? 

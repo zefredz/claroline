@@ -8,12 +8,12 @@
         <option value="">
             <?php echo get_lang('All categories'); ?>
         </option>
-
+        
         <?php foreach ($this->categoryList as $category) : ?>
         <option value="<?php echo $category['id']; ?>"<?php if(isset($this->selectedViewCategory) && $this->selectedViewCategory == $category['id']) : ?> selected="selected"<?php endif; ?>>
-            <?php echo $category['path']; ?>
+            <?php echo $category['name']; ?>
         </option>
-
+        
         <?php endforeach; ?>
     </select> 
     <input type="submit" value="<?php echo get_lang("filter"); ?>" />
