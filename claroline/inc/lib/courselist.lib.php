@@ -11,7 +11,6 @@
  * @since       1.9
  */
 
-
 require_once dirname(__FILE__) . '/clarocategoriesbrowser.class.php';
 
 /**
@@ -875,64 +874,4 @@ function render_course_in_dl_list($course, $hot = false, $displayIconAccess = tr
     $out .= '</dd>' . "\n\n";
     
     return $out;
-}
-
-
-/**
- * Get an icon url according to a course access mode ('public', 'private' or 'platform')
- *
- * @param string $accessMode : label of the access mode for which an icon is asked for
- * @return string : the url to the icon
- */
-function get_course_access_icon($access)
-{
-    switch($access)
-    {
-        case 'private' :
-            $iconUrl = get_icon_url('access_locked');
-            break;
-        case 'platform' :
-            $iconUrl = get_icon_url('access_platform');
-            break;
-        case 'public' :
-            $iconUrl = get_icon_url('access_open');
-            break;
-        default :
-            $iconUrl = get_icon_url('course');
-    }
-    
-    return $iconUrl;
-}
-
-
-function get_course_access_mode_caption($access)
-{
-    switch($access)
-    {
-        case 'private' :
-            $caption = get_lang('Access allowed only to course members (people on the course user list)');
-            break;
-        case 'platform' :
-            $caption = get_lang('Access allowed only to platform members (user registered to the platform)');
-            break;
-        case 'public' :
-            $caption = get_lang('Access allowed to anybody (even without login)');
-            break;
-        default :
-            $caption = $access;
-    }
-    
-    return $caption;
-}
-
-
-function get_course_locale_lang($language)
-{
-    $langNameOfLang = get_locale('langNameOfLang');
-    
-    $localeLang = (!empty($langNameOfLang[$language])) ?
-        (ucfirst($langNameOfLang[$language])) :
-        (ucfirst($language));
-    
-    return $localeLang;
 }
