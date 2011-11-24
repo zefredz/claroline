@@ -142,15 +142,15 @@ class ClaroCourse
         {
             // Generate the array of categories (excepted for session courses)
             $categoriesList = array();
-            if (is_null($course_data['sourceCourseId']))
-            {
+            //if (is_null($course_data['sourceCourseId']))
+            //{
                 foreach ($course_data['categories'] as $cat)
                 {
                     $tempCat = new claroCategory();
                     $tempCat->load($cat['categoryId']);
                     $categoriesList[] = $tempCat;
                 }
-            }
+            //}
             
             // Assign
             $this->courseId           = $courseId;
@@ -211,13 +211,13 @@ class ClaroCourse
             // Session courses are created without categories links:
             // so we duplicate the source course's categories links
             
-            if ( !is_null($this->sourceCourseId) && !empty($this->sourceCourseId) )
+            /*if ( !is_null($this->sourceCourseId) && !empty($this->sourceCourseId) )
             {
                 $sourceCourse = new claroCourse();
                 $sourceCourse->load(claroCourse::getCodeFromId($this->sourceCourseId));
                 
                 $this->categories = $sourceCourse->categories;
-            }
+            }*/
             
             if (   prepare_course_repository($courseDirectory, $courseSysCode)
                 && register_course($courseSysCode

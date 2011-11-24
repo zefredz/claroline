@@ -55,7 +55,6 @@
                 </dd>
                 
                 <!-- Course categories -->
-                <?php if (empty($this->course->sourceCourseId)) : ?>
                 <dt>
                     <label>
                         <?php echo get_lang('Categories'); ?>
@@ -96,7 +95,6 @@
                     </span>
                     <?php endif; ?>
                 </dd>
-                <?php endif; ?>
                 
                 <!-- Course language select box -->
                 <dt>

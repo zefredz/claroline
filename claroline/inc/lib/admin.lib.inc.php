@@ -248,15 +248,15 @@ function link_course_categories ( $courseId, $categories )
     // Insert categories
     $sql = "INSERT INTO `" . $tbl_rel_course_category . "` (courseId, categoryId, rootCourse)
             VALUES ";
-    for ($i=0; $i < count($categories); $i++)
+    
+    $catArr = array();
+    
+    foreach( $categories as $category )
     {
-        $sql .= "(" . $courseId . ", " . $categories[$i]->id . ", 0)";
-        // More elements to come ?  Add a comma
-        if ( $i < (count($categories)-1) )
-        {
-            $sql .= ", ";
-        }
+        $catArr[] =  "(" . $courseId . ", " . $category->id . ", 0)";
     }
+    
+    $sql .= implode( ',' , $catArr );
     
     return claro_sql_query($sql);
 }

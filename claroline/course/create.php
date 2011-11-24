@@ -66,6 +66,13 @@ if (!is_null($sourceCourseId))
     $course->sourceCourseId = $sourceCourseId;
 }
 
+if ( !is_null($course->sourceCourseId) && !empty($course->sourceCourseId) )
+{
+    $sourceCourse = new claroCourse();
+    $sourceCourse->load(claroCourse::getCodeFromId($course->sourceCourseId));
+    $course->categories = $sourceCourse->categories;
+}
+
 if ( $adminContext && claro_is_platform_admin() )
 {
     // From admin, add param to form
