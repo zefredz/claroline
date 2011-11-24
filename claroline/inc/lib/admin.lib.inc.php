@@ -258,7 +258,10 @@ function link_course_categories ( $courseId, $categories )
     
     $sql .= implode( ',' , $catArr );
     
-    return claro_sql_query($sql);
+    if ( ! empty( $catArr ) )
+    {
+        return claro_sql_query($sql);
+    }
 }
 
 
