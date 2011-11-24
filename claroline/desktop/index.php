@@ -72,32 +72,35 @@ try
     
     $moduleList = get_module_label_list();
     
-    foreach ( $moduleList as $moduleId => $moduleLabel )
+    if ( is_array( $moduleList ) )
     {
-        $portletPath = get_module_path( $moduleLabel )
-            . '/connector/desktop.cnr.php'
-            ;
-        
-        if ( file_exists( $portletPath ) )
+        foreach ( $moduleList as $moduleId => $moduleLabel )
         {
-            require_once $portletPath;
+            $portletPath = get_module_path( $moduleLabel )
+                . '/connector/desktop.cnr.php'
+                ;
             
-            $className = "{$moduleLabel}_Portlet";
-            
-            $portletInDB = $portletList->loadPortlet($className);
-            
-            // si present en db on passe
-            if( !$portletInDB )
+            if ( file_exists( $portletPath ) )
             {
-                if ( class_exists($className) )
+                require_once $portletPath;
+                
+                $className = "{$moduleLabel}_Portlet";
+                
+                $portletInDB = $portletList->loadPortlet($className);
+                
+                // si present en db on passe
+                if( !$portletInDB )
                 {
-                    $portlet = new $className($portletInDB['label']);
-                    $portletList->addPortlet( $className, $portlet->renderTitle() );
+                    if ( class_exists($className) )
+                    {
+                        $portlet = new $className($portletInDB['label']);
+                        $portletList->addPortlet( $className, $portlet->renderTitle() );
+                    }
                 }
+                
+                load_module_config($moduleLabel);
+                Language::load_module_translation($moduleLabel);
             }
-            
-            load_module_config($moduleLabel);
-            Language::load_module_translation($moduleLabel);
         }
     }
 }
