@@ -858,6 +858,8 @@ class CourseTreeNodeDesactivatedView extends AbstractCourseTreeNodeView
 class CourseTreeNodeViewFactory
 {
     /**
+     * Get the complete course tree of a specific user.
+     * 
      * @param int user id
      * @return CourseTreeView 
      */
@@ -896,6 +898,8 @@ class CourseTreeNodeViewFactory
     }
     
     /**
+     * Get the complete course tree of a specific category.
+     * 
      * @param int category id
      * @return CourseTreeView 
      */
@@ -920,6 +924,8 @@ class CourseTreeNodeViewFactory
     }
     
     /**
+     * Get the complete course tree of a specific category for a specific user.
+     * 
      * @param int user id
      * @param int category id
      * @return CourseTreeView 
@@ -959,6 +965,8 @@ class CourseTreeNodeViewFactory
     }
     
     /**
+     * Get the complete course tree of a specific keyword.
+     * 
      * @param String keyword
      * @return CourseTreeView 
      */
@@ -973,6 +981,36 @@ class CourseTreeNodeViewFactory
         
         $courseTreeView = new CourseTreeView(
             $courseTree->getRootNode());
+        
+        return $courseTreeView;
+    }
+    
+    /**
+     * Get the complete course tree of a specific category with enrolment 
+     * links (almost the same as getCategoryCourseTreeView()).  This method's 
+     * purpose is to display a category browser allowing enrolment.
+     * 
+     * @param int category id
+     * @return CourseTreeView 
+     */
+    static public function getEnrollCourseTreeView($categoryId)
+    {
+        // CourseListIterator
+        $courseList = new CategoryCourseList($categoryId);
+        $courseListIterator = $courseList->getIterator();
+        
+        // User rights
+        $privilegeList = new CourseUserPrivilegesList(claro_get_current_user_id());
+        $privilegeList->load();
+        
+        // Course tree
+        $courseTree = new CourseTree($courseListIterator);
+        
+        $courseTreeView = new CourseTreeView(
+            $courseTree->getRootNode(), 
+            $privilegeList);
+        
+        $courseTreeView->enableEnrollLink();
         
         return $courseTreeView;
     }

@@ -30,8 +30,15 @@ class ClaroCategoriesBrowser
     // List of categories
     public $categoryList;
     
-    // List of courses
-    public $coursesList;
+    /**
+     * @var bool display config options (default: false)
+     * @todo should move into a class dedicated to categorybrowser view
+     */
+    public $displayEnrollLink, $displayUnenrollLink;
+    
+    /**
+     * @var
+     */
     
     
     /**
@@ -40,7 +47,7 @@ class ClaroCategoriesBrowser
      * @param mixed $categoryId null or valid category identifier
      * @param mixed $userId null or valid user identifier
      */
-    public function __construct( $categoryId = null, $userId = null )
+    public function __construct($categoryId = null, $userId = null)
     {
         $this->categoryId   = $categoryId;
         $this->userId       = $userId;
@@ -49,6 +56,9 @@ class ClaroCategoriesBrowser
         $this->currentCategory->load($categoryId);
         $this->categoryList     = claroCategory::getCategories($categoryId, 1);
         $this->coursesList      = claroCourse::getRestrictedCourses($categoryId, $userId);
+        
+        $this->displayEnrollLink    = false;
+        $this->displayUnenrollLink  = false;
     }
     
     
@@ -184,9 +194,17 @@ class ClaroCategoriesBrowser
         $categoryList       = $this->get_sub_category_list();
         $userId             = claro_get_current_user_id();
         
-        $courseTreeView = 
-            CourseTreeNodeViewFactory::getCategoryCourseTreeView($this->categoryId);
-            
+        if ($this->displayEnrollLink)
+        {
+            $courseTreeView = 
+                CourseTreeNodeViewFactory::getEnrollCourseTreeView($this->categoryId);
+        }
+        else
+        {
+            $courseTreeView = 
+                CourseTreeNodeViewFactory::getCategoryCourseTreeView($this->categoryId);
+        }
+        
         $template = new CoreTemplate('categorybrowser.tpl.php');
         $template->assign('currentCategory', $currentCategory);
         $template->assign('categoryBrowser', $this);
