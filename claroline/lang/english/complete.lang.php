@@ -1982,6 +1982,7 @@ $_lang['You can set access rights for users using the following grid :'] = 'You 
 $_lang['You can\'t move %facultyCode in the same category !'] = 'You can\'t move %facultyCode in the same category !';
 $_lang['You can\'t remove a group forum. You have to remove the group first'] = 'You can\'t remove a group forum. You have to remove the group first';
 $_lang['You cannot add module. Change this in configuration.'] = 'You cannot add module. Change this in configuration.';
+$_lang['You cannot create a course session from another course session'] = 'You cannot create a course session from another course session';
 $_lang['You cannot give a blank name to a class'] = 'You cannot give a blank name to a class';
 $_lang['You cannot post an empty message'] = 'You must type a Message to post. You cannot post an empty Message.';
 $_lang['You cannot unsubscribe the last course manager of the course'] = 'You cannot unsubscribe the last course manager of the course';

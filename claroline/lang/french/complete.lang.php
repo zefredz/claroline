@@ -2059,6 +2059,7 @@ $_lang['You can set access rights for users using the following grid :'] = 'Défi
 $_lang['You can\'t move %facultyCode in the same category !'] = 'La catégorie %facultyCode ne peut se contenir elle-même.';
 $_lang['You can\'t remove a group forum. You have to remove the group first'] = 'Vous ne pouvez pas supprimer un forum de groupe.  Il faut d\'abord supprimer le groupe.';
 $_lang['You cannot add module. Change this in configuration.'] = 'L\'ajout de modules n\'est pas autorisée. Changez la configuration pour le permettre.';
+$_lang['You cannot create a course session from another course session'] = 'Vous ne pouvez pas créer un cours session à partir d\'un autre cours session';
 $_lang['You cannot give a blank name to a class'] = 'Nom obligatoire';
 $_lang['You cannot post an empty message'] = 'Les messages vides sont interdits. Rédigez un contenu avant de poster';
 $_lang['You cannot unsubscribe the last course manager of the course'] = 'Vous ne pouvez pas désinscrire le dernier gestionnaire d\'un cours ';
