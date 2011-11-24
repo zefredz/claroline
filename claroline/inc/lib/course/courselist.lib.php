@@ -15,7 +15,7 @@
 
 require_once dirname(__FILE__) . '/../kernel/course.lib.php';
 require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
-require_once dirname(__FILE__) . '/../courselist.lib.php';
+require_once dirname(__FILE__) . '/../clarocategoriesbrowser.class.php';
 
 
 interface CourseList
@@ -678,16 +678,21 @@ class CourseTreeView implements Display
      * @var NotifiedCourseList
      */
     protected $notifiedCourseList;
-
+    
     /**
      * @var Database_ResultSet list of categories
      */
     protected $categoryList;
-
+    
     /**
      * @var int id of selected category to view
      */
     protected $selectedViewCategory;
+    
+    /**
+     * @var bool display config options (default: false)
+     */
+    protected $displayEnrollLink, $displayUnenrollLink;
     
     /**
      * Constructor
@@ -710,6 +715,9 @@ class CourseTreeView implements Display
         $this->notifiedCourseList = $notifiedCourseList;
         $this->categoryList = $categoryList;
         $this->selectedViewCategory = $selectedViewCategory;
+        
+        $this->displayEnrollLink = false;
+        $this->displayUnenrollLink = false;
     }
     
     public function render()
@@ -721,8 +729,30 @@ class CourseTreeView implements Display
         $tpl->assign('notifiedCourseList', $this->notifiedCourseList);
         $tpl->assign('categoryList', $this->categoryList);
         $tpl->assign('selectedViewCategory', $this->selectedViewCategory);
+        $tpl->assign('displayEnrollLink', $this->displayEnrollLink);
+        $tpl->assign('displayUnenrollLink', $this->displayUnenrollLink);
         
         return $tpl->render();
+    }
+    
+    public function enableEnrollLink()
+    {
+        $this->displayEnrollLink = true;
+    }
+    
+    public function disableEnrollLink()
+    {
+        $this->displayEnrollLink = false;
+    }
+    
+    public function enableUnenrollLink()
+    {
+        $this->displayUnenrollLink = true;
+    }
+    
+    public function disableUnenrollLink()
+    {
+        $this->displayUnenrollLink = false;
     }
 }
 
@@ -745,19 +775,31 @@ abstract class AbstractCourseTreeNodeView implements Display
     protected $notifiedCourseList;
     
     /**
+     * @var bool display config options (default: false)
+     */
+    protected $displayEnrollLink, $displayUnenrollLink;
+    
+    /**
      * Constructor
      * @param CourseTreeNode
      * @param CourseUserPrivilegesList (default: null)
      * @param NotifiedCourseList (default: null)
+     * @param bool display enroll link
+     * @param bool display unenroll link
      */
     public function __construct(
         $courseTreeNode, 
         $courseUserPrivilegesList = null, 
-        $notifiedCourseList = null)
+        $notifiedCourseList = null,
+        $displayEnrollLink = false, 
+        $displayUnenrollLink = false)
     {
         $this->courseTreeNode = $courseTreeNode;
         $this->courseUserPrivilegesList = $courseUserPrivilegesList;
         $this->notifiedCourseList = $notifiedCourseList;
+        
+        $this->displayEnrollLink = $displayEnrollLink;
+        $this->displayUnenrollLink = $displayUnenrollLink;
     }
 }
 
@@ -771,6 +813,8 @@ class CourseTreeNodeView extends AbstractCourseTreeNodeView
         $tpl->assign('node', $this->courseTreeNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
         $tpl->assign('notifiedCourseList', $this->notifiedCourseList);
+        $tpl->assign('displayEnrollLink', $this->displayEnrollLink);
+        $tpl->assign('displayUnenrollLink', $this->displayUnenrollLink);
         
         return $tpl->render();
     }
@@ -786,6 +830,8 @@ class CourseTreeNodeAnonymousView extends AbstractCourseTreeNodeView
         $tpl->assign('node', $this->courseTreeNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
         $tpl->assign('notifiedCourseList', $this->notifiedCourseList);
+        $tpl->assign('displayEnrollLink', $this->displayEnrollLink);
+        $tpl->assign('displayUnenrollLink', $this->displayUnenrollLink);
         
         return $tpl->render();
     }
@@ -801,6 +847,8 @@ class CourseTreeNodeDesactivatedView extends AbstractCourseTreeNodeView
         $tpl->assign('node', $this->courseTreeNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
         $tpl->assign('notifiedCourseList', $this->notifiedCourseList);
+        $tpl->assign('displayEnrollLink', $this->displayEnrollLink);
+        $tpl->assign('displayUnenrollLink', $this->displayUnenrollLink);
         
         return $tpl->render();
     }
@@ -857,11 +905,16 @@ class CourseTreeNodeViewFactory
         $courseList = new CategoryCourseList($categoryId);
         $courseListIterator = $courseList->getIterator();
         
+        // User rights
+        $privilegeList = new CourseUserPrivilegesList(claro_get_current_user_id());
+        $privilegeList->load();
+        
         // Course tree
         $courseTree = new CourseTree($courseListIterator);
         
         $courseTreeView = new CourseTreeView(
-            $courseTree->getRootNode());
+            $courseTree->getRootNode(), 
+            $privilegeList);
         
         return $courseTreeView;
     }

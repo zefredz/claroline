@@ -2,7 +2,9 @@
 
 <?php if (count($this->categoryList) > 0) : ?>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<!-- Select box of courses categories -->
+<form id="courseListCategorySelector" method="post" 
+    action="<?php echo $_SERVER['PHP_SELF']; ?>#courseListCategorySelector">
     <label for="viewCategory">Category selection</label>
     <select id="viewCategory" name="viewCategory">
         <option value="">
@@ -15,9 +17,9 @@
         </option>
         
         <?php endforeach; ?>
-    </select> 
+    </select>
     <input type="submit" value="<?php echo get_lang("filter"); ?>" />
-</form><br /><br />
+</form><br />
 
 <div class="clearer"></div>
 
@@ -26,48 +28,59 @@
 
 <?php if ($this->courseTreeRootNode->hasChildren()) : ?>
 
+<!-- Render the base of the course tree -->
 <dl class="courseList">
     
     <?php foreach ($this->courseTreeRootNode->getChildren() as $courseTreeNode) : ?>
-    
+        
         <?php if ($courseTreeNode->hasCourse()) : ?>
             
             <?php if ($courseTreeNode->getCourse()->isActivated()) : ?>
             
+            <!-- Render the course and its children -->
             <?php
                 $childNodeView = new CourseTreeNodeView(
                     $courseTreeNode,
                     $this->courseUserPrivilegesList,
-                    $this->notifiedCourseList);
+                    $this->notifiedCourseList,
+                    $this->displayEnrollLink,
+                    $this->displayUnenrollLink);
                 
                 echo $childNodeView->render();
             ?>
             
             <?php else : ?>
             
+            <!-- Render the course (desactivated) and its children -->
             <?php
                 $childNodeView = new CourseTreeNodeDesactivatedView(
                     $courseTreeNode,
                     $this->courseUserPrivilegesList,
-                    $this->notifiedCourseList);
+                    $this->notifiedCourseList,
+                    $this->displayEnrollLink,
+                    $this->displayUnenrollLink);
                 
                 echo $childNodeView->render();
             ?>
             
             <?php endif; ?>
-        
+            
         <?php else : ?>
         
+        <!-- Render the course (adoptive) and its orphan children -->
         <?php
             $nodeView = new CourseTreeNodeAnonymousView(
                 $courseTreeNode,
-                $this->courseUserPrivilegesList);
+                $this->courseUserPrivilegesList, 
+                null,
+                $this->displayEnrollLink,
+                $this->displayUnenrollLink);
             
             echo $nodeView->render();
         ?>
         
         <?php endif; ?>
-    
+        
     <?php endforeach; ?>
     
 </dl>

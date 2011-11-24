@@ -865,6 +865,11 @@ dl.courseList .role {
     margin-left: 10px;
 }
 
+dl.courseList .enrolment {
+    float: right;
+    margin-left: 10px;
+}
+
 dl.courseList dt.desactivated {
     color: #999
 }

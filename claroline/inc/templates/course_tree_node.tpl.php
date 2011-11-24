@@ -1,6 +1,10 @@
 <!-- $Id$ -->
 
-<dt>
+<dt<?php if (!empty($this->modifiedCourseList) 
+    && in_array($this->node->getCourse()->courseId, $this->modifiedCourseList)) : 
+    ?> class="hot"<?php endif; ?>>
+    
+    <!-- Access icon -->
     <img
         class="access qtip"
         src="<?php echo get_course_access_icon(
@@ -10,31 +14,52 @@
                 $this->node->getCourse()->access ) ); ?>" />
     
     <?php if (!empty($this->courseUserPrivilegesList)) : ?>
-    
-    <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
-        $this->node->getCourse()->courseId)->isCourseManager() ) : ?>
-    
-        <img class="role qtip" src="<?php echo get_icon_url('manager'); ?>" alt="<?php echo get_lang('You are manager of this course'); ?>" />
-    
-    <?php elseif ( $this->courseUserPrivilegesList->getCoursePrivileges(
-        $this->node->getCourse()->courseId)->isCourseTutor() ) : ?>
-    
-        <span class="role">[Tutor]</span>
-    
-    <?php elseif ( $this->courseUserPrivilegesList->getCoursePrivileges(
-        $this->node->getCourse()->courseId)->isCourseMember() ) : ?>
-    
+        
+        <!-- Role icon -->
         <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
-            $this->node->getCourse()->courseId)->isEnrolmentPending() ) : ?>
-        <span class="role">[Pending]</span>
-        
-        <?php else : ?>
-        <img class="role qtip" src="<?php echo get_icon_url('user'); ?>" alt="<?php echo get_lang('You are user of this course'); ?>" />
-        
+            $this->node->getCourse()->courseId)->isCourseManager() ) : ?>
+            
+            <img class="role qtip" src="<?php echo get_icon_url('manager'); ?>" alt="<?php echo get_lang('You are manager of this course'); ?>" />
+            
+        <?php elseif ( $this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId)->isCourseTutor() ) : ?>
+            
+            <span class="role">[Tutor]</span>
+            
+        <?php elseif ( $this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId)->isCourseMember() ) : ?>
+            
+            <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
+                $this->node->getCourse()->courseId)->isEnrolmentPending() ) : ?>
+            <span class="role">[Pending]</span>
+            
+            <?php else : ?>
+            <img class="role qtip" src="<?php echo get_icon_url('user'); ?>" alt="<?php echo get_lang('You are user of this course'); ?>" />
+            
+            <?php endif; ?>
+            
         <?php endif; ?>
-    
-    <?php endif; ?>
-    
+        
+        
+        <!-- Enrolment icon -->
+        <?php if ($this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId)->isCourseMember() && 
+            $this->displayUnenrollLink) : ?>
+            
+            <a href="#">
+                <img class="enrolment" src="<?php echo get_icon_url('unenroll'); ?>" alt="<?php echo get_lang('Unenroll'); ?>" />
+            </a>
+            
+        <?php elseif ($this->displayEnrollLink) : ?>
+            
+            <a href="#">
+                <img class="enrolment" src="<?php echo get_icon_url('enroll'); ?>" alt="<?php echo get_lang('Enroll'); ?>" />
+            </a>
+            
+        <?php endif; ?>
+            
+    <?php else : ?>
+        
     <?php endif; ?>
     
     <a <?php if (!empty($this->notifiedCourseList) 
@@ -77,7 +102,9 @@
             $childNodeView = new CourseTreeNodeView(
                 $childNode, 
                 $this->courseUserPrivilegesList,
-                $this->notifiedCourseList);
+                $this->notifiedCourseList,
+                $this->displayEnrollLink,
+                $this->displayUnenrollLink);
             
             echo $childNodeView->render();
         ?>
@@ -87,7 +114,9 @@
             $childNodeView = new CourseTreeNodeDesactivatedView(
                 $childNode, 
                 $this->courseUserPrivilegesList,
-                $this->notifiedCourseList);
+                $this->notifiedCourseList,
+                $this->displayEnrollLink,
+                $this->displayUnenrollLink);
             
             echo $childNodeView->render();
         ?>
