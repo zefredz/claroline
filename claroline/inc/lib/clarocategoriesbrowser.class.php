@@ -5,11 +5,11 @@
  *
  * ClaroCategoriesBrowser Class
  *
- * @version $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author Claro Team <cvs@claroline.net>
- * @since 1.10
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claro Team <cvs@claroline.net>
+ * @since       1.10
  */
 
 
@@ -39,9 +39,8 @@ class ClaroCategoriesBrowser
      *
      * @param mixed $categoryId null or valid category identifier
      * @param mixed $userId null or valid user identifier
-     * @return ClaroCategoriesBrowser object
      */
-    function ClaroCategoriesBrowser( $categoryId = null, $userId = null )
+    public function __construct( $categoryId = null, $userId = null )
     {
         $this->categoryId   = $categoryId;
         $this->userId       = $userId;
@@ -54,10 +53,12 @@ class ClaroCategoriesBrowser
     
     
     /**
+     * Get current category properties.
+     * 
+     * @return object ClaroCategory
      * @since 1.8
-     * @return object claroCategory
      */
-    function get_current_category_settings()
+    public function get_current_category_settings()
     {
         if (!is_null($this->currentCategory))
             return $this->currentCategory;
@@ -67,10 +68,12 @@ class ClaroCategoriesBrowser
     
     
     /**
+     * Get the sub-category list of the current category.
+     * 
+     * @return iterator list of sub category of the current category
      * @since 1.8
-     * @return iterator     list of sub category of the current category
      */
-    function get_sub_category_list()
+    public function get_sub_category_list()
     {
         if (!empty($this->categoryList))
             return $this->categoryList;
@@ -80,15 +83,15 @@ class ClaroCategoriesBrowser
     
     
     /**
-     * Fetch list of courses of the current category.
+     * Get the course list of the current category.
      *
      * This list include main data about the user but also
      * registration status.
      *
+     * @return array list of courses of the current category
      * @since 1.8
-     * @return array    list of courses of the current category
      */
-    function getCourseList()
+    public function getCourseList()
     {
         if (!empty($this->coursesList))
             return $this->coursesList;
@@ -104,11 +107,12 @@ class ClaroCategoriesBrowser
      * This list include main data about
      * the user but also registration status
      *
-     * @return array    list of courses of the current category
-     *                  without session courses
+     * @return array list of courses of the current category
+     * without session courses
      * @since 1.10
+     * @deprecated session and source courses are equally displayed since 1.11
      */
-    function getCoursesWithoutSessionCourses()
+    public function getCoursesWithoutSessionCourses()
     {
         if (!empty($this->coursesList))
         {
@@ -135,11 +139,12 @@ class ClaroCategoriesBrowser
      * This list include main data about the user but also
      * registration status.
      *
-     * @return array    list of courses of the current category
-     *                  without source courses
+     * @return array list of courses of the current category
+     * without source courses
      * @since 1.10
+     * @deprecated session and source courses are equally displayed since 1.11
      */
-    function getCoursesWithoutSourceCourses()
+    public function getCoursesWithoutSourceCourses()
     {
         if (!empty($this->coursesList))
         {
@@ -173,7 +178,7 @@ class ClaroCategoriesBrowser
      * @since 1.10
      * @todo write a CategoryBrowserView class (implementing Display)
      */
-    function getTemplate()
+    public function getTemplate()
     {
         $currentCategory    = $this->get_current_category_settings();
         $categoryList       = $this->get_sub_category_list();
