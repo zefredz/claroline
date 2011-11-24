@@ -166,8 +166,7 @@ class CurrentCourseToolListBlock implements Display
 
         if ( !ClaroCourse::isSessionCourse($this->courseId)
             && claro_is_allowed_to_create_course()
-            && get_conf( 'courseSessionAllowed' , true )
-            || claro_is_platform_admin() )
+            && ( get_conf( 'courseSessionAllowed' , true ) || claro_is_platform_admin() ) )
         {
             $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')
                                         . 'course/create.php', array('course_sourceCourseId'=>$this->courseId) )) . '">'
