@@ -219,6 +219,17 @@ class ClaroCourse
                 $this->categories = $sourceCourse->categories;
             }*/
             
+            if ( !is_null($this->sourceCourseId) && !empty($this->sourceCourseId) )
+            {
+                $sourceCourse = new claroCourse();
+                $sourceCourse->load(claroCourse::getCodeFromId($this->sourceCourseId));
+                
+                if( $sourceCourse->sourceCourseId )
+                {
+                    throw new Exception( 'You cannot create a course session from another course session' );
+                }
+            }
+            
             if (   prepare_course_repository($courseDirectory, $courseSysCode)
                 && register_course($courseSysCode
                    ,               $this->officialCode
