@@ -690,11 +690,6 @@ class CourseTreeView implements Display
     protected $selectedViewCategory;
     
     /**
-     * @var bool display config options (default: false)
-     */
-    protected $displayEnrollLink, $displayUnenrollLink;
-    
-    /**
      * Constructor
      * @param CourseTree
      * @param CourseUserPrivilegesList (default: null)
@@ -715,9 +710,6 @@ class CourseTreeView implements Display
         $this->notifiedCourseList = $notifiedCourseList;
         $this->categoryList = $categoryList;
         $this->selectedViewCategory = $selectedViewCategory;
-        
-        $this->displayEnrollLink = false;
-        $this->displayUnenrollLink = false;
     }
     
     public function render()
@@ -729,30 +721,8 @@ class CourseTreeView implements Display
         $tpl->assign('notifiedCourseList', $this->notifiedCourseList);
         $tpl->assign('categoryList', $this->categoryList);
         $tpl->assign('selectedViewCategory', $this->selectedViewCategory);
-        $tpl->assign('displayEnrollLink', $this->displayEnrollLink);
-        $tpl->assign('displayUnenrollLink', $this->displayUnenrollLink);
         
         return $tpl->render();
-    }
-    
-    public function enableEnrollLink()
-    {
-        $this->displayEnrollLink = true;
-    }
-    
-    public function disableEnrollLink()
-    {
-        $this->displayEnrollLink = false;
-    }
-    
-    public function enableUnenrollLink()
-    {
-        $this->displayUnenrollLink = true;
-    }
-    
-    public function disableUnenrollLink()
-    {
-        $this->displayUnenrollLink = false;
     }
 }
 
@@ -775,31 +745,19 @@ abstract class AbstractCourseTreeNodeView implements Display
     protected $notifiedCourseList;
     
     /**
-     * @var bool display config options (default: false)
-     */
-    protected $displayEnrollLink, $displayUnenrollLink;
-    
-    /**
      * Constructor
      * @param CourseTreeNode
      * @param CourseUserPrivilegesList (default: null)
      * @param NotifiedCourseList (default: null)
-     * @param bool display enroll link
-     * @param bool display unenroll link
      */
     public function __construct(
         $courseTreeNode, 
         $courseUserPrivilegesList = null, 
-        $notifiedCourseList = null,
-        $displayEnrollLink = false, 
-        $displayUnenrollLink = false)
+        $notifiedCourseList = null)
     {
         $this->courseTreeNode = $courseTreeNode;
         $this->courseUserPrivilegesList = $courseUserPrivilegesList;
         $this->notifiedCourseList = $notifiedCourseList;
-        
-        $this->displayEnrollLink = $displayEnrollLink;
-        $this->displayUnenrollLink = $displayUnenrollLink;
     }
 }
 
@@ -813,8 +771,6 @@ class CourseTreeNodeView extends AbstractCourseTreeNodeView
         $tpl->assign('node', $this->courseTreeNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
         $tpl->assign('notifiedCourseList', $this->notifiedCourseList);
-        $tpl->assign('displayEnrollLink', $this->displayEnrollLink);
-        $tpl->assign('displayUnenrollLink', $this->displayUnenrollLink);
         
         return $tpl->render();
     }
@@ -830,8 +786,6 @@ class CourseTreeNodeAnonymousView extends AbstractCourseTreeNodeView
         $tpl->assign('node', $this->courseTreeNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
         $tpl->assign('notifiedCourseList', $this->notifiedCourseList);
-        $tpl->assign('displayEnrollLink', $this->displayEnrollLink);
-        $tpl->assign('displayUnenrollLink', $this->displayUnenrollLink);
         
         return $tpl->render();
     }
@@ -847,8 +801,6 @@ class CourseTreeNodeDesactivatedView extends AbstractCourseTreeNodeView
         $tpl->assign('node', $this->courseTreeNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);
         $tpl->assign('notifiedCourseList', $this->notifiedCourseList);
-        $tpl->assign('displayEnrollLink', $this->displayEnrollLink);
-        $tpl->assign('displayUnenrollLink', $this->displayUnenrollLink);
         
         return $tpl->render();
     }
@@ -981,36 +933,6 @@ class CourseTreeNodeViewFactory
         
         $courseTreeView = new CourseTreeView(
             $courseTree->getRootNode());
-        
-        return $courseTreeView;
-    }
-    
-    /**
-     * Get the complete course tree of a specific category with enrolment 
-     * links (almost the same as getCategoryCourseTreeView()).  This method's 
-     * purpose is to display a category browser allowing enrolment.
-     * 
-     * @param int category id
-     * @return CourseTreeView 
-     */
-    static public function getEnrollCourseTreeView($categoryId)
-    {
-        // CourseListIterator
-        $courseList = new CategoryCourseList($categoryId);
-        $courseListIterator = $courseList->getIterator();
-        
-        // User rights
-        $privilegeList = new CourseUserPrivilegesList(claro_get_current_user_id());
-        $privilegeList->load();
-        
-        // Course tree
-        $courseTree = new CourseTree($courseListIterator);
-        
-        $courseTreeView = new CourseTreeView(
-            $courseTree->getRootNode(), 
-            $privilegeList);
-        
-        $courseTreeView->enableEnrollLink();
         
         return $courseTreeView;
     }

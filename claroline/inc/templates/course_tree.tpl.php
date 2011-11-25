@@ -42,9 +42,7 @@
                 $childNodeView = new CourseTreeNodeView(
                     $courseTreeNode,
                     $this->courseUserPrivilegesList,
-                    $this->notifiedCourseList,
-                    $this->displayEnrollLink,
-                    $this->displayUnenrollLink);
+                    $this->notifiedCourseList);
                 
                 echo $childNodeView->render();
             ?>
@@ -56,9 +54,7 @@
                 $childNodeView = new CourseTreeNodeDesactivatedView(
                     $courseTreeNode,
                     $this->courseUserPrivilegesList,
-                    $this->notifiedCourseList,
-                    $this->displayEnrollLink,
-                    $this->displayUnenrollLink);
+                    $this->notifiedCourseList);
                 
                 echo $childNodeView->render();
             ?>
@@ -72,9 +68,7 @@
             $nodeView = new CourseTreeNodeAnonymousView(
                 $courseTreeNode,
                 $this->courseUserPrivilegesList, 
-                null,
-                $this->displayEnrollLink,
-                $this->displayUnenrollLink);
+                null);
             
             echo $nodeView->render();
         ?>

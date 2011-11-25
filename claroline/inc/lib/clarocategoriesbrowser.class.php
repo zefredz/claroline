@@ -30,16 +30,6 @@ class ClaroCategoriesBrowser
     // List of categories
     public $categoryList;
     
-    /**
-     * @var bool display config options (default: false)
-     * @todo should move into a class dedicated to categorybrowser view
-     */
-    public $displayEnrollLink, $displayUnenrollLink;
-    
-    /**
-     * @var
-     */
-    
     
     /**
      * Constructor
@@ -56,9 +46,6 @@ class ClaroCategoriesBrowser
         $this->currentCategory->load($categoryId);
         $this->categoryList     = claroCategory::getCategories($categoryId, 1);
         $this->coursesList      = claroCourse::getRestrictedCourses($categoryId, $userId);
-        
-        $this->displayEnrollLink    = false;
-        $this->displayUnenrollLink  = false;
     }
     
     
@@ -129,7 +116,10 @@ class ClaroCategoriesBrowser
             $coursesList = array();
             foreach ($this->coursesList as $course)
             {
-                if (is_null($course['sourceCourseId']) || (isset($course['isCourseManager']) && $course['isCourseManager'] == 1))
+                if (is_null($course['sourceCourseId']) || 
+                    (isset($course['isCourseManager']) && 
+                    $course['isCourseManager'] == 1)
+                )
                 {
                     $coursesList[] = $course;
                 }
@@ -138,7 +128,9 @@ class ClaroCategoriesBrowser
             return $coursesList;
         }
         else
+        {
             return array();
+        }
     }
     
     
@@ -179,7 +171,9 @@ class ClaroCategoriesBrowser
             return $coursesList;
         }
         else
+        {
             return array();
+        }
     }
     
     
@@ -194,16 +188,8 @@ class ClaroCategoriesBrowser
         $categoryList       = $this->get_sub_category_list();
         $userId             = claro_get_current_user_id();
         
-        if ($this->displayEnrollLink)
-        {
-            $courseTreeView = 
-                CourseTreeNodeViewFactory::getEnrollCourseTreeView($this->categoryId);
-        }
-        else
-        {
-            $courseTreeView = 
-                CourseTreeNodeViewFactory::getCategoryCourseTreeView($this->categoryId);
-        }
+        $courseTreeView = 
+            CourseTreeNodeViewFactory::getCategoryCourseTreeView($this->categoryId);
         
         $template = new CoreTemplate('categorybrowser.tpl.php');
         $template->assign('currentCategory', $currentCategory);

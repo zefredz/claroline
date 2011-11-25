@@ -43,21 +43,20 @@
         
         <!-- Enrolment icon -->
         <?php if ($this->courseUserPrivilegesList->getCoursePrivileges(
-            $this->node->getCourse()->courseId)->isCourseMember() && 
-            $this->displayUnenrollLink) : ?>
+            $this->node->getCourse()->courseId)->isCourseMember()) : ?>
             
             <a href="#">
                 <img class="enrolment" src="<?php echo get_icon_url('unenroll'); ?>" alt="<?php echo get_lang('Unenroll'); ?>" />
             </a>
             
-        <?php elseif ($this->displayEnrollLink) : ?>
+        <?php else : ?>
             
             <a href="#">
                 <img class="enrolment" src="<?php echo get_icon_url('enroll'); ?>" alt="<?php echo get_lang('Enroll'); ?>" />
             </a>
             
         <?php endif; ?>
-            
+        
     <?php else : ?>
         
     <?php endif; ?>
@@ -79,7 +78,7 @@
     </a>
     
     <?php else : ?>
-        
+    
     <?php echo htmlspecialchars($this->node->getCourse()->officialCode); ?>
     &ndash;
     <?php echo htmlspecialchars($this->node->getCourse()->name); ?>
@@ -116,9 +115,7 @@
             $childNodeView = new CourseTreeNodeView(
                 $childNode, 
                 $this->courseUserPrivilegesList,
-                $this->notifiedCourseList,
-                $this->displayEnrollLink,
-                $this->displayUnenrollLink);
+                $this->notifiedCourseList);
             
             echo $childNodeView->render();
         ?>
@@ -128,15 +125,13 @@
             $childNodeView = new CourseTreeNodeDesactivatedView(
                 $childNode, 
                 $this->courseUserPrivilegesList,
-                $this->notifiedCourseList,
-                $this->displayEnrollLink,
-                $this->displayUnenrollLink);
+                $this->notifiedCourseList);
             
             echo $childNodeView->render();
         ?>
         
         <?php endif; ?>
-    
+        
     <?php endforeach; ?>
         
     </dl>

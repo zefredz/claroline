@@ -14,9 +14,6 @@
 
 require '../inc/claro_init_global.inc.php';
 
-require_once dirname(__FILE__) . '/../inc/lib/courselist.lib.php';
-require_once dirname(__FILE__) . '/../inc/lib/coursesearchbox.class.php';
-
 $nameTools  = get_lang('User\'s course');
 $noPHP_SELF = true;
 
@@ -34,6 +31,9 @@ Include Files and initialize variables
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/class.lib.php';
+require_once get_path('incRepositorySys') . '/lib/courselist.lib.php';
+require_once get_path('incRepositorySys') . '/lib/coursesearchbox.class.php';
+
 include claro_get_conf_repository() . 'user_profile.conf.php';
 include claro_get_conf_repository() . 'course_main.conf.php';
 
@@ -86,7 +86,7 @@ if ( !claro_is_platform_admin() )
     {
         claro_redirect('..');
     }
-
+    
 }
 else
 {
@@ -112,7 +112,7 @@ else
         $userId     = claro_get_current_user_id(); // default use is enroll for itself...
         $uidToEdit  = claro_get_current_user_id();
     }
-
+    
 } // if (!claro_is_platform_admin())
 
 /*---------------------------------------------------------------------
@@ -247,7 +247,7 @@ if ( $cmd == 'exReg' )
         $claroline->log('COURSE_SUBSCRIBE',array('user'=>$userId,'course'=>$courseCode));
         
         $displayMode = DISPLAY_MESSAGE_SCREEN;
-
+        
         if ( claro_get_current_user_id() != $uidToEdit )
         {
             //Message for admin
@@ -257,7 +257,7 @@ if ( $cmd == 'exReg' )
         {
             $dialogBox->success( get_lang('You\'ve been enroled on the course') );
         }
-
+        
         if ( !empty($_REQUEST['asTeacher']) && claro_is_platform_admin() )
         {
             $properties['isCourseManager']  = 1;
@@ -276,14 +276,14 @@ if ( $cmd == 'exReg' )
                 $dialogBox->error( $courseRegistration->getErrorMessage() );
             }
             break;
-
+            
             case CourseUserRegistration::STATUS_SYSTEM_ERROR :
             {
                 $displayMode = DISPLAY_MESSAGE_SCREEN;
                 $dialogBox->error( $courseRegistration->getErrorMessage() );
             }
             break;
-
+            
             case CourseUserRegistration::STATUS_REGISTRATION_NOTAVAILABLE :
             {
                 $displayMode = DISPLAY_REGISTRATION_DISABLED_FORM;
@@ -293,7 +293,7 @@ if ( $cmd == 'exReg' )
                     array ('%email' => '<a href="mailto:'.$courseObj->email . '?body=' . $courseObj->officialCode . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseObj->titular) . '</a>')) );
             }
             break;
-
+            
             default :
             {
                 $displayMode = DISPLAY_MESSAGE_SCREEN;
@@ -302,7 +302,7 @@ if ( $cmd == 'exReg' )
             break;
         }
     }
-
+    
 } // end if ($cmd == 'exReg')
 
 /*----------------------------------------------------------------------------
@@ -325,7 +325,6 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
     /*
     * Search by keyword
     */
-    
     if ( isset($_REQUEST['keyword']) )
     {
         $title   = get_lang('Select course in search results');
@@ -356,16 +355,16 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
         else
             $user =  $userId;
         
-        $courseCategoryBrowser  = new ClaroCategoriesBrowser($categoryId, $user);
+        $categoryBrowser  = new ClaroCategoriesBrowser($categoryId, $user);
         
-        $currentCategory        = $courseCategoryBrowser->get_current_category_settings();
+        $currentCategory        = $categoryBrowser->get_current_category_settings();
         $currentCategoryName    = $currentCategory->name;
         $parentCategoryId       = $currentCategory->idParent;
         
-        $categoriesList         = $courseCategoryBrowser->get_sub_category_list();
+        $categoriesList         = $categoryBrowser->get_sub_category_list();
         
-        $courseCategoryBrowser->getCourseList();
-        $coursesList            = $courseCategoryBrowser->getCoursesWithoutSourceCourses();
+        $categoryBrowser->getCourseList();
+        $coursesList            = $categoryBrowser->getCoursesWithoutSourceCourses();
         
         $displayMode = DISPLAY_COURSE_TREE;
     }
