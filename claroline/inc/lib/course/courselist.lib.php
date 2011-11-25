@@ -15,7 +15,7 @@
 
 require_once dirname(__FILE__) . '/../kernel/course.lib.php';
 require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
-require_once dirname(__FILE__) . '/../clarocategoriesbrowser.class.php';
+require_once dirname(__FILE__) . '/../categorybrowser.class.php';
 
 
 interface CourseList
@@ -928,11 +928,16 @@ class CourseTreeNodeViewFactory
         $courseList = new SearchedCourseList($keyword);
         $courseListIterator = $courseList->getIterator();
         
+        // User rights
+        $privilegeList = new CourseUserPrivilegesList(claro_get_current_user_id());
+        $privilegeList->load();
+        
         // Course tree
         $courseTree = new CourseTree($courseListIterator);
         
         $courseTreeView = new CourseTreeView(
-            $courseTree->getRootNode());
+            $courseTree->getRootNode(), 
+            $privilegeList);
         
         return $courseTreeView;
     }

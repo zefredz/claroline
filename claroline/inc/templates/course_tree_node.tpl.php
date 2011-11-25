@@ -15,6 +15,23 @@
     
     <?php if (!empty($this->courseUserPrivilegesList)) : ?>
         
+        <!-- Enrolment icon -->
+        <?php if ($this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId)->isCourseMember()) : ?>
+            
+            <a href="#">
+                <img class="enrolment" src="<?php echo get_icon_url('unenroll'); ?>" alt="<?php echo get_lang('Unenroll'); ?>" />
+            </a>
+            
+        <?php else : ?>
+            
+            <a href="#">
+                <img class="enrolment" src="<?php echo get_icon_url('enroll'); ?>" alt="<?php echo get_lang('Enroll'); ?>" />
+            </a>
+            
+        <?php endif; ?>
+        
+        
         <!-- Role icon -->
         <?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
             $this->node->getCourse()->courseId)->isCourseManager() ) : ?>
@@ -40,23 +57,6 @@
             
         <?php endif; ?>
         
-        
-        <!-- Enrolment icon -->
-        <?php if ($this->courseUserPrivilegesList->getCoursePrivileges(
-            $this->node->getCourse()->courseId)->isCourseMember()) : ?>
-            
-            <a href="#">
-                <img class="enrolment" src="<?php echo get_icon_url('unenroll'); ?>" alt="<?php echo get_lang('Unenroll'); ?>" />
-            </a>
-            
-        <?php else : ?>
-            
-            <a href="#">
-                <img class="enrolment" src="<?php echo get_icon_url('enroll'); ?>" alt="<?php echo get_lang('Enroll'); ?>" />
-            </a>
-            
-        <?php endif; ?>
-            
     <?php else : ?>
         
     <?php endif; ?>
