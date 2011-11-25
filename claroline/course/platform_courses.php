@@ -1,7 +1,7 @@
 <?php // $Id$
 
 /**
- * PHP version 5
+ * CLAROLINE
  *
  * @version     $Revision$
  * @license     http://www.gnu.org/licenses/agpl-3.0-standalone.html AGPL Affero General Public License
@@ -9,7 +9,6 @@
  * @author      Claro Team <cvs@claroline.net>
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @since       1.10
- *
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -21,7 +20,7 @@ $nameTools = get_lang('Platform courses');
 
 $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
 
-$categoryBrowser    = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
+$categoryBrowser    = new CategoryBrowser($categoryId, claro_get_current_user_id());
 
 if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' )
 {

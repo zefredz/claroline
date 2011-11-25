@@ -3,8 +3,6 @@
 /**
  * CLAROLINE
  *
- * ClaroCategoriesBrowser Class
- *
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -16,7 +14,7 @@
 require_once dirname(__FILE__) . '/clarocategory.class.php';
 require_once dirname(__FILE__) . '/course/courselist.lib.php';
 
-class ClaroCategoriesBrowser
+class CategoryBrowser
 {
     // Identifier of the selected category
     public $categoryId;

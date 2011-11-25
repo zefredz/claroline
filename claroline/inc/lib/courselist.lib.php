@@ -11,7 +11,7 @@
  * @since       1.9
  */
 
-require_once dirname(__FILE__) . '/clarocategoriesbrowser.class.php';
+require_once dirname(__FILE__) . '/categorybrowser.class.php';
 
 /**
  * Search a specific course based on his course code.  If the user isn't

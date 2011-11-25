@@ -135,7 +135,7 @@ if (get_conf('display_former_homepage', false) || !claro_is_user_authenticated()
     {
         // Category browser
         $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
-        $categoryBrowser = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
+        $categoryBrowser = new CategoryBrowser( $categoryId, claro_get_current_user_id() );
         $templateCategoryBrowser = $categoryBrowser->getTemplate();
         
         $template->assign('templateCategoryBrowser', $templateCategoryBrowser);

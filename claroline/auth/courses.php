@@ -355,7 +355,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
         else
             $user =  $userId;
         
-        $categoryBrowser  = new ClaroCategoriesBrowser($categoryId, $user);
+        $categoryBrowser  = new CategoryBrowser($categoryId, $user);
         
         $currentCategory        = $categoryBrowser->get_current_category_settings();
         $currentCategoryName    = $currentCategory->name;
