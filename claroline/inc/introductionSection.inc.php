@@ -302,7 +302,7 @@ if ($intro_dispDefault)
 
                 $section = '';
 
-                if( trim(strip_tags($intro_content,'<img><embed><object>')) != '' ) // no need to display a div for an empty string
+                if( trim(strip_tags($intro_content,'<img><embed><object><iframe><video><audio><canvas>')) != '' ) // no need to display a div for an empty string
                 {
                     $section .= $intro_content . "\n";
                 }
