@@ -238,7 +238,7 @@ if ($cmd == 'run' || $inProgress)
             }
             
             $csvExporter = new CsvExporter(';', '"');
-            $fileName = get_lang('files_stats').'_'.claro_date('d-m-Y').'.txt';
+            $fileName = get_lang('files_stats').'_'.claro_date('d-m-Y').'.csv';
             $stream = $csvExporter->export($csvTab);
             claro_send_stream($stream, $fileName, 'text/csv');
         }
