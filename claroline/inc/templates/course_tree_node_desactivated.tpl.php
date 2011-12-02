@@ -17,13 +17,14 @@
         
         <!-- Enrolment icon -->
         <?php if ($this->courseUserPrivilegesList->getCoursePrivileges(
-            $this->node->getCourse()->courseId)->isCourseMember()) : ?>
+            $this->node->getCourse()->courseId)->isCourseMember() &&
+            $this->viewOptions->getDisplayEnrollLink()) : ?>
             
             <a href="#">
                 <img class="enrolment" src="<?php echo get_icon_url('unenroll'); ?>" alt="<?php echo get_lang('Unenroll'); ?>" />
             </a>
             
-        <?php else : ?>
+        <?php elseif ($this->viewOptions->getDisplayUnenrollLink()) : ?>
             
             <a href="#">
                 <img class="enrolment" src="<?php echo get_icon_url('enroll'); ?>" alt="<?php echo get_lang('Enroll'); ?>" />
@@ -115,7 +116,8 @@
             $childNodeView = new CourseTreeNodeView(
                 $childNode, 
                 $this->courseUserPrivilegesList,
-                $this->notifiedCourseList);
+                $this->notifiedCourseList,
+                $this->viewOptions);
             
             echo $childNodeView->render();
         ?>
@@ -125,7 +127,8 @@
             $childNodeView = new CourseTreeNodeDesactivatedView(
                 $childNode, 
                 $this->courseUserPrivilegesList,
-                $this->notifiedCourseList);
+                $this->notifiedCourseList,
+                $this->viewOptions);
             
             echo $childNodeView->render();
         ?>
