@@ -38,6 +38,19 @@ class ClaroHeader extends CoreTemplate
         {
             $this->addInlineJavascript("var claro_debug_mode = true;");
         }
+        
+        require dirname(__FILE__) .'/../../installedVersion.inc.php';
+        
+        if ( $stable && file_exists( dirname(__FILE__) .'/../../../platform/currentVersion.inc.php' ) )
+        {
+            require dirname(__FILE__) .'/../../../platform/currentVersion.inc.php';
+            
+            $this->assign( 'version', $clarolineVersion );
+        }
+        else
+        {
+            $this->assign( 'version', $new_version );
+        }
     }
     
     public static function getInstance()

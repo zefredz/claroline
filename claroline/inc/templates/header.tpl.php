@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-Type" content="text/HTML; charset=<?php echo get_locale('charset');?>"  />
+<meta name="generator" content="Claroline <?php echo $this->version; ?> - http://claroline.net" />
 <?php echo link_to_css( get_conf('claro_stylesheet') . '/main.css', 'screen, projection, tv' );?>
 <?php
 if ( get_locale('text_dir') == 'rtl' ):
