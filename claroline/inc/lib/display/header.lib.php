@@ -41,16 +41,43 @@ class ClaroHeader extends CoreTemplate
         
         require dirname(__FILE__) .'/../../installedVersion.inc.php';
         
-        if ( $stable && file_exists( dirname(__FILE__) .'/../../../platform/currentVersion.inc.php' ) )
-        {
-            require dirname(__FILE__) .'/../../../platform/currentVersion.inc.php';
-            
-            $this->assign( 'version', $clarolineVersion );
+        if ( $stable )
+        { 
+            if ( file_exists( dirname(__FILE__) .'/../../../../platform/currentVersion.inc.php' ) )
+            {
+                require dirname(__FILE__) .'/../../../../platform/currentVersion.inc.php';
+            }
+            else
+            {
+                $clarolineVersion = $new_version;
+            }
+
+            if ( $clarolineVersion != $new_version )
+            {
+                $versionArray1 = explode( '.', $new_version );
+                $versionArray2 = explode( '.', $clarolineVersion );
+
+                if ( $versionArray1[0] == $versionArray2[0]
+                    && $versionArray1[1] == $versionArray2[1] )
+                {
+                    $claroVersion = $new_version;
+                }
+                else
+                {
+                    $claroVersion = $clarolineVersion;
+                }
+            }
+            else
+            {
+                $claroVersion = $new_version;
+            }
         }
         else
         {
-            $this->assign( 'version', $new_version );
+            $claroVersion = $new_version;
         }
+        
+        $this->assign( 'version', $claroVersion );
     }
     
     public static function getInstance()
