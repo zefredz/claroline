@@ -58,20 +58,7 @@ class ClaroHeader extends CoreTemplate
             }
 
             if ( $clarolineVersion != $new_version )
-            {
-                /*$versionArray1 = explode( '.', $new_version );
-                $versionArray2 = explode( '.', $clarolineVersion );
-
-                if ( $versionArray1[0] == $versionArray2[0]
-                    && $versionArray1[1] == $versionArray2[1] )
-                {
-                    $claroVersion = $new_version;
-                }
-                else
-                {
-                    $claroVersion = $clarolineVersion;
-                }*/
-                
+            {      
                 $claroVersion = "{$clarolineVersion}-{$new_version}";
             }
             else
