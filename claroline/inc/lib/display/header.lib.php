@@ -56,15 +56,24 @@ class ClaroHeader extends CoreTemplate
             {
                 $versionArray1 = explode( '.', $new_version );
                 $versionArray2 = explode( '.', $clarolineVersion );
-
-                if ( $versionArray1[0] == $versionArray2[0]
-                    && $versionArray1[1] == $versionArray2[1] )
+                
+                if ( count( $versionArray1 ) >= 2 && count($versionArray2) >=2 )
                 {
-                    $claroVersion = $new_version;
+                    if ( $versionArray1[0] == $versionArray2[0]
+                        && $versionArray1[1] == $versionArray2[1] )
+                    {
+                        $claroVersion = $new_version;
+                    }
+                    else
+                    {
+                        $claroVersion = $clarolineVersion;
+                    }
                 }
                 else
                 {
-                    $claroVersion = $clarolineVersion;
+                    // this should never happen
+                    pushClaroMessage("Invalid version numbers [{$new_version}](installed) and [{$clarolineVersion}](current)");
+                    $claroVersion = $new_version;
                 }
             }
             else
