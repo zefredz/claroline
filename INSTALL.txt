@@ -109,7 +109,7 @@ with IIS too and should work on any PHP-compatible web server.
    of your web server (typically /var/www/).
    
    Windows with wampserver : drag and drop the claroline1xx
-   directory to the wampserver ducument root folder, typically
+   directory to the wampserver document root folder, typically
    c:\Program Files\wamp\www\
    
    MacOSX with MAMP : drag and drop the claroline1xx
