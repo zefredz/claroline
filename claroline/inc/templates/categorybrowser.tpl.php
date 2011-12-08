@@ -5,9 +5,12 @@
 <h3 id="categoryContent"><?php echo $this->currentCategory->name; ?></h3>
 
 <p>
-    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?category=<?php echo urlencode( $this->currentCategory->idParent ); ?>#categoryContent">
+    <a href="<?php echo 
+                $_SERVER['PHP_SELF'] . '?'
+              . (isset($_REQUEST['cmd']) ? 'cmd='.urlencode($_REQUEST['cmd']) : '')
+              . '&amp;category=' . urlencode( $this->currentCategory->idParent ) . '#categoryContent'; ?>">
         <span style="background-image: url(<?php echo get_icon_url('back'); ?>); background-repeat: no-repeat; background-position: left center; padding-left: 20px;">
-            <?php echo get_lang('parent category'); ?>
+            <?php echo get_lang('Back to parent category'); ?>
         </span>
     </a>
 </p>
@@ -29,8 +32,10 @@
     
     <?php if (claroCategory::countAllCourses($category['id']) + claroCategory::countAllSubCategories($category['id']) > 0) : ?>
     <li>
-        <?php echo '<a href="' . $_SERVER['PHP_SELF'] . '?category='
-        . urlencode( $category['id'] ) . '#categoryContent">'
+        <?php echo '<a href="' . $_SERVER['PHP_SELF'] . '?'
+        . (isset($_REQUEST['cmd']) ? 'cmd='.urlencode($_REQUEST['cmd']) : '')
+        . '&amp;category='
+        . (int) $category['id'] . '#categoryContent">'
         . $category['name'] . '</a>'; ?>
     </li>
     <?php else : ?>
@@ -52,9 +57,12 @@
 
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>
 <p>
-    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?category=<?php echo urlencode( $this->currentCategory->idParent ); ?>#categoryContent">
+    <a href="<?php echo 
+                $_SERVER['PHP_SELF'] . '?'
+              . (isset($_REQUEST['cmd']) ? 'cmd='.urlencode($_REQUEST['cmd']) : '')
+              . '&amp;category=' . urlencode( $this->currentCategory->idParent ) . '#categoryContent'; ?>">
         <span style="background-image: url(<?php echo get_icon_url('back'); ?>); background-repeat: no-repeat; background-position: left center; padding-left: 20px;">
-            <?php echo get_lang('parent category'); ?>
+            <?php echo get_lang('Back to parent category'); ?>
         </span>
     </a>
 </p>

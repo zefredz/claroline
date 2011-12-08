@@ -8,6 +8,10 @@
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
  * @since       1.10
+ * 
+ * @todo        this class deserves to get splitted into 2 parts (at least), 
+ *              including a view part with the render and view options get and 
+ *              set methods.
  */
 
 
@@ -28,6 +32,13 @@ class CategoryBrowser
     // List of categories
     public $categoryList;
     
+    /**
+     * View options for the course tree to render
+     *
+     * @var CourseTreeViewOptions
+     */
+    protected $viewOptions;
+    
     
     /**
      * Constructor
@@ -44,6 +55,8 @@ class CategoryBrowser
         $this->currentCategory->load($categoryId);
         $this->categoryList     = claroCategory::getCategories($categoryId, 1);
         $this->coursesList      = claroCourse::getRestrictedCourses($categoryId, $userId);
+        
+        $this->viewOptions = new CourseTreeViewOptions();
     }
     
     
@@ -53,7 +66,7 @@ class CategoryBrowser
      * @return object ClaroCategory
      * @since 1.8
      */
-    public function get_current_category_settings()
+    public function getCurrentCategorySettings()
     {
         if (!is_null($this->currentCategory))
             return $this->currentCategory;
@@ -68,7 +81,7 @@ class CategoryBrowser
      * @return iterator list of sub category of the current category
      * @since 1.8
      */
-    public function get_sub_category_list()
+    public function getSubCategoryList()
     {
         if (!empty($this->categoryList))
             return $this->categoryList;
@@ -174,6 +187,22 @@ class CategoryBrowser
         }
     }
     
+    /**
+     * @return CourseTreeViewOptions
+     */
+    public function getViewOptions()
+    {
+        return $this->viewOptions;
+    }
+    
+    /**
+     * @param CourseTreeViewOptions
+     */
+    public function setViewOptions($viewOptions)
+    {
+        $this->viewOptions = $viewOptions;
+    }
+    
     
     /**
      * @return template object
@@ -189,6 +218,8 @@ class CategoryBrowser
         $courseTreeView = 
             CourseTreeNodeViewFactory::getCategoryCourseTreeView($this->categoryId);
         
+        $courseTreeView->setViewOptions($this->viewOptions);
+        
         $template = new CoreTemplate('categorybrowser.tpl.php');
         $template->assign('currentCategory', $currentCategory);
         $template->assign('categoryBrowser', $this);
@@ -196,5 +227,29 @@ class CategoryBrowser
         $template->assign('courseTreeView', $courseTreeView);
         
         return $template;
+    }
+    
+    
+    
+    
+    /**
+     * Alias for getCurrentCategorySettings().
+     * 
+     * @deprecated
+     */
+    public function get_current_category_settings()
+    {
+        return $this->getCurrentCategorySettings();
+    }
+    
+    
+    /**
+     * Alias for getSubCategoryList().
+     * 
+     * @deprecated
+     */
+    public function get_sub_category_list()
+    {
+        return $this->getSubCategoryList();
     }
 }

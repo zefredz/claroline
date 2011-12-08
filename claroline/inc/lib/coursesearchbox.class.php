@@ -13,7 +13,10 @@
  * @since       1.11
  *
  * @todo        while we browse through platform's categories, the search box
- *              doesn't take the current category in account for its researches
+ *              doesn't take the current category in account for its researches.
+ * @todo        this class deserves to get splitted into 2 parts (at least), 
+ *              including a view part with the render and view options get and 
+ *              set methods.
  */
 
 class CourseSearchBox implements Display
@@ -39,6 +42,13 @@ class CourseSearchBox implements Display
      */
     protected $searchResults;
     
+    /**
+     * View options for the course tree to render
+     *
+     * @var CourseTreeViewOptions
+     */
+    protected $viewOptions;
+    
     public function __construct($formAction)
     {
         $this->formAction   = $formAction;
@@ -52,27 +62,49 @@ class CourseSearchBox implements Display
         {
             $this->keyword = '';
         }
+        
+        $this->viewOptions = new CourseTreeViewOptions();
     }
     
-    private function fetchResults()
+    protected function fetchResults()
     {
         $this->searchResults = 
             CourseTreeNodeViewFactory::getSearchedCourseTreeView($this->keyword);
     }
     
+    /**
+     * @return CourseTreeViewOptions
+     */
+    public function getViewOptions()
+    {
+        return $this->viewOptions;
+    }
+    
+    /**
+     * @param CourseTreeViewOptions
+     */
+    public function setViewOptions($viewOptions)
+    {
+        $this->viewOptions = $viewOptions;
+    }
+    
+    /**
+     * @return CoreTemplate
+     */
     public function getTemplate()
     {
         if (!empty($this->keyword))
         {
             $this->fetchResults();
+            $this->searchResults->setViewOptions($this->viewOptions);
         }
         
-        $templateCourseSearchBox = new CoreTemplate('course_search_box.tpl.php');
-        $templateCourseSearchBox->assign('formAction', $this->formAction);
-        $templateCourseSearchBox->assign('courseTree', $this->searchResults);
-        $templateCourseSearchBox->assign('keyword', $this->keyword);
+        $template = new CoreTemplate('course_search_box.tpl.php');
+        $template->assign('formAction', $this->formAction);
+        $template->assign('courseTree', $this->searchResults);
+        $template->assign('keyword', $this->keyword);
         
-        return $templateCourseSearchBox;
+        return $template;
     }
     
     public function render()
