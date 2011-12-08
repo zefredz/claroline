@@ -695,12 +695,16 @@ class CourseTreeView implements Display
     protected $viewOptions;
     
     /**
-     * Constructor
+     * Constructor.
+     * If no CourseTreeViewOptions is set, the constructor will 
+     * create set a default CourseTreeViewOptions.
+     * 
      * @param CourseTree
      * @param CourseUserPrivilegesList (default: null)
      * @param NotifiedCourseList (default: null)
      * @param Database_ResultSet list of categories (default: null)
      * @param int id of selected category (default: null)
+     * @param CourseTreeViewOptions (default: null)
      */
     public function __construct(
         $courseTreeNode,
@@ -715,6 +719,23 @@ class CourseTreeView implements Display
         $this->notifiedCourseList = $notifiedCourseList;
         $this->categoryList = $categoryList;
         $this->selectedViewCategory = $selectedViewCategory;
+        $this->viewOptions = isset($viewOptions) ? 
+            $viewOptions : new CourseTreeViewOptions();
+    }
+    
+    /**
+     * @return CourseTreeViewOptions
+     */
+    public function getViewOptions()
+    {
+        return $this->viewOptions;
+    }
+    
+    /**
+     * @param CourseTreeViewOptions
+     */
+    public function setViewOptions($viewOptions)
+    {
         $this->viewOptions = $viewOptions;
     }
     
@@ -757,7 +778,10 @@ abstract class AbstractCourseTreeNodeView implements Display
     protected $viewOptions;
     
     /**
-     * Constructor
+     * Constructor.
+     * If no CourseTreeViewOptions is set, the constructor will 
+     * create set a default CourseTreeViewOptions.
+     * 
      * @param CourseTreeNode
      * @param CourseUserPrivilegesList (default: null)
      * @param NotifiedCourseList (default: null)
@@ -772,6 +796,23 @@ abstract class AbstractCourseTreeNodeView implements Display
         $this->courseTreeNode = $courseTreeNode;
         $this->courseUserPrivilegesList = $courseUserPrivilegesList;
         $this->notifiedCourseList = $notifiedCourseList;
+        $this->viewOptions = isset($viewOptions) ? 
+            $viewOptions : new CourseTreeViewOptions();
+    }
+    
+    /**
+     * @return CourseTreeViewOptions
+     */
+    public function getViewOptions()
+    {
+        return $this->viewOptions;
+    }
+    
+    /**
+     * @param CourseTreeViewOptions
+     */
+    public function setViewOptions($viewOptions)
+    {
         $this->viewOptions = $viewOptions;
     }
 }
@@ -830,25 +871,23 @@ class CourseTreeViewOptions
     /**
      * @var bool
      */
-    protected $displayEnrollLink, 
-        $displayUnenrollLink;
+    protected $displayEnrollLink, $displayUnenrollLink;
+    
+    /**
+     * @var array
+     */
+    protected $enrollLinkParams, $unenrollLinkParams;
     
     public function __construct(
         $displayEnrollLink = false, 
-        $displayUnenrollLink = false)
+        $displayUnenrollLink = false,
+        $enrollLinkParams = array(),
+        $unenrollLinkParams = array())
     {
-        $this->displayEnrollLink = $displayEnrollLink;
-        $this->displayUnenrollLink = $displayUnenrollLink;
-    }
-    
-    public function setDisplayEnrollLink($bool)
-    {
-        $this->displayEnrollLink = (bool) $bool;
-    }
-    
-    public function setDisplayUnenrollLink($bool)
-    {
-        $this->displayUnenrollLink = (bool) $bool;
+        $this->displayEnrollLink = (bool) $displayEnrollLink;
+        $this->displayUnenrollLink = (bool) $displayUnenrollLink;
+        $this->enrollLinkParams = $enrollLinkParams;
+        $this->unenrollLinkParams = $unenrollLinkParams;
     }
     
     public function getDisplayEnrollLink()
@@ -859,6 +898,16 @@ class CourseTreeViewOptions
     public function getDisplayUnenrollLink()
     {
         return $this->displayUnenrollLink;
+    }
+    
+    public function setDisplayEnrollLink($bool)
+    {
+        $this->displayEnrollLink = (bool) $bool;
+    }
+    
+    public function setDisplayUnenrollLink($bool)
+    {
+        $this->displayUnenrollLink = (bool) $bool;
     }
 }
 
@@ -895,9 +944,6 @@ class CourseTreeNodeViewFactory
         // Course tree
         $courseTree = new CourseTree($courseListIterator);
         
-        // View config
-        $viewOptions = new CourseTreeViewOptions(false, false);
-        
         // View
         $courseTreeView = new CourseTreeView(
             $courseTree->getRootNode(), 
@@ -905,7 +951,7 @@ class CourseTreeNodeViewFactory
             $notifiedCourseList, 
             $userCategoryList,
             $selectedCategoryId, 
-            $viewOptions);
+            null);
         
         return $courseTreeView;
     }
@@ -929,9 +975,6 @@ class CourseTreeNodeViewFactory
         // Course tree
         $courseTree = new CourseTree($courseListIterator);
         
-        // View config
-        $viewOptions = new CourseTreeViewOptions(false, false);
-        
         // View
         $courseTreeView = new CourseTreeView(
             $courseTree->getRootNode(), 
@@ -939,7 +982,7 @@ class CourseTreeNodeViewFactory
             null,
             null,
             null,
-            $viewOptions);
+            null);
         
         return $courseTreeView;
     }
@@ -975,9 +1018,6 @@ class CourseTreeNodeViewFactory
         // Course tree
         $courseTree = new CourseTree($courseListIterator);
         
-        // View config
-        $viewOptions = new CourseTreeViewOptions(false, false);
-        
         // View
         $courseTreeView = new CourseTreeView(
             $courseTree->getRootNode(), 
@@ -985,7 +1025,7 @@ class CourseTreeNodeViewFactory
             $notifiedCourseList, 
             $userCategoryList,
             $selectedCategoryId,
-            $viewOptions);
+            null);
         
         return $courseTreeView;
     }
@@ -1009,9 +1049,6 @@ class CourseTreeNodeViewFactory
         // Course tree
         $courseTree = new CourseTree($courseListIterator);
         
-        // View config
-        $viewOptions = new CourseTreeViewOptions(false, false);
-        
         // View
         $courseTreeView = new CourseTreeView(
             $courseTree->getRootNode(), 
@@ -1019,7 +1056,7 @@ class CourseTreeNodeViewFactory
             null,
             null,
             null,
-            $viewOptions);
+            null);
         
         return $courseTreeView;
     }
