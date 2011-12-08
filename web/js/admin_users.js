@@ -38,7 +38,7 @@ $(document).ready(function(){
         });
     });
     
- // Fetch categories for a given user, and display it inside a qtip
+    // Fetch categories for a given user, and display it inside a qtip
     $("a.showUserCategory").each(function()
     {
         $(this).qtip({

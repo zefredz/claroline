@@ -16,6 +16,7 @@
 // Load Claroline kernel
 require_once dirname(__FILE__) . '/../../inc/claro_init_global.inc.php';
 require_once dirname(__FILE__) . '/../../inc/lib/courselist.lib.php';
+require_once dirname(__FILE__) . '/../../inc/lib/course/courselist.lib.php';
 
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
@@ -28,15 +29,16 @@ if ($action == 'getUserCourseList')
     
     if (!is_null($userId))
     {
-        $courseList = get_user_course_list($userId);
+        $courseList = new UserCourseList($userId);
+        $courseListIterator = $courseList->getIterator();
         
         //We only need courses codes
-        if (!empty($courseList))
+        if (!empty($courseListIterator))
         {
             $coursesCodeList = array();
-            foreach($courseList as $course)
+            foreach($courseListIterator as $course)
             {
-                $coursesCodeList[] = $course['officialCode'];
+                $coursesCodeList[] = $course->officialCode;
             }
         }
         else
