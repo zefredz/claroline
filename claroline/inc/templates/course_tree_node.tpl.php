@@ -24,7 +24,9 @@
                 <img class="enrolment" src="<?php echo get_icon_url('enroll'); ?>" alt="<?php echo get_lang('Unenroll'); ?>" />
             </a>
             
-        <?php elseif ($this->viewOptions->getDisplayUnenrollLink()) : ?>
+        <?php elseif ($this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId)->isCourseMember() && 
+            $this->viewOptions->getDisplayUnenrollLink()) : ?>
             
             <a href="#unenroll">
                 <img class="enrolment" src="<?php echo get_icon_url('unenroll'); ?>" alt="<?php echo get_lang('Enroll'); ?>" />
