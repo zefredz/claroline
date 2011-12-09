@@ -262,12 +262,12 @@ function nameBox($type, $mode)
         case MODULE_ :
             $col_name = 'name';
             $tbl_name = $tbl_lp_module;
-            $where_cond = '`module_id` != ' . (int) $_SESSION['module_id'];
+            $where_cond = '`module_id` = ' . (int) $_SESSION['module_id'];
             break;
         case LEARNINGPATH_ :
             $col_name = 'name';
             $tbl_name = $tbl_lp_learnPath;
-            $where_cond = '`learnPath_id` != ' . (int) $_SESSION['path_id'];
+            $where_cond = '`learnPath_id` = ' . (int) $_SESSION['path_id'];
             break;
     }
 
@@ -281,7 +281,7 @@ function nameBox($type, $mode)
             $sql = "SELECT COUNT(`" . $col_name . "`)
                                  FROM `" . $tbl_name . "`
                                 WHERE `" . $col_name . "` = '" . claro_sql_escape($_POST['newName']) . "'
-                                  AND " . $where_cond;
+                                  AND !(" . $where_cond . ")";
             $num = claro_sql_query_get_single_value($sql);
 
             if ($num == 0)  // name doesn't already exists
