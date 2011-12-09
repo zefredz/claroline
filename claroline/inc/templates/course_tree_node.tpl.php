@@ -20,7 +20,7 @@
             $this->node->getCourse()->courseId)->isCourseMember() &&
             $this->viewOptions->getDisplayEnrollLink()) : ?>
             
-            <a href="#enroll">
+            <a href="<?php echo $this->viewOptions->getEnrollLinkUrl(); ?>">
                 <img class="enrolment" src="<?php echo get_icon_url('enroll'); ?>" alt="<?php echo get_lang('Unenroll'); ?>" />
             </a>
             
@@ -28,7 +28,7 @@
             $this->node->getCourse()->courseId)->isCourseMember() && 
             $this->viewOptions->getDisplayUnenrollLink()) : ?>
             
-            <a href="#unenroll">
+            <a href="<?php echo $this->viewOptions->getUnenrollLinkUrl(); ?>">
                 <img class="enrolment" src="<?php echo get_icon_url('unenroll'); ?>" alt="<?php echo get_lang('Enroll'); ?>" />
             </a>
             

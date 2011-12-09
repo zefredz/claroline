@@ -34,7 +34,7 @@ abstract class AbstractCourseList implements CourseList
     const ORDER_BY_TITLE = '`intitule`, UPPER(`administrativeNumber`)';
     
     /**
-     * @var String
+     * @var string
      */
     protected $orderBy;
     
@@ -51,7 +51,7 @@ abstract class AbstractCourseList implements CourseList
     }
     
     /**
-     * @param String
+     * @param string
      */
     public function setOrderBy($orderBy)
     {
@@ -59,7 +59,7 @@ abstract class AbstractCourseList implements CourseList
     }
     
     /**
-     * @param String
+     * @param string
      */
     public function setOrderDirection($orderDirection)
     {
@@ -274,7 +274,7 @@ class UserCategoryCourseList extends AbstractCourseList
 class SearchedCourseList extends AbstractCourseList
 {
     /**
-     * @var String keyword
+     * @var string keyword
      */
     protected $keyword;
     
@@ -874,20 +874,20 @@ class CourseTreeViewOptions
     protected $displayEnrollLink, $displayUnenrollLink;
     
     /**
-     * @var array
+     * @var Url
      */
-    protected $enrollLinkParams, $unenrollLinkParams;
+    protected $enrollLinkUrl, $unenrollLinkUrl;
     
     public function __construct(
         $displayEnrollLink = false, 
         $displayUnenrollLink = false,
-        $enrollLinkParams = array(),
-        $unenrollLinkParams = array())
+        $enrollLinkUrl = null,
+        $unenrollLinkUrl = null)
     {
         $this->displayEnrollLink = (bool) $displayEnrollLink;
         $this->displayUnenrollLink = (bool) $displayUnenrollLink;
-        $this->enrollLinkParams = $enrollLinkParams;
-        $this->unenrollLinkParams = $unenrollLinkParams;
+        $this->enrollLinkUrl = new Url($enrollLinkUrl);
+        $this->unenrollLinkUrl = new Url($unenrollLinkUrl);
     }
     
     public function getDisplayEnrollLink()
@@ -900,6 +900,16 @@ class CourseTreeViewOptions
         return $this->displayUnenrollLink;
     }
     
+    public function getEnrollLinkUrl()
+    {
+        return $this->enrollLinkUrl->toUrl();
+    }
+    
+    public function getUnenrollLinkUrl()
+    {
+        return $this->unenrollLinkUrl->toUrl();
+    }
+    
     public function setDisplayEnrollLink($bool)
     {
         $this->displayEnrollLink = (bool) $bool;
@@ -908,6 +918,22 @@ class CourseTreeViewOptions
     public function setDisplayUnenrollLink($bool)
     {
         $this->displayUnenrollLink = (bool) $bool;
+    }
+    
+    /**
+     * @param Url
+     */
+    public function setEnrollLinkUrl($url)
+    {
+        $this->enrollLinkUrl = $url;
+    }
+    
+    /**
+     * @param Url
+     */
+    public function setUnenrollLinkUrl($url)
+    {
+        $this->unenrollLinkUrl = $url;
     }
 }
 
@@ -918,7 +944,7 @@ class CourseTreeNodeViewFactory
      * Get the complete course tree of a specific user.
      * 
      * @param int user id
-     * @return CourseTreeView 
+     * @return CourseTreeView
      */
     static public function getUserCourseTreeView($userId)
     {
@@ -1033,7 +1059,7 @@ class CourseTreeNodeViewFactory
     /**
      * Get the complete course tree of a specific keyword.
      * 
-     * @param String keyword
+     * @param string keyword
      * @return CourseTreeView 
      */
     static public function getSearchedCourseTreeView($keyword)
