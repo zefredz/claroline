@@ -44,6 +44,8 @@ class Claro_PlatformDocumentsDownloader implements Claro_Downloader
     
     public function getFilePath( $requestedUrl )
     {
+        $requestedUrl = secure_file_path( $requestedUrl );
+        
         return realpath( rtrim( str_replace( '\\', '/', get_path('rootSys') ), '/' ) 
             . '/platform/document' . '/' . $requestedUrl );
     }

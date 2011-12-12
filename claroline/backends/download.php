@@ -18,7 +18,7 @@ require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
 require_once get_path('incRepositorySys') . '/lib/url.lib.php';
 require_once get_path('incRepositorySys') . '/lib/file.lib.php';
-require_once get_path('incRepositorySys') . '/lib/core/downloader.lib.php';
+require_once get_path('incRepositorySys') . '/lib/file/downloader.lib.php';
 
 $nameTools = get_lang('Display file');
 
