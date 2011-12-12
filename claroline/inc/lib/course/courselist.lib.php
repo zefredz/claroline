@@ -890,24 +890,36 @@ class CourseTreeViewOptions
         $this->unenrollLinkUrl = new Url($unenrollLinkUrl);
     }
     
+    /**
+     * @return bool
+     */
     public function getDisplayEnrollLink()
     {
         return $this->displayEnrollLink;
     }
     
+    /**
+     * @return bool
+     */
     public function getDisplayUnenrollLink()
     {
         return $this->displayUnenrollLink;
     }
     
+    /**
+     * @return Url
+     */
     public function getEnrollLinkUrl()
     {
-        return $this->enrollLinkUrl->toUrl();
+        return $this->enrollLinkUrl;
     }
     
+    /**
+     * @return Url
+     */
     public function getUnenrollLinkUrl()
     {
-        return $this->unenrollLinkUrl->toUrl();
+        return $this->unenrollLinkUrl;
     }
     
     public function setDisplayEnrollLink($bool)

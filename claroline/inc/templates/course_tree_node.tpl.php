@@ -20,7 +20,14 @@
             $this->node->getCourse()->courseId)->isCourseMember() &&
             $this->viewOptions->getDisplayEnrollLink()) : ?>
             
-            <a href="<?php echo $this->viewOptions->getEnrollLinkUrl(); ?>">
+            <a href="<?php 
+                $urlObj = Url::buildUrl(
+                    $this->viewOptions->getEnrollLinkUrl()->toUrl(), 
+                    array('courseId' => $this->node->getCourse()->courseId), 
+                    null);
+                    
+                echo $urlObj->toUrl();
+                ?>">
                 <img class="enrolment" src="<?php echo get_icon_url('enroll'); ?>" alt="<?php echo get_lang('Unenroll'); ?>" />
             </a>
             
@@ -28,7 +35,15 @@
             $this->node->getCourse()->courseId)->isCourseMember() && 
             $this->viewOptions->getDisplayUnenrollLink()) : ?>
             
-            <a href="<?php echo $this->viewOptions->getUnenrollLinkUrl(); ?>">
+            <a href="<?php 
+                $urlObj = Url::buildUrl(
+                    $this->viewOptions->getUnenrollLinkUrl()->toUrl(), 
+                    array('courseId' => $this->node->getCourse()->courseId), 
+                    null);
+                    
+                echo $urlObj->toUrl();
+                ?>"
+               onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript(get_lang('Are you sure you want to remove this course from your list ?')); ?>')) return false;">
                 <img class="enrolment" src="<?php echo get_icon_url('unenroll'); ?>" alt="<?php echo get_lang('Enroll'); ?>" />
             </a>
             
