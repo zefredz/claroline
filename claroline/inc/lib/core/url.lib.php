@@ -303,4 +303,20 @@ class Url
         
         return $urlObj->toUrl();
     }
+
+    /**
+     * Build an url from sctract
+     * @param string $url
+     * @param array $params
+     * @param array $context
+     * @return Url
+     */
+    public static function buildUrl( $url, $params = null, $context = null )
+    {
+        $urlObj = new Url($url);
+        $urlObj->addParamList($params);
+        $urlObj->relayContext($context);
+        
+        return $urlObj;
+    }
 }
