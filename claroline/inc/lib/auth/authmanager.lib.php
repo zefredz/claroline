@@ -79,16 +79,30 @@ class AuthManager
                     {
                         $userAttrList =  $driver->getFilteredUserData();
                         
-                        // avoid session collisions !
-                        if ( isset( $userAttrList['loginName'] )
-                            && $username != $userAttrList['loginName'] )
+                        if ( isset( $userAttrList['loginName'] ) )
                         {
-                            Console::error( "EXTAUTH ERROR : try to overwrite an existing user {$username} with another one" . var_export($userAttrList, true) );
+                            $newUserName = $userAttrList['loginName'];
+                            
+                            if ( ! get_conf('claro_authUsernameCaseSensitive', true) )
+                            {
+                                $newUsername = strtolower($newUserName);
+                                $username = strtolower($username);
+                            }
+                            
+                            // avoid session collisions !
+                            if ( $username != $newUserName )
+                            {
+                                Console::error( "EXTAUTH ERROR : try to overwrite an existing user {$username} with another one" . var_export($userAttrList, true) );
+                            }
+                            else
+                            {
+                                AuthUserTable::updateUser( $uid, $userAttrList );
+                                Console::info( "EXTAUTH INFO : update user {$uid} {$username} with " . var_export($userAttrList, true) );
+                            }
                         }
                         else
                         {
-                            AuthUserTable::updateUser( $uid, $userAttrList );
-                            Console::info( "EXTAUTH INFO : update user {$uid} {$username} with " . var_export($userAttrList, true) );
+                            Console::error( "EXTAUTH ERROR : no loginName given for user {$username} by authSource " . $driver->getAuthSource() );
                         }
                     }
                     
