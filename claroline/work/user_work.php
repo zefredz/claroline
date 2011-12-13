@@ -1095,12 +1095,11 @@ if( $is_allowedToSubmit )
             }
 
             $out .= '<h4>'.$txtForFormTitle.'</h4>'."\n"
-                  .'<p><a href="'.$_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId.'">'
-                  .'<span style="background-image: url(/claroline111/web/img/back.png?1310394806); background-repeat: no-repeat; background-position: left center; padding-left: 20px;">'
-                  .get_lang('Back').'</span></a></p>'."\n"
-                  .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?assigId='.$assignmentId.'&amp;authId='.$_REQUEST['authId'].'" enctype="multipart/form-data">'."\n"
-                  .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
-                  .'<input type="hidden" name="cmd" value="'.$cmdToSend.'" />'."\n";
+                  . '<p><a class="backLink" href="'.$_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId.'">'
+                  . get_lang('Back').'</a></p>'."\n"
+                  . '<form method="post" action="'.$_SERVER['PHP_SELF'].'?assigId='.$assignmentId.'&amp;authId='.$_REQUEST['authId'].'" enctype="multipart/form-data">'."\n"
+                  . '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+                  . '<input type="hidden" name="cmd" value="'.$cmdToSend.'" />'."\n";
 
             if( isset($_REQUEST['wrkId']) )
             {

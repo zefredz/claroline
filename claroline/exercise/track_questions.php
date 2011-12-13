@@ -119,9 +119,8 @@ $titleTab['mainTitle'] = $nameTools;
 $out .= claro_html_tool_title($titleTab);
 
 // build back link
-$backLink = "\n\n".'<a href="./track_exercises.php?exId='.$exId.$src.'">'
-          . '<span style="background-image: url(http://localhost/claroline111/web/img/back.png?1310394806); padding-left: 20px; background-position: 0% 50%; background-repeat: no-repeat no-repeat; ">'
-          . get_lang('Back').'</span></a>'."\n\n";
+$backLink = "\n\n".'<a class="backLink" href="./track_exercises.php?exId='.$exId.$src.'">'
+          . get_lang('Back').'</a>'."\n\n";
 
 $out .= $backLink;
 

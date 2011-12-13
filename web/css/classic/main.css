@@ -1763,3 +1763,8 @@ td.userCourseList {padding-left: 20px;}
     padding-left: 16px;
     background: url(img/attach.png) no-repeat left center;
 }
+
+.backLink {
+    padding-left: 20px;
+    background: url(img/back.png) no-repeat left center; 
+}

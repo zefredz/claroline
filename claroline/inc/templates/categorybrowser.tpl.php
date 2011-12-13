@@ -16,10 +16,8 @@ if (isset($_REQUEST['cmd']))
 ?>
 
 <p>
-    <a href="<?php echo $backlinkUrlObj->toUrl(); ?>">
-        <span style="background-image: url(<?php echo get_icon_url('back'); ?>); background-repeat: no-repeat; background-position: left center; padding-left: 20px;">
-            <?php echo get_lang('Back to parent category'); ?>
-        </span>
+    <a class="backLink" href="<?php echo $backlinkUrlObj->toUrl(); ?>">
+        <?php echo get_lang('Back to parent category'); ?>
     </a>
 </p>
 
@@ -75,10 +73,8 @@ if (isset($_REQUEST['cmd']))
 
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>
 <p>
-    <a href="<?php echo $backlinkUrlObj->toUrl(); ?>">
-        <span style="background-image: url(<?php echo get_icon_url('back'); ?>); background-repeat: no-repeat; background-position: left center; padding-left: 20px;">
-            <?php echo get_lang('Back to parent category'); ?>
-        </span>
+    <a class="backLink" href="<?php echo $backlinkUrlObj->toUrl(); ?>">
+        <?php echo get_lang('Back to parent category'); ?>
     </a>
 </p>
 <?php endif; ?>
