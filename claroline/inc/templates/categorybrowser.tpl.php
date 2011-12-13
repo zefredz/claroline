@@ -4,11 +4,19 @@
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>
 <h3 id="categoryContent"><?php echo $this->currentCategory->name; ?></h3>
 
+<?php
+$backlinkUrlObj = Url::buildUrl(
+                $_SERVER['PHP_SELF'].'#categoryContent',
+                array('category' => $this->currentCategory->idParent),
+                null);
+if (isset($_REQUEST['cmd'])) 
+{
+    $backlinkUrlObj->addParam('cmd', $_REQUEST['cmd']);
+}
+?>
+
 <p>
-    <a href="<?php echo 
-                $_SERVER['PHP_SELF'] . '?'
-              . (isset($_REQUEST['cmd']) ? 'cmd='.urlencode($_REQUEST['cmd']) : '')
-              . '&amp;category=' . urlencode( $this->currentCategory->idParent ) . '#categoryContent'; ?>">
+    <a href="<?php echo $backlinkUrlObj->toUrl(); ?>">
         <span style="background-image: url(<?php echo get_icon_url('back'); ?>); background-repeat: no-repeat; background-position: left center; padding-left: 20px;">
             <?php echo get_lang('Back to parent category'); ?>
         </span>
@@ -32,14 +40,24 @@
     
     <?php if (claroCategory::countAllCourses($category['id']) + claroCategory::countAllSubCategories($category['id']) > 0) : ?>
     <li>
-        <?php echo '<a href="' . $_SERVER['PHP_SELF'] . '?'
-        . (isset($_REQUEST['cmd']) ? 'cmd='.urlencode($_REQUEST['cmd']) : '')
-        . '&amp;category='
-        . (int) $category['id'] . '#categoryContent">'
-        . $category['name'] . '</a>'; ?>
+        <?php 
+        $urlObj = Url::buildUrl(
+                        $_SERVER['PHP_SELF'].'#categoryContent',
+                        array('category' => $category['id']),
+                        null);
+        if (isset($_REQUEST['cmd'])) 
+        {
+            $urlObj->addParam('cmd', $_REQUEST['cmd']);
+        }
+        ?>
+        <a href="<?php echo $urlObj->toUrl(); ?>">
+            <?php echo $category['name']; ?>
+        </a>
     </li>
+    
     <?php else : ?>
     <li><?php echo $category['name']; ?></li>
+    
     <?php endif; ?>
     
 <?php endforeach; ?>
@@ -57,10 +75,7 @@
 
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>
 <p>
-    <a href="<?php echo 
-                $_SERVER['PHP_SELF'] . '?'
-              . (isset($_REQUEST['cmd']) ? 'cmd='.urlencode($_REQUEST['cmd']) : '')
-              . '&amp;category=' . urlencode( $this->currentCategory->idParent ) . '#categoryContent'; ?>">
+    <a href="<?php echo $backlinkUrlObj->toUrl(); ?>">
         <span style="background-image: url(<?php echo get_icon_url('back'); ?>); background-repeat: no-repeat; background-position: left center; padding-left: 20px;">
             <?php echo get_lang('Back to parent category'); ?>
         </span>
