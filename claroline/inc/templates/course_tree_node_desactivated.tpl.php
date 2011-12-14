@@ -15,15 +15,21 @@
     
     <?php if (!empty($this->courseUserPrivilegesList)) : ?>
         
-        <!-- Enrolment icon -->
-        <?php if (!$this->courseUserPrivilegesList->getCoursePrivileges(
+        <!-- Enrolment/unenrolment icon -->
+        <?php
+            /*
+             * Display this link if: 
+             * - The user isn't course member already
+             * - The config says so
+             */
+            if (!$this->courseUserPrivilegesList->getCoursePrivileges(
             $this->node->getCourse()->courseId)->isCourseMember() &&
             $this->viewOptions->getDisplayEnrollLink()) : ?>
             
             <a href="<?php 
                 $urlObj = Url::buildUrl(
                     $this->viewOptions->getEnrollLinkUrl()->toUrl(), 
-                    array('courseId' => $this->node->getCourse()->courseId), 
+                    array('course' => $this->node->getCourse()->courseId), 
                     null);
                     
                 echo $urlObj->toUrl();
@@ -31,14 +37,23 @@
                 <img class="enrolment" src="<?php echo get_icon_url('enroll'); ?>" alt="<?php echo get_lang('Unenroll'); ?>" />
             </a>
             
-        <?php elseif ($this->courseUserPrivilegesList->getCoursePrivileges(
-            $this->node->getCourse()->courseId)->isCourseMember() && 
-            $this->viewOptions->getDisplayUnenrollLink()) : ?>
+        <?php
+            /*
+             * Display this link if: 
+             * - The user is course member already
+             * - The user isn't course manager
+             * - The config says so
+             */
+            elseif ($this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId)->isCourseMember() 
+            && !$this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId)->isCourseManager()
+            && $this->viewOptions->getDisplayUnenrollLink()) : ?>
             
             <a href="<?php 
                 $urlObj = Url::buildUrl(
                     $this->viewOptions->getUnenrollLinkUrl()->toUrl(), 
-                    array('courseId' => $this->node->getCourse()->courseId), 
+                    array('course' => $this->node->getCourse()->courseId), 
                     null);
                     
                 echo $urlObj->toUrl();
