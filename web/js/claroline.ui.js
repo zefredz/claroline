@@ -109,40 +109,46 @@ collapseScrollIntoView = function (node) {
 $(document).ready(function(){
     $(".qtip").each(function()
     {
-        $(this).qtip({
-            content: $(this).attr("title") != '' ? 
-                    $(this).attr("title") : $(this).attr("alt"),
-            
-            show: "mouseover",
-            hide: "mouseout",
-            position: {
-                corner: {
-                    target: "topRight",
-                    tooltip: "bottomRight"
-                }
-            },
-            
-            style: {
-                width: "auto",
-                padding: 5,
-                background: "#CCDDEE",
-                color: "black",
-                fontSize: "0.9em",
-                textAlign: "center",
-                border: {
-                    width: 7,
-                    radius: 5,
-                    color: "#CCDDEE"
+        var qtipContent = '';
+        
+        if ($(this).attr("title") != '')
+        {
+            qtipContent = $(this).attr("title");
+        }
+        else if ($(this).attr("alt") != '')
+        {
+            qtipContent = $(this).attr("alt");
+        }
+        
+        if (qtipContent != '')
+        {
+            $(this).qtip({
+                content: qtipContent,
+                
+                show: "mouseover",
+                hide: "mouseout",
+                position: {
+                    corner: {
+                     target: "topMiddle",
+                     tooltip: "bottomLeft"
+                    }
                 },
-                tip: "bottomLeft"
-           },
-           
-           position: {
-              corner: {
-                 target: "topMiddle",
-                 tooltip: "bottomLeft"
-              }
-           }
-        });
+                
+                style: {
+                    width: "auto",
+                    padding: 5,
+                    background: "#CCDDEE",
+                    color: "black",
+                    fontSize: "0.9em",
+                    textAlign: "center",
+                    border: {
+                        width: 7,
+                        radius: 5,
+                        color: "#CCDDEE"
+                    },
+                    tip: "bottomLeft"
+               }
+            });
+        }
     });
 });
