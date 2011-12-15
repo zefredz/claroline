@@ -3,12 +3,10 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * PHP-based templating system
  *
- * PHP-based templating system.
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -69,7 +67,7 @@ class PhpTemplate implements Display
     }
     
     /**
-     * Show a block in the template given its name
+     * Show a block in the template given its name 
      * (ie set the variable with the block name to true)
      * @param   string $blockName
      */
@@ -79,7 +77,7 @@ class PhpTemplate implements Display
     }
     
     /**
-     * Hide a block in the template given its name
+     * Hide a block in the template given its name 
      * (ie set the variable with the block name to false)
      * @param   string $blockName
      */
@@ -126,20 +124,6 @@ class CoreTemplate extends PhpTemplate
         if ( claro_is_in_a_course() )
         {
             $this->course = claro_get_current_course_data();
-            
-            require_once dirname(__FILE__) . '/../claroCourse.class.php';
-            
-            $this->courseObject = new ClaroCourse();
-            $this->courseObject->load(claro_get_current_course_id());
-
-            // Fetch related courses
-            $this->relatedCourses = $this->courseObject->getRelatedCourses();
-            $this->relatedUserCourses = $this->courseObject->getRelatedUserCourses(claro_get_current_user_id());
-            
-            if ( claro_is_in_a_group() )
-            {
-                $this->group = claro_get_current_group_data();
-            }
         }
         
         if ( claro_is_user_authenticated() )
@@ -165,22 +149,12 @@ class ModuleTemplate extends PhpTemplate
         $template = secure_file_path( $template );
         $moduleLabel = secure_file_path( $moduleLabel );
         
-        // Custom template file for the installed campus
         $customTemplatePath = get_path('rootSys') . 'platform/templates/'.$moduleLabel.'/'.$template;
-        
-        // Version specific template file
-        $defaultVersionTemplatePath = get_module_path($moduleLabel) . '/templates/1_10/'.$template;
-        
-        // Default template path
         $defaultTemplatePath = get_module_path($moduleLabel) . '/templates/'.$template;
         
         if ( file_exists( $customTemplatePath ) )
         {
             parent::__construct( $customTemplatePath );
-        }
-        elseif ( file_exists( $defaultVersionTemplatePath ) )
-        {
-            parent::__construct( $defaultVersionTemplatePath );
         }
         elseif ( file_exists( $defaultTemplatePath ) )
         {

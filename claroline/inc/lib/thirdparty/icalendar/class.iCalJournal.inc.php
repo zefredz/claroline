@@ -359,4 +359,3 @@ class iCalJournal extends iCalBase {
     } // end function
     /**#@-*/
 } // end class iCalJournal
-?>

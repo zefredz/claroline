@@ -8,7 +8,7 @@
             
             <!-- Group name -->
             <dt>
-                <label for="name"><?php echo get_lang("Group name"); ?></label>
+                <label for="name"><?php echo get_lang("Group name"); ?> :</label>
                 <span class="required">*</span>
             </dt>
             <dd>
@@ -21,7 +21,7 @@
             
             <!-- Group description -->
             <dt>
-                <label for="description"><?php echo get_lang("Description"); ?></label>
+                <label for="description"><?php echo get_lang("Description").' '.get_lang("(optional)"); ?> :</label>
             </dt>
             <dd>
                 <textarea name="description" id="description" rows="4 "cols="70" ><?php echo $this->groupDescription; ?></textarea>
@@ -29,33 +29,32 @@
             
             <!-- Group tutor -->
             <dt>
-                <label for="tutor"><?php echo get_lang("Group Tutor"); ?></label>
+                <label for="tutor"><?php echo get_lang("Group Tutor"); ?> :</label>
             </dt>
             <dd>
                 <?php echo claro_html_form_select('tutor', $this->tutorList, $this->groupTutorId, array('id'=>'tutor')); ?>
-                &nbsp;&nbsp;
-                (<a href="../user/user.php?gidReset=true"><?php echo get_lang("View user list"); ?></a>)
+                &nbsp;
+                <small><em>(<a href="../user/user.php?gidReset=true"><?php echo get_lang("User list"); ?></a>)</em></small>
             </dd>
             
-            <!-- Maximum number of seats -->
+            
+            <!-- Group members management -->
             <dt>
-                <label for="maxMember"><?php echo get_lang("Seats"); ?></label>
+                <?php echo get_lang("Users"); ?> :
             </dt>
+            
             <dd>
+                <!-- Maximum number of seats -->
                 <label for="maxMember"><?php echo get_lang("Max."); ?></label>
                 <input type="text" name="maxMember" id="maxMember" size="2" value="<?php echo $this->groupUserLimit; ?>" />
-            </dd>
-        
-            <!-- Group members -->
-            <dt>
-                <label for="ingroup"><?php echo get_lang("Group members"); ?></label>
-            </dt>
-            <dd>
+                <?php echo get_lang("seats (optional)"); ?>
+
+                <!-- Group members -->
                 <table class="multiselect">
                   <tr>
                     <td>
                         <label for="mslist1">
-                            <?php echo get_lang("Users in group"); ?>
+                            <?php echo get_lang("Group members"); ?>
                         </label>
                         <br />
                         <select multiple="multiple" name="ingroup[]" id="mslist1" size="10">

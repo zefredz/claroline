@@ -4,7 +4,7 @@
  *
  * @version 0.1 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -35,7 +35,7 @@ $inLP = (claro_called_from() == 'CLLP')? true : false;
 
 if( !$inLP )
 {
-    claro_redirect('../document.php');
+    claro_redirect('../document.php'); 
 }
 
 $url = Url::Contextualize(get_path('url') . '/claroline/backends/download.php?url=' . $_REQUEST['url']);
@@ -56,3 +56,4 @@ $claroline->display->addRow($progressFrame, '50');
 
 // output outer frameset with inner frameset within in embedded mode
 echo $claroline->display->render();
+?>

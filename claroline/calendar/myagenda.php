@@ -1,24 +1,29 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * This file generates a general agenda of all items of the courses
- * the user is registered for.
+ *    This file generates a general agenda of all items of the courses
+ *    the user is registered for.
  *
- * Based on the master-calendar code of Eric Remy (6 Oct 2003)
- * adapted by Toon Van Hoecke (Dec 2003) and Hugues Peeters (March 2004)
+ *    Based on the master-calendar code of Eric Remy (6 Oct 2003)
+ *    adapted by Toon Van Hoecke (Dec 2003) and Hugues Peeters (March 2004)
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLCAL
- * @author      Claro Team <cvs@claroline.net>
- * @author      Eric Remy <eremy@rmwc.edu>
- * @author      Toon Van Hoecke <Toon.VanHoecke@UGent.be>
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLCAL
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Eric Remy <eremy@rmwc.edu>
+ * @author Toon Van Hoecke <Toon.VanHoecke@UGent.be>
+ * @author Hugues Peeters <peeter@ipm.ucl.ac.be>
+ *
  */
 
-$cidReset = true;
+$cidReset = TRUE;
 
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
@@ -78,3 +83,5 @@ $out .= claro_html_tool_title($nameTools)
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

@@ -1,14 +1,16 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
- * @version $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @author Claro Team <cvs@claroline.net>
+ *
  */
 
 class answerMultipleChoice
@@ -508,14 +510,12 @@ class answerMultipleChoice
         }
 
         $html .= '<table class="claroTable" >' . "\n"
-        .   '<thead>'
-        .   '<tr>' . "\n"
-        .   '<th>' . get_lang('Expected choice') . '</th>' . "\n"
-        .   '<th>' . get_lang('Answer') . '</th>' . "\n"
-        .   '<th>' . get_lang('Comment') . '</th>' . "\n"
-        .   '<th>' . get_lang('Weighting') . '</th>' . "\n"
-        .   '</tr>' . "\n"
-        .   '</thead>'."\n";
+        .   '<tr class="headerX">' . "\n"
+        .    '<th>' . get_lang('Expected choice') . '</th>' . "\n"
+        .    '<th>' . get_lang('Answer') . '</th>' . "\n"
+        .    '<th>' . get_lang('Comment') . '</th>' . "\n"
+        .    '<th>' . get_lang('Weighting') . '</th>' . "\n"
+        .    '</tr>' . "\n\n";
 
         $i = 1;
         foreach( $this->answerList as $answer )
@@ -712,3 +712,4 @@ class answerMultipleChoice
         return $values;
     }
 }
+

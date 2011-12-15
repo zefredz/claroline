@@ -1,18 +1,21 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * Management tools for classes.
+ * this tool manage the classes
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claro Team <cvs@claroline.net>
- * @author      Guillaume Lederer <lederer@cerdecam.be>
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author  Guillaume Lederer <lederer@cerdecam.be>
  */
 
 //Used libraries
+
 require '../inc/claro_init_global.inc.php';
 
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
@@ -20,33 +23,40 @@ require_once get_path('incRepositorySys') . '/lib/class.lib.php';
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
 // Security check
+
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // DB tables definition
+
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_class      = $tbl_mdb_names['user_category'];
 
-// Session variables
+// USED SESSION VARIABLES
+
 if ( !isset($_SESSION['admin_visible_class']))
 {
     $_SESSION['admin_visible_class'] = array();
 }
 // Dialogbox
 $dialogBox = new DialogBox();
+// Deal with interbredcrumps  and title variable
 
-// Deal with interbredcrumps and title variable
 $nameTools = get_lang('Classes');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
+// jJavascript confirm pop up declaration for header
 
-// Javascript
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure to delete %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
-
-JavascriptLoader::getInstance()->load('admin');
-JavascriptLoader::getInstance()->load('admin_users');
+$htmlHeadXtra[] =
+'<script>
+function confirmation (name)
+{
+    if (confirm("' . clean_str_for_javascript(get_lang('Are you sure to delete')) . '"+\' \'+ name + "? "))
+        {return true;}
+    else
+        {return false;}
+}
+</script>';
 
 //-------------------------------------------------------
 // Main section
@@ -84,36 +94,37 @@ switch ( $cmd )
         break;
         
    // Delete all classes
-    case 'exDeleteAll' :
+	case 'exDeleteAll' :
 
-        if ( delete_all_classes() )
-        {
-            $dialogBox->success(get_lang('All classes deleted'));
-        }
-        else
-        {
-            $dialogBox->error(get_lang('Error : Can not delete all classes'));
-        }
+		if ( delete_all_classes() )
+	    {
+	    	$dialogBox->success(get_lang('All classes deleted'));
+	    }
+	    else
+	    {
+	    	$dialogBox->error(get_lang('Error : Can not delete all classes'));
+	    }
 
         break;
         
    // Empty all classes
     case 'exEmptyAll' :
-        
-        if ( empty_all_class() )
-        {
-            $dialogBox->success(get_lang('All classes emptied'));
-        }
-        else
-        {
-            $dialogBox->error(get_lang('Error : Can not empty all classes'));
-        }
-    
-           break;
-    
+
+		if ( empty_all_class() )
+	    {
+	    	$dialogBox->success(get_lang('All classes emptied'));
+	    }
+	    else
+	    {
+	    	$dialogBox->error(get_lang('Error : Can not empty all classes'));
+	
+	    }
+
+       	break;
+
     // Display form to create a new class
     case 'rqAdd' :
-        
+
         $dialogBox->form( '<form action="'.$_SERVER['PHP_SELF'].'" method="post" >' . "\n"
         .            '<input type="hidden" name="cmd" value="exAdd" />' . "\n"
         .            '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
@@ -134,9 +145,9 @@ switch ( $cmd )
         .            '</table>' . "\n"
         .            '</form>'."\n "
         );
-        
+
         break;
-    
+
     // Create a new class
     case 'exAdd' :
         
@@ -151,30 +162,31 @@ switch ( $cmd )
             {
                 $dialogBox->success( get_lang('The new class has been created') );
             }
+
         }
-        
+
         break;
-    
+
     // Edit class properties with posted form
     case 'exEdit' :
-        
+
         if ( empty($form_data['class_name']) )
         {
             $dialogBox->warning( get_lang('You cannot give a blank name to a class') );
         }
         else
         {
-            if ( class_set_properties($form_data['class_id'],$form_data['class_name']) )
+            if ( class_set_properties($form_data['class_id'],$form_data['class_name']) ) 
             {
                 $dialogBox->success( get_lang('Name of the class has been changed') );
             }
         }
-        
-        break;
-    
+
+    break;
+
     // Show form to edit class properties (display form)
     case 'rqEdit' :
-        
+
         if ( false !== ($thisClass = class_get_properties($form_data['class_id']) ))
         {
             $dialogBox->form( '<form action="'.$_SERVER['PHP_SELF'].'" method="post" >' . "\n"
@@ -221,6 +233,7 @@ switch ( $cmd )
     // Move a class in the tree (do it from posted info)
     case 'exMove' :
 
+
         if ( move_class($form_data['class_id'],$form_data['class_parent_id']) )
         {
             $dialogBox->success( get_lang('The class has been moved') );
@@ -240,7 +253,7 @@ switch ( $cmd )
 
     // Move a class in the tree (display form)
     case 'rqMove' :
-        
+
         $dialogBox->form( '<form action="'.$_SERVER['PHP_SELF'].'">'
         .            '<table>'
         .            '<tr>' . "\n"
@@ -262,50 +275,51 @@ switch ( $cmd )
 }
 
 // Get all classes
-$class_list = get_class_list();
 
-// Command list
-$cmdList = array();
+$sql = "SELECT id,
+               class_parent_id,
+               name
+        FROM `" . $tbl_class . "`
+        ORDER BY `name`";
 
-$cmdList[] = array(
-    'img' => 'class',
-    'name' => get_lang('Create a new class'),
-    'url' => $_SERVER['PHP_SELF'] . '?cmd=rqAdd'
-);
-
-if ( class_exist ())
-{
-    $cmdList[] = array(
-        'img' => 'class',
-        'name' => get_lang('Empty all classes'),
-        'url' => $_SERVER['PHP_SELF'] . '?cmd=exEmptyAll',
-        'params' => array('onclick' => 'if (confirm(\'' . clean_str_for_javascript(get_lang('Empty all classes ?')) . '\')){return true;}else{return false;}"')
-    );
-    
-    $cmdList[] = array(
-        'img' => 'class',
-        'name' => get_lang('Delete all classes'),
-        'url' => $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll',
-        'params' => array('onclick' => 'if (confirm(\'' . clean_str_for_javascript(get_lang('Delete all classes ?')) . '\')){return true;}else{return false;}"')
-    );
-}
+$class_list = claro_sql_query_fetch_all($sql);
 
 //-------------------------------------------------------
 // Display section
 //-------------------------------------------------------
 
 $out = '';
-
 // Display title
-$out .= claro_html_tool_title($nameTools, null, $cmdList);
 
-// Display dialog Box (or any forms)
+$out .= claro_html_tool_title($nameTools);
+
+// display dialog Box (or any forms)
 $out .= $dialogBox->render();
 
-// Display cols headers
+//display tool links
+
+$out .= '<p>'
+.    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
+.    '<img src="' . get_icon_url('class') . '" />' . get_lang('Create a new class')
+.    '</a>';
+
+if ( class_exist ())
+{
+    $out .= ' | ' .  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exEmptyAll" 
+    onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Empty all classes ?')) . '\')){return true;}else{return false;}">'
+    .    '<img src="' . get_icon_url('class') . '" />' . get_lang('Empty all classes')
+    .    '</a> '
+    . ' | ' . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" 
+    onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Delete all classes ?')) . '\')){return true;}else{return false;}">'
+    .    '<img src="' . get_icon_url('class') . '" />' . get_lang('Delete all classes')
+    .    '</a> ';
+}
+$out .= '</p>' . "\n";
+
+//display cols headers
 $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
-.    '<tr>'
+.    '<tr class="headerX">'
 .    '<th>' . get_lang('Classes') . '</th>'
 .    '<th>' . get_lang('Users') . '</th>'
 .    '<th>' . get_lang('Courses') . '</th>'
@@ -316,7 +330,7 @@ $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspaci
 .    '</thead>' . "\n"
 .    '<tbody>' . "\n" ;
 
-// Display class list
+//display Class list
 if(display_tree_class_in_admin($class_list))
 {
     $out .= display_tree_class_in_admin($class_list);
@@ -324,7 +338,7 @@ if(display_tree_class_in_admin($class_list))
 else
 {
     $out .= "\n"
-    .    '<tr>'
+    .    '<tr class="headerX">'
     .    '<td colspan="6" class="centerContent">' . get_lang('Empty') . '</td>'
     .    '</tr>' . "\n"
     ;
@@ -336,3 +350,5 @@ $out .= '</tbody>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

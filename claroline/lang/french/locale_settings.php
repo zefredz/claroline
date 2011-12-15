@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @author: claro team <cvs@claroline.net>
  *
@@ -23,8 +23,7 @@ $langNameOfLang['bulgarian']     = "bulgare";
 $langNameOfLang['catalan']       = "catalan";
 $langNameOfLang['croatian']      = "croate";
 $langNameOfLang['danish']        = "danois";
-$langNameOfLang['dutch_be']      = "néerlandais (Belgique)";
-$langNameOfLang['dutch_nl']      = "néerlandais (Pays-Bas)";
+$langNameOfLang['dutch']         = "néerlandais";
 $langNameOfLang['english']       = "anglais";
 $langNameOfLang['finnish']       = "finlandais";
 $langNameOfLang['french']        = "français";

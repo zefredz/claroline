@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -58,7 +58,7 @@ $titleTab['subTitle'] = get_lang('Progression of users on all learning paths');
 
 $out .= claro_html_tool_title($titleTab);
 
-if ( get_conf('is_trackingEnabled') )
+if ( get_conf('is_trackingEnabled') ) 
 {
     // display a list of user and their respective progress
     
@@ -132,3 +132,5 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

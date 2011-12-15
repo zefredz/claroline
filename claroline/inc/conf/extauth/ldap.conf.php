@@ -2,10 +2,9 @@
 
 /**
  * LDAP authentication driver version 2
- * This is an example using anonymous LDAP search
  *
- * @version     1.11 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -26,7 +25,7 @@ $driverConfig['extAuthOptionList'] = array(
     'version'  => 3,
     'basedn'   => 'ou=people,o=example,c=com',
     'userattr' => 'uid',
-    'userfilter' => '(objectClass=person)',
+    'userfilter' => '(objectClass=person)'
 );
 
 $driverConfig['extAuthAttribNameList'] = array(

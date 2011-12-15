@@ -1661,4 +1661,3 @@ function isEmpty($variable) {
     return $ret;
 }
 
-?>

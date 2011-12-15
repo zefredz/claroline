@@ -3,12 +3,10 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * user list
  *
- * User list.
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -19,13 +17,13 @@
 
 require_once dirname(__FILE__) . '/userstrategy.lib.php';
 
-class UserList implements CountableIterator
+class UserList implements Iterator, Countable 
 {
 
     protected $userList = FALSE;
     protected $numberOfUser = FALSE;
     protected $index = 0;
-    protected $userStrategy;
+    protected $userStrategy; 
     
     
     public function __construct($userStrategy = NULL)
@@ -69,7 +67,7 @@ class UserList implements CountableIterator
             }
             
             
-            $sql =
+            $sql = 
              "SELECT user_id AS id, nom AS lastname, prenom AS firstname, username"
                 ." FROM `".$tableName['user']."`"
                 . " " . $where
@@ -102,7 +100,7 @@ class UserList implements CountableIterator
             $where = "";
         }
         
-        $sql =
+        $sql = 
             "SELECT count(*)"
                ." FROM `".$tableName['user']."`"
                . " " . $where
@@ -148,7 +146,7 @@ class UserList implements CountableIterator
         $this->loadUserList();
         
         return ($this->index < count($this->userList));
-    }
+    } 
 
     public function count()
     {

@@ -1,11 +1,11 @@
-<?php // $Id$
+<?php
 
 /**
  * LDAP Authentication Driver
  *
- * @version     2.5 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     2.5
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
+ * @author      Frederic Minne <frederic.minne@uclouvain.be>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  *              GNU AFFERO GENERAL PUBLIC LICENSE version 3
  */
@@ -34,6 +34,11 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
         
     protected $user;
     
+    public function __construct( $driverConfig )
+    {
+        $this->setDriverOptions( $driverConfig );
+    }
+    
     public function setDriverOptions( $driverConfig )
     {
         $this->driverConfig = $driverConfig;
@@ -53,16 +58,6 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
         $this->extAuthAttribTreatmentList = $driverConfig['extAuthAttribTreatmentList'];
         $this->extAuthIgnoreUpdateList = $driverConfig['extAuthAttribToIgnore'];
 
-        // @since 1.9.9 
-        $this->authProfileOptions = isset($driverConfig['authProfileOptions'])
-            ? $driverConfig['authProfileOptions']
-            : array( 
-                'courseRegistrationAllowed' => null,
-                'courseEnrolmentMode' => null, 
-                'defaultCourseProfile' => null, 
-                'editableProfileFields' => null )
-            ;
-        
         $this->userSelfBindAuth = isset( $driverConfig['extAuthOptionList']['userSelfBindAuth'] )
             ? $driverConfig['extAuthOptionList']['userSelfBindAuth'] 
             : false
@@ -110,7 +105,7 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
             {
                 $searchdn = $this->extAuthOptionList['binddn'];
                 $searchpw = $this->extAuthOptionList['bindpw']; 
-            
+                
                 $auth->bind( $searchdn, $searchpw );
             }
             

@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -514,7 +514,7 @@ class answerFillInBlanks
                 }
             }
             
-            //
+            // 
             $correctAnswer = htmlspecialchars($this->answerDecode($this->answerList[$i]));
             $correctAnswer = htmlspecialchars($correctAnswer);
             
@@ -523,7 +523,7 @@ class answerFillInBlanks
         }
 
         // apply replacement on answer
-        // use preg_replace instead of str_replace because if there is several blanks
+        // use preg_replace instead of str_replace because if there is several blanks 
         // with same correct value using str_replace will replace each occurence by the 1st one he found
         $displayedAnswer = preg_replace( $blankList, $replacementList, claro_parse_user_text($this->answerDecode($this->answerText)), 1 );
 

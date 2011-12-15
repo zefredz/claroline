@@ -1,14 +1,16 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claro Team <cvs@claroline.net>
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
  */
  
 /**
@@ -26,8 +28,8 @@ function get_filter_list($excludeId = '')
     $filterList[get_lang('Orphan questions')] = 'orphan';
     
     // get exercise list
-    $sql = "SELECT `id`, `title`
-              FROM `".$tbl_quiz_exercise."`
+    $sql = "SELECT `id`, `title` 
+              FROM `".$tbl_quiz_exercise."` 
               ORDER BY `title`";
     $exerciseList = claro_sql_query_fetch_all($sql);
     
@@ -40,19 +42,13 @@ function get_filter_list($excludeId = '')
                 $filterList[$anExercise['title']] = $anExercise['id'];
             }
         }
-    }
-    $questionCategoryList = getQuestionCategoryList();
-    // category
-    foreach ($questionCategoryList as $category)
-    {
-        $filterList[get_lang('Category').' '.$category['title']] = 'categoryId'.$category['id'];
-    }
+    }     
     return $filterList;
 }
 
 /**
  * build a array making the correspondance between question type and its name
- *
+ * 
  * @return array array where key is the type and value is the corresponding translation
  * @author Sebastien Piraux <pir@cerdecam.be>
  */
@@ -77,7 +73,7 @@ function get_localized_question_type()
 function count_exercise_using_question($quId)
 {
     $tbl_cdb_names = get_module_course_tbl( array( 'qwz_rel_exercise_question' ), claro_get_current_course_id() );
-    $tbl_quiz_rel_exercise_question = $tbl_cdb_names['qwz_rel_exercise_question'];
+    $tbl_quiz_rel_exercise_question = $tbl_cdb_names['qwz_rel_exercise_question']; 
     
     $sql = "SELECT COUNT(`exerciseId`)
             FROM `".$tbl_quiz_rel_exercise_question."`
@@ -86,7 +82,7 @@ function count_exercise_using_question($quId)
     $exerciseCount = claro_sql_query_get_single_value($sql);
     
     if( ! $exerciseCount )  return 0;
-    else                    return $exerciseCount;
+    else                    return $exerciseCount;    
 }
 
 function set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteExe,$_uid)
@@ -168,7 +164,7 @@ function set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteE
 
 
 /**
- * return html required to display the required form elements to ask the user if the question must be modified in
+ * return html required to display the required form elements to ask the user if the question must be modified in 
  * all exercises or only the current one
  *
  * @return string html code
@@ -319,40 +315,4 @@ function change_img_url_for_pdf( $str )
     $replace = $matches[1].'<img ' . $matches[2] . ' src="' . $matches[5] .'" ' . $matches[8] . '>' . $matches[9];
     
     return $replace;
-}
-
-function getQuestionCategoryList()
-{
-    $categoryList = array();
-    $tbl_cdb_names = get_module_course_tbl( array('qwz_questions_categories' ),  claro_get_current_course_id()  );
-    $tblQuestionCategories = $tbl_cdb_names['qwz_questions_categories'];
-    $query = "SELECT `id`, `title` FROM `".$tblQuestionCategories."`
-               ORDER BY `title`";
-    if( claro_sql_query($query) )
-    {
-        return claro_sql_query_fetch_all_rows($query);
-    }
-    else
-    {
-         return $categoryList;
-    }
-}
-
-
-function getCategoryTitle( $categoryId )
-{
-   	$tbl_cdb_names = get_module_course_tbl( array('qwz_questions_categories' ),  claro_get_current_course_id()  );
-	$tblQuestionCategories = $tbl_cdb_names['qwz_questions_categories'];
-	$sql = "SELECT `title` FROM  `".$tblQuestionCategories. "` WHERE `id`= '".(int)$categoryId."'";
-	$data = claro_sql_query_get_single_row($sql);
-    
-    if( !empty($data) )
-    {
-    	// from query
-        return $data['title'];
-    }
-    else
-    {
-    	return '';
-    }
 }

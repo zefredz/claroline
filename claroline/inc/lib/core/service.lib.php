@@ -2,20 +2,23 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
- * CLAROLINE
- *
  * Service architecture, provides
  *  - Service classes
  *  - Dispatcher class
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.core
+ * @package     KERNEL
  * @deprecated  since 1.9, use utils/controller.lib instead
  */
 
@@ -128,7 +131,7 @@ class ObScriptService extends ScriptService
 
 /**
  * Service dispatcher
- * Receive a requested service identifier and executes the corresponding
+ * Receive a requested service identifier and executes the corresponding 
  * service. Dispatcher is like a routing table.
  */
 class Dispatcher
@@ -173,10 +176,10 @@ class Dispatcher
      * Bind a service to a service identifier
      * @param   request string service identifier
      * @param   service Service service object
-     * @param   overwrite boolean overwrites an existing entry
+     * @param   overwrite boolean overwrites an existing entry 
      *  with the same identifier
      * @return  boolean true if binding succeeds, else returns false
-     */
+     */ 
     public function bind( $request, $service, $overwrite = false )
     {
         if ( $overwrite || ! array_key_exists( $request, $this->registry ) )
@@ -225,7 +228,7 @@ class Dispatcher
      * @param   request string service identifier
      * @param   service Service service object
      * @return  boolean true if binding succeeds, else returns false
-     */
+     */ 
     public function rebind( $request, $service )
     {
         return $this->bind( $request, $service, true );

@@ -1,24 +1,23 @@
-# Claroline Database version 1.11
+# Claroline Database version 1.9
 
 # MAIN TABLES
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours` (
   `cours_id` INT(11) NOT NULL AUTO_INCREMENT,
   `code` VARCHAR(40) DEFAULT NULL,
-  `isSourceCourse` TINYINT(4) NOT NULL DEFAULT '0',
-  `sourceCourseId` INT(11) DEFAULT NULL,
   `administrativeNumber` VARCHAR(40) DEFAULT NULL,
   `directory` VARCHAR(20) DEFAULT NULL,
   `dbName` VARCHAR(40) DEFAULT NULL,
   `language` VARCHAR(15) DEFAULT NULL,
   `intitule` VARCHAR(250) DEFAULT NULL,
+  `faculte` VARCHAR(12) DEFAULT NULL,
   `titulaires` VARCHAR(255) DEFAULT NULL,
   `email` VARCHAR(255) DEFAULT NULL,
   `extLinkName` VARCHAR(30) DEFAULT NULL,
   `extLinkUrl` VARCHAR(180) DEFAULT NULL,
   `visibility` ENUM ('visible','invisible') DEFAULT 'visible' NOT NULL,
   `access`     ENUM ('public','private','platform') DEFAULT 'public' NOT NULL,
-  `registration` ENUM ('open','close','validation') DEFAULT 'open' NOT NULL,
+  `registration` ENUM ('open','close') DEFAULT 'open' NOT NULL,
   `registrationKey` VARCHAR(255) DEFAULT NULL,
   `diskQuota` INT(10) UNSIGNED DEFAULT NULL,
   `versionDb` VARCHAR(250) NOT NULL DEFAULT 'NEVER SET',
@@ -29,26 +28,10 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours` (
   `expirationDate` DATETIME DEFAULT NULL,
   `defaultProfileId` INT(11) NOT NULL,
   `status` enum('enable','pending','disable','trash','date') NOT NULL DEFAULT 'enable',
-  `userLimit` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`cours_id`),
-  KEY `administrativeNumber` (`administrativeNumber`)
+  PRIMARY KEY  (`cours_id`),
+  KEY `administrativeNumber` (`administrativeNumber`),
+  KEY `faculte` (`faculte`)
 ) ENGINE=MyISAM COMMENT='data of courses';
-
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__rel_course_portlet` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `courseId` int(11) NOT NULL,
-  `rank` int(11) NOT NULL,
-  `label` varchar(255) NOT NULL,
-  `visible` tinyint(4) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `courseId` (`courseId`,`label`)
-) ENGINE=MyISAM;
-
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__coursehomepage_portlet` (
-  `label` varchar(10) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`label`)
-) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__user` (
   `user_id` INT(11)  UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -69,8 +52,8 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__user` (
    PRIMARY KEY  (`user_id`),
   KEY `loginpass` (`username`,`password`)
 ) ENGINE=MyISAM;
-
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__rel_course_user` (
+    
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours_user` (
   `code_cours` VARCHAR(40) NOT NULL DEFAULT '0',
   `user_id` INT(11) UNSIGNED NOT NULL DEFAULT '0',
   `profile_id` INT(11) NOT NULL,
@@ -79,30 +62,25 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__rel_course_user` (
   `tutor` INT(11) NOT NULL DEFAULT '0',
   `count_user_enrol` INT(11) NOT NULL DEFAULT '0',
   `count_class_enrol` INT(11) NOT NULL DEFAULT '0',
-  `isPending` tinyINT(4) NOT NULL DEFAULT 0,
   `isCourseManager` tinyINT(4) NOT NULL DEFAULT 0,
-  `enrollment_date` DATETIME NULL,
    PRIMARY KEY  (`code_cours`,`user_id`),
   KEY `isCourseManager` (`isCourseManager`)
 ) ENGINE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL DEFAULT '',
-  `code` varchar(12) NOT NULL DEFAULT '',
-  `idParent` int(11) DEFAULT '0',
-  `rank` int(11) NOT NULL DEFAULT '0',
-  `visible` tinyint(1) NOT NULL DEFAULT '1',
-  `canHaveCoursesChild` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`)
-) ENGINE=MyISAM;
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__faculte` (
+  id                    INT(11) NOT NULL AUTO_INCREMENT,
+  name                  VARCHAR(100) NOT NULL DEFAULT '',
+  code                  VARCHAR(12) NOT NULL DEFAULT '',
+  code_P                VARCHAR(40) DEFAULT NULL,
+  treePos               INT(10) UNSIGNED DEFAULT NULL,
+  nb_childs             SMALLINT(6) DEFAULT 0,
+  canHaveCoursesChild   ENUM('TRUE','FALSE') DEFAULT 'TRUE',
+  canHaveCatChild       ENUM('TRUE','FALSE') DEFAULT 'TRUE',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `code` (`code`),
+  KEY `code_P` (`code_P`),
+  KEY `treePos` (`treePos`)
 
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__rel_course_category` (
-  `courseId` int(11) NOT NULL,
-  `categoryId` int(11) NOT NULL,
-  `rootCourse` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`courseId`,`categoryId`)
 ) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__course_tool` (
@@ -300,6 +278,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__im_recipient` (
 ) ENGINE=MyISAM ;
 
 # DESKTOP
+
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet` (
   `label` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -357,21 +336,10 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__event_resource` (
 ) ENGINE=MyISAM;
 
 # INSERT COMMANDS
-INSERT INTO `__CL_MAIN__category` 
-(`name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`) 
-VALUES
-('Root', 'ROOT', NULL, 0, 0, 0), 
-('Sciences', 'SC', 0, 1, 1, 1), 
-('Economics', 'ECO', 0, 2, 1, 1), 
-('Humanities', 'HUMA', 0, 3, 1, 1);
 
-UPDATE `__CL_MAIN__category` 
-SET `id` = 0 
-WHERE `code` = 'ROOT';
-
-INSERT INTO `__CL_MAIN__coursehomepage_portlet` 
-(`label`, `name`) 
+INSERT INTO `__CL_MAIN__faculte`
+(`code`, `code_P`, `treePos`, `nb_childs`, `name`)
 VALUES
-('CLTI',    'Headlines'),
-('CLCAL',   'Calendar'),
-('CLANN',   'Announcements');
+( 'SC',     NULL,  1, 0, 'Sciences'),
+( 'ECO',    NULL,  2, 0, 'Economics'),
+( 'HUMA',   NULL,  3, 0, 'Humanities');

@@ -4,7 +4,7 @@
  *
  * @version 0.1 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -35,7 +35,7 @@ $inLP = (claro_called_from() == 'CLLP')? true : false;
 
 if( !$inLP )
 {
-   claro_redirect('../document.php');
+   claro_redirect('../document.php'); 
 }
 
 
@@ -77,3 +77,4 @@ $out .= '<div>' . "\n"
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+?>

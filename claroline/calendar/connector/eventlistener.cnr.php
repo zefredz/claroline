@@ -1,22 +1,18 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
-// vim: expandtab sw=4 ts=4 sts=4:
+    // vim: expandtab sw=4 ts=4 sts=4:
 
-/**
- * CLAROLINE
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claro Team <cvs@claroline.net>
- */
+    if ( count( get_included_files() ) == 1 )
+    {
+        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+    }
 
-$claroline->notification->addListener( 'agenda_event_visible',      'modificationDefault' );
-$claroline->notification->addListener( 'agenda_event_added',        'modificationDefault' );
-$claroline->notification->addListener( 'agenda_event_modified',     'modificationDefault' );
-$claroline->notification->addListener( 'agenda_event_deleted',      'modificationDelete' );
-$claroline->notification->addListener( 'agenda_event_invisible',    'modificationDelete' );
-
-$claroline->notification->addListener( 'agenda_event_deleted',      'deleteEventResource' );
-$claroline->notification->addListener( 'agenda_event_list_deleted', 'deleteEventResourceList' );
+    $claroline->notification->addListener( 'agenda_event_visible',      'modificationDefault' );
+    $claroline->notification->addListener( 'agenda_event_added',        'modificationDefault' );
+    $claroline->notification->addListener( 'agenda_event_modified',     'modificationDefault' );
+    $claroline->notification->addListener( 'agenda_event_deleted',      'modificationDelete' );
+    $claroline->notification->addListener( 'agenda_event_invisible',    'modificationDelete' );
+    
+    $claroline->notification->addListener( 'agenda_event_deleted',      'deleteEventResource' );
+    $claroline->notification->addListener( 'agenda_event_list_deleted', 'deleteEventResourceList' );
+?>

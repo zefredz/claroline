@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -357,7 +357,7 @@ class Exercise
      */
     function getQuestionList()
     {
-        $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, REQ.`rank`, Q.`id_category`
+        $sql = "SELECT Q.`id`, Q.`title`, Q.`type`, REQ.`rank`
                  FROM `" . $this->tblRelExerciseQuestion . "` AS REQ,
                       `" . $this->tblQuestion . "` AS Q
                 WHERE REQ.`exerciseId` = " . (int) $this->id . "
@@ -409,7 +409,7 @@ class Exercise
      * get last random question list
      * @author Dimitri Rambout <dimitri.rambout@gmail.com>
      * @return array list of id of question used in this exercise or false in error
-     */
+     */    
     function getLastRandomQuestionList($userId, $exerciseId)
     {
        $questions =  $this->loadLastRandomQuestionList( $userId, $exerciseId );
@@ -447,12 +447,12 @@ class Exercise
     
     /**
      * load last random question list
-     *
+     * 
      * @author Dimitri Rambout <dimitri.rambout@gmail.com>
      * @param $userId id of the user
      * @param $exerciseId id of the exercise
      * @return array of id
-     */
+     */    
     function loadLastRandomQuestionList($userId, $exerciseId)
     {
         $sql = "SELECT `questions`
@@ -478,7 +478,7 @@ class Exercise
      * @param $userId id of the user
      * @param $exerciseId id of the exercise
      * @param $questions array of question ids
-     */
+     */    
     function saveRandomQuestionList( $userId, $exerciseId, $thisQuestions)
     {
         
@@ -752,7 +752,7 @@ class Exercise
     /**
      * get quiz end message
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
      * @return string
      */
      function getQuizEndMessage()
@@ -762,7 +762,7 @@ class Exercise
      /**
       * set end form information
       *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+      * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
       * @param string $value
       */
      function setQuizEndMessage($value)
@@ -853,7 +853,7 @@ class Exercise
     /**
      * get use same shuffle
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
      * @return int
      */
     function getUseSameShuffle()
@@ -864,7 +864,7 @@ class Exercise
     /**
      * set use same shuffle
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
      * @param int $value
      */
     function setUseSameShuffle($value)

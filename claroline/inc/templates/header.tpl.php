@@ -1,7 +1,5 @@
 <?php  if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 <!DOCTYPE html>
-<!-- $Id$ -->
-
 <html>
 <head>
 <title><?php echo $this->pageTitle; ?></title>
@@ -9,13 +7,13 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-Type" content="text/HTML; charset=<?php echo get_locale('charset');?>"  />
 <meta name="generator" content="Claroline <?php echo $this->version; ?> - http://claroline.net" />
-<?php echo link_to_css( get_conf('claro_stylesheet') . '/main.css', 'screen, projection, tv' );?>
-<?php
-if ( get_locale('text_dir') == 'rtl' ):
+<?php echo link_to_css( get_conf('claro_stylesheet') . '/main.css', 'screen, projection, tv' );?> 
+<?php 
+if ( get_locale('text_dir') == 'rtl' ): 
     echo link_to_css( get_conf('claro_stylesheet') . '/rtl.css', 'screen, projection, tv' );
-endif;
-?>
-<?php echo link_to_css( 'print.css', 'print' );?>
+endif; 
+?> 
+<?php echo link_to_css( 'print.css', 'print' );?> 
 <link rel="top" href="<?php get_path('url'); ?>/index.php" title="" />
 <link href="http://www.claroline.net/documentation.htm" rel="Help" />
 <link href="http://www.claroline.net/credits.htm" rel="Author" />

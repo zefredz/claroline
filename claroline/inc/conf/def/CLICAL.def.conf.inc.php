@@ -1,20 +1,23 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
- * This file describe the parameter for user tool.
+ * This file describe the parameter for user tool
  *
- * @version     1.8 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Config
- * @author      Claro Team <cvs@claroline.net>
- * @package     CLICAL
+ * @version 1.8 $Revision$
+ *
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Config
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @package CLICAL
+ *
  */
-
 // TOOL
 $conf_def['config_code']  = 'CLICAL';
 $conf_def['config_file']  = 'ical.conf.php';
@@ -43,9 +46,9 @@ array ( 'iCalUseCache'
 $conf_def_property_list['enableICalInCourse'] =
 array ('label'         => 'Enable iCal in course'
       , 'description'  => ''
-      ,'default'       => true
+      ,'default'       => TRUE
       ,'type'          => 'boolean'
-      , 'readonly'      => false
+      , 'readonly'      => FALSE
       , 'acceptedValue' => array('TRUE'=>'Yes', 'FALSE' => 'No')
 
       );
@@ -61,39 +64,39 @@ array ('label'         => 'Repository for cache files'
 $conf_def_property_list['iCalUseCache'] =
 array ('label'         => 'Enable cache'
       , 'description'  => 'Enabling the cache may increase performance'
-      ,'default'       => true
+      ,'default'       => TRUE
       ,'type'          => 'boolean'
-      , 'readonly'      => false
+      , 'readonly'      => FALSE
       , 'acceptedValue' => array('TRUE'=>'Yes', 'FALSE' => 'No')
       );
 
 $conf_def_property_list['iCalGenStandard'] =
 array ('label'         => 'Generate ics file'
       , 'description'  => 'When iCal File is regenerated, make the ics version.'
-      ,'default'       => true
+      ,'default'       => TRUE
       ,'type'          => 'boolean'
       , 'display'      => true
-      , 'readonly'      => false
+      , 'readonly'      => FALSE
       , 'acceptedValue' => array('TRUE'=>'Yes, create ics version', 'FALSE' => 'No')
       );
 
       $conf_def_property_list['iCalGenXml'] =
 array ('label'         => 'Generate Xml file'
       , 'description'  => 'When iCal File is regenerated, make the xml version.'
-      ,'default'       => true
+      ,'default'       => TRUE
       ,'type'          => 'boolean'
       , 'display'      => true
-      , 'readonly'      => false
+      , 'readonly'      => FALSE
       , 'acceptedValue' => array('TRUE'=>'Yes, create XML version', 'FALSE' => 'No')
       );
 
 $conf_def_property_list['iCalGenRdf'] =
 array ('label'         => 'Generate RDF file'
       , 'description'  => 'When iCal File is regenerated, make the RDF version.'
-      , 'default'       => false
+      , 'default'       => FALSE
       , 'type'          => 'boolean'
       , 'display'      => true
-      , 'readonly'      => false
+      , 'readonly'      => FALSE
       , 'acceptedValue' => array('TRUE'=>'Yes, create RDF version', 'FALSE' => 'No')
       );
 
@@ -106,7 +109,7 @@ array (
       , 'type'           => 'integer'
       , 'unit'           => 'seconds'
       , 'display'      => true
-      , 'readonly'      => false
+      , 'readonly'      => FALSE
       , 'acceptedValue' => array('min'=> '1', 'max' => '86400')
       );
 
@@ -119,6 +122,6 @@ array (
       , 'type'           => 'integer'
       , 'unit'           => 'seconds'
       , 'display'      => true
-      , 'readonly'      => false
+      , 'readonly'      => FALSE
       , 'acceptedValue' => array('min'=> '360', 'max' => '8640000')
       );

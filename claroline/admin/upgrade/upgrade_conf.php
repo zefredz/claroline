@@ -1,24 +1,26 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * Initialize conf settings.
- * Try to read  current values in current conf files.
- * Build new conf file content with these settings.
+ * Initialize conf settings
+ * Try to read  current values in current conf files
+ * Build new conf file content with these settings
  * write it.
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.7
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
- * @package     UPGRADE
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author      Claro Team <cvs@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
- * @author      Mathieu Laurent <laurent@cerdecam.be>
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.7
+ *
+ * @package UPGRADE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
  */
 
 /*=====================================================================
@@ -214,7 +216,7 @@ if ( $cmd == 'run' )
      * Config file to undist
      */
 
-    $arr_file_to_undist = array ( get_path('incRepositorySys').'/conf/drivers.auth.conf.php' => get_path('rootSys').'platform/conf' );
+    $arr_file_to_undist = array ( get_path('incRepositorySys').'/../auth/extauth/drivers/auth.drivers.conf.php' => get_path('rootSys').'platform/conf' );
 
     foreach ( $arr_file_to_undist as $undistFile => $undistPath )
     {
@@ -286,3 +288,5 @@ switch ($display)
 
 // Display footer
 echo upgrade_disp_footer();
+
+?>

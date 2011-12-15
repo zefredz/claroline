@@ -5,8 +5,8 @@
 /**
  * Authentication Manager
  *
- * @version     Claroline 1.11 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2009 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -18,16 +18,8 @@
 require_once dirname(__FILE__) . '/../core/claroline.lib.php';
 require_once dirname(__FILE__) . '/../database/database.lib.php';
 require_once dirname(__FILE__) . '/../kernel/user.lib.php';
-
 require_once dirname(__FILE__) . '/authdrivers.lib.php';
 require_once dirname(__FILE__) . '/ldapauthdriver.lib.php';
-
-if ( get_conf( 'claro_loadDeprecatedPearAuthDriver', true ) )
-{
-    require_once dirname(__FILE__) . '/pearauthdriver.lib.php';
-}
-
-require_once dirname(__FILE__) . '/authprofile.lib.php';
 
 class AuthManager
 {
@@ -54,8 +46,8 @@ class AuthManager
         {
             // avoid issues with session collision when many users connect from
             // the same computer at the same time with the same browser session !
-            if ( AuthUserTable::userExists( $username ) )
-            {
+            if ( AuthUserTable::userExists( $username ) ) 
+            {   
                 self::setFailureMessage( get_lang( "There is already an account with this username." ) );
                 return false;
             }
@@ -78,7 +70,7 @@ class AuthManager
                     if ( $driver->userUpdateAllowed() )
                     {
                         $userAttrList =  $driver->getFilteredUserData();
-                        
+                                  
                         if ( isset( $userAttrList['loginName'] ) )
                         {
                             $newUserName = $userAttrList['loginName'];
@@ -111,8 +103,8 @@ class AuthManager
                 elseif ( $driver->userRegistrationAllowed() )
                 {
                     // duplicate code here to avoid issue with multiple requests on a busy server !
-                    if ( AuthUserTable::userExists( $username ) )
-                    {
+                    if ( AuthUserTable::userExists( $username ) ) 
+                    {   
                         self::setFailureMessage( get_lang( "There is already an account with this username." ) );
                         return false;
                     }
@@ -253,7 +245,7 @@ class AuthUserTable
         
         $tbl = claro_sql_get_main_tbl();
         
-        $sql = ( $uid ? 'UPDATE' : 'INSERT INTO' )
+        $sql = ( $uid ? 'UPDATE' : 'INSERT INTO' ) 
             . " `{$tbl['user']}`\n"
             . "SET " . implode(",\n", $preparedList ) . "\n"
             . ( $uid ? "WHERE  user_id = " . (int) $uid : '' )
@@ -326,8 +318,7 @@ class AuthDriverManager
             // search for kernel drivers
             if ( class_exists( $driverClass ) )
             {
-                $driver = new $driverClass;
-                $driver->setDriverOptions( $driverConfig );
+                $driver = new $driverClass( $driverConfig );
                 self::$drivers[$driverConfig['driver']['authSourceName']] = $driver;
             }
             // search for user defined drivers
@@ -394,29 +385,23 @@ class AuthDriverManager
             claro_mkdir(get_path('rootSys') . 'platform/conf/extauth', CLARO_FILE_PERMISSIONS, true );
         }
         
-        if ( get_conf( 'claro_authDriversAutoDiscovery', true ) )
-        {
-            $it = new DirectoryIterator( get_path('rootSys') . 'platform/conf/extauth' );
+        $it = new DirectoryIterator( get_path('rootSys') . 'platform/conf/extauth' );
+            
+        $driversToLoad = array();
 
-            foreach ( $it as $file )
-            {
-                if ( $file->isFile() && substr( $file->getFilename(), -4 ) == '.php' )
-                {
-                    self::loadDriver($file->getPathname());
-                }          
-            }
-        }
-        else
+        foreach ( $it as $file )
         {
-            if ( file_exists( get_path('rootSys') . 'platform/conf/extauth/drivers.list' ) )
+            if ( $file->isFile() && substr( $file->getFilename(), -4 ) == '.php' )
             {
-                $authDriverList = file( get_path('rootSys') . 'platform/conf/extauth/drivers.list' );
-                
-                foreach ( $authDriverList as $authDriver )
-                {
-                    self::loadDriver(ltrim(rtrim(get_path('rootSys') . 'platform/conf/extauth/'.$authDriver)));
-                }
-            }
+                $driversToLoad[] = $file->getPathname();
+            }          
+        }
+
+        sort( $driversToLoad );
+
+        foreach ( $driversToLoad as $driverFile )
+        {
+            self::loadDriver($driverFile);
         }
     }
 }

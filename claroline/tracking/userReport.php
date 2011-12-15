@@ -1,12 +1,14 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @author      Sebastien Piraux <seb@claroline.net>
- * @package     CLTRACK
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ *
+ * @author Sebastien Piraux <seb@claroline.net>
+ *
+ * @package CLTRACK
  */
 
 /*
@@ -98,30 +100,11 @@ if( !is_array($userData) )
     claro_die( get_lang('Cannot find user') );
 }
 
-
-// Command list
-$cmdList = array();
-
-if( $canSwitchCourses && count($userCourseList) )
-{
-    $cmdList[] = array(
-        'name' => get_lang('View platform statistics'),
-        'url' => htmlspecialchars('userReport.php?cidReset=true&userId='.(int) $userId)
-    );
-}
-else
-{
-    $cmdList[] = array(
-        'img' => 'back',
-        'name' => get_lang('Back to user list'),
-        'url' => htmlspecialchars(Url::Contextualize(get_path('url').'/claroline/user/user.php'))
-    );
-}
-
 /*
  * Output
  */
-CssLoader::getInstance()->load( 'tracking', 'screen');
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'tracking', 'screen');
 
 $nameTools = get_lang('Statistics');
 ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF'] . '?userId=' . $userId ) ) );
@@ -137,7 +120,6 @@ else
 
 $output = '';
 
-
 /*
  * Output of : user information
  */
@@ -150,8 +132,6 @@ $output .= '<div id="rightSidebar">' . $userProfileBox->render() . '</div>';
  * Output of : course list if required
  */
 $output .= '<div id="leftContent">' . "\n";
-$output .= claro_html_tool_title(get_lang('User statistics'), null, $cmdList);
-
 if( $canSwitchCourses && count($userCourseList) )
 {
     $displayedCourseList = array();
@@ -173,17 +153,27 @@ if( $canSwitchCourses && count($userCourseList) )
     .     '<form method="get" name="filterForm" action="'.htmlspecialchars(Url::Contextualize( 'userReport.php')).'">' . "\n"
     .     '<input type="hidden" name="userId" value="'.(int) $userId.'" />' . "\n"
     .     '<p>' . "\n"
+    .     '<a class="claroCmd" href="userReport.php?cidReset=true&amp;userId='.(int) $userId.'">'.get_lang('View platform statistics').'</a> &nbsp;|&nbsp; ' . "\n"
     .     '<label for="cidReq">'.get_lang('Choose a course').'&nbsp;:&nbsp;</label>' . "\n"
     .     claro_html_form_select('cidReq', $displayedCourseList, $courseId, $attr) . "\n"
     .     '<input type="submit" id="buttonOK" value="'.get_lang('Ok').'" />' . "\n"
-    .     '</p>' . "\n"
+    .     '</p>' . "\n"    
     .     '</form>' . "\n"
     ;
 
 }
+else
+{
+    $output .= '<p>'
+    .     '<a href="'.get_path('url').'/claroline/user/user.php' . claro_url_relay_context('?') . '"><small>'
+    .    '&lt;&lt;&nbsp;'
+    .    get_lang('Back to user list')
+    .    '</small></a>' . "\n"
+    .     '</p>' . "\n";
+}
 
 /*
- * Prepare rendering :
+ * Prepare rendering : 
  * Load and loop through available tracking renderers
  * Order of renderers blocks is arranged using "first found, first display" in the registry
  * Modify the registry to change the load order if required
@@ -192,7 +182,7 @@ if( $canSwitchCourses && count($userCourseList) )
 $trackingRendererRegistry = TrackingRendererRegistry::getInstance(claro_get_current_course_id());
 
 if( ! is_null($courseId) )
-{
+{ 
     // we need user tracking renderers in course context
     $userTrackingRendererList = $trackingRendererRegistry->getUserRendererList(TrackingRendererRegistry::COURSE);
 }
@@ -221,3 +211,5 @@ $("#buttonOK").hide();
 $claroline->display->body->setContent($output);
 
 echo $claroline->display->render();
+
+?>

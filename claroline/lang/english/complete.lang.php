@@ -75,8 +75,8 @@ $_lang['Access to course'] = 'Access to course';
 $_lang['Access to platform'] = 'Access to platform';
 $_lang['Accounts to merge'] = 'Accounts to merge';
 $_lang['Accounts with same <i>Email</i>'] = 'Accounts with same <i>Email</i>';
-$_lang['Accounts with same <i>Username</i>'] = 'Accounts with same <i>Username</i>';
-$_lang['Accounts with same <i>Username</i> AND same <i>Password</i>'] = 'Accounts with same <i>Username</i> AND same <i>Password</i>';
+$_lang['Accounts with same <i>User name</i>'] = 'Accounts with same <i>User name</i>';
+$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Accounts with same <i>User name</i> AND same <i>Password</i>';
 $_lang['Action'] = 'Action';
 $_lang['Activable only by the platform administrator !'] = 'Activable only by the platform administrator !';
 $_lang['Activate module on install'] = 'Activate module on install';
@@ -175,7 +175,7 @@ $_lang['Allowed with enrolment key'] = 'Allowed with enrolment key';
 $_lang['Already browsed'] = 'Already browsed';
 $_lang['Already enroled'] = 'already enrolled';
 $_lang['Also delete module main database'] = 'Also delete module main database';
-$_lang['An email has been sent to help you remember your username and password.'] = 'An email has been sent to help you remember your username and password.';
+$_lang['An email has been sent to help you remember your user name and password.'] = 'An email has been sent to help you remember your user name and password.';
 $_lang['An error occurred while contacting Claroline.net'] = 'An error occurred while contacting Claroline.net';
 $_lang['An error occurred.  Learning Path import failed.'] = 'An error occurred.  Learning Path import failed.';
 $_lang['An invisible tool will be greyed out on your personal interface.'] = 'An invisible tool will be greyed out on your personal interface.';
@@ -254,7 +254,6 @@ $_lang['Automatically insert an event in the calendar at the submission date'] =
 $_lang['Automatically insert an event in the calendar at the end date'] = 'Automatically insert an event in the calendar at the end date';
 $_lang['Available from %startDate until %endDate'] = 'Available from %startDate until %endDate';
 $_lang['Available images'] = 'Available images';
-$_lang['Available languages for course websites'] = 'Available languages for course websites';
 $_lang['Available tools to add to your course'] = 'Available tools to add to your course';
 $_lang['Average Time'] = 'Average Time';
 $_lang['Average score'] = 'Average score';
@@ -371,7 +370,7 @@ $_lang['Choose now a username and a password for the user account'] = 'Choose no
 $_lang['Choose one'] = 'Choose one';
 $_lang['Choose the mode for URL for file download. Warning : Pretty URL mode don\'t work with IIS.'] = 'Choose the mode for URL for file download. Warning : Pretty URL mode don\'t work with IIS.';
 $_lang['Choose "Yes" to notify students when you add feedback information to their works'] = 'Choose "Yes" to notify students when you add feedback information to their works';
-$_lang['Choose "Yes" to receive an email every time a submission is made'] = 'Choose "Yes" to receive an email every time a submission is made';
+$_lang['Choose "Yes" to receive an email every time a submission is made'] = 'Choose "Yes" to receive an email every time a submission is made'. 
 $_lang['Chosen date is in the future'] = 'Chosen date is in the future';
 $_lang['Clarodoc'] = 'Clarodoc';
 $_lang['Claroline configuration'] = 'Claroline configuration';
@@ -417,7 +416,6 @@ $_lang['Confirmation'] = 'Confirmation';
 $_lang['Constrain proportions'] = 'Constrain proportions';
 $_lang['Contact'] = 'Contact';
 $_lang['Contact your administrator.'] = 'Contact your administrator.';
-$_lang['Contact the platform administrator'] = 'Please contact the platform administrator';
 $_lang['Content'] = 'Content';
 $_lang['Continue'] = 'Continue';
 $_lang['Conversion'] = 'Conversion';
@@ -449,7 +447,6 @@ $_lang['Course default settings'] = 'Course default settings';
 $_lang['Course description'] = 'Course description';
 $_lang['Course email is'] = 'Course email is';
 $_lang['Course information requirements'] = 'Course information requirements';
-$_lang['Course language selector'] = 'Course language selector';
 $_lang['Course list'] = 'Course list';
 $_lang['Course main settings'] = 'Course main settings';
 $_lang['Course manager'] = 'Course manager';
@@ -462,7 +459,6 @@ $_lang['Course options'] = 'Course options';
 $_lang['Course profile'] = 'Course profile';
 $_lang['Course profile list'] = 'Course profile list';
 $_lang['Course progression'] = 'Course progression ';
-$_lang['Course session creation is allowed on the platform'] = 'Course session creation is allowed on the platform';
 $_lang['Course settings'] = 'Course settings';
 $_lang['Course statistics are now empty'] = 'Course statistics are now empty';
 $_lang['Course title'] = 'Course title';
@@ -606,7 +602,6 @@ $_lang['Display data'] = 'Display data';
 $_lang['Display disabled courses in members\' course list'] = 'Display disabled courses in members\' course list';
 $_lang['Display expired courses in members\' course list'] = 'Display expired courses in members\' course list';
 $_lang['Display file'] = 'Display file';
-$_lang['Display/hide course tool list'] = 'Display/hide course tool list';
 $_lang['Display link "Create user account" on the platform homepage.'] = 'Display link "Create user account" on the platform homepage.';
 $_lang['Display links to enrol/unenrol to course on the homepage of the user'] = 'Display links to enrol/unenrol to course on the homepage of the user';
 $_lang['Display of detailed answers is not authorized.'] = 'Display of detailed answers is not authorized.';
@@ -799,7 +794,7 @@ $_lang['Files dezipped sucessfully in %path'] = 'Files dezipped sucessfully in %
 $_lang['Fill courses tools with material example'] = 'Fill courses tools with material example';
 $_lang['Fill groups (automatically)'] = 'Fill groups (automatically)';
 $_lang['Fill in blanks'] = 'Fill in blanks';
-$_lang['Fill in one or more search criteria, select user profile parameters for your course and press \'Search\''] = 'Fill in one or more search criteria, select user profile parameters for your course and press \'Search\'';
+$_lang['Fill in one or more search criteria, select user profile parameters for your course and press \'Search\''] = 'Précisez un ou plusieurs critères de recherche, cochez les paramètres du profil utilisateur voulu et cliquez sur \'Rechercher\'';
 $_lang['Fill in the text area to motivate your request and then submit the form to send it to platform administrators'] = 'Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).';
 $_lang['Fill text field'] = 'Fill text field';
 $_lang['Fill type'] = 'Fill type';
@@ -895,11 +890,11 @@ $_lang['If false, other fields are optional'] = 'If false, other fields are opti
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value'] = 'If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value';
-$_lang['If the user is existing in the platform, he will be added to the class only if his firstname,
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the class only if his firstname,
+$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
+                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the class only if his firstname, 
                                         lastname and username are similar.';
-$_lang['If the user is existing in the platform, he will be added to the course only if his firstname,
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the course only if his firstname,
+$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
+                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the course only if his firstname, 
                                         lastname and username are similar.';
 $_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available';
 $_lang['If you do not have the key, please contact the course manager'] = 'If you do not have the key, please contact the course manager';
@@ -1002,7 +997,6 @@ $_lang['Lock'] = 'Lock';
 $_lang['Locked'] = 'Locked';
 $_lang['Log of user activities  on the whole platform (course access, tool use, ...).'] = 'Log of user activities  on the whole platform (course access, tool use, ...).';
 $_lang['Login'] = 'Login';
-$_lang['Login as'] = 'Login as';
 $_lang['Login date'] = 'Login date';
 $_lang['Login failed.'] = 'Login failed.';
 $_lang['Login request'] = 'Login request';
@@ -1185,7 +1179,7 @@ $_lang['New question'] = 'New question';
 $_lang['New registration denied'] = 'New registration denied';
 $_lang['New submission posted in assignment tool.'] = 'New submission posted in assignment tool.';
 $_lang['New topic'] = 'New topic';
-$_lang['New users will receive an e-mail with their username and password'] = 'New users will receive an e-mail with their username and password';
+$_lang['New users will receive an e-mail with their user name and password'] = 'New users will receive an e-mail with their user name and password';
 $_lang['New window for documents'] = 'New window for documents';
 $_lang['New window for submitted files'] = 'New window for submitted files';
 $_lang['Newest first'] = 'Newest first';
@@ -1343,7 +1337,6 @@ $_lang['Password security check'] = 'Password security check';
 $_lang['Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.'] = 'Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.';
 $_lang['Path'] = 'Path';
 $_lang['Path to zip file or package directory on server'] = 'Path to zip file or package directory on server';
-$_lang['Pending registration'] = 'Pending registration';
 $_lang['Period'] = 'Period';
 $_lang['PeriodDayShort'] = 'd.';
 $_lang['PeriodHourShort'] = 'h.';
@@ -1697,7 +1690,7 @@ $_lang['This renderer is used for TEX/LaTEX expressions. It is available into th
 $_lang['This tool can not be uninstalled.'] = 'This tool can not be uninstalled.';
 $_lang['This tool is activable by the platform administrator only'] = 'This tool is activable by the platform administrator only';
 $_lang['This tool must be activated manualy in each course'] = 'This tool must be activated manualy in each course';
-$_lang['This username is already taken'] = 'This username is already taken';
+$_lang['This user name is already taken'] = 'This user name is already taken';
 $_lang['This will also delete all works submitted in this assignment !'] = '! This will also delete all works submitted in this assignment !';
 $_lang['This zone is empty'] = 'This zone is empty';
 $_lang['Thumbnail width'] = 'Thumbnail width';
@@ -1870,7 +1863,7 @@ $_lang['User to remove not found'] = 'User to remove not found';
 $_lang['User unregistered'] = 'User unregistered';
 $_lang['User\'s course'] = 'User\'s course';
 $_lang['User\'s course settings'] = 'User\'s course settings';
-$_lang['Username'] = 'Username';
+$_lang['Username'] = 'User name';
 $_lang['Username is too long (maximum 20 characters)'] = 'Username is too long (maximum 20 characters)';
 $_lang['UsernameAppearAlready'] = 'This username appears already in a previous line of the CSV file.';
 $_lang['UsernameUsed'] = 'This username is already used by another user.';
@@ -1976,18 +1969,14 @@ $_lang['You can not change your own settings!'] = 'You can not change your own s
 $_lang['You can not remove a group forum. You have to remove the group first'] = 'You can not remove a group forum. You have to remove the group first';
 $_lang['You can now create your  course'] = 'You can now create  your  course';
 $_lang['You can now select, in the list, the courses you want to access'] = 'You can now select, in the list, the courses you want to access.';
-$_lang['You can personalize the layout of each course'] = 'You can personalize the layout of each course.  To do that, put a css file named "course.css" in the css directory of your course (for instance: "courses/BIO/css/course.css").';
 $_lang['You can set a specific no-reply address used by the platform email notification system. If none provided the administrator email will be used.'] = 'You can set a specific no-reply address used by the platform email notification system. If none provided the administrator email will be used.';
 $_lang['You can set access rights for users using the following grid :'] = 'You can set access rights for users using the following grid : ';
 $_lang['You can\'t move %facultyCode in the same category !'] = 'You can\'t move %facultyCode in the same category !';
 $_lang['You can\'t remove a group forum. You have to remove the group first'] = 'You can\'t remove a group forum. You have to remove the group first';
 $_lang['You cannot add module. Change this in configuration.'] = 'You cannot add module. Change this in configuration.';
-$_lang['You cannot create a course session from another course session'] = 'You cannot create a course session from another course session';
 $_lang['You cannot give a blank name to a class'] = 'You cannot give a blank name to a class';
 $_lang['You cannot post an empty message'] = 'You must type a Message to post. You cannot post an empty Message.';
 $_lang['You cannot unsubscribe the last course manager of the course'] = 'You cannot unsubscribe the last course manager of the course';
-$_lang['You cannot access this course it has been deactivated'] = 'You cannot access this course it has been deactivated';
-$_lang['You cannot access this course until the course manager has reactivated it'] = 'You cannot access this course until the course manager has reactivated it';
 $_lang['You didnt choose any file to send, or file is too big'] = 'You didnt choose any file to send, or file is too big';
 $_lang['You didnt choose any file to send, or it is too big'] = 'You didn\'t choose any file to send, or it is too big';
 $_lang['You have just created the course website'] = 'You have just created the course website';
@@ -2025,7 +2014,7 @@ $_lang['Your request to remove your account has been sent'] = 'Your request to r
 $_lang['Your search did not match any courses'] = 'Your search did not match any courses';
 $_lang['Your time is %time'] = 'Your time is %time';
 $_lang['Your total score is %score'] = 'Your total score is %score';
-$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Your user profile doesn\'t seem to be enrolled on this course.';
+$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Your user profile doesn\'t seem to be enrolled on this course';
 $_lang['Zip file uploaded and uncompressed'] = ' Zip file uploaded and uncompressed';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Zlib php extension is required to use this tool.  Please contact your platform administrator.';
 $_lang['all students'] = 'all students';
@@ -2044,7 +2033,7 @@ You are registered on %siteName
 Manager %administratorName
 T. %administratorPhone
 Email : %administratorEmail
-';
+    ';
 $_lang['blockAssignmentsHelp'] = '<p>
 Assignment tool is a publication area for students. The course manager creates one or several assignment ( different zones of publication ) where the students will be able to publish their work.<br /><br />
 Each assignment can have different objectives or requirements : publication must be a file, or a text or a text and a file, publication can be made for a groupe instead of for a single user,...<br /><br />
@@ -2144,7 +2133,7 @@ Course code : %course_code
 Course title : %course_title
 Lecturer(s) : %course_lecturers
 Email : %course_email
-Category : %course_categories
+Category : %course_category
 Language : %course_language
 Url : %course_url';
 $_lang['blockCourseDescriptionCourseContent'] = 'Course content';
@@ -2548,10 +2537,10 @@ $_lang['blockHomepageHelp'] = 'For convenience, claroline tools contain default 
  By default, your course is hidden (because you work on it).</p>';
 $_lang['blockIntroCourse'] = 'You are on the course home page.<br /><br />On this page, you can :
 <ul>
-<li>add portlets to your course home page (see link above);</li>
-<li>activate or deactivate tools (click on the \'Edit Tool list\' button at bottom left);</li>
+<li>activate or deactivate tools (click on the \'Edit Tool list\' button at bottom left).</li>
 <li>change settings or view statistics (click on corresponding links at bottom).</li>
-</ul>';
+</ul>
+Now, to add an introduction text presenting your course to students, click on this button ';
 $_lang['blockIntroLearningPath'] = 'Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br /><br />If you want to present your learning path to students, click on the button below.<br />';
 $_lang['blockModulePoolHelp'] = 'This page allows you to view all the modules available in this course. <br />
                      Any exercise or document that has been added in a learning path will also appear in this list.';
@@ -2579,7 +2568,7 @@ $_lang['blockUsedInSeveralPath'] = 'This exercise is used in one or more learnin
 $_lang['blockUsersHelp'] = '<p>The \'Users\' tool displays user informations in a digest table. Here is below the column descriptions resumed.
 <ul>
 <li>
-<b>Name</b>. By clicking on the username you can see additional informations concerning this user, like e-mail etc.
+<b>Name</b>. By clicking on the user name you can see additional informations concerning this user, like e-mail etc.
 </li>
 <li>
 <b>Roles</b>.
@@ -2724,18 +2713,7 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <dd><code>||first cell|second cell|...||</code>&nbsp;: table row (on one line)</dd>
 <dd><code>|}</code>&nbsp;: end of table (must be on a new ligne)</dd>
 </dl>
-<h2>Colored text</h2>
-<dl>
-<dt>Color code (three hexadecimal pairs for red, green and blue)</dt>
-<dd><code>//#XXXXXX|text//</code></dd>
-<dd>( example :  <code>//#50AF22|Hello//</code>  will produce  <span style="color: #50AF22;">Hello</span> )</dd>
-</dl>
-<dl>
-<dt><a href="couleurs_web.html">Color names</a> ( CSS )</dt>
-<dd><code>//color_name|Text//</code></dd>
-<dd>( exemple : <code>//red|Hello//</code> will produce <span style="color: red;">Hello</span> )</dd>
-</dl>
-<em>For Mac OS X users :</em> you can produce the pipe character "|" by pressing Shift+alt+L
+
 <h2>Special commands</h2>
 <dl>
 <dt>Raw HTML inclusion</dt>
@@ -2839,7 +2817,6 @@ $_lang['Contact your administrator to reactivate it.'] = 'Contact your administr
 $_lang['Course code too long'] = 'Course code too long';
 $_lang['Deactivated course list'] = 'Deactivated course list';
 $_lang['Documents Linker'] = 'Documents Linker';
-$_lang['Email address seems to be duplicate at line %key'] = 'Email address seems to be duplicate at line %key';
 $_lang['Equation'] = 'Equation';
 $_lang['Error : unable to save the questions list'] = 'Error : unable to save the questions list';
 $_lang['Error: no questions list in memory'] = 'Error: no questions list in memory';
@@ -2943,8 +2920,8 @@ $_lang['The domain that the cookie is available.  To make the cookie available o
 $_lang['The export\'s type is not supported for the moment.'] = 'The export\'s type is not supported for the moment.';
 $_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.'] = 'The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.';
 $_lang['This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.'] = 'This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.';
-$_lang['This feature is use for institute with  blind users.
- I fact, System would be ehanced to activate this view user by user'] = 'This feature is use for institute with  blind users.
+$_lang['This feature is use for institute with  blind users. 
+ I fact, System would be ehanced to activate this view user by user'] = 'This feature is use for institute with  blind users. 
  I fact, System would be ehanced to activate this view user by user';
 $_lang['This is the physical path to databases storage. This path is  optional, use by the quota and size.'] = 'This is the physical path to databases storage. This path is  optional, use by the quota and size.';
 $_lang['This string is prepend to course database name if it begins with a number'] = 'This string is prepend to course database name if it begins with a number';
@@ -2979,60 +2956,15 @@ $_lang['relative path from root web to user pic repository'] = 'relative path fr
 $_lang['unique id of the platform'] = 'unique id of the platform';
 $_lang['This course is deactivated'] = 'This course is deactivated';
 $_lang['You can reactive it from your course list'] = 'You can reactive it from your course list';
-$_lang['(Un)Lock'] = '(Un)Lock';
-$_lang['Allow anonymity management'] = 'Allow anonymity management';
-$_lang['Anonymity'] = 'Anonymity';
-$_lang['Anonymous contribution'] = 'Anonymous contribution';
-$_lang['Anonymous contributor wrote :'] = 'Anonymous contributor wrote :';
-$_lang['Anonymous post'] = 'Anonymous post';
-$_lang['Category name cannot be empty'] = 'Category name cannot be empty';
-$_lang['Choose "Yes" to display a confirmation message when users sign posts in anonymous forums'] = 'Choose "Yes" to display a confirmation message when users sign posts in anonymous forums';
-$_lang['Choose "Yes" to give course managers the possibility to allow anonymous posting in forums.'] = 'Choose "Yes" to give course managers the possibility to allow anonymous posting in forums.';
-$_lang['Confirm signed posts'] = 'Confirm signed posts';
-$_lang['Contributions to this forum are anonymous by default!<br/>'] = 'Contributions to this forum are anonymous by default!<br/>';
-$_lang['Do you really want to sign your contribution ?'] = 'Do you really want to sign your contribution ?';
-$_lang['Forum locked'] = 'Forum locked';
-$_lang['Forum name cannot be empty'] = 'Forum name cannot be empty';
-$_lang['If do not want to sign your post, check the checkbox above the "OK" button'] = 'If do not want to sign your post, check the checkbox above the "OK" button';
-$_lang['If you want to sign your post all the same, uncheck the checkbox above the "OK" button'] = 'If you want to sign your post all the same, uncheck the checkbox above the "OK" button';
-$_lang['Missing information'] = 'Missing information';
-$_lang['New topic title'] = 'New topic title';
-$_lang['Please create a category first'] = 'Please create a category first';
-$_lang['Quote'] = 'Quote';
-$_lang['Subject cannot be empty'] = 'Subject cannot be empty';
-$_lang['There are currently no forum categories!'] = 'There are currently no forum categories!';
-$_lang['There are no topics for this forum.'] = 'There are no topics for this forum.';
-$_lang['This forum allows anonymous contributions!<br/>'] = 'This forum allows anonymous contributions!<br/>';
-$_lang['Topic title cannot be empty'] = 'Topic title cannot be empty';
-$_lang['Topic unknown'] = 'Topic unknown';
-$_lang['Unexpected error'] = 'Unexpected error';
-$_lang['Unknown category'] = 'Unknown category';
-$_lang['Unknown forum'] = 'Unknown forum';
-$_lang['Unknown post'] = 'Unknown post';
-$_lang['Unknown post or edition mode'] = 'Unknown post or edition mode';
-$_lang['Unknown topic'] = 'Unknown topic';
-$_lang['Your are not allowed to edit a contribution'] = 'Your are not allowed to edit a contribution';
-$_lang['allowed'] = 'allowed';
-$_lang['default'] = 'default';
-$_lang['forbidden'] = 'forbidden';
-$_lang['Unset input variable'] = 'Unset input variable';
-$_lang['anonymity allowed'] = 'anonymity allowed';
-$_lang['anonymous forum'] = 'anonymous forum';
-$_lang['hide'] = 'hide';
-$_lang['show'] = 'show';
-$_lang['wrote :'] = 'wrote :';
-$_lang['Error while deleting topic'] = 'Error while deleting topic';
-$_lang['Error while modifying topic title'] = 'Error while modifying topic title';
-$_lang['Error while updating topic lock status'] = 'Error while updating topic lock status';
-$_lang['Export to HTML'] = 'Export to HTML';
-$_lang['Export to PDF'] = 'Export to PDF';
-$_lang['Forum unknown'] = 'Forum unknown';
-$_lang['Full review'] = 'Full review';
-$_lang['This topic has been deleted'] = 'This topic has been deleted';
-$_lang['This topic is now locked'] = 'This topic is now locked';
-$_lang['This topic is now open to new contributions'] = 'This topic is now open to new contributions';
-$_lang['Topic title changed successfully'] = 'Topic title changed successfully';
-$_lang['You are not allowed to access this forum'] = 'You are not allowed to access this forum';
+$_lang['Contact the platform administrator'] = 'Please contact the platform administrator';
+$_lang['You cannot access this course it has been deactivated'] = 'You cannot access this course it has been deactivated';
+$_lang['You cannot access this course until the course manager has reactivated it'] = 'You cannot access this course until the course manager has reactivated it';
+$_lang['New items'] = 'New items';
+$_lang['to a previous date'] = 'to a previous date';
+$_lang['Change notification date'] = 'Change notification date';
+$_lang['*.inc.php'] = '*.inc.php';
+$_lang['db glu'] = 'db glu';
 $_lang['User created by '] = 'User created by ';
-$_lang['blockCategoriesOrderInfo'] = 'Attention: you can order categories, but your current platform configuration does not use that order for categories display.  Check the configuration if you wish to edit this setting.';
-?>
+$_lang['Students are allowed to unregister from their group(s)'] = 'Students are allowed to unregister from their group(s)';
+$_lang['Create a new user'] = 'Create a new user';
+$_lang['Search for an existing user'] = 'Search for an existing user';

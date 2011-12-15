@@ -484,4 +484,3 @@ class iCalToDo extends iCalBase {
     } // end function
     /**#@-*/
 } // end class iCalToDo
-?>

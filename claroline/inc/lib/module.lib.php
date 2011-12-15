@@ -11,10 +11,10 @@ if ( count( get_included_files() ) == 1 )
  * This lib make the interface with kernel task and module extention for theses
  * task. It also provide some backward compatibility functions.
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2010 Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
- *              version 2 or later
+ *  version 2 or later
  * @author      Claro Team <cvs@claroline.net>
  * @package     kernel.module
  * @since       1.8
@@ -36,7 +36,7 @@ defined('CLARO_CONTEXT_TOOLLABEL')    || define('CLARO_CONTEXT_TOOLLABEL','toolL
 function get_package_path()
 {
     return get_path('rootSys') . 'packages/';
-}
+} 
 
 /**
  * This function return the core repository of a module.
@@ -64,7 +64,6 @@ function get_module_path($toolLabel)
         case 'CLLNK' : return get_path('clarolineRepositorySys') . 'linker';
         case 'CLGRP' : return get_path('clarolineRepositorySys') . 'group';
         case 'CLSTAT' : return get_path('clarolineRepositorySys') . 'tracking';
-        case 'CLTI' : return get_path('clarolineRepositorySys') . 'tool_intro';
         default: return get_path('rootSys') . 'module/' . rtrim($toolLabel,'_');
     }
     return '';
@@ -94,7 +93,6 @@ function get_module_url($toolLabel)
         case 'CLLNK' : return get_path('clarolineRepositoryWeb') . 'linker';
         case 'CLWIKI' : return get_path('clarolineRepositoryWeb') . 'wiki';
         case 'CLGRP' : return get_path('clarolineRepositoryWeb') . 'group';
-        case 'CLTI' : return get_path('clarolineRepositoryWeb') . 'tool_intro';
         default: return get_conf('urlAppend') . '/module/' . $toolLabel;
     }
     return '';
@@ -560,7 +558,7 @@ function execute_sql_file_in_course( $file, $courseId )
  */
 function get_module_course_tbl( $arrTblName, $courseCode = null )
 {
-    if ( empty ( $courseCode ) )
+    if ( empty ( $courseCode ) ) 
     {
         if ( ! claro_is_in_a_course() )
         {
@@ -578,7 +576,7 @@ function get_module_course_tbl( $arrTblName, $courseCode = null )
     {
         throw new Exception('Invalid course !');
     }
-
+    
     $courseTblKernel = claro_sql_get_course_tbl($currentCourseDbNameGlu);
 
     $arrToReturn = array();
@@ -593,7 +591,7 @@ function get_module_course_tbl( $arrTblName, $courseCode = null )
         {
             $arrToReturn[$name] = $currentCourseDbNameGlu . $name;
         }
-
+        
     }
 
     return $arrToReturn;
@@ -649,8 +647,8 @@ function load_module_config ( $moduleLabel = null )
     // check if config overwritten in course and load config file
     if ( claro_is_in_a_course() )
     {
-        $courseConfigFile = get_conf('coursesRepositorySys')
-            . claro_get_current_course_data('path')
+        $courseConfigFile = get_conf('coursesRepositorySys') 
+            . claro_get_current_course_data('path') 
             . '/conf/' . $moduleLabel . '.conf.php'
             ;
         
@@ -964,7 +962,7 @@ function change_module_activation_in_groups ( $database, $moduleLabel, $courseId
 /**
  * Get the context list of a module
  * @param string $moduleLabel
- * @return Iterator 
+ * @return Database_Resultset 
  */
 function get_module_context_list( $moduleLabel )
 {

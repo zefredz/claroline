@@ -1,12 +1,15 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claro Team <cvs@claroline.net>
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
  */
 
 $tlabelReq = 'CLQWZ';
@@ -64,7 +67,7 @@ if ( $cmd == 'download' )
                 else
                 {
                     $dialogBox->error( get_lang('Not found') );
-                }
+                }                
             }
             else
             {
@@ -79,7 +82,7 @@ if ( $cmd == 'download' )
     else
     {
         $dialogBox->error( get_lang('Not found') );
-    }
+    }    
 }
 
 // Not Found 404
@@ -94,3 +97,5 @@ $out .= $dialogBox->render();
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

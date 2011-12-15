@@ -24,5 +24,3 @@ class Documents_ResourceLinker extends ResourceLinker
     }
     
 }
-
-?>

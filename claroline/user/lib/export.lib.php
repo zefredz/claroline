@@ -1,12 +1,14 @@
 <?php // $Id$
-
 /**
- * CLAROLINE
  *
- * @version     $Revision$
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claroline team <info@claroline.net>
- * @package     CLUSR
+ * @version 0.1 $Revision$
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claroline team <info@claroline.net>
+ *
+ * @package CLUSR
+ *
  */
 
 require_once get_path('incRepositorySys') . '/lib/csv.class.php';
@@ -87,15 +89,15 @@ class csvUserList extends csv
         
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->course_id));
 
-        $tbl_team = $tbl_cdb_names['group_team'];
+        $tbl_team = $tbl_cdb_names['group_team'];        
         $tbl_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
-        
+
         $username = ( claro_is_platform_admin() && get_conf( 'export_sensitive_data_for_admin', false ) )
                 || get_conf('export_user_username', false)
             ? "`U`.`username`     AS `username`,"
             : ""
             ;
-                 
+
         if ( ( claro_is_platform_admin() && get_conf( 'export_sensitive_data_for_admin', false ) )
             || get_conf('export_user_password', false) )
         {
@@ -113,18 +115,18 @@ class csvUserList extends csv
         {
             $password = '';
         }
-
+                 
         // get user list
         $sql = "SELECT `U`.`user_id`      AS `userId`,
                        `U`.`nom`          AS `lastname`,
                        `U`.`prenom`       AS `firstname`,
                        {$username}
                        {$password}
-                       `U`.`email`        AS `email`,
+                       `U`.`email`        AS `email`, 
                        `U`.`officialCode`     AS `officialCode`,
                        GROUP_CONCAT(`G`.`id`) AS `groupId`,
                        GROUP_CONCAT(`G`.`name`) AS `groupName`
-               FROM
+               FROM 
                     (
                     `" . $tbl_user . "`           AS `U`,
                     `" . $tbl_rel_course_user . "` AS `CU`
@@ -140,6 +142,8 @@ class csvUserList extends csv
 
         $userList = claro_sql_query_fetch_all($sql);
 
+        // var_dump( $userList ); die();
+
         // build recordlist with good values for answers
         if( is_array($userList) && !empty($userList) )
         {
@@ -152,6 +156,7 @@ class csvUserList extends csv
 
             foreach( $userList as  $user )
             {
+                // var_dump($user);
                 $userIdList[$user['userId']] = $i;
 
                 if ( !( ( claro_is_platform_admin() && get_conf( 'export_sensitive_data_for_admin', false ) )
@@ -159,10 +164,10 @@ class csvUserList extends csv
                 {
                     $user['userId'] = $i;
                 }
-                
+
                 // $this->recordList is defined in parent class csv
                 $this->recordList[$i] = $user;
-
+                
                 $i++;
             }
 
@@ -185,16 +190,16 @@ class csvUserList extends csv
                 }
             }
         }
-        
+
         if( is_array($this->recordList) && !empty($this->recordList) )
         {
             return true;
         }
         else
         {
-        return false;
+            return false;
+        }
     }
-}
 }
 
 function export_user_list( $course_id )

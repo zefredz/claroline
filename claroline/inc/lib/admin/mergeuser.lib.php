@@ -5,8 +5,8 @@
 /**
  * Merge User Library
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2010 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -27,31 +27,31 @@ class MergeUser
         /*$toKeep_isPlatformAdmin = claro_sql_query_fetch_single_value("
             SELECT isPlatformAdmin FROM `{$mainTbl['user']}` WHERE user_id = " . (int) $uidToKeep . "
         ");
-
+        
         $toRemove_isPlatformAdmin = claro_sql_query_fetch_single_value("
             SELECT isPlatformAdmin FROM `{$mainTbl['user']}` WHERE user_id = " . (int) $uidToRemove . "
         ");
-
+        
         if ( $toKeep_isPlatformAdmin && ! $toRemove_isPlatformAdmin )
         {
             claro_sql_query("UPDATE `{$mainTbl['user']}` SET `isPlatformAdmin` = 1 WHERE user_id = ".(int) $uidToKeep );
         }*/
-
+        
         // inherit course creator status
         $toKeep_isCourseCreator = claro_sql_query_fetch_single_value("
             SELECT isCourseCreator FROM `{$mainTbl['user']}` WHERE user_id = " . (int) $uidToKeep . "
         ");
-
+        
         $toRemove_isCourseCreator = claro_sql_query_fetch_single_value("
             SELECT isCourseCreator FROM `{$mainTbl['user']}` WHERE user_id = " . (int) $uidToRemove . "
         ");
-
+        
         if ( $toRemove_isCourseCreator && ! $toKeep_isCourseCreator )
         {
             claro_sql_query("UPDATE `{$mainTbl['user']}` SET `isCourseCreator` = 1 WHERE user_id = ".(int) $uidToKeep );
         }
-
-        // Get course list for the user to remove
+        
+        // Get course list for the user to remove        
         $sql = "
             SELECT
                 c.`code` AS `code`,
@@ -98,7 +98,7 @@ class MergeUser
                         throw new Exception("Cannot change rel_course_user isCourseManager in {$thisCourse['code']}");
                     }
                 }
-
+                
                 // inherit profile
                 if ( $thisCourse['profile_id'] > $userToKeepCourseList['profile_id'] )
                 {
@@ -111,12 +111,12 @@ class MergeUser
                         throw new Exception("Cannot change rel_course_user profile in {$thisCourse['code']}");
                     }
                 }
-
+                
                 // Remove the user to remove from the course
-                $sql = "DELETE FROM `{$mainTbl['rel_course_user']}`
+                $sql = "DELETE FROM `{$mainTbl['rel_course_user']}` 
                     WHERE user_id    = ".(int)$uidToRemove."
                       AND code_cours = '".claro_sql_escape($thisCourse['code'])."'";
-
+                      
                 if ( ! claro_sql_query($sql) )
                 {
                     throw new Exception("Cannot change rel_course_user in {$thisCourse['code']}");
@@ -125,11 +125,11 @@ class MergeUser
             else
             {
                 // Replace the user id of the user to remove
-                $sql = "UPDATE `{$mainTbl['rel_course_user']}`
+                $sql = "UPDATE `{$mainTbl['rel_course_user']}` 
                     SET   user_id    = ".(int)$uidToKeep."
                     WHERE user_id    = ".(int)$uidToRemove."
                       AND code_cours = '".claro_sql_escape($thisCourse['code'])."'";
-
+                      
                 if ( ! claro_sql_query($sql) )
                 {
                     throw new Exception("Cannot change rel_course_user in {$thisCourse['code']}");
@@ -141,7 +141,7 @@ class MergeUser
                 throw new Exception("Cannot change rel_course_user in {$thisCourse['code']}");
             }
             
-            $sql = "UPDATE `{$mainTbl['rel_class_user']}`
+            $sql = "UPDATE `{$mainTbl['rel_class_user']}` 
                 SET   user_id    = ".(int)$uidToKeep."
                 WHERE user_id    = ".(int)$uidToRemove;
 
@@ -242,7 +242,7 @@ class MergeUser
             $messageListToUpdate = implode(',', $messageListToUpdateArr);
         
             // Replace the user id of the user to remove
-            $sql = "UPDATE `{$tableName['im_recipient']}`
+            $sql = "UPDATE `{$tableName['im_recipient']}` 
                 SET   user_id    = ".(int)$uidToKeep."
                 WHERE user_id    = ".(int)$uidToRemove."
                   AND message_id IN ({$messageListToUpdate})";
@@ -252,7 +252,7 @@ class MergeUser
                 throw new Exception("Cannot change internal messaging recipient");
             }
             
-            $sql = "UPDATE `{$tableName['im_message_status']}`
+            $sql = "UPDATE `{$tableName['im_message_status']}` 
                 SET   user_id    = ".(int)$uidToKeep."
                 WHERE user_id    = ".(int)$uidToRemove."
                   AND message_id IN ({$messageListToUpdate})";
@@ -329,7 +329,7 @@ class MergeUser
             $messageListToUpdate = implode(',', $messageListToUpdateArr);
         
             // Replace the user id of the user to remove
-            $sql = "UPDATE `{$tableName['im_recipient']}`
+            $sql = "UPDATE `{$tableName['im_recipient']}` 
                 SET   user_id    = ".(int)$uidToKeep."
                 WHERE user_id    = ".(int)$uidToRemove."
                   AND message_id IN ({$messageListToUpdate})";
@@ -339,7 +339,7 @@ class MergeUser
                 throw new Exception("Cannot change messaging in {$thisCourseCode}");
             }
             
-            $sql = "UPDATE `{$tableName['im_message_status']}`
+            $sql = "UPDATE `{$tableName['im_message_status']}` 
                 SET   user_id    = ".(int)$uidToKeep."
                 WHERE user_id    = ".(int)$uidToRemove."
                   AND message_id IN ({$messageListToUpdate})";
@@ -365,7 +365,7 @@ class MergeUser
         
         foreach ( $teamList as $thisTeam )
         {
-            $sql = "SELECT user
+            $sql = "SELECT user 
                     FROM `{$courseTbl['group_rel_team_user']}`
                     WHERE user = ".(int)$uidToKeep."
                       AND team = ".(int)$thisTeam;

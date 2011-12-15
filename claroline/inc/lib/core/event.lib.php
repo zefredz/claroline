@@ -2,18 +2,21 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
- * CLAROLINE
+ * Event Manager library
  *
- * Event Manager library.
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.core
+ * @package     KERNEL
  */
 
 /**
@@ -160,9 +163,9 @@ class EventManager
         else
         {
             $errmsg = __CLASS__ . " : No listener found for EVENT["
-                . $event->getEventType( ) . "]"
-                ;
-                
+                    . $event->getEventType( ) . "]"
+                    ;
+            
             Console::debug( $errmsg );
 
             return false;
@@ -322,7 +325,7 @@ class EventListener
      * @param Event event the event to handle
      */
     public function handle( $event )
-    {
+    {      
         try
         {
             if ( is_callable( $this->_callback ) )

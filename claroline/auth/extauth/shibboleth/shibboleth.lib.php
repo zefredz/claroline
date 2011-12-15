@@ -2,13 +2,13 @@
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
- * CLAROLINE
+ * Claroline Shibboleth / Switch AAI
  *
- * Shibboleth / Switch AAI.
- * Library and configuration.
+ * Library and Configuration
  *
- * @version     0.4
- * @author      Daniel Streiff <daniel.streiff@fh-htwchur.ch>
+ * @version 0.4
+ *
+ * @author Daniel Streiff <daniel.streiff@fh-htwchur.ch>
  */
 
 /**

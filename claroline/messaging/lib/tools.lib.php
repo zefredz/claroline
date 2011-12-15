@@ -6,7 +6,7 @@
  * some function used for internal messaging system
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -105,10 +105,10 @@
      */
     function claro_is_user_course_manager($userId,$courseCode)
     {
-        $tableName = get_module_main_tbl(array('rel_course_user'));
+        $tableName = get_module_main_tbl(array('cours_user'));
         
         $sql = "SELECT count(*)"
-            ." FROM `".$tableName['rel_course_user']."`"
+            ." FROM `".$tableName['cours_user']."`"
             ." WHERE code_cours = '" . claro_sql_escape($courseCode) . "'"
             ." AND user_id = " . (int)$userId
             ." AND isCourseManager = 1"

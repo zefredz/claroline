@@ -1,16 +1,15 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
  * This script edit userlist of a group and group propreties
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/CLGRP
- * @package     CLGRP
- * @author      Claro Team <cvs@claroline.net>
+ * @version 1.9 $Revision$
+ * @copyright 2001-2011 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see http://www.claroline.net/wiki/index.php/CLGRP
+ * @package CLGRP
+ * @author Claro Team <cvs@claroline.net>
  */
 
 $tlabelReq = 'CLGRP';
@@ -51,12 +50,8 @@ else                            $name = '';
 
 if ( isset($_REQUEST['description']) ) $description = trim($_REQUEST['description']);
 else                                   $description = '';
-
-if ( isset($_REQUEST['maxMember'])
-    && ctype_digit($_REQUEST['maxMember'])
-    && (trim($_REQUEST['maxMember']) != ''
-    && (int)$_REQUEST['maxMember'] > 0 ) ) $maxMember = (int)$_REQUEST['maxMember'];
-else $maxMember = NULL;
+if ( isset($_REQUEST['maxMember']) && ctype_digit($_REQUEST['maxMember']) && (trim($_REQUEST['maxMember']) != '') ) $maxMember = (int) $_REQUEST['maxMember'];
+else                                                                        $maxMember = NULL;
 
 if ( isset($_REQUEST['tutor']) ) $tutor = (int) $_REQUEST['tutor'];
 else                             $tutor = 0;
@@ -117,16 +112,7 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
             $registerUserGroup = claro_sql_query( $sql );
         }
 
-        $dialogBox->success( get_lang("Group settings modified")  
-            . '<br />'
-            . '<a href="'.htmlspecialchars(Url::Contextualize('./group_space.php' ) ).'">'
-            .   get_lang("Group area")
-            . '</a>' 
-            . '&nbsp;-&nbsp;'
-            . '<a href="'.htmlspecialchars(Url::Contextualize('./group.php' ) ).'">'
-            .   get_lang("Groups")
-            . '</a>'
-        );
+        $dialogBox->success( get_lang("Group settings modified") );
 
     }    // else
 
@@ -166,22 +152,22 @@ $sql = "SELECT `u`.`user_id`        AS `user_id`,
                `cu`.`role`          AS `role`,
                COUNT(`ug`.`id`)     AS `nbg`,
                COUNT(`ugbloc`.`id`) AS `BLOCK`
-        
+
         FROM (`" . $tbl_user . "`                     AS u
            , `" . $tbl_rel_user_course . "`          AS cu )
-        
+
         LEFT JOIN `" . $tbl_group_rel_team_user . "` AS ug
         ON `u`.`user_id`=`ug`.`user`
-        
+
         LEFT JOIN `" . $tbl_group_rel_team_user . "` AS `ugbloc`
         ON  `u`.`user_id`=`ugbloc`.`user` AND `ugbloc`.`team` = " . (int) claro_get_current_group_id() . "
-        
+
         WHERE `cu`.`code_cours` = '" . $currentCourseId . "'
         AND   `cu`.`user_id`    = `u`.`user_id`
         AND ( `cu`.`isCourseManager` = 0 )
         AND   `cu`.`tutor`      = 0
         AND ( `ug`.`team`       <> " . (int) claro_get_current_group_id() . " OR `ug`.`team` IS NULL )
-        
+
         GROUP BY `u`.`user_id`
         HAVING `BLOCK` = 0
         " . $limitNumOfGroups . "
@@ -200,7 +186,7 @@ foreach ( $result as $member )
            . ' ' . ucwords(strtolower($member['firstName'] ))
            . ($member['role']!=''?' (' . $member['role'] . ')':'') )
            . ( $nbMaxGroupPerUser > 1 ?' (' . $member['nbg'] . ')' : '' );
-    
+
     $userNotInGroupListHtml .= '<option value="'
                          . $member['user_id'] . '">' . $label
                          . '</option>' . "\n";
@@ -219,7 +205,7 @@ foreach ( $usersInGroupList as $key => $val )
 $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
 
 $template = new CoreTemplate('group_form.tpl.php');
-$template->assign('formAction', htmlspecialchars( $_SERVER['PHP_SELF'] . '?edit=yes&gidReq=' .  claro_get_current_group_id() ) );
+$template->assign('formAction', htmlspecialchars($_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . claro_get_current_group_id()));
 $template->assign('relayContext', claro_form_relay_context());
 $template->assign('groupName', htmlspecialchars($myStudentGroup['name']));
 $template->assign('groupId', claro_get_current_group_id());
@@ -255,7 +241,7 @@ function get_group_member_list( $context = array() )
         ? $context['CLARO_CONTEXT_COURSE']
         : claro_get_current_course_id()
         ;
-    
+
     $currentGroupId  = array_key_exists( CLARO_CONTEXT_GROUP, $context )
         ? $context['CLARO_CONTEXT_GROUP']
         : claro_get_current_group_id()
@@ -263,7 +249,7 @@ function get_group_member_list( $context = array() )
 
     $tblc = claro_sql_get_course_tbl();
     $tblm = claro_sql_get_main_tbl();
-    
+
     $sql = "SELECT `ug`.`id`       AS id,
                `u`.`user_id`       AS user_id,
                `u`.`nom`           AS name,
@@ -279,10 +265,10 @@ function get_group_member_list( $context = array() )
           AND   `ug`.`team`      = " . (int) $currentGroupId . "
           AND   `ug`.`user`      = `u`.`user_id`
         ORDER BY UPPER(`u`.`nom`), UPPER(`u`.`prenom`), `u`.`user_id`";
-    
+
     $result = Claroline::getDatabase()->query($sql);
     $result->setFetchMode(Database_ResultSet::FETCH_ASSOC);
-    
+
     $usersInGroupList = array();
     foreach ( $result as $member )
     {

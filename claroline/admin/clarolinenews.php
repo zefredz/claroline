@@ -1,21 +1,24 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * Show news read from claroline.net.
+ * Show news read from claroline.net
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/CLNEWS/
- * @author      Claro Team <cvs@claroline.net>
- * @package     CLNEWS
+ * @version 1.9 $Revision$
+ *
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/CLNEWS/
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ *
+ * @package CLNEWS
+ *
  */
-
-$cidReset = true;
-$gidReset = true;
-
+$cidReset=true;$gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
@@ -64,10 +67,10 @@ if (false !== $rs = $rss->get($urlNewsClaroline))
         $date = strtotime($item['pubDate']);
 
         $out .= '<div class="claroBlock">'."\n"
-            .'<h3 class="blockHeader">'."\n"
+            .'<h4 class="claroBlockHeader">'."\n"
             .'<a href="'.$href.'">'.$title.'</a>'."\n"
             .'<small> - '.claro_html_localised_date(get_locale('dateFormatLong'),$date).'</small>'."\n"
-            .'</h3>'."\n"
+            .'</h4>'."\n"
             .'<div class="claroBlockContent">' . "\n"
             .$summary."\n"
             .'</div>'."\n"
@@ -85,3 +88,4 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+?>
