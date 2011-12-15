@@ -24,7 +24,7 @@
              */
             if (!$this->courseUserPrivilegesList->getCoursePrivileges(
             $this->node->getCourse()->courseId)->isCourseMember() &&
-            $this->viewOptions->getDisplayEnrollLink()) : ?>
+            $this->viewOptions->haveToDisplayEnrollLink()) : ?>
             
             <a href="<?php 
                 $urlObj = Url::buildUrl(
@@ -48,7 +48,7 @@
             $this->node->getCourse()->courseId)->isCourseMember() 
             && !$this->courseUserPrivilegesList->getCoursePrivileges(
             $this->node->getCourse()->courseId)->isCourseManager()
-            && $this->viewOptions->getDisplayUnenrollLink()) : ?>
+            && $this->viewOptions->haveToDisplayUnenrollLink()) : ?>
             
             <a href="<?php 
                 $urlObj = Url::buildUrl(

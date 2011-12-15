@@ -871,7 +871,7 @@ class CourseTreeViewOptions
     /**
      * @var bool
      */
-    protected $displayEnrollLink, $displayUnenrollLink;
+    protected $haveToDisplayEnrollLink, $haveToDisplayUnenrollLink;
     
     /**
      * @var Url
@@ -879,13 +879,13 @@ class CourseTreeViewOptions
     protected $enrollLinkUrl, $unenrollLinkUrl;
     
     public function __construct(
-        $displayEnrollLink = false, 
-        $displayUnenrollLink = false,
+        $haveToDisplayEnrollLink = false, 
+        $haveToDisplayUnenrollLink = false,
         $enrollLinkUrl = null,
         $unenrollLinkUrl = null)
     {
-        $this->displayEnrollLink = (bool) $displayEnrollLink;
-        $this->displayUnenrollLink = (bool) $displayUnenrollLink;
+        $this->haveToDisplayEnrollLink = (bool) $haveToDisplayEnrollLink;
+        $this->haveToDisplayUnenrollLink = (bool) $haveToDisplayUnenrollLink;
         $this->enrollLinkUrl = new Url($enrollLinkUrl);
         $this->unenrollLinkUrl = new Url($unenrollLinkUrl);
     }
@@ -893,17 +893,17 @@ class CourseTreeViewOptions
     /**
      * @return bool
      */
-    public function getDisplayEnrollLink()
+    public function haveToDisplayEnrollLink()
     {
-        return $this->displayEnrollLink;
+        return $this->haveToDisplayEnrollLink;
     }
     
     /**
      * @return bool
      */
-    public function getDisplayUnenrollLink()
+    public function haveToDisplayUnenrollLink()
     {
-        return $this->displayUnenrollLink;
+        return $this->haveToDisplayUnenrollLink;
     }
     
     /**
@@ -922,12 +922,12 @@ class CourseTreeViewOptions
         return $this->unenrollLinkUrl;
     }
     
-    public function setDisplayEnrollLink($bool)
+    public function setHaveToDisplayEnrollLink($bool)
     {
         $this->displayEnrollLink = (bool) $bool;
     }
     
-    public function setDisplayUnenrollLink($bool)
+    public function setHaveToDisplayUnenrollLink($bool)
     {
         $this->displayUnenrollLink = (bool) $bool;
     }
