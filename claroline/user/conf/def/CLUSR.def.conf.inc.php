@@ -207,7 +207,7 @@ array ( 'update_user_properties'
 );
 
 $conf_def_property_list['update_user_properties'] =
-array('label'         => 'Update properties of users on CVS import'
+array('label'         => 'Update properties of users on CSV import'
      ,'default'       => FALSE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
