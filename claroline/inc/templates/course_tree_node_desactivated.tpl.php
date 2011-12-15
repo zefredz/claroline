@@ -20,7 +20,7 @@
             /*
              * Display this link if: 
              * - The user isn't course member already
-             * - The config says so
+             * - The view's config says so
              */
             if (!$this->courseUserPrivilegesList->getCoursePrivileges(
             $this->node->getCourse()->courseId)->isCourseMember() &&
@@ -42,12 +42,15 @@
              * Display this link if: 
              * - The user is course member already
              * - The user isn't course manager
-             * - The config says so
+             * - The platform's config allows it (or the current user is admin)
+             * - The view's config says so
              */
             elseif ($this->courseUserPrivilegesList->getCoursePrivileges(
             $this->node->getCourse()->courseId)->isCourseMember() 
             && !$this->courseUserPrivilegesList->getCoursePrivileges(
             $this->node->getCourse()->courseId)->isCourseManager()
+            && (get_conf('crslist_UserCanUnregFromInactiveCourses', false)
+            || claro_is_platform_admin())
             && $this->viewOptions->haveToDisplayUnenrollLink()) : ?>
             
             <a href="<?php 
