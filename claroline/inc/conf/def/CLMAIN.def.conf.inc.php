@@ -568,7 +568,7 @@ array ('label'       => 'Relative path from root campus to claroline code'
       ,'display'     => false
       );
 $conf_def_property_list['coursesRepositoryAppend'] =
-array ( 'label'      => 'relative path from root campus to courses'
+array ( 'label'      => 'Relative path from root campus to courses'
       , 'type'       => 'relpath'
       , 'default'    => 'courses/'
       ,'display'     => false
@@ -589,7 +589,7 @@ array ('label'        => 'Relative path from claroline web to icon set'
       );
 
 $conf_def_property_list['userImageRepositoryAppend'] =
-array ('label'        => 'relative path from root web to user pic repository'
+array ('label'        => 'Relative path from root web to user pic repository'
       ,'type'        => 'relpath'
       ,'display'     => false
       ,'default'     => 'platform/img/users/'
