@@ -1,5 +1,6 @@
 <?php 
 
+$_lang['Course management tools'] = 'Course management tools';
 $_lang['Define the security layer. options are : tls, ssl or clear (default clear). You need to activate the php_openssl extension in php.ini in order to send mail over ssl or starttls !'] = 'Define the security layer. options are : tls, ssl or clear (default clear). You need to activate the php_openssl extension in php.ini in order to send mail over ssl or starttls !';
 $_lang['Disk space allowed for import learning path'] = 'Disk space allowed for import learning path';
 $_lang['Disk space allowed to import scorm package'] = 'Disk space allowed to import scorm package';
@@ -16,6 +17,8 @@ $_lang['Register users to class'] = 'Register users to class';
 $_lang['Relative path from claroline kernel to root of admin section'] = 'Relative path from claroline kernel to root of admin section';
 $_lang['Relative path from claroline web to icon set'] = 'Relative path from claroline web to icon set';
 $_lang['Relative path from root campus to claroline code'] = 'Relative path from root campus to claroline code';
+$_lang['Relative path from root campus to courses'] = 'Relative path from root campus to courses';
+$_lang['Relative path from root web to user pic repository'] = 'Relative path from root web to user pic repository';
 $_lang['Select the type for your export :'] = 'Select the type for your export :';
 $_lang['TLS/STARTTLS'] = 'TLS/STARTTLS';
 $_lang['Teacher can export password'] = 'Teacher can export password';
@@ -40,7 +43,7 @@ db glu is use between these two name.
 In multi db mode, IT MUST be a dot.
 In single db mode, IT CAN\'T be a dot.
 ';
-$_lang['Update properties of users  on CVS import'] = 'Update properties of users  on CVS import';
+$_lang['Update properties of users on CSV import'] = 'Update properties of users on CSV import';
 $_lang['User can leave course code (officialCode) field empty or not'] = 'User can leave course code (officialCode) field empty or not';
 $_lang['Whether include tutors in the displayed member list'] = 'Whether include tutors in the displayed member list';
 $_lang['Would you like to add one ?'] = 'Would you like to add one ?';
@@ -52,5 +55,3 @@ $_lang['filename for one file module inclusion'] = 'filename for one file module
 $_lang['files_stats'] = 'files_stats';
 $_lang['on bottom'] = 'on bottom';
 $_lang['on top'] = 'on top';
-$_lang['relative path from root campus to courses'] = 'relative path from root campus to courses';
-$_lang['relative path from root web to user pic repository'] = 'relative path from root web to user pic repository';
