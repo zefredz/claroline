@@ -1,4 +1,5 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
  * CLAROLINE
@@ -13,12 +14,13 @@
  */
 
 include_once get_path('incRepositorySys') . '/lib/csv.class.php';
+
 include_once dirname(__FILE__) . '/question.class.php';
 
-class CsvTrackTrueFalse extends Csv
+class csvTrackTrueFalse extends csv
 {
-    public $question;
-    public $exId;
+    var $question;
+    var $exId;
     
     function __construct($question, $exId = '')
     {
@@ -100,10 +102,10 @@ class CsvTrackTrueFalse extends Csv
 
 
 
-class CsvTrackMultipleChoice extends Csv
+class csvTrackMultipleChoice extends csv
 {
-    public $question;
-    public $exId;
+    var $question;
+    var $exId;
 
     function __construct($question, $exId = '')
     {
@@ -178,10 +180,10 @@ class CsvTrackMultipleChoice extends Csv
 }
 
 
-class CsvTrackFIB extends Csv
+class csvTrackFIB extends csv
 {
-    public $question;
-    public $exerciseId;
+    var $question;
+    var $exerciseId;
 
     function __construct($question, $exId = '')
     {
@@ -254,11 +256,10 @@ class CsvTrackFIB extends Csv
     }
 }
 
-
-class CsvTrackMatching extends Csv
+class csvTrackMatching extends csv
 {
-    public $question;
-    public $exerciseId;
+    var $question;
+    var $exerciseId;
 
     function __construct($question, $exId = '')
     {
@@ -330,7 +331,6 @@ class CsvTrackMatching extends Csv
         return false;
     }
 }
-
 
 /**
  * @return string csv data or empty string
@@ -346,33 +346,32 @@ function export_question_tracking($quId, $exId = '')
     switch($question->getType())
     {
         case 'TF':
-            $csvTrack = new CsvTrackTrueFalse($question, $exId);
+            $cvsTrack = new csvTrackTrueFalse($question, $exId);
             break;
         case 'MCUA':
         case 'MCMA':
-            $csvTrack = new CsvTrackMultipleChoice($question, $exId);
+            $cvsTrack = new csvTrackMultipleChoice($question, $exId);
             break;
         case 'FIB':
-            $csvTrack = new CsvTrackFIB($question, $exId);
+            $cvsTrack = new csvTrackFIB($question, $exId);
             break;
         case 'MATCHING':
-            $csvTrack = new CsvTrackMatching($question, $exId);
+            $cvsTrack = new csvTrackMatching($question, $exId);
             break;
         default:
             break;
     }
 
-    if( isset($csvTrack) )
+    if( isset($cvsTrack) )
     {
-        $csvTrack->buildRecords();
-        return $csvTrack->export();
+        $cvsTrack->buildRecords();
+        return $cvsTrack->export();
     }
     else
     {
         return "";
     }
 }
-
 
 function export_exercise_tracking($exId)
 {
@@ -401,7 +400,7 @@ function export_exercise_tracking($exId)
  * Shows the overall result for each student
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
-class ExoExportByUser extends Csv
+class ExoExportByUser extends csv
 {
     /**
      * Contructor
@@ -491,13 +490,12 @@ class ExoExportByUser extends Csv
     }
 }
 
-
 /**
  * Exports the students's result for an exercise into a csv file
  * Shows for each question : the best score, the worst score and the average score
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
-class ExoExportByQuestion extends Csv
+class ExoExportByQuestion extends csv
 {
     /**
      * Contructor

@@ -35,11 +35,9 @@
  */
 
 /**
- * CLAROLINE
+ * Claroline Resource Linker library
  *
- * Claroline Resource Linker library.
- *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -49,7 +47,6 @@
  */
 
 require_once dirname(__FILE__) . '/url.lib.php';
-require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
 require_once dirname(__FILE__) . '/../group.lib.inc.php';
 
 interface ResourceLocator
@@ -392,7 +389,7 @@ class LinkerResource
  *
  */
 class LinkerResourceIterator
-    implements CountableSeekableIterator
+    implements SeekableIterator, Countable
 {
     protected $elementList;
     
@@ -1232,7 +1229,7 @@ class ResourceLinker
         return '<div id="lnk_panel">' . "\n"
             . '<div id="lnk_selected_resources"></div>' . "\n"
             . '<p id="lnk_toggle">' . "\n"
-            . '<a href="#" id="lnk_show_browser" class="attach">'.get_lang('Attach an existing resource').'</a>' . "\n"
+            . '<a href="#" id="lnk_show_browser">'.get_lang('Attach an existing resource').'</a>' . "\n"
             . '<a href="#" id="lnk_hide_browser">'.get_lang('Close').'</a>' . "\n"
             . '</p>' . "\n"
             . '<div id="lnk_browser">' . "\n"
@@ -1259,8 +1256,8 @@ class ResourceLinker
         
         if ( count( $linkList ) )
         {
-            $htmlLinkList .= '<h2 class="lnk_link_list">'
-                . get_lang('Attached resources') . '</h2>'
+            $htmlLinkList .= '<h4 class="lnk_link_list">'
+                . get_lang('Attached resources') . '</h4>'
                 . "\n"
                 ;
                 

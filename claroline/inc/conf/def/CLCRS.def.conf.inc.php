@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * This file describe the parameter for Course creation tool config file.
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Config
@@ -29,10 +29,8 @@ array ( 'fill_course_example'
       , 'prefixAntiNumber'
       , 'prefixAntiEmpty'
       , 'showLinkToDeleteThisCourse'
-      , 'courseSessionAllowed'
       , 'nbCharFinalSuffix'
       , 'forceCodeCase'
-      , 'availableLanguagesForCourses'
       );
 
 $conf_def['section']['needed']['label']='Course information requirements';
@@ -90,16 +88,6 @@ array ('label'       => 'Course code case'
                                 ,'lower'=>'Force to lowercase the course code'
                                 ,'nochange'=>'dont change case'
                                 )
-      );
-
-$conf_def_property_list['availableLanguagesForCourses'] =
-array ('label'         => 'Course language selector'
-      ,'description'   => 'Available languages for course websites'
-      ,'default'       => array()
-      ,'type'          => 'multi'
-      ,'display'       => true
-      ,'acceptedValueType' => 'lang'
-      ,'readonly'      => false
       );
 
 $conf_def_property_list['allowPublicCourses'] =
@@ -261,13 +249,3 @@ $conf_def_property_list['showLinkToDeleteThisCourse']
                                   ,'FALSE' => 'No'
                                   )
         );
-
-$conf_def_property_list['courseSessionAllowed'] =
-array ('label'       => 'Course session creation is allowed on the platform'
-      ,'description' => ''
-      ,'default'     => true
-      ,'type'        => 'boolean'
-      ,'acceptedValue' => array ('TRUE' => 'Yes'
-                                ,'FALSE'=> 'No'
-                                )
-      );

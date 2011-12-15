@@ -1,15 +1,14 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version 1.8 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLANN
- * @subpackage  CLRSS
- * @author      Claro Team <cvs@claroline.net>
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package CLANN
+ * @subpackage CLRSS
+ * @author Claro Team <cvs@claroline.net>
  */
 
 function CLANN_write_rss($context)
@@ -35,10 +34,13 @@ function CLANN_write_rss($context)
             ,                   'link'        => get_path('rootWeb') .'claroline/' . 'announcements/announcements.php?cidReq=' . $courseId . '&l#ann'.$announcementItem['id']
             ,                   'description' => trim(str_replace('<!-- content: html -->','',$announcementItem['content']))
             ,                   'pubDate'     => date('r', stripslashes(strtotime($announcementItem['time'])))
-            ,                   'dc:date'     => date('c', stripslashes(strtotime($announcementItem['time'])))
           //,                   'author'      => $_course['email']
             );
         }
     }
     return $rssList;
 }
+
+
+
+?>

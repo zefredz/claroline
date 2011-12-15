@@ -1,37 +1,102 @@
 <!-- $Id$ -->
 
-    <div class="coursePortletList">
-        <?php
-            echo $this->dialogBox->render();
-        ?>
+<?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
+
+<table class="courseTable">
+<tr>
+<td class="toolList">
+    <?php
+    if (is_array($this->toolLinkListSource)
+        && !empty($this->toolLinkListSource)
+        && is_array($this->toolLinkListSession)
+        && !empty($this->toolLinkListSession) )
+    {
+        echo '<div class="sourceToolPanel"><h3>' . get_lang('Course') . '</h3>';
+        echo claro_html_list($this->toolLinkListSource, array('id'=>'commonToolListSource'));
+        echo '</div>';
+        echo '<div class="sessionToolPanel"><h3>' . get_lang('Session') . '</h3>';
+        echo claro_html_list($this->toolLinkListSession, array('id'=>'commonToolListSession'));
+        echo '</div>';
+    }
+    
+    if (is_array($this->toolLinkListStandAlone))
+    {
+        echo claro_html_list($this->toolLinkListStandAlone, array('id'=>'commonToolListStandAlone'));
+    }
+    ?>
+    
+    <br />
+    
+    <?php
+    if ( claro_is_allowed_to_edit() ) :
+        echo claro_html_list($this->courseManageToolLinkList,  array('id'=>'courseManageToolList'));
+    endif;
+    ?>
+    
+    <?php if ( claro_is_user_authenticated() ) : ?>
+    <br />
+    <span style="font-size:8pt;">
+    
+    <?php
+        echo '<img class="iconDefinitionList" src="' . get_icon_url( 'hot' ) . '" alt="New items" />'
+            . get_lang('New items'). ' ('
+            . '<a href="' . get_path('clarolineRepositoryWeb') . 'notification_date.php' . '" >'
+            . get_lang('to another date') . '</a>';
+
+        if ($_SESSION['last_action'] != '1970-01-01 00:00:00')
+        {
+           $last_action =  $_SESSION['last_action'];
+        }
+        else
+        {
+            $last_action = date('Y-m-d H:i:s');
+        }
         
-        <?php if ( claro_is_allowed_to_edit() && !empty($this->activablePortlets) ) : ?>
-        <ul class="commandList">
-            <?php foreach($this->activablePortlets as $portlet) : ?>
-            <li>
-                <a style="background-image: url(<?php echo get_icon_url('add'); ?>); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"
-                    href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?portletCmd=exAdd&portletLabel='.$portlet['label'])).'&courseId='.ClaroCourse::getIdFromCode(claro_get_current_course_id()); ?>">
-                    <?php echo get_lang('Add a new portlet'); ?>: <?php echo get_lang($portlet['name']); ?>
-                </a>
-            </li>
-            <?php endforeach; ?>
-        </ul>
-        <?php endif; ?>
+        $nbChar = strlen($last_action);
+        if (substr($last_action,$nbChar - 8) == '00:00:00' )
+        {
+            echo ' [' . claro_html_localised_date( get_locale('dateFormatNumeric'),
+                strtotime($last_action)) . ']';
+        }
         
-        <?php
-            if ( count( $this->portletIterator ) > 0)
+        echo ')' ;
+    ?>
+    </span>
+    
+    <?php endif; ?>
+</td>
+
+<td class="coursePortletList">
+    <?php
+        echo $this->dialogBox->render();
+    ?>
+    
+    <?php
+        if ( claro_is_allowed_to_edit() ) :
+            echo '<div class="claroBlock">'."\n"
+               . '<a href="'
+               . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+               . '?portletCmd=rqAdd')).'">'
+               . '<img src="'.get_icon_url('default_new').'" alt="'.get_lang('Add a new portlet').'" /> '
+               . get_lang('Add a portlet to your course homepage').'</a>'."\n"
+               . '</div>';
+        endif;
+        
+        if ($this->portletIterator->count() > 0)
+        {
+            foreach ($this->portletIterator as $portlet)
             {
-                foreach ($this->portletIterator as $portlet)
+                if ($portlet->getVisible() || !$portlet->getVisible() && claro_is_allowed_to_edit())
                 {
-                    if ($portlet->getVisible() || !$portlet->getVisible() && claro_is_allowed_to_edit())
-                    {
-                        echo $portlet->render();
-                    }
+                    echo $portlet->render();
                 }
             }
-            elseif ( count( $this->portletIterator ) == 0 && claro_is_allowed_to_edit())
-            {
-                echo get_block('blockIntroCourse');
-            }
-        ?>
-    </div>
+        }
+        elseif ($this->portletIterator->count() == 0 && claro_is_allowed_to_edit())
+        {
+            echo get_block('blockIntroCourse');
+        }
+    ?>
+</td>
+</tr>
+</table>

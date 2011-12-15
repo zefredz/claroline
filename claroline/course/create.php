@@ -66,26 +66,14 @@ if (!is_null($sourceCourseId))
     $course->sourceCourseId = $sourceCourseId;
 }
 
-if ( !is_null($course->sourceCourseId) && !empty($course->sourceCourseId) )
-{
-    $sourceCourse = new claroCourse();
-    $sourceCourse->load(claroCourse::getCodeFromId($course->sourceCourseId));
-    
-    if( $sourceCourse->sourceCourseId )
-    {
-        claro_die( get_lang( 'You cannot create a course session from another course session' ) );
-    }
-    
-    $course->categories = $sourceCourse->categories;
-}
-
 if ( $adminContext && claro_is_platform_admin() )
 {
     // From admin, add param to form
     $course->addHtmlParam('adminContext','1');
 }
 
-if ( claro_is_platform_admin() || get_conf('courseCreationAllowed', true) )
+if ( claro_is_platform_admin()
+    || get_conf('courseCreationAllowed', true) )
 {
     if ( $cmd == 'exEdit' )
     {
@@ -202,3 +190,5 @@ if ( claro_is_platform_admin()
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

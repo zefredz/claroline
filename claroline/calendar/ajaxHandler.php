@@ -13,6 +13,7 @@
  * @package     DESKTOP
  * @author      Claroline team <info@claroline.net>
  * @since       1.9
+ *
  */
 
 if ( isset($_REQUEST['location']) )
@@ -47,3 +48,5 @@ if ( isset($_REQUEST['location']) )
     
     echo claro_utf8_encode( $cal->render(), get_conf('charset') );
 }
+
+?>

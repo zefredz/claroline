@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 
-<form class="msform" id="courseSettings" method="post" action="<?php echo $this->formAction; ?>">
+<form method="post" class="msform" id="courseSettings" action="<?php echo $this->formAction; ?>">
     <?php echo $this->relayContext ?>
     <input type="hidden" name="cmd" value="<?php echo (empty($this->course->courseId)?'rqProgress':'exEdit'); ?>" />
     <input type="hidden" name="course_id" value="<?php echo (empty($this->course->id)?'':$this->course->id); ?>" />
@@ -33,7 +33,7 @@
                     <?php endif; ?>
                 </dt>
                 <dd>
-                    <input type="text" name="course_title" id="course_title" value="<?php echo htmlspecialchars($this->course->title); ?>" size="40" />
+                    <input type="text" name="course_title" id="course_title" value="<?php echo htmlspecialchars($this->course->title); ?>" size="60" />
                     <?php if (empty($this->course->courseId)) : ?>
                     <br />
                     <span class="notice"><?php echo get_lang('e.g. <em>History of Literature</em>'); ?></span>
@@ -47,7 +47,7 @@
                     </label><span class="required">*</span>
                 </dt>
                 <dd>
-                    <input type="text" id="course_officialCode" name="course_officialCode" value="<?php echo htmlspecialchars($this->course->officialCode); ?>" maxlength="12" />
+                    <input type="text" id="course_officialCode" name="course_officialCode" value="<?php echo htmlspecialchars($this->course->officialCode); ?>" size="20" maxlength="12" />
                     <?php if (empty($this->course->courseId)) : ?>
                     <br />
                     <span class="notice"><?php echo get_lang('max. 12 characters, e.g. <em>ROM2121</em>'); ?></span>
@@ -55,6 +55,7 @@
                 </dd>
                 
                 <!-- Course categories -->
+                <?php if (empty($this->course->sourceCourseId)) : ?>
                 <dt>
                     <label>
                         <?php echo get_lang('Categories'); ?>
@@ -68,7 +69,7 @@
                                 <?php echo get_lang('Linked categories'); ?>
                             </label>
                             <br />
-                            <select multiple="multiple" name="linked_categories[]" id="mslist1">
+                            <select multiple="multiple" name="linked_categories[]" id="mslist1" size="10">
                                 <?php echo $this->linkedCategoriesListHtml; ?>
                             </select>
                         </td>
@@ -82,7 +83,7 @@
                                 <?php echo get_lang('Unlinked categories'); ?>
                             </label>
                             <br />
-                            <select multiple="multiple" name="unlinked_categories[]" id="mslist2">
+                            <select multiple="multiple" name="unlinked_categories[]" id="mslist2" size="10">
                                 <?php echo $this->unlinkedCategoriesListHtml; ?>
                             </select>
                         </td>
@@ -95,6 +96,7 @@
                     </span>
                     <?php endif; ?>
                 </dd>
+                <?php endif; ?>
                 
                 <!-- Course language select box -->
                 <dt>
@@ -113,7 +115,7 @@
                     </label>
                 </dt>
                 <dd>
-                    <input type="text" id="course_titular" name="course_titular" value="<?php echo htmlspecialchars($this->course->titular); ?>" />
+                    <input type="text"  id="course_titular" name="course_titular" value="<?php echo htmlspecialchars($this->course->titular); ?>" size="60" />
                 </dd>
                 
                 <!-- Course titular's email -->
@@ -126,18 +128,18 @@
                     </label>
                 </dt>
                 <dd>
-                    <input type="text" id="course_email" name="course_email" value="<?php echo htmlspecialchars($this->course->email); ?>" maxlength="255" />
+                    <input type="text" id="course_email" name="course_email" value="<?php echo htmlspecialchars($this->course->email); ?>" size="60" maxlength="255" />
                 </dd>
                 
                 <!-- Course access -->
                 <dt>
-                    <?php echo get_lang('Course access'); ?> <span class="required">*</span>
+                    <?php echo get_lang('Course access'); ?><span class="required">*</span>
                 </dt>
                 <dd>
                     <img src="<?php echo get_icon_url('access_open'); ?>" alt="<?php echo get_lang('open'); ?>" />
                     <input type="radio"<?php echo $this->publicDisabled; ?> id="access_public" name="course_access" value="public" <?php echo ($this->course->access == 'public' ? 'checked="checked"':''); ?> />
                     &nbsp;
-                    <label for="access_public"<?php echo $this->publicCssClass; ?>>
+                    <label for="access_public"<?php echo $this->publicCssClass; ?>">
                         <?php echo get_lang('Access allowed to anybody (even without login)'); ?>
                     </label>
                     <?php echo $this->publicMessage; ?>
@@ -163,7 +165,7 @@
                 
                 <!-- Course registration + registration key -->
                 <dt>
-                    <?php echo get_lang('Registration settings'); ?> <span class="required">*</span>
+                    <?php echo get_lang('Registration settings'); ?><span class="required">*</span>
                 </dt>
                 <dd>
                     <img src="<?php echo get_icon_url('enroll_allowed'); ?>"  alt="" />
@@ -189,7 +191,7 @@
                         <?php echo get_lang('Allowed with enrolment key'); ?>
                     </label>
                     &nbsp;
-                    <input type="text" id="course_registrationKey" name="course_registrationKey" value="<?php echo htmlspecialchars($this->course->registrationKey); ?>" />
+                    <input type="text" id="registrationKey" name="course_registrationKey" value="<?php echo htmlspecialchars($this->course->registrationKey); ?>" />
                     </blockquote>
                     
                     <img src="<?php echo get_icon_url('enroll_forbidden'); ?>"  alt="" />
@@ -231,7 +233,7 @@
                     </label>
                 </dt>
                 <dd>
-                    <input type="text" name="course_departmentName" id="course_departmentName" value="<?php echo htmlspecialchars($this->course->departmentName); ?>" maxlength="30" />
+                    <input type="text" name="course_departmentName" id="course_departmentName" value="<?php echo htmlspecialchars($this->course->departmentName); ?>" size="20" maxlength="30" />
                 </dd>
                 
                 <!-- Course department url -->
@@ -244,7 +246,7 @@
                     </label>
                 </dt>
                 <dd>
-                    <input type="text" name="course_extLinkUrl" id="course_extLinkUrl" value="<?php echo htmlspecialchars($this->course->extLinkUrl); ?>" maxlength="180" />
+                    <input type="text" name="course_extLinkUrl" id="course_extLinkUrl" value="<?php echo htmlspecialchars($this->course->extLinkUrl); ?>" size="60" maxlength="180" />
                 </dd>
                 
             </dl>
@@ -278,14 +280,13 @@
                 </dd>
                 
                 <dt>
-                    <?php echo get_lang('Maximum number of students'); ?>
+                    <?php echo get_lang('Maximum number of users'); ?>
                 </dt>
                 <dd>
                     <input type="text" name="course_userLimit" id="course_userLimit" value="<?php echo $this->course->userLimit; ?>" />
                     <br />
                     <span class="notice">
-                        <?php echo get_lang('Leave this field empty or use 0 if you don\'t want to limit the number of users in this course'); ?><br />
-                        <?php echo get_lang('This limit doesn\'t include course\'s tutors and managers'); ?>
+                        <?php echo get_lang('Leave this field empty or use 0 if you don\'t want to limit the number of users in this course'); ?>
                     </span>
                 </dd>
                 
@@ -307,7 +308,7 @@
                     
                     <input type="radio" id="course_status_date" name="course_status_selection" value="date" <?php echo ($this->course->status == 'date' ? ' checked="checked"':''); ?> />&nbsp;
                     <label for="course_status_date">
-                        <?php echo get_lang('Available'); ?>&nbsp;<?php echo get_lang('from'); ?> (<?php echo get_lang('included'); ?>)
+                        <?php echo get_lang('Available'); ?>&nbsp;'<?php echo get_lang('from'); ?> (<?php echo get_lang('included'); ?>)
                     </label>
                     <?php echo claro_html_date_form('course_publicationDay', 'course_publicationMonth', 'course_publicationYear', $this->course->publicationDate, 'numeric'); ?>&nbsp;
                     <span class="notice"><?php echo get_lang('(d/m/y)'); ?></span>

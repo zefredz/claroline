@@ -1,20 +1,24 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
- * Sql query to update main database.
+ * Sql query to update main database
  *
- * @version     $Revision$
+ * @version 1.8 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
- * @package     UPGRADE
- * @author      Claro Team <cvs@claroline.net>
- * @author      Mathieu Laurent <mla@claroline.net>
- * @author      Christophe Gesche <moosh@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ *
+ * @package UPGRADE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Mathieu Laurent   <mla@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ *
  */
 
 /*===========================================================================

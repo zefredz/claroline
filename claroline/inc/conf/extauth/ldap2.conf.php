@@ -2,9 +2,8 @@
 
 /**
  * LDAP authentication driver version 2
- * This is an example using the user dn and password for LDAP search
  *
- * @version     1.11 $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -26,8 +25,7 @@ $driverConfig['extAuthOptionList'] = array(
     'version'  => 3,
     'basedn'   => 'ou=people,o=example,c=com',
     'userattr' => 'uid',
-    'userfilter' => '(objectClass=person)',
-    'userSelfBindAuth' => true // set to true if your server does not allow anonymous bind
+    'userfilter' => '(objectClass=person)'
 );
 
 $driverConfig['extAuthAttribNameList'] = array(

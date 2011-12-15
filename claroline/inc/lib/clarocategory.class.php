@@ -205,21 +205,33 @@ class ClaroCategory
     
     
     /**
-     * Select all categories in database and give an explicit path for each of them.
+     * Select all categories in database and give an explicit path for each of
+     * them.
      *
      * @param string    $separator (default: ' > ')
      * @return array    collection of categories (id and path), ordered by rank
      */
     public static function getAllCategoriesFlat ( $separator = ' > ' )
     {
-        $categoryList = self::getAllCategories();
+        $categoriesList = self::getAllCategories();
         
-        return ClaroCategory::flatCategoryList($categoryList, $separator);
+        $flatList = array();
+        foreach ($categoriesList as $category)
+        {
+            $flatList[] = array(
+                'id' =>     $category['id'],
+                'canHaveCoursesChild' => $category['canHaveCoursesChild'],
+                'visible' => $category['visible'],
+                'path' =>   self::getPath($category['id'], $categoriesList, $separator)
+            );
+        }
+        
+        return $flatList;
     }
     
     
     /**
-     * Return a list of categories associated to a list of courses
+     * Return a list of categories associated to a list of courses.
      *
      * @param array     list of courses
      * @return array    list of categories associated to courses
@@ -283,115 +295,6 @@ class ClaroCategory
             return array();
         }
         
-    }
-
-
-    /**
-     * Return a list of categories associated to a list of courses
-     *
-     * @param int user id
-     * @return array list of categories associated to the user
-     */
-    public static function getUserCategoriesFlat ( $userId, $separator = '>' )
-    {
-        // Get table name
-        $tbl_mdb_names              = claro_sql_get_main_tbl();
-        $tbl_course                 = $tbl_mdb_names['course'];
-        $tbl_rel_course_user        = $tbl_mdb_names['rel_course_user'];
-        $tbl_category               = $tbl_mdb_names['category'];
-        $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
-
-        $sql = "SELECT ca.id, 
-                       ca.name, 
-                       ca.visible, 
-                       ca.canHaveCoursesChild,
-                       ca.idParent
-
-                FROM `{$tbl_category}` AS ca
-
-                JOIN `{$tbl_rel_course_category}` AS rcc
-                ON ca.id = rcc.categoryId
-
-                JOIN `{$tbl_course}` AS co
-                ON rcc.courseId = co.cours_id
-
-                JOIN `{$tbl_rel_course_user}` AS rcu
-                ON rcu.code_cours = co.code
-
-                WHERE rcu.user_id = {$userId}
-
-                GROUP BY ca.id";
-
-        $result = Claroline::getDatabase()->query($sql);
-        $result->setFetchMode(Mysql_ResultSet::FETCH_ASSOC);
-
-        return ClaroCategory::flatCategoryList($result, $separator);
-    }
-
-
-    /**
-     * Return a list of categories associated to a list of courses
-     *
-     * @param int user id
-     * @return Database_ResultSet list of categories associated to the user
-     */
-    public static function getUserCategories ( $userId, $separator = '>' )
-    {
-        // Get table name
-        $tbl_mdb_names              = claro_sql_get_main_tbl();
-        $tbl_course                 = $tbl_mdb_names['course'];
-        $tbl_rel_course_user        = $tbl_mdb_names['rel_course_user'];
-        $tbl_category               = $tbl_mdb_names['category'];
-        $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
-
-        $sql = "SELECT ca.id, 
-                       ca.name, 
-                       ca.visible, 
-                       ca.canHaveCoursesChild,
-                       ca.idParent
-
-                FROM `{$tbl_category}` AS ca
-
-                JOIN `{$tbl_rel_course_category}` AS rcc
-                ON ca.id = rcc.categoryId
-
-                JOIN `{$tbl_course}` AS co
-                ON rcc.courseId = co.cours_id
-
-                JOIN `{$tbl_rel_course_user}` AS rcu
-                ON rcu.code_cours = co.code
-
-                WHERE rcu.user_id = {$userId}
-
-                GROUP BY ca.id";
-
-        $result = Claroline::getDatabase()->query($sql);
-        $result->setFetchMode(Mysql_ResultSet::FETCH_ASSOC);
-
-        return $result;
-    }
-    
-    
-    /**
-     * Turn an array of categories into an array of "flat" categories 
-     * (each array entry contains the whole path to a category).
-     *
-     * @return array
-     */
-    public static function flatCategoryList($categoryList, $separator)
-    {
-        $flatList = array();
-        foreach ($categoryList as $category)
-        {
-            $flatList[] = array(
-                'id' =>     $category['id'],
-                'canHaveCoursesChild' => $category['canHaveCoursesChild'],
-                'visible' => $category['visible'],
-                'path' =>   self::getPath($category['id'], $categoryList, $separator)
-            );
-        }
-        
-        return $flatList;
     }
     
     
@@ -799,10 +702,10 @@ class ClaroCategory
             . '<label for="category_name">'
             . get_lang('Category name')
             . (get_conf('human_label_needed') ? '<span class="required">*</span> ':'')
-            .'</label></dt>'
+            .'</label>&nbsp;:</dt>'
             . '<dd>'
             . '<input type="text" name="category_name" id="category_name" value="' . htmlspecialchars($this->name) . '" size="30" maxlength="100" />'
-            . (empty($this->id) ? '<br /><span class="notice">'.get_lang('e.g. <em>Sciences of Economics</em>').'</span>':'')
+            . (empty($this->id) ? '<br /><small>'.get_lang('e.g. <em>Sciences of Economics</em>').'</small>':'')
             . '</dd>' . "\n" ;
         
         // Category code
@@ -810,16 +713,16 @@ class ClaroCategory
             . '<label for="category_code">'
             . get_lang('Category code')
             . '<span class="required">*</span> '
-            . '</label></dt>'
+            . '</label>&nbsp;:</dt>'
             . '<dd><input type="text" id="category_code" name="category_code" value="' . htmlspecialchars($this->code) . '" size="30" maxlength="12" />'
-            . (empty($this->id) ? '<br /><span class="notice">'.get_lang('max. 12 characters, e.g. <em>ROM2121</em>').'</span>':'')
+            . (empty($this->id) ? '<br /><small>'.get_lang('max. 12 characters, e.g. <em>ROM2121</em>').'</small>':'')
             . '</dd>' . "\n" ;
         
         // Category's parent
         $html .= '<dt>'
             . '<label for="category_parent">'
             . get_lang('Parent category')
-            . '</label></dt>'
+            . '</label>&nbsp;:</dt>'
             . '<dd>'
             . '<select  id="category_parent" name="category_parent" />'
             . $categoriesHtmlList
@@ -832,12 +735,13 @@ class ClaroCategory
         // Category's visibility
         $html .= '<dt>'
             . get_lang('Category visibility')
-            . '<span class="required">*</span>'
+            . '<span class="required">*</span> '
+            . ' :'
             . '</dt>'
             . '<dd>'
             . '<input type="radio" id="visible" name="category_visible" value="1" ' . (( $this->visible == 1 || !isset($this->visible) ) ? 'checked="checked"' : null ) . ' />'
             . '&nbsp;'
-            . '<label for="visible">' . get_lang('Visible') . '</label><br />'
+            . '<label for="visible">' . get_lang('Visible') . '</label><br/>'
             . '<input type="radio" id="hidden" name="category_visible" value="0" ' . (( $this->visible == 0 && isset($this->visible) ) ? 'checked="checked"' : null ) . ' />'
             . '&nbsp;'
             . '<label for="hidden">' . get_lang('Hidden') . '</label>'
@@ -846,33 +750,34 @@ class ClaroCategory
         // Category's right to possess courses
         $html .= '<dt>'
             . get_lang('Can have courses')
-            . '<span class="required">*</span>'
+            . '<span class="required">*</span> '
+            . ' :'
             . '</dt>'
             . '<dd>'
             . '<input type="radio" id="can_have_courses" name="category_can_have_courses" value="1" ' . (( $this->canHaveCoursesChild == 1 || !isset($this->canHaveCoursesChild) ) ? 'checked="checked"':'' ) . ' />'
             . '&nbsp;'
-            . '<label for="can_have_courses">' . get_lang('Yes') . '</label><br />'
+            . '<label for="can_have_courses">' . get_lang('Yes') . '</label><br/>'
             . '<input type="radio" id="cant_have_courses" name="category_can_have_courses" value="0" ' . (( $this->canHaveCoursesChild == 0 && isset($this->canHaveCoursesChild) ) ? 'checked="checked"':'' ) . ' />'
             . '&nbsp;'
-            . '<label for="cant_have_courses">' . get_lang('No') . '</label><br />'
-            . '<span class="notice">'.get_lang('Authorize the category to possess courses or not (opened or closed category)').'</span>'
+            . '<label for="cant_have_courses">' . get_lang('No') . '</label><br/>'
+            . '<small>'.get_lang('Authorize the category to possess courses or not (opened or closed category)').'</small>'
             . '</dd>' . "\n" ;
             
         // Category's dedicated course/board
         $html .= '<dt>'
             . '<label for="category_root_course">'
             . get_lang('Category\'s board')
-            . '</label></dt>'
+            . '</label>&nbsp;:</dt>'
             . '<dd>'
             . '<select  id="category_root_course" name="category_root_course" />'
             . $coursesHtmlList
-            . '</select><br />'
-            . '<span class="notice">'.get_lang('Dedicate a course to this category.  The course has to be linked to the category first.').'</span>'
+            . '</select><br/>'
+            . '<small>'.get_lang('Dedicate a course to this category.  The course has to be linked to the category first.').'</small>'
             . '</dd>' . "\n" ;
             
         // Form's footer
-        $html .= '</dl></fieldset>' . "\n"
-            . '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br />' . "\n"
+        $html .= '</fieldset>' . "\n"
+            . '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br/>' . "\n"
             . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
             . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
             . '</form>' . "\n";

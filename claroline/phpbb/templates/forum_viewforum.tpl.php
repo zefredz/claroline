@@ -1,5 +1,4 @@
-<!-- // $Id$ -->
-
+<?php // $Id$ ?>
 <table class="claroTable emphaseLine" width="100%">
     <tbody>
         <tr class="superHeader">
@@ -19,13 +18,13 @@
                 <?php echo get_lang( 'Notify by email when topics are created' ); ?></a>
               <?php endif; ?>
             </span>
-            <?php endif; //notification bloc
+            <?php endif; //notification bloc 
             echo $this->forumName;
             ?>
             </th>
         </tr>
         <tr class="headerX" align="left">
-            <th>&nbsp;<?php echo get_lang( 'Topic' ) ?> </th>
+            <th>&nbsp;<?php echo get_lang( 'Topic' ) ?> </th> 
             <th width="9%"  align="center"><?php echo get_lang( 'Posts' )?></th>
             <th width="20%" align="center">&nbsp;<?php echo get_lang( 'Author' )?></th>
             <th width="8%"  align="center"><?php echo get_lang( 'Seen' )?></th>
@@ -42,16 +41,16 @@
             <?php echo ( $this->forumSettings['forum_access'] == 2 ) ? get_lang( 'There are no topics for this forum. You can post one' ) : get_lang( 'There are no topics for this forum.' ) ?>
             </td>
         </tr>
-        <?php else :
+        <?php else : 
             foreach( $this->topicList as $thisTopic ) : ?>
             <tr>
-            <?php $itemClass = claro_is_user_authenticated()
+            <?php $itemClass = claro_is_user_authenticated() 
                            && $this->claro_notifier->is_a_notified_ressource( claro_get_current_course_id(), $this->claro_notifier->get_notification_date( claro_get_current_user_id() ), claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this->forumId . "-" . $thisTopic['forum_id'], FALSE )
                            ? 'item hot' : 'item';
                   $itemLink = htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewtopic.php?topic=' . $thisTopic['topic_id']
-                            .  ( is_null( $this->forumSettings['idGroup'] )
+                            .  ( is_null( $this->forumSettings['idGroup'] ) 
                                 ? '' : '&amp;gidReq =' . $this->forumSettings['idGroup'] ) ) );
-            ?>
+            ?> 
                 <td>
                     <span class="<?php echo $itemClass ?>">
                         <img src="<?php echo get_icon_url( 'topic' ) ?>" alt="" />&nbsp;
@@ -90,13 +89,13 @@
                     <?php endif;?>
                 </td>
                 <td align="center">
-                    <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelTopic&amp;forum=' . $this->forumId . '&amp;topic=' . $thisTopic['topic_id'] ) ) ?>" onclick="return confirmationDel('<?php echo clean_str_for_javascript($thisTopic['topic_title']); ?>');">
+                    <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelTopic&amp;forum=' . $this->forumId . '&amp;topic=' . $thisTopic['topic_id'] ) ) ?>" onclick="return confirm_delete();">
                     <img src="<?php echo get_icon_url( 'delete' ) ?>" alt="<?php echo get_lang( 'Delete' )?>" />
                     </a>
                 </td>
                 <?php  endif; ?>
             </tr>
-            <?php endforeach;
+            <?php endforeach; 
         endif; ?>
     </tbody>
 </table>

@@ -30,8 +30,6 @@ array ( 'claro_authUsernameCaseSensitive'
       , 'claro_displayLocalAuthForm'
       , 'claro_secureLogin'
       , 'claro_displayLostPasswordLink'
-      , 'claro_loadDeprecatedPearAuthDriver'
-      , 'claro_authDriversAutoDiscovery'
       );
 
 //PROPERTIES
@@ -45,7 +43,6 @@ array ( 'label'         => 'The username is case sensitive'
                                 ,'FALSE' => 'No'
                                 )
       );
-
 
 $conf_def_property_list['claro_displayLocalAuthForm'] =
 array ('label'         => 'Display authentication login form'
@@ -73,26 +70,6 @@ array ('label'         => 'Display a link to the lost password form'
       ,'default'       => true
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
-                                ,'FALSE' => 'No'
-                                )
-      );
-
-$conf_def_property_list['claro_loadDeprecatedPearAuthDriver'] =
-array ( 'label'         => 'Use the old deprecated PEAR:Auth drivers'
-      , 'description'   => 'Choose "No" if you don\'t use any deprecated external auth driver. (If you are using the old PEAR-based LDAP authentication, you should replace it with the new ldap.conf.php driver found in inc/conf/extauth and set this option to "No" afterwards).'
-      , 'default'       => true
-      , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Yes'
-                                ,'FALSE' => 'No'
-                                )
-      );
-
-$conf_def_property_list['claro_authDriversAutoDiscovery'] =
-array ( 'label'         => 'Auto discover authentication drivers in platform/conf/extauth'
-      , 'description'   => 'Choose "No" if you don\'t use any external authentication drivers or if you prefer to set the list of authentication drivers to load in platform/extauth/drivers.list (one config file name by line).'
-      , 'default'       => true
-      , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
                                 )
       );

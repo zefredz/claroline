@@ -1,16 +1,17 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * This page display global information about.
+ * This page display global information about
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      claro team <info@claroline.net>
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author claro team <info@claroline.net>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ *
  */
-
 require '../inc/claro_init_global.inc.php';
 
 include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
@@ -349,13 +350,11 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 
         foreach( $questionList as $question )
         {
-            $out .= '<thead>'
-            .   '<tr>' . "\n"
-            .   '<th>'
-            .   get_lang('Question') . ' ' . $questionIterator
-            .   '</th>' . "\n"
-            .   '</tr>' . "\n"
-            .   '</thead>'."\n";
+            $out .= '<tr class="headerX">' . "\n"
+            .     '<th>'
+            .     get_lang('Question') . ' ' . $questionIterator
+            .     '</th>' . "\n"
+            .     '</tr>' . "\n\n";
 
             $out .= '<tr>'
             .     '<td>' . "\n";
@@ -392,3 +391,5 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

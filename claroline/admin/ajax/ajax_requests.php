@@ -1,11 +1,11 @@
-<?php // $Id$
+<?php
 
 /**
  * CLAROLINE
  *
  * Ajax requests for administration panel
  *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
@@ -16,7 +16,6 @@
 // Load Claroline kernel
 require_once dirname(__FILE__) . '/../../inc/claro_init_global.inc.php';
 require_once dirname(__FILE__) . '/../../inc/lib/courselist.lib.php';
-require_once dirname(__FILE__) . '/../../inc/lib/course/courselist.lib.php';
 
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
@@ -29,16 +28,15 @@ if ($action == 'getUserCourseList')
     
     if (!is_null($userId))
     {
-        $courseList = new UserCourseList($userId);
-        $courseListIterator = $courseList->getIterator();
+        $courseList = get_user_course_list($userId);
         
         //We only need courses codes
-        if (!empty($courseListIterator))
+        if (!empty($courseList))
         {
             $coursesCodeList = array();
-            foreach($courseListIterator as $course)
+            foreach($courseList as $course)
             {
-                $coursesCodeList[] = $course->officialCode;
+                $coursesCodeList[] = $course['officialCode'];
             }
         }
         else

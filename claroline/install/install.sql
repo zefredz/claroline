@@ -1,4 +1,4 @@
-# Claroline Database version 1.11
+# Claroline Database version 1.10
 
 # MAIN TABLES
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours` (
   KEY `administrativeNumber` (`administrativeNumber`)
 ) ENGINE=MyISAM COMMENT='data of courses';
 
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__rel_course_portlet` (
+CREATE TABLE `__CL_MAIN__rel_course_portlet` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `courseId` int(11) NOT NULL,
   `rank` int(11) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__rel_course_portlet` (
   UNIQUE KEY `courseId` (`courseId`,`label`)
 ) ENGINE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__coursehomepage_portlet` (
+CREATE TABLE `__CL_MAIN__coursehomepage_portlet` (
   `label` varchar(10) NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`label`)

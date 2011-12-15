@@ -382,76 +382,53 @@ function is_forum_notification_requested($forumId, $userId)
 
 function trig_forum_notification($forumId)
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_course_user = $tbl_mdb_names['rel_course_user'];
-    
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
 
-    $sql = "SELECT
-                notif.user_id
-            FROM
-                `" . $tbl_user_notify . "` AS notif
-            JOIN
-                `" . $tbl_course_user . "` AS cu
-            ON
-                notif.user_id = cu.user_id
-            AND
-                cu.code_cours = '". claro_sql_escape(claro_get_current_course_id())."'
-            WHERE
-                notif.forum_id = " . (int) $forumId ;
+    global $_course;
+
+    $sql = "SELECT notif.user_id
+            FROM `" . $tbl_user_notify . "` AS notif
+            WHERE notif.forum_id = " . (int) $forumId ;
     
-    $notifyResult = claro_sql_query_fetch_all_rows($sql);
+    $notifyResult = claro_sql_query($sql);
     
-    if ( is_array( $notifyResult ) && count( $notifyResult ) )
+    $courseOfficialCode = claro_get_current_course_data('officialCode');
+    $subject      = get_lang('A new topic has been created on your forum');
+
+    $url_forum = get_path('rootWeb') . 'claroline/phpbb/viewforum.php?forum=' .  $forumId . '&cidReq=' . $_course['sysCode'];
+    $url_forum_global = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . claro_get_current_course_id();
+
+    // send mail to registered user for notification
+    $message = get_lang('You are receiving this notification because you are watching for new topics on the forum of one of your courses.') . '<br/>' . "\n"
+    . get_lang('View forum') . '<br/>' . "\n"
+    . '<a href="' . Url::Contextualize($url_forum) . '">' . Url::Contextualize($url_forum) . '</a><br/><br/>' . "\n"
+    . get_lang('View general forum') . '<br/>'
+    . '<a href="' . Url::Contextualize($url_forum_global) . '">' . Url::Contextualize($url_forum_global) . '</a><br/>' . "\n"
+    ;
+    
+    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
+    
+    $recipient = new UserListRecipient();
+    
+    while ( ( $list = mysql_fetch_array($notifyResult) ) )
     {
-        $subject = get_lang('A new topic has been created on your forum');
-
-        $url_forum = get_path('rootWeb')
-            . 'claroline/phpbb/viewforum.php?forum='
-            .  $forumId . '&cidReq='
-            . claro_get_current_course_id()
-            ;
-        
-        $url_forum_global = get_path('rootWeb')
-            . 'claroline/phpbb/index.php?cidReq='
-            . claro_get_current_course_id()
-            ;
-
-        // send mail to registered user for notification
-        $message = get_lang('You are receiving this notification because you are watching for new topics on the forum of one of your courses.') . '<br/>' . "\n"
-        . get_lang('View forum') . '<br/>' . "\n"
-        . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum)) . '">'
-            . Url::Contextualize($url_forum)
-        . '</a><br/><br/>' . "\n"
-        . get_lang('View general forum') . '<br/>'
-        . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum_global)) . '">'
-            . Url::Contextualize($url_forum_global)
-        . '</a><br/>' . "\n"
-        ;
-
-        require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
-        require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
-
-        $recipient = new UserListRecipient();
-
-        foreach ( $notifyResult as $user )
-        {
-            $recipient->addUserId($user['user_id']);
-        }
-
-        $message = new PlatformMessageToSend($subject,$message);
-        $message->setCourse(claro_get_current_course_id());
-        $message->setTools('CLFRM');
-
-        if(claro_is_in_a_group())
-        {
-            $message->setGroup(claro_get_current_group_id());
-        }
-
-        //$message->sendTo($recipient);
-        $recipient->sendMessage($message);
+        $recipient->addUserId($list['user_id']);
     }
+    
+    $message = new PlatformMessageToSend($subject,$message);
+    $message->setCourse(claro_get_current_course_id());
+    $message->setTools('CLFRM');
+    
+    if(claro_is_in_a_group())
+    {
+        $message->setGroup(claro_get_current_group_id());
+    }
+    
+    //$message->sendTo($recipient);
+    $recipient->sendMessage($message);
+    
 }
 
 /**
@@ -729,76 +706,52 @@ function is_topic_notification_requested($topicId, $userId)
 
 function trig_topic_notification($topicId)
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_course_user = $tbl_mdb_names['rel_course_user'];
-    
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
+
+    global $_course;
+
+    $sql = "SELECT notif.user_id
+            FROM `" . $tbl_user_notify . "` AS notif
+            WHERE notif.topic_id = " . (int) $topicId ;
     
-    $sql = "SELECT
-                notif.user_id
-            FROM
-                `" . $tbl_user_notify . "` AS notif
-            JOIN
-                `" . $tbl_course_user . "` AS cu
-            ON
-                notif.user_id = cu.user_id
-            AND
-                cu.code_cours = '". claro_sql_escape(claro_get_current_course_id())."'
-            WHERE
-                notif.topic_id = " . (int) $topicId ;
+    $notifyResult = claro_sql_query($sql);
     
-    $notifyResult = claro_sql_query_fetch_all_rows($sql);
+    $courseOfficialCode = claro_get_current_course_data('officialCode');
+    $subject      = get_lang('A reply to your topic has been posted');
+
+    $url_topic = get_path('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
+    $url_forum = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . claro_get_current_course_id();
+
+    // send mail to registered user for notification
+    $message = get_lang('You are receiving this notification because you are watching a topic on the forum of one of your courses.') . '<br/>' . "\n"
+    . get_lang('View topic') . '<br/>' . "\n"
+    . '<a href="' . $url_topic . '">' . $url_topic . '</a><br/><br/>' . "\n"
+    . get_lang('View forum') . '<br/>'
+    . '<a href="' . $url_forum . '">' .$url_forum . '</a><br/>' . "\n"
+    ;
     
-    if ( is_array( $notifyResult ) && count( $notifyResult ) )
+    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
+    
+    $recipient = new UserListRecipient();
+    
+    while ( ( $list = mysql_fetch_array($notifyResult) ) )
     {
-        $subject = get_lang('A reply to your topic has been posted');
-
-        $url_topic = get_path('rootWeb')
-            . 'claroline/phpbb/viewtopic.php?topic='
-            .  $topicId . '&cidReq='
-            . claro_get_current_course_id()
-            ;
-        
-        $url_forum = get_path('rootWeb')
-            . 'claroline/phpbb/index.php?cidReq='
-            . claro_get_current_course_id()
-            ;
-
-        // send mail to registered user for notification
-        $message = get_lang('You are receiving this notification because you are watching a topic on the forum of one of your courses.') . '<br/>' . "\n"
-            . get_lang('View topic') . '<br/>' . "\n"
-            . '<a href="' . htmlspecialchars(Url::Contextualize($url_topic)) . '">'
-                . Url::Contextualize($url_topic)
-            . '</a><br/><br/>' . "\n"
-            . get_lang('View forum') . '<br/>'
-            . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum)) . '">'
-                . Url::Contextualize($url_forum)
-            . '</a><br/>' . "\n"
-            ;
-    
-        require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
-        require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
-
-        $recipient = new UserListRecipient();
-
-        foreach ( $notifyResult as $user )
-        {
-            $recipient->addUserId($user['user_id']);
-        }
-
-        $message = new PlatformMessageToSend($subject,$message);
-        $message->setCourse(claro_get_current_course_id());
-        $message->setTools('CLFRM');
-
-        if(claro_is_in_a_group())
-        {
-            $message->setGroup(claro_get_current_group_id());
-        }
-
-        //$message->sendTo($recipient);
-        $recipient->sendMessage($message);
+        $recipient->addUserId($list['user_id']);
     }
+    
+    $message = new PlatformMessageToSend($subject,$message);
+    $message->setCourse(claro_get_current_course_id());
+    $message->setTools('CLFRM');
+    
+    if(claro_is_in_a_group())
+    {
+        $message->setGroup(claro_get_current_group_id());
+    }
+    
+    //$message->sendTo($recipient);
+    $recipient->sendMessage($message);
 }
 
 
@@ -1148,171 +1101,6 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
     return $toolList;
 }
 
-/**
- * Get an array containing data in order to build the forum toolbar
- *
- * @author Mathieu Laurent <mla@claroline.net>
- * @return array
- */
-
-function get_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
-{
-    global $forum_name, $topic_title;
-    
-    $toolList = array();
-    
-    switch ( $pagetype )
-    {
-        // 'index' and 'register' are covered by default
-        case 'newtopic':
-            
-            break;
-        
-        case 'reply':
-            
-            break;
-        
-        case 'viewforum':
-            
-            $toolList[] = array(
-                'img' => 'topic',
-                'name' => get_lang('New topic'),
-                'url' => htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
-                       . '/viewtopic.php?forum=' . $forum_id
-                       . '&amp;cmd=rqPost&amp;mode=add') )
-           );
-            break;
-        
-        case 'viewtopic':
-            
-            $toolList[] = array(
-                'img' => 'reply',
-                'name' => get_lang('Reply'),
-                'url' => htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
-                       . '/viewtopic.php?topic=' . $topic_id . '&amp;cmd=rqPost&amp;mode=reply' ) )
-            );
-            
-            break;
-        
-        case 'index':
-            
-            if ( claro_is_allowed_to_edit() )
-            {
-                $toolList[] = array(
-                    'name' => get_lang('Create category'),
-                    'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                           . '?cmd=rqMkCat' ) )
-                );
-                
-                $toolList[] = array(
-                    'name' => get_lang('Create forum'),
-                    'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                           . '?cmd=rqMkForum' ) )
-                );
-            }
-            
-            break;
-    }
-    
-    if ( ! in_array($pagetype, array( 'add', 'reply', 'edit', 'quote' ) ) )
-    {
-        $toolList[] = array(
-            'img' => 'search',
-            'name' => get_lang('Search'),
-            'url' => htmlspecialchars(Url::Contextualize( get_module_url('CLFRM')
-                   . '/index.php?cmd=rqSearch' ) )
-        );
-    }
-    
-    return $toolList;
-}
-
-/**
- * Same function than disp_forum_toolbar(), but returns an array instead
- * of an HTML string.
- *
- * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
- * @return Array of Array
- */
-
-function disp_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
-{
-    global $forum_name, $topic_title;
-
-    $toolList = array();
-
-    switch ( $pagetype )
-    {
-        // 'index' is covered by default
-
-        case 'newtopic':
-
-            break;
-
-        case 'reply':
-
-            break;
-
-
-        case 'viewforum':
-
-            $toolList[] = array(
-                'img' => 'topic',
-                'name' => get_lang('New topic'),
-                'url' => htmlspecialchars(Url::Contextualize(get_module_url( 'CLFRM' )
-                    . '/viewtopic.php?forum=' . $forum_id
-                    . '&amp;cmd=rqPost&amp;mode=add'))
-            );
-            break;
-
-        case 'viewtopic':
-
-            $toolList[] = array(
-                'img' => 'reply',
-                'name' => get_lang('Reply'),
-                'url' => htmlspecialchars(Url::Contextualize(get_module_url( 'CLFRM' )
-                    . '/viewtopic.php?topic=' . $topic_id
-                    . '&amp;cmd=rqPost&amp;mode=reply'))
-            );
-            break;
-
-        // 'Register' is covered by default
-
-        case 'index':
-
-            if ( claro_is_allowed_to_edit() )
-            {
-
-                $toolList[] = array(
-                    'img' => 'folder_new',
-                    'name' => get_lang('Create category'),
-                    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-                        . '?cmd=rqMkCat'))
-                );
-
-                $toolList[] = array(
-                    'img' => 'forum',
-                    'name' => get_lang('Create forum'),
-                    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-                        . '?cmd=rqMkForum'))
-                );
-            }
-            break;
-    }
-
-    if ( ! in_array($pagetype, array( 'add', 'reply', 'edit', 'quote' ) ) )
-    {
-        $toolList[] = array(
-            'img' => 'search',
-            'name' => get_lang('Search'),
-            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLFRM')
-                . '/index.php?cmd=rqSearch'))
-        );
-    }
-    
-    return $toolList;
-}
-
 function disp_search_box()
 {
     if (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'rqSearch' )
@@ -1401,6 +1189,58 @@ function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0
 
     // return claro_html_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, ' > ') . '<br />' ;
     return '<div class="breadcrumbTrails">' . $bc->render().'</div>' . "\n";
+}
+
+/**
+ * @param
+ * @param boolean $active if set to true, only actvated tool will be considered for display
+ */
+
+function forum_group_tool_list($gid, $active = true)
+{
+    $courseId = claro_get_current_course_id();
+    include_once(dirname(__FILE__) . '/group.lib.inc.php');
+    $groupToolList = get_group_tool_list($courseId,$active);
+
+    $is_allowedToDocAccess      = (bool) (   claro_is_course_manager()
+                                      || claro_is_group_member()
+                                      ||  claro_is_group_tutor());
+
+    $is_allowedToChatAccess     = (bool) (     claro_is_course_manager()
+                                       || claro_is_group_member()
+                                       ||  claro_is_group_tutor() );
+
+    // group space links
+
+    $toolList[] =
+    claro_html_cmd_link(
+        htmlspecialchars(Url::Contextualize( get_module_url('CLGRP').'/group_space.php' ))
+        , '<img src="' . get_icon_url('group') . '" alt="" />&nbsp;'
+        . get_lang('Group area')
+    );
+
+    $courseGroupData= claro_get_main_group_properties( $courseId );
+
+    foreach ($groupToolList as $groupTool)
+    {
+        if ('CLFRM' !== $groupTool['label']
+            && is_tool_activated_in_groups($courseId, $groupTool['label'])
+            && ( isset($courseGroupData['tools'][$groupTool['label']])
+                && $courseGroupData['tools'][$groupTool['label']] ) )
+        {
+            $toolList[] = claro_html_cmd_link(
+                htmlspecialchars(Url::Contextualize(
+                get_module_url($groupTool['label'])
+                . '/' . $groupTool['url'] ))
+                , '<img src="' . get_module_url($groupTool['label']) . '/' . ($groupTool['icon']) . '" alt="" />'
+                . '&nbsp;'
+                . claro_get_tool_name ($groupTool['label'])
+                , array('class' => $groupTool['visibility'] ? 'visible':'invisible')
+            );
+        }
+    }
+
+    return $toolList;
 }
 
 /**

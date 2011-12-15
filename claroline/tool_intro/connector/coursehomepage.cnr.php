@@ -27,11 +27,11 @@ class CLTI_Portlet extends CourseHomePagePortlet
         ResourceLinker::init();
         
         $output = '';
-        $output .= '<dl id="portletAbout">' . "\n";
+        $output .= '<dl id="portletHeadlines">' . "\n";
         
         $toolIntroIterator = new ToolIntroductionIterator($this->courseCode);
         
-        if ( count( $toolIntroIterator ) > 0)
+        if ($toolIntroIterator->count() > 0)
         {
             $introList = '';
             
@@ -52,25 +52,12 @@ class CLTI_Portlet extends CourseHomePagePortlet
                              . '<dd'.(!$toolIntroIterator->hasNext()?' class="last"':'').'>' . "\n"
                              . claro_parse_user_text($introItem->getContent()) . "\n"
                              . $resources
-                             . (claro_is_allowed_to_edit() ?
-                               '<div class="manageTools"><a
-                                    href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=rqEd&amp;id='.$introItem->getId())).'"
-                                    title="'.get_lang('Edit this item').'">
-                                    <img src="'.get_icon_url('edit').'" alt="'.get_lang('Edit').'" />
-                                </a>
-                                
-                                <a
-                                    href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=exDel&amp;id='.$introItem->getId())).'"
-                                    title="'.get_lang('Delete this item').'">
-                                    <img src="'.get_icon_url('delete').'" alt="'.get_lang('Delete').'" />
-                                </a></div>' :
-                               '')
                              . '</dd>' . "\n";
                 }
             }
         }
         
-        if ( count( $toolIntroIterator ) == 0 || empty($introList))
+        if ($toolIntroIterator->count() == 0 || empty($introList))
         {
             $output .= '<dt></dt>'
                      . '<dd>' . "\n"
@@ -91,10 +78,7 @@ class CLTI_Portlet extends CourseHomePagePortlet
     
     public function renderTitle()
     {
-        $output = '<img '
-                . 'src="' . get_icon_url('headline', 'CLTI')  . '"'
-                . 'alt="' . get_lang('Headline') . '" /> '
-                . get_lang('Headlines');
+        $output = get_lang('Headlines');
         
         if (claro_is_allowed_to_edit())
         {

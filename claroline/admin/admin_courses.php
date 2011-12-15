@@ -41,11 +41,16 @@ $addToURL           = '';
 $do                 = null;
 
 // Javascript confirm pop up declaration
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure to delete %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
-
-JavascriptLoader::getInstance()->load('admin');
+$htmlHeadXtra[] =
+'<script type="text/javascript">
+function confirmation (name)
+{
+    if (confirm("' . clean_str_for_javascript(get_lang('Are you sure to delete')) . ' \"" + name + "\" ? "))
+        {return true;}
+    else
+        {return false;}
+}
+</script>';
 
 // Deal with interbreadcrumb
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
@@ -359,10 +364,11 @@ foreach($courseList as $numLine => $courseLine)
     .                                         '</a>';
     
     // Course Action Delete
-    $courseDataList[$numLine]['cmdDelete'] = '<a href="' . htmlspecialchars($_SERVER['PHP_SELF']
-    .                                        '?cmd=exDelete&delCode=' . $courseLine['sysCode'] . $addToURL) . '" '
-    .                                        'onclick="return ADMIN.confirmationDel(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');">'
-    .                                        '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
+    $courseDataList[$numLine]['cmdDelete'] = '<a href="' . $_SERVER['PHP_SELF']
+    .                                        '?cmd=rqDelete&amp;delCode=' . $courseLine['sysCode'] . $addToURL . '" '
+    //.                                        ' onclick="return confirmation(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');"'
+    .                                        ' class="delete" id="'.$courseLine['intituleOrigine'].'__'.$courseLine['sysCode'].'">' . "\n"
+    .                                        '<img src="' . get_icon_url('delete') . '" border="0" alt="" />' . "\n"
     .                                        '</a>' . "\n";
 }
 
@@ -390,20 +396,13 @@ $courseDataGrid->set_colHead('officialCode') ;
 $courseDataGrid->set_noRowMessage( get_lang('There is no course matching such criteria') . '<br />'
 .    '<a href="advanced_course_search.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>');
 
-// Command list
-$cmdList = array();
 
-$cmdList[] = array(
-    'img' => 'courseadd',
-    'name' => get_lang('Create course'),
-    'url' => '../course/create.php?adminContext=1'
-);
-
-
-// Display
+/**
+ * DISPLAY
+ */
 $out = '';
 
-$out .= claro_html_tool_title($nameTools, null, $cmdList);
+$out .= claro_html_tool_title($nameTools);
 
 if ( !empty($isSearched) )
 {
@@ -416,6 +415,12 @@ $out .= $dialogBox->render();
 // DISPLAY : Search/filter panel
 $out .= '<table width="100%">' . "\n\n"
 .    '<tr>' . "\n"
+.    '<td align="left" valign="top">' . "\n"
+.    '<a class="claroCmd" href="../course/create.php?adminContext=1">'
+.    '<img src="' . get_icon_url('course') . '" alt="' . get_lang('Create course') . '" />'
+.    get_lang('Create course')
+.    '</a>'
+.    '</td>' . "\n"
 .    '<td align="right"  valign="top">' . "\n\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<label for="search">' . get_lang('Make new search') . ' : </label>'."\n"
@@ -435,6 +440,22 @@ $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'])
 .    $courseDataGrid->render()
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 ;
+
+$out .=
+'<script type="text/javascript">
+    $(document).ready(function(){
+        $(".delete").each(function( i ){
+            var _id = $(this).attr("id");
+            var id = _id.substr(_id.lastIndexOf("__") + 2 );
+            var course = _id.substr(0,_id.indexOf("__"));
+            
+            $(this).click(function(){
+               return confirmation(" " + course );
+            });
+            $(this).attr("href","' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&delCode=" + id + "'.$addToURL.'");
+        });
+    });
+</script>';
 
 $claroline->display->body->appendContent($out);
 

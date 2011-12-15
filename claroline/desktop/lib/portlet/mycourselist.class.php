@@ -2,22 +2,24 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
 
 /**
  * CLAROLINE
  *
- * User desktop : course list portlet.
+ * User desktop : course list portlet
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     DESKTOP
- * @author      Claroline Team <info@claroline.net>
+ * @author      Claroline team <info@claroline.net>
  */
 
-FromKernel::uses('courselist.lib');
-
+uses('courselist.lib');
 // we need CLHOME conf file for render_user_course_list function
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
@@ -26,6 +28,8 @@ class MyCourseList extends UserDesktopPortlet
     public function renderContent()
     {
         global $platformLanguage;
+        
+        JavascriptLoader::getInstance()->load('courseList');
         
         $out = '';
         
@@ -84,18 +88,16 @@ class MyCourseList extends UserDesktopPortlet
                         . '</a>' . "\n";
         
         $userCourseList = render_user_course_list();
-        
         $userCourseListDesactivated = render_user_course_list_desactivated();
         
-        $out .= '<table>'
-              . '<tbody>'
+        $out .= '<table class="homepageTable">'
               . '<tr>'
               . '<td class="userCommands">'
-              . '<h2>'.get_lang('Manage my courses').'</h2>'
+              . '<h4>'.get_lang('Manage my courses').'</h4>'
               . claro_html_list($userCommands)
               . '</td>'
-              . '<td class="userCourseList">'
-              . '<h2>'.get_lang('My course list').'</h2>'
+              . '<td class="myCourseList">'
+              . '<h4>'.get_lang('My course list').'</h4>'
               . $userCourseList;
               
         if (!empty($userCourseListDesactivated))
@@ -106,7 +108,6 @@ class MyCourseList extends UserDesktopPortlet
         
         $out .= '</td>'
               . '</tr>'
-              . '</tbody>'
               . '</table>';
         
         $this->content = $out;

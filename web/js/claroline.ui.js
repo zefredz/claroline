@@ -1,7 +1,3 @@
-/*
- * $Id$
- */
-
 $(document).ready(function(){
     registerCollapseBehavior();
 });
@@ -76,10 +72,9 @@ registerCollapseBehavior = function() {
     });
 };
 
-
 /**
  * Scroll a given fieldset into view as much as possible.
- * This function is part of the Drupal js library.
+ * This function is part of the Drupal js library
  */
 collapseScrollIntoView = function (node) {
   var h = self.innerHeight || document.documentElement.clientHeight || $('body')[0].clientHeight || 0;
@@ -96,59 +91,3 @@ collapseScrollIntoView = function (node) {
     }
   }
 };
-
-
-/**
- * Manage the qtips.  Simply add a CSS class "qtip" to an <img> or a 
- * <a> tag to add a qtip on it, displaying the "title" or "alt" (in that order)
- * value on mouseover.
- * If you deserve other renders for specifi uses of qtips, write another 
- * js cript dedicated to this use, and use a class like "qtip-custom" to 
- * refer to it.
- */
-$(document).ready(function(){
-    $(".qtip").each(function()
-    {
-        var qtipContent = '';
-        
-        if ($(this).attr("title") != '')
-        {
-            qtipContent = $(this).attr("title");
-        }
-        else if ($(this).attr("alt") != '')
-        {
-            qtipContent = $(this).attr("alt");
-        }
-        
-        if (qtipContent != '')
-        {
-            $(this).qtip({
-                content: qtipContent,
-                
-                show: "mouseover",
-                hide: "mouseout",
-                position: {
-                    corner: {
-                     target: "topMiddle",
-                     tooltip: "bottomLeft"
-                    }
-                },
-                
-                style: {
-                    width: "auto",
-                    padding: 5,
-                    background: "#CCDDEE",
-                    color: "black",
-                    fontSize: "0.9em",
-                    textAlign: "center",
-                    border: {
-                        width: 7,
-                        radius: 5,
-                        color: "#CCDDEE"
-                    },
-                    tip: "bottomLeft"
-               }
-            });
-        }
-    });
-});

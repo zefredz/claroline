@@ -3,11 +3,9 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * Url manipulation library
  *
- * Url manipulation library.
- *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -275,7 +273,7 @@ class Url
 
     /**
      * @since   Claroline 1.9
-     * @return  string
+     * @return  string 
      */
     public function  __toString()
     {
@@ -302,21 +300,5 @@ class Url
         }
         
         return $urlObj->toUrl();
-    }
-
-    /**
-     * Build an url from sctract
-     * @param string $url
-     * @param array $params
-     * @param array $context
-     * @return Url
-     */
-    public static function buildUrl( $url, $params = null, $context = null )
-    {
-        $urlObj = new Url($url);
-        $urlObj->addParamList($params);
-        $urlObj->relayContext($context);
-        
-        return $urlObj;
     }
 }

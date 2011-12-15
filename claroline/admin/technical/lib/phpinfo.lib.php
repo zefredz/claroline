@@ -1,132 +1,135 @@
 <?php // $Id$
 
-// vim: expandtab sw=4 ts=4 sts=4 foldmethod=marker:
-
-/**
- * CLAROLINE
- *
- * PHP Info utility library.
- *
- * @version     $Revision$
+    // vim: expandtab sw=4 ts=4 sts=4 foldmethod=marker:
+    
+    /**
+     * CLAROLINE
+     *
+     * PHP Info utility library
+     *
+     * @version 1.8 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Frédéric Minne <zefredz@claroline.net>
- * @package     MAINTENANCE
- */
-
-/**
- * Returns phpinfo without html, head and body tags
- * @return  string
- */
-function phpinfoNoHtml()
-{
-    ob_start();
-    phpinfo();
-    $content = ob_get_contents();
-    ob_end_clean();
+     *
+     * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+     *
+     * @author : Frédéric Minne <zefredz@claroline.net>
+     *
+     * @package MAINTENANCE
+     */
     
-    return phpinfo_extractContent( $content );
-}
-
-/**
- * Returns phpinfo without html, head and body tags
- * @return  string
- */
-function phpcreditsNoHtml()
-{
-    ob_start();
-    phpcredits();
-    $content = ob_get_contents();
-    ob_end_clean();
-    
-    return phpcredits_extractContent( $content );
-}
-
-/**
- * Returns string without html, head and body tags (based on phpinfo output)
- * @return  string
- */
-function phpinfo_extractContent( $str )
-{
-    $contentArr =preg_split( '~(\r\n|\r|\n)~', $str );
-    
-    $extract = array();
-    $startCapture = false;
-    
-    foreach ( $contentArr as $line )
+    /**
+     * Returns phpinfo without html, head and body tags
+     * @return  string
+     */ 
+    function phpinfoNoHtml()
     {
-        $line = trim( $line );
+        ob_start();
+        phpinfo();
+        $content = ob_get_contents();
+        ob_end_clean();
         
-        if ( preg_match( '~^\<table~', $line ) )
-        {
-            $startCapture = true;
-            $extract[] = $line;
-        }
-        elseif ( preg_match( '~\</table\>~', $line ) )
-        {
-            $startCapture = false;
-            $extract[] = $line;
-        }
-        elseif ( $startCapture && !empty( $line ) )
-        {
-            $extract[] = $line;
-        }
-        else
-        {
-            //skip
-        }
+        return phpinfo_extractContent( $content );
     }
     
-    $extract = implode( "\n", $extract );
-    
-    return $extract;
-}
-
-/**
- * Returns string without html, head and body tags (based on phpinfo output)
- * @return  string
- */
-function phpcredits_extractContent( $str )
-{
-    $contentArr =preg_split( '~(\r\n|\r|\n)~', $str );
-    
-    $extract = array();
-    $startCapture = false;
-    
-    foreach ( $contentArr as $line )
+    /**
+     * Returns phpinfo without html, head and body tags
+     * @return  string
+     */ 
+    function phpcreditsNoHtml()
     {
-        $line = trim( $line );
+        ob_start();
+        phpcredits();
+        $content = ob_get_contents();
+        ob_end_clean();
         
-        if ( preg_match( '~\<body~', $line ) )
-        {
-            $startCapture = true;
-        }
-        elseif ( preg_match( '~\</body~', $line ) )
-        {
-            $startCapture = false;
-        }
-        elseif ( $startCapture && !empty( $line ) )
-        {
-            $extract[] = $line;
-        }
-        else
-        {
-            //skip
-        }
+        return phpcredits_extractContent( $content );
     }
     
-    $extract = implode( "\n", $extract );
+    /**
+     * Returns string without html, head and body tags (based on phpinfo output)
+     * @return  string
+     */
+    function phpinfo_extractContent( $str )
+    {
+        $contentArr =preg_split( '~(\r\n|\r|\n)~', $str );
+        
+        $extract = array();
+        $startCapture = false;
+        
+        foreach ( $contentArr as $line )
+        {
+            $line = trim( $line );
+            
+            if ( preg_match( '~^\<table~', $line ) )
+            {
+                $startCapture = true;
+                $extract[] = $line;
+            }
+            elseif ( preg_match( '~\</table\>~', $line ) )
+            {
+                $startCapture = false;
+                $extract[] = $line;
+            }
+            elseif ( $startCapture && !empty( $line ) )
+            {
+                $extract[] = $line;
+            }
+            else
+            {
+                //skip
+            }
+        }
+        
+        $extract = implode( "\n", $extract );
+        
+        return $extract;
+    }
     
-    return $extract;
-}
-
-/**
- * Get phpinfo style sheet
- * @return  string
- */
-function phpinfo_getStyle()
-{
-    return '<style type="text/css">
+    /**
+     * Returns string without html, head and body tags (based on phpinfo output)
+     * @return  string
+     */
+    function phpcredits_extractContent( $str )
+    {
+        $contentArr =preg_split( '~(\r\n|\r|\n)~', $str );
+        
+        $extract = array();
+        $startCapture = false;
+        
+        foreach ( $contentArr as $line )
+        {
+            $line = trim( $line );
+            
+            if ( preg_match( '~\<body~', $line ) )
+            {
+                $startCapture = true;
+            }
+            elseif ( preg_match( '~\</body~', $line ) )
+            {
+                $startCapture = false;
+            }
+            elseif ( $startCapture && !empty( $line ) )
+            {
+                $extract[] = $line;
+            }
+            else
+            {
+                //skip
+            }
+        }
+        
+        $extract = implode( "\n", $extract );
+        
+        return $extract;
+    }
+    
+    /**
+     * Get phpinfo style sheet
+     * @return  string
+     */
+    function phpinfo_getStyle()
+    {
+        return '<style type="text/css">
 .phpInfoContents table {border-collapse: collapse;}
 .phpInfoContents .center {text-align: center;}
 .phpInfoContents .center table { margin-left: auto; margin-right: auto; text-align: left;}
@@ -148,4 +151,5 @@ function phpinfo_getStyle()
 .phpInfoContents .v-notrun {background-color:#cccccc;color:#000000;}
 .phpInfoContents .v-error {background-color:#F6AE15;color:#000000;font-weight:bold;}
 </style>';
-}
+    }
+?>

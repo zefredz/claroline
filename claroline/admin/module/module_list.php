@@ -1,16 +1,14 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
- *
  * Claroline extension modules management script.
  *
- * @version     $Revision$
+ * @version 1.10
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
- *              version 2 or later
- * @package     ADMIN
- * @author      Claro Team <cvs@claroline.net>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
+ *  version 2 or later
+ * @package ADMIN
+ * @author claro team <cvs@claroline.net>
  */
 
 $cidReset = true ;
@@ -70,16 +68,21 @@ $tbl = claro_sql_get_tbl(array('module_tool'));
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
+// $msgList= array();
 $dialogBox = new DialogBox;
 
 $nameTools = get_lang('Modules');
 
-// Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure you want to uninstall the module %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
-
-JavascriptLoader::getInstance()->load('admin');
+$htmlHeadXtra[] =
+"<script type=\"text/javascript\">
+function confirmation (name)
+{
+    if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure you want to uninstall the module "))." \"+ name + \" ?\"))
+        {return true;}
+    else
+        {return false;}
+}
+</script>" ;
 
 //CONFIG and DEVMOD vars :
 
@@ -105,7 +108,7 @@ $dockname     = (isset($_REQUEST['dockname'])     ? $_REQUEST['dockname']     : 
 $typeReq      = (isset($_REQUEST['typeReq'])      ? $_REQUEST['typeReq']      : 'tool');
 $offset       = (isset($_REQUEST['offset'])       ? $_REQUEST['offset']       : 0 );
 $pagerSortDir = (isset($_REQUEST['dir' ])         ? $_REQUEST['dir' ]         : SORT_ASC);
-$_cleanInput['selectInput'] = (isset($_REQUEST['selectInput'])     ? $_REQUEST['selectInput'] : null );
+$_cleanInput['selectInput'] = (isset($_REQUEST['selectInput'])     ? $_REQUEST['selectInput']     : null );
 
 $notAutoActivateInCourses = ( array_key_exists( 'notAutoActivateInCourses', $_REQUEST )
     && $_REQUEST['notAutoActivateInCourses'] == 'on' )
@@ -795,15 +798,8 @@ foreach ($modules_found['folder'] as $module_folder)
 $course_tool_min_rank = get_course_tool_min_rank();
 $course_tool_max_rank = get_course_tool_max_rank();
 
-// Command list
-$cmdList = array();
 
-$cmdList[] = array(
-    'name' => get_lang('Install module'),
-    'url' => 'module_list.php?cmd=rqInstall'
-);
-
-
+$moduleMenu[] = claro_html_cmd_link('module_list.php?cmd=rqInstall', get_lang('Install module'));
 //----------------------------------
 // DISPLAY
 //----------------------------------
@@ -813,18 +809,22 @@ $noQUERY_STRING = true ;
 
 $out = '';
 
-// Title
-$out .= claro_html_tool_title ( $nameTools, null, $cmdList )
+//display title
 
-// Display Forms or dialog box(if needed)
+$out .= claro_html_tool_title ( $nameTools )
+
+//Display Forms or dialog box(if needed)
 .    $dialogBox->render()
+.    claro_html_menu_horizontal ( $moduleMenu )
 
-// Display tabbed navbar
+//display tabbed navbar
+
 .    '<div>' . "\n"
 .    '<ul id="navlist">' . "\n"
 ;
 
-// Display the module type tabbed naviguation bar
+//display the module type tabbed naviguation bar
+
 foreach ($moduleTypeList as $type)
 {
     if ($typeReq == $type)
@@ -841,13 +841,16 @@ $out .= '</ul>' . "\n"
 .    '</div>' . "\n"
 ;
 
-// Display Pager list
+//Display list
+
+//Display Pager list
 if ( $myPager->get_next_offset() ) $out .= $myPager->disp_pager_tool_bar('module_list.php?typeReq=' . $typeReq);
 
-// Start table...
+// start table...
+
 $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n\n"
 .    '<thead>' . "\n"
-.    '<tr>' . "\n"
+.    '<tr class="headerX">' . "\n"
 .    '<th>' . get_lang('Icon')                . '</th>' . "\n"
 .    '<th>' . get_lang('Module name')         . '</th>' . "\n";
 
@@ -871,10 +874,10 @@ $out .= '<th>' . get_lang('Properties')          . '</th>' . "\n"
 // Start the list of modules...
 foreach($moduleList as $module)
 {
-    // Display settings...
+    //display settings...
     $class_css = ($module['activation'] == 'activated') ? '' : ' class="invisible" ';
 
-    // Find icon
+    //find icon
     $modulePath = get_module_path($module['label']);
 
     switch ( $typeReq )
@@ -887,19 +890,19 @@ foreach($moduleList as $module)
             $moduleDefaultIcon = 'exe';
             break;
     }
-    
+
     $iconUrl = get_module_icon_url( 
         $module['label'] , 
         array_key_exists('icon',$module) ? $module['icon'] : null, 
         $moduleDefaultIcon );
-    
+
     $icon = '<img src="'.$iconUrl.'" alt="" />';
 
     // Module_id and icon column
     $out .=  "\n"  . '<tr ' . $class_css . '>' . "\n"
     .    '<td align="center">' . $icon . '</td>' . "\n";
 
-    // Name column
+    //name column
 
     $moduleName = $module['name'];
 
@@ -912,7 +915,8 @@ foreach($moduleList as $module)
         $out .= '<td align="left">' . get_lang($moduleName) . '</td>' . "\n";
     }
 
-    // Displaying location column
+    //displaying location column
+
     if ( $module['type'] == 'applet' )
     {
         $out .= '<td align="left"><small>';
@@ -932,7 +936,7 @@ foreach($moduleList as $module)
     }
     else
     {
-        // Up command
+        //up command
         if (isset( $module[ 'rank' ] ) && $course_tool_min_rank != $module [ 'rank' ])
         {
             $out .= '<td align="center">'
@@ -946,7 +950,7 @@ foreach($moduleList as $module)
             $out .= '<td>&nbsp;</td>' . "\n" ;
         }
 
-        // Down command
+        //down command
         if (isset( $module[ 'rank' ] ) && $course_tool_max_rank != $module [ 'rank' ])
         {
             $out .= '<td align="center">'
@@ -961,19 +965,22 @@ foreach($moduleList as $module)
         }
     }
 
-    // Properties link
+    //Properties link
+
     $out .= '<td align="center">'
     .    '<a href="module.php?module_id='.$module['id'].'">'
     .    '<img src="' . get_icon_url('settings') . '" alt="' . get_lang('Properties') . '" />'
     .    '</a>'
     .    '</td>' . "\n";
 
-    // Uninstall link
+    //uninstall link
+
     if (!in_array($module['label'],$nonuninstalable_tool_array))
     {
         $out .= '<td align="center">'
-        .    '<a onclick="return ADMIN.confirmationUninstall(\''.clean_str_for_javascript($module['name']).'\');" '
-        .    'href="'.htmlspecialchars('module_list.php?module_id=' . $module['id'] . '&typeReq='.$typeReq.'&cmd=exUninstall').'" >'
+        // .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=exUninstall"'
+        // .    ' onclick="return confirmation(\'' . $module['name'].'\');">'
+        .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=rqUninstall" >'
         .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         .    '</td>' . "\n";
@@ -984,7 +991,9 @@ foreach($moduleList as $module)
         $out .= '<td align="center">-</td>' . "\n" ;
     }
 
-    // Activation link
+    //activation link
+
+
     $out .= '<td align="center" >' ;
 
     if (in_array ( $module [ 'label' ], $undeactivable_tool_array ))
@@ -1019,7 +1028,7 @@ foreach($moduleList as $module)
     ;
 }
 
-// End table
+//end table...
 $out .= '</tbody>' . "\n"
 .    '</table>' . "\n\n"
 ;

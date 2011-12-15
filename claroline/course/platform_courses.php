@@ -1,7 +1,7 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
+ * PHP version 5
  *
  * @version     $Revision$
  * @license     http://www.gnu.org/licenses/agpl-3.0-standalone.html AGPL Affero General Public License
@@ -9,18 +9,18 @@
  * @author      Claro Team <cvs@claroline.net>
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @since       1.10
+ *
  */
 
 require '../inc/claro_init_global.inc.php';
 require '../inc/lib/courselist.lib.php';
-require_once dirname(__FILE__) . '/../inc/lib/coursesearchbox.class.php';
 
 // Build the breadcrumb
 $nameTools = get_lang('Platform courses');
 
 $categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
 
-$categoryBrowser    = new CategoryBrowser($categoryId, claro_get_current_user_id());
+$categoryBrowser    = new ClaroCategoriesBrowser( $categoryId, claro_get_current_user_id() );
 
 if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' )
 {
@@ -31,10 +31,6 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' )
 // Display
 $template = $categoryBrowser->getTemplate();
 
-$claroline->display->body->appendContent($template->render());
-
-$searchbox = new CourseSearchBox($_SERVER['REQUEST_URI']);
-
-$claroline->display->body->appendContent($searchbox->render());
+$claroline->display->body->setContent($template->render());
 
 echo $claroline->display->render();

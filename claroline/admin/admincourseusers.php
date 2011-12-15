@@ -29,8 +29,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 /* ************************************************************************** */
 
 $dialogBox = new DialogBox();
-
-// Initialisation of global variables and used libraries
+// initialisation of global variables and used libraries
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 
@@ -48,8 +47,7 @@ if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit'] == '') || !isset($_
     claro_die( 'ERROR : NO COURSE SET!!!' );
 }
 else $cidToEdit = $_REQUEST['cidToEdit'];
-
-// See SESSION variables used for reorder criteria
+// See SESSION variables used for reorder criteria :
 $validCmdList = array('unsub',);
 $validRefererList = array('clist',);
 
@@ -60,7 +58,10 @@ $pager_offset =  isset($_REQUEST['pager_offset'])?$_REQUEST['pager_offset'] :'0'
 $addToURL = '';
 $do=null;
 
-// Parse command
+/**
+ * COMMAND
+ */
+
 if ( $cmd == 'unsub' )
 {
     $do = 'unsub';
@@ -88,8 +89,7 @@ if ( $do == 'unsub' )
         }
     }
 }
-
-// Build and call DB to get info about current course (for title) if needed :
+// build and call DB to get info about current course (for title) if needed :
 $courseData = claro_get_course_data($cidToEdit);
 
 //----------------------------------
@@ -115,7 +115,7 @@ $myPager->set_pager_call_param_name('pager_offset');
 
 $userList = $myPager->get_result_list();
 
-// Start the list of users
+// Start the list of users...
 $userDataList = array();
 
 foreach($userList as $lineId => $user)
@@ -128,15 +128,15 @@ foreach($userList as $lineId => $user)
 
     if ( $user['isCourseManager'] )
     {
-        $userDataList[$lineId]['isCourseManager'] = '<img class="qtip" src="' . get_icon_url('manager') . '" '
-                                                  . 'alt="' . get_lang('Course manager') . '" '
-                                                  . 'title="' . get_lang('Course manager') . '" />' ;
+        $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_icon_url('manager') . '" '
+                                                  . ' alt="' . get_lang('Course manager') . '" hspace="4" '
+                                                  . ' title="' . get_lang('Course manager') . '" />' ;
     }
     else
     {
-        $userDataList[$lineId]['isCourseManager'] = '<img class="qtip" src="' . get_icon_url('user') . '" '
-                                                  . 'alt="' . get_lang('Student') . '" '
-                                                  . 'title="' . get_lang('Student') . '" />' ;
+        $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_icon_url('user') . '" '
+                                                  . ' alt="' . get_lang('Student') . '" hspace="4" '
+                                                  . ' title="' . get_lang('Student') . '" />' ;
     }
 
     $userDataList[$lineId]['cmd_cu_edit'] = '<a href="admin_user_course_settings.php'
@@ -149,21 +149,30 @@ foreach($userList as $lineId => $user)
     .                                            '?cidToEdit=' . $cidToEdit
     .                                            '&amp;cmd=unsub&amp;user_id=' . $user['user_id']
     .                                            '&amp;pager_offset=' . $pager_offset . '" '
-    .                                            ' onclick="return ADMIN.confirmationUnReg(\'' . clean_str_for_javascript($user['username']) . '\');">' . "\n"
+    .                                            ' onclick="return confirmationReg(\'' . clean_str_for_javascript($user['username']) . '\');">' . "\n"
     .                                            '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unregister user') . '" />' . "\n"
     .                                            '</a>' . "\n";
 
 } // end display users table
 
-// Prepare output
-// Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure you want to unregister %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+/****************
+ * Prepare output
+ */
 
-JavascriptLoader::getInstance()->load('admin');
+// javascript confirm pop up declaration
+$htmlHeadXtra[] =
+         "<script>
+         function confirmationReg (name)
+         {
+             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))." \"+ name + \" ? \"))
+                 {return true;}
+             else
+                 {return false;}
+         }
+         </script>";
 
 // Config Datagrid
+
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
 
 $dg_opt_list['idLineShift'] = $myPager->offset + 1;
@@ -182,40 +191,44 @@ $dg_opt_list['colAttributeList'] = array ( 'user_id'   => array ('align' => 'cen
                                          , 'cmd_cu_unenroll' => array ('align' => 'center')
 );
 
+$dg_opt_list['caption'] = '<img src="' . get_icon_url('user') . '" '
+.                         ' alt="' . get_lang('Student') . '" title="' . get_lang('Student') . '" />'
+.                         get_lang('Student')
+.                         ' - <img src="' . get_icon_url('manager') . '" '
+.                         ' alt="' . get_lang('Course manager') . '" title="' . get_lang('Course manager') . '" />'
+.                         get_lang('Course manager')
+;
+
 $nameTools = get_lang('Course members');
 $nameTools .= " : ".$courseData['name'];
-
-// Deal with interbreadcrumbs
+// Deal with interbredcrumps
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
-// Command list
-$cmdList = array();
-
-$cmdList[] = array(
-    'name' => get_lang('Enroll a user'),
-    'url' => 'adminregisteruser.php' . '?cidToEdit=' . $cidToEdit
-);
-
+$command_list[] = '<a class="claroCmd" href="adminregisteruser.php'
+.    '?cidToEdit=' . $cidToEdit . '">'
+.    get_lang('Enroll a user')
+.    '</a>'
+;
 if ($cfrom=='clist')
 {
-    $cmdList[] = array(
-        'img' => 'back',
-        'name' => get_lang('Back to course list'),
-        'url' => 'admin_courses.php'
-    );
+    $command_list[] = '<a class="claroCmd" href="admin_courses.php">' . get_lang('Back to course list') . '</a>';
 }
 
-// Display
+/*********
+ * DISPLAY
+ */
+
 $out = '';
 
-$out .= claro_html_tool_title($nameTools, null, $cmdList);
+$out .= claro_html_tool_title($nameTools);
 
 $out .= $dialogBox->render();
 
 $userDataGrid = new claro_datagrid($userDataList);
 $userDataGrid->set_option_list($dg_opt_list);
 
-$out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
+$out .= '<p>' . claro_html_menu_horizontal($command_list) . '</p>'
+.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
 .    $userDataGrid->render()
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
 ;

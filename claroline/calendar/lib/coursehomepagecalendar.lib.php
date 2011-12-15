@@ -15,9 +15,9 @@
  * @since       1.10
  */
 
-FromKernel::uses('user.lib','courselist.lib');
+FromKernel::uses('user.lib');
 From::Module('CLCAL')->uses('agenda.lib');
-
+uses('courselist.lib');
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
 class CourseHomePageCalendar
@@ -92,10 +92,12 @@ class CourseHomePageCalendar
         $result = Claroline::getDatabase()->query($sql);
         $courseData = $result->fetch(Database_ResultSet::FETCH_ASSOC);
         
+        // Get the current course's events
         $courseEventList = get_agenda_next_items_list($courseData, 10, $this->month, $this->year);
         
         if ( is_array($courseEventList) )
         {
+            // Generate a digest (events grouped by day)
             $courseDigestList = array();
             
             foreach($courseEventList as $thisEvent )
@@ -143,10 +145,9 @@ class CourseHomePageCalendar
             foreach($courseDigestList as $agendaItem)
             {
                 $output .= '<dt>' . "\n"
-                         . '<h2>'
+                         . '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="Calendar" />&nbsp;'
                          . claro_html_localised_date( get_locale('dateFormatLong'),
                                 strtotime($agendaItem['date']) )
-                         . '</h2>' . "\n"
                          . '</dt>' . "\n";
                 
                 foreach($agendaItem['eventList'] as $agendaEvent)
@@ -154,12 +155,12 @@ class CourseHomePageCalendar
                     $output .= '<dd>'
                              . '<b>' . $agendaEvent['content'] . '</b>' . "\n"
                              . (!empty($agendaEvent['hour']) ?
-                                ' &ndash; ' . ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($agendaEvent['hour']))) :
+                                ' | ' . ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($agendaEvent['hour']))) :
                                 '')
                              . (!empty($agendaEvent['location']) ?
                                 ' | ' . $agendaEvent['location'] :
                                 '')
-                             . ' (<a href="' . $agendaEvent['url'] . '#item' . $agendaEvent['id'] . '">'
+                             . ' (<a href="' . $agendaEvent['url'] . '#event' . $agendaEvent['id'] . '">'
                              . get_lang('more details')
                              . '</a>)' . "\n"
                              . '</dd>' . "\n";
@@ -169,6 +170,7 @@ class CourseHomePageCalendar
         else
         {
             $output .= '<dt>' . "\n"
+                     . '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="" />&nbsp;'
                      . get_lang('No event to display') . "\n"
                      . '</dt>' . "\n";
         }

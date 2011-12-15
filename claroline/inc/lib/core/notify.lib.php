@@ -5,7 +5,7 @@
 /**
  * Claroline notification system
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -40,7 +40,6 @@ function load_current_module_listeners()
         }
     }
 }
-
 
 class ClaroNotifier extends EventGenerator
 {
@@ -487,7 +486,7 @@ class ClaroNotification extends EventDriven
             // select data from assignment
             $sql = 'SELECT `title`, `description`,
                            `end_date` AS endDate, `visibility` ' .
-                   'FROM `' . $workTable . '` ' .
+                   'FROM ' . $workTable . ' ' .
                    'WHERE `id` = ' . $rid;
             $result = claro_sql_query_fetch_all($sql);
         }
@@ -501,7 +500,7 @@ class ClaroNotification extends EventDriven
             $sql = 'SELECT `title`, `description`, `endDate`,
                            CAST(`endDate` AS SIGNED) AS integerDate,
                            `visibility` ' .
-                   'FROM `' . $exerciseTable . '` ' .
+                   'FROM ' . $exerciseTable . ' ' .
                    'WHERE `id` = ' . $rid;
             $result = claro_sql_query_fetch_all($sql);
 
@@ -521,7 +520,7 @@ class ClaroNotification extends EventDriven
                          $visibility = 'HIDE' ;
 
         // insert a new event in the calendar
-        $sql = 'INSERT INTO `' . $calendarTable . '` ' .
+        $sql = 'INSERT INTO ' . $calendarTable . ' ' .
                'SET `titre`      = \'' . $result[0]['title'] . '\', ' .
                    '`contenu`    = \'' . $result[0]['description'] . '\', ' .
                    '`day`        = \'' . $date[0] . '\', ' .
@@ -572,7 +571,7 @@ class ClaroNotification extends EventDriven
             $eventId = $result[0]['event_id'];
 
             // delete the event in the calendar
-            $sql = 'DELETE FROM `' . $calendarTable . '` ' .
+            $sql = 'DELETE FROM ' . $calendarTable . ' ' .
                    'WHERE `id` = ' . $eventId;
             claro_sql_query($sql);
 
@@ -625,7 +624,7 @@ class ClaroNotification extends EventDriven
             {
                 // select new data from the work table
                 $sql = 'SELECT `title`, `description`, `end_date` as endDate, `visibility` ' .
-                       'FROM `' . $workTable . '` ' .
+                       'FROM ' . $workTable . ' ' .
                        'WHERE `id` = ' . $rid;
                 $result = claro_sql_query_fetch_all($sql);
             }
@@ -633,7 +632,7 @@ class ClaroNotification extends EventDriven
             {
                 // select new data from the exercise table
                 $sql = 'SELECT `title`, `description`, `endDate`, `visibility` ' .
-                       'FROM `' . $exerciseTable . '` ' .
+                       'FROM ' . $exerciseTable . ' ' .
                        'WHERE `id` = ' . $rid;
                 $result = claro_sql_query_fetch_all($sql);
             }
@@ -648,7 +647,7 @@ class ClaroNotification extends EventDriven
                              $visibility = 'HIDE' ;
 
             // update the corresponding event in the calendar
-            $sql = 'UPDATE `' . $calendarTable . '` ' .
+            $sql = 'UPDATE ' . $calendarTable . ' ' .
                    'SET `titre`      = \'' . $result[0]['title'] . '\', ' .
                        '`contenu`    = \'' . $result[0]['description'] . '\', ' .
                        '`day`        = \'' . $date[0] . '\', ' .
@@ -1149,49 +1148,5 @@ class ClaroNotification extends EventDriven
     public function get_last_action_before_login_date($user_id)
     {
         return $this->getLastActionBeforeLoginDate($user_id);
-    }
-}
-
-
-class NotifiedCourseList 
-{
-    /**
-     * @var array of course id (code)
-     */
-    protected $notifiedCourseIdList;
-    
-    /**
-     * Constructor
-     * @param String date (format: 2011-11-09 14:39:00; default: null)
-     * @param int $userId 
-     */
-    public function __construct($userId, $date = null)
-    {
-        if (empty($date))
-        {
-            $date = Claroline::getInstance()->notification->getNotificationDate($userId);
-        }
-        
-        $this->notifiedCourseIdList = Claroline::getInstance()
-            ->notification->get_notified_courses($date, $userId);
-    }
-    
-    /**
-     * Return true if the course has been notified, false otherwise
-     * @param String course id (code)
-     * @return boolean
-     */
-    public function isCourseNotified($courseId)
-    {
-        return in_array($courseId, $this->notifiedCourseIdList);
-    }
-    
-    /**
-     * Return true if the course has been notified, false otherwise
-     * @return ArrayIterator
-     */
-    public function getNotifiedCourseIdList()
-    {
-        return new ArrayIterator($this->notifiedCourseIdList);
     }
 }

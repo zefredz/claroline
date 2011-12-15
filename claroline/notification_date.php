@@ -66,3 +66,4 @@ if ( claro_is_user_authenticated() )
 
 }
 else claro_redirect('index.php');
+?>

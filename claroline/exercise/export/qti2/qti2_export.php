@@ -214,3 +214,5 @@ function sendZip($archiveName, $archiveContent, $removedPath)
         return false;
     }
 }
+
+?>

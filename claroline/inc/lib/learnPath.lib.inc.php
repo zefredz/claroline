@@ -1,18 +1,21 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
- * This functions library is used by most of the pages of the learning path tool.
+ * This functions library is used by most of the pages of the learning path tool
  *
- * @version     $Revision$
+ * @version version 1.8 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sébastien <pir@cerdecam.be>
- * @author      Lederer Guillaume <led@cerdecam.be>
- * @package     CLLNP
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
+ *
  */
 
 
@@ -82,13 +85,11 @@ function commentBox($type, $mode)
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
     
     $out = '';
-    
     // globals
     global $is_allowedToEdit;
-    
     // will be set 'true' if the comment has to be displayed
     $dsp = false;
-    
+
     // those vars will be used to build sql queries according to the comment type
     switch ( $type )
     {
@@ -120,7 +121,7 @@ function commentBox($type, $mode)
                                         AND `module_id` = " . (int) $_SESSION['module_id'];  // use backticks ( ` ) for col names and simple quote ( ' ) for string
             break;
     }
-    
+
     // update mode
     // allow to chose between
     // - update and show the comment and the pencil and the delete cross (UPDATE_)
@@ -130,10 +131,10 @@ function commentBox($type, $mode)
         if ( isset($_POST['insertCommentBox']) )
         {
             $sql = "UPDATE `" . $tbl_name . "`
-                    SET `" . $col_name . "` = \"". claro_sql_escape($_POST['insertCommentBox'])."\"
-                    WHERE " . $where_cond;
+                           SET `" . $col_name . "` = \"". claro_sql_escape($_POST['insertCommentBox'])."\"
+                         WHERE " . $where_cond;
             claro_sql_query($sql);
-            
+
             if($mode == UPDATE_)
                 $dsp = true;
             elseif($mode == UPDATENOTSHOWN_)
@@ -146,18 +147,20 @@ function commentBox($type, $mode)
                        FROM `" . $tbl_name . "`
                       WHERE " . $where_cond;
             $oldComment = claro_sql_query_get_single_value($sql);
-            
+
             $out .= '<form method="post" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
-                  . claro_html_textarea_editor('insertCommentBox', $oldComment, 15, 55).'<br />' . "\n"
-                  . '<input type="hidden" name="cmd" value="update' . $col_name . '" />'
-                  . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-                  . '<br />' . "\n"
-                  . '</form>' . "\n";
+                .claro_html_textarea_editor('insertCommentBox', $oldComment, 15, 55).'<br />' . "\n"
+                .'<input type="hidden" name="cmd" value="update' . $col_name . '" />'
+                .'<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+                .'<br />' . "\n"
+                .'</form>' . "\n"
+            ;
         }
+
     }
-    
+
     // delete mode
-    if ( $mode == DELETE_ && $is_allowedToEdit )
+    if ( $mode == DELETE_ && $is_allowedToEdit)
     {
         $sql =  "UPDATE `" . $tbl_name . "`
                  SET `" . $col_name . "` = ''
@@ -165,45 +168,31 @@ function commentBox($type, $mode)
         claro_sql_query($sql);
         $dsp = TRUE;
     }
-    
+
     // display mode only or display was asked by delete mode or update mode
     if ( $mode == DISPLAY_ || $dsp == TRUE )
     {
         $sql = "SELECT `".$col_name."`
                 FROM `" . $tbl_name . "`
                 WHERE " . $where_cond;
-        
+
         $currentComment = claro_sql_query_get_single_value($sql);
-        
+
         // display nothing if this is default comment and not an admin
         if ( ($currentComment == $defaultTxt) && !$is_allowedToEdit ) return '';
-        
+
         if ( empty($currentComment) )
         {
             // if no comment and user is admin : display link to add a comment
             if ( $is_allowedToEdit )
             {
-                $textLink = '';
-                if ($type == MODULE_)
-                {
-                    $textLink = get_lang('Add a comment to this module');
-                }
-                elseif ($type == LEARNINGPATHMODULE_)
-                {
-                    $textLink = get_lang('Add a specific comment to this module');
-                }
-                else
-                {
-                    $textLink = get_lang('Add a comment');
-                }
-                
                 $out .= '<p>' . "\n"
-                      . claro_html_cmd_link(
-                            $_SERVER['PHP_SELF']
-                            . '?cmd=update' . $col_name . claro_url_relay_context('&amp;'),
-                            $textLink
-                      )
-                      . '</p>' . "\n";
+                .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                        . '?cmd=update' . $col_name . claro_url_relay_context('&amp;')
+                                        ,  get_lang('Add a comment')
+                                        )
+                .    '</p>' . "\n"
+                ;
             }
         }
         else
@@ -213,6 +202,7 @@ function commentBox($type, $mode)
             // display edit and delete links if user as the right to see it
             if ( $is_allowedToEdit )
             {
+
                 $out .= '<p>' . "\n"
                 .    '<small>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=update' . $col_name . '">' . "\n"
@@ -254,7 +244,7 @@ function nameBox($type, $mode)
     global $urlAppend;
 
     // $dsp will be set 'true' if the comment has to be displayed
-    $dsp = false;
+    $dsp = FALSE;
 
     // those vars will be used to build sql queries according to the name type
     switch ( $type )
@@ -292,12 +282,12 @@ function nameBox($type, $mode)
                                     WHERE " . $where_cond;
 
                 claro_sql_query($sql);
-                $dsp = true;
+                $dsp = TRUE;
             }
             else
             {
                 $out .= get_lang('Error : Name already exists in the learning path or in the module pool') . '<br />';
-                $dsp = true;
+                $dsp = TRUE;
             }
         }
         else // display form
@@ -335,8 +325,8 @@ function nameBox($type, $mode)
         if ( $is_allowedToEdit )
             $out .= '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
             .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
-            .    '</a>' . "\n"
-            .    '</h4>'."\n\n";
+            .    '</a>' . "\n";
+        $out .= '</h4>'."\n\n";
     }
 
     return $out;
@@ -356,16 +346,16 @@ function nameBox($type, $mode)
  {
     switch($contentType)
     {
-        case CTDOCUMENT_ :
+        case CTDOCUMENT_ : 
             return get_icon_url('document', 'CLDOC');
             break;
-        case CTEXERCISE_ :
+        case CTEXERCISE_ : 
             return get_icon_url('quiz', 'CLQWZ');
             break;
-        case CTSCORM_ :
+        case CTSCORM_ : 
             return get_icon_url('scorm');
             break;
-        default :
+        default : 
             return get_icon_url('default');
             break;
     }
@@ -462,10 +452,10 @@ function is_num($var)
         if ( $ascii >= 48 && $ascii <= 57)
             continue;
         else
-            return false;
+            return FALSE;
     }
 
-    return true;
+    return TRUE;
 }
 
 
@@ -518,12 +508,10 @@ function display_path_content()
     $out = '';
     
     $out .= "\n".'<table class="claroTable" width="100%"  border="0" cellspacing="2">'."\n\n"
-    .    '<thead>'."\n"
     .    '<tr class="headerX" align="center" valign="top">'."\n"
     .    '<th colspan="' . ($maxDeep+1).'">' . get_lang('Module') . '</th>'."\n"
     .    '</tr>'."\n\n"
-    .    '</thead>'."\n"
-    .    '<tbody>'."\n"
+    .     '<tbody>'."\n"
     ;
 
     foreach ($flatElementList as $module)
@@ -676,23 +664,20 @@ function display_my_exercises($dialogBox)
         $_dialogBox->form( $dialogBox );
         $out .= $_dialogBox->render();
     }
-    
-    $out .= '<form method="post" name="addmodule" action="' . $_SERVER['PHP_SELF'] . '?cmdglobal=add">'."\n";
-    
-    $out .= '<table class="claroTable emphaseLine">'."\n\n"
-    .    '<thead>'
-    .    '<tr align="center" valign="top">'."\n"
+    $out .= '<table class="claroTable" width="100%" border="0" cellspacing="">'."\n\n"
+    .    '<tr class="headerX" align="center" valign="top">'."\n"
     .    '<th width="10%">'
     .    get_lang('Add module(s)')
     .    '</th>'."\n"
     .    '<th>'
     .    get_lang('Exercises')
     .    '</th>'."\n"
-    .    '</tr>'."\n"
-    .    '</thead>'."\n\n";
-    
+    .    '</tr>'."\n\n"
+    ;
+
     // Display available modules
-    $atleastOne = false;
+    $out .= '<form method="post" name="addmodule" action="' . $_SERVER['PHP_SELF'] . '?cmdglobal=add">'."\n";
+    $atleastOne = FALSE;
     $sql = "SELECT `id`, `title`, `description`
             FROM `" . $tbl_quiz_exercise . "`
             ORDER BY  `title`, `id`";
@@ -701,48 +686,71 @@ function display_my_exercises($dialogBox)
     if( is_array($exercises) && !empty($exercises) )
     {
         $out .= '<tbody>' . "\n\n";
-        
+
         foreach ( $exercises as $exercise )
         {
             $out .= '<tr>'."\n"
-            .    '<td style="vertical-align:top; text-align: center;">'
+            .    '<td align="center">'
             .    '<input type="checkbox" name="check_' . $exercise['id'] . '" id="check_' . $exercise['id'] . '" value="' . $exercise['id'] . '" />'
             .    '</td>'."\n"
-            .    '<td>'
+            .    '<td align="left">'
             .    '<label for="check_'.$exercise['id'].'" >'
             .    '<img src="' . get_icon_url('quiz', 'CLQWZ') . '" alt="" /> '
             .    $exercise['title']
             .    '</label>'
-            .    (!empty($exercise['description']) ? '<div class="comment">' . claro_parse_user_text($exercise['description']) . '</div>' : '')
             .    '</td>'."\n"
             .    '</tr>'."\n\n"
             ;
-            
+
+            // COMMENT
+
+            if( !empty($exercise['description']) )
+            {
+                $out .= '<tr>'."\n"
+                .    '<td>&nbsp;</td>'."\n"
+                .    '<td>'
+                .    '<small>' . claro_parse_user_text($exercise['description']) . '</small>'
+                .    '</td>'."\n"
+                .    '</tr>'."\n\n"
+                ;
+            }
             $atleastOne = true;
         }//end while another module to display
-        
         $out .= '</tbody>'."\n\n";
     }
+
+    $out .= '<tfoot>'."\n\n";
 
     if( !$atleastOne )
     {
         $out .= '<tr>'."\n"
         .     '<td colspan="2" align="center">'
-        .     get_lang('There is no exercise for the moment')
-        .     '</td>'."\n"
+        .    get_lang('There is no exercise for the moment')
+        .    '</td>'."\n"
         .     '</tr>'."\n\n"
         ;
     }
-    
-    $out .= '</table>'."\n\n";
 
     // Display button to add selected modules
+
+    $out .= '<tr>'."\n"
+    .    '<td colspan="2">'
+    .    '<hr noshade size="1">'
+    .    '</td>'."\n"
+    .     '</tr>'."\n\n"
+    ;
     if( $atleastOne )
     {
-        $out .= '<input type="submit" name="insertExercise" value="'.get_lang('Add selection').'" />';
+        $out .= '<tr>'."\n"
+        .     '<td colspan="2">'
+        .    '<input type="submit" name="insertExercise" value="'.get_lang('Add module(s)').'" />'
+        .    '</td>'."\n"
+        .     '</tr>'."\n\n"
+        ;
     }
-    
-    $out .= '</form><br /><br />'."\n\n"
+    $out .= '</form>'."\n\n"
+    .    '</tfoot>'."\n\n"
+    .    '</table>'."\n\n"
     .    '<!-- end of display_my_exercises output -->' . "\n"
     ;
     
@@ -805,15 +813,13 @@ function display_my_documents($dialogBox)
         $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChDir&amp;file=' . $cmdParentDir . '">' . "\n"
         .    '<img src="' . get_icon_url('parent') . '" hspace="5" alt="" /> '."\n"
         .    '<small>' . get_lang('Up') . '</small>' . "\n"
-        .    '</a>' . "\n";
+        .    '</a>' . "\n"
+        ;
     }
     /* CURRENT DIRECTORY */
-    $out .= '<table class="claroTable emphaseLine">'
-          . '<thead>';
-    
-    // If the $curDirName is empty, we're in the root point
-    // and there is'nt a dir name to display
-    if ( $curDirName )
+    $out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">';
+    if ( $curDirName ) /* if the $curDirName is empty, we're in the root point
+    and there is'nt a dir name to display */
     {
         $out .= '<!-- current dir name -->' . "\n"
         .    '<tr>' . "\n"
@@ -821,17 +827,17 @@ function display_my_documents($dialogBox)
         .    '<img src="' . get_icon_url('opendir') . '" vspace=2 hspace=5 alt="" /> ' . "\n"
         .    $dspCurDirName . "\n"
         .    '</td>' . "\n"
-        .    '</tr>' . "\n";
+        .    '</tr>' . "\n"
+        ;
     }
-    
-    $out .= '<tr align="center" valign="top">' . "\n"
-    .    '<th width="10%">' . get_lang('Add module(s)') . '</th>' . "\n"
+
+    $out .= '<tr class="headerX" align="center" valign="top">'
+    .    '<th>' . get_lang('Add module(s)') . '</th>' . "\n"
     .    '<th>' . get_lang('Name') . '</th>' . "\n"
     .    '<th>' . get_lang('Size') . '</th>' . "\n"
     .    '<th>' . get_lang('Date') . '</th>' . "\n"
-    .    '</tr>'
-    .    '</thead>'
-    .    '<tbody>' . "\n";
+    .    '</tr><tbody>' . "\n"
+    ;
 
 
     /*--------------------------------------
@@ -892,12 +898,12 @@ function display_my_documents($dialogBox)
                 $urlFileName = $_SERVER['PHP_SELF'] . '?openDir=' . $cmdFileName;
             }
 
-            $out .= '<tr ' . $style . '>'."\n";
+            $out .= '<tr align="center" ' . $style . '>'."\n";
 
             if ($fileList['type'][$fileKey] == A_FILE)
             {
                 $iterator++;
-                $out .= '<td style="vertical-align:top; text-align: center;">'
+                $out .= '<td>'
                 .    '<input type="checkbox" name="insertDocument_' . $iterator . '" id="insertDocument_' . $iterator . '" value="' . $curDirPath . "/" . $fileName . '" />'
                 .    '</td>' . "\n"
                 ;
@@ -907,24 +913,13 @@ function display_my_documents($dialogBox)
             {
                 $out .= '<td>&nbsp;</td>';
             }
-            $out .= '<td>'
+            $out .= '<td align="left">'
             .    '<a href="' . $urlFileName . '" ' . $style . '>'
-            .    '<img src="' . get_icon_url( $image ) . '" hspace="5" alt="" /> ' . $dspFileName . '</a>';
-            
-            // Comments
-            if ($fileList['comment'][$fileKey] != "" )
-            {
-                $fileList['comment'][$fileKey] = htmlspecialchars($fileList['comment'][$fileKey]);
-                $fileList['comment'][$fileKey] = claro_parse_user_text($fileList['comment'][$fileKey]);
-                
-                $out .= '<div class="comment">'
-                      . $fileList['comment'][$fileKey]
-                      . '</div>'."\n";
-            }
-            
-            $out .= '</td>'."\n"
-                  . '<td><small>' . $size . '</small></td>' . "\n"
-                  . '<td><small>' . $date . '</small></td>' . "\n";
+            .    '<img src="' . get_icon_url( $image ) . '" hspace="5" alt="" /> ' . $dspFileName . '</a>'
+            .    '</td>'."\n"
+            .    '<td><small>' . $size . '</small></td>' . "\n"
+            .    '<td><small>' . $date . '</small></td>' . "\n"
+            ;
 
             /* NB : Before tracking implementation the url above was simply
             * "<a href=\"",$urlFileName,"\"",$style,">"
@@ -932,31 +927,47 @@ function display_my_documents($dialogBox)
 
 
             $out .= '</tr>' . "\n";
+
+            /* COMMENTS */
+
+            if ($fileList['comment'][$fileKey] != "" )
+            {
+                $fileList['comment'][$fileKey] = htmlspecialchars($fileList['comment'][$fileKey]);
+                $fileList['comment'][$fileKey] = claro_parse_user_text($fileList['comment'][$fileKey]);
+
+                $out .= '<tr align="left">'."\n"
+                    .'<td>&nbsp;</td>'."\n"
+                    .'<td colspan="'.$colspan.'">'."\n"
+                    .'<div class="comment">'
+                    .$fileList['comment'][$fileKey]
+                    .'</div>'."\n"
+                    .'</td>'."\n"
+                    .'</tr>'."\n";
+            }
         }  // end each ($fileList)
-        
         // form button
-        $out .= '</tbody>'
-              . '</table>'."\n\n"
-              . '<input type="hidden" name="openDir" value="'.$curDirPath.'" />'."\n"
-              . '<input type="hidden" name="maxDocForm" value ="'.$iterator.'" />'."\n"
-              . '<input type="submit" name="submitInsertedDocument" value="'.get_lang('Add selection').'" />';
+        $out .= '</tbody><tfoot>'
+            .'<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
+
+        $out .= '<tr>'."\n"
+            .'<td colspan="'.$colspan.'" align="left">'."\n"
+            .'<input type="hidden" name="openDir" value="'.$curDirPath.'" />'."\n"
+            .'<input type="hidden" name="maxDocForm" value ="'.$iterator.'" />'."\n"
+            .'<input type="submit" name="submitInsertedDocument" value="'.get_lang('Add module(s)').'" />'."\n"
+            .'</td>'."\n"
+            .'</tr>'."\n";
     } // end if ( $fileList)
     else
     {
-        $out .= '<tr>'."\n"
-        .     '<td colspan="2" align="center">'
-        .    get_lang('There is no document for the moment')
-        .    '</td>'."\n"
-        .    '</tr>'."\n"
-        .    '</tbody>'
-        .    '</table>'."\n\n";
+        $out .= '<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
     }
 
-    $out .= '</form>'."\n"
-          . '<br /><br />'
-          . '<!-- end of display_my_documents output -->'."\n";
+    $out .= '</tfoot></table>'."\n"
+        .'</form>'."\n"
+        .'<!-- end of display_my_documents output -->'."\n";
     
     return $out;
+
 }
 
 /**
@@ -1219,10 +1230,10 @@ function isScormTime($time)
     $mask = "/^[0-9]{2,4}:[0-9]{2}:[0-9]{2}.?[0-9]?[0-9]?$/";
     if (preg_match($mask,$time))
      {
-       return true;
+       return TRUE;
      }
 
-    return false;
+    return FALSE;
 }
 
  /**
@@ -1256,10 +1267,10 @@ function addScormTime($time1, $time2)
 
           // calculate the resulting added hours, secondes, ... for result
 
-          $primesReport = false;
-          $secondesReport = false;
-          $minutesReport = false;
-          $hoursReport = false;
+          $primesReport = FALSE;
+          $secondesReport = FALSE;
+          $minutesReport = FALSE;
+          $hoursReport = FALSE;
 
         //calculate primes
 
@@ -1269,7 +1280,7 @@ function addScormTime($time1, $time2)
           if ($total_primes >= 100)
           {
             $total_primes -= 100;
-            $primesReport = true;
+            $primesReport = TRUE;
           }
 
         //calculate secondes
@@ -1279,7 +1290,7 @@ function addScormTime($time1, $time2)
           if ($total_secondes >= 60)
           {
             $total_secondes -= 60;
-            $secondesReport = true;
+            $secondesReport = TRUE;
           }
 
         //calculate minutes
@@ -1289,7 +1300,7 @@ function addScormTime($time1, $time2)
           if ($total_minutes >= 60)
           {
             $total_minutes -= 60;
-            $minutesReport = true;
+            $minutesReport = TRUE;
           }
 
         //calculate hours
@@ -1299,7 +1310,7 @@ function addScormTime($time1, $time2)
           if ($total_hours >= 10000)
           {
             $total_hours -= 10000;
-            $hoursReport = true;
+            $hoursReport = TRUE;
           }
 
         // construct and return result string
@@ -1401,8 +1412,8 @@ function delete_exercise_asset($exerciseId)
  *
  * @param $pathId integer id of a learnPath
  * @return boolean true if learnpath is blocked, false instead
- *
- **/
+ * 
+ **/ 
 
 function is_learnpath_accessible( $pathId )
 {
@@ -1485,7 +1496,7 @@ function is_learnpath_accessible( $pathId )
              elseif( $moduleNumber == 0 && $upperLock == 'CLOSE' )
              {
                  $blocked = true;
-             }
+             } 
             
         }
     }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['%path is missing'] = '%path n\'existe pas';
 $_lang['%requiredMark required field'] = '%requiredMark champ obligatoire';
 $_lang['A database will be created for each course.'] = 'Chaque cours aura sa propre base de données.';
@@ -92,7 +92,7 @@ $_lang['Password'] = 'Mot de passe';
 $_lang['Password storage'] = 'Stockage du mot de passe';
 $_lang['Path to courses repository (relative to the URL above)'] = 'Chemin d\'accès au répertoire des cours (relatif à l\'URL ci-dessus)';
 $_lang['Permission problems.'] = 'Des problèmes de permission';
-$_lang['Platform Settings'] = 'Paramètres de la plate-forme';
+$_lang['Platform settings'] = 'Paramètres de la plate-forme';
 $_lang['Please check the values you entered.'] = 'Vérifiez bien vos informations.';
 $_lang['Please enter missing information'] = 'Veuillez fournir les informations manquantes';
 $_lang['Please read the license and click &quot;Next&quot; to accept it.'] = 'Veuillez examiner les termes de la licence. Cliquez sur &quot;Next&quot; pour les accepter et lancer la procédure d\'installation.';

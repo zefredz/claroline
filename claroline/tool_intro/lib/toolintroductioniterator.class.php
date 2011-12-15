@@ -15,15 +15,10 @@
 
 require get_module_path('CLTI').'/lib/toolintroduction.class.php';
 
-class ToolIntroductionIterator implements CountableIterator
+class ToolIntroductionIterator implements Iterator, Countable
 {
     private     $courseCode;
-    
-    /**
-     * @var Database_ResultSet
-     */
-    private     $toolIntroductions;
-    
+    private     $toolIntroductions = array();
     protected   $n = 0;
     
     public function __construct($courseCode)
@@ -38,31 +33,11 @@ class ToolIntroductionIterator implements CountableIterator
                 FROM `{$tblToolIntro}`
                 ORDER BY rank ASC";
         
-        $this->toolIntroductions = Claroline::getDatabase()->query($sql);
-    }
-    
-    public function rewind()
-    {
-        $this->n = 0;
-        $this->toolIntroductions->rewind();
-    }
-    
-    public function next()
-    {
-        $this->n++;
-        $this->toolIntroductions->next();
-    }
-    
-    public function key()
-    {
-        return $this->toolIntroductions->key();
-    }
-    
-    public function current()
-    {
-        $toolIntro = $this->toolIntroductions->current();
+        $result = Claroline::getDatabase()->query($sql);
         
-        $toolIntroObj = new ToolIntro(
+        foreach($result as $toolIntro)
+        {
+            $toolIntro = new ToolIntro(
                 $toolIntro['id'],
                 $this->courseCode,
                 $toolIntro['tool_id'],
@@ -72,22 +47,42 @@ class ToolIntroductionIterator implements CountableIterator
                 $toolIntro['display_date'],
                 $toolIntro['visibility']
             );
-        
-        return $toolIntroObj;
+            $this->toolIntroductions[] = $toolIntro;
+        }
+    }
+    
+    public function rewind()
+    {
+        $this->n = 0;
+    }
+    
+    public function next()
+    {
+        $this->n++;
+    }
+    
+    public function key()
+    {
+        return 'increment '.$this->n+1;
+    }
+    
+    public function current()
+    {
+        return $this->toolIntroductions[$this->n];
     }
     
     public function valid()
     {
-        return $this->toolIntroductions->valid();
+        return ($this->n < count($this->toolIntroductions));
     }
     
     public function count()
     {
-        return count( $this->toolIntroductions );
+        return count($this->toolIntroductions);
     }
     
     public function hasNext()
     {
-        return ( $this->n < $this->count() -1 );
+        return ($this->n < count($this->toolIntroductions)-1);
     }
 }

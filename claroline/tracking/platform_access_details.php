@@ -232,3 +232,4 @@ switch($period)
 $claroline->display->body->setContent($html);
 
 echo $claroline->display->render();
+?>

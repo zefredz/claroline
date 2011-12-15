@@ -3,27 +3,32 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Class used to configure and display the page header.
+ * Class used to configure and display the page header
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.10 $Revision$
+* @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     display
+ * @package     DISPLAY
  */
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
 
 FromKernel::uses( 'core/loader.lib' );
 
 class ClaroHeader extends CoreTemplate
 {
     private static $instance = false;
-    
+
     private $_htmlXtraHeaders;
     private $_httpXtraHeaders;
     private $_toolName;
-    
+
     /**
      * Constructor
      */
@@ -33,14 +38,9 @@ class ClaroHeader extends CoreTemplate
         $this->_htmlXtraHeaders = array();
         $this->_httpXtraHeaders = array();
         $this->_toolName = '';
-        
-        if ( claro_debug_mode() )
-        {
-            $this->addInlineJavascript("var claro_debug_mode = true;");
-        }
-        
+
         require dirname(__FILE__) .'/../../installedVersion.inc.php';
-        
+
         if ( $stable )
         { 
             if ( file_exists( dirname(__FILE__) .'/../../../../platform/currentVersion.inc.php' ) )
@@ -53,7 +53,7 @@ class ClaroHeader extends CoreTemplate
             }
 
             if ( $clarolineVersion != $new_version )
-            {
+            {      
                 $claroVersion = "{$clarolineVersion}-{$new_version}";
             }
             else
@@ -65,10 +65,10 @@ class ClaroHeader extends CoreTemplate
         {
             $claroVersion = $new_version;
         }
-        
+
         $this->assign( 'version', $claroVersion );
     }
-    
+
     public static function getInstance()
     {
         if ( ! ClaroHeader::$instance )
@@ -98,7 +98,7 @@ class ClaroHeader extends CoreTemplate
     {
         $this->setToolName( $pageTitle );
     }
-    
+
     /**
      * Add extra HTML header elements
      *
@@ -108,7 +108,7 @@ class ClaroHeader extends CoreTemplate
     {
         $this->_htmlXtraHeaders[] = $header;
     }
-    
+
     /**
      * Add inline javascript code to HTML head
      *
@@ -120,10 +120,10 @@ class ClaroHeader extends CoreTemplate
         {
             $script = "<script type=\"text/javascript\">\n{$script}\n</script>";
         }
-        
+
         $this->addHtmlHeader( $script );
     }
-    
+
     /**
      * Add inline css style to HTML head
      *
@@ -135,7 +135,7 @@ class ClaroHeader extends CoreTemplate
         {
             $style = "<style type=\"text/css\">\n{$style}\n</style>";
         }
-        
+
         $this->addHtmlHeader( $style );
     }
 
@@ -148,7 +148,7 @@ class ClaroHeader extends CoreTemplate
     {
         $this->_httpXtraHeaders[] = $header;
     }
-    
+
     /**
      * Send HTTP headers to the client
      */
@@ -167,7 +167,7 @@ class ClaroHeader extends CoreTemplate
             }
         }
     }
-    
+
     /**
      * Retrieve variables used by the old header script for compatibility
      * with old scripts
@@ -178,19 +178,19 @@ class ClaroHeader extends CoreTemplate
         {
             $this->_htmlXtraHeaders = array_merge($this->_htmlXtraHeaders, $GLOBALS['htmlHeadXtra'] );
         }
-        
+
         if ( isset( $GLOBALS['httpHeadXtra'] ) && !empty($GLOBALS['httpHeadXtra']) )
         {
             $this->_httpXtraHeaders = array_merge($this->_httpXtraHeaders, $GLOBALS['httpHeadXtra'] );
         }
-        
+
         if ( isset( $GLOBALS['nameTools'] ) && !empty($GLOBALS['nameTools']) )
         {
             $this->_nameTools = $GLOBALS['nameTools'];
         }
     }
-    
-    
+
+
     /**
      * Render the HTML page header
      * @return  string
@@ -198,7 +198,7 @@ class ClaroHeader extends CoreTemplate
     public function render()
     {
         $this->_globalVarsCompat();
-        
+
         $titlePage = '';
 
         if(empty($this->_toolName) && !empty($this->_nameTools))
@@ -216,19 +216,19 @@ class ClaroHeader extends CoreTemplate
         }
 
         $titlePage .= get_conf('siteName');
-        
+
         $this->assign( 'pageTitle', $titlePage );
-        
+
         if ( true === get_conf( 'warnSessionLost', true ) && claro_get_current_user_id() )
         {
             $this->assign( 'warnSessionLost',
 "function claro_session_loss_countdown(sessionLifeTime){
-    var chrono = setTimeout('claro_warn_of_session_loss()', sessionLifeTime * 1000);
+var chrono = setTimeout('claro_warn_of_session_loss()', sessionLifeTime * 1000);
 }
 
 function claro_warn_of_session_loss() {
-    alert('" . clean_str_for_javascript (get_lang('WARNING ! You have just lost your session on the server.') . "\n"
-             . get_lang('Copy any text you are currently writing and paste it outside the browser')) . "');
+alert('" . clean_str_for_javascript (get_lang('WARNING ! You have just lost your session on the server.') . "\n"
+         . get_lang('Copy any text you are currently writing and paste it outside the browser')) . "');
 }
 " );
         }
@@ -236,16 +236,16 @@ function claro_warn_of_session_loss() {
         {
             $this->assign( 'warnSessionLost', '' );
         }
-        
+
         $htmlXtraHeaders = '';
-        
+
         if ( !empty( $this->_htmlXtraHeaders ) )
         {
             $htmlXtraHeaders .= implode ( "\n", $this->_htmlXtraHeaders );
         }
 
         $this->assign( 'htmlScriptDefinedHeaders', $htmlXtraHeaders );
-        
+
         return parent::render() . "\n";
     }
 }

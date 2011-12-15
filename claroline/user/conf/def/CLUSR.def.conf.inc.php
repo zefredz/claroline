@@ -187,7 +187,7 @@ array('label'         => 'Teacher can export password'
      ,'acceptedValue' => array ('TRUE'=>'Yes'
                               ,'FALSE'=>'No'
                               )
-);
+);     
 
 $conf_def_property_list['export_user_password_encrypted'] =
 array('label'         => 'Encrypt exported password using md5 algorithm for teacher'
@@ -198,7 +198,7 @@ array('label'         => 'Encrypt exported password using md5 algorithm for teac
      ,'acceptedValue' => array ('TRUE'=>'Yes'
                               ,'FALSE'=>'No'
                               )
-);
+); 
 
 $conf_def['section']['import']['label'] = 'Import CVS';
 $conf_def['section']['import']['description'] = '';
@@ -207,7 +207,7 @@ array ( 'update_user_properties'
 );
 
 $conf_def_property_list['update_user_properties'] =
-array('label'         => 'Update properties of users  on CVS import'
+array('label'         => 'Update properties of users on CSV import'
      ,'default'       => FALSE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
@@ -216,3 +216,4 @@ array('label'         => 'Update properties of users  on CVS import'
                               ,'FALSE'=>'No'
                               )
      );
+?>

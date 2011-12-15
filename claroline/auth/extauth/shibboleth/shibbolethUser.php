@@ -1,15 +1,16 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
+ * Claroline Shibboleth / Switch AAI
  *
- * Shibboleth / Switch AAI.
- * Script to change user's authSource to Shibboleth.
+ * Script to change user's authSource to Shibboleth
  *
- * @version     0.4
- * @author      Daniel Streiff <daniel.streiff@fh-htwchur.ch>
+ * @version 0.4
+ *
+ * @author Daniel Streiff <daniel.streiff@fh-htwchur.ch>
+ *
  */
-
+        
 // Shibboleth attributes available, check if there is already an account with this uniqueId
 require ('../../../inc/claro_init_global.inc.php');
 
@@ -38,8 +39,8 @@ if ( isset($_SERVER[$shibbolethUniqueIdAttr]) )
             {
                 // uniqueId already in use
                 claro_die ("<center>WARNING ! UNABLE TO CHANGE AUTHSOURCE. YOU ALREADY HAVE A USERACCOUNT.</center>");
-            }
-            else
+            } 
+            else 
             {
                 // change user's authSource
                 $sqlPrepareList = array();
@@ -49,7 +50,7 @@ if ( isset($_SERVER[$shibbolethUniqueIdAttr]) )
                 // Use first email only
                 $shibbolethEmail = explode($shibbolethEmailSep, $_SERVER[$shibbolethData['email']]);
                 if ($shibbolethEmail[0] == '') {
-                    $shibbolethEmail[0] = $shibbolethDefaultEmail;
+                    $shibbolethEmail[0] = $shibbolethDefaultEmail;    
                 }
                 $sqlPrepareList[] = 'email = "'        . addslashes($shibbolethEmail[0]) . '"';
                 $sqlPrepareList[] = 'authSource = "'                  . $shibbolethAuthSource . '"';
@@ -72,7 +73,7 @@ if ( isset($_SERVER[$shibbolethUniqueIdAttr]) )
                 claro_redirect(get_conf('claro_ShibbolethPath') . 'index.php?sourceUrl=' . base64_encode($rootWeb . "claroline/auth/profile.php"));
             }
         }
-        else
+        else 
         {
             // was not logged in
             claro_die("<center>WARNING ! UNABLE TO CHANGE AUTHSOURCE. <a href=\"" . $rootWeb . "\">LOGIN FIRST</a>!.</center>");
@@ -89,3 +90,5 @@ else
     // Directory not protected
     claro_die("<center>WARNING ! PROTECT THIS FOLDER IN YOUR WEBSERVER CONFIGURATION.</center>");
 }
+
+?>

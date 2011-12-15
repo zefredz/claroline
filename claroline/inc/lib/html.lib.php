@@ -234,8 +234,7 @@ function claro_html_title($title, $level)
 
 /**
 * Displays the title of a tool. Optionally, there can be a subtitle below
-* the normal title, a supra title above the normal title and a list of
-* tools links following the title.
+* the normal title, and / or a supra title above the normal title.
 *
 * e.g. supra title:
 * group
@@ -245,28 +244,56 @@ function claro_html_title($title, $level)
 * AGENDA
 * calender & events tool
 *
-* e.g. tools:
-* AGENDA | (tool link 1) (tool link 2) (tool link 3)
-*
 * @author Hugues Peeters <hugues.peeters@claroline.net>
-* @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
 * @param  mixed $titleElement - it could either be a string or an array
 *                               containing 'supraTitle', 'mainTitle',
 *                               'subTitle'
-* @param string $helpUrl
-* @param array $toolList
 * @return void
 */
-function claro_html_tool_title($titleParts, $helpUrl = null, $cmdList = array(), $showCmd = null)
+function claro_html_tool_title($titlePart, $helpUrl = false)
 {
-    if ( get_conf('displayAllCommandsLinkByDefault', false ) )
+    // if titleElement is simply a string transform it into an array
+
+    if ( is_array($titlePart) ) $titleElement = $titlePart;
+    else                        $titleElement['mainTitle'] = $titlePart;
+
+    $stringPart= array();
+    if ( isset($titleElement['supraTitle']) )
     {
-        $showCmd = count($cmdList);
+        $stringPart[] = '<small>' . $titleElement['supraTitle'] . '</small>';
     }
-    
-    $toolTitle = new ToolTitle($titleParts, $helpUrl, $cmdList, $showCmd);
-    
-    return $toolTitle->render();
+
+    if ( isset($titleElement['mainTitle']) )
+    {
+        $stringPart[] = $titleElement['mainTitle'];
+    }
+
+    if ( isset($titleElement['subTitle']) )
+    {
+        $stringPart[] = '<small>' . $titleElement['subTitle'] . '</small>';
+    }
+
+    $string = "\n" . '<h3 class="claroToolTitle">';
+
+    if ($helpUrl)
+    {
+
+        $string .= "<a href='#' onclick=\"MyWindow=window.open('". get_path('clarolineRepositoryWeb') . "help/" .$helpUrl
+        ."','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
+
+        .'<img src="' . get_icon_url('help') . '" '
+        .' alt ="'.get_lang('Help').'"'
+        .' align="right"'
+        .' hspace="30" />'
+        .'</a>' . "\n"
+        ;
+    }
+
+    $string .= implode('<br />' . "\n",$stringPart)
+    .       '</h3>' . "\n\n"
+    ;
+
+    return $string;
 }
 
 
@@ -282,7 +309,6 @@ function claro_html_tool_title($titleParts, $helpUrl = null, $cmdList = array(),
 * @since 1.8
 *
 * @return string html string for a message box
-* @deprecated since Claroline 1.11 use DialogBox class instead
 */
 function claro_html_message_box($message)
 {
@@ -1021,7 +1047,7 @@ function claro_disp_auth_form($cidRequired = false)
     }
     else // HTTP header has already been sent - impossible to relocate
     {
-        Claroline::getDisplay()->body->appendContent( '<p align="center">'
+        echo '<p align="center">'
         .    'WARNING ! Login Required <br />'
         .    'Click '
         .    '<a href="' . get_path('url') . '/claroline/auth/login.php'
@@ -1029,9 +1055,9 @@ function claro_disp_auth_form($cidRequired = false)
         .    'here'
         .    '</a>'
         .    '</p>'
-        );
+        ;
 
-        Claroline::getDisplay()->render();
+        require get_path('incRepositorySys') . '/claro_init_footer.inc.php';
     }
 
     die(); // necessary to prevent any continuation of the application
@@ -1189,7 +1215,7 @@ function claro_parse_user_text($userText)
     $userText = make_clickable($userText);
     $userText = make_spoiler($userText);
     
-    if( !claro_is_html($userText) )
+    if( !preg_match('/<!-- content:[^(\-\->)]*-->/', $userText) && !preg_match('/<br ?\/?>/i', $userText))
     {
         // only if the content isn't HTML change new line to <br>
         // Note the '<!-- content: html -->' is introduced by HTML Area
@@ -1197,18 +1223,6 @@ function claro_parse_user_text($userText)
     }
 
     return $userText;
-}
-
-
-/**
- * Return true if the given text is HTML
- * @param string $userText
- * @return bool 
- */
-function claro_is_html($userText)
-{
-    return ( preg_match('/<!-- content:[^(\-\->)]*-->/', $userText)
-        || preg_match( '#(?<=<)\w+(?=[^<]*?>)#', $userText ) );
 }
 
 

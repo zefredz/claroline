@@ -7,15 +7,14 @@ if ( count( get_included_files() ) == 1 )
 
 /**
  * CLAROLINE
- * 
- * A few functions and helpers dedicated to courses.
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     COURSE
- * @author      Claro Team <cvs@claroline.net>
- * @author      Muret Benoit <muret_ben@hotmail.com>
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see http://www.claroline.net/wiki/CLCRS/
+ * @package COURSE
+ * @author  Claro Team <cvs@claroline.net>
+ * @author  Muret Benoit <muret_ben@hotmail.com>
  */
 
 
@@ -29,24 +28,24 @@ if ( count( get_included_files() ) == 1 )
 function delete_directory($dir)
 {
     $deleteOk = true;
-    
+
     $current_dir = opendir($dir);
-    
-    while($entryname = readdir($current_dir))
-    {
-        if(is_dir("$dir/$entryname") && ($entryname != "." && $entryname != '..'))
-        {
-            delete_directory("${dir}/${entryname}");
-        }
+
+      while($entryname = readdir($current_dir))
+      {
+         if(is_dir("$dir/$entryname") && ($entryname != "." && $entryname != '..'))
+         {
+               delete_directory("${dir}/${entryname}");
+         }
         elseif($entryname != '.' && $entryname != '..')
         {
-            unlink("${dir}/${entryname}");
-        }
-    }
-    
-    closedir($current_dir);
-    rmdir(${dir}."/");
-    return $deleteOk;
+               unlink("${dir}/${entryname}");
+         }
+      }
+
+      closedir($current_dir);
+      rmdir(${dir}."/");
+      return $deleteOk;
 }
 
 
@@ -258,8 +257,8 @@ function claro_get_lang_flat_list()
 /**
  * Return all manager id of a course.
  *
- * @param String course id
- * @return Array array of int
+ * @param string $cid course id
+ * @return array(int) array of int
  */
 function claro_get_course_manager_id($cid = NULL)
 {
@@ -285,76 +284,4 @@ function claro_get_course_manager_id($cid = NULL)
     
     return $result['user_id'];
     
-}
-
-
-/**
- * Get an icon url according to a course access mode ('public', 'private' or 'platform')
- *
- * @param String label of the access mode for which an icon is asked for
- * @return String the url to the icon
- */
-function get_course_access_icon($access)
-{
-    switch($access)
-    {
-        case 'private' :
-            $iconUrl = get_icon_url('access_locked');
-            break;
-        case 'platform' :
-            $iconUrl = get_icon_url('access_platform');
-            break;
-        case 'public' :
-            $iconUrl = get_icon_url('access_open');
-            break;
-        default :
-            $iconUrl = get_icon_url('course');
-    }
-    
-    return $iconUrl;
-}
-
-
-/**
- * Get an icon url according to a course access mode ('public', 'private' or 'platform')
- *
- * @param String label of the access mode for which an icon is asked for
- * @return String caption
- */
-function get_course_access_mode_caption($access)
-{
-    switch($access)
-    {
-        case 'private' :
-            $caption = get_lang('Access allowed only to course members (people on the course user list)');
-            break;
-        case 'platform' :
-            $caption = get_lang('Access allowed only to platform members (user registered to the platform)');
-            break;
-        case 'public' :
-            $caption = get_lang('Access allowed to anybody (even without login)');
-            break;
-        default :
-            $caption = $access;
-    }
-    
-    return $caption;
-}
-
-
-/**
- * Localize the name of a lang
- *
- * @param String lang name
- * @return String localized lang name
- */
-function get_course_locale_lang($language)
-{
-    $langNameOfLang = get_locale('langNameOfLang');
-    
-    $localeLang = (!empty($langNameOfLang[$language])) ?
-        (ucfirst($langNameOfLang[$language])) :
-        (ucfirst($language));
-    
-    return $localeLang;
 }

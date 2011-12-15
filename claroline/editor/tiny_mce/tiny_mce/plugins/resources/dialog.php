@@ -24,7 +24,7 @@ else                                                                            
 	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
 	<script type="text/javascript" src="js/dialog.js"></script>
 	<script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/jquery.js"></script>
-    <script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/claroline.js"></script>
 	<script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/claroline.ui.js"></script>
     <script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/jquery.livequery.js"></script>
@@ -55,9 +55,9 @@ else                                                                            
 			</select>
 		</fieldset>
 	</div>
-	<div class="mceActionPanel">		
+	<div class="mceActionPanel">
 		<div style="float: right">
-			<input type="button" id="cancel" name="cancel" value="{#close}" onclick="tinyMCEPopup.close();" />
+			<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
 		</div>
 	</div>
 </form>

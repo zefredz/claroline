@@ -1,12 +1,14 @@
 <?php // $Id$
-
 /**
- * CLAROLINE
  *
- * @version     $Revision$
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claroline team <info@claroline.net>
- * @package     CLUSR
+ * @version 0.1 $Revision$
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claroline team <info@claroline.net>
+ *
+ * @package CLUSR
+ *
  */
 
 require_once get_path('incRepositorySys') . '/lib/csv.class.php';

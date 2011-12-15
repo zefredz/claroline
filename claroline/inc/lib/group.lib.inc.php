@@ -93,7 +93,7 @@ function delete_groups($groupIdList = 'ALL')
     $tbl_courseCalendar = $tbl_c_names['calendar_event'     ];
 
     require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
-    require_once dirname(__FILE__) . '/forum.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/forum.lib.php';
 
     if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLWIKI'), claro_get_current_course_id() )
         && is_tool_activated_in_groups( claro_get_current_course_id(), 'CLWIKI' ) )
@@ -753,25 +753,14 @@ function get_group_list_user_id_list($gidList,$courseId = NULL)
 {
     $groupIdList = implode(', ',$gidList);
 
-    $courseId = is_null($courseId) ? claro_get_current_course_id() : $courseId;
-
     $courseTableName = get_module_course_tbl(array('group_team','group_rel_team_user'),$courseId);
+    $mainTableName = get_module_main_tbl(array('user','rel_course_user'));
 
-    $mainTableName = claro_sql_get_main_tbl();
-
-    $sql = "SELECT 
-                `user_group`.`user`
-            FROM 
-                `".$courseTableName['group_rel_team_user']."` AS `user_group`
-            JOIN 
-                `".$mainTableName['rel_course_user']."` AS cu
-            ON 
-                `user_group`.`user` = cu.user_id
-            AND 
-                cu.code_cours = '".claro_sql_escape($courseId)."'
-                    
-            WHERE 
-                `user_group`.`team` IN (".$groupIdList.")";
+    $sql = "SELECT `user_group`.`user`
+            FROM `".$courseTableName['group_rel_team_user']."` AS `user_group`
+            INNER JOIN `" . $mainTableName['rel_course_user'] . "` AS `cu`
+            ON `cu`.user_id = `user_group`.`user`
+            WHERE `user_group`.`team` IN (".$groupIdList.")";
 
     $groupMemberList = claro_sql_query_fetch_all($sql);
 

@@ -66,7 +66,7 @@ $acceptedCommand = array('rqDeleteAll','exDeleteAll'
                         ,'rqPlatformMessage','exPlatformMessage');
 
 // ------------- display
-if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCommand))
+if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
 {
     // -------- delete all
     if ($_REQUEST['cmd'] == "rqDeleteAll")
@@ -210,7 +210,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCommand))
 }
 else
 {
-    claro_die(get_lang('Missing command'));
+    claro_die('missing command');
 }
 
 // ----------- delete all --------------
@@ -316,14 +316,12 @@ if ($displayResultUserSearch)
     
     $content .= '<br />'
        .'<table class="claroTable emphaseLine">' . "\n\n"
-       .'<thead>'
-       .'<tr>' . "\n"
+       .'<tr class="headerX">' . "\n"
        .'<th>' . get_lang('Id') . '</th>' . "\n"
        .'<th><a href="' . $linkSorting . 'name&amp;order='.$nextOrder.'">' . get_lang('Name') . '</a></th>'."\n"
        .'<th><a href="' . $linkSorting . 'username&amp;order='.$nextOrder.'">' . get_lang('Username') . '</a></th>'."\n"
        .'<th>' . get_lang('Delete messages') . '</th>'."\n"
-       .'</tr>' . "\n"
-       .'</thead>'."\n"
+       .'</tr>' . "\n\n"
        ;
 
      if ( $userList->getNumberOfUser() > 0)

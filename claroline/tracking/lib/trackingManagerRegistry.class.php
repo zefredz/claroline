@@ -1,96 +1,101 @@
 <?php // $Id$
-
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLTRACK
- * @author      Claro Team <cvs@claroline.net>
- * @author      Sebastien Piraux <pir@cerdecam.be>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLTRACK
+ *
+ * @author Claroline team <info@claroline.net>
+ *
  */
+    // vim: expandtab sw=4 ts=4 sts=4 foldmethod=marker:
 
-// vim: expandtab sw=4 ts=4 sts=4 foldmethod=marker:
-
-/**
- * Singleton class used to load all available tracking manager connector
- * and to keep the list of available tracking manager classes found in
- * connectors
- */
-class TrackingManagerRegistry
-{
-    private static $instance = false;
-
-    private $managerList;
-
-    public function __construct()
+    /**
+     * Singleton class used to load all available tracking manager connector
+     * and to keep the list of available tracking manager classes found in
+     * connectors 
+     */
+    class TrackingManagerRegistry
     {
-        $this->managerList = array();
-        
-        $this->loadAll();
-    }
+        private static $instance = false;
 
-    public function register( $className )
-    {
-        $this->managerList[] = $className;
-    }
+        private $managerList;
 
-
-    public function loadAll($cidReq = null)
-    {
-        $this->loadDefaultManager();
-        
-        $this->loadModuleManager($cidReq);
-    }
-
-    private function loadDefaultManager()
-    {
-        $file = dirname(__FILE__) . '/defaultTrackingManager.class.php';
-                
-        if( file_exists( $file ) )
+        public function __construct()
         {
-            require_once $file;
-            if ( claro_debug_mode() ) pushClaroMessage('Tracking : default tracking managers loaded', 'debug');
+            $this->managerList = array();
+            
+            $this->loadAll();
         }
-        else
+
+        public function register( $className )
         {
-            if ( claro_debug_mode() ) pushClaroMessage('Tracking : cannot find default tracking managers (file : ' . $file . ')', 'error');
+            $this->managerList[] = $className;
         }
-    }
-    
-    private function loadModuleManager($cidReq = null)
-    {
-        $toolList = claro_get_main_course_tool_list();
-        
-        foreach( $toolList as $tool )
+
+
+        public function loadAll($cidReq = null)
         {
-            if( !is_null($tool['label']) )
+            $this->loadDefaultManager();
+            
+            $this->loadModuleManager($cidReq);
+        }
+
+        private function loadDefaultManager()
+        {
+            $file = dirname(__FILE__) . '/defaultTrackingManager.class.php';
+                    
+            if( file_exists( $file ) )
             {
-                $file = get_module_path($tool['label']) . '/connector/trackingManager.cnr.php';
-                
-                if( file_exists( $file ) )
+                require_once $file;
+                if ( claro_debug_mode() ) pushClaroMessage('Tracking : default tracking managers loaded', 'debug');
+            }
+            else
+            {
+                if ( claro_debug_mode() ) pushClaroMessage('Tracking : cannot find default tracking managers (file : ' . $file . ')', 'error');
+            }
+        }
+        
+        private function loadModuleManager($cidReq = null)
+        {
+            $toolList = claro_get_main_course_tool_list();
+            
+            foreach( $toolList as $tool )
+            {
+                if( !is_null($tool['label']) )
                 {
-                    require_once $file;
-                    if ( claro_debug_mode() ) pushClaroMessage('Tracking : '.$tool['label'].' tracking managers loaded', 'debug');
+                    $file = get_module_path($tool['label']) . '/connector/trackingManager.cnr.php';
+                    
+                    if( file_exists( $file ) )
+                    {
+                        require_once $file;
+                        if ( claro_debug_mode() ) pushClaroMessage('Tracking : '.$tool['label'].' tracking managers loaded', 'debug');
+                    }
                 }
             }
         }
-    }
 
-    public function getManagerList()
-    {
-        return $this->managerList;
-    }
-    
-
-    public static function getInstance()
-    {
-        if ( ! TrackingManagerRegistry::$instance )
+        public function getManagerList()
         {
-            TrackingManagerRegistry::$instance = new TrackingManagerRegistry;
+            return $this->managerList;
         }
+        
 
-        return TrackingManagerRegistry::$instance;
+        public static function getInstance()
+        {
+            if ( ! TrackingManagerRegistry::$instance )
+            {
+                TrackingManagerRegistry::$instance = new TrackingManagerRegistry;
+            }
+
+            return TrackingManagerRegistry::$instance;
+        }
     }
-}
+
+?>

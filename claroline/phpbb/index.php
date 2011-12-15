@@ -1,21 +1,18 @@
 <?php // $Id$
-
 /**
- * CLAROLINE
- *
- * Forum tool.
- *
+ * Claroline forum tool
+ * 
  * Entry point for forum tool, handling display and administration of forums and forum categories
  * As from Claroline 1.9.6, includes functionality of deprecated script admin.php
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     CLFRM
- *
+ * 
  * @TODO        $last_post would be always a timestamp
  */
 
@@ -40,23 +37,23 @@ $dialogBox = new DialogBox();
 //handle user input and possible associated exceptions
 try
 {
-    $userInput = Claro_UserInput::getInstance();
+    $userInput = Claro_UserInput::getInstance();        
     //admin only commands
-    if( $is_allowedToEdit )
+    if( $is_allowedToEdit ) 
     {
         //set validators for user input
-        $userInput->setValidator( 'cmd', new Claro_Validator_AllowedList( array(
+        $userInput->setValidator( 'cmd', new Claro_Validator_AllowedList( array( 
             'show',
-            'exMkCat', 'rqMkCat',
+            'exMkCat', 'rqMkCat', 
             'exEdCat', 'rqEdCat',
             'exDelCat',
             'exMvUpCat', 'exMvDownCat',
             'exMkForum', 'rqMkForum',
             'exEdForum', 'rqEdForum',
-            'exDelForum',
+            'exDelForum', 
             'exEmptyForum',
             'exMvUpForum', 'exMvDownForum',
-            'rqSearch'
+            'rqSearch'  
         ) ) );
         $userInput->setValidator( 'forumId', new Claro_Validator_ValueType( 'numeric' ) );
         $userInput->setValidator( 'forumId', new Claro_Validator_NotEmpty() );
@@ -66,7 +63,7 @@ try
         $userInput->setValidator( 'catName', new Claro_Validator_ValueType( 'string' ) );
         $userInput->setValidator( 'forumDesc', new Claro_Validator_ValueType( 'string' ) );
         $userInput->setValidator( 'forumPostUnallowed', new Claro_Validator_ValueType( 'string' ) );
-        $userInput->setValidator( 'anonymity', new Claro_Validator_ValueType( 'string' ) );
+        $userInput->setValidator( 'anonymity', new Claro_Validator_ValueType( 'string' ) );              
     }
     else
     {
@@ -77,11 +74,11 @@ try
     switch( $cmd )
     {
         case 'exMkCat' :
-            $catName = trim( $userInput->getMandatory( 'catName' ) );
+            $catName = trim( $userInput->getMandatory( 'catName' ) );          
             break;
         case 'exEdCat' :
             $catId = $userInput->getMandatory( 'catId' );
-            $catName = trim( $userInput->getMandatory( 'catName' ) );
+            $catName = trim( $userInput->getMandatory( 'catName' ) );  
             break;
         case 'rqEdCat' :
             $catId = $userInput->getMandatory( 'catId' );
@@ -94,7 +91,7 @@ try
             break;
         case 'exMvDownCat' :
             $catId = $userInput->getMandatory( 'catId' );
-            break;
+            break;        
         case 'exMkForum' :
             $forumPostAllowed = $userInput->get( 'forumPostUnallowed', 'off' ) == 'on' ? false : true;
             $anonymityType = get_conf( 'clfrm_anonymity_enabled', 'TRUE' ) == 'TRUE'
@@ -119,17 +116,17 @@ try
             break;
         case 'exDelForum' :
             $forumId = $userInput->getMandatory( 'forumId' );
-            break;
+            break;  
         case 'exEmptyForum' :
             $forumId = $userInput->getMandatory( 'forumId' );
-            break;
+            break; 
         case 'exMvUpForum' :
             $forumId = $userInput->getMandatory( 'forumId' );
             break;
         case 'exMvDownForum' :
             $forumId = $userInput->getMandatory( 'forumId' );
-            break;
-        default : break;
+            break;                
+        default : break;            
     }
 }
 catch( Exception $ex )
@@ -144,62 +141,62 @@ catch( Exception $ex )
         switch( $cmd )
         {
             case 'cmd' :
-                $cmd = 'show';
+                $cmd = 'show';           
                 break;
             case 'exMkCat' :
                 $dialogBox->error( get_lang( 'Category name cannot be empty' ) );
-                $cmd = 'rqMkCat';
+                $cmd = 'rqMkCat';           
                 break;
             case 'exEdCat' :
                 $dialogBox->error( get_lang( 'Category name cannot be empty' ) );
-                $cmd = 'rqEdCat';
+                $cmd = 'rqEdCat'; 
                 break;
             case 'rqEdCat' :
                 $dialogBox->error( get_lang( 'Category name cannot be empty' ) );
-                $cmd = 'show';
+                $cmd = 'show'; 
                 break;
             case 'exDelCat' :
                 $dialogBox->error( get_lang( 'Unknown category' ) );
-                $cmd = 'show';
+                $cmd = 'show'; 
                 break;
             case 'exMvUpCat' :
                 $dialogBox->error( get_lang( 'Unknown category' ) );
-                $cmd = 'show';
+                $cmd = 'show'; 
                 break;
             case 'exMvDownCat' :
                 $dialogBox->error( get_lang( 'Unknown category' ) );
-                $cmd = 'show';
-                break;
+                $cmd = 'show'; 
+                break;        
             case 'exMkForum' :
                 $dialogBox->error( get_lang( 'Missing field(s)' ) );
-                $cmd = 'rqMkForum';
+                $cmd = 'rqMkForum'; 
                 break;
             case 'exEdForum' :
                 $dialogBox->error( get_lang( 'Forum name cannot be empty' ) );
-                $cmd = 'rqEdForum';
+                $cmd = 'rqEdForum'; 
                 break;
             case 'rqEdForum' :
                 $dialogBox->error( get_lang( 'Unknown forum' ) );
-                $cmd = 'show';
+                $cmd = 'show'; 
                 break;
             case 'exDelForum' :
                 $dialogBox->error( get_lang( 'Unknown forum' ) );
-                $cmd = 'show';
-                break;
+                $cmd = 'show'; 
+                break;  
             case 'exEmptyForum' :
                $dialogBox->error( get_lang( 'Unknown forum' ) );
-                $cmd = 'show';
-                break;
+                $cmd = 'show'; 
+                break; 
             case 'exMvUpForum' :
                 $dialogBox->error( get_lang( 'Unknown forum' ) );
-                $cmd = 'show';
+                $cmd = 'show'; 
                 break;
             case 'exMvDownForum' :
                 $dialogBox->error( get_lang( 'Unknown forum' ) );
-                $cmd = 'show';
-                break;
+                $cmd = 'show'; 
+                break;  
             default : break;
-        }
+        }              
     }
     elseif( $ex instanceof Claro_Input_Exception )
     {
@@ -250,7 +247,7 @@ if( $is_allowedToEdit )
             {
                 $dialogBox->error( $ex->getMessage() );
             }
-        }
+        }       
     }
     
     if( 'exEdCat' == $cmd )
@@ -363,7 +360,7 @@ if( $is_allowedToEdit )
     }
     if( 'exEdForum' == $cmd )
     {
-        if( update_forum_settings( $forumId, $forumName, $forumDesc, $forumPostAllowed, $catId, $anonymityType ) )
+        if( update_forum_settings( $forumId, $forumName, $forumDesc, $forumPostAllowed, $catId, $anonymityType ) )                            
         {
             $dialogBox->success( get_lang( 'Forum updated' ) );
         }
@@ -376,7 +373,7 @@ if( $is_allowedToEdit )
     
     if( 'rqEdForum' == $cmd )
     {
-        $forumSettingList = get_forum_settings( $forumId );
+        $forumSettingList = get_forum_settings( $forumId );    
         $categoryList = get_category_list();
     
         if( count( $categoryList ) > 0 )
@@ -416,7 +413,7 @@ if( $is_allowedToEdit )
                                  . get_lang( 'Please create a category first' ) );
             $cmd = 'show';
         }
-    }
+    }   
     if( 'exDelCat' == $cmd )
     {
         if( delete_category( $catId ) )
@@ -434,7 +431,7 @@ if( $is_allowedToEdit )
             elseif( claro_failure::get_last_failure() == 'GROUP_FORUM_REMOVALE_FORBIDDEN' )
             {
                 $dialogBox->error( get_lang( 'You can not remove a group forum. You have to remove the group first' ) );
-            }
+            }   
         }
     }
     
@@ -468,7 +465,7 @@ if( $is_allowedToEdit )
         {
             $dialogBox->error( get_lang( 'Unable to empty forum' ) );
         }
-    }
+    }   
     if( 'exMvUpCat' == $cmd )
     {
         move_up_category( $catId );
@@ -509,7 +506,7 @@ else
     $tutorGroupList = array();
 }
     
-//add javascript control for "dangerous" commands (delete-empty)
+//add javascript control for "dangerous" commands (delete-empty)    
 $htmlHeadXtra[] =
     "<script type=\"text/javascript\">
     function confirm_delete(name)
@@ -530,25 +527,25 @@ $htmlHeadXtra[] =
     </script>";
 
 //prepare display
+$out = '';
 
 $nameTools = get_lang( 'Forums' );
 
 $pagetype  = 'index';
 
-$helpUrl = $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : null;
+$out .= claro_html_tool_title( $nameTools, $is_allowedToEdit ? 'help_forum.php' : false );
 
-$toolList = disp_forum_toolbar_array( $pagetype, 0, 0, 0 );
-
-$out = '';
-$out .= claro_html_tool_title( $nameTools, $helpUrl, $toolList);
 $out .= disp_search_box();
+
 $out .= $dialogBox->render();
 
 // Forum toolbar
+$out .= claro_html_menu_horizontal( disp_forum_toolbar( $pagetype, 0, 0, 0 ) );
+
 $displayList = array();
 
 foreach( $forum_list as $this_forum )
-{
+{   
     //temporary fix for 1.9 releases : avoids change in database definition (using unused 'forum_type' field)
     //TODO : use a specific enum field (field name: anonymity) in bb_forum table
     switch( $this_forum['forum_type'] )
@@ -568,7 +565,7 @@ foreach( $forum_list as $this_forum )
         
 try
 {
-    $display = new ModuleTemplate( 'CLFRM' , 'forum_index.tpl.php' );
+    $display = new ModuleTemplate( 'CLFRM' , 'forum_index.tpl.php' ); 
     $display->assign( 'categoryList', $categories );
     $display->assign( 'forumList', $forum_list );
     $display->assign( 'is_allowedToEdit', $is_allowedToEdit );

@@ -3,12 +3,10 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
- *
  * "Magic" class to represent kernel objects. Defines __get, __set, __isset and
  * __unset magic methods.
  *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -20,7 +18,6 @@
 class KernelObject
 {
     protected $_rawData = array();
-    protected $sessionVarName;
 
     /**
      * Get the value of a property of the object. Magic method called by
@@ -96,27 +93,5 @@ class KernelObject
     public function getRawData()
     {
         return $this->_rawData;
-    }
-    
-    public function saveToSession()
-    {
-        $_SESSION[$this->sessionVarName] = $this->_rawData;
-        pushClaroMessage( "Kernel object {$this->sessionVarName} saved to session", 'debug' );
-    }
-    
-    /**
-     * Load user properties from session
-     */
-    public function loadFromSession()
-    {
-        if ( !empty($_SESSION[$this->sessionVarName]) )
-        {
-            $this->_rawData = $_SESSION[$this->sessionVarName];
-            pushClaroMessage( "Kernel object {$this->sessionVarName} loaded from session", 'debug' );
-        }
-        else
-        {
-            throw new Exception("Cannot load kernel object {$this->sessionVarName} from session");
-        }
     }
 }

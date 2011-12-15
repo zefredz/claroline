@@ -15,9 +15,9 @@
  * @since       1.9
  */
 
-FromKernel::uses('user.lib','courselist.lib');
+FromKernel::uses('user.lib');
 From::Module('CLCAL')->uses('agenda.lib');
-
+uses('courselist.lib');
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
 class UserDesktopCalendar
@@ -152,7 +152,7 @@ var UserDesktopCalendar = {
     
         $htmlStream .= '</th>' . "\n"
         .    '</tr>' . "\n"
-        .    '<tr>' ."\n"
+        .    '<tr class="headerX">' ."\n"
         ;
     
         for ( $iterator = 1; $iterator < 8; $iterator++)

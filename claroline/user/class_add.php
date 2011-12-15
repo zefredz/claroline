@@ -126,23 +126,23 @@ $htmlHeadXtra[] =
     }
 </script>';
 
-// Command list
-$cmdList[] = array(
-    'img' => 'back',
-    'name' => get_lang('Back to list'),
-    'url' => htmlspecialchars(Url::Contextualize('user.php')),
-    'params' => array('onclick' => 'return confirmationEmpty();')
-);
-
 
 $out = '';
-$out .= claro_html_tool_title(get_lang('Enrol class'), null, $cmdList);
+
+// Display tool title
+
+$out .= claro_html_tool_title(get_lang('Enrol class'))
 
 // Display Forms or dialog box (if needed)
-$out .= claro_html_msg_list($dialogBoxMsg);
 
-// Display cols headers
-$out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
+.    claro_html_msg_list($dialogBoxMsg)
+
+// display tool links
+.    '<p>'
+.    claro_html_cmd_link('user.php'  . claro_url_relay_context('?') , get_lang('Back to list'))
+.    '</p>'
+// display cols headers
+.    '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX">' . "\n"
 .    '<th>' . get_lang('Classes') . '</th>' . "\n"
@@ -151,7 +151,7 @@ $out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "
 .    '</tr>' . "\n"
 .    '</thead>' . "\n"
 .    '<tbody>' . "\n"
-// Display Class list (or tree)
+// display Class list (or tree)
 .    ( empty($classList)
         ? '<tr><td colspan="3">'.get_lang('Nothing to display').'</td></tr>'
         : display_tree_class_in_user($classList, claro_get_current_course_id()) )
@@ -162,3 +162,5 @@ $out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

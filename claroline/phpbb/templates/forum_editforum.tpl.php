@@ -1,5 +1,4 @@
-<!-- // $Id$ -->
-
+<?php // $Id$ ?>
 <strong><?php echo $this->header ?></strong>
 <form action="<?php echo htmlspecialchars( $_SERVER['PHP_SELF'] )?>" method="post">
     <input type="hidden" name="claroFormId" value="<?php echo uniqid( '' ) ?>" />
@@ -11,7 +10,7 @@
     <textarea name="forumDesc" id="forumDesc" cols="50" rows="3"><?php echo $this->forumDesc ?></textarea><br /><br />
     <label for="catId"><?php echo get_lang( 'Category' ) ?> : </label><br />
     <select name="catId">
-    <?php foreach( $this->categoryList as $category ) :
+    <?php foreach( $this->categoryList as $category ) : 
         $selected = $this->catId == $category['cat_id'] ? ' selected="selected"' : '' ?>
         <option value="<?php echo $category['cat_id'] ?>"<?php echo $selected ?>><?php echo $category['cat_title']?></option>
     <?php endforeach;?>
@@ -27,6 +26,6 @@
     <?php endif;?>
     <input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" <?php echo $this->is_postAllowed ? '' : ' checked="checked"'?>/>
     <label for="forumPostUnallowed"><?php  echo get_lang( 'Locked' ) ?> <small>(<?php echo get_lang( 'No new post allowed' )?>)</small></label><br /><br />
-    <input type="submit" value="<?php echo get_lang( 'Ok' ) ?>" />&nbsp;
+    <input type="submit" value="<?php echo get_lang( 'Ok' ) ?>" />&nbsp; 
     <?php echo claro_html_button( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] ) ), get_lang( 'Cancel' ) )?>
-</form>
+</form>       

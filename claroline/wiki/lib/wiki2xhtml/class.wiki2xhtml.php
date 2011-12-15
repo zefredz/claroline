@@ -1127,3 +1127,5 @@ class wiki2xhtml
     }
     //*/
 }
+
+?>

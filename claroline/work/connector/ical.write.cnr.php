@@ -1,6 +1,5 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
@@ -27,8 +26,8 @@ function CLWRK_write_ical( $iCal, $context)
         
         $organizer = (array) array($courseData['titular'], $courseData['email']);
         $attendees = array();
-        $categories = array(
-            get_conf('siteName'),
+        $categories = array( 
+            get_conf('siteName'), 
             $courseData['officialCode'],
             trim($toolNameList['CLWRK'])
         );
@@ -101,3 +100,5 @@ function assignmentList($courseCode = null)
 
     return claro_sql_query_fetch_all_rows($sql);
 }
+
+?>

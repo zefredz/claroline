@@ -366,3 +366,4 @@ class ScormAnswerMatching extends answerMatching
        return $out;
     }
 }
+?>

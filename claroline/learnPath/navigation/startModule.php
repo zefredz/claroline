@@ -118,7 +118,7 @@ switch ($module['contentType'])
             claro_sql_query($sql);
         } // else anonymous : record nothing
 
-        $startAssetPage = rawurlencode($assetPath);
+        $startAssetPage = urlencode($assetPath);
         $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
 
           $withFrames = true;

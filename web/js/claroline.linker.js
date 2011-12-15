@@ -79,7 +79,6 @@ $(document).ready(function(){
         // toggle commands
         $("#lnk_show_browser").hide();
         $("#lnk_hide_browser").show();
-        return false;
     });
     
     $("#lnk_hide_browser").click(function(){
@@ -87,18 +86,15 @@ $(document).ready(function(){
         // toggle commands
         $("#lnk_hide_browser").hide();
         $("#lnk_show_browser").show();
-        return false;
     });
     
     // ajax activity led
     $("#lnk_ajax_loading").ajaxStart(function(){
         $(this).show();
-        return false;
     });
         
     $("#lnk_ajax_loading").ajaxStop(function(){
         $(this).hide();
-        return false;
     });
     
 

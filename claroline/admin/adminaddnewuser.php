@@ -40,6 +40,9 @@ $dialogBox = new DialogBox;
   Main Section
  =====================================================================*/
 
+// Initialise field variable from subscription form
+$userData = user_initialise();
+
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = '';
 
@@ -57,6 +60,7 @@ if ( $cmd == 'registration' )
     {
         // register the new user in the claroline platform
         $userId = user_create($userData);
+        set_user_property($userId, 'skype', $userData['skype']);
         
         if (false===$userId)
         {
@@ -112,7 +116,7 @@ $noQUERY_STRING   = true;
 
 if ( $display == DISP_REGISTRATION_FORM )
 {
-    $dialogBox->info( get_lang('New users will receive an e-mail with their username and password') );
+    $dialogBox->info( get_lang('New users will receive an e-mail with their user name and password') );
 }
 
 $out = '';

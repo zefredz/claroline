@@ -196,16 +196,16 @@ if ( $cmd == 'registration' )
 
 if ($cmd == 'applySearch')
 {
-    // Search on username, official_code, ...
-    $displayResultTable = true;
-    
+    // search on username, official_code, ...
+
+    $displayResultTable = TRUE;
+
     if ( ! (   empty($userData['lastname'    ])
-            && empty($userData['firstname'])
             && empty($userData['email'       ])
             && empty($userData['username'    ])
             && empty($userData['officialCode']) ) )
     {
-    
+
         $userList = user_search( array('lastname'     => $userData['lastname'],
                                        'firstname'      => $userData['firstname'],
                                        'email'        => $userData['email'],
@@ -244,7 +244,7 @@ if ( $courseRegSucceed )
 $out = '';
 
 $out .= claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
-                get_help_page_url('blockUsersHelp', 'CLUSR'));
+                'help_user.php');
 $out .= $dialogBox->render();
 
 if ( $courseRegSucceed )
@@ -311,7 +311,7 @@ else
         
         if ( sizeof($userList) == 0 )
         {
-            $out .= '<td align="center" colspan="6">' . get_lang('No user found') . '</td>';
+            $out .= '<td align="center" colspan="5">' . get_lang('No user found') . '</td>';
         }
         
         $out .= '</tbody>'
@@ -319,22 +319,19 @@ else
               . '<hr />';
     }
     
-    // Display form to add a user
+    //display form to add a user
     if ($displayForm)
     {
-        if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+        if( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
         {
-            $dialogBox->info(get_lang('New users will receive an e-mail with their username and password'));
-            
-            $out .= $dialogBox->render() . "\n"
+            $out .= '<p>' . get_lang('Add user manually') . ' :</p>'
+                  . '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n"
                   . user_html_form();
         }
         else
         {
-            $dialogBox->info(get_lang('Fill in one or more search criteria, select user profile parameters for your course and press \'Search\''));
-            
             $out .= '<p>' . get_lang('Search user to add to your course') . ' :</p>'
-                  . $dialogBox->render() . "\n"
+                  . '<p>' . get_lang('Fill in one or more search criteria, select user profile parameters for your course and press \'Search\'') . '</p>' . "\n"
                   . user_html_search_form($userData);
         }
     }

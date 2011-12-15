@@ -3,15 +3,14 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * Resource Resolver for the Wiki tool
  *
- * Resource Resolver for the Wiki tool.
- *
- * @version     $Revision$
+ * @version 1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      claroline Team <cvs@claroline.net>
- * @package     CLWIKI
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author claroline Team <cvs@claroline.net>
+ * @package CLWIKI
+ *
  */
 
 class CLWIKI_Resolver implements ModuleResourceResolver

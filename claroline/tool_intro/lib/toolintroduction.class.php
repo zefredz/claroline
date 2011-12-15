@@ -111,7 +111,7 @@ class ToolIntro implements Display
         $res = Claroline::getDatabase()->query($sql);
         $toolIntro = $res->fetch(Database_ResultSet::FETCH_ASSOC);
         
-        if (!empty($toolIntro))
+        if(!empty($toolIntro))
         {
             $this->toolId       = $toolIntro['tool_id'];
             $this->title        = $toolIntro['title'];
@@ -136,7 +136,7 @@ class ToolIntro implements Display
      */
     public function save()
     {
-        if (empty($this->id))
+        if(empty($this->id))
         {
             return $this->insert();
         }
@@ -179,7 +179,7 @@ class ToolIntro implements Display
                     `rank` = " . (int) $this->rank . ",
                     `visibility` = " . Claroline::getDatabase()->quote($this->visibility);
         
-        if (Claroline::getDatabase()->exec($sql))
+        if(Claroline::getDatabase()->exec($sql))
         {
             $this->id = Claroline::getDatabase()->insertId();
             
@@ -208,7 +208,7 @@ class ToolIntro implements Display
                     `visibility` = " . Claroline::getDatabase()->quote($this->visibility) . "
                 WHERE `id` = " . (int) $this->id;
         
-        if (Claroline::getDatabase()->exec($sql))
+        if(Claroline::getDatabase()->exec($sql))
         {
             return $this->id;
         }
@@ -243,13 +243,41 @@ class ToolIntro implements Display
     
     public function renderForm()
     {
-        $template = new ModuleTemplate('CLTI', 'form.tpl.php');
-        $template->assign('formAction', Url::Contextualize($_SERVER['PHP_SELF']));
-        $template->assign('relayContext', claro_form_relay_context());
-        $template->assign('cmd', $this->id ? 'exEd' : 'exAdd');
-        $template->assign('intro', $this);
+        $cmd = $this->id ? 'exEd' : 'exAdd';
         
-        return $template->render();
+        
+        $html = '';
+        
+        $html .= '<form action="' . Url::Contextualize($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+               . '<input type="hidden" name="claroFormId" value="'.uniqid(time()).'" />'
+               . '<input type="hidden" name="introCmd" value="' . $cmd . '" />';
+        
+        if ($this->id)
+        {
+            $html .= '<input type="hidden" name="introId" value="'.$this->id.'" />'
+                   . '<input type="hidden" name="rank" value="'.$this->rank.'" />';
+        }
+        
+        $html .= claro_html_textarea_editor('content', trim($this->content))
+               . '<br />'."\n";
+        
+        if ( isset( $_REQUEST['introId'] ) )
+        {
+            ResourceLinker::setCurrentLocator(
+                ResourceLinker::$Navigator->getCurrentLocator(
+                    array( 'id' => (int) $_REQUEST['introId'] ) ) );
+        }
+        
+        $html .= ResourceLinker::renderLinkerBlock();
+        
+        $html .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />&nbsp;'."\n";
+        
+        $html .= claro_html_button( Url::Contextualize($_SERVER['PHP_SELF']), get_lang('Cancel'))
+               . '<br />' . "\n"
+               . '</form>' . "\n\n"
+               ;
+        
+        return $html;
     }
     
     
@@ -358,12 +386,60 @@ class ToolIntro implements Display
     
     public function render()
     {
+        $output = '';
         
-        $template = new ModuleTemplate('CLTI', 'item.tpl.php');
-        $template->assign('intro', $this);
-        $template->assign('rsLocator', ResourceLinker::$Navigator->getCurrentLocator(array('id' => $this->id)));
+        if ($this->getVisibility() == 'SHOW' || claro_is_allowed_to_edit())
+        {
+            $output .= '<div class="toolIntro">'."\n"
+                     . '<p>'.claro_parse_user_text($this->content).'</p>'."\n";
+            
+            // Display attached resources (if any)
+            $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(array('id' => $this->id));
+            $output .= ResourceLinker::renderLinkList($currentLocator);
+            
+            // Admin commands
+            if (claro_is_allowed_to_edit())
+            {
+                $output .= '<a class="claroCmd" href="'
+                    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?introCmd=rqEd&amp;introId='.$this->id ))
+                    .'" title="'.get_lang('Edit this item').'">'
+                    . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
+                    . '</a>' . "\n"
+                    . '<a class="claroCmd" href="'
+                    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?introCmd=exDel&amp;introId=' . $this->id ))
+                    . '" title="'.get_lang('Delete this item').'"'
+                    . 'onclick="javascript:if(!confirm(\''
+                    . clean_str_for_javascript( get_lang('Confirm Operation') . ' : ' . get_lang('Delete') ).'\')) '
+                    . 'return false;">'
+                    . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
+                    . '</a>' . "\n"
+                    . '<a class="claroCmd" href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                    . '?introCmd=exMvUp&amp;introId='.$this->id)).'" title="'.get_lang('Move this item up').'">'
+                    . '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
+                    . '</a> '
+                    . ' <a class="claroCmd" href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                    . '?introCmd=exMvDown&amp;introId='.$this->id)).'" title="'.get_lang('Move this item down').'">'
+                    . '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
+                    . '</a>'
+                    . '<a class="claroCmd" href="'
+                    . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                    . '?introCmd='
+                    . (($this->visibility == 'SHOW')?('mkInvisible'):('mkVisible'))
+                    . '&amp;introId='.$this->id)).'" '
+                    . 'title = "'
+                    . (($this->visibility == 'SHOW')?(get_lang('Hide this item')):(get_lang('Show this item'))).'">'
+                    . '<img src="'
+                    . (($this->visibility == 'SHOW')?(get_icon_url('visible')):(get_icon_url('invisible')))
+                    . '" alt="'.get_lang('Swap visibility').'" />'
+                    . '</a>';
+            }
+            
+            $output .= '</div>';
+        }
         
-        return $template->render();
+        return $output;
     }
     
     

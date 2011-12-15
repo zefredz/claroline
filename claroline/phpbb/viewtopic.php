@@ -1,14 +1,12 @@
 <?php // $Id$
-
 /**
- * CLAROLINE
+ * Claroline forum tool
  *
  * Script handling topics and posts in forum tool (new topics, replies, topic review, etc.)
  * As from Claroline 1.9.6, gathers functionality of deprecated scripts newtopic.php, reply.php and editpost.php
  *
- * @version     $Revision$
+ * @version     1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @copyright   (c) 2001 The phpBB Group
  * @author      Claroline Team <info@claroline.net>
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -237,12 +235,10 @@ else
 }
 
 //check access rights
-$is_postAllowed = ( !claro_is_current_user_enrolment_pending() && claro_is_course_member() 
-                    && $forumSettingList['forum_access'] != 0
+$is_postAllowed = (  claro_is_course_member() && $forumSettingList['forum_access'] != 0
                     && ( !$topicId || !$topicSettingList['topic_status'] ) )
                     ? true
                     : false;
-
 $is_viewAllowed = !is_null( $forumSettingList['idGroup'] )
                   && !( ( $forumSettingList['idGroup'] == claro_get_current_group_id() )
                         || claro_is_in_a_group() || claro_is_group_allowed() )
@@ -278,7 +274,7 @@ else
     {
         $error = false;
         //this test should be handled by a "html not empty" validator
-        if ( trim( strip_tags( $message , '<img><audio><video><embed><object><canvas><iframe>' ) ) == '' )
+        if ( trim( strip_tags( $message , '<img><audio><video><embed><object><canvas>' ) ) == '' )
         {
             $dialogBox->error( get_lang( 'You cannot post an empty message' ) );
             $error = true;
@@ -424,26 +420,53 @@ else
 JavaScriptLoader::getInstance()->load( 'forum' );
 CssLoader::getInstance()->load( 'clfrm', 'screen' );
 
-// Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure to delete %name ?');
-$jslang->addLangVar('Do you really want to sign your contribution ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+//javascript control to confirm signed posts in anonymous forums
+if( 'default' == $anonymityStatus && !$is_allowedToEdit && get_conf( 'confirm_not_anonymous', 'TRUE' ) == 'TRUE' )
+{
+    $htmlHeadXtra[] =
+    '<script type="text/javascript">
+    $(document).ready(function(){
+        $(".confirm").click(function(){
+            if( $("#anonymous_cb").length <= 0 || $("#anonymous_cb").is(":checked") )
+            {
+                return true;
+            }
+            else
+            {
+                if( confirm("' . clean_str_for_javascript( get_lang( 'Do you really want to sign your contribution ?' ) ) . '"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        });
+    });
+    </script>';
+}
 
-JavascriptLoader::getInstance()->load('forum');
+//javascript control to confirm deletion of post
+$htmlHeadXtra[] =
+"<script type=\"text/javascript\">
+   function confirm_delete()
+   {
+       if (confirm('". clean_str_for_javascript( get_lang( 'Are you sure to delete' ) ) . "'))
+       {return true;}
+       else
+       {return false;}
+   }
+</script>";
 
-// Prepare display
+//prepare display
 $out = '';
-
-// Command list
-$cmdList = array();
 
 $nameTools = get_lang( 'Forums' );
 
 $pagetype = !empty( $editMode ) ? $editMode : 'viewtopic';
 
-// The title is put in the $out var at the end of this script
-
+$out .= claro_html_tool_title( $nameTools, $is_allowedToEdit ? 'help_forum.php' : false );
 if( claro_is_allowed_to_edit() && $topicId )
 {
     $out .= '<div style="float: right;">' . "\n"
@@ -499,9 +522,8 @@ if( isset( $form ) )
 {
     $formBox = new DialogBox();
     $formBox->form( $form->render() );
-    
-    $out .= $formBox->render()
-          . '<hr />';
+    $out .= $formBox->render();
+    $out .= '<p>&nbsp;</p>';
 }
 
 //display topic review if any
@@ -532,36 +554,34 @@ if( $topicSettingList )
     
     if( $is_postAllowed )
     {
-        $cmdList = get_forum_toolbar_array( 'viewtopic', $forumSettingList['forum_id'], $forumSettingList['cat_id'], $topicId );
+        $toolList = disp_forum_toolbar( 'viewtopic', $forumSettingList['forum_id'], $forumSettingList['cat_id'], $topicId );
         
         if ( count( $postList ) > 2 ) // if less than 2 las message is visible
         {
             $start_last_message = ( ceil( $totalPosts / get_conf( 'posts_per_page' ) ) -1 ) * get_conf( 'posts_per_page' );
             
             $lastMsgUrl = Url::Contextualize( $_SERVER['PHP_SELF']
-                        . '?forum=' . $forumSettingList['forum_id']
-                        . '&amp;topic=' . $topicId
-                        . '&amp;start=' . $start_last_message
-                        . '#post' . $topicSettingList['topic_last_post_id'] );
+            .             '?forum=' . $forumSettingList['forum_id']
+            .             '&amp;topic=' . $topicId
+            .             '&amp;start=' . $start_last_message
+            .             '#post' . $topicSettingList['topic_last_post_id'] )
+            ;
             
-            $cmdList[] = array(
-                'name' => get_lang( 'Last message' ),
-                'url' => htmlspecialchars( Url::Contextualize( $lastMsgUrl ) )
-            );
+            $toolList[] = claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $lastMsgUrl ) ), get_lang( 'Last message' ) );
             
             if( !$viewall )
             {
                 $viewallUrl = Url::Contextualize( $_SERVER['PHP_SELF']
-                            . '?forum=' . $forumSettingList['forum_id']
-                            . '&amp;topic=' . $topicId
-                            . '&amp;viewall=1' );
+                .             '?forum=' . $forumSettingList['forum_id']
+                .             '&amp;topic=' . $topicId
+                .             '&amp;viewall=1' )
+                ;
                
-                $cmdList[] = array(
-                    'name' => get_lang( 'Full review' ),
-                    'url' => htmlspecialchars( Url::Contextualize( $viewallUrl ) )
-                );
+                $toolList[] = claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $viewallUrl ) ), get_lang( 'Full review' ) );
             }
         }
+        
+        $out .= '<p>' . claro_html_menu_horizontal( $toolList ) . '</p>';
     }
     
     $out .= $postLister->disp_pager_tool_bar( $pagerUrl );
@@ -602,10 +622,6 @@ if( $topicSettingList )
     
     $out .= $postLister->disp_pager_tool_bar( $pagerUrl );
 }
-
-// Page title
-$out = claro_html_tool_title( $nameTools, $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : false, $cmdList )
-     . $out;
 
 ClaroBreadCrumbs::getInstance()->setCurrent( get_lang( 'Forums' ), 'index.php' );
 

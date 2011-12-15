@@ -1,18 +1,23 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * Try to create main database of claroline without remove existing content.
+ * Try to create main database of claroline without remove existing content
  *
- * @version $Revision$
+ * @version 1.10 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
+ *
  * @package UPGRADE
+ *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesche <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
+ *
  */
 
 /*=====================================================================

@@ -5,12 +5,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE main configuration file variable definitions
  *
- * @version     $Revision$
+ * @version 1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/config_def/
- * @author      Claro Team <cvs@claroline.net>
- * @package     kernel
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see http://www.claroline.net/wiki/config_def/
+ * @author Claro Team <cvs@claroline.net>
+ * @package kernel
  */
 
 // CONFIG HEADER
@@ -35,7 +35,6 @@ $conf_def['section']['LAYOUT']['properties'] =
 array ( 'claro_stylesheet'
       , 'siteLogo'
       , 'institutionLogo'
-      , 'displayAllCommandsLinkByDefault'
       );
 
 $conf_def['section']['LANGUAGE']['label']='Language';
@@ -99,10 +98,10 @@ array ( 'smtp_host'
 $conf_def['section']['RIGHT']['label']='Right';
 $conf_def['section']['RIGHT']['properties'] =
 array ( 'courseCreationAllowed',
-        'allowSelfReg',
-        'allowToSelfEnroll'
+       'allowSelfReg'
+      , 'allowToSelfEnroll'
       );
-
+      
 $conf_def['section']['DOWNLOAD_SETTINGS']['label']='Download';
 $conf_def['section']['DOWNLOAD_SETTINGS']['description']='Configure the way files are downloaded from the platform';
 $conf_def['section']['DOWNLOAD_SETTINGS']['properties'] =
@@ -157,16 +156,6 @@ array ('label'       => 'Platform logo url'
       ,'type'        => 'string'
       ,'display'     => true
       ,'readonly'    => false
-      );
-
-$conf_def_property_list['displayAllCommandsLinkByDefault'] =
-array ( 'label'       => 'Show all the commands in tool titles'
-      , 'description' => ''
-      ,'default'     => false
-      ,'type'        => 'boolean'
-      , 'display'     => true
-      , 'readonly'    => false
-      ,'acceptedValue' => array ('TRUE'=>'Yes', 'FALSE' => 'No')
       );
 
 // Institution
@@ -579,7 +568,7 @@ array ('label'       => 'Relative path from root campus to claroline code'
       ,'display'     => false
       );
 $conf_def_property_list['coursesRepositoryAppend'] =
-array ( 'label'      => 'relative path from root campus to courses'
+array ( 'label'      => 'Relative path from root campus to courses'
       , 'type'       => 'relpath'
       , 'default'    => 'courses/'
       ,'display'     => false
@@ -600,7 +589,7 @@ array ('label'        => 'Relative path from claroline web to icon set'
       );
 
 $conf_def_property_list['userImageRepositoryAppend'] =
-array ('label'        => 'relative path from root web to user pic repository'
+array ('label'        => 'Relative path from root web to user pic repository'
       ,'type'        => 'relpath'
       ,'display'     => false
       ,'default'     => 'platform/img/users/'

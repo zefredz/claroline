@@ -1,5 +1,5 @@
 *****************************************************
-                CLAROLINE 1.11
+                CLAROLINE 1.10
 *****************************************************
 
 Thank you for downloading Claroline. This text will guide you
@@ -185,8 +185,7 @@ please ask your hosting provider for advice.
    Windows : unzip 'claroline1xx.zip'
 
 3. Delete your directories claroline/ and web/, and then replace them with the new 
-   ones you've just extracted.  Do the same for your index.php file and the 
-   .txt files.
+   ones you've just extracted.  Do the same for your index.php file.
 
    If you do not have a module/ directory in your old Claroline, you can copy the
    one provided in the archive. If you already have a module/ directory, you can
@@ -233,8 +232,7 @@ please ask your hosting provider for advice.
    Windows : unzip 'claroline1xx.zip'
 
 3. Delete your directories claroline/ and web/, and then replace them with the new 
-   ones you've just extracted.  Do the same for your index.php file and the 
-   .txt files.
+   ones you've just extracted.  Do the same for your index.php file.
 
 4. Go to your campus home page to check that the platform is still running
    correctly.

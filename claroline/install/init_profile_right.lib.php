@@ -126,3 +126,5 @@ function init_default_right_profile ()
     return true ;
 
 }
+
+?>

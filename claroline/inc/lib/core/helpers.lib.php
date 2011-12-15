@@ -3,11 +3,9 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * Helper functions and classes
  *
- * Helper functions and classes.
- *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -102,7 +100,7 @@ function link_to_claro ( $text, $url = null, $context = null, $attributes = null
  */
 function link_to_course ( $text, $courseId, $attributes = null )
 {
-    $url = get_path('url') . '/claroline/course/index.php?cid='.$courseId;
+    $url = get_path( 'url' ) . '/claroline/course/index.php?cid='.$courseId;
     $urlObj = new Url( $url );
     
     $url = $urlObj->toUrl();
@@ -128,20 +126,12 @@ function link_to_tool ( $text, $toolLabel = null, $context = null, $attributes =
 
 /**
  * Include the rendering of the given dock
- * @param string $dockName dock name
- * @param boolean $useList use <li> in rendering
- * @since 1.10
+ * @param string dock name
  * @return string rendering
  */
-function include_dock( $dockName, $useList = false )
+function include_dock( $dockName )
 {
     $dock = new ClaroDock( $dockName );
-    
-    if ( $useList )
-    {
-        $dock->mustUseList();
-    }
-    
     echo $dock->render();
 }
 
@@ -201,7 +191,7 @@ function include_textzone( $textzone, $defaultContent = null )
         include $textzonePath;
     }
     else
-    {
+    {    
         if( !is_null( $defaultContent) )
         {
             echo $defaultContent;
@@ -220,7 +210,7 @@ function include_textzone( $textzone, $defaultContent = null )
     if( claro_is_platform_admin() )
     {
         echo '<p>' . "\n"
-        .    '<a href="'.get_path('rootAdminWeb').'managing/editFile.php?cmd=rqEdit&amp;file='.$textzone.'">' . "\n"
+        .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file='.$textzone.'">' . "\n"
         .    '<img src="'.get_icon_url('edit').'" alt="" />' . get_lang('Edit text zone') . "\n"
         .    '</a>' . "\n"
         .    '</p>' . "\n";
@@ -237,98 +227,18 @@ function link_to_css( $css, $media = 'all' )
 {
     if( file_exists(get_path('clarolineRepositorySys') . '../platform/css/' . $css) )
     {
-        $date = filemtime(get_path('clarolineRepositorySys') . '../platform/css/' . $css);
-        
-        return '<link rel="stylesheet" type="text/css" href="'
-            . get_path('clarolineRepositoryWeb') . '../platform/css/' . $css . "?{$date}"
+        return '<link rel="stylesheet" type="text/css" href="' 
+            . get_path('clarolineRepositoryWeb') . '../platform/css/' . $css
             . '" media="'.$media.'" />'
             ;
     }
     elseif( file_exists(get_path('rootSys') . 'web/css/' . $css) )
     {
-        $date = filemtime(get_path('rootSys') . 'web/css/' . $css);
-        
-        return '<link rel="stylesheet" type="text/css" href="'
-            . get_path( 'url' ) . '/web/css/' . $css . "?{$date}"
+        return '<link rel="stylesheet" type="text/css" href="' 
+            . get_path( 'url' ) . '/web/css/' . $css
             . '" media="'.$media.'" />'
             ;
     }
     
     return '';
-}
-
-
-/**
- * @param
- * @param boolean $active if set to true, only actvated tool will be considered for display
- */
-function get_group_tool_menu( $gid = null, $courseId = null, $active = true )
-{
-    if ( is_null( $gid ) )
-    {
-        $gid = claro_get_current_group_id();
-    }
-    
-    if ( is_null( $courseId ) )
-    {
-        $courseId = claro_get_current_course_id();
-    }
-    
-    require_once dirname(__FILE__) . '/../group.lib.inc.php';
-    
-    $groupToolList = get_group_tool_list( $courseId, $active );
-
-    // group space links
-
-    /* $toolList[] =
-    claro_html_cmd_link(
-        htmlspecialchars(Url::Contextualize( get_module_url('CLGRP').'/group_space.php' ))
-        , '<img src="' . get_icon_url('group') . '" alt="" />&nbsp;'
-        . get_lang('Group area')
-    ); */
-
-    $courseGroupData= claro_get_main_group_properties( $courseId );
-
-    foreach ( $groupToolList as $groupTool )
-    {
-        if ( is_tool_activated_in_groups( $courseId, $groupTool['label'] )
-            && ( isset( $courseGroupData['tools'][$groupTool['label']] )
-                && $courseGroupData['tools'][$groupTool['label']]
-            )
-        )
-        {
-            $toolList[] = claro_html_cmd_link(
-                htmlspecialchars(Url::Contextualize(
-                    get_module_url($groupTool['label'])
-                    . '/' . $groupTool['url'] ))
-                , '<img src="' . get_module_url($groupTool['label']) . '/' . ($groupTool['icon']) . '" alt="" />'
-                    . '&nbsp;'
-                    . claro_get_tool_name ($groupTool['label'])
-                , array('class' => $groupTool['visibility'] ? 'visible':'invisible')
-            );
-        }
-    }
-    
-    if ( count( $toolList ) )
-    {
-        return claro_html_menu_horizontal( $toolList );
-    }
-    else
-    {
-        return '';
-    }
-}
-
-function get_help_page_url( $block, $module = 'platform' )
-{
-    $helpUrl = new Url( get_path('url').'/claroline/help/index.php' );
-    
-    if ( $module )
-    {
-        $helpUrl->addParam( 'module', $module );
-    }
-    
-    $helpUrl->addParam( 'block', $block );
-    
-    return $helpUrl->toUrl();
 }

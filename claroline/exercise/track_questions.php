@@ -1,16 +1,19 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLTRACK
- * @author      Claro Team <cvs@claroline.net>
- * @author      Sebastien Piraux <piraux@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLTRACK
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Sébastien Piraux <piraux@claroline.net>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ *
  */
-
 $tlabelReq = 'CLQWZ';
 
 require '../inc/claro_init_global.inc.php';
@@ -54,10 +57,10 @@ $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise',
                                                'qwz_answer_truefalse',
                                                'qwz_answer_fib',
                                                'qwz_answer_matching',
-                                               'qwz_tracking',
+                                               'qwz_tracking', 
                                                'qwz_tracking_questions',
                                                'qwz_tracking_answers'
-                                        ),
+                                        ), 
                                         claro_get_current_course_id() );
 
 $tbl_qwz_question                 = $tbl_cdb_names['qwz_question'];
@@ -119,9 +122,7 @@ $titleTab['mainTitle'] = $nameTools;
 $out .= claro_html_tool_title($titleTab);
 
 // build back link
-$backLink = "\n\n".'<a class="backLink" href="./track_exercises.php?exId='.$exId.$src.'">'
-          . get_lang('Back').'</a>'."\n\n";
-
+$backLink = "\n\n".'<small><a href="./track_exercises.php?exId='.$exId.$src.'">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small>'."\n\n";
 $out .= $backLink;
 
 if($is_allowedToTrack && get_conf('is_trackingEnabled'))
@@ -409,12 +410,12 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                 // expected choice image
                 $out .= '<img src="';
                 // choose image to display
-                if ($question->getType() != 'MCMA')
+                if ($question->getType() != 'MCMA') 
                 {
                     if( $result['correct'] )    $out .= get_icon_url('radio_on') . '" alt="(X)"';
                     else                        $out .= get_icon_url('radio_off') . '" alt="( )"';
                 }
-                else
+                else   
                 {
                     if( $result['correct'] )    $out .= get_icon_url('checkbox_on') . '" alt="(X)"';
                     else                        $out .= get_icon_url('checkbox_off') . '" alt="( )"';
@@ -643,3 +644,5 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

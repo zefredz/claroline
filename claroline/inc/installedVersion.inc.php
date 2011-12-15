@@ -21,13 +21,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
-$stable = false;
+$stable = true;
 $is_upgrade_available = true;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.11.0';
-$new_version_branch = '1.11';
+$new_version = '1.10.7';
+$new_version_branch = '1.10';
 
 if (!$stable)
 {

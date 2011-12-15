@@ -1,9 +1,9 @@
-<?php // $Id$
+<?php
 
 /**
  * LDAP Authentication Driver
  *
- * @version     2.5 $Revision$
+ * @version     2.5
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
@@ -26,15 +26,11 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
     protected
         $extAuthOptionList,
         $extAuthAttribNameList,
-        $extAuthAttribTreatmentList,
-        $userAttr,
-        $userFilter,
-        $userSelfBindAuth,
-        $useBindDn;
+        $extAuthAttribTreatmentList;
         
     protected $user;
     
-    public function setDriverOptions( $driverConfig )
+    public function __construct( $driverConfig )
     {
         $this->driverConfig = $driverConfig;
         $this->authSourceName = $driverConfig['driver']['authSourceName'];
@@ -52,36 +48,6 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
         $this->extAuthAttribNameList = $driverConfig['extAuthAttribNameList'];
         $this->extAuthAttribTreatmentList = $driverConfig['extAuthAttribTreatmentList'];
         $this->extAuthIgnoreUpdateList = $driverConfig['extAuthAttribToIgnore'];
-
-        // @since 1.9.9 
-        $this->authProfileOptions = isset($driverConfig['authProfileOptions'])
-            ? $driverConfig['authProfileOptions']
-            : array( 
-                'courseRegistrationAllowed' => null,
-                'courseEnrolmentMode' => null, 
-                'defaultCourseProfile' => null, 
-                'editableProfileFields' => null )
-            ;
-        
-        $this->userSelfBindAuth = isset( $driverConfig['extAuthOptionList']['userSelfBindAuth'] )
-            ? $driverConfig['extAuthOptionList']['userSelfBindAuth'] 
-            : false
-            ;
-        
-        $this->useBindDn = isset( $driverConfig['extAuthOptionList']['useBindDn'] )
-            ? $driverConfig['extAuthOptionList']['useBindDn'] 
-            : false
-            ;
-        
-        $this->userAttr = isset($this->extAuthOptionList['userattr']) 
-            ? $this->extAuthOptionList['userattr'] 
-            : 'uid'
-            ;
-            
-        $this->userFilter = isset($this->extAuthOptionList['userfilter']) 
-            ? $this->extAuthOptionList['userfilter'] 
-            : null
-            ;
     }
     
     public function authenticate()
@@ -96,41 +62,14 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
         {
             $auth->connect();
             
-            // no anonymous bind
-            // user can search
-            if( $this->userSelfBindAuth == 'true')
-            {
-                $searchdn = "{$this->userAttr}={$this->username},".$this->extAuthOptionList['basedn'];
-                $searchpw = $this->password;
-                
-                $auth->bind( $searchdn, $searchpw );
-            }
-            // user cannot search
-            elseif ( $this->useBindDn )
-            {
-                $searchdn = $this->extAuthOptionList['binddn'];
-                $searchpw = $this->extAuthOptionList['bindpw']; 
+            $userAttr = isset($this->extAuthOptionList['userattr']) ? $this->extAuthOptionList['userattr'] : null;
+            $userFilter = isset($this->extAuthOptionList['userfilter']) ? $this->extAuthOptionList['userfilter'] : null;
             
-                $auth->bind( $searchdn, $searchpw );
-            }
-            
-            // search user
-            
-            $user = $auth->getUser($this->username, $this->userFilter, $this->userAttr);
+            $user = $auth->getUser($this->username, $userFilter, $userAttr);
             
             if ( $user )
             {
-                if( $this->userSelfBindAuth == 'true')
-                {
-                    $binddn = "{$this->userAttr}={$this->username},".$this->extAuthOptionList['basedn'];
-                }
-                else
-                {
-                    $binddn = $user->getDn();
-                }
-                
-                
-                if( $auth->authenticate( $binddn, $this->password ) )
+                if( $auth->authenticate( $user->getDn(), $this->password ) )
                 {
                     $this->user = $user;
                     return true;

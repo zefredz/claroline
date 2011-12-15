@@ -1,12 +1,16 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version 1.9 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claro Team <cvs@claroline.net>
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ *
  */
 
 $tlabelReq = 'CLQWZ';
@@ -40,7 +44,7 @@ $tbl_lp_asset = $tbl_cdb_names['lp_asset'];
 
 // learning path
 // new module CLLP
-$inLP = (claro_called_from() == 'CLLP') ? true : false;
+$inLP = (claro_called_from() == 'CLLP')? true : false;
 
 $_SESSION['inPathMode'] = false;
 
@@ -399,7 +403,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
                 
                 $htmlcontent .= '<tr>' . "\n"
                 .   '<td style="background-color: #EEE; text-align: center; width: 30px;">[   ]</td>' . "\n"
-                .   '<td style="background-color: #EEE; width: 475px;">' . claro_utf8_encode( change_img_url_for_pdf($answer['answer']), get_conf('charset') ) . '</td>' . "\n"
+                .   '<td style="background-color: #EEE; width: 475px;">' . htmlspecialchars( strip_tags( claro_utf8_encode( $answer['answer'], get_conf('charset') ) ) ) . '</td>' . "\n"
                 .   '</tr>'
                 ;
                 
@@ -414,7 +418,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
                 
                 $htmlcontent .= '<tr>' . "\n"
                 .   '<td style="background-color: #EEE; text-align: center; width: 30px;">O</td>' . "\n"
-                .   '<td style="background-color: #EEE; width: 475px;">' . claro_utf8_encode( change_img_url_for_pdf($answer['answer']), get_conf('charset') ) . '</td>' . "\n"
+                .   '<td style="background-color: #EEE; width: 475px;">' . htmlspecialchars( strip_tags( claro_utf8_encode( $answer['answer'], get_conf('charset') ) ) ) . '</td>' . "\n"
                 .   '</tr>'
                 ;
                 
@@ -618,56 +622,38 @@ $myPager = new claro_sql_pager($sql, $offset, get_conf('exercisesPerPage',25));
 $exerciseList = $myPager->get_result_list();
 
 
-// Display
-$nameTools = get_lang('Exercises');
-$noQUERY_STRING = true;
-$helpUrl = $is_allowedToEdit ? get_help_page_url('blockExercisesHelp','CLQWZ') : null;
+/*
+ * Output
+ */
 
+$nameTools = get_lang('Exercises');
+
+$noQUERY_STRING = true;
 $out = '';
+
+$out .= claro_html_tool_title($nameTools, $is_allowedToEdit ? 'help_exercise.php' : false);
+
+//-- dialogBox
+$out .= $dialogBox->render();
 
 if( !$inLP )
 {
-    // Command list
-    $cmdList = array();
-    
+    //-- claroCmd
+    $cmd_menu = array();
     if(get_conf('is_trackingEnabled') && claro_is_user_authenticated())
     {
-        $cmdList[] = array(
-            'img' => 'statistics',
-            'name' => get_lang('My results'),
-            'url' => htmlspecialchars(Url::Contextualize('../tracking/userReport.php?userId='.claro_get_current_user_id()))
-        );
+        $cmd_menu[] = '<a class="claroCmd" href="../tracking/userReport.php?userId='.claro_get_current_user_id().'"><img src="' . get_icon_url('statistics') . '" alt="" />'.get_lang('My results').'</a>';
     }
     
     if($is_allowedToEdit)
     {
-        $cmdList[] = array(
-            'img' => 'quiz_new',
-            'name' => get_lang('New exercise'),
-            'url' => htmlspecialchars(Url::Contextualize('admin/edit_exercise.php?cmd=rqEdit'))
-        );
-        
-        $cmdList[] = array(
-            'img' => 'question_pool',
-            'name' => get_lang('Question pool'),
-            'url' => htmlspecialchars(Url::Contextualize('admin/question_pool.php'))
-        );
-        
-        $cmdList[] = array(
-            'img' => 'question_pool',
-            'name' => get_lang('Question categories'),
-            'url' => htmlspecialchars(Url::Contextualize('admin/question_category.php'))
-        );
-        
-        $cmdList[] = array(
-            'img' => 'import',
-            'name' => get_lang('Import exercise'),
-            'url' => htmlspecialchars(Url::Contextualize('exercise.php?cmd=rqImport'))
-        );
+        $cmd_menu[] = '<a class="claroCmd" href="admin/edit_exercise.php?cmd=rqEdit"><img src="' . get_icon_url('quiz_new') . '" alt="" />' . get_lang('New exercise').'</a>';
+        $cmd_menu[] = '<a class="claroCmd" href="admin/question_pool.php"><img src="' . get_icon_url('question_pool') . '" alt="" />'.get_lang('Question pool').'</a>';
+        $cmd_menu[] = '<a class="claroCmd" href="admin/question_category.php"><img src="' . get_icon_url('question_pool') . '" alt="" />'.get_lang('Question categories').'</a>';
+        $cmd_menu[] = '<a class="claroCmd" href="exercise.php?cmd=rqImport"><img src="' . get_icon_url('import') . '" alt="" />'.get_lang('Import exercise').'</a>';
     }
     
-    $out .= claro_html_tool_title($nameTools, $helpUrl, $cmdList);
-    $out .= $dialogBox->render();
+    $out .= '<p>' . claro_html_menu_horizontal($cmd_menu) . '</p>' . "\n";
     
     //-- pager
     $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
@@ -802,15 +788,11 @@ if( !$inLP )
     $out .= '</tbody>' . "\n\n"
     .     '</table>' . "\n\n";
 }
-else
-{
-    $out .= claro_html_tool_title($nameTools, $helpUrl);
-    $out .= $dialogBox->render();
-}
-
 //-- pager
 $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+?>

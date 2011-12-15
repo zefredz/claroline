@@ -1,12 +1,29 @@
 <?php  // $Id$
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.6
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   This program is free software; you can redistribute it and/or      |
+      |   modify it under the terms of the GNU General Public License        |
+      |   as published by the Free Software Foundation; either version 2     |
+      |   of the License, or (at your option) any later version.             |
+      |                                                                      |
+      |   This program is distributed in the hope that it will be useful,    |
+      |   but WITHOUT ANY WARRANTY; without even the implied warranty of     |
+      |   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      |
+      |   GNU General Public License for more details.                       |
+      |                                                                      |
+      |   You should have received a copy of the GNU General Public License  |
+      |   along with this program; if not, write to the Free Software        |
+      |   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA          |
+      |   02111-1307, USA. The GNU GPL license is also available through     |
+      |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
+      +----------------------------------------------------------------------+
+      | Authors:  see credits.txt                                            |
+      +----------------------------------------------------------------------+
 
-/**
- * CLAROLINE
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Claro Team <cvs@claroline.net>
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -65,7 +82,7 @@ $sql = "SELECT `nom` AS `lastname`, `prenom` as `firstname`, `email`
 $uDetails = claro_sql_query_get_single_row($sql);
 
 // get infos about the learningPath
-$sql = "SELECT `name`
+$sql = "SELECT `name` 
         FROM `".$TABLELEARNPATH."`
        WHERE `learnPath_id` = ". (int)$_REQUEST['path_id'];
 $lpDetails = claro_sql_query_get_single_row($sql);
@@ -89,7 +106,7 @@ $titleTab['subTitle'] = $lpDetails['name'];
 $out .= claro_html_tool_title($titleTab);
 
 
-if($is_allowedToTrack && get_conf('is_trackingEnabled'))
+if($is_allowedToTrack && get_conf('is_trackingEnabled')) 
 {
     //### PREPARE LIST OF ELEMENTS TO DISPLAY #################################
 
@@ -217,7 +234,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
           $out .= '</td>'."\n";
           
           if ($module['contentType'] == CTSCORM_)
-          {
+          {          
               $session_time = preg_replace("/\.[0-9]{0,2}/", "", $module['session_time']);
               $total_time = preg_replace("/\.[0-9]{0,2}/", "", $module['total_time']);
               $global_time = addScormTime($global_time,$total_time);
@@ -230,8 +247,8 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
           else
           {
               // if no progression has been recorded for this module
-              // leave
-              if($module['lesson_status'] == "")
+              // leave 
+              if($module['lesson_status'] == "") 
               {
                 $session_time = "&nbsp;";
                 $total_time = "&nbsp;";
@@ -248,7 +265,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
           $out .= '<td>'.$total_time.'</td>'."\n";
           //-- status
           $out .= '<td>';
-          if($module['contentType'] == CTEXERCISE_ && $module['lesson_status'] != "" )
+          if($module['contentType'] == CTEXERCISE_ && $module['lesson_status'] != "" ) 
             $out .= ' <a href="userReport.php?uInfo='.$_REQUEST['uInfo'].'&amp;view=0100000&amp;exoDet='.$module['path'].'">'.strtolower($module['lesson_status']).'</a>';
           else
             $out .= strtolower($module['lesson_status']);
@@ -271,7 +288,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             $globalProg += $progress;
           }
           
-          if($module['contentType'] != CTLABEL_)
+          if($module['contentType'] != CTLABEL_) 
               $moduleNb++; // increment number of modules used to compute global progression except if the module is a title
            
           $out .= '</tr>'."\n\n";
@@ -316,3 +333,4 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+?>

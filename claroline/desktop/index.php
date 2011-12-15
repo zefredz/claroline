@@ -14,18 +14,18 @@
  * @author      Claroline team <info@claroline.net>
  */
 
-// reset course and groupe
+// Reset course and groupe
 $cidReset       = true;
 $gidReset       = true;
 $uidRequired    = true;
 
-// load Claroline kernel
+// Load Claroline kernel
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
 if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
-// load libraries
-FromKernel::uses('user.lib', 'utils/finder.lib');
+// Load libraries
+uses('user.lib', 'utils/finder.lib');
 require_once dirname(__FILE__) . '/lib/portlet.lib.php';
 
 // Breadcrumb
@@ -72,35 +72,32 @@ try
     
     $moduleList = get_module_label_list();
     
-    if ( is_array( $moduleList ) )
+    foreach ( $moduleList as $moduleId => $moduleLabel )
     {
-        foreach ( $moduleList as $moduleId => $moduleLabel )
+        $portletPath = get_module_path( $moduleLabel )
+            . '/connector/desktop.cnr.php'
+            ;
+        
+        if ( file_exists( $portletPath ) )
         {
-            $portletPath = get_module_path( $moduleLabel )
-                . '/connector/desktop.cnr.php'
-                ;
+            require_once $portletPath;
             
-            if ( file_exists( $portletPath ) )
+            $className = "{$moduleLabel}_Portlet";
+            
+            $portletInDB = $portletList->loadPortlet($className);
+            
+            // si present en db on passe
+            if( !$portletInDB )
             {
-                require_once $portletPath;
-                
-                $className = "{$moduleLabel}_Portlet";
-                
-                $portletInDB = $portletList->loadPortlet($className);
-                
-                // si present en db on passe
-                if( !$portletInDB )
+                if ( class_exists($className) )
                 {
-                    if ( class_exists($className) )
-                    {
-                        $portlet = new $className($portletInDB['label']);
-                        $portletList->addPortlet( $className, $portlet->renderTitle() );
-                    }
+                    $portlet = new $className($portletInDB['label']);
+                    $portletList->addPortlet( $className, $portlet->renderTitle() );
                 }
-                
-                load_module_config($moduleLabel);
-                Language::load_module_translation($moduleLabel);
             }
+            
+            load_module_config($moduleLabel);
+            Language::load_module_translation($moduleLabel);
         }
     }
 }
@@ -170,7 +167,13 @@ else
 }
 
 // Generate Script Output
-CssLoader::getInstance()->load('desktop','all');
+
+$jsloader = JavascriptLoader::getInstance();
+$jsloader->load('jquery');
+$jsloader->load('claroline.ui');
+
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load('desktop','all');
 
 $template = new CoreTemplate('user_desktop.tpl.php');
 

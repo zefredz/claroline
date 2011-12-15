@@ -1,15 +1,14 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version 1.8 $Revision$
+ *
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLTRACK
- * @author      Claro Team <cvs@claroline.net>
- * @author      Sebastien Piraux <pir@cerdecam.be>
+ *
+ * @author Sebastien Piraux  <seb@claroline.net>
  * @author Christophe Gesche <moosh@claroline.net>
+ *
  */
 
 /*
@@ -204,3 +203,4 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics'), 'courseReport.
 $claroline->display->body->setContent($html);
 
 echo $claroline->display->render();
+?>

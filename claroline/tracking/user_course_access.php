@@ -47,11 +47,11 @@ if( isset($_REQUEST['courseId']) && !empty($_REQUEST['courseId']) )
 }
 else
 {
-    if( claro_is_in_a_course() )
+    if( claro_is_in_a_course() ) 
     {
         $courseId = claro_get_current_course_id();
     }
-    else
+    else                         
     {
        claro_disp_auth_form(true);
     }
@@ -119,7 +119,7 @@ if( $period == 'week' )
     $weekStartDate = ($reqdate-(86400*date("w" , $reqdate)));
     $weekEndDate = ($reqdate+(86400*(6-date("w" , $reqdate)) ));
     
-    $displayedDate =
+    $displayedDate = 
     get_lang('From')
     .' '.claro_html_localised_date(get_locale('dateFormatLong'), $weekStartDate )
     ." ".get_lang('to')
@@ -150,7 +150,8 @@ $accessList = claro_sql_query_fetch_all($sqlAccessDates);
 /*
  * Output
  */
-CssLoader::getInstance()->load( 'tracking', 'screen');
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'tracking', 'screen');
 
 // initialize output
 $claroline->setDisplayType( CL_PAGE );
@@ -275,3 +276,4 @@ $output .= "\n" . '</div>' . "\n";
 $claroline->display->body->setContent($output);
 
 echo $claroline->display->render();
+?>

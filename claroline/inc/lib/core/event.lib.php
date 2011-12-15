@@ -3,11 +3,9 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * CLAROLINE
+ * Event Manager library
  *
- * Event Manager library.
- *
- * @version     $Revision$
+ * @version     1.10 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -322,7 +320,7 @@ class EventListener
      * @param Event event the event to handle
      */
     public function handle( $event )
-    {
+    {      
         try
         {
             if ( is_callable( $this->_callback ) )
