@@ -2,15 +2,18 @@
 
 $_lang['Absolute sys path to the place where are move data of a deleted course.'] = 'Absolute sys path to the place where are move data of a deleted course.';
 $_lang['All courses treated !'] = 'All courses treated !';
+$_lang['Allow download of folder by non managers'] = 'Allow download of folder by non managers';
 $_lang['Allow user to use html tag in messages'] = 'Allow user to use html tag in messages';
 $_lang['Allow users to unregister from inactive, pending, expired or unpublished courses'] = 'Allow users to unregister from inactive, pending, expired or unpublished courses';
 $_lang['Are you sure to delete course %name'] = 'Are you sure to delete course %name';
 $_lang['Are you sure to delete user %firstname %lastname'] = 'Are you sure to delete user %firstname %lastname';
+$_lang['Assignment end date delay'] = 'Assignment end date delay';
 $_lang['Caution: building files\' statistics is a pretty heavy work.  It might take a while and a lot of resources, depending of the size of your campus.'] = 'Caution: building files\' statistics is a pretty heavy work.  It might take a while and a lot of resources, depending of the size of your campus.';
 $_lang['Chose the files extensions you want to monitor when producing files statistics.  Separate each extension with a quote (e.g.: doc,pdf,jpg).'] = 'Chose the files extensions you want to monitor when producing files statistics.  Separate each extension with a quote (e.g.: doc,pdf,jpg).';
 $_lang['Confirm your unsubscription from the group &quot;<b>%group_name</b>&quot;'] = 'Confirm your unsubscription from the group &quot;<b>%group_name</b>&quot;';
 $_lang['Course actually treated :'] = 'Course actually treated :';
 $_lang['Course code is'] = 'Course code is';
+$_lang['Course management tools'] = 'Course management tools';
 $_lang['Course name table prefix'] = 'Course name table prefix';
 $_lang['Crypt passwords'] = 'Crypt passwords';
 $_lang['Disk space allowed for import learning path'] = 'Disk space allowed for import learning path';
@@ -31,6 +34,7 @@ $_lang['Get CSV statistics'] = 'Get CSV statistics';
 $_lang['Get HTML statistics'] = 'Get HTML statistics';
 $_lang['HTML in posts'] = 'HTML in posts';
 $_lang['Import CVS'] = 'Import CVS';
+$_lang['Leave empty to use the default one (which is courses/<COURSEID>/tmp/zip)'] = 'Leave empty to use the default one (which is courses/<COURSEID>/tmp/zip)';
 $_lang['Length of course code suffix'] = 'Length of course code suffix';
 $_lang['Missing or invalid course access'] = 'Missing or invalid course access';
 $_lang['Mysql Base Path'] = 'Mysql Base Path';
@@ -38,7 +42,10 @@ $_lang['Nb'] = 'Nb';
 $_lang['Not Allowed !'] = 'Not Allowed !';
 $_lang['Not implemented, name reserved  for future version of Claroline'] = 'Not implemented, name reserved  for future version of Claroline';
 $_lang['Number of course treated :'] = 'Number of course treated :';
+$_lang['Number of days by default between the start date and the end date of an assignment.'] = 'Number of days by default between the start date and the end date of an assignment.';
 $_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO server provides a way to retrieve the user parameters from another server on the internet on the base of this cookie value.'] = 'Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO server provides a way to retrieve the user parameters from another server on the internet on the base of this cookie value.';
+$_lang['Other submission options'] = 'Other submission options';
+$_lang['Path to the temporary zip folder'] = 'Path to the temporary zip folder';
 $_lang['Platform admin can export username, user_id and password'] = 'Platform admin can export username, user_id and password';
 $_lang['Please modify prefix of statistic tables from statsTblPrefix'] = 'Please modify prefix of statistic tables from statsTblPrefix';
 $_lang['Please transfer tables from database statsDbName'] = 'Please transfer tables from database statsDbName';
@@ -64,6 +71,7 @@ $_lang['This feature is use for institute with  blind users.
  I fact, System would be ehanced to activate this view user by user'] = 'This feature is use for institute with  blind users. 
  I fact, System would be ehanced to activate this view user by user';
 $_lang['This is the physical path to databases storage. This path is  optional, use by the quota and size.'] = 'This is the physical path to databases storage. This path is  optional, use by the quota and size.';
+$_lang['This option can be used to prevent users which do not have manager rights in documents to download an archive of the folder'] = 'This option can be used to prevent users which do not have manager rights in documents to download an archive of the folder';
 $_lang['This string is prepend to course database name if it begins with a number'] = 'This string is prepend to course database name if it begins with a number';
 $_lang['To find a table name, the choose database name is prepend to the table name.
 db glu is use between these two name.

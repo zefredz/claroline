@@ -6,8 +6,10 @@ $_lang['All classes emptied'] = 'All classes emptied';
 $_lang['All courses treated !'] = 'All courses treated !';
 $_lang['Allow course access to be public'] = 'Allow course access to be public';
 $_lang['Allow download of folder by anonymous users'] = 'Allow download of folder by anonymous users';
+$_lang['Allow download of folder by non managers'] = 'Allow download of folder by non managers';
 $_lang['Allow users to unregister from inactive, pending, expired or unpublished courses'] = 'Allow users to unregister from inactive, pending, expired or unpublished courses';
 $_lang['Are notification emails sent automatically or on demand (configurable in the assignement tool).'] = 'Are notification emails sent automatically or on demand (configurable in the assignement tool).';
+$_lang['Assignment end date delay'] = 'Assignment end date delay';
 $_lang['Assignments preferences'] = 'Assignments preferences';
 $_lang['Automatically insert an event in the calendar at the end date'] = 'Automatically insert an event in the calendar at the end date';
 $_lang['Automatically insert an event in the calendar at the submission date'] = 'Automatically insert an event in the calendar at the submission date';
@@ -21,6 +23,7 @@ $_lang['Chose the files extensions you want to monitor when producing files stat
 $_lang['Confirm your unsubscription from the group &quot;<b>%group_name</b>&quot;'] = 'Confirm your unsubscription from the group &quot;<b>%group_name</b>&quot;';
 $_lang['Contact the platform administrator'] = 'Contact the platform administrator';
 $_lang['Course actually treated :'] = 'Course actually treated :';
+$_lang['Course management tools'] = 'Course management tools';
 $_lang['Delete all classes'] = 'Delete all classes';
 $_lang['Delete all classes ?'] = 'Delete all classes ?';
 $_lang['Descriptions'] = 'Descriptions';
@@ -47,6 +50,7 @@ For revelance, it\'s interesting to not work with to little value'] = 'If the na
 For revelance, it\'s interesting to not work with to little value';
 $_lang['If you need to create a public course, please contact the platform administrator'] = 'If you need to create a public course, please contact the platform administrator';
 $_lang['In manual mode, module activable by'] = 'In manual mode, module activable by';
+$_lang['Leave empty to use the default one (which is courses/<COURSEID>/tmp/zip)'] = 'Leave empty to use the default one (which is courses/<COURSEID>/tmp/zip)';
 $_lang['Mail notification mode'] = 'Mail notification mode';
 $_lang['Make this tool activable only by the platform administrator <small>(available if the previous option is checked)</small>'] = 'Make this tool activable only by the platform administrator <small>(available if the previous option is checked)</small>';
 $_lang['Message displayed on the file upload pages'] = 'Message displayed on the file upload pages';
@@ -69,9 +73,12 @@ $_lang['Notifications to users'] = 'Notifications to users';
 $_lang['Notify course managers of new assignments'] = 'Notify course managers of new assignments';
 $_lang['Notify students of feedbacks'] = 'Notify students of feedbacks';
 $_lang['Number of course treated :'] = 'Number of course treated :';
+$_lang['Number of days by default between the start date and the end date of an assignment.'] = 'Number of days by default between the start date and the end date of an assignment.';
 $_lang['On demand'] = 'On demand';
 $_lang['Only PLATFORM_ADMIN can activate this module'] = 'Only PLATFORM_ADMIN can activate this module';
 $_lang['Options'] = 'Options';
+$_lang['Other submission options'] = 'Other submission options';
+$_lang['Path to the temporary zip folder'] = 'Path to the temporary zip folder';
 $_lang['Platform admin can export username, user_id and password'] = 'Platform admin can export username, user_id and password';
 $_lang['Please modify prefix of statistic tables from statsTblPrefix'] = 'Please modify prefix of statistic tables from statsTblPrefix';
 $_lang['Please transfer tables from database statsDbName'] = 'Please transfer tables from database statsDbName';
@@ -80,6 +87,7 @@ Display for each request :duration, counter,  statement '] = 'Profile SQL in DEB
 Display for each request :duration, counter,  statement ';
 $_lang['Question list %id (saved the %date)'] = 'Question list %id (saved the %date)';
 $_lang['Remove me from this group'] = 'Remove me from this group';
+$_lang['Search for an existing user'] = 'Search for an existing user';
 $_lang['Send email to new users'] = 'Send email to new users';
 $_lang['Set to No to avoid the creation of public, world accessible, course sites'] = 'Set to No to avoid the creation of public, world accessible, course sites';
 $_lang['Software versions'] = 'Software versions';
@@ -96,6 +104,7 @@ $_lang['This feature is use for institute with  blind users.
  I fact, System would be ehanced to activate this view user by user'] = 'This feature is use for institute with  blind users. 
  I fact, System would be ehanced to activate this view user by user';
 $_lang['This new password has been automatically generated. Once logged in, feel free to change it.'] = 'This new password has been automatically generated. Once logged in, feel free to change it.';
+$_lang['This option can be used to prevent users which do not have manager rights in documents to download an archive of the folder'] = 'This option can be used to prevent users which do not have manager rights in documents to download an archive of the folder';
 $_lang['This option can be used to prevent web crawlers to download an archive of the folder'] = 'This option can be used to prevent web crawlers to download an archive of the folder';
 $_lang['This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.
 This option allow only to request it, and don\'t prework the answer
