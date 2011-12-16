@@ -5,7 +5,10 @@
 <h3 id="categoryContent"><?php echo $this->currentCategory->name; ?></h3>
 
 <p>
-    <a class="backLink" href="<?php echo $this->backLink; ?>">
+    <a class="backLink" href="<?php echo Url::buildUrl(
+        $this->navigationUrl,
+        array('category' => $this->currentCategory->idParent),
+        null)->toUrl(); ?>">
         <?php echo get_lang('Back to parent category'); ?>
     </a>
 </p>
@@ -24,20 +27,13 @@
 
 <ul>
 <?php foreach( $this->categoryList as $category ) : ?>
-    
+
     <?php if (claroCategory::countAllCourses($category['id']) + claroCategory::countAllSubCategories($category['id']) > 0) : ?>
     <li>
-        <?php 
-        $urlObj = Url::buildUrl(
-                        $_SERVER['PHP_SELF'].'#categoryContent',
-                        array('category' => $category['id']),
-                        null);
-        if (isset($_REQUEST['cmd'])) 
-        {
-            $urlObj->addParam('cmd', $_REQUEST['cmd']);
-        }
-        ?>
-        <a href="<?php echo $urlObj->toUrl(); ?>">
+        <a href="<?php echo Url::buildUrl(
+            $this->navigationUrl,
+            array('category' => $category['id']),
+            null)->toUrl(); ?>">
             <?php echo $category['name']; ?>
         </a>
     </li>
@@ -62,7 +58,10 @@
 
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>
 <p>
-    <a class="backLink" href="<?php echo $this->backLink; ?>">
+    <a class="backLink" href="<?php echo Url::buildUrl(
+        $this->navigationUrl,
+        array('category' => $this->currentCategory->idParent),
+        null)->toUrl(); ?>">
         <?php echo get_lang('Back to parent category'); ?>
     </a>
 </p>

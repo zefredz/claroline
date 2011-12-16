@@ -213,27 +213,23 @@ class CategoryBrowser
     {
         $currentCategory    = $this->get_current_category_settings();
         $categoryList       = $this->get_sub_category_list();
-        $backLink           = new Url($_SERVER['PHP_SELF'].'#categoryContent');
+        $navigationUrl      = new Url($_SERVER['PHP_SELF'].'#categoryContent');
         
         /*
-         * Build the back link
+         * Build url param list
          * @todo find a better way to do that
          */
-        if ($this->categoryId > 0)
+        if (isset($_REQUEST['cmd']))
         {
-            $backLink->addParam('category', $currentCategory->idParent);
+            $navigationUrl->addParam('cmd', $_REQUEST['cmd']);
         }
-        if (isset($_REQUEST['cmd'])) 
+        if (isset($_REQUEST['fromAdmin']))
         {
-            $backLink->addParam('cmd', $_REQUEST['cmd']);
+            $navigationUrl->addParam('fromAdmin', $_REQUEST['fromAdmin']);
         }
-        if (isset($_REQUEST['fromAdmin'])) 
+        if (isset($_REQUEST['uidToEdit']))
         {
-            $backLink->addParam('fromAdmin', $_REQUEST['fromAdmin']);
-        }
-        if (isset($_REQUEST['uidToEdit'])) 
-        {
-            $backLink->addParam('uidToEdit', $_REQUEST['uidToEdit']);
+            $navigationUrl->addParam('uidToEdit', $_REQUEST['uidToEdit']);
         }
         
         $courseTreeView = 
@@ -246,7 +242,7 @@ class CategoryBrowser
         $template->assign('categoryBrowser', $this);
         $template->assign('categoryList', $categoryList);
         $template->assign('courseTreeView', $courseTreeView);
-        $template->assign('backLink', $backLink->toUrl());
+        $template->assign('navigationUrl', $navigationUrl->toUrl());
         
         return $template;
     }

@@ -47,8 +47,8 @@ $categoriesList     = array();
 Define Display
 ---------------------------------------------------------------------*/
 
-define ('DISPLAY_USER_COURSES',                 __LINE__);
-define ('DISPLAY_COURSE_TREE',                  __LINE__);
+define ('DISPLAY_USER_COURSES',                 __LINE__); // in order to unenroll
+define ('DISPLAY_COURSE_TREE',                  __LINE__); // in order to enroll
 define ('DISPLAY_MESSAGE_SCREEN',               __LINE__);
 define ('DISPLAY_REGISTRATION_KEY_FORM',        __LINE__);
 define ('DISPLAY_REGISTRATION_DISABLED_FORM',   __LINE__);
@@ -76,6 +76,7 @@ Define user we are working with and build enroll URL
 ---------------------------------------------------------------------*/
 
 $inURL = ''; // parameters to add in URL
+$urlParamList = array();
 
 if ( !claro_is_platform_admin() )
 {
@@ -100,8 +101,16 @@ else
         $userSettingMode = true;
     }
     
-    if ( !empty($fromAdmin) ) $inURL    .= '&amp;fromAdmin=' . $_REQUEST['fromAdmin'];
-    if ( !empty($uidToEdit) ) $inURL    .= '&amp;uidToEdit=' . $_REQUEST['uidToEdit'];
+    if ( !empty($fromAdmin) ) 
+    {
+        $inURL    .= '&amp;fromAdmin=' . $_REQUEST['fromAdmin'];
+        $urlParamList[] = array('formAdmin' => $_REQUEST['fromAdmin']);
+    }
+    if ( !empty($uidToEdit) ) 
+    {
+        $inURL    .= '&amp;uidToEdit=' . $_REQUEST['uidToEdit'];
+        $urlParamList[] = array('uidToEdit' => $_REQUEST['uidToEdit']);
+    }
     
     /*
      * In admin mode, there are 2 possibilities: we might want to enroll 
@@ -321,8 +330,19 @@ User course list to unregister
 
 if ( $cmd == 'rqUnreg' )
 {
-    $coursesList = get_user_course_list($userId);
-    $inactiveCourseList = get_user_course_list_desactivated($userId);
+    $courseListView = CourseTreeNodeViewFactory::getUserCourseTreeView($userId);
+    $unenrollUrl = Url::buildUrl(
+        $_SERVER['PHP_SELF'] . '?cmd=exUnreg'.$inURL, 
+        $urlParamList, 
+        null);
+    
+    $viewOptions = new CourseTreeViewOptions(
+        false,
+        true,
+        null,
+        $unenrollUrl);
+    $courseListView->setViewOptions($viewOptions);
+    
     $displayMode = DISPLAY_USER_COURSES;
 } // end if ($cmd == 'rqUnreg')
 
@@ -338,7 +358,12 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
         $user =  $userId;
     
     $categoryBrowser  = new CategoryBrowser($categoryId, $user);
-    $viewOptions = new CourseTreeViewOptions(true, false, null, null);
+    $viewOptions = new CourseTreeViewOptions(
+        true,
+        false,
+        Url::buildUrl($_SERVER['PHP_SELF'].'?cmd=exReg', $urlParamList, null),
+        null);
+    
     $categoryBrowser->setViewOptions($viewOptions);
     
     $currentCategory        = $categoryBrowser->getCurrentCategorySettings();
@@ -402,9 +427,8 @@ else
 } // end if ( $cmd == 'rqReg' && ( !empty($categoryId) || !empty($parentCategoryId) ) )
 
 $backUrl .= $inURL; //notify userid of the user we are working with in admin mode and that we come from admin
-$backLink = '<p><a href="' . $backUrl . '" title="' . $backLabel. '" >'
-          . '<span style="background-image: url('.get_icon_url('back').'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;">' 
-          . $backLabel . '</span></a></p>' . "\n\n";
+$backLink = '<p><a class="backLink" href="' . $backUrl . '" title="' . $backLabel. '" >'
+          . $backLabel . '</a></p>' . "\n\n";
 
 $out = '';
 
@@ -664,9 +688,12 @@ switch ( $displayMode )
         $viewOptions = new CourseTreeViewOptions(
             true,
             false,
-            new Url($_SERVER['PHP_SELF'].'?cmd=exReg'),
+            Url::buildUrl($_SERVER['PHP_SELF'].'?cmd=exReg', $urlParamList, null),
             null);
         $searchBox->setViewOptions($viewOptions);
+        
+        $out .= '<hr />'
+              . $categoryBrowser->getTemplate()->render();
         
         $out .= $searchBox->render();
     }
@@ -685,7 +712,7 @@ switch ( $displayMode )
     break;
     
     /*---------------------------------------------------------------------
-    Display user courses ( Default display)
+    Display user courses in order to unenroll (default display)
     ---------------------------------------------------------------------*/
     
     case DISPLAY_USER_COURSES :
@@ -695,89 +722,7 @@ switch ( $displayMode )
         
         $out .= $dialogBox->render();
         
-        if ( count($coursesList) > 0 )
-        {
-            $out .= '<table class="claroTable">' . "\n";
-            
-            foreach ($coursesList as $thisCourse)
-            {
-                $out .= '<tr>' . "\n"
-                      . '<td>' . "\n"
-                      . $thisCourse['title'] . '<br />' . "\n"
-                      . '<small>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['titular'] . '</small>'
-                      . '</td>' . "\n"
-                      . '<td>' . "\n";
-                
-                if ( $thisCourse['isCourseManager'] != 1 )
-                {
-                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnreg&amp;course=' . $thisCourse['sysCode'] . $inURL . '"'
-                          . ' onclick="javascript:if(!confirm(\''
-                          . clean_str_for_javascript(get_lang('Are you sure you want to remove this course from your list ?'))
-                          . '\')) return false;">' . "\n"
-                          . '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unsubscribe') . '" />' . "\n"
-                          . '</a>' . "\n";
-                }
-                else
-                {
-                    $out .= '<span class="highlight">'
-                          . get_lang('Course manager')
-                          . '</span>' . "\n";
-                }
-                
-                $out .= '</td>' . "\n"
-                      . '</tr>' . "\n";
-            } // foreach $coursesList as $thisCourse
-            
-            $out .= '</table>' . "\n";
-        }
-        
-        $is_allowedToUnregisterFromInactive =
-            get_conf('crslist_UserCanUnregFromInactiveCourses', false)
-            || claro_is_platform_admin();
-        
-        if ( isset($inactiveCourseList) && count($inactiveCourseList) > 0 )
-        {
-            $out .= claro_html_tool_title(get_lang('Deactivated course list'))
-                  . '<table class="claroTable">' . "\n";
-            
-            foreach ($inactiveCourseList as $thisCourse)
-            {
-                $out .= '<tr>' . "\n"
-                      . '<td>' . "\n"
-                      . $thisCourse['title'] . '<br />' . "\n"
-                      . '<small>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['titular'] . '</small>'
-                      . '</td>' . "\n"
-                      . '<td>' . "\n";
-                
-                if ( $thisCourse['isCourseManager'] != 1 && $is_allowedToUnregisterFromInactive )
-                {
-                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnreg&amp;course=' . $thisCourse['sysCode'] . $inURL . '"'
-                          . ' onclick="javascript:if(!confirm(\''
-                          . clean_str_for_javascript(get_lang('Are you sure you want to remove this course from your list ?'))
-                          . '\')) return false;">' . "\n"
-                          . '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unsubscribe') . '" />' . "\n"
-                          . '</a>' . "\n";
-                }
-                else
-                {
-                    if ( $thisCourse['isCourseManager'] == 1 )
-                    {
-                        $out .= '<span class="highlight">'
-                              . get_lang('Course manager')
-                              . '</span>' . "\n";
-                    }
-                    else
-                    {
-                        $out .= "-\n";
-                    }
-                }
-                
-                $out .= '</td>' . "\n"
-                      . '</tr>' . "\n";
-            } // foreach $courseList as $thisCourse
-            
-            $out .= '</table>' . "\n";
-        }
+        $out .= $courseListView->render();
     }
     break;
     
