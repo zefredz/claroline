@@ -4,19 +4,8 @@
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>
 <h3 id="categoryContent"><?php echo $this->currentCategory->name; ?></h3>
 
-<?php
-$backlinkUrlObj = Url::buildUrl(
-                $_SERVER['PHP_SELF'].'#categoryContent',
-                array('category' => $this->currentCategory->idParent),
-                null);
-if (isset($_REQUEST['cmd'])) 
-{
-    $backlinkUrlObj->addParam('cmd', $_REQUEST['cmd']);
-}
-?>
-
 <p>
-    <a class="backLink" href="<?php echo $backlinkUrlObj->toUrl(); ?>">
+    <a class="backLink" href="<?php echo $this->backLink; ?>">
         <?php echo get_lang('Back to parent category'); ?>
     </a>
 </p>
@@ -73,7 +62,7 @@ if (isset($_REQUEST['cmd']))
 
 <?php if ($this->categoryBrowser->categoryId > 0) : ?>
 <p>
-    <a class="backLink" href="<?php echo $backlinkUrlObj->toUrl(); ?>">
+    <a class="backLink" href="<?php echo $this->backLink; ?>">
         <?php echo get_lang('Back to parent category'); ?>
     </a>
 </p>

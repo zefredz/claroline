@@ -213,7 +213,28 @@ class CategoryBrowser
     {
         $currentCategory    = $this->get_current_category_settings();
         $categoryList       = $this->get_sub_category_list();
-        $userId             = claro_get_current_user_id();
+        $backLink           = new Url($_SERVER['PHP_SELF'].'#categoryContent');
+        
+        /*
+         * Build the back link
+         * @todo find a better way to do that
+         */
+        if ($this->categoryId > 0)
+        {
+            $backLink->addParam('category', $currentCategory->idParent);
+        }
+        if (isset($_REQUEST['cmd'])) 
+        {
+            $backLink->addParam('cmd', $_REQUEST['cmd']);
+        }
+        if (isset($_REQUEST['fromAdmin'])) 
+        {
+            $backLink->addParam('fromAdmin', $_REQUEST['fromAdmin']);
+        }
+        if (isset($_REQUEST['uidToEdit'])) 
+        {
+            $backLink->addParam('uidToEdit', $_REQUEST['uidToEdit']);
+        }
         
         $courseTreeView = 
             CourseTreeNodeViewFactory::getCategoryCourseTreeView($this->categoryId);
@@ -225,6 +246,7 @@ class CategoryBrowser
         $template->assign('categoryBrowser', $this);
         $template->assign('categoryList', $categoryList);
         $template->assign('courseTreeView', $courseTreeView);
+        $template->assign('backLink', $backLink->toUrl());
         
         return $template;
     }
