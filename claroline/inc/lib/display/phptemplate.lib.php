@@ -169,7 +169,7 @@ class ModuleTemplate extends PhpTemplate
         $customTemplatePath = get_path('rootSys') . 'platform/templates/'.$moduleLabel.'/'.$template;
         
         // Version specific template file
-        $defaultVersionTemplatePath = get_module_path($moduleLabel) . '/templates/1_10/'.$template;
+        $defaultVersionTemplatePath = get_module_path($moduleLabel) . '/templates/1_11/'.$template;
         
         // Default template path
         $defaultTemplatePath = get_module_path($moduleLabel) . '/templates/'.$template;
