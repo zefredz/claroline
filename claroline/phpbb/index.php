@@ -184,7 +184,7 @@ catch( Exception $ex )
                 $cmd = 'show'; 
                 break;  
             case 'exEmptyForum' :
-               $dialogBox->error( get_lang( 'Unknown forum' ) );
+                $dialogBox->error( get_lang( 'Unknown forum' ) );
                 $cmd = 'show'; 
                 break; 
             case 'exMvUpForum' :

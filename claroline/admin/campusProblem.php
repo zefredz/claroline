@@ -595,7 +595,7 @@ switch ($display)
                 ;
             }
             $out .= '</p>' . "\n\n"
-            .    claro_html_tool_title('Integrity problems') ;
+            .    claro_html_tool_title(get_lang('Integrity problems'));
 
 
 

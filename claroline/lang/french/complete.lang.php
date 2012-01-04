@@ -3230,4 +3230,6 @@ $_lang['clear'] = 'nettoyer';
 $_lang['files_stats'] = 'statistiques_fichiers';
 $_lang['on bottom'] = 'au-dessous';
 $_lang['on top'] = 'au-dessus';
+$_lang['Calendar'] = 'Calendrier';
+$_lang['Headlines'] = 'Editorial';
 ?>

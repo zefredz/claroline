@@ -435,7 +435,7 @@ if ($display_form)
     
     . ResourceLinker::renderLinkerBlock()
     . '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n"
-    . claro_html_button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
+    . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
     ;
 }
 

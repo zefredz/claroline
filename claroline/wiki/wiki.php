@@ -756,7 +756,6 @@
                         . '<img src="' . get_icon_url('history').'" alt="'.get_lang("Recent changes").'" />'
                         . '</a>'
                         ;
-                        ;
 
                     $out .= '</td>' . "\n";
 

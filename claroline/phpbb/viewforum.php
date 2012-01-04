@@ -210,7 +210,7 @@ if( $is_allowedToEdit )
 //load forum settings and check access rights
 if( false === $forumSettingList = get_forum_settings( $forumId ) )
 {
-    $dialogBox->error( 'Unknown forum' );
+    $dialogBox->error( get_lang('Unknown forum') );
     $viewAllowed = false;
 }
 elseif( !is_null( $forumSettingList['idGroup'] )
