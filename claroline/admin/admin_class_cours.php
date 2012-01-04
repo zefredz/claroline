@@ -139,20 +139,27 @@ if ( empty($class_id) )
 }
 else
 {
+    $cmdList = array();
+    
+    $cmdList[] = array(
+        'img' => 'enroll', 
+        'name' => get_lang('Register class for course'), 
+        'url' => htmlspecialchars(get_path('clarolineRepositoryWeb')
+               . 'auth/courses.php?'
+               . 'cmd=rqReg&fromAdmin=class&class_id='.$class_id)
+    );
+    
     // Display tool title
-
-    $out .= claro_html_tool_title(get_lang('Course list') . ' : ' . $classinfo['name']);
-
-    // TOOL LINKS
-    $cmd_menu[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'auth/courses.php?cmd=rqReg&amp;fromAdmin=class&amp;class_id='.$class_id.'"><img src="' . get_icon_url('enroll') . '" /> ' . get_lang('Register class for course') . '</a>';
-    $out .= '<p>' . claro_html_menu_horizontal( $cmd_menu ) . '</p>';
-
+    $out .= claro_html_tool_title(
+        get_lang('Course list') . ' : ' . $classinfo['name'], 
+        null,
+        $cmdList);
+    
     // Pager
-
     $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'&amp;class_id='.$class_id);
-
+    
     // Display list of cours
-
+    
     // start table...
     // TODO datagrid
     $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
@@ -166,13 +173,12 @@ else
     .    '</thead>'
     .    '<tbody>'
     ;
-
-    // Start the list of users...
-
+    
+    // Start the list of users
     foreach($resultList as $list)
     {
         $list['officialCode'] = (isset($list['officialCode']) ? $list['officialCode'] :' - ');
-
+        
         $out .= '<tr>'
         .    '<td align="center" >' . $list['code']      . '</td>'
         .    '<td align="left" >'   . $list['intitule']          . '</td>'
@@ -192,7 +198,7 @@ else
         .    '</td>'
         .    '</tr>';
     }
-
+    
     // end display users table
     if ( empty($resultList) )
     {
@@ -207,14 +213,13 @@ else
         .    '</tr>'
         ;
     }
+    
     $out .= '</tbody>' . "\n"
     .    '</table>' . "\n"
     ;
-
+    
     //Pager
-
     $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'&amp;class_id='.$class_id);
-
 }
 
 $claroline->display->body->appendContent($out);
