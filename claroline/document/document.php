@@ -1214,7 +1214,8 @@ if ($curDirPath == '/' || $curDirPath == '\\' || strstr($curDirPath, '..'))
 
 if ( !file_exists($baseWorkDir.'/'.$curDirPath) || ! is_dir($baseWorkDir.'/'.$curDirPath) )
 {
-    $dialogBox->error("The requested folder ".htmlspecialchars($baseWorkDir.'/'.$curDirPath)." does not exists");
+    $dialogBox->error(get_lang("The requested folder %dir does not exists", 
+        array('%dir' => htmlspecialchars($baseWorkDir.'/'.$curDirPath))));
     $curDirPath = ''; // back to root directory
 }
 

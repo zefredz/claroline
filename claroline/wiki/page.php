@@ -672,7 +672,7 @@ switch( $action )
                 . $wikiId . '&amp;title=' . $title ))
         );
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars('Edit') );
+            htmlspecialchars( get_lang('Edit')) );
         break;
     }
     case 'preview':
@@ -685,19 +685,19 @@ switch( $action )
                 . $wikiId . '&amp;title=' . $title ))
         );
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars('Preview') );
+            htmlspecialchars( get_lang('Preview')) );
         break;
     }
     case 'all':
     {
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars('All pages') );
+            htmlspecialchars( get_lang('All pages')) );
         break;
     }
     case 'recent':
     {
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars('Recent changes') );
+            htmlspecialchars( get_lang('Recent changes')) );
         break;
     }
     case 'history':
@@ -710,7 +710,7 @@ switch( $action )
                 . $wikiId . '&amp;title=' . $title ))
         );
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars('History') );
+            htmlspecialchars( get_lang("History")) );
         break;
     }
     default:
@@ -1009,12 +1009,12 @@ switch( $action )
             . ( $previous !== false
                 ? ' ' . '<a href="'.$script.'&amp;offset='
                   . $previous .'&amp;step=' . (int) $step .'">&lt; '.get_lang('Previous').'</a>'
-                : ' &lt; Previous' )
+                : ' &lt; '.get_lang('Previous') )
             . ' ' . '<a href="'.$script.'&amp;offset=0&amp;step=0">'.get_lang('All').'</a>'
             . ( $next !== false
                 ? ' ' . '<a href="'.$script.'&amp;offset='
                   . $next .'&amp;step=' . (int) $step .'">'.get_lang('Next').' &gt;</a>'
-                : ' Next &gt;' )
+                : get_lang('Next').' &gt;' )
             . ' ' . '<a href="'.$script.'&amp;offset='
             . $last . '&amp;step=' . (int) $step .'">'.get_lang('Last').' &gt;&gt;</a>'
             . '</p>'
@@ -1256,18 +1256,23 @@ switch( $action )
 
         $out .= '<p>'
             . '<a href="'.$script.'&amp;offset='
-            . $first .'&amp;step=' . (int) $step .'">&lt;&lt; First</a>'
+            . $first .'&amp;step=' . (int) $step .'">&lt;&lt; ' 
+            . get_lang('First') . '</a>'
             . ( $previous !== false
                 ? ' ' . '<a href="'.$script.'&amp;offset='
-                  . $previous .'&amp;step=' . (int) $step .'">&lt; Previous</a>'
-                : ' &lt; Previous' )
-            . ' ' . '<a href="'.$script.'&amp;offset=0&amp;step=0">All</a>'
+                  . $previous .'&amp;step=' . (int) $step .'">&lt; ' 
+                  . get_lang('Previous') . '</a>'
+                : ' &lt; ' . get_lang('Previous') )
+            . ' ' . '<a href="'.$script.'&amp;offset=0&amp;step=0">' 
+            . get_lang('All') . '</a>'
             . ( $next !== false
                 ? ' ' . '<a href="'.$script.'&amp;offset='
-                  . $next .'&amp;step=' . (int) $step .'">Next &gt;</a>'
-                : ' Next &gt;' )
+                  . $next .'&amp;step=' . (int) $step .'">' 
+                  . get_lang('Next') . ' &gt;</a>'
+                : get_lang('Next') . ' &gt;' )
             . ' ' . '<a href="'.$script.'&amp;offset='
-            . $last . '&amp;step=' . (int) $step .'">Last &gt;&gt;</a>'
+            . $last . '&amp;step=' . (int) $step .'"> ' . get_lang('Last') 
+            . ' &gt;&gt;</a>'
             . '</p>'
             ;
 
