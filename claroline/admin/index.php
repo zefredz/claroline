@@ -100,7 +100,7 @@ if (file_exists(dirname(__FILE__) . '/maintenance/checkmails.php'))
 }
 
 // Claroline's administration menu
-$menu['AdminClaroline'][] = '<a href="registerCampus.php">'.get_lang('Register my campus').'</a>';
+$menu['AdminClaroline'][] = '<a href="registercampus.php">'.get_lang('Register my campus').'</a>';
 $menu['AdminClaroline'][] = '<a href="http://forum.claroline.net/">'.get_lang('Support forum').'</a>';
 $menu['AdminClaroline'][] = '<a href="clarolinenews.php">'.get_lang('Claroline.net news').'</a>';
 
