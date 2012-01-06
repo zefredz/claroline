@@ -1477,14 +1477,14 @@ if ($curDirName || $cmd == 'exSearch')
     $cmdList[] = array(
         'img' => 'parent',
         'name' => get_lang('Up'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.download_url_encode($parentDir)))
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exChDir&file='.download_url_encode($parentDir)))
     );
 }
 
 $cmdList[] = array(
     'img' => 'search',
     'name' => get_lang('Search'),
-    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqSearch&amp;cwd='.$cmdCurDirPath ))
+    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqSearch&cwd='.$cmdCurDirPath ))
 );
 
 if ( trim($searchPattern) != '')
@@ -1504,7 +1504,7 @@ if ( ( claro_is_user_authenticated()
         $cmdList[] = array(
             'img' => 'save',
             'name' => get_lang('Download current directory'),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exDownload&amp;'.$downloadArgument))
+            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exDownload&'.$downloadArgument))
         );
     }
 }
@@ -1516,25 +1516,25 @@ if ($is_allowedToEdit)
     $cmdList[] = array(
         'img' => 'upload',
         'name' => get_lang('Upload file'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqUpload&amp;cwd='.$cmdCurDirPath))
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqUpload&cwd='.$cmdCurDirPath))
     );
     
     $cmdList[] = array(
         'img' => 'folder',
         'name' => get_lang('Create directory'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqMkDir&amp;cwd='.$cmdCurDirPath))
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqMkDir&cwd='.$cmdCurDirPath))
     );
     
     $cmdList[] = array(
         'img' => 'link',
         'name' => get_lang('Create hyperlink'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqMkUrl&amp;cwd='.$cmdCurDirPath))
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqMkUrl&cwd='.$cmdCurDirPath))
     );
     
     $cmdList[] = array(
         'img' => 'html',
         'name' => get_lang('Create Document'),
-        'url' => htmlspecialchars(Url::Contextualize( 'rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.$cmdCurDirPath))
+        'url' => htmlspecialchars(Url::Contextualize('rqmkhtml.php?cmd=rqMkHtml&cwd='.$cmdCurDirPath))
     );
 }
 
