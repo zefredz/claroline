@@ -1,7 +1,7 @@
 <!-- $Id$ -->
 
-<dt<?php if (!empty($this->modifiedCourseList) 
-    && in_array($this->node->getCourse()->courseId, $this->modifiedCourseList)) : 
+<dt<?php if (!empty($this->notifiedCourseList) 
+    && $this->notifiedCourseList->isCourseNotified($this->node->getCourse()->courseId)) : 
     ?> class="hot"<?php endif; ?>>
     
     <!-- Access icon -->

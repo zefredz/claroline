@@ -1,7 +1,7 @@
 <!-- $Id$ -->
 
-<dt class="desactivated<?php if (!empty($this->modifiedCourseList) 
-    && in_array($this->node->getCourse()->courseId, $this->modifiedCourseList)) : 
+<dt class="desactivated<?php if (!empty($this->notifiedCourseList) 
+    && $this->notifiedCourseList->isCourseNotified($this->node->getCourse()->courseId)) : 
     ?> hot<?php endif; ?>">
     
     <!-- Access icon -->
@@ -101,17 +101,16 @@
         $this->node->getCourse()->courseId )->isCourseManager()
         || claro_is_platform_admin() ) : ?>
     
-    <a <?php if (!empty($this->modifiedCourseList) 
-        && in_array($this->node->getCourse()->courseId, $this->modifiedCourseList)) : 
-        ?>class="hot"<?php endif; ?>
+    <a<?php if (!empty($this->notifiedCourseList) 
+        && $this->notifiedCourseList->isCourseNotified($this->node->getCourse()->courseId)) : 
+        ?> class="hot"<?php endif; ?>
         href="<?php echo htmlspecialchars(get_path('url')
         .'/claroline/course/index.php?cid='.$this->node->getCourse()->sysCode); ?>">
         
         <?php echo htmlspecialchars($this->node->getCourse()->officialCode); ?>
         &ndash;
         <?php echo htmlspecialchars($this->node->getCourse()->name); ?>
-        
-    </a>
+    </a> [<?php echo get_lang('Desactivated'); ?>]
     
     <?php else : ?>
     
