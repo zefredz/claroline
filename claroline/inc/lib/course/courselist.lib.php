@@ -996,18 +996,25 @@ class CourseTreeNodeViewFactory
     
     /**
      * Get the complete course tree of a specific category.
+     * If you wish to display enroll links regarding another user than the 
+     * current one, you can specify another user id in the method's params.
+     * This is useful when, for instance, you are a platform admin enrolling 
+     * another user to some courses.
      * 
      * @param int category id
+     * @param int user id
      * @return CourseTreeView 
      */
-    static public function getCategoryCourseTreeView($categoryId)
+    static public function getCategoryCourseTreeView($categoryId, $userId = null)
     {
+        $userId = empty($userId) ? claro_get_current_user_id() : $userId;
+        
         // CourseListIterator
         $courseList = new CategoryCourseList($categoryId);
         $courseListIterator = $courseList->getIterator();
         
         // User rights
-        $privilegeList = new CourseUserPrivilegesList(claro_get_current_user_id());
+        $privilegeList = new CourseUserPrivilegesList($userId);
         $privilegeList->load();
         
         // Course tree
@@ -1026,7 +1033,10 @@ class CourseTreeNodeViewFactory
     }
     
     /**
-     * Get the complete course tree of a specific category for a specific user.
+     * Get the complete course tree of a specific category and for a specific 
+     * user.  
+     * Note that only the courses contained in the category and for which the 
+     * user is enrolled will be in the result.
      * 
      * @param int user id
      * @param int category id

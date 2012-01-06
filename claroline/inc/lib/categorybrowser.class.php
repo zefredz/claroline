@@ -211,8 +211,8 @@ class CategoryBrowser
      */
     public function getTemplate()
     {
-        $currentCategory    = $this->get_current_category_settings();
-        $categoryList       = $this->get_sub_category_list();
+        $currentCategory    = $this->getCurrentCategorySettings();
+        $categoryList       = $this->getSubCategoryList();
         $navigationUrl      = new Url($_SERVER['PHP_SELF'].'#categoryContent');
         
         /*
@@ -233,7 +233,9 @@ class CategoryBrowser
         }
         
         $courseTreeView = 
-            CourseTreeNodeViewFactory::getCategoryCourseTreeView($this->categoryId);
+            CourseTreeNodeViewFactory::getCategoryCourseTreeView(
+                $this->categoryId, 
+                $this->userId);
         
         $courseTreeView->setViewOptions($this->viewOptions);
         
