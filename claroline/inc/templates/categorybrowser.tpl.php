@@ -7,7 +7,7 @@
 <p>
     <a class="backLink" href="<?php echo Url::buildUrl(
         $this->navigationUrl,
-        array('category' => $this->currentCategory->idParent),
+        array('categoryId' => $this->currentCategory->idParent),
         null)->toUrl(); ?>">
         <?php echo get_lang('Back to parent category'); ?>
     </a>
@@ -32,7 +32,7 @@
     <li>
         <a href="<?php echo Url::buildUrl(
             $this->navigationUrl,
-            array('category' => $category['id']),
+            array('categoryId' => $category['id']),
             null)->toUrl(); ?>">
             <?php echo $category['name']; ?>
         </a>
@@ -60,7 +60,7 @@
 <p>
     <a class="backLink" href="<?php echo Url::buildUrl(
         $this->navigationUrl,
-        array('category' => $this->currentCategory->idParent),
+        array('categoryId' => $this->currentCategory->idParent),
         null)->toUrl(); ?>">
         <?php echo get_lang('Back to parent category'); ?>
     </a>

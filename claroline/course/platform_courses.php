@@ -18,7 +18,7 @@ require_once dirname(__FILE__) . '/../inc/lib/coursesearchbox.class.php';
 // Build the breadcrumb
 $nameTools = get_lang('Platform courses');
 
-$categoryId = ( !empty( $_REQUEST['category']) ) ? ( (int) $_REQUEST['category'] ) : ( 0 );
+$categoryId = ( !empty( $_REQUEST['categoryId']) ) ? ( (int) $_REQUEST['categoryId'] ) : ( 0 );
 
 $categoryBrowser    = new CategoryBrowser($categoryId, claro_get_current_user_id());
 

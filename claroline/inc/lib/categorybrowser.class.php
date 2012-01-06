@@ -231,6 +231,10 @@ class CategoryBrowser
         {
             $navigationUrl->addParam('uidToEdit', $_REQUEST['uidToEdit']);
         }
+        if (isset($_REQUEST['asTeacher']))
+        {
+            $navigationUrl->addParam('asTeacher', $_REQUEST['asTeacher']);
+        }
         
         $courseTreeView = 
             CourseTreeNodeViewFactory::getCategoryCourseTreeView(
