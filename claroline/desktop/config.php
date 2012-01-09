@@ -3,22 +3,21 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
-* CLAROLINE
-*
-* User desktop administration index
-*
-* @version      1.9 $Revision$
+ * CLAROLINE
+ *
+ * User desktop administration and configuration.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
-* @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
-* @package      DESKTOP
-* @author       Claroline team <info@claroline.net>
-*
-*/
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     DESKTOP
+ * @author      Claroline team <info@claroline.net>
+ */
 
 // reset course and groupe
-$cidReset = TRUE;
-$gidReset = TRUE;
-$uidRequired = TRUE;
+$cidReset = true;
+$gidReset = true;
+$uidRequired = true;
 
 // load Claroline kernel
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
@@ -115,7 +114,7 @@ if( is_array($portletList) && !empty($portletList) )
         $i++;
         $output .= "\n"
             . '<tr>' . "\n"
-            . '<td>' . htmlspecialchars($portlet['name']) . '</td>' . "\n"
+            . '<td>' . htmlspecialchars(get_lang($portlet['name'])) . '</td>' . "\n"
             ;
 
         if( $portlet['visibility'] == 'visible' )

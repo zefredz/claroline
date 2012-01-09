@@ -3232,4 +3232,5 @@ $_lang['on bottom'] = 'au-dessous';
 $_lang['on top'] = 'au-dessus';
 $_lang['Calendar'] = 'Calendrier';
 $_lang['Headlines'] = 'Editorial';
+$_lang['My last messages'] = 'Mes derniers messages';
 ?>

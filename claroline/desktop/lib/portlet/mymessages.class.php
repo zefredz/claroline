@@ -10,9 +10,9 @@ if ( count( get_included_files() ) == 1 )
 /**
  * CLAROLINE
  *
- * User desktop : internal messaging portlet
+ * User desktop : internal messaging portlet.
  *
- * @version     1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     DESKTOP
@@ -29,6 +29,9 @@ class MyMessages extends UserDesktopPortlet
     
     public function __construct()
     {
+        $this->name = 'My last messages';
+        $this->label = 'mymessages';
+        
         $this->inbox = new InBox;
         $this->inbox->getMessageStrategy()->setNumberOfMessagePerPage( get_conf('myboxNumberOfMessage',5) );
     }
@@ -87,7 +90,11 @@ class MyMessages extends UserDesktopPortlet
         
         $output .= "\n"
                  . '</tbody>' . "\n"
-                 . '</table>' . "\n";
+                 . '</table>' . "\n"
+                 . '<a href="'.get_path('clarolineRepositoryWeb')
+                 . 'messaging/index.php' . '">'
+                 . get_lang('View all my messages')
+                 . '</a>';
         
         return $output;
     }
@@ -95,12 +102,8 @@ class MyMessages extends UserDesktopPortlet
     
     public function renderTitle()
     {
-        $output = get_lang('My %numberOfMessages last messages', array( '%numberOfMessages' => get_conf('myboxNumberOfMessage',5) ) )
-                . ' <span class="separator">|</span> '
-                . '<a href="'.get_path('clarolineRepositoryWeb')
-                . 'messaging/index.php' . '">'
-                . get_lang('View all my messages')
-                . '</a>';
+        $output = get_lang('My %numberOfMessages last messages', array( 
+            '%numberOfMessages' => get_conf('myboxNumberOfMessage',5) ) );
         
         return $output;
     }

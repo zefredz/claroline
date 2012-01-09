@@ -8,23 +8,27 @@ if ( count( get_included_files() ) == 1 )
 }
 
 /**
-* CLAROLINE
-*
-* User desktop : MyCalendar portlet
-* FIXME : move to calendar module
-*
-* @version      1.9 $Revision$
+ * CLAROLINE
+ *
+ * User desktop : MyCalendar portlet.
+ *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
-* @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
-* @package      DESKTOP
-* @author       Claroline team <info@claroline.net>
-*
-*/
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     DESKTOP
+ * @author      Claroline team <info@claroline.net>
+ */
 
 require_once get_module_path( 'CLCAL' ) . '/lib/agenda.lib.php';
 
 class CLCAL_Portlet extends UserDesktopPortlet
 {
+    public function __construct()
+    {
+        $this->name = 'My calendar';
+        $this->label = 'CLCAL_Portlet';
+    }
+    
     public function renderContent()
     {
         $output = '<div id="portletMycalendar">' . "\n"

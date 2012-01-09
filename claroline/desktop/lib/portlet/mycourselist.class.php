@@ -10,9 +10,9 @@ if ( count( get_included_files() ) == 1 )
 /**
  * CLAROLINE
  *
- * User desktop : course list portlet
+ * User desktop : course list portlet.
  *
- * @version     1.9 $Revision$
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     DESKTOP
@@ -25,6 +25,12 @@ include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
 class MyCourseList extends UserDesktopPortlet
 {
+    public function __construct()
+    {
+        $this->name = 'My course list';
+        $this->label = 'mycourselist';
+    }
+    
     public function renderContent()
     {
         global $platformLanguage;
