@@ -1,24 +1,18 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
- * This script display list of configuration file
+ * This script display list of configuration file.
  *
- * @version 1.9 $Revision$
- *
+ * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/config_def/
- *
- * @package CONFIG
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Mathieu Laurent   <mla@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- *
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/config_def/
+ * @package     CONFIG
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Mathieu Laurent   <mla@claroline.net>
+ * @author      Christophe Gesché <moosh@claroline.net>
  */
 
 $cidReset=TRUE;
@@ -57,7 +51,7 @@ $def_class_list['tool']['name']     = get_lang('Course tools');
 $def_class_list['auth']['name']     = get_lang('Authentication');
 $def_class_list['groups']['name']   = get_lang('Groups');
 $def_class_list['kernel']['name']   = get_lang('Kernel');
-$def_class_list['others']['name']   = get_lang('Others');
+$def_class_list['other']['name']   = get_lang('Others');
 
 $def_list = get_config_code_class_list();
 
@@ -125,5 +119,3 @@ if ( is_array($def_class_list) )
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
