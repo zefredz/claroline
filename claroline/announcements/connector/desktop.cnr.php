@@ -26,6 +26,9 @@ class CLANN_Portlet extends UserDesktopPortlet
     {
         parent::__construct($label);
         
+        $this->name = 'Latest announcements';
+        $this->label = 'CLANN_Portlet';
+        
         if (file_exists(claro_get_conf_repository() . 'CLANN.conf.php'))
         {
             include claro_get_conf_repository() . 'CLANN.conf.php';

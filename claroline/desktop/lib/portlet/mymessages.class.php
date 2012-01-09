@@ -2,10 +2,7 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
  * CLAROLINE
@@ -29,6 +26,9 @@ class MyMessages extends UserDesktopPortlet
     public function __construct($label)
     {
         parent::__construct($label);
+        
+        $this->name = 'My last messages';
+        $this->label = 'mymessages';
         
         $this->inbox = new InBox;
         $this->inbox->getMessageStrategy()->setNumberOfMessagePerPage( get_conf('myboxNumberOfMessage',5) );
@@ -88,7 +88,11 @@ class MyMessages extends UserDesktopPortlet
         
         $output .= "\n"
                  . '</tbody>' . "\n"
-                 . '</table>' . "\n";
+                 . '</table>' . "\n"
+                 . '<a href="'.get_path('clarolineRepositoryWeb')
+                 . 'messaging/index.php' . '">'
+                 . get_lang('View all my messages')
+                 . '</a>';
         
         return $output;
     }
@@ -96,12 +100,7 @@ class MyMessages extends UserDesktopPortlet
     
     public function renderTitle()
     {
-        $output = get_lang('My %numberOfMessages last messages', array( '%numberOfMessages' => get_conf('myboxNumberOfMessage',5) ) )
-                . ' <span class="separator">|</span> '
-                . '<a href="'.get_path('clarolineRepositoryWeb')
-                . 'messaging/index.php' . '">'
-                . get_lang('View all my messages')
-                . '</a>';
+        $output = get_lang('My %numberOfMessages last messages', array( '%numberOfMessages' => get_conf('myboxNumberOfMessage',5) ) );
         
         return $output;
     }

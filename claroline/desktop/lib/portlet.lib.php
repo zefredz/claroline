@@ -2,10 +2,7 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
  * CLAROLINE
@@ -23,7 +20,30 @@ require_once get_path('includePath') . '/lib/portlet.class.php';
 
 abstract class UserDesktopPortlet extends Portlet
 {
+    /**
+     * @var String
+     */
+    protected $name, $label;
     
+    public function getName()
+    {
+        return $this->name;
+    }
+    
+    public function getLabel()
+    {
+        return $this->label;
+    }
+    
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+    
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
 }
 
 class PortletList

@@ -55,13 +55,14 @@ try
         // Load portlet from database
         $portletInDB = $portletList->loadPortlet( $className );
         
+        // If it's not in DB, add it
         if( !$portletInDB )
         {
             if( class_exists($className) )
             {
                 $portlet = new $className($portletInDB['label']);
                 
-                $portletList->addPortlet( $className, $portlet->renderTitle() );
+                $portletList->addPortlet( $portlet->getLabel(), $portlet->getName() );
             }
         }
         else
@@ -77,8 +78,7 @@ try
         foreach ( $moduleList as $moduleId => $moduleLabel )
         {
             $portletPath = get_module_path( $moduleLabel )
-                . '/connector/desktop.cnr.php'
-                ;
+                . '/connector/desktop.cnr.php';
             
             if ( file_exists( $portletPath ) )
             {
@@ -86,15 +86,16 @@ try
                 
                 $className = "{$moduleLabel}_Portlet";
                 
+                // Load portlet from database
                 $portletInDB = $portletList->loadPortlet($className);
                 
-                // si present en db on passe
+                // If it's not in DB, add it
                 if( !$portletInDB )
                 {
                     if ( class_exists($className) )
                     {
                         $portlet = new $className($portletInDB['label']);
-                        $portletList->addPortlet( $className, $portlet->renderTitle() );
+                        $portletList->addPortlet( $portlet->getLabel(), $portlet->getName() );
                     }
                 }
                 

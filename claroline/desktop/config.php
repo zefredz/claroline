@@ -114,9 +114,10 @@ if( is_array($portletList) && !empty($portletList) )
         $i++;
         $output .= "\n"
             . '<tr>' . "\n"
-            . '<td>' . htmlspecialchars($portlet['name']) . '</td>' . "\n"
-            ;
-
+            . '<td>' 
+            . htmlspecialchars(get_lang($portlet['name'])) 
+            . '</td>' . "\n";
+        
         if( $portlet['visibility'] == 'visible' )
         {
             $output .= "\n"

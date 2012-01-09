@@ -23,6 +23,12 @@ include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
 class MyCourseList extends UserDesktopPortlet
 {
+    public function __construct()
+    {
+        $this->name = 'My course list';
+        $this->label = 'mycourselist';
+    }
+    
     public function renderContent()
     {
         global $platformLanguage;
