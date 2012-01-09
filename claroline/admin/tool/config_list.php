@@ -53,7 +53,7 @@ $def_class_list['tool']['name']     = get_lang('Course tools');
 $def_class_list['auth']['name']     = get_lang('Authentication');
 $def_class_list['groups']['name']   = get_lang('Groups');
 $def_class_list['kernel']['name']   = get_lang('Kernel');
-$def_class_list['others']['name']   = get_lang('Others');
+$def_class_list['other']['name']   = get_lang('Others');
 
 $def_list = get_config_code_class_list();
 
