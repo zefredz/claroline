@@ -10,7 +10,9 @@
  *
  * @package LANG-PL
 */
+
 $englishLangName = "Polish";
+$localLangName = "polski";
 
 $iso639_1_code = "pl";
 $iso639_2_code = "pol";
@@ -65,8 +67,7 @@ $left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
 $right_font_family = 'helvetica, arial, geneva, sans-serif';
 $number_thousands_separator = ' ';
 $number_decimal_separator = ',';
-// shortcuts for Byte, Kilo, Mega, Giga, Tera, Peta, Exa
-$byteUnits = array('bajtów', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB');
+$byteUnits = array('bajtów', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'); // shortcuts for Byte, Kilo, Mega, Giga, Tera, Peta, Exa
 
 $langDay_of_weekNames['init'] = array('N', 'P', 'W', '¦', 'C', 'Pt', 'S');
 $langDay_of_weekNames['short'] = array('nie', 'pon', 'wt', '¶r', 'czw', 'pt', 'sob');
@@ -76,13 +77,14 @@ $langMonthNames['init']  = array('S', 'L', 'M', 'K', 'M', 'C', 'L', 'S', 'W', 'P
 $langMonthNames['short'] = array('sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'pa¼', 'lis', 'gru');
 $langMonthNames['long'] = array('styczeñ', 'luty', 'marzec', 'kwiecieñ', 'maj', 'czerwiec', 'lipiec', 'sierpieñ', 'wrzesieñ', 'pa¼dziernik', 'listopad', 'grudzieñ');
 
-// Voir http://www.php.net/manual/en/function.strftime.php pour la variable
-// ci-dessous
+// See http://www.php.net/manual/en/function.strftime.php for the variable 
+// below
 
-$dateFormatShort =  "%d %B %Y";
-$dateFormatLong  = '%A, %d %B %Y';
-$dateTimeFormatLong  = '%d %B %Y, %H:%M';
+$dateFormatShort =  "%#d %B %Y";
+$dateFormatLong  = '%A, %#d %B %Y';
+$dateFormatNumeric =  "%#d.%m.%Y";
+$dateTimeFormatShort = '%#d %b %Y, %H:%M';
+$dateTimeFormatLong  = '%#d %B %Y, %H:%M';
 $timeNoSecFormat = '%H:%M';
-$timespanfmt = '%s dni, %s godzin, %s minut i %s sekund';
 
 ?>
