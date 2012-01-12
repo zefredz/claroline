@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 
-<dt class="desactivated<?php if (!empty($this->notifiedCourseList) 
+<dt class="deactivated<?php if (!empty($this->notifiedCourseList) 
     && $this->notifiedCourseList->isCourseNotified($this->node->getCourse()->courseId)) : 
     ?> hot<?php endif; ?>">
     
@@ -110,7 +110,7 @@
         <?php echo htmlspecialchars($this->node->getCourse()->officialCode); ?>
         &ndash;
         <?php echo htmlspecialchars($this->node->getCourse()->name); ?>
-    </a> [<?php echo get_lang('Desactivated'); ?>]
+    </a> [<?php echo get_lang('Deactivated'); ?>]
     
     <?php else : ?>
     
@@ -158,7 +158,7 @@
         
         <?php else : ?>
         <?php
-            $childNodeView = new CourseTreeNodeDesactivatedView(
+            $childNodeView = new CourseTreeNodeDeactivatedView(
                 $childNode, 
                 $this->courseUserPrivilegesList,
                 $this->notifiedCourseList,

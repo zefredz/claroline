@@ -50,9 +50,9 @@
             
             <?php else : ?>
             
-            <!-- Render the course (desactivated) and its children -->
+            <!-- Render the course (deactivated) and its children -->
             <?php
-                $childNodeView = new CourseTreeNodeDesactivatedView(
+                $childNodeView = new CourseTreeNodeDeactivatedView(
                     $courseTreeNode,
                     $this->courseUserPrivilegesList,
                     $this->notifiedCourseList,

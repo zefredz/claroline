@@ -870,8 +870,8 @@ dl.courseList .enrolment {
     margin-left: 10px;
 }
 
-dl.courseList dt.desactivated {
-    color: #999
+dl.courseList dt.deactivated {
+    color: #999;
 }
 
 /*-----------------------------------------------------------------------------

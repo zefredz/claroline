@@ -850,11 +850,11 @@ class CourseTreeNodeAnonymousView extends AbstractCourseTreeNodeView
 }
 
 
-class CourseTreeNodeDesactivatedView extends AbstractCourseTreeNodeView
+class CourseTreeNodeDeactivatedView extends AbstractCourseTreeNodeView
 {
     public function render()
     {
-        $tpl = new CoreTemplate('course_tree_node_desactivated.tpl.php');
+        $tpl = new CoreTemplate('course_tree_node_deactivated.tpl.php');
         
         $tpl->assign('node', $this->courseTreeNode);
         $tpl->assign('courseUserPrivilegesList', $this->courseUserPrivilegesList);

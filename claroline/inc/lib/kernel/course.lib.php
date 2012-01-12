@@ -311,7 +311,7 @@ class Claro_Course extends KernelObject
     /**
      * Return true if the course is activated, false otherwise.
      *
-     * A course is desactivated if:
+     * A course is deactivated if:
      * - its status is 'disable' OR 'pending' OR 'trash'
      * - its status is 'date' AND
      *   - the current date is < to its publication date OR

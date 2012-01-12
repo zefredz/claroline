@@ -142,7 +142,7 @@
         
         <?php else : ?>
         <?php
-            $childNodeView = new CourseTreeNodeDesactivatedView(
+            $childNodeView = new CourseTreeNodeDeactivatedView(
                 $childNode, 
                 $this->courseUserPrivilegesList,
                 $this->notifiedCourseList,
