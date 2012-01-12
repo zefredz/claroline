@@ -642,7 +642,7 @@ class CourseUserRegistration
             $isUserAllowedToEnrol = false;
             $this->status = self::STATUS_REGISTRATION_NOTAVAILABLE;
             $this->errorMessage = get_lang(
-                'This course has been disabled on the %date',
+                'This course has been deactivated on the %date',
                 array('%date' => claro_date('d/m/Y', $this->course->expirationDate)));
             
         }

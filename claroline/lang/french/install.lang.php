@@ -147,4 +147,5 @@ $_lang['a database is created at each course creation'] = 'une base de données p
 $_lang['e.g.'] = 'par ex.';
 $_lang['empty'] = 'non spécifié';
 $_lang['or'] = 'ou';
+$_lang['Platform settings'] = 'Paramètres de la plateforme';
 ?>

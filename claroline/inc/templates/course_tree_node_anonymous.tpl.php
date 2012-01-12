@@ -1,7 +1,7 @@
 <!-- $Id$ -->
 
 <dt>
-    <?php echo get_lang('Session courses without source courses'); ?>
+    <?php echo get_lang('Orphan session courses (without source course)'); ?>
 </dt>
 
 <dd>
