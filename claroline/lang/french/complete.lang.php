@@ -836,7 +836,7 @@ $_lang['Fill in the text area to motivate your request and then submit the form 
 $_lang['Fill text field'] = 'Remplir les zones de texte';
 $_lang['Fill type'] = 'Type de remplissage';
 $_lang['Filling'] = 'Remplissage';
-$_lang['Filter'] = 'Filtre';
+$_lang['Filter'] = 'Filtrer';
 $_lang['Find doubled variables'] = 'Rechercher les doublons';
 $_lang['Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.'] = 'D\'autres modules sont disponibles sur <a href="http://www.claroline.net/">Claroline.net</a>.';
 $_lang['Finish'] = 'Terminer';
