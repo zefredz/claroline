@@ -1339,7 +1339,7 @@ function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0
 {
     $bc = new BreadCrumbs;
 
-    $bc->appendNode( new BreadCrumbsNode( get_lang( 'Forum Index' ),
+    $bc->appendNode( new BreadCrumbsNode( get_lang( 'Forum index' ),
                     htmlspecialchars( Url::Contextualize( get_module_entry_url('CLFRM') ))
                     ));
 

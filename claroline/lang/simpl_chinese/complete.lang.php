@@ -2698,7 +2698,7 @@ $_lang['Will be published on'] = '将发布于';
 $_lang['You are receiving this notification because you are watching for new topics on the forum of one of your courses.'] = '你收到该通知是因为你将某课程论坛的某主题设置为有帖子回复时通知你。';
 $_lang['from'] = '来自';
 // Derek Joe added, supposed for the future.
-$_lang['Forum Index'] = '讨论区（论坛）首页';
+$_lang['Forum index'] = '讨论区（论坛）首页';
 $_lang['Forum posts'] = '讨论区（论坛）帖子';
 $_lang['Forum updated'] = '讨论区（论坛）已更新';
 $_lang['Forum usage'] = '讨论区使用';
