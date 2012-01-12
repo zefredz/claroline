@@ -1283,6 +1283,13 @@ class ClaroCourse
     {
         $subject = get_lang('Course created : %course_name',array('%course_name'=> $this->title));
         
+        $categoryCodeList = array();
+        
+        foreach ($this->categories as $category)
+        {
+            $categoryCodeList[] = $category->name;
+        }
+        
         $body = nl2br(get_block('blockCourseCreationEmailMessage', array( '%date' => claro_html_localised_date(get_locale('dateTimeFormatLong')),
                                 '%sitename' => get_conf('siteName'),
                                 '%user_firstname' => $creatorFirstName,
@@ -1292,7 +1299,7 @@ class ClaroCourse
                                 '%course_title' => $this->title,
                                 '%course_lecturers' => $this->titular,
                                 '%course_email' => $this->email,
-                                '%course_categories' => ((is_array($this->categories) && !empty($this->categories)) ? implode(', ',$this->categories) : get_lang('No category')),
+                                '%course_categories' => (!empty($this->categories) ? implode(', ', $categoryCodeList) : get_lang('No category')),
                                 '%course_language' => $this->language,
                                 '%course_url' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) ) );
         
