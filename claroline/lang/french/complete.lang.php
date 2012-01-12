@@ -899,7 +899,8 @@ $_lang['Groups settings'] = 'Paramètres des groupes';
 $_lang['Guest'] = 'Invité';
 $_lang['He or she will receive email confirmation with login and password'] = 'Son identifiant et son mot de passe lui seront envoyés par e-mail.';
 $_lang['Heading'] = 'Intitulé';
-$_lang['Headlines'] = 'Headlines';
+$_lang['Headline'] = 'Editorial';
+$_lang['Headlines'] = 'Editoriaux';
 $_lang['Help'] = 'Aide';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Vous pouvez modifier le contenu des zones de texte affichées sur la page d\'accueil du campus.';
 $_lang['Hidden'] = 'Caché';
@@ -3231,6 +3232,5 @@ $_lang['files_stats'] = 'statistiques_fichiers';
 $_lang['on bottom'] = 'au-dessous';
 $_lang['on top'] = 'au-dessus';
 $_lang['Calendar'] = 'Calendrier';
-$_lang['Headlines'] = 'Editorial';
 $_lang['My last messages'] = 'Mes derniers messages';
 ?>
