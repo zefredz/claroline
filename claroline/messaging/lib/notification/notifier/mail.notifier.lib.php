@@ -101,7 +101,8 @@ class MailNotifier implements MessagingNotifier
         
         if ( !empty($urlAppend) )
         {
-            $msgContent = str_replace( get_path('url'), get_path('rootWeb'), $msgContent );
+            $msgContent = preg_replace( '!href="'.get_path('url').'!', 'href="'.rtrim(get_path('rootWeb'),'/').'/', $msgContent );
+            $msgContent = preg_replace( '!\>'.get_path('url').'!', '>'.get_path('rootWeb'), $msgContent );
         }
         else
         {
