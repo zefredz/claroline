@@ -216,6 +216,7 @@ Persian translation :           Elnaz Sarbar (elnaz.s@gmail.com)
 
 Polish translation :            Slawomir Gurdala (guslaw@uni.lodz.pl)
                                 Jacek Grudzien (bel2@bel.biz.pl)
+                                Kamil Kiereta (kamil.kiereta@gmail.com)
 
 Portugese translation :         Marcello R. Minholi (minholi@unipar.br)
 
