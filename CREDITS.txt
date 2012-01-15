@@ -26,17 +26,12 @@ Claroline Core Team :
     From Claroline Consortium :
     
     Philippe Dekimpe        (dkp@ecam.be)
-    Antonin Bourguignon     (antonin.bourguignon@claroline.net)
     Stephane Klein          (stephane.klein@claroline.net)
     
     From Université catholique de Louvain :
 
     Frédéric Minne          (zefredz@claroline.net) aka ZeFredz
     Frédéric Fervaille      (ffervaille@claroline.net)
-    
-    From Haute Ecole Léonard de Vinci :
-    
-    Philippe Van Eerdenbrugghe (systho@gmail.com)
 
 Active contributors :
 
@@ -45,17 +40,19 @@ Active contributors :
 
 Former members of the Claroline Team :
 
-    Sebastien Piraux    (seb@claroline.net) aka Fragile
-    Christophe Gesché   (moosh@claroline.net) aka Moosh
-    Anais Hulet         (Communication - CERDECAM)
-    Florence Hortmans   (Communication - CERDECAM)
-    Grégory Koch        (Developer - UCL)
-    Mathieu Laurent     (Developer - CERDECAM)
-    Guillaume Lederer   (Developer - CERDECAM)
-    Nicolas Leblanc     (Developer - CERDECAM)
-    Hugues Peeters      (Developer and Project Manager - UCL)
-    Aurelien Van Hamme  (Developer - CERDECAM)
-    Dimitri Rambout     (Developer - UCL)
+    Sebastien Piraux            (seb@claroline.net) aka Fragile
+    Christophe Gesché           (moosh@claroline.net) aka Moosh
+    Anais Hulet                 (Communication - CERDECAM)
+    Florence Hortmans           (Communication - CERDECAM)
+    Grégory Koch                (Developer - UCL)
+    Mathieu Laurent             (Developer - CERDECAM)
+    Guillaume Lederer           (Developer - CERDECAM)
+    Nicolas Leblanc             (Developer - CERDECAM)
+    Hugues Peeters              (Developer and Project Manager - UCL)
+    Aurelien Van Hamme          (Developer - CERDECAM)
+    Dimitri Rambout             (Developer - UCL)
+    Philippe Van Eerdenbrugghe  (Developer - HELV)
+    Antonin Bourguignon         (Developer - Claroline Consortium)
 
 Former contributors :
 
