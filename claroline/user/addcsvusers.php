@@ -167,7 +167,6 @@ switch( $cmd )
         $_SESSION['claro_usedFormat']   = $usedFormat;
         $_SESSION['CSV_fieldSeparator'] = $fieldSeparator;
         $_SESSION['CSV_enclosedBy']     = $enclosedBy;
-        var_dump( $_SESSION['CSV_enclosedBy'] );
     }
     break;
 }
