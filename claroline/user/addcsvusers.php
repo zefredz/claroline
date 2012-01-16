@@ -20,10 +20,11 @@ require '../inc/claro_init_global.inc.php';
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/class.lib.php';
-require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
-require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php' ;
+require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/utils/validator.lib.php';
+require_once get_path('incRepositorySys') . '/lib/utils/input.lib.php';
 //require_once get_path('incRepositorySys') . '/lib/import_csv.lib.php';
-
 require_once './csvimport.class.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
@@ -46,22 +47,26 @@ if( !$is_allowedToImport )
 
 $courseId = claro_get_current_course_id();
 
-$acceptedCmdList = array( 'rqCSV', 'rqChangeFormat', 'exChangeFormat', 'rqLoadDefautFormat', 'exLoadDefaultFormat');
+$userInput = Claro_UserInput::getInstance();
+$userInput->setValidator( 'cmd' , new Claro_Validator_AllowedList( array( 'rqCSV',
+                                                                          'rqChangeFormat',
+                                                                          'exChangeFormat',
+                                                                          'rqLoadDefautFormat',
+                                                                          'exLoadDefaultFormat' )
+                                                                  )
+                         );
+$userInput->setValidator( 'fieldSeparator' , new Claro_Validator_allowedList( array( ',' , ';' , ' ' )
+                                                                             )
+                         );
+$userInput->setValidator( 'enclosedBy' , new Claro_Validator_allowedList( array( 'dbquote' , '.' , 'none' )
+                                                                             )
+                         );
 
-if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )   $cmd = $_REQUEST['cmd'];
-else                                                                            $cmd = null;
-
-if( isset($_REQUEST['step']) )   $step = (int) $_REQUEST['step'];
-else                             $step = 0;
-
-if( isset( $_REQUEST['class_id']) ) $class_id = (int) $_REQUEST['class_id'];
-else                                $class_id = 0;
-
-if( isset( $_REQUEST['updateUserProperties']) ) $updateUserProperties = (int) $_REQUEST['updateUserProperties'];
-else                                $updateUserProperties = 0;
-
-if( isset( $_REQUEST['sendEmailToUserCreated']) ) $sendEmailToUserCreated  = $_REQUEST['sendEmailToUserCreated'];
-else                                $sendEmailToUserCreated = 0;
+$cmd = $userInput->get( 'cmd' );
+$step = (int)$userInput->get( 'step' , 0 );
+$class_id = (int)$userInput->get( 'class_id' , 0 );
+$updateUserProperties = (int)$userInput->get( 'updateUserProperties' , 0 );
+$sendEmailToUserCreated = (int)$userInput->get( 'sendEmailToUserCreated' , 0 );
 
 $nameTools        = get_lang('Add a user list in course');
 
@@ -77,7 +82,7 @@ else
 $dialogBox = new DialogBox();
 
 $defaultFormat = 'userId,lastname,firstname,username,email,officialCode,groupId,groupName';
-$AddType = 'userTool';
+$addType = 'userTool';
 
 if ( empty($_SESSION['claro_usedFormat']) )
 {
@@ -100,7 +105,7 @@ switch( $cmd )
     case 'rqChangeFormat' :
     {
         if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='dbquote') $dbquote_selected = 'selected="selected"'; else $dbquote_selected = '';
-        if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='')   $blank_selected   = 'selected="selected"'; else $blank_selected   = '';
+        if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='none')   $blank_selected   = 'selected="selected"'; else $blank_selected   = '';
         if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']==',')  $coma_selected    = 'selected="selected"'; else $coma_selected    = '';
         if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='.')  $dot_selected     = 'selected="selected"'; else $dot_selected     = '';
     
@@ -129,7 +134,7 @@ switch( $cmd )
         .   ' <option value="dbquote" '.$dbquote_selected.' >"</option>' . "\n"
         .   ' <option value="," '.$coma_selected.' >,</option>' . "\n"
         .   ' <option value="." '.$dot_selected.' >.</option>' . "\n"
-        .   ' <option value="" '.$blank_selected.' >' . get_lang('None') . ' </option>' . "\n"
+        .   ' <option value="none" '.$blank_selected.' >' . get_lang('None') . ' </option>' . "\n"
         .   '</select><br />' . "\n"
         .   '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
         .   '</form>';
@@ -140,7 +145,11 @@ switch( $cmd )
     
     case 'exChangeFormat' :
     {
-        if( !( isset($_REQUEST['usedFormat']) && isset($_REQUEST['fieldSeparator']) && isset($_REQUEST['enclosedBy']) ) )
+        $enclosedBy = $userInput->get( 'enclosedBy' , '"' );
+        $fieldSeparator = $userInput->get( 'fieldSeparator' , ';' );
+        $usedFormat = $userInput->get( 'usedFormat' );
+        
+        if( ! $usedFormat )
         {
             $dialogBox->error( get_lang( 'Unable to load the selected format' ) );
             break;
@@ -148,28 +157,31 @@ switch( $cmd )
         
         $csvImport = new CsvImport();
         
-        if( ! $csvImport->format_ok($_REQUEST['usedFormat'], $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']) )
+        if( ! $csvImport->format_ok($usedFormat, $fieldSeparator, $enclosedBy) )
         {
             $dialogBox->error( get_lang('ERROR: The format you gave is not compatible with Claroline') );
             break;
         }
         
         $dialogBox->success( get_lang('Format changed') );
-        $_SESSION['claro_usedFormat']   = $_REQUEST['usedFormat'];
-        $_SESSION['CSV_fieldSeparator'] = $_REQUEST['fieldSeparator'];
-        $_SESSION['CSV_enclosedBy']     = $_REQUEST['enclosedBy'];
-        
+        $_SESSION['claro_usedFormat']   = $usedFormat;
+        $_SESSION['CSV_fieldSeparator'] = $fieldSeparator;
+        $_SESSION['CSV_enclosedBy']     = $enclosedBy;
+        var_dump( $_SESSION['CSV_enclosedBy'] );
     }
     break;
 }
+
 $usedFormat = $_SESSION['claro_usedFormat'];
+$fieldSeparator = $_SESSION['CSV_fieldSeparator'];
+$enclosedBy = $_SESSION['CSV_enclosedBy'];
 // Content
 $content = '';
 $out = '';
 
-if(isset( $_REQUEST['AddType'] ) )
+if(isset( $_REQUEST['addType'] ) )
 {
-  switch( $_REQUEST['AddType'] )
+  switch( $_REQUEST['addType'] )
   {
     case 'userTool' : $_SESSION['CSV_CancelButton'] = 'user.php'; break;
     case 'adminTool' : $_SESSION['CSV_CancelButton'] = '../admin/'; break;
@@ -203,14 +215,14 @@ $content_default = get_lang('You must specify the CSV format used in your file')
 .   claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
                         . '?display=default'
                         . '&amp;cmd=rqLoadDefaultFormat'
-                        . '&amp;AddType=' . $AddType ))
+                        . '&amp;addType=' . $addType ))
                         , get_lang('Load default format')
                         ) . "\n"
 .   ' | '
 .   claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
                         . '?display=default'
                         . '&amp;cmd=rqChangeFormat'
-                        . '&amp;AddType=' . $AddType ))
+                        . '&amp;addType=' . $addType ))
                         , get_lang('Edit format to use')
                         ) . "\n"
 .   '<br /><br />' . "\n"
@@ -239,7 +251,7 @@ switch( $step )
 {
     case 2 : // Import users in course
     {
-        $csvImport = new CsvImport( $_SESSION['CSV_fieldSeparator'], $_SESSION['CSV_enclosedBy'] = '"');
+        $csvImport = new CsvImport( $fieldSeparator , $enclosedBy );
             
         if( !( isset($_SESSION['_csvImport']) && isset($_SESSION['_csvUsableArray'] ) ) )
         {
@@ -249,6 +261,13 @@ switch( $step )
         else
         {
             $csvContent = $_SESSION['_csvImport'];
+            
+            if( $enclosedBy == 'none' )
+            {
+                $csvContent = str_replace( $fieldSeparator , '"' . $fieldSeparator . '"' , $csvContent );
+                $enclosedBy = '"';
+            }
+            
             $csvImport->setCSVContent( $csvContent );
             if(is_null($courseId))
             {
@@ -308,8 +327,18 @@ switch( $step )
         }
         else
         {
-            $csvImport = new CsvImport( $_SESSION['CSV_fieldSeparator'], $_SESSION['CSV_enclosedBy'] = '"');
-            if( ! $csvImport->load( $_FILES['CSVfile']['tmp_name'] ) )
+            $csvImport = new CsvImport( $fieldSeparator , $enclosedBy != 'none' ? $enclosedBy : '"' );
+            
+            $tmpName = $_FILES['CSVfile']['tmp_name'];
+            $csvContent = file_get_contents( $tmpName );
+            
+            if( $enclosedBy == 'none' )
+            {
+                $csvContent = str_replace( $fieldSeparator , '"' . $fieldSeparator . '"' , $csvContent );
+                $enclosedBy = '"';
+            }
+            
+            if( ! $csvImport->load( $tmpName ) )
             {
                 $dialogBox->error(get_lang('Unable to read the content of the CSV'));
             }
@@ -329,7 +358,7 @@ switch( $step )
                 
                 if( !$firstLineFormat )
                 {
-                    $keys = explode( $_SESSION['CSV_fieldSeparator'], $usedFormat);
+                    $keys = explode( $fieldSeparator , $usedFormat);
                     $firstLine = $usedFormat;
                 }
                 else
@@ -348,7 +377,7 @@ switch( $step )
                     unset($csvContent[0]);
                 }
                 $_SESSION['_csvKeys'] = $keys;
-                if( ! $csvImport->format_ok( $firstLine, $_SESSION['CSV_fieldSeparator'], $_SESSION['CSV_enclosedBy']) )
+                if( ! $csvImport->format_ok( $firstLine, $fieldSeparator , $enclosedBy ) )
                 {
                     $dialogBox->error( get_lang('ERROR: The format you gave is not compatible with Claroline') );
                     break;

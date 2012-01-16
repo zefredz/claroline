@@ -84,6 +84,7 @@ class Csv
         rewind( $handle);
         
         $content = array();
+        
         while( ( $row = fgetcsv( $handle, 0, $this->fieldSeparator, $this->enclosedBy) ) !== false)
         {
             $content[] = $row;
