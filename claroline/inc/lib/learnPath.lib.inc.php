@@ -262,7 +262,7 @@ function nameBox($type, $mode)
         case MODULE_ :
             $col_name = 'name';
             $tbl_name = $tbl_lp_module;
-            $where_cond = '`module_id` = ' . (int) $_SESSION['module_id'] . ' AND `contentType` = \'LABEL\'';
+            $where_cond = '`module_id` = ' . (int) $_SESSION['module_id'];
             break;
         case LEARNINGPATH_ :
             $col_name = 'name';
@@ -274,7 +274,11 @@ function nameBox($type, $mode)
     // update mode
     if ( $mode == UPDATE_ && $is_allowedToEdit)
     {
-
+        if ( $type == MODULE_ )
+        {
+            $where_cond .= ' AND `contentType` = \'LABEL\''; // awful hack :-(
+        }
+        
         if ( isset($_POST['newName']) && !empty($_POST['newName']) )
         {
 
