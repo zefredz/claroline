@@ -51,7 +51,7 @@ $userInput = Claro_UserInput::getInstance();
 $userInput->setValidator( 'cmd' , new Claro_Validator_AllowedList( array( 'rqCSV',
                                                                           'rqChangeFormat',
                                                                           'exChangeFormat',
-                                                                          'rqLoadDefautFormat',
+                                                                          'rqLoadDefaultFormat',
                                                                           'exLoadDefaultFormat' )
                                                                   )
                          );
@@ -167,6 +167,14 @@ switch( $cmd )
         $_SESSION['claro_usedFormat']   = $usedFormat;
         $_SESSION['CSV_fieldSeparator'] = $fieldSeparator;
         $_SESSION['CSV_enclosedBy']     = $enclosedBy;
+    }
+    break;
+    
+    case 'rqLoadDefaultFormat':
+    {
+        $_SESSION['claro_usedFormat']   = $defaultFormat;
+        $_SESSION['CSV_fieldSeparator'] = ',';
+        $_SESSION['CSV_enclosedBy']     = '"';
     }
     break;
 }
