@@ -262,7 +262,7 @@ function nameBox($type, $mode)
         case MODULE_ :
             $col_name = 'name';
             $tbl_name = $tbl_lp_module;
-            $where_cond = '`module_id` = ' . (int) $_SESSION['module_id'];
+            $where_cond = '`module_id` = ' . (int) $_SESSION['module_id'] . ' AND `contentType` = \'LABEL\'';
             break;
         case LEARNINGPATH_ :
             $col_name = 'name';
@@ -286,11 +286,9 @@ function nameBox($type, $mode)
 
             if ($num == 0)  // name doesn't already exists
             {
-
                 $sql = "UPDATE `" . $tbl_name . "`
                                       SET `" . $col_name . "` = '" . claro_sql_escape($_POST['newName']) ."'
                                     WHERE " . $where_cond;
-
                 claro_sql_query($sql);
                 $dsp = true;
             }
