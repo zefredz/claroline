@@ -12,12 +12,18 @@ class CLWRK_MergeUser implements Module_MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update wrk_submission in {$courseId}");
+            Console::error("Cannot update wrk_submission from -{$uidToRemove} to +{$uidToKeep} in {$courseId}");
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
     
     public function mergeUsers( $uidToRemove, $uidToKeep )
     {
         // empty
+        return true;
     }
 }

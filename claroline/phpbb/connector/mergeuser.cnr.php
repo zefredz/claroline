@@ -4,6 +4,8 @@ class CLFRM_MergeUser implements Module_MergeUser
 {
     public function mergeCourseUsers( $uidToRemove, $uidToKeep, $courseId )
     {
+        $error = false;
+        
         $moduleCourseTbl = get_module_course_tbl( array('bb_posts', 'bb_topics', 'bb_priv_msgs', 'bb_rel_forum_userstonotify', 'bb_rel_topic_userstonotify'), $courseId );
         
         $userToKeepProp = user_get_properties( $uidToKeep );
@@ -16,7 +18,9 @@ class CLFRM_MergeUser implements Module_MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update bb_posts in {$courseId}");
+            Console::error("Cannot update bb_posts from -{$uidToRemove} to +{$uidToKeep} in {$courseId}");
+            $error = true;
+            return !$error;
         }
         
         // Update topic poster, lastname & firstname
@@ -28,9 +32,11 @@ class CLFRM_MergeUser implements Module_MergeUser
         
         if( ! claro_sql_query($sql) )
         {
-            echo mysql_error();
+            // echo mysql_error();
             
-            throw new Exception("Cannot update bb_topics in {$courseId}");
+            Console::error("Cannot update bb_topics from -{$uidToRemove} to +{$uidToKeep} in {$courseId}");
+            $error = true;
+            return !$error;
         }
         
         // Update private messages (from)
@@ -40,7 +46,9 @@ class CLFRM_MergeUser implements Module_MergeUser
         
         if( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update bb_priv_msgs in {$courseId}");
+            Console::error("Cannot update bb_priv_msgs:recipient from -{$uidToRemove} to +{$uidToKeep} in {$courseId}");
+            $error = true;
+            return !$error;
         }
         
         // Update private messages (to)
@@ -50,7 +58,9 @@ class CLFRM_MergeUser implements Module_MergeUser
         
         if( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update bb_priv_msgs in {$courseId}");
+            Console::error("Cannot update bb_priv_msgs:sender from -{$uidToRemove} to +{$uidToKeep} in {$courseId}");
+            $error = true;
+            return !$error;
         }
         
         
@@ -82,7 +92,8 @@ class CLFRM_MergeUser implements Module_MergeUser
                 
                     if( ! claro_sql_query($sql) )
                     {
-                        throw new Exception("Cannot update bb_rel_topic_userstonotify in {$courseId}");
+                        Console::error("Cannot update bb_rel_topic_userstonotify from -{$uidToRemove} to +{$uidToKeep} in {$courseId}");
+                        $error = true;
                     }
                 }
                 // Delete the notification for userToRemove
@@ -90,7 +101,8 @@ class CLFRM_MergeUser implements Module_MergeUser
                 
                 if( ! claro_sql_query($sql) )
                 {
-                    throw new Exception("Cannot delete bb_rel_topic_userstonotify in {$courseId}");
+                    Console::error("Cannot delete bb_rel_topic_userstonotify from -{$uidToRemove} to +{$uidToKeep} in {$courseId}");
+                    $error = true;
                 }                
             }
         }
@@ -123,7 +135,8 @@ class CLFRM_MergeUser implements Module_MergeUser
                 
                     if( ! claro_sql_query($sql) )
                     {
-                        throw new Exception("Cannot update bb_rel_forum_userstonotify in {$courseId}");
+                        Console::error("Cannot update bb_rel_forum_userstonotify from -{$uidToRemove} to +{$uidToKeep} in {$courseId}");
+                        $error = true;
                     }
                 }
                 // Delete the notification for userToRemove
@@ -131,18 +144,19 @@ class CLFRM_MergeUser implements Module_MergeUser
                 
                 if( ! claro_sql_query($sql) )
                 {
-                    throw new Exception("Cannot delete bb_rel_forum_userstonotify in {$courseId}");
+                    Console::error("Cannot delete bb_rel_forum_userstonotify from -{$uidToRemove} to +{$uidToKeep} in {$courseId}");
+                    $error = true;
                 }
                 
             }
         }
         
-        
-        
+        return !$error;        
     }
     
     public function mergeUsers( $uidToRemove, $uidToKeep )
     {
         // empty
+        return true;
     }
 }

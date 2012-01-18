@@ -13,7 +13,8 @@ class CLWIKI_MergeUser implements Module_MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update wiki_pages in {$courseId}");
+            Console::error("Cannot update wiki_pages from -{$uidToRemove} to +{$uidToKeep} in {$courseId}");
+            return false;
         }
         
         // Update wiki_pages_content
@@ -23,13 +24,17 @@ class CLWIKI_MergeUser implements Module_MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update wiki_pages_content in {$courseId}");
+            Console::error("Cannot update wiki_pages_content from -{$uidToRemove} to +{$uidToKeep} in {$courseId}");
+            return false;
         }
+        
+        return true;
         
     }
     
     public function mergeUsers( $uidToRemove, $uidToKeep )
     {
         // empty
+        return true;
     }
 }

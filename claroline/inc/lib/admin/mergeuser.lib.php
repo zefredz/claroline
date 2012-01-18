@@ -19,7 +19,14 @@
  */
 class MergeUser
 {
-    public static function merge( $uidToRemove, $uidToKeep )
+    protected  $hasError = false;
+    
+    public function hasError()
+    {
+        return $this->hasError;
+    }
+    
+    public function merge( $uidToRemove, $uidToKeep )
     {
         $mainTbl = claro_sql_get_main_tbl();
         
@@ -95,7 +102,8 @@ class MergeUser
                         WHERE code_cours = '".claro_sql_escape($thisCourse['code'])."'
                         AND user_id = ".(int) $uidToKeep ) )
                     {
-                        throw new Exception("Cannot change rel_course_user isCourseManager in {$thisCourse['code']}");
+                        Console::error("Cannot change rel_course_user from -{$uidToRemove} to +{$uidToKeep} isCourseManager in {$thisCourse['code']}");
+                        $this->hasError = true;
                     }
                 }
 
@@ -108,7 +116,8 @@ class MergeUser
                         WHERE code_cours = '".claro_sql_escape($thisCourse['code'])."'
                         AND user_id = ".(int) $uidToKeep ) )
                     {
-                        throw new Exception("Cannot change rel_course_user profile in {$thisCourse['code']}");
+                        Console::error("Cannot change rel_course_user from -{$uidToRemove} to +{$uidToKeep} profile in {$thisCourse['code']}");
+                        $this->hasError = true;
                     }
                 }
 
@@ -119,7 +128,8 @@ class MergeUser
 
                 if ( ! claro_sql_query($sql) )
                 {
-                    throw new Exception("Cannot change rel_course_user in {$thisCourse['code']}");
+                    Console::error("Cannot change rel_course_user from -{$uidToRemove} to +{$uidToKeep}  in {$thisCourse['code']}");
+                    $this->hasError = true;
                 }
             }
             else
@@ -132,13 +142,15 @@ class MergeUser
 
                 if ( ! claro_sql_query($sql) )
                 {
-                    throw new Exception("Cannot change rel_course_user in {$thisCourse['code']}");
+                    Console::error("Cannot change rel_course_user from -{$uidToRemove} to +{$uidToKeep} in {$thisCourse['code']}");
+                    $this->hasError = true;
                 }
             }
             
             if ( ! claro_sql_query($sql) )
             {
-                throw new Exception("Cannot change rel_course_user in {$thisCourse['code']}");
+                Console::error("Cannot change rel_course_user from -{$uidToRemove} to +{$uidToKeep} in {$thisCourse['code']}");
+                $this->hasError = true;
             }
             
             $sql = "UPDATE `{$mainTbl['rel_class_user']}`
@@ -147,7 +159,8 @@ class MergeUser
 
             if ( ! claro_sql_query($sql) )
             {
-                throw new Exception("Cannot change rel_class_user in {$thisCourse['code']}");
+                Console::error("Cannot change rel_class_user from -{$uidToRemove} to +{$uidToKeep} in {$thisCourse['code']}");
+                $this->hasError = true;
             }
             
             
@@ -175,11 +188,14 @@ class MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot delete old use");
+            Console::error("Cannot delete old user -{$uidToRemove}");
+            $this->hasError = true;
         }
+        
+        return !self::hasError();
     }
     
-    public static function mergeMainMessaging( $uidToRemove, $uidToKeep )
+    protected function mergeMainMessaging( $uidToRemove, $uidToKeep )
     {
         $tableName = get_module_main_tbl(array('im_message','im_message_status','im_recipient'));
             
@@ -209,7 +225,8 @@ class MergeUser
             
             if ( ! claro_sql_query($sql) )
             {
-                throw new Exception("Cannot remove doubles in internal messaging recipients");
+                Console::error("Cannot delete duplicate im_recipient for -{$uidToRemove}");
+                $this->hasError = true;
             }
             
             $sql = "DELETE FROM `{$tableName['im_message_status']}`
@@ -218,7 +235,8 @@ class MergeUser
             
             if ( ! claro_sql_query($sql) )
             {
-                throw new Exception("Cannot remove doubles in internal messaging status");
+                Console::error("Cannot delete duplicate im_message_status for -{$uidToRemove}");
+                $this->hasError = true;
             }
         }
         
@@ -249,7 +267,8 @@ class MergeUser
             
             if ( ! claro_sql_query($sql) )
             {
-                throw new Exception("Cannot change internal messaging recipient");
+                Console::error("Cannot change im_recipient from -{$uidToRemove} to +{$uidToKeep}");
+                $this->hasError = true;
             }
             
             $sql = "UPDATE `{$tableName['im_message_status']}`
@@ -259,12 +278,13 @@ class MergeUser
             
             if ( ! claro_sql_query($sql) )
             {
-                throw new Exception("Cannot change internal messaging status");
+                Console::error("Cannot change im_message_status from -{$uidToRemove} to +{$uidToKeep}");
+                $this->hasError = true;
             }
         }
     }
     
-    public static function mergeCourseMessaging( $uidToRemove, $uidToKeep, $thisCourseCode )
+    protected function mergeCourseMessaging( $uidToRemove, $uidToKeep, $thisCourseCode )
     {
         // update messaging
         
@@ -296,7 +316,8 @@ class MergeUser
             
             if ( ! claro_sql_query($sql) )
             {
-                throw new Exception("Cannot change messaging in {$thisCourseCode}");
+                Console::error("Cannot delete duplicate im_recipient for -{$uidToRemove} in {$thisCourseCode}");
+                $this->hasError = true;
             }
             
             $sql = "DELETE FROM `{$tableName['im_message_status']}`
@@ -305,7 +326,8 @@ class MergeUser
             
             if ( ! claro_sql_query($sql) )
             {
-                throw new Exception("Cannot change messaging in {$thisCourseCode}");
+                Console::error("Cannot delete duplicate im_message_status for -{$uidToRemove} in {$thisCourseCode}");
+                $this->hasError = true;
             }
         }
         
@@ -336,7 +358,8 @@ class MergeUser
             
             if ( ! claro_sql_query($sql) )
             {
-                throw new Exception("Cannot change messaging in {$thisCourseCode}");
+                Console::error("Cannot change im_recipient from -{$uidToRemove} to +{$uidToKeep} in {$thisCourseCode}");
+                $this->hasError = true;
             }
             
             $sql = "UPDATE `{$tableName['im_message_status']}`
@@ -346,12 +369,13 @@ class MergeUser
             
             if ( ! claro_sql_query($sql) )
             {
-                throw new Exception("Cannot change messaging in {$thisCourseCode}");
+                Console::error("Cannot change im_message_status from -{$uidToRemove} to +{$uidToKeep} in {$thisCourseCode}");
+                $this->hasError = true;
             }
         }
     }
     
-    public static function mergeCourseUsers( $uidToRemove, $uidToKeep, $courseId )
+    protected function mergeCourseUsers( $uidToRemove, $uidToKeep, $courseId )
     {
         $courseTbl = claro_sql_get_course_tbl( claro_get_course_db_name_glued( $courseId ) );
         
@@ -365,31 +389,62 @@ class MergeUser
         
         foreach ( $teamList as $thisTeam )
         {
-            $sql = "SELECT user
+            $toKeep_team_entry = claro_sql_query_fetch_single_row("
+                    SELECT user, team, status
                     FROM `{$courseTbl['group_rel_team_user']}`
                     WHERE user = ".(int)$uidToKeep."
-                      AND team = ".(int)$thisTeam;
+                      AND team = ".(int)$thisTeam );
 
-            $result = claro_sql_query_fetch_all($sql);
-
-            if ( !empty($result) )
+            $toRemove_team_entry = claro_sql_query_fetch_single_row("
+                    SELECT user, team, status
+                    FROM `{$courseTbl['group_rel_team_user']}`
+                    WHERE user = ".(int)$uidToRemove."
+                      AND team = ".(int)$thisTeam );
+            
+            if ( $toKeep_team_entry )
             {
-                $sql = "DELETE FROM `{$courseTbl['group_rel_team_user']}`
+                $status = $toKeep_team_entry['status'] > $toRemove_team_entry['status']
+                    ? null
+                    : $toRemove_team_entry['status']
+                    ;
+                
+                $role = empty( $toKeep_team_entry['role'] )
+                    ? $toRemove_team_entry['role']
+                    : null
+                    ;
+                
+                if ( !is_null($role) || !is_null($status) )
+                {
+                    if ( ! claro_sql_query("UPDATE `{$courseTbl['group_rel_team_user']}`
+                           SET role = '".$role."',
+                               status = ".$status."
+                         WHERE user = ".(int)$uidToKeep."
+                           AND team = ".(int)$thisTeam) )
+                    {
+                        Console::error("Cannot update user group status for +{$uidToKeep} in group_rel_team_user in {$courseId}:{$thisTeam}");
+                        $this->hasError = true;
+                    }
+                }
+                
+                if ( ! claro_sql_query("DELETE FROM `{$courseTbl['group_rel_team_user']}`
                          WHERE user  = ".(int)$uidToRemove."
-                           AND team  = ".(int)$thisTeam;
+                           AND team  = ".(int)$thisTeam) )
+                {
+                    Console::error("Cannot delete user -{$uidToRemove} in group_rel_team_user in {$courseId}:{$thisTeam}");
+                    $this->hasError = true;
+                }
             }
             else
             {
-                $sql = "UPDATE `{$courseTbl['group_rel_team_user']}`
+                if ( ! claro_sql_query( "UPDATE `{$courseTbl['group_rel_team_user']}`
                            SET user = ".(int)$uidToKeep."
                          WHERE user = ".(int)$uidToRemove."
-                           AND team = ".(int)$thisTeam;
+                           AND team = ".(int)$thisTeam ) )
+                {
+                    Console::error("Cannot replace -{$uidToRemove} with +{$uidToKeep} in group_rel_team_user {$courseId}:{$thisTeam}");
+                    $this->hasError = true;
+                }
             }
-        }
-        
-        if ( ! claro_sql_query($sql) )
-        {
-            throw new Exception("Cannot change group_rel_team_user in {$courseId}");
         }
         
         // Update tracking
@@ -399,7 +454,8 @@ class MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot change tracking_event in {$courseId}");
+            Console::error("Cannot replace -{$uidToRemove} with +{$uidToKeep} in tracking_event in course {$courseId}");
+            $this->hasError = true;
         }
 
         
@@ -411,7 +467,8 @@ class MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot change qwz_tracking in {$courseId}");
+            Console::error("Cannot replace -{$uidToRemove} with +{$uidToKeep} in qwz_tracking in {$courseId}");
+            $this->hasError = true;
         }
 
         // Update user info in course
@@ -420,11 +477,12 @@ class MergeUser
         
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot remove user info in {$courseId}");
+            Console::error("Cannot remove user info for user -{$uidToRemove} in {$courseId}");
+            $this->hasError = true;
         }
     }
     
-    public static function mergeMainTrackingUsers( $uidToRemove, $uidToKeep )
+    protected function mergeMainTrackingUsers( $uidToRemove, $uidToKeep )
     {
         $mainTbl = claro_sql_get_main_tbl();
         
@@ -434,12 +492,13 @@ class MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update tracking_event in main DB");
+            Console::error("Cannot replace -{$uidToRemove} with +{$uidToKeep} in tracking_event in main database");
+            $this->hasError = true;
         }
 
     }
     
-    public static function mergeCourseModuleUsers( $uidToRemove, $uidToKeep, $courseId )
+    protected function mergeCourseModuleUsers( $uidToRemove, $uidToKeep, $courseId )
     {
         $courseModuleList = module_get_course_tool_list( $courseId );
         
@@ -458,14 +517,25 @@ class MergeUser
                     
                     if ( method_exists( $moduleMerge, 'mergeCourseUsers' ) )
                     {
-                        $moduleMerge->mergeCourseUsers( $uidToRemove, $uidToKeep, $courseId );
+                        try 
+                        {
+                            if ( ! $moduleMerge->mergeCourseUsers( $uidToRemove, $uidToKeep, $courseId ) )
+                            {
+                                $this->hasError = true;
+                            }
+                        }
+                        catch ( Exception $e )
+                        {
+                            Console::error($e->getMessage());
+                            $this->hasError = true;
+                        }
                     }
                 }
             }
         }
     }
     
-    public static function mergeModuleUsers( $uidToRemove, $uidToKeep )
+    protected function mergeModuleUsers( $uidToRemove, $uidToKeep )
     {
         $courseModuleList = get_module_label_list();
         
@@ -484,7 +554,18 @@ class MergeUser
                     
                     if ( method_exists( $moduleMerge, 'mergeUsers' ) )
                     {
-                        $moduleMerge->mergeUsers( $uidToRemove, $uidToKeep );
+                        try
+                        {
+                            if ( !$moduleMerge->mergeUsers( $uidToRemove, $uidToKeep ) )
+                            {
+                                $this->hasError = true;
+                            }
+                        }
+                        catch ( Exception $e )
+                        {
+                            Console::error($e->getMessage());
+                            $this->hasError = true;
+                        }
                     }
                 }
             }

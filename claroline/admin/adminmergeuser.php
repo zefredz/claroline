@@ -115,7 +115,14 @@ try
         $mergeUser = new MergeUser;
         $mergeUser->merge( $uidToRemove, $uidToKeep );
         
-        $dialogBox->success( get_lang('User accounts merged') );
+        if ( $mergeUser->hasError() )
+        {
+            $dialogBox->error( get_lang('Some errors have occured while merging those user account, check the log table in the platform main database for more details') );
+        }
+        else
+        {
+            $dialogBox->success( get_lang('User accounts merged') );
+        }
     }
 }
 catch( Exception $e )

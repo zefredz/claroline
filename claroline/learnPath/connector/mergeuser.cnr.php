@@ -19,14 +19,17 @@ class CLLNP_MergeUser implements Module_MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update lp_user_module_progress in {$courseId}");
+            Console::error("Cannot update lp_user_module_progress from -{$uidToRemove} to +{$uidToKeep} in {$courseId}");
+            return false;
         }
         
+        return true;
     }
     
     public function mergeUsers( $uidToRemove, $uidToKeep )
     {
         // empty
+        return true;
     }
 }
 
