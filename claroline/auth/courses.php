@@ -358,7 +358,7 @@ if ( $cmd == 'rqUnreg' )
         false,
         true,
         null,
-        $unenrollUrl);
+        $unenrollUrl->toUrl() );
     $courseListView->setViewOptions($viewOptions);
     
     $displayMode = DISPLAY_USER_COURSES;
@@ -378,7 +378,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
     $viewOptions = new CourseTreeViewOptions(
         true,
         false,
-        Url::buildUrl($_SERVER['PHP_SELF'].'?cmd=exReg', $urlParamList, null),
+        Url::buildUrl($_SERVER['PHP_SELF'].'?cmd=exReg', $urlParamList, null)->toUrl(),
         null);
     
     $categoryBrowser->setViewOptions($viewOptions);
@@ -390,7 +390,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
     $viewOptions = new CourseTreeViewOptions(
         true,
         false,
-        Url::buildUrl($_SERVER['PHP_SELF'].'?cmd=exReg', $urlParamList, null),
+        Url::buildUrl($_SERVER['PHP_SELF'].'?cmd=exReg', $urlParamList, null)->toUrl(),
         null);
     
     $searchBox->setViewOptions($viewOptions);
