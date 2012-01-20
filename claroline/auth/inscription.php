@@ -26,6 +26,12 @@ if ( claro_is_user_authenticated() )
 
 // include profile library
 include claro_get_conf_repository() . 'user_profile.conf.php';
+
+if ( !get_conf('allowSelfReg', false) )
+{
+    claro_die( get_lang('Not allowed') );
+}
+
 include_once get_path('incRepositorySys') . '/lib/user.lib.php';
 include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
