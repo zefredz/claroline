@@ -276,11 +276,6 @@ function nameBox($type, $mode)
     {
         if ( isset($_POST['newName']) && !empty($_POST['newName']) )
         {
-            if ( $type == MODULE_ )
-            {
-                $where_cond .= ' AND `contentType` = \'LABEL\''; // awful hack :-( which allows labels with same test
-            }
-            
             $sql = "SELECT COUNT(`" . $col_name . "`)
                                  FROM `" . $tbl_name . "`
                                 WHERE `" . $col_name . "` = '" . claro_sql_escape($_POST['newName']) . "'
