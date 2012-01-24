@@ -22,9 +22,11 @@ require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/class.lib.php';
 require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/password.lib.php';
 require_once get_path('incRepositorySys') . '/lib/utils/validator.lib.php';
 require_once get_path('incRepositorySys') . '/lib/utils/input.lib.php';
 //require_once get_path('incRepositorySys') . '/lib/import_csv.lib.php';
+require_once get_path('incRepositorySys') . '/lib/thirdparty/parsecsv/parsecsv.lib.php';
 require_once './csvimport.class.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
@@ -61,14 +63,18 @@ $userInput->setValidator( 'fieldSeparator' , new Claro_Validator_allowedList( ar
 $userInput->setValidator( 'enclosedBy' , new Claro_Validator_allowedList( array( 'dbquote' , '.' , 'none' )
                                                                              )
                          );
+$userInput->setValidator( 'firstLineFormat' , new Claro_Validator_allowedList( array( 'YES' , 'NO' )
+                                                                             )
+                         );
 
 $cmd = $userInput->get( 'cmd' );
 $step = (int)$userInput->get( 'step' , 0 );
 $class_id = (int)$userInput->get( 'class_id' , 0 );
 $updateUserProperties = (int)$userInput->get( 'updateUserProperties' , 0 );
 $sendEmailToUserCreated = (int)$userInput->get( 'sendEmailToUserCreated' , 0 );
+$firstLineFormat = $userInput->get( 'firstLineFormat' ) == 'YES';
 
-$nameTools        = get_lang('Add a user list in course');
+$nameTools = get_lang('Add a user list in course');
 
 if (claro_is_in_a_course())
 {
@@ -100,6 +106,7 @@ if( empty ( $_SESSION['CSV_enclosedBy'] ) )
 }
 
 $usedFormat = $_SESSION['claro_usedFormat'];
+
 switch( $cmd )
 {
     case 'rqChangeFormat' :
@@ -155,9 +162,7 @@ switch( $cmd )
             break;
         }
         
-        $csvImport = new CsvImport();
-        
-        if( ! $csvImport->format_ok($usedFormat, $fieldSeparator, $enclosedBy) )
+        if( ! CsvImport::format_ok($usedFormat, $fieldSeparator, $enclosedBy) )
         {
             $dialogBox->error( get_lang('ERROR: The format you gave is not compatible with Claroline') );
             break;
@@ -188,21 +193,22 @@ $out = '';
 
 if(isset( $_REQUEST['addType'] ) )
 {
-  switch( $_REQUEST['addType'] )
-  {
-    case 'userTool' : $_SESSION['CSV_CancelButton'] = 'user.php'; break;
-    case 'adminTool' : $_SESSION['CSV_CancelButton'] = '../admin/'; break;
-    case 'adminClassTool' : $_SESSION['CSV_CancelButton'] = '../admin/admin_class_user.php?class_id=' . $class_id; break;
-    default : $_SESSION['CSV_CancelButton'] = '../index.php';
-  }
+    switch( $_REQUEST['addType'] )
+    {
+        case 'userTool' : $_SESSION['CSV_CancelButton'] = 'user.php'; break;
+        case 'adminTool' : $_SESSION['CSV_CancelButton'] = '../admin/'; break;
+        case 'adminClassTool' : $_SESSION['CSV_CancelButton'] = '../admin/admin_class_user.php?class_id=' . $class_id; break;
+        default : $_SESSION['CSV_CancelButton'] = '../index.php';
+    }
 }
 else
 {
-  if( empty($_SESSION['CSV_CancelButton']) )
-  {
-    $_SESSION['CSV_CancelButton'] = '../index.php';
-  }
+    if( empty($_SESSION['CSV_CancelButton']) )
+    {
+        $_SESSION['CSV_CancelButton'] = '../index.php';
+    }
 }
+
 $backButtonUrl = $_SESSION['CSV_CancelButton'];
 
 $content_default = get_lang('You must specify the CSV format used in your file') . ':' . "\n"
@@ -240,90 +246,28 @@ $content_default = get_lang('You must specify the CSV format used in your file')
 $content_default .= '<h3>' . get_lang('Options') . '</h3>';
 
 $content_default .= '<input type="checkbox" name="sendEmailToUserCreated" value="1" id="sendEmailToUserCreated" />' . "\n"
-				   .'<label for="sendEmailToUserCreated">' . get_lang('Send email to new users') . ' ' . '</label>' . "\n"
-				   .'<br /><br />' . "\n";
+                                   .'<label for="sendEmailToUserCreated">' . get_lang('Send email to new users') . ' ' . '</label>' . "\n"
+                                   .'<br /><br />' . "\n";
 
 if (get_conf('update_user_properties'))
 {
-	    $content_default .= '<input type="checkbox" name="updateUserProperties" value="1" id="updateUserProperties" />' . "\n"
-        				   .'<label for="updateUserProperties">' . get_lang('Update user\'properties ') . ' ' . '</label>' . "\n"
-        				   .'<br /><br />' . "\n";
+            $content_default .= '<input type="checkbox" name="updateUserProperties" value="1" id="updateUserProperties" />' . "\n"
+                                           .'<label for="updateUserProperties">' . get_lang('Update user\'properties ') . ' ' . '</label>' . "\n"
+                                           .'<br /><br />' . "\n";
 }
 
 $content_default .=   '<input type="submit" name="submitCSV" value="' . get_lang('Add user list') . '" />' . "\n"
 .   claro_html_button(htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
 .   '</form>' . "\n";
 
+$csvImport = new CsvImport();
+$csvImport->delimiter  = $fieldSeparator;
+$csvImport->enclosure = $enclosedBy != 'none' ? $enclosedBy : '"';
+$csvImport->fields = explode( $fieldSeparator , $usedFormat );
+$csvImport->heading = $firstLineFormat;
+
 switch( $step )
 {
-    case 2 : // Import users in course
-    {
-        $csvImport = new CsvImport( $fieldSeparator , $enclosedBy );
-            
-        if( !( isset($_SESSION['_csvImport']) && isset($_SESSION['_csvUsableArray'] ) ) )
-        {
-            $dialogBox->error('Unable to read the content of the CSV');
-            $content .= $content_default;
-        }
-        else
-        {
-            $csvContent = $_SESSION['_csvImport'];
-            
-            if( $enclosedBy == 'none' )
-            {
-                $csvContent = str_replace( $fieldSeparator , '"' . $fieldSeparator . '"' , $csvContent );
-                $enclosedBy = '"';
-            }
-            
-            $csvImport->setCSVContent( $csvContent );
-            if(is_null($courseId))
-            {
-                if(!claro_is_platform_admin() )
-                {
-                  claro_die(get_lang('Not allowed'));
-                }
-                $logs = $csvImport->importUsers( $class_id,$updateUserProperties,$sendEmailToUserCreated );
-            }
-            else
-            {
-                $logs = $csvImport->importUsersInCourse( $courseId, $is_allowedToCreate, $is_allowedToEnroll, $class_id, $sendEmailToUserCreated );
-            }
-            
-            if( !empty($logs) )
-            {
-                if( isset( $logs['errors'] ) )
-                {
-                  $_errors = "";
-                  foreach( $logs['errors'] as $error )
-                  {
-                    $_errors .= '<div>' . $error . '</div>' . "\n";
-                  }
-                  if( !empty($_errors) )
-                  {
-                    $dialogBox->error( $_errors );
-                  }
-                }
-                
-                if( isset( $logs['success'] ) )
-                {
-                  $_success = "";
-                  foreach( $logs['success'] as $s )
-                  {
-                    $_success .= '<div>' . $s . '</div>' . "\n";
-                  }
-                  if( !empty( $_success ) )
-                  {
-                    $dialogBox->success( $_success );
-                  }
-                }
-            }
-            else
-            {
-                $dialogBox->success( 'Users imported successfully');
-            }
-        }
-    }
-    break;
     case 1 : // check csv data & display the selection
     {
         if( !isset( $_FILES['CSVfile'] ) || empty($_FILES['CSVfile']['name']) || $_FILES['CSVfile']['size'] == 0 )
@@ -334,8 +278,6 @@ switch( $step )
         }
         else
         {
-            $csvImport = new CsvImport( $fieldSeparator , $enclosedBy != 'none' ? $enclosedBy : '"' );
-            
             $tmpName = $_FILES['CSVfile']['tmp_name'];
             $csvContent = file_get_contents( $tmpName );
             
@@ -345,38 +287,28 @@ switch( $step )
                 $enclosedBy = '"';
             }
             
-            if( ! $csvImport->load( $tmpName ) )
+            if( ! $csvImport->parse( $tmpName ) )
             {
                 $dialogBox->error(get_lang('Unable to read the content of the CSV'));
             }
             else
             {
-                $csvContent = $csvImport->getCSVContent();
-                $_SESSION['_csvImport'] = $csvContent;
+                $csvContent = $csvImport->data;
                 
-                $firstLineFormat = true;
-                if( isset( $_REQUEST['firstLineFormat']) )
-                {
-                    switch( $_REQUEST['firstLineFormat'] )
-                    {
-                        case 'NO' : $firstLineFormat = false; break;
-                    }
-                }
-                
-                if( !$firstLineFormat )
-                {
-                    $keys = explode( $fieldSeparator , $usedFormat);
-                    $firstLine = $usedFormat;
-                }
-                else
+                if( $firstLineFormat )
                 {
                     $keys = null;
                     $firstLine = $csvImport->getFirstLine();
                 }
+                else
+                {
+                    $keys = explode( $fieldSeparator , $usedFormat);
+                    $firstLine = $usedFormat;
+                }
                 
-                $csvUseableArray = createArrayForCsvUsage($csvImport->getCSVContent(), $firstLineFormat, $keys) ;
+                $csvUseableArray = $csvImport->createArrayForCsvUsage($firstLineFormat, $keys) ;
                 $_SESSION['_csvUsableArray'] = $csvUseableArray;
-                $errors = $csvImport->checkFieldsErrors( $csvUseableArray );
+                $errors = CsvImport::checkFieldsErrors( $csvUseableArray );
                 
                 if( is_null($keys) && $firstLineFormat )
                 {
@@ -384,7 +316,7 @@ switch( $step )
                     unset($csvContent[0]);
                 }
                 $_SESSION['_csvKeys'] = $keys;
-                if( ! $csvImport->format_ok( $firstLine, $fieldSeparator , $enclosedBy ) )
+                if( ! CsvImport::format_ok( $firstLine, $fieldSeparator , $enclosedBy ) )
                 {
                     $dialogBox->error( get_lang('ERROR: The format you gave is not compatible with Claroline') );
                     break;
@@ -401,17 +333,17 @@ switch( $step )
                         $errorsDisplayed = '';
                         foreach( $errors as $error )
                         {
-                          if( !empty($error) )
-                          {
-                            foreach($error as $e)
+                            if( !empty($error) )
                             {
-                              $errorsDisplayed .= '<div>' . $e . '</div>';
+                                foreach($error as $e)
+                                {
+                                    $errorsDisplayed .= '<div>' . $e . '</div>';
+                                }
                             }
-                          }
                         }
                         if(!empty($errorsDisplayed))
                         {
-                          $dialogBox->error($errorsDisplayed);
+                            $dialogBox->error($errorsDisplayed);
                         }
                     }
                     
@@ -419,6 +351,7 @@ switch( $step )
                     .   (count($errors) ? get_lang('Errors can be ignored to force the import') : '') . "\n" . '<br />' . "\n";
                     
                     $content .= '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" >' . "\n"
+                    .   '<input type="hidden" name="csvContent" value="' . str_replace( '"' , '\'' , serialize( $csvContent ) ) . '" />' . "\n"
                     .   '<input type="hidden" name="step" value="2" />' . "\n"
                     .   '<input type="hidden" name="class_id" value="' . $class_id .'" />' . "\n"
                     .   '<input type="hidden" name="updateUserProperties" value="' . $updateUserProperties . '" />' . "\n"
@@ -464,6 +397,77 @@ switch( $step )
         }
     }
     break;
+
+    case 2 : // Import users in course
+    {
+        if ( $csvContent = unserialize( str_replace( '\'' , '"' , $userInput->get( 'csvContent' ) ) ) )
+        {
+            $csvImport->put( $csvContent );
+            $userList = $userInput->get( 'users' );
+            
+            if(is_null($courseId))
+            {
+                if(!claro_is_platform_admin() )
+                {
+                    claro_die(get_lang('Not allowed'));
+                }
+                
+                $logs = $csvImport->importUsers( $userList
+                                               , $class_id
+                                               , $updateUserProperties
+                                               , $sendEmailToUserCreated );
+            }
+            else
+            {
+                $logs = $csvImport->importUsersInCourse( $userList
+                                                       , $courseId
+                                                       , $is_allowedToCreate
+                                                       , $is_allowedToEnroll
+                                                       , $class_id
+                                                       , $sendEmailToUserCreated );
+            }
+            
+            if( !empty($logs) )
+            {
+                if( isset( $logs['errors'] ) )
+                {
+                    $_errors = "";
+                    foreach( $logs['errors'] as $error )
+                    {
+                        $_errors .= '<div>' . $error . '</div>' . "\n";
+                    }
+                    if( !empty($_errors) )
+                    {
+                        $dialogBox->error( $_errors );
+                    }
+                }
+                
+                if( isset( $logs['success'] ) )
+                {
+                    $_success = "";
+                    foreach( $logs['success'] as $s )
+                    {
+                        $_success .= '<div>' . $s . '</div>' . "\n";
+                    }
+                    if( !empty( $_success ) )
+                    {
+                        $dialogBox->success( $_success );
+                    }
+                }
+            }
+            else
+            {
+                $dialogBox->success( 'Users imported successfully');
+            }
+        }
+        else
+        {
+            $dialogBox->error('Unable to read the content of the CSV');
+            $content .= $content_default;
+        }
+    }
+    break;
+    
     default :
     {
         if( isset($_SESSION['_csvImport']) )
@@ -506,53 +510,3 @@ $out .= '<script type="text/javascript">'
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-
-/**
- * Create an array that you can use to generate CSV (array of array).
- *
- * @param $content array that need to be changed in an usable array
- * @param $useFirstLine use the first line of the array to define cols
- * @param $keys
- * @return $useableArray converted array
- */
-function createArrayForCsvUsage($content, $useFirstLine = true, $keys = null)
-{
-    if( !is_array( $content ) )
-    {
-        return false;
-    }
-    
-    if( $useFirstLine )
-    {
-        $keys = $content[0];
-        unset($content[0]);
-    }
-    
-    if( !(!is_null( $keys ) && is_array( $keys ) && count( $keys )) )
-    {
-        return false;
-    }
-    
-    $useableArray = array();
-    foreach( $keys as $col )
-    {
-        $useableArray[$col] = array();
-    }
-    
-    foreach( $content as $i => $row)
-    {
-        foreach( $row as $j => $r)
-        {
-            foreach($keys as $col => $val )
-            {
-                if($j == $col)
-                {
-                    $useableArray[$val][$i] = $r;
-                }
-            }
-        }
-    }
-    
-    return $useableArray;
-}
