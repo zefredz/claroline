@@ -203,7 +203,7 @@ function user_get_properties($userId)
 function user_create($settingList, $creatorId = null)
 {
     $requiredSettingList = array('lastname', 'firstname', 'username',
-    'password', 'language', 'email', 'officialCode', 'phone', 'isCourseCreator');
+    'password', 'language', 'email', 'officialCode', 'phone', 'isCourseCreator','isPlatformAdmin');
 
     // Set non compulsory fields
 
@@ -211,6 +211,7 @@ function user_create($settingList, $creatorId = null)
     if (!isset($settingList['phone']))               $settingList['phone'] = '';
     if (!isset($settingList['isCourseCreator']))     $settingList['isCourseCreator'] = false;
     if (!isset($settingList['officialEmail']))       $settingList['officialEmail'] = false;
+    if (!isset($settingList['isPlatformAdmin']))     $settingList['isPlatformAdmin'] = false;
 
     // Verify required fields
     foreach($requiredSettingList as $thisRequiredSetting)
