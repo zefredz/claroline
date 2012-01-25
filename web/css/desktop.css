@@ -64,21 +64,18 @@
 }
 
 /* Portlet calendar */
-#portletMycalendar .calendar {
-    min-width: 250px;
-    float: left;
-    max-width: 30%;
-    width: 30%;
-    margin: 0;
+#portletMycalendar .details {
+    float: right;
+    margin-left: 32%;
     padding: 0;
-    text-align: center;
+    text-align: left;
+    overflow: auto;
+    width: 60%;
 }
 
-#portletMycalendar .details {
-    min-width: 200px;
-    margin-left: 280px;
-    padding: 0 1em 0.1em 1em;
-    overflow: auto;
+#portletMycalendar .calendar {
+    max-width: 30%;
+    text-align: center;
 }
  
 #portletMycalendar .dayWithEvent {

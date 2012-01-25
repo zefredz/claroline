@@ -235,7 +235,7 @@ var UserDesktopCalendar = {
 
         $output = '';
 
-        $output .= '<div class="calendar">'.$this->ajaxMiniCalendar($agendaItemList).'</div>';
+        
         
         $output .= '<div class="details">' . "\n"
                  . '<dl class="calendarDetails">' . "\n";
@@ -272,6 +272,8 @@ var UserDesktopCalendar = {
         $output .= ''
                  . '</dl>' . "\n"
                  . '</div>' . "\n";
+        
+        $output .= '<div class="calendar">'.$this->ajaxMiniCalendar($agendaItemList).'</div>';
         
         return $output;
     }
