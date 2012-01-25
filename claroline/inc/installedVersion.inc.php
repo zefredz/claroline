@@ -26,7 +26,7 @@ $is_upgrade_available = false;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.11.0';
+$new_version = '1.11.0-alpha2';
 $new_version_branch = '1.11';
 
 if (!$stable)
