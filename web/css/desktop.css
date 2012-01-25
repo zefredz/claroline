@@ -18,22 +18,32 @@
     border: 0;
 }
 
-.userCommands {
+/*.userCommands {
     padding-right: 20px;
 }
 
 .userCourseList {
     padding-left: 20px;
-}
+}*/
 
 .userCommands ul {
     margin: 0 0 10px 0;
     list-style-type: none;
 }
 
+.userCommands li {
+    display: inline-block;
+    margin-right: 2em;
+}
+
+.userCommands li:nth-of-type(1) {
+    margin-left: 1em;
+}
+
+
 .userCourseList dl {
     width: 100%;
-    max-height: 20em;
+    /*max-height: 20em;*/
     overflow: auto;
     padding-right: 20px;
     

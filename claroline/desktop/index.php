@@ -130,6 +130,11 @@ if ( !empty( $portletList ) )
                 continue;
             }
             
+            if( $portlet['label'] == 'mycourselist' )
+            {
+                continue;
+            }
+            
             $portlet = new $portlet['label']($portlet['label']);
             
             if( ! $portlet instanceof UserDesktopPortlet )
@@ -177,9 +182,12 @@ $template = new CoreTemplate('user_desktop.tpl.php');
 
 $userProfileBox = new UserProfileBox(false);
 
+$myCourseList = new MyCourseList;
+
 $template->assign('dialogBox', $dialogBox);
 $template->assign('userProfileBox', $userProfileBox);
 $template->assign('outPortlet', $outPortlet);
+$template->assign('mycourselist', $myCourseList->render());
 
 $claroline->display->body->appendContent($template->render());
 

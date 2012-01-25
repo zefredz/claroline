@@ -14,6 +14,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     DESKTOP
  * @author      Claroline Team <info@claroline.net>
+ * @fixme       should not be a portlet anymore
  */
 
 FromKernel::uses('courselist.lib');
@@ -93,14 +94,17 @@ class MyCourseList extends UserDesktopPortlet
         
         $userCourseListDesactivated = render_user_course_list_desactivated();
         
-        $out .= '<table>'
+        $out .= /*'<table>'
               . '<tbody>'
               . '<tr>'
-              . '<td class="userCommands">'
+              . '<td class="userCommands">'*/
+              '<div class="userCommands">'
               . '<h2>'.get_lang('Manage my courses').'</h2>'
               . claro_html_list($userCommands)
-              . '</td>'
-              . '<td class="userCourseList">'
+              . '</div>'
+              /*. '</td>'
+              . '<td class="userCourseList">'*/
+              . '<div class="userCourseList">'
               . '<h2>'.get_lang('My course list').'</h2>'
               . $userCourseList;
               
@@ -110,10 +114,10 @@ class MyCourseList extends UserDesktopPortlet
                   . $userCourseListDesactivated;
         }
         
-        $out .= '</td>'
+        $out .= '</div>';/*'</td>'
               . '</tr>'
               . '</tbody>'
-              . '</table>';
+              . '</table>'*/;
         
         $this->content = $out;
         
@@ -126,5 +130,17 @@ class MyCourseList extends UserDesktopPortlet
         $output = get_lang('My course list');
         
         return $output;
+    }
+    
+    public function render()
+    {
+        return '<div class="portlet'.(!empty($this->label)?' '.$this->label:'').'">' . "\n"
+             . '<h1>' . "\n"
+             . $this->renderTitle() . "\n"
+             . '</h1>' . "\n"
+             . '<div class="content">' . "\n"
+             . $this->renderContent()
+             . '</div>' . "\n"
+             . '</div>' . "\n\n";
     }
 }
