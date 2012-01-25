@@ -36,9 +36,13 @@
     margin-right: 2em;
 }
 
-.userCommands li:nth-of-type(1) {
+.userCommands li:first-child {
     margin-left: 1em;
 }
+
+/*.userCommands li:nth-of-type(1) {
+    margin-left: 1em;
+}*/
 
 
 .userCourseList dl {
