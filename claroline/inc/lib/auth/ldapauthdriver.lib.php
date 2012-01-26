@@ -54,13 +54,17 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
         $this->extAuthIgnoreUpdateList = $driverConfig['extAuthAttribToIgnore'];
 
         // @since 1.9.9 
-        $this->authProfileOptions = isset($driverConfig['authProfileOptions'])
-            ? $driverConfig['authProfileOptions']
-            : array( 
+        $defaultProfileOptions = array( 
                 'courseRegistrationAllowed' => null,
                 'courseEnrolmentMode' => null, 
                 'defaultCourseProfile' => null, 
-                'editableProfileFields' => null )
+                'editableProfileFields' => null,
+                'readonlyProfileFields' => array( 'login', 'password', 'phone', 'email', 'officalCode' ) );
+        
+        // @since 1.11 
+        $this->authProfileOptions = isset($driverConfig['authProfileOptions'])
+            ? array_merge( $defaultProfileOptions, $driverConfig['authProfileOptions'] )
+            : $defaultProfileOptions
             ;
         
         $this->userSelfBindAuth = isset( $driverConfig['extAuthOptionList']['userSelfBindAuth'] )

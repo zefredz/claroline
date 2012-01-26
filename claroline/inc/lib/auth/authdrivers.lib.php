@@ -111,7 +111,8 @@ abstract class AbstractAuthDriver implements AuthDriver
             'courseRegistrationAllowed' => null,
             'courseEnrolmentMode' => null, 
             'defaultCourseProfile' => null, 
-            'editableProfileFields' => null 
+            'editableProfileFields' => null,
+            'readonlyProfileFields' => null
         );
     
     
@@ -163,15 +164,18 @@ abstract class AbstractAuthDriver implements AuthDriver
             ? $driverConfig['extAuthAttribToIgnore']
             : array()
             ;
-
-        // @since 1.11 
-        $this->authProfileOptions = isset($driverConfig['authProfileOptions'])
-            ? $driverConfig['authProfileOptions']
-            : array( 
+        
+        $defaultProfileOptions = array( 
                 'courseRegistrationAllowed' => null,
                 'courseEnrolmentMode' => null, 
                 'defaultCourseProfile' => null, 
-                'editableProfileFields' => null )
+                'editableProfileFields' => null,
+                'readonlyProfileFields' => null );
+        
+        // @since 1.11 
+        $this->authProfileOptions = isset($driverConfig['authProfileOptions'])
+            ? array_merge( $defaultProfileOptions, $driverConfig['authProfileOptions'] )
+            : $defaultProfileOptions
             ;
     }
     

@@ -47,5 +47,3 @@ $driverConfig['extAuthAttribTreatmentList'] = array (
 $driverConfig['extAuthAttribToIgnore'] = array(
     'isCourseCreator'
 );
-
-

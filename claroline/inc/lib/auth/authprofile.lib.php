@@ -81,14 +81,31 @@ class AuthProfile
             $this->defaultCourseProfile = 'user';
         }
 
-        if ( isset($data['editableProfileFields']) && ! is_null($data['editableProfileFields']) )
+        if ( isset($data['editableProfileFields']) && ! empty($data['editableProfileFields']) )
         {
             $this->editableProfileFields = $data['editableProfileFields'];
         }
         else
         {
             load_kernel_config('CLPROFIL');
-            $this->editableProfileFields = get_conf('profile_editable');
+            
+            if ( empty ( $data['readonlyProfileFields'] ) )
+            {
+                $this->editableProfileFields = get_conf('profile_editable');
+            }
+            else
+            {
+                $baseProfileFeilds = get_conf('profile_editable');
+                $this->editableProfileFields = array();
+                
+                foreach ( $baseProfileFeilds as $profileField )
+                {
+                    if ( !in_array( $profileField, $data['readonlyProfileFields'] ) )
+                    {
+                        $this->editableProfileFields[] = $profileField;
+                    }
+                }
+            }
         }
         
         if ( isset ( $data['courseRegistrationAllowed'] ) && ! is_null($data['courseRegistrationAllowed']) )
