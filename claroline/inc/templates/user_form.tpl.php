@@ -34,10 +34,14 @@
             </dt>
             <dd>
                 <?php if (in_array('name', $this->editableFields)) : ?>
-                <input type="text" id="lastname" name="lastname" value="<?php echo $this->data['lastname']; ?>" />
+                
+                    <input type="text" id="lastname" name="lastname" value="<?php echo $this->data['lastname']; ?>" />
+                
                 <?php else : ?>
-                <?php echo $this->data['lastname']; ?>
-                <input type="hidden" id="lastname" name="lastname" value="<?php echo $this->data['lastname']; ?>" />
+                
+                    <?php echo $this->data['lastname']; ?>
+                    <input type="hidden" id="lastname" name="lastname" value="<?php echo $this->data['lastname']; ?>" />
+                
                 <?php endif; ?>
             </dd>
             <dt>
@@ -48,32 +52,46 @@
             </dt>
             <dd>
                 <?php if (in_array('name', $this->editableFields)) : ?>
-                <input type="text" id="firstname" name="firstname" value="<?php echo $this->data['firstname']; ?>" />
+                
+                    <input type="text" id="firstname" name="firstname" value="<?php echo $this->data['firstname']; ?>" />
+                
                 <?php else : ?>
-                <?php echo $this->data['firstname']; ?>
-                <input type="hidden" id="firstname" name="firstname" value="<?php echo $this->data['firstname']; ?>" />
+                    
+                    <?php echo $this->data['firstname']; ?>
+                    <input type="hidden" id="firstname" name="firstname" value="<?php echo $this->data['firstname']; ?>" />
+                
                 <?php endif; ?>
             </dd>
             
             <?php if (get_conf('ask_for_official_code')) : ?>
-            <dt>
-                <label for="officialCode">
-                    <?php echo get_lang('Administrative code'); ?>
-                    <?php if (!get_conf('userOfficialCodeCanBeEmpty')) : ?>
-                    <span class="required">*</span>
-                    <?php endif; ?>
-                </label>
-            </dt>
-            <?php if (in_array('official_code', $this->editableFields)) : ?>
-            <dd>
-                <input type="text" id="officialCode" name="officialCode" value="<?php echo $this->data['officialCode']; ?>" />
-            </dd>
-            <?php else : ?>
-            <dd>
-                <?php echo $this->data['officialCode']; ?>
-                <input type="hidden" id="officialCode" name="officialCode" value="<?php echo $this->data['officialCode']; ?>" />
-            </dd>
-            <?php endif; ?>
+            
+                <dt>
+                    <label for="officialCode">
+                        <?php echo get_lang('Administrative code'); ?>
+
+                        <?php if (!get_conf('userOfficialCodeCanBeEmpty')) : ?>
+
+                            <span class="required">*</span>
+
+                        <?php endif; ?>
+                    </label>
+                </dt>
+            
+                <?php if (in_array('official_code', $this->editableFields)) : ?>
+                
+                    <dd>
+                        <input type="text" id="officialCode" name="officialCode" value="<?php echo $this->data['officialCode']; ?>" />
+                    </dd>
+                
+                <?php else : ?>
+                
+                    <dd>
+                        <?php echo $this->data['officialCode']; ?>
+                        <input type="hidden" id="officialCode" name="officialCode" value="<?php echo $this->data['officialCode']; ?>" />
+                    </dd>
+                
+                <?php endif; ?>
+                    
             <?php endif; ?>
             
             <?php if ( in_array('language', $this->editableFields) 
