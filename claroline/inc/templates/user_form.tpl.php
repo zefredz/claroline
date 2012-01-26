@@ -76,7 +76,9 @@
             <?php endif; ?>
             <?php endif; ?>
             
-            <?php if (!empty($this->languages) && count($this->languages) > 1) : ?>
+            <?php if ( in_array('language', $this->editableFields) 
+                && !empty($this->languages) 
+                && count($this->languages) > 1) : ?>
             <dt>
                 <label for="language">
                     <?php echo get_lang('Language'); ?>
@@ -135,6 +137,7 @@
         
         <dl>
             <?php if (empty($this->data['user_id'])) : ?>
+            
             <dt></dt>
             <dd>
                 <p class="notice">
@@ -143,87 +146,116 @@
                 </p>
             </dd>
             <?php endif; ?>
+            
             <?php if (!empty($this->data['user_id']) && claro_is_platform_admin()) : ?>
+            
             <dt>
                 <?php echo get_lang('User id'); ?>
             </dt>
             <dd>
                 <?php echo $this->data['user_id']; ?>
             </dd>
+            
             <?php endif; ?>
             
-            <?php if (!empty($this->data['username']) && !empty($this->data['authsource']) && !in_array(strtolower($this->data['authsource']), array('claroline', 'clarocrypt'))) : ?>
-            <dt>
-                <?php echo get_lang('Username'); ?>
-                <span class="required">*</span>
-            </dt>
-            <dd>
-                <?php echo htmlspecialchars($this->data['username']); ?>
-                <input type="hidden" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
-            </dd>
+            <?php if ( !empty($this->data['username']) && !in_array( 'login', $this->editableFields ) ) : ?>
             
-            <?php else : ?>
-            <dt>
-                <label for="username">
+                <dt>
                     <?php echo get_lang('Username'); ?>
                     <span class="required">*</span>
-                </label>
-            </dt>
-            <dd>
-                <?php if (in_array('login', $this->editableFields)) : ?>
-                <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
-                <?php else : ?>
-                <?php echo htmlspecialchars($this->data['username']); ?>
-                <input type="hidden" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
-                <?php endif; ?>
-            </dd>
+                </dt>
+                <dd>
+                    <?php echo htmlspecialchars($this->data['username']); ?>
+                    <input type="hidden" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
+                </dd>
+            
+            <?php else : ?>
+            
+                <dt>
+                    <label for="username">
+                        <?php echo get_lang('Username'); ?>
+                        <span class="required">*</span>
+                    </label>
+                </dt>
+                <dd>
+                    <?php if (in_array('login', $this->editableFields)) : ?>
+                    <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
+                    <?php else : ?>
+                    <?php echo htmlspecialchars($this->data['username']); ?>
+                    <input type="hidden" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
+                    <?php endif; ?>
+                </dd>
+            <?php endif; ?>
+            
             <?php if (in_array('password', $this->editableFields)) : ?>
-            <?php if (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id()) : ?>
-            <dt></dt>
-            <dd>
-                <p class="notice"><?php echo get_lang('Enter new password twice to change, leave empty to keep it'); ?></p>
-            </dd>
-            <dt>
-                <label for="old_password">
-                    <?php echo get_lang('Old password'); ?>
-                </label>
-            </dt>
-            <dd>
-                <input type="password" autocomplete="off" name="old_password" id="old_password" />
-            </dd>
-            <?php endif; ?>
+                
+                <?php if (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id()) : ?>
+                
+                    <dt>&nbsp;</dt>
+                    <dd>
+                        <p class="notice"><?php echo get_lang('Enter new password twice to change, leave empty to keep it'); ?></p>
+                    </dd>
+                    <dt>
+                        <label for="old_password">
+                            <?php echo get_lang('Old password'); ?>
+                        </label>
+                    </dt>
+                    <dd>
+                        <input type="password" autocomplete="off" name="old_password" id="old_password" />
+                    </dd>
+                
+                <?php endif; ?>
             
-            <dt>
-                <label for="password">
-                    <?php if (!empty($this->data['user_id'])) : ?>
-                    <?php echo get_lang('New password'); ?>
-                    <?php else : ?>
-                    <?php echo get_lang('Password'); ?>
-                    <?php endif; ?>
-                    <span class="required">*</span>
-                </label>
-            </dt>
-            <dd>
-                <input type="password" autocomplete="off" name="password" id="password" />
-            </dd>
-            <dt>
-                <label for="password_conf">
-                    <?php if (!empty($this->data['user_id'])) : ?>
-                    <?php echo get_lang('New password'); ?>
-                    <?php else : ?>
-                    <?php echo get_lang('Password'); ?>
-                    <?php endif; ?>
-                    (<?php echo get_lang('Confirmation'); ?>)
-                    <span class="required">*</span>
-                </label>
-            </dt>
-            <dd>
-                <input type="password" autocomplete="off" name="password_conf" id="password_conf" />
-            </dd>
+                <dt>
+                    <label for="password">
+                        
+                        <?php 
+                        
+                        if (!empty($this->data['user_id'])) :
+                            
+                            echo get_lang('New password');
+                        
+                        else :
+                            
+                            echo get_lang('Password');
+                        
+                        endif; 
+                        
+                        ?>
+                        
+                        <span class="required">*</span>
+                    </label>
+                </dt>
+                <dd>
+                    <input type="password" autocomplete="off" name="password" id="password" />
+                </dd>
+                <dt>
+                    <label for="password_conf">
+                        
+                        <?php 
+                        
+                        if (!empty($this->data['user_id'])) : 
+                            
+                            echo get_lang('New password'); 
+                        
+                        else : 
+                            
+                            echo get_lang('Password'); 
+                        
+                        endif; 
+                        
+                        ?>
+                        
+                        (<?php echo get_lang('Confirmation'); ?>)
+                        <span class="required">*</span>
+                    </label>
+                </dt>
+                <dd>
+                    <input type="password" autocomplete="off" name="password_conf" id="password_conf" />
+                </dd>
             
             <?php endif; ?>
-            
-            <?php endif; ?>
+                
         </dl>
     </fieldset>
     
@@ -240,13 +272,20 @@
                 <label for="email">
                     <?php echo get_lang('Email'); ?>
                 </label>
+                <?php if ( !get_conf('userMailCanBeEmpty',true) ): ?>
+                <span class="required">*</span>
+                <?php endif; ?>
             </dt>
             <dd>
                 <?php if (in_array('email', $this->editableFields)) : ?>
+                
                 <input type="text" name="email" id="email" value="<?php echo htmlspecialchars($this->data['email']); ?>" />
+                
                 <?php else : ?>
+                
                 <?php echo htmlspecialchars($this->data['email']); ?>
                 <input type="hidden" name="email" id="email" value="<?php echo htmlspecialchars($this->data['email']); ?>" />
+                
                 <?php endif; ?>
             </dd>
             <dt>
@@ -256,10 +295,14 @@
             </dt>
             <dd>
                 <?php if (in_array('phone', $this->editableFields)) : ?>
+                
                 <input type="text" value="<?php echo $this->data['phone']; ?>" name="phone" id="phone" />
+                
                 <?php else : ?>
+                
                 <?php echo $this->data['phone']; ?>
                 <input type="hidden" value="<?php echo $this->data['phone']; ?>" name="phone" id="phone" />
+                
                 <?php endif; ?>
             </dd>
             <dt>
@@ -269,10 +312,15 @@
             </dt>
             <dd>
                 <?php if (in_array('skype', $this->editableFields)) : ?>
+                
                 <input type="text" value="<?php echo $this->data['skype']; ?>" name="skype" id="skype" />
+                
                 <?php else : ?>
+                
                 <?php echo $this->data['skype']; ?>
+                
                 <input type="hidden" value="<?php echo $this->data['skype']; ?>" name="skype" id="skype" />
+                
                 <?php endif; ?>
             </dd>
         </dl>

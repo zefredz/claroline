@@ -825,7 +825,8 @@ function user_validate_form($formMode, $data, $userId = null)
     }
     else
     {
-        $editableFields = get_conf('profile_editable');
+        // $editableFields = get_conf('profile_editable');
+        $editableFields = AuthProfileManager::getUserAuthProfile( $userId )->getEditableProfileFields();
     }
     
     $validator = new DataValidator();
@@ -1098,6 +1099,7 @@ function user_html_form($userId = null)
     else
     {
         $editableFields = AuthProfileManager::getUserAuthProfile( $userId )->getEditableProfileFields(); // get_conf('profile_editable');
+        // pushClaroMessage(var_export($editableFields,true), 'debug');
     }
     
     if (!empty($_SERVER['HTTP_REFERER']))
