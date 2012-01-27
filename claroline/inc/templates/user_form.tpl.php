@@ -177,6 +177,7 @@
                 <input type="hidden" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
                 <?php endif; ?>
             </dd>
+            <?php endif; ?>
             <?php if (in_array('password', $this->editableFields)) : ?>
             <?php if (!empty($this->data['user_id']) && $this->data['user_id'] == claro_get_current_user_id()) : ?>
             <dt></dt>
@@ -223,7 +224,6 @@
             
             <?php endif; ?>
             
-            <?php endif; ?>
         </dl>
     </fieldset>
     
@@ -240,6 +240,9 @@
                 <label for="email">
                     <?php echo get_lang('Email'); ?>
                 </label>
+                <?php if ( !get_conf('userMailCanBeEmpty',true) ): ?>
+                <span class="required">*</span>
+                <?php endif; ?>
             </dt>
             <dd>
                 <?php if (in_array('email', $this->editableFields)) : ?>
