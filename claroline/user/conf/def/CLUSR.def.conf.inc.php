@@ -63,7 +63,7 @@ array ( 'label'   => 'Number of user per page'
       , 'default' => '25'
       , 'unit'    => 'users'
       ,  'type'    => 'integer'
-      ,'acceptedValue' => array ('Min'=>'5')
+      ,'acceptedValue' => array ('min'=>'5')
       );
 
 

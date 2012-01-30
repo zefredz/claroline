@@ -16,7 +16,7 @@ if ( count( get_included_files() ) == 1 )
  * @see http://www.claroline.net/wiki/config_def/
  * @package CONFIG
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
 
@@ -402,7 +402,7 @@ class Config
                 break;
 
             case 'integer' :
-                if ( preg_match('/[^0-9]/i',$value) )
+                if ( !preg_match('/\d+/i',$value) )
                 {
                     $this->backlog->failure( get_lang('%name should be integer',array('%name'=>$label)));
                     $valid = false;
