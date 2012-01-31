@@ -2,7 +2,12 @@
 
 class CLUSR_ProfileSelectorForm extends ModuleTemplate
 {
-    protected $profileList, $baseUrl, $command, $userId = null;
+    protected 
+        $profileList, 
+        $baseUrl, 
+        $command, 
+        $userId = null,
+        $ignoreNonMemberProfiles = false;
     
     public function __construct( $baseUrl = null, $profileList = null, $command = 'registration' )
     {
@@ -36,6 +41,11 @@ class CLUSR_ProfileSelectorForm extends ModuleTemplate
         $this->command = $command;
     }
     
+    public function ignoreNonMemberProfiles()
+    {
+        $this->ignoreNonMemberProfiles = true;
+    }
+    
     public function setUserId( $userId )
     {
         $this->userId = $userId;
@@ -44,7 +54,13 @@ class CLUSR_ProfileSelectorForm extends ModuleTemplate
 
 class CLUSR_ProfileSelector extends ModuleTemplate
 {
-    protected $profileList, $baseUrl, $command, $userId = null;
+    protected 
+        $profileList, 
+        $baseUrl, 
+        $command, 
+        $userId = null, 
+        $ignoreNonMemberProfiles = false;
+    
     
     public function __construct( $profileList = null )
     {
@@ -58,6 +74,11 @@ class CLUSR_ProfileSelector extends ModuleTemplate
         {
             $this->profileList = $profileList;
         }
+    }
+    
+    public function ignoreNonMemberProfiles()
+    {
+        $this->ignoreNonMemberProfiles = true;
     }
 }
 

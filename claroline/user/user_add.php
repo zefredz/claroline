@@ -390,6 +390,7 @@ else
               . '<tbody>' . "\n";
         
         $profileSelector = new CLUSR_ProfileSelectorForm;
+        $profileSelector->ignoreNonMemberProfiles();
         
         foreach ($userList as $thisUser)
         {
@@ -435,9 +436,11 @@ else
         if ( ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
             && $formToDisplay == CLUSER_ADD_FORM )
         {
+            $profileSelector = new CLUSR_ProfileSelector;
+            $profileSelector->ignoreNonMemberProfiles();
             
             $tpl = new ModuleTemplate('CLUSR','course_user_add.tpl.php');               
-            $tpl->assign( 'profileSelector', new CLUSR_ProfileSelector );
+            $tpl->assign( 'profileSelector', $profileSelector );
 
             $out .= $tpl->render();
         }
