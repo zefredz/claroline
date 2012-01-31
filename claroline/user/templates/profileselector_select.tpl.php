@@ -5,7 +5,7 @@
 
         <option 
             value="<?php echo $profile->id; ?>"<?php echo $profile->name == 'User' ? ' selected="selected"' : ''; ?>>
-            <?php echo $profile->name; ?>
+            <?php echo get_lang($profile->name); ?>
         </option>
 
     <?php endforeach; ?>
