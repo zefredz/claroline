@@ -317,7 +317,7 @@ if ( $courseRegSucceed )
 $cmdList = array();
 
 $cmdList[] = array(
-    'name' => get_lang('Search for an existing user'),
+    'name' => get_lang('Search and add an existing user'),
     'img' => 'search',
     'url' => htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF']) )
 );
@@ -392,12 +392,6 @@ else
             if ( empty($thisUser['registered']) )
             {
                 $profileSelector->setUserId($thisUser['uid']);
-                
-                /*$out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                      . '?cmd=registration'
-                      . '&amp;userId=' . $thisUser['uid'] . $regUrlAddParam )) . '">'
-                      . '<img src="' . get_icon_url('enroll') . '" alt="' . $enrollmentLabel . '" />'
-                      . '</a>';*/
                 
                 $out .= $profileSelector->render();
             }

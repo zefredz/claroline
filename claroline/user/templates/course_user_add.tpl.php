@@ -13,7 +13,7 @@
 
     <fieldset>
 
-        <legend><?php echo get_lang('Add user manually'); ?>&nbsp;:</p></legend>
+        <legend><?php echo get_lang('Create a new user'); ?>&nbsp;:</legend>
 
         <p><?php echo get_lang('He or she will receive email confirmation with login and password'); ?></p>
 

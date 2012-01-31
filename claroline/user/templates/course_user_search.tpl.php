@@ -4,7 +4,7 @@
     <?php echo claro_form_relay_context(); ?>
     <input type="hidden" id="cmd" name="cmd" value="applySearch" />
     <fieldset>
-        <legend><?php echo get_lang('Search user to add to your course'); ?> </legend>
+        <legend><?php echo get_lang('Search and add an existing user'); ?> </legend>
         <p><?php echo get_lang('Fill in one or more search criteria, select user profile parameters for your course and press \'Search\''); ?> </p>
         <dl>
             <dt>
