@@ -50,8 +50,7 @@ if (empty($cidReq))
 $portletiterator = new CourseHomePagePortletIterator(ClaroCourse::getIdFromCode($cidReq));
 
 // Include specific CSS if any
-if ( claro_is_in_a_course()
-    && file_exists( get_conf('coursesRepositorySys')
+if ( file_exists( get_conf('coursesRepositorySys')
         . $_course['path'] . '/css/course.css' ) )
 {
     $claroline->display->header->addHtmlHeader(
