@@ -5,8 +5,8 @@
  *
  * This tool allow to add a user in a specific course (and in the platform).
  *
- * @version     1.8 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/CLUSR
  * @author      Claro Team <cvs@claroline.net>
@@ -37,6 +37,8 @@ include claro_get_conf_repository() . 'user_profile.conf.php';
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
+
+From::module('CLUSR')->uses('profileselector.lib');
 
 // Initialise variables
 $nameTools        = get_lang('Add a user');
@@ -69,6 +71,35 @@ $displayResultTable = false;
 $displayForm        = true;
 $errorMsgList       = array();
 
+// Display options and access control
+
+define ( 'CLUSER_SEARCH_FORM', 'CLUSER_SEARCH_FORM' );
+define ( 'CLUSER_ADD_FORM', 'CLUSER_ADD_FORM' );
+
+$formToDisplay = CLUSER_SEARCH_FORM;
+
+if ( $cmd == 'rqRegistration' )
+{
+    if ( ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() ) )
+    {
+        $formToDisplay = CLUSER_ADD_FORM;
+    }
+    else
+    {
+        $dialogBox->error(get_lang('Not allowed'));
+        $cmd = null;
+    }
+}
+elseif ( $cmd == 'registration' && ! $userId )
+{
+    if ( ! ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() ) )
+    {
+        $dialogBox->error(get_lang('Not allowed'));
+        $cmd = null;
+    }
+}
+
+// Business logic
 if ( $cmd == 'registration' )
 {
     /*
@@ -180,7 +211,49 @@ if ( $cmd == 'registration' )
 
     if ( $userId )
     {
-        $courseRegSucceed = user_add_to_course($userId, claro_get_current_course_id(), $userData['courseAdmin'], $userData['courseTutor'],false);
+        $courseObj = new Claro_Course(claro_get_current_course_id());
+        $courseObj->load();
+
+        $courseRegistration = new CourseUserRegistration(
+            AuthProfileManager::getUserAuthProfile($userId),
+            $courseObj,
+            null,
+            null
+        );
+
+        if ( $userData['courseAdmin'] )
+        {
+            $courseRegistration->setCourseAdmin();
+        }
+        
+        if ( $userData['profileId'] )
+        {
+            $courseRegistration->setUserProfileIdInCourse( $userData['profileId'] );
+        }
+
+        if ( $userData['courseTutor'] )
+        {
+            $courseRegistration->setCourseTutor();
+        }
+
+        $courseRegistration->ignoreRegistrationKeyCheck();
+        $courseRegistration->ignoreRegistrationKeyCheck();
+
+        if ( $courseRegistration->addUser() )
+        {
+            $courseRegSucceed = true;
+        }
+        else
+        {
+            // @todo should throw an exception here
+            Console::error(
+                "Cannot register user {$userId} in course {$courseCode} ["
+                . $courseRegistration->getStatus() . ":"
+                . $courseRegistration->getErrorMessage()."]" );
+
+            $courseRegSucceed = false;
+        }
+        
         Console::log(
             "{$userId} enroled to course "
             .  claro_get_current_course_id()
@@ -255,8 +328,10 @@ else
 {
     if ($displayResultTable) //display result of search (if any)
     {
-        $enrollmentLabel = $userData['courseAdmin'] ? get_lang('Enrol as teacher') : get_lang('Enrol as student');
-        $enrollmentLabel .= $userData['courseTutor'] ? '&nbsp;-&nbsp;' . get_lang('tutor') : '';
+        /*$enrollmentLabel = $userData['courseAdmin'] ? get_lang('Enrol as teacher') : get_lang('Enrol as student');
+        $enrollmentLabel .= $userData['courseTutor'] ? '&nbsp;-&nbsp;' . get_lang('tutor') : '';*/
+        
+        $enrollmentLabel = get_lang('Enrol as');
                 
         $regUrlAddParam = '';
         if ( $userData['courseTutor'   ] ) $regUrlAddParam .= '&amp;courseTutor=1';
@@ -279,6 +354,8 @@ else
               . '</thead>' . "\n"
               . '<tbody>' . "\n";
         
+        $profileSelector = new CLUSR_ProfileSelectorForm;
+        
         foreach ($userList as $thisUser)
         {
            $out .= '<tr valign="top">' . "\n"
@@ -292,11 +369,15 @@ else
             // deal with already registered users found in result
             if ( empty($thisUser['registered']) )
             {
-                $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                $profileSelector->setUserId($thisUser['uid']);
+                
+                /*$out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                       . '?cmd=registration'
                       . '&amp;userId=' . $thisUser['uid'] . $regUrlAddParam )) . '">'
                       . '<img src="' . get_icon_url('enroll') . '" alt="' . $enrollmentLabel . '" />'
-                      . '</a>';
+                      . '</a>';*/
+                
+                $out .= $profileSelector->render();
             }
             else
             {
@@ -322,20 +403,63 @@ else
     // Display form to add a user
     if ($displayForm)
     {
-        if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+        if ( ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+            && $formToDisplay == CLUSER_ADD_FORM )
         {
-            $dialogBox->info(get_lang('New users will receive an e-mail with their username and password'));
+            //if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+            {
+                $out .= '<p>'
+                    . '<a class="claroCmd" href="'
+                    .  htmlspecialchars( Url::Contextualize(
+                        $_SERVER['PHP_SELF']))
+                    . '">'
+                    . '<img src="'.get_icon_url('search').'" alt="" />'
+                    . get_lang('Search for an existing user')
+                    . '</a>'
+                    . ' | '
+                    . '<span class="claroCmdDisabled">'
+                    . '<img src="'.get_icon_url('user').'" alt="" />'
+                    . get_lang('Create a new user').'</span>'
+                    . '</p>'
+                    ;
+            }
             
-            $out .= $dialogBox->render() . "\n"
-                  . user_html_form();
+            //if( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+            {
+                $tpl = new ModuleTemplate('CLUSR','course_user_add.tpl.php');               
+                $tpl->assign( 'profileSelector', new CLUSR_ProfileSelector );
+
+                $out .= $tpl->render();
+            }
+            /*else
+            {
+                // claro_die(get_lang('Not allowed'));
+            }*/
         }
         else
         {
-            $dialogBox->info(get_lang('Fill in one or more search criteria, select user profile parameters for your course and press \'Search\''));
+            if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+            {
+                $out .= '<p>'
+                    . '<span class="claroCmdDisabled">'
+                    . '<img src="'.get_icon_url('search').'" alt="" />'
+                    . get_lang('Search for an existing user')
+                    . '</span>'
+                    . ' | '
+                    . '<a class="claroCmd" href="'
+                    .  htmlspecialchars( Url::Contextualize(
+                        $_SERVER['PHP_SELF']
+                        . '?cmd=rqRegistration'))
+                    . '">'
+                    . '<img src="'.get_icon_url('user').'" alt="" />'
+                    . get_lang('Create a new user').'</a>'
+                    . '</p>'
+                    ;
+            }
             
-            $out .= '<p>' . get_lang('Search user to add to your course') . ' :</p>'
-                  . $dialogBox->render() . "\n"
-                  . user_html_search_form($userData);
+            $tpl = new ModuleTemplate('CLUSR','course_user_search.tpl.php');
+            
+            $out .= $tpl->render();            
         }
     }
 } // end else of if ( $courseRegSucceed )

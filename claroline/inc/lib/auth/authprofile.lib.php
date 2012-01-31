@@ -219,7 +219,8 @@ class CourseUserRegistration
         $registerToSourceCourse = false,
         $categoryId,
         $ignoreRegistrationKeyCheck = false,
-        $ignoreCategoryRegistrationCheck = false;
+        $ignoreCategoryRegistrationCheck = false,
+        $profileId = null;
     
     protected $status = 0, $errorMessage = '';
     
@@ -307,6 +308,19 @@ class CourseUserRegistration
     public function setCourseTutor()
     {
         $this->tutor = true;
+    }
+    
+    /**
+     * User should be added as a course tutor
+     */
+    public function setUserProfileIdInCourse( $profileId )
+    {
+        $this->profileId = (int) $profileId;
+        
+        if ( $profileId == claro_get_profile_id('manager') )
+        {
+            $this->setCourseAdmin();
+        }
     }
     
     /**
@@ -425,6 +439,10 @@ class CourseUserRegistration
                 {
                     $profileId = claro_get_profile_id('manager');
                 }
+                elseif ( $this->profileId )
+                {
+                    $profileId = $this->profileId;
+                }
                 else
                 {
                     $profileId = claro_get_profile_id($this->getCourseProfile());
@@ -468,8 +486,7 @@ class CourseUserRegistration
                     }
                 }
                 
-                // register user to new session course
-                
+                // register user to new session course                
                 if ( !Claroline::getDatabase()->exec("INSERT INTO `" . $tbl_rel_course_user . "`
                         SET code_cours      = " . Claroline::getDatabase()->quote( $courseCode )  . ",
                             user_id         = " . (int) $userId . ",

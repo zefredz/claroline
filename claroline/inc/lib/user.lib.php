@@ -48,6 +48,8 @@ function user_initialise()
     $userData['courseTutor']    = (bool) !empty($_REQUEST['courseTutor']);
     $userData['courseAdmin']    = (bool) !empty($_REQUEST['courseAdmin']);
     
+    $userData['profileId']      = isset($_REQUEST['profileId'])? (int) $_REQUEST['profileId'] : null;
+    
     return $userData;
 }
 
