@@ -331,11 +331,24 @@ if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_
     );
 }
 
+$titleArray = array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users'));
+
+if ( ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+    && $displayForm && $formToDisplay == CLUSER_ADD_FORM )
+{
+
+    $titleArray['subTitle'] = get_lang('Create a new user');
+}
+else
+{            
+    $titleArray['subTitle'] = get_lang('Search and add an existing user');          
+}
+
 
 $out = '';
 
 $out .= claro_html_tool_title(
-    array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
+    $titleArray,
     get_help_page_url('blockUsersHelp', 'CLUSR'),
     $cmdList 
 );
