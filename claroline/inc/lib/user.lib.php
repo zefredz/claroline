@@ -856,11 +856,13 @@ function user_validate_form($formMode, $data, $userId = null)
         if ( $formMode != 'registration'
             && $formMode != 'admin_user_profile' )
         {
+            $userProperties = user_get_properties($userId);
+            
             $validator->addRule('old_password', get_lang('You left some required fields empty'), 'required' );
             $validator->addRule('old_password',
                 get_lang('Old password is wrong'),
                 'user_check_authentication',
-                array( $data['username'] )
+                array( $userProperties['username'] )
             );
         }
         
