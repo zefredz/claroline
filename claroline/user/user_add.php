@@ -314,10 +314,32 @@ if ( $courseRegSucceed )
  Display Section
  =====================================================================*/
 
+$cmdList = array();
+
+$cmdList[] = array(
+    'name' => get_lang('Search for an existing user'),
+    'img' => 'search',
+    'url' => htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF']) )
+);
+
+if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+{
+    $cmdList[] = array(
+        'name' => get_lang('Create a new user'),
+        'img' => 'user',
+        'url' => htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF']. '?cmd=rqRegistration') )
+    );
+}
+
+
 $out = '';
 
-$out .= claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
-                get_help_page_url('blockUsersHelp', 'CLUSR'));
+$out .= claro_html_tool_title(
+    array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
+    get_help_page_url('blockUsersHelp', 'CLUSR'),
+    $cmdList 
+);
+
 $out .= $dialogBox->render();
 
 if ( $courseRegSucceed )
@@ -401,62 +423,19 @@ else
     }
     
     // Display form to add a user
-    if ($displayForm)
+    if ( $displayForm )
     {
         if ( ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
             && $formToDisplay == CLUSER_ADD_FORM )
         {
-            //if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
-            {
-                $out .= '<p>'
-                    . '<a class="claroCmd" href="'
-                    .  htmlspecialchars( Url::Contextualize(
-                        $_SERVER['PHP_SELF']))
-                    . '">'
-                    . '<img src="'.get_icon_url('search').'" alt="" />'
-                    . get_lang('Search for an existing user')
-                    . '</a>'
-                    . ' | '
-                    . '<span class="claroCmdDisabled">'
-                    . '<img src="'.get_icon_url('user').'" alt="" />'
-                    . get_lang('Create a new user').'</span>'
-                    . '</p>'
-                    ;
-            }
             
-            //if( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
-            {
-                $tpl = new ModuleTemplate('CLUSR','course_user_add.tpl.php');               
-                $tpl->assign( 'profileSelector', new CLUSR_ProfileSelector );
+            $tpl = new ModuleTemplate('CLUSR','course_user_add.tpl.php');               
+            $tpl->assign( 'profileSelector', new CLUSR_ProfileSelector );
 
-                $out .= $tpl->render();
-            }
-            /*else
-            {
-                // claro_die(get_lang('Not allowed'));
-            }*/
+            $out .= $tpl->render();
         }
         else
-        {
-            if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
-            {
-                $out .= '<p>'
-                    . '<span class="claroCmdDisabled">'
-                    . '<img src="'.get_icon_url('search').'" alt="" />'
-                    . get_lang('Search for an existing user')
-                    . '</span>'
-                    . ' | '
-                    . '<a class="claroCmd" href="'
-                    .  htmlspecialchars( Url::Contextualize(
-                        $_SERVER['PHP_SELF']
-                        . '?cmd=rqRegistration'))
-                    . '">'
-                    . '<img src="'.get_icon_url('user').'" alt="" />'
-                    . get_lang('Create a new user').'</a>'
-                    . '</p>'
-                    ;
-            }
-            
+        {            
             $tpl = new ModuleTemplate('CLUSR','course_user_search.tpl.php');
             
             $out .= $tpl->render();            
