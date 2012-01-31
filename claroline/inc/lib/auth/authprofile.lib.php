@@ -458,7 +458,8 @@ class CourseUserRegistration
                                     isPending       = " . (int) ($isPending ? 1 : 0) . ",
                                     tutor           = " . (int) ($this->tutor ? 1 : 0) . ",
                                     count_user_enrol = " . $count_user_enrol . ",
-                                    count_class_enrol = " . $count_class_enrol ) )
+                                    count_class_enrol = " . $count_class_enrol . ",
+                                    enrollment_date = NOW()" ) )
                         {
                             $this->status = self::STATUS_SYSTEM_ERROR;
                             $this->errorMessage = get_lang('Cannot register user in source course');
@@ -477,7 +478,8 @@ class CourseUserRegistration
                             isPending       = " . (int) ($isPending ? 1 : 0) . ",
                             tutor           = " . (int) ($this->tutor ? 1 : 0) . ",
                             count_user_enrol = " . $count_user_enrol . ",
-                            count_class_enrol = " . $count_class_enrol ) )
+                            count_class_enrol = " . $count_class_enrol  . ",
+                            enrollment_date = NOW()" ) )
                 {
                     $this->status = self::STATUS_SYSTEM_ERROR;
                     $this->errorMessage = get_lang('Cannot register user in source course');
