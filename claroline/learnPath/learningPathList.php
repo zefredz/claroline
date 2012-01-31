@@ -449,7 +449,7 @@ if($is_allowedToEdit)
 }
 
 $out = '';
-$out .= claro_html_tool_title($nameTools, null, $cmdList, 2);
+$out .= claro_html_tool_title($nameTools, null, $cmdList ); //, 2);
 $out .= $dialogBox->render();
 
 

@@ -1541,7 +1541,7 @@ if ($is_allowedToEdit)
 $helpUrl = $is_allowedToEdit ? get_help_page_url('blockDocumentsHelp','CLDOC') : null;
 
 // Display title
-$out .= claro_html_tool_title($titleElement, $helpUrl, $cmdList, 3);
+$out .= claro_html_tool_title($titleElement, $helpUrl, $cmdList ); //, 3);
 
 // Display dialog box
 $out .= $dialogBox->render();

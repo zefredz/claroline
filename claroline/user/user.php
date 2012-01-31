@@ -424,7 +424,7 @@ Display section
   =====================================================================*/
 
 $out = '';
-$out .= claro_html_tool_title($titleParts, $helpUrl, $cmdList, 3);
+$out .= claro_html_tool_title($titleParts, $helpUrl, $cmdList ); //, 3);
 
 // Display Forms or dialog box (if needed)
 $out .= $dialogBox->render();

@@ -535,7 +535,7 @@ $htmlHeadXtra[] =
 
 $out = '';
 
-$out .= claro_html_tool_title($nameTools, null, $cmdList, 3);
+$out .= claro_html_tool_title($nameTools, null, $cmdList ); //, 3);
 
 /*-------------
   MESSAGE BOX
