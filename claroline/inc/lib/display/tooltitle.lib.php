@@ -22,7 +22,7 @@
  * --------------------------------------------------------
  *
  * $toolTitle = new ToolTitle(
- *      array('superTitle' => 'My Section',
+ *      array('supraTitle' => 'My Section',
  *            'mainTitle' => 'My page',
  *            'subTitle' => 'List items of this page'
  *      ),
@@ -91,9 +91,9 @@ class ToolTitle implements Display
     {
         if (is_array($titleParts))
         {
-            if (!empty($titleParts['superTitle']))
+            if (!empty($titleParts['supraTitle']))
             {
-                $this->superTitle = $titleParts['superTitle'];
+                $this->superTitle = $titleParts['supraTitle'];
             }
             if (!empty($titleParts['mainTitle']))
             {
