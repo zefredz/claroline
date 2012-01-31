@@ -256,7 +256,8 @@ $sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
                        `course_user`.`isCourseManager`,
                        `course_user`.`isPending`,
                        `course_user`.`tutor`  AS `tutor`,
-                       `course_user`.`role`   AS `role`
+                       `course_user`.`role`   AS `role`,
+                       `enrollment_date`
                FROM `" . $tbl_users . "`           AS user,
                     `" . $tbl_rel_course_user . "` AS course_user
                WHERE `user`.`user_id`=`course_user`.`user_id`
@@ -455,7 +456,8 @@ $out .= '<thead>' . "\n"
 
 if ( $is_allowedToEdit ) // EDIT COMMANDS
 {
-    $out .= '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['tutor'])).'">'.get_lang('Group Tutor').'</a></th>'."\n"
+    $out .= '<th>'.get_lang('Enrollment date').'</th>'
+       . '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['tutor'])).'">'.get_lang('Group Tutor').'</a></th>'."\n"
        . '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['isCourseManager'])).'">'.get_lang('Course manager').'</a></th>'."\n"
        . '<th>'.get_lang('Edit').'</th>'."\n"
        . '<th>'.get_lang('Unregister').'</th>'."\n"
@@ -544,6 +546,15 @@ foreach ( $userList as $thisUser )
     }
     elseif ( $is_allowedToEdit )
     {
+        if ( !empty( $thisUser['enrollment_date'] ) )
+        {
+            $out .= '<td>' . claro_html_localised_date('%a %d %b %Y', strtotime( $thisUser['enrollment_date'] ) ) . '</td>' . "\n";
+        }
+        else
+        {
+            $out .= '<td>&nbsp;-&nbsp;</td>';
+        }
+        
         // Tutor column
         if($thisUser['tutor'] == '0')
         {
