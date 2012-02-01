@@ -9,8 +9,10 @@
  * @package     CLUSR
  */
 
-require_once get_path('incRepositorySys') . '/lib/csv.class.php';
-FromKernel::uses( 'user_info.lib' );
+FromKernel::uses( 
+    'csv.class',
+    'class.lib',
+    'user_info.lib' );
 
 class UserInfoList
 {
@@ -192,11 +194,16 @@ class csvUserList extends csv
         }
         else
         {
-        return false;
+            return false;
+        }
     }
 }
-}
 
+/**
+ * Exports the members of a course as a csv file 
+ * @param string $course_id
+ * @return string 
+ */
 function export_user_list( $course_id )
 {
     $csvUserList = new csvUserList( $course_id );
@@ -207,3 +214,52 @@ function export_user_list( $course_id )
     return $csvContent;
 }
 
+/**
+ * Exports the users in a class to a CSV file
+ * @param int $id id of the class
+ * @param array $fields optionnal names for the headers of the generated csv
+ * @return string
+ * @author schampagne <http://forum.claroline.net/memberlist.php?mode=viewprofile&u=45044>
+ */
+function export_user_list_for_class( $class_id, $fields = array('user_id', 'username', 'lastname', 'firstname', 'email', 'officialCode') )
+{
+    return csv_export_user_list(get_class_list_user_id_list(array($class_id)), $fields);
+}
+
+/**
+ * Exports a CSV file from a list of user id's
+ * @param array $userIdList id of the class
+ * @param array $fields optionnal names for the headers of the generated csv
+ * @return string
+ * @author schampagne <http://forum.claroline.net/memberlist.php?mode=viewprofile&u=45044>
+ */
+function csv_export_user_list( $userIdList, $fields = array('user_id', 'username', 'lastname', 'firstname', 'email', 'officialCode') )
+{
+    $csv = new CsvExporter(',', '"');
+    
+    $csvData = array();
+    $csvData[0] = $fields;
+    
+    foreach($userIdList as $userId)
+    {
+        $userInfo = user_get_properties($userId);
+        
+        $row = array();
+        
+        foreach($fields as $field)
+        {
+            if(isset($userInfo[$field]))
+            {
+                $row[$field] = $userInfo[$field];
+            }
+            else
+            {
+                $row[$field] = '';
+            }
+        }
+        
+        $csvData[] = $row;
+    }
+    
+    return $csv->export($csvData);
+}

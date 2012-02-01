@@ -75,7 +75,21 @@ if ( !empty($class_id) )
                 $dialogBox->success( get_lang('All users have been sucessfully unregistered from the class') );
             }
             break;
-
+            
+        case 'export' :
+            if( $cmd == 'export' && claro_is_platform_admin() )
+            {
+                require_once( dirname(__FILE__) . '/../user/lib/export.lib.php');
+                
+                $csv = export_user_list_for_class( $class_id );
+                if( !empty($csv) )
+                {
+                    claro_send_stream( $csv, $classinfo['name'].'.csv');
+                    exit;
+                }
+            }
+            break;
+            
         default :
             // No command
     }
@@ -181,6 +195,15 @@ $cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'
 .             get_lang('Register class for course')
 .             '</a>'
 ;
+
+if(claro_is_platform_admin())
+{
+    $cmdList[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+                                        $_SERVER['PHP_SELF'] . '?cmd=export&amp;class_id=' .$class_id ))
+                                     , '<img src="' . get_icon_url('export') . '" alt="" />'
+                                     . get_lang('Export user list')
+                                     );
+}
 
 $cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'user/addcsvusers.php'
 .             '?AddType=adminClassTool&amp;class_id='.$class_id.'">'
