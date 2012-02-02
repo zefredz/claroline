@@ -498,20 +498,6 @@ li.lastBreadCrumbsNode {
     margin-right: 240px;
 }
 
-#dekstopLeftSidebar {
-    padding: 0;
-    margin: 0;
-    float: left;
-    width: 420px;
-    border-right: #DDDDDD solid 1px;
-}
-
-#desktopRightContent {
-    padding: 0;
-    margin-left: 430px;
-
-}
-
 
 /******************************************************************************
                         CLAROLINE FOOTER

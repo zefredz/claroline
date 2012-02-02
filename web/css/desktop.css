@@ -2,6 +2,32 @@
  $Id$
  **/
 
+@media screen and (min-width: 1200px) {
+
+    #dekstopLeftSidebar {
+        padding: 0;
+        margin: 0;
+        float: left;
+        width: 420px;
+        border-right: #DDDDDD solid 1px;
+    }
+
+    #desktopRightContent {
+        padding: 0;
+        margin-left: 430px;
+
+    }
+}
+
+/* Portlet right menu  */
+.portletRightMenu {
+    padding: 2px;
+    margin: 10px 0 0 0;
+    float:right;
+    width:200px;
+}
+
+
 /* Portlet messages */
 .portlet table.claroTable tbody tr.unreadMessage td {
     background: #EDF1E3;
@@ -50,7 +76,7 @@
     padding-left: 20px;
 }
 
-@media all and (max-width: 1199px) {
+@media screen and (max-width: 1199px) {
     /* Portlet calendar */
     #portletMycalendar .details {
         padding: 0;
@@ -72,7 +98,7 @@
     }
 }
 
-@media all and (min-width: 1200px) {
+@media screen and (min-width: 1200px) {
     /* Portlet calendar */
     #portletMycalendar .details {
         float: right;
@@ -96,15 +122,6 @@
         margin-left: 20px;
     }
 }
-
-/* Portlet right menu  */
-.portletRightMenu {
-    padding: 2px;
-    margin: 10px 0 0 0;
-    float:right;
-    width:200px;
-}
-
 
 .avatar img {
     margin:1em;
