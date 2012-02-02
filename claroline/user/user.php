@@ -350,7 +350,7 @@ if ($is_allowedToEdit)
             'img' => 'import_list',
             'name' => get_lang('Add a user list'),
             'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
-                .'/addcsvusers.php?AddType=userTool'))
+                .'/addcsvusers.php?addType=userTool'))
         );
     }
     
