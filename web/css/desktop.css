@@ -19,6 +19,20 @@
     }
 }
 
+@media screen and (max-width: 1199px) {
+    #dekstopLeftSidebar .portlet .content .userCourseList {
+        max-height: 40em;
+        overflow: auto;
+        margin-right: 0;
+        padding-right: 0;
+    }
+    
+    #dekstopLeftSidebar .portlet .content .userCourseList dl {
+        margin-right: 0;
+        padding-right: 0;
+    }
+}
+
 /* Portlet right menu  */
 .portletRightMenu {
     padding: 2px;
