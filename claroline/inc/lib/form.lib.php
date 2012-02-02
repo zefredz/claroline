@@ -26,7 +26,7 @@ $formSize = 40;
  * @param boolean $unixDate unix timestamp of date to display
  * @param string  $formatMonth display type of month select box : numeric, long, short
  *
- * @author Sébastien Piraux <pir@cerdecam.be>
+ * @author SÃ©bastien Piraux <pir@cerdecam.be>
  *
  * @return string html stream to output input tag for a date
  *
@@ -106,7 +106,7 @@ function claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $u
  *
  * @return string html stream to output input tag for an hour
  *
- * @author Sébastien Piraux <pir@cerdecam.be>
+ * @author Sï¿½bastien Piraux <pir@cerdecam.be>
  *
  */
 
@@ -170,7 +170,7 @@ function claro_html_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
  *  instead of label => value arrays (default false)
  * @return html output from a 2D table where key are name and value are label
  *
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe GeschÃ© <moosh@claroline.net>
  *
  */
 function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=null, $reverted = false)
@@ -197,7 +197,7 @@ function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=
  *  instead of label => value arrays (default false)
  * @return html output of the select options
  *
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe GeschÃ© <moosh@claroline.net>
  *
  */
 function claro_html_option_list($list_option, $preselect, $reverted = false)
