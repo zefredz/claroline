@@ -158,7 +158,14 @@ if ( $adminContext && claro_is_platform_admin() )
 }
 else
 {
-    $backUrl = get_path('url') . '/claroline/course/index.php?cid='.$course->courseId;
+    if ( $course->courseId )
+    {
+        $backUrl = get_path('url') . '/claroline/course/index.php?cid='.$course->courseId;
+    }
+    else
+    {
+        $backUrl = get_path('url');
+    }
 }
 
 if ( ! get_conf('courseCreationAllowed', true) )
