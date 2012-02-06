@@ -281,7 +281,7 @@ class answerMultipleChoice
                     else
                     {
                         // if single answer score can be positive
-                        $this->answerList[$i]['grade'] = abs(castToFloat($_REQUEST[$grade]));
+                        $this->answerList[$i]['grade'] = castToFloat($_REQUEST[$grade]);
                     }
                 }
             }
