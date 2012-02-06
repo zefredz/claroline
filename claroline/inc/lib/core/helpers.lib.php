@@ -166,7 +166,7 @@ function include_template( $template )
     }
     else
     {
-        throw new Exception("Template not found {$templatePath} "
+        throw new Exception("Template not found {$template} "
             . "at custom location {$customTemplatePath} "
             . "or default location {$defaultTemplatePath} !");
     }
