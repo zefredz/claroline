@@ -35,7 +35,11 @@
         
         <?php if ($courseTreeNode->hasCourse()) : ?>
             
-            <?php if ($courseTreeNode->getCourse()->isActivated()) : ?>
+            <?php if ( $courseTreeNode->getCourse()->isActivated() 
+                && ( $courseTreeNode->getCourse()->isVisible() 
+                || claro_is_platform_admin()
+                || $this->courseUserPrivilegesList->getCoursePrivileges(
+                    $courseTreeNode->getCourse()->sysCode)->isCourseMember() ) ) : ?>
             
             <!-- Render the course and its children -->
             <?php
