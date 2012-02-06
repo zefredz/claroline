@@ -116,7 +116,7 @@ switch( $cmd )
     case 'exChangeFormat' :
     {
         $usedFormat = $userInput->get( 'usedFormat' );
-        var_dump( $usedFormat );
+        
         if( ! $usedFormat )
         {
             $dialogBox->error( get_lang( 'Unable to load the selected format' ) );
