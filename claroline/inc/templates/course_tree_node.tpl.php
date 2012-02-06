@@ -97,8 +97,8 @@
     <a <?php if (!empty($this->notifiedCourseList) 
         && $this->notifiedCourseList->isCourseNotified($this->node->getCourse()->courseId)) : 
         ?>class="hot"<?php endif; ?>
-        href="<?php echo htmlspecialchars(get_path('url')
-        .'/claroline/course/index.php?cid='.$this->node->getCourse()->sysCode); ?>">
+        href="<?php echo htmlspecialchars(
+            claro_get_course_homepage_url($this->node->getCourse()->sysCode)); ?>">
         <?php echo htmlspecialchars( $this->node->getCourse()->officialCode) ; ?>
         &ndash;
         <?php echo htmlspecialchars( $this->node->getCourse()->name ); ?>

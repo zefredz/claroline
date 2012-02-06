@@ -259,7 +259,8 @@ function link_to_css( $css, $media = 'all' )
 
 
 /**
- * @param
+ * @param int $gid 
+ * @param string $courseId 
  * @param boolean $active if set to true, only actvated tool will be considered for display
  */
 function get_group_tool_menu( $gid = null, $courseId = null, $active = true )
@@ -319,6 +320,12 @@ function get_group_tool_menu( $gid = null, $courseId = null, $active = true )
     }
 }
 
+/**
+ * Get url of a module help page
+ * @param string $block name of the help block to display
+ * @param string $module module label or 'platform'
+ * @return string 
+ */
 function get_help_page_url( $block, $module = 'platform' )
 {
     $helpUrl = new Url( get_path('url').'/claroline/help/index.php' );
@@ -331,4 +338,15 @@ function get_help_page_url( $block, $module = 'platform' )
     $helpUrl->addParam( 'block', $block );
     
     return $helpUrl->toUrl();
+}
+
+/**
+ * get the url of the homepage of a course site
+ * @param string $courseId course sysCode
+ * @return type string
+ */
+function claro_get_course_homepage_url( $courseId )
+{
+    return get_path('url')
+        .'/claroline/course/index.php?cid='.$courseId;
 }
