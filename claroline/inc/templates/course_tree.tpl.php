@@ -52,7 +52,11 @@
                 echo $childNodeView->render();
             ?>
             
-            <?php else : ?>
+            <?php elseif ( claro_is_user_authenticated() && ( !$courseTreeNode->getCourse()->isActivated() 
+                && $courseTreeNode->getCourse()->isVisible() )
+                /*&& ( claro_is_platform_admin()
+                || $this->courseUserPrivilegesList->getCoursePrivileges(
+                    $courseTreeNode->getCourse()->sysCode)->isCourseMember() )*/ ) : ?>
             
             <!-- Render the course (deactivated) and its children -->
             <?php
