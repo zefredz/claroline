@@ -93,7 +93,7 @@
 <?php else : ?>
 
 <p>
-    <?php echo get_lang('No courses here.'); ?>
+    <?php echo get_lang('There is no course to display in this category'); ?>
 </p>
 
 <?php endif; ?>
