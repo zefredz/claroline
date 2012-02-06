@@ -146,7 +146,7 @@ $usedFormat = $_SESSION['claro_usedFormat'];
 $content = '';
 $out = '';
 
-$addType = $userInput->get( 'addType' , 'userTool' );
+$addType = $userInput->get( 'addType' );
 
 if( $addType )
 {
