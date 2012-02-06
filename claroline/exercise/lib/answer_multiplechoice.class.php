@@ -273,8 +273,16 @@ class answerMultipleChoice
                 }
                 else
                 {
-                    // incorrect answer must have negative score
-                    $this->answerList[$i]['grade'] = 0 - abs(castToFloat($_REQUEST[$grade]));
+                    if( $this->multipleAnswer )
+                    {
+                        // if multiple answer score must be negative
+                        $this->answerList[$i]['grade'] = 0 - abs(castToFloat($_REQUEST[$grade]));
+                    }
+                    else
+                    {
+                        // if single answer score can be positive
+                        $this->answerList[$i]['grade'] = castToFloat($_REQUEST[$grade]);
+                    }
                 }
             }
             else
