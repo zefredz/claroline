@@ -27,22 +27,13 @@ class CsvImport extends parseCSV
     static public $defaultEnclosure = '"';
     static public $defaultSeparator = ",";
     
-    public $firstLine;
+    public $fields;
     
-    public function __construct ( $firstLine = null , $enclosure = null , $separator = null )
+    public function __construct ( $fields = null , $enclosure = null , $separator = null )
     {
+        $this->fields = $fields ? $fields : self::$defaultFields;
         $this->separator = $separator ? $separator : self::$defaultSeparator;
         $this->enclosure = $enclosure ? $enclosure : self::$defaultEnclosure;
-        
-        if( $fields)
-        {
-            $this->firstLine = $firstLine;
-        }
-        else
-        {
-            $this->firstLine = implode( $this->enclosure . $this->separator . $this->enclosure
-                                      , self::$defaultFields );
-        }
         
         parent::__construct();
     }*/
@@ -58,15 +49,6 @@ class CsvImport extends parseCSV
         {
             return false;
         }
-        
-        /*if( !( isset( $_SESSION['_csvUsableArray'] ) && is_array( $_SESSION['_csvUsableArray'] ) ) )
-        {
-            claro_die( get_lang('Not allowed') );
-        }
-        else
-        {
-            $this->data[$user_id] = $_SESSION['_csvUsableArray'];
-        }*/
         
         $logs = array();
         
@@ -350,7 +332,7 @@ class CsvImport extends parseCSV
      */
     public function getFirstLine()
     {
-        return $this->data[0];
+        return implode( ',' , $this->titles );
     }
     
     /**
@@ -526,44 +508,43 @@ class CsvImport extends parseCSV
      *
      * @param $format format used in the csv
      * @param $delim field delimiter
-     * @param $enclosedBy char used to enclose fields
      *
      * @return boolean if all requiered fields are defined, return true
      */
-    static public function format_ok($format, $delim, $enclosedBy)
+    static public function format_ok( $format , $delim = ',' )
     {
-        $fieldarray = explode($delim,$format);
-        if ($enclosedBy == 'dbquote') $enclosedBy = '"';
+        if( is_array( $format ) )
+        {
+            $fieldarray = array_keys( $format );
+        }
+        else
+        {
+            $fieldarray = explode( $delim , $format );
+        }
         
         $username_found     = false;
         $password_found     = false;
         $firstname_found    = false;
         $lastname_found     = false;
         
-        foreach ($fieldarray as $field)
+        foreach ( $fieldarray as $field )
         {
-            if (!empty($enclosedBy))
-            {
-                $fieldTempArray = explode($enclosedBy,$field);
-                if (isset($fieldTempArray[1]))
-                    $field = $fieldTempArray[1];
-            }
-            
-            if ( trim($field) == 'firstname' )
+            if( trim($field) == 'firstname' )
             {
                 $firstname_found = true;
             }
             
-            if (trim($field)=='lastname')
+            if( trim($field)=='lastname' )
             {
                 $lastname_found = true;
             }
             
-            if(trim($field)=='username')
+            if( trim($field)=='username' )
             {
                 $username_found = true;
             }
         }
+        
         return ($username_found && $firstname_found && $lastname_found);
     }
     

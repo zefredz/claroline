@@ -25,7 +25,6 @@ require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/password.lib.php';
 require_once get_path('incRepositorySys') . '/lib/utils/validator.lib.php';
 require_once get_path('incRepositorySys') . '/lib/utils/input.lib.php';
-//require_once get_path('incRepositorySys') . '/lib/import_csv.lib.php';
 require_once get_path('incRepositorySys') . '/lib/thirdparty/parsecsv/parsecsv.lib.php';
 require_once './csvimport.class.php';
 
@@ -88,21 +87,10 @@ else
 $dialogBox = new DialogBox();
 
 $defaultFormat = 'userId,lastname,firstname,username,email,officialCode,groupId,groupName';
-$addType = 'userTool';
 
 if ( empty($_SESSION['claro_usedFormat']) )
 {
     $_SESSION['claro_usedFormat'] = $defaultFormat;
-}
-
-if( empty( $_SESSION['CSV_fieldSeparator'] ) )
-{
-    $_SESSION['CSV_fieldSeparator'] = ',';
-}
-
-if( empty ( $_SESSION['CSV_enclosedBy'] ) )
-{
-    $_SESSION['CSV_enclosedBy'] = '"';
 }
 
 $usedFormat = $_SESSION['claro_usedFormat'];
@@ -111,15 +99,6 @@ switch( $cmd )
 {
     case 'rqChangeFormat' :
     {
-        if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='dbquote') $dbquote_selected = 'selected="selected"'; else $dbquote_selected = '';
-        if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='none')   $blank_selected   = 'selected="selected"'; else $blank_selected   = '';
-        if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']==',')  $coma_selected    = 'selected="selected"'; else $coma_selected    = '';
-        if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='.')  $dot_selected     = 'selected="selected"'; else $dot_selected     = '';
-    
-        if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==';')  $dot_coma_selected_sep = 'selected="selected"'; else $dot_coma_selected_sep = '';
-        if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==',')  $coma_selected_sep     = 'selected="selected"'; else $coma_selected_sep = '';
-        if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']=='')   $blank_selected_sep    = 'selected="selected"'; else $blank_selected_sep = '';
-        
         $compulsory_list = array('firstname','lastname','username');
 
         $chFormatForm = get_lang('Modify the format') .' : ' . '<br /><br />' . "\n"
@@ -127,22 +106,6 @@ switch( $cmd )
         .   '<form name="chFormat" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?&cmd=exChangeFormat" >' . "\n"
         .   '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
         .   '<br /><br />' . "\n"
-        .   '<label for="fieldSeparator">' .  get_lang('Fields separator used') . ' </label> : '
-        .   '<select name="fieldSeparator" id="fieldSeparator">' . "\n"
-        .   ' <option value="," '.$coma_selected_sep.' >,</option>' . "\n"
-        .   ' <option value=";" '.$dot_coma_selected_sep.' >;</option>' . "\n"
-        .   ' <option value=" " '.$blank_selected_sep.'>(' . get_lang('Blank space') . ') </option>' . "\n"
-        .   '</select>' . "\n"
-        .   ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-        .   '<label for="enclosedBy">'
-        .   get_lang('Fields enclosed by') .' : '
-        .   '</label>' . "\n"
-        .   '<select name="enclosedBy" id="enclosedBy">'
-        .   ' <option value="dbquote" '.$dbquote_selected.' >"</option>' . "\n"
-        .   ' <option value="," '.$coma_selected.' >,</option>' . "\n"
-        .   ' <option value="." '.$dot_selected.' >.</option>' . "\n"
-        .   ' <option value="none" '.$blank_selected.' >' . get_lang('None') . ' </option>' . "\n"
-        .   '</select><br />' . "\n"
         .   '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
         .   '</form>';
         
@@ -152,17 +115,15 @@ switch( $cmd )
     
     case 'exChangeFormat' :
     {
-        $enclosedBy = $userInput->get( 'enclosedBy' , '"' );
-        $fieldSeparator = $userInput->get( 'fieldSeparator' , ';' );
         $usedFormat = $userInput->get( 'usedFormat' );
-        
+        var_dump( $usedFormat );
         if( ! $usedFormat )
         {
             $dialogBox->error( get_lang( 'Unable to load the selected format' ) );
             break;
         }
         
-        if( ! CsvImport::format_ok($usedFormat, $fieldSeparator, $enclosedBy) )
+        if( ! CsvImport::format_ok( $usedFormat ) )
         {
             $dialogBox->error( get_lang('ERROR: The format you gave is not compatible with Claroline') );
             break;
@@ -170,35 +131,38 @@ switch( $cmd )
         
         $dialogBox->success( get_lang('Format changed') );
         $_SESSION['claro_usedFormat']   = $usedFormat;
-        $_SESSION['CSV_fieldSeparator'] = $fieldSeparator;
-        $_SESSION['CSV_enclosedBy']     = $enclosedBy;
     }
     break;
     
     case 'rqLoadDefaultFormat':
     {
-        $_SESSION['claro_usedFormat']   = $defaultFormat;
-        $_SESSION['CSV_fieldSeparator'] = ',';
-        $_SESSION['CSV_enclosedBy']     = '"';
+        $_SESSION['claro_usedFormat'] = $defaultFormat;
     }
     break;
 }
 
 $usedFormat = $_SESSION['claro_usedFormat'];
-$fieldSeparator = $_SESSION['CSV_fieldSeparator'];
-$enclosedBy = $_SESSION['CSV_enclosedBy'];
 // Content
 $content = '';
 $out = '';
 
-if(isset( $_REQUEST['addType'] ) )
+$addType = $userInput->get( 'addType' , 'userTool' );
+
+if( $addType )
 {
-    switch( $_REQUEST['addType'] )
+    switch( $addType )
     {
-        case 'userTool' : $_SESSION['CSV_CancelButton'] = 'user.php'; break;
-        case 'adminTool' : $_SESSION['CSV_CancelButton'] = '../admin/'; break;
-        case 'adminClassTool' : $_SESSION['CSV_CancelButton'] = '../admin/admin_class_user.php?class_id=' . $class_id; break;
-        default : $_SESSION['CSV_CancelButton'] = '../index.php';
+        case 'userTool' :
+            $_SESSION['CSV_CancelButton'] = 'user.php';
+            break;
+        case 'adminTool' :
+            $_SESSION['CSV_CancelButton'] = '../admin/';
+            break;
+        case 'adminClassTool' :
+            $_SESSION['CSV_CancelButton'] = '../admin/admin_class_user.php?class_id=' . $class_id;
+            break;
+        default :
+            $_SESSION['CSV_CancelButton'] = '../index.php';
     }
 }
 else
@@ -261,9 +225,6 @@ $content_default .=   '<input type="submit" name="submitCSV" value="' . get_lang
 .   '</form>' . "\n";
 
 $csvImport = new CsvImport();
-$csvImport->delimiter  = $fieldSeparator;
-$csvImport->enclosure = $enclosedBy != 'none' ? $enclosedBy : '"';
-$csvImport->fields = explode( $fieldSeparator , $usedFormat );
 $csvImport->heading = $firstLineFormat;
 
 switch( $step )
@@ -281,13 +242,7 @@ switch( $step )
             $tmpName = $_FILES['CSVfile']['tmp_name'];
             $csvContent = file_get_contents( $tmpName );
             
-            if( $enclosedBy == 'none' )
-            {
-                $csvContent = str_replace( $fieldSeparator , '"' . $fieldSeparator . '"' , $csvContent );
-                $enclosedBy = '"';
-            }
-            
-            if( ! $csvImport->parse( $tmpName ) )
+            if( ! $csvImport->auto( $tmpName ) )
             {
                 $dialogBox->error(get_lang('Unable to read the content of the CSV'));
             }
@@ -297,26 +252,19 @@ switch( $step )
                 
                 if( $firstLineFormat )
                 {
-                    $keys = null;
+                    $keys = $csvImport->titles;
                     $firstLine = $csvImport->getFirstLine();
                 }
                 else
                 {
-                    $keys = explode( $fieldSeparator , $usedFormat);
+                    $keys = explode( ',' , $usedFormat);
                     $firstLine = $usedFormat;
                 }
                 
                 $csvUseableArray = $csvImport->createArrayForCsvUsage($firstLineFormat, $keys) ;
-                $_SESSION['_csvUsableArray'] = $csvUseableArray;
                 $errors = CsvImport::checkFieldsErrors( $csvUseableArray );
                 
-                if( is_null($keys) && $firstLineFormat )
-                {
-                    $keys = $csvContent[0];
-                    unset($csvContent[0]);
-                }
-                $_SESSION['_csvKeys'] = $keys;
-                if( ! CsvImport::format_ok( $firstLine, $fieldSeparator , $enclosedBy ) )
+                if( ! CsvImport::format_ok( $firstLine ) )
                 {
                     $dialogBox->error( get_lang('ERROR: The format you gave is not compatible with Claroline') );
                     break;
@@ -470,20 +418,6 @@ switch( $step )
     
     default :
     {
-        if( isset($_SESSION['_csvImport']) )
-        {
-            unset($_SESSION['_csvImport']);
-        }
-        
-        if( isset($_SESSION['_csvUsableArray']) )
-        {
-            unset($_SESSION['_csvUsableArray']);
-        }
-        
-        if( isset($_SESSION['_csvKeys']) )
-        {
-            unset( $_SESSION['_csvKeys'] );
-        }
         $content .= $content_default;
     }
 }
