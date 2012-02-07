@@ -27,7 +27,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-FromKernel::Uses( 'password.lib' );
+FromKernel::Uses( 'password.lib', 'class.lib' );
 
 include claro_get_conf_repository() . 'course_main.conf.php';
 
@@ -279,6 +279,7 @@ if (is_array($userList))
                 GROUP BY user_id";
         
         $userList[$userKey]['qty_course'] = (int) claro_sql_query_get_single_value($sql);
+        $userList[$userKey]['qty_class'] = count(get_class_list_for_user_id($user['user_id']));
         
         // Count number of categories
         $sql = "SELECT COUNT(ca.id) FROM `{$tbl_category}` AS ca
@@ -344,6 +345,10 @@ foreach ($userList as $userKey => $user)
         .                                   '</a>' . "\n";
     }
     
+    $userGrid[$userKey]['qty_class'] = '<span class="showUserClasses" ><span class="' . $user['user_id'] . '"></span>' . "\n"
+    .                                   get_lang('%nb classe(s)', array('%nb' => $user['qty_class'])) . "\n"
+    .                                   '</span>' . "\n"
+    ;
     
     $userGrid[$userKey]['qty_course'] = '<a class="showUserCourses" href="adminusercourses.php?uidToEdit=' . $user['user_id']
     .                                   '&amp;cfrom=ulist' . $addToURL . '"><span class="' . $user['user_id'] . '"></span>' . "\n"
@@ -390,6 +395,7 @@ $colTitleList = array (
 if (get_conf("registrationRestrictedThroughCategories"))
     $colTitleList['qty_category'] = get_lang('Categories');
     
+$colTitleList['qty_class']     = get_lang('Classes');
 $colTitleList['qty_course']    = get_lang('Courses');
 $colTitleList['delete']        = get_lang('Delete');
 $colTitleList['login_as']      = get_lang('Login as');

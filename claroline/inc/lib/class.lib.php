@@ -1221,6 +1221,36 @@ function get_class_list_user_id_list($classId)
 }
 
 /**
+ * return class list for user_id
+ *
+ * @param integer $userId
+ * @return array
+ */
+function get_class_list_for_user_id($userId)
+{
+    $tbl = claro_sql_get_main_tbl();
+    
+    $sql = "
+        SELECT DISTINCT c.id    AS id,
+                        c.name  AS name
+        FROM `" .  $tbl['rel_class_user'] . "` AS cr
+        JOIN `" .  $tbl['class'] . "` AS c
+        ON c.id = cr.class_id
+        WHERE cr.user_id
+            in (" . $userId . ")";
+    $resultClassList = claro_sql_query_fetch_all($sql);
+    
+    $classList = array();
+    
+    foreach ($resultClassList as $class)
+    {
+        $classList[] = array('id' => $class['id'], 'name' => $class['name']);
+    }
+    
+    return $classList;
+}
+
+/**
  * This function delete all classes,
  * remove link between courses and classes
  * remove link between classes and users

@@ -17,6 +17,7 @@
 require_once dirname(__FILE__) . '/../../inc/claro_init_global.inc.php';
 require_once dirname(__FILE__) . '/../../inc/lib/courselist.lib.php';
 require_once dirname(__FILE__) . '/../../inc/lib/course/courselist.lib.php';
+require_once dirname(__FILE__) . '/../../inc/lib/class.lib.php';
 
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
@@ -96,4 +97,29 @@ elseif ($action == 'getUserCategoryList')
         $categoryList[] = get_lang("No user id");
     
     echo implode(', ', $categoryList);
+}
+elseif ($action == 'getUserClassList')
+{
+    $userId = isset($_REQUEST['userId'])?((int) $_REQUEST['userId']):(null);
+    $classList = array();
+    
+    if (!is_null($userId))
+    {
+        $classList = get_class_list_for_user_id($userId);
+        
+        if (!empty($classList))
+        {
+            $classNameList = array();
+            foreach($classList as $class)
+            {
+                $classNameList[] = $class['name'];
+            }
+        }
+        else
+            $classNameList[] = get_lang("No class");
+    }
+    else
+        $classNameList[] = get_lang("No user id");
+    
+    echo implode(', ', $classNameList);
 }
