@@ -385,7 +385,7 @@ feature is an option to choose at install step.
 * LANGUAGE. New languages added. Claroline is now in 20 languages :   Arab,
 Catalan, Crotian, Chinese, Dutch, English, Finnish, French,   German, Galician,
 Greek, Hungarian, Italian, Japanese, Polish,   Portugese, Spanish , Swedish,
-Thaï, Turkish.
+Thaï¿½, Turkish.
 
 * LAYOUT. New 'liquid layout' spreading on all the window.   Introduction of CSS
 system.
@@ -432,8 +432,8 @@ NEW FEATURES IN CLAROLINE 1.3 SINCE CLAROLINE 1.2
 -------------------------------------------------
 
 * LANGUAGE. New languages added. Claroline is now in 12 languages : Chinese,
-English, Finnish, French, German, Italian, Japanese, Polish,   Portugese,
-Spanish, Swedish and Thaï.
+English, Finnish, French, German, Italian, Japanese, Polish, Portugese,
+Spanish, Swedish and Thai.
 
 * GROUPS. A new comprehensive group tool has been added. It allows to easily
 organise student groups, attribute them a tutor and create private forum and
