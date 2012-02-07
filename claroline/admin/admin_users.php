@@ -27,12 +27,14 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+FromKernel::Uses( 'password.lib' );
+
 include claro_get_conf_repository() . 'course_main.conf.php';
 
 // CHECK INCOMING DATAS
 if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=='')) {unset($_REQUEST['cidToEdit']);}
 
-$validCmdList = array('rqDelete', 'exDelete');
+$validCmdList = array('rqDelete', 'exDelete', 'rqResetAllPasswords', 'exResetAllPasswords' );
 $cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
 $userIdReq = (int) (isset($_REQUEST['user_id']) ? $_REQUEST['user_id']: null);
 
@@ -83,6 +85,108 @@ $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
 //------------------------------------
 switch ( $cmd )
 {
+    case 'rqResetAllPasswords' :
+    {
+        $dialogBox->question(
+            get_lang('Do you really want to reset all the passwords ?')
+            . '<br />'
+            . '<small>'.get_lang('The platform administrators and course creators password will remain unchanged').'</small>'
+            . '<br />'
+            
+        );
+        
+        $dialogBox->form(' <form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">'
+            . '<input type="hidden" name="cmd" value="exResetAllPasswords" />'
+            . '<input id="sendEmail" type="checkbox" name="sendEmail" value="yes" checked="checked" />'
+            . '<label for="sendEmail">'.get_lang('send new password by email').'</label>'
+            . '<br />'
+            . '<small>'.get_lang('Only the users with a valid address will receive their password by email').'</small>'
+            . '<br />'
+            . '<input type="submit" value="' . get_lang('Yes') . '" />'
+            . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+            . '</form>');
+        
+        
+        $dialogBox->warning('<em>'.get_lang('This may take some time, please wait until the end of the process...').'</em>');
+    }
+    break;
+    case 'exResetAllPasswords' :
+    {
+        $userList = getAllStudentUserId();
+        
+        $failedMailList = array();
+        $failedList = array();
+        
+        $sendEmail = isset($_REQUEST['sendEmail']) && $_REQUEST['sendEmail'] ? true : false;
+        
+        foreach($userList as $user)
+        {
+            $mailSent = FALSE;
+            $userInfo = user_get_properties($user['id']);
+
+            if ( !$userInfo['isPlatformAdmin'] 
+                && !$userInfo['isCourseCreator'] )
+            {
+                $userInfo['password'] = mk_password(8);
+                
+                if( user_set_properties(
+                        $user['id'] , 
+                    array('password' => $userInfo['password']) ) )
+                {
+                    if( $sendEmail && user_send_registration_mail( $user['id'], $userInfo ) )
+                    {
+                        $mailSent = TRUE;
+                    }
+                }
+                else
+                {
+                    $failedList[] = $userInfo;
+                }
+            }
+
+            if( $sendEmail && !$mailSent )
+            {
+                $failedMailList[] = $userInfo;
+            }
+        }
+        
+        if ( empty( $failedList ) )
+        {
+            $dialogBox->success(get_lang('Password changed successfully for all concerned users'));
+        }
+        else
+        {
+            $failedStudents = '';
+
+            foreach($failedList as $failed)
+            {
+                $failedStudents .= '<br />' . $failed['firstname'] . ' ' . $failed['lastname'];
+            }
+
+            $dialogBox->error(get_lang('Cannot change password for the following users:') . $failedStudents);
+        }
+        
+        if ( $sendEmail )
+        {
+            if(empty($failedMailList))
+            {
+                    $dialogBox->success(get_lang('Email sent successfully to all users'));
+            }
+            else
+            {
+                $failedStudents = '';
+
+                foreach($failedMailList as $failed)
+                {
+                    $failedStudents .= '<br />' . $failed['firstname'] . ' ' . $failed['lastname'];
+                }
+
+                $dialogBox->error(get_lang('Cannot send email to the following users:') . $failedStudents);
+            }
+        }
+
+    }
+    break;
     case 'exDelete' :
     {
         if( user_delete($userIdReq) )
@@ -337,6 +441,12 @@ $cmdList[] = array(
     'url' => 'adminaddnewuser.php'
 );
 
+$cmdList[] = array(
+    'img' => 'locked',
+    'name' => get_lang('Reset all user passwords'),
+    'url' => $_SERVER['PHP_SELF'].'?cmd=rqResetAllPasswords'
+);
+
 $out .= claro_html_tool_title($nameTools, null, $cmdList);
 
 //Display selectbox and advanced search link
@@ -501,6 +611,7 @@ function prepare_search()
 {
     $queryStringElementList = array();
     $isSearched = array();
+    $searchInfo = array();
 
     if ( !empty($_SESSION['admin_user_search']) )
     {
@@ -559,4 +670,19 @@ function prepare_search()
     $searchInfo['addtoAdvanced'] = $queryString;
 
     return $searchInfo;
+}
+
+function getAllStudentUserId()
+{
+    $userTable = claro_sql_get_main_tbl();
+
+    return Claroline::getDatabase()->query( "
+        SELECT 
+            `user_id` AS `id`
+        FROM 
+            `{$userTable['user']}`
+        WHERE 
+            `isPlatformAdmin` = 0
+        AND 
+            `isCourseCreator` = 0; ");
 }
