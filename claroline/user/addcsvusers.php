@@ -102,6 +102,7 @@ switch( $cmd )
         $compulsory_list = array('firstname','lastname','username');
 
         $chFormatForm = get_lang('Modify the format') .' : ' . '<br /><br />' . "\n"
+        .   get_lang( 'Simply write the fields\' names in right order and separated by commas' ) . '<br />' . "\n"
         .   get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) ) . '<br /><br />' . "\n"
         .   '<form name="chFormat" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?&cmd=exChangeFormat" >' . "\n"
         .   '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
@@ -116,6 +117,7 @@ switch( $cmd )
     case 'exChangeFormat' :
     {
         $usedFormat = $userInput->get( 'usedFormat' );
+        $userFormat = str_replace( ';' , ',' , $usedFormat ); //replace ; by ,
         
         if( ! $usedFormat )
         {

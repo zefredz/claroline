@@ -1622,6 +1622,7 @@ $_lang['Show this item'] = 'Montrer cet élément';
 $_lang['Show user profile page'] = 'Consultation du profil des utilisateurs';
 $_lang['Show wiki syntax toolbar'] = 'Afficher la barre d\'outil du wiki';
 $_lang['Simple'] = 'Simple';
+$_lang[ 'Simply write the fields\' names in right order and separated by commas' ] = 'Inscrivez simplement le nom des champs dans l\'ordre, et séparés par des virgules';
 $_lang['Single'] = 'Unique';
 $_lang['Single Sign On'] = 'Authentification unique (SSO)';
 $_lang['Size'] = 'Taille';

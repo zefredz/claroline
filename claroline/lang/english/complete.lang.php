@@ -1553,6 +1553,7 @@ $_lang['Show only author submissions'] = 'Show only author submissions';
 $_lang['Show user profile page'] = 'Show user profile page';
 $_lang['Show wiki syntax toolbar'] = 'Show wiki syntax toolbar';
 $_lang['Simple'] = 'Simple';
+$_lang[ 'Simply write the fields\' names in right order and separated by commas' ] = 'Simply write the fields\' names in right order and separated by commas';
 $_lang['Single'] = 'Single';
 $_lang['Single Sign On'] = 'Single Sign On';
 $_lang['Size'] = 'Size';
