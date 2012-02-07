@@ -3337,3 +3337,18 @@ $_lang['teacher'] = 'teacher';
 $_lang['this item'] = 'this item';
 $_lang['to another date'] = 'to another date';
 $_lang['%nb class(es)'] = '%nb class(es)';
+$_lang['blockLoginRequest'] = '
+Login request %siteName
+%rootWeb
+This  is  your account Login-Pass
+
+%loginInfo
+
+This new password has been automatically generated. Once logged in, feel free to change it.
+';
+$_lang['blockLoginInfo'] = '
+    %firstname %lastname
+
+        Username : %username
+        Password : %password
+';

@@ -3359,3 +3359,18 @@ $_lang['This may take some time, please wait until the end of the process...'] =
 $_lang['This option can be used to prevent users which do not have manager rights in documents to download an archive of the folder'] = 'Cette options permet aux utilisateur non gestionnaire de cours de télécharger les documents sous forme d\'archive zip';
 $_lang['send new password by email'] = 'envoyer un nouveau mot de passe par mail';
 $_lang['%nb class(es)'] = '%nb classe(s)';
+$_lang['blockLoginRequest'] = '
+Demande de login %siteName
+%rootWeb
+Voici vos paramètres de connexion
+
+%loginInfo
+
+Ce nouveau mot de passe a été généré automatiquement. Une fois authentifié, vous êtes libre de le modifier
+';
+$_lang['blockLoginInfo'] = '
+    %firstname %lastname
+
+        Identifiant : %username
+        Mot de passe : %password
+';
