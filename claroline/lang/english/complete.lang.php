@@ -3336,4 +3336,4 @@ $_lang['student'] = 'student';
 $_lang['teacher'] = 'teacher';
 $_lang['this item'] = 'this item';
 $_lang['to another date'] = 'to another date';
-
+$_lang['%nb class(es)'] = '%nb class(es)';

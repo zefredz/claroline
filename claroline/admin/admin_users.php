@@ -349,7 +349,7 @@ foreach ($userList as $userKey => $user)
     }
     
     $userGrid[$userKey]['qty_class'] = '<span class="showUserClasses" ><span class="' . $user['user_id'] . '"></span>' . "\n"
-    .                                   get_lang('%nb classe(s)', array('%nb' => $user['qty_class'])) . "\n"
+    .                                   get_lang('%nb class(es)', array('%nb' => $user['qty_class'])) . "\n"
     .                                   '</span>' . "\n"
     ;
     
