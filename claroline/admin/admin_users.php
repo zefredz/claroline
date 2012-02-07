@@ -24,10 +24,13 @@ $userPerPage = get_conf('userPerPage',20); // numbers of user to display on the 
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-FromKernel::Uses( 'password.lib', 'class.lib' );
+FromKernel::Uses( 
+    'admin.lib.inc', 
+    'pager.lib', 
+    'user.lib', 
+    'password.lib', 
+    'class.lib' 
+);
 
 include claro_get_conf_repository() . 'course_main.conf.php';
 
