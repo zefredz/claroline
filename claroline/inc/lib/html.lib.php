@@ -1184,6 +1184,9 @@ function cleanup_mso2007_text ( $string )
 function claro_parse_user_text($userText)
 {
     $userText = cleanup_mso2007_text( $userText );
+    $userText = cleanUpLaTeX( $userText );
+    
+    pushClaroMessage(var_export($userText, true),'output');
     
     $userText = renderTex($userText);
     $userText = make_clickable($userText);
@@ -1280,6 +1283,35 @@ function add_spoiler($match)
     ;
     
     return $out;
+}
+
+function cleanUpLaTeX( $text )
+{
+    $claro_texRendererUrl = get_conf('claro_texRendererUrl');
+
+    if ( !empty($claro_texRendererUrl) )
+    {
+        $text = preg_replace(
+            '~<img src="(.*?)" border="0" align="absmiddle" class="latexFormula" alt="(.*?)" />~i', 
+            '[tex]\2[/tex]', 
+            $text );
+    }
+    else
+    {
+        $text = str_replace(
+            '<embed TYPE="application/x-techexplorer" texdata="', 
+            '[tex]',
+            $text
+        );
+
+        $text = str_replace(
+            '" width="100%" pluginspace="http://www.integretechpub.com/">','
+            [/tex]',
+            $text 
+        );
+    }
+    
+    return $text;
 }
 
 
