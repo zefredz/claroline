@@ -1186,8 +1186,6 @@ function claro_parse_user_text($userText)
     $userText = cleanup_mso2007_text( $userText );
     $userText = cleanUpLaTeX( $userText );
     
-    pushClaroMessage(var_export($userText, true),'output');
-    
     $userText = renderTex($userText);
     $userText = make_clickable($userText);
     $userText = make_spoiler($userText);
