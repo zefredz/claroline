@@ -26,12 +26,12 @@ Claroline Core Team :
     From Claroline Consortium :
     
     Philippe Dekimpe        (dkp@ecam.be)
-    Stephane Klein          (stephane.klein@claroline.net)
+    StÃ©phane Klein          (stephane.klein@claroline.net)
     
-    From Université catholique de Louvain :
+    From UniversitÃ© catholique de Louvain :
 
-    Frédéric Minne          (zefredz@claroline.net) aka ZeFredz
-    Frédéric Fervaille      (ffervaille@claroline.net)
+    FrÃ©dÃ©ric Minne          (zefredz@claroline.net) aka ZeFredz
+    FrÃ©dÃ©ric Fervaille      (ffervaille@claroline.net)
 
 Active contributors :
 
@@ -40,11 +40,11 @@ Active contributors :
 
 Former members of the Claroline Team :
 
-    Sebastien Piraux            (seb@claroline.net) aka Fragile
-    Christophe Gesché           (moosh@claroline.net) aka Moosh
+    SÃ©bastien Piraux            (seb@claroline.net) aka Fragile
+    Christophe GeschÃ©           (moosh@claroline.net) aka Moosh
     Anais Hulet                 (Communication - CERDECAM)
     Florence Hortmans           (Communication - CERDECAM)
-    Grégory Koch                (Developer - UCL)
+    GrÃ©gory Koch                (Developer - UCL)
     Mathieu Laurent             (Developer - CERDECAM)
     Guillaume Lederer           (Developer - CERDECAM)
     Nicolas Leblanc             (Developer - CERDECAM)
@@ -82,7 +82,7 @@ Personnal Agenda :              Eric Remy (eremy@rmwc.edu),
 
 LDAP :                          Roan Embrechts (roan.embrechts@ugent.be)
 
-Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
+Events since last visit :       RenÃ© Haentjens (rene.haentjens@intec.ugent.be)
                                 Guillaume Lederer
 
 Quizz Tool :                    Olivier Brouckaert (oli.brouckaert@skynet.be)
@@ -99,7 +99,12 @@ User Image :                    Miguel (miguel@cesga.es)
                                 Patrick Cool (patrick.cool@ugent.be)
 
 Upgrade tool :                  Mathieu Laurent (laurent@cerdecam.be)
-                                Christophe Gesché (gesche@ipm.ucl.ac.be)
+                                Christophe GeschÃ© (gesche@ipm.ucl.ac.be)
+
+Export class to csv,            Samuel Champagne ( schampagne@libergia.com )
+Display user classes,           development made at Solutions Libergia inc.
+Reset all passwords,
+Lost password email :
 
 ------------------------------------------------------------------------------
                                 EXTERNAL CODE
@@ -161,7 +166,7 @@ Croatian translation :          Dragan Misovic
                                 Karolj Skala (skala@irb.hr)
                                 Bozo Jonic (bjonic@irb.hr)
 
-Dutch translation :             Inès Du Four (inesdufour@hotmail.com)
+Dutch translation :             InÃ¨s Du Four (inesdufour@hotmail.com)
                                 Denis Smidts (Smidts@ipm.ucl.ac.be)
                                 Isabel Deprez (isabel.deprez@rug.ac.be)
                                 Roan Embrechts (roan.embrechts@ugent.be)
@@ -183,7 +188,7 @@ Galician translation :          Maria Jose Rodriges Malmierca
 
 German translation :            Stiehl Nikolai  (nikolai.stiehl@web.de)
                                 Markus Petz
-                                Angela Büchler (buechler@gp.tu-berlin.de)
+                                Angela BÃ¼chler (buechler@gp.tu-berlin.de)
                                 Christine Knieriemen (tine@knieriemen.de)
 
 Greek translation:              Costas Tsibanis (costas@noc.uoa.gr)
@@ -196,12 +201,12 @@ Greek translation:              Costas Tsibanis (costas@noc.uoa.gr)
                                                     National Technical University of Athens
                                                     http://www.image.ece.ntua.gr/
 
-Hungarian translation :         Balázs Györök (gyorok.balazs@vgszi.szie.hu)
+Hungarian translation :         BalÃ¡zs GyÃ¶rÃ¶k (gyorok.balazs@vgszi.szie.hu)
                                 Maxigas <maxigas@anargeek.net>
 
 Italian translation :           Maurizio Guercio  (mguercio@libero.it),
                                 Furio Petrossi  (Furio.Petrossi@scuolefvg.org)
-                                Giuseppe Filice (Università della Calabria)
+                                Giuseppe Filice (UniversitÃ  della Calabria)
                                 Fausto Barbarito (http://www.nosmet.com)
                                 Stefano Crosatti (krosa@libero.it)
 
@@ -226,7 +231,7 @@ Slovenian translation :         Sergej Rinc - http://sergej.rinc.ws
 
 Spanish translation :           Xavier Casassas (xcc@mail.ics.co.at)
                                 Jorge Gonzales (jgonzalez@athenasoft.com.mx)
-                                Javier Picado Ladrón de Guevara (jpicado@eurosur.com)
+                                Javier Picado LadrÃ³n de Guevara (jpicado@eurosur.com)
                                 Oda Begares (begaeres@arch.ucl.ac.be)
                                 Rodrigo Alejandro Parra Soto
                                 Gerardo Albela Gonzalez (galbela@uvigo.es)
@@ -235,7 +240,7 @@ Spanish translation :           Xavier Casassas (xcc@mail.ics.co.at)
 Spanish_Latin :                 Carlos Brys (brys@fce.unam.edu.ar)
                                 Mario Augusto Mendez Secaira <mendezsecaira@galileo.edu>
 
-Thaï translation :              Sutas Jitchuen (dtsjc@mucc.mahidol.ac.th)
+ThaÃ¯ translation :              Sutas Jitchuen (dtsjc@mucc.mahidol.ac.th)
                                 Prachid Tinnabutr (prachid@prachid.com, prachid007@gmail.com)
 
 Turkish translation :           Cuneyt Birkok (cbirkok@insanbilimleri.com)
