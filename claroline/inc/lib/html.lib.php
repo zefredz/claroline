@@ -1210,6 +1210,7 @@ function cleanup_mso2007_text ( $string )
 function claro_parse_user_text($userText)
 {
     $userText = cleanup_mso2007_text( $userText );
+    $userText = cleanUpLaTeX($userText);
     
     $userText = renderTex($userText);
     $userText = make_clickable($userText);
@@ -1346,6 +1347,52 @@ function renderTexCallback( $matches )
     }
 }
 
+function cleanUpLaTeX( $text )
+{
+    $claro_texRendererUrl = get_conf('claro_texRendererUrl');
+
+    if ( !empty($claro_texRendererUrl) )
+    {
+        // new LaTeX images with class
+        $text = preg_replace(
+            '~<img src="(.*?)" border="0" align="absmiddle" class="latexFormula" alt="(.*?)" />~i', 
+            '[tex]\2[/tex]', 
+            $text );
+        
+        // old mimetex images without class
+        $text = preg_replace_callback(
+             '~<img(.*?)src="(.*?)mimetex(.*?)\?(.*?)"(.*?)/>~i',
+             'deUrlizeLaTeX',
+             $text );
+
+    }
+    else
+    {
+        $text = str_replace(
+            '<embed TYPE="application/x-techexplorer" texdata="', 
+            '[tex]',
+            $text
+        );
+
+        $text = str_replace(
+            '" width="100%" pluginspace="http://www.integretechpub.com/">','
+            [/tex]',
+            $text 
+        );
+    }
+    
+    return $text;
+}
+
+function deUrlizeLaTeX( $matches )
+{
+    if ( count($matches) < 5 )
+    {
+        return false;
+    }
+
+    return '[tex]'.rawurldecode($matches[4]).'[/tex]';
+}
 
 /**
  * Completes url contained in the text with "<a href ...".
