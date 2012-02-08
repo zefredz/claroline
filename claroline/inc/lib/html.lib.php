@@ -1289,10 +1289,18 @@ function cleanUpLaTeX( $text )
 
     if ( !empty($claro_texRendererUrl) )
     {
+        // new LaTeX images with class
         $text = preg_replace(
             '~<img src="(.*?)" border="0" align="absmiddle" class="latexFormula" alt="(.*?)" />~i', 
             '[tex]\2[/tex]', 
             $text );
+        
+        // old mimetex images without class
+        $text = preg_replace_callback(
+             '~<img(.*?)src="(.*?)mimetex(.*?)\?(.*?)"(.*?)/>~i',
+             'deUrlizeLaTeX',
+             $text );
+
     }
     else
     {
@@ -1311,6 +1319,18 @@ function cleanUpLaTeX( $text )
     
     return $text;
 }
+
+function deUrlizeLaTeX( $matches )
+{
+    if ( count($matches) < 5 )
+    {
+        return false;
+    }
+
+    return '[tex]'.rawurldecode($matches[4]).'[/tex]';
+}
+
+
 
 
 /**
