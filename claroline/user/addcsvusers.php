@@ -229,6 +229,11 @@ $content_default .=   '<input type="submit" name="submitCSV" value="' . get_lang
 $csvImport = new CsvImport();
 $csvImport->heading = $firstLineFormat;
 
+if ( ! $firstLineFormat )
+{
+    $csvImport->fields = explode( ',' , $usedFormat);
+}
+
 switch( $step )
 {
     case 1 : // check csv data & display the selection
@@ -301,7 +306,7 @@ switch( $step )
                     .   (count($errors) ? get_lang('Errors can be ignored to force the import') : '') . "\n" . '<br />' . "\n";
                     
                     $content .= '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" >' . "\n"
-                    .   '<input type="hidden" name="csvContent" value="' . str_replace( '"' , '\'' , serialize( $csvContent ) ) . '" />' . "\n"
+                    //.   '<input type="hidden" name="csvContent" value="' . str_replace( '"' , '\'' , serialize( $csvContent ) ) . '" />' . "\n"
                     .   '<input type="hidden" name="step" value="2" />' . "\n"
                     .   '<input type="hidden" name="class_id" value="' . $class_id .'" />' . "\n"
                     .   '<input type="hidden" name="updateUserProperties" value="' . $updateUserProperties . '" />' . "\n"
@@ -326,11 +331,17 @@ switch( $step )
                     foreach( $csvContent as $key => $data)
                     {
                         $content .= '<tr>' . "\n"
-                        .   '<td style="text-align: center;"><input type="checkbox" name="users[]" value="'. $key .'" class="checkAll" checked="checked"  /></td>' . "\n";
+                        .   '<td style="text-align: center;">' . "\n"
+                        .   '    <input type="checkbox" name="users[' . $key . ']" class="checkAll" checked="checked" />' . "\n"
+                        .   '</td>' . "\n";
                         ;
-                        foreach( $data as $d )
+                        foreach( $data as $name => $value )
                         {
-                            $content .= '<td>' . (!empty($d) ? $d : '&nbsp;') . '</td>' . "\n";
+                            $content .= '<td>' . "\n"
+                                     .  '    ' . (!empty($d) ? $d : '&nbsp;') . "\n"
+                                     .  '    <input type="hidden" name="csvContent[' . $key . '][' . $name .']" value="' . $value . '"/>' . "\n"
+                                     .  '    ' . $value . "\n"
+                                     .  '</td>' . "\n";
                         }
                         //$content .= '<td></td>' . "\n";
                         $content .= '</tr>' . "\n";
@@ -350,70 +361,64 @@ switch( $step )
 
     case 2 : // Import users in course
     {
-        if ( $csvContent = unserialize( str_replace( '\'' , '"' , $userInput->get( 'csvContent' ) ) ) )
+        //$csvContent = unserialize( str_replace( '\'' , '"' , $userInput->get( 'csvContent' ) ) )
+        $csvContent = $userInput->get( 'csvContent' );
+        $userList = array_keys( $userInput->get( 'users' ) );
+        $csvImport->put( $csvContent );
+        
+        if(is_null($courseId))
         {
-            $csvImport->put( $csvContent );
-            $userList = $userInput->get( 'users' );
-            
-            if(is_null($courseId))
+            if(!claro_is_platform_admin() )
             {
-                if(!claro_is_platform_admin() )
-                {
-                    claro_die(get_lang('Not allowed'));
-                }
-                
-                $logs = $csvImport->importUsers( $userList
-                                               , $class_id
-                                               , $updateUserProperties
-                                               , $sendEmailToUserCreated );
-            }
-            else
-            {
-                $logs = $csvImport->importUsersInCourse( $userList
-                                                       , $courseId
-                                                       , $is_allowedToCreate
-                                                       , $is_allowedToEnroll
-                                                       , $class_id
-                                                       , $sendEmailToUserCreated );
+                claro_die(get_lang('Not allowed'));
             }
             
-            if( !empty($logs) )
+            $logs = $csvImport->importUsers( $userList
+                                           , $class_id
+                                           , $updateUserProperties
+                                           , $sendEmailToUserCreated );
+        }
+        else
+        {
+            $logs = $csvImport->importUsersInCourse( $userList
+                                                   , $courseId
+                                                   , $is_allowedToCreate
+                                                   , $is_allowedToEnroll
+                                                   , $class_id
+                                                   , $sendEmailToUserCreated );
+        }
+        
+        if( !empty($logs) )
+        {
+            if( isset( $logs['errors'] ) )
             {
-                if( isset( $logs['errors'] ) )
+                $_errors = "";
+                foreach( $logs['errors'] as $error )
                 {
-                    $_errors = "";
-                    foreach( $logs['errors'] as $error )
-                    {
-                        $_errors .= '<div>' . $error . '</div>' . "\n";
-                    }
-                    if( !empty($_errors) )
-                    {
-                        $dialogBox->error( $_errors );
-                    }
+                    $_errors .= '<div>' . $error . '</div>' . "\n";
                 }
-                
-                if( isset( $logs['success'] ) )
+                if( !empty($_errors) )
                 {
-                    $_success = "";
-                    foreach( $logs['success'] as $s )
-                    {
-                        $_success .= '<div>' . $s . '</div>' . "\n";
-                    }
-                    if( !empty( $_success ) )
-                    {
-                        $dialogBox->success( $_success );
-                    }
+                    $dialogBox->error( $_errors );
                 }
             }
-            else
+            
+            if( isset( $logs['success'] ) )
             {
-                $dialogBox->success( 'Users imported successfully');
+                $_success = "";
+                foreach( $logs['success'] as $s )
+                {
+                    $_success .= '<div>' . $s . '</div>' . "\n";
+                }
+                if( !empty( $_success ) )
+                {
+                    $dialogBox->success( $_success );
+                }
             }
         }
         else
         {
-            $dialogBox->error('Unable to read the content of the CSV');
-            $content .= $content_default;
+            $dialogBox->success( 'Users imported successfully');
         }
     }
     break;

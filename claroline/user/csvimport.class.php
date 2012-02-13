@@ -60,6 +60,7 @@ class CsvImport extends parseCSV
         $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
         
         $groupsImported = array();
+        $userInfo = array();
         
         foreach( $userList as $user_id )
         {
@@ -177,6 +178,7 @@ class CsvImport extends parseCSV
         $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
         
         $groupsImported = array();
+        $userInfo = array();
         
         foreach( $userList as $user_id )
         {
