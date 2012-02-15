@@ -120,7 +120,7 @@ $(document).ready(function(){
             qtipContent = $(this).attr("alt");
         }
         
-        if (qtipContent != '')
+        if ( $(this).qtip && qtipContent != '')
         {
             $(this).qtip({
                 content: qtipContent,
