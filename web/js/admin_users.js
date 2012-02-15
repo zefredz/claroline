@@ -4,7 +4,7 @@
 
 $(document).ready(function(){
     // Fetch courses for a given user, and display it inside a qtip
-    /*$("a.showUserCourses").each(function()
+    $("a.showUserCourses").each(function()
     {
         $(this).qtip({
             content: {
@@ -106,5 +106,5 @@ $(document).ready(function(){
                 }
             }
         });
-    });*/
+    });
 });
