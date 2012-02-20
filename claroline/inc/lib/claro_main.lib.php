@@ -1340,15 +1340,27 @@ function get_conf($param, $default = null)
 
 function claro_die($message)
 {
-    FromKernel::uses( 'display/dialogBox.lib' );
-    $dialogBox = new DialogBox;
-    $dialogBox->error( $message );
+    static $alreadyPassedHere = false;
     
-    Claroline::getInstance()->display->setContent( $dialogBox->render() );
-    
-    echo Claroline::getInstance()->display->render();
+    // avoid infinite recursion recursion
+    if ( !$alreadyPassedHere )
+    {
+        $alreadyPassedHere = true;
+        
+        FromKernel::uses( 'display/dialogBox.lib' );
+        $dialogBox = new DialogBox;
+        $dialogBox->error( $message );
 
-    die(); // necessary to prevent any continuation of the application
+        Claroline::getInstance()->display->setContent( $dialogBox->render() );
+
+        echo Claroline::getInstance()->display->render();
+
+        die(); // necessary to prevent any continuation of the application
+    }
+    else
+    {
+        die ( $message );
+    }
 }
 
 
