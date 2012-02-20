@@ -202,6 +202,11 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
         claro_die(get_lang('Not allowed'));
     }
     
+    if ( get_module_data( $tlabelReq, 'type' ) == 'crsmanage' 
+        && ! ( claro_is_course_manager() || claro_is_platform_admin() ) )
+    {
+        claro_die(get_lang('Not allowed'));
+    }
     
     if ( $tlabelReq !== 'CLWRK' && $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed()
         && ! ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] 
