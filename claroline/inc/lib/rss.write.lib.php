@@ -100,8 +100,6 @@ function build_rss($context)
 
         $toolLabelList = rss_get_tool_compatible_list();
 
-
-
         foreach ($toolLabelList as $toolLabel)
         {
             if ( is_tool_activated_in_course(
@@ -111,15 +109,17 @@ function build_rss($context)
             {
                 if ( ! is_module_installed_in_course($toolLabel,$context[CLARO_CONTEXT_COURSE]) )
                 {
-                    install_module_in_course( $toolLabel,$context[CLARO_CONTEXT_COURSE] );
+                    // since the module is not installed there is no data in it so no need to generate RSS !
+                    continue;
                 }
                 
                 $rssToolLibPath = get_module_path($toolLabel) . '/connector/rss.write.cnr.php';
                 $rssToolFuncName =  $toolLabel . '_write_rss';
-                if ( file_exists($rssToolLibPath)
-                )
+                
+                if ( file_exists($rssToolLibPath) )
                 {
                     include_once $rssToolLibPath;
+                    
                     if (function_exists($rssToolFuncName))
                     {
                         $rssItems = call_user_func($rssToolFuncName, $context );
@@ -182,7 +182,12 @@ function rss_get_tool_compatible_list()
         $rssToolList = array();
 
         $toolList = $GLOBALS['_courseToolList'];
-
+        
+        if ( !is_array( $toolList ) )
+        {
+            return array();
+        }
+        
         foreach ( $toolList as $tool )
         {
             $toolLabel = trim($tool['label'],'_');
