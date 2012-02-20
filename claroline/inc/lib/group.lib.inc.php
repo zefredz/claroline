@@ -642,7 +642,7 @@ function get_group_tool_list($course_id=NULL,$active = true)
                 case 'CLFRM' :
                     if(isset($_groupProperties['tools']['CLFRM']) && $_groupProperties['tools']['CLFRM'] || $isAllowedToEdit)
                     {
-                        $tool['url'] = get_module_url('CLFRM').'/viewforum.php?forum=' . $forumId . claro_url_relay_context('&amp;') ; ;
+                        $tool['url'] = 'viewforum.php?forum=' . $forumId . claro_url_relay_context('&amp;') ; ;
                         $group_tool_list[] = $tool;
                     }
                     break;
