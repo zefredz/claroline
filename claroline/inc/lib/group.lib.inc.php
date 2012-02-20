@@ -606,23 +606,23 @@ function get_group_tool_list($course_id=NULL,$active = true)
     // $aivailable_tool_in_group = array('CLFRM','CLCHT','CLDOC','CLWIKI');
 
     $sql = "
-SELECT tl.id                               id,
-       tl.script_name                      name,
-       tl.visibility                       visibility,
-       tl.rank                             rank,
-       IFNULL(ct.script_url,tl.script_url) url,
-       ct.claro_label                      label,
-       ct.icon                             icon,
-       m.activation                        activation
-FROM      `" . $tbl['course_tool'] . "`       tl
-LEFT JOIN `" . $tbl['tool'] . "` `ct`
-ON        ct.id = tl.tool_id
-LEFT JOIN `" . $tbl['module'] . "` `m`
-ON        m.label = ct.claro_label
-LEFT JOIN `" . $tbl['module_contexts'] . "` `mc`
-ON        m.id = mc.module_id
-WHERE `mc`.`context` = 'group'
-ORDER BY tl.rank
+        SELECT tl.id                               id,
+            tl.script_name                      name,
+            tl.visibility                       visibility,
+            tl.rank                             rank,
+            IFNULL(ct.script_url,tl.script_url) url,
+            ct.claro_label                      label,
+            ct.icon                             icon,
+            m.activation                        activation
+        FROM      `" . $tbl['course_tool'] . "`       tl
+        LEFT JOIN `" . $tbl['tool'] . "` `ct`
+        ON        ct.id = tl.tool_id
+        LEFT JOIN `" . $tbl['module'] . "` `m`
+        ON        m.label = ct.claro_label
+        LEFT JOIN `" . $tbl['module_contexts'] . "` `mc`
+        ON        m.id = mc.module_id
+        WHERE `mc`.`context` = 'group'
+        ORDER BY tl.rank
 
 ";
 
@@ -636,23 +636,25 @@ ORDER BY tl.rank
 
         if (/*in_array($tool['label'],$aivailable_tool_in_group)
         &&*/ ( $active !== true || 'activated' == $tool['activation']))
-        switch ($tool['label'])
         {
-            case 'CLFRM' :
-                if($_groupProperties['tools']['CLFRM'] || $isAllowedToEdit)
-                {
-                    $tool['url'] = 'viewforum.php?forum=' . $forumId . claro_url_relay_context('&amp;') ; ;
-                    $group_tool_list[] = $tool;
-                }
-                break;
-            default :
-                if( ( isset($_groupProperties['tools'][$tool['label']])
-                   && $_groupProperties['tools'][$tool['label']] ) || $isAllowedToEdit )
-                {
-                    $tool['url'] .= claro_url_relay_context('?') ;
-                    $group_tool_list[] = $tool;
-                }
-                break;
+            switch ($tool['label'])
+            {
+                case 'CLFRM' :
+                    if(isset($_groupProperties['tools']['CLFRM']) && $_groupProperties['tools']['CLFRM'] || $isAllowedToEdit)
+                    {
+                        $tool['url'] = get_module_url('CLFRM').'/viewforum.php?forum=' . $forumId . claro_url_relay_context('&amp;') ; ;
+                        $group_tool_list[] = $tool;
+                    }
+                    break;
+                default :
+                    if( ( isset($_groupProperties['tools'][$tool['label']])
+                    && $_groupProperties['tools'][$tool['label']] ) || $isAllowedToEdit )
+                    {
+                        $tool['url'] .= claro_url_relay_context('?') ;
+                        $group_tool_list[] = $tool;
+                    }
+                    break;
+            }
         }
     }
 

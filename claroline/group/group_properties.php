@@ -63,5 +63,3 @@ $tpl->assign( 'tools', $_groupProperties ['tools'] );
 $claroline->display->body->appendContent($tpl->render());
 
 echo $claroline->display->render();
-
-?>
