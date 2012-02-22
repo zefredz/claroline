@@ -87,7 +87,7 @@ class AuthProfile
         }
         else
         {
-            load_kernel_config('CLPROFIL');
+            load_kernel_config('user_profile');
             
             if ( empty ( $data['readonlyProfileFields'] ) )
             {
