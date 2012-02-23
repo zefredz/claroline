@@ -1530,7 +1530,7 @@ $_lang['Send a message to the user'] = 'Envoyer un message à l\'utilisateur';
 $_lang['Send account information to user by email'] = 'Envoyer les informations de connexion par e-mail';
 $_lang['Send email to new users'] = 'Envoyer un e-mail aux nouveaux utilisateurs';
 $_lang['Send file using PHP (mask real file location)'] = 'Transmettre le fichier via PHP (masquer l\'adresse réelle du fichier)';
-$_lang['Send this announcement by internal message to registered students'] = 'Envoyer cette annonce aux étudiants inscrits via la messagerie interne';
+$_lang['Send this announcement by internal message to registered students'] = 'Envoyer cette annonce par email aux étudiants inscrits ';
 $_lang['Sender'] = 'Expéditeur';
 $_lang['Session lost warning'] = 'Alerte de perte de session';
 $_lang['Set the Cascading Style Sheet (CSS) layout.'] = 'Feuille de style CSS à appliquer';
@@ -2157,7 +2157,7 @@ $_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Modalités d\'évaluation';
 $_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Précisions quant aux méthodes d\'évaluation (examens écrits, oraux, projets, travaux à remettre, etc.),<br /> au(x) moment(s) d\'évaluation formative prévu(s),
 aux échéances de remise des travaux, aux critères d\'évaluation<br />et éventuellement
 à la pondération des critères ou des catégories de critères.';
-$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Compétences et objectifs';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Compétences et objectifs test';
 $_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Présentation des objectifs généraux et spécifiques du cours, des compétences auxquelles la maîtrise de tels objectifs peut conduire.';
 $_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Quels sont les apprentissages visés par l\'enseignement&nbsp;?
 <br />
