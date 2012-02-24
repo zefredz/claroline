@@ -26,7 +26,17 @@ $conf_def['config_class']= 'tool';
 
 $conf_def['section']['main']['label']      = 'Main';
 $conf_def['section']['main']['properties'] =
-array ( 'confval_def_sub_vis_change_only_new', 'open_submitted_file_in_new_window', 'show_only_author', 'mail_notification', 'automatic_mail_notification', 'allow_download_all_submissions', 'allow_work_event_generation', 'assignmentsPerPage', 'usersPerPage' );
+array ( 
+    'confval_def_sub_vis_change_only_new', 
+    'open_submitted_file_in_new_window', 
+    'show_only_author', 
+    'mail_notification', 
+    'automatic_mail_notification', 
+    'allow_download_all_submissions', 
+    'clwrk_customTmpPath',
+    'allow_work_event_generation', 
+    'assignmentsPerPage', 
+    'usersPerPage' );
 
 $conf_def['section']['quota']['label']      = 'Quota';
 $conf_def['section']['quota']['description']= 'Disk space allowed for submitted files';
@@ -152,3 +162,14 @@ array (
       , 'readonly'      => FALSE
       , 'acceptedValue' => array('min'=> '1', 'max' => '3650')
       );
+
+$conf_def_property_list['clwrk_customTmpPath'] =
+array ('label'       => 'Path to the temporary folder used to generate the zip archive'
+      ,'description' => 'Used when downloading the assignements. Leave empty to use the default one (which is located in courses/<COURSEID>/work/)'
+      ,'default'     => ''
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'technicalInfo' => 'Path to the temporary zip folder'
+      );
+

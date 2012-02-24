@@ -39,7 +39,7 @@ require_once get_path( 'incRepositorySys' ) . '/lib/thirdparty/pclzip/pclzip.lib
 
 //init general purpose vars
 $out ='';
-$is_allowedToEdit = claro_is_allowed_to_edit();
+
 $dialogBox = new DialogBox();
 
 $downloadMode = isset( $_REQUEST['downloadMode'] ) && is_string( $_REQUEST['downloadMode'] ) ? $_REQUEST['downloadMode'] : 'all';
@@ -93,20 +93,50 @@ if( get_conf( 'allow_download_all_submissions' ) )
         $sqlDateCondition = '';
     }
     
+    //load_module_config('CLDOC');
+    
+    $tmpFolderPath = get_conf('clwrk_customTmpPath','');
+    
     if( $assignmentId == 0 )
     {
         $assignmentRestriction = '';
-        $zipPath = get_path( 'coursesRepositorySys' ) . claro_get_course_path(claro_get_current_course_id()) . '/work/tmp';
+        
+        if ( !empty($tmpFolderPath) )
+        {
+            $zipPath = $tmpFolderPath . '/' . claro_get_current_course_id() . '/work/tmp';
+        }
+        else
+        {
+            $zipPath = get_path( 'coursesRepositorySys' ) . claro_get_course_path(claro_get_current_course_id()) . '/work/tmp';
+        }
+        
         $zipName = claro_get_current_course_id() . '_' . replace_dangerous_char( get_lang( 'Assignments' ) ) . $wanted . '.zip';
     }
     else
     {
         $assignmentRestriction = " AND `assignment_id` = " . (int)$assignmentId;
-        $zipPath = get_path( 'coursesRepositorySys' ) . claro_get_course_path(claro_get_current_course_id()) . '/work/assig_' . (int)$assignmentId . '/' . 'tmp';
+        
+        if ( !empty($tmpFolderPath) )
+        {
+            $zipPath = $tmpFolderPath . '/' . claro_get_current_course_id() . '/work/assig_' . (int)$assignmentId . '/' . 'tmp';
+        }
+        else
+        {
+            $zipPath = get_path( 'coursesRepositorySys' ) . claro_get_course_path(claro_get_current_course_id()) . '/work/tmp';
+        }
+        
         $zipName = replace_dangerous_char(claro_get_course_name(claro_get_current_course_id())) . '_' . replace_dangerous_char( $assignment->getTitle(), 'strict' ) . $wanted . '.zip';
     }
-
-    $downloadArchiveFolderPath = get_path('coursesRepositorySys') . claro_get_course_path(claro_get_current_course_id()) . '/tmp/zip';
+    
+    
+    if ( !empty($tmpFolderPath) )
+    {   
+        $downloadArchiveFolderPath = $tmpFolderPath . '/' . claro_get_current_course_id() . '/work';
+    }
+    else
+    {
+        $downloadArchiveFolderPath = get_path('coursesRepositorySys') . claro_get_course_path(claro_get_current_course_id()) . '/tmp/zip';
+    }
 
     if ( !is_dir( $downloadArchiveFolderPath ) )
     {
@@ -232,6 +262,17 @@ if( get_conf( 'allow_download_all_submissions' ) )
             readfile( $downloadArchiveFilePath );
             
             claro_delete_file( $downloadArchiveFilePath );
+            
+            if ( !empty($tmpFolderPath) )
+            {
+                $gc = new ClaroGarbageCollector( $tmpFolderPath, 3600 );
+                $gc->run();
+            }
+            else
+            {
+                $gc = new ClaroGarbageCollector( $downloadArchiveFolderPath, 3600 );
+                $gc->run();
+            }
             
             exit();
         }
