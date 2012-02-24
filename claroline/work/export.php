@@ -268,11 +268,6 @@ if( get_conf( 'allow_download_all_submissions' ) )
                 $gc = new ClaroGarbageCollector( $tmpFolderPath, 3600 );
                 $gc->run();
             }
-            else
-            {
-                $gc = new ClaroGarbageCollector( $downloadArchiveFolderPath, 3600 );
-                $gc->run();
-            }
             
             exit();
         }
