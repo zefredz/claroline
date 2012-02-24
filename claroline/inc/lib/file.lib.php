@@ -63,7 +63,7 @@ class ClaroGarbageCollector
                                     . "; expire: ".$this->expire
                             );
 
-                            claro_delete_file( $tempDirectoryFile->getPathName() );
+                            unlink( $tempDirectoryFile->getPathName() );
                         }
                     }
                 }
