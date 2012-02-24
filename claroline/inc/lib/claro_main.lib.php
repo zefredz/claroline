@@ -2050,3 +2050,37 @@ function load_kernel_config( $name )
         include claro_get_conf_repository() . $name . '.conf.php';
     }
 }
+
+/**
+ * Check if a course is required. Set property using $courseRequired = true 
+ *  (or false) before calling claro_init_global.inc.php By default, this property 
+ *  is considered to be set to false for backward compatibility.
+ * @since Claroline 1.11.0-rev14026
+ * @return boolean 
+ */
+function claro_is_course_required()
+{
+    if ( isset($GLOBALS['courseRequired']) && $GLOBALS['courseRequired'] == true )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * Check if a group is required. Set property using $groupRequired = true 
+ *  (or false) before calling claro_init_global.inc.php By default, this property 
+ *  is considered to be set to false for backward compatibility
+ * @since Claroline 1.11.0-rev14026
+ * @return boolean 
+ */
+function claro_is_group_required()
+{
+    if ( isset($GLOBALS['groupRequired']) && $GLOBALS['groupRequired'] == true )
+    {
+        return true;
+    }
+
+    return false;
+}

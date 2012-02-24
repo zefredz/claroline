@@ -240,7 +240,18 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
         Check tool access right an block unautorised users
     ----------------------------------------------------------------------*/
     
+    if ( claro_is_course_required() && !claro_is_in_a_course() )
+    {
+        claro_disp_auth_form(true);
+    }
+    
     if ( get_module_data( $tlabelReq, 'type' ) == 'admin' && ! claro_is_platform_admin() )
+    {
+        claro_die(get_lang('Not allowed'));
+    }
+    
+    if ( get_module_data( $tlabelReq, 'type' ) == 'crsmanage' 
+        && ! ( claro_is_course_manager() || claro_is_platform_admin() ) )
     {
         claro_die(get_lang('Not allowed'));
     }
