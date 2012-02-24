@@ -28,7 +28,7 @@
             <dt></dt>
             <dd>
                 <input type="checkbox" value="1" name="emailOption" id="emailOption" />
-                <label for="emailOption"><?php echo get_lang('Send this announcement by email to registered students'); ?></label>
+                <label for="emailOption"><?php echo get_lang('Send this announcement to registered students'); ?></label>
             </dd>
         </dl>
     </fieldset>
