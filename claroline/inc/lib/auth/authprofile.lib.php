@@ -332,6 +332,14 @@ class CourseUserRegistration
     }
     
     /**
+     * Force super user (for example at course creation)
+     */
+    public function forceSuperUser()
+    {
+        $this->isSuperUser = true;
+    }
+    
+    /**
      * Subscribe a specific user to a specific course.  If this course is a session
      * course, the user will also be subscribed to the source course.
      * @return boolean TRUE  if it succeeds, FALSE otherwise

@@ -271,6 +271,7 @@ class ClaroCourse
                 
                 $courseRegistration->setCourseAdmin();
                 $courseRegistration->setCourseTutor();
+                $courseRegistration->forceSuperUser();
                 
                 if ( $courseRegistration->addUser() )
                 {
