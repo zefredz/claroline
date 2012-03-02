@@ -446,15 +446,15 @@ function generate_module_cache()
                         $cache .= '# ' . $module['label'] . "\n" ;
                         $cache .= 'if (file_exists(get_module_path("'.addslashes($module['label']).'")."/functions.php") ){' . "\n";
                         $cache .= 'set_current_module_label("'.addslashes($module['label']).'");' . "\n";
-                        $cache .= 'load_module_config();' . "\n";
-                        $cache .= 'Language::load_module_translation();' . "\n";
+                        $cache .= 'load_module_config("'.addslashes($module['label']).'");' . "\n";
+                        $cache .= 'language::load_module_translation("'.addslashes($module['label']).'","'.language::current_language().'");' . "\n";
                         $cache .= 'require get_module_path("'.addslashes($module['label']).'")."/functions.php";' . "\n";
                         $cache .= 'clear_current_module_label();'. "\n";
                         $cache .= '}' . "\n";
                     }
                 }
 
-                $cache .= "\n" . '?>';
+                $cache .= "\n";
 
                 fwrite( $handle, $cache );
                 fclose( $handle );
