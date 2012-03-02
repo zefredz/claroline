@@ -16,13 +16,14 @@
 
 /**
  * Generic renderer interface
+ * This is now an alias of display
  */
-interface Claro_Renderer
+interface Claro_Renderer extends Display
 {
     /**
      * @return  string
      */
-    public function render();
+    // public function render();
 }
 
 /**
