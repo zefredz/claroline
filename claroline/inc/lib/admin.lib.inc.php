@@ -55,6 +55,13 @@ function delete_course($code, $sourceCourseId)
     $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
 
     $this_course = claro_get_course_data($code);
+    
+    if ( ! $this_course )
+    {
+        // This is bad !
+        throw new Exception("Course not found");
+    }
+    
     $currentCourseId = trim( $this_course['sysCode'] );
     
     if ( empty( $currentCourseId ) )
