@@ -476,6 +476,15 @@ else
     pushClaroMessage('module_cache not generated : check access right in '.$cacheRepositorySys,'warning');
 }
 
+// reset current module label after calling the cache
+if ( isset($tlabelReq) && get_current_module_label() != $tlabelReq )
+{
+    // reset all previous occurence of module label in stack
+    while (clear_current_module_label());
+    // set the current module label
+    set_current_module_label($tlabelReq);
+}
+
 // Add feed RSS in header
 if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )
 {
