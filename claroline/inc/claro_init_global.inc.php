@@ -492,6 +492,8 @@ if (!file_exists($cacheRepositorySys . $module_cache_filename))
     generate_module_cache();
 }
 
+require_once get_path('incRepositorySys') . '/lib/lock.lib.php';
+
 if (file_exists($cacheRepositorySys . $module_cache_filename))
 {
     include $cacheRepositorySys . $module_cache_filename;
@@ -499,6 +501,15 @@ if (file_exists($cacheRepositorySys . $module_cache_filename))
 else
 {
     pushClaroMessage('module_cache not generated : check access right in '.$cacheRepositorySys,'warning');
+}
+
+// reset current module label after calling the cache
+if ( isset($tlabelReq) && get_current_module_label() != $tlabelReq )
+{
+    // reset all previous occurence of module label in stack
+    while (clear_current_module_label());
+    // set the current module label
+    set_current_module_label($tlabelReq);
 }
 
 // Add feed RSS in header
