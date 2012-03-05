@@ -23,8 +23,8 @@ class Claro_KernelHook_Lock
         
         if (claro_debug_mode() )
         {
-            pushClaroMessage(var_export($moduleLabel, true));
-            pushClaroMessage(var_export($_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ], true));
+            pushClaroMessage(var_export(@$moduleLabel, true));
+            pushClaroMessage(var_export(@$_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ], true));
         }
         
         if ( empty($moduleLabel) )
@@ -53,8 +53,8 @@ class Claro_KernelHook_Lock
         
         if (claro_debug_mode() )
         {
-            pushClaroMessage(var_export($moduleLabel, true));
-            pushClaroMessage(var_export($_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ], true));
+            pushClaroMessage(var_export(@$moduleLabel, true));
+            pushClaroMessage(var_export(@$_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ], true));
         }
         
         return isset( $_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ] )
@@ -73,8 +73,8 @@ class Claro_KernelHook_Lock
         
         if (claro_debug_mode() )
         {
-            pushClaroMessage(var_export($moduleLabel, true));
-            pushClaroMessage(var_export($_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ], true));
+            pushClaroMessage(var_export(@$moduleLabel, true));
+            pushClaroMessage(var_export(@$_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ], true));
         }
         
         if( self::hasLock( $moduleLabel ) )
