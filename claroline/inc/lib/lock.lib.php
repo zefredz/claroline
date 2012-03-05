@@ -21,6 +21,12 @@ class Claro_KernelHook_Lock
     {
         $moduleLabel = get_current_module_label();
         
+        if (claro_debug_mode() )
+        {
+            pushClaroMessage(var_export($moduleLabel, true));
+            pushClaroMessage(var_export($_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ], true));
+        }
+        
         if ( empty($moduleLabel) )
         {
             return false;
@@ -45,6 +51,12 @@ class Claro_KernelHook_Lock
     {
         $moduleLabel = get_current_module_label();
         
+        if (claro_debug_mode() )
+        {
+            pushClaroMessage(var_export($moduleLabel, true));
+            pushClaroMessage(var_export($_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ], true));
+        }
+        
         return isset( $_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ] )
             && $_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ] == $moduleLabel;
     }
@@ -58,6 +70,12 @@ class Claro_KernelHook_Lock
     public static function releaseLock()
     {
         $moduleLabel = get_current_module_label();
+        
+        if (claro_debug_mode() )
+        {
+            pushClaroMessage(var_export($moduleLabel, true));
+            pushClaroMessage(var_export($_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ], true));
+        }
         
         if( self::hasLock( $moduleLabel ) )
         {
