@@ -465,6 +465,8 @@ if (!file_exists($cacheRepositorySys . $module_cache_filename))
     generate_module_cache();
 }
 
+require_once get_path('incRepositorySys') . '/lib/lock.lib.php';
+
 if (file_exists($cacheRepositorySys . $module_cache_filename))
 {
     include $cacheRepositorySys . $module_cache_filename;
