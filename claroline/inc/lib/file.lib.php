@@ -50,11 +50,13 @@ class ClaroGarbageCollector
 
             foreach ( $tempDirectoryFiles as $tempDirectoryFile )
             {
-                if ( $tempDirectoryFile->isReadable() )
+                if ( $tempDirectoryFile->isReadable() 
+                    && $tempDirectoryFile->isWritable() )
                 {
                     if ( $tempDirectoryFile->getMTime() < $this->expire )
                     {
-                        if ( !$tempDirectoryFile->isDot() )
+                        if ( !$tempDirectoryFile->isDir() 
+                            && !$tempDirectoryFile->isDot() )
                         {
                             Console::debug(
                                 'Unlink '
@@ -589,6 +591,7 @@ function claro_get_file_download_url( $file, $context = null, $moduleLabel = nul
  *
  * @param   string $string
  * @param   string $strict (optional) removes also scores and simple quotes
+ * @since   Claroline 1.11.0-beta1 $strict is ignored !
  * @return  string : the string cleaned of dangerous character
  * @todo    function broken !
  */
@@ -598,7 +601,7 @@ function replace_dangerous_char($string, $strict = 'loose')
     $search[] = '/';  $replace[] = '-';
     $search[] = '\\'; $replace[] = '-';
     $search[] = '"';  $replace[] = '-';
-    $search[] = '\'';  $replace[] = '_';
+    $search[] = '\''; $replace[] = '_';
     $search[] = '?';  $replace[] = '-';
     $search[] = '*';  $replace[] = '-';
     $search[] = '>';  $replace[] = '';
@@ -611,28 +614,32 @@ function replace_dangerous_char($string, $strict = 'loose')
     $search[] = '^';  $replace[] = '-';
     $search[] = '[';  $replace[] = '-';
     $search[] = ']';  $replace[] = '-';
-    //FIXME FIXME FIXME
-    /*
-    $search[] = '�';  $replace[] = 'o';
-    */
-
 
     foreach($search as $key=>$char )
     {
         $string = str_replace($char, $replace[$key], $string);
     }
     
-    if ($strict == 'strict')
-    {
-        $string = str_replace('-', '_', $string);
-        $string = str_replace("'", '', $string);
-        //FIXME FIXME FIXME
-        /*
-        $string = strtr($string,
+    /*if ($strict == 'strict')
+    {*/
+        if ( function_exists('iconv') )
+        {
+            $string = iconv(get_conf('charset'), "US-ASCII//TRANSLIT", $string);
+        }
+        else
+        {
+            // you are screwed !
+            /*
+             $string = strtr($string,
                         '�����������������������������������������������������',
                         'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
-        */
-    }
+             */
+        }
+        
+        $string = str_replace('-', '_', $string);
+        $string = str_replace("'", '', $string);
 
+    /*}*/
+    
     return $string;
 }
