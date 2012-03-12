@@ -390,13 +390,16 @@ if ( $displayButtonLine )
         . get_lang('Add announcement')
         . '</a>' . "\n"
         ;
-
-    $cmdList[] = '<a class="claroCmd" href="'
-        . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann')) . '">'
-        . '<img src="' . get_icon_url('mail_close') . '" alt="" />'
-        . get_lang('Messages to selected users')
-        . '</a>' . "\n"
-        ;
+    
+    if ( claro_is_course_manager() )
+    {
+        $cmdList[] = '<a class="claroCmd" href="'
+            . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann')) . '">'
+            . '<img src="' . get_icon_url('mail_close') . '" alt="" />'
+            . get_lang('Messages to selected users')
+            . '</a>' . "\n"
+            ;
+    }
     
     if (($announcementQty > 0 ))
     {
