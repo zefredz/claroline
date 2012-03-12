@@ -407,11 +407,14 @@ if ( $displayButtonLine )
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqCreate'))
     );
     
-    $cmdList[] = array(
-        'img' => 'mail_close',
-        'name' => get_lang('Messages to selected users'),
-        'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann'))
-    );
+    if ( claro_is_course_manager() )
+    {
+        $cmdList[] = array(
+            'img' => 'mail_close',
+            'name' => get_lang('Messages to selected users'),
+            'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann'))
+        );
+    }
     
     if (($announcementQty > 0 ))
     {
