@@ -627,12 +627,12 @@ if( $showResult )
         $dialogBox->info('<a href="'.htmlspecialchars( Url::Contextualize('./exercise.php' ) ).'">&lt;&lt; '.get_lang('Back').'</a>');
         
     }
-        
-    $out .= "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
     
     //-- question(s)
     if( !empty($questionList) )
     {
+        $out .= "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
+        
         // foreach question
         $questionIterator = 1;
         $i = 0;
@@ -666,10 +666,18 @@ if( $showResult )
             $questionIterator++;
             $i++;
         }
+        
+        $out .= '</table>' . "\n\n";
     }
-
-    
-    $out .= '</table>' . "\n\n";
+    else
+    {
+        $dialogBox->info(
+            get_lang('No question to display')
+            .'<br />'
+            .'<a href="'.htmlspecialchars( 
+                Url::Contextualize('./exercise.php' ) ).'">&lt;&lt; '.get_lang('Back').'</a>'
+        );
+    }
     
     //  Display results
     if( $recordResults )
@@ -875,6 +883,15 @@ elseif( $showSubmitForm )
         .   '</div>'
         ;
         
+    }
+    else
+    {
+        $dialogBox->info(
+            get_lang('No question to display')
+            .'<br />'
+            .'<a href="'.htmlspecialchars( 
+                Url::Contextualize('./exercise.php' ) ).'">&lt;&lt; '.get_lang('Back').'</a>'
+        );
     }
 }
 else // ! $showSubmitForm
