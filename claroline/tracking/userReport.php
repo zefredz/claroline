@@ -47,6 +47,7 @@ else
     else                         $courseId = null;
 }
 
+$selfStatistics = ( $userId == claro_get_current_user_id() ) ? true : false;
 
 /*
  * Permissions
@@ -126,13 +127,17 @@ CssLoader::getInstance()->load( 'tracking', 'screen');
 $nameTools = get_lang('Statistics');
 ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF'] . '?userId=' . $userId ) ) );
 
-if( $canSwitchCourses )
+if( $canSwitchCourses && $selfStatistics )
 {
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('My user account'), htmlspecialchars( Url::Contextualize('../auth/profile.php') ) );
 }
-else
+elseif ( claro_is_in_a_course() )
 {
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), htmlspecialchars( Url::Contextualize('../user/user.php') ) );
+}
+else
+{
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('User account') );
 }
 
 $output = '';
