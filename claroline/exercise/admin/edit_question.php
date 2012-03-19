@@ -20,7 +20,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 // courseadmin reserved page
 if( !$is_allowedToEdit )
 {
-    header("Location: ../exercise.php");
+    header("Location: " . Url::Contextualize("../exercise.php"));
     exit();
 }
 
@@ -147,7 +147,7 @@ if( $cmd == 'exEdit' )
             if( is_null($quId) )
             {
                 // Go to answer edition
-                header('Location: edit_answers.php?exId='.$exId.'&quId='.$insertedId);
+                header('Location: '. Url::Contextualize('edit_answers.php?exId='.$exId.'&quId='.$insertedId));
                 exit();
             }
         }
@@ -185,18 +185,18 @@ if( $cmd == 'rqEdit' )
 if( is_null($quId) )
 {
     $nameTools = get_lang('New question');
-    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_question.php?exId='.$exId . '&amp;cmd=rqEdit' );
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize('./edit_question.php?exId='.$exId . '&amp;cmd=rqEdit' ) );
 }
 elseif( $cmd == 'rqEdit' )
 {
     $nameTools = get_lang('Edit question');
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question'), './edit_question.php?exId='.$exId.'&amp;quId='.$quId );
-    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_question.php?exId='.$exId.'&amp;quId='.$quId.'&amp;cmd=rqEdit' );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question'), Url::Contextualize('./edit_question.php?exId='.$exId.'&amp;quId='.$quId ) );
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize('./edit_question.php?exId='.$exId.'&amp;quId='.$quId.'&amp;cmd=rqEdit') );
 }
 else
 {
     $nameTools = get_lang('Question');
-    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_question.php?exId='.$exId.'&amp;quId='.$quId );
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize('./edit_question.php?exId='.$exId.'&amp;quId='.$quId) );
 }
 
 if( !is_null($exId) )
@@ -206,9 +206,9 @@ if( !is_null($exId) )
 }
 else
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question pool'), './question_pool.php' );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question pool'), Url::Contextualize('./question_pool.php') );
 }
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), Url::Contextualize(get_module_url('CLQWZ').'/exercise.php') );
 
 // Command list
 $cmdList = array();
@@ -245,7 +245,9 @@ if( $displayForm )
 {
     $out .= '<form method="post" action="./edit_question.php?quId='.$quId.'&amp;exId='.$exId.'" enctype="multipart/form-data">' . "\n\n"
     .     '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-    .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n";
+    .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
+    .     claro_form_relay_context() . "\n"
+    ;
 
     $out .= '<table border="0" cellpadding="5">' . "\n";
 
@@ -356,8 +358,8 @@ if( $displayForm )
     .     '<td>&nbsp;</td>' . "\n"
     .     '<td>'
     .     '<input type="submit" name="" id="" value="'.get_lang('Ok').'" />&nbsp;&nbsp;';
-    if( !is_null($exId) )    $out .= claro_html_button('./edit_exercise.php?exId='.$exId, get_lang("Cancel") );
-    else                    $out .= claro_html_button('./question_pool.php', get_lang("Cancel") );
+    if( !is_null($exId) )    $out .= claro_html_button( Url::Contextualize('./edit_exercise.php?exId='.$exId ), get_lang("Cancel") );
+    else                    $out .= claro_html_button( Url::Contextualize('./question_pool.php'), get_lang("Cancel") );
     $out .= '</td>' . "\n"
     .     '</tr>' . "\n\n";
 

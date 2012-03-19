@@ -105,11 +105,12 @@ if( $is_allowedToEdit && !is_null($cmd) )
         .            '<form enctype="multipart/form-data" action="./exercise.php" method="post">' . "\n"
         .            '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
         .            '<input name="cmd" type="hidden" value="exImport" />' . "\n"
+        .            claro_form_relay_context() . "\n"
         .            '<input name="uploadedExercise" type="file" /><br />' . "\n"
         .            '<small>' . get_lang('Max file size') .  ' : ' . format_file_size( get_max_upload_size($maxFilledSpace,$courseDir) ) . '</small>' . "\n"
         .            '<p>' . "\n"
         .            '<input value="' . get_lang('Import exercise') . '" type="submit" /> ' . "\n"
-        .            claro_html_button( './exercise.php', get_lang('Cancel'))
+        .            claro_html_button( Url::Contextualize('./exercise.php'), get_lang('Cancel'))
         .            '</p>' . "\n"
         .            '</form>' );
     }
@@ -247,6 +248,247 @@ if( $is_allowedToEdit && !is_null($cmd) )
             }
         }
     }
+    
+    //-- export pdf
+    if( $cmd == 'printPreview' && $exId )
+    {
+        require_once( './lib/question.class.php' );
+        
+        $exercise= new Exercise();
+        $exercise->load($exId);
+        if( $exercise->getShuffle() && isset($_REQUEST['shuffle']) && $_REQUEST['shuffle'] == 1 )
+        {
+          $questionList = $exercise->getRandomQuestionList();
+        }
+        else
+        {
+          $questionList = $exercise->getQuestionList();
+        }
+        
+        foreach( $questionList as $_id => $question )
+        {
+          $questionObj = new Question();
+          $questionObj->setExerciseId($exId);
+          
+          if( $questionObj->load($question['id']) )
+          {
+            $questionList[ $_id ]['description'] = $questionObj->getDescription();
+            $questionList[ $_id ]['attachment'] = $questionObj->getAttachment();
+            if( !empty( $questionList[ $_id ]['attachment'] ) )
+            {
+              $questionList[ $_id ]['attachmentURL'] = get_conf('rootWeb') . 'courses/' . claro_get_current_course_id() . '/exercise/question_' . $questionObj->getId() . '/' . $questionObj->getAttachment();
+            }
+            
+            switch( $questionObj->getType() )
+            {
+              case 'MCUA' :
+              case 'MCMA' :
+              {
+                $questionList[ $_id ]['answers'] = $questionObj->answer->answerList;
+              }
+              break;
+              case 'TF' :
+              {
+                $questionList[ $_id ]['answers'][0]['answer'] = get_lang('True');
+                $questionList[ $_id ]['answers'][0]['feedback'] = $questionObj->answer->trueFeedback;
+                $questionList[ $_id ]['answers'][1]['answer'] = get_lang('False');
+                $questionList[ $_id ]['answers'][1]['feedback'] = $questionObj->answer->falseFeedback;
+              }
+              break;
+              case 'FIB' :
+              {
+                $questionList[ $_id ]['answerText'] = $questionObj->answer->answerDecode( $questionObj->answer->answerText );
+                $questionList[ $_id ]['answerList'] = $questionObj->answer->answerList;
+                
+                foreach( $questionList[ $_id ]['answerList'] as $i => $answer )
+                {
+                  $questionList[ $_id ]['answerList'][ $i ] = $questionObj->answer->answerDecode($questionObj->answer->addslashesEncodedBrackets($answer));
+                }
+                $questionList[ $_id ]['answerType'] = $questionObj->answer->type;
+              }
+              break;
+              case 'MATCHING' :
+              {
+                $questionList[ $_id ]['leftList'] = $questionObj->answer->leftList;
+                $questionList[ $_id ]['rightList'] = $questionObj->answer->rightList;
+              }
+              break;
+            }
+            
+            $questionList[ $_id ]['type'] = $questionObj->getType();
+          }
+        }
+        
+        Claroline::getDisplay()->frameMode();
+        
+        Claroline::getDisplay()->header->SetTitle( $exercise->getTitle() );
+        
+        Claroline::getDisplay()->body->appendContent( 
+            '<header><h1 class="exerciseTitle">' . $exercise->getTitle() . '</h1>' );
+        
+        Claroline::getDisplay()->body->appendContent( 
+            '<blockquote class="exerciseDescription">' . $exercise->getDescription() . '</blockquote></header>' );
+        
+        $i = 1;
+        
+        Claroline::getDisplay()->body->appendContent( '<article>' . "\n" );
+        
+        foreach( $questionList as $question )
+        {
+            $htmlcontent = '<section class="question">' . "\n";
+          $htmlcontent .= 
+                '<header>'."\n".'<h1 class="questionTitle">' . get_lang('Question') . ' ' . $i 
+              . '&nbsp;-&nbsp;' 
+              . htmlspecialchars( strip_tags( $question['title'] ) ) . '</h1>' . "\n"
+            ;
+          
+          // Question description
+          if( trim( htmlspecialchars( $question['description'] ) ) )
+          {
+            $htmlcontent .= '<blockquote class="questionDescription">' . "\n"
+                .   claro_parse_user_text( $question['description'] ) .'</blockquote>' . "\n"
+                ;
+          }
+          // Attachment
+          if( ! empty( $question['attachment'] ) )
+          {
+            $extensionsList = array( 'jpg', 'jpeg', 'bmp', 'gif', 'png');
+            
+            $ext = strtolower( get_file_extension( $question['attachment'] ) );
+            
+            if( in_array( $ext, $extensionsList ) )
+            {
+              $htmlcontent .= '<div class="questionAttachment">' . "\n"
+              .   '<img src="' . $question['attachmentURL'] . '" />' . "\n"
+              .   '</div>' . "\n"
+              ;
+            }
+          }
+          
+          $htmlcontent .= '</header>'."\n".'<table>' . "\n";
+          
+          switch( $question['type'] )
+          {
+            case 'MCMA' :
+            {
+              foreach( $question['answers'] as $answer )
+              {
+                
+                $htmlcontent .= '<tr>' . "\n"
+                .   '<td style="text-align: center; width: 3em;">[&nbsp;&nbsp;&nbsp;]</td>' . "\n"
+                .   '<td>' . claro_parse_user_text($answer['answer']) . '</td>' . "\n"
+                .   '</tr>' . "\n"
+                ;
+                
+              }
+            }
+            break;
+            case 'MCUA' :
+            case 'TF' :
+            {
+              
+              foreach( $question['answers'] as $answer )
+              {
+                
+                $htmlcontent .= '<tr>' . "\n"
+                .   '<td style="text-align: center; width: 3em;">(&nbsp;&nbsp;&nbsp;)</td>' . "\n"
+                .   '<td>' . claro_parse_user_text($answer['answer']) . '</td>' . "\n"
+                .   '</tr>' . "\n"
+                ;
+                
+              }
+            }
+            break;
+            case 'FIB' :
+            {
+              $answerCount = count( $question['answerList'] );
+              $replacementList = array();
+              switch( $question['answerType'] )
+              {
+                case 1 :
+                {
+                  for( $j = 0; $j < $answerCount; $j++ )
+                  {
+                      $replacementList[] = str_replace('$', '\$', ' [                  ] ');
+                  }
+                }
+                break;
+                default :
+                {
+                  $answers = '';
+                  
+                  foreach( $question['answerList'] as $answer )
+                  {
+                    if( $answers )
+                    {
+                      $answers .= "/";
+                    }
+                    $answers .= $answer;
+                  }
+                  
+                  for( $j = 0; $j < $answerCount; $j++ )
+                  {
+                    $replacementList[] = str_replace('$', '\$', ' [ '. $answers .' ] ');
+                  }
+                }
+              }
+              
+              
+              $blankList = array();
+              foreach( $question['answerList'] as $answer )
+              {
+                  // filter slashes as they are modifiers in preg expressions
+                  $blankList[] = '/\['.preg_quote($answer,'/').'\]/';
+              }
+              
+              $displayedAnswer = preg_replace( $blankList, $replacementList, claro_parse_user_text( $question['answerText'] ), 1 );
+              
+              $htmlcontent .= '<tr>' . "\n"
+              .   '<td colspan="2">' . $displayedAnswer . '</td>' . "\n"
+              .   '</tr>' . "\n"
+              ;
+            }
+            break;
+            case 'MATCHING' :
+            {
+              foreach( $question['leftList'] as $ql )
+              {
+                $ql['answer'] .= ' [';
+                $_qr = '';
+                foreach( $question['rightList'] as $qr)
+                {
+                  if( $_qr )
+                  {
+                    $_qr .= ' , ';
+                  }
+                  $_qr .= $qr['answer'];
+                }
+                $ql['answer'] .= $_qr;
+                $ql['answer'] .= '] ';
+                $htmlcontent .= '<tr>' . "\n"
+                .   '<td colspan="2">' . htmlspecialchars( strip_tags( $ql['answer'] ) ) . '</td>' . "\n"
+                .   '</tr>' . "\n"
+                ;
+              }
+            }
+            break;
+          }
+          
+            $htmlcontent .= "</table>\n";
+            $htmlcontent .= "</section>\n";
+          
+          Claroline::getDisplay()->body->appendContent( $htmlcontent );
+          
+          $i++;
+        }
+        
+        Claroline::getDisplay()->body->appendContent( '</article>' . "\n" );
+        
+        //Close and output PDF document
+        echo Claroline::getDisplay()->render();
+        
+        exit();
+    }
 
     //-- export pdf
     if( $cmd == 'exExportPDF' && $exId )
@@ -342,15 +584,17 @@ if( $is_allowedToEdit && !is_null($cmd) )
         // add a page
         $pdf->AddPage();
         
-        $htmlcontent = '<div style="font-size: xx-large; font-weight: bold;">' . htmlspecialchars( claro_utf8_encode( $exercise->getTitle() ) ) . '<div>' . "\n";
-        $pdf->writeHTML( $htmlcontent, true, 0, true, 0);
+        $htmlcontent = '<div style="font-size: xx-large; font-weight: bold;">' . htmlspecialchars( $exercise->getTitle() ) . '<div>' . "\n";
+        
+        $pdf->writeHTML( claro_utf8_encode($htmlcontent, get_conf('charset') ), true, 0, true, 0);
         
         //change Img URL
-        $exercise->setDescription( change_img_url_for_pdf( $exercise->getDescription() ) );
+        $exercise->setDescription( claro_utf8_encode(change_img_url_for_pdf( $exercise->getDescription() ), get_conf('charset') ) );
+        
         //End change Img URL
         $htmlcontent = '<div style="font-size: normal; font-weight: normal;">'. $exercise->getDescription() .'</div><br /><br />' . "\n"
         ;
-        $pdf->writeHTML( $htmlcontent, true, 0, true, 0);
+        $pdf->writeHTML( claro_utf8_encode( $htmlcontent, get_conf('charset') ) , true, 0, true, 0);
         
         $i = 1;
         foreach( $questionList as $question )
@@ -362,14 +606,14 @@ if( $is_allowedToEdit && !is_null($cmd) )
           .   '</tr>' . "\n"
           // Question title
           .   '<tr>' . "\n"
-          .   '<td colspan="2">' . htmlspecialchars( strip_tags( claro_utf8_encode( $question['title'], get_conf('charset') ) ) ) . '</td>' . "\n"
+          .   '<td colspan="2">' . htmlspecialchars( strip_tags( $question['title'] ) ) . '</td>' . "\n"
           .   '</tr>' . "\n"
           ;
           // Question description
-          if( trim( htmlspecialchars( claro_utf8_encode( $question['description'], get_conf('charset')  ) ) ) )
+          if( trim( htmlspecialchars( $question['description'] ) ) )
           {
             $htmlcontent .= '<tr>' . "\n"
-            .   '<td colspan="2" style="font-size: x-small; font-style: italic;">' . claro_utf8_encode( change_img_url_for_pdf( $question['description'] ), get_conf('charset') ) .'</td>' . "\n"
+            .   '<td colspan="2" style="font-size: x-small; font-style: italic;">' . change_img_url_for_pdf( claro_parse_user_text( $question['description'] ) ) .'</td>' . "\n"
             .   '</tr>' . "\n"
             ;
           }
@@ -399,7 +643,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
                 
                 $htmlcontent .= '<tr>' . "\n"
                 .   '<td style="background-color: #EEE; text-align: center; width: 30px;">[   ]</td>' . "\n"
-                .   '<td style="background-color: #EEE; width: 475px;">' . claro_utf8_encode( change_img_url_for_pdf($answer['answer']), get_conf('charset') ) . '</td>' . "\n"
+                .   '<td style="background-color: #EEE; width: 475px;">' . change_img_url_for_pdf(claro_parse_user_text($answer['answer'])) . '</td>' . "\n"
                 .   '</tr>'
                 ;
                 
@@ -414,7 +658,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
                 
                 $htmlcontent .= '<tr>' . "\n"
                 .   '<td style="background-color: #EEE; text-align: center; width: 30px;">O</td>' . "\n"
-                .   '<td style="background-color: #EEE; width: 475px;">' . claro_utf8_encode( change_img_url_for_pdf($answer['answer']), get_conf('charset') ) . '</td>' . "\n"
+                .   '<td style="background-color: #EEE; width: 475px;">' . change_img_url_for_pdf(claro_parse_user_text($answer['answer'])) . '</td>' . "\n"
                 .   '</tr>'
                 ;
                 
@@ -488,7 +732,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
                 $ql['answer'] .= $_qr;
                 $ql['answer'] .= '] ';
                 $htmlcontent .= '<tr>' . "\n"
-                .   '<td colspan="2" style="background-color: #EEE;">' . htmlspecialchars( strip_tags( claro_utf8_encode( $ql['answer'], get_conf('charset') ) ) ) . '</td>' . "\n"
+                .   '<td colspan="2" style="background-color: #EEE;">' . htmlspecialchars( strip_tags( $ql['answer'] ) ) . '</td>' . "\n"
                 .   '</tr>' . "\n"
                 ;
               }
@@ -500,7 +744,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
           .   '</table></p>' . "\n"
           ;
           
-          $pdf->writeHTML( $htmlcontent, true, 0, true, 0);
+          $pdf->writeHTML( claro_utf8_encode( $htmlcontent, get_conf('charset') ), true, 0, true, 0);
           
           $i++;
         }
@@ -729,7 +973,7 @@ if( !$inLP )
     
             $out .= '<tr'.$invisibleClass.'>' . "\n"
             .     '<td>'
-            .     '<a href="exercise_submit.php?exId='.$anExercise['id'].'" class="item'.$appendToStyle.'">'
+            .     '<a href="'.htmlspecialchars( Url::Contextualize('exercise_submit.php?exId='.$anExercise['id'] ) ).'" class="item'.$appendToStyle.'">'
             .     '<img src="' . get_icon_url('quiz') . '" alt="" />'
             .     $anExercise['title']
             .     '</a>'
@@ -738,7 +982,7 @@ if( !$inLP )
             if( $is_allowedToEdit )
             {
                 $out .= '<td align="center">'
-                .     '<a href="admin/edit_exercise.php?exId='.$anExercise['id'].'">'
+                .     '<a href="'.htmlspecialchars( Url::Contextualize( 'admin/edit_exercise.php?exId='.$anExercise['id'] ) ).'">'
                 .     '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
@@ -751,7 +995,7 @@ if( !$inLP )
                 $confirmString .= get_lang('Are you sure you want to delete this exercise ?');
     
                 $out .= '<td align="center">'
-                .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exDel" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
+                .     '<a href="'.htmlspecialchars( Url::Contextualize( 'exercise.php?exId='.$anExercise['id'].'&amp;cmd=exDel' ) ).'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
                 .     '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
@@ -759,7 +1003,7 @@ if( !$inLP )
                 if( $anExercise['visibility'] == 'VISIBLE' )
                 {
                     $out .= '<td align="center">'
-                    .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkInvis">'
+                    .     '<a href="'.htmlspecialchars( Url::Contextualize('exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkInvis' ) ).'">'
                     .     '<img src="' . get_icon_url('visible') . '" alt="'.get_lang('Make invisible').'" />'
                     .     '</a>'
                     .     '</td>' . "\n";
@@ -767,14 +1011,14 @@ if( !$inLP )
                 else
                 {
                     $out .= '<td align="center">'
-                    .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkVis">'
+                    .     '<a href="'.htmlspecialchars( Url::Contextualize( 'exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkVis' ) ).'">'
                     .     '<img src="' . get_icon_url('invisible') . '" alt="'.get_lang('Make visible').'" />'
                     .     '</a>'
                     .     '</td>' . "\n";
                 }
     
                 $out .= '<td align="center">'
-                .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=rqExport">'
+                .     '<a href="'.htmlspecialchars( Url::Contextualize('exercise.php?exId='.$anExercise['id'].'&amp;cmd=rqExport' ) ).'">'
                 .     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
@@ -782,7 +1026,7 @@ if( !$inLP )
                 if( $is_allowedToTrack )
                 {
                     $out .= '<td align="center">'
-                    .     '<a href="track_exercises.php?exId='.$anExercise['id'].'&amp;src=ex">'
+                    .     '<a href="'.htmlspecialchars( Url::Contextualize( 'track_exercises.php?exId='.$anExercise['id'].'&amp;src=ex' ) ).'">'
                     .     '<img src="' . get_icon_url('statistics') . '" alt="'.get_lang('Statistics').'" />'
                     .     '</a>'
                     .     '</td>' . "\n";

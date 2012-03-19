@@ -20,7 +20,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 // courseadmin reserved page
 if( !$is_allowedToEdit )
 {
-    header("Location: ../exercise.php");
+    header("Location: " . Url::Contextualize('../exercise.php') );
     exit();
 }
 
@@ -55,7 +55,7 @@ $question = new Question();
 
 if( is_null($quId) || !$question->load($quId) )
 {
-    header("Location: ../exercise.php");
+    header('Location: '. Url::Contextualize('../exercise.php' ));
     exit();
 }
 
@@ -113,7 +113,7 @@ if( $cmd == 'exEdit' )
                 $question->setGrade($question->answer->getGrade());
                 $question->save();
 
-                header("Location: ./edit_question.php?exId=".$exId."&quId=".$quId);
+                header("Location: " . Url::Contextualize("./edit_question.php?exId=".$exId."&quId=".$quId) );
                 exit();
             }
         }
@@ -133,15 +133,15 @@ if( $cmd == 'exEdit' )
 
 if( !is_null($exId) )
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question'), './edit_question.php?exId='.$exId.'&amp;quId='.$quId );
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), './edit_exercise.php?exId='.$exId );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question'), Url::Contextualize('./edit_question.php?exId='.$exId.'&amp;quId='.$quId) );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), Url::Contextualize('./edit_exercise.php?exId='.$exId) );
 }
 else
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question pool'), './question_pool.php' );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question pool'), Url::Contextualize('./question_pool.php') );
 }
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), Url::Contextualize( get_module_url('CLQWZ').'/exercise.php' ) );
 
 $out = '';
 if( !is_null($quId) )     $_SERVER['QUERY_STRING'] = 'exId='.$exId.'&amp;quId='.$quId;

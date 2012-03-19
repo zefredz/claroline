@@ -20,7 +20,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 // courseadmin reserved page
 if( !$is_allowedToEdit )
 {
-    header("Location: ../exercise.php");
+    header("Location: ". Url::Contextualize("../exercise.php"));
     exit();
 }
 
@@ -82,7 +82,7 @@ if( $cmd == 'rqUse' && !is_null($quId) && !is_null($exId) )
     if( $exercise->addQuestion($quId) )
     {
         // TODO show confirmation and back link
-        header('Location: edit_exercise.php?exId='.$exId);
+        header('Location: ' . Url::Contextualize( 'edit_exercise.php?exId='.$exId ));
     }
 }
 
@@ -245,21 +245,21 @@ $questionList = $myPager->get_result_list();
 
 if( !is_null($exId) )
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), './edit_exercise.php?exId='.$exId );
-    ClaroBreadCrumbs::getInstance()->setCurrent( get_lang('Question pool'), $_SERVER['PHP_SELF'].'?exId='.$exId );
-    $pagerUrl = $_SERVER['PHP_SELF'].'?exId='.$exId;
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), Url::Contextualize('./edit_exercise.php?exId='.$exId) );
+    ClaroBreadCrumbs::getInstance()->setCurrent( get_lang('Question pool'), Url::Contextualize($_SERVER['PHP_SELF'].'?exId='.$exId) );
+    $pagerUrl = Url::Contextualize($_SERVER['PHP_SELF'].'?exId='.$exId);
 }
 else if ( !is_null($categoryId) )
 {
-	$pagerUrl = $_SERVER['PHP_SELF'].'?filter='.$filter;
+	$pagerUrl = Url::Contextualize($_SERVER['PHP_SELF'].'?filter='.$filter);
 }
 else
 {
-    ClaroBreadCrumbs::getInstance()->setCurrent( get_lang('Question pool'), $_SERVER['PHP_SELF'] );
-    $pagerUrl = $_SERVER['PHP_SELF'];
+    ClaroBreadCrumbs::getInstance()->setCurrent( get_lang('Question pool'), Url::Contextualize($_SERVER['PHP_SELF']) );
+    $pagerUrl = Url::Contextualize($_SERVER['PHP_SELF']);
 }
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), Url::Contextualize(get_module_url('CLQWZ').'/exercise.php') );
 
 $nameTools = get_lang('Question pool');
 
@@ -292,6 +292,7 @@ $attr['onchange'] = 'filterForm.submit()';
 $out .= "\n"
 .     '<form method="get" name="filterForm" action="question_pool.php">' . "\n"
 .     '<input type="hidden" name="exId" value="'.$exId.'" />' . "\n"
+.     claro_form_relay_context() . "\n"
 .     '<p align="right">' . "\n"
 .     '<label for="filter">'.get_lang('Filter').'&nbsp;:&nbsp;</label>' . "\n"
 .     claro_html_form_select('filter',$filterList, $filter, $attr) . "\n"
@@ -360,7 +361,7 @@ if( !empty($questionList) )
         {
             // re-use
             $out .= '<td align="center">'
-            .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=rqUse&amp;quId='.$question['id'].'">'
+            .     '<a href="'.htmlspecialchars(Url::Contextualize('question_pool.php?exId='.$exId.'&amp;cmd=rqUse&amp;quId='.$question['id'] ) ).'">'
             .     '<img src="' . get_icon_url('select') . '" alt="'.get_lang('Modify').'" />'
             .     '</a>'
             .     '</td>' . "\n";
@@ -369,7 +370,7 @@ if( !empty($questionList) )
         {
             // edit
             $out .= '<td align="center">'
-            .     '<a href="edit_question.php?quId='.$question['id'].'">'
+            .     '<a href="'.htmlspecialchars(Url::Contextualize('edit_question.php?quId='.$question['id'] ) ).'">'
             .     '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
             .     '</a>'
             .     '</td>' . "\n";
@@ -378,7 +379,7 @@ if( !empty($questionList) )
             $confirmString = get_lang('Are you sure you want to completely delete this question ?');
 
             $out .= '<td align="center">'
-            .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=delQu&amp;quId='.$question['id'].'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
+            .     '<a href="'.htmlspecialchars(Url::Contextualize('question_pool.php?exId='.$exId.'&amp;cmd=delQu&amp;quId='.$question['id'] ) ).'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
             .     '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
             .     '</a>'
             .     '</td>' . "\n";
@@ -387,7 +388,7 @@ if( !empty($questionList) )
             {
                 // export
                 $out .= '<td align="center">'
-                .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=exExport&amp;quId='.$question['id'].'">'
+                .     '<a href="'.htmlspecialchars(Url::Contextualize('question_pool.php?exId='.$exId.'&amp;cmd=exExport&amp;quId='.$question['id'] ) ).'">'
                 .     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";

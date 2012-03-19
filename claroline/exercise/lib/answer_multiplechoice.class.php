@@ -494,7 +494,8 @@ class answerMultipleChoice
             '<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
         .     '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
         .    '<input type="hidden" name="answerCount" value="'.count($this->answerList).'" />' . "\n"
-        .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
+        .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+        .    claro_form_relay_context() . "\n";
 
         if( $this->multipleAnswer )
            {
@@ -562,7 +563,7 @@ class answerMultipleChoice
         .     '<input type="submit" name="cmdOk" value="' . get_lang('Ok') . '" />&nbsp;&nbsp;'
         .     '<input type="submit" name="cmdRemAnsw" value="' . get_lang('Rem. answ.') . '" />&nbsp;&nbsp;'
         .     '<input type="submit" name="cmdAddAnsw" value="' . get_lang('Add answ.') . '" />&nbsp;&nbsp;'
-        .     claro_html_button('./edit_question.php?exId='.$exId.'&amp;quId='.$this->questionId, get_lang("Cancel") )
+        .     claro_html_button(Url::Contextualize('./edit_question.php?exId='.$exId.'&amp;quId='.$this->questionId), get_lang("Cancel") )
         .     '</td>' . "\n"
         .     '</tr>' . "\n\n"
 

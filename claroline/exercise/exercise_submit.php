@@ -97,7 +97,7 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
     if( is_null($exId) || !$exercise->load($exId) )
     {
         // exercise is required
-        header("Location: ./exercise.php");
+        header("Location: " . Url::Contextualize('./exercise.php') );
         exit();
     }
     else
@@ -590,6 +590,8 @@ if( $showResult )
         $out .= '<form method="get" action="exercise.php">';
     } // if inLP do not allow to navigate away : user should use LP navigation to go to another module
     
+    $out .= claro_form_relay_context() . "\n";
+    
     //  Display results
     
     /*if( $exercise->getShuffle() && $exercise->getUseSameShuffle() && isset( $_SESSION['lastRandomQuestionList'] ) )
@@ -622,7 +624,7 @@ if( $showResult )
         }
         $contentDialogBox .= get_lang( 'Time is over, results not submitted.' );
         $dialogBox->error( $contentDialogBox );
-        $dialogBox->info('<a href="./exercise.php">&lt;&lt; '.get_lang('Back').'</a>');
+        $dialogBox->info('<a href="'.htmlspecialchars( Url::Contextualize('./exercise.php' ) ).'">&lt;&lt; '.get_lang('Back').'</a>');
         
     }
         
@@ -683,7 +685,7 @@ if( $showResult )
     if( $exercise->getShuffle() && $exercise->getUseSameShuffle() && isset( $_SESSION['lastRandomQuestionList'] ) )
     {
         $out .= '<div style="font-weight: bold;">' . "\n"
-        .   '<a href="exercise.php?exId=' . $exercise->getId() .'&cmd=exSaveQwz'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'">' . get_lang('Save this questions list') . '</a>'
+        .   '<a href="'.htmlspecialchars( Url::Contextualize('exercise.php?exId=' . $exercise->getId() .'&cmd=exSaveQwz'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ) ) ).'">' . get_lang('Save this questions list') . '</a>'
         .   '</div>'
         ;
     }
@@ -730,7 +732,7 @@ elseif( $showSubmitForm )
             .                   '<br />' . "\n";
             $contentDialogBox .= get_lang( 'Time is over, results not submitted.' );
             $dialogBox->error( $contentDialogBox );
-            $dialogBox->info('<a href="./exercise.php">&lt;&lt; '.get_lang('Back').'</a>');
+            $dialogBox->info('<a href="'.htmlspecialchars( Url::Contextualize('./exercise.php' ) ).'">&lt;&lt; '.get_lang('Back').'</a>');
             
         }
     }
@@ -844,9 +846,9 @@ elseif( $showSubmitForm )
             $out .= '<div id="questionsList' . $i++ . '" class="collapsible collapsed" style="padding: 3px 0 3px 0;">' . "\n"
             .   '<a href="#" class="doCollapse" style="font-weight: bold;">' . get_lang( 'Question list %id (saved the %date)', array( '%id' => $i, '%date' => date( 'Y/m/d - H:i', $questionsList['date'] ) ) ) . '</a>' . "\n"
             .   ' - ' . "\n"
-            .   '<a href="exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'&listId=' . $qList['id'] . '">' . get_lang( 'Load this list' ) . '</a>' . "\n"
+            .   '<a href="'.htmlspecialchars( Url::Contextualize('exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'&listId=' . $qList['id'] ) ). '">' . get_lang( 'Load this list' ) . '</a>' . "\n"
             .   ' - ' . "\n"
-            .   '<a href="exercise_submit.php?exId=' . $exId . '&cmd=deleteRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'&listId=' . $qList['id'] . '">' . get_lang( 'Delete') . '</a>'
+            .   '<a href="'.htmlspecialchars( Url::Contextualize('exercise_submit.php?exId=' . $exId . '&cmd=deleteRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'&listId=' . $qList['id'] ) ). '">' . get_lang( 'Delete') . '</a>'
             .   '<div class="collapsible-wrapper">' . "\n";
             if( is_array( $questionsList['questions']) && count( $questionsList['questions']) )
             {
@@ -869,7 +871,7 @@ elseif( $showSubmitForm )
         }
         
         $out .= '<div> <br />'
-        .   '<a href="exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'" style="font-weight: bold;">' . get_lang( 'Load a new list' ) . '</a>'
+        .   '<a href="'.htmlspecialchars( Url::Contextualize('exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ) ) ) .'" style="font-weight: bold;">' . get_lang( 'Load a new list' ) . '</a>'
         .   '</div>'
         ;
         
@@ -880,7 +882,7 @@ else // ! $showSubmitForm
         
     if( (!isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode']) && !$inLP )
     {
-        $dialogBox->info('<a href="./exercise.php">&lt;&lt; '.get_lang('Back').'</a>');
+        $dialogBox->info('<a href="'.htmlspecialchars( Url::Contextualize('./exercise.php' ) ).'">&lt;&lt; '.get_lang('Back').'</a>');
     }
 }
 
