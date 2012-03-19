@@ -562,7 +562,8 @@ class answerFillInBlanks
         $html =
             '<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
         .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-        .    '<input type="hidden" name="step" value="'.$this->step.'" />' . "\n";
+        .    '<input type="hidden" name="step" value="'.$this->step.'" />' . "\n"
+        .    claro_form_relay_context() . "\n";
 
         if( $this->step > 1 )
         {
@@ -649,7 +650,7 @@ class answerFillInBlanks
 
             .    '<p>' . "\n"
             .    '<input type="submit" name="cmdNext" value="' . get_lang('Next') . ' &gt;" />&nbsp;&nbsp;'
-            .     claro_html_button('./edit_question.php?exId='.$exId.'&amp;quId='.$this->questionId, get_lang("Cancel") )
+            .     claro_html_button(Url::Contextualize('./edit_question.php?exId='.$exId.'&amp;quId='.$this->questionId), get_lang("Cancel") )
             .    '</p>' . "\n";
         }
 

@@ -109,6 +109,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
         .            '<form enctype="multipart/form-data" action="./exercise.php" method="post">' . "\n"
         .            '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
         .            '<input name="cmd" type="hidden" value="exImport" />' . "\n"
+        .            claro_form_relay_context() . "\n"
         .            '<input name="uploadedExercise" type="file" /><br />' . "\n"
         .            '<small>' . get_lang('Max file size') .  ' : ' . format_file_size( get_max_upload_size($maxFilledSpace,$courseDir) ) . '</small>' . "\n"
         .            '<p>' . "\n"
@@ -642,14 +643,15 @@ if( !$inLP )
     $cmd_menu = array();
     if(get_conf('is_trackingEnabled') && claro_is_user_authenticated())
     {
-        $cmd_menu[] = '<a class="claroCmd" href="../tracking/userReport.php?userId='.claro_get_current_user_id().'"><img src="' . get_icon_url('statistics') . '" alt="" />'.get_lang('My results').'</a>';
+        $cmd_menu[] = '<a class="claroCmd" 
+                href="' . htmlspecialchars( Url::Contextualize( '../tracking/userReport.php?userId='.claro_get_current_user_id() ) ).'"><img src="' . get_icon_url('statistics') . '" alt="" />'.get_lang('My results').'</a>';
     }
     
     if($is_allowedToEdit)
     {
-        $cmd_menu[] = '<a class="claroCmd" href="admin/edit_exercise.php?cmd=rqEdit"><img src="' . get_icon_url('quiz_new') . '" alt="" />' . get_lang('New exercise').'</a>';
-        $cmd_menu[] = '<a class="claroCmd" href="admin/question_pool.php"><img src="' . get_icon_url('question_pool') . '" alt="" />'.get_lang('Question pool').'</a>';
-        $cmd_menu[] = '<a class="claroCmd" href="exercise.php?cmd=rqImport"><img src="' . get_icon_url('import') . '" alt="" />'.get_lang('Import exercise').'</a>';
+        $cmd_menu[] = '<a class="claroCmd" href="'.htmlspecialchars( Url::Contextualize('admin/edit_exercise.php?cmd=rqEdit')).'"><img src="' . get_icon_url('quiz_new') . '" alt="" />' . get_lang('New exercise').'</a>';
+        $cmd_menu[] = '<a class="claroCmd" href="'.htmlspecialchars( Url::Contextualize('admin/question_pool.php' ) ).'"><img src="' . get_icon_url('question_pool') . '" alt="" />'.get_lang('Question pool').'</a>';
+        $cmd_menu[] = '<a class="claroCmd" href="'.htmlspecialchars( Url::Contextualize('exercise.php?cmd=rqImport' ) ) .'"><img src="' . get_icon_url('import') . '" alt="" />'.get_lang('Import exercise').'</a>';
     }
     
     $out .= '<p>' . claro_html_menu_horizontal($cmd_menu) . '</p>' . "\n";
@@ -714,7 +716,7 @@ if( !$inLP )
     
             $out .= '<tr'.$invisibleClass.'>' . "\n"
             .     '<td>'
-            .     '<a href="exercise_submit.php?exId='.$anExercise['id'].'" class="item'.$appendToStyle.'">'
+            .     '<a href="'.htmlspecialchars( Url::Contextualize('exercise_submit.php?exId='.$anExercise['id'] ) ).'" class="item'.$appendToStyle.'">'
             .     '<img src="' . get_icon_url('quiz') . '" alt="" />'
             .     $anExercise['title']
             .     '</a>'
@@ -723,7 +725,7 @@ if( !$inLP )
             if( $is_allowedToEdit )
             {
                 $out .= '<td align="center">'
-                .     '<a href="admin/edit_exercise.php?exId='.$anExercise['id'].'">'
+                .     '<a href="'.htmlspecialchars( Url::Contextualize( 'admin/edit_exercise.php?exId='.$anExercise['id'] ) ).'">'
                 .     '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
@@ -736,7 +738,7 @@ if( !$inLP )
                 $confirmString .= get_lang('Are you sure you want to delete this exercise ?');
     
                 $out .= '<td align="center">'
-                .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exDel" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
+                .     '<a href="'.htmlspecialchars( Url::Contextualize('exercise.php?exId='.$anExercise['id'].'&amp;cmd=exDel' ) ).'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
                 .     '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
@@ -744,7 +746,7 @@ if( !$inLP )
                 if( $anExercise['visibility'] == 'VISIBLE' )
                 {
                     $out .= '<td align="center">'
-                    .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkInvis">'
+                    .     '<a href="'.htmlspecialchars( Url::Contextualize('exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkInvis' ) ).'">'
                     .     '<img src="' . get_icon_url('visible') . '" alt="'.get_lang('Make invisible').'" />'
                     .     '</a>'
                     .     '</td>' . "\n";
@@ -752,14 +754,14 @@ if( !$inLP )
                 else
                 {
                     $out .= '<td align="center">'
-                    .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkVis">'
+                    .     '<a href="' . htmlspecialchars( Url::Contextualize( 'exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkVis' ) ) . '">'
                     .     '<img src="' . get_icon_url('invisible') . '" alt="'.get_lang('Make visible').'" />'
                     .     '</a>'
                     .     '</td>' . "\n";
                 }
     
                 $out .= '<td align="center">'
-                .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=rqExport">'
+                .     '<a href="'.htmlspecialchars( Url::Contextualize('exercise.php?exId='.$anExercise['id'].'&amp;cmd=rqExport' ) ).'">'
                 .     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
@@ -767,7 +769,7 @@ if( !$inLP )
                 if( $is_allowedToTrack )
                 {
                     $out .= '<td align="center">'
-                    .     '<a href="track_exercises.php?exId='.$anExercise['id'].'&amp;src=ex">'
+                    .     '<a href="'.htmlspecialchars( Url::Contextualize( 'track_exercises.php?exId='.$anExercise['id'].'&amp;src=ex' ) ) .'">'
                     .     '<img src="' . get_icon_url('statistics') . '" alt="'.get_lang('Statistics').'" />'
                     .     '</a>'
                     .     '</td>' . "\n";
@@ -793,5 +795,3 @@ $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

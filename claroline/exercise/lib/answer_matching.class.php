@@ -519,7 +519,8 @@ class answerMatching
         .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
         .    '<input type="hidden" name="leftCount" value="'.count($this->leftList).'" />' . "\n"
         .    '<input type="hidden" name="rightCount" value="'.count($this->rightList).'" />' . "\n"
-        .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
+        .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+        .    claro_form_relay_context() . "\n";
 
         if( !empty($exId) && $askDuplicate )
         {
@@ -608,7 +609,7 @@ class answerMatching
             '<tr>' . "\n"
         .     '<td colspan="4" align="center">'
         .     '<input type="submit" name="cmdOk" value="' . get_lang('Ok') . '" />&nbsp;&nbsp;'
-        .     claro_html_button('./edit_question.php?exId='.$exId.'&amp;quId='.$this->questionId, get_lang("Cancel") )
+        .     claro_html_button(Url::Contextualize('./edit_question.php?exId='.$exId.'&amp;quId='.$this->questionId), get_lang("Cancel") )
         .     '</td>' . "\n"
         .     '</tr>' . "\n\n"
         .    '</table>';

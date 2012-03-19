@@ -34,7 +34,7 @@ if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) )
 }
 else
 {
-    header("Location: ../exercise/exercise.php");
+    header("Location: ".Url::Contextualize("../exercise/exercise.php") );
     exit();
 }
 
@@ -79,18 +79,18 @@ $is_allowedToTrack = claro_is_course_manager();
 if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
 {
     $src = '&src=ex';
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics of exercise'), './track_exercises.php?exId='.$exId . $src );
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), './exercise.php' );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics of exercise'), Url::Contextualize('./track_exercises.php?exId='.$exId . $src) );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), Url::Contextualize('./exercise.php') );
     
 }
 else
 {
     $src = '';
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics of exercise'), './track_exercises.php?exId='.$exId);
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics'), '../tracking/courseReport.php' );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics of exercise'), Url::Contextualize('./track_exercises.php?exId='.$exId) );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics'), Url::Contextualize('../tracking/courseReport.php' ) );
 }
 $nameTools = get_lang('Statistics of question');
-ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './track_questions.php?exId='.$exId . $src );
+ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize('./track_questions.php?exId='.$exId . $src) );
 
 
 // if the question_id is not set display the stats of all questions of this exercise
@@ -122,7 +122,7 @@ $titleTab['mainTitle'] = $nameTools;
 $out .= claro_html_tool_title($titleTab);
 
 // build back link
-$backLink = "\n\n".'<small><a href="./track_exercises.php?exId='.$exId.$src.'">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small>'."\n\n";
+$backLink = "\n\n".'<small><a href="'.htmlspecialchars( Url::Contextualize('./track_exercises.php?exId='.$exId.$src ) ).'">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small>'."\n\n";
 $out .= $backLink;
 
 if($is_allowedToTrack && get_conf('is_trackingEnabled'))
@@ -644,5 +644,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

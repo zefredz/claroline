@@ -24,7 +24,7 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 // courseadmin reserved page
 if( !$is_allowedToEdit )
 {
-    header("Location: ../exercise.php");
+    header("Location: " . Url::Contextualize( '../exercise.php' ) );
     exit();
 }
 
@@ -215,25 +215,25 @@ if( is_null($exId) )
 {
     $nameTools = get_lang('New exercise');
     $toolTitle = $nameTools;
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
-    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?cmd=rqEdit' );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), Url::Contextualize( get_module_url('CLQWZ').'/exercise.php' ) );
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize('./edit_exercise.php?cmd=rqEdit') );
 }
 elseif( $cmd == 'rqEdit' )
 {
     $nameTools = get_lang('Edit exercise');
     $toolTitle['mainTitle'] = $nameTools;
     $toolTitle['subTitle'] = $exercise->getTitle();
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), './edit_exercise.php?exId='.$exId );
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
-    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?cmd=rqEdit&amp;exId='.$exId );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), Url::Contextualize('./edit_exercise.php?exId='.$exId) );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), Url::Contextualize(get_module_url('CLQWZ').'/exercise.php') );
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize('./edit_exercise.php?cmd=rqEdit&amp;exId='.$exId) );
 }
 else
 {
     $nameTools = get_lang('Exercise');
     $toolTitle['mainTitle'] = $nameTools;
     $toolTitle['subTitle'] = $exercise->getTitle();
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
-    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?exId='.$exId );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), Url::Contextualize( get_module_url('CLQWZ').'/exercise.php') );
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize('./edit_exercise.php?exId='.$exId ) );
 }
 
 $jsLoader = JavascriptLoader::getInstance();
@@ -415,7 +415,7 @@ if( $displayForm )
     //-- buttons
     .   '<div style="text-align: center;">'
     .     '<input type="submit" name="" id="" value="'.get_lang('Ok').'" />&nbsp;&nbsp;'
-    .     claro_html_button('../exercise.php', get_lang("Cancel") )
+    .     claro_html_button( Url::Contextualize('../exercise.php'), get_lang("Cancel") )
     .   '</div>';   
     
     $out .= '</form>' . "\n\n";
@@ -508,15 +508,15 @@ else
 
     //-- claroCmd
     $cmd_menu = array();
-    $cmd_menu[] = '<a class="claroCmd" href="../exercise.php' . claro_url_relay_context('?') . '">'
+    $cmd_menu[] = '<a class="claroCmd" href="'.htmlspecialchars(Url::Contextualize('../exercise.php') ) . '">'
                 . '&lt;&lt; ' . get_lang('Back to the exercise list')
                 . '</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'&amp;cmd=rqEdit'. claro_url_relay_context('&amp;') .'">'
+    $cmd_menu[] = '<a class="claroCmd" href="'.htmlspecialchars(Url::Contextualize('./edit_exercise.php?exId='.$exId.'&amp;cmd=rqEdit' ) ).'">'
                 . '<img src="' . get_icon_url('edit') . '" alt="" />'
                 . get_lang('Edit exercise settings')
                 . '</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit">'.get_lang('New question').'</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="./question_pool.php?exId='.$exId.'">'.get_lang('Get a question from another exercise').'</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="'.htmlspecialchars(Url::Contextualize('./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit' ) ).'">'.get_lang('New question').'</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="'.htmlspecialchars(Url::Contextualize('./question_pool.php?exId='.$exId ) ).'">'.get_lang('Get a question from another exercise').'</a>';
 
 
     $out .= claro_html_menu_horizontal($cmd_menu);
@@ -556,7 +556,7 @@ else
 
             // edit
             $out .= '<td align="center">'
-            .     '<a href="edit_question.php?exId='.$exId.'&amp;quId='.$question['id'].'">'
+            .     '<a href="'.htmlspecialchars(Url::Contextualize('edit_question.php?exId='.$exId.'&amp;quId='.$question['id'] ) ).'">'
             .     '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
             .     '</a>'
             .     '</td>' . "\n";
@@ -565,7 +565,7 @@ else
             $confirmString = get_lang('Are you sure you want to remove the question from the exercise ?');
 
             $out .= '<td align="center">'
-            .     '<a href="edit_exercise.php?exId='.$exId.'&amp;cmd=rmQu&amp;quId='.$question['id'].'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
+            .     '<a href="'.htmlspecialchars(Url::Contextualize( 'edit_exercise.php?exId='.$exId.'&amp;cmd=rmQu&amp;quId='.$question['id'] ) ).'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
             .     '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
             .     '</a>'
             .     '</td>' . "\n";
@@ -575,7 +575,7 @@ else
             $out .= '<td align="center">';
             if( $questionIterator > 1 )
             {
-                $out .= '<a href="edit_exercise.php?exId='.$exId.'&amp;quId='.$question['id'].'&amp;cmd=mvUp">'
+                $out .= '<a href="'.htmlspecialchars(Url::Contextualize( 'edit_exercise.php?exId='.$exId.'&amp;quId='.$question['id'].'&amp;cmd=mvUp' ) ).'">'
                 .     '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
                 .     '</a>';
             }
@@ -588,7 +588,7 @@ else
             $out .= '<td align="center">';
             if( $questionIterator < count($questionList) )
             {
-                $out .= '<a href="edit_exercise.php?exId='.$exId.'&amp;quId='.$question['id'].'&amp;cmd=mvDown">'
+                $out .= '<a href="'.htmlspecialchars(Url::Contextualize('edit_exercise.php?exId='.$exId.'&amp;quId='.$question['id'].'&amp;cmd=mvDown' ) ).'">'
                 .     '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
                 .     '</a>';
             }
@@ -616,5 +616,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

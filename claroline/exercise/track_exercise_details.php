@@ -277,7 +277,7 @@ if( claro_is_user_authenticated() )
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), './exercise.php' );
 
-$backLink = '<p><small><a href="../tracking/userReport.php?userId='.$thisAttemptDetails['user_id'].'&amp;exId='.$thisAttemptDetails['id'].'">&lt;&lt;&nbsp;' . get_lang('Back') . '</a></small></p>' . "\n\n";
+$backLink = '<p><small><a href="'.htmlspecialchars( Url::Contextualize('../tracking/userReport.php?userId='.$thisAttemptDetails['user_id'].'&amp;exId='.$thisAttemptDetails['id'] ) ).'">&lt;&lt;&nbsp;' . get_lang('Back') . '</a></small></p>' . "\n\n";
 
 $nameTools = get_lang('Statistics of exercise attempt');
 
@@ -391,5 +391,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
