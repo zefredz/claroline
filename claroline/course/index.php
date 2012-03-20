@@ -107,38 +107,38 @@ foreach ($toolList as $thisTool)
     if ( ! empty($url) )
     {
         $toolLinkList[] = '<a '.$htmlId.'class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
-        .                 '<img class="clItemTool"  src="' . $icon . '" alt="" />&nbsp;'
-        .                 $toolName
-        .                 '</a>' . "\n"
+        . '<img class="clItemTool"  src="' . $icon . '" alt="" />&nbsp;'
+        . $toolName
+        . '</a>' . "\n"
         ;
     }
     else
     {
         $toolLinkList[] = '<span ' . $style . '>'
-        .                 '<img class="clItemTool" src="' . $icon . '" alt="" />&nbsp;'
-        .                 $toolName
-        .                 '</span>' . "\n"
+        . '<img class="clItemTool" src="' . $icon . '" alt="" />&nbsp;'
+        . $toolName
+        . '</span>' . "\n"
         ;
     }
 }
 
 $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')  . 'course/tools.php' )) . '">'
-.                             '<img src="' . get_icon_url('edit') . '" alt="" /> '
-.                             get_lang('Edit Tool list')
-.                             '</a>'
+. '<img src="' . get_icon_url('edit') . '" alt="" /> '
+. get_lang('Edit Tool list')
+. '</a>'
 ;
 $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( $toolRepository . 'course/settings.php' )) . '">'
-.                             '<img src="' . get_icon_url('settings') . '" alt="" /> '
-.                             get_lang('Course settings')
-.                             '</a>'
+. '<img src="' . get_icon_url('settings') . '" alt="" /> '
+. get_lang('Course settings')
+. '</a>'
 ;
 
 if( get_conf('is_trackingEnabled') )
 {
     $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( $toolRepository . 'tracking/courseReport.php' )) . '">'
-    .                             '<img src="' . get_icon_url('statistics') . '" alt="" /> '
-    .                             get_lang('Statistics')
-    .                             '</a>'
+    . '<img src="' . get_icon_url('statistics') . '" alt="" /> '
+    . get_lang('Statistics')
+    . '</a>'
     ;
 }
 
@@ -150,9 +150,9 @@ if ( $extraManageToolList )
     foreach ( $extraManageToolList as $extraManageTool )
     {
         $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_module_entry_url($extraManageTool['label'] ) ) ) . '">'
-        .                             '<img src="' . get_module_icon_url($extraManageTool['label'], $extraManageTool['icon'], 'settings') . '" alt="" /> '
-        .                             get_lang($extraManageTool['name'])
-        .                             '</a>'
+        . '<img src="' . get_module_icon_url($extraManageTool['label'], $extraManageTool['icon'], 'settings') . '" alt="" /> '
+        . get_lang($extraManageTool['name'])
+        . '</a>'
         ;
     }
 }
