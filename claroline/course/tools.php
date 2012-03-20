@@ -265,10 +265,10 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     }
 
     $form = "\n".'<form action="'.htmlspecialchars( $_SERVER['PHP_SELF'] ).'" method="post">'."\n"
-    .       claro_form_relay_context()
-    .       '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
-    .       '<input type="hidden" name="section" value="'.htmlspecialchars($currentSection).'" />'."\n"
-    .       '<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'" />'."\n";
+    . claro_form_relay_context()
+    . '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+    . '<input type="hidden" name="section" value="'.htmlspecialchars($currentSection).'" />'."\n"
+    . '<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'" />'."\n";
 
     if ($externalToolId)
     {
@@ -276,16 +276,16 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     }
 
     $form .= '<label for="toolName">' . get_lang('Name link') . '</label>'
-    .       '<br />' . "\n"
-    .       '<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($externalLinkName).'" />'
-    .       '<br />' . "\n"
-    .       '<label for="toolUrl">'.get_lang('URL link').'</label><br />'."\n"
-    .       '<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($externalLinkUrl).'" />'
-    .       '<br /><br />' . "\n"
-    .       '<input class="claroButton" type="submit" value="'.get_lang('Ok').'" />'
-    .       '&nbsp; ' . "\n"
-    .       claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
-    .       '</form>' . "\n"
+    . '<br />' . "\n"
+    . '<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($externalLinkName).'" />'
+    . '<br />' . "\n"
+    . '<label for="toolUrl">'.get_lang('URL link').'</label><br />'."\n"
+    . '<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($externalLinkUrl).'" />'
+    . '<br /><br />' . "\n"
+    . '<input class="claroButton" type="submit" value="'.get_lang('Ok').'" />'
+    . '&nbsp; ' . "\n"
+    . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
+    . '</form>' . "\n"
     ;
     
     $dialogBox->form($form);
@@ -501,25 +501,25 @@ elseif ( $currentSection == 'extLinks' )
     $out .= '<p>'.get_lang('Add external links to your course').'</p>'."\n" ;
     
     $out .= '<blockquote>' . "\n"
-    .    '<p>' . "\n"
-    .    '<a class="claroCmd" href="'
-    .    htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-    .    '?cmd=rqAdd&section='.htmlspecialchars($currentSection) )).'">'
-    .    '<img src="' . get_icon_url('link') . '" alt="" />'
-    .    get_lang('Add external link')
-    .    '</a>' . "\n"
-    .    '</p>' . "\n"
+    . '<p>' . "\n"
+    . '<a class="claroCmd" href="'
+    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+    . '?cmd=rqAdd&section='.htmlspecialchars($currentSection) )).'">'
+    . '<img src="' . get_icon_url('link') . '" alt="" />'
+    . get_lang('Add external link')
+    . '</a>' . "\n"
+    . '</p>' . "\n"
     
-    .    '<table class="claroTable" >'."\n\n"
-    .    '<thead>'."\n"
-    .    '<tr class="headerX">'."\n"
-    .    '<th>'.get_lang('Tools').'</th>'."\n"
-    .    '<th>'.get_lang('Visibility').'</th>'."\n"
-    .    '<th>'.get_lang('Edit').'</th>'."\n"
-    .    '<th>'.get_lang('Delete').'</th>'."\n"
-    .    '</tr>'."\n"
-    .    '</thead>'."\n\n"
-    .    '<tbody>'."\n"
+    . '<table class="claroTable" >'."\n\n"
+    . '<thead>'."\n"
+    . '<tr class="headerX">'."\n"
+    . '<th>'.get_lang('Tools').'</th>'."\n"
+    . '<th>'.get_lang('Visibility').'</th>'."\n"
+    . '<th>'.get_lang('Edit').'</th>'."\n"
+    . '<th>'.get_lang('Delete').'</th>'."\n"
+    . '</tr>'."\n"
+    . '</thead>'."\n\n"
+    . '<tbody>'."\n"
     ;
     
     if ( !empty( $courseExtLinkList ) )
