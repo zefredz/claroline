@@ -385,61 +385,61 @@ $output .= $dialogBox->render();
 if ($display_form)
 {
     $output .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'
-    .    claro_form_relay_context()
-    .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
-    .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
-    .    '<input type="hidden" name="id"  value="' . $editedEvent['id'] . '" />'
-    .    '<table>' . "\n"
-    .    '<tr valign="top">' . "\n"
-    .    '<td align="right">' . "\n"
-    .    '<label for="title">' . "\n"
-    .    get_lang('Title') . "\n"
-    .    ' : </label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td>' . "\n"
-    .    '<input size="80" type="text" name="title" id="title" value="'
-    .    htmlspecialchars($editedEvent['title']). '" />' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr valign="top">' . "\n"
-    .    '<td align="right">' . get_lang('Date') . ' : '
-    .    '</td>' . "\n"
-    .    '<td>'
-    .    claro_html_date_form('fday', 'fmonth', 'fyear', $editedEvent['date'], 'long' ) . ' '
-    .    claro_html_time_form('fhour','fminute', $editedEvent['date']) . '&nbsp;'
-    .    '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td align="right">'
-    .    '<label for="lasting">' . get_lang('Lasting') . '</label> : '
-    .    '</td>' . "\n"
-    .    '<td>'
-    .    '<input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="' . htmlspecialchars($editedEvent['lastingAncient']) . '" />'
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td align="right">'
-    .    '<label for="location">' . get_lang('Location') . '</label> : '
-    .    '</td>' . "\n"
-    .    '<td>'
-    .    '<input type="text" name="location" id="location" size="20" maxlength="20" value="' . htmlspecialchars($editedEvent['location']) . '" />'
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr valign="top">' . "\n"
-    .    '<td align="right">' . "\n"
-    .    '<label for="content">' . "\n"
-    .    get_lang('Detail')
-    .    ' : ' . "\n"
-    .    '</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td>' . "\n"
-    .    claro_html_textarea_editor('content', $editedEvent['content'], 12, 67 ) . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr valign="top">' . "\n"
-    .    '<td>&nbsp;</td>' . "\n"
-    .    '<td>' . "\n"
+    . claro_form_relay_context()
+    . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
+    . '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
+    . '<input type="hidden" name="id"  value="' . $editedEvent['id'] . '" />'
+    . '<table>' . "\n"
+    . '<tr valign="top">' . "\n"
+    . '<td align="right">' . "\n"
+    . '<label for="title">' . "\n"
+    . get_lang('Title') . "\n"
+    . ' : </label>' . "\n"
+    . '</td>' . "\n"
+    . '<td>' . "\n"
+    . '<input size="80" type="text" name="title" id="title" value="'
+    . htmlspecialchars($editedEvent['title']). '" />' . "\n"
+    . '</td>' . "\n"
+    . '</tr>' . "\n"
+    . '<tr valign="top">' . "\n"
+    . '<td align="right">' . get_lang('Date') . ' : '
+    . '</td>' . "\n"
+    . '<td>'
+    . claro_html_date_form('fday', 'fmonth', 'fyear', $editedEvent['date'], 'long' ) . ' '
+    . claro_html_time_form('fhour','fminute', $editedEvent['date']) . '&nbsp;'
+    . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
+    . '</td>' . "\n"
+    . '</tr>' . "\n"
+    . '<tr>' . "\n"
+    . '<td align="right">'
+    . '<label for="lasting">' . get_lang('Lasting') . '</label> : '
+    . '</td>' . "\n"
+    . '<td>'
+    . '<input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="' . htmlspecialchars($editedEvent['lastingAncient']) . '" />'
+    . '</td>' . "\n"
+    . '</tr>' . "\n"
+    . '<tr>' . "\n"
+    . '<td align="right">'
+    . '<label for="location">' . get_lang('Location') . '</label> : '
+    . '</td>' . "\n"
+    . '<td>'
+    . '<input type="text" name="location" id="location" size="20" maxlength="20" value="' . htmlspecialchars($editedEvent['location']) . '" />'
+    . '</td>' . "\n"
+    . '</tr>' . "\n"
+    . '<tr valign="top">' . "\n"
+    . '<td align="right">' . "\n"
+    . '<label for="content">' . "\n"
+    . get_lang('Detail')
+    . ' : ' . "\n"
+    . '</label>' . "\n"
+    . '</td>' . "\n"
+    . '<td>' . "\n"
+    . claro_html_textarea_editor('content', $editedEvent['content'], 12, 67 ) . "\n"
+    . '</td>' . "\n"
+    . '</tr>' . "\n"
+    . '<tr valign="top">' . "\n"
+    . '<td>&nbsp;</td>' . "\n"
+    . '<td>' . "\n"
     ;
 
 
@@ -456,7 +456,7 @@ if ($display_form)
     $output .= ResourceLinker::renderLinkerBlock();
 
     $output .= '</td></tr>' . "\n"
-    .    '<tr valign="top"><td>&nbsp;</td><td>' . "\n"
+    . '<tr valign="top"><td>&nbsp;</td><td>' . "\n"
     ;
 
     $output .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
@@ -464,10 +464,10 @@ if ($display_form)
     // linker
     //---------------------
     $output .= claro_html_button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</table>' . "\n"
-    .    '</form>' . "\n"
+    . '</td>' . "\n"
+    . '</tr>' . "\n"
+    . '</table>' . "\n"
+    . '</form>' . "\n"
     ;
 }
 
@@ -485,7 +485,7 @@ else
     {
         $output .= '<a class="claroCmd" href="'
             . htmlspecialchars(Url::Contextualize( get_path('url').'/claroline/backends/ical.php' ))
-            .'" title="'.get_lang('Download').'"><img src="'.  get_icon_url('ical').'" alt="ical" /></a>' . "\n"
+            .'" title="'.get_lang('Download').'"><img src="'. get_icon_url('ical').'" alt="ical" /></a>' . "\n"
             ;
 
         $output .= '<br />';
@@ -548,24 +548,24 @@ foreach ( $eventList as $thisEvent )
                 $monthBar = date('mY',time());
 
                 $output .= '<div class="claroBlockSuperHeader">' . "\n"
-                .    ucfirst(claro_html_localised_date('%B %Y', time()))
-                .    '</div>' . "\n"
+                . ucfirst(claro_html_localised_date('%B %Y', time()))
+                . '</div>' . "\n"
                 ;
             }
 
 
             // 'NOW' Bar
             $output .= '<div class="highlight">'
-            .    '<img src="' . get_icon_url('pixel') . '" width="20" alt=" " />'
-            .    '<a name="today">'
-            .    '<i>'
-            .    ucfirst(claro_html_localised_date( get_locale('dateFormatLong'))) . ' '
-            .    ucfirst(strftime( get_locale('timeNoSecFormat')))
-            .    ' -- '
-            .    get_lang('Now')
-            .    '</i>'
-            .    '</a>'
-            .    '</div>' . "\n"
+            . '<img src="' . get_icon_url('pixel') . '" width="20" alt=" " />'
+            . '<a name="today">'
+            . '<i>'
+            . ucfirst(claro_html_localised_date( get_locale('dateFormatLong'))) . ' '
+            . ucfirst(strftime( get_locale('timeNoSecFormat')))
+            . ' -- '
+            . get_lang('Now')
+            . '</i>'
+            . '</a>'
+            . '</div>' . "\n"
             ;
 
             $nowBarAlreadyShowed = true;
@@ -581,8 +581,8 @@ foreach ( $eventList as $thisEvent )
             $monthBar = date('mY', strtotime($thisEvent['day']));
 
             $output .= '<div class="claroBlockSuperHeader">'
-            .    ucfirst(claro_html_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
-            .    '</div>' . "\n"
+            . ucfirst(claro_html_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
+            . '</div>' . "\n"
             ;
         }
 
@@ -590,31 +590,31 @@ foreach ( $eventList as $thisEvent )
          * Display the event date
          */
         $output .= '<div class="claroBlock">' . "\n"
-        .   '<h4 class="claroBlockHeader">'
-        .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
-        .   '<img src="' . get_icon_url('agenda') . '" alt="" /> '
-        .    ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
-        .    ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($thisEvent['hour']))) . ' '
-        .    ( empty($thisEvent['lasting']) ? '' : get_lang('Lasting') . ' : ' . $thisEvent['lasting'] ) . ' '
-        .    ( empty($thisEvent['location']) ? '' : get_lang('Location') . ' : ' . $thisEvent['location'] )
-        .   '</span>' . "\n"
-        .   '</h4>' . "\n"
+        . '<h4 class="claroBlockHeader">'
+        . '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
+        . '<img src="' . get_icon_url('agenda') . '" alt="" /> '
+        . ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
+        . ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($thisEvent['hour']))) . ' '
+        . ( empty($thisEvent['lasting']) ? '' : get_lang('Lasting') . ' : ' . $thisEvent['lasting'] ) . ' '
+        . ( empty($thisEvent['location']) ? '' : get_lang('Location') . ' : ' . $thisEvent['location'] )
+        . '</span>' . "\n"
+        . '</h4>' . "\n"
         
         /*
          * Display the event content
          */
-        .   '<div class="claroBlockContent">' . "\n"
-        .   '<a href="#" name="event' . $thisEvent['id'] . '"></a>'. "\n"
+        . '<div class="claroBlockContent">' . "\n"
+        . '<a href="#" name="event' . $thisEvent['id'] . '"></a>'. "\n"
 
-        .   '<div class="' . $cssInvisible . '">' . "\n"
-        .    ( empty($thisEvent['title']  ) ? '' : '<p><strong>' . htmlspecialchars($thisEvent['title']) . '</strong></p>' . "\n" )
-        .    ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
-        .   '</div>' . "\n"
+        . '<div class="' . $cssInvisible . '">' . "\n"
+        . ( empty($thisEvent['title']  ) ? '' : '<p><strong>' . htmlspecialchars($thisEvent['title']) . '</strong></p>' . "\n" )
+        . ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
+        . '</div>' . "\n"
         
         ;
         
             $output .= '</div>' . "\n" // claroBlockContent
-    .    '</div>' . "\n\n"; // claroBlock
+    . '</div>' . "\n\n"; // claroBlock
 
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisEvent['id'] ) );
         $output .= ResourceLinker::renderLinkList( $currentLocator );
@@ -623,27 +623,27 @@ foreach ( $eventList as $thisEvent )
     if ($is_allowedToEdit)
     {
         $output .= '<div class="claroBlockCmd">'
-        .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] )) . '">'
-        .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
-        .    '</a> '
-        .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] )) . '" '
-        .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisEvent['title']))) . '\')) return false;">'
-        .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
-        .    '</a>'
+        . '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] )) . '">'
+        . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
+        . '</a> '
+        . '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] )) . '" '
+        . ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisEvent['title']))) . '\')) return false;">'
+        . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
+        . '</a>'
         ;
 
         //  Visibility
         if ('SHOW' == $thisEvent['visibility'])
         {
             $output .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] )) . '">'
-            .    '<img src="' . get_icon_url('visible') . '" alt="" />'
-            .    '</a>' . "\n";
+            . '<img src="' . get_icon_url('visible') . '" alt="" />'
+            . '</a>' . "\n";
         }
         else
         {
             $output .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisEvent['id'] )) . '">'
-            .    '<img src="' . get_icon_url('invisible') . '" alt="" />'
-            .    '</a>' . "\n"
+            . '<img src="' . get_icon_url('invisible') . '" alt="" />'
+            . '</a>' . "\n"
             ;
         }
         
