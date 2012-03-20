@@ -322,7 +322,7 @@ if ( ( isset($displayAssigForm) && $displayAssigForm ) )
 {
     // if there is a form add a breadcrumb to go back to list
     $nameTools = get_lang('Assignment');
-    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd='.$cmd.'&amp;assigId='.$assigId ) );
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd='.$cmd.'&assigId='.$assigId ) );
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignments'), Url::Contextualize('../work/work.php') );
 }
 else
@@ -452,6 +452,7 @@ if ($is_allowedToEdit)
         $out .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" enctype="multipart/form-data">' . "\n"
               . '<input type="hidden" name="claroFormId" value="' . uniqid('') .'" />' . "\n"
               . '<input type="hidden" name="cmd" value="' . $cmdToSend .'" />' . "\n"
+              . claro_form_relay_context() . "\n"
               . '<fieldset>';
         
         if( !is_null($assigId) )
@@ -608,19 +609,19 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         $out .= '<tr ' . $style . '>'."\n"
         .    '<td>' . "\n";
         
-        $assignmentUrl = 'work_list.php?assigId=' . $anAssignment['id'];
+        $assignmentUrl = Url::Contextualize('work_list.php?assigId=' . $anAssignment['id']);
         
         if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
         {
             if( !isset($anAssignment['authorized_content']) || $anAssignment['authorized_content'] != 'TEXT' )
             {
-                $assignmentUrl = 'work_list.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id']
-                . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl'])
-                . '&amp;gidReq=' . claro_get_current_group_id();
+                $assignmentUrl = Url::Contextualize( 'work_list.php?cmd=rqSubWrk&assigId=' . $anAssignment['id']
+                . '&submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl'])
+                . '&gidReq=' . claro_get_current_group_id() ) ;
             }
         }
         
-        $out .= '<a href="'.$assignmentUrl.'" class="item' . $classItem . '">'
+        $out .= '<a href="'.htmlspecialchars($assignmentUrl).'" class="item' . $classItem . '">'
         .    '<img src="' . get_icon_url('assignment') . '" alt="" /> '
         .    $anAssignment['title']
         .    '</a>' . "\n"
@@ -644,7 +645,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
             if( !isset($anAssignment['authorized_content']) || $anAssignment['authorized_content'] != 'TEXT' )
             {
                 $out .= '<td align="center">'
-                .     '<a href="'.$assignmentUrl.'">'
+                .     '<a href="'.htmlspecialchars($assignmentUrl).'">'
                 .      '<small>' . get_lang('Publish') . '</small>'
                 .     '</a>'
                 .     '</td>' . "\n";
@@ -661,11 +662,11 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         if ( $is_allowedToEdit )
         {
                         $out .= '<td align="center">'
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEditAssig&amp;assigId=' . $anAssignment['id'] . '">'
+            .    '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqEditAssig&assigId=' . $anAssignment['id'] ) ) . '">'
             .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" /></a>'
             .    '</td>' . "\n"
             .    '<td align="center">'
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRmAssig&amp;assigId=' . $anAssignment['id'] . '" onclick="return WORK.confirmationDel(\'' . clean_str_for_javascript($anAssignment['title']) . '\');">'
+            .    '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exRmAssig&assigId=' . $anAssignment['id'] ) ). '" onclick="return WORK.confirmationDel(\'' . clean_str_for_javascript($anAssignment['title']) . '\');">'
             .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" /></a>'
             .    '</td>' . "\n"
             .    '<td align="center">'
@@ -673,16 +674,16 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
             if ( $anAssignment['visibility'] == "INVISIBLE" )
             {
-                $out .= '<a href="' . $_SERVER['PHP_SELF']
-                .    '?cmd=exChVis&amp;assigId=' . $anAssignment['id']
-                .    '&amp;vis=v">'
+                $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                .    '?cmd=exChVis&assigId=' . $anAssignment['id']
+                .    '&vis=v')).'">'
                 .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Make visible') . '" />'
                 .    '</a>'
                       ;
             }
             else
             {
-                $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;assigId=' . $anAssignment['id'] . '&amp;vis=i">'
+                $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exChVis&assigId=' . $anAssignment['id'] . '&vis=i')).'">'
                 .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Make invisible') . '" />'
                 .    '</a>'
                 ;

@@ -96,7 +96,7 @@ $assignment = new Assignment();
 if ( !$assignmentId || !$assignment->load($assignmentId) )
 {
     // we need to know in which assignment we are
-    claro_redirect('work.php');
+    claro_redirect(Url::Contextualize('work.php'));
     exit();
 }
 
@@ -132,7 +132,7 @@ $currentUserLastName        = $_user['lastName'];
 if( empty($authName) )
 {
     // we also need a user/group
-    claro_redirect("work.php");
+    claro_redirect(Url::Contextualize("work.php"));
     exit();
 }
 
@@ -337,8 +337,8 @@ if ( $cmd == 'exDownload' )
     // Submission not found or not allowed
 
     header('HTTP/1.1 404 Not Found');
-    $interbredcrump[]= array ('url' => "../work/work.php", 'name' => get_lang('Assignments'));
-    $interbredcrump[]= array ('url' => "../work/work_list.php?authId=".$_REQUEST['authId']."&amp;assigId=".$assignmentId, 'name' => get_lang('Assignment'));
+    $interbredcrump[]= array ('url' => Url::Contextualize("../work/work.php"), 'name' => get_lang('Assignments'));
+    $interbredcrump[]= array ('url' => Url::Contextualize("../work/work_list.php?authId=".$_REQUEST['authId']."&assigId=".$assignmentId ), 'name' => get_lang('Assignment'));
     
     $claroline->display->body->appendContent($dialogBox->render());
 
@@ -668,7 +668,7 @@ if($is_allowedToEditAll)
                     else
                         $authId = $_REQUEST['authId'];
 
-                    $url = get_path('rootWeb') . 'claroline/work/user_work.php?authId='.$authId.'&assigId='.$assignmentId.'&cidReq=' . claro_get_current_course_id();
+                    $url = Url::Contextualize( get_path('rootWeb') . 'claroline/work/user_work.php?authId='.$authId.'&assigId='.$assignmentId );
                     
                     // email content
                     $body = get_lang('New assignment feedback posted') . "\n\n"
@@ -881,8 +881,7 @@ if( $is_allowedToSubmit )
                     else
                         $authId = $_REQUEST['authId'];
 
-                    $url = get_path('rootWeb') . 'claroline/work/user_work.php?authId=' . $authId . '&assigId=' . $assignmentId
-                    .      '&cidReq=' . claro_get_current_course_id();
+                    $url = Url::Contextualize( get_path('rootWeb') . 'claroline/work/user_work.php?authId=' . $authId . '&assigId=' . $assignmentId );
 
                     // email content
                     $body = get_lang('New submission posted in assignment tool.') . "\n\n"
@@ -986,21 +985,21 @@ function confirmation (name)
 if( $dispWrkDet || $dispWrkForm )
 {
       // add parameters in query string to prevent the 'refresh' interbredcrump link to display the list of works instead of the form
-      $params = "?authId=".$_REQUEST['authId']."&amp;assigId=".$assignmentId
-      . ( isset($_REQUEST['wrkId'])?"&amp;wrkId=".$_REQUEST['wrkId']:"" )
-      . "&amp;cmd=".$cmd;
+      $params = "?authId=".$_REQUEST['authId']."&assigId=".$assignmentId
+      . ( isset($_REQUEST['wrkId'])?"&wrkId=".$_REQUEST['wrkId']:"" )
+      . "&cmd=".$cmd;
       
       $nameTools = get_lang('Submission');
       ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . $params ));
-      ClaroBreadCrumbs::getInstance()->prepend( $authName, Url::Contextualize('../work/user_work.php?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId) );
+      ClaroBreadCrumbs::getInstance()->prepend( $authName, Url::Contextualize('../work/user_work.php?authId='.$_REQUEST['authId'].'&assigId='.$assignmentId) );
 }
 else
 {
       $nameTools = $authName;
-      ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . '?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId ) );
+      ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . '?authId='.$_REQUEST['authId'].'&assigId='.$assignmentId ) );
 }
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignment'), Url::Contextualize('../work/work_list.php?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId) );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignment'), Url::Contextualize('../work/work_list.php?authId='.$_REQUEST['authId'].'&assigId='.$assignmentId) );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignments'), Url::Contextualize('../work/work.php') );
 
 $out = '';
@@ -1018,8 +1017,8 @@ if( $is_allowedToSubmit )
         'name' => get_lang('Submit a work'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
               . '?authId=' . $_REQUEST['authId']
-              . '&amp;assigId=' . $assignmentId
-              . '&amp;cmd=rqSubWrk'))
+              . '&assigId=' . $assignmentId
+              . '&cmd=rqSubWrk'))
     );
 }
 
@@ -1028,12 +1027,12 @@ $pageTitle['mainTitle'] = get_lang('Assignment')." : ".$assignment->getTitle();
 if( $assignment->getAssignmentType() == 'GROUP' )
 {
     $pageTitle['subTitle'] = get_lang('Group') . ' : ' . $authName . "\n";
-    if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="../group/group_space.php?gidReq='.$_REQUEST['authId'].'">'.get_lang('View group data').'</a>)</small>'."\n";
+    if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="'.htmlspecialchars( Url::Contextualize('../group/group_space.php?gidReq='.$_REQUEST['authId'] ) ).'">'.get_lang('View group data').'</a>)</small>'."\n";
 }
 else
 {
     $pageTitle['subTitle'] = get_lang('User') . ' : ' . $authName . "\n";
-    if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="../user/userInfo.php?uInfo='.$_REQUEST['authId'].'">'.get_lang('View user data').'</a>)</small>'."\n";
+    if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="'.htmlspecialchars( Url::Contextualize('../user/userInfo.php?uInfo='.$_REQUEST['authId'] ) ).'">'.get_lang('View user data').'</a>)</small>'."\n";
 }
 $out .= claro_html_tool_title($pageTitle, null, $cmdList);
 
@@ -1050,13 +1049,13 @@ if( $is_allowedToSubmit )
              * ASSIGNMENT INFOS
              */
             $out .= '<p>' . "\n" . '<small>' . "\n"
-            .    '<b>' . get_lang('Title') . '</b> : ' . "\n"
-            .    $assignment->getTitle() . '<br />'  . "\n"
-            .    get_lang('<b>From</b> %start_date <b>until</b> %end_date',
+            . '<b>' . get_lang('Title') . '</b> : ' . "\n"
+            . $assignment->getTitle() . '<br />'  . "\n"
+            . get_lang('<b>From</b> %start_date <b>until</b> %end_date',
                    array ( '%start_date' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $assignment->getStartDate()),
                            '%end_date' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $assignment->getEndDate()) ) )
-            .    '<br />'  .  "\n"
-            .    '<b>' . get_lang('Submission type') . '</b> : ' . "\n";
+            . '<br />'  .  "\n"
+            . '<b>' . get_lang('Submission type') . '</b> : ' . "\n";
 
             if( $assignment->getSubmissionType() == 'TEXT'  )
                 $out .= get_lang('Text only (text required, no file)');
@@ -1068,38 +1067,39 @@ if( $is_allowedToSubmit )
 
             $out .= '<br />'  .  "\n"
 
-            .    '<b>' . get_lang('Submission visibility') . '</b> : ' . "\n"
-            .    ($assignment->getDefaultSubmissionVisibility() == 'VISIBLE' ? get_lang('Visible for all users') : get_lang('Only visible for teacher(s) and submitter(s)'))
+            . '<b>' . get_lang('Submission visibility') . '</b> : ' . "\n"
+            . ($assignment->getDefaultSubmissionVisibility() == 'VISIBLE' ? get_lang('Visible for all users') : get_lang('Only visible for teacher(s) and submitter(s)'))
 
-            .    '<br />'  .  "\n"
+            . '<br />'  .  "\n"
 
-            .    '<b>' . get_lang('Assignment type') . '</b> : ' . "\n"
-            .    ($assignment->getAssignmentType() == 'INDIVIDUAL' ? get_lang('Individual') : get_lang('Groups') )
+            . '<b>' . get_lang('Assignment type') . '</b> : ' . "\n"
+            . ($assignment->getAssignmentType() == 'INDIVIDUAL' ? get_lang('Individual') : get_lang('Groups') )
 
-            .    '<br />'  .  "\n"
+            . '<br />'  .  "\n"
 
-            .    '<b>' . get_lang('Allow late upload') . '</b> : ' . "\n"
-            .    ($assignment->getAllowLateUpload() == 'YES' ? get_lang('Users can submit after end date') : get_lang('Users can not submit after end date') )
+            . '<b>' . get_lang('Allow late upload') . '</b> : ' . "\n"
+            . ($assignment->getAllowLateUpload() == 'YES' ? get_lang('Users can submit after end date') : get_lang('Users can not submit after end date') )
 
-            .    '</small>' . "\n" . '</p>' . "\n";
+            . '</small>' . "\n" . '</p>' . "\n";
 
             // description of assignment
             if( trim($assignment->getDescription()) != '' )
             {
                 $out .= '<b><small>' . get_lang('Description') . '</small></b><br />' . "\n"
-                .    '<blockquote>' . "\n" . '<small>' . "\n"
-                .    claro_parse_user_text($assignment->getDescription())
-                .    '</small>' . "\n" . '</blockquote>' . "\n"
-                .    '<br />' . "\n"
+                . '<blockquote>' . "\n" . '<small>' . "\n"
+                . claro_parse_user_text($assignment->getDescription())
+                . '</small>' . "\n" . '</blockquote>' . "\n"
+                . '<br />' . "\n"
                 ;
             }
 
             $out .= '<h4>'.$txtForFormTitle.'</h4>'."\n"
-                  . '<p><a class="backLink" href="'.$_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId.'">'
+                  . '<p><a class="backLink" href="'.htmlspecialchars( Url::Contextualize( $_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&assigId='.$assignmentId ) ).'">'
                   . get_lang('Back').'</a></p>'."\n"
-                  . '<form method="post" action="'.$_SERVER['PHP_SELF'].'?assigId='.$assignmentId.'&amp;authId='.$_REQUEST['authId'].'" enctype="multipart/form-data">'."\n"
+                  . '<form method="post" action="'.$_SERVER['PHP_SELF'].'?assigId='.$assignmentId.'&authId='.$_REQUEST['authId'].'" enctype="multipart/form-data">'."\n"
                   . '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
-                  . '<input type="hidden" name="cmd" value="'.$cmdToSend.'" />'."\n";
+                  . '<input type="hidden" name="cmd" value="'.$cmdToSend.'" />'."\n"
+                  . claro_form_relay_context();
 
             if( isset($_REQUEST['wrkId']) )
             {
@@ -1181,26 +1181,25 @@ if( $is_allowedToSubmit )
 
                             // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
 
-                            $completeWrkUrl = $_SERVER['PHP_SELF'] . '?cmd=exDownload'
-                                            .    '&amp;authId=' . $_REQUEST['authId']
-                                            .    '&amp;assigId=' . $assignmentId
-                                            .    '&amp;workId=' . $_REQUEST['wrkId']
-                                            .    '&amp;cidReq=' . claro_get_current_course_id() ;
+                            $completeWrkUrl = Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDownload'
+                                            . '&authId=' . $_REQUEST['authId']
+                                            . '&assigId=' . $assignmentId
+                                            . '&workId=' . $_REQUEST['wrkId'] ) ;
 
                             $out .= '<input type="hidden" name="currentWrkUrl" value="'.$form['wrkUrl'].'" />'
-                            .     '</dt>'."\n"
-                            .     '<dd>'
-                            .     '<a href="'.$completeWrkUrl.'" ' . $target . '>'.$form['wrkUrl'].'</a>'
-                            .     '<br />';
+                            .  '</dt>'."\n"
+                            .  '<dd>'
+                            .  '<a href="'.htmlspecialchars($completeWrkUrl).'" ' . $target . '>'.$form['wrkUrl'].'</a>'
+                            .  '<br />';
 
                             if( $assignmentContent == "TEXTFILE" )
                             {
                                 // we can remove the file only if we are in a TEXTFILE context, in file context the file is required !
                                 $out .= '<input type="checkBox" name="delAttacheDFile" id="delAttachedFile" />' . "\n"
-                                .     '<label for="delAttachedFile">'.get_lang('Check this box to delete the attached file').'</label>' . "\n";
+                                .  '<label for="delAttachedFile">'.get_lang('Check this box to delete the attached file').'</label>' . "\n";
                             }
                             $out .= get_lang('Upload a new file to replace the file').'</td>'."\n"
-                            .     '</dd>'."\n\n";
+                            .  '</dd>'."\n\n";
                         }
                         else
                         {
@@ -1224,7 +1223,9 @@ if( $is_allowedToSubmit )
                     // if the file is required and the text is only a description of the file
                     $out .= get_lang('Upload document').'&nbsp;<span class="required">*</span>';
                 }
+                
                 $out .= '</label></dt>'."\n";
+                
                 if( !empty($submitGroupWorkUrl) )
                 {
                     // Secure download
@@ -1233,16 +1234,16 @@ if( $is_allowedToSubmit )
                     // FIXME : secureDocumentDownload ?
                     if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
                     {
-                        $groupWorkUrl = 'backends/download.php'.str_replace('%2F', '/', rawurlencode($file)) . '?cidReq=' . urlencode(claro_get_current_course_id()).'&amp;gidReq=' . claro_get_current_group_id();
+                        $groupWorkUrl = Url::Contextualize( get_path('clarolineRepositoryWeb') . 'backends/download.php'.str_replace('%2F', '/', rawurlencode($file)) . '?gidReq=' . claro_get_current_group_id() );
                     }
                     else
                     {
-                        $groupWorkUrl = 'backends/download.php?url=' . rawurlencode($file) . '&amp;cidReq=' . urlencode(claro_get_current_course_id()).'&amp;gidReq=' . claro_get_current_group_id();
+                        $groupWorkUrl = Url::Contextualize( get_path('clarolineRepositoryWeb') . 'backends/download.php?url=' . rawurlencode($file) .'&gidReq=' . claro_get_current_group_id() );
                     }
 
                     $out .= '<dd>'
                         .'<input type="hidden" name="submitGroupWorkUrl" value="'.htmlspecialchars($submitGroupWorkUrl).'" />'
-                        .'<a href="' . get_path('clarolineRepositoryWeb') . $groupWorkUrl .'">'.basename($file).'</a>'
+                        .'<a href="' . htmlspecialchars($groupWorkUrl) .'">'.basename($file).'</a>'
                         .'</dd>'."\n";
                 }
                 else
@@ -1261,37 +1262,37 @@ if( $is_allowedToSubmit )
                 // display standard html textarea
                 // used for description of an uploaded file
                 $out .= '<dt>'
-                .    '<label for="wrkTxt">'
-                .    get_lang('File description')
-                .    '<br /></label>'
-                .    '</dt>'
-                .    '<dd>'."\n"
-                .    '<textarea name="wrkTxt" cols="40" rows="10">'.$form['wrkTxt'].'</textarea>'
-                .    '</dd>'."\n";
+                . '<label for="wrkTxt">'
+                . get_lang('File description')
+                . '<br /></label>'
+                . '</dt>'
+                . '<dd>'."\n"
+                . '<textarea name="wrkTxt" cols="40" rows="10">'.$form['wrkTxt'].'</textarea>'
+                . '</dd>'."\n";
             }
             elseif( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" || $is_feedback )
             {
                 // display enhanced textarea using claro_html_textarea_editor
                 $out .= '<dt>'
-                .    '<label for="wrkTxt">'
-                .    get_lang('Answer')
-                .    '&nbsp;<span class="required">*</span></label></dt>'."\n"
-                .    '<dd>'
-                .    claro_html_textarea_editor('wrkTxt', $form['wrkTxt'])
-                .    '</dd>'."\n\n";
+                . '<label for="wrkTxt">'
+                . get_lang('Answer')
+                . '&nbsp;<span class="required">*</span></label></dt>'."\n"
+                . '<dd>'
+                . claro_html_textarea_editor('wrkTxt', $form['wrkTxt'])
+                . '</dd>'."\n\n";
             }
 
             if( $is_feedback )
             {
                 $out .= '<dt>'
-                .    '<label for="wrkPrivFbk">'
-                .    get_lang('Private feedback')
-                .    '<br />'
-                .    '<small>'.get_lang('Course administrator only').'</small>'
-                .    '</label></dt>'
-                .    '<dd>'."\n"
-                .    '<textarea name="wrkPrivFbk" cols="40" rows="10">'. $san->sanitize( $form['wrkPrivFbk'] ) .'</textarea>'
-                .    '</dd>'."\n\n";
+                . '<label for="wrkPrivFbk">'
+                . get_lang('Private feedback')
+                . '<br />'
+                . '<small>'.get_lang('Course administrator only').'</small>'
+                . '</label></dt>'
+                . '<dd>'."\n"
+                . '<textarea name="wrkPrivFbk" cols="40" rows="10">'. $san->sanitize( $form['wrkPrivFbk'] ) .'</textarea>'
+                . '</dd>'."\n\n";
                 
                 // if this is a correction we have to add an input for the score/grade/results/points
                 $wrkScoreField = '<select name="wrkScore" id="wrkScore">'."\n"
@@ -1314,18 +1315,18 @@ if( $is_allowedToSubmit )
                 }
                 $wrkScoreField .= '</select> %';
                 $out .= '<dt><label for="wrkScore">'.get_lang('Score').'</label></dt>'."\n"
-                .    '<dd>'
-                .    $wrkScoreField
-                .    '</dd>'."\n\n";
+                . '<dd>'
+                . $wrkScoreField
+                . '</dd>'."\n\n";
             }
 
             $out .= '</dl>'."\n"
-            .    '</fieldset>'."\n\n"
-            .    '<input type="submit" name="submitWrk" value="'.get_lang('Ok').'" />'."\n"
-            .    '</form>'."\n\n"
-            .    '<p class="notice">'
-            .    get_lang('<span class="required">*</span> denotes required field')
-            .    '</p>';
+            . '</fieldset>'."\n\n"
+            . '<input type="submit" name="submitWrk" value="'.get_lang('Ok').'" />'."\n"
+            . '</form>'."\n\n"
+            . '<p class="notice">'
+            . get_lang('<span class="required">*</span> denotes required field')
+            . '</p>';
       }
 }
 
@@ -1468,9 +1469,9 @@ if( $dispWrkLst )
             // title (and edit links)
             $out .= '<div class="'. implode(' ', $style) .'">' . "\n"
             
-            .    '<h1 class="'. ( !$is_feedback ? 'claroBlockSuperHeader':'blockHeader') . '">' . "\n"
-            .    $san->sanitize( $work['title'] ) . "\n"
-            .    '</h1>' . "\n"
+            . '<h1 class="'. ( !$is_feedback ? 'claroBlockSuperHeader':'blockHeader') . '">' . "\n"
+            . $san->sanitize( $work['title'] ) . "\n"
+            . '</h1>' . "\n"
             ;
             
             // content
@@ -1478,11 +1479,11 @@ if( $dispWrkLst )
             
             // author
             $out .= '<div class="workInfo">' . "\n"
-            .    '<span class="workInfoTitle">' . get_lang('Author(s)') . '&nbsp;: </span>' . "\n"
-            .    '<div class="workInfoValue">' . "\n"
-            .    $san->sanitize( $work['authors'] ) . "\n"
-            .    '</div>' . "\n"
-            .    '</div>' . "\n\n"
+            . '<span class="workInfoTitle">' . get_lang('Author(s)') . '&nbsp;: </span>' . "\n"
+            . '<div class="workInfoValue">' . "\n"
+            . $san->sanitize( $work['authors'] ) . "\n"
+            . '</div>' . "\n"
+            . '</div>' . "\n\n"
             ;
 
             // group
@@ -1490,11 +1491,11 @@ if( $dispWrkLst )
             {
                 // display group if this is a group assignment and if this is not a correction
                 $out .= '<div class="workInfo">' . "\n"
-                .    '<span class="workInfoTitle">' . get_lang('Group') . '&nbsp;: </span>' . "\n"
-                .    '<div class="workInfoValue">' . "\n"
-                .    $allGroupList[$work['group_id']]['name'] . "\n"
-                .    '</div>' . "\n"
-                .    '</div>' . "\n\n"
+                . '<span class="workInfoTitle">' . get_lang('Group') . '&nbsp;: </span>' . "\n"
+                . '<div class="workInfoValue">' . "\n"
+                . $allGroupList[$work['group_id']]['name'] . "\n"
+                . '</div>' . "\n"
+                . '</div>' . "\n\n"
                 ;
             }
 
@@ -1506,40 +1507,39 @@ if( $dispWrkLst )
                     $target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
                     // show file if this is not a TEXT only work
                     $out .= '<div class="workInfo">' . "\n"
-                    .    '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n"
-                    .    '<div class="workInfoValue">' . "\n"
-                    .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDownload'
-                    .    '&amp;authId=' . $_REQUEST['authId']
-                    .    '&amp;assigId=' . $assignmentId
-                    .    '&amp;workId=' . $work['id']
-                    .    '&amp;cidReq=' . claro_get_current_course_id(). '" ' . $target . '>' . "\n"
-                    .    $work['submitted_doc_path'] . "\n"
-                    .    '<img src="' . get_icon_url('download') . '" alt="'.get_lang('Download').'" />' . "\n"
-                    .    '</a>' . "\n"
-                    .    '<small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$work['submitted_doc_path'])) . ')</small>'
-                    .    '</div>' . "\n"
-                    .    '</div>' . "\n\n"
+                    . '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n"
+                    . '<div class="workInfoValue">' . "\n"
+                    . '<a href="' . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDownload'
+                    . '&authId=' . $_REQUEST['authId']
+                    . '&assigId=' . $assignmentId
+                    . '&workId=' . $work['id'] ) ) . '" ' . $target . '>' . "\n"
+                    . $work['submitted_doc_path'] . "\n"
+                    . '<img src="' . get_icon_url('download') . '" alt="'.get_lang('Download').'" />' . "\n"
+                    . '</a>' . "\n"
+                    . '<small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$work['submitted_doc_path'])) . ')</small>'
+                    . '</div>' . "\n"
+                    . '</div>' . "\n\n"
                 ;
                 }
                 else
                 {
                     $out .= '<div class="workInfo">' . "\n"
-                    .    '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n"
-                    .    '<div class="workInfoValue">' . "\n"
-                    .    get_lang('- none -') . "\n"
-                    .    '</div>' . "\n"
-                    .    '</div>' . "\n\n"
+                    . '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n"
+                    . '<div class="workInfoValue">' . "\n"
+                    . get_lang('- none -') . "\n"
+                    . '</div>' . "\n"
+                    . '</div>' . "\n\n"
                     ;
                 }
             }
 
             // text
             $out .= '<div class="workInfo">' . "\n"
-            .    '<span class="workInfoTitle">' . $txtForText . '&nbsp;: </span>' . "\n"
-            .    '<div class="workInfoValue">' . "\n"
-            .    '<blockquote>' . "\n" . $san->sanitize( $work['submitted_text'] ) . "\n" . '&nbsp;</blockquote>' . "\n"
-            .    '</div>' . "\n"
-            .    '</div>' . "\n\n"
+            . '<span class="workInfoTitle">' . $txtForText . '&nbsp;: </span>' . "\n"
+            . '<div class="workInfoValue">' . "\n"
+            . '<blockquote>' . "\n" . $san->sanitize( $work['submitted_text'] ) . "\n" . '&nbsp;</blockquote>' . "\n"
+            . '</div>' . "\n"
+            . '</div>' . "\n\n"
             ;
 
             // private feedback
@@ -1548,29 +1548,29 @@ if( $dispWrkLst )
                 if( $is_allowedToEditAll )
                 {
                     $out .= '<div class="workInfo">' . "\n"
-                    .    '<span class="workInfoTitle">' . get_lang('Private feedback') . '&nbsp;: </span>' . "\n"
-                    .    '<div class="workInfoValue">' . "\n"
-                    .    '<blockquote>' . "\n" . $san->sanitize( $work['private_feedback'] ) . "\n" . '&nbsp;</blockquote>' . "\n"
-                    .    '</div>' . "\n"
-                    .    '</div>' . "\n\n"
+                    . '<span class="workInfoTitle">' . get_lang('Private feedback') . '&nbsp;: </span>' . "\n"
+                    . '<div class="workInfoValue">' . "\n"
+                    . '<blockquote>' . "\n" . $san->sanitize( $work['private_feedback'] ) . "\n" . '&nbsp;</blockquote>' . "\n"
+                    . '</div>' . "\n"
+                    . '</div>' . "\n\n"
                     ;
                 }
                 
                 // score
                 $out .= '<div class="workInfo">' . "\n"
-                .    '<span class="workInfoTitle">' . get_lang('Score') . '&nbsp;: </span>' . "\n"
-                .    '<div class="workInfoValue">' . "\n"
-                .    ( ( $work['score'] == -1 ) ? get_lang('No score') : $work['score'].' %' )
-                .    '</div>' . "\n"
-                .    '</div>' . "\n\n"
+                . '<span class="workInfoTitle">' . get_lang('Score') . '&nbsp;: </span>' . "\n"
+                . '<div class="workInfoValue">' . "\n"
+                . ( ( $work['score'] == -1 ) ? get_lang('No score') : $work['score'].' %' )
+                . '</div>' . "\n"
+                . '</div>' . "\n\n"
                 ;
             }
             
             // submission date
             $out .= '<div class="workInfo">' . "\n"
-            .    '<span class="workInfoTitle">' . get_lang('First submission date') . '&nbsp;: </span>' . "\n"
-            .    '<div class="workInfoValue">' . "\n"
-            .    claro_html_localised_date(get_locale('dateTimeFormatLong'), $work['unix_creation_date'])
+            . '<span class="workInfoTitle">' . get_lang('First submission date') . '&nbsp;: </span>' . "\n"
+            . '<div class="workInfoValue">' . "\n"
+            . claro_html_localised_date(get_locale('dateTimeFormatLong'), $work['unix_creation_date'])
             ;
 
             // display an alert if work was submitted after end date and work is not a correction !
@@ -1580,15 +1580,15 @@ if( $dispWrkLst )
             }
 
             $out .= '</div>' . "\n"
-            .    '</div>' . "\n\n";
+            . '</div>' . "\n\n";
             
             // last edit date
             if( $work['unix_creation_date'] != $work['unix_last_edit_date'] )
             {
                 $out .= '<div class="workInfo">' . "\n"
-                .     '<span class="workInfoTitle">' . get_lang('Last edit date') . '&nbsp;: </span>' . "\n"
-                .     '<div class="workInfoValue">' . "\n"
-                .    claro_html_localised_date(get_locale('dateTimeFormatLong'), $work['unix_last_edit_date']);
+                .  '<span class="workInfoTitle">' . get_lang('Last edit date') . '&nbsp;: </span>' . "\n"
+                .  '<div class="workInfoValue">' . "\n"
+                . claro_html_localised_date(get_locale('dateTimeFormatLong'), $work['unix_last_edit_date']);
                 
                 // display an alert if work was submitted after end date and work is not a correction !
                 if( $assignment->getEndDate() < $work['unix_last_edit_date'] && !$is_feedback )
@@ -1597,7 +1597,7 @@ if( $dispWrkLst )
                 }
 
                 $out .= '</div>' . "\n"
-                .    '</div>' . "\n\n";
+                . '</div>' . "\n\n";
             }
             
             // commands
@@ -1607,48 +1607,48 @@ if( $dispWrkLst )
             if( $is_allowedToEditThisWrk )
             {
                 // the work can be edited
-                $out .= '<a href="' . $_SERVER['PHP_SELF']
-                .    '?authId=' . $_REQUEST['authId']
-                .    '&amp;assigId='.$assignmentId
-                .    '&amp;cmd=rqEditWrk&amp;wrkId=' . $work['id'] . '">'
-                .    '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
-                .    '</a>' . "\n"
+                $out .= '<a href="' . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+                . '?authId=' . $_REQUEST['authId']
+                . '&assigId='.$assignmentId
+                . '&cmd=rqEditWrk&wrkId=' . $work['id'] ) ) . '">'
+                . '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
+                . '</a>' . "\n"
                 ;
             }
 
             if( $is_allowedToEditAll )
             {
-                $out .= '<a href="' . $_SERVER['PHP_SELF']
-                .    '?authId='.$_REQUEST['authId']
-                .    '&amp;cmd=exRmWrk'
-                .    '&amp;assigId=' . $assignmentId
-                .    '&amp;wrkId=' . $work['id'] . '" '
-                .    'onclick="return WORK.confirmationDel(\'' . clean_str_for_javascript($work['title']) . '\');">'
-                .    '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
-                .    '</a>' . "\n"
+                $out .= '<a href="' . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+                . '?authId='.$_REQUEST['authId']
+                . '&cmd=exRmWrk'
+                . '&assigId=' . $assignmentId
+                . '&wrkId=' . $work['id'] ) ) . '" '
+                . 'onclick="return WORK.confirmationDel(\'' . clean_str_for_javascript($work['title']) . '\');">'
+                . '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
+                . '</a>' . "\n"
                 ;
 
                 if ($work['visibility'] == "INVISIBLE")
                 {
-                    $out .= '<a href="' . $_SERVER['PHP_SELF']
-                    .    '?authId=' . $_REQUEST['authId']
-                    .    '&amp;cmd=exChVis&amp;assigId='.$assignmentId
-                    .    '&amp;wrkId='.$work['id']
-                    .    '&amp;vis=v">'
-                    .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Make visible') . '" />'
-                    .    '</a>' . "\n"
+                    $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                    . '?authId=' . $_REQUEST['authId']
+                    . '&cmd=exChVis&assigId='.$assignmentId
+                    . '&wrkId='.$work['id']
+                    . '&vis=v' ) ) .'">'
+                    . '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Make visible') . '" />'
+                    . '</a>' . "\n"
                     ;
                 }
                 else
                 {
-                    $out .= '<a href="' . $_SERVER['PHP_SELF']
-                    .    '?authId=' . $_REQUEST['authId']
-                    .    '&amp;cmd=exChVis'
-                    .    '&amp;assigId=' . $assignmentId
-                    .    '&amp;wrkId='.$work['id']
-                    .    '&amp;vis=i">'
-                    .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Make invisible') . '" />'
-                    .    '</a>' . "\n"
+                    $out .= '<a href="' . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?authId=' . $_REQUEST['authId']
+                    . '&cmd=exChVis'
+                    . '&assigId=' . $assignmentId
+                    . '&wrkId='.$work['id']
+                    . '&vis=i' ) ) . '">'
+                    . '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Make invisible') . '" />'
+                    . '</a>' . "\n"
                     ;
                 }
                 
@@ -1656,12 +1656,12 @@ if( $dispWrkLst )
                 {
                     // if there is no correction yet show the link to add a correction if user is course admin
                     $out .= '&nbsp;'
-                    .    '<a href="' . $_SERVER['PHP_SELF']
-                    .    '?authId=' . $_REQUEST['authId']
-                    .    '&amp;assigId=' . $assignmentId
-                    .    '&amp;cmd=rqGradeWrk&amp;gradedWrkId='.$work['id'] . '">'
-                    .    get_lang('Add feedback')
-                    .    '</a>' . "\n"
+                    . '<a href="' . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?authId=' . $_REQUEST['authId']
+                    . '&assigId=' . $assignmentId
+                    . '&cmd=rqGradeWrk&gradedWrkId='.$work['id'] ) ) . '">'
+                    . get_lang('Add feedback')
+                    . '</a>' . "\n"
                     ;
                 }
             }

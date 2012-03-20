@@ -86,6 +86,7 @@ $out .= claro_html_tool_title( $nameTools );
 $out .= $dialogBox->render();
 
 $out .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+     . claro_form_relay_context() . "\n"
      . '<table border="0" width="50%" cellspacing="0" cellpadding="4"><tbody>' . "\n"
      . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />' . "\n"
      . '<input name="cmd" type="hidden" value="savePrefs" />' . "\n"
@@ -119,13 +120,13 @@ $out .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
      . '<tr><td colspan="3">&nbsp;</td></tr>' . "\n"
      . '<tr><td colspan="3" style="text-align:center;">' . "\n"
      . '<input value="' . get_lang ( 'Ok' ) . '" type="submit" name="submit"/>&nbsp;' . "\n"
-     . claro_html_button ( 'index.php' , get_lang ( 'Cancel' ) )
+     . claro_html_button ( Url::Contextualize('work.php') , get_lang ( 'Cancel' ) )
      . '</td>' . "\n"
      . '</tr>' . "\n"
      . '</tbody></table>' . "\n"
      ;
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang( 'Assignments' ), 'index.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang( 'Assignments' ), Url::Contextualize('work.php') );
 
 $claroline->display->body->appendContent( $out );
 
