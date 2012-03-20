@@ -304,39 +304,39 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                 {
                     $dialogBox->warning( get_lang("Missing images detected") );
                     $form = '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" '
-                    .             'enctype="multipart/form-data">' . "\n"
-                    .             claro_form_relay_context()
-                    .             '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
-                    .             '<input type="hidden" name="cmd" value="submitImage" />' . "\n"
-                    .             '<input type="hidden" name="relatedFile" '
-                    .             ' value="' . $cwd . '/' . $uploadedFileName . '" />' . "\n"
-                    .             '<table border="0">' . "\n"
+                    . 'enctype="multipart/form-data">' . "\n"
+                    . claro_form_relay_context()
+                    . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
+                    . '<input type="hidden" name="cmd" value="submitImage" />' . "\n"
+                    . '<input type="hidden" name="relatedFile" '
+                    . ' value="' . $cwd . '/' . $uploadedFileName . '" />' . "\n"
+                    . '<table border="0">' . "\n"
                     ;
 
                     foreach($imgFilePath as $thisImgKey => $thisImgFilePath )
                     {
                         $form .= '<tr>' . "\n"
-                        .             '<td>' . "\n"
-                        .             '<label for="' . $thisImgKey . '">' . basename($thisImgFilePath) . ' : </label>' . "\n"
-                        .             '</td>' . "\n"
-                        .             '<td>'
-                        .             '<input type="file"  id="' . $thisImgKey . '" name="imgFile[]" />' . "\n"
-                        .             '<input type="hidden" name="imgFilePath[]"  value="' . $thisImgFilePath . '" />'
-                        .             '</td>' . "\n"
-                        .             '</tr>' . "\n"
+                        . '<td>' . "\n"
+                        . '<label for="' . $thisImgKey . '">' . basename($thisImgFilePath) . ' : </label>' . "\n"
+                        . '</td>' . "\n"
+                        . '<td>'
+                        . '<input type="file"  id="' . $thisImgKey . '" name="imgFile[]" />' . "\n"
+                        . '<input type="hidden" name="imgFilePath[]"  value="' . $thisImgFilePath . '" />'
+                        . '</td>' . "\n"
+                        . '</tr>' . "\n"
                         ;
                     }
 
                     $form .= '<tr>' . "\n"
-                    .             '<td>&nbsp;</td>' . "\n"
-                    .             '<td>' . "\n"
-                    .             '<input type="submit" name="submitImage" value="' . get_lang("Ok") . '" />&nbsp;' . "\n"
-                    .             claro_html_button(htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                    .            '?cmd=exChDir&file=' . base64_encode($cwd) ) ), get_lang("Cancel") )
-                    .             '</td>' . "\n"
-                    .             '</tr>' . "\n\n"
-                    .             '</table>' . "\n"
-                    .             '</form>' . "\n"
+                    . '<td>&nbsp;</td>' . "\n"
+                    . '<td>' . "\n"
+                    . '<input type="submit" name="submitImage" value="' . get_lang("Ok") . '" />&nbsp;' . "\n"
+                    . claro_html_button(htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?cmd=exChDir&file=' . base64_encode($cwd) ) ), get_lang("Cancel") )
+                    . '</td>' . "\n"
+                    . '</tr>' . "\n\n"
+                    . '</table>' . "\n"
+                    . '</form>' . "\n"
                     ;
                     
                     $dialogBox->form( $form );
@@ -365,10 +365,10 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                 . get_lang('Platform administrator') . '</a>';
             $dialogBox->error('<p>' . get_lang( 'Disk quota exceeded, please contact the %administrator',
                     array ( '%administrator' => $adminEmailUrl ) ) . '<br />' . "\n"
-            .     '<small>' . get_lang('Maximum disk space : %size',array('%size'=>format_file_size($maxFilledSpace))) . '</small><br />' . "\n"
-            .     '<small>' . get_lang('Disk space occupied : %size',array('%size'=>format_file_size($spaceAlreadyOccupied))) . '</small><br />' . "\n"
-            .     '<small>' . get_lang('Disk space available : %size',array('%size'=>format_file_size($remainingDiskSpace))) . '</small>'
-            .     '</p>')
+            . '<small>' . get_lang('Maximum disk space : %size',array('%size'=>format_file_size($maxFilledSpace))) . '</small><br />' . "\n"
+            . '<small>' . get_lang('Disk space occupied : %size',array('%size'=>format_file_size($spaceAlreadyOccupied))) . '</small><br />' . "\n"
+            . '<small>' . get_lang('Disk space available : %size',array('%size'=>format_file_size($remainingDiskSpace))) . '</small>'
+            . '</p>')
             ;
         }
         else
@@ -399,35 +399,35 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
 
             $form = '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post" enctype="multipart/form-data">'
-            .    '<fieldset>'
-            .    claro_form_relay_context()
-            .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
-            .    '<input type="hidden" name="cmd" value="exUpload" />' . "\n"
-            .    '<input type="hidden" name="cwd" value="' . htmlspecialchars($cwd) . '" />' . "\n"
-            .    '<dl>'
+            . '<fieldset>'
+            . claro_form_relay_context()
+            . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+            . '<input type="hidden" name="cmd" value="exUpload" />' . "\n"
+            . '<input type="hidden" name="cwd" value="' . htmlspecialchars($cwd) . '" />' . "\n"
+            . '<dl>'
             // upload file
-            .    '<dt><label for="userFile">' . get_lang('File') . '&nbsp;<span class="required">*</span></label>' .  '</dt>' . "\n"
-            .    '<dd>'
-            .    '<input type="file" id="userFile" name="userFile" />' . "\n"
+            . '<dt><label for="userFile">' . get_lang('File') . '&nbsp;<span class="required">*</span></label>' . '</dt>' . "\n"
+            . '<dd>'
+            . '<input type="file" id="userFile" name="userFile" />' . "\n"
             // size and space infos
-            .    '<p class="notice">' . get_lang("Max file size") .' : ' . format_file_size( $maxUploadSize ) . '</p>' . "\n"
-            .    '</dd>'
-            .    '<dt>' . get_lang("Disk space available") . '</dt>'
-            .    '<dd>'
-            .    claro_html_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1)
-            .    ' <span class="notice">' . format_file_size($remainingDiskSpace) . '</span>'
-            .    '</dd>' . "\n";
+            . '<p class="notice">' . get_lang("Max file size") .' : ' . format_file_size( $maxUploadSize ) . '</p>' . "\n"
+            . '</dd>'
+            . '<dt>' . get_lang("Disk space available") . '</dt>'
+            . '<dd>'
+            . claro_html_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1)
+            . ' <span class="notice">' . format_file_size($remainingDiskSpace) . '</span>'
+            . '</dd>' . "\n";
             
             if ($is_allowedToUnzip)
             {
                 // uncompress
                 $form .= '<dt>' . "\n"
-                .    '<label for="uncompress"><img src="' . get_icon_url('mime/package-x-generic') . '" alt="" /> '
-                .    get_lang('uncompress zipped (.zip) file on the server').'</label>' . "\n"
-                .    '</dt>'
-                .    '<dd>'
-                .    '<input type="checkbox" id="uncompress" name="uncompress" value="1" />'
-                .    '</dd>' . "\n";
+                . '<label for="uncompress"><img src="' . get_icon_url('mime/package-x-generic') . '" alt="" /> '
+                . get_lang('uncompress zipped (.zip) file on the server').'</label>' . "\n"
+                . '</dt>'
+                . '<dd>'
+                . '<input type="checkbox" id="uncompress" name="uncompress" value="1" />'
+                . '</dd>' . "\n";
             }
 
             if ($courseContext)
@@ -435,19 +435,19 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                 if (!isset($oldComment)) $oldComment = "";
                 // comment
                 $form .= '<dt>' . "\n"
-                .    '<label for="comment">'.get_lang('Comment').'</label>'
-                .    '</dt>' . "\n"
-                .    '<dd>'
-                .    '<textarea rows=2 cols=50 id="comment" name="comment">' . htmlspecialchars($oldComment) . '</textarea>' . "\n"
-                .    '</dd>' . "\n";
+                . '<label for="comment">'.get_lang('Comment').'</label>'
+                . '</dt>' . "\n"
+                . '<dd>'
+                . '<textarea rows=2 cols=50 id="comment" name="comment">' . htmlspecialchars($oldComment) . '</textarea>' . "\n"
+                . '</dd>' . "\n";
             }
             
             $form .= '</dl>'
-            .    '</fieldset>'
-            .    '<p><span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '</p>' . "\n"
-            .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
-            .    claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. base64_encode($cwd))), get_lang('Cancel'))
-            .    '</form>';
+            . '</fieldset>'
+            . '<p><span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '</p>' . "\n"
+            . '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
+            . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. base64_encode($cwd))), get_lang('Cancel'))
+            . '</form>';
             
             $dialogBox->form( $form );
         }
@@ -536,8 +536,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             if (!empty($_REQUEST['htmlContent']))
             {
-                $dialogBox->info( '<a href="rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.rawurlencode($cwd)
-                .    '&amp;htmlContent='.rawurlencode($_REQUEST['htmlContent']).'">' . get_lang('Back to the editor'). '</a>' );
+                $dialogBox->info( '<a href="'.htmlspecialchars(Url::Contextualize('rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.rawurlencode($cwd)
+                . '&amp;htmlContent='.rawurlencode($_REQUEST['htmlContent']))).'">' . get_lang('Back to the editor'). '</a>' );
             }
         }
     }
@@ -635,26 +635,26 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     {
         $dialogBox->title( get_lang('Create hyperlink') );
         $form = '<form action="'.htmlspecialchars($_SERVER['PHP_SELF']).'" method="post">' . "\n"
-        .      claro_form_relay_context()
-        .      '<input type="hidden" name="cmd" value="exMkUrl" />' . "\n"
-        .    '<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n"
-        .    '<label for="fileName">' . get_lang('Name'). '</label>&nbsp;<span class="required">*</span><br />' . "\n"
-        .    '<input type="text" id="fileName" name="fileName" /><br />' . "\n"
-        .    '<label for="url">'. get_lang('URL'). '</label>&nbsp;<span class="required">*</span><br />' . "\n"
-        .    '<input type="text" id="url" name="url" value="" />' . "\n"
-        .    '<br />' . "\n";
+        . claro_form_relay_context()
+        . '<input type="hidden" name="cmd" value="exMkUrl" />' . "\n"
+        . '<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n"
+        . '<label for="fileName">' . get_lang('Name'). '</label>&nbsp;<span class="required">*</span><br />' . "\n"
+        . '<input type="text" id="fileName" name="fileName" /><br />' . "\n"
+        . '<label for="url">'. get_lang('URL'). '</label>&nbsp;<span class="required">*</span><br />' . "\n"
+        . '<input type="text" id="url" name="url" value="" />' . "\n"
+        . '<br />' . "\n";
 
         if ($courseContext)
         {
             $form .= '<p><label for="comment">' . get_lang('Comment') . '</label>' . '<br />' . "\n"
-            .    '<textarea rows="2" cols="50" id="comment" name="comment"></textarea>' . "\n"
-            .    '</p>' . "\n";
+            . '<textarea rows="2" cols="50" id="comment" name="comment"></textarea>' . "\n"
+            . '</p>' . "\n";
         }
 
         $form .= '<input type="submit" value="'.get_lang('Ok') . '" />&nbsp; '
-        .    claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-        .    '?cmd=exChDir&file='.base64_encode($cwd))), get_lang('Cancel'))
-        .    '</form>' . "\n";
+        . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+        . '?cmd=exChDir&file='.base64_encode($cwd))), get_lang('Cancel'))
+        . '</form>' . "\n";
         
         $dialogBox->form( $form );
 
@@ -853,16 +853,16 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
         $dialogBox->title( get_lang('Edit <i>%filename</i>', array ('%filename' => htmlspecialchars($fileName) ) ) );
         $form = '<form action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '" method="post">'
-        .             claro_form_relay_context()
-        .             '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-        .             '<input type="hidden" name="file" value="' . base64_encode( $_REQUEST['file'] ) . '" />' . "\n"
-        .             '<p>'
-        .             '<label for="newName">'
-        .             get_lang('Name')
-        .             '</label>&nbsp;<span class="required">*</span>' . "\n"
-        .             '<br />' . "\n"
-        .             '<input type="text" id="newName" name="newName" value="' . htmlspecialchars($fileName) . '" />' . "\n"
-        .           '</p>' . "\n"
+        . claro_form_relay_context()
+        . '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
+        . '<input type="hidden" name="file" value="' . base64_encode( $_REQUEST['file'] ) . '" />' . "\n"
+        . '<p>'
+        . '<label for="newName">'
+        . get_lang('Name')
+        . '</label>&nbsp;<span class="required">*</span>' . "\n"
+        . '<br />' . "\n"
+        . '<input type="text" id="newName" name="newName" value="' . htmlspecialchars($fileName) . '" />' . "\n"
+        . '</p>' . "\n"
         ;
 
         if ('url' == get_file_extension($baseWorkDir.$_REQUEST['file']) )
@@ -877,11 +877,11 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             }
 
             $form .= '<p>' . "\n"
-            .             '<label for="url">' . get_lang('URL') . "\n"
-            .             '</label>&nbsp;<span class="required">*</span>' . "\n"
-            .             '<br />' . "\n"
-            .             '<input type="text" id="url" name="url" value="' . htmlspecialchars($url) . '" />' . "\n"
-            .             '</p>' . "\n"
+            . '<label for="url">' . get_lang('URL') . "\n"
+            . '</label>&nbsp;<span class="required">*</span>' . "\n"
+            . '<br />' . "\n"
+            . '<input type="text" id="url" name="url" value="' . htmlspecialchars($url) . '" />' . "\n"
+            . '</p>' . "\n"
             ;
         }
 
@@ -917,12 +917,12 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                        array('html', 'htm') ) )
         {
 
-            $form .= '<p><a href="rqmkhtml.php?cmd=rqEditHtml&amp;file='. download_url_encode($_REQUEST['file']) .'">'
+            $form .= '<p><a href="'.htmlspecialchars(Url::Contextualize('rqmkhtml.php?cmd=rqEditHtml&amp;file='. download_url_encode($_REQUEST['file']))) .'">'
                           .get_lang('Edit file content') . '</a></p>';
         }
 
         $form .= '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br />' . "\n"
-        .    '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
+        . '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
                       .claro_html_button(htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']. '?cmd=exChDir&file='.base64_encode(claro_dirname($_REQUEST['file'])))), get_lang('Cancel'))
                      .'</form>' . "\n";
                      
@@ -981,27 +981,27 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     {
         $dialogBox->title( get_lang('Create directory') );
         $form = '<form action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '" method="post">' . "\n"
-        .     claro_form_relay_context()
-        .     '<input type="hidden" name="cmd" value="exMkDir" />' . "\n"
-        .     '<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n"
+        . claro_form_relay_context()
+        . '<input type="hidden" name="cmd" value="exMkDir" />' . "\n"
+        . '<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n"
         // directory name
-        .     '<label for="newName">' . get_lang('Directory name').'</label>&nbsp;<span class="required">*</span><br />' . "\n"
-        .     '<input type="text" id="newName" name="newName" />' . "\n"
-        .     '<br />' . "\n" ;
+        . '<label for="newName">' . get_lang('Directory name').'</label>&nbsp;<span class="required">*</span><br />' . "\n"
+        . '<input type="text" id="newName" name="newName" />' . "\n"
+        . '<br />' . "\n" ;
 
         if ( $courseContext )
         {
             $form .= '<p>' . "\n"
             // comment
-            .    '<label for="comment">' . get_lang('Comment') . '</label><br />' . "\n"
-            .    '<textarea rows="5" cols="50" id="comment" name="comment"></textarea>' . "\n"
-            .    '</p>' . "\n";
+            . '<label for="comment">' . get_lang('Comment') . '</label><br />' . "\n"
+            . '<textarea rows="5" cols="50" id="comment" name="comment"></textarea>' . "\n"
+            . '</p>' . "\n";
         }
 
         $form .= '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br />' . "\n"
-        .    '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
-        .    claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.base64_encode($cwd))), get_lang('Cancel'))
-        .    '</form>' . "\n";
+        . '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
+        . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.base64_encode($cwd))), get_lang('Cancel'))
+        . '</form>' . "\n";
 
         $dialogBox->form( $form );
     }
@@ -1410,7 +1410,7 @@ $fileLister = new claro_array_pager($fileList, 0, 1000);
 foreach ($defaultSortkeyList as $thisSortkey) $fileLister->add_sort_key($thisSortkey, SORT_ASC);
 if ( isset($_GET['sort']) ) $fileLister->set_sort_key($_GET['sort'], $_GET['dir']);
 
-$sortUrlList = $fileLister->get_sort_url_list( $_SERVER['PHP_SELF'] . '?cmd=exChDir&file='.download_url_encode($curDirPath) );
+$sortUrlList = $fileLister->get_sort_url_list( Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exChDir&file='.download_url_encode($curDirPath)) );
 
 $fileList = $fileLister->get_result_list();
 
@@ -1595,7 +1595,7 @@ if ($docView == 'image' && isset($imageList) && count($imageList) > 0)
     elseif ($curDirName)
     {
            $curDirLine = '<img src="' . get_icon_url('opendir') . '" alt="" />' . "\n"
-           .             $dspCurDirName . "\n"
+           . $dspCurDirName . "\n"
            ;
     }
     else
@@ -1613,7 +1613,7 @@ if ($docView == 'image' && isset($imageList) && count($imageList) > 0)
          . '</a>';
     
     $docViewToolbar[] = '<a class="claroCmd" href="'
-         .  htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+         . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
             . '?docView=thumbnails&cwd='
             . rawurlencode($curDirPath) . $searchCmdUrl ))
          . '">'
@@ -1695,10 +1695,10 @@ if ($docView == 'image' && isset($imageList) && count($imageList) > 0)
     
     // Display image
     $out .= '<p style="text-align: center;">'
-          . '<a href="#"><img id="mainImage" src="' . htmlspecialchars($doc_url) . '" alt="' . $fileName . '" /></a>'
+          . '<a href="#"><img id="mainImage" src="' . htmlspecialchars(Url::Contextualize($doc_url)) . '" alt="' . $fileName . '" /></a>'
           . '</p>' . "\n"
           . '<p style="text-align: center;">'
-          . '<a href="' . htmlspecialchars($doc_url) . '">' . get_lang('Direct link to image') . '</a>'
+          . '<a href="' . htmlspecialchars(Url::Contextualize($doc_url)) . '">' . get_lang('Direct link to image') . '</a>'
           . '</p>' . "\n";
     
     // Display image info (title, size, color depth, mime-type)
@@ -1882,7 +1882,7 @@ else
         . '</span>';
     
     $docViewToolbar[] = '<a class="claroCmd" href="'
-         .  htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+         . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
          . '?docView=thumbnails&cwd='. $curDirPath . $searchCmdUrl ))
          .'">'
          . '<img src="' . get_icon_url('image') . '" alt="" /> ' . "\n"
