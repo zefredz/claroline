@@ -70,7 +70,7 @@ if ( !$assignmentId || !$assignment->load($assignmentId) )
 {
     // we NEED to know in which assignment we are, so if assigId is not set
     // relocate the user to the previous page
-    claro_redirect('work.php');
+    claro_redirect(Url::Contextualize('work.php'));
     exit();
 }
 
@@ -183,7 +183,7 @@ if($is_allowedToEdit)
         if( $formCorrectlySent && $assignment->save() )
         {
             $dialogBox->success( get_lang('Feedback edited') );
-            $dialogBox->info('<a href="./work_list.php?assigId=' . $assignmentId . '">' . get_lang('Continue') . '</a>' );
+            $dialogBox->info('<a href="'.htmlspecialchars( Url::Contextualize( './work_list.php?assigId=' . $assignmentId ) ) . '">' . get_lang('Continue') . '</a>' );
 
             $displayFeedbackForm = false;
 
@@ -245,8 +245,8 @@ if($is_allowedToEdit)
  */
 
 // bredcrump to return to the list when in a form
-$interbredcrump[]= array ('url' => './work.php', 'name' => get_lang('Assignments'));
-$interbredcrump[]= array ('url' => './work_list.php?assigId=' . $assignmentId, 'name' => get_lang('Assignment'));
+$interbredcrump[]= array ('url' => Url::Contextualize('./work.php'), 'name' => get_lang('Assignments'));
+$interbredcrump[]= array ('url' => Url::Contextualize('./work_list.php?assigId=' . $assignmentId), 'name' => get_lang('Assignment'));
 $nameTools = get_lang('Feedback');
 
 $out = '';
@@ -261,6 +261,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
 {
     $out .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" enctype="multipart/form-data">' . "\n"
     .    '<input type="hidden" name="cmd" value="exEditFeedback" />' . "\n"
+    . claro_form_relay_context()
     ;
 
     if( isset($assignmentId) )
@@ -350,7 +351,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<td>&nbsp;</td>' . "\n"
     .    '<td>' . "\n"
     .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
-    .    claro_html_button('./work_list.php?assigId=' . $assignmentId, get_lang('Cancel')) . "\n"
+    .    claro_html_button(Url::Contextualize('./work_list.php?assigId=' . $assignmentId), get_lang('Cancel')) . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     .    '</table>' . "\n"
@@ -362,5 +363,3 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
