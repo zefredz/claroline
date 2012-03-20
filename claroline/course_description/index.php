@@ -258,14 +258,14 @@ if ( $is_allowedToEdit )
     if ( isset($displayForm) && $displayForm )
     {
         $out .= '<form  method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">' . "\n"
-        .    claro_form_relay_context() . "\n"
-        .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-        .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
+        . claro_form_relay_context() . "\n"
+        . '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
+        . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
 
         if ( !is_null($descId) )
         {
             $out .= '<input type="hidden" name="descId" value="' . (int) $descId . '" />' . "\n"
-            .    '<input type="hidden" name="descCategory" value="' . htmlspecialchars( $description->getCategory() ) . '" />' . "\n";
+            . '<input type="hidden" name="descCategory" value="' . htmlspecialchars( $description->getCategory() ) . '" />' . "\n";
         }
         else
         {
@@ -273,16 +273,16 @@ if ( $is_allowedToEdit )
         }
 
         $out .= "\n" . '<table border="0">' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td colspan="2">' . "\n\n"
+        . '<tr>' . "\n"
+        . '<td colspan="2">' . "\n\n"
 
-        .    '<p>' . "\n"
-        .    '<label for="descTitle">' . "\n"
-        .    '<b>' . get_lang('Title') . ' : </b>' . "\n"
-        .    '</label>' . "\n"
-        .    '</p>' . "\n"
+        . '<p>' . "\n"
+        . '<label for="descTitle">' . "\n"
+        . '<b>' . get_lang('Title') . ' : </b>' . "\n"
+        . '</label>' . "\n"
+        . '</p>' . "\n"
 
-        .    '<p>' . "\n";
+        . '<p>' . "\n";
 
         if ( $tipIsTitleEditable )
         {
@@ -291,53 +291,53 @@ if ( $is_allowedToEdit )
         else
         {
             $out .= htmlspecialchars($tipPresetTitle) . "\n"
-            .    '<input type="hidden" name="descTitle" id="descTitle" value="'. htmlspecialchars($tipPresetTitle) .'" />' . "\n";
+            . '<input type="hidden" name="descTitle" id="descTitle" value="'. htmlspecialchars($tipPresetTitle) .'" />' . "\n";
         }
 
         $out .= '</p>' . "\n\n"
 
-        .    '<p>' . "\n"
-        .    '<label for="descContent">' . "\n"
-        .    '<b>' . get_lang('Content') . ' : </b>' . "\n"
-        .    '</label>' . "\n"
-        .    '</p>' . "\n\n"
+        . '<p>' . "\n"
+        . '<label for="descContent">' . "\n"
+        . '<b>' . get_lang('Content') . ' : </b>' . "\n"
+        . '</label>' . "\n"
+        . '</p>' . "\n\n"
 
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
+        . '</td>' . "\n"
+        . '</tr>' . "\n"
 
-        .    '<tr>' . "\n"
-        .    '<td>'."\n"
-        .    claro_html_textarea_editor('descContent', $description->getContent(), 20, 80 )."\n"
+        . '<tr>' . "\n"
+        . '<td>'."\n"
+        . claro_html_textarea_editor('descContent', $description->getContent(), 20, 80 )."\n"
 
-        .    '<p>' . "\n"
-        .    '<input type="submit" name="save" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
-        .    claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel'))
-        .    '</p>' . "\n"
+        . '<p>' . "\n"
+        . '<input type="submit" name="save" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
+        . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel'))
+        . '</p>' . "\n"
 
-        .    '</td>'  . "\n"
+        . '</td>'  . "\n"
 
-        .    '<td valign="top">' . "\n"
+        . '<td valign="top">' . "\n"
         ;
 
         if ( !empty($tipQuestion) )
         {
             $out .= "\n" . '<h4>' . get_lang("Question to lecturer") . '</h4>' . "\n"
-            .    '<p>' . $tipQuestion . '</p>' . "\n\n"
+            . '<p>' . $tipQuestion . '</p>' . "\n\n"
             ;
         }
 
         if ( !empty($tipInformation) )
         {
             $out .= "\n" . '<h4>' . get_lang("Information to give to students") . '</h4>' . "\n"
-            .    '<p>' . $tipInformation . '</p>' . "\n\n"
+            . '<p>' . $tipInformation . '</p>' . "\n\n"
             ;
         }
 
 
         $out .= '</td>' . "\n"
-        .    '</tr>'   . "\n"
-        .    '</table>'. "\n"
-        .    '</form>' . "\n"
+        . '</tr>'   . "\n"
+        . '</table>'. "\n"
+        . '</form>' . "\n"
         ;
 
     } // end if display form
@@ -349,11 +349,11 @@ if ( $is_allowedToEdit )
         **************************************************************************/
 
         $out .= "\n\n"
-        .    '<br />' . "\n"
-        .    '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">' . "\n"
-        .    claro_form_relay_context()
-        .    '<input type="hidden" name="cmd" value="rqEdit" />' . "\n"
-        .    '<select name="category">' . "\n"
+        . '<br />' . "\n"
+        . '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">' . "\n"
+        . claro_form_relay_context()
+        . '<input type="hidden" name="cmd" value="rqEdit" />' . "\n"
+        . '<select name="category">' . "\n"
         ;
 
         if ( is_array($tipList) && !empty($tipList) )
@@ -378,10 +378,10 @@ if ( $is_allowedToEdit )
         }
 
         $out .= '<option value="-1">' . get_lang("Other") . '</option>' . "\n"
-        .    '</select>' . "\n"
-        .    '<input type="submit" name="add" value="' . get_lang('Add') . '" />' . "\n"
-        .    '</form>' . "\n"
-        .    '<br />' . "\n"
+        . '</select>' . "\n"
+        . '<input type="submit" name="add" value="' . get_lang('Add') . '" />' . "\n"
+        . '</form>' . "\n"
+        . '<br />' . "\n"
         ;
     }
 } // end if is_allowedToEdit
@@ -416,8 +416,8 @@ if ( count($descList) )
             }
 
             $out .= '<div class="claroBlock">' . "\n"
-            .   '<h4 class="claroBlockHeader">'
-            .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
+            . '<h4 class="claroBlockHeader">'
+            . '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
             ;
 
             if ( trim($thisDesc['title']) == '' )
@@ -426,14 +426,14 @@ if ( count($descList) )
                 $out .= htmlspecialchars($thisDesc['title']);
                 
             $out .= '</span>' . "\n"
-            .   '</h4>' . "\n"
+            . '</h4>' . "\n"
             
-            .   '<div class="claroBlockContent">' . "\n"
-            .   '<a href="#" name="ann' . $thisDesc['id'] . '"></a>'. "\n"
+            . '<div class="claroBlockContent">' . "\n"
+            . '<a href="#" name="ann' . $thisDesc['id'] . '"></a>'. "\n"
 
-            .   '<div class="' . $cssInvisible . '">' . "\n"
-            .   claro_parse_user_text($thisDesc['content']) . "\n"
-            .   '</div>' . "\n"
+            . '<div class="' . $cssInvisible . '">' . "\n"
+            . claro_parse_user_text($thisDesc['content']) . "\n"
+            . '</div>' . "\n"
             
             ;
 
@@ -443,34 +443,34 @@ if ( count($descList) )
             {
                 $out .= '<div class="claroBlockCmd">' . "\n"
                 // edit
-                .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;descId=' . (int) $thisDesc['id'] )) . '">'
-                .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
-                .    '</a>' . "\n"
+                . '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;descId=' . (int) $thisDesc['id'] )) . '">'
+                . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
+                . '</a>' . "\n"
                 // delete
-                .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;descId=' . (int) $thisDesc['id'] )) . '"'
-                .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisDesc['title']))) . '\')) return false;">'
-                .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
-                .    '</a>' . "\n";
+                . '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;descId=' . (int) $thisDesc['id'] )) . '"'
+                . ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisDesc['title']))) . '\')) return false;">'
+                . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
+                . '</a>' . "\n";
 
                 // visibility
                 if ($thisDesc['visibility'] == 'VISIBLE')
                 {
                     $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkInvis&amp;descId=' . (int) $thisDesc['id'] )) . '">'
-                    .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Invisible') . '" />'
-                    .    '</a>' . "\n";
+                    . '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Invisible') . '" />'
+                    . '</a>' . "\n";
                 }
                 else
                 {
                     $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkVis&amp;descId=' . (int) $thisDesc['id'] )) . '">'
-                    .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Visible') . '" />'
-                    .    '</a>' . "\n";
+                    . '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Visible') . '" />'
+                    . '</a>' . "\n";
                 }
 
                 $out .= '</div>' . "\n"; // claroBlockCmd
             }
 
             $out .= '</div>' . "\n" // claroBlockContent
-            .    '</div>' . "\n\n"; // claroBlock
+            . '</div>' . "\n\n"; // claroBlock
         }
 
     }
@@ -484,5 +484,3 @@ if ( !$hasDisplayedItems )
 Claroline::getInstance()->display->setContent($out);
 
 echo Claroline::getInstance()->display->render();
-
-?>
