@@ -210,24 +210,24 @@ $links = array();
 // add course tool list edit
 
 $links[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/tools.php' )) . '">'
-.          '<img src="' . get_icon_url('edit') . '" alt="" />'
-.          get_lang('Edit Tool list')
-.          '</a>' ;
+. '<img src="' . get_icon_url('edit') . '" alt="" />'
+. get_lang('Edit Tool list')
+. '</a>' ;
 
 // Main group settings
 $links[] = '<a class="claroCmd" href="'. htmlspecialchars(Url::Contextualize( get_module_url('CLGRP') . '/group_properties.php' )) . '">'
-.          '<img src="' . get_icon_url('settings') . '" alt="" />'
-.          get_lang("Main Group Settings")
-.          '</a>' ;
+. '<img src="' . get_icon_url('settings') . '" alt="" />'
+. get_lang("Main Group Settings")
+. '</a>' ;
 
 // add tracking link
 
 if ( get_conf('is_trackingEnabled') )
 {
     $links[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'tracking/courseReport.php' )) . '">'
-    .          '<img src="' . get_icon_url('statistics') . '" alt="" />'
-    .          get_lang('Statistics')
-    .          '</a>' ;
+    . '<img src="' . get_icon_url('statistics') . '" alt="" />'
+    . get_lang('Statistics')
+    . '</a>' ;
 }
 
 // add delete course link
@@ -237,9 +237,9 @@ if ( get_conf('showLinkToDeleteThisCourse') )
     $paramString = $course->getHtmlParamList('GET');
 
     $links[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/settings.php?cmd=rqDelete' . ( !empty($paramString) ? '&amp;'.$paramString : '') )) . '">'
-    .          '<img src="' . get_icon_url('delete') . '" alt="" />'
-    .          get_lang('Delete the whole course website')
-    .          '</a>' ;
+    . '<img src="' . get_icon_url('delete') . '" alt="" />'
+    . get_lang('Delete the whole course website')
+    . '</a>' ;
 }
 
 if ( $adminContext && claro_is_platform_admin() )
@@ -250,8 +250,8 @@ if ( $adminContext && claro_is_platform_admin() )
     unset($_cid);
 
     $links[] = '<a class="claroCmd" href="' . htmlspecialchars( $backUrl ) . '">'
-    .          get_lang('Back to course list')
-    .          '</a>' ;
+    . get_lang('Back to course list')
+    . '</a>' ;
 }
 
 //=================================
@@ -280,5 +280,3 @@ elseif( $display == DISP_COURSE_RQ_DELETE )
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
