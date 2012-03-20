@@ -19,7 +19,9 @@
 
 $tlabelReq  = 'CLCAL';
 $gidReset   = true;
+
 require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+
 $_user      = claro_get_current_user_data();
 $_course    = claro_get_current_course_data();
 
@@ -450,6 +452,7 @@ foreach ( $eventList as $thisEvent )
 $template = new ModuleTemplate($tlabelReq, 'list.tpl.php');
 $template->assign('eventList', $preparedEventList);
 $template->assign('orderDirection', $orderDirection);
+
 Claroline::getDisplay()->body->appendContent($template->render());
 
 echo Claroline::getDisplay()->render();
