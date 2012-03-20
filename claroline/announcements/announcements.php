@@ -444,8 +444,8 @@ else
 $output .= $dialogBox->render();
 
 $output .= '<p>'
-.    claro_html_menu_horizontal($cmdList)
-.    '</p>'
+. claro_html_menu_horizontal($cmdList)
+. '</p>'
 ;
 
 /*----------------------------------------------------------------------------
@@ -458,49 +458,49 @@ if ( $displayForm )
     // DISPLAY ADD ANNOUNCEMENT COMMAND
 
     $output .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'."\n"
-    .    claro_form_relay_context()
-    .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
-    .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
-    .    (isset( $announcementToEdit['id'] )
+    . claro_form_relay_context()
+    . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
+    . '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
+    . (isset( $announcementToEdit['id'] )
          ? '<input type="hidden" name="id" value="' . $announcementToEdit['id'] . '" />' . "\n"
          : ''
          )
-    .    '<table cellpadding="5">'
-    .    '<tr>'
-    .    '<td valign="top"><label for="title">' . get_lang('Title') . ' : </label></td>' . "\n"
-    .    '<td>'
-    .    '<input type="text" id="title" name="title" value = "'
-    .    ( isset($announcementToEdit['title']) ? htmlspecialchars($announcementToEdit['title']) : '' )
-    .    '" size="80" />'
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>'
-    .    '<td valign="top">'
-    .    '<label for="newContent">'
-    .    get_lang('Content')
-    .    ' : '
-    .    '</label>'
-    .    '</td>' . "\n"
-    .    '<td>'
-    .     claro_html_textarea_editor('newContent', !empty($announcementToEdit) ? $announcementToEdit['content'] : '',12,67)
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
+    . '<table cellpadding="5">'
+    . '<tr>'
+    . '<td valign="top"><label for="title">' . get_lang('Title') . ' : </label></td>' . "\n"
+    . '<td>'
+    . '<input type="text" id="title" name="title" value = "'
+    . ( isset($announcementToEdit['title']) ? htmlspecialchars($announcementToEdit['title']) : '' )
+    . '" size="80" />'
+    . '</td>' . "\n"
+    . '</tr>' . "\n"
+    . '<tr>'
+    . '<td valign="top">'
+    . '<label for="newContent">'
+    . get_lang('Content')
+    . ' : '
+    . '</label>'
+    . '</td>' . "\n"
+    . '<td>'
+    . claro_html_textarea_editor('newContent', !empty($announcementToEdit) ? $announcementToEdit['content'] : '',12,67)
+    . '</td>' . "\n"
+    . '</tr>' . "\n"
     ;
 
    $output .= '<tr>'
-    .    '<td>&nbsp;</td>' . "\n"
-    .    '<td>'
-    .    '<input type="checkbox" value="1" name="emailOption" id="emailOption" />'
-    .    '<label for="emailOption">'
-    .    get_lang('Send this announcement by internal message to registered students')
-    .    '</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
+    . '<td>&nbsp;</td>' . "\n"
+    . '<td>'
+    . '<input type="checkbox" value="1" name="emailOption" id="emailOption" />'
+    . '<label for="emailOption">'
+    . get_lang('Send this announcement by internal message to registered students')
+    . '</label>' . "\n"
+    . '</td>' . "\n"
+    . '</tr>' . "\n"
     ;
 
     $output .= '<tr>'
-    .    '<td>&nbsp;</td>' . "\n"
-    .    '<td>' . "\n"
+    . '<td>&nbsp;</td>' . "\n"
+    . '<td>' . "\n"
 ;
 
     //---------------------
@@ -516,10 +516,10 @@ if ( $displayForm )
     $output .= ResourceLinker::renderLinkerBlock();
 
     $output .= '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>'
-    .    '<td>&nbsp;</td>' . "\n"
-    .    '<td>' . "\n"
+    . '</tr>' . "\n"
+    . '<tr>'
+    . '<td>&nbsp;</td>' . "\n"
+    . '<td>' . "\n"
     ;
 
     $output .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
@@ -578,23 +578,23 @@ if ($displayList)
                 $last_post_date = $thisAnnouncement['time']; // post time format date de mysql
 
                 $output .= '<div class="claroBlock">' . "\n"
-                .   '<h4 class="claroBlockHeader">'
-                .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
-                .   '<img src="' . get_icon_url('announcement') . '" alt="" /> '
-                .   get_lang('Published on')
-                .   ' : ' . claro_html_localised_date( get_locale('dateFormatLong'), strtotime($last_post_date))
-                .   '</span>' . "\n"
-                .   '</h4>' . "\n"
+                . '<h4 class="claroBlockHeader">'
+                . '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
+                . '<img src="' . get_icon_url('announcement') . '" alt="" /> '
+                . get_lang('Published on')
+                . ' : ' . claro_html_localised_date( get_locale('dateFormatLong'), strtotime($last_post_date))
+                . '</span>' . "\n"
+                . '</h4>' . "\n"
                 
-                .   '<div class="claroBlockContent">' . "\n"
-                .   '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
+                . '<div class="claroBlockContent">' . "\n"
+                . '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
 
-                .   '<div class="' . $cssInvisible . '">' . "\n"
-                .   ($title ? '<p><strong>' . htmlspecialchars($title) . '</strong></p>' . "\n"
+                . '<div class="' . $cssInvisible . '">' . "\n"
+                . ($title ? '<p><strong>' . htmlspecialchars($title) . '</strong></p>' . "\n"
                     : ''
                     )
-                .   claro_parse_user_text($content) . "\n"
-                .   '</div>' . "\n"
+                . claro_parse_user_text($content) . "\n"
+                . '</div>' . "\n"
                 
                 ;
                 
@@ -651,15 +651,15 @@ if ($displayList)
                     if ($thisAnnouncement['visibility']=='SHOW')
                     {
                         $output .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] )) . '">'
-                        .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Visible').'" />'
-                        .    '</a>' . "\n"
+                        . '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Visible').'" />'
+                        . '</a>' . "\n"
                         ;
                     }
                     else
                     {
                         $output .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] )) . '">'
-                        .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Invisible') . '" />'
-                        .    '</a>' . "\n"
+                        . '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Invisible') . '" />'
+                        . '</a>' . "\n"
                         ;
                     }
                     
@@ -668,7 +668,7 @@ if ($displayList)
                 } // end if is_AllowedToEdit
                 
                 $output .= '</div>' . "\n" // claroBlockContent
-                .    '</div>' . "\n\n"; // claroBlock
+                . '</div>' . "\n\n"; // claroBlock
             }
 
             $iterator ++;
