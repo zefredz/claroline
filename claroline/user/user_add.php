@@ -1,10 +1,11 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
  * This tool allow to add a user in his course (an din the platform)
- * @version 1.8 $Revision$
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.9 $Revision$
+ * @copyright 2001-2012 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/index.php/CLUSR
  * @author Claro Team <cvs@claroline.net>
@@ -28,6 +29,7 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 $can_add_single_user     = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_enroll_single_user') )
                      || claro_is_platform_admin();
+
 if ( ! $can_add_single_user ) claro_die(get_lang('Not allowed'));
 
 // include configuration file
@@ -40,7 +42,11 @@ require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
 // Initialise variables
 $nameTools        = get_lang('Add a user');
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php' );
+
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Users'), 
+    Url::Contextualize('user.php') 
+);
 
 $dialogBox = new DialogBox();
 
@@ -132,7 +138,7 @@ if ( $cmd == 'registration' )
                            . '</a>'
                            . '</li>'
                            . '<li>'
-                           . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel'. claro_url_relay_context('&amp;') . '">' . get_lang('Cancel the operation') . '</a>'
+                           . '<a href="'.Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=cancel') . '">' . get_lang('Cancel the operation') . '</a>'
                            . '</li>'
                            . '</ul>'
                            );
@@ -149,15 +155,16 @@ if ( $cmd == 'registration' )
             {
                  // PREPARE THE URL command TO CONFIRM THE USER CREATION
                  $confirmUserCreateUrl = array();
+                 
                  foreach($userData as $thisDataKey => $thisDataValue)
                  {
                     $confirmUserCreateUrl[] = $thisDataKey .'=' . urlencode($thisDataValue);
                  }
 
                  $confirmUserCreateUrl = Url::Contextualize( $_SERVER['PHP_SELF']
-                                       . '?cmd=registration&amp;'
-                                       . implode('&amp;', $confirmUserCreateUrl)
-                                       . '&amp;confirmUserCreate=1' );
+                                       . '?cmd=registration&'
+                                       . implode('&', $confirmUserCreateUrl)
+                                       . '&confirmUserCreate=1' );
 
 
                  $dialogBox->warning( get_lang('Notice') . '. '
@@ -214,9 +221,10 @@ if ( $cmd == 'registration' )
     if ( $userId )
     {
         $courseRegSucceed = user_add_to_course($userId, claro_get_current_course_id(), $userData['courseAdmin'], $userData['tutor'],false);
+        
         Console::log(
             "{$userId} enroled to course "
-            .  claro_get_current_course_id()
+            . claro_get_current_course_id()
             . " by " . claro_get_current_user_id(),
                 'COURSE_SUBSCRIBE'
         );
@@ -289,75 +297,92 @@ $htmlHeadXtra[] =
 
 $out = '';
 
-$out .= claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
-                'help_user.php');
+$out .= claro_html_tool_title(
+    array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
+    'help_user.php'
+);
+
 $out .= $dialogBox->render();
 
 if ( $courseRegSucceed )
 {
-    $out .= '<p><a href="' . htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') ) ) . '">&lt;&lt; ' . get_lang('Back to user list') . '</a></p>' . "\n";
+    $out .= '<p><a href="' 
+        . htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') ) ) 
+        . '">&lt;&lt; ' . get_lang('Back to user list') . '</a></p>' . "\n"
+        ;
 }
 else
 {
     if ($displayResultTable) //display result of search (if any)
     {
-        $enrollmentLabel = $userData['courseAdmin'] ? get_lang('Enrol as teacher') : get_lang('Enrol as student');
-        $enrollmentLabel .= $userData['tutor'] ? '&nbsp;-&nbsp;' . get_lang('tutor') : '';
+        $enrollmentLabel = $userData['courseAdmin'] 
+            ? get_lang('Enrol as teacher') 
+            : get_lang('Enrol as student')
+            ;
+        
+        $enrollmentLabel .= $userData['tutor'] 
+            ? '&nbsp;-&nbsp;' . get_lang('tutor') 
+            : ''
+            ;
                 
         $regUrlAddParam = '';
-        if ( $userData['tutor'        ] ) $regUrlAddParam .= '&amp;tutor=1';
-        if ( $userData['courseAdmin'  ] ) $regUrlAddParam .= '&amp;courseAdmin=1';
+        
+        if ( $userData['tutor'        ] ) $regUrlAddParam .= '&tutor=1';
+        
+        if ( $userData['courseAdmin'  ] ) $regUrlAddParam .= '&courseAdmin=1';
 
         $out .= '<a name="resultTable"></a>'
-        .    '<table id="resultTable" class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"
-        .    '<thead>' . "\n"
-        .    '<tr class="superHeader">'
-        .    '<th colspan="6">' . get_lang('Search result') . '</th>'
-        .    '</tr>'
-        .    '<tr class="headerX" align="center" valign="top">' . "\n"
-        .    '<th>' . get_lang('Last name')           . '</th>' . "\n"
-        .    '<th>' . get_lang('First name')          . '</th>' . "\n"
-        .    '<th>' . get_lang('Administrative code') . '</th>' . "\n"
-        .    '<th>' . get_lang('Username')               . '</th>' . "\n"
-        .    '<th>' . get_lang('Email')               . '</th>' . "\n"
-        .    '<th>' . $enrollmentLabel            . '</th>' . "\n"
-        .    '</tr>' . "\n"
-        .    '</thead>' . "\n"
-        .    '<tbody>' . "\n"
-        ;
+            . '<table id="resultTable" class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"
+            . '<thead>' . "\n"
+            . '<tr class="superHeader">'
+            . '<th colspan="6">' . get_lang('Search result') . '</th>'
+            . '</tr>'
+            . '<tr class="headerX" align="center" valign="top">' . "\n"
+            . '<th>' . get_lang('Last name')           . '</th>' . "\n"
+            . '<th>' . get_lang('First name')          . '</th>' . "\n"
+            . '<th>' . get_lang('Administrative code') . '</th>' . "\n"
+            . '<th>' . get_lang('Username')               . '</th>' . "\n"
+            . '<th>' . get_lang('Email')               . '</th>' . "\n"
+            . '<th>' . $enrollmentLabel            . '</th>' . "\n"
+            . '</tr>' . "\n"
+            . '</thead>' . "\n"
+            . '<tbody>' . "\n"
+            ;
 
         foreach ($userList as $thisUser)
         {
            $out .= '<tr valign="top">' . "\n"
-           .    '<td>' . htmlspecialchars($thisUser['lastname'    ]) . '</td>' . "\n"
-           .    '<td>' . htmlspecialchars($thisUser['firstname'   ]) . '</td>' . "\n"
-           .    '<td>' . htmlspecialchars($thisUser['officialCode']) . '</td>' . "\n"
-           .    '<td>' . htmlspecialchars($thisUser['username'   ]) . '</td>' . "\n"
-           .    '<td>' . htmlspecialchars($thisUser['email'       ]) . '</td>' . "\n"
-           .    '<td align="center">' . "\n"
-           ;
+            . '<td>' . htmlspecialchars($thisUser['lastname'    ]) . '</td>' . "\n"
+            . '<td>' . htmlspecialchars($thisUser['firstname'   ]) . '</td>' . "\n"
+            . '<td>' . htmlspecialchars($thisUser['officialCode']) . '</td>' . "\n"
+            . '<td>' . htmlspecialchars($thisUser['username'   ]) . '</td>' . "\n"
+            . '<td>' . htmlspecialchars($thisUser['email'       ]) . '</td>' . "\n"
+            . '<td align="center">' . "\n"
+            ;
 
             // deal with already registered users found in result
             if ( empty($thisUser['registered']) )
             {
-                $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                .    '?cmd=registration'
-                .    '&amp;userId=' . $thisUser['uid'] . $regUrlAddParam )) . '">'
-                .    '<img src="' . get_icon_url('enroll') . '" alt="' . $enrollmentLabel . '" />'
-                .    '</a>'
-                ;
+                $out .= '<a href="' 
+                    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                        . '?cmd=registration'
+                        . '&userId=' . $thisUser['uid'] . $regUrlAddParam )) 
+                    . '">'
+                    . '<img src="' . get_icon_url('enroll') . '" alt="' . $enrollmentLabel . '" />'
+                    . '</a>'
+                    ;
             }
             else
             {
                 $out .= '<span class="highlight">'
-                .    get_lang('Already enroled')
-                .    '</span>'
-                ;
+                    . get_lang('Already enroled')
+                    . '</span>'
+                    ;
             }
 
             $out .= '</td>' . "\n"
-            .    '</tr>' . "\n"
-            ;
+                . '</tr>' . "\n"
+                ;
         }
 
         if ( sizeof($userList) == 0 )
@@ -366,9 +391,9 @@ else
         }
 
         $out .= '</tbody>'
-        .    '</table>'
-        .    '<hr />'
-        ;
+            . '</table>'
+            . '<hr />'
+            ;
     }
 
     //display form to add a user
@@ -381,8 +406,8 @@ else
             {
                 $out .= '<p>'
                     . '<a class="claroCmd" href="'
-                    .  htmlspecialchars( Url::Contextualize(
-                        $_SERVER['PHP_SELF']))
+                    . htmlspecialchars( Url::Contextualize(
+                        $_SERVER['PHP_SELF'] ) )
                     . '">'
                     . '<img src="'.get_icon_url('search').'" alt="" />'
                     . get_lang('Search for an existing user')
@@ -417,9 +442,9 @@ else
                     . '</span>'
                     . ' | '
                     . '<a class="claroCmd" href="'
-                    .  htmlspecialchars( Url::Contextualize(
+                    . htmlspecialchars( Url::Contextualize(
                         $_SERVER['PHP_SELF']
-                        . '?cmd=rqRegistration'))
+                        . '?cmd=rqRegistration' ) )
                     . '">'
                     . '<img src="'.get_icon_url('user').'" alt="" />'
                     . get_lang('Create a new user').'</a>'

@@ -4,7 +4,7 @@
  * User list tool
  *
  * @version     1.9 $Revision$
- * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright   2001-2012 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -17,6 +17,7 @@
   =====================================================================*/
 $tlabelReq = 'CLUSR';
 $gidReset = true;
+
 require '../inc/claro_init_global.inc.php';
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
@@ -31,6 +32,7 @@ require_once get_path('incRepositorySys')  . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys')  . '/lib/user.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/course_user.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/pager.lib.php';
+
 require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
 /*----------------------------------------------------------------------
@@ -66,9 +68,11 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 $can_add_single_user = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_enroll_single_user') )
                      || claro_is_platform_admin();
+
 $can_import_user_list = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_list') )
                      || claro_is_platform_admin();
+
 $can_export_user_list = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_export_user_list', true) )
                      || claro_is_platform_admin();
@@ -76,6 +80,7 @@ $can_export_user_list = (bool) (claro_is_course_manager()
 $can_import_user_class = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_class') )
                      || claro_is_platform_admin();
+
 $can_send_message_to_course = current_user_is_allowed_to_send_message_to_current_course();
 
 $dialogBox = new DialogBox();
@@ -127,7 +132,7 @@ if ( $is_allowedToEdit )
         {
             Console::log(
                 "{$req['user_id']} subscribe to course "
-                .  claro_get_current_course_id(),
+                . claro_get_current_course_id(),
                     'COURSE_SUBSCRIBE'
             );
 
@@ -152,8 +157,8 @@ if ( $is_allowedToEdit )
 
             Console::log( 
                 "{$unregisterdUserCount} students removed by user "
-                .  claro_get_current_user_id()
-                . " in ".  claro_get_current_course_id(),
+                . claro_get_current_user_id()
+                . " in ". claro_get_current_course_id(),
                     'COURSE_UNSUBSCRIBE'
             );
 
@@ -167,7 +172,7 @@ if ( $is_allowedToEdit )
                 Console::log(
                     "{$req['user_id']} removed from "
                     . claro_get_current_course_id()
-                    . " by user ".  claro_get_current_user_id(),
+                    . " by user ". claro_get_current_user_id(),
                         'COURSE_UNSUBSCRIBE'
                 );
 
@@ -345,7 +350,7 @@ $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize( get_modu
                                  );
 
 $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-                                 . '?cmd=unregister&amp;user_id=allStudent' ))
+                                 . '?cmd=unregister&user_id=allStudent' ))
                                  , '<img src="' . get_icon_url('unenroll') . '" alt="" />'
                                  . get_lang('Unregister all students')
                                  , array('onclick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
@@ -380,15 +385,15 @@ $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
   ----------------------------------------------------------------------*/
 
 $out .= '<table class="claroTable emphaseLine" width="100%" cellpadding="2" cellspacing="1" '
-.    ' border="0" summary="' . get_lang('Course users list') . '">' . "\n";
+. ' border="0" summary="' . get_lang('Course users list') . '">' . "\n";
 
 $out .= '<thead>' . "\n"
-.    '<tr class="headerX" align="center" valign="top">'."\n"
-.    '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['nom'])) . '">' . get_lang('Last name') . '</a></th>' . "\n"
-.    '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['prenom'])) . '">' . get_lang('First name') . '</a></th>'."\n"
-.    '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['profile_id'])) . '">' . get_lang('Profile') . '</a></th>'."\n"
-.    '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['role'])) . '">' . get_lang('Role') . '</a></th>'."\n"
-.    '<th>' . get_lang('Group') . '</th>' . "\n" ;
+. '<tr class="headerX" align="center" valign="top">'."\n"
+. '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['nom'])) . '">' . get_lang('Last name') . '</a></th>' . "\n"
+. '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['prenom'])) . '">' . get_lang('First name') . '</a></th>'."\n"
+. '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['profile_id'])) . '">' . get_lang('Profile') . '</a></th>'."\n"
+. '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['role'])) . '">' . get_lang('Role') . '</a></th>'."\n"
+. '<th>' . get_lang('Group') . '</th>' . "\n" ;
 
 if ( $is_allowedToEdit ) // EDIT COMMANDS
 {
@@ -424,8 +429,8 @@ foreach ( $userList as $thisUser )
     if ( $is_allowedToEdit || get_conf('linkToUserInfo') )
     {
         $out .= '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?uInfo=' . (int) $thisUser['user_id'] )) . '">'
-        .    htmlspecialchars( ucfirst(strtolower($thisUser['nom'])) )
-        .    '</a>'
+        . htmlspecialchars( ucfirst(strtolower($thisUser['nom'])) )
+        . '</a>'
         ;
     }
     else
@@ -434,13 +439,13 @@ foreach ( $userList as $thisUser )
     }
 
     $out .= '</td>'
-    .    '<td align="left">' . htmlspecialchars( $thisUser['prenom'] ) . '</td>'
+    . '<td align="left">' . htmlspecialchars( $thisUser['prenom'] ) . '</td>'
 
 
     // User profile column
-    .    '<td align="left">'
-    .    claro_get_profile_name($thisUser['profile_id'])
-    .    '</td>' . "\n"
+    . '<td align="left">'
+    . claro_get_profile_name($thisUser['profile_id'])
+    . '</td>' . "\n"
     ;
 
     // User role column
@@ -501,23 +506,23 @@ foreach ( $userList as $thisUser )
 
         // Edit user column
         $out .= '<td>'
-        .    '<a href="' . htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?editMainUserInfo='.$thisUser['user_id']))
+        . '<a href="' . htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?editMainUserInfo='.$thisUser['user_id']))
         . '">'
-        .    '<img alt="'.get_lang('Edit').'" src="' . get_icon_url('edit') . '" />'
-        .    '</a>'
-        .    '</td>' . "\n"
+        . '<img alt="'.get_lang('Edit').'" src="' . get_icon_url('edit') . '" />'
+        . '</a>'
+        . '</td>' . "\n"
 
         // Unregister user column
-        .    '<td>'
+        . '<td>'
         ;
 
         if ($thisUser['user_id'] != claro_get_current_user_id())
         {
             $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-            .    '?cmd=unregister&amp;user_id=' . $thisUser['user_id'] )) . '&amp;offset=' . $offset . '" '
-            .    'onclick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
-            .    '<img alt="' . get_lang('Unregister') . '" src="' . get_icon_url('unenroll') . '" />'
-            .    '</a>'
+            . '?cmd=unregister&user_id=' . $thisUser['user_id'] )) . '&offset=' . $offset . '" '
+            . 'onclick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
+            . '<img alt="' . get_lang('Unregister') . '" src="' . get_icon_url('unenroll') . '" />'
+            . '</a>'
             ;
         }
         else
@@ -540,7 +545,7 @@ foreach ( $userList as $thisUser )
   ----------------------------------------------------------------------*/
 
 $out .= '</tbody>' . "\n"
-.    '</table>' . "\n"
+. '</table>' . "\n"
 ;
 
 $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
@@ -549,5 +554,3 @@ $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

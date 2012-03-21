@@ -4,9 +4,9 @@
  *
  * This tool list classes and prupose to subscribe it  to the current course.
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2012 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -20,8 +20,10 @@
 
 $tlabelReq = 'CLUSR';
 $gidReset = true;
-$dialogBoxMsg = array();
+
 require '../inc/claro_init_global.inc.php';
+
+$dialogBoxMsg = array();
 
 if ( ! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
@@ -69,7 +71,7 @@ switch ( $cmd )
         {
             Console::log(
                 "Class {$form_data['class_id']} enroled to course "
-                .  claro_get_current_course_id()
+                . claro_get_current_course_id()
                 . " by " . claro_get_current_user_id(),
                     'CLASS_SUBSCRIBE'
             );
@@ -86,7 +88,7 @@ switch ( $cmd )
         {
             Console::log(
                 "Class {$form_data['class_id']} removed from course "
-                .  claro_get_current_course_id()
+                . claro_get_current_course_id()
                 . " by " . claro_get_current_user_id(),
                     'CLASS_UNSUBSCRIBE'
             );
@@ -109,7 +111,11 @@ $classList = get_class_list_by_course(claro_get_current_course_id());
 // set bredcrump
 
 $nameTools = get_lang('Enrol class');
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php'. claro_url_relay_context('?') );
+
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Users'), 
+    Url::Contextualize('user.php') 
+);
 
 // javascript confirm pop up declaration for header
 
@@ -138,34 +144,32 @@ $out = '';
 
 $out .= claro_html_tool_title(get_lang('Enrol class'))
 
-// Display Forms or dialog box (if needed)
+    // Display Forms or dialog box (if needed)
 
-.    claro_html_msg_list($dialogBoxMsg)
+    . claro_html_msg_list($dialogBoxMsg)
 
-// display tool links
-.    '<p>'
-.    claro_html_cmd_link('user.php'  . claro_url_relay_context('?') , get_lang('Back to list'))
-.    '</p>'
-// display cols headers
-.    '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
-.    '<thead>' . "\n"
-.    '<tr class="headerX">' . "\n"
-.    '<th>' . get_lang('Classes') . '</th>' . "\n"
-.    '<th>' . get_lang('Users') . '</th>' . "\n"
-.    '<th>' . get_lang('Enrol to course') . '</th>' . "\n"
-.    '</tr>' . "\n"
-.    '</thead>' . "\n"
-.    '<tbody>' . "\n"
-// display Class list (or tree)
-.    ( empty($classList)
-        ? '<tr><td colspan="3">'.get_lang('Nothing to display').'</td></tr>'
-        : display_tree_class_in_user($classList, claro_get_current_course_id()) )
-.    '</tbody>' . "\n"
-.    '</table>' . "\n"
-;
+    // display tool links
+    . '<p>'
+    . claro_html_cmd_link('user.php'  . claro_url_relay_context('?') , get_lang('Back to list'))
+    . '</p>'
+    // display cols headers
+    . '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
+    . '<thead>' . "\n"
+    . '<tr class="headerX">' . "\n"
+    . '<th>' . get_lang('Classes') . '</th>' . "\n"
+    . '<th>' . get_lang('Users') . '</th>' . "\n"
+    . '<th>' . get_lang('Enrol to course') . '</th>' . "\n"
+    . '</tr>' . "\n"
+    . '</thead>' . "\n"
+    . '<tbody>' . "\n"
+    // display Class list (or tree)
+    . ( empty($classList)
+            ? '<tr><td colspan="3">'.get_lang('Nothing to display').'</td></tr>'
+            : display_tree_class_in_user($classList, claro_get_current_course_id()) )
+    . '</tbody>' . "\n"
+    . '</table>' . "\n"
+    ;
 
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
