@@ -35,8 +35,11 @@ DEFINE('DISP_GROUP_SELECT_FOR_ACTION', __LINE__);
 
 $gidReq = null;
 $gidReset = true;
+
 require '../inc/claro_init_global.inc.php';
+
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php' ;
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 
@@ -160,46 +163,46 @@ if ( $is_allowedToManage )
 
 
         $dialogBox->form( '<form method="post" action="group.php">'                         ."\n"
-        .          claro_form_relay_context()
-        .          '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' ."\n"
-        .          '<input type="hidden" name="cmd" value="exMkGroup" />'
+            . claro_form_relay_context()
+            . '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' ."\n"
+            . '<input type="hidden" name="cmd" value="exMkGroup" />'
 
-        .          '<table>'                                                         ."\n"
+            . '<table>'                                                         ."\n"
 
-        .          '<tr valign="top">'
-        .          '<td>'
-        .          '<label for="group_quantity">' . get_lang("Create") . '</label>'
-        .          '</td>'
-        .          '<td>'
-        .          '<input type="text" name="group_quantity" id="group_quantity" size="3" value="1" /> '
-        .          '<label for="group_quantity">' . get_lang("new group(s)") . '</label>'
-        .          '</td>'                                                           ."\n"
-        .          '</tr>'                                                           ."\n"
+            . '<tr valign="top">'
+            . '<td>'
+            . '<label for="group_quantity">' . get_lang("Create") . '</label>'
+            . '</td>'
+            . '<td>'
+            . '<input type="text" name="group_quantity" id="group_quantity" size="3" value="1" /> '
+            . '<label for="group_quantity">' . get_lang("new group(s)") . '</label>'
+            . '</td>'                                                           ."\n"
+            . '</tr>'                                                           ."\n"
 
-        .          '<tr valign="top">'                                               ."\n"
-        .          '<td>'                                                            ."\n"
-        .          '<label for="group_max">' . get_lang("Max.") . '</label>'
-        .          '</td>'                                                           ."\n"
-        .          '<td>'                                                            ."\n"
-        .          '<input type="text" name="group_max" id="group_max" size="3" value="8" /> '
-        .          get_lang("seats by groups (optional)")
-        .          '</td>'                                                           ."\n"
-        .          '</tr>'                                                           ."\n"
+            . '<tr valign="top">'                                               ."\n"
+            . '<td>'                                                            ."\n"
+            . '<label for="group_max">' . get_lang("Max.") . '</label>'
+            . '</td>'                                                           ."\n"
+            . '<td>'                                                            ."\n"
+            . '<input type="text" name="group_max" id="group_max" size="3" value="8" /> '
+            . get_lang("seats by groups (optional)")
+            . '</td>'                                                           ."\n"
+            . '</tr>'                                                           ."\n"
 
-        .          '<tr>'                                                            ."\n"
-        .          '<td>'                                                            ."\n"
-        .          '<label for="creation">'
-        .          get_lang("Create")
-        .          '</label>'
-        .          '</td>'                                                           ."\n"
-        .          '<td>'                                                            ."\n"
-        .          '<input type="submit" value="'.get_lang("Ok").'" name="creation" id="creation" /> '
-        .          claro_html_button($_SERVER['HTTP_REFERER'], get_lang("Cancel"))
-        .          '</td>'                                                           ."\n"
-        .          '</tr>'                                                           ."\n"
+            . '<tr>'                                                            ."\n"
+            . '<td>'                                                            ."\n"
+            . '<label for="creation">'
+            . get_lang("Create")
+            . '</label>'
+            . '</td>'                                                           ."\n"
+            . '<td>'                                                            ."\n"
+            . '<input type="submit" value="'.get_lang("Ok").'" name="creation" id="creation" /> '
+            . claro_html_button(Url::Contextualize($_SERVER['HTTP_REFERER']), get_lang("Cancel"))
+            . '</td>'                                                           ."\n"
+            . '</tr>'                                                           ."\n"
 
-        .          '</table>'                                                        ."\n"
-        .          '</form>'                                                         ."\n"
+            . '</table>'                                                        ."\n"
+            . '</form>'                                                         ."\n"
         );
     }
 
@@ -359,6 +362,7 @@ if ( $is_allowedToManage )
         }
 
         $dialogBox->success( get_lang("Group settings have been modified") );
+        
         $claroline->log('GROUPMANAGING',array ('CONFIG_GROUP' => TRUE));
 
         $cidReset = TRUE;
@@ -368,15 +372,16 @@ if ( $is_allowedToManage )
 
         include get_path('incRepositorySys') . '/claro_init_local.inc.php';
 
-        $isGroupRegAllowed = $_groupProperties['registrationAllowed']
-        && (
-        !claro_is_course_tutor()
-        || (
-        claro_is_course_tutor()
-        &&
-        get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
-        )
-        );
+        $isGroupRegAllowed = 
+            $_groupProperties['registrationAllowed']
+            && (
+                !claro_is_course_tutor()
+                || (
+                    claro_is_course_tutor()
+                    &&
+                    get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
+                )
+            );
 
         $groupPrivate    = $_groupProperties['private'];
 
@@ -387,14 +392,14 @@ if ( $is_allowedToManage )
                                                         $_SERVER['PHP_SELF']
                                                      . '?cmd=rqMkGroup' ))
                                                      , '<img src="' . get_icon_url('group') . '" alt="" />'
-    .                            get_lang("Create new group(s)")
+    . get_lang("Create new group(s)")
                                                      );
     // Delete all groups
     $groupadmin_manager_menu[] =  claro_html_cmd_link( htmlspecialchars( Url::Contextualize(
                                                     $_SERVER['PHP_SELF']
                                                      . '?cmd=exDelGroup&id=ALL' ))
                                                      , '<img src="' . get_icon_url('delete') . '" alt="" />'
-    .                            get_lang("Delete all groups")
+    . get_lang("Delete all groups")
                                                      , array('onclick'=>'return confirmationDelete();')
                                                      );
     // Fill groups
@@ -402,7 +407,7 @@ if ( $is_allowedToManage )
                                                     $_SERVER['PHP_SELF']
                                                     . '?cmd=exFillGroup' ))
                                                     , '<img src="' . get_icon_url('fill') . '" alt="" />'
-    .                            get_lang("Fill groups (automatically)")
+    . get_lang("Fill groups (automatically)")
                                                     , array('onclick'=>'return confirmationFill()')
                                                     );
     // Empty all groups
@@ -410,7 +415,7 @@ if ( $is_allowedToManage )
                                                      $_SERVER['PHP_SELF']
                                                      . '?cmd=exEmptyGroup' ))
                                                      , '<img src="' . get_icon_url('sweep') . '" alt="" />'
-    .                            get_lang("Empty all groups")
+    . get_lang("Empty all groups")
                                                      , array('onclick' => 'return confirmationEmpty();')
                                                      );
     // Main group settings
@@ -583,8 +588,8 @@ if ( is_integer($nbGroupPerUser) )
 $out .= $groupPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 $out .=                                                         "\n"
-.    '<table class="claroTable emphaseLine" width="100%">' . "\n"
-.    '<thead>'. "\n";
+. '<table class="claroTable emphaseLine" width="100%">' . "\n"
+. '<thead>'. "\n";
 
  /*-------------
       HEADINGS
@@ -593,9 +598,9 @@ $out .=                                                         "\n"
 $sortUrlList = $groupPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
 $out .= '<tr class="headerX" align="center">' . "\n"
-.    '<th align="left">'
-.    '&nbsp;<a href="'.htmlspecialchars(Url::Contextualize( $sortUrlList['name'] )).'">'.get_lang("Groups") . '</a>'
-.    '</th>'                               . "\n"
+. '<th align="left">'
+. '&nbsp;<a href="'.htmlspecialchars(Url::Contextualize( $sortUrlList['name'] )).'">'.get_lang("Groups") . '</a>'
+. '</th>'                               . "\n"
 ;
 
 if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
@@ -604,19 +609,19 @@ if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
 }
 
 $out .= '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['nbMember'])).'">' . get_lang("Registered") . '</a></th>' . "\n"
-.    '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['maxStudent'])).'">' . get_lang("Max.") . '</a></th>' . "\n"
+. '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['maxStudent'])).'">' . get_lang("Max.") . '</a></th>' . "\n"
 ;
 
 if ( $is_allowedToManage ) // only for course administrator
 {
     $out .= '<th>' . get_lang("Edit") . '</th>' . "\n"
-    .    '<th>' . get_lang("Delete") . '</th>' . "\n"
+    . '<th>' . get_lang("Delete") . '</th>' . "\n"
     ;
 }
 
 $out .= '</tr>' . "\n"
-.    '</thead>'
-.    '<tbody>' . "\n"
+. '</thead>'
+. '<tbody>' . "\n"
 ;
 
 //////////////////////////////////////////////////////////////////////////////
@@ -643,7 +648,7 @@ if( $groupList )
         // COLUMN 1 - NAME OF GROUP + If open LINK.
 
         $out .= '<tr align="center">' . "\n"
-        .    '<td align="left">'
+        . '<td align="left">'
         ;
         /**
              * Note : student are allowed to enter into group only if they are
@@ -652,9 +657,9 @@ if( $groupList )
              * are also able to notice whose groups they are responsible
              */
         if( claro_is_user_authenticated() && ( $is_allowedToManage
-        ||   $thisGroup['id_tutor'] == claro_get_current_user_id()
-        ||   $thisGroup['is_member']
-        || ! $_groupProperties['private']) )
+            ||   $thisGroup['id_tutor'] == claro_get_current_user_id()
+            ||   $thisGroup['is_member']
+            || ! $_groupProperties['private']) )
         {
             // see if group name must be displayed as "containing new item" or not
 
@@ -668,13 +673,13 @@ if( $groupList )
             }
 
             $out .= $classItem . '<img src="' . get_icon_url('group') . '" alt="" /> '
-            .    '<a href="'
-            .    htmlspecialchars(Url::Contextualize(
+            . '<a href="'
+            . htmlspecialchars(Url::Contextualize(
                     'group_space.php?gidReq=' . $thisGroup['id'] ))
-            .    '">'
-            .    $thisGroup['name']
-            .    '</a>'
-            .    '</div>'
+            . '">'
+            . $thisGroup['name']
+            . '</a>'
+            . '</div>'
             ;
 
             if     (claro_is_user_authenticated() && (claro_get_current_user_id() == $thisGroup['id_tutor'] ))
@@ -689,7 +694,7 @@ if( $groupList )
         else
         {
             $out .= '<img src="' . get_icon_url('group') . '" alt="" /> '
-            .    $thisGroup['name']
+            . $thisGroup['name']
             ;
         }
 
@@ -706,10 +711,10 @@ if( $groupList )
                 $out .= '<td align="center">';
 
                 if( (! claro_is_user_authenticated())
-                OR ( $thisGroup['is_member'])
-                OR ( claro_get_current_user_id() == $thisGroup['id_tutor'])
-                OR (!is_null($thisGroup['maxStudent']) //unlimited
-                AND ($thisGroup['nbMember'] >= $thisGroup['maxStudent']) // still free place
+                    || ( $thisGroup['is_member'])
+                    || ( claro_get_current_user_id() == $thisGroup['id_tutor'])
+                    || (!is_null($thisGroup['maxStudent']) //unlimited
+                    && ($thisGroup['nbMember'] >= $thisGroup['maxStudent']) // still free place
                 ))
                 {
                     $out .= '&nbsp;-';
@@ -717,13 +722,14 @@ if( $groupList )
                 else
                 {
                     $out .= '&nbsp;'
-                    .    '<a href="'
-                    .    htmlspecialchars( Url::Contextualize(
-                            'group_space.php?registration=1&amp;selfReg=1&amp;gidReq=' . (int) $thisGroup['id'] )) . '">'
-                    .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang("register") . '" />'
-                    .    '</a>'
+                    . '<a href="'
+                    . htmlspecialchars( Url::Contextualize(
+                            'group_space.php?registration=1&selfReg=1&gidReq=' . (int) $thisGroup['id'] )) . '">'
+                    . '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang("register") . '" />'
+                    . '</a>'
                     ;
                 }
+                
                 $out .= '</td>' . "\n";
             }    // end If $isGroupRegAllowed
         }
@@ -744,31 +750,31 @@ if( $groupList )
         if ($is_allowedToManage)
         {
             $out .= '<td>'
-            .    '<a href="'.htmlspecialchars( Url::Contextualize('group_edit.php?gidReq=' . $thisGroup['id'])) . '">'
-            .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang("Edit") . '" />'
-            .    '</a>'
-            .    '</td>' . "\n"
-            .    '<td>'
-            .    '<a href="' . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&amp;id=' . $thisGroup['id'] )) . '" '
-            .    ' onclick="return confirmationDeleteThisGroup(\'' . clean_str_for_javascript($thisGroup['name']) . '\');">'
-            .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang("Delete") . '" />'
-            .    '</a>'
-            .    '</td>' . "\n"
+            . '<a href="'.htmlspecialchars( Url::Contextualize('group_edit.php?gidReq=' . $thisGroup['id'])) . '">'
+            . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang("Edit") . '" />'
+            . '</a>'
+            . '</td>' . "\n"
+            . '<td>'
+            . '<a href="' . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=' . $thisGroup['id'] )) . '" '
+            . ' onclick="return confirmationDeleteThisGroup(\'' . clean_str_for_javascript($thisGroup['name']) . '\');">'
+            . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang("Delete") . '" />'
+            . '</a>'
+            . '</td>' . "\n"
             ;
         }
 
         $out .= '</tr>' . "\n\n";
 
         if (   ! is_null($thisGroup['description'])
-        && trim($thisGroup['description']) != '' )
+            && trim($thisGroup['description']) != '' )
         {
             $out .= '<tr>' . "\n"
-            .    '<td colspan="5">' . "\n"
-            .    '<div class="comment">'
-            .    $thisGroup['description']
-            .    '</div>'
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n"
+            . '<td colspan="5">' . "\n"
+            . '<div class="comment">'
+            . $thisGroup['description']
+            . '</div>'
+            . '</td>' . "\n"
+            . '</tr>' . "\n"
             ;
         }
 
@@ -804,7 +810,7 @@ else
 }
 
 $out .= '</tbody>' . "\n"
-.     '</table>' . "\n"
+. '</table>' . "\n"
 ;
 
 $claroline->display->body->appendContent($out);

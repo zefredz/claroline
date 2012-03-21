@@ -860,3 +860,55 @@ function is_tool_available_in_current_course_groups( $moduleLabel )
     
     return isset( $gp['tools'][$moduleLabel] ) && $gp['tools'][$moduleLabel];
 }
+
+/**
+ * Return a list of user and  groups of these users
+ *
+ * @param array     context
+ * @return array    list of users
+ */
+function get_group_member_list( $context = array() )
+{
+    $currentCourseId = array_key_exists( CLARO_CONTEXT_COURSE, $context )
+        ? $context['CLARO_CONTEXT_COURSE']
+        : claro_get_current_course_id()
+        ;
+
+    $currentGroupId  = array_key_exists( CLARO_CONTEXT_GROUP, $context )
+        ? $context['CLARO_CONTEXT_GROUP']
+        : claro_get_current_group_id()
+        ;
+
+    $tblc = claro_sql_get_course_tbl();
+    $tblm = claro_sql_get_main_tbl();
+
+    $sql = "SELECT `ug`.`id`       AS id,
+               `u`.`user_id`       AS user_id,
+               `u`.`nom`           AS name,
+               `u`.`prenom`        AS firstname,
+               `u`.`email`         AS email,
+               `u`.`officialEmail` AS officialEmail,
+               `cu`.`role`         AS `role`
+        FROM (`" . $tblm['user'] . "`           AS u
+           , `" . $tblm['rel_course_user'] . "` AS cu
+           , `" . $tblc['group_rel_team_user'] . "` AS ug)
+        WHERE  `cu`.`code_cours` = '" . $currentCourseId . "'
+          AND   `cu`.`user_id`   = `u`.`user_id`
+          AND   `ug`.`team`      = " . (int) $currentGroupId . "
+          AND   `ug`.`user`      = `u`.`user_id`
+        ORDER BY UPPER(`u`.`nom`), UPPER(`u`.`prenom`), `u`.`user_id`";
+
+    $result = Claroline::getDatabase()->query($sql);
+    $result->setFetchMode(Database_ResultSet::FETCH_ASSOC);
+
+    $usersInGroupList = array();
+    foreach ( $result as $member )
+    {
+        $label = htmlspecialchars(ucwords(strtolower($member['name']))
+        . ' ' . ucwords(strtolower($member['firstname']))
+        . ($member['role']!=''?' (' . $member['role'] . ')':''));
+        $usersInGroupList[$member['user_id']] = $label;
+    }
+
+    return $usersInGroupList;
+}

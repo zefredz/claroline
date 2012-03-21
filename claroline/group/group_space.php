@@ -17,7 +17,8 @@ $gidNeeded = true;
 $tlabelReq = 'CLGRP';
 
 require '../inc/claro_init_global.inc.php';
-include_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+
+require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
 $toolNameList= claro_get_tool_name_list();
@@ -33,12 +34,12 @@ if ( ! claro_is_allowed_to_edit() )
 {
     if ( ! claro_is_in_a_group() )
     {
-        claro_redirect('group.php');
+        claro_redirect(Url::Contextualize('group.php'));
         exit();
     }
     elseif ( ! claro_is_group_allowed() && ! ( isset( $_REQUEST['selfReg'] ) || isset($_REQUEST['doReg']) ) )
     {
-        claro_redirect('group.php');
+        claro_redirect(Url::Contextualize('group.php'));
         exit();
     }
 }
@@ -77,22 +78,36 @@ $userGroupRegCount = (int) group_count_group_of_a_user(claro_get_current_user_id
 // The previous request compute the quantity of subscription for the current user.
 // the following request compare with the quota of subscription allowed to each student
 $userGroupQuotaExceeded = (bool) (   $_groupProperties ['nbGroupPerUser'] <= $userGroupRegCount)
-&& ! empty($_groupProperties['nbGroupPerUser']); // no limit assign to group per user;
+    && ! empty($_groupProperties['nbGroupPerUser']); // no limit assign to group per user;
 
 $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
-&& ( ! $groupMemberQuotaExceeded )
-&& ( ! $userGroupQuotaExceeded )
-&& ( ! claro_is_course_tutor() ||
-     ( claro_is_course_tutor()
-       &&
-       get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
-       )));
+    && ( ! $groupMemberQuotaExceeded )
+    && ( ! $userGroupQuotaExceeded )
+    && ( ! claro_is_course_tutor() ||
+        ( claro_is_course_tutor()
+        &&
+        get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
+        )));
 
-$is_allowedToSelfRegInGroup  = (bool) $is_allowedToSelfRegInGroup && claro_is_in_a_course() && ( ! claro_is_group_member() ) && claro_is_course_member();
-$is_allowedToSelfUnregInGroup  = (bool) $_groupProperties ['unregistrationAllowed'] && claro_is_in_a_course() && claro_is_group_member() && claro_is_course_member();
+$is_allowedToSelfRegInGroup  = (bool) $is_allowedToSelfRegInGroup 
+    && claro_is_in_a_course() 
+    && ( ! claro_is_group_member() ) 
+    && claro_is_course_member()
+    ;
+$is_allowedToSelfUnregInGroup  = (bool) $_groupProperties ['unregistrationAllowed'] 
+    && claro_is_in_a_course() 
+    && claro_is_group_member() 
+    && claro_is_course_member()
+    ;
 
-$is_allowedToDocAccess = (bool) ( claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor());
-$is_allowedToChatAccess     = (bool) (     claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor() );
+$is_allowedToDocAccess = (bool) ( claro_is_course_manager() 
+    || claro_is_group_member() 
+    ||  claro_is_group_tutor())
+    ;
+$is_allowedToChatAccess = (bool) ( claro_is_course_manager() 
+    || claro_is_group_member() 
+    ||  claro_is_group_tutor() )
+    ;
 
 /**
  * SELF-REGISTRATION PROCESS
@@ -117,7 +132,7 @@ if( isset($_REQUEST['registration']) )
                 if (claro_sql_query($sql))
                 {
                     // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
-                    claro_redirect($_SERVER['PHP_SELF'] . '?gidReset=1&gidReq=' . claro_get_current_group_id() . '&regDone=1');
+                    claro_redirect(Url::Contextualize( $_SERVER['PHP_SELF'] . '?gidReset=1&gidReq=' . claro_get_current_group_id() . '&regDone=1' ) );
                     exit();
 
                 }
@@ -126,14 +141,14 @@ if( isset($_REQUEST['registration']) )
         else // Confirm reg
         {
             $dialogBox->form( get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
-            .          '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
-            .          claro_form_relay_context()
-            .          '<input type="hidden" name="registration" value="1" />' . "\n"
-            .          '<input type="hidden" name="doReg" value="1" />' . "\n"
-            .          '<br />' . "\n"
-            .          '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
-            .          claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
-            .          '</form>' . "\n"
+                . '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+                . claro_form_relay_context()
+                . '<input type="hidden" name="registration" value="1" />' . "\n"
+                . '<input type="hidden" name="doReg" value="1" />' . "\n"
+                . '<br />' . "\n"
+                . '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
+                . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
+                . '</form>' . "\n"
             );
 
 
@@ -170,7 +185,7 @@ if( isset($_REQUEST['unregistration']) )
                 if (claro_sql_query($sql))
                 {
                     // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
-                    claro_redirect( dirname($_SERVER['PHP_SELF']) . '/group.php?gidReset=1&unregDone=1');
+                    claro_redirect( Url::Contextualize('group.php?gidReset=1&unregDone=1'));
                     exit();
 
                 }
@@ -179,14 +194,14 @@ if( isset($_REQUEST['unregistration']) )
         else // Confirm reg
         {
             $dialogBox->form( get_lang('Confirm your unsubscription from the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
-            .          '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
-            .          claro_form_relay_context()
-            .          '<input type="hidden" name="unregistration" value="1" />' . "\n"
-            .          '<input type="hidden" name="doUnreg" value="1" />' . "\n"
-            .          '<br />' . "\n"
-            .          '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
-            .          claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
-            .          '</form>' . "\n"
+                . '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+                . claro_form_relay_context()
+                . '<input type="hidden" name="unregistration" value="1" />' . "\n"
+                . '<input type="hidden" name="doUnreg" value="1" />' . "\n"
+                . '<br />' . "\n"
+                . '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
+                . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
+                . '</form>' . "\n"
             );
 
         }
@@ -294,17 +309,17 @@ foreach($toolList as $thisTool)
     if ( ! empty($url) )
     {
         $toolLinkList[] = '<a class="' . $style . ' item' . $classItem . '" href="' . htmlspecialchars(Url::Contextualize($url)) . '">'
-        .                 '<img src="' . $icon . '" alt="" />&nbsp;'
-        .                 $toolName
-        .                 '</a>' . "\n"
+        . '<img src="' . $icon . '" alt="" />&nbsp;'
+        . $toolName
+        . '</a>' . "\n"
         ;
     }
     else
     {
         $toolLinkList[] = '<span ' . $style . '>'
-        .                 '<img src="' . $icon . '" alt="" />&nbsp;'
-        .                 $toolName
-        .                 '</span>' . "\n"
+        . '<img src="' . $icon . '" alt="" />&nbsp;'
+        . $toolName
+        . '</span>' . "\n"
         ;
     }
 }
@@ -325,32 +340,32 @@ $out .= $dialogBox->render();
 if($is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST))
 {
     $out .= '<p>' . "\n"
-    .    claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+    . claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
                             $_SERVER['PHP_SELF'] . '?registration=1' ))
                             , '<img src="' . get_icon_url('enroll') . '"'
-                            .     ' alt="' . get_lang("Add me to this group") . '" />'
-    .                       get_lang("Add me to this group")
+                            . ' alt="' . get_lang("Add me to this group") . '" />'
+    . get_lang("Add me to this group")
                             )
-    .    '</p>'
+    . '</p>'
     ;
 }
 
 if ( $is_allowedToSelfUnregInGroup && !array_key_exists('unregistration',$_REQUEST) )
 {
     $out .= '<p>' . "\n"
-    .    claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+    . claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
                             $_SERVER['PHP_SELF'] . '?unregistration=1' ))
                             , '<img src="' . get_icon_url('unenroll') . '"'
-                            .     ' alt="' . get_lang("Remove me from this group") . '" />'
-    .                       get_lang("Remove me from this group")
+                            . ' alt="' . get_lang("Remove me from this group") . '" />'
+    . get_lang("Remove me from this group")
                             )
-    .    '</p>'
+    . '</p>'
     ;
 }
 
 $out .= '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
-.    '<tr>'  . "\n"
-.    '<td style="border-right: 1px solid gray;" valign="top" width="220">'  . "\n"
+. '<tr>'  . "\n"
+. '<td style="border-right: 1px solid gray;" valign="top" width="220">'  . "\n"
 
 /*
 * Vars needed to determine group File Manager and group Forum
@@ -361,35 +376,35 @@ $out .= '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 * session_register("forumId");
 */
 
-.   claro_html_menu_vertical_br($toolLinkList)
-.   '<br /><br />' . "\n"
+. claro_html_menu_vertical_br($toolLinkList)
+. '<br /><br />' . "\n"
 ;
 
 if ($is_allowedToManage)
 {
     $out .= claro_html_cmd_link( htmlspecialchars(Url::Contextualize('group_edit.php'))
                             , '<img src="' . get_icon_url('edit') . '"'
-                            .     ' alt="' . get_lang("Edit this group") . '" />'
-                            .    get_lang("Edit this group")
+                            . ' alt="' . get_lang("Edit this group") . '" />'
+                            . get_lang("Edit this group")
                             );
 }
 
 if (current_user_is_allowed_to_send_message_to_current_group())
 {
     $out .= '<br />'.claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
-                            '../messaging/sendmessage.php?cmd=rqMessageToGroup&amp;' ))
+                            '../messaging/sendmessage.php?cmd=rqMessageToGroup&' ))
                             , '<img src="' . get_icon_url('mail_send') . '" alt="" />' . get_lang("Send a message to group")
                             );
 }
 
 $out .= '</td>' . "\n"
-.    '<td width="20">' . "\n"
-.    '&nbsp;' . "\n"
-.    '</td>' . "\n"
-.    '<td valign="top">' . "\n"
-.    '<b>' . "\n"
-.    get_lang("Description") . "\n"
-.    '</b> :' . "\n"
+. '<td width="20">' . "\n"
+. '&nbsp;' . "\n"
+. '</td>' . "\n"
+. '<td valign="top">' . "\n"
+. '<b>' . "\n"
+. get_lang("Description") . "\n"
+. '</b> :' . "\n"
 ;
 
 /*----------------------------------------------------------------------------
@@ -399,7 +414,7 @@ DISPLAY GROUP DESCRIPTION
 if( strlen(claro_get_current_group_data('description')) > 0)
 {
     $out .= '<br /><br />' . "\n"
-    .    claro_get_current_group_data('description')
+    . claro_get_current_group_data('description')
     ;
 }
 else // Show 'none' if no description
@@ -408,9 +423,9 @@ else // Show 'none' if no description
 }
 
 $out .= '<br /><br />'
-.    '<b>'
-.    get_lang("Group Tutor")
-.    '</b> :'
+. '<b>'
+. get_lang("Group Tutor")
+. '</b> :'
 ;
 
 /*----------------------------------------------------------------------------
@@ -423,13 +438,13 @@ if (count($tutorDataList) > 0)
     foreach($tutorDataList as $thisTutor)
     {
         $out .= '<span class="item">'
-        .    htmlspecialchars( $thisTutor['lastName'] . ' ' . $thisTutor['firstName'] )
+        . htmlspecialchars( $thisTutor['lastName'] . ' ' . $thisTutor['firstName'] )
         ;
         
         if(current_user_is_allowed_to_send_message_to_user($thisTutor['id']))
         {
             $out .= ' - <a href="'.htmlspecialchars(Url::Contextualize(
-              '../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId=' . (int)$thisTutor['id'] ))
+              '../messaging/sendmessage.php?cmd=rqMessageToUser&userId=' . (int)$thisTutor['id'] ))
               . '">'
               // . '<img src="' . get_icon_url('mail_send') . '" alt="" />'
               . get_lang('Send a message')
@@ -438,7 +453,7 @@ if (count($tutorDataList) > 0)
         }
           
         $out .= '</span>'
-        .    '<br />'
+        . '<br />'
         ;
     }
 }
@@ -467,16 +482,16 @@ if(count($groupMemberList) > 0)
     foreach($groupMemberList as $thisGroupMember)
     {
         $out .= '<a href="'
-        .    htmlspecialchars(Url::Contextualize('../user/userInfo.php?uInfo=' . $thisGroupMember['id'], $urlContext  ))
-        .    '" class="item">'
-        .    $thisGroupMember['lastName'] . ' ' . $thisGroupMember['firstName']
-        .    '</a>';
+        . htmlspecialchars(Url::Contextualize('../user/userInfo.php?uInfo=' . $thisGroupMember['id'], $urlContext  ))
+        . '" class="item">'
+        . $thisGroupMember['lastName'] . ' ' . $thisGroupMember['firstName']
+        . '</a>';
         
         if(current_user_is_allowed_to_send_message_to_user($thisGroupMember['id']))
         {        
             $out .= ' - <a href="'
                 . htmlspecialchars(Url::Contextualize(
-                    '../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId=' . (int) $thisGroupMember['id'] ))
+                    '../messaging/sendmessage.php?cmd=rqMessageToUser&userId=' . (int) $thisGroupMember['id'] ))
                 . '">'
                 // . '<img src="' . get_icon_url('mail_send') . '" alt="" />'
                 . get_lang('Send a message')
@@ -494,8 +509,8 @@ else
 
 
 $out .= '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '</table>' . "\n"
+. '</tr>' . "\n"
+. '</table>' . "\n"
 ;
 
 $claroline->display->body->appendContent($out);
