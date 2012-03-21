@@ -5,8 +5,8 @@
  *
  * This tool list classes and prupose to subscribe it to the current course.
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/CLUSR
  * @author      Claro Team <cvs@claroline.net>
@@ -15,8 +15,10 @@
 
 $tlabelReq = 'CLUSR';
 $gidReset = true;
-$dialogBoxMsg = array();
+
 require '../inc/claro_init_global.inc.php';
+
+$dialogBoxMsg = array();
 
 if ( ! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
@@ -64,7 +66,7 @@ switch ( $cmd )
         {
             Console::log(
                 "Class {$form_data['class_id']} enroled to course "
-                .  claro_get_current_course_id()
+                . claro_get_current_course_id()
                 . " by " . claro_get_current_user_id(),
                     'CLASS_SUBSCRIBE'
             );
@@ -81,7 +83,7 @@ switch ( $cmd )
         {
             Console::log(
                 "Class {$form_data['class_id']} removed from course "
-                .  claro_get_current_course_id()
+                . claro_get_current_course_id()
                 . " by " . claro_get_current_user_id(),
                     'CLASS_UNSUBSCRIBE'
             );
@@ -143,21 +145,21 @@ $out .= claro_html_msg_list($dialogBoxMsg);
 
 // Display cols headers
 $out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
-.    '<thead>' . "\n"
-.    '<tr class="headerX">' . "\n"
-.    '<th>' . get_lang('Classes') . '</th>' . "\n"
-.    '<th>' . get_lang('Users') . '</th>' . "\n"
-.    '<th>' . get_lang('Enrol to course') . '</th>' . "\n"
-.    '</tr>' . "\n"
-.    '</thead>' . "\n"
-.    '<tbody>' . "\n"
-// Display Class list (or tree)
-.    ( empty($classList)
-        ? '<tr><td colspan="3">'.get_lang('Nothing to display').'</td></tr>'
-        : display_tree_class_in_user($classList, claro_get_current_course_id()) )
-.    '</tbody>' . "\n"
-.    '</table>' . "\n"
-;
+    . '<thead>' . "\n"
+    . '<tr class="headerX">' . "\n"
+    . '<th>' . get_lang('Classes') . '</th>' . "\n"
+    . '<th>' . get_lang('Users') . '</th>' . "\n"
+    . '<th>' . get_lang('Enrol to course') . '</th>' . "\n"
+    . '</tr>' . "\n"
+    . '</thead>' . "\n"
+    . '<tbody>' . "\n"
+    // Display Class list (or tree)
+    . ( empty($classList)
+            ? '<tr><td colspan="3">'.get_lang('Nothing to display').'</td></tr>'
+            : display_tree_class_in_user($classList, claro_get_current_course_id()) )
+    . '</tbody>' . "\n"
+    . '</table>' . "\n"
+    ;
 
 $claroline->display->body->appendContent($out);
 

@@ -18,6 +18,7 @@
   =====================================================================*/
 $tlabelReq = 'CLUSR';
 $gidReset = true;
+
 require '../inc/claro_init_global.inc.php';
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
@@ -74,12 +75,17 @@ $cmdList[] = array(
 
 // Display
 $out = '';
+
 $out .= claro_html_tool_title($nameTools, null, $cmdList)
-      . '<ul class="userList">';
+    . '<ul class="userList">'
+    ;
+
 foreach ($result as $userKey => $user)
 {
     $user['picture'] = $user['pictureUri'];
+    
     $picture_url = user_get_picture_url($user);
+    
     if(empty($picture_url))
     {
         $picture_url = get_icon_url('nopicture');
@@ -92,8 +98,8 @@ foreach ($result as $userKey => $user)
           . $user['name']
           . '</li>';
 }
-$out .= '</ul>';
 
+$out .= '</ul>';
 
 $claroline->display->body->appendContent($out);
 

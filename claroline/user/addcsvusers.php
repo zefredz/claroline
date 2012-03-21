@@ -5,8 +5,8 @@
  *
  * Tool for bulk subscribe.
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLUSR
  * @author      Claro Team <cvs@claroline.net>
@@ -26,6 +26,7 @@ require_once get_path('incRepositorySys') . '/lib/password.lib.php';
 require_once get_path('incRepositorySys') . '/lib/utils/validator.lib.php';
 require_once get_path('incRepositorySys') . '/lib/utils/input.lib.php';
 require_once get_path('incRepositorySys') . '/lib/thirdparty/parsecsv/parsecsv.lib.php';
+
 require_once './csvimport.class.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
@@ -56,12 +57,15 @@ $userInput->setValidator( 'cmd' , new Claro_Validator_AllowedList( array( 'rqCSV
                                                                           'exLoadDefaultFormat' )
                                                                   )
                          );
+
 $userInput->setValidator( 'fieldSeparator' , new Claro_Validator_allowedList( array( ',' , ';' , ' ' )
                                                                              )
                          );
+
 $userInput->setValidator( 'enclosedBy' , new Claro_Validator_allowedList( array( 'dbquote' , '.' , 'none' )
                                                                              )
                          );
+
 $userInput->setValidator( 'firstLineFormat' , new Claro_Validator_allowedList( array( 'YES' , 'NO' )
                                                                              )
                          );
@@ -77,11 +81,17 @@ $nameTools = get_lang('Add a user list in course');
 
 if (claro_is_in_a_course())
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php'.(!is_null($courseId) ? '?cid='.$courseId : '') );
+    ClaroBreadCrumbs::getInstance()->prepend( 
+        get_lang('Users'), 
+        get_module_url('CLUSR').'/user.php'.(!is_null($courseId) ? '?cid='.$courseId : '') 
+    );
 }
 else
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Platform administration'), get_path('rootAdminWeb'));
+    ClaroBreadCrumbs::getInstance()->prepend( 
+        get_lang('Platform administration'), 
+        get_path('rootAdminWeb')
+    );
 }
 
 $dialogBox = new DialogBox();
@@ -102,13 +112,15 @@ switch( $cmd )
         $compulsory_list = array('firstname','lastname','username');
 
         $chFormatForm = get_lang('Modify the format') .' : ' . '<br /><br />' . "\n"
-        .   get_lang( 'Simply write the fields\' names in right order and separated by commas' ) . '<br />' . "\n"
-        .   get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) ) . '<br /><br />' . "\n"
-        .   '<form name="chFormat" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?&cmd=exChangeFormat" >' . "\n"
-        .   '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
-        .   '<br /><br />' . "\n"
-        .   '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-        .   '</form>';
+            . get_lang( 'Simply write the fields\' names in right order and separated by commas' ) . '<br />' . "\n"
+            . get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) ) . '<br /><br />' . "\n"
+            . '<form name="chFormat" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?&cmd=exChangeFormat" >' . "\n"
+            . '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
+            . claro_form_relay_context() . "\n"
+            . '<br /><br />' . "\n"
+            . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+            . '</form>'
+            ;
         
         $dialogBox->form( $chFormatForm );
     }
@@ -132,6 +144,7 @@ switch( $cmd )
         }
         
         $dialogBox->success( get_lang('Format changed') );
+        
         $_SESSION['claro_usedFormat']   = $usedFormat;
     }
     break;
@@ -175,56 +188,63 @@ else
     }
 }
 
-$backButtonUrl = $_SESSION['CSV_CancelButton'];
+$backButtonUrl = Url::Contextualize($_SESSION['CSV_CancelButton']);
 
 $content_default = get_lang('You must specify the CSV format used in your file') . ':' . "\n"
-.   '<br /><br />' . "\n"
-.   '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" enctype="multipart/form-data"  >' . "\n"
-.   '<input type="hidden" name="step" value="1" />' . "\n"
-.   '<input type="hidden" name="class_id" value="' . $class_id . '" />' . "\n"
-.   '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES" /> '
-.   '<label for="firstLineFormat_YES">' . get_lang('Use format defined in first line of file') . '</label>' . "\n"
-.   '<br /><br />' . "\n"
-.   '<input type="radio" name="firstLineFormat" value="NO" checked="checked" id="firstLineFormat_NO" />' . "\n"
-.   '<label for="firstLineFormat_NO">' . get_lang('Use the following format') . ' : ' . '</label>' . "\n"
-.   '<br /><br />' . "\n"
-.   '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-.   '<span style="font-weight: bold;">' . $usedFormat . '</span><br /><br />' . "\n"
-.   '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . "\n"
-.   claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
-                        . '?display=default'
-                        . '&amp;cmd=rqLoadDefaultFormat'
-                        . '&amp;addType=' . $addType ))
-                        , get_lang('Load default format')
-                        ) . "\n"
-.   ' | '
-.   claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
-                        . '?display=default'
-                        . '&amp;cmd=rqChangeFormat'
-                        . '&amp;addType=' . $addType ))
-                        , get_lang('Edit format to use')
-                        ) . "\n"
-.   '<br /><br />' . "\n"
-.   get_lang('CSV file with the user list :') . "\n"
-.   '<input type="file" name="CSVfile" />' . "\n"
-.   '<br /><br />' . "\n" . "\n";
+    . '<br /><br />' . "\n"
+    . '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" enctype="multipart/form-data"  >' . "\n"
+    . '<input type="hidden" name="step" value="1" />' . "\n"
+    . '<input type="hidden" name="class_id" value="' . $class_id . '" />' . "\n"
+    . claro_form_relay_context()
+    . '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES" /> '
+    . '<label for="firstLineFormat_YES">' . get_lang('Use format defined in first line of file') . '</label>' . "\n"
+    . '<br /><br />' . "\n"
+    . '<input type="radio" name="firstLineFormat" value="NO" checked="checked" id="firstLineFormat_NO" />' . "\n"
+    . '<label for="firstLineFormat_NO">' . get_lang('Use the following format') . ' : ' . '</label>' . "\n"
+    . '<br /><br />' . "\n"
+    . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    . '<span style="font-weight: bold;">' . $usedFormat . '</span><br /><br />' . "\n"
+    . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . "\n"
+    . claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+                            . '?display=default'
+                            . '&cmd=rqLoadDefaultFormat'
+                            . '&addType=' . $addType ))
+                            , get_lang('Load default format')
+                            ) . "\n"
+    . ' | '
+    . claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+                            . '?display=default'
+                            . '&cmd=rqChangeFormat'
+                            . '&addType=' . $addType ))
+                            , get_lang('Edit format to use')
+                            ) . "\n"
+    . '<br /><br />' . "\n"
+    . get_lang('CSV file with the user list :') . "\n"
+    . '<input type="file" name="CSVfile" />' . "\n"
+    . '<br /><br />' . "\n" . "\n"
+    ;
 
 $content_default .= '<h3>' . get_lang('Options') . '</h3>';
 
 $content_default .= '<input type="checkbox" name="sendEmailToUserCreated" value="1" id="sendEmailToUserCreated" />' . "\n"
-                                   .'<label for="sendEmailToUserCreated">' . get_lang('Send email to new users') . ' ' . '</label>' . "\n"
-                                   .'<br /><br />' . "\n";
+    .'<label for="sendEmailToUserCreated">' 
+    . get_lang('Send email to new users') . ' ' . '</label>' . "\n"
+    .'<br /><br />' . "\n"
+    ;
 
 if (get_conf('update_user_properties'))
 {
-            $content_default .= '<input type="checkbox" name="updateUserProperties" value="1" id="updateUserProperties" />' . "\n"
-                                           .'<label for="updateUserProperties">' . get_lang('Update user\'properties ') . ' ' . '</label>' . "\n"
-                                           .'<br /><br />' . "\n";
+    $content_default .= '<input type="checkbox" name="updateUserProperties" value="1" id="updateUserProperties" />' . "\n"
+        .'<label for="updateUserProperties">' 
+        . get_lang('Update user\'properties ') . ' ' . '</label>' . "\n"
+        .'<br /><br />' . "\n"
+        ;
 }
 
 $content_default .=   '<input type="submit" name="submitCSV" value="' . get_lang('Add user list') . '" />' . "\n"
-.   claro_html_button(htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
-.   '</form>' . "\n";
+    . claro_html_button(htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
+    . '</form>' . "\n"
+    ;
 
 $csvImport = new CsvImport();
 $csvImport->heading = $firstLineFormat;
@@ -302,56 +322,65 @@ switch( $step )
                         }
                     }
                     
-                    $content .= '<br />' . get_lang('Select users you want to import in the course') . '<br />'
-                    .   (count($errors) ? get_lang('Errors can be ignored to force the import') : '') . "\n" . '<br />' . "\n";
+                    $content .= '<br />' . get_lang('Select users you want to import in the course') 
+                        . '<br />'
+                        . ( count($errors) ? get_lang('Errors can be ignored to force the import') : '') 
+                        . "\n" . '<br />' . "\n"
+                        ;
                     
                     $content .= '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" >' . "\n"
-                    //.   '<input type="hidden" name="csvContent" value="' . str_replace( '"' , '\'' , serialize( $csvContent ) ) . '" />' . "\n"
-                    .   '<input type="hidden" name="step" value="2" />' . "\n"
-                    .   '<input type="hidden" name="class_id" value="' . $class_id .'" />' . "\n"
-                    .   '<input type="hidden" name="updateUserProperties" value="' . $updateUserProperties . '" />' . "\n"
-                    .   '<input type="hidden" name="sendEmailToUserCreated" value="' . $sendEmailToUserCreated  . '" />' . "\n"
-                    // options
-                    // TODO: check if user can create users
-                    //.   get_lang('Create new users') . '<input type="checkbox" value="1" name="newUsers" />'
-                    // Data
-                    .   '<table class="claroTable emphaseLine" width="100%" cellpadding="2" cellspacing="1"  border="0">' . "\n"
-                    .   '<thead>' . "\n"
-                    .   '<tr class="headerX">' . "\n"
-                    .   '<th><input type="checkbox" name="checkAll" id="checkAll" onchange="changeAllCheckbox();" checked="checked" /></th>' . "\n"
-                    ;
+                        //. '<input type="hidden" name="csvContent" value="' . str_replace( '"' , '\'' , serialize( $csvContent ) ) . '" />' . "\n"
+                        . '<input type="hidden" name="step" value="2" />' . "\n"
+                        . '<input type="hidden" name="class_id" value="' . $class_id .'" />' . "\n"
+                        . '<input type="hidden" name="updateUserProperties" value="' . $updateUserProperties . '" />' . "\n"
+                        . '<input type="hidden" name="sendEmailToUserCreated" value="' . $sendEmailToUserCreated  . '" />' . "\n"
+                        . claro_form_relay_context() . "\n"
+                        // options
+                        // TODO: check if user can create users
+                        //. get_lang('Create new users') . '<input type="checkbox" value="1" name="newUsers" />'
+                        // Data
+                        . '<table class="claroTable emphaseLine" width="100%" cellpadding="2" cellspacing="1"  border="0">' . "\n"
+                        . '<thead>' . "\n"
+                        . '<tr class="headerX">' . "\n"
+                        . '<th><input type="checkbox" name="checkAll" id="checkAll" onchange="changeAllCheckbox();" checked="checked" /></th>' . "\n"
+                        ;
+                    
                     foreach($keys as $key => $value)
                     {
                         $content .= '<th>' . $value . '</th>' . "\n";
                     }
+                    
                     //$content .= '<th>Errors</th>' . "\n";
                     $content .= '</tr>' . "\n"
-                    .   '</thead>' . "\n";
+                        . '</thead>' . "\n"
+                        ;
                     
                     foreach( $csvContent as $key => $data)
                     {
                         $content .= '<tr>' . "\n"
-                        .   '<td style="text-align: center;">' . "\n"
-                        .   '    <input type="checkbox" name="users[' . $key . ']" class="checkAll" checked="checked" />' . "\n"
-                        .   '</td>' . "\n";
-                        ;
+                            . '<td style="text-align: center;">' . "\n"
+                            . '    <input type="checkbox" name="users[' . $key . ']" class="checkAll" checked="checked" />' . "\n"
+                            . '</td>' . "\n";
+                            ;
+                        
                         foreach( $data as $name => $value )
                         {
                             $content .= '<td>' . "\n"
-                                     .  '    ' . (!empty($d) ? $d : '&nbsp;') . "\n"
-                                     .  '    <input type="hidden" name="csvContent[' . $key . '][' . $name .']" value="' . $value . '"/>' . "\n"
-                                     .  '    ' . $value . "\n"
-                                     .  '</td>' . "\n";
+                                . '    ' . (!empty($d) ? $d : '&nbsp;') . "\n"
+                                . '    <input type="hidden" name="csvContent[' . $key . '][' . $name .']" value="' . $value . '"/>' . "\n"
+                                . '    ' . $value . "\n"
+                                . '</td>' . "\n"
+                                ;
                         }
                         //$content .= '<td></td>' . "\n";
                         $content .= '</tr>' . "\n";
                     }
                     
                     $content .=   '</table>' . "\n"
-                    .    '<input type="submit" name="submitCSV" value="' . get_lang('Add selected users') . '" />' . "\n"
-                    .    claro_html_button(htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
-                    .   '</form>' . "\n"
-                    ;
+                        . '<input type="submit" name="submitCSV" value="' . get_lang('Add selected users') . '" />' . "\n"
+                        . claro_html_button(htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
+                        . '</form>' . "\n"
+                        ;
                 }
                 
             }
@@ -434,7 +463,7 @@ $out .= $dialogBox->render();
 $out .= $content;
 
 $out .= '<script type="text/javascript">'
-.   'function changeAllCheckbox()
+. 'function changeAllCheckbox()
     {
         if( $("#checkAll").attr("checked") )
         {
@@ -446,7 +475,7 @@ $out .= '<script type="text/javascript">'
         }
     }
     '
-.   '</script>';
+. '</script>';
 
 $claroline->display->body->appendContent($out);
 

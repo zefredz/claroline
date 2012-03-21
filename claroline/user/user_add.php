@@ -28,6 +28,7 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 $can_add_single_user = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_enroll_single_user') )
                      || claro_is_platform_admin();
+
 if ( ! $can_add_single_user ) claro_die(get_lang('Not allowed'));
 
 // include configuration file
@@ -121,18 +122,18 @@ if ( $cmd == 'registration' )
                                      claro_get_current_course_id(), false, true, false);
 
             $dialogBox->error(get_lang('This official code is already used by another user.')
-                           . '<br />' . get_lang('Take one of these options') . ' : '
-                           . '<ul>'
-                           . '<li>'
-                           . '<a href="#resultTable">'
-                           . get_lang('Click on the enrollment command beside the concerned user')
-                           . '</a>'
-                           . '</li>'
-                           . '<li>'
-                           . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel'. claro_url_relay_context('&amp;') . '">' . get_lang('Cancel the operation') . '</a>'
-                           . '</li>'
-                           . '</ul>'
-                           );
+                . '<br />' . get_lang('Take one of these options') . ' : '
+                . '<ul>'
+                . '<li>'
+                . '<a href="#resultTable">'
+                . get_lang('Click on the enrollment command beside the concerned user')
+                . '</a>'
+                . '</li>'
+                . '<li>'
+                . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel'. claro_url_relay_context('&') . '">' . get_lang('Cancel the operation') . '</a>'
+                . '</li>'
+                . '</ul>'
+                );
 
              $displayResultTable = true;
         }
@@ -147,15 +148,17 @@ if ( $cmd == 'registration' )
             {
                  // PREPARE THE URL command TO CONFIRM THE USER CREATION
                  $confirmUserCreateUrl = array();
+                 
                  foreach($userData as $thisDataKey => $thisDataValue)
                  {
                     $confirmUserCreateUrl[] = $thisDataKey .'=' . urlencode($thisDataValue);
                  }
 
                  $confirmUserCreateUrl = Url::Contextualize( $_SERVER['PHP_SELF']
-                                       . '?cmd=registration&amp;'
-                                       . implode('&amp;', $confirmUserCreateUrl)
-                                       . '&amp;confirmUserCreate=1' );
+                    . '?cmd=registration&'
+                    . implode('&', $confirmUserCreateUrl)
+                    . '&confirmUserCreate=1' )
+                    ;
 
 
                  $dialogBox->warning( get_lang('Notice') . '. '
@@ -256,7 +259,7 @@ if ( $cmd == 'registration' )
         
         Console::log(
             "{$userId} enroled to course "
-            .  claro_get_current_course_id()
+            . claro_get_current_course_id()
             . " by " . claro_get_current_user_id(),
                 'COURSE_SUBSCRIBE'
         );
@@ -369,8 +372,8 @@ else
         $enrollmentLabel = get_lang('Enrol as');
                 
         $regUrlAddParam = '';
-        if ( $userData['courseTutor'   ] ) $regUrlAddParam .= '&amp;courseTutor=1';
-        if ( $userData['courseAdmin'  ] ) $regUrlAddParam .= '&amp;courseAdmin=1';
+        if ( $userData['courseTutor'   ] ) $regUrlAddParam .= '&courseTutor=1';
+        if ( $userData['courseAdmin'  ] ) $regUrlAddParam .= '&courseAdmin=1';
         
         $out .= '<a name="resultTable"></a>'
               . '<table id="resultTable" class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"

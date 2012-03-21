@@ -5,8 +5,8 @@
  *
  * Mangage personal user info in a course.
  *
- * @version 1.8 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version 1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/CLUSR/
  * @package CLUSR
@@ -24,19 +24,24 @@ define ('DO_EDIT_EXTRA_FIELD','DO_EDIT_EXTRA_FIELD');
 
 $tlabelReq = 'CLUSR';
 $gidReset = true;
+
+require '../inc/claro_init_global.inc.php';
+
 $messageList = array();
 
 $descSizeToPrupose = array(3,5,10,15,20); // size in lines for desc - don't add 1
-
-require '../inc/claro_init_global.inc.php';
 
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php' ;
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/user_info.lib.php';
+
 require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php' );
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Users'), 
+    Url::Contextualize('user.php')
+);
 
 $nameTools = get_lang('User');
 
@@ -311,17 +316,17 @@ else
 $out = '';
 
 $out .= claro_html_tool_title($nameTools)
-// Back button for each display mode (Top)
-.    '<p>' . "\n"
-.    '<small>' . "\n"
-.    '<a href="'. htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') )) . '">'
-.    '&lt;&lt;&nbsp;'
-.    get_lang('Back to user list')
-.    '</a>' . "\n"
-.    '</small>' . "\n"
-.    '</p>' . "\n"
-.    claro_html_msg_list($messageList)
-;
+    // Back button for each display mode (Top)
+    . '<p>' . "\n"
+    . '<small>' . "\n"
+    . '<a href="'. htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') )) . '">'
+    . '&lt;&lt;&nbsp;'
+    . get_lang('Back to user list')
+    . '</a>' . "\n"
+    . '</small>' . "\n"
+    . '</p>' . "\n"
+    . claro_html_msg_list($messageList)
+    ;
 
 $userData = user_get_properties( $userIdViewed );
 $picturePath = user_get_picture_path( $userData );
@@ -341,59 +346,62 @@ if ($displayMode == "viewDefEdit")
 {
     /* CATEGORIES DEFINITIONS : EDIT */
     $out .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] . '?uInfo=' . $userIdViewed ) . '">' . "\n"
-    .    claro_form_relay_context()
-    .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
-    .    '<input type="hidden" name="id" value="' . $catToEdit['id'] . '" />' . "\n"
-    .    '<table>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<label for="title" >' . get_lang('Heading') . '</label> :' . "\n"
-    .    '</td>' . "\n"
-    .    '<td>' . "\n"
-    .    '<input type="text" name="title" id="title" size="80" maxlength="80" value ="' . htmlspecialchars($catToEdit['title']) . '" />' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<label for="comment" >' . get_lang('Comment') . '</label> :' . "\n"
-    .    '</td>' . "\n"
-    .    '<td>' . "\n"
-    .    '<textarea name="comment" id="comment" cols="60" rows="3" >' . $catToEdit['comment'] . '</textarea>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td nowrap="nowrap">' . "\n"
-    .    '<label for="nbline" >' . get_lang('Line Number') . '</label> :' . "\n"
-    .    '' . "\n"
-    .    '</td>' . "\n"
-    .    '<td>' . "\n"
-    .    '<select name="nbline" id="nbline">' . "\n"
-    ;
+        . claro_form_relay_context()
+        . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+        . '<input type="hidden" name="id" value="' . $catToEdit['id'] . '" />' . "\n"
+        . '<table>' . "\n"
+        . '<tr>' . "\n"
+        . '<td>' . "\n"
+        . '<label for="title" >' . get_lang('Heading') . '</label> :' . "\n"
+        . '</td>' . "\n"
+        . '<td>' . "\n"
+        . '<input type="text" name="title" id="title" size="80" maxlength="80" value ="' . htmlspecialchars($catToEdit['title']) . '" />' . "\n"
+        . '</td>' . "\n"
+        . '</tr>' . "\n"
+        . '<tr>' . "\n"
+        . '<td>' . "\n"
+        . '<label for="comment" >' . get_lang('Comment') . '</label> :' . "\n"
+        . '</td>' . "\n"
+        . '<td>' . "\n"
+        . '<textarea name="comment" id="comment" cols="60" rows="3" >' . $catToEdit['comment'] . '</textarea>' . "\n"
+        . '</td>' . "\n"
+        . '</tr>' . "\n"
+        . '<tr>' . "\n"
+        . '<td nowrap="nowrap">' . "\n"
+        . '<label for="nbline" >' . get_lang('Line Number') . '</label> :' . "\n"
+        . '' . "\n"
+        . '</td>' . "\n"
+        . '<td>' . "\n"
+        . '<select name="nbline" id="nbline">' . "\n"
+        ;
+    
     if ($catToEdit['nbline'] && $catToEdit['nbline']!=1)
     {
         $out .= '<option value="' . $catToEdit['nbline'] . '" selected>' . $catToEdit['nbline'] . ' ' . get_lang('line(s)') . '</option>' . "\n"
-        .    '<option>---</option>' . "\n"
+        . '<option>---</option>' . "\n"
         ;
     }
+    
     sort($descSizeToPrupose);
-    $out .= '<option value="1">1 ' . get_lang('line') . '</option>' . "\n"
-    ;
+    
+    $out .= '<option value="1">1 ' . get_lang('line') . '</option>' . "\n";
+    
     foreach($descSizeToPrupose as $nblines)
     {
         $out .= '<option value="'.$nblines.'">'.$nblines.' '.get_lang('lines').'</option>';
     }
 
     $out .= '</select>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr><tr>' . "\n"
-    .    '<td>&nbsp;</td>' . "\n"
-    .    '<td align="center">' . "\n"
-    .    '<input type="submit" name="submitDef" value="' . get_lang('Ok') . '" />' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</table>' . "\n"
-    .    '</form>' . "\n"
-    ;
+        . '</td>' . "\n"
+        . '</tr><tr>' . "\n"
+        . '<td>&nbsp;</td>' . "\n"
+        . '<td align="center">' . "\n"
+        . '<input type="submit" name="submitDef" value="' . get_lang('Ok') . '" />' . "\n"
+        . '</td>' . "\n"
+        . '</tr>' . "\n"
+        . '</table>' . "\n"
+        . '</form>' . "\n"
+        ;
 }
 elseif ($displayMode == "viewDefList")
 {
@@ -406,16 +414,17 @@ elseif ($displayMode == "viewDefList")
             // displays Title and comments
 
             $out .= '<div class="userInfoExtraField" >' . "\n"
-            .    '<p>' . "\n"
-            .    '<b>'.htmlize($thisCat['title']).'</b><br />' . "\n"
-            .    '<i>'.htmlize($thisCat['comment']).'</i>' . "\n"
-            .    '</p>' . "\n";
+                . '<p>' . "\n"
+                . '<b>'.htmlize($thisCat['title']).'</b><br />' . "\n"
+                . '<i>'.htmlize($thisCat['comment']).'</i>' . "\n"
+                . '</p>' . "\n"
+                ;
 
             // displays lines
 
             $out .= '<blockquote>' . "\n"
-            .    '<font color="gray">' . "\n"
-            ;
+                . '<font color="gray">' . "\n"
+                ;
 
             for ($i=1;$i<=$thisCat['nbline'];$i++ )
             {
@@ -423,50 +432,51 @@ elseif ($displayMode == "viewDefList")
             }
 
             $out .= '</font>' . "\n"
-            .    '</blockquote>' . "\n"
+                . '</blockquote>' . "\n"
 
-            // displays commands
+                // displays commands
 
-            .    '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?removeDef=' . $thisCat['catId'] )) . '">'
-            .    '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
-            .    '</a>' . "\n"
-            .    '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId'])) . '">'
-            .    '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Edit').'" />'
-            .    '</a>' . "\n"
-            .    '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId'])). '">'
-            .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
-            .    '</a>' . "\n"
-            .    '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId'])). '">'
-            .    '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
-            .    '</a>' . "\n"
-            .    '</div>' . "\n"
-            ;
+                . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?removeDef=' . $thisCat['catId'] )) . '">'
+                . '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
+                . '</a>' . "\n"
+                . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId'])) . '">'
+                . '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Edit').'" />'
+                . '</a>' . "\n"
+                . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId'])). '">'
+                . '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
+                . '</a>' . "\n"
+                . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId'])). '">'
+                . '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
+                . '</a>' . "\n"
+                . '</div>' . "\n"
+                ;
         } // end for each
 
     } // end if ($catList)
 
 
     $out .= '<div align="center">' . "\n"
-    .    '<form method="post" action="'.htmlspecialchars($_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed).'">' . "\n"
-    .    claro_form_relay_context()
-    .    '<input type="submit" name="addDef" value="'.get_lang('Add new heading').'" />' . "\n"
-    .    '</form>' . "\n"
-    .    '</div>' . "\n"
-    ;
+        . '<form method="post" action="'.htmlspecialchars($_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed).'">' . "\n"
+        . claro_form_relay_context()
+        . '<input type="submit" name="addDef" value="'.get_lang('Add new heading').'" />' . "\n"
+        . '</form>' . "\n"
+        . '</div>' . "\n"
+        ;
 
 }
 elseif ($displayMode == 'viewContentEdit' )
 {
     /*>>>>>>>>>>>> CATEGORIES CONTENTS : EDIT <<<<<<<<<<<<*/
     $out .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] . '?uInfo=' . $userIdViewed ) . '">' . "\n"
-    .    claro_form_relay_context()
-    .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
-    .    '<input type="hidden" name="cntId" value="' . $catToEdit['contentId'] . '" />' . "\n"
-    .    '<input type="hidden" name="catId" value="' . $catToEdit['catId'    ] . '" />' . "\n"
-    .    '<input type="hidden" name="uInfo"  value="' . $userIdViewed . '" />' . "\n"
-    .    '<p><label for="content" ><b>' . $catToEdit['title'] . '</b></label></p>' . "\n"
-    .    '<p><i>' . htmlize($catToEdit['comment']) . '</i></p>' . "\n"
-    ;
+        . claro_form_relay_context()
+        . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+        . '<input type="hidden" name="cntId" value="' . $catToEdit['contentId'] . '" />' . "\n"
+        . '<input type="hidden" name="catId" value="' . $catToEdit['catId'    ] . '" />' . "\n"
+        . '<input type="hidden" name="uInfo"  value="' . $userIdViewed . '" />' . "\n"
+        . '<p><label for="content" ><b>' . $catToEdit['title'] . '</b></label></p>' . "\n"
+        . '<p><i>' . htmlize($catToEdit['comment']) . '</i></p>' . "\n"
+        ;
+    
     if ($catToEdit['nbline']==1)
     {
         $out .= '<input type="text" name="content" id="content" size="80" value="' . htmlspecialchars($catToEdit['content']) . '" />';
@@ -476,9 +486,10 @@ elseif ($displayMode == 'viewContentEdit' )
         $out .= '<textarea  cols="80" rows="' . $catToEdit['nbline'] . '" name="content" id="content" >' . $catToEdit['content'] . '</textarea>'
         ;
     }
+    
     $out .= '<input type="submit" name="submitContent" value="' . get_lang('Ok') . '" />' . "\n"
-    .    '</form>'
-    ;
+        . '</form>'
+        ;
 
 }
 elseif ($displayMode =="viewMainInfoEdit")
@@ -501,55 +512,55 @@ elseif ($displayMode == "viewContentList") // default display
         $mainUserInfo['isCourseManager'] = ($mainUserInfo['isCourseManager'] == 1 ? get_lang('Course manager') : ' - ');
 
         $out .= '<table class="claroTable" width="80%" border="0">' . "\n"
-        .    '<thead>' . "\n"
-        .    '<tr class="headerX">' . "\n"
-        .    '<th align="left">'.get_lang('Name').'</th>' . "\n"
-        .    '<th align="left">'.get_lang('Profile').'</th>' . "\n"
-        .    '<th aling="left">'.get_lang( 'Skype account' ).'</th>' . "\n"
-        .    '<th align="left">'.get_lang('Role').'</th>' . "\n"
-        .    '<th>'.get_lang('Group Tutor').'</th>' . "\n"
-        .    '<th>'.get_lang('Course manager').'</th>' . "\n"
-        .    ($allowedToEditDef?'<th>'.get_lang('Edit').'</th>' . "\n":'')
-        .    ($is_allowedToTrack?"<th>".get_lang('Tracking').'</th>' . "\n":'')
-        .    '</tr>' . "\n"
-        .    '</thead>' . "\n"
-        .    '<tbody>' . "\n"
-        .    '<tr align="center">' . "\n"
-        .    '<td align="left"><b>'.htmlize($mainUserInfo['firstName']).' '.htmlize($mainUserInfo['lastName']).'</b></td>' . "\n"
-        .    '<td align="left">'.htmlize(claro_get_profile_name($mainUserInfo['profileId'])).'</td>' . "\n"
-        .    '<td align="center">'. $skypeStatus . '</td>' . "\n"
-        .    '<td>'.htmlize($mainUserInfo['role']).'</td>' . "\n"
-        .    '<td>'.$mainUserInfo['tutor'].'</td>'
-        .    '<td>'.$mainUserInfo['isCourseManager'].'</td>'
-        ;
+            . '<thead>' . "\n"
+            . '<tr class="headerX">' . "\n"
+            . '<th align="left">'.get_lang('Name').'</th>' . "\n"
+            . '<th align="left">'.get_lang('Profile').'</th>' . "\n"
+            . '<th aling="left">'.get_lang( 'Skype account' ).'</th>' . "\n"
+            . '<th align="left">'.get_lang('Role').'</th>' . "\n"
+            . '<th>'.get_lang('Group Tutor').'</th>' . "\n"
+            . '<th>'.get_lang('Course manager').'</th>' . "\n"
+            . ($allowedToEditDef?'<th>'.get_lang('Edit').'</th>' . "\n":'')
+            . ($is_allowedToTrack?"<th>".get_lang('Tracking').'</th>' . "\n":'')
+            . '</tr>' . "\n"
+            . '</thead>' . "\n"
+            . '<tbody>' . "\n"
+            . '<tr align="center">' . "\n"
+            . '<td align="left"><b>'.htmlize($mainUserInfo['firstName']).' '.htmlize($mainUserInfo['lastName']).'</b></td>' . "\n"
+            . '<td align="left">'.htmlize(claro_get_profile_name($mainUserInfo['profileId'])).'</td>' . "\n"
+            . '<td align="center">'. $skypeStatus . '</td>' . "\n"
+            . '<td>'.htmlize($mainUserInfo['role']).'</td>' . "\n"
+            . '<td>'.$mainUserInfo['tutor'].'</td>'
+            . '<td>'.$mainUserInfo['isCourseManager'].'</td>'
+            ;
 
         if($allowedToEditDef)
         {
             $out .= '<td>'
-            .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-            .    '?editMainUserInfo=' . $userIdViewed )) . '">'
-            .    '<img alt="'.get_lang('Edit').'" src="' . get_icon_url('edit') . '" />'
-            .    '</a>'
-            .    '</td>' . "\n"
-            ;
+                . '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                . '?editMainUserInfo=' . $userIdViewed )) . '">'
+                . '<img alt="'.get_lang('Edit').'" src="' . get_icon_url('edit') . '" />'
+                . '</a>'
+                . '</td>' . "\n"
+                ;
         }
 
 
         if($is_allowedToTrack)
         {
             $out .= '<td>'
-            .    '<a href="' . htmlspecialchars(Url::Contextualize(  get_path('clarolineRepositoryWeb') . 'tracking/userReport.php'
-            .    '?userId=' . $userIdViewed )) . '">'
-            .    '<img alt="' . get_lang('Tracking') . '" src="' . get_icon_url('statistics') . '" />'
-            .    '</a>'
-            .    '</td>' . "\n"
-            ;
+                . '<a href="' . htmlspecialchars(Url::Contextualize(  get_path('clarolineRepositoryWeb') . 'tracking/userReport.php'
+                . '?userId=' . $userIdViewed )) . '">'
+                . '<img alt="' . get_lang('Tracking') . '" src="' . get_icon_url('statistics') . '" />'
+                . '</a>'
+                . '</td>' . "\n"
+                ;
         }
 
         $out .= '</tr>' . "\n"
-        .    '</tbody>' . "\n"
-        .    '</table>' . "\n\n"
-        ;
+            . '</tbody>' . "\n"
+            . '</table>' . "\n\n"
+            ;
 
         if ( claro_is_user_authenticated() || ! get_conf('user_email_hidden_to_anonymous') )
         {
@@ -558,7 +569,7 @@ elseif ($displayMode == "viewContentList") // default display
         
         if(current_user_is_allowed_to_send_message_to_user($userIdViewed))
         {
-            $out .= '<p><a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . '/messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId='.$userIdViewed)).'">'.get_lang('Send a message').'</a></p>';
+            $out .= '<p><a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . '/messaging/sendmessage.php?cmd=rqMessageToUser&userId='.$userIdViewed)).'">'.get_lang('Send a message').'</a></p>';
         }
 
         $out .= '<hr noshade="noshade" size="1" />' . "\n" ;
@@ -568,15 +579,15 @@ elseif ($displayMode == "viewContentList") // default display
     if ($allowedToEditDef) // only course administrators see this line
     {
         $out .= "\n\n"
-        .    '<div align="right">' . "\n"
-        .    '<form method="post" action="'.htmlspecialchars( $_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed ).'">' . "\n"
-        .    claro_form_relay_context()
-        .    get_lang('Course administrator only').' : '
-        .    '<input type="submit" name="viewDefList" value="'.get_lang('Define Headings').'" />' . "\n"
-        .    '</form>' . "\n"
-        .    '<hr noshade="noshade" size="1" />' . "\n"
-        .    '</div>'
-        ;
+            . '<div align="right">' . "\n"
+            . '<form method="post" action="'.htmlspecialchars( $_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed ).'">' . "\n"
+            . claro_form_relay_context()
+            . get_lang('Course administrator only').' : '
+            . '<input type="submit" name="viewDefList" value="'.get_lang('Define Headings').'" />' . "\n"
+            . '</form>' . "\n"
+            . '<hr noshade="noshade" size="1" />' . "\n"
+            . '</div>'
+            ;
     }
 
     $catList = claro_user_info_get_course_user_info($userIdViewed);
@@ -588,10 +599,10 @@ elseif ($displayMode == "viewContentList") // default display
             // Category title
 
             $out .= '<p>' . "\n"
-            .    '<b>' . $thisCat['title'] . '</b>' . "\n"
-            .    '</p>' . "\n"
-            .    '<blockquote>' . "\n"
-            ;
+                . '<b>' . $thisCat['title'] . '</b>' . "\n"
+                . '</p>' . "\n"
+                . '<blockquote>' . "\n"
+                ;
             // Category content
 
             if ($thisCat['content']) $out .= htmlize($thisCat['content'])."\n";
@@ -602,12 +613,12 @@ elseif ($displayMode == "viewContentList") // default display
             if ($allowedToEditContent)
             {
                 $out .= '<br /><br />' . "\n"
-                .    '<a href="' . htmlspecialchars(Url::Contextualize(  $_SERVER['PHP_SELF']
-                .    '?editContent=' . $thisCat['catId']
-                .    '&amp;uInfo=' . $userIdViewed )) . '">'
-                .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
-                .    '</a>' . "\n"
-                ;
+                    . '<a href="' . htmlspecialchars(Url::Contextualize(  $_SERVER['PHP_SELF']
+                    . '?editContent=' . $thisCat['catId']
+                    . '&uInfo=' . $userIdViewed )) . '">'
+                    . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
+                    . '</a>' . "\n"
+                    ;
             }
 
             $out .= '</blockquote>' . "\n";
@@ -617,14 +628,14 @@ elseif ($displayMode == "viewContentList") // default display
 
 // Back button for each display mode (bottom)
 $out .= '<p>' . "\n"
-.    '<small>' . "\n"
-.    '<a href="'. htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') )) . '">'
-.    '&lt;&lt;&nbsp;'
-.    get_lang('Back to user list')
-.    '</a>' . "\n"
-.    '</small>' . "\n"
-.    '</p>' . "\n"
-;
+    . '<small>' . "\n"
+    . '<a href="'. htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') )) . '">'
+    . '&lt;&lt;&nbsp;'
+    . get_lang('Back to user list')
+    . '</a>' . "\n"
+    . '</small>' . "\n"
+    . '</p>' . "\n"
+    ;
 
 $claroline->display->body->appendContent($out);
 
