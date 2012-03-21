@@ -5,6 +5,7 @@
     <input type="hidden" name="claroFormId" value="<?php echo uniqid( '' ) ?>" />
     <input type="hidden" name="cmd" value="<?php echo $this->nextCommand ?>" />
     <input type="hidden" name="forumId" value="<?php echo $this->forumId ?>" />
+    <?php echo claro_form_relay_context(); ?>
     <label for="forumName"><?php echo get_lang( 'Name' ) ?> : </label><br />
     <input type="text" name="forumName" id="forumName" value="<?php echo $this->forumName ?>" /><br /><br />
     <label for="forumDesc"><?php echo get_lang( 'Description' ) ?> : </label><br />

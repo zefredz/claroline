@@ -5,6 +5,7 @@
     <input type="hidden" name="cmd" value="<?php echo $this->nextCommand ?>" />
     <input type="hidden" name="topic" value="<?php echo $this->topicId ?>" />
     <input type="hidden" name="forum" value="<?php echo $this->forumId ?>" />
+    <?php echo claro_form_relay_context(); ?>
     <label for="title"><strong><?php echo get_lang( 'New topic title' ) ?> : </strong></label><br />
     <input type="text" name="title" id="title" value="<?php echo $this->topicTitle ?>" /><br /><br />
     <input type="submit" value="<?php echo get_lang( 'Ok' ) ?>" />&nbsp;
