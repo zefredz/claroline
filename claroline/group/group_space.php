@@ -18,7 +18,8 @@ $gidNeeded = true;
 $tlabelReq = 'CLGRP';
 
 require '../inc/claro_init_global.inc.php';
-include_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+
+require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
 $toolNameList= claro_get_tool_name_list();
@@ -128,21 +129,17 @@ if( isset($_REQUEST['registration']) )
         else // Confirm reg
         {
             $dialogBox->form( get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
-            .          '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
-            .          claro_form_relay_context()
-            .          '<input type="hidden" name="registration" value="1" />' . "\n"
-            .          '<input type="hidden" name="doReg" value="1" />' . "\n"
-            .          '<br />' . "\n"
-            .          '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
-            .          claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
-            .          '</form>' . "\n"
+                . '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+                . claro_form_relay_context()
+                . '<input type="hidden" name="registration" value="1" />' . "\n"
+                . '<input type="hidden" name="doReg" value="1" />' . "\n"
+                . '<br />' . "\n"
+                . '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
+                . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
+                . '</form>' . "\n"
             );
 
-
-
         }
-
-
 
     }
 }
@@ -183,14 +180,14 @@ if( isset($_REQUEST['unregistration']) )
         else // Confirm reg
         {
             $dialogBox->form( get_lang('Confirm your unsubscription from the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
-            .          '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
-            .          claro_form_relay_context()
-            .          '<input type="hidden" name="unregistration" value="1" />' . "\n"
-            .          '<input type="hidden" name="doUnreg" value="1" />' . "\n"
-            .          '<br />' . "\n"
-            .          '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
-            .          claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
-            .          '</form>' . "\n"
+                . '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+                . claro_form_relay_context()
+                . '<input type="hidden" name="unregistration" value="1" />' . "\n"
+                . '<input type="hidden" name="doUnreg" value="1" />' . "\n"
+                . '<br />' . "\n"
+                . '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
+                . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
+                . '</form>' . "\n"
             );
 
         }
@@ -298,18 +295,19 @@ foreach($toolList as $thisTool)
 
     if ( ! empty($url) )
     {
-        $toolLinkList[] = '<a class="' . trim( $style . ' item' . $classItem ) . '" href="' . htmlspecialchars(Url::Contextualize($url)) . '">'
-        .                 '<img src="' . $icon . '" alt="" />&nbsp;'
-        .                 $toolName
-        .                 '</a>' . "\n"
+        $toolLinkList[] = '<a class="' . trim( $style . ' item' . $classItem ) 
+            . '" href="' . htmlspecialchars(Url::Contextualize($url)) . '">'
+        . '<img src="' . $icon . '" alt="" />&nbsp;'
+        . $toolName
+        . '</a>' . "\n"
         ;
     }
     else
     {
         $toolLinkList[] = '<span ' . trim( $style ) . '>'
-        .                 '<img src="' . $icon . '" alt="" />&nbsp;'
-        .                 $toolName
-        .                 '</span>' . "\n"
+        . '<img src="' . $icon . '" alt="" />&nbsp;'
+        . $toolName
+        . '</span>' . "\n"
         ;
     }
 }
@@ -323,7 +321,8 @@ Claroline::getDisplay()->body->appendContent(
     claro_html_tool_title(
         array(
             'supraTitle'=> get_lang("Groups"),
-            'mainTitle' => claro_get_current_group_data('name') . ' <img src="' . get_icon_url('group') . '" alt="" />'
+            'mainTitle' => claro_get_current_group_data('name') 
+                . ' <img src="' . get_icon_url('group') . '" alt="" />'
         )
     )
 );
