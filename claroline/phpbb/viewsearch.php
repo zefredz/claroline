@@ -106,9 +106,9 @@ $out .= claro_html_tool_title(
     $is_allowedToEdit ? 'help_forum.php' : false);
 
 $out .= claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
-.    disp_forum_breadcrumb($pagetype, null, null, null)
+. disp_forum_breadcrumb($pagetype, null, null, null)
 
-.    '<h4>' . get_lang('Search result') . ' : ' . (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . '</h4>' . "\n";
+. '<h4>' . get_lang('Search result') . ' : ' . (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . '</h4>' . "\n";
 
 if (count($searchResultList) < 1 )
 {
@@ -150,27 +150,27 @@ else foreach ( $searchResultList as $thisPost )
         }
         
         $out .= '<div id="post'. $thisPost['post_id'] .'" class="threadPost">'
-        .    '<div class="threadPostInfo">'
-        .    ( !is_null($pictureUrl) ?'<div class="threadPosterPicture"><img src="' . $pictureUrl . '" alt=" " /></div>':'' ) . "\n"
-        .    '<b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-        .    '<br />'
-        .    '<small>' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
+        . '<div class="threadPostInfo">'
+        . ( !is_null($pictureUrl) ?'<div class="threadPosterPicture"><img src="' . $pictureUrl . '" alt=" " /></div>':'' ) . "\n"
+        . '<b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
+        . '<br />'
+        . '<small>' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
         ;
 
         
         $out .= '  </div>' . "\n"
 
-        .    '<div class="threadPostContent">' . "\n"
-        .    '<img src="' . get_icon_url('topic') . '" alt="" />'
-        .    '<a href="' . htmlspecialchars( Url::Contextualize(get_module_url('CLFRM') . '/viewtopic.php?topic='.$thisPost['topic_id'] )) . '">'
-        .    htmlspecialchars( $thisPost['topic_title'] )
-        .    '</a>' . "\n"
-        .    '<span class="threadPostIcon '.$class.'"><img src="' . get_icon_url( 'post' ) . '" alt="" /></span><br />' . "\n"
-        .    claro_parse_user_text($thisPost['post_text']) . "\n";
+        . '<div class="threadPostContent">' . "\n"
+        . '<img src="' . get_icon_url('topic') . '" alt="" />'
+        . '<a href="' . htmlspecialchars( Url::Contextualize(get_module_url('CLFRM') . '/viewtopic.php?topic='.$thisPost['topic_id'] )) . '">'
+        . htmlspecialchars( $thisPost['topic_title'] )
+        . '</a>' . "\n"
+        . '<span class="threadPostIcon '.$class.'"><img src="' . get_icon_url( 'post' ) . '" alt="" /></span><br />' . "\n"
+        . claro_parse_user_text($thisPost['post_text']) . "\n";
 
         $out .= '</div>' . "\n"
-        .    '<div class="spacer"></div>' . "\n\n"
-        .    '</div>' . "\n"
+        . '<div class="spacer"></div>' . "\n\n"
+        . '</div>' . "\n"
         ;
     } // end else if ( ! is_null($thisPost['group_id'])
 
