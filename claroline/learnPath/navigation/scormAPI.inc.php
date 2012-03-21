@@ -38,9 +38,9 @@ $TABLEASSET              = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS = $tbl_lp_user_module_progress;
 $TABLEUSERS              = $tbl_user;
 
-$SCORMServerURL = get_module_url('CLLNP') . '/navigation/SCORMserver.php';
-$redirectionURL = get_module_url('CLLNP') . '/learningPath.php';
-$TOCurl = get_module_url('CLLNP') . '/navigation/tableOfContent.php';
+$SCORMServerURL = Url::Contextualize(get_module_url('CLLNP') . '/navigation/SCORMserver.php');
+$redirectionURL = Url::Contextualize(get_module_url('CLLNP') . '/learningPath.php');
+$TOCurl = Url::Contextualize(get_module_url('CLLNP') . '/navigation/tableOfContent.php');
 
 /*======================================
        CLAROLINE MAIN
