@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2012 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -44,14 +44,23 @@ $is_allowedToEdit = claro_is_allowed_to_edit();    // as teacher
 
 if ( $is_allowedToEdit )
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php') );
+    ClaroBreadCrumbs::getInstance()->prepend( 
+        get_lang('Learning path'), 
+        Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php') 
+    );
 }
 else
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path'), Url::Contextualize(get_module_url('CLLNP') . '/learningPath.php') );
+    ClaroBreadCrumbs::getInstance()->prepend( 
+        get_lang('Learning path'), 
+        Url::Contextualize(get_module_url('CLLNP') . '/learningPath.php') 
+    );
 }
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Learning path list'), 
+    Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') 
+);
 
 $nameTools = get_lang('Module');
 
@@ -125,7 +134,8 @@ $sql = "SELECT `specificComment`
 
 $learnpath_module = claro_sql_query_get_single_row($sql);
 
-if( empty($learnpath_module['specificComment']) || $learnpath_module['specificComment'] == get_block('blockDefaultModuleAddedComment') )
+if( empty($learnpath_module['specificComment']) 
+    || $learnpath_module['specificComment'] == get_block('blockDefaultModuleAddedComment') )
 {
     $noModuleSpecificComment = true;
 }
@@ -161,7 +171,7 @@ if( !$is_allowedToEdit
     && !$noStartAsset
     )
 {
-    header("Location:./navigation/viewer.php");
+    header("Location:".Url::Contextualize("./navigation/viewer.php"));
     exit();
 }
 
@@ -224,14 +234,14 @@ if($module['contentType'] != CTLABEL_ )
 //back button
 if ($is_allowedToEdit)
 {
-    $pathBack = "./learningPathAdmin.php";
+    $pathBack = Url::Contextualize("./learningPathAdmin.php");
 }
 else
 {
-    $pathBack = "./learningPath.php";
+    $pathBack = Url::Contextualize("./learningPath.php");
 }
 
-$out .= '<small><a href="'.$pathBack.'"><< '.get_lang('Back to list').'</a></small><br /><br />'."\n\n";
+$out .= '<small><a href="'.htmlspecialchars($pathBack).'"><< '.get_lang('Back to list').'</a></small><br /><br />'."\n\n";
 
 //####################################################################################\\
 //############################ PROGRESS  AND  START LINK #############################\\
@@ -347,11 +357,11 @@ if($module['contentType'] != CTLABEL_) //
     {
 
         $out .= '<center>'."\n"
-        .    '<form action="./navigation/viewer.php" method="post">' . "\n"
+        . '<form action="./navigation/viewer.php" method="post">' . "\n"
             . claro_form_relay_context()
-        .    '<input type="submit" value="' . get_lang('Start Module') . '" />'."\n"
-        .    '</form>' . "\n"
-        .    '</center>' . "\n\n"
+        . '<input type="submit" value="' . get_lang('Start Module') . '" />'."\n"
+        . '</form>' . "\n"
+        . '</center>' . "\n\n"
         ;
     }
     else
@@ -391,5 +401,3 @@ if( $is_allowedToEdit ) // for teacher only
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

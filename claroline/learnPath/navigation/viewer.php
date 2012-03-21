@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version version 1.7
+ * @version version 1.9
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2012 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -36,6 +36,7 @@ if(isset ($_GET['viewModule_id']) && $_GET['viewModule_id'] != '')
 $nameTools = get_lang('Learning path');
 
 if (!isset($titlePage)) $titlePage = '';
+
 if(!empty($nameTools))
 {
     $titlePage .= $nameTools.' - ';
@@ -45,6 +46,7 @@ if(claro_get_current_course_data('officialCode') != '' )
 {
     $titlePage .= claro_get_current_course_data('officialCode') . ' - ';
 }
+
 $titlePage .= get_conf('siteName');
 
 // set charset as claro_header should do but we cannot include it here
@@ -72,9 +74,9 @@ if( $displayFrames )
 {
 ?>
     <frameset border="0" rows="150,*,70" frameborder="no">
-        <frame src="topModule.php" name="headerFrame" />
-        <frame src="startModule.php" name="mainFrame" />
-        <frame src="bottomModule.php" name="bottomFrame" />
+        <frame src="<?php echo htmlspecialchars(Url::Contextualize('topModule.php'));?>" name="headerFrame" />
+        <frame src="<?php echo htmlspecialchars(Url::Contextualize('startModule.php'));?>" name="mainFrame" />
+        <frame src="<?php echo htmlspecialchars(Url::Contextualize('bottomModule.php'));?>" name="bottomFrame" />
     </frameset>
 <?php
 }
@@ -82,7 +84,7 @@ else
 {
 ?>
     <frameset cols="*" border="0">
-        <frame src="startModule.php" name="mainFrame" />
+        <frame src="<?php echo htmlspecialchars(Url::Contextualize('startModule.php'));?>" name="mainFrame" />
     </frameset>
 <?php
 }
@@ -91,7 +93,7 @@ else
         <body>
             <?php echo get_lang('Your browser cannot see frames.') ?>
             <br />
-            <a href="../module.php"><?php echo get_lang('Back') ?></a>
+            <a href="<?php echo htmlspecialchars(Url::Contextualize('../module.php'));?>"><?php echo get_lang('Back') ?></a>
         </body>
     </noframes>
 </html>

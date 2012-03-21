@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2012 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -24,7 +24,9 @@ $msgList = array();
 
 // main page
 $is_allowedToEdit = claro_is_allowed_to_edit();
+
 if (! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+
 if (! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php') );
@@ -70,6 +72,7 @@ $out .= claro_html_tool_title($nameTools);
 
 $sql = "SELECT `id`, `title`
         FROM `".$tbl_quiz_exercise."`";
+
 $exerciseList = claro_sql_query_fetch_all($sql);
 
 // for each exercise checked, try to add it to the learning path.
@@ -175,7 +178,7 @@ $out .= display_my_exercises($dialogBox);
 
 //STEP TWO : display learning path content
 $out .= claro_html_tool_title(get_lang('Learning path content'));
-$out .= '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
+$out .= '<a href="'.htmlspecialchars(Url::Contextualize('learningPathAdmin.php')).'">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
 
 // display list of modules used by this learning path
 $out .= display_path_content();
@@ -183,5 +186,3 @@ $out .= display_path_content();
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

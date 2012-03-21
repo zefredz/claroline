@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2012 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -23,7 +23,10 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Learning path list'), 
+    Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') 
+);
 
 $nameTools = get_lang('Learning path');
 
@@ -46,7 +49,7 @@ if ( isset($_GET['path_id']) && $_GET['path_id'] > 0)
 elseif( (!isset($_SESSION['path_id']) || $_SESSION['path_id'] == "") )
 {
     // if path id not set, redirect user to the home page of learning path
-    claro_redirect( get_module_url('CLLNP') . '/learningPathList.php');
+    claro_redirect( Url::Contextualize( get_module_url('CLLNP') . '/learningPathList.php' ) );
     exit();
 }
 
@@ -59,7 +62,7 @@ if ( claro_is_allowed_to_edit() )
     // if the fct return true it means that user is a course manager and than view mode is set to COURSE_ADMIN
     $pathId = (int) $_SESSION['path_id'];
 
-    claro_redirect( get_module_url('CLLNP') . '/learningPathAdmin.php?path_id=' . $pathId );
+    claro_redirect( Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php?path_id=' . $pathId ) );
     exit();
 }
 
@@ -228,7 +231,7 @@ foreach ($flatElementList as $module)
             $moduleImg = get_icon_url( choose_image(basename($module['path'])) );
 
         $contentType_alt = selectAlt($module['contentType']);
-        $out .= '<a href="module.php?module_id='.$module['module_id'].'">'
+        $out .= '<a href="'.htmlspecialchars(Url::Contextualize('module.php?module_id='.$module['module_id'])).'">'
             .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.'" border="0" />'
             .htmlspecialchars( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ) ).'</a>'."\n";
         // a module ALLOW access to the following modules if
@@ -326,5 +329,3 @@ $out .= '</table>'."\n\n";
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

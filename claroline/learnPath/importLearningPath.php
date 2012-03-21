@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2012 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -34,10 +34,16 @@ $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
+
 if (! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
+
 if (! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Learning path list'), 
+    Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') 
+);
+
 $nameTools = get_lang('Import a learning path');
 
 $out = '';
@@ -611,6 +617,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         $manifestData['scos'] = array();  // for path of start asset id of each new module to create
 
         $xml_parser = xml_parser_create();
+        
         xml_set_element_handler($xml_parser, "startElement", "endElement");
         xml_set_character_data_handler($xml_parser, "elementData");
 
@@ -1131,5 +1138,3 @@ else // if method == 'post'
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

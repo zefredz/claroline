@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2012 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -114,9 +114,9 @@ $out .= '<p><b>'.wordwrap($lpName,$moduleNameLength,' ',1).'</b></p>'."\n"
     . '<p>'."\n"
     . '<small>'
     . get_lang('View').' : '
-    . '<a href="viewer.php?frames=0" target="_top">'.get_lang('Fullscreen').'</a>'
+    . '<a href="'.htmlspecialchars(Url::Contextualize('viewer.php?frames=0')).'" target="_top">'.get_lang('Fullscreen').'</a>'
     . ' | '
-    . '<a href="viewer.php?frames=1" target="_top">'.get_lang('In frames').'</a>'
+    . '<a href="'.htmlspecialchars(Url::Contextualize('viewer.php?frames=1')).'" target="_top">'.get_lang('In frames').'</a>'
     . '</small>'."\n"
     . '</p>'."\n\n"
     . '<table width="100%">'."\n\n"
@@ -297,7 +297,7 @@ if ( $moduleNb > 1 )
 
     if( $previousModule != '' )
     {
-        $prevNextString .= '<a href="startModule.php?viewModule_id='.$previousModule.'" target="mainFrame">'.get_lang('Previous').'</a>';
+        $prevNextString .= '<a href="'.htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$previousModule)).'" target="mainFrame">'.get_lang('Previous').'</a>';
     }
     else
     {
@@ -307,7 +307,7 @@ if ( $moduleNb > 1 )
 
     if( $nextModule != '' )
     {
-        $prevNextString .=  '<a href="startModule.php?viewModule_id='.$nextModule.'" target="mainFrame">'.get_lang('Next').'</a>';
+        $prevNextString .=  '<a href="'.htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$nextModule)).'" target="mainFrame">'.get_lang('Next').'</a>';
     }
     else
     {
@@ -324,7 +324,8 @@ if ( claro_is_allowed_to_edit() && (!isset($_SESSION['asStudent']) || $_SESSION[
 else
     $returl = '../learningPath.php';
 
-$out .= '<form action="'. $returl .'" method="post" target="_top">
+$out .= '<form action="'. htmlspecialchars($returl) .'" method="post" target="_top">
+'.  claro_form_relay_context().'
 <input type="submit" value="' . get_lang('Back to list') .'" />
 </form>
 
@@ -337,5 +338,3 @@ $claroline->setDisplayType(Claroline::FRAME);
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

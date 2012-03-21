@@ -3,9 +3,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2012 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -304,13 +304,13 @@ if ( !class_exists('ScormExport') )
 
                 $pageBody .=
                     '<tr class="headerX">' . "\n"
-                .    '<th>'.get_lang('Question').' '.$questionCount.'</th>' . "\n"
-                .    '</tr>' . "\n";
+                . '<th>'.get_lang('Question').' '.$questionCount.'</th>' . "\n"
+                . '</tr>' . "\n";
 
                 $pageBody .=
                     '<tr>' . "\n" . '<td>' . "\n"
-                .    $scormQuestion->export() . "\n"
-                .    '</td>' . "\n" . '</tr>' . "\n";
+                . $scormQuestion->export() . "\n"
+                . '</td>' . "\n" . '</tr>' . "\n";
 /*
                 if( !empty($scormQuestion->getAttachment()) )
                 {

@@ -2,9 +2,9 @@
 /**
  * CLAROLINE 
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2012 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -25,16 +25,17 @@
 
 require '../../inc/claro_init_global.inc.php';
 
-$interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=> Url::Contextualize("../learningPathList.php"), "name"=> get_lang('Learning path list'));
+
 if ( claro_is_allowed_to_edit() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
 {
-       $interbredcrump[]= array ("url"=>"../learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
+       $interbredcrump[]= array ("url"=>Url::Contextualize("../learningPathAdmin.php"), "name"=> get_lang('Learning path admin'));
 }
 else
 {
-       $interbredcrump[]= array ("url"=>"../learningPath.php", "name"=> get_lang('Learning path'));
+       $interbredcrump[]= array ("url"=>Url::Contextualize("../learningPath.php"), "name"=> get_lang('Learning path'));
 }
-$interbredcrump[]= array ("url"=>"../module.php", "name"=> get_lang('Module'));
+$interbredcrump[]= array ("url"=>Url::Contextualize("../module.php"), "name"=> get_lang('Module'));
 //$htmlHeadXtra[] = "<script src=\"APIAdapter.js\" type=\"text/javascript\" language=\"JavaScript\">";
 //header
 $hide_body = true;
@@ -46,4 +47,3 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 // footer
 $hide_footer = true;
 include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-?>

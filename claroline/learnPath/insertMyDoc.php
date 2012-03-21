@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2012 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -25,12 +25,20 @@ require '../inc/claro_init_global.inc.php';
 // when leaving a course all the LP sessions infos are cleared so we use this trick to avoid other errors
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
 if ( ! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php') );
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Learning path'), 
+    Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php') 
+);
+
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Learning path list'), 
+    Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') 
+);
 
 $nameTools = get_lang('Add a document');
 
@@ -64,14 +72,13 @@ $moduleWorkDir = get_path('coursesRepositorySys').$moduleDir;
 
 //lib of this tool
 require_once(get_path('incRepositorySys') . "/lib/learnPath.lib.inc.php");
-
 require_once(get_path('incRepositorySys') . "/lib/fileDisplay.lib.php");
 require_once(get_path('incRepositorySys') . "/lib/fileManage.lib.php");
 
 // $_SESSION
 if ( !isset($_SESSION['path_id']) )
 {
-      claro_redirect("./learningPath.php");
+      claro_redirect(Url::Contextualize("./learningPath.php"));
 }
 
 /*======================================
@@ -460,7 +467,7 @@ $out .= display_my_documents($dialogBox) ;
 //####################################################################################\\
 
 $out .= claro_html_tool_title(get_lang('Learning path content'));
-$out .= '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
+$out .= '<a href="'.htmlspecialchars(Url::Contextualize('learningPathAdmin.php')).'">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
 
 // display list of modules used by this learning path
 $out .= display_path_content();
@@ -468,5 +475,3 @@ $out .= display_path_content();
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

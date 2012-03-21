@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8
+ * @version 1.9
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2012 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -36,6 +36,7 @@
 
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
+
 $cmdMenu = array();
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
@@ -83,7 +84,7 @@ $htmlHeadXtra[] =
 '<script type="text/javascript">
           function scormConfirmation (name)
           {
-              if (confirm("'. clean_str_for_javascript(get_block('blockConfirmDeleteScorm')) .  '\n" + name ))
+              if (confirm("'. clean_str_for_javascript(get_block('blockConfirmDeleteScorm')) . '\n" + name ))
                   {return true;}
               else
                   {return false;}
@@ -426,10 +427,10 @@ if (isset($sortDirection) && $sortDirection)
     }
 }
 // DISPLAY
-$cmdMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] .'?cmd=create'. claro_url_relay_context('&amp;'),get_lang('Create a new learning path'));
-$cmdMenu[] = claro_html_cmd_link('importLearningPath.php' . claro_url_relay_context('?'),get_lang('Import a learning path'));
-$cmdMenu[] = claro_html_cmd_link('modules_pool.php' . claro_url_relay_context('?'),      get_lang('Pool of modules'));
-$cmdMenu[] = claro_html_cmd_link( get_path('clarolineRepositoryWeb') . 'tracking/learnPath_detailsAllPath.php'. claro_url_relay_context('?'),get_lang('Learning paths tracking'));
+$cmdMenu[] = claro_html_cmd_link(Url::Contextualize($_SERVER['PHP_SELF'] .'?cmd=create'),get_lang('Create a new learning path'));
+$cmdMenu[] = claro_html_cmd_link(Url::Contextualize('importLearningPath.php'),get_lang('Import a learning path'));
+$cmdMenu[] = claro_html_cmd_link(Url::Contextualize('modules_pool.php'),get_lang('Pool of modules'));
+$cmdMenu[] = claro_html_cmd_link(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'tracking/learnPath_detailsAllPath.php'),get_lang('Learning paths tracking'));
 
 $out = '';
 
@@ -441,8 +442,8 @@ if($is_allowedToEdit)
 {
     // Display links to create and import a learning path
     $out .= '<p>'
-    .    claro_html_menu_horizontal($cmdMenu)
-    .    '</p>'
+    . claro_html_menu_horizontal($cmdMenu)
+    . '</p>'
     ;
 }
 
@@ -578,8 +579,8 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
     if ( !$is_blocked )
     {
-        $out .= "<td align=\"left\"><a class=\"item".$classItem."\" href=\"learningPath.php?path_id="
-        .$list['learnPath_id']."\"><img src=\"" . get_icon_url('learnpath') . "\" alt=\"\"
+        $out .= "<td align=\"left\"><a class=\"item".$classItem."\" href=\"".htmlspecialchars(Url::Contextualize('learningPath.php?path_id='
+        .$list['learnPath_id'] ) )."\"><img src=\"" . get_icon_url('learnpath') . "\" alt=\"\"
              />  ".htmlspecialchars($list['name'])."</a></td>";
 
         /*
@@ -738,9 +739,9 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         $display_comment = true;
         
         $out .= '<td align="left"><span class="item'.$classItem.'">'
-        .    '<img src="' . get_icon_url('learnpath') . '" alt="" />  '
-        .    $list['name']
-        .    '</td>' . "\n"
+        . '<img src="' . get_icon_url('learnpath') . '" alt="" />  '
+        . $list['name']
+        . '</td>' . "\n"
         ;
     }
 
@@ -752,10 +753,10 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         // Modify command / go to other page
         $out .= '<td>' . "\n"
-        .    '<a href="learningPathAdmin.php?path_id=' . $list['learnPath_id'] . '">' . "\n"
-        .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />' . "\n"
-        .    '</a>'
-        .    '</td>' . "\n"
+        . '<a href="'.htmlspecialchars(Url::Contextualize('learningPathAdmin.php?path_id=' . $list['learnPath_id'])) . '">' . "\n"
+        . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />' . "\n"
+        . '</a>'
+        . '</td>' . "\n"
         ;
 
         // DELETE link
@@ -766,22 +767,22 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if (is_dir($real))
         {
             $out .= '<td>' . "\n"
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=delete&amp;del_path_id=' . $list['learnPath_id'] . '" '
-            .    ' onclick="return scormConfirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
-            .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
-            .    '</a>' . "\n"
-            .    '</td>' . "\n"
+            . '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=delete&del_path_id=' . $list['learnPath_id'] ) ) . '" '
+            . ' onclick="return scormConfirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
+            . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
+            . '</a>' . "\n"
+            . '</td>' . "\n"
             ;
 
         }
         else
         {
             $out .= '<td>' . "\n"
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=delete&amp;del_path_id=' . $list['learnPath_id'] . '" '
-            .    'onclick="return confirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
-            .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
-            .    '</a>' . "\n"
-            .    '</td>' . "\n"
+            . '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=delete&del_path_id=' . $list['learnPath_id'] ) ) . '" '
+            . 'onclick="return confirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
+            . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
+            . '</a>' . "\n"
+            . '</td>' . "\n"
             ;
         }
 
@@ -792,33 +793,33 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if ( $list['lock'] == 'OPEN')
         {
 
-            $out .= '<a href="' . $_SERVER['PHP_SELF']
-            .    '?cmd=mkBlock'
-            .    '&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_icon_url('unblock') . '" '
-            .    'alt="' . get_lang('Block') . '" />'. "\n"
-            .    '</a>' . "\n"
+            $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            . '?cmd=mkBlock'
+            . '&cmdid=' . $list['learnPath_id'])). '">' . "\n"
+            . '<img src="' . get_icon_url('unblock') . '" '
+            . 'alt="' . get_lang('Block') . '" />'. "\n"
+            . '</a>' . "\n"
             ;
         }
         else
         {
-            $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkUnblock&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_icon_url('block') . '" alt="' . get_lang('Unblock') . '" />' . "\n"
-            .    '</a>' . "\n"
+            $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkUnblock&cmdid=' . $list['learnPath_id'])) . '">' . "\n"
+            . '<img src="' . get_icon_url('block') . '" alt="' . get_lang('Unblock') . '" />' . "\n"
+            . '</a>' . "\n"
             ;
         }
 
         $out .= '</td>' . "\n"
         // VISIBILITY link
-        .    '<td>' .  "\n"
+        . '<td>' . "\n"
         ;
 
         if ( $list['visibility'] == 'HIDE')
         {
 
-            $out .= '<a href="' . $_SERVER['PHP_SELF'] .  '?cmd=mkVisibl&amp;visibility_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Make visible') . '" />' . "\n"
-            .    '</a>' . "\n"
+            $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkVisibl&visibility_path_id=' . $list['learnPath_id'])) . '">' . "\n"
+            . '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Make visible') . '" />' . "\n"
+            . '</a>' . "\n"
             ;
         }
         else
@@ -832,9 +833,9 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
                 $onclick = "";
             }
 
-            $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkInvisibl&amp;visibility_path_id=' . $list['learnPath_id'] . '" ' . $onclick . ' >' . "\n"
-            .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Make invisible') . '" />' . "\n"
-            .    '</a>' . "\n"
+            $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkInvisibl&visibility_path_id=' . $list['learnPath_id'])) . '" ' . $onclick . ' >' . "\n"
+            . '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Make invisible') . '" />' . "\n"
+            . '</a>' . "\n"
             ;
         }
         $out .=  "</td>\n";
@@ -845,10 +846,10 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if ($iterator != 1)
         {
             $out .= '<td>' . "\n"
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveUp&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') . '" />' . "\n"
-            .    '</a>' . "\n"
-            .    '</td>' . "\n"
+            . '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=moveUp&move_path_id=' . $list['learnPath_id'])) . '">' . "\n"
+            . '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') . '" />' . "\n"
+            . '</a>' . "\n"
+            . '</td>' . "\n"
             ;
         }
         else
@@ -860,10 +861,10 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if($iterator < $LPNumber)
         {
             $out .= '<td>' . "\n"
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveDown&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />' . "\n"
-            .    '</a>' . "\n"
-            .    '</td>' . "\n"
+            . '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=moveDown&move_path_id=' . $list['learnPath_id'])) . '">' . "\n"
+            . '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />' . "\n"
+            . '</a>' . "\n"
+            . '</td>' . "\n"
             ;
         }
         else
@@ -873,20 +874,20 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         // EXPORT links
         $out .= '<td>' . "\n"
-        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=export&amp;path_id=' . $list['learnPath_id'] . '" >'
-        .    '<img src="' . get_icon_url('export') . '" alt="' . get_lang('Export') . '" />'
-        .    '</a>' . "\n"
-        .    '</td>' . "\n"
+        . '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=export&path_id=' . $list['learnPath_id'])) . '" >'
+        . '<img src="' . get_icon_url('export') . '" alt="' . get_lang('Export') . '" />'
+        . '</a>' . "\n"
+        . '</td>' . "\n"
         ;
 
         if( get_conf('is_trackingEnabled') )
         {
             // statistics links
             $out .= '<td>' . "\n"
-            .    '<a href="' . get_path('clarolineRepositoryWeb') . 'tracking/learnPath_details.php?path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_icon_url('statistics') . '" alt="' . get_lang('Tracking') . '" />'
-            .    '</a>' . "\n"
-            .    '</td>'. "\n"
+            . '<a href="' . htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'tracking/learnPath_details.php?path_id=' . $list['learnPath_id'])) . '">' . "\n"
+            . '<img src="' . get_icon_url('statistics') . '" alt="' . get_lang('Tracking') . '" />'
+            . '</a>' . "\n"
+            . '</td>'. "\n"
             ;
         }
     }
@@ -900,11 +901,11 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             $globalprog += $prog;
         }
         $out .= '<td align="right">'
-        .    claro_html_progress_bar($prog, 1)
-        .    '</td>' . "\n"
-        .    '<td align="left">'
-        .    '<small>' . $prog . '% </small>'
-        .    '</td>'
+        . claro_html_progress_bar($prog, 1)
+        . '</td>' . "\n"
+        . '<td align="left">'
+        . '<small>' . $prog . '% </small>'
+        . '</td>'
         ;
     }
     $out .= '</tr>' . "\n";
@@ -912,9 +913,9 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
     if ( $display_comment )
     {
         $out .= '<tr>' . "\n"
-        .   '<td colspan="2"><span class="comment">'
-        .   get_lang( 'You must complete the previous item in order to access to this one' )
-        .   '</span></td></tr>' . "\n";
+        . '<td colspan="2"><span class="comment">'
+        . get_lang( 'You must complete the previous item in order to access to this one' )
+        . '</span></td></tr>' . "\n";
     }
     
     $iterator++;
@@ -922,16 +923,16 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 } // end while
 
 $out .= '</tbody>' . "\n"
-.    '<tfoot>'
+. '<tfoot>'
 ;
 
 if( $iterator == 1 )
 {
     $out .= '<tr>' . "\n"
-    .    '<td align="center" colspan="8">' . "\n"
-    .    get_lang('No learning path')
-    .    '</td>' . "\n"
-    .    '</tr>'
+    . '<td align="center" colspan="8">' . "\n"
+    . get_lang('No learning path')
+    . '</td>' . "\n"
+    . '</tr>'
     ;
 }
 elseif (!claro_is_allowed_to_edit() && $iterator != 1 && $lpUid)
@@ -939,32 +940,30 @@ elseif (!claro_is_allowed_to_edit() && $iterator != 1 && $lpUid)
     // add a blank line between module progression and global progression
     $total = round($globalprog/($iterator-1));
     $out .= '<tr>' . "\n"
-    .    '<td colspan="3">' . "\n"
-    .    '&nbsp;' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td align ="right">' . "\n"
-    .    get_lang('Course progression') . "\n"
-    .    ' :' . "\n"
-    .    '</td>' . "\n"
-    .    '<td align="right" >' . "\n"
-    .    claro_html_progress_bar($total, 1)
-    .    '</td>' . "\n"
-    .    '<td align="left">' . "\n"
-    .    '<small>'
-    .    $total . '%' . "\n"
-    .    '</small>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
+    . '<td colspan="3">' . "\n"
+    . '&nbsp;' . "\n"
+    . '</td>' . "\n"
+    . '</tr>' . "\n"
+    . '<tr>' . "\n"
+    . '<td align ="right">' . "\n"
+    . get_lang('Course progression') . "\n"
+    . ' :' . "\n"
+    . '</td>' . "\n"
+    . '<td align="right" >' . "\n"
+    . claro_html_progress_bar($total, 1)
+    . '</td>' . "\n"
+    . '<td align="left">' . "\n"
+    . '<small>'
+    . $total . '%' . "\n"
+    . '</small>' . "\n"
+    . '</td>' . "\n"
+    . '</tr>' . "\n"
     ;
 }
 $out .= '</tfoot>' . "\n"
-.    '</table>' . "\n"
+. '</table>' . "\n"
 ;
 
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>
