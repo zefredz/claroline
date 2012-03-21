@@ -579,6 +579,7 @@ function claro_get_file_download_url( $file, $context = null )
  * @param   string $string
  * @param   string $strict (optional) removes also scores and simple quotes
  * @return  string : the string cleaned of dangerous character
+ * @since   Claroline 1.9-rev14084 $strict is ignored !
  * @todo    function broken !
  */
 function replace_dangerous_char($string, $strict = 'loose')
@@ -610,13 +611,15 @@ function replace_dangerous_char($string, $strict = 'loose')
     }
     
     // TODO FIXME is this valid in all charsets ???
-    if ($strict == 'strict')
+    // if ($strict == 'strict')
     {
         $string = str_replace('-', '_', $string);
         $string = str_replace("'", '', $string);
-        /*$string = strtr($string,
-                        'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
-                        'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');*/
+        $string = preg_replace( 
+            '~&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', 
+            '$1', 
+            htmlentities( claro_utf8_encode( $string ) , ENT_QUOTES , 'UTF-8' ) 
+        );
     }
 
     return $string;
