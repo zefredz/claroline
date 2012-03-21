@@ -597,6 +597,9 @@ function claro_get_file_download_url( $file, $context = null, $moduleLabel = nul
  */
 function replace_dangerous_char($string, $strict = 'loose')
 {
+    // workaround for mac os x
+    $string = preg_replace('/&#\d+;/', '_', $string );
+    
     $search[] = ' ';  $replace[] = '_';
     $search[] = '/';  $replace[] = '-';
     $search[] = '\\'; $replace[] = '-';
@@ -620,26 +623,20 @@ function replace_dangerous_char($string, $strict = 'loose')
         $string = str_replace($char, $replace[$key], $string);
     }
     
-    /*if ($strict == 'strict')
-    {*/
-        if ( function_exists('iconv') )
-        {
-            $string = iconv(get_conf('charset'), "US-ASCII//TRANSLIT", $string);
-        }
-        else
-        {
-            // you are screwed !
-            /*
-             $string = strtr($string,
-                        '�����������������������������������������������������',
-                        'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
-             */
-        }
-        
-        $string = str_replace('-', '_', $string);
-        $string = str_replace("'", '', $string);
+    /* if ( function_exists('iconv') )
+    {
+        $string = iconv(get_conf('charset'), "US-ASCII//TRANSLIT", $string);
+    }
+    else */
+    {
+        $string = preg_replace( 
+            '~&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', 
+            '$1', 
+            htmlentities( claro_utf8_encode( $string ) , ENT_QUOTES , 'UTF-8' ) 
+        );
+    }
 
-    /*}*/
+    $string = str_replace("'", '', $string);
     
     return $string;
 }
