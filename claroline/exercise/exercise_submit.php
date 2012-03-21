@@ -105,8 +105,14 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
         // load successfull
         // exercise must be visible or in learning path to be displayed to a student
         if( 
-            $exercise->getVisibility() != 'VISIBLE' && !$is_allowedToEdit 
-            && !( $inOldLP ||  $inLP ) )
+            $exercise->getVisibility() == 'VISIBLE' 
+            || $is_allowedToEdit 
+            || ( $inOldLP ||  $inLP ) )
+        {
+            $_SESSION['serializedExercise'] = serialize($exercise);
+            $resetQuestionList = true;
+        }
+        else
         {
             $dialogBox->error( get_lang( 'The exercise is not available' ) );
         
@@ -117,11 +123,6 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
             echo $claroline->display->render();
             //header("Location: ./exercise.php");
             exit();
-        }
-        else
-        {
-            $_SESSION['serializedExercise'] = serialize($exercise);
-            $resetQuestionList = true;
         }
     }
 }
