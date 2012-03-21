@@ -4,9 +4,9 @@
  *
  * Script view topic for forum tool
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2012 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -161,8 +161,9 @@ $pagetype  = 'reply';
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-$out .= claro_html_tool_title(get_lang('Forums'),
-                      $is_allowedToEdit ? 'help_forum.php' : false);
+$out .= claro_html_tool_title(
+    get_lang('Forums'),
+    $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( !$allowed )
 {
@@ -191,7 +192,8 @@ else
         $out .= '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
             . claro_form_relay_context()
             . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
-            . '<input type="hidden" name="topic" value="' . $topic_id . '" />' . "\n";
+            . '<input type="hidden" name="topic" value="' . $topic_id . '" />' . "\n"
+            ;
 
         $out .= '<table border="0" width="100%">' . "\n"
             . '<tr valign="top">' . "\n"
@@ -207,11 +209,13 @@ else
             . '</td>'
             . '</tr>'
             . '</table>'
-            . '</form>' ;
+            . '</form>' 
+            ;
 
         $out .= '<p style="text-align: center;"><a href="'
             . htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topic_id . '&forum=' . $forum_id ))
-            . '" target="_blank">' . get_lang('Topic review') . '</a></p>';
+            . '" target="_blank">' . get_lang('Topic review') . '</a></p>'
+            ;
 
     } // end else if submit
 }
@@ -219,4 +223,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-?>

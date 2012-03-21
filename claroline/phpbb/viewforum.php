@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright 2001-2010 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2012 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -27,6 +27,7 @@ $toolList= array();
 require '../inc/claro_init_global.inc.php';
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+
 $currentContext = ( claro_is_in_a_group() ) ? CLARO_CONTEXT_GROUP : CLARO_CONTEXT_COURSE;
 
 claro_set_display_mode_available(true);
@@ -157,7 +158,7 @@ else
         {
             $notification_url = Url::Contextualize(
                 $_SERVER['PHP_SELF']
-                . '?forum=' . $forum_id . '&amp;cmd=exdoNotNotify'
+                . '?forum=' . $forum_id . '&cmd=exdoNotNotify'
             );
             
             $notification_bloc .= '<img src="' . get_icon_url('mail_close') . '" alt="" style="vertical-align: text-bottom" />';
@@ -170,7 +171,7 @@ else
         {
             $notification_url = Url::Contextualize(
                 $_SERVER['PHP_SELF']
-                . '?forum=' . $forum_id . '&amp;cmd=exNotify'
+                . '?forum=' . $forum_id . '&cmd=exNotify'
             );
             
             $notification_bloc .= '<a href="' . htmlspecialchars($notification_url). '">';
@@ -201,10 +202,11 @@ else
     if( claro_is_allowed_to_edit() )
     {
         $out .= '<div style="float: right;">' . "\n"
-        .   '<img src="' . get_icon_url('html') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&forum=' . $forum_id )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
-        .   '<img src="'. get_icon_url('mime/pdf') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=PDF&forum=' . $forum_id ) ) . '" target="_blank">' . get_lang( 'Export to PDF' ) .'</a>' . "\n"
-        .   '</div>' . "\n"
-        ;
+            . '<img src="' . get_icon_url('html') . '" alt="" /> '
+            . '<a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&forum=' . $forum_id )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
+            . '<img src="'. get_icon_url('mime/pdf') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=PDF&forum=' . $forum_id ) ) . '" target="_blank">' . get_lang( 'Export to PDF' ) .'</a>' . "\n"
+            . '</div>' . "\n"
+            ;
     }
 
     $out .= disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
@@ -238,18 +240,19 @@ else
         .'  <th width="20%" align="center">&nbsp;' . get_lang('Author') . '</th>' . "\n"
         .'  <th width="8%"  align="center">' . get_lang('Seen') . '</th>'       . "\n"
         .'  <th width="15%" align="center">' . get_lang('Last message') . '</th>'    . "\n"
-        .' </tr>' . "\n";
+        .' </tr>' . "\n"
+        ;
 
     $topics_start = $start;
 
     if ( count($topicList) == 0 )
     {
         $out .= '<tr>' . "\n"
-        .    '<td colspan="5" align="center">'
-        .    get_lang('There are no topics for this forum. You can post one')
-        .    '</td>'. "\n"
-        .    '</tr>' . "\n"
-        ;
+            . '<td colspan="5" align="center">'
+            . get_lang('There are no topics for this forum. You can post one')
+            . '</td>'. "\n"
+            . '</tr>' . "\n"
+            ;
     }
     else
     {
@@ -279,27 +282,28 @@ else
             }
 
             $out .= '<td>'
-            .    '<span class="'.$class.'">'
-            .    '<img src="' . get_icon_url('topic') . '" alt="" />'
+            . '<span class="'.$class.'">'
+            . '<img src="' . get_icon_url('topic') . '" alt="" />'
             ;
 
             $topic_title = $thisTopic['topic_title'];
-            $topic_link  = htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic='.$thisTopic['topic_id']
-                        .  (is_null($forumSettingList['idGroup']) ?
-                           '' : '&amp;gidReq ='.$forumSettingList['idGroup']) ));
+            $topic_link  = Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic='.$thisTopic['topic_id']
+                        . (is_null($forumSettingList['idGroup']) ?
+                           '' : '&gidReq ='.$forumSettingList['idGroup']) );
 
             $out .= '&nbsp;'
-            .    '<a href="' . $topic_link . '">' . $topic_title . '</a>'
-            .    '</span>'
-            .    '&nbsp;&nbsp;'
-            ;
+                . '<a href="' . htmlspecialchars($topic_link) . '">' . $topic_title . '</a>'
+                . '</span>'
+                . '&nbsp;&nbsp;'
+                ;
 
             $out .= disp_mini_pager($topic_link, 'start', $replys, get_conf('posts_per_page') );
 
             $out .= '</td>' . "\n"
                 .'<td align="center"><small>' . $replys . '</small></td>' . "\n"
                 .'<td align="center"><small>' . $thisTopic['prenom'] . ' ' . $thisTopic['nom'] . '</small></td>' . "\n"
-                .'<td align="center"><small>' . $thisTopic['topic_views'] . '</small></td>' . "\n";
+                .'<td align="center"><small>' . $thisTopic['topic_views'] . '</small></td>' . "\n"
+                ;
 
             if ( !empty($last_post) )
             {
@@ -326,5 +330,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

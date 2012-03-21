@@ -4,9 +4,9 @@
  *
  * Script for forum tool
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2012 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -207,63 +207,62 @@ else
         }
 
         $out .= disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $subject)
-        .    claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, $topic_id, 0))
-
-        .    '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post" >' . "\n"
-        .    claro_form_relay_context()
-        .    '<input type="hidden" name="post_id" value="' . $post_id . '" />' . "\n"
-        .    '<table border="0" width="100%" >' . "\n"
-        ;
+            . claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, $topic_id, 0))
+            . '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post" >' . "\n"
+            . claro_form_relay_context()
+            . '<input type="hidden" name="post_id" value="' . $post_id . '" />' . "\n"
+            . '<table border="0" width="100%" >' . "\n"
+            ;
 
         if ( $first_post )
         {
             $out .= '<tr valign="top">' . "\n"
-            .    '<td align="right">' . "\n"
-            .    '<label for="subject">' . get_lang('Subject') . '</label> : '
-            .    '</td>' . "\n"
-            .    '<td>' . "\n"
-            .    '<input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" />'
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n"
-            ;
+                . '<td align="right">' . "\n"
+                . '<label for="subject">' . get_lang('Subject') . '</label> : '
+                . '</td>' . "\n"
+                . '<td>' . "\n"
+                . '<input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" />'
+                . '</td>' . "\n"
+                . '</tr>' . "\n"
+                ;
         }
 
         $out .= '<tr valign="top">' . "\n"
-        .    '<td align="right">' . "\n"
-        .    '<br />' . get_lang('Message body') . ' : ' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    claro_html_textarea_editor('message', $message)
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
+            . '<td align="right">' . "\n"
+            . '<br />' . get_lang('Message body') . ' : ' . "\n"
+            . '</td>' . "\n"
+            . '<td>' . "\n"
+            . claro_html_textarea_editor('message', $message)
+            . '</td>' . "\n"
+            . '</tr>' . "\n"
 
-        .    '<tr valign="top">' . "\n"
-        .    '<td align="right">' . "\n"
-        .    '<label for="delete" >' . get_lang('Delete') . '</label>' . "\n"
-        .    ' : ' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    '<input type="checkbox" name="delete" id="delete" />' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
+            . '<tr valign="top">' . "\n"
+            . '<td align="right">' . "\n"
+            . '<label for="delete" >' . get_lang('Delete') . '</label>' . "\n"
+            . ' : ' . "\n"
+            . '</td>' . "\n"
+            . '<td>' . "\n"
+            . '<input type="checkbox" name="delete" id="delete" />' . "\n"
+            . '</td>' . "\n"
+            . '</tr>' . "\n"
 
-        .    '<tr>'
-        .    '<td>&nbsp;</td>' ."\n"
-        .    '<td>'
-        .    '<input type="submit" name="submit" value="' . get_lang('Ok') . '" />&nbsp; '
-        .    '<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />'
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '</table>'. "\n"
-        .    '</form>' . "\n"
-        .    '<br />' . "\n"
-        .    '<center>'
-        .    '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') .'/viewtopic.php?topic=' . $topic_id )) . '" target="_blank">'
-        .    get_lang('Topic review')
-        .    '</a>'
-        .    '</center>'
-        .    '<br />' . "\n"
-        ;
+            . '<tr>'
+            . '<td>&nbsp;</td>' ."\n"
+            . '<td>'
+            . '<input type="submit" name="submit" value="' . get_lang('Ok') . '" />&nbsp; '
+            . '<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />'
+            . '</td>' . "\n"
+            . '</tr>' . "\n"
+            . '</table>'. "\n"
+            . '</form>' . "\n"
+            . '<br />' . "\n"
+            . '<center>'
+            . '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') .'/viewtopic.php?topic=' . $topic_id )) . '" target="_blank">'
+            . get_lang('Topic review')
+            . '</a>'
+            . '</center>'
+            . '<br />' . "\n"
+            ;
 
     } // end // else if ! isset submit
 
@@ -272,5 +271,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

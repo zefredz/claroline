@@ -54,16 +54,18 @@ if ( $cmd == 'rqMkCat' )
     else                               $catName = '';
 
     $htmlAddCat = '<strong>'.get_lang('Add a category').'</strong>'
-               .  '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
-               .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
-               .  '<input type="hidden" name="cmd" value="exMkCat" />'."\n"
-               .  '<label for="catName">'.get_lang('Name').' : </label><br />'."\n"
-               .  '<input type="text" name="catName" id="catName"'
-               .  ' value="' . $catName . '" /><br /><br />'."\n"
-               .  '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
-               .  claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
-               .  '</form>'
-               .  "\n";
+        . '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+        . '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+        . '<input type="hidden" name="cmd" value="exMkCat" />'."\n"
+        . claro_form_relay_context() . "\n"
+        . '<label for="catName">'.get_lang('Name').' : </label><br />'."\n"
+        . '<input type="text" name="catName" id="catName"'
+        . ' value="' . $catName . '" /><br /><br />'."\n"
+        . '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
+        . claro_html_button(Url::Contextualize($_SERVER['PHP_SELF']), get_lang('Cancel'))
+        . '</form>'
+        . "\n"
+        ;
 
     $dialogBox->form($htmlAddCat);
 }
@@ -107,7 +109,7 @@ if ( $cmd == 'rqMkForum' )
         foreach($formCategoryList as $thisFormCategory)
         {
             $catSelectBox .= '<option  value="'.$thisFormCategory['cat_id'].'">'
-                          .  $thisFormCategory['cat_title']
+                          . $thisFormCategory['cat_title']
                           .'</option>';
         }
 
@@ -126,24 +128,26 @@ if ( $cmd == 'rqMkForum' )
 
 
     $htmlAddForum = '<strong>'.get_lang('Add forum').'</strong>'
-               .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
-               .'<input type="hidden" name="cmd" value="exMkForum" />'."\n"
-               .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
-               .'<label for="forumName">'.get_lang('Name').': </label><br />'."\n"
-               .'<input type="text" name="forumName" id="forumName"'
-               .' value="'.$reqForumName.'" /><br />'."\n"
-               .'<label for="forumDesc">' . get_lang('Description') . ' : </label><br />'."\n"
-               .'<textarea name="forumDesc" id="forumDesc" cols="50" rows="3">'."\n"
-               .$reqForumDesc
-               .'</textarea><br />'."\n"
-               .$catSelectBox."\n"
-               .'<br />'."\n"
-               .'<input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" '.$reqForumPostUnallowedState.' />'."\n"
-               .'<label for="forumPostUnallowed">'.get_lang('Locked').' <small>('.get_lang('No new post allowed').')</small></label><br />'."\n"
-               .'<br />'."\n"
-               .'<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
-               . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
-               .'</form>'."\n\n";
+        .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+        .'<input type="hidden" name="cmd" value="exMkForum" />'."\n"
+        .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+        . claro_form_relay_context() . "\n"
+        .'<label for="forumName">'.get_lang('Name').': </label><br />'."\n"
+        .'<input type="text" name="forumName" id="forumName"'
+        .' value="'.$reqForumName.'" /><br />'."\n"
+        .'<label for="forumDesc">' . get_lang('Description') . ' : </label><br />'."\n"
+        .'<textarea name="forumDesc" id="forumDesc" cols="50" rows="3">'."\n"
+        .$reqForumDesc
+        .'</textarea><br />'."\n"
+        .$catSelectBox."\n"
+        .'<br />'."\n"
+        .'<input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" '.$reqForumPostUnallowedState.' />'."\n"
+        .'<label for="forumPostUnallowed">'.get_lang('Locked').' <small>('.get_lang('No new post allowed').')</small></label><br />'."\n"
+        .'<br />'."\n"
+        .'<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
+        . claro_html_button(Url::Contextualize($_SERVER['PHP_SELF']), get_lang('Cancel'))
+        .'</form>'."\n\n"
+        ;
 
     $dialogBox->form($htmlAddForum);
 }
@@ -175,17 +179,19 @@ if ( $cmd == 'rqEdCat' )
     if ( $categorySettingList )
     {
         $htmlEditCat = '<strong>'.get_lang('Edit category').'</strong>'."\n"
-               .  '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
-               .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
-               .  '<input type="hidden" name="catId" value="'.$categorySettingList['cat_id'].'" />'."\n"
-               .  '<input type="hidden" name="cmd" value="exEdCat" />'."\n"
-               .  '<label for="catName">'.get_lang('Name').' : </label><br />'."\n"
-               .  '<input type="text" name="catName" id="catName"'
-               .  ' value="'.$categorySettingList['cat_title'].'" /><br /><br />'."\n"
-               .  '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
-               .  claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
-               .  '</form>'."\n"
-               .  "\n";
+            . '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+            . '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+            . '<input type="hidden" name="catId" value="'.$categorySettingList['cat_id'].'" />'."\n"
+            . '<input type="hidden" name="cmd" value="exEdCat" />'."\n"
+            . claro_form_relay_context() . "\n"
+            . '<label for="catName">'.get_lang('Name').' : </label><br />'."\n"
+            . '<input type="text" name="catName" id="catName"'
+            . ' value="'.$categorySettingList['cat_title'].'" /><br /><br />'."\n"
+            . '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
+            . claro_html_button(Url::Contextualize($_SERVER['PHP_SELF']), get_lang('Cancel'))
+            . '</form>'."\n"
+            . "\n"
+            ;
 
         $dialogBox->form($htmlEditCat);
     }
@@ -238,7 +244,7 @@ if ( $cmd == 'rqEdForum' )
 
             }
             $catSelectBox .= '<option  value="'.$thisFormCategory['cat_id'].'"'.$selectedState.'>'
-                          .  htmlspecialchars($thisFormCategory['cat_title'])
+                          . htmlspecialchars($thisFormCategory['cat_title'])
                           .'</option>';
         }
 
@@ -261,25 +267,27 @@ if ( $cmd == 'rqEdForum' )
                                     ( $forumSettingList['forum_access'] == 0 ? '  checked="checked" ' : '' );
 
     $htmlEditForum = '<strong>'.get_lang('Edit forum').'</strong>'."\n"
-               .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
-               .'<input type="hidden" name="cmd" value="exEdForum" />'."\n"
-               .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
-               .'<input type="hidden" name="forumId" value="'.$forumSettingList['forum_id'].'" />'."\n"
-               .'<label for="forumName">'.get_lang('Name').': </label><br />'."\n"
-               .'<input type="text" name="forumName" id="forumName"'
-               .' value="'.htmlspecialchars($formForumNameValue).'" /><br />'."\n"
-               .'<label for="forumDesc">' . get_lang('Description') . ' : </label><br />'."\n"
-               .'<textarea name="forumDesc" id="forumDesc" cols="50" rows="3">'."\n"
-               .htmlspecialchars($formForumDescriptionValue)
-               .'</textarea><br />'."\n"
-               .$catSelectBox."\n"
-               .'<br />'."\n"
-               .'<input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" '.$formForumPostUnallowedState.' />'."\n"
-               .'<label for="forumPostUnallowed">'.get_lang('Locked').' <small>('.get_lang('No new post allowed').')</small></label><br />'."\n"
-               .'<br />'."\n"
-               .'<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
-               . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
-               .'</form>'."\n\n";
+        .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+        .'<input type="hidden" name="cmd" value="exEdForum" />'."\n"
+        .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+        .'<input type="hidden" name="forumId" value="'.$forumSettingList['forum_id'].'" />'."\n"
+        . claro_form_relay_context() . "\n"
+        .'<label for="forumName">'.get_lang('Name').': </label><br />'."\n"
+        .'<input type="text" name="forumName" id="forumName"'
+        .' value="'.htmlspecialchars($formForumNameValue).'" /><br />'."\n"
+        .'<label for="forumDesc">' . get_lang('Description') . ' : </label><br />'."\n"
+        .'<textarea name="forumDesc" id="forumDesc" cols="50" rows="3">'."\n"
+        .htmlspecialchars($formForumDescriptionValue)
+        .'</textarea><br />'."\n"
+        .$catSelectBox."\n"
+        .'<br />'."\n"
+        .'<input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" '.$formForumPostUnallowedState.' />'."\n"
+        .'<label for="forumPostUnallowed">'.get_lang('Locked').' <small>('.get_lang('No new post allowed').')</small></label><br />'."\n"
+        .'<br />'."\n"
+        .'<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
+        . claro_html_button(Url::Contextualize($_SERVER['PHP_SELF']), get_lang('Cancel'))
+        .'</form>'."\n\n"
+        ;
 
     $dialogBox->form($htmlEditForum);
 
@@ -359,5 +367,3 @@ if ( $cmd == 'exMvDownForum' )
 {
     move_down_forum($_REQUEST['forumId']);
 }
-
-?>

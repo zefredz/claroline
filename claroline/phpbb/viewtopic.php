@@ -91,7 +91,7 @@ if ($topicSettingList)
         $postLister = new postLister($topic_id, $start, get_conf('posts_per_page'));
         $postList   = $postLister->get_post_list();
         $totalPosts = $postLister->sqlPager->get_total_item_count();
-        $pagerUrl   = htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?topic=' . $topic_id ));
+        $pagerUrl   = Url::Contextualize( $_SERVER['PHP_SELF'] . '?topic=' . $topic_id );
 
         // EMAIL NOTIFICATION COMMANDS
         // Execute notification preference change if the command was called
@@ -170,10 +170,10 @@ else
     if( claro_is_allowed_to_edit() )
     {
         $out .= '<div style="float: right;">' . "\n"
-        .   '<img src=' . get_icon_url('html') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&topic=' . $topic_id )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
-        .   '<img src="'. get_icon_url('mime/pdf') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=PDF&topic=' . $topic_id ) ) . '" target="_blank">' . get_lang( 'Export to PDF' ) .'</a>' . "\n"
-        .   '</div>'
-        ;
+            . '<img src=' . get_icon_url('html') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&topic=' . $topic_id )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
+            . '<img src="'. get_icon_url('mime/pdf') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=PDF&topic=' . $topic_id ) ) . '" target="_blank">' . get_lang( 'Export to PDF' ) .'</a>' . "\n"
+            . '</div>'
+            ;
     }
 
     $out .= disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, 0, $topic_subject);
@@ -186,14 +186,14 @@ else
         {
             $start_last_message = ( ceil($totalPosts / get_conf('posts_per_page')) -1 ) * get_conf('posts_per_page') ;
 
-            $lastMsgUrl = get_module_url('CLFRM')
-            .             '/viewtopic.php?forum=' . $forum_id
-            .             '&amp;topic=' . $topic_id
-            .             '&amp;start=' . $start_last_message
-            .             '#post' . $lastPostId
-            ;
+            $lastMsgUrl = Url::Contextualize(get_module_url('CLFRM')
+                . '/viewtopic.php?forum=' . $forum_id
+                . '&topic=' . $topic_id
+                . '&start=' . $start_last_message
+                . '#post' . $lastPostId)
+                ;
 
-            $toolList[] = claro_html_cmd_link(htmlspecialchars(Url::Contextualize($lastMsgUrl)),get_lang('Last message'));
+            $toolList[] = claro_html_cmd_link(htmlspecialchars($lastMsgUrl),get_lang('Last message'));
         }
 
         $out .= claro_html_menu_horizontal($toolList);
@@ -220,6 +220,7 @@ else
 
     $form->assign( 'date', $date );
     $form->assign( 'is_a_notified_ressource', $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id ) );
+    
     $out .= $form->render();
 
     if ($forum_post_allowed)
@@ -227,14 +228,14 @@ else
         $replyUrl = Url::Contextualize( get_module_url('CLFRM')
             . '/reply.php'
             . '?topic=' . $topic_id
-            . '&amp;forum=' . $forum_id
+            . '&forum=' . $forum_id
         );
 
-        $toolBar[] = claro_html_cmd_link( htmlspecialchars( $replyUrl )
-                                        , '<img src="' . get_icon_url('reply') . '" alt="" />'
-                                        . ' '
-                                        . get_lang('Reply')
-                                        );
+        $toolBar[] = claro_html_cmd_link( 
+            htmlspecialchars( $replyUrl ), 
+            '<img src="' . get_icon_url('reply') . '" alt="" /> ' . get_lang('Reply')
+        );
+        
         $out .= claro_html_menu_horizontal($toolBar);
     }
 
@@ -246,5 +247,3 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

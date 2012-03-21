@@ -3,6 +3,7 @@
 $tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
+
 require_once get_path('incRepositorySys') . '/lib/forum.lib.php';
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
@@ -100,8 +101,9 @@ $noPHP_SELF       = true;
 
 $out = '';
 
-$out .= claro_html_tool_title(get_lang('Forums'),
-                           $is_allowedToEdit ? 'help_forum.php' : false);
+$out .= claro_html_tool_title(
+    get_lang('Forums'),
+    $is_allowedToEdit ? 'help_forum.php' : false);
 
 $out .= claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
 .    disp_forum_breadcrumb($pagetype, null, null, null)
@@ -177,5 +179,3 @@ else foreach ( $searchResultList as $thisPost )
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-?>

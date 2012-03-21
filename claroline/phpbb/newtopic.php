@@ -4,9 +4,9 @@
  *
  * Script for forum tool
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2012 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -167,7 +167,7 @@ elseif ( $forumSettingList )
                     
                     // attached resource
                     $body = $msgContent . "\n"
-                    .   "\n"
+                    . "\n"
                     ;
     
                     require_once dirname(__FILE__) . '/../messaging/lib/message/messagetosend.lib.php';
@@ -233,25 +233,26 @@ else
         }
 
         $out .= disp_forum_breadcrumb($pagetype, $forum_id, $forum_name)
-        .    claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, 0, 0))
+            . claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, 0, 0))
 
 
-        .    '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
-        .    '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
-        .    claro_form_relay_context()
-        .    '<table border="0" width="100%">' . "\n"
-        .    '<tr valign="top">' . "\n"
-        .    '<td align="right"><label for="subject">' . get_lang('Subject') . '</label> : </td>'
-        .    '<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" /></td>'
-        .    '</tr>'
-        .    '<tr  valign="top">' . "\n"
-        .    '<td align="right"><br />' . get_lang('Message body') . ' :</td>';
+            . '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+            . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
+            . claro_form_relay_context()
+            . '<table border="0" width="100%">' . "\n"
+            . '<tr valign="top">' . "\n"
+            . '<td align="right"><label for="subject">' . get_lang('Subject') . '</label> : </td>'
+            . '<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" /></td>'
+            . '</tr>'
+            . '<tr  valign="top">' . "\n"
+            . '<td align="right"><br />' . get_lang('Message body') . ' :</td>'
+            ;
 
         if ( !empty($message) ) $content = $message;
         else                    $content = '';
 
         $out .= '<td>'
-            .claro_html_textarea_editor('message',$content)
+            . claro_html_textarea_editor('message',$content)
             .'</td>'
             . '</tr>'
             . '<tr  valign="top"><td>&nbsp;</td>'
@@ -259,11 +260,11 @@ else
             . '&nbsp;<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />' . "\n"
             . '</td></tr>'
             . '</table>'
-            .'</form>' . "\n";
+            .'</form>' . "\n"
+            ;
     }
 } // end allowed
 
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-?>

@@ -6,7 +6,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2012 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -112,8 +112,7 @@ else
               
           $filename = str_replace(' ', '_', $forumSettingList['forum_name']) . '.zip';
           
-          $path = get_conf( 'rootSys' ) . get_conf( 'tmpPathSys' ) .
-          '/forum_export/';
+          $path = get_conf( 'rootSys' ) . get_conf( 'tmpPathSys' ) . '/forum_export/';
           
           $zipFile = new PclZip( $filename );
           $list = $zipFile->create( $path, PCLZIP_OPT_REMOVE_PATH, $path);
@@ -185,8 +184,7 @@ else
               
           $filename = str_replace(' ', '_', $forumSettingList['forum_name']) . '.zip';
           
-          $path = get_conf( 'rootSys' ) . get_conf( 'tmpPathSys' ) .
-          '/forum_export/';
+          $path = get_conf( 'rootSys' ) . get_conf( 'tmpPathSys' ) . '/forum_export/';
           
           $zipFile = new PclZip( $filename );
           $list = $zipFile->create( $path, PCLZIP_OPT_REMOVE_PATH, $path);
