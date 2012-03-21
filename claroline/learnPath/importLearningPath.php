@@ -3,8 +3,8 @@
 /**
  * CLAROLINE
  *
- * @version     1.8 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Piraux Sebastien <pir@cerdecam.be>
  * @author      Lederer Guillaume <led@cerdecam.be>
@@ -31,10 +31,16 @@ $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
+
 if (! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
+
 if (! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Learning path list'), 
+    Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') 
+);
+
 $nameTools = get_lang('Import a learning path');
 
 $out = '';
@@ -1049,7 +1055,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         }
         else
         {
-            array_push($okMsgs, get_lang('warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.') );
+            array_push($okMsgs, get_lang('warning : Installation cannot find the name of the learning path and has set a default name. You should change it.') );
         }
 
         if ( isset($manifestData['packageDesc']) )
@@ -1059,7 +1065,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         else
         {
             $lpComment = get_block('blockDefaultLearningPathComment');
-            array_push($okMsgs, get_lang('warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it') );
+            array_push($okMsgs, get_lang('warning : Installation cannot find the description of the learning path and has set a default comment. You should change it') );
         }
 
         $sql = "UPDATE `".$TABLELEARNPATH."`
@@ -1090,13 +1096,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     if ( !$errorFound )
     {
         $out .= "\n<br /><center><b>".get_lang('Learning path has been successfully imported.')."</b></center>";
-        $out .= "\n<br /><br ><center><a href=\"learningPathAdmin.php?path_id=".$tempPathId."\">".$lpName."</a></center>";
+        $out .= "\n<br /><br ><center><a href=\"".htmlspecialchars(Url::Contextualize("learningPathAdmin.php?path_id=".$tempPathId))."\">".$lpName."</a></center>";
     }
     else
     {
-        $out .= "\n<br /><center><b>".get_lang('An error occurred.  Learning Path import failed.')."</b></center>";
+        $out .= "\n<br /><center><b>".get_lang('An error occurred. Learning Path import failed.')."</b></center>";
     }
-    $out .= "\n<br /><a href=\"learningPathList.php\">&lt;&lt; ".get_lang('Back')."</a>";
+    $out .= "\n<br /><a href=\"".htmlspecialchars(Url::Contextualize("learningPathList.php"))."\">&lt;&lt; ".get_lang('Back')."</a>";
 
 }
 else // if method == 'post'
@@ -1112,15 +1118,19 @@ else // if method == 'post'
 
             <form enctype="multipart/form-data" action="'. $_SERVER['PHP_SELF'] .'" method="post">
             <input type="hidden" name="claroFormId" value="'. uniqid('') .'" />
+            '. claro_form_relay_context() .'
 
             <input type="file" name="uploadedPackage" /><br />
-            <small>'. get_lang('Max file size : %size', array('%size' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) ) ) .'</small>
+            <small>'. get_lang(
+                'Max file size : %size', 
+                array('%size' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) ) ) 
+            .'</small>
 
             <p>
             <input type="submit" value="'. get_lang('Import') .'" />&nbsp;
-            '. claro_html_button( './learningPathList.php', get_lang('Cancel')) . "\n"
-            .    '</p>'
-            .    '</form>'
+            '. claro_html_button( Url::Contextualize('./learningPathList.php'), get_lang('Cancel')) . "\n"
+            . '</p>'
+            . '</form>'
         ;
 
 } // else if method == 'post'

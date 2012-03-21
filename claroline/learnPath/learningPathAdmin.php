@@ -1,10 +1,10 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
+ * CLAROLINE 1.11
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claroline Team
  * @package     CLLNP
@@ -51,7 +51,10 @@ $htmlHeadXtra[] =
             </script>";
 
 // Manage breadcrumbs
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Learning path list'), 
+    Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') 
+);
 
 $nameTools = get_lang('Learning path');
 $_SERVER['QUERY_STRING'] =''; // used for the breadcrumb
@@ -91,11 +94,11 @@ if ( !$is_allowedToEdit )
 {
     if ( isset($_SESSION['path_id']) )
     {
-        header("Location: ./learningPath.php?path_id=".$_SESSION['path_id']);
+        header("Location: ".Url::Contextualize("./learningPath.php?path_id=".$_SESSION['path_id']));
     }
     else
     {
-        header("Location: ./learningPathList.php");
+        header("Location: ".Url::Contextualize("./learningPathList.php"));
     }
     exit();
 }
@@ -140,7 +143,7 @@ switch($cmd)
             . '</fieldset>' . "\n"
             . '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
             . '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
-            . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+            . claro_html_button(Url::Contextualize($_SERVER['PHP_SELF']), get_lang('Cancel'))
             . '</form>' . "\n"
             );
         }
@@ -198,7 +201,10 @@ switch($cmd)
 
         //-- delete module cmdid and his children if it is a label
         // get the modules tree ( cmdid module and all its children)
-        $temp[0] = get_module_tree( build_element_list($extendedList, 'parent', 'learnPath_module_id'), $_REQUEST['cmdid'] , 'learnPath_module_id');
+        $temp[0] = get_module_tree( 
+            build_element_list($extendedList, 'parent', 'learnPath_module_id'), 
+            $_REQUEST['cmdid'] , 
+            'learnPath_module_id' );
         // delete the tree
         delete_module_tree($temp);
 
@@ -427,35 +433,33 @@ if (isset($sortDirection) && $sortDirection)
 if (isset($displayCreateLabelForm) && $displayCreateLabelForm)
 {
     $dialogBox->form( '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
-    .            claro_form_relay_context()
-    .            '<h4>'
-    .            '<label for="newLabel">'
-    .            get_lang('Create a new label / title in this learning path')
-    .            '</label>'
-    .            '</h4>' . "\n"
-    .            '<input type="text" name="newLabel" id="newLabel" maxlength="255" />' . "\n"
-    .            '<input type="hidden" name="cmd" value="createLabel" />' . "\n"
-    .            '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-    .            '</form>'
-    )
-    ;
+        . claro_form_relay_context()
+        . '<h4>'
+        . '<label for="newLabel">'
+        . get_lang('Create a new label / title in this learning path')
+        . '</label>'
+        . '</h4>' . "\n"
+        . '<input type="text" name="newLabel" id="newLabel" maxlength="255" />' . "\n"
+        . '<input type="hidden" name="cmd" value="createLabel" />' . "\n"
+        . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+        . '</form>'
+    );
 }
 
 if (isset($displayChangePosForm) && $displayChangePosForm)
 {
     $dialogBox->form( '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
-    .             claro_form_relay_context()
-    .             '<h4>'
-    .             get_lang('Move') . " ' " . $moduleInfos['name']." ' ".get_lang('To') . '</h4>'
+        . claro_form_relay_context()
+        . '<h4>'
+        . get_lang('Move') . " ' " . $moduleInfos['name']." ' ".get_lang('To') . '</h4>'
 
-    // Build select input - $elementList has been declared in the previous big cmd case
-    .             claro_build_nested_select_menu("newPos",$elementList)
-    .             '<input type="hidden" name="cmd" value="changePos" />' . "\n"
-    .             '<input type="hidden" name="cmdid" value="' . $_REQUEST['cmdid'] . '" />' . "\n"
-    .             '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-    .             '</form>'
-    )
-    ;
+        // Build select input - $elementList has been declared in the previous big cmd case
+        . claro_build_nested_select_menu("newPos",$elementList)
+        . '<input type="hidden" name="cmd" value="changePos" />' . "\n"
+        . '<input type="hidden" name="cmdid" value="' . $_REQUEST['cmdid'] . '" />' . "\n"
+        . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+        . '</form>'
+    );
 }
 
 // Command list
@@ -570,18 +574,18 @@ for ($i=0 ; $i < sizeof($flatElementList) ; $i++)
 //####################################################################################\\
 
 $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
-.     '<thead>' . "\n"
-.     '<tr class="headerX" align="center" valign="top">' . "\n"
-.     '<th colspan="' . ($maxDeep+1) . '">'. get_lang('Module') .'</th>' . "\n"
-.     '<th>'. get_lang('Modify') .'</th>' . "\n"
-.     '<th>'. get_lang('Remove') .'</th>' . "\n"
-.     '<th>'. get_lang('Block') .'</th>' . "\n"
-.     '<th>'. get_lang('Visibility') .'</th>' . "\n"
-.     '<th>'. get_lang('Move') .'</th>' . "\n"
-.     '<th colspan="2">'. get_lang('Order') .'</th>' . "\n"
-.     '</tr>' . "\n"
-.     '</thead>' . "\n"
-.     '<tbody>' . "\n"
+. '<thead>' . "\n"
+. '<tr class="headerX" align="center" valign="top">' . "\n"
+. '<th colspan="' . ($maxDeep+1) . '">'. get_lang('Module') .'</th>' . "\n"
+. '<th>'. get_lang('Modify') .'</th>' . "\n"
+. '<th>'. get_lang('Remove') .'</th>' . "\n"
+. '<th>'. get_lang('Block') .'</th>' . "\n"
+. '<th>'. get_lang('Visibility') .'</th>' . "\n"
+. '<th>'. get_lang('Move') .'</th>' . "\n"
+. '<th colspan="2">'. get_lang('Order') .'</th>' . "\n"
+. '</tr>' . "\n"
+. '</thead>' . "\n"
+. '<tbody>' . "\n"
 ;
 
 //####################################################################################\\
@@ -628,7 +632,7 @@ foreach ($flatElementList as $module)
             $moduleImg = get_icon_url( choose_image(basename($module['path'])) );
 
         $contentType_alt = selectAlt($module['contentType']);
-        $out .= "<a href=\"module.php?module_id=".$module['module_id']."\">"
+        $out .= "<a href=\"".htmlspecialchars(Url::Contextualize('module.php?module_id='.$module['module_id']))."\">"
             . "<img src=\"" . $moduleImg . "\" alt=\"".$contentType_alt."\" > "
             . htmlspecialchars( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ) )
             . "</a>";
@@ -637,7 +641,7 @@ foreach ($flatElementList as $module)
 
     // Modify command / go to other page
     $out .= "<td>
-          <a href=\"module.php?module_id=".$module['module_id']."\">".
+          <a href=\"".htmlspecialchars(Url::Contextualize('module.php?module_id='.$module['module_id']))."\">".
          "<img src=\"" . get_icon_url('edit') . "\" alt=\"".get_lang('Modify')."\" />".
          "</a>
          </td>";
@@ -646,7 +650,7 @@ foreach ($flatElementList as $module)
 
    //in case of SCORM module, the pop-up window to confirm must be different as the action will be different on the server
     $out .= "<td>
-          <a href=\"".$_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
+          <a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']))."\" ".
          "onclick=\"return confirmation('".clean_str_for_javascript(get_lang('Are you sure you want to remove the following module from the learning path : ')." ".$module['name'])." ? ";
 
     if ($module['contentType'] == CTSCORM_)
@@ -669,13 +673,13 @@ foreach ($flatElementList as $module)
     }
     elseif ( $module['lock'] == 'OPEN')
     {
-        $out .= "<a href=\"".$_SERVER['PHP_SELF']."?cmd=mkBlock&cmdid=".$module['learnPath_module_id']."\">".
+        $out .= "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=mkBlock&cmdid=".$module['learnPath_module_id']))."\">".
              "<img src=\"" . get_icon_url('unblock') . "\" alt=\"" . get_lang('Block') . "\" />".
              "</a>";
     }
     elseif( $module['lock'] == 'CLOSE')
     {
-        $out .= "<a href=\"".$_SERVER['PHP_SELF']."?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']."\">".
+        $out .= "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']))."\">".
              "<img src=\"" . get_icon_url('block') . "\" alt=\"" . get_lang('Unblock') . "\" />".
              "</a>";
     }
@@ -686,7 +690,7 @@ foreach ($flatElementList as $module)
 
     if ( $module['visibility'] == 'HIDE')
     {
-        $out .= "<a href=\"".$_SERVER['PHP_SELF']."?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
+        $out .= "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=mkVisibl&cmdid=".$module['module_id']))."\">".
              "<img src=\"" . get_icon_url('invisible') . "\" alt=\"" . get_lang('Make visible') . "\" />".
              "</a>";
     }
@@ -700,7 +704,7 @@ foreach ($flatElementList as $module)
         {
             $onclick = "";
         }
-        $out .= "<a href=\"".$_SERVER['PHP_SELF']."?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ".$onclick. " >".
+        $out .= "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=mkInvisibl&cmdid=".$module['module_id']))."\" ".$onclick. " >".
              "<img src=\"" . get_icon_url('visible') . "\" alt=\"" . get_lang('Make invisible') . "\" />".
              "</a>";
     }
@@ -710,7 +714,7 @@ foreach ($flatElementList as $module)
     // ORDER COMMANDS
     // DISPLAY CATEGORY MOVE COMMAND
     $out .= "<td>".
-         "<a href=\"".$_SERVER['PHP_SELF']."?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
+         "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=changePos&cmdid=".$module['learnPath_module_id']))."\">".
          "<img src=\"" . get_icon_url('move') . "\" alt=\"" . get_lang('Move'). "\" />".
          "</a>".
          "</td>";
@@ -719,7 +723,7 @@ foreach ($flatElementList as $module)
     if ($module['up'])
     {
         $out .= "<td>".
-             "<a href=\"".$_SERVER['PHP_SELF']."?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
+             "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=moveUp&cmdid=".$module['learnPath_module_id']))."\">".
              "<img src=\"" . get_icon_url('move_up') . "\" alt=\"" . get_lang('Move up') . "\" />".
              "</a>".
              "</td>";
@@ -733,7 +737,7 @@ foreach ($flatElementList as $module)
     if ($module['down'])
     {
         $out .= "<td>".
-             "<a href=\"".$_SERVER['PHP_SELF']."?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
+             "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=moveDown&cmdid=".$module['learnPath_module_id']))."\">".
              "<img src=\"" . get_icon_url('move_down') . "\" alt=\"" . get_lang('Move down') . "\" />".
              "</a>".
              "</td>";

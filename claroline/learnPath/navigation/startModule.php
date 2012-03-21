@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -139,10 +139,10 @@ switch ($module['contentType'])
         $startAssetPage = $assetPath;
         $modulePath     = 'path_' . $_SESSION['path_id'];
         $moduleStartAssetPage = get_path('coursesRepositoryWeb')
-        .   claro_get_course_path()
-        .   '/scormPackages/'
-        .   $modulePath
-        .   $startAssetPage;
+        . claro_get_course_path()
+        . '/scormPackages/'
+        . $modulePath
+        . $startAssetPage;
         break;
     case CTCLARODOC_ :
         break;
@@ -162,7 +162,7 @@ switch ($module['contentType'])
 
       include("scormAPI.inc.php");
       echo '<frameset border="0" cols="0,20%,80%" frameborder="no">
-            <frame src="updateProgress.php" name="upFrame">';
+            <frame src="'. htmlspecialchars(Url::Contextualize('updateProgress.php')).'" name="upFrame">';
 
    }
    else
@@ -170,8 +170,8 @@ switch ($module['contentType'])
       echo '<frameset border="0" cols="20%,80%" frameborder="yes">';
    }
 ?>
-    <frame src="tableOfContent.php" name="tocFrame" />
-    <frame src="<?php echo $moduleStartAssetPage; ?>" name="scoFrame" />
+    <frame src="<?php echo htmlspecialchars(Url::Contextualize('tableOfContent.php'));?>" name="tocFrame" />
+    <frame src="<?php echo htmlspecialchars(Url::Contextualize($moduleStartAssetPage));?>" name="scoFrame" />
 
     </frameset>
   <noframes>

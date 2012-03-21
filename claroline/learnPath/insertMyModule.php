@@ -3,10 +3,10 @@
 /**
  * CLAROLINE
  *
- * @version     1.8 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sébastien <pir@cerdecam.be>
+ * @author      Piraux Sebastien <pir@cerdecam.be>
  * @author      Lederer Guillaume <led@cerdecam.be>
  * @package     CLLNP
  */
@@ -19,11 +19,20 @@ $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
+
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+
 if ( ! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php') );
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Learning path'), 
+    Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php')
+);
+
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Learning path list'), 
+    Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') 
+);
 
 $nameTools = get_lang('Add a module of this course');
 

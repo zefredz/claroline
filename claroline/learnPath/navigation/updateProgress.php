@@ -2,13 +2,13 @@
 /**
  * CLAROLINE 
  *
- * @version 1.8 $Revision$
+ * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sebastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -41,7 +41,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 $TABLEUSERS                    = $tbl_user;
 
 
-$TOCurl = get_module_url('CLLNP') . '/navigation/tableOfContent.php'; 
+$TOCurl = Url::Contextualize(get_module_url('CLLNP') . '/navigation/tableOfContent.php'); 
 
 /*********************/
 /* HANDLING API FORM */
@@ -116,7 +116,7 @@ if($_POST['ump_id'])
 ?>
 </head>
 <body>
-<form name="cmiForm" method="post" action="<?php echo $_SERVER["PHP_SELF"] ?>"> 
+    <form name="cmiForm" method="post" action="<?php echo Url::Contextualize($_SERVER["PHP_SELF"]) ?>"> 
     <input type="hidden" name="ump_id" />
     <input type="hidden" name="lesson_status" />
     <input type="hidden" name="lesson_location" />

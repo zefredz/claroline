@@ -2,13 +2,13 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sebastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -114,9 +114,9 @@ $out .= '<p><b>'.wordwrap($lpName,$moduleNameLength,' ',1).'</b></p>'."\n"
     . '<p>'."\n"
     . '<small>'
     . get_lang('View').' : '
-    . '<a href="viewer.php?frames=0" target="_top">'.get_lang('Fullscreen').'</a>'
+    . '<a href="'.htmlspecialchars(Url::Contextualize('viewer.php?frames=0')).'" target="_top">'.get_lang('Fullscreen').'</a>'
     . ' | '
-    . '<a href="viewer.php?frames=1" target="_top">'.get_lang('In frames').'</a>'
+    . '<a href="'.htmlspecialchars(Url::Contextualize('viewer.php?frames=1')).'" target="_top">'.get_lang('In frames').'</a>'
     . '</small>'."\n"
     . '</p>'."\n\n"
     . '<table width="100%">'."\n\n"
@@ -201,7 +201,7 @@ foreach ($flatElementList as $module)
             {
                 $nextModule = $module['module_id'];
             }
-            $out .= '<a href="startModule.php?viewModule_id='.$module['module_id'].'" target="mainFrame" title="'.htmlspecialchars($module['name']).'">'
+            $out .= '<a href="'.htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$module['module_id'])).'" target="mainFrame" title="'.htmlspecialchars($module['name']).'">'
                 .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.' " border="0" />'.$displayedName.'</a>';
         }
         // a module ALLOW access to the following modules if
@@ -297,22 +297,24 @@ if ( $moduleNb > 1 )
 
     if( $previousModule != '' )
     {
-        $prevNextString .= '<a href="startModule.php?viewModule_id='.$previousModule.'" target="mainFrame">'.get_lang('Previous').'</a>';
+        $prevNextString .= '<a href="'.htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$previousModule)).'" target="mainFrame">'.get_lang('Previous').'</a>';
     }
     else
     {
         $prevNextString .=  get_lang('Previous');
     }
+    
     $prevNextString .=  ' | ';
 
     if( $nextModule != '' )
     {
-        $prevNextString .=  '<a href="startModule.php?viewModule_id='.$nextModule.'" target="mainFrame">'.get_lang('Next').'</a>';
+        $prevNextString .=  '<a href="'.htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$nextModule)).'" target="mainFrame">'.get_lang('Next').'</a>';
     }
     else
     {
         $prevNextString .=  get_lang('Next');
     }
+    
     $prevNextString .=  '</small><br /><br />'."\n";
 
     $out .= $prevNextString;
@@ -320,11 +322,11 @@ if ( $moduleNb > 1 )
 
 //  set redirection link
 if ( claro_is_allowed_to_edit() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
-    $returl = '../learningPathAdmin.php';
+    $returl = Url::Contextualize('../learningPathAdmin.php');
 else
-    $returl = '../learningPath.php';
+    $returl = Url::Contextualize('../learningPath.php');
 
-$out .= '<form action="'. $returl .'" method="post" target="_top">
+$out .= '<form action="'. htmlspecialchars($returl) .'" method="post" target="_top">
 <input type="submit" value="' . get_lang('Back to list') .'" />
 </form>
 

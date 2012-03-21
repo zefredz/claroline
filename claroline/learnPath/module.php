@@ -1,12 +1,12 @@
 <?php // $Id$
 
 /**
- * CLAROLINE
+ * CLAROLINE 1.11
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sébastien <pir@cerdecam.be>
+ * @author      Piraux Sebastien <pir@cerdecam.be>
  * @author      Lederer Guillaume <led@cerdecam.be>
  * @package     CLLNP
  * @since       1.8
@@ -42,14 +42,23 @@ $is_allowedToEdit = claro_is_allowed_to_edit();    // as teacher
 
 if ( $is_allowedToEdit )
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php') );
+    ClaroBreadCrumbs::getInstance()->prepend( 
+        get_lang('Learning path'), 
+        Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php') 
+    );
 }
 else
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path'), Url::Contextualize(get_module_url('CLLNP') . '/learningPath.php') );
+    ClaroBreadCrumbs::getInstance()->prepend( 
+        get_lang('Learning path'), 
+        Url::Contextualize(get_module_url('CLLNP') . '/learningPath.php') 
+    );
 }
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Learning path list'), 
+    Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') 
+);
 
 $nameTools = get_lang('Module');
 
@@ -159,18 +168,18 @@ if( !$is_allowedToEdit
     && !$noStartAsset
     )
 {
-    header("Location:./navigation/viewer.php");
+    header("Location: ".Url::Contextualize("./navigation/viewer.php"));
     exit();
 }
 
 // Back button
 if ($is_allowedToEdit)
 {
-    $pathBack = "./learningPathAdmin.php";
+    $pathBack = Url::Contextualize("./learningPathAdmin.php");
 }
 else
 {
-    $pathBack = "./learningPath.php";
+    $pathBack = Url::Contextualize("./learningPath.php");
 }
 
 // Command list

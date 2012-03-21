@@ -4,7 +4,7 @@
  *
  * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -30,4 +30,6 @@ $warnSessionLost = false ;
 Claroline::getDisplay()->body->hideCourseTitleAndTools();
 
 Claroline::getDisplay()->banner->hide();
+
 echo Claroline::getDisplay()->render();
+

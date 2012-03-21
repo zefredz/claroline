@@ -9,14 +9,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sebastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
  * @subpackage navigation
  *
  * This file must be included when the module browsed is SCORM conformant
- * This script supplies the SCORM API implémentation in javascript for browsers like NS and Mozilla
+ * This script supplies the SCORM API implementation in javascript for browsers like NS and Mozilla
  * This script is the client side API javascript generated for user with browser like NS and Mozilla
  */
 /**
@@ -38,9 +38,10 @@ $TABLEASSET              = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS = $tbl_lp_user_module_progress;
 $TABLEUSERS              = $tbl_user;
 
-$SCORMServerURL = get_module_url('CLLNP') . '/navigation/SCORMserver.php';
-$redirectionURL = get_module_url('CLLNP') . '/learningPath.php';
-$TOCurl = get_module_url('CLLNP') . '/navigation/tableOfContent.php';
+$SCORMServerURL = Url::Contextualize(get_module_url('CLLNP') . '/navigation/SCORMserver.php');
+$redirectionURL = Url::Contextualize(get_module_url('CLLNP') . '/learningPath.php');
+$TOCurl = Url::Contextualize(get_module_url('CLLNP') . '/navigation/tableOfContent.php');
+
 /*======================================
        CLAROLINE MAIN
   ======================================*/

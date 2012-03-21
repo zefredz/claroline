@@ -3,10 +3,10 @@
 /**
  * CLAROLINE
  *
- * @version     1.8 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sébastien <pir@cerdecam.be>
+ * @author      Piraux Sebastien <pir@cerdecam.be>
  * @author      Lederer Guillaume <led@cerdecam.be>
  * @package     CLLNP
  */
@@ -20,7 +20,10 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
+ClaroBreadCrumbs::getInstance()->prepend( 
+    get_lang('Learning path list'), 
+    Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') 
+);
 
 $nameTools = get_lang('Learning path');
 
@@ -43,7 +46,7 @@ if ( isset($_GET['path_id']) && $_GET['path_id'] > 0)
 elseif( (!isset($_SESSION['path_id']) || $_SESSION['path_id'] == "") )
 {
     // if path id not set, redirect user to the home page of learning path
-    claro_redirect( get_module_url('CLLNP') . '/learningPathList.php');
+    claro_redirect( Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php'));
     exit();
 }
 
@@ -56,7 +59,7 @@ if ( claro_is_allowed_to_edit() )
     // if the fct return true it means that user is a course manager and than view mode is set to COURSE_ADMIN
     $pathId = (int) $_SESSION['path_id'];
 
-    claro_redirect( get_module_url('CLLNP') . '/learningPathAdmin.php?path_id=' . $pathId );
+    claro_redirect( Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php?path_id=' . $pathId ) );
     exit();
 }
 
@@ -140,9 +143,9 @@ $out .= commentBox(LEARNINGPATH_, DISPLAY_);
 //####################################################################################\\
 
 $out .= '<br />' . "\n"
-.    '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
-.    '<tr class="headerX" align="center" valign="top">'."\n"
-.    '<th colspan="'.($maxDeep+1).'">' . get_lang('Module') . '</th>'."\n"
+. '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
+. '<tr class="headerX" align="center" valign="top">'."\n"
+. '<th colspan="'.($maxDeep+1).'">' . get_lang('Module') . '</th>'."\n"
 ;
 
 
@@ -225,7 +228,7 @@ foreach ($flatElementList as $module)
             $moduleImg = get_icon_url( choose_image(basename($module['path'])) );
 
         $contentType_alt = selectAlt($module['contentType']);
-        $out .= '<a href="module.php?module_id='.$module['module_id'].'">'
+        $out .= '<a href="'.htmlspecialchars(Url::Contextualize('module.php?module_id='.$module['module_id'])).'">'
             .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.'" border="0" /> '
             .htmlspecialchars( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ) ).'</a>'."\n";
         // a module ALLOW access to the following modules if
@@ -266,9 +269,9 @@ foreach ($flatElementList as $module)
     {
         // display the progress value for current module
         $out .= '<td align="right">'.claro_html_progress_bar ($progress, 1).'</td>'."\n"
-        .    '<td align="left">'
-        .    '<small>&nbsp;' . $progress . '%</small>'
-        .    '</td>' . "\n"
+        . '<td align="left">'
+        . '<small>&nbsp;' . $progress . '%</small>'
+        . '</td>' . "\n"
         ;
     }
     elseif( claro_is_user_authenticated() && $module['contentType'] == CTLABEL_ )
@@ -293,10 +296,10 @@ $out .= '</tbody>' . "\n\n";
 if ($atleastOne == false)
 {
     $out .= '<tfoot>'."\n\n"
-    .    '<tr>'."\n"
-    .    '<td align="center" colspan="3">'.get_lang('No module').'</td>'."\n"
-    .    '</tr>'."\n\n"
-    .    '</tfoot>'."\n\n"
+    . '<tr>'."\n"
+    . '<td align="center" colspan="3">'.get_lang('No module').'</td>'."\n"
+    . '</tr>'."\n\n"
+    . '</tfoot>'."\n\n"
     ;
 }
 elseif(claro_is_user_authenticated() && $moduleNb > 0)
