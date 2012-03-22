@@ -63,7 +63,6 @@ else
 
 // require wiki files
 
-require_once "lib/class.clarodbconnection.php";
 require_once "lib/class.wiki.php";
 require_once "lib/class.wikistore.php";
 require_once "lib/class.wikipage.php";
@@ -166,7 +165,7 @@ $config['tbl_wiki_pages'        ] = $tblList['wiki_pages'        ];
 $config['tbl_wiki_pages_content'] = $tblList['wiki_pages_content'];
 $config['tbl_wiki_acls'         ] = $tblList['wiki_acls'         ];
 
-$con = new ClarolineDatabaseConnection();
+$con = Claroline::getDatabase();
 
 // DEVEL_MODE database initialisation
 if( defined( 'DEVEL_MODE' ) && ( DEVEL_MODE == true ) )
@@ -397,6 +396,7 @@ switch ( $action )
                 ;
 
             $wikiPage = new WikiPage( $con, $config, $wikiId );
+            
             if ( $wikiPage->create( $creatorId, '__MainPage__'
                 , $mainPageContent, date("Y-m-d H:i:s"), true ) )
             {
@@ -406,7 +406,7 @@ switch ( $action )
             else
             {
                 $message = get_lang("Wiki creation failed");
-                $dialogBox->error( $message );
+                $dialogBox->error( $message . ":" . $wikiPage->getError() );
             }
 
             
@@ -679,7 +679,7 @@ switch( $action )
         $out .= '<tbody>' . "\n";
         
         // wiki list not empty
-        if ( is_array( $wikiList ) && count( $wikiList ) > 0 )
+        if ( count( $wikiList ) > 0 )
         {
             foreach ( $wikiList as $entry )
             {

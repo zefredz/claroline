@@ -28,7 +28,7 @@
  */
 class WikiSearchEngine
 {
-    private $connection = null;
+    private $con = null;
 
     private $config = array(
         'tbl_wiki_pages' => 'wiki_pages',
@@ -39,17 +39,17 @@ class WikiSearchEngine
 
     /**
      * Constructor
-     * @param DatabaseConnection connection
+     * @param Database_Connection connection
      * @param Array config
      */
-    public function __construct( &$connection, $config = null )
+    public function __construct( $connection, $config = null )
     {
         if ( is_array( $config ) )
         {
             $this->config = array_merge( $this->config, $config );
         }
 
-        $this->connection =& $connection;
+        $this->con = $connection;
     }
 
     /**
@@ -61,32 +61,20 @@ class WikiSearchEngine
      */
     public function searchInWiki( $pattern, $wikiId, $mode = CLWIKI_SEARCH_ANY )
     {
-        if ( ! $this->connection->isConnected() )
-        {
-            $this->connection->connect();
-        }
+        $searchStr = $this->makePageSearchQuery( $pattern, null, $mode );
 
-        $searchStr = WikiSearchEngine::makePageSearchQuery( $pattern, $mode );
-
-        $sql = "SELECT p.`id`, p.`wiki_id`, p.`title`, c.`content` "
-            . "FROM `"
-            . $this->config['tbl_wiki_properties']."` AS w, `"
-            . $this->config['tbl_wiki_pages']."` AS p, `"
-            . $this->config['tbl_wiki_pages_content']."` AS c "
-            . "WHERE p.`wiki_id` = " . (int) $wikiId
-            . " AND " . $searchStr
-            ;
-
-        $ret = $this->connection->getAllRowsFromQuery( $sql );
-
-        if ( $this->connection->hasError() )
-        {
-            return false;
-        }
-        else
-        {
-            return $ret;
-        }
+        return $this->con->query( "
+            SELECT 
+                p.`id`, p.`wiki_id`, p.`title`, c.`content`
+            FROM 
+                `" .$this->config['tbl_wiki_properties']."` AS w, 
+                `" . $this->config['tbl_wiki_pages']."` AS p, 
+                `" . $this->config['tbl_wiki_pages_content']."` AS c 
+            WHERE 
+                p.`wiki_id` = " . $this->con->escape( $wikiId ) . "
+            AND " 
+                . $searchStr
+        );
     }
 
     /**
@@ -98,32 +86,20 @@ class WikiSearchEngine
      */
     public function lightSearchInWiki( $wikiId, $pattern, $mode = CLWIKI_SEARCH_ANY )
     {
-        if ( ! $this->connection->isConnected() )
-        {
-            $this->connection->connect();
-        }
+        $searchStr = $this->makePageSearchQuery( $pattern, null, $mode );
 
-        $searchStr = WikiSearchEngine::makePageSearchQuery( $pattern, $mode );
-
-        $sql = "SELECT p.`id`, p.`title` "
-            . "FROM `"
-            . $this->config['tbl_wiki_properties']."` AS w, `"
-            . $this->config['tbl_wiki_pages']."` AS p, `"
-            . $this->config['tbl_wiki_pages_content']."` AS c "
-            . "WHERE p.`wiki_id` = " . (int) $wikiId
-            . " AND " . $searchStr
-            ;
-
-        $ret = $this->connection->getAllRowsFromQuery( $sql );
-
-        if ( $this->connection->hasError() )
-        {
-            return false;
-        }
-        else
-        {
-            return $ret;
-        }
+        return $this->con->query( "
+            SELECT 
+                p.`wiki_id`, p.`title`
+            FROM 
+                `" .$this->config['tbl_wiki_properties']."` AS w, 
+                `" . $this->config['tbl_wiki_pages']."` AS p, 
+                `" . $this->config['tbl_wiki_pages_content']."` AS c 
+            WHERE 
+                p.`wiki_id` = " . $this->con->escape( $wikiId ) . "
+            AND " 
+                . $searchStr
+        );
     }
 
     /**
@@ -135,42 +111,33 @@ class WikiSearchEngine
      */
     public function searchAllWiki( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY, $getPageTitles = false )
     {
-        if ( ! $this->connection->isConnected() )
-        {
-            $this->connection->connect();
-        }
-
         $ret = array();
         
         $wikiList = array();
 
-        $searchPageStr = WikiSearchEngine::makePageSearchQuery( $pattern, $groupId, $mode );
+        $searchPageStr = $this->makePageSearchQuery( $pattern, $groupId, $mode );
 
-        $groupStr = ( ! is_null( $groupId ) )
+        /*$groupStr = ( ! is_null( $groupId ) )
             ? "( w.`group_id` = " . (int) $groupId . " ) AND"
             : ""
-            ;
+            ;*/
 
-        $searchWikiStr = WikiSearchEngine::makeWikiPropertiesSearchQuery( $pattern, $groupId, $mode );
+        $searchWikiStr = $this->makeWikiPropertiesSearchQuery( $pattern, $groupId, $mode );
 
-        $sql = "SELECT DISTINCT w.`id`, w.`title`, w.`description` "
-            . "FROM `"
-            . $this->config['tbl_wiki_properties']."` AS w, `"
-            . $this->config['tbl_wiki_pages']."` AS p, `"
-            . $this->config['tbl_wiki_pages_content']."` AS c "
-            . "WHERE "
-            . $searchPageStr . " "
-            . " OR " . $searchWikiStr
-            ;
+        $wikiList = $this->con->query( "
+            SELECT 
+                DISTINCT w.`id`, w.`title`, w.`description` 
+            FROM 
+                `" . $this->config['tbl_wiki_properties']."` AS w, 
+                `" . $this->config['tbl_wiki_pages']."` AS p, 
+                `" . $this->config['tbl_wiki_pages_content']."` AS c 
+            WHERE 
+                " . $searchPageStr . "
+            OR 
+                " . $searchWikiStr
+        );
 
-        $wikiList = $this->connection->getAllRowsFromQuery( $sql );
-
-        if ( $this->connection->hasError() )
-        {
-            return false;
-        }
-
-        if ( is_array( $wikiList ) )
+        if ( count( $wikiList ) )
         {
             # search for Wiki pages
             foreach ( $wikiList as $wiki )
@@ -195,14 +162,7 @@ class WikiSearchEngine
             unset( $wikiList );
         }
 
-        if ( $this->connection->hasError() )
-        {
-            return false;
-        }
-        else
-        {
-            return $ret;
-        }
+        return $ret;
     }
 
     // utility functions
@@ -257,20 +217,20 @@ class WikiSearchEngine
      */
     private function makePageSearchQuery( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY )
     {
-        list( $keywords, $impl ) = WikiSearchEngine::splitPattern( $pattern, $mode );
+        list( $keywords, $impl ) = $this->splitPattern( $pattern, $mode );
 
         $searchTitleArr = array();
         $searchPageArr = array();
 
         $groupstr = ( ! is_null( $groupId ) )
-            ? "( w.`group_id` = " . (int) $groupId . "  AND w.`id` = p.`wiki_id`)"
+            ? "( w.`group_id` = " . $this->con->escape($groupId) . "  AND w.`id` = p.`wiki_id`)"
             : "(w.`id` = p.`wiki_id`)"
             ;
 
         foreach ( $keywords as $keyword )
         {
-            $searchTitleArr[] = " p.`title` LIKE '%".$keyword."%' ";
-            $searchPageArr[] = " c.`content` LIKE '%".$keyword."%' ";
+            $searchTitleArr[] = " p.`title` LIKE '%".$this->con->escape($keyword)."%' ";
+            $searchPageArr[] = " c.`content` LIKE '%".$this->con->escape($keyword)."%' ";
         }
 
         $searchTitle = implode ( $impl, $searchTitleArr );
@@ -302,19 +262,19 @@ class WikiSearchEngine
      */
     private function makeWikiPropertiesSearchQuery( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY )
     {
-        list( $keywords, $impl ) = WikiSearchEngine::splitPattern( $pattern, $mode );
+        list( $keywords, $impl ) = $this->splitPattern( $pattern, $mode );
 
-        $searchWikiArr = array();
+        $searchTitleArr = array();
 
         $groupstr = ( ! is_null( $groupId ) )
-            ? "( w.`group_id` = " . (int) $groupId . "  AND w.`id` = p.`wiki_id`)"
+            ? "( w.`group_id` = " . $this->con->escape( $groupId ) . "  AND w.`id` = p.`wiki_id`)"
             : "(w.`id` = p.`wiki_id`)"
             ;
 
         foreach ( $keywords as $keyword )
         {
-            $searchTitleArr[] = $groupstr." AND (w.`title` LIKE '%".$keyword."%' "
-                . "OR w.`description` LIKE '%".$keyword."%') "
+            $searchTitleArr[] = $groupstr." AND (w.`title` LIKE '%".$this->escape(keyword)."%' "
+                . "OR w.`description` LIKE '%".$this->con->escape($keyword)."%') "
                 ;
         }
 
@@ -337,11 +297,7 @@ class WikiSearchEngine
 
     public function getError()
     {
-        if ( $this->connection->hasError() )
-        {
-            return $this->connection->getError();
-        }
-        else if (! is_null( $this->error ) )
+        if (! is_null( $this->error ) )
         {
 
             $errno = $this->errno;
@@ -359,6 +315,6 @@ class WikiSearchEngine
 
     public function hasError()
     {
-        return ( ! is_null( $this->error ) ) || $this->connection->hasError();
+        return ( ! is_null( $this->error ) );
     }
 }

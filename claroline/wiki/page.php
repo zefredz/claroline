@@ -67,7 +67,6 @@ else
 
 // Wiki specific classes and libraries
 
-require_once "lib/class.clarodbconnection.php";
 require_once "lib/class.wiki2xhtmlrenderer.php";
 require_once "lib/class.wikipage.php";
 require_once "lib/class.wikistore.php";
@@ -90,14 +89,14 @@ if ( isset( $_REQUEST['wikiId'] ) )
 
     $tblList = claro_sql_get_course_tbl();
 
-    $con = new ClarolineDatabaseConnection();
+    $con = Claroline::getDatabase();
 
     $sql = "SELECT `group_id` "
         . "FROM `" . $tblList[ "wiki_properties" ] . "` "
         . "WHERE `id` = " . $wikiId
         ;
 
-    $result = $con->getRowFromQuery( $sql );
+    $result = $con->query( $sql )->fetch();
 
     $wikiGroupId = (int) $result['group_id'];
 
@@ -129,7 +128,7 @@ $config["tbl_wiki_pages"] = $tblList[ "wiki_pages" ];
 $config["tbl_wiki_pages_content"] = $tblList[ "wiki_pages_content" ];
 $config["tbl_wiki_acls"] = $tblList[ "wiki_acls" ];
 
-$con = new ClarolineDatabaseConnection();
+$con = Claroline::getDatabase();
 
 // auto create wiki in devel mode
 if ( defined("DEVEL_MODE") && ( DEVEL_MODE == true ) )
@@ -1026,7 +1025,7 @@ switch( $action )
             . '</p>'
             ;
 
-        if ( is_array( $recentChanges ) )
+        if (  count( $recentChanges ) )
         {
             $out .= '<ul>' . "\n";
 
@@ -1105,7 +1104,7 @@ switch( $action )
 
         // other pages
 
-        if ( is_array( $allPages ) )
+        if ( count( $allPages ) )
         {
             $out .= '<ul>' . "\n";
 
@@ -1300,7 +1299,7 @@ switch( $action )
 
         $out .= '<table style="border: 0px;">' . "\n";
 
-        if ( is_array( $history ) )
+        if ( count( $history ) )
         {
             $size = count( $history );
             $passes = 0;

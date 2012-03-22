@@ -18,7 +18,6 @@
  *
  * @package Wiki
  */
-require_once dirname(__FILE__) . "/class.dbconnection.php";
 require_once dirname(__FILE__) . "/class.wikipage.php";
 
 // Error codes
@@ -56,7 +55,7 @@ class Wiki
 
     /**
      * Constructor
-     * @param DatabaseConnection con connection to the database
+     * @param Database_Connection con connection to the database
      * @param array config associative array containing tables name
      */
     public function __construct( $con, $config = null)
@@ -65,7 +64,7 @@ class Wiki
         {
             $this->config = array_merge($this->config, $config);
         }
-        $this->con = & $con;
+        $this->con = $con;
 
         $this->wikiId = 0;
     }
@@ -187,17 +186,19 @@ class Wiki
      */
     private function loadProperties($wikiId)
     {
-        if (!$this->con->isConnected())
-        {
-            $this->con->connect();
-        }
+        $rs = $this->con->query( "
+            SELECT 
+                `id`, 
+                `title`, 
+                `description`, 
+                `group_id` 
+            FROM 
+                `" . $this->config['tbl_wiki_properties'] . "` 
+            WHERE 
+                `id` = " . $this->con->escape( $wikiId ) 
+        );
 
-        $sql = "SELECT `id`, `title`, `description`, `group_id` "
-            . "FROM `" . $this->config['tbl_wiki_properties'] . "` "
-            . "WHERE `id` = " . (int) $wikiId
-        ;
-
-        $result = $this->con->getRowFromQuery($sql);
+        $result = $rs->fetch();
 
         $this->setWikiId($result['id']);
         $this->setTitle(stripslashes($result['title']));
@@ -211,27 +212,22 @@ class Wiki
      */
     private function loadACL($wikiId)
     {
-        if (!$this->con->isConnected())
+        $result = $this->con->query( "
+            SELECT 
+                `flag`, 
+                `value`
+            FROM 
+                `" . $this->config['tbl_wiki_acls'] . "` 
+            WHERE 
+                `wiki_id` = " . $this->con->escape( $wikiId ) 
+        );
+        
+        $acl = array();
+        
+        foreach ($result as $row)
         {
-            $this->con->connect();
-        }
-
-        $sql = "SELECT `flag`, `value` "
-            . "FROM `" . $this->config['tbl_wiki_acls'] . "` "
-            . "WHERE `wiki_id` = " . (int) $wikiId
-        ;
-
-        $result = $this->con->getAllRowsFromQuery($sql);
-
-        $acl = array ();
-
-        if (is_array($result))
-        {
-            foreach ($result as $row)
-            {
-                $value = ( $row['value'] == 'true' ) ? true : false;
-                $acl[$row['flag']] = $value;
-            }
+            $value = ( $row['value'] == 'true' ) ? true : false;
+            $acl[$row['flag']] = $value;
         }
 
         $this->setACL($acl);
@@ -261,20 +257,17 @@ class Wiki
      */
     private function saveACL()
     {
-        // reconnect if needed
-        if (!$this->con->isConnected())
-        {
-            $this->con->connect();
-        }
-
-
-        $sql = "SELECT `wiki_id` FROM `"
-            . $this->config['tbl_wiki_acls'] . "` "
-            . "WHERE `wiki_id` = " . (int) $this->getWikiId()
-        ;
+        $aclExists = ( $this->con->query ( "
+            SELECT 
+                `wiki_id` 
+            FROM 
+                `" . $this->config['tbl_wiki_acls'] . "` 
+            WHERE 
+                `wiki_id` = " . $this->con->escape( $this->getWikiId() 
+        ) )->numRows() > 0 );
 
         // wiki already exists
-        if ($this->con->queryReturnsResult($sql))
+        if ( $aclExists )
         {
             $acl = $this->getACL();
 
@@ -282,13 +275,15 @@ class Wiki
             {
                 $value = ( $value == false ) ? 'false' : 'true';
 
-                $sql = "UPDATE `" . $this->config['tbl_wiki_acls'] . "` "
-                    . "SET `value`='" . $value . "'"
-                    . "WHERE `wiki_id`=" . (int) $this->getWikiId() . " "
-                    . "AND `flag`='" . $flag . "'"
-                ;
-
-                $this->con->executeQuery($sql);
+                $this->con->exec( "
+                    UPDATE 
+                        `" . $this->config['tbl_wiki_acls'] . "` 
+                    SET 
+                        `value` = " . $this->con->quote( $value ) . "
+                    WHERE 
+                        `wiki_id` = " . $this->con->escape( $this->getWikiId() ) . " 
+                    AND 
+                        `flag`= " . $this->con->quote( $flag )  );
             }
         }
         // new wiki
@@ -300,19 +295,16 @@ class Wiki
             {
                 $value = ( $value == false ) ? 'false' : 'true';
 
-                $sql = "INSERT INTO "
-                    . "`" . $this->config['tbl_wiki_acls'] . "`"
-                    . "("
-                    . "`wiki_id`, `flag`, `value`"
-                    . ") "
-                    . "VALUES("
-                    . (int) $this->getWikiId() . ","
-                    . "'" . $flag . "',"
-                    . "'" . $value . "'"
-                    . ")"
-                ;
-
-                $this->con->executeQuery($sql);
+                $this->con->exec( "
+                    INSERT INTO 
+                        `" . $this->config['tbl_wiki_acls'] . "`
+                    ( `wiki_id`, `flag`, `value` )
+                    
+                    VALUES (
+                    " . $this->con->escape($this->getWikiId()) . ",
+                    " . $this->con->quote($flag) . ",
+                    " . $this->con->quote($value) . " )"
+                );
             }
         }
     }
@@ -322,50 +314,35 @@ class Wiki
      */
     private function saveProperties()
     {
-        // reconnect if needed
-        if (!$this->con->isConnected())
-        {
-            $this->con->connect();
-        }
-
         // new wiki
         if ($this->getWikiId() === 0)
         {
             // INSERT PROPERTIES
-            $sql = "INSERT INTO `"
-                . $this->config['tbl_wiki_properties']
-                . "`("
-                . "`title`,`description`,`group_id`"
-                . ") "
-                . "VALUES("
-                . "'" . claro_sql_escape($this->getTitle()) . "', "
-                . "'" . claro_sql_escape($this->getDescription()) . "', "
-                . "'" . (int) $this->getGroupId() . "'"
-                . ")"
-            ;
+            $this->con->exec( "
+                INSERT INTO 
+                    `" . $this->config['tbl_wiki_properties']."`
+                (`title`,`description`,`group_id`)
+                VALUES
+                (" . $this->con->quote( $this->getTitle() ) . ", 
+                 " . $this->con->quote( $this->getDescription() ) . ",
+                 " . $this->con->escape( $this->getGroupId() ) . ")" 
+            );
 
-            // GET WIKIID
-            $this->con->executeQuery($sql);
-
-            if (!$this->con->hasError())
-            {
-                $wikiId = $this->con->getLastInsertId();
-                $this->setWikiId($wikiId);
-            }
+            $this->setWikiId($this->con->insertId());
         }
         // Wiki already exists
         else
         {
             // UPDATE PROPERTIES
-            $sql = "UPDATE `" . $this->config['tbl_wiki_properties'] . "` "
-                . "SET "
-                . "`title`='" . claro_sql_escape($this->getTitle()) . "', "
-                . "`description`='" . claro_sql_escape($this->getDescription()) . "', "
-                . "`group_id`='" . (int) $this->getGroupId() . "' "
-                . "WHERE `id`=" . (int) $this->getWikiId()
-            ;
-
-            $this->con->executeQuery($sql);
+            $this->con->exec( "
+                UPDATE 
+                    `" . $this->config['tbl_wiki_properties'] . "` 
+                SET 
+                    `title`= " . $this->con->quote($this->getTitle()) . ", 
+                    `description`= " . $this->con->quote($this->getDescription()) . ", 
+                    `group_id`= " . $this->con->escape( $this->getGroupId()) . "
+                WHERE 
+                    `id`= " . $this->con->escape($this->getWikiId()) );
         }
     }
 
@@ -378,19 +355,16 @@ class Wiki
      */
     public function pageExists($title)
     {
-        // reconnect if needed
-        if (!$this->con->isConnected())
-        {
-            $this->con->connect();
-        }
-
-        $sql = "SELECT `id` "
-            . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
-            . "WHERE BINARY `title` = '" . claro_sql_escape($title) . "' "
-            . "AND `wiki_id` = " . (int) $this->wikiId
-        ;
-
-        return $this->con->queryReturnsResult($sql);
+        return $this->con->query( "
+            SELECT 
+                `id` 
+            FROM 
+                `" . $this->config['tbl_wiki_pages'] . "` 
+            WHERE 
+                BINARY `title` = " . $this->con->quote($title) . " 
+            AND 
+                `wiki_id` = " . $this->con->escape($this->getWikiId())
+        )->numRows() > 0;
     }
 
     /**
@@ -400,18 +374,14 @@ class Wiki
      */
     public function wikiExists($title)
     {
-        // reconnect if needed
-        if (!$this->con->isConnected())
-        {
-            $this->con->connect();
-        }
-
-        $sql = "SELECT `id` "
-            . "FROM `" . $this->config['tbl_wiki_properties'] . "` "
-            . "WHERE `title` = '" . claro_sql_escape($title) . "'"
-        ;
-
-        return $this->con->queryReturnsResult($sql);
+        return $this->con->query( "
+            SELECT 
+                `id` 
+            FROM 
+                `" . $this->config['tbl_wiki_properties'] . "` 
+            WHERE 
+                `title` = " . $this->con->quote($title)
+        )->numRows() > 0;
     }
 
     /**
@@ -421,18 +391,14 @@ class Wiki
      */
     public function wikiIdExists($id)
     {
-        // reconnect if needed
-        if (!$this->con->isConnected())
-        {
-            $this->con->connect();
-        }
-
-        $sql = "SELECT `id` "
-            . "FROM `" . $this->config['tbl_wiki_properties'] . "` "
-            . "WHERE `id` = '" . (int) $id . "'"
-        ;
-
-        return $this->con->queryReturnsResult($sql);
+        return $this->con->query( "
+            SELECT 
+                `id` 
+            FROM 
+                `" . $this->config['tbl_wiki_properties'] . "` 
+            WHERE 
+                `id` = " . $this->con->escape($id)
+        )->numRows() > 0;
     }
 
     /**
@@ -442,19 +408,16 @@ class Wiki
      */
     public function allPages()
     {
-        // reconnect if needed
-        if (!$this->con->isConnected())
-        {
-            $this->con->connect();
-        }
-
-        $sql = "SELECT `title` "
-            . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
-            . "WHERE `wiki_id` = " . (int) $this->getWikiId() . " "
-            . "ORDER BY `title` ASC"
-        ;
-
-        return $this->con->getAllRowsFromQuery($sql);
+        return $this->con->query( "
+            SELECT 
+                `title` 
+            FROM 
+                `" . $this->config['tbl_wiki_pages'] . "` 
+            WHERE 
+                `wiki_id` = " . $this->con->escape( $this->getWikiId() ) . " 
+            ORDER BY 
+                `title` ASC"
+        );
     }
 
     /**
@@ -464,19 +427,16 @@ class Wiki
      */
     public function allPagesByCreationDate()
     {
-        // reconnect if needed
-        if (!$this->con->isConnected())
-        {
-            $this->con->connect();
-        }
-
-        $sql = "SELECT `title` "
-            . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
-            . "WHERE `wiki_id` = " . (int) $this->getWikiId() . " "
-            . "ORDER BY `ctime` ASC"
-        ;
-
-        return $this->con->getAllRowsFromQuery($sql);
+        return $this->con->query( "
+            SELECT 
+                `title` 
+            FROM 
+                `" . $this->config['tbl_wiki_pages'] . "` 
+            WHERE 
+                `wiki_id` = " . $this->con->escape( $this->getWikiId() ) . " 
+            ORDER BY 
+                `ctime` ASC"
+        );
     }
 
     /**
@@ -487,40 +447,36 @@ class Wiki
      */
     public function recentChanges($offset = 0, $count = 50)
     {
-        // reconnect if needed
-        if (!$this->con->isConnected())
-        {
-            $this->con->connect();
-        }
+        $limit = ($count == 0 ) ? "" : "LIMIT " . $this->con->escape($offset) . ", " . $this->con->escape($count);
 
-        $limit = ($count == 0 ) ? "" : "LIMIT " . $offset . ", " . $count;
-
-        $sql = "SELECT `page`.`title`, `page`.`last_mtime`, `content`.`editor_id` "
-            . "FROM `" . $this->config['tbl_wiki_pages'] . "` `page`, "
-            . "`" . $this->config['tbl_wiki_pages_content'] . "` `content` "
-            . "WHERE `page`.`wiki_id` = " . (int) $this->getWikiId() . " "
-            . "AND `page`.`last_version` = `content`.`id` "
-            . "ORDER BY `page`.`last_mtime` DESC "
+        return $this->con->query( "
+            SELECT 
+                `page`.`title`, 
+                `page`.`last_mtime`, 
+                `content`.`editor_id` 
+            FROM
+                `" . $this->config['tbl_wiki_pages'] . "` AS `page`, 
+                `" . $this->config['tbl_wiki_pages_content'] . "` AS `content` 
+            WHERE 
+                `page`.`wiki_id` = " . $this->con->escape( $this->getWikiId() ) . " 
+            AND 
+                `page`.`last_version` = `content`.`id` 
+            ORDER BY 
+                `page`.`last_mtime` DESC "
             . $limit
-        ;
-
-        return $this->con->getAllRowsFromQuery($sql);
+        );
     }
 
     public function getNumberOfPages()
     {
-        if (!$this->con->isConnected())
-        {
-            $this->con->connect();
-        }
-
-
-        $sql = "SELECT count( `id` ) as `pages` "
-            . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
-            . "WHERE `wiki_id` = " . (int) $this->wikiId
-        ;
-
-        $result = $this->con->getRowFromQuery($sql);
+        $result = $this->con->query( "
+            SELECT 
+                count( `id` ) as `pages` 
+            FROM 
+                `" . $this->config['tbl_wiki_pages'] . "` 
+            WHERE 
+                `wiki_id` = " . $this->con->escape( $this->wikiId ) 
+        )->fetch();
 
         return $result['pages'];
     }
@@ -535,11 +491,7 @@ class Wiki
 
     public function getError()
     {
-        if ($this->con->hasError())
-        {
-            return $this->con->getError();
-        }
-        else if ($this->error != '')
+        if ($this->error != '')
         {
             $errno = $this->errno;
             $error = $this->error;
@@ -555,7 +507,7 @@ class Wiki
 
     public function hasError()
     {
-        return ( $this->error != '' ) || $this->con->hasError();
+        return ( $this->error != '' );
     }
 
 }

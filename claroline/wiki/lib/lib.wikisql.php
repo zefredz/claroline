@@ -21,10 +21,10 @@
 
 /**
  * create wiki tables in devel/upgrade mode
- * @param DatabaseConnection con database connection
+ * @param Database_Connection con database connection
  * @param boolean drop_tables drop existing tables
  */
-function init_wiki_tables(&$con, $drop_tables = false)
+function init_wiki_tables( $con, $drop_tables = false )
 {
     // get claro db names using claro_get_course_tbl_name()
     $tblList = claro_sql_get_course_tbl();
@@ -33,23 +33,21 @@ function init_wiki_tables(&$con, $drop_tables = false)
     $tblWikiPagesContent = $tblList['wiki_pages_content'];
     $tblWikiAcls = $tblList['wiki_acls'];
 
-    $con->connect();
-
     // drop tables
 
     if ($drop_tables === true)
     {
         $sql = "DROP TABLE IF EXISTS `$tblWikiPages`";
-        $con->executeQuery($sql);
+        $con->exec($sql);
 
         $sql = "DROP TABLE IF EXISTS `$tblWikiPagesContent`";
-        $con->executeQuery($sql);
+        $con->exec($sql);
 
         $sql = "DROP TABLE IF EXISTS `$tblWikiProperties`";
-        $con->executeQuery($sql);
+        $con->exec($sql);
 
         $sql = "DROP TABLE IF EXISTS `$tblWikiAcls`";
-        $con->executeQuery($sql);
+        $con->exec($sql);
     }
 
     // init page table
@@ -66,7 +64,7 @@ function init_wiki_tables(&$con, $drop_tables = false)
             )"
     ;
 
-    $con->executeQuery($sql);
+    $con->exec($sql);
 
     // init version table
 
@@ -80,7 +78,7 @@ function init_wiki_tables(&$con, $drop_tables = false)
             )"
     ;
 
-    $con->executeQuery($sql);
+    $con->exec($sql);
 
     $sql = "CREATE TABLE IF NOT EXISTS `$tblWikiProperties`(
             `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -91,7 +89,7 @@ function init_wiki_tables(&$con, $drop_tables = false)
             )"
     ;
 
-    $con->executeQuery($sql);
+    $con->exec($sql);
 
     $sql = "CREATE TABLE IF NOT EXISTS `$tblWikiAcls` (
                     `wiki_id` INT(11) UNSIGNED NOT NULL,
@@ -99,7 +97,7 @@ function init_wiki_tables(&$con, $drop_tables = false)
                     `value` ENUM('false','true') NOT NULL DEFAULT 'false'
                 )"
     ;
-    $con->executeQuery($sql);
+    $con->exec($sql);
 }
 
 /**
@@ -109,7 +107,7 @@ function init_wiki_tables(&$con, $drop_tables = false)
  * @param int creatorId ID of the user who creates the page
  * @return boolean true if the creation succeeds, false if it fails
  */
-function init_wiki_main_page(&$con, $wikiId, $creatorId, $wikiTitle)
+function init_wiki_main_page( $con, $wikiId, $creatorId, $wikiTitle)
 {
     $tblList = claro_sql_get_course_tbl();
 

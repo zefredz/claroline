@@ -18,7 +18,7 @@
  *
  * @package Wiki
  */
-require_once dirname(__FILE__) . "/class.clarodbconnection.php";
+
 require_once dirname(__FILE__) . "/class.wikiaccesscontrol.php";
 require_once dirname(__FILE__) . "/class.wikistore.php";
 require_once dirname(__FILE__) . "/class.wikipage.php";
@@ -37,7 +37,7 @@ function create_wiki($gid = false, $wikiName = 'New wiki')
     $config["tbl_wiki_pages_content"] = $tblList["wiki_pages_content"];
     $config["tbl_wiki_acls"] = $tblList["wiki_acls"];
 
-    $con = new ClarolineDatabaseConnection();
+    $con = Claroline::getDatabase();
 
     $acl = array ();
 
@@ -66,8 +66,6 @@ function create_wiki($gid = false, $wikiName = 'New wiki')
         , $mainPageContent
         , date("Y-m-d H:i:s")
         , true);
-
-    echo $con->getError();
 }
 
 function delete_wiki($groupId)
@@ -80,7 +78,7 @@ function delete_wiki($groupId)
     $config["tbl_wiki_pages_content"] = $tblList["wiki_pages_content"];
     $config["tbl_wiki_acls"] = $tblList["wiki_acls"];
 
-    $con = new ClarolineDatabaseConnection();
+    $con = Claroline::getDatabase();
 
     $store = new WikiStore($con, $config);
 
@@ -93,7 +91,7 @@ function delete_wiki($groupId)
         $wikiList = $store->getWikiListByGroup($groupId);
     }
 
-    if (is_array($wikiList) && count($wikiList) > 0)
+    if (count($wikiList) > 0)
     {
         foreach ($wikiList as $wiki)
         {

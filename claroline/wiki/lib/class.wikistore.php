@@ -19,7 +19,6 @@
  * @package Wiki
  */
 
-require_once dirname(__FILE__) . "/class.dbconnection.php";
 require_once dirname(__FILE__) . "/class.wiki.php";
 
 // Error codes
@@ -55,7 +54,7 @@ class WikiStore
 
     /**
      * Constructor
-     * @param DatabaseConnection con connection to the database
+     * @param Database_Connection con connection to the database
      * @param array config associative array containing tables name
      */
     public function __construct( $con, $config = null )
@@ -95,19 +94,16 @@ class WikiStore
      */
     public function pageExists( $wikiId, $title )
     {
-        // reconnect if needed
-        if ( ! $this->con->isConnected() )
-        {
-            $this->con->connect();
-        }
-
-        $sql = "SELECT `id` "
-            . "FROM `".$this->config['tbl_wiki_pages']."` "
-            . "WHERE BINARY `title` = '".claro_sql_escape( $title )."' "
-            . "AND `wiki_id` = " . (int) $wikiId
-            ;
-
-        return $this->con->queryReturnsResult( $sql );
+        return $this->con->query( "
+            SELECT 
+                `id` 
+            FROM 
+                `".$this->config['tbl_wiki_pages']."` 
+            WHERE 
+                BINARY `title` = ".$this->con->quote( $title )." 
+            AND 
+                `wiki_id` = " . $this->con->escape( $wikiId ) 
+        )->numRows() > 0;
     }
 
     /**
@@ -117,18 +113,14 @@ class WikiStore
      */
     public function wikiIdExists( $wikiId )
     {
-        // reconnect if needed
-        if ( ! $this->con->isConnected() )
-        {
-            $this->con->connect();
-        }
-
-        $sql = "SELECT `id` "
-            . "FROM `".$this->config['tbl_wiki_properties']."` "
-            . "WHERE `id` = '". (int) $wikiId."'"
-            ;
-
-        return $this->con->queryReturnsResult( $sql );
+        return $this->con->query( "
+            SELECT 
+                `id` 
+            FROM 
+                `".$this->config['tbl_wiki_properties']."`
+            WHERE 
+                `id` = '". $this->con->escape( $wikiId )."'"
+        )->numRows() > 0;
     }
 
     // Wiki methods
@@ -140,18 +132,18 @@ class WikiStore
      */
     public function getWikiListByGroup( $groupId )
     {
-        if ( ! $this->con->isConnected() )
-        {
-            $this->con->connect();
-        }
-
-        $sql = "SELECT `id`, `title`, `description` "
-            . "FROM `".$this->config['tbl_wiki_properties']."` "
-            . "WHERE `group_id` = ". (int) $groupId . " "
-            . "ORDER BY `id` ASC"
-            ;
-
-        return $this->con->getAllRowsFromQuery( $sql );
+        return $this->con->query( "
+            SELECT 
+                `id`, 
+                `title`, 
+                `description` 
+            FROM 
+                `".$this->config['tbl_wiki_properties']."` 
+            WHERE 
+                `group_id` = ". $this->con->escape( $groupId ) . "
+            ORDER BY 
+                `id` ASC"
+        );
     }
 
     /**
@@ -170,35 +162,32 @@ class WikiStore
      */
     public function getGroupWikiList()
     {
-        if ( ! $this->con->isConnected() )
-        {
-            $this->con->connect();
-        }
-
-        $sql = "SELECT `id`, `title`, `description` "
-            . "FROM `".$this->config['tbl_wiki_properties']."` "
-            . "WHERE `group_id` != 0 "
-            . "ORDER BY `group_id` ASC"
-            ;
-
-        return $this->con->getAllRowsFromQuery( $sql );
+        return $this->con->query( "
+            SELECT 
+                `id`, 
+                `title`, 
+                `description` 
+            FROM 
+                `".$this->config['tbl_wiki_properties']."` 
+            WHERE 
+                `group_id` != 0
+            ORDER BY 
+                `group_id` ASC"
+        );
     }
 
     public function getNumberOfPagesInWiki( $wikiId )
     {
-        if ( ! $this->con->isConnected() )
-        {
-            $this->con->connect();
-        }
-
         if ( $this->wikiIdExists( $wikiId ) )
         {
-            $sql = "SELECT count( `id` ) as `pages` "
-                . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE `wiki_id` = " . (int) $wikiId
-                ;
-
-            $result = $this->con->getRowFromQuery( $sql );
+            $result = $this->con->query( "
+                SELECT 
+                    COUNT( `id` ) as `pages` 
+                FROM 
+                    `".$this->config['tbl_wiki_pages']."` 
+                WHERE 
+                    `wiki_id` = " . $this->con->escape( $wikiId )
+            )->fetch();
 
             return $result['pages'];
         }
@@ -216,48 +205,43 @@ class WikiStore
      */
     public function deleteWiki( $wikiId )
     {
-        if ( ! $this->con->isConnected() )
-        {
-            $this->con->connect();
-        }
-
         if ( $this->wikiIdExists( $wikiId ) )
         {
             // delete properties
-            $sql = "DELETE FROM `".$this->config['tbl_wiki_properties']."` "
-                . "WHERE `id` = " . (int) $wikiId
-                ;
+            $affectedRows = $this->con->exec( "
+                DELETE 
+                FROM 
+                    `".$this->config['tbl_wiki_properties']."` 
+                WHERE `id` = " . $this->con->escape( $wikiId )
+            );
 
-            $numrows = $this->con->executeQuery( $sql );
-
-            if ( $numrows < 1 || $this->hasError() )
+            if ( $affectedRows < 1 )
             {
                 return false;
             }
 
             // delete wiki acl
-            $sql = "DELETE FROM `".$this->config['tbl_wiki_acls']."` "
-                . "WHERE `wiki_id` = " . (int) $wikiId
-                ;
+            $affectedRows = $this->con->exec( "
+                DELETE 
+                FROM 
+                    `".$this->config['tbl_wiki_acls']."` 
+                WHERE 
+                    `wiki_id` = " . $this->con->escape( $wikiId )
+            );
 
-            $numrows = $this->con->executeQuery( $sql );
-
-            if ( $numrows < 1 || $this->hasError() )
+            if ( $affectedRows < 1 )
             {
                 return false;
             }
 
-            $sql = "SELECT `id` "
-                . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
-                . "WHERE `wiki_id` = " . (int) $wikiId
-                ;
-
-            $pageIds = $this->con->getAllRowsFromQuery( $sql );
-
-            if ( $this->hasError() )
-            {
-                return false;
-            }
+            $pageIds = $this->con->query( "
+                SELECT 
+                    `id` 
+                FROM 
+                    `" . $this->config['tbl_wiki_pages'] . "` 
+                WHERE 
+                    `wiki_id` = " . $this->con->escape( $wikiId )
+            );
 
             $idList = array();
 
@@ -265,31 +249,27 @@ class WikiStore
             {
                 $idList[] = (int) $pageId['id'];
             }
-
-            $idListStr = '(' . implode( ',', $idList ) . ')';
-
-            $sql = "DELETE "
-                . "FROM `".$this->config['tbl_wiki_pages_content']."` "
-                . "WHERE `pid` IN " . $idListStr
-                ;
-
-            $this->con->executeQuery( $sql );
-
-            if ( $this->hasError() )
+            
+            if ( count( $idList) )
             {
-                return false;
+
+                $idListStr = '(' . implode( ',', $idList ) . ')';
+
+                $this->con->exec("
+                    DELETE 
+                    FROM 
+                        `".$this->config['tbl_wiki_pages_content']."` 
+                    WHERE 
+                        `pid` IN " . $idListStr );
             }
-
-            $sql = "DELETE FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE `wiki_id` = " . (int) $wikiId
-                ;
-
-            $numrows = $this->con->executeQuery( $sql );
-
-            if ( $this->hasError() )
-            {
-                return false;
-            }
+            
+            $this->con->exec( "
+                DELETE 
+                FROM 
+                    `".$this->config['tbl_wiki_pages']."` 
+                WHERE 
+                    `wiki_id` = " . $this->con->escape( $wikiId )
+            );
 
             return true;
         }
@@ -310,11 +290,7 @@ class WikiStore
 
     public function getError()
     {
-        if ( $this->con->hasError() )
-        {
-            return $this->con->getError();
-        }
-        else if ($this->error != '')
+        if ($this->error != '')
         {
             $errno = $this->errno;
             $error = $this->error;
@@ -330,6 +306,6 @@ class WikiStore
 
     public function hasError()
     {
-        return ( $this->error != '' ) || $this->con->hasError();
+        return ( $this->error != '' );
     }
 }
