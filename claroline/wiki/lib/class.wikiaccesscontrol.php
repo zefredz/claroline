@@ -1,14 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -27,6 +26,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 class WikiAccessControl
 {
+
     /**
      * Check if a given access level can request a given
      * privilege in a given access control list.
@@ -36,29 +36,27 @@ class WikiAccessControl
      * @param string privilege requested privilege
      * @return boolean true if pivilege is granted, false either
      */
-    function checkAccess( $accessControlList, $accessLevel, $privilege )
+    public static function checkAccess($accessControlList, $accessLevel, $privilege)
     {
         $prefixList = WikiAccessControl::prefixList();
         $privilegeList = WikiAccessControl::privilegeList();
 
-        if ( isset( $prefixList[$accessLevel] ) &&
-                isset( $privilegeList[$privilege] ) )
+        if (isset($prefixList[$accessLevel]) &&
+            isset($privilegeList[$privilege]))
         {
             $accessKey = $prefixList[$accessLevel]
                 . $privilegeList[$privilege]
-                ;
+            ;
 
-            $accessControlFlag = isset( $accessControlList[$accessKey] )
-                ? $accessControlList[$accessKey]
-                : false
-                ;
+            $accessControlFlag = isset($accessControlList[$accessKey]) ? $accessControlList[$accessKey] : false
+            ;
         }
         else
         {
             $accessControlFlag = false;
         }
 
-        if ( $accessControlFlag == true )
+        if ($accessControlFlag == true)
         {
             return true;
         }
@@ -73,12 +71,12 @@ class WikiAccessControl
      * @return array associative array of the form
      *      accessLevel => prefix
      */
-    function prefixList()
+    public static function prefixList()
     {
-        static $prefixList = array(
-            'course' => 'course_',
-            'group' => 'group_',
-            'other' => 'other_'
+        static $prefixList = array (
+        'course' => 'course_',
+        'group' => 'group_',
+        'other' => 'other_'
         );
 
         return $prefixList;
@@ -89,12 +87,12 @@ class WikiAccessControl
      * @return array associative array of the form
      *      privilege => name
      */
-    function privilegeList()
+    public static function privilegeList()
     {
-        static $privilegeList = array(
-            'read' => 'read',
-            'edit' => 'edit',
-            'create' => 'create'
+        static $privilegeList = array (
+        'read' => 'read',
+        'edit' => 'edit',
+        'create' => 'create'
         );
 
         return $privilegeList;
@@ -104,18 +102,18 @@ class WikiAccessControl
      * get default access control list for a course wiki
      * @return array default course access control list
      */
-    function defaultCourseWikiACL()
+    public static function defaultCourseWikiACL()
     {
-        static $defaultCourseWikiACL = array(
-            'course_read' => true,
-            'course_edit' => true,
-            'course_create' => true,
-            'group_read' => false,
-            'group_edit' => false,
-            'group_create' => false,
-            'other_read' => true,
-            'other_edit' => false,
-            'other_create' => false
+        static $defaultCourseWikiACL = array (
+        'course_read' => true,
+        'course_edit' => true,
+        'course_create' => true,
+        'group_read' => false,
+        'group_edit' => false,
+        'group_create' => false,
+        'other_read' => true,
+        'other_edit' => false,
+        'other_create' => false
         );
 
         return $defaultCourseWikiACL;
@@ -126,18 +124,18 @@ class WikiAccessControl
      * set to false)
      * @return array empty access control list
      */
-    function emptyWikiACL()
+    public static function emptyWikiACL()
     {
-        static $emptyWikiACL = array(
-            'course_read' => false,
-            'course_edit' => false,
-            'course_create' => false,
-            'group_read' => false,
-            'group_edit' => false,
-            'group_create' => false,
-            'other_read' => false,
-            'other_edit' => false,
-            'other_create' => false
+        static $emptyWikiACL = array (
+        'course_read' => false,
+        'course_edit' => false,
+        'course_create' => false,
+        'group_read' => false,
+        'group_edit' => false,
+        'group_create' => false,
+        'other_read' => false,
+        'other_edit' => false,
+        'other_create' => false
         );
 
         return $emptyWikiACL;
@@ -147,18 +145,18 @@ class WikiAccessControl
      * get default access control list for a group wiki
      * @return array default group access control list
      */
-    function defaultGroupWikiACL()
+    public static function defaultGroupWikiACL()
     {
-        static $defaultGroupWikiACL = array(
-            'course_read' => true,
-            'course_edit' => false,
-            'course_create' => false,
-            'group_read' => true,
-            'group_edit' => true,
-            'group_create' => true,
-            'other_read' => false,
-            'other_edit' => false,
-            'other_create' => false
+        static $defaultGroupWikiACL = array (
+        'course_read' => true,
+        'course_edit' => false,
+        'course_create' => false,
+        'group_read' => true,
+        'group_edit' => true,
+        'group_create' => true,
+        'other_read' => false,
+        'other_edit' => false,
+        'other_create' => false
         );
 
         return $defaultGroupWikiACL;
@@ -169,10 +167,10 @@ class WikiAccessControl
      * access level has got read privilege
      * @return boolean true if read privilege is granted, false either
      */
-    function isAllowedToReadPage( $accessControlList, $accessLevel )
+    public static function isAllowedToReadPage($accessControlList, $accessLevel)
     {
         $privilege = 'read';
-        return WikiAccessControl::checkAccess( $accessControlList, $accessLevel, $privilege );
+        return WikiAccessControl::checkAccess($accessControlList, $accessLevel, $privilege);
     }
 
     /**
@@ -180,10 +178,10 @@ class WikiAccessControl
      * access level has got edit privilege
      * @return boolean true if edit privilege is granted, false either
      */
-    function isAllowedToEditPage( $accessControlList, $accessLevel )
+    public static function isAllowedToEditPage($accessControlList, $accessLevel)
     {
         $privilege = 'edit';
-        return WikiAccessControl::checkAccess( $accessControlList, $accessLevel, $privilege );
+        return WikiAccessControl::checkAccess($accessControlList, $accessLevel, $privilege);
     }
 
     /**
@@ -191,10 +189,10 @@ class WikiAccessControl
      * access level has got create privilege
      * @return boolean true if create privilege is granted, false either
      */
-    function isAllowedToCreatePage( $accessControlList, $accessLevel )
+    public static function isAllowedToCreatePage($accessControlList, $accessLevel)
     {
         $privilege = 'create';
-        return WikiAccessControl::checkAccess( $accessControlList, $accessLevel, $privilege );
+        return WikiAccessControl::checkAccess($accessControlList, $accessLevel, $privilege);
     }
 
     /**
@@ -206,12 +204,12 @@ class WikiAccessControl
      * @return boolean true on success, false if accessLevel or
      *      privilege are not valid
      */
-    function grantPrivilegeToAccessLevel( &$accessControlList, $accessLevel, $privilege )
+    public static function grantPrivilegeToAccessLevel(&$accessControlList, $accessLevel, $privilege)
     {
         $prefixList = WikiAccessControl::prefixList();
         $privilegeList = WikiAccessControl::privilegeList();
 
-        if ( isset( $prefixList[$accessLevel] ) && isset( $privilegeList[$privilege] ) )
+        if (isset($prefixList[$accessLevel]) && isset($privilegeList[$privilege]))
         {
             $key = $prefixList[$accessLevel] . $privilegeList[$privilege];
             $accessControlList[$key] = true;
@@ -232,12 +230,12 @@ class WikiAccessControl
      * @return boolean true on success, false if accessLevel or
      *      privilege are not valid
      */
-    function removePrivilegeFromAccessLevel( &$accessControlList, $accessLevel, $privilege )
+    public static function removePrivilegeFromAccessLevel(&$accessControlList, $accessLevel, $privilege)
     {
         $prefixList = WikiAccessControl::prefixList();
         $privilegeList = WikiAccessControl::privilegeList();
 
-        if ( isset( $prefixList[$accessLevel] ) && isset( $privilegeList[$privilege] ) )
+        if (isset($prefixList[$accessLevel]) && isset($privilegeList[$privilege]))
         {
             $key = $prefixList[$accessLevel] . $privilegeList[$privilege];
             $accessControlList[$key] = false;
@@ -257,15 +255,15 @@ class WikiAccessControl
      * @return boolean true on success, false if accessLevel or
      *      privilege are not valid
      */
-    function grantReadPrivilegeToAccessLevel( &$accessControlList, $accessLevel )
+    public static function grantReadPrivilegeToAccessLevel(&$accessControlList, $accessLevel)
     {
         $privilege = 'read';
 
         return WikiAccessControl::grantPrivilegeToAccessLevel(
-            $accessControlList
-            , $accessLevel
-            , $privilege
-            );
+                $accessControlList
+                , $accessLevel
+                , $privilege
+        );
     }
 
     /**
@@ -276,15 +274,15 @@ class WikiAccessControl
      * @return boolean true on success, false if accessLevel or
      *      privilege are not valid
      */
-    function grantEditPrivilegeToAccessLevel( &$accessControlList, $accessLevel )
+    public static function grantEditPrivilegeToAccessLevel(&$accessControlList, $accessLevel)
     {
         $privilege = 'edit';
 
         return WikiAccessControl::grantPrivilegeToAccessLevel(
-            $accessControlList
-            , $accessLevel
-            , $privilege
-            );
+                $accessControlList
+                , $accessLevel
+                , $privilege
+        );
     }
 
     /**
@@ -295,15 +293,15 @@ class WikiAccessControl
      * @return boolean true on success, false if accessLevel or
      *      privilege are not valid
      */
-    function grantCreatePrivilegeToAccessLevel( &$accessControlList, $accessLevel )
+    public static function grantCreatePrivilegeToAccessLevel(&$accessControlList, $accessLevel)
     {
         $privilege = 'create';
 
         return WikiAccessControl::grantPrivilegeToAccessLevel(
-            $accessControlList
-            , $accessLevel
-            , $privilege
-            );
+                $accessControlList
+                , $accessLevel
+                , $privilege
+        );
     }
 
     /**
@@ -314,15 +312,15 @@ class WikiAccessControl
      * @return boolean true on success, false if accessLevel or
      *      privilege are not valid
      */
-    function removeReadPrivilegeFromAccessLevel( &$accessControlList, $accessLevel )
+    public static function removeReadPrivilegeFromAccessLevel(&$accessControlList, $accessLevel)
     {
         $privilege = 'read';
 
         return WikiAccessControl::removePrivilegeFromAccessLevel(
-            $accessControlList
-            , $accessLevel
-            , $privilege
-            );
+                $accessControlList
+                , $accessLevel
+                , $privilege
+        );
     }
 
     /**
@@ -333,15 +331,15 @@ class WikiAccessControl
      * @return boolean true on success, false if accessLevel or
      *      privilege are not valid
      */
-    function removeEditPrivilegeFromAccessLevel( &$accessControlList, $accessLevel )
+    public static function removeEditPrivilegeFromAccessLevel(&$accessControlList, $accessLevel)
     {
         $privilege = 'edit';
 
         return WikiAccessControl::removePrivilegeFromAccessLevel(
-            $accessControlList
-            , $accessLevel
-            , $privilege
-            );
+                $accessControlList
+                , $accessLevel
+                , $privilege
+        );
     }
 
     /**
@@ -352,15 +350,15 @@ class WikiAccessControl
      * @return boolean true on success, false if accessLevel or
      *      privilege are not valid
      */
-    function removeCreatePrivilegeFromAccessLevel( &$accessControlList, $accessLevel )
+    public static function removeCreatePrivilegeFromAccessLevel(&$accessControlList, $accessLevel)
     {
         $privilege = 'create';
 
         return WikiAccessControl::removePrivilegeFromAccessLevel(
-            $accessControlList
-            , $accessLevel
-            , $privilege
-            );
+                $accessControlList
+                , $accessLevel
+                , $privilege
+        );
     }
 
     /**
@@ -370,22 +368,22 @@ class WikiAccessControl
      *      if set to true (default true)
      * @return string string representation of the access control list
      */
-    function exportACL( $accessControlList, $echoExport = true )
+    public static function exportACL($accessControlList, $echoExport = true)
     {
         $export = "<pre>\n";
         $prefixList = WikiAccessControl::prefixList();
         $privilegeList = WikiAccessControl::privilegeList();
 
-        foreach ( $prefixList as $accessLevel => $prefix )
+        foreach ($prefixList as $accessLevel => $prefix)
         {
             $export .= $accessLevel . ':';
 
-            foreach ( $privilegeList as $privilege )
+            foreach ($privilegeList as $privilege)
             {
                 $aclKey = $prefix . $privilege;
 
                 $boolValue = ( $accessControlList[$aclKey] == true ) ? 'true' : 'false';
-                $export .= $privilege . '('.$boolValue.')';
+                $export .= $privilege . '(' . $boolValue . ')';
             }
 
             $export .= "<br />\n";
@@ -393,11 +391,12 @@ class WikiAccessControl
 
         $export .= "</pre>\n";
 
-        if ( $echoExport == true )
+        if ($echoExport == true)
         {
             echo $export;
         }
 
         return $export;
     }
+
 }

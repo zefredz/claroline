@@ -1,14 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
+//
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -19,20 +18,19 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @package Wiki
  */
-
 require_once dirname(__FILE__) . "/class.dbconnection.php";
 
 class ClarolineDatabaseConnection extends CLWIKI_Database_Connection
 {
-  
-    function ClarolineDatabaseConnection()
+
+    public function __construct()
     {
         // use only in claroline tools
     }
 
-    function setError( $errmsg = '', $errno = 0 )
+    protected function setError($errmsg = '', $errno = 0)
     {
-        if ( $errmsg != '' )
+        if ($errmsg != '')
         {
             $this->error = $errmsg;
             $this->errno = $errno;
@@ -46,39 +44,39 @@ class ClarolineDatabaseConnection extends CLWIKI_Database_Connection
         $this->connected = false;
     }
 
-    function connect()
+    public function connect()
     {
-
+        
     }
 
-    function close()
+    public function close()
     {
-
+        
     }
 
-    function executeQuery( $sql )
+    public function executeQuery($sql)
     {
-        claro_sql_query( $sql );
+        claro_sql_query($sql);
 
-        if( claro_sql_errno() != 0 )
+        if (claro_sql_errno() != 0)
         {
             $this->setError();
 
             return 0;
         }
 
-        return claro_sql_affected_rows( );
+        return claro_sql_affected_rows();
     }
 
-    function getAllObjectsFromQuery( $sql )
+    public function getAllObjectsFromQuery($sql)
     {
-        $result = claro_sql_query( $sql );
+        $result = claro_sql_query($sql);
 
-        if ( @mysql_num_rows( $result ) > 0 )
+        if (@mysql_num_rows($result) > 0)
         {
-            $ret= array();
+            $ret = array ();
 
-            while( ( $item = @mysql_fetch_object( $result ) ) != false )
+            while (( $item = @mysql_fetch_object($result) ) != false)
             {
                 $ret[] = $item;
             }
@@ -87,23 +85,23 @@ class ClarolineDatabaseConnection extends CLWIKI_Database_Connection
         {
             $this->setError();
 
-            @mysql_free_result( $result );
+            @mysql_free_result($result);
 
             return null;
         }
 
-        @mysql_free_result( $result );
+        @mysql_free_result($result);
 
         return $ret;
     }
 
-    function getObjectFromQuery( $sql )
+    public function getObjectFromQuery($sql)
     {
-        $result = claro_sql_query( $sql );
+        $result = claro_sql_query($sql);
 
-        if ( ( $item = @mysql_fetch_object( $result ) ) != false )
+        if (( $item = @mysql_fetch_object($result) ) != false)
         {
-            @mysql_free_result( $result );
+            @mysql_free_result($result);
 
             return $item;
         }
@@ -111,20 +109,20 @@ class ClarolineDatabaseConnection extends CLWIKI_Database_Connection
         {
             $this->setError();
 
-            @mysql_free_result( $result );
+            @mysql_free_result($result);
             return null;
         }
     }
 
-    function getAllRowsFromQuery( $sql )
+    public function getAllRowsFromQuery($sql)
     {
-        $result = claro_sql_query( $sql );
+        $result = claro_sql_query($sql);
 
-        if ( @mysql_num_rows( $result ) > 0 )
+        if (@mysql_num_rows($result) > 0)
         {
-            $ret= array();
+            $ret = array ();
 
-            while ( ( $item = @mysql_fetch_array( $result ) ) != false )
+            while (( $item = @mysql_fetch_array($result) ) != false)
             {
                 $ret[] = $item;
             }
@@ -133,23 +131,23 @@ class ClarolineDatabaseConnection extends CLWIKI_Database_Connection
         {
             $this->setError();
 
-            @mysql_free_result( $result );
+            @mysql_free_result($result);
 
             return null;
         }
 
-        @mysql_free_result( $result );
+        @mysql_free_result($result);
 
         return $ret;
     }
 
-    function getRowFromQuery( $sql )
+    public function getRowFromQuery($sql)
     {
-        $result = claro_sql_query( $sql );
+        $result = claro_sql_query($sql);
 
-        if ( ( $item = @mysql_fetch_array( $result ) ) != false )
+        if (( $item = @mysql_fetch_array($result) ) != false)
         {
-            @mysql_free_result( $result );
+            @mysql_free_result($result);
 
             return $item;
         }
@@ -157,28 +155,28 @@ class ClarolineDatabaseConnection extends CLWIKI_Database_Connection
         {
             $this->setError();
 
-            @mysql_free_result( $result );
+            @mysql_free_result($result);
 
             return null;
         }
     }
 
-    function queryReturnsResult( $sql )
+    public function queryReturnsResult($sql)
     {
-        $result = claro_sql_query( $sql );
+        $result = claro_sql_query($sql);
 
-        if ( claro_sql_errno() == 0 )
+        if (claro_sql_errno() == 0)
         {
 
-            if ( @mysql_num_rows( $result ) > 0 )
+            if (@mysql_num_rows($result) > 0)
             {
-                @mysql_free_result( $result );
+                @mysql_free_result($result);
 
                 return true;
             }
             else
             {
-                @mysql_free_result( $result );
+                @mysql_free_result($result);
 
                 return false;
             }
@@ -191,9 +189,9 @@ class ClarolineDatabaseConnection extends CLWIKI_Database_Connection
         }
     }
 
-    function getLastInsertID()
+    public function getLastInsertID()
     {
-        if ( $this->hasError() )
+        if ($this->hasError())
         {
             return 0;
         }
@@ -202,4 +200,5 @@ class ClarolineDatabaseConnection extends CLWIKI_Database_Connection
             return claro_sql_insert_id();
         }
     }
+
 }

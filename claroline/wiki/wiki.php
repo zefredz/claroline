@@ -269,7 +269,7 @@ switch ( $action )
     {
         //if ( !isset( $message ) ) $message = '';
 
-        $message = '<form method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
+        $message = '<form method="post" action="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])).'">'."\n"
             . '<input type="hidden" name="action" value="exSearch" />'."\n"
             . claro_form_relay_context() . "\n"
             . '<label for="searchPattern">'
@@ -277,7 +277,7 @@ switch ( $action )
             . '</label><br />'."\n"
             . '<input type="text" id="searchPattern" name="searchPattern" />'."\n"
             . '<input type="submit" value="'.get_lang("Ok").'" />'."\n"
-            . claro_html_button($_SERVER['PHP_SELF'], get_lang("Cancel"))
+            . claro_html_button(Url::Contextualize($_SERVER['PHP_SELF']), get_lang("Cancel"))
             . '</form>'."\n"
             ;
         
@@ -595,14 +595,16 @@ switch( $action )
     case 'rqDelete':
     {
         $out .= '<form method="post" action="'
-              . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
-              . '" id="rqDelete">' . "\n"
-              . '<div style="padding: 5px">' . "\n"
-              . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
-              . '<input type="submit" name="action[exDelete]" value="' . get_lang("Continue") . '" />' . "\n"
-              . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang("Cancel") )
-              . '</div>' . "\n"
-              . '</form>' . "\n";
+            . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
+            . '" id="rqDelete">' . "\n"
+            . '<div style="padding: 5px">' . "\n"
+            . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
+            . claro_form_relay_context() ."\n"
+            . '<input type="submit" name="action[exDelete]" value="' . get_lang("Continue") . '" />' . "\n"
+            . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang("Cancel") )
+            . '</div>' . "\n"
+            . '</form>' . "\n"
+            ;
 
         break;
     }
@@ -701,14 +703,14 @@ switch( $action )
                 // display direct link to main page
                 $out .= '<a class="item'.$classItem.'" href="'
                       . htmlspecialchars(Url::Contextualize('page.php?wikiId='
-                        . (int)$entry['id'].'&amp;action=show' ) ) . '">'
+                        . (int)$entry['id'].'&action=show' ) ) . '">'
                       . '<img src="' . get_icon_url('wiki').'" alt="'.get_lang("Wiki").'" />&nbsp;'
                       . $entry['title'] . '</a>'
                       . '</td>' . "\n"
                       . '<td style="text-align: center;">'
                       . '<a href="'
                       . htmlspecialchars(Url::Contextualize(
-                        'page.php?wikiId=' . (int) $entry['id'] . '&amp;action=all' ) )
+                        'page.php?wikiId=' . (int) $entry['id'] . '&action=all' ) )
                       .'">'
                       . $wikiStore->getNumberOfPagesInWiki( $entry['id'] )
                       . '</a>'
@@ -718,7 +720,7 @@ switch( $action )
                 // display direct link to main page
                 $out .= '<a href="'
                       . htmlspecialchars(Url::Contextualize('page.php?wikiId='
-                        . (int) $entry['id'].'&amp;action=recent' ) ) . '">'
+                        . (int) $entry['id'].'&action=recent' ) ) . '">'
                       . '<img src="' . get_icon_url('history').'" alt="'.get_lang("Recent changes").'" />'
                       . '</a>'
                       . '</td>' . "\n";
@@ -730,7 +732,7 @@ switch( $action )
                     $out .= '<td style="text-align:center;">'
                           . '<a href="'
                           . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
-                            . (int) $entry['id'].'&amp;action=rqEdit' ) )
+                            . (int) $entry['id'].'&action=rqEdit' ) )
                           . '">'
                           . '<img src="' . get_icon_url('settings').'" alt="'
                           . get_lang("Edit properties").'" />'
@@ -741,7 +743,7 @@ switch( $action )
                     $out .= '<td style="text-align:center;">'
                           . '<a href="'
                           . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
-                            . (int) $entry['id'].'&amp;action=rqDelete' ))
+                            . (int) $entry['id'].'&action=rqDelete' ))
                           . '">'
                           . '<img src="' . get_icon_url('delete').'" alt="'.get_lang("Delete").'" />'
                           . '</a>'
@@ -752,7 +754,7 @@ switch( $action )
                         $out .= '<td style="text-align:center;">'
                               . '<a href="'
                               . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
-                                . (int)$entry['id'].'&amp;action=exExport' ))
+                                . (int)$entry['id'].'&action=exExport' ))
                               . '">'
                               . '<img src="' . get_icon_url('export').'" alt="'.get_lang("Export").'" />'
                               . '</a>'

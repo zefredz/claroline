@@ -1,14 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -19,57 +18,54 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @package Wiki
  */
-
 require_once dirname(__FILE__) . "/class.dbconnection.php";
 require_once dirname(__FILE__) . "/class.wikipage.php";
 
 // Error codes
-!defined( "WIKI_NO_TITLE_ERROR" ) && define( "WIKI_NO_TITLE_ERROR", "Missing title" );
-!defined( "WIKI_NO_TITLE_ERRNO" ) && define( "WIKI_NO_TITLE_ERRNO", 1 );
-!defined( "WIKI_ALREADY_EXISTS_ERROR" ) && define( "WIKI_ALREADY_EXISTS_ERROR", "Wiki already exists" );
-!defined( "WIKI_ALREADY_EXISTS_ERRNO" ) && define( "WIKI_ALREADY_EXISTS_ERRNO", 2 );
-!defined( "WIKI_CANNOT_BE_UPDATED_ERROR" ) && define( "WIKI_CANNOT_BE_UPDATED_ERROR", "Wiki cannot be updated" );
-!defined( "WIKI_CANNOT_BE_UPDATED_ERRNO" ) && define( "WIKI_CANNOT_BE_UPDATED_ERRNO", 3 );
-!defined( "WIKI_NOT_FOUND_ERROR" ) && define( "WIKI_NOT_FOUND_ERROR", "Wiki not found" );
-!defined( "WIKI_NOT_FOUND_ERRNO" ) && define( "WIKI_NOT_FOUND_ERRNO", 4 );
+!defined("WIKI_NO_TITLE_ERROR") && define("WIKI_NO_TITLE_ERROR", "Missing title");
+!defined("WIKI_NO_TITLE_ERRNO") && define("WIKI_NO_TITLE_ERRNO", 1);
+!defined("WIKI_ALREADY_EXISTS_ERROR") && define("WIKI_ALREADY_EXISTS_ERROR", "Wiki already exists");
+!defined("WIKI_ALREADY_EXISTS_ERRNO") && define("WIKI_ALREADY_EXISTS_ERRNO", 2);
+!defined("WIKI_CANNOT_BE_UPDATED_ERROR") && define("WIKI_CANNOT_BE_UPDATED_ERROR", "Wiki cannot be updated");
+!defined("WIKI_CANNOT_BE_UPDATED_ERRNO") && define("WIKI_CANNOT_BE_UPDATED_ERRNO", 3);
+!defined("WIKI_NOT_FOUND_ERROR") && define("WIKI_NOT_FOUND_ERROR", "Wiki not found");
+!defined("WIKI_NOT_FOUND_ERRNO") && define("WIKI_NOT_FOUND_ERRNO", 4);
 
 /**
  * This class represents a Wiki
  */
 class Wiki
 {
-    var $wikiId;
-    var $title;
-    var $desc;
-    var $accessControlList;
-    var $groupId;
 
-    var $con;
-
+    private $wikiId;
+    private $title;
+    private $desc;
+    private $accessControlList;
+    private $groupId;
+    private $con;
     // default configuration
-    var $config = array(
-            'tbl_wiki_pages' => 'wiki_pages',
-            'tbl_wiki_pages_content' => 'wiki_pages_content',
-            'tbl_wiki_properties' => 'wiki_properties',
-            'tbl_wiki_acls' => 'wiki_acls'
-        );
-
+    private $config = array (
+        'tbl_wiki_pages' => 'wiki_pages',
+        'tbl_wiki_pages_content' => 'wiki_pages_content',
+        'tbl_wiki_properties' => 'wiki_properties',
+        'tbl_wiki_acls' => 'wiki_acls'
+    );
     // error handling
-    var $error = '';
-    var $errno = 0;
+    private $error = '';
+    private $errno = 0;
 
     /**
      * Constructor
      * @param DatabaseConnection con connection to the database
      * @param array config associative array containing tables name
      */
-    function Wiki( &$con, $config = null )
+    public function __construct( $con, $config = null)
     {
-        if ( is_array( $config ) )
+        if (is_array($config))
         {
-            $this->config = array_merge( $this->config, $config );
+            $this->config = array_merge($this->config, $config);
         }
-        $this->con =& $con;
+        $this->con = & $con;
 
         $this->wikiId = 0;
     }
@@ -80,7 +76,7 @@ class Wiki
      * Set Wiki title
      * @param string wikiTitle
      */
-    function setTitle( $wikiTitle )
+    public function setTitle($wikiTitle)
     {
         $this->title = $wikiTitle;
     }
@@ -89,7 +85,7 @@ class Wiki
      * Get the Wiki title
      * @return string title of the wiki
      */
-    function getTitle()
+    public function getTitle()
     {
         return $this->title;
     }
@@ -98,7 +94,7 @@ class Wiki
      * Set the description of the Wiki
      * @param string wikiDesc description of the wiki
      */
-    function setDescription( $wikiDesc = '' )
+    public function setDescription($wikiDesc = '')
     {
         $this->desc = $wikiDesc;
     }
@@ -107,7 +103,7 @@ class Wiki
      * Get the description of the Wiki
      * @param string description of the wiki
      */
-    function getDescription()
+    public function getDescription()
     {
         return $this->desc;
     }
@@ -116,7 +112,7 @@ class Wiki
      * Set the access control list of the Wiki
      * @param array accessControlList wiki access control list
      */
-    function setACL( $accessControlList )
+    public function setACL($accessControlList)
     {
         $this->accessControlList = $accessControlList;
     }
@@ -125,7 +121,7 @@ class Wiki
      * Get the access control list of the Wiki
      * @return array wiki access control list
      */
-    function getACL()
+    public function getACL()
     {
         return $this->accessControlList;
     }
@@ -134,7 +130,7 @@ class Wiki
      * Set the group ID of the Wiki
      * @param int groupId group ID
      */
-    function setGroupId( $groupId )
+    public function setGroupId($groupId)
     {
         $this->groupId = $groupId;
     }
@@ -143,7 +139,7 @@ class Wiki
      * Get the group ID of the Wiki
      * @return int group ID
      */
-    function getGroupId()
+    public function getGroupId()
     {
         return $this->groupId;
     }
@@ -152,7 +148,7 @@ class Wiki
      * Set the ID of the Wiki
      * @param int wikiId ID of the Wiki
      */
-    function setWikiId( $wikiId )
+    public function setWikiId($wikiId)
     {
         $this->wikiId = $wikiId;
     }
@@ -161,7 +157,7 @@ class Wiki
      * Set the ID of the Wiki
      * @return int ID of the Wiki
      */
-    function getWikiId()
+    public function getWikiId()
     {
         return $this->wikiId;
     }
@@ -172,16 +168,16 @@ class Wiki
      * Load a Wiki
      * @param int wikiId ID of the Wiki
      */
-    function load( $wikiId )
+    public function load($wikiId)
     {
-        if( $this->wikiIdExists($wikiId) )
+        if ($this->wikiIdExists($wikiId))
         {
-            $this->loadProperties( $wikiId );
-            $this->loadACL( $wikiId );
+            $this->loadProperties($wikiId);
+            $this->loadACL($wikiId);
         }
         else
         {
-            $this->setError( WIKI_NOT_FOUND_ERROR, WIKI_NOT_FOUND_ERRNO );
+            $this->setError(WIKI_NOT_FOUND_ERROR, WIKI_NOT_FOUND_ERRNO);
         }
     }
 
@@ -189,23 +185,23 @@ class Wiki
      * Load the properties of the Wiki
      * @param int wikiId ID of the Wiki
      */
-    function loadProperties( $wikiId )
+    private function loadProperties($wikiId)
     {
-        if ( ! $this->con->isConnected() )
+        if (!$this->con->isConnected())
         {
             $this->con->connect();
         }
 
         $sql = "SELECT `id`, `title`, `description`, `group_id` "
-            . "FROM `".$this->config['tbl_wiki_properties']."` "
-            . "WHERE `id` = ". (int) $wikiId
-            ;
+            . "FROM `" . $this->config['tbl_wiki_properties'] . "` "
+            . "WHERE `id` = " . (int) $wikiId
+        ;
 
-        $result = $this->con->getRowFromQuery( $sql );
+        $result = $this->con->getRowFromQuery($sql);
 
-        $this->setWikiId( $result['id'] );
-        $this->setTitle( stripslashes( $result['title'] ) );
-        $this->setDescription( stripslashes( $result['description'] ) );
+        $this->setWikiId($result['id']);
+        $this->setTitle(stripslashes($result['title']));
+        $this->setDescription(stripslashes($result['description']));
         $this->setGroupId($result['group_id']);
     }
 
@@ -213,44 +209,44 @@ class Wiki
      * Load the access control list of the Wiki
      * @param int wikiId ID of the Wiki
      */
-    function loadACL( $wikiId )
+    private function loadACL($wikiId)
     {
-        if ( ! $this->con->isConnected() )
+        if (!$this->con->isConnected())
         {
             $this->con->connect();
         }
 
         $sql = "SELECT `flag`, `value` "
-            . "FROM `".$this->config['tbl_wiki_acls']."` "
+            . "FROM `" . $this->config['tbl_wiki_acls'] . "` "
             . "WHERE `wiki_id` = " . (int) $wikiId
-            ;
+        ;
 
-        $result = $this->con->getAllRowsFromQuery( $sql );
+        $result = $this->con->getAllRowsFromQuery($sql);
 
-        $acl = array();
+        $acl = array ();
 
-        if( is_array( $result ) )
+        if (is_array($result))
         {
-            foreach ( $result as $row )
+            foreach ($result as $row)
             {
                 $value = ( $row['value'] == 'true' ) ? true : false;
                 $acl[$row['flag']] = $value;
             }
         }
 
-        $this->setACL( $acl );
+        $this->setACL($acl);
     }
 
     /**
      * Save the Wiki
      */
-    function save()
+    public function save()
     {
         $this->saveProperties();
 
         $this->saveACL();
 
-        if ( $this->hasError() )
+        if ($this->hasError())
         {
             return 0;
         }
@@ -263,26 +259,26 @@ class Wiki
     /**
      * Save the access control list of the Wiki
      */
-    function saveACL()
+    private function saveACL()
     {
         // reconnect if needed
-        if ( ! $this->con->isConnected() )
+        if (!$this->con->isConnected())
         {
             $this->con->connect();
         }
 
 
         $sql = "SELECT `wiki_id` FROM `"
-            . $this->config['tbl_wiki_acls']."` "
+            . $this->config['tbl_wiki_acls'] . "` "
             . "WHERE `wiki_id` = " . (int) $this->getWikiId()
-            ;
+        ;
 
         // wiki already exists
-        if ( $this->con->queryReturnsResult( $sql ) )
+        if ($this->con->queryReturnsResult($sql))
         {
             $acl = $this->getACL();
 
-            foreach ( $acl as $flag => $value )
+            foreach ($acl as $flag => $value)
             {
                 $value = ( $value == false ) ? 'false' : 'true';
 
@@ -290,9 +286,9 @@ class Wiki
                     . "SET `value`='" . $value . "'"
                     . "WHERE `wiki_id`=" . (int) $this->getWikiId() . " "
                     . "AND `flag`='" . $flag . "'"
-                    ;
+                ;
 
-                $this->con->executeQuery( $sql );
+                $this->con->executeQuery($sql);
             }
         }
         // new wiki
@@ -300,12 +296,12 @@ class Wiki
         {
             $acl = $this->getACL();
 
-            foreach ( $acl as $flag => $value )
+            foreach ($acl as $flag => $value)
             {
                 $value = ( $value == false ) ? 'false' : 'true';
 
                 $sql = "INSERT INTO "
-                    . "`".$this->config['tbl_wiki_acls']."`"
+                    . "`" . $this->config['tbl_wiki_acls'] . "`"
                     . "("
                     . "`wiki_id`, `flag`, `value`"
                     . ") "
@@ -314,9 +310,9 @@ class Wiki
                     . "'" . $flag . "',"
                     . "'" . $value . "'"
                     . ")"
-                    ;
+                ;
 
-                $this->con->executeQuery( $sql );
+                $this->con->executeQuery($sql);
             }
         }
     }
@@ -324,16 +320,16 @@ class Wiki
     /**
      * Save the properties of the Wiki
      */
-    function saveProperties()
+    private function saveProperties()
     {
         // reconnect if needed
-        if ( ! $this->con->isConnected() )
+        if (!$this->con->isConnected())
         {
             $this->con->connect();
         }
 
         // new wiki
-        if ( $this->getWikiId() === 0 )
+        if ($this->getWikiId() === 0)
         {
             // INSERT PROPERTIES
             $sql = "INSERT INTO `"
@@ -342,19 +338,19 @@ class Wiki
                 . "`title`,`description`,`group_id`"
                 . ") "
                 . "VALUES("
-                . "'". claro_sql_escape( $this->getTitle() ) ."', "
-                . "'" . claro_sql_escape( $this->getDescription() ) . "', "
+                . "'" . claro_sql_escape($this->getTitle()) . "', "
+                . "'" . claro_sql_escape($this->getDescription()) . "', "
                 . "'" . (int) $this->getGroupId() . "'"
                 . ")"
-                ;
+            ;
 
             // GET WIKIID
-            $this->con->executeQuery( $sql );
+            $this->con->executeQuery($sql);
 
-            if ( ! $this->con->hasError() )
+            if (!$this->con->hasError())
             {
                 $wikiId = $this->con->getLastInsertId();
-                $this->setWikiId( $wikiId );
+                $this->setWikiId($wikiId);
             }
         }
         // Wiki already exists
@@ -363,13 +359,13 @@ class Wiki
             // UPDATE PROPERTIES
             $sql = "UPDATE `" . $this->config['tbl_wiki_properties'] . "` "
                 . "SET "
-                . "`title`='".claro_sql_escape($this->getTitle())."', "
-                . "`description`='".claro_sql_escape($this->getDescription())."', "
-                . "`group_id`='". (int) $this->getGroupId()."' "
+                . "`title`='" . claro_sql_escape($this->getTitle()) . "', "
+                . "`description`='" . claro_sql_escape($this->getDescription()) . "', "
+                . "`group_id`='" . (int) $this->getGroupId() . "' "
                 . "WHERE `id`=" . (int) $this->getWikiId()
-                ;
+            ;
 
-            $this->con->executeQuery( $sql );
+            $this->con->executeQuery($sql);
         }
     }
 
@@ -380,21 +376,21 @@ class Wiki
      * @param string title page title
      * @return boolean
      */
-    function pageExists( $title )
+    public function pageExists($title)
     {
         // reconnect if needed
-        if ( ! $this->con->isConnected() )
+        if (!$this->con->isConnected())
         {
             $this->con->connect();
         }
 
         $sql = "SELECT `id` "
-            . "FROM `".$this->config['tbl_wiki_pages']."` "
-            . "WHERE BINARY `title` = '".claro_sql_escape($title)."' "
+            . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
+            . "WHERE BINARY `title` = '" . claro_sql_escape($title) . "' "
             . "AND `wiki_id` = " . (int) $this->wikiId
-            ;
+        ;
 
-        return $this->con->queryReturnsResult( $sql );
+        return $this->con->queryReturnsResult($sql);
     }
 
     /**
@@ -402,20 +398,20 @@ class Wiki
      * @param string title wiki title
      * @return boolean
      */
-    function wikiExists( $title )
+    public function wikiExists($title)
     {
         // reconnect if needed
-        if ( ! $this->con->isConnected() )
+        if (!$this->con->isConnected())
         {
             $this->con->connect();
         }
 
         $sql = "SELECT `id` "
-            . "FROM `".$this->config['tbl_wiki_properties']."` "
-            . "WHERE `title` = '".claro_sql_escape($title)."'"
-            ;
+            . "FROM `" . $this->config['tbl_wiki_properties'] . "` "
+            . "WHERE `title` = '" . claro_sql_escape($title) . "'"
+        ;
 
-        return $this->con->queryReturnsResult( $sql );
+        return $this->con->queryReturnsResult($sql);
     }
 
     /**
@@ -423,20 +419,20 @@ class Wiki
      * @param int id wiki ID
      * @return boolean
      */
-    function wikiIdExists( $id )
+    public function wikiIdExists($id)
     {
         // reconnect if needed
-        if ( ! $this->con->isConnected() )
+        if (!$this->con->isConnected())
         {
             $this->con->connect();
         }
 
         $sql = "SELECT `id` "
-            . "FROM `".$this->config['tbl_wiki_properties']."` "
-            . "WHERE `id` = '". (int) $id."'"
-            ;
+            . "FROM `" . $this->config['tbl_wiki_properties'] . "` "
+            . "WHERE `id` = '" . (int) $id . "'"
+        ;
 
-        return $this->con->queryReturnsResult( $sql );
+        return $this->con->queryReturnsResult($sql);
     }
 
     /**
@@ -444,21 +440,21 @@ class Wiki
      * only the titles of the pages...)
      * @return array containing thes pages
      */
-    function allPages()
+    public function allPages()
     {
         // reconnect if needed
-        if ( ! $this->con->isConnected() )
+        if (!$this->con->isConnected())
         {
             $this->con->connect();
         }
 
         $sql = "SELECT `title` "
-            . "FROM `".$this->config['tbl_wiki_pages']."` "
+            . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
             . "WHERE `wiki_id` = " . (int) $this->getWikiId() . " "
             . "ORDER BY `title` ASC"
-            ;
+        ;
 
-        return $this->con->getAllRowsFromQuery( $sql );
+        return $this->con->getAllRowsFromQuery($sql);
     }
 
     /**
@@ -466,21 +462,21 @@ class Wiki
      * only the titles of the pages...) ordered by creation date
      * @return array containing thes pages
      */
-    function allPagesByCreationDate()
+    public function allPagesByCreationDate()
     {
         // reconnect if needed
-        if ( ! $this->con->isConnected() )
+        if (!$this->con->isConnected())
         {
             $this->con->connect();
         }
 
         $sql = "SELECT `title` "
-            . "FROM `".$this->config['tbl_wiki_pages']."` "
+            . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
             . "WHERE `wiki_id` = " . (int) $this->getWikiId() . " "
             . "ORDER BY `ctime` ASC"
-            ;
+        ;
 
-        return $this->con->getAllRowsFromQuery( $sql );
+        return $this->con->getAllRowsFromQuery($sql);
     }
 
     /**
@@ -489,10 +485,10 @@ class Wiki
      * @param int count number of record to return starting at offset
      * @return array recently modified pages (title, last_mtime, editor_id)
      */
-    function recentChanges( $offset = 0, $count = 50 )
+    public function recentChanges($offset = 0, $count = 50)
     {
         // reconnect if needed
-        if ( ! $this->con->isConnected() )
+        if (!$this->con->isConnected())
         {
             $this->con->connect();
         }
@@ -500,46 +496,46 @@ class Wiki
         $limit = ($count == 0 ) ? "" : "LIMIT " . $offset . ", " . $count;
 
         $sql = "SELECT `page`.`title`, `page`.`last_mtime`, `content`.`editor_id` "
-            . "FROM `".$this->config['tbl_wiki_pages']."` `page`, "
-            . "`".$this->config['tbl_wiki_pages_content']."` `content` "
+            . "FROM `" . $this->config['tbl_wiki_pages'] . "` `page`, "
+            . "`" . $this->config['tbl_wiki_pages_content'] . "` `content` "
             . "WHERE `page`.`wiki_id` = " . (int) $this->getWikiId() . " "
             . "AND `page`.`last_version` = `content`.`id` "
             . "ORDER BY `page`.`last_mtime` DESC "
             . $limit
-            ;
+        ;
 
-        return $this->con->getAllRowsFromQuery( $sql );
+        return $this->con->getAllRowsFromQuery($sql);
     }
 
-    function getNumberOfPages()
+    public function getNumberOfPages()
     {
-        if ( ! $this->con->isConnected() )
+        if (!$this->con->isConnected())
         {
             $this->con->connect();
         }
 
 
         $sql = "SELECT count( `id` ) as `pages` "
-            . "FROM `".$this->config['tbl_wiki_pages']."` "
+            . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
             . "WHERE `wiki_id` = " . (int) $this->wikiId
-            ;
+        ;
 
-        $result = $this->con->getRowFromQuery( $sql );
+        $result = $this->con->getRowFromQuery($sql);
 
         return $result['pages'];
     }
 
     // error handling
 
-    function setError( $errmsg = '', $errno = 0 )
+    private function setError($errmsg = '', $errno = 0)
     {
         $this->error = ($errmsg != '') ? $errmsg : 'Unknown error';
         $this->errno = $errno;
     }
 
-    function getError()
+    public function getError()
     {
-        if ( $this->con->hasError() )
+        if ($this->con->hasError())
         {
             return $this->con->getError();
         }
@@ -549,7 +545,7 @@ class Wiki
             $error = $this->error;
             $this->error = '';
             $this->errno = 0;
-            return $errno.' - '.$error;
+            return $errno . ' - ' . $error;
         }
         else
         {
@@ -557,8 +553,9 @@ class Wiki
         }
     }
 
-    function hasError()
+    public function hasError()
     {
         return ( $this->error != '' ) || $this->con->hasError();
     }
+
 }

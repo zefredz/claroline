@@ -1,15 +1,13 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license GENERAL PUBLIC LICENSE (GPL)
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -30,9 +28,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 class WikiSearchEngine
 {
-    var $connection = null;
+    private $connection = null;
 
-    var $config = array(
+    private $config = array(
         'tbl_wiki_pages' => 'wiki_pages',
         'tbl_wiki_pages_content' => 'wiki_pages_content',
         'tbl_wiki_properties' => 'wiki_properties',
@@ -44,7 +42,7 @@ class WikiSearchEngine
      * @param DatabaseConnection connection
      * @param Array config
      */
-    function WikiSearchEngine( &$connection, $config = null )
+    public function __construct( &$connection, $config = null )
     {
         if ( is_array( $config ) )
         {
@@ -61,7 +59,7 @@ class WikiSearchEngine
      * @param Const mode
      * @return Array of Wiki pages
      */
-    function searchInWiki( $pattern, $wikiId, $mode = CLWIKI_SEARCH_ANY )
+    public function searchInWiki( $pattern, $wikiId, $mode = CLWIKI_SEARCH_ANY )
     {
         if ( ! $this->connection->isConnected() )
         {
@@ -98,7 +96,7 @@ class WikiSearchEngine
      * @param Const mode
      * @return Array of Wiki pages ids and titles
      */
-    function lightSearchInWiki( $wikiId, $pattern, $mode = CLWIKI_SEARCH_ANY )
+    public function lightSearchInWiki( $wikiId, $pattern, $mode = CLWIKI_SEARCH_ANY )
     {
         if ( ! $this->connection->isConnected() )
         {
@@ -135,7 +133,7 @@ class WikiSearchEngine
      * @param Const mode
      * @return Array of Wiki properties
      */
-    function searchAllWiki( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY, $getPageTitles = false )
+    public function searchAllWiki( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY, $getPageTitles = false )
     {
         if ( ! $this->connection->isConnected() )
         {
@@ -215,7 +213,7 @@ class WikiSearchEngine
      * @param Const mode
      * @return Array ( keywords, implode_word )
      */
-    function splitPattern( $pattern, $mode = CLWIKI_SEARCH_ANY )
+    private function splitPattern( $pattern, $mode = CLWIKI_SEARCH_ANY )
     {
         $pattern = claro_sql_escape( $pattern );
         $pattern = str_replace('_', '\_', $pattern);
@@ -257,7 +255,7 @@ class WikiSearchEngine
      * @param Const mode
      * @return String
      */
-    function makePageSearchQuery( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY )
+    private function makePageSearchQuery( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY )
     {
         list( $keywords, $impl ) = WikiSearchEngine::splitPattern( $pattern, $mode );
 
@@ -302,7 +300,7 @@ class WikiSearchEngine
      * @param Const mode
      * @return String
      */
-    function makeWikiPropertiesSearchQuery( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY )
+    private function makeWikiPropertiesSearchQuery( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY )
     {
         list( $keywords, $impl ) = WikiSearchEngine::splitPattern( $pattern, $mode );
 
@@ -327,17 +325,17 @@ class WikiSearchEngine
 
     // error handling
 
-    var $error = null;
+    private $error = null;
     
-    var $errno = 0;
+    private $errno = 0;
 
-    function setError( $errmsg = '', $errno = 0 )
+    private function setError( $errmsg = '', $errno = 0 )
     {
         $this->error = ($errmsg != '') ? $errmsg : "Unknown error";
         $this->errno = $errno;
     }
 
-    function getError()
+    public function getError()
     {
         if ( $this->connection->hasError() )
         {
@@ -359,7 +357,7 @@ class WikiSearchEngine
         }
     }
 
-    function hasError()
+    public function hasError()
     {
         return ( ! is_null( $this->error ) ) || $this->connection->hasError();
     }

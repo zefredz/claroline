@@ -1,14 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -29,14 +28,14 @@ require_once dirname(__FILE__) . '/class.wiki.php';
  */
 class WikiToSingleHTMLExporter extends Wiki2xhtmlRenderer
 {
-    var $wiki;
-    var $style = '';
+    protected $wiki;
+    protected $style = '';
 
     /**
      * Constructor
      * @param   $wiki Wiki, Wiki to export
      */
-    function WikiToSingleHTMLExporter( &$wiki )
+    public function __construct( $wiki )
     {
         Wiki2xhtmlRenderer::Wiki2xhtmlRenderer( $wiki );
         $this->setOpt( 'first_title_level', 3 );
@@ -48,7 +47,7 @@ class WikiToSingleHTMLExporter extends Wiki2xhtmlRenderer
      * Export a whole Wiki to a single HTML String
      * @return  string Wiki content in HTML
      */
-    function export()
+    public function export()
     {
         $pageList = $this->wiki->allPagesByCreationDate();
 
@@ -116,7 +115,7 @@ class WikiToSingleHTMLExporter extends Wiki2xhtmlRenderer
      * @return  string anchor name
      * @todo    implement...
      */
-    function _makePageTitleAnchor( $pageTitle )
+    private function _makePageTitleAnchor( $pageTitle )
     {
         return $pageTitle;
     }
@@ -127,7 +126,7 @@ class WikiToSingleHTMLExporter extends Wiki2xhtmlRenderer
      * @return  string CSS style to insert in HTML (style tags already added)
      * @todo    remove style tags and add support for multiple media
      */
-    function _getWikiStyle()
+    private function _getWikiStyle()
     {
         $style = '<style type="text/css" media="screen">
 h1{
@@ -181,7 +180,7 @@ td {
      * @access  private
      * @return  string HTML header
      */
-    function _htmlHeader()
+    private function _htmlHeader()
     {
         $header = '<html>' . "\n" . '<head>' . "\n"
             . $this->_getWikiStyle()
@@ -197,7 +196,7 @@ td {
      * @access  private
      * @return  string HTML footer
      */
-    function _htmlFooter()
+    private function _htmlFooter()
     {
         $footer = '</body>' . "\n" . '</html>' . "\n";
 
@@ -209,7 +208,7 @@ td {
     /**
      * @see Wiki2xhtmlRenderer
      */
-    function parseWikiWord( $str, $tag, $attr, $type )
+    private function parseWikiWord( $str, $tag, $attr, $type )
     {
         // $tag = 'a';
         // $attr = ' href="'.$this->_makePageTitleAnchor( $str ).'"';
@@ -234,12 +233,12 @@ td {
     /**
      * @see Wiki2xhtmlRenderer
      */
-    function _getWikiPageLink( $pageName, &$tag, &$attr, &$type )
+    private function _getWikiPageLink( $pageName, &$tag, &$attr, &$type )
     {
         // allow links to use wikiwords for wiki page locations
         if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern'))
         {
-            $pageName = preg_replace('/¶¶¶'.$this->getOpt('words_pattern').'¶¶¶/msU', '$1', $pageName);
+            $pageName = preg_replace('/ï¿½ï¿½ï¿½'.$this->getOpt('words_pattern').'ï¿½ï¿½ï¿½/msU', '$1', $pageName);
         }
 
         if ($this->wiki->pageExists( $pageName ) )

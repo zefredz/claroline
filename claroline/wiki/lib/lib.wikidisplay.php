@@ -1,13 +1,12 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
  * CLAROLINE
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
  * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -37,7 +36,7 @@ function claro_disp_wiki_editor( $wikiId, $title, $versionId
 {
 
     // create script
-    $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
+    $script = ( is_null( $script ) ) ? Url::Contextualize($_SERVER['PHP_SELF']) : $script;
     $script = add_request_variable_to_url( $script, "title", rawurlencode($title) );
 
     // set display title
@@ -79,6 +78,8 @@ function claro_disp_wiki_editor( $wikiId, $title, $versionId
         . $versionId
         . '" />' . "\n"
         ;
+    
+    $out .= claro_form_relay_context() . "\n";
 
     $out .= '<input type="submit" name="action[preview]" value="'
         .get_lang("Preview").'" />' . "\n"
@@ -157,9 +158,9 @@ function claro_disp_wiki_preview( &$wikiRenderer, $title, $content = '' )
  */
 function claro_disp_wiki_preview_buttons( $wikiId, $title, $content, $script = null )
 {
-    $script = ( is_null( $script ) ) ? htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) : $script;
+    $script = ( is_null( $script ) ) ? Url::Contextualize($_SERVER['PHP_SELF']) : $script;
 
-    $out = '<div style="clear:both;"><form method="post" action="' . $script
+    $out = '<div><form method="post" action="' . htmlspecialchars( $script )
         . '" name="previewform" id="previewform">' . "\n"
         ;
     $out .= '<input type="hidden" name="content" value="'
@@ -175,6 +176,8 @@ function claro_disp_wiki_preview_buttons( $wikiId, $title, $content, $script = n
         . (int)$wikiId
         . '" />' . "\n"
         ;
+    
+    $out .= claro_form_relay_context() . "\n";
 
     $out .= '<input type="submit" name="action[edit]" value="'
         . get_lang("Edit") . '"/>' . "\n"
@@ -234,9 +237,9 @@ function claro_disp_wiki_properties_form( $wikiId = 0
     $other_edit_checked = ( $acl['other_edit'] == true ) ? ' checked="checked"' : '';
     $other_create_checked = ( $acl['other_create'] == true ) ? ' checked="checked"' : '';
 
-    $script = ( is_null( $script ) ) ? htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) : $script;
+    $script = ( is_null( $script ) ) ? Url::Contextualize($_SERVER['PHP_SELF']) : $script;
 
-    $form = '<form method="post" id="wikiProperties" action="'.$script.'">' . "\n"
+    $form = '<form method="post" id="wikiProperties" action="'.htmlspecialchars($script).'">' . "\n"
         . '<fieldset>' . "\n"
         . '<legend>'.get_lang("Wiki description").'</legend>' . "\n"
         . '<!-- wikiId = 0 if creation, != 0 if edition  -->' . "\n"
@@ -303,6 +306,8 @@ function claro_disp_wiki_properties_form( $wikiId = 0
     {
         $form .= '<input type="hidden" name="gidReq" value="' . $groupId  . '" />' . "\n";
     }
+    
+    $form .= claro_form_relay_context() ."\n";
 
     $form .= '<input type="submit" name="action[exEdit]" value="' . get_lang("Ok") . '" />' . "\n"
         . claro_html_button (

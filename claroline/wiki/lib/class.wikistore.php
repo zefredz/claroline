@@ -1,14 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -40,10 +39,10 @@ require_once dirname(__FILE__) . "/class.wiki.php";
 class WikiStore
 {
     // private fields
-    var $con;
+    private $con;
 
     // default configuration
-    var $config = array(
+    private $config = array(
             'tbl_wiki_pages' => 'wiki_pages',
             'tbl_wiki_pages_content' => 'wiki_pages_content',
             'tbl_wiki_properties' => 'wiki_properties',
@@ -51,15 +50,15 @@ class WikiStore
         );
 
     // error handling
-    var $error = '';
-    var $errno = 0;
+    private $error = '';
+    private $errno = 0;
 
     /**
      * Constructor
      * @param DatabaseConnection con connection to the database
      * @param array config associative array containing tables name
      */
-    function WikiStore( &$con, $config = null )
+    public function __construct( $con, $config = null )
     {
         if ( is_array( $config ) )
         {
@@ -74,7 +73,7 @@ class WikiStore
      * @param int wikiId ID of the Wiki
      * @return Wiki the loaded Wiki
      */
-    function loadWiki( $wikiId )
+    public function loadWiki( $wikiId )
     {
         $wiki = new Wiki( $this->con, $this->config );
 
@@ -94,7 +93,7 @@ class WikiStore
      * @param string title page title
      * @return boolean
      */
-    function pageExists( $wikiId, $title )
+    public function pageExists( $wikiId, $title )
     {
         // reconnect if needed
         if ( ! $this->con->isConnected() )
@@ -116,7 +115,7 @@ class WikiStore
      * @param int id wiki ID
      * @return boolean
      */
-    function wikiIdExists( $wikiId )
+    public function wikiIdExists( $wikiId )
     {
         // reconnect if needed
         if ( ! $this->con->isConnected() )
@@ -139,7 +138,7 @@ class WikiStore
      * @param int groupId ID of the group, Zero for a course
      * @return array list of the wiki's for the given group
      */
-    function getWikiListByGroup( $groupId )
+    public function getWikiListByGroup( $groupId )
     {
         if ( ! $this->con->isConnected() )
         {
@@ -160,7 +159,7 @@ class WikiStore
      * @return array list of the wiki's in the course
      * @see WikiStore::getWikiListByGroup( $groupId )
      */
-    function getCourseWikiList( )
+    public function getCourseWikiList( )
     {
         return $this->getWikiListByGroup( 0 );
     }
@@ -169,7 +168,7 @@ class WikiStore
      * Get the list of the wiki's in all groups (exept course wiki's)
      * @return array list of all the group wiki's
      */
-    function getGroupWikiList()
+    public function getGroupWikiList()
     {
         if ( ! $this->con->isConnected() )
         {
@@ -185,7 +184,7 @@ class WikiStore
         return $this->con->getAllRowsFromQuery( $sql );
     }
 
-    function getNumberOfPagesInWiki( $wikiId )
+    public function getNumberOfPagesInWiki( $wikiId )
     {
         if ( ! $this->con->isConnected() )
         {
@@ -215,7 +214,7 @@ class WikiStore
      * @param int wikiId ID of the wiki
      * @return boolean true on success, false on failure
      */
-    function deleteWiki( $wikiId )
+    public function deleteWiki( $wikiId )
     {
         if ( ! $this->con->isConnected() )
         {
@@ -303,13 +302,13 @@ class WikiStore
 
     // error handling
 
-    function setError( $errmsg = '', $errno = 0 )
+    private function setError( $errmsg = '', $errno = 0 )
     {
         $this->error = ($errmsg != '') ? $errmsg : "Unknown error";
         $this->errno = $errno;
     }
 
-    function getError()
+    public function getError()
     {
         if ( $this->con->hasError() )
         {
@@ -329,7 +328,7 @@ class WikiStore
         }
     }
 
-    function hasError()
+    public function hasError()
     {
         return ( $this->error != '' ) || $this->con->hasError();
     }

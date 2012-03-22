@@ -5,9 +5,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -51,17 +51,17 @@ define ("WIKI_WORD_PATTERN", '((?<![A-Za-z0-9��-��-��-�])([A-Z�-
 */
 class Wiki2xhtmlRenderer extends wiki2xhtml
 {
-    var /*% Wiki*/ $wiki;
-    var /*% HTML_Sanitizer*/ $san;
-    var $addAtEnd = array();
+    protected /*% Wiki*/ $wiki;
+    protected /*% HTML_Sanitizer*/ $san;
+    protected $addAtEnd = array();
 
     /**
      * Constructor
      * @param Wiki wiki
      */
-    function Wiki2xhtmlRenderer( &$wiki )
+    public function __construct( $wiki )
     {
-        wiki2xhtml::wiki2xhtml();
+        parent::__construct();
 
         $this->wiki =& $wiki;
         $this->san = new Claro_Html_Sanitizer;
@@ -96,7 +96,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
      * @access private
      * @see class.wiki2xhtml.php
      */
-    function __getLine($i,&$type,&$mode)
+    protected function __getLine($i,&$type,&$mode)
     {
         $pre_type = $type;
         $pre_mode = $mode;
@@ -255,7 +255,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         return $line;
     }
     
-    function _parseTableLine($line)
+    private function _parseTableLine($line)
     {
         $cell = array();
         $offset = 0;
@@ -333,16 +333,16 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
      * @see class.wiki2xhtml.php
      * @return string hypertext reference to wiki page
      */
-    function parseWikiWord( $str, $tag, $attr, $type )
+    protected function parseWikiWord( $str, $tag, $attr, $type )
     {
         $tag = 'a';
         $attr = ' href="'.$str.'"';
 
         if ( $this->wiki->pageExists( $str ) )
         {
-            return "<a href=\"".$_SERVER['PHP_SELF']
-                ."?action=show&amp;title=".rawurlencode($str )
-                . "&amp;wikiId=" . $this->wiki->getWikiId()
+            return "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                ."?action=show&title=".rawurlencode($str )
+                . "&wikiId=" . $this->wiki->getWikiId() ) )
                 . "\" class=\"wikiShow\">"
                 . $str
                 . "</a>"
@@ -350,9 +350,9 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         }
         else
         {
-            return "<a href=\"".$_SERVER['PHP_SELF']
-                . "?action=edit&amp;title=" . rawurlencode($str )
-                . "&amp;wikiId=" . $this->wiki->getWikiId()
+            return "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                . "?action=edit&title=" . rawurlencode($str )
+                . "&wikiId=" . $this->wiki->getWikiId()))
                 . "\" class=\"wikiEdit\">"
                 . $str
                 . "</a>"
@@ -372,7 +372,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
      * @see class.wiki2xhtml.php
      * @return string macro execution result
      */
-    function parseMacro($str,&$tag,&$attr,&$type)
+    protected function parseMacro($str,&$tag,&$attr,&$type)
     {
         $tag = '';
         $attr = '';
@@ -430,8 +430,8 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
             case 'main':
             {
                 $str = "<a href=\"".$_SERVER['PHP_SELF']
-                    ."?action=show&amp;title=".rawurlencode( '__MainPage__' )
-                    . "&amp;wikiId=" . $this->wiki->getWikiId()
+                    ."?action=show&title=".rawurlencode( '__MainPage__' )
+                    . "&wikiId=" . $this->wiki->getWikiId()
                     . "\" class=\"wikiShow\">"
                     . get_lang( 'Main page' )
                     . "</a>"
@@ -479,7 +479,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
      *
      * @see class.wiki2xhtml.php#__parseLink($str, &$tag, &$attr, &$type)
      */
-    function __parseLink($str, &$tag, &$attr, &$type )
+    protected function __parseLink($str, &$tag, &$attr, &$type )
     {
         $n_str = $this->__inlineWalk($str, array('acronym', 'img' ) );
         $data = $this->__splitTagsAttr($n_str );
@@ -602,7 +602,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
      * @access private
      * @see class.wiki2xhtml.php
      */
-    function __inlineWalk($str,$allow_only=NULL)
+    protected function __inlineWalk($str,$allow_only=NULL)
     {
         $tree = preg_split($this->tag_pattern,$str,-1,PREG_SPLIT_DELIM_CAPTURE);
 
@@ -670,7 +670,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
      * @param string pageName name of the page
      * @return string hypertext reference to wiki page
      */
-    function _getWikiPageLink( $pageName, &$tag, &$attr, &$type )
+    private function _getWikiPageLink( $pageName, &$tag, &$attr, &$type )
     {
         if ( get_lang('Main page') == $pageName )
         {
@@ -693,25 +693,25 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
 
         if ($this->wiki->pageExists( $pageName ) )
         {
-            $attr =  ' href="' . $_SERVER['PHP_SELF']
-                . '?action=show&amp;title=' . rawurlencode($pageName )
-                . '&amp;wikiId=' . $this->wiki->getWikiId()
-                . $fragment
+            $attr =  ' href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                . '?action=show&title=' . rawurlencode($pageName )
+                . '&wikiId=' . $this->wiki->getWikiId()
+                . $fragment ) )
                 . '" class="wikiShow"'
                 ;
         }
         else
         {
-            $attr = ' href="' . $_SERVER['PHP_SELF']
-                . '?action=edit&amp;title=' . rawurlencode($pageName )
-                . '&amp;wikiId=' . $this->wiki->getWikiId()
-                . $fragment
+            $attr = ' href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                . '?action=edit&title=' . rawurlencode($pageName )
+                . '&wikiId=' . $this->wiki->getWikiId()
+                . $fragment ) )
                 . '" class="wikiEdit"'
                 ;
         }
     }
 
-    function __initTags()
+    protected function __initTags()
     {
       $this->tags = array(
         'strong' => array("'''","'''"),
@@ -795,7 +795,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
       array_walk($this->escape_table,create_function('&$a','$a = \'\\\\\'.$a;'));
    }
 
-    function __makeTag(&$tree,&$tag,$position,&$j,&$attr,&$type)
+    protected function __makeTag(&$tree,&$tag,$position,&$j,&$attr,&$type)
     {
         $res = '';
         $closed = false;
@@ -876,7 +876,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         }
     }
     
-    function __parseColor($str, &$tag, &$attr, &$type )
+    protected function __parseColor($str, &$tag, &$attr, &$type )
     {
         $n_str = $this->__inlineWalk($str);
         $data = $this->__splitTagsAttr($n_str );
