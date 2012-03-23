@@ -200,9 +200,10 @@ if ($cmd == 'applySearch')
 
     $displayResultTable = TRUE;
 
-    if ( ! (   empty($userData['lastname'    ])
-            && empty($userData['email'       ])
-            && empty($userData['username'    ])
+    if ( ! (   empty($userData['lastname'])
+            && empty($userData['firstname'])
+            && empty($userData['email'])
+            && empty($userData['username'])
             && empty($userData['officialCode']) ) )
     {
 
