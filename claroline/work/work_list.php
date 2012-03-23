@@ -158,31 +158,47 @@ $showOnlyVisibleCondition = '';
 
 if( ! $is_allowedToEditAll )
 {
-    if( !get_conf('show_only_author') ) $submissionConditionList[] = "`s`.`visibility` = 'VISIBLE'";
+    if( !get_conf('show_only_author') ) 
+    {
+        $submissionConditionList[] = "`s`.`visibility` = 'VISIBLE'";
+    }
+    
     $feedbackConditionList[]   = "(`s`.`visibility` = 'VISIBLE' AND `fb`.`visibility` = 'VISIBLE')";
 
     if( !empty($userGroupList)  )
     {
         $userGroupIdList = array();
+        
         foreach( $userGroupList as $userGroup )
         {
             $userGroupIdList[] = $userGroup['id'];
         }
+        
         $submissionConditionList[] = "s.group_id IN ("  . implode(', ', array_map( 'intval', $userGroupIdList) ) . ")";
+        
         $feedbackConditionList[]   = "fb.group_id IN (" . implode(', ', array_map( 'intval', $userGroupIdList) ) . ")";
     }
     elseif ( claro_is_user_authenticated() )
     {
         $submissionConditionList[] = "`s`.`user_id` = "      . (int) claro_get_current_user_id();
+        
         $feedbackConditionList[]   = "`fb`.`original_id` = " . (int) claro_get_current_user_id();
     }
 }
 
 $submissionFilterSql = implode(' OR ', $submissionConditionList);
-if ( !empty($submissionFilterSql) ) $submissionFilterSql = ' AND ('.$submissionFilterSql.') ';
+
+if ( !empty($submissionFilterSql) ) 
+{ 
+    $submissionFilterSql = ' AND ('.$submissionFilterSql.') ';
+}
 
 $feedbackFilterSql = implode(' OR ', $feedbackConditionList);
-if ( !empty($feedbackFilterSql) ) $feedbackFilterSql = ' AND ('.$feedbackFilterSql.')';
+
+if ( !empty($feedbackFilterSql) )
+{ 
+    $feedbackFilterSql = ' AND ('.$feedbackFilterSql.')';
+}
 
 if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 {
