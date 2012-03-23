@@ -2732,6 +2732,18 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
 <dd><code>||premi&egrave;re cellule|deuxi&egrave;me cellule|...||</code>&nbsp;: ligne de tableau (sur une ligne)</dd>
 <dd><code>|}</code>&nbsp;: fin de tableau (doit être sur une nouvelle ligne)</dd>
 </dl>
+<h2>Textes colorés</h2>
+<dl>
+<dt>Code couleur ( triplet héxadécimal )</dt>
+<dd><code>//#XXXXXX|Texte à colorer//</code></dd>
+<dd>( exemple :  <code>//#50AF22|Bonjour//</code>  va donner  <span style="color: #50AF22;">Bonjour</span> )</dd>
+</dl>
+<dl>
+<dt><a href="couleurs_web.html">Couleurs nommées</a> ( CSS )</dt>
+<dd><code>//nom_de_la_couleur|Texte à colorer//</code></dd>
+<dd>( exemple : <code>//red|Bonjour//</code> va donner <span style="color: red;">Bonjour</span> )</dd>
+</dl>
+<em>Note &agrave; l\'intention des utilisateurs de MacOS : </em>La barre verticale "|" s\'obtient avec la combinaison des touches MAJ+alt+L
 <h2>Commandes spéciales</h2>
 <dl>
 <dt>Inclusion de code HTML</dt>
