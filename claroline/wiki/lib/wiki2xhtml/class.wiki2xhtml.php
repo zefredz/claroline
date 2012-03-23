@@ -1,5 +1,5 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
 # ***** BEGIN LICENSE BLOCK *****
 # This file is part of DotClear.
 # Copyright (c) 2004 Olivier Meunier and contributors. All rights
