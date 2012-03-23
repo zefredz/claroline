@@ -1,337 +1,311 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
-    // vim: expandtab sw=4 ts=4 sts=4:
+// vim: expandtab sw=4 ts=4 sts=4:
+
+/**
+ * CLAROLINE
+ *
+ * @version 1.9 $Revision$
+ *
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+ * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+ * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+ *
+ * @author Frederic Minne <zefredz@gmail.com>
+ *
+ * @package Wiki
+ */
+
+require_once dirname(__FILE__) . "/class.wiki.php";
+
+// Error codes
+!defined("WIKI_NO_TITLE_ERROR") && define( "WIKI_NO_TITLE_ERROR", "Missing title" );
+!defined("WIKI_NO_TITLE_ERRNO") && define( "WIKI_NO_TITLE_ERRNO", 1 );
+!defined("WIKI_ALREADY_EXISTS_ERROR") && define( "WIKI_ALREADY_EXISTS_ERROR", "Wiki already exists" );
+!defined("WIKI_ALREADY_EXISTS_ERRNO") && define( "WIKI_ALREADY_EXISTS_ERRNO", 2 );
+!defined( "WIKI_CANNOT_BE_UPDATED_ERROR") && define( "WIKI_CANNOT_BE_UPDATED_ERROR", "Wiki cannot be updated" );
+!defined( "WIKI_CANNOT_BE_UPDATED_ERRNO") && define( "WIKI_CANNOT_BE_UPDATED_ERRNO", 3 );
+!defined( "WIKI_NOT_FOUND_ERROR") && define( "WIKI_NOT_FOUND_ERROR", "Wiki not found" );
+!defined( "WIKI_NOT_FOUND_ERRNO") && define( "WIKI_NOT_FOUND_ERRNO", 4 );
+
+/**
+ * Class representing the WikiStore
+ * (ie the place where the wiki are stored)
+ */
+class WikiStore
+{
+    // private fields
+    private $con;
+
+    // default configuration
+    private $config = array(
+            'tbl_wiki_pages' => 'wiki_pages',
+            'tbl_wiki_pages_content' => 'wiki_pages_content',
+            'tbl_wiki_properties' => 'wiki_properties',
+            'tbl_wiki_acls' => 'wiki_acls'
+        );
+
+    // error handling
+    private $error = '';
+    private $errno = 0;
 
     /**
-     * CLAROLINE
-     *
-     * @version 1.8 $Revision$
-     *
-     * @copyright 2001-2006 Universite catholique de Louvain (UCL)
-     *
-     * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
-     * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-     * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-     * through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-     *
-     * @author Frederic Minne <zefredz@gmail.com>
-     *
-     * @package Wiki
+     * Constructor
+     * @param Database_Connection con connection to the database
+     * @param array config associative array containing tables name
      */
-
-    require_once dirname(__FILE__) . "/class.dbconnection.php";
-    require_once dirname(__FILE__) . "/class.wiki.php";
-
-    // Error codes
-    !defined("WIKI_NO_TITLE_ERROR") && define( "WIKI_NO_TITLE_ERROR", "Missing title" );
-    !defined("WIKI_NO_TITLE_ERRNO") && define( "WIKI_NO_TITLE_ERRNO", 1 );
-    !defined("WIKI_ALREADY_EXISTS_ERROR") && define( "WIKI_ALREADY_EXISTS_ERROR", "Wiki already exists" );
-    !defined("WIKI_ALREADY_EXISTS_ERRNO") && define( "WIKI_ALREADY_EXISTS_ERRNO", 2 );
-    !defined( "WIKI_CANNOT_BE_UPDATED_ERROR") && define( "WIKI_CANNOT_BE_UPDATED_ERROR", "Wiki cannot be updated" );
-    !defined( "WIKI_CANNOT_BE_UPDATED_ERRNO") && define( "WIKI_CANNOT_BE_UPDATED_ERRNO", 3 );
-    !defined( "WIKI_NOT_FOUND_ERROR") && define( "WIKI_NOT_FOUND_ERROR", "Wiki not found" );
-    !defined( "WIKI_NOT_FOUND_ERRNO") && define( "WIKI_NOT_FOUND_ERRNO", 4 );
-
-    /**
-     * Class representing the WikiStore
-     * (ie the place where the wiki are stored)
-     */
-    class WikiStore
+    public function __construct( $con, $config = null )
     {
-        // private fields
-        var $con;
+        if ( is_array( $config ) )
+        {
+            $this->config = array_merge( $this->config, $config );
+        }
+        $this->con = $con;
+    }
 
-        // default configuration
-        var $config = array(
-                'tbl_wiki_pages' => 'wiki_pages',
-                'tbl_wiki_pages_content' => 'wiki_pages_content',
-                'tbl_wiki_properties' => 'wiki_properties',
-                'tbl_wiki_acls' => 'wiki_acls'
+    // load and save
+    /**
+     * Load a Wiki
+     * @param int wikiId ID of the Wiki
+     * @return Wiki the loaded Wiki
+     */
+    public function loadWiki( $wikiId )
+    {
+        $wiki = new Wiki( $this->con, $this->config );
+
+        $wiki->load( $wikiId );
+
+        if ( $wiki->hasError() )
+        {
+            $this->setError( $wiki->error, $wiki->errno );
+        }
+
+        return $wiki;
+    }
+
+    /**
+     * Check if a page exists in a given wiki
+     * @param int wikiId ID of the Wiki
+     * @param string title page title
+     * @return boolean
+     */
+    public function pageExists( $wikiId, $title )
+    {
+        return $this->con->query( "
+            SELECT 
+                `id` 
+            FROM 
+                `".$this->config['tbl_wiki_pages']."` 
+            WHERE 
+                BINARY `title` = ".$this->con->quote( $title )." 
+            AND 
+                `wiki_id` = " . $this->con->escape( $wikiId ) 
+        )->numRows() > 0;
+    }
+
+    /**
+     * Check if a wiki exists usind its ID
+     * @param int id wiki ID
+     * @return boolean
+     */
+    public function wikiIdExists( $wikiId )
+    {
+        return $this->con->query( "
+            SELECT 
+                `id` 
+            FROM 
+                `".$this->config['tbl_wiki_properties']."`
+            WHERE 
+                `id` = '". $this->con->escape( $wikiId )."'"
+        )->numRows() > 0;
+    }
+
+    // Wiki methods
+
+    /**
+     * Get the list of the wiki's for a given group
+     * @param int groupId ID of the group, Zero for a course
+     * @return array list of the wiki's for the given group
+     */
+    public function getWikiListByGroup( $groupId )
+    {
+        return $this->con->query( "
+            SELECT 
+                `id`, 
+                `title`, 
+                `description` 
+            FROM 
+                `".$this->config['tbl_wiki_properties']."` 
+            WHERE 
+                `group_id` = ". $this->con->escape( $groupId ) . "
+            ORDER BY 
+                `id` ASC"
+        );
+    }
+
+    /**
+     * Get the list of the wiki's in a course
+     * @return array list of the wiki's in the course
+     * @see WikiStore::getWikiListByGroup( $groupId )
+     */
+    public function getCourseWikiList( )
+    {
+        return $this->getWikiListByGroup( 0 );
+    }
+
+    /**
+     * Get the list of the wiki's in all groups (exept course wiki's)
+     * @return array list of all the group wiki's
+     */
+    public function getGroupWikiList()
+    {
+        return $this->con->query( "
+            SELECT 
+                `id`, 
+                `title`, 
+                `description` 
+            FROM 
+                `".$this->config['tbl_wiki_properties']."` 
+            WHERE 
+                `group_id` != 0
+            ORDER BY 
+                `group_id` ASC"
+        );
+    }
+
+    public function getNumberOfPagesInWiki( $wikiId )
+    {
+        if ( $this->wikiIdExists( $wikiId ) )
+        {
+            $result = $this->con->query( "
+                SELECT 
+                    COUNT( `id` ) as `pages` 
+                FROM 
+                    `".$this->config['tbl_wiki_pages']."` 
+                WHERE 
+                    `wiki_id` = " . $this->con->escape( $wikiId )
+            )->fetch();
+
+            return $result['pages'];
+        }
+        else
+        {
+            $this->setError( WIKI_NOT_FOUND_ERROR, WIKI_NOT_FOUND_ERRNO );
+            return false;
+        }
+    }
+
+    /**
+     * Delete a Wiki from the store
+     * @param int wikiId ID of the wiki
+     * @return boolean true on success, false on failure
+     */
+    public function deleteWiki( $wikiId )
+    {
+        if ( $this->wikiIdExists( $wikiId ) )
+        {
+            // delete properties
+            $affectedRows = $this->con->exec( "
+                DELETE 
+                FROM 
+                    `".$this->config['tbl_wiki_properties']."` 
+                WHERE `id` = " . $this->con->escape( $wikiId )
             );
 
-        // error handling
-        var $error = '';
-        var $errno = 0;
-
-        /**
-         * Constructor
-         * @param DatabaseConnection con connection to the database
-         * @param array config associative array containing tables name
-         */
-        function WikiStore( &$con, $config = null )
-        {
-            if ( is_array( $config ) )
+            if ( $affectedRows < 1 )
             {
-                $this->config = array_merge( $this->config, $config );
-            }
-            $this->con = $con;
-        }
-
-        // load and save
-        /**
-         * Load a Wiki
-         * @param int wikiId ID of the Wiki
-         * @return Wiki the loaded Wiki
-         */
-        function loadWiki( $wikiId )
-        {
-            $wiki = new Wiki( $this->con, $this->config );
-
-            $wiki->load( $wikiId );
-
-            if ( $wiki->hasError() )
-            {
-                $this->setError( $wiki->error, $wiki->errno );
-            }
-
-            return $wiki;
-        }
-
-        /**
-         * Check if a page exists in a given wiki
-         * @param int wikiId ID of the Wiki
-         * @param string title page title
-         * @return boolean
-         */
-        function pageExists( $wikiId, $title )
-        {
-            // reconnect if needed
-            if ( ! $this->con->isConnected() )
-            {
-                $this->con->connect();
-            }
-
-            $sql = "SELECT `id` "
-                . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE BINARY `title` = '".claro_sql_escape( $title )."' "
-                . "AND `wiki_id` = " . (int) $wikiId
-                ;
-
-            return $this->con->queryReturnsResult( $sql );
-        }
-
-        /**
-         * Check if a wiki exists usind its ID
-         * @param int id wiki ID
-         * @return boolean
-         */
-        function wikiIdExists( $wikiId )
-        {
-            // reconnect if needed
-            if ( ! $this->con->isConnected() )
-            {
-                $this->con->connect();
-            }
-
-            $sql = "SELECT `id` "
-                . "FROM `".$this->config['tbl_wiki_properties']."` "
-                . "WHERE `id` = '". (int) $wikiId."'"
-                ;
-
-            return $this->con->queryReturnsResult( $sql );
-        }
-
-        // Wiki methods
-
-        /**
-         * Get the list of the wiki's for a given group
-         * @param int groupId ID of the group, Zero for a course
-         * @return array list of the wiki's for the given group
-         */
-        function getWikiListByGroup( $groupId )
-        {
-            if ( ! $this->con->isConnected() )
-            {
-                $this->con->connect();
-            }
-
-            $sql = "SELECT `id`, `title`, `description` "
-                . "FROM `".$this->config['tbl_wiki_properties']."` "
-                . "WHERE `group_id` = ". (int) $groupId . " "
-                . "ORDER BY `id` ASC"
-                ;
-
-            return $this->con->getAllRowsFromQuery( $sql );
-        }
-
-        /**
-         * Get the list of the wiki's in a course
-         * @return array list of the wiki's in the course
-         * @see WikiStore::getWikiListByGroup( $groupId )
-         */
-        function getCourseWikiList( )
-        {
-            return $this->getWikiListByGroup( 0 );
-        }
-
-        /**
-         * Get the list of the wiki's in all groups (exept course wiki's)
-         * @return array list of all the group wiki's
-         */
-        function getGroupWikiList()
-        {
-            if ( ! $this->con->isConnected() )
-            {
-                $this->con->connect();
-            }
-
-            $sql = "SELECT `id`, `title`, `description` "
-                . "FROM `".$this->config['tbl_wiki_properties']."` "
-                . "WHERE `group_id` != 0 "
-                . "ORDER BY `group_id` ASC"
-                ;
-
-            return $this->con->getAllRowsFromQuery( $sql );
-        }
-
-        function getNumberOfPagesInWiki( $wikiId )
-        {
-            if ( ! $this->con->isConnected() )
-            {
-                $this->con->connect();
-            }
-
-            if ( $this->wikiIdExists( $wikiId ) )
-            {
-                $sql = "SELECT count( `id` ) as `pages` "
-                    . "FROM `".$this->config['tbl_wiki_pages']."` "
-                    . "WHERE `wiki_id` = " . (int) $wikiId
-                    ;
-
-                $result = $this->con->getRowFromQuery( $sql );
-
-                return $result['pages'];
-            }
-            else
-            {
-                $this->setError( WIKI_NOT_FOUND_ERROR, WIKI_NOT_FOUND_ERRNO );
                 return false;
             }
-        }
 
-        /**
-         * Delete a Wiki from the store
-         * @param int wikiId ID of the wiki
-         * @return boolean true on success, false on failure
-         */
-        function deleteWiki( $wikiId )
-        {
-            if ( ! $this->con->isConnected() )
+            // delete wiki acl
+            $affectedRows = $this->con->exec( "
+                DELETE 
+                FROM 
+                    `".$this->config['tbl_wiki_acls']."` 
+                WHERE 
+                    `wiki_id` = " . $this->con->escape( $wikiId )
+            );
+
+            if ( $affectedRows < 1 )
             {
-                $this->con->connect();
+                return false;
             }
 
-            if ( $this->wikiIdExists( $wikiId ) )
+            $pageIds = $this->con->query( "
+                SELECT 
+                    `id` 
+                FROM 
+                    `" . $this->config['tbl_wiki_pages'] . "` 
+                WHERE 
+                    `wiki_id` = " . $this->con->escape( $wikiId )
+            );
+
+            $idList = array();
+
+            foreach ( $pageIds as $pageId )
             {
-                // delete properties
-                $sql = "DELETE FROM `".$this->config['tbl_wiki_properties']."` "
-                    . "WHERE `id` = " . (int) $wikiId
-                    ;
-
-                $numrows = $this->con->executeQuery( $sql );
-
-                if ( $numrows < 1 || $this->hasError() )
-                {
-                    return false;
-                }
-
-                // delete wiki acl
-                $sql = "DELETE FROM `".$this->config['tbl_wiki_acls']."` "
-                    . "WHERE `wiki_id` = " . (int) $wikiId
-                    ;
-
-                $numrows = $this->con->executeQuery( $sql );
-
-                if ( $numrows < 1 || $this->hasError() )
-                {
-                    return false;
-                }
-
-                $sql = "SELECT `id` "
-                    . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
-                    . "WHERE `wiki_id` = " . (int) $wikiId
-                    ;
-
-                $pageIds = $this->con->getAllRowsFromQuery( $sql );
-
-                if ( $this->hasError() )
-                {
-                    return false;
-                }
-
-                $idList = array();
-
-                foreach ( $pageIds as $pageId )
-                {
-                    $idList[] = (int) $pageId['id'];
-                }
+                $idList[] = (int) $pageId['id'];
+            }
+            
+            if ( count( $idList) )
+            {
 
                 $idListStr = '(' . implode( ',', $idList ) . ')';
 
-                $sql = "DELETE "
-                    . "FROM `".$this->config['tbl_wiki_pages_content']."` "
-                    . "WHERE `pid` IN " . $idListStr
-                    ;
-
-                $this->con->executeQuery( $sql );
-
-                if ( $this->hasError() )
-                {
-                    return false;
-                }
-
-                $sql = "DELETE FROM `".$this->config['tbl_wiki_pages']."` "
-                    . "WHERE `wiki_id` = " . (int) $wikiId
-                    ;
-
-                $numrows = $this->con->executeQuery( $sql );
-
-                if ( $this->hasError() )
-                {
-                    return false;
-                }
-
-                return true;
+                $this->con->exec("
+                    DELETE 
+                    FROM 
+                        `".$this->config['tbl_wiki_pages_content']."` 
+                    WHERE 
+                        `pid` IN " . $idListStr );
             }
-            else
-            {
-                $this->setError( WIKI_NOT_FOUND_ERROR, WIKI_NOT_FOUND_ERRNO );
-                return false;
-            }
+            
+            $this->con->exec( "
+                DELETE 
+                FROM 
+                    `".$this->config['tbl_wiki_pages']."` 
+                WHERE 
+                    `wiki_id` = " . $this->con->escape( $wikiId )
+            );
+
+            return true;
         }
-
-        // error handling
-
-        function setError( $errmsg = '', $errno = 0 )
+        else
         {
-            $this->error = ($errmsg != '') ? $errmsg : "Unknown error";
-            $this->errno = $errno;
-        }
-
-        function getError()
-        {
-            if ( $this->con->hasError() )
-            {
-                return $this->con->getError();
-            }
-            else if ($this->error != '')
-            {
-                $errno = $this->errno;
-                $error = $this->error;
-                $this->error = '';
-                $this->errno = 0;
-                return $errno.' - '.$error;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        function hasError()
-        {
-            return ( $this->error != '' ) || $this->con->hasError();
+            $this->setError( WIKI_NOT_FOUND_ERROR, WIKI_NOT_FOUND_ERRNO );
+            return false;
         }
     }
-?>
+
+    // error handling
+
+    private function setError( $errmsg = '', $errno = 0 )
+    {
+        $this->error = ($errmsg != '') ? $errmsg : "Unknown error";
+        $this->errno = $errno;
+    }
+
+    public function getError()
+    {
+        if ($this->error != '')
+        {
+            $errno = $this->errno;
+            $error = $this->error;
+            $this->error = '';
+            $this->errno = 0;
+            return $errno.' - '.$error;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function hasError()
+    {
+        return ( $this->error != '' );
+    }
+}

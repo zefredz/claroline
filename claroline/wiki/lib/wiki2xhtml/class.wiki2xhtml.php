@@ -1,5 +1,5 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
 # ***** BEGIN LICENSE BLOCK *****
 # This file is part of DotClear.
 # Copyright (c) 2004 Olivier Meunier and contributors. All rights
@@ -27,7 +27,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 # Christophe Bonijol
 # Jean-Charles Bagneris
 # Nicolas Chachereau
-# Jérôme Lipowicz
+# Jï¿½rï¿½me Lipowicz
 #
 # Version : 3.1d
 # Release date : Monday 2004-06-06
@@ -35,14 +35,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 # History :
 #
 # 3.1d
-# Jérôme Lipowicz
+# Jï¿½rï¿½me Lipowicz
 #            => antispam
 # Olivier
 #            => centrage d'image
 #
 # 3.1c
 # Olivier
-#            => Possibilité d'échaper les | dans les marqueurs avec \
+#            => Possibilitï¿½ d'ï¿½chaper les | dans les marqueurs avec \
 #
 # 3.1b
 # Nicolas Chachereau
@@ -54,31 +54,31 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 #
 # 3.1
 # Olivier
-#            => Ajout des macros «««..»»»
-#            => Ajout des blocs vides øøø
-#            => Ajout du niveau de titre paramétrable
+#            => Ajout des macros ï¿½ï¿½ï¿½..ï¿½ï¿½ï¿½
+#            => Ajout des blocs vides ï¿½ï¿½ï¿½
+#            => Ajout du niveau de titre paramï¿½trable
 #            => Option de blocage du parseur dans les <pre>
-#            => Titres au format setext (experimental, désactivé)
+#            => Titres au format setext (experimental, dï¿½sactivï¿½)
 #
 # 3.0
-# Olivier        => Récriture du parseur inline, plus d'erreur XHTML
-#            => Ajout d'une vérification d'intégrité pour les listes
+# Olivier        => Rï¿½criture du parseur inline, plus d'erreur XHTML
+#            => Ajout d'une vï¿½rification d'intï¿½gritï¿½ pour les listes
 #            => Les acronymes sont maintenant dans un fichier texte
 #            => Ajout d'un tag images ((..)), del --..-- et ins ++..++
 #            => Plus possible de faire des liens JS [lien|javascript:...]
-#            => Ajout des notes de bas de page §§...§§
+#            => Ajout des notes de bas de page ï¿½ï¿½...ï¿½ï¿½
 #            => Ajout des mots wiki
 #
 # 2.5
-# Olivier        => Récriture du code, plus besoin du saut de ligne entre blocs !=
+# Olivier        => Rï¿½criture du code, plus besoin du saut de ligne entre blocs !=
 #
 # 2.0
-# Stephanie    => correction des PCRE et ajout de fonctionnalités
+# Stephanie    => correction des PCRE et ajout de fonctionnalitï¿½s
 # Mathieu     => ajout du strip-tags, implementation des options, reconnaissance automatique d'url, etc.
 # Olivier        => chagement de active_link en active_urls
 #            => ajout des options pour les blocs
-#            => intégration de l'aide dans le code, avec les options
-#            => début de quelque chose pour la reconnaissance auto d'url (avec Mat)
+#            => intï¿½gration de l'aide dans le code, avec les options
+#            => dï¿½but de quelque chose pour la reconnaissance auto d'url (avec Mat)
 
 # TODO :
 # Mathieu    => active_wiki_urls (modifier wikiParseUrl ?)
@@ -93,22 +93,22 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 class wiki2xhtml
 {
-    var $__version__ = '3.1d';
+    protected $__version__ = '3.1d';
 
-    var $T;
-    var $opt;
-    var $line;
-    var $foot_notes;
+    protected $T;
+    protected $opt;
+    protected $line;
+    protected $foot_notes;
 
-    var $tags;
-    var $open_tags;
-    var $close_tags;
-    var $all_tags;
-    var $tag_pattern;
-    var $escape_table;
-    var $allowed_inline = array();
+    protected $tags;
+    protected $open_tags;
+    protected $close_tags;
+    protected $all_tags;
+    protected $tag_pattern;
+    protected $escape_table;
+    protected $allowed_inline = array();
 
-    function wiki2xhtml()
+    public function __construct()
     {
         # Mise en place des options
         $this->setOpt('active_title',1);        # Activation des titres !!!
@@ -117,7 +117,7 @@ class wiki2xhtml
         $this->setOpt('active_lists',1);        # Activation des listes
         $this->setOpt('active_quote',1);        # Activation du <blockquote>
         $this->setOpt('active_pre',1);        # Activation du <pre>
-        $this->setOpt('active_empty',0);        # Activation du bloc vide øøø
+        $this->setOpt('active_empty',0);        # Activation du bloc vide ï¿½ï¿½ï¿½
         $this->setOpt('active_auto_urls',0);    # Activation de la reconnaissance d'url (inactif)
         $this->setOpt('active_autoemails',0);    # Activation de la reconnaissance des emails (inactif)
         $this->setOpt('active_antispam',1);     # Activation de l'antispam pour les emails
@@ -135,18 +135,18 @@ class wiki2xhtml
         $this->setOpt('active_del',1);        # Activation des del --..--
         $this->setOpt('active_footnotes',1);    # Activation des notes de bas de page
         $this->setOpt('active_wikiwords',0);    # Activation des mots wiki
-        $this->setOpt('active_macros',0);        # Activation des macros «««..»»»
+        $this->setOpt('active_macros',0);        # Activation des macros ï¿½ï¿½ï¿½..ï¿½ï¿½ï¿½
 
-        $this->setOpt('parse_pre',1);            # Parser l'intérieur de blocs <pre> ?
+        $this->setOpt('parse_pre',1);            # Parser l'intï¿½rieur de blocs <pre> ?
 
-        $this->setOpt('active_fix_word_entities',1); # Fixe les caractères MS
+        $this->setOpt('active_fix_word_entities',1); # Fixe les caractï¿½res MS
         $this->setOpt('active_fr_syntax',1);    # Corrections syntaxe FR
 
         $this->setOpt('first_title_level',3);    # Premier niveau de titre <h..>
 
         $this->setOpt('note_prefix','wiki-footnote');
         $this->setOpt('note_str','<div class="footnotes"><h4>Notes</h4>%s</div>');
-        $this->setOpt('words_pattern','((?<![A-Za-z0-9µÀ-ÖØ-öø-ÿ])([A-ZÀ-ÖØ-Þ][a-zµß-öø-ÿ]+){2,}(?![A-Za-z0-9µÀ-ÖØ-öø-ÿ]))');
+        $this->setOpt('words_pattern','((?<![A-Za-z0-9ï¿½ï¿½-ï¿½ï¿½-ï¿½ï¿½-ï¿½])([A-Zï¿½-ï¿½ï¿½-ï¿½][a-zï¿½ï¿½-ï¿½ï¿½-ï¿½]+){2,}(?![A-Za-z0-9ï¿½ï¿½-ï¿½ï¿½-ï¿½ï¿½-ï¿½]))');
 
         $this->setOpt('mail_pattern','/^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/');
 
@@ -156,23 +156,23 @@ class wiki2xhtml
         $this->foot_notes = array();
     }
 
-    function setOpt($option, $value)
+    public function setOpt($option, $value)
     {
         $this->opt[$option] = $value;
     }
 
-    function getOpt($option)
+    public function getOpt($option)
     {
         return (!empty($this->opt[$option])) ? $this->opt[$option] : false;
     }
 
-    function transform($in)
+    public function transform($in)
     {
         # Initialisation des tags
         $this->__initTags();
         $this->foot_notes = array();
 
-        # Vérification du niveau de titre
+        # Vï¿½rification du niveau de titre
         if ($this->getOpt('first_title_level') > 4) {
             $this->setOpt('first_title_level',4);
         }
@@ -181,7 +181,7 @@ class wiki2xhtml
 
         $escape_pattern = array();
 
-        # traitement des titres à la setext
+        # traitement des titres ï¿½ la setext
         if ($this->getOpt('active_setext_title') && $this->getOpt('active_title')) {
             $res = preg_replace('/^(.*)\n[=]{5,}$/m','!!!$1',$res);
             $res = preg_replace('/^(.*)\n[-]{5,}$/m','!!$1',$res);
@@ -189,7 +189,7 @@ class wiki2xhtml
 
         # Transformation des mots Wiki
         if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern')) {
-            $res = preg_replace('/'.$this->getOpt('words_pattern').'/ms','¶¶¶$1¶¶¶',$res);
+            $res = preg_replace('/'.$this->getOpt('words_pattern').'/ms','ï¿½ï¿½ï¿½$1ï¿½ï¿½ï¿½',$res);
         }
 
         $this->T = explode("\n",$res);
@@ -204,35 +204,35 @@ class wiki2xhtml
             $escape_pattern[] = '%%%';
         }
 
-        # Correction des caractères faits par certains traitement
+        # Correction des caractï¿½res faits par certains traitement
         # de texte comme Word
         if ($this->getOpt('active_fix_word_entities')) {
             $wR = array(
-            '‚' => '&#8218;',
-            'ƒ' => '&#402;',
-            '„' => '&#8222;',
-            '…' => '&#8230;',
-            '†' => '&#8224;',
-            '‡' => '&#8225;',
-            'ˆ' => '&#710;',
-            '‰' => '&#8240;',
-            'Š' => '&#352;',
-            '‹' => '&#8249;',
-            'Œ' => '&#338;',
-            '‘' => '&#8216;',
-            '’' => '&#8217;',
-            '“' => '&#8220;',
-            '”' => '&#8221;',
-            '•' => '&#8226;',
-            '–' => '&#8211;',
-            '—' => '&#8212;',
-            '˜' => '&#732;',
-            '™' => '&#8482;',
-            'š' => '&#353;',
-            '›' => '&#8250;',
-            'œ' => '&#339;',
-            'Ÿ' => '&#376;',
-            '€' => '&#8364;');
+            'ï¿½' => '&#8218;',
+            'ï¿½' => '&#402;',
+            'ï¿½' => '&#8222;',
+            'ï¿½' => '&#8230;',
+            'ï¿½' => '&#8224;',
+            'ï¿½' => '&#8225;',
+            'ï¿½' => '&#710;',
+            'ï¿½' => '&#8240;',
+            'ï¿½' => '&#352;',
+            'ï¿½' => '&#8249;',
+            'ï¿½' => '&#338;',
+            'ï¿½' => '&#8216;',
+            'ï¿½' => '&#8217;',
+            'ï¿½' => '&#8220;',
+            'ï¿½' => '&#8221;',
+            'ï¿½' => '&#8226;',
+            'ï¿½' => '&#8211;',
+            'ï¿½' => '&#8212;',
+            'ï¿½' => '&#732;',
+            'ï¿½' => '&#8482;',
+            'ï¿½' => '&#353;',
+            'ï¿½' => '&#8250;',
+            'ï¿½' => '&#339;',
+            'ï¿½' => '&#376;',
+            'ï¿½' => '&#8364;');
 
             $res = str_replace(array_keys($wR),array_values($wR),$res);
         }
@@ -244,9 +244,9 @@ class wiki2xhtml
         # On vire les escapes
         $res = preg_replace('/\\\('.implode('|',$escape_pattern).')/','$1',$res);
 
-        # On vire les ¶¶¶MotWiki¶¶¶ qui sont resté (dans les url...)
+        # On vire les ï¿½ï¿½ï¿½MotWikiï¿½ï¿½ï¿½ qui sont restï¿½ (dans les url...)
         if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern')) {
-            $res = preg_replace('/¶¶¶'.$this->getOpt('words_pattern').'¶¶¶/msU','$1',$res);
+            $res = preg_replace('/ï¿½ï¿½ï¿½'.$this->getOpt('words_pattern').'ï¿½ï¿½ï¿½/msU','$1',$res);
         }
 
         # On ajoute les notes
@@ -267,7 +267,7 @@ class wiki2xhtml
     /* PRIVATE
     --------------------------------------------------- */
 
-    function __initTags()
+    protected function __initTags()
     {
         $this->tags = array(
             'em' => array("''","''"),
@@ -281,7 +281,7 @@ class wiki2xhtml
             'del' => array('--','--'),
             'ins' => array('++','++'),
             'note' => array('$$','$$'),
-            'word' => array('¶¶¶','¶¶¶'),
+            'word' => array('ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½'),
             'macro' => array('"""','"""')
         );
 
@@ -335,7 +335,7 @@ class wiki2xhtml
         array_walk($this->escape_table,create_function('&$a','$a = \'\\\\\'.$a;'));
     }
 
-    function __getTags($open=true)
+    protected function __getTags($open=true)
     {
         $res = array();
         foreach ($this->tags as $k => $v) {
@@ -344,7 +344,7 @@ class wiki2xhtml
         return $res;
     }
 
-    function __getAllTags()
+    protected function __getAllTags()
     {
         $res = array();
         foreach ($this->tags as $v) {
@@ -354,7 +354,7 @@ class wiki2xhtml
         return array_values(array_unique($res));
     }
 
-    function __getTagsPattern($escape=false)
+    protected function __getTagsPattern($escape=false)
     {
         $res = $this->all_tags;
         array_walk($res,create_function('&$a','$a = preg_quote($a,"/");'));
@@ -368,7 +368,7 @@ class wiki2xhtml
 
     /* Blocs
     --------------------------------------------------- */
-    function __parseBlocks()
+    protected function __parseBlocks()
     {
         $mode = NULL;
         $type = NULL;
@@ -396,11 +396,11 @@ class wiki2xhtml
             }
 
             # Correction de la syntaxe FR dans tous sauf pre et hr
-            # Sur idée de Christophe Bonijol
+            # Sur idï¿½e de Christophe Bonijol
             # Changement de regex (Nicolas Chachereau)
             if ($this->getOpt('active_fr_syntax') && $type != NULL && $type != 'pre' && $type != 'hr') {
-                $line = preg_replace('/[ ]+([:?!;»](\s|$))/','&nbsp;$1',$line);
-                $line = preg_replace('/(«)[ ]+/','$1&nbsp;',$line);
+                $line = preg_replace('/[ ]+([:?!;ï¿½](\s|$))/','&nbsp;$1',$line);
+                $line = preg_replace('/(ï¿½)[ ]+/','$1&nbsp;',$line);
             }
 
             $res .= $line;
@@ -409,7 +409,7 @@ class wiki2xhtml
         return trim($res);
     }
 
-    function __getLine($i,&$type,&$mode)
+    protected function __getLine($i,&$type,&$mode)
     {
         $pre_type = $type;
         $pre_mode = $mode;
@@ -427,7 +427,7 @@ class wiki2xhtml
         {
             $type = NULL;
         }
-        elseif ($this->getOpt('active_empty') && preg_match('/^øøø(.*)$/',$line,$cap))
+        elseif ($this->getOpt('active_empty') && preg_match('/^ï¿½ï¿½ï¿½(.*)$/',$line,$cap))
         {
             $type = NULL;
             $line = trim($cap[1]);
@@ -458,7 +458,7 @@ class wiki2xhtml
             $mode = $cap[1];
             $valid = true;
 
-            # Vérification d'intégrité
+            # Vï¿½rification d'intï¿½gritï¿½
             $dl = ($type != $pre_type) ? 0 : strlen($pre_mode);
             $d = strlen($mode);
             $delta = $d-$dl;
@@ -484,7 +484,7 @@ class wiki2xhtml
                 $line = trim($cap[2]);
             }
         }
-        # Préformaté
+        # Prï¿½formatï¿½
         elseif ($this->getOpt('active_pre') && preg_match('/^[ ]{1}(.*)$/',$line,$cap))
         {
             $type = 'pre';
@@ -499,7 +499,7 @@ class wiki2xhtml
         return $line;
     }
 
-    function __openLine($type,$mode,$pre_type,$pre_mode)
+    protected function __openLine($type,$mode,$pre_type,$pre_mode)
     {
         $open = ($type != $pre_type);
 
@@ -560,7 +560,7 @@ class wiki2xhtml
         }
     }
 
-    function __closeLine($type,$mode,$pre_type,$pre_mode)
+    protected function __closeLine($type,$mode,$pre_type,$pre_mode)
     {
         $close = ($type != $pre_type);
 
@@ -604,7 +604,7 @@ class wiki2xhtml
 
     /* Inline
     --------------------------------------------------- */
-    function __inlineWalk($str,$allow_only=NULL)
+    protected function __inlineWalk($str,$allow_only=NULL)
     {
         $tree = preg_split($this->tag_pattern,$str,-1,PREG_SPLIT_DELIM_CAPTURE);
 
@@ -644,7 +644,7 @@ class wiki2xhtml
         return $res;
     }
 
-    function __makeTag(&$tree,&$tag,$position,&$j,&$attr,&$type)
+    protected function __makeTag(&$tree,&$tag,$position,&$j,&$attr,&$type)
     {
         $res = '';
         $closed = false;
@@ -661,7 +661,7 @@ class wiki2xhtml
             }
         }
 
-        # Résultat
+        # Rï¿½sultat
         if ($closed)
         {
             for ($i=$position+1;$i<count($tree);$i++)
@@ -722,7 +722,7 @@ class wiki2xhtml
         }
     }
 
-    function __splitTagsAttr($str)
+    protected function __splitTagsAttr($str)
     {
         $res = preg_split('/(?<!\\\)\|/',$str);
         //array_walk($res,create_function('&$v','$v = str_replace("\|","|",$v);'));
@@ -733,8 +733,8 @@ class wiki2xhtml
         return $res;
     }
 
-    # Antispam (Jérôme Lipowicz)
-    function __antiSpam($str)
+    # Antispam (Jï¿½rï¿½me Lipowicz)
+    protected function __antiSpam($str)
     {
         $encoded = bin2hex($str);
         $encoded = chunk_split($encoded, 2, '%');
@@ -742,7 +742,7 @@ class wiki2xhtml
         return $encoded;
     }
 
-    function __parseLink($str,&$tag,&$attr,&$type)
+    protected function __parseLink($str,&$tag,&$attr,&$type)
     {
         $n_str = $this->__inlineWalk($str,array('acronym','img'));
         $data = $this->__splitTagsAttr($n_str);
@@ -773,7 +773,7 @@ class wiki2xhtml
         if (preg_match('/^(.+)[.](gif|jpg|jpeg|png)$/', $url) && !$no_image && $this->getOpt('active_auto_img'))
         {
             # On ajoute les dimensions de l'image si locale
-            # Idée de Stephanie
+            # Idï¿½e de Stephanie
             $img_size = NULL;
             if (!preg_match('/[a-zA-Z]+:\/\//', $url)) {
                 if (preg_match('/^\//',$url)) {
@@ -809,7 +809,7 @@ class wiki2xhtml
         }
     }
 
-    function __specialUrls()
+    protected function __specialUrls()
     {
         $res['#^google://(.*)$#'] = 'http://www.google.com/search?q=$1&amp;start=0&amp;start=0';
         $res['#^wikipedia://(.*)$#'] = 'http://en.wikipedia.org/wiki/$1';
@@ -817,7 +817,7 @@ class wiki2xhtml
         return $res;
     }
 
-    function __parseImg($str,&$attr)
+    protected function __parseImg($str,&$attr)
     {
         $data = $this->__splitTagsAttr($str);
 
@@ -848,7 +848,7 @@ class wiki2xhtml
         return NULL;
     }
 
-    function __parseQ($str,&$attr)
+    protected function __parseQ($str,&$attr)
     {
         $str = $this->__inlineWalk($str);
         $data = $this->__splitTagsAttr($str);
@@ -862,7 +862,7 @@ class wiki2xhtml
         return $content;
     }
 
-    function __parseAnchor($str,&$attr)
+    protected function __parseAnchor($str,&$attr)
     {
         $name = $this->protectAttr($str,true);
 
@@ -872,7 +872,7 @@ class wiki2xhtml
         return null;
     }
 
-    function __parseNote($str)
+    protected function __parseNote($str)
     {
         $i = count($this->foot_notes)+1;
         $id = $this->getOpt('note_prefix').'-'.$i;
@@ -881,7 +881,7 @@ class wiki2xhtml
     }
 
     # Obtenir un acronyme
-    function __parseAcronym($str,&$attr)
+    protected function __parseAcronym($str,&$attr)
     {
         $data = $this->__splitTagsAttr($str);
 
@@ -905,8 +905,8 @@ class wiki2xhtml
         return $acronym;
     }
 
-    # Définition des acronymes, dans le fichier acronyms.txt
-    function __getAcronyms()
+    # Dï¿½finition des acronymes, dans le fichier acronyms.txt
+    protected function __getAcronyms()
     {
         $file = $this->getOpt('acronyms_file');
         $res = array();
@@ -935,8 +935,8 @@ class wiki2xhtml
         return $res;
     }
 
-    # Mots wiki (pour héritage)
-    function parseWikiWord($str,&$tag,&$attr,&$type)
+    # Mots wiki (pour hï¿½ritage)
+    protected function parseWikiWord($str,&$tag,&$attr,&$type)
     {
         $tag = '';
         $attr = '';
@@ -944,8 +944,8 @@ class wiki2xhtml
         return $str;
     }
 
-    # Macros (pour héritage)
-    function parseMacro($str,&$tag,&$attr,&$type)
+    # Macros (pour hï¿½ritage)
+    protected function parseMacro($str,&$tag,&$attr,&$type)
     {
         $tag = '';
         $attr = '';
@@ -953,7 +953,7 @@ class wiki2xhtml
     }
 
     /* Protection des attributs */
-    function protectAttr($str,$name=false)
+    protected function protectAttr($str,$name=false)
     {
         if ($name && !preg_match('/^[A-Za-z][A-Za-z0-9_:.-]*$/',$str)) {
             return '';
@@ -963,7 +963,7 @@ class wiki2xhtml
     }
 
     /* Protection des urls */
-    function protectUrls($str)
+    protected function protectUrls($str)
     {
         if (preg_match('/^javascript:/',$str)) {
             $str = '#';
@@ -974,12 +974,12 @@ class wiki2xhtml
 
     /* Aide et debug
     --------------------------------------------------- */
-    function help()
+    public function help()
     {
         $help['b'] = array();
         $help['i'] = array();
 
-        $help['b'][] = 'Laisser une ligne vide entre chaque bloc <em>de même nature</em>.';
+        $help['b'][] = 'Laisser une ligne vide entre chaque bloc <em>de mï¿½me nature</em>.';
         $help['b'][] = '<strong>Paragraphe</strong> : du texte et une ligne vide';
 
         if ($this->getOpt('active_title')) {
@@ -992,14 +992,14 @@ class wiki2xhtml
         }
 
         if ($this->getOpt('active_lists')) {
-            $help['b'][] = '<strong>Liste</strong> : ligne débutant par <code>*</code> ou '.
-            '<code>#</code>. Il est possible de mélanger les listes '.
+            $help['b'][] = '<strong>Liste</strong> : ligne dï¿½butant par <code>*</code> ou '.
+            '<code>#</code>. Il est possible de mï¿½langer les listes '.
             '(<code>*#*</code>) pour faire des listes de plusieurs niveaux. '.
             'Respecter le style de chaque niveau';
         }
 
         if ($this->getOpt('active_pre')) {
-            $help['b'][] = '<strong>Texte préformaté</strong> : espace devant chaque ligne de texte';
+            $help['b'][] = '<strong>Texte prï¿½formatï¿½</strong> : espace devant chaque ligne de texte';
         }
 
         if ($this->getOpt('active_quote')) {
@@ -1009,8 +1009,8 @@ class wiki2xhtml
 
         if ($this->getOpt('active_fr_syntax')) {
             $help['i'][] = 'La correction de ponctuation est active. Un espace '.
-                        'insécable remplacera automatiquement tout espace '.
-                        'précédant les marque ";","?",":" et "!".';
+                        'insï¿½cable remplacera automatiquement tout espace '.
+                        'prï¿½cï¿½dant les marque ";","?",":" et "!".';
         }
 
         if ($this->getOpt('active_em')) {
@@ -1018,11 +1018,11 @@ class wiki2xhtml
         }
 
         if ($this->getOpt('active_strong')) {
-            $help['i'][] = '<strong>Forte emphase</strong> : deux soulignés <code>__texte__</code>';
+            $help['i'][] = '<strong>Forte emphase</strong> : deux soulignï¿½s <code>__texte__</code>';
         }
 
         if ($this->getOpt('active_br')) {
-            $help['i'][] = '<strong>Retour forcé à la ligne</strong> : <code>%%%</code>';
+            $help['i'][] = '<strong>Retour forcï¿½ ï¿½ la ligne</strong> : <code>%%%</code>';
         }
 
         if ($this->getOpt('active_ins')) {
@@ -1038,10 +1038,10 @@ class wiki2xhtml
             '<code>[nom|url|langue]</code> ou <code>[nom|url|langue|titre]</code>.';
 
             $help['i'][] = '<strong>Image</strong> : comme un lien mais avec une extension d\'image.'.
-            '<br />Pour désactiver la reconnaissance d\'image mettez 0 dans un dernier '.
+            '<br />Pour dï¿½sactiver la reconnaissance d\'image mettez 0 dans un dernier '.
             'argument. Par exemple <code>[image|image.gif||0]</code> fera un lien vers l\'image au '.
             'lieu de l\'afficher.'.
-            '<br />Il est conseillé d\'utiliser la nouvelle syntaxe.';
+            '<br />Il est conseillï¿½ d\'utiliser la nouvelle syntaxe.';
         }
 
         if ($this->getOpt('active_img')) {
@@ -1049,7 +1049,7 @@ class wiki2xhtml
             '<code>((url|texte alternatif))</code>, '.
             '<code>((url|texte alternatif|position))</code> ou '.
             '<code>((url|texte alternatif|position|description longue))</code>. '.
-            '<br />La position peut prendre les valeur L ou G (gauche), R ou D (droite) ou C (centré).';
+            '<br />La position peut prendre les valeur L ou G (gauche), R ou D (droite) ou C (centrï¿½).';
         }
 
         if ($this->getOpt('active_anchor')) {
@@ -1085,7 +1085,7 @@ class wiki2xhtml
         }
         $res .= '</dd>';
 
-        $res .= '<dt>Éléments en ligne</dt><dd>';
+        $res .= '<dt>ï¿½lï¿½ments en ligne</dt><dd>';
         if (count($help['i']) > 0)
         {
             $res .= '<ul><li>';
@@ -1100,7 +1100,7 @@ class wiki2xhtml
     }
 
     /*
-    function debug()
+    public function debug()
     {
         $mode = $type = NULL;
         $max = count($this->T);
@@ -1127,5 +1127,3 @@ class wiki2xhtml
     }
     //*/
 }
-
-?>

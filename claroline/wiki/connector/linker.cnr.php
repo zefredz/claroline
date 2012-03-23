@@ -3,14 +3,15 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Resource Resolver for the Wiki tool
+ * CLAROLINE
  *
- * @version 1.9 $Revision$
- * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author claroline Team <cvs@claroline.net>
- * @package CLWIKI
+ * Resource Resolver for the Wiki tool.
  *
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      claroline Team <cvs@claroline.net>
+ * @package     CLWIKI
  */
 
 class CLWIKI_Resolver implements ModuleResourceResolver
@@ -193,8 +194,6 @@ class CLWIKI_Navigator implements ModuleResourceNavigator
                 
                 foreach ( $res as $page )
                 {
-                    // var_dump( $page );
-                    
                     $pageLoc = new ClarolineResourceLocator(
                         $locator->getCourseId(),
                         'CLWIKI',
