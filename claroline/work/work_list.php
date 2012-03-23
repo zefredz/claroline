@@ -159,10 +159,12 @@ $showOnlyVisibleCondition = '';
 if( ! $is_allowedToEditAll )
 {
     if( !get_conf('show_only_author') ) 
+    // true by default since show_only_author is false by default...
     {
         $submissionConditionList[] = "`s`.`visibility` = 'VISIBLE'";
     }
     
+    // not in the if statement to allow to show feedback to the students
     $feedbackConditionList[]   = "(`s`.`visibility` = 'VISIBLE' AND `fb`.`visibility` = 'VISIBLE')";
 
     if( !empty($userGroupList)  )
@@ -171,12 +173,12 @@ if( ! $is_allowedToEditAll )
         
         foreach( $userGroupList as $userGroup )
         {
-            $userGroupIdList[] = $userGroup['id'];
+            $userGroupIdList[] = (int) $userGroup['id'];
         }
         
-        $submissionConditionList[] = "s.group_id IN ("  . implode(', ', array_map( 'intval', $userGroupIdList) ) . ")";
+        $submissionConditionList[] = "s.group_id IN ("  . implode(', ', $userGroupIdList ) . ")";
         
-        $feedbackConditionList[]   = "fb.group_id IN (" . implode(', ', array_map( 'intval', $userGroupIdList) ) . ")";
+        $feedbackConditionList[]   = "fb.group_id IN (" . implode(', ', $userGroupIdList ) . ")";
     }
     elseif ( claro_is_user_authenticated() )
     {
