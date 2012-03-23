@@ -48,8 +48,7 @@ $is_allowedToAdmin = claro_is_allowed_to_edit()
 if ( claro_is_in_a_group() && claro_is_group_allowed() )
 {
     // group context
-    $groupId = claro_get_current_group_id();
-
+    $groupId = (int) claro_get_current_group_id();
 }
 elseif ( claro_is_in_a_group() && ! claro_is_group_allowed() )
 {
