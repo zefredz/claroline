@@ -46,6 +46,11 @@ else
        .'</center>');
 }
 
+if ( get_conf('clmain_serverTimezone','') )
+{
+    date_default_timezone_set(get_conf('clmain_serverTimezone'));
+}
+
 // Most PHP package has increase the error reporting.
 // The line below set the error reporting to the most fitting one for Claroline
 if( claro_debug_mode() )
@@ -519,4 +524,10 @@ if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )
 
     $claroline->display->header->addHtmlHeader('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
     .' href="' . get_path('url') . '/claroline/backends/rss.php?cidReq=' . claro_get_current_course_id() . '" />' );
+}
+
+// timezone debug code
+if ( claro_debug_mode() && get_conf('clmain_serverTimezone','') )
+{
+    pushClaroMessage('timezone set to '.date_default_timezone_get(),'debug');
 }
