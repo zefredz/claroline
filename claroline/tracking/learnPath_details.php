@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -15,6 +15,8 @@
  */
  
 require '../inc/claro_init_global.inc.php';
+
+require_once(get_path('incRepositorySys').'/lib/class.lib.php');
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed')) ;
@@ -66,7 +68,37 @@ if ( get_conf('is_trackingEnabled') )
     if ( !empty($_REQUEST['path_id']) )
     {
         $path_id = (int) $_REQUEST['path_id'];
+        
+        $classList = get_class_list_of_course(claro_get_current_course_id());
+        
+        if ( !empty( $classList ) )
+        {
+            $groupBy = empty($_GET['groupBy']) ? '' : $_GET['groupBy'];
+            
+            $groupByCmdList = array();
+            $groupByCmdList['class'] = array(
+                    'name' => get_lang('Display grouped by class'),
+                    'url' => $_SERVER['PHP_SELF'] . '?path_id=' . (int)$path_id . '&groupBy=class'
+                );
 
+            if(!empty($groupBy))
+            {
+                unset($groupByCmdList[$groupBy]);
+                $groupByCmdList[] = array(
+                    'name' => get_lang('Display ungrouped'),
+                    'url' => $_SERVER['PHP_SELF'] . '?path_id=' . (int)$path_id
+                );
+            }
+        
+        
+            $cmdList = array_values($groupByCmdList);
+        }
+        else
+        {
+            $cmdList = array();
+            $groupBy = '';
+        }
+        
         // get infos about the learningPath
         $sql = "SELECT `name`
                 FROM `".$TABLELEARNPATH."`
@@ -79,7 +111,7 @@ if ( get_conf('is_trackingEnabled') )
             // display title
             $titleTab['mainTitle'] = $nameTools;
             $titleTab['subTitle'] = htmlspecialchars($learnPathName);
-            $out .= claro_html_tool_title($titleTab);
+            $out .= claro_html_tool_title($titleTab, null, $cmdList);
 
             // display a list of user and their respective progress
             $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
@@ -89,29 +121,16 @@ if ( get_conf('is_trackingEnabled') )
                     AND CU.`code_cours` = '". claro_sql_escape(claro_get_current_course_id()) ."'";
 
             $usersList = claro_sql_query_fetch_all($sql);
-
-            // display tab header
-            $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
-                   .'<tr class="headerX" align="center" valign="top">'."\n"
-                .'<th>'.get_lang('Student').'</th>'."\n"
-                .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
-                .'</tr>'."\n\n"
-                .'<tbody>'."\n\n";
-
-            // display tab content
-            foreach ( $usersList as $user )
+    
+            switch ($groupBy) 
             {
-                $lpProgress = get_learnPath_progress($path_id,$user['user_id']);
-                $out .= '<tr>'."\n"
-                    .'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&amp;path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
-                    .'<td align="right">'
-                    .claro_html_progress_bar($lpProgress, 1)
-                      .'</td>'."\n"
-                    .'<td align="left"><small>'.$lpProgress.'%</small></td>'."\n"
-                    .'</tr>'."\n\n";
+                case 'class':
+                    $out .= getLearnPathDetailByClass($path_id, $usersList);
+                    break;
+                default:
+                    $out .= getLearnPathDetailTable($path_id, $usersList);
+                    break;
             }
-            // foot of table
-            $out .= '</tbody>'."\n\n".'</table>'."\n\n";
         }
     }
 }
@@ -126,3 +145,80 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+//******************
+function getLearnpathProgressStudentRow($path_id, $user)
+{
+    $lpProgress = get_learnPath_progress($path_id,$user['user_id']);
+    $out = '<tr>'."\n"
+        .'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&amp;path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
+        .'<td align="right">'
+        .claro_html_progress_bar($lpProgress, 1)
+          .'</td>'."\n"
+        .'<td align="left"><small>'.$lpProgress.'%</small></td>'."\n"
+        .'</tr>'."\n\n";
+        
+    return $out;
+}
+//******************
+function getLearnPathDetailTable($path_id, $userList)
+{
+    // display tab header
+    $out = '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
+           .'<tr class="headerX" align="center" valign="top">'."\n"
+        .'<th>'.get_lang('Student').'</th>'."\n"
+        .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
+        .'</tr>'."\n\n"
+        .'<tbody>'."\n\n";
+
+    // display tab content
+    foreach ( $userList as $user )
+    {
+        $out .= getLearnpathProgressStudentRow($path_id, $user);
+    }
+    
+    // foot of table
+    $out .= '</tbody>'."\n\n".'</table><br />'."\n\n";
+    
+    return $out;
+}
+//***********************
+function getLearnPathDetailByClass($path_id, $courseUserList)
+{    
+    $classList = get_class_list_of_course(claro_get_current_course_id());
+    
+    foreach($courseUserList as $user)
+    {
+        $userList[$user['user_id']] = $user;
+    }
+    
+    //prepare userlist per class while keeping track of classless users
+    $classlessUserList = $userList;
+    foreach($classList as $classKey => $class)
+    {
+        $classList[$classKey]['userList'] = array_intersect_key($userList, array_flip(get_class_list_user_id_list(array($class['id']))));
+        $classList[$classKey]['name'] = ucfirst(get_lang('class')) . ' ' . $classList[$classKey]['name'];
+        $classlessUserList = array_diff_key($classlessUserList, $classList[$classKey]['userList']);
+    }
+    
+    //add remaining users to a "classless" class
+    array_unshift($classList, array('name' => '', 'userList' => $classlessUserList));
+
+    $out = '';
+    foreach($classList as $class)
+    {
+        if(empty($class['userList']))
+        {
+            continue;
+        }
+        
+        if(!empty($class['name']))
+        {
+            $out .= '<span style="font-weight: bold;">' . $class['name'] . '</span><br />';
+        }
+        
+        $out .= getLearnPathDetailTable($path_id, $class['userList']);
+    }
+    
+    return $out;
+}
