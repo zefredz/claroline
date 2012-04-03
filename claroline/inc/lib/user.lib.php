@@ -41,6 +41,7 @@ function user_initialise()
     $userData['email']          = isset($_REQUEST['email'])?trim(strip_tags($_REQUEST['email'])):'';
     $userData['phone']          = isset($_REQUEST['phone'])?trim(strip_tags($_REQUEST['phone'])):'';
     $userData['skype']          = isset($_REQUEST['skype'])?trim(strip_tags($_REQUEST['skype'])):'';
+    $userData['authSource']     = isset($_REQUEST['authSource'])?trim(strip_tags($_REQUEST['authSource'])):'';
     $userData['isStudent']      = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'student');
     $userData['isCourseCreator'] = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'courseManager');
     $userData['isPlatformAdmin'] = (bool) (isset($_REQUEST['platformRole']) && $_REQUEST['platformRole'] == 'platformAdmin'
@@ -169,7 +170,7 @@ function user_get_properties($userId)
                                    username,
                                    email,
                                    language,
-                    authSource  AS authsource,
+                    authSource  AS authSource,
                     pictureUri  AS picture,
                                    officialCode,
                                    officialEmail,
@@ -292,7 +293,8 @@ function user_set_properties($userId, $propertyList)
                            'password'        => 'password',
                            'language'        => 'language',
                            'pictureUri'      => 'picture',
-                           'isPlatformAdmin' => 'isPlatformAdmin');
+                           'isPlatformAdmin' => 'isPlatformAdmin',
+                           'authSource'      => 'authSource' );
     
     $setList = array();
     
@@ -823,7 +825,7 @@ function user_validate_form($formMode, $data, $userId = null)
     
     if (empty($userId) || claro_is_platform_admin())
     {
-        $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
+        $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype','authSource');
     }
     else
     {
@@ -1098,7 +1100,7 @@ function user_html_form($userId = null)
     // Editable fields
     if (empty($userId) || claro_is_platform_admin())
     {
-        $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
+        $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype','authSource');
     }
     else
     {

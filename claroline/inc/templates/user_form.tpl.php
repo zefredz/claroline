@@ -351,7 +351,7 @@
                     <?php echo $this->data['phone']; ?>
                     <input type="hidden" value="<?php echo $this->data['phone']; ?>" name="phone" id="phone" />
                 
-                <?php endif; ?>                    
+                <?php endif; ?>
             </dd>
             <dt>
                 <label for="skype">
@@ -369,6 +369,22 @@
 
                     <input type="hidden" value="<?php echo $this->data['skype']; ?>" name="skype" id="skype" />
                 
+                <?php endif; ?>
+            </dd>
+            <dt>
+                <label for="authSource">
+                    <?php echo get_lang('Authentication source'); ?>
+                </label>
+            </dt>
+            <dd>
+                <?php if (in_array('authSource', $this->editableFields)) : ?>
+                    <select id="authSourceSelector" name="authSource">
+                    <?php foreach( AuthDriverManager::getRegisteredDrivers() as $authDriver ) : ?>
+                    <option value="<?php echo $authDriver->getAuthSource(); ?>" <?php if( $authDriver->getAuthSource() == $this->data['authSource'] ) : ?>selected="on"<?php endif; ?>>
+                        <?php echo $authDriver->getAuthSource(); ?>
+                    </option>
+                    <?php endforeach; ?>
+                    </select>
                 <?php endif; ?>
             </dd>
         </dl>
