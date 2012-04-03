@@ -27,20 +27,23 @@ Claroline Core Team :
     
     Philippe Dekimpe        (dkp@ecam.be)
     Stéphane Klein          (stephane.klein@claroline.net)
-    
-    From Université catholique de Louvain :
+    Nicolas Godfraind       (???)
 
-    Frédéric Minne          (zefredz@claroline.net) aka ZeFredz
+Main contributors :
+
+    From Université catholique de Louvain (UCL) :
+
     Frédéric Fervaille      (ffervaille@claroline.net)
+    Frédéric Minne          (zefredz@claroline.net)
 
-Active contributors :
+    From Facultés Universitaires Notre-Dame de la Paix (FUNDP) :
 
-    Laurence Dumortier  (laurence.dumortier@fundp.ac.be)
-    Jean-Roch Meurisse  (jean-roch.meurisse@fundp.ac.be)
+    Laurence Dumortier      (laurence.dumortier@fundp.ac.be)
+    Jean-Roch Meurisse      (jean-roch.meurisse@fundp.ac.be)
 
 Former members of the Claroline Team :
 
-    Sébastien Piraux            (seb@claroline.net) aka Fragile
+    Antonin Bourguignon         (Developer - Claroline Consortium)
     Christophe Gesché           (moosh@claroline.net) aka Moosh
     Anais Hulet                 (Communication - CERDECAM)
     Florence Hortmans           (Communication - CERDECAM)
@@ -49,10 +52,10 @@ Former members of the Claroline Team :
     Guillaume Lederer           (Developer - CERDECAM)
     Nicolas Leblanc             (Developer - CERDECAM)
     Hugues Peeters              (Developer and Project Manager - UCL)
-    Aurelien Van Hamme          (Developer - CERDECAM)
+    Sébastien Piraux            (seb@claroline.net) aka Fragile
     Dimitri Rambout             (Developer - UCL)
     Philippe Van Eerdenbrugghe  (Developer - HELV)
-    Antonin Bourguignon         (Developer - Claroline Consortium)
+    Aurelien Van Hamme          (Developer - CERDECAM)
 
 Former contributors :
 
@@ -81,6 +84,7 @@ Personnal Agenda :              Eric Remy (eremy@rmwc.edu),
                                 Toon Van Hoecke (Toon.VanHoecke@UGent.be)
 
 LDAP :                          Roan Embrechts (roan.embrechts@ugent.be)
+                                Frédéric Minne (frederic.minne@uclouvain.be)
 
 Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
                                 Guillaume Lederer
@@ -101,10 +105,12 @@ User Image :                    Miguel (miguel@cesga.es)
 Upgrade tool :                  Mathieu Laurent (laurent@cerdecam.be)
                                 Christophe Gesché (gesche@ipm.ucl.ac.be)
 
-Export class to csv,            Samuel Champagne ( schampagne@libergia.com )
-Display user classes,           development made at Solutions Libergia inc.
-Reset all passwords,
-Lost password email :
+Export class to csv, display 
+user classes, reset all 
+passwords, Lost password 
+email,Learning Path tool 
+enhancements :                  Samuel Champagne ( schampagne@libergia.com )
+                                development made at Solutions Libergia inc.
 
 ------------------------------------------------------------------------------
                                 EXTERNAL CODE
