@@ -882,12 +882,19 @@ class CourseTreeViewOptions
         $haveToDisplayEnrollLink = false, 
         $haveToDisplayUnenrollLink = false,
         $enrollLinkUrl = null,
-        $unenrollLinkUrl = null)
+        $unenrollLinkUrl = null,
+        $classEnrolment = false )
     {
         $this->haveToDisplayEnrollLink = (bool) $haveToDisplayEnrollLink;
         $this->haveToDisplayUnenrollLink = (bool) $haveToDisplayUnenrollLink;
         $this->enrollLinkUrl = new Url($enrollLinkUrl);
         $this->unenrollLinkUrl = new Url($unenrollLinkUrl);
+        $this->classEnrolment = (bool) $classEnrolment;
+    }
+    
+    public function classEnrolmentMode()
+    {
+        return $this->classEnrolment;
     }
     
     /**

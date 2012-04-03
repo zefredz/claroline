@@ -292,6 +292,8 @@ if ( $cmd == 'exReg' )
             $dialogBox->success( get_lang('You\'ve been enroled on the course') );
         }
         
+        $properties = array();
+        
         if ( $asTeacher && claro_is_platform_admin() )
         {
             $properties['isCourseManager']  = 1;
@@ -375,11 +377,26 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
     
     // Build the category browser
     $categoryBrowser  = new CategoryBrowser($categoryId, $userId);
-    $viewOptions = new CourseTreeViewOptions(
-        true,
-        false,
-        Url::buildUrl($_SERVER['PHP_SELF'].'?cmd=exReg', $urlParamList, null)->toUrl(),
-        null);
+    
+    if ( $fromAdmin == 'class' )
+    {
+        $viewOptions = new CourseTreeViewOptions(
+            true,
+            false,
+            Url::buildUrl(get_module_url('CLUSR').'/class_add.php?cmd=exReg', $urlParamList, null)->toUrl(),
+            null,
+            true );
+        
+        // var_dump($viewOptions);
+    }
+    else
+    {
+        $viewOptions = new CourseTreeViewOptions(
+            true,
+            false,
+            Url::buildUrl($_SERVER['PHP_SELF'].'?cmd=exReg', $urlParamList, null)->toUrl(),
+            null);
+    }
     
     $categoryBrowser->setViewOptions($viewOptions);
     
@@ -387,11 +404,26 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
     
     // Build the search box
     $searchBox = new CourseSearchBox($_SERVER['REQUEST_URI']);
-    $viewOptions = new CourseTreeViewOptions(
-        true,
-        false,
-        Url::buildUrl($_SERVER['PHP_SELF'].'?cmd=exReg', $urlParamList, null)->toUrl(),
-        null);
+    
+    if ( $fromAdmin == 'class' )
+    {
+        $viewOptions = new CourseTreeViewOptions(
+            true,
+            false,
+            Url::buildUrl(get_module_url('CLUSR').'/class_add.php?cmd=exReg', $urlParamList, null)->toUrl(),
+            null,
+            true );
+        
+        // var_dump($viewOptions);
+    }
+    else
+    {
+        $viewOptions = new CourseTreeViewOptions(
+            true,
+            false,
+            Url::buildUrl($_SERVER['PHP_SELF'].'?cmd=exReg', $urlParamList, null)->toUrl(),
+            null);
+    }
     
     $searchBox->setViewOptions($viewOptions);
     

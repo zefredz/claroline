@@ -13,7 +13,20 @@
             get_course_access_mode_caption(
                 $this->node->getCourse()->access ) ); ?>" />
     
-    <?php if (!empty($this->courseUserPrivilegesList)) : ?>
+    <?php if ( claro_is_platform_admin() && $this->viewOptions->classEnrolmentMode() ): ?>
+    
+        <a href="<?php 
+            $urlObj = Url::buildUrl(
+                $this->viewOptions->getEnrollLinkUrl()->toUrl(), 
+                array('cidReq' => $this->node->getCourse()->courseId, 'cidReset' => 'true' ), 
+                null);
+
+            echo $urlObj->toUrl();
+            ?>">
+            <img class="enrolment" src="<?php echo get_icon_url('enroll'); ?>" alt="<?php echo get_lang('Enroll class'); ?>" />
+        </a>
+    
+    <?php elseif (!empty($this->courseUserPrivilegesList)) : ?>
         
         <!-- Enrolment/unenrolment icon -->
         <?php
@@ -34,7 +47,7 @@
                     
                 echo $urlObj->toUrl();
                 ?>">
-                <img class="enrolment" src="<?php echo get_icon_url('enroll'); ?>" alt="<?php echo get_lang('Unenroll'); ?>" />
+                <img class="enrolment" src="<?php echo get_icon_url('enroll'); ?>" alt="<?php echo get_lang('Enroll'); ?>" />
             </a>
             
         <?php
