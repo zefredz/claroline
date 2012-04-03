@@ -70,7 +70,7 @@ foreach ($platformAdminUidList as $k => $platformAdminUid )
     $userDataGrid[$k]['name'] = $userData['lastname'];
     $userDataGrid[$k]['firstname'] = $userData['firstname'];
     $userDataGrid[$k]['email'] = $userData['email'];
-    $userDataGrid[$k]['authsource'] = $userData['authsource'];
+    $userDataGrid[$k]['authSource'] = $userData['authSource'];
     //$userDataGrid[$k]['contact_switch'] = '<input name="contactList[]" type="checkbox" value="' . $platformAdminUid . '" ' . ((bool) in_array($platformAdminUid,$contactUidList)  ? 'checked="checked"  />' : '>');
     $userDataGrid[$k]['request_switch'] = '<input name="requestList[]" type="checkbox" value="' . $platformAdminUid . '" '
     .    ((bool) in_array($platformAdminUid,$requestUidList)  ? 'checked="checked"  /> ' : '> ');
@@ -85,7 +85,7 @@ $adminDataGrid->set_colTitleList(array ( 'user id'              => get_lang('Use
                                         , 'name'                => get_lang('Last name')
                                         , 'firstname'           => get_lang('First name')
                                         , 'email'               => get_lang('Email')
-                                        , 'authsource'          => get_lang('Authentication source')
+                                        , 'authSource'          => get_lang('Authentication source')
 //                                        , 'contact_switch'      => get_lang('Contact')
                                         , 'request_switch'      => get_lang('Request')
                                         , 'notification_switch' => get_lang('Notify')
@@ -95,7 +95,7 @@ $adminDataGrid->set_colTitleList(array ( 'user id'              => get_lang('Use
 $adminDataGrid->set_colAttributeList( array (  'request_switch' => array ('align' => 'left')
                                              , 'notification_switch' => array ('align' => 'left')
                                              //, 'contact_switch' => array ('align' => 'left')
-                                             , 'authsource'  => array ('align' => 'center')
+                                             , 'authSource'  => array ('align' => 'center')
                                              ));
 /**
  * DISPLAY
