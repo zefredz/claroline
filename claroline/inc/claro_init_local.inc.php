@@ -205,6 +205,8 @@ if ( count( get_included_files() ) == 1 )
 
 require_once dirname(__FILE__) . '/lib/auth/authmanager.lib.php';
 require_once dirname(__FILE__) . '/lib/kernel/user.lib.php';
+require_once dirname(__FILE__) . '/lib/kernel/course.lib.php';
+require_once dirname(__FILE__) . '/lib/kernel/groupteam.lib.php';
 require_once dirname(__FILE__) . '/lib/user.lib.php';
 require_once dirname(__FILE__) . '/lib/core/claroline.lib.php';
 
