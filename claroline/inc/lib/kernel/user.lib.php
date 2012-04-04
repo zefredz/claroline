@@ -37,6 +37,11 @@ class Claro_User extends KernelObject
         $this->_userId = $userId;
         $this->sessionVarName = '_user';
     }
+    
+    public function load()
+    {
+        $this->loadFromDatabase();
+    }
 
     /**
      * Load user properties from database
