@@ -309,19 +309,41 @@
             <dd>
                 
                 <?php if (in_array('authSource', $this->editableFields)) : ?>
+                
                     <select id="authSourceSelector" name="authSource">
+                    
+                    <?php $authSourceInOptions = false; ?>
+                        
                     <?php foreach( AuthDriverManager::getRegisteredDrivers() as $authDriver ) : ?>
                         
                         <?php if( $authDriver->getAuthSource() == $this->data['authSource'] ) : ?>
+                        
                             <option value="<?php echo $authDriver->getAuthSource(); ?>" selected="selected">
                                 <?php echo $authDriver->getAuthSource(); ?>
                             </option>
+                            
+                            <?php $authSourceInOptions = true; ?>
+                            
                         <?php else: ?>
+                            
                             <option value="<?php echo $authDriver->getAuthSource(); ?>">
                                 <?php echo $authDriver->getAuthSource(); ?>
                             </option>
+                            
                         <?php endif; ?>
+                            
                     <?php endforeach; ?>
+                            
+                    <?php if( !$authSourceInOptions && !empty($this->data['authSource']) ) : ?>
+                        
+                        <option style="font-style: italic;" value="<?php echo $this->data['authSource']; ?>" selected="selected">
+                            <?php echo $this->data['authSource']; ?>
+                        </option>
+
+                        <?php $authSourceInOptions = true; ?>
+
+                    <?php endif; ?>
+                            
                     </select>
                 <?php endif; ?>
             </dd>
