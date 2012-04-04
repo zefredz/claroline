@@ -825,7 +825,12 @@ function user_validate_form($formMode, $data, $userId = null)
     
     if (empty($userId) || claro_is_platform_admin())
     {
-        $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype','authSource');
+        $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
+        
+        if (claro_is_platform_admin())
+        {
+            $editableFields[] = 'authSource';
+        }
     }
     else
     {
@@ -1100,7 +1105,12 @@ function user_html_form($userId = null)
     // Editable fields
     if (empty($userId) || claro_is_platform_admin())
     {
-        $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype','authSource');
+        $editableFields = array('name','official_code','login','password','email','phone','language','picture','skype');
+        
+        if (claro_is_platform_admin())
+        {
+            $editableFields[] = 'authSource';
+        }
     }
     else
     {

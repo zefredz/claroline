@@ -300,6 +300,33 @@
 
             <?php endif; ?>
                 
+            <?php if (claro_is_platform_admin() ): ?>
+            <dt>
+                <label for="authSource">
+                    <?php echo get_lang('Authentication source'); ?>
+                </label>
+            </dt>
+            <dd>
+                
+                <?php if (in_array('authSource', $this->editableFields)) : ?>
+                    <select id="authSourceSelector" name="authSource">
+                    <?php foreach( AuthDriverManager::getRegisteredDrivers() as $authDriver ) : ?>
+                        
+                        <?php if( $authDriver->getAuthSource() == $this->data['authSource'] ) : ?>
+                            <option value="<?php echo $authDriver->getAuthSource(); ?>" selected="selected">
+                                <?php echo $authDriver->getAuthSource(); ?>
+                            </option>
+                        <?php else: ?>
+                            <option value="<?php echo $authDriver->getAuthSource(); ?>">
+                                <?php echo $authDriver->getAuthSource(); ?>
+                            </option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    </select>
+                <?php endif; ?>
+            </dd>
+            <?php endif; ?>
+                
         </dl>
     </fieldset>
     
@@ -371,22 +398,7 @@
                 
                 <?php endif; ?>
             </dd>
-            <dt>
-                <label for="authSource">
-                    <?php echo get_lang('Authentication source'); ?>
-                </label>
-            </dt>
-            <dd>
-                <?php if (in_array('authSource', $this->editableFields)) : ?>
-                    <select id="authSourceSelector" name="authSource">
-                    <?php foreach( AuthDriverManager::getRegisteredDrivers() as $authDriver ) : ?>
-                    <option value="<?php echo $authDriver->getAuthSource(); ?>" <?php if( $authDriver->getAuthSource() == $this->data['authSource'] ) : ?>selected="on"<?php endif; ?>>
-                        <?php echo $authDriver->getAuthSource(); ?>
-                    </option>
-                    <?php endforeach; ?>
-                    </select>
-                <?php endif; ?>
-            </dd>
+            
         </dl>
     </fieldset>
     
