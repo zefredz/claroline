@@ -34,7 +34,7 @@ implements
     Countable
 {
     //put your code here
-    protected $courseObj, $groupId, $userList;
+    protected $_courseObj, $_groupId, $_userList;
 
     /**
      * @param Claro_Course $courseObj
@@ -42,9 +42,9 @@ implements
      */
     public function __construct( Claro_Course $courseObj, $groupId )
     {
-        $this->groupId = $groupId;
-        $this->courseObj = $courseObj;
-        $this->userList = null;
+        $this->_groupId = $groupId;
+        $this->_courseObj = $courseObj;
+        $this->_userList = null;
         $this->sessionVarName = '_group';
     }
     
@@ -62,14 +62,14 @@ implements
         if ( $forceReload )
         {
             $this->_rawData = array();
-            $this->userList = null;
+            $this->_userList = null;
         }
 
         if ( empty($this->_rawData) )
         {
             $this->loadGroupCourseProperties();
             $this->loadGroupTeamProperties();
-            $this->userList = null;
+            $this->_userList = null;
         }
     }
 
@@ -78,11 +78,11 @@ implements
      */
     protected function loadGroupCourseProperties()
     {   
-        $grouProperties = $this->courseObj->getGroupProperties();
+        $grouProperties = $this->_courseObj->getGroupProperties();
         
         if ( ! $grouProperties )
         {
-            throw new Exception("Cannot load group properties for {$this->courseObj->sysCode}");
+            throw new Exception("Cannot load group properties for {$this->_courseObj->courseId}");
         }
         
         $this->_rawData = array_merge( $this->_rawData, $grouProperties );
@@ -93,11 +93,12 @@ implements
      */
     protected function loadGroupTeamProperties()
     {
-        $tbl = claro_sql_get_course_tbl( $this->courseObj->dbNameGlu );
+        $tbl = claro_sql_get_course_tbl( $this->_courseObj->dbNameGlu );
 
         $sql = "
             SELECT
                 g.id               AS id          ,
+                g.id               AS groupId          ,
                 g.name             AS name        ,
                 g.description      AS description ,
                 g.tutor            AS tutorId     ,
@@ -106,7 +107,7 @@ implements
             FROM
                 `{$tbl['group_team']}`  AS g
             WHERE
-                g.id = {$this->groupId};
+                g.id = {$this->_groupId};
         ";
                 
         $groupData = Claroline::getDatabase()
@@ -115,7 +116,7 @@ implements
         
         if ( ! $groupData  )
         {
-            throw new Exception("Cannot load group data for {$this->groupId}");
+            throw new Exception("Cannot load group data for {$this->_groupId}");
         }
 
         $this->_rawData = array_merge( $this->_rawData,
@@ -138,7 +139,7 @@ implements
             throw new Exception("Group data not loaded !");
         }
 
-        $tbl = claro_sql_get_course_tbl( $this->courseObj->dbNameGlu );
+        $tbl = claro_sql_get_course_tbl( $this->_courseObj->dbNameGlu );
 
         $sql = "SELECT
                     status,
@@ -148,7 +149,7 @@ implements
                 WHERE
                     `user` = {$userObj->userId}
                 AND
-                    `team`   = {$this->groupId};";
+                    `team`   = {$this->_groupId};";
 
         $result = Claroline::getDatabase()
             ->query( $sql )
@@ -180,11 +181,11 @@ implements
      */
     public function getGroupMembers()
     {
-        if ( ! $this->userList )
+        if ( ! $this->_userList )
 
         {
             $mainTableName = get_module_main_tbl(array('user','rel_course_user'));
-            $courseTableName = get_module_course_tbl(array('group_rel_team_user'), $this->courseObj->sysCode);
+            $courseTableName = get_module_course_tbl(array('group_rel_team_user'), $this->_courseObj->courseId);
 
             $sql = "
                 SELECT
@@ -203,14 +204,14 @@ implements
                 ON
                     `user`.`user_id` = `course_user`.`user_id`
                 WHERE
-                    `user_group`.`team`= {$this->groupId}
+                    `user_group`.`team`= {$this->_groupId}
                 AND
-                    `course_user`.`code_cours` = '{$this->courseObj->sysCode}'";
+                    `course_user`.`code_cours` = '{$this->_courseObj->sysCode}'";
 
-            $this->userList = Claroline::getDatabase()->query($sql);
+            $this->_userList = Claroline::getDatabase()->query($sql);
         }
 
-        return $this->userList;
+        return $this->_userList;
     }
 
     /**
@@ -219,7 +220,7 @@ implements
      */
     public function getCourse()
     {
-        return $this->courseObj;
+        return $this->_courseObj;
     }
 
     /**
@@ -237,21 +238,6 @@ implements
         }
 
         return $tutor;
-    }
-
-    /**
-     * Get the group space object for the current group/team
-     * @return Claro_GroupSpace
-     */
-    public function getGroupSpace()
-    {
-        $groupSpace = new Claro_GroupSpace($this);
-        return $groupSpace;
-    }
-
-    public function reload()
-    {
-
     }
 
     /**
@@ -273,9 +259,9 @@ implements
  */
 class Claro_CurrentGroupTeam extends Claro_GroupTeam
 {
-    public function __construct( $userId = null )
+    public function __construct( $groupId = null )
     {
-        $userId = empty( $groupId )
+        $groupId = empty( $groupId )
             ? claro_get_current_group_id()
             : $groupId
             ;
