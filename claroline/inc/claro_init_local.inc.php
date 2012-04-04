@@ -8,7 +8,7 @@ if ( count( get_included_files() ) == 1 )
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2010 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2012 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -30,8 +30,7 @@ if ( count( get_included_files() ) == 1 )
  *
  * All the course informations are store in the $_course array.
  *
- * You can request a group id. It will check if the group Id requested is theexit('WARNING !! Undefined user id: the requested user doesn\'t exist '
-            . 'at line '.__LINE__);
+ * You can request a group id. It will check if the group Id requested is the
  * same as the current one. If it isn't it will update session information from
  * the database. You can also force the course reset if you want ($gidReset).
  *
@@ -129,8 +128,7 @@ if ( count( get_included_files() ) == 1 )
  * int     $_group ['tutorId'    ]
  * int     $_group ['forumId'    ]
  * string  $_group ['directory'  ]
- * int     $_group ['maxMember'  ]exit('WARNING !! Undefined user id: the requested user doesn\'t exist '
-            . 'at line '.__LINE__);
+ * int     $_group ['maxMember'  ]
  *
  * boolean $is_groupMember
  * boolean $is_groupTutor
