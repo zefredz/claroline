@@ -40,12 +40,17 @@ implements
      * @param Claro_Course $courseObj
      * @param int $groupId
      */
-    public function __construct( Claro_Course $courseObj, int $groupId )
+    public function __construct( Claro_Course $courseObj, $groupId )
     {
         $this->groupId = $groupId;
         $this->courseObj = $courseObj;
         $this->userList = null;
         $this->sessionVarName = '_group';
+    }
+    
+    public function load()
+    {
+        $this->loadFromDatabase();
     }
 
     /**
@@ -72,53 +77,15 @@ implements
      * Load group properties defined for the course
      */
     protected function loadGroupCourseProperties()
-    {
-        // get course data from main
-        $tbl = claro_sql_get_course_tbl( $this->courseObj->dbNameGlu );
-
-        $sql_getGroupProperties = "
-            SELECT
-                name, value
-            FROM
-                `{$tbl['course_properties']}`
-            WHERE
-                category = 'GROUP';
-        ";
-
-        $db_groupProperties = Claroline::getDatabase()
-            ->query( $sql_getGroupProperties )
-            ->fetch();
-
-        if ( ! $db_groupProperties )
+    {   
+        $grouProperties = $this->courseObj->getGroupProperties();
+        
+        if ( ! $grouProperties )
         {
             throw new Exception("Cannot load group properties for {$this->courseObj->sysCode}");
         }
-
-        foreach($db_groupProperties as $currentProperty)
-        {
-            $this->_rawData[$currentProperty['name']] = (int) $currentProperty['value'];
-        }
-
-        $this->_rawData ['registrationAllowed'] =  ($groupProperties['self_registration'] == 1);
-
-        unset ( $groupProperties['self_registration'] );
         
-        $this->_rawData ['private'] =  ($groupProperties['private'] == 1);
-
-        $this->_rawData['tools'] = array();
-
-        $groupToolList = get_group_tool_label_list();
-
-        foreach ( $groupToolList as $thisGroupTool )
-        {
-            $groupTLabel = $thisGroupTool['label'];
-
-            $this->_rawData ['tools'] [$groupTLabel] =
-                array_key_exists( $groupTLabel, $this->_rawData )
-                && ($this->_rawData[$groupTLabel] == 1);
-
-            unset ( $this->_rawData[$groupTLabel] );
-        };
+        $this->_rawData = array_merge( $this->_rawData, $grouProperties );
     }
 
     /**
@@ -137,15 +104,22 @@ implements
                 g.secretDirectory  AS directory   ,
                 g.maxStudent       AS maxMember
             FROM
-                `{$tbl_c_names['group_team']}`  AS g
+                `{$tbl['group_team']}`  AS g
             WHERE
                 g.id = {$this->groupId};
         ";
+                
+        $groupData = Claroline::getDatabase()
+            ->query( $sql )
+            ->fetch();
+        
+        if ( ! $groupData  )
+        {
+            throw new Exception("Cannot load group data for {$this->groupId}");
+        }
 
         $this->_rawData = array_merge( $this->_rawData,
-            Claroline::getDatabase()
-            ->query( $sql )
-            ->fetch() );
+            iterator_to_array( $groupData ) );
     }
 
     /**
@@ -170,7 +144,7 @@ implements
                     status,
                     role
                 FROM
-                    `{$tbl_c_names['group_rel_team_user']}`
+                    `{$tbl['group_rel_team_user']}`
                 WHERE
                     `user` = {$userObj->userId}
                 AND
@@ -307,36 +281,5 @@ class Claro_CurrentGroupTeam extends Claro_GroupTeam
             ;
 
         parent::__construct( $groupId );
-    }
-}
-
-/**
- * Claro_GroupSpace represents a Group Space
- * @author zefredz <zefredz@claroline.net>
- * @since 1.10
- * @todo implements me !
- */
-class Claro_GroupSpace
-{
-    protected $groupObj;
-
-    public function  __construct( Claro_GroupTeam $groupObj )
-    {
-        $this->groupObj = $groupObj;
-    }
-
-    public function getToolList()
-    {
-
-    }
-
-    public function getToolListAvailableForUser( $userId )
-    {
-
-    }
-
-    public function getGroup()
-    {
-
     }
 }
