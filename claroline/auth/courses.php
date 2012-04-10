@@ -180,6 +180,11 @@ if ( !empty($fromAdmin) )
             $classId = '';
         }
         
+        if ( !empty($classId) )
+        {
+            $urlParamList['class_id'] = $classId;
+        }
+        
         // Breadcrumbs different if we come from admin tool for a CLASS
         $nameTools = get_lang('Enrol class');
         
@@ -383,7 +388,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
         $viewOptions = new CourseTreeViewOptions(
             true,
             false,
-            Url::buildUrl(get_module_url('CLUSR').'/class_add.php?cmd=exReg', $urlParamList, null)->toUrl(),
+            Url::buildUrl(get_module_url('CLUSR').'/class_add.php?cmd=exEnrol', $urlParamList, null)->toUrl(),
             null,
             true );
         
@@ -410,7 +415,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
         $viewOptions = new CourseTreeViewOptions(
             true,
             false,
-            Url::buildUrl(get_module_url('CLUSR').'/class_add.php?cmd=exReg', $urlParamList, null)->toUrl(),
+            Url::buildUrl(get_module_url('CLUSR').'/class_add.php?cmd=exEnrol', $urlParamList, null)->toUrl(),
             null,
             true );
         

@@ -18,7 +18,7 @@ $gidReset = true;
 
 require '../inc/claro_init_global.inc.php';
 
-$dialogBoxMsg = array();
+$dialogBox = new DialogBox();
 
 if ( ! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
@@ -71,7 +71,7 @@ switch ( $cmd )
                     'CLASS_SUBSCRIBE'
             );
 
-            $dialogBoxMsg[]  = get_lang('Class has been enroled') ;
+            $dialogBox->success( get_lang('Class has been enroled') ) ;
         }
         break;
 
@@ -88,7 +88,7 @@ switch ( $cmd )
                     'CLASS_UNSUBSCRIBE'
             );
 
-            $dialogBoxMsg[]  = get_lang('Class has been unenroled') ;
+            $dialogBox->success( get_lang('Class has been unenroled') );
         }
         break;
 }
@@ -141,7 +141,7 @@ $out = '';
 $out .= claro_html_tool_title(get_lang('Enrol class'), null, $cmdList);
 
 // Display Forms or dialog box (if needed)
-$out .= claro_html_msg_list($dialogBoxMsg);
+$out .= $dialogBox->render();
 
 // Display cols headers
 $out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
