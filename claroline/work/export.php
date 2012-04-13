@@ -35,6 +35,7 @@ if( !claro_is_allowed_to_edit() )
 require_once get_module_path( $tlabelReq ) . '/lib/assignment.class.php';
 require_once get_path( 'incRepositorySys' ) . '/lib/course_utils.lib.php';
 require_once get_path( 'incRepositorySys' ) . '/lib/fileManage.lib.php';
+require_once get_path( 'incRepositorySys' ) . '/lib/file/garbagecollector.lib.php';
 require_once get_path( 'incRepositorySys' ) . '/lib/thirdparty/pclzip/pclzip.lib.php';
 
 //init general purpose vars

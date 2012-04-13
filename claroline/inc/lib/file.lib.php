@@ -17,63 +17,6 @@
 
 require_once dirname(__FILE__) . '/core/url.lib.php';
 
-/**
- * Garbage collector : remove old files from a given folder
- */
-class ClaroGarbageCollector
-{
-    private $path, $expire, $maxLifeTime;
-
-    /**
-     * Constructor
-     * @param string $path folder path
-     * @param int $expire expiration time
-     */
-    public function  __construct( $path, $maxLifeTime = 3600 )
-    {
-        $this->path = $path;
-        $this->maxLifeTime = $maxLifeTime;
-        $this->expire = time() - $maxLifeTime;
-    }
-
-    /**
-     * Run the garbage collector
-     */
-    public function run()
-    {
-        if ( is_dir( $this->path ) )
-        {
-            Console::debug('GC Called in '.$this->path);
-
-            // Delete archive files older than one hour
-            $tempDirectoryFiles = new DirectoryIterator( $this->path );
-
-            foreach ( $tempDirectoryFiles as $tempDirectoryFile )
-            {
-                if ( $tempDirectoryFile->isReadable() 
-                    && $tempDirectoryFile->isWritable() )
-                {
-                    if ( $tempDirectoryFile->getMTime() < $this->expire )
-                    {
-                        if ( !$tempDirectoryFile->isDir() 
-                            && !$tempDirectoryFile->isDot() )
-                        {
-                            Console::debug(
-                                'Unlink '
-                                    . $tempDirectoryFile->getPathName()
-                                    . " mtime: ".$tempDirectoryFile->getMTime()
-                                    . "; expire: ".$this->expire
-                            );
-
-                            unlink( $tempDirectoryFile->getPathName() );
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 function file_upload_failed( $file )
 {
     return get_file_upload_errno( $file ) > 0;

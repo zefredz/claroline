@@ -83,6 +83,7 @@ require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/fileManage.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/file.lib.php';
+require_once get_path('incRepositorySys')  . '/lib/file/garbagecollector.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/url.lib.php';
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
