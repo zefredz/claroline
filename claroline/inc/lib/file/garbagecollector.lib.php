@@ -43,25 +43,25 @@ class ClaroGarbageCollector
             
             if ( strpos( $this->path, get_path('courseRepositorySys') ) !== false )
             {
-                Console::error("GC directory {$this->path} located in platform course folder : ABORT!");
+                Console::warning("GC directory {$this->path} located in platform course folder : ABORT!");
                 return;
             }
             
             if ( strpos( $this->path, get_path('clarolineRepositorySys') ) !== false )
             {
-                Console::error("GC directory {$this->path} located in platform main folder : ABORT!");
+                Console::warning("GC directory {$this->path} located in platform main folder : ABORT!");
                 return;
             }
             
             if ( strpos( $this->path, get_path('rootSys').'/web' ) !== false )
             {
-                Console::error("GC directory {$this->path} located in platform web folder : ABORT!");
+                Console::warning("GC directory {$this->path} located in platform web folder : ABORT!");
                 return;
             }
             
             if ( strpos( $this->path, get_path('rootSys').'/module' ) !== false )
             {
-                Console::error("GC directory {$this->path} located in platform modules dir : ABORT!");
+                Console::warning("GC directory {$this->path} located in platform modules dir : ABORT!");
                 return;
             }
             
@@ -87,7 +87,7 @@ class ClaroGarbageCollector
                                     . "; expire: ".$this->expire
                             );
 
-                            unlink( $tempDirectoryFile->getPathName() );
+                            @unlink( $tempDirectoryFile->getPathName() );
                         }
                         elseif ( $tempDirectoryFile->isDir() 
                                 && !$tempDirectoryFile->isDot()
@@ -100,16 +100,20 @@ class ClaroGarbageCollector
                                     . "; expire: ".$this->expire
                             );
 
-                            rmdir( $tempDirectoryFile->getPathName() );
+                            @rmdir( $tempDirectoryFile->getPathName() );
                         }
                     }
                 }
             }
         }
+        else
+        {
+            Console::warning("GC directory {$this->path} is not a folder folder : ABORT!");
+        }
     }
     
     protected function isEmpty( $path )
     {
-        return ( ( $files = @scandir($path) ) && ( count($files) > 2 ) );
+        return ( ( $files = @scandir($path) ) && ( count($files) <= 2 ) );
     }
 }
