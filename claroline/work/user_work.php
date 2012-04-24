@@ -100,6 +100,7 @@ if ( !$assignmentId || !$assignment->load($assignmentId) )
     exit();
 }
 
+
 /*--------------------------------------------------------------------
                     REQUIRED : USER INFORMATIONS
   --------------------------------------------------------------------*/
@@ -221,7 +222,7 @@ $is_allowedToEditAll  = (bool) claro_is_allowed_to_edit(); // can submit, edit, 
 if( !$assignmentIsVisible && !$is_allowedToEditAll )
 {
     // if assignment is not visible and user is not course admin or upper
-    claro_redirect("work.php");
+    claro_redirect(Url::Contextualize("work.php"));
     exit();
 }
 
@@ -673,7 +674,7 @@ if($is_allowedToEditAll)
                     // email content
                     $body = get_lang('New assignment feedback posted') . "\n\n"
                     . $currentUserFirstName.' '.$currentUserLastName . "\n"
-                    . '<a href="'.$url.'">' . $submission->getTitle() .'</a>' . "\n"
+                    . '<a href="'.  htmlspecialchars(Url::Contextualize($url)).'">' . $submission->getTitle() .'</a>' . "\n"
                     ;
                     
                     $message = new MessageToSend( claro_get_current_user_id(),$subject,$body );
@@ -837,8 +838,25 @@ if( $is_allowedToSubmit )
     {
         if( isset($formCorrectlySent) && $formCorrectlySent )
         {
+            if ( $assignment->getAssignmentType() != 'GROUP' && claro_is_allowed_to_edit() && $authId )
+            {
+                $posterId = $authId; 
+            }
+            else
+            {
+                $posterId = claro_get_current_user_id();
+            }
+            
+            if ( $posterId != claro_get_current_user_id() )
+            {
+                Console::info( "CLWORK: user #" 
+                    . claro_get_current_user_id() 
+                    . " posted a submission in assigment #{$assignmentId} in course "
+                    . claro_get_current_course_id() . " in place of user #{$authId}" );
+            }
+            
             $submission->setAssignmentId($assignmentId);
-            $submission->setUserId(claro_get_current_user_id());
+            $submission->setUserId( $posterId );
             $submission->setTitle($wrkForm['wrkTitle']);
             $submission->setAuthor($wrkForm['wrkAuthors']);
             $submission->setVisibility($assignment->getDefaultSubmissionVisibility());
@@ -886,7 +904,7 @@ if( $is_allowedToSubmit )
                     // email content
                     $body = get_lang('New submission posted in assignment tool.') . "\n\n"
                     . $_user['firstName'] . ' ' .$_user['lastName'] . "\n"
-                    . '<a href="'.$url.'">' . $wrkForm['wrkTitle'] .'</a>' . "\n"
+                    . '<a href="'.htmlspecialchars($url).'">' . $wrkForm['wrkTitle'] .'</a>' . "\n"
                     ;
 
                     $message = new MessageToSend( claro_get_current_user_id(),$subject,$body );
@@ -924,7 +942,16 @@ if( $is_allowedToSubmit )
       {
             // prefill som fields of the form
             $form['wrkTitle'] = "";
-            $form['wrkAuthors'] = $currentUserLastName." ".$currentUserFirstName;
+            
+            if ( claro_is_allowed_to_edit() && $authName )
+            {
+                $form['wrkAuthors'] = $authName;
+            }
+            else
+            {
+                $form['wrkAuthors'] = $currentUserLastName." ".$currentUserFirstName;
+            }
+            
             $form['wrkGroup'] = "";
             $form['wrkTxt'] = "";
       }
