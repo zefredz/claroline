@@ -160,6 +160,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
         .'<th>'.get_lang('Total time').'</th>'."\n"
         .'<th>'.get_lang('Module status').'</th>'."\n"
         .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
+        .'<th>'.get_lang('View student anwsers').'</th>'."\n"
         .'</tr>'."\n"
         .'<tbody>'."\n\n";
 
@@ -264,6 +265,35 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
           else // label
           {
             $out .= '<td colspan="2">&nbsp;</td>'."\n";
+          }
+          
+          if(isAnwsersViewingSupported($module['contentType']) )
+          {
+                if(claro_get_current_user_id() != (int)$_REQUEST['uInfo'])
+                {
+                    if(getModuleProgression((int)$_REQUEST['uInfo'], (int)$_REQUEST['path_id'], (int)$module['module_id']))
+                    {
+                        $out .= '<td>' . "\n"
+                        .    '<a href="' . get_path('clarolineRepositoryWeb') . 'learnPath/module.php?cidReset=true&cidReq=' . claro_get_current_course_id() . '&module_id=' . (int)$module['module_id'] . '&path_id=' . (int)$_REQUEST['path_id'] . '&copyFrom=' . (int)$_REQUEST['uInfo'] . '" '
+                        .    'onclick="return confirm(\'' . clean_str_for_javascript(get_lang('This will copy the learning path user progression over your own. Do you want to proceed anyway?')) . '\');">' . "\n"
+                        .    '<img src="' . get_icon_url('login_as') . '" alt="' . get_lang('Consult') . '" />' . "\n"
+                        .    '</a>' . "\n"
+                        .    '</td>' . "\n"
+                        ;
+                    }
+                    else
+                    {
+                        $out .= '<td>' . get_lang('No results available') . '</td>'."\n";
+                    }
+                }
+                else
+                {
+                    $out .= '<td>' . get_lang('Consulting your own results is not allowed') . '</td>'."\n";
+                }
+          }
+          else
+          {
+              $out .= '<td>' . get_lang('Unsupported module type') . '</td>'."\n";
           }
           
           if ($progress > 0)

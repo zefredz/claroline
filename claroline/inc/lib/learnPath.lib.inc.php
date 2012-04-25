@@ -10,7 +10,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @version     $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @author      Piraux Sébastien <pir@cerdecam.be>
+ * @author      Piraux SÃ©bastien <pir@cerdecam.be>
  * @author      Lederer Guillaume <led@cerdecam.be>
  * @package     CLLNP
  */
@@ -71,7 +71,7 @@ define ( 'LEARNINGPATHMODULE_', 4 );
  * @param string $type MODULE_ , LEARNINGPATH_ , LEARNINGPATHMODULE_
  * @param string $mode DISPLAY_ , UPDATE_ , DELETE_
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  */
 function commentBox($type, $mode)
@@ -237,7 +237,7 @@ function commentBox($type, $mode)
   *
   * @param string $type MODULE_ , LEARNINGPATH_
   * @param string $mode display(DISPLAY_) or update(UPDATE_) mode, no delete for a name
-  * @author Piraux Sébastien <pir@cerdecam.be>
+  * @author Piraux Sï¿½bastien <pir@cerdecam.be>
   * @author Lederer Guillaume <led@cerdecam.be>
   */
 function nameBox($type, $mode)
@@ -345,7 +345,7 @@ function nameBox($type, $mode)
   *
   * @param  string $contentType type of content in learning path
   * @return string name of the image with extension
-  * @author Piraux Sébastien <pir@cerdecam.be>
+  * @author Piraux Sï¿½bastien <pir@cerdecam.be>
   * @author Lederer Guillaume <led@cerdecam.be>
   */
  function selectImage($contentType)
@@ -372,7 +372,7 @@ function nameBox($type, $mode)
   *
   * @param  string $contentType type of content in learning path
   * @return string text for the alt
-  * @author Piraux Sébastien <pir@cerdecam.be>
+  * @author Piraux Sï¿½bastien <pir@cerdecam.be>
   * @author Lederer Guillaume <led@cerdecam.be>
   */
  function selectAlt($contentType)
@@ -399,7 +399,7 @@ function nameBox($type, $mode)
  *
  * @return array an array of the sorted list of ids
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  */
 function setOrderTab ( $formValuesTab )
@@ -446,7 +446,7 @@ function setOrderTab ( $formValuesTab )
  * @param string $var input to check
  * @return bool true if $var is a number, false otherwise
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  */
 function is_num($var)
 {
@@ -651,7 +651,7 @@ function get_learnPath_progress($lpid, $lpUid)
  *
  * @param string $dialogBox Error or confirmation text
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  */
 function display_my_exercises($dialogBox)
@@ -751,7 +751,7 @@ function display_my_exercises($dialogBox)
   *
   * @param string $dialogBox Error or confirmation text
   * @return nothing
-  * @author Piraux Sébastien <pir@cerdecam.be>
+  * @author Piraux Sï¿½bastien <pir@cerdecam.be>
   * @author Lederer Guillaume <led@cerdecam.be>
   */
 
@@ -962,7 +962,7 @@ function display_my_documents($dialogBox)
  * @param integer $id id_of_module that we are looking for deep
  * @param array $searchInarray of parents of modules in a learning path $searchIn[id_of_module] = parent_of_this_module
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  */
 function find_deep($id, $searchIn)
 {
@@ -983,7 +983,7 @@ function find_deep($id, $searchIn)
  * @param $id learnPath_module_id of the node to build
  * @return tree of the learning path
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  */
 function build_element_list($list, $parentField, $idField, $id = 0)
 {
@@ -1031,7 +1031,7 @@ function build_element_list($list, $parentField, $idField, $id = 0)
  * @return array containing infos of the learningpath, each module is an element
     of this array and each one has 'up' and 'down' boolean and deepness added in
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  */
 function build_display_element_list($elementList, $deepness = 0)
 {
@@ -1081,7 +1081,7 @@ function build_display_element_list($elementList, $deepness = 0)
  * @param $module_tree tree of modules we want to change the visibility
  * @param $visibility ths visibility string as requested by the DB
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  */
 function set_module_tree_visibility($module_tree, $visibility)
 {
@@ -1107,7 +1107,7 @@ function set_module_tree_visibility($module_tree, $visibility)
  *
  * @param $module_tree tree of modules we want to change the visibility
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  */
 function delete_module_tree($module_tree)
 {
@@ -1155,7 +1155,7 @@ function delete_module_tree($module_tree)
  *
  * @return array the requesting node (with all its children)
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  */
 function get_module_tree( $lpModules , $id, $field = 'module_id')
 {
@@ -1179,7 +1179,7 @@ function get_module_tree( $lpModules , $id, $field = 'module_id')
 /**
  * Convert the time recorded in seconds to a scorm type
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  * @param $time time in seconds to convert to a scorm type time
  * @return string compatible scorm type (smaller format)
  */
@@ -1488,4 +1488,192 @@ function is_learnpath_accessible( $pathId )
     
     
     return $blocked;
+}
+
+function getModuleProgression($user_id = 0, $learnPath_id = 0 ,$learnPath_module_id = 0)
+{
+    if(empty($user_id) || empty($learnPath_module_id) || empty($learnPath_id))
+    {
+        return false;
+    }
+    
+    $courseTableList = get_module_course_tbl(array('lp_user_module_progress'));
+    
+    $sql =  'SELECT * ' . 
+            ' FROM `' . $courseTableList['lp_user_module_progress'] . '`' . 
+            ' WHERE learnPath_module_id = ' . (int) $learnPath_module_id .
+            ' AND learnPath_id = ' . (int) $learnPath_id .
+            ' AND user_id = ' . (int) $user_id;
+    
+    return claro_sql_query_fetch_single_row($sql);
+}
+
+function getModuleProgressionList($user_id = 0, $learnPath_id = 0)
+{
+    if(empty($user_id) || empty($learnPath_id))
+    {
+        return false;
+    }
+    
+    $courseTableList = get_module_course_tbl(array('lp_user_module_progress'));
+    
+    $sql =  'SELECT * ' . 
+            ' FROM `' . $courseTableList['lp_user_module_progress'] . '`' .
+            ' WHERE learnPath_id = ' . (int) $learnPath_id .
+            ' AND user_id = ' . (int) $user_id;
+            
+    return claro_sql_query_fetch_all($sql);
+}
+
+function isLearnPathProgressionEmpty($user_id = 0, $learnPath_id = 0)
+{
+    if(empty($user_id) || empty($learnPath_id))
+    {
+        return true;
+    }
+    
+    $moduleProgressionList = getModuleProgressionList($user_id, $learnPath_id);
+    if(!empty($moduleProgressionList))
+    {
+        return false;
+    }
+    
+    return true;
+}
+
+function resetModuleProgression($user_id = 0, $learnPath_id = 0, $learnPath_module_id = 0)
+{
+    if(empty($user_id) || empty($learnPath_module_id) || empty($learnPath_id))
+    {
+        return false;
+    }
+    
+    $courseTableList = get_module_course_tbl(array('lp_user_module_progress'));
+    
+    $sql =  'DELETE ' . 
+            ' FROM `' . $courseTableList['lp_user_module_progress'] . '`' . 
+            ' WHERE learnPath_module_id = ' . (int) $learnPath_module_id .
+            ' AND learnPath_id = ' . (int) $learnPath_id .
+            ' AND user_id = ' . (int) $user_id;
+            
+    return claro_sql_query($sql);
+}
+
+function resetModuleProgressionByPathId($user_id = 0, $learnPath_id = 0)
+{
+    if(empty($user_id) || empty($learnPath_id))
+    {
+        return false;
+    }
+    
+    $courseTableList = get_module_course_tbl(array('lp_user_module_progress'));
+    
+    $sql =  'DELETE ' . 
+            ' FROM `' . $courseTableList['lp_user_module_progress'] . '`' . 
+            ' WHERE learnPath_id = ' . (int) $learnPath_id .
+            ' AND user_id = ' . (int) $user_id;
+            
+    return claro_sql_query($sql);
+}
+
+function copyModuleProgression($user_id_from = 0, $user_id_to = 0, $learnPath_id = 0, $learnPath_module_id = 0, $resetLocation = true)
+{
+    if(empty($learnPath_id) || empty($learnPath_module_id) || empty($user_id_from) || empty($user_id_to))
+    {
+        return false;
+    }
+    
+    $newProgression = getModuleProgression($user_id_from,  $learnPath_id, $learnPath_module_id);
+    if(!is_array($newProgression))
+    {
+        return false;
+    }
+
+    if($resetLocation)
+    {
+        $newProgression['lesson_location'] = '!!!EMPTY_LOCATION!!!';
+    }
+    
+    if(!resetModuleProgression($user_id_to, $learnPath_id, $learnPath_module_id) || !updateModuleProgression($user_id_to, $newProgression, $learnPath_id ,$learnPath_module_id))
+    {
+        return false;
+    }
+    
+    return true;
+}
+
+function updateModuleProgression($user_id = 0, $user_progression = array(), $learnPath_id = 0, $learnPath_module_id = 0)
+{
+    if(empty($learnPath_id) || empty($learnPath_module_id) || empty($user_id) || !is_array($user_progression))
+    {
+        return false;
+    }
+    
+    $courseTableList = get_module_course_tbl(array('lp_user_module_progress'));
+    
+    if(!getModuleProgression($user_id, $learnPath_id , $learnPath_module_id))
+    {
+        $sql = "INSERT INTO `". $courseTableList['lp_user_module_progress'] ."`
+                ( `user_id` , `learnPath_id` , `learnPath_module_id`, `suspend_data` )
+                VALUES ( " . (int)claro_get_current_user_id() . " , ". (int)$learnPath_id." , ". (int)$learnPath_module_id.", '')";
+        if(!claro_sql_query($sql))
+        {
+            return false;
+        }
+    }
+    
+    foreach(array('lesson_location', 'lesson_status', 'entry', 'raw', 'scoreMin', 'scoreMax', 'total_time', 'session_time', 'suspend_data', 'credit') as $key)
+    {
+        if(!isset($user_progression[$key]))
+        {
+            $user_progression[$key] = '';
+        }
+    }
+    
+    $sql = "UPDATE `".$courseTableList['lp_user_module_progress']."` 
+            SET 
+                `lesson_location` = '". claro_sql_escape($user_progression['lesson_location']) ."',
+                `lesson_status` = '". claro_sql_escape($user_progression['lesson_status']) ."',
+                `entry` = '". claro_sql_escape($user_progression['entry']) ."',
+                `raw` = '". claro_sql_escape($user_progression['raw']) ."',
+                `scoreMin` = '". claro_sql_escape($user_progression['scoreMin']) ."',
+                `scoreMax` = '". claro_sql_escape($user_progression['scoreMax']) ."',
+                `total_time` = '". claro_sql_escape($user_progression['total_time']) ."',
+                `session_time` = '". claro_sql_escape($user_progression['session_time']) ."',
+                `suspend_data` = '". claro_sql_escape($user_progression['suspend_data']) ."',
+                `credit` = '". claro_sql_escape($user_progression['credit']) ."'
+          WHERE `learnPath_module_id` = ". (int)$learnPath_module_id ."
+          AND   `learnPath_id` = ". (int)$learnPath_id  . "
+          AND   `user_id` = ". (int)$user_id;
+          
+    return claro_sql_query($sql);
+}
+
+function copyLearnPathProgression($user_id_from = 0, $user_id_to = 0, $learnPath_id = 0, $resetLocation = true)
+{
+    if(empty($learnPath_id) || empty($user_id_from) || empty($user_id_to))
+    {
+        return false;
+    }
+    
+    $moduleProgressionList = getModuleProgressionList($user_id_from, $learnPath_id);
+    if(empty($moduleProgressionList) || !is_array($moduleProgressionList) )
+    {
+        return false;
+    }
+    
+    if(!resetModuleProgressionByPathId($user_id_to, $learnPath_id))
+    {
+        return false;
+    }
+    
+    foreach($moduleProgressionList as $moduleProgression)
+    {
+        if(!copyModuleProgression($user_id_from, $user_id_to, $learnPath_id, $moduleProgression['learnPath_module_id'], $resetLocation))
+        {
+            return false;
+        }
+    }
+    
+    return true;
 }

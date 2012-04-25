@@ -88,6 +88,41 @@ unset($_SESSION['serializedExercise']);
 unset($_SESSION['serializedQuestionList']);
 unset($_SESSION['exeStartTime']);
 
+if(!empty($_REQUEST['copyFrom']) && $is_allowedToEdit)
+{
+    $_SESSION['returnToTrackingUserId'] = (int)$_GET['copyFrom'];
+    
+    $copyError = false;
+    //we could simply copy the requested module progression...
+    //but since we can navigate between modules while completing a module,
+    //we have to copy the whole learning path progression.
+    if(!copyLearnPathProgression((int)$_SESSION['returnToTrackingUserId'], (int)claro_get_current_user_id(),  (int)$_SESSION['path_id']))
+    {
+    	$copyError = true;
+    }
+    
+    $dialogBox = new DialogBox();
+    if($copyError)
+    {
+        $dialogBox->error(get_lang('An error occured while accessing student module'));
+        $claroline->display->body->appendContent($dialogBox->render());
+        echo $claroline->display->render();
+        exit();
+    }
+    else
+    {
+        $user_data = user_get_properties((int)$_SESSION['returnToTrackingUserId']);
+        $dialogBox->success(get_lang('Currently viewing module of ') . $user_data['firstname'] . ' ' . $user_data['lastname']);
+        unset($user_data);
+    }
+
+	unset($copyError);
+}
+else
+{
+    unset($_SESSION['returnToTrackingUserId']);
+}
+
 // main page
 // FIRST WE SEE IF USER MUST SKIP THE PRESENTATION PAGE OR NOT
 // triggers are : if there is no introdution text or no user module progression statistics yet and user is not admin,
@@ -173,7 +208,15 @@ if( !$is_allowedToEdit
 }
 
 // Back button
-if ($is_allowedToEdit)
+if(!empty($_SESSION['returnToTrackingUserId']))
+{
+    $pathBack = Url::Contextualize(
+        get_path('clarolineRepositoryWeb') 
+        . 'tracking/lp_modules_details.php?' 
+        . 'uInfo='. (int)$_SESSION['returnToTrackingUserId'] 
+        . '&path_id=' . (int)$_SESSION['path_id'] );
+}
+elseif ($is_allowedToEdit)
 {
     $pathBack = Url::Contextualize("./learningPathAdmin.php");
 }
@@ -192,6 +235,11 @@ $cmdList[] = array(
 
 // Display
 $out = '';
+
+if(!empty($dialogBox))
+{
+    $out .= $dialogBox->render();
+}
 
 $out .= claro_html_tool_title(get_lang('Module edition'), null, $cmdList);
 

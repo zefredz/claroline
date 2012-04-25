@@ -16,6 +16,8 @@
  
 require '../inc/claro_init_global.inc.php';
 
+load_module_config('CLLNP');
+
 require_once(get_path('incRepositorySys').'/lib/class.lib.php');
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
@@ -60,7 +62,39 @@ $TABLEUSER              = $tbl_user;
 require_once(get_path('incRepositorySys').'/lib/statsUtils.lib.inc.php');
 require_once(get_path('incRepositorySys').'/lib/learnPath.lib.inc.php');
 
+$cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
+
+if ( get_conf( 'cllnp_resetByUserAllowed', false ) || claro_is_allowed_to_edit() )
+{
+    switch($cmd)
+    {
+        case "resetLearnPath" :
+            $learnPath_id = ( isset($_GET['path_id']) )? $_GET['path_id'] : '';
+            $user_id = ( isset($_GET['user_id']) )? $_GET['user_id'] : '';
+            if(!empty($learnPath_id) && !empty($user_id))
+            {
+                $dialogBox = new DialogBox();
+                if(resetModuleProgressionByPathId($user_id, $learnPath_id))
+                {
+                    $dialogBox->success( get_lang('Learning path reset successful') );
+                }
+                else
+                {
+                    $dialogBox->error( get_lang('An error occured while resetting learning path ') . $learnPath_id  );
+                }
+            }
+            unset($learnPath_id);
+            unset($user_id);
+        break;
+    }
+}
+
 $out = '';
+if(!empty($dialogBox))
+{
+    $out .= $dialogBox->render();
+    unset($dialogBox);
+}
 
 if ( get_conf('is_trackingEnabled') )
 {
@@ -149,6 +183,16 @@ echo $claroline->display->render();
 //******************
 function getLearnpathProgressStudentRow($path_id, $user)
 {
+    if(!isLearnPathProgressionEmpty($user['user_id'], $path_id))
+    {
+        $groupBy = empty($_GET['groupBy']) ? '' : $_GET['groupBy'];
+        $resetCell = '<td align="center"><a href="'. Url::Contextualize($_SERVER['PHP_SELF'] .'?cmd=resetLearnPath&path_id='. (int)$path_id . '&user_id='. (int)$user['user_id'] . '&groupBy=' . $groupBy) .'" onclick="return confirm(\'' . clean_str_for_javascript(get_lang('Do you really want to reset the learning path of ') . $user['prenom'].' '.$user['nom']) .  '?\');"><img src="' . get_icon_url('delete') . '" alt="' . get_lang('Reset') . '" /></a></td>'."\n";
+    }
+    else
+    {
+        $resetCell = '<td align="center">' . get_lang('No results available') . '</td>'."\n";
+    }
+    
     $lpProgress = get_learnPath_progress($path_id,$user['user_id']);
     $out = '<tr>'."\n"
         .'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&amp;path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
@@ -156,6 +200,7 @@ function getLearnpathProgressStudentRow($path_id, $user)
         .claro_html_progress_bar($lpProgress, 1)
           .'</td>'."\n"
         .'<td align="left"><small>'.$lpProgress.'%</small></td>'."\n"
+		.$resetCell
         .'</tr>'."\n\n";
         
     return $out;
@@ -168,6 +213,7 @@ function getLearnPathDetailTable($path_id, $userList)
            .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th>'.get_lang('Student').'</th>'."\n"
         .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
+		.'<th>'.get_lang('Reset').'</th>'."\n"
         .'</tr>'."\n\n"
         .'<tbody>'."\n\n";
 

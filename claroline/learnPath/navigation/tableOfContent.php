@@ -321,10 +321,22 @@ if ( $moduleNb > 1 )
 }
 
 //  set redirection link
-if ( claro_is_allowed_to_edit() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
+if(!empty($_SESSION['returnToTrackingUserId']))
+{
+    $returl = Url::Contextualize(
+        get_path('clarolineRepositoryWeb') 
+        . 'tracking/lp_modules_details.php?uInfo='
+        . (int)$_SESSION['returnToTrackingUserId'] 
+        . '&path_id=' . (int)$_SESSION['path_id'] );
+}
+elseif ( claro_is_allowed_to_edit() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
+{
     $returl = Url::Contextualize('../learningPathAdmin.php');
+}
 else
+{
     $returl = Url::Contextualize('../learningPath.php');
+}
 
 $out .= '<form action="'. htmlspecialchars($returl) .'" method="post" target="_top">
 <input type="submit" value="' . get_lang('Back to list') .'" />
