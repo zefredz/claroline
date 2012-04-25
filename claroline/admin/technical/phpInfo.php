@@ -127,7 +127,7 @@ if ($is_allowedToAdmin)
     }
     elseif( $cmd == 'secinfo' )
     {
-        require_once('./lib/PhpSecInfo.lib.php');
+        require_once dirname(__FILE__) .'/../../inc/lib/thirdparty/PhpSecInfo/PhpSecInfo.lib.php';
         phpsecinfo();
 
     }
