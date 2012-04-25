@@ -3374,3 +3374,20 @@ $_lang['blockLoginInfo'] = '
         Identifiant : %username
         Mot de passe : %password
 ';
+$_lang['Module reset successful'] = 'Le module a été réinitialisé avec succès';
+$_lang['An error occured while resetting module '] = 'Une erreur s\'est produite lors de la réinitialisation du module ';
+$_lang['View student anwsers'] = 'Voir les réponses de l\'étudiant';
+$_lang['An error occured while accessing student module'] = 'Une erreur est survenue pendant l\'accès au module de l\'étudiant';
+$_lang['Currently viewing module of '] = 'Vous consultez présentement le module de ';
+$_lang['Module reset successful'] = 'Le module a été réinitialisé avec succès';
+$_lang['An error occured while resetting module '] = 'Une erreur est survenue pendant la réinitialisation du module ';
+$_lang['Learning path reset successful'] = 'Le parcours pédagogique a été réinitialisé avec succès';
+$_lang['An error occured while resetting learning path '] = 'Une erreur est survenue pendant la réinitialisation du la réinitialisation du parcours pédagogique ';
+$_lang['Do you really want to reset this learning path?'] = 'Voulez vous vraiment réinitialiser ce parcours pédagogique?';
+$_lang['Do you really want to reset module '] = 'Voulez vous vraiment réinitialiser le module ';
+$_lang['Do you really want to reset the learning path of '] = 'Voulez vous vraiment réinitialiser le parcours pédagogique de ';
+$_lang['This will copy the learning path user progression over your own. Do you want to proceed anyway?'] = 'Ceci remplacera votre progression pour ce parcours par celle de l\'étudiant. Voulez-vous continuer?';
+$_lang['No results available'] = 'Aucun résultat disponible';
+$_lang['Consulting your own results is not allowed'] = 'Il est impossible de consultez vos propres résultats';
+$_lang['Unsupported module type'] = 'Type de module non supporté';
+

@@ -3352,3 +3352,19 @@ $_lang['blockLoginInfo'] = '
         Username : %username
         Password : %password
 ';
+$_lang['Module reset successful'] = 'Module reset successful';
+$_lang['An error occured while resetting module '] = 'An error occured while resetting module ';
+$_lang['View student anwsers'] = 'View student anwsers';
+$_lang['An error occured while accessing student module'] = 'An error occured while accessing student module';
+$_lang['Currently viewing module of '] = 'Currently viewing module of ';
+$_lang['Module reset successful'] = 'Module reset successful';
+$_lang['An error occured while resetting module '] = 'An error occured while resetting module ';
+$_lang['Learning path reset successful'] = 'Learning path reset successful';
+$_lang['An error occured while resetting learning path '] = 'An error occured while resetting learning path ';
+$_lang['Do you really want to reset this learning path?'] = 'Voulez vous vraiment réinitialiser ce parcours pédagogique?';
+$_lang['Do you really want to reset module '] = 'Do you really want to reset module ';
+$_lang['Do you really want to reset the learning path of '] = 'Do you really want to reset the learning path of ';
+$_lang['This will copy the learning path user progression over your own. Do you want to proceed anyway?'] = 'This will copy the learning path user progression over your own. Do you want to proceed anyway?';
+$_lang['No results available'] = 'No results available';
+$_lang['Consulting your own results is not allowed'] = 'Consulting your own results is not allowed';
+$_lang['Unsupported module type'] = 'Unsupported module type';
