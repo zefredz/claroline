@@ -142,7 +142,7 @@ class CourseUserPrivileges
         return $this->courseId;
     }
     
-    public static function fromArray( $userId, $courseId, $data = null )
+    public static function fromArray( $courseId, $userId = null, $data = null )
     {
         $priv = new self( $courseId, $userId );
         
@@ -183,7 +183,7 @@ class CourseAnonymousUserPrivileges extends CourseUserPrivileges
         $this->is_courseAdmin    = false;
     }
     
-    public static function fromArray( $courseId )
+    public static function fromArray( $courseId, $ignoredUserId = null, $ignoredData = null )
     {
         $priv = new self( $courseId );
         $priv->load();
@@ -237,11 +237,11 @@ class CourseUserPrivilegesList
         {
             if ( isset( $this->coursePrivilegesList[$courseCode] ) )
             {
-                $priv = CourseUserPrivileges::fromArray($this->userId, $courseCode, $this->coursePrivilegesList[$courseCode] );
+                $priv = CourseUserPrivileges::fromArray($courseCode, $this->userId, $this->coursePrivilegesList[$courseCode] );
             }
             else
             {
-                $priv = CourseUserPrivileges::fromArray($this->userId, $courseCode);
+                $priv = CourseUserPrivileges::fromArray($courseCode, $this->userId);
             }
         }
         
@@ -276,7 +276,7 @@ class CourseUserPrivilegesIterator extends RowToObjectArrayIterator
         
         if ( $this->userId )
         {
-            return CourseUserPrivileges::fromArray( $this->userId, $data['courseId'], $data );
+            return CourseUserPrivileges::fromArray( $data['courseId'], $this->userId, $data );
         }
         else
         {
