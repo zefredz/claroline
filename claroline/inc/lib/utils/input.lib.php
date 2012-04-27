@@ -7,8 +7,8 @@
  * Replacement for $_GET and $_POST
  * Do not handle $_COOKIES !
  *
- * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -30,9 +30,9 @@ class Claro_Input_Exception extends Exception{};
 interface Claro_Input
 {
     /**
-     * Get a value given its name
+     * Get a value given its name.
      * @param   string $name variable name
-     * @param   mixed $default default value (if $name is missingin the input)
+     * @param   mixed $default default value (if $name is missing in the input)
      * @return  mixed value of $name in input data or $default value
      * @throws  Claro_Input_Exception on failure
      */
@@ -69,13 +69,37 @@ class Claro_Input_Array implements Claro_Input
     }
     
     /**
+     * Is considered empty : string(0), null, array(0), empty stdClass object
+     * @param mixed $value
+     * @return bool 
+     */
+    protected static function isEmpty( $value )
+    {
+        return !( is_numeric ( $value ) || is_bool ( $value ) || ( is_object ( $value ) && get_class($value) != 'stdClass' ) ) 
+                && empty( $value );
+    }
+    
+    /**
      * @see     Claro_Input
      */
     public function get( $name, $default = null )
     {
+        // the variable exists
         if ( array_key_exists( $name, $this->input ) )
         {
-            return $this->input[$name];
+            $value = $this->input[$name];
+            
+            // the variable is considered empty but a default value is given
+            if ( !is_null( $default ) 
+                && self::isEmpty ( $value )  )
+            {
+                return $default;
+            }
+            // no default value given
+            else
+            {
+                return $value;
+            }
         }
         else
         {
@@ -178,6 +202,8 @@ class Claro_Input_Validator implements Claro_Input
     {
         $tainted = $this->input->get( $name, $default );
         
+        // we need to detect that the default value has been returned to avoid 
+        // running it to the validator
         if ( ( is_null( $default ) && is_null( $tainted ) )
             || $tainted == $default )
         {
@@ -242,6 +268,9 @@ class Claro_Input_Validator implements Claro_Input
 
 /**
  * User input class to replace $_REQUEST
+ * @since Claroline 1.11, Claro_Validator_CustomNotEmpty is no more ssigned to 
+ *  all variables because it causes the system to refuse to return the default 
+ *  value for an empty string
  */
 class Claro_UserInput
 {        
@@ -259,8 +288,6 @@ class Claro_UserInput
             // and $_POST super arrays
             self::$instance = new Claro_Input_Validator( 
                 new Claro_Input_Array( array_merge( $_GET, $_POST ) ) );
-            
-            self::$instance->setValidatorForAll( new Claro_Validator_CustomNotEmpty() );
         }
         
         return self::$instance;

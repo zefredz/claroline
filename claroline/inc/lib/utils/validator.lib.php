@@ -5,8 +5,8 @@
 /**
  * Data validator library
  *
- * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -247,6 +247,20 @@ class Claro_Validator_NotEmpty implements Claro_Validator
 }
 
 /**
+ * Validator that checks if a value is not null based on PHP's is_null()
+ */
+class Claro_Validator_NotNull implements Claro_Validator
+{
+    /**
+     * @see     Claro_Validator
+     */
+    public function isValid( $value )
+    {
+        return ( !is_null( $value ) );
+    }
+}
+
+/**
  * Validator that checks if a value is not empty but considers
  * '0', 0 and false as not empty !
  */
@@ -262,6 +276,7 @@ class Claro_Validator_CustomNotEmpty implements Claro_Validator
 }
 
 // for debugging :
+
 class Claro_Validator_AlwaysFail implements Claro_Validator
 {
     /**
