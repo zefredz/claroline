@@ -41,7 +41,7 @@ class ClaroGarbageCollector
         {
             // control that path is not in a system folder
             
-            if ( strpos( $this->path, get_path('courseRepositorySys') ) !== false )
+            if ( strpos( $this->path, get_path('coursesRepositorySys') ) !== false )
             {
                 Console::warning("GC directory {$this->path} located in platform course folder : ABORT!");
                 return;
@@ -90,7 +90,6 @@ class ClaroGarbageCollector
                             @unlink( $tempDirectoryFile->getPathName() );
                         }
                         elseif ( $tempDirectoryFile->isDir() 
-                                && !$tempDirectoryFile->isDot()
                                 && $this->isEmpty( $tempDirectoryFile->getPathName() ) )
                         {
                             Console::debug(
