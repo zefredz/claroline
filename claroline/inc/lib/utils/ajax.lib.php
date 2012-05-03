@@ -281,12 +281,29 @@ abstract class Ajax_Remote_Module_Service implements Ajax_Remote_Service
     }
 
     /**
+     * Instanciate and register the AJAX remote service for a given module.
+     * The remote service must be defined in the connector/ajaxservice.cnr.php
+     * file of the module, extends the Ajax_Remote_Module_Service abstract class
+     * and, in addition, it's name must follow the pattern "{$moduleLabel}_AjaxRemoteService"
+     * @param string $moduleLabel
+     * @return Ajax_Remote_Module_Service
+     * @throws Exception if the module does not provide an AJAX remote service
+     */
+    public static function registerModuleServiceInstance( $moduleLabel )
+    {
+        $ajaxHandler = self::getModuleServiceInstance ( $moduleLabel );
+        $ajaxHandler->register( Claroline::ajaxServiceBroker() );
+        
+        return $ajaxHandler;
+    }
+    
+    /**
      * Factory method to instanciate the AJAX remote service for a given module.
      * The remote service must be defined in the connector/ajaxservice.cnr.php
      * file of the module, extends the Ajax_Remote_Module_Service abstract class
      * and, in addition, it's name must follow the pattern "{$moduleLabel}_AjaxRemoteService"
      * @param string $moduleLabel
-     * @return <type>
+     * @return Ajax_Remote_Module_Service
      * @throws Exception if the module does not provide an AJAX remote service
      */
     public static function getModuleServiceInstance( $moduleLabel )
@@ -301,7 +318,6 @@ abstract class Ajax_Remote_Module_Service implements Ajax_Remote_Service
             if ( class_exists( $ajaxHandlerClass ) )
             {
                 $ajaxHandler = new $ajaxHandlerClass();
-                $ajaxHandler->register( Claroline::ajaxServiceBroker() );
 
                 return $ajaxHandler;
             }

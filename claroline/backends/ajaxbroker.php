@@ -37,7 +37,7 @@ try
 
         if ( $moduleLabel )
         {
-            $ajaxHandler = Ajax_Remote_Module_Service::getModuleServiceInstance( $moduleLabel );
+            Ajax_Remote_Module_Service::registerModuleServiceInstance( $moduleLabel );
         }
 
         $ajaxRequest = Ajax_Request::getRequest(Claro_UserInput::getInstance());
