@@ -66,7 +66,7 @@ CREATE DOCUMENT
 
 if ($cmd ==  'rqMkHtml' )
 {
-    $out .= '<form action="' . htmlspecialchars(get_module_url('CLDOC')) .'" method="post">' . "\n"
+    $out .= '<form action="' . htmlspecialchars(get_module_entry_url('CLDOC')) .'" method="post">' . "\n"
     . claro_form_relay_context() . "\n"
     . '<input type="hidden" name="cmd" value="exMkHtml" />' . "\n"
     . '<input type="hidden" name="cwd" value="' . htmlspecialchars(strip_tags($cwd)) . '" />' . "\n"
