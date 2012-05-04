@@ -39,35 +39,58 @@ function get_package_path()
 }
 
 /**
- * This function return the core repository of a module.
+ * This function return the name of the folder of a module given its label.
  *
  * @param string $toolLabel
- * @return string
+ * @return string folder name
+ * @since 1.11
+ */
+function get_module_folder_name( $toolLabel )
+{
+    switch ($toolLabel)
+    {
+        // legacy modules
+        case 'CLANN' : return 'announcements';
+        case 'CLCAL' : return 'calendar';
+        case 'CLFRM' : return 'phpbb';
+        case 'CLCHT' : return 'chat';
+        case 'CLDOC' : return 'document';
+        case 'CLDSC' : return 'course_description';
+        case 'CLUSR' : return 'user';
+        case 'CLLNP' : return 'learnPath';
+        case 'CLQWZ' : return 'exercise';
+        case 'CLWRK' : return 'work';
+        case 'CLWIKI' : return 'wiki';
+        case 'CLLNK' : return 'linker';
+        case 'CLGRP' : return 'group';
+        case 'CLSTAT' : return 'tracking';
+        case 'CLTI' : return 'tool_intro';
+        // modern modules
+        default: return $toolLabel;
+    }
+}
+
+/**
+ * This function return the path to a module folder given its label.
+ *
+ * @param string $toolLabel
+ * @return string pâth to the module folder
  */
 function get_module_path($toolLabel)
 {
 
-    $toolLabel = rtrim($toolLabel,'_'); // keep this line until  all claro_label
-    switch ($toolLabel)
+    $folderName = get_module_folder_name( rtrim($toolLabel,'_') ); // keep this line until  all claro_label
+    
+    // core modules
+    if ( file_exists(get_path('clarolineRepositorySys') . $folderName) )
     {
-        case 'CLANN' : return get_path('clarolineRepositorySys') . 'announcements';
-        case 'CLCAL' : return get_path('clarolineRepositorySys') . 'calendar';
-        case 'CLFRM' : return get_path('clarolineRepositorySys') . 'phpbb';
-        case 'CLCHT' : return get_path('clarolineRepositorySys') . 'chat';
-        case 'CLDOC' : return get_path('clarolineRepositorySys') . 'document';
-        case 'CLDSC' : return get_path('clarolineRepositorySys') . 'course_description';
-        case 'CLUSR' : return get_path('clarolineRepositorySys') . 'user';
-        case 'CLLNP' : return get_path('clarolineRepositorySys') . 'learnPath';
-        case 'CLQWZ' : return get_path('clarolineRepositorySys') . 'exercise';
-        case 'CLWRK' : return get_path('clarolineRepositorySys') . 'work';
-        case 'CLWIKI' : return get_path('clarolineRepositorySys') . 'wiki';
-        case 'CLLNK' : return get_path('clarolineRepositorySys') . 'linker';
-        case 'CLGRP' : return get_path('clarolineRepositorySys') . 'group';
-        case 'CLSTAT' : return get_path('clarolineRepositorySys') . 'tracking';
-        case 'CLTI' : return get_path('clarolineRepositorySys') . 'tool_intro';
-        default: return get_path('rootSys') . 'module/' . rtrim($toolLabel,'_');
+        return get_path('clarolineRepositorySys') . $folderName;
     }
-    return '';
+    // add-on modules
+    else
+    {
+        return get_path('rootSys') . 'module/' . $folderName;
+    }
 }
 
 /**
@@ -79,26 +102,19 @@ function get_module_path($toolLabel)
 function get_module_url($toolLabel)
 {
     $toolLabel = rtrim($toolLabel,'_');
-    switch ($toolLabel)
+    
+    $folderName = get_module_folder_name( rtrim($toolLabel,'_') );
+    
+    // core modules
+    if ( file_exists( get_path('clarolineRepositorySys') . $folderName ) )
     {
-        case 'CLANN' : return get_path('clarolineRepositoryWeb') . 'announcements';
-        case 'CLCAL' : return get_path('clarolineRepositoryWeb') . 'calendar';
-        case 'CLFRM' : return get_path('clarolineRepositoryWeb') . 'phpbb';
-        case 'CLCHT' : return get_path('clarolineRepositoryWeb') . 'chat';
-        case 'CLDOC' : return get_path('clarolineRepositoryWeb') . 'document';
-        case 'CLDSC' : return get_path('clarolineRepositoryWeb') . 'course_description';
-        case 'CLUSR' : return get_path('clarolineRepositoryWeb') . 'user';
-        case 'CLLNP' : return get_path('clarolineRepositoryWeb') . 'learnPath';
-        case 'CLQWZ' : return get_path('clarolineRepositoryWeb') . 'exercise';
-        case 'CLWRK' : return get_path('clarolineRepositoryWeb') . 'work';
-        case 'CLLNK' : return get_path('clarolineRepositoryWeb') . 'linker';
-        case 'CLWIKI' : return get_path('clarolineRepositoryWeb') . 'wiki';
-        case 'CLGRP' : return get_path('clarolineRepositoryWeb') . 'group';
-        case 'CLTI' : return get_path('clarolineRepositoryWeb') . 'tool_intro';
-        default: return get_conf('urlAppend') . '/module/' . $toolLabel;
+        return get_path('clarolineRepositoryWeb') . $folderName;
     }
-    return '';
-
+    // add-on modules
+    else
+    {
+        return get_conf('urlAppend') . '/module/' . $folderName;
+    }
 }
 
 /**
