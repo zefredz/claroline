@@ -68,26 +68,22 @@
 
 class ToolTitle implements Display
 {
-    public $superTitle;
-    public $mainTitle;
-    public $subTitle;
+    protected $superTitle;
+    protected $mainTitle;
+    protected $subTitle;
     
     /**
-     * Array of array('img' => $iconUrl, 'name' => $name, 'url' => $url, 'params' => $param) of commands
+     * Arrays of array('img' => $iconUrl, 'name' => $name, 'url' => $url, 'params' => $param) of commands
      */
-    public $commandList;
-    
-    /**
-     * int $showCommands number of displayed commands
-     */
-    public $showCommands;
+    protected $commandList = array();
+    protected $advancedCommandList = array();
     
     /**
      * String $helpUrl
      */
     public $helpUrl;
     
-    public function __construct($titleParts, $helpUrl = null, $commandList = array(), $showCommands = null)
+    public function __construct( $titleParts, $helpUrl = null, $commandList = array(), $advancedCommandList = array() )
     {
         if (is_array($titleParts))
         {
@@ -119,13 +115,9 @@ class ToolTitle implements Display
             $this->commandList = $commandList;
         }
         
-        if (!empty($showCommands) && is_int($showCommands))
+        if (!empty($advancedCommandList))
         {
-            $this->showCommands = $showCommands;
-        }
-        else
-        {
-            $showCommands = null;
+            $this->advancedCommandList = $advancedCommandList;
         }
     }
     
@@ -155,22 +147,18 @@ class ToolTitle implements Display
             
             
             $commands = '';
-            $i = 0;
+            
             foreach ($this->commandList as $command)
             {
                 $styleA = '';
+                
                 if (!empty($command['img']))
                 {
                     $styleA = ' style="background-image: url('.get_icon_url($command['img']).'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"';
                 }
                 
-                $styleLi = '';
-                if (!empty($this->showCommands) && $i >= $this->showCommands)
-                {
-                    $styleLi = ' class="hidden"';
-                }
-                
                 $params = '';
+                
                 if (!empty($command['params']))
                 {
                     foreach($command['params'] as $key => $value)
@@ -179,17 +167,43 @@ class ToolTitle implements Display
                     }
                 }
                 
-                $commands .= '<li'.$styleLi.'>'
+                $commands .= '<li>'
                            . '<a'.$styleA.$params.' href="'.$command['url'].'">'
                            . $command['name'].'</a></li>'."\n";
+            }
+            
+            foreach ($this->advancedCommandList as $command)
+            {
+                $styleA = '';
                 
-                $i++;
+                if (!empty($command['img']))
+                {
+                    $styleA = ' style="background-image: url('.get_icon_url($command['img']).'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"';
+                }
+                
+                $params = '';
+                
+                if (!empty($command['params']))
+                {
+                    foreach($command['params'] as $key => $value)
+                    {
+                        $params .= ' '.$key.'="'.$value.'"';
+                    }
+                }
+                
+                $commands .= '<li class="hidden">'
+                           . '<a'.$styleA.$params.' href="'.$command['url'].'">'
+                           . $command['name'].'</a></li>'."\n";
             }
             
             $more = '';
-            if (!empty($this->showCommands) && count($this->commandList) > $this->showCommands)
+            
+            if (!empty($this->advancedCommandList))
             {
-                $more = '<li><a class="more" href="#">&raquo;</a></li>';
+                $more = '<li><a 
+                    class="more" 
+                    title="'.get_lang('Show/hide %nbr more commands', array('%nbr' => count($this->advancedCommandList) ) ) . '" 
+                    href="#">&raquo;</a></li>';
             }
             
             $commandList .= '<ul class="commandList">'."\n"

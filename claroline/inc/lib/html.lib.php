@@ -257,14 +257,21 @@ function claro_html_title($title, $level)
 * @param array $toolList
 * @return void
 */
-function claro_html_tool_title($titleParts, $helpUrl = null, $cmdList = array(), $showCmd = null)
+function claro_html_tool_title($titleParts, $helpUrl = null, $commandList = array(), $advancedCommandList = array())
 {
-    if ( get_conf('displayAllCommandsLinkByDefault', false ) )
+    if ( ! is_array($advancedCommandList) )
     {
-        $showCmd = count($cmdList);
+        pushClaroMessage('advanced command list is not an array ' . var_export( $advancedCommandList, true ), 'error' );
+        $advancedCommandList = array();
     }
     
-    $toolTitle = new ToolTitle($titleParts, $helpUrl, $cmdList, $showCmd);
+    if ( get_conf('displayAllCommandsLinkByDefault', false ) )
+    {
+        $commandList = array_merge( $commandList, $advancedCommandList );
+        $advancedCommandList = array();
+    }
+    
+    $toolTitle = new ToolTitle($titleParts, $helpUrl, $commandList, $advancedCommandList);
     
     return $toolTitle->render();
 }
