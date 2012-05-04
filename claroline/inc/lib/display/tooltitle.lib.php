@@ -1,12 +1,13 @@
-<?php // $Id$
+<?php
 
+// $Id$
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
  * Display a tool's title with a toolbox and help link.
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     Claroline 1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -43,7 +44,10 @@
  *            'params' => array('class' => 'caution')
  *      ),
  *
- *      3
+ *      array(array(
+ *            'img' => 'export',
+ *            'name' => 'Export',
+ *            'url' => './export.php')
  * );
  *
  * echo $toolTitle->render();
@@ -63,171 +67,176 @@
  * of the assoc array).  This title will be rendered in a tooltip
  * when the mouse is over the command.
  */
-
-
-
 class ToolTitle implements Display
 {
-    protected $superTitle;
-    protected $mainTitle;
-    protected $subTitle;
+
+    protected 
+        $superTitle,
+        $mainTitle,
+        $subTitle,
+        $commandList = array ( ),
+        $advancedCommandList = array ( ),
+        $helpUrl;
     
     /**
-     * Arrays of array('img' => $iconUrl, 'name' => $name, 'url' => $url, 'params' => $param) of commands
+     * Constructor
+     * 
+     * @param mixed $titleParts string or array of title parts, 
+     *  array('supraTitle' => 'super title', 'mainTitle' => 'main title', 
+     *  'subTitle' => 'subtitle')
+     * @param string $helpUrl
+     * @param array $commandList command list, Array of array('img' => $iconUrl,
+     *  'name' => $name, 'url' => $url, 'params' => $param) of commands
+     * @param array $advancedCommandList acvanced command list (hideable), Array
+     *  of array('img' => $iconUrl, 'name' => $name, 'url' => $url, 
+     *  'params' => $param) of commands
      */
-    protected $commandList = array();
-    protected $advancedCommandList = array();
-    
-    /**
-     * String $helpUrl
-     */
-    public $helpUrl;
-    
-    public function __construct( $titleParts, $helpUrl = null, $commandList = array(), $advancedCommandList = array() )
+    public function __construct ( $titleParts, $helpUrl = null, $commandList = array ( ), $advancedCommandList = array ( ) )
     {
-        if (is_array($titleParts))
+        if ( is_array ( $titleParts ) )
         {
-            if (!empty($titleParts['supraTitle']))
+            if ( !empty ( $titleParts[ 'supraTitle' ] ) )
             {
-                $this->superTitle = $titleParts['supraTitle'];
+                $this->superTitle = $titleParts[ 'supraTitle' ];
             }
-            if (!empty($titleParts['mainTitle']))
+            if ( !empty ( $titleParts[ 'mainTitle' ] ) )
             {
-                $this->mainTitle = $titleParts['mainTitle'];
+                $this->mainTitle = $titleParts[ 'mainTitle' ];
             }
-            if (!empty($titleParts['subTitle']))
+            if ( !empty ( $titleParts[ 'subTitle' ] ) )
             {
-                $this->subTitle = $titleParts['subTitle'];
+                $this->subTitle = $titleParts[ 'subTitle' ];
             }
         }
         else
         {
             $this->mainTitle = $titleParts;
         }
-        
-        if (!empty($helpUrl))
+
+        if ( !empty ( $helpUrl ) )
         {
             $this->helpUrl = $helpUrl;
         }
-        
-        if (!empty($commandList))
+
+        if ( !empty ( $commandList ) && is_array ( $commandList ) )
         {
             $this->commandList = $commandList;
         }
-        
-        if (!empty($advancedCommandList))
+
+        if ( !empty ( $advancedCommandList ) && is_array ( $advancedCommandList ) )
         {
             $this->advancedCommandList = $advancedCommandList;
         }
     }
-    
+
     /**
-     * TODO: move it into a template
+     * Render the tool title and command list
+     * @return string
      */
-    public function render()
+    public function render ()
     {
         // We'll need some js
-        JavascriptLoader::getInstance()->load('tooltitle');
-        
+        JavascriptLoader::getInstance ()->load ( 'tooltitle' );
+
         // Command list and help
         $commandList = '';
-        
+
         $help = '';
-        
-        if (!empty($this->helpUrl))
+
+        if ( !empty ( $this->helpUrl ) )
         {
             $help .= '<li><a class="help" href="#" '
-                   . "onclick=\"MyWindow=window.open('" . $this->helpUrl . "',"
-                   . "'MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
-                   . '&nbsp;</a></li>'."\n";
+                . "onclick=\"MyWindow=window.open('" . $this->helpUrl . "',"
+                . "'MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
+                . '&nbsp;</a></li>' . "\n";
         }
-        
-        if (!empty($this->commandList))
+
+        if ( !empty ( $this->commandList ) )
         {
-            
-            
+
+
             $commands = '';
-            
-            foreach ($this->commandList as $command)
+
+            foreach ( $this->commandList as $command )
             {
                 $styleA = '';
-                
-                if (!empty($command['img']))
+
+                if ( !empty ( $command[ 'img' ] ) )
                 {
-                    $styleA = ' style="background-image: url('.get_icon_url($command['img']).'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"';
+                    $styleA = ' style="background-image: url(' . get_icon_url ( $command[ 'img' ] ) . '); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"';
                 }
-                
+
                 $params = '';
-                
-                if (!empty($command['params']))
+
+                if ( !empty ( $command[ 'params' ] ) )
                 {
-                    foreach($command['params'] as $key => $value)
+                    foreach ( $command[ 'params' ] as $key => $value )
                     {
-                        $params .= ' '.$key.'="'.$value.'"';
+                        $params .= ' ' . $key . '="' . $value . '"';
                     }
                 }
-                
+
                 $commands .= '<li>'
-                           . '<a'.$styleA.$params.' href="'.$command['url'].'">'
-                           . $command['name'].'</a></li>'."\n";
+                    . '<a' . $styleA . $params . ' href="' . $command[ 'url' ] . '">'
+                    . $command[ 'name' ] . '</a></li>' . "\n";
             }
-            
-            foreach ($this->advancedCommandList as $command)
+
+            foreach ( $this->advancedCommandList as $command )
             {
                 $styleA = '';
-                
-                if (!empty($command['img']))
+
+                if ( !empty ( $command[ 'img' ] ) )
                 {
-                    $styleA = ' style="background-image: url('.get_icon_url($command['img']).'); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"';
+                    $styleA = ' style="background-image: url(' . get_icon_url ( $command[ 'img' ] ) . '); background-repeat: no-repeat; background-position: left center; padding-left: 20px;"';
                 }
-                
+
                 $params = '';
-                
-                if (!empty($command['params']))
+
+                if ( !empty ( $command[ 'params' ] ) )
                 {
-                    foreach($command['params'] as $key => $value)
+                    foreach ( $command[ 'params' ] as $key => $value )
                     {
-                        $params .= ' '.$key.'="'.$value.'"';
+                        $params .= ' ' . $key . '="' . $value . '"';
                     }
                 }
-                
+
                 $commands .= '<li class="hidden">'
-                           . '<a'.$styleA.$params.' href="'.$command['url'].'">'
-                           . $command['name'].'</a></li>'."\n";
+                    . '<a' . $styleA . $params . ' href="' . $command[ 'url' ] . '">'
+                    . $command[ 'name' ] . '</a></li>' . "\n";
             }
-            
+
             $more = '';
-            
-            if (!empty($this->advancedCommandList))
+
+            if ( !empty ( $this->advancedCommandList ) )
             {
                 $more = '<li><a 
                     class="more" 
-                    title="'.get_lang('Show/hide %nbr more commands', array('%nbr' => count($this->advancedCommandList) ) ) . '" 
+                    title="' . get_lang ( 'Show/hide %nbr more commands', array ( '%nbr' => count ( $this->advancedCommandList ) ) ) . '" 
                     href="#">&raquo;</a></li>';
             }
-            
-            $commandList .= '<ul class="commandList">'."\n"
-                          . $help
-                          . $commands
-                          . $more
-                          . '</ul>'."\n";
+
+            $commandList .= '<ul class="commandList">' . "\n"
+                . $help
+                . $commands
+                . $more
+                . '</ul>' . "\n";
         }
         else
         {
-            $commandList .= '<ul class="commandList">'."\n"
-                          . $help
-                          . '</ul>'."\n";
+            $commandList .= '<ul class="commandList">' . "\n"
+                . $help
+                . '</ul>' . "\n";
         }
-        
+
         $out = '<div class="toolTitleBlock">';
-        
+
         // Title parts
-        if (!empty($this->superTitle))
+        if ( !empty ( $this->superTitle ) )
         {
-            $out .= '<span class="toolTitle superTitle">'.$this->superTitle.'</span>'."\n";
+            $out .= '<span class="toolTitle superTitle">' . $this->superTitle . '</span>' . "\n";
         }
-        
-        if (empty($commandList))
+
+        if ( empty ( $commandList ) )
         {
             $style = ' style="border-right: 0"';
         }
@@ -235,20 +244,21 @@ class ToolTitle implements Display
         {
             $style = '';
         }
-        
+
         $out .= '<table><tr><td>'
-              . '<h1 class="toolTitle mainTitle"'.$style.'>'.$this->mainTitle.'</h1>'."\n"
-              . '</td><td>'
-              . $commandList
-              . '</td></tr></table>';
-        
-        if (!empty($this->subTitle))
+            . '<h1 class="toolTitle mainTitle"' . $style . '>' . $this->mainTitle . '</h1>' . "\n"
+            . '</td><td>'
+            . $commandList
+            . '</td></tr></table>';
+
+        if ( !empty ( $this->subTitle ) )
         {
-            $out .= '<span class="toolTitle subTitle">'.$this->subTitle.'</span>'."\n";
+            $out .= '<span class="toolTitle subTitle">' . $this->subTitle . '</span>' . "\n";
         }
-        
-        $out .= '</div>'."\n";
-        
+
+        $out .= '</div>' . "\n";
+
         return $out;
     }
+
 }
