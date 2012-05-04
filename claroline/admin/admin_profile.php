@@ -202,7 +202,7 @@ else
     );
 }
 
-$out .= claro_html_tool_title($titleParts, null, $cmdList, 4)
+$out .= claro_html_tool_title($titleParts, null, $cmdList)
       . $dialogBox->render();
 
 if (!empty($userId))

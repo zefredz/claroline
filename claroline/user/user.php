@@ -333,6 +333,7 @@ $nameTools = get_lang('Users');
 
 // Command list
 $cmdList = array();
+$advancedCmdList = array();
 
 if ($is_allowedToEdit)
 {
@@ -350,7 +351,7 @@ if ($is_allowedToEdit)
     if ($can_import_user_list)
     {
         // Add CSV file of user link
-        $cmdList[] = array(
+        $advancedCmdList[] = array(
             'img' => 'import_list',
             'name' => get_lang('Add a user list'),
             'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
@@ -361,7 +362,7 @@ if ($is_allowedToEdit)
     if ($can_export_user_list)
     {
         // Export CSV file of user link
-        $cmdList[] = array(
+        $advancedCmdList[] = array(
             'img' => 'export',
             'name' => get_lang('Export user list'),
             'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=export'))
@@ -371,7 +372,7 @@ if ($is_allowedToEdit)
     if ($can_import_user_class)
     {
         // Add a class link
-        $cmdList[] = array(
+        $advancedCmdList[] = array(
             'img' => 'class',
             'name' => get_lang('Enrol class'),
             'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
@@ -390,7 +391,7 @@ if ($is_allowedToEdit)
         );
     }
     
-    $cmdList[] = array(
+    $advancedCmdList[] = array(
         'img' => 'group',
         'name' => get_lang('Group management'),
         'url' => htmlspecialchars(Url::Contextualize(get_module_entry_url('CLGRP')))
@@ -428,7 +429,7 @@ Display section
   =====================================================================*/
 
 $out = '';
-$out .= claro_html_tool_title($titleParts, $helpUrl, $cmdList ); //, 3);
+$out .= claro_html_tool_title($titleParts, $helpUrl, $cmdList, $advancedCmdList ); //, 3);
 
 // Display Forms or dialog box (if needed)
 $out .= $dialogBox->render();

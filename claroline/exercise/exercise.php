@@ -873,6 +873,34 @@ if( !$inLP )
 {
     // Command list
     $cmdList = array();
+    $advancedCmdList = array();
+    
+    if($is_allowedToEdit)
+    {
+        $cmdList[] = array(
+            'img' => 'quiz_new',
+            'name' => get_lang('New exercise'),
+            'url' => htmlspecialchars(Url::Contextualize('admin/edit_exercise.php?cmd=rqEdit'))
+        );
+        
+        $advancedCmdList[] = array(
+            'img' => 'question_pool',
+            'name' => get_lang('Question pool'),
+            'url' => htmlspecialchars(Url::Contextualize('admin/question_pool.php'))
+        );
+        
+        $advancedCmdList[] = array(
+            'img' => 'question_pool',
+            'name' => get_lang('Question categories'),
+            'url' => htmlspecialchars(Url::Contextualize('admin/question_category.php'))
+        );
+        
+        $advancedCmdList[] = array(
+            'img' => 'import',
+            'name' => get_lang('Import exercise'),
+            'url' => htmlspecialchars(Url::Contextualize('exercise.php?cmd=rqImport'))
+        );
+    }
     
     if(get_conf('is_trackingEnabled') && claro_is_user_authenticated())
     {
@@ -883,34 +911,7 @@ if( !$inLP )
         );
     }
     
-    if($is_allowedToEdit)
-    {
-        $cmdList[] = array(
-            'img' => 'quiz_new',
-            'name' => get_lang('New exercise'),
-            'url' => htmlspecialchars(Url::Contextualize('admin/edit_exercise.php?cmd=rqEdit'))
-        );
-        
-        $cmdList[] = array(
-            'img' => 'question_pool',
-            'name' => get_lang('Question pool'),
-            'url' => htmlspecialchars(Url::Contextualize('admin/question_pool.php'))
-        );
-        
-        $cmdList[] = array(
-            'img' => 'question_pool',
-            'name' => get_lang('Question categories'),
-            'url' => htmlspecialchars(Url::Contextualize('admin/question_category.php'))
-        );
-        
-        $cmdList[] = array(
-            'img' => 'import',
-            'name' => get_lang('Import exercise'),
-            'url' => htmlspecialchars(Url::Contextualize('exercise.php?cmd=rqImport'))
-        );
-    }
-    
-    $out .= claro_html_tool_title($nameTools, $helpUrl, $cmdList);
+    $out .= claro_html_tool_title($nameTools, $helpUrl, $cmdList, $advancedCmdList);
     $out .= $dialogBox->render();
     
     //-- pager

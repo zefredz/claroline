@@ -387,6 +387,7 @@ if ( $is_allowedToManage )
 
     // Command list
     $cmdList = array();
+    $advancedCmdList = array();
     
     $cmdList[] = array(
         'img' => 'group',
@@ -401,13 +402,13 @@ if ( $is_allowedToManage )
         'params' => array('onclick' => 'return confirmationDelete();')
     );
     
-    $cmdList[] = array(
+    $advancedCmdList[] = array(
         'img' => 'fill',
         'name' => get_lang('Fill groups (automatically)'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exFillGroup'))
     );
     
-    $cmdList[] = array(
+    $advancedCmdList[] = array(
         'img' => 'sweep',
         'name' => get_lang('Empty all groups'),
         'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exEmptyGroup')),
@@ -423,6 +424,7 @@ if ( $is_allowedToManage )
 else
 {
     $cmdList = array();
+    $advancedCmdList = array();
 }
 
 
@@ -539,7 +541,7 @@ $htmlHeadXtra[] =
 
 $out = '';
 
-$out .= claro_html_tool_title($nameTools, null, $cmdList ); //, 3);
+$out .= claro_html_tool_title($nameTools, null, $cmdList, $advancedCmdList );
 
 /*-------------
   MESSAGE BOX
