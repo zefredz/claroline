@@ -438,12 +438,14 @@ if($is_allowedToEdit)
     );
     
     $cmdList[] = array(
+        'img' => 'module_pool',
         'name' => get_lang('Pool of modules'),
         'url' => htmlspecialchars(Url::Contextualize('modules_pool.php'))
     );
     
     $cmdList[] = array(
-        'name' => get_lang('Learning paths tracking'),
+        'img' => 'statistics',
+        'name' => get_lang('User tracking'),
         'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'tracking/learnPath_detailsAllPath.php'))
     );
 }
