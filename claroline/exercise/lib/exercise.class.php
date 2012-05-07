@@ -1,11 +1,11 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -18,94 +18,94 @@ class Exercise
     /**
      * @var $id id of exercise, -1 if exercise doesn't exist already
      */
-    var $id;
+    public $id;
 
     /**
      * @var $title name of the exercise
      */
-    var $title;
+    public $title;
 
     /**
      * @var $description statement of the exercise
      */
-    var $description;
+    public $description;
 
     /**
      * @var $visibility visibility of the exercise
      */
-    var $visibility;
+    public $visibility;
 
     /**
      * @var $sequential if exercise is displayed on one page or several
      */
-    var $displayType;
+    public $displayType;
 
     /**
      * @var $shuffle expected submission type (text, text and file, file)
      */
-    var $shuffle;
+    public $shuffle;
     
     /**
      * @var $useSameShuffle use the same Question when random is selected
      */
-    var $useSameShuffle;
+    public $useSameShuffle;
 
     /**
      * @var $allowLateUpload is upload allowed after assignment end date
      */
-    var $showAnswers;
+    public $showAnswers;
 
     /**
      * @var $startDate submissions are not possible before this date
      */
-    var $startDate;
+    public $startDate;
 
     /**
      * @var $endDate submissions are not possible after this date (except if $allowLateUpload is true)
      */
-    var $endDate;
+    public $endDate;
 
     /**
      * @var $timeLimit text of automatic feedback
      */
-    var $timeLimit;
+    public $timeLimit;
 
     /**
      * @var $attempts file of automatic feedback
      */
-    var $attempts;
+    public $attempts;
 
     /**
      * @var $anonymousAttempts file of automatic feedback
      */
-    var $anonymousAttempts;
+    public $anonymousAttempts;
     
     /**
      * @var $quizEndMessage statement of the exercise
      */
-    var $quizEndMessage;
+    public $quizEndMessage;
     
     /**
      * @var $tblExercise
      */
-    var $tblExercise;
+    protected $tblExercise;
 
     /**
      * @var $tblRelExerciseQuestion
      */
-    var $tblRelExerciseQuestion;
+    protected $tblRelExerciseQuestion;
 
     /**
      * @var $tblQuestion
      */
-    var $tblQuestion;
+    protected $tblQuestion;
     
     /**
-     * @ var $tblRandomQuestions
+     * @ public $tblRandomQuestions
      */
-    var $tblRandomQuestions;
+    protected $tblRandomQuestions;
 
-    function Exercise($course_id = null)
+    public function __construct($course_id = null)
     {
         $this->id = (int) -1;
         $this->title = '';
@@ -136,7 +136,7 @@ class Exercise
      * @param integer $id id of exercise
      * @return boolean load successfull ?
      */
-    function load($id)
+    public function load($id)
     {
         $sql = "SELECT
                     `id`,
@@ -196,7 +196,7 @@ class Exercise
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return mixed false or id of the record
      */
-    function save()
+    public function save()
     {
         // TODO method to validate data
         if( $this->id == -1 )
@@ -268,7 +268,7 @@ class Exercise
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean
      */
-    function delete()
+    public function delete()
     {
         $sql = "DELETE FROM `" . $this->tblRelExerciseQuestion . "`
                 WHERE `exerciseId` = " . (int) $this->id ;
@@ -296,7 +296,7 @@ class Exercise
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean
      */
-    function validate()
+    public function validate()
     {
         // title is a mandatory element
         $title = strip_tags($this->title);
