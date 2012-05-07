@@ -327,7 +327,7 @@ class Exercise
      * @param string $visibility
      * @return boolean
      */
-    function updateExerciseVisibility($exerciseId, $visibility)
+    public static function updateExerciseVisibility($exerciseId, $visibility)
     {
         // this method is not used in object context so we cannot access $this->$tblAssignment
         $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise' ), claro_get_current_course_id() );
