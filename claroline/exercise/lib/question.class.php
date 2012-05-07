@@ -1,7 +1,5 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
@@ -18,83 +16,83 @@ class Question
     /**
      * @var $id id of question, -1 if question doesn't exist already
      */
-    var $id;
+    public $id;
     
     /**
      * @var $title name of the question
      */
-    var $title;
+    public $title;
     
     /**
      * @var $description statement of the question
      */
-    var $description;
+    public $description;
     
     /**
      * @var $attachment attached file
      */
-    var $attachment;
+    public $attachment;
     
     /**
      * @var $type MCUA (multiple choice unique answer), MCMA (mc multiple answer),
      * TF (true/false), FIB (fill in blanks) or MATCHING
      */
-    var $type;
+    public $type;
     
     /**
      * @var $grade grade of the question
      */
-    var $grade;
+    public $grade;
     
     /**
      * @var $categoryId  id of the question category
      */
-     var $categoryId;
+     public $categoryId;
      
      /**
      * @var $categoryTitle  title of the question category
      */
-     var $categoryTitle;
+     public $categoryTitle;
     
     /**
      * @var $questionDirSys
      */
-    var $questionDirSys;
+    public $questionDirSys;
     
     /**
      * @var $questionDirWeb
      */
-    var $questionDirWeb;
+    public $questionDirWeb;
     
     /**
      * @var $answer answer object
      */
-    var $answer;
+    public $answer;
     
     /**
      * @var $exerciseId parent exercise id of the current question (optional)
      */
-    var $exerciseId;
+    public $exerciseId;
     
     /**
      * @var $tmpQuestionDirSys use for attachment upload on question creation
      */
-    var $tmpQuestionDirSys;
+    public $tmpQuestionDirSys;
             
     /**
      * @var $tblQuestion
      */
-    var $tblQuestion;
+    protected $tblQuestion;
         
     /**
      * @var $tblRelExerciseQuestion
      */
-    var $tblRelExerciseQuestion;
+    protected $tblRelExerciseQuestion;
     
     /**
      * @var $tblQuestionCategory
      */
-     var  $tblQuestionCategory;
+    protected  $tblQuestionCategory;
     
     
     public function __construct($course_id = null)
@@ -132,7 +130,7 @@ class Question
      * @param integer $id id of question
      * @return boolean load successfull ?
      */
-    function load($id)
+    public function load($id)
     {
         $sql = "SELECT
                     `id`,
@@ -184,7 +182,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return mixed false or id of the record
      */
-    function save()
+    public function save()
     {
         if( $this->id == -1 )
         {
@@ -250,7 +248,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean
      */
-    function validate()
+    public function validate()
     {
         // title is a mandatory element
         $title = strip_tags($this->title);
@@ -270,7 +268,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean
      */
-    function delete()
+    public function delete()
     {
         // delete question from all exercises
         $sql = "DELETE FROM `".$this->tblRelExerciseQuestion."`
@@ -305,7 +303,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return object duplicated question
      */
-    function duplicate()
+    public function duplicate()
     {
         // question
         $duplicated = new Question();
@@ -335,7 +333,7 @@ class Question
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      */
-    function buildDirPaths()
+    public function buildDirPaths()
     {
         global $_course;
         
@@ -348,7 +346,7 @@ class Question
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      */
-    function setAttachment($file)
+    public function setAttachment($file)
     {
         // remove the previous file if there was one
         $this->deleteAttachment();
@@ -393,7 +391,7 @@ class Question
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      */
-    function moveAttachment()
+    public function moveAttachment()
     {
         if( !empty($this->attachment) && !empty($this->tmpQuestionDirSys) )
         {
@@ -417,7 +415,7 @@ class Question
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      */
-    function deleteAttachment()
+    public function deleteAttachment()
     {
         if( !empty($this->attachment) && file_exists($this->questionDirSys.$this->attachment) )
         {
@@ -439,7 +437,7 @@ class Question
     *
     * @author Sebastien Piraux <pir@cerdecam.be>
     */
-    function copyAttachment($sourceFile)
+    public function copyAttachment($sourceFile)
     {
         if( !empty( $this->questionDirSys ) && file_exists($sourceFile) )
         {
@@ -470,7 +468,7 @@ class Question
     * @author Sebastien Piraux <pir@cerdecam.be>
     */
     
-    function getAttachmentUrl()
+    public function getAttachmentUrl()
     {
         $url = get_conf('urlAppend') . '/claroline/exercise/get_attachment.php?id='
             . 'download'
@@ -487,7 +485,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
-    function getQuestionAnswerHtml()
+    public function getQuestionAnswerHtml()
     {
         $html = $this->getQuestionHtml();
         
@@ -505,7 +503,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
-    function getQuestionHtml($exerciseId = null)
+    public function getQuestionHtml($exerciseId = null)
     {
         $html = '<p>'
         .   '<strong>'.$this->title.'</strong>' . "\n"
@@ -527,7 +525,7 @@ class Question
      * @param string $value
      */
  
-    function getQuestionFeedbackHtml()
+    public function getQuestionFeedbackHtml()
     {
         $html = $this->getQuestionHtml();
         
@@ -542,7 +540,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer
      */
-    function getId()
+    public function getId()
     {
         return (int) $this->id;
     }
@@ -553,7 +551,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getTitle()
+    public function getTitle()
     {
         return $this->title;
     }
@@ -565,7 +563,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
-    function setTitle($value)
+    public function setTitle($value)
     {
         $this->title = trim($value);
     }
@@ -576,7 +574,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getDescription()
+    public function getDescription()
     {
         return $this->description;
     }
@@ -587,7 +585,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
-    function setDescription($value)
+    public function setDescription($value)
     {
         $this->description = trim($value);
     }
@@ -598,7 +596,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getAttachment()
+    public function getAttachment()
     {
         return $this->attachment;
     }
@@ -609,7 +607,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getType()
+    public function getType()
     {
         return $this->type;
     }
@@ -620,7 +618,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
-    function setType($value)
+    public function setType($value)
     {
         $acceptedValues = array('MCUA', 'MCMA', 'TF', 'FIB', 'MATCHING');
         
@@ -638,7 +636,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return float
      */
-    function getGrade()
+    public function getGrade()
     {
         return $this->grade;
     }
@@ -649,7 +647,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param float $value
      */
-    function setGrade($value)
+    public function setGrade($value)
     {
         $this->grade = castToFloat($value);
     }
@@ -660,7 +658,7 @@ class Question
      * @author Laurence Dumortier <ldumorti@fundp.ac.be>
      * @return int
      */
-     function getCategoryId()
+     public function getCategoryId()
      {
      	return $this->categoryId;
      }
@@ -671,7 +669,7 @@ class Question
       * @author Laurence Dumortier <ldumorti@fundp.ac.be>
       * @param int $value
       */
-      function setCategoryId($value)
+      public function setCategoryId($value)
       {
       	$this->categoryId = (int) $value;
       }
@@ -684,7 +682,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getQuestionDirSys()
+    public function getQuestionDirSys()
     {
         return $this->questionDirSys;
     }
@@ -695,7 +693,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getQuestionDirWeb()
+    public function getQuestionDirWeb()
     {
         return $this->questionDirWeb;
     }
@@ -703,7 +701,7 @@ class Question
     /**
      * Include the correct answer class and create answer
      */
-    function setAnswer()
+    public function setAnswer()
     {
         $path = dirname(__FILE__);
 
@@ -743,7 +741,7 @@ class Question
      *
      * @return string
      */
-    function getExerciseId()
+    public function getExerciseId()
     {
         return $this->exerciseId;
     }
@@ -755,7 +753,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
-    function setExerciseId($value)
+    public function setExerciseId($value)
     {
         $this->exerciseId = (int) $value;
     }
@@ -786,20 +784,20 @@ class QuestionCategory
     /**
      * @var $id id of question category, -1 if exercise doesn't exist already
      */
-    var $id;
+    public $id;
 
     /**
      * @var $title name of the question category
      */
-    var $title;
+    public $title;
 
     /**
      * @var $description statement of the question category
      */
-    var $description;
+    public $description;
     
     
-     function QuestionCategory($course_id = null)
+    public function __construct($course_id = null)
     {
         $this->id = (int) -1;
         $this->title = '';
@@ -816,7 +814,7 @@ class QuestionCategory
      * @param integer $id id of exercise
      * @return boolean load successfull ?
      */
-    function load()
+    public function load()
     {
         $sql = "SELECT
                     `id`,
@@ -846,7 +844,7 @@ class QuestionCategory
      *
      * @return mixed false or id of the record
      */
-    function save()
+    public function save()
     {
         // TODO method to validate data
         if( $this->id == -1 )
@@ -891,7 +889,7 @@ class QuestionCategory
      *
      * @return boolean
      */
-    function delete()
+    public function delete()
     {
         $sql = "SELECT `id` FROM `" . $this->tblQuestion . "`
                 WHERE `id_category` = " . (int) $this->id ;
@@ -920,7 +918,7 @@ class QuestionCategory
      * @author Laurence Dumortier <ldumorti@fundp.ac.be>
      * @return boolean
      */
-    function validate()
+    public function validate()
     {
         // title is a mandatory element
         $title = strip_tags($this->title);
@@ -944,7 +942,7 @@ class QuestionCategory
      *
      * @return string
      */
-    function getTitle()
+    public function getTitle()
     {
         return $this->title;
     }
@@ -954,7 +952,7 @@ class QuestionCategory
      *
      * @param string $value
      */
-    function setTitle($value)
+    public function setTitle($value)
     {
         $this->title = trim($value);
     }
@@ -964,7 +962,7 @@ class QuestionCategory
      *
      * @return string
      */
-    function getDescription()
+    public function getDescription()
     {
         return $this->description;
     }
@@ -974,18 +972,18 @@ class QuestionCategory
      *
      * @param string $value
      */
-    function setDescription($value)
+    public function setDescription($value)
     {
         $this->description = trim($value);
     }
     
-    function setId ($id)
+    public function setId ($id)
     {
     	
     	$this->id = (int)$id;
     }
     
-    function titleAlreadyExists()
+    public function titleAlreadyExists()
     {
     	$sql = "SELECT `id`, `title` FROM `" . $this->tblQuestionCategory . "`
                 WHERE `title`='".claro_sql_escape($this->title)."' AND `id` != " . (int) $this->id ;

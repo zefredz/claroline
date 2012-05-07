@@ -1,5 +1,7 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
+
+// $Id$
+
 /**
  * CLAROLINE
  *
@@ -12,50 +14,51 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author Claro Team <cvs@claroline.net>
  *
  */
-define('TEXTFIELD_FILL',     1);
-define('LISTBOX_FILL',        2);
+define ( 'TEXTFIELD_FILL', 1 );
+define ( 'LISTBOX_FILL', 2 );
 
 class answerFillInBlanks
 {
+
     /**
      * @var $id id of answer, -1 if answer doesn't exist already
      */
-    var $id;
+    public $id;
 
     /**
      * @var $id id of question, -1 if answer doesn't exist already
      */
-    var $questionId;
+    public $questionId;
 
     /**
      * @var $answer complete answer text with blanks
      */
-    var $answerText;
+    public $answerText;
 
     /**
      * @var $answerList list of text within blanks
      */
-    var $answerList;
+    public $answerList;
 
     /**
      * @var $gradeList array list scores of each blank
      */
-    var $gradeList;
+    public $gradeList;
 
     /**
      * @var $wrongAnswerList array list of incorrect answers to be added in drop down list
      */
-    var $wrongAnswerList;
+    public $wrongAnswerList;
 
     /**
      * @var $type fill type of form (text field, drop down list box)
      */
-    var $type;
+    public $type;
 
     /**
      * @var $step step in edition form
      */
-    var $step;
+    public $step;
 
     //----- Others
 
@@ -63,17 +66,17 @@ class answerFillInBlanks
      * @var $response response sent by user and stored in object for easiest use
      * use extractResponseFromRequest to set it
      */
-    var $response;
+    public $response;
 
     /**
      * @var $errorList is used to store error that comes on form post
      */
-    var $errorList;
+    public $errorList;
 
     /**
      * @var $tblAnswer
      */
-    var $tblAnswer;
+    protected $tblAnswer;
 
     /**
      * constructor
@@ -83,29 +86,29 @@ class answerFillInBlanks
      * @param $course_id to use the class when not in course context
      * @return string
      */
-    function answerFillInBlanks($questionId, $course_id = null)
+    public function __construct ( $questionId, $course_id = null )
     {
         $this->questionId = (int) $questionId;
 
         $this->id = -1;
 
         // directly fill with an example
-        $this->answerText = get_lang('&#91;British people&#93; live in &#91;United Kingdom&#93;.');
+        $this->answerText = get_lang ( '&#91;British people&#93; live in &#91;United Kingdom&#93;.' );
 
-        $this->answerList = array();
-        $this->gradeList = array();
-        $this->wrongAnswerList = array();
+        $this->answerList = array ( );
+        $this->gradeList = array ( );
+        $this->wrongAnswerList = array ( );
 
         $this->type = TEXTFIELD_FILL;
 
         $this->step = 1;
 
-        $this->response = array();
+        $this->response = array ( );
 
-        $this->errorList = array();
+        $this->errorList = array ( );
 
-        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_answer_fib' ), $course_id );
-        $this->tblAnswer = $tbl_cdb_names['qwz_answer_fib'];
+        $tbl_cdb_names = get_module_course_tbl ( array ( 'qwz_answer_fib' ), $course_id );
+        $this->tblAnswer = $tbl_cdb_names[ 'qwz_answer_fib' ];
     }
 
     /**
@@ -114,7 +117,7 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation
      */
-    function load()
+    public function load ()
     {
         $sql = "SELECT
                     `id`,
@@ -122,20 +125,22 @@ class answerFillInBlanks
                     `gradeList`,
                     `wrongAnswerList`,
                     `type`
-            FROM `".$this->tblAnswer."`
-            WHERE `questionId` = ".(int) $this->questionId;
+            FROM `" . $this->tblAnswer . "`
+            WHERE `questionId` = " . (int) $this->questionId;
 
-        $data = claro_sql_query_get_single_row($sql);
+        $data = claro_sql_query_get_single_row ( $sql );
 
-        if( !empty($data) )
+        if ( !empty ( $data ) )
         {
-            $this->id = (int) $data['id'];
-            $this->answerText = $data['answer'];
-            if( !empty($data['gradeList']) ) $this->gradeList = explode(',' , $data['gradeList'] );
-            if( !empty($data['wrongAnswerList']) ) $this->wrongAnswerList = explode( ',' , $data['wrongAnswerList'] );
-            $this->type = $data['type'];
+            $this->id = (int) $data[ 'id' ];
+            $this->answerText = $data[ 'answer' ];
+            if ( !empty ( $data[ 'gradeList' ] ) )
+                $this->gradeList = explode ( ',', $data[ 'gradeList' ] );
+            if ( !empty ( $data[ 'wrongAnswerList' ] ) )
+                $this->wrongAnswerList = explode ( ',', $data[ 'wrongAnswerList' ] );
+            $this->type = $data[ 'type' ];
 
-            $this->setAnswerList();
+            $this->setAnswerList ();
 
             return true;
         }
@@ -151,25 +156,25 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation
      */
-    function save()
+    public function save ()
     {
-        $sqlGradeList = implode( ',' , $this->gradeList );
-        $sqlWrongAnswerList = implode( ',' , $this->wrongAnswerList );
+        $sqlGradeList = implode ( ',', $this->gradeList );
+        $sqlWrongAnswerList = implode ( ',', $this->wrongAnswerList );
 
-        if( $this->id == -1 )
+        if ( $this->id == -1 )
         {
             // insert
-            $sql = "INSERT INTO `".$this->tblAnswer."`
-                    SET `questionId` = ".(int) $this->questionId.",
-                        `answer` = '".claro_sql_escape($this->answerText)."',
-                        `gradeList` = '".claro_sql_escape($sqlGradeList)."',
-                        `wrongAnswerList` = '".claro_sql_escape($sqlWrongAnswerList)."',
-                        `type` = ".(int) $this->type;
+            $sql = "INSERT INTO `" . $this->tblAnswer . "`
+                    SET `questionId` = " . (int) $this->questionId . ",
+                        `answer` = '" . claro_sql_escape ( $this->answerText ) . "',
+                        `gradeList` = '" . claro_sql_escape ( $sqlGradeList ) . "',
+                        `wrongAnswerList` = '" . claro_sql_escape ( $sqlWrongAnswerList ) . "',
+                        `type` = " . (int) $this->type;
 
             // execute the creation query and get id of inserted assignment
-            $insertedId = claro_sql_query_insert_id($sql);
+            $insertedId = claro_sql_query_insert_id ( $sql );
 
-            if( $insertedId )
+            if ( $insertedId )
             {
                 $this->id = (int) $insertedId;
 
@@ -183,15 +188,15 @@ class answerFillInBlanks
         else
         {
             // update
-            $sql = "UPDATE `".$this->tblAnswer."`
-                    SET `answer` = '".claro_sql_escape($this->answerText)."',
-                        `gradeList` = '".claro_sql_escape($sqlGradeList)."',
-                        `wrongAnswerList` = '".claro_sql_escape($sqlWrongAnswerList)."',
-                        `type` = ".(int) $this->type."
-                    WHERE `id` = ".(int) $this->id;
+            $sql = "UPDATE `" . $this->tblAnswer . "`
+                    SET `answer` = '" . claro_sql_escape ( $this->answerText ) . "',
+                        `gradeList` = '" . claro_sql_escape ( $sqlGradeList ) . "',
+                        `wrongAnswerList` = '" . claro_sql_escape ( $sqlWrongAnswerList ) . "',
+                        `type` = " . (int) $this->type . "
+                    WHERE `id` = " . (int) $this->id;
 
             // execute and return main query
-            if( claro_sql_query($sql) )
+            if ( claro_sql_query ( $sql ) )
             {
                 return $this->id;
             }
@@ -208,15 +213,16 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation
      */
-    function delete()
+    public function delete ()
     {
-        if( $this->id != -1 )
+        if ( $this->id != -1 )
         {
             // delete question from all exercises
-            $sql = "DELETE FROM `".$this->tblAnswer."`
-                    WHERE `id` = ".(int) $this->id;
+            $sql = "DELETE FROM `" . $this->tblAnswer . "`
+                    WHERE `id` = " . (int) $this->id;
 
-            if( !claro_sql_query($sql) ) return false;
+            if ( !claro_sql_query ( $sql ) )
+                return false;
 
             $this->id = -1;
         }
@@ -230,9 +236,9 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation
      */
-    function duplicate($duplicatedQuestionId)
+    public function duplicate ( $duplicatedQuestionId )
     {
-        $duplicated = new answerFillInBlanks($duplicatedQuestionId);
+        $duplicated = new answerFillInBlanks ( $duplicatedQuestionId );
 
         $duplicated->answerText = $this->answerText;
         $duplicated->answerList = $this->answerList;
@@ -240,7 +246,7 @@ class answerFillInBlanks
         $duplicated->wrongAnswerList = $this->wrongAnswerList;
         $duplicated->type = $this->type;
 
-        $duplicated->save();
+        $duplicated->save ();
 
         return $duplicated;
     }
@@ -251,21 +257,21 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation
      */
-    function validate()
+    public function validate ()
     {
         // answer cannot be empty
-        if( $this->answerText == '' )
+        if ( $this->answerText == '' )
         {
-            $this->errorList[] = get_lang('Please type the text');
+            $this->errorList[ ] = get_lang ( 'Please type the text' );
             $this->step = 1;
             return false;
         }
 
         // answer must contain at least one blank
         $regex = '/\[.*\]/';
-        if( ! preg_match($regex, $this->answerText) )
+        if ( !preg_match ( $regex, $this->answerText ) )
         {
-            $this->errorList[] = get_lang('Please define at least one blank with brackets %mask', array('%mask'=>'&#91;...&#93;'));
+            $this->errorList[ ] = get_lang ( 'Please define at least one blank with brackets %mask', array ( '%mask' => '&#91;...&#93;' ) );
             $this->step = 1;
             return false;
         }
@@ -279,59 +285,64 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean true if form can be checked and saved, false
      */
-    function handleForm()
+    public function handleForm ()
     {
         // for multipage form handling
-        if( isset($_REQUEST['step']) )         $this->step = (int) abs($_REQUEST['step']);
-        else                                $this->step = 1;
+        if ( isset ( $_REQUEST[ 'step' ] ) )
+            $this->step = (int) abs ( $_REQUEST[ 'step' ] );
+        else
+            $this->step = 1;
 
         // for answer
-        if( isset($_REQUEST['answer']) )    $this->answerText = trim($this->answerEncode($_REQUEST['answer']));
-        else                                $this->answerText = '';
+        if ( isset ( $_REQUEST[ 'answer' ] ) )
+            $this->answerText = trim ( $this->answerEncode ( $_REQUEST[ 'answer' ] ) );
+        else
+            $this->answerText = '';
         // and update answerList
-        $this->setAnswerList();
+        $this->setAnswerList ();
 
-        if( isset($_REQUEST['type']))        $this->type = $_REQUEST['type'];
+        if ( isset ( $_REQUEST[ 'type' ] ) )
+            $this->type = $_REQUEST[ 'type' ];
         // else keep the value in object (default or loaded)
 
-        if( isset($_REQUEST['wrongAnswerList']) )
+        if ( isset ( $_REQUEST[ 'wrongAnswerList' ] ) )
         {
-            $encoded = $this->wrongAnswerEncode($_REQUEST['wrongAnswerList']);
+            $encoded = $this->wrongAnswerEncode ( $_REQUEST[ 'wrongAnswerList' ] );
             // remove empty lines
-            $encodedList = explode("\n", $encoded);
+            $encodedList = explode ( "\n", $encoded );
             // remove duplicated entries
-            $this->wrongAnswerList = array_unique($encodedList);
+            $this->wrongAnswerList = array_unique ( $encodedList );
         }
         else
         {
             $this->wrongAnswerList = '';
         }
 
-        if( isset($_REQUEST['grade']) && is_array($_REQUEST['grade']) )
+        if ( isset ( $_REQUEST[ 'grade' ] ) && is_array ( $_REQUEST[ 'grade' ] ) )
         {
             // reinit gradeList
-            $this->gradeList = array();
+            $this->gradeList = array ( );
             // all values must be positive
-            foreach( $_REQUEST['grade'] as $grade )
+            foreach ( $_REQUEST[ 'grade' ] as $grade )
             {
-                $this->gradeList[] = abs(castToFloat($grade));
+                $this->gradeList[ ] = abs ( castToFloat ( $grade ) );
             }
         }
         // else keep the value in object (default or loaded)
-
         //-- cmd
-        if( isset($_REQUEST['cmdBack']) )
+        if ( isset ( $_REQUEST[ 'cmdBack' ] ) )
         {
-            if( $this->validate() )
+            if ( $this->validate () )
             {
-                if( $this->step > 1 ) $this->step--;
+                if ( $this->step > 1 )
+                    $this->step--;
             }
             return false;
         }
 
-        if( isset($_REQUEST['cmdNext']) )
+        if ( isset ( $_REQUEST[ 'cmdNext' ] ) )
         {
-            if( $this->validate() )
+            if ( $this->validate () )
             {
                 $this->step++;
             }
@@ -349,7 +360,7 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return array list of errors
      */
-    function getErrorList()
+    public function getErrorList ()
     {
         return $this->errorList;
     }
@@ -360,87 +371,85 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer
      */
-    function getAnswerHtml()
+    public function getAnswerHtml ()
     {
-        if( $this->id == -1 )
+        if ( $this->id == -1 )
         {
-            $html = "\n" . '<p>' . get_lang('There is no answer for the moment') . '</p>' . "\n\n";
+            $html = "\n" . '<p>' . get_lang ( 'There is no answer for the moment' ) . '</p>' . "\n\n";
         }
         else
         {
-            $answerCount = count($this->answerList);
+            $answerCount = count ( $this->answerList );
 
             // build replacement
-            $replacementList = array();
+            $replacementList = array ( );
 
-            if( $this->type == LISTBOX_FILL )
+            if ( $this->type == LISTBOX_FILL )
             {
                 // build the list shown in list box
                 // prepare option list using good and wrong answers
-                $allAnswerList = array_merge($this->answerList, $this->wrongAnswerList);
+                $allAnswerList = array_merge ( $this->answerList, $this->wrongAnswerList );
 
                 // alphabetical sort of the list
-                natcasesort($allAnswerList);
+                natcasesort ( $allAnswerList );
 
-                $optionList[''] = '';
+                $optionList[ '' ] = '';
 
-                foreach( $allAnswerList as $answer )
+                foreach ( $allAnswerList as $answer )
                 {
-                    $optionListValue = $this->answerDecode($answer);
-                    $optionList[$optionListValue] = $optionListValue;
+                    $optionListValue = $this->answerDecode ( $answer );
+                    $optionList[ $optionListValue ] = $optionListValue;
                 }
 
-                for( $i = 0; $i < $answerCount; $i++ )
+                for ( $i = 0; $i < $answerCount; $i++ )
                 {
-                    if( isset($this->response[$i]) && array_key_exists($this->response[$i],$optionList) )
+                    if ( isset ( $this->response[ $i ] ) && array_key_exists ( $this->response[ $i ], $optionList ) )
                     {
-                        $selected = $this->response[$i];
+                        $selected = $this->response[ $i ];
                     }
                     else
                     {
                         $selected = ''; // default is the empty element
                     }
 
-                    $replacementList[] = str_replace('$', '\$', claro_html_form_select('a_'.$this->questionId.'_'.$i, $optionList, $selected));
+                    $replacementList[ ] = str_replace ( '$', '\$', claro_html_form_select ( 'a_' . $this->questionId . '_' . $i, $optionList, $selected ) );
                 }
             }
             else
             {
-                for( $i = 0; $i < $answerCount; $i++ )
+                for ( $i = 0; $i < $answerCount; $i++ )
                 {
-                    if( isset($this->response[$i]) )     $value = $this->response[$i];
-                    else                                $value = '';
+                    if ( isset ( $this->response[ $i ] ) )
+                        $value = $this->response[ $i ];
+                    else
+                        $value = '';
 
-                    $replacementList[] = str_replace('$', '\$', ' <input type="text" name="a_'.$this->questionId.'_'.$i.'" size="10" value="'.$value.'" /> ');
+                    $replacementList[ ] = str_replace ( '$', '\$', ' <input type="text" name="a_' . $this->questionId . '_' . $i . '" size="10" value="' . $value . '" /> ' );
                 }
             }
 
             // get all enclosed answers
-            $blankList = array();
-            foreach( $this->answerList as $answer )
+            $blankList = array ( );
+            foreach ( $this->answerList as $answer )
             {
-                   // filter slashes as they are modifiers in preg expressions
-                $blankList[] = '/\['.preg_quote($this->answerDecode($this->addslashesEncodedBrackets($answer)),'/').'\]/';
+                // filter slashes as they are modifiers in preg expressions
+                $blankList[ ] = '/\[' . preg_quote ( $this->answerDecode ( $this->addslashesEncodedBrackets ( $answer ) ), '/' ) . '\]/';
             }
 
             // apply replacement on answer, require limit parameter to replace only the first occurrence in case we
             // have several times the same word in a blank.
 
-            $displayedAnswer = preg_replace( $blankList, $replacementList, claro_parse_user_text($this->answerDecode($this->answerText)), 1 );
+            $displayedAnswer = preg_replace ( $blankList, $replacementList, claro_parse_user_text ( $this->answerDecode ( $this->answerText ) ), 1 );
 
             $html =
                 '<table width="100%">' . "\n\n"
-
-            .    '<tr>' . "\n"
-            .    '<td>' . "\n"
-
-            .    $displayedAnswer  . "\n"
-
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n\n"
-
-            .    '</table>' . "\n"
-            .    '<p><small>' . get_lang('Fill in blanks') . '</small></p>' . "\n";
+                . '<tr>' . "\n"
+                . '<td>' . "\n"
+                . $displayedAnswer . "\n"
+                . '</td>' . "\n"
+                . '</tr>' . "\n\n"
+                . '</table>' . "\n"
+                . '<p><small>' . get_lang ( 'Fill in blanks' ) . '</small></p>' . "\n";
         }
 
         return $html;
@@ -452,19 +461,17 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of hidden sent data
      */
-    function getHiddenAnswerHtml()
+    public function getHiddenAnswerHtml ()
     {
         $html = "\n" . '<!-- ' . $this->questionId . ' -->' . "\n";
 
-        while( list($key, $response) = each($this->response))
+        while ( list($key, $response) = each ( $this->response ) )
         {
-            $html .= '<input type="hidden" name="a_'.$this->questionId.'_'.$key.'" value="'.$response.'" />' . "\n";
-
+            $html .= '<input type="hidden" name="a_' . $this->questionId . '_' . $key . '" value="' . $response . '" />' . "\n";
         }
         $html .= "\n" . '<!-- ' . $this->questionId . '(end) -->' . "\n";
         return $html;
     }
-
 
     /**
      * display the input hidden field depending on what was submitted in exercise submit form
@@ -472,37 +479,36 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of feedback for this answer
      */
-    function getAnswerFeedbackHtml()
+    public function getAnswerFeedbackHtml ()
     {
         $html =
             '<table width="100%">' . "\n\n"
-
-        .    '<tr height:style="font-weight:italic;font-size:small;">' . "\n"
-        .    '<td valign="top">'.get_lang('Answer').'</td>' . "\n"
-        .    '</tr>' . "\n\n";
+            . '<tr height:style="font-weight:italic;font-size:small;">' . "\n"
+            . '<td valign="top">' . get_lang ( 'Answer' ) . '</td>' . "\n"
+            . '</tr>' . "\n\n";
 
         // get all enclosed answers
-        $blankList = array();
-        foreach( $this->answerList as $answer )
+        $blankList = array ( );
+        foreach ( $this->answerList as $answer )
         {
             // filter slashes as they are modifiers in preg expressions
-            $blankList[] = '/\['.preg_quote($this->answerDecode($this->addslashesEncodedBrackets($answer)),'/').'\]/';
+            $blankList[ ] = '/\[' . preg_quote ( $this->answerDecode ( $this->addslashesEncodedBrackets ( $answer ) ), '/' ) . '\]/';
         }
-        $answerCount = count($blankList);
+        $answerCount = count ( $blankList );
 
         // build replacement
-        $replacementList = array();
+        $replacementList = array ( );
 
-        for( $i = 0; $i < $answerCount; $i++ )
+        for ( $i = 0; $i < $answerCount; $i++ )
         {
-            if( $this->isResponseCorrect($this->response[$i],$this->answerDecode($this->answerList[$i])) )
+            if ( $this->isResponseCorrect ( $this->response[ $i ], $this->answerDecode ( $this->answerList[ $i ] ) ) )
             {
                 // user answer is ok
-                $userAnswer = htmlspecialchars($this->answerDecode($this->response[$i]));
+                $userAnswer = htmlspecialchars ( $this->answerDecode ( $this->response[ $i ] ) );
             }
             else
             {
-                if( empty($this->response[$i]) )
+                if ( empty ( $this->response[ $i ] ) )
                 {
                     // no response for this blank
                     $userAnswer = '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -510,43 +516,36 @@ class answerFillInBlanks
                 else
                 {
                     // incorrect response
-                    $userAnswer = '<span class="error"><s>'.htmlspecialchars($this->answerDecode($this->response[$i])).'</s></span>';
+                    $userAnswer = '<span class="error"><s>' . htmlspecialchars ( $this->answerDecode ( $this->response[ $i ] ) ) . '</s></span>';
                 }
             }
-            
-            //
-            $correctAnswer = htmlspecialchars($this->answerDecode($this->answerList[$i]));
-            $correctAnswer = htmlspecialchars($correctAnswer);
-            
-            $replacementList[] = str_replace('$', '\$', '[' . $userAnswer . ' / <span class="correct"><b>'.$correctAnswer.'</b></span>]' . "\n");
 
+            //
+            $correctAnswer = htmlspecialchars ( $this->answerDecode ( $this->answerList[ $i ] ) );
+            $correctAnswer = htmlspecialchars ( $correctAnswer );
+
+            $replacementList[ ] = str_replace ( '$', '\$', '[' . $userAnswer . ' / <span class="correct"><b>' . $correctAnswer . '</b></span>]' . "\n" );
         }
 
         // apply replacement on answer
         // use preg_replace instead of str_replace because if there is several blanks
         // with same correct value using str_replace will replace each occurence by the 1st one he found
-        $displayedAnswer = preg_replace( $blankList, $replacementList, claro_parse_user_text($this->answerDecode($this->answerText)), 1 );
+        $displayedAnswer = preg_replace ( $blankList, $replacementList, claro_parse_user_text ( $this->answerDecode ( $this->answerText ) ), 1 );
 
         $html =
             '<table width="100%">' . "\n\n"
-
-        .    '<tr height:style="font-weight:italic;font-size:small;">' . "\n"
-        .    '<td valign="top">'.get_lang('Answer').'</td>' . "\n"
-        .    '</tr>' . "\n\n"
-
-        .    '<tr>' . "\n"
-        .    '<td>' . "\n"
-
-        .    $displayedAnswer  . "\n"
-
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n\n"
-
-        .    '</table>' . "\n"
-        .    '<p><small>' . get_lang('Fill in blanks') . '</small></p>' . "\n";
+            . '<tr height:style="font-weight:italic;font-size:small;">' . "\n"
+            . '<td valign="top">' . get_lang ( 'Answer' ) . '</td>' . "\n"
+            . '</tr>' . "\n\n"
+            . '<tr>' . "\n"
+            . '<td>' . "\n"
+            . $displayedAnswer . "\n"
+            . '</td>' . "\n"
+            . '</tr>' . "\n\n"
+            . '</table>' . "\n"
+            . '<p><small>' . get_lang ( 'Fill in blanks' ) . '</small></p>' . "\n";
 
         return $html;
-
     }
 
     /**
@@ -557,46 +556,45 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer edition form
      */
-    function getFormHtml($exId = null, $askDuplicate)
+    public function getFormHtml ( $exId = null, $askDuplicate )
     {
         $html =
-            '<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
-        .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-        .    '<input type="hidden" name="step" value="'.$this->step.'" />' . "\n"
-        .    claro_form_relay_context() . "\n";
+            '<form method="post" action="./edit_answers.php?exId=' . $exId . '&amp;quId=' . $this->questionId . '">' . "\n"
+            . '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
+            . '<input type="hidden" name="step" value="' . $this->step . '" />' . "\n"
+            . claro_form_relay_context () . "\n";
 
-        if( $this->step > 1 )
+        if ( $this->step > 1 )
         {
             $html .=
                 // populate hidden fields for other steps
-                '<input type="hidden" name="answer" value="'.htmlspecialchars($this->answerText).'" />' . "\n"
-            .    '<input type="hidden" name="type" value="'.htmlspecialchars($this->type).'" />' . "\n"
-            .    '<input type="hidden" name="wrongAnswerList" value="'.htmlspecialchars(implode("\n", $this->wrongAnswerList)).'" />' . "\n\n";
+                '<input type="hidden" name="answer" value="' . htmlspecialchars ( $this->answerText ) . '" />' . "\n"
+                . '<input type="hidden" name="type" value="' . htmlspecialchars ( $this->type ) . '" />' . "\n"
+                . '<input type="hidden" name="wrongAnswerList" value="' . htmlspecialchars ( implode ( "\n", $this->wrongAnswerList ) ) . '" />' . "\n\n";
 
-            if( !empty($exId) && $askDuplicate )
+            if ( !empty ( $exId ) && $askDuplicate )
             {
-                if( isset($_REQUEST['duplicate']) )
+                if ( isset ( $_REQUEST[ 'duplicate' ] ) )
                 {
-                    $html .= '<input type="hidden" name="duplicate" value="'.htmlspecialchars($_REQUEST['duplicate']).'" />' . "\n";
+                    $html .= '<input type="hidden" name="duplicate" value="' . htmlspecialchars ( $_REQUEST[ 'duplicate' ] ) . '" />' . "\n";
                 }
             }
 
-            $html .= '<p>' . get_lang('Please give a weighting to each blank') . '&nbsp;:</p>' . "\n"
-
-            .    '<table border="0" cellpadding="5" width="500">' . "\n";
+            $html .= '<p>' . get_lang ( 'Please give a weighting to each blank' ) . '&nbsp;:</p>' . "\n"
+                . '<table border="0" cellpadding="5" width="500">' . "\n";
 
             $i = 0;
-            foreach( $this->answerList as $correctAnswer )
+            foreach ( $this->answerList as $correctAnswer )
             {
-                $value = isset($this->gradeList[$i]) ? $this->gradeList[$i] : '0';
+                $value = isset ( $this->gradeList[ $i ] ) ? $this->gradeList[ $i ] : '0';
 
                 $html .=
                     '<tr>' . "\n"
-                .    '<td width="50%">'.$correctAnswer.'</td>' . "\n"
-                .    '<td width="50%">'
-                .   '<input type="text" name="grade['.$i.']" size="5" value="'.$value.'" />'
-                .   '</td>' . "\n"
-                .    '</tr>' . "\n\n"
+                    . '<td width="50%">' . $correctAnswer . '</td>' . "\n"
+                    . '<td width="50%">'
+                    . '<input type="text" name="grade[' . $i . ']" size="5" value="' . $value . '" />'
+                    . '</td>' . "\n"
+                    . '</tr>' . "\n\n"
                 ;
 
                 $i++;
@@ -605,53 +603,50 @@ class answerFillInBlanks
 
             $html .=
                 '</table>' . "\n\n"
-            .    '<input type="submit" name="cmdBack" value="&lt; ' . get_lang('Back') . '" />&nbsp;&nbsp;'
-            .    '<input type="submit" name="cmdOk" value="' . get_lang('Ok') . '" />&nbsp;&nbsp;'
-            .     claro_html_button('./edit_question.php?exId='.$exId.'&amp;quId='.$this->questionId, get_lang("Cancel") );
+                . '<input type="submit" name="cmdBack" value="&lt; ' . get_lang ( 'Back' ) . '" />&nbsp;&nbsp;'
+                . '<input type="submit" name="cmdOk" value="' . get_lang ( 'Ok' ) . '" />&nbsp;&nbsp;'
+                . claro_html_button ( './edit_question.php?exId=' . $exId . '&amp;quId=' . $this->questionId, get_lang ( "Cancel" ) );
         }
         else
         {
             // populate fields of other steps
             $i = 0;
-             foreach( $this->gradeList as $grade )
-             {
-                 $html .= '<input type="hidden" name="grade['.$i.']" value="'.$grade.'" />' . "\n";
-                 $i++;
-             }
-
-            if( !empty($exId) && $askDuplicate )
+            foreach ( $this->gradeList as $grade )
             {
-                $html .= '<p>' . html_ask_duplicate() . '</p>' . "\n";
+                $html .= '<input type="hidden" name="grade[' . $i . ']" value="' . $grade . '" />' . "\n";
+                $i++;
+            }
+
+            if ( !empty ( $exId ) && $askDuplicate )
+            {
+                $html .= '<p>' . html_ask_duplicate () . '</p>' . "\n";
             }
 
             // answer
-            $text = $this->addslashesEncodedBrackets($this->answerText);
-            $text = $this->answerDecode($text);
+            $text = $this->addslashesEncodedBrackets ( $this->answerText );
+            $text = $this->answerDecode ( $text );
 
-            $html .= '<p>' . get_lang('Please type your text below, use brackets %mask to define one or more blanks', array('%mask'=>'&#91;...&#93;'))   . ' :</p>' . "\n"
+            $html .= '<p>' . get_lang ( 'Please type your text below, use brackets %mask to define one or more blanks', array ( '%mask' => '&#91;...&#93;' ) ) . ' :</p>' . "\n"
+                . claro_html_textarea_editor ( 'answer', $text ) . "\n"
 
-            .    claro_html_textarea_editor('answer',$text) . "\n"
+                // fill type
+                . '<p>' . get_lang ( 'Fill type' ) . '&nbsp;:</p>' . "\n"
+                . '<p>' . "\n"
+                . '<input type="radio" name="type" id="textFill" value="' . TEXTFIELD_FILL . '"'
+                . ( $this->type == TEXTFIELD_FILL ? 'checked="checked"' : '')
+                . ' /><label for="textFill">' . get_lang ( 'Fill text field' ) . '</label><br />' . "\n"
+                . '<input type="radio" name="type" id="listboxFill" value="' . LISTBOX_FILL . '"'
+                . ( $this->type == LISTBOX_FILL ? 'checked="checked"' : '')
+                . ' /><label for="listboxFill">' . get_lang ( 'Select in drop down list' ) . '</label><br />' . "\n"
+                . '</p>' . "\n"
 
-            // fill type
-            .    '<p>' . get_lang('Fill type') . '&nbsp;:</p>' . "\n"
-            .    '<p>' . "\n"
-            .    '<input type="radio" name="type" id="textFill" value="'.TEXTFIELD_FILL.'"'
-            .    ( $this->type == TEXTFIELD_FILL?'checked="checked"':'')
-            .     ' /><label for="textFill">'.get_lang('Fill text field').'</label><br />' . "\n"
-            .    '<input type="radio" name="type" id="listboxFill" value="'.LISTBOX_FILL.'"'
-            .    ( $this->type == LISTBOX_FILL?'checked="checked"':'')
-            .     ' /><label for="listboxFill">'.get_lang('Select in drop down list').'</label><br />' . "\n"
-            .    '</p>' . "\n"
-
-            // wrong answers list
-            .    '<p>'.get_lang('Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>').'</p>'
-
-            .    '<textarea name="wrongAnswerList" cols="30" rows="5">'.htmlspecialchars($this->answerDecode(implode("\n", $this->wrongAnswerList))).'</textarea>' . "\n"
-
-            .    '<p>' . "\n"
-            .    '<input type="submit" name="cmdNext" value="' . get_lang('Next') . ' &gt;" />&nbsp;&nbsp;'
-            .     claro_html_button(Url::Contextualize('./edit_question.php?exId='.$exId.'&amp;quId='.$this->questionId), get_lang("Cancel") )
-            .    '</p>' . "\n";
+                // wrong answers list
+                . '<p>' . get_lang ( 'Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>' ) . '</p>'
+                . '<textarea name="wrongAnswerList" cols="30" rows="5">' . htmlspecialchars ( $this->answerDecode ( implode ( "\n", $this->wrongAnswerList ) ) ) . '</textarea>' . "\n"
+                . '<p>' . "\n"
+                . '<input type="submit" name="cmdNext" value="' . get_lang ( 'Next' ) . ' &gt;" />&nbsp;&nbsp;'
+                . claro_html_button ( Url::Contextualize ( './edit_question.php?exId=' . $exId . '&amp;quId=' . $this->questionId ), get_lang ( "Cancel" ) )
+                . '</p>' . "\n";
         }
 
 
@@ -666,19 +661,19 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return array array containing
      */
-    function setAnswerList()
+    public function setAnswerList ()
     {
-        $matches = array();
+        $matches = array ( );
 
         $regex = '/\[([^]]*)\]/';
 
-        preg_match_all( $regex, $this->answerText, $matches);
+        preg_match_all ( $regex, $this->answerText, $matches );
 
-        $this->answerList = array();
+        $this->answerList = array ( );
 
-        if( is_array($matches[1]) && !empty($matches[1]) )
+        if ( is_array ( $matches[ 1 ] ) && !empty ( $matches[ 1 ] ) )
         {
-               $this->answerList = $matches[1];
+            $this->answerList = $matches[ 1 ];
         }
 
         return true;
@@ -690,12 +685,12 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string encoded answer
      */
-    function answerEncode($answer)
+    public function answerEncode ( $answer )
     {
-        $charsToReplace = array('\[','\]', '<' , '>');
-        $replacingChars = array('&#91;','&#93;', '&lt;', '&gt;');
+        $charsToReplace = array ( '\[', '\]', '<', '>' );
+        $replacingChars = array ( '&#91;', '&#93;', '&lt;', '&gt;' );
 
-        return str_replace($charsToReplace,$replacingChars,trim($answer));
+        return str_replace ( $charsToReplace, $replacingChars, trim ( $answer ) );
     }
 
     /**
@@ -704,12 +699,12 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string decoded answer
      */
-    function answerDecode($answer)
+    public function answerDecode ( $answer )
     {
-        $charsToReplace = array('&#91;','&#93;', '&lt;', '&gt;', '&#44;');
-        $replacingChars = array('[',']', '<' , '>', ',');
+        $charsToReplace = array ( '&#91;', '&#93;', '&lt;', '&gt;', '&#44;' );
+        $replacingChars = array ( '[', ']', '<', '>', ',' );
 
-        return str_replace($charsToReplace,$replacingChars,trim($answer));
+        return str_replace ( $charsToReplace, $replacingChars, trim ( $answer ) );
     }
 
     /**
@@ -718,12 +713,12 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string encoded wrong answers list
      */
-    function wrongAnswerEncode($wrongAnswer)
+    public function wrongAnswerEncode ( $wrongAnswer )
     {
-        $charsToReplace = array(',' , '<' , '>');
-        $replacingChars = array('&#44;' , '&lt;' , '&gt;');
+        $charsToReplace = array ( ',', '<', '>' );
+        $replacingChars = array ( '&#44;', '&lt;', '&gt;' );
 
-        return str_replace($charsToReplace,$replacingChars,trim($wrongAnswer));
+        return str_replace ( $charsToReplace, $replacingChars, trim ( $wrongAnswer ) );
     }
 
     /**
@@ -732,13 +727,14 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string text with backslashes before encoded brackets
      */
-    function addslashesEncodedBrackets($text)
+    public function addslashesEncodedBrackets ( $text )
     {
-        $charsToReplace = array('&#91;','&#93;');
-        $replacingChars = array('\\&#91;','\\&#93;');
+        $charsToReplace = array ( '&#91;', '&#93;' );
+        $replacingChars = array ( '\\&#91;', '\\&#93;' );
 
-        return str_replace($charsToReplace,$replacingChars,trim($text));
+        return str_replace ( $charsToReplace, $replacingChars, trim ( $text ) );
     }
+
     /**
      * read response from request grade it, write grade in object, return grade
      *
@@ -746,17 +742,17 @@ class answerFillInBlanks
      * @return float question grade
      * @desc return score of checked answer or 0 if nothing was checked
      */
-    function gradeResponse()
+    public function gradeResponse ()
     {
         $grade = 0;
 
-        $answerCount = count($this->answerList);
+        $answerCount = count ( $this->answerList );
 
-        for( $i = 0 ; $i < $answerCount ; $i++ )
+        for ( $i = 0; $i < $answerCount; $i++ )
         {
-            if( $this->isResponseCorrect($this->response[$i],$this->answerDecode($this->answerList[$i])) )
+            if ( $this->isResponseCorrect ( $this->response[ $i ], $this->answerDecode ( $this->answerList[ $i ] ) ) )
             {
-                $grade += $this->gradeList[$i];
+                $grade += $this->gradeList[ $i ];
             }
         }
         return $grade;
@@ -768,21 +764,21 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation
      */
-    function extractResponseFromRequest()
+    public function extractResponseFromRequest ()
     {
-        $this->response = array();
+        $this->response = array ( );
 
-        $answerCount = count($this->answerList);
+        $answerCount = count ( $this->answerList );
 
-        for( $i = 0; $i < $answerCount ; $i++ )
+        for ( $i = 0; $i < $answerCount; $i++ )
         {
-            if( isset($_REQUEST['a_'.$this->questionId.'_'.$i]) )
+            if ( isset ( $_REQUEST[ 'a_' . $this->questionId . '_' . $i ] ) )
             {
-                $this->response[$i] = $_REQUEST['a_'.$this->questionId.'_'.$i];
+                $this->response[ $i ] = $_REQUEST[ 'a_' . $this->questionId . '_' . $i ];
             }
             else
             {
-                $this->response[$i] = '';
+                $this->response[ $i ] = '';
             }
         }
 
@@ -795,15 +791,15 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return float question grade
      */
-    function getGrade()
+    public function getGrade ()
     {
         $gradeSum = 0;
 
-        foreach( $this->gradeList as $grade )
+        foreach ( $this->gradeList as $grade )
         {
             $gradeSum += $grade;
         }
-           return $gradeSum;
+        return $gradeSum;
     }
 
     /**
@@ -812,9 +808,9 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return float question grade
      */
-    function isResponseCorrect($response, $correctAnswer)
+    public function isResponseCorrect ( $response, $correctAnswer )
     {
-        if( $this->type == LISTBOX_FILL )
+        if ( $this->type == LISTBOX_FILL )
         {
             // case sensitive check when select box are used
             return (bool) ($response == $correctAnswer);
@@ -822,7 +818,7 @@ class answerFillInBlanks
         else
         {
             // case insensitive check when text box are used
-            return (bool) (strtolower($response) == strtolower($correctAnswer));
+            return (bool) (strtolower ( $response ) == strtolower ( $correctAnswer ));
         }
     }
 
@@ -832,8 +828,9 @@ class answerFillInBlanks
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return array
      */
-    function getTrackingValues()
+    public function getTrackingValues ()
     {
         return $this->response;
     }
+
 }

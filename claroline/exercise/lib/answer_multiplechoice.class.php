@@ -1,6 +1,6 @@
-<?php // $Id$
+<?php
 
-if ( count( get_included_files() ) == 1 ) die( '---' );
+// $Id$
 
 /**
  * CLAROLINE
@@ -10,13 +10,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author Claro Team <cvs@claroline.net>
  */
-
 class answerMultipleChoice
 {
+
     /**
      * @var $id id of question, -1 if answer doesn't exist already
      */
-    var $questionId;
+    public $questionId;
 
     /**
      * @var $answerList array with list of proposal
@@ -26,12 +26,12 @@ class answerMultipleChoice
      *         $answerList[]['grade'] // float
      *         $answerList[]['comment'] // text
      */
-    var $answerList;
+    public $answerList;
 
     /**
      * @var $multipleAnswer boolean true if multiple answer
      */
-    var $multipleAnswer;
+    public $multipleAnswer;
 
     //----- Others
 
@@ -39,17 +39,17 @@ class answerMultipleChoice
      * @var $response response sent by user and stored in object for easiest use
      * use extractResponseFromRequest to set it
      */
-    var $response;
+    public $response;
 
     /**
      * @var $errorList is used to store error that comes on form post
      */
-    var $errorList;
+    public $errorList;
 
     /**
      * @var $tblAnswer
      */
-    var $tblAnswer;
+    protected $tblAnswer;
 
     /**
      * constructor
@@ -60,22 +60,22 @@ class answerMultipleChoice
      * @param $course_id to use the class when not in course context
      * @return string
      */
-    function answerMultipleChoice($questionId, $multipleAnswer = false, $course_id = null)
+    public function __construct ( $questionId, $multipleAnswer = false, $course_id = null )
     {
         $this->questionId = (int) $questionId;
 
         $this->multipleAnswer = (bool) $multipleAnswer;
 
-        $this->answerList = array();
+        $this->answerList = array ( );
         // add 2 empty answers as minimum requested number of answers
-        $this->addAnswer();
-        $this->addAnswer();
+        $this->addAnswer ();
+        $this->addAnswer ();
 
-        $this->response = array();
-        $this->errorList = array();
+        $this->response = array ( );
+        $this->errorList = array ( );
 
-        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_answer_multiple_choice' ), $course_id );
-        $this->tblAnswer = $tbl_cdb_names['qwz_answer_multiple_choice'];
+        $tbl_cdb_names = get_module_course_tbl ( array ( 'qwz_answer_multiple_choice' ), $course_id );
+        $this->tblAnswer = $tbl_cdb_names[ 'qwz_answer_multiple_choice' ];
     }
 
     /**
@@ -84,7 +84,7 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation
      */
-    function load()
+    public function load ()
     {
         $sql = "SELECT
                     `id`,
@@ -92,19 +92,19 @@ class answerMultipleChoice
                     `correct`,
                     `grade`,
                     `comment`
-            FROM `".$this->tblAnswer."`
-            WHERE `questionId` = ".(int) $this->questionId."
+            FROM `" . $this->tblAnswer . "`
+            WHERE `questionId` = " . (int) $this->questionId . "
             ORDER BY `id`";
 
-        $data = claro_sql_query_fetch_all($sql);
+        $data = claro_sql_query_fetch_all ( $sql );
 
-        if( !empty($data) )
+        if ( !empty ( $data ) )
         {
             $this->answerList = $data;
-            if( count($data) == 1 )
+            if ( count ( $data ) == 1 )
             {
                 // it is not a normal comportment but we need at least 2 answers !
-                $this->addAnswer();
+                $this->addAnswer ();
             }
 
             return true;
@@ -121,32 +121,34 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation
      */
-    function save()
+    public function save ()
     {
         // we need at least 2 answers
-        if( count($this->answerList) < 2 ) return false;
+        if ( count ( $this->answerList ) < 2 )
+            return false;
 
-        $sql = "DELETE FROM `".$this->tblAnswer."`
-                WHERE `questionId` = ".(int) $this->questionId;
+        $sql = "DELETE FROM `" . $this->tblAnswer . "`
+                WHERE `questionId` = " . (int) $this->questionId;
 
-        if( claro_sql_query($sql) == false ) return false;
+        if ( claro_sql_query ( $sql ) == false )
+            return false;
 
-           // inserts new answers into data base
-        $sql = "INSERT INTO `".$this->tblAnswer."` (`questionId`,`answer`,`correct`,`grade`,`comment`)
+        // inserts new answers into data base
+        $sql = "INSERT INTO `" . $this->tblAnswer . "` (`questionId`,`answer`,`correct`,`grade`,`comment`)
                 VALUES ";
 
-        foreach($this->answerList as $anAnswer)
+        foreach ( $this->answerList as $anAnswer )
         {
-            $sql .= "(".(int) $this->questionId.",
-                    '".claro_sql_escape($anAnswer['answer'])."',
-                    ".(int) $anAnswer['correct'].",
-                    '".claro_sql_escape($anAnswer['grade'])."',
-                    '".claro_sql_escape($anAnswer['comment'])."'),";
+            $sql .= "(" . (int) $this->questionId . ",
+                    '" . claro_sql_escape ( $anAnswer[ 'answer' ] ) . "',
+                    " . (int) $anAnswer[ 'correct' ] . ",
+                    '" . claro_sql_escape ( $anAnswer[ 'grade' ] ) . "',
+                    '" . claro_sql_escape ( $anAnswer[ 'comment' ] ) . "'),";
         }
 
-        $sql = substr($sql,0,-1); // remove trailing ,
+        $sql = substr ( $sql, 0, -1 ); // remove trailing ,
 
-        return claro_sql_query($sql);
+        return claro_sql_query ( $sql );
     }
 
     /**
@@ -155,12 +157,12 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation
      */
-    function delete()
+    public function delete ()
     {
-        $sql = "DELETE FROM `".$this->tblAnswer."`
-                WHERE `questionId` = ".(int) $this->questionId;
+        $sql = "DELETE FROM `" . $this->tblAnswer . "`
+                WHERE `questionId` = " . (int) $this->questionId;
 
-        return claro_sql_query($sql);
+        return claro_sql_query ( $sql );
     }
 
     /**
@@ -169,15 +171,15 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return object duplicated object
      */
-    function duplicate($duplicatedQuestionId)
+    public function duplicate ( $duplicatedQuestionId )
     {
-        $duplicated = new answerMultipleChoice($duplicatedQuestionId);
+        $duplicated = new answerMultipleChoice ( $duplicatedQuestionId );
 
         $duplicated->multipleAnswer = $this->multipleAnswer;
         $duplicated->answerList = $this->answerList;
         // we could remove the ids in this array but it is not required, they are ignored during save
 
-        $duplicated->save();
+        $duplicated->save ();
 
         return $duplicated;
     }
@@ -188,28 +190,28 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation
      */
-    function validate()
+    public function validate ()
     {
         // must have at least a correct answer
         $hasGoodAnswer = false;
         // must have text in answer
-        foreach( $this->answerList as $answer )
+        foreach ( $this->answerList as $answer )
         {
-            if( $answer['correct'] == 1 )
+            if ( $answer[ 'correct' ] == 1 )
             {
                 $hasGoodAnswer = true;
             }
 
-            if( trim($answer['answer']) == '' )
+            if ( trim ( $answer[ 'answer' ] ) == '' )
             {
-                $this->errorList[] = get_lang('Please give the answers to the question');
+                $this->errorList[ ] = get_lang ( 'Please give the answers to the question' );
                 return false;
             }
         }
 
-        if( !$hasGoodAnswer )
+        if ( !$hasGoodAnswer )
         {
-            $this->errorList[] = get_lang('Please choose a good answer');
+            $this->errorList[ ] = get_lang ( 'Please choose a good answer' );
             return false;
         }
 
@@ -222,83 +224,89 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean true if form can be checked and saved, false
      */
-    function handleForm()
+    public function handleForm ()
     {
-        $this->answerList = array();
+        $this->answerList = array ( );
 
         // set form value in object
-        for( $i = 0; $i < $_REQUEST['answerCount']; $i++ )
+        for ( $i = 0; $i < $_REQUEST[ 'answerCount' ]; $i++ )
         {
             $answerNumber = $i + 1;
 
             //-- answer text
-            $answer = 'answer_'.$answerNumber;
-            if( isset($_REQUEST[$answer]) )     $this->answerList[$i]['answer'] = $_REQUEST[$answer];
-            else                                $this->answerList[$i]['answer'] = '';
+            $answer = 'answer_' . $answerNumber;
+            if ( isset ( $_REQUEST[ $answer ] ) )
+                $this->answerList[ $i ][ 'answer' ] = $_REQUEST[ $answer ];
+            else
+                $this->answerList[ $i ][ 'answer' ] = '';
 
             //-- correct answer
-            $correct = 'correct_'.$answerNumber;
-            if( $this->multipleAnswer )
+            $correct = 'correct_' . $answerNumber;
+            if ( $this->multipleAnswer )
             {
-                if( isset($_REQUEST[$correct]) )     $this->answerList[$i]['correct'] = 1;
-                else                                $this->answerList[$i]['correct'] = 0;
+                if ( isset ( $_REQUEST[ $correct ] ) )
+                    $this->answerList[ $i ][ 'correct' ] = 1;
+                else
+                    $this->answerList[ $i ][ 'correct' ] = 0;
             }
             else
             {
-                if( isset($_REQUEST['correct']) && $_REQUEST['correct'] == $correct )
+                if ( isset ( $_REQUEST[ 'correct' ] ) && $_REQUEST[ 'correct' ] == $correct )
                 {
-                    $this->answerList[$i]['correct'] = 1;
+                    $this->answerList[ $i ][ 'correct' ] = 1;
                 }
                 else
                 {
-                    $this->answerList[$i]['correct'] = 0;
+                    $this->answerList[ $i ][ 'correct' ] = 0;
                 }
             }
 
             //-- feedbacks
-            $comment = 'comment_'.$answerNumber;
-            if( isset($_REQUEST[$comment]) )     $this->answerList[$i]['comment'] = $_REQUEST[$comment];
-            else                                $this->answerList[$i]['comment'] = '';
+            $comment = 'comment_' . $answerNumber;
+            if ( isset ( $_REQUEST[ $comment ] ) )
+                $this->answerList[ $i ][ 'comment' ] = $_REQUEST[ $comment ];
+            else
+                $this->answerList[ $i ][ 'comment' ] = '';
 
             //-- grade
-            $grade = 'grade_'.$answerNumber;
-            if( isset($_REQUEST[$grade]) )
+            $grade = 'grade_' . $answerNumber;
+            if ( isset ( $_REQUEST[ $grade ] ) )
             {
-                if( $this->answerList[$i]['correct'] == 1 )
+                if ( $this->answerList[ $i ][ 'correct' ] == 1 )
                 {
                     // correct answer must have positive answer
-                    $this->answerList[$i]['grade'] = abs(castToFloat($_REQUEST[$grade]));
+                    $this->answerList[ $i ][ 'grade' ] = abs ( castToFloat ( $_REQUEST[ $grade ] ) );
                 }
                 else
                 {
-                    if( $this->multipleAnswer )
+                    if ( $this->multipleAnswer )
                     {
                         // if multiple answer score must be negative
-                        $this->answerList[$i]['grade'] = 0 - abs(castToFloat($_REQUEST[$grade]));
+                        $this->answerList[ $i ][ 'grade' ] = 0 - abs ( castToFloat ( $_REQUEST[ $grade ] ) );
                     }
                     else
                     {
                         // if single answer score can be positive
-                        $this->answerList[$i]['grade'] = castToFloat($_REQUEST[$grade]);
+                        $this->answerList[ $i ][ 'grade' ] = castToFloat ( $_REQUEST[ $grade ] );
                     }
                 }
             }
             else
             {
-                $this->answerList[$i]['grade'] = 0;
+                $this->answerList[ $i ][ 'grade' ] = 0;
             }
         }
 
         //-- cmd
-        if( isset($_REQUEST['cmdRemAnsw']) )
+        if ( isset ( $_REQUEST[ 'cmdRemAnsw' ] ) )
         {
-            $this->remAnswer();
+            $this->remAnswer ();
             return false;
         }
 
-        if( isset($_REQUEST['cmdAddAnsw']) )
+        if ( isset ( $_REQUEST[ 'cmdAddAnsw' ] ) )
         {
-            $this->addAnswer();
+            $this->addAnswer ();
             return false;
         }
 
@@ -312,7 +320,7 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return array list of errors
      */
-    function getErrorList()
+    public function getErrorList ()
     {
         return $this->errorList;
     }
@@ -323,62 +331,62 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer
      */
-    function getAnswerHtml()
+    public function getAnswerHtml ()
     {
-        if( empty($this->answerList) )
+        if ( empty ( $this->answerList ) )
         {
-            $html = "\n" . '<p>' . get_lang('There is no answer for the moment') . '</p>' . "\n\n";
+            $html = "\n" . '<p>' . get_lang ( 'There is no answer for the moment' ) . '</p>' . "\n\n";
         }
         else
         {
-            if( $this->multipleAnswer )
+            if ( $this->multipleAnswer )
             {
-                $questionTypeLang = get_lang('Multiple choice (Multiple answers)');
+                $questionTypeLang = get_lang ( 'Multiple choice (Multiple answers)' );
             }
             else
             {
-                $questionTypeLang = get_lang('Multiple choice (Unique answer)');
+                $questionTypeLang = get_lang ( 'Multiple choice (Unique answer)' );
             }
 
             $html = '<table width="100%">' . "\n\n";
 
-            foreach( $this->answerList as $answer )
+            foreach ( $this->answerList as $answer )
             {
-                $isSelected = array_key_exists($answer['id'], $this->response);
+                $isSelected = array_key_exists ( $answer[ 'id' ], $this->response );
 
                 $html .=
                     '<tr>' . "\n"
-                .     '<td align="center" width="5%">' . "\n";
+                    . '<td align="center" width="5%">' . "\n";
 
-                if( $this->multipleAnswer )
+                if ( $this->multipleAnswer )
                 {
                     $html .=
-                        '<input name="a_'.$this->questionId.'_'.$answer['id'].'" id="a_'.$this->questionId.'_'.$answer['id'].'" value="true" type="checkbox" class="checkbox" '
-                    .    ( $isSelected ? 'checked="checked"':'' )
-                    .    '/>' . "\n";
+                        '<input name="a_' . $this->questionId . '_' . $answer[ 'id' ] . '" id="a_' . $this->questionId . '_' . $answer[ 'id' ] . '" value="true" type="checkbox" class="checkbox" '
+                        . ( $isSelected ? 'checked="checked"' : '' )
+                        . '/>' . "\n";
                 }
                 else
                 {
                     $html .=
-                        '<input name="a_'.$this->questionId.'" id="a_'.$this->questionId.'_'.$answer['id'].'" value="'.$answer['id'].'" type="radio" '
-                    .    ( $isSelected ? 'checked="checked"':'' )
-                    .    '/>' . "\n";
+                        '<input name="a_' . $this->questionId . '" id="a_' . $this->questionId . '_' . $answer[ 'id' ] . '" value="' . $answer[ 'id' ] . '" type="radio" '
+                        . ( $isSelected ? 'checked="checked"' : '' )
+                        . '/>' . "\n";
                 }
 
                 $html .=
                     '</td>' . "\n"
-                .    '<td width="95%" class="labelizer">' . "\n"
-                //.    '<label for="a_'.$this->questionId.'_'.$answer['id'].'">' . claro_parse_user_text($answer['answer']) . '</label>' . "\n"
-                .    '<div>'
-                .    claro_parse_user_text($answer['answer'])
-                .    '</div>' . "\n"
-                .    '</td>' . "\n"
-                .    '</tr>' . "\n\n";
+                    . '<td width="95%" class="labelizer">' . "\n"
+                    //.    '<label for="a_'.$this->questionId.'_'.$answer['id'].'">' . claro_parse_user_text($answer['answer']) . '</label>' . "\n"
+                    . '<div>'
+                    . claro_parse_user_text ( $answer[ 'answer' ] )
+                    . '</div>' . "\n"
+                    . '</td>' . "\n"
+                    . '</tr>' . "\n\n";
             }
 
             $html .=
                 '</table>' . "\n"
-            .    '<p><small>' . $questionTypeLang . '</small></p>' . "\n";
+                . '<p><small>' . $questionTypeLang . '</small></p>' . "\n";
         }
 
         return $html;
@@ -390,21 +398,21 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of hidden sent data
      */
-    function getHiddenAnswerHtml()
+    public function getHiddenAnswerHtml ()
     {
         $html = "\n" . '<!-- ' . $this->questionId . ' -->' . "\n";
 
-        foreach( $this->answerList as $answer )
+        foreach ( $this->answerList as $answer )
         {
-            if( array_key_exists($answer['id'], $this->response) )
+            if ( array_key_exists ( $answer[ 'id' ], $this->response ) )
             {
-                if( $this->multipleAnswer )
+                if ( $this->multipleAnswer )
                 {
-                    $html .= '<input type="hidden" name="a_'.$this->questionId.'_'.$answer['id'].'" value="true" />' . "\n";
+                    $html .= '<input type="hidden" name="a_' . $this->questionId . '_' . $answer[ 'id' ] . '" value="true" />' . "\n";
                 }
                 else
                 {
-                    $html .= '<input type="hidden" name="a_'.$this->questionId.'" value="'.$answer['id'].'" />' . "\n";
+                    $html .= '<input type="hidden" name="a_' . $this->questionId . '" value="' . $answer[ 'id' ] . '" />' . "\n";
                     // only one response is required so get out of the loop
                     break;
                 }
@@ -421,63 +429,60 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of feedback for this answer
      */
-    function getAnswerFeedbackHtml()
+    public function getAnswerFeedbackHtml ()
     {
         global $imgRepositoryWeb;
 
-        if( $this->multipleAnswer )
+        if ( $this->multipleAnswer )
         {
-            $questionTypeLang = get_lang('Multiple choice (Multiple answers)');
-            $imgOnHtml = '<img src="' . get_icon_url('checkbox_on') . '" alt="[X]" />';
-            $imgOffHtml = '<img src="' . get_icon_url('checkbox_off') . '" alt="[ ]" />';
+            $questionTypeLang = get_lang ( 'Multiple choice (Multiple answers)' );
+            $imgOnHtml = '<img src="' . get_icon_url ( 'checkbox_on' ) . '" alt="[X]" />';
+            $imgOffHtml = '<img src="' . get_icon_url ( 'checkbox_off' ) . '" alt="[ ]" />';
         }
         else
         {
-            $questionTypeLang = get_lang('Multiple choice (Unique answer)');
-            $imgOnHtml = '<img src="' . get_icon_url('radio_on') . '" alt="(X)" />';
-            $imgOffHtml = '<img src="' . get_icon_url('radio_off') . '" alt="( )" />';
+            $questionTypeLang = get_lang ( 'Multiple choice (Unique answer)' );
+            $imgOnHtml = '<img src="' . get_icon_url ( 'radio_on' ) . '" alt="(X)" />';
+            $imgOffHtml = '<img src="' . get_icon_url ( 'radio_off' ) . '" alt="( )" />';
         }
 
         $html =
             '<table width="100%">' . "\n\n"
+            . '<tr style="font-style:italic;font-size:small;">' . "\n"
+            . '<td align="center" valign="top" width="5%">' . get_lang ( 'Your choice' ) . '</td>' . "\n"
+            . '<td align="center" valign="top" width="5%">' . get_lang ( 'Expected choice' ) . '</td>' . "\n"
+            . '<td valign="top" width="45%">' . get_lang ( 'Answer' ) . '</td>' . "\n"
+            . '<td valign="top" width="45%">' . get_lang ( 'Comment' ) . '</td>' . "\n"
+            . '</tr>' . "\n\n";
 
-        .    '<tr style="font-style:italic;font-size:small;">' . "\n"
-        .    '<td align="center" valign="top" width="5%">'.get_lang('Your choice').'</td>' . "\n"
-        .    '<td align="center" valign="top" width="5%">'.get_lang('Expected choice').'</td>' . "\n"
-        .    '<td valign="top" width="45%">'.get_lang('Answer').'</td>' . "\n"
-        .    '<td valign="top" width="45%">'.get_lang('Comment').'</td>' . "\n"
-        .    '</tr>' . "\n\n";
 
-
-        foreach( $this->answerList as $answer )
+        foreach ( $this->answerList as $answer )
         {
-            $isSelected = array_key_exists($answer['id'], $this->response);
+            $isSelected = array_key_exists ( $answer[ 'id' ], $this->response );
 
             $html .=
                 '<tr>' . "\n"
-            .    '<td align="center" width="5%">'
-            .    ( $isSelected ? $imgOnHtml : $imgOffHtml )
-            .    '</td>' . "\n"
-            .    '<td align="center" width="5%">'
-               .    ( $answer['correct'] ? $imgOnHtml : $imgOffHtml )
-            .    '</td>' . "\n"
-            .    '<td width="45%">'
-            .    claro_parse_user_text($answer['answer'])
-            .    '</td>' . "\n"
-            .    '<td width="45%">'
-            . ( ( get_conf('showAllFeedbacks') ||  ($isSelected || $answer['correct'])) ? claro_parse_user_text($answer['comment']) : '&nbsp;' )
-
-             .     '</td>' . "\n"
-            .    '</tr>' . "\n\n";
+                . '<td align="center" width="5%">'
+                . ( $isSelected ? $imgOnHtml : $imgOffHtml )
+                . '</td>' . "\n"
+                . '<td align="center" width="5%">'
+                . ( $answer[ 'correct' ] ? $imgOnHtml : $imgOffHtml )
+                . '</td>' . "\n"
+                . '<td width="45%">'
+                . claro_parse_user_text ( $answer[ 'answer' ] )
+                . '</td>' . "\n"
+                . '<td width="45%">'
+                . ( ( get_conf ( 'showAllFeedbacks' ) || ($isSelected || $answer[ 'correct' ])) ? claro_parse_user_text ( $answer[ 'comment' ] ) : '&nbsp;' )
+                . '</td>' . "\n"
+                . '</tr>' . "\n\n";
         }
 
 
         $html .=
             '</table>' . "\n"
-        .    '<p><small>' . $questionTypeLang . '</small></p>' . "\n";
+            . '<p><small>' . $questionTypeLang . '</small></p>' . "\n";
 
         return $html;
-
     }
 
     /**
@@ -488,70 +493,70 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer edition form
      */
-    function getFormHtml($exId = null, $askDuplicate)
+    public function getFormHtml ( $exId = null, $askDuplicate )
     {
-           $html =
-            '<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
-        .     '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-        .    '<input type="hidden" name="answerCount" value="'.count($this->answerList).'" />' . "\n"
-        .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
-        .    claro_form_relay_context() . "\n";
+        $html =
+            '<form method="post" action="./edit_answers.php?exId=' . $exId . '&amp;quId=' . $this->questionId . '">' . "\n"
+            . '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
+            . '<input type="hidden" name="answerCount" value="' . count ( $this->answerList ) . '" />' . "\n"
+            . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />' . "\n"
+            . claro_form_relay_context () . "\n";
 
-        if( $this->multipleAnswer )
-           {
-               // warn course admin that if the user checks all answer he will have the sum of all wieghting values
-            $html .= '<p><small>' . get_lang('Use negative weighting for incorrect choices to penalize a user that check all answers.') . '</small></p>' . "\n";
+        if ( $this->multipleAnswer )
+        {
+            // warn course admin that if the user checks all answer he will have the sum of all wieghting values
+            $html .= '<p><small>' . get_lang ( 'Use negative weighting for incorrect choices to penalize a user that check all answers.' ) . '</small></p>' . "\n";
         }
 
-        if( !empty($exId) && $askDuplicate )
+        if ( !empty ( $exId ) && $askDuplicate )
         {
-            $html .= '<p>' . html_ask_duplicate() . '</p>' . "\n";
+            $html .= '<p>' . html_ask_duplicate () . '</p>' . "\n";
         }
 
         $html .= '<table class="claroTable" >' . "\n"
-        .   '<thead>'
-        .   '<tr>' . "\n"
-        .   '<th>' . get_lang('Expected choice') . '</th>' . "\n"
-        .   '<th>' . get_lang('Answer') . '</th>' . "\n"
-        .   '<th>' . get_lang('Comment') . '</th>' . "\n"
-        .   '<th>' . get_lang('Weighting') . '</th>' . "\n"
-        .   '</tr>' . "\n"
-        .   '</thead>'."\n";
+            . '<thead>'
+            . '<tr>' . "\n"
+            . '<th>' . get_lang ( 'Expected choice' ) . '</th>' . "\n"
+            . '<th>' . get_lang ( 'Answer' ) . '</th>' . "\n"
+            . '<th>' . get_lang ( 'Comment' ) . '</th>' . "\n"
+            . '<th>' . get_lang ( 'Weighting' ) . '</th>' . "\n"
+            . '</tr>' . "\n"
+            . '</thead>' . "\n";
 
         $i = 1;
-        foreach( $this->answerList as $answer )
+        foreach ( $this->answerList as $answer )
         {
             $html .=
                 '<tr>' . "\n"
-            .     '<td valign="top" align="center">';
+                . '<td valign="top" align="center">';
 
-            if( $this->multipleAnswer )
+            if ( $this->multipleAnswer )
             {
                 $html .=
-                    '<input name="correct_'.$i.'" id="correct_'.$i.'" '
-                    .( $answer['correct'] ? 'checked="checked"':'')
-                    .' type="checkbox" value="1" />';
+                    '<input name="correct_' . $i . '" id="correct_' . $i . '" '
+                    . ( $answer[ 'correct' ] ? 'checked="checked"' : '')
+                    . ' type="checkbox" value="1" />';
             }
             else
             {
                 $html .=
-                    '<input name="correct" id="correct_'.$i.'" '
-                    .( $answer['correct'] ? 'checked="checked"':'')
-                    .' type="radio" value="correct_'.$i.'" />';
+                    '<input name="correct" id="correct_' . $i . '" '
+                    . ( $answer[ 'correct' ] ? 'checked="checked"' : '')
+                    . ' type="radio" value="correct_' . $i . '" />';
             }
 
             $html .=
                 '</td>' . "\n"
-            .     '<td valign="top">'
-            .      claro_html_textarea_editor('answer_'.$i,$answer['answer'],10,25,'','simple')
-            .     '</td>' . "\n"
-            .     '<td>'
-            .      claro_html_textarea_editor('comment_'.$i,$answer['comment'],10,25,'','simple')
-            .     '</td>' . "\n"
-            .     '<td valign="top">'
-            .   '<input name="grade_'.$i.'" size="5" value="' . htmlspecialchars($answer['grade']) . '" type="text" />'
-            .   '</td>' . "\n"
-            .     '</tr>' . "\n\n"
+                . '<td valign="top">'
+                . claro_html_textarea_editor ( 'answer_' . $i, $answer[ 'answer' ], 10, 25, '', 'simple' )
+                . '</td>' . "\n"
+                . '<td>'
+                . claro_html_textarea_editor ( 'comment_' . $i, $answer[ 'comment' ], 10, 25, '', 'simple' )
+                . '</td>' . "\n"
+                . '<td valign="top">'
+                . '<input name="grade_' . $i . '" size="5" value="' . htmlspecialchars ( $answer[ 'grade' ] ) . '" type="text" />'
+                . '</td>' . "\n"
+                . '</tr>' . "\n\n"
             ;
 
             $i++;
@@ -559,16 +564,15 @@ class answerMultipleChoice
 
         $html .=
             '<tr>' . "\n"
-        .     '<td colspan="4" align="center">'
-        .     '<input type="submit" name="cmdOk" value="' . get_lang('Ok') . '" />&nbsp;&nbsp;'
-        .     '<input type="submit" name="cmdRemAnsw" value="' . get_lang('Rem. answ.') . '" />&nbsp;&nbsp;'
-        .     '<input type="submit" name="cmdAddAnsw" value="' . get_lang('Add answ.') . '" />&nbsp;&nbsp;'
-        .     claro_html_button(Url::Contextualize('./edit_question.php?exId='.$exId.'&amp;quId='.$this->questionId), get_lang("Cancel") )
-        .     '</td>' . "\n"
-        .     '</tr>' . "\n\n"
-
-        .    '</table>' . "\n\n"
-        .    '</form>' . "\n\n";
+            . '<td colspan="4" align="center">'
+            . '<input type="submit" name="cmdOk" value="' . get_lang ( 'Ok' ) . '" />&nbsp;&nbsp;'
+            . '<input type="submit" name="cmdRemAnsw" value="' . get_lang ( 'Rem. answ.' ) . '" />&nbsp;&nbsp;'
+            . '<input type="submit" name="cmdAddAnsw" value="' . get_lang ( 'Add answ.' ) . '" />&nbsp;&nbsp;'
+            . claro_html_button ( Url::Contextualize ( './edit_question.php?exId=' . $exId . '&amp;quId=' . $this->questionId ), get_lang ( "Cancel" ) )
+            . '</td>' . "\n"
+            . '</tr>' . "\n\n"
+            . '</table>' . "\n\n"
+            . '</form>' . "\n\n";
 
         return $html;
     }
@@ -578,19 +582,19 @@ class answerMultipleChoice
      *
      * @return boolean result of operation
      */
-    function addAnswer()
+    public function addAnswer ()
     {
         // id is mainly use for creation on new answer,
         // will be overwritten by the id in db
-        $addedAnswer = array(
-                            'id'    => 0,
-                            'answer' => '',
-                            'correct' => 0,
-                            'grade' => 0,
-                            'comment' => '',
-                            );
+        $addedAnswer = array (
+            'id' => 0,
+            'answer' => '',
+            'correct' => 0,
+            'grade' => 0,
+            'comment' => '',
+        );
 
-        $this->answerList[] = $addedAnswer;
+        $this->answerList[ ] = $addedAnswer;
     }
 
     /**
@@ -598,13 +602,13 @@ class answerMultipleChoice
      *
      * @return boolean result of operation
      */
-    function remAnswer()
+    public function remAnswer ()
     {
-        if( count($this->answerList) > 2 )
+        if ( count ( $this->answerList ) > 2 )
         {
-            $removedAnswer = array_pop($this->answerList);
+            $removedAnswer = array_pop ( $this->answerList );
 
-            if( !is_null($removedAnswer) )
+            if ( !is_null ( $removedAnswer ) )
             {
                 return true;
             }
@@ -626,23 +630,24 @@ class answerMultipleChoice
      * @return float question grade
      * @desc return score of checked answer or 0 if nothing was checked
      */
-    function gradeResponse()
+    public function gradeResponse ()
     {
         $grade = 0;
 
-        foreach( $this->answerList as $answer )
+        foreach ( $this->answerList as $answer )
         {
-            if( array_key_exists($answer['id'], $this->response) )
+            if ( array_key_exists ( $answer[ 'id' ], $this->response ) )
             {
-                   $grade += $answer['grade'];
+                $grade += $answer[ 'grade' ];
 
                 // if not multiple we only need one response so get out of the loop
-                if( !$this->multipleAnswer ) break;
+                if ( !$this->multipleAnswer )
+                    break;
             }
         }
-        
+
         // avoid returning negative val
-        return max(0,$grade);
+        return max ( 0, $grade );
     }
 
     /**
@@ -651,23 +656,23 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation
      */
-    function extractResponseFromRequest()
+    public function extractResponseFromRequest ()
     {
-        if( $this->multipleAnswer )
+        if ( $this->multipleAnswer )
         {
-            foreach( $this->answerList as $answer )
+            foreach ( $this->answerList as $answer )
             {
-                if( isset($_REQUEST['a_'.$this->questionId.'_'.$answer['id']]) )
+                if ( isset ( $_REQUEST[ 'a_' . $this->questionId . '_' . $answer[ 'id' ] ] ) )
                 {
-                    $this->response[$answer['id']] = true;
+                    $this->response[ $answer[ 'id' ] ] = true;
                 }
             }
         }
         else
         {
-            if( isset($_REQUEST['a_'.$this->questionId]) )
+            if ( isset ( $_REQUEST[ 'a_' . $this->questionId ] ) )
             {
-                $this->response[$_REQUEST['a_'.$this->questionId]] = true;
+                $this->response[ $_REQUEST[ 'a_' . $this->questionId ] ] = true;
             }
         }
         return true;
@@ -679,18 +684,18 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return float question grade
      */
-    function getGrade()
+    public function getGrade ()
     {
         $grade = 0;
 
-        foreach( $this->answerList as $answer )
+        foreach ( $this->answerList as $answer )
         {
-            if( $answer['correct'] )
+            if ( $answer[ 'correct' ] )
             {
-                $grade += $answer['grade'];
+                $grade += $answer[ 'grade' ];
             }
         }
-           return $grade;
+        return $grade;
     }
 
     /**
@@ -699,17 +704,18 @@ class answerMultipleChoice
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return array
      */
-    function getTrackingValues()
+    public function getTrackingValues ()
     {
-        $values = array();
+        $values = array ( );
 
-        foreach( $this->answerList as $answer )
+        foreach ( $this->answerList as $answer )
         {
-            if( array_key_exists($answer['id'], $this->response) )
+            if ( array_key_exists ( $answer[ 'id' ], $this->response ) )
             {
-                $values[] = $answer['answer'];
+                $values[ ] = $answer[ 'answer' ];
             }
         }
         return $values;
     }
+
 }
