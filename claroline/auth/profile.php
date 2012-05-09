@@ -111,6 +111,11 @@ if ( isset($_REQUEST['applyChange']) )
         unset ($userData['password_conf']);
     }
     
+    if (empty($userData['authSource']))
+    {
+        unset ($userData['authSource']);
+    }
+    
     // Validate form params
     $errorMsgList = user_validate_form_profile($userData, claro_get_current_user_id());
     
