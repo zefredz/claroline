@@ -279,8 +279,7 @@ function user_set_properties($userId, $propertyList)
     if (array_key_exists('isPlatformAdmin', $propertyList) && claro_is_platform_admin())
     {
         $propertyList['isPlatformAdmin'] = $propertyList['isPlatformAdmin'] ? 1 : 0;
-    }
-    
+    }    
     
     // Build query
     $sqlColumnList = array('nom'             => 'lastname',
