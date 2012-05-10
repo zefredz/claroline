@@ -135,7 +135,7 @@ switch ( $display )
 
         // Display form
 
-        if ( !empty($profile->id) )
+        if ( empty($profile->id) )
         {
             $out .= claro_html_tool_title(get_lang('Add new profile', null, $cmdList));
         }
