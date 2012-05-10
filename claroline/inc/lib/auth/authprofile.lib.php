@@ -167,7 +167,7 @@ class AuthProfileManager
      * @param int $userId
      * @return AuthProfile
      */
-    public function getUserAuthProfile( $userId )
+    public static function getUserAuthProfile( $userId )
     {
         if ( $userId != claro_get_current_user_id() )
         {
