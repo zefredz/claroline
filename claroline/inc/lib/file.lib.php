@@ -41,32 +41,81 @@ class ClaroGarbageCollector
     {
         if ( is_dir( $this->path ) )
         {
-            Console::debug('GC Called in '.$this->path);
+            // control that path is not in a system folder
             
+            if ( strpos( $this->path, get_path('coursesRepositorySys') ) !== false )
+            {
+                Console::warning("GC directory {$this->path} located in platform course folder : ABORT!");
+                return;
+            }
+            
+            if ( strpos( $this->path, get_path('clarolineRepositorySys') ) !== false )
+            {
+                Console::warning("GC directory {$this->path} located in platform main folder : ABORT!");
+                return;
+            }
+            
+            if ( strpos( $this->path, get_path('rootSys').'/web' ) !== false )
+            {
+                Console::warning("GC directory {$this->path} located in platform web folder : ABORT!");
+                return;
+            }
+            
+            if ( strpos( $this->path, get_path('rootSys').'/module' ) !== false )
+            {
+                Console::warning("GC directory {$this->path} located in platform modules dir : ABORT!");
+                return;
+            }
+            
+            Console::debug('GC Called in '.$this->path);
+
             // Delete archive files older than one hour
-            $tempDirectoryFiles = new DirectoryIterator( $this->path );
+            $tempDirectoryFiles = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $this->path ) );
 
             foreach ( $tempDirectoryFiles as $tempDirectoryFile )
             {
-                if ( $tempDirectoryFile->isReadable() )
+                if ( $tempDirectoryFile->isReadable() 
+                    && $tempDirectoryFile->isWritable() )
                 {
                     if ( $tempDirectoryFile->getMTime() < $this->expire )
                     {
-                        if ( !$tempDirectoryFile->isDot() )
+                        if ( !$tempDirectoryFile->isDir() 
+                            && !$tempDirectoryFile->isDot() )
                         {
                             Console::debug(
                                 'Unlink '
-                                . $tempDirectoryFile->getPathName()
-                                . " mtime: ".$tempDirectoryFile->getMTime()
-                                . "; expire: ".$this->expire
+                                    . $tempDirectoryFile->getPathName()
+                                    . " mtime: ".$tempDirectoryFile->getMTime()
+                                    . "; expire: ".$this->expire
                             );
 
-                            unlink( $tempDirectoryFile->getPathName() );
+                            @unlink( $tempDirectoryFile->getPathName() );
+                        }
+                        elseif ( $tempDirectoryFile->isDir() 
+                                && $this->isEmpty( $tempDirectoryFile->getPathName() ) )
+                        {
+                            Console::debug(
+                                'Rmdir '
+                                    . $tempDirectoryFile->getPathName()
+                                    . " mtime: ".$tempDirectoryFile->getMTime()
+                                    . "; expire: ".$this->expire
+                            );
+
+                            @rmdir( $tempDirectoryFile->getPathName() );
                         }
                     }
                 }
             }
         }
+        else
+        {
+            Console::warning("GC directory {$this->path} is not a folder folder : ABORT!");
+        }
+    }
+    
+    protected function isEmpty( $path )
+    {
+        return ( ( $files = @scandir($path) ) && ( count($files) <= 2 ) );
     }
 }
 
