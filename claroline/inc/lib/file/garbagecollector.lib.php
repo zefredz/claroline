@@ -68,7 +68,9 @@ class ClaroGarbageCollector
             Console::debug('GC Called in '.$this->path);
 
             // Delete archive files older than one hour
-            $tempDirectoryFiles = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $this->path ) );
+            $directoryIterator = new RecursiveDirectoryIterator( $this->path );
+            $directoryIterator->setFlags(FilesystemIterator::SKIP_DOTS);
+            $tempDirectoryFiles = new RecursiveIteratorIterator( $directoryIterator );
 
             foreach ( $tempDirectoryFiles as $tempDirectoryFile )
             {
@@ -78,7 +80,7 @@ class ClaroGarbageCollector
                     if ( $tempDirectoryFile->getMTime() < $this->expire )
                     {
                         if ( !$tempDirectoryFile->isDir() 
-                            && !$tempDirectoryFile->isDot() )
+                            /* && !$tempDirectoryFile->isDot() */ )
                         {
                             Console::debug(
                                 'Unlink '
