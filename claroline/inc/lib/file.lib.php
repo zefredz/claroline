@@ -71,7 +71,7 @@ class ClaroGarbageCollector
 
             // Delete archive files older than one hour
             $directoryIterator = new RecursiveDirectoryIterator( $this->path );
-            $directoryIterator->setFlags(FilesystemIterator::SKIP_DOTS);
+            //$directoryIterator->setFlags(FilesystemIterator::SKIP_DOTS);
             $tempDirectoryFiles = new RecursiveIteratorIterator( $directoryIterator );
 
             foreach ( $tempDirectoryFiles as $tempDirectoryFile )
