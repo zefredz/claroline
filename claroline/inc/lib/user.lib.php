@@ -1504,6 +1504,7 @@ function claro_get_user_course_list($user_id = null)
                    course.language             AS language,
                    course.intitule             AS title,
                    course.titulaires           AS titular,
+                   course.email                AS email,
                    course.visibility           AS visibility,
                    course.access               AS access,
                    course.registration         AS registration,

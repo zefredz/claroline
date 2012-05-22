@@ -571,6 +571,7 @@ function render_user_course_list()
     // and flag hot courses
     $reorganizedUserCourseList  = array();
     $tempSessionCourses         = array();
+    
     foreach ($userCourseList as $course)
     {
         // Do not include "disable", "pending", "trash" or "date" courses
@@ -857,7 +858,7 @@ function render_course_in_dl_list($course, $hot = false, $displayIconAccess = tr
           . '<span'.(!empty($classItem) ? ' class="'.$classItem.'"' : '').'>'.$courseLink . '</span>' . "\n"
           . '</dt>' . "\n"
           . '<dd>' . "\n"
-          . $managerString . "\n";
+          . '<span class="managerString">' . $managerString . "</span>\n";
           
     if (!empty($course['sessionCourses']))
     {
