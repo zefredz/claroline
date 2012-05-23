@@ -236,6 +236,13 @@ if (claro_is_allowed_to_edit())
     );
 }
 
+$cmdList[] = array(
+        'img' => 'coursehome',
+        'name' => get_lang('Back to course homepage'),
+        'url' => htmlspecialchars( Url::Contextualize( 
+            get_path('rootWeb') . 'claroline/course/index.php?cid='.  claro_get_current_course_id () ) )
+);
+
 $toolIntroIterator = new ToolIntroductionIterator(claro_get_current_course_id());
 
 $toolIntroductionList = '';
