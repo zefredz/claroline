@@ -59,7 +59,7 @@ class CurrentCourseToolListBlock implements Display
     
     protected function getModuleLinkList()
     {
-        $toolNameList = claro_get_tool_name_list();
+        //$toolNameList = claro_get_tool_name_list();
         
         $claro_notifier = Claroline::getInstance()->notification;
 
@@ -75,6 +75,21 @@ class CurrentCourseToolListBlock implements Display
         }
         
         $toolLinkList = array();
+        
+        $toolName = get_lang('Course homepage');
+
+        // Trick to find how to build URL, must be IMPROVED
+        $url = htmlspecialchars( Url::Contextualize( get_path('rootWeb') . 'claroline/course/index.php?cid='.$this->courseCode ) );
+        $icon = get_icon_url('coursehome');
+        $htmlId = 'id="courseHomePage"';
+        $removableTool = false;
+        
+        $classCurrent = ( empty($GLOBALS['tlabelReq']) ) ? ' currentTool' : '';
+        
+        $toolLinkList[] = '<a '.$htmlId.'class="item' . $classCurrent . '" href="' . $url . '">'
+            . '<img class="clItemTool"  src="' . $icon . '" alt="" />&nbsp;'
+            . $toolName
+            . '</a>' . "\n";
 
         // Generate tool lists
         $toolListSource = claro_get_course_tool_list( $this->courseCode, $this->profileId, true);
