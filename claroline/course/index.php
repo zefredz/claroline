@@ -17,6 +17,7 @@
 // and tool settings
 
 $gidReset = true;
+if ( isset( $_REQUEST['gidReq'] ) ) unset( $_REQUEST['gidReq'] );
 $tidReset = true;
 
 if ( isset($_REQUEST['cid']) ) $cidReq = $_REQUEST['cid'];
