@@ -18,7 +18,7 @@ endif;
 <?php echo link_to_css( 'print.css', 'print' );?>
 <link rel="top" href="<?php get_path('url'); ?>/index.php" title="" />
 <link href="http://www.claroline.net/documentation.htm" rel="Help" />
-<link href="http://www.claroline.net/credits.htm" rel="Author" />
+<link href="<?php echo get_path('url');?>/CREDITS.txt" rel="Author" />
 <link href="http://www.claroline.net" rel="Copyright" />
 <?php if (file_exists(get_path('rootSys').'favicon.ico')): ?>
 <link href="<?php echo rtrim( get_path('clarolineRepositoryWeb'), '/' ).'/../favicon.ico'; ?>" rel="shortcut icon" />

@@ -1,5 +1,5 @@
 *******************************************************************************
-                            CLAROLINE 1.10 - CREDITS
+                            CLAROLINE 1.11 - CREDITS
 *******************************************************************************
 
 ------------------------------------------------------------------------------
@@ -28,12 +28,13 @@ Claroline Core Team :
     Philippe Dekimpe        (dkp@ecam.be)
     Stéphane Klein          (stephane.klein@claroline.net)
     Nicolas Godfraind       (???)
+    Emmanuel Gevry          (???)
 
 Main contributors :
 
     From Université catholique de Louvain (UCL) :
 
-    Frédéric Fervaille      (ffervaille@claroline.net)
+    Frédéric Fervaille      (frederic.fervaille@uclouvain.be)
     Frédéric Minne          (zefredz@claroline.net)
 
     From Facultés Universitaires Notre-Dame de la Paix (FUNDP) :
