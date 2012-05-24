@@ -79,7 +79,7 @@ class CurrentCourseToolListBlock implements Display
         $toolName = get_lang('Course homepage');
 
         // Trick to find how to build URL, must be IMPROVED
-        $url = htmlspecialchars( Url::Contextualize( get_path('rootWeb') . 'claroline/course/index.php?cid='.$this->courseCode ) );
+        $url = htmlspecialchars( Url::Contextualize( get_path('url') . '/claroline/course/index.php?cid='.$this->courseCode ) );
         $icon = get_icon_url('coursehome');
         $htmlId = 'id="courseHomePage"';
         $removableTool = false;
