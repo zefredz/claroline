@@ -90,7 +90,6 @@
     padding-left: 20px;
 }
 
-@media screen and (max-width: 1199px) {
     /* Portlet calendar */
     #portletMycalendar .details {
         padding: 0;
@@ -110,32 +109,7 @@
     dl.calendarDetails dd {
         margin-left: 20px;
     }
-}
 
-@media screen and (min-width: 1200px) {
-    /* Portlet calendar */
-    #portletMycalendar .details {
-        float: right;
-        margin-left: 32%;
-        padding: 0;
-        text-align: left;
-        overflow: auto;
-        width: 60%;
-    }
-
-    #portletMycalendar .calendar {
-        max-width: 30%;
-        text-align: center;
-    }
-
-    #portletMycalendar .dayWithEvent {
-        background-color: #EDF1E3;
-    }
-
-    dl.calendarDetails dd {
-        margin-left: 20px;
-    }
-}
 
 .avatar img {
     margin:1em;

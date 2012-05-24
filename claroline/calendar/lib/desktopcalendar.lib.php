@@ -273,7 +273,7 @@ var UserDesktopCalendar = {
                  . '</dl>' . "\n"
                  . '</div>' . "\n";
         
-        $output .= '<div class="calendar">'.$this->ajaxMiniCalendar($agendaItemList).'</div>';
+        // $output .= '<div class="calendar">'.$this->ajaxMiniCalendar($agendaItemList).'</div>';
         
         return $output;
     }
