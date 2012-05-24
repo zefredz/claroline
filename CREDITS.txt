@@ -27,8 +27,8 @@ Claroline Core Team :
     
     Philippe Dekimpe        (dkp@ecam.be)
     Stéphane Klein          (stephane.klein@claroline.net)
-    Nicolas Godfraind       (???)
-    Emmanuel Gevry          (???)
+    Nicolas Godfraind       (nicolas.godfraind@gmail.com)
+    Emmanuel Gevry          (emmanuel.gervy@claroline.net)
 
 Main contributors :
 
