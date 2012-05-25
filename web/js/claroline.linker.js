@@ -209,11 +209,13 @@ var linkerFrontend = {
                 {
                     // alert( linkerFrontend.history.toSource() );
                     
-                    $("<a />")
-                        .text('['+Claroline.getLang('Up')+']')
-                        .attr("onclick", "linkerFrontend.loadList('"+data.parent+"');return false;")
-                        .appendTo("#lnk_back_link")
-                        ;
+                    
+                    var upLink = $('<a class="navigable visible" rel="'+data.parent+'" title="Up">'+'['+Claroline.getLang('Up')+']'+'</a>');
+                    
+                    upLink.click( function(){ linkerFrontend.loadList(data.parent); return false; } );
+                        
+                    $("#lnk_back_link")
+                            .append(upLink);
                 }
                 else
                 {
