@@ -86,6 +86,7 @@ $conf_def['section']['DB_CONNECT_SETTING']['properties'] =
         , 'dbNamePrefix'
         , 'dbGlu'
         , 'courseTablePrefix'
+        , 'mysqlSetNames'
 );
 
 $conf_def['section']['SMTP']['label'] = 'SMTP';
@@ -826,6 +827,13 @@ $conf_def_property_list['crslist_DisplayUnpublishedToAllUsers'] =
 $conf_def_property_list['clmain_serverTimezone'] =
     array('label' => 'Set server timezone'
         , 'description' => 'Set this value to use another timezone than the one defined by PHP. See http://www.php.net/manual/en/timezones.php for a list of accepted timezones (for instance Europe/Brussels)'
+        , 'default' => ''
+        , 'type' => 'string'
+);
+
+$conf_def_property_list['mysqlSetNames'] =
+    array('label' => 'Set mysql charset'
+        , 'description' => 'Set this option ONLY if you are experiencing issues with the insertion of some special characters in the database. Use the SHOW CHARACTER SET mysql command to list the charsets available on your mysql server https://dev.mysql.com/doc/refman/5.0/en/show-character-set.html'
         , 'default' => ''
         , 'type' => 'string'
 );

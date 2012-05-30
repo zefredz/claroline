@@ -233,6 +233,18 @@ class Claroline
             // self::initMainDatabase();
             self::$database = new Claroline_Database_Connection();//self::$db);
             self::$database->connect();
+            
+            // the following options are for campus where only one language is used
+            // or multiple languages but with compatible charsets (for example 
+            // english (latin1) and portuguese (latin2). @see mysql documentation 
+            // for allowed charsets
+            
+            $charset = get_conf( 'mysqlSetNames' );
+            
+            if ( !empty( $charset ) )
+            {
+                self::$database->setCharset($charset);
+            }
         }
         
         return self::$database;

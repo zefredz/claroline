@@ -101,6 +101,18 @@ interface Database_Connection
      * @return  string
      */
     public function quote( $str );
+    
+    /**
+     * Set connexion charset 
+     * @param string $charset 
+     */
+    public function setCharset( $charset );
+    
+    /**
+     * Get connexion charset 
+     * @return string connexion charset
+     */
+    public function getCharset();
 }
 
 /**
@@ -251,6 +263,23 @@ class Mysql_Database_Connection implements Database_Connection
     public function quote( $str )
     {
         return "'".$this->escape($str)."'";
+    }
+    
+    public function setCharset( $charset )
+    {
+        if ( function_exists( 'mysql_set_charset' ) )
+        {
+            @mysql_set_charset( $charset, $this->dbLink );
+        }
+        else
+        {
+            @mysql_exec( "SET NAMES '{$charset}'", $this->dbLink );
+        }
+    }
+    
+    public function getCharset()
+    {
+        return mysql_client_encoding( $this->dbLink );
     }
 }
 

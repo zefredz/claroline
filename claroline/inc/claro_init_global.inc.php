@@ -190,9 +190,29 @@ catch ( Exception $e )
 
 require get_path('incRepositorySys') . '/claro_init_local.inc.php';
 
+/*----------------------------------------------------------------------
+  Load language translation and locale settings
+  ----------------------------------------------------------------------*/
+
+language::load_translation();
+language::load_locale_settings();
+language::load_module_translation();
+
+// set the mysql connexion for the course !!! does not work ignored by mysql :(
+// I'm afraid this will not be possible if we don't reset the connection
+// We could solve this when the charset is in the session (since this will allow
+// us to change the charset while initialising the database), but as a 
+// consequence this will not work onn the first access to the course.
+/*
+Claroline::getDatabase()->setCharset( strtolower(get_locale('charset')) );
+pushClaroMessage( get_locale('charset') . ':' . Claroline::getDatabase ()->getCharset (),'debug' );
+pushClaroMessage( Claroline::getDatabase ()->getCharset (),'debug' );
+ */
+
 // Initialize the claroline display
 Claroline::initDisplay();
 // Assign the Claroline singleton to a variable for more convenience
+// for legacy code, it's far better to use Claroline class static methods.
 $claroline = Claroline::getInstance();
 
 /*===========================================================================
@@ -378,14 +398,6 @@ if ( claro_is_in_a_tool() )
     load_current_module_listeners();
 
 }
-
-/*----------------------------------------------------------------------
-  Load language translation and locale settings
-  ----------------------------------------------------------------------*/
-
-language::load_translation();
-language::load_locale_settings();
-language::load_module_translation();
 
 /*----------------------------------------------------------------------
   Prevent duplicate form submission
