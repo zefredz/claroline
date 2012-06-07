@@ -42,7 +42,7 @@ if ( ! function_exists('html_entity_decode') )
 
 }
 
-define ("WIKI_WORD_PATTERN", '((?<![A-Za-z0-9��-��-��-�])([A-Z�-��-�][a-z��-��-�]+){2,}(?![A-Za-z0-9��-��-��-�]))' );
+define ("WIKI_WORD_PATTERN", '((?<![A-Za-z0-9µÀ-ÖØ-öø-ÿ])([A-ZÀ-ÖØ-Þ][a-zµß-öø-ÿ]+){2,}(?![A-Za-z0-9µÀ-ÖØ-öø-ÿ]))' );
 
 /**
 * Wiki2xhtml rendering engine
@@ -127,7 +127,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
             $type = NULL;
         }
         elseif ($this->getOpt('active_empty')
-            && preg_match('/^���(.*)$/',$line,$cap))
+            && preg_match('/^øøø(.*)$/',$line,$cap))
         {
             $type = NULL;
             $line = trim($cap[1]);
@@ -680,7 +680,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         // allow links to use wikiwords for wiki page locations
         if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern'))
         {
-            $pageName = preg_replace('/���'.$this->getOpt('words_pattern').'���/msU', '$1', $pageName);
+            $pageName = preg_replace('/¶¶¶'.$this->getOpt('words_pattern').'¶¶¶/msU', '$1', $pageName);
         }
 
         $fragment = '';

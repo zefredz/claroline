@@ -206,7 +206,7 @@ class wiki2xhtml
 
         # Correction des caract�res faits par certains traitement
         # de texte comme Word
-        if ($this->getOpt('active_fix_word_entities')) {
+        /*if ($this->getOpt('active_fix_word_entities')) {
             $wR = array(   
             '‹' => '&#8249;',
             '›' => '&#8250;',
@@ -237,7 +237,7 @@ class wiki2xhtml
             '€' => '&#8364;');
 
             $res = str_replace(array_keys($wR),array_values($wR),$res);
-        }
+        }*/
 
         # Nettoyage des \s en trop
         $res = preg_replace('/([\s]+)(<\/p>|<\/li>|<\/pre>)/', '$2', $res);
