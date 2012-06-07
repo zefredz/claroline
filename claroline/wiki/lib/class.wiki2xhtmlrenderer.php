@@ -5,7 +5,7 @@
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
+ * @version 1.11 $Revision$
  *
  * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
@@ -42,7 +42,7 @@ if ( ! function_exists('html_entity_decode') )
 
 }
 
-define ("WIKI_WORD_PATTERN", '((?<![A-Za-z0-9ï¿½ï¿½-ï¿½ï¿½-ï¿½ï¿½-ï¿½])([A-Zï¿½-ï¿½ï¿½-ï¿½][a-zï¿½ï¿½-ï¿½ï¿½-ï¿½]+){2,}(?![A-Za-z0-9ï¿½ï¿½-ï¿½ï¿½-ï¿½ï¿½-ï¿½]))' );
+define ("WIKI_WORD_PATTERN", '((?<![A-Za-z0-9µÀ-ÖØ-öø-ÿ])([A-ZÀ-ÖØ-Þ][a-zµß-öø-ÿ]+){2,}(?![A-Za-z0-9µÀ-ÖØ-öø-ÿ]))' );
 
 /**
 * Wiki2xhtml rendering engine
@@ -83,7 +83,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         $this->setOpt( 'note_str', '<div class="footnotes"><a name="footNotes"></a><h2>Notes</h2>%s</div>' );
         // use urls to link wikipages
         $this->setOpt( 'active_wiki_urls', 1 );
-        // allow inline HTML in wiki (expï¿½rimntal)
+        // allow inline HTML in wiki (exp?rimntal)
         $this->setOpt( 'inline_html_allowed', 0 );
         // use macros
         $this->setOpt( 'active_macros', 1 );
@@ -127,7 +127,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
             $type = NULL;
         }
         elseif ($this->getOpt('active_empty')
-            && preg_match('/^ï¿½ï¿½ï¿½(.*)$/',$line,$cap))
+            && preg_match('/^øøø(.*)$/',$line,$cap))
         {
             $type = NULL;
             $line = trim($cap[1]);
@@ -162,7 +162,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
             $mode = $cap[1];
             $valid = true;
 
-            # Vï¿½rification d'intï¿½gritï¿½
+            # V?rification d'int?grit?
             $dl = ($type != $pre_type) ? 0 : strlen($pre_mode);
             $d = strlen($mode);
             $delta = $d-$dl;
@@ -199,7 +199,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
                 $line = trim($cap[2]);
             }
         }
-        # Prï¿½formatï¿½
+        # Pr?format?
         elseif ($this->getOpt('active_pre')
             && preg_match('/^[ ]{1}(.*)$/',$line,$cap))
         {
@@ -522,7 +522,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
             && $this->getOpt('active_auto_img' ) )
         {
             # On ajoute les dimensions de l'image si locale
-            # Idï¿½e de Stephanie
+            # Id?e de Stephanie
             $img_size = NULL;
             if (!preg_match('/[a-zA-Z]+:\/\//', $url ) )
             {
@@ -680,7 +680,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         // allow links to use wikiwords for wiki page locations
         if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern'))
         {
-            $pageName = preg_replace('/ï¿½ï¿½ï¿½'.$this->getOpt('words_pattern').'ï¿½ï¿½ï¿½/msU', '$1', $pageName);
+            $pageName = preg_replace('/¶¶¶'.$this->getOpt('words_pattern').'¶¶¶/msU', '$1', $pageName);
         }
 
         $fragment = '';
@@ -727,7 +727,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         'ins' => array('++','++'),
         'u' => array('__','__'),
         'note' => array('$$','$$'),
-        'word' => array('ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½'),
+        'word' => array('¶¶¶','¶¶¶'),
         'macro' => array('"""','"""'),
         'color' => array('//','//')
       );
@@ -812,7 +812,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
             }
         }
 
-        # Rï¿½sultat
+        # R?sultat
         if ($closed)
         {
             for ($i=$position+1;$i<count($tree);$i++)
