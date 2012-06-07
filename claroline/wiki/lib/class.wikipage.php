@@ -465,41 +465,45 @@ class WikiPage
      */
     private function _updatePageFields($sql)
     {
-        $res = $this->con->query($sql);
-
-        if ($res->numRows())
+        try
         {
-            $page = $res->fetch();
-            
-            $this->_setPageId($page['id']);
-            $this->setOwnerId($page['owner_id']);
-            $this->setTitle($this->stripSlashesForWiki($page['title']));
-            $this->_setLastVersionId($page['last_version']);
-            $this->_setCurrentVersionId($page['last_version']);
-            $this->setCreationTime($page['ctime']);
-            $this->setLastEditTime($page['last_mtime']);
-            $this->setEditorId($page['editor_id']);
-            $this->setContent($this->stripSlashesForWiki($page['content']));
+            $res = $this->con->query($sql);
 
-            $this->currentVersionId = ( isset($page['current_version']) ) 
-                ? $page['current_version']
-                : $page['last_version']
-                ;
-
-            $this->currentVersionMtime = ( isset($page['current_mtime']) ) 
-                ? $page['current_mtime'] 
-                : $page['last_mtime']
-                ;
-
-            return $this;
-        }
-        else
-        {
-            if (!$this->con->hasError())
+            if ($res->numRows())
             {
-                $this->setError(PAGE_CANNOT_BE_UPDATED_ERROR, PAGE_CANNOT_BE_UPDATED_ERRNO);
+                $page = $res->fetch();
+
+                $this->_setPageId($page['id']);
+                $this->setOwnerId($page['owner_id']);
+                $this->setTitle($this->stripSlashesForWiki($page['title']));
+                $this->_setLastVersionId($page['last_version']);
+                $this->_setCurrentVersionId($page['last_version']);
+                $this->setCreationTime($page['ctime']);
+                $this->setLastEditTime($page['last_mtime']);
+                $this->setEditorId($page['editor_id']);
+                $this->setContent($this->stripSlashesForWiki($page['content']));
+
+                $this->currentVersionId = ( isset($page['current_version']) ) 
+                    ? $page['current_version']
+                    : $page['last_version']
+                    ;
+
+                $this->currentVersionMtime = ( isset($page['current_mtime']) ) 
+                    ? $page['current_mtime'] 
+                    : $page['last_mtime']
+                    ;
+
+                return $this;
             }
-            return null;
+            else
+            {
+                return null;
+            }
+        }
+        catch ( Exception $e )
+        {
+            $this->setError( PAGE_CANNOT_BE_UPDATED_ERROR.' : '.$e->getMessage (), PAGE_CANNOT_BE_UPDATED_ERRNO );
+            Console::error( "CLWIKI : ".PAGE_CANNOT_BE_UPDATED_ERROR.' : '.$e->getMessage (), PAGE_CANNOT_BE_UPDATED_ERRNO );
         }
     }
 
