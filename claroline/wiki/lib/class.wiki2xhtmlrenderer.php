@@ -727,7 +727,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         'ins' => array('++','++'),
         'u' => array('__','__'),
         'note' => array('$$','$$'),
-        'word' => array('���','���'),
+        'word' => array('¶¶¶','¶¶¶'),
         'macro' => array('"""','"""'),
         'color' => array('//','//')
       );

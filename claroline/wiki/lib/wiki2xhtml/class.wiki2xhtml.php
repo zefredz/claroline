@@ -146,7 +146,7 @@ class wiki2xhtml
 
         $this->setOpt('note_prefix','wiki-footnote');
         $this->setOpt('note_str','<div class="footnotes"><h4>Notes</h4>%s</div>');
-        $this->setOpt('words_pattern','((?<![A-Za-z0-9��-��-��-�])([A-Z�-��-�][a-z��-��-�]+){2,}(?![A-Za-z0-9��-��-��-�]))');
+        $this->setOpt('words_pattern','((?<![A-Za-z0-9µÀ-ÖØ-öø-ÿ])([A-ZÀ-ÖØ-Þ][a-zµß-öø-ÿ]+){2,}(?![A-Za-z0-9µÀ-ÖØ-öø-ÿ]))');
 
         $this->setOpt('mail_pattern','/^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/');
 
@@ -189,7 +189,7 @@ class wiki2xhtml
 
         # Transformation des mots Wiki
         if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern')) {
-            $res = preg_replace('/'.$this->getOpt('words_pattern').'/ms','���$1���',$res);
+            $res = preg_replace('/¶¶¶'.$this->getOpt('words_pattern').'¶¶¶/msU','$1',$res);
         }
 
         $this->T = explode("\n",$res);
@@ -207,32 +207,34 @@ class wiki2xhtml
         # Correction des caract�res faits par certains traitement
         # de texte comme Word
         if ($this->getOpt('active_fix_word_entities')) {
-            $wR = array(
-            '�' => '&#8218;',
-            '�' => '&#402;',
-            '�' => '&#8222;',
-            '�' => '&#8230;',
-            '�' => '&#8224;',
-            '�' => '&#8225;',
-            '�' => '&#710;',
-            '�' => '&#8240;',
-            '�' => '&#352;',
-            '�' => '&#8249;',
-            '�' => '&#338;',
-            '�' => '&#8216;',
-            '�' => '&#8217;',
-            '�' => '&#8220;',
-            '�' => '&#8221;',
-            '�' => '&#8226;',
-            '�' => '&#8211;',
-            '�' => '&#8212;',
-            '�' => '&#732;',
-            '�' => '&#8482;',
-            '�' => '&#353;',
-            '�' => '&#8250;',
-            '�' => '&#339;',
-            '�' => '&#376;',
-            '�' => '&#8364;');
+            $wR = array(   
+            '‹' => '&#8249;',
+            '›' => '&#8250;',
+            '…' => '&#8230;',
+            '–' => '&#8211;',
+            '—' => '&#8212;',
+            '‚' => '&#8218;', 
+            '�›' => '&#1EBB;', // ); // e with hook from UTF-8 Unicode
+                   
+            '' => '&#402;',
+            '„' => '&#8222;',
+            '†' => '&#8224;',
+            '‡' => '&#8225;',
+            //'' => '&#710;',
+            '‰' => '&#8240;',
+            'Š' => '&#352;',
+            'Ś' => '&#338;',
+            '‘' => '&#8216;',
+            '’' => '&#8217;',
+            '“' => '&#8220;',
+            '”' => '&#8221;',
+            '•' => '&#8226;',
+            //'' => '&#732;',
+            '™' => '&#8482;',
+            'š' => '&#353;',
+            'ś' => '&#339;',
+            'ź' => '&#376;',
+            '€' => '&#8364;');
 
             $res = str_replace(array_keys($wR),array_values($wR),$res);
         }
@@ -246,7 +248,7 @@ class wiki2xhtml
 
         # On vire les ���MotWiki��� qui sont rest� (dans les url...)
         if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern')) {
-            $res = preg_replace('/���'.$this->getOpt('words_pattern').'���/msU','$1',$res);
+            $res = preg_replace('/¶¶¶'.$this->getOpt('words_pattern').'¶¶¶/msU','$1',$res);
         }
 
         # On ajoute les notes
@@ -281,7 +283,7 @@ class wiki2xhtml
             'del' => array('--','--'),
             'ins' => array('++','++'),
             'note' => array('$$','$$'),
-            'word' => array('���','���'),
+            'word' => array('¶¶¶','¶¶¶'),
             'macro' => array('"""','"""')
         );
 
@@ -399,8 +401,8 @@ class wiki2xhtml
             # Sur id�e de Christophe Bonijol
             # Changement de regex (Nicolas Chachereau)
             if ($this->getOpt('active_fr_syntax') && $type != NULL && $type != 'pre' && $type != 'hr') {
-                $line = preg_replace('/[ ]+([:?!;�](\s|$))/','&nbsp;$1',$line);
-                $line = preg_replace('/(�)[ ]+/','$1&nbsp;',$line);
+                $line = preg_replace('/[ ]+([:?!;»](\s|$))/','&nbsp;$1',$line);
+                $line = preg_replace('/(«)[ ]+/','$1&nbsp;',$line);
             }
 
             $res .= $line;
@@ -427,7 +429,7 @@ class wiki2xhtml
         {
             $type = NULL;
         }
-        elseif ($this->getOpt('active_empty') && preg_match('/^���(.*)$/',$line,$cap))
+        elseif ($this->getOpt('active_empty') && preg_match('/^øøø(.*)$/',$line,$cap))
         {
             $type = NULL;
             $line = trim($cap[1]);
