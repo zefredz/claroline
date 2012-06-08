@@ -157,12 +157,20 @@ if ($is_allowedToAdmin)
                     <td><?php echo $new_version ;?></td>
                 </tr>
                 <tr>
-                    <th scope="row">PHP</th>
-                    <td><?php echo phpversion(); ?></td>
+                    <th scope="row">Claroline API Version</th>
+                    <td><?php echo $clarolineAPIVersion ;?></td>
                 </tr>
                 <tr>
-                    <th scope="row">MySQL</th>
-                    <td><?php echo mysql_get_server_info();?></td>
+                    <th scope="row">Claroline Database Version</th>
+                    <td><?php echo $clarolineDBVersion ;?></td>
+                </tr>
+                <tr>
+                    <th scope="row">PHP version (installed/minimum)</th>
+                    <td><?php echo phpversion() . ' / ' . $requiredPhpVersion; ?></td>
+                </tr>
+                <tr>
+                    <th scope="row">MySQL (installed/minimum)</th>
+                    <td><?php echo mysql_get_server_info() . ' / ' . $requiredMySqlVersion;?></td>
                 </tr>
                 <tr>
                     <th scope="row">WebServer</th>

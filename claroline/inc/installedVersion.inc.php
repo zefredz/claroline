@@ -26,8 +26,11 @@ $is_upgrade_available = false;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.11.0-rc1';
+$new_version = '1.11.0-rc2';
 $new_version_branch = '1.11';
+
+$clarolineAPIVersion = '1.11.0';
+$clarolineDBVersion = '1.10.7';
 
 if (!$stable)
 {
