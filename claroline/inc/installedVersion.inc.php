@@ -7,30 +7,38 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * Set value to detect if script set version is same than upgrade state
  *
- * @var $version_file_cvs contain the version of script set
- *                        (kernel sctructure, document structure, config value, ...)
- * @var $version_db_cvs   contain the version of script set
- *                        (different from _file_ because some time there is nothing to change in db)
- *
  * @version     $Revision$
  * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     UPGRADE
+ * @package     kernel
  * @author      Claro Team <cvs@claroline.net>
  */
 
-if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
+$stable = false;
+$is_upgrade_available = true;
 
-$stable = true;
-$is_upgrade_available = false;
-
-// var version_db  max. 10 chars
+// version strings : max. 10 chars
 
 $new_version = '1.11.0-rc2';
 $new_version_branch = '1.11';
 
-$clarolineAPIVersion = '1.11.0';
-$clarolineDBVersion = '1.10.7';
+/**
+ * The API version indicates the last time the API has been altered.
+ * 
+ * If someone modifies the signature of a function, class, method, or change a (global) variable or 
+ * mark a function/method/class/variable has deprecated, the API version MUST be changed.
+ * 
+ * WARNING : this does not the implementation and internal of methods, functions or class. 
+ * The internal version number is given by the revision number in each file.
+ */
+$GLOBALS['clarolineAPIVersion'] = '1.11.0-rc2';
+/**
+ * The DB version number indicates the last time the database schemas has been altered.
+ */
+$GLOBALS['clarolineDBVersion'] = '1.10.7';
+
+$requiredPhpVersion = '5.2.0';
+$requiredMySqlVersion = '5.0';
 
 if (!$stable)
 {
@@ -41,6 +49,3 @@ if (!$is_upgrade_available)
 {
     $new_version = $new_version . '[NO UPGRADE]';
 }
-
-$requiredPhpVersion = '5.2.0';
-$requiredMySqlVersion = '5.0';
