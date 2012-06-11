@@ -849,7 +849,8 @@ $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspaci
 .    '<thead>' . "\n"
 .    '<tr>' . "\n"
 .    '<th>' . get_lang('Icon')                . '</th>' . "\n"
-.    '<th>' . get_lang('Module name')         . '</th>' . "\n";
+.    '<th>' . get_lang('Module name')         . '</th>' . "\n"
+.    '<th>' . get_lang('Module administration')         . '</th>' . "\n";
 
 if ($typeReq == 'applet')
 {
@@ -902,14 +903,16 @@ foreach($moduleList as $module)
     // Name column
 
     $moduleName = $module['name'];
+    
+    $out .= '<td align="left">' . get_lang($moduleName) . '</td>' . "\n";
 
     if (file_exists(get_module_path($module['label']) . '/admin.php') && ($module['type']!='tool'))
     {
-        $out .= '<td align="left"><a href="' . get_module_url($module['label']) . '/admin.php" >' . get_lang($moduleName) . '</a></td>' . "\n";
+        $out .= '<td align="left"><a href="' . get_module_url($module['label']) . '/admin.php" >' . get_lang('Go to administration') . '</a></td>' . "\n";
     }
     else
     {
-        $out .= '<td align="left">' . get_lang($moduleName) . '</td>' . "\n";
+        $out .= '<td align="left">-</td>' . "\n";
     }
 
     // Displaying location column
