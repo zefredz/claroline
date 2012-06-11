@@ -51,8 +51,8 @@ class Claro_KernelHook_Lock
     
     public static function lockAvailable()
     {
-        return !isset( $_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ] )
-            || empty( $_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ] );
+        return ! ( isset( $_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ] )
+            && ! empty( $_SESSION[ self::CLARO_KERNEL_HOOK_LOCK ] ) );
     }
     
     public static function releaseLock()
