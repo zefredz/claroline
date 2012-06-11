@@ -118,3 +118,23 @@ function get_url_domain()
     $url .= $urlPart[host] . '/';
 
 }
+
+/**
+ * Get platform path url : return get_path('url') if not empty, 
+ *  '/' if get_path('url') is empty.
+ * Use this instead of in get_path('url') in claro_redirect
+ * @return string platform base url without domain, port...
+ */
+function get_platform_base_url()
+{
+    $url = get_path('url');
+    
+    if ( empty( $url ) )
+    {
+        return '/';
+    }
+    else
+    {
+        return $url;
+    }
+}
