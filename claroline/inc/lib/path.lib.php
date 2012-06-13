@@ -124,6 +124,7 @@ function get_url_domain()
  *  '/' if get_path('url') is empty.
  * Use this instead of in get_path('url') in claro_redirect
  * @return string platform base url without domain, port...
+ * @since Claroline 1.11.0
  */
 function get_platform_base_url()
 {
