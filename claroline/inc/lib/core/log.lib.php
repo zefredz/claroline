@@ -7,8 +7,8 @@
  *
  * Logging class.
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     Claroline 1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -26,6 +26,13 @@ class Logger
         $this->tbl_log  = $tbl_mdb_names['log'];
     }
     
+    /**
+     * Add a message to the log. The message will be associated with the current
+     * course_code, user_id, tool_id, date and IP address of the client
+     * @param string $type
+     * @param string $data
+     * @return boolean 
+     */
     public function log( $type, $data )
     {
         $cid        = claro_get_current_course_id();
