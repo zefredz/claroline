@@ -51,7 +51,7 @@ $cmdList[] = array(
 CssLoader::getInstance()->load( 'tracking', 'screen');
 
 // initialize output
-$claroline->setDisplayType( CL_PAGE );
+$claroline->setDisplayType( Claroline::PAGE );
 
 $nameTools = get_lang('Statistics');
 

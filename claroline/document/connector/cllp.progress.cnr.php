@@ -48,7 +48,7 @@ $jsloader->loadFromModule('CLLP', 'scormtime');
 $jsloader->load('cllp.cnr');
 
 
-$claroline->setDisplayType( CL_FRAME );
+$claroline->setDisplayType( Claroline::FRAME );
 
 $out = '';
 

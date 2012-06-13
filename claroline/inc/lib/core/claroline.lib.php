@@ -29,23 +29,6 @@ require_once dirname(__FILE__) . '/../database/database.lib.php';
 require_once dirname(__FILE__) . '/../utils/ajax.lib.php';
 
 /**
- * @deprecated since 1.9 use Claroline::PAGE instead
- */
-define ( 'CL_PAGE',     'CL_PAGE' );
-/**
- * @deprecated since 1.9 use Claroline::FRAMESET instead
- */
-define ( 'CL_FRAMESET', 'CL_FRAMESET' );
-/**
- * @deprecated since 1.9 use Claroline::POPUP instead
- */
-define ( 'CL_POPUP',    'CL_POPUP' );
-/**
- * @deprecated since 1.9 use Claroline::FRAME instead
- */
-define ( 'CL_FRAME',    'CL_FRAME' );
-
-/**
  * Main Claroline class containing references to Claroline kernel objects
  * This class is a Singleton
  */

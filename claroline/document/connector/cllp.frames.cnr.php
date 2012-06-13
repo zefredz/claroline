@@ -40,7 +40,7 @@ if( !$inLP )
 
 $url = Url::Contextualize(get_path('url') . '/claroline/backends/download.php?url=' . $_REQUEST['url']);
 
-$claroline->setDisplayType( CL_FRAMESET );
+$claroline->setDisplayType( Claroline::FRAMESET );
 
 $docFrame = new ClaroFrame('document', $url);
 $docFrame->allowScrolling(true);
