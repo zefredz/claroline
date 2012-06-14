@@ -244,16 +244,41 @@ abstract class Ajax_Remote_Module_Service implements Ajax_Remote_Service
     }
 
     /**
-     * Get the not contextualized Url object
+     * Get the Invokation url to use to call the given method from inside the 
+     * platform. The url object return is not contextualized !
      * @param string $method optional name of the method to invoke
      * @param array $parameters optional parameters for method invokation
      * @return Url
      */
     public function getInvokationUrl( $method = null, $parameters = null )
     {
+        $url = new Url( rtrim( get_platform_base_url (), '/' )
+            . '/claroline/backends/ajaxbroker.php' );
+
+        $url = $this->addParametersToInvokationUrl($url, $method, $parameters);
+        
+        return  $url;
+    }
+    
+    /**
+     * Get the Invokation url to use to call the given method from outside the 
+     * platform. The url object return is not contextualized !
+     * @param string $method optional name of the method to invoke
+     * @param array $parameters optional parameters for method invokation
+     * @return Url
+     */
+    public function getExternalInvokationUrl( $method = null, $parameters = null )
+    {
         $url = new Url( rtrim( get_path('rootWeb'), '/' )
             . '/claroline/backends/ajaxbroker.php' );
 
+        $url = $this->addParametersToInvokationUrl($url, $method, $parameters);
+        
+        return  $url;
+    }
+    
+    private function addParametersToInvokationUrl( $url, $method = null, $parameters = null )
+    {
         $url->addParam( 'moduleLabel', $this->getModuleLabel() );
         $url->addParam( 'class', $this->getInvokableClassName() );
 
