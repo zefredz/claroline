@@ -567,6 +567,32 @@ function execute_sql_file_in_course( $file, $courseId )
 // ---- Database table list helpers
 
 /**
+ * Get main database table aliases
+ * @return array 
+ */
+function get_main_tbl_aliases()
+{
+    return array (    
+        'course'                    => 'cours',
+        'user_category'             => 'class',
+        'user_rel_profile_category' => 'rel_class_user',
+        'course_user'               => 'rel_course_user',
+    );
+}
+
+/**
+ * Get course database table aliases
+ * @return array 
+ */
+function get_course_tbl_aliases()
+{
+    return array(
+        'links'                  => 'lnk_links',
+        'resources'              => 'lnk_resources',
+    );
+}
+
+/**
  * Get list of module table names 'localized' for the given course
  * @param array $arrTblName of tableName
  * @param string $courseCode course code
@@ -595,15 +621,15 @@ function get_module_course_tbl( $arrTblName, $courseCode = null )
         throw new Exception('Invalid course !');
     }
 
-    $courseTblKernel = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+    $aliases = get_main_tbl_aliases();
 
     $arrToReturn = array();
 
     foreach ( $arrTblName as $name )
     {
-        if ( is_array($courseTblKernel) && array_key_exists($name, $courseTblKernel))
+        if ( array_key_exists( $name, $aliases ) )
         {
-            $arrToReturn[$name] = $courseTblKernel[$name];
+            $arrToReturn[$name] = $currentCourseDbNameGlu . $aliases[$name];
         }
         else
         {
@@ -622,7 +648,7 @@ function get_module_course_tbl( $arrTblName, $courseCode = null )
  */
 function get_module_main_tbl( $arrTblName )
 {
-    $mainTblKernel = claro_sql_get_main_tbl();
+    $aliases = get_main_tbl_aliases();
     
     $mainDbNameGlu = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix');
     
@@ -630,9 +656,9 @@ function get_module_main_tbl( $arrTblName )
 
     foreach ( $arrTblName as $name )
     {
-        if ( array_key_exists( $name, $mainTblKernel) )
+        if ( array_key_exists( $name, $aliases) )
         {
-            $arrToReturn[$name] = $mainTblKernel[$name];
+            $arrToReturn[$name] = $mainDbNameGlu . $aliases[$name];
         }
         else
         {
