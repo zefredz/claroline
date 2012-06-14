@@ -14,12 +14,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author      Claro Team <cvs@claroline.net>
  */
 
-$stable = false;
+$stable = true;
 $is_upgrade_available = true;
 
 // version strings : max. 10 chars
 
-$new_version = '1.11.0-rc2';
+$new_version = '1.11.0';
 $new_version_branch = '1.11';
 
 /**
@@ -31,7 +31,7 @@ $new_version_branch = '1.11';
  * WARNING : this does not the implementation and internal of methods, functions or class. 
  * The internal version number is given by the revision number in each file.
  */
-$GLOBALS['clarolineAPIVersion'] = '1.11.0-rc2';
+$GLOBALS['clarolineAPIVersion'] = '1.11.0';
 /**
  * The DB version number indicates the last time the database schemas has been altered.
  */
