@@ -224,7 +224,7 @@ switch ( $display )
                 clean_upgrade_status();
 
                 // Database version is 1.8
-                $currentDbVersion = $new_version;
+                $currentDbVersion = '1.8';
 
                 // Update current version file
                 save_current_version_file($currentClarolineVersion, $currentDbVersion);
@@ -268,7 +268,7 @@ switch ( $display )
                 clean_upgrade_status();
 
                 // Database version is 1.9
-                $currentDbVersion = $new_version;
+                $currentDbVersion = '1.9';
 
                 // Update current version file
                 save_current_version_file($currentClarolineVersion, $currentDbVersion);
@@ -307,12 +307,21 @@ switch ( $display )
                 clean_upgrade_status();
 
                 // Database version is 1.10
-                $currentDbVersion = $new_version;
+                $currentDbVersion = '1.10';
 
                 // Update current version file
                 save_current_version_file($currentClarolineVersion, $currentDbVersion);
             }
         } // End of upgrade 1.9 to 1.10
+        
+        /*if ( preg_match('/^1.10/',$currentDbVersion) )
+        {
+            // Database version is 1.11
+            $currentDbVersion = $new_version;
+
+            // Update current version file
+            save_current_version_file( $currentClarolineVersion, $currentDbVersion );
+        }*/
         
         
 
@@ -322,7 +331,10 @@ switch ( $display )
             {
                 echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">Next ></button></p></div>';
             }
-            else echo '<p class="error">Db version unknown : ' . $currentDbVersion . '</p>';
+            else
+            {
+                echo '<p class="error">Db version unknown : ' . $currentDbVersion . '</p>';
+            }
 
         }
         else
