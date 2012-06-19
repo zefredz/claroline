@@ -481,7 +481,7 @@ if( 'show' != $cmd )
         . '<td>&nbsp;</td>'
         . '<td><strong>'
         . get_lang( 'This forum allows anonymous contributions!<br/>' )
-        . get_lang( 'If do not want to sign your post, check the checkbox above the "OK" button' )
+        . get_lang( 'If you do not want to sign your post, check the checkbox above the "OK" button' )
         . '</strong></td>'
         . '</tr>'
         . '<tr style="height:1px;"><td colspan="2">&nbsp;</td></tr>';
