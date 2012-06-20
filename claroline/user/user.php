@@ -89,6 +89,7 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_courses         = $tbl_mdb_names['course'           ];
 $tbl_users           = $tbl_mdb_names['user'             ];
+$tbl_right_profile   = $tbl_mdb_names['right_profile'];
 $tbl_courses_users   = $tbl_rel_course_user;
 
 $tbl_rel_users_groups= $tbl_cdb_names['group_rel_team_user'    ];
@@ -141,10 +142,10 @@ if ( $is_allowedToEdit )
             // TODO : add a function to unenroll all users from a course
             $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
                     WHERE `code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
-                    AND `isCourseManager` = 0";
+                    AND `profile_id` = ( SELECT profile_id FROM `". $tbl_right_profile . "` WHERE `label` = 'user')";
             
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
-
+            
             Console::log( "{$req['user_id']} ({$unregisterdUserCount}) removed by user ". claro_get_current_user_id(), 'COURSE_UNSUBSCRIBE');
             
             $dialogBox->success( get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) ) );
