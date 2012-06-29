@@ -37,10 +37,10 @@ class CsvTrackTrueFalse extends Csv
         $tbl_user = $tbl_mdb_names[ 'user' ];
 
 
-        $tbl_cdb_names = get_module_course_tbl ( array ( 'qwz_exercise', 'qwz_rel_exercise_question', 'qwz_tracking', 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id () );
+        $tbl_cdb_names = get_module_course_tbl ( array ( 'qwz_exercise', 'qwz_question', 'qwz_rel_exercise_question', 'qwz_tracking', 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id () );
 
         $tbl_quiz_rel_test_question = $tbl_cdb_names[ 'qwz_rel_exercise_question' ];
-        $tbl_quiz_question = $this->question->tblQuestion;
+        $tbl_quiz_question = $tbl_cdb_names['qwz_question'];
 
         $tbl_qwz_tracking = $tbl_cdb_names[ 'qwz_tracking' ];
         $tbl_qwz_tracking_questions = $tbl_cdb_names[ 'qwz_tracking_questions' ];
@@ -124,10 +124,10 @@ class CsvTrackMultipleChoice extends Csv
         $tbl_mdb_names = claro_sql_get_main_tbl ();
         $tbl_user = $tbl_mdb_names[ 'user' ];
 
-        $tbl_cdb_names = get_module_course_tbl ( array ( 'qwz_exercise', 'qwz_rel_exercise_question', 'qwz_tracking', 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id () );
+        $tbl_cdb_names = get_module_course_tbl ( array ( 'qwz_exercise', 'qwz_question', 'qwz_rel_exercise_question', 'qwz_tracking', 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id () );
 
         $tbl_quiz_rel_test_question = $tbl_cdb_names[ 'qwz_rel_exercise_question' ];
-        $tbl_quiz_question = $this->question->tblQuestion;
+        $tbl_quiz_question = $tbl_cdb_names['qwz_question'];
 
         $tbl_qwz_tracking = $tbl_cdb_names[ 'qwz_tracking' ];
         $tbl_qwz_tracking_questions = $tbl_cdb_names[ 'qwz_tracking_questions' ];
@@ -204,10 +204,10 @@ class CsvTrackFIB extends Csv
         $tbl_mdb_names = claro_sql_get_main_tbl ();
         $tbl_user = $tbl_mdb_names[ 'user' ];
 
-        $tbl_cdb_names = get_module_course_tbl ( array ( 'qwz_exercise', 'qwz_rel_exercise_question', 'qwz_tracking', 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id () );
+        $tbl_cdb_names = get_module_course_tbl ( array ( 'qwz_exercise', 'qwz_question', 'qwz_rel_exercise_question', 'qwz_tracking', 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id () );
 
         $tbl_quiz_rel_test_question = $tbl_cdb_names[ 'qwz_rel_exercise_question' ];
-        $tbl_quiz_question = $this->question->tblQuestion;
+        $tbl_quiz_question = $tbl_cdb_names['qwz_question'];
 
         $tbl_qwz_tracking = $tbl_cdb_names[ 'qwz_tracking' ];
         $tbl_qwz_tracking_questions = $tbl_cdb_names[ 'qwz_tracking_questions' ];
@@ -283,10 +283,10 @@ class CsvTrackMatching extends Csv
         $tbl_mdb_names = claro_sql_get_main_tbl ();
         $tbl_user = $tbl_mdb_names[ 'user' ];
 
-        $tbl_cdb_names = get_module_course_tbl ( array ( 'qwz_exercise', 'qwz_rel_exercise_question', 'qwz_tracking', 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id () );
+        $tbl_cdb_names = get_module_course_tbl ( array ( 'qwz_exercise', 'qwz_question', 'qwz_rel_exercise_question', 'qwz_tracking', 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id () );
 
         $tbl_quiz_rel_test_question = $tbl_cdb_names[ 'qwz_rel_exercise_question' ];
-        $tbl_quiz_question = $this->question->tblQuestion;
+        $tbl_quiz_question = $tbl_cdb_names['qwz_question'];
 
         $tbl_qwz_tracking = $tbl_cdb_names[ 'qwz_tracking' ];
         $tbl_qwz_tracking_questions = $tbl_cdb_names[ 'qwz_tracking_questions' ];
