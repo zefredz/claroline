@@ -53,6 +53,7 @@ function delete_course($code, $sourceCourseId)
     $tbl_rel_course_user        = $tbl_mdb_names['rel_course_user'];
     $tbl_course_class           = $tbl_mdb_names['rel_course_class'];
     $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
+    $tbl_rel_course_portlet     = $tbl_mdb_names['rel_course_portlet'];
 
     $this_course = claro_get_course_data($code);
     
@@ -84,6 +85,12 @@ function delete_course($code, $sourceCourseId)
     
     // Remove links between this course and categories
     $sql = "DELETE FROM `" . $tbl_rel_course_category . "`
+            WHERE courseId ='" . $this_course['id'] . "'";
+
+    claro_sql_query($sql);
+    
+    // Remove links between this course and portlets
+    $sql = "DELETE FROM `" . $tbl_rel_course_portlet . "`
             WHERE courseId ='" . $this_course['id'] . "'";
 
     claro_sql_query($sql);
