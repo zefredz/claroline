@@ -76,7 +76,7 @@ $(document).ready( function (){
     $("#loading").ajaxStart(function(){
         $(this).show();
     });
-
+    
     $("#loading").ajaxStop(function(){
         $(this).hide();
     });
@@ -85,16 +85,22 @@ $(document).ready( function (){
     $('.msadd').click(function() {
         return !$('#mslist1 option:selected').remove().appendTo('#mslist2');
     });
-
+    
     $('.msremove').click(function() {
         return !$('#mslist2 option:selected').remove().appendTo('#mslist1');
     });
-
+    
     $('.msform').submit(function() {
         $('#mslist1 option').each(function(i) {
             $(this).attr("selected", "selected");
         });
     });
+    
+    $("a input[type=button]").each(function() {
+        $(this).click(function() { 
+            location.href=$(this).closest("a").attr("href");
+        });
+}); 
 });
 
 // here should also come :
