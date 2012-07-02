@@ -196,6 +196,16 @@ $(document).ready(function(){
         });
     });
     
+    /*
+     * IE8 does not support input[type=button] inside an anchor so we "need" to 
+     * add this workaround (thanks to our XP and Vista users...)
+     */
+    $("a input[type=button]").each(function() {
+        $(this).click(function() { 
+            location.href=$(this).closest("a").attr("href");
+        });
+    });
+    
     if ( $('#toggleLeftMenu') ) {
         
         $('#toggleLeftMenu').click( 
