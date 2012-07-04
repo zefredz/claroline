@@ -346,3 +346,22 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
+
+
+//**********************************
+function isAnwsersViewingSupported($moduleType = '')
+{
+    $supportedTypes = array(CTSCORM_);
+    
+    if(empty($moduleType))
+    {
+        return false;
+    }
+    
+    if(in_array($moduleType, $supportedTypes))
+    {
+        return true;
+    }
+    
+    return false;
+}
