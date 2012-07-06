@@ -1,8 +1,10 @@
-<?php // $Id$
+<?php
 
-if ( count( get_included_files() ) == 1 )
+// $Id$
+
+if ( count ( get_included_files () ) == 1 )
 {
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+    die ( 'The file ' . basename ( __FILE__ ) . ' cannot be accessed directly, use include instead' );
 }
 
 /**
@@ -16,102 +18,96 @@ if ( count( get_included_files() ) == 1 )
  * @package     RIGHT
  * @author      Claro Team <cvs@claroline.net>
  */
-
-require_once dirname(__FILE__) . '/constants.inc.php';
-require_once dirname(__FILE__) . '/profile.class.php';
-require_once dirname(__FILE__) . '/toolAction.class.php';
+require_once dirname ( __FILE__ ) . '/constants.inc.php';
+require_once dirname ( __FILE__ ) . '/profile.class.php';
+require_once dirname ( __FILE__ ) . '/toolAction.class.php';
 
 class RightProfileToolAction
 {
+
     /**
      * @var $profile profile object
      */
-
     var $profile;
 
     /**
      * @array $toolActionList list action of the profile and their values
      */
-
-    var $toolActionList = array();
+    var $toolActionList = array ( );
 
     /**
      * @array $tbl list of table (DB)
      */
-
     var $tbl;
 
     /**
      * Constructor
      */
-
-    function RightProfileToolAction()
+    public function __construct ()
     {
-        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl_mdb_names = claro_sql_get_main_tbl ();
 
-        $this->tbl['profile'] = $tbl_mdb_names['right_profile'];
-        $this->tbl['rel_profile_action'] = $tbl_mdb_names['right_rel_profile_action'];
-        $this->tbl['action'] = $tbl_mdb_names['right_action'];
-        $this->tbl['course_tool'] = $tbl_mdb_names['tool'];
+        $this->tbl[ 'profile' ] = $tbl_mdb_names[ 'right_profile' ];
+        $this->tbl[ 'rel_profile_action' ] = $tbl_mdb_names[ 'right_rel_profile_action' ];
+        $this->tbl[ 'action' ] = $tbl_mdb_names[ 'right_action' ];
+        $this->tbl[ 'course_tool' ] = $tbl_mdb_names[ 'tool' ];
     }
 
     /**
      * Load rights of a profile
      */
-
-    function load($profile)
+    public function load ( $profile )
     {
         // load profile
         $this->profile = $profile;
 
         // load all tool_action
-        $this->loadToolActionList();
+        $this->loadToolActionList ();
     }
 
     /**
      * Load tool action list value of a profile
      */
-
-    function loadToolActionList()
+    public function loadToolActionList ()
     {
         // load all action for this profile type
         $sql = " SELECT A.id, A.name, A.tool_id, CT.claro_label
-                 FROM `" . $this->tbl['action'] . "` `A`,
-                      `" . $this->tbl['course_tool'] . "` `CT`
-                 WHERE type = '" . claro_sql_escape($this->profile->type) . "'
+                 FROM `" . $this->tbl[ 'action' ] . "` `A`,
+                      `" . $this->tbl[ 'course_tool' ] . "` `CT`
+                 WHERE type = '" . claro_sql_escape ( $this->profile->type ) . "'
                     AND A.tool_id = CT.id
-                 ORDER BY CT.def_rank" ;
+                 ORDER BY CT.def_rank";
 
-        $actionResult = claro_sql_query_fetch_all($sql);
+        $actionResult = claro_sql_query_fetch_all ( $sql );
 
         // initialise all tool action
         foreach ( $actionResult as $action )
         {
-            $toolId = $action['tool_id'];
-            $actionName = $action['name'];
-            $this->toolActionList[$toolId][$actionName] = false;
+            $toolId = $action[ 'tool_id' ];
+            $actionName = $action[ 'name' ];
+            $this->toolActionList[ $toolId ][ $actionName ] = false;
         }
 
         // load value of action
         $sql = " SELECT PA.action_id, PA.value, A.tool_id, A.name
-                 FROM `" . $this->tbl['rel_profile_action'] . "` `PA`,
-                      `" . $this->tbl['action'] . "` `A`
+                 FROM `" . $this->tbl[ 'rel_profile_action' ] . "` `PA`,
+                      `" . $this->tbl[ 'action' ] . "` `A`
                  WHERE PA.profile_id = " . $this->profile->id . "
                  AND PA.action_id = A.id
                  AND PA.courseId = ''";
 
-        $action_list = claro_sql_query_fetch_all($sql);
+        $action_list = claro_sql_query_fetch_all ( $sql );
 
         // load all actions value for the profile
         foreach ( $action_list as $this_action )
         {
-            $actionName = $this_action['name'];
-            $actionValue = (bool) $this_action['value'];
-            $toolId = $this_action['tool_id'];
+            $actionName = $this_action[ 'name' ];
+            $actionValue = (bool) $this_action[ 'value' ];
+            $toolId = $this_action[ 'tool_id' ];
 
-            if ( isset($this->toolActionList[$toolId][$actionName]) )
+            if ( isset ( $this->toolActionList[ $toolId ][ $actionName ] ) )
             {
-                $this->toolActionList[$toolId][$actionName] = $actionValue ;
+                $this->toolActionList[ $toolId ][ $actionName ] = $actionValue;
             }
         }
     }
@@ -119,17 +115,16 @@ class RightProfileToolAction
     /**
      * Save profile tool list action value
      */
-
-    function save()
+    public function save ()
     {
         $this->toolActionList;
 
         // delete all relation
-        $sql = "DELETE FROM `" . $this->tbl['rel_profile_action'] . "`
+        $sql = "DELETE FROM `" . $this->tbl[ 'rel_profile_action' ] . "`
                 WHERE profile_id=" . $this->profile->id . "
                 AND courseId = '' ";
 
-        claro_sql_query($sql);
+        claro_sql_query ( $sql );
 
         // insert new relation
 
@@ -137,24 +132,25 @@ class RightProfileToolAction
         {
             foreach ( $actionList as $actionName => $actionValue )
             {
-                if ( $actionValue == true ) $actionValue = 1;
-                else                        $actionValue = 0;
+                if ( $actionValue == true )
+                    $actionValue = 1;
+                else
+                    $actionValue = 0;
 
                 $action = new RightToolAction();
 
-                $action->load($actionName, $toolId);
+                $action->load ( $actionName, $toolId );
 
-                $actionId = $action->getId();
+                $actionId = $action->getId ();
 
-                $sql = "INSERT INTO `" . $this->tbl['rel_profile_action'] . "`
+                $sql = "INSERT INTO `" . $this->tbl[ 'rel_profile_action' ] . "`
                         SET profile_id = " . $this->profile->id . ",
                          action_id = " . $actionId . ",
                          value = " . $actionValue . ",
                          courseId = '' ";
-                claro_sql_query($sql);
+                claro_sql_query ( $sql );
             }
         }
-
     }
 
     /**
@@ -164,14 +160,13 @@ class RightProfileToolAction
      * @param string $action_name action name
      * @param boolean $value action value
      */
-
-    function setAction($toolId,$actionName,$value)
+    public function setAction ( $toolId, $actionName, $value )
     {
         $value = (bool) $value;
 
-        if ( isset($this->toolActionList[$toolId][$actionName]) )
+        if ( isset ( $this->toolActionList[ $toolId ][ $actionName ] ) )
         {
-            $this->toolActionList[$toolId][$actionName] = $value;
+            $this->toolActionList[ $toolId ][ $actionName ] = $value;
         }
     }
 
@@ -182,12 +177,11 @@ class RightProfileToolAction
      * @param string $actionName action name
      * @return boolean
      */
-
-    function getAction($toolId,$actionName)
+    public function getAction ( $toolId, $actionName )
     {
-        if ( isset($this->toolActionList[$toolId][$actionName]) )
+        if ( isset ( $this->toolActionList[ $toolId ][ $actionName ] ) )
         {
-            return $this->toolActionList[$toolId][$actionName];
+            return $this->toolActionList[ $toolId ][ $actionName ];
         }
         else
         {
@@ -198,8 +192,7 @@ class RightProfileToolAction
     /**
      * Get action list of the profile
      */
-
-    function getToolActionList()
+    public function getToolActionList ()
     {
         return $this->toolActionList;
     }

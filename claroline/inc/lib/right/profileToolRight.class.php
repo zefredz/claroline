@@ -1,24 +1,18 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * Class to manage profile and tool right (none, user, manager)
  *
- * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLMAIN
  * @author      Claro Team <cvs@claroline.net>
  */
-
-require_once dirname(__FILE__) . '/constants.inc.php';
-require_once dirname(__FILE__) . '/profileToolAction.class.php';
+require_once dirname ( __FILE__ ) . '/constants.inc.php';
+require_once dirname ( __FILE__ ) . '/profileToolAction.class.php';
 
 class RightProfileToolRight extends RightProfileToolAction
 {
@@ -29,23 +23,22 @@ class RightProfileToolRight extends RightProfileToolAction
      * @param integer $toolId tool identifier
      * @param string $right the right value
      */
-
-    function setToolRight($toolId,$right)
+    public function setToolRight ( $toolId, $right )
     {
         if ( $right == 'none' )
         {
-            $this->setAction($toolId,'read',false);
-            $this->setAction($toolId,'edit',false);
+            $this->setAction ( $toolId, 'read', false );
+            $this->setAction ( $toolId, 'edit', false );
         }
         elseif ( $right == 'user' )
         {
-            $this->setAction($toolId,'read',true);
-            $this->setAction($toolId,'edit',false);
+            $this->setAction ( $toolId, 'read', true );
+            $this->setAction ( $toolId, 'edit', false );
         }
         elseif ( $right == 'manager' )
         {
-            $this->setAction($toolId,'read',true);
-            $this->setAction($toolId,'edit',true);
+            $this->setAction ( $toolId, 'read', true );
+            $this->setAction ( $toolId, 'edit', true );
         }
     }
 
@@ -54,13 +47,12 @@ class RightProfileToolRight extends RightProfileToolAction
      *
      * @param integer $toolId tool identifier
      */
-
-    function getToolRight($toolId)
+    public function getToolRight ( $toolId )
     {
-        $readAction = (bool) $this->getAction($toolId,'read');
-        $manageAction = (bool) $this->getAction($toolId,'edit');
+        $readAction = (bool) $this->getAction ( $toolId, 'read' );
+        $manageAction = (bool) $this->getAction ( $toolId, 'edit' );
 
-        if ( $readAction ==  false && $manageAction == false )
+        if ( $readAction == false && $manageAction == false )
         {
             return 'none';
         }
@@ -77,12 +69,12 @@ class RightProfileToolRight extends RightProfileToolAction
     /**
      * Set right of the tool list
      */
-
-    function setToolListRight($toolList,$right)
+    public function setToolListRight ( $toolList, $right )
     {
         foreach ( $toolList as $toolId )
         {
-             $this->setToolRight($toolId,$right);
+            $this->setToolRight ( $toolId, $right );
         }
     }
+
 }

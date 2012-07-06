@@ -1,17 +1,12 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * Class to display manage profile and tool right (none, user, manager)
  *
- * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLMAIN
  * @author      Claro Team <cvs@claroline.net>
@@ -51,7 +46,7 @@ class RightProfileToolRightHtml
      * Constructor
      */
 
-    function RightProfileToolRightHtml($rightProfileToolRight=null)
+    public function __construct($rightProfileToolRight=null)
     {
         if ( $rightProfileToolRight )
         {
@@ -64,7 +59,7 @@ class RightProfileToolRightHtml
      * Add Right Profile object
      */
 
-    function addRightProfileToolRight ($rightProfileToolRight)
+    public function addRightProfileToolRight ($rightProfileToolRight)
     {
         // get profileId
         $profileId = $rightProfileToolRight->profile->getId();
@@ -75,7 +70,7 @@ class RightProfileToolRightHtml
      * Set course tool info ('icon','tid','visibility','activation')
      */
 
-    function setCourseToolInfo ($courseToolInfo)
+    public function setCourseToolInfo ($courseToolInfo)
     {
         $this->courseToolInfo = $courseToolInfo;
     }
@@ -84,7 +79,7 @@ class RightProfileToolRightHtml
      * Is set course Tool Info
      */
 
-    function isSetCourseToolInfo ()
+    public function isSetCourseToolInfo ()
     {
         return (bool) count($this->courseToolInfo);
     }
@@ -93,7 +88,7 @@ class RightProfileToolRightHtml
      * Set display mode
      */
 
-    function setDisplayMode($value)
+    public function setDisplayMode($value)
     {
         $this->displayMode = $value ;
     }
@@ -102,7 +97,7 @@ class RightProfileToolRightHtml
      * Set Url param append
      */
 
-    function addUrlParam($paramName,$paramValue)
+    public function addUrlParam($paramName,$paramValue)
     {
         $this->urlParamAppendList[$paramName] = $paramValue;
     }
@@ -111,7 +106,7 @@ class RightProfileToolRightHtml
      * Display table with tool/right of the profile
      */
 
-    function displayProfileToolRightList()
+    public function displayProfileToolRightList()
     {
 
         $html = '';

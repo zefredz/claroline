@@ -1,17 +1,12 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * Library to manage profile
  *
- * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     RIGHT
  * @author      Claro Team <cvs@claroline.net>
@@ -101,7 +96,7 @@ class RightProfile
      * Constructor
      */
 
-    function RightProfile()
+    public function __construct()
     {
         $this->id = 0 ;
         $this->name = '';
@@ -128,7 +123,7 @@ class RightProfile
      * @return boolean load successfull
      */
 
-    function load($id)
+    public function load($id)
     {
         $sql = " SELECT profile_id,
                         name,
@@ -176,7 +171,7 @@ class RightProfile
      * @return mixed false or id of the profile
      */
 
-    function save()
+    public function save()
     {
         if ( $this->id == 0 )
         {
@@ -243,7 +238,7 @@ class RightProfile
      * @return boolean
      */
 
-    function delete()
+    public function delete()
     {
         if ( ! $this->isRequired )
         {
@@ -268,7 +263,7 @@ class RightProfile
      * @return boolean
      */
 
-    function validate()
+    public function validate()
     {
         // use validator library
         require_once dirname(__FILE__) . '/../datavalidator.lib.php';
@@ -301,7 +296,7 @@ class RightProfile
      * @return integer
      */
 
-    function getId()
+    public function getId()
     {
         return $this->id;
     }
@@ -312,7 +307,7 @@ class RightProfile
      * @return string
      */
 
-    function getLabel()
+    public function getLabel()
     {
         return $this->label;
     }
@@ -323,7 +318,7 @@ class RightProfile
      * @return string
      */
 
-    function getName()
+    public function getName()
     {
         return get_lang($this->name);
     }
@@ -334,7 +329,7 @@ class RightProfile
      * @return string
      */
 
-    function getType()
+    public function getType()
     {
         return $this->type;
     }
@@ -345,7 +340,7 @@ class RightProfile
      * @return string
      */
 
-    function getDescription()
+    public function getDescription()
     {
         return get_lang($this->description);
     }
@@ -356,7 +351,7 @@ class RightProfile
      * @return boolean
      */
 
-    function isRequired()
+    public function isRequired()
     {
         return (bool) $this->isRequired;
     }
@@ -367,7 +362,7 @@ class RightProfile
      * @return boolean
      */
 
-    function isLocked()
+    public function isLocked()
     {
         return (bool) $this->isLocked;
     }
@@ -378,7 +373,7 @@ class RightProfile
      * @return boolean
      */
 
-    function isCourseManager()
+    public function isCourseManager()
     {
         return (bool) $this->iscourseManager;
     }
@@ -389,7 +384,7 @@ class RightProfile
      * @return boolean
      */
 
-    function isUserPublic()
+    public function isUserPublic()
     {
         return (bool) $this->isUserPublic;
     }
@@ -400,7 +395,7 @@ class RightProfile
      * @return boolean
      */
 
-    function isMailNotify()
+    public function isMailNotify()
     {
         return (bool) $this->isMailNotify;
     }
@@ -411,7 +406,7 @@ class RightProfile
      * @param string $value
      */
 
-    function setLabel($value)
+    public function setLabel($value)
     {
         $this->label = trim($value);
     }
@@ -421,7 +416,7 @@ class RightProfile
      * @param string $value
      */
 
-    function setName($value)
+    public function setName($value)
     {
         $this->name = trim($value);
     }
@@ -432,7 +427,7 @@ class RightProfile
      * @param string $description
      */
 
-    function setDescription($value)
+    public function setDescription($value)
     {
         $this->description = trim($value);
     }
@@ -443,7 +438,7 @@ class RightProfile
      * @param string $value
      */
 
-    function setType($value)
+    public function setType($value)
     {
         $this->type = $value;
     }
@@ -453,7 +448,7 @@ class RightProfile
      * @param boolean $value
      */
 
-    function setIsLocked($value)
+    public function setIsLocked($value)
     {
         $this->isLocked = (bool) $value;
     }
@@ -463,7 +458,7 @@ class RightProfile
      * @param boolean $value
      */
 
-    function setIsRequired($value)
+    public function setIsRequired($value)
     {
         $this->isRequired = (bool) $value;
     }
@@ -473,7 +468,7 @@ class RightProfile
      * @param boolean $value
      */
 
-    function setIsCourseManager($value)
+    public function setIsCourseManager($value)
     {
         $this->isCourseManager = (bool) $value;
     }
@@ -483,7 +478,7 @@ class RightProfile
      * @param boolean $value
      */
 
-    function setIsTutor($value)
+    public function setIsTutor($value)
     {
         $this->isTutor = (bool) $value;
     }
@@ -493,7 +488,7 @@ class RightProfile
      * @param boolean $value
      */
 
-    function setIsUserPublic($value)
+    public function setIsUserPublic($value)
     {
         $this->isUserPublic = (bool) $value;
     }
@@ -503,7 +498,7 @@ class RightProfile
      * @param boolean $value
      */
 
-    function setIsEmailNotify($value)
+    public function setIsEmailNotify($value)
     {
         $this->isEmailNotify = (bool) $value;
     }
@@ -513,7 +508,7 @@ class RightProfile
      * @return string
      */
 
-    function displayProfileForm()
+    public function displayProfileForm()
     {
         $form = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" >'
         .       claro_form_relay_context()
@@ -630,7 +625,7 @@ class RightProfile
      * @return boolean
      */
 
-    function validateForm()
+    public function validateForm()
     {
         if ( isset($_REQUEST['id']) ) $this->id = (int)$_REQUEST['profile_id'];
         if ( isset($_REQUEST['name']) ) $this->name = $_REQUEST['name'];
