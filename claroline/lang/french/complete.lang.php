@@ -3246,11 +3246,12 @@ $_lang['Cannot register user in source course'] = 'Impossible d\'enregistrer l\'
 $_lang['Course management tools'] = 'Outils de gestion de cours';
 $_lang['Disk space allowed for import learning path'] = 'Espace disque alloué à l\'import de parcours d\'apprentissage';
 $_lang['Disk space allowed to import scorm package'] = 'Espace disque alloué à l\'import de paquets scorm';
-$_lang['Edit this learning path'] = 'Editer ce parcours d\'apprentissage';$_lang['Enroll'] = 'Enroll';
-$_lang['Enrolment pending'] = 'Enrolment pending';
-$_lang['Export in IMS QTI'] = 'Export in IMS QTI';
-$_lang['Export in IMS QTI (Shuffle)'] = 'Export in IMS QTI (Shuffle)';
-$_lang['Export to PDF (Shuffle)'] = 'Export to PDF (Shuffle)';
+$_lang['Edit this learning path'] = 'Editer ce parcours d\'apprentissage';
+$_lang['Enroll'] = 'Inscrire';
+$_lang['Enrolment pending'] = 'Inscription en suspens';
+$_lang['Export in IMS QTI'] = 'Export IMS QTI';
+$_lang['Export in IMS QTI (Shuffle)'] = 'Export IMS QTI (questions aléatoires)';
+$_lang['Export to PDF (Shuffle)'] = 'Export PDF (questions aléatoires)';
 $_lang['Forum index'] = 'Index du forum';
 $_lang['History'] = 'Historique';
 $_lang['I\'m node <b>%id</b>'] = 'Je suis le node <b>%id</b>';
