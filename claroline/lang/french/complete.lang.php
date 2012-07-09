@@ -3131,6 +3131,7 @@ $_lang['Visibility options'] = 'Options de visibilité';
 $_lang['Visible from'] = 'Visible à partir de';
 $_lang['Visible until'] = 'Visible jusqu\'à';
 $_lang['You cannot delete a category having sub categories'] = 'Vous ne pouvez pas supprimer une catégorie possédant des sous-catégories';
+$_lang['Your contribution has been recorded'] = 'Votre contribution a bien été enregistrée';
 $_lang['User created by '] = 'Utilisateur créé par ';
 $_lang['Administration modules'] = 'Modules d\'administration';
 $_lang['All courses treated !'] = 'Tous les cours ont été traités !';

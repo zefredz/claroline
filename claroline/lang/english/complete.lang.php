@@ -3320,6 +3320,7 @@ $_lang['You have to be registered to this course\'s category in order to enrol t
 $_lang['You have to validate users to give them access to this course through the <a href="%url">course user list</a>'] = 'You have to validate users to give them access to this course through the <a href="%url">course user list</a>';
 $_lang['You won\'t be able to access all this course\'s content and/or features until the course manager grants you the access.'] = 'You won\'t be able to access all this course\'s content and/or features until the course manager grants you the access.';
 $_lang['You\'ve chosen to isolate the following extensions: %types.  If you wish to modify these extensions, check the advanced platform settings'] = 'You\'ve chosen to isolate the following extensions: %types.  If you wish to modify these extensions, check the advanced platform settings';
+$_lang['Your contribution has been recorded'] = 'Your contribution has been recorded';
 $_lang['Your enrolment to this course has not been validated yet'] = 'Your enrolment to this course has not been validated yet';
 $_lang['Your profile does not allow you to register to course.'] = 'Your profile does not allow you to register to course.';
 $_lang['administrator'] = 'administrator';
