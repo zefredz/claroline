@@ -89,6 +89,7 @@ function upgrade_category_to_110 ()
             $tempIdParent     = null;
             $rank             = 0;
             $visibile         = 1; // Change this value if you want to change the default value of visibility (1 or 0)
+            
             foreach ($categoriesList as $category)
             {
                 // Manage the rank
@@ -101,7 +102,9 @@ function upgrade_category_to_110 ()
                 {
                     $rank++;
                 }
-                if ($category['idParent'] == 1 || empty($category['code_P']) || empty($category['idParent']))
+                
+                // what this for ????
+                if ( /* $category['idParent'] == 1 || */ empty($category['code_P']) || empty($category['idParent']))
                 {
                     $category['idParent'] = 0;
                 }
@@ -109,7 +112,14 @@ function upgrade_category_to_110 ()
                 $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['category'] . "`
                                    ( `id`, `name`, `code`, `idParent`, `rank`, `visible`, `canHaveCoursesChild`)
                                    VALUES
-                                   ( " . (int) $category['id'] . ", '" . addslashes($category['name']) . "', '" . $category['code'] . "', " . $category['idParent'] . ", " . $rank . ", $visibile, " . $category['canHaveCoursesChild'] . ")";
+                                   ( " 
+                                    . (int) $category['id'] . ", '" 
+                                    . addslashes($category['name']) . "', '" 
+                                    . $category['code'] . "', " 
+                                    . $category['idParent'] . ", " 
+                                    . $rank . ", $visibile, " 
+                                    . $category['canHaveCoursesChild'] 
+                                   . ")";
             }
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -127,6 +137,7 @@ function upgrade_category_to_110 ()
             $associationsList = claro_sql_query_fetch_all_rows( $sql );
             
             $rootCourse = 0; // Change this value if you want to change the default value of rootCourse (1 or 0)
+            
             foreach ( $associationsList as $assoc )
             {
                 $sqlForUpdate[] = "INSERT INTO `" . $tbl_mdb_names['rel_course_category'] . "`
