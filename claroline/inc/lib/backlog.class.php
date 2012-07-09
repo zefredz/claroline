@@ -165,7 +165,7 @@ class Backlog
 
 class Backlog_Reporter
 {
-    function report( $summary, $details, $label = '', $focus = false )
+    public static function report( $summary, $details, $label = '', $focus = false )
     {
         $id = uniqid('details');
 
