@@ -116,6 +116,11 @@ if ( isset($_REQUEST['applyChange']) )
         unset ($userData['authSource']);
     }
     
+    if ( ! get_conf( 'allowSelfRegProf' ) && ! claro_is_platform_admin() )
+    {
+        unset( $userData['isCourseCreator'] );
+    }
+    
     // Validate form params
     $errorMsgList = user_validate_form_profile($userData, claro_get_current_user_id());
     
