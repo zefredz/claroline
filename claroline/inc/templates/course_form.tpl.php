@@ -2,7 +2,7 @@
 
 <form class="msform" id="courseSettings" method="post" action="<?php echo $this->formAction; ?>">
     <?php echo $this->relayContext ?>
-    <input type="hidden" name="cmd" value="<?php echo (empty($this->course->courseId)?'rqProgress':'exEdit'); ?>" />
+    <input type="hidden" name="cmd" value="exEdit" />
     <input type="hidden" name="course_id" value="<?php echo (empty($this->course->id)?'':$this->course->id); ?>" />
     <input type="hidden" name="course_isSourceCourse" value="<?php echo (empty($this->course->isSourceCourse)?'':$this->course->isSourceCourse); ?>" />
     <input type="hidden" name="course_sourceCourseId" value="<?php echo (empty($this->course->sourceCourseId)?'':$this->course->sourceCourseId); ?>" />
