@@ -20,7 +20,7 @@
         <dl>
             <dt>
                 <label for="lastname"><?php echo get_lang('Last name'); ?></label>
-                &nbsp;<span class="required">*</span>&nbsp;::
+                &nbsp;<span class="required">*</span>&nbsp;:
             </dt>
             <dd>
                 <input size="40" id="lastname" name="lastname" value="" type="text">
