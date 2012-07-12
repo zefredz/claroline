@@ -169,46 +169,49 @@ class CurrentCourseToolListBlock implements Display
     {
         $courseManageToolLinkList = array();
         
-        $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')  . 'course/tools.php', $this->currentCourseContext ) ) . '">'
-                            . '<img src="' . get_icon_url('edit') . '" alt="" /> '
-                            . get_lang('Edit Tool list')
-                            . '</a>';
+        if ( $this->viewMode != 'STUDENT' )
+        { 
+            $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')  . 'course/tools.php', $this->currentCourseContext ) ) . '">'
+                                . '<img src="' . get_icon_url('edit') . '" alt="" /> '
+                                . get_lang('Edit Tool list')
+                                . '</a>';
 
-        $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/settings.php', $this->currentCourseContext ) ) . '">'
-                                    . '<img src="' . get_icon_url('settings') . '" alt="" /> '
-                                    . get_lang('Course settings')
-                                    . '</a>';
-
-        if ( !ClaroCourse::isSessionCourse($this->courseId)
-            && claro_is_allowed_to_create_course()
-            && ( get_conf( 'courseSessionAllowed' , true ) || claro_is_platform_admin() ) )
-        {
-            $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')
-                                        . 'course/create.php', array('course_sourceCourseId'=>$this->courseId) )) . '">'
-                                        . '<img src="' . get_icon_url('duplicate') . '" alt="" /> '
-                                        . get_lang("Create a session course")
-                                        . '</a>' ;
-        }
-
-        if( get_conf('is_trackingEnabled') )
-        {
-            $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'tracking/courseReport.php', $this->currentCourseContext )) . '">'
-                                        . '<img src="' . get_icon_url('statistics') . '" alt="" /> '
-                                        . get_lang('Statistics')
+            $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/settings.php', $this->currentCourseContext ) ) . '">'
+                                        . '<img src="' . get_icon_url('settings') . '" alt="" /> '
+                                        . get_lang('Course settings')
                                         . '</a>';
-        }
-        
-        $extraManageToolList = get_course_manage_module_list(true);
 
-        if ( $extraManageToolList )
-        {
-            foreach ( $extraManageToolList as $extraManageTool )
+            if ( !ClaroCourse::isSessionCourse($this->courseId)
+                && claro_is_allowed_to_create_course()
+                && ( get_conf( 'courseSessionAllowed' , true ) || claro_is_platform_admin() ) )
             {
-                $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_module_entry_url($extraManageTool['label'] ) ) ) . '">'
-                .                             '<img src="' . get_module_icon_url($extraManageTool['label'], $extraManageTool['icon'], 'settings') . '" alt="" /> '
-                .                             get_lang($extraManageTool['name'])
-                .                             '</a>'
-                ;
+                $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')
+                                            . 'course/create.php', array('course_sourceCourseId'=>$this->courseId) )) . '">'
+                                            . '<img src="' . get_icon_url('duplicate') . '" alt="" /> '
+                                            . get_lang("Create a session course")
+                                            . '</a>' ;
+            }
+
+            if( get_conf('is_trackingEnabled') )
+            {
+                $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'tracking/courseReport.php', $this->currentCourseContext )) . '">'
+                                            . '<img src="' . get_icon_url('statistics') . '" alt="" /> '
+                                            . get_lang('Statistics')
+                                            . '</a>';
+            }
+
+            $extraManageToolList = get_course_manage_module_list(true);
+
+            if ( $extraManageToolList )
+            {
+                foreach ( $extraManageToolList as $extraManageTool )
+                {
+                    $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_module_entry_url($extraManageTool['label'] ) ) ) . '">'
+                    .                             '<img src="' . get_module_icon_url($extraManageTool['label'], $extraManageTool['icon'], 'settings') . '" alt="" /> '
+                    .                             get_lang($extraManageTool['name'])
+                    .                             '</a>'
+                    ;
+                }
             }
         }
         
