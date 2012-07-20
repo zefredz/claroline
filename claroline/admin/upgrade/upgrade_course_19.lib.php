@@ -110,90 +110,92 @@ function chat_upgrade_to_19 ($course_code)
                     log_message( "Cannot save chat : folder {$courseChatPath} does not exists" );
                     $error = true;
                 }
-                
-                try
+                else
                 {
-                    $it = new DirectoryIterator($courseChatPath);
-                    $error = false;
-
-                    foreach( $it as $file )
+                    try
                     {
-                        if( ! $file->isFile() ) continue;
+                        $it = new DirectoryIterator($courseChatPath);
+                        $error = false;
 
-                        if( $file->getFilename() == $course_code . '.chat.html' )
+                        foreach( $it as $file )
                         {
-                            // chat de cours
-                            log_message("Try to export course chat : " . $file->getFilename() );
-                            $exportFileDir = $coursePath.'/document/recovered_chat/';
-                            $groupId = null;
-                        }
-                        else
-                        {
-                            // group chat
-                            log_message("Try to export group chat : " . $file->getFilename() );
-                            // get groupId
-                            $matches = array();
-                            preg_match('/\w+\.(\d+)\.chat\.html/', $file->getFilename(), $matches);
-                            if( isset($matches[1]) )
-                            {
-                                $groupId = (int) $matches[1];
-                            }
-                            else
-                            {
-                                log_message('Cannot find group id in chat filename : '. $file->getFilename());
-                                break;
-                            }
+                            if( ! $file->isFile() ) continue;
 
-                            if( ! ($groupData = claro_get_group_data(array(CLARO_CONTEXT_COURSE => $course_code, CLARO_CONTEXT_GROUP => $groupId))) )
+                            if( $file->getFilename() == $course_code . '.chat.html' )
                             {
-                                // group cannot be found, save in document
+                                // chat de cours
+                                log_message("Try to export course chat : " . $file->getFilename() );
                                 $exportFileDir = $coursePath.'/document/recovered_chat/';
-                                log_message('Cannot find group so save chat filename in course : '. $file->getFilename());
+                                $groupId = null;
                             }
                             else
                             {
-                                $exportFileDir = $coursePath.'/group/'.$groupData['directory'].'/recovered_chat/';
+                                // group chat
+                                log_message("Try to export group chat : " . $file->getFilename() );
+                                // get groupId
+                                $matches = array();
+                                preg_match('/\w+\.(\d+)\.chat\.html/', $file->getFilename(), $matches);
+                                if( isset($matches[1]) )
+                                {
+                                    $groupId = (int) $matches[1];
+                                }
+                                else
+                                {
+                                    log_message('Cannot find group id in chat filename : '. $file->getFilename());
+                                    break;
+                                }
+
+                                if( ! ($groupData = claro_get_group_data(array(CLARO_CONTEXT_COURSE => $course_code, CLARO_CONTEXT_GROUP => $groupId))) )
+                                {
+                                    // group cannot be found, save in document
+                                    $exportFileDir = $coursePath.'/document/recovered_chat/';
+                                    log_message('Cannot find group so save chat filename in course : '. $file->getFilename());
+                                }
+                                else
+                                {
+                                    $exportFileDir = $coursePath.'/group/'.$groupData['directory'].'/recovered_chat/';
+                                }
                             }
-                        }
 
-                        // create dire
-                        claro_mkdir($exportFileDir, CLARO_FILE_PERMISSIONS, true);
+                            // create dire
+                            claro_mkdir($exportFileDir, CLARO_FILE_PERMISSIONS, true);
 
-                        // try to find a unique filename
-                        $fileNamePrefix = 'chat.'.date('Y-m-j').'_';
-                        if( !is_null($groupId) )
-                        {
-                            $fileNamePrefix .=  $groupId . '_';
-                        }
+                            // try to find a unique filename
+                            $fileNamePrefix = 'chat.'.date('Y-m-j').'_';
+                            if( !is_null($groupId) )
+                            {
+                                $fileNamePrefix .=  $groupId . '_';
+                            }
 
-                        $i = 1;
-                        while ( file_exists($exportFileDir.$fileNamePrefix.$i.'.html') ) $i++;
+                            $i = 1;
+                            while ( file_exists($exportFileDir.$fileNamePrefix.$i.'.html') ) $i++;
 
-                        $savedFileName = $fileNamePrefix.$i.'.html';
+                            $savedFileName = $fileNamePrefix.$i.'.html';
 
-                        // prepare output
-                        $out = '<html>'
-                        . '<head>'
-                        . '<title>Discussion - archive</title>'
-                        . '</head>'
-                        . '<body>'
-                        . file_get_contents($file->getPathname())
-                        . '</body>'
-                        . '</html>';
+                            // prepare output
+                            $out = '<html>'
+                            . '<head>'
+                            . '<title>Discussion - archive</title>'
+                            . '</head>'
+                            . '<body>'
+                            . file_get_contents($file->getPathname())
+                            . '</body>'
+                            . '</html>';
 
 
-                        // write to file
-                        if( ! file_put_contents($exportFileDir.$savedFileName, $out) )
-                        {
-                            log_message('Cannot save chat : '. $exportFileDir.$savedFileName);
-                            $error = true;
+                            // write to file
+                            if( ! file_put_contents($exportFileDir.$savedFileName, $out) )
+                            {
+                                log_message('Cannot save chat : '. $exportFileDir.$savedFileName);
+                                $error = true;
+                            }
                         }
                     }
-                }
-                catch ( Exception $e )
-                {
-                    log_message( 'Cannot save chat : '. $e->getMessage() );
-                    $error = true;
+                    catch ( Exception $e )
+                    {
+                        log_message( 'Cannot save chat : '. $e->getMessage() );
+                        $error = true;
+                    }
                 }
                 // save those with group id in group space
 
