@@ -200,7 +200,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
         //-- if chapter head
         if ( $module['contentType'] == CTLABEL_ )
         {
-            $out .= '<b>'.$module['name'].'</b>';
+            $out .= '<b>' . claro_utf8_decode ( $module[ 'name' ] , get_conf ( 'charset' ) ) . '</b>';
         }
         //-- if user can access module
         else
@@ -211,7 +211,8 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             $moduleImgUrl = get_icon_url( choose_image(basename($module['path'])) );
 
             $contentType_alt = selectAlt($module['contentType']);
-            $out .= '<img src="' .  $moduleImgUrl . '" alt="'.$contentType_alt.'" />'.$module['name'];
+            $out .= '<img src="' . $moduleImgUrl . '" alt="' . $contentType_alt . '" />'
+                . claro_utf8_decode ( $module[ 'name' ] , get_conf ( 'charset' ) );
 
         }
           

@@ -326,7 +326,7 @@ foreach ( $flatElementList as $module )
             $moduleImg = get_icon_url ( choose_image ( basename ( $module[ 'path' ] ) ) );
 
         $out .= '<img src="' . $moduleImg . '" alt="' . $contentType_alt . '" border="0" /> ' . "\n"
-            . htmlspecialchars ( $module[ 'name' ] );
+            . htmlspecialchars ( claro_utf8_decode ( $module[ 'name' ] , get_conf ( 'charset' ) ) );
     }
     $out .= '</td>' . "\n";
 
