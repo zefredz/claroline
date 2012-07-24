@@ -21,9 +21,7 @@ Claroline Consortium involving several institutions over the world
                                 CLAROLINE TEAM
 ------------------------------------------------------------------------------
 
-Claroline Core Team :
-
-    From Claroline Consortium :
+Claroline Consortium :
     
     Philippe Dekimpe        (dkp@ecam.be)
     Stéphane Klein          (stephane.klein@claroline.net)
@@ -32,12 +30,12 @@ Claroline Core Team :
 
 Main contributors :
 
-    From Université catholique de Louvain (UCL) :
+    Université catholique de Louvain (UCL) :
 
     Frédéric Fervaille      (frederic.fervaille@uclouvain.be)
     Frédéric Minne          (zefredz@claroline.net)
 
-    From Facultés Universitaires Notre-Dame de la Paix (FUNDP) :
+    Facultés Universitaires Notre-Dame de la Paix (FUNDP) :
 
     Laurence Dumortier      (laurence.dumortier@fundp.ac.be)
     Jean-Roch Meurisse      (jean-roch.meurisse@fundp.ac.be)
