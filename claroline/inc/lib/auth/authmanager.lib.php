@@ -396,15 +396,24 @@ class AuthDriverManager
         
         if ( get_conf( 'claro_authDriversAutoDiscovery', true ) )
         {
+            $driversToLoad = array();
+            
             $it = new DirectoryIterator( get_path('rootSys') . 'platform/conf/extauth' );
-
+            
             foreach ( $it as $file )
             {
-                if ( $file->isFile() && substr( $file->getFilename(), -4 ) == '.php' )
+                if ( $file->isFile() && substr( $file->getFilename(), -9 ) == '.conf.php' )
                 {
-                    self::loadDriver($file->getPathname());
+                    $driversToLoad[] = $file->getPathname();
                 }          
             }
+
+            sort( $driversToLoad );
+
+            foreach ( $driversToLoad as $driverFile )
+            {
+                self::loadDriver($driverFile);
+            }        
         }
         else
         {
@@ -414,7 +423,12 @@ class AuthDriverManager
                 
                 foreach ( $authDriverList as $authDriver )
                 {
-                    self::loadDriver(ltrim(rtrim(get_path('rootSys') . 'platform/conf/extauth/'.$authDriver)));
+                    $authDriver = trim($authDriver);
+                    
+                    if ( ! empty( $authDriver ) )
+                    {
+                        self::loadDriver(ltrim(rtrim(get_path('rootSys') . 'platform/conf/extauth/'.$authDriver)));
+                    }
                 }
             }
         }
