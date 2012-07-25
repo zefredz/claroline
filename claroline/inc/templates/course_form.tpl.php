@@ -88,7 +88,6 @@
                         </td>
                       </tr>
                     </table>
-                    <?php if (empty($this->course->courseId)) : ?>
                     <span class="notice">
                         <?php if ( $this->nonRootCategoryRequired ): ?>         
                             <?php echo get_lang('You need to choose at least one category for this course'); ?><br />
@@ -98,7 +97,6 @@
                             
                         <?php echo get_lang('The categories appearing in grey are invisible categories.'); ?>
                     </span>
-                    <?php endif; ?>
                 </dd>
                 
                 <!-- Course language select box -->
