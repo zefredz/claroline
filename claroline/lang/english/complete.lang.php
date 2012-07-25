@@ -3396,3 +3396,5 @@ $_lang['User tracking'] = 'User tracking';
 $_lang['class'] = 'class';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment. You should change it'] = 'warning : Installation cannot find the description of the learning path and has set a default comment. You should change it';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name. You should change it.'] = 'warning : Installation cannot find the name of the learning path and has set a default name. You should change it.';
+$_lang['Go to administration'] = 'Go to administration';
+$_lang['Module administration'] = 'Module administration';
