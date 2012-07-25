@@ -914,7 +914,7 @@ class ClaroCourse
         // Validate categories
         foreach ($this->categories as $category)
         {
-            if ( !get_conf ( 'clcrs_rootCategoryAllowed', false ) && $category->id == 0 && !claro_is_platform_admin() )
+            if ( !get_conf ( 'clcrs_rootCategoryAllowed', true ) && $category->id == 0 && !claro_is_platform_admin() )
             {
                 $this->backlog->failure(get_lang('You need to choose at least one category for this course'));
                 $success = false ;
@@ -1079,6 +1079,7 @@ class ClaroCourse
         $template->assign('publicCssClass', $publicCssClass);
         $template->assign('publicMessage', $publicMessage);
         $template->assign('cancelUrl', $cancelUrl);
+        $template->assign('nonRootCategoryRequired', !get_conf ( 'clcrs_rootCategoryAllowed', true ) );
         
         return $template->render();
     }

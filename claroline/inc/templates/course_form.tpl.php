@@ -60,6 +60,13 @@
                         <?php echo get_lang('Categories'); ?>
                     </label>
                 </dt>
+                <?php if ( $this->nonRootCategoryRequired ): ?>
+                <dd>
+                    <span class="notice">
+                    <?php echo get_lang('You need to choose at least one category'); ?>
+                    </span>
+                </dd>
+                <?php endif; ?>
                 <dd>
                     <table class="multiselect">
                       <tr>
