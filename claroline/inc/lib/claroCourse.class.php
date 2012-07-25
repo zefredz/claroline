@@ -680,7 +680,9 @@ class ClaroCourse
         }
         else
         {
-            $this->categories = array(0);
+            $rootCat = new claroCategory();
+            $rootCat->load(0);
+            $this->categories = array($rootCat);
         }
         
         if ( isset($_REQUEST['course_departmentName']) )    $this->departmentName = trim(strip_tags($_REQUEST['course_departmentName']));
@@ -910,16 +912,19 @@ class ClaroCourse
         }
         
         // Validate categories
-        /*
         foreach ($this->categories as $category)
         {
-            if (!$category->canHaveCoursesChild && !claro_is_platform_admin())
+            if ( !get_conf ( 'clcrs_rootCategoryAllowed', false ) && $category->id == 0 && !claro_is_platform_admin() )
+            {
+                $this->backlog->failure(get_lang('You need to choose at least one category for this course'));
+                $success = false ;
+            }
+            elseif ( !$category->canHaveCoursesChild && !claro_is_platform_admin() )
             {
                 $this->backlog->failure(get_lang('The category <i>%category</i> can\'t contain courses', array('%category' => $category->name)));
                 $success = false ;
             }
         }
-        */
         
         return $success;
     }

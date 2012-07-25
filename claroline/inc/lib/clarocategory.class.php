@@ -90,7 +90,7 @@ class ClaroCategory
             $this->idParent             = $data['idParent'];
             $this->rank                 = $data['rank'];
             $this->visible              = $data['visible'];
-            $this->canHaveCoursesChild  = $data['canHaveCoursesChild'];
+            $this->canHaveCoursesChild  = $data['canHaveCoursesChild'] == '0' ? false : true;
             $this->rootCourse           = $data['rootCourse'];
             
             return true;
@@ -105,10 +105,12 @@ class ClaroCategory
      */
     public function save ()
     {
+        $canHaveCourseChild = $this->canHaveCoursesChild ? 1 : 0;
+        
         if ( empty($this->id) )
         {
             // No id: it's a new category -> insert
-            if( claro_insert_cat_datas($this->name, $this->code, $this->idParent, $this->rank, $this->visible, $this->canHaveCoursesChild, $this->rootCourse) )
+            if( claro_insert_cat_datas($this->name, $this->code, $this->idParent, $this->rank, $this->visible, $canHaveCourseChild, $this->rootCourse) )
                 return true;
             else
             {
@@ -119,7 +121,7 @@ class ClaroCategory
         else
         {
             // No id: it's a new category -> update
-            if( claro_update_cat_datas($this->id, $this->name, $this->code, $this->idParent, $this->rank, $this->visible, $this->canHaveCoursesChild, $this->rootCourse) )
+            if( claro_update_cat_datas($this->id, $this->name, $this->code, $this->idParent, $this->rank, $this->visible, $canHaveCoursesChild, $this->rootCourse) )
                 return true;
             else
             {
