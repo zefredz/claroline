@@ -60,13 +60,6 @@
                         <?php echo get_lang('Categories'); ?>
                     </label>
                 </dt>
-                <?php if ( $this->nonRootCategoryRequired ): ?>
-                <dd>
-                    <span class="notice">
-                    <?php echo get_lang('You need to choose at least one category'); ?>
-                    </span>
-                </dd>
-                <?php endif; ?>
                 <dd>
                     <table class="multiselect">
                       <tr>
@@ -97,7 +90,12 @@
                     </table>
                     <?php if (empty($this->course->courseId)) : ?>
                     <span class="notice">
-                        <?php echo get_lang('Feel free not to associate courses to any categories.'); ?><br />
+                        <?php if ( $this->nonRootCategoryRequired ): ?>         
+                            <?php echo get_lang('You need to choose at least one category'); ?><br />
+                        <?php else: ?>
+                            <?php echo get_lang('Feel free not to associate courses to any categories.'); ?><br />
+                        <?php endif; ?>
+                            
                         <?php echo get_lang('The categories appearing in grey are invisible categories.'); ?>
                     </span>
                     <?php endif; ?>
