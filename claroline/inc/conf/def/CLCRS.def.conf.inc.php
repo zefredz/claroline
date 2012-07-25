@@ -32,6 +32,7 @@ $conf_def[ 'section' ][ 'main' ][ 'properties' ] =
         , 'prefixAntiEmpty'
         , 'showLinkToDeleteThisCourse'
         , 'courseSessionAllowed'
+        , 'clcrs_rootCategoryAllowed'
         , 'nbCharFinalSuffix'
         , 'forceCodeCase'
         , 'availableLanguagesForCourses'
@@ -56,7 +57,6 @@ $conf_def[ 'section' ][ 'create' ][ 'properties' ] =
         , 'defaultAccessOnCourseCreation'
         , 'defaultRegistrationOnCourseCreation'
         , 'defaultVisibilityOnCourseCreation'
-        , 'clcrs_rootCategoryAllowed'
 );
 
 $conf_def[ 'section' ][ 'registration' ][ 'label' ] = 'Course registration settings';
