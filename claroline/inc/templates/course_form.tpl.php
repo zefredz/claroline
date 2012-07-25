@@ -91,7 +91,7 @@
                     <?php if (empty($this->course->courseId)) : ?>
                     <span class="notice">
                         <?php if ( $this->nonRootCategoryRequired ): ?>         
-                            <?php echo get_lang('You need to choose at least one category'); ?><br />
+                            <?php echo get_lang('You need to choose at least one category for this course'); ?><br />
                         <?php else: ?>
                             <?php echo get_lang('Feel free not to associate courses to any categories.'); ?><br />
                         <?php endif; ?>
