@@ -101,9 +101,11 @@ with IIS too and should work on any PHP-compatible web server.
    
    Windows : unzip 'claroline1xx.zip' with your favorite application.
    
-3. FTP or move by any means 'index.php' file and 'claroline' directory
-   to your website on web server (whether web root or subdirectory).
-   'index.php' should remain where it is, outside 'claroline' directory.
+3. FTP or move by any means 'index.php' file and 'web' and 'claroline' 
+   directories to your website on web server (whether web root or subdirectory).
+   'index.php' should remain where it is, outside 'claroline' and 'web' 
+   directories. You can also optionally copy the 'module' directory that 
+   contains some common extension modules.
    
    UNIX and Linux : copy the claroline1xx directory to the document root
    of your web server (typically /var/www/).
