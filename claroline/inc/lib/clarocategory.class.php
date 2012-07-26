@@ -152,29 +152,62 @@ class ClaroCategory
      * @return string   path.
      * @example echo getPath($categoryId, $categoriesList) will show "Category A > Category B > Category C"
      */
-    public static function getPath ($categoryId, $categoriesList = null, $separator = ' > ')
+    public static function getPath ( $categoryId, $categoriesList = null, $separator = ' > ' )
     {
         if ( is_null($categoriesList) )
         {
             $categoriesList = self::getAllCategories();
         }
         
-        $path   = null;
-        $findId = $categoryId;
-        while ( !is_null($findId) && $findId != 0 )
+        if ( !get_conf( 'clcrs_displayShortCategoryPath', false ) )
         {
-            foreach ( $categoriesList as $category )
+            $path   = null;
+            $findId = $categoryId;
+
+            while ( !is_null($findId) && $findId != 0 )
             {
-                if ( $category['id'] == $findId )
+                foreach ( $categoriesList as $category )
                 {
-                    $path = $category['name'] . ((!is_null($path))?(' ' . $separator . ' ' . $path):(null));
-                    $findId = $category['idParent'];
-                    break;
+                    if ( $category['id'] == $findId )
+                    {
+                        $path = $category['name'] . ((!is_null($path))?(' ' . $separator . ' ' . $path):(null));
+                        $findId = $category['idParent'];
+                        break;
+                    }
                 }
             }
+
+            return $path;
         }
-        
-        return $path;
+        else
+        {
+            $path   = null;
+            $findId = $categoryId;
+            
+            $thisCategoryName = '';
+
+            while ( !is_null($findId) && $findId != 0 )
+            {
+                foreach ( $categoriesList as $category )
+                {
+                    if ( $category['id'] == $categoryId )
+                    {
+                        $thisCategoryName = $category['name'];
+                    }
+                    
+                    if ( $category['id'] == $findId )
+                    {
+                        $path = $category['code'] . ((!is_null($path))?(' ' . $separator . ' ' . $path):(null));
+                        $findId = $category['idParent'];
+                        break;
+                    }
+                }
+            }
+            
+            $path = "({$path}) {$thisCategoryName}";
+
+            return $path;
+        }
     }
     
     

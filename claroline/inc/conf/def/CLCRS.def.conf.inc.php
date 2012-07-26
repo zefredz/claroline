@@ -33,6 +33,7 @@ $conf_def[ 'section' ][ 'main' ][ 'properties' ] =
         , 'showLinkToDeleteThisCourse'
         , 'courseSessionAllowed'
         , 'clcrs_rootCategoryAllowed'
+        , 'clcrs_displayShortCategoryPath'
         , 'nbCharFinalSuffix'
         , 'forceCodeCase'
         , 'availableLanguagesForCourses'
@@ -158,6 +159,18 @@ $conf_def_property_list[ 'clcrs_rootCategoryAllowed' ] =
     array ( 'label' => 'ROOT category allowed for courses'
         , 'description' => 'By default a course is assigned to the ROOT category if no other category is chosen. If set to No, only the platform administrator can assign a course to the ROOT category.'
         , 'default' => true
+        , 'type' => 'boolean'
+        , 'display' => true
+        , 'readonly' => false
+        , 'acceptedValue' => array ( 'TRUE' => 'Yes'
+            , 'FALSE' => 'No'
+        )
+);
+
+$conf_def_property_list[ 'clcrs_displayShortCategoryPath' ] =
+    array ( 'label' => 'Display short category path in category list'
+        , 'description' => 'Same display as in Claroline 1.9 (SC > PHYS) Physics instead of 1.10 Sciences > Physics. Useful if you have long category titles.'
+        , 'default' => false
         , 'type' => 'boolean'
         , 'display' => true
         , 'readonly' => false
