@@ -3398,3 +3398,9 @@ $_lang['warning : Installation cannot find the description of the learning path 
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name. You should change it.'] = 'warning : Installation cannot find the name of the learning path and has set a default name. You should change it.';
 $_lang['Go to administration'] = 'Go to administration';
 $_lang['Module administration'] = 'Module administration';
+$_lang['By default a course is assigned to the ROOT category if no other category is chosen. If set to No, only the platform administrator can assign a course to the ROOT category.'] = 'By default a course is assigned to the ROOT category if no other category is chosen. If set to No, only the platform administrator can assign a course to the ROOT category.';
+$_lang['Display short category path in category list'] = 'Display short category path in category list';
+$_lang['ROOT category allowed for courses'] = 'ROOT category allowed for courses';
+$_lang['Same display as in Claroline 1.9 (SC > PHYS) Physics instead of 1.10 Sciences > Physics. Useful if you have long category titles.'] = 'Same display as in Claroline 1.9 (SC > PHYS) Physics instead of 1.10 Sciences > Physics. Useful if you have long category titles.';
+$_lang['The category <i>%category</i> can\'t contain courses'] = 'The category <i>%category</i> can\'t contain courses';
+$_lang['You need to choose at least one category for this course'] = 'You need to choose at least one category for this course';
