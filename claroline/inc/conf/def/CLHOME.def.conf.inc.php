@@ -32,7 +32,8 @@ array ( 'course_order_by',
 $conf_def['section']['display']['label']='Display';
 $conf_def['section']['display']['description']='Manage the home page\'s display';
 $conf_def['section']['display']['properties'] =
-array ( 'display_former_homepage' );
+array ( 'display_former_homepage',
+        'userDesktopMessageCollapsedByDefault');
 
 //PROPERTIES
 $conf_def_property_list['course_order_by']
@@ -84,6 +85,17 @@ $conf_def_property_list['display_former_homepage']
 = array ('label'     => 'Display former Claroline\'s home page instead of user\'s desktop'
         ,'description' => ''
         ,'default'   => false
+        ,'type'      => 'boolean'
+        ,'display'       => true
+        ,'readonly'      => false
+        ,'acceptedValue' => array ( 'TRUE'=> 'Yes',
+                                    'FALSE' => 'No' )
+        );
+        
+$conf_def_property_list['userDesktopMessageCollapsedByDefault']
+= array ('label'     => 'Hide textzone on user desktop by default'
+        ,'description' => ''
+        ,'default'   => true
         ,'type'      => 'boolean'
         ,'display'       => true
         ,'readonly'      => false
