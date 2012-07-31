@@ -34,6 +34,8 @@ foreach( $it as $file )
     }
 }
 
+natcasesort($layoutList);
+
 /*
  * Output
  * 
