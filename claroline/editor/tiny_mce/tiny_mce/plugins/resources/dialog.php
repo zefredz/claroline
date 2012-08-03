@@ -30,7 +30,7 @@ else                                                                            
     <script type="text/javascript" src="<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/web/js/jquery.livequery.js"></script>
     <script type="text/javascript" src="js/linker.js"></script>
     <script type="text/javascript">
-        linkerFrontend.base_url = "<?php echo rtrim( get_path( 'rootWeb' ), '/' ); ?>/claroline/backends/linker.php";
+        linkerFrontend.base_url = "<?php echo rtrim( get_path( 'url' ), '/' ); ?>/claroline/backends/linker.php";
         linkerFrontend.deleteIconUrl = "<?php echo get_icon_url('delete'); ?>";
         linkerFrontend.invisibleIconUrl = "<?php echo get_icon_url('invisible'); ?>";
         Claroline.lang["Attach"] = "<?php echo get_lang('Attach'); ?>";

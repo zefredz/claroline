@@ -4,7 +4,7 @@ var tinyMCE_GZ = {
 		plugins : '',
 		languages : '',
 		disk_cache : true,
-		page_name : 'tiny_mce/tiny_mce_gzip.php',
+		page_name : 'tiny_mce_gzip.php',
 		debug : false,
 		suffix : ''
 	},
