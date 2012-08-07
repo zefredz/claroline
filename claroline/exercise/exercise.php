@@ -166,6 +166,21 @@ if( $is_allowedToEdit && !is_null($cmd) )
           ;
         }
         
+        $dialogBoxContent .=  '<li>' . "\n"
+        .                     '<img src="' . get_icon_url('print') . '" alt="'.get_lang('Printable version').'" /> ' . "\n"
+        .                     '<a rel="external" href="' . htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=printPreview&exId=' . $exId ) ) . '">' . get_lang( 'Printable version' ) . '</a>' . "\n"
+        .                     '</li>' . "\n"
+        ;
+        
+        if( $exercise->getShuffle() )
+        {
+          $dialogBoxContent .=  '<li>' . "\n"
+          .                     '<img src="' . get_icon_url('print') . '" alt="'.get_lang('Printable version (Shuffle)').'" /> ' . "\n"
+          .                     '<a rel="external" href="' . htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=printPreview&exId=' . $exId . '&shuffle=1' ) ) . '">' . get_lang( 'Printable version (Shuffle)' ) . '</a>' . "\n"
+          .                     '</li>' . "\n"
+          ;
+        }
+        
         $dialogBoxContent .=  '</ul>' . "\n"
         ;
         
