@@ -900,13 +900,14 @@ function is_tool_activated_in_groups( $courseId, $toolLabel )
 /**
  * Get the tool id corresponding to the given module label
  * @param string $moduleLabel
+ * @param boolean $forceCacheRefresh
  * @return int
  */
-function get_tool_id_from_module_label( $moduleLabel )
+function get_tool_id_from_module_label( $moduleLabel, $forceCacheRefresh = false )
 {
     static $toolIdList = false;
     
-    if ( ! $toolIdList )
+    if ( !$toolIdList || $forceCacheRefresh )
     {
         $toolIdList = array();
         
