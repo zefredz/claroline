@@ -3406,3 +3406,6 @@ $_lang['ROOT category allowed for courses'] = 'ROOT category allowed for courses
 $_lang['Same display as in Claroline 1.9 (SC > PHYS) Physics instead of 1.10 Sciences > Physics. Useful if you have long category titles.'] = 'Same display as in Claroline 1.9 (SC > PHYS) Physics instead of 1.10 Sciences > Physics. Useful if you have long category titles.';
 $_lang['The category <i>%category</i> can\'t contain courses'] = 'The category <i>%category</i> can\'t contain courses';
 $_lang['You need to choose at least one category for this course'] = 'You need to choose at least one category for this course';
+$_lang['Hide textzone on user desktop by default'] = 'Hide textzone on user desktop by default';
+$_lang['Printable version'] = 'Printable version';
+$_lang['Printable version (Shuffle)'] = 'Printable version (Shuffle)';

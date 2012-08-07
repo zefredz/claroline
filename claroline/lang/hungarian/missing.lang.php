@@ -170,7 +170,9 @@ $_lang['Go'] = 'Go';
 $_lang['Go to administration'] = 'Go to administration';
 $_lang['Headline'] = 'Headline';
 $_lang['Headlines'] = 'Headlines';
+$_lang['Hide textzone on user desktop by default'] = 'Hide textzone on user desktop by default';
 $_lang['Hide this item'] = 'Hide this item';
+$_lang['Hide/Show'] = 'Hide/Show';
 $_lang['History'] = 'History';
 $_lang['I\'m node <b>%id</b>'] = 'I\'m node <b>%id</b>';
 $_lang['If activated, allows to define a notification policy for assignment submissions and feedbacks.'] = 'If activated, allows to define a notification policy for assignment submissions and feedbacks.';
@@ -286,6 +288,8 @@ $_lang['Portlet moved down'] = 'Portlet moved down';
 $_lang['Portlet moved up'] = 'Portlet moved up';
 $_lang['Portlet visibility modified'] = 'Portlet visibility modified';
 $_lang['Presentation'] = 'Presentation';
+$_lang['Printable version'] = 'Printable version';
+$_lang['Printable version (Shuffle)'] = 'Printable version (Shuffle)';
 $_lang['Profile SQL in DEBUG MODE.
 Display for each request :duration, counter,  statement '] = 'Profile SQL in DEBUG MODE.
 Display for each request :duration, counter,  statement ';
@@ -323,6 +327,7 @@ $_lang['Settings'] = 'Settings';
 $_lang['Show all the commands in tool titles'] = 'Show all the commands in tool titles';
 $_lang['Show always language in the course list'] = 'Show always language in the course list';
 $_lang['Show this item'] = 'Show this item';
+$_lang['Show/Hide'] = 'Show/Hide';
 $_lang['Show/hide %nbr more commands'] = 'Show/hide %nbr more commands';
 $_lang['Simply write the fields\' names in right order and separated by commas'] = 'Simply write the fields\' names in right order and separated by commas';
 $_lang['Skype account'] = 'Skype account';

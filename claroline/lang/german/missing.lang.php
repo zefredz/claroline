@@ -387,7 +387,9 @@ $_lang['HTML in posts'] = 'HTML in posts';
 $_lang['Headline'] = 'Headline';
 $_lang['Headlines'] = 'Headlines';
 $_lang['Hidden'] = 'Hidden';
+$_lang['Hide textzone on user desktop by default'] = 'Hide textzone on user desktop by default';
 $_lang['Hide this item'] = 'Hide this item';
+$_lang['Hide/Show'] = 'Hide/Show';
 $_lang['History'] = 'History';
 $_lang['Horizontal space'] = 'Horizontal space';
 $_lang['Host of CAS server'] = 'Host of CAS server';
@@ -644,6 +646,8 @@ $_lang['Prefix course code beginning with number'] = 'Prefix course code beginni
 $_lang['Prefix for empty code course'] = 'Prefix for empty code course';
 $_lang['Presentation'] = 'Presentation';
 $_lang['Pretty URL using PATH_INFO (download.php/path/to/file.ext)'] = 'Pretty URL using PATH_INFO (download.php/path/to/file.ext)';
+$_lang['Printable version'] = 'Printable version';
+$_lang['Printable version (Shuffle)'] = 'Printable version (Shuffle)';
 $_lang['Profile SQL in DEBUG MODE.
 Display for each request :duration, counter,  statement '] = 'Profile SQL in DEBUG MODE.
 Display for each request :duration, counter,  statement ';
@@ -728,6 +732,7 @@ $_lang['Show'] = 'Show';
 $_lang['Show all the commands in tool titles'] = 'Show all the commands in tool titles';
 $_lang['Show always language in the course list'] = 'Show always language in the course list';
 $_lang['Show this item'] = 'Show this item';
+$_lang['Show/Hide'] = 'Show/Hide';
 $_lang['Show/hide %nbr more commands'] = 'Show/hide %nbr more commands';
 $_lang['Simple'] = 'Simple';
 $_lang['Simply write the fields\' names in right order and separated by commas'] = 'Simply write the fields\' names in right order and separated by commas';
