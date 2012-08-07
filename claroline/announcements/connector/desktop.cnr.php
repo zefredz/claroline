@@ -1,8 +1,10 @@
-<?php // $Id$
+<?php
 
+// $Id$
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( count ( get_included_files () ) == 1 )
+    die ( '---' );
 
 /**
  * CLAROLINE
@@ -15,111 +17,113 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package     DESKTOP
  * @author      Claroline team <info@claroline.net>
  */
+require_once get_module_path ( 'CLANN' ) . '/lib/announcement.lib.php';
 
-require_once get_module_path( 'CLANN' ) . '/lib/announcement.lib.php';
-
-FromKernel::uses('courselist.lib');
+FromKernel::uses ( 'courselist.lib' );
 
 class CLANN_Portlet extends UserDesktopPortlet
 {
-    public function __construct($label)
+
+    public function __construct ( $label )
     {
-        parent::__construct($label);
-        
+        parent::__construct ( $label );
+
         $this->name = 'Latest announcements';
         $this->label = 'CLANN_Portlet';
-        
-        if (file_exists(claro_get_conf_repository() . 'CLANN.conf.php'))
+
+        if ( file_exists ( claro_get_conf_repository () . 'CLANN.conf.php' ) )
         {
-            include claro_get_conf_repository() . 'CLANN.conf.php';
+            include claro_get_conf_repository () . 'CLANN.conf.php';
         }
     }
-    
-    
-    public function renderContent()
+
+    public function renderContent ()
     {
-        $personnalCourseList = get_user_course_list(claro_get_current_user_id());
-        
-        $announcementEventList = announcement_get_items_portlet($personnalCourseList);
-        
+        $personnalCourseList = get_user_course_list ( claro_get_current_user_id () );
+
+        $announcementEventList = announcement_get_items_portlet ( $personnalCourseList );
+
         $output = '';
-        
-        if($announcementEventList)
+
+        if ( $announcementEventList )
         {
             $output .= '<dl id="portletMyAnnouncements">';
-            foreach($announcementEventList as $announcementItem)
+
+            foreach ( $announcementEventList as $announcementItem )
             {
                 // Hide hidden and expired elements
-                $isVisible = (bool) ($announcementItem['visibility'] == 'SHOW') ? (1) : (0);
-                $isOffDeadline = (bool)
-                    (
-                        (isset($announcementItem['visibleFrom'])
-                            && strtotime($announcementItem['visibleFrom']) > time()
-                        )
-                        ||
-                        (isset($announcementItem['visibleUntil'])
-                            && time() >= strtotime($announcementItem['visibleUntil'])
-                        )
-                    ) ? (1) : (0);
+                $isVisible = (bool) ($announcementItem[ 'visibility' ] == 'SHOW') ? (1) : (0);
                 
+                $isOffDeadline = (bool)
+                (
+                    (isset ( $announcementItem[ 'visibleFrom' ] )
+                        && strtotime ( $announcementItem[ 'visibleFrom' ] ) > time ()
+                    )
+                    ||
+                    (isset ( $announcementItem[ 'visibleUntil' ] )
+                        && time () >= strtotime ( $announcementItem[ 'visibleUntil' ] )
+                    )
+                ) ? (1) : (0);
+
                 if ( $isVisible && !$isOffDeadline )
                 {
                     $output .= '<dt>' . "\n"
-                             . '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="" />'
-                             . ' <a href="' . $announcementItem['url'] . '">'
-                             . $announcementItem['title']
-                             . '</a>' . "\n"
-                             . '</dt>' . "\n";
-                    
-                    foreach($announcementItem['eventList'] as $announcementEvent)
+                        . '<img class="iconDefinitionList" src="' . get_icon_url ( 'announcement', 'CLANN' ) . '" alt="" />'
+                        . ' <a href="' . $announcementItem[ 'url' ] . '">'
+                        . $announcementItem[ 'title' ]
+                        . '</a>' . "\n"
+                        . '</dt>' . "\n";
+
+                    foreach ( $announcementItem[ 'eventList' ] as $announcementEvent )
                     {
                         // Prepare the render
                         $displayChar = 250;
-                        
-                        if (strlen($announcementEvent['content']) > $displayChar)
+
+                        if ( strlen ( $announcementEvent[ 'content' ] ) > $displayChar )
                         {
-                            $content = substr($announcementEvent['content'], 0, $displayChar)
-                                     . '... <a href="'
-                                     . htmlspecialchars(Url::Contextualize($announcementEvent['url'])) . '">'
-                                     . '<b>' . get_lang('Read more &raquo;') . '</b></a>';
+                            $content = substr ( $announcementEvent[ 'content' ], 0, $displayChar )
+                                . '... <a href="'
+                                . htmlspecialchars ( Url::Contextualize ( $announcementEvent[ 'url' ] ) ) . '">'
+                                . '<b>' . get_lang ( 'Read more &raquo;' ) . '</b></a>';
                         }
                         else
                         {
-                            $content = $announcementEvent['content'];
+                            $content = $announcementEvent[ 'content' ];
                         }
-                        
+
                         $output .= '<dd>'
-                                 . '<a href="' . $announcementEvent['url'] . '">'
-                                 . $announcementItem['courseOfficialCode']
-                                 . '</a> : ' . "\n"
-                                 . (!empty($announcementEvent['title']) ?
-                                    $announcementEvent['title'] :
-                                    get_lang('No title')) . "\n"
-                                 . ' - '
-                                 . $content . "\n"
-                                 . '</dd>' . "\n";
+                            . '<a href="' . $announcementEvent[ 'url' ] . '">'
+                            . $announcementItem[ 'courseOfficialCode' ]
+                            . '</a> : ' . "\n"
+                            . (!empty ( $announcementEvent[ 'title' ] ) ?
+                                $announcementEvent[ 'title' ] :
+                                get_lang ( 'No title' )) . "\n"
+                            . ' - '
+                            . $content . "\n"
+                            . '</dd>' . "\n";
                     }
                 }
             }
+            
             $output .= '</dl>';
         }
         else
         {
             $output .= "\n"
-                     . '<dl>' . "\n"
-                     . '<dt>' . "\n"
-                     . '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="" />'
-                     . ' '.get_lang('No announcement to display') . "\n"
-                     . '</dt>' . "\n"
-                     . '</dl>' . "\n";
+                . '<dl>' . "\n"
+                . '<dt>' . "\n"
+                . '<img class="iconDefinitionList" src="' . get_icon_url ( 'announcement', 'CLANN' ) . '" alt="" />'
+                . ' ' . get_lang ( 'No announcement to display' ) . "\n"
+                . '</dt>' . "\n"
+                . '</dl>' . "\n";
         }
-        
+
         return $output;
     }
-    
-    
-    public function renderTitle()
+
+    public function renderTitle ()
     {
-        return get_lang('Latest announcements');
+        return get_lang ( 'Latest announcements' );
     }
+
 }

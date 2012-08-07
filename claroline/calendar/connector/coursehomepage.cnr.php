@@ -22,16 +22,26 @@ class CLCAL_Portlet extends CourseHomePagePortlet
 {
     public function renderContent()
     {
-        $output = '<div id="portletMycalendar">' . "\n"
-            . '<img src="'.get_icon_url('loading').'" alt="'.get_lang('Loading').'" />' . "\n"
-            . '</div>' . "\n";
+        $toolId = get_tool_id_from_module_label('CLCAL');
         
-        $output .= "<script type=\"text/javascript\">
-$(document).ready( function(){
-    $('#portletMycalendar').load('"
-        .get_module_url('CLCAL')."/ajaxHandler.php', { location : 'coursehomepage', courseCode : '".$this->courseCode."' });
-});
-</script>";
+        if ( is_module_installed_in_course ( 'CLCAL', claro_get_current_course_id () ) 
+            && is_tool_activated_in_course( $toolId, claro_get_current_course_id () ) )
+        {
+            $output = '<div id="portletMycalendar">' . "\n"
+                . '<img src="'.get_icon_url('loading').'" alt="'.get_lang('Loading').'" />' . "\n"
+                . '</div>' . "\n";
+
+            $output .= "<script type=\"text/javascript\">
+    $(document).ready( function(){
+        $('#portletMycalendar').load('"
+            .get_module_url('CLCAL')."/ajaxHandler.php', { location : 'coursehomepage', courseCode : '".$this->courseCode."' });
+    });
+    </script>";
+        }
+        else
+        {
+            $output = '<div id="portletMycalendar"></div>';
+        }
         
         return $output;
     }

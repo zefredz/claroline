@@ -30,17 +30,18 @@ class CLCAL_Portlet extends UserDesktopPortlet
     
     public function renderContent()
     {
-        $output = '<div id="portletMycalendar">' . "\n"
-            . '<img src="'.get_icon_url('loading').'" alt="" />' . "\n"
-            . '</div>' . "\n"
-            ;
         
-        $output .= "<script type=\"text/javascript\">
-$(document).ready( function(){
-    $('#portletMycalendar').load('"
-        .get_module_url('CLCAL')."/ajaxHandler.php', { location : 'userdesktop' });
-});
-</script>";
+            $output = '<div id="portletMycalendar">' . "\n"
+                . '<img src="'.get_icon_url('loading').'" alt="" />' . "\n"
+                . '</div>' . "\n"
+                ;
+
+            $output .= "<script type=\"text/javascript\">
+    $(document).ready( function(){
+        $('#portletMycalendar').load('"
+            .get_module_url('CLCAL')."/ajaxHandler.php', { location : 'userdesktop' });
+    });
+    </script>";
 
         return $output;
     }

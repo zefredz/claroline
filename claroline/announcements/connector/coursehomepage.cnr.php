@@ -26,102 +26,108 @@ class CLANN_Portlet extends CourseHomePagePortlet
         $course = claro_get_current_course_data();
         $course['db'] = $course['dbName'];
         
-        $announcementList = announcement_get_course_item_list_portlet($course);
+        $toolId = get_tool_id_from_module_label('CLANN');
         
-        // Manage announcement's datas
-        if($announcementList)
-        {
-            $output .= '<dl id="portletAnnouncements">' . "\n";
-            
-            $i = 0;
-            foreach($announcementList as $announcementItem)
+        if ( is_module_installed_in_course ( 'CLANN', claro_get_current_course_id () ) 
+            && is_tool_activated_in_course( $toolId, claro_get_current_course_id () ) )
+        {   
+            $announcementList = announcement_get_course_item_list_portlet($course);
+
+            // Manage announcement's datas
+            if($announcementList)
             {
-                // Generate announcement URL
-                $announcementItem['url'] = get_path('url')
-                    . '/claroline/announcements/announcements.php?cidReq='
-                    . $course['sysCode'];
-                
-                // Generate announcement title and content
-                $announcementItem['title'] = trim(strip_tags($announcementItem['title']));
-                if ( $announcementItem['title'] == '' )
+                $output .= '<dl id="portletAnnouncements">' . "\n";
+
+                $i = 0;
+                foreach($announcementList as $announcementItem)
                 {
-                    $announcementItem['title'] = substr($announcementItem['title'], 0, 60) . (strlen($announcementItem['title']) > 60 ? ' (...)' : '');
+                    // Generate announcement URL
+                    $announcementItem['url'] = get_path('url')
+                        . '/claroline/announcements/announcements.php?cidReq='
+                        . $course['sysCode'];
+
+                    // Generate announcement title and content
+                    $announcementItem['title'] = trim(strip_tags($announcementItem['title']));
+                    if ( $announcementItem['title'] == '' )
+                    {
+                        $announcementItem['title'] = substr($announcementItem['title'], 0, 60) . (strlen($announcementItem['title']) > 60 ? ' (...)' : '');
+                    }
+
+                    $announcementItem['content'] = trim(strip_tags($announcementItem['content']));
+                    if ( $announcementItem['content'] == '' )
+                    {
+                        $announcementItem['content'] = substr($announcementItem['content'], 0, 60) . (strlen($announcementItem['content']) > 60 ? ' (...)' : '');
+                    }
+
+                    // Don't display hidden and expired elements
+                    $isVisible = (bool) ($announcementItem['visibility'] == 'SHOW') ? (1) : (0);
+                    $isOffDeadline = (bool)
+                        (
+                            (isset($announcementItem['visibleFrom'])
+                                && strtotime($announcementItem['visibleFrom']) > time()
+                            )
+                            ||
+                            (isset($announcementItem['visibleUntil'])
+                                && time() >= strtotime($announcementItem['visibleUntil'])
+                            )
+                        ) ? (1) : (0);
+
+                    // Prepare the render
+                    $displayChar = 250;
+
+                    if (strlen($announcementItem['content']) > $displayChar)
+                    {
+                        $content = substr($announcementItem['content'], 0, $displayChar)
+                                . '... <a href="'
+                                . htmlspecialchars(Url::Contextualize($announcementItem['url'])) . '">'
+                                . '<b>' . get_lang('Read more &raquo;') . '</b></a>';
+                    }
+                    else
+                    {
+                        $content = $announcementItem['content'];
+                    }
+
+                    if ( $isVisible && !$isOffDeadline )
+                    {
+                        $output .= '<dt>' . "\n"
+                                . '<h2> '
+                                . '<a href="' . $announcementItem['url'] . '#item'.$announcementItem['id'].'">'
+                                . (!empty($announcementItem['title']) ? $announcementItem['title'] : get_lang('No title'))
+                                . '</a></h2>' . "\n"
+                                . '</dt>' . "\n"
+                                . '<dd'.($i == count($announcementList)-1?' class="last"':'').'>' . "\n"
+                                . $content . "\n"
+                                . (claro_is_allowed_to_edit() ?
+                                '<div class="manageTools"><a
+                                        href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLANN').'/announcements.php?cmd=rqEdit&id='.$announcementItem['id'])).'"
+                                        title="'.get_lang('Edit this item').'">
+                                        <img src="'.get_icon_url('edit').'" alt="'.get_lang('Edit').'" />
+                                    </a>
+
+                                    <a
+                                        href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLANN').'/announcements.php?cmd=exDelete&id='.$announcementItem['id'])).'"
+                                        title="'.get_lang('Delete this item').'">
+                                        <img src="'.get_icon_url('delete').'" alt="'.get_lang('Delete').'" />
+                                    </a></div>' :
+                                '')
+                                . '</dd>' . "\n";
+                    }
+
+                    $i++;
                 }
-                
-                $announcementItem['content'] = trim(strip_tags($announcementItem['content']));
-                if ( $announcementItem['content'] == '' )
-                {
-                    $announcementItem['content'] = substr($announcementItem['content'], 0, 60) . (strlen($announcementItem['content']) > 60 ? ' (...)' : '');
-                }
-                
-                // Don't display hidden and expired elements
-                $isVisible = (bool) ($announcementItem['visibility'] == 'SHOW') ? (1) : (0);
-                $isOffDeadline = (bool)
-                    (
-                        (isset($announcementItem['visibleFrom'])
-                            && strtotime($announcementItem['visibleFrom']) > time()
-                        )
-                        ||
-                        (isset($announcementItem['visibleUntil'])
-                            && time() >= strtotime($announcementItem['visibleUntil'])
-                        )
-                    ) ? (1) : (0);
-                
-                // Prepare the render
-                $displayChar = 250;
-                
-                if (strlen($announcementItem['content']) > $displayChar)
-                {
-                    $content = substr($announcementItem['content'], 0, $displayChar)
-                             . '... <a href="'
-                             . htmlspecialchars(Url::Contextualize($announcementItem['url'])) . '">'
-                             . '<b>' . get_lang('Read more &raquo;') . '</b></a>';
-                }
-                else
-                {
-                    $content = $announcementItem['content'];
-                }
-                
-                if ( $isVisible && !$isOffDeadline )
-                {
-                    $output .= '<dt>' . "\n"
-                             . '<h2> '
-                             . '<a href="' . $announcementItem['url'] . '#item'.$announcementItem['id'].'">'
-                             . (!empty($announcementItem['title']) ? $announcementItem['title'] : get_lang('No title'))
-                             . '</a></h2>' . "\n"
-                             . '</dt>' . "\n"
-                             . '<dd'.($i == count($announcementList)-1?' class="last"':'').'>' . "\n"
-                             . $content . "\n"
-                             . (claro_is_allowed_to_edit() ?
-                               '<div class="manageTools"><a
-                                    href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLANN').'/announcements.php?cmd=rqEdit&id='.$announcementItem['id'])).'"
-                                    title="'.get_lang('Edit this item').'">
-                                    <img src="'.get_icon_url('edit').'" alt="'.get_lang('Edit').'" />
-                                </a>
-                                
-                                <a
-                                    href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLANN').'/announcements.php?cmd=exDelete&id='.$announcementItem['id'])).'"
-                                    title="'.get_lang('Delete this item').'">
-                                    <img src="'.get_icon_url('delete').'" alt="'.get_lang('Delete').'" />
-                                </a></div>' :
-                               '')
-                             . '</dd>' . "\n";
-                }
-                
-                $i++;
+
+                $output .= '</dl>';
             }
-            
-            $output .= '</dl>';
-        }
-        else
-        {
-            $output .= "\n"
-                     . '<dl>' . "\n"
-                     . '<dt></dt>' . "\n"
-                     . '<dd class="last">'
-                     . ' ' . get_lang('No announcement') . "\n"
-                     . '</dd>' . "\n"
-                     . '</dl>' . "\n\n";
+            else
+            {
+                $output .= "\n"
+                        . '<dl>' . "\n"
+                        . '<dt></dt>' . "\n"
+                        . '<dd class="last">'
+                        . ' ' . get_lang('No announcement') . "\n"
+                        . '</dd>' . "\n"
+                        . '</dl>' . "\n\n";
+            }
         }
         
         return $output;

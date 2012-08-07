@@ -110,56 +110,62 @@ function announcement_get_items_portlet($personnalCourseList)
 {
     $courseDigestList = array();
     
+    $clannToolId = get_tool_id_from_module_label('CLANN');
+    
     foreach($personnalCourseList as $thisCourse)
     {
-        $courseEventList = announcement_get_course_item_list_portlet($thisCourse, get_conf('announcementPortletMaxItems', 3));
-        
-        if ( is_array($courseEventList) )
+        if ( is_module_installed_in_course ( 'CLANN', $thisCourse['sysCode'] ) 
+            && is_tool_activated_in_course( $clannToolId,$thisCourse['sysCode'] ) )
         {
-            foreach($courseEventList as $thisEvent)
+            $courseEventList = announcement_get_course_item_list_portlet($thisCourse, get_conf('announcementPortletMaxItems', 3));
+
+            if ( is_array($courseEventList) )
             {
-                $courseTitle = trim(strip_tags($thisCourse['title']));
-                if ( $courseTitle == '' )
+                foreach($courseEventList as $thisEvent)
                 {
-                    $courseTitle = substr($courseTitle, 0, 60) . (strlen($courseTitle) > 60 ? ' (...)' : '');
-                }
-                
-                $eventContent = trim(strip_tags($thisEvent['content']));
-                if ( $eventContent == '' )
-                {
-                    $eventContent = substr($eventContent, 0, 60) . (strlen($eventContent) > 60 ? ' (...)' : '');
-                }
-                
-                $courseOfficialCode = $thisEvent['courseOfficialCode'];
-                
-                if(!array_key_exists($courseOfficialCode, $courseDigestList))
-                {
-                    $courseDigestList[$courseOfficialCode] = array();
-                    $courseDigestList[$courseOfficialCode]['eventList'] = array();
-                    $courseDigestList[$courseOfficialCode]['id'] = $thisEvent['id'];
-                    $courseDigestList[$courseOfficialCode]['courseOfficialCode'] = $courseOfficialCode;
-                    $courseDigestList[$courseOfficialCode]['title'] = $courseTitle;
-                    $courseDigestList[$courseOfficialCode]['visibility'] = $thisEvent['visibility'];
-                    $courseDigestList[$courseOfficialCode]['visibleFrom'] = $thisEvent['visibleFrom'];
-                    $courseDigestList[$courseOfficialCode]['visibleUntil'] = $thisEvent['visibleUntil'];
-                    $courseDigestList[$courseOfficialCode]['url'] = get_path('url')
-                        . '/claroline/announcements/announcements.php?cidReq='
-                        . $thisEvent['courseSysCode'];
-                }
-                
-                $courseDigestList[$courseOfficialCode]['eventList'][] =
-                    array(
-                        'id' => $thisEvent['id'],
-                        'courseSysCode' => $thisEvent['courseSysCode'],
-                        'toolLabel' => $thisEvent['toolLabel'],
-                        'title' => $thisEvent['title'],
-                        'content' => $eventContent,
-                        'date' => $thisEvent['date'],
-                        'url' => get_path('url')
+                    $courseTitle = trim(strip_tags($thisCourse['title']));
+                    if ( $courseTitle == '' )
+                    {
+                        $courseTitle = substr($courseTitle, 0, 60) . (strlen($courseTitle) > 60 ? ' (...)' : '');
+                    }
+
+                    $eventContent = trim(strip_tags($thisEvent['content']));
+                    if ( $eventContent == '' )
+                    {
+                        $eventContent = substr($eventContent, 0, 60) . (strlen($eventContent) > 60 ? ' (...)' : '');
+                    }
+
+                    $courseOfficialCode = $thisEvent['courseOfficialCode'];
+
+                    if(!array_key_exists($courseOfficialCode, $courseDigestList))
+                    {
+                        $courseDigestList[$courseOfficialCode] = array();
+                        $courseDigestList[$courseOfficialCode]['eventList'] = array();
+                        $courseDigestList[$courseOfficialCode]['id'] = $thisEvent['id'];
+                        $courseDigestList[$courseOfficialCode]['courseOfficialCode'] = $courseOfficialCode;
+                        $courseDigestList[$courseOfficialCode]['title'] = $courseTitle;
+                        $courseDigestList[$courseOfficialCode]['visibility'] = $thisEvent['visibility'];
+                        $courseDigestList[$courseOfficialCode]['visibleFrom'] = $thisEvent['visibleFrom'];
+                        $courseDigestList[$courseOfficialCode]['visibleUntil'] = $thisEvent['visibleUntil'];
+                        $courseDigestList[$courseOfficialCode]['url'] = get_path('url')
                             . '/claroline/announcements/announcements.php?cidReq='
-                            . $thisEvent['courseSysCode']
-                            . '#item'.$thisEvent['id']
-                    );
+                            . $thisEvent['courseSysCode'];
+                    }
+
+                    $courseDigestList[$courseOfficialCode]['eventList'][] =
+                        array(
+                            'id' => $thisEvent['id'],
+                            'courseSysCode' => $thisEvent['courseSysCode'],
+                            'toolLabel' => $thisEvent['toolLabel'],
+                            'title' => $thisEvent['title'],
+                            'content' => $eventContent,
+                            'date' => $thisEvent['date'],
+                            'url' => get_path('url')
+                                . '/claroline/announcements/announcements.php?cidReq='
+                                . $thisEvent['courseSysCode']
+                                . '#item'.$thisEvent['id']
+                        );
+                }
             }
         }
     }

@@ -904,13 +904,33 @@ function is_tool_activated_in_groups( $courseId, $toolLabel )
  */
 function get_tool_id_from_module_label( $moduleLabel )
 {
-    $tbl = claro_sql_get_main_tbl();
+    static $toolIdList = false;
     
-    $sql = "SELECT id
-              FROM `" . $tbl['tool']."`
-             WHERE claro_label = '".claro_sql_escape($moduleLabel)."'";
-             
-    return claro_sql_query_fetch_single_value($sql);
+    if ( ! $toolIdList )
+    {
+        $toolIdList = array();
+        
+        $tbl = claro_sql_get_main_tbl();
+
+        $sql = "SELECT claro_label, id
+                FROM `" . $tbl['tool']."`";
+
+        $result = claro_sql_query_fetch_all_rows($sql);
+        
+        foreach ( $result as $tool )
+        {
+            $toolIdList[$tool['claro_label']] = $tool['id'];
+        }
+    }
+    
+    if ( isset( $toolIdList[$moduleLabel] ) )
+    {
+        return $toolIdList[$moduleLabel];
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /**
