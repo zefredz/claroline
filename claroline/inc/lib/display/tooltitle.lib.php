@@ -128,6 +128,70 @@ class ToolTitle implements Display
             $this->advancedCommandList = $advancedCommandList;
         }
     }
+    
+    public function setHelpUrl( $helpUrl )
+    {
+        $this->helpUrl = $helpUrl;
+    }
+    
+    public function setSubTitle( $subTitle )
+    {
+        $this->subTitle = $subTitle;
+    }
+    
+    public function superTitle( $superTitle )
+    {
+        $this->superTitle = $superTitle;
+    }
+    
+    public function setMainTitle( $mainTitle )
+    {
+        $this->mainTitle = $mainTitle;
+    }
+    
+    public function addCommand( $name, $url, $iconUrl = null, $extraParams = null )
+    {
+        $this->commandList[] = array(
+            'name' => $name,
+            'url' => $url,
+            'img' => $iconUrl,
+            'params' => $extraParams
+        );
+    }
+    
+    public function addCommandList( $commandList, $replace = false )
+    {
+        if ( $replace )
+        {
+            $this->commandList = $commandList;
+        }
+        else
+        {
+            $this->commandList += $commandList;
+        }
+    }
+    
+    public function addAdvancedCommand( $name, $url, $iconUrl = null, $extraParams = null )
+    {
+        $this->advancedCommandList[] = array(
+            'name' => $name,
+            'url' => $url,
+            'img' => $iconUrl,
+            'params' => $extraParams
+        );
+    }
+    
+    public function addAdvancedCommandList( $commandList, $replace = false )
+    {
+        if ( $replace )
+        {
+            $this->advancedCommandList = $commandList;
+        }
+        else
+        {
+            $this->advancedCommandList += $commandList;
+        }
+    }
 
     /**
      * Render the tool title and command list
