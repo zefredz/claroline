@@ -839,41 +839,100 @@ function get_activated_group_tool_label_list( $courseId )
  * @param string $courseIdReq course code
  * @return boolean
  */
-function is_tool_activated_in_course( $toolId, $courseIdReq )
+function is_tool_activated_in_course( $toolId, $courseIdReq, $forceCacheRefresh = false )
 {
-    $tbl_cdb_names        = claro_sql_get_course_tbl(
-        claro_get_course_db_name_glued( $courseIdReq ) );
-    $tbl_course_tool_list = $tbl_cdb_names['tool'];
+    static $courseActivatedToolList = false;
     
-    $sql = "SELECT count(*) \n"
-        . "FROM `{$tbl_course_tool_list}`\n"
-        . "WHERE tool_id = " . (int) $toolId ."\n"
-        . "AND `activated` = 'true'"
-        ;
+    if ( ! $courseActivatedToolList )
+    {
+        $courseActivatedToolList = array();
+    }
+    
+    if ( ! isset($courseActivatedToolList[$courseIdReq]) || $forceCacheRefresh )
+    {
         
-    return ( false != claro_sql_query_fetch_single_value($sql) );
+        $courseActivatedToolList[$courseIdReq] = array();
+    
+        $tbl_cdb_names = claro_sql_get_course_tbl(
+            claro_get_course_db_name_glued( $courseIdReq ) 
+        );
+        
+        $tbl_course_tool_list = $tbl_cdb_names['tool'];
+
+        $sql = "SELECT tool_id \n"
+            . "FROM `{$tbl_course_tool_list}`\n"
+            . "WHERE `activated` = 'true'"
+            ;
+        
+        $result = claro_sql_query_fetch_all_rows($sql);
+    
+        foreach ( $result as $tool )
+        {
+            $courseActivatedToolList[$courseIdReq][$tool['tool_id']] = true;
+        }
+    
+    }
+    
+    if ( isset( $courseActivatedToolList[$courseIdReq][$toolId] ) )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /**
  * Is the given module installed in the given course ?
  * @param string $toolLabel module label
- * @param string $courseId course code
+ * @param string $courseIdReq course code
  * @return boolean
  */
-function is_module_installed_in_course( $toolLabel, $courseId )
+function is_module_installed_in_course( $toolLabel, $courseIdReq, $forceCacheRefresh = false )
 {
+    static $courseInstalledToolList = false;
+    
     $toolId = get_tool_id_from_module_label( $toolLabel );
     
-    $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
-    $tbl_course_tool_list = $tbl_cdb_names['tool'];
+    if ( ! $courseInstalledToolList )
+    {
+        $courseInstalledToolList = array();
+    }
     
-    $sql = "SELECT count(*) \n"
-        . "FROM `{$tbl_course_tool_list}`\n"
-        . "WHERE tool_id = " . (int) $toolId ."\n"
-        . "AND `installed` = 'true'"
-        ;
+    if ( ! isset($courseInstalledToolList[$courseIdReq]) || $forceCacheRefresh )
+    {
         
-    return ( false != claro_sql_query_fetch_single_value($sql) );
+        $courseInstalledToolList[$courseIdReq] = array();
+    
+        $tbl_cdb_names = claro_sql_get_course_tbl(
+            claro_get_course_db_name_glued( $courseIdReq ) 
+        );
+        
+        $tbl_course_tool_list = $tbl_cdb_names['tool'];
+
+        $sql = "SELECT tool_id \n"
+            . "FROM `{$tbl_course_tool_list}`\n"
+            . "WHERE `installed` = 'true'"
+            ;
+        
+        $result = claro_sql_query_fetch_all_rows($sql);
+    
+        foreach ( $result as $tool )
+        {
+            $courseInstalledToolList[$courseIdReq][$tool['tool_id']] = true;
+        }
+    
+    }
+    
+    if ( isset( $courseInstalledToolList[$courseIdReq][$toolId] ) )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /**
@@ -939,15 +998,35 @@ function get_tool_id_from_module_label( $moduleLabel, $forceCacheRefresh = false
  * @param int $toolId
  * @return string
  */
-function get_module_label_from_tool_id( $toolId )
+function get_module_label_from_tool_id( $toolId, $forceCacheRefresh = false )
 {
-    $tbl = claro_sql_get_main_tbl();
+    static $toolIdList = false;
     
-    $sql = "SELECT claro_label
-              FROM `" . $tbl['tool']."`
-             WHERE id = ".(int)$toolId;
-             
-    return claro_sql_query_fetch_single_value($sql);
+    if ( ! $toolIdList || $forceCacheRefresh )
+    {
+        $toolIdList = array();
+        
+        $tbl = claro_sql_get_main_tbl();
+
+        $sql = "SELECT claro_label, id
+                FROM `" . $tbl['tool']."`";
+
+        $result = claro_sql_query_fetch_all_rows($sql);
+        
+        foreach ( $result as $tool )
+        {
+            $toolIdList[$tool['id']] = $tool['claro_label'];
+        }
+    }
+    
+    if ( isset($toolIdList[$toolId]) )
+    {
+        return $toolIdList[$toolId];
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /**
