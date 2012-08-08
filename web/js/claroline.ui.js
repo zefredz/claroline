@@ -2,9 +2,44 @@
  * $Id$
  */
 
-$(document).ready(function(){
-    registerCollapseBehavior();
-});
+Claroline.spoil = function(item) {
+    $(item).parents("div").children("div.spoilerContent").toggle();
+    // change link display
+    $(item).parents("div").children("a.reveal").toggleClass("showSpoiler");
+    $(item).parents("div").children("a.reveal").toggleClass("hideSpoiler");
+
+    return false;
+};
+
+Claroline.getLeftMenuToggleFunction = function() {
+    
+    var originalLeftMargin     = $('#courseRightContent').css('margin-left');
+    var originalWidth         = $('#courseLeftSidebar').css('width');
+    var originalHeight         = $('#courseLeftSidebar').css('height');
+    
+    return function() {
+        
+        $('#courseToolListBlock').toggle();
+        
+        if ( $('#courseRightContent').css('margin-left') == originalLeftMargin ) {
+            $('#courseLeftSidebar')
+                .css('width', 0)
+                .css('height', originalHeight)
+            $('#courseRightContent').css('margin-left', 0);
+            $('#toggleLeftMenu').removeClass('hide').addClass('show');
+            // $.cookie('claro_toolBarStatus','masked',{path:'/'});
+        }
+        else {
+            $('#courseRightContent').css('margin-left', originalLeftMargin );
+            $('#courseLeftSidebar')
+            .css('width', originalWidth );
+            $('#toggleLeftMenu').removeClass('show').addClass('hide');
+            // $.cookie('claro_toolBarStatus','unmasked',{path:'/'});
+        }
+        
+        return false;
+    }
+}
 
 
 /*
@@ -97,16 +132,77 @@ collapseScrollIntoView = function (node) {
   }
 };
 
-
-/**
- * Manage the qtips.  Simply add a CSS class "qtip" to an <img> or a 
- * <a> tag to add a qtip on it, displaying the "title" or "alt" (in that order)
- * value on mouseover.
- * If you deserve other renders for specifi uses of qtips, write another 
- * js cript dedicated to this use, and use a class like "qtip-custom" to 
- * refer to it.
- */
 $(document).ready(function(){
+    
+    /**
+     * Handle collapsible elements
+     */
+    registerCollapseBehavior();
+    
+    // ajax loader
+    $("#loading").hide();
+    
+    $("#loading").ajaxStart(function(){
+        $(this).show();
+    });
+    
+    $("#loading").ajaxStop(function(){
+        $(this).hide();
+    });
+    
+    // multiple select
+    $('.msadd').click(function() {
+        return !$('#mslist1 option:selected').remove().appendTo('#mslist2');
+    });
+    
+    $('.msremove').click(function() {
+        return !$('#mslist2 option:selected').remove().appendTo('#mslist1');
+    });
+    
+    $('.msform').submit(function() {
+        $('#mslist1 option').each(function(i) {
+            $(this).attr("selected", "selected");
+        });
+    });
+    
+    /*
+     * IE8 does not support input[type=button] inside an anchor so we "need" to 
+     * add this workaround (thanks to our XP and Vista users...)
+     */
+    $("a input[type=button]").each(function() {
+        $(this).click(function() { 
+            location.href=$(this).closest("a").attr("href");
+        });
+    });
+    
+    if ( $('#toggleLeftMenu') ) {
+        
+        $('#toggleLeftMenu').click( 
+            Claroline.getLeftMenuToggleFunction()
+        );
+        
+        /* check if the user has previously masked the bar */
+        /*if ( $.cookie('claro_toolBarStatus') == 'masked' ) {
+            $('#toggleLeftMenu').click();
+        }*/
+    }
+    
+    /**
+     * Open all links with relation external in new window/tab
+     */
+    $('a[rel="external"]').click( function() {
+        window.open( $(this).attr('href') );
+        return false;
+    });
+    
+    /**
+     * Manage the qtips.  Simply add a CSS class "qtip" to an <img> or a 
+     * <a> tag to add a qtip on it, displaying the "title" or "alt" (in that order)
+     * value on mouseover.
+     * If you deserve other renders for specifi uses of qtips, write another 
+     * js cript dedicated to this use, and use a class like "qtip-custom" to 
+     * refer to it.
+     */
     $(".qtip").each(function()
     {
         var qtipContent = '';
@@ -150,12 +246,5 @@ $(document).ready(function(){
                }
             });
         }
-    });
-});
-
-$(document).ready(function() {
-    $('a[rel="external"]').click( function() {
-        window.open( $(this).attr('href') );
-        return false;
     });
 });

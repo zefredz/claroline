@@ -75,45 +75,6 @@ Claroline.json = {
     }
 };
 
-Claroline.spoil = function(item) {
-    $(item).parents("div").children("div.spoilerContent").toggle();
-    // change link display
-    $(item).parents("div").children("a.reveal").toggleClass("showSpoiler");
-    $(item).parents("div").children("a.reveal").toggleClass("hideSpoiler");
-
-    return false;
-};
-
-function getLeftMenuToggleFunction() {
-    
-    var originalLeftMargin     = $('#courseRightContent').css('margin-left');
-    var originalWidth         = $('#courseLeftSidebar').css('width');
-    var originalHeight         = $('#courseLeftSidebar').css('height');
-    
-    return function() {
-        
-        $('#courseToolListBlock').toggle();
-        
-        if ( $('#courseRightContent').css('margin-left') == originalLeftMargin ) {
-            $('#courseLeftSidebar')
-                .css('width', 0)
-                .css('height', originalHeight)
-            $('#courseRightContent').css('margin-left', 0);
-            $('#toggleLeftMenu').removeClass('hide').addClass('show');
-            // $.cookie('claro_toolBarStatus','masked',{path:'/'});
-        }
-        else {
-            $('#courseRightContent').css('margin-left', originalLeftMargin );
-            $('#courseLeftSidebar')
-            .css('width', originalWidth );
-            $('#toggleLeftMenu').removeClass('show').addClass('hide');
-            // $.cookie('claro_toolBarStatus','unmasked',{path:'/'});
-        }
-        
-        return false;
-    }
-}
-
 // here should also come :
 
 // - a standard confirmation box function
@@ -166,55 +127,3 @@ function dump(arr,level) {
     }
     return dumped_text;
 }
-
-$(document).ready(function(){
-    // this is the core function of Claroline's jQuery implementation
-    
-    // ajax activity shower
-    $("#loading").hide();
-    
-    $("#loading").ajaxStart(function(){
-        $(this).show();
-    });
-    
-    $("#loading").ajaxStop(function(){
-        $(this).hide();
-    });
-    
-    // multiple select
-    $('.msadd').click(function() {
-        return !$('#mslist1 option:selected').remove().appendTo('#mslist2');
-    });
-    
-    $('.msremove').click(function() {
-        return !$('#mslist2 option:selected').remove().appendTo('#mslist1');
-    });
-    
-    $('.msform').submit(function() {
-        $('#mslist1 option').each(function(i) {
-            $(this).attr("selected", "selected");
-        });
-    });
-    
-    /*
-     * IE8 does not support input[type=button] inside an anchor so we "need" to 
-     * add this workaround (thanks to our XP and Vista users...)
-     */
-    $("a input[type=button]").each(function() {
-        $(this).click(function() { 
-            location.href=$(this).closest("a").attr("href");
-        });
-    });
-    
-    if ( $('#toggleLeftMenu') ) {
-        
-        $('#toggleLeftMenu').click( 
-            getLeftMenuToggleFunction()
-        );
-        
-        /* check if the user has previously masked the bar */
-        /*if ( $.cookie('claro_toolBarStatus') == 'masked' ) {
-            $('#toggleLeftMenu').click();
-        }*/
-    }
-});
