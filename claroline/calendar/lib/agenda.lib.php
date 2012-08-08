@@ -294,8 +294,8 @@ function get_agenda_items_compact_mode ( $userCourseList, $month, $year )
     // get agenda-items for every course
     foreach ( $userCourseList as $thisCourse )
     {
-        if ( is_module_installed_in_course ( 'CLCAL', $thisCourse['sysCode'] )
-            && is_tool_activated_in_course ( $toolId, $thisCourse['sysCode'] ) )
+        if ( is_module_installed_in_course_lightversion ( 'CLCAL', $thisCourse )
+            && is_tool_activated_in_course_lightversion ( $toolId, $thisCourse ) )
         {
             $courseEventList = get_agenda_items_list ( $thisCourse, $month, $year );
 

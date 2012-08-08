@@ -935,6 +935,119 @@ function is_module_installed_in_course( $toolLabel, $courseIdReq, $forceCacheRef
     }
 }
 
+function get_dbNameGlued_from_dbName( $dbName )
+{
+    
+}
+
+/**
+ * Is the given tool activated in the given course ? This version does not call
+ * claro_get_course_data and should be used in conjunction with get_user_course_list
+ * @param int $toolId tool id
+ * @param array $course course( 'sysCode' => sysCode, 'db' => dbName
+ * @return boolean
+ */
+function is_tool_activated_in_course_lightversion( $toolId, $course, $forceCacheRefresh = false )
+{
+    static $courseActivatedToolList = false;
+    
+    if ( ! $courseActivatedToolList )
+    {
+        $courseActivatedToolList = array();
+    }
+    
+    $courseIdReq = $course['sysCode'];
+    
+    if ( ! isset($courseActivatedToolList[$courseIdReq]) || $forceCacheRefresh )
+    {
+        
+        $courseActivatedToolList[$courseIdReq] = array();
+    
+        $tbl_cdb_names = claro_sql_get_course_tbl(
+            get_conf('courseTablePrefix') . $course['db'] . get_conf('dbGlu')
+        );
+        
+        $tbl_course_tool_list = $tbl_cdb_names['tool'];
+
+        $sql = "SELECT tool_id \n"
+            . "FROM `{$tbl_course_tool_list}`\n"
+            . "WHERE `activated` = 'true'"
+            ;
+        
+        $result = claro_sql_query_fetch_all_rows($sql);
+    
+        foreach ( $result as $tool )
+        {
+            $courseActivatedToolList[$courseIdReq][$tool['tool_id']] = true;
+        }
+    
+    }
+    
+    if ( isset( $courseActivatedToolList[$courseIdReq][$toolId] ) )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+/**
+ * Is the given module installed in the given course ? This version does not call
+ * claro_get_course_data and should be used in conjunction with get_user_course_list
+ * @param string $toolLabel module label
+ * @param array $course course( 'sysCode' => sysCode, 'db' => dbName
+ * @return boolean
+ */
+function is_module_installed_in_course_lightversion( $toolLabel, $course, $forceCacheRefresh = false )
+{
+    static $courseInstalledToolList = false;
+    
+    $toolId = get_tool_id_from_module_label( $toolLabel );
+    
+    if ( ! $courseInstalledToolList )
+    {
+        $courseInstalledToolList = array();
+    }
+    
+    $courseIdReq = $course['sysCode'];
+    
+    if ( ! isset($courseInstalledToolList[$courseIdReq]) || $forceCacheRefresh )
+    {
+        
+        $courseInstalledToolList[$courseIdReq] = array();
+    
+        $tbl_cdb_names = claro_sql_get_course_tbl(
+            get_conf('courseTablePrefix') . $course['db'] . get_conf('dbGlu')
+        );
+        
+        $tbl_course_tool_list = $tbl_cdb_names['tool'];
+
+        $sql = "SELECT tool_id \n"
+            . "FROM `{$tbl_course_tool_list}`\n"
+            . "WHERE `installed` = 'true'"
+            ;
+        
+        $result = claro_sql_query_fetch_all_rows($sql);
+    
+        foreach ( $result as $tool )
+        {
+            $courseInstalledToolList[$courseIdReq][$tool['tool_id']] = true;
+        }
+    
+    }
+    
+    if ( isset( $courseInstalledToolList[$courseIdReq][$toolId] ) )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 /**
  * Is the given module activated in the groups of the given course ?
  * @param string $courseId course code
