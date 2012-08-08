@@ -73,13 +73,15 @@
             
             </div>
             
+            <?php endif; ?> <!-- in a group -->
+            
+            <?php if (  claro_is_in_a_group () || get_conf( 'course_maskToolListByDefault', false ) ) : ?>
             <script type="text/javascript">
                 $( function() {
-                    (getLeftMenuToggleFunction())();
+                    (Claroline.getLeftMenuToggleFunction())();
                 });
             </script>
-            
-            <?php endif; ?> <!-- in a group -->
+            <?php endif; ?>
             
             <div class="clearer"></div>
         </div>

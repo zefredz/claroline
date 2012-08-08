@@ -38,6 +38,7 @@ $conf_def['section']['LAYOUT']['properties'] =
         , 'siteLogo'
         , 'institutionLogo'
         , 'displayAllCommandsLinkByDefault'
+        , 'course_maskToolListByDefault'
 );
 
 $conf_def['section']['LANGUAGE']['label'] = 'Language';
@@ -165,6 +166,16 @@ $conf_def_property_list['siteLogo'] =
 
 $conf_def_property_list['displayAllCommandsLinkByDefault'] =
     array('label' => 'Show all the commands in tool titles'
+        , 'description' => ''
+        , 'default' => false
+        , 'type' => 'boolean'
+        , 'display' => true
+        , 'readonly' => false
+        , 'acceptedValue' => array('TRUE' => 'Yes', 'FALSE' => 'No')
+);
+
+$conf_def_property_list['course_maskToolListByDefault'] =
+    array('label' => 'Hide course toolist by default'
         , 'description' => ''
         , 'default' => false
         , 'type' => 'boolean'
