@@ -650,7 +650,7 @@ ORDER BY tl.rank
         switch ($tool['label'])
         {
             case 'CLFRM' :
-                if($_groupProperties['tools']['CLFRM'] || $isAllowedToEdit)
+                if( ! empty( $_groupProperties['tools']['CLFRM'] ) || $isAllowedToEdit)
                 {
                     $tool['url'] = 'viewforum.php?forum=' . $forumId . claro_url_relay_context('&amp;') ; ;
                     $group_tool_list[] = $tool;
