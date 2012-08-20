@@ -495,7 +495,7 @@ $conf_def_property_list['useTinyMCECompressor'] =
     array('label' => 'Use TinyMCE editor compressor'
         , 'description' => 'Makes TinyMCE 75% smaller and a lot faster to load.'
         , 'type' => 'boolean'
-        , 'default' => true
+        , 'default' => false
         , 'display' => true
         , 'readonly' => false
         , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
