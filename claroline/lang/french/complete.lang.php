@@ -2057,6 +2057,7 @@ $_lang['You can now select, in the list, the courses you want to access'] = 'Vou
 $_lang['You can personalize the layout of each course'] = 'Vous pouvez personnaliser le style graphique de chaque cours.  Pour ce faire, placez un fichier css nommé "course.css" dans le répertoire de votre cours (par exemple: "courses/BIO/css/course.css").';
 $_lang['You can set a specific no-reply address used by the platform email notification system. If none provided the administrator email will be used.'] = 'Vous pouvez définir une adresse "no-reply" pour le système de notification. Si vous ne le faites pas l\'adresse mail de l\'administrateur sera utilisée.';
 $_lang['You can set access rights for users using the following grid :'] = 'Définissez les droits d\'accès au wiki pour les différents types d\'utilisateurs :';
+$_lang['You can sort your question by categories. To create categories, follow this <a href="%url">link</a>.'] = 'Vous pouvez classer vos questions par catégorie. Pour créer une catégorie, suivez ce <a href="%url">lien</a>.';
 $_lang['You can\'t move %facultyCode in the same category !'] = 'La catégorie %facultyCode ne peut se contenir elle-même.';
 $_lang['You can\'t remove a group forum. You have to remove the group first'] = 'Vous ne pouvez pas supprimer un forum de groupe.  Il faut d\'abord supprimer le groupe.';
 $_lang['You cannot add module. Change this in configuration.'] = 'L\'ajout de modules n\'est pas autorisée. Changez la configuration pour le permettre.';

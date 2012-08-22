@@ -1980,6 +1980,7 @@ $_lang['You can now select, in the list, the courses you want to access'] = 'You
 $_lang['You can personalize the layout of each course'] = 'You can personalize the layout of each course.  To do that, put a css file named "course.css" in the css directory of your course (for instance: "courses/BIO/css/course.css").';
 $_lang['You can set a specific no-reply address used by the platform email notification system. If none provided the administrator email will be used.'] = 'You can set a specific no-reply address used by the platform email notification system. If none provided the administrator email will be used.';
 $_lang['You can set access rights for users using the following grid :'] = 'You can set access rights for users using the following grid : ';
+$_lang['You can sort your question by categories. To create categories, follow this <a href="%url">link</a>.'] = 'You can sort your question by categories. To create categories, follow this <a href="%url">link</a>.';
 $_lang['You can\'t move %facultyCode in the same category !'] = 'You can\'t move %facultyCode in the same category !';
 $_lang['You can\'t remove a group forum. You have to remove the group first'] = 'You can\'t remove a group forum. You have to remove the group first';
 $_lang['You cannot add module. Change this in configuration.'] = 'You cannot add module. Change this in configuration.';

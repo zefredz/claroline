@@ -290,6 +290,16 @@ if( $displayForm )
         .'</td>' . "\n"
         .     '</tr>' . "\n\n";
     }
+    else
+    {
+        $out .= '<tr>' . "\n"
+        .       '<td valign="top"><label for="category">'.get_lang('Category').'</label></td>' . "\n"
+        .       '<td>'
+        .       get_lang( 'You can sort your question by categories. To create categories, follow this <a href="%url">link</a>.'
+                    , array( '%url' => htmlspecialchars( Url::Contextualize( './question_category.php' ) ) ) )
+        .       '</td>' . "\n"
+        .       '</tr>'  . "\n\n";
+    }
 
     // attached file
     if( !empty($form['attachment']) )
