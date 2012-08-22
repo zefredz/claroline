@@ -273,20 +273,23 @@ if( $displayForm )
     .     '<td>'.claro_html_textarea_editor('description', $form['description']).'</td>' . "\n"
     .     '</tr>' . "\n\n";
 
-	$questionCategoryList = getQuestionCategoryList();
+    $questionCategoryList = getQuestionCategoryList();
     // category
-    $out .=  '<tr>' . "\n"
-    .     '<td valign="top"><label for="category">'.get_lang('Category').'</label></td>' . "\n"
-    .     '<td><select name="categoryId"><option value="0">';
-    foreach ($questionCategoryList as $category)
+    if( ! empty( $questionCategoryList ) )
     {
-        $out .= '<option value="'.$category['id'].'"'
-            .( $category['id'] == $form['categoryId']?'selected="selected"':' ' )
-            .'>'.$category['title'].'</option>';
+        $out .=  '<tr>' . "\n"
+        .     '<td valign="top"><label for="category">'.get_lang('Category').'</label></td>' . "\n"
+        .     '<td><select name="categoryId"><option value="0">';
+        foreach ($questionCategoryList as $category)
+        {
+            $out .= '<option value="'.$category['id'].'"'
+                .( $category['id'] == $form['categoryId']?'selected="selected"':' ' )
+                .'>'.$category['title'].'</option>';
+        }
+        $out .= '</option>'
+        .'</td>' . "\n"
+        .     '</tr>' . "\n\n";
     }
-    $out .= '</option>'
-    .'</td>' . "\n"
-    .     '</tr>' . "\n\n";
 
     // attached file
     if( !empty($form['attachment']) )
