@@ -520,7 +520,7 @@ switch ($item)
                 .    '<dd>' . "\n"
                 . '<small><a href="'
                 . htmlspecialchars($_SERVER['PHP_SELF'] . '?module_id='
-                . $module['module_id'].'&amp;cmd=makeVisible&amp;item=GLOBAL')
+                . $module['module_id'].'&cmd=makeVisible&item=GLOBAL')
                 .'" title="'.get_lang( 'Make module visible in all courses' ).'"'
                 . ' onclick="return confirmMakeVisible();">'
                 . '<img src="' . get_icon_url('visible')
@@ -530,7 +530,7 @@ switch ($item)
                 . " | "
                 . '<small><a href="'
                 . htmlspecialchars($_SERVER['PHP_SELF'] . '?module_id='
-                . $module['module_id'].'&amp;cmd=makeInvisible&amp;item=GLOBAL')
+                . $module['module_id'].'&cmd=makeInvisible&item=GLOBAL')
                 . '" title="'.get_lang( 'Make module invisible in all courses' ).'"'
                 . ' onclick="return confirmMakeInVisible();">'
                 . '<img src="' . get_icon_url('invisible')
