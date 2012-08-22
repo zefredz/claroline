@@ -883,12 +883,17 @@ else
 
 $out .= '<th>' . get_lang('Properties')          . '</th>' . "\n"
 .    '<th>' . get_lang('Uninstall')           . '</th>' . "\n"
-.    '<th>' . get_lang('Activated')          . '</th>' . "\n"
-.    '<th>' . get_lang('Visibility')          . '</th>' . "\n"
-.    '</tr>' . "\n"
-.    '</thead>' . "\n\n"
-.    '<tbody>'
-;
+.    '<th>' . get_lang('Activated')          . '</th>' . "\n";
+
+if ($typeReq == 'tool')
+{
+    $out .=  '<th>' . get_lang('Visibility')          . '</th>' . "\n";
+}
+
+$out .=   '</tr>' . "\n"
+     .    '</thead>' . "\n\n"
+     .    '<tbody>'
+     ;
 
 
 // Start the list of modules...
@@ -1039,6 +1044,8 @@ foreach($moduleList as $module)
     $out .= '</td>' . "\n";
             
     // Visibility by default at course creation
+    if  ($typeReq == 'tool')
+    {
         $out .= '<td align="center" >' ;
 
             if ( 'ALL' == $module['visibility'] )
@@ -1059,12 +1066,12 @@ foreach($moduleList as $module)
                 . '" alt="'. get_lang('Invisible') . '"/></a>';
             }
 
-        $out .= '</td>' . "\n"
-
+        $out .= '</td>' . "\n";
+    }
+    
     //end table line
 
-    .    '</tr>' . "\n\n"
-    ;
+    $out .=  '</tr>' . "\n\n";
 }
 
 // End table
