@@ -2121,3 +2121,27 @@ function get_available_module_types()
 {
     return array( 'tool', 'applet', 'crsmanage', 'admin' );
 }
+
+/**
+ * Set the visibility this tool visible at the course creation
+ * @param int moduleId
+ * @param boolean visibility
+ * since claroline 1.11
+ */
+function set_tool_visibility_at_course_creation($moduleId,$visibility)
+{
+    $tbl_mdb_names        = claro_sql_get_main_tbl();
+    $tbl_tool_list        = $tbl_mdb_names['tool'];
+
+    if ($visibility == 1) $def_access = 1;
+    else $def_access = 5;
+    
+    return Claroline::getDatabase()->exec("
+        UPDATE
+            `{$tbl_tool_list}`
+        SET
+            def_access = '{$def_access}'
+        WHERE
+            id = " . Claroline::getDatabase()->quote( $moduleId ) . ";
+    ");
+}

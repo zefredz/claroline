@@ -193,6 +193,25 @@ switch ( $cmd )
                 move_module_tool($courseToolId, 'down');
             }
             break;
+            
+    case 'byDefaultVisible':
+    case 'byDefaultInvisible':
+    {
+        $visibility = ( 'byDefaultVisible' == $cmd ) ? true : false;
+
+        $success = set_tool_visibility_at_course_creation( $module_id, $visibility );
+
+        if ( $success )
+        {
+            $dialogBox->success( get_lang('Default module visibility updated') );
+        }
+        else
+        {
+            $dialogBox->error( get_lang('Failed to update default module visibility') );
+        }
+
+        break;
+    }
         
     case 'exUninstall' :
         $moduleInfo = get_module_info ( $module_id ) ;
@@ -716,6 +735,7 @@ switch($typeReq)
         .                "       CT.`icon`  AS icon," . "\n"
         .                "       CT.`script_url` AS script_url," . "\n"
         .                "       CT.`def_rank` AS rank," . "\n"
+        .                "       CT.`def_access` AS visibility," . "\n"
         ;
         $sqlJoinType = " LEFT JOIN `" . $tbl_course_tool . "` AS CT " . "\n"
         .              "        ON CT.`claro_label`= M.label " . "\n"
@@ -864,10 +884,12 @@ else
 $out .= '<th>' . get_lang('Properties')          . '</th>' . "\n"
 .    '<th>' . get_lang('Uninstall')           . '</th>' . "\n"
 .    '<th>' . get_lang('Activated')          . '</th>' . "\n"
+.    '<th>' . get_lang('Visibility')          . '</th>' . "\n"
 .    '</tr>' . "\n"
 .    '</thead>' . "\n\n"
 .    '<tbody>'
 ;
+
 
 // Start the list of modules...
 foreach($moduleList as $module)
@@ -1014,7 +1036,30 @@ foreach($moduleList as $module)
             . '" alt="'. get_lang('Deactivated') . '"/></a>';
         }
     }
-    $out .= '</td>' . "\n"
+    $out .= '</td>' . "\n";
+            
+    // Visibility by default at course creation
+        $out .= '<td align="center" >' ;
+
+            if ( 'ALL' == $module['visibility'] )
+            {
+                $out .= '<a href="module_list.php?cmd=byDefaultInvisible&amp;module_id='
+                . $module['id'] . '&amp;typeReq=' . $typeReq .'" '
+                . 'title="'.get_lang('Visible - Click to make invisible').'">'
+                . '<img src="' . get_icon_url('visible')
+                . '" alt="'. get_lang('Visible') . '" /></a>'
+                ;
+            }
+            else
+            {
+                $out .= '<a href="module_list.php?cmd=byDefaultVisible&amp;module_id='
+                . $module['id'] . '&amp;typeReq='.$typeReq.'" '
+                . 'title="'.get_lang('Invisible - Click to make invisible').'">'
+                . '<img src="' . get_icon_url('invisible')
+                . '" alt="'. get_lang('Invisible') . '"/></a>';
+            }
+
+        $out .= '</td>' . "\n"
 
     //end table line
 
