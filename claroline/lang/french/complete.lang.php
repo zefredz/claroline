@@ -3419,3 +3419,4 @@ $_lang['class'] = 'classe';
 $_lang['You need to choose at least one category for this course'] = 'Vous devez choisir au moins une catégorie pour le cours';
 $_lang['Printable version'] = 'Version imprimable';
 $_lang['Printable version (Shuffle)'] = 'Version imprimable (Ordre aléatoire)';
+$_lang['Default visibility'] = 'Visibilité par défaut';

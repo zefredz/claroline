@@ -3410,3 +3410,4 @@ $_lang['You need to choose at least one category for this course'] = 'You need t
 $_lang['Hide textzone on user desktop by default'] = 'Hide textzone on user desktop by default';
 $_lang['Printable version'] = 'Printable version';
 $_lang['Printable version (Shuffle)'] = 'Printable version (Shuffle)';
+$_lang['Default visibility'] = 'Default visibility';

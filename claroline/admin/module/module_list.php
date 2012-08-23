@@ -887,7 +887,7 @@ $out .= '<th>' . get_lang('Properties')          . '</th>' . "\n"
 
 if ($typeReq == 'tool')
 {
-    $out .=  '<th>' . get_lang('Visibility')          . '</th>' . "\n";
+    $out .=  '<th>' . get_lang('Default visibility')          . '</th>' . "\n";
 }
 
 $out .=   '</tr>' . "\n"
