@@ -3,8 +3,12 @@
 $_lang['By default a course is assigned to the ROOT category if no other category is chosen. If set to No, only the platform administrator can assign a course to the ROOT category.'] = 'By default a course is assigned to the ROOT category if no other category is chosen. If set to No, only the platform administrator can assign a course to the ROOT category.';
 $_lang['Choose "No" if you don\'t use any deprecated external auth driver. (If you are using the old PEAR-based LDAP authentication, you should replace it with the new ldap.conf.php driver found in inc/conf/extauth and set this option to "No" afterwards).'] = 'Choose "No" if you don\'t use any deprecated external auth driver. (If you are using the old PEAR-based LDAP authentication, you should replace it with the new ldap.conf.php driver found in inc/conf/extauth and set this option to "No" afterwards).';
 $_lang['Choose "No" if you don\'t use any external authentication drivers or if you prefer to set the list of authentication drivers to load in platform/extauth/drivers.list (one config file name by line).'] = 'Choose "No" if you don\'t use any external authentication drivers or if you prefer to set the list of authentication drivers to load in platform/extauth/drivers.list (one config file name by line).';
+$_lang['Default module visibility updated'] = 'Default module visibility updated';
 $_lang['Display short category path in category list'] = 'Display short category path in category list';
+$_lang['Failed to update default module visibility'] = 'Failed to update default module visibility';
+$_lang['Hide course toolist by default'] = 'Hide course toolist by default';
 $_lang['Hide textzone on user desktop by default'] = 'Hide textzone on user desktop by default';
+$_lang['Invisible - Click to make invisible'] = 'Invisible - Click to make invisible';
 $_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO server provides a way to retrieve the user parameters from another server on the internet on the base of this cookie value.'] = 'Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO server provides a way to retrieve the user parameters from another server on the internet on the base of this cookie value.';
 $_lang['Path to the temporary folder used to generate the zip archive'] = 'Path to the temporary folder used to generate the zip archive';
 $_lang['ROOT category allowed for courses'] = 'ROOT category allowed for courses';
@@ -35,6 +39,7 @@ In multi db mode, IT MUST be a dot.
 In single db mode, IT CAN\'T be a dot.
 ';
 $_lang['Used when downloading the assignements. Leave empty to use the default one (which is located in courses/<COURSEID>/work/)'] = 'Used when downloading the assignements. Leave empty to use the default one (which is located in courses/<COURSEID>/work/)';
+$_lang['Visible - Click to make invisible'] = 'Visible - Click to make invisible';
 $_lang['filename for one file module inclusion'] = 'filename for one file module inclusion';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment. You should change it'] = 'warning : Installation cannot find the description of the learning path and has set a default comment. You should change it';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name. You should change it.'] = 'warning : Installation cannot find the name of the learning path and has set a default name. You should change it.';
