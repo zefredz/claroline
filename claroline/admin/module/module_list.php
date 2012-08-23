@@ -1061,7 +1061,7 @@ foreach($moduleList as $module)
             {
                 $out .= '<a href="module_list.php?cmd=byDefaultVisible&amp;module_id='
                 . $module['id'] . '&amp;typeReq='.$typeReq.'" '
-                . 'title="'.get_lang('Invisible - Click to make invisible').'">'
+                . 'title="'.get_lang('Invisible - Click to make visible').'">'
                 . '<img src="' . get_icon_url('invisible')
                 . '" alt="'. get_lang('Invisible') . '"/></a>';
             }
