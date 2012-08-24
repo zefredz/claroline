@@ -121,7 +121,7 @@ class ClaroCategory
         else
         {
             // No id: it's a new category -> update
-            if( claro_update_cat_datas($this->id, $this->name, $this->code, $this->idParent, $this->rank, $this->visible, $canHaveCoursesChild, $this->rootCourse) )
+            if( claro_update_cat_datas($this->id, $this->name, $this->code, $this->idParent, $this->rank, $this->visible, $canHaveCourseChild, $this->rootCourse) )
                 return true;
             else
             {
