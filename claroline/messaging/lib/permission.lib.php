@@ -79,7 +79,7 @@ function current_user_is_allowed_to_send_message_to_user($userId)
         {
             return true;
         }
-        elseif( get_conf('userCanSendmessage') );
+        elseif( get_conf('userCanSendMessage') );
         {
             return true;
         }
