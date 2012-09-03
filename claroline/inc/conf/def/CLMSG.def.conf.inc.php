@@ -28,7 +28,8 @@ $conf_def['section']['main']['label']='Main settings';
 $conf_def['section']['main']['properties'] =
 array (
     'messagePerPage',
-    'mailNotification'
+    'mailNotification',
+    'userCanSendMessage'
 );
 
 //PROPERTIES
@@ -46,6 +47,15 @@ array ( 'label'   => 'Number of message per page'
 $conf_def_property_list['mailNotification'] =
 array ( 'label'   => 'Enable Email notification'
       , 'default' => true
+      , 'type'    => 'boolean'
+      , 'acceptedValue' => array('TRUE'=>'Yes', 'FALSE' => 'No')
+      , 'display'     => true
+      , 'readonly'    => false
+      );
+
+$conf_def_property_list['userCanSendmessage'] =
+array ( 'label'   => 'Users can send messages'
+      , 'default' => false
       , 'type'    => 'boolean'
       , 'acceptedValue' => array('TRUE'=>'Yes', 'FALSE' => 'No')
       , 'display'     => true
