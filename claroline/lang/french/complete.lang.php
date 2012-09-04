@@ -2,7 +2,7 @@
 $_lang['If you need to create a public course, please contact the platform administrator'] = 'Si vous voulez créer un cours public, veuillez contacter le gestionnaire de la plateforme';
 $_lang['You are not allowed to create a public course'] = 'Vous ne pouvez pas créer de cours public';
 $_lang['Allow course access to be public'] = 'Autoriser les cours publics';
-$_lang['Set to No to avoid the creation of public, world accessible, course sites'] = 'Choisir Non pour interdir la création de sites de cours publics';
+$_lang['Set to No to avoid the creation of public, world accessible, course sites'] = 'Choisir \'Non\' pour interdire la création de sites de cours publics';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de cours (inclut les dossiers \'claroline\' et \'garbage\' des anciennes versions de Claroline)';
 $_lang['%1\$s by %2\$s'] = '%1$s par %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modifié le %2$s par %3$s';
@@ -208,7 +208,7 @@ $_lang['Are you sure to delete all messages?'] = 'Voulez-vous vraiment supprimer
 $_lang['Are you sure to delete all platform messages?'] = 'Voulez-vous vraiment supprimer tous les messages de la plateforme ?';
 $_lang['Are you sure to delete selected message(s) ?'] = 'Voulez-vous vraiment supprimer le(s) message(s) sélectionné(s) ?';
 $_lang['Are you sure to delete selected message?'] = 'Voulez-vous vraiment supprimer le message sélectionné ?';
-$_lang['Are you sure to delete the course "%course_name" ( %course_code ) ?'] = 'Voulez-vous vraiment supprime le cours "%course_name" ( %course_code ) ?';
+$_lang['Are you sure to delete the course "%course_name" ( %course_code ) ?'] = 'Voulez-vous vraiment supprimer le cours "%course_name" ( %course_code ) ?';
 $_lang['Are you sure to delete the message?'] = 'Voulez-vous vraiment supprimer ce message ?';
 $_lang['Are you sure to delete this group ?'] = 'Voulez-vous vraiment supprimer ce groupe ?';
 $_lang['Are you sure to empty trashbox ?'] = 'Voulez-vous vraiment vider la corbeille ?';
@@ -263,7 +263,7 @@ $_lang['Automatically insert an event in the calendar at the submission date'] =
 $_lang['Available from %startDate until %endDate'] = 'Disponible du  %startDate au %endDate';
 $_lang['Available images'] = 'Images disponibles';
 $_lang['Available languages for course websites'] = 'Langues autorisées pour les sites de cours';
-$_lang['Available tools to add to your course'] = 'Liste des outils qui peuvent êre ajoutés à votre cours';
+$_lang['Available tools to add to your course'] = 'Liste des outils qui peuvent être ajoutés à votre cours';
 $_lang['Average Time'] = 'Durée moyenne';
 $_lang['Average score'] = 'Moyenne';
 $_lang['Back'] = 'Retour';
@@ -321,7 +321,7 @@ $_lang['Cannot change module visibility in %course'] = 'Impossible de changer la
 $_lang['Cannot compute db size of a course in singleDBMode'] = 'La taille de la BD d\'un cours ne peut être calculée en mode BD unique';
 $_lang['Cannot copy the file'] = 'Impossible de copier le fichier';
 $_lang['Cannot deactivate module'] = 'Impossible de désactiver le module';
-$_lang['Cannot delete category because used in questions'] = 'Impossible de supprimer cette catégorie car ell est utilisée dans des questions';
+$_lang['Cannot delete category because used in questions'] = 'Impossible de supprimer cette catégorie car elle est utilisée dans des questions';
 $_lang['Cannot delete category'] = 'Erreur dans la suppression de cette catégorie !';
 $_lang['Cannot delete : missing file or directory name'] = 'Impossible de supprimer : nom de fichier ou de répertoire manquant ';
 $_lang['Cannot delete announcement'] = 'L\'annonce n\'a pas pu être supprimée';
@@ -574,7 +574,7 @@ $_lang['Delete selected message(s)'] = 'Supprimer le(s) message(s) sélectionné(s
 $_lang['Delete the whole course website'] = 'Supprimer la totalité du cours';
 $_lang['Delete user'] = 'Supprimer l\'utilisateur';
 $_lang['Deleted line'] = 'Ligne supprimée';
-$_lang['Deleting this course will permanently delete all its documents and unenroll all its students.'] = 'Supprimer ce cours effacera de façons permanente tous les documents et la liste des utilisateurs.';
+$_lang['Deleting this course will permanently delete all its documents and unenroll all its students.'] = 'Supprimer ce cours effacera de façon permanente tous les documents et la liste des utilisateurs.';
 $_lang['Delete this item'] = 'Supprimer cet élément';
 $_lang['Deletion of the user was done sucessfully'] = 'Suppression de l\'utilisateur effectuée';
 $_lang['Denied'] = 'Refusé';
@@ -1115,7 +1115,7 @@ $_lang['Merging user accounts is not a reversible operation so be careful !'] = 
 $_lang['Merging users will alter the user data and cannot be undone. Are you sure to want to continue ?'] = 'La fusion de comptes modifiera les données et ne pourra être annulée. Voulez-vous vraiment continuer ?';
 $_lang['Message'] = 'Message';
 $_lang['Message body'] = 'Contenu du message';
-$_lang['Message displayed on the file upload pages'] = 'Message affiché lors dans le formulaire d\'ajout de documents';
+$_lang['Message displayed on the file upload pages'] = 'Message affiché dans le formulaire d\'ajout de documents';
 $_lang['Message from %platformName'] = 'Message de %platformName';
 $_lang['Message from your lecturer'] = 'Message de votre gestionnaire de cours';
 $_lang['Message not found'] = 'Message introuvable';
@@ -1604,7 +1604,7 @@ $_lang['Session lost warning'] = 'Alerte de perte de session';
 $_lang['Set the Cascading Style Sheet (CSS) layout.'] = 'Feuille de style CSS à appliquer';
 $_lang['Set the default language of the platform. It doesn\'t prevent course managers to set an other language for each course they create.'] = 'Définit la langue par défaut de la plateforme. Cela n\'empêche pas les gestionnaires de cours de choisir une autre langue pour chaque cours qu\'ils créent.';
 $_lang['Sets how the assignment property "default works visibility" acts.  It will change the visibility of all the new submissions or it will change the visibility of all submissions already done in the assignment and the new one. '] = 'Définit la manière dont la visibilité par défaut des travaux affecte la visibilité des soumissions. Soit elle affecte uniquement la visibilité des nouvelles soumissions, soit la visibilité des soumissions existantes d\'un travail et les nouvelles soumissions.';
-$_lang['Sets if user can see only his own submissions (or those from his groups) or if he can see every visible submission.'] = 'Définit si l\'utilisateur peut peut voir toutes les soumissions visibles ou uniquement les siennes (ou celles de son groupe).';
+$_lang['Sets if user can see only his own submissions (or those from his groups) or if he can see every visible submission.'] = 'Définit si l\'utilisateur peut voir toutes les soumissions visibles ou uniquement les siennes (ou celles de son groupe).';
 $_lang['Settings'] = 'Paramètres';
 $_lang['Settings for tutors of group'] = 'Paramètres des tuteurs de groupes';
 $_lang['Settings for users of group'] = 'Paramètres des membres des groupes';
@@ -1817,7 +1817,7 @@ $_lang['Total attempts'] = 'Nombre total d\'essais effectués';
 $_lang['Total time'] = 'Temps accumulé';
 $_lang['Tracking'] = 'Suivi';
 $_lang['Tracking database name'] = 'Base de données des statistiques';
-$_lang['Tracking has been disabled by system administrator.'] = 'L\'administrateur système a désactivé les fonction de suivi et les statistiques.';
+$_lang['Tracking has been disabled by system administrator.'] = 'L\'administrateur système a désactivé les fonctions de suivi et les statistiques.';
 $_lang['Traffic Details'] = 'Détails du trafic';
 $_lang['Translation Progression'] = 'Etat d\'avancement des traductions';
 $_lang['Translation Tools'] = 'Outils de traduction';
@@ -1873,7 +1873,7 @@ $_lang['Unchanged line'] = 'Ligne inchangée';
 $_lang['Underline'] = 'Souligné';
 $_lang['Unenrol from course'] = 'Désinscrire du cours';
 $_lang['Uninstall'] = 'Désinstaller';
-$_lang['Unknow error during unsubscribing'] = 'Erreur indéterminée lors de lla désinscription';
+$_lang['Unknow error during unsubscribing'] = 'Erreur indéterminée lors de la désinscription';
 $_lang['Unknow faculty'] = 'Catégorie inconnue';
 $_lang['Unknown error'] = 'Erreur indéterminée';
 $_lang['Unknown error code %errCode%'] = 'Code d\'erreur inconnu %errCode%';
@@ -1950,7 +1950,7 @@ $_lang['User\'s course'] = 'Liste des cours';
 $_lang['User\'s course settings'] = 'Paramètres de l\'utilisateur pour ce cours';
 $_lang['Username'] = 'Identifiant';
 $_lang['Username is too long (maximum 20 characters)'] = 'L\'identifiant est trop long (maximum 20 caractères)';
-$_lang['UsernameAppearAlready'] = 'Cet identifiant utilisateur apparaiî déjà dans une ligne précédente du fichier CSV.';
+$_lang['UsernameAppearAlready'] = 'Cet identifiant utilisateur apparaît déjà dans une ligne précédente du fichier CSV.';
 $_lang['UsernameUsed'] = 'Cet identifiant est déjà pris par un autre utilisateur.';
 $_lang['Users'] = 'Utilisateurs';
 $_lang['Users Downloads'] = 'Nombre d\'utilisateurs différents';
@@ -2169,7 +2169,7 @@ $_lang['blockAssignmentsHelp'] = '<p>L\'outil Travaux permet aux étudiants de po
 </p>
 <ul><li> <strong>Modifier</strong>&nbsp;: icône visible par l\'auteur de la soumission (éventuellement à tous les membres du groupes pour lequel la soumission a été faite) et par le gestionnaire de cours.
 </li><li> <strong>Supprimer</strong>&nbsp;: icône qui permet au gestionnaire de cours d\'effacer une soumission.
-</li><li> <strong>Visible</strong>&nbsp;: quand cette icône est affichée, la soumission est visible par toutes les personnes qui ont accès au cours. Cliquer sur l\'icône rend la soumission invisible
+</li><li> <strong>Visible</strong>&nbsp;: quand cette icône est affichée, la soumission est visible par toutes les personnes qui ont accès au cours. Cliquer sur l\'icône rend la soumission invisible.
 
 </li><li> <strong>Invisible</strong>&nbsp;: quand cette icône est affichée, la soumission est masquée à toutes les personnes qui ont accès au cours, à l\'exception des gestionnaires de cours et de l\'utilisateur (ou du groupe) propriétaire de la soumission.
 </li><li> <strong>Ajouter une correction</strong>&nbsp;: permet au gestionnaire de cours de soumettre une correction individuelle à l\'auteur de la soumission. En plus d\'un fichier et/ou d\'un texte, la correction peut être accompagnée d\'un pourcentage et d\'un commentaire que seuls les gestionnaires de cours pourront voir.
@@ -2186,7 +2186,7 @@ pour vous rappeler l\'identifiant et le mot de passe à introduire lors de votre 
 <hr noshade size=1 />
 <p><b>Gestionnaire de cours</b></p>
 <p><b>Créer un site de cours</b></p>
-<p>Procédez comme suit. Inscription > Remplissez tous les champs et sélectionnez l\'action <strong>Créer des sites de cours</strong> > Validez > Tapez le nom du cours, sélectionnez une faculté ou une catégorie, tapez le code du cours (inventez-en un au besoin > Validez. Et vous voici dans la liste de vos cours. Cliquez sur l\'intitulé du cours que vous venez de créer. Vous voici dans un site de cours vierge à l\'exception de quelques contenus factices destinés à vous éviter l\'angoisse de la page blanche. À l\'inscription, un e-mail vous a été envoyé pour vous rappeler l\'identifiant et le mot de passe que vous devrez taper lors de votre prochaine visite.</p>
+<p>Procédez comme suit. Inscription > Remplissez tous les champs et sélectionnez l\'action <strong>Créer des sites de cours</strong> > Validez > Tapez le nom du cours, sélectionnez une faculté ou une catégorie, tapez le code du cours (inventez-en un au besoin) puis validez. Et vous voici dans la liste de vos cours. Cliquez sur l\'intitulé du cours que vous venez de créer. Vous voici dans un site de cours vierge à l\'exception de quelques contenus factices destinés à vous éviter l\'angoisse de la page blanche. À l\'inscription, un e-mail vous a été envoyé pour vous rappeler l\'identifiant et le mot de passe que vous devrez taper lors de votre prochaine visite.</p>
 <p>En cas de problème, contactez votre administrateur réseau ou l\'administrateur de ce campus virtuel. Vous pouvez aussi publier un message sur le forum de support de <a href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>';
 $_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Ce module est bloquant.
@@ -2317,7 +2317,7 @@ Vous passez d\'un mode à l\'autre en cliquant sur les éléments \'Liste des fichi
 <h4>Rechercher une ressource</h4>
 <ul>
 <li>
-Cliquez sur <b>Rechercher</b> dans la zone supérieur de la fenêtre du navigateur.
+Cliquez sur <b>Rechercher</b> dans la zone supérieure de la fenêtre du navigateur.
 </li>
 <li>
 Tapez la chaîne de texte à rechercher. Vous pouvez utiliser les caractères génériques \'*\' et \'?\' pour des recherches complexes.
@@ -2651,7 +2651,7 @@ $_lang['blockHomepageHelp'] = 'La plupart des rubriques de Claroline contiennent
  <p>Vous pouvez aussi ajouter des pages à la page d\'accueil.
  Utilisez l\'outil \'ajouter page\' pour ajouter une page tout en l\'envoyant
  vers le serveur. Par contre, si vous voulez renvoyer vers une page ou un
- site existants, utilisez l\'outil \'Lien vers site\'. Les pages et les
+ site existant, utilisez l\'outil \'Lien vers site\'. Les pages et les
  liens que vous ajoutez à la première page peuvent être désactivés puis
  supprimés, à la différence des outils existant par défaut, lesquels
  peuvent être désactivés, mais non supprimés.</p><p>Il vous revient aussi
@@ -3264,7 +3264,7 @@ $_lang['Invalid enrolment key given'] = 'Clé d\'inscription invalide';
 $_lang['Item can\'t be moved down'] = 'L\'élément ne peut être déplacé vers le bas';
 $_lang['Item can\'t be moved up'] = 'L\'élément ne peut être déplacé vers le haut';
 $_lang['Item has been moved down'] = 'L\'élément a été déplacé vers le bas';
-$_lang['Item has been moved up'] = 'L\'élément a été déplacé vers le bas';
+$_lang['Item has been moved up'] = 'L\'élément a été déplacé vers le haut';
 $_lang['Learning path updated'] = 'Parcours d\'apprentissage mis à jour';
 $_lang['Length of course code suffix'] = 'Longueur du suffixe du code cours';
 $_lang['Missing or invalid course access'] = 'Accès au cours manquant ou invalide';
