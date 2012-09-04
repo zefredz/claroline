@@ -53,7 +53,7 @@ array ( 'label'   => 'Enable Email notification'
       , 'readonly'    => false
       );
 
-$conf_def_property_list['userCanSendmessage'] =
+$conf_def_property_list['userCanSendMessage'] =
 array ( 'label'   => 'Users can send messages'
       , 'default' => false
       , 'type'    => 'boolean'
