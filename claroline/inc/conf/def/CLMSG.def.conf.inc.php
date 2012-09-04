@@ -54,7 +54,7 @@ array ( 'label'   => 'Enable Email notification'
       );
 
 $conf_def_property_list['userCanSendMessage'] =
-array ( 'label'   => 'Users can send messages'
+array ( 'label'   => 'Users can send messages from outside a course context'
       , 'default' => false
       , 'type'    => 'boolean'
       , 'acceptedValue' => array('TRUE'=>'Yes', 'FALSE' => 'No')
