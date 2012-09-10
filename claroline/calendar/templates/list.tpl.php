@@ -59,7 +59,7 @@ $now = ucfirst(claro_html_localised_date( get_locale('dateFormatLong')))
     
     <?php echo ResourceLinker::renderLinkList($event['currentLocator']); ?>
     
-    <?php if (claro_is_course_manager()) : ?>
+    <?php if ( claro_is_allowed_to_edit() ) : ?>
     <div class="manageTools">
         <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $event['id'])); ?>">
             <img src="<?php echo get_icon_url('edit'); ?>" alt="<?php echo get_lang('Modify'); ?>" />
