@@ -110,6 +110,8 @@ abstract class CourseHomePagePortlet extends Portlet
      */
     public function insert()
     {
+        $this->repairRanks();
+        
         // Verify that the portlet doesn't already exist
         $sql = "SELECT id
                 FROM `".$this->tblRelCoursePortlet."`
@@ -174,6 +176,29 @@ abstract class CourseHomePagePortlet extends Portlet
         }
     }
     
+    private function repairRanks()
+    {
+        $sql = "SELECT id
+                FROM `".$this->tblRelCoursePortlet."`
+                WHERE `courseId` = " . (int) $this->courseId . "
+                ORDER BY rank ASC";
+        
+        $res = Claroline::getDatabase()->query($sql);
+        
+        $rank = 1;
+        
+        foreach ( $res as $portlet )
+        {
+            $sql1 = "UPDATE `".$this->tblRelCoursePortlet."`
+                     SET `rank` = " . (int) $rank . "
+                     WHERE `id` = " . (int) $portlet['id'];
+            
+            $res = Claroline::getDatabase()->exec($sql1);
+            
+            $rank += 1;
+        }
+    }
+    
     
     /**
      * Delete from DB
@@ -198,6 +223,8 @@ abstract class CourseHomePagePortlet extends Portlet
         $sql = "DELETE FROM `".$this->tblRelCoursePortlet."`
                 WHERE `id` = " . (int) $this->id;
         
+        $this->repairRanks();
+        
         if(Claroline::getDatabase()->exec($sql))
         {
             $this->id = null;
@@ -212,6 +239,8 @@ abstract class CourseHomePagePortlet extends Portlet
     
     public function moveUp()
     {
+        $this->repairRanks();
+        
         // Select the id of the previous item
         $sql = "SELECT `id`
                 FROM `".$this->tblRelCoursePortlet."`
@@ -254,6 +283,8 @@ abstract class CourseHomePagePortlet extends Portlet
     
     public function moveDown()
     {
+        $this->repairRanks();
+        
         // Select the id of the following item
         $sql = "SELECT `id`
                 FROM `".$this->tblRelCoursePortlet."`
