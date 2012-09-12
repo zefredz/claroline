@@ -265,6 +265,8 @@ function link_to_css( $css, $media = 'all' )
  */
 function get_group_tool_menu( $gid = null, $courseId = null, $active = true )
 {
+    $toolList = array();
+    
     if ( is_null( $gid ) )
     {
         $gid = claro_get_current_group_id();
