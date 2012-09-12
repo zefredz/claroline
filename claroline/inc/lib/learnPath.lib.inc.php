@@ -329,10 +329,14 @@ function nameBox($type, $mode)
         .    claro_utf8_decode( $currentName, get_conf( 'charset' ) );
 
         if ( $is_allowedToEdit )
+        {
             $out .= '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
             .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
             .    '</a>' . "\n"
-            .    '</h4>'."\n\n";
+            ;
+        }
+        
+        $out .=    '</h4>'."\n\n";
     }
 
     return $out;
