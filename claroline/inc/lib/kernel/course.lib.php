@@ -235,7 +235,7 @@ class Claro_Course extends KernelObject
             $groupProperties[$currentProperty['name']] = (int) $currentProperty['value'];
         }
         
-        $groupProperties ['registrationAllowed'] =  ($groupProperties['self_registration'] == 1);
+        $groupProperties ['registrationAllowed'] =  (isset($groupProperties['self_registration']) && $groupProperties['self_registration'] == 1);
         unset($groupProperties['self_registration']);
         
         $groupProperties ['unregistrationAllowed'] =  (isset($groupProperties['self_unregistration']) && $groupProperties['self_unregistration'] == 1);
