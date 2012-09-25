@@ -85,7 +85,7 @@ foreach( $this->categoryList as $thisCategory ) :
             endif;
         endif;
         $itemClass = claro_is_user_authenticated()
-                     && $this->claro_notifier->is_a_notified_ressource( claro_get_current_course_id(), $this->claro_notifier->get_notification_date( claro_get_current_user_id() ), claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisForum['forum_id'] )
+                     && $this->claro_notifier->is_a_notified_forum( claro_get_current_course_id(), $this->claro_notifier->get_notification_date( claro_get_current_user_id() ), claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisForum['forum_id'] )
                      ? 'item hot' : 'item';
         ?>
         <tr align="left" valign="top">
