@@ -11,7 +11,7 @@
  * @author      Damien Garros <dgarros@univ-catholyon.fr>
  */
 
-$userPerPage = 20; // numbers of cours to display on the same page
+$userPerPage = 50; // numbers of cours to display on the same page
 
 // initialisation of global variables and used libraries
 require '../inc/claro_init_global.inc.php';
