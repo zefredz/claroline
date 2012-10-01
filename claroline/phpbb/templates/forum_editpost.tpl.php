@@ -28,7 +28,7 @@
     <?php endif;?>
             <tr valign="top"><td>&nbsp;</td>
                 <td><input class="confirm" type="submit" name="submit" value="<?php echo get_lang( 'Ok' )?>" />&nbsp;
-                    <?php echo claro_html_button( htmlspecialchars( Url::Contextualize( $_SERVER['HTTP_REFERER'] ) ), get_lang( 'Cancel' ) )?>
+                    <?php echo claro_html_button( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?topic=' . $this->topicId ) ), get_lang( 'Cancel' ) )?>
                 </td>
             </tr>
         </tbody>
