@@ -575,7 +575,7 @@ if( $topicSettingList )
         $display->assign( 'is_allowedToEdit', $is_allowedToEdit );
         $display->assign( 'anonymity' , $anonymityStatus );
         $display->assign( 'claro_notifier', $claro_notifier );
-        $display->assign( 'is_post_allowed', $is_postAllowed );
+        $display->assign( 'is_post_allowed', $is_postAllowed || claro_is_allowed_to_edit() );
         
         $out .= $display->render();
     }
