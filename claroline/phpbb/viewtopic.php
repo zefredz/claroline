@@ -240,12 +240,14 @@ else
 $is_postAllowed = ( !claro_is_current_user_enrolment_pending() && claro_is_course_member() 
                     && $forumSettingList['forum_access'] != 0
                     && ( !$topicId || !$topicSettingList['topic_status'] ) )
+                    || claro_is_allowed_to_edit()
                     ? true
                     : false;
 
-$is_viewAllowed = !is_null( $forumSettingList['idGroup'] )
+$is_viewAllowed = ( !is_null( $forumSettingList['idGroup'] )
                   && !( ( $forumSettingList['idGroup'] == claro_get_current_group_id() )
-                        || claro_is_in_a_group() || claro_is_group_allowed() )
+                        || claro_is_in_a_group() || claro_is_group_allowed() ) )
+                    && ! claro_is_allowed_to_edit()
                   ? false
                   : true;
 
@@ -575,7 +577,7 @@ if( $topicSettingList )
         $display->assign( 'is_allowedToEdit', $is_allowedToEdit );
         $display->assign( 'anonymity' , $anonymityStatus );
         $display->assign( 'claro_notifier', $claro_notifier );
-        $display->assign( 'is_post_allowed', $is_postAllowed || claro_is_allowed_to_edit() );
+        $display->assign( 'is_post_allowed', $is_postAllowed );
         
         $out .= $display->render();
     }
