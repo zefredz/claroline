@@ -267,7 +267,14 @@ function user_set_properties($userId, $propertyList)
     
     if (array_key_exists('isCourseCreator', $propertyList))
     {
-        $propertyList['isCourseCreator'] = $propertyList['isCourseCreator'] ? 1 : 0;
+        if( claro_is_platform_admin() )
+        {
+            $propertyList['isCourseCreator'] = $propertyList['isCourseCreator'] ? 1 : 0;
+        }
+        else
+        {
+            unset( $propertyList['isCourseCreator'] );
+        }
     }
     
     if (array_key_exists('password', $propertyList) && get_conf('userPasswordCrypted'))
