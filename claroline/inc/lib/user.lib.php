@@ -276,10 +276,17 @@ function user_set_properties($userId, $propertyList)
     }
     
     // Only an administrator can grant a user to administrator statuts
-    if (array_key_exists('isPlatformAdmin', $propertyList) && claro_is_platform_admin())
+    if (array_key_exists('isPlatformAdmin', $propertyList) )
     {
-        $propertyList['isPlatformAdmin'] = $propertyList['isPlatformAdmin'] ? 1 : 0;
-    }    
+        if( claro_is_platform_admin() )
+        {
+            $propertyList['isPlatformAdmin'] = $propertyList['isPlatformAdmin'] ? 1 : 0;
+        }
+        else
+        {
+            unset( $propertyList['isPlatformAdmin'] );
+        }
+    }
     
     // Build query
     $sqlColumnList = array('nom'             => 'lastname',
