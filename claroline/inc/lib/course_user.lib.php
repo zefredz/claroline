@@ -636,7 +636,8 @@ function claro_get_course_user_list($courseCode = NULL)
                FROM `" . $tbl_users . "`           AS user,
                     `" . $tbl_rel_course_user . "` AS course_user
                WHERE `user`.`user_id`=`course_user`.`user_id`
-               AND   `course_user`.`code_cours`='" . claro_sql_escape($courseCode) . "'";
+               AND   `course_user`.`code_cours`='" . claro_sql_escape($courseCode) . "'
+               ORDER BY `user`.`nom`,  `user`.`prenom` ;";
     
     return claro_sql_query_fetch_all_rows($sqlGetUsers);
 }
