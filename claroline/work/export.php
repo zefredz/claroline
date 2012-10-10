@@ -258,7 +258,7 @@ if( get_conf( 'allow_download_all_submissions' ) )
             header( 'Content-Description: File Transfer' );
             header( 'Content-Type: application/force-download' );
             header( 'Content-Length: ' . filesize( $downloadArchiveFilePath ) );
-            header( 'Content-Disposition: attachment; filename=' . $zipName );
+            header( 'Content-Disposition: attachment; filename=' . str_replace( ',', '', replace_dangerous_char( $zipName ) ) );
             
             readfile( $downloadArchiveFilePath );
             

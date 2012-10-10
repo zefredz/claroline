@@ -307,7 +307,7 @@ function get_mime_type_extension_map()
  *                               working directory
  * @param  string $uncompress  - whether 'unzip' and file is a zip;
  *                               extract the content.
- * @param string $allowPHP     - if set to true, then there is no security check for .php files
+ * @param string $allowPHP     - if set to true, then there is no security check for .php files (works for zip archives only)
  * @return boolean : true if it succeds, false otherwise
  */
 
@@ -360,7 +360,7 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 /**
  * Securely manage all the unzipping process of an uploaded document
  *
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  *
  * @param  array  $uploadedFile - follows the $_FILES Structure
  * @param  string $uploadPath   - destination of the upload.
