@@ -103,10 +103,10 @@ foreach ($toolList as $thisTool)
         $groups = $claro_notifier->get_notified_groups(claro_get_current_course_id(), $date);
         $classItem = ( ! empty($groups) ) ? ' hot ' : '';
     }
-    
+
     if ( ! empty($url) )
     {
-        $toolLinkList[] = '<a '.$htmlId.'class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
+        $toolLinkList[] = '<a '.$htmlId.' class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
         . '<img class="clItemTool"  src="' . $icon . '" alt="" />&nbsp;'
         . $toolName
         . '</a>' . "\n"

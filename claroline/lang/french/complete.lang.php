@@ -370,7 +370,7 @@ $_lang['Choose now a username and a password for the user account'] = 'Saisissez
 $_lang['Choose one'] = '- Choisissez une catégorie -';
 $_lang['Choose the mode for URL for file download. Warning : Pretty URL mode don\'t work with IIS.'] = 'Sélectionnez le type d\'URL à utiliser pour le téléchargement de fichiers. Attention : Pretty URL ne fonctionne pas avec IIS';
 $_lang['Choose "Yes" to notify students when you add feedback information to their works'] = 'Choisissez "Oui" pour prévenir les étudiants par courriel lorsque vous ajoutez une correction à leurs travaux.';
-$_lang['Choose "Yes" to receive an email every time a submission is made'] = 'Choisissez "Oui" pour recevoir un courriel chaque fois qu\'un travail est soumis.'; 
+$_lang['Choose "Yes" to receive an email every time a submission is made'] = 'Choisissez "Oui" pour recevoir un courriel chaque fois qu\'un travail est soumis.';
 $_lang['Chosen date is in the future'] = 'La date spécifiée est dans le futur';
 $_lang['Clarodoc'] = 'Clarodoc';
 $_lang['Claroline configuration'] = 'Configuration de Claroline';
@@ -897,9 +897,9 @@ $_lang['If after while no message appears confirming the course creation, please
 $_lang['If false, other fields are optional'] = 'Si ce paramètre est désactivé, les suivants sont facultatifs.';
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value'] = 'Si le nom et prénom sont plus longs que la valeur indiquée, ils seront tronqués. Pour avoir l\'information complète, il est préférable de ne pas spécifier une trop petite valeur.';
-$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
+$_lang['If the user is existing in the platform, he will be added to the class only if his firstname,
                                         lastname and username are similar.'] = 'Si l\'utilisateur est déjà inscrit sur la plateforme, il ne sera ajouté à la classe que si le nom, le prénom et le nom d\'utilisateur indiqués dans la liste correspondent au données enregistrées sur la plateforme.';
-$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
+$_lang['If the user is existing in the platform, he will be added to the course only if his firstname,
                                         lastname and username are similar.'] = 'Si l\'utilisateur est déjà inscrit sur la plateforme, il ne sera ajouté au cours que si le nom, le prénom et le nom d\'utilisateur indiqués dans la liste correspondent au données enregistrées sur la plateforme.';
 $_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'Si vous n\'utilisez pas le système de mots de passe intégré pour l\'authentification, désactivez cette option pour ne pas afficher le formulaire d\'identification';
 $_lang['If you do not have the key, please contact the course manager'] = 'Si vous ne disposez pas de la clé d\'inscription, contactez le gestionnaire de cours';
@@ -1170,6 +1170,7 @@ $_lang['Name is missing'] = 'Nom manquant';
 $_lang['Name link'] = 'Nom du lien';
 $_lang['Name of the class has been changed'] = 'Nom de la classe modifié';
 $_lang['Name of the tool'] = 'Nom de l\'outil';
+$_lang['Never'] = 'Jamais';
 $_lang['Never browsed'] = 'Jamais visité';
 $_lang['Never connected'] = 'Jamais connecté';
 $_lang['Never used'] = 'Jamais utilisé';
@@ -1253,7 +1254,7 @@ $_lang['Note :  this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses.'] = 'Note : ce dossier doit être protégé par un .htaccess ou placé en-dehors du Web.
        Il contient des données de cours privés.';
 $_lang['Note : this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'] = 'Note : ce dossier doit être protégé par un .htaccess ou placé en-dehors du Web. 
+       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'] = 'Note : ce dossier doit être protégé par un .htaccess ou placé en-dehors du Web.
        Il contient des données de cours privés. Claroline doit pouvoir lire et écrire dans ce dossier.';
 $_lang['Nothing to display'] = 'Rien à afficher';
 $_lang['Notice'] = 'Remarque';
