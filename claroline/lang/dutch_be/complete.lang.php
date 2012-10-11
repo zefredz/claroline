@@ -1171,6 +1171,7 @@ $_lang['Name is missing'] = 'Naam ontbreekt';
 $_lang['Name link'] = 'Naam verwijzing';
 $_lang['Name of the class has been changed'] = 'Naam van de klas is veranderd';
 $_lang['Name of the tool'] = 'Modulenaam';
+$_lang['Never'] = 'Nooit';
 $_lang['Never browsed'] = 'Nooit bezocht';
 $_lang['Never connected'] = 'Nooit verbonden';
 $_lang['Never used'] = 'Nooit gebruikt';

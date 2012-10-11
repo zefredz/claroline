@@ -1220,6 +1220,7 @@ $_lang['Name is missing'] = 'Nom manquant';
 $_lang['Name link'] = 'Nom du lien';
 $_lang['Name of the class has been changed'] = 'Nom de la classe modifié';
 $_lang['Name of the tool'] = 'Nom de l\'outil';
+$_lang['Never'] = 'Jamais';
 $_lang['Never browsed'] = 'Jamais visité';
 $_lang['Never connected'] = 'Jamais connecté';
 $_lang['Never used'] = 'Jamais utilisé';
