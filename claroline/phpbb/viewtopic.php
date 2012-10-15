@@ -132,6 +132,8 @@ try
                 $subject = '';
             }
             
+            var_dump($subject);
+            
             $is_post_anonymous = $userInput->get( 'anonymous_post', 0 );
             break;
             
@@ -170,7 +172,7 @@ catch( Exception $ex )
                 break;
             case 'exSavePost' :
                 $dialogBox->error( get_lang( 'Missing information' ) );
-                $cmd = 'dialog_only';
+                $inputMode = 'missing_input';
                 break;
             case 'exDelete' :
                 $dialogBox->error( get_lang( 'Unknown post' ) );
@@ -191,10 +193,13 @@ catch( Exception $ex )
     elseif( $ex instanceof Claro_Input_Exception )
     {
         $dialogBox->error( get_lang( 'Unset input variable' ) );
+        
+        $cmd = 'rqPost';
     }
     else
     {
         $dialogBox->error( get_lang( 'Unexpected error' ) );
+        $cmd = 'dialog_only';
     }
 }
 
@@ -302,22 +307,32 @@ else
                     $dialogBox->error( get_lang( 'Subject cannot be empty' ) );
                     $error = true;
                 }
-                if( false !== $topicId = create_new_topic( $subject, $time, $forumId, claro_get_current_user_id(), $userFirstname, $userLastname ) )
+                
+                if( !$error )
                 {
-                    $eventNotifier->notifyCourseEvent( 'forum_new_topic', claro_get_current_course_id(), claro_get_current_tool_id(), $forumId . '-' . $topicId, claro_get_current_group_id(), 0 );
-                    $dialogBox->success( 'Your topic has been recorded' );
-                    // send message to user registered for notifications of new topics in this forum
-                    trig_forum_notification( $forumId );
-                    if( false !== $postId = create_new_post( $topicId, $forumId, claro_get_current_user_id(), $time, $poster_ip, $userLastname, $userFirstname, $message ) )
+                    $topicId = create_new_topic( $subject, $time, $forumId, claro_get_current_user_id(), $userFirstname, $userLastname );
+                    
+                    if ( false !== $topicId )
                     {
-                        $eventNotifier->notifyCourseEvent( 'forum_new_post', claro_get_current_course_id(), claro_get_current_tool_id(), $forumId . '-' . $topicId . '-' . $postId, claro_get_current_group_id(), 0 );
-                    }
-                    else
-                    {
-                        $dialogBox->error( 'error' );
-                        $error = true;
+                        $eventNotifier->notifyCourseEvent( 'forum_new_topic', claro_get_current_course_id(), claro_get_current_tool_id(), $forumId . '-' . $topicId, claro_get_current_group_id(), 0 );
+                        $dialogBox->success( 'Your topic has been recorded' );
+                        // send message to user registered for notifications of new topics in this forum
+                        trig_forum_notification( $forumId );
+                        
+                        $postId = create_new_post( $topicId, $forumId, claro_get_current_user_id(), $time, $poster_ip, $userLastname, $userFirstname, $message );
+                        
+                        if( false !== $postId )
+                        {
+                            $eventNotifier->notifyCourseEvent( 'forum_new_post', claro_get_current_course_id(), claro_get_current_tool_id(), $forumId . '-' . $topicId . '-' . $postId, claro_get_current_group_id(), 0 );
+                        }
+                        else
+                        {
+                            $dialogBox->error( 'error' );
+                            $error = true;
+                        }
                     }
                 }
+                
                 $topicSettingList = get_topic_settings( $topicId );
             }
             elseif( 'edit' == $editMode )
@@ -364,21 +379,25 @@ else
         if( 'edit' != $editMode || $is_allowedToEdit )
         {
             if( 'quote' == $editMode && $postSettingList )
-            {
-                
-                
+            {  
                 $identity = 'anonymous' == $postSettingList['poster_lastname'] ? get_lang( 'Anonymous contributor wrote :' ) : $postSettingList['poster_firstname'] . '&nbsp;' . $postSettingList['poster_lastname'] . '&nbsp;' . get_lang( 'wrote :' );
                 $quotedPost = preg_replace('#</textarea>#si', '&lt;/TEXTAREA&gt;', $postSettingList['post_text'] );
-                $message = '<span style="margin-left:20px;font-weight:bold;">' . $identity . '</span><br/>';
-                $message .= '<div style="background-color:#F0F0EE;margin-left:20px;margin-right:20px;padding:5px;border:1px solid;">' . $quotedPost . '</div><br/>';
+                
+                if ( !isset($message) || empty($message) )
+                {
+                    $message = '<span style="margin-left:20px;font-weight:bold;">' . $identity . '</span><br/>';
+                    $message .= '<div style="background-color:#F0F0EE;margin-left:20px;margin-right:20px;padding:5px;border:1px solid;">' . $quotedPost . '</div><br/>';
+                }
+                
                 $subject = '';
             }
             elseif( 'edit' == $editMode )
             {
-                $message = preg_replace('#</textarea>#si', '&lt;/TEXTAREA&gt;', $postSettingList['post_text'] );
+                $message = isset( $message ) ? $message : preg_replace('#</textarea>#si', '&lt;/TEXTAREA&gt;', $postSettingList['post_text'] );
+                
                 if( is_first_post( $topicId, $postId ) )
                 {
-                    $subject = $topicSettingList['topic_title'];
+                    $subject = isset( $subject ) ? $subject : $topicSettingList['topic_title'];
                 }
                 else
                 {
@@ -387,8 +406,8 @@ else
             }
             elseif( 'add' == $editMode || 'reply' == $editMode )
             {
-                $subject = '';
-                $message = '';
+                $subject = isset( $subject ) ? $subject : '';
+                $message = isset( $message ) ? $message : '';
             }
             $form = new ModuleTemplate( 'CLFRM', 'forum_editpost.tpl.php' );
             
