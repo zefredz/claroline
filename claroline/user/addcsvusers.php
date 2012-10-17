@@ -96,7 +96,7 @@ else
 
 $dialogBox = new DialogBox();
 
-$defaultFormat = 'userId,lastname,firstname,username,email,officialCode,groupId,groupName';
+$defaultFormat = 'lastname,firstname,username,email,officialCode,groupId,groupName';
 
 if ( empty($_SESSION['claro_usedFormat']) )
 {

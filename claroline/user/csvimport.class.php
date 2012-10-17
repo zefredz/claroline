@@ -461,7 +461,7 @@ class CsvImport extends parseCSV
         {
             switch( $key )
             {
-                case 'userId' :
+                /*case 'userId' :
                 {
                     $error = self::checkUserIdField( $values );
                     if( !is_null( $error ) )
@@ -469,7 +469,7 @@ class CsvImport extends parseCSV
                         $errors[$key] = $error;
                     }
                 }
-                break;
+                break;*/
             
                 case 'email' :
                 {
