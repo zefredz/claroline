@@ -251,7 +251,7 @@ $csvImport->heading = $firstLineFormat;
 
 if ( ! $firstLineFormat )
 {
-    $csvImport->fields = explode( ',' , $usedFormat);
+    $csvImport->titles = explode( ',' , $usedFormat);
 }
 
 switch( $step )
