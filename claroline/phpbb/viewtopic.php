@@ -132,8 +132,6 @@ try
                 $subject = '';
             }
             
-            var_dump($subject);
-            
             $is_post_anonymous = $userInput->get( 'anonymous_post', 0 );
             break;
             
