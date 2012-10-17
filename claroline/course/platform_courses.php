@@ -15,6 +15,9 @@ require '../inc/claro_init_global.inc.php';
 require '../inc/lib/courselist.lib.php';
 require_once dirname(__FILE__) . '/../inc/lib/coursesearchbox.class.php';
 
+//load home page config file
+require claro_get_conf_repository() . 'CLHOME.conf.php';
+
 // Build the breadcrumb
 $nameTools = get_lang('Platform courses');
 
