@@ -267,14 +267,7 @@ function user_set_properties($userId, $propertyList)
     
     if (array_key_exists('isCourseCreator', $propertyList))
     {
-        if( claro_is_platform_admin() )
-        {
-            $propertyList['isCourseCreator'] = $propertyList['isCourseCreator'] ? 1 : 0;
-        }
-        else
-        {
-            unset( $propertyList['isCourseCreator'] );
-        }
+        $propertyList['isCourseCreator'] = $propertyList['isCourseCreator'] ? 1 : 0;
     }
     
     if (array_key_exists('password', $propertyList) && get_conf('userPasswordCrypted'))
@@ -285,14 +278,7 @@ function user_set_properties($userId, $propertyList)
     // Only an administrator can grant a user to administrator statuts
     if (array_key_exists('isPlatformAdmin', $propertyList) )
     {
-        if( claro_is_platform_admin() )
-        {
-            $propertyList['isPlatformAdmin'] = $propertyList['isPlatformAdmin'] ? 1 : 0;
-        }
-        else
-        {
-            unset( $propertyList['isPlatformAdmin'] );
-        }
+        $propertyList['isPlatformAdmin'] = $propertyList['isPlatformAdmin'] ? 1 : 0;
     }
     
     // Build query

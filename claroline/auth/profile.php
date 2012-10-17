@@ -121,6 +121,11 @@ if ( isset($_REQUEST['applyChange']) )
         unset( $userData['isCourseCreator'] );
     }
     
+    if( ! claro_is_platform_admin() )
+    {
+        unset( $userData['isPlatformAdmin'] );
+    }
+    
     // Validate form params
     $errorMsgList = user_validate_form_profile($userData, claro_get_current_user_id());
     
