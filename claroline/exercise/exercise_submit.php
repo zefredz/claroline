@@ -64,7 +64,16 @@ if( $inOldLP )
     $claroline->setDisplayType(Claroline::FRAME);
 }
 
+// Command list
+$cmdList = array();
 
+if (claro_is_allowed_to_edit())
+{
+	$cmdList[] = array(
+   		'img' => 'back',
+    	'name' => get_lang('Back to the exercise list'),
+    	'url' => htmlspecialchars(Url::Contextualize('exercise.php')));
+}
 
 /*
  * Execute commands
@@ -91,7 +100,7 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
 {
     // clean previous exercise if any
     unset($_SESSION['serializedExercise']);
-    
+
     $exercise = new Exercise();
 
     if( is_null($exId) || !$exercise->load($exId) )
@@ -108,11 +117,11 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
             && !( $inOldLP ||  $inLP ) )
         {
             $dialogBox->error( get_lang( 'The exercise is not available' ) );
-        
+
             $content = $dialogBox->render();
-    
+
             $claroline->display->body->appendContent($content);
-            
+
             echo $claroline->display->render();
             //header("Location: ./exercise.php");
             exit();
@@ -142,7 +151,7 @@ if( isset( $_REQUEST['cmd'] )  && $_REQUEST['cmd'] == 'deleteRandomQuestionList'
     {
         $listId = null;
     }
-    
+
     if( !is_null( $listId ) )
     {
         if( !$exercise->deleteRandomQuestionList( $listId, $_SESSION['_user']['userId'], $exercise->getId() ) )
@@ -171,7 +180,7 @@ if( isset( $_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'loadRandomQuestionList' )
     {
         $listId = null;
     }
-    
+
     if( !is_null($listId) )
     {
         $loadRandomQuestionsList = @unserialize( $exercise->loadRandomQuestionList( $listId, $_SESSION['_user']['userId'], $exercise->getId() ) );
@@ -186,7 +195,7 @@ if( isset( $_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'loadRandomQuestionList' )
             $_SESSION['lastRandomQuestionList'] = serialize( $loadRandomQuestionsList );
             $resetQuestionList = false;
         }
-        
+
     }
     else
     {
@@ -220,7 +229,7 @@ if( $resetQuestionList || !isset($_SESSION['serializedQuestionList']) || !is_arr
                 $qList = $exercise->getRandomQuestionList();
                 // save random question list for the user
                 $_SESSION['lastRandomQuestionList'] = serialize( $qList );
-            
+
             }
             elseif( count($qLists) )
             {
@@ -228,13 +237,13 @@ if( $resetQuestionList || !isset($_SESSION['serializedQuestionList']) || !is_arr
                 $startExercise = false;
             }
             // $exercise->saveRandomQuestionList( $_SESSION['_user']['userId'], $exercise->getId(), $qList );
-            
+
         }
         else
         {
             $qList = $exercise->getRandomQuestionList();
         }
-        
+
     }
 
     $questionList = array();
@@ -268,18 +277,18 @@ elseif( isset( $loadRandomQuestionsList ) && is_array( $loadRandomQuestionsList)
     {
         $questions = array();
     }
-    
+
     foreach( $questions as $question )
     {
         $questionObj = new Question();
         $questionObj->setExerciseId( $exId );
-        
+
         if( $questionObj->load( $question['id'] ) )
         {
             $_SESSION['serializedQuestionList'][] = serialize($questionObj);
             $questionList[] = $questionObj;
         }
-        
+
     }
 }
 else
@@ -394,12 +403,12 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
             $showAnswers = false;
         }
     }
-    
+
     // clean session to avoid receiving same exercise next time
     unset($_SESSION['serializedExercise']);
     unset($_SESSION['serializedQuestionList']);
     unset($_SESSION['exeStartTime']);
-    
+
     $showResult = true;
     $showSubmitForm = false;
 
@@ -421,7 +430,7 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
             $totalResult += $questionResult[$i];
             $totalGrade += $questionGrade[$i];
         }
-        
+
         //-- tracking
         // if anonymous attempts are authorised : record anonymous user stats, record authentified user stats without uid
         if ( $exercise->getAnonymousAttempts() == 'ALLOWED' )
@@ -461,7 +470,7 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
                 $scoreRaw = $scoreMin = $scoreMax = 0;
                 $completionStatus = 'incomplete';
             }
-            
+
             $completionStatus = 'incomplete';
             if(isset($_SESSION['thisItemId']))
             {
@@ -475,16 +484,16 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
                     }
                 }
             }
-            
+
             $sessionTime = unixToScormTime($timeToCompleteExe);
-            
+
             $jsForLP = ''
             .   'doSetValue("cmi.score.raw","'.$scoreRaw.'");' . "\n"
             .   'doSetValue("cmi.score.min","'.$scoreMin.'");' . "\n"
             .   'doSetValue("cmi.score.max","'.$scoreMax.'");' . "\n"
             .   'doSetValue("cmi.session_time","'.$sessionTime.'");' . "\n"
             .   'doSetValue("cmi.completion_status","'.$completionStatus.'");' . "\n"
-            
+
             //.   'doCommit();' . "\n"
             .   'doTerminate();' . "\n"
             ;
@@ -524,7 +533,7 @@ if( $inLP )
     $jsloader->loadFromModule('CLLP', 'connector13');
 
     $jsloader->load('cllp.cnr');
-    
+
     if( !empty($jsForLP) )
     {
         $claroline->display->header->addInlineJavascript($jsForLP);
@@ -589,11 +598,11 @@ if( $showResult )
         // standard exercise mode
         $out .= '<form method="get" action="exercise.php">';
     } // if inLP do not allow to navigate away : user should use LP navigation to go to another module
-    
+
     $out .= claro_form_relay_context() . "\n";
-    
+
     //  Display results
-    
+
     /*if( $exercise->getShuffle() && $exercise->getUseSameShuffle() && isset( $_SESSION['lastRandomQuestionList'] ) )
     {
         $out .= '<div style="font-weight: bold;">' . "\n"
@@ -625,14 +634,14 @@ if( $showResult )
         $contentDialogBox .= get_lang( 'Time is over, results not submitted.' );
         $dialogBox->error( $contentDialogBox );
         $dialogBox->info('<a href="'.htmlspecialchars( Url::Contextualize('./exercise.php' ) ).'">&lt;&lt; '.get_lang('Back').'</a>');
-        
+
     }
-    
+
     //-- question(s)
     if( !empty($questionList) )
     {
         $out .= "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
-        
+
         // foreach question
         $questionIterator = 1;
         $i = 0;
@@ -666,7 +675,7 @@ if( $showResult )
             $questionIterator++;
             $i++;
         }
-        
+
         $out .= '</table>' . "\n\n";
     }
     else
@@ -674,22 +683,22 @@ if( $showResult )
         $dialogBox->info(
             get_lang('No question to display')
             .'<br />'
-            .'<a href="'.htmlspecialchars( 
+            .'<a href="'.htmlspecialchars(
                 Url::Contextualize('./exercise.php' ) ).'">&lt;&lt; '.get_lang('Back').'</a>'
         );
     }
-    
+
     //  Display results
     if( $recordResults )
     {
         $out .= $dialogBoxResults->render();
-        
+
         if( !is_null($exercise->getQuizEndMessage()) )
         {
             $out .= '<blockquote>' . "\n" . claro_parse_user_text($exercise->getQuizEndMessage()) . "\n" . '</blockquote>' . "\n";
         }
     }
-    
+
     if( $exercise->getShuffle() && $exercise->getUseSameShuffle() && isset( $_SESSION['lastRandomQuestionList'] ) )
     {
         $out .= '<div style="font-weight: bold;">' . "\n"
@@ -699,7 +708,7 @@ if( $showResult )
     }
     // Display Finish/Continue
     $out .= '<div class="centerContent">'. "\n";
-    
+
     if( !$inLP)
     {
         if( $recordResults )
@@ -711,9 +720,9 @@ if( $showResult )
     {
         $out .= get_lang('Exercise done, choose a module in the list to continue.');
     }
-    
+
     $out .= '</div>' . "\n";
-    
+
 
     if( !$inLP )
     {
@@ -727,21 +736,21 @@ elseif( $showSubmitForm )
     $displayForm = true;
     if( isset($_REQUEST['cmdBack']) || isset($_REQUEST['cmdNext']) ){
         $timeToCompleteExe =  $currentTime;
-    
+
         // the time limit is set and the user take too much time to complete exercice
         if ( $exercise->getTimeLimit() > 0 && $exercise->getTimeLimit() < $timeToCompleteExe )
         {
             $displayForm = false;
-            
+
             unset($_SESSION['exeStartTime']);
-            
+
             $contentDialogBox = '';
             $contentDialogBox .= get_lang('Your time is %time', array('%time' => claro_html_duration($timeToCompleteExe)) )
             .                   '<br />' . "\n";
             $contentDialogBox .= get_lang( 'Time is over, results not submitted.' );
             $dialogBox->error( $contentDialogBox );
             $dialogBox->info('<a href="'.htmlspecialchars( Url::Contextualize('./exercise.php' ) ).'">&lt;&lt; '.get_lang('Back').'</a>');
-            
+
         }
     }
 
@@ -818,9 +827,9 @@ elseif( $showSubmitForm )
         }
         // table footer, form footer
         $out .= '</table>' . "\n\n";
-        
+
         $out .= '<div class="centerContent">' . "\n";
-        
+
         if( $exercise->getDisplayType() == 'SEQUENTIAL' )
         {
             if( $step > 1 )
@@ -839,7 +848,7 @@ elseif( $showSubmitForm )
         {
             $out .= '<input type="submit" name="cmdOk" value="'.get_lang('Finish the test').'" />' . "\n";
         }
-        
+
         $out .= '</div>' . "\n"
         .     '</form>' . "\n\n";
 
@@ -847,7 +856,7 @@ elseif( $showSubmitForm )
     elseif( isset( $qLists ) && count( $qLists ) )
     {
         $out .= '<div>' . get_lang( 'Some questions lists are saved in memory. Do you want to load one of them ?' ) . '</div>' . "\n";
-        
+
         foreach( $qLists as $i => $qList )
         {
             $questionsList = @unserialize( $qList['questions'] );
@@ -877,26 +886,26 @@ elseif( $showSubmitForm )
             .   '</div>'
             ;
         }
-        
+
         $out .= '<div> <br />'
         .   '<a href="'.htmlspecialchars( Url::Contextualize('exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ) ) ) .'" style="font-weight: bold;">' . get_lang( 'Load a new list' ) . '</a>'
         .   '</div>'
         ;
-        
+
     }
     else
     {
         $dialogBox->info(
             get_lang('No question to display')
             .'<br />'
-            .'<a href="'.htmlspecialchars( 
+            .'<a href="'.htmlspecialchars(
                 Url::Contextualize('./exercise.php' ) ).'">&lt;&lt; '.get_lang('Back').'</a>'
         );
     }
 }
 else // ! $showSubmitForm
 {
-        
+
     if( (!isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode']) && !$inLP )
     {
         $dialogBox->info('<a href="'.htmlspecialchars( Url::Contextualize('./exercise.php' ) ).'">&lt;&lt; '.get_lang('Back').'</a>');
@@ -932,7 +941,7 @@ $htmlHeaders = "\n".'
             }
         })
     });
-    
+
     clockStart = new Date();
     clockStart.setTime( '. $exeStartTime * 1000 .' );
     clockStart = clockStart.getTime();
@@ -941,20 +950,20 @@ $htmlHeaders = "\n".'
     langSecShort = "'. get_lang('SecondShort') .'";
     langTimeWarning = "'. get_lang('Time exceeded') .'";
     submitForm = true;
-    
+
     $(document).ready(function() {
         if($("#currentTime").length > 0 && $("#formExercise").length > 0){
            getSecs( clockStart, timeLimit, submitForm, langMinShort, langSecShort, langTimeWarning, "currentTime", "formExercise");
         }
     });
-    
+
     function initStopwatch(clockStart){
          var myTime = new Date();
          var timeNow = myTime.getTime();
          var timeDiff = timeNow - clockStart;
          return(timeDiff/1000);
     }
-    
+
     function getSecs( clockStart, timeLimit, submitForm, langMinShort, langSecShort, langTimeWarning, spanID, formID )
     {
         var mySecs = initStopwatch(clockStart);
@@ -989,11 +998,11 @@ $content = '';
 
 if( $showResult )
 {
-    $content .= claro_html_tool_title(get_lang('Exercise results') . ' : ' . $nameTools);
+    $content .= claro_html_tool_title(get_lang('Exercise results') . ' : ' . $nameTools, null, $cmdList);
 }
 else
 {
-    $content .= claro_html_tool_title(get_lang('Exercise') . ' : ' . $nameTools);
+    $content .= claro_html_tool_title(get_lang('Exercise') . ' : ' . $nameTools, null, $cmdList);
 }
 
 $content .= $dialogBox->render();
