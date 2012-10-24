@@ -71,6 +71,7 @@ class CLTRACK_CourseAccess extends CourseTrackingRenderer
         $html .= '<li>' . get_lang('Last 7 days').' : '.$count.'</li>'."\n";
 
         // today
+     //   $html .= '<div id="showTrackToday">';
         $sql = "SELECT count(*)
                   FROM `".$this->tbl_course_tracking_event."`
                  WHERE `type` = 'course_access'
@@ -78,6 +79,9 @@ class CLTRACK_CourseAccess extends CourseTrackingRenderer
         $count = claro_sql_query_get_single_value($sql);
         $html .= '<li>' . get_lang('Today').' : '.$count . '</li>'."\n";
         //-- students connected today
+
+        $html .= '<div id="showTrackDetails">';
+        $html .= '<div id="showTrackDetailsToday">';
         $sql = "SELECT U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`, MAX(CTE.`date`) AS `last_access_date`
             FROM `".$this->tbl_user."` AS U, `".$this->tbl_rel_course_user."` AS CU
             LEFT JOIN `".$this->tbl_course_tracking_event."` AS `CTE`
@@ -117,17 +121,18 @@ class CLTRACK_CourseAccess extends CourseTrackingRenderer
         {
             $html .= ' <small>'.get_lang('No result').'</small><br />'."\n";
         }
-
         $html .= '</li>'."\n";
+        $html .= '</div>';
 
-         // last week
+        // last week
+        $html .= '<div id="showTrackDetailsLastWeek">';
         $sql = "SELECT count(*)
                   FROM `".$this->tbl_course_tracking_event."`
                  WHERE `type` = 'course_access'
-                   AND `date` > CURDATE()";
+                   AND `date` > ( NOW() - INTERVAL 8 DAY )";
         $count = claro_sql_query_get_single_value($sql);
-        $html .= '<li>' . get_lang('Today').' : '.$count . '</li>'."\n";
-        //-- students connected today
+        $html .= '<li>' . get_lang('Last week').' : '.$count . '</li>'."\n";
+        //-- students connected last week
         $sql = "SELECT U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`, MAX(CTE.`date`) AS `last_access_date`
             FROM `".$this->tbl_user."` AS U, `".$this->tbl_rel_course_user."` AS CU
             LEFT JOIN `".$this->tbl_course_tracking_event."` AS `CTE`
@@ -137,7 +142,7 @@ class CLTRACK_CourseAccess extends CourseTrackingRenderer
             GROUP BY U.`user_id`
             HAVING  `last_access_date` > ( NOW() - INTERVAL 8 DAY )
             ";
-        $html .= '<li>' . get_lang('Students connected last week:');
+        $html .= '<li>' . get_lang('Students connected since last week:');
 
         $results = claro_sql_query_fetch_all($sql);
         if( !empty($results) && is_array($results) )
@@ -169,8 +174,10 @@ class CLTRACK_CourseAccess extends CourseTrackingRenderer
         }
 
         $html .= '</li>'."\n";
+        $html .= '</div>';
+        $html .= '</div>';
 
-        //-- students not connected for more than 1 month
+        //-- students not connected for more than 1/2 month
         $sql = "SELECT  U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`, MAX(CTE.`date`) AS `last_access_date`
             FROM `".$this->tbl_user."` AS U, `".$this->tbl_rel_course_user."` AS CU
             LEFT JOIN `".$this->tbl_course_tracking_event."` AS `CTE`

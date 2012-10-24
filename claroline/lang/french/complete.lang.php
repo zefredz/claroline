@@ -3422,3 +3422,5 @@ $_lang['You need to choose at least one category for this course'] = 'Vous devez
 $_lang['Printable version'] = 'Version imprimable';
 $_lang['Printable version (Shuffle)'] = 'Version imprimable (Ordre aléatoire)';
 $_lang['Default visibility'] = 'Visibilité par défaut';
+$_lang['Last week'] = 'La semaine dernière';
+$_lang['Students connected since last week:'] = 'Étudiants connectés depuis la semaine dernière';
