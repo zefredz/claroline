@@ -306,107 +306,12 @@ $out .= "\n"
 $out .= $myPager->disp_pager_tool_bar($pagerUrl);
 
 //-- list
-$out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
-.     '<thead>' . "\n"
-.     '<tr>' . "\n"
-.     '<th>' . get_lang('Id') . '</th>' . "\n"
-.     '<th>' . get_lang('Question') . '</th>' . "\n"
-.     '<th>' . get_lang('Category') . '</th>' . "\n"
-.     '<th>' . get_lang('Answer type') . '</th>' . "\n";
-$colspan = 2;
-if( !is_null($exId) )
-{
-    $out .= '<th>' . get_lang('Reuse') . '</th>' . "\n";
-    $colspan++;
-}
-else
-{
-    $out .= '<th>' . get_lang('Modify') . '</th>' . "\n"
-    .     '<th>' . get_lang('Delete') . '</th>' . "\n";
-    $colspan += 2;
-
-    if( get_conf('enableExerciseExportQTI') )
-    {
-        $out .= '<th colspan="2">' . get_lang('Export') . '</th>' . "\n";
-        $colspan++;
-    }
-}
-
-$out .= '</tr>' . "\n"
-.     '</thead>' . "\n\n"
-.     '<tbody>' . "\n";
-
-if( !empty($questionList) )
-{
-    $questionTypeLang['MCUA'] = get_lang('Multiple choice (Unique answer)');
-    $questionTypeLang['MCMA'] = get_lang('Multiple choice (Multiple answers)');
-    $questionTypeLang['TF'] = get_lang('True/False');
-    $questionTypeLang['FIB'] = get_lang('Fill in blanks');
-    $questionTypeLang['MATCHING'] = get_lang('Matching');
-
-    foreach( $questionList as $question )
-    {
-        $out .= '<tr>'
-        .   '<td align="center">' . $question['id'] . '</td>' . "\n"
-        .     '<td>'.$question['title'].'</td>' . "\n"
-        ;
-        
-        $out .=  '<td>'.getCategoryTitle( $question['id_category']) . '</td>' . "\n";
-        
-
-        // answer type
-        $out .= '<td><small>'.$questionTypeLang[$question['type']].'</small></td>' . "\n";
-
-        if( !is_null($exId) )
-        {
-            // re-use
-            $out .= '<td align="center">'
-            .     '<a href="'.htmlspecialchars(Url::Contextualize('question_pool.php?exId='.$exId.'&amp;cmd=rqUse&amp;quId='.$question['id'] ) ).'">'
-            .     '<img src="' . get_icon_url('select') . '" alt="'.get_lang('Modify').'" />'
-            .     '</a>'
-            .     '</td>' . "\n";
-        }
-        else
-        {
-            // edit
-            $out .= '<td align="center">'
-            .     '<a href="'.htmlspecialchars(Url::Contextualize('edit_question.php?quId='.$question['id'] ) ).'">'
-            .     '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
-            .     '</a>'
-            .     '</td>' . "\n";
-
-            // delete question from database
-            $confirmString = get_lang('Are you sure you want to completely delete this question ?');
-
-            $out .= '<td align="center">'
-            .     '<a href="'.htmlspecialchars(Url::Contextualize('question_pool.php?exId='.$exId.'&amp;cmd=delQu&amp;quId='.$question['id'] ) ).'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
-            .     '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
-            .     '</a>'
-            .     '</td>' . "\n";
-
-            if( get_conf('enableExerciseExportQTI') )
-            {
-                // export
-                $out .= '<td align="center">'
-                .     '<a href="'.htmlspecialchars(Url::Contextualize('question_pool.php?exId='.$exId.'&amp;cmd=exExport&amp;quId='.$question['id'] ) ).'">'
-                .     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export').'" />'
-                .     '</a>'
-                .     '</td>' . "\n";
-            }
-        }
-        $out .= '</tr>';
-
-    }
-
-}
-else
-{
-    $out .= '<tr>' . "\n"
-    .     '<td colspan="'.$colspan.'">' . get_lang('Empty') . '</td>' . "\n"
-    .     '</tr>' . "\n\n";
-}
-$out .= '</tbody>' . "\n\n"
-.     '</table>' . "\n\n";
+$display = new ModuleTemplate( 'CLQWZ' , 'question_list.tpl.php' );
+$display->assign( 'exId', $exId );
+$display->assign( 'questionList', $questionList );
+$display->assign( 'context', is_null( $exId ) ? 'pool' : 'reuse' );
+$display->assign( 'localizedQuestionType', get_localized_question_type() );
+$out .= $display->render();
 
 //-- pager
 $out .= $myPager->disp_pager_tool_bar($pagerUrl);
