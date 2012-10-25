@@ -268,7 +268,7 @@ class Submission
      * @param string $visibility
      * @return boolean
      */
-    function updateSubmissionVisibility($submissionId, $visibility)
+    static function updateSubmissionVisibility($submissionId, $visibility)
     {
         // this method is not used in object context so we cannot access $this->$tblAssignment
         $tbl_cdb_names = claro_sql_get_course_tbl();

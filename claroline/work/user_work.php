@@ -633,7 +633,10 @@ if($is_allowedToEditAll)
             $submission->setPrivateFeedback($wrkForm['wrkPrivFbk']);
             $submission->setOriginalId($_REQUEST['authId']);
             $submission->setScore($wrkForm['wrkScore']);
-
+            if( $assignment->getAssignmentType() == 'GROUP' )
+            {
+                $submission->setGroupId( $_REQUEST['authId'] );
+            }
             $submission->save();
 
             $dialogBox->success( get_lang('Feedback added') );
@@ -1655,29 +1658,32 @@ if( $dispWrkLst )
                 . '</a>' . "\n"
                 ;
 
-                if ($work['visibility'] == "INVISIBLE")
+                if( 'VISIBLE' == $assignment->getDefaultSubmissionVisibility() || $is_feedback )
                 {
-                    $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-                    . '?authId=' . $_REQUEST['authId']
-                    . '&cmd=exChVis&assigId='.$assignmentId
-                    . '&wrkId='.$work['id']
-                    . '&vis=v' ) ) .'">'
-                    . '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Make visible') . '" />'
-                    . '</a>' . "\n"
-                    ;
-                }
-                else
-                {
-                    $out .= '<a href="' . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
-                    . '?authId=' . $_REQUEST['authId']
-                    . '&cmd=exChVis'
-                    . '&assigId=' . $assignmentId
-                    . '&wrkId='.$work['id']
-                    . '&vis=i' ) ) . '">'
-                    . '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Make invisible') . '" />'
-                    . '</a>' . "\n"
-                    ;
-                }
+                    if ($work['visibility'] == "INVISIBLE")
+                    {
+                        $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                        . '?authId=' . $_REQUEST['authId']
+                        . '&cmd=exChVis&assigId='.$assignmentId
+                        . '&wrkId='.$work['id']
+                        . '&vis=v' ) ) .'">'
+                        . '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Make visible') . '" />'
+                        . '</a>' . "\n"
+                        ;
+                    }
+                    else
+                    {
+                        $out .= '<a href="' . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+                        . '?authId=' . $_REQUEST['authId']
+                        . '&cmd=exChVis'
+                        . '&assigId=' . $assignmentId
+                        . '&wrkId='.$work['id']
+                        . '&vis=i' ) ) . '">'
+                        . '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Make invisible') . '" />'
+                        . '</a>' . "\n"
+                        ;
+                    }
+                }   
                 
                 if( ! $is_feedback )
                 {
