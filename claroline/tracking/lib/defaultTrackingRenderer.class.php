@@ -72,7 +72,7 @@ class CLTRACK_CourseAccess extends CourseTrackingRenderer
 	            AND CU.`code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
 	            GROUP BY U.`user_id`
 	            HAVING  `last_access_date` > ( NOW() - INTERVAL 31 DAY )
-	            ";
+	            ORDER BY `lastname`, `firstname`";
 	        $html .=  get_lang('Students connected since last month:');
 			$results = claro_sql_query_fetch_all($sql);
 			$html .= '<ul>'."\n";
@@ -121,7 +121,7 @@ class CLTRACK_CourseAccess extends CourseTrackingRenderer
             AND CU.`code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
             GROUP BY U.`user_id`
             HAVING  `last_access_date` > ( NOW() - INTERVAL 8 DAY )
-            ";
+            ORDER BY `lastname`, `firstname`";
         $html .=  get_lang('Students connected since last week:');
 
         $results = claro_sql_query_fetch_all($sql);
@@ -173,7 +173,7 @@ class CLTRACK_CourseAccess extends CourseTrackingRenderer
             AND CU.`code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
             GROUP BY U.`user_id`
             HAVING  `last_access_date` > CURDATE()
-            ";
+             ORDER BY `lastname`, `firstname`";
         $html .=  get_lang('Students connected today:');
         $results = claro_sql_query_fetch_all($sql);
         if( !empty($results) && is_array($results) )
@@ -215,7 +215,7 @@ class CLTRACK_CourseAccess extends CourseTrackingRenderer
             GROUP BY U.`user_id`
             HAVING  `last_access_date` IS NULL
                 OR  `last_access_date` < ( NOW() - INTERVAL 15 DAY )
-            ";
+             ORDER BY `lastname`, `firstname`";
         $results = claro_sql_query_fetch_all($sql);
 
         if( !empty($results) && is_array($results) )
