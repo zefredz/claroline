@@ -23,7 +23,8 @@
              * - The view's config says so
              */
             if (!$this->courseUserPrivilegesList->getCoursePrivileges(
-            $this->node->getCourse()->courseId)->isCourseMember() && claro_is_platform_admin() ) : ?>
+            $this->node->getCourse()->courseId)->isCourseMember() &&
+            $this->viewOptions->haveToDisplayEnrollLink()) : ?>
             
             <a href="<?php 
                 $urlObj = Url::buildUrl(

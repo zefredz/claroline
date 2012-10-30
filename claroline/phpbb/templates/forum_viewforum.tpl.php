@@ -46,7 +46,7 @@
             foreach( $this->topicList as $thisTopic ) : ?>
             <tr>
             <?php $itemClass = claro_is_user_authenticated()
-                           && $this->claro_notifier->is_a_notified_ressource( claro_get_current_course_id(), $this->claro_notifier->get_notification_date( claro_get_current_user_id() ), claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this->forumId . "-" . $thisTopic['topic_id'], FALSE )
+                           && $this->claro_notifier->is_a_notified_ressource( claro_get_current_course_id(), $this->claro_notifier->get_notification_date( claro_get_current_user_id() ), claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this->forumId . "-" . $thisTopic['forum_id'], FALSE )
                            ? 'item hot' : 'item';
                   $itemLink = htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewtopic.php?topic=' . $thisTopic['topic_id']
                             .  ( is_null( $this->forumSettings['idGroup'] )
