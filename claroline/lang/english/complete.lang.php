@@ -1302,7 +1302,7 @@ $_lang['Old password'] = 'Old password';
 $_lang['Old password is wrong'] = 'Old password is wrong';
 $_lang['Oldest first'] = 'Oldest first';
 $_lang['On'] = 'On';
-$_lang['On an unique page'] = 'On a unique page';
+$_lang['On an unique page'] = 'On an unique page';
 $_lang['On demand'] = 'On demand';
 $_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO '] = 'Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO server provides a way to retrieve the user parameters from another server on the internet on the base of this cookie value.';
 $_lang['One question per page (sequential)'] = 'One question per page (sequential)';
@@ -2942,7 +2942,7 @@ $_lang['Select the type for your export :'] = 'Select the type for your export :
 $_lang['Students connected today:'] = 'Students connected today:';
 $_lang['Target'] = 'Target';
 $_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the cookie only available in the www  subdomain.'] = 'The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the cookie only available in the www  subdomain.';
-$_lang['The export\'s type is not supported for the moment.'] = 'This export type is not supported for the moment.';
+$_lang['The export\'s type is not supported for the moment.'] = 'The export\'s type is not supported for the moment.';
 $_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.'] = 'The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.';
 $_lang['This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.'] = 'This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.';
 $_lang['This feature is use for institute with  blind users.
@@ -3036,7 +3036,7 @@ $_lang['This topic is now open to new contributions'] = 'This topic is now open 
 $_lang['Topic title changed successfully'] = 'Topic title changed successfully';
 $_lang['You are not allowed to access this forum'] = 'You are not allowed to access this forum';
 $_lang['User created by '] = 'User created by ';
-$_lang['blockCategoriesOrderInfo'] = 'Attention: you can order categories, but your current platform configuration does not use that order for categories display.  Check the configuration if you wish to edit this setting.';
+$_lang['blockCategoriesOrderInfo'] = 'Attention: you can order categories, but your current platform configuration does not use that order for categories display.  Check the configuration if you wish to edit this setting.'; 
 $_lang['%module% help'] = '%module% help';
 $_lang['%nb category(ies)'] = '%nb category(ies)';
 $_lang['*.inc.php'] = '*.inc.php';
@@ -3280,8 +3280,8 @@ $_lang['This course is limited to %userLimit users'] = 'This course is limited t
 $_lang['This course is not available'] = 'This course is not available';
 $_lang['This course will be disable on the %date'] = 'This course will be disable on the %date';
 $_lang['This course will be enabled on the %date'] = 'This course will be enabled on the %date';
-$_lang['This feature is use for institute with  blind users.
- I fact, System would be ehanced to activate this view user by user'] = 'This feature is use for institute with  blind users.
+$_lang['This feature is use for institute with  blind users. 
+ I fact, System would be ehanced to activate this view user by user'] = 'This feature is use for institute with  blind users. 
  I fact, System would be ehanced to activate this view user by user';
 $_lang['This introduction can\'t be moved down'] = 'This introduction can\'t be moved down';
 $_lang['This introduction can\'t be moved up'] = 'This introduction can\'t be moved up';
@@ -3411,6 +3411,3 @@ $_lang['Hide textzone on user desktop by default'] = 'Hide textzone on user desk
 $_lang['Printable version'] = 'Printable version';
 $_lang['Printable version (Shuffle)'] = 'Printable version (Shuffle)';
 $_lang['Default visibility'] = 'Default visibility';
-$_lang['Last week'] = 'Last week';
-$_lang['Students connected since last week:'] = 'Student connected since last week';
-$_lang['Students connected since last month:'] = 'Students connected since last month';

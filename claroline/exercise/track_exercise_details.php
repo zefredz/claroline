@@ -276,20 +276,17 @@ if( claro_is_user_authenticated() )
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), './exercise.php' );
 
+$backLink = '<p><small><a href="'.htmlspecialchars( Url::Contextualize('../tracking/userReport.php?userId='.$thisAttemptDetails['user_id'].'&amp;exId='.$thisAttemptDetails['id'] ) ).'">&lt;&lt;&nbsp;' . get_lang('Back') . '</a></small></p>' . "\n\n";
+
 $nameTools = get_lang('Statistics of exercise attempt');
 
 $out = '';
 // display title
 $titleTab['mainTitle'] = $nameTools;
 
-// Command list
-$cmdList = array();
-$cmdList[] = array(
-	'img' => 'back',
-	'name' => get_lang('Back'),
-	'url' => htmlspecialchars( Url::Contextualize('../tracking/userReport.php?userId='.$thisAttemptDetails['user_id'].'&amp;exId='.$thisAttemptDetails['id'] ) ));
+$out .= claro_html_tool_title($titleTab);
 
-$out .= claro_html_tool_title($titleTab, null, $cmdList);
+$out .= $backLink;
 
 if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {

@@ -112,7 +112,7 @@ if( $cmd == 'exEdit' )
 
     $question->setTitle($_REQUEST['title']);
     $question->setDescription($_REQUEST['description']);
-    $question->setCategoryId( isset( $_REQUEST['categoryId'] ) && is_numeric( $_REQUEST['categoryId'] ) ? (int)$_REQUEST['categoryId'] : null );
+    $question->setCategoryId($_REQUEST['categoryId']);
     
     if( is_null($quId) ) $question->setType($_REQUEST['type']);
 
@@ -243,16 +243,141 @@ $localizedQuestionType = get_localized_question_type();
 
 if( $displayForm )
 {
-    //-- edit form
-    $display = new ModuleTemplate( 'CLQWZ' , 'question_form.tpl.php' );
-    $display->assign( 'question', $question );
-    $display->assign( 'exId', $exId );
-    $display->assign( 'data', $form );
-    $display->assign( 'relayContext', claro_form_relay_context() );
-    $display->assign( 'askDuplicate', $askDuplicate );
-    $display->assign( 'categoryList', getQuestionCategoryList() );
-    $display->assign( 'questionType', get_localized_question_type() );
-    $out .= $display->render();
+    $out .= '<form method="post" action="./edit_question.php?quId='.$quId.'&amp;exId='.$exId.'" enctype="multipart/form-data">' . "\n\n"
+    .     '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
+    .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
+    .     claro_form_relay_context() . "\n"
+    ;
+
+    $out .= '<table border="0" cellpadding="5">' . "\n";
+
+    if( $askDuplicate )
+    {
+        $out .= '<tr>' . "\n"
+        .     '<td>&nbsp;</td>' . "\n"
+        .    '<td valign="top">'
+        .    html_ask_duplicate()
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n\n";
+    }
+    //--
+    // title
+    $out .= '<tr>' . "\n"
+    .     '<td valign="top"><label for="title">'.get_lang('Title').'&nbsp;<span class="required">*</span></label></td>' . "\n"
+    .     '<td><input type="text" name="title" id="title" size="60" maxlength="200" value="'.htmlspecialchars($form['title']).'" /></td>' . "\n"
+    .     '</tr>' . "\n\n";
+
+    // description
+    $out .= '<tr>' . "\n"
+    .     '<td valign="top"><label for="description">'.get_lang('Description').'</label></td>' . "\n"
+    .     '<td>'.claro_html_textarea_editor('description', $form['description']).'</td>' . "\n"
+    .     '</tr>' . "\n\n";
+
+    $questionCategoryList = getQuestionCategoryList();
+    // category
+    if( ! empty( $questionCategoryList ) )
+    {
+        $out .=  '<tr>' . "\n"
+        .     '<td valign="top"><label for="category">'.get_lang('Category').'</label></td>' . "\n"
+        .     '<td><select name="categoryId"><option value="0">';
+        foreach ($questionCategoryList as $category)
+        {
+            $out .= '<option value="'.$category['id'].'"'
+                .( $category['id'] == $form['categoryId']?'selected="selected"':' ' )
+                .'>'.$category['title'].'</option>';
+        }
+        $out .= '</option>'
+        .'</td>' . "\n"
+        .     '</tr>' . "\n\n";
+    }
+    else
+    {
+        $out .= '<tr>' . "\n"
+        .       '<td valign="top"><label for="category">'.get_lang('Category').'</label></td>' . "\n"
+        .       '<td>'
+        .       get_lang( 'You can sort your question by categories. To create categories, follow this <a href="%url">link</a>.'
+                    , array( '%url' => htmlspecialchars( Url::Contextualize( './question_category.php' ) ) ) )
+        .       '</td>' . "\n"
+        .       '</tr>'  . "\n\n";
+    }
+
+    // attached file
+    if( !empty($form['attachment']) )
+    {
+        $out .= '<tr>' . "\n"
+        .     '<td valign="top">'.get_lang('Current file').'</td>' . "\n"
+        .     '<td>'
+        .     '<a href="'.$question->getQuestionDirWeb().$form['attachment'].'" target="_blank">'.$form['attachment'].'</a><br />'
+        .     '<input type="checkbox" name="delAttachment" id="delAttachment" /><label for="delAttachment"> '.get_lang('Delete attached file').'</label>'
+        .     '</td>' . "\n"
+        .     '</tr>' . "\n\n";
+    }
+
+    $out .= '<tr>' . "\n"
+    .     '<td valign="top"><label for="description">'.get_lang('Attached file').'</label></td>' . "\n"
+    .     '<td><input type="file" name="attachment" id="attachment" size="30" /></td>' . "\n"
+    .     '</tr>' . "\n\n";
+
+    // answer type, only if new question
+    if( is_null($quId) )
+    {
+        $out .= '<tr>' . "\n"
+        .     '<td valign="top">'.get_lang('Answer type').'</td>' . "\n"
+        .     '<td>' . "\n"
+        .     '<input type="radio" name="type" id="MCUA" value="MCUA"'
+        .     ( $form['type'] == 'MCUA'?' checked="checked"':' ') . ' />'
+        .     ' <label for="MCUA">'.get_lang('Multiple choice (Unique answer)').'</label>'
+        .     '<br />' . "\n"
+        .     '<input type="radio" name="type" id="MCMA" value="MCMA"'
+        .     ( $form['type'] == 'MCMA'?' checked="checked"':' ') . ' />'
+        .     ' <label for="MCMA">'.get_lang('Multiple choice (Multiple answers)').'</label>'
+        .     '<br />' . "\n"
+        .     '<input type="radio" name="type" id="TF" value="TF"'
+        .     ( $form['type'] == 'TF'?' checked="checked"':' ') . ' />'
+        .     ' <label for="TF">'.get_lang('True/False').'</label>'
+        .     '<br />' . "\n"
+        .     '<input type="radio" name="type" id="FIB" value="FIB"'
+        .     ( $form['type'] == 'FIB'?' checked="checked"':' ') . ' />'
+        .     ' <label for="FIB">'.get_lang('Fill in blanks').'</label>'
+        .     '<br />' . "\n"
+        .     '<input type="radio" name="type" id="MATCHING" value="MATCHING"'
+        .     ( $form['type'] == 'MATCHING'?' checked="checked"':' ') . ' />'
+        .     ' <label for="MATCHING">'.get_lang('Matching').'</label>'
+        .     "\n"
+        .     '</td>' . "\n"
+        .     '</tr>' . "\n\n"
+        ;
+    }
+    else
+    {
+        $out .= '<tr>' . "\n"
+        .     '<td valign="top">'.get_lang('Answer type').'&nbsp;:</td>' . "\n"
+        .     '<td>';
+
+        if( isset($localizedQuestionType[$form['type']]) ) $out .= $localizedQuestionType[$form['type']];
+
+        $out .= '</td>' . "\n"
+        .     '</tr>' . "\n\n";
+    }
+
+    //--
+    $out .= '<tr>' . "\n"
+    .     '<td>&nbsp;</td>' . "\n"
+    .     '<td><small>' . get_lang('<span class="required">*</span> denotes required field') . '</small></td>' . "\n"
+    .     '</tr>' . "\n\n";
+
+    //-- buttons
+    $out .= '<tr>' . "\n"
+    .     '<td>&nbsp;</td>' . "\n"
+    .     '<td>'
+    .     '<input type="submit" name="" id="" value="'.get_lang('Ok').'" />&nbsp;&nbsp;';
+    if( !is_null($exId) )    $out .= claro_html_button( Url::Contextualize('./edit_exercise.php?exId='.$exId ), get_lang("Cancel") );
+    else                    $out .= claro_html_button( Url::Contextualize('./question_pool.php'), get_lang("Cancel") );
+    $out .= '</td>' . "\n"
+    .     '</tr>' . "\n\n";
+
+    $out .= '</table>' . "\n\n"
+    .     '</form>' . "\n\n";
 }
 else
 {

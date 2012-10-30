@@ -501,20 +501,23 @@ class answerFillInBlanks
 
         for ( $i = 0; $i < $answerCount; $i++ )
         {
-        	if ( empty ( $this->response[ $i ] ) )
-            {
-                // no response for this blank
-                $userAnswer = '&nbsp;&nbsp;&nbsp;&nbsp;';
-            }
-            elseif ( $this->isResponseCorrect ( $this->response[ $i ], $this->answerDecode ( $this->answerList[ $i ] ) ) )
+            if ( $this->isResponseCorrect ( $this->response[ $i ], $this->answerDecode ( $this->answerList[ $i ] ) ) )
             {
                 // user answer is ok
                 $userAnswer = htmlspecialchars ( $this->answerDecode ( $this->response[ $i ] ) );
             }
             else
             {
-                // incorrect response
-                $userAnswer = '<span class="error"><s>' . htmlspecialchars ( $this->answerDecode ( $this->response[ $i ] ) ) . '</s></span>';
+                if ( empty ( $this->response[ $i ] ) )
+                {
+                    // no response for this blank
+                    $userAnswer = '&nbsp;&nbsp;&nbsp;&nbsp;';
+                }
+                else
+                {
+                    // incorrect response
+                    $userAnswer = '<span class="error"><s>' . htmlspecialchars ( $this->answerDecode ( $this->response[ $i ] ) ) . '</s></span>';
+                }
             }
 
             //

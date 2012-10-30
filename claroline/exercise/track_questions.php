@@ -78,7 +78,7 @@ if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
     $src = '&src=ex';
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics of exercise'), Url::Contextualize('./track_exercises.php?exId='.$exId . $src ) );
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), Url::Contextualize('./exercise.php') );
-
+    
 }
 else
 {
@@ -116,19 +116,13 @@ else
 $out = '';
 // display title
 $titleTab['mainTitle'] = $nameTools;
-
-// Command list
-$cmdList = array();
-	$cmdList[] = array(
-   		'img' => 'back',
-    	'name' => get_lang('Back'),
-    	'url' => htmlspecialchars(Url::Contextualize( './track_exercises.php?exId='.$exId.$src ) ));
-
-$out .= claro_html_tool_title($titleTab, null, $cmdList);
+$out .= claro_html_tool_title($titleTab);
 
 // build back link
 $backLink = "\n\n".'<a class="backLink" href="'.htmlspecialchars( Url::Contextualize( './track_exercises.php?exId='.$exId.$src ) ).'">'
           . get_lang('Back').'</a>'."\n\n";
+
+$out .= $backLink;
 
 if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 {

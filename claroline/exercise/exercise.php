@@ -937,13 +937,134 @@ if ( !$inLP )
 
     //-- list
 
-    $display = new ModuleTemplate( 'CLQWZ' , 'exercise_list.tpl.php' );
-    $display->assign( 'exerciseList', $exerciseList );
-    $display->assign( 'is_allowedToTrack', $is_allowedToTrack );
-    $display->assign( 'is_allowedToEdit', $is_allowedToEdit );
-    $display->assign( 'notifier', $claro_notifier );
+    $out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
+        . '<thead>' . "\n"
+        . '<tr class="headerX">' . "\n"
+        . '<th>' . get_lang ( 'Exercise title' ) . '</th>' . "\n";
 
-    $out .= $display->render();
+    $colspan = 1;
+
+    if ( $is_allowedToEdit )
+    {
+        $out .= '<th>' . get_lang ( 'Modify' ) . '</th>' . "\n"
+            . '<th>' . get_lang ( 'Delete' ) . '</th>' . "\n"
+            . '<th>' . get_lang ( 'Visibility' ) . '</th>' . "\n";
+        $colspan = 4;
+
+        $out .= '<th>' . get_lang ( 'Export' ) . '</th>' . "\n";
+        $colspan++;
+
+        if ( $is_allowedToTrack )
+        {
+            $out .= '<th>' . get_lang ( 'Statistics' ) . '</th>' . "\n";
+            $colspan++;
+        }
+    }
+
+    $out .= '</tr>' . "\n"
+        . '</thead>' . "\n\n"
+        . '<tbody>' . "\n\n";
+
+    if ( claro_is_user_authenticated () )
+        $notificationDate = $claro_notifier->get_notification_date ( claro_get_current_user_id () );
+
+    if ( !empty ( $exerciseList ) )
+    {
+        foreach ( $exerciseList as $anExercise )
+        {
+            if ( $is_allowedToEdit && $anExercise[ 'visibility' ] == 'INVISIBLE' )
+            {
+                $invisibleClass = ' class="invisible"';
+            }
+            else
+            {
+                $invisibleClass = '';
+            }
+
+            //modify style if the file is recently added since last login
+            if ( claro_is_user_authenticated () && $claro_notifier->is_a_notified_ressource ( claro_get_current_course_id (), $notificationDate, claro_get_current_user_id (), claro_get_current_group_id (), claro_get_current_tool_id (), $anExercise[ 'id' ] ) )
+            {
+                $appendToStyle = ' hot';
+            }
+            else
+            {
+                $appendToStyle = '';
+            }
+
+            $out .= '<tr' . $invisibleClass . '>' . "\n"
+                . '<td>'
+                . '<a href="' . htmlspecialchars ( Url::Contextualize ( 'exercise_submit.php?exId=' . $anExercise[ 'id' ] ) ) . '" class="item' . $appendToStyle . '">'
+                . '<img src="' . get_icon_url ( 'quiz' ) . '" alt="" />'
+                . $anExercise[ 'title' ]
+                . '</a>'
+                . '</td>' . "\n";
+
+            if ( $is_allowedToEdit )
+            {
+                $out .= '<td align="center">'
+                    . '<a href="' . htmlspecialchars ( Url::Contextualize ( 'admin/edit_exercise.php?exId=' . $anExercise[ 'id' ] ) ) . '">'
+                    . '<img src="' . get_icon_url ( 'edit' ) . '" alt="' . get_lang ( 'Modify' ) . '" />'
+                    . '</a>'
+                    . '</td>' . "\n";
+
+                $confirmString = '';
+                if ( !is_null ( $anExercise[ 'module_id' ] ) )
+                {
+                    $confirmString .= get_block ( 'blockUsedInSeveralPath' ) . " ";
+                }
+                $confirmString .= get_lang ( 'Are you sure you want to delete this exercise ?' );
+
+                $out .= '<td align="center">'
+                    . '<a href="' . htmlspecialchars ( Url::Contextualize ( 'exercise.php?exId=' . $anExercise[ 'id' ] . '&amp;cmd=exDel' ) ) . '" onclick="javascript:if(!confirm(\'' . clean_str_for_javascript ( $confirmString ) . '\')) return false;">'
+                    . '<img src="' . get_icon_url ( 'delete' ) . '" alt="' . get_lang ( 'Delete' ) . '" />'
+                    . '</a>'
+                    . '</td>' . "\n";
+
+                if ( $anExercise[ 'visibility' ] == 'VISIBLE' )
+                {
+                    $out .= '<td align="center">'
+                        . '<a href="' . htmlspecialchars ( Url::Contextualize ( 'exercise.php?exId=' . $anExercise[ 'id' ] . '&amp;cmd=exMkInvis' ) ) . '">'
+                        . '<img src="' . get_icon_url ( 'visible' ) . '" alt="' . get_lang ( 'Make invisible' ) . '" />'
+                        . '</a>'
+                        . '</td>' . "\n";
+                }
+                else
+                {
+                    $out .= '<td align="center">'
+                        . '<a href="' . htmlspecialchars ( Url::Contextualize ( 'exercise.php?exId=' . $anExercise[ 'id' ] . '&amp;cmd=exMkVis' ) ) . '">'
+                        . '<img src="' . get_icon_url ( 'invisible' ) . '" alt="' . get_lang ( 'Make visible' ) . '" />'
+                        . '</a>'
+                        . '</td>' . "\n";
+                }
+
+                $out .= '<td align="center">'
+                    . '<a href="' . htmlspecialchars ( Url::Contextualize ( 'exercise.php?exId=' . $anExercise[ 'id' ] . '&amp;cmd=rqExport' ) ) . '">'
+                    . '<img src="' . get_icon_url ( 'export' ) . '" alt="' . get_lang ( 'Export' ) . '" />'
+                    . '</a>'
+                    . '</td>' . "\n";
+
+                if ( $is_allowedToTrack )
+                {
+                    $out .= '<td align="center">'
+                        . '<a href="' . htmlspecialchars ( Url::Contextualize ( 'track_exercises.php?exId=' . $anExercise[ 'id' ] . '&amp;src=ex' ) ) . '">'
+                        . '<img src="' . get_icon_url ( 'statistics' ) . '" alt="' . get_lang ( 'Statistics' ) . '" />'
+                        . '</a>'
+                        . '</td>' . "\n";
+                }
+            }
+
+            $out .= '</tr>' . "\n\n";
+        }
+    }
+    else
+    {
+        $out .= '<tr>' . "\n"
+            . '<td colspan="' . $colspan . '">' . get_lang ( 'Empty' ) . '</td>' . "\n"
+            . '</tr>' . "\n\n";
+    }
+
+    $out .= '</tbody>' . "\n\n"
+        . '</table>' . "\n\n";
 }
 else
 {

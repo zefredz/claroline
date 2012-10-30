@@ -1,11 +1,11 @@
 <?php // $Id$
-
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.12 $Revision$
+ * @version 1.8 $Revision: 415 $
  *
- * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -53,30 +53,18 @@ class CLQWZ_CourseTrackingRenderer extends CourseTrackingRenderer
         .   '<th>&nbsp;'.get_lang('Exercises').'&nbsp;</th>'."\n"
         .   '<th>&nbsp;'.get_lang('User attempts').'&nbsp;</th>'."\n"
         .   '<th>&nbsp;'.get_lang('Total attempts').'&nbsp;</th>'."\n"
-        .   '<th>&nbsp;'.get_lang('Delete all results').'&nbsp;</th>'."\n"
         .   '</tr></thead>'."\n"
         .   '<tbody>'."\n"
         ;
-        
-        $context = array( 'cidReq' => $this->courseId, 'cidReset' => true );
 
         if( !empty($results) && is_array($results) )
         {
             foreach( $results as $result )
             {
                     $html .= '<tr>'."\n"
-                    .   '<td><a href="' 
-                        . htmlspecialchars ( Url::Contextualize ( 
-                            get_module_url('CLQWZ') .'/track_exercises.php?exId='.$result['exo_id'], $context ) )
-                    .   '">'.$result['title'].'</a></td>'."\n"
+                    .   '<td><a href="../exercise/track_exercises.php?exId='.$result['exo_id'].'">'.$result['title'].'</a></td>'."\n"
                     .   '<td align="right">'.$result['nbr_distinct_user_attempts'].'</td>'."\n"
                     .   '<td align="right">'.$result['nbr_total_attempts'].'</td>'."\n"
-                    .   '<td align="center">'
-                    .   '<a href="' 
-                        . htmlspecialchars ( Url::Contextualize ( 
-                            get_module_url('CLQWZ') . '/track_exercise_reset.php?cmd=resetResultsForAllUsers&exId='.$result['exo_id'], $context ) ) 
-                    .   '">' . get_lang('delete') . '</a>'
-                    .   '</td>'."\n"
                     .   '</tr>'."\n\n"
                     ;
             }
@@ -84,11 +72,11 @@ class CLQWZ_CourseTrackingRenderer extends CourseTrackingRenderer
         else
         {
             $html .= '<tr>' . "\n"
-            .    '<td colspan="4">'
+            .    '<td colspan="3">'
             .    '<div align="center">' . get_lang('No result') . '</div>'
             .    '</td>' . "\n"
             .    '</tr>' . "\n"
-            ; 
+            ;
         }
         $html .= '</tbody>'."\n"
         .   '</table>'."\n"
@@ -141,8 +129,6 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
         $jsloader = JavascriptLoader::getInstance();
         $jsloader->load('jquery');
         
-        $context = array( 'cidReq' => $this->courseId, 'cidReset' => true, 'userId' => $this->userId );
-        
         $html = '<script language="javascript" type="text/javascript">' . "\n"
         .    ' $(document).ready(function() {'
         .    '  $(\'.exerciseDetails\').hide();'
@@ -164,7 +150,6 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
         .    '<th>' . get_lang('Average Time').'</th>' . "\n"
         .    '<th>' . get_lang('Attempts').'</th>' . "\n"
         .    '<th>' . get_lang('Last attempt').'</th>' . "\n"
-        // .    '<th>' . get_lang('Reset all attempts').'</th>'."\n"
         .    '</tr>' . "\n"
         .    '</thead>' . "\n"
         ;
@@ -185,47 +170,22 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                             get_locale('dateTimeFormatLong'),
                             strtotime($result['lastAttempt'])
                         ) . "</td> \n"
-                ;
-                
-                
-                
-                $html .= '</tr>' . "\n";
+                .    '</tr>' . "\n";
     
                 // details
                 $exerciseDetails = $this->getUserExerciceDetails($result['id']);
     
                 if( is_array($exerciseDetails) && !empty($exerciseDetails) )
                 {
-                    $html .= '<tr class="exerciseDetails" >';
-                    
-                    
-                    if ( claro_is_course_manager() )
-                    {
-                        $html .=   '<td><a href="' 
-                                . htmlspecialchars ( Url::Contextualize ( 
-                                    get_module_url('CLQWZ') . '/track_exercise_reset.php?cmd=resetAllAttemptsForUser&exId='.$result['id'], $context ) ) 
-                            .   '">' . get_lang('delete all') . '</a></td>'
-                            ;
-                    }
-                    else
-                    {
-                        $html .= '<td>&nbsp;</td>' . "\n";
-                    }
-                    
-                    $html .=  '<td colspan="6" class="noHover">' . "\n"
+                    $html .= '<tr class="exerciseDetails" >'
+                    .    '<td>&nbsp;</td>' . "\n"
+                    .    '<td colspan="6" class="noHover">' . "\n"
                     .    '<table class="claroTable emphaseLine" cellspacing="1" cellpadding="2" border="0" width="100%" style="width: 99%;">' . "\n"
                     .    '<thead>' . "\n"
-                    
-                    ;
-                    
-                    
-                    
-                    $html .= ''
                     .    '<tr>' . "\n"
                     .    '<th><small>' . get_lang('Date').'</small></th>' . "\n"
                     .    '<th><small>' . get_lang('Score').'</small></th>' . "\n"
                     .    '<th><small>' . get_lang('Time').'</small></th>' . "\n"
-                    .    '<th><small>' . get_lang('Delete').'</small></th>' . "\n"
                     .    '</tr>' . "\n"
                     .    '</thead>' . "\n"
                     .    '<tbody>' . "\n";
@@ -242,22 +202,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                         .       '</a></small></td>' . "\n"
                         .    '<td><small>'.$details['result'].'/'.$details['weighting'].'</small></td>' . "\n"
                         .    '<td><small>'.claro_html_duration($details['time']).'</small></td>' . "\n"
-                        ;
-                        
-                        if ( claro_is_course_manager() )
-                        {
-                            $html .= '<td><small><a href="' 
-                            . htmlspecialchars ( Url::Contextualize ( 
-                                get_module_url('CLQWZ') . '/track_exercise_reset.php?cmd=resetAttemptForUser&trackId='.$details['id'], $context ) ) 
-                            .   '">' . get_lang('delete') . '</a></small></td>' . "\n"
-                            ;
-                        }
-                        else
-                        {
-                            $html .= '<td><small>-</small></td>';
-                        }
-                        
-                        $html .= '</tr>' . "\n";
+                        .    '</tr>' . "\n";
                     }
                     $html .= '</tbody>' . "\n"
                     .    '</table>' . "\n\n"
@@ -291,7 +236,6 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
     {
         $sql = "SELECT `E`.`title`,
                        `E`.`id`,
-                       `TEX`.`id` AS `trackId`,
                        MIN(`TEX`.`result`)    AS `minimum`,
                        MAX(`TEX`.`result`)    AS `maximum`,
                        AVG(`TEX`.`result`)    AS `average`,
