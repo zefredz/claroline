@@ -27,6 +27,13 @@ class Console
         SUCCESS = 'success',
         ERROR = 'error';
     
+    const
+        REPORT_LEVEL_ERROR = 1,
+        REPORT_LEVEL_WARNING = 2,
+        REPORT_LEVEL_INFO = 3,
+        REPORT_LEVEL_SUCCESS = 4,
+        REPORT_LEVEL_ALL = 5;
+    
     public static function message( $message )
     {
         pushClaroMessage( $message, self::MESSAGE );
@@ -44,32 +51,32 @@ class Console
     
     public static function warning( $message )
     {
-        pushClaroMessage( $message, self::WARNING );
-        Claroline::log( self::WARNING, $message );
+        if ( claro_debug_mode() ) pushClaroMessage( $message, self::WARNING );    
+        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= self::REPORT_LEVEL_WARNING ) Claroline::log( self::WARNING, $message );
     }
 
     public static function info( $message )
     {
-        pushClaroMessage( $message, self::INFO );
-        Claroline::log( self::INFO, $message );
+        if ( claro_debug_mode() ) pushClaroMessage( $message, self::INFO );
+        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= self::REPORT_LEVEL_INFO ) Claroline::log( self::INFO, $message );
     }
 
     public static function success( $message )
     {
-        pushClaroMessage( $message, self::SUCCESS );
-        Claroline::log( self::SUCCESS, $message );
+        if ( claro_debug_mode() ) pushClaroMessage( $message, self::SUCCESS );
+        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= self::REPORT_LEVEL_SUCCESS ) Claroline::log( self::SUCCESS, $message );
     }
 
     public static function error( $message )
     {
         // claro_failure::set_failure( $message );
-        pushClaroMessage( $message, self::ERROR );
-        Claroline::log( self::ERROR, $message );
+        if ( claro_debug_mode() ) pushClaroMessage( $message, self::ERROR );
+        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= self::REPORT_LEVEL_ERROR ) Claroline::log( self::ERROR, $message );
     }
     
     public static function log( $message, $type )
     {
-        pushClaroMessage( $message, $type );
+        if ( claro_debug_mode() ) pushClaroMessage( $message, $type );
         Claroline::log( $type, $message );
     }
 }

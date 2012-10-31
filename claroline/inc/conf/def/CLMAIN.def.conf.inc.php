@@ -142,6 +142,7 @@ $conf_def['section']['ADVANCED']['properties'] =
         , 'filesStatsExtensions'
     // , 'secureDocumentDownload'
         , 'clmain_serverTimezone'
+        , 'log_report_level'
 );
 
 // Platform
@@ -848,3 +849,15 @@ $conf_def_property_list['mysqlSetNames'] =
         , 'default' => ''
         , 'type' => 'string'
 );
+
+
+$conf_def_property_list['log_report_level'] =
+array (
+        'label'         => 'Log message level'
+      , 'description'   => 'Set the level of log messages you want to be reported in the log table in the database. 1 = error only, 2 = error and warning, 3 = error, warning and information, 4 = error, warning, informations and success, 5 = all. Note that debug messages are not affected by this setting, but are enabled through the debug mode option.'
+      , 'default'       => '5'
+      , 'type'           => 'integer'
+      , 'display'      => true
+      , 'readonly'      => false
+      , 'acceptedValue' => array('min'=> '1', 'max' => '5')
+      );
