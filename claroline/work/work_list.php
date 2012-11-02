@@ -154,7 +154,7 @@ if (claro_is_user_authenticated())
 
 $submissionConditionList = array();
 $feedbackConditionList = array();
-$userGroupList = array();
+//$userGroupList = array();
 $showOnlyVisibleCondition = '';
 
 if( ! $is_allowedToEditAll )
@@ -426,13 +426,25 @@ $showAfterPost = (bool)
 // Command list
 $cmdList = array();
 
-if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
+if( $assignment->getAssignmentType() == 'GROUP' && count( $userGroupList ) == 1 )
+{
+    foreach( array_keys( $userGroupList) as $groupId )
+    {
+        $authId = $groupId;
+    }
+}
+else
+{
+    $authId = claro_get_current_user_id();
+}
+
+if ( $is_allowedToSubmit )
 {
     // Link to create a new assignment
     $cmdList[] = array(
         'name' => get_lang('Submit a work'),
         'url' => htmlspecialchars(Url::Contextualize('user_work.php?authId='
-               . claro_get_current_user_id()
+               . $authId
                . '&cmd=rqSubWrk'
                . '&assigId='.$req['assignmentId']))
     );
