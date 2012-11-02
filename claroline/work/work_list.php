@@ -51,6 +51,11 @@ $maxFilledSpace  = get_conf('maxFilledSpace', 100000000);
 // initialise dialog box to an empty string, all dialog will be concat to it
 $dialogBox = new DialogBox();
 
+$submissionConditionList = array();
+$feedbackConditionList = array();
+$userGroupList = array();
+$showOnlyVisibleCondition = '';
+
 /*============================================================================
     Clean informations sent by user
   ============================================================================*/
@@ -151,11 +156,6 @@ if (claro_is_user_authenticated())
     Prepare List
   ============================================================================*/
 /* Prepare submission and feedback SQL filters - remove hidden item from count */
-
-$submissionConditionList = array();
-$feedbackConditionList = array();
-//$userGroupList = array();
-$showOnlyVisibleCondition = '';
 
 if( ! $is_allowedToEditAll )
 {
