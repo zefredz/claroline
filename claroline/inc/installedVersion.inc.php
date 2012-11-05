@@ -19,7 +19,7 @@ $is_upgrade_available = true;
 
 // version strings : max. 10 chars
 
-$new_version = '1.11.3';
+$new_version = '1.11.4';
 $new_version_branch = '1.11';
 
 /**
