@@ -168,7 +168,7 @@ if( ! $is_allowedToEditAll )
     // not in the if statement to allow to show feedback to the students
     $feedbackConditionList[]   = "(`s`.`visibility` = 'VISIBLE' AND `fb`.`visibility` = 'VISIBLE')";
 
-    if( !empty($userGroupList)  )
+    if( $userCanPost && !empty($userGroupList)  )
     {
         $userGroupIdList = array();
         
