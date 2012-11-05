@@ -51,11 +51,6 @@ $maxFilledSpace  = get_conf('maxFilledSpace', 100000000);
 // initialise dialog box to an empty string, all dialog will be concat to it
 $dialogBox = new DialogBox();
 
-$submissionConditionList = array();
-$feedbackConditionList = array();
-$userGroupList = array();
-$showOnlyVisibleCondition = '';
-
 /*============================================================================
     Clean informations sent by user
   ============================================================================*/
@@ -157,6 +152,10 @@ if (claro_is_user_authenticated())
   ============================================================================*/
 /* Prepare submission and feedback SQL filters - remove hidden item from count */
 
+$submissionConditionList = array();
+$feedbackConditionList = array();
+$showOnlyVisibleCondition = '';
+
 if( ! $is_allowedToEditAll )
 {
     if( !get_conf('show_only_author') ) 
@@ -168,7 +167,7 @@ if( ! $is_allowedToEditAll )
     // not in the if statement to allow to show feedback to the students
     $feedbackConditionList[]   = "(`s`.`visibility` = 'VISIBLE' AND `fb`.`visibility` = 'VISIBLE')";
 
-    if( $userCanPost && !empty($userGroupList)  )
+    if( !empty($userGroupList)  )
     {
         $userGroupIdList = array();
         
@@ -179,13 +178,13 @@ if( ! $is_allowedToEditAll )
         
         $submissionConditionList[] = "s.group_id IN ("  . implode(', ', $userGroupIdList ) . ")";
         
-        $feedbackConditionList[]   = "(`fb`.`visibility` = 'VISIBLE' AND fb.group_id IN (" . implode(', ', $userGroupIdList ) . "))";
+        $feedbackConditionList[]   = "fb.group_id IN (" . implode(', ', $userGroupIdList ) . ")";
     }
     elseif ( claro_is_user_authenticated() )
     {
         $submissionConditionList[] = "`s`.`user_id` = "      . (int) claro_get_current_user_id();
         
-        $feedbackConditionList[]   = "(`fb`.`visibility` = 'VISIBLE' AND `fb`.`original_id` = " . (int) claro_get_current_user_id() . ")";
+        $feedbackConditionList[]   = "`fb`.`original_id` = " . (int) claro_get_current_user_id();
     }
 }
 
@@ -426,25 +425,13 @@ $showAfterPost = (bool)
 // Command list
 $cmdList = array();
 
-if( $assignment->getAssignmentType() == 'GROUP' && count( $userGroupList ) == 1 )
-{
-    foreach( array_keys( $userGroupList) as $groupId )
-    {
-        $authId = $groupId;
-    }
-}
-else
-{
-    $authId = claro_get_current_user_id();
-}
-
-if ( $is_allowedToSubmit )
+if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
 {
     // Link to create a new assignment
     $cmdList[] = array(
         'name' => get_lang('Submit a work'),
         'url' => htmlspecialchars(Url::Contextualize('user_work.php?authId='
-               . $authId
+               . claro_get_current_user_id()
                . '&cmd=rqSubWrk'
                . '&assigId='.$req['assignmentId']))
     );
@@ -638,32 +625,30 @@ $out .= '</tr>' . "\n"
 
 foreach ( $workList as $thisWrk )
 {
-    if( array_key_exists( $thisWrk['authId'], $userGroupList ) || ( $assignment->getDefaultSubmissionVisibility() == 'VISIBLE' && $thisWrk['submissionCount'] > 0 ) || $is_allowedToEditAll )
+
+    $out .= '<tr align="center">' . "\n"
+    . '<td align="left">'
+    . $thisWrk['name']
+    . '</td>' . "\n"
+    . '<td>'
+    . ( !empty($thisWrk['title']) ? $thisWrk['title'] . '<small> ( ' . $thisWrk['last_edit_date'] . ' )</small>'  : '&nbsp;' )
+    . '</td>' . "\n"
+    . '<td>'
+    . $thisWrk['submissionCount']
+    . '</td>' . "\n"
+    . '<td>'
+    . $thisWrk['feedbackCount']
+    . '</td>' . "\n";
+
+    if( $is_allowedToEditAll )
     {
-        $out .= '<tr align="center">' . "\n"
-        . '<td align="left">'
-        . $thisWrk['name']
-        . '</td>' . "\n"
-        . '<td>'
-        . ( !empty($thisWrk['title']) ? $thisWrk['title'] . '<small> ( ' . $thisWrk['last_edit_date'] . ' )</small>'  : '&nbsp;' )
-        . '</td>' . "\n"
-        . '<td>'
-        . $thisWrk['submissionCount']
-        . '</td>' . "\n"
-        . '<td>'
-        . $thisWrk['feedbackCount']
+        $out .= '<td>'
+        . ( ( !is_null($thisWrk['maxScore']) && $thisWrk['maxScore'] > -1 )? $thisWrk['maxScore'] : get_lang('No score') )
         . '</td>' . "\n";
-
-        if( $is_allowedToEditAll )
-        {
-            $out .= '<td>'
-            . ( ( !is_null($thisWrk['maxScore']) && $thisWrk['maxScore'] > -1 )? $thisWrk['maxScore'] : get_lang('No score') )
-            . '</td>' . "\n";
-        }
-
-        $out .= '</tr>' . "\n\n"
-        ;
     }
+
+    $out .= '</tr>' . "\n\n"
+    ;
 }
 
 $out .= '</tbody>' . "\n"
