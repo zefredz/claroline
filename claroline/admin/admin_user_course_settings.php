@@ -143,7 +143,7 @@ $cmd_menu[] = '<a class="claroCmd" href="adminuserunregistered.php'
 .             '?cidToEdit=' . $cidToEdit
 .             '&amp;cmd=UnReg'
 .             '&amp;uidToEdit=' . $uidToEdit . '" '
-.             ' onclick="return ADMINconfirmationUnReg(\'' . clean_str_for_javascript(htmlspecialchars($courseUserProperties['firstName']) . ' ' . htmlspecialchars($courseUserProperties['lastName'])) . '\');">'
+.             ' onclick="return ADMINconfirmationUnReg(\'' . clean_str_for_javascript(claro_htmlspecialchars($courseUserProperties['firstName']) . ' ' . claro_htmlspecialchars($courseUserProperties['lastName'])) . '\');">'
 .             get_lang('Unsubscribe')
 .             '</a>'
 ;
@@ -181,12 +181,12 @@ $out = '';
 
 $out .= claro_html_tool_title( array( 'mainTitle' =>$nameTools
                                  , 'subTitle' => get_lang('Course') . ' : '
-                                              .  htmlspecialchars($courseUserProperties['courseName'])
+                                              .  claro_htmlspecialchars($courseUserProperties['courseName'])
                                               .  '<br />'
                                               .  get_lang('User') . ' : '
-                                              .  htmlspecialchars($courseUserProperties['firstName'])
+                                              .  claro_htmlspecialchars($courseUserProperties['firstName'])
                                               .  ' '
-                                              .  htmlspecialchars($courseUserProperties['lastName'])
+                                              .  claro_htmlspecialchars($courseUserProperties['lastName'])
                                  )
                           );
 

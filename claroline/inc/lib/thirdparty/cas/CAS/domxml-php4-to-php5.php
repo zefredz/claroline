@@ -102,7 +102,7 @@ class php4DOMAttr extends php4DOMNode
 	}
 	function name() {return $this->myDOMNode->name;}
 	function set_content($text) {}
-	//function set_value($content) {return $this->myDOMNode->value=htmlspecialchars($content,ENT_QUOTES);}
+	//function set_value($content) {return $this->myDOMNode->value=claro_htmlspecialchars($content,ENT_QUOTES);}
 	function specified() {return $this->myDOMNode->specified;}
 	function value() {return $this->myDOMNode->value;}
 }
@@ -126,7 +126,7 @@ class php4DOMDocument extends php4DOMNode
 	function create_attribute($name,$value)
 	{
 		$myAttr=$this->myDOMNode->createAttribute($name);
-		$myAttr->value=htmlspecialchars($value,ENT_QUOTES);
+		$myAttr->value=claro_htmlspecialchars($value,ENT_QUOTES);
 		return new php4DOMAttr($myAttr,$this);
 	}
 	function create_cdata_section($content) {return new php4DOMNode($this->myDOMNode->createCDATASection($content),$this);}
@@ -211,7 +211,7 @@ class php4DOMElement extends php4DOMNode
 	{
 		//return $this->myDOMNode->setAttribute($name,$value); //Does not return a DomAttr
 		$myAttr=$this->myDOMNode->ownerDocument->createAttribute($name);
-		$myAttr->value=htmlspecialchars($value,ENT_QUOTES); //Entity problem reported by AL-DesignWorks 2007-09-07
+		$myAttr->value=claro_htmlspecialchars($value,ENT_QUOTES); //Entity problem reported by AL-DesignWorks 2007-09-07
 		$this->myDOMNode->setAttributeNode($myAttr);
 		return new php4DOMAttr($myAttr,$this->myOwnerDocument);
 	}

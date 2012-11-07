@@ -24,7 +24,7 @@
         <div id="userDetails">
             <p>
                 <span><?php echo get_lang('Email'); ?></span>
-                <?php echo (!empty($this->userData['email']) ? htmlspecialchars($this->userData['email']) : '-' ); ?>
+                <?php echo (!empty($this->userData['email']) ? claro_htmlspecialchars($this->userData['email']) : '-' ); ?>
             </p>
             
             <?php
@@ -32,11 +32,11 @@
             ?>
                 <p>
                     <span><?php echo get_lang('Phone'); ?></span>
-                    <?php echo (!empty($this->userData['phone']) ? htmlspecialchars($this->userData['phone']) : '-' ); ?>
+                    <?php echo (!empty($this->userData['phone']) ? claro_htmlspecialchars($this->userData['phone']) : '-' ); ?>
                 </p>
                 <p>
                     <span><?php echo get_lang('Administrative code'); ?></span>
-                    <?php echo (!empty($this->userData['officialCode']) ? htmlspecialchars($this->userData['officialCode']) : '-' ); ?>
+                    <?php echo (!empty($this->userData['officialCode']) ? claro_htmlspecialchars($this->userData['officialCode']) : '-' ); ?>
                 </p>
                 
                 <?php if (get_conf('is_trackingEnabled')) : ?>

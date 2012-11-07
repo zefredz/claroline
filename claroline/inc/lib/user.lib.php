@@ -1139,7 +1139,7 @@ function user_html_form($userId = null)
     $template = new CoreTemplate('user_form.tpl.php');
     $template->assign('formAction', $_SERVER['PHP_SELF']);
     $template->assign('relayContext', claro_form_relay_context());
-    $template->assign('cancelUrl', htmlspecialchars(Url::Contextualize($cancelUrl)));
+    $template->assign('cancelUrl', claro_htmlspecialchars(Url::Contextualize($cancelUrl)));
     $template->assign('editableFields', $editableFields);
     $template->assign('data', $userData);
     $template->assign('pictureUrl', $pictureUrl);
@@ -1159,7 +1159,7 @@ function user_html_form($userId = null)
 function user_html_search_form( $data )
 {
     // init form
-    $html = '<form action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '" method="post" enctype="multipart/form-data" >' . "\n"
+    $html = '<form action="' . claro_htmlspecialchars( $_SERVER['PHP_SELF'] ) . '" method="post" enctype="multipart/form-data" >' . "\n"
     .       claro_form_relay_context()
 
     // hidden fields
@@ -1204,7 +1204,7 @@ function user_html_search_form( $data )
     // Submit
     $html .= form_row( '&nbsp;',
                          '<input type="submit" name="applySearch" id="applySearch" value="' . get_lang( 'Search' ) . '" />&nbsp;'
-                         . claro_html_button( htmlspecialchars( Url::Contextualize( $_SERVER['HTTP_REFERER'] ) ), get_lang( 'Cancel' ) )
+                         . claro_html_button( claro_htmlspecialchars( Url::Contextualize( $_SERVER['HTTP_REFERER'] ) ), get_lang( 'Cancel' ) )
                          );
                          
     // close table and form

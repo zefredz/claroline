@@ -65,8 +65,8 @@ class CLDOC_CourseTrackingRenderer extends CourseTrackingRenderer
                 {
                     $path = $data['url'];
                     $html .= '<tr>'."\n"
-                    .'<td>'.htmlspecialchars($path).'</td>'."\n"
-                    .'<td align="right"><a href="user_access_details.php?cmd=doc&amp;path='.urlencode($path).'">'.htmlspecialchars($result['nbr_distinct_user_downloads']).'</a></td>'."\n"
+                    .'<td>'.claro_htmlspecialchars($path).'</td>'."\n"
+                    .'<td align="right"><a href="user_access_details.php?cmd=doc&amp;path='.urlencode($path).'">'.claro_htmlspecialchars($result['nbr_distinct_user_downloads']).'</a></td>'."\n"
                     .'<td align="right">'.$result['nbr_total_downloads'].'</td>'."\n"
                     .'</tr>'."\n\n"
                     ;

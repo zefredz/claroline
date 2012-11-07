@@ -9,7 +9,7 @@
         class="access qtip"
         src="<?php echo get_course_access_icon(
             $this->node->getCourse()->access ); ?>"
-        alt="<?php echo htmlspecialchars(
+        alt="<?php echo claro_htmlspecialchars(
             get_course_access_mode_caption(
                 $this->node->getCourse()->access ) ); ?>" />
     
@@ -110,11 +110,11 @@
     <a <?php if (!empty($this->notifiedCourseList) 
         && $this->notifiedCourseList->isCourseNotified($this->node->getCourse()->courseId)) : 
         ?>class="hot"<?php endif; ?>
-        href="<?php echo htmlspecialchars(
+        href="<?php echo claro_htmlspecialchars(
             claro_get_course_homepage_url($this->node->getCourse()->sysCode)); ?>">
-        <?php echo htmlspecialchars( $this->node->getCourse()->officialCode) ; ?>
+        <?php echo claro_htmlspecialchars( $this->node->getCourse()->officialCode) ; ?>
         &ndash;
-        <?php echo htmlspecialchars( $this->node->getCourse()->name ); ?>
+        <?php echo claro_htmlspecialchars( $this->node->getCourse()->name ); ?>
     </a>
 </dt>
 <dd>
@@ -123,12 +123,12 @@
         && claro_is_user_authenticated() ) : ?>
     
     <a href="mailto:<?php echo $this->node->getCourse()->email; ?>">
-        <?php echo htmlspecialchars($this->node->getCourse()->titular); ?>
+        <?php echo claro_htmlspecialchars($this->node->getCourse()->titular); ?>
     </a>
     
     <?php else : ?>
     
-    <?php echo htmlspecialchars($this->node->getCourse()->titular); ?>
+    <?php echo claro_htmlspecialchars($this->node->getCourse()->titular); ?>
     
     <?php endif; ?>
     

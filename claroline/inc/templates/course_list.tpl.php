@@ -43,14 +43,14 @@
         <img
             class="access qtip"
             src="<?php echo get_course_access_icon($course['access']); ?>"
-            alt="<?php echo htmlspecialchars(get_course_access_mode_caption($course['access'])); ?>" />
+            alt="<?php echo claro_htmlspecialchars(get_course_access_mode_caption($course['access'])); ?>" />
         
-        <a href="<?php echo htmlspecialchars(get_path('url')
+        <a href="<?php echo claro_htmlspecialchars(get_path('url')
             .'/claroline/course/index.php?cid='.$course['sysCode']); ?>"
             <?php if (!empty($course['hot']) && $course['hot']) : ?> class="hot"<?php endif; ?>>
-            <?php echo htmlspecialchars($course['officialCode']); ?>
+            <?php echo claro_htmlspecialchars($course['officialCode']); ?>
             &ndash;
-            <?php echo htmlspecialchars($course['title']); ?>
+            <?php echo claro_htmlspecialchars($course['title']); ?>
         </a>
         
         <?php if (claro_is_user_authenticated() && isset($course['enroled']) && $course['enroled']) : ?>
@@ -94,11 +94,11 @@
     <dd>
         <?php if (isset($course['email']) && claro_is_user_authenticated()) : ?>
         <a href="mailto:<?php echo $course['email']; ?>">
-            <?php echo htmlspecialchars($course['titular']); ?>
+            <?php echo claro_htmlspecialchars($course['titular']); ?>
         </a>
         
         <?php else : ?>
-        <?php echo htmlspecialchars($course['titular']); ?>
+        <?php echo claro_htmlspecialchars($course['titular']); ?>
         
         <?php endif; ?>
         

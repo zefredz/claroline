@@ -63,7 +63,7 @@ if (get_conf('claro_CasEnabled',false) && ! get_conf('claro_displayLocalAuthForm
 
 if ( $sourceUrl )
 {
-    $sourceUrl = htmlspecialchars($sourceUrl);
+    $sourceUrl = claro_htmlspecialchars($sourceUrl);
 }
 else
 {
@@ -72,7 +72,7 @@ else
 
 if (claro_is_in_a_course())
 {
-    $sourceCid = htmlspecialchars(claro_get_current_course_id());
+    $sourceCid = claro_htmlspecialchars(claro_get_current_course_id());
 }
 else
 {
@@ -81,7 +81,7 @@ else
 
 if (claro_is_in_a_group())
 {
-    $sourceGid = htmlspecialchars(claro_get_current_group_id());
+    $sourceGid = claro_htmlspecialchars(claro_get_current_group_id());
 }
 else
 {

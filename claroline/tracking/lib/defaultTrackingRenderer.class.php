@@ -399,7 +399,7 @@ class CLTRACK_userCourseAccess extends UserTrackingRenderer
                 $_html .= '<tr>' . "\n"
                 .    '<td>' . "\n"
                 .    '<a href="'
-                .    htmlspecialchars(Url::Contextualize('user_course_access.php?userId='.$this->userId . '&amp;reqdate='.$access['unix_date'] ))
+                .    claro_htmlspecialchars(Url::Contextualize('user_course_access.php?userId='.$this->userId . '&amp;reqdate='.$access['unix_date'] ))
                 .    '">' . $langLongMonthNames[date('n', $access['unix_date'])-1].' '.date('Y', $access['unix_date']).'</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td valign="top" align="right">'

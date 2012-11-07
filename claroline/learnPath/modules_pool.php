@@ -153,7 +153,7 @@ switch( $cmd )
             . '<form method="post" name="rename" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
             . claro_form_relay_context()
             . '<label for="newName">'.get_lang('Insert new name').'</label> :' . "\n"
-            . '<input type="text" name="newName" id="newName" value="'.htmlspecialchars($list['name']).'" />' . "\n"
+            . '<input type="text" name="newName" id="newName" value="'.claro_htmlspecialchars($list['name']).'" />' . "\n"
             . '<input type="submit" value="'.get_lang('Ok').'" name="submit" />' . "\n"
             . '<input type="hidden" name="cmd" value="exRename" />' . "\n"
             . '<input type="hidden" name="module_id" value="'.$_REQUEST['module_id'].'" />' . "\n"
@@ -284,18 +284,18 @@ while ($list = mysql_fetch_array($result))
         . '<img src="' . $contentType_img . '" alt="'.$contentType_alt.'" /> '.$list['name'] . "\n"
         . '</td>' . "\n"
         . '<td align="center">' . "\n"
-        . '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=eraseModule&cmdid='.$list['module_id'])).'"'
+        . '<a href="'.claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=eraseModule&cmdid='.$list['module_id'])).'"'
         . ' onclick="return confirmation(\''.clean_str_for_javascript($list['name']).'\', \''.$list['timesUsed'] .'\');">'
         . '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
         . '</a>' . "\n"
         . '</td>' . "\n"
         . '<td align="center">' . "\n"
-        . '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqRename&module_id='.$list['module_id'])).'">'
+        . '<a href="'.claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqRename&module_id='.$list['module_id'])).'">'
         . '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Rename').'" />'
         . '</a>' . "\n"
         . '</td>' . "\n"
         . '<td align="center">' . "\n"
-        . '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqComment&module_id='.$list['module_id'])).'">'
+        . '<a href="'.claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqComment&module_id='.$list['module_id'])).'">'
         . '<img src="' . get_icon_url('comment') . '" alt="'.get_lang('Comment').'" />'
         . '</a>' . "\n"
         . '</td>' . "\n"

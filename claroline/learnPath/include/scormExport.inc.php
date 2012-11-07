@@ -591,7 +591,7 @@ if ( !class_exists('ScormExport') )
             {
             $out .= '
             <imsmd:title>
-                <imsmd:langstring><![CDATA[' . htmlspecialchars($title) . ']]></imsmd:langstring>
+                <imsmd:langstring><![CDATA[' . claro_htmlspecialchars($title) . ']]></imsmd:langstring>
             </imsmd:title>';
             }
 
@@ -599,7 +599,7 @@ if ( !class_exists('ScormExport') )
             {
             $out .= '
             <imsmd:description>
-                <imsmd:langstring><![CDATA[' . htmlspecialchars($description) . ']]></imsmd:langstring>
+                <imsmd:langstring><![CDATA[' . claro_htmlspecialchars($description) . ']]></imsmd:langstring>
             </imsmd:description>';
             }
 
@@ -632,7 +632,7 @@ if ( !class_exists('ScormExport') )
                     $out .= 'identifierref="R_' . $item['ID'] . '" ';
                 }
                 $out .= '>' . "\n";
-                $out .= $ident . '    <title>'.htmlspecialchars($item['name']).'</title>' . "\n";
+                $out .= $ident . '    <title>'.claro_htmlspecialchars($item['name']).'</title>' . "\n";
 
                 // Check if previous was blocking
                 if (!empty($this->blocking) && ($item['contentType'] != 'LABEL'))
@@ -673,8 +673,8 @@ if ( !class_exists('ScormExport') )
 
             // First the items...
             $manifest_itemTree = '<organizations default="A1"><organization identifier="A1">' . "\n"
-                . '<title><![CDATA[' . htmlspecialchars($this->name) . ']]></title>' . "\n"
-                . '<description><![CDATA[' . htmlspecialchars($this->comment) . ']]></description>' . "\n"
+                . '<title><![CDATA[' . claro_htmlspecialchars($this->name) . ']]></title>' . "\n"
+                . '<description><![CDATA[' . claro_htmlspecialchars($this->comment) . ']]></description>' . "\n"
                 . $this->createItemList($this->itemTree)
                 . '</organization></organizations>' . "\n";
             $manifest_itemTree = str_replace("\r\n","\n", $manifest_itemTree);

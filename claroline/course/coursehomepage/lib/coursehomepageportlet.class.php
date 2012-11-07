@@ -388,15 +388,15 @@ abstract class CourseHomePagePortlet extends Portlet
         {
              $commands = '<span style="float: right;">'
                    . '<a href="'
-                   . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd=moveUp&portletLabel='.$this->label.'&portletId='.$this->id))
+                   . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd=moveUp&portletLabel='.$this->label.'&portletId='.$this->id))
                    . '">'
                    . '<img src="' . get_icon_url('go_up') . '" alt="'.get_lang('Move up').'" />'
                    . '</a> <a href="'
-                   . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd=moveDown&portletLabel='.$this->label.'&portletId='.$this->id))
+                   . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd=moveDown&portletLabel='.$this->label.'&portletId='.$this->id))
                    . '">'
                    . '<img src="' . get_icon_url('go_down') . '" alt="'.get_lang('Move down').'" />'
                    . '</a> <a href="'
-                   . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd='
+                   . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd='
                    . ($this->visible?'makeInvisible':'makeVisible') . '&portletLabel='.$this->label.'&portletId='.$this->id))
                    . '" title="'
                    . ($this->visible?get_lang('Hide this item'):get_lang('Show this item')). '">'
@@ -404,7 +404,7 @@ abstract class CourseHomePagePortlet extends Portlet
                    . ($this->visible?get_icon_url('visible'):get_icon_url('invisible'))
                    . '" alt="'.get_lang('Swap visibility').'" />'
                    . '</a> <a href="'
-                   . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd=delete&portletLabel='.$this->label.'&portletId='.$this->id))
+                   . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?portletCmd=delete&portletLabel='.$this->label.'&portletId='.$this->id))
                    . '">'
                    . '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
                    . '</a> '

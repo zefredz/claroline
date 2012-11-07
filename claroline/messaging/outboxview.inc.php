@@ -144,16 +144,16 @@ else
         }
         
         $content .= ' <a href="readmessage.php?messageId='.$message->getId().'&amp;type=sent&amp;userId='.$currentUserId.'">';
-        $content .=  htmlspecialchars($message->getSubject()).'</a></td>'."\n"
+        $content .=  claro_htmlspecialchars($message->getSubject()).'</a></td>'."\n"
                     .'<td>';
                     
         if ( $recipientList['sentTo'] == 'toUser' )
         {
-            $content .= htmlspecialchars($recipientList['userList'][0]['firstName'])." ".htmlspecialchars($recipientList['userList'][0]['lastName']);
+            $content .= claro_htmlspecialchars($recipientList['userList'][0]['firstName'])." ".claro_htmlspecialchars($recipientList['userList'][0]['lastName']);
             
             if ( count( $recipientList['userList'] ) > 1 )
             {
-                $content .=  ", ".htmlspecialchars($recipientList['userList'][1]['firstName'])." ".htmlspecialchars($recipientList['userList'][1]['lastName']);
+                $content .=  ", ".claro_htmlspecialchars($recipientList['userList'][1]['firstName'])." ".claro_htmlspecialchars($recipientList['userList'][1]['lastName']);
             }
             
             if ( count( $recipientList['userList'] ) > 2 )

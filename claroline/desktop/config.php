@@ -115,16 +115,16 @@ if( is_array($portletList) && !empty($portletList) )
         $output .= "\n"
             . '<tr>' . "\n"
             . '<td>' 
-            . htmlspecialchars(get_lang($portlet['name'])) 
+            . claro_htmlspecialchars(get_lang($portlet['name'])) 
             . '</td>' . "\n";
         
         if( $portlet['visibility'] == 'visible' )
         {
             $output .= "\n"
                 . '<td align="center">' . "\n"
-                . '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                . '<a href="' . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                     .   '?cmd=exInvisible&amp;label='
-                    .   htmlspecialchars($portlet['label']) ))
+                    .   claro_htmlspecialchars($portlet['label']) ))
                 . '">'
                 . claro_html_icon('visible')
                 . '</a>' . "\n"
@@ -136,9 +136,9 @@ if( is_array($portletList) && !empty($portletList) )
             $output .= "\n"
                 . '<td align="center">' . "\n"
                 . '<a href="'
-                . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                     .   '?cmd=exVisible&amp;label='
-                    .   htmlspecialchars($portlet['label']) ))
+                    .   claro_htmlspecialchars($portlet['label']) ))
                 . '">'
                 . claro_html_icon('invisible')
                 . '</a>' . "\n"
@@ -150,8 +150,8 @@ if( is_array($portletList) && !empty($portletList) )
         {
             $output .= '<td align="center">'
                 . '<a href="'
-                . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                    .   '?label=' . htmlspecialchars($portlet['label'])
+                . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    .   '?label=' . claro_htmlspecialchars($portlet['label'])
                     .   '&amp;cmd=exUp' ))
                 . '">'
                 . '<img src="' . get_icon_url('move_up')
@@ -169,8 +169,8 @@ if( is_array($portletList) && !empty($portletList) )
         {
             $output .= '<td align="center">'
                 . '<a href="'
-                . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                    .   '?label=' . htmlspecialchars($portlet['label'])
+                . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    .   '?label=' . claro_htmlspecialchars($portlet['label'])
                     .   '&amp;cmd=exDown' ))
                 . '">'
                 . '<img src="' . get_icon_url('move_down')

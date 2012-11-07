@@ -143,7 +143,7 @@ if ( $is_allowedToEdit && !is_null ( $cmd ) )
             {
                 $dialogBoxContent .= '<li>' . "\n"
                     . '<img src="' . get_icon_url ( 'export' ) . '" alt="' . get_lang ( 'Export in IMS QTI' ) . '" /> ' . "\n"
-                    . '<a href="' . htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=exExport&exId=' . $exId ) ) . '">' . get_lang ( 'Export in IMS QTI' ) . '</a>' . "\n"
+                    . '<a href="' . claro_htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=exExport&exId=' . $exId ) ) . '">' . get_lang ( 'Export in IMS QTI' ) . '</a>' . "\n"
                     . '</li>' . "\n"
                 ;
 
@@ -151,7 +151,7 @@ if ( $is_allowedToEdit && !is_null ( $cmd ) )
                 {
                     $dialogBoxContent .= '<li>' . "\n"
                         . '<img src="' . get_icon_url ( 'export' ) . '" alt="' . get_lang ( 'Export in IMS QTI (Shuffle)' ) . '" /> ' . "\n"
-                        . '<a href="' . htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=exExport&exId=' . $exId . '&shuffle=1' ) ) . '">' . get_lang ( 'Export in IMS QTI (Shuffle)' ) . '</a>' . "\n"
+                        . '<a href="' . claro_htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=exExport&exId=' . $exId . '&shuffle=1' ) ) . '">' . get_lang ( 'Export in IMS QTI (Shuffle)' ) . '</a>' . "\n"
                         . '</li>' . "\n"
                     ;
                 }
@@ -159,7 +159,7 @@ if ( $is_allowedToEdit && !is_null ( $cmd ) )
 
             $dialogBoxContent .= '<li>' . "\n"
                 . '<img src="' . get_icon_url ( 'mime/pdf' ) . '" alt="' . get_lang ( 'Export to PDF' ) . '" /> ' . "\n"
-                . '<a href="' . htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=exExportPDF&exId=' . $exId ) ) . '">' . get_lang ( 'Export to PDF' ) . '</a>' . "\n"
+                . '<a href="' . claro_htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=exExportPDF&exId=' . $exId ) ) . '">' . get_lang ( 'Export to PDF' ) . '</a>' . "\n"
                 . '</li>' . "\n"
             ;
 
@@ -167,14 +167,14 @@ if ( $is_allowedToEdit && !is_null ( $cmd ) )
             {
                 $dialogBoxContent .= '<li>' . "\n"
                     . '<img src="' . get_icon_url ( 'mime/pdf' ) . '" alt="' . get_lang ( 'Export to PDF (Shuffle)' ) . '" /> ' . "\n"
-                    . '<a href="' . htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=exExportPDF&exId=' . $exId . '&shuffle=1' ) ) . '">' . get_lang ( 'Export to PDF (Shuffle)' ) . '</a>' . "\n"
+                    . '<a href="' . claro_htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=exExportPDF&exId=' . $exId . '&shuffle=1' ) ) . '">' . get_lang ( 'Export to PDF (Shuffle)' ) . '</a>' . "\n"
                     . '</li>' . "\n"
                 ;
             }
 
             $dialogBoxContent .= '<li>' . "\n"
                 . '<img src="' . get_icon_url ( 'print' ) . '" alt="' . get_lang ( 'Printable version' ) . '" /> ' . "\n"
-                . '<a rel="external" href="' . htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=printPreview&exId=' . $exId ) ) . '">' . get_lang ( 'Printable version' ) . '</a>' . "\n"
+                . '<a rel="external" href="' . claro_htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=printPreview&exId=' . $exId ) ) . '">' . get_lang ( 'Printable version' ) . '</a>' . "\n"
                 . '</li>' . "\n"
             ;
 
@@ -182,7 +182,7 @@ if ( $is_allowedToEdit && !is_null ( $cmd ) )
             {
                 $dialogBoxContent .= '<li>' . "\n"
                     . '<img src="' . get_icon_url ( 'print' ) . '" alt="' . get_lang ( 'Printable version (Shuffle)' ) . '" /> ' . "\n"
-                    . '<a rel="external" href="' . htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=printPreview&exId=' . $exId . '&shuffle=1' ) ) . '">' . get_lang ( 'Printable version (Shuffle)' ) . '</a>' . "\n"
+                    . '<a rel="external" href="' . claro_htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=printPreview&exId=' . $exId . '&shuffle=1' ) ) . '">' . get_lang ( 'Printable version (Shuffle)' ) . '</a>' . "\n"
                     . '</li>' . "\n"
                 ;
             }
@@ -360,11 +360,11 @@ if ( $is_allowedToEdit && !is_null ( $cmd ) )
             $htmlcontent .=
                 '<header>' . "\n" . '<h1 class="questionTitle">' . get_lang ( 'Question' ) . ' ' . $i
                 . '&nbsp;-&nbsp;'
-                . htmlspecialchars ( strip_tags ( $question[ 'title' ] ) ) . '</h1>' . "\n"
+                . claro_htmlspecialchars ( strip_tags ( $question[ 'title' ] ) ) . '</h1>' . "\n"
             ;
 
             // Question description
-            if ( trim ( htmlspecialchars ( $question[ 'description' ] ) ) )
+            if ( trim ( claro_htmlspecialchars ( $question[ 'description' ] ) ) )
             {
                 $htmlcontent .= '<blockquote class="questionDescription">' . "\n"
                     . claro_parse_user_text ( $question[ 'description' ] ) . '</blockquote>' . "\n"
@@ -485,7 +485,7 @@ if ( $is_allowedToEdit && !is_null ( $cmd ) )
                             $ql[ 'answer' ] .= $_qr;
                             $ql[ 'answer' ] .= '] ';
                             $htmlcontent .= '<tr>' . "\n"
-                                . '<td colspan="2">' . htmlspecialchars ( strip_tags ( $ql[ 'answer' ] ) ) . '</td>' . "\n"
+                                . '<td colspan="2">' . claro_htmlspecialchars ( strip_tags ( $ql[ 'answer' ] ) ) . '</td>' . "\n"
                                 . '</tr>' . "\n"
                             ;
                         }
@@ -603,7 +603,7 @@ if ( $is_allowedToEdit && !is_null ( $cmd ) )
         // add a page
         $pdf->AddPage ();
 
-        $htmlcontent = '<div style="font-size: xx-large; font-weight: bold;">' . htmlspecialchars ( $exercise->getTitle () ) . '<div>' . "\n";
+        $htmlcontent = '<div style="font-size: xx-large; font-weight: bold;">' . claro_htmlspecialchars ( $exercise->getTitle () ) . '<div>' . "\n";
 
         $pdf->writeHTML ( claro_utf8_encode ( $htmlcontent, get_conf ( 'charset' ) ), true, 0, true, 0 );
 
@@ -625,11 +625,11 @@ if ( $is_allowedToEdit && !is_null ( $cmd ) )
                 . '</tr>' . "\n"
                 // Question title
                 . '<tr>' . "\n"
-                . '<td colspan="2">' . htmlspecialchars ( strip_tags ( $question[ 'title' ] ) ) . '</td>' . "\n"
+                . '<td colspan="2">' . claro_htmlspecialchars ( strip_tags ( $question[ 'title' ] ) ) . '</td>' . "\n"
                 . '</tr>' . "\n"
             ;
             // Question description
-            if ( trim ( htmlspecialchars ( $question[ 'description' ] ) ) )
+            if ( trim ( claro_htmlspecialchars ( $question[ 'description' ] ) ) )
             {
                 $htmlcontent .= '<tr>' . "\n"
                     . '<td colspan="2" style="font-size: x-small; font-style: italic;">' . change_img_url_for_pdf ( claro_parse_user_text ( $question[ 'description' ] ) ) . '</td>' . "\n"
@@ -749,7 +749,7 @@ if ( $is_allowedToEdit && !is_null ( $cmd ) )
                             $ql[ 'answer' ] .= $_qr;
                             $ql[ 'answer' ] .= '] ';
                             $htmlcontent .= '<tr>' . "\n"
-                                . '<td colspan="2" style="background-color: #EEE;">' . htmlspecialchars ( strip_tags ( $ql[ 'answer' ] ) ) . '</td>' . "\n"
+                                . '<td colspan="2" style="background-color: #EEE;">' . claro_htmlspecialchars ( strip_tags ( $ql[ 'answer' ] ) ) . '</td>' . "\n"
                                 . '</tr>' . "\n"
                             ;
                         }
@@ -898,25 +898,25 @@ if ( !$inLP )
         $cmdList[ ] = array (
             'img' => 'quiz_new',
             'name' => get_lang ( 'New exercise' ),
-            'url' => htmlspecialchars ( Url::Contextualize ( 'admin/edit_exercise.php?cmd=rqEdit' ) )
+            'url' => claro_htmlspecialchars ( Url::Contextualize ( 'admin/edit_exercise.php?cmd=rqEdit' ) )
         );
 
         $advancedCmdList[ ] = array (
             'img' => 'question_pool',
             'name' => get_lang ( 'Question pool' ),
-            'url' => htmlspecialchars ( Url::Contextualize ( 'admin/question_pool.php' ) )
+            'url' => claro_htmlspecialchars ( Url::Contextualize ( 'admin/question_pool.php' ) )
         );
 
         $advancedCmdList[ ] = array (
             'img' => 'question_pool',
             'name' => get_lang ( 'Question categories' ),
-            'url' => htmlspecialchars ( Url::Contextualize ( 'admin/question_category.php' ) )
+            'url' => claro_htmlspecialchars ( Url::Contextualize ( 'admin/question_category.php' ) )
         );
 
         $advancedCmdList[ ] = array (
             'img' => 'import',
             'name' => get_lang ( 'Import exercise' ),
-            'url' => htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=rqImport' ) )
+            'url' => claro_htmlspecialchars ( Url::Contextualize ( 'exercise.php?cmd=rqImport' ) )
         );
     }
 
@@ -925,7 +925,7 @@ if ( !$inLP )
         $cmdList[ ] = array (
             'img' => 'statistics',
             'name' => get_lang ( 'My results' ),
-            'url' => htmlspecialchars ( Url::Contextualize ( '../tracking/userReport.php?userId=' . claro_get_current_user_id () ) )
+            'url' => claro_htmlspecialchars ( Url::Contextualize ( '../tracking/userReport.php?userId=' . claro_get_current_user_id () ) )
         );
     }
 

@@ -62,7 +62,7 @@ $exercise->load($exId);
 if( $src == 'ex' )
 {
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), Url::Contextualize('./exercise.php') );
-    $src = htmlspecialchars( '&src=ex' );
+    $src = claro_htmlspecialchars( '&src=ex' );
 }
 else
 {
@@ -165,7 +165,7 @@ if ( get_conf('is_trackingEnabled') )
     if ( claro_is_allowed_to_edit() )
     {
         $out .= '<ul>'."\n"
-                .'<li><a href="'.htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'].'?exportCsv=1&exId='.$exId ) ).'">'.get_lang('Get tracking data in a CSV file').'</a></li>'."\n"
+                .'<li><a href="'.claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'].'?exportCsv=1&exId='.$exId ) ).'">'.get_lang('Get tracking data in a CSV file').'</a></li>'."\n"
                 .'</ul>'."\n\n";
     }
     
@@ -195,7 +195,7 @@ if ( get_conf('is_trackingEnabled') )
     $exo_users_details = claro_sql_query_fetch_all($sql);
 
     $out .= '<p><b>'.get_lang('Statistics by user').'</b>&nbsp;'.
-            '<a href="'.htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'].'?exportCsv=2&exId='.$exId ) ).'">['.get_lang('Export').']</a></p>'."\n";
+            '<a href="'.claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'].'?exportCsv=2&exId='.$exId ) ).'">['.get_lang('Export').']</a></p>'."\n";
     // display tab header
     $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
         .'<thead>'."\n"
@@ -226,7 +226,7 @@ if ( get_conf('is_trackingEnabled') )
             $displayedAvgTime = claro_html_duration(floor($exo_users_detail['avgTime']));
         }
         $out .=      '<tr>'."\n"
-                  .'<td><a href="'.htmlspecialchars( Url::Contextualize('../tracking/userReport.php?userId='.$exo_users_detail['user_id'].'&exId='.$exercise->getId() ) ).'">'."\n"
+                  .'<td><a href="'.claro_htmlspecialchars( Url::Contextualize('../tracking/userReport.php?userId='.$exo_users_detail['user_id'].'&exId='.$exercise->getId() ) ).'">'."\n"
                 .$exo_users_detail['nom'].' '.$exo_users_detail['prenom'].'</a></td>'."\n"
                   .'<td>'.$exo_users_detail['minimum'].'</td>'."\n"
                   .'<td>'.$exo_users_detail['maximum'].'</td>'."\n"
@@ -257,7 +257,7 @@ if ( get_conf('is_trackingEnabled') )
     $exo_questions_details = claro_sql_query_fetch_all($sql);
 
     $out .= '<p><b>'.get_lang('Statistics by question').'</b>&nbsp;'."\n".
-            '<a href="'.htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'].'?exportCsv=3&exId='.$exId ) ).'">['.get_lang('Export').']</a></p>'."\n";
+            '<a href="'.claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'].'?exportCsv=3&exId='.$exId ) ).'">['.get_lang('Export').']</a></p>'."\n";
     // display tab header
     $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
         .'<thead>'."\n"
@@ -278,7 +278,7 @@ if ( get_conf('is_trackingEnabled') )
             $exo_questions_detail['maximum'] = 0;
         }
         $out .=      '<tr>'."\n"
-                  .'<td><a href="'.htmlspecialchars( Url::Contextualize( 'track_questions.php?question_id='.$exo_questions_detail['id'].'&exId='.$exId.$src ) ).'">'.$exo_questions_detail['title'].'</a></td>'."\n"
+                  .'<td><a href="'.claro_htmlspecialchars( Url::Contextualize( 'track_questions.php?question_id='.$exo_questions_detail['id'].'&exId='.$exId.$src ) ).'">'.$exo_questions_detail['title'].'</a></td>'."\n"
                   .'<td>'.$exo_questions_detail['minimum'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
                   .'<td>'.$exo_questions_detail['maximum'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
                   .'<td>'.(round($exo_questions_detail['average']*100)/100).'/'.$exo_questions_detail['grade'].'</td>'."\n"

@@ -247,7 +247,7 @@ $out .= '<table width="100%" class="claroTableForm" >'
 .    '<td align="right">' . "\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '" >' . "\n"
 .    '<label for="search">' . get_lang('Make search') . '</label> :' . "\n"
-.    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search" />' . "\n"
+.    '<input type="text" value="' . claro_htmlspecialchars($search) . '" name="search" id="search" />' . "\n"
 .    '<input type="submit" value=" ' . get_lang('Ok') . ' "/>' . "\n"
 .    '<input type="hidden" name="newsearch" value="yes" />' . "\n"
 .    '<input type="hidden" name="cidToEdit" value="' . $cidToEdit . '" />' . "\n"

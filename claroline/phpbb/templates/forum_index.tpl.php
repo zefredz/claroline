@@ -17,32 +17,32 @@ foreach( $this->categoryList as $thisCategory ) :
         <th colspan="<?php echo ( $this->is_allowedToEdit ) ? 9 : 4 ?>" class="<?php echo $thisCategory['forum_count'] > 0 ? '' : 'invisible' ?>">
         <?php if( $this->is_allowedToEdit ) : ?>
             <div style="float:right">
-                <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqEdCat&amp;catId=' . $thisCategory['cat_id'] ) ) ?>">
+                <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqEdCat&amp;catId=' . $thisCategory['cat_id'] ) ) ?>">
                     <img src="<?php echo get_icon_url( 'edit' ) ?>" alt="<?php echo get_lang( 'Edit' ) ?>" />
                 </a>&nbsp;
                 <?php if( $thisCategory['cat_id'] != GROUP_FORUMS_CATEGORY ) : ?>
-                <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelCat&amp;catId=' . $thisCategory['cat_id'] ) ) ?>" onclick="return confirm_delete();" >
+                <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelCat&amp;catId=' . $thisCategory['cat_id'] ) ) ?>" onclick="return confirm_delete();" >
                     <img src="<?php echo get_icon_url( 'delete' ) ?>" alt="<?php echo get_lang( 'Delete' ) ?>" />
                 </a>&nbsp;
                 <?php endif; ?>
                 <?php if( $categoryIterator > 1 ) : ?>
-                <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvUpCat&amp;catId=' . $thisCategory['cat_id'] ) ) ?>">
+                <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvUpCat&amp;catId=' . $thisCategory['cat_id'] ) ) ?>">
                     <img src="<?php echo get_icon_url( 'move_up' ) ?>" alt="<?php echo get_lang( 'Move up' ) ?>" />
                 </a>&nbsp;
                 <?php endif; ?>
                 <?php if( $categoryIterator < $categoryCount ) : ?>
-                <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvDownCat&amp;catId=' . $thisCategory['cat_id'] ) ) ?>">
+                <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvDownCat&amp;catId=' . $thisCategory['cat_id'] ) ) ?>">
                     <img src="<?php echo get_icon_url( 'move_down' ) ?>" alt="<?php echo get_lang( 'Move down' ) ?>" />
                 </a>&nbsp;
                 <?php endif;?>
                 <?php if( $thisCategory['cat_id'] == GROUP_FORUMS_CATEGORY ) : ?>
-                <a href="<?php echo htmlspecialchars( Url::Contextualize( get_module_url( 'CLGRP' ) . '/group.php' ) ) ?>">
+                <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( get_module_url( 'CLGRP' ) . '/group.php' ) ) ?>">
                     <img src="<?php echo get_icon_url( 'group' ) ?>" alt="<?php echo get_lang( 'Groups' ) ?>" />
                 </a>&nbsp;
                 <?php endif; ?>
             </div>
         <?php endif; ?>
-        <?php echo htmlspecialchars( $thisCategory['cat_title'] ); ?>
+        <?php echo claro_htmlspecialchars( $thisCategory['cat_title'] ); ?>
         </th>
     </tr>
     <?php if( $thisCategory['forum_count'] == 0 ) : ?>
@@ -96,10 +96,10 @@ foreach( $this->categoryList as $thisCategory ) :
                         <?php $accessMode = get_access_mode_to_group_forum( $thisForum );
                             if( 'private' == $accessMode ) : echo $displayName;
                             else :?>
-                            <a href="<?php echo htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewforum.php?gidReq=' . $thisForum['group_id'] . '&amp;forum=' . $thisForum['forum_id'] ) ) ?>">
+                            <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewforum.php?gidReq=' . $thisForum['group_id'] . '&amp;forum=' . $thisForum['forum_id'] ) ) ?>">
                             <?php echo $displayName ?>
                             </a>&nbsp;
-                            <a href="<?php echo htmlspecialchars( Url::Contextualize( get_module_url( 'CLGRP' ) . '/group_space.php?gidReq=' . $thisForum['group_id'] ) ) ?>">
+                            <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( get_module_url( 'CLGRP' ) . '/group_space.php?gidReq=' . $thisForum['group_id'] ) ) ?>">
                             <img src="<?php echo get_icon_url( 'group' )?>" alt="<?php echo get_lang( 'Group area' )?>" />
                             </a>
                             <?php if( 'tutor' == $accessMode ) : ?>
@@ -109,7 +109,7 @@ foreach( $this->categoryList as $thisCategory ) :
                             <?php endif; ?>
                         <?php endif; ?>
                     <?php else : ?>
-                        <a href="<?php echo htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewforum.php?forum=' . $thisForum['forum_id'] ) ) ?>">
+                        <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewforum.php?forum=' . $thisForum['forum_id'] ) ) ?>">
                         <?php echo $displayName ?>
                         </a>
                     <?php endif; ?>
@@ -122,25 +122,25 @@ foreach( $this->categoryList as $thisCategory ) :
             <td align="center"><small><?php echo $thisForum['post_time'] > 0 ? claro_html_localised_date( get_locale( 'dateTimeFormatShort' ), datetime_to_timestamp( $thisForum['post_time'] ) ) : get_lang( 'No post' ) ?></small></td>
             <?php if( $this->is_allowedToEdit ) : ?>
             <td align="center">
-                <a href="<?php echo get_lang( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqEdForum&amp;forumId=' . $thisForum['forum_id'] ) ) ) ?>">
+                <a href="<?php echo get_lang( claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqEdForum&amp;forumId=' . $thisForum['forum_id'] ) ) ) ?>">
                 <img src="<?php echo get_icon_url( 'edit' ) ?>" alt="<?php echo get_lang( 'Edit' ) ?>" />
                 </a>
             </td>
             <td align="center">
-                <a href="<?php echo get_lang( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exEmptyForum&amp;forumId=' . $thisForum['forum_id'] ) ) ) ?>" onclick="return confirm_empty('<?php echo clean_str_for_javascript( $thisForum['forum_name'] ) ?>');">
+                <a href="<?php echo get_lang( claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exEmptyForum&amp;forumId=' . $thisForum['forum_id'] ) ) ) ?>" onclick="return confirm_empty('<?php echo clean_str_for_javascript( $thisForum['forum_name'] ) ?>');">
                 <img src="<?php echo get_icon_url( 'sweep' ) ?>" alt="<?php echo get_lang( 'Empty' ) ?>" />
                 </a>
             </td>
             <td align="center">
                 <?php if ( is_null( $thisForum['group_id'] ) ) : ?>
-                <a href="<?php echo get_lang( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelForum&amp;forumId=' . $thisForum['forum_id'] ) ) ) ?>" onclick="return confirm_delete('<?php echo clean_str_for_javascript( $thisForum['forum_name'] ) ?>');">
+                <a href="<?php echo get_lang( claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelForum&amp;forumId=' . $thisForum['forum_id'] ) ) ) ?>" onclick="return confirm_delete('<?php echo clean_str_for_javascript( $thisForum['forum_name'] ) ?>');">
                 <img src="<?php echo get_icon_url( 'delete' ) ?>" alt="<?php echo get_lang( 'Delete' ) ?>" />
                 </a>
                 <?php endif; ?>
             </td>
             <td align="center">
                 <?php if( $forumIterator > 1 ) : ?>
-                <a href="<?php echo get_lang( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvUpForum&amp;forumId=' . $thisForum['forum_id'] ) ) ) ?>">
+                <a href="<?php echo get_lang( claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvUpForum&amp;forumId=' . $thisForum['forum_id'] ) ) ) ?>">
                 <img src="<?php echo get_icon_url( 'move_up' ) ?>" alt="<?php echo get_lang( 'Move up' ) ?>" />
                 </a>
                 <?php else : ?>&nbsp;
@@ -148,7 +148,7 @@ foreach( $this->categoryList as $thisCategory ) :
             </td>
             <td align="center">
                 <?php if( $forumIterator < $thisCategory['forum_count'] ) : ?>
-                <a href="<?php echo get_lang( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvDownForum&amp;forumId=' . $thisForum['forum_id'] ) ) ) ?>">
+                <a href="<?php echo get_lang( claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvDownForum&amp;forumId=' . $thisForum['forum_id'] ) ) ) ?>">
                 <img src="<?php echo get_icon_url( 'move_down' ) ?>" alt="<?php echo get_lang( 'Move down' ) ?>" />
                 </a>
                 <?php else : ?>&nbsp;

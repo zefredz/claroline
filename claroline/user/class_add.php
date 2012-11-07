@@ -132,7 +132,7 @@ $htmlHeadXtra[] =
 $cmdList[] = array(
     'img' => 'back',
     'name' => get_lang('Back to list'),
-    'url' => htmlspecialchars(Url::Contextualize('user.php')),
+    'url' => claro_htmlspecialchars(Url::Contextualize('user.php')),
     'params' => array('onclick' => 'return confirmationEmpty();')
 );
 

@@ -135,11 +135,11 @@ function claro_html_icon( $fileName, $toolTip = null, $alternate = null )
 {
     $alt = $alternate
         ? ' alt="' . $alternate . '"'
-        : ' alt="' . htmlspecialchars( $fileName ) . '"'
+        : ' alt="' . claro_htmlspecialchars( $fileName ) . '"'
         ;
         
     $title = $toolTip
-        ? ' title="' . htmlspecialchars( $toolTip ) .'"'
+        ? ' title="' . claro_htmlspecialchars( $toolTip ) .'"'
         : ''
         ;
         
@@ -170,10 +170,10 @@ function claro_html_icon_button( $targetUrl, $iconName = '', $buttonText = '', $
 {
     return '<a class="claroCmd"' . "\n"
         . ' href="'.$targetUrl.'"'
-        . ( $toolTip ? "\n" . ' title="'.htmlspecialchars($toolTip).'"' : '' )
+        . ( $toolTip ? "\n" . ' title="'.claro_htmlspecialchars($toolTip).'"' : '' )
         . '>' . "\n"
         . ( $iconName ? claro_html_icon( $iconName ) . "\n" : '' )
-        . ( $buttonText ? htmlspecialchars($buttonText) . "\n" : '' )
+        . ( $buttonText ? claro_htmlspecialchars($buttonText) . "\n" : '' )
         . '</a>'
         ;
 }

@@ -494,12 +494,12 @@ if ($displayTable)
             $content .=
                 '<tr>'."\n"
                 .'<td class="im_list_selection"><input type="checkbox" name="msg[]" value="'.$message->getId().'" /></td>'."\n"
-                .'<td><a href="readmessage.php?messageId='.$message->getId().'&amp;type=received">'.htmlspecialchars($message->getSubject()).'</a></td>'."\n"
+                .'<td><a href="readmessage.php?messageId='.$message->getId().'&amp;type=received">'.claro_htmlspecialchars($message->getSubject()).'</a></td>'."\n"
                 .'<td><a href="sendmessage.php?cmd=rqMessageToUser&amp;userId='.$message->getSender().'">'
-                        .get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($message->getSenderFirstName()), '%lastName' => htmlspecialchars($message->getSenderLastName())))
+                        .get_lang('%firstName %lastName', array ('%firstName' =>claro_htmlspecialchars($message->getSenderFirstName()), '%lastName' => claro_htmlspecialchars($message->getSenderLastName())))
                 .     '</a>'
                 .'</td>'
-                .'<td>'.htmlspecialchars($userData['username']).'</td>'."\n"
+                .'<td>'.claro_htmlspecialchars($userData['username']).'</td>'."\n"
                 .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
                 .'<td class="im_list_action"><a href="'.$linkDelete.'cmd=rqDeleteMessage&amp;message_id='.$message->getId().'" '
                 .        'onclick="return deleteMessage(\''.$linkDelete.'cmd=exDeleteMessage&amp;message_id='.$message->getId().'\')"'

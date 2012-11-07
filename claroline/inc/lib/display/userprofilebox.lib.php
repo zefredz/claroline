@@ -60,7 +60,7 @@ class UserProfileBox implements Display
             }
         }
         
-        $userFullName = htmlspecialchars(
+        $userFullName = claro_htmlspecialchars(
             get_lang('%firstName %lastName',
                 array('%firstName' => $userData['firstname'],
                       '%lastName' => $userData['lastname'])

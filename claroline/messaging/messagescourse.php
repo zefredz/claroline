@@ -363,7 +363,7 @@ if ($displayForm)
     .    '<br/>'.get_lang('Message') .'<br/>'. "\n"
     .    claro_html_textarea_editor('content', "")
     .    '<br/><input type="submit" name="submitMessage" value="' . get_lang('Submit') . '" />'
-    .     claro_html_button(htmlspecialchars(Url::Contextualize($from)), get_lang('Cancel'))
+    .     claro_html_button(claro_htmlspecialchars(Url::Contextualize($from)), get_lang('Cancel'))
     .    '</div>'."\n"
     .    '</div>'."\n\n"
     .    '</form>'."\n\n"

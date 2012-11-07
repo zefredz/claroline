@@ -79,7 +79,7 @@ class CLANN_Portlet extends CourseHomePagePortlet
                     {
                         $content = substr($announcementItem['content'], 0, $displayChar)
                                 . '... <a href="'
-                                . htmlspecialchars(Url::Contextualize($announcementItem['url'])) . '">'
+                                . claro_htmlspecialchars(Url::Contextualize($announcementItem['url'])) . '">'
                                 . '<b>' . get_lang('Read more &raquo;') . '</b></a>';
                     }
                     else
@@ -99,13 +99,13 @@ class CLANN_Portlet extends CourseHomePagePortlet
                                 . $content . "\n"
                                 . (claro_is_allowed_to_edit() ?
                                 '<div class="manageTools"><a
-                                        href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLANN').'/announcements.php?cmd=rqEdit&id='.$announcementItem['id'])).'"
+                                        href="'.claro_htmlspecialchars(Url::Contextualize(get_module_url('CLANN').'/announcements.php?cmd=rqEdit&id='.$announcementItem['id'])).'"
                                         title="'.get_lang('Edit this item').'">
                                         <img src="'.get_icon_url('edit').'" alt="'.get_lang('Edit').'" />
                                     </a>
 
                                     <a
-                                        href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLANN').'/announcements.php?cmd=exDelete&id='.$announcementItem['id'])).'"
+                                        href="'.claro_htmlspecialchars(Url::Contextualize(get_module_url('CLANN').'/announcements.php?cmd=exDelete&id='.$announcementItem['id'])).'"
                                         title="'.get_lang('Delete this item').'">
                                         <img src="'.get_icon_url('delete').'" alt="'.get_lang('Delete').'" />
                                     </a></div>' :
@@ -143,7 +143,7 @@ class CLANN_Portlet extends CourseHomePagePortlet
         if (claro_is_allowed_to_edit())
         {
             $output .= ' <span class="separator">|</span> <a href="'
-                     . htmlspecialchars(Url::Contextualize(get_module_url( 'CLANN' ) . '/announcements.php'))
+                     . claro_htmlspecialchars(Url::Contextualize(get_module_url( 'CLANN' ) . '/announcements.php'))
                      . '">'
                      . '<img src="' . get_icon_url('settings') . '" alt="'.get_lang('Settings').'" /> '
                      . get_lang('Manage').'</a>';

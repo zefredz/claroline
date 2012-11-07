@@ -430,10 +430,10 @@ function render_user_course_list_desactivated ()
             }
 
             $url = get_path ( 'url' ) . '/claroline/course/index.php?cid='
-                . htmlspecialchars ( $course[ 'sysCode' ] );
+                . claro_htmlspecialchars ( $course[ 'sysCode' ] );
 
             $urlSettings = Url::Contextualize ( get_path ( 'url' ) . '/claroline/course/settings.php?cidReq='
-                    . htmlspecialchars ( $course[ 'sysCode' ] . '&cmd=exEnable' ) );
+                    . claro_htmlspecialchars ( $course[ 'sysCode' ] . '&cmd=exEnable' ) );
 
             $out .= '<dt>' . "\n"
                 . '<img class="iconDefinitionList" src="' . get_icon_url ( 'course_deactivated' )
@@ -443,15 +443,15 @@ function render_user_course_list_desactivated ()
             {
                 if ( claro_is_platform_admin () || $course[ 'isCourseManager' ] == '1' )
                 {
-                    $out.= '<a href="' . htmlspecialchars ( $url ) . '">'
-                        . htmlspecialchars ( $courseTitle )
+                    $out.= '<a href="' . claro_htmlspecialchars ( $url ) . '">'
+                        . claro_htmlspecialchars ( $courseTitle )
                         . '</a>' . "\n"
                         . '<img class="qtip" src="' . get_icon_url ( 'manager' ) . '" alt="' . get_lang ( 'You are manager of this course' ) . '" /> '
                         . '[<a href="' . $urlSettings . '">' . get_lang ( 'Reactivate it' ) . '</a>]';
                 }
                 elseif ( get_conf ( 'crslist_DisplayPendingToAllUsers', false ) )
                 {
-                    $out.= htmlspecialchars ( $courseTitle )
+                    $out.= claro_htmlspecialchars ( $courseTitle )
                         . ' <em><small>' . get_lang ( 'You cannot access this course until the course manager has reactivated it' ) . '</small></em>'
                         . "\n";
                 }
@@ -461,8 +461,8 @@ function render_user_course_list_desactivated ()
             {
                 if ( claro_is_platform_admin () )
                 {
-                    $out .= '<a href="' . htmlspecialchars ( $url ) . '">'
-                        . htmlspecialchars ( $courseTitle )
+                    $out .= '<a href="' . claro_htmlspecialchars ( $url ) . '">'
+                        . claro_htmlspecialchars ( $courseTitle )
                         . '</a> '
                         . '<img src="' . get_icon_url ( 'platformadmin' ) . '" alt="" /> '
                         . '[<a href="' . $urlSettings . '"> ' . get_lang ( 'Reactivate it' ) . '</a>]'
@@ -472,12 +472,12 @@ function render_user_course_list_desactivated ()
                 {
                     if ( $course[ 'isCourseManager' ] == '1' )
                     {
-                        $out.= htmlspecialchars ( $courseTitle )
+                        $out.= claro_htmlspecialchars ( $courseTitle )
                             . ' ' . get_lang ( 'Contact your administrator to reactivate it. ' );
                     }
                     elseif ( get_conf ( 'crslist_DisplayDisableToAllUsers', false ) )
                     {
-                        $out.= htmlspecialchars ( $courseTitle )
+                        $out.= claro_htmlspecialchars ( $courseTitle )
                             . ' <em><small>' . get_lang ( 'You cannot access this course it has been deactivated' ) . '</small></em>'
                             . "\n";
                     }
@@ -490,14 +490,14 @@ function render_user_course_list_desactivated ()
                 {
                     if ( claro_is_platform_admin () || $course[ 'isCourseManager' ] == '1' )
                     {
-                        $out.= '<a href="' . htmlspecialchars ( $url ) . '">'
-                            . htmlspecialchars ( $courseTitle )
+                        $out.= '<a href="' . claro_htmlspecialchars ( $url ) . '">'
+                            . claro_htmlspecialchars ( $courseTitle )
                             . '</a>' . "\n"
                             . ' ' . get_lang ( 'Will be published on ' ) . date ( 'd-m-Y', $course[ 'creationDate' ] );
                     }
                     elseif ( get_conf ( 'crslist_DisplayUnpublishedToAllUsers', false ) )
                     {
-                        $out.= htmlspecialchars ( $courseTitle )
+                        $out.= claro_htmlspecialchars ( $courseTitle )
                             . ' ' . get_lang ( 'Will be published on ' ) . date ( 'd-m-Y', $course[ 'creationDate' ] );
                     }
                 }
@@ -506,14 +506,14 @@ function render_user_course_list_desactivated ()
                 {
                     if ( claro_is_platform_admin () || $course[ 'isCourseManager' ] == '1' )
                     {
-                        $out.= '<a href="' . htmlspecialchars ( $url ) . '">'
-                            . htmlspecialchars ( $courseTitle )
+                        $out.= '<a href="' . claro_htmlspecialchars ( $url ) . '">'
+                            . claro_htmlspecialchars ( $courseTitle )
                             . '</a>' . "\n"
                             . ' ' . get_lang ( 'Expired since ' ) . date ( 'd-m-Y', $course[ 'expirationDate' ] );
                     }
                     elseif ( get_conf ( 'crslist_DisplayExpiredToAllUsers', false ) )
                     {
-                        $out.= htmlspecialchars ( $courseTitle )
+                        $out.= claro_htmlspecialchars ( $courseTitle )
                             . ' ' . get_lang ( 'Expired since ' ) . date ( 'd-m-Y', $course[ 'expirationDate' ] );
                     }
                 }
@@ -522,7 +522,7 @@ function render_user_course_list_desactivated ()
             $out .= '</dt>' . "\n";
 
             $out .= '<dd>'
-                . htmlspecialchars ( $course[ 'titular' ] )
+                . claro_htmlspecialchars ( $course[ 'titular' ] )
                 . '</dd>' . "\n";
         }
 
@@ -712,7 +712,7 @@ function render_user_course_list ()
                         . (!empty ( $category[ 'rootCourse' ] ) ?
                             ' [<a href="'
                             . get_path ( 'url' ) . '/claroline/course/index.php?cid='
-                            . htmlspecialchars ( $category[ 'rootCourse' ][ 'sysCode' ] )
+                            . claro_htmlspecialchars ( $category[ 'rootCourse' ][ 'sysCode' ] )
                             . '">' . get_lang ( 'Infos' ) . '</a>]' :
                             '')
                         . '</h4>' . "\n"
@@ -783,8 +783,8 @@ function render_course_in_dl_list ( $course, $hot = false, $displayIconAccess = 
     if ( (get_conf ( 'platformLanguage' ) != $course[ 'language' ]) || get_conf ( 'showAlwaysLanguageInCourseList', false ) )
     {
         $courseLanguageTxt = (!empty ( $langNameOfLang[ $course[ 'language' ] ] )) ?
-            (' &ndash; ' . htmlspecialchars ( ucfirst ( $langNameOfLang[ $course[ 'language' ] ] ) )) :
-            (' &ndash; ' . htmlspecialchars ( ucfirst ( $course[ 'language' ] ) ));
+            (' &ndash; ' . claro_htmlspecialchars ( ucfirst ( $langNameOfLang[ $course[ 'language' ] ] ) )) :
+            (' &ndash; ' . claro_htmlspecialchars ( ucfirst ( $course[ 'language' ] ) ));
     }
     else
     {
@@ -797,7 +797,7 @@ function render_course_in_dl_list ( $course, $hot = false, $displayIconAccess = 
         ($course[ 'title' ] . ' (' . $course[ 'officialCode' ] . ')');
 
     $url = get_path ( 'url' ) . '/claroline/course/index.php?cid='
-        . htmlspecialchars ( $course[ 'sysCode' ] );
+        . claro_htmlspecialchars ( $course[ 'sysCode' ] );
 
     // Display an icon following the course's access settings
     $iconUrl = ($displayIconAccess) ?
@@ -815,8 +815,8 @@ function render_course_in_dl_list ( $course, $hot = false, $displayIconAccess = 
         (false);
 
     $courseLink = '<a href="'
-        . htmlspecialchars ( $url ) . '">'
-        . htmlspecialchars ( $courseTitle )
+        . claro_htmlspecialchars ( $url ) . '">'
+        . claro_htmlspecialchars ( $courseTitle )
         . '</a>'
         . $userStatusImg . "\n";
 

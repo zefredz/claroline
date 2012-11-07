@@ -1,7 +1,7 @@
 <!-- // $Id$ -->
 
 <strong><?php echo $this->header ?></strong>
-<form action="<?php echo htmlspecialchars( $_SERVER['PHP_SELF'] )?>" method="post">
+<form action="<?php echo claro_htmlspecialchars( $_SERVER['PHP_SELF'] )?>" method="post">
     <input type="hidden" name="claroFormId" value="<?php echo uniqid( '' ) ?>" />
     <input type="hidden" name="cmd" value="<?php echo $this->nextCommand ?>" />
     <input type="hidden" name="forumId" value="<?php echo $this->forumId ?>" />
@@ -29,5 +29,5 @@
     <input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" <?php echo $this->is_postAllowed ? '' : ' checked="checked"'?>/>
     <label for="forumPostUnallowed"><?php  echo get_lang( 'Locked' ) ?> <small>(<?php echo get_lang( 'No new post allowed' )?>)</small></label><br /><br />
     <input type="submit" value="<?php echo get_lang( 'Ok' ) ?>" />&nbsp;
-    <?php echo claro_html_button( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] ) ), get_lang( 'Cancel' ) )?>
+    <?php echo claro_html_button( claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] ) ), get_lang( 'Cancel' ) )?>
 </form>

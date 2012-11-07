@@ -317,7 +317,7 @@ $cmdList = array();
 
 $cmdList[] = array(
     'name' => get_lang('Today'),
-    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '#today'))
+    'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '#today'))
 );
 
 
@@ -328,7 +328,7 @@ if ( count($eventList) > 0 )
         $cmdList[] = array(
             'img' => 'calendar',
             'name' => get_lang('Download'),
-            'url' => htmlspecialchars(Url::Contextualize( get_path('url').'/claroline/backends/ical.php' ))
+            'url' => claro_htmlspecialchars(Url::Contextualize( get_path('url').'/claroline/backends/ical.php' ))
         );
     }
     
@@ -337,7 +337,7 @@ if ( count($eventList) > 0 )
         $cmdList[] = array(
             'img' => 'reverse',
             'name' => get_lang('Oldest first'),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?order=asc'))
+            'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?order=asc'))
         );
     }
     else
@@ -345,7 +345,7 @@ if ( count($eventList) > 0 )
         $cmdList[] = array(
             'img' => 'reverse',
             'name' => get_lang('Newest first'),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?order=desc'))
+            'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?order=desc'))
         );
     }
 }
@@ -355,7 +355,7 @@ if (claro_is_allowed_to_edit())
     $cmdList[] = array(
         'img' => 'agenda_new',
         'name' => get_lang('Add an event'),
-        'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqAdd' ))
+        'url' => claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqAdd' ))
     );
     
     if ( count($eventList) > 0 )
@@ -363,7 +363,7 @@ if (claro_is_allowed_to_edit())
         $cmdList[] = array(
             'img' => 'delete',
             'name' => get_lang('Clear up event list'),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDeleteAll')) . '" '
+            'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDeleteAll')) . '" '
                    . ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list ?')) . '\')) return false;'
         );
     }

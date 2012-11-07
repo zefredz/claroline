@@ -118,7 +118,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         }
         else
         {
-            $line = htmlspecialchars($this->T[$i],ENT_NOQUOTES);
+            $line = claro_htmlspecialchars($this->T[$i],ENT_NOQUOTES);
         }
 
         # Ligne vide
@@ -340,7 +340,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
 
         if ( $this->wiki->pageExists( $str ) )
         {
-            return "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            return "<a href=\"".claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                 ."?action=show&title=".rawurlencode($str )
                 . "&wikiId=" . $this->wiki->getWikiId() ) )
                 . "\" class=\"wikiShow\">"
@@ -350,7 +350,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         }
         else
         {
-            return "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            return "<a href=\"".claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                 . "?action=edit&title=" . rawurlencode($str )
                 . "&wikiId=" . $this->wiki->getWikiId()))
                 . "\" class=\"wikiEdit\">"
@@ -693,7 +693,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
 
         if ($this->wiki->pageExists( $pageName ) )
         {
-            $attr =  ' href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            $attr =  ' href="' . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                 . '?action=show&title=' . rawurlencode($pageName )
                 . '&wikiId=' . $this->wiki->getWikiId()
                 . $fragment ) )
@@ -702,7 +702,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         }
         else
         {
-            $attr = ' href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+            $attr = ' href="' . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                 . '?action=edit&title=' . rawurlencode($pageName )
                 . '&wikiId=' . $this->wiki->getWikiId()
                 . $fragment ) )

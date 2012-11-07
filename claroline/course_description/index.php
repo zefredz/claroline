@@ -133,7 +133,7 @@ if ($is_allowedToEdit && !empty($cmd))
         
         // Manage the tips
         $tips['isTitleEditable']    = isset($tipList[$category]['isEditable']) ? $tipList[$category]['isEditable'] : true;
-        $tips['presetTitle']        = !empty($tipList[$category]['title']) ? htmlspecialchars($tipList[$category]['title']) : '';
+        $tips['presetTitle']        = !empty($tipList[$category]['title']) ? claro_htmlspecialchars($tipList[$category]['title']) : '';
         $tips['question']           = !empty($tipList[$category]['question']) ? $tipList[$category]['question'] : '';
         $tips['information']        = !empty($tipList[$category]['information']) ? $tipList[$category]['information'] : '';
         
@@ -203,7 +203,7 @@ if ( $is_allowedToEdit )
     if ( isset($displayForm) && $displayForm )
     {
         $template = new ModuleTemplate($tlabelReq, 'form.tpl.php');
-        $template->assign('formAction', htmlspecialchars($_SERVER['PHP_SELF']));
+        $template->assign('formAction', claro_htmlspecialchars($_SERVER['PHP_SELF']));
         $template->assign('relayContext', claro_form_relay_context());
         $template->assign('descId', (int) $descId);
         $template->assign('category', $category);
@@ -235,13 +235,13 @@ if ( $is_allowedToEdit )
                 
                 if ( ($alreadyUsed) == false)
                 {
-                    $htmlOptionsList .= '<option value="' . $key . '">' . htmlspecialchars($tip['title']) . '</option>' . "\n";
+                    $htmlOptionsList .= '<option value="' . $key . '">' . claro_htmlspecialchars($tip['title']) . '</option>' . "\n";
                 }
             }
         }
         
         $template = new ModuleTemplate($tlabelReq, 'select.tpl.php');
-        $template->assign('formAction', htmlspecialchars($_SERVER['PHP_SELF']));
+        $template->assign('formAction', claro_htmlspecialchars($_SERVER['PHP_SELF']));
         $template->assign('relayContext', claro_form_relay_context());
         $template->assign('optionsList', $htmlOptionsList);
         

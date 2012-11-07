@@ -54,13 +54,13 @@ class CLTI_Portlet extends CourseHomePagePortlet
                              . $resources
                              . (claro_is_allowed_to_edit() ?
                                '<div class="manageTools"><a
-                                    href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=rqEd&amp;id='.$introItem->getId())).'"
+                                    href="'.claro_htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=rqEd&amp;id='.$introItem->getId())).'"
                                     title="'.get_lang('Edit this item').'">
                                     <img src="'.get_icon_url('edit').'" alt="'.get_lang('Edit').'" />
                                 </a>
                                 
                                 <a
-                                    href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=exDel&amp;id='.$introItem->getId())).'"
+                                    href="'.claro_htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=exDel&amp;id='.$introItem->getId())).'"
                                     title="'.get_lang('Delete this item').'">
                                     <img src="'.get_icon_url('delete').'" alt="'.get_lang('Delete').'" />
                                 </a></div>' :
@@ -75,7 +75,7 @@ class CLTI_Portlet extends CourseHomePagePortlet
             $output .= '<dt></dt>'
                      . '<dd>' . "\n"
                      . ' ' . get_lang('No headline') . '. '
-                     . (claro_is_allowed_to_edit() ? '<a href="' . htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=rqAdd')) . '">'
+                     . (claro_is_allowed_to_edit() ? '<a href="' . claro_htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=rqAdd')) . '">'
                      . get_lang('Would you like to add one ?') . '</a>' . "\n" : '')
                      . '</dd>' . "\n";
         }
@@ -99,7 +99,7 @@ class CLTI_Portlet extends CourseHomePagePortlet
         if (claro_is_allowed_to_edit())
         {
             $output .= ' <span class="separator">|</span> <a href="'
-                     . htmlspecialchars(Url::Contextualize(get_module_url( 'CLTI' ) . '/index.php'))
+                     . claro_htmlspecialchars(Url::Contextualize(get_module_url( 'CLTI' ) . '/index.php'))
                      . '">'
                      . '<img src="' . get_icon_url('settings') . '" alt="'.get_lang('Settings').'" /> '
                      . get_lang('Manage').'</a>';

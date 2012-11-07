@@ -190,7 +190,7 @@ else
     $out .= '<div style="text-align: right">'."\n"
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="GET">' . "\n"
     .    '<input type="hidden" name="class_id" value="'.$class_id. '" />' . "\n"
-    .    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" size="20" />' . "\n"
+    .    '<input type="text" value="' . claro_htmlspecialchars($search).'" name="search" id="search" size="20" />' . "\n"
     .    '<input type="submit" value=" ' . get_lang('Search') . ' " />' . "\n"
     .    '</form>'."\n"
     .    '</div>' . "\n"

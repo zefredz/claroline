@@ -114,8 +114,8 @@ switch( $cmd )
         $chFormatForm = get_lang('Modify the format') .' : ' . '<br /><br />' . "\n"
             . get_lang( 'Simply write the fields\' names in right order and separated by commas' ) . '<br />' . "\n"
             . get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) ) . '<br /><br />' . "\n"
-            . '<form name="chFormat" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?&cmd=exChangeFormat" >' . "\n"
-            . '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
+            . '<form name="chFormat" method="post" action="' . claro_htmlspecialchars($_SERVER['PHP_SELF']) . '?&cmd=exChangeFormat" >' . "\n"
+            . '<input type="text" name="usedFormat" value="' . claro_htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
             . claro_form_relay_context() . "\n"
             . '<br /><br />' . "\n"
             . '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
@@ -192,7 +192,7 @@ $backButtonUrl = Url::Contextualize($_SESSION['CSV_CancelButton']);
 
 $content_default = get_lang('You must specify the CSV format used in your file') . ':' . "\n"
     . '<br /><br />' . "\n"
-    . '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" enctype="multipart/form-data"  >' . "\n"
+    . '<form method="post" action="' . claro_htmlspecialchars($_SERVER['PHP_SELF']) . '" enctype="multipart/form-data"  >' . "\n"
     . '<input type="hidden" name="step" value="1" />' . "\n"
     . '<input type="hidden" name="class_id" value="' . $class_id . '" />' . "\n"
     . claro_form_relay_context()
@@ -205,14 +205,14 @@ $content_default = get_lang('You must specify the CSV format used in your file')
     . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
     . '<span style="font-weight: bold;">' . $usedFormat . '</span><br /><br />' . "\n"
     . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . "\n"
-    . claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+    . claro_html_cmd_link( claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
                             . '?display=default'
                             . '&cmd=rqLoadDefaultFormat'
                             . '&addType=' . $addType ))
                             , get_lang('Load default format')
                             ) . "\n"
     . ' | '
-    . claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+    . claro_html_cmd_link( claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
                             . '?display=default'
                             . '&cmd=rqChangeFormat'
                             . '&addType=' . $addType ))
@@ -242,7 +242,7 @@ if (get_conf('update_user_properties'))
 }
 
 $content_default .=   '<input type="submit" name="submitCSV" value="' . get_lang('Add user list') . '" />' . "\n"
-    . claro_html_button(htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
+    . claro_html_button(claro_htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
     . '</form>' . "\n"
     ;
 
@@ -328,7 +328,7 @@ switch( $step )
                         . "\n" . '<br />' . "\n"
                         ;
                     
-                    $content .= '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" >' . "\n"
+                    $content .= '<form method="post" action="' . claro_htmlspecialchars($_SERVER['PHP_SELF']) . '" >' . "\n"
                         //. '<input type="hidden" name="csvContent" value="' . str_replace( '"' , '\'' , serialize( $csvContent ) ) . '" />' . "\n"
                         . '<input type="hidden" name="step" value="2" />' . "\n"
                         . '<input type="hidden" name="class_id" value="' . $class_id .'" />' . "\n"
@@ -378,7 +378,7 @@ switch( $step )
                     
                     $content .=   '</table>' . "\n"
                         . '<input type="submit" name="submitCSV" value="' . get_lang('Add selected users') . '" />' . "\n"
-                        . claro_html_button(htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
+                        . claro_html_button(claro_htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
                         . '</form>' . "\n"
                         ;
                 }

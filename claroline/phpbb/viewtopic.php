@@ -466,8 +466,8 @@ $pagetype = !empty( $editMode ) ? $editMode : 'viewtopic';
 if( claro_is_allowed_to_edit() && $topicId )
 {
     $out .= '<div style="float: right;">' . "\n"
-    .   '<img src=' . get_icon_url( 'html' ) . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&topic=' . $topicId )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
-    .   '<img src="'. get_icon_url( 'mime/pdf' ) . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=PDF&topic=' . $topicId ) ) . '" target="_blank">' . get_lang( 'Export to PDF' ) .'</a>' . "\n"
+    .   '<img src=' . get_icon_url( 'html' ) . '" alt="" /> <a href="' . claro_htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&topic=' . $topicId )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
+    .   '<img src="'. get_icon_url( 'mime/pdf' ) . '" alt="" /> <a href="' . claro_htmlspecialchars( Url::Contextualize( 'export.php?type=PDF&topic=' . $topicId ) ) . '" target="_blank">' . get_lang( 'Export to PDF' ) .'</a>' . "\n"
     .   '</div>'
     ;
 }
@@ -539,7 +539,7 @@ if( $topicSettingList )
     // get post and use pager
     $postList   = $postLister->get_post_list();
     $totalPosts = $postLister->sqlPager->get_total_item_count();
-    $pagerUrl   = htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?topic=' . $topicId ) );
+    $pagerUrl   = claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?topic=' . $topicId ) );
     
     //increment topic view count if required
     if ( $incrementViewCount )
@@ -565,7 +565,7 @@ if( $topicSettingList )
             
             $cmdList[] = array(
                 'name' => get_lang( 'Last message' ),
-                'url' => htmlspecialchars( Url::Contextualize( $lastMsgUrl ) )
+                'url' => claro_htmlspecialchars( Url::Contextualize( $lastMsgUrl ) )
             );
             
             if( !$viewall )
@@ -577,7 +577,7 @@ if( $topicSettingList )
                
                 $cmdList[] = array(
                     'name' => get_lang( 'Full review' ),
-                    'url' => htmlspecialchars( Url::Contextualize( $viewallUrl ) )
+                    'url' => claro_htmlspecialchars( Url::Contextualize( $viewallUrl ) )
                 );
             }
         }
@@ -611,7 +611,7 @@ if( $topicSettingList )
             . '&amp;mode=reply'
         );
             
-        $toolBar[] = claro_html_cmd_link( htmlspecialchars( $replyUrl )
+        $toolBar[] = claro_html_cmd_link( claro_htmlspecialchars( $replyUrl )
                                         , '<img src="' . get_icon_url( 'reply' ) . '" alt="" />'
                                         . ' '
                                         . get_lang( 'Reply' )

@@ -421,11 +421,11 @@ function trig_forum_notification($forumId)
         // send mail to registered user for notification
         $message = get_lang('You are receiving this notification because you are watching for new topics on the forum of one of your courses.') . '<br/>' . "\n"
         . get_lang('View forum') . '<br/>' . "\n"
-        . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum)) . '">'
+        . '<a href="' . claro_htmlspecialchars(Url::Contextualize($url_forum)) . '">'
             . Url::Contextualize($url_forum)
         . '</a><br/><br/>' . "\n"
         . get_lang('View general forum') . '<br/>'
-        . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum_global)) . '">'
+        . '<a href="' . claro_htmlspecialchars(Url::Contextualize($url_forum_global)) . '">'
             . Url::Contextualize($url_forum_global)
         . '</a><br/>' . "\n"
         ;
@@ -768,11 +768,11 @@ function trig_topic_notification($topicId)
         // send mail to registered user for notification
         $message = get_lang('You are receiving this notification because you are watching a topic on the forum of one of your courses.') . '<br/>' . "\n"
             . get_lang('View topic') . '<br/>' . "\n"
-            . '<a href="' . htmlspecialchars(Url::Contextualize($url_topic)) . '">'
+            . '<a href="' . claro_htmlspecialchars(Url::Contextualize($url_topic)) . '">'
                 . Url::Contextualize($url_topic)
             . '</a><br/><br/>' . "\n"
             . get_lang('View forum') . '<br/>'
-            . '<a href="' . htmlspecialchars(Url::Contextualize($url_forum)) . '">'
+            . '<a href="' . claro_htmlspecialchars(Url::Contextualize($url_forum)) . '">'
                 . Url::Contextualize($url_forum)
             . '</a><br/>' . "\n"
             ;
@@ -824,17 +824,17 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
     if ($forumId && $topicId)
     {
         $url = Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topicId . '&amp;forum=' . $forumId );
-        $out .= '<p>' . get_lang('Click <a href="%url">here</a> to view your message', array( '%url' => htmlspecialchars($url) ) ). '</p>' . "\n" ;
+        $out .= '<p>' . get_lang('Click <a href="%url">here</a> to view your message', array( '%url' => claro_htmlspecialchars($url) ) ). '</p>' . "\n" ;
     }
 
     if ($forumId)
     {
         $url = Url::Contextualize( get_module_url('CLFRM') . '/viewforum.php?forum=' . $forumId );
-        $out .= '<p>' . get_lang('Click <a href="%url">here</a> to return to the forum topic list', array( '%url' => htmlspecialchars($url) ) ). '</p>' . "\n" ;
+        $out .= '<p>' . get_lang('Click <a href="%url">here</a> to return to the forum topic list', array( '%url' => claro_htmlspecialchars($url) ) ). '</p>' . "\n" ;
     }
 
     $url = Url::Contextualize( get_module_entry_url('CLFRM') );
-    $out .= '<p>' . get_lang('Click <a href="%url">here</a> to return to the forum index', array( '%url' => htmlspecialchars( $url ) ) ). '</p>' . "\n" ;
+    $out .= '<p>' . get_lang('Click <a href="%url">here</a> to return to the forum index', array( '%url' => claro_htmlspecialchars( $url ) ) ). '</p>' . "\n" ;
 
     $out .= '</center>' . "\n"
         . '</td>' . "\n"
@@ -1093,7 +1093,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
             $toolList[] =
             claro_html_cmd_link(
-                htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
+                claro_htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
                     . '/viewtopic.php?forum=' . $forum_id
                     . '&amp;cmd=rqPost&amp;mode=add') )
                 , '<img src="' . get_icon_url('topic') . '" alt="" /> '
@@ -1105,7 +1105,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
             $toolList[] =
             claro_html_cmd_link(
-                htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
+                claro_htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
                     . '/viewtopic.php?topic=' . $topic_id . '&amp;cmd=rqPost&amp;mode=reply' ) )
                , '<img src="' . get_icon_url( 'reply' ) . '" alt="' . get_lang( 'Reply' ) . '" /> '
                . get_lang('Reply')
@@ -1122,14 +1122,14 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
                 $toolList[] =
                 claro_html_cmd_link(
-                    htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                    . '?cmd=rqMkCat' ))
                    , get_lang('Create category')
                    );
 
                 $toolList[] =
                 claro_html_cmd_link(
-                    htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                     . '?cmd=rqMkForum' ))
                     , '<img src="' . get_icon_url('forum') . '" alt="" /> '
                     . get_lang('Create forum')
@@ -1140,7 +1140,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
     if ( ! in_array($pagetype, array( 'add', 'reply', 'edit', 'quote' ) ) )
         $toolList[] = claro_html_cmd_link(
-            htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') . '/index.php?cmd=rqSearch' ))
+            claro_htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') . '/index.php?cmd=rqSearch' ))
             , '<img src="' . get_icon_url('search') . '" alt="" />'
             . get_lang('Search')
         );
@@ -1177,7 +1177,7 @@ function get_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 
             $toolList[] = array(
                 'img' => 'topic',
                 'name' => get_lang('New topic'),
-                'url' => htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
+                'url' => claro_htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
                        . '/viewtopic.php?forum=' . $forum_id
                        . '&amp;cmd=rqPost&amp;mode=add') )
            );
@@ -1188,7 +1188,7 @@ function get_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 
             $toolList[] = array(
                 'img' => 'reply',
                 'name' => get_lang('Reply'),
-                'url' => htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
+                'url' => claro_htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' )
                        . '/viewtopic.php?topic=' . $topic_id . '&amp;cmd=rqPost&amp;mode=reply' ) )
             );
             
@@ -1200,13 +1200,13 @@ function get_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 
             {
                 $toolList[] = array(
                     'name' => get_lang('Create category'),
-                    'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    'url' => claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                            . '?cmd=rqMkCat' ) )
                 );
                 
                 $toolList[] = array(
                     'name' => get_lang('Create forum'),
-                    'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    'url' => claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                            . '?cmd=rqMkForum' ) )
                 );
             }
@@ -1219,7 +1219,7 @@ function get_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 
         $toolList[] = array(
             'img' => 'search',
             'name' => get_lang('Search'),
-            'url' => htmlspecialchars(Url::Contextualize( get_module_url('CLFRM')
+            'url' => claro_htmlspecialchars(Url::Contextualize( get_module_url('CLFRM')
                    . '/index.php?cmd=rqSearch' ) )
         );
     }
@@ -1259,7 +1259,7 @@ function disp_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id =
             $toolList[] = array(
                 'img' => 'topic',
                 'name' => get_lang('New topic'),
-                'url' => htmlspecialchars(Url::Contextualize(get_module_url( 'CLFRM' )
+                'url' => claro_htmlspecialchars(Url::Contextualize(get_module_url( 'CLFRM' )
                     . '/viewtopic.php?forum=' . $forum_id
                     . '&amp;cmd=rqPost&amp;mode=add'))
             );
@@ -1270,7 +1270,7 @@ function disp_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id =
             $toolList[] = array(
                 'img' => 'reply',
                 'name' => get_lang('Reply'),
-                'url' => htmlspecialchars(Url::Contextualize(get_module_url( 'CLFRM' )
+                'url' => claro_htmlspecialchars(Url::Contextualize(get_module_url( 'CLFRM' )
                     . '/viewtopic.php?topic=' . $topic_id
                     . '&amp;cmd=rqPost&amp;mode=reply'))
             );
@@ -1286,14 +1286,14 @@ function disp_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id =
                 $toolList[] = array(
                     'img' => 'folder_new',
                     'name' => get_lang('Create category'),
-                    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                    'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                         . '?cmd=rqMkCat'))
                 );
 
                 $toolList[] = array(
                     'img' => 'forum',
                     'name' => get_lang('Create forum'),
-                    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                    'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                         . '?cmd=rqMkForum'))
                 );
             }
@@ -1305,7 +1305,7 @@ function disp_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id =
         $toolList[] = array(
             'img' => 'search',
             'name' => get_lang('Search'),
-            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLFRM')
+            'url' => claro_htmlspecialchars(Url::Contextualize(get_module_url('CLFRM')
                 . '/index.php?cmd=rqSearch'))
         );
     }
@@ -1319,12 +1319,12 @@ function disp_search_box()
     {
         $dialogBox = new DialogBox();
         $dialogBox->form(
-            '<form action="'.htmlspecialchars(get_module_url('CLFRM') . '/viewsearch.php').'" method="post">'
+            '<form action="'.claro_htmlspecialchars(get_module_url('CLFRM') . '/viewsearch.php').'" method="post">'
             . claro_form_relay_context()
             . get_lang('Search') . ' : <br />'
             . '<input type="text" name="searchPattern" /><br />'
             . '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
-            . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel'))
+            . claro_html_button(claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel'))
             . '</form>'
         );
         return $dialogBox->render();
@@ -1340,14 +1340,14 @@ function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0
     $bc = new BreadCrumbs;
 
     $bc->appendNode( new BreadCrumbsNode( get_lang( 'Forum index' ),
-                    htmlspecialchars( Url::Contextualize( get_module_entry_url('CLFRM') ))
+                    claro_htmlspecialchars( Url::Contextualize( get_module_entry_url('CLFRM') ))
                     ));
 
     if ( in_array( $pagetype, array( 'viewforum', 'viewtopic', 'add', 'edit', 'reply', 'quote' ) ) )
     {
         $bc->appendNode( new BreadCrumbsNode(
                         $forum_name,
-                        htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
+                        claro_htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
                         . '/viewforum.php?forum=' . $forum_id ) )
                         ));
 
@@ -1369,7 +1369,7 @@ function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0
             case 'edit' :
                 $bc->appendNode( new BreadCrumbsNode(
                                 $topic_name,
-                                htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
+                                claro_htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
                                 . '/viewtopic.php?topic=' . $topic_id ) )
                                 ));
                 $bc->appendNode( new BreadCrumbsNode( get_lang( 'Edit post' ) ) );
@@ -1378,7 +1378,7 @@ function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0
             case 'quote' :
                 $bc->appendNode( new BreadCrumbsNode(
                                 $topic_name,
-                                htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
+                                claro_htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
                                 . '/viewtopic.php?topic=' . $topic_id ) )
                                 ));
                 $bc->appendNode( new BreadCrumbsNode( get_lang( 'Reply' ) ) );
@@ -1387,7 +1387,7 @@ function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0
             case 'reply' :
                 $bc->appendNode( new BreadCrumbsNode(
                                 $topic_name,
-                                htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
+                                claro_htmlspecialchars( Url::Contextualize( get_module_url('CLFRM')
                                 . '/viewtopic.php?topic=' . $topic_id ) )
                                 ));
                 $bc->appendNode( new BreadCrumbsNode( get_lang( 'Reply' ) ) );

@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 
-<form method="post" action="<?php echo htmlspecialchars($this->formAction); ?>">
+<form method="post" action="<?php echo claro_htmlspecialchars($this->formAction); ?>">
     <fieldset>
         <legend><?php echo get_lang('Basic settings'); ?></legend>
         
@@ -13,7 +13,7 @@
             <dt><label for="title"><?php echo get_lang('Title'); ?></label></dt>
             <dd>
                 <input size="80" type="text" name="title" id="title"
-                value="<?php echo htmlspecialchars($this->event['title']); ?>" />
+                value="<?php echo claro_htmlspecialchars($this->event['title']); ?>" />
             </dd>
             
             <dt><?php echo get_lang('Date'); ?></dt>
@@ -28,7 +28,7 @@
             </dt>
             <dd>
                 <input type="text" name="lasting" id="lasting" size="20" maxlength="20"
-                value="<?php echo htmlspecialchars($this->event['lastingAncient']); ?>" />
+                value="<?php echo claro_htmlspecialchars($this->event['lastingAncient']); ?>" />
             </dd>
             
             <dt>
@@ -36,7 +36,7 @@
             </dt>
             <dd>
                 <input type="text" name="location" id="location" size="20" maxlength="20"
-                value="<?php echo htmlspecialchars($this->event['location']); ?>" />
+                value="<?php echo claro_htmlspecialchars($this->event['location']); ?>" />
             </dd>
             
             <dt>
@@ -44,7 +44,7 @@
             </dt>
             <dd>
                 <input type="text" name="speakers" id="speakers" size="20" maxlength="200"
-                value="<?php echo (isset($this->event['speakers']) ? (htmlspecialchars($this->event['speakers'])) : ('')); ?>" /><br />
+                value="<?php echo (isset($this->event['speakers']) ? (claro_htmlspecialchars($this->event['speakers'])) : ('')); ?>" /><br />
                 <p class="notice"><?php echo get_lang('If more than one, separated by a coma'); ?></p>
             </dd>
             
@@ -62,7 +62,7 @@
     </fieldset>
     
     <input type="submit" class="claroButton" name="submitEvent" value="<?php echo get_lang('Ok'); ?>" />
-    <?php echo claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel')); ?>
+    <?php echo claro_html_button(claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel')); ?>
 </form>
 
 <hr />

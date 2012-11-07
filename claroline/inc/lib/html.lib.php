@@ -117,8 +117,8 @@ function claro_html_menu_horizontal($itemList)
             $section_name = $section_def['label'];
             
             $tabList[]= '<a ' . ( $section == $section_selected ? ('class="' . $currentClassName . '"') : '' )
-            . ' href="' . $_SERVER['PHP_SELF'] . '?section=' . htmlspecialchars($section)
-                                               . htmlspecialchars($url_params). '">'
+            . ' href="' . $_SERVER['PHP_SELF'] . '?section=' . claro_htmlspecialchars($section)
+                                               . claro_htmlspecialchars($url_params). '">'
             . get_lang($section_name) . '</a>';
 
         }
@@ -342,7 +342,7 @@ function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
 
         $htmlizedName = is_htmlspecialcharized($thisName)
         ? $thisName
-        : htmlspecialchars($thisName);
+        : claro_htmlspecialchars($thisName);
 
         $breadCrumbList [] = $startAnchorTag
         . $htmlizedName
@@ -557,7 +557,7 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
         .'rows="'.$rows.'" '
         .'cols="'.$cols.'" '
         .$optAttrib.' >'
-        ."\n".htmlspecialchars($content)."\n"
+        ."\n".claro_htmlspecialchars($content)."\n"
         .'</textarea>'."\n";
     }
 
@@ -1149,7 +1149,7 @@ function clean_str_for_javascript( $str )
     // 3. replace "\n" by uninterpreted '\n'
     $output = str_replace("\n",'\n', $output);
     // 4. convert special chars into html entities
-    $output = htmlspecialchars($output);
+    $output = claro_htmlspecialchars($output);
 
     return $output;
 }
@@ -1380,7 +1380,7 @@ function renderTexCallback( $matches )
     {
         $claro_texRendererUrl = get_conf('claro_texRendererUrl');
 
-        $text = '<img src="'.$claro_texRendererUrl.'?'.rawurlencode($matches[1]).'" border="0" align="absmiddle" class="latexFormula" alt="'.htmlspecialchars($matches[1]).'" />';
+        $text = '<img src="'.$claro_texRendererUrl.'?'.rawurlencode($matches[1]).'" border="0" align="absmiddle" class="latexFormula" alt="'.claro_htmlspecialchars($matches[1]).'" />';
         return $text;
     }
     else
@@ -1506,7 +1506,7 @@ function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttr
 function htmlize($phrase)
 {
     // TODO use textile project here
-    return claro_parse_user_text(htmlspecialchars($phrase));
+    return claro_parse_user_text(claro_htmlspecialchars($phrase));
 }
 
 /**
@@ -1584,15 +1584,15 @@ function claro_html_breadcrumb()
 
         if ( claro_is_in_a_course() )
         {
-            $breadcrumbUrlList[]  = get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id());
+            $breadcrumbUrlList[]  = get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . claro_htmlspecialchars(claro_get_current_course_id());
             $breadcrumbNameList[] = claro_get_current_course_data('officialCode');
         }
 
         if ( claro_is_in_a_group() )
         {
-            $breadcrumbUrlList[]  = get_module_url('CLGRP') . '/index.php?cidReq=' . htmlspecialchars(claro_get_current_course_id());
+            $breadcrumbUrlList[]  = get_module_url('CLGRP') . '/index.php?cidReq=' . claro_htmlspecialchars(claro_get_current_course_id());
             $breadcrumbNameList[] = get_lang('Groups');
-            $breadcrumbUrlList[]  = get_module_url('CLGRP') . '/group_space.php?cidReq=' . htmlspecialchars(claro_get_current_course_id()).'&gidReq=' . (int) claro_get_current_group_id();
+            $breadcrumbUrlList[]  = get_module_url('CLGRP') . '/group_space.php?cidReq=' . claro_htmlspecialchars(claro_get_current_course_id()).'&gidReq=' . (int) claro_get_current_group_id();
             $breadcrumbNameList[] = claro_get_current_group_data('name');
         }
 
@@ -1728,8 +1728,8 @@ function claro_html_tab_bar( $section_list,
             foreach ( $url_params as $name => $value )
             {
                 $extra_url_params .= '&amp;'
-                    . htmlspecialchars($name)
-                    . '=' . htmlspecialchars($value)
+                    . claro_htmlspecialchars($name)
+                    . '=' . claro_htmlspecialchars($value)
                     ;
             }
         }
@@ -1746,10 +1746,10 @@ function claro_html_tab_bar( $section_list,
             
             $menu .=  '<li>'
                 . '<a ' . ( $section_id == $section_selected_id ? 'class="current"' : '' )
-                . ' href="' . htmlspecialchars(Url::Contextualize( $baseUrl
-                . htmlspecialchars($section_request_var_name).'='
-                . htmlspecialchars($section_id) .$extra_url_params )) . '" '
-                . 'id="'. htmlspecialchars($section_id) .'">'
+                . ' href="' . claro_htmlspecialchars(Url::Contextualize( $baseUrl
+                . claro_htmlspecialchars($section_request_var_name).'='
+                . claro_htmlspecialchars($section_id) .$extra_url_params )) . '" '
+                . 'id="'. claro_htmlspecialchars($section_id) .'">'
                 . get_lang($section_label) . '</a>'
                 . '</li>' . "\n"
                 ;

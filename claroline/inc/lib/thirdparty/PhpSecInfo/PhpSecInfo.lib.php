@@ -285,7 +285,7 @@ PHP Environment Security Info
         ksort($group_results);
 
         ?>
-        <h2><?php echo htmlspecialchars($group_name, ENT_QUOTES) ?></h2>
+        <h2><?php echo claro_htmlspecialchars($group_name, ENT_QUOTES) ?></h2>
 
         <table border="0" cellpadding="3" width="600">
         <tr class='h'>
@@ -295,7 +295,7 @@ PHP Environment Security Info
         <?php foreach ($group_results as $test_name=>$test_results): ?>
 
         <tr>
-            <td class="e"><?php echo htmlspecialchars($test_name, ENT_QUOTES) ?></td>
+            <td class="e"><?php echo claro_htmlspecialchars($test_name, ENT_QUOTES) ?></td>
             <td class="<?php echo $this->_outputGetCssClassFromResult($test_results['result']) ?>">
                 <?php echo $test_results['message'] ?>
             </td>

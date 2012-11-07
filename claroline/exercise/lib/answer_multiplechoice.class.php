@@ -554,7 +554,7 @@ class answerMultipleChoice
                 . claro_html_textarea_editor ( 'comment_' . $i, $answer[ 'comment' ], 10, 25, '', 'simple' )
                 . '</td>' . "\n"
                 . '<td valign="top">'
-                . '<input name="grade_' . $i . '" size="5" value="' . htmlspecialchars ( $answer[ 'grade' ] ) . '" type="text" />'
+                . '<input name="grade_' . $i . '" size="5" value="' . claro_htmlspecialchars ( $answer[ 'grade' ] ) . '" type="text" />'
                 . '</td>' . "\n"
                 . '</tr>' . "\n\n"
             ;

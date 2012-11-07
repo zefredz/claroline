@@ -153,7 +153,7 @@
                 <dd>
                     <input name="applyChange" id="applyChange" value="<?php echo get_lang('Create'); ?>" type="submit">
                     &nbsp;
-                    <a href="<?php echo htmlspecialchars(Url::Contextualize(get_module_url('CLUSR'))); ?>">
+                    <a href="<?php echo claro_htmlspecialchars(Url::Contextualize(get_module_url('CLUSR'))); ?>">
                     <input type="button" value="<?php echo get_lang('Cancel'); ?>" />
                     </a>
                 </dd>

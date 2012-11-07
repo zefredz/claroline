@@ -265,10 +265,10 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
         $externalToolId = null;
     }
 
-    $form = "\n".'<form action="'.htmlspecialchars( $_SERVER['PHP_SELF'] ).'" method="post">'."\n"
+    $form = "\n".'<form action="'.claro_htmlspecialchars( $_SERVER['PHP_SELF'] ).'" method="post">'."\n"
     .       claro_form_relay_context()
     .       '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
-    .       '<input type="hidden" name="section" value="'.htmlspecialchars($currentSection).'" />'."\n"
+    .       '<input type="hidden" name="section" value="'.claro_htmlspecialchars($currentSection).'" />'."\n"
     .       '<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'" />'."\n";
 
     if ($externalToolId)
@@ -278,10 +278,10 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
 
     $form .= '<label for="toolName">' . get_lang('Name link') . '</label>'
     .       '<br />' . "\n"
-    .       '<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($externalLinkName).'" />'
+    .       '<input type="text" name="toolName" id="toolName" value="'.claro_htmlspecialchars($externalLinkName).'" />'
     .       '<br />' . "\n"
     .       '<label for="toolUrl">'.get_lang('URL link').'</label><br />'."\n"
-    .       '<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($externalLinkUrl).'" />'
+    .       '<input type="text" name="toolUrl" id="toolUrl" value="'.claro_htmlspecialchars($externalLinkUrl).'" />'
     .       '<br /><br />' . "\n"
     .       '<input class="claroButton" type="submit" value="'.get_lang('Ok').'" />'
     .       '&nbsp; ' . "\n"
@@ -467,7 +467,7 @@ if ( $currentSection == 'toolRights' )
     $display_profile_list = array_keys($profileNameList);
     
     $profileRightHtml = new RightProfileToolRightHtml();
-    $profileRightHtml->addUrlParam('section', htmlspecialchars($currentSection));
+    $profileRightHtml->addUrlParam('section', claro_htmlspecialchars($currentSection));
     $profileRightHtml->setCourseToolInfo($displayToolList);
     
     $profileLegend = array();
@@ -504,8 +504,8 @@ elseif ( $currentSection == 'extLinks' )
     $out .= '<blockquote>' . "\n"
     .    '<p>' . "\n"
     .    '<a class="claroCmd" href="'
-    .    htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-    .    '?cmd=rqAdd&section='.htmlspecialchars($currentSection) )).'">'
+    .    claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+    .    '?cmd=rqAdd&section='.claro_htmlspecialchars($currentSection) )).'">'
     .    '<img src="' . get_icon_url('link') . '" alt="" />'
     .    get_lang('Add external link')
     .    '</a>' . "\n"
@@ -537,13 +537,13 @@ elseif ( $currentSection == 'extLinks' )
         
             if ( $link['visibility'] == true )
             {
-                $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;tool_id=' . $linkId . '&amp;section='.htmlspecialchars($currentSection) )).'" >'
+                $out .= '<a href="' . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;tool_id=' . $linkId . '&amp;section='.claro_htmlspecialchars($currentSection) )).'" >'
                 . '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Visible') . '" />'
                 . '</a>';
             }
             else
             {
-                $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;tool_id=' . $linkId .'&amp;section='.htmlspecialchars($currentSection) )).'" >'
+                $out .= '<a href="' . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;tool_id=' . $linkId .'&amp;section='.claro_htmlspecialchars($currentSection) )).'" >'
                 . '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Invisible') . '" />'
                 . '</a>';
         
@@ -552,12 +552,12 @@ elseif ( $currentSection == 'extLinks' )
             $out .= '</td>'."\n";
         
             $out .= '<td align="center">'
-            . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$linkId.'&amp;section='.htmlspecialchars($currentSection) )).'">'
+            . '<a href="'.claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$linkId.'&amp;section='.claro_htmlspecialchars($currentSection) )).'">'
             . '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
             . '</a></td>' . "\n" ;
         
             $out .= '<td align="center">'
-            .'<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$linkId.'&amp;section='.htmlspecialchars($currentSection) )).'"'
+            .'<a href="'.claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$linkId.'&amp;section='.claro_htmlspecialchars($currentSection) )).'"'
             .' onclick="return confirmation(\''.clean_str_for_javascript($link['name']).'\');">'
             .'<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
             .'</a></td>'."\n";
@@ -653,10 +653,10 @@ elseif ( $currentSection == 'toolList' )
         {
             if ( ! in_array( $activeTool['label'], $undeactivable_tool_array ) )
             {
-                $action_link = '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                $action_link = '<a href="' . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                     . '?cmd=exRmTool&amp;toolLabel='
-                    . htmlspecialchars($activeTool['label'])
-                    .'&amp;section='.htmlspecialchars($currentSection) )).'" '
+                    . claro_htmlspecialchars($activeTool['label'])
+                    .'&amp;section='.claro_htmlspecialchars($currentSection) )).'" '
                     . 'title="'.get_lang('Remove').'">'
                     . '<img src="' . get_icon_url('delete') . '" border="0" alt="'. get_lang('Remove') . '"/>'
                     . '</a>'
@@ -706,10 +706,10 @@ elseif ( $currentSection == 'toolList' )
             if ( $inactiveTool['access_manager'] == 'COURSE_ADMIN'
                 || claro_is_platform_admin() )
             {
-                $action_link = '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                $action_link = '<a href="' . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                     . '?cmd=exAddTool&amp;toolLabel='
-                    . htmlspecialchars($inactiveTool['label'])
-                    .'&amp;section='.htmlspecialchars($currentSection) )).'" '
+                    . claro_htmlspecialchars($inactiveTool['label'])
+                    .'&amp;section='.claro_htmlspecialchars($currentSection) )).'" '
                     . 'title="'.get_lang('Add').'">'
                     . '<img src="' . get_icon_url('select') . '" alt="'. get_lang('Add') . '"/>'
                     . '</a>'

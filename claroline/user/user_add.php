@@ -171,7 +171,7 @@ if ( $cmd == 'registration' )
                     . '</a>'
                     . '</li>'
                     . '<li>'
-                    . '<a href="'.htmlspecialchars( $confirmUserCreateUrl ).'">'
+                    . '<a href="'.claro_htmlspecialchars( $confirmUserCreateUrl ).'">'
                     . get_lang('Confirm the creation of a new user')
                     . '</a>'
                     . '<br /><small>'
@@ -180,7 +180,7 @@ if ( $cmd == 'registration' )
                     . '</small>'
                     . '</li>'
                     . '<li>'
-                    . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=cancel' )) .'">'
+                    . '<a href="'.claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=cancel' )) .'">'
                     . get_lang('Cancel the operation') . '</a>'
                     . '</li>'
                     . '</ul>'
@@ -322,7 +322,7 @@ $cmdList = array();
 $cmdList[] = array(
     'name' => get_lang('Search and add an existing user'),
     'img' => 'search',
-    'url' => htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF']) )
+    'url' => claro_htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF']) )
 );
 
 if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
@@ -330,7 +330,7 @@ if ( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_
     $cmdList[] = array(
         'name' => get_lang('Create a new user'),
         'img' => 'user',
-        'url' => htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF']. '?cmd=rqRegistration') )
+        'url' => claro_htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF']. '?cmd=rqRegistration') )
     );
 }
 
@@ -360,7 +360,7 @@ $out .= $dialogBox->render();
 
 if ( $courseRegSucceed )
 {
-    $out .= '<p><a href="' . htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') ) ) . '">&lt;&lt; ' . get_lang('Back to user list') . '</a></p>' . "\n";
+    $out .= '<p><a href="' . claro_htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') ) ) . '">&lt;&lt; ' . get_lang('Back to user list') . '</a></p>' . "\n";
 }
 else
 {
@@ -398,11 +398,11 @@ else
         foreach ($userList as $thisUser)
         {
            $out .= '<tr valign="top">' . "\n"
-                 . '<td>' . htmlspecialchars($thisUser['lastname'    ]) . '</td>' . "\n"
-                 . '<td>' . htmlspecialchars($thisUser['firstname'   ]) . '</td>' . "\n"
-                 . '<td>' . htmlspecialchars($thisUser['officialCode']) . '</td>' . "\n"
-                 . '<td>' . htmlspecialchars($thisUser['username'    ]) . '</td>' . "\n"
-                 . '<td>' . htmlspecialchars($thisUser['email'       ]) . '</td>' . "\n"
+                 . '<td>' . claro_htmlspecialchars($thisUser['lastname'    ]) . '</td>' . "\n"
+                 . '<td>' . claro_htmlspecialchars($thisUser['firstname'   ]) . '</td>' . "\n"
+                 . '<td>' . claro_htmlspecialchars($thisUser['officialCode']) . '</td>' . "\n"
+                 . '<td>' . claro_htmlspecialchars($thisUser['username'    ]) . '</td>' . "\n"
+                 . '<td>' . claro_htmlspecialchars($thisUser['email'       ]) . '</td>' . "\n"
                  . '<td align="center">' . "\n";
             
             // deal with already registered users found in result

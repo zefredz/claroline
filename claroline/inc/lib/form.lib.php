@@ -211,7 +211,7 @@ function claro_html_option_list($list_option, $preselect, $reverted = false)
             {
                 $html_option_list .= '<option value="' . $option_value . '"'
                 .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
-                .                    htmlspecialchars($option_label)
+                .                    claro_htmlspecialchars($option_label)
                 .                    '</option >' . "\n"
                 ;
             }
@@ -222,7 +222,7 @@ function claro_html_option_list($list_option, $preselect, $reverted = false)
             {
                 $html_option_list .= '<option value="' . $option_value . '"'
                 .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
-                .                    htmlspecialchars($option_label)
+                .                    claro_htmlspecialchars($option_label)
                 .                    '</option >' . "\n"
                 ;
             }
@@ -289,7 +289,7 @@ function form_input_text($name, $value, $displayedName = '', $required = false)
     return form_row( '<label for="' . $name . '">' . $displayedName . '</label>&nbsp;: '
     ,                '<input type="text" size="' . get_conf('formSize',40) . '"'
     .                ' id="'.$name.'" name="'.$name.'"'
-    .                ' value="'.htmlspecialchars($value).'" />')
+    .                ' value="'.claro_htmlspecialchars($value).'" />')
     ;
 }
 
@@ -310,7 +310,7 @@ function form_readonly_text($name, $value, $displayedName = '')
     if ( empty($value) ) $value = '-';
 
     return form_row( $displayedName . '&nbsp;: '
-    ,                htmlspecialchars($value) ) ;
+    ,                claro_htmlspecialchars($value) ) ;
 }
 
 /**
@@ -331,7 +331,7 @@ function form_input_password($name, $value, $displayedName = '', $required = fal
     return form_row( '<label for="'.$name.'">'.$displayedName . '</label>&nbsp;: '
     ,                '<input type="password" size="' . get_conf('formSize',40) . '"'
     .                ' id="' . $name . '" name="' . $name . '"'
-    .                ' value="' . htmlspecialchars($value) . '" />')
+    .                ' value="' . claro_htmlspecialchars($value) . '" />')
     ;
 }
 
@@ -344,7 +344,7 @@ function form_input_password($name, $value, $displayedName = '', $required = fal
  */
 function form_input_hidden($name, $value)
 {
-    return '<input type="hidden"' . ' id="'.$name.'" name="'.$name.'"' . ' value="'.htmlspecialchars($value).'" />';
+    return '<input type="hidden"' . ' id="'.$name.'" name="'.$name.'"' . ' value="'.claro_htmlspecialchars($value).'" />';
 }
 
 /**
@@ -365,7 +365,7 @@ function form_input_textarea($name, $value, $displayedName = '', $required = fal
     $rows = (int) $rows;
     return form_row( '<label for="' . $name . '">' . $displayedName . '</label>&nbsp;: '
     ,                '<textarea cols="' . get_conf('formSize',40) . '" rows="' . $rows . '"  '
-                   . ' id="' . $name . '" name="' . $name . '" >' . htmlspecialchars($value) . '</textarea>' )
+                   . ' id="' . $name . '" name="' . $name . '" >' . claro_htmlspecialchars($value) . '</textarea>' )
     ;
 }
 

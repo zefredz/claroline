@@ -79,7 +79,7 @@ class CurrentCourseToolListBlock implements Display
         $toolName = get_lang('Course homepage');
 
         // Trick to find how to build URL, must be IMPROVED
-        $url = htmlspecialchars( Url::Contextualize( get_path('url') . '/claroline/course/index.php?cid='.$this->courseCode ) );
+        $url = claro_htmlspecialchars( Url::Contextualize( get_path('url') . '/claroline/course/index.php?cid='.$this->courseCode ) );
         $icon = get_icon_url('coursehome');
         $htmlId = 'id="courseHomePage"';
         $removableTool = false;
@@ -108,7 +108,7 @@ class CurrentCourseToolListBlock implements Display
                 $toolName = get_lang($thisToolName);
 
                 // Trick to find how to build URL, must be IMPROVED
-                $url = htmlspecialchars( Url::Contextualize( get_module_url($thisTool['label']) . '/' . $thisTool['url'], $this->currentCourseContext ) );
+                $url = claro_htmlspecialchars( Url::Contextualize( get_module_url($thisTool['label']) . '/' . $thisTool['url'], $this->currentCourseContext ) );
                 $icon = get_module_url($thisTool['label']) .'/'. $thisTool['icon'];
                 $htmlId = 'id="' . $thisTool['label'] . '"';
                 $removableTool = false;
@@ -117,7 +117,7 @@ class CurrentCourseToolListBlock implements Display
             {
                 if ( ! empty($thisTool['external_name'])) $toolName = $thisTool['external_name'];
                 else $toolName = '<i>no name</i>';
-                $url = htmlspecialchars( trim($thisTool['url']) );
+                $url = claro_htmlspecialchars( trim($thisTool['url']) );
                 $icon = get_icon_url('link');
                 $htmlId = '';
                 $removableTool = true;
@@ -152,7 +152,7 @@ class CurrentCourseToolListBlock implements Display
         
         $otherToolsList[] = '<img class="iconDefinitionList" src="'.get_icon_url('hot').'" alt="'.get_lang('New items').'" />'
                   . ' '.get_lang('New items').' '
-                  . '(<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php', $this->currentCourseContext ) ).'">'
+                  . '(<a href="'.claro_htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php', $this->currentCourseContext ) ).'">'
                   . get_lang('to another date')
                    . '</a>)'
                   . ((substr($this->getUserLastAction(), strlen($this->getUserLastAction()) - 8) == '00:00:00' ) ?
@@ -171,12 +171,12 @@ class CurrentCourseToolListBlock implements Display
         
         if ( $this->viewMode != 'STUDENT' )
         { 
-            $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')  . 'course/tools.php', $this->currentCourseContext ) ) . '">'
+            $courseManageToolLinkList[] = '<a class="claroCmd" href="' . claro_htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')  . 'course/tools.php', $this->currentCourseContext ) ) . '">'
                                 . '<img src="' . get_icon_url('edit') . '" alt="" /> '
                                 . get_lang('Edit Tool list')
                                 . '</a>';
 
-            $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/settings.php', $this->currentCourseContext ) ) . '">'
+            $courseManageToolLinkList[] = '<a class="claroCmd" href="' . claro_htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/settings.php', $this->currentCourseContext ) ) . '">'
                                         . '<img src="' . get_icon_url('settings') . '" alt="" /> '
                                         . get_lang('Course settings')
                                         . '</a>';
@@ -185,7 +185,7 @@ class CurrentCourseToolListBlock implements Display
                 && claro_is_allowed_to_create_course()
                 && ( get_conf( 'courseSessionAllowed' , true ) || claro_is_platform_admin() ) )
             {
-                $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')
+                $courseManageToolLinkList[] = '<a class="claroCmd" href="' . claro_htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')
                                             . 'course/create.php', array('course_sourceCourseId'=>$this->courseId) )) . '">'
                                             . '<img src="' . get_icon_url('duplicate') . '" alt="" /> '
                                             . get_lang("Create a session course")
@@ -194,7 +194,7 @@ class CurrentCourseToolListBlock implements Display
 
             if( get_conf('is_trackingEnabled') )
             {
-                $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'tracking/courseReport.php', $this->currentCourseContext )) . '">'
+                $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . claro_htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'tracking/courseReport.php', $this->currentCourseContext )) . '">'
                                             . '<img src="' . get_icon_url('statistics') . '" alt="" /> '
                                             . get_lang('Statistics')
                                             . '</a>';
@@ -206,7 +206,7 @@ class CurrentCourseToolListBlock implements Display
             {
                 foreach ( $extraManageToolList as $extraManageTool )
                 {
-                    $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_module_entry_url($extraManageTool['label'] ) ) ) . '">'
+                    $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . claro_htmlspecialchars(Url::Contextualize( get_module_entry_url($extraManageTool['label'] ) ) ) . '">'
                     .                             '<img src="' . get_module_icon_url($extraManageTool['label'], $extraManageTool['icon'], 'settings') . '" alt="" /> '
                     .                             get_lang($extraManageTool['name'])
                     .                             '</a>'

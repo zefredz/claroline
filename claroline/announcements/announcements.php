@@ -404,7 +404,7 @@ if ( $displayButtonLine )
     $cmdList[] = array(
         'img' => 'announcement_new',
         'name' => get_lang('Add announcement'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqCreate'))
+        'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqCreate'))
     );
     
     if ( claro_is_course_manager() )
@@ -412,7 +412,7 @@ if ( $displayButtonLine )
         $cmdList[] = array(
             'img' => 'mail_close',
             'name' => get_lang('Messages to selected users'),
-            'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann'))
+            'url' => claro_htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php?from=clann'))
         );
     }
     
@@ -421,7 +421,7 @@ if ( $displayButtonLine )
         $cmdList[] = array(
             'img' => 'delete',
             'name' => get_lang('Clear up list of announcements'),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDeleteAll')),
+            'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDeleteAll')),
             'params' => array('onclick' => 'return CLANN.confirmationDelAll()')
         );
     }

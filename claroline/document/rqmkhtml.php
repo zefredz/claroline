@@ -66,10 +66,10 @@ CREATE DOCUMENT
 
 if ($cmd ==  'rqMkHtml' )
 {
-    $out .= '<form action="' . htmlspecialchars(get_module_entry_url('CLDOC')) .'" method="post">' . "\n"
+    $out .= '<form action="' . claro_htmlspecialchars(get_module_entry_url('CLDOC')) .'" method="post">' . "\n"
     . claro_form_relay_context() . "\n"
     . '<input type="hidden" name="cmd" value="exMkHtml" />' . "\n"
-    . '<input type="hidden" name="cwd" value="' . htmlspecialchars(strip_tags($cwd)) . '" />' . "\n"
+    . '<input type="hidden" name="cwd" value="' . claro_htmlspecialchars(strip_tags($cwd)) . '" />' . "\n"
     . '<p>' . "\n"
     . '<b>' . get_lang('Document name') . '&nbsp;: </b><br />' . "\n"
     . '<input type="text" name="fileName" size="80" />' . "\n"
@@ -87,7 +87,7 @@ if ($cmd ==  'rqMkHtml' )
     $out .= '</p>'  . "\n"
     . '<p>' . "\n"
     . '<input type="submit" value="'. get_lang('Ok') .'" />&nbsp;'
-    . claro_html_button(htmlspecialchars(Url::Contextualize('./document.php?cmd=exChDir&amp;file='.strip_tags($cwd))), get_lang('Cancel'))
+    . claro_html_button(claro_htmlspecialchars(Url::Contextualize('./document.php?cmd=exChDir&amp;file='.strip_tags($cwd))), get_lang('Cancel'))
     . '</p>' . "\n"
     . '</form>' . "\n"
     ;
@@ -105,10 +105,10 @@ elseif($cmd == "rqEditHtml" && !empty($file) )
 
 
     $fileContent = get_html_body_content($fileContent);
-    $out .= '<form action="' . htmlspecialchars(get_module_entry_url('CLDOC')) .'" method="post">' . "\n"
+    $out .= '<form action="' . claro_htmlspecialchars(get_module_entry_url('CLDOC')) .'" method="post">' . "\n"
     . claro_form_relay_context() . "\n"
     . '<input type="hidden" name="cmd" value="exEditHtml" />' . "\n"
-    . '<input type="hidden" name="file" value="' . htmlspecialchars(base64_encode($file)) .'" />' . "\n"
+    . '<input type="hidden" name="file" value="' . claro_htmlspecialchars(base64_encode($file)) .'" />' . "\n"
     . '<b>'. get_lang('Document name') .' : </b><br />' . "\n"
     . $file . "\n"
     . '</p>' . "\n"
@@ -118,7 +118,7 @@ elseif($cmd == "rqEditHtml" && !empty($file) )
     . '</p>'
     . '<p>'
     . '<input type="submit" value="' . get_lang('Ok') .'" />&nbsp;' . "\n"
-    . claro_html_button(htmlspecialchars(Url::Contextualize('./document.php?cmd=rqEdit&file='.base64_encode($file))), get_lang('Cancel')) . "\n"
+    . claro_html_button(claro_htmlspecialchars(Url::Contextualize('./document.php?cmd=rqEdit&file='.base64_encode($file))), get_lang('Cancel')) . "\n"
     . '</p>' . "\n"
     . '</form>' . "\n"
     ;

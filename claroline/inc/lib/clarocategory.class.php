@@ -814,7 +814,7 @@ class ClaroCategory
         // TODO use a template
         
         if ( is_null($cancelUrl) )
-            $cancelUrl = get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($this->id);
+            $cancelUrl = get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . claro_htmlspecialchars($this->id);
         
         $html = '';
         
@@ -836,7 +836,7 @@ class ClaroCategory
             . (get_conf('human_label_needed') ? '<span class="required">*</span> ':'')
             .'</label></dt>'
             . '<dd>'
-            . '<input type="text" name="category_name" id="category_name" value="' . htmlspecialchars($this->name) . '" size="30" maxlength="100" />'
+            . '<input type="text" name="category_name" id="category_name" value="' . claro_htmlspecialchars($this->name) . '" size="30" maxlength="100" />'
             . (empty($this->id) ? '<br /><span class="notice">'.get_lang('e.g. <em>Sciences of Economics</em>').'</span>':'')
             . '</dd>' . "\n" ;
         
@@ -846,7 +846,7 @@ class ClaroCategory
             . get_lang('Category code')
             . '<span class="required">*</span> '
             . '</label></dt>'
-            . '<dd><input type="text" id="category_code" name="category_code" value="' . htmlspecialchars($this->code) . '" size="30" maxlength="12" />'
+            . '<dd><input type="text" id="category_code" name="category_code" value="' . claro_htmlspecialchars($this->code) . '" size="30" maxlength="12" />'
             . (empty($this->id) ? '<br /><span class="notice">'.get_lang('max. 12 characters, e.g. <em>ROM2121</em>').'</span>':'')
             . '</dd>' . "\n" ;
         

@@ -369,7 +369,7 @@ foreach ( $workList as $workId => $thisWrk )
 
     if ($thisWrk['is_mine']) $workList[$workId]['name'] = '<b>' . $thisWrk['name'] . '</b>';
 
-    $workList[$workId]['name'] = '<a class="item" href="'.htmlspecialchars(Url::Contextualize('user_work.php'
+    $workList[$workId]['name'] = '<a class="item" href="'.claro_htmlspecialchars(Url::Contextualize('user_work.php'
     . '?authId=' . $thisWrk['authId']
     . '&assigId=' . $req['assignmentId'] ))
     . '">'
@@ -430,7 +430,7 @@ if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
     // Link to create a new assignment
     $cmdList[] = array(
         'name' => get_lang('Submit a work'),
-        'url' => htmlspecialchars(Url::Contextualize('user_work.php?authId='
+        'url' => claro_htmlspecialchars(Url::Contextualize('user_work.php?authId='
                . claro_get_current_user_id()
                . '&cmd=rqSubWrk'
                . '&assigId='.$req['assignmentId']))
@@ -441,7 +441,7 @@ if ( $is_allowedToEditAll )
 {
     $cmdList[] = array(
         'name' => get_lang('Edit automatic feedback'),
-        'url' => htmlspecialchars(Url::Contextualize('feedback.php?cmd=rqEditFeedback'
+        'url' => claro_htmlspecialchars(Url::Contextualize('feedback.php?cmd=rqEditFeedback'
                . '&assigId=' . $req['assignmentId']))
     );
     
@@ -450,7 +450,7 @@ if ( $is_allowedToEditAll )
         $cmdList[] = array(
             'img' => 'save',
             'name' => get_lang('Download submissions'),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqDownload'
+            'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqDownload'
                    . '&assigId=' . $req['assignmentId']))
         );
     }
@@ -538,7 +538,7 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
     if( $assignment->getAutoFeedbackFilename() != '' )
     {
         $target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
-        $out .=  '<p><a href="' . htmlspecialchars(Url::Contextualize($assignment->getAssigDirWeb() . $assignment->getAutoFeedbackFilename())) . '" ' . $target . '>'
+        $out .=  '<p><a href="' . claro_htmlspecialchars(Url::Contextualize($assignment->getAssigDirWeb() . $assignment->getAutoFeedbackFilename())) . '" ' . $target . '>'
         . $assignment->getAutoFeedbackFilename()
         . '</a></p>'
         ;

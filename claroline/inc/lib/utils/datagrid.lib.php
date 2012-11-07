@@ -222,7 +222,7 @@ class Claro_Utils_Datagrid extends Claro_Html_Element
     protected function replace( $key, $value, $output )
     {
         $output = str_replace( "%$key%", $value, $output );
-        $output = str_replace( "%html($key)%", htmlspecialchars( $value ), $output );
+        $output = str_replace( "%html($key)%", claro_htmlspecialchars( $value ), $output );
         $output = str_replace( "%uu($key)%", rawurlencode( $value ), $output );
         $output = str_replace( "%int($key)%", (int) $value, $output );
         
@@ -248,7 +248,7 @@ class Claro_Utils_Autogrid extends Claro_Utils_Datagrid
             
             foreach ( array_keys( $rows[0] ) as $column )
             {
-                $this->columnsLabels[$column] = htmlspecialchars( $column );
+                $this->columnsLabels[$column] = claro_htmlspecialchars( $column );
                 $this->columnsValues[$column] = "%html({$column})%";
             }
         }

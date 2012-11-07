@@ -198,7 +198,7 @@ $cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'
 
 if(claro_is_platform_admin())
 {
-    $cmdList[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+    $cmdList[] = claro_html_cmd_link( claro_htmlspecialchars(Url::Contextualize(
                                         $_SERVER['PHP_SELF'] . '?cmd=export&amp;class_id=' .$class_id ))
                                      , '<img src="' . get_icon_url('export') . '" alt="" />'
                                      . get_lang('Export user list')
@@ -252,7 +252,7 @@ if ( !empty($class_id) )
     $out .= '<div style="text-align: right">'."\n"
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="GET">' . "\n"
     .    '<input type="hidden" name="class_id" value="'.$class_id. '" />' . "\n"
-    .    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" size="20" />' . "\n"
+    .    '<input type="text" value="' . claro_htmlspecialchars($search).'" name="search" id="search" size="20" />' . "\n"
     .    '<input type="submit" value=" ' . get_lang('Search') . ' " />' . "\n"
     .    '</form>'."\n"
     .    '</div>' . "\n"

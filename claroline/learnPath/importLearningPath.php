@@ -1096,13 +1096,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     if ( !$errorFound )
     {
         $out .= "\n<br /><center><b>".get_lang('Learning path has been successfully imported.')."</b></center>";
-        $out .= "\n<br /><br ><center><a href=\"".htmlspecialchars(Url::Contextualize("learningPathAdmin.php?path_id=".$tempPathId))."\">".$lpName."</a></center>";
+        $out .= "\n<br /><br ><center><a href=\"".claro_htmlspecialchars(Url::Contextualize("learningPathAdmin.php?path_id=".$tempPathId))."\">".$lpName."</a></center>";
     }
     else
     {
         $out .= "\n<br /><center><b>".get_lang('An error occurred. Learning Path import failed.')."</b></center>";
     }
-    $out .= "\n<br /><a href=\"".htmlspecialchars(Url::Contextualize("learningPathList.php"))."\">&lt;&lt; ".get_lang('Back')."</a>";
+    $out .= "\n<br /><a href=\"".claro_htmlspecialchars(Url::Contextualize("learningPathList.php"))."\">&lt;&lt; ".get_lang('Back')."</a>";
 
 }
 else // if method == 'post'

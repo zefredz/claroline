@@ -249,7 +249,7 @@ class CLFRM_UserTrackingRenderer extends UserTrackingRenderer
     {
         return get_lang('Messages posted') . ' : ' . $this->getUserTotalForumPost() . '<br />' . "\n"
         .    get_lang('Topics started') . ' : ' . $this->getUserTotalForumTopics() . '<br />' . "\n"
-        .    '<a href="' . htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewsearch.php?searchUser='.$this->userId ) ) . '">'
+        .    '<a href="' . claro_htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewsearch.php?searchUser='.$this->userId ) ) . '">'
         .    get_lang('View all user\'s posts')
         .     '</a>' . "\n"
         ;

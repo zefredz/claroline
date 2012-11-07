@@ -25,7 +25,7 @@ require_once dirname(__FILE__).'/lib/permission.lib.php';
 require_once dirname(__FILE__).'/lib/tools.lib.php';
 
 $messageId = isset($_REQUEST['messageId']) ? (int)$_REQUEST['messageId']: NULL;
-$type = isset($_REQUEST['type']) ? htmlspecialchars($_REQUEST['type']) : NULL;
+$type = isset($_REQUEST['type']) ? claro_htmlspecialchars($_REQUEST['type']) : NULL;
 
 $dialogBox = new DialogBox();
 

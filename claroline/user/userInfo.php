@@ -319,7 +319,7 @@ $out .= claro_html_tool_title($nameTools)
     // Back button for each display mode (Top)
     . '<p>' . "\n"
     . '<small>' . "\n"
-    . '<a href="'. htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') )) . '">'
+    . '<a href="'. claro_htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') )) . '">'
     . '&lt;&lt;&nbsp;'
     . get_lang('Back to user list')
     . '</a>' . "\n"
@@ -345,7 +345,7 @@ $out .= '<div id="rightSidebar"><img src="' . $pictureUrl . '" alt="' . get_lang
 if ($displayMode == "viewDefEdit")
 {
     /* CATEGORIES DEFINITIONS : EDIT */
-    $out .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] . '?uInfo=' . $userIdViewed ) . '">' . "\n"
+    $out .= '<form method="post" action="' . claro_htmlspecialchars( $_SERVER['PHP_SELF'] . '?uInfo=' . $userIdViewed ) . '">' . "\n"
         . claro_form_relay_context()
         . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
         . '<input type="hidden" name="id" value="' . $catToEdit['id'] . '" />' . "\n"
@@ -355,7 +355,7 @@ if ($displayMode == "viewDefEdit")
         . '<label for="title" >' . get_lang('Heading') . '</label> :' . "\n"
         . '</td>' . "\n"
         . '<td>' . "\n"
-        . '<input type="text" name="title" id="title" size="80" maxlength="80" value ="' . htmlspecialchars($catToEdit['title']) . '" />' . "\n"
+        . '<input type="text" name="title" id="title" size="80" maxlength="80" value ="' . claro_htmlspecialchars($catToEdit['title']) . '" />' . "\n"
         . '</td>' . "\n"
         . '</tr>' . "\n"
         . '<tr>' . "\n"
@@ -436,16 +436,16 @@ elseif ($displayMode == "viewDefList")
 
                 // displays commands
 
-                . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?removeDef=' . $thisCat['catId'] )) . '">'
+                . '<a href="'.claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?removeDef=' . $thisCat['catId'] )) . '">'
                 . '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
                 . '</a>' . "\n"
-                . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId'])) . '">'
+                . '<a href="'.claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId'])) . '">'
                 . '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Edit').'" />'
                 . '</a>' . "\n"
-                . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId'])). '">'
+                . '<a href="'.claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId'])). '">'
                 . '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
                 . '</a>' . "\n"
-                . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId'])). '">'
+                . '<a href="'.claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId'])). '">'
                 . '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
                 . '</a>' . "\n"
                 . '</div>' . "\n"
@@ -456,7 +456,7 @@ elseif ($displayMode == "viewDefList")
 
 
     $out .= '<div align="center">' . "\n"
-        . '<form method="post" action="'.htmlspecialchars($_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed).'">' . "\n"
+        . '<form method="post" action="'.claro_htmlspecialchars($_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed).'">' . "\n"
         . claro_form_relay_context()
         . '<input type="submit" name="addDef" value="'.get_lang('Add new heading').'" />' . "\n"
         . '</form>' . "\n"
@@ -467,7 +467,7 @@ elseif ($displayMode == "viewDefList")
 elseif ($displayMode == 'viewContentEdit' )
 {
     /*>>>>>>>>>>>> CATEGORIES CONTENTS : EDIT <<<<<<<<<<<<*/
-    $out .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] . '?uInfo=' . $userIdViewed ) . '">' . "\n"
+    $out .= '<form method="post" action="' . claro_htmlspecialchars( $_SERVER['PHP_SELF'] . '?uInfo=' . $userIdViewed ) . '">' . "\n"
         . claro_form_relay_context()
         . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
         . '<input type="hidden" name="cntId" value="' . $catToEdit['contentId'] . '" />' . "\n"
@@ -479,7 +479,7 @@ elseif ($displayMode == 'viewContentEdit' )
     
     if ($catToEdit['nbline']==1)
     {
-        $out .= '<input type="text" name="content" id="content" size="80" value="' . htmlspecialchars($catToEdit['content']) . '" />';
+        $out .= '<input type="text" name="content" id="content" size="80" value="' . claro_htmlspecialchars($catToEdit['content']) . '" />';
     }
     else
     {
@@ -537,7 +537,7 @@ elseif ($displayMode == "viewContentList") // default display
         if($allowedToEditDef)
         {
             $out .= '<td>'
-                . '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                . '<a href="' . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                 . '?editMainUserInfo=' . $userIdViewed )) . '">'
                 . '<img alt="'.get_lang('Edit').'" src="' . get_icon_url('edit') . '" />'
                 . '</a>'
@@ -549,7 +549,7 @@ elseif ($displayMode == "viewContentList") // default display
         if($is_allowedToTrack)
         {
             $out .= '<td>'
-                . '<a href="' . htmlspecialchars(Url::Contextualize(  get_path('clarolineRepositoryWeb') . 'tracking/userReport.php'
+                . '<a href="' . claro_htmlspecialchars(Url::Contextualize(  get_path('clarolineRepositoryWeb') . 'tracking/userReport.php'
                 . '?userId=' . $userIdViewed )) . '">'
                 . '<img alt="' . get_lang('Tracking') . '" src="' . get_icon_url('statistics') . '" />'
                 . '</a>'
@@ -564,12 +564,12 @@ elseif ($displayMode == "viewContentList") // default display
 
         if ( claro_is_user_authenticated() || ! get_conf('user_email_hidden_to_anonymous') )
         {
-            $out .= '<p><a href="mailto:'.htmlspecialchars($mainUserInfo['email']).'">'.$mainUserInfo['email'].'</a></p>';
+            $out .= '<p><a href="mailto:'.claro_htmlspecialchars($mainUserInfo['email']).'">'.$mainUserInfo['email'].'</a></p>';
         }
         
         if(current_user_is_allowed_to_send_message_to_user($userIdViewed))
         {
-            $out .= '<p><a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . '/messaging/sendmessage.php?cmd=rqMessageToUser&userId='.$userIdViewed)).'">'.get_lang('Send a message').'</a></p>';
+            $out .= '<p><a href="'.claro_htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . '/messaging/sendmessage.php?cmd=rqMessageToUser&userId='.$userIdViewed)).'">'.get_lang('Send a message').'</a></p>';
         }
 
         $out .= '<hr noshade="noshade" size="1" />' . "\n" ;
@@ -580,7 +580,7 @@ elseif ($displayMode == "viewContentList") // default display
     {
         $out .= "\n\n"
             . '<div align="right">' . "\n"
-            . '<form method="post" action="'.htmlspecialchars( $_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed ).'">' . "\n"
+            . '<form method="post" action="'.claro_htmlspecialchars( $_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed ).'">' . "\n"
             . claro_form_relay_context()
             . get_lang('Course administrator only').' : '
             . '<input type="submit" name="viewDefList" value="'.get_lang('Define Headings').'" />' . "\n"
@@ -613,7 +613,7 @@ elseif ($displayMode == "viewContentList") // default display
             if ($allowedToEditContent)
             {
                 $out .= '<br /><br />' . "\n"
-                    . '<a href="' . htmlspecialchars(Url::Contextualize(  $_SERVER['PHP_SELF']
+                    . '<a href="' . claro_htmlspecialchars(Url::Contextualize(  $_SERVER['PHP_SELF']
                     . '?editContent=' . $thisCat['catId']
                     . '&uInfo=' . $userIdViewed )) . '">'
                     . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
@@ -629,7 +629,7 @@ elseif ($displayMode == "viewContentList") // default display
 // Back button for each display mode (bottom)
 $out .= '<p>' . "\n"
     . '<small>' . "\n"
-    . '<a href="'. htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') )) . '">'
+    . '<a href="'. claro_htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') )) . '">'
     . '&lt;&lt;&nbsp;'
     . get_lang('Back to user list')
     . '</a>' . "\n"

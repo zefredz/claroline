@@ -176,9 +176,9 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
 
     if ( claro_debug_mode() )
     {
-        $message = '<p>Subject : ' . htmlspecialchars($subject) . '</p>' . "\n"
-                 . '<p>Message : <pre>' . htmlspecialchars($message) . '</pre></p>' . "\n"
-                 . '<p>From : ' . htmlspecialchars($mail->FromName) . ' - ' . htmlspecialchars($mail->From) . '</p>' . "\n"
+        $message = '<p>Subject : ' . claro_htmlspecialchars($subject) . '</p>' . "\n"
+                 . '<p>Message : <pre>' . claro_htmlspecialchars($message) . '</pre></p>' . "\n"
+                 . '<p>From : ' . claro_htmlspecialchars($mail->FromName) . ' - ' . claro_htmlspecialchars($mail->From) . '</p>' . "\n"
                  . '<p>Dest : ' . implode(', ', $emailList) . '</p>' . "\n";
         pushClaroMessage($message,'mail');
     }

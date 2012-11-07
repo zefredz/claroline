@@ -143,7 +143,7 @@ if ( $display == DISP_EDIT_FILE )
 {
     $out .= '<h4>' . basename($textZoneList[$fileId]['filename']) . '</h4>'
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-    .    '<input type="hidden" name="file" value="' . htmlspecialchars($fileId) . '" />' . "\n"
+    .    '<input type="hidden" name="file" value="' . claro_htmlspecialchars($fileId) . '" />' . "\n"
     .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     .    claro_html_textarea_editor('textContent', $textContent)
     .    '<p>' . "\n"

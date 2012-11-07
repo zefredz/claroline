@@ -48,7 +48,7 @@
             <dd>
                 <input type="submit" name="applySearch" id="applySearch" value="<?php echo get_lang("Search"); ?>" />
                 &nbsp;
-                <a href="<?php echo htmlspecialchars(Url::Contextualize(get_module_url('CLUSR'))); ?>">
+                <a href="<?php echo claro_htmlspecialchars(Url::Contextualize(get_module_url('CLUSR'))); ?>">
                 <input type="button" value="<?php echo get_lang('Cancel'); ?>" />
                 </a>
             </dd>

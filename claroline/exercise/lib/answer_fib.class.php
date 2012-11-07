@@ -509,17 +509,17 @@ class answerFillInBlanks
             elseif ( $this->isResponseCorrect ( $this->response[ $i ], $this->answerDecode ( $this->answerList[ $i ] ) ) )
             {
                 // user answer is ok
-                $userAnswer = htmlspecialchars ( $this->answerDecode ( $this->response[ $i ] ) );
+                $userAnswer = claro_htmlspecialchars ( $this->answerDecode ( $this->response[ $i ] ) );
             }
             else
             {
                 // incorrect response
-                $userAnswer = '<span class="error"><s>' . htmlspecialchars ( $this->answerDecode ( $this->response[ $i ] ) ) . '</s></span>';
+                $userAnswer = '<span class="error"><s>' . claro_htmlspecialchars ( $this->answerDecode ( $this->response[ $i ] ) ) . '</s></span>';
             }
 
             //
-            $correctAnswer = htmlspecialchars ( $this->answerDecode ( $this->answerList[ $i ] ) );
-            $correctAnswer = htmlspecialchars ( $correctAnswer );
+            $correctAnswer = claro_htmlspecialchars ( $this->answerDecode ( $this->answerList[ $i ] ) );
+            $correctAnswer = claro_htmlspecialchars ( $correctAnswer );
 
             $replacementList[ ] = str_replace ( '$', '\$', '[' . $userAnswer . ' / <span class="correct"><b>' . $correctAnswer . '</b></span>]' . "\n" );
         }
@@ -565,15 +565,15 @@ class answerFillInBlanks
         {
             $html .=
                 // populate hidden fields for other steps
-                '<input type="hidden" name="answer" value="' . htmlspecialchars ( $this->answerText ) . '" />' . "\n"
-                . '<input type="hidden" name="type" value="' . htmlspecialchars ( $this->type ) . '" />' . "\n"
-                . '<input type="hidden" name="wrongAnswerList" value="' . htmlspecialchars ( implode ( "\n", $this->wrongAnswerList ) ) . '" />' . "\n\n";
+                '<input type="hidden" name="answer" value="' . claro_htmlspecialchars ( $this->answerText ) . '" />' . "\n"
+                . '<input type="hidden" name="type" value="' . claro_htmlspecialchars ( $this->type ) . '" />' . "\n"
+                . '<input type="hidden" name="wrongAnswerList" value="' . claro_htmlspecialchars ( implode ( "\n", $this->wrongAnswerList ) ) . '" />' . "\n\n";
 
             if ( !empty ( $exId ) && $askDuplicate )
             {
                 if ( isset ( $_REQUEST[ 'duplicate' ] ) )
                 {
-                    $html .= '<input type="hidden" name="duplicate" value="' . htmlspecialchars ( $_REQUEST[ 'duplicate' ] ) . '" />' . "\n";
+                    $html .= '<input type="hidden" name="duplicate" value="' . claro_htmlspecialchars ( $_REQUEST[ 'duplicate' ] ) . '" />' . "\n";
                 }
             }
 
@@ -639,7 +639,7 @@ class answerFillInBlanks
 
                 // wrong answers list
                 . '<p>' . get_lang ( 'Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>' ) . '</p>'
-                . '<textarea name="wrongAnswerList" cols="30" rows="5">' . htmlspecialchars ( $this->answerDecode ( implode ( "\n", $this->wrongAnswerList ) ) ) . '</textarea>' . "\n"
+                . '<textarea name="wrongAnswerList" cols="30" rows="5">' . claro_htmlspecialchars ( $this->answerDecode ( implode ( "\n", $this->wrongAnswerList ) ) ) . '</textarea>' . "\n"
                 . '<p>' . "\n"
                 . '<input type="submit" name="cmdNext" value="' . get_lang ( 'Next' ) . ' &gt;" />&nbsp;&nbsp;'
                 . claro_html_button ( Url::Contextualize ( './edit_question.php?exId=' . $exId . '&amp;quId=' . $this->questionId ), get_lang ( "Cancel" ) )

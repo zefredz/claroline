@@ -345,7 +345,7 @@ if ($is_allowedToEdit)
         $cmdList[] = array(
             'img' => 'user',
             'name' => get_lang('Add a user'),
-            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR') . '/user_add.php'))
+            'url' => claro_htmlspecialchars(Url::Contextualize(get_module_url('CLUSR') . '/user_add.php'))
         );
     }
     
@@ -355,7 +355,7 @@ if ($is_allowedToEdit)
         $advancedCmdList[] = array(
             'img' => 'import_list',
             'name' => get_lang('Add a user list'),
-            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
+            'url' => claro_htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
                 .'/addcsvusers.php?addType=userTool'))
         );
     }
@@ -366,7 +366,7 @@ if ($is_allowedToEdit)
         $advancedCmdList[] = array(
             'img' => 'export',
             'name' => get_lang('Export user list'),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=export'))
+            'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=export'))
         );
     }
     
@@ -376,7 +376,7 @@ if ($is_allowedToEdit)
         $advancedCmdList[] = array(
             'img' => 'class',
             'name' => get_lang('Enrol class'),
-            'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
+            'url' => claro_htmlspecialchars(Url::Contextualize(get_module_url('CLUSR')
                 . '/class_add.php'))
         );
     }
@@ -387,7 +387,7 @@ if ($is_allowedToEdit)
         $cmdList[] = array(
             'img' => 'mail_send',
             'name' => get_lang("Send a message to the course"),
-            'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
+            'url' => claro_htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
                 . 'messaging/sendmessage.php?cmd=rqMessageToCourse'))
         );
     }
@@ -395,13 +395,13 @@ if ($is_allowedToEdit)
     $advancedCmdList[] = array(
         'img' => 'group',
         'name' => get_lang('Group management'),
-        'url' => htmlspecialchars(Url::Contextualize(get_module_entry_url('CLGRP')))
+        'url' => claro_htmlspecialchars(Url::Contextualize(get_module_entry_url('CLGRP')))
     );
     
     $cmdList[] = array(
         'img' => 'unenroll',
         'name' => get_lang('Unregister all students'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+        'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
             . '?cmd=unregister&user_id=allStudent'))
     );
 }
@@ -411,7 +411,7 @@ if ( get_conf('allow_profile_picture', true) )
     $cmdList[] = array(
         'img' => 'picture',
         'name' => get_lang('Users\' pictures'),
-        'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
+        'url' => claro_htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
             . 'user/user_pictures.php'))
     );
 }
@@ -455,18 +455,18 @@ $out .= '<table class="claroTable emphaseLine" width="100%" cellpadding="2" cell
 
 $out .= '<thead>' . "\n"
     . '<tr class="headerX" align="center" valign="top">'."\n"
-    . '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['nom'])) . '">' . get_lang('Last name') . '</a></th>' . "\n"
-    . '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['prenom'])) . '">' . get_lang('First name') . '</a></th>'."\n"
-    . '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['profile_id'])) . '">' . get_lang('Profile') . '</a></th>'."\n"
-    . '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['role'])) . '">' . get_lang('Role') . '</a></th>'."\n"
+    . '<th><a href="' . claro_htmlspecialchars(Url::Contextualize($sortUrlList['nom'])) . '">' . get_lang('Last name') . '</a></th>' . "\n"
+    . '<th><a href="' . claro_htmlspecialchars(Url::Contextualize($sortUrlList['prenom'])) . '">' . get_lang('First name') . '</a></th>'."\n"
+    . '<th><a href="' . claro_htmlspecialchars(Url::Contextualize($sortUrlList['profile_id'])) . '">' . get_lang('Profile') . '</a></th>'."\n"
+    . '<th><a href="' . claro_htmlspecialchars(Url::Contextualize($sortUrlList['role'])) . '">' . get_lang('Role') . '</a></th>'."\n"
     . '<th>' . get_lang('Group') . '</th>' . "\n" 
     ;
 
 if ( $is_allowedToEdit ) // EDIT COMMANDS
 {
     $out .= '<th>'.get_lang('Enrollment date').'</th>'
-        . '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['tutor'])).'">'.get_lang('Group Tutor').'</a></th>'."\n"
-        . '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['isCourseManager'])).'">'.get_lang('Course manager').'</a></th>'."\n"
+        . '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['tutor'])).'">'.get_lang('Group Tutor').'</a></th>'."\n"
+        . '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['isCourseManager'])).'">'.get_lang('Course manager').'</a></th>'."\n"
         . '<th>'.get_lang('Edit').'</th>'."\n"
         . '<th>'.get_lang('Unregister').'</th>'."\n"
         . '<th>'.get_lang('Activation').'</th>'."\n" 
@@ -501,18 +501,18 @@ foreach ( $userList as $thisUser )
     
     if ( $is_allowedToEdit || get_conf('linkToUserInfo') )
     {
-        $out .= '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?uInfo=' . (int) $thisUser['user_id'] )) . '">'
-            . htmlspecialchars( ucfirst(strtolower($thisUser['nom'])) )
+        $out .= '<a href="'.claro_htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?uInfo=' . (int) $thisUser['user_id'] )) . '">'
+            . claro_htmlspecialchars( ucfirst(strtolower($thisUser['nom'])) )
             . '</a>'
             ;
     }
     else
     {
-        $out .= htmlspecialchars( ucfirst(strtolower($thisUser['nom']) ) );
+        $out .= claro_htmlspecialchars( ucfirst(strtolower($thisUser['nom']) ) );
     }
 
     $out .= '</td>'
-        . '<td align="left">' . htmlspecialchars( $thisUser['prenom'] ) . '</td>'
+        . '<td align="left">' . claro_htmlspecialchars( $thisUser['prenom'] ) . '</td>'
         // User profile column
         . '<td align="left">'
         . claro_get_profile_name($thisUser['profile_id'])
@@ -526,7 +526,7 @@ foreach ( $userList as $thisUser )
     }
     else
     {
-        $out .= '<td>'.htmlspecialchars( $thisUser['role'] ).'</td>'."\n";
+        $out .= '<td>'.claro_htmlspecialchars( $thisUser['role'] ).'</td>'."\n";
     }
 
     // User group column
@@ -545,8 +545,8 @@ foreach ( $userList as $thisUser )
         while (list($thisGroupsNo,$thisGroupsName)=each($userGroups))
         {
             $out .= '<div>'
-               . htmlspecialchars( $thisGroupsName["nameTeam"] )
-               . ' <small>('.htmlspecialchars( $thisGroupsNo ).')</small>'
+               . claro_htmlspecialchars( $thisGroupsName["nameTeam"] )
+               . ' <small>('.claro_htmlspecialchars( $thisGroupsNo ).')</small>'
                . '</div>';
         }
         
@@ -590,7 +590,7 @@ foreach ( $userList as $thisUser )
 
         // Edit user column
         $out .= '<td>'
-            . '<a href="' . htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?editMainUserInfo='.$thisUser['user_id']))
+            . '<a href="' . claro_htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?editMainUserInfo='.$thisUser['user_id']))
             . '">'
             . '<img alt="'.get_lang('Edit').'" src="' . get_icon_url('edit') . '" />'
             . '</a>'
@@ -601,7 +601,7 @@ foreach ( $userList as $thisUser )
 
         if ($thisUser['user_id'] != claro_get_current_user_id())
         {
-            $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            $out .= '<a href="'.claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                 . '?cmd=unregister&user_id=' . $thisUser['user_id'] )) . '&offset='.$offset . '" '
                 . 'onclick="return CLUSR.confirmation(\''.clean_str_for_javascript($thisUser['nom'].' '.$thisUser['prenom']).'\');">'
                 . '<img alt="' . get_lang('Unregister') . '" src="' . get_icon_url('unenroll') . '" />'
@@ -636,7 +636,7 @@ foreach ( $userList as $thisUser )
                 $validationChangeAction = 'revoke';
             }
             
-            $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            $out .= '<a href="'.claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                 . '?cmd=validation&user_id=' . $thisUser['user_id'] )). '&validation='.$validationChangeAction . '&offset='.$offset . '" '
                 . ' title="'.get_lang($tips).'">'
                 . '<img alt="' . get_lang('Validation') . '" src="' . get_icon_url($icon) . '" />'

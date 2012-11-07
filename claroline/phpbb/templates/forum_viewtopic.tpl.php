@@ -9,9 +9,9 @@ if ( claro_is_user_authenticated() ) : //anonymous user do not have this functio
   <?php if ( is_topic_notification_requested($this->topic_id, claro_get_current_user_id()) ) :  // display link NOT to be notified ?>
   <img src="<?php echo get_icon_url('mail_close'); ?>" alt="" style="vertical-align: text-bottom" />
   <?php echo get_lang('Notify by email when replies are posted'); ?>
-  [<a href="<?php echo htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forum_id . '&amp;topic=' . $this->topic_id . '&amp;cmd=exdoNotNotify' ) ); ?>"><?php echo get_lang('Disable'); ?></a>]
+  [<a href="<?php echo claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forum_id . '&amp;topic=' . $this->topic_id . '&amp;cmd=exdoNotNotify' ) ); ?>"><?php echo get_lang('Disable'); ?></a>]
   <?php else : //display link to be notified for this topic ?>
-  <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forum_id . '&amp;topic=' . $this->topic_id . '&amp;cmd=exNotify' ) ); ?>">
+  <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forum_id . '&amp;topic=' . $this->topic_id . '&amp;cmd=exNotify' ) ); ?>">
   <img src="<?php echo get_icon_url('mail_close'); ?>" alt="" /><?php echo get_lang('Notify by email when replies are posted'); ?></a>
   <?php endif; ?>
 </span>
@@ -69,17 +69,17 @@ endif; //end not anonymous user
     <?php echo claro_parse_user_text( $thisPost[ 'post_text' ] ); ?>
     <?php if( $this->is_post_allowed ) :?>
         <p>
-        <a class="claroCmd" href="<?php  echo htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic=' . $thisPost['topic_id'] . '&amp;post=' . $thisPost['post_id'] . '&amp;cmd=rqPost&amp;mode=quote' ) ); ?>">
+        <a class="claroCmd" href="<?php  echo claro_htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic=' . $thisPost['topic_id'] . '&amp;post=' . $thisPost['post_id'] . '&amp;cmd=rqPost&amp;mode=quote' ) ); ?>">
             <img src="<?php echo get_icon_url('post'); ?>" alt="<?php echo get_lang('Quote'); ?>" />
             <?php echo get_lang( 'Quote' ) ?>
           </a>
         <?php if( $this->is_allowedToEdit ) : ?>
         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-          <a class="claroCmd" href="<?php  echo htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?post=' . $thisPost['post_id'] . '&amp;cmd=rqPost&amp;mode=edit' ) ); ?>">
+          <a class="claroCmd" href="<?php  echo claro_htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?post=' . $thisPost['post_id'] . '&amp;cmd=rqPost&amp;mode=edit' ) ); ?>">
             <img src="<?php echo get_icon_url('edit'); ?>" alt="<?php echo get_lang('Edit'); ?>" />
           </a>
           <?php if( !is_first_post( $this->topic_id, $thisPost['post_id'] ) ) :?>
-          <a class="claroCmd" href="<?php echo htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?post=' . $thisPost['post_id'] . '&amp;cmd=exDelete&amp;submit=submit' ) ); ?>" onclick="return confirmationDel('<?php echo get_lang('this item'); ?>');" >
+          <a class="claroCmd" href="<?php echo claro_htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?post=' . $thisPost['post_id'] . '&amp;cmd=exDelete&amp;submit=submit' ) ); ?>" onclick="return confirmationDel('<?php echo get_lang('this item'); ?>');" >
             <img src="<?php echo get_icon_url('delete'); ?>" alt="<?php echo get_lang('Delete'); ?>" />
           </a>
           <?php endif; ?>

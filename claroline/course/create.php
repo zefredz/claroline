@@ -200,7 +200,7 @@ if ( claro_is_platform_admin()
     {
         // display back link
         $out .= '<p>'
-        .    claro_html_cmd_link( htmlspecialchars( $backUrl ), get_lang('Continue') )
+        .    claro_html_cmd_link( claro_htmlspecialchars( $backUrl ), get_lang('Continue') )
         .     '</p>' . "\n"
         ;
     }

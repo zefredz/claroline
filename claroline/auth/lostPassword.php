@@ -187,7 +187,7 @@ if ( ! $passwordFound )
     .       '<input type="hidden" name="searchPassword" value="1" />'
     .       '<label for="Femail">' . get_lang('Email') . ' : </label>'
     .       '<br />'
-    .       '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="' . htmlspecialchars($emailTo) . '" />'
+    .       '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="' . claro_htmlspecialchars($emailTo) . '" />'
     .       '<br /><br />'
     .       '<input type="submit" name="retrieve" value="' . get_lang('Ok') . '" />&nbsp; '
     .       claro_html_button(get_conf('urlAppend') . '/index.php', get_lang('Cancel'))

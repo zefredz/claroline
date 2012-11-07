@@ -305,7 +305,7 @@ function nameBox($type, $mode)
             $oldName = claro_sql_query_get_single_value($sql);
 
             $out .= '<form method="post" action="' . $_SERVER['PHP_SELF'].'">' . "\n"
-            .    '<input type="text" name="newName" size="50" maxlength="255" value="'.htmlspecialchars( claro_utf8_decode( $oldName, get_conf( 'charset' ) ) ).'" />'
+            .    '<input type="text" name="newName" size="50" maxlength="255" value="'.claro_htmlspecialchars( claro_utf8_decode( $oldName, get_conf( 'charset' ) ) ).'" />'
             .    '<br />' . "\n"
             .    '<input type="hidden" name="cmd" value="updateName" />' ."\n"
             .    '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
@@ -777,7 +777,7 @@ function display_my_documents($dialogBox)
     
     $out .= '<!-- display_my_documents output -->' . "\n";
 
-    $dspCurDirName = htmlspecialchars($curDirName);
+    $dspCurDirName = claro_htmlspecialchars($curDirName);
     $cmdCurDirPath = rawurlencode($curDirPath);
     $cmdParentDir  = rawurlencode($parentDir);
 
@@ -845,7 +845,7 @@ function display_my_documents($dialogBox)
         while ( list( $fileKey, $fileName ) = each ( $fileList['name'] ) )
         {
 
-            $dspFileName = htmlspecialchars($fileName);
+            $dspFileName = claro_htmlspecialchars($fileName);
             $cmdFileName = str_replace("%2F","/",rawurlencode($curDirPath."/".$fileName));
 
             if ($fileList['visibility'][$fileKey] == "i")
@@ -914,7 +914,7 @@ function display_my_documents($dialogBox)
             // Comments
             if ($fileList['comment'][$fileKey] != "" )
             {
-                $fileList['comment'][$fileKey] = htmlspecialchars($fileList['comment'][$fileKey]);
+                $fileList['comment'][$fileKey] = claro_htmlspecialchars($fileList['comment'][$fileKey]);
                 $fileList['comment'][$fileKey] = claro_parse_user_text($fileList['comment'][$fileKey]);
                 
                 $out .= '<div class="comment">'

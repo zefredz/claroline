@@ -199,9 +199,9 @@ class MailNotifier implements MessagingNotifier
         
         if ( claro_debug_mode() )
         {
-            $message = '<p>' . get_lang('Subject') . ' : ' . htmlspecialchars($subject) . '</p>' . "\n"
-                     . '<p>' . get_lang('Message') . ' : <pre>' . htmlspecialchars($message) . '</pre></p>' . "\n"
-                     . '<p>' . get_lang('Sender') . ' : ' . htmlspecialchars($mail->FromName) . ' - ' . htmlspecialchars($mail->From) . '</p>' . "\n"
+            $message = '<p>' . get_lang('Subject') . ' : ' . claro_htmlspecialchars($subject) . '</p>' . "\n"
+                     . '<p>' . get_lang('Message') . ' : <pre>' . claro_htmlspecialchars($message) . '</pre></p>' . "\n"
+                     . '<p>' . get_lang('Sender') . ' : ' . claro_htmlspecialchars($mail->FromName) . ' - ' . claro_htmlspecialchars($mail->From) . '</p>' . "\n"
                      . '<p>' . get_lang('Recipient') . ' : ' . implode(', ', $emailList) . '</p>' . "\n";
             pushClaroMessage($message,'mail');
         }

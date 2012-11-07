@@ -107,7 +107,7 @@ if( $canSwitchCourses && count($userCourseList) )
 {
     $cmdList[] = array(
         'name' => get_lang('View platform statistics'),
-        'url' => htmlspecialchars('userReport.php?cidReset=true&userId='.(int) $userId)
+        'url' => claro_htmlspecialchars('userReport.php?cidReset=true&userId='.(int) $userId)
     );
 }
 else
@@ -115,7 +115,7 @@ else
     $cmdList[] = array(
         'img' => 'back',
         'name' => get_lang('Back to user list'),
-        'url' => htmlspecialchars(Url::Contextualize(get_path('url').'/claroline/user/user.php'))
+        'url' => claro_htmlspecialchars(Url::Contextualize(get_path('url').'/claroline/user/user.php'))
     );
 }
 
@@ -125,15 +125,15 @@ else
 CssLoader::getInstance()->load( 'tracking', 'screen');
 
 $nameTools = get_lang('Statistics');
-ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF'] . '?userId=' . $userId ) ) );
+ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, claro_htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF'] . '?userId=' . $userId ) ) );
 
 if( $canSwitchCourses && $selfStatistics )
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('My user account'), htmlspecialchars( Url::Contextualize('../auth/profile.php') ) );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('My user account'), claro_htmlspecialchars( Url::Contextualize('../auth/profile.php') ) );
 }
 elseif ( claro_is_in_a_course() )
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), htmlspecialchars( Url::Contextualize('../user/user.php') ) );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), claro_htmlspecialchars( Url::Contextualize('../user/user.php') ) );
 }
 else
 {
@@ -175,7 +175,7 @@ if( $canSwitchCourses && count($userCourseList) )
     $attr['id'] = 'cidReq';
     
     $output .= "\n"
-    .     '<form method="get" name="filterForm" action="'.htmlspecialchars(Url::Contextualize( 'userReport.php')).'">' . "\n"
+    .     '<form method="get" name="filterForm" action="'.claro_htmlspecialchars(Url::Contextualize( 'userReport.php')).'">' . "\n"
     .     '<input type="hidden" name="userId" value="'.(int) $userId.'" />' . "\n"
     .     '<p>' . "\n"
     .     '<label for="cidReq">'.get_lang('Choose a course').'&nbsp;:&nbsp;</label>' . "\n"

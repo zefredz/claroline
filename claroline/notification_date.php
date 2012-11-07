@@ -49,7 +49,7 @@ if ( claro_is_user_authenticated() )
     
     if ($display_form)
     {
-        $output .= '<form method="get" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'
+        $output .= '<form method="get" action="' . claro_htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'
         . claro_form_relay_context()
         . '<fieldset>' . "\n"
         . '<dd>'

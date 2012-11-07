@@ -353,8 +353,8 @@ switch( $action )
             $newEditor = $wikiPage->getEditorId();
 
             // protect against dangerous html
-            $old = htmlspecialchars( $old );
-            $new = htmlspecialchars( $new );
+            $old = claro_htmlspecialchars( $old );
+            $new = claro_htmlspecialchars( $new );
 
             // get differences
             $diff = '<table style="border: 0;">'.diff( $new, $old, true, 'format_table_line' ).'</table>';
@@ -654,8 +654,8 @@ if ( $action == 'show' || $action == 'preview' )
 
 $nameTools = get_lang( 'Wiki' );
 ClaroBreadCrumbs::getInstance()->append(
-    htmlspecialchars($wiki->getTitle()),
-    htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+    claro_htmlspecialchars($wiki->getTitle()),
+    claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
         . '?action=show&wikiId=' . (int) $wikiId ))
 );
 
@@ -666,13 +666,13 @@ switch( $action )
         $dispTitle = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title;
         
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars($dispTitle),
-            htmlspecialchars(Url::Contextualize( 'page.php?action=show&wikiId='
+            claro_htmlspecialchars($dispTitle),
+            claro_htmlspecialchars(Url::Contextualize( 'page.php?action=show&wikiId='
                 . $wikiId . '&title=' . $title ))
         );
         
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars( get_lang('Edit')) );
+            claro_htmlspecialchars( get_lang('Edit')) );
         
         break;
     }
@@ -681,28 +681,28 @@ switch( $action )
         $dispTitle = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title;
         
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars($dispTitle),
-            htmlspecialchars(Url::Contextualize(
+            claro_htmlspecialchars($dispTitle),
+            claro_htmlspecialchars(Url::Contextualize(
                 'page.php?action=show&wikiId='
                 . $wikiId . '&title=' . $title ))
         );
         
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars( get_lang('Preview')) );
+            claro_htmlspecialchars( get_lang('Preview')) );
         
         break;
     }
     case 'all':
     {
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars( get_lang('All pages')) );
+            claro_htmlspecialchars( get_lang('All pages')) );
         
         break;
     }
     case 'recent':
     {
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars( get_lang('Recent changes')) );
+            claro_htmlspecialchars( get_lang('Recent changes')) );
         
         break;
     }
@@ -711,14 +711,14 @@ switch( $action )
         $dispTitle = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title;
         
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars($dispTitle),
-            htmlspecialchars(Url::Contextualize(
+            claro_htmlspecialchars($dispTitle),
+            claro_htmlspecialchars(Url::Contextualize(
                 'page.php?action=show&wikiId='
                 . $wikiId . '&title=' . $title ))
         );
         
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars( get_lang("History")) );
+            claro_htmlspecialchars( get_lang("History")) );
         
         break;
     }
@@ -726,7 +726,7 @@ switch( $action )
     {
         $pageTitle = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title ;
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars($pageTitle) );
+            claro_htmlspecialchars($pageTitle) );
     }
 }
 
@@ -782,7 +782,7 @@ $javascriptEnabled = claro_is_javascript_enabled();
 // Wiki navigation bar
 $cmdWikiNavigationBar[] =
     claro_html_cmd_link(
-        htmlspecialchars(Url::Contextualize(
+        claro_htmlspecialchars(Url::Contextualize(
             $_SERVER['PHP_SELF']
             . '?wikiId=' . $wiki->getWikiId()
             . '&action=show'
@@ -793,7 +793,7 @@ $cmdWikiNavigationBar[] =
 
 $cmdWikiNavigationBar[] =
     claro_html_cmd_link(
-        htmlspecialchars(Url::Contextualize(
+        claro_htmlspecialchars(Url::Contextualize(
             $_SERVER['PHP_SELF']
             . '?wikiId=' . $wiki->getWikiId()
             . '&action=recent' ))
@@ -804,7 +804,7 @@ $cmdWikiNavigationBar[] =
 
 $cmdWikiNavigationBar[] =
     claro_html_cmd_link(
-        htmlspecialchars(Url::Contextualize(
+        claro_htmlspecialchars(Url::Contextualize(
             $_SERVER['PHP_SELF']
             . '?wikiId=' . $wiki->getWikiId()
             . '&action=all' ))
@@ -816,7 +816,7 @@ $cmdWikiNavigationBar[] =
 
 $cmdWikiNavigationBar[] =
     claro_html_cmd_link(
-        htmlspecialchars(Url::Contextualize('wiki.php'))
+        claro_htmlspecialchars(Url::Contextualize('wiki.php'))
             , '<img src="' . get_icon_url('list').'" '
             . ' alt="all pages" />'
             . '&nbsp;'
@@ -825,7 +825,7 @@ $cmdWikiNavigationBar[] =
 
 $cmdWikiNavigationBar[] =
     claro_html_cmd_link(
-        htmlspecialchars(Url::Contextualize(
+        claro_htmlspecialchars(Url::Contextualize(
             $_SERVER['PHP_SELF']
             . '?wikiId=' . $wiki->getWikiId()
             . '&action=rqSearch' ))
@@ -845,7 +845,7 @@ if ( 'recent' != $action && 'all' != $action
         $cmdList[] = array(
             'img' => 'back',
             'name' => get_lang("Back to page"),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                 . '?wikiId=' . $wiki->getWikiId()
                 . '&action=show'
                 . '&title=' . rawurlencode($title)))
@@ -860,7 +860,7 @@ if ( 'recent' != $action && 'all' != $action
             $cmdList[] = array(
                 'img' => 'edit',
                 'name' => get_lang("Edit this page"),
-                'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                     . '?wikiId=' . $wiki->getWikiId()
                     . '&action=edit'
                     . '&title=' . rawurlencode($title)
@@ -876,7 +876,7 @@ if ( 'recent' != $action && 'all' != $action
         $cmdList[] = array(
             'img' => 'versions',
             'name' => get_lang("Page history"),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                 . '?wikiId=' . $wiki->getWikiId()
                 . '&action=history'
                 . '&title=' . rawurlencode($title)))
@@ -915,7 +915,7 @@ switch( $action )
         $dialogBox->info( $message );
 
         $out .= '<form id="editConflict" action="'
-            . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
+            . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
             . '" method="post">'
             ;
         $out .= '<textarea name="conflictContent" id="content"'
@@ -925,9 +925,9 @@ switch( $action )
         $out .= '</textarea><br /><br />' . "\n";
         $out .= '<div>' . "\n";
         $out .= '<input type="hidden" name="wikiId" value="'.(int)$wikiId.'" />' . "\n";
-        $out .= '<input type="hidden" name="title" value="'.htmlspecialchars($title).'" />' . "\n";
+        $out .= '<input type="hidden" name="title" value="'.claro_htmlspecialchars($title).'" />' . "\n";
         $out .= '<input type="submit" name="action[edit]" value="'.get_lang("Edit last version").'" />' . "\n";
-        $url = htmlspecialchars(Url::Contextualize(
+        $url = claro_htmlspecialchars(Url::Contextualize(
             $_SERVER['PHP_SELF']
             . '?wikiId=' . $wikiId
             . '&title=' . $title
@@ -1008,18 +1008,18 @@ switch( $action )
             ;
 
         $out .= '<p>'
-            . '<a href="'.htmlspecialchars($script.'&offset='
+            . '<a href="'.claro_htmlspecialchars($script.'&offset='
             . $first .'&step=' . (int) $step ) .'">&lt;&lt; '.get_lang('First').'</a>'
             . ( $previous !== false
-                ? ' ' . '<a href="'.htmlspecialchars( $script.'&offset='
+                ? ' ' . '<a href="'.claro_htmlspecialchars( $script.'&offset='
                   . $previous .'&step=' . (int) $step ) .'">&lt; '.get_lang('Previous').'</a>'
                 : ' &lt; '.get_lang('Previous') )
             . ' ' . '<a href="'.$script.'&offset=0&step=0">'.get_lang('All').'</a>'
             . ( $next !== false
-                ? ' ' . '<a href="'.htmlspecialchars( $script.'&offset='
+                ? ' ' . '<a href="'.claro_htmlspecialchars( $script.'&offset='
                   . $next .'&step=' . (int) $step ) .'">'.get_lang('Next').' &gt;</a>'
                 : get_lang('Next').' &gt;' )
-            . ' ' . '<a href="'. htmlspecialchars( $script.'&offset='
+            . ' ' . '<a href="'. claro_htmlspecialchars( $script.'&offset='
             . $last . '&step=' . (int) $step ) .'">'.get_lang('Last').' &gt;&gt;</a>'
             . '</p>'
             ;
@@ -1036,7 +1036,7 @@ switch( $action )
                     ;
 
                 $entry = '<strong><a href="'
-                    . htmlspecialchars(Url::Contextualize(
+                    . claro_htmlspecialchars(Url::Contextualize(
                         $_SERVER['PHP_SELF'].'?wikiId='
                         . (int)$wikiId . '&title=' . rawurlencode( $recentChange['title'] )
                         . '&action=show' ))
@@ -1061,7 +1061,7 @@ switch( $action )
                 if ( claro_is_course_member() )
                 {
                     $userUrl = '<a href="'
-                        . htmlspecialchars(Url::Contextualize(
+                        . claro_htmlspecialchars(Url::Contextualize(
                             get_module_url('CLUSR')
                             . '/userInfo.php'
                             . '?uInfo=' . (int)$recentChange['editor_id'] ))
@@ -1091,7 +1091,7 @@ switch( $action )
         // handle main page
 
         $out .= '<ul><li><a href="'
-            . htmlspecialchars(Url::Contextualize(
+            . claro_htmlspecialchars(Url::Contextualize(
                 $_SERVER['PHP_SELF']
                 . '?wikiId=' . (int)$wikiId
                 . '&title=' . rawurlencode("__MainPage__")
@@ -1118,7 +1118,7 @@ switch( $action )
                 $pgtitle = rawurlencode( $page['title'] );
 
                 $link = '<a href="'
-                    . htmlspecialchars(Url::Contextualize(
+                    . claro_htmlspecialchars(Url::Contextualize(
                         $_SERVER['PHP_SELF'].'?wikiId='
                         . (int) $wikiId . '&title='
                         . $pgtitle . '&action=show' ))
@@ -1144,7 +1144,7 @@ switch( $action )
         }
         else
         {
-            $script = htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']));
+            $script = claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']));
 
             $out .= claro_disp_wiki_editor( $wikiId, $title, $versionId, $content, $script
                 , get_conf('showWikiEditorToolbar'), get_conf('forcePreviewBeforeSaving') )
@@ -1195,7 +1195,7 @@ switch( $action )
                 if ( claro_is_course_member() )
                 {
                     $editorUrl = '&nbsp;-&nbsp;<a href="'
-                        . htmlspecialchars(Url::Contextualize(
+                        . claro_htmlspecialchars(Url::Contextualize(
                             get_module_url('CLUSR')
                             . '/userInfo.php?uInfo='
                             . (int) $wikiPage->getEditorId() ))
@@ -1259,36 +1259,36 @@ switch( $action )
             . '&action=history');
 
         $out .= '<p>'
-            . '<a href="'.htmlspecialchars($script.'&offset='
+            . '<a href="'.claro_htmlspecialchars($script.'&offset='
             . $first .'&step=' . (int) $step) .'">&lt;&lt; ' 
             . get_lang('First') . '</a>'
             . ( $previous !== false
-                ? ' ' . '<a href="'.htmlspecialchars($script.'&offset='
+                ? ' ' . '<a href="'.claro_htmlspecialchars($script.'&offset='
                   . $previous .'&step=' . (int) $step) .'">&lt; ' 
                   . get_lang('Previous') . '</a>'
                 : ' &lt; ' . get_lang('Previous') )
-            . ' ' . '<a href="'.htmlspecialchars($script.'&offset=0&step=0').'">' 
+            . ' ' . '<a href="'.claro_htmlspecialchars($script.'&offset=0&step=0').'">' 
             . get_lang('All') . '</a>'
             . ( $next !== false
-                ? ' ' . '<a href="'.htmlspecialchars( $script.'&offset='
+                ? ' ' . '<a href="'.claro_htmlspecialchars( $script.'&offset='
                   . $next .'&step=' . (int) $step ) .'">' 
                   . get_lang('Next') . ' &gt;</a>'
                 : get_lang('Next') . ' &gt;' )
-            . ' ' . '<a href="'.htmlspecialchars( $script.'&offset='
+            . ' ' . '<a href="'.claro_htmlspecialchars( $script.'&offset='
             . $last . '&step=' . (int) $step ).'"> ' . get_lang('Last') 
             . ' &gt;&gt;</a>'
             . '</p>'
             ;
 
         $out .= '<form id="differences" method="get" action="'
-            . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
+            . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
             . '">'
             . "\n"
             ;
 
         $out .= '<div>' . "\n"
             . '<input type="hidden" name="wikiId" value="'.(int)$wikiId.'" />' . "\n"
-            . '<input type="hidden" name="title" value="'.htmlspecialchars($title).'" />' . "\n"
+            . '<input type="hidden" name="title" value="'.claro_htmlspecialchars($title).'" />' . "\n"
             . claro_form_relay_context() . "\n"
             . '<input type="submit" name="action[diff]" value="'
             . get_lang("Show differences")
@@ -1358,7 +1358,7 @@ switch( $action )
                 if ( claro_is_course_member() )
                 {
                     $userUrl = '<a href="'
-                            . htmlspecialchars(Url::Contextualize(
+                            . claro_htmlspecialchars(Url::Contextualize(
                              get_module_url('CLUSR')
                              . '/userInfo.php?uInfo='
                              . (int)$version['editor_id']))
@@ -1373,7 +1373,7 @@ switch( $action )
                 }
 
                 $versionUrl = '<a href="' .
-                    htmlspecialchars(Url::Contextualize(
+                    claro_htmlspecialchars(Url::Contextualize(
                         $_SERVER['PHP_SELF']
                         . '?wikiId=' . (int)$wikiId
                         . '&title=' . rawurlencode( $title )
@@ -1421,7 +1421,7 @@ switch( $action )
             $urltitle = rawurlencode( $page['title'] );
 
             $link = '<a href="'
-                . htmlspecialchars(Url::Contextualize(
+                . claro_htmlspecialchars(Url::Contextualize(
                     $_SERVER['PHP_SELF'].'?wikiId='
                     . $wikiId . '&title=' . $urltitle
                     . '&action=show'))
@@ -1437,7 +1437,7 @@ switch( $action )
     case 'rqSearch':
     {
         $searchForm = '<form method="post" action="'
-            . htmlspecialchars(Url::Contextualize(
+            . claro_htmlspecialchars(Url::Contextualize(
                 $_SERVER['PHP_SELF'].'?wikiId='.(int)$wikiId ))
             .'">'."\n"
             . '<input type="hidden" name="action" value="exSearch" />'."\n"
@@ -1448,7 +1448,7 @@ switch( $action )
             . '<input type="text" id="searchPattern" name="searchPattern" />'."\n"
             . '<input type="submit" value="'.get_lang("Ok").'" />'."\n"
             . claro_html_button(
-                htmlspecialchars(Url::Contextualize(
+                claro_htmlspecialchars(Url::Contextualize(
                     $_SERVER['PHP_SELF'].'?wikiId='.$wikiId )),
                 get_lang("Cancel"))
             . '</form>'."\n"
@@ -1459,7 +1459,7 @@ switch( $action )
     }
     default:
     {
-        trigger_error( "Invalid action supplied to " . htmlspecialchars($_SERVER['PHP_SELF'])
+        trigger_error( "Invalid action supplied to " . claro_htmlspecialchars($_SERVER['PHP_SELF'])
             , E_USER_ERROR
             );
     }

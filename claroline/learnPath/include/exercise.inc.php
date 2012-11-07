@@ -61,7 +61,7 @@ function lp_display_exercise($cmd, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEAS
         $out .= '<form method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
         .    claro_form_relay_context()
             .'<label for="newRaw">'.get_lang('Change minimum raw mark to pass this module (percentage) :').' </label>'."\n"
-            .'<input type="text" value="'.htmlspecialchars( $learningPath_module['raw_to_pass'] ).'" name="newRaw" id="newRaw" size="3" maxlength="3" /> % '."\n"
+            .'<input type="text" value="'.claro_htmlspecialchars( $learningPath_module['raw_to_pass'] ).'" name="newRaw" id="newRaw" size="3" maxlength="3" /> % '."\n"
             .'<input type="hidden" name="cmd" value="raw" />'."\n"
             .'<input type="submit" value="'.get_lang('Ok').'" />'."\n"
             .'</form>'."\n\n";
@@ -81,7 +81,7 @@ function lp_display_exercise($cmd, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEAS
     {
         $out .= "\n\n".'<h4>'.get_lang('Exercise in module').' :</h4>'."\n"
             .'<p>'."\n"
-            .htmlspecialchars($module['name'])
+            .claro_htmlspecialchars($module['name'])
             .'<a href="../exercise/admin/edit_exercise.php?exId='.$module['exerciseId'].'">'
             .'<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
             .'</a>'."\n"

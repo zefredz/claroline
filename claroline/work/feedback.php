@@ -179,7 +179,7 @@ if($is_allowedToEdit)
         if( $formCorrectlySent && $assignment->save() )
         {
             $dialogBox->success( get_lang('Feedback edited') );
-            $dialogBox->info('<a href="'.htmlspecialchars( Url::Contextualize( './work_list.php?assigId=' . $assignmentId ) ). '">' . get_lang('Continue') . '</a>' );
+            $dialogBox->info('<a href="'.claro_htmlspecialchars( Url::Contextualize( './work_list.php?assigId=' . $assignmentId ) ). '">' . get_lang('Continue') . '</a>' );
 
             $displayFeedbackForm = false;
 

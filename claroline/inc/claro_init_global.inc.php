@@ -534,7 +534,7 @@ if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )
 {
     require claro_get_conf_repository() . 'rss.conf.php';
 
-    $claroline->display->header->addHtmlHeader('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
+    $claroline->display->header->addHtmlHeader('<link rel="alternate" type="application/rss+xml" title="' . claro_htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
     .' href="' . get_path('url') . '/claroline/backends/rss.php?cidReq=' . claro_get_current_course_id() . '" />' );
 }
 

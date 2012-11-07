@@ -48,7 +48,7 @@ class MyCourseList extends UserDesktopPortlet
         // 'Create Course Site' command. Only available for teacher.
         if (claro_is_allowed_to_create_course())
         {
-            $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/create.php')).'" class="userCommandsItem">'
+            $userCommands[] = '<a href="'.claro_htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/create.php')).'" class="userCommandsItem">'
                             . '<img src="' . get_icon_url('courseadd') . '" alt="" /> '
                             . get_lang('Create a course site')
                             . '</a>' . "\n";
@@ -63,23 +63,23 @@ class MyCourseList extends UserDesktopPortlet
         
         if (get_conf('allowToSelfEnroll',true))
         {
-            $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg&amp;categoryId=0')).'" class="userCommandsItem">'
+            $userCommands[] = '<a href="'.claro_htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg&amp;categoryId=0')).'" class="userCommandsItem">'
                             . '<img src="' . get_icon_url('enroll') . '" alt="" /> '
                             . get_lang('Enrol on a new course')
                             . '</a>' . "\n";
             
-            $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqUnreg')).'" class="userCommandsItem">'
+            $userCommands[] = '<a href="'.claro_htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqUnreg')).'" class="userCommandsItem">'
                             . '<img src="' . get_icon_url('unenroll') . '" alt="" /> '
                             . get_lang('Remove course enrolment')
                             . '</a>' . "\n";
         }
         
-        $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/platform_courses.php')).'" class="userCommandsItem">'
+        $userCommands[] = '<a href="'.claro_htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'course/platform_courses.php')).'" class="userCommandsItem">'
                         . '<img src="' . get_icon_url('course') . '" alt="" /> '
                         . get_lang('All platform courses')
                         . '</a>' . "\n";
         
-        $userCommands[] = '<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'" class="userCommandsItem">'
+        $userCommands[] = '<a href="'.claro_htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'" class="userCommandsItem">'
                         . '<img class="iconDefinitionList" src="'.get_icon_url('hot').'" alt="'.get_lang('New items').'" />'
                         . ' '.get_lang('New items').' '
                         . get_lang('to another date')

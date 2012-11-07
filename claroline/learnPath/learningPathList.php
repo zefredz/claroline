@@ -428,25 +428,25 @@ if($is_allowedToEdit)
     $cmdList[] = array(
         'img' => 'default_new',
         'name' => get_lang('Create a new learning path'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] .'?cmd=create'))
+        'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] .'?cmd=create'))
     );
     
     $cmdList[] = array(
         'img' => 'import',
         'name' => get_lang('Import a learning path'),
-        'url' => htmlspecialchars(Url::Contextualize('importLearningPath.php'))
+        'url' => claro_htmlspecialchars(Url::Contextualize('importLearningPath.php'))
     );
     
     $cmdList[] = array(
         'img' => 'module_pool',
         'name' => get_lang('Pool of modules'),
-        'url' => htmlspecialchars(Url::Contextualize('modules_pool.php'))
+        'url' => claro_htmlspecialchars(Url::Contextualize('modules_pool.php'))
     );
     
     $cmdList[] = array(
         'img' => 'statistics',
         'name' => get_lang('User tracking'),
-        'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'tracking/learnPath_detailsAllPath.php'))
+        'url' => claro_htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'tracking/learnPath_detailsAllPath.php'))
     );
 }
 
@@ -587,7 +587,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
     {
         $out .= "<td align=\"left\"><a class=\"item".$classItem."\" href=\"learningPath.php?path_id="
         .$list['learnPath_id']."\"><img src=\"" . get_icon_url('learnpath') . "\" alt=\"\"
-             />  ".htmlspecialchars($list['name'])."</a></td>";
+             />  ".claro_htmlspecialchars($list['name'])."</a></td>";
 
         /*
         if( $list['lock'] == 'CLOSE' && ( $list['minRaw'] == -1 || $list['minRaw'] == "" ) )
@@ -758,7 +758,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         // Modify command / go to other page
         $out .= '<td>' . "\n"
-        . '<a href="'.htmlspecialchars(Url::Contextualize('learningPathAdmin.php?path_id=' . $list['learnPath_id'])) . '">' . "\n"
+        . '<a href="'.claro_htmlspecialchars(Url::Contextualize('learningPathAdmin.php?path_id=' . $list['learnPath_id'])) . '">' . "\n"
         . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />' . "\n"
         . '</a>'
         . '</td>' . "\n"
@@ -772,7 +772,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if (is_dir($real))
         {
             $out .= '<td>' . "\n"
-            . '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=delete&del_path_id=' . $list['learnPath_id'])) . '" '
+            . '<a href="' . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=delete&del_path_id=' . $list['learnPath_id'])) . '" '
             . ' onclick="return scormConfirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
             . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
             . '</a>' . "\n"
@@ -783,7 +783,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         else
         {
             $out .= '<td>' . "\n"
-            . '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=delete&del_path_id=' . $list['learnPath_id'])) . '" '
+            . '<a href="' . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=delete&del_path_id=' . $list['learnPath_id'])) . '" '
             . 'onclick="return confirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
             . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
             . '</a>' . "\n"
@@ -798,7 +798,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if ( $list['lock'] == 'OPEN')
         {
 
-            $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            $out .= '<a href="' . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
             . '?cmd=mkBlock'
             . '&cmdid=' . $list['learnPath_id'] )) . '">' . "\n"
             . '<img src="' . get_icon_url('unblock') . '" '
@@ -808,7 +808,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         }
         else
         {
-            $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkUnblock&cmdid=' . $list['learnPath_id'])) . '">' . "\n"
+            $out .= '<a href="' . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkUnblock&cmdid=' . $list['learnPath_id'])) . '">' . "\n"
             . '<img src="' . get_icon_url('block') . '" alt="' . get_lang('Unblock') . '" />' . "\n"
             . '</a>' . "\n"
             ;
@@ -822,7 +822,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if ( $list['visibility'] == 'HIDE')
         {
 
-            $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkVisibl&visibility_path_id=' . $list['learnPath_id'])) . '">' . "\n"
+            $out .= '<a href="' . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkVisibl&visibility_path_id=' . $list['learnPath_id'])) . '">' . "\n"
             . '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Make visible') . '" />' . "\n"
             . '</a>' . "\n"
             ;
@@ -838,7 +838,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
                 $onclick = "";
             }
 
-            $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkInvisibl&visibility_path_id=' . $list['learnPath_id'])) . '" ' . $onclick . ' >' . "\n"
+            $out .= '<a href="' . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkInvisibl&visibility_path_id=' . $list['learnPath_id'])) . '" ' . $onclick . ' >' . "\n"
             . '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Make invisible') . '" />' . "\n"
             . '</a>' . "\n"
             ;
@@ -851,7 +851,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if ($iterator != 1)
         {
             $out .= '<td>' . "\n"
-            . '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=moveUp&move_path_id=' . $list['learnPath_id'])) . '">' . "\n"
+            . '<a href="' . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=moveUp&move_path_id=' . $list['learnPath_id'])) . '">' . "\n"
             . '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') . '" />' . "\n"
             . '</a>' . "\n"
             . '</td>' . "\n"
@@ -866,7 +866,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if($iterator < $LPNumber)
         {
             $out .= '<td>' . "\n"
-            . '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=moveDown&move_path_id=' . $list['learnPath_id'])) . '">' . "\n"
+            . '<a href="' . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=moveDown&move_path_id=' . $list['learnPath_id'])) . '">' . "\n"
             . '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />' . "\n"
             . '</a>' . "\n"
             . '</td>' . "\n"
@@ -879,7 +879,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         // EXPORT links
         $out .= '<td>' . "\n"
-        . '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=export&path_id=' . $list['learnPath_id'])) . '" >'
+        . '<a href="' . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=export&path_id=' . $list['learnPath_id'])) . '" >'
         . '<img src="' . get_icon_url('export') . '" alt="' . get_lang('Export') . '" />'
         . '</a>' . "\n"
         . '</td>' . "\n"
@@ -889,7 +889,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             // statistics links
             $out .= '<td>' . "\n"
-            . '<a href="' . htmlspecialchars( Url::Contextualize(get_path('clarolineRepositoryWeb') . 'tracking/learnPath_details.php?path_id=' . $list['learnPath_id'])) . '">' . "\n"
+            . '<a href="' . claro_htmlspecialchars( Url::Contextualize(get_path('clarolineRepositoryWeb') . 'tracking/learnPath_details.php?path_id=' . $list['learnPath_id'])) . '">' . "\n"
             . '<img src="' . get_icon_url('statistics') . '" alt="' . get_lang('Tracking') . '" />'
             . '</a>' . "\n"
             . '</td>'. "\n"

@@ -44,7 +44,7 @@ $cmdList = array();
 $cmdList[] = array(
     'img' => 'back',
     'name' => get_lang('Back to learning path administration'),
-    'url' => htmlspecialchars(Url::Contextualize('learningPathAdmin.php'))
+    'url' => claro_htmlspecialchars(Url::Contextualize('learningPathAdmin.php'))
 );
 
 $out = '';

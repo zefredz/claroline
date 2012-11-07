@@ -233,7 +233,7 @@ function buildTab2Col($sql, $title = "")
     $results = claro_sql_query_fetch_all($sql);
     $out = '<table class="claroTable" cellpadding="2" cellspacing="1" align="center">' . "\n"
     .    '<tr class="headerX">' . "\n"
-    .    '<th colspan="2">' . htmlspecialchars($title) .' (' . get_lang('%x rows', array('%x' => count($results))). ') </th>' . "\n"
+    .    '<th colspan="2">' . claro_htmlspecialchars($title) .' (' . get_lang('%x rows', array('%x' => count($results))). ') </th>' . "\n"
     .    '</tr>' . "\n\n"
     .    '<tbody>' . "\n\n"
     ;

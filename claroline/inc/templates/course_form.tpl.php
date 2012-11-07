@@ -33,7 +33,7 @@
                     <?php endif; ?>
                 </dt>
                 <dd>
-                    <input type="text" name="course_title" id="course_title" value="<?php echo htmlspecialchars($this->course->title); ?>" size="40" />
+                    <input type="text" name="course_title" id="course_title" value="<?php echo claro_htmlspecialchars($this->course->title); ?>" size="40" />
                     <?php if (empty($this->course->courseId)) : ?>
                     <br />
                     <span class="notice"><?php echo get_lang('e.g. <em>History of Literature</em>'); ?></span>
@@ -47,7 +47,7 @@
                     </label><span class="required">*</span>
                 </dt>
                 <dd>
-                    <input type="text" id="course_officialCode" name="course_officialCode" value="<?php echo htmlspecialchars($this->course->officialCode); ?>" maxlength="12" />
+                    <input type="text" id="course_officialCode" name="course_officialCode" value="<?php echo claro_htmlspecialchars($this->course->officialCode); ?>" maxlength="12" />
                     <?php if (empty($this->course->courseId)) : ?>
                     <br />
                     <span class="notice"><?php echo get_lang('max. 12 characters, e.g. <em>ROM2121</em>'); ?></span>
@@ -116,7 +116,7 @@
                     </label>
                 </dt>
                 <dd>
-                    <input type="text" id="course_titular" name="course_titular" value="<?php echo htmlspecialchars($this->course->titular); ?>" />
+                    <input type="text" id="course_titular" name="course_titular" value="<?php echo claro_htmlspecialchars($this->course->titular); ?>" />
                 </dd>
                 
                 <!-- Course titular's email -->
@@ -129,7 +129,7 @@
                     </label>
                 </dt>
                 <dd>
-                    <input type="text" id="course_email" name="course_email" value="<?php echo htmlspecialchars($this->course->email); ?>" maxlength="255" />
+                    <input type="text" id="course_email" name="course_email" value="<?php echo claro_htmlspecialchars($this->course->email); ?>" maxlength="255" />
                 </dd>
                 
                 <!-- Course access -->
@@ -192,7 +192,7 @@
                         <?php echo get_lang('Allowed with enrolment key'); ?>
                     </label>
                     &nbsp;
-                    <input type="text" id="course_registrationKey" name="course_registrationKey" value="<?php echo htmlspecialchars($this->course->registrationKey); ?>" />
+                    <input type="text" id="course_registrationKey" name="course_registrationKey" value="<?php echo claro_htmlspecialchars($this->course->registrationKey); ?>" />
                     </blockquote>
                     
                     <img src="<?php echo get_icon_url('enroll_forbidden'); ?>"  alt="" />
@@ -234,7 +234,7 @@
                     </label>
                 </dt>
                 <dd>
-                    <input type="text" name="course_departmentName" id="course_departmentName" value="<?php echo htmlspecialchars($this->course->departmentName); ?>" maxlength="30" />
+                    <input type="text" name="course_departmentName" id="course_departmentName" value="<?php echo claro_htmlspecialchars($this->course->departmentName); ?>" maxlength="30" />
                 </dd>
                 
                 <!-- Course department url -->
@@ -247,7 +247,7 @@
                     </label>
                 </dt>
                 <dd>
-                    <input type="text" name="course_extLinkUrl" id="course_extLinkUrl" value="<?php echo htmlspecialchars($this->course->extLinkUrl); ?>" maxlength="180" />
+                    <input type="text" name="course_extLinkUrl" id="course_extLinkUrl" value="<?php echo claro_htmlspecialchars($this->course->extLinkUrl); ?>" maxlength="180" />
                 </dd>
                 
             </dl>

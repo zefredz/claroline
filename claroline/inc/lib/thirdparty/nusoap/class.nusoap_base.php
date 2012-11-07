@@ -727,7 +727,7 @@ class nusoap_base {
 	 * @deprecated
 	 */
     function formatDump($str){
-		$str = htmlspecialchars($str);
+		$str = claro_htmlspecialchars($str);
 		return nl2br($str);
     }
 

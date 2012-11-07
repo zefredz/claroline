@@ -241,9 +241,9 @@ class FeedHtmlField {
 			$result = "<![CDATA[".$this->rawFieldContent."]]>";
 		} else {
 			if ($this->truncSize and is_int($this->truncSize)) {
-				$result = FeedCreator::iTrunc(htmlspecialchars($this->rawFieldContent),$this->truncSize);
+				$result = FeedCreator::iTrunc(claro_htmlspecialchars($this->rawFieldContent),$this->truncSize);
 			} else {
-				$result = htmlspecialchars($this->rawFieldContent);
+				$result = claro_htmlspecialchars($this->rawFieldContent);
 			}
 		}
 		return $result;
@@ -825,18 +825,18 @@ class RSSCreator10 extends FeedCreator {
 		$feed.= "    xmlns:slash=\"http://purl.org/rss/1.0/modules/slash/\"\n";
 		$feed.= "    xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n";
 		$feed.= "    <channel rdf:about=\"".$this->syndicationURL."\">\n";
-		$feed.= "        <title>".htmlspecialchars($this->title)."</title>\n";
-		$feed.= "        <description>".htmlspecialchars($this->description)."</description>\n";
+		$feed.= "        <title>".claro_htmlspecialchars($this->title)."</title>\n";
+		$feed.= "        <description>".claro_htmlspecialchars($this->description)."</description>\n";
 		$feed.= "        <link>".$this->link."</link>\n";
 		if ($this->image!=null) {
 			$feed.= "        <image rdf:resource=\"".$this->image->url."\" />\n";
 		}
 		$now = new FeedDate();
-		$feed.= "       <dc:date>".htmlspecialchars($now->iso8601())."</dc:date>\n";
+		$feed.= "       <dc:date>".claro_htmlspecialchars($now->iso8601())."</dc:date>\n";
 		$feed.= "        <items>\n";
 		$feed.= "            <rdf:Seq>\n";
 		for ($i=0;$i<count($this->items);$i++) {
-			$feed.= "                <rdf:li rdf:resource=\"".htmlspecialchars($this->items[$i]->link)."\"/>\n";
+			$feed.= "                <rdf:li rdf:resource=\"".claro_htmlspecialchars($this->items[$i]->link)."\"/>\n";
 		}
 		$feed.= "            </rdf:Seq>\n";
 		$feed.= "        </items>\n";
@@ -851,22 +851,22 @@ class RSSCreator10 extends FeedCreator {
 		$feed.= $this->_createAdditionalElements($this->additionalElements, "    ");
 
 		for ($i=0;$i<count($this->items);$i++) {
-			$feed.= "    <item rdf:about=\"".htmlspecialchars($this->items[$i]->link)."\">\n";
+			$feed.= "    <item rdf:about=\"".claro_htmlspecialchars($this->items[$i]->link)."\">\n";
 			//$feed.= "        <dc:type>Posting</dc:type>\n";
 			$feed.= "        <dc:format>text/html</dc:format>\n";
 			if ($this->items[$i]->date!=null) {
 				$itemDate = new FeedDate($this->items[$i]->date);
-				$feed.= "        <dc:date>".htmlspecialchars($itemDate->iso8601())."</dc:date>\n";
+				$feed.= "        <dc:date>".claro_htmlspecialchars($itemDate->iso8601())."</dc:date>\n";
 			}
 			if ($this->items[$i]->source!="") {
-				$feed.= "        <dc:source>".htmlspecialchars($this->items[$i]->source)."</dc:source>\n";
+				$feed.= "        <dc:source>".claro_htmlspecialchars($this->items[$i]->source)."</dc:source>\n";
 			}
 			if ($this->items[$i]->author!="") {
-				$feed.= "        <dc:creator>".htmlspecialchars($this->items[$i]->author)."</dc:creator>\n";
+				$feed.= "        <dc:creator>".claro_htmlspecialchars($this->items[$i]->author)."</dc:creator>\n";
 			}
-			$feed.= "        <title>".htmlspecialchars(strip_tags(strtr($this->items[$i]->title,"\n\r","  ")))."</title>\n";
-			$feed.= "        <link>".htmlspecialchars($this->items[$i]->link)."</link>\n";
-			$feed.= "        <description>".htmlspecialchars($this->items[$i]->description)."</description>\n";
+			$feed.= "        <title>".claro_htmlspecialchars(strip_tags(strtr($this->items[$i]->title,"\n\r","  ")))."</title>\n";
+			$feed.= "        <link>".claro_htmlspecialchars($this->items[$i]->link)."</link>\n";
+			$feed.= "        <description>".claro_htmlspecialchars($this->items[$i]->description)."</description>\n";
 			$feed.= $this->_createAdditionalElements($this->items[$i]->additionalElements, "        ");
 			$feed.= "    </item>\n";
 		}
@@ -916,18 +916,18 @@ class RSSCreator091 extends FeedCreator {
 		$feed.= $this->_createStylesheetReferences();
 		$feed.= "<rss version=\"".$this->RSSVersion."\">\n";
 		$feed.= "    <channel>\n";
-		$feed.= "        <title>".FeedCreator::iTrunc(htmlspecialchars($this->title),100)."</title>\n";
+		$feed.= "        <title>".FeedCreator::iTrunc(claro_htmlspecialchars($this->title),100)."</title>\n";
 		$this->descriptionTruncSize = 500;
 		$feed.= "        <description>".$this->getDescription()."</description>\n";
 		$feed.= "        <link>".$this->link."</link>\n";
 		$now = new FeedDate();
-		$feed.= "        <lastBuildDate>".htmlspecialchars($now->rfc822())."</lastBuildDate>\n";
+		$feed.= "        <lastBuildDate>".claro_htmlspecialchars($now->rfc822())."</lastBuildDate>\n";
 		$feed.= "        <generator>". $this->version()."</generator>\n";
 
 		if ($this->image!=null) {
 			$feed.= "        <image>\n";
 			$feed.= "            <url>".$this->image->url."</url>\n";
-			$feed.= "            <title>".FeedCreator::iTrunc(htmlspecialchars($this->image->title),100)."</title>\n";
+			$feed.= "            <title>".FeedCreator::iTrunc(claro_htmlspecialchars($this->image->title),100)."</title>\n";
 			$feed.= "            <link>".$this->image->link."</link>\n";
 			if ($this->image->width!="") {
 				$feed.= "            <width>".$this->image->width."</width>\n";
@@ -944,71 +944,71 @@ class RSSCreator091 extends FeedCreator {
 			$feed.= "        <language>".$this->language."</language>\n";
 		}
 		if ($this->copyright!="") {
-			$feed.= "        <copyright>".FeedCreator::iTrunc(htmlspecialchars($this->copyright),100)."</copyright>\n";
+			$feed.= "        <copyright>".FeedCreator::iTrunc(claro_htmlspecialchars($this->copyright),100)."</copyright>\n";
 		}
 		if ($this->editor!="") {
-			$feed.= "        <managingEditor>".FeedCreator::iTrunc(htmlspecialchars($this->editor),100)."</managingEditor>\n";
+			$feed.= "        <managingEditor>".FeedCreator::iTrunc(claro_htmlspecialchars($this->editor),100)."</managingEditor>\n";
 		}
 		if ($this->webmaster!="") {
-			$feed.= "        <webMaster>".FeedCreator::iTrunc(htmlspecialchars($this->webmaster),100)."</webMaster>\n";
+			$feed.= "        <webMaster>".FeedCreator::iTrunc(claro_htmlspecialchars($this->webmaster),100)."</webMaster>\n";
 		}
 		if ($this->pubDate!="") {
 			$pubDate = new FeedDate($this->pubDate);
-			$feed.= "        <pubDate>".htmlspecialchars($pubDate->rfc822())."</pubDate>\n";
+			$feed.= "        <pubDate>".claro_htmlspecialchars($pubDate->rfc822())."</pubDate>\n";
 		}
 		if ($this->category!="") {
-			$feed.= "        <category>".htmlspecialchars($this->category)."</category>\n";
+			$feed.= "        <category>".claro_htmlspecialchars($this->category)."</category>\n";
 		}
 		if ($this->docs!="") {
-			$feed.= "        <docs>".FeedCreator::iTrunc(htmlspecialchars($this->docs),500)."</docs>\n";
+			$feed.= "        <docs>".FeedCreator::iTrunc(claro_htmlspecialchars($this->docs),500)."</docs>\n";
 		}
 		if ($this->ttl!="") {
-			$feed.= "        <ttl>".htmlspecialchars($this->ttl)."</ttl>\n";
+			$feed.= "        <ttl>".claro_htmlspecialchars($this->ttl)."</ttl>\n";
 		}
 		if ($this->rating!="") {
-			$feed.= "        <rating>".FeedCreator::iTrunc(htmlspecialchars($this->rating),500)."</rating>\n";
+			$feed.= "        <rating>".FeedCreator::iTrunc(claro_htmlspecialchars($this->rating),500)."</rating>\n";
 		}
 		if ($this->skipHours!="") {
-			$feed.= "        <skipHours>".htmlspecialchars($this->skipHours)."</skipHours>\n";
+			$feed.= "        <skipHours>".claro_htmlspecialchars($this->skipHours)."</skipHours>\n";
 		}
 		if ($this->skipDays!="") {
-			$feed.= "        <skipDays>".htmlspecialchars($this->skipDays)."</skipDays>\n";
+			$feed.= "        <skipDays>".claro_htmlspecialchars($this->skipDays)."</skipDays>\n";
 		}
 		$feed.= $this->_createAdditionalElements($this->additionalElements, "    ");
 
 		for ($i=0;$i<count($this->items);$i++) {
 			$feed.= "        <item>\n";
-			$feed.= "            <title>".FeedCreator::iTrunc(htmlspecialchars(strip_tags($this->items[$i]->title)),100)."</title>\n";
-			$feed.= "            <link>".htmlspecialchars($this->items[$i]->link)."</link>\n";
+			$feed.= "            <title>".FeedCreator::iTrunc(claro_htmlspecialchars(strip_tags($this->items[$i]->title)),100)."</title>\n";
+			$feed.= "            <link>".claro_htmlspecialchars($this->items[$i]->link)."</link>\n";
 			$feed.= "            <description>".$this->items[$i]->getDescription()."</description>\n";
 
 			if ($this->items[$i]->author!="") {
 				if ($this->items[$i]->authorEmail!="") {
-					$feed.= "            <author> " . htmlspecialchars($this->items[$i]->authorEmail) . " (".htmlspecialchars($this->items[$i]->author).")</author>\n";
+					$feed.= "            <author> " . claro_htmlspecialchars($this->items[$i]->authorEmail) . " (".claro_htmlspecialchars($this->items[$i]->author).")</author>\n";
 				} else {
-				      $feed.= "            <author> no_email@example.com (".htmlspecialchars($this->items[$i]->author).")</author>\n";
+				      $feed.= "            <author> no_email@example.com (".claro_htmlspecialchars($this->items[$i]->author).")</author>\n";
 				}
 			}
 			/*
 			// on hold
 			if ($this->items[$i]->source!="") {
-					$feed.= "            <source>".htmlspecialchars($this->items[$i]->source)."</source>\n";
+					$feed.= "            <source>".claro_htmlspecialchars($this->items[$i]->source)."</source>\n";
 			}
 			*/
 			if ($this->items[$i]->category!="") {
-				$feed.= "            <category>".htmlspecialchars($this->items[$i]->category)."</category>\n";
+				$feed.= "            <category>".claro_htmlspecialchars($this->items[$i]->category)."</category>\n";
 			}
 			if ($this->items[$i]->comments!="") {
-				$feed.= "            <comments>".htmlspecialchars($this->items[$i]->comments)."</comments>\n";
+				$feed.= "            <comments>".claro_htmlspecialchars($this->items[$i]->comments)."</comments>\n";
 			}
 			if ($this->items[$i]->date!="") {
 			$itemDate = new FeedDate($this->items[$i]->date);
-				$feed.= "            <pubDate>".htmlspecialchars($itemDate->rfc822())."</pubDate>\n";
+				$feed.= "            <pubDate>".claro_htmlspecialchars($itemDate->rfc822())."</pubDate>\n";
 			}
 
-			$feed.= "            <guid isPermaLink=\"false\">".htmlspecialchars($this->items[$i]->link)."</guid>\n";
+			$feed.= "            <guid isPermaLink=\"false\">".claro_htmlspecialchars($this->items[$i]->link)."</guid>\n";
 			if ($this->items[$i]->guid!="") {
-				$feed.= "            <guid isPermaLink=\"false\">".htmlspecialchars($this->items[$i]->guid)."</guid>\n";
+				$feed.= "            <guid isPermaLink=\"false\">".claro_htmlspecialchars($this->items[$i]->guid)."</guid>\n";
 			}
 			$feed.= $this->_createAdditionalElements($this->items[$i]->additionalElements, "        ");
 
@@ -1070,22 +1070,22 @@ class PIECreator01 extends FeedCreator {
 		$feed = "<?xml version=\"1.0\" encoding=\"".$this->encoding."\"?>\n";
 		$feed.= $this->_createStylesheetReferences();
 		$feed.= "<feed version=\"0.1\" xmlns=\"http://example.com/newformat#\">\n";
-		$feed.= "    <title>".FeedCreator::iTrunc(htmlspecialchars($this->title),100)."</title>\n";
+		$feed.= "    <title>".FeedCreator::iTrunc(claro_htmlspecialchars($this->title),100)."</title>\n";
 		$this->truncSize = 500;
 		$feed.= "    <subtitle>".$this->getDescription()."</subtitle>\n";
 		$feed.= "    <link>".$this->link."</link>\n";
 		for ($i=0;$i<count($this->items);$i++) {
 			$feed.= "    <entry>\n";
-			$feed.= "        <title>".FeedCreator::iTrunc(htmlspecialchars(strip_tags($this->items[$i]->title)),100)."</title>\n";
-			$feed.= "        <link>".htmlspecialchars($this->items[$i]->link)."</link>\n";
+			$feed.= "        <title>".FeedCreator::iTrunc(claro_htmlspecialchars(strip_tags($this->items[$i]->title)),100)."</title>\n";
+			$feed.= "        <link>".claro_htmlspecialchars($this->items[$i]->link)."</link>\n";
 			$itemDate = new FeedDate($this->items[$i]->date);
-			$feed.= "        <created>".htmlspecialchars($itemDate->iso8601())."</created>\n";
-			$feed.= "        <issued>".htmlspecialchars($itemDate->iso8601())."</issued>\n";
-			$feed.= "        <modified>".htmlspecialchars($itemDate->iso8601())."</modified>\n";
-			$feed.= "        <id>".htmlspecialchars($this->items[$i]->guid)."</id>\n";
+			$feed.= "        <created>".claro_htmlspecialchars($itemDate->iso8601())."</created>\n";
+			$feed.= "        <issued>".claro_htmlspecialchars($itemDate->iso8601())."</issued>\n";
+			$feed.= "        <modified>".claro_htmlspecialchars($itemDate->iso8601())."</modified>\n";
+			$feed.= "        <id>".claro_htmlspecialchars($this->items[$i]->guid)."</id>\n";
 			if ($this->items[$i]->author!="") {
 				$feed.= "        <author>\n";
-				$feed.= "            <name>".htmlspecialchars($this->items[$i]->author)."</name>\n";
+				$feed.= "            <name>".claro_htmlspecialchars($this->items[$i]->author)."</name>\n";
 				if ($this->items[$i]->authorEmail!="") {
 					$feed.= "            <email>".$this->items[$i]->authorEmail."</email>\n";
 				}
@@ -1134,12 +1134,12 @@ class PIECreator01 extends FeedCreator {
 			$feed.= " xml:lang=\"".$this->language."\"";
 		}
 		$feed.= ">\n";
-		$feed.= "    <title>".htmlspecialchars($this->title)."</title>\n";
-		$feed.= "    <subtitle>".htmlspecialchars($this->description)."</subtitle>\n";
-		$feed.= "    <link rel=\"alternate\" type=\"text/html\" href=\"".htmlspecialchars($this->link)."\"/>\n";
-		$feed.= "    <id>".htmlspecialchars($this->link)."</id>\n";
+		$feed.= "    <title>".claro_htmlspecialchars($this->title)."</title>\n";
+		$feed.= "    <subtitle>".claro_htmlspecialchars($this->description)."</subtitle>\n";
+		$feed.= "    <link rel=\"alternate\" type=\"text/html\" href=\"".claro_htmlspecialchars($this->link)."\"/>\n";
+		$feed.= "    <id>".claro_htmlspecialchars($this->link)."</id>\n";
 		$now = new FeedDate();
-		$feed.= "    <updated>".htmlspecialchars($now->iso8601())."</updated>\n";
+		$feed.= "    <updated>".claro_htmlspecialchars($now->iso8601())."</updated>\n";
 		if ($this->editor!="") {
 			$feed.= "    <author>\n";
 			$feed.= "        <name>".$this->editor."</name>\n";
@@ -1149,26 +1149,26 @@ class PIECreator01 extends FeedCreator {
 			$feed.= "    </author>\n";
 		}
 		if ($this->category!="") {
-					$feed.= "        <category term=\"" . htmlspecialchars($this->category) . "\" />\n";
+					$feed.= "        <category term=\"" . claro_htmlspecialchars($this->category) . "\" />\n";
 		}
 		if ($this->copyright!="") {
-					$feed.= "        <rights>".FeedCreator::iTrunc(htmlspecialchars($this->copyright),100)."</rights>\n";
+					$feed.= "        <rights>".FeedCreator::iTrunc(claro_htmlspecialchars($this->copyright),100)."</rights>\n";
 		}
 		$feed.= "    <generator>".$this->version()."</generator>\n";
 
 
-		$feed.= "<link rel=\"self\" type=\"application/atom+xml\" href=\"". htmlspecialchars($this->syndicationURL). "\" />\n";
+		$feed.= "<link rel=\"self\" type=\"application/atom+xml\" href=\"". claro_htmlspecialchars($this->syndicationURL). "\" />\n";
 		$feed.= $this->_createAdditionalElements($this->additionalElements, "    ");
 		for ($i=0;$i<count($this->items);$i++) {
 			$feed.= "    <entry>\n";
-			$feed.= "        <title>".htmlspecialchars(strip_tags($this->items[$i]->title))."</title>\n";
-			$feed.= "        <link rel=\"alternate\" type=\"text/html\" href=\"".htmlspecialchars($this->items[$i]->link)."\"/>\n";
+			$feed.= "        <title>".claro_htmlspecialchars(strip_tags($this->items[$i]->title))."</title>\n";
+			$feed.= "        <link rel=\"alternate\" type=\"text/html\" href=\"".claro_htmlspecialchars($this->items[$i]->link)."\"/>\n";
 			if ($this->items[$i]->date=="") {
 				$this->items[$i]->date = time();
 			}
 			$itemDate = new FeedDate($this->items[$i]->date);
-			$feed.= "        <published>".htmlspecialchars($itemDate->iso8601())."</published>\n";
-			$feed.= "        <updated>".htmlspecialchars($itemDate->iso8601())."</updated>\n";
+			$feed.= "        <published>".claro_htmlspecialchars($itemDate->iso8601())."</published>\n";
+			$feed.= "        <updated>".claro_htmlspecialchars($itemDate->iso8601())."</updated>\n";
 
 
 			$tempguid = $this->items[$i]->link;
@@ -1176,24 +1176,24 @@ class PIECreator01 extends FeedCreator {
 				$tempguid = $this->items[$i]->guid;
 			}
 
-			$feed.= "        <id>". htmlspecialchars($tempguid)."</id>\n";
+			$feed.= "        <id>". claro_htmlspecialchars($tempguid)."</id>\n";
 			$feed.= $this->_createAdditionalElements($this->items[$i]->additionalElements, "        ");
 			if ($this->items[$i]->author!="") {
 				$feed.= "        <author>\n";
-				$feed.= "            <name>".htmlspecialchars($this->items[$i]->author)."</name>\n";
+				$feed.= "            <name>".claro_htmlspecialchars($this->items[$i]->author)."</name>\n";
 				if ($this->items[$i]->authorEmail!="") {
-				$feed.= "            <email>".htmlspecialchars($this->items[$i]->authorEmail)."</email>\n";
+				$feed.= "            <email>".claro_htmlspecialchars($this->items[$i]->authorEmail)."</email>\n";
 				}
 
 				if ($this->items[$i]->authorURL!="") {
-								$feed.= "            <uri>".htmlspecialchars($this->items[$i]->authorURL)."</uri>\n";
+								$feed.= "            <uri>".claro_htmlspecialchars($this->items[$i]->authorURL)."</uri>\n";
 				}
 
 				$feed.= "        </author>\n";
 			}
 
 			if ($this->category!="") {
-								$feed.= "        <category term=\"" . htmlspecialchars($this->items[$i]->category) . "\" />\n";
+								$feed.= "        <category term=\"" . claro_htmlspecialchars($this->items[$i]->category) . "\" />\n";
 			}
 
 			if ($this->items[$i]->description!="") {
@@ -1280,12 +1280,12 @@ class AtomCreator03 extends FeedCreator {
 			$feed.= " xml:lang=\"".$this->language."\"";
 		}
 		$feed.= ">\n";
-		$feed.= "    <title>".htmlspecialchars($this->title)."</title>\n";
-		$feed.= "    <tagline>".htmlspecialchars($this->description)."</tagline>\n";
-		$feed.= "    <link rel=\"alternate\" type=\"text/html\" href=\"".htmlspecialchars($this->link)."\"/>\n";
-		$feed.= "    <id>".htmlspecialchars($this->link)."</id>\n";
+		$feed.= "    <title>".claro_htmlspecialchars($this->title)."</title>\n";
+		$feed.= "    <tagline>".claro_htmlspecialchars($this->description)."</tagline>\n";
+		$feed.= "    <link rel=\"alternate\" type=\"text/html\" href=\"".claro_htmlspecialchars($this->link)."\"/>\n";
+		$feed.= "    <id>".claro_htmlspecialchars($this->link)."</id>\n";
 		$now = new FeedDate();
-		$feed.= "    <modified>".htmlspecialchars($now->iso8601())."</modified>\n";
+		$feed.= "    <modified>".claro_htmlspecialchars($now->iso8601())."</modified>\n";
 		if ($this->editor!="") {
 			$feed.= "    <author>\n";
 			$feed.= "        <name>".$this->editor."</name>\n";
@@ -1298,24 +1298,24 @@ class AtomCreator03 extends FeedCreator {
 		$feed.= $this->_createAdditionalElements($this->additionalElements, "    ");
 		for ($i=0;$i<count($this->items);$i++) {
 			$feed.= "    <entry>\n";
-			$feed.= "        <title>".htmlspecialchars(strip_tags($this->items[$i]->title))."</title>\n";
-			$feed.= "        <link rel=\"alternate\" type=\"text/html\" href=\"".htmlspecialchars($this->items[$i]->link)."\"/>\n";
+			$feed.= "        <title>".claro_htmlspecialchars(strip_tags($this->items[$i]->title))."</title>\n";
+			$feed.= "        <link rel=\"alternate\" type=\"text/html\" href=\"".claro_htmlspecialchars($this->items[$i]->link)."\"/>\n";
 			if ($this->items[$i]->date=="") {
 				$this->items[$i]->date = time();
 			}
 			$itemDate = new FeedDate($this->items[$i]->date);
-			$feed.= "        <created>".htmlspecialchars($itemDate->iso8601())."</created>\n";
-			$feed.= "        <issued>".htmlspecialchars($itemDate->iso8601())."</issued>\n";
-			$feed.= "        <modified>".htmlspecialchars($itemDate->iso8601())."</modified>\n";
-			$feed.= "        <id>".htmlspecialchars($this->items[$i]->link)."</id>\n";
+			$feed.= "        <created>".claro_htmlspecialchars($itemDate->iso8601())."</created>\n";
+			$feed.= "        <issued>".claro_htmlspecialchars($itemDate->iso8601())."</issued>\n";
+			$feed.= "        <modified>".claro_htmlspecialchars($itemDate->iso8601())."</modified>\n";
+			$feed.= "        <id>".claro_htmlspecialchars($this->items[$i]->link)."</id>\n";
 			$feed.= $this->_createAdditionalElements($this->items[$i]->additionalElements, "        ");
 			if ($this->items[$i]->author!="") {
 				$feed.= "        <author>\n";
-				$feed.= "            <name>".htmlspecialchars($this->items[$i]->author)."</name>\n";
+				$feed.= "            <name>".claro_htmlspecialchars($this->items[$i]->author)."</name>\n";
 				$feed.= "        </author>\n";
 			}
 			if ($this->items[$i]->description!="") {
-				$feed.= "        <summary>".htmlspecialchars( strip_tags($this->items[$i]->description) )."</summary>\n";
+				$feed.= "        <summary>".claro_htmlspecialchars( strip_tags($this->items[$i]->description) )."</summary>\n";
 
 			}
 			$feed.= "    </entry>\n";
@@ -1432,7 +1432,7 @@ class OPMLCreator extends FeedCreator {
 		$feed.= $this->_createStylesheetReferences();
 		$feed.= "<opml xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"1.0\">\n";
 		$feed.= "    <head>\n";
-		$feed.= "        <title>".htmlspecialchars($this->title)."</title>\n";
+		$feed.= "        <title>".claro_htmlspecialchars($this->title)."</title>\n";
 		if ($this->pubDate!="") {
 			$date = new FeedDate($this->pubDate);
 			$feed.= "         <dateCreated>".$date->rfc822()."</dateCreated>\n";
@@ -1451,11 +1451,11 @@ class OPMLCreator extends FeedCreator {
 		$feed.= "    <body>\n";
 		for ($i=0;$i<count($this->items);$i++) {
 			$feed.= "    <outline type=\"rss\" ";
-			$title = htmlspecialchars(strip_tags(strtr($this->items[$i]->title,"\n\r","  ")));
+			$title = claro_htmlspecialchars(strip_tags(strtr($this->items[$i]->title,"\n\r","  ")));
 			$feed.= " title=\"".$title."\"";
 			$feed.= " text=\"".$title."\"";
-			//$feed.= " description=\"".htmlspecialchars($this->items[$i]->description)."\"";
-			$feed.= " url=\"".htmlspecialchars($this->items[$i]->link)."\"";
+			//$feed.= " description=\"".claro_htmlspecialchars($this->items[$i]->description)."\"";
+			$feed.= " url=\"".claro_htmlspecialchars($this->items[$i]->link)."\"";
 
 			if ($this->items[$i]->syndicationURL !="") {
 				$feed.= " xmlUrl=\"" . $this->items[$i]->syndicationURL . "\"";
@@ -1549,7 +1549,7 @@ class HTMLCreator extends FeedCreator {
 		if ($this->image!=null) {
 			$imageStr = "<a href='".$this->image->link."'".$targetInsert.">".
 							"<img src='".$this->image->url."' border='0' alt='".
-							FeedCreator::iTrunc(htmlspecialchars($this->image->title),100).
+							FeedCreator::iTrunc(claro_htmlspecialchars($this->image->title),100).
 							"' align='".$this->imageAlign."' ";
 			if ($this->image->width) {
 				$imageStr .=" width='".$this->image->width. "' ";
@@ -1563,7 +1563,7 @@ class HTMLCreator extends FeedCreator {
 
 		if ($this->title) {
 			$feedArray[] = "<div class='".$this->stylePrefix."title'><a href='".$this->link."' ".$targetInsert." class='".$this->stylePrefix."title'>".
-				FeedCreator::iTrunc(htmlspecialchars($this->title),100)."</a></div>";
+				FeedCreator::iTrunc(claro_htmlspecialchars($this->title),100)."</a></div>";
 		}
 		if ($this->getDescription()) {
 			$feedArray[] = "<div class='".$this->stylePrefix."description'>".
@@ -1584,12 +1584,12 @@ class HTMLCreator extends FeedCreator {
 				if ($this->items[$i]->link) {
 					$feedArray[] =
 						"<div class='".$this->stylePrefix."item_title'><a href='".$this->items[$i]->link."' class='".$this->stylePrefix.
-						"item_title'".$targetInsert.">".FeedCreator::iTrunc(htmlspecialchars(strip_tags($this->items[$i]->title)),100).
+						"item_title'".$targetInsert.">".FeedCreator::iTrunc(claro_htmlspecialchars(strip_tags($this->items[$i]->title)),100).
 						"</a></div>";
 				} else {
 					$feedArray[] =
 						"<div class='".$this->stylePrefix."item_title'>".
-						FeedCreator::iTrunc(htmlspecialchars(strip_tags($this->items[$i]->title)),100).
+						FeedCreator::iTrunc(claro_htmlspecialchars(strip_tags($this->items[$i]->title)),100).
 						"</div>";
 				}
 			}

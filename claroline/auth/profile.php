@@ -248,7 +248,7 @@ switch ( $display )
             $cmdList[] = array(
                 'img' => 'statistics',
                 'name' => get_lang('View my statistics'),
-                'url' => htmlspecialchars(Url::Contextualize(get_conf('urlAppend') . '/claroline/tracking/userReport.php?userId='.claro_get_current_user_id()))
+                'url' => claro_htmlspecialchars(Url::Contextualize(get_conf('urlAppend') . '/claroline/tracking/userReport.php?userId='.claro_get_current_user_id()))
             );
         }
         
@@ -257,7 +257,7 @@ switch ( $display )
         {
             $cmdList[] = array(
                 'name' => get_lang('Request course creation status'),
-                'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=reqCCstatus'))
+                'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=reqCCstatus'))
             );
         }
         
@@ -267,7 +267,7 @@ switch ( $display )
             $cmdList[] = array(
                 'img' => 'delete',
                 'name' => get_lang('Delete my account'),
-                'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=reqRevoquation'))
+                'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=reqRevoquation'))
             );
         }
         

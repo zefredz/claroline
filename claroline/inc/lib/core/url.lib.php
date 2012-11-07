@@ -44,7 +44,7 @@ class Url
             : $url
             ;
             
-        $url = htmlspecialchars_decode( $url );
+        $url = claro_htmlspecialchars_decode( $url );
         
         $urlArr = @parse_url( $url );
         

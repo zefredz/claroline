@@ -319,7 +319,7 @@ foreach($courseList as $numLine => $courseLine)
     }
     
     // Label
-    $courseDataList[$numLine]['intitule'] =  '<a href="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($courseLine['sysCode']) . '">'
+    $courseDataList[$numLine]['intitule'] =  '<a href="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . claro_htmlspecialchars($courseLine['sysCode']) . '">'
     .                                        $courseLine['intitule']
     .                                        '</a>'
                                              . ((!is_null($courseLine['sourceCourseId']))?(' ['.get_lang('Session').']'):(''))
@@ -359,7 +359,7 @@ foreach($courseList as $numLine => $courseLine)
     .                                         '</a>';
     
     // Course Action Delete
-    $courseDataList[$numLine]['cmdDelete'] = '<a href="' . htmlspecialchars($_SERVER['PHP_SELF']
+    $courseDataList[$numLine]['cmdDelete'] = '<a href="' . claro_htmlspecialchars($_SERVER['PHP_SELF']
     .                                        '?cmd=exDelete&delCode=' . $courseLine['sysCode'] . $addToURL) . '" '
     .                                        'onclick="return ADMIN.confirmationDel(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');">'
     .                                        '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
@@ -419,7 +419,7 @@ $out .= '<table width="100%">' . "\n\n"
 .    '<td align="right"  valign="top">' . "\n\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<label for="search">' . get_lang('Make new search') . ' : </label>'."\n"
-.    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search" />' . "\n"
+.    '<input type="text" value="' . claro_htmlspecialchars($search) . '" name="search" id="search" />' . "\n"
 .    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
 .    '<input type="hidden" name="newsearch" value="yes" />' . "\n"
 .    '[<a class="claroCmd" href="advanced_course_search.php' . $addtoAdvanced . '">'

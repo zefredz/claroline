@@ -53,7 +53,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     {
         // FIXME : fix query, probably not a good idea to use like to find a match inside serialized data
         // set the subtitle for the echo claro_html_tool_title function
-        $toolTitle['subTitle'] = get_lang('Documents and Links')." : ". htmlspecialchars($_REQUEST['path']);
+        $toolTitle['subTitle'] = get_lang('Documents and Links')." : ". claro_htmlspecialchars($_REQUEST['path']);
         // prepare SQL query
         $sql = "SELECT `U`.`nom` as `lastName`,
                        `U`.`prenom` as `firstName`,

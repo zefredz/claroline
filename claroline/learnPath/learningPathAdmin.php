@@ -133,7 +133,7 @@ switch($cmd)
             . '<dl>' . "\n"
             . '<dt><label for="newName">' . get_lang('Title') . '</label></dt>' . "\n"
             . '<dd>' . "\n"
-            . '<input type="text" name="newName" id="newName" size="50" maxlength="255" value="'.htmlspecialchars( claro_utf8_decode( $LPDetails['name'], get_conf( 'charset' ) ) ).'" />' . "\n"
+            . '<input type="text" name="newName" id="newName" size="50" maxlength="255" value="'.claro_htmlspecialchars( claro_utf8_decode( $LPDetails['name'], get_conf( 'charset' ) ) ).'" />' . "\n"
             . '</dd>' . "\n"
             . '<dt><label for="newComment">' . get_lang('Comment') . '</label></dt>' . "\n"
             . '<dd>' . "\n"
@@ -468,22 +468,22 @@ $cmdList = array();
 $cmdList[] = array(
     'img' => 'add',
     'name' => get_lang('Add a document'),
-    'url' => htmlspecialchars(Url::Contextualize('insertMyDoc.php'))
+    'url' => claro_htmlspecialchars(Url::Contextualize('insertMyDoc.php'))
 );
 $cmdList[] = array(
     'img' => 'add',
     'name' => get_lang('Add an exercise'),
-    'url' => htmlspecialchars(Url::Contextualize('insertMyExercise.php'))
+    'url' => claro_htmlspecialchars(Url::Contextualize('insertMyExercise.php'))
 );
 $cmdList[] = array(
     'img' => 'add',
     'name' => get_lang('Add a module of this course'),
-    'url' => htmlspecialchars(Url::Contextualize('insertMyModule.php'))
+    'url' => claro_htmlspecialchars(Url::Contextualize('insertMyModule.php'))
 );
 $cmdList[] = array(
     'img' => 'add',
     'name' => get_lang('Create label'),
-    'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=createLabel'))
+    'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=createLabel'))
 );
 
 
@@ -622,7 +622,7 @@ foreach ($flatElementList as $module)
 
     if ($module['contentType'] == CTLABEL_) // chapter head
     {
-        $out .= "<b>".htmlspecialchars( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ) )."</b>\n";
+        $out .= "<b>".claro_htmlspecialchars( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ) )."</b>\n";
     }
     else // module
     {
@@ -632,16 +632,16 @@ foreach ($flatElementList as $module)
             $moduleImg = get_icon_url( choose_image(basename($module['path'])) );
 
         $contentType_alt = selectAlt($module['contentType']);
-        $out .= "<a href=\"".htmlspecialchars(Url::Contextualize('module.php?module_id='.$module['module_id']))."\">"
+        $out .= "<a href=\"".claro_htmlspecialchars(Url::Contextualize('module.php?module_id='.$module['module_id']))."\">"
             . "<img src=\"" . $moduleImg . "\" alt=\"".$contentType_alt."\" > "
-            . htmlspecialchars( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ) )
+            . claro_htmlspecialchars( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ) )
             . "</a>";
     }
     $out .= "</td>"; // end of td of module name
 
     // Modify command / go to other page
     $out .= "<td>
-          <a href=\"".htmlspecialchars(Url::Contextualize('module.php?module_id='.$module['module_id']))."\">".
+          <a href=\"".claro_htmlspecialchars(Url::Contextualize('module.php?module_id='.$module['module_id']))."\">".
          "<img src=\"" . get_icon_url('edit') . "\" alt=\"".get_lang('Modify')."\" />".
          "</a>
          </td>";
@@ -650,7 +650,7 @@ foreach ($flatElementList as $module)
 
    //in case of SCORM module, the pop-up window to confirm must be different as the action will be different on the server
     $out .= "<td>
-          <a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']))."\" ".
+          <a href=\"".claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']))."\" ".
          "onclick=\"return confirmation('".clean_str_for_javascript(get_lang('Are you sure you want to remove the following module from the learning path : ')." ".$module['name'])." ? ";
 
     if ($module['contentType'] == CTSCORM_)
@@ -673,13 +673,13 @@ foreach ($flatElementList as $module)
     }
     elseif ( $module['lock'] == 'OPEN')
     {
-        $out .= "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=mkBlock&cmdid=".$module['learnPath_module_id']))."\">".
+        $out .= "<a href=\"".claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=mkBlock&cmdid=".$module['learnPath_module_id']))."\">".
              "<img src=\"" . get_icon_url('unblock') . "\" alt=\"" . get_lang('Block') . "\" />".
              "</a>";
     }
     elseif( $module['lock'] == 'CLOSE')
     {
-        $out .= "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']))."\">".
+        $out .= "<a href=\"".claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']))."\">".
              "<img src=\"" . get_icon_url('block') . "\" alt=\"" . get_lang('Unblock') . "\" />".
              "</a>";
     }
@@ -690,7 +690,7 @@ foreach ($flatElementList as $module)
 
     if ( $module['visibility'] == 'HIDE')
     {
-        $out .= "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=mkVisibl&cmdid=".$module['module_id']))."\">".
+        $out .= "<a href=\"".claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=mkVisibl&cmdid=".$module['module_id']))."\">".
              "<img src=\"" . get_icon_url('invisible') . "\" alt=\"" . get_lang('Make visible') . "\" />".
              "</a>";
     }
@@ -704,7 +704,7 @@ foreach ($flatElementList as $module)
         {
             $onclick = "";
         }
-        $out .= "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=mkInvisibl&cmdid=".$module['module_id']))."\" ".$onclick. " >".
+        $out .= "<a href=\"".claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=mkInvisibl&cmdid=".$module['module_id']))."\" ".$onclick. " >".
              "<img src=\"" . get_icon_url('visible') . "\" alt=\"" . get_lang('Make invisible') . "\" />".
              "</a>";
     }
@@ -714,7 +714,7 @@ foreach ($flatElementList as $module)
     // ORDER COMMANDS
     // DISPLAY CATEGORY MOVE COMMAND
     $out .= "<td>".
-         "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=changePos&cmdid=".$module['learnPath_module_id']))."\">".
+         "<a href=\"".claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=changePos&cmdid=".$module['learnPath_module_id']))."\">".
          "<img src=\"" . get_icon_url('move') . "\" alt=\"" . get_lang('Move'). "\" />".
          "</a>".
          "</td>";
@@ -723,7 +723,7 @@ foreach ($flatElementList as $module)
     if ($module['up'])
     {
         $out .= "<td>".
-             "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=moveUp&cmdid=".$module['learnPath_module_id']))."\">".
+             "<a href=\"".claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=moveUp&cmdid=".$module['learnPath_module_id']))."\">".
              "<img src=\"" . get_icon_url('move_up') . "\" alt=\"" . get_lang('Move up') . "\" />".
              "</a>".
              "</td>";
@@ -737,7 +737,7 @@ foreach ($flatElementList as $module)
     if ($module['down'])
     {
         $out .= "<td>".
-             "<a href=\"".htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=moveDown&cmdid=".$module['learnPath_module_id']))."\">".
+             "<a href=\"".claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']."?cmd=moveDown&cmdid=".$module['learnPath_module_id']))."\">".
              "<img src=\"" . get_icon_url('move_down') . "\" alt=\"" . get_lang('Move down') . "\" />".
              "</a>".
              "</td>";

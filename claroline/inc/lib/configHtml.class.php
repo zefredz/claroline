@@ -69,10 +69,10 @@ class ConfigHtml extends Config
             }
 
             // display start form
-            $form .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code .htmlspecialchars($url_params). '" name="editConfClass" >' . "\n"
+            $form .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code .claro_htmlspecialchars($url_params). '" name="editConfClass" >' . "\n"
             .        claro_form_relay_context()
-            .        '<input type="hidden" name="config_code" value="' . htmlspecialchars($this->config_code) . '" />' . "\n"
-            .        '<input type="hidden" name="section" value="' . htmlspecialchars($section_selected) . '" />' . "\n"
+            .        '<input type="hidden" name="config_code" value="' . claro_htmlspecialchars($this->config_code) . '" />' . "\n"
+            .        '<input type="hidden" name="section" value="' . claro_htmlspecialchars($section_selected) . '" />' . "\n"
             .        '<input type="hidden" name="cmd" value="save" />' . "\n"
             ;
 
@@ -90,7 +90,7 @@ class ConfigHtml extends Config
                 {
                     $form .= '<tr><td colspan="3">' . "\n";
                     $form .= '<ul class="tabTitle">' . "\n";
-                    $form .= '<li><a href="#">' . htmlspecialchars( get_lang($this->conf_def['section'][$thisSection]['label'])) . '</a></li>' . "\n";
+                    $form .= '<li><a href="#">' . claro_htmlspecialchars( get_lang($this->conf_def['section'][$thisSection]['label'])) . '</a></li>' . "\n";
                     $form .= '</ul>' . "\n";
                     $form .= '</td></tr>' . "\n";
 
@@ -173,19 +173,19 @@ class ConfigHtml extends Config
         $input_name = 'property['.$name.']';
 
         // label of property
-        $html['label'] = !empty($property_def['label'])?htmlspecialchars( get_lang($property_def['label'])):htmlspecialchars(get_lang($name));
+        $html['label'] = !empty($property_def['label'])?claro_htmlspecialchars( get_lang($property_def['label'])):claro_htmlspecialchars(get_lang($name));
 
         // value of property
-        if ( ! is_array($value) ) $html['value'] = htmlspecialchars($value);
+        if ( ! is_array($value) ) $html['value'] = claro_htmlspecialchars($value);
 
         // description of property
-        $html['description'] = !empty($property_def['description'])?nl2br(htmlspecialchars( get_lang($property_def['description']))):'';
+        $html['description'] = !empty($property_def['description'])?nl2br(claro_htmlspecialchars( get_lang($property_def['description']))):'';
 
         // unit of property
-        $html['unit'] = !empty($property_def['unit'])?htmlspecialchars( get_lang($property_def['unit'])):'';
+        $html['unit'] = !empty($property_def['unit'])?claro_htmlspecialchars( get_lang($property_def['unit'])):'';
 
         // type of property
-        $html['type'] = !empty($property_def['type'])?' <small>('.htmlspecialchars (get_lang($property_def['type'])).')</small>':'';
+        $html['type'] = !empty($property_def['type'])?' <small>('.claro_htmlspecialchars (get_lang($property_def['type'])).')</small>':'';
 
         // evaluate the size of input box
         if(!is_array($value))
@@ -234,7 +234,7 @@ class ConfigHtml extends Config
                             $value_list = array();;
                             foreach ( $value as $value_item )
                             {
-                                $value_list[] = htmlspecialchars(get_lang($property_def['acceptedValue'][$value_item]));
+                                $value_list[] = claro_htmlspecialchars(get_lang($property_def['acceptedValue'][$value_item]));
                             }
                             $form_value = implode(', ',$value_list);
                         }
@@ -359,11 +359,11 @@ class ConfigHtml extends Config
                             {
                                 if ( $keyVal == $value )
                                 {
-                                    $form_value .= '<option value="'. htmlspecialchars($keyVal) .'" selected="selected">' . get_lang(($labelVal?$labelVal:$keyVal )).get_lang( $html['unit']) .'</option>' . "\n";
+                                    $form_value .= '<option value="'. claro_htmlspecialchars($keyVal) .'" selected="selected">' . get_lang(($labelVal?$labelVal:$keyVal )).get_lang( $html['unit']) .'</option>' . "\n";
                                 }
                                 else
                                 {
-                                    $form_value .= '<option value="'. htmlspecialchars($keyVal) .'">' .get_lang( ($labelVal?$labelVal:$keyVal )). get_lang($html['unit']) .'</option>' . "\n";
+                                    $form_value .= '<option value="'. claro_htmlspecialchars($keyVal) .'">' .get_lang( ($labelVal?$labelVal:$keyVal )). get_lang($html['unit']) .'</option>' . "\n";
                                 }
                             } // end foreach
 
@@ -482,8 +482,8 @@ class ConfigHtml extends Config
 
                 $menu .=  '<li>'
                 . '<a ' . ( $section == $section_selected ? 'class="current"' : '' )
-                . ' href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code)
-                . '&amp;section=' . htmlspecialchars($section) . htmlspecialchars($url_params). '">'
+                . ' href="' . $_SERVER['PHP_SELF'] . '?config_code=' . claro_htmlspecialchars($this->config_code)
+                . '&amp;section=' . claro_htmlspecialchars($section) . claro_htmlspecialchars($url_params). '">'
                 . get_lang($section_name) . '</a></li>' . "\n";
 
             }

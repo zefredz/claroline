@@ -422,7 +422,7 @@ class wiki2xhtml
             return false;
         }
 
-        $line = htmlspecialchars($this->T[$i],ENT_NOQUOTES);
+        $line = claro_htmlspecialchars($this->T[$i],ENT_NOQUOTES);
 
         # Ligne vide
         if (empty($line))

@@ -18,7 +18,7 @@
             <?php if ($relatedCourse['isSourceCourse']) : ?> sourceCourse<?php endif; ?>
             <?php if ($relatedCourse['id'] == $this->course['id']) : ?> current<?php endif; ?>">
             <a class="qtip"
-               href="<?php echo htmlspecialchars(Url::Contextualize(
+               href="<?php echo claro_htmlspecialchars(Url::Contextualize(
                    get_path('clarolineRepositoryWeb') . 'course/index.php',
                    array('cid'=>$relatedCourse['sysCode']))); ?>"
                    title="<?php echo $relatedCourse['title']; ?>">
@@ -55,9 +55,9 @@
             <div class="groupInfos">
             <h3>
                 <a
-                    href="<?php echo htmlspecialchars(Url::contextualize(
+                    href="<?php echo claro_htmlspecialchars(Url::contextualize(
                         get_module_url('CLGRP').'/group_space.php')); ?>">
-                <?php echo htmlspecialchars($this->group['name']); ?>
+                <?php echo claro_htmlspecialchars($this->group['name']); ?>
                 </a>
             </h3>
                 

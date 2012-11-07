@@ -202,8 +202,8 @@
                     <span class="required">*</span>
                 </dt>
                 <dd>
-                    <?php echo htmlspecialchars($this->data['username']); ?>
-                    <input type="hidden" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
+                    <?php echo claro_htmlspecialchars($this->data['username']); ?>
+                    <input type="hidden" name="username" id="username" value="<?php echo claro_htmlspecialchars($this->data['username']); ?>" />
                 </dd>
 
             <?php else : ?>
@@ -217,12 +217,12 @@
                 <dd>
                     <?php if (in_array('login', $this->editableFields)) : ?>
                     
-                        <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
+                        <input type="text" name="username" id="username" value="<?php echo claro_htmlspecialchars($this->data['username']); ?>" />
                     
                     <?php else : ?>
                     
-                        <?php echo htmlspecialchars($this->data['username']); ?>
-                        <input type="hidden" name="username" id="username" value="<?php echo htmlspecialchars($this->data['username']); ?>" />
+                        <?php echo claro_htmlspecialchars($this->data['username']); ?>
+                        <input type="hidden" name="username" id="username" value="<?php echo claro_htmlspecialchars($this->data['username']); ?>" />
                     
                     <?php endif; ?>
                 </dd>
@@ -376,12 +376,12 @@
             <dd>                
                 <?php if (in_array('email', $this->editableFields)) : ?>
                 
-                    <input type="text" name="email" id="email" value="<?php echo htmlspecialchars($this->data['email']); ?>" />
+                    <input type="text" name="email" id="email" value="<?php echo claro_htmlspecialchars($this->data['email']); ?>" />
                 
                 <?php else : ?>
                 
-                    <?php echo htmlspecialchars($this->data['email']); ?>
-                    <input type="hidden" name="email" id="email" value="<?php echo htmlspecialchars($this->data['email']); ?>" />
+                    <?php echo claro_htmlspecialchars($this->data['email']); ?>
+                    <input type="hidden" name="email" id="email" value="<?php echo claro_htmlspecialchars($this->data['email']); ?>" />
                 
                 <?php endif; ?>                    
             </dd>

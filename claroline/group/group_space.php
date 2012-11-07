@@ -129,13 +129,13 @@ if( isset($_REQUEST['registration']) )
         else // Confirm reg
         {
             $dialogBox->form( get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
-                . '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+                . '<form action="' . claro_htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
                 . claro_form_relay_context()
                 . '<input type="hidden" name="registration" value="1" />' . "\n"
                 . '<input type="hidden" name="doReg" value="1" />' . "\n"
                 . '<br />' . "\n"
                 . '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
-                . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
+                . claro_html_button(claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
                 . '</form>' . "\n"
             );
 
@@ -180,13 +180,13 @@ if( isset($_REQUEST['unregistration']) )
         else // Confirm reg
         {
             $dialogBox->form( get_lang('Confirm your unsubscription from the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
-                . '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+                . '<form action="' . claro_htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
                 . claro_form_relay_context()
                 . '<input type="hidden" name="unregistration" value="1" />' . "\n"
                 . '<input type="hidden" name="doUnreg" value="1" />' . "\n"
                 . '<br />' . "\n"
                 . '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
-                . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
+                . claro_html_button(claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
                 . '</form>' . "\n"
             );
 
@@ -296,7 +296,7 @@ foreach($toolList as $thisTool)
     if ( ! empty($url) )
     {
         $toolLinkList[] = '<a class="' . trim( $style . ' item' . $classItem ) 
-            . '" href="' . htmlspecialchars(Url::Contextualize($url)) . '">'
+            . '" href="' . claro_htmlspecialchars(Url::Contextualize($url)) . '">'
         . '<img src="' . $icon . '" alt="" />&nbsp;'
         . $toolName
         . '</a>' . "\n"

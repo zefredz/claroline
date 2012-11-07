@@ -81,7 +81,7 @@ elseif ( claro_is_in_a_course() )
 {
     // from my course
     $current_cid = claro_get_current_course_id();
-    $backUrl = get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($current_cid);
+    $backUrl = get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . claro_htmlspecialchars($current_cid);
 }
 else
 {
@@ -204,14 +204,14 @@ $cmdList = array();
 $cmdList[] = array(
     'img' => 'edit',
     'name' => get_lang('Edit Tool list'),
-    'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'course/tools.php'))
+    'url' => claro_htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'course/tools.php'))
 );
 
 // Main group settings
 $cmdList[] = array(
     'img' => 'settings',
     'name' => get_lang('Main Group Settings'),
-    'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLGRP') . '/group_properties.php'))
+    'url' => claro_htmlspecialchars(Url::Contextualize(get_module_url('CLGRP') . '/group_properties.php'))
 );
 
 // Add tracking link
@@ -220,7 +220,7 @@ if ( get_conf('is_trackingEnabled') )
     $cmdList[] = array(
         'img' => 'statistics',
         'name' => get_lang('Statistics'),
-        'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'tracking/courseReport.php'))
+        'url' => claro_htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'tracking/courseReport.php'))
     );
 }
 
@@ -232,7 +232,7 @@ if ( get_conf('showLinkToDeleteThisCourse') )
     $cmdList[] = array(
         'img' => 'delete',
         'name' => get_lang('Delete the whole course website'),
-        'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
+        'url' => claro_htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb')
                . 'course/settings.php?cmd=rqDelete'
                . ( !empty($paramString) ? '&'.$paramString : '')))
     );
@@ -247,7 +247,7 @@ if ( $adminContext && claro_is_platform_admin() )
     $cmdList[] = array(
         'img' => 'back',
         'name' => get_lang('Back to course list'),
-        'url' => htmlspecialchars(Url::Contextualize($backUrl))
+        'url' => claro_htmlspecialchars(Url::Contextualize($backUrl))
     );
 }
 

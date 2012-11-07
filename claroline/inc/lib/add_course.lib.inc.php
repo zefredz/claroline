@@ -135,14 +135,14 @@ function define_course_keys ($wantedCode,
         $keysAreUnique = true;
         // Now we go to check if there are unique
 
-        $sqlCheckCourseId    = "SELECT COUNT(code) existAllready
+        $sqlCheckCourseId    = "SELECT COUNT(code) AS existAllready
                                 FROM `" . $tbl_course . "`
                                 WHERE code = '" . $keysCourseId  ."'";
 
         $resCheckCourseId    = claro_sql_query ($sqlCheckCourseId);
         $isCheckCourseIdUsed = mysql_fetch_array($resCheckCourseId);
 
-        if ($isCheckCourseIdUsed[0]['existAllready'] > 0)
+        if (isset($isCheckCourseIdUsed[0]['existAllready']) && $isCheckCourseIdUsed[0]['existAllready'] > 0)
         {
             $keysAreUnique = false;
             $tryNewFSCId++;
@@ -262,7 +262,7 @@ function prepare_course_repository($courseRepository, $courseId)
     
     $courseIndexContent = '<?php ' . "\n"
         . 'header (\'Location: '. get_path('clarolineRepositoryWeb')
-        . 'course/index.php?cid=' . htmlspecialchars($courseId) . '\') ;' . "\n"
+        . 'course/index.php?cid=' . claro_htmlspecialchars($courseId) . '\') ;' . "\n"
         . '?' . '>' . "\n"
         ;
     

@@ -504,5 +504,5 @@ function profilePoint()
 
 function claro_debug_assertion_handler($file, $line, $code)
 {
-    pushClaroMessage( htmlspecialchars("Assertion failed in {$file} at lin {$line} : $code"), 'assert' );
+    pushClaroMessage( claro_htmlspecialchars("Assertion failed in {$file} at lin {$line} : $code"), 'assert' );
 }

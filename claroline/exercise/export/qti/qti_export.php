@@ -206,7 +206,7 @@ class ImsItem
       */
       function start_item()
       {
-        return '<item title="' . htmlspecialchars($this->question->getTitle()) . '" ident="' . $this->questionIdent . '">' . "\n";
+        return '<item title="' . claro_htmlspecialchars($this->question->getTitle()) . '" ident="' . $this->questionIdent . '">' . "\n";
       }
       
       /**

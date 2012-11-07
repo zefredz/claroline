@@ -119,11 +119,11 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 
         $dialogBox->success( get_lang("Group settings modified")  
             . '<br />'
-            . '<a href="'.htmlspecialchars(Url::Contextualize('./group_space.php' ) ).'">'
+            . '<a href="'.claro_htmlspecialchars(Url::Contextualize('./group_space.php' ) ).'">'
             . get_lang("Group area")
             . '</a>' 
             . '&nbsp;-&nbsp;'
-            . '<a href="'.htmlspecialchars(Url::Contextualize('./group.php' ) ).'">'
+            . '<a href="'.claro_htmlspecialchars(Url::Contextualize('./group.php' ) ).'">'
             . get_lang("Groups")
             . '</a>'
         );
@@ -150,7 +150,7 @@ $tutor_list[get_lang("(none)")] = 0;
 
 foreach ($tutorList as $myTutor)
 {
-    $tutor_list[htmlspecialchars( $myTutor['name'] . ' ' . $myTutor['firstname'] )] = $myTutor['userId'];
+    $tutor_list[claro_htmlspecialchars( $myTutor['name'] . ' ' . $myTutor['firstname'] )] = $myTutor['userId'];
 }
 
 // Student registered to the course but inserted in no group
@@ -196,7 +196,7 @@ $result->setFetchMode(Database_ResultSet::FETCH_ASSOC);
 $userNotInGroupListHtml = '';
 foreach ( $result as $member )
 {
-    $label = htmlspecialchars( ucwords( strtolower( $member['lastName']))
+    $label = claro_htmlspecialchars( ucwords( strtolower( $member['lastName']))
            . ' ' . ucwords(strtolower($member['firstName'] ))
            . ($member['role']!=''?' (' . $member['role'] . ')':'') )
            . ( $nbMaxGroupPerUser > 1 ?' (' . $member['nbg'] . ')' : '' );
@@ -219,13 +219,13 @@ foreach ( $usersInGroupList as $key => $val )
 $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
 
 $template = new CoreTemplate('group_form.tpl.php');
-$template->assign('formAction', htmlspecialchars( $_SERVER['PHP_SELF'] . '?edit=yes&gidReq=' . claro_get_current_group_id() ) );
+$template->assign('formAction', claro_htmlspecialchars( $_SERVER['PHP_SELF'] . '?edit=yes&gidReq=' . claro_get_current_group_id() ) );
 $template->assign('relayContext', claro_form_relay_context());
-$template->assign('groupName', htmlspecialchars($myStudentGroup['name']));
+$template->assign('groupName', claro_htmlspecialchars($myStudentGroup['name']));
 $template->assign('groupId', claro_get_current_group_id());
-$template->assign('groupDescription', htmlspecialchars($myStudentGroup['description']));
+$template->assign('groupDescription', claro_htmlspecialchars($myStudentGroup['description']));
 $template->assign('groupTutorId', $myStudentGroup['tutorId']);
-$template->assign('groupUserLimit', htmlspecialchars($thisGroupMaxMember));
+$template->assign('groupUserLimit', claro_htmlspecialchars($thisGroupMaxMember));
 $template->assign('tutorList', $tutor_list);
 $template->assign('usersInGroupListHtml', $usersInGroupListHtml);
 $template->assign('userNotInGroupListHtml', $userNotInGroupListHtml);

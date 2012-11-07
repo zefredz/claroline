@@ -392,33 +392,33 @@ if ( $is_allowedToManage )
     $cmdList[] = array(
         'img' => 'group',
         'name' => get_lang('Create new group(s)'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqMkGroup'))
+        'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqMkGroup'))
     );
     
     $cmdList[] = array(
         'img' => 'delete',
         'name' => get_lang('Delete all groups'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=ALL')),
+        'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=ALL')),
         'params' => array('onclick' => 'return confirmationDelete();')
     );
     
     $advancedCmdList[] = array(
         'img' => 'fill',
         'name' => get_lang('Fill groups (automatically)'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exFillGroup'))
+        'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exFillGroup'))
     );
     
     $advancedCmdList[] = array(
         'img' => 'sweep',
         'name' => get_lang('Empty all groups'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exEmptyGroup')),
+        'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exEmptyGroup')),
         'params' => array('onclick' => 'return confirmationEmpty();')
     );
     
     $cmdList[] = array(
         'img' => 'settings',
         'name' => get_lang('Main Group Settings'),
-        'url' => htmlspecialchars(Url::Contextualize('group_properties.php'))
+        'url' => claro_htmlspecialchars(Url::Contextualize('group_properties.php'))
     );
 } // end if is_allowedToManage
 else
@@ -597,7 +597,7 @@ $sortUrlList = $groupPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
 $out .= '<tr align="center">' . "\n"
 . '<th align="left">'
-. '&nbsp;<a href="'.htmlspecialchars(Url::Contextualize( $sortUrlList['name'] )).'">'.get_lang("Groups") . '</a>'
+. '&nbsp;<a href="'.claro_htmlspecialchars(Url::Contextualize( $sortUrlList['name'] )).'">'.get_lang("Groups") . '</a>'
 . '</th>' . "\n"
 ;
 
@@ -606,8 +606,8 @@ if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
     $out .= '<th align="left">' . get_lang("Registration") . '</th>' . "\n"  ;
 }
 
-$out .= '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['nbMember'])).'">' . get_lang("Registered") . '</a></th>' . "\n"
-. '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['maxStudent'])).'">' . get_lang("Max.") . '</a></th>' . "\n"
+$out .= '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['nbMember'])).'">' . get_lang("Registered") . '</a></th>' . "\n"
+. '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['maxStudent'])).'">' . get_lang("Max.") . '</a></th>' . "\n"
 ;
 
 if ( $is_allowedToManage ) // only for course administrator
@@ -672,7 +672,7 @@ if( $groupList )
 
             $out .= $classItem . '<img src="' . get_icon_url('group') . '" alt="" /> '
             . '<a href="'
-            . htmlspecialchars(Url::Contextualize(
+            . claro_htmlspecialchars(Url::Contextualize(
                     'group_space.php?gidReq=' . $thisGroup['id'] ))
             . '">'
             . $thisGroup['name']
@@ -721,7 +721,7 @@ if( $groupList )
                 {
                     $out .= '&nbsp;'
                     . '<a href="'
-                    . htmlspecialchars( Url::Contextualize(
+                    . claro_htmlspecialchars( Url::Contextualize(
                             'group_space.php?registration=1&selfReg=1&gidReq=' . (int) $thisGroup['id'] )) . '">'
                     . '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang("register") . '" />'
                     . '</a>'
@@ -747,12 +747,12 @@ if( $groupList )
         if ($is_allowedToManage)
         {
             $out .= '<td>'
-            . '<a href="'.htmlspecialchars( Url::Contextualize('group_edit.php?gidReq=' . $thisGroup['id'])) . '">'
+            . '<a href="'.claro_htmlspecialchars( Url::Contextualize('group_edit.php?gidReq=' . $thisGroup['id'])) . '">'
             . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang("Edit") . '" />'
             . '</a>'
             . '</td>' . "\n"
             . '<td>'
-            . '<a href="' . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=' . $thisGroup['id'] )) . '" '
+            . '<a href="' . claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=' . $thisGroup['id'] )) . '" '
             . ' onclick="return confirmationDeleteThisGroup(\'' . clean_str_for_javascript($thisGroup['name']) . '\');">'
             . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang("Delete") . '" />'
             . '</a>'

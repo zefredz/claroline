@@ -12,7 +12,7 @@
     </h1>
     
     <div class="content">
-        <?php if (!empty($announcement['title'])) : ?><h2><?php echo htmlspecialchars($announcement['title']); ?></h2><?php endif; ?>
+        <?php if (!empty($announcement['title'])) : ?><h2><?php echo claro_htmlspecialchars($announcement['title']); ?></h2><?php endif; ?>
         <?php if (!empty($announcement['content'])) : ?><?php echo claro_parse_user_text($announcement['content']); ?><?php endif; ?>
     </div>
     
@@ -23,30 +23,30 @@
     
     <?php if (claro_is_allowed_to_edit()) : ?>
     <div class="manageTools">
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqEdit&id=' . $announcement['id'])); ?>">
+        <a href="<?php echo claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqEdit&id=' . $announcement['id'])); ?>">
             <img src="<?php echo get_icon_url('edit'); ?>" alt="<?php echo get_lang('Modify'); ?>" />
         </a>
         
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDelete&id=' . $announcement['id'])); ?>"
+        <a href="<?php echo claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDelete&id=' . $announcement['id'])); ?>"
          onclick="return CLANN.confirmationDel('<?php echo clean_str_for_javascript($announcement['title']); ?>')">
             <img src="<?php echo get_icon_url('delete'); ?>" alt="<?php echo get_lang('Delete'); ?>" />
         </a>
         
         <?php if ($announcement['visible']) : ?>
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkHide&id=' . $announcement['id'])); ?>">
+        <a href="<?php echo claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkHide&id=' . $announcement['id'])); ?>">
             <img src="<?php echo get_icon_url('visible'); ?>" alt="<?php echo get_lang('Make invisible'); ?>" />
         </a>
         <?php else : ?>
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkShow&id=' . $announcement['id'])); ?>">
+        <a href="<?php echo claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkShow&id=' . $announcement['id'])); ?>">
             <img src="<?php echo get_icon_url('invisible'); ?>" alt="<?php echo get_lang('Make visible'); ?>" />
         </a>
         <?php endif; ?>
         
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exMvUp&id=' . $announcement['id'])); ?>">
+        <a href="<?php echo claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exMvUp&id=' . $announcement['id'])); ?>">
             <img src="<?php echo get_icon_url('move_up'); ?>" alt="<?php echo get_lang('Move up'); ?>" />
         </a>
         
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exMvDown&id=' . $announcement['id'])); ?>">
+        <a href="<?php echo claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exMvDown&id=' . $announcement['id'])); ?>">
             <img src="<?php echo get_icon_url('move_down'); ?>" alt="<?php echo get_lang('Move down'); ?>" />
         </a>
     </div>

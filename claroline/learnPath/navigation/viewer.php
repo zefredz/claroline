@@ -74,9 +74,9 @@ if( $displayFrames )
 {
 ?>
     <frameset border="0" rows="150,*,70" frameborder="no">
-        <frame src="<?php echo htmlspecialchars(Url::Contextualize('topModule.php'));?>" name="headerFrame" />
-        <frame src="<?php echo htmlspecialchars(Url::Contextualize('startModule.php'));?>" name="mainFrame" />
-        <frame src="<?php echo htmlspecialchars(Url::Contextualize('bottomModule.php'));?>" name="bottomFrame" />
+        <frame src="<?php echo claro_htmlspecialchars(Url::Contextualize('topModule.php'));?>" name="headerFrame" />
+        <frame src="<?php echo claro_htmlspecialchars(Url::Contextualize('startModule.php'));?>" name="mainFrame" />
+        <frame src="<?php echo claro_htmlspecialchars(Url::Contextualize('bottomModule.php'));?>" name="bottomFrame" />
     </frameset>
 <?php
 }
@@ -84,7 +84,7 @@ else
 {
 ?>
     <frameset cols="*" border="0">
-        <frame src="<?php echo htmlspecialchars(Url::Contextualize('startModule.php'));?>" name="mainFrame" />
+        <frame src="<?php echo claro_htmlspecialchars(Url::Contextualize('startModule.php'));?>" name="mainFrame" />
     </frameset>
 <?php
 }
@@ -93,7 +93,7 @@ else
         <body>
             <?php echo get_lang('Your browser cannot see frames.') ?>
             <br />
-            <a href="<?php echo htmlspecialchars(Url::Contextualize('../module.php'));?>"><?php echo get_lang('Back') ?></a>
+            <a href="<?php echo claro_htmlspecialchars(Url::Contextualize('../module.php'));?>"><?php echo get_lang('Back') ?></a>
         </body>
     </noframes>
 </html>

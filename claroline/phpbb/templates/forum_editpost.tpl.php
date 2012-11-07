@@ -1,6 +1,6 @@
 <!-- // $Id$ -->
 
-<form id="#formPost" action="<?php echo htmlspecialchars( $_SERVER['PHP_SELF'] )?>" method="post">
+<form id="#formPost" action="<?php echo claro_htmlspecialchars( $_SERVER['PHP_SELF'] )?>" method="post">
     <input type="hidden" name="forum" value="<?php echo $this->forumId ?>" />
     <input type="hidden" name="topic" value="<?php echo $this->topicId ?>" />
     <input type="hidden" name="post" value="<?php echo $this->postId ?>" />
@@ -12,7 +12,7 @@
         <tbody>
             <tr valign="top">
                 <td width="10%" align="right"><label for="subject"><?php echo get_lang( 'Subject' ) ?></label> : </td>
-                <td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="<?php echo htmlspecialchars( $this->subject ) ?>" /></td>
+                <td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="<?php echo claro_htmlspecialchars( $this->subject ) ?>" /></td>
             </tr>
     <?php endif; ?>
             <tr valign="top">
@@ -28,7 +28,7 @@
     <?php endif;?>
             <tr valign="top"><td>&nbsp;</td>
                 <td><input class="confirm" type="submit" name="submit" value="<?php echo get_lang( 'Ok' )?>" />&nbsp;
-                    <?php echo claro_html_button( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?topic=' . $this->topicId ) ), get_lang( 'Cancel' ) )?>
+                    <?php echo claro_html_button( claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?topic=' . $this->topicId ) ), get_lang( 'Cancel' ) )?>
                 </td>
             </tr>
         </tbody>

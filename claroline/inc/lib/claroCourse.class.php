@@ -1065,7 +1065,7 @@ class ClaroCourse
             : '';
         
         $cancelUrl = is_null($cancelUrl) ?
-            get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($this->courseId) :
+            get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . claro_htmlspecialchars($this->courseId) :
             $cancelUrl;
         
         $template = new CoreTemplate('course_form.tpl.php');
@@ -1150,7 +1150,7 @@ class ClaroCourse
         {
             foreach ( $this->htmlParamList as $name => $value )
             {
-                $html .= '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '" />' . "\n" ;
+                $html .= '<input type="hidden" name="' . claro_htmlspecialchars($name) . '" value="' . claro_htmlspecialchars($value) . '" />' . "\n" ;
             }
         }
         else // GET
@@ -1308,7 +1308,7 @@ class ClaroCourse
                                 '%course_email' => $this->email,
                                 '%course_categories' => (!empty($this->categories) ? implode(', ', $categoryCodeList) : get_lang('No category')),
                                 '%course_language' => $this->language,
-                                '%course_url' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) ) );
+                                '%course_url' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . claro_htmlspecialchars($this->courseId)) ) );
         
         // Get the concerned senders of the email
         $mailToUidList = claro_get_uid_of_system_notification_recipient();

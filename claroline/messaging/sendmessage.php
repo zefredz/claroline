@@ -91,7 +91,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )
                 if (!isset($_REQUEST['message']))
                 {
                     $message = "<br /><br />----------------------------------------------------<br />"
-                    . get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($messageParent->getSenderFirstName()), '%lastName' => htmlspecialchars($messageParent->getSenderLastName()))).' '.get_lang('wrote').':<br />'
+                    . get_lang('%firstName %lastName', array ('%firstName' =>claro_htmlspecialchars($messageParent->getSenderFirstName()), '%lastName' => claro_htmlspecialchars($messageParent->getSenderLastName()))).' '.get_lang('wrote').':<br />'
                     . claro_parse_user_text($messageParent->getMessage())
                     ;
                 }
@@ -296,7 +296,7 @@ if ($addForm)
      . '<input type="hidden" name="courseRecipient" value="'.$courseRecipient.'" />'."\n"
      . '<input type="hidden" name="groupRecipient" value="'.$groupRecipient.'" />'."\n"
      . '<input type="hidden" name="responseTo" value="'.$responseTo.'" />'."\n"
-     . '<label for="message_subject">'.get_lang('Subject').' : </label><br/><input type="text" id="message_subject" name="subject" value="'.htmlspecialchars($subject).'" maxlength="255" size="40" /><br/>'."\n"
+     . '<label for="message_subject">'.get_lang('Subject').' : </label><br/><input type="text" id="message_subject" name="subject" value="'.claro_htmlspecialchars($subject).'" maxlength="255" size="40" /><br/>'."\n"
      . '<label for="message">'.get_lang('Message').' : </label><br/>'.claro_html_textarea_editor('message', $message).'<br/><br/>'."\n"
      . '<input type="submit" value="'.get_lang('Send').'" name="send" />'."\n"
      . '</form>'."\n\n"

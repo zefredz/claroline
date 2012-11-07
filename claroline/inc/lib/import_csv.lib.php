@@ -710,7 +710,7 @@ class CSV
             if ( count($temp)==0 )
             {
                 // line didn't split properly so record error
-                $this->errors[] = "Couldn't split data line ". htmlspecialchars($line) ." via given \$delim.";
+                $this->errors[] = "Couldn't split data line ". claro_htmlspecialchars($line) ." via given \$delim.";
             }
             elseif (!(($index1==0) && ($skipFirstLine)))
             {

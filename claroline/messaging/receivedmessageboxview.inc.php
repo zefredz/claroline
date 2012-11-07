@@ -280,7 +280,7 @@ else
         }
         
         $content.= '<a href="readmessage.php?messageId='.$message->getId().'&amp;userId='.$currentUserId.'&amp;type=received">'
-        .   htmlspecialchars($message->getSubject())
+        .   claro_htmlspecialchars($message->getSubject())
         .   '</a>'
         .   '</td>'."\n";
         
@@ -299,7 +299,7 @@ else
         }
         else
         {
-            $content .= get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($message->getSenderFirstName()), '%lastName' => htmlspecialchars($message->getSenderLastName())));
+            $content .= get_lang('%firstName %lastName', array ('%firstName' =>claro_htmlspecialchars($message->getSenderFirstName()), '%lastName' => claro_htmlspecialchars($message->getSenderLastName())));
         }
         
         if ($isAllowed)

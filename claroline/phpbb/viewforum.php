@@ -302,8 +302,8 @@ else
     if( claro_is_allowed_to_edit() )
     {
         $out .= '<div style="float: right;">' . "\n"
-        .   '<img src="' . get_icon_url('html') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&forum=' . $forumId )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
-        .   '<img src="'. get_icon_url('mime/pdf') . '" alt="" /> <a href="' . htmlspecialchars( Url::Contextualize( 'export.php?type=PDF&forum=' . $forumId ) ) . '" target="_blank">' . get_lang( 'Export to PDF' ) .'</a>' . "\n"
+        .   '<img src="' . get_icon_url('html') . '" alt="" /> <a href="' . claro_htmlspecialchars( Url::Contextualize( 'export.php?type=HTML&forum=' . $forumId )) . '" target="_blank">' . get_lang( 'Export to HTML' ) . '</a>' . "\n"
+        .   '<img src="'. get_icon_url('mime/pdf') . '" alt="" /> <a href="' . claro_htmlspecialchars( Url::Contextualize( 'export.php?type=PDF&forum=' . $forumId ) ) . '" target="_blank">' . get_lang( 'Export to PDF' ) .'</a>' . "\n"
         .   '</div>' . "\n"
         ;
     }
@@ -314,7 +314,7 @@ else
     
     $topicLister = new topicLister($forumId, $start, get_conf( 'topics_per_page' ) );
     $topicList   = $topicLister->get_topic_list();
-    $pagerUrl = htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewforum.php?forum=' . $forumId ) );
+    $pagerUrl = claro_htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewforum.php?forum=' . $forumId ) );
     
     $out .= $topicLister->disp_pager_tool_bar( $pagerUrl );
     

@@ -914,7 +914,7 @@ function get_group_member_list( $context = array() )
     $usersInGroupList = array();
     foreach ( $result as $member )
     {
-        $label = htmlspecialchars(ucwords(strtolower($member['name']))
+        $label = claro_htmlspecialchars(ucwords(strtolower($member['name']))
         . ' ' . ucwords(strtolower($member['firstname']))
         . ($member['role']!=''?' (' . $member['role'] . ')':''));
         $usersInGroupList[$member['user_id']] = $label;

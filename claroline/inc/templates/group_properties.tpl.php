@@ -164,7 +164,7 @@
         <tr>
             <td valign="top">
                 <input type="submit" name="properties" value="<?php echo get_lang("Ok"); ?>" />
-                <?php echo claro_html_button(htmlspecialchars( $_SERVER['HTTP_REFERER'] ), get_lang("Cancel")); ?>
+                <?php echo claro_html_button(claro_htmlspecialchars( $_SERVER['HTTP_REFERER'] ), get_lang("Cancel")); ?>
             </td>
         </tr>
     </table>

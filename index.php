@@ -113,7 +113,7 @@ if (get_conf('display_former_homepage', false) || !claro_is_user_authenticated()
         
         $userCommands[] = '<img class="iconDefinitionList" src="'.get_icon_url('hot').'" alt="'.get_lang('New items').'" />'
                         . ' '.get_lang('New items').' '
-                        . '(<a href="'.htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'" class="userCommandsItem">'
+                        . '(<a href="'.claro_htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'notification_date.php')).'" class="userCommandsItem">'
                         . get_lang('to another date')
                         . '</a>)'
                         . ((substr($lastUserAction, strlen($lastUserAction) - 8) == '00:00:00' ) ?

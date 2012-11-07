@@ -170,7 +170,7 @@ if($is_allowedToEdit)
     $toolList[] = array(
         'img' => 'quiz_new',
         'name' => get_lang('New category'),
-        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=add'))
+        'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=add'))
     );
 }
 
@@ -259,7 +259,7 @@ if( !empty($questionCategoryList) )
         .     '</td>' . "\n";
 
             $out .= '<td align="center">'
-            .     '<a href="'.htmlspecialchars(Url::Contextualize('question_category.php?cmd=rqEdit&amp;catId='.$aCategory['id'] ) ).'">'
+            .     '<a href="'.claro_htmlspecialchars(Url::Contextualize('question_category.php?cmd=rqEdit&amp;catId='.$aCategory['id'] ) ).'">'
             .     '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
             .     '</a>'
             .     '</td>' . "\n";
@@ -267,7 +267,7 @@ if( !empty($questionCategoryList) )
             $confirmString = get_lang('Are you sure you want to delete this category ?');
 
             $out .= '<td align="center">'
-            .     '<a href="'.htmlspecialchars(Url::Contextualize('question_category.php?catId='.$aCategory['id'].'&amp;cmd=exDel' ) ).'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
+            .     '<a href="'.claro_htmlspecialchars(Url::Contextualize('question_category.php?catId='.$aCategory['id'].'&amp;cmd=exDel' ) ).'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
             .     '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
             .     '</a>'
             .     '</td>' . "\n";

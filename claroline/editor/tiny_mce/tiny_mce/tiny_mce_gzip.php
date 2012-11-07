@@ -261,7 +261,7 @@ class TinyMCE_Compressor {
 		if (isset($settings["source"]))
 			$scriptSrc .= "&src=" . ($settings["source"] === true ? "true" : "false");
 
-		$scriptTag = '<script type="text/javascript" src="' . htmlspecialchars($scriptSrc) . '"></script>';
+		$scriptTag = '<script type="text/javascript" src="' . claro_htmlspecialchars($scriptSrc) . '"></script>';
 
 		if ($return) {
 			return $scriptTag;

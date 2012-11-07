@@ -32,7 +32,7 @@ function make_attribute_list( $attributes )
         foreach ( $attributes as $attrib => $value )
         {
             $attribList .= ' ' . $attrib . '="'
-                . htmlspecialchars($value) . '"'
+                . claro_htmlspecialchars($value) . '"'
                 ;
         }
     }
@@ -49,12 +49,12 @@ function make_attribute_list( $attributes )
  */
 function link_to ( $text, $url, $attributes = null )
 {
-    $url = htmlspecialchars_decode( $url );
+    $url = claro_htmlspecialchars_decode( $url );
     
     $link = '<a href="'
-        . htmlspecialchars( $url ) . '"'
+        . claro_htmlspecialchars( $url ) . '"'
         . make_attribute_list( $attributes )
-        . '>' . htmlspecialchars( $text ) . '</a>'
+        . '>' . claro_htmlspecialchars( $text ) . '</a>'
         ;
         
     return $link;
@@ -285,7 +285,7 @@ function get_group_tool_menu( $gid = null, $courseId = null, $active = true )
 
     /* $toolList[] =
     claro_html_cmd_link(
-        htmlspecialchars(Url::Contextualize( get_module_url('CLGRP').'/group_space.php' ))
+        claro_htmlspecialchars(Url::Contextualize( get_module_url('CLGRP').'/group_space.php' ))
         , '<img src="' . get_icon_url('group') . '" alt="" />&nbsp;'
         . get_lang('Group area')
     ); */
@@ -301,7 +301,7 @@ function get_group_tool_menu( $gid = null, $courseId = null, $active = true )
         )
         {
             $toolList[] = claro_html_cmd_link(
-                htmlspecialchars(Url::Contextualize(
+                claro_htmlspecialchars(Url::Contextualize(
                     get_module_url($groupTool['label'])
                     . '/' . $groupTool['url'] ))
                 , '<img src="' . get_module_url($groupTool['label']) . '/' . ($groupTool['icon']) . '" alt="" />'

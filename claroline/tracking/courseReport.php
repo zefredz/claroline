@@ -41,7 +41,7 @@ $cmdList = array();
 $cmdList[] = array(
     'img' => 'delete',
     'name' => get_lang('Delete all course statistics'),
-    'url' => htmlspecialchars(Url::Contextualize('delete_course_stats.php'))
+    'url' => claro_htmlspecialchars(Url::Contextualize('delete_course_stats.php'))
 );
 
 

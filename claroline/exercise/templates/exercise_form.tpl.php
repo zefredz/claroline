@@ -8,7 +8,7 @@
         <legend><?php echo get_lang( 'Basic information' ); ?></legend>
         <dl>
             <dt><label for="title"><?php echo get_lang( 'Title' ); ?>&nbsp;<span class="required">*</span></label></dt>
-            <dd><input type="text" name="title" id="title" size="60" maxlength="200" value="<?php echo htmlspecialchars( $this->data['title'] ); ?>" /></dd>
+            <dd><input type="text" name="title" id="title" size="60" maxlength="200" value="<?php echo claro_htmlspecialchars( $this->data['title'] ); ?>" /></dd>
             <dt><label for="description"><?php echo get_lang( 'Description' ); ?>&nbsp;<span class="required">*</span></label></dt>
             <dd><div style="width:700px;"><?php echo claro_html_textarea_editor( 'description', $this->data['description'] ); ?></div></dd>
             <dt><?php echo get_lang( 'Exercise type' ); ?>&nbsp;<span class="required">*</span></dt>

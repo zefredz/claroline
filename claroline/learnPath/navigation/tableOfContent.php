@@ -114,9 +114,9 @@ $out .= '<p><b>'.wordwrap($lpName,$moduleNameLength,' ',1).'</b></p>'."\n"
     . '<p>'."\n"
     . '<small>'
     . get_lang('View').' : '
-    . '<a href="'.htmlspecialchars(Url::Contextualize('viewer.php?frames=0')).'" target="_top">'.get_lang('Fullscreen').'</a>'
+    . '<a href="'.claro_htmlspecialchars(Url::Contextualize('viewer.php?frames=0')).'" target="_top">'.get_lang('Fullscreen').'</a>'
     . ' | '
-    . '<a href="'.htmlspecialchars(Url::Contextualize('viewer.php?frames=1')).'" target="_top">'.get_lang('In frames').'</a>'
+    . '<a href="'.claro_htmlspecialchars(Url::Contextualize('viewer.php?frames=1')).'" target="_top">'.get_lang('In frames').'</a>'
     . '</small>'."\n"
     . '</p>'."\n\n"
     . '<table width="100%">'."\n\n"
@@ -201,7 +201,7 @@ foreach ($flatElementList as $module)
             {
                 $nextModule = $module['module_id'];
             }
-            $out .= '<a href="'.htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$module['module_id'])).'" target="mainFrame" title="'.htmlspecialchars($module['name']).'">'
+            $out .= '<a href="'.claro_htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$module['module_id'])).'" target="mainFrame" title="'.claro_htmlspecialchars($module['name']).'">'
                 .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.' " border="0" />'.$displayedName.'</a>';
         }
         // a module ALLOW access to the following modules if
@@ -298,7 +298,7 @@ if ( $moduleNb > 1 )
 
     if( $previousModule != '' )
     {
-        $prevNextString .= '<a href="'.htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$previousModule)).'" target="mainFrame">'.get_lang('Previous').'</a>';
+        $prevNextString .= '<a href="'.claro_htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$previousModule)).'" target="mainFrame">'.get_lang('Previous').'</a>';
     }
     else
     {
@@ -309,7 +309,7 @@ if ( $moduleNb > 1 )
 
     if( $nextModule != '' )
     {
-        $prevNextString .=  '<a href="'.htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$nextModule)).'" target="mainFrame">'.get_lang('Next').'</a>';
+        $prevNextString .=  '<a href="'.claro_htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$nextModule)).'" target="mainFrame">'.get_lang('Next').'</a>';
     }
     else
     {
@@ -339,7 +339,7 @@ else
     $returl = Url::Contextualize('../learningPath.php');
 }
 
-$out .= '<form action="'. htmlspecialchars($returl) .'" method="post" target="_top">
+$out .= '<form action="'. claro_htmlspecialchars($returl) .'" method="post" target="_top">
 <input type="submit" value="' . get_lang('Back to list') .'" />
 </form>
 

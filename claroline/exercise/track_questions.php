@@ -122,12 +122,12 @@ $cmdList = array();
 	$cmdList[] = array(
    		'img' => 'back',
     	'name' => get_lang('Back'),
-    	'url' => htmlspecialchars(Url::Contextualize( './track_exercises.php?exId='.$exId.$src ) ));
+    	'url' => claro_htmlspecialchars(Url::Contextualize( './track_exercises.php?exId='.$exId.$src ) ));
 
 $out .= claro_html_tool_title($titleTab, null, $cmdList);
 
 // build back link
-$backLink = "\n\n".'<a class="backLink" href="'.htmlspecialchars( Url::Contextualize( './track_exercises.php?exId='.$exId.$src ) ).'">'
+$backLink = "\n\n".'<a class="backLink" href="'.claro_htmlspecialchars( Url::Contextualize( './track_exercises.php?exId='.$exId.$src ) ).'">'
           . get_lang('Back').'</a>'."\n\n";
 
 if($is_allowedToTrack && get_conf('is_trackingEnabled'))

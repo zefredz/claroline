@@ -6,10 +6,10 @@
 <dl>
 
 <dt><label for="code"><?php echo get_lang('Administrative code'); ?></label></dt>
-<dd><input type="text" size="40" name="code" id="code" value="<?php echo htmlspecialchars($this->code); ?>"/></dd>
+<dd><input type="text" size="40" name="code" id="code" value="<?php echo claro_htmlspecialchars($this->code); ?>"/></dd>
 
 <dt><label for="intitule"><?php echo get_lang('Course title')?></label></dt>
-<dd><input type="text" size="40" name="intitule"  id="intitule" value="<?php echo htmlspecialchars($this->intitule); ?>"/></dd>
+<dd><input type="text" size="40" name="intitule"  id="intitule" value="<?php echo claro_htmlspecialchars($this->intitule); ?>"/></dd>
 
 <dt><label for="searchLang"><?php echo get_lang('Language')?></label></dt>
 <dd>

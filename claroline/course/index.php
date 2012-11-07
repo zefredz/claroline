@@ -235,7 +235,7 @@ if (claro_is_allowed_to_edit())
     
     if ($thisCourse->registration == 'validation')
     {
-        $usersPanelUrl = htmlspecialchars(Url::Contextualize( $toolRepository . 'user/user.php' ));
+        $usersPanelUrl = claro_htmlspecialchars(Url::Contextualize( $toolRepository . 'user/user.php' ));
         $dialogBox->warning(
             get_lang('You have to validate users to give them access to this course through the <a href="%url">course user list</a>', array('%url' => $usersPanelUrl))
         );

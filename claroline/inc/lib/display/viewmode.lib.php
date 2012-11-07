@@ -92,7 +92,7 @@ class ClaroViewMode implements Display
     private function renderRegistrationLink()
     {
         return '<a href="'
-            . htmlspecialchars( get_path('clarolineRepositoryWeb')
+            . claro_htmlspecialchars( get_path('clarolineRepositoryWeb')
                 . 'auth/courses.php?cmd=exReg&course='
                 . claro_get_current_course_id() )
             . '">'
@@ -109,7 +109,7 @@ class ClaroViewMode implements Display
     private function renderLoginLink()
     {
         return '<a href="' 
-            . htmlspecialchars( get_path('clarolineRepositoryWeb') . 'auth/login.php'
+            . claro_htmlspecialchars( get_path('clarolineRepositoryWeb') . 'auth/login.php'
                 . '?sourceUrl='
                 . urlencode( base64_encode(
                     ( isset( $_SERVER['HTTPS'])

@@ -144,7 +144,7 @@ if ( get_conf('is_trackingEnabled') )
         {
             // display title
             $titleTab['mainTitle'] = $nameTools;
-            $titleTab['subTitle'] = htmlspecialchars($learnPathName);
+            $titleTab['subTitle'] = claro_htmlspecialchars($learnPathName);
             $out .= claro_html_tool_title($titleTab, null, $cmdList);
 
             // display a list of user and their respective progress

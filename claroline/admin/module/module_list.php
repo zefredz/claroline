@@ -1003,7 +1003,7 @@ foreach($moduleList as $module)
     {
         $out .= '<td align="center">'
         .    '<a onclick="return ADMIN.confirmationUninstall(\''.clean_str_for_javascript($module['name']).'\');" '
-        .    'href="'.htmlspecialchars('module_list.php?module_id=' . $module['id'] . '&typeReq='.$typeReq.'&cmd=exUninstall').'" >'
+        .    'href="'.claro_htmlspecialchars('module_list.php?module_id=' . $module['id'] . '&typeReq='.$typeReq.'&cmd=exUninstall').'" >'
         .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         .    '</td>' . "\n";

@@ -1280,9 +1280,9 @@ class ResourceLinker
                 }
                 
                 $htmlLinkList .= '<li><a href="'
-                    . htmlspecialchars( $url )
+                    . claro_htmlspecialchars( $url )
                     . '" class="lnk_link" rel="' . ClarolineResourceLocator::crlToId( $link->crl ) . '">'
-                    . htmlspecialchars( self::$Resolver->getResourceName( $locator ) )
+                    . claro_htmlspecialchars( self::$Resolver->getResourceName( $locator ) )
                     . '</a></li>' . "\n"
                     ;
             }

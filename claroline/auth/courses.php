@@ -334,7 +334,7 @@ if ( $cmd == 'exReg' )
                     array ('%email' => '<a href="mailto:'.$courseObj->email 
                          . '?body=' . $courseObj->officialCode 
                          . '&amp;subject=[' . rawurlencode( get_conf('siteName')) 
-                         . ']' . '">' . htmlspecialchars($courseObj->titular) . '</a>')) );
+                         . ']' . '">' . claro_htmlspecialchars($courseObj->titular) . '</a>')) );
             }
             break;
             

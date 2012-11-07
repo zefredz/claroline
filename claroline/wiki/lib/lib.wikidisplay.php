@@ -48,7 +48,7 @@ function claro_disp_wiki_editor( $wikiId, $title, $versionId
     $out .= '</div>' . "\n";
 
             // display editor
-    $out .= '<form method="post" action="'.htmlspecialchars($script).'"'
+    $out .= '<form method="post" action="'.claro_htmlspecialchars($script).'"'
         . ' name="editform" id="editform">' . "\n"
         ;
 
@@ -95,7 +95,7 @@ function claro_disp_wiki_editor( $wikiId, $title, $versionId
     $location = add_request_variable_to_url( $script, "wikiId", $wikiId );
     $location = add_request_variable_to_url( $location, "action", "show" );
 
-    $out .= claro_html_button ( htmlspecialchars($location), get_lang("Cancel") );
+    $out .= claro_html_button ( claro_htmlspecialchars($location), get_lang("Cancel") );
 
     $out .= '</div>' . "\n";
 
@@ -160,15 +160,15 @@ function claro_disp_wiki_preview_buttons( $wikiId, $title, $content, $script = n
 {
     $script = ( is_null( $script ) ) ? Url::Contextualize($_SERVER['PHP_SELF']) : $script;
 
-    $out = '<div><form method="post" action="' . htmlspecialchars( $script )
+    $out = '<div><form method="post" action="' . claro_htmlspecialchars( $script )
         . '" name="previewform" id="previewform">' . "\n"
         ;
     $out .= '<input type="hidden" name="content" value="'
-        . htmlspecialchars($content) . '" />' . "\n"
+        . claro_htmlspecialchars($content) . '" />' . "\n"
         ;
 
     $out .= '<input type="hidden" name="title" value="'
-        . htmlspecialchars($title)
+        . claro_htmlspecialchars($title)
         . '" />' . "\n"
         ;
 
@@ -191,7 +191,7 @@ function claro_disp_wiki_preview_buttons( $wikiId, $title, $content, $script = n
     $location = add_request_variable_to_url( $location, "title", $title );
     $location = add_request_variable_to_url( $location, "action", "show" );
 
-    $out .= claro_html_button ( htmlspecialchars($location), get_lang("Cancel") );
+    $out .= claro_html_button ( claro_htmlspecialchars($location), get_lang("Cancel") );
 
     $out .= "</form></div>\n";
 
@@ -239,7 +239,7 @@ function claro_disp_wiki_properties_form( $wikiId = 0
 
     $script = ( is_null( $script ) ) ? Url::Contextualize($_SERVER['PHP_SELF']) : $script;
 
-    $form = '<form method="post" id="wikiProperties" action="'.htmlspecialchars($script).'">' . "\n"
+    $form = '<form method="post" id="wikiProperties" action="'.claro_htmlspecialchars($script).'">' . "\n"
         . '<fieldset>' . "\n"
         . '<legend>'.get_lang("Wiki description").'</legend>' . "\n"
         . '<!-- wikiId = 0 if creation, != 0 if edition  -->' . "\n"
@@ -251,7 +251,7 @@ function claro_disp_wiki_properties_form( $wikiId = 0
         . '<input type="hidden" name="groupId" value="'.$groupId.'" />' . "\n"
         . '<dl>' . "\n"
         . '<dt><label for="wikiTitle">' . get_lang("Title of the wiki") . '</label></dt>' . "\n"
-        . '<dd><input type="text" name="title" id="wikiTitle" size="80" maxlength="254" value="'.htmlspecialchars($title).'" /></dd>' . "\n"
+        . '<dd><input type="text" name="title" id="wikiTitle" size="80" maxlength="254" value="'.claro_htmlspecialchars($title).'" /></dd>' . "\n"
         . '<dt><label for="wikiDesc">'.get_lang("Description of the Wiki").'</label></dt>' . "\n"
         . '<dd><textarea id="wikiDesc" name="desc" cols="80" rows="10">'.$desc.'</textarea></dd>' . "\n"
         . '</dl>'
@@ -311,7 +311,7 @@ function claro_disp_wiki_properties_form( $wikiId = 0
 
     $form .= '<input type="submit" name="action[exEdit]" value="' . get_lang("Ok") . '" />' . "\n"
         . claro_html_button (
-            htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?action=list' )),
+            claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?action=list' )),
             get_lang("Cancel") ) . "\n"
         ;
 

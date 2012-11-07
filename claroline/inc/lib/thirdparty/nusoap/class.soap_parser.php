@@ -196,7 +196,7 @@ class nusoap_parser extends nusoap_base {
 		// set my status
 		$this->message[$pos]['status'] = $this->status;
 		// set name
-		$this->message[$pos]['name'] = htmlspecialchars($name);
+		$this->message[$pos]['name'] = claro_htmlspecialchars($name);
 		// set attrs
 		$this->message[$pos]['attrs'] = $attrs;
 

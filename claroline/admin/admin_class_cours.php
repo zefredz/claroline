@@ -144,7 +144,7 @@ else
     $cmdList[] = array(
         'img' => 'enroll', 
         'name' => get_lang('Register class for course'), 
-        'url' => htmlspecialchars(get_path('clarolineRepositoryWeb')
+        'url' => claro_htmlspecialchars(get_path('clarolineRepositoryWeb')
                . 'auth/courses.php?'
                . 'cmd=rqReg&fromAdmin=class&class_id='.$class_id)
     );

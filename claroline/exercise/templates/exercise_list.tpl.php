@@ -26,42 +26,42 @@
         ?>
         <tr <?php echo $invisibleClass; ?>>
             <td>
-                <a href="<?php echo htmlspecialchars ( Url::Contextualize ( 'exercise_submit.php?exId=' . $thisExercise[ 'id' ] ) ); ?>" class="item<?php echo $appendToStyle; ?>">
+                <a href="<?php echo claro_htmlspecialchars ( Url::Contextualize ( 'exercise_submit.php?exId=' . $thisExercise[ 'id' ] ) ); ?>" class="item<?php echo $appendToStyle; ?>">
                     <img src="<?php echo get_icon_url( 'quiz' ) ; ?>" alt="" />
                     <?php echo $thisExercise['title']; ?>
                 </a>
             </td>
             <?php if ( $this->is_allowedToEdit ) : ?>
                 <td align="center">
-                    <a href="<?php echo htmlspecialchars ( Url::Contextualize ( 'admin/edit_exercise.php?exId=' . $thisExercise[ 'id' ] ) ); ?>">
+                    <a href="<?php echo claro_htmlspecialchars ( Url::Contextualize ( 'admin/edit_exercise.php?exId=' . $thisExercise[ 'id' ] ) ); ?>">
                         <img src="<?php echo get_icon_url( 'edit' ) ; ?>" alt="<?php echo get_lang( 'Modify' ); ?>" />
                     </a>
                 </td>
                 <?php $confirmString = ! is_null ( $thisExercise['module_id'] ) ? get_block ( 'blockUsedInSeveralPath' ) : get_lang ( 'Are you sure you want to delete this exercise ?' ); ?>
                 <td align="center">
-                    <a href="<?php echo htmlspecialchars ( Url::Contextualize ( 'exercise.php?exId=' . $thisExercise[ 'id' ] . '&amp;cmd=exDel' ) ) . '" onclick="javascript:if(!confirm(\'' . clean_str_for_javascript ( $confirmString ) . '\')) return false;'; ?>">
+                    <a href="<?php echo claro_htmlspecialchars ( Url::Contextualize ( 'exercise.php?exId=' . $thisExercise[ 'id' ] . '&amp;cmd=exDel' ) ) . '" onclick="javascript:if(!confirm(\'' . clean_str_for_javascript ( $confirmString ) . '\')) return false;'; ?>">
                         <img src="<?php echo get_icon_url( 'delete' ) ; ?>" alt="<?php echo get_lang( 'Delete' ); ?>" />
                     </a>
                 </td>
                 <td align="center">
                     <?php if ( 'VISIBLE' == $thisExercise['visibility'] ) : ?>
-                        <a href="<?php echo htmlspecialchars ( Url::Contextualize ( 'exercise.php?exId=' . $thisExercise[ 'id' ] . '&amp;cmd=exMkInvis' ) ); ?>">
+                        <a href="<?php echo claro_htmlspecialchars ( Url::Contextualize ( 'exercise.php?exId=' . $thisExercise[ 'id' ] . '&amp;cmd=exMkInvis' ) ); ?>">
                             <img src="<?php echo get_icon_url( 'visible' ) ; ?>" alt="<?php echo get_lang( 'Make invisible' ); ?>" />
                         </a>
                     <?php else : ?>
-                        <a href="<?php echo htmlspecialchars ( Url::Contextualize ( 'exercise.php?exId=' . $thisExercise[ 'id' ] . '&amp;cmd=exMkVis' ) ); ?>">
+                        <a href="<?php echo claro_htmlspecialchars ( Url::Contextualize ( 'exercise.php?exId=' . $thisExercise[ 'id' ] . '&amp;cmd=exMkVis' ) ); ?>">
                             <img src="<?php echo get_icon_url( 'invisible' ) ; ?>" alt="<?php echo get_lang( 'Make visible' ); ?>" />
                         </a>
                     <?php endif; ?>
                 </td>
                 <td align="center">
-                    <a href="<?php echo htmlspecialchars ( Url::Contextualize ( 'exercise.php?exId=' . $thisExercise[ 'id' ] . '&amp;cmd=rqExport' ) ); ?>">
+                    <a href="<?php echo claro_htmlspecialchars ( Url::Contextualize ( 'exercise.php?exId=' . $thisExercise[ 'id' ] . '&amp;cmd=rqExport' ) ); ?>">
                         <img src="<?php echo get_icon_url( 'export' ) ; ?>" alt="<?php echo get_lang( 'Export' ); ?>" />
                     </a>
                 </td>
                 <?php if( $this->is_allowedToTrack ) : ?>
                     <td align="center">
-                        <a href="<?php echo htmlspecialchars ( Url::Contextualize ( 'track_exercises.php?exId=' . $thisExercise[ 'id' ] . '&amp;src=ex' ) ); ?>">
+                        <a href="<?php echo claro_htmlspecialchars ( Url::Contextualize ( 'track_exercises.php?exId=' . $thisExercise[ 'id' ] . '&amp;src=ex' ) ); ?>">
                             <img src="<?php echo get_icon_url( 'statistics' ) ; ?>" alt="<?php echo get_lang( 'Statistics' ); ?>" />
                         </a>
                     </td>

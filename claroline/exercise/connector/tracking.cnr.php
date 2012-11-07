@@ -66,14 +66,14 @@ class CLQWZ_CourseTrackingRenderer extends CourseTrackingRenderer
             {
                     $html .= '<tr>'."\n"
                     .   '<td><a href="' 
-                        . htmlspecialchars ( Url::Contextualize ( 
+                        . claro_htmlspecialchars ( Url::Contextualize ( 
                             get_module_url('CLQWZ') .'/track_exercises.php?exId='.$result['exo_id'], $context ) )
                     .   '">'.$result['title'].'</a></td>'."\n"
                     .   '<td align="right">'.$result['nbr_distinct_user_attempts'].'</td>'."\n"
                     .   '<td align="right">'.$result['nbr_total_attempts'].'</td>'."\n"
                     .   '<td align="center">'
                     .   '<a href="' 
-                        . htmlspecialchars ( Url::Contextualize ( 
+                        . claro_htmlspecialchars ( Url::Contextualize ( 
                             get_module_url('CLQWZ') . '/track_exercise_reset.php?cmd=resetResultsForAllUsers&exId='.$result['exo_id'], $context ) ) 
                     .   '">' . get_lang('delete') . '</a>'
                     .   '</td>'."\n"
@@ -175,7 +175,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
             foreach( $exerciseResults as $result )
             {
                 $html .= '<tr class="exerciseDetailsToggle">' . "\n"
-                .    '<td><a href="#">'.htmlspecialchars($result['title']).'</td>' . "\n"
+                .    '<td><a href="#">'.claro_htmlspecialchars($result['title']).'</td>' . "\n"
                 .    '<td>'.(int) $result['minimum'].'</td>' . "\n"
                 .    '<td>'.(int) $result['maximum'].'</td>' . "\n"
                 .    '<td>'.(round($result['average']*10)/10).'</td>' . "\n"
@@ -202,7 +202,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                     if ( claro_is_course_manager() )
                     {
                         $html .=   '<td><a href="' 
-                                . htmlspecialchars ( Url::Contextualize ( 
+                                . claro_htmlspecialchars ( Url::Contextualize ( 
                                     get_module_url('CLQWZ') . '/track_exercise_reset.php?cmd=resetAllAttemptsForUser&exId='.$result['id'], $context ) ) 
                             .   '">' . get_lang('delete all') . '</a></td>'
                             ;
@@ -247,7 +247,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                         if ( claro_is_course_manager() )
                         {
                             $html .= '<td><small><a href="' 
-                            . htmlspecialchars ( Url::Contextualize ( 
+                            . claro_htmlspecialchars ( Url::Contextualize ( 
                                 get_module_url('CLQWZ') . '/track_exercise_reset.php?cmd=resetAttemptForUser&trackId='.$details['id'], $context ) ) 
                             .   '">' . get_lang('delete') . '</a></small></td>' . "\n"
                             ;

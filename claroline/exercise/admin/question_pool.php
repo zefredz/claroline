@@ -271,14 +271,14 @@ if( !is_null($exId) )
     $toolList[] = array(
         'img' => 'back',
         'name' => get_lang('Go back to the exercise'),
-        'url' => htmlspecialchars(Url::Contextualize('edit_exercise.php?exId='.$exId))
+        'url' => claro_htmlspecialchars(Url::Contextualize('edit_exercise.php?exId='.$exId))
     );
 }
 
 $toolList[] = array(
     'img' => 'default_new',
     'name' => get_lang('New question'),
-    'url' => htmlspecialchars(Url::Contextualize('edit_question.php?cmd=rqEdit'))
+    'url' => claro_htmlspecialchars(Url::Contextualize('edit_question.php?cmd=rqEdit'))
 );
 
 $out = '';

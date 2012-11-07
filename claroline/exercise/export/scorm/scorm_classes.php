@@ -233,7 +233,7 @@ class ScormAnswerFillInBlanks extends answerFillInBlanks
 
             foreach( $allAnswerList as $answer )
             {
-                $optionList[htmlspecialchars($answer)] = htmlspecialchars($answer);
+                $optionList[claro_htmlspecialchars($answer)] = claro_htmlspecialchars($answer);
             }
 
             for( $i = 0; $i < $answerCount; $i++ )
@@ -257,7 +257,7 @@ class ScormAnswerFillInBlanks extends answerFillInBlanks
 
         
         // apply replacement on answer
-        $displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text(htmlspecialchars_decode($this->answerText)) );
+        $displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text(claro_htmlspecialchars_decode($this->answerText)) );
 
         // some javascript must be added for that kind of questions
         $out =

@@ -18,7 +18,7 @@
 
 function dbg_html_var( $var )
 {
-    return htmlspecialchars(var_export( $var, true ));
+    return claro_htmlspecialchars(var_export( $var, true ));
 }
 
 class Profiler

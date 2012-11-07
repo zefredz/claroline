@@ -144,7 +144,7 @@ if ( $cmd == 'run' )
             {
                 $config_filename = $config->get_config_filename();
 
-                $output .= '<li>'. htmlspecialchars(basename($config_filename))
+                $output .= '<li>'. claro_htmlspecialchars(basename($config_filename))
                         .  '<ul >' . "\n";
 
                 // Backup current file

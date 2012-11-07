@@ -350,7 +350,7 @@ if ($displayResultUserSearch)
             $content .=
                   '<tr>' . "\n"
                 . '<td>' . $user['id'] . '</td>' . "\n"
-                . '<td>' . get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($user['firstname']), '%lastName' => htmlspecialchars($user['lastname']))).'</td>'."\n"
+                . '<td>' . get_lang('%firstName %lastName', array ('%firstName' =>claro_htmlspecialchars($user['firstname']), '%lastName' => claro_htmlspecialchars($user['lastname']))).'</td>'."\n"
                 . '<td>' . $user['username'] . '</td>' . "\n"
                 . '<td align="center">'
                 . '<a href="' . $linkDelete . 'cmd=rqFromUser&amp;userId=' . $user['id'] . '" '
@@ -451,7 +451,7 @@ if ($displayRemoveOlderThanConfirmation)
 
 if ($displayRemoveOlderThanValidated)
 {
-    $date = htmlspecialchars($_REQUEST['date']);
+    $date = claro_htmlspecialchars($_REQUEST['date']);
     $dialogBox = new DialogBox();
     $dialogBoxMsg = get_lang('All messages older than %date% have been deleted',array('%date%' => $date))
          . '<br /><br />'

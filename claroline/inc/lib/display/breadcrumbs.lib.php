@@ -178,7 +178,7 @@ class BreadCrumbsNode
             $nodeHtml .= claro_html_icon( 'home', null, null ).'&nbsp;';
         }
 
-        $nodeHtml .= htmlspecialchars( $this->name );
+        $nodeHtml .= claro_htmlspecialchars( $this->name );
 
         if ( ! empty( $this->url ) )
         {
@@ -236,11 +236,11 @@ class ClaroBreadCrumbs extends BreadCrumbs
                 }
                 else
                 {
-                    $url  = $_SERVER['PHP_SELF'] .'?'. htmlspecialchars(strip_tags($_SERVER['QUERY_STRING']));
+                    $url  = $_SERVER['PHP_SELF'] .'?'. claro_htmlspecialchars(strip_tags($_SERVER['QUERY_STRING']));
                 }
             }
             
-            $url = htmlspecialchars( Url::Contextualize( $url ) );
+            $url = claro_htmlspecialchars( Url::Contextualize( $url ) );
             
             $this->setCurrentNode( new BreadCrumbsNode( $name, $url ) );
         }
@@ -248,23 +248,23 @@ class ClaroBreadCrumbs extends BreadCrumbs
         if ( claro_is_in_a_group() )
         {
             $this->prependNode( new BreadCrumbsNode( claro_get_current_group_data('name')
-                , htmlspecialchars( get_module_url('CLGRP') . '/group_space.php?cidReq='
-                    . htmlspecialchars(claro_get_current_course_id())
+                , claro_htmlspecialchars( get_module_url('CLGRP') . '/group_space.php?cidReq='
+                    . claro_htmlspecialchars(claro_get_current_course_id())
                     .'&gidReq=' . (int) claro_get_current_group_id() ) ) );
             $this->prependNode( new BreadCrumbsNode( get_lang('Groups')
-                , htmlspecialchars( get_module_url('CLGRP') . '/index.php?cidReq='
-                    . htmlspecialchars(claro_get_current_course_id()) ) ) );
+                , claro_htmlspecialchars( get_module_url('CLGRP') . '/index.php?cidReq='
+                    . claro_htmlspecialchars(claro_get_current_course_id()) ) ) );
         }
         
         if ( claro_is_in_a_course() )
         {
             $this->prependNode( new BreadCrumbsNode( claro_get_current_course_data('officialCode')
-                , htmlspecialchars( get_path('clarolineRepositoryWeb') . 'course/index.php?cid='
+                , claro_htmlspecialchars( get_path('clarolineRepositoryWeb') . 'course/index.php?cid='
                     . claro_get_current_course_id() ) ) );
         }
             
         $this->prependNode( new BreadCrumbsNode( get_conf('siteName')
-            , htmlspecialchars( get_path('url') . '/index.php' )
+            , claro_htmlspecialchars( get_path('url') . '/index.php' )
             , get_icon_url('home') ) );
     }
     

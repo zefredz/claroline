@@ -69,7 +69,7 @@ $cmdList = array();
 $cmdList[] = array(
     'img' => 'back',
     'name' => get_lang('User list'),
-    'url' => htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'user/user.php'))
+    'url' => claro_htmlspecialchars(Url::Contextualize(get_path('clarolineRepositoryWeb') . 'user/user.php'))
 );
 
 

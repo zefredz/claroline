@@ -978,7 +978,7 @@ class wsdl extends nusoap_base {
 					} 
 					$portType_xml .= '>';
 					if(isset($opParts['documentation']) && $opParts['documentation'] != '') {
-						$portType_xml .= "\n" . '    <documentation>' . htmlspecialchars($opParts['documentation']) . '</documentation>';
+						$portType_xml .= "\n" . '    <documentation>' . claro_htmlspecialchars($opParts['documentation']) . '</documentation>';
 					}
 					$portType_xml .= "\n" . '    <input message="tns:' . $opParts['input']['message'] . '"/>';
 					$portType_xml .= "\n" . '    <output message="tns:' . $opParts['output']['message'] . '"/>';

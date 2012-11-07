@@ -268,7 +268,7 @@ switch ( $action )
     {
         //if ( !isset( $message ) ) $message = '';
 
-        $message = '<form method="post" action="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])).'">'."\n"
+        $message = '<form method="post" action="'.claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])).'">'."\n"
             . '<input type="hidden" name="action" value="exSearch" />'."\n"
             . claro_form_relay_context() . "\n"
             . '<label for="searchPattern">'
@@ -487,7 +487,7 @@ switch( $action )
         ClaroBreadCrumbs::getInstance()->append(
             $wikiTitle );
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars('Properties') );
+            claro_htmlspecialchars('Properties') );
         break;
     }
     case 'rqDelete':
@@ -495,7 +495,7 @@ switch( $action )
         ClaroBreadCrumbs::getInstance()->append(
             $wikiTitle );
         ClaroBreadCrumbs::getInstance()->append(
-            htmlspecialchars('Delete') );
+            claro_htmlspecialchars('Delete') );
         break;
     }
     case 'list':
@@ -551,7 +551,7 @@ switch( $action )
 }
 
 // Help URL
-$helpUrl = htmlspecialchars(get_help_page_url('blockWikiHelpAdminContent','CLWIKI'));
+$helpUrl = claro_htmlspecialchars(get_help_page_url('blockWikiHelpAdminContent','CLWIKI'));
 
 // Command list
 $cmdList = array();
@@ -572,13 +572,13 @@ switch( $action )
             
             $cmdList[] = array(
                 'name' => get_lang("Go to documents tool"),
-                'url' => htmlspecialchars(Url::Contextualize(get_module_url('CLDOC')
+                'url' => claro_htmlspecialchars(Url::Contextualize(get_module_url('CLDOC')
                     . '/document.php?gidReset=1'))
             );
             
             $cmdList[] = array(
                 'name' => get_lang("Go back to Wiki list"),
-                'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
+                'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
             );
 
         break;
@@ -595,13 +595,13 @@ switch( $action )
     case 'rqDelete':
     {
         $out .= '<form method="post" action="'
-            . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
+            . claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
             . '" id="rqDelete">' . "\n"
             . '<div style="padding: 5px">' . "\n"
             . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
             . claro_form_relay_context() ."\n"
             . '<input type="submit" name="action[exDelete]" value="' . get_lang("Continue") . '" />' . "\n"
-            . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang("Cancel") )
+            . claro_html_button(claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang("Cancel") )
             . '</div>' . "\n"
             . '</form>' . "\n"
             ;
@@ -637,14 +637,14 @@ switch( $action )
             $cmdList[] = array(
                 'img' => 'wiki_new',
                 'name' => get_lang("Create a new Wiki"),
-                'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?action=rqEdit'))
+                'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?action=rqEdit'))
             );
         }
         
         $cmdList[] = array(
             'img' => 'search',
             'name' => get_lang("Search"),
-            'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?action=rqSearch'))
+            'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?action=rqSearch'))
         );
         
         // Display list in a table
@@ -702,14 +702,14 @@ switch( $action )
                 
                 // display direct link to main page
                 $out .= '<a class="item'.$classItem.'" href="'
-                      . htmlspecialchars(Url::Contextualize('page.php?wikiId='
+                      . claro_htmlspecialchars(Url::Contextualize('page.php?wikiId='
                         . (int)$entry['id'].'&action=show' ) ) . '">'
                       . '<img src="' . get_icon_url('wiki').'" alt="'.get_lang("Wiki").'" />&nbsp;'
                       . $entry['title'] . '</a>'
                       . '</td>' . "\n"
                       . '<td style="text-align: center;">'
                       . '<a href="'
-                      . htmlspecialchars(Url::Contextualize(
+                      . claro_htmlspecialchars(Url::Contextualize(
                         'page.php?wikiId=' . (int) $entry['id'] . '&action=all' ) )
                       .'">'
                       . $wikiStore->getNumberOfPagesInWiki( $entry['id'] )
@@ -719,7 +719,7 @@ switch( $action )
                 
                 // display direct link to main page
                 $out .= '<a href="'
-                      . htmlspecialchars(Url::Contextualize('page.php?wikiId='
+                      . claro_htmlspecialchars(Url::Contextualize('page.php?wikiId='
                         . (int) $entry['id'].'&action=recent' ) ) . '">'
                       . '<img src="' . get_icon_url('history').'" alt="'.get_lang("Recent changes").'" />'
                       . '</a>'
@@ -731,7 +731,7 @@ switch( $action )
                     // edit link
                     $out .= '<td style="text-align:center;">'
                           . '<a href="'
-                          . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
+                          . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
                             . (int) $entry['id'].'&action=rqEdit' ) )
                           . '">'
                           . '<img src="' . get_icon_url('settings').'" alt="'
@@ -742,7 +742,7 @@ switch( $action )
                     // delete link
                     $out .= '<td style="text-align:center;">'
                           . '<a href="'
-                          . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
+                          . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
                             . (int) $entry['id'].'&action=rqDelete' ))
                           . '">'
                           . '<img src="' . get_icon_url('delete').'" alt="'.get_lang("Delete").'" />'
@@ -753,7 +753,7 @@ switch( $action )
                     {
                         $out .= '<td style="text-align:center;">'
                               . '<a href="'
-                              . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
+                              . claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
                                 . (int)$entry['id'].'&action=exExport' ))
                               . '">'
                               . '<img src="' . get_icon_url('export').'" alt="'.get_lang("Export").'" />'
@@ -816,7 +816,7 @@ switch( $action )
     }
     default:
     {
-        trigger_error( "Invalid action supplied to " . htmlspecialchars( $_SERVER['PHP_SELF'] )
+        trigger_error( "Invalid action supplied to " . claro_htmlspecialchars( $_SERVER['PHP_SELF'] )
             , E_USER_ERROR
             );
     }

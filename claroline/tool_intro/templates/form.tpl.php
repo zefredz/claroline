@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 
-<form method="post" action="<?php echo htmlspecialchars($this->formAction); ?>">
+<form method="post" action="<?php echo claro_htmlspecialchars($this->formAction); ?>">
     <fieldset>
         <legend><?php echo get_lang('Basic settings'); ?></legend>
         
@@ -28,7 +28,7 @@
     </fieldset>
     
     <input type="submit" class="claroButton" name="submitEvent" value="<?php echo get_lang('Ok'); ?>" />
-    <?php echo claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel')); ?>
+    <?php echo claro_html_button(claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel')); ?>
 </form>
 
 <hr />

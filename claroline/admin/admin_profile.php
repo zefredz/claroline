@@ -137,7 +137,7 @@ if (!empty($userId))
     $cmdList[] = array(
         'img' => 'enroll',
         'name' => get_lang('Enrol to a new course'),
-        'url' => htmlspecialchars('../auth/courses.php'
+        'url' => claro_htmlspecialchars('../auth/courses.php'
                . '?cmd=rqReg'
                . '&uidToEdit=' . $userId
                . '&fromAdmin=settings'
@@ -147,7 +147,7 @@ if (!empty($userId))
     $cmdList[] = array(
         'img' => 'mail_close',
         'name' => get_lang('Send account information to user by email'),
-        'url' => htmlspecialchars('../auth/lostPassword.php'
+        'url' => claro_htmlspecialchars('../auth/lostPassword.php'
                . '?Femail=' . urlencode($userData['email'])
                . '&searchPassword=1')
     );
@@ -155,20 +155,20 @@ if (!empty($userId))
     $cmdList[] = array(
         'img' => 'course',
         'name' => get_lang('User course list'),
-        'url' => htmlspecialchars('adminusercourses.php?uidToEdit='
+        'url' => claro_htmlspecialchars('adminusercourses.php?uidToEdit='
                . $userData['user_id'])
     );
     
     $cmdList[] = array(
         'img' => 'deluser',
         'name' => get_lang('Delete user'),
-        'url' => htmlspecialchars('adminuserdeleted.php'
+        'url' => claro_htmlspecialchars('adminuserdeleted.php'
                . '?uidToEdit='.$userId.'&cmd=rqDelete')
     );
     
     $cmdList[] = array(
         'name' => get_lang('Send a message to the user'),
-        'url' => htmlspecialchars('../messaging/sendmessage.php'
+        'url' => claro_htmlspecialchars('../messaging/sendmessage.php'
                . '?cmd=rqMessageToUser'
                . '&userId='.$userId)
     );
@@ -178,7 +178,7 @@ if (!empty($userId))
         $cmdList[] = array(
             'img' => 'back',
             'name' => get_lang('Back to user list'),
-            'url' => htmlspecialchars('admin_users.php')
+            'url' => claro_htmlspecialchars('admin_users.php')
         );
     }
 }

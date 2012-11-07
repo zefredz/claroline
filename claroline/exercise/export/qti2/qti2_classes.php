@@ -442,7 +442,7 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
             if (isset($this->gradeList[$answerKey]))
             {
                 $out .= '    <mapping>'. "\n";
-                $out .= '      <mapEntry mapKey="'.htmlspecialchars($answer).'" mappedValue="'.$this->gradeList[$answerKey].'"/>'. "\n";
+                $out .= '      <mapEntry mapKey="'.claro_htmlspecialchars($answer).'" mappedValue="'.$this->gradeList[$answerKey].'"/>'. "\n";
                 $out .= '    </mapping>'. "\n";
             }
 

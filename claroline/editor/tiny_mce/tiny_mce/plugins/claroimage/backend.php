@@ -129,7 +129,7 @@
                 $out .= '<li>'  . "\n"
                 .    '<a href="#" class="selectFolder" onclick="setFileList(\''.str_replace( '\\', '/', $relativePath ).'\')">'
                 .    '<img src="'.get_icon_url('folder').'" />'
-                .    htmlspecialchars($file->getFileName()) 
+                .    claro_htmlspecialchars($file->getFileName()) 
                 .    '</a>'
                 .    '</li>' . "\n";
             }
@@ -147,7 +147,7 @@
                 $out .= '<li>'  . "\n"
                 .    '<a href="#" onclick="selectImage(\''.$url.'\')">'
                 .    '<img src="'.get_icon_url( choose_image($file->getFileName()) ).'" />' 
-                .    htmlspecialchars($file->getFileName())
+                .    claro_htmlspecialchars($file->getFileName())
                 .    '</a>'
                 .    '</li>' . "\n";
             }

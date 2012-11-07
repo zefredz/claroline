@@ -119,7 +119,7 @@ $out .= claro_html_tool_title(get_lang('Forums'),
 $out .= claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
 .    disp_forum_breadcrumb($pagetype, null, null, null)
 
-.    '<h4>' . get_lang('Search result') . ' : ' . (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . '</h4>' . "\n";
+.    '<h4>' . get_lang('Search result') . ' : ' . (isset($_REQUEST['searchPattern']) ?  claro_htmlspecialchars($_REQUEST['searchPattern']) : '') . '</h4>' . "\n";
 
 if (count($searchResultList) < 1 )
 {
@@ -173,8 +173,8 @@ else foreach ( $searchResultList as $thisPost )
 
         .    '<div class="threadPostContent">' . "\n"
         .    '<img src="' . get_icon_url('topic') . '" alt="" />'
-        .    '<a href="' . htmlspecialchars( Url::Contextualize(get_module_url('CLFRM') . '/viewtopic.php?topic='.$thisPost['topic_id'] )) . '">'
-        .    htmlspecialchars( $thisPost['topic_title'] )
+        .    '<a href="' . claro_htmlspecialchars( Url::Contextualize(get_module_url('CLFRM') . '/viewtopic.php?topic='.$thisPost['topic_id'] )) . '">'
+        .    claro_htmlspecialchars( $thisPost['topic_title'] )
         .    '</a>' . "\n"
         .    '<span class="threadPostIcon '.$class.'"><img src="' . get_icon_url( 'post' ) . '" alt="" /></span><br />' . "\n"
         .    claro_parse_user_text($thisPost['post_text']) . "\n";

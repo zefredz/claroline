@@ -53,7 +53,7 @@ $now = ucfirst(claro_html_localised_date( get_locale('dateFormatLong')))
     </h1>
     
     <div class="content">
-        <?php if (!empty($event['title'])) : ?><h2><?php echo htmlspecialchars($event['title']); ?></h2><?php endif; ?>
+        <?php if (!empty($event['title'])) : ?><h2><?php echo claro_htmlspecialchars($event['title']); ?></h2><?php endif; ?>
         <?php if (!empty($event['content'])) : ?><?php echo claro_parse_user_text($event['content']); ?><?php endif; ?>
     </div>
     
@@ -61,21 +61,21 @@ $now = ucfirst(claro_html_localised_date( get_locale('dateFormatLong')))
     
     <?php if ( claro_is_allowed_to_edit() ) : ?>
     <div class="manageTools">
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $event['id'])); ?>">
+        <a href="<?php echo claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $event['id'])); ?>">
             <img src="<?php echo get_icon_url('edit'); ?>" alt="<?php echo get_lang('Modify'); ?>" />
         </a>
         
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $event['id'])); ?>"
+        <a href="<?php echo claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $event['id'])); ?>"
          onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $event['title']))); ?>')) return false;">
             <img src="<?php echo get_icon_url('delete'); ?>" alt="<?php echo get_lang('Delete'); ?>" />
         </a>
         
         <?php if ($event['visible']) : ?>
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $event['id'])); ?>">
+        <a href="<?php echo claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $event['id'])); ?>">
             <img src="<?php echo get_icon_url('visible'); ?>" alt="<?php echo get_lang('Make invisible'); ?>" />
         </a>
         <?php else : ?>
-        <a href="<?php echo htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $event['id'])); ?>">
+        <a href="<?php echo claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $event['id'])); ?>">
             <img src="<?php echo get_icon_url('invisible'); ?>" alt="<?php echo get_lang('Make visible'); ?>" />
         </a>
         <?php endif; ?>

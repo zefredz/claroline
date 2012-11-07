@@ -19,6 +19,7 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * @todo use Exceptions instead of claro_failure
  */
 
+require_once dirname(__FILE__) . '/compat_php54.lib.php';
 require_once dirname(__FILE__) . '/language.lib.php';
 require_once dirname(__FILE__) . '/core/core.lib.php';
 require_once dirname(__FILE__) . '/core/context.lib.php';
@@ -1252,7 +1253,7 @@ function claro_html_tool_view_option($viewModeRequested = false)
      */
 
     $url = str_replace( '&amp;', '&', $url );
-    $url = htmlspecialchars( strip_tags( $url ) );
+    $url = claro_htmlspecialchars( strip_tags( $url ) );
 
     /*
     * remove previous view mode request from the url
@@ -1589,7 +1590,7 @@ function get_conf($param, $default = null)
             if (!in_array($param,$paramList))
             {
                 $paramList[]=$param;
-                pushClaroMessage( __FUNCTION__ .  ' : ' . htmlspecialchars($param) . ' use but not set. use default :' . var_export($default,1),'warning');
+                pushClaroMessage( __FUNCTION__ .  ' : ' . claro_htmlspecialchars($param) . ' use but not set. use default :' . var_export($default,1),'warning');
             }
         }
     }
@@ -1817,7 +1818,7 @@ function claro_form_relay_context($context=null)
     
     foreach ( $context as $key => $value )
     {
-        $html .= '<input type="hidden" name="'.htmlspecialchars(strip_tags($key)).'" value="'.htmlspecialchars(strip_tags($value)).'" />';
+        $html .= '<input type="hidden" name="'.claro_htmlspecialchars(strip_tags($key)).'" value="'.claro_htmlspecialchars(strip_tags($value)).'" />';
     }
 
     return $html;
@@ -1907,7 +1908,7 @@ function php_self()
     // protect against XSS
     $url = preg_replace( '~(\r\n|\r|\n|%0a|%0d|%0D|%0A)~', '', $url );
     // entify remaining special chars
-    $url = htmlspecialchars( strip_tags( $url ) );
+    $url = claro_htmlspecialchars( strip_tags( $url ) );
 
     return $url;
 }
@@ -1916,14 +1917,14 @@ function php_self()
  * Get the URI of the current page : PHP_SELF + QUERY_STRING, protected against
  * HTTP Response Splitting and XSS
  * @param   boolean $html if set to true (default) the returned URI is passed
- *              through htmlspecialchars before being returned
+ *              through claro_htmlspecialchars before being returned
  * @return  string
  */
 function page_uri( $html = true )
 {
     $uri = Url::Contextualize( php_self() . "?" . strip_tags($_SERVER['QUERY_STRING']) );
     
-    return $html ? htmlspecialchars( $uri ) : $uri;
+    return $html ? claro_htmlspecialchars( $uri ) : $uri;
 }
 
 /**

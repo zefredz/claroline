@@ -98,7 +98,7 @@ switch ( $cmd )
             
         );
         
-        $dialogBox->form(' <form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">'
+        $dialogBox->form(' <form method="post" action="' . claro_htmlspecialchars($_SERVER['PHP_SELF']) . '">'
             . '<input type="hidden" name="cmd" value="exResetAllPasswords" />'
             . '<input id="sendEmail" type="checkbox" name="sendEmail" value="yes" checked="checked" />'
             . '<label for="sendEmail">'.get_lang('send new password by email').'</label>'
@@ -359,7 +359,7 @@ foreach ($userList as $userKey => $user)
     .                                   '</a>' . "\n"
     ;
     
-    $userGrid[$userKey]['delete'] = '<a href="' . htmlspecialchars($_SERVER['PHP_SELF']
+    $userGrid[$userKey]['delete'] = '<a href="' . claro_htmlspecialchars($_SERVER['PHP_SELF']
     .                               '?cmd=exDelete&user_id=' . $user['user_id']
     .                               '&offset=' . $offset . $addToURL) . '" '
     .                               'onclick="return ADMIN.confirmationDel(\''.clean_str_for_javascript($user['firstname'].' ' . $user['name'] .' (' . $user['user_id']).')\');">' . "\n"
@@ -478,7 +478,7 @@ $out .= '<table width="100%">' . "\n"
 .    '<td align="right">' . "\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
-.    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" />' . "\n"
+.    '<input type="text" value="' . claro_htmlspecialchars($search).'" name="search" id="search" />' . "\n"
 .    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
 .    '<input type="hidden" name="newsearch" value="yes" />' . "\n"
 .    '&nbsp;[<a class="claroCmd" href="advanced_user_search.php' . $addtoAdvanced . '" >' . get_lang('Advanced') . '</a>]' . "\n"

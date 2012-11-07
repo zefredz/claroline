@@ -369,13 +369,13 @@ function claro_html_document_breadcrumb($curDirPath)
         if ( empty($thisDir) )
         {
             $bc->appendNode( new BreadCrumbsNode( get_lang('Root'),
-                htmlspecialchars( Url::Contextualize(get_module_entry_url('CLDOC')) ) ) );
+                claro_htmlspecialchars( Url::Contextualize(get_module_entry_url('CLDOC')) ) ) );
         }
         else
         {
             $urlTrail .= '/'.$thisDir;
             $bc->appendNode( new BreadCrumbsNode( get_lang($thisDir),
-                htmlspecialchars( Url::Contextualize( get_module_entry_url('CLDOC') . '?cmd=exChDir&amp;file='.base64_encode($urlTrail) ) ) ));
+                claro_htmlspecialchars( Url::Contextualize( get_module_entry_url('CLDOC') . '?cmd=exChDir&amp;file='.base64_encode($urlTrail) ) ) ));
         }
     }
     

@@ -206,21 +206,21 @@ $cmdList = array();
 $cmdList[] = array(
     'img' => 'back',
     'name' => get_lang('Back to the exercise list'),
-    'url' => htmlspecialchars(Url::Contextualize('../exercise.php'))
+    'url' => claro_htmlspecialchars(Url::Contextualize('../exercise.php'))
 );
 $cmdList[] = array(
     'img' => 'edit',
     'name' => get_lang('Edit exercise settings'),
-    'url' => htmlspecialchars(Url::Contextualize('./edit_exercise.php?exId='.$exId.'&cmd=rqEdit'))
+    'url' => claro_htmlspecialchars(Url::Contextualize('./edit_exercise.php?exId='.$exId.'&cmd=rqEdit'))
 );
 $cmdList[] = array(
     'img' => 'default_new',
     'name' => get_lang('New question'),
-    'url' => htmlspecialchars(Url::Contextualize('./edit_question.php?exId='.$exId.'&cmd=rqEdit'))
+    'url' => claro_htmlspecialchars(Url::Contextualize('./edit_question.php?exId='.$exId.'&cmd=rqEdit'))
 );
 $cmdList[] = array(
     'name' => get_lang('Get a question from another exercise'),
-    'url' => htmlspecialchars(Url::Contextualize('./question_pool.php?exId='.$exId))
+    'url' => claro_htmlspecialchars(Url::Contextualize('./question_pool.php?exId='.$exId))
 );
 
 

@@ -563,11 +563,11 @@ class answerMatching
             $html .=
                 '<tr>' . "\n"
                 . '<td>' . $leftCpt . '.</td>' . "\n"
-                . '<td><input type="text" name="answer_' . $this->questionId . '_' . $i . '" size="58" value="' . htmlspecialchars ( $leftElt[ 'answer' ] ) . '" /></td>' . "\n"
+                . '<td><input type="text" name="answer_' . $this->questionId . '_' . $i . '" size="58" value="' . claro_htmlspecialchars ( $leftElt[ 'answer' ] ) . '" /></td>' . "\n"
                 . '<td>'
                 . '<select name="match_' . $this->questionId . '_' . $i . '" />' . "\n" . $optionList . "\n" . '</select>' . "\n"
                 . '</td>' . "\n"
-                . '<td><input type="text" name="grade_' . $this->questionId . '_' . $i . '" size="8" value="' . htmlspecialchars ( $leftElt[ 'grade' ] ) . '" /></td>' . "\n"
+                . '<td><input type="text" name="grade_' . $this->questionId . '_' . $i . '" size="8" value="' . claro_htmlspecialchars ( $leftElt[ 'grade' ] ) . '" /></td>' . "\n"
                 . '</tr>' . "\n\n";
 
             ;
@@ -598,7 +598,7 @@ class answerMatching
             $html .=
                 '<tr>' . "\n"
                 . '<td>' . $rightCpt . '.</td>' . "\n"
-                . '<td colspan="3"><input type="text" name="right_' . $this->questionId . '_' . $i . '" size="58" value="' . htmlspecialchars ( $rightElt[ 'answer' ] ) . '" /></td>' . "\n"
+                . '<td colspan="3"><input type="text" name="right_' . $this->questionId . '_' . $i . '" size="58" value="' . claro_htmlspecialchars ( $rightElt[ 'answer' ] ) . '" /></td>' . "\n"
                 . '</tr>' . "\n\n";
 
             ;

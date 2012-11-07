@@ -101,7 +101,7 @@ foreach ($userCourseList as $courseKey => $course)
     $iconUrl = get_course_access_icon( $course['access'] );
 
     $userCourseGrid[$courseKey]['name'] = '<img class="iconDefinitionList" src="' . $iconUrl . '" alt="" />'
-                                        . '<a href="'. get_path( 'clarolineRepositoryWeb' ) . 'course/index.php?cid=' . htmlspecialchars( $course['sysCode'] ) . '">' . $course['name']. '</a><br />' . $course['titular'];
+                                        . '<a href="'. get_path( 'clarolineRepositoryWeb' ) . 'course/index.php?cid=' . claro_htmlspecialchars( $course['sysCode'] ) . '">' . $course['name']. '</a><br />' . $course['titular'];
 
 
     $userCourseGrid[$courseKey]['profileId'] = claro_get_profile_name($course['profileId']);
@@ -124,7 +124,7 @@ foreach ($userCourseList as $courseKey => $course)
     .                                       '?uidToEdit=' . $uidToEdit
     .                                       '&amp;cmd=unsubscribe'
     .    $addToUrl
-    .    '&amp;courseId=' . htmlspecialchars($course['sysCode'])
+    .    '&amp;courseId=' . claro_htmlspecialchars($course['sysCode'])
     .    '&amp;sort=' . $pagerSortKey . '&amp;dir='.$pagerSortDir
     .    '&amp;offset=' . $offset . '"'
     .    ' onclick="return ADMIN.confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"

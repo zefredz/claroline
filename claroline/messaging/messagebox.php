@@ -59,7 +59,7 @@ if ($currentUserId != claro_get_current_user_id())
     else
     {
         $title = get_lang('Messages of %firstName %lastName',
-            array ('%firstName' =>htmlspecialchars($userData['firstname']), '%lastName' => htmlspecialchars($userData['lastname'])));
+            array ('%firstName' =>claro_htmlspecialchars($userData['firstname']), '%lastName' => claro_htmlspecialchars($userData['lastname'])));
     }
 }
 else

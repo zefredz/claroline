@@ -186,7 +186,7 @@ switch ( $cmd )
             .           get_lang('Name').' : ' . "\n"
             .           '</td>' . "\n"
             .           '<td>' . "\n"
-            .           '<input type="text" name="class_name" value="' . htmlspecialchars($thisClass['name']) . '" />' . "\n"
+            .           '<input type="text" name="class_name" value="' . claro_htmlspecialchars($thisClass['name']) . '" />' . "\n"
             .           '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
             .           '</td>' . "\n"
             .           '</tr>' . "\n"
@@ -245,7 +245,7 @@ switch ( $cmd )
         .            '<table>'
         .            '<tr>' . "\n"
         .            '<td>' . "\n"
-        .            get_lang('Move') ." ". htmlspecialchars($form_data['class_name']) .' : '
+        .            get_lang('Move') ." ". claro_htmlspecialchars($form_data['class_name']) .' : '
         .            '</td>' . "\n"
         .            '<td>' . "\n"
         .            '<input type="hidden" name="cmd" value="exMove" />' . "\n"

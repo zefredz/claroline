@@ -287,7 +287,7 @@ $cmdList = array();
 $cmdList[] = array(
 	'img' => 'back',
 	'name' => get_lang('Back'),
-	'url' => htmlspecialchars( Url::Contextualize('../tracking/userReport.php?userId='.$thisAttemptDetails['user_id'].'&amp;exId='.$thisAttemptDetails['id'] ) ));
+	'url' => claro_htmlspecialchars( Url::Contextualize('../tracking/userReport.php?userId='.$thisAttemptDetails['user_id'].'&amp;exId='.$thisAttemptDetails['id'] ) ));
 
 $out .= claro_html_tool_title($titleTab, null, $cmdList);
 

@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 
-<form method="post" action="<?php echo htmlspecialchars($this->formAction); ?>">
+<form method="post" action="<?php echo claro_htmlspecialchars($this->formAction); ?>">
     <fieldset>
         <legend><?php echo get_lang('Basic settings'); ?></legend>
         
@@ -16,7 +16,7 @@
             <dt><label for="title"><?php echo get_lang('Title'); ?></label></dt>
             <dd>
                 <input type="text" id="title" name="title"
-                value = "<?php if (isset($this->announcement['title'])) : ?><?php echo htmlspecialchars($this->announcement['title']); ?><?php endif; ?>"
+                value = "<?php if (isset($this->announcement['title'])) : ?><?php echo claro_htmlspecialchars($this->announcement['title']); ?><?php endif; ?>"
                 size="80" />
             </dd>
             
@@ -85,7 +85,7 @@
     </fieldset>
     
     <input type="submit" class="claroButton" name="submitEvent" value="<?php echo get_lang('Ok'); ?>" />
-    <?php echo claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel')); ?>
+    <?php echo claro_html_button(claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel')); ?>
 </form>
 
 <hr />

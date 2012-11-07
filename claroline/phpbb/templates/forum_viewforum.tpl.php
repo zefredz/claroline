@@ -12,9 +12,9 @@
             <?php if( is_forum_notification_requested( $this->forumId, claro_get_current_user_id() ) ) :  // display link NOT to be notified ?>
                 <img src="<?php echo get_icon_url( 'mail_close' ); ?>" alt="" style="vertical-align: text-bottom" />
                 <?php echo get_lang( 'Notify by email when topics are created' ); ?>
-                [<a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forumId . '&amp;cmd=exdoNotNotify' ) ); ?>"><?php echo get_lang( 'Disable' ); ?>]</a>
+                [<a href="<?php echo claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forumId . '&amp;cmd=exdoNotNotify' ) ); ?>"><?php echo get_lang( 'Disable' ); ?>]</a>
                 <?php else : //display link to be notified for this topic ?>
-                <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forumId . '&amp;cmd=exNotify' ) ); ?>">
+                <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?forum=' . $this->forumId . '&amp;cmd=exNotify' ) ); ?>">
                 <img src="<?php echo get_icon_url('mail_close'); ?>" alt="" />
                 <?php echo get_lang( 'Notify by email when topics are created' ); ?></a>
               <?php endif; ?>
@@ -48,7 +48,7 @@
             <?php $itemClass = claro_is_user_authenticated()
                            && $this->claro_notifier->is_a_notified_ressource( claro_get_current_course_id(), $this->claro_notifier->get_notification_date( claro_get_current_user_id() ), claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this->forumId . "-" . $thisTopic['topic_id'], FALSE )
                            ? 'item hot' : 'item';
-                  $itemLink = htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewtopic.php?topic=' . $thisTopic['topic_id']
+                  $itemLink = claro_htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewtopic.php?topic=' . $thisTopic['topic_id']
                             .  ( is_null( $this->forumSettings['idGroup'] )
                                 ? '' : '&amp;gidReq =' . $this->forumSettings['idGroup'] ) ) );
             ?>
@@ -72,7 +72,7 @@
                 <td align="center"><small><?php echo claro_html_localised_date( get_locale( 'dateTimeFormatShort' ), datetime_to_timestamp( $thisTopic['post_time'] ) ); ?></small></td>
                 <?php if( $this->is_allowedToEdit ) : ?>
                 <td align="center">
-                    <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqEditTopic&amp;forum=' . $this->forumId . '&amp;topic=' . $thisTopic['topic_id'] ) ) ?>">
+                    <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqEditTopic&amp;forum=' . $this->forumId . '&amp;topic=' . $thisTopic['topic_id'] ) ) ?>">
                     <img src="<?php echo get_icon_url( 'edit' ) ?>" alt="<?php echo get_lang( 'Edit' )?>" />
                     </a>
                 </td>
@@ -80,17 +80,17 @@
                     <?php if( $this->forumSettings['forum_access'] == 0 ) : ?>
                     <img src="<?php echo get_icon_url( 'locked_disabled' ) ?>" alt="<?php echo get_lang( 'Forum locked' ) ?>" />
                     <?php elseif( $thisTopic['topic_status'] == 1 ) :?>
-                    <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exUnlock&amp;topic=' . $thisTopic['topic_id'] . '&amp;forum=' . $this->forumId ) ) ?>">
+                    <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exUnlock&amp;topic=' . $thisTopic['topic_id'] . '&amp;forum=' . $this->forumId ) ) ?>">
                         <img src="<?php echo get_icon_url( 'locked' ) ?>" alt="<?php echo get_lang( 'Unlock' ) ?>" title="<?php echo get_lang( 'Unlock' ) ?>" />
                     </a>
                     <?php else : ?>
-                    <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exLock&amp;topic=' . $thisTopic['topic_id'] . '&amp;forum=' . $this->forumId ) ) ?>">
+                    <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exLock&amp;topic=' . $thisTopic['topic_id'] . '&amp;forum=' . $this->forumId ) ) ?>">
                         <img src="<?php echo get_icon_url( 'unlock' ) ?>" alt="<?php echo get_lang( 'Lock' ) ?>" title="<?php echo get_lang( 'Lock' ) ?>" />
                     </a>
                     <?php endif;?>
                 </td>
                 <td align="center">
-                    <a href="<?php echo htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelTopic&amp;forum=' . $this->forumId . '&amp;topic=' . $thisTopic['topic_id'] ) ) ?>" onclick="return confirmationDel('<?php echo clean_str_for_javascript($thisTopic['topic_title']); ?>');">
+                    <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelTopic&amp;forum=' . $this->forumId . '&amp;topic=' . $thisTopic['topic_id'] ) ) ?>" onclick="return confirmationDel('<?php echo clean_str_for_javascript($thisTopic['topic_title']); ?>');">
                     <img src="<?php echo get_icon_url( 'delete' ) ?>" alt="<?php echo get_lang( 'Delete' )?>" />
                     </a>
                 </td>

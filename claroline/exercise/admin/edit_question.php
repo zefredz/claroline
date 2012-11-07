@@ -216,19 +216,19 @@ $cmdList = array();
 $cmdList[] = array(
     'img' => 'edit',
     'name' => get_lang('Edit question'),
-    'url' => htmlspecialchars(Url::Contextualize('./edit_question.php?exId='.$exId.'&cmd=rqEdit&quId='.$quId))
+    'url' => claro_htmlspecialchars(Url::Contextualize('./edit_question.php?exId='.$exId.'&cmd=rqEdit&quId='.$quId))
 );
 
 $cmdList[] = array(
     'img' => 'edit',
     'name' => get_lang('Edit answers'),
-    'url' => htmlspecialchars(Url::Contextualize('./edit_answers.php?exId='.$exId.'&cmd=rqEdit&quId='.$quId))
+    'url' => claro_htmlspecialchars(Url::Contextualize('./edit_answers.php?exId='.$exId.'&cmd=rqEdit&quId='.$quId))
 );
 
 $cmdList[] = array(
     'img' => 'default_new',
     'name' => get_lang('New question'),
-    'url' => htmlspecialchars(Url::Contextualize('./edit_question.php?exId='.$exId.'&cmd=rqEdit'))
+    'url' => claro_htmlspecialchars(Url::Contextualize('./edit_question.php?exId='.$exId.'&cmd=rqEdit'))
 );
 
 $out = '';

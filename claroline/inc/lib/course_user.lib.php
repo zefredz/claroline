@@ -531,7 +531,7 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
 
     $form = '';
 
-    $form .= '<form action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '" method="post">' . "\n"
+    $form .= '<form action="' . claro_htmlspecialchars( $_SERVER['PHP_SELF'] ) . '" method="post">' . "\n"
     .        claro_form_relay_context()
     .        '<input type="hidden" name="cmd" value="exUpdateCourseUserProperties" />' . "\n"
     ;
@@ -540,7 +540,7 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
     {
         foreach ( $hiddenParam as $name => $value )
         {
-            $form .= '<input type="hidden" name="'. htmlspecialchars($name) .'" value="'. htmlspecialchars($value).'" />' . "\n";
+            $form .= '<input type="hidden" name="'. claro_htmlspecialchars($name) .'" value="'. claro_htmlspecialchars($value).'" />' . "\n";
         }
     }
 
@@ -549,7 +549,7 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
     // User firstname and lastname
     $form .= '<tr >' . "\n"
     .  '<td align="right">' . get_lang('Name') . ' :</td>' . "\n"
-    .  '<td ><b>' . htmlspecialchars($data['firstName']) . ' ' . htmlspecialchars($data['lastName'])  . '</b></td>' . "\n"
+    .  '<td ><b>' . claro_htmlspecialchars($data['firstName']) . ' ' . claro_htmlspecialchars($data['lastName'])  . '</b></td>' . "\n"
     .  '</tr>' . "\n" ;
 
     // Profile select box
@@ -562,7 +562,7 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
 
     if ( $userId == $GLOBALS['_uid'] )
     {
-        $form .= '<input type="text" name="profileIdDisabled" value="'.htmlspecialchars($profileList[$selectedProfileId]['name']).'" disabled="disabled" id="profileId" />' ;
+        $form .= '<input type="text" name="profileIdDisabled" value="'.claro_htmlspecialchars($profileList[$selectedProfileId]['name']).'" disabled="disabled" id="profileId" />' ;
     }
     else
     {
@@ -585,7 +585,7 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
     // User role label
     $form .= '<tr >' . "\n"
     .  '<td align="right"><label for="role">' . get_lang('Role') . ' (' . get_lang('Optional') .')</label> :</td>' . "\n"
-    .  '<td ><input type="text" name="role" id="role" value="'. htmlspecialchars($data['role']) . '" maxlength="40" /></td>' . "\n"
+    .  '<td ><input type="text" name="role" id="role" value="'. claro_htmlspecialchars($data['role']) . '" maxlength="40" /></td>' . "\n"
     .  '</tr>' . "\n" ;
 
     // User is tutor
@@ -597,7 +597,7 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
     $form .= '<tr >' . "\n"
     .  '<td align="right"><label for="applyChange">' . get_lang('Save changes') . '</label> :</td>' . "\n"
     .  '<td><input type="submit" name="applyChange" id="applyChange" value="'.get_lang('Ok').'" />&nbsp;'
-    . claro_html_button(htmlspecialchars(Url::Contextualize( $_SERVER['HTTP_REFERER'] )), get_lang('Cancel')) . '</td>' . "\n"
+    . claro_html_button(claro_htmlspecialchars(Url::Contextualize( $_SERVER['HTTP_REFERER'] )), get_lang('Cancel')) . '</td>' . "\n"
     .  '</tr>' . "\n";
 
     $form .= '</table>' . "\n"

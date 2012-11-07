@@ -70,10 +70,10 @@ class MyMessages extends UserDesktopPortlet
                          . '<td>' . $iconMessage . '</td>' . "\n"
                          . '<td>'
                          . '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/readmessage.php?messageId=' . $message->getId() . '&amp;type=received">'
-                         . htmlspecialchars( $message->getSubject() )
+                         . claro_htmlspecialchars( $message->getSubject() )
                          . '</a>' . "\n"
                          . '</td>' . "\n"
-                         . '<td>' . htmlspecialchars( $message->getSenderLastName() ) . '&nbsp;' . htmlspecialchars( $message->getSenderFirstName() ) . '</td>' . "\n"
+                         . '<td>' . claro_htmlspecialchars( $message->getSenderLastName() ) . '&nbsp;' . claro_htmlspecialchars( $message->getSenderFirstName() ) . '</td>' . "\n"
                          . '<td align="center">' . claro_html_localised_date( get_locale( 'dateFormatLong' ), strtotime( $message->getSendTime() ) ) . '</td>' . "\n"
                          . '</tr>' . "\n";
             }

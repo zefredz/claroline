@@ -56,7 +56,7 @@ class CLCAL_Portlet extends CourseHomePagePortlet
         if (claro_is_allowed_to_edit())
         {
             $output .= ' <span class="separator">|</span> <a href="'
-                     . htmlspecialchars(Url::Contextualize(get_module_url( 'CLCAL' ) . '/agenda.php'))
+                     . claro_htmlspecialchars(Url::Contextualize(get_module_url( 'CLCAL' ) . '/agenda.php'))
                      . '">'
                      . '<img src="' . get_icon_url('settings') . '" alt="'.get_lang('Settings').'" /> '
                      . get_lang('Manage').'</a>';

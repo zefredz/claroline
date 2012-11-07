@@ -727,7 +727,7 @@ class nusoap_base {
 	 * @deprecated
 	 */
     function formatDump($str){
-		$str = htmlspecialchars($str);
+		$str = claro_htmlspecialchars($str);
 		return nl2br($str);
     }
 
@@ -5457,7 +5457,7 @@ class wsdl extends nusoap_base {
 					} 
 					$portType_xml .= '>';
 					if(isset($opParts['documentation']) && $opParts['documentation'] != '') {
-						$portType_xml .= "\n" . '    <documentation>' . htmlspecialchars($opParts['documentation']) . '</documentation>';
+						$portType_xml .= "\n" . '    <documentation>' . claro_htmlspecialchars($opParts['documentation']) . '</documentation>';
 					}
 					$portType_xml .= "\n" . '    <input message="tns:' . $opParts['input']['message'] . '"/>';
 					$portType_xml .= "\n" . '    <output message="tns:' . $opParts['output']['message'] . '"/>';
@@ -6576,7 +6576,7 @@ class nusoap_parser extends nusoap_base {
 		// set my status
 		$this->message[$pos]['status'] = $this->status;
 		// set name
-		$this->message[$pos]['name'] = htmlspecialchars($name);
+		$this->message[$pos]['name'] = claro_htmlspecialchars($name);
 		// set attrs
 		$this->message[$pos]['attrs'] = $attrs;
 

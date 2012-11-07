@@ -529,7 +529,7 @@ class RightProfile
 
         if ( $this->isRequired() )
         {
-            $form .= '<td>' . htmlspecialchars($this->getName()) . '</td>';
+            $form .= '<td>' . claro_htmlspecialchars($this->getName()) . '</td>';
         }
         else
         {

@@ -187,7 +187,7 @@ function restore_course_repository($courseId, $courseRepository)
         if ( ! $fd) return claro_failure::set_failure('CANT_CREATE_COURSE_INDEX');
 
         $string = '<?php ' . "\n"
-                . 'header (\'Location: '. $urlAppend . '/claroline/course/index.php?cid=' . htmlspecialchars($courseId) . '\') ;' . "\n"
+                . 'header (\'Location: '. $urlAppend . '/claroline/course/index.php?cid=' . claro_htmlspecialchars($courseId) . '\') ;' . "\n"
               . '?' . '>' . "\n" ;
 
         if ( ! fwrite($fd, $string) ) return false;

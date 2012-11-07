@@ -232,14 +232,14 @@ if (claro_is_allowed_to_edit())
     $cmdList[] = array(
         'img' => 'headline_new',
         'name' => get_lang('New headline'),
-        'url' => htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?cmd=rqAdd'))
+        'url' => claro_htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .'?cmd=rqAdd'))
     );
 }
 
 $cmdList[] = array(
         'img' => 'coursehome',
         'name' => get_lang('Back to course homepage'),
-        'url' => htmlspecialchars( Url::Contextualize( 
+        'url' => claro_htmlspecialchars( Url::Contextualize( 
             get_path('rootWeb') . 'claroline/course/index.php?cid='.  claro_get_current_course_id () ) )
 );
 
