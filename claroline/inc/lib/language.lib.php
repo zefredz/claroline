@@ -146,7 +146,7 @@ function get_locale($localeInfoName)
                                   'dateTimeFormatShort',
                                   'timeNoSecFormat');
 
-    if(!in_array($localeInfoName, $initValueList )) trigger_error( htmlentities($localeInfoName) . ' is not a know locale value name ', E_USER_NOTICE);
+    if(!in_array($localeInfoName, $initValueList )) trigger_error( claro_htmlentities($localeInfoName) . ' is not a know locale value name ', E_USER_NOTICE);
     
     //TODO create a real auth function to eval this state
 
@@ -618,8 +618,8 @@ function claro_utf8_encode($str, $fromCharset = '' )
     }
     else
     {
-        $converted = htmlentities( $string, ENT_NOQUOTES, $charset );
-        return html_entity_decode( $converted, ENT_NOQUOTES, 'UTF-8' );
+        $converted = claro_htmlentities( $string, ENT_NOQUOTES, $charset );
+        return claro_html_entity_decode( $converted, ENT_NOQUOTES, 'UTF-8' );
     }
 }
 
@@ -650,8 +650,8 @@ function claro_utf8_decode($str, $toCharset = '')
     }
     else
     {
-        $converted = htmlentities( $string, ENT_NOQUOTES, 'UTF-8' );
-        return html_entity_decode( $converted, ENT_NOQUOTES, $charset );
+        $converted = claro_htmlentities( $string, ENT_NOQUOTES, 'UTF-8' );
+        return claro_html_entity_decode( $converted, ENT_NOQUOTES, $charset );
     }
 }
 

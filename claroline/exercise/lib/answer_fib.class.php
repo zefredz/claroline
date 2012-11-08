@@ -691,7 +691,7 @@ class answerFillInBlanks
     }
 
     /**
-     * decode the answer : replace some htmlentities by forbidden and escaped chars for proper display
+     * decode the answer : replace some claro_htmlentities by forbidden and escaped chars for proper display
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string decoded answer

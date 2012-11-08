@@ -541,7 +541,7 @@ function get_init($param)
     , 'calledFrom'             // claro_called_from()
     );
 
-    if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name ', E_USER_NOTICE);
+    if(!in_array($param, $initValueList )) trigger_error( claro_htmlentities($param) . ' is not a know init value name ', E_USER_NOTICE);
     //TODO create a real auth function to eval this state
     if ( $param == 'is_authenticated') return !(bool) is_null($GLOBALS['_uid']);
     //TODO create a real course function to eval this state

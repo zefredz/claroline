@@ -7126,14 +7126,14 @@ if (!class_exists('TCPDF', false)) {
 		}
 			
 		/**
-		 * Reverse function for htmlentities. 
+		 * Reverse function for claro_htmlentities. 
 		 * Convert entities in UTF-8.
 		 * @param $text_to_convert Text to convert.
 		 * @return string converted
 		 * @access public
 		*/
 		public function unhtmlentities($text_to_convert) {
-			return html_entity_decode($text_to_convert, ENT_QUOTES, $this->encoding);
+			return claro_html_entity_decode($text_to_convert, ENT_QUOTES, $this->encoding);
 		}
 		
 		// ENCRYPTION METHODS ----------------------------------

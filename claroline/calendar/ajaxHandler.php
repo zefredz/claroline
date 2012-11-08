@@ -24,7 +24,7 @@ if ( isset($_REQUEST['location']) )
         
         require_once dirname(__FILE__) . '/lib/coursehomepagecalendar.lib.php';
         
-        $cal = new CourseHomePageCalendar(htmlentities($_REQUEST['courseCode']));
+        $cal = new CourseHomePageCalendar(claro_htmlentities($_REQUEST['courseCode']));
     }
     elseif ( $_REQUEST['location'] == 'userdesktop' )
     {

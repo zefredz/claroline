@@ -668,7 +668,7 @@ class CASClient
 						unset($_GET['ticket']);
 					} else if ( !empty($ticket) ) {
 						//ill-formed ticket, halt
-						phpCAS::error('ill-formed ticket found in the URL (ticket=`'.htmlentities($ticket).'\')');
+						phpCAS::error('ill-formed ticket found in the URL (ticket=`'.claro_htmlentities($ticket).'\')');
 					}
 					break;
 				case CAS_VERSION_2_0: // check for a Service or Proxy Ticket
@@ -678,7 +678,7 @@ class CASClient
 						unset($_GET['ticket']);
 					} else if ( !empty($ticket) ) {
 						//ill-formed ticket, halt
-						phpCAS::error('ill-formed ticket found in the URL (ticket=`'.htmlentities($ticket).'\')');
+						phpCAS::error('ill-formed ticket found in the URL (ticket=`'.claro_htmlentities($ticket).'\')');
 					} 
 					break;
 				case SAML_VERSION_1_1: // SAML just does Service Tickets
@@ -688,7 +688,7 @@ class CASClient
 						unset($_GET['ticket']);
 					} else if ( !empty($ticket) ) {
 						//ill-formed ticket, halt
-						phpCAS::error('ill-formed ticket found in the URL (ticket=`'.htmlentities($ticket).'\')');
+						phpCAS::error('ill-formed ticket found in the URL (ticket=`'.claro_htmlentities($ticket).'\')');
 					}
 					break;
 			}
@@ -2710,7 +2710,7 @@ class CASClient
 		phpCAS::traceBegin();
 		
 		$this->printHTMLHeader($this->getString(CAS_STR_AUTHENTICATION_FAILED));
-		printf($this->getString(CAS_STR_YOU_WERE_NOT_AUTHENTICATED),htmlentities($this->getURL()),$_SERVER['SERVER_ADMIN']);
+		printf($this->getString(CAS_STR_YOU_WERE_NOT_AUTHENTICATED),claro_htmlentities($this->getURL()),$_SERVER['SERVER_ADMIN']);
 		phpCAS::trace('CAS URL: '.$cas_url);
 		phpCAS::trace('Authentication failure: '.$failure);
 		if ( $no_response ) {

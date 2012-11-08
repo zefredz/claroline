@@ -75,7 +75,7 @@ class ModuleManifestParser
         else
         {
             $this->backlog->debug('Manifest open : '.$manifestPath);
-            $data = html_entity_decode(urldecode($data));
+            $data = claro_html_entity_decode(urldecode($data));
         }
 
         if ( !xml_parse( $xmlParser, $data ) )

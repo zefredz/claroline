@@ -315,7 +315,7 @@ switch ( $display )
             $requirement = (bool) (true == $extraInfoDef['required']);
             
             $labelExtraInfoDef = $extraInfoDef['label'];
-            $out .= form_input_text('extraInfoList['.htmlentities($extraInfoDef['propertyId']).']',$currentValue,get_lang($labelExtraInfoDef),$requirement);
+            $out .= form_input_text('extraInfoList['.claro_htmlentities($extraInfoDef['propertyId']).']',$currentValue,get_lang($labelExtraInfoDef),$requirement);
         }
         
         $out .= '<tr valign="top">' . "\n"

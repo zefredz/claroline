@@ -39,6 +39,14 @@ if ( PHP_MAJOR_VERSION >= 5 && PHP_MINOR_VERSION >= 4 )
     {
         return htmlentities( $string, $flags, $encoding );
     }
+    
+    function claro_html_entity_decode (
+        $string, 
+        $flags = DEFAULT_COMPAT, 
+        $encoding = DEFAULT_ENCODING )
+    {
+        return html_entity_decode( $string, $flags, $encoding );
+    }
 }
 else
 {
@@ -50,5 +58,10 @@ else
     function claro_htmlentities()
     {
         return call_user_func_array('htmlentities', func_get_args());
+    }
+    
+    function claro_html_entity_decode()
+    {
+        return call_user_func_array('html_entity_decode', func_get_args());
     }
 }

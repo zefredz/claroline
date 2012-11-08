@@ -52,7 +52,7 @@ define('XML_SERIALIZER_ENTITIES_XML_REQUIRED', XML_UTIL_ENTITIES_XML_REQUIRED);
 
 /**
  * replace HTML entitites
- * @link    http://www.php.net/htmlentities
+ * @link    http://www.php.net/claro_htmlentities
  */
 define('XML_SERIALIZER_ENTITIES_HTML', XML_UTIL_ENTITIES_HTML);
 

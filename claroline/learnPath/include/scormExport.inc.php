@@ -361,7 +361,7 @@ if ( !class_exists('ScormExport') )
         var fillAnswerList = new Array();' . "\n";
 
             // This is the actual code present in every exported exercise.
-            // use html_entity_decode in output to prevent double encoding errors with some languages...
+            // use claro_html_entity_decode in output to prevent double encoding errors with some languages...
             $pageHeader .= '
 
         function calcScore()
@@ -399,7 +399,7 @@ if ( !class_exists('ScormExport') )
                 doLMSCommit();
                 doLMSFinish();
                 scoreCommited = true;
-                if(showScore) alert(\''.clean_str_for_javascript(html_entity_decode(get_lang('Score'))).' :\n\' + rawScore + \'/\' + weighting );
+                if(showScore) alert(\''.clean_str_for_javascript(claro_html_entity_decode(get_lang('Score'))).' :\n\' + rawScore + \'/\' + weighting );
             }
         }
     

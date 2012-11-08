@@ -9,7 +9,7 @@
 <?php if (!empty($this->keyword)) : ?>
 
 <h3>
-    <?php echo get_lang('Search results for <i>"%keyword"</i>', array('%keyword' => htmlentities(strip_tags($this->keyword)))); ?>
+    <?php echo get_lang('Search results for <i>"%keyword"</i>', array('%keyword' => claro_htmlentities(strip_tags($this->keyword)))); ?>
 </h3>
 
 <?php echo $this->courseTree->render(); ?>

@@ -26,10 +26,10 @@ require_once dirname(__FILE__) . '/class.wikipage.php';
 FromKernel::uses( 'utils/htmlsanitizer.lib' );
 
 // PHP < 4.3.0
-if ( ! function_exists('html_entity_decode') )
+if ( ! function_exists('claro_html_entity_decode') )
 {
-    // decode htmlentities
-    function html_entity_decode( $string )
+    // decode claro_htmlentities
+    function claro_html_entity_decode( $string )
     {
         // replace numeric entities
         $string = preg_replace('~&#x([0-9a-f]+);~ei', 'chr(hexdec("\\1"))', $string);
@@ -466,7 +466,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
                 // - remove dangerous tags and attributes
                 // - protect against XSS
                 $str = trim( $str, '"' );
-                $str = html_entity_decode( $str );
+                $str = claro_html_entity_decode( $str );
                 $str = $this->san->sanitize( $str );
             }
         }

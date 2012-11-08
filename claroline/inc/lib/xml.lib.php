@@ -18,7 +18,7 @@ if ( count( get_included_files() ) == 1 )
  * transform all entities of $string to their hexadecimal representation
  *
  * @param $string string original string to entify
- * @param $quote_style string Constant choosen among ENT_COMPAT, ENT_QUOTES OR ENT_NOQUOTES (see htmlentities doc for more info)
+ * @param $quote_style string Constant choosen among ENT_COMPAT, ENT_QUOTES OR ENT_NOQUOTES (see claro_htmlentities doc for more info)
  *
  * @return string entified string
  */
@@ -28,7 +28,7 @@ function xmlentities( $string, $quote_style = ENT_QUOTES )
 
     // remove all html entities before xml encoding
     // must convert all quotes to avoid remaining html entity in code
-    $string = html_entity_decode($string, ENT_QUOTES);
+    $string = claro_html_entity_decode($string, ENT_QUOTES);
 
     // xml encoding
     if ( ! isset( $trans ) )

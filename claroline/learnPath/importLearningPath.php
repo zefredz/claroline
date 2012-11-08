@@ -629,7 +629,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             
             $fileContent = file_get_contents($manifestPath.$file);
             $charset = get_xml_charset( $fileContent );
-            $data = html_entity_decode(urldecode( $fileContent ), ENT_COMPAT, $charset);
+            $data = claro_html_entity_decode(urldecode( $fileContent ), ENT_COMPAT, $charset);
             
             if( !xml_parse($xml_parser, $data) )
             {
