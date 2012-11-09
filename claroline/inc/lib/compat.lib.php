@@ -292,10 +292,10 @@ if (!function_exists('scandir')) {
     }
 }
 
-if ( !function_exists('claro_htmlspecialchars_decode') )
+if ( !function_exists('htmlspecialchars_decode') )
 {
     // for version previous to PHP 5.1.0RC1
-    function claro_htmlspecialchars_decode($text)
+    function htmlspecialchars_decode($text)
     {
         return strtr( $text,
             array_flip(
