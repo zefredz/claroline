@@ -618,7 +618,7 @@ function claro_utf8_encode($str, $fromCharset = '' )
     }
     else
     {
-        $converted = claro_htmlentities( $string, ENT_NOQUOTES, $charset );
+        $converted = claro_htmlentities( $str, ENT_NOQUOTES, $charset );
         return claro_html_entity_decode( $converted, ENT_NOQUOTES, 'UTF-8' );
     }
 }
@@ -650,7 +650,7 @@ function claro_utf8_decode($str, $toCharset = '')
     }
     else
     {
-        $converted = claro_htmlentities( $string, ENT_NOQUOTES, 'UTF-8' );
+        $converted = claro_htmlentities( $str, ENT_NOQUOTES, 'UTF-8' );
         return claro_html_entity_decode( $converted, ENT_NOQUOTES, $charset );
     }
 }
