@@ -49,7 +49,7 @@ function make_attribute_list( $attributes )
  */
 function link_to ( $text, $url, $attributes = null )
 {
-    $url = claro_htmlspecialchars_decode( $url );
+    $url = htmlspecialchars_decode( $url );
     
     $link = '<a href="'
         . claro_htmlspecialchars( $url ) . '"'

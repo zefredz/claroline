@@ -32,14 +32,6 @@ if ( PHP_MAJOR_VERSION >= 5 && PHP_MINOR_VERSION >= 4 )
         return htmlspecialchars( $string, $flags, $encoding );
     }
     
-    function claro_htmlspecialchars_decode( 
-        $string, 
-        $flags = DEFAULT_COMPAT, 
-        $encoding = DEFAULT_ENCODING )
-    {
-        return htmlspecialchars_decode( $string, $flags, $encoding );
-    }
-    
     function claro_htmlentities( 
         $string, 
         $flags = DEFAULT_COMPAT, 
@@ -62,13 +54,7 @@ else
     {
         return call_user_func_array('htmlspecialchars', func_get_args());
     }
-    
-    function claro_htmlspecialchars_decode()
-    {
-        return call_user_func_array('htmlspecialchars_decode', func_get_args());
-    }
-    
-    
+     
     function claro_htmlentities()
     {
         return call_user_func_array('htmlentities', func_get_args());
