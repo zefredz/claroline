@@ -13,7 +13,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLWRK
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Sébastien Piraux <pir@cerdecam.be>
+ * @author Sebastien Piraux <pir@cerdecam.be>
  */
 
 
@@ -263,12 +263,12 @@ class Submission
     /**
      * update visibility of an submission
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $submissionId
      * @param string $visibility
      * @return boolean
      */
-    function updateSubmissionVisibility($submissionId, $visibility)
+    static function updateSubmissionVisibility($submissionId, $visibility)
     {
         // this method is not used in object context so we cannot access $this->$tblAssignment
         $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -291,7 +291,7 @@ class Submission
     /**
      * get assignment id
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer
      */
     function getAssignmentId()
@@ -302,7 +302,7 @@ class Submission
     /**
      * set assignment id
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $value
      */
     function setAssignmentId($value)
@@ -313,7 +313,7 @@ class Submission
     /**
      * get user id
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer
      */
     function getUserId()
@@ -324,7 +324,7 @@ class Submission
     /**
      * set user id
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $value
      */
     function setUserId($value)
@@ -335,7 +335,7 @@ class Submission
     /**
      * get group id
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer
      */
     function getGroupId()
@@ -346,7 +346,7 @@ class Submission
     /**
      * set group id
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $value
      */
     function setGroupId($value)
@@ -357,7 +357,7 @@ class Submission
     /**
      * get title
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
     function getTitle()
@@ -368,7 +368,7 @@ class Submission
     /**
      * set title
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
     function setTitle($value)
@@ -379,7 +379,7 @@ class Submission
     /**
      * get visibility ('VISIBLE', 'INVISIBLE')
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
     function getVisibility()
@@ -402,7 +402,7 @@ class Submission
     /**
      * get creationDate
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer unix timestamp
      */
     function getCreationDate()
@@ -413,7 +413,7 @@ class Submission
     /**
      * set creationDate
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $value unix timestamp
      */
     function setCreationDate($value)
@@ -424,7 +424,7 @@ class Submission
     /**
      * get creationDate
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer unix timestamp
      */
     function getLastEditDate()
@@ -435,7 +435,7 @@ class Submission
     /**
      * set creationDate
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $value unix timestamp
      */
     function setLastEditDate($value)
@@ -446,7 +446,7 @@ class Submission
     /**
      * get author
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
     function getAuthor()
@@ -457,7 +457,7 @@ class Submission
     /**
      * set author
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
     function setAuthor($value)
@@ -469,7 +469,7 @@ class Submission
     /**
      * get submitted text
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
     function getSubmittedText()
@@ -480,7 +480,7 @@ class Submission
     /**
      * set submitted text
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
     function setSubmittedText($value)
@@ -491,7 +491,7 @@ class Submission
     /**
      * get submitted filename
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
     function getSubmittedFilename()
@@ -502,7 +502,7 @@ class Submission
     /**
      * set submitted filename
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
     function setSubmittedFilename($value)
@@ -513,7 +513,7 @@ class Submission
     /**
      * get parentId
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return int
      */
     function getParentId()
@@ -524,7 +524,7 @@ class Submission
     /**
      * set parentId
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param int $value
      */
     function setParentId($value)
@@ -535,7 +535,7 @@ class Submission
     /**
      * get originalId
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return int
      */
     function getOriginalId()
@@ -546,7 +546,7 @@ class Submission
     /**
      * set originalId
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param int $value
      */
     function setOriginalId($value)
@@ -557,7 +557,7 @@ class Submission
     /**
      * get private feedback
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
     function getPrivateFeedback()
@@ -568,7 +568,7 @@ class Submission
     /**
      * set private feedback
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
     function setPrivateFeedback($value)
@@ -579,7 +579,7 @@ class Submission
     /**
      * get score
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return int
      */
     function getScore()
@@ -590,7 +590,7 @@ class Submission
     /**
      * set score
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param int $value
      */
     function setScore($value)
