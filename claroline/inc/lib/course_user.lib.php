@@ -61,7 +61,6 @@ function user_add_to_course(
     }
     
     $courseRegistration->ignoreRegistrationKeyCheck();
-    $courseRegistration->ignoreRegistrationKeyCheck();
     
     if ( $courseRegistration->addUser() )
     {
