@@ -455,10 +455,10 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
 {
     try
     {
-        if (!$currentUser)
+        /*if (!$currentUser)
         {
             $currentUser = Claro_CurrentUser::getInstance($_uid);
-        }
+        }*/
         
         // User login
         if ( $uidReset )
@@ -470,7 +470,8 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
             $cidReset = true;
             $gidReset = true;
             
-            $currentUser->loadFromDatabase();
+            $currentUser = Claro_CurrentUser::getInstance( $_uid, true );
+            
             $_user = $currentUser->getRawData();
     
             // Extracting the user data
@@ -502,6 +503,8 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
         // User in session
         else
         {
+            $currentUser = Claro_CurrentUser::getInstance($_uid);
+            
             try
             {
                 $currentUser->loadFromSession();
