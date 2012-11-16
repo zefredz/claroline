@@ -68,9 +68,9 @@ class Claro_Course extends KernelObject
     {
         $this->_rawData = array();
         $this->loadCourseKernelData();
-        $this->loadCourseCategories();
-        $this->loadCourseProperties();
-        $this->loadGroupProperties();
+        //$this->loadCourseCategories();
+        //$this->loadCourseProperties();
+        //$this->loadGroupProperties();
     }
     
     /**
@@ -265,6 +265,29 @@ class Claro_Course extends KernelObject
         
         $this->_rawData['groupProperties'] = $groupProperties;
     }
+    
+    protected function loadSourceCourseCode()
+    {
+        if ( $this->_rawData['sourceCourseId'] )
+        {
+            $tbl =  claro_sql_get_main_tbl();
+        
+            $sqlCourseId = Claroline::getDatabase()->escape($this->_rawData['sourceCourseId']);
+            
+            $this->_rawData['sourceCourseCode'] = Claroline::getDatabase()->query("
+                SELECT
+                    c.code
+                FROM
+                    `{$tbl['course']}`   AS c
+                WHERE
+                    c.id = {$sqlCourseId}
+            ")->setFetchMode ( Database_ResultSet::FETCH_VALUE )->fetch();
+        }
+        else
+        {
+            $this->_rawData['sourceCourseCode'] = null;
+        }
+    }
 
     /**
      * Get group properties in the course
@@ -306,6 +329,21 @@ class Claro_Course extends KernelObject
         }
         
         return $this->_rawData['categories'];
+    }
+    
+    /**
+     * Get the course code of the parent course
+     * @return string or null
+     * @since API version 1.11.3 
+     */
+    public function getSourceCourseCode()
+    {
+        if ( !isset($this->_rawData['sourceCourseCode']) )
+        {
+            $this->loadSourceCourseCode();
+        }
+        
+        return $this->_rawData['sourceCourseCode'];
     }
     
     /**
@@ -372,6 +410,10 @@ class Claro_Course extends KernelObject
         elseif ( $nm == 'groupProperties' )
         {
             return $this->getGroupProperties();
+        }
+        elseif ( $nm == 'sourceCourseCode' )
+        {
+            return $this->getSourceCourseCode();
         }
         else
         {
