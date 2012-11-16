@@ -26,6 +26,7 @@ require_once dirname(__FILE__) . '/../database/database.lib.php';
 class Claro_Course extends KernelObject
 {
     protected $_courseId;
+    protected $sourceCourse = null;
     
     /**
      * Constructor
@@ -334,7 +335,7 @@ class Claro_Course extends KernelObject
     /**
      * Get the course code of the parent course
      * @return string or null
-     * @since API version 1.11.3 
+     * @since API version 1.11.5
      */
     public function getSourceCourseCode()
     {
@@ -344,6 +345,38 @@ class Claro_Course extends KernelObject
         }
         
         return $this->_rawData['sourceCourseCode'];
+    }
+    
+    public function hasSourceCourse()
+    {
+        if ( !empty( $this->getSourceCourseCode() ) )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
+     * Get the course code of the parent course
+     * @return string or null
+     * @since API version 1.11.5
+     */
+    public function getSourceCourse()
+    {
+        if ( $this->hasSourceCourse() )
+        {
+            $sourceCourse = new Claro_Course( $this->_rawData['sourceCourseCode'] );
+            $sourceCourse->load();
+
+            return $sourceCourse;
+        }
+        else 
+        {
+            throw new Exception("The course {$this->courseId} has no source course");
+        }
     }
     
     /**
