@@ -11,7 +11,7 @@ require_once dirname(__FILE__) . '/authmanager.lib.php';
  * mechanism that uses those profile to enrol a user in a course.
  *
  * @version     1.11 $Revision$
- * @copyright   2001-2011 Universite catholique de Louvain (UCL)
+ * @copyright   2001-2012 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -460,7 +460,7 @@ class CourseUserRegistration
                 
                 if ( $this->course->sourceCourseId )
                 {
-                    $sourceCourseCode = ClaroCourse::getCodeFromId( $this->course->sourceCourseId );
+                    $sourceCourseCode = $this->course->getSourceCourseCode();
                     
                     // only enrol the user to the source course only if he is not already there
                     
