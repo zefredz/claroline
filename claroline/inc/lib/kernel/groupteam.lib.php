@@ -47,30 +47,16 @@ implements
         $this->_userList = null;
         $this->sessionVarName = '_group';
     }
-    
-    public function load()
-    {
-        $this->loadFromDatabase();
-    }
 
     /**
      * Load course properties and group properties from database
      * @param bool $forceReload
      */
-    protected function loadFromDatabase( $forceReload = false )
+    protected function loadFromDatabase()
     {
-        if ( $forceReload )
-        {
-            $this->_rawData = array();
-            $this->_userList = null;
-        }
-
-        if ( empty($this->_rawData) )
-        {
-            $this->loadGroupCourseProperties();
-            $this->loadGroupTeamProperties();
-            $this->_userList = null;
-        }
+        $this->loadGroupCourseProperties();
+        $this->loadGroupTeamProperties();
+        $this->_userList = null;
     }
 
     /**
@@ -234,7 +220,7 @@ implements
         if ( $this->tutorId )
         {
             $tutor = new Claro_User($this->tutorId);
-            $tutor->loadFromDatabase();
+            $tutor->load();
         }
 
         return $tutor;
@@ -267,5 +253,33 @@ class Claro_CurrentGroupTeam extends Claro_GroupTeam
             ;
 
         parent::__construct( $groupId );
+    }
+    
+    protected static $instance = false;
+
+    /**
+     * Singleton constructor
+     * @todo avoid using the singleton pattern and use a factory instead ?
+     * @param int $uid user id
+     * @param boolean $forceReload force reloading the data
+     * @return Claro_CurrentUser current user
+     */
+    public static function getInstance( $groupId = null, $forceReload = false )
+    {
+        if ( $forceReload || ! self::$instance )
+        {
+            self::$instance = new self( $groupId );
+            
+            if ( !$forceReload && claro_is_in_a_group() )
+            {
+                self::$instance->loadFromSession();
+            }
+            else
+            {
+                self::$instance->load( $forceReload );
+            }
+        }
+        
+        return self::$instance;
     }
 }

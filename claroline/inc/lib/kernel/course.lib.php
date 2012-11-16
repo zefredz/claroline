@@ -39,11 +39,6 @@ class Claro_Course extends KernelObject
         $this->sessionVarName = '_course';
     }
     
-    public function load()
-    {
-        $this->loadFromDatabase();
-    }
-    
     /**
      * Load course data properties from an array
      */
@@ -349,7 +344,9 @@ class Claro_Course extends KernelObject
     
     public function hasSourceCourse()
     {
-        if ( !empty( $this->getSourceCourseCode() ) )
+        $sourceCourseCode  = $this->getSourceCourseCode();
+        
+        if ( !empty( $sourceCourseCode ) )
         {
             return true;
         }
@@ -497,7 +494,7 @@ class Claro_CurrentCourse extends Claro_Course
             }
             else
             {
-                self::$instance->loadFromDatabase();
+                self::$instance->load( $forceReload );
             }
         }
         

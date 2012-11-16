@@ -8,8 +8,8 @@
  * "Magic" class to represent kernel objects. Defines __get, __set, __isset and
  * __unset magic methods.
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     Claroline 1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -17,7 +17,7 @@
  * @package     kernel.objects
  */
 
-class KernelObject
+abstract class KernelObject
 {
     protected $_rawData = array();
     protected $sessionVarName;
@@ -119,4 +119,14 @@ class KernelObject
             throw new Exception("Cannot load kernel object {$this->sessionVarName} from session");
         }
     }
+    
+    public function load( $refresh = false )
+    {
+        if ( empty( $this->_rawData ) || $refresh )
+        {
+            $this->loadFromDatabase();
+        }
+    }
+    
+    abstract protected function loadFromDatabase();
 }

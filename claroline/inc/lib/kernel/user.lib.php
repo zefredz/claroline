@@ -37,11 +37,6 @@ class Claro_User extends KernelObject
         $this->_userId = $userId;
         $this->sessionVarName = '_user';
     }
-    
-    public function load()
-    {
-        $this->loadFromDatabase();
-    }
 
     /**
      * Load user properties from database
@@ -178,30 +173,6 @@ class Claro_CurrentUser extends Claro_User
     }
 
     /**
-     * Load user properties from session
-     */
-    /*public function loadFromSession()
-    {
-        if ( !empty($_SESSION['_user']) )
-        {
-            $this->_rawData = $_SESSION['_user'];
-            pushClaroMessage( "User {$this->_userId} loaded from session", 'debug' );
-        }
-        else
-        {
-            throw new Exception("Cannot load user data from session for {$this->_userId}");
-        }
-    }*/
-
-    /**
-     * Save user properties to session
-     */
-    /*public function saveToSession()
-    {
-        $_SESSION['_user'] = $this->_rawData;
-    }*/
-
-    /**
      * Is it the first time the user log in to the platform ?
      * @todo the creator id should not be used for this purpose
      * @return boolean
@@ -252,7 +223,7 @@ class Claro_CurrentUser extends Claro_User
             }
             else
             {
-                self::$instance->loadFromDatabase();
+                self::$instance->load( $forceReload );
             }
         }
         
