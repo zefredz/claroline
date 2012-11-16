@@ -221,9 +221,13 @@ abstract class AbstractAuthDriver implements AuthDriver
                 
                 if ( is_callable( $treatmentCallback ) )
                 {
-                    $data[$key] = $treatmentCallback($value);
+                    // feed the data returned by the authentication driver to the callback
+                    $data[$key] = call_user_func_array(
+                        $treatmentCallback, 
+                        array( $value, $data ) 
+                    );
                 }
-                else
+                else // a string
                 {
                     $data[$key] = $treatmentCallback;
                 }
