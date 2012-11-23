@@ -9,10 +9,10 @@
     
 <?php if ( claro_is_in_a_course() && $this->courseTitleAndTools ): ?>
     
-    <?php if (!empty($this->relatedUserCourses)) : ?>
+    <?php if (!empty($this->relatedCourses)) : ?>
     
     <ul class="coursesTabs">
-        <?php foreach ($this->relatedUserCourses as $relatedCourse) : ?>
+        <?php foreach ($this->relatedCourses as $relatedCourse) : ?>
         
         <li class="<?php echo $relatedCourse['id']; ?>
             <?php if ($relatedCourse['isSourceCourse']) : ?> sourceCourse<?php endif; ?>
