@@ -276,7 +276,7 @@ class Claro_Course extends KernelObject
                 FROM
                     `{$tbl['course']}`   AS c
                 WHERE
-                    c.id = {$sqlCourseId}
+                    c.cours_id = {$sqlCourseId}
             ")->setFetchMode ( Database_ResultSet::FETCH_VALUE )->fetch();
         }
         else
