@@ -253,49 +253,37 @@ $course = claro_sql_query_get_single_row($sql);
    Get User List
   ----------------------------------------------------------------------*/
 
-$sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
-                       `user`.`nom`          AS `nom`,
-                       `user`.`prenom`       AS `prenom`,
-                       `user`.`email`        AS `email`,
-                       `course_user`.`profile_id`,
-                       `course_user`.`isCourseManager`,
-                       `course_user`.`isPending`,
-                       `course_user`.`tutor`  AS `tutor`,
-                       `course_user`.`role`   AS `role`,
-                       `enrollment_date`
-               FROM `" . $tbl_users . "`           AS user,
-                    `" . $tbl_rel_course_user . "` AS course_user
-               WHERE `user`.`user_id`=`course_user`.`user_id`
-               AND   `course_user`.`code_cours`='" . claro_sql_escape(claro_get_current_course_id()) . "'";
-
-$sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
-       `user`.`nom`          AS `nom`,
-       `user`.`prenom`       AS `prenom`,
-       `user`.`email`        AS `email`,
-       `course_user`.`profile_id`,
-       `course_user`.`isCourseManager`,
-       `course_user`.`isPending`,
-       `course_user`.`tutor`  AS `tutor`,
-       `course_user`.`role`   AS `role`,
-       `course_user`.`enrollment_date`,
+$sqlGetUsers = "
+    SELECT 
+        `user`.`user_id`      AS `user_id`,
+        `user`.`nom`          AS `nom`,
+        `user`.`prenom`       AS `prenom`,
+        `user`.`email`        AS `email`,
+        `course_user`.`profile_id`,
+        `course_user`.`isCourseManager`,
+        `course_user`.`isPending`,
+        `course_user`.`tutor`  AS `tutor`,
+        `course_user`.`role`   AS `role`,
+        `course_user`.`enrollment_date`,
 
 	GROUP_CONCAT(`grp`.name ORDER BY `grp`.name SEPARATOR ',' ) AS `groups`
 
-FROM `{$tbl_users}`           AS user,
-    `{$tbl_rel_course_user}` AS course_user
+    FROM 
+        
+            `{$tbl_users}` AS user,
+            `{$tbl_rel_course_user}` AS course_user
 
 
-LEFT JOIN `{$tbl_rel_users_groups}` AS user_group
-ON user_group.user = `course_user`.`user_id`
+    LEFT JOIN `{$tbl_rel_users_groups}` AS user_group
+    ON user_group.user = `course_user`.`user_id`
 
-LEFT JOIN `{$tbl_groups}` AS `grp`
-ON `grp`.id = user_group.team
+    LEFT JOIN `{$tbl_groups}` AS `grp`
+    ON `grp`.id = user_group.team
 
+    WHERE ( `user`.`user_id`=`course_user`.`user_id`
+    AND   `course_user`.`code_cours`='" . claro_sql_escape(claro_get_current_course_id()) . "' )
 
-WHERE ( `user`.`user_id`=`course_user`.`user_id`
-AND   `course_user`.`code_cours`='" . claro_sql_escape(claro_get_current_course_id()) . "' )
-
-GROUP BY user.user_id";
+    GROUP BY user.user_id";
 
 $myPager = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
 
