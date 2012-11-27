@@ -268,6 +268,35 @@ $sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
                WHERE `user`.`user_id`=`course_user`.`user_id`
                AND   `course_user`.`code_cours`='" . claro_sql_escape(claro_get_current_course_id()) . "'";
 
+$sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
+       `user`.`nom`          AS `nom`,
+       `user`.`prenom`       AS `prenom`,
+       `user`.`email`        AS `email`,
+       `course_user`.`profile_id`,
+       `course_user`.`isCourseManager`,
+       `course_user`.`isPending`,
+       `course_user`.`tutor`  AS `tutor`,
+       `course_user`.`role`   AS `role`,
+       `course_user`.`enrollment_date`,
+
+	GROUP_CONCAT(`grp`.name ORDER BY `grp`.name SEPARATOR ',' ) AS `groups`
+
+FROM `{$tbl_users}`           AS user,
+    `{$tbl_rel_course_user}` AS course_user
+
+
+LEFT JOIN `{$tbl_rel_users_groups}` AS user_group
+ON user_group.user = `course_user`.`user_id`
+
+LEFT JOIN `{$tbl_groups}` AS `grp`
+ON `grp`.id = user_group.team
+
+
+WHERE ( `user`.`user_id`=`course_user`.`user_id`
+AND   `course_user`.`code_cours`='" . claro_sql_escape(claro_get_current_course_id()) . "' )
+
+GROUP BY user.user_id";
+
 $myPager = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
 
 if ( isset($_GET['sort']) )
@@ -278,7 +307,8 @@ if ( isset($_GET['sort']) )
 $defaultSortKeyList = array ('course_user.isCourseManager' => SORT_DESC,
                              'course_user.tutor'  => SORT_DESC,
                              'user.nom'          => SORT_ASC,
-                             'user.prenom'       => SORT_ASC);
+                             'user.prenom'       => SORT_ASC,
+                             'groups'       => SORT_ASC );
 
 foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 {
@@ -287,43 +317,6 @@ foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 
 $userList    = $myPager->get_result_list();
 $userTotalNb = $myPager->get_total_item_count();
-
-
-/*----------------------------------------------------------------------
-  Get groups
-  ----------------------------------------------------------------------*/
-
-$userListId = array();
-
-foreach ( $userList as $thisUser )
-{
-    $users[$thisUser['user_id']] = $thisUser;
-    $userListId[] = $thisUser['user_id'];
-}
-
-if ( count($userListId)> 0 )
-{
-    $sqlGroupOfUsers = "SELECT `ug`.`user` AS `uid`,
-                               `ug`.`team` AS `team`,
-                               `sg`.`name` AS `nameTeam`
-                        FROM `"  . $tbl_rel_users_groups . "` AS `ug`
-                        LEFT JOIN `" . $tbl_groups . "` AS `sg`
-                        ON `ug`.`team` = `sg`.`id`
-                        WHERE `ug`.`user` IN (" . implode(",",$userListId) . ")
-                        ORDER BY `sg`.`name`";
-
-    $userGroupList = claro_sql_query_fetch_all($sqlGroupOfUsers);
-
-    $usersGroup = array();
-
-    if( is_array($userGroupList) && !empty($userGroupList) )
-    {
-        foreach( $userGroupList as $thisAffiliation )
-        {
-            $usersGroup[$thisAffiliation['uid']][$thisAffiliation['team']]['nameTeam'] = $thisAffiliation['nameTeam'];
-        }
-    }
-}
 
 
 /*----------------------------------------------------------------------
@@ -459,12 +452,12 @@ $out .= '<thead>' . "\n"
     . '<th><a href="' . claro_htmlspecialchars(Url::Contextualize($sortUrlList['prenom'])) . '">' . get_lang('First name') . '</a></th>'."\n"
     . '<th><a href="' . claro_htmlspecialchars(Url::Contextualize($sortUrlList['profile_id'])) . '">' . get_lang('Profile') . '</a></th>'."\n"
     . '<th><a href="' . claro_htmlspecialchars(Url::Contextualize($sortUrlList['role'])) . '">' . get_lang('Role') . '</a></th>'."\n"
-    . '<th>' . get_lang('Group') . '</th>' . "\n" 
+    . '<th><a href="' . claro_htmlspecialchars(Url::Contextualize($sortUrlList['groups'])) . '">' . get_lang('Group') . '</a></th>'."\n"
     ;
 
 if ( $is_allowedToEdit ) // EDIT COMMANDS
 {
-    $out .= '<th>'.get_lang('Enrollment date').'</th>'
+    $out .= '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['enrollment_date'])).'">'.get_lang('Enrollment date').'</a></th>'
         . '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['tutor'])).'">'.get_lang('Group Tutor').'</a></th>'."\n"
         . '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['isCourseManager'])).'">'.get_lang('Course manager').'</a></th>'."\n"
         . '<th>'.get_lang('Edit').'</th>'."\n"
@@ -528,29 +521,14 @@ foreach ( $userList as $thisUser )
     {
         $out .= '<td>'.claro_htmlspecialchars( $thisUser['role'] ).'</td>'."\n";
     }
-
-    // User group column
-    if ( !isset ($usersGroup[$thisUser['user_id']]) )    // NULL and not '0' because team can be inexistent
+    
+    if ( empty($thisUser['groups']) )
     {
         $out .= '<td> - </td>'."\n";
     }
     else
     {
-        $userGroups = $usersGroup[$thisUser['user_id']];
-        
-        $out .= '<td>'."\n";
-        
-        reset($userGroups);
-        
-        while (list($thisGroupsNo,$thisGroupsName)=each($userGroups))
-        {
-            $out .= '<div>'
-               . claro_htmlspecialchars( $thisGroupsName["nameTeam"] )
-               . ' <small>('.claro_htmlspecialchars( $thisGroupsNo ).')</small>'
-               . '</div>';
-        }
-        
-        $out .= '</td>'."\n";
+        $out .= '<td>'.  htmlspecialchars($thisUser['groups']).'</td>'."\n";
     }
 
     if ($previousUser == $thisUser['user_id'])
