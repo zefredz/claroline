@@ -273,7 +273,6 @@ $sqlGetUsers = "
             `{$tbl_users}` AS user,
             `{$tbl_rel_course_user}` AS course_user
 
-
     LEFT JOIN `{$tbl_rel_users_groups}` AS user_group
     ON user_group.user = `course_user`.`user_id`
 
@@ -296,7 +295,8 @@ $defaultSortKeyList = array ('course_user.isCourseManager' => SORT_DESC,
                              'course_user.tutor'  => SORT_DESC,
                              'user.nom'          => SORT_ASC,
                              'user.prenom'       => SORT_ASC,
-                             'groups'       => SORT_ASC );
+                             'groups'       => SORT_ASC,
+                             'enrollment_date' => SORT_ASC );
 
 foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 {
