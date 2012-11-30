@@ -3,8 +3,8 @@
 /**
  * CLAROLINE
  *
- * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     Claroline 1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLWRK/
  * @package     CLWRK
@@ -1049,17 +1049,17 @@ if( $is_allowedToSubmit )
     );
 }
 
-$pageTitle['mainTitle'] = get_lang('Assignment')." : ".$assignment->getTitle();
+$pageTitle['mainTitle'] = get_lang('Assignment'); $pageTitle['subTitle'] = $assignment->getTitle();
 
 if( $assignment->getAssignmentType() == 'GROUP' )
 {
-    $pageTitle['subTitle'] = get_lang('Group') . ' : ' . $authName . "\n";
-    if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="'.claro_htmlspecialchars( Url::Contextualize('../group/group_space.php?gidReq='.$_REQUEST['authId'] ) ).'">'.get_lang('View group data').'</a>)</small>'."\n";
+    $pageTitle['supraTitle'] = get_lang('Group') . ' : ' . $authName . "\n";
+    if( $is_allowedToEditAll ) $pageTitle['supraTitle'] .=  '<small>(<a href="'.claro_htmlspecialchars( Url::Contextualize('../group/group_space.php?gidReq='.$_REQUEST['authId'] ) ).'">'.get_lang('View group data').'</a>)</small>'."\n";
 }
 else
 {
-    $pageTitle['subTitle'] = get_lang('User') . ' : ' . $authName . "\n";
-    if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="'.claro_htmlspecialchars( Url::Contextualize('../user/userInfo.php?uInfo='.$_REQUEST['authId'] ) ).'">'.get_lang('View user data').'</a>)</small>'."\n";
+    $pageTitle['supraTitle'] = get_lang('User') . ' : ' . $authName . "\n";
+    if( $is_allowedToEditAll ) $pageTitle['supraTitle'] .=  '<small>(<a href="'.claro_htmlspecialchars( Url::Contextualize('../user/userInfo.php?uInfo='.$_REQUEST['authId'] ) ).'">'.get_lang('View user data').'</a>)</small>'."\n";
 }
 $out .= claro_html_tool_title($pageTitle, null, $cmdList);
 
