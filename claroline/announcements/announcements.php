@@ -92,6 +92,13 @@ $subTitle = '';
 
 $dialogBox = new DialogBox();
 
+// avoid executing commands twice when switching view mode
+if  ( isset($_REQUEST['viewMode']) )
+{
+    unset ( $_REQUEST['cmd'] );
+    unset ( $_REQUEST['id'] );
+}
+
 
 /**
  * COMMANDS SECTION (COURSE MANAGER ONLY)
