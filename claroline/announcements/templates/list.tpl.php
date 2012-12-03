@@ -42,13 +42,22 @@
         </a>
         <?php endif; ?>
         
+        <?php if ( $announcement['rank'] !== $this->maxRank ): ?>
+        
         <a href="<?php echo claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exMvUp&id=' . $announcement['id'])); ?>">
             <img src="<?php echo get_icon_url('move_up'); ?>" alt="<?php echo get_lang('Move up'); ?>" />
         </a>
         
+        <?php endif; ?>
+        
+        <?php if ( $announcement['rank'] !== $this->minRank ): ?>
+        
         <a href="<?php echo claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=exMvDown&id=' . $announcement['id'])); ?>">
             <img src="<?php echo get_icon_url('move_down'); ?>" alt="<?php echo get_lang('Move down'); ?>" />
         </a>
+        
+        <?php endif; ?>
+        
     </div>
     <?php endif; ?>
 </div>

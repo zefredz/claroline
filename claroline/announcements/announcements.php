@@ -555,9 +555,13 @@ if ($displayList)
         }
     }
     
+    $maxMinRanks = clann_get_max_and_min_rank();
+    
     $template = new ModuleTemplate($tlabelReq, 'list.tpl.php');
     $template->assign('announcementList', $preparedAnnList);
     $template->assign('lastPostDate', $lastPostDate);
+    $template->assign('maxRank', $maxMinRanks['maxRank']);
+    $template->assign('minRank', $maxMinRanks['minRank']);
     
     Claroline::getDisplay()->body->appendContent($template->render());
 } // end if displayList

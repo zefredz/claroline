@@ -423,3 +423,16 @@ function move_entry($item_id, $cmd, $course_id=null)
         }
     }
 }
+
+function clann_get_max_and_min_rank( $course_id = null )
+{
+    $course_id = is_null($course_id) ? claro_get_current_course_id() : $course_id;
+    
+    $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    
+    return Claroline::getDatabase()->query( "
+      SELECT 
+        MAX(ordre) AS maxRank,
+        MIN(ordre) AS minRank
+     FROM `" . $tbl['announcement'] . "`" )->fetch();
+}
