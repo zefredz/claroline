@@ -236,7 +236,7 @@ foreach ($flatElementList as $module)
             else
                 $displayedName = $module['name'];
 
-            $$out .= '<img src="' . $moduleImg . '" alt="' . $contentType_alt . '" border="0" />'
+            $out .= '<img src="' . $moduleImg . '" alt="' . $contentType_alt . '" border="0" />'
                 . claro_utf8_decode( $displayedName, get_conf( 'charset' ) );
         }
     }
