@@ -390,13 +390,13 @@ class MergeUser
         foreach ( $teamList as $thisTeam )
         {
             $toKeep_team_entry = claro_sql_query_fetch_single_row("
-                    SELECT user, team, status
+                    SELECT user, team, role, status
                     FROM `{$courseTbl['group_rel_team_user']}`
                     WHERE user = ".(int)$uidToKeep."
                       AND team = ".(int)$thisTeam );
 
             $toRemove_team_entry = claro_sql_query_fetch_single_row("
-                    SELECT user, team, status
+                    SELECT user, team, role, status
                     FROM `{$courseTbl['group_rel_team_user']}`
                     WHERE user = ".(int)$uidToRemove."
                       AND team = ".(int)$thisTeam );
