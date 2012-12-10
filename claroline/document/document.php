@@ -281,12 +281,40 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             }
 
             //notify that a new document has been uploaded
-
-            $eventNotifier->notifyCourseEvent('document_file_added'
+            
+            if( is_array( $uploadedFileName ) )
+            {
+                if ( get_conf( 'cldoc_notifyAllFilesWhenUncompressingArchives', false ) )
+                {
+                    foreach ( $uploadedFileName as $uploadedFile )
+                    {
+                        $eventNotifier->notifyCourseEvent('document_file_added'
+                                                 , claro_get_current_course_id()
+                                                 , claro_get_current_tool_id()                                             
+                                                 , $cwd . '/' . $uploadedFile['stored_filename']
+                                                 , claro_get_current_group_id()
+                                                 , '0');
+                    }
+                }
+                else
+                {
+                    $eventNotifier->notifyCourseEvent('document_file_modified'
                                              , claro_get_current_course_id()
-                                             , claro_get_current_tool_id()                                             , $cwd . '/' . $uploadedFileName
+                                             , claro_get_current_tool_id()                                             
+                                             , array( 'old_uri' => $cwd,'new_uri' => $cwd )
                                              , claro_get_current_group_id()
                                              , '0');
+                }
+            }
+            else
+            {
+                $eventNotifier->notifyCourseEvent('document_file_added'
+                                             , claro_get_current_course_id()
+                                             , claro_get_current_tool_id()                                             
+                                             , $cwd . '/' . $uploadedFileName
+                                             , claro_get_current_group_id()
+                                             , '0');
+            }
 
             /*--------------------------------------------------------------------
                IN CASE OF HTML FILE, LOOKS FOR IMAGE NEEDING TO BE UPLOADED TOO
