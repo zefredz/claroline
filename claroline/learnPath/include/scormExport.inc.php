@@ -74,22 +74,22 @@ if ( !class_exists('ScormExport') )
      */
     class ScormExport
     {
-        var $id;
-        var $name;
-        var $comment;
-        var $resourceMap;
-        var $itemTree;
-        var $fromScorm;
-        var $destDir;
-        var $srcDirScorm;
-        var $srcDirDocument;
-        var $srcDirExercise;
+        public $id;
+        public $name;
+        public $comment;
+        public $resourceMap;
+        public $itemTree;
+        public $fromScorm;
+        public $destDir;
+        public $srcDirScorm;
+        public $srcDirDocument;
+        public $srcDirExercise;
 
-        var $manifest_itemTree;
-        var $scormURL;
-        var $mp3Found;
+        public $manifest_itemTree;
+        public $scormURL;
+        public $mp3Found;
 
-        var $error;
+        public $error;
 
         /**
          * Constructor
@@ -97,7 +97,7 @@ if ( !class_exists('ScormExport') )
          * @param $learnPathId The ID of the learning path to export
          * @author Amand Tihon <amand@alrj.org>
          */
-        function ScormExport($learnPathId)
+        public function __construct($learnPathId)
         {
             /* Default values */
             $this->id = (int)$learnPathId;
@@ -114,7 +114,7 @@ if ( !class_exists('ScormExport') )
          *
          * @author Amand Tihon <amand@alrj.org>
          */
-        function getError()
+        public function getError()
         {
             return $this->error;
         }
@@ -125,7 +125,7 @@ if ( !class_exists('ScormExport') )
          * @return False on error, true otherwise.
          * @author Amand Tihon <amand@alrj.org>
          */
-        function fetch()
+        public function fetch()
         {
             global $TABLELEARNPATH, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEASSET;
 
@@ -174,6 +174,7 @@ if ( !class_exists('ScormExport') )
                    ';
 
             $result = claro_sql_query($sql);
+            
             if ( empty($result) )
             {
                 $this->error = get_lang('Learning Path is empty');
@@ -229,7 +230,7 @@ if ( !class_exists('ScormExport') )
         * @return False on error, True if everything went well.
         * @author  Amand Tihon <amand@alrj.org>
         */
-        function prepareQuiz($quizId, $raw_to_pass=50)
+        public function prepareQuiz($quizId, $raw_to_pass=50)
         {
             global $claro_stylesheet;
 
@@ -435,17 +436,37 @@ if ( !class_exists('ScormExport') )
          * @see createManifest
          * @author Amand Tihon <amand@alrj.org>
          */
-        function prepare()
+        public function prepare()
         {
             global $claro_stylesheet;
             
             // (re)create fresh directory
             claro_delete_file($this->destDir);
+            
             if ( !claro_mkdir($this->destDir, CLARO_FILE_PERMISSIONS , true))
             {
                 $this->error[] = get_lang('Unable to create directory : ') . $this->destDir;
                 return false;
             }
+            
+            // Copy SCORM package, if needed
+            if ($this->fromScorm && file_exists( $this->srcDirScorm ) )
+            {
+                // Copy the scorm directory as OrigScorm/
+                if (
+                       !claro_copy_file($this->srcDirScorm,  $this->destDir)
+                    || !claro_rename_file($this->destDir.'/path_'.$this->id, $this->destDir.'/OrigScorm')  )
+                {
+                    $this->error[] = get_lang('Error copying existing SCORM content');
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            
+            
             
             // Check css to use
             if( file_exists( get_path( 'clarolineRepositorySys' ) . '../platform/css/' . $claro_stylesheet ) )
@@ -547,7 +568,7 @@ if ( !class_exists('ScormExport') )
          * @return False on error, true otherwise.
          * @author Amand Tihon <amand@alrj.org>
          */
-        function createFrameFile($fileName, $targetPath)
+        public function createFrameFile($fileName, $targetPath)
         {
 
             if ( !($f = fopen($fileName, 'w')) )
@@ -579,7 +600,7 @@ if ( !class_exists('ScormExport') )
          * @return A string containing the metadata block.
          * @author Amand Tihon <amand@alrj.org>
          */
-        function makeMetaData($title, $description)
+        public function makeMetaData($title, $description)
         {
             if ( empty($title) and empty($description) ) return '<metadata />';
 
@@ -619,12 +640,14 @@ if ( !class_exists('ScormExport') )
          * @return the (sub-)tree representation
          * @author Amand Tihon <amand@alrj.org>
          */
-        function createItemList($itemlist, $depth=0)
+        public function createItemList($itemlist, $depth=0)
         {
             $out = "";
             $ident = "";
+            
             for ($i=0; $i<$depth; $i++) $ident .= "    ";
-            foreach ($itemlist as $item)
+            
+            foreach ( $itemlist as $item )
             {
                 $out .= $ident . '<item identifier="I_'.$item['ID'].'" isvisible="true" ';
                 if ( $item['contentType'] != 'LABEL' )
@@ -666,8 +689,13 @@ if ( !class_exists('ScormExport') )
          * @return False on error, true otherwise.
          * @author Amand Tihon <amand@alrj.org>
          */
-        function createManifest()
+        public function createManifest()
         {
+            if ( $this->fromScorm )
+            {
+                return true;
+            }
+            
             // Start creating sections for items and resources
             $this->blocking = "";
 
@@ -682,6 +710,7 @@ if ( !class_exists('ScormExport') )
             // ...Then the resources
             
             $manifest_resources = "<resources>\n";
+            
             foreach ( $this->resourceMap as $module )
             {
                 if ( $module['contentType'] == 'LABEL' ) continue;
@@ -772,12 +801,22 @@ if ( !class_exists('ScormExport') )
          * @return False on error, True otherwise.
          * @author Amand Tihon <amand@alrj.org>
          */
-        function zip()
+        public function zip()
         {
 
             $list = 1;
             $zipFile = new PclZip($this->destDir . '.zip');
-            $list = $zipFile->create($this->destDir, PCLZIP_OPT_REMOVE_PATH, $this->destDir);
+            
+            if ( $this->fromScorm )
+            {
+                $exportFrom = $this->destDir . '/OrigScorm';
+            }
+            else
+            {
+                $exportFrom = $this->destDir;
+            }
+            
+            $list = $zipFile->create( $exportFrom, PCLZIP_OPT_REMOVE_PATH, $exportFrom );
 
             if ( !$list )
             {
@@ -798,7 +837,7 @@ if ( !class_exists('ScormExport') )
          * @return Does NOT return !
          * @author Amand Tihon <amand@alrj.org>
          */
-        function send()
+        public function send()
         {
             $filename = $this->destDir . '.zip';
             header('Content-Description: File Transfer');
@@ -816,7 +855,7 @@ if ( !class_exists('ScormExport') )
          * @return False on error. Does NOT return on success.
          * @author Amand Tihon <amand@alrj.org>
          */
-        function export()
+        public function export()
         {
             if ( !$this->fetch() ) return false;
             if ( !$this->prepare() ) return false;
