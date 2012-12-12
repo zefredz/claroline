@@ -214,6 +214,13 @@ function claro_copy_file($sourcePath, $targetPath)
     }
     elseif ( is_dir($sourcePath) )
     {
+        if ( strtoupper( substr( PHP_OS, 0, 3 ) ) === 'WIN' )
+        {
+            // fix windows path for regexp
+            $sourcePath = str_replace( '\\', '\\\\', $sourcePath );
+            $targetPath = str_replace( '\\', '\\\\', $targetPath );
+        }
+        
         // check to not copy the directory inside itself
         if ( preg_match('/^'.str_replace( '/', '\/', $sourcePath ) . '\//', str_replace( '/', '\/', $targetPath ) . '/') ) return false;
 
