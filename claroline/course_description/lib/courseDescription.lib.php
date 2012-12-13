@@ -29,17 +29,45 @@ function course_description_get_item_list($courseId = null)
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
     $tblCourseDescription = $tbl['course_description'];
 
-    $sql = "SELECT cd.`id`,
-                   cd.`category`,
-                   cd.`title`,
-                   cd.`content`,
-                UNIX_TIMESTAMP(cd.`lastEditDate`)
-                   AS `unix_lastEditDate`,
-                   cd.`visibility`
-            FROM `" . $tblCourseDescription . "` AS cd
-            ORDER BY cd.`category` ASC";
-
-    return  claro_sql_query_fetch_all($sql);
+    if (get_conf('cldsc_use_new_ordering_of_labels'))
+    {
+	// sort first the principal categories
+	    $sql = "SELECT `cd`.`id`,
+	                   `cd`.`category`,
+	                   `cd`.`title`,
+	                   `cd`.`content`,
+	                UNIX_TIMESTAMP(cd.`lastEditDate`)
+	                   AS `unix_lastEditDate`,
+	                   `cd`.`visibility`
+	            FROM `" . $tblCourseDescription . "` AS `cd`
+	            WHERE `cd`.`category` != '-1'
+	            ORDER BY `cd`.`category` ASC";
+	    // and then the "other" category ... by title
+		$sql2 = "SELECT cd.`id`,
+	                   cd.`category`,
+	                   cd.`title`,
+	                   cd.`content`,
+	                UNIX_TIMESTAMP(`cd`.`lastEditDate`)
+	                   AS `unix_lastEditDate`,
+	                   `cd`.`visibility`
+	            FROM `" . $tblCourseDescription . "` AS `cd`
+	            WHERE `cd`.`category` = '-1'
+	            ORDER BY `cd`.`title` ASC";
+	    return  array_merge(claro_sql_query_fetch_all($sql),claro_sql_query_fetch_all($sql2));
+    }
+    else
+    {
+    	 $sql = "SELECT `cd`.`id`,
+	                   `cd`.`category`,
+	                   `cd`.`title`,
+	                   `cd`.`content`,
+	                UNIX_TIMESTAMP(cd.`lastEditDate`)
+	                   AS `unix_lastEditDate`,
+	                   `cd`.`visibility`
+	            FROM `" . $tblCourseDescription . "` AS `cd`
+	            ORDER BY `cd`.`category` ASC";
+        return claro_sql_query_fetch_all($sql);
+    }
 }
 
 /**
