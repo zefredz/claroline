@@ -2170,8 +2170,8 @@ $_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Teaching-training 
 $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?';
 $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).';
 $_lang['blockCourseSettingsTip'] = 'By default, all users registered to the platform can enrol to your course. If you want some confidentiality,
-the simplest way is to open registration during
-one week, ask the students to register themselves, then close registration and check for possible intruders in the user list.';
+the simplest way is to open registration during one week, ask the students to register themselves, then close registration and check for possible intruders in the user list.
+Another option is to define a registration key which will need to be entered by any student who wants to enrol to the course.';
 $_lang['blockCourseSubscriptionNotification'] = '
 
 Dear %firstname %lastname,
