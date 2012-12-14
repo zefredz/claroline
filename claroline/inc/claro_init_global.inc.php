@@ -549,3 +549,14 @@ if ( claro_is_in_a_course() && isset( $tlabelReq ) && $tlabelReq == 'CLQWZ' )
     require_once get_path('incRepositorySys').'/../exercise/lib/add_missing_table.lib.php';
     init_qwz_questions_categories ();
 }
+
+if ( !claro_is_platform_admin () )
+{
+    $courseStatus = claro_get_current_course_data ( 'status' );
+
+    if ( $courseStatus == 'trash' || $courseStatus == 'disable' )
+    {
+        Claroline::getDisplay()->body->hideCourseTitleAndTools();
+        claro_die( get_lang('This course is not available anymore, please contact the platform administrator.') );
+    }
+}
