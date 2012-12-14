@@ -60,6 +60,14 @@ $conf_def[ 'section' ][ 'create' ][ 'properties' ] =
         , 'defaultVisibilityOnCourseCreation'
 );
 
+$conf_def[ 'section' ][ 'courses_settings' ][ 'label' ] = 'Available settings';
+$conf_def[ 'section' ][ 'courses_settings' ][ 'description' ] = 'You can personalize the options available to the course managers in the course settings';
+$conf_def[ 'section' ][ 'courses_settings' ][ 'properties' ] = array ( 
+    'clcrs_settings_display_visibility',
+    'clcrs_settings_display_nbrofstudents',
+    'clcrs_settings_display_status',
+);
+
 $conf_def[ 'section' ][ 'registration' ][ 'label' ] = 'Course registration settings';
 $conf_def[ 'section' ][ 'registration' ][ 'description' ] = '';
 $conf_def[ 'section' ][ 'registration' ][ 'properties' ] =
@@ -299,3 +307,40 @@ $conf_def_property_list[ 'courseSessionAllowed' ] =
             , 'FALSE' => 'No'
         )
 );
+
+$conf_def_property_list[ 'clcrs_settings_display_visibility' ] =
+    array ( 'label' => 'Course visibility'
+        , 'description' => 'Allow course manager to set the visibility of a course. An invisible course does not appear in the platform course list or in the course search engine. It only appears in the course list of enrolled users but can still be accessed by a direct URL.'
+        , 'default' => true
+        , 'type' => 'boolean'
+        , 'display' => true
+        , 'readonly' => false
+        , 'acceptedValue' => array ( 'TRUE' => 'Yes'
+            , 'FALSE' => 'No'
+        )
+);
+
+$conf_def_property_list[ 'clcrs_settings_display_nbrofstudents' ] =
+    array ( 'label' => 'Maximum number of students'
+        , 'description' => 'Allow course manager to set the maximum number of students that can enroll to a course'
+        , 'default' => true
+        , 'type' => 'boolean'
+        , 'display' => true
+        , 'readonly' => false
+        , 'acceptedValue' => array ( 'TRUE' => 'Yes'
+            , 'FALSE' => 'No'
+        )
+);
+
+$conf_def_property_list[ 'clcrs_settings_display_status' ] =
+    array ( 'label' => 'Course availability status'
+        , 'description' => 'Allow course manager to change the availability of their course (available or not, available during a given time period...)'
+        , 'default' => false
+        , 'type' => 'boolean'
+        , 'display' => true
+        , 'readonly' => false
+        , 'acceptedValue' => array ( 'FALSE' => 'No'
+            , 'TRUE' => 'Yes'
+        )
+);
+
