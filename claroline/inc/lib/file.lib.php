@@ -560,6 +560,7 @@ function replace_dangerous_char($string, $strict = 'loose')
     $search[] = '^';  $replace[] = '-';
     $search[] = '[';  $replace[] = '-';
     $search[] = ']';  $replace[] = '-';
+    $search[] = '°';  $replace[] = '';
 
     foreach($search as $key=>$char )
     {
