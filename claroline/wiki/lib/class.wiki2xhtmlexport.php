@@ -208,7 +208,7 @@ td {
     /**
      * @see Wiki2xhtmlRenderer
      */
-    private function parseWikiWord( $str, $tag, $attr, $type )
+    protected function parseWikiWord( $str, $tag, $attr, $type )
     {
         // $tag = 'a';
         // $attr = ' href="'.$this->_makePageTitleAnchor( $str ).'"';
