@@ -27,7 +27,7 @@ $driverConfig['extAuthOptionList'] = array(
     'basedn'   => 'ou=people,o=example,c=com',
     'userattr' => 'uid',
     'userfilter' => '(objectClass=person)',
-    'userBindDn' => true, // set to true if your server does not allow anonymous bind
+    'useBindDn' => true, // set to true if your server does not allow anonymous bind
     'binddn' => 'uid=login,ou=people,o=example,c=com', // dn for non anonymous search
     'binbpw' => 'password' // password for noanonymous search
 );
