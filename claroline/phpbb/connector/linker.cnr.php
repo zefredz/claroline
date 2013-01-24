@@ -62,14 +62,30 @@ class CLFRM_Resolver implements ModuleResourceResolver
         
         $res = Claroline::getDatabase()->query($sql);
         $res->setFetchMode(Database_ResultSet::FETCH_VALUE);
-        $title = trim( $res->fetch() );
         
-        if ( empty( $title ) )
+        $title = $res->fetch();
+        
+        if ( $title )
         {
-            $title = get_lang('Untitled');
-        }
         
-        return $title;
+            $title = trim( $title );
+
+            if ( empty( $title ) )
+            {
+                $title = get_lang('Untitled');
+            }
+
+            return $title;
+        }
+        else
+        {
+            Console::debug ("Cannot load forum " 
+                . var_export( $forumId, true )
+                . " in " . __CLASS__
+                . " : query returned " 
+                . var_export( $title, true ) );
+            return null;
+        }
     }
     
     private function getTopicName( $topicId, $courseId )
@@ -83,14 +99,29 @@ class CLFRM_Resolver implements ModuleResourceResolver
         
         $res = Claroline::getDatabase()->query($sql);
         $res->setFetchMode(Database_ResultSet::FETCH_VALUE);
-        $title = trim( $res->fetch() );
         
-        if ( empty( $title ) )
+        $title = $res->fetch();
+        
+        if ( $title )
         {
-            $title = get_lang('Untitled');
+            $title = trim( $title );
+
+            if ( empty( $title ) )
+            {
+                $title = get_lang('Untitled');
+            }
+
+            return $title;
         }
-        
-        return $title;
+        else
+        {
+            Console::debug ("Cannot load topic " 
+                . var_export( $topicId, true )
+                . " in " . __CLASS__
+                . " : query returned " 
+                . var_export( $title, true ) );
+            return null;
+        }
     }
 
     public function getResourceName( ResourceLocator $locator )
@@ -139,7 +170,7 @@ class CLFRM_Navigator implements ModuleResourceNavigator
         {
             if ( isset( $params['topic_id'] ) )
             {
-                $tbl = get_module_course_tbl( array('bb_topics'), $locator->getCourseId() );
+                $tbl = get_module_course_tbl( array('bb_topics') ); //, $locator->getCourseId() );
         
                 $sql = "SELECT `forum_id`\n"
                     . "FROM `{$tbl['bb_topics']}`\n"
