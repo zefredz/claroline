@@ -22,7 +22,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // TOOL
 $conf_def['config_code']='CLDSC';
 $conf_def['config_file']='CLDSC.conf.php';
-$conf_def['config_name'] = 'Course Description';
+$conf_def['config_name'] = 'Course description';
 $conf_def['config_class']='tool';
 
 $conf_def['section']['main']['label']      = 'Main';
