@@ -48,14 +48,26 @@ class CLCAL_Resolver implements ModuleResourceResolver
         $res->setFetchMode(Database_ResultSet::FETCH_OBJECT);
         $event = $res->fetch();
         
-        $titre = trim( $event->titre );
-        
-        if ( empty( $titre ) )
+        if ( $event )
         {
-            $titre = $event->day;
+            $titre = trim( $event->titre );
+
+            if ( empty( $titre ) )
+            {
+                $titre = $event->day;
+            }
+
+            return $titre;
         }
-        
-        return $titre;
+        else
+        {
+            Console::debug ("Cannot load ressource " 
+                . var_export( $locator, true )
+                . " in " . __CLASS__
+                . " : query returned " 
+                . var_export( $event, true ) );
+            return null;
+        }
     }
 }
 
