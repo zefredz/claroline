@@ -308,7 +308,7 @@ class parseCSV
         {
             $data = &$this->file_data;
         }
-
+        
         $chars = array ();
         $strlen = strlen($data);
         $enclosed = false;
@@ -665,6 +665,8 @@ class parseCSV
         }
         if (!empty($data) || $data = $this->_rfile($file))
         {
+            $data = trim($data);
+            
             if ($this->file != $file)
                 $this->file = $file;
             if (preg_match('/\.php$/i', $file) && preg_match('/<\?.*?\?' . '>(.*)/ims', $data, $strip))
