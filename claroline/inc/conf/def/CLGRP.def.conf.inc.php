@@ -37,6 +37,12 @@ array ( 'tutorCanBeSimpleMemberOfOthersGroupsAsStudent'
       , 'showTutorsInGroupList'
       );
 
+$conf_def['section']['display']['label']='Display';
+$conf_def['section']['display']['description']='Display options';
+$conf_def['section']['display']['properties'] =
+array ( 'clgrp_displayMyGroups'
+      );
+
 //PROPERTIES
 $conf_def_property_list['multiGroupAllowed'] =
 array ( 'label'       => 'Allow teachers to subscribe a user in several groups'
@@ -71,4 +77,16 @@ array ( 'description' => 'Not implemented, name reserved  for future version of 
                                )
       , 'display'     => false
       , 'readonly'    => true
+      );
+
+$conf_def_property_list['clgrp_displayMyGroups'] =
+array ( 'description' => 'Display "my groups" above group list'
+      , 'label'       => 'Display the list of groups in whitch a user is registered or supervized by him above the group list'
+      , 'default'     => true
+      , 'type'        => 'boolean'
+      , 'acceptedValue' => array ('TRUE'=>'Yes'
+                               ,'FALSE'=>'No'
+                               )
+      , 'display'     => true
+      , 'readonly'    => false
       );

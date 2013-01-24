@@ -41,6 +41,7 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php' ;
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
 // use viewMode
 claro_set_display_mode_available(TRUE);
@@ -581,6 +582,16 @@ if ( is_integer($nbGroupPerUser) )
 {
     $countTeamUser = group_count_group_of_a_user(claro_get_current_user_id());
     if ( $countTeamUser >= $nbGroupPerUser ) $isGroupRegAllowed = FALSE;
+}
+
+if ( claro_is_user_authenticated () && get_conf( 'clgrp_displayMyGroups', true ) )
+{
+    require_once dirname(__FILE__) . '/lib/mygroups.lib.php';
+    $myGroupList = new Claro_MyGroupList();
+    $myGroupListTpl = new ModuleTemplate( 'CLGRP', 'mygroups.tpl.php' );
+    $myGroupListTpl->assign( 'myGroupList', $myGroupList->getMyGroupList() );
+    $out .= $myGroupListTpl->render();
+    $out .= '<h3>' . get_lang( 'All groups' ) . '</h3>';
 }
 
 $out .= $groupPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
