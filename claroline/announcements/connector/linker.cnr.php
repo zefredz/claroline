@@ -44,14 +44,29 @@ class CLANN_Resolver implements ModuleResourceResolver
         
         $res = Claroline::getDatabase()->query($sql);
         $res->setFetchMode(Database_ResultSet::FETCH_VALUE);
-        $title = trim( $res->fetch() );
         
-        if ( empty( $title ) )
+        $title = $res->fetch();
+        
+        if ( $title )
         {
-            $title = get_lang('Untitled');
-        }
+            $title = trim ( $title );
         
-        return $title;
+            if ( empty( $title ) )
+            {
+                $title = get_lang('Untitled');
+            }
+
+            return $title;
+        }
+        else
+        {
+            Console::debug ("Cannot load ressource " 
+                . var_export( $locator, true )
+                . " in " . __CLASS__
+                . " : query returned " 
+                . var_export( $event, true ) );
+            return null;
+        }
     }
 }
 
