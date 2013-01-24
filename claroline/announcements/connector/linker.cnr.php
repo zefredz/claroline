@@ -64,7 +64,7 @@ class CLANN_Resolver implements ModuleResourceResolver
                 . var_export( $locator, true )
                 . " in " . __CLASS__
                 . " : query returned " 
-                . var_export( $event, true ) );
+                . var_export( $title, true ) );
             return null;
         }
     }
