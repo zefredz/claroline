@@ -108,44 +108,28 @@ function enough_size($fileSize, $dir, $maxDirSpace)
 
 /**
  * Compute the size already occupied by a directory and is subdirectories
- *
  * @param string $dirPath Size of the file in byte
- *
  * @return integer : the directory size in bytes
  */
 
 function dir_total_space($dirPath)
 {
-    chdir ($dirPath) ;
-    $handle  = opendir($dirPath);
     $sumSize = 0;
-
-    while (false !== ($element = readdir($handle) ) )
+    
+    if( !empty( $dirPath ) 
+        && !is_null($dirPath) 
+        && file_exists ( $dirPath ) 
+        && is_dir ( $dirPath ) )
     {
-        if ( $element == '.' || $element == '..')
+        $it = new RecursiveIteratorIterator( 
+            new RecursiveDirectoryIterator( $dirPath ) );
+        
+        foreach ( $it as $element ) 
         {
-            continue; // skip the current and parent directories
-        }
-
-        if ( is_file($element) )
-        {
-            $sumSize += filesize($element);
-        }
-
-        if ( is_dir($element) )
-        {
-            $dirList[] = $dirPath.'/'.$element;
-        }
-    }
-
-    closedir($handle) ;
-
-    if ( isset($dirList) && sizeof($dirList) > 0)
-    {
-        foreach($dirList as $j)
-        {
-            $sizeDir = dir_total_space($j);    // recursivity
-            $sumSize += $sizeDir;
+            if ( $element->isFile() )
+            {
+                $sumSize += $element->getSize();
+            }
         }
     }
 
