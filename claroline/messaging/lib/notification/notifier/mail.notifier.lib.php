@@ -169,7 +169,6 @@ class MailNotifier implements MessagingNotifier
     
         $emailList = claro_sql_query_fetch_all_cols($sql);
         $emailList = $emailList['email'];
-    
         $emailList = array_filter($emailList, 'is_well_formed_email_address');
     
         $mail = new ClaroPHPMailer();
@@ -206,15 +205,21 @@ class MailNotifier implements MessagingNotifier
             pushClaroMessage($message,'mail');
         }
     
-        foreach ($emailList as $thisEmail)
+        $error_list=  array();
+        
+        foreach ( $emailList as $thisEmail )
         {
-            $mail->AddAddress($thisEmail);
-            
-            if (! $mail->Send() )
+            try
+            {
+                 $mail->AddAddress($thisEmail);
+                 $mail->Send();
+            }
+            catch ( phpmailerException $exception ) 
             {
                 if ( claro_debug_mode() )
                 {
-                    pushClaroMessage($mail->getError(),'error');
+                    pushClaroMessage('Mail Notification Failed ' .$exception->__toString() );
+                    $error_list[] = $thisEmail ;
                 }
             }
             
