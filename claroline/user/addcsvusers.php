@@ -251,7 +251,8 @@ $csvImport->heading = $firstLineFormat;
 
 if ( ! $firstLineFormat )
 {
-    $csvImport->titles = explode( ',' , $usedFormat);
+    // $csvImport->titles = explode( ',' , $usedFormat);
+    $csvImport->fields = explode( ',' , $usedFormat);
 }
 
 switch( $step )
@@ -293,7 +294,8 @@ switch( $step )
                 
                 if( ! CsvImport::format_ok( $firstLine ) )
                 {
-                    $dialogBox->error( get_lang('ERROR: The format you gave is not compatible with Claroline') );
+                    // $dialogBox->error( get_lang('ERROR: The format you gave is not compatible with Claroline') );
+                    $dialogBox->error( get_lang('ERROR: The format of lines you gave is not compatible with Claroline') );
                     break;
                 }
                 
