@@ -170,7 +170,7 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
     
     public function getUserData()
     {
-        $userData = $this->user->getUserData();
+        $userData = $this->user->getData();
         
         $userAttrList = array('lastname'     => NULL,
                           'firstname'    => NULL,
