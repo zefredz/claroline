@@ -170,7 +170,7 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
     
     public function getUserData()
     {
-        $userData = $this->user->getData();
+        //$userData = $this->user->getData();
         
         $userAttrList = array('lastname'     => NULL,
                           'firstname'    => NULL,
@@ -187,14 +187,14 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
             {
                 if ( ! is_null($this->user->$extAuthAttribName) )
                 {
-                    $userAttrList[$claroAttribName] = $userData[$extAuthAttribName];
+                    $userAttrList[$claroAttribName] = $this->user->extAuthAttribName;
                 }
             }
         }
         
-        $userAttrList = array_merge( $userData, $userAttrList );
+        // $userAttrList = array_merge( $userData, $userAttrList );
         
-        /*foreach($userAttrList as $claroAttribName => $claroAttribValue)
+        foreach($userAttrList as $claroAttribName => $claroAttribValue)
         {
             if ( array_key_exists($claroAttribName, $this->extAuthAttribTreatmentList ) )
             {
@@ -211,7 +211,7 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
             }
 
             $userAttrList[$claroAttribName] = $claroAttribValue;
-        } */ // end foreach
+        } // end foreach
 
         /* Two fields retrieving info from another source ... */
 
