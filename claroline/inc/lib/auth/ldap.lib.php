@@ -133,6 +133,25 @@ class Claro_Ldap_User extends Claro_Ldap_DataObject
     {
         return Claro_Ldap_Utils::decode( $this->data );
     }
+    
+    /**
+     * Get the retreived mapped data (ie attributes) of the user.
+     * @return array
+     */
+    public function getMappedData()
+    {
+        $data = $this->getData();
+        
+        foreach ( $data as $name => $value )
+        {
+            if ( isset( $this->mapping[$name] ) )
+            {
+                $data[$this->mapping[$name]] = $value;
+            }
+        }
+        
+        return $data;
+    }
 
     /**
      * Get the user identifier in the LDAP (use the setMapping to map the uid
