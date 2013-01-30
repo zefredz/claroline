@@ -120,104 +120,28 @@ function get_module_url($toolLabel)
 /**
  * Return the list of context that the tool can use but not manage.
  *
- * @param string $toolId
+ * @param string $moduleLabel
  * @return array
  */
-function get_module_db_dependance($toolId)
+function get_module_db_dependance ( $moduleLabel )
 {
     // actual place of this info prom module
-
-    $dbconfFile = get_module_path($toolId) . '/connector/db.conf.php';
-    if (file_exists($dbconfFile))
+    $contexts = get_module_context_list( $moduleLabel );
+    $contextListToReturn = array();
+    
+    foreach ( $contexts as $context )
     {
-        $contextDbSupport =false;
-        include($dbconfFile);
-        return $contextDbSupport;
-    }
-    else
-    switch ($toolId)
-    {
-        // read in manifest
-
-        //case 'CLUNFO' : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
-        case 'CLANN'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
-        case 'CLWIKI' : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
-        case 'CLQWZ'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
-        case 'CLDOC'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
-        case 'CLCAL'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
-
-        //case 'CLBLOG' : return array (CLARO_CONTEXT_USER,CLARO_CONTEXT_COURSE);
-        case 'CLLNK' :  return array(CLARO_CONTEXT_COURSE);
-        case 'CLDSC'  : return array(CLARO_CONTEXT_COURSE);
-        case 'CLFRM'  : return array(CLARO_CONTEXT_COURSE);
-        case 'CLLNP'  : return array(CLARO_CONTEXT_COURSE);
-        case 'CLUSR'  : return array(CLARO_CONTEXT_COURSE);
-        case 'CLWRK'  : return array(CLARO_CONTEXT_COURSE);
-
-        default :       return array();
-    }
-}
-
-/**
- * Return the syspath where a tool can store these file for a given context
- *
- * @param mixed $contextData
- * @return string
- */
-function claro_get_data_path( $contextData=array() )
-{
-    if(is_null($contextData)
-        || !array_key_exists(CLARO_CONTEXT_TOOLLABEL,$contextData))
-    {
-        $contextData[CLARO_CONTEXT_TOOLLABEL] = rtrim($GLOBALS['_courseTool']['label'],'_');
-    }
-    if(is_null($contextData)
-        || !array_key_exists(CLARO_CONTEXT_COURSE,$contextData))
-    {
-        $contextData[CLARO_CONTEXT_COURSE] = claro_get_current_course_id();
-    }
-    if(is_null($contextData)
-        || !array_key_exists(CLARO_CONTEXT_GROUP,$contextData))
-    {
-        $contextData[CLARO_CONTEXT_GROUP] = claro_get_current_group_id();
-    }
-    if(is_null($contextData)
-        || !array_key_exists(CLARO_CONTEXT_USER,$contextData))
-    {
-        $contextData[CLARO_CONTEXT_USER] = claro_get_current_user_id();
-    }
-
-    if (isset($contextData[CLARO_CONTEXT_COURSE]))
-    {
-        if (isset($contextData[CLARO_CONTEXT_GROUP]))
+        if ( $context == 'course' )
         {
-            $path = claro_get_group_data($contextData[CLARO_CONTEXT_GROUP]
-                ,$contextData[CLARO_CONTEXT_COURSE]);
+            $contextListToReturn[] = CLARO_CONTEXT_COURSE;
         }
-        else
+        elseif ( $context == 'group' )
         {
-            $path = get_conf('coursesRepositorySys')
-                . claro_get_course_path($contextData[CLARO_CONTEXT_COURSE])
-                ;
+            $contextListToReturn[] = CLARO_CONTEXT_GROUP;
         }
     }
-
-    if (isset($contextData[CLARO_CONTEXT_TOOLLABEL]))
-    {
-        switch ($contextData[CLARO_CONTEXT_TOOLLABEL])
-        {
-            case 'CLDOC' : $path = $path . '/document/';        break;
-            case 'CLCHT' : $path = $path . '/chat/';            break;
-            case 'CLWRK' : $path = $path . '/work/';            break;
-            case 'CLQWZ' : $path = $path . '/exercise/';        break;
-            case 'CLLNP' : $path = $path . '/scormPackages/';    break;
-            default : $path = $path . $contextData[CLARO_CONTEXT_TOOLLABEL] . '/';
-
-        }
-    }
-
-    return $path;
-
+    
+    return $contextListToReturn;
 }
 
 /**
