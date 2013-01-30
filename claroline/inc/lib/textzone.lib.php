@@ -56,7 +56,6 @@ class claro_text_zone
         {
             if ( is_array ( $context ) && array_key_exists ( CLARO_CONTEXT_GROUP, $context ) )
             {
-                // TODO  use : claro_get_data_path
                 $textZoneFile = get_conf ( 'coursesRepositorySys' ) 
                     . claro_get_course_group_path ( $context ) 
                     . '/textzone/' . $key . 'inc.html'

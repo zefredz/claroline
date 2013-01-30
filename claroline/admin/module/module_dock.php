@@ -26,7 +26,6 @@ require_once get_path('incRepositorySys') . '/lib/module/manage.lib.php';
 
 $tbl_name        = claro_sql_get_main_tbl();
 $tbl_module      = $tbl_name['module'];
-$tbl_module_info = $tbl_name['module_info'];
 $tbl_dock        = $tbl_name['dock'];
 
 $dialogBox = new DialogBox();
@@ -103,7 +102,7 @@ if ( !empty($dock))
 
     $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
     $myPager      = new claro_sql_pager($sql, $offset, $modulePerPage);
-    $pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
+    //$pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
     $moduleList   = $myPager->get_result_list();
 
 }

@@ -63,10 +63,8 @@ $nonuninstalable_tool_array = get_not_uninstallable_tool_list();
 
 $tbl_name        = claro_sql_get_main_tbl();
 $tbl_module      = $tbl_name['module'];
-$tbl_module_info = $tbl_name['module_info'];
 $tbl_dock        = $tbl_name['dock'];
 $tbl_course_tool = $tbl_name['tool'];
-$tbl = claro_sql_get_tbl(array('module_tool'));
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
@@ -101,10 +99,8 @@ $moduleTypeList = get_available_module_types();
 $cmd          = (isset($_REQUEST['cmd'])          ? $_REQUEST['cmd']          : null);
 $module_id    = (isset($_REQUEST['module_id'])    ? $_REQUEST['module_id']    : null );
 $courseToolId = (isset($_REQUEST['courseToolId']) ? $_REQUEST['courseToolId'] : null );
-$dockname     = (isset($_REQUEST['dockname'])     ? $_REQUEST['dockname']     : null );
 $typeReq      = (isset($_REQUEST['typeReq'])      ? $_REQUEST['typeReq']      : 'tool');
 $offset       = (isset($_REQUEST['offset'])       ? $_REQUEST['offset']       : 0 );
-$pagerSortDir = (isset($_REQUEST['dir' ])         ? $_REQUEST['dir' ]         : SORT_ASC);
 $_cleanInput['selectInput'] = (isset($_REQUEST['selectInput'])     ? $_REQUEST['selectInput'] : null );
 
 $notAutoActivateInCourses = ( array_key_exists( 'notAutoActivateInCourses', $_REQUEST )
@@ -136,13 +132,6 @@ $deleteModuleDatabase = ( array_key_exists( 'deleteModuleDatabase', $_REQUEST )
     ? true
     : false
     ;
-
-$autoActivateInCourses = ( array_key_exists( 'autoActivateInCourses', $_REQUEST )
-    && $_REQUEST['autoActivateInCourses'] == 'on' )
-    ? true
-    : false
-    ;
-
 
 //----------------------------------
 // EXECUTE COMMAND
