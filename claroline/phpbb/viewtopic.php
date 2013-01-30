@@ -426,6 +426,10 @@ else
             $cmd = 'show';
         }
     }
+}
+
+if ( $is_viewAllowed || $is_postAllowed )
+{
     //notification commands should be handled by ajax calls
     if( 'exNotify' == $cmd )
     {

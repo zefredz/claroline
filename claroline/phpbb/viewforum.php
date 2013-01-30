@@ -219,12 +219,18 @@ if( $is_allowedToEdit )
                 $dialogBox->error( get_lang( 'Error while updating topic lock status' ) );
             }
             break;
-        case 'exNotify' :
-            request_forum_notification( $forumId, claro_get_current_user_id() );
-            break;
-        case 'exdoNotNotify' :
-            cancel_forum_notification( $forumId, claro_get_current_user_id() );
-            break;
+    }
+}
+
+if ( claro_is_course_member () )
+{
+    if ( $cmd == 'exNotify' )
+    {
+        request_forum_notification( $forumId, claro_get_current_user_id() );
+    }
+    elseif ( $cmd == 'exdoNotNotify' )
+    {
+        cancel_forum_notification( $forumId, claro_get_current_user_id() );
     }
 }
 

@@ -311,22 +311,18 @@ function get_topic_settings($topicId)
 
 function request_forum_notification($forumId, $userId)
 {
-    if( claro_is_course_manager() )
-    {
-        $tbl_cdb_names = claro_sql_get_course_tbl();
-        $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
-    
-        // check first if user is not regisitered for forum notification yet
-        if (! is_forum_notification_requested($forumId, $userId) )
-        {
-            $sql = "INSERT INTO `" . $tbl_user_notify . "`
-                    SET `user_id`  = '" . (int) $userId . "',
-                        `forum_id` = '" . (int) $forumId . "'";
-    
-            claro_sql_query($sql);
-        }
-    }
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
 
+    // check first if user is not regisitered for forum notification yet
+    if (! is_forum_notification_requested($forumId, $userId) )
+    {
+        $sql = "INSERT INTO `" . $tbl_user_notify . "`
+                SET `user_id`  = '" . (int) $userId . "',
+                    `forum_id` = '" . (int) $forumId . "'";
+
+        claro_sql_query($sql);
+    }
 }
 
 /**
@@ -339,21 +335,18 @@ function request_forum_notification($forumId, $userId)
 
 function cancel_forum_notification($forumId = null, $userId = null)
 {
-    if( claro_is_course_manager() )
-    {
-        $tbl_cdb_names   = claro_sql_get_course_tbl();
-        $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
-    
-        $conditionList = array();
-        if ($userId ) $conditionList[]  = " `user_id`  = " . (int) $userId;
-        if ($forumId) $conditionList[]  = " `forum_id` = " . (int) $forumId;
-    
-        $sql = "DELETE FROM `" . $tbl_user_notify . "`"
-        .      ( ( count($conditionList) > 0) ? " WHERE " . implode(" AND ", $conditionList) : "" );
-    
-        if (claro_sql_query($sql) == false) return false;
-        else                                return true;
-    }
+    $tbl_cdb_names   = claro_sql_get_course_tbl();
+    $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
+
+    $conditionList = array();
+    if ($userId ) $conditionList[]  = " `user_id`  = " . (int) $userId;
+    if ($forumId) $conditionList[]  = " `forum_id` = " . (int) $forumId;
+
+    $sql = "DELETE FROM `" . $tbl_user_notify . "`"
+    .      ( ( count($conditionList) > 0) ? " WHERE " . implode(" AND ", $conditionList) : "" );
+
+    if (claro_sql_query($sql) == false) return false;
+    else                                return true;
 }
 
 
