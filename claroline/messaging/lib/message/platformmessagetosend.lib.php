@@ -39,7 +39,7 @@ class PlatformMessageToSend extends MessageToSend
      * @see MessageToSend::setSender
      * @throws Exception when called
      */
-    public function setSender( $userId )
+    public function setSender( $userId = null )
     {
         throw new Exception( 'Sender cannot be changed!' );
     }
