@@ -270,6 +270,15 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
     return true;
 }
 
+/**
+ * delete a list of user id from a list of courses
+ * @param array $userIdList list of user id to remove
+ * @param array|string $courseCodeList array of course codes or one single course code
+ * @param bool $force forece the deletion
+ * @param bool $delTrackData delete tracking data
+ * @param bool $unregister_by_class unregister by class
+ * @return int number of deleted users
+ */
 function user_remove_userlist_from_course( $userIdList, $courseCodeList = array(), $force = false, $delTrackData = false, $unregister_by_class = false)
 {
     $tbl = claro_sql_get_main_tbl();
@@ -346,7 +355,7 @@ function user_remove_userlist_from_course( $userIdList, $courseCodeList = array(
 
                 if ($delTrackData)
                 {
-                    if ( user_delete_course_tracking_data($userId, $thisCourseCode) == false) return false;
+                    if ( user_delete_course_tracking_data($userId, $thisCourseCode) == false) continue;
                 }
 
                 $sql = "DELETE FROM `" . $tbl['rel_course_user'] . "`
