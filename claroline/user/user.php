@@ -137,14 +137,14 @@ if ( $is_allowedToEdit )
         // Unregister user from course
         // (notice : it does not delete user from claroline main DB)
         
-        if ('allStudent' == $req['user_id'])
+        if ( 'allStudent' == $req['user_id'] )
         {
             // TODO : add a function to unenroll all users from a course
-            $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
+            $userIdList = Claroline::getDatabase()->query( "SELECT `user_id` FROM `" . $tbl_rel_course_user . "`
                     WHERE `code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
-                    AND `profile_id` = ( SELECT profile_id FROM `". $tbl_right_profile . "` WHERE `label` = 'user')";
+                    AND `profile_id` = ( SELECT profile_id FROM `". $tbl_right_profile . "` WHERE `label` = 'user')" );
             
-            $unregisterdUserCount = claro_sql_query_affected_rows($sql);
+            $unregisterdUserCount = user_remove_userlist_from_course( $userIdList, claro_get_current_course_id(), false, false, false );
             
             Console::log( "{$req['user_id']} ({$unregisterdUserCount}) removed by user ". claro_get_current_user_id(), 'COURSE_UNSUBSCRIBE');
             
@@ -383,8 +383,26 @@ if ($is_allowedToEdit)
         'img' => 'unenroll',
         'name' => get_lang('Unregister all students'),
         'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-            . '?cmd=unregister&user_id=allStudent'))
+            . '?cmd=unregister&user_id=allStudent')),
+        'params' => array('onclick' => 'return confirmationUnregisterAll();')
     );
+    
+    $htmlHeadXtra[] =
+    '<script type="text/javascript">
+
+    function confirmationUnregisterAll ()
+    {
+        if (confirm(\'' . clean_str_for_javascript( get_lang( "Are you sure you want to unregister all students from your course ?")) . '\'))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    };
+
+    </script>'."\n";
 }
 
 if ( get_conf('allow_profile_picture', true) )

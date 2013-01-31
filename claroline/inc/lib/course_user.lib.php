@@ -270,6 +270,116 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
     return true;
 }
 
+function user_remove_userlist_from_course( $userIdList, $courseCodeList = array(), $force = false, $delTrackData = false, $unregister_by_class = false)
+{
+    $tbl = claro_sql_get_main_tbl();
+    $userDeletedCount = 0;
+
+    if ( ! is_array($courseCodeList) ) $courseCodeList = array($courseCodeList);
+    
+    foreach ( $userIdList as $userIdToProcess )
+    {
+        $userId = is_numeric( $userIdToProcess ) ? $userIdToProcess : $userIdToProcess['user_id'];
+        
+        if ( ! $force && $userId == $GLOBALS['_uid'] )
+        {
+            // PREVIOUSLY CHECK THE USER IS NOT COURSE ADMIN OF THESE COURSES
+
+            $sql = "SELECT COUNT(user_id)
+                    FROM `" . $tbl['rel_course_user'] . "`
+                    WHERE user_id = ". (int) $userId ."
+                      AND isCourseManager = 1
+                      AND code_cours IN ('" . implode("', '", array_map('claro_sql_escape', $courseCodeList) ) . "') ";
+
+            if ( claro_sql_query_get_single_value($sql)  > 0 )
+            {
+                Claroline::getInstance()->log( 'DELETE_USER_FAILED' , array ('USER' => $userId, 'failure' => 'course_manager_cannot_unsubscribe_himself') );
+                continue;
+            }
+        }
+
+        $sql = "SELECT code_cours , count_user_enrol, count_class_enrol
+                FROM `" . $tbl['rel_course_user'] . "`
+                WHERE `code_cours` IN ('" . implode("', '", array_map('claro_sql_escape', $courseCodeList) ) . "')
+                AND   `user_id` = " . $userId ;
+
+        $userEnrolCourseList = claro_sql_query_fetch_all($sql);
+
+        foreach ( $userEnrolCourseList as $thisUserEnrolCourse )
+        {
+
+            $thisCourseCode    = $thisUserEnrolCourse['code_cours'];
+            $count_user_enrol  = $thisUserEnrolCourse['count_user_enrol'];
+            $count_class_enrol = $thisUserEnrolCourse['count_class_enrol'];
+
+            if ( ( $count_user_enrol + $count_class_enrol ) <= 1 )
+            {
+                // remove user from course
+                if ( user_remove_from_group($userId, $thisCourseCode) == false ) return false;
+
+                $dbNameGlued   = claro_get_course_db_name_glued($thisCourseCode);
+                $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
+
+                $tbl_bb_notify         = $tbl_cdb_names['bb_rel_topic_userstonotify'];
+                $tbl_group_team        = $tbl_cdb_names['group_team'         ];
+                $tbl_userinfo_content  = $tbl_cdb_names['userinfo_content'   ];
+
+               $sqlList = array();
+               $toolCLFRM =  get_module_data('CLFRM');
+
+               if (is_tool_activated_in_course($toolCLFRM['id'],$thisUserEnrolCourse['code_cours']))
+               {
+                   $sqlList = array(
+                        "DELETE FROM `" . $tbl_bb_notify        . "` WHERE user_id = " . (int) $userId );
+               }
+
+                array_push($sqlList,
+                "DELETE FROM `" . $tbl_userinfo_content . "` WHERE user_id = " . (int) $userId ,
+                // change tutor to NULL for the course WHERE the tutor is the user to delete
+                "UPDATE `" . $tbl_group_team . "` SET `tutor` = NULL WHERE `tutor`='" . (int) $userId . "'"
+                );
+
+                foreach( $sqlList as $thisSql )
+                {
+                    if ( claro_sql_query($thisSql) == false ) continue;
+                }
+
+                if ($delTrackData)
+                {
+                    if ( user_delete_course_tracking_data($userId, $thisCourseCode) == false) return false;
+                }
+
+                $sql = "DELETE FROM `" . $tbl['rel_course_user'] . "`
+                    WHERE user_id = " . (int) $userId . "
+                      AND code_cours = '" . claro_sql_escape($thisCourseCode) . "'";
+
+                if ( claro_sql_query($sql) == false ) continue;
+            }
+            else
+            {
+                // decrement the count of registration by the user or class
+                if ( ! $unregister_by_class )  $count_user_enrol--;
+                else                           $count_class_enrol--;
+
+                // update enrol count in table rel_course_user
+
+                $sql = "UPDATE `".$tbl['rel_course_user']."`
+                          SET `count_user_enrol` = '" . $count_user_enrol . "',
+                            `count_class_enrol` = '" . $count_class_enrol . "'
+                          WHERE `user_id`   =  " . (int) $userId . "
+                          AND  `code_cours` = '" . claro_sql_escape($thisCourseCode) . "'";
+
+                if ( !claro_sql_query($sql) ) continue;
+
+            }
+        }
+        
+        $userDeletedCount++;
+    }
+
+    return $userDeletedCount;
+}
+
 /**
  * remove a specific user from a course groups
  *
