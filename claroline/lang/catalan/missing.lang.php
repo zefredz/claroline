@@ -8,6 +8,7 @@ $_lang['Allow course manager to set the maximum number of students that can enro
 $_lang['Allow course manager to set the visibility of a course. An invisible course does not appear in the platform course list or in the course search engine. It only appears in the course list of enrolled users but can still be accessed by a direct URL.'] = 'Allow course manager to set the visibility of a course. An invisible course does not appear in the platform course list or in the course search engine. It only appears in the course list of enrolled users but can still be accessed by a direct URL.';
 $_lang['An invisible tool will be greyed out on your personal interface.'] = 'An invisible tool will be greyed out on your personal interface.';
 $_lang['Applets'] = 'Applets';
+$_lang['Are you sure you want to unregister all students from your course ?'] = 'Are you sure you want to unregister all students from your course ?';
 $_lang['Asset not found : %asset'] = 'Asset not found : %asset';
 $_lang['Assignment end date delay'] = 'Assignment end date delay';
 $_lang['Assignment property "Default works visibility" acts'] = 'Assignment property "Default works visibility" acts';
@@ -36,7 +37,6 @@ $_lang['Change minimum raw mark to pass this module (percentage) :'] = 'Change m
 $_lang['Check this box to delete the attached file'] = 'Check this box to delete the attached file';
 $_lang['Clarodoc'] = 'Clarodoc';
 $_lang['Common part of both parameters above.'] = 'Common part of both parameters above.';
-$_lang['Course Description'] = 'Course Description';
 $_lang['Course availability status'] = 'Course availability status';
 $_lang['Course code case'] = 'Course code case';
 $_lang['Course homepage'] = 'Course homepage';
@@ -57,6 +57,7 @@ $_lang['Display the list of groups in whitch a user is registered or supervized 
 $_lang['Dock'] = 'Dock';
 $_lang['Document in module'] = 'Document in module';
 $_lang['E-mail'] = 'E-mail';
+$_lang['ERROR: The format of lines you gave is not compatible with Claroline'] = 'ERROR: The format of lines you gave is not compatible with Claroline';
 $_lang['Empty manifest'] = 'Empty manifest';
 $_lang['Enable Ajax Remote Service broker'] = 'Enable Ajax Remote Service broker';
 $_lang['Enable IMS-QTI Export'] = 'Enable IMS-QTI Export';

@@ -3480,3 +3480,5 @@ $_lang['Visible - Click to make invisible'] = 'Visible - Cliquez pour rendre inv
 $_lang['You can personalize the options available to the course managers in the course settings'] = 'Vous pouvez personnaliser les options disponibles pour les gestionnaires de cours dans les options des cours';
 $_lang['delete'] = 'supprimer';
 $_lang['delete all'] = 'tout supprimer';
+$_lang['Are you sure you want to unregister all students from your course ?'] = 'Êtes-vous sur de vouloir supprimer tous les étudiants du cours ?';
+$_lang['ERROR: The format of lines you gave is not compatible with Claroline'] = 'Erreur: le format de ligne donné n\'est pas compatible avec Claroline';
