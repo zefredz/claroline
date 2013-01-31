@@ -110,7 +110,7 @@ class ClaroFooter extends CoreTemplate
         $poweredByOutput = '<span class="poweredBy">'
             . get_lang('Powered by')
             . ' <a href="http://www.claroline.net" target="_blank">Claroline</a> '
-            . '&copy; 2001 - 2012'
+            . '&copy; 2001 - 2013'
             . '</span>';
         
         $this->assign( 'poweredBy', $poweredByOutput );
