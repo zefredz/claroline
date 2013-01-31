@@ -457,12 +457,6 @@ if (DISP_GROUP_LIST == $display )
           # count the registered users in each group
           LEFT JOIN `" . $tbl_GroupsUsers . "` `ug2`
           ON `ug2`.`team` = `g`.`id`
-          
-          # Limit to regsitered users
-          #INNER JOIN `" . $tbl_CoursUsers . "` AS `cu` ON `cu`.user_id = `ug2`.`user`
-          #AND `cu`.`code_cours` = '" . $currentCourseId ."'
-
-          #WHERE `cu`.`code_cours` = '" . $currentCourseId ."'
 
           GROUP BY `g`.`id`";
 
@@ -617,7 +611,7 @@ if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
     $out .= '<th align="left">' . get_lang("Registration") . '</th>' . "\n"  ;
 }
 
-$out .= '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['nbMember'])).'">' . get_lang("Registered") . '</a></th>' . "\n"
+$out .= '<th>' . get_lang("Registered") . '</th>' . "\n"
 . '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['maxStudent'])).'">' . get_lang("Max.") . '</a></th>' . "\n"
 ;
 
@@ -746,7 +740,7 @@ if( $groupList )
         MEMBER NUMBER
         ------------------*/
 
-        $out .=    '<td>' . $thisGroup['nbMember'] . '</td>' . "\n";
+        $out .=    '<td>' . group_count_students_in_group($thisGroup['id'],  claro_get_current_course_id ()) . '</td>' . "\n";
 
         /*------------------
         MAX MEMBER NUMBER
