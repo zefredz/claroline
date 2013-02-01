@@ -39,10 +39,10 @@ Claroline should work on the following Operating systems :
 To install Claroline on a computer, whether locally or remotely,
 you need the following on your machine :
 
-1. A web server. We recommend the use Apache, but Claroline is known to work
+1. A web server. We recommend the use Apache2, but Claroline is known to work
 with IIS too and should work on any PHP-compatible web server.
 
-2. PHP scripting language (version 5.1 or later), configured with the
+2. PHP scripting language (version 5.2 or later), configured with the
    following modules : mysql, zlib, preg. Most of the PHP5 compiled
    distributions are provided with these modules. Anyway, their presence
    is checked by the Claroline install script.
@@ -54,7 +54,7 @@ with IIS too and should work on any PHP-compatible web server.
         magic_quotes_runtime = Off
         short_open_tags      = Off
 
-3. The MySQL databases server (version 4.23 or later) plus a login/password 
+3. The MySQL databases server (version 5 or later) plus a login/password 
    allowing to administrate and create at least one database.
 
    Claroline can be installed in tow different modes : 'Single
@@ -72,20 +72,18 @@ with IIS too and should work on any PHP-compatible web server.
        share this database with other applications, interferences could
        occurs between table names of both applications that could conducts
        to serious problems.
+   
+   Claroline should also work with MySQL drop in replacement alternatives like 
+   MariaDB, Percona server...
 
-4. Web Write access to web directory where Claroline has been moved
-   or unzipped to. On a Windows machine locally, this
-   is not a problem. Remotely, you need to be allowed to CHMOD 755
-   through FTP, telnet or any means.
-
-5. A Mail Transport Agent (MTA). This not absolutely necessary but some
+4. (opt) A Mail Transport Agent (MTA). This not absolutely necessary but some
    Claroline features will remain silent if you don't provide MTA.
    Most Linux distributions provide MTA (Sendmail, Qmail, PostFix,
    ...). On Windows machines, no MTA are provided by default. You can
    either modify the php.ini file to redirect mail to an MTA available
-   on an other machine, or install an MTA on the Claroline server.
-   Several MTA are freely available for Windows (Mercury, Blat,
-   Netmail95, WMailto , Hamster ...).
+   on an other machine, install an MTA on the Claroline server.
+   Several MTA are freely available for Windows, or configure a SMTP server
+   in Claroline configuration.
 
 2. INSTALLATION PROCEDURE
 =========================
@@ -124,8 +122,8 @@ with IIS too and should work on any PHP-compatible web server.
    - claroline1xx/module and all its subfolders
    
    You can change the access rights from the command line under UNIX or Linux :
-   chmod ugo+w claroline1xx/
-   chmod -R ugo+w claroline1xx/module
+   chmod ugo+rwx claroline1xx/
+   chmod -R ugo+rwx claroline1xx/module
 
 4. Open Web Browser and go to
 
@@ -135,7 +133,7 @@ with IIS too and should work on any PHP-compatible web server.
 
    http://localhost/claroline/install/ (don't forget the final /).
 
-   MacOSX : with MAMP locally, open:
+   MacOSX : with MAMP locally (running on port 8888), open:
 
    http://localhost:8888/claroline/install/ (don't forget the final /).
 
@@ -147,6 +145,9 @@ with IIS too and should work on any PHP-compatible web server.
    MacOSX : if you use MAMP, default connection parameters
    for MySQL are login : root and password : root
 
+   Linux : use the user you have created when installing MySQL or create a user 
+   for your Claroline platform
+
 2.2 UPGRADING CLAROLINE
 -----------------------
 
@@ -155,7 +156,7 @@ with IIS too and should work on any PHP-compatible web server.
 Claroline version numbers are of the form 1.X.Y where X and Y are two numbers.
 X is called the major version number, while Y is called the minor version number
 
-For example : in version number 1.10.6, 10 is the major version number and 6 is
+For example : in version number 1.11.5, 10 is the major version number and 5 is
 the minor version number
 
 In other words, Claroline major versions differ by the major version number (for
@@ -168,7 +169,10 @@ have to follow the instructions in section 2.2.2. If you want to upgrade
 Claroline between two minor versions of the same major version (let's say
 1.10.1 and 1.10.6), you have to follow the instructions given in section 2.2.3.
 
-    2.2.2 UPDGRADE FROM PREVIOUS CLAROLINE MAJOR VERSION
+    2.2.2 UPDGRADE FROM PREVIOUS CLAROLINE MAJOR VERSION  (ex: 1.9 to 1.10)
+
+WARNING : if you are upgrading from 1.10 to 1.11, follow the instruction given
+in section 2.2.3 instead of those below !
 
 The upgrade works only from Claroline 1.5.x and above.
 Older Claroline versions should upgrade first to Claroline 1.5.x before
@@ -215,6 +219,9 @@ please ask your hosting provider for advice.
 5. Follow instructions.
 
     2.3.3 UPDGRADE FROM A PREVIOUS CLAROLINE MINOR VERSION
+
+NOTE : this is also the way to upgrade Claroline from version 1.10 to version 
+1.11
 
 Follow the following instructions to upgrade to a new minor version of the same
 major version of Claroline (for example to upgrade from Claroline 1.10.1 to
