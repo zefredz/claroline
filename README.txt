@@ -70,12 +70,18 @@ at :
 
         email : info@claroline.net
         web   : http://www.claroline.net
-        phone : 32 (0) 10 47 85 48
+        phone : 32 (0) 10 47 88 87
         Fax   : 32 (0) 47 89 39
 
 
 7. NEW FEATURES
    ============
+
+NEW FEATURES IN CLAROLINE 1.11 SINCE CLAROLINE 1.10
+---------------------------------------------------
+
+* See http://sourceforge.net/apps/mediawiki/claroline/index.php?title=Changelog_1.11
+
 NEW FEATURES IN CLAROLINE 1.10 SINCE CLAROLINE 1.9
 -------------------------------------------------
 
