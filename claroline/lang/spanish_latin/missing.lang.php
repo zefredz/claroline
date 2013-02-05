@@ -499,6 +499,7 @@ $_lang['You cannot delete a category having sub categories'] = 'You cannot delet
 $_lang['You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings'] = 'You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings';
 $_lang['You have been removed of the group.'] = 'You have been removed of the group.';
 $_lang['You have to be registered to this course\'s category in order to enrol the course'] = 'You have to be registered to this course\'s category in order to enrol the course';
+$_lang['You have to remove the course manager status first'] = 'You have to remove the course manager status first';
 $_lang['You have to validate users to give them access to this course through the <a href="%url">course user list</a>'] = 'You have to validate users to give them access to this course through the <a href="%url">course user list</a>';
 $_lang['You need to choose at least one category for this course'] = 'You need to choose at least one category for this course';
 $_lang['You won\'t be able to access all this course\'s content and/or features until the course manager grants you the access.'] = 'You won\'t be able to access all this course\'s content and/or features until the course manager grants you the access.';

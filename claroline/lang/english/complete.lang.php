@@ -3457,3 +3457,4 @@ $_lang['delete'] = 'delete';
 $_lang['delete all'] = 'delete all';
 $_lang['Are you sure you want to unregister all students from your course ?'] = 'Are you sure you want to unregister all students from your course ?';
 $_lang['ERROR: The format of lines you gave is not compatible with Claroline'] = 'ERROR: The format of lines you gave is not compatible with Claroline';
+$_lang['You have to remove the course manager status first'] = 'You have to remove the course manager status first';

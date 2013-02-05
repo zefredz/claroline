@@ -1081,6 +1081,7 @@ $_lang['You didnt choose any file to send, or it is too big'] = 'You didnt choos
 $_lang['You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings'] = 'You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings';
 $_lang['You have been removed of the group.'] = 'You have been removed of the group.';
 $_lang['You have to be registered to this course\'s category in order to enrol the course'] = 'You have to be registered to this course\'s category in order to enrol the course';
+$_lang['You have to remove the course manager status first'] = 'You have to remove the course manager status first';
 $_lang['You have to validate users to give them access to this course through the <a href="%url">course user list</a>'] = 'You have to validate users to give them access to this course through the <a href="%url">course user list</a>';
 $_lang['You must be in a group to send a message to a group'] = 'You must be in a group to send a message to a group';
 $_lang['You must reach the maximum number of allowed attempts to view these statistics.'] = 'You must reach the maximum number of allowed attempts to view these statistics.';

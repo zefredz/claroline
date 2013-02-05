@@ -2292,6 +2292,7 @@ $_lang['You have been removed of the group.'] = 'You have been removed of the gr
 $_lang['You have just created the course website'] = 'You have just created the course website';
 $_lang['You have reached the maximum of %allowedAttempts allowed attempts.'] = 'You have reached the maximum of %allowedAttempts allowed attempts.';
 $_lang['You have to be registered to this course\'s category in order to enrol the course'] = 'You have to be registered to this course\'s category in order to enrol the course';
+$_lang['You have to remove the course manager status first'] = 'You have to remove the course manager status first';
 $_lang['You have to validate users to give them access to this course through the <a href="%url">course user list</a>'] = 'You have to validate users to give them access to this course through the <a href="%url">course user list</a>';
 $_lang['You must be in a group to send a message to a group'] = 'You must be in a group to send a message to a group';
 $_lang['You must introduce the message text'] = 'You must introduce the message text';
