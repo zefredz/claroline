@@ -649,6 +649,8 @@ if( $groupList )
     foreach ($groupList as $thisGroup)
     {
         // COLUMN 1 - NAME OF GROUP + If open LINK.
+        
+        $thisGroupNbMembers = group_count_students_in_group($thisGroup['id'],  claro_get_current_course_id ());
 
         $out .= '<tr align="center">' . "\n"
         . '<td align="left">'
@@ -717,7 +719,7 @@ if( $groupList )
                 OR ( $thisGroup['is_member'])
                 OR ( claro_get_current_user_id() == $thisGroup['id_tutor'])
                 OR (!is_null($thisGroup['maxStudent']) //unlimited
-                AND ($thisGroup['nbMember'] >= $thisGroup['maxStudent']) // still free place
+                AND ( $thisGroupNbMembers >= $thisGroup['maxStudent']) // still free place
                 ))
                 {
                     $out .= '&nbsp;-';
@@ -740,7 +742,7 @@ if( $groupList )
         MEMBER NUMBER
         ------------------*/
 
-        $out .=    '<td>' . group_count_students_in_group($thisGroup['id'],  claro_get_current_course_id ()) . '</td>' . "\n";
+        $out .=    '<td>' . $thisGroupNbMembers . '</td>' . "\n";
 
         /*------------------
         MAX MEMBER NUMBER
@@ -781,7 +783,7 @@ if( $groupList )
         }
 
 
-        $totalRegistered = $totalRegistered + $thisGroup['nbMember'];
+        $totalRegistered = $totalRegistered + $thisGroupNbMembers;
 
     }    // while loop
 }
