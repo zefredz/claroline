@@ -194,9 +194,15 @@ if ( $is_allowedToEdit )
     // Validate a user (if this option is enable for the course)
     if ( $cmd == 'validation' && $req['user_id'])
     {
+        $courseUserPrivileges = new CourseUserPrivileges(  claro_get_current_course_id (), $req['user_id'] );
+        $courseUserPrivileges->load();
+        
+        $courseObject = new Claro_Course(  claro_get_current_course_id ());
+        $courseObject->load();
+        
         $validation = new UserCourseEnrolmentValidation( 
-            claro_get_current_course_id(), 
-            $req['user_id'] 
+            $courseObject, 
+            $courseUserPrivileges 
         );
         
         $validationChange = isset($_REQUEST['validation']) ? $_REQUEST['validation'] : null;
@@ -233,6 +239,11 @@ if ( $is_allowedToEdit )
         else
         {
             $dialogBox->error( get_lang('The user activation cannot be changed') );
+            
+            if ( $courseUserPrivileges->isCourseManager () )
+            {
+                $dialogBox->error( get_lang('You have to remove the course manager status first') );
+            }
         }
     }
 }    // end if allowed to edit

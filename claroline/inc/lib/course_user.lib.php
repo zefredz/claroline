@@ -821,15 +821,13 @@ class UserCourseEnrolmentValidation
         $validationCanBeChanged;
     
     
-    public function __construct( $courseId, $userId )
+    public function __construct( $course, $privileges )
     {
-        $this->privileges = new CourseUserPrivileges($courseId, $userId);
-        $this->privileges->load();
+        $this->privileges = $privileges;    
+        $this->course = $course;
         
-        $this->course = new Claro_Course($courseId);
-        $this->course->load();
-        
-        if ( $this->privileges->isCourseManager() || !$this->privileges->isCourseMember()  )
+        if ( ( $this->privileges->isCourseManager() && !$this->privileges->isEnrolmentPending() ) 
+            || !$this->privileges->isCourseMember()  )
         {
             $this->validationCanBeChanged = false;
         }
@@ -888,9 +886,7 @@ class UserCourseEnrolmentValidation
                 WHERE 
                     `rcu`.`user_id` = " . Claroline::getDatabase()->escape($this->privileges->getUserId()) . "
                 AND 
-                    `code_cours` = " . Claroline::getDatabase()->quote($this->privileges->getCourseId()) . "
-                AND 
-                    `isCourseManager` = 0");
+                    `code_cours` = " . Claroline::getDatabase()->quote($this->privileges->getCourseId()) );
 
         if ($updated)
         {
