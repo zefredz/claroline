@@ -52,7 +52,7 @@ $nameTools = get_lang('Agenda');
 
 claro_set_display_mode_available(true);
 
-$is_allowedToEdit = claro_is_course_manager();
+$is_allowedToEdit = claro_is_allowed_to_edit();
 
 if ( $is_allowedToEdit )
 {
@@ -93,9 +93,6 @@ else
 }
 
 $_SESSION['orderDirection'] = $orderDirection;
-
-
-$is_allowedToEdit = claro_is_allowed_to_edit();
 
 
 /**
