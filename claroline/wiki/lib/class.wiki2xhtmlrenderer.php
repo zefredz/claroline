@@ -316,7 +316,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
      * @see class.wiki2xhtml.php
      * @return string hypertext reference to wiki page
      */
-    protected function parseWikiWord( $str, $tag, $attr, $type )
+    protected function parseWikiWord( $str, &$tag, &$attr, &$type )
     {
         $tag = 'a';
         $attr = ' href="'.$str.'"';
