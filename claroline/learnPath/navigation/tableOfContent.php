@@ -185,6 +185,29 @@ foreach ($flatElementList as $module)
         }
         else
         {
+            $useRedirectUrl = false;
+            
+            if ( $module['contentType'] == 'DOCUMENT' )
+            {
+                
+                $pathInfo = get_path('coursesRepositorySys') . claro_get_course_path(). '/document/' . ltrim($module['path'],'/');
+                $pathContents = file_get_contents($pathInfo);       
+                $extension = get_file_extension($pathInfo);
+
+                if ( $extension == 'url' )
+                {
+                    // 
+                    
+                    $matches = array();
+
+                    if ( preg_match( '/<meta http-equiv="refresh" content="0;url=(.*?)">/', $pathContents, $matches ) && isset( $matches[1] ) )
+                    {
+                        $redirectionURL = $matches[1];
+                        $useRedirectUrl = true;
+                    }
+                }
+            }
+            
             if ( strlen($module['name']) > $moduleNameLength)
                 $displayedName = substr( claro_utf8_decode( $module['name'], get_conf( 'charset' ) ),0,$moduleNameLength)."...";
             else
@@ -201,8 +224,24 @@ foreach ($flatElementList as $module)
             {
                 $nextModule = $module['module_id'];
             }
-            $out .= '<a href="'.claro_htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$module['module_id'])).'" target="mainFrame" title="'.claro_htmlspecialchars($module['name']).'">'
-                .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.' " border="0" />'.$displayedName.'</a>';
+            
+            if ( $useRedirectUrl )
+            {
+                $out .= '<a id="url_'.$module['module_id'].'" href="'.claro_htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$module['module_id'])).'" target="mainFrame" title="'.claro_htmlspecialchars($module['name']).'">'
+                    .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.' " border="0" />'.$displayedName.'</a><script type="text/javascript">
+                      $(function(){
+                        $("#url_'.$module['module_id'].'").click(function(){ window.open("'.claro_htmlspecialchars($redirectionURL).'") });
+                      });
+                        </script>';
+                
+                /*$out .= '<a href="'.claro_htmlspecialchars($redirectionURL).'" target="mainFrame" title="'.claro_htmlspecialchars($module['name']).'" onclick="function(){$(\'#mainFrame\').html=\'page opened in new window or tab\';return true;}">'
+                    .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.' " border="0" />'.$displayedName.'</a>';*/
+            }
+            else
+            {
+                $out .= '<a href="'.claro_htmlspecialchars(Url::Contextualize('startModule.php?viewModule_id='.$module['module_id'])).'" target="mainFrame" title="'.claro_htmlspecialchars($module['name']).'">'
+                    .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.' " border="0" />'.$displayedName.'</a>';
+            }
         }
         // a module ALLOW access to the following modules if
         // document module : credit == CREDIT || lesson_status == 'completed'

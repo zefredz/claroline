@@ -119,7 +119,33 @@ switch ($module['contentType'])
         } // else anonymous : record nothing
 
         $startAssetPage = rawurlencode($assetPath);
-        $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
+        
+        $pathInfo = get_path('coursesRepositorySys') . claro_get_course_path(). '/document/' . ltrim($assetPath,'/');
+        $pathContents = file_get_contents($pathInfo);       
+        $extension = get_file_extension($pathInfo);
+
+        if ( $extension == 'url' )
+        {
+            // 
+
+            $matches = array();
+
+            if ( preg_match( '/<meta http-equiv="refresh" content="0;url=(.*?)">/', $pathContents, $matches ) && isset( $matches[1] ) )
+            {
+                $redirectionURL = $matches[1];
+                $moduleStartAssetPage = 'viewExternalPage.php?url='.rawurlencode($redirectionURL);
+            }
+            else
+            {
+                $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
+            }
+            
+        }
+        else
+        {
+            $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
+        }
+        
 
           $withFrames = true;
         break;
