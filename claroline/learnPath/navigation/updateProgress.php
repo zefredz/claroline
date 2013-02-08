@@ -91,6 +91,20 @@ if($_POST['ump_id'])
                 `credit` = '". claro_sql_escape($credit_value) ."'
           WHERE `user_module_progress_id` = ". (int)$_POST['ump_id'];
   claro_sql_query($sql);
+  
+    // Generate an event to notify that the module tracking has been updated
+    $learnPathEventArgs = array( 'userId' => (int)claro_get_current_user_id(),
+                                 'courseCode' => claro_get_current_course_id(),
+                                 'scoreRaw' => (int)$_POST['raw'],
+                                 'scoreMin' => (int)$_POST['scoreMin'],
+                                 'scoreMax' => (int)$_POST['scoreMax'],
+                                 'sessionTime' => claro_sql_escape( $_POST['session_time'] ),
+                                 'userModuleProgressId' => (int)$_POST['ump_id'],
+                                 'type' => "update",
+                                 'status' => claro_sql_escape($lesson_status_value)
+                               );
+    $learnPathEvent = new Event( 'lp_user_module_progress_modified', $learnPathEventArgs );
+    EventManager::notify( $learnPathEvent );
 }
 
 // display the form to accept new commit and

@@ -156,7 +156,28 @@ function set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteE
                         `session_time`    = '".$scormSessionTime."'
                      WHERE `learnPath_module_id` = ". (int)$lastProgression['learnPath_module_id']."
                        AND `user_id` = " . (int)$_uid . "";
-                       
+            
+            // Generate an event to notify that the exercise has been completed
+            $learnPathEventArgs = array( 'userId' => (int)$_uid,
+                                         'courseCode' => claro_get_current_course_id(),
+                                         'scoreRaw' => (int)$totalResult,
+                                         'scoreMin' => (int)$scoreMin,
+                                         'scoreMax' => (int)$scoreMax,
+                                         'sessionTime' => $scormSessionTime,
+                                         'learnPathModuleId' => (int)$lastProgression['learnPath_module_id'],
+                                         'type' => "update"
+                                       );
+            if ( $newRaw >= $lastProgression['raw_to_pass'] )
+            {
+                $learnPathEventArgs['status'] = "PASSED";
+            }
+            else
+            {
+                $learnPathEventArgs['status'] = "FAILED";
+            }
+            $learnPathEvent = new Event( 'lp_user_module_progress_modified', $learnPathEventArgs );
+            EventManager::notify( $learnPathEvent );
+    
             return claro_sql_query($sql);
         }
         else
