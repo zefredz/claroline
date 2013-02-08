@@ -146,7 +146,7 @@ class wiki2xhtml
 
         $this->setOpt('note_prefix','wiki-footnote');
         $this->setOpt('note_str','<div class="footnotes"><h4>Notes</h4>%s</div>');
-        $this->setOpt('words_pattern','((?<![A-Za-z0-9µÀ-ÖØ-öø-ÿ])([A-ZÀ-ÖØ-Þ][a-zµß-öø-ÿ]+){2,}(?![A-Za-z0-9µÀ-ÖØ-öø-ÿ]))');
+        $this->setOpt('words_pattern','((?<![A-Za-z0-9])([A-Z][a-z]+){2,}(?![A-Za-z0-9]))');
 
         $this->setOpt('mail_pattern','/^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/');
 
@@ -189,7 +189,7 @@ class wiki2xhtml
 
         # Transformation des mots Wiki
         if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern')) {
-            $res = preg_replace('/¶¶¶'.$this->getOpt('words_pattern').'¶¶¶/msU','$1',$res);
+            $res = preg_replace('/'.$this->getOpt('words_pattern').'/msU','¶¶¶$1¶¶¶',$res);
         }
 
         $this->T = explode("\n",$res);
@@ -247,7 +247,7 @@ class wiki2xhtml
         $res = preg_replace('/\\\('.implode('|',$escape_pattern).')/','$1',$res);
 
         # On vire les ���MotWiki��� qui sont rest� (dans les url...)
-        if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern')) {
+        if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern')) {       
             $res = preg_replace('/¶¶¶'.$this->getOpt('words_pattern').'¶¶¶/msU','$1',$res);
         }
 

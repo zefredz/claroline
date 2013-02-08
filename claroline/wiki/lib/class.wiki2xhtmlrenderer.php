@@ -25,7 +25,8 @@ require_once dirname(__FILE__) . '/class.wikipage.php';
 
 FromKernel::uses( 'utils/htmlsanitizer.lib' );
 
-define ("WIKI_WORD_PATTERN", '((?<![A-Za-z0-9µÀ-ÖØ-öø-ÿ])([A-ZÀ-ÖØ-Þ][a-zµß-öø-ÿ]+){2,}(?![A-Za-z0-9µÀ-ÖØ-öø-ÿ]))' );
+define ("WIKI_WORD_PATTERN", '((?<![A-Za-z0-9])([A-Z][a-z]+){2,}(?![A-Za-z0-9]))' );
+//define ("WIKI_WORD_PATTERN", '\b((?:[A-Z]+[a-z]+){2,}[A-Z]*)\b' );
 
 /**
 * Wiki2xhtml rendering engine
@@ -307,6 +308,37 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         }
         
         return $ret;
+    }
+    
+    /**
+     * Parse WikiWords and create hypertext reference to wiki page
+     *
+     * @access private
+     * @see class.wiki2xhtml.php
+     * @return string hypertext reference to wiki page
+     */
+    protected function __parseWikiWord( $str )
+    {
+        if ( $this->wiki->pageExists( $str ) )
+        {
+            return "<a href=\"".claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                ."?action=show&title=".rawurlencode($str )
+                . "&wikiId=" . $this->wiki->getWikiId() ) )
+                . "\" class=\"wikiShow\">"
+                . $str
+                . "</a>"
+                ;
+        }
+        else
+        {
+            return "<a href=\"".claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                . "?action=edit&title=" . rawurlencode($str )
+                . "&wikiId=" . $this->wiki->getWikiId()))
+                . "\" class=\"wikiEdit\">"
+                . $str
+                . "</a>"
+                ;
+        }
     }
 
     /**
@@ -633,7 +665,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
      * @param string txt wiki syntax string
      * @return string xhtml-rendered string
      */
-    function render( $txt )
+    public function render( $txt )
     {
         // bug #937
         $ret = preg_replace( '/\\\\((\!|\|)+)/', '$1', $this->transform($txt ) );
