@@ -557,7 +557,7 @@ function claro_search_file($searchPattern             , $baseDirPath,
             $filePath = $baseDirPath.'/'.$fileName;
 
             if (   $fileName == '.' || $fileName == '..'
-                || in_array($filePath, $excludedPathList ) )
+                || in_array('/'.ltrim($filePath,'/'), $excludedPathList ) )
             {
                 continue;
             }
@@ -648,7 +648,7 @@ function getInvisibleDocumentList ( $baseWorkDir, $cidReq = null )
 
     for( $i=0; $i < count($documentList); $i++ )
     {
-        $documentList[$i] = $baseWorkDir.$documentList[$i];
+        $documentList[$i] = '/' . ltrim($baseWorkDir.$documentList[$i],'/');
     }
 
     return $documentList ;
