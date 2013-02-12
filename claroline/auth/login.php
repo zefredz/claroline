@@ -208,7 +208,7 @@ else
                     $out .= '<p align="center">' . "\n"
                           . get_lang('Your user profile doesn\'t seem to be enrolled on this course').'<br />'
                           . get_lang('If you wish to enrol on this course') . ' : '
-                          . ' <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
+                          . ' <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=exReg&amp;course=' . urlencode(  claro_get_current_course_id () ) . '">'
                           . get_lang('Enrolment').'</a>' . "\n"
                           . '</p>' . "\n";
                 }
