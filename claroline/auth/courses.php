@@ -476,13 +476,21 @@ else
     }
     else
     {
-        $backUrl   = '../../index.php?';
-        $backLabel = get_lang('Back to my personal course list');
+        if ( claro_is_in_a_course() )
+        {
+            $backUrl = '../course/index.php?cid='.claro_get_current_course_id();
+            $backLabel = get_lang('Course homepage');
+        }
+        else
+        {
+            $backUrl   = '../../index.php';
+            $backLabel = get_lang('Back to my personal course list');
+        }
     }
 } // end if ( $cmd == 'rqReg' && ( !empty($categoryId) || !empty($parentCategoryId) ) )
 
 // Notify userid of the user we are working with in admin mode and that we come from admin
-$backUrl .= Url::buildUrl($backUrl, $urlParamList, null)->toUrl(); 
+$backUrl = Url::buildUrl($backUrl, $urlParamList, null)->toUrl(); 
 $backLink = '<p><a class="backLink" href="' . $backUrl 
           . '" title="' . $backLabel. '" >'
           . $backLabel . '</a></p>' . "\n\n";
