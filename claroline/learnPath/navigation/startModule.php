@@ -76,17 +76,6 @@ if(claro_is_user_authenticated()) // if not anonymous
                 ( `user_id` , `learnPath_id` , `learnPath_module_id`, `suspend_data` )
                 VALUES ( " . (int)claro_get_current_user_id() . " , ". (int)$_SESSION['path_id']." , ". (int)$learnPathModuleId.", '')";
         claro_sql_query($sql);
-        
-        // Generate an event to notify that the module has been started for the first time in the current learnPath
-        $learnPathEventArgs = array( 'userId' => (int)claro_get_current_user_id(),
-                                     'courseCode' => claro_get_current_course_id(),
-                                     'learnPathId' => (int)$_SESSION['path_id'],
-                                     'learnPathModuleId' => (int)$learnPathModuleId,
-                                     'type' => "init",
-                                     'status' => "NOT ATTEMPTED"
-                                   );
-        $learnPathEvent = new Event( 'lp_user_module_progress_modified', $learnPathEventArgs );
-        EventManager::notify( $learnPathEvent );
     }
 }  // else anonymous : record nothing !
 
@@ -127,50 +116,10 @@ switch ($module['contentType'])
                        AND `learnPath_module_id` = ". (int)$learnPathModuleId;
 
             claro_sql_query($sql);
-
-            // Generate an event to notify that the status of the document has been set to "Complete"
-            $learnPathEventArgs = array( 'userId' => (int)claro_get_current_user_id(),
-                                         'courseCode' => claro_get_current_course_id(),
-                                         'scoreRaw' => 100,
-                                         'scoreMin' => 0,
-                                         'scoreMax' => 100,
-                                         'sessionTime' => "0000:00:00",
-                                         'learnPathId' => (int)$_SESSION['path_id'],
-                                         'learnPathModuleId' => (int)$learnPathModuleId,
-                                         'type' => "update"
-                                       );
-            $learnPathEvent = new Event( 'lp_user_module_progress_modified', $learnPathEventArgs );
-            EventManager::notify( $learnPathEvent );
         } // else anonymous : record nothing
 
         $startAssetPage = rawurlencode($assetPath);
-        
-        $pathInfo = get_path('coursesRepositorySys') . claro_get_course_path(). '/document/' . ltrim($assetPath,'/');
-        $pathContents = file_get_contents($pathInfo);       
-        $extension = get_file_extension($pathInfo);
-
-        if ( $extension == 'url' )
-        {
-            // 
-
-            $matches = array();
-
-            if ( preg_match( '/<meta http-equiv="refresh" content="0;url=(.*?)">/', $pathContents, $matches ) && isset( $matches[1] ) )
-            {
-                $redirectionURL = $matches[1];
-                $moduleStartAssetPage = 'viewExternalPage.php?url='.rawurlencode($redirectionURL);
-            }
-            else
-            {
-                $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
-            }
-            
-        }
-        else
-        {
-            $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
-        }
-        
+        $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
 
           $withFrames = true;
         break;

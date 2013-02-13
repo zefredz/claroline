@@ -274,10 +274,6 @@ switch( $step )
             {
                 $dialogBox->error(get_lang('Unable to read the content of the CSV'));
             }
-            elseif( ! $csvImport->validateFields() )
-            {
-                $dialogBox->error(get_lang('Missing field(s)'));
-            }
             else
             {
                 $csvContent = $csvImport->data;

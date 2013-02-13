@@ -38,11 +38,6 @@ class CsvImport extends parseCSV
         parent::__construct();
     }*/
     
-    static public $requiredFields = array( 'lastname'
-                                          ,'firstname'
-                                          ,'username'
-                                          ,'email' );
-    
     public function importUsers( $userList = array(), $class_id, $updateUserProperties, $sendEmail = 0 )
     {
         if( empty( $this->data ) )
@@ -349,22 +344,6 @@ class CsvImport extends parseCSV
     public function put( $data )
     {
         $this->data = $data;
-    }
-    
-    /**
-     * Validate fields name
-     * @return boolean
-     */
-    public function validateFields()
-    {
-        if( count( array_intersect( self::$requiredFields , $this->titles ) ) == 4 )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
     
     /**

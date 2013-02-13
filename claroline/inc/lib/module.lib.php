@@ -125,32 +125,17 @@ function get_module_url($toolLabel)
  */
 function get_module_db_dependance ( $moduleLabel )
 {
-    $tbl = claro_sql_get_main_tbl();
-    
-    $sqlModuleLabel = claro_sql_escape($moduleLabel);
-    
-    $contextList = claro_sql_query_fetch_all_rows("
-        SELECT 
-            `mc`.`context` AS `context`
-        FROM 
-            `{$tbl['module_contexts']}` AS `mc`
-        LEFT JOIN 
-            `{$tbl['module']}` AS `m`
-        ON 
-            `m`.`id` = `mc`.`module_id`
-        WHERE 
-            `m`.`label` = '{$sqlModuleLabel}'
-    ");
-    
+    // actual place of this info prom module
+    $contexts = get_module_context_list( $moduleLabel );
     $contextListToReturn = array();
     
-    foreach ( $contextList as $context )
+    foreach ( $contexts as $context )
     {
-        if ( $context['context'] == 'course' )
+        if ( $context == 'course' )
         {
             $contextListToReturn[] = CLARO_CONTEXT_COURSE;
         }
-        elseif ( $context['context'] == 'group' )
+        elseif ( $context == 'group' )
         {
             $contextListToReturn[] = CLARO_CONTEXT_GROUP;
         }
