@@ -37,7 +37,7 @@ class WikiToSingleHTMLExporter extends Wiki2xhtmlRenderer
      */
     public function __construct( $wiki )
     {
-        Wiki2xhtmlRenderer::Wiki2xhtmlRenderer( $wiki );
+        parent::__construct( $wiki );
         $this->setOpt( 'first_title_level', 3 );
         $this->setOpt('note_str','<div class="footnotes"><h5>Notes</h5>%s</div>');
         $this->wiki =& $wiki;
@@ -58,8 +58,8 @@ class WikiToSingleHTMLExporter extends Wiki2xhtmlRenderer
         foreach ( $pageList as $page )
         {
             $wikiPage = new WikiPage(
-                $this->wiki->con
-                , $this->wiki->config
+                $this->wiki->getDatabaseConnection()
+                , $this->wiki->getConfig()
                 , $this->wiki->getWikiId() );
 
             $wikiPage->loadPage($page['title']);
@@ -208,10 +208,10 @@ td {
     /**
      * @see Wiki2xhtmlRenderer
      */
-    protected function parseWikiWord( $str, $tag, $attr, $type )
+    protected function parseWikiWord( $str, &$tag, &$attr, &$type )
     {
-        // $tag = 'a';
-        // $attr = ' href="'.$this->_makePageTitleAnchor( $str ).'"';
+        $tag = '';
+        $attr = '';
 
         if ( $this->wiki->pageExists( $str ) )
         {
@@ -233,12 +233,12 @@ td {
     /**
      * @see Wiki2xhtmlRenderer
      */
-    private function _getWikiPageLink( $pageName, &$tag, &$attr, &$type )
+    protected function _getWikiPageLink( $pageName, &$tag, &$attr, &$type )
     {
         // allow links to use wikiwords for wiki page locations
         if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern'))
         {
-            $pageName = preg_replace('/���'.$this->getOpt('words_pattern').'���/msU', '$1', $pageName);
+            $pageName = preg_replace('/¶¶¶'.$this->getOpt('words_pattern').'¶¶¶/msU', '$1', $pageName);
         }
 
         if ($this->wiki->pageExists( $pageName ) )

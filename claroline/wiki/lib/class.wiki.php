@@ -68,6 +68,16 @@ class Wiki
 
         $this->wikiId = 0;
     }
+    
+    public function getDatabaseConnection()
+    {
+        return $this->con;
+    }
+    
+    public function getConfig()
+    {
+        return $this->config;
+    }
 
     // accessors
 

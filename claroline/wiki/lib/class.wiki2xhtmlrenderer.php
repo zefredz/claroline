@@ -685,7 +685,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
      * @param string pageName name of the page
      * @return string hypertext reference to wiki page
      */
-    private function _getWikiPageLink( $pageName, &$tag, &$attr, &$type )
+    protected function _getWikiPageLink( $pageName, &$tag, &$attr, &$type )
     {
         if ( get_lang('Main page') == $pageName )
         {
