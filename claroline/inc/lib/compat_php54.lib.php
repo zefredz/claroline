@@ -2,12 +2,13 @@
 
 /**
  * Fix the issues with the change of default encoding in claro_htmlspecialchars 
- * and htmlentities functions.
+ * and htmlentities functions
  * 
- * The drawback is this will degrade a bit the performances of the platform.
+ * The drawback is that this will probably degrade the performance of the 
+ * platform a bit by adding some indirection for PHP native functions
  */
 
-// PHP 5.2.7 constants
+// define constants added to PHP in PHP 5.2.7 if missing
 if (!defined('PHP_VERSION_ID')) 
 {
     $version = explode('.',PHP_VERSION);
@@ -19,7 +20,7 @@ if (!defined('PHP_VERSION_ID'))
 }
 
 // PHP 5.4 fix
-if ( PHP_MAJOR_VERSION >= 5 && PHP_MINOR_VERSION >= 4 )
+if ( PHP_MAJOR_VERSION > 5 ||  ( PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION >= 4 ) )
 {
     define ( 'DEFAULT_COMPAT', ENT_COMPAT | ENT_HTML401 );
     define ( 'DEFAULT_ENCODING', 'iso-8859-1' );
@@ -48,7 +49,8 @@ if ( PHP_MAJOR_VERSION >= 5 && PHP_MINOR_VERSION >= 4 )
         return html_entity_decode( $string, $flags, $encoding );
     }
 }
-else
+// PHP 5.3 allows passing func_get_args() as argument
+elseif ( PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION == 3 )
 {
     function claro_htmlspecialchars()
     {
@@ -63,5 +65,26 @@ else
     function claro_html_entity_decode()
     {
         return call_user_func_array('html_entity_decode', func_get_args());
+    }
+}
+// Other versions
+else
+{
+    function claro_htmlspecialchars()
+    {
+        $args = func_get_args();
+        return call_user_func_array('htmlspecialchars', $args);
+    }
+     
+    function claro_htmlentities()
+    {
+        $args = func_get_args();
+        return call_user_func_array('htmlentities', $args);
+    }
+    
+    function claro_html_entity_decode()
+    {
+        $args = func_get_args();
+        return call_user_func_array('html_entity_decode', $args);
     }
 }
