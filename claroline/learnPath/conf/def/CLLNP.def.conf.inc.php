@@ -30,7 +30,9 @@ $conf_def[ 'section' ][ 'quota' ][ 'label' ] = 'Quota';
 $conf_def[ 'section' ][ 'quota' ][ 'description' ] = 'Disk space allowed for import learning path';
 $conf_def[ 'section' ][ 'quota' ][ 'properties' ] =
     array ( 'maxFilledSpace_for_import',
-        'cllnp_resetByUserAllowed'
+        'cllnp_resetByUserAllowed',
+        'cllnp_documentDefaultTime',
+        'cllnp_uniqueDocumentDefaultTime'
 );
 
 // CONFIG PROPERTIES
@@ -54,4 +56,24 @@ $conf_def_property_list[ 'cllnp_resetByUserAllowed' ] =
         )
         , 'display' => TRUE
         , 'readonly' => FALSE
+);
+
+$conf_def_property_list[ 'cllnp_documentDefaultTime' ] =
+    array ( 'description' => 'Associate a default time in minute to a document that will be used for learnPath tracking'
+        , 'label' => 'Document default time (minute)'
+        , 'type' => 'integer'
+        , 'default' => '0'
+        , 'display' => TRUE
+        , 'readonly' => FALSE
+        , 'acceptedValue' => array( 'min' => '0' )
+);
+
+$conf_def_property_list[ 'cllnp_uniqueDocumentDefaultTime' ] =
+    array( 'description' => 'Only use the document default time once. Once set no additional time will be added'
+        , 'label' => 'Unique document default time'
+        , 'type' => 'boolean'
+        , 'default' => TRUE
+        , 'display' => TRUE
+        , 'readonly' => FALSE
+        , 'acceptedValue' => array( 'TRUE' => 'Yes', 'FALSE' => 'No' )
 );

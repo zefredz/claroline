@@ -3483,4 +3483,9 @@ $_lang['delete all'] = 'tout supprimer';
 $_lang['Are you sure you want to unregister all students from your course ?'] = 'Êtes-vous sur de vouloir supprimer tous les étudiants du cours ?';
 $_lang['ERROR: The format of lines you gave is not compatible with Claroline'] = 'Erreur: le format de ligne donné n\'est pas compatible avec Claroline';
 $_lang['You have to remove the course manager status first'] = 'Vous devez d\'abord lui retirer le statut de gestionnaire de cours';
-
+$_lang['Associate a default time in minute to a document that will be used for learnPath tracking'] = 'Associer un temps (en minute) par défaut aux documents, qui sera utilisé pour le suivi des parcours pédagogiques';
+$_lang['Document default time'] = 'Temps par défaut des documents';
+$_lang['Document default time (minute)'] = 'Temps par défaut des documents (minute)';
+$_lang['Only use the document default time once. Once set no additional time will be added'] = 'N\'utiliser le temps par défaut d\'un document qu\'une seule fois. Aucune durée ne sera additionnée lors d\'un prochain accès au document';
+$_lang['Unique document default time'] = 'Un temps unique pour les documents';
+$_lang['minute(s)'] = 'minute(s)';
