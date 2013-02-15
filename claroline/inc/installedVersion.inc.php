@@ -3,12 +3,10 @@
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
- * CLAROLINE
+ * Define version number variables and stability and upgrade availability
  *
- * Set value to detect if script set version is same than upgrade state
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
+ * @version     Claroline 1.11 $Revision$
+ * @copyright   (c) 2001-2013, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     kernel
  * @author      Claro Team <cvs@claroline.net>
@@ -19,7 +17,7 @@ $is_upgrade_available = true;
 
 // version strings : max. 10 chars
 
-$new_version = '1.11.5';
+$new_version = '1.11.6';
 $new_version_branch = '1.11';
 
 /**
@@ -31,7 +29,7 @@ $new_version_branch = '1.11';
  * WARNING : this does not the implementation and internal of methods, functions or class. 
  * The internal version number is given by the revision number in each file.
  */
-$GLOBALS['clarolineAPIVersion'] = '1.11.5';
+$GLOBALS['clarolineAPIVersion'] = '1.11.6';
 /**
  * The DB version number indicates the last time the database schemas has been altered.
  */
