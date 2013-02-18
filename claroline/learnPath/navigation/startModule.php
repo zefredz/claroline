@@ -299,7 +299,8 @@ switch ($module['contentType'])
                            `lesson_status` = 'completed',
                            `scoreMin` = 0,
                            `scoreMax` = 100,
-                           `total_time` = '" . claro_sql_escape( $updateTime ) . "'
+                           `total_time` = '" . claro_sql_escape( $updateTime ) . "',
+                           `session_time` = '" . claro_sql_escape( $trackingTime ) . "'
                      WHERE `user_module_progress_id` = " . (int)$progressRow['user_module_progress_id'];
 
             claro_sql_query($sql);
