@@ -32,7 +32,10 @@ $conf_def[ 'section' ][ 'quota' ][ 'properties' ] =
     array ( 'maxFilledSpace_for_import',
         'cllnp_resetByUserAllowed',
         'cllnp_documentDefaultTime',
-        'cllnp_uniqueDocumentDefaultTime'
+        'cllnp_documentDefaultTimeOnce',
+        'cllnp_countTimeSpentOnDocument',
+        'cllnp_countTimeIntervalCheck',
+        'cllnp_countTimeOverDefault'
 );
 
 // CONFIG PROPERTIES
@@ -68,9 +71,39 @@ $conf_def_property_list[ 'cllnp_documentDefaultTime' ] =
         , 'acceptedValue' => array( 'min' => '0' )
 );
 
-$conf_def_property_list[ 'cllnp_uniqueDocumentDefaultTime' ] =
-    array( 'description' => 'Only use the document default time once. Once set no additional time will be added'
-        , 'label' => 'Unique document default time'
+$conf_def_property_list[ 'cllnp_documentDefaultTimeOnce' ] =
+    array( 'description' => 'Only use the document default time once. Once set no additional time will be added (except with the script)'
+        , 'label' => 'Use document default time only once'
+        , 'type' => 'boolean'
+        , 'default' => TRUE
+        , 'display' => TRUE
+        , 'readonly' => FALSE
+        , 'acceptedValue' => array( 'TRUE' => 'Yes', 'FALSE' => 'No' )
+);
+
+$conf_def_property_list[ 'cllnp_countTimeSpentOnDocument' ] =
+    array( 'description' => 'Allow a script to count time spent on a document-type module'
+        , 'label' => 'Activate script to count time'
+        , 'type' => 'boolean'
+        , 'default' => TRUE
+        , 'display' => TRUE
+        , 'readonly' => FALSE
+        , 'acceptedValue' => array( 'TRUE' => 'Yes', 'FALSE' => 'No' )
+);
+
+$conf_def_property_list[ 'cllnp_countTimeIntervalCheck' ] =
+    array ( 'description' => 'A time interval (in minute) to define when the script has to check if the module is still active'
+        , 'label' => 'Interval (minute)'
+        , 'type' => 'integer'
+        , 'default' => '1'
+        , 'display' => TRUE
+        , 'readonly' => FALSE
+        , 'acceptedValue' => array( 'min' => '1', 'max' => '60' )
+);
+
+$conf_def_property_list[ 'cllnp_countTimeOverDefault' ] =
+    array( 'description' => 'Only use the counted time if its value is longer than the default time associated to the document'
+        , 'label' => 'Only use counted time if longer than default time'
         , 'type' => 'boolean'
         , 'default' => TRUE
         , 'display' => TRUE

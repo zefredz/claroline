@@ -154,7 +154,7 @@ switch ($module['contentType'])
             
             $currentDate = date( "Y-m-d H:i:s" );
             
-            if( !get_conf( 'cllnp_uniqueDocumentDefaultTime' ) )
+            if( !get_conf( 'cllnp_documentDefaultTimeOnce' ) )
             {
                 $dataBeginText = (int)$_SESSION['path_id'] . ';' . (int)$_SESSION['module_id'] . ';';
 
@@ -244,7 +244,8 @@ switch ($module['contentType'])
                        AND `learnPath_module_id` = " . (int)$learnPathModuleId;
             
             $progressRow = claro_sql_query_fetch_single_row( $sql );
-            $currentTimeTab = explode( ':', $progressRow['total_time'] );
+            $currentTime = $progressRow['total_time'];
+            $currentTimeTab = explode( ':', $currentTime );
             $currentTimeSecTab = explode( ',', $currentTimeTab[2] );
             $currentTimeInSec = $currentTimeTab[0] * 3600 + $currentTimeTab[1] * 60 + $currentTimeSecTab[0];
                 
@@ -252,7 +253,7 @@ switch ($module['contentType'])
             {
                 $updateTime = $trackingTime;
             }
-            elseif( get_conf( 'cllnp_uniqueDocumentDefaultTime' ) )
+            elseif( get_conf( 'cllnp_documentDefaultTimeOnce' ) )
             {
                 $updateTime = $progressRow['total_time'];
                 $trackingTime = '0000:00:00';
@@ -315,10 +316,17 @@ switch ($module['contentType'])
                                          'learnPathId' => (int)$_SESSION['path_id'],
                                          'moduleId' => (int)$_SESSION['module_id'],
                                          'learnPathModuleId' => (int)$learnPathModuleId,
-                                         'type' => "update"
+                                         'type' => "update",
+                                         'date' => $currentDate
                                        );
             $learnPathEvent = new Event( 'lp_user_module_progress_modified', $learnPathEventArgs );
             EventManager::notify( $learnPathEvent );
+            $documentTrackingData = array( 'documentStartDate' => $currentDate,
+                                           'documentPreviousTotalTime' => $currentTime,
+                                           'documentSessionTime' => $trackingTime,
+                                           'documentUserModuleProgressId' => $progressRow['user_module_progress_id']
+                                         );
+            $_SESSION['documentTrackingData'] = $documentTrackingData;
         } // else anonymous : record nothing
 
         $startAssetPage = rawurlencode($assetPath);

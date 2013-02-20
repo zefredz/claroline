@@ -16,6 +16,7 @@
  *
  */
 
+$tlabelReq = 'CLLNP';
 require '../../inc/claro_init_global.inc.php';
 
 if (! claro_is_course_allowed()) claro_disp_auth_form();
@@ -57,6 +58,69 @@ if($lpUid)
 else // anonymous
 {
    $uidCheckString = "AND UMP.`user_id` IS NULL ";
+}
+
+$sql = "SELECT `contentType`
+          FROM `".$TABLEMODULE."`
+         WHERE `module_id` = ". (int)$_SESSION['module_id'];
+
+$currentModuleContentType = claro_sql_query_get_single_value($sql);
+
+if( $currentModuleContentType == CTDOCUMENT_ && get_conf( 'cllnp_countTimeSpentOnDocument' ) )
+{
+    $documentTrackingData = $_SESSION['documentTrackingData'];
+    $documentStartDate = $documentTrackingData['documentStartDate'];
+    $documentPreviousTotalTime = $documentTrackingData['documentPreviousTotalTime'];
+    $documentSessionTime = $documentTrackingData['documentSessionTime'];
+    $documentUserModuleProgressId = $documentTrackingData['documentUserModuleProgressId'];
+    unset( $_SESSION['documentTrackingData'] );
+    
+    $documentTrackingUpdateScriptUrl = Url::Contextualize( get_module_url( 'CLLNP' ) . '/navigation/updateDocumentTracking.php' );
+    
+    $documentSessionTimeTab = explode( ':', $documentSessionTime );
+    $documentSessionTimeInMin = (int)$documentSessionTimeTab[0] * 60 + (int)$documentSessionTimeTab[1];
+    
+    ?>
+    
+    <script language="javascript">
+        var spentTime = 0;
+        var delayInMin = <?php echo get_conf( 'cllnp_countTimeIntervalCheck' ); ?>;
+        var delayInMilli = delayInMin * 60000;
+        var overDefault = <?php echo get_conf( 'cllnp_countTimeOverDefault' ) ? 'true' : 'false' ; ?>;
+        var timeLimit = <?php echo $documentSessionTimeInMin; ?>;
+
+        var userModuleProgressId = <?php echo $documentUserModuleProgressId; ?>;
+        var previousTotalTime = '<?php echo $documentPreviousTotalTime; ?>';
+        var courseCode = '<?php echo claro_get_current_course_id(); ?>';
+        var userId = <?php echo claro_get_current_user_id(); ?>;
+        var learnPathId = <?php echo (int)$_SESSION['path_id']; ?>;
+        var moduleId = <?php echo (int)$_SESSION['module_id']; ?>;
+        var date = '<?php echo $documentStartDate; ?>';
+        
+        var documentTrackingUpdateUrl = '<?php echo $documentTrackingUpdateScriptUrl; ?>';
+        
+        function computeSpentTime()
+        {
+            spentTime += delayInMin
+            if( ( overDefault && spentTime > timeLimit ) || !overDefault )
+            {
+                $.get( documentTrackingUpdateUrl,
+                       { spentTime: spentTime,
+                         userModuleProgressId: userModuleProgressId,
+                         previousTotalTime: previousTotalTime,
+                         date: date,
+                         userId: userId,
+                         courseCode: courseCode,
+                         learnPathId: learnPathId,
+                         moduleId: moduleId
+                       }
+                );
+            }
+        }
+        setInterval( computeSpentTime, delayInMilli );
+    </script>
+
+    <?php
 }
 
 // get the list of available modules
