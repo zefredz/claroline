@@ -334,6 +334,10 @@ switch ($module['contentType'])
         $pathInfo = get_path('coursesRepositorySys') . claro_get_course_path(). '/document/' . ltrim($assetPath,'/');
         $pathContents = file_get_contents($pathInfo);       
         $extension = get_file_extension($pathInfo);
+        
+        // add a variable to set CLLNP mode in downloader
+        // @todo : use a token and pass it as extra parameter to claro_get_file_download_url
+        $_SESSION['fromCLLNP'] = true;
 
         if ( $extension == 'url' )
         {
@@ -348,13 +352,13 @@ switch ($module['contentType'])
             }
             else
             {
-                $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
+                $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage, null, 'CLLNP' );
             }
             
         }
         else
         {
-            $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
+            $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage, null, 'CLLNP' );
         }
         
 
