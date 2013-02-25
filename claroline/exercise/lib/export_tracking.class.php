@@ -17,7 +17,7 @@
 include_once get_path ( 'incRepositorySys' ) . '/lib/csv.class.php';
 include_once dirname ( __FILE__ ) . '/question.class.php';
 
-class CsvTrackTrueFalse extends Csv
+class CsvTrackTrueFalse extends CsvRecordlistExporter
 {
 
     public $question;
@@ -104,7 +104,7 @@ class CsvTrackTrueFalse extends Csv
 
 }
 
-class CsvTrackMultipleChoice extends Csv
+class CsvTrackMultipleChoice extends CsvRecordlistExporter
 {
 
     public $question;
@@ -184,7 +184,7 @@ class CsvTrackMultipleChoice extends Csv
 
 }
 
-class CsvTrackFIB extends Csv
+class CsvTrackFIB extends CsvRecordlistExporter
 {
 
     public $question;
@@ -263,7 +263,7 @@ class CsvTrackFIB extends Csv
 
 }
 
-class CsvTrackMatching extends Csv
+class CsvTrackMatching extends CsvRecordlistExporter
 {
 
     public $question;
@@ -409,7 +409,7 @@ function export_exercise_tracking ( $exId )
  * Shows the overall result for each student
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
-class ExoExportByUser extends Csv
+class ExoExportByUser extends CsvRecordlistExporter
 {
 
     /**
@@ -506,7 +506,7 @@ class ExoExportByUser extends Csv
  * Shows for each question : the best score, the worst score and the average score
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
-class ExoExportByQuestion extends Csv
+class ExoExportByQuestion extends CsvRecordlistExporter
 {
 
     /**
