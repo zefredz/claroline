@@ -187,7 +187,7 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
             {
                 if ( ! is_null($this->user->$extAuthAttribName) )
                 {
-                    $userAttrList[$claroAttribName] = $this->user->extAuthAttribName;
+                    $userAttrList[$claroAttribName] = $this->user->$extAuthAttribName;
                 }
             }
         }
