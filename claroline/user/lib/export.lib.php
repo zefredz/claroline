@@ -68,7 +68,7 @@ class UserInfoList
 }
 
 
-class csvUserList extends csv
+class csvUserList extends CsvRecordlistExporter
 {
     private $course_id;
     private $exId;
