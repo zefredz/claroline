@@ -75,7 +75,7 @@ class csvUserList extends CsvRecordlistExporter
     
     public function __construct( $course_id )
     {
-        parent::csv(); // call constructor of parent class
+        parent::__construct(); // call constructor of parent class
         
         $this->course_id = $course_id;
     }
