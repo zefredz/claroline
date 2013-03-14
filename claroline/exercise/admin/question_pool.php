@@ -311,6 +311,7 @@ $display->assign( 'exId', $exId );
 $display->assign( 'questionList', $questionList );
 $display->assign( 'context', is_null( $exId ) ? 'pool' : 'reuse' );
 $display->assign( 'localizedQuestionType', get_localized_question_type() );
+$display->assign( 'offest', $offset );
 $out .= $display->render();
 
 //-- pager

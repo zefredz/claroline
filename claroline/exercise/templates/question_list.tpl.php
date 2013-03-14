@@ -15,7 +15,7 @@
                 <th><?php if( get_conf( 'enableExerciseExportQTI', false ) ) : echo get_lang( 'Export' ); $colspan++; endif; ?>
             <?php elseif( 'exercise' == $this->context ) : ?>
                 <th colspan="2"><?php echo get_lang( 'Order' ); $colspan++; ?></th>
-            <?php endif; ?>       
+            <?php endif; ?>
         </tr>
     </thead>
     <tbody>
@@ -43,13 +43,13 @@
                         <img src="<?php echo get_icon_url( 'edit' ); ?>" alt="<?php echo get_lang( 'Modify' ); ?>" />
                     </a>
                 </td>
-                <?php if( 'pool' == $this->context ) : 
+                <?php if( 'pool' == $this->context ) :
                           $confirmString = get_lang('Are you sure you want to completely delete this question ?');
-                          $url = 'question_pool.php?exId=' . $this->exId . '&amp;cmd=delQu&amp;quId=' . $question['id'];
-                      else : 
+                          $url = 'question_pool.php?exId=' . $this->exId . '&amp;cmd=delQu&amp;quId=' . $question['id']. '&amp;offset='. $this->offset;
+                      else :
                           $confirmString = get_lang ( 'Are you sure you want to remove the question from the exercise ?' );
                           $url = 'edit_exercise.php?exId=' . $this->exId . '&amp;cmd=rmQu&amp;quId=' . $question['id'];
-                      endif; 
+                      endif;
                 ?>
                 <td align="center">
                     <a href="<?php echo claro_htmlspecialchars ( Url::Contextualize( $url ) ) . '" onclick="javascript:if(!confirm(\'' . clean_str_for_javascript( $confirmString ) . '\')) return false;'; ?>">
@@ -63,14 +63,14 @@
                         </a>
                     </td>
                 <?php elseif( 'exercise' == $this->context ) : ?>
-                    <td align="center">           
+                    <td align="center">
                     <?php if( $questionIterator > 1 ) : ?>
                         <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( 'edit_exercise.php?exId=' . $this->exId . '&amp;cmd=mvUp&amp;quId=' . $question['id'] ) ); ?>">
                             <img src="<?php echo get_icon_url( 'move_up' ); ?>" alt="<?php echo get_lang( 'Move up' ); ?>" />
                         </a>
                     <?php else : ?>
                         &nbsp;
-                    <?php endif; ?>                
+                    <?php endif; ?>
                     </td>
                     <td align="center">
                     <?php if( $questionIterator < count( $this->questionList ) ) : ?>
@@ -79,10 +79,10 @@
                         </a>
                     <?php else : ?>
                         &nbsp;
-                    <?php endif; ?>                
+                    <?php endif; ?>
                     </td>
                 <?php endif; ?>
-            <?php endif; ?>           
+            <?php endif; ?>
         </tr>
     <?php endforeach; ?>
     </tbody>
