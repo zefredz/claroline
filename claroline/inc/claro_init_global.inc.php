@@ -272,13 +272,27 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
     
     if ( get_module_data( $tlabelReq, 'type' ) == 'admin' && ! claro_is_platform_admin() )
     {
-        claro_die(get_lang('Not allowed'));
+        if ( !claro_is_user_authenticated() )
+        {
+            claro_disp_auth_form();
+        }
+        else
+        {
+            claro_die(get_lang('Not allowed'));
+        }
     }
     
     if ( get_module_data( $tlabelReq, 'type' ) == 'crsmanage' 
         && ! ( claro_is_course_manager() || claro_is_platform_admin() ) )
     {
-        claro_die(get_lang('Not allowed'));
+        if ( !claro_is_user_authenticated() )
+        {
+            claro_disp_auth_form(true);
+        }
+        else
+        {
+            claro_die(get_lang('Not allowed'));
+        }
     }
     
     if ( $tlabelReq !== 'CLWRK' && $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed()
