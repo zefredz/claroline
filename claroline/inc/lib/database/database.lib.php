@@ -793,10 +793,14 @@ class Mysql_ResultSet implements Database_ResultSet
             {
                 $data = (array)$row;
             }
+            else
+            {
+                $data = $row;
+            }
 
             if ( ! array_key_exists( $this->idKeyName, $data) )
             {
-                throw new Claroline_Database_Exception("Id key {$this->idKeyName} not found in the current row");
+                throw new Database_Connection_Exception("Id key {$this->idKeyName} not found in the current row");
             }
 
             $this->idKeyValue = $data[$this->idKeyName];
