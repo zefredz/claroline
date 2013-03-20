@@ -178,7 +178,7 @@ class BreadCrumbsNode
             $nodeHtml .= claro_html_icon( 'home', null, null ).'&nbsp;';
         }
 
-        $nodeHtml .= claro_htmlspecialchars( $this->name );
+        $nodeHtml .= $this->name;
 
         if ( ! empty( $this->url ) )
         {
