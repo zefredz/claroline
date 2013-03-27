@@ -408,11 +408,14 @@ $cmdList = array();
 
 if ( $displayButtonLine )
 {
-    $cmdList[] = array(
-        'img' => 'announcement_new',
-        'name' => get_lang('Add announcement'),
-        'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqCreate'))
-    );
+    if ( $cmd != 'rqEdit' && $cmd != 'rqCreate'  )
+    {
+        $cmdList[] = array(
+            'img' => 'announcement_new',
+            'name' => get_lang('Add announcement'),
+            'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqCreate'))
+        );
+    }
     
     if ( claro_is_course_manager() )
     {
