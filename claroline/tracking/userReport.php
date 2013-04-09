@@ -47,6 +47,11 @@ else
     else                         $courseId = null;
 }
 
+if ( claro_is_in_a_course() )
+{
+    Claroline::getDisplay()->body->hideCourseTitleAndTools();
+}
+
 $selfStatistics = ( $userId == claro_get_current_user_id() ) ? true : false;
 
 /*
