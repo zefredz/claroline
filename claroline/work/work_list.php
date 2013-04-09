@@ -445,7 +445,7 @@ if ( $is_allowedToEditAll )
                . '&assigId=' . $req['assignmentId']))
     );
     
-    if( get_conf('allow_download_all_submissions') )
+    if( claro_is_platform_admin() || get_conf('allow_download_all_submissions') )
     {
         $cmdList[] = array(
             'img' => 'save',
@@ -552,7 +552,7 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
 if ( $is_allowedToEditAll )
 {
     // Submission download requested
-    if( $cmd == 'rqDownload' && get_conf('allow_download_all_submissions') ) // UJM
+    if( $cmd == 'rqDownload' && ( claro_is_platform_admin() || get_conf('allow_download_all_submissions') ) ) // UJM
     {
         require_once($includePath . '/lib/form.lib.php');
 
@@ -564,6 +564,7 @@ if ( $is_allowedToEditAll )
          . claro_html_date_form('day', 'month', 'year', time(), 'long') . ' '
          . claro_html_time_form('hour', 'minute', time() - fmod(time(), 86400) - 3600) . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>' . '<br /><br />' . "\n"
          . '<input type="radio" name="downloadMode" id="downloadMode_all" value="all" /><label for="downloadMode_all">' . get_lang('All submissions') . '</label><br /><br />' . "\n"
+         .     '<input type="checkbox" name="downloadOnlyCurrentMembers" id="downloadOnlyCurrentMembers_id" value="yes" checked="checked" /><label for="downloadOnlyCurrentMembers_id">'.get_lang('Download only submissions from current course members').'</label><br /><br />' . "\n"
          . '<input type="submit" value="'.get_lang('OK').'" />&nbsp;' . "\n"
          . claro_html_button('work_list.php?assigId='.$req['assignmentId'], get_lang('Cancel'))
          . '</form>'."\n"

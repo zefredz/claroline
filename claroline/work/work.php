@@ -147,7 +147,7 @@ if( !is_null($cmd) )
 }
 
 // Submission download requested
-if( $is_allowedToEdit && $cmd == 'rqDownload' && get_conf('allow_download_all_submissions') )
+if( $is_allowedToEdit && $cmd == 'rqDownload' && (claro_is_platform_admin() || get_conf('allow_download_all_submissions')) )
 {
     require_once($includePath . '/lib/form.lib.php');
     
@@ -159,6 +159,7 @@ if( $is_allowedToEdit && $cmd == 'rqDownload' && get_conf('allow_download_all_su
     .     claro_html_date_form('day', 'month', 'year', time(), 'long') . ' '
     .     claro_html_time_form('hour', 'minute', time() - fmod(time(), 86400) - 3600) . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>' . '<br /><br />' . "\n"
     .     '<input type="radio" name="downloadMode" id="downloadMode_all" value="all" /><label for="downloadMode_all">' . get_lang('All submissions') . '</label><br /><br />' . "\n"
+    .     '<input type="checkbox" name="downloadOnlyCurrentMembers" id="downloadOnlyCurrentMembers_id" value="yes" checked="checked" /><label for="downloadOnlyCurrentMembers_id">'.get_lang('Download only submissions from current course members').'</label><br /><br />' . "\n"
     .     '<input type="submit" value="'.get_lang('OK').'" />&nbsp;' . "\n"
     .    claro_html_button('work.php', get_lang('Cancel'))
     .     '</form>'."\n"
@@ -419,7 +420,7 @@ if( $is_allowedToEdit )
         'url' => claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=rqMkAssig'))
     );
     
-    if( get_conf('allow_download_all_submissions') )
+    if( claro_is_platform_admin() || get_conf('allow_download_all_submissions') )
     {
         $cmdList[] = array(
             'img' => 'save',

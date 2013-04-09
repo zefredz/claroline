@@ -45,6 +45,7 @@ $dialogBox = new DialogBox();
 
 $downloadMode = isset( $_REQUEST['downloadMode'] ) && is_string( $_REQUEST['downloadMode'] ) ? $_REQUEST['downloadMode'] : 'all';
 $assignmentId = isset( $_REQUEST['assigId'] ) && is_numeric( $_REQUEST['assigId'] ) ? $_REQUEST['assigId'] : 0;
+$downloadOnlyCurrentMembersSubmissions = isset( $_REQUEST['downloadOnlyCurrentMembers'] ) && $_REQUEST['downloadOnlyCurrentMembers'] == 'yes' ? true : false;
 
 if( $assignmentId )
 {
@@ -52,10 +53,13 @@ if( $assignmentId )
     $assignment->load( $assignmentId );
 }
 
-if( get_conf( 'allow_download_all_submissions' ) )
+if( claro_is_platform_admin() || get_conf( 'allow_download_all_submissions' ) )
 {
     $courseTbl = claro_sql_get_course_tbl();
     $submissionTbl = $courseTbl['wrk_submission'];
+    
+    $mainTbl = claro_sql_get_main_tbl();
+    $courseUserTbl = $mainTbl['rel_course_user'];
     
     if( $downloadMode == 'from' )
     {
@@ -85,13 +89,22 @@ if( get_conf( 'allow_download_all_submissions' ) )
         $wanted = '_' . replace_dangerous_char( get_lang( 'From' ) ) . '_' . date( 'Y_m_d', $unixRequestDate ) . '_'
                 . replace_dangerous_char( get_lang( 'to' ) ) . '_' . date( 'Y_m_d' )
         ;
-        $sqlDateCondition = " AND `last_edit_date` >= '" . $downloadRequestDate . "' ";
+        $sqlDateCondition = " AND s.`last_edit_date` >= '" . $downloadRequestDate . "' ";
     }
     else
     {
         $wanted = '';
 
         $sqlDateCondition = '';
+    }
+    
+    if ( $downloadOnlyCurrentMembersSubmissions )
+    {
+        $userRestrictions = "JOIN `{$courseUserTbl}` AS cu On cu.user_id = s.user_id AND cu.code_cours = '".claro_get_current_course_id()."'" ;
+    }
+    else
+    {
+        $userRestrictions = "";
     }
     
     //load_module_config('CLDOC');
@@ -115,7 +128,7 @@ if( get_conf( 'allow_download_all_submissions' ) )
     }
     else
     {
-        $assignmentRestriction = " AND `assignment_id` = " . (int)$assignmentId;
+        $assignmentRestriction = " AND s.`assignment_id` = " . (int)$assignmentId;
         
         if ( !empty($tmpFolderPath) )
         {
@@ -146,20 +159,21 @@ if( get_conf( 'allow_download_all_submissions' ) )
 
     $downloadArchiveFilePath = $downloadArchiveFolderPath . '/' . $zipName;
 
-    $sql = "SELECT `id`,
-                   `assignment_id`,
-                   `authors`,
-                   `submitted_text`,
-                   `submitted_doc_path`,
-                   `title`,
-                   `creation_date`,
-                   `last_edit_date`
-              FROM `" . $submissionTbl . "`
-             WHERE `parent_id` IS NULL "
+    $sql = "SELECT s.`id`,
+                   s.`assignment_id`,
+                   s.`authors`,
+                   s.`submitted_text`,
+                   s.`submitted_doc_path`,
+                   s.`title`,
+                   s.`creation_date`,
+                   s.`last_edit_date`
+              FROM `" . $submissionTbl . "` AS s
+              {$userRestrictions}
+             WHERE s.`parent_id` IS NULL "
                    . $assignmentRestriction
                    . $sqlDateCondition . "
-          ORDER BY `authors`,
-                   `creation_date`";
+          ORDER BY s.`authors`,
+                   s.`creation_date`";
 
     if( !is_dir( $zipPath ) )
     {

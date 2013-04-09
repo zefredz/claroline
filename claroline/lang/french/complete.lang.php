@@ -3497,3 +3497,4 @@ $_lang['Only use counted time if longer than default time'] = 'N\'utiliser le te
 $_lang['Only use the counted time if its value is longer than the default time associated to the document'] = 'N\'utiliser le temps compté seulement si sa valeur est plus longue que la valeur du temps par défaut associé au document';
 $_lang['Only use the document default time once. Once set no additional time will be added (except with the script)'] = 'N\'utiliser le temps par défaut d\'un document qu\'une seule fois. Aucune durée ne sera additionnée lors d\'un prochain accès au document (excepté pour le temps fourni par le script)';
 $_lang['Use document default time only once'] = 'N\'utiliser le temps par défaut qu\'une seule fois';
+$_lang['Download only submissions from current course members'] = 'Télécharger uniquement les soumissions des utilisateurs actuellement inscrits au cours';
