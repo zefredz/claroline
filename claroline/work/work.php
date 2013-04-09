@@ -110,6 +110,8 @@ if( !is_null($cmd) )
             $assignment->setDescription(trim( $_REQUEST['description'] ));
 
         }
+        
+        if ( isset($_REQUEST['submission_visibility_applies_to_all']) && $_REQUEST['submission_visibility_applies_to_all'] == 'yes' ) $assignment->visibilityModificationAppliesToOldSubmissions ( true );
 
         if ( isset($_REQUEST['def_submission_visibility']) )     $assignment->setDefaultSubmissionVisibility($_REQUEST['def_submission_visibility']);
         if ( isset($_REQUEST['assignment_type']) )                $assignment->setAssignmentType($_REQUEST['assignment_type']);
@@ -518,6 +520,9 @@ if ($is_allowedToEdit)
                 <br />
                 <input type="radio" name="def_submission_visibility" id="invisible" value="INVISIBLE" '. ( $assignment->getDefaultSubmissionVisibility() == "INVISIBLE" ? 'checked="checked"' : '') . ' />
                 <label for="invisible">&nbsp;'. get_lang('Only visible for teacher(s) and submitter(s)') . '</label>'
+              . '<br /><br />
+                <input type="checkbox" name="submission_visibility_applies_to_all" id="submission_visibility_applies_to_all_id" value="yes" />
+                <label for="submission_visibility_applies_to_all_id">&nbsp;'. get_lang('Apply default visibility also to sumissions already posted') . '</label>'
               . '</dd>'
               
               . '<dt>&nbsp;</dt>'

@@ -3473,3 +3473,4 @@ $_lang['Only use the counted time if its value is longer than the default time a
 $_lang['Only use the document default time once. Once set no additional time will be added (except with the script)'] = 'Only use the document default time once. Once set no additional time will be added (except with the script)';
 $_lang['Use document default time only once'] = 'Use document default time only once';
 $_lang['Download only submissions from current course members'] = 'Download only submissions from current course members';
+$_lang['Apply default visibility also to sumissions already posted'] = 'Apply default visibility also to sumissions already posted';

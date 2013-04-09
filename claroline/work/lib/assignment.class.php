@@ -18,99 +18,101 @@ class Assignment
     /**
      * @var $id id of assignment, -1 if assignment doesn't exist already
      */
-    var $id;
+    private $id;
 
     /**
      * @var $title name of the assignment
      */
-    var $title;
+    private $title;
 
     /**
      * @var $description statement of the assignment
      */
-    var $description;
+    private $description;
 
     /**
      * @var $visibility visibility of the assignment
      */
-    var $visibility;
+    private $visibility;
 
     /**
      * @var $defaultSubmissionVisibility default visibility of new submissions in this assignement
      */
-    var $defaultSubmissionVisibility;
+    private $defaultSubmissionVisibility;
 
     /**
      * @var $assignmentType is the assignment for groups or for individuals
      */
-    var $assignmentType;
+    private $assignmentType;
 
     /**
      * @var $submissionType expected submission type (text, text and file, file)
      */
-    var $submissionType;
+    private $submissionType;
 
     /**
      * @var $allowLateUpload is upload allowed after assignment end date
      */
-    var $allowLateUpload;
+    private $allowLateUpload;
 
     /**
      * @var $startDate submissions are not possible before this date
      */
-    var $startDate;
+    private $startDate;
 
     /**
      * @var $endDate submissions are not possible after this date (except if $allowLateUpload is true)
      */
-    var $endDate;
+    private $endDate;
 
     /**
      * @var $autoFeedbackText text of automatic feedback
      */
-    var $autoFeedbackText;
+    private $autoFeedbackText;
 
     /**
      * @var $autoFeedbackFilename file of automatic feedback
      */
-    var $autoFeedbackFilename;
+    private $autoFeedbackFilename;
 
     /**
      * @var $autoFeedbackSubmitMethod automatic feedback submit method
      */
-    var $autoFeedbackSubmitMethod;
+    private $autoFeedbackSubmitMethod;
 
     /**
      * @var $submissionList
      */
-    var $submissionList;
+    private $submissionList;
 
     /**
      * @var $assigDirSys sys path to assignment dir
      */
-    var $assigDirSys;
+    private $assigDirSys;
 
     /**
      * @var $assigDirWeb web path to assignment dir
      */
-    var $assigDirWeb;
+    private $assigDirWeb;
 
     /**
      * @var $tblAssignment assignment table
      */
-    var $tblAssignment;
+    private $tblAssignment;
 
     /**
      * @var $tblSubmission submission table
      */
-    var $tblSubmission;
+    private $tblSubmission;
+    
+    private $applyVisibilityChangeToOldSubmissions;
 
     /**
      * constructor
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      */
-    function Assignment($course_id = null)
+    public function __construct($course_id = null)
     {
         $this->id = (int) -1;
         $this->title = '';
@@ -138,6 +140,8 @@ class Assignment
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
         $this->tblAssignment = $tbl_cdb_names['wrk_assignment'];
         $this->tblSubmission = $tbl_cdb_names['wrk_submission'];
+        
+        $this->applyVisibilityChangeToOldSubmissions = !get_conf('confval_def_sub_vis_change_only_new');
     }
 
     /**
@@ -147,7 +151,7 @@ class Assignment
      * @param integer $assignment_id id of assignment
      * @return boolean load successfull ?
      */
-    function load($id)
+    public function load($id)
     {
         $sql = "SELECT
                     `id`,
@@ -202,7 +206,7 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return mixed false or id of the record
      */
-    function save()
+    public function save()
     {
         // TODO method to validate data
         if( $this->id == -1 )
@@ -243,7 +247,7 @@ class Assignment
         }
         else
         {
-            if( !get_conf('confval_def_sub_vis_change_only_new') )
+            if( $this->applyVisibilityChangeToOldSubmissions )
             {
                 // get current assignment defaultSubmissionVisibility
                 $sqlGetOldData = "SELECT `def_submission_visibility`
@@ -293,7 +297,7 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean
      */
-    function delete()
+    public function delete()
     {
         $sql = "DELETE FROM `".$this->tblSubmission."`
                 WHERE `assignment_id` = '".$this->id."'";
@@ -327,7 +331,7 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean
      */
-    function validate()
+    public function validate()
     {
         // title is a mandatory element
         $title = trim( strip_tags($this->title) );
@@ -382,7 +386,7 @@ class Assignment
      * @param string $visibility
      * @return boolean
      */
-    function updateAllSubmissionsVisibility($visibility)
+    protected function updateAllSubmissionsVisibility($visibility)
     {
         $acceptedValues = array('VISIBLE', 'INVISIBLE');
 
@@ -400,6 +404,16 @@ class Assignment
 
         return false;
     }
+    
+    public function visibilityModificationAppliesToOldSubmissions( $trueOrFalse )
+    {
+        $this->applyVisibilityChangeToOldSubmissions = $trueOrFalse ? true : false;
+    }
+    
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * update visibility of an assignment
@@ -409,7 +423,7 @@ class Assignment
      * @param string $visibility
      * @return boolean
      */
-    function updateAssignmentVisibility($assignmentId, $visibility)
+    public static function updateAssignmentVisibility($assignmentId, $visibility)
     {
         // this method is not used in object context so we cannot access $this->$tblAssignment
         $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -437,7 +451,7 @@ class Assignment
      * @return array
      * @TODO get the full list is authId is not specified (submissions and feedback for all authors)
      */
-    function getSubmissionList($authId)
+    public function getSubmissionList($authId)
     {
         if( $this->assignmentType == 'GROUP' )
             $authCondition = '`group_id` = '.(int) $authId;
@@ -457,7 +471,7 @@ class Assignment
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      */
-    function buildDirPaths()
+    protected function buildDirPaths()
     {
         $this->assigDirSys = get_conf('coursesRepositorySys').claro_get_course_path().'/'.'work/assig_'.$this->id.'/';
         $this->assigDirWeb = get_conf('coursesRepositoryWeb').claro_get_course_path().'/'.'work/assig_'.$this->id.'/';
@@ -469,7 +483,7 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string unique filename with extension
      */
-    function createUniqueFilename($filename)
+    protected function createUniqueFilename($filename)
     {
         $dotPosition = strrpos($filename, '.');
 
@@ -497,7 +511,7 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getTitle()
+    public function getTitle()
     {
         return $this->title;
     }
@@ -508,7 +522,7 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
-    function setTitle($value)
+    public function setTitle($value)
     {
         $this->title = $value;
     }
@@ -519,12 +533,12 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getDescription()
+    public function getDescription()
     {
         return $this->description;
     }
 
-    function setDescription($value)
+    public function setDescription($value)
     {
         $this->description = $value;
     }
@@ -535,12 +549,12 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getVisibility()
+    public function getVisibility()
     {
         return $this->visibility;
     }
 
-    function setVisibility($value)
+    public function setVisibility($value)
     {
         $acceptedValues = array('VISIBLE', 'INVISIBLE');
 
@@ -558,12 +572,12 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getDefaultSubmissionVisibility()
+    public function getDefaultSubmissionVisibility()
     {
         return $this->defaultSubmissionVisibility;
     }
 
-    function setDefaultSubmissionVisibility($value)
+    public function setDefaultSubmissionVisibility($value)
     {
         $acceptedValues = array('VISIBLE', 'INVISIBLE');
 
@@ -581,12 +595,12 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getAssignmentType()
+    public function getAssignmentType()
     {
         return $this->assignmentType;
     }
 
-    function setAssignmentType($value)
+    public function setAssignmentType($value)
     {
         $acceptedValues = array('INDIVIDUAL', 'GROUP');
 
@@ -604,12 +618,12 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getSubmissionType()
+    public function getSubmissionType()
     {
         return $this->submissionType;
     }
 
-    function setSubmissionType($value)
+    public function setSubmissionType($value)
     {
         $acceptedValues = array('TEXT', 'TEXTFILE', 'FILE');
 
@@ -627,12 +641,12 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getAllowLateUpload()
+    public function getAllowLateUpload()
     {
         return $this->allowLateUpload;
     }
 
-    function setAllowLateUpload($value)
+    public function setAllowLateUpload($value)
     {
         $acceptedValues = array('YES', 'NO');
 
@@ -650,12 +664,12 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer a unix time stamp
      */
-    function getStartDate()
+    public function getStartDate()
     {
         return $this->startDate;
     }
 
-    function setStartDate($value)
+    public function setStartDate($value)
     {
         $this->startDate = (int) $value;
     }
@@ -666,12 +680,12 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer a unix time stamp
      */
-    function getEndDate()
+    public function getEndDate()
     {
         return $this->endDate;
     }
 
-    function setEndDate($value)
+    public function setEndDate($value)
     {
         $this->endDate = (int) $value;
     }
@@ -682,12 +696,12 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getAutoFeedbackText()
+    public function getAutoFeedbackText()
     {
         return $this->autoFeedbackText;
     }
 
-    function setAutoFeedbackText($value)
+    public function setAutoFeedbackText($value)
     {
         $this->autoFeedbackText = $value;
     }
@@ -698,12 +712,12 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getAutoFeedbackFilename()
+    public function getAutoFeedbackFilename()
     {
         return $this->autoFeedbackFilename;
     }
 
-    function setAutoFeedbackFilename($value)
+    public function setAutoFeedbackFilename($value)
     {
         $this->autoFeedbackFilename = $value;
     }
@@ -714,12 +728,12 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getAutoFeedbackSubmitMethod()
+    public function getAutoFeedbackSubmitMethod()
     {
         return $this->autoFeedbackSubmitMethod;
     }
 
-    function setAutoFeedbackSubmitMethod($value)
+    public function setAutoFeedbackSubmitMethod($value)
     {
         $acceptedValues = array('ENDDATE', 'AFTERPOST');
 
@@ -737,7 +751,7 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getAssigDirSys()
+    public function getAssigDirSys()
     {
         return $this->assigDirSys;
     }
@@ -748,7 +762,7 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getAssigDirWeb()
+    public function getAssigDirWeb()
     {
         return $this->assigDirWeb;
     }
@@ -759,7 +773,7 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean
      */
-    function isUploadDateOk()
+    public function isUploadDateOk()
     {
         $now = time();
 
