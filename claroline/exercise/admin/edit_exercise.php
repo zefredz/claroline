@@ -218,10 +218,14 @@ $cmdList[] = array(
     'name' => get_lang('New question'),
     'url' => claro_htmlspecialchars(Url::Contextualize('./edit_question.php?exId='.$exId.'&cmd=rqEdit'))
 );
-$cmdList[] = array(
-    'name' => get_lang('Get a question from another exercise'),
-    'url' => claro_htmlspecialchars(Url::Contextualize('./question_pool.php?exId='.$exId))
-);
+
+if ( $exId )
+{
+    $cmdList[] = array(
+        'name' => get_lang('Get a question from another exercise'),
+        'url' => claro_htmlspecialchars(Url::Contextualize('./question_pool.php?exId='.$exId))
+    );
+}
 
 
 /*
