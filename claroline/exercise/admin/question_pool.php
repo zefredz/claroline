@@ -154,6 +154,31 @@ if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') )
     }
 }
 
+if (($cmd == 'recupMultipleQuestions') && !is_null($exId))
+{
+	// add multiple question selection
+	$sql = "SELECT `id` FROM `".  $tbl_quiz_question. "` ORDER BY `id`";
+	$list = claro_sql_query_fetch_all_rows($sql);
+	$ok = true;
+	foreach ($list as $questionInfo)
+	{
+		$quId = $questionInfo['id'];
+
+		if (isset($_REQUEST[$quId]))
+		{
+			if (!$exercise->addQuestion($quId) )
+			{
+				$ok = false;
+			}
+		}
+	}
+	if( $ok )
+    {
+        // TODO show confirmation and back link
+        header('Location: ' . Url::Contextualize( 'edit_exercise.php?exId='.$exId ));
+    }
+}
+
 /*
  * Get list
  */
@@ -305,14 +330,33 @@ $out .= "\n"
 //-- pager
 $out .= $myPager->disp_pager_tool_bar($pagerUrl);
 
+/*
+ * enable multiple question selection
+ */
+ if ( !is_null($exId) )
+ {
+ 	$out .= '<form method="post" name="QCMEncode" action="'.$_SERVER['PHP_SELF'].'?cmd=recupMultipleQuestions">' . "\n";
+ 	$out .= '<input type="hidden" name="exId" value="'.$exId.'" />' . "\n";
+ }
+
 //-- list
 $display = new ModuleTemplate( 'CLQWZ' , 'question_list.tpl.php' );
 $display->assign( 'exId', $exId );
 $display->assign( 'questionList', $questionList );
 $display->assign( 'context', is_null( $exId ) ? 'pool' : 'reuse' );
 $display->assign( 'localizedQuestionType', get_localized_question_type() );
-$display->assign( 'offest', $offset );
+$display->assign( 'offset', $offset );
 $out .= $display->render();
+
+/*
+ * enable multiple question selection
+ */
+ if ( !is_null($exId) )
+ {
+ 	$out .= '<div align="center"><input type="submit" name="submit" value="'.get_lang('Ok').'" />' . "\n";
+ 	$out .= '<input type="reset" name="reset" value="'.get_lang('cancel').'" /></div>' . "\n";
+ 	$out .= '</form>' . "\n";
+ }
 
 //-- pager
 $out .= $myPager->disp_pager_tool_bar($pagerUrl);

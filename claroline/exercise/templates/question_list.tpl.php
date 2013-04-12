@@ -36,6 +36,7 @@
                     <a href="<?php echo claro_htmlspecialchars( Url::Contextualize( 'question_pool.php?exId=' . $this->exId . '&amp;cmd=rqUse&amp;quId=' . $question['id'] ) ); ?>">
                         <img src="<?php echo get_icon_url( 'select' ); ?>" alt="<?php echo get_lang( 'Reuse' ); ?>" />
                     </a>
+                    &nbsp; <?php if ($this->exId && ( 'reuse' == $this->context )) { ?><input type="checkbox" name="<?php echo $question['id']; ?>" value="true" /> <?php } ?>
                 </td>
             <?php else : ?>
                 <td align="center">
