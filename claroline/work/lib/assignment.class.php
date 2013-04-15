@@ -483,7 +483,7 @@ class Assignment
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string unique filename with extension
      */
-    protected function createUniqueFilename($filename)
+    public function createUniqueFilename($filename)
     {
         $dotPosition = strrpos($filename, '.');
 
