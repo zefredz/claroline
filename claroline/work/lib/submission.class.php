@@ -22,62 +22,62 @@ class Submission
     /**
      * @var $id id of submission, 0 if submission doesn't exist already
      */
-    var $id;
+    private $id;
 
     /**
      * @var $assignmentId id of assignment
      */
-    var $assignmentId;
+    private $assignmentId;
 
     /**
      * @var $userId id of author
      */
-    var $userId;
+    private $userId;
 
     /**
      * @var $groupId id of group for which the submission was made, only if assignment is for groups
      */
-    var $groupId;
+    private $groupId;
 
     /**
      * @var $title name of the submission
      */
-    var $title;
+    private $title;
 
     /**
      * @var $visibility visibility of the submission
      */
-    var $visibility;
+    private $visibility;
 
     /**
      * @var $creationDate date of the creation of the submission, doesn't change
      */
-    var $creationDate;
+    private $creationDate;
 
     /**
      * @var $lastEditDate date of last edition, change on each edit
      */
-    var $lastEditDate;
+    private $lastEditDate;
 
     /**
      * @var $author name of the author(s) (submission can be made by someone different from original author)
      */
-    var $author;
+    private $author;
 
     /**
      * @var $submittedText text of submission
      */
-    var $submittedText;
+    private $submittedText;
 
     /**
      * @var $submittedFilename name of the file that have been submitted
      */
-    var $submittedFilename;
+    private $submittedFilename;
 
     /**
      * @var $parentId is set if the submission is a feedback of a submission and take the id of this submission as parentId
      */
-    var $parentId;
+    private $parentId;
 
     /**
      * @var $originalId keep the id of the author of parent submission (if this submission is a feedback)
@@ -85,25 +85,25 @@ class Submission
      *                     mainly used in queries where we need to count the number of feedback of an author submission list
      *
      */
-    var $originalId;
+    private $originalId;
 
     /**
      * @var $privateFeedback feedback that will be visible only for course administrator(s)
      *                          (only set if submission is a feedback)
      */
-    var $privateFeedback;
+    private $privateFeedback;
 
     /**
      * @var $score result (only set if submission is a feedback)
      */
-    var $score;
+    private $score;
 
     /**
      * @var $tblSubmission web path to assignment dir
      */
-    var $tblSubmission;
+    private $tblSubmission;
 
-    function Submission($course_id = null)
+    public function __construct($course_id = null)
     {
         $this->id = -1;
         $this->assignmentId = null;
@@ -125,7 +125,7 @@ class Submission
         $this->tblSubmission = $tbl_cdb_names['wrk_submission'];
     }
 
-    function load($id)
+    public function load($id)
     {
         $sql = "SELECT
                     `id`,
@@ -175,7 +175,7 @@ class Submission
         }
     }
 
-    function save()
+    public function save()
     {
         // TODO method to validate data
         if( $this->id == -1 )
@@ -242,7 +242,7 @@ class Submission
         }
     }
 
-    function delete($assigDirSys)
+    public function delete($assigDirSys)
     {
         $sql = "DELETE FROM `".$this->tblSubmission."`
                 WHERE `id` = '".$this->id."'";
@@ -268,7 +268,7 @@ class Submission
      * @param string $visibility
      * @return boolean
      */
-    static function updateSubmissionVisibility($submissionId, $visibility)
+    public static function updateSubmissionVisibility($submissionId, $visibility)
     {
         // this method is not used in object context so we cannot access $this->$tblAssignment
         $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -294,7 +294,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer
      */
-    function getAssignmentId()
+    public function getAssignmentId()
     {
         return $this->assignmentId;
     }
@@ -305,7 +305,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $value
      */
-    function setAssignmentId($value)
+    public function setAssignmentId($value)
     {
         $this->assignmentId = $value;
     }
@@ -316,7 +316,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer
      */
-    function getUserId()
+    public function getUserId()
     {
         return $this->userId;
     }
@@ -327,7 +327,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $value
      */
-    function setUserId($value)
+    public function setUserId($value)
     {
         $this->userId = (int) $value;
     }
@@ -338,7 +338,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer
      */
-    function getGroupId()
+    public function getGroupId()
     {
         return (int) $this->groupId;
     }
@@ -349,7 +349,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $value
      */
-    function setGroupId($value)
+    public function setGroupId($value)
     {
         $this->groupId = (int) $value;
     }
@@ -360,7 +360,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getTitle()
+    public function getTitle()
     {
         return $this->title;
     }
@@ -371,7 +371,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
-    function setTitle($value)
+    public function setTitle($value)
     {
         $this->title = $value;
     }
@@ -382,12 +382,12 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getVisibility()
+    public function getVisibility()
     {
         return $this->visibility;
     }
 
-    function setVisibility($value)
+    public function setVisibility($value)
     {
         $acceptedValues = array('VISIBLE', 'INVISIBLE');
 
@@ -405,7 +405,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer unix timestamp
      */
-    function getCreationDate()
+    public function getCreationDate()
     {
         return (int) $this->creationDate;
     }
@@ -416,7 +416,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $value unix timestamp
      */
-    function setCreationDate($value)
+    public function setCreationDate($value)
     {
         $this->creationDate = (int) $value;
     }
@@ -427,7 +427,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer unix timestamp
      */
-    function getLastEditDate()
+    public function getLastEditDate()
     {
         return (int) $this->lastEditDate;
     }
@@ -438,7 +438,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $value unix timestamp
      */
-    function setLastEditDate($value)
+    public function setLastEditDate($value)
     {
         $this->lastEditDate = (int) $value;
     }
@@ -449,7 +449,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getAuthor()
+    public function getAuthor()
     {
         return $this->author;
     }
@@ -460,7 +460,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
-    function setAuthor($value)
+    public function setAuthor($value)
     {
         $this->author = $value;
     }
@@ -472,7 +472,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getSubmittedText()
+    public function getSubmittedText()
     {
         return $this->submittedText;
     }
@@ -483,7 +483,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
-    function setSubmittedText($value)
+    public function setSubmittedText($value)
     {
         $this->submittedText = $value;
     }
@@ -494,7 +494,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getSubmittedFilename()
+    public function getSubmittedFilename()
     {
         return $this->submittedFilename;
     }
@@ -505,7 +505,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
-    function setSubmittedFilename($value)
+    public function setSubmittedFilename($value)
     {
         $this->submittedFilename = $value;
     }
@@ -516,7 +516,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return int
      */
-    function getParentId()
+    public function getParentId()
     {
         return (int) $this->parentId;
     }
@@ -527,7 +527,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param int $value
      */
-    function setParentId($value)
+    public function setParentId($value)
     {
         $this->parentId = (int) $value;
     }
@@ -538,7 +538,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return int
      */
-    function getOriginalId()
+    public function getOriginalId()
     {
         return (int) $this->originalId;
     }
@@ -549,7 +549,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param int $value
      */
-    function setOriginalId($value)
+    public function setOriginalId($value)
     {
         $this->originalId = (int) $value;
     }
@@ -560,7 +560,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
-    function getPrivateFeedback()
+    public function getPrivateFeedback()
     {
         return $this->privateFeedback;
     }
@@ -571,7 +571,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
-    function setPrivateFeedback($value)
+    public function setPrivateFeedback($value)
     {
         $this->privateFeedback = $value;
     }
@@ -582,7 +582,7 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return int
      */
-    function getScore()
+    public function getScore()
     {
         return (int) $this->score;
     }
@@ -593,8 +593,13 @@ class Submission
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param int $value
      */
-    function setScore($value)
+    public function setScore($value)
     {
         $this->score = (int) $value;
+    }
+    
+    public function getId()
+    {
+        return $this->id;
     }
 }
