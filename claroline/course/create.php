@@ -164,7 +164,7 @@ else
     }
     else
     {
-        $backUrl = get_path('url');
+        $backUrl = get_path('url') . '/index.php';
     }
 }
 
