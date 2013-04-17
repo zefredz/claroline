@@ -36,6 +36,7 @@ require_once get_path('incRepositorySys') . '/lib/coursesearchbox.class.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
 include claro_get_conf_repository() . 'course_main.conf.php';
+include claro_get_conf_repository() . 'CLHOME.conf.php';
 
 $parentCategoryCode = '';
 $userSettingMode    = false;
