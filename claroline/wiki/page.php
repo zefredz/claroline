@@ -185,7 +185,7 @@ else
     if ( is_array( $accessControlList ) )
     {
         // course member
-        if ( claro_is_course_member() )
+        if ( claro_is_course_member() || claro_is_platform_admin () )
         {
             $is_allowedToRead = $is_allowedToAdmin
                 || WikiAccessControl::isAllowedToReadPage( $accessControlList, 'course' );
