@@ -156,13 +156,14 @@ class Database_Multiple_Query
         return $ret;
     }
     
-    protected function executeQueries( $queryString )
+    protected function executeQueries()
     {
         foreach ( $this->sqlQueryArray as $query )
         {
+            $sql = $query['query'];
+            
             try
-            {
-                $sql = $query['query'];
+            {    
                 Claroline::getDatabase()->exec( $sql );
             }
             catch( Exception $e )
@@ -205,12 +206,12 @@ class Database_PreparedStatement
     
     public function query( $params = array() )
     {
-        return $this->dbConn->query( $this->transformQuery( $sql, $params ) );
+        return $this->dbConn->query( $this->transformQuery( $this->sql, $params ) );
     }
     
     public function exec( $params = array() )
     {
-        return $this->dbConn->exec( $this->transformQuery( $sql, $params ) );
+        return $this->dbConn->exec( $this->transformQuery( $this->sql, $params ) );
     }
     
     protected function transformQuery( $sql, $params )
@@ -293,5 +294,3 @@ class Claroline_PreparedStatement extends Database_PreparedStatement
         parent::__construct( Claroline::getDatabase() );
     }
 }
-
-
