@@ -54,6 +54,11 @@ $tpl->assign( 'unregistrationAllowedInGroup',
     ? $_groupProperties ['unregistrationAllowed']
     : false
 );
+$tpl->assign( 'tutorRegistrationAllowedInGroup',
+    isset( $_groupProperties ['tutorRegistrationAllowed'] )
+    ? $_groupProperties ['tutorRegistrationAllowed']
+    : false
+);
 $tpl->assign( 'groupPrivate', $_groupProperties ['private'] );
 $tpl->assign( 'tools', $_groupProperties ['tools'] );
 

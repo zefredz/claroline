@@ -3499,3 +3499,4 @@ $_lang['Only use the document default time once. Once set no additional time wil
 $_lang['Use document default time only once'] = 'N\'utiliser le temps par défaut qu\'une seule fois';
 $_lang['Download only submissions from current course members'] = 'Télécharger uniquement les soumissions des utilisateurs actuellement inscrits au cours';
 $_lang['Apply default visibility also to sumissions already posted'] = 'Appliquer la visibilité par défaut aux travaux déjà soumis';
+$_lang['Tutors are allowed to register/unregister themselves in/from supervised groups'] = 'Les tuteurs sont autorisés à s\'inscrire ou se désinscrire eux-mêmes des groupes qu\'ils supervisent';

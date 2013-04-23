@@ -29,6 +29,34 @@
 </p>
 <?php endif; ?>
 
+<?php if ( $this->displayTutorRegistrationLink ): ?>
+
+<p>
+    <?php
+        echo claro_html_cmd_link( claro_htmlspecialchars(Url::Contextualize(
+            $_SERVER['PHP_SELF'] . '?tutorRegistration=1' ))
+            , '<img src="' . get_icon_url('enroll') . '"'
+            .     ' alt="" />'
+            . get_lang("Register me as tutor of this group")
+        );
+    ?>
+</p>
+
+<?php elseif ( $this->displayTutorUnregistrationLink ): ?>
+
+<p>
+    <?php
+        echo claro_html_cmd_link( claro_htmlspecialchars(Url::Contextualize(
+            $_SERVER['PHP_SELF'] . '?tutorUnregistration=1' ))
+            , '<img src="' . get_icon_url('unenroll') . '"'
+            .     ' alt="" />'
+            . get_lang("Unregister me as the tutor of this group")
+        );
+    ?>
+</p>
+<?php endif; ?>
+
+
 <div id="leftSidebar" class="toolList">
     <?php
         if ( is_array($this->toolLinkList ) ):

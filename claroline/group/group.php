@@ -79,7 +79,9 @@ $isGroupRegAllowed       =     claro_get_current_group_properties_data('registra
                                    && get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
                          )
                                );
+
 // Warning $groupRegAllowed is not valable before check of groupPerUserQuota
+
 
 $groupPrivate   = $_groupProperties ['private'];
 $nbGroupPerUser = $_groupProperties ['nbGroupPerUser'];
@@ -97,11 +99,17 @@ $tools['wiki'    ] = $_groupProperties['tools']['CLWIKI'];
 $tools['chat'    ] = $_groupProperties['tools']['CLCHT' ];*/
 
 $dialogBox = new DialogBox();
+
 //// **************** ACTIONS ***********************
 
-if ( isset($_REQUEST['regDone']) )
+if ( isset($_REQUEST['unregDone']) )
 {
     $dialogBox->success( get_lang("You have been removed of the group.") );
+}
+
+if ( isset($_REQUEST['tutorUnregDone']) )
+{
+    $dialogBox->success( get_lang("You are not tutor of the group anymore.") );
 }
 
 $display_groupadmin_manager = (bool) $is_allowedToManage;
@@ -309,6 +317,10 @@ if ( $is_allowedToManage )
         $newPropertyList['self_unregistration'] = isset($_REQUEST['self_unregistration'])
                                               ? (int) $_REQUEST['self_unregistration']
                                               : 0;
+        
+        $newPropertyList['tutor_registration'] = isset($_REQUEST['tutor_registration'])
+                                              ? (int) $_REQUEST['tutor_registration']
+                                              : 0;
 
         $newPropertyList['private'          ] = isset($_REQUEST['private'] )
                                               ? (int) $_REQUEST['private']
@@ -427,6 +439,8 @@ else
     $cmdList = array();
     $advancedCmdList = array();
 }
+
+$isTutorRegAllowed = claro_is_user_authenticated() && claro_is_course_tutor() && (claro_is_allowed_to_edit() || $_groupProperties ['tutorRegistrationAllowed'] );
 
 
 ////**************** OUTPUT ************************
@@ -611,6 +625,11 @@ if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
     $out .= '<th align="left">' . get_lang("Registration") . '</th>' . "\n"  ;
 }
 
+if ( $isTutorRegAllowed )
+{
+    $out .= '<th align="left">' . get_lang("Registration as tutor") . '</th>' . "\n"  ;
+}
+
 $out .= '<th>' . get_lang("Registered") . '</th>' . "\n"
 . '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['maxStudent'])).'">' . get_lang("Max.") . '</a></th>' . "\n"
 ;
@@ -736,6 +755,40 @@ if( $groupList )
                 }
                 $out .= '</td>' . "\n";
             }    // end If $isGroupRegAllowed
+        }
+        
+        if ( $isTutorRegAllowed )
+        {
+            $out .= '<td align="center">';
+
+                if ( $thisGroup['id_tutor'] == claro_get_current_user_id () )
+                {
+                    $out .= '&nbsp;'
+                    . '<a href="'
+                    . claro_htmlspecialchars( Url::Contextualize(
+                            'group_space.php?tutorUnRegistration=1&selfReg=1&gidReq=' . (int) $thisGroup['id'] )) . '">'
+                    . '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang("unregister") . '" />'
+                    . '</a>'
+                    ;
+                }
+                else
+                {
+                    if( !empty( $thisGroup['id_tutor'] ) || $thisGroup['is_member'] )
+                    {
+                        $out .= '&nbsp;-';
+                    }
+                    else
+                    {
+                        $out .= '&nbsp;'
+                        . '<a href="'
+                        . claro_htmlspecialchars( Url::Contextualize(
+                                'group_space.php?tutorRegistration=1&selfReg=1&gidReq=' . (int) $thisGroup['id'] )) . '">'
+                        . '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang("register") . '" />'
+                        . '</a>'
+                        ;
+                    }
+                }
+                $out .= '</td>' . "\n";
         }
 
         /*------------------

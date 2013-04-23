@@ -45,6 +45,31 @@
                 </span>
             </td>
         </tr>
+        
+        <tr>
+            <td valign="top">
+                <b><?php echo get_lang("Tutors"); ?></b>
+            </td>
+        </tr>
+        
+        <tr>
+            <td valign="top">
+                <span class="item">
+                    <input
+                        type="checkbox"
+                        name="tutor_registration"
+                        id="tutor_registration"
+                        value="1"
+                    <?php if ($this->tutorRegistrationAllowedInGroup) : ?>
+                        checked="checked"
+                    <?php endif; ?>
+                     />
+                    <label for="tutor_registration" >
+                    <?php echo get_lang("Tutors are allowed to register/unregister themselves in/from supervised groups"); ?>
+                    </label>
+                </span>
+            </td>
+        </tr>
 
     <?php if ( get_conf('multiGroupAllowed') ): ?>
         <?php

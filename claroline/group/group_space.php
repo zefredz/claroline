@@ -93,9 +93,17 @@ $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
 $is_allowedToSelfRegInGroup  = (bool) $is_allowedToSelfRegInGroup && claro_is_in_a_course() && ( ! claro_is_group_member() ) && claro_is_course_member();
 $is_allowedToSelfUnregInGroup  = (bool) $_groupProperties ['unregistrationAllowed'] && claro_is_in_a_course() && claro_is_group_member() && claro_is_course_member();
 
-
 $is_allowedToDocAccess = (bool) ( claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor());
 $is_allowedToChatAccess     = (bool) (     claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor() );
+
+$isTutorRegAllowed = ( $is_allowedToManage || $_groupProperties ['tutorRegistrationAllowed'] ) 
+    && !claro_is_group_member() 
+    && !claro_is_group_tutor() 
+    && claro_is_course_tutor () 
+    && !claro_get_current_group_data('tutorId');
+
+$isTutorUnregAllowed = ( $is_allowedToManage || $_groupProperties ['tutorRegistrationAllowed'] ) 
+    && claro_is_group_tutor();
 
 /**
  * SELF-REGISTRATION PROCESS
@@ -195,7 +203,107 @@ if( isset($_REQUEST['unregistration']) )
     }
 }
 
+/**
+ * TUTOR REGISTRATION PROCESS
+ */
 
+if( isset($_REQUEST['tutorRegistration']) )
+{
+    //RECHECK if subscribe is aivailable
+    if( $isTutorRegAllowed )
+    {
+        if( isset($_REQUEST['doReg']) )
+        {
+            //RECHECK if subscribe is aivailable
+            if( $isTutorRegAllowed )
+            {
+
+                $sql = "UPDATE `" . $tbl_group_team . "`
+                SET 
+                    `tutor` = " . (int) claro_get_current_user_id() . "
+                WHERE
+                    `id` = " . (int) claro_get_current_group_id()
+                    ;
+                    
+                if (claro_sql_query($sql))
+                {
+                    // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
+                    claro_redirect($_SERVER['PHP_SELF'] . '?gidReset=1&gidReq=' . claro_get_current_group_id() . '&tutorRegDone=1');
+                    exit();
+
+                }
+            }
+        }
+        else // Confirm reg
+        {
+            $dialogBox->form( get_lang('Confirm your subscription as tutor of the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
+                . '<form action="' . claro_htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+                . claro_form_relay_context()
+                . '<input type="hidden" name="tutorRegistration" value="1" />' . "\n"
+                . '<input type="hidden" name="doReg" value="1" />' . "\n"
+                . '<br />' . "\n"
+                . '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
+                . claro_html_button(claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
+                . '</form>' . "\n"
+            );
+
+        }
+
+    }
+}
+
+
+if ( isset($_REQUEST['tutorRegDone']) )
+{
+    $dialogBox->success(
+        get_lang("You are now the tutor of this group.")
+    );
+}
+
+if( isset($_REQUEST['tutorUnregistration']) )
+{
+    //RECHECK if subscribe is aivailable
+    if( $isTutorUnregAllowed )
+    {
+        if( isset($_REQUEST['doUnreg']) )
+        {
+            //RECHECK if subscribe is aivailable
+            if( $isTutorUnregAllowed )
+            {
+
+                $sql = "UPDATE `" . $tbl_group_team . "`
+                SET 
+                    `tutor` = NULL
+                WHERE
+                    `id` = " . (int) claro_get_current_group_id()
+                    ;
+
+                if (claro_sql_query($sql))
+                {
+                    // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
+                    claro_redirect( dirname($_SERVER['PHP_SELF']) . '/group.php?gidReset=1&tutorUnregDone=1');
+                    exit();
+
+                }
+            }
+        }
+        else // Confirm reg
+        {
+            $dialogBox->form( get_lang('Confirm your unsubscription as tutor from the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
+                . '<form action="' . claro_htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+                . claro_form_relay_context()
+                . '<input type="hidden" name="tutorUnregistration" value="1" />' . "\n"
+                . '<input type="hidden" name="doUnreg" value="1" />' . "\n"
+                . '<br />' . "\n"
+                . '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
+                . claro_html_button(claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
+                . '</form>' . "\n"
+            );
+
+        }
+
+    }
+}
 
 /********************************
  * GROUP INFORMATIONS RETRIVIAL
@@ -340,6 +448,16 @@ $groupSpaceTemplate->assign(
 $groupSpaceTemplate->assign(
     'displayUnregistrationLink',
     $is_allowedToSelfUnregInGroup && !array_key_exists('unregistration',$_REQUEST)
+);
+
+$groupSpaceTemplate->assign(
+    'displayTutorRegistrationLink',
+    $isTutorRegAllowed && !array_key_exists('tutorRegistration',$_REQUEST)
+);
+
+$groupSpaceTemplate->assign(
+    'displayTutorUnregistrationLink',
+    $isTutorUnregAllowed && !array_key_exists('tutorUnregistration',$_REQUEST)
 );
 
 $groupSpaceTemplate->assign( 'toolLinkList', $toolLinkList );
