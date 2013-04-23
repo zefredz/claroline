@@ -28,7 +28,16 @@
     <?php endif;?>
             <tr valign="top"><td>&nbsp;</td>
                 <td><input class="confirm" type="submit" name="submit" value="<?php echo get_lang( 'Ok' )?>" />&nbsp;
-                    <?php echo claro_html_button( claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?topic=' . $this->topicId ) ), get_lang( 'Cancel' ) )?>
+                   <?php  
+                      if ($this->editMode != "add") 
+                      {
+                        echo claro_html_button( claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?topic=' . $this->topicId ) ), get_lang( 'Cancel' ) ); 
+                      }
+                      else
+                      {    
+                        echo claro_html_button( claro_htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewforum.php?forum='. $this->forumId   ) ), get_lang('Cancel') );
+                      }
+                      ?>
                 </td>
             </tr>
         </tbody>
