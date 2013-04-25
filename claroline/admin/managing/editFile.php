@@ -57,6 +57,9 @@ $textZoneList['textzone_edit_profile_form.inc.html'] = array( 'filename' => get_
 $textZoneList['textzone_upload_file_disclaimer.inc.html'] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_upload_file_disclaimer.inc.html',
                          'desc' => get_lang('Message displayed on the file upload pages'));
 
+$textZoneList['textzone_messaging_top.inc.html'] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_messaging_top.inc.html',
+                         'desc' => get_lang('Message displayed in the internal messaging'));
+
 $display = DISP_FILE_LIST;
 
 // Get command

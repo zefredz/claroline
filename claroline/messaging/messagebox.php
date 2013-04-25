@@ -97,6 +97,7 @@ else
 
 $claroline->display->banner->breadcrumbs->append($title,$_SERVER['PHP_SELF'].'?box='.$link_arg['box']);
 $claroline->display->body->appendContent(claro_html_tool_title($title));
+$claroline->display->body->appendContent(claro_text_zone::get_block ( 'textzone_messaging_top', claro_is_platform_admin () ));
 $claroline->display->body->appendContent($content);
 // ------------ display ----------------------
 

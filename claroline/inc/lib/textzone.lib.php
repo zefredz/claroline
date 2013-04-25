@@ -76,6 +76,8 @@ class claro_text_zone
                 . 'platform/textzone/' . $key . 'inc.html'
                 ;
         }
+        
+        pushClaroMessage($textZoneFile);
 
         return $textZoneFile;
     }
@@ -101,6 +103,30 @@ class claro_text_zone
         }
         
         return $content;
+    }
+    
+    /**
+     * return the content
+     *
+     * @param coursecode $key
+     * @param array $context
+     * @return string : html content
+     */
+    public static function get_block ( $key, $isadmin, $context = null, $right = null )
+    {
+        $out = self::get_content($key, $context, $right);
+        
+        
+        if (  $isadmin )
+        {
+            $out .= '<p>' . "\n"
+                .    '<a href="'.get_path('rootAdminWeb').'managing/editFile.php?cmd=rqEdit&amp;file=textzone_messaging_top.inc.html">' . "\n"
+                .    '<img src="'.get_icon_url('edit').'" alt="" />' . get_lang('Edit text zone') . "\n"
+                .    '</a>' . "\n"
+                .    '</p>';
+        }
+        
+        return $out;
     }
 
 }
