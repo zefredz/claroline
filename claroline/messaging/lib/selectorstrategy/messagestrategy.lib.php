@@ -27,6 +27,8 @@ abstract class MessageStrategy implements SelectorStrategy
     const ORDER_DESC = "DESC";
     const ORDER_ASC = "ASC";
     
+    const ORDER_BY_DATE = "M.send_time %order%";
+    
     protected $search = "";
     protected $searchStrategy = self::SEARCH_STRATEGY_WORD;
     
