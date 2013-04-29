@@ -1,87 +1,90 @@
 <?php // $Id$
 /**
- *
  * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author: claro team <cvs@claroline.net>
  *
- * @package LANG-SK
- *
- * @author Claro team <cvs@claroline.net>
- *
- *
- * Slovak translation Claroline 1.97 
- * author Lubos Balazovic <lubos.balazovic@gmail.com>
- *
- * translated for MVP projekt
- * http://www.modernizaciavzdeavania.sk
- * 
- * Slovak translation Claroline 1.11.4 
- * author Peter Strba <peter.strba@gymtut.edu.sk>
- */
+ * @package LANG-PL
+*/
 
-$iso639_1_code = "sk";
-$iso639_2_code = "svk";
+$englishLangName = "Polish";
+$localLangName = "polski";
 
-unset($langNameOfLang);
-unset($langDay_of_weekNames);
-unset($langMonthNames);
-unset($byteUnits);
+$iso639_1_code = "pl";
+$iso639_2_code = "pol";
 
-$langNameOfLang['arabic']        = "arab¹tina";
-$langNameOfLang['brazilian']     = "brazilèina";
-$langNameOfLang['bulgarian']     = "bulharèina";
-$langNameOfLang['catalan']       = "katalán¹tina";
-$langNameOfLang['croatian']      = "chorvát¹tina";
-$langNameOfLang['czech']         = "èe¹tina";
-$langNameOfLang['danish']        = "dán¹tina";
-$langNameOfLang['dutch']         = "holand¹tina";
-$langNameOfLang['english']       = "angliètina";
-$langNameOfLang['finnish']       = "fínètina";
-$langNameOfLang['french']        = "francúz¹tina";
-$langNameOfLang['galician']      = "gal¹tina";
-$langNameOfLang['german']        = "nemèina";
-$langNameOfLang['greek']         = "gréètina";
-$langNameOfLang['italian']       = "talianèia";
-$langNameOfLang['indonesian']    = "indonézèina";
-$langNameOfLang['japanese']      = "japonèina";
-$langNameOfLang['malay']         = "malaj¹tina"; 
-$langNameOfLang['polish']        = "pol¹tina";
-$langNameOfLang['portuguese']    = "portugaèina";
-$langNameOfLang['russian']       = "ru¹tina";
-$langNameOfLang['simpl_chinese'] = "zjednodu¹ená èín¹tina";
-$langNameOfLang['slovenian']     = "slovinèina";
-$langNameOfLang['slovak']        = "slovenèina";
-$langNameOfLang['spanish']       = "¹panielèina";
-$langNameOfLang['swedish']       = "¹véd¹tina";
-$langNameOfLang['thai']          = "thaièina";
-$langNameOfLang['turkish']       = "tureètina";
-$langNameOfLang['vietnamese']    = "vietnamèina";
+$langNameOfLang['english']         = 'angielski';
+$langNameOfLang['arabic']          = 'arabski';
+$langNameOfLang['brazilian']       = 'brazylijski';
+$langNameOfLang['bulgarian']       = 'bu³garski';
+$langNameOfLang['zh_tw']           = 'chiñski tradycyjny';
+$langNameOfLang['simpl_chinese']   = 'chiñski uproszczony';
+$langNameOfLang['croatian']        = 'chorwacki';
+$langNameOfLang['czech']           = 'czeski';
+$langNameOfLang['czechSlovak']     = 'czesko-s³owacki';
+$langNameOfLang['danish']          = 'duñski';
+$langNameOfLang['esperanto']       = 'esperanto';
+$langNameOfLang['estonian']        = 'estoñski';
+$langNameOfLang['finnish']         = 'fiñski';
+$langNameOfLang['french']          = 'francuski';
+$langNameOfLang['french_corp']     = 'francuski Korp.';
+$langNameOfLang['galician']        = 'galicyjski';
+$langNameOfLang['greek']           = 'grecki';
+$langNameOfLang['georgian']        = 'gruziñski';
+$langNameOfLang['guarani']         = 'guarani';
+$langNameOfLang['spanish']         = 'hiszpañski';
+$langNameOfLang['spanish_latin']   = 'hiszpañski (Amer.£aciñska)';
+$langNameOfLang['dutch']           = 'holenderski';
+$langNameOfLang['indonesian']      = 'indonezyjski';
+$langNameOfLang['japanese']        = 'japoñski';
+$langNameOfLang['catalan']         = 'kataloñski';
+$langNameOfLang['lao']             = 'laotañski';
+$langNameOfLang['malay']           = 'malajski';
+$langNameOfLang['german']          = 'niemiecki';
+$langNameOfLang['armenian']        = 'ormiañski';
+$langNameOfLang['persian']         = 'perski';
+$langNameOfLang['polish']          = 'polski';
+$langNameOfLang['portuguese']      = 'portugalski';
+$langNameOfLang['russian']         = 'rosyjski';
+$langNameOfLang['romanian']        = 'rumuñski';
+$langNameOfLang['slovenian']       = 's³oweñski';
+$langNameOfLang['swedish']         = 'szwedzki';
+$langNameOfLang['thai']            = 'tajski';
+$langNameOfLang['turkish']         = 'turecki';
+$langNameOfLang['turkce']          = 'turecki';
+$langNameOfLang['ukrainian']       = 'ukraiñski';
+$langNameOfLang['vietnamese']      = 'wietnamski';
+$langNameOfLang['hungarian']       = 'wêgierski';
+$langNameOfLang['italian']         = 'w³oski';
 
 $charset = 'iso-8859-2';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
-$left_font_family = 'verdana, helvetica, arial, sans-serif';
-$right_font_family = 'helvetica, arial, sans-serif';
-$number_thousands_separator = ',';
-$number_decimal_separator = '.';
-$byteUnits = array('Bajtov', 'KB', 'MB', 'GB');
+$left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
+$right_font_family = 'helvetica, arial, geneva, sans-serif';
+$number_thousands_separator = ' ';
+$number_decimal_separator = ',';
+$byteUnits = array('bajtów', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'); // shortcuts for Byte, Kilo, Mega, Giga, Tera, Peta, Exa
 
-$langDay_of_weekNames['init'] = array('N','P', 'U', 'S', '©', 'P', 'S');
-$langDay_of_weekNames['short'] = array('Ne','Po', 'Ut', 'St', '©t', 'Pi', 'So');
-$langDay_of_weekNames['long'] = array('Nedeµa', 'Pondelok', 'Utorok', 'Streda', '©tvrtok', 'Piatok', 'Sobota');
+$langDay_of_weekNames['init'] = array('N', 'P', 'W', '¦', 'C', 'Pt', 'S');
+$langDay_of_weekNames['short'] = array('nie', 'pon', 'wt', '¶r', 'czw', 'pt', 'sob');
+$langDay_of_weekNames['long'] = array('niedziela', 'poniedzia³ek', 'wtorek', '¶roda', 'czwartek', 'pi±tek', 'sobota');
 
-$langMonthNames['init']  = array('J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D');
-$langMonthNames['short'] = array('jan', 'feb', 'mar', 'apr', 'máj', 'jún', 'júl', 'aug', 'sept', 'okt', 'nov', 'dec');
-$langMonthNames['long'] = array('január', 'február', 'marec', 'april', 'máj', 'jún', 'júl', 'august', 'september', 'október', 'november', 'december');
+$langMonthNames['init']  = array('S', 'L', 'M', 'K', 'M', 'C', 'L', 'S', 'W', 'P', 'L', 'G');
+$langMonthNames['short'] = array('sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'pa¼', 'lis', 'gru');
+$langMonthNames['long'] = array('styczeñ', 'luty', 'marzec', 'kwiecieñ', 'maj', 'czerwiec', 'lipiec', 'sierpieñ', 'wrzesieñ', 'pa¼dziernik', 'listopad', 'grudzieñ');
 
-$dateFormatShort =  "%d. %b %y";
-$dateFormatLong  = '%A, %d. %B %Y';
-$dateTimeFormatLong  = '%d. %B %Y v %H:%M';
-$dateTimeFormatShort = "%d %b. %y, %H:%M";
+// See http://www.php.net/manual/en/function.strftime.php for the variable 
+// below
+
+$dateFormatShort =  "%#d %B %Y";
+$dateFormatLong  = '%A, %#d %B %Y';
+$dateFormatNumeric =  "%#d.%m.%Y";
+$dateTimeFormatShort = '%#d %b %Y, %H:%M';
+$dateTimeFormatLong  = '%#d %B %Y, %H:%M';
 $timeNoSecFormat = '%H:%M';
 
 ?>
