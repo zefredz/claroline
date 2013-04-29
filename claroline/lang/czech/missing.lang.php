@@ -108,12 +108,6 @@ $_lang['Next course events'] = 'Next course events';
 $_lang['No announcement to display'] = 'No announcement to display';
 $_lang['No group'] = 'No group';
 $_lang['No mime-type available'] = 'No mime-type available';
-$_lang['Note :  this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses.'] = 'Note :  this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses.';
-$_lang['Note : this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'] = 'Note : this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir';
 $_lang['Notify all files when uncompressing archive'] = 'Notify all files when uncompressing archive';
 $_lang['Only a platform administrator can change this option'] = 'Only a platform administrator can change this option';
 $_lang['Only the users with a valid address will receive their password by email'] = 'Only the users with a valid address will receive their password by email';
@@ -131,9 +125,6 @@ $_lang['Portlet moved down'] = 'Portlet moved down';
 $_lang['Portlet moved up'] = 'Portlet moved up';
 $_lang['Portlet visibility modified'] = 'Portlet visibility modified';
 $_lang['Printable version (Shuffle)'] = 'Printable version (Shuffle)';
-$_lang['Profile SQL in DEBUG MODE.
-Display for each request :duration, counter,  statement '] = 'Profile SQL in DEBUG MODE.
-Display for each request :duration, counter,  statement ';
 $_lang['Question categories'] = 'Question categories';
 $_lang['Question details'] = 'Question details';
 $_lang['ROOT category allowed for courses'] = 'ROOT category allowed for courses';
@@ -189,20 +180,12 @@ $_lang['This course is not available'] = 'This course is not available';
 $_lang['This course is not available anymore, please contact the platform administrator.'] = 'This course is not available anymore, please contact the platform administrator.';
 $_lang['This course will be disable on the %date'] = 'This course will be disable on the %date';
 $_lang['This course will be enabled on the %date'] = 'This course will be enabled on the %date';
-$_lang['This feature is use for institute with  blind users. 
- I fact, System would be ehanced to activate this view user by user'] = 'This feature is use for institute with  blind users. 
- I fact, System would be ehanced to activate this view user by user';
 $_lang['This forum allows anonymous contributions!<br/>'] = 'This forum allows anonymous contributions!<br/>';
 $_lang['This introduction can\'t be moved down'] = 'This introduction can\'t be moved down';
 $_lang['This introduction can\'t be moved up'] = 'This introduction can\'t be moved up';
 $_lang['This introduction\'s visibility can\'t be modified'] = 'This introduction\'s visibility can\'t be modified';
 $_lang['This limit doesn\'t include course\'s tutors and managers'] = 'This limit doesn\'t include course\'s tutors and managers';
 $_lang['This may take some time, please wait until the end of the process...'] = 'This may take some time, please wait until the end of the process...';
-$_lang['This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.
-This option allow only to request it, and don\'t prework the answer
-'] = 'This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.
-This option allow only to request it, and don\'t prework the answer
-';
 $_lang['This portlet can\'t be moved down'] = 'This portlet can\'t be moved down';
 $_lang['This portlet can\'t be moved up'] = 'This portlet can\'t be moved up';
 $_lang['This topic has been deleted'] = 'This topic has been deleted';
@@ -212,17 +195,6 @@ $_lang['This user account is not active anymore in this course'] = 'This user ac
 $_lang['This user account is now active in the course'] = 'This user account is now active in the course';
 $_lang['This username is already taken'] = 'This username is already taken';
 $_lang['This will copy the learning path user progression over your own. Do you want to proceed anyway?'] = 'This will copy the learning path user progression over your own. Do you want to proceed anyway?';
-$_lang['To find a table name, the choose database name is prepend to the table name.
-db glu is use between these two name.
-
-In multi db mode, IT MUST be a dot.
-In single db mode, IT CAN\'T be a dot.
-'] = 'To find a table name, the choose database name is prepend to the table name.
-db glu is use between these two name.
-
-In multi db mode, IT MUST be a dot.
-In single db mode, IT CAN\'T be a dot.
-';
 $_lang['Tutors are allowed to register/unregister themselves in/from supervised groups'] = 'Tutors are allowed to register/unregister themselves in/from supervised groups';
 $_lang['Unknown post or edition mode'] = 'Unknown post or edition mode';
 $_lang['Unregister me as the tutor of this group'] = 'Unregister me as the tutor of this group';
@@ -235,9 +207,6 @@ $_lang['Used when downloading the assignements. Leave empty to use the default o
 $_lang['User attempt deleted from tracking'] = 'User attempt deleted from tracking';
 $_lang['Users can send messages from outside a course context'] = 'Users can send messages from outside a course context';
 $_lang['Visibility of the category must be set'] = 'Visibility of the category must be set';
-$_lang['Warning: When you delete a message keep in mind that it will be deleted for every user.
-        <br /><br />You cannot retrieve deleted messages!'] = 'Warning: When you delete a message keep in mind that it will be deleted for every user.
-        <br /><br />You cannot retrieve deleted messages!';
 $_lang['Would you like to add one ?'] = 'Would you like to add one ?';
 $_lang['You are enrolled to this course'] = 'You are enrolled to this course';
 $_lang['You are manager of this course'] = 'You are manager of this course';
