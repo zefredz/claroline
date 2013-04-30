@@ -259,7 +259,7 @@ class Assignment
                 // change visibility of all works only if defaultSubmissionVisibility has changed
                 if( $this->defaultSubmissionVisibility != $prevDefaultSubmissionVisibility )
                 {
-                    $this->updateAllSubmissionsVisibility($this->defaultSubmissionVisibility);
+                    $this->updateAllSubmissionsVisibility( $this->defaultSubmissionVisibility, true );
                 }
             }
 
@@ -386,18 +386,21 @@ class Assignment
      * @param string $visibility
      * @return boolean
      */
-    protected function updateAllSubmissionsVisibility($visibility)
+    protected function updateAllSubmissionsVisibility( $visibility, $ignoreFeedback = false )
     {
         $acceptedValues = array('VISIBLE', 'INVISIBLE');
 
         if( in_array($visibility, $acceptedValues) )
         {
+            $ignoreFeedbackSql = $ignoreFeedback ? "AND parent_id IS NULL" : '';
+            
             // adapt visibility of all submissions of the assignment
             // according to the default submission visibility
             $sql = "UPDATE `".$this->tblSubmission."`
                     SET `visibility` = '".claro_sql_escape($visibility)."'
                     WHERE `assignment_id` = ".$this->id."
-                    AND `visibility` != '".claro_sql_escape($visibility)."'";
+                    AND `visibility` != '".claro_sql_escape($visibility)."'
+                    {$ignoreFeedbackSql}";
 
             return claro_sql_query ($sql);
         }
