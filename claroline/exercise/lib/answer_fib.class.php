@@ -518,8 +518,7 @@ class answerFillInBlanks
             }
 
             //
-            $correctAnswer = claro_htmlspecialchars ( $this->answerDecode ( $this->answerList[ $i ] ) );
-            $correctAnswer = claro_htmlspecialchars ( $correctAnswer );
+            $correctAnswer = claro_htmlspecialchars ( $this->answerDecode ( $this->answerList[ $i ] ) );          
 
             $replacementList[ ] = str_replace ( '$', '\$', '[' . $userAnswer . ' / <span class="correct"><b>' . $correctAnswer . '</b></span>]' . "\n" );
         }
