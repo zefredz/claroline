@@ -111,7 +111,11 @@ if( !is_null($cmd) )
 
         }
         
-        if ( isset($_REQUEST['submission_visibility_applies_to_all']) && $_REQUEST['submission_visibility_applies_to_all'] == 'yes' ) $assignment->visibilityModificationAppliesToOldSubmissions ( true );
+        if ( isset($_REQUEST['submission_visibility_applies_to_all']) && $_REQUEST['submission_visibility_applies_to_all'] == 'yes' )
+        {
+            $assignment->visibilityModificationAppliesToOldSubmissions ( true );
+            $assignment->forceVisibilityChange();
+        }
 
         if ( isset($_REQUEST['def_submission_visibility']) )     $assignment->setDefaultSubmissionVisibility($_REQUEST['def_submission_visibility']);
         if ( isset($_REQUEST['assignment_type']) )                $assignment->setAssignmentType($_REQUEST['assignment_type']);

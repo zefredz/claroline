@@ -106,6 +106,8 @@ class Assignment
     private $tblSubmission;
     
     private $applyVisibilityChangeToOldSubmissions;
+    
+    private $_forceVisibilityChange;
 
     /**
      * constructor
@@ -142,6 +144,7 @@ class Assignment
         $this->tblSubmission = $tbl_cdb_names['wrk_submission'];
         
         $this->applyVisibilityChangeToOldSubmissions = !get_conf('confval_def_sub_vis_change_only_new');
+        $this->_forceVisibilityChange = false;
     }
 
     /**
@@ -257,7 +260,7 @@ class Assignment
                 $prevDefaultSubmissionVisibility = claro_sql_query_get_single_value($sqlGetOldData);
 
                 // change visibility of all works only if defaultSubmissionVisibility has changed
-                if( $this->defaultSubmissionVisibility != $prevDefaultSubmissionVisibility )
+                if( $this->_forceVisibilityChange || ( $this->defaultSubmissionVisibility != $prevDefaultSubmissionVisibility ) )
                 {
                     $this->updateAllSubmissionsVisibility( $this->defaultSubmissionVisibility, true );
                 }
@@ -411,6 +414,11 @@ class Assignment
     public function visibilityModificationAppliesToOldSubmissions( $trueOrFalse )
     {
         $this->applyVisibilityChangeToOldSubmissions = $trueOrFalse ? true : false;
+    }
+    
+    public function forceVisibilityChange()
+    {
+        $this->_forceVisibilityChange = true;
     }
     
     public function getId()
