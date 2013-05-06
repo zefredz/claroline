@@ -3475,3 +3475,4 @@ $_lang['Use document default time only once'] = 'Use document default time only 
 $_lang['Download only submissions from current course members'] = 'Download only submissions from current course members';
 $_lang['Apply default visibility also to sumissions already posted'] = 'Apply default visibility also to sumissions already posted';
 $_lang['Tutors are allowed to register/unregister themselves in/from supervised groups'] = 'Tutors are allowed to register/unregister themselves in/from supervised groups';
+$_lang['Unregister for all courses'] = 'Unregister for all courses';

@@ -32,7 +32,7 @@ if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // Filter input
-$validCmdList = array('unsubscribe',);
+$validCmdList = array('unsubscribe','rqRmAll');
 $cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
 
 $validRefererList = array('ulist',);
@@ -59,6 +59,24 @@ if ('unsubscribe' == $cmd)
     else                    $do = 'rem_user';
 }
 
+if ( 'rqRmAll' == $cmd)
+{
+    $courseList = claro_get_user_course_list($uidToEdit);
+    $ok = true;
+    foreach ($courseList as $course)
+    {
+        if ( !user_remove_from_course($uidToEdit,$course['sysCode'],true,false) )
+        {
+            $ok = false;
+            $dialogBox->error( get_lang('The user has not been successfully unregistered for course '. $course['sysCode']) );
+        }
+    }
+    if ($ok)
+    {
+        $dialogBox->success( get_lang('The user has been successfully unregistered for all courses') );
+    }
+}
+    
 // Execute command
 if ('rem_user' == $do )
 {
@@ -169,6 +187,7 @@ $nameTools = get_lang('User course list');
 // Javascript confirm pop up declaration for header
 $jslang = new JavascriptLanguage;
 $jslang->addLangVar('Are you sure you want to unregister %name ?');
+$jslang->addLangVar('Are you sure you want to unregister %name for all courses?');
 ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
 
 JavascriptLoader::getInstance()->load('admin');
@@ -185,6 +204,14 @@ $cmdList[] = array(
     'name' => get_lang('Enrol to a new course'),
     'url' => '../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse'
 );
+
+$cmdList[] = array(
+    'img' => 'delete',
+    'name' => get_lang('Unregister for all courses'),
+    'url' => $_SERVER['PHP_SELF'] . '?cmd=rqRmAll&amp;uidToEdit=' . $uidToEdit, 
+    'params' => array('onclick' => "return ADMIN.confirmationUnRegForAllCourses('".clean_str_for_javascript($userData['firstname'] . " " . $userData['lastname'])."');")
+);
+
 
 if ( 'ulist' == $cfrom )  //if we come from user list, we must display go back to list
 {

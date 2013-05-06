@@ -45,3 +45,17 @@ ADMIN.confirmationUninstall = function (name)
         return false;
     }
 }
+
+ADMIN.confirmationUnRegForAllCourses = function (name)
+{
+    var arr = {"%name" : name};
+    
+    if (confirm(Claroline.getLang('Are you sure you want to unregister %name for all courses?', arr)))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
