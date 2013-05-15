@@ -199,6 +199,8 @@ class ClaroHeader extends CoreTemplate
     {
         $this->_globalVarsCompat();
         
+        JavascriptLanguage::getInstance()->publish();
+        
         $titlePage = '';
 
         if(empty($this->_toolName) && !empty($this->_nameTools))

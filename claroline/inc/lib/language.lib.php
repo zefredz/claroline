@@ -674,10 +674,8 @@ function claro_utf8_encode_array( &$var )
  * In PHP :
  * --------
  *
- *      $jslang = new JavascriptLanguage;
- *      $jslang->addLangVar('User list');
+ *      JavascriptLanguage::getInstance()->addLangVar('User list');
  *      // ...
- *      ClaroHeader::getInstance()->addInlineJavascript( $jslang->render() );
  * 
  * In javascript :
  * ---------------
@@ -710,7 +708,7 @@ class JavascriptLanguage
         return implode ( ",\n\t", $pack ) . "\n";
     }
     
-    public function render()
+    public function buildJavascript()
     {
         return "
 <script type=\"text/javascript\">
@@ -727,5 +725,33 @@ var __ = (function(){
 })();
 </script>
             ";
+    }
+    
+    /**
+     * @deprecated called automatically by kernel
+     * @return string
+     */
+    public function render()
+    {
+        Console::debug( __CLASS__ . '::' . __FUNCTION__ . " is deprecated" );
+        
+        return '';
+    }
+    
+    public function publish()
+    {
+        ClaroHeader::getInstance()->addInlineJavascript( $this->buildJavascript () );
+    }
+    
+    protected static $instance = false;
+    
+    public static function getInstance()
+    {
+        if ( ! self::$instance )
+        {
+            self::$instance = new self();
+        }
+        
+        return self::$instance;
     }
 }
