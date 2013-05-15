@@ -738,11 +738,6 @@ var __ = (function(){
         return '';
     }
     
-    public function publish()
-    {
-        ClaroHeader::getInstance()->addInlineJavascript( $this->buildJavascript () );
-    }
-    
     protected static $instance = false;
     
     public static function getInstance()

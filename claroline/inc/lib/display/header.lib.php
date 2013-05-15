@@ -199,7 +199,7 @@ class ClaroHeader extends CoreTemplate
     {
         $this->_globalVarsCompat();
         
-        JavascriptLanguage::getInstance()->publish();
+        $this->addInlineJavascript(JavascriptLanguage::getInstance()->buildJavascript());
         
         $titlePage = '';
 
