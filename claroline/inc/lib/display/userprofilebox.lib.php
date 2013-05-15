@@ -41,11 +41,13 @@ class UserProfileBox implements Display
     public function render()
     {
         CssLoader::getInstance()->load( 'profile', 'all' );
+        
         load_kernel_config('user_profile');
         
         $userData = user_get_properties( $this->userId );
         
         $pictureUrl = '';
+        
         if ( get_conf('allow_profile_picture') )
         {
             $picturePath = user_get_picture_path( $userData );
@@ -70,6 +72,7 @@ class UserProfileBox implements Display
         $dock = new ClaroDock('userProfileBox');
         
         $template = new CoreTemplate('user_profilebox.tpl.php');
+        $template->assign('userId', $this->userId);
         $template->assign('pictureUrl', $pictureUrl);
         $template->assign('userFullName', $userFullName);
         $template->assign('dock', $dock);
