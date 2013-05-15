@@ -51,13 +51,15 @@
                 <?php endif; ?>
             
             <?php endif; ?>
-            
+             <?php if ( $this->userData['user_id'] == claro_get_current_user_id()) : ?>
+           
             <p>
                 <a class="claroCmd" href="<?php  echo get_path('clarolineRepositoryWeb'); ?>auth/profile.php">
                 <img src="<?php echo get_icon_url('edit'); ?>" alt="<?php echo get_lang('Manage my account'); ?>" />
                 <?php echo get_lang('Manage my account'); ?>
                 </a>
             </p>
+               <?php endif; ?>
         </div>
     </div>
     
