@@ -41,9 +41,7 @@ $cmd   = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
 $id    = isset($_REQUEST['categoryId'])?$_REQUEST['categoryId']:null;
 
 // Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure to delete %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+JavascriptLanguage::getInstance ()->addLangVar('Are you sure to delete %name ?');
 
 JavascriptLoader::getInstance()->load('admin');
 
@@ -142,6 +140,7 @@ switch ( $cmd )
     // Shift or displace category (up)
     case 'exMoveUp' :
         $category = new claroCategory();
+        
         if ($category->load($id))
         {
             $category->decreaseRank();
@@ -162,7 +161,7 @@ switch ( $cmd )
     // Shift or displace category (down)
     case 'exMoveDown' :
         $category = new claroCategory();
-        $category = new claroCategory();
+        
         if ($category->load($id))
         {
             $category->increaseRank();
@@ -183,6 +182,7 @@ switch ( $cmd )
     // Change the visibility of a category
     case 'exVisibility' :
         $category = new claroCategory(null, null, null, null, null, null, null, null);
+        
         if ($category->load($id))
         {
             if( $category->swapVisibility())
@@ -224,7 +224,7 @@ $template->assign('dialogBox', $dialogBox);
 $template->assign('categories', $categories);
 
 // Append output
-$claroline->display->body->appendContent($template->render());
+Claroline::getDisplay()->body->appendContent($template->render());
 
 // Generate output
-echo $claroline->display->render();
+echo Claroline::getDisplay()->render();

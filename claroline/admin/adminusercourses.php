@@ -185,10 +185,8 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('
 $nameTools = get_lang('User course list');
 
 // Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure you want to unregister %name ?');
-$jslang->addLangVar('Are you sure you want to unregister %name for all courses?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+JavascriptLanguage::getInstance()->addLangVar('Are you sure you want to unregister %name ?');
+JavascriptLanguage::getInstance()->addLangVar('Are you sure you want to unregister %name for all courses?');
 
 JavascriptLoader::getInstance()->load('admin');
 

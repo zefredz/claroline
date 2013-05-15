@@ -31,9 +31,7 @@ $tbl_class      = $tbl_mdb_names['user_category'];
 $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 
 // Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure you want to unregister %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+JavascriptLanguage::getInstance ()->addLangVar('Are you sure you want to unregister %name ?');
 
 JavascriptLoader::getInstance()->load('admin');
 

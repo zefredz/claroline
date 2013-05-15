@@ -1465,11 +1465,9 @@ $_SERVER['QUERY_STRING'] = '';
 
 
 // Display (3 view modes: image, thumbnails or files)
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure to delete %name ?');
-$jslang->addLangVar('Click to zoom out');
-$jslang->addLangVar('Click to zoom in');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+JavascriptLanguage::getInstance()->addLangVar('Are you sure to delete %name ?');
+JavascriptLanguage::getInstance()->addLangVar('Click to zoom out');
+JavascriptLanguage::getInstance()->addLangVar('Click to zoom in');
 
 JavascriptLoader::getInstance()->load('documents');
 

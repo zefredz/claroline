@@ -36,9 +36,7 @@ $tbl_course_class          = $tbl_mdb_names['rel_course_class'];
 $tbl_class              = $tbl_mdb_names['class'];
 
 // Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure you want to unregister %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+JavascriptLanguage::getInstance ()->addLangVar('Are you sure you want to unregister %name ?');
 
 JavascriptLoader::getInstance()->load('admin');
 

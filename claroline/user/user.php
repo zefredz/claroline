@@ -45,9 +45,7 @@ include claro_get_conf_repository() . 'user_profile.conf.php';
    JavaScript - Delete Confirmation
   ----------------------------------------------------------------------*/
 
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure to delete %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+JavascriptLanguage::getInstance()->addLangVar('Are you sure to delete %name ?');
 
 JavascriptLoader::getInstance()->load('user');
 

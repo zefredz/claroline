@@ -448,10 +448,8 @@ JavaScriptLoader::getInstance()->load( 'forum' );
 CssLoader::getInstance()->load( 'clfrm', 'screen' );
 
 // Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure to delete %name ?');
-$jslang->addLangVar('Do you really want to sign your contribution ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+JavascriptLanguage::getInstance()->addLangVar('Are you sure to delete %name ?');
+JavascriptLanguage::getInstance()->addLangVar('Do you really want to sign your contribution ?');
 
 JavascriptLoader::getInstance()->load('forum');
 

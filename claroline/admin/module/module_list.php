@@ -73,9 +73,7 @@ $dialogBox = new DialogBox;
 $nameTools = get_lang('Modules');
 
 // Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure you want to uninstall the module %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+JavascriptLanguage::getInstance()->addLangVar('Are you sure you want to uninstall the module %name ?');
 
 JavascriptLoader::getInstance()->load('admin');
 

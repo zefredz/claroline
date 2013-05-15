@@ -991,9 +991,7 @@ if( !$dispWrkForm && !$dispWrkDet )
 CssLoader::getInstance()->load( 'clwrk', 'screen');
 
 // Javascript confirm pop up declaration for header
-$jslang = new JavascriptLanguage;
-$jslang->addLangVar('Are you sure to delete %name ?');
-ClaroHeader::getInstance()->addInlineJavascript($jslang->render());
+JavascriptLanguage::getInstance()->addLangVar('Are you sure to delete %name ?');
 
 JavascriptLoader::getInstance()->load('work');
 
