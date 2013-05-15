@@ -669,52 +669,63 @@ function claro_utf8_encode_array( &$var )
 
 /*
  * Usage :
+ * =======
+ * 
+ * In PHP :
+ * --------
  *
- * $jslang = new JavascriptLanguage;
- * $jslang->addLangVar('User list');
- * // ...
- * ClaroHeader::getInstance()->addInlineJavascript( $jslang->render() );
- * Claroline.getLang('User list');
+ *      $jslang = new JavascriptLanguage;
+ *      $jslang->addLangVar('User list');
+ *      // ...
+ *      ClaroHeader::getInstance()->addInlineJavascript( $jslang->render() );
+ * 
+ * In javascript :
+ * ---------------
+ * 
+ *      Claroline.getLang('User list');
 */
 class JavascriptLanguage
-{
-    protected $lang = array();
-
-    public function addLangVar( $langVar, $langValue = null )
+{    
+    private static $variables = array();
+    
+    public function addLangVar ( $varName, $varValue = null )
     {
-        if ( empty ($langValue ) )
-        {
-            $this->lang[$langVar] = get_lang($langVar);
-        }
-        else
-        {
-            $this->lang[$langVar] = $langValue;
-        }
-
-        return $this;
+        self::$variables[$varName] = $varValue ? $varValue : get_lang($varName);
     }
-
+    
+    protected function pack()
+    {
+        $pack = array();
+        
+        foreach ( self::$variables as $name => $translation )
+        {
+            $pack[] = '"' 
+                . str_replace( '"', '\\"', claro_htmlspecialchars( $name ) ) 
+                . '" : \'' 
+                . str_replace( "'", "\\'", claro_htmlspecialchars( $translation ) ) 
+                . '\''
+                ;
+        }
+        
+        return implode ( ",\n\t", $pack ) . "\n";
+    }
+    
     public function render()
     {
-        $out = '<script type="text/javascript">' . "\n";
+        return "
+<script type=\"text/javascript\">
+var __ = (function(){
 
-        $out .= "Claroline.setLangArray( {"."\n";
-        
-        $tmp = array();
+    var translation = {
+    " . $this->pack() . "
+    };
 
-        foreach ( $this->lang as $langVar => $langValue )
-        {
-            $langVar = str_replace ("'", "\\'",$langVar);
-            $langValue = str_replace ("'", "\\'",$langValue);
-            $tmp[] = "'$langVar':'$langValue'";
-        }
-        
-        $out .= implode(",\n", $tmp );
+    return function(string) {
+        return translation[string] || string;
+    };
 
-        $out .= "});\n"
-            . "</script>\n"
-            ;
-
-        return $out;
+})();
+</script>
+            ";
     }
 }

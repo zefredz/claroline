@@ -9,32 +9,15 @@ var Claroline = {};
 
 Claroline.version = '1.11 rev. $Revision$';
 
-Claroline.lang = {};
-
-/*
- * Usage : Claroline.setLangArray({
- *  'Not allowed': 'Non autorise'
- * });
- */
-Claroline.setLangArray = function ( langArray ) {
-    for ( var langVar in langArray ) {
-        Claroline.lang[langVar] = langArray[langVar];
-    }
-}
-
 Claroline.getLang = function(langVar, arr) {
-    if ( Claroline.lang[langVar] ){
-        str = Claroline.lang[langVar];
-        
-        for (var i in arr)
-        {
-            str = str.replace(i, arr[i]);
-        }
-        return str;
+    
+    var str = __(langVar);
+    
+    for ( var i in arr ) {
+        str = str.replace(i, arr[i]);
     }
-    else {
-        return langVar;
-    }
+    
+    return str;
 }
 
 Claroline.json = {
