@@ -1620,6 +1620,12 @@ function claro_die($message)
     
     Claroline::getInstance()->display->setContent( $dialogBox->render() );
     
+    if ( claro_debug_mode () )
+    {
+        
+        pushClaroMessage(  var_export(  debug_backtrace (), true ), 'debug' );
+    }
+    
     echo Claroline::getInstance()->display->render();
 
     die(); // necessary to prevent any continuation of the application
