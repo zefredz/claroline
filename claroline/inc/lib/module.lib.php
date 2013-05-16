@@ -1272,3 +1272,14 @@ function get_module_list_by_type( $type, $onlyActivated = true )
             M.`type` = ".Claroline::getDatabase()->quote($type)."
         {$activation}" );
 }
+
+/**
+ * Helper to set current module label and load config and language files
+ * @param string $moduleLabel
+ */
+function set_and_load_current_module( $moduleLabel )
+{
+    load_module_language($moduleLabel);
+    load_module_config($moduleLabel);
+    set_current_module_label($moduleLabel);
+}
