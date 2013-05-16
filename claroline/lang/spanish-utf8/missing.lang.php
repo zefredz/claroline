@@ -11,9 +11,13 @@ $_lang['Allow course manager to set the maximum number of students that can enro
 $_lang['Allow course manager to set the visibility of a course. An invisible course does not appear in the platform course list or in the course search engine. It only appears in the course list of enrolled users but can still be accessed by a direct URL.'] = 'Allow course manager to set the visibility of a course. An invisible course does not appear in the platform course list or in the course search engine. It only appears in the course list of enrolled users but can still be accessed by a direct URL.';
 $_lang['Apply default visibility also to sumissions already posted'] = 'Apply default visibility also to sumissions already posted';
 $_lang['Are you sure you want to remove the following module from the learning path :'] = 'Are you sure you want to remove the following module from the learning path :';
+$_lang['Are you sure you want to uninstall the module %name ?'] = 'Are you sure you want to uninstall the module %name ?';
+$_lang['Are you sure you want to unregister %name for all courses?'] = 'Are you sure you want to unregister %name for all courses?';
 $_lang['Are you sure you want to unregister all students from your course ?'] = 'Are you sure you want to unregister all students from your course ?';
 $_lang['Associate a default time in minute to a document that will be used for learnPath tracking'] = 'Associate a default time in minute to a document that will be used for learnPath tracking';
 $_lang['Available settings'] = 'Available settings';
+$_lang['Click to zoom in'] = 'Click to zoom in';
+$_lang['Click to zoom out'] = 'Click to zoom out';
 $_lang['Confirm your subscription as tutor of the group &quot;<b>%group_name</b>&quot;'] = 'Confirm your subscription as tutor of the group &quot;<b>%group_name</b>&quot;';
 $_lang['Confirm your unsubscription as tutor from the group &quot;<b>%group_name</b>&quot;'] = 'Confirm your unsubscription as tutor from the group &quot;<b>%group_name</b>&quot;';
 $_lang['Course actually treated :'] = 'Course actually treated :';
@@ -53,10 +57,13 @@ $_lang['Set this option ONLY if you are experiencing issues with the insertion o
 $_lang['Statistics in progress, please don\'t refresh until further instructions !'] = 'Statistics in progress, please don\'t refresh until further instructions !';
 $_lang['Students connected since last month:'] = 'Students connected since last month:';
 $_lang['Students connected since last week:'] = 'Students connected since last week:';
+$_lang['The user has been successfully unregistered for all courses'] = 'The user has been successfully unregistered for all courses';
+$_lang['The user has not been successfully unregistered for course'] = 'The user has not been successfully unregistered for course';
 $_lang['This course is not available anymore, please contact the platform administrator.'] = 'This course is not available anymore, please contact the platform administrator.';
 $_lang['Tutor'] = 'Tutor';
 $_lang['Tutors are allowed to register/unregister themselves in/from supervised groups'] = 'Tutors are allowed to register/unregister themselves in/from supervised groups';
 $_lang['Unlimited'] = 'Unlimited';
+$_lang['Unregister for all courses'] = 'Unregister for all courses';
 $_lang['Unregister me as the tutor of this group'] = 'Unregister me as the tutor of this group';
 $_lang['Use document default time only once'] = 'Use document default time only once';
 $_lang['Use new ordering of labels'] = 'Use new ordering of labels';

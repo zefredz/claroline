@@ -3501,3 +3501,44 @@ $_lang['Download only submissions from current course members'] = 'Télécharger u
 $_lang['Apply default visibility also to sumissions already posted'] = 'Appliquer la visibilité par défaut aux travaux déjà soumis';
 $_lang['Tutors are allowed to register/unregister themselves in/from supervised groups'] = 'Les tuteurs sont autorisés à s\'inscrire ou se désinscrire eux-mêmes des groupes qu\'ils supervisent';
 $_lang['Unregister for all courses'] = 'Désinscrire de tous les cours';
+
+$_lang['Are you sure you want to delete all the announcements ?'] = 'Êtes-vous certain(e) de vouloir supprimer toutes les annonces ?';
+$_lang['Are you sure you want to uninstall the module %name ?'] = 'Êtes vous certain(e) de vouloir supprimer le module %name ?';
+$_lang['Are you sure you want to unregister %name ?'] = 'Êtes vous certain(e) de vouloir désinscrire %name ?';
+$_lang['Are you sure you want to unregister %name for all courses?'] = 'tes vous certain(e) de vouloir désinscrire %name de tous ses cours?';
+$_lang['Click to zoom in'] = 'Cliquer pour zoomer';
+$_lang['Click to zoom out'] = 'Cliquer pour dézoomer';
+$_lang['Confirm your subscription as tutor of the group &quot;<b>%group_name</b>&quot;'] = 'Confirmer votre inscription comme tuteur du groupe &quot;<b>%group_name</b>&quot;';
+$_lang['Confirm your unsubscription as tutor from the group &quot;<b>%group_name</b>&quot;'] = 'Confirmer votre désinscription comme tuteur du groupe &quot;<b>%group_name</b>&quot;';
+$_lang['Message displayed in the internal messaging'] = 'Message affiché dans la messagerie interne';
+$_lang['Missing ressource'] = 'Resource manquante';
+$_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO server provides a way to retrieve the user parameters from another server on the internet on the base of this cookie value.'] = 'Après l\'identification d\'un utilisateur sur la plateforme, un cookie sera envoyé à son navigateur web. Ce cookie sera également enregistré pour une durée limitée dans la base de donnée de votre plateforme Claroline. Il pourra alors être utilisé par le le service de SSO de Claroline pour vérifier l\'identification de cet utilisateur depuis un autres site web, externe à votre plateforme.';
+$_lang['Page opened in new window or tab. <a target="_blank" href="%url">Click here if it\'s not the case.</a>'] = 'La page devrait s\'être ouverte automatiquement dans une nouvelle fenêtre ou un nouvel onglet. <a target="_blank" href="%url">Cliquez ici pour l\'ouvrir manuellement si ce n\'était pas le cas</a>';
+$_lang['Register me as tutor of this group'] = 'M\'enregistrer en tant que tuteur de ce groupe';
+$_lang['Registration as tutor'] = 'Inscription comme tuteur';
+$_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the cookie only available in the www  subdomain.'] = 'Domaine dans lequel le cookie est disponible.  Par exemple, pour rendre le cokkie disponible avec tous les sous-domaine de example.com, mettez comme valeur ".example.com". Le . au début n\'est pas obligatoire, mais assure la compatibilité avec un plus grand nombre de navigateurs web. La valeur "www.example.com" par contre ne rendra le cookie disponible que dans le sous-domaine www.';
+$_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.'] = 'Le chemin sur le serveur dans lequel le cookie sera disponible.  Utilisez "/" pour rendre le cookie disponible sur l\'ensemble du sous-domaine. Utilisez "/foo/", par exemple, pour rendre le cokkie uniquement disponible dans le répertoire /foo/ et tous ses sous-répertoire, pare exemple /foo/bar/. La valeur par défaut est le répertoire de la page dans laquelle le cookie est envoyé au navigateur.';
+$_lang['The user has been successfully unregistered for all courses'] = 'L\'utilisateur a bien été supprimé des tous ses cours';
+$_lang['The user has not been successfully unregistered for course'] = 'L\'utilisateur n\'a pas été désinscrit du cours';
+$_lang['This  prefix is added to each course table name. It\'s usefull in single database mode as it groups all course tables together.'] = 'Ce préfixe sera ajouté au nom de toutes les tables créées en base de données. Ceci est particulièrement pratique en mode base de données unique.';
+$_lang['This is the physical path to databases storage. This path is  optional, use by the quota and size.'] = 'C\'est le chemin des bases de données sur le disque. Ce chemin est optionnel. S\'il est défini, il sera utilisé par la vérification du quota d\'espace disque.';
+$_lang['This string is prepend to course database name if it begins with a number'] = 'Ce préfixe est ajouté au nom des base de données des cours si le nom du cours commence par un chiffre.';
+$_lang['To find a table name, the choose database name is prepend to the table name.
+db glu is use between these two name.
+
+In multi db mode, IT MUST be a dot.
+In single db mode, IT CAN\'T be a dot.
+'] = 'Lors de la construction du nom d\'une table de donnée, le nom de la base et le nom de la table seront concaténé avec la valeur de db glu ajoutée entre eux.
+
+En mode base de données multiple, db glu DOIT être un point.
+En mode base de données unique, db glu NE PEUT PAS être un point.
+';
+$_lang['Unregister me as the tutor of this group'] = 'Me désinscrire en tant que tuteur de ce groupe';
+$_lang['You are not tutor of the group anymore.'] = 'Vous n\'êtes plus le tuteur de ce groupe.';
+$_lang['You are now the tutor of this group.'] = 'Vous êtes maintenant le tuteur de ce groupe.';
+$_lang['cancel'] = 'annuler';
+$_lang['filename for one file module inclusion'] = 'nom du fichier pour l\'inclusion du module';
+$_lang['textzone_messaging_top'] = 'textzone_messaging_top';
+$_lang['unregister'] = 'désinscrire';
+$_lang['warning : Installation cannot find the description of the learning path and has set a default comment. You should change it'] = 'attention : la description du parcours n\'a pas pu être déterminée durant l\'installation et une valeur par défaut à été utilisée. N\'oubliez pas de la modifier';
+$_lang['warning : Installation cannot find the name of the learning path and has set a default name. You should change it.'] = 'attention : le nom du parcours n\'a pas pu être déterminé durant l\'installation. N\'oubliez pas de le modifier.';
