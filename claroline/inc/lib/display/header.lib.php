@@ -71,12 +71,12 @@ class ClaroHeader extends CoreTemplate
     
     public static function getInstance()
     {
-        if ( ! ClaroHeader::$instance )
+        if ( ! self::$instance )
         {
-            ClaroHeader::$instance = new ClaroHeader;
+            self::$instance = new self();
         }
 
-        return ClaroHeader::$instance;
+        return self::$instance;
     }
 
     /**
