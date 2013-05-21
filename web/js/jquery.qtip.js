@@ -243,7 +243,7 @@
                self.onShow.call(self, event);
 
                // Prevent antialias from disappearing in IE7 by removing filter attribute
-               if($.browser.msie) self.elements.tooltip.get(0).style.removeAttribute('filter');
+               if($.support.boxModel) self.elements.tooltip.get(0).style.removeAttribute('filter');
             };
 
             // Maintain toggle functionality if enabled
@@ -507,8 +507,8 @@
                newPosition.top -= (tooltip.dimensions.height / 2);
 
             // Setup IE adjustment variables (Pixel gap bugs)
-            ieAdjust = ($.browser.msie) ? 1 : 0; // And this is why I hate IE...
-            ie6Adjust = ($.browser.msie && parseInt($.browser.version.charAt(0)) === 6) ? 1 : 0; // ...and even more so IE6!
+            ieAdjust = ($.support.boxModel) ? 1 : 0; // And this is why I hate IE...
+            ie6Adjust = ($.support.boxModel && parseInt($.browser.version.charAt(0)) === 6) ? 1 : 0; // ...and even more so IE6!
 
             // Adjust for border radius
             if(self.options.style.border.radius > 0)
@@ -558,7 +558,7 @@
             }
 
             // Initiate bgiframe plugin in IE6 if tooltip overlaps a select box or object element
-            if(!self.elements.bgiframe && $.browser.msie && parseInt($.browser.version.charAt(0)) == 6)
+            if(!self.elements.bgiframe && $.support.boxModel && parseInt($.browser.version.charAt(0)) == 6)
             {
                $('select, object').each(function()
                {
@@ -639,7 +639,7 @@
                   hidden.hide();
 
                   // Set position and zoom to defaults to prevent IE hasLayout bug
-                  if($.browser.msie)
+                  if($.support.boxModel)
                      self.elements.wrapper.add(self.elements.contentWrapper.children()).css({ zoom: 'normal' });
 
                   // Set the new width
@@ -671,7 +671,7 @@
             };
 
             // IE only adjustments
-            if($.browser.msie)
+            if($.support.boxModel)
             {
                // Reset position and zoom to give the wrapper layout (IE hasLayout bug)
                self.elements.wrapper.add(self.elements.contentWrapper.children()).css({ zoom: '1' });
@@ -725,7 +725,7 @@
                   coordinates = calculateTip(corner, self.options.style.tip.size.width, self.options.style.tip.size.height);
                   drawTip.call(self, tip, coordinates, self.options.style.tip.color || self.options.style.border.color);
                }
-               else if($.browser.msie)
+               else if($.support.boxModel)
                {
                   // Set new fillcolor attribute
                   tip = self.elements.tooltip.find('.qtip-tip [nodeName="shape"]');
@@ -753,7 +753,7 @@
                         self.options.style.border.radius, self.options.style.border.color);
                   });
                }
-               else if($.browser.msie)
+               else if($.support.boxModel)
                {
                   // Set new fillcolor attribute on each border corner
                   self.elements.tooltip.find('.qtip-wrapper [nodeName="arc"]').each(function()
@@ -785,7 +785,7 @@
             else if(parsedContent === false) return;
 
             // Set position and zoom to defaults to prevent IE hasLayout bug
-            if($.browser.msie) self.elements.contentWrapper.children().css({ zoom: 'normal' });
+            if($.support.boxModel) self.elements.contentWrapper.children().css({ zoom: 'normal' });
 
             // Append new content if its a DOM array and show it if hidden
             if(content.jquery && content.length > 0)
@@ -1098,7 +1098,7 @@
       self.elements.content = self.elements.contentWrapper.children('div:first').css( jQueryStyle(self.options.style) );
 
       // Apply IE hasLayout fix to wrapper and content elements
-      if($.browser.msie) self.elements.wrapper.add(self.elements.content).css({ zoom: 1 });
+      if($.support.boxModel) self.elements.wrapper.add(self.elements.content).css({ zoom: 1 });
 
       // Setup tooltip attributes
       if(self.options.hide.when.event == 'unfocus') self.elements.tooltip.attr('unfocus', true);
@@ -1107,7 +1107,7 @@
       if(typeof self.options.style.width.value == 'number') self.updateWidth();
 
       // Create borders and tips if supported by the browser
-      if($('<canvas>').get(0).getContext || $.browser.msie)
+      if($('<canvas>').get(0).getContext || $.support.boxModel)
       {
          // Create border
          if(self.options.style.border.radius > 0)
@@ -1212,7 +1212,7 @@
             containers[i] += '<canvas height="'+radius+'" width="'+radius+'" style="vertical-align: top"></canvas>';
 
          // No canvas, but if it's IE use VML
-         else if($.browser.msie)
+         else if($.support.boxModel)
          {
             size = radius * 2 + 3;
             containers[i] += '<v:arc stroked="false" fillcolor="'+color+'" startangle="'+coordinates[i][0]+'" endangle="'+coordinates[i][1]+'" ' +
@@ -1253,7 +1253,7 @@
       }
 
       // Create a phantom VML element (IE won't show the last created VML element otherwise)
-      else if($.browser.msie) self.elements.tooltip.append('<v:image style="behavior:url(#default#VML);"></v:image>');
+      else if($.support.boxModel) self.elements.tooltip.append('<v:image style="behavior:url(#default#VML);"></v:image>');
 
       // Setup contentWrapper border
       sideWidth = Math.max(radius, (radius + (width - radius)) )
@@ -1302,7 +1302,7 @@
           self.elements.tip += '<canvas height="'+self.options.style.tip.size.height+'" width="'+self.options.style.tip.size.width+'"></canvas>';
 
       // Canvas not supported - Use VML (IE)
-      else if($.browser.msie)
+      else if($.support.boxModel)
       {
          // Create coordize and tip path using tip coordinates
          coordsize = self.options.style.tip.size.width + ',' + self.options.style.tip.size.height;
@@ -1333,7 +1333,7 @@
          drawTip.call(self, self.elements.tip.find('canvas:first'), coordinates, color);
 
       // Fix IE small tip bug
-      if(corner.search(/top/) !== -1 && $.browser.msie && parseInt($.browser.version.charAt(0)) === 6)
+      if(corner.search(/top/) !== -1 && $.support.boxModel && parseInt($.browser.version.charAt(0)) === 6)
          self.elements.tip.css({ marginTop: -4 });
 
       // Set the tip position
@@ -1365,7 +1365,7 @@
       if(!corner) corner = self.elements.tip.attr('rel');
 
       // Setup adjustment variables
-      ieAdjust = positionAdjust = ($.browser.msie) ? 1 : 0;
+      ieAdjust = positionAdjust = ($.support.boxModel) ? 1 : 0;
 
       // Set initial position
       self.elements.tip.css(corner.match(/left|right|top|bottom/)[0], 0);
@@ -1374,7 +1374,7 @@
       if(corner.search(/top|bottom/) !== -1)
       {
          // Adjustments for IE6 - 0.5px border gap bug
-         if($.browser.msie)
+         if($.support.boxModel)
          {
             if(parseInt($.browser.version.charAt(0)) === 6)
                positionAdjust = (corner.search(/top/) !== -1) ? -3 : 1;
@@ -1400,7 +1400,7 @@
       else if(corner.search(/left|right/) !== -1)
       {
          // Adjustments for IE6 - 0.5px border gap bug
-         if($.browser.msie)
+         if($.support.boxModel)
             positionAdjust = (parseInt($.browser.version.charAt(0)) === 6) ? 1 : ((corner.search(/left/) !== -1) ? 1 : 2);
 
          if(corner.search(/Middle/) !== -1)
@@ -1425,7 +1425,7 @@
       self.elements.tooltip.css(paddingCorner, paddingSize);
 
       // Match content margin to prevent gap bug in IE6 ONLY
-      if($.browser.msie && parseInt($.browser.version.charAt(0)) == 6)
+      if($.support.boxModel && parseInt($.browser.version.charAt(0)) == 6)
       {
          newMargin = parseInt(self.elements.tip.css('margin-top')) || 0;
          newMargin += parseInt(self.elements.content.css('margin-top')) || 0;
@@ -1445,7 +1445,7 @@
       // Create title element
       self.elements.title = $('<div class="'+self.options.style.classes.title+'">')
          .css( jQueryStyle(self.options.style.title, true) )
-         .css({ zoom: ($.browser.msie) ? 1 : 0 })
+         .css({ zoom: ($.support.boxModel) ? 1 : 0 })
          .prependTo(self.elements.contentWrapper);
 
       // Update title with contents if enabled
@@ -1787,7 +1787,7 @@
       finalStyle = $.extend.apply($, styleExtend);
 
       // Adjust tip size if needed (IE 1px adjustment bug fix)
-      ieAdjust = ($.browser.msie) ? 1 : 0;
+      ieAdjust = ($.support.boxModel) ? 1 : 0;
       finalStyle.tip.size.width += ieAdjust;
       finalStyle.tip.size.height += ieAdjust;
 
@@ -1839,7 +1839,7 @@
       }
 
       // Canvas not supported - Use VML (IE)
-      else if($.browser.msie)
+      else if($.support.boxModel)
       {
          borders = {
             topLeft: [-90,90,0], topRight: [-90,90,-radius],
