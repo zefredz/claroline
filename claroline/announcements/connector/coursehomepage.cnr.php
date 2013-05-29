@@ -29,7 +29,8 @@ class CLANN_Portlet extends CourseHomePagePortlet
         $toolId = get_tool_id_from_module_label('CLANN');
         
         if ( is_module_installed_in_course ( 'CLANN', claro_get_current_course_id () ) 
-            && is_tool_activated_in_course( $toolId, claro_get_current_course_id () ) )
+            && is_tool_activated_in_course( $toolId, claro_get_current_course_id () )
+            && claro_is_tool_visible( $toolId, claro_get_current_course_id () ) )
         {   
             $announcementList = announcement_get_course_item_list_portlet($course);
 
