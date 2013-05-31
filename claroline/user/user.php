@@ -543,7 +543,7 @@ foreach ( $userList as $thisUser )
     }
     else
     {
-        $out .= '<td>'.  htmlspecialchars($thisUser['groups']).'</td>'."\n";
+        $out .= '<td>'.  claro_htmlspecialchars($thisUser['groups']).'</td>'."\n";
     }
 
     if ($previousUser == $thisUser['user_id'])
