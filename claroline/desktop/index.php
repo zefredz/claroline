@@ -138,10 +138,16 @@ if ( !empty( $portletList ) )
     {
         try
         {
+            if ( empty( $portlet['label'] ) )
+            {
+                pushClaroMessage( "Portlet with no label found ! Please check your database", 'warning' );
+                continue;
+            }
+            
             // load portlet
             if( ! class_exists( $portlet['label'] ) )
             {
-                pushClaroMessage("User desktop : class {$portlet['label']} not found !");
+                pushClaroMessage("User desktop : class {$portlet['label']} not found !", 'warning');
                 continue;
             }
             
@@ -150,7 +156,9 @@ if ( !empty( $portletList ) )
                 continue;
             }
             
-            $portlet = new $portlet['label']($portlet['label']);
+            $plabel = $portlet['label'];
+            
+            $portlet = new $plabel($plabel);
             
             if( ! $portlet instanceof UserDesktopPortlet )
             {
