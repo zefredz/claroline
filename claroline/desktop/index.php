@@ -62,7 +62,14 @@ try
             {
                 $portlet = new $className($portletInDB['label']);
                 
-                $portletList->addPortlet( $portlet->getLabel(), $portlet->getName() );
+                if ( $portlet->getLabel() )
+                {
+                    $portletList->addPortlet( $portlet->getLabel(), $portlet->getName() );
+                }
+                else
+                {
+                    Console::warning("Portlet {$className} has no label !");
+                }
             }
         }
         else
@@ -95,7 +102,15 @@ try
                     if ( class_exists($className) )
                     {
                         $portlet = new $className($portletInDB['label']);
-                        $portletList->addPortlet( $portlet->getLabel(), $portlet->getName() );
+                        
+                        if ( $portlet->getLabel() )
+                        {
+                            $portletList->addPortlet( $portlet->getLabel(), $portlet->getName() );
+                        }
+                        else
+                        {
+                            Console::warning("Portlet {$className} has no label !");
+                        }
                     }
                 }
                 
