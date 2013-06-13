@@ -181,6 +181,16 @@ if (!empty($userId))
             'url' => claro_htmlspecialchars('admin_users.php')
         );
     }
+    elseif (isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'culist' ) // if we come form course user list, we must display go back to list
+    {
+        $cid = isset($_REQUEST['cid']) ? $_REQUEST['cid'] : null;
+        
+        $cmdList[] = array(
+            'img' => 'back',
+            'name' => get_lang('Back to user list'),
+            'url' => claro_htmlspecialchars(get_path('url').'/claroline/user/user.php?cidReq='.$cid.'&cidReset=true')
+        );
+    }
 }
 
 
