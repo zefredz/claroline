@@ -36,19 +36,19 @@ $(document).ready(function(){
     // - on category : min max display || select resource ?
     // - on resources : select resources
     
-    // listen to browse events - binded with livequery as these item are added and removed to DOM
-    $("#lnk_location a.navigable").livequery( 'click', function(){
+    // listen to browse events - binded with $.on as these item are added and removed to DOM
+    $("#lnk_location a.navigable").on( 'click', function(){
         linkerFrontend.loadList($(this).attr("rel"), $(this).attr("title"));
         return false;
     });
     
-    $("#lnk_resources a.navigable").livequery( 'click', function(){
+    $("#lnk_resources a.navigable").on( 'click', function(){
         linkerFrontend.loadList($(this).attr("rel"), $(this).attr("title"));
         return false;
     });
     
     // listen to attach events
-    $("#lnk_resources a.linkable").livequery( 'click', function(){
+    $("#lnk_resources a.linkable").on( 'click', function(){
         if( ($(this).attr('class')) == 'linkable invisible' )
         {
             if( linkerFrontend.alertVisible( false ) )
@@ -67,13 +67,13 @@ $(document).ready(function(){
         return false;
     });
     // listen to detach events
-    $("#lnk_selected_resources div a").livequery( 'click', function(){
+    $("#lnk_selected_resources div a").on( 'click', function(){
         linkerFrontend.unselect($(this).attr("rel"));
         return false;
     });
     
     // listen to close events (min/max display)
-    // do not use livequery here as these items always exists in DOM
+    // do not use $.on here as these items always exists in DOM
     $("#lnk_show_browser").click(function(){
         $("#lnk_browser").show();
         // toggle commands

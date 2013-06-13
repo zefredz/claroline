@@ -8,7 +8,7 @@ class Documents_ResourceLinker extends ResourceLinker
      *
      * @return unknown
      */
-    public static function renderLinkerBlock()
+    public static function renderLinkerBlock( $backendUrl = NULL )
     {
         parent::init();
         

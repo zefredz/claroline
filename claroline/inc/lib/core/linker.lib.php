@@ -1191,7 +1191,6 @@ class ResourceLinker
     {
         if ( ! self::$_userAgentInitialized )
         {
-            JavascriptLoader::getInstance()->load('jquery.livequery');
             JavascriptLoader::getInstance()->load('claroline.linker');
             CssLoader::getInstance()->load('linker', 'all');
         }
@@ -1220,13 +1219,16 @@ class ResourceLinker
         // Init Client Side Linker
         self::initUserAgent();
         
+        JavascriptLanguage::getInstance ()->addLangVar('Attach');
+        JavascriptLanguage::getInstance ()->addLangVar('Delete');
+        
         // init linkerFronted
         ClaroHeader::getInstance()->addInlineJavascript(
              'linkerFrontend.base_url = "'.$backendUrl.'";' . "\n"
             .'linkerFrontend.deleteIconUrl = "'.get_icon_url('delete').'";'. "\n"
             .'linkerFrontend.invisibleIconUrl = "'.get_icon_url('invisible').'"; '. "\n"
-            .'Claroline.lang["Attach"] = "'.get_lang('Attach').'";'. "\n"
-            .'Claroline.lang["Delete"] = "'.get_lang('Delete').'";'. "\n"
+            .'/* Claroline.lang["Attach"] = "'.get_lang('Attach').'";'. "\n"
+            .'Claroline.lang["Delete"] = "'.get_lang('Delete').'"; */'. "\n"
         );
         
         return '<div id="lnk_panel">' . "\n"
