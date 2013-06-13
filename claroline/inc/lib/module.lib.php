@@ -1283,20 +1283,3 @@ function set_and_load_current_module( $moduleLabel )
     load_module_config($moduleLabel);
     set_current_module_label($moduleLabel);
 }
-
-/**
- * Get tool visibility for course when not in course context
- * @param int $toolId
- * @param string $courseCode
- * @return bool
- * @since Claroline 1.11.7
- */
-function is_tool_visible_for_portlet( $toolId, $courseCode )
-{ 
-    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
-    return (bool) Claroline::getDatabase()->query( 
-            "SELECT `visibility`
-               FROM `" . $tbl_cdb_names['tool'] . "`
-              WHERE `tool_id` = " . Claroline::getDatabase()->quote( $toolId ) )->fetch(Mysql_ResultSet::FETCH_VALUE); ;
-   
-}

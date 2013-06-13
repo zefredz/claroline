@@ -62,14 +62,7 @@ try
             {
                 $portlet = new $className($portletInDB['label']);
                 
-                if ( $portlet->getLabel() )
-                {
-                    $portletList->addPortlet( $portlet->getLabel(), $portlet->getName() );
-                }
-                else
-                {
-                    Console::warning("Portlet {$className} has no label !");
-                }
+                $portletList->addPortlet( $portlet->getLabel(), $portlet->getName() );
             }
         }
         else
@@ -102,15 +95,7 @@ try
                     if ( class_exists($className) )
                     {
                         $portlet = new $className($portletInDB['label']);
-                        
-                        if ( $portlet->getLabel() )
-                        {
-                            $portletList->addPortlet( $portlet->getLabel(), $portlet->getName() );
-                        }
-                        else
-                        {
-                            Console::warning("Portlet {$className} has no label !");
-                        }
+                        $portletList->addPortlet( $portlet->getLabel(), $portlet->getName() );
                     }
                 }
                 
@@ -138,16 +123,10 @@ if ( !empty( $portletList ) )
     {
         try
         {
-            if ( empty( $portlet['label'] ) )
-            {
-                pushClaroMessage( "Portlet with no label found ! Please check your database", 'warning' );
-                continue;
-            }
-            
             // load portlet
             if( ! class_exists( $portlet['label'] ) )
             {
-                pushClaroMessage("User desktop : class {$portlet['label']} not found !", 'warning');
+                pushClaroMessage("User desktop : class {$portlet['label']} not found !");
                 continue;
             }
             
@@ -156,9 +135,7 @@ if ( !empty( $portletList ) )
                 continue;
             }
             
-            $plabel = $portlet['label'];
-            
-            $portlet = new $plabel($plabel);
+            $portlet = new $portlet['label']($portlet['label']);
             
             if( ! $portlet instanceof UserDesktopPortlet )
             {

@@ -440,7 +440,6 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
    Display Section
   =====================================================================*/
 
-$newLink = '';
 // Set the back link
 if ( $cmd == 'rqReg' && ( !empty($categoryId) || !empty($parentCategoryId) ) )
 {
@@ -462,15 +461,8 @@ else
         if ( $fromAdmin == 'usercourse' ) // admin tool used: list of a user's courses.
         {
             $backUrl   = '../admin/adminusercourses.php?uidToEdit=' . $userId;
-            $backLabel = get_lang('Back to user\'s course list');    
-            
-            if ($courseCode !='')
-            {
-                $asTeacherInfo = ($asTeacher)?'true':false;
-                $newLink = '<p><a class="backLink" href="'.$_SERVER['PHP_SELF'].'?cmd=rqReg&amp;fromAdmin=usercourse&amp;uidToEdit='.$userId.'&amp;asTeacher='.$asTeacherInfo.'">'. 
-                    get_lang('Enrol to a new course') .'</a></p>';
-            }
-        }   
+            $backLabel = get_lang('Back to user\'s course list');
+        }
     }
     elseif ( $fromAdmin == 'class' ) // admin tool used : class registration
     {
@@ -633,10 +625,6 @@ switch ( $displayMode )
     
 } // end of switch ($displayMode)
 
-if ($newLink != '')
-{
-    $out .= $newLink;
-}
 $out .= $backLink;
 
 $claroline->display->body->appendContent($out);

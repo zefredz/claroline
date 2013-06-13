@@ -110,11 +110,6 @@ class PortletList
     // save
     public function addPortlet( $label, $name, $rank = null, $visible = true )
     {
-        if ( Claroline::getDatabase()->query("SELECT `label` FROM `{$this->tblDesktopPortlet}` WHERE `label` = '" . claro_sql_escape($label) . "'")->numRows() )
-        {
-            return false;
-        }
-        
         $sql = "SELECT MAX(rank) FROM  `" . $this->tblDesktopPortlet . "`";
         $maxRank = claro_sql_query_get_single_value($sql);
         

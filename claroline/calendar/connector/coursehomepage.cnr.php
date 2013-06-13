@@ -25,8 +25,7 @@ class CLCAL_Portlet extends CourseHomePagePortlet
         $toolId = get_tool_id_from_module_label('CLCAL');
         
         if ( is_module_installed_in_course ( 'CLCAL', claro_get_current_course_id () ) 
-            && is_tool_activated_in_course( $toolId, claro_get_current_course_id () )
-            && claro_is_tool_visible( $toolId, claro_get_current_course_id () ) )
+            && is_tool_activated_in_course( $toolId, claro_get_current_course_id () ) )
         {
             $output = '<div id="portletMycalendar">' . "\n"
                 . '<img src="'.get_icon_url('loading').'" alt="'.get_lang('Loading').'" />' . "\n"

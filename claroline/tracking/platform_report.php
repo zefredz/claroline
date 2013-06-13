@@ -236,7 +236,7 @@ $count = claro_sql_query_get_single_value($sql);
 $content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Number of users').' : '.$count.'<br />'."\n";
 
 //--  number of users by course
-$sql = "SELECT CONCAT(C.`administrativeNumber`, ' - ', C.`intitule`) , count( CU.user_id ) as `nb`
+$sql = "SELECT C.`code`, count( CU.user_id ) as `nb`
             FROM `" . $tbl_course . "` C, `" . $tbl_rel_course_user . "` CU
             WHERE CU.`code_cours` = C.`code`
                 AND `code` IS NOT NULL

@@ -115,8 +115,7 @@ function announcement_get_items_portlet($personnalCourseList)
     foreach($personnalCourseList as $thisCourse)
     {
         if ( is_module_installed_in_course_lightversion ( 'CLANN', $thisCourse ) 
-            && is_tool_activated_in_course_lightversion( $clannToolId, $thisCourse )
-            && is_tool_visible_for_portlet( $clannToolId, $thisCourse['sysCode'] ) )
+            && is_tool_activated_in_course_lightversion( $clannToolId, $thisCourse ) )
         {
             $courseEventList = announcement_get_course_item_list_portlet($thisCourse, get_conf('announcementPortletMaxItems', 3));
 

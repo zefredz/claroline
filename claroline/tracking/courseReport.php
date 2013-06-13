@@ -49,6 +49,7 @@ $cmdList[] = array(
  * Output
  */
 CssLoader::getInstance()->load( 'tracking', 'screen');
+JavascriptLoader::getInstance()->load('jquery.livequery');
 JavascriptLoader::getInstance()->load('tracking');
 
 // initialize output

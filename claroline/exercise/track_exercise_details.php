@@ -69,8 +69,7 @@ class TrackAnswerMultipleChoice extends answerMultipleChoice
         // get the answers the user has gaven for this question
         $sql = "SELECT `answer`
                 FROM `" . $tbl_qwz_tracking_answers . "`
-                WHERE `details_id` = " . (int) $attemptDetailsId . 
-                " ORDER BY `id` ASC ";
+                WHERE `details_id` = " . (int) $attemptDetailsId;
 
         $trackedAnswers = claro_sql_query_fetch_all($sql);
 
@@ -101,8 +100,7 @@ class TrackAnswerTrueFalse extends answerTrueFalse
         // get the answers the user has gaven for this question
         $sql = "SELECT `answer`
                 FROM `" . $tbl_qwz_tracking_answers . "`
-                WHERE `details_id` = " . (int) $attemptDetailsId . 
-                " ORDER BY `id` ASC ";
+                WHERE `details_id` = " . (int) $attemptDetailsId;
 
         $this->response = claro_sql_query_get_single_value($sql);
 
@@ -120,8 +118,7 @@ class TrackAnswerFillInBlanks extends answerFillInBlanks
         // get the answers the user has gaven for this question
         $sql = "SELECT `answer`
                 FROM `" . $tbl_qwz_tracking_answers . "`
-                WHERE `details_id` = " . (int) $attemptDetailsId . 
-                " ORDER BY `id` ASC ";
+                WHERE `details_id` = " . (int) $attemptDetailsId;
 
         $answers = claro_sql_query_fetch_all($sql);
 
@@ -144,8 +141,7 @@ class TrackAnswerMatching extends answerMatching
         // get the answers the user has gaven for this question
         $sql = "SELECT `answer`
                 FROM `" . $tbl_qwz_tracking_answers . "`
-                WHERE `details_id` = " . (int) $attemptDetailsId . 
-                " ORDER BY `id` ASC ";
+                WHERE `details_id` = " . (int) $attemptDetailsId;
 
         $trackedAnswers = claro_sql_query_fetch_all($sql);
 

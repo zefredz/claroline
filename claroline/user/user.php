@@ -479,11 +479,6 @@ if ( $is_allowedToEdit ) // EDIT COMMANDS
         . '<th>'.get_lang('Unregister').'</th>'."\n"
         . '<th>'.get_lang('Activation').'</th>'."\n" 
         ;
-    
-    if ( claro_is_platform_admin () )
-    {
-        $out .= '<th>'.get_lang('User profile').'</th>' . "\n";
-    }
 }
 
 $out .= '</tr>'."\n"
@@ -548,7 +543,7 @@ foreach ( $userList as $thisUser )
     }
     else
     {
-        $out .= '<td>'.  claro_htmlspecialchars($thisUser['groups']).'</td>'."\n";
+        $out .= '<td>'.  htmlspecialchars($thisUser['groups']).'</td>'."\n";
     }
 
     if ($previousUser == $thisUser['user_id'])
@@ -647,15 +642,6 @@ foreach ( $userList as $thisUser )
         }
         
         $out .= '</td>' . "\n";
-        
-        if ( claro_is_platform_admin () )
-        {
-            $out .= '<td><a href="'.claro_htmlspecialchars(get_path('url')
-                . '/claroline/admin/admin_profile.php?uidToEdit=' . $thisUser['user_id'] ). '&cfrom=culist&cid='.  claro_get_current_course_id ().'&cidReset=true&cidReq=">'
-                . '<img alt="' . get_lang('User profile') . '" src="' . get_icon_url('usersetting') . '" />'
-                . '</a></td>'
-                ;
-        }
         
     }  // END - is_allowedToEdit
 
