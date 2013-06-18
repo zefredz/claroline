@@ -11,6 +11,7 @@
         <?php if ($this->intro->getId()) : ?>
         <input type="hidden" name="id" value="<?php echo $this->intro->getId(); ?>" />
         <input type="hidden" name="rank" value="<?php echo $this->intro->getRank(); ?>" />
+        <input type="hidden" name="visibility" value="<?php echo $this->intro->getVisibility(); ?>" />
         <?php endif; ?>
         
         <dl>
