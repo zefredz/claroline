@@ -507,8 +507,8 @@
                newPosition.top -= (tooltip.dimensions.height / 2);
 
             // Setup IE adjustment variables (Pixel gap bugs)
-            ieAdjust = ($.support.boxModel) ? 1 : 0; // And this is why I hate IE...
-            ie6Adjust = ($.support.boxModel && parseInt($.browser.version.charAt(0)) === 6) ? 1 : 0; // ...and even more so IE6!
+            ieAdjust = (!$.support.boxModel) ? 1 : 0; // And this is why I hate IE...
+            ie6Adjust = 0; // ...and even more so IE6!
 
             // Adjust for border radius
             if(self.options.style.border.radius > 0)
@@ -558,7 +558,7 @@
             }
 
             // Initiate bgiframe plugin in IE6 if tooltip overlaps a select box or object element
-            if(!self.elements.bgiframe && $.support.boxModel && parseInt($.browser.version.charAt(0)) == 6)
+            if( !self.elements.bgiframe && !$.support.boxModel )
             {
                $('select, object').each(function()
                {
@@ -1333,7 +1333,7 @@
          drawTip.call(self, self.elements.tip.find('canvas:first'), coordinates, color);
 
       // Fix IE small tip bug
-      if(corner.search(/top/) !== -1 && $.support.boxModel && parseInt($.browser.version.charAt(0)) === 6)
+      if( corner.search(/top/) !== -1 && !$.support.boxModel )
          self.elements.tip.css({ marginTop: -4 });
 
       // Set the tip position
@@ -1374,12 +1374,9 @@
       if(corner.search(/top|bottom/) !== -1)
       {
          // Adjustments for IE6 - 0.5px border gap bug
-         if($.support.boxModel)
+         if(!$.support.boxModel)
          {
-            if(parseInt($.browser.version.charAt(0)) === 6)
-               positionAdjust = (corner.search(/top/) !== -1) ? -3 : 1;
-            else
-               positionAdjust = (corner.search(/top/) !== -1) ? 1 : 2;
+            positionAdjust = (corner.search(/top/) !== -1) ? 1 : 2;
          };
 
          if(corner.search(/Middle/) !== -1)
@@ -1400,8 +1397,8 @@
       else if(corner.search(/left|right/) !== -1)
       {
          // Adjustments for IE6 - 0.5px border gap bug
-         if($.support.boxModel)
-            positionAdjust = (parseInt($.browser.version.charAt(0)) === 6) ? 1 : ((corner.search(/left/) !== -1) ? 1 : 2);
+         if(!$.support.boxModel)
+            positionAdjust = (corner.search(/left/) !== -1) ? 1 : 2;
 
          if(corner.search(/Middle/) !== -1)
             self.elements.tip.css({ top: '50%', marginTop: -(self.options.style.tip.size.height / 2) });
@@ -1425,7 +1422,7 @@
       self.elements.tooltip.css(paddingCorner, paddingSize);
 
       // Match content margin to prevent gap bug in IE6 ONLY
-      if($.support.boxModel && parseInt($.browser.version.charAt(0)) == 6)
+      if(!$.support.boxModel)
       {
          newMargin = parseInt(self.elements.tip.css('margin-top')) || 0;
          newMargin += parseInt(self.elements.content.css('margin-top')) || 0;
