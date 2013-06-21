@@ -35,9 +35,6 @@ class CurrentCourseToolListBlock implements Display
         $this->courseObject->load($this->courseCode);
         $this->currentCourseContext = Claro_Context::getUrlContext(array( CLARO_CONTEXT_COURSE => $this->courseCode ));
         
-        // HACK : force loading translation here to avoid having to rewrite the kernel !
-        language::load_translation();
-        
         $this->template = new CoreTemplate('coursetoollist.tpl.php');
     }
     

@@ -91,6 +91,9 @@ class ClaroPage implements Display
 
     public function __construct()
     {
+        // HACK : force loading translation here to avoid having to rewrite the kernel !
+        language::load_translation();
+        
         $this->header = ClaroHeader::getInstance();
         $this->body = ClaroBody::getInstance();
         $this->banner = ClaroBanner::getInstance();
@@ -446,6 +449,9 @@ class ClaroFramesetPage extends ClaroFrameset
     
     public function __construct()
     {
+        // HACK : force loading translation here to avoid having to rewrite the kernel !
+        language::load_translation();
+        
         $this->header = ClaroHeader::getInstance();
     }
 
