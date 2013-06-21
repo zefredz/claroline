@@ -69,15 +69,15 @@ if( claro_debug_mode() )
   Various Path Init
   ----------------------------------------------------------------------*/
 
-$includePath            = get_path('incRepositorySys');
-$clarolineRepositorySys = get_path('clarolineRepositorySys');
-$clarolineRepositoryWeb = get_path('clarolineRepositoryWeb');
-$coursesRepositorySys   = get_path('coursesRepositorySys');
-$coursesRepositoryWeb   = get_path('coursesRepositoryWeb');
-$rootAdminWeb           = get_path('rootAdminWeb');
-$imgRepositoryAppend    = get_path('imgRepositoryAppend');
-$imgRepositorySys       = get_path('imgRepositorySys');
-$imgRepositoryWeb       = get_path('imgRepositoryWeb');
+$GLOBALS['includePath']            = get_path('incRepositorySys');
+$GLOBALS['clarolineRepositorySys'] = get_path('clarolineRepositorySys');
+$GLOBALS['clarolineRepositoryWeb'] = get_path('clarolineRepositoryWeb');
+$GLOBALS['coursesRepositorySys']   = get_path('coursesRepositorySys');
+$GLOBALS['coursesRepositoryWeb']   = get_path('coursesRepositoryWeb');
+$GLOBALS['rootAdminWeb']           = get_path('rootAdminWeb');
+$GLOBALS['imgRepositoryAppend']    = get_path('imgRepositoryAppend');
+$GLOBALS['imgRepositorySys']       = get_path('imgRepositorySys');
+$GLOBALS['imgRepositoryWeb']       = get_path('imgRepositoryWeb');
 
 /*
  * Path to the PEAR library. PEAR stands for "PHP Extension and Application
@@ -103,9 +103,9 @@ define('CLARO_FILE_PERMISSIONS', 0777);
 
 // Web server
 
-$is_IIS = strstr($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') ? 1 : 0;
-$is_Apache = strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') ? 1 : 0;
-$is_Apache2 = strstr($_SERVER['SERVER_SOFTWARE'], 'Apache/2') ? 1 : 0;
+$GLOBALS['is_IIS'] = strstr($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') ? 1 : 0;
+$GLOBALS['is_Apache'] = strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') ? 1 : 0;
+$GLOBALS['is_Apache2'] = strstr($_SERVER['SERVER_SOFTWARE'], 'Apache/2') ? 1 : 0;
 
 // Compatibility with IIS web server - REQUEST_URI
 
@@ -346,8 +346,8 @@ else
 if ( isset($_REQUEST['embedded']) && $_REQUEST['embedded'] == 'true' )
 {
     // old school method
-    $hide_banner = true;
-    $hide_footer = true;
+    $GLOBALS['hide_banner'] = true;
+    $GLOBALS['hide_footer'] = true;
     
     // fashion victim method
     $claroline->setDisplayType(Claroline::FRAME);
@@ -357,8 +357,8 @@ if ( isset($_REQUEST['embedded']) && $_REQUEST['embedded'] == 'true' )
   ----------------------------------------------------------------------*/
 
 // for backward compatibility
-$eventNotifier = $claroline->notifier;
-$claro_notifier = $claroline->notification;
+$GLOBALS['eventNotifier'] = $claroline->notifier;
+$GLOBALS['claro_notifier'] = $claroline->notification;
 
 
 // Register listener in the event manager for the NOTIFICATION system :
@@ -442,7 +442,7 @@ if ( claro_is_user_authenticated() )
 {
     if ( empty( $_SESSION['csrf_token'] ) || !isset( $_SESSION['csrf_token'] ) )
     {
-        $_SESSION['csrf_token'] = strrev(md5(time())); //set a token with a reverse string and md5 encryption of the user's password
+        $_SESSION['csrf_token'] = strrev(md5(time()));
     }
     
     if ( defined('CSRF_PROTECTED') && CSRF_PROTECTED )
@@ -578,5 +578,31 @@ if ( !claro_is_platform_admin () )
     {
         Claroline::getDisplay()->body->hideCourseTitleAndTools();
         claro_die( get_lang('This course is not available anymore, please contact the platform administrator.') );
+    }
+}
+
+// post kernel access check
+
+if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
+{
+    if (claro_is_user_authenticated() ) 
+    {
+        claro_disp_auth_form(true);
+    }
+    else
+    {
+        claro_die(get_lang("Not allowed!"));
+    }
+}
+
+if ( claro_is_in_a_group() && ! claro_is_group_allowed() )
+{
+    if (claro_is_user_authenticated() ) 
+    {
+        claro_disp_auth_form(true);
+    }
+    else
+    {
+        claro_die(get_lang("Not allowed!"));
     }
 }
