@@ -606,3 +606,6 @@ if ( claro_is_in_a_group() && ! claro_is_group_allowed() )
         claro_die(get_lang("Not allowed!"));
     }
 }
+
+// FORCE reloading current module translation here
+language::load_module_translation();

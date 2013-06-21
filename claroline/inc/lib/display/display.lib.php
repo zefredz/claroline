@@ -451,6 +451,8 @@ class ClaroFramesetPage extends ClaroFrameset
     {
         // HACK : force loading translation here to avoid having to rewrite the kernel !
         language::load_translation();
+        language::load_locale_settings();
+        language::load_module_translation();
         
         $this->header = ClaroHeader::getInstance();
     }
