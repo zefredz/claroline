@@ -1,4 +1,21 @@
-<?php
+<?php // $Id$
+
+// vim: expandtab sw=4 ts=4 sts=4:
+
+/**
+ * CLAROLINE
+ *
+ * Claroline User Privileges in Courses.
+ *
+ * @version     Claroline 1.11 $Revision$
+ * @copyright   (c) 2001-2013, Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @author      Frederic Minne <zefredz@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     kernel.course
+ * @since       Claroline 1.11
+ */
 
 class CLWRK_SubmissionScore
 {
