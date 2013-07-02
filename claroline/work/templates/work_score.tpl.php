@@ -1,9 +1,26 @@
 <!DOCTYPE html>
+<!-- 
+                                                                                         
+    a88888b. dP                            dP oo                   
+   d8'   `88 88                            88                      
+   88        88 .d8888b. 88d888b. .d8888b. 88 dP 88d888b. .d8888b. 
+   88        88 88'  `88 88'  `88 88'  `88 88 88 88'  `88 88ooood8 
+   Y8.   .88 88 88.  .88 88       88.  .88 88 88 88    88 88.  ... 
+    Y88888P' dP `88888P8 dP       `88888P' dP dP dP    dP `88888P' 
+
+    >>>>>>>>>>> open source learning management system <<<<<<<<<<<
+
+    $Id$
+
+-->
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/HTML; charset=<?php echo get_locale('charset');?>"  />
+        
         <title>
             <?php echo claro_htmlspecialchars ( $this->course->administrativeNumber ); ?> - <?php echo claro_htmlspecialchars ( $this->assignment->getTitle() ); ?>
         </title>
+        
         <style>
             /******************************************************************************
                         CLAROLINE TABLES
