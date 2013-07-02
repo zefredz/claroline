@@ -44,6 +44,7 @@ $out ='';
 $dialogBox = new DialogBox();
 
 $downloadMode = isset( $_REQUEST['downloadMode'] ) && is_string( $_REQUEST['downloadMode'] ) ? $_REQUEST['downloadMode'] : 'all';
+$downloadScore = isset( $_REQUEST['downloadScore'] ) && $_REQUEST['downloadScore'] == 'yes' ? true : false;
 $assignmentId = isset( $_REQUEST['assigId'] ) && is_numeric( $_REQUEST['assigId'] ) ? $_REQUEST['assigId'] : 0;
 $downloadOnlyCurrentMembersSubmissions = isset( $_REQUEST['downloadOnlyCurrentMembers'] ) && $_REQUEST['downloadOnlyCurrentMembers'] == 'yes' ? true : false;
 
@@ -186,7 +187,7 @@ if( claro_is_platform_admin() || get_conf( 'allow_download_all_submissions' ) )
     {
         $previousAuthors = '';
         $i = 1;
-
+        
         foreach ( $results as $row => $result )
         {
             //create assignment directory if necessary
@@ -203,7 +204,7 @@ if( claro_is_platform_admin() || get_conf( 'allow_download_all_submissions' ) )
             {
                 $assigDir = '';
             }
-
+            
             $assignmentPath = get_path( 'coursesRepositorySys' ) . claro_get_course_path(claro_get_current_course_id()) . '/work/assig_' . (int)$result['assignment_id'] . '/';
             
             //  count author's submissions for the name of directory
@@ -223,6 +224,26 @@ if( claro_is_platform_admin() || get_conf( 'allow_download_all_submissions' ) )
             {
                 mkdir( $zipPath . $assigDir . '/' . $authorsDir, CLARO_FILE_PERMISSIONS, true );
             }
+            
+            if ( $downloadScore ) // && ! ( isset($currAssigId) && $currAssigId == $result['assignment_id'] )  )
+            {
+                require_once dirname(__FILE__).'/lib/score.lib.php';
+                $course = new Claro_Course(  claro_get_current_course_id () );
+                $course->load();
+
+                $assignment = new Assignment();
+                $assignment->load( $result['assignment_id']  );
+                $currAssigId = $result['assignment_id'] ;
+
+                $scoreList = new CLWRK_AssignementScoreList( $assignment );
+                $scoreListIterator = $scoreList->getScoreList();
+
+                $scoreListRenderer = new CLWRK_ScoreListRenderer( $course, $assignment, $scoreListIterator );
+
+                file_put_contents( $zipPath . $assigDir . '/scores.html', $scoreListRenderer->render() );
+            }
+            
+            
             
             $submissionPrefix = $assigDir . $authorsDir . replace_dangerous_char( get_lang( 'Submission' ) ) . '_' . $i . '_';
 

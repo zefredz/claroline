@@ -166,6 +166,7 @@ if( $is_allowedToEdit && $cmd == 'rqDownload' && (claro_is_platform_admin() || g
     .     claro_html_time_form('hour', 'minute', time() - fmod(time(), 86400) - 3600) . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>' . '<br /><br />' . "\n"
     .     '<input type="radio" name="downloadMode" id="downloadMode_all" value="all" /><label for="downloadMode_all">' . get_lang('All submissions') . '</label><br /><br />' . "\n"
     .     '<input type="checkbox" name="downloadOnlyCurrentMembers" id="downloadOnlyCurrentMembers_id" value="yes" checked="checked" /><label for="downloadOnlyCurrentMembers_id">'.get_lang('Download only submissions from current course members').'</label><br /><br />' . "\n"
+    .     '<input type="checkbox" name="downloadScore" id="downloadScore_id" value="yes" checked="checked" /><label for="downloadScore_id">'.get_lang('Download score').'</label><br /><br />' . "\n"
     .     '<input type="submit" value="'.get_lang('OK').'" />&nbsp;' . "\n"
     .    claro_html_button('work.php', get_lang('Cancel'))
     .     '</form>'."\n"
