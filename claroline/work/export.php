@@ -236,6 +236,12 @@ if( claro_is_platform_admin() || get_conf( 'allow_download_all_submissions' ) )
                 $currAssigId = $result['assignment_id'] ;
 
                 $scoreList = new CLWRK_AssignementScoreList( $assignment );
+                
+                if ( ! $downloadOnlyCurrentMembersSubmissions )
+                {
+                    $scoreList->setOptAllUsers();
+                }
+                
                 $scoreListIterator = $scoreList->getScoreList();
 
                 $scoreListRenderer = new CLWRK_ScoreListRenderer( $course, $assignment, $scoreListIterator );

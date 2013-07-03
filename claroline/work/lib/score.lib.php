@@ -80,6 +80,9 @@ class CLWRK_AssignementScoreList
         $database, 
         $assignement, 
         $courseId;
+    
+    private
+        $optAllUsers = false;
 
     public function __construct ( $assignement, $courseId = null, $database = null )
     {
@@ -90,6 +93,11 @@ class CLWRK_AssignementScoreList
             get_module_main_tbl ( array ( 'rel_course_user', 'user' ) ), get_module_course_tbl ( array ( 'wrk_submission', 'group_team' ), $this->courseId )
         );
         $this->submissionTitleList = array();
+    }
+    
+    public function setOptAllUsers()
+    {
+        $this->optAllUsers = true;
     }
     
     private function getSubmissionTitleList()
@@ -122,6 +130,23 @@ class CLWRK_AssignementScoreList
         {
             $sqlCourseId      = $this->database->quote ( $this->courseId );
             $sqlAssignementId = $this->database->escape ( $this->assignement->getId () );
+            
+            if ( $this->optAllUsers )
+            {
+                $onlyFromCourse = "";
+            }
+            else
+            {
+                $onlyFromCourse = "
+#ONLY FROM COURSE
+INNER JOIN 
+    `{$this->tbl[ 'rel_course_user' ]}` AS `cu`
+ON 
+    `u`.`user_id` = `cu`.`user_id`
+AND 
+    `cu`.`code_cours` = {$sqlCourseId}
+                ";
+            }
 
             $scoreListIterator = $this->database->query ( "
 SELECT 
@@ -140,13 +165,7 @@ SELECT
 FROM 
     `{$this->tbl[ 'user' ]}` AS `u`
 
-#ONLY FROM COURSE
-INNER JOIN 
-    `{$this->tbl[ 'rel_course_user' ]}` AS `cu`
-ON 
-    `u`.`user_id` = `cu`.`user_id`
-AND 
-    `cu`.`code_cours` = {$sqlCourseId}
+{$onlyFromCourse}
 
 # SEARCH ON SUBMISSIONS
 LEFT JOIN 
