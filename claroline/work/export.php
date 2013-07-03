@@ -37,6 +37,7 @@ require_once get_path( 'incRepositorySys' ) . '/lib/course_utils.lib.php';
 require_once get_path( 'incRepositorySys' ) . '/lib/fileManage.lib.php';
 require_once get_path( 'incRepositorySys' ) . '/lib/file/garbagecollector.lib.php';
 require_once get_path( 'incRepositorySys' ) . '/lib/thirdparty/pclzip/pclzip.lib.php';
+require_once dirname(__FILE__).'/lib/score.lib.php';
 
 //init general purpose vars
 $out ='';
@@ -225,9 +226,8 @@ if( claro_is_platform_admin() || get_conf( 'allow_download_all_submissions' ) )
                 mkdir( $zipPath . $assigDir . '/' . $authorsDir, CLARO_FILE_PERMISSIONS, true );
             }
             
-            if ( $downloadScore ) // && ! ( isset($currAssigId) && $currAssigId == $result['assignment_id'] )  )
+            if ( $downloadScore && ! ( isset($currAssigId) && $currAssigId == $result['assignment_id'] )  )
             {
-                require_once dirname(__FILE__).'/lib/score.lib.php';
                 $course = new Claro_Course(  claro_get_current_course_id () );
                 $course->load();
 

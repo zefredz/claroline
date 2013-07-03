@@ -119,8 +119,10 @@
         <table class="claroTable emphaseLine" width="100%">
             <thead>
                 <tr class="headerX">
-                    <th><?php echo get_lang ( 'Work title' ); ?></th>
+                    <th><?php echo get_lang ( 'Work title' ); ?> <?php echo get_lang('(last submission)'); ?></th>
                     <th><?php echo get_lang ( 'Author(s)' ); ?></th>
+                    <th><?php echo get_lang ( 'Submissions' ); ?></th>
+                    <th><?php echo get_lang ( 'Feedbacks' ); ?></th>
                     <th><?php echo get_lang ( 'Max. score' ); ?></th>
                     <th><?php echo get_lang ( 'Min. score' ); ?></th>
                     <th><?php echo get_lang ( 'Avg. score' ); ?></th>
@@ -131,6 +133,8 @@
                     <tr>
                         <td><?php echo $score->title; ?></td>
                         <td><?php echo $score->author; ?></td>
+                        <td><?php echo $score->submissionCount; ?></td>
+                        <td><?php echo $score->feedbackCount; ?></td>
                         <td><?php echo $score->maxScore; ?></td>
                         <td><?php echo $score->minScore; ?></td>
                         <td><?php echo $score->avgScore; ?></td>
