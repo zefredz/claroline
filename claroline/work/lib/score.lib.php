@@ -5,7 +5,7 @@
 /**
  * CLAROLINE
  *
- * Claroline User Privileges in Courses.
+ * Assignments Score
  *
  * @version     Claroline 1.11 $Revision$
  * @copyright   (c) 2001-2013, Universite catholique de Louvain (UCL)
