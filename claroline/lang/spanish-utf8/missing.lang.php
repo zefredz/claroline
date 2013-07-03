@@ -1,5 +1,6 @@
 <?php 
 
+$_lang['(last submission)'] = '(last submission)';
 $_lang['A time interval (in minute) to define when the script has to check if the module is still active'] = 'A time interval (in minute) to define when the script has to check if the module is still active';
 $_lang['Activate script to count time'] = 'Activate script to count time';
 $_lang['All groups'] = 'All groups';
@@ -16,6 +17,7 @@ $_lang['Are you sure you want to unregister %name for all courses?'] = 'Are you 
 $_lang['Are you sure you want to unregister all students from your course ?'] = 'Are you sure you want to unregister all students from your course ?';
 $_lang['Associate a default time in minute to a document that will be used for learnPath tracking'] = 'Associate a default time in minute to a document that will be used for learnPath tracking';
 $_lang['Available settings'] = 'Available settings';
+$_lang['Avg. score'] = 'Avg. score';
 $_lang['Click to zoom in'] = 'Click to zoom in';
 $_lang['Click to zoom out'] = 'Click to zoom out';
 $_lang['Confirm your subscription as tutor of the group &quot;<b>%group_name</b>&quot;'] = 'Confirm your subscription as tutor of the group &quot;<b>%group_name</b>&quot;';
@@ -30,17 +32,21 @@ $_lang['Display the list of groups in whitch a user is registered or supervized 
 $_lang['Document default time'] = 'Document default time';
 $_lang['Document default time (minute)'] = 'Document default time (minute)';
 $_lang['Download only submissions from current course members'] = 'Download only submissions from current course members';
+$_lang['Download score'] = 'Download score';
 $_lang['ERROR: The format of lines you gave is not compatible with Claroline'] = 'ERROR: The format of lines you gave is not compatible with Claroline';
 $_lang['If set to true, the creation of every individual file contained in an archive will be notified (i.e. added to the new items for the course). If set to false (default) only the modification of the folder in which the archived is uncompressed will be notified.'] = 'If set to true, the creation of every individual file contained in an archive will be notified (i.e. added to the new items for the course). If set to false (default) only the modification of the folder in which the archived is uncompressed will be notified.';
 $_lang['Interval (minute)'] = 'Interval (minute)';
 $_lang['Invisible - Click to make visible'] = 'Invisible - Click to make visible';
 $_lang['Last week'] = 'Last week';
 $_lang['Log message level'] = 'Log message level';
+$_lang['Max. score'] = 'Max. score';
 $_lang['Message displayed in the internal messaging'] = 'Message displayed in the internal messaging';
+$_lang['Min. score'] = 'Min. score';
 $_lang['Missing ressource'] = 'Missing ressource';
 $_lang['My groups'] = 'My groups';
 $_lang['Never'] = 'Never';
 $_lang['No group'] = 'No group';
+$_lang['Not allowed!'] = 'Not allowed!';
 $_lang['Notify all files when uncompressing archive'] = 'Notify all files when uncompressing archive';
 $_lang['Number of course treated :'] = 'Number of course treated :';
 $_lang['Only a platform administrator can change this option'] = 'Only a platform administrator can change this option';
@@ -52,6 +58,7 @@ $_lang['Question details'] = 'Question details';
 $_lang['Register me as tutor of this group'] = 'Register me as tutor of this group';
 $_lang['Registration as tutor'] = 'Registration as tutor';
 $_lang['Reset exercise tracking'] = 'Reset exercise tracking';
+$_lang['Scores'] = 'Scores';
 $_lang['Set the level of log messages you want to be reported in the log table in the database. 1 = error only, 2 = error and warning, 3 = error, warning and information, 4 = error, warning, informations and success, 5 = all. Note that debug messages are not affected by this setting, but are enabled through the debug mode option.'] = 'Set the level of log messages you want to be reported in the log table in the database. 1 = error only, 2 = error and warning, 3 = error, warning and information, 4 = error, warning, informations and success, 5 = all. Note that debug messages are not affected by this setting, but are enabled through the debug mode option.';
 $_lang['Set this option ONLY if you are experiencing issues with the insertion of some special characters in the database. Use the SHOW CHARACTER SET mysql command to list the charsets available on your mysql server https://dev.mysql.com/doc/refman/5.0/en/show-character-set.html'] = 'Set this option ONLY if you are experiencing issues with the insertion of some special characters in the database. Use the SHOW CHARACTER SET mysql command to list the charsets available on your mysql server https://dev.mysql.com/doc/refman/5.0/en/show-character-set.html';
 $_lang['Statistics in progress, please don\'t refresh until further instructions !'] = 'Statistics in progress, please don\'t refresh until further instructions !';

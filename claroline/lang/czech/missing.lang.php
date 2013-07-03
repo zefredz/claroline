@@ -1,5 +1,6 @@
 <?php 
 
+$_lang['(last submission)'] = '(last submission)';
 $_lang['A time interval (in minute) to define when the script has to check if the module is still active'] = 'A time interval (in minute) to define when the script has to check if the module is still active';
 $_lang['Accounts with same <i>Username</i> AND same <i>Password</i>'] = 'Accounts with same <i>Username</i> AND same <i>Password</i>';
 $_lang['Activate script to count time'] = 'Activate script to count time';
@@ -31,6 +32,7 @@ $_lang['Associate a default time in minute to a document that will be used for l
 $_lang['Authorize the category to possess courses or not (opened or closed category)'] = 'Authorize the category to possess courses or not (opened or closed category)';
 $_lang['Auto discover authentication drivers in platform/conf/extauth'] = 'Auto discover authentication drivers in platform/conf/extauth';
 $_lang['Available languages for course websites'] = 'Available languages for course websites';
+$_lang['Avg. score'] = 'Avg. score';
 $_lang['By default a course is assigned to the ROOT category if no other category is chosen. If set to No, only the platform administrator can assign a course to the ROOT category.'] = 'By default a course is assigned to the ROOT category if no other category is chosen. If set to No, only the platform administrator can assign a course to the ROOT category.';
 $_lang['Can\'t create this portlet (%portlet)'] = 'Can\'t create this portlet (%portlet)';
 $_lang['Can\'t find the class %portletName_portlet'] = 'Can\'t find the class %portletName_portlet';
@@ -78,6 +80,7 @@ $_lang['Do you really want to sign your contribution ?'] = 'Do you really want t
 $_lang['Document default time'] = 'Document default time';
 $_lang['Document default time (minute)'] = 'Document default time (minute)';
 $_lang['Download only submissions from current course members'] = 'Download only submissions from current course members';
+$_lang['Download score'] = 'Download score';
 $_lang['ERROR: The format of lines you gave is not compatible with Claroline'] = 'ERROR: The format of lines you gave is not compatible with Claroline';
 $_lang['Error : Category not found'] = 'Error : Category not found';
 $_lang['Error while deleting topic'] = 'Error while deleting topic';
@@ -109,13 +112,16 @@ $_lang['Learning path reset successful'] = 'Learning path reset successful';
 $_lang['Learning path updated'] = 'Learning path updated';
 $_lang['Leave empty to use the default one (which is courses/<COURSEID>/tmp/zip)'] = 'Leave empty to use the default one (which is courses/<COURSEID>/tmp/zip)';
 $_lang['Leave this field empty or use 0 if you don\'t want to limit the number of users in this course'] = 'Leave this field empty or use 0 if you don\'t want to limit the number of users in this course';
+$_lang['Max. score'] = 'Max. score';
 $_lang['Message displayed in the internal messaging'] = 'Message displayed in the internal messaging';
+$_lang['Min. score'] = 'Min. score';
 $_lang['Missing ressource'] = 'Missing ressource';
 $_lang['New users will receive an e-mail with their username and password'] = 'New users will receive an e-mail with their username and password';
 $_lang['Next course events'] = 'Next course events';
 $_lang['No announcement to display'] = 'No announcement to display';
 $_lang['No group'] = 'No group';
 $_lang['No mime-type available'] = 'No mime-type available';
+$_lang['Not allowed!'] = 'Not allowed!';
 $_lang['Notify all files when uncompressing archive'] = 'Notify all files when uncompressing archive';
 $_lang['Only a platform administrator can change this option'] = 'Only a platform administrator can change this option';
 $_lang['Only the users with a valid address will receive their password by email'] = 'Only the users with a valid address will receive their password by email';
@@ -142,6 +148,7 @@ $_lang['Registration as tutor'] = 'Registration as tutor';
 $_lang['Reset exercise tracking'] = 'Reset exercise tracking';
 $_lang['Restricted to category\'s users'] = 'Restricted to category\'s users';
 $_lang['Same display as in Claroline 1.9 (SC > PHYS) Physics instead of 1.10 Sciences > Physics. Useful if you have long category titles.'] = 'Same display as in Claroline 1.9 (SC > PHYS) Physics instead of 1.10 Sciences > Physics. Useful if you have long category titles.';
+$_lang['Scores'] = 'Scores';
 $_lang['Search and add an existing user'] = 'Search and add an existing user';
 $_lang['Search results for <i>"%keyword"</i>'] = 'Search results for <i>"%keyword"</i>';
 $_lang['Send this announcement to registered students'] = 'Send this announcement to registered students';
