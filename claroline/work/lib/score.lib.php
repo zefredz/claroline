@@ -85,10 +85,10 @@ class CLWRK_AssignementScoreList
     {
         $this->database    = $database ? $database : Claroline::getDatabase ();
         $this->assignement = $assignement;
-        $this->tbl         = array_merge (
-            get_module_main_tbl ( array ( 'rel_course_user', 'user' ) ), get_module_course_tbl ( array ( 'wrk_submission', 'group_team' ) )
-        );
         $this->courseId    = $courseId ? $courseId : claro_get_current_course_id ();
+        $this->tbl         = array_merge (
+            get_module_main_tbl ( array ( 'rel_course_user', 'user' ) ), get_module_course_tbl ( array ( 'wrk_submission', 'group_team' ), $this->courseId )
+        );
         $this->submissionTitleList = array();
     }
     
