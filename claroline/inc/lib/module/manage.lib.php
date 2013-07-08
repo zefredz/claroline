@@ -379,7 +379,7 @@ function generate_module_names_translation_cache()
 
                         if ( isset($_lang[$module['name']]) )
                         {
-                            $langVars[$langName] .= '$_lang[\''.$module['name'].'\'] = "'.addslashes($_lang[ $module['name'] ])."\";\n";
+                            $langVars[$langName] .= '$_lang[\''.$module['name'].'\'] = \''.str_replace( "'", "\\'", $_lang[ $module['name'] ]).'\';'."\n";
                         }
                     }
                 }
