@@ -65,9 +65,9 @@ class OutBox extends MessageBox
             $tableName = get_module_main_tbl(array('im_message'));
             
             $sql =
-                "SELECT message_id, sender, subject, message, send_time, course, `group`, tools \n"
-                . "FROM `".$tableName['im_message']."` \n"
-                . "WHERE sender = ".(int)$this->userId . "\n"
+                "SELECT M.message_id, M.sender, M.subject, M.message, M.send_time, M.course, M.`group`, M.tools \n"
+                . "FROM `".$tableName['im_message']."` AS M \n"
+                . "WHERE M.sender = ".(int)$this->userId . "\n"
                 .    " " . $strategy
                 .    " " . $order
                 .    " " . $limit
@@ -110,8 +110,8 @@ class OutBox extends MessageBox
             
             $readSQL =
                 "SELECT count(*) \n"
-                . "FROM `".$tableName['im_message']."` \n"
-                . "WHERE sender = ".(int)$this->userId . "\n"
+                . "FROM `".$tableName['im_message']."` AS M \n"
+                . "WHERE M.sender = ".(int)$this->userId . "\n"
                 .    " " . $strategy
                 ;
     

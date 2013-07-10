@@ -187,9 +187,9 @@ class AdminMessageBox implements Iterator
         
         // get all message id sent by the user
         $sql = 
-            "SELECT message_id\n"
-            ." FROM `".$tableName['im_message']."`\n"
-            ." WHERE sender=".(int)$uid
+            "SELECT M.message_id\n"
+            ." FROM `".$tableName['im_message']."` AS M\n"
+            ." WHERE M.sender=".(int)$uid
             ;
 
         $messageIdList = claro_sql_query_fetch_all_cols($sql);
@@ -210,9 +210,9 @@ class AdminMessageBox implements Iterator
     {
         $tableName = get_module_main_tbl(array('im_message_status','im_recipient','im_message'));
         $sql =
-            "SELECT message_id\n"
-            . " FROM `".$tableName['im_message']."`\n"
-            . " WHERE DATEDIFF(send_time,FROM_UNIXTIME(".$date.")) < 0\n"
+            "SELECT M.message_id\n"
+            . " FROM `".$tableName['im_message']."` AS M\n"
+            . " WHERE DATEDIFF(M.send_time,FROM_UNIXTIME(".$date.")) < 0\n"
             ;
         $messageId = claro_sql_query_fetch_all_cols($sql);
         
@@ -227,9 +227,9 @@ class AdminMessageBox implements Iterator
     {
         $tableName = get_module_main_tbl(array('im_message_status','im_recipient','im_message'));
         $sql =
-            "SELECT message_id\n"
-            . " FROM `".$tableName['im_recipient']."`\n"
-            . " WHERE user_id = 0\n"
+            "SELECT M.message_id\n"
+            . " FROM `".$tableName['im_recipient']."` AS M\n"
+            . " WHERE M.user_id = 0\n"
             ;
         $messageId = claro_sql_query_fetch_all_cols($sql);
         

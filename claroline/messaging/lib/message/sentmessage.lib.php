@@ -111,9 +111,9 @@ class SentMessage extends StoredMessage
         $tableName = get_module_main_tbl(array('im_message'));
 
         $readDataSQL =
-                "SELECT message_id, sender, subject, message, send_time, course, `group`, tools\n"
-                .   " FROM `" . $tableName['im_message'] . "`\n"
-                .   " WHERE message_id = " . (int) $messageId
+                "SELECT M.message_id, M.sender, M.subject, M.message, M.send_time, M.course, M.`group`, M.tools\n"
+                .   " FROM `" . $tableName['im_message'] . "` AS M\n"
+                .   " WHERE M.message_id = " . (int) $messageId
                 ;
         
         $result = claro_sql_query_fetch_single_row($readDataSQL);
@@ -135,8 +135,8 @@ class SentMessage extends StoredMessage
     {
         $tableName = get_module_main_tbl(array('im_message'));
         $readDataSQL =
-            "SELECT message_id, sender, subject, message, send_time\n"
-            .   " FROM `" . $tableName['im_message'] . "`\n"
+            "SELECT M.message_id, M.sender, M.subject, M.message, M.send_time\n"
+            .   " FROM `" . $tableName['im_message'] . "` AS M\n"
             .   " WHERE message_id = " . (int) $this->messageId
             ;
 
