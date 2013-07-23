@@ -152,6 +152,8 @@ var linkerFrontend = {
                     linkerFrontend.addSelected( data[i].crl, data[i].name );
                 }
             }
+            
+            registerClickFunctions();
         });
         
     },
@@ -357,6 +359,8 @@ var linkerFrontend = {
              
              i++;
         }
+        
+        registerClickFunctions();
     },
     
     addSelected : function(crl, name) {
@@ -379,6 +383,8 @@ var linkerFrontend = {
 
             this.currentIdx++;
         }
+        
+        registerClickFunctions();
     },
     
     removeSelected : function(crl) {
@@ -396,6 +402,8 @@ var linkerFrontend = {
               $(this).remove();
           }
         });
+        
+        registerClickFunctions();
     },
     
     alertVisible : function( visibility ) {
