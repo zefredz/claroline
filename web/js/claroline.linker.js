@@ -24,53 +24,15 @@ $(document).ready(function(){
     // activity  
     $("#lnk_ajax_loading").hide();
     
-    // load link list
+    // output list to page
+    
+        // load link list
     linkerFrontend.loadLinkList();
     
     // load list
     linkerFrontend.loadList();
     
-    // output list to page
-    
-    // bind event on each added icon
-    // - on category : min max display || select resource ?
-    // - on resources : select resources
-    
-    // listen to browse events - binded with $.on as these item are added and removed to DOM
-    $("#lnk_location a.navigable").on( 'click', function(){
-        linkerFrontend.loadList($(this).attr("rel"), $(this).attr("title"));
-        return false;
-    });
-    
-    $("#lnk_resources a.navigable").on( 'click', function(){
-        linkerFrontend.loadList($(this).attr("rel"), $(this).attr("title"));
-        return false;
-    });
-    
-    // listen to attach events
-    $("#lnk_resources a.linkable").on( 'click', function(){
-        if( ($(this).attr('class')) == 'linkable invisible' )
-        {
-            if( linkerFrontend.alertVisible( false ) )
-            {
-                linkerFrontend.select($(this).attr("id"), $(this).attr("title"));
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            linkerFrontend.select($(this).attr("id"), $(this).attr("title"));
-        }
-        return false;
-    });
-    // listen to detach events
-    $("#lnk_selected_resources div a").on( 'click', function(){
-        linkerFrontend.unselect($(this).attr("rel"));
-        return false;
-    });
+    registerClickFunctions();
     
     // listen to close events (min/max display)
     // do not use $.on here as these items always exists in DOM
@@ -100,9 +62,54 @@ $(document).ready(function(){
         $(this).hide();
         return false;
     });
-    
 
 });
+
+var registerClickFunctions = function() {
+    // bind event on each added icon
+    // - on category : min max display || select resource ?
+    // - on resources : select resources
+    
+    // listen to browse events - binded with $.on as these item are added and removed to DOM
+    $("#lnk_location a.navigable").on( 'click', function(){
+        console.log('click function registered');
+        linkerFrontend.loadList($(this).attr("rel"), $(this).attr("title"));
+        return false;
+    });
+    
+    $("#lnk_resources a.navigable").on( 'click', function(){
+        console.log('click function registered');
+        linkerFrontend.loadList($(this).attr("rel"), $(this).attr("title"));
+        return false;
+    });
+    
+    // listen to attach events
+    $("#lnk_resources a.linkable").on( 'click', function(){
+        console.log('click function registered');
+        
+        if( ($(this).attr('class')) == 'linkable invisible' )
+        {
+            if( linkerFrontend.alertVisible( false ) )
+            {
+                linkerFrontend.select($(this).attr("id"), $(this).attr("title"));
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            linkerFrontend.select($(this).attr("id"), $(this).attr("title"));
+        }
+        return false;
+    });
+    // listen to detach events
+    $("#lnk_selected_resources div a").on( 'click', function(){
+        linkerFrontend.unselect($(this).attr("rel"));
+        return false;
+    });
+};
 
 var linkerFrontend = {
 
@@ -145,7 +152,8 @@ var linkerFrontend = {
                     linkerFrontend.addSelected( data[i].crl, data[i].name );
                 }
             }
-        })
+        });
+        
     },
    
     loadList : function(crl, resourceName ) {
@@ -278,6 +286,8 @@ var linkerFrontend = {
                     
                     $("<br />").appendTo("#lnk_resources"); 
                   }
+                  
+                  registerClickFunctions();
               });
     },
     
