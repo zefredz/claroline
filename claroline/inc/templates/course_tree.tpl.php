@@ -5,7 +5,7 @@
 <!-- Select box of courses categories -->
 <form id="courseListCategorySelector" method="post" 
     action="<?php echo $_SERVER['PHP_SELF']; ?>#courseListCategorySelector">
-    <label for="viewCategory">Category selection</label>
+    <label for="viewCategory"><?php echo get_lang('Category selection'); ?></label>
     <select id="viewCategory" name="viewCategory">
         <option value="">
             <?php echo get_lang('All categories'); ?>
