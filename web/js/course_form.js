@@ -19,10 +19,10 @@ $(document).ready(function() {
     
     $("#registration_false").click(courseRegistrationDisable);
     
-    if ( $("#registration_true").attr("checked") ) {
+    if ( $("#registration_true").prop("checked") ) {
         courseRegistrationEnable();
     }
-    else if ( $("#registration_false").attr("checked") ) {
+    else if ( $("#registration_false").prop("checked") ) {
         courseRegistrationDisable();
     }
     else {
@@ -56,7 +56,7 @@ $(document).ready(function() {
         
         $("#useExpirationDate").removeAttr("disabled");
         
-        if ( $("#useExpirationDate").attr("checked") ) {
+        if ( $("#useExpirationDate").prop("checked") ) {
             $("#course_expirationDay").removeAttr("disabled");
             $("#course_expirationMonth").removeAttr("disabled");
             $("#course_expirationYear").removeAttr("disabled");
@@ -91,7 +91,7 @@ $(document).ready(function() {
     $("#course_status_disabled").click(courseStatusDisabled);
     
     $("#useExpirationDate").click(function(){
-        if ( $("#useExpirationDate").attr("checked") ) {
+        if ( $("#useExpirationDate").prop("checked") ) {
             $("#course_expirationDay").removeAttr("disabled");
             $("#course_expirationMonth").removeAttr("disabled");
             $("#course_expirationYear").removeAttr("disabled");
@@ -103,10 +103,10 @@ $(document).ready(function() {
         }
     });
     
-    if ( $("#course_status_enable").attr("checked") ) {
+    if ( $("#course_status_enable").prop("checked") ) {
         courseStatusEnabled();
     }
-    else if ( $("#course_status_date").attr("checked") ) {
+    else if ( $("#course_status_date").prop("checked") ) {
         courseStatusDate();
     }
     else {
@@ -114,7 +114,7 @@ $(document).ready(function() {
     }
     
     $("#registration_key").click(function(){
-        if ( $("#registration_key").attr("checked") ) 
+        if ( $("#registration_key").prop("checked") ) 
         {
             $("#course_registrationKey").attr("disabled", false);
         }
