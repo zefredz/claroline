@@ -342,6 +342,10 @@ class Claro_Course extends KernelObject
         return $this->_rawData['sourceCourseCode'];
     }
     
+    /**
+     * Check if a course has a source course
+     * @return boolean
+     */
     public function hasSourceCourse()
     {
         $sourceCourseCode  = $this->getSourceCourseCode();
@@ -373,6 +377,111 @@ class Claro_Course extends KernelObject
         else 
         {
             throw new Exception("The course {$this->courseId} has no source course");
+        }
+    }
+    
+    /**
+     * Check is the course is a source cours
+     * @return boolean
+     * @since API version 1.11.9
+     */
+    public function isSourceCourse()
+    {
+        if ( $this->hasSourceCourse() )
+        {
+            return false;
+        }
+        else 
+        {
+            return $this->_rawData['isSourceCourse'] === '1';
+        }
+    }
+    
+    protected function _getChildrenList( $forceRefresh = false )
+    {
+        if ( ! $this->_children || $forceRefresh )
+        {
+            $tbl =  claro_sql_get_main_tbl();
+
+            $parentId = Claroline::getDatabase()->escape($this->_rawData['id']);
+
+            $this->_children = Claroline::getDatabase()->query("
+                SELECT
+                    c.code                  AS courseId,
+                    c.code                  AS sysCode,
+                    c.cours_id              AS id,
+                    c.isSourceCourse        AS isSourceCourse,
+                    c.sourceCourseId        AS sourceCourseId,
+                    c.intitule              AS name,
+                    c.administrativeNumber  AS officialCode,
+                    c.administrativeNumber  AS administrativeNumber,
+                    c.directory             AS path,
+                    c.dbName                AS dbName,
+                    c.titulaires            AS titular,
+                    c.email                 AS email,
+                    c.language              AS language,
+                    c.extLinkUrl            AS extLinkUrl,
+                    c.extLinkName           AS extLinkName,
+                    c.visibility            AS visibility,
+                    c.access                AS access,
+                    c.registration          AS registration,
+                    c.registrationKey       AS registrationKey,
+                    c.diskQuota             AS diskQuota,
+                    UNIX_TIMESTAMP(c.creationDate)          AS publicationDate,
+                    UNIX_TIMESTAMP(c.expirationDate)        AS expirationDate,
+                    c.status                AS status,
+                    c.userLimit             AS userLimit
+                FROM
+                    `{$tbl['course']}`   AS c
+                WHERE
+                    C.`sourceCourseId` = {$parentId}
+            ");
+                
+        }
+                    
+        return $this->_children;
+    }
+    
+    /**
+     * Get children id list
+     */
+    
+    public function getChildrenList( $forceRefresh = false )
+    {
+        if ( $this->isSourceCourse() )
+        {
+            $childrenList = array();
+            
+            $children = $this->_getChildrenList ( $forceRefresh );
+            
+            foreach ( $children as $child )
+            {
+                $childrenList[$child['courseId']] = $child;
+            }
+        }
+        else 
+        {
+            throw new Exception("The course {$this->courseId} has no session courses");
+        }
+    }
+    
+    /**
+     * Get the iterator of children courses from a source course
+     * @return Claro_CourseIterator
+     * @since API version 1.11.9
+     * @throws Exception if not a source course
+     */
+    public function getChildren( $forceRefresh = false )
+    {
+        if ( $this->isSourceCourse() )
+        {
+            $childrenIterator = new Claro_CourseIterator( $this->_getChildrenList ( $forceRefresh ) );
+            
+            return $childrenIterator;
+        }
+        else 
+        {
+            throw new Exception("The course {$this->courseId} has no session courses");
         }
     }
     
@@ -500,4 +609,17 @@ class Claro_CurrentCourse extends Claro_Course
         
         return self::$instance;
     }
+}
+
+class Claro_CourseIterator extends RowToObjectIteratorIterator
+{
+    public function current ()
+    {
+        $courseData = $this->internalIterator->current();
+        
+        $course = new Claro_Course($courseData['courseId']);
+        $course->loadFromArray($courseData);
+        
+        return $course;
+    }    
 }

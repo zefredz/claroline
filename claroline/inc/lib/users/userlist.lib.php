@@ -155,18 +155,20 @@ class Claro_BatchCourseRegistration
     /**
      * Add a list of users given their user id to the course
      * @param array $userIdList list of user ids to add
-     * @param bool $classMode execute class registration instead of individual registration if set to true (default: false)
+     * @param Claro_Class $class execute class registration instead of individual registration if given (default:null)
      * @param bool $forceClassRegistrationOfExistingClassUsers transform individual registration to class registration if set to true (default: false)
      * @param array $userListAlreadyInClass user already in class as an array of user_id => user
      * @param bool $forceValidationOfPendingUsers pending user enrollments will be validated if set to true (default: false)
      * @return boolean
      */
-    public function addUserIdListToCourse( $userIdList, $classMode = false, $forceClassRegistrationOfExistingClassUsers = false, $userListAlreadyInClass = array(), $forceValidationOfPendingUsers = false )
+    public function addUserIdListToCourse( $userIdList, $class = null, $forceClassRegistrationOfExistingClassUsers = false, $userListAlreadyInClass = array(), $forceValidationOfPendingUsers = false )
     {
         if ( ! count( $userIdList ) )
         {
             return false;
         }
+        
+        $classMode = is_null( $class ) ? true : false;
         
         $courseCode = $this->course->courseId;
         $sqlCourseCode = $this->database->quote( $courseCode );
@@ -288,20 +290,27 @@ class Claro_BatchCourseRegistration
     /**
      * Remove a list of users given their user id from the cours
      * @param array $userIdList list of user ids to add
-     * @param bool $classMode execute class registration instead of individual registration if set to true (default:false)
+     * @param Claro_Class $class execute class unregistration instead of individual registration if given (default:null)
      * @param bool $keepTrackingData tracking data will be deleted if set to false (default:true, i.e. keep data)
      * @param array $moduleDataToPurge list of module_label => (purgeTracking => bool, purgeData => bool)
      * @return boolean
      */
-    public function removeUserIdListFromCourse( $userIdList, $classMode = false, $keepTrackingData = true, $moduleDataToPurge = array() )
+    public function removeUserIdListFromCourse( $userIdList, $class = null, $keepTrackingData = true, $moduleDataToPurge = array(), $unregisterFromSourceIfLastSession = true )
     {
         if ( ! count( $userIdList ) )
         {
             return false;
         }
         
+        $classMode = is_null( $class ) ? false : true;
+        
         $courseCode = $this->course->courseId;
         $sqlCourseCode = $this->database->quote( $courseCode );
+        
+        if ( $classMode && !$class->isRegisteredToCourse($courseCode) )
+        {
+            return false;
+        }
         
         // update user registration counts
         $cntToChange = $classMode ? 'count_class_enrol' : 'count_user_enrol';
@@ -404,6 +413,95 @@ class Claro_BatchCourseRegistration
             }
             
             $this->deletedUserList = $userListToRemove;
+            
+            if ( $this->course->isSourceCourse () )
+            {
+                $sessionCourseIterator = $this->course->getChildren();
+                
+                foreach ( $sessionCourseIterator as $sessionCourse )
+                {
+                    $batchReg = new self( $sessionCourse, $this->database );
+                    $batchReg->removeUserIdListFromCourse( $userIdListToRemove, $classMode, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
+                }
+            }
+            
+            if ( $this->course->hasSourceCourse () && $unregisterFromSourceIfLastSession )
+            {
+                $sourceCourse = $this->course->getSourceCourse();
+                
+                $sessionCourseIterator = $sourceCourse->getChildren();
+                
+                $foundSessionWithClass = false;
+                
+                if ( $classMode )
+                {
+                
+                    foreach ( $sessionCourseIterator as $sessionCourse )
+                    {
+
+                        if ( ( $sessionCourse->courseId != $this->course->courseId ) 
+                            && $class->isRegisteredToCourse ( $connectorClass ) )
+                        {
+                            $foundSessionWithClass = true;
+                        }
+                    }
+                    
+                    if ( ! $foundSessionWithClass )
+                    {
+                        $batchReg = new self( $sourceCourse, $this->database );
+                        $batchReg->removeUserIdListFromCourse( $userIdListToRemove, $classMode, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
+                    }
+                
+                }
+                else
+                {
+                    $userIdListToRemoveFromSource = array();
+                    
+                    // get userids registered in other sessions than the current one
+                    
+                    $sessionList = $sourceCourse->getChildrenList();
+                    $sessionIdList = array_keys( $sessionList );
+                    
+                    $sqlCourseCode = $this->database->quote($this->course->courseId);
+                    
+                    $usersInOtherSessions = $this->database->query("
+                        SELECT
+                            user_id
+                        FROM
+                            `{$this->tableNames['rel_course_user']}`
+                        WHERE
+                            user_id IN (".implode( ',', $userIdListToRemove ).")
+                        AND
+                            code_cours IN (".implode( ',', $sessionIdList ).")
+                        AND
+                            code_cours != {$sqlCourseCode}
+                    ");
+
+                    
+                    // loop on $userIdList and keep only those who are not in another session and inject them in $userIdListToRemoveFromSource
+                            
+                    $usersInOtherSessionsList = array();
+                    
+                    foreach ( $usersInOtherSessions as $userNotToRemove  )
+                    {
+                        $usersInOtherSessionsList[$userNotToRemove['user_id']] = $userNotToRemove;
+                    }
+                    
+                    foreach ( $userListToRemove as $userIdToRemove )
+                    {
+                        if ( ! isset( $usersInOtherSessionsList[$userIdToRemove] ) )
+                        {
+                            $userIdListToRemoveFromSource[] = $userIdToRemove;
+                        }
+                    }
+                    
+                    if ( count( $userIdListToRemoveFromSource ) )
+                    {
+                        $batchReg = new self( $sourceCourse, $this->database );
+                        $batchReg->removeUserIdListFromCourse( $userIdListToRemoveFromSource, $classMode, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
+                    }
+                }
+            }
         }
         else
         {
