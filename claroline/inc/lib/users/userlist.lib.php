@@ -17,7 +17,7 @@ require_once dirname(__FILE__) . '/claroclass.lib.php';
 
 /**
  * Utility class to add or remove users into or from a course by batch
- * @since Claroline 1.11.6
+ * @since Claroline 1.11.9
  */
 class Claro_BatchCourseRegistration
 {
@@ -525,7 +525,7 @@ class Claro_BatchCourseRegistration
 
 /**
  * Add a list of users to the platform
- * @since Claroline 1.11.6
+ * @since Claroline 1.11.9
  */
 class Claro_PlatformUserList
 {
@@ -808,7 +808,7 @@ class Claro_PlatformUserList
 
 /**
  * USer list of a course
- * @since Claroline 1.11.6
+ * @since Claroline 1.11.9
  */
 class Claro_CourseUserList
 {

@@ -14,16 +14,19 @@
  */
 
 /**
- * @since Claroline 1.11.6
+ * @since Claroline 1.11.9
  */
 class Claro_Class_Exception extends Exception {}; 
 
 /**
  * Represent a user class
+ * 
  * WARNING Claro_Class only deal with the class itself not with its users or 
- * their registration to courses. You need to use Claro_ClassUserList to manage 
- * users in a class and Claro_BatchCourseRegistration
- * @since Claroline 1.11.6
+ * their registration to courses. For example deleting a class will not remove 
+ * its users or unregister them from the courses the class is registered to.
+ * To manage class user list and course user registrations, you need to use 
+ * Claro_ClassUserList and Claro_BatchCourseRegistration.
+ * @since Claroline 1.11.9
  */
 class Claro_Class
 {
@@ -135,19 +138,10 @@ class Claro_Class
     
     /**
      * Delete the class from the database
-     * 
-     * WARNING this method does not delete the users from the class or from 
-     * the courses the class is registered to !!!! It only deletes the class itself 
-     * and unregister it from the courses
      */
     public function delete()
     {
-        $courses = $this->getClassCourseList();
-        
-        foreach ( $courses as $course )
-        {
-            $this->unregisterFromCourse($course['courseId']);
-        }
+        $this->unregisterFromAllCourses();
         
         $tbl = claro_sql_get_main_tbl();
         
@@ -409,6 +403,22 @@ class Claro_Class
     }
     
     /**
+     * Unregister the class from all registred courses
+     * @return \Claro_Class
+     */
+    public function unregisterFromAllCourses()
+    {
+        $courses = $this->getClassCourseList();
+        
+        foreach ( $courses as $course )
+        {
+            $this->unregisterFromCourse($course['courseId']);
+        }
+        
+        return $this;
+    }
+    
+    /**
      * Check if the class is registered to the given course
      * @param string $courseId course code
      * @return bool
@@ -432,7 +442,7 @@ class Claro_Class
 
 /**
  * User list of a class
- * @since Claroline 1.11.6
+ * @since Claroline 1.11.9
  */
 class Claro_ClassUserList
 {
