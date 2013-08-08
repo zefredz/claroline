@@ -130,6 +130,18 @@ class Claro_Class
         return $this;
     }
     
+    public function delete()
+    {
+        $tbl = claro_sql_get_main_tbl();
+        
+        $this->database->exec("
+            DELETE FROM 
+                `" . $tbl['class'] . "`
+            WHERE
+                id = " . $this->database->escape($this->id) . "
+        ");
+    }
+    
     /**
      * Update ths class in database
      * @throws Claro_Class_Exception if class does not exists (i.e. no id given)
@@ -590,6 +602,17 @@ class Claro_ClassUserList
             return false;
         }
         // remove users from class
+    }
+    
+    public function removeAllUsers()
+    {
+        $classId = $this->class->getId();
+
+        return $this->database->exec( "DELETE FROM 
+                `{$this->tbl['rel_class_user']}`
+            WHERE 
+                class_id = {$classId}
+         " );
     }
     
     /**
