@@ -183,6 +183,12 @@ class Claro_BatchCourseRegistration
                     
         if ( $classMode )
         {
+            // register class to course if not already done
+            if ( ! $class->isRegisteredToCourse ( $courseCode ) )
+            {
+                $class->registerToCourse( $courseCode );
+            }
+            
             foreach ( $usersAlreadyInCourse as $userId => $courseUser )
             {
                 if ( !$forceClassRegistrationOfExistingClassUsers || $courseUser['count_class_enrol'] != 0 )
@@ -506,6 +512,12 @@ class Claro_BatchCourseRegistration
         else
         {
             return false;
+        }
+        
+        // unregister the class from the course if not already done
+        if ( $classMode && $class->isRegisteredToCourse ( $courseCode ) )
+        {
+            $class->unregisterFromCourse( $courseCode );
         }
     }
 }
