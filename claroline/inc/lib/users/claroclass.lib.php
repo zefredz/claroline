@@ -340,7 +340,7 @@ class Claro_Class
     {
         if ( $this->isRegisteredToCourse ( $courseId ) )
         {
-            return;
+            return false;
         }
         
         $tbl  = claro_sql_get_main_tbl();
@@ -363,7 +363,7 @@ class Claro_Class
     {
         if ( !$this->isRegisteredToCourse ( $courseId ) )
         {
-            return;
+            return false;
         }
         
         $tbl  = claro_sql_get_main_tbl();
