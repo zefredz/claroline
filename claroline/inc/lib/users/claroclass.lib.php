@@ -338,6 +338,11 @@ class Claro_Class
      */
     public function registerToCourse( $courseId )
     {
+        if ( $this->isRegisteredToCourse ( $courseId ) )
+        {
+            return;
+        }
+        
         $tbl  = claro_sql_get_main_tbl();
     
         return $this->database->exec("
@@ -356,6 +361,11 @@ class Claro_Class
      */
     public function unregisterFromCourse( $courseId )
     {
+        if ( !$this->isRegisteredToCourse ( $courseId ) )
+        {
+            return;
+        }
+        
         $tbl  = claro_sql_get_main_tbl();
     
         return $this->database->exec("
