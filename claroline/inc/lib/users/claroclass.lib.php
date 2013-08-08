@@ -20,6 +20,9 @@ class Claro_Class_Exception extends Exception {};
 
 /**
  * Represent a user class
+ * WARNING Claro_Class only deal with the class itself not with its users or 
+ * their registration to courses. You need to use Claro_ClassUserList to manage 
+ * users in a class and Claro_BatchCourseRegistration
  * @since Claroline 1.11.6
  */
 class Claro_Class
@@ -130,8 +133,22 @@ class Claro_Class
         return $this;
     }
     
+    /**
+     * Delete the class from the database
+     * 
+     * WARNING this method does not delete the users from the class or from 
+     * the courses the class is registered to !!!! It only deletes the class itself 
+     * and unregister it from the courses
+     */
     public function delete()
     {
+        $courses = $this->getClassCourseList();
+        
+        foreach ( $courses as $course )
+        {
+            $this->unregisterFromCourse($course['courseId']);
+        }
+        
         $tbl = claro_sql_get_main_tbl();
         
         $this->database->exec("
@@ -329,6 +346,7 @@ class Claro_Class
         return $this->database->query("
             SELECT
                 cc.courseId AS code,
+                cc.courseId AS courseId,
                 c.administrativeNumber,
                 c.intitule AS title,
                 c.titulaires AS titulars
@@ -604,6 +622,10 @@ class Claro_ClassUserList
         // remove users from class
     }
     
+    /**
+     * Remove all users from the class
+     * @return bool
+     */
     public function removeAllUsers()
     {
         $classId = $this->class->getId();

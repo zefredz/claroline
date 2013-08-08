@@ -2,10 +2,12 @@
 
 // $Id$
 
+require_once dirname(__FILE__) . '/claroclass.lib.php';
+
 /**
  * Set of PHP classes for user batch registration and enrolment
  *
- * @version 0.1 $Revision$
+ * @version Claroline 1.11 $Revision$
  * @copyright (c) 2013 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package kernel
@@ -13,7 +15,6 @@
  * @todo move to Claroline kernel
  */
 
-// add or remove lists of user ids from a course
 /**
  * Utility class to add or remove users into or from a course by batch
  * @since Claroline 1.11.6
