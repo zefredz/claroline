@@ -140,12 +140,12 @@ $(document).ready(function(){
     // ajax loader
     $("#loading").hide();
     
-    $("#loading").ajaxStart(function(){
-        $(this).show();
+    $(document).ajaxStart(function(){
+        $("#loading").show();
     });
     
-    $("#loading").ajaxStop(function(){
-        $(this).hide();
+    $(document).ajaxStop(function(){
+        $("#loading").hide();
     });
     
     // multiple select

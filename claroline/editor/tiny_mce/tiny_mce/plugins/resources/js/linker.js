@@ -51,12 +51,12 @@ $(document).ready(function(){
     });
     
     // ajax activity led
-    $("#lnk_ajax_loading").ajaxStart(function(){
-        $(this).show();
+    $(document).ajaxStart(function(){
+        $("#lnk_ajax_loading").show();
     });
         
-    $("#lnk_ajax_loading").ajaxStop(function(){
-        $(this).hide();
+    $(document).ajaxStop(function(){
+        $("#lnk_ajax_loading").hide();
     });
 
 });
