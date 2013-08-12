@@ -148,7 +148,16 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
         catch ( Exception $e )
         {
             $this->setFailureMessage($e->getMessage());
-            Console::error($e->getMessage());
+            
+            if ( claro_debug_mode () )
+            {
+                Console::error($e->__toString());
+            }
+            else
+            {
+                Console::error($e->getMessage());
+            }
+            
             return false;
         }
     }
