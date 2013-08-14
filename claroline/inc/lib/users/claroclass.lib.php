@@ -2,6 +2,8 @@
 
 // $Id$
 
+require_once dirname(__FILE__) . '/classutils.lib.php';
+
 /**
  * Set of PHP classes to manipulate Claroline user classes
  *
@@ -40,6 +42,11 @@ class Claro_Class
         $name_changed = false,
         $parentId_changed = false;
     
+    protected
+        $subClassesIdList = array(),
+        $subClassesIterator = null,
+        $parentClass = null;
+    
     protected $database;
     
     /**
@@ -48,6 +55,19 @@ class Claro_Class
     public function __construct( $database = null )
     {
         $this->database = $database ? $database : Claroline::getDatabase();    
+    }
+    
+    public function fromArray( $data )
+    {
+        if ( !isset( $data['id'] ) || ! isset($data['name']) )
+        {
+            throw new Claro_Class_Exception("Invalid arguments supplied to method : missing id or name");
+        }
+        
+        $this->id = $data['id'];
+        $this->name = $data['name'];
+        $this->level = $data['level'];
+        $this->parentId = $data['parentId'];
     }
     
     /**
@@ -438,6 +458,81 @@ class Claro_Class
                 courseId = ".$this->database->quote( $courseId )."
         ")->numRows() > 0;
     }
+    
+    protected function loadSubclassesList()
+    {
+        $parentId = $this->database->escape($this->id);
+        
+        $tbl = claro_sql_get_main_tbl();
+        
+        $subclasses = $this->database->query("
+            SELECT id,
+                name,
+                class_parent_id as parentId,
+                class_level as level
+            FROM `" . $tbl['class'] . "`
+            WHERE `class_parent_id`= {$parentId}
+        ");
+            
+        if ( $subclasses->numRows() )
+        {
+            foreach ( $subclasses as $sclass )
+            {
+                $this->subClassesIdList[$sclass['id']] = $sclass['id'];
+            }
+        }
+        
+        $subclasses->rewind();
+        
+        $this->subClassesIterator = new Claro_ClassIterator( $subclasses, $this->database );
+    }
+    
+    public function hasSubclasses()
+    {
+        if ( is_null($this->subClassesIterator ) )
+        {
+            $this->loadSubclassesList();
+        }
+        
+        return count( $this->subClassesIdList ) > 0;
+    }
+    
+    public function getSubClassesIterator()
+    {
+        if ( ! $this->hasSubclasses () )
+        {
+            throw new Claro_Class_Exception("This class has no subclasses");
+        }
+        else
+        {
+            return $this->subClassesIterator;
+        }
+    }
+    
+    public function getSubClassesIdList()
+    {
+        if ( ! $this->hasSubclasses () )
+        {
+            throw new Claro_Class_Exception("This class has no subclasses");
+        }
+        else
+        {
+            return $this->subClassesIdList;
+        }
+    }
+    
+    public function hasParent()
+    {
+        return $this->parentId ? true : false;
+    }
+    
+    public function getParent()
+    {
+        if ( ! $this->hasParent () )
+        {
+            throw new Claro_Class_Exception("This class has no parent");
+        }
+    }
 }
 
 /**
@@ -783,4 +878,23 @@ class Claro_ClassUserList
             AND
                 user_id = {$userId}" )->numRows() > 0;
     }
+}
+
+class Claro_ClassIterator extends RowToObjectIteratorIterator
+{
+    protected
+        $database;
+    
+    public function __construct ( CountableIterator $internalIterator, $database = null )
+    {
+        $this->database = $database ? $database : Claroline::getDatabase();
+        parent::__construct ( $internalIterator );
+    }
+    public function current ()
+    {
+        $claroClass = new Claro_Class();
+        $claroClass->fromArray( $this->internalIterator->current() );
+        
+        return $claroClass;
+    }    
 }
