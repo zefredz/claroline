@@ -2,6 +2,7 @@
 
 require_once dirname(__FILE__) . '/auth/authprofile.lib.php';
 require_once dirname(__FILE__) . '/course/userprivileges.lib.php';
+require_once dirname(__FILE__) . '/users/courseregistration.lib.php';
 
 /**
  * CLAROLINE
@@ -21,24 +22,25 @@ require_once dirname(__FILE__) . '/course/userprivileges.lib.php';
 /**
  * Subscribe a specific user to a specific course.  If this course is a session
  * course, the user will also be subscribed to the source course.
+ * 
+ * Helper for Claro_CourseUserRegistration
  *
  * @param int $userId user ID from the course_user table
  * @param string $courseCode course code from the cours table
  * @param boolean $admin
  * @param boolean $tutor
- * @param boolean $register_by_class
+ * @param int $class_id
  * @return boolean TRUE  if it succeeds, FALSE otherwise
- * @deprecated use ClaroUserRegistration from auth/authprofile.lib.php instead
  */
 
 function user_add_to_course(
     $userId, $courseCode, $admin = false, $tutor = false,
-    $register_by_class = false )
+    $class_id = null )
 {
     $courseObj = new Claro_Course($courseCode);
     $courseObj->load();
     
-    $courseRegistration = new CourseUserRegistration(
+    $courseRegistration = new Claro_CourseUserRegistration(
         AuthProfileManager::getUserAuthProfile($userId),
         $courseObj,
         null,
@@ -55,9 +57,11 @@ function user_add_to_course(
         $courseRegistration->setCourseTutor();
     }
     
-    if ( $register_by_class )
+    if ( $class_id )
     {
-        $courseRegistration->setClassRegistrationMode();
+        $claroClass = new Claro_Class();
+        $claroClass->load($class_id);
+        $courseRegistration->setClass( $claroClass );
     }
     
     $courseRegistration->ignoreRegistrationKeyCheck();
@@ -154,7 +158,6 @@ function get_course_registration_key($courseId)
 /**
  * unsubscribe a specific user from a specific course
  *
- * @author Hugues Peeters <hugues.peeters@advalvas.be>
  *
  * @param  int     $user_id        user ID from the course_user table
  * @param  mixed (string or array) $courseCodeList course sys code
@@ -165,109 +168,52 @@ function get_course_registration_key($courseId)
  * @return boolean TRUE        if unsubscribtion succeed
  *         boolean FALSE       otherwise.
  */
-
-function user_remove_from_course( $userId, $courseCodeList = array(), $force = false, $delTrackData = false, $unregister_by_class = false)
+function user_remove_from_course( $userId, $courseCodeList = array(), $force = false, $delTrackData = false, $class_id = null)
 {
-    $tbl = claro_sql_get_main_tbl();
-
     if ( ! is_array($courseCodeList) ) $courseCodeList = array($courseCodeList);
-
-    if ( ! $force && $userId == $GLOBALS['_uid'] )
+    
+    if ( $class_id )
     {
-        // PREVIOUSLY CHECK THE USER IS NOT COURSE ADMIN OF THESE COURSES
-
-        $sql = "SELECT COUNT(user_id)
-                FROM `" . $tbl['rel_course_user'] . "`
-                WHERE user_id = ". (int) $userId ."
-                  AND isCourseManager = 1
-                  AND code_cours IN ('" . implode("', '", array_map('claro_sql_escape', $courseCodeList) ) . "') ";
-
-        if ( claro_sql_query_get_single_value($sql)  > 0 )
+        $claroClass = new Claro_Class();
+        $claroClass->load($class_id);
+    }
+    else
+    {
+        $claroClass = null;
+    }
+    
+    $allWorksWell = true;
+    
+    foreach ( $courseCodeList as $courseCode )
+    {
+        $course = new Claro_Course( $courseCode );
+        $course->load();
+        
+        $userCourseRegistration = new Claro_CourseUserRegistration(
+            AuthProfileManager::getUserAuthProfile($userId),
+            $course
+        );
+        
+        if ( $force )
         {
-            Claroline::getInstance()->log( 'DELETE_USER_FAILED' , array ('USER' => $userId, 'failure' => 'course_manager_cannot_unsubscribe_himself') );
-            return claro_failure::set_failure('course_manager_cannot_unsubscribe_himself');
+            $userCourseRegistration->forceUnregistrationOfManager();
+        }
+        
+        if ( !is_null( $claroClass ) )
+        {
+            $userCourseRegistration->setClass( $claroClass );
+        }
+        
+        $keepTrackingData = !$delTrackData;
+        
+        if ( !$userCourseRegistration->removeUser( $keepTrackingData, array() ) )
+        {
+            Console::warning("Cannot remove user {$userId} from {$courseCode}");
+            $allWorksWell = false;
         }
     }
-
-    $sql = "SELECT code_cours , count_user_enrol, count_class_enrol
-            FROM `" . $tbl['rel_course_user'] . "`
-            WHERE `code_cours` IN ('" . implode("', '", array_map('claro_sql_escape', $courseCodeList) ) . "')
-            AND   `user_id` = " . $userId ;
-
-    $userEnrolCourseList = claro_sql_query_fetch_all($sql);
-
-    foreach ( $userEnrolCourseList as $thisUserEnrolCourse )
-    {
-
-        $thisCourseCode    = $thisUserEnrolCourse['code_cours'];
-        $count_user_enrol  = $thisUserEnrolCourse['count_user_enrol'];
-        $count_class_enrol = $thisUserEnrolCourse['count_class_enrol'];
-
-        if ( ( $count_user_enrol + $count_class_enrol ) <= 1 )
-        {
-            // remove user from course
-            if ( user_remove_from_group($userId, $thisCourseCode) == false ) return false;
-
-            $dbNameGlued   = claro_get_course_db_name_glued($thisCourseCode);
-            $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
-
-            $tbl_bb_notify         = $tbl_cdb_names['bb_rel_topic_userstonotify'];
-            $tbl_group_team        = $tbl_cdb_names['group_team'         ];
-            $tbl_userinfo_content  = $tbl_cdb_names['userinfo_content'   ];
-
-           $sqlList = array();
-           $toolCLFRM =  get_module_data('CLFRM');
-           
-           if (is_tool_activated_in_course($toolCLFRM['id'],$thisUserEnrolCourse['code_cours']))
-           {
-               $sqlList = array(
-                    "DELETE FROM `" . $tbl_bb_notify        . "` WHERE user_id = " . (int) $userId );
-           }
-            
-            array_push($sqlList,
-            "DELETE FROM `" . $tbl_userinfo_content . "` WHERE user_id = " . (int) $userId ,
-            // change tutor to NULL for the course WHERE the tutor is the user to delete
-            "UPDATE `" . $tbl_group_team . "` SET `tutor` = NULL WHERE `tutor`='" . (int) $userId . "'"
-            );
-
-            foreach( $sqlList as $thisSql )
-            {
-                if ( claro_sql_query($thisSql) == false ) return false;
-                else                                      continue;
-            }
-
-            if ($delTrackData)
-            {
-                if ( user_delete_course_tracking_data($userId, $thisCourseCode) == false) return false;
-            }
-
-            $sql = "DELETE FROM `" . $tbl['rel_course_user'] . "`
-                WHERE user_id = " . (int) $userId . "
-                  AND code_cours = '" . claro_sql_escape($thisCourseCode) . "'";
-
-            if ( claro_sql_query($sql) == false ) return false;
-        }
-        else
-        {
-            // decrement the count of registration by the user or class
-            if ( ! $unregister_by_class )  $count_user_enrol--;
-            else                           $count_class_enrol--;
-
-            // update enrol count in table rel_course_user
-
-            $sql = "UPDATE `".$tbl['rel_course_user']."`
-                      SET `count_user_enrol` = '" . $count_user_enrol . "',
-                        `count_class_enrol` = '" . $count_class_enrol . "'
-                      WHERE `user_id`   =  " . (int) $userId . "
-                      AND  `code_cours` = '" . claro_sql_escape($thisCourseCode) . "'";
-
-            if ( claro_sql_query($sql) ) return true;
-            else                         return false;
-
-        }
-    }
-
-    return true;
+    
+    return $allWorksWell;
 }
 
 /**

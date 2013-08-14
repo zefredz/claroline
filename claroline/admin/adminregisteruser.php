@@ -75,7 +75,7 @@ switch ( $cmd )
 {
     case 'sub' : //execute subscription command...
 
-        $done = user_add_to_course($user_id, $cidToEdit, false, false, false);
+        $done = user_add_to_course($user_id, $cidToEdit, false, false, null);
 
         // Set status requested
 

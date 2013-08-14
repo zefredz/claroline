@@ -270,7 +270,7 @@ if ( $cmd == 'exReg' )
     $courseObj = new Claro_Course($courseCode);
     $courseObj->load();
     
-    $courseRegistration = new CourseUserRegistration(
+    $courseRegistration = new Claro_CourseUserRegistration(
         AuthProfileManager::getUserAuthProfile($userId),
         $courseObj,
         $registrationKey,
@@ -279,7 +279,10 @@ if ( $cmd == 'exReg' )
     
     if ( !empty( $classId ) )
     {
-        $courseRegistration->setClassRegistrationMode();
+        $claroClass = new Claro_Class();
+        $claroClass->load($classId);
+        
+        $courseRegistration->setClass( $claroClass );
     }
     
     if ( $courseRegistration->addUser() )
@@ -312,21 +315,21 @@ if ( $cmd == 'exReg' )
     {
         switch ($courseRegistration->getStatus())
         {
-            case CourseUserRegistration::STATUS_KEYVALIDATION_FAILED :
+            case Claro_CourseUserRegistration::STATUS_KEYVALIDATION_FAILED :
             {
                 $displayMode = DISPLAY_REGISTRATION_KEY_FORM;
                 $dialogBox->error( $courseRegistration->getErrorMessage() );
             }
             break;
             
-            case CourseUserRegistration::STATUS_SYSTEM_ERROR :
+            case Claro_CourseUserRegistration::STATUS_SYSTEM_ERROR :
             {
                 $displayMode = DISPLAY_MESSAGE_SCREEN;
                 $dialogBox->error( $courseRegistration->getErrorMessage() );
             }
             break;
             
-            case CourseUserRegistration::STATUS_REGISTRATION_NOTAVAILABLE :
+            case Claro_CourseUserRegistration::STATUS_REGISTRATION_NOTAVAILABLE :
             {
                 $displayMode = DISPLAY_REGISTRATION_DISABLED_FORM;
                 $dialogBox->error( $courseRegistration->getErrorMessage() );

@@ -120,7 +120,7 @@ if ( $is_allowedToEdit )
     // Register a new user
     if ( $cmd == 'register' && $req['user_id'])
     {
-        $done = user_add_to_course($req['user_id'], claro_get_current_course_id(), false, false, false);
+        $done = user_add_to_course($req['user_id'], claro_get_current_course_id(), false, false, null);
 
         if ($done)
         {

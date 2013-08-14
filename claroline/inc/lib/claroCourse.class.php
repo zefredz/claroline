@@ -259,7 +259,7 @@ class ClaroCourse
                 $courseObj = new Claro_Course($courseSysCode);
                 $courseObj->load();
 
-                $courseRegistration = new CourseUserRegistration(
+                $courseRegistration = new Claro_CourseUserRegistration(
                     AuthProfileManager::getUserAuthProfile($GLOBALS['_uid']),
                     $courseObj,
                     null,

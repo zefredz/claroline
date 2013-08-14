@@ -286,204 +286,139 @@ function move_class($class_id, $class_id_towards)
 }
 
 /**
- * Enter description here...
- *
- * @param integer $class_id
- * @param string $course_code
- * @return unknown
+ * helper to register a class (and recursively register all its subclasses) to a course
+ * @param Claro_Class $claroClass
+ * @param Claro_Course $courseObj
+ * @param Claro_BatchRegistrationResult $result
+ * @return Claro_BatchRegistrationResult
+ * @since Claroline 1.11.9
  */
-
-function register_class_to_course($class_id, $course_code)
+function object_register_class_to_course( $claroClass, $courseObj, $result )
 {
-    $tbl_mdb_names  = claro_sql_get_main_tbl();
-    $tbl_class        = $tbl_mdb_names['class'];
-    $tbl_class_user   = $tbl_mdb_names['rel_class_user'];
-    $tbl_course_class = $tbl_mdb_names['rel_course_class'];
-      $tbl_course       = $tbl_mdb_names['course'];
-    $tbl_user         = $tbl_mdb_names['user'];
-
-    // 1.get cours_id with cours_code in cl_cours and check course
-
-    $sql = "SELECT `code`
-                FROM `".$tbl_course."`
-                WHERE `code` = '". claro_sql_escape($course_code) ."'";
-
-    $course_identifier = claro_sql_query_fetch_all($sql);
-
-    if ( !isset($course_identifier[0]['code']))
+    if ( ! $claroClass->isRegisteredToCourse ( $courseObj->courseId ) )
     {
-        return claro_failure::set_failure('course_not_found');
-        //TODO : ameliorer la detection d'erreur
-    }
+        $claroClass->registerToCourse( $courseObj->courseId );
 
-    // 2. See if there is a class with such ID in the main DB
+        $claroClassUserList = new Claro_ClassUserList( $claroClass );
 
-    $sql = "SELECT `id`
-            FROM `" . $tbl_class . "`
-            WHERE `id` = '" . $class_id . "' ";
-    $result = claro_sql_query_fetch_all($sql);
+        $courseUserList = new Claro_BatchCourseRegistration($courseObj, Claroline::getDatabase (), $result );
 
-    if ( !isset($result[0]['id']))
-    {
-        return claro_failure::set_failure('class_not_found'); // the class doesn't exist
-    }
+        $userAlreadyInClass = $claroClassUserList->getClassUserIdList( true );
 
-    // 3. get the list of users in this class
-
-    $sql = "SELECT u.user_id,
-                   u.nom as lastname,
-                   u.prenom as firstname
-            FROM `" . $tbl_class_user . "` AS `rel_c_u`,
-                 `" . $tbl_user . "`       AS `u`
-            WHERE `rel_c_u`.`class_id`= " . (int) $class_id . "
-              AND `rel_c_u`.`user_id` = `u`.`user_id`";
-
-    $result = claro_sql_query_fetch_all($sql);
-
-    // 4. subscribe each users of class to course
-
-    $resultLog = array();
-
-    foreach ($result as $user)
-    {
-        $done = user_add_to_course($user['user_id'], $course_code, false, false, true);
-
-        if ( $done )
+        $courseUserList->addUserIdListToCourse( 
+            $claroClassUserList->getClassUserIdList (), 
+            $claroClass, 
+            true, 
+            $userAlreadyInClass,
+            true );
+        
+        if ( $claroClass->hasSubclasses () )
         {
-            $resultLog['OK'][] = $user;
+            pushClaroMessage("Class has subclass",'debug');
+            
+            foreach ( $claroClass->getSubClassesIterator() as $subClass )
+            {
+                pushClaroMessage("Process subclass{$subClass->getName()}",'debug');
+                $result = object_register_class_to_course( $subClass, $courseObj, $result );
+            }
         }
         else
         {
-            $resultLog['KO'][] = $user;
+            pushClaroMessage("Class has no subclass",'debug');
         }
+
+        return $result;
     }
-
-    // 5 - Record link between class and course
-
-    // check if link already exist
-    $sql = "SELECT `courseId`
-                FROM `".$tbl_course_class."`
-                WHERE `courseId` = '". claro_sql_escape($course_code) ."'
-                AND `classId` = ".$class_id;
-
-    $result = claro_sql_query_fetch_all($sql);
-
-    if ( count($result) == 0 )
+    else
     {
-        // Insert value in table if not exist
-        $sql = "INSERT INTO `".$tbl_course_class."` (`courseId`,`classId`)
-        VALUES ('".claro_sql_escape($course_code)."', '".$class_id."')";
-
-        claro_sql_query($sql);
+        // already registered
+        return $result;
     }
-
-    // Find subclasses of current class
-
-    $sql = "SELECT `id`
-            FROM `" . $tbl_class . "`
-            WHERE `class_parent_id`=" . (int) $class_id;
-
-    $subClassesList = claro_sql_query_fetch_all($sql);
-
-    // RECURSIVE CALL to register subClasses too
-
-    if (!isset($resultLog['OK'])) $resultLog['OK'] = array();
-    if (!isset($resultLog['KO'])) $resultLog['KO'] = array();
-
-    foreach ($subClassesList as $subClass)
-    {
-        $subClassResultLog = register_class_to_course($subClass['id'], $course_code);
-
-        if (isset($subClassResultLog['OK'])) $resultLog['OK'] = array_merge($resultLog['OK'],$subClassResultLog['OK']);
-        if (isset($subClassResultLog['KO'])) $resultLog['KO'] = array_merge($resultLog['KO'],$subClassResultLog['KO']);
-    }
-
-    return $resultLog;
 }
 
 /**
- * unregister a class to course
+ * helper to register a class to a course
+ *
+ * @param integer $class_id
+ * @param string $course_code
+ * @return Claro_BatchRegistrationResult
+ */
+function register_class_to_course($class_id, $course_code)
+{
+    $courseObj = new Claro_Course( $course_code );
+    $courseObj->load();
+    
+    $claroClass = new Claro_Class();
+    $claroClass->load( $class_id );
+    
+    $result = new Claro_BatchRegistrationResult();
+    
+    return object_register_class_to_course( $claroClass, $courseObj, $result );
+}
+
+/**
+ * helper to unregister a class (and recursively unregister all its subclasses) from a course
+ * @param Claro_Class $claroClass
+ * @param Claro_Course $courseObj
+ * @param Claro_BatchRegistrationResult $result
+ * @return Claro_BatchRegistrationResult
+ * @since Claroline 1.11.9
+ */
+function object_unregister_class_from_course( $claroClass, $courseObj, $result )
+{
+    if ( $claroClass->isRegisteredToCourse ( $courseObj->courseId ) )
+    {
+        $classUserIdList = $claroClass->getClassUserList()->getClassUserIdList();
+
+        $courseBatchRegistretion = new Claro_BatchCourseRegistration( $courseObj );
+
+        $courseBatchRegistretion->removeUserIdListFromCourse( $classUserIdList, $claroClass );
+
+        if ( $claroClass->hasSubclasses () )
+        {
+            pushClaroMessage("Class has subclass",'debug');
+            // recursion !
+            foreach ( $claroClass->getSubClassesIterator() as $subClass )
+            {
+                pushClaroMessage("Process subclass{$subClass->getName()}",'debug');
+                $result = object_unregister_class_from_course( $subClass, $courseObj, $result );
+            }
+        }
+        else
+        {
+            pushClaroMessage("Class has no subclass",'debug');
+        }
+
+        return $result;
+    }
+    else
+    {
+        return $result;
+    }
+}
+
+/**
+ * helper to unregister a class from course
  *
  * @author Damien Garros <dgarros@univ-catholyon.fr>
  *
  * @param int class_id
  * @param string course_code
  *
- * @return a string of log
- *
- **/
+ * @return Claro_BatchRegistrationResult
+ */
 
 function unregister_class_to_course($class_id, $course_code)
 {
-    $tbl_mdb_names      = claro_sql_get_main_tbl();
-    $tbl_user           = $tbl_mdb_names['user'];
-    $tbl_class_user     = $tbl_mdb_names['rel_class_user'];
-    $tbl_course_class     = $tbl_mdb_names['rel_course_class'];
-    $tbl_class          = $tbl_mdb_names['class'];
-    $tbl_course            = $tbl_mdb_names['course'];
+    $claroClass = new Claro_Class( Claroline::getDatabase() );
+    $claroClass->load( $class_id );
 
-    // 1 - check class in cl_class
-
-    $sql = "SELECT `name`
-                FROM `".$tbl_class."`
-                WHERE `id` = '".$class_id."'";
-
-    $class_name = claro_sql_query_get_single_value($sql);
-
-    if ( is_null($class_name) || !isset($class_name))
-    {
-        return claro_failure::set_failure('CLASS_NOT_FOUND');
-    }
-
-    // 2 - Check course and get course_id
-
-    $sql = "SELECT `cours_id`
-                FROM `".$tbl_course."`
-                WHERE `code` = '". claro_sql_escape($course_code) ."'";
-
-    $course_id = claro_sql_query_get_single_value($sql);
-
-    if ( is_null($course_id) || !isset($course_id) )
-    {
-        return claro_failure::set_failure('COURSE_NOT_FOUND');
-    }
-
-    //3 - get the list of users in this class
-
-    $sql = "SELECT *
-            FROM `".$tbl_class_user."` `rel_c_u`, `".$tbl_user."` `u`
-            WHERE `class_id`='". (int)$class_id."'
-            AND `rel_c_u`.`user_id` = `u`.`user_id`";
-
-    $result = claro_sql_query_fetch_all($sql);
-
-    // 4 - Unsubscribe the each users
-
-    $resultLog = array();
-
-    foreach ($result as $user)
-    {
-        $done = user_remove_from_course($user['user_id'], $course_code, false, false, true);
-        if ($done)
-        {
-            $resultLog['OK'][] = $user;
-        }
-        else
-        {
-            $resultLog['KO'][] = $user;
-        }
-    }
-
-    // 5 - Remove link between class and course in rel_course_class
-
-    $sql = "DELETE FROM `".$tbl_course_class."`
-            WHERE `courseId` = '". claro_sql_escape($course_code) ."'
-            AND `classId` = '".$class_id."'";
-
-    claro_sql_query($sql);
-
-    return $resultLog;
-
+    $courseObj = new Claro_Course( $course_code );
+    $courseObj->load();
+    
+    $result = new Claro_BatchRegistrationResult();
+    
+    return object_unregister_class_from_course( $claroClass, $courseObj, $result );
 }
 
 /**
@@ -564,7 +499,7 @@ function user_add_to_class($user_id,$class_id)
     foreach ( $courseList as $course )
     {
         //check if every think is good
-        if( !user_add_to_course($user_id, $course['code'], false, false, true) )
+        if( !user_add_to_course($user_id, $course['code'], false, false, $class_id) )
         {
             return claro_failure::set_failure('PROBLEM_WITH_COURSE_SUBSCRIBE');
             //TODO : ameliorer la  gestion d'erreur ...

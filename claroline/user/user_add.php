@@ -217,7 +217,7 @@ if ( $cmd == 'registration' )
         $courseObj = new Claro_Course(claro_get_current_course_id());
         $courseObj->load();
 
-        $courseRegistration = new CourseUserRegistration(
+        $courseRegistration = new Claro_CourseUserRegistration(
             AuthProfileManager::getUserAuthProfile($userId),
             $courseObj,
             null,

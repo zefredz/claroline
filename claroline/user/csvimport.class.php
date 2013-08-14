@@ -259,7 +259,7 @@ class CsvImport extends parseCSV
                     }
                     else
                     {
-                        if( !user_add_to_course( $userId, $courseId, false, false, false) )
+                        if( !user_add_to_course( $userId, $courseId, false, false, null) )
                         {
                             $logs['errors'][] = get_lang( 'Unable to add user %username in this course', array('%username' => $userInfo['username'] ) );
                         }
