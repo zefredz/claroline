@@ -422,7 +422,10 @@ class Claro_BatchCourseRegistration
             {
                 $this->result->addFailed($failedUserList);
                 $this->result->setStatus( Claro_BatchRegistrationResult::STATUS_ERROR_UPDATE_FAIL );
-                $this->result->addError( "Cannot update course registration information for users " . implode(",",$failedUserList ) . " in course {$courseCode}" );
+                $this->result->addError( get_lang( 
+                    "Cannot update course registration information for users %userlist% in course %course%", array( 
+                        '%userlist%' =>  implode(",",$failedUserList ), 
+                        '%course%' => $courseCode ) ) );
                 Console::error( "Cannot update course registration information for users " . implode(",",$failedUserList ) . " in course {$courseCode}" );
             }
             
@@ -478,7 +481,10 @@ class Claro_BatchCourseRegistration
                 VALUES\n" . implode( ",\n\t", $userNewRegistrations ) ) )
             {
                 $this->result->setStatus( Claro_BatchRegistrationResult::STATUS_ERROR_INSERT_FAIL);
-                $this->result->addError ( "Cannot insert userlist " . implode( ",", $userListToInsert ) . " in  course  {$courseCode}" );
+                $this->result->addError ( get_lang( 
+                    "Cannot insert userlist %userlist% in course %course%", array( 
+                        '%userlist%' =>  implode( ",", $userListToInsert ), 
+                        '%course%' => $courseCode ) ) );
                 Console::error( "Cannot insert userlist " . implode( ",", $userListToInsert ) . " in  course  {$courseCode}" );
                 
                 $this->result->addFailed( $userListToInsert );
@@ -515,7 +521,7 @@ class Claro_BatchCourseRegistration
         
         if ( $classMode && !$class->isRegisteredToCourse($courseCode) )
         {
-            $this->result->addError("Class not registered to course");
+            $this->result->addError(get_lang("Class not registered to course"));
             $this->result->setStatus(Claro_BatchRegistrationResult::STATUS_ERROR_DELETE_FAIL);
             return false;
         }
@@ -714,7 +720,7 @@ class Claro_BatchCourseRegistration
         else
         {
             $this->result->setStatus(Claro_BatchRegistrationResult::STATUS_ERROR_NOTHING_TO_DO);
-            $this->result->addError("No user to delete");
+            $this->result->addError(get_lang("No user to delete"));
         }
         
         // unregister the class from the course if not already done
