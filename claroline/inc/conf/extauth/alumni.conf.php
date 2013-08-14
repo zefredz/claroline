@@ -22,7 +22,8 @@ $driverConfig['driver'] = array(
     'class' => 'AlumniAuthDriver',
     'authSourceType' => 'local',
     'authSourceName' => 'alumni',
-    'userRegistrationAllowed' => false
+    'userRegistrationAllowed' => false,
+    'lostPasswordAllowed' => true
 );
 
 // you can change the driver from this point

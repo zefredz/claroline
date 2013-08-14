@@ -273,6 +273,7 @@ class AuthUserTable
 class AuthDriverManager
 {
     protected static $drivers = false;
+    protected static $driversAllowingLostPassword = false;
     
     public static function getRegisteredDrivers()
     {
@@ -376,6 +377,38 @@ class AuthDriverManager
                 }
             }
         }
+        
+        if ( $driverConfig['driver']['lostPasswordAllowed'] == true )
+        {
+            self::$driversAllowingLostPassword[$driverConfig['driver']['authSourceName']] = $driverConfig['driver']['authSourceName'];
+        }
+    }
+    
+    public static function getDriversAllowingLostPassword()
+    {
+        if ( ! self::$drivers )
+        {
+            self::initDriverList();
+        }
+        
+        return self::$driversAllowingLostPassword;
+    }
+    
+    public static function checkIfDriverSupportsLostPassword( $authSourceName )
+    {
+        if ( ! self::$drivers )
+        {
+            self::initDriverList();
+        }
+        
+        if ( isset( self::$driversAllowingLostPassword[$authSourceName] ) )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     protected static function initDriverList()
@@ -385,6 +418,11 @@ class AuthDriverManager
             'claroline' => new ClarolineLocalAuthDriver(),
             'disabled' => new UserDisabledAuthDriver(),
             'temp' => new TemporaryAccountAuthDriver()
+        );
+        
+        self::$driversAllowingLostPassword = array(
+            'claroline' => 'claroline',
+            'clarocrypt' => 'clarocrypt'
         );
         
         // load dynamic drivers

@@ -62,10 +62,11 @@ if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
 
     if ( count($userList) > 0 )
     {
+        $allowedAuthSources = AuthDriverManager::getDriversAllowingLostPassword();
+        
         foreach ( $userList as $user )
         {
-            if ( in_array(strtolower($user['authSource']),
-                          array('claroline', 'clarocrypt')))
+            if ( isset( $allowedAuthSources[$user['authSource']] ) )
             {
                 $passwordFound = true;
 
