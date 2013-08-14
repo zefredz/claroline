@@ -23,7 +23,8 @@ class Claro_BatchRegistrationResult
         STATUS_NOT_SET = 0,
         STATUS_ERROR_UPDATE_FAIL = 1,
         STATUS_ERROR_INSERT_FAIL = 2,
-        STATUS_ERROR_DELETE_FAIL = 4;
+        STATUS_ERROR_DELETE_FAIL = 4,
+        STATUS_ERROR_NOTHING_TO_DO = 8;
     
     private
         $insertedUserList,
@@ -514,6 +515,8 @@ class Claro_BatchCourseRegistration
         
         if ( $classMode && !$class->isRegisteredToCourse($courseCode) )
         {
+            $this->result->addError("Class not registered to course");
+            $this->result->setStatus(Claro_BatchRegistrationResult::STATUS_ERROR_DELETE_FAIL);
             return false;
         }
         
@@ -710,7 +713,8 @@ class Claro_BatchCourseRegistration
         }
         else
         {
-            return false;
+            $this->result->setStatus(Claro_BatchRegistrationResult::STATUS_ERROR_NOTHING_TO_DO);
+            $this->result->addError("No user to delete");
         }
         
         // unregister the class from the course if not already done
