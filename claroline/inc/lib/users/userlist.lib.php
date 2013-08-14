@@ -3,6 +3,7 @@
 // $Id$
 
 require_once dirname(__FILE__) . '/claroclass.lib.php';
+require_once dirname(__FILE__) . '/../connectors/adminuser.lib.php';
 
 /**
  * Set of PHP classes for user batch registration and enrolment
@@ -15,50 +16,139 @@ require_once dirname(__FILE__) . '/claroclass.lib.php';
  * @todo move to Claroline kernel
  */
 
-/**
- * Utility class to add or remove users into or from a course by batch
- * @since Claroline 1.11.9
- */
-class Claro_BatchCourseRegistration
+class Claro_BatchRegistrationResult
 {
+    // status masks
     const 
-        STATUS_SUCCESS = 0,
+        STATUS_NOT_SET = 0,
         STATUS_ERROR_UPDATE_FAIL = 1,
         STATUS_ERROR_INSERT_FAIL = 2,
         STATUS_ERROR_DELETE_FAIL = 4;
     
-    private 
-        $database, 
-        $course, 
-        $status = null, 
-        $errLog = array(), 
-        $tableNames;
-    
     private
-        $insertedUserList = array(),
-        $failedUserList = array(),
-        $updateUserList = array(),
-        $deletedUserList = array();
+        $insertedUserList,
+        $failedUserList,
+        $updateUserList,
+        $deletedUserList,
+        $status,
+        $errLog;
     
-    /**
-     * 
-     * @param Claro_Course $course
-     * @param mixed $database Database_Connection instance or null, if null, the default database connection will be used
-     */
-    public function __construct( $course, $database = null )
+    public function __construct ()
     {
-        $this->course = $course;
-        $this->database = $database ? $database : Claroline::getDatabase();
-        $this->tableNames = get_module_main_tbl(array('rel_course_user'));
-        $this->tableNames = array_merge( $this->tableNames, 
-            get_module_course_tbl( 
-                array( 'bb_rel_topic_userstonotify', 'group_team', 'userinfo_content', 'group_rel_team_user', 'tracking_event' ), 
-                $this->course->courseId ) );
+        $this->status = self::STATUS_NOT_SET;
+        $this->errLog = array();
+        $this->insertedUserList = array();
+        $this->deletedUserList = array();
+        $this->failedUserList = array();
+        $this->updateUserList = array();
     }
     
-    private function _setStatus( $status )
+    /**
+     * set the status mask
+     * @param int $status
+     * @return Claro_BatchRegistrationResult $this
+     */
+    public function setStatus( $status )
     {
-        $this->status = $status;
+        if ( $this->status === self::STATUS_NOT_SET )
+        {
+            $this->status = $status;
+        }
+        else
+        {
+            $this->status = $this->status | $status;
+        }
+        
+        return $this;
+    }
+    
+    /**
+     * check the status mask
+     * @param int $status
+     * @return boolean
+     */
+    public function statusSet( $status )
+    {
+        // SUCCESS is only set when there is no error !
+        if ( $status === self::STATUS_NOT_SET && $this->status === self::STATUS_NOT_SET )
+        {
+            return true;
+        }
+        else
+        {
+            return ( ( $this->status & $status ) == $status );
+        }
+    }
+    
+    /**
+     * add an error message
+     * @param string $error
+     * @return Claro_BatchRegistrationResult $this
+     */
+    public function addError( $error )
+    {
+        $this->errLog[] = $error;
+        
+        return $this;
+    }
+    
+    /**
+     * merge error messages array
+     * @param array $errors
+     */
+    public function mergeErrors( $errors = array() )
+    {
+        $this->errLog = array_merge($this->errLog, $errors);
+        
+        return $this;
+    }
+    
+    /**
+     * add inserted users
+     * @param array $inserted
+     * @return Claro_BatchRegistrationResult $this
+     */
+    public function addInserted( $inserted )
+    {
+        $this->insertedUserList = array_merge($this->insertedUserList, $inserted);
+        
+        return $this;
+    }
+    
+    /**
+     * add deleted users
+     * @param array $deleted
+     * @return Claro_BatchRegistrationResult $this
+     */
+    public function addDeleted( $deleted )
+    {
+        $this->deletedUserList = array_merge( $this->deletedUserList, $deleted );
+        
+        return $this;
+    }
+    
+    /**
+     * add updated users
+     * @param array $updated
+     * @return Claro_BatchRegistrationResult $this
+     */
+    public function addUpdated( $updated )
+    {
+        $this->updateUserList = array_merge( $this->updateUserList, $updated );
+        
+        return $this;
+    }
+    
+    /**
+     * add failed users
+     * @param array $failed
+     * @return Claro_BatchRegistrationResult $this
+     */
+    public function addFailed( $failed )
+    {
+        $this->failedUserList = array_merge( $this->failedUserList, $failed );
+        
+        return $this;
     }
     
     /**
@@ -77,7 +167,7 @@ class Claro_BatchCourseRegistration
      */
     public function hasError()
     {
-        return !is_null( $this->status ) && $this->status > 0;
+        return $this->status > 0;
     }
     
     /**
@@ -124,6 +214,106 @@ class Claro_BatchCourseRegistration
     {
         return $this->deletedUserList;
     }
+}
+
+/**
+ * Utility class to add or remove users into or from a course by batch
+ * @since Claroline 1.11.9
+ */
+class Claro_BatchCourseRegistration
+{
+    private 
+        $database, 
+        $course, 
+        $result, 
+        $tableNames;
+    
+    /**
+     * 
+     * @param Claro_Course $course
+     * @param mixed $database Database_Connection instance or null, if null, the default database connection will be used
+     */
+    public function __construct( $course, $database = null, $result = null )
+    {
+        $this->course = $course;
+        $this->database = $database ? $database : Claroline::getDatabase();
+        $this->tableNames = get_module_main_tbl(array('rel_course_user'));
+        $this->tableNames = array_merge( $this->tableNames, 
+            get_module_course_tbl( 
+                array( 'bb_rel_topic_userstonotify', 'group_team', 'userinfo_content', 'group_rel_team_user', 'tracking_event' ), 
+                $this->course->courseId ) );
+        
+        $this->result = $result ? $result : new Claro_BatchRegistrationResult();
+    }
+    
+    public function getResult()
+    {
+        return $this->result;
+    }
+    
+    /**
+     * Get the status of the operation
+     * @return int : STATUS_SUCCESS, STATUS_ERROR_UPDATE_FAIL, 
+     *  STATUS_ERROR_INSERT_FAIL or STATUS_ERROR_DELETE_FAIL
+     */
+    public function getStatus()
+    {
+        return $this->result->getStatus ();
+    }
+    
+    /**
+     * Check if the operation ended with errors
+     * @return bool
+     */
+    public function hasError()
+    {
+        return $this->result->hasError ();
+    }
+    
+    /**
+     * Get the error log
+     * @return array
+     */
+    public function getErrorLog()
+    {
+        return $this->result->getErrorLog ();
+    }
+    
+    /**
+     * Get the list of users newly inserted in the course
+     * @return array of user_id => user
+     */
+    public function getInsertedUserList()
+    {
+        return $this->result->getInsertedUserList ();
+    }
+    
+    /**
+     * Get the list of users with updated registration in the course
+     * @return array of user_id => user
+     */
+    public function getUpdatedUserList()
+    {
+        return $this->result->getUpdatedUserList ();
+    }
+    
+    /**
+     * Get the list of users for which the insertion or deletion failed
+     * @return array of user_id => user
+     */
+    public function getFailedUserList()
+    {
+        return $this->result->getFailedUserList ();
+    }
+    
+    /**
+     * Get the list of users removed from the course
+     * @return array of user_id => user
+     */
+    public function getDeletedUserList()
+    {
+        return $this->result->getDeletedUserList();
+    }
     
     /**
      * Get the list of users in $userIdList already registered to the course
@@ -169,10 +359,13 @@ class Claro_BatchCourseRegistration
             return false;
         }
         
-        $classMode = is_null( $class ) ? true : false;
+        $classMode = is_null( $class ) ? false : true;
         
         $courseCode = $this->course->courseId;
         $sqlCourseCode = $this->database->quote( $courseCode );
+        
+        $updateUserList = array();
+        $failedUserList = array();
         
         // 1. PROCESS USERS ALREADY IN COURSE
         
@@ -218,18 +411,21 @@ class Claro_BatchCourseRegistration
                         code_cours = {$sqlCourseCode}"
                 ) )
                 {
-                    $this->failedUserList[$courseUser['user_id']] = $courseUser;
+                    $failedUserList[$courseUser['user_id']] = $courseUser;
                 }
                 
-                $this->updateUserList[$courseUser['user_id']] = $courseUser;
+                $updateUserList[$courseUser['user_id']] = $courseUser;
             }
             
-            if ( count ( $this->failedUserList ) )
+            if ( count ( $failedUserList ) )
             {
-                $this->_setStatus( self::STATUS_ERROR_UPDATE_FAIL );
-                $this->errLog[] = "Cannot update course registration information for users " . implode(",",$this->failedUserList ) . " in course {$courseCode}";
-                Console::error( "Cannot update course registration information for users " . implode(",",$this->failedUserList ) . " in course {$courseCode}" );
+                $this->result->addFailed($failedUserList);
+                $this->result->setStatus( Claro_BatchRegistrationResult::STATUS_ERROR_UPDATE_FAIL );
+                $this->result->addError( "Cannot update course registration information for users " . implode(",",$failedUserList ) . " in course {$courseCode}" );
+                Console::error( "Cannot update course registration information for users " . implode(",",$failedUserList ) . " in course {$courseCode}" );
             }
+            
+            $this->result->addUpdated($updateUserList);
         }
         
         // 2. PROCESS USERS NOT ALREADY IN COURSE
@@ -280,18 +476,20 @@ class Claro_BatchCourseRegistration
                         (user_id, code_cours, profile_id, isCourseManager, isPending, tutor, count_user_enrol, count_class_enrol, enrollment_date)
                 VALUES\n" . implode( ",\n\t", $userNewRegistrations ) ) )
             {
-                $this->_setStatus( self::STATUS_ERROR_INSERT_FAIL);
-                $this->errLog[] = "Cannot insert userlist " . implode( ",", $userListToInsert ) . " in  course  {$courseCode}";
+                $this->result->setStatus( Claro_BatchRegistrationResult::STATUS_ERROR_INSERT_FAIL);
+                $this->result->addError ( "Cannot insert userlist " . implode( ",", $userListToInsert ) . " in  course  {$courseCode}" );
                 Console::error( "Cannot insert userlist " . implode( ",", $userListToInsert ) . " in  course  {$courseCode}" );
                 
-                array_merge( $this->failedUserList, $userListToInsert );
+                $this->result->addFailed( $userListToInsert );
             }
-            
-            $this->insertedUserList = $userListToInsert;
+            else
+            {
+                $this->result->addInserted ( $userListToInsert );
+            }
             
         }
         
-        return $this->hasError();
+        return !$this->result->hasError();
     }
     
     /**
@@ -419,7 +617,7 @@ class Claro_BatchCourseRegistration
                 }
             }
             
-            $this->deletedUserList = $userListToRemove;
+            $this->result->addDeleted ( $userIdListToRemove );
             
             if ( $this->course->isSourceCourse () )
             {
@@ -520,6 +718,8 @@ class Claro_BatchCourseRegistration
         {
             $class->unregisterFromCourse( $courseCode );
         }
+        
+        return !$this->result->hasError();
     }
 }
 
