@@ -505,6 +505,7 @@ class Claro_BatchCourseRegistration
      * @param Claro_Class $class execute class unregistration instead of individual registration if given (default:null)
      * @param bool $keepTrackingData tracking data will be deleted if set to false (default:true, i.e. keep data)
      * @param array $moduleDataToPurge list of module_label => (purgeTracking => bool, purgeData => bool)
+     * @param bool $unregisterFromSourceIfLastSession remove users that are in no other session course from the source course if any
      * @return boolean
      */
     public function removeUserIdListFromCourse( $userIdList, $class = null, $keepTrackingData = true, $moduleDataToPurge = array(), $unregisterFromSourceIfLastSession = true )
