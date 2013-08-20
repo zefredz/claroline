@@ -664,7 +664,7 @@ class Claro_BatchCourseRegistration
                     if ( ! $foundSessionWithClass )
                     {
                         $batchReg = new self( $sourceCourse, $this->database );
-                        $batchReg->removeUserIdListFromCourse( $userIdListToRemove, $classMode, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
+                        $batchReg->removeUserIdListFromCourse( $userIdListToRemove, $class, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
                     }
                 
                 }
