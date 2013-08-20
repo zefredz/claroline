@@ -27,6 +27,7 @@ class Claro_Course extends KernelObject
 {
     protected $_courseId;
     protected $sourceCourse = null;
+    protected $_children = null;
     
     /**
      * Constructor
