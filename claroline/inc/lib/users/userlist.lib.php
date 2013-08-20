@@ -152,6 +152,16 @@ class Claro_BatchRegistrationResult
         return $this;
     }
     
+    public function mergeResult( Claro_BatchRegistrationResult $otherResult )
+    {
+        $this->setStatus($otherResult->getStatus());
+        $this->addDeleted($otherResult->getDeletedUserList());
+        $this->addFailed($otherResult->getFailedUserList());
+        $this->addInserted($otherResult->getInsertedUserList());
+        $this->addUpdated($otherResult->getUpdatedUserList());
+        $this->mergeErrors($otherResult->getErrorLog());
+    }
+    
     /**
      * Get the status of the operation
      * @return int : STATUS_SUCCESS, STATUS_ERROR_UPDATE_FAIL, 
@@ -496,6 +506,13 @@ class Claro_BatchCourseRegistration
             
         }
         
+        if ( $this->course->hasSourceCourse () )
+        {
+            $sourceCourse = $this->course->getSourceCourse();
+            $sourceReg = new Claro_BatchCourseRegistration($sourceCourse, $this->database, $this->result);
+            $sourceReg->addUserIdListToCourse($userIdList, $class, $forceClassRegistrationOfExistingClassUsers, $userListAlreadyInClass, $forceValidationOfPendingUsers);
+        }
+        
         return !$this->result->hasError();
     }
     
@@ -636,7 +653,7 @@ class Claro_BatchCourseRegistration
                 foreach ( $sessionCourseIterator as $sessionCourse )
                 {
                     $batchReg = new self( $sessionCourse, $this->database );
-                    $batchReg->removeUserIdListFromCourse( $userIdListToRemove, $classMode, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
+                    $batchReg->removeUserIdListFromCourse( $userIdListToRemove, $class, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
                 }
             }
             
