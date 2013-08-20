@@ -434,7 +434,7 @@ class Claro_Course extends KernelObject
                 FROM
                     `{$tbl['course']}`   AS c
                 WHERE
-                    C.`sourceCourseId` = {$parentId}
+                    c.sourceCourseId = {$parentId}
             ");
                 
         }
