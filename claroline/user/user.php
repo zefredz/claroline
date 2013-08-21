@@ -246,6 +246,17 @@ if ( $is_allowedToEdit )
     }
 }    // end if allowed to edit
 
+$courseUserList = new Claro_CourseUserList(claro_get_current_course_id());
+        
+if ( $courseUserList->has_registrationPending () )
+{
+    $usersPanelUrl = claro_htmlspecialchars(Url::Contextualize( get_module_entry_url ( 'CLUSR' ) ) );
+    
+    $dialogBox->warning(
+        get_lang('You have to validate users to give them access to this course through the <a href="%url">course user list</a>', array('%url' => $usersPanelUrl))
+    );
+}
+
 
 /*----------------------------------------------------------------------
    Get Course informations

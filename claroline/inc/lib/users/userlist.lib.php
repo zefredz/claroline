@@ -1047,7 +1047,10 @@ class Claro_CourseUserList
     protected $cid, $course, $database, $tables;
     protected $courseUserList, $courseUserIdList, $courseUsernameList;
     
-    /**
+    protected $hasPendingUsers = null;
+
+
+/**
      * 
      * @param string $cid id(code) of the course
      * @param mixed $database Database_Connection instance or null, if null, the default database connection will be used
@@ -1178,6 +1181,37 @@ class Claro_CourseUserList
         $userIdList = $this->getUserIdList();
         
         return isset( $userIdList[$userId] ) ? true : false;
+    }
+    
+    public function has_registrationPending( $forceRefresh = false )
+    {
+        if ( is_null($this->hasPendingUsers) || $forceRefresh )
+        {
+            $cid = $this->database->quote ( $this->cid );
+
+            $this->hasPendingUsers = $this->database->query ( "
+                SELECT 
+                    u.username, 
+                    cu.user_id, 
+                    cu.count_user_enrol, 
+                    cu.count_class_enrol,
+                    cu.isPending
+                FROM
+                    `{$this->tables['rel_course_user']}` AS cu
+                JOIN
+                    `{$this->tables['user']}` AS u
+                ON
+                    cu.user_id = u.user_id
+                WHERE
+                    cu.code_cours = {$cid}
+                AND    
+                    cu.isPending = 1
+                AND
+                    cu.isCourseManager = 0
+            " )->numRows();
+        }
+        
+        return $this->hasPendingUsers;
     }
 
 }
