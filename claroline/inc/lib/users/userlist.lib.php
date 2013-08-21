@@ -749,6 +749,119 @@ class Claro_BatchCourseRegistration
         
         return !$this->result->hasError();
     }
+    
+    public function removeAllUsers( $keepClasses = true, $profilesToDelete = array(), $registeredBefore = null, $registeredAfter = null )
+    {
+        $sqlCourseCode = $this->database->quote( $this->course->courseId );
+        
+        $sqlDateFilterArray = array();
+        
+        if ( $registeredAfter )
+        {
+            $sqlDateFilterArray[] = "`registration_date` >= " . $this->database->quote( $registeredAfter );
+        }
+        
+        if ( $registeredBefore )
+        {
+            $sqlDateFilterArray[] = "`registration_date` <= " . $this->database->quote( $registeredBefore );
+        }
+        
+        if ( count($sqlDateFilterArray) == 2 )
+        {
+            $sqlDateFilter = "
+                AND
+                    (" . implode( ' OR ', $sqlDateFilterArray ) . ")
+            ";
+        }
+        elseif ( count($sqlDateFilterArray) == 1 )
+        {
+            $sqlDateFilter = "
+                AND
+                    {$sqlDateFilterArray[0]}
+            ";
+        }
+        else
+        {
+            $sqlDateFilter = "";
+        }
+        
+        if ( count( $profilesToDelete ) )
+        {
+            foreach ( $profilesToDelete as $key => $value )
+            {
+                $profilesToDelete[$key] = claro_get_profile_id( $value );
+            }
+            
+            // profileId not in profileToKeep
+            $sqlProfilesToDelete = "
+                AND 
+                    `profile_id` IN (".implode(',',$profilesToDelete).")
+            ";
+        }
+        else
+        {
+            $sqlProfilesToDelete = "
+                AND 
+                    `profile_id` = " . claro_get_profile_id(USER_PROFILE);
+        }
+        
+        // set cnt_user_enrol to 0
+        
+        if ( ! $keepClasses )
+        {
+            // also set cnt_class_enrol to 0
+            
+            $sqlRemoveClasses = "`count_class_enrol` = 0,";
+        }
+        else
+        {
+            $sqlRemoveClasses = "";
+        }
+        
+        // set user registration count to 0
+        
+        $this->database->exec( "
+            UPDATE
+                `{$this->tableNames['rel_course_user']}`
+            SET
+                {$sqlRemoveClasses}
+                `count_user_enrol` = 0
+            WHERE
+                `code_cours` = {$sqlCourseCode}
+            {$sqlProfilesToDelete}
+            {$sqlDateFilter}
+                
+        ");
+        
+        // clean up users with cnt_*_enrol <= 0
+            
+        $this->database->exec( "
+            DELETE FROM
+                `{$this->tableNames['rel_course_user']}`
+            WHERE
+                `code_cours` = {$sqlCourseCode}
+            AND
+                `isCourseManager` = 0
+            AND
+                ( `count_user_enrol` <= 0 AND `count_class_enrol` <= 0 )                
+        ");
+                
+        $deletedUserCnt = $this->database->affectedRows();
+        
+        // remove all classes from the course
+        
+        if ( ! $keepClasses )
+        {
+            $courseClassList = new Claro_CourseClassList( $this->course, $this->database );
+            
+            foreach ($courseClassList->getClassListIterator() as $class )
+            {
+                $class->unregisterFromCourse( $this->course->courseId );
+            }
+        }
+        
+        return $deletedUserCnt;
+    }
 }
 
 /**

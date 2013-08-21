@@ -107,6 +107,19 @@ if (isset($_REQUEST['user_id']))
     elseif ( 0 < (int) $_REQUEST['user_id'] )  $req['user_id'] = (int) $_REQUEST['user_id'];
     else                                       $req['user_id'] = false;
 }
+
+if ( $cmd == 'unregister' )
+{
+    if ( isset( $_REQUEST['deleteClasses'] ) )
+    {
+        $req['keepClasses'] = false;
+    }
+    else
+    {
+        $req['keepClasses'] = true;
+    }
+}
+
 /*=====================================================================
   Main section
   =====================================================================*/
@@ -138,15 +151,22 @@ if ( $is_allowedToEdit )
         if ( 'allStudent' == $req['user_id'] )
         {
             // TODO : add a function to unenroll all users from a course
-            $userIdList = Claroline::getDatabase()->query( "SELECT `user_id` FROM `" . $tbl_rel_course_user . "`
-                    WHERE `code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
-                    AND `profile_id` = ( SELECT profile_id FROM `". $tbl_right_profile . "` WHERE `label` = 'user')" );
+            $course = new Claro_Course( claro_get_current_course_id() );
+            $course->load();
             
-            $unregisterdUserCount = user_remove_userlist_from_course( $userIdList, claro_get_current_course_id(), false, false, false );
+            $claroCourseRegistration = new Claro_BatchCourseRegistration( $course );
+            $unregisterdUserCount = $claroCourseRegistration->removeAllUsers( $req['keepClasses'] );
             
-            Console::log( "{$req['user_id']} ({$unregisterdUserCount}) removed by user ". claro_get_current_user_id(), 'COURSE_UNSUBSCRIBE');
+            if ( $unregisterdUserCount )
+            {
+                Console::log( "{$req['user_id']} ({$unregisterdUserCount}) removed by user ". claro_get_current_user_id(), 'COURSE_UNSUBSCRIBE');
             
-            $dialogBox->success( get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) ) );
+                $dialogBox->success( get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) ) );
+            }
+            else
+            {
+                $dialogBox->info( get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) ) );
+            }
         }
         elseif ( 0 < (int)  $req['user_id'] )
         {
@@ -414,7 +434,15 @@ if ($is_allowedToEdit)
     {
         if (confirm(\'' . clean_str_for_javascript( get_lang( "Are you sure you want to unregister all students from your course ?")) . '\'))
         {
-            return true;
+            if ( confirm(\'' . clean_str_for_javascript( get_lang( "Do you also want to unregister all classes from your course ?")) . '\') )
+            {
+                document.location.href = \''.Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=unregister&user_id=allStudent&deleteClasses=1').'\'; 
+                    return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         else
         {

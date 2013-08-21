@@ -880,6 +880,42 @@ class Claro_ClassUserList
     }
 }
 
+class Claro_CourseClassList
+{
+    private $course, $database;
+    
+    public function __construct ( $course, $database = null )
+    {
+        $this->course = $course;
+        $this->database = $database ? $database : Claroline::getDatabase();
+    }
+    
+    public function getClassListIterator()
+    {
+        $tbl  = claro_sql_get_main_tbl();
+    
+        $classList = $this->database->query("
+            SELECT
+                c.id,
+                c.name,
+                c.class_parent_id as parentId,
+                c.class_level as level
+            FROM 
+                `{$tbl['rel_course_class']}` AS `cc`
+            JOIN
+                `{$tbl['class']}` AS `c`
+            ON
+                `c`.`id` = `cc`.`classId`
+            WHERE
+                cc.courseId = ".$this->database->quote($this->course->courseId)."
+        ");
+        
+        $classIterator = new Claro_ClassIterator($classList);
+        
+        return $classIterator;
+    }
+}
+
 class Claro_ClassIterator extends RowToObjectIteratorIterator
 {
     protected
