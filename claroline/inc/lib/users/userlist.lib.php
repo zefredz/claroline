@@ -185,7 +185,7 @@ class Claro_BatchRegistrationResult
      */
     public function hasError()
     {
-        return $this->status > 0;
+        return $this->status > 0 && $this->status !== self::STATUS_ERROR_NOTHING_TO_DO;
     }
     
     /**
@@ -766,7 +766,7 @@ class Claro_BatchCourseRegistration
      * @param array $profilesToDelete array of profile labels
      * @param string $registeredBefore date yyyy-mm-dd hh:mm:ss
      * @param string $registeredAfter date yyyy-mm-dd hh:mm:ss
-     * @return int number of users deleted
+     * @return bool false if an error occured
      * @throws Exception
      */
     public function removeAllUsers( $keepClasses = true, $profilesToDelete = array(), $registeredBefore = null, $registeredAfter = null )
@@ -799,7 +799,7 @@ class Claro_BatchCourseRegistration
             }
         }
 
-        return count( $this->result->getDeletedUserList() );
+        return !$this->result->hasError();
     }
 }
 
