@@ -511,6 +511,7 @@ class Claro_BatchCourseRegistration
             $sourceCourse = $this->course->getSourceCourse();
             $sourceReg = new Claro_BatchCourseRegistration($sourceCourse, $this->database, $this->result);
             $sourceReg->addUserIdListToCourse($userIdList, $class, $forceClassRegistrationOfExistingClassUsers, $userListAlreadyInClass, $forceValidationOfPendingUsers);
+            $this->result->mergeResult( $sourceReg->getResult () );
         }
         
         return !$this->result->hasError();
@@ -654,6 +655,7 @@ class Claro_BatchCourseRegistration
                 {
                     $batchReg = new self( $sessionCourse, $this->database );
                     $batchReg->removeUserIdListFromCourse( $userIdListToRemove, $class, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
+                    $this->result->mergeResult($batchReg->getResult () );
                 }
             }
             
@@ -731,6 +733,7 @@ class Claro_BatchCourseRegistration
                     {
                         $batchReg = new self( $sourceCourse, $this->database );
                         $batchReg->removeUserIdListFromCourse( $userIdListToRemoveFromSource, $classMode, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
+                        $this->result->mergeResult($batchReg->getResult () );
                     }
                 }
             }
@@ -752,115 +755,35 @@ class Claro_BatchCourseRegistration
     
     public function removeAllUsers( $keepClasses = true, $profilesToDelete = array(), $registeredBefore = null, $registeredAfter = null )
     {
-        $sqlCourseCode = $this->database->quote( $this->course->courseId );
-        
-        $sqlDateFilterArray = array();
-        
-        if ( $registeredAfter )
+        if ( $keepClasses && ( !is_null( $registeredBefore ) || !is_null($registeredAfter) ) )
         {
-            $sqlDateFilterArray[] = "`registration_date` >= " . $this->database->quote( $registeredAfter );
+            throw new Exception(get_lang('Cannot combine enrolment date filters and class deletion, please delete the classes independently'));
         }
         
-        if ( $registeredBefore )
+        $courseUserList = new Claro_CourseUserList($this->course->courseId, $this->database );
+
+        if ( empty( $profilesToDelete ) )
         {
-            $sqlDateFilterArray[] = "`registration_date` <= " . $this->database->quote( $registeredBefore );
+            $profilesToDelete = array( USER_PROFILE );
         }
-        
-        if ( count($sqlDateFilterArray) == 2 )
-        {
-            $sqlDateFilter = "
-                AND
-                    (" . implode( ' OR ', $sqlDateFilterArray ) . ")
-            ";
-        }
-        elseif ( count($sqlDateFilterArray) == 1 )
-        {
-            $sqlDateFilter = "
-                AND
-                    {$sqlDateFilterArray[0]}
-            ";
-        }
-        else
-        {
-            $sqlDateFilter = "";
-        }
-        
-        if ( count( $profilesToDelete ) )
-        {
-            foreach ( $profilesToDelete as $key => $value )
-            {
-                $profilesToDelete[$key] = claro_get_profile_id( $value );
-            }
-            
-            // profileId not in profileToKeep
-            $sqlProfilesToDelete = "
-                AND 
-                    `profile_id` IN (".implode(',',$profilesToDelete).")
-            ";
-        }
-        else
-        {
-            $sqlProfilesToDelete = "
-                AND 
-                    `profile_id` = " . claro_get_profile_id(USER_PROFILE);
-        }
-        
-        // set cnt_user_enrol to 0
-        
-        if ( ! $keepClasses )
-        {
-            // also set cnt_class_enrol to 0
-            
-            $sqlRemoveClasses = "`count_class_enrol` = 0,";
-        }
-        else
-        {
-            $sqlRemoveClasses = "";
-        }
-        
-        // set user registration count to 0
-        
-        $this->database->exec( "
-            UPDATE
-                `{$this->tableNames['rel_course_user']}`
-            SET
-                {$sqlRemoveClasses}
-                `count_user_enrol` = 0
-            WHERE
-                `code_cours` = {$sqlCourseCode}
-            {$sqlProfilesToDelete}
-            {$sqlDateFilter}
-                
-        ");
-        
-        // clean up users with cnt_*_enrol <= 0
-            
-        $this->database->exec( "
-            DELETE FROM
-                `{$this->tableNames['rel_course_user']}`
-            WHERE
-                `code_cours` = {$sqlCourseCode}
-            AND
-                `isCourseManager` = 0
-            AND
-                ( `count_user_enrol` <= 0 AND `count_class_enrol` <= 0 )                
-        ");
-                
-        $deletedUserCnt = $this->database->affectedRows();
-        
-        // remove all classes from the course
-        
+
+        $courseUserIdList = $courseUserList->getFilteredUserIdList( $profilesToDelete, $registeredBefore, $registeredAfter );
+
+        $this->removeUserIdListFromCourse($courseUserIdList);
+
         if ( ! $keepClasses )
         {
             $courseClassList = new Claro_CourseClassList( $this->course, $this->database );
-            
+
             foreach ($courseClassList->getClassListIterator() as $class )
             {
-                $class->unregisterFromCourse( $this->course->courseId );
+                $classUserList = new Claro_ClassUserList( $class, $this->database );
+
+                $this->removeUserIdListFromCourse( $classUserList->getClassUserIdList(), $class );
             }
         }
-        
-        return $deletedUserCnt;
+
+        return count( $this->result->getDeletedUserList() );
     }
 }
 
@@ -1325,6 +1248,81 @@ class Claro_CourseUserList
         }
         
         return $this->hasPendingUsers;
+    }
+    
+    public function getFilteredUserIdList( $profileList = array(), $registeredBefore = null, $registeredAfter = null )
+    {
+        $sqlCourseCode = $this->database->quote( $this->course->courseId );
+
+        $sqlDateFilterArray = array();
+
+        if ( $registeredAfter )
+        {
+            $sqlDateFilterArray[] = "`registration_date` >= " . $this->database->quote( $registeredAfter );
+        }
+
+        if ( $registeredBefore )
+        {
+            $sqlDateFilterArray[] = "`registration_date` <= " . $this->database->quote( $registeredBefore );
+        }
+
+        if ( count($sqlDateFilterArray) == 2 )
+        {
+            $sqlDateFilter = "
+                AND
+                    (" . implode( ' OR ', $sqlDateFilterArray ) . ")
+            ";
+        }
+        elseif ( count($sqlDateFilterArray) == 1 )
+        {
+            $sqlDateFilter = "
+                AND
+                    {$sqlDateFilterArray[0]}
+            ";
+        }
+        else
+        {
+            $sqlDateFilter = "";
+        }
+
+        if ( count( $profileList ) )
+        {
+            foreach ( $profileList as $key => $value )
+            {
+                $profileList[$key] = claro_get_profile_id( $value );
+            }
+
+            // profileId not in profileToKeep
+            $sqlProfilesToDelete = "
+                AND 
+                    `profile_id` IN (".implode(',',$profileList).")
+            ";
+        }
+        else
+        {
+            $sqlProfilesToDelete = "";
+        }
+        
+        $userList = $this->database->query( "
+            SELECT
+                `user_id` AS `id`
+            FROM
+                `{$this->tables['rel_course_user']}`
+            WHERE
+                `code_cours` = {$sqlCourseCode}
+            {$sqlProfilesToDelete}
+            {$sqlDateFilter}
+
+        ");
+        
+        $userIdList = array();
+        
+        foreach ( $userList as $user )
+        {
+            $userIdList[$user['id']] = $user['id'];
+        }
+        
+        return $userIdList;
     }
 
 }
