@@ -155,17 +155,26 @@ if ( $is_allowedToEdit )
             $course->load();
             
             $claroCourseRegistration = new Claro_BatchCourseRegistration( $course );
-            $unregisterdUserCount = $claroCourseRegistration->removeAllUsers( $req['keepClasses'] );
+            $claroCourseRegistration->removeAllUsers( $req['keepClasses'] );
             
-            if ( $unregisterdUserCount )
+            $result = $claroCourseRegistration->getResult();
+            
+            if ( !$result->hasError() )
             {
-                Console::log( "{$req['user_id']} ({$unregisterdUserCount}) removed by user ". claro_get_current_user_id(), 'COURSE_UNSUBSCRIBE');
-            
-                $dialogBox->success( get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) ) );
+                $unregisterdUserCount = count($result->getDeletedUserList());
+
+                if ( $unregisterdUserCount )
+                {
+                    Console::log( "{$req['user_id']} ({$unregisterdUserCount}) removed by user ". claro_get_current_user_id(), 'COURSE_UNSUBSCRIBE');                 
+                }
+
+                $dialogBox->info( get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) ) );
             }
             else
             {
-                $dialogBox->info( get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) ) );
+                Console::error("Error while deleting all users from course " . claro_get_current_course_id() . " : " . var_export( $result->getErrorLog(), true ) );
+                
+                $dialogBox->error( get_lang('An error occured') . ' : <ul><li>' . implode('</li><li>', $result->getErrorLog() ) . '</li></ul>' );
             }
         }
         elseif ( 0 < (int)  $req['user_id'] )
