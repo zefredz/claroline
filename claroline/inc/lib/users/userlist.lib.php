@@ -16,6 +16,9 @@ require_once dirname(__FILE__) . '/../connectors/adminuser.lib.php';
  * @todo move to Claroline kernel
  */
 
+/**
+ * Class to store the result of a batch registration
+ */
 class Claro_BatchRegistrationResult
 {
     // status masks
@@ -152,6 +155,10 @@ class Claro_BatchRegistrationResult
         return $this;
     }
     
+    /**
+     * Merge with another result
+     * @param Claro_BatchRegistrationResult $otherResult
+     */
     public function mergeResult( Claro_BatchRegistrationResult $otherResult )
     {
         $this->setStatus($otherResult->getStatus());
@@ -480,7 +487,7 @@ class Claro_BatchCourseRegistration
             }
         }
         
-        // execute the quer
+        // execute the query
         
         if ( count($userNewRegistrations) )
         {  
@@ -753,6 +760,15 @@ class Claro_BatchCourseRegistration
         return !$this->result->hasError();
     }
     
+    /**
+     * Helper to remove all users from a course
+     * @param bool $keepClasses if true, all classes will be removed too
+     * @param array $profilesToDelete array of profile labels
+     * @param string $registeredBefore date yyyy-mm-dd hh:mm:ss
+     * @param string $registeredAfter date yyyy-mm-dd hh:mm:ss
+     * @return int number of users deleted
+     * @throws Exception
+     */
     public function removeAllUsers( $keepClasses = true, $profilesToDelete = array(), $registeredBefore = null, $registeredAfter = null )
     {
         if ( $keepClasses && ( !is_null( $registeredBefore ) || !is_null($registeredAfter) ) )
@@ -1026,6 +1042,11 @@ class Claro_PlatformUserList
         }
     }
     
+    /**
+     * Delete a user list
+     * @param array $userIdList
+     * @return int
+     */
     public function deleteUserList ( $userIdList )
     {
         if ( ! count( $userIdList ) )
@@ -1047,6 +1068,11 @@ class Claro_PlatformUserList
         return $affectedRows;
     }
     
+    /**
+     * Disable the accounts for the given user list
+     * @param array $userIdList
+     * @return int
+     */
     public function disableUserList ( $userIdList )
     {
         if ( ! count( $userIdList ) )
@@ -1085,8 +1111,7 @@ class Claro_CourseUserList
     
     protected $hasPendingUsers = null;
 
-
-/**
+    /**
      * 
      * @param string $cid id(code) of the course
      * @param mixed $database Database_Connection instance or null, if null, the default database connection will be used
@@ -1212,6 +1237,11 @@ class Claro_CourseUserList
         return $this->courseUsernameList;
     }
     
+    /**
+     * Check if the given user is already in the course
+     * @param int $userId
+     * @return boolean
+     */
     public function is_userIdAlreadyInCourse( $userId )
     {
         $userIdList = $this->getUserIdList();
@@ -1219,6 +1249,11 @@ class Claro_CourseUserList
         return isset( $userIdList[$userId] ) ? true : false;
     }
     
+    /**
+     * Check if a course has pending user registrations
+     * @param boolean $forceRefresh
+     * @return boolean
+     */
     public function has_registrationPending( $forceRefresh = false )
     {
         if ( is_null($this->hasPendingUsers) || $forceRefresh )
@@ -1250,6 +1285,13 @@ class Claro_CourseUserList
         return $this->hasPendingUsers;
     }
     
+    /**
+     * Get the list of user ids filtered
+     * @param array $profileList list of profile labels
+     * @param string $registeredBefore date yyyy-mm-dd hh:mm:ss
+     * @param string $registeredAfter date yyyy-mm-dd hh:mm:ss
+     * @return array of id => id
+     */
     public function getFilteredUserIdList( $profileList = array(), $registeredBefore = null, $registeredAfter = null )
     {
         $sqlCourseCode = $this->database->quote( $this->course->courseId );
