@@ -548,7 +548,7 @@ class Claro_BatchCourseRegistration
         if ( $classMode && !$class->isRegisteredToCourse($courseCode) )
         {
             $this->result->addError(get_lang("Class not registered to course"));
-            $this->result->setStatus(Claro_BatchRegistrationResult::STATUS_ERROR_DELETE_FAIL);
+            $this->result->setStatus(Claro_BatchRegistrationResult::STATUS_ERROR_NOTHING_TO_DO);
             return false;
         }
         
