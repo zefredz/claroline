@@ -159,7 +159,7 @@ if ( $is_allowedToEdit )
             
             $result = $claroCourseRegistration->getResult();
             
-            if ( !$result->hasError() )
+            if ( !$result->hasError() || !$result->checkStatus( Claro_BatchRegistrationResult::STATUS_ERROR_DELETE_FAIL ) )
             {
                 $unregisterdUserCount = count($result->getDeletedUserList());
 
@@ -436,6 +436,21 @@ if ($is_allowedToEdit)
         'params' => array('onclick' => 'return confirmationUnregisterAll();')
     );
     
+    $courseObj = new Claro_Course(claro_get_current_course_id());
+    $courseObj->load();
+    $courseClassList = new Claro_CourseClassList($courseObj);
+    $courseClassListIt = $courseClassList->getClassListIterator();
+    
+    if ( count($courseClassListIt) )
+    {
+        $htmlHeadXtra[] = '<script>var mustConfirmClassDelete = true;</script>';
+    }
+    else
+    {
+        $htmlHeadXtra[] = '<script>var mustConfirmClassDelete = false;</script>';
+    }
+    
+    
     $htmlHeadXtra[] =
     '<script type="text/javascript">
 
@@ -443,7 +458,7 @@ if ($is_allowedToEdit)
     {
         if (confirm(\'' . clean_str_for_javascript( get_lang( "Are you sure you want to unregister all students from your course ?")) . '\'))
         {
-            if ( confirm(\'' . clean_str_for_javascript( get_lang( "Do you also want to unregister all classes from your course ?")) . '\') )
+            if ( mustConfirmClassDelete && confirm(\'' . clean_str_for_javascript( get_lang( "Do you also want to unregister all classes from your course ?")) . '\') )
             {
                 document.location.href = \''.Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd=unregister&user_id=allStudent&deleteClasses=1').'\'; 
                     return false;
