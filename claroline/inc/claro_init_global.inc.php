@@ -595,15 +595,20 @@ if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
     }
 }
 
+// group_space.php?registration=1&selfReg=1
+
 if ( claro_is_in_a_group() && ! claro_is_group_allowed() )
 {
-    if (claro_is_user_authenticated() ) 
+    if ( !basename ( php_self () ) == 'group_Space.php' && isset($_REQUEST['registration']) && $_REQUEST['registration'] == '1' )
     {
-        claro_disp_auth_form(true);
-    }
-    else
-    {
-        claro_die(get_lang("Not allowed!"));
+        if (claro_is_user_authenticated() ) 
+        {
+            claro_disp_auth_form(true);
+        }
+        else
+        {
+            claro_die(get_lang("Not allowed!"));
+        }
     }
 }
 
