@@ -11,7 +11,7 @@
     <div class="collapsible-wrapper">
         <ul id="moreInformation" style="font-size:small;">
             <li><?php echo get_lang( 'Start date' ) . '&nbsp;: ' . claro_html_localised_date( $this->dateTimeFormatLong, $this->exercise->getStartDate() ); ?></li>
-            <li><?php echo get_lang( 'End date' ) . '&nbsp;: ' . ( !is_null( $this->exercise->getEndDate() ) ? claro_html_localised_date( $this->dateTimeFormatLong, $this->exercise->getStartDate() ) : get_lang( 'No closing date' ) ); ?></li>
+            <li><?php echo get_lang( 'End date' ) . '&nbsp;: ' . ( !is_null( $this->exercise->getEndDate() ) ? claro_html_localised_date( $this->dateTimeFormatLong, $this->exercise->getEndDate() ) : get_lang( 'No closing date' ) ); ?></li>
             <li><?php echo get_lang( 'Time limit' ) . '&nbsp;: ' . ( $this->exercise->getTimeLimit() > 0 ? claro_disp_duration( $this->exercise->getTimeLimit() ) : get_lang( 'No time limitation' ) ); ?></li>
             <li><?php echo get_lang( 'Attempts allowed' ) . '&nbsp;: ' . ( $this->exercise->getAttempts() > 0 ? $this->exercise->getAttempts() : get_lang( 'Unlimited' ) ); ?></li>
             <li><?php echo get_lang( 'Anonymous attempts' ) . '&nbsp;: ' . ( $this->exercise->getAnonymousAttempts() == 'ALLOWED' ? get_lang( 'Allowed : do not record usernames in tracking, anonymous users can do the exercise.' ) : get_lang( 'Not allowed : record usernames in tracking, anonymous users cannot do the exercise.' ) ); ?></li>
