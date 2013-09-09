@@ -585,7 +585,7 @@ if ( !claro_is_platform_admin () )
 
 if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
 {
-    if (claro_is_user_authenticated() ) 
+    if (!claro_is_user_authenticated() ) 
     {
         claro_disp_auth_form(true);
     }
@@ -599,9 +599,13 @@ if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
 
 if ( claro_is_in_a_group() && ! claro_is_group_allowed() )
 {
-    if ( !basename ( php_self () ) == 'group_Space.php' && isset($_REQUEST['registration']) && $_REQUEST['registration'] == '1' )
+    if ( !( 
+        basename ( php_self () ) == 'group_space.php' 
+        && isset($_REQUEST['registration']) 
+        && $_REQUEST['registration'] == '1' 
+    ) )
     {
-        if (claro_is_user_authenticated() ) 
+        if (!claro_is_user_authenticated() ) 
         {
             claro_disp_auth_form(true);
         }
