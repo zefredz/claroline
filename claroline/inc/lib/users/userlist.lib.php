@@ -607,7 +607,7 @@ class Claro_BatchCourseRegistration
                 $sqlList[] = "DELETE FROM `{$this->tableNames['tracking_event']}` WHERE user_id IN (".implode( ',', $userIdListToRemove ).")";
             }
             
-            $sqlList[] = "DELETE FROM `{$this->tableNames['rel_course_user']}` WHERE user_id IN (".implode( ',', $userIdListToRemove ).")";
+            $sqlList[] = "DELETE FROM `{$this->tableNames['rel_course_user']}` WHERE user_id IN (".implode( ',', $userIdListToRemove ).") AND `code_cours` = {$sqlCourseCode}";
             
             foreach ( $sqlList as $sql )
             {
