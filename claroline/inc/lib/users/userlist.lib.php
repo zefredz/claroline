@@ -695,52 +695,56 @@ class Claro_BatchCourseRegistration
                 
                 }
                 else
-                {
-                    $userIdListToRemoveFromSource = array();
-                    
+                {                    
                     // get userids registered in other sessions than the current one
                     
                     $sessionList = $sourceCourse->getChildrenList();
-                    $sessionIdList = array_keys( $sessionList );
                     
-                    $sqlCourseCode = $this->database->quote($this->course->courseId);
-                    
-                    $usersInOtherSessions = $this->database->query("
-                        SELECT
-                            user_id
-                        FROM
-                            `{$this->tableNames['rel_course_user']}`
-                        WHERE
-                            user_id IN (".implode( ',', $userIdListToRemove ).")
-                        AND
-                            code_cours IN (".implode( ',', $sessionIdList ).")
-                        AND
-                            code_cours != {$sqlCourseCode}
-                    ");
+                    if ( count( $sessionList ) )
+                    {
+                        $userIdListToRemoveFromSource = array();
+                        
+                        $sessionIdList = array_keys( $sessionList );
 
-                    
-                    // loop on $userIdList and keep only those who are not in another session and inject them in $userIdListToRemoveFromSource
-                            
-                    $usersInOtherSessionsList = array();
-                    
-                    foreach ( $usersInOtherSessions as $userNotToRemove  )
-                    {
-                        $usersInOtherSessionsList[$userNotToRemove['user_id']] = $userNotToRemove;
-                    }
-                    
-                    foreach ( $userListToRemove as $userIdToRemove )
-                    {
-                        if ( ! isset( $usersInOtherSessionsList[$userIdToRemove] ) )
+                        $sqlCourseCode = $this->database->quote($this->course->courseId);
+
+                        $usersInOtherSessions = $this->database->query("
+                            SELECT
+                                user_id
+                            FROM
+                                `{$this->tableNames['rel_course_user']}`
+                            WHERE
+                                user_id IN (".implode( ',', $userIdListToRemove ).")
+                            AND
+                                code_cours IN (".implode( ',', $sessionIdList ).")
+                            AND
+                                code_cours != {$sqlCourseCode}
+                        ");
+
+
+                        // loop on $userIdList and keep only those who are not in another session and inject them in $userIdListToRemoveFromSource
+
+                        $usersInOtherSessionsList = array();
+
+                        foreach ( $usersInOtherSessions as $userNotToRemove  )
                         {
-                            $userIdListToRemoveFromSource[] = $userIdToRemove;
+                            $usersInOtherSessionsList[$userNotToRemove['user_id']] = $userNotToRemove;
                         }
-                    }
+
+                        foreach ( $userListToRemove as $userIdToRemove )
+                        {
+                            if ( ! isset( $usersInOtherSessionsList[$userIdToRemove] ) )
+                            {
+                                $userIdListToRemoveFromSource[] = $userIdToRemove;
+                            }
+                        }
                     
-                    if ( count( $userIdListToRemoveFromSource ) )
-                    {
-                        $batchReg = new self( $sourceCourse, $this->database );
-                        $batchReg->removeUserIdListFromCourse( $userIdListToRemoveFromSource, $classMode, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
-                        $this->result->mergeResult($batchReg->getResult () );
+                        if ( count( $userIdListToRemoveFromSource ) )
+                        {
+                            $batchReg = new self( $sourceCourse, $this->database );
+                            $batchReg->removeUserIdListFromCourse( $userIdListToRemoveFromSource, $classMode, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
+                            $this->result->mergeResult($batchReg->getResult () );
+                        }
                     }
                 }
             }
