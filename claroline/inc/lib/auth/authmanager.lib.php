@@ -378,7 +378,7 @@ class AuthDriverManager
             }
         }
         
-        if ( $driverConfig['driver']['lostPasswordAllowed'] == true )
+        if ( isset($driverConfig['driver']['lostPasswordAllowed']) && $driverConfig['driver']['lostPasswordAllowed'] == true )
         {
             self::$driversAllowingLostPassword[$driverConfig['driver']['authSourceName']] = $driverConfig['driver']['authSourceName'];
         }
