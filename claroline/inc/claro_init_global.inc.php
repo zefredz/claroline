@@ -587,7 +587,7 @@ if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
 {
     if (!claro_is_user_authenticated() ) 
     {
-        claro_disp_auth_form(true);
+        claro_disp_auth_form();
     }
     else
     {
@@ -607,7 +607,7 @@ if ( claro_is_in_a_group() && ! claro_is_group_allowed() )
     {
         if (!claro_is_user_authenticated() ) 
         {
-            claro_disp_auth_form(true);
+            claro_disp_auth_form();
         }
         else
         {
