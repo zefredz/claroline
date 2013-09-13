@@ -585,13 +585,23 @@ if ( !claro_is_platform_admin () )
 
 if ( claro_is_in_a_course() )
 {
-    if ( !claro_is_course_allowed() && !claro_is_user_authenticated() ) 
+    if ( !( 
+        basename ( php_self () ) == 'courses.php' 
+        && isset($_REQUEST['cmd']) 
+        && $_REQUEST['cmd'] == 'exReg' 
+    ) )
     {
-        claro_disp_auth_form();
-    }
-    else
-    {
-        claro_die(get_lang("Not allowed!"));
+        if ( !claro_is_course_allowed() ) 
+        {
+            if ( !claro_is_user_authenticated() ) 
+            {
+                claro_disp_auth_form();
+            }
+            else
+            {
+                claro_die(get_lang("Not allowed!"));
+            }
+        }
     }
 }
 
@@ -605,13 +615,16 @@ if ( claro_is_in_a_group() )
         && $_REQUEST['registration'] == '1' 
     ) )
     {
-        if (! claro_is_group_allowed() && !claro_is_user_authenticated() ) 
-        {
-            claro_disp_auth_form();
-        }
-        else
-        {
-            claro_die(get_lang("Not allowed!"));
+        if (! claro_is_group_allowed() )
+        { 
+            if ( !claro_is_user_authenticated() ) 
+            {
+                claro_disp_auth_form();
+            }
+            else
+            {
+                claro_die(get_lang("Not allowed!"));
+            }
         }
     }
 }
