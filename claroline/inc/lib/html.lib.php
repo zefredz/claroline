@@ -1011,6 +1011,14 @@ class claro_datagrid
  */
 function claro_disp_auth_form($cidRequired = false)
 {
+    if ( isset($_SESSION['login_already_claimed']) && $_SESSION['login_already_claimed'] === true )
+    {
+        $_SESSION['login_already_claimed'] = false;
+        return;
+    }
+    
+    $_SESSION['login_already_claimed'] = true;
+    
     // TODO check if it does not break the CAS mechanism
     if( get_conf('claro_secureLogin', false) )
     {

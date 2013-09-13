@@ -583,9 +583,9 @@ if ( !claro_is_platform_admin () )
 
 // post kernel access check
 
-if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
+if ( claro_is_in_a_course() )
 {
-    if (!claro_is_user_authenticated() ) 
+    if ( !claro_is_course_allowed() && !claro_is_user_authenticated() ) 
     {
         claro_disp_auth_form();
     }
@@ -597,7 +597,7 @@ if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
 
 // group_space.php?registration=1&selfReg=1
 
-if ( claro_is_in_a_group() && ! claro_is_group_allowed() )
+if ( claro_is_in_a_group() )
 {
     if ( !( 
         basename ( php_self () ) == 'group_space.php' 
@@ -605,7 +605,7 @@ if ( claro_is_in_a_group() && ! claro_is_group_allowed() )
         && $_REQUEST['registration'] == '1' 
     ) )
     {
-        if (!claro_is_user_authenticated() ) 
+        if (! claro_is_group_allowed() && !claro_is_user_authenticated() ) 
         {
             claro_disp_auth_form();
         }
