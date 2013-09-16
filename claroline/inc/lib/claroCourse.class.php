@@ -532,6 +532,10 @@ class ClaroCourse
                 OR c.sourceCourseId = " . $this->sourceCourseId;
         }
         
+        $sql .= "
+            ORDER BY c.isSourceCourse DESC
+        ";
+        
         return claro_sql_query_fetch_all($sql);
     }
     
