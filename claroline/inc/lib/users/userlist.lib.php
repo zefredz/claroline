@@ -676,12 +676,10 @@ class Claro_BatchCourseRegistration
                 
                 if ( $classMode )
                 {
-                
                     foreach ( $sessionCourseIterator as $sessionCourse )
                     {
-
-                        if ( ( $sessionCourse->courseId != $this->course->courseId ) 
-                            && $class->isRegisteredToCourse ( $sourceCourse->courseId ) )
+                        if ( ( $sessionCourse->courseId != $this->course->courseId )
+                            && $class->isRegisteredToCourse ( $sessionCourse->courseId ) )
                         {
                             $foundSessionWithClass = true;
                         }
@@ -690,7 +688,7 @@ class Claro_BatchCourseRegistration
                     if ( ! $foundSessionWithClass )
                     {
                         $batchReg = new self( $sourceCourse, $this->database );
-                        $batchReg->removeUserIdListFromCourse( $userIdListToRemove, $class, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
+                        $batchReg->removeUserIdListFromCourse( $userIdListToRemove, $class, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession );
                     }
                 
                 }
