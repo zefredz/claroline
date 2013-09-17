@@ -681,7 +681,7 @@ class Claro_BatchCourseRegistration
                     {
 
                         if ( ( $sessionCourse->courseId != $this->course->courseId ) 
-                            && $class->isRegisteredToCourse ( $connectorClass ) )
+                            && $class->isRegisteredToCourse ( $sourceCourse->courseId ) )
                         {
                             $foundSessionWithClass = true;
                         }
