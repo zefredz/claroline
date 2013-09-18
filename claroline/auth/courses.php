@@ -226,7 +226,7 @@ Unsubscribe from a course
 
 if ( $cmd == 'exUnreg' )
 {
-    if ( user_remove_from_course($userId, $courseCode, false, false, false) )
+    if ( user_remove_from_course($userId, $courseCode, false, false, null) )
     {
         $claroline->log('COURSE_UNSUBSCRIBE', array('user'=>$userId,'course'=>$courseCode));
         $dialogBox->success( get_lang('Your enrolment on the course has been removed') );

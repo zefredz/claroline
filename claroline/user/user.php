@@ -180,7 +180,7 @@ if ( $is_allowedToEdit )
         elseif ( 0 < (int)  $req['user_id'] )
         {
             // delete user from course user list
-            if ( user_remove_from_course(  $req['user_id'], claro_get_current_course_id(), false, false, false) )
+            if ( user_remove_from_course(  $req['user_id'], claro_get_current_course_id(), false, false, null) )
             {
                 Console::log( "{$req['user_id']} removed by user ". claro_get_current_user_id(), 'COURSE_UNSUBSCRIBE');
                 $dialogBox->success( get_lang('The user has been successfully unregistered from course') );

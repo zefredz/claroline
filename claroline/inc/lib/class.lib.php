@@ -605,7 +605,7 @@ function user_remove_to_class($user_id,$class_id)
             if (isset($course['code']))
             {
                     //Check the return value of the function.
-                    if ( !user_remove_from_course($user_id, $course['code'], false, false, TRUE) )
+                    if ( !user_remove_from_course($user_id, $course['code'], false, false, $class_id) )
                     {
                             return claro_failure::set_failure('PROBLEM_WITH_COURSE_UNSUSCRIBTION');
                             //TODO : ameliorer la detection d'erreur
@@ -1220,7 +1220,7 @@ function delete_all_classes()
             foreach ($thisClassUser as $thisUser)
             {
                  $user_id = $thisUser['user_id'];
-                if ( !user_remove_from_course($user_id, $courseCode, false, false, TRUE) )
+                if ( !user_remove_from_course($user_id, $courseCode, false, false, $classId) )
                 {
                     return claro_failure::set_failure('PROBLEM_WITH_COURSE_UNSUSCRIBTION');
                             //TODO : ameliorer la detection d'erreur
@@ -1265,7 +1265,7 @@ function empty_all_class()
             foreach ($thisClassUser as $thisUser)
             {
                 $user_id = $thisUser['user_id'];
-                if ( !user_remove_from_course($user_id, $courseCode, false, false, TRUE) )
+                if ( !user_remove_from_course($user_id, $courseCode, false, false, $classId) )
                 {
                     return claro_failure::set_failure('PROBLEM_WITH_COURSE_UNSUSCRIBTION ' . $user_id . ' '. $courseCode);
                     //TODO : ameliorer la detection d'erreur

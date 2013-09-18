@@ -68,7 +68,7 @@ if ( $cmd == 'unsub' )
 
 if ( $do == 'unsub' )
 {
-    if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true, true, false) )
+    if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true, true, null) )
     {
         $dialogBox->success( get_lang('The user has been successfully unregistered') );
     }
