@@ -257,20 +257,20 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                     $cur_dir = $cwd;
 
                     // add comment to each file
-                    foreach ( $uploadedFileNameList as $uploadedFileName )
+                    foreach ( $uploadedFileNameList as $fileName )
                     {
-                        $uploadedFileName = secure_file_path( $uploadedFileName);
+                        $fileName = secure_file_path($fileName);
 
-                        if ( dirname($uploadedFileName) != $cwd )
+                        if ( dirname($fileName) != $cwd )
                         {
                             // put a comment on the folder
-                            update_db_info('update', dirname($uploadedFileName),
+                            update_db_info('update', dirname($fileName),
                                             array('comment' => $comment ) );
-                            $cur_dir = dirname($uploadedFileName);
+                            $cur_dir = dirname($fileName);
                         }
 
                         // put a comment on the file
-                        update_db_info('update', $uploadedFileName,
+                        update_db_info('update', $fileName,
                                         array('comment' => $comment ) );
                     }
                 }
