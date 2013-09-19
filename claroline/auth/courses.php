@@ -490,7 +490,8 @@ else
     {
         if ( claro_is_in_a_course() )
         {
-            $backUrl = '../course/index.php?cid='.claro_get_current_course_id();
+            // add cidReset to force relaod user privileges in course
+            $backUrl = '../course/index.php?cidReset=true&cid='.claro_get_current_course_id();
             $backLabel = get_lang('Course homepage');
         }
         else
