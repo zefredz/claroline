@@ -849,7 +849,7 @@ function user_validate_form($formMode, $data, $userId = null)
     if (in_array('login', $editableFields))
     {
         $validator->addRule('username' , get_lang('You left some required fields empty'), 'required');
-        $validator->addRule('username' , get_lang('Username is too long (maximum 20 characters)'), 'maxlength',20);
+        $validator->addRule('username' , get_lang('Username is too long (maximum 60 characters)'), 'maxlength',60);
     }
     
     if (in_array('email', $editableFields) && !get_conf('userMailCanBeEmpty'))
