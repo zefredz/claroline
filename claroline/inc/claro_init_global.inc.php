@@ -599,7 +599,23 @@ if ( claro_is_in_a_course() )
             }
             else
             {
-                claro_die(get_lang("Not allowed!"));
+                if ( claro_get_current_course_data('access') == 'private' && !claro_is_course_member () )
+                {
+                    claro_die(get_lang("You have to be enroled to this course to access it") 
+                        . '<br /><a href="'
+                        . claro_htmlspecialchars( get_path('clarolineRepositoryWeb')
+                            . 'auth/courses.php?cmd=exReg&course='
+                            . claro_get_current_course_id() )
+                        . '">'
+                        . claro_html_icon( 'enroll' ) . ' '
+                        . '<b>' . get_lang('Enrolment') . '</b>'
+                        . '</a>'
+                    );
+                }
+                else
+                {
+                    claro_die(get_lang("Not allowed!"));
+                }
             }
         }
     }
