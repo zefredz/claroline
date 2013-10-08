@@ -238,6 +238,7 @@ $_lang['User attempt deleted from tracking'] = 'User attempt deleted from tracki
 $_lang['User not found in course'] = 'User not found in course';
 $_lang['User statistics'] = 'User statistics';
 $_lang['User tracking'] = 'User tracking';
+$_lang['Username is too long (maximum 60 characters)'] = 'Username is too long (maximum 60 characters)';
 $_lang['Users can send messages from outside a course context'] = 'Users can send messages from outside a course context';
 $_lang['View student anwsers'] = 'View student anwsers';
 $_lang['Visible - Click to make invisible'] = 'Visible - Click to make invisible';
@@ -249,6 +250,7 @@ $_lang['You can personalize the options available to the course managers in the 
 $_lang['You can sort your question by categories. To create categories, follow this <a href="%url">link</a>.'] = 'You can sort your question by categories. To create categories, follow this <a href="%url">link</a>.';
 $_lang['You cannot create a course session from another course session'] = 'You cannot create a course session from another course session';
 $_lang['You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings'] = 'You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings';
+$_lang['You have to be enroled to this course to access its contents'] = 'You have to be enroled to this course to access its contents';
 $_lang['You have to be registered to this course\'s category in order to enrol the course'] = 'You have to be registered to this course\'s category in order to enrol the course';
 $_lang['You have to remove the course manager status first'] = 'You have to remove the course manager status first';
 $_lang['You need to choose at least one category for this course'] = 'You need to choose at least one category for this course';

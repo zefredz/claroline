@@ -601,7 +601,7 @@ if ( claro_is_in_a_course() )
             {
                 if ( claro_get_current_course_data('access') == 'private' && !claro_is_course_member () )
                 {
-                    claro_die(get_lang("You have to be enroled to this course to access it") 
+                    claro_die(get_lang("You have to be enroled to this course to access its contents") 
                         . '<br /><a href="'
                         . claro_htmlspecialchars( get_path('clarolineRepositoryWeb')
                             . 'auth/courses.php?cmd=exReg&course='

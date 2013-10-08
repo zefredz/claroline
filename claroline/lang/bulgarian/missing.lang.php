@@ -624,6 +624,7 @@ $_lang['User statistics'] = 'User statistics';
 $_lang['User tracking'] = 'User tracking';
 $_lang['Username already exists in the database at line %key'] = 'Username already exists in the database at line %key';
 $_lang['Username is empty at line %key'] = 'Username is empty at line %key';
+$_lang['Username is too long (maximum 60 characters)'] = 'Username is too long (maximum 60 characters)';
 $_lang['Username seems to be duplicate at line %key'] = 'Username seems to be duplicate at line %key';
 $_lang['Users can send messages from outside a course context'] = 'Users can send messages from outside a course context';
 $_lang['Users in group'] = 'Users in group';
@@ -665,6 +666,7 @@ $_lang['You cannot create a course session from another course session'] = 'You 
 $_lang['You cannot delete a category having sub categories'] = 'You cannot delete a category having sub categories';
 $_lang['You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings'] = 'You don\'t have chosen any extension to isolate.  If you wish to isolate extensions in your statistics, check the advanced platform settings';
 $_lang['You have been removed of the group.'] = 'You have been removed of the group.';
+$_lang['You have to be enroled to this course to access its contents'] = 'You have to be enroled to this course to access its contents';
 $_lang['You have to be registered to this course\'s category in order to enrol the course'] = 'You have to be registered to this course\'s category in order to enrol the course';
 $_lang['You have to remove the course manager status first'] = 'You have to remove the course manager status first';
 $_lang['You have to validate users to give them access to this course through the <a href="%url">course user list</a>'] = 'You have to validate users to give them access to this course through the <a href="%url">course user list</a>';
