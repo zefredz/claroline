@@ -194,7 +194,7 @@ class AuthProfileManager
         {
             if ( claro_is_platform_admin () || ( claro_is_in_a_course() && claro_is_course_manager () && $userId != claro_get_current_user_id () ) )
             {
-                Console::warning("Cannot find user authentication source for user {$userId} use claroline default otpions instead");
+                Console::warning("Cannot find user authentication source for user {$userId}, use claroline default options instead");
                 $profileOptions = AuthDriverManager::getDriver( 'claroline' )->getAuthProfileOptions();
             }
             else
