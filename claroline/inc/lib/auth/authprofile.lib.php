@@ -185,14 +185,32 @@ class AuthProfileManager
         {
             throw new Exception("Cannot find user authentication source for user {$userId}");
         }
-        else
+        
+        try
         {
-            $authProfile = new AuthProfile( $userId, $authSource );
-            $authProfile->setAuthDriverOptions(AuthDriverManager::getDriver( $authSource )->getAuthProfileOptions());
-            
-            pushClaroMessage(var_export(AuthDriverManager::getDriver( $authSource )->getAuthProfileOptions(), true), 'debug');
-            
-            return $authProfile;
+            $profileOptions = AuthDriverManager::getDriver( $authSource )->getAuthProfileOptions();
         }
+        catch ( Exception $e )
+        {
+            if ( claro_is_platform_admin () || ( claro_is_in_a_course() && claro_is_course_manager () && $userId != claro_get_current_user_id () ) )
+            {
+                Console::warning("Cannot find user authentication source for user {$userId} use claroline default otpions instead");
+                $profileOptions = AuthDriverManager::getDriver( 'claroline' )->getAuthProfileOptions();
+            }
+            else
+            {
+                throw $e;
+            }
+        }
+        
+        $authProfile = new AuthProfile( $userId, $authSource );
+        $authProfile->setAuthDriverOptions($profileOptions);
+
+        if ( claro_debug_mode() )
+        {
+            pushClaroMessage(var_export($profileOptions, true), 'debug');
+        }
+
+        return $authProfile;
     }
 }
