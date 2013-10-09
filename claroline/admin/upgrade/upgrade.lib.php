@@ -22,6 +22,28 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @since  1.7
  */
 
+function compare_major_version( $versionNumber1, $versionNumber2 )
+{
+    $vn1Array = explode('.',$versionNumber1);
+    $vn2Array = explode('.',$versionNumber2);
+    
+    if ( count($vn1Array) >= 2 && count($vn2Array) >=2 )
+    {
+        if ( $vn1Array[0] != $vn2Array[0] )
+        {
+            return (int) $vn1Array[0] - (int) $vn2Array[0];
+        }
+        else
+        {
+            return (int) $vn1Array[1] - (int) $vn2Array[1];
+        }
+    }
+    else
+    {
+        throw new Exception("Version string length mismatch {$versionNumber1} {$versionNumber2}");
+    }
+}
+
 function upgrade_disp_header()
 {
     global $htmlHeadXtra;

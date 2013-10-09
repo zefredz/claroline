@@ -58,6 +58,7 @@ define('DISPVAL_upgrade_backup_needed'  ,__LINE__);
 define('DISPVAL_upgrade_main_db_needed' ,__LINE__);
 define('DISPVAL_upgrade_courses_needed' ,__LINE__);
 define('DISPVAL_upgrade_done'           ,__LINE__);
+define('DISPVAL_upgrade_not_needed'     ,__LINE__);
 
 /*=====================================================================
   Main Section
@@ -114,35 +115,49 @@ else
   Define Display
  ---------------------------------------------------------------------*/
 
-if ( !$confirm_backup )
-{
-    // ask to confirm backup
-    $display = DISPVAL_upgrade_backup_needed;
+// specific to 1.10 to 1.11 upgrade:
+if ( preg_match ( '/^1.10/', $currentClarolineVersion ) && preg_match('/^1.11/', $new_version ) )
+{   
+    $display = DISPVAL_upgrade_not_needed;
 }
-elseif ( !preg_match($patternVarVersion, $currentClarolineVersion) )
+// detect minor version upgrade attempt:
+elseif ( compare_major_version ( $currentClarolineVersion, $new_version ) === 0 )
 {
-    // config file not upgraded go to first step
-    header("Location: upgrade_conf.php");
+    $display = DISPVAL_upgrade_not_needed;
 }
-elseif ( !preg_match($patternVarVersion, $currentDbVersion) )
-{
-    // upgrade of main conf needed.
-    $display = DISPVAL_upgrade_main_db_needed;
-}
+// upgrade needed:
 else
 {
-    // count course to upgrade
-    $count_course_upgraded = count_course_upgraded($new_version_branch);
-    $count_course_to_upgrade =  $count_course_upgraded['total'] - $count_course_upgraded['upgraded'];
-
-    if ( $count_course_to_upgrade > 0 )
+    if ( !$confirm_backup )
+    {
+        // ask to confirm backup
+        $display = DISPVAL_upgrade_backup_needed;
+    }
+    elseif ( !preg_match($patternVarVersion, $currentClarolineVersion) )
+    {
+        // config file not upgraded go to first step
+        header("Location: upgrade_conf.php");
+    }
+    elseif ( !preg_match($patternVarVersion, $currentDbVersion) )
     {
         // upgrade of main conf needed.
-        $display = DISPVAL_upgrade_courses_needed;
+        $display = DISPVAL_upgrade_main_db_needed;
     }
     else
     {
-        $display = DISPVAL_upgrade_done;
+        // count course to upgrade
+        $count_course_upgraded = count_course_upgraded($new_version_branch);
+        $count_course_to_upgrade =  $count_course_upgraded['total'] - $count_course_upgraded['upgraded'];
+
+        if ( $count_course_to_upgrade > 0 )
+        {
+            // upgrade of main conf needed.
+            $display = DISPVAL_upgrade_courses_needed;
+        }
+        else
+        {
+            $display = DISPVAL_upgrade_done;
+        }
     }
 }
 
@@ -157,7 +172,13 @@ echo upgrade_disp_header();
 
 switch ($display)
 {
-
+    case DISPVAL_upgrade_not_needed:
+        echo '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
+              <p class="success">There is no upgrade needed between those versions</p>
+              <ul>
+              <li><a href="../../../index.php?logout=true">Access to campus</a></li>
+              </ul>';
+        break;
     case DISPVAL_upgrade_backup_needed :
 
         echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
