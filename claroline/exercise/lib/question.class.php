@@ -311,7 +311,7 @@ class Question
         $duplicated->setDescription($this->description);
         $duplicated->setType($this->type);
         $duplicated->setGrade($this->grade);
-        $duplicated->setcayegoryId($this->categoryId);
+        $duplicated->setCategoryId($this->categoryId);
         
         $duplicatedId = $duplicated->save();
         
