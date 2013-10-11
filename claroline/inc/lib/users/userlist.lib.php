@@ -943,22 +943,32 @@ class Claro_PlatformUserList
                     }
                     else
                     {
-                        // disable old account by changing the username
-                        $this->database->exec( "
-                        UPDATE
-                            `{$this->tables['user']}`
-                        SET
-                            `authSource` = 'disabled',
-                            `username` = CONCAT('*EPC*', username )
-                        WHERE
-                            user_id = " . Claroline::getDatabase ()->escape ( $userFound['user_id'] )
-                        );
-                        
-                        $this->userDisabledList[$userFound['username']] = $userFound['user_id'];
-                        
-                        Console::info ( "Disable account for user ".var_export($userFound,true)." : conflict with ldap account " .var_export($user,true) );
-                        
-                        $this->insertUserAsNew($user);
+                        if ( $userFound['authSource']  !== $overwriteAuthSourceWith )
+                        {
+                            // disable old account by changing the username
+                            $this->database->exec( "
+                            UPDATE
+                                `{$this->tables['user']}`
+                            SET
+                                `authSource` = 'disabled',
+                                `username` = CONCAT('*EPC*', username )
+                            WHERE
+                                user_id = " . Claroline::getDatabase ()->escape ( $userFound['user_id'] )
+                            );
+
+                            $this->userDisabledList[$userFound['username']] = $userFound['user_id'];
+
+                            Console::info ( "Disable account for user ".var_export($userFound,true)." : conflict with ldap account " .var_export($user,true) );
+
+                            $this->insertUserAsNew($user);
+                        }
+                        else
+                        {
+                            // this is the same user and we trust the authentication source over the user list data
+                            Console::info('User already there with same authsource but different email : trust authsource [' . var_export($userFound,true).']');
+                            $this->userAlreadyThere[$userFound['username']] = $userFound['user_id'];
+                            $this->userSuccessList[$userFound['username']] = $userFound['user_id'];
+                        }
                     }
                 }
                 else
