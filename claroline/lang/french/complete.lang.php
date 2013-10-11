@@ -3562,3 +3562,5 @@ $_lang['This course currently does not allow to unenrol (status: %status)'] = 'C
 $_lang['User not found in course'] = 'Utilisateur non trouvé dans le cours';
 $_lang['Your profile does not allow you to unregister from this course.'] = 'Votre profile ne vous permet pas de vous désinscrire du cours';
 $_lang['You have to be enroled to this course to access its contents'] = 'Vous devez être inscrit(e) à ce cours pour accéder à son contenu';
+$_lang['This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead'] = 'Cet étudiant est inscrit via une classe et ne peut être supprimé directement. Pour le désinscrire, vous devez désinscrire la classe entière';
+$_lang['class enrolment'] = 'inscription par classe';
