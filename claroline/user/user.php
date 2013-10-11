@@ -314,6 +314,8 @@ $sqlGetUsers = "
         `course_user`.`tutor`  AS `tutor`,
         `course_user`.`role`   AS `role`,
         `course_user`.`enrollment_date`,
+        `course_user`.`count_class_enrol`,
+        `course_user`.`count_user_enrol`,
 
 	GROUP_CONCAT(`grp`.name ORDER BY `grp`.name SEPARATOR ',' ) AS `groups`
 
@@ -472,6 +474,17 @@ if ($is_allowedToEdit)
         {
             return false;
         }
+    };
+
+    </script>'."\n";
+    
+    $htmlHeadXtra[] =
+    '<script type="text/javascript">
+
+    function warnCannotDeleteClassStudent ()
+    {
+        alert(\'' . clean_str_for_javascript( get_lang( "This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead")) . '\');
+        return false;
     };
 
     </script>'."\n";
@@ -659,15 +672,27 @@ foreach ( $userList as $thisUser )
             // Unregister user column
             . '<td>'
             ;
-
+        
         if ($thisUser['user_id'] != claro_get_current_user_id())
         {
-            $out .= '<a href="'.claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
-                . '?cmd=unregister&user_id=' . $thisUser['user_id'] )) . '&offset='.$offset . '" '
-                . 'onclick="return CLUSR.confirmation(\''.clean_str_for_javascript($thisUser['nom'].' '.$thisUser['prenom']).'\');">'
-                . '<img alt="' . get_lang('Unregister') . '" src="' . get_icon_url('unenroll') . '" />'
-                . '</a>'
-                ;
+            if ( (int)$thisUser['count_class_enrol'] > 0 )
+            {
+                $out .= '<a href="javascript:warnCannotDeleteClassStudent()">'
+                    . '<img alt="' . get_lang('class enrolment') . '" 
+                        title="'.get_lang('This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead').'" 
+                        src="' . get_icon_url('unenroll_disabled') . '" />'
+                    . '</a>'
+                    ;
+            }
+            else
+            {
+                $out .= '<a href="'.claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                    . '?cmd=unregister&user_id=' . $thisUser['user_id'] )) . '&offset='.$offset . '" '
+                    . 'onclick="return CLUSR.confirmation(\''.clean_str_for_javascript($thisUser['nom'].' '.$thisUser['prenom']).'\');">'
+                    . '<img alt="' . get_lang('Unregister') . '" src="' . get_icon_url('unenroll') . '" />'
+                    . '</a>'
+                    ;
+            }
         }
         else
         {
