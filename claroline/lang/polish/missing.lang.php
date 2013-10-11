@@ -218,6 +218,7 @@ $_lang['This course is not available anymore, please contact the platform admini
 $_lang['This limit doesn\'t include course\'s tutors and managers'] = 'This limit doesn\'t include course\'s tutors and managers';
 $_lang['This may take some time, please wait until the end of the process...'] = 'This may take some time, please wait until the end of the process...';
 $_lang['This option can be used to prevent users which do not have manager rights in documents to download an archive of the folder'] = 'This option can be used to prevent users which do not have manager rights in documents to download an archive of the folder';
+$_lang['This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead'] = 'This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead';
 $_lang['This user account is not active anymore in this course'] = 'This user account is not active anymore in this course';
 $_lang['This user account is now active in the course'] = 'This user account is now active in the course';
 $_lang['This username is already taken'] = 'This username is already taken';
@@ -263,6 +264,7 @@ $_lang['blockLoginInfo'] = 'blockLoginInfo';
 $_lang['blockLoginRequest'] = 'blockLoginRequest';
 $_lang['cancel'] = 'cancel';
 $_lang['class'] = 'class';
+$_lang['class enrolment'] = 'class enrolment';
 $_lang['delete'] = 'delete';
 $_lang['delete all'] = 'delete all';
 $_lang['filter'] = 'filter';

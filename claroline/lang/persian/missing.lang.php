@@ -1404,6 +1404,7 @@ $_lang['This prefix could allow to order more easily the tables / DB in the user
 $_lang['This question is used in several exercises.'] = 'This question is used in several exercises.';
 $_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.';
 $_lang['This string is prepend to course database name if it begins with a number'] = 'This string is prepend to course database name if it begins with a number';
+$_lang['This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead'] = 'This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead';
 $_lang['This tool can not be uninstalled.'] = 'This tool can not be uninstalled.';
 $_lang['This tool is activable by the platform administrator only'] = 'This tool is activable by the platform administrator only';
 $_lang['This tool must be activated manualy in each course'] = 'This tool must be activated manualy in each course';
@@ -1721,6 +1722,7 @@ $_lang['blockWikiHelpAdminContent'] = 'blockWikiHelpAdminContent';
 $_lang['blockWikiHelpSyntaxContent'] = 'blockWikiHelpSyntaxContent';
 $_lang['cancel'] = 'cancel';
 $_lang['class'] = 'class';
+$_lang['class enrolment'] = 'class enrolment';
 $_lang['clear'] = 'clear';
 $_lang['count'] = 'count';
 $_lang['db glu'] = 'db glu';

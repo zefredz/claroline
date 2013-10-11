@@ -452,6 +452,7 @@ $_lang['This option can be used to prevent users which do not have manager right
 $_lang['This option can be used to prevent web crawlers to download an archive of the folder'] = 'This option can be used to prevent web crawlers to download an archive of the folder';
 $_lang['This portlet can\'t be moved down'] = 'This portlet can\'t be moved down';
 $_lang['This portlet can\'t be moved up'] = 'This portlet can\'t be moved up';
+$_lang['This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead'] = 'This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead';
 $_lang['This tool is activable by the platform administrator only'] = 'This tool is activable by the platform administrator only';
 $_lang['This tool must be activated manualy in each course'] = 'This tool must be activated manualy in each course';
 $_lang['This topic has been deleted'] = 'This topic has been deleted';
@@ -546,6 +547,7 @@ $_lang['blockLoginInfo'] = 'blockLoginInfo';
 $_lang['blockLoginRequest'] = 'blockLoginRequest';
 $_lang['cancel'] = 'cancel';
 $_lang['class'] = 'class';
+$_lang['class enrolment'] = 'class enrolment';
 $_lang['clear'] = 'clear';
 $_lang['default'] = 'default';
 $_lang['delete'] = 'delete';

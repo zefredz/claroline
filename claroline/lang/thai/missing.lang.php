@@ -514,6 +514,7 @@ This option allow only to request it, and don\'t prework the answer
 $_lang['This portlet can\'t be moved down'] = 'This portlet can\'t be moved down';
 $_lang['This portlet can\'t be moved up'] = 'This portlet can\'t be moved up';
 $_lang['This string is prepend to course database name if it begins with a number'] = 'This string is prepend to course database name if it begins with a number';
+$_lang['This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead'] = 'This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead';
 $_lang['This tool is activable by the platform administrator only'] = 'This tool is activable by the platform administrator only';
 $_lang['This tool must be activated manualy in each course'] = 'This tool must be activated manualy in each course';
 $_lang['This topic has been deleted'] = 'This topic has been deleted';
@@ -629,6 +630,7 @@ $_lang['blockLoginInfo'] = 'blockLoginInfo';
 $_lang['blockLoginRequest'] = 'blockLoginRequest';
 $_lang['cancel'] = 'cancel';
 $_lang['class'] = 'class';
+$_lang['class enrolment'] = 'class enrolment';
 $_lang['clear'] = 'clear';
 $_lang['db glu'] = 'db glu';
 $_lang['default'] = 'default';
