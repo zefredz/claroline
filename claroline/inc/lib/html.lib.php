@@ -199,6 +199,7 @@ function claro_html_link($url,$label,$attributeList=array())
 */
 function claro_html_button($url, $text, $confirmMessage = '')
 {
+    $url = secure_backlink_url($url);
 
     if ($confirmMessage != '')
     {

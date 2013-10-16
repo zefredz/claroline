@@ -2092,3 +2092,59 @@ function claro_is_group_required()
 
     return false;
 }
+
+/**
+ * Secure a backlink url by replacing it with a platform url, when the given 
+ * url is not from the platform
+ * @param string $url
+ * @return string
+ */
+function secure_backlink_url( $url )
+{
+    // cleanup url of potential html injection
+    $url = strip_tags($url);
+    
+    // if url does not start with urlAppend or rootWeb, we need to "secure" it
+    if ( !preg_match( "!^".get_path('url')."!", $url ) 
+        && !preg_match (  "!^".get_path('rootWeb')."!", $url )
+        && !preg_match ( "!^".  str_replace ( 'http://', 'https://', get_path('rootWeb') )."!", $url )
+        && !preg_match ( "!^".  str_replace ( 'http://', '', get_path('rootWeb') )."!", $url )
+    )
+    {
+        if ( stristr ( $_SERVER['HTTP_HOST'], ':' ) )
+        {
+            $http_host = explode(":", $_SERVER['HTTP_HOST']);
+        }
+        else
+        {
+            $http_host = $_SERVER['HTTP_HOST'];
+        }
+        
+        // if url starts with HTTP_HOST -> OK
+        if( stristr( $url, $http_host ) )
+        {
+            return $url;
+        }
+        // else replace with context root url
+        else
+        {
+            if ( isset( $GLOBALS['tlabelReq'] ) )
+            {
+                return Url::Contextualize(get_module_entry_url($GLOBALS['tlabelReq']));
+            }
+            elseif ( claro_is_in_a_course () )
+            {
+                return get_path('clarolineRepositoryWeb').'course/index.php?cid='.  claro_get_current_course_id ();
+            }
+            else
+            {
+                return get_path('url');
+            }
+        }
+    }
+    // else url is OK -> return it
+    else
+    {
+        return $url;
+    }
+}
