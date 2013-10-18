@@ -3,7 +3,7 @@
 <?php if (count($this->categoryList) > 0) : ?>
 
 <!-- Select box of courses categories -->
-<form id="courseListCategorySelector" method="post" 
+<!-- form id="courseListCategorySelector" method="post" 
     action="<?php echo $_SERVER['PHP_SELF']; ?>#courseListCategorySelector">
     <label for="viewCategory"><?php echo get_lang('Category selection'); ?></label>
     <select id="viewCategory" name="viewCategory">
@@ -21,7 +21,7 @@
     <input type="submit" value="<?php echo get_lang("filter"); ?>" />
 </form><br />
 
-<div class="clearer"></div>
+<div class="clearer"></div -->
 
 <?php endif; ?>
 
