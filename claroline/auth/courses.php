@@ -382,7 +382,7 @@ Search a course to register
 if ( $cmd == 'rqReg' ) // show course of a specific category
 {
     // Set user id to null if we're working on a class
-    $uderId = ($fromAdmin == 'class') ? null : $userId;
+    $userId = ($fromAdmin == 'class') ? null : $userId;
     
     // Build the category browser
     $categoryBrowser  = new CategoryBrowser($categoryId, $userId);
