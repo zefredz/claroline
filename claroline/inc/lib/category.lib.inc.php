@@ -277,15 +277,15 @@ function claro_get_parents_ids($id)
     
     if (!$result->isEmpty())
     {
-        $category = $result->fetch(Database_ResultSet::FETCH_VALUE);
+        $parentId = $result->fetch(Database_ResultSet::FETCH_VALUE);
         
         $result_array = array();
         
         // Keep going up until reaching the root
-        if ( $category['idParent'] != 0 )
+        if ( $parentId != 0 )
         {
-            $result_array[] = $category;
-            $result_array = array_merge( $result_array, claro_get_parents_ids($category['idParent']) );
+            $result_array[] = $parentId;
+            $result_array = array_merge( $result_array, claro_get_parents_ids($parentId) );
         }
     
         return $result_array;
