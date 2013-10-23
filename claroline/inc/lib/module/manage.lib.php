@@ -548,6 +548,9 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                 }
                 else
                 {
+                    // force access rights on module root dir after rename() because some modules written on M$ Win$#!t are causing issues
+                    chmod( $destPath,CLARO_FILE_PERMISSIONS );
+                    
                     //5-Include the local 'install.sql' and 'install.php' file of the module if they exist
                     if ( isset( $installSqlScript ) ) unset ( $installSqlScript );
                     $installSqlScript = get_module_path( $module_info['LABEL'] ) . '/setup/install.sql';
