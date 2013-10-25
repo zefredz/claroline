@@ -135,9 +135,20 @@ if ( !empty($class_id) )
         {
             $toAdd = " ORDER BY CU.`user_id` ".$_SESSION['admin_class_reg_user_dir'];
         }
+        elseif ( $_SESSION['admin_class_reg_user_order_crit'] != 'nom')
+        {    
+            $toAdd = " ORDER BY `".$_SESSION['admin_class_reg_user_order_crit']."` ".$_SESSION['admin_class_reg_user_dir'];
+        }
         else
         {
-            $toAdd = " ORDER BY `".$_SESSION['admin_class_reg_user_order_crit']."` ".$_SESSION['admin_class_reg_user_dir'];
+            if ($_SESSION['admin_class_reg_user_dir'] == 'ASC')
+            {
+                $toAdd = " ORDER BY `".$_SESSION['admin_class_reg_user_order_crit']."` ".$_SESSION['admin_class_reg_user_dir']. ",`prenom` ASC ";
+            }
+            else
+            {
+                $toAdd = " ORDER BY `".$_SESSION['admin_class_reg_user_order_crit']."` ".$_SESSION['admin_class_reg_user_dir']. ",`prenom` DESC ";
+            }            
         }
         $sql.=$toAdd;
     }
