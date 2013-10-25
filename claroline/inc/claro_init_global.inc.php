@@ -178,9 +178,18 @@ try
 }
 catch ( Exception $e )
 {
-    Console::error( $e->__toString() );
+    if ( claro_debug_mode() ) 
+    {
+        $details = '<pre>' . var_export( $e->__toString(), true ) . '</pre>';
+    }
+    else
+    {
+        $details = '';
+    }
+    
     die ('<center>'
         .$e->getMessage()
+        . $details
         .'</center>');
 }
 
