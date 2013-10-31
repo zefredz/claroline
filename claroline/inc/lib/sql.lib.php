@@ -442,7 +442,7 @@ function claro_sql_field_names( $sql, $resultPt = null )
 
     if ( ! array_key_exists( $sqlHash, $_colNameList) )
     {
-        if ( is_resource($resultPt) && get_resource_type($resultPt) == 'mysql result' )
+        if ( is_object($resultPt) && $resultPt instanceof mysqli_result )
         {
             // if ressource type is mysql result use it
             $releasablePt = false;
