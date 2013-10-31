@@ -645,7 +645,7 @@ class Config
 
         $result = claro_sql_query($sql);
 
-        if ( false !== ($row = mysql_fetch_row($result) ) )
+        if ( false !== ($row = mysqli_fetch_row($result) ) )
         {
             // return hash value
             $this->md5 = $row[0];

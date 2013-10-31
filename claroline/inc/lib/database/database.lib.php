@@ -154,7 +154,7 @@ class Mysql_Database_Connection implements Database_Connection
             throw new Database_Connection_Exception("Already to database server {$this->username}@{$this->host}");
         }
         
-        $this->dbLink = @mysql_connect( $this->host, $this->username, $this->password );
+        $this->dbLink = @mysqli_connect( $this->host,  $this->username,  $this->password );
         
         if ( ! $this->dbLink )
         {
@@ -177,7 +177,7 @@ class Mysql_Database_Connection implements Database_Connection
             throw new Database_Connection_Exception("No connection found to database server, please connect first");
         }
         
-        if ( ! @mysql_select_db( $database, $this->dbLink ) )
+        if ( ! @((bool)mysqli_query( $this->dbLink , "USE $database")) )
         {
             throw new Database_Connection_Exception("Cannot select database {$database} on {$this->username}@{$this->host}");
         }
@@ -195,7 +195,7 @@ class Mysql_Database_Connection implements Database_Connection
             throw new Database_Connection_Exception("No connection found to database server, please connect first");
         }
         
-        return @mysql_affected_rows( $this->dbLink );
+        return @mysqli_affected_rows( $this->dbLink );
     }
     
     /**
@@ -208,7 +208,7 @@ class Mysql_Database_Connection implements Database_Connection
             throw new Database_Connection_Exception("No connection found to database server, please connect first");
         }
         
-        return @mysql_insert_id( $this->dbLink );
+        return @((is_null($___mysqli_res = mysqli_insert_id( $this->dbLink ))) ? false : $___mysqli_res);
     }
     
     /**
@@ -221,9 +221,9 @@ class Mysql_Database_Connection implements Database_Connection
             throw new Database_Connection_Exception("No connection found to database server, please connect first");
         }
         
-        if ( false === @mysql_query( $sql, $this->dbLink ) )
+        if ( false === @mysqli_query( $this->dbLink ,  $sql) )
         {
-            throw new Database_Connection_Exception( "Error in {$sql} : ".@mysql_error($this->dbLink), @mysql_errno($this->dbLink) );
+            throw new Database_Connection_Exception( "Error in {$sql} : ".@((is_object($this->dbLink)) ? mysqli_error($this->dbLink) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)), @((is_object($this->dbLink)) ? mysqli_errno($this->dbLink) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) );
         }
         
         return $this->affectedRows();
@@ -239,9 +239,9 @@ class Mysql_Database_Connection implements Database_Connection
             throw new Database_Connection_Exception("No connection found to database server, please connect first");
         }
         
-        if ( false === ( $result = @mysql_query( $sql, $this->dbLink ) ) )
+        if ( false === ( $result = @mysqli_query( $this->dbLink ,  $sql) ) )
         {
-            throw new Database_Connection_Exception( "Error in {$sql} : ".@mysql_error($this->dbLink), @mysql_errno($this->dbLink) );
+            throw new Database_Connection_Exception( "Error in {$sql} : ".@((is_object($this->dbLink)) ? mysqli_error($this->dbLink) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)), @((is_object($this->dbLink)) ? mysqli_errno($this->dbLink) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) );
         }
         
         $tmp = new Mysql_ResultSet( $result );
@@ -254,7 +254,7 @@ class Mysql_Database_Connection implements Database_Connection
      */
     public function escape( $str )
     {
-        return mysql_real_escape_string( $str, $this->dbLink );
+        return mysqli_real_escape_string( $this->dbLink ,  $str);
     }
     
     /**
@@ -273,13 +273,13 @@ class Mysql_Database_Connection implements Database_Connection
         }
         else
         {
-            @mysql_query( "SET NAMES '{$charset}'", $this->dbLink );
+            @mysqli_query( $this->dbLink ,  "SET NAMES '{$charset}'");
         }
     }
     
     public function getCharset()
     {
-        return mysql_client_encoding( $this->dbLink );
+        return mysqli_character_set_name( $this->dbLink );
     }
 }
 
@@ -323,13 +323,12 @@ extends
             define('CLIENT_FOUND_ROWS', 2);
         }
 
-        $this->dbLink = @mysql_connect(
-            $this->host,
-            $this->username,
-            $this->password,
-            false,
+        $this->dbLink = @((($GLOBALS["___mysqli_ston"] = mysqli_init()) && (mysqli_real_connect($GLOBALS["___mysqli_ston"], 
+            $this->host, 
+            $this->username, 
+            $this->password, NULL, 3306, NULL, 
             CLIENT_FOUND_ROWS
-        );
+        ))) ? $GLOBALS["___mysqli_ston"] : FALSE);
 
         if ( ! $this->dbLink )
         {
@@ -631,7 +630,7 @@ class Mysql_ResultSet implements Database_ResultSet
             $this->mode = self::FETCH_ASSOC;
             
             // set to 0 if false;
-            $this->numrows = (int) @mysql_num_rows( $this->resultSet );
+            $this->numrows = (int) @mysqli_num_rows( $this->resultSet );
             $this->idx = 0;
             $this->idKeyName = null;
             $this->idKeyValue = null;
@@ -646,7 +645,7 @@ class Mysql_ResultSet implements Database_ResultSet
     {
         if ( $this->resultSet )
         {
-            @mysql_free_result($this->resultSet);
+            @((mysqli_free_result($this->resultSet) || (is_object($this->resultSet) && (get_class($this->resultSet) == "mysqli_result"))) ? true : false);
         }
         
         unset( $this->resultSet );
@@ -741,7 +740,7 @@ class Mysql_ResultSet implements Database_ResultSet
                 throw new Claroline_Database_Exception( "Cannot instanciate class {$className}" );
             }
 
-            $row = @mysql_fetch_array( $this->resultSet, MYSQL_ASSOC );
+            $row = @mysqli_fetch_array( $this->resultSet,  MYSQLI_ASSOC );
 
             $this->setIdFromKeyValue( $mode, $row );
 
@@ -751,7 +750,7 @@ class Mysql_ResultSet implements Database_ResultSet
         }
         elseif ( $mode == self::FETCH_OBJECT )
         {
-            $row = @mysql_fetch_object( $this->resultSet );
+            $row = @mysqli_fetch_object( $this->resultSet );
             $this->setIdFromKeyValue( $mode, $row );
 
             return $row;
@@ -759,14 +758,14 @@ class Mysql_ResultSet implements Database_ResultSet
         // FIXME : FETCH_VALUE should not be called twice !
         elseif ( $mode == self::FETCH_VALUE || $mode == self::FETCH_COLUMN )
         {
-            $res = @mysql_fetch_array( $this->resultSet, MYSQL_NUM );
+            $res = @mysqli_fetch_array( $this->resultSet,  MYSQLI_NUM );
             
             // use side effect of the [] operator : will return null if !$res
             return $res[0];
         }
         else
         {
-            $row = @mysql_fetch_array( $this->resultSet, $this->mysqlFetchMode( $mode ) );
+            $row = @mysqli_fetch_array( $this->resultSet,  $this->mysqlFetchMode( $mode ) );
             $this->setIdFromKeyValue( $mode, $row );
 
             return $row;
@@ -816,14 +815,14 @@ class Mysql_ResultSet implements Database_ResultSet
         switch ( $mode )
         {
             case self::FETCH_ASSOC:
-                return MYSQL_ASSOC;
+                return MYSQLI_ASSOC;
 
             case self::FETCH_NUM:
-                return MYSQL_NUM;
+                return MYSQLI_NUM;
             
             case self::FETCH_BOTH:
             default:
-                return MYSQL_BOTH;
+                return MYSQLI_BOTH;
         }
     }
     
@@ -889,7 +888,7 @@ class Mysql_ResultSet implements Database_ResultSet
         
         if ( $this->numRows() )
         {
-            $this->valid = @mysql_data_seek( $this->resultSet, 0 );
+            $this->valid = @mysqli_data_seek( $this->resultSet,  0 );
         }
         else
         {
@@ -934,7 +933,7 @@ class Mysql_ResultSet implements Database_ResultSet
             && $this->valid() )
         {
             $this->idx = $idx;
-            @mysql_data_seek( $this->resultSet, $this->idx );
+            @mysqli_data_seek( $this->resultSet,  $this->idx );
         }
         else
         {

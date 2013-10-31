@@ -46,11 +46,11 @@ try
     // MAIN DB                             //
     // DB with central info  of  Claroline //
 
-    mysql_query("CREATE DATABASE `" . $mainDbName . "`");
+    mysqli_query($GLOBALS["___mysqli_ston"], "CREATE DATABASE `" . $mainDbName . "`");
 
-    if (mysql_errno() >0)
+    if (((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) >0)
     {
-        if (mysql_errno() == 1007)
+        if (((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) == 1007)
         {   // DB already exist
             if ($confirmUseExistingMainDb)
             {
@@ -68,7 +68,7 @@ try
             $mainDbNameCreationError
             = '<P class="setup_error">' . "\n"
             . '<font color="red">Warning !</font>' . "\n"
-            . '<small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>' . "\n"
+            . '<small>[' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) . '] - ' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . '</small>' . "\n"
             . '<br />' . "\n"
             . 'Error on creation ' . get_lang('Main database') . ' : <I>' . $dbHostForm . '</I>' . "\n"
             . '<br />' . "\n"
@@ -99,11 +99,11 @@ try
         if(!$singleDbForm)
         {
             // multi DB mode AND tracking has its own DB so create it
-            mysql_query("CREATE DATABASE `" . $statsDbName . "`");
+            mysqli_query($GLOBALS["___mysqli_ston"], "CREATE DATABASE `" . $statsDbName . "`");
 
-            if (mysql_errno() >0)
+            if (((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) >0)
             {
-                if (mysql_errno() == 1007)
+                if (((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) == 1007)
                 {
                     if ($confirmUseExistingStatsDb)
                     {
@@ -122,7 +122,7 @@ try
                     $statsDbNameCreationError
                     = '<P class="setup_error">' . "\n"
                     . '<font color="red">Warning !</font>' . "\n"
-                    . '<small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>' . "\n"
+                    . '<small>[' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) . '] - ' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . '</small>' . "\n"
                     . '<br />' . "\n"
                     . 'Error on creation ' . get_lang('Tracking database') . ' : <I>' . $dbStatsForm . '</I>' . "\n"
                     . '<br />' . "\n"

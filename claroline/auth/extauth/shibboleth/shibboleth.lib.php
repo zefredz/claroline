@@ -50,7 +50,7 @@ function shibbolethUsernameExists($username)
              username = "' . addslashes($username) . '"'
          ;
     $result = claro_sql_query($sql);
-    $row = mysql_fetch_array($result);
+    $row = mysqli_fetch_array($result);
 
     if ( $row[0] == 0 )
     {

@@ -34,7 +34,7 @@ if ( isset($_SERVER[$shibbolethUniqueIdAttr]) )
                     `' . $shibbolethUidTbl . '` = "' . $_SERVER[$shibbolethUniqueIdAttr] . '"';
 
             $result = claro_sql_query($sql);
-            if ( mysql_num_rows($result) > 0 )
+            if ( mysqli_num_rows($result) > 0 )
             {
                 // uniqueId already in use
                 claro_die ("<center>WARNING ! UNABLE TO CHANGE AUTHSOURCE. YOU ALREADY HAVE A USERACCOUNT.</center>");
@@ -64,7 +64,7 @@ if ( isset($_SERVER[$shibbolethUniqueIdAttr]) )
                      . 'SET ' . implode(', ', $sqlPrepareList) . ' '
                      . 'WHERE user_id = ' . (int)$_uid;
 
-                $res  = mysql_query($sql)
+                $res  = mysqli_query($GLOBALS["___mysqli_ston"], $sql)
                         or die('<center>UPDATE QUERY FAILED LINE '.__LINE__.'<center>');
 
                 // redirect as normal login back to "My User Account"

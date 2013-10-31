@@ -361,12 +361,12 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
 {
     // Check Connection //
     $databaseParam_ok = TRUE;
-    $db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
+    $db = @($GLOBALS["___mysqli_ston"] = mysqli_connect("$dbHostForm",  "$dbUsernameForm",  "$dbPassForm"));
     $stepStatus[DISP_DB_CONNECT_SETTING] = 'V';
-    if ( mysql_errno() > 0 ) // problem with server
+    if ( ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) > 0 ) // problem with server
     {
-        $no  = mysql_errno();
-        $msg = mysql_error();
+        $no  = ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false));
+        $msg = ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false));
         $msg_no_connection =
                 '<div class="claroDialogBox boxError">'
                 .    '<p>'
@@ -450,7 +450,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
     }
     else
     {
-        $db = mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
+        $db = ($GLOBALS["___mysqli_ston"] = mysqli_connect("$dbHostForm",  "$dbUsernameForm",  "$dbPassForm"));
 
         $valMain = check_if_db_exist($dbNameForm  ,$db);
         if ($dbStatsForm == $dbNameForm) $confirmUseExistingStatsDb = $confirmUseExistingMainDb ;
@@ -613,10 +613,10 @@ if( DISP_DB_NAMES_SETTING == $display )
 {
     // GET DB Names  //
     // this is  to prevent duplicate before submit
-    $db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
+    $db = @($GLOBALS["___mysqli_ston"] = mysqli_connect("$dbHostForm",  "$dbUsernameForm",  "$dbPassForm"));
     $sql = "show databases";
     $res = claro_sql_query($sql,$db);
-    while ($__dbName = mysql_fetch_array($res, MYSQL_NUM))
+    while ($__dbName = mysqli_fetch_array($res,  MYSQLI_NUM))
     {
         $existingDbs[] = $__dbName[0];
     }
@@ -876,7 +876,7 @@ elseif ($display == DISP_WELCOME)
     }
     
     // remove mysqlnd from client info string, if found
-    $mysql_ver = preg_replace('/^mysqlnd /', '', mysql_get_client_info());
+    $mysql_ver = preg_replace('/^mysqlnd /', '', mysqli_get_client_info());
     echo '<p>'
     .    get_lang('Please, read thoroughly the <a href="%installFileUrl">%installFileName</a> document before proceeding to installation.', array('%installFileUrl' => '../../INSTALL.txt','%installFileName'=>'INSTALL.txt'))
     .    '</p>'
@@ -891,7 +891,7 @@ elseif ($display == DISP_WELCOME)
     .    '</tr>'
     .    '<tr>'
     .    '<td>MySQL version >= 4.3</td>'
-    .    '<td>' . ( version_compare($mysql_ver, $requiredMySqlVersion, ">=" ) ? '<span class="ok">'.get_lang('Ok').'</span>':'<span class="ko">'.get_lang('Ko').'</span>') . ' (' . mysql_get_client_info(). ')</td>'
+    .    '<td>' . ( version_compare($mysql_ver, $requiredMySqlVersion, ">=" ) ? '<span class="ok">'.get_lang('Ok').'</span>':'<span class="ko">'.get_lang('Ko').'</span>') . ' (' . mysqli_get_client_info(). ')</td>'
     .    '</tr>'
  
     .    '<tr>'

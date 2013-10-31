@@ -365,7 +365,7 @@ class Assignment
 
             $query = claro_sql_query($sql);
 
-            if( mysql_num_rows($query) != 0 )
+            if( mysqli_num_rows($query) != 0 )
             {
                 claro_failure::set_failure('assignment_title_already_exists');
                 return false;

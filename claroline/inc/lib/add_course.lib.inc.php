@@ -140,7 +140,7 @@ function define_course_keys ($wantedCode,
                                 WHERE code = '" . $keysCourseId  ."'";
 
         $resCheckCourseId    = claro_sql_query ($sqlCheckCourseId);
-        $isCheckCourseIdUsed = mysql_fetch_array($resCheckCourseId);
+        $isCheckCourseIdUsed = mysqli_fetch_array($resCheckCourseId);
 
         if (isset($isCheckCourseIdUsed[0]['existAllready']) && $isCheckCourseIdUsed[0]['existAllready'] > 0)
         {
@@ -160,7 +160,7 @@ function define_course_keys ($wantedCode,
 
         $resCheckCourseDb = claro_sql_query ($sqlCheckCourseDb);
 
-        $isCheckCourseDbUsed = mysql_num_rows($resCheckCourseDb);
+        $isCheckCourseDbUsed = mysqli_num_rows($resCheckCourseDb);
 
         if ($isCheckCourseDbUsed > 0)
         {
@@ -463,7 +463,7 @@ function register_course( $courseSysCode, $courseScreenCode, $sourceCourseId,
         return false;
     }
     
-    $courseId = mysql_insert_id();
+    $courseId = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
     
     // Insert categories
     if ( link_course_categories ( $courseId, $categories ) === false )

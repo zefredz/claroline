@@ -141,7 +141,7 @@ if ( !class_exists('ScormExport') )
                 return false;
             }
 
-            $list = mysql_fetch_array($result, MYSQL_ASSOC);
+            $list = mysqli_fetch_array($result,  MYSQLI_ASSOC);
             if ( empty($list) )
             {
                 $this->error[] = get_lang('Learning Path not found');
@@ -181,7 +181,7 @@ if ( !class_exists('ScormExport') )
                 return false;
             }
 
-            while ($module = mysql_fetch_array($result, MYSQL_ASSOC))
+            while ($module = mysqli_fetch_array($result,  MYSQLI_ASSOC))
             {
                 // Check for SCORM content. If at least one module is SCORM, we need to export the existing SCORM package
                 if ( $module['contentType'] == 'SCORM' )       $this->fromScorm = true;

@@ -923,7 +923,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             $result = claro_sql_query ($sql);
 
-            while( $row = mysql_fetch_array($result, MYSQL_ASSOC) ) $oldComment = $row['comment'];
+            while( $row = mysqli_fetch_array($result,  MYSQLI_ASSOC) ) $oldComment = $row['comment'];
 
             //list($oldComment) = claro_sql_query_fetch_all($sql);
 

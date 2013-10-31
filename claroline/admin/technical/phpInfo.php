@@ -170,7 +170,7 @@ if ($is_allowedToAdmin)
                 </tr>
                 <tr>
                     <th scope="row">MySQL (installed/minimum)</th>
-                    <td><?php echo mysql_get_server_info() . ' / ' . $requiredMySqlVersion;?></td>
+                    <td><?php echo ((is_null($___mysqli_res = mysqli_get_server_info($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res) . ' / ' . $requiredMySqlVersion;?></td>
                 </tr>
                 <tr>
                     <th scope="row">WebServer</th>

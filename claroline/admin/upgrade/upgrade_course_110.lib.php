@@ -240,12 +240,12 @@ function tool_intro_upgrade_to_110 ($course_code)
                             FROM `" . $currentCourseDbNameGlu . "tool_intro`
                             WHERE `tool_id` <= 0";
                 
-                $sql = mysql_query($req);
+                $sql = mysqli_query($GLOBALS["___mysqli_ston"], $req);
                 $sqlForUpdate = array();
                 
                 if ($sql)
                 {
-                    $res = mysql_fetch_assoc($sql);
+                    $res = mysqli_fetch_assoc($sql);
                     
                     // If yes: create a portlet for this course in `rel_course_portlet`
                     if (isset($res['nbToolIntro']) && $res['nbToolIntro'] > 0)
@@ -255,9 +255,9 @@ function tool_intro_upgrade_to_110 ($course_code)
                                 FROM `" . get_conf('mainTblPrefix') . "cours`
                                 WHERE `code` = '".$course_code."'";
                         
-                        $sql = mysql_query($req);
+                        $sql = mysqli_query($GLOBALS["___mysqli_ston"], $req);
                         
-                        $res = mysql_fetch_assoc($sql);
+                        $res = mysqli_fetch_assoc($sql);
                         
                         // Insert the portlet
                         $sqlForUpdate[] = "INSERT INTO `" . get_conf('mainTblPrefix') . "rel_course_portlet`

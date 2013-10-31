@@ -267,7 +267,7 @@ function assignment_upgrade_to_16($course_code)
                 $sql_step2[] = "INSERT INTO `".$currentCourseDbNameGlu."wrk_assignment`
                     SET `id` = 1,
                     `title` = 'Assignments',
-                    `description`= '" . mysql_real_escape_string($work_intro) . "',
+                    `description`= '" . ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $work_intro) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : "")) . "',
                     `visibility` = 'VISIBLE',
                     `def_submission_visibility` = 'VISIBLE',
                     `assignment_type` = 'INDIVIDUAL',

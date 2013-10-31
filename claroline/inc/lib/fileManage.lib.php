@@ -810,7 +810,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 
             $result = claro_sql_query($sql);
 
-            $num = mysql_num_rows($result);
+            $num = mysqli_num_rows($result);
 
             // the document with the exact path exists
             if ( $num )
@@ -847,7 +847,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 
             $result = claro_sql_query($sql);
 
-            $num = mysql_num_rows($result);
+            $num = mysqli_num_rows($result);
             if ($num != 0)
             {
                   //find all learning path module concerned by the deletion
@@ -857,7 +857,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                             WHERE 0=1
                             ";
 
-                  while ($list=mysql_fetch_array($result))
+                  while ($list=mysqli_fetch_array($result))
                   {
                      $sqllpm.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
                   }
@@ -877,9 +877,9 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                           WHERE 0=1
                          ";
 
-                  $result = mysql_query($sqllpm);//:to reset result resused
+                  $result = mysqli_query($GLOBALS["___mysqli_ston"], $sqllpm);//:to reset result resused
 
-                  while ($list=mysql_fetch_array($result))
+                  while ($list=mysqli_fetch_array($result))
                   {
                      $sql1.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
                      $sql2.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
@@ -894,7 +894,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                          FROM `" . $TABLEUSERMODULEPROGRESS . "`
                          WHERE 0=1
                          ";
-                  while ($list=mysql_fetch_array($result2))
+                  while ($list=mysqli_fetch_array($result2))
                   {
                      $sql.= " OR `learnPath_module_id` = '" . (int)$list['learnPath_module_id'] . "' ";
                   }

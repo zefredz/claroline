@@ -142,7 +142,7 @@ function get_course_tool_list($cid)
 
         $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
-         while( $tlistData = mysql_fetch_array($result) )
+         while( $tlistData = mysqli_fetch_array($result) )
         {
             $courseToolList[] = $tlistData;
            }

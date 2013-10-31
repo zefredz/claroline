@@ -251,7 +251,7 @@ function user_create($settingList, $creatorId = null)
                 creatorId    = " . ($creatorId > 0 ? (int) $creatorId : 'NULL');
     $adminId = claro_sql_query_insert_id($sql);
     if (false !== $adminId) return $adminId;
-    else return claro_failure::set_failure('Cant create user|' . mysql_error() . '|');
+    else return claro_failure::set_failure('Cant create user|' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . '|');
 }
 
 /**

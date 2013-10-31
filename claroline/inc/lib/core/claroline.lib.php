@@ -215,6 +215,8 @@ class Claroline
         {
             // self::initMainDatabase();
             self::$database = new Claroline_Database_Connection();//self::$db);
+            // mysqli
+            $GLOBALS["___mysqli_ston"] = self::$database;
             self::$database->connect();
             
             // the following options are for campus where only one language is used

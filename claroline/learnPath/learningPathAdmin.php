@@ -114,7 +114,7 @@ $sql = "SELECT lp.`learnPath_id`,
         WHERE lp.`learnPath_id` = ". (int) $_SESSION['path_id'];
 $query = claro_sql_query($sql);
 
-$LPDetails = mysql_fetch_array($query);
+$LPDetails = mysqli_fetch_array($query);
 
 // parse commands
 $cmd = ( isset($_REQUEST['cmd']) ) ? $_REQUEST['cmd'] : '';
@@ -194,7 +194,7 @@ switch($cmd)
         $result = claro_sql_query($sql);
 
         $extendedList = array();
-        while ($list = mysql_fetch_array($result, MYSQL_ASSOC))
+        while ($list = mysqli_fetch_array($result,  MYSQLI_ASSOC))
         {
             $extendedList[] = $list;
         }
@@ -223,7 +223,7 @@ switch($cmd)
         $result = claro_sql_query($sql);
 
         $extendedList = array();
-        while ($list = mysql_fetch_array($result, MYSQL_ASSOC))
+        while ($list = mysqli_fetch_array($result,  MYSQLI_ASSOC))
         {
             $extendedList[] = $list;
         }
@@ -275,7 +275,7 @@ switch($cmd)
 
                 $result = claro_sql_query($sql);
 
-                list($orderMax) = mysql_fetch_row($result);
+                list($orderMax) = mysqli_fetch_row($result);
                 $order = $orderMax + 1;
 
                 // change parent module reference in the moved module and set order (added to the end of target group)
@@ -300,7 +300,7 @@ switch($cmd)
             $result = claro_sql_query($sql);
             $i=0;
             $extendedList = array();
-            while ($list = mysql_fetch_array($result))
+            while ($list = mysqli_fetch_array($result))
             {
                 // this array will display target for the "move" command
                 // so don't add the module itself build_element_list will ignore all childre so that
@@ -350,7 +350,7 @@ switch($cmd)
                     WHERE `parent` = 0";
             $result = claro_sql_query($sql);
 
-            list($orderMax) = mysql_fetch_row($result);
+            list($orderMax) = mysqli_fetch_row($result);
             $order = $orderMax + 1;
 
             // create new module
@@ -547,7 +547,7 @@ $sql = "SELECT M.*, LPM.*, A.`path`
 $result = claro_sql_query($sql);
 
 $extendedList = array();
-while ($list = mysql_fetch_array($result, MYSQL_ASSOC))
+while ($list = mysqli_fetch_array($result,  MYSQLI_ASSOC))
 {
     $extendedList[] = $list;
 }

@@ -232,19 +232,19 @@ function upgrade_sql_query($sql,$verbose=null)
     global $verbose;
 
     // Sql query
-    $handler = mysql_query($sql);
+    $handler = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
 
     // Sql error
-    if ( mysql_errno() > 0 )
+    if ( ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) > 0 )
     {
-        if ( in_array(mysql_errno(),$accepted_error_list) )
+        if ( in_array(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)),$accepted_error_list) )
         {
             // error accepted
             if ( $verbose )
             {
-                $message = sprintf('Warning (error sql): %s -message- %s', mysql_errno(), mysql_error()) . "\n" ;
+                $message = sprintf('Warning (error sql): %s -message- %s', ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)), ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false))) . "\n" ;
                 $message .= 'statment : ' . $sql . '' . "\n";
-                $message .= mysql_info() . "\n";
+                $message .= mysqli_info($GLOBALS["___mysqli_ston"]) . "\n";
                 log_message($message);
             }
             return true;
@@ -252,9 +252,9 @@ function upgrade_sql_query($sql,$verbose=null)
         else
         {
             // error not accepted
-            $message = sprintf('Error sql: %s -message- %s', mysql_errno(), mysql_error()) . "\n";
+            $message = sprintf('Error sql: %s -message- %s', ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)), ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false))) . "\n";
             $message .= 'statment : ' . $sql . '' . "\n";
-            $message .= mysql_info() . "\n";
+            $message .= mysqli_info($GLOBALS["___mysqli_ston"]) . "\n";
             log_message($message);
             return false;
         }
@@ -303,7 +303,7 @@ function count_course_upgraded($version)
 
     $result = claro_sql_query($sql);
 
-    while ( ( $row = mysql_fetch_array($result) ) )
+    while ( ( $row = mysqli_fetch_array($result) ) )
     {
         // Count courses upgraded and upgrade failed
         if ( preg_match('/^' . $version . '/',$row['versionClaro']) )
@@ -350,7 +350,7 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
 
     $result = upgrade_sql_query($sql);
 
-    if ( mysql_num_rows($result) == 0 )
+    if ( mysqli_num_rows($result) == 0 )
     {
         // tool not registered
 
@@ -412,9 +412,9 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
 
     $result = upgrade_sql_query($sql);
 
-    if ( mysql_num_rows($result) )
+    if ( mysqli_num_rows($result) )
     {
-        $row = mysql_fetch_array($result);
+        $row = mysqli_fetch_array($result);
 
         // if $access emtpy get default access
         if ( empty($access) ) $access = $row['access'];
@@ -426,7 +426,7 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
                ('" . $row['id'] . "','" . $rank . "','" . $access . "')";
 
         $result = upgrade_sql_query($sql);
-        return mysql_insert_id();
+        return ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
     }
     else
     {
@@ -472,7 +472,7 @@ function sql_repair_main_database()
     foreach ( $tbl_names as $tbl )
     {
         $sql = "REPAIR TABLE `" . $tbl . "`";
-        mysql_query($sql);
+        mysqli_query($GLOBALS["___mysqli_ston"], $sql);
     }
 }
 
@@ -489,7 +489,7 @@ function sql_repair_course_database($courseDbNameGlu)
     foreach ( $tbl_names as $tbl )
     {
         $sql = "REPAIR TABLE `" . $tbl . "`";
-        mysql_query($sql);
+        mysqli_query($GLOBALS["___mysqli_ston"], $sql);
     }
 }
 
@@ -521,10 +521,10 @@ function get_upgrade_status($claro_label,$course_code=null)
 
     $result = claro_sql_query($sql);
 
-    if ( mysql_num_rows($result) > 0 )
+    if ( mysqli_num_rows($result) > 0 )
     {
         // get status
-        $row = mysql_fetch_array($result);
+        $row = mysqli_fetch_array($result);
         $status = $row['status'];
     }
     else

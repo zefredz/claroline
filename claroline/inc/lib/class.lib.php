@@ -475,7 +475,7 @@ function user_add_to_class($user_id,$class_id)
             AND `class_id` = '" . $class_id . "'";
     $handle = claro_sql_query($sql);
 
-    if ( mysql_num_rows($handle) > 0 )
+    if ( mysqli_num_rows($handle) > 0 )
     {
         return claro_failure::set_failure('USER_ALREADY_IN_CLASS'); // the user is already subscrided to the class
     }
@@ -1038,7 +1038,7 @@ function getSubClasses($class_id)
 
     $query_result = claro_sql_query($sql);
 
-    while ( ( $this_sub_class = mysql_fetch_array($query_result) ) )
+    while ( ( $this_sub_class = mysqli_fetch_array($query_result) ) )
     {
         // add this subclass id to array
         $sub_classes_list[] = $this_sub_class['id'];
