@@ -385,7 +385,7 @@ function move_entry($item_id, $cmd, $course_id=null)
         $result = claro_sql_query($sql);
         $thisAnnouncementRankFound = false;
         $thisAnnouncementRank = '';
-        while ( (list ($announcementId, $announcementRank) = mysqli_fetch_row($result)) )
+        while ( (list ($announcementId, $announcementRank) = mysql_fetch_row($result)) )
         {
             // STEP 2 : FOUND THE NEXT ANNOUNCEMENT ID AND ORDER.
             //          COMMIT ORDER SWAP ON THE DB

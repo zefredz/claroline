@@ -62,12 +62,12 @@ if ( isset($_REQUEST['cmd'])
     
     $res_listCourses = claro_sql_query($sqlListCourses);
     
-    if (mysqli_num_rows($res_listCourses))
+    if (mysql_num_rows($res_listCourses))
     {
         $restored_courses =  '<ol>' . "\n";
         $moved_courses =  '<ol>' . "\n";
         
-        while ( ( $course = mysqli_fetch_array($res_listCourses)) )
+        while ( ( $course = mysql_fetch_array($res_listCourses)) )
         {
             $currentcoursePathSys = get_path('coursesRepositorySys') . $course['coursePath'] . '/';
             $currentCourseIDsys = $course['sysCode'];

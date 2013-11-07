@@ -139,12 +139,12 @@ claro_unquote_gpc();
   Connect to the server database and select the main claroline DB
   ----------------------------------------------------------------------*/
 
-$db = @($GLOBALS["___mysqli_ston"] = mysqli_connect($dbHost,  $dbLogin,  $dbPass))
+$db = @mysql_connect($dbHost, $dbLogin, $dbPass)
 or die ('<center>'
        .'WARNING ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER.'
        .'</center>');
 
-$selectResult = ((bool)mysqli_query($db, "USE $mainDbName"))
+$selectResult = mysql_select_db($mainDbName,$db)
 or die ( '<center>'
         .'WARNING ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.'
         .'</center>');
@@ -230,9 +230,9 @@ else
         }
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
-        if ( mysqli_num_rows($result) > 0)
+        if ( mysql_num_rows($result) > 0)
         {
-            $uData = mysqli_fetch_array($result);
+            $uData = mysql_fetch_array($result);
 
             // the authentification of this user is managed by claroline itself
             $password = stripslashes( $password );

@@ -115,7 +115,7 @@ function buildRequestModules()
          FROM `".$TABLEMODULE."` AS M
          WHERE 1 = 1";
 
- while ($list=mysqli_fetch_array($firstResult))
+ while ($list=mysql_fetch_array($firstResult))
  {
     $sql .=" AND M.`module_id` != ". (int)$list['module_id'];
  }
@@ -185,7 +185,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                       AND {$modifier} A.`path` LIKE \"". claro_sql_escape($insertDocument)."\"
                       AND M.`contentType` = \"".CTDOCUMENT_."\"";
             $query = claro_sql_query($sql);
-            $num = mysqli_num_rows($query);
+            $num = mysql_num_rows($query);
             $basename = substr($insertDocument, strrpos($insertDocument, '/') + 1);
 
             if($num == 0)
@@ -216,7 +216,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                         FROM `".$TABLELEARNPATHMODULE."`";
                 $result = claro_sql_query($sql);
 
-                list($orderMax) = mysqli_fetch_row($result);
+                list($orderMax) = mysql_fetch_row($result);
                 $order = $orderMax + 1;
 
                 // finally : insert in learning path
@@ -239,16 +239,16 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                           AND {$modifier} A.`path` = '". claro_sql_escape($insertDocument)."'
                           AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id'];
                 $query2 = claro_sql_query($sql);
-                $num = mysqli_num_rows($query2);
+                $num = mysql_num_rows($query2);
                 if ($num == 0)     // used in another LP but not in this one, so reuse the module id reference instead of creating a new one
                 {
-                    $thisDocumentModule = mysqli_fetch_array($query);
+                    $thisDocumentModule = mysql_fetch_array($query);
                     // determine the default order of this Learning path
                     $sql = "SELECT MAX(`rank`)
                             FROM `".$TABLELEARNPATHMODULE."`";
                     $result = claro_sql_query($sql);
 
-                    list($orderMax) = mysqli_fetch_row($result);
+                    list($orderMax) = mysql_fetch_row($result);
                     $order = $orderMax + 1;
                     // finally : insert in learning path
                     $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
@@ -320,7 +320,7 @@ $result = claro_sql_query($sql);
 
 $attribute = array();
 
-while($row = mysqli_fetch_array($result,  MYSQLI_ASSOC))
+while($row = mysql_fetch_array($result, MYSQL_ASSOC))
 {
     $attribute['path'      ][] = $row['path'      ];
     $attribute['visibility'][] = $row['visibility'];

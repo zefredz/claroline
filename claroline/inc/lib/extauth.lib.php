@@ -180,11 +180,11 @@ class ExternalAuthentication
               ."SET ".implode(', ', $sqlPrepareList)
               .($uid ? 'WHERE user_id = '.(int)$uid : '');
 
-        $res  = mysqli_query($GLOBALS["___mysqli_ston"], $sql)
+        $res  = mysql_query($sql)
                 or die('<center>UPDATE QUERY FAILED LINE '.__LINE__.'<center>');
 
         if ($uid) $this->uid = $uid;
-        else      $this->uid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
+        else      $this->uid = mysql_insert_id();
     }
 
     /**

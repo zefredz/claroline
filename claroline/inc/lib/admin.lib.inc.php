@@ -176,7 +176,7 @@ function delete_course($code, $sourceCourseId)
             // DELETE ALL TABLES OF THE CURRENT COURSE
             $tblSurvivor = array();
             
-            while( false !== ($courseTable = mysqli_fetch_array($result, MYSQLI_NUM ) ))
+            while( false !== ($courseTable = mysql_fetch_array($result,MYSQL_NUM ) ))
             {
                 $tblSurvivor[]=$courseTable[0];
                 //$tblSurvivor[$courseTable]='not deleted';

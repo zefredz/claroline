@@ -163,7 +163,7 @@ switch ( $cmd )
                                 WHERE 1=0
                                ";
 
-            while ($delList = mysqli_fetch_array($findResult))
+            while ($delList = mysql_fetch_array($findResult))
             {
                 $delAssetSql .= " OR `module_id`=". (int)$delList['module_id'];
             }
@@ -178,12 +178,12 @@ switch ( $cmd )
                                  AND (1=0
                                  ";
 
-            if (mysqli_num_rows($findResult)>0)
+            if (mysql_num_rows($findResult)>0)
             {
-                mysqli_data_seek($findResult, 0);
+                mysql_data_seek($findResult,0);
             }
 
-            while ($delList = mysqli_fetch_array($findResult))
+            while ($delList = mysql_fetch_array($findResult))
             {
                 $delModuleSql .= " OR `module_id`=". (int)$delList['module_id'];
             }
@@ -215,7 +215,7 @@ switch ( $cmd )
                                      WHERE 1=0
                                   ";
 
-            while ($delList = mysqli_fetch_array($findResult))
+            while ($delList = mysql_fetch_array($findResult))
             {
                 $delLabelModuleSql .= " OR `module_id`=". (int)$delList['module_id'];
             }
@@ -320,14 +320,14 @@ switch ( $cmd )
                          FROM `".$TABLELEARNPATH."`
                         WHERE `name` = '". claro_sql_escape($_POST['newPathName']) ."'";
             $query = claro_sql_query($sql);
-            $num = mysqli_num_rows($query);
+            $num = mysql_num_rows($query);
             if($num == 0 ) // "name" doesn't already exist
             {
                 // determine the default order of this Learning path
                 $result = claro_sql_query("SELECT MAX(`rank`)
                                                FROM `".$TABLELEARNPATH."`");
 
-                list($orderMax) = mysqli_fetch_row($result);
+                list($orderMax) = mysql_fetch_row($result);
                 $order = $orderMax + 1;
 
                 // create new learning path
@@ -380,7 +380,7 @@ if (isset($sortDirection) && $sortDirection)
     $result = claro_sql_query($sql);
 
     // LP = learningPath
-    while (list ($LPId, $LPOrder) = mysqli_fetch_row($result))
+    while (list ($LPId, $LPOrder) = mysql_fetch_row($result))
     {
         // STEP 2 : FOUND THE NEXT ANNOUNCEMENT ID AND ORDER.
         //          COMMIT ORDER SWAP ON THE DB
@@ -545,11 +545,11 @@ $sql = "SELECT LP.* , MIN(UMP.`raw`) AS minRaw, LP.`lock`
 $result = claro_sql_query($sql);
 
 // used to know if the down array (for order) has to be displayed
-$LPNumber = mysqli_num_rows($result);
+$LPNumber = mysql_num_rows($result);
 $iterator = 1;
 
 $is_blocked = false;
-while ( $list = mysqli_fetch_array($result) ) // while ... learning path list
+while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 {
     //modify style if the file is recently added since last login
 
@@ -624,10 +624,10 @@ while ( $list = mysqli_fetch_array($result) ) // while ... learning path list
 
         // step 2. see if there is a user progression in db concerning this module of the current learning path
 
-        $number = mysqli_num_rows($resultblock);
+        $number = mysql_num_rows($resultblock);
         if ($number != 0)
         {
-            $listblock = mysqli_fetch_array($resultblock);
+            $listblock = mysql_fetch_array($resultblock);
             $blocksql2 = "SELECT `credit`
                           FROM `".$TABLEUSERMODULEPROGRESS."`
                           WHERE `learnPath_module_id`=". (int)$listblock['learnPath_module_id']."
@@ -635,7 +635,7 @@ while ( $list = mysqli_fetch_array($result) ) // while ... learning path list
                          ";
 
             $resultblock2 = claro_sql_query($blocksql2);
-            $moduleNumber = mysqli_num_rows($resultblock2);
+            $moduleNumber = mysql_num_rows($resultblock2);
         }
         else
         {
@@ -667,7 +667,7 @@ while ( $list = mysqli_fetch_array($result) ) // while ... learning path list
 
         if ($moduleNumber!=0)
         {
-            $listblock2 = mysqli_fetch_array($resultblock2);
+            $listblock2 = mysql_fetch_array($resultblock2);
 
             if (($listblock2['credit']=="NO-CREDIT") && ($list['lock'] == 'CLOSE'))
             {

@@ -59,7 +59,7 @@ function hoursTab($sql)
     $hours_array['total'] = 0;
     $last_hours = -1;
 
-    while( $row = @mysqli_fetch_row( $query ) )
+    while( $row = @mysql_fetch_row( $query ) )
     {
         $date_array = getdate($row[0]);
 
@@ -99,7 +99,7 @@ function daysTab($sql)
 
     $days_array['total'] = 0;
     $last_day = -1;
-    while( $row = @mysqli_fetch_row( $query ) )
+    while( $row = @mysql_fetch_row( $query ) )
     {
         $date_array = getdate($row[0]);
         $display_date = $date_array['mday'] . ' '
@@ -148,7 +148,7 @@ function monthTab($sql)
     $month_array['total'] = 0;
 
     $query = claro_sql_query( $sql );
-    while( $row = @mysqli_fetch_row( $query ) )
+    while( $row = @mysql_fetch_row( $query ) )
     {
         $date_array = getdate($row[0]);
         $month_array[$langMonthNames[$date_array['mon']-1]]++;

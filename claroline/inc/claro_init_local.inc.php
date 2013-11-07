@@ -919,9 +919,9 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
 
         $result = claro_sql_query($sql)  or die ('WARNING !! Load user course_group status (DB QUERY) FAILED ! '.__LINE__);
 
-        if (mysqli_num_rows($result) > 0) // This user has a recorded status related to this course group
+        if (mysql_num_rows($result) > 0) // This user has a recorded status related to this course group
         {
-            $gpuData = mysqli_fetch_array($result);
+            $gpuData = mysql_fetch_array($result);
 
             $_groupUser ['status'] = $gpuData ['status'];
             $_groupUser ['role'  ] = $gpuData ['role'  ];

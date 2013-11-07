@@ -471,7 +471,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             FROM `".$TABLELEARNPATH."`";
     $result = claro_sql_query($sql);
 
-    list($rankMax) = mysqli_fetch_row($result);
+    list($rankMax) = mysql_fetch_row($result);
 
     $sql = "INSERT INTO `".$TABLELEARNPATH."`
             (`name`,`visibility`,`rank`,`comment`)
@@ -1047,7 +1047,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 FROM `".$TABLELEARNPATH."`";
         $result = claro_sql_query($sql);
 
-        list($rankMax) = mysqli_fetch_row($result);
+        list($rankMax) = mysql_fetch_row($result);
 
         if ( isset($manifestData['packageTitle']) )
         {

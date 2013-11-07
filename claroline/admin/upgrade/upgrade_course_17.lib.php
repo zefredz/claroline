@@ -335,7 +335,7 @@ function forum_upgrade_to_17($course_code)
                 {
                     return $step;
                 }
-                while ( ($row = mysqli_fetch_array($result)) )
+                while ( ($row = mysql_fetch_array($result)) )
                 {
                     $sql = " UPDATE `" . $currentCourseDbNameGlu."bb_forums`
                              SET group_id = " . $row['id'] . "
@@ -423,7 +423,7 @@ function introtext_upgrade_to_17($course_code)
 
                 if ( ! $result ) return $step;
 
-                while ( ( $row = mysqli_fetch_array($result) ) )
+                while ( ( $row = mysql_fetch_array($result) ) )
                 {
                     $sql = "INSERT INTO `" . $currentCourseDbNameGlu . "tool_intro`
                             (`tool_id`,`content`)

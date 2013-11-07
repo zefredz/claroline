@@ -133,7 +133,7 @@ function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
     $result = claro_sql_query($sql);
     // first we get the categories available in DB from the SQL query result in parameter
 
-    while ($myfac = mysqli_fetch_array($result))
+    while ($myfac = mysql_fetch_array($result))
     {
         $categories[$myfac['code']]['code']   = $myfac['code'];
         $categories[$myfac['code']]['parent'] = $myfac['code_P'];

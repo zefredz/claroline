@@ -1284,7 +1284,7 @@ function claro_html_tool_view_option($viewModeRequested = false)
     {
         case 'COURSE_ADMIN' :
 
-            $studentButton = '<a href="' . claro_htmlspecialchars( Url::Contextualize($url . $sep . 'viewMode=STUDENT' ) ) . '">'
+            $studentButton = '<a href="' . $url . $sep . 'viewMode=STUDENT">'
             .                get_lang('Student')
             .                '</a>'
             ;
@@ -1295,7 +1295,7 @@ function claro_html_tool_view_option($viewModeRequested = false)
         case 'STUDENT' :
 
             $studentButton     = '<b class="userName">'.get_lang('Student').'</b>';
-            $courseAdminButton = '<a href="'.claro_htmlspecialchars( Url::Contextualize($url . $sep . 'viewMode=COURSE_ADMIN' ) ) . '">'
+            $courseAdminButton = '<a href="' . $url . $sep . 'viewMode=COURSE_ADMIN">'
             . get_lang('Course manager')
             . '</a>';
             break;

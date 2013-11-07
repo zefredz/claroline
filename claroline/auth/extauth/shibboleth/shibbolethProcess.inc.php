@@ -42,10 +42,10 @@ if ( $_REQUEST['shibbolethLogin'] && isset($_SERVER[$shibbolethUniqueIdAttr]) &&
     $result = claro_sql_query($sql);
 
     // Value of $shibbolethUidTbl (containing the shibbolethUniqueId) is unique -> should be no or just one row!
-    if ( mysqli_num_rows($result) > 0 )
+    if ( mysql_num_rows($result) > 0 )
     {
         // Existing user -> update data
-        $uData = mysqli_fetch_array($result);
+        $uData = mysql_fetch_array($result);
         $_uid  = $uData['user_id'];
         if ( ($uData['nom'] <> $_SERVER[$shibbolethData['nom']]) || ($uData['prenom'] <> $_SERVER[$shibbolethData['prenom']]) )
         {
@@ -78,10 +78,10 @@ if ( $_REQUEST['shibbolethLogin'] && isset($_SERVER[$shibbolethUniqueIdAttr]) &&
              . 'SET ' . implode(', ', $sqlPrepareList);
     }
 
-    $res  = mysqli_query($GLOBALS["___mysqli_ston"], $sql)
+    $res  = mysql_query($sql)
             or die('<center>UPDATE QUERY FAILED LINE '.__LINE__.'<center>');
 
-    if (!$_uid) $_uid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
+    if (!$_uid) $_uid = mysql_insert_id();
 
     $claro_loginRequested = true;
     $uidReset             = true;

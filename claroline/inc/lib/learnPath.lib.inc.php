@@ -1568,7 +1568,7 @@ function is_learnpath_accessible( $pathId )
                           ";
                  
                  $resultblock2 = claro_sql_query($blocksql2);
-                 $moduleNumber = mysqli_num_rows($resultblock2);
+                 $moduleNumber = mysql_num_rows($resultblock2);
              }
              else
              {
@@ -1577,7 +1577,7 @@ function is_learnpath_accessible( $pathId )
              
              if ($moduleNumber!=0)
              {
-                 $listblock2 = mysqli_fetch_array($resultblock2);
+                 $listblock2 = mysql_fetch_array($resultblock2);
      
                  if (($listblock2['credit']=="NO-CREDIT") && ($upperLock == 'CLOSE'))
                  {

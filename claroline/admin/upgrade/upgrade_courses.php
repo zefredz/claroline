@@ -183,13 +183,13 @@ switch ($display)
                                         ORDER BY c.dbName ";
         }
 
-        $res_course_to_upgrade = mysqli_query($GLOBALS["___mysqli_ston"], $sql_course_to_upgrade);
+        $res_course_to_upgrade = mysql_query($sql_course_to_upgrade);
 
         /*
          * Upgrade course
          */
 
-        while ( ($course = mysqli_fetch_array($res_course_to_upgrade) ) )
+        while ( ($course = mysql_fetch_array($res_course_to_upgrade) ) )
         {
             // initialise variables
 
@@ -523,10 +523,10 @@ switch ($display)
 
             $result = claro_sql_query($sql);
 
-            if ( mysqli_num_rows($result) )
+            if ( mysql_num_rows($result) )
             {
                 echo '<p  class="error">Upgrade tool is not able to upgrade the following courses : ';
-                while ( ( $course = mysqli_fetch_array($result)) )
+                while ( ( $course = mysql_fetch_array($result)) )
                 {
                     echo $course['code'] . ' ; ';
                 }

@@ -97,7 +97,7 @@ function buildRequestModules()
          WHERE M.`contentType` != \"SCORM\"
            AND M.`contentType` != \"LABEL\"";
 
- while ($list=mysqli_fetch_array($firstResult))
+ while ($list=mysql_fetch_array($firstResult))
  {
     $sql .=" AND M.`module_id` != ". (int)$list['module_id'];
  }
@@ -133,7 +133,7 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
     $result = claro_sql_query(buildRequestModules());
     $atLeastOne = FALSE;
     $nb=0;
-    while ($list = mysqli_fetch_array($result))
+    while ($list = mysql_fetch_array($result))
     {
         // see if check box was checked
         if (isset($_REQUEST['check_'.$list['module_id']]) && $_REQUEST['check_'.$list['module_id']])
@@ -144,7 +144,7 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
                     WHERE learnPath_id = " . (int)$_SESSION['path_id'];
             $result2 = claro_sql_query($sql);
 
-            list($orderMax) = mysqli_fetch_row($result2);
+            list($orderMax) = mysql_fetch_row($result2);
             $order = $orderMax + 1;
 
             //create and call the insertquery on the DB to add the checked module to the learning path
@@ -184,7 +184,7 @@ $out .= '<form name="addmodule" action="'.$_SERVER['PHP_SELF'].'?cmdglobal=add">
 
 $atleastOne = false;
 
-while ($list=mysqli_fetch_array($result))
+while ($list=mysql_fetch_array($result))
 {
     //CHECKBOX, NAME, RENAME, COMMENT
     if($list['contentType'] == CTEXERCISE_ )

@@ -577,7 +577,7 @@ class ClaroNotification extends EventDriven
         // insert the relationship between the event and the assignment/exercise
         // into the 'event_resource' table
         $sql = 'INSERT INTO `' . $eventResourceTable . '` ' .
-               'SET `event_id`    = \'' . ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res) . '\', ' .
+               'SET `event_id`    = \'' . mysql_insert_id() . '\', ' .
                    '`resource_id` = \'' . $rid . '\', ' .
                    '`tool_id`     = \'' . $tid . '\', ' .
                    '`course_code` = \'' . $cid . '\'';

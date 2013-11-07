@@ -1538,7 +1538,7 @@ function create_category($cat_title, $course_id=NULL)
     $sql = 'SELECT MAX(`cat_order`) FROM `' . $tbl_forum_categories . '`';
     $result = claro_sql_query($sql);
 
-    list($orderMax) = mysqli_fetch_row($result);
+    list($orderMax) = mysql_fetch_row($result);
     $order = $orderMax + 1;
 
     $sql = 'INSERT INTO `' . $tbl_forum_categories . '`
@@ -1649,7 +1649,7 @@ function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $a
 
     $result = claro_sql_query($sql);
 
-    list($orderMax) = mysqli_fetch_row($result);
+    list($orderMax) = mysql_fetch_row($result);
     $order = $orderMax + 1;
 
     //temporary fix for 1.9 releases : avoids change in database definition (using unused 'forum_type' field)

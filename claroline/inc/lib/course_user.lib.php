@@ -569,9 +569,9 @@ function course_user_get_properties($userId, $courseId)
 
     $result = claro_sql_query($sql);
 
-    if (mysqli_num_rows($result) > 0)
+    if (mysql_num_rows($result) > 0)
     {
-        $userInfo = mysqli_fetch_array($result,  MYSQLI_ASSOC);
+        $userInfo = mysql_fetch_array($result, MYSQL_ASSOC);
         return $userInfo;
     }
 

@@ -131,9 +131,9 @@ function check_if_db_exist($db_name,$db=null)
         $res = claro_sql_query($sql);
     }
 
-    if( ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) == 0 )
+    if( mysql_errno() == 0 )
     {
-        $foundDbName = mysqli_fetch_array($res,  MYSQLI_NUM);
+        $foundDbName = mysql_fetch_array($res, MYSQL_NUM);
     }
     else
     {
