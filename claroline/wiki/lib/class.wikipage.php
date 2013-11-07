@@ -315,7 +315,7 @@ class WikiPage
             FROM 
                 `" . $this->config['tbl_wiki_pages'] . "`
             WHERE 
-                BINARY `title` = " . $this->con->quote($title) . "
+                `title` = " . $this->con->quote($title) . "
             AND 
                 `wiki_id` = " . $this->con->escape( $this->getWikiId() )
         )->numRows() > 0;
@@ -340,7 +340,7 @@ class WikiPage
                 `" . $this->config['tbl_wiki_pages'] . "` AS p, 
                 `" . $this->config['tbl_wiki_pages_content'] . "` AS c 
             WHERE 
-                BINARY p.`title` = " . $this->con->quote($title) . " 
+                p.`title` = " . $this->con->quote($title) . " 
             AND 
                 c.`id` = p.`last_version`
             AND 

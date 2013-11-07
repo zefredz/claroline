@@ -371,7 +371,7 @@ class Wiki
             FROM 
                 `" . $this->config['tbl_wiki_pages'] . "` 
             WHERE 
-                BINARY `title` = " . $this->con->quote($title) . " 
+                `title` = " . $this->con->quote($title) . " 
             AND 
                 `wiki_id` = " . $this->con->escape($this->getWikiId())
         )->numRows() > 0;
