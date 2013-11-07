@@ -80,11 +80,16 @@ $section_selected = isset($_REQUEST['section'])
     ;
 
 $moduleId = isset($_REQUEST['module_id'])
-    ? $_REQUEST['module_id']
+    ? (int) $_REQUEST['module_id']
     : null
     ;
 
 $module = get_module_info($moduleId);
+
+if ( ! $module )
+{
+    claro_die("ERROR: INVALID MODULE ID!!!");
+}
 
 language::load_module_translation( $module['label'] );
 

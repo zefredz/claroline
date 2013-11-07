@@ -42,12 +42,20 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('
 
 if ( isset($_REQUEST['uidToEdit']) && isset($_REQUEST['cidToEdit']) )
 {
-    $uidToEdit = $_REQUEST['uidToEdit'];
-    $cidToEdit = $_REQUEST['cidToEdit'];
+    $uidToEdit = (int) $_REQUEST['uidToEdit'];
+    $cidToEdit = strip_tags( $_REQUEST['cidToEdit'] );
 }
 else
 {
     claro_die('Missing parameters');
+}
+
+$courseData = claro_get_course_data($cidToEdit);
+
+if ( ! $courseData )
+{
+    unset($_REQUEST['cidToEdit']);
+    claro_die( 'ERROR : COURSE NOT FOUND!!!' );
 }
 
 $dialogBox = new DialogBox();

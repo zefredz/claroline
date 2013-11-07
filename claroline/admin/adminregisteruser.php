@@ -35,7 +35,7 @@ if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=='') || !isset($_RE
 }
 else
 {
-   $cidToEdit = $_REQUEST['cidToEdit'];
+   $cidToEdit = strip_tags( $_REQUEST['cidToEdit'] );
 }
 $userPerPage = 20; // numbers of user to display on the same page
 
@@ -105,6 +105,12 @@ switch ( $cmd )
 //build and call DB to get info about current course (for title) if needed :
 
 $courseData = claro_get_course_data($cidToEdit);
+
+if ( ! $courseData )
+{
+    unset($_REQUEST['cidToEdit']);
+    claro_die( 'ERROR : COURSE NOT FOUND!!!' );
+}
 
 //----------------------------------
 // Build query and find info in db
@@ -182,7 +188,7 @@ if ( !isset( $_REQUEST['offset'] ) )
 }
 else
 {
-    $offset = $_REQUEST['offset'];
+    $offset = (int) $_REQUEST['offset'];
 }
 
 $myPager = new claro_sql_pager($sql, $offset, $userPerPage);

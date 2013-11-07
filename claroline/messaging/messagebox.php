@@ -71,7 +71,7 @@ $linkPage = $_SERVER['PHP_SELF'];
 
 $acceptedValues = array('inbox','outbox','trashbox');
 
-if (!isset($_REQUEST['box']) && !in_array($_REQUEST['box'],$acceptedValues))
+if (!isset($_REQUEST['box']) || !in_array($_REQUEST['box'],$acceptedValues))
 {
     $_REQUEST['box'] = "inbox";
 }

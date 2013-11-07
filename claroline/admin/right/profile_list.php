@@ -107,7 +107,7 @@ $sql = " SELECT profile_id as id, name, description, locked, required
          FROM `" . $tblProfile . "`
          WHERE type = 'COURSE' ";
 
-$offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? $_REQUEST['offset'] : 0;
+$offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? (int) $_REQUEST['offset'] : 0;
 $profilePager = new claro_sql_pager($sql,$offset, $itemPerPage);
 $profileList = $profilePager->get_result_list();
 
