@@ -56,7 +56,7 @@ class CourseSearchBox implements Display
         if (isset($_REQUEST['coursesearchbox_keyword']))
         {
             // Note: $keyword get secured later, in the SQL request
-            $this->keyword = $_REQUEST['coursesearchbox_keyword'];
+            $this->keyword = preg_replace( "/[^0-9\w _.]/", ' ', $_REQUEST['coursesearchbox_keyword'] );
         }
         else
         {
