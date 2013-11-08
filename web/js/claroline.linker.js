@@ -408,6 +408,6 @@ var linkerFrontend = {
     
     alertVisible : function( visibility ) {
         //Popup a confirm message when the resource is invisible.
-        return confirm( 'The resource is invisible. Are you sure that you want to attack this resource ?' );
+        return confirm( Claroline.getLang('The resource is invisible. Are you sure that you want to attach this resource ?') );
     }
 }

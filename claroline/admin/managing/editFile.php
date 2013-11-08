@@ -108,7 +108,7 @@ if ( !is_null($fileId) )
 
         if ( $cmd == 'rqEdit' )
         {
-            $subtitle = 'Edit : ' . basename($textZoneList[$fileId]['filename']);
+            $subtitle = get_lang('Edit : %textZone', array ('%textZone' => $textZoneList[$fileId]['desc']) );
             $display = DISP_EDIT_FILE;
         }
         else

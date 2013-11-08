@@ -171,7 +171,7 @@ function format_file_size($fileSize)
 
 function format_date($fileDate)
 {
-    return date('d.m.Y', $fileDate);
+    return claro_html_localised_date( get_locale( 'dateFormatNumeric' ), $fileDate );
 }
 
 //------------------------------------------------------------------------------

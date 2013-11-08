@@ -204,14 +204,15 @@ if ($cmd == 'run' || $inProgress)
 
             foreach ($extensions as $key => $ext)
             {
-              $csvSubTab[$key.'_count'] = 'Quantity of ' . get_lang($ext);
-              $csvSubTab[$key.'_size'] = 'Size of ' . get_lang($ext) . ' in KB';
+                $csvSubTab[$key.'_count'] = get_lang('Quantity of %ext', array('%ext' => $ext));
+                $csvSubTab[$key.'_size'] = get_lang('Size of %ext in KiB', array('%ext' => $ext));
             }
-            $csvSubTab['other_count'] = 'Quantity of other files' ;
-            $csvSubTab['other_size'] = 'Size of other files' ;
+            
+            $csvSubTab['other_count'] = get_lang('Quantity of other files');
+            $csvSubTab['other_size'] = get_lang('Size of other files');
 
-            $csvSubTab['sum_count'] = 'Total quantity of files' ;
-            $csvSubTab['sum_size'] = 'Total size' ;
+            $csvSubTab['sum_count'] = get_lang('Total quantity of files');
+            $csvSubTab['sum_size'] = get_lang('Total size');
 
             $csvSubTab['courseCategory'] = get_lang('Category');
 
@@ -246,8 +247,8 @@ if ($cmd == 'run' || $inProgress)
     else
     {
         $dialogBox->warning(get_lang('Statistics in progress, please don\'t refresh until further instructions ! ') .
-                                        get_lang('Course actually treated : '). $course['title'] .
-                                        get_lang(' Number of course treated : ' ). count($stats) );
+                                        '<br />' . get_lang('Course actually treated : '). $course['title'] .
+                                        '<br />' . get_lang(' Number of course treated : ' ). count($stats) );
         
         $claroline->display->body->appendContent($dialogBox->render());
         echo $claroline->display->render();
@@ -283,7 +284,7 @@ else
 
 
 /**
- * Convert a size (Bytes) to K/M/G/TB
+ * Convert a size (Bytes) to KiB/MiB/GiB/TiB
  * @param int $size
  * @return string
  *
@@ -291,7 +292,7 @@ else
  */
 function format_bytes($size)
 {
-    $units = array(' B', ' KB', ' MB', ' GB', ' TB');
+    $units = array(' B', ' KiB', ' MiB', ' GiB', ' TiB');
     for ($i = 0; $size >= 1024 && $i < 4; $i++) $size /= 1024;
     return round($size, 2).$units[$i];
 }
