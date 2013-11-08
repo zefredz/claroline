@@ -145,7 +145,8 @@ else
 
     if ( $config->is_modified() )
     {
-        $dialogBox->warning( 'Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted');
+        $dialogBox->warning( 
+            get_lang('Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted'));
     }
 
 }

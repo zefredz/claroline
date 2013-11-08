@@ -451,7 +451,7 @@ if (isset($displayChangePosForm) && $displayChangePosForm)
     $dialogBox->form( '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
         . claro_form_relay_context()
         . '<h4>'
-        . get_lang('Move') . " ' " . $moduleInfos['name']." ' ".get_lang('To') . '</h4>'
+        . get_lang('Move "%moduleName" to', array('%moduleName' => $moduleInfos['name'])) . '</h4>'
 
         // Build select input - $elementList has been declared in the previous big cmd case
         . claro_build_nested_select_menu("newPos",$elementList)
