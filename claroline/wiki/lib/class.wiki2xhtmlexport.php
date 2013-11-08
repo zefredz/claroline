@@ -183,8 +183,9 @@ td {
     private function _htmlHeader()
     {
         $header = '<html>' . "\n" . '<head>' . "\n"
-            . $this->_getWikiStyle()
+            . '<meta charset="' . get_conf ('charset') . '">' . "\n"
             . '<title>' . $this->wiki->getTitle() . '</title>' . "\n"
+            . $this->_getWikiStyle()
             . '</head>' . "\n" . '<body>' . "\n"
             ;
 
