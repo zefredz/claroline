@@ -41,7 +41,7 @@ $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 $cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
 $user_id = isset($_REQUEST['user_id'])?(int)$_REQUEST['user_id']:0;
 $class_id = isset($_REQUEST['class_id'])?(int)$_REQUEST['class_id']:0;
-$search = isset($_REQUEST['search'])?$_REQUEST['search']:'';
+$search = isset($_REQUEST['search'])?trim($_REQUEST['search']):'';
 
 // find info about the class
 
