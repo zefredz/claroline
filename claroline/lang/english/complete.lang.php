@@ -3558,3 +3558,14 @@ $_lang['Web server'] = 'Web server';
 $_lang['Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted'] = 'Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted';
 $_lang['The resource is invisible. Are you sure that you want to attach this resource ?'] = 'The resource is invisible. Are you sure that you want to attach this resource ?';
 $_lang['Move "%moduleName" to'] = 'Move "%moduleName" to';
+$_lang['block_upgradeSteps'] = '<p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline installation and set them to be compatible with the new Claroline version.This upgrade proceeds in four steps:
+</p>
+<ol>
+<li>It will get your previous platform main settings and put them in a new configuration files</li>
+<li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible
+with the new data structure.</li>
+<li>It will update one by one each course data (directories, database tables, ...)</li>
+<li>It will deactivate all the platform additionnal modules to avoid compatibility issues</li>
+</ol>
+<p>Before starting the <em>Claroline Upgrade Tool</em>, we recommend you to make yourself a complete
+backup of the platform data (files and databases).</p>';
