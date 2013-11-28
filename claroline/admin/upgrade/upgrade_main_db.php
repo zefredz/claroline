@@ -80,6 +80,7 @@ if ($cmd == 'run')
     require_once('./upgrade_main_db_18.lib.php');
     require_once('./upgrade_main_db_19.lib.php');
     require_once('./upgrade_main_db_110.lib.php');
+    require_once('./upgrade_main_db_112.lib.php');
 
     $display = DISPLAY_RESULT_PANEL;
 
@@ -98,14 +99,13 @@ switch ( $display )
 
        // Display welcome message
 
-        echo  '<h2>Step 2 of 4: main platform tables upgrade</h2>
-              <p>Now, the <em>Claroline Upgrade Tool</em> is going to prepare the data stored
-              into the <b>main Claroline tables</b> (users, course categories, tools list, ...)
-              and set them to be compatible with the new Claroline version.</p>
-              <p class="help">Note. Depending of the speed of your server or the amount of data
-              stored on your platform, this operation may take some time.</p>
+        echo  '<h2>'.get_lang('Step 2 of 4: main platform tables upgrade').'</h2>
+              <p>'
+                .get_lang('Now, the <em>Claroline Upgrade Tool</em> is going to prepare the data stored into the <b>main Claroline tables</b> (users, course categories, tools list, ...) and set them to be compatible with the new Claroline version').'
+              </p>
+              <p class="help">'.get_lang('Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time').'</p>
               <center>
-              <p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Launch main platform tables upgrade</button></p>
+              <p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">'.get_lang('Launch main platform tables upgrade').'</button></p>
               </center>';
 
         break;
@@ -117,8 +117,8 @@ switch ( $display )
 
         // Display upgrade result
 
-        echo '<h2>Step 2 of 4: main platform tables upgrade</h2>
-              <h3>Upgrading main Claroline database (<em>' . $mainDbName . '</em>)</h3>' . "\n" ;
+        echo '<h2>'.get_lang('Step 2 of 4: main platform tables upgrade').'</h2>
+              <h3>'.get_lang('Upgrading main Claroline database').' (<em>' . $mainDbName . '</em>)</h3>' . "\n" ;
 
         if ( ! preg_match('/^1.8/',$currentDbVersion) )
         {
@@ -147,7 +147,7 @@ switch ( $display )
             if ( $nbError == 0 )
             {
                 // Upgrade 1.5 to 1.6 Succeed
-                echo '<p class="success">The claroline main tables have been successfully upgraded to 1.6</p>' . "\n";
+                echo '<p class="success">'.get_lang('The claroline main tables have been successfully upgraded to 1.6').'</p>' . "\n";
                 clean_upgrade_status();
 
                 // Database version is 1.6
@@ -171,7 +171,7 @@ switch ( $display )
                 $step = $function();
                 if ( $step > 0 )
                 {
-                    echo 'Error : ' . $function . ' at step . ' . $step . '<br />';
+                    echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
                     $nbError++;
                 }
             }
@@ -179,7 +179,7 @@ switch ( $display )
             if ( $nbError == 0 )
             {
                 // Upgrade 1.6 to 1.7 Succeed
-                echo '<p class="success">The claroline main tables have been successfully upgraded to 1.7</p>' . "\n";
+                echo '<p class="success">'.get_lang('The claroline main tables have been successfully upgraded to %version', array( '%version' => '1.7' ) ).'</p>' . "\n";
                 clean_upgrade_status();
 
                 // Database version is 1.7
@@ -212,7 +212,7 @@ switch ( $display )
                 $step = $function();
                 if ( $step > 0 )
                 {
-                    echo 'Error : ' . $function . ' at step . ' . $step . '<br />';
+                    echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
                     $nbError++;
                 }
             }
@@ -220,7 +220,7 @@ switch ( $display )
             if ( $nbError == 0 )
             {
                 // Upgrade 1.7 to 1.8 Succeed
-                echo '<p class="success">The claroline main tables have been successfully upgraded to 1.8</p>' . "\n";
+                echo '<p class="success">'.get_lang('The claroline main tables have been successfully upgraded to %version', array( '%version' => '1.8' ) ).'</p>' . "\n";
                 clean_upgrade_status();
 
                 // Database version is 1.8
@@ -256,7 +256,7 @@ switch ( $display )
                 $step = $function();
                 if ( $step > 0 )
                 {
-                    echo 'Error : ' . $function . ' at step . ' . $step . '<br />';
+                    echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
                     $nbError++;
                 }
             }
@@ -264,7 +264,7 @@ switch ( $display )
             if ( $nbError == 0 )
             {
                 // Upgrade 1.8 to 1.9 Succeed
-                echo '<p class="success">The claroline main tables have been successfully upgraded to version 1.9</p>' . "\n";
+                echo '<p class="success">'.get_lang('The claroline main tables have been successfully upgraded to %version', array( '%version' => '1.9' ) ).'</p>' . "\n";
                 clean_upgrade_status();
 
                 // Database version is 1.9
@@ -295,7 +295,7 @@ switch ( $display )
                 $step = $function();
                 if ( $step > 0 )
                 {
-                    echo 'Error : ' . $function . ' at step . ' . $step . '<br />';
+                    echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
                     $nbError++;
                 }
             }
@@ -303,7 +303,7 @@ switch ( $display )
             if ( $nbError == 0 )
             {
                 // Upgrade 1.9 to 1.10 Succeed
-                echo '<p class="success">The claroline main tables have been successfully upgraded to version 1.10</p>' . "\n";
+                echo '<p class="success">'.get_lang('The claroline main tables have been successfully upgraded to %version', array( '%version' => '1.10' ) ).'</p>' . "\n";
                 clean_upgrade_status();
 
                 // Database version is 1.10
@@ -316,18 +316,50 @@ switch ( $display )
         
         /*if ( preg_match('/^1.10/',$currentDbVersion) )
         {
+            echo '<p class="success">'.get_lang('The claroline main tables have been successfully upgraded to %version', array( '%version' => '1.11' ) ).'</p>' . "\n";
+            clean_upgrade_status();
+            
             // Database version is 1.11
-            $currentDbVersion = $new_version;
+            $currentDbVersion = '1.11';
 
             // Update current version file
             save_current_version_file( $currentClarolineVersion, $currentDbVersion );
         }*/
         
+        if ( preg_match('/^1.10/',$currentDbVersion) )
+        {
+            $function_list = array('upgrade_user_to_112');
+            
+            
+            foreach ( $function_list as $function )
+            {
+                $step = $function();
+                if ( $step > 0 )
+                {
+                    echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
+                    $nbError++;
+                }
+            }
+
+            if ( $nbError == 0 )
+            {
+                // Upgrade 1.10 to 1.12 Succeed
+                echo '<p class="success">'.get_lang('The claroline main tables have been successfully upgraded to %version', array( '%version' => '1.12' ) ).'</p>' . "\n";
+                clean_upgrade_status();
+
+                // Database version is 1.12
+                $currentDbVersion = $new_version;
+
+                // Update current version file
+                save_current_version_file($currentClarolineVersion, $currentDbVersion);
+            }
+        }
+        
         
 
         if ( $nbError == 0 )
         {
-            if ( preg_match('/^1.10/',$currentDbVersion) )
+            if ( preg_match('/^1.12/',$currentDbVersion) )
             {
                 echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">Next ></button></p></div>';
             }
