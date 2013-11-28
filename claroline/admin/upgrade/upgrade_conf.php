@@ -148,11 +148,11 @@ if ( $cmd == 'run' )
                         .  '<ul >' . "\n";
 
                 // Backup current file
-                $output .= '<li>Validate property : ' ;
+                $output .= '<li>'.get_lang('Validate property').' : ' ;
 
                 if ( $config->validate($current_property_list) )
                 {
-                    $output .= '<span class="success">Succeeded</span></li>';
+                    $output .= '<span class="success">'.get_lang('Succeeded').'</span></li>';
 
                     if ( !file_exists($config_filename) )
                     {
@@ -162,17 +162,17 @@ if ( $cmd == 'run' )
                     else
                     {
                         // Backup current file
-                        $output .= '<li>Backup old file : ' ;
+                        $output .= '<li>'.get_lang('Backup old file').' : ' ;
 
                         $fileBackup = $backupRepositorySys . basename($config_filename);
 
                         if ( !@copy($config_filename, $fileBackup) )
                         {
-                            $output .= '<span class="warning">Failed</span>';
+                            $output .= '<span class="warning">'.get_lang('Failed').'</span>';
                         }
                         else
                         {
-                            $output .= '<span class="success">Succeeded</span>';
+                            $output .= '<span class="success">'.get_lang('Succeeded').'</span>';
                         }
                         $output .= '</li>' . "\n" ;
 
@@ -181,15 +181,15 @@ if ( $cmd == 'run' )
                         @chmod( $fileBackup, CLARO_FILE_PERMISSIONS );
                     }
 
-                    $output .= '<li>Upgrade file : ';
+                    $output .= '<li>'.get_lang('Upgrade file').' : ';
 
                     if ( $config->save() )
                     {
-                        $output .= '<span class="success">Succeeded</span>';
+                        $output .= '<span class="success">'.get_lang('Succeeded').'</span>';
                     }
                     else
                     {
-                        $output .= '<span class="warning">Failed : ' . $config->backlog->output() . '</span>';
+                        $output .= '<span class="warning">'.get_lang('Failed').' : ' . $config->backlog->output() . '</span>';
                         $error = true ;
                     }
 
@@ -197,7 +197,7 @@ if ( $cmd == 'run' )
                 }
                 else
                 {
-                    $output .= '<span class="warning">Failed : ' . $config->backlog->output() . '</span></li>' . "\n";
+                    $output .= '<span class="warning">'.get_lang('Failed').' : ' . $config->backlog->output() . '</span></li>' . "\n";
                     $error = true ;
                 }
 
@@ -219,15 +219,15 @@ if ( $cmd == 'run' )
     foreach ( $arr_file_to_undist as $undistFile => $undistPath )
     {
         $output .= '<li>'. basename ($undistFile) . "\n"
-                . '<ul><li>Undist : ' . "\n" ;
+                . '<ul><li>'.get_lang('Undist').' : ' . "\n" ;
 
         if ( claro_undist_file($undistFile, $undistPath) )
         {
-            $output .= '<span class="success">Succeeded</span>';
+            $output .= '<span class="success">'.get_lang('Succeeded').'</span>';
         }
         else
         {
-            $output .= '<span class="warning">Failed</span>';
+            $output .= '<span class="warning">'.get_lang('Failed').'</span>';
             $error = TRUE;
         }
         $output .= '</li>' . "\n" . '</ul>' . "\n"
@@ -262,25 +262,23 @@ echo upgrade_disp_header();
 switch ($display)
 {
     case DISPLAY_WELCOME_PANEL :
-        echo '<h2>Step 1 of 3: platform main settings</h2>
-              <p>The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade.
-              These settings were stored into claroline/inc/conf/claro_main.conf.php in your previous platform version.
+        echo '<h2>'.get_lang('Step 1 of 4: platform main settings').'</h2>
+              <p>'.get_lang('The <em>Claroline Upgrade Tool</em> is going to proceed to the main setting upgrade').'<br />
+              '.get_lang('These settings were stored into claroline/inc/conf/claro_main.conf.php in your previous platform version').'
               </p>
-              <center><p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Launch platform
-              main settings upgrade</button></p></center>';
+              <center><p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">'.get_lang('Launch platform main settings upgrade').'</button></p></center>';
         break;
 
     case DISPLAY_RESULT_ERROR_PANEL :
-        echo '<h2>Step 1 of 3: platform main settings - <span class="error">Failed</span></h2>';
+        echo '<h2>'.get_lang('Step 1 of 4: platform main settings').' - <span class="error">'.get_lang('Failed').'</span></h2>';
         echo $output;
-        echo '<center><p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Relaunch platform
-              main settings upgrade</button></p></center>';
+        echo '<center><p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">'.get_lang('Relaunch platform main settings upgrade').'</button></p></center>';
         break;
 
     case DISPLAY_RESULT_SUCCESS_PANEL :
-        echo '<h2>Step 1 of 3: platform main settings - <span class="success">Succeeded</span><h2>';
+        echo '<h2>'.get_lang('Step 1 of 4: platform main settings').' - <span class="success">'.get_lang('Succeeded').'</span><h2>';
         echo $output;
-        echo '<div align="right"><p><button onclick="document.location=\'upgrade_main_db.php\';">Next ></button></p></div>';
+        echo '<div align="right"><p><button onclick="document.location=\'upgrade_main_db.php\';">'.get_lang('Next').' &amp;</button></p></div>';
         break;
 }
 

@@ -361,18 +361,18 @@ switch ( $display )
         {
             if ( preg_match('/^1.12/',$currentDbVersion) )
             {
-                echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">Next ></button></p></div>';
+                echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">'.get_lang('Next').' &amp;</button></p></div>';
             }
             else
             {
-                echo '<p class="error">Db version unknown : ' . $currentDbVersion . '</p>';
+                echo '<p class="error">'.get_lang('Db version unknown : %currentDbVersion', array( '%currentDbVersion' => $currentDbVersion ) ) . '</p>';
             }
 
         }
         else
         {
             echo '<p class="error">' . sprintf(" %d errors found",$nbError) . '</p>' . "\n";
-            echo '<p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'].'?cmd=run&amp;verbose=true\';" >Retry with more details</button></p>';
+            echo '<p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'].'?cmd=run&amp;verbose=true\';" >'.get_lang('Retry with more details').'</button></p>';
         }
 
         break;
