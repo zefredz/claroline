@@ -601,7 +601,7 @@ function get_course_tutor_list($currentCourseId)
  */
 function get_group_tool_list($course_id=NULL,$active = true)
 {
-    global $forumId;
+    // global $forumId;
     $_groupProperties = claro_get_current_group_properties_data();
     $isAllowedToEdit = claro_is_course_manager() || claro_is_platform_admin();
 
@@ -652,7 +652,7 @@ ORDER BY tl.rank
             case 'CLFRM' :
                 if( ! empty( $_groupProperties['tools']['CLFRM'] ) || $isAllowedToEdit)
                 {
-                    $tool['url'] = 'viewforum.php?forum=' . $forumId . claro_url_relay_context('&amp;') ; ;
+                    $tool['url'] = claro_htmlspecialchars(Url::Contextualize('viewforum.php'));
                     $group_tool_list[] = $tool;
                 }
                 break;

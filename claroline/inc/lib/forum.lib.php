@@ -2027,6 +2027,28 @@ function get_group_forum_list ($groupId)
 }
 
 /**
+ * Get id of the forum linked to a specific group.
+ *
+ * @param integer $groupId or ALL
+ *        If param is 'ALL', all groups forums are returned
+ *        otherwise the param is use as group id to filter result.
+ * @return array of integer. Each integer is a forum id.
+ */
+function get_group_forumId ($groupId)
+{
+    $tbl_cdb_names  = claro_sql_get_course_tbl();
+    $tbl_forums     = $tbl_cdb_names['bb_forums'];
+
+    
+    $sql = " SELECT forum_id
+            FROM `" . $tbl_forums . "`
+            WHERE group_id = " . (int) $groupId ;
+    
+    return claro_sql_query_fetch_single_value($sql);
+
+}
+
+/**
  * Change topic title
  *
  * @param int $topicId

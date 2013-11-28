@@ -126,7 +126,6 @@ if ( count( get_included_files() ) == 1 )
  * string  $_group ['name'       ]
  * string  $_group ['description']
  * int     $_group ['tutorId'    ]
- * int     $_group ['forumId'    ]
  * string  $_group ['directory'  ]
  * int     $_group ['maxMember'  ]
  *

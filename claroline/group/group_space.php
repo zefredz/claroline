@@ -327,11 +327,6 @@ $sql = "SELECT user_id AS id, nom AS lastName, prenom AS firstName, email
 
 $tutorDataList = claro_sql_query_fetch_all($sql);
 
-/*----------------------------------------------------------------------------
-GET FORUM POINTER
-----------------------------------------------------------------------------*/
-$forumId = claro_get_current_group_data('forumId');
-
 $toolList = get_group_tool_list();
 
 if (claro_is_in_a_course())

@@ -74,7 +74,7 @@ try
     {
         if ( ! isset( $forumId ) &&  claro_is_in_a_group() && claro_is_group_allowed() )
         {
-            $forumId = claro_get_current_group_data( 'forumId' );
+            $forumId = get_group_forumId( claro_get_current_group_id () );
             
             if ( ! $forumId )
             {

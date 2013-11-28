@@ -603,20 +603,18 @@ function claro_get_group_data($context, $force = false )
     if ( ! $groupDataList )
     {
         $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($cid) );
-
+        
+        
         $sql = "SELECT g.id               AS id          ,
                        g.name             AS name        ,
                        g.description      AS description ,
                        g.tutor            AS tutorId     ,
-                       f.forum_id         AS forumId     ,
                        g.secretDirectory  AS directory   ,
                        g.maxStudent       AS maxMember
 
                 FROM `" . $tbl_c_names['group_team'] . "`      g
-                LEFT JOIN `" . $tbl_c_names['bb_forums'] . "`   f
-
-                   ON    g.id = f.group_id
                 WHERE    `id` = '". (int) $gid."'";
+        
 
         $groupDataList = claro_sql_query_get_single_row($sql);
 
@@ -1614,21 +1612,28 @@ function get_conf($param, $default = null)
 
 function claro_die($message)
 {
-    FromKernel::uses( 'display/dialogBox.lib' );
-    $dialogBox = new DialogBox;
-    $dialogBox->error( $message );
-    
-    Claroline::getInstance()->display->setContent( $dialogBox->render() );
-    
-    if ( claro_debug_mode () )
+    if ( class_exist('Claroline') && is_object( Claroline::getInstance ()->display ) )
     {
-        
-        pushClaroMessage(  var_export(  debug_backtrace (), true ), 'debug' );
-    }
-    
-    echo Claroline::getInstance()->display->render();
+        FromKernel::uses( 'display/dialogBox.lib' );
+        $dialogBox = new DialogBox;
+        $dialogBox->error( $message );
 
-    die(); // necessary to prevent any continuation of the application
+        Claroline::getInstance()->display->setContent( $dialogBox->render() );
+
+        if ( claro_debug_mode () )
+        {
+
+            pushClaroMessage(  var_export(  debug_backtrace (), true ), 'debug' );
+        }
+
+        echo Claroline::getInstance()->display->render();
+
+        die(); // necessary to prevent any continuation of the application
+    }
+    else
+    {
+        die($message);
+    }
 }
 
 
