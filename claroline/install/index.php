@@ -1777,7 +1777,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     .    get_lang('Database password') . ' : ' . "\n"
     .    '</td>' . "\n"
     .    '<td class="checkValue">' . "\n"
-    .    claro_htmlspecialchars((empty($dbPassForm) ? '--empty--' : $dbPassForm))
+    .    claro_htmlspecialchars((empty($dbPassForm) ? get_lang('--empty--') : $dbPassForm))
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     

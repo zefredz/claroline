@@ -371,11 +371,11 @@ function form_dir_list($file, $baseWorkDir)
 
     if ( dirname($file) == '/' || dirname($file) == '\\')
     {
-        $dialogBox .= '<option value="" class="invisible">root</option>' . "\n";
+        $dialogBox .= '<option value="" class="invisible">'.get_lang('root').'</option>' . "\n";
     }
     else
     {
-        $dialogBox .= '<option value="" >root</option>' . "\n";
+        $dialogBox .= '<option value="" >'.get_lang('root').'</option>' . "\n";
     }
 
 

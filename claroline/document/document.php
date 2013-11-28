@@ -724,11 +724,11 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             if ( claro_failure::get_last_failure() == 'FILE EXISTS' )
             {
-                $dialogBox->error( 'A file with the same name already exists.' );
+                $dialogBox->error( get_lang('A file with the same name already exists.') );
             }
             elseif (claro_failure::get_last_failure() == 'MOVE INSIDE ITSELF')
             {
-                $dialogBox->error( 'You can not move an element inside itself.' );
+                $dialogBox->error( get_lang('You can not move an element inside itself.') );
             }
 
             /* return to step 1 */
