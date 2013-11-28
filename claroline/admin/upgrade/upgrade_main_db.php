@@ -139,7 +139,7 @@ switch ( $display )
                 $step = $function();
                 if ( $step > 0 )
                 {
-                    echo 'Error : ' . $function . ' at step . ' . $step . '<br />';
+                    echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
                     $nbError++;
                 }
             }
