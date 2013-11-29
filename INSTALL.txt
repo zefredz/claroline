@@ -1,5 +1,5 @@
 *****************************************************
-                CLAROLINE 1.11
+                CLAROLINE 1.12
 *****************************************************
 
 Thank you for downloading Claroline. This text will guide you

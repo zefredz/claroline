@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.11 - README
+        CLAROLINE 1.12 - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -77,6 +77,13 @@ at :
 
 7. NEW FEATURES
    ============
+
+NEW FEATURES IN CLAROLINE 1.12 SINCE CLAROLINE 1.11
+---------------------------------------------------
+
+* use mysqli instead of mysql
+* new registration and enrolment API
+* move lastLogin to user table instead of tracking table
 
 NEW FEATURES IN CLAROLINE 1.11 SINCE CLAROLINE 1.10
 ---------------------------------------------------
