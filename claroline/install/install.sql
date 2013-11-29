@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__user` (
   `creatorId` INT(11)  UNSIGNED DEFAULT NULL,
   `isPlatformAdmin` TINYINT(4) DEFAULT 0,
   `isCourseCreator` TINYINT(4) DEFAULT 0,
+  `lastLogin` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
    PRIMARY KEY  (`user_id`),
   KEY `loginpass` (`username`,`password`)
 ) ENGINE=MyISAM;
