@@ -71,11 +71,6 @@ if ($is_allowedToAdmin)
         </a>
     </li>
     <li>
-        <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=secinfo" <?php echo ($cmd == 'secinfo')? 'class="current"': ''; ?>>
-        <?php echo get_lang('PHP security information'); ?>
-        </a>
-    </li>
-    <li>
         <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=extensions" <?php echo ($cmd == 'extensions')? 'class="current"': ''; ?>>
         <?php echo get_lang('Loaded extensions'); ?>
         </a>
@@ -124,12 +119,6 @@ if ($is_allowedToAdmin)
         echo '<div class="center">';
         echo phpinfoNoHtml();
         echo '</div>';
-    }
-    elseif( $cmd == 'secinfo' )
-    {
-        require_once dirname(__FILE__) .'/../../inc/lib/thirdparty/PhpSecInfo/PhpSecInfo.lib.php';
-        phpsecinfo();
-
     }
     elseif( $cmd == 'claroconf' )
     {
