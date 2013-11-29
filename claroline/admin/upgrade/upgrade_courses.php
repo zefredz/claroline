@@ -457,17 +457,19 @@ switch ($display)
 
                 }
                 
-                /*if ( preg_match('/^1.10/',$currentCourseVersion) )
+                if ( preg_match('/^1.10/',$currentCourseVersion) || preg_match('/^1.11/',$currentCourseVersion) )
                 {
                     // nothing to do in 1.10 or 1.11
-                }*/
+                    $currentCourseVersion = '1.12';
+                    save_course_current_version($currentCourseCode,$currentCourseVersion);
+                }
 
             }
 
 
             if ( ! $error )
             {
-                if ( preg_match('/^1.10/',$currentCourseVersion) )
+                if ( preg_match('/^1.12/',$currentCourseVersion) )
                 {
                     $message .= '<p class="success">'.get_lang('Upgrade succeeded').'</p>';
                     // course upgraded
@@ -553,7 +555,7 @@ switch ($display)
         {
             // display next step
             echo '<p class="success">'.get_lang('The Claroline upgrade process is complete').'</p>' . "\n";
-            echo '<div align="right"><p><button onclick="document.location=\'upgrade_modules.php\';">'.get_lang('Next').' &amp;</button></p></div>';
+            echo '<div align="right"><p><button onclick="document.location=\'upgrade_modules.php\';">'.get_lang('Next').' &gt;</button></p></div>';
         }
 
         /*

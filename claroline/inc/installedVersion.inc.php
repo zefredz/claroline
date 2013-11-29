@@ -33,7 +33,7 @@ $GLOBALS['clarolineAPIVersion'] = '1.12.0';
 /**
  * The DB version number indicates the last time the database schemas has been altered.
  */
-$GLOBALS['clarolineDBVersion'] = '1.10.7';
+$GLOBALS['clarolineDBVersion'] = '1.12.0';
 
 $requiredPhpVersion = '5.3.0';
 $requiredMySqlVersion = '5.0';

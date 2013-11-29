@@ -46,9 +46,9 @@ function upgrade_user_to_112()
             {
                 // for each user get lastLogin date from tracking and insert it into user table
 
-                $result = mysqli_query($GLOBALS["___mysqli_ston"], "
+                $result = claro_sql_query_fetch_all_rows("
                     SELECT 
-                        `tracking`.`user_id` AS userId,
+                        DISTINCT(`tracking`.`user_id`) AS userId,
                         MAX(`tracking`.`date`) AS lastLogin
                     FROM 
                         `{$tbl_mdb_names['tracking_event']}` AS `tracking`
@@ -57,14 +57,14 @@ function upgrade_user_to_112()
                     GROUP BY 
                         `tracking`.`user_id`;");
 
-                while ( false !== ( $row = mysqli_fetch_assoc ( $result ) ) )
+                foreach ( $result as $row )
                 {
-                    upgrade_sql_query("UPDATE TABLE `{$tbl_mdb_names['user']}` SET `lastLogin` = '{$row['lastLogin']}' WHERE `user_id` = {$row['userId']};");
+                    upgrade_sql_query("UPDATE `{$tbl_mdb_names['user']}` SET `lastLogin` = '{$row['lastLogin']}' WHERE `user_id` = {$row['userId']};");
                 }
             }
             else
             {
-                upgrade_sql_query("UPDATE TABLE `{$tbl_mdb_names['user']}` SET `lastLogin` = DATE_SUB(CURDATE(), INTERVAL 1 DAY) WHERE 1 = 1;");
+                upgrade_sql_query("UPDATE `{$tbl_mdb_names['user']}` SET `lastLogin` = DATE_SUB(CURDATE(), INTERVAL 1 DAY) WHERE 1 = 1;");
             }
             
             set_upgrade_status($tool, $step+1);            

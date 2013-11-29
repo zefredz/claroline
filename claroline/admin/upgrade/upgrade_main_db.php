@@ -326,7 +326,7 @@ switch ( $display )
             save_current_version_file( $currentClarolineVersion, $currentDbVersion );
         }*/
         
-        if ( preg_match('/^1.10/',$currentDbVersion) )
+        if ( preg_match('/^1.10/',$currentDbVersion) || preg_match('/^1.11/',$currentDbVersion) )
         {
             $function_list = array('upgrade_user_to_112');
             
@@ -361,7 +361,7 @@ switch ( $display )
         {
             if ( preg_match('/^1.12/',$currentDbVersion) )
             {
-                echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">'.get_lang('Next').' &amp;</button></p></div>';
+                echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">'.get_lang('Next').' &gt;</button></p></div>';
             }
             else
             {

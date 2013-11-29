@@ -278,7 +278,7 @@ switch ($display)
     case DISPLAY_RESULT_SUCCESS_PANEL :
         echo '<h2>'.get_lang('Step 1 of 4: platform main settings').' - <span class="success">'.get_lang('Succeeded').'</span><h2>';
         echo $output;
-        echo '<div align="right"><p><button onclick="document.location=\'upgrade_main_db.php\';">'.get_lang('Next').' &amp;</button></p></div>';
+        echo '<div align="right"><p><button onclick="document.location=\'upgrade_main_db.php\';">'.get_lang('Next').' &gt;</button></p></div>';
         break;
 }
 
