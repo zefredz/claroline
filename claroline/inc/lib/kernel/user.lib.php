@@ -63,14 +63,12 @@ class Claro_User extends KernelObject
             . "`user`.`authSource`,\n"
             . "`user`.`phoneNumber` AS `phone`,\n"
             . "`user`.`pictureUri` AS `picture`,\n"
-            . "IF( `user`.`lastLogin`<>'0000-00-00 00:00:00',UNIX_TIMESTAMP(`user`.`lastLogin`), DATE_SUB(CURDATE(), INTERVAL 1 DAY) ) AS `lastLogin`\n"
+            . "IF( `user`.`lastLogin`<>'0000-00-00 00:00:00',UNIX_TIMESTAMP(`user`.`lastLogin`), UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 1 DAY)) ) AS `lastLogin`\n"
             . "FROM `{$tbl['user']}` AS `user`\n"
             . "WHERE `user`.`user_id` = ".$sqlUserId."\n"         
             ;
 
         $userData = Claroline::getDatabase()->query( $sql )->fetch();
-        
-        /* var_dump($userData);*/
         
         if ( ! $userData )
         {
