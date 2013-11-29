@@ -63,28 +63,14 @@ class Claro_User extends KernelObject
             . "`user`.`authSource`,\n"
             . "`user`.`phoneNumber` AS `phone`,\n"
             . "`user`.`pictureUri` AS `picture`,\n"
-            
-            . ( get_conf('is_trackingEnabled')
-                ? "UNIX_TIMESTAMP(`tracking`.`date`) "
-                : "DATE_SUB(CURDATE(), INTERVAL 1 DAY) " )
-                
-            . "AS lastLogin\n"
+            . "IF( `user`.`lastLogin`<>'0000-00-00 00:00:00',UNIX_TIMESTAMP(`user`.`lastLogin`), DATE_SUB(CURDATE(), INTERVAL 1 DAY) ) AS `lastLogin`\n"
             . "FROM `{$tbl['user']}` AS `user`\n"
-            
-            . ( get_conf('is_trackingEnabled')
-                ? "LEFT JOIN `{$tbl['tracking_event']}` AS `tracking`\n"
-                . "ON `user`.`user_id`  = `tracking`.`user_id`\n"
-                . "AND `tracking`.`type` = 'user_login'\n"
-                : '')
-                
-            . "WHERE `user`.`user_id` = ".$sqlUserId."\n"
-            
-            . ( get_conf('is_trackingEnabled')
-                ? "ORDER BY `tracking`.`date` DESC LIMIT 1"
-                : '')
+            . "WHERE `user`.`user_id` = ".$sqlUserId."\n"         
             ;
 
         $userData = Claroline::getDatabase()->query( $sql )->fetch();
+        
+        /* var_dump($userData);*/
         
         if ( ! $userData )
         {
@@ -96,7 +82,13 @@ class Claro_User extends KernelObject
             $userData['isCourseCreator'] = (bool) $userData['isCourseCreator'];
             
             $this->_rawData = $userData;
-            pushClaroMessage( "User {$this->_userId} loaded from database", 'debug' );
+            
+            if ( claro_debug_mode () )
+            {
+                $date = date('Y-m-d H:i:s',$userData['lastLogin']);
+                Console::debug( "User {$this->_userId} loaded from database", 'debug' );
+                Console::debug( "User last seen on {$date}", 'debug' );
+            }
             
             $this->loadUserProperties();
         }

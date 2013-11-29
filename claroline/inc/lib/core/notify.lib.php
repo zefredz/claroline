@@ -219,13 +219,19 @@ class ClaroNotification extends EventDriven
 
         if ( claro_debug_mode() )
         {
-            Console::message( 'Data added in platform tracking '
+            Console::debug( 'Data added in platform tracking '
                     . $eventType . ' : '
                     . var_export( $event, true ) );
         }
 
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_tracking_event  = $tbl_mdb_names['tracking_event'];
+        
+        if ( $uid )
+        {
+            $sql = "UPDATE `{$tbl_mdb_names['user']}` SET `lastLogin` = '{$date}' WHERE `user_id` = {$uid};";
+            claro_sql_query($sql);
+        }
 
         $sql = "INSERT INTO `" . $tbl_tracking_event . "`
                 SET `course_code` = " . ( is_null($cid) ? "NULL" : "'" . claro_sql_escape($cid) . "'" ) . ",
