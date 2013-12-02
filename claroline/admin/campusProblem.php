@@ -398,14 +398,10 @@ switch ($display)
 
                 if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
                 {
-                    $sql = "SELECT `us`.`username`, `nom`, `prenom`, `email`, 
-                               MAX(`tr`.`date`) AS qty
-                    FROM `" . $tbl_user . "`               AS us
-                    LEFT JOIN `" . $tbl_tracking_event . "` AS tr
-                    ON`tr`.`user_id` = `us`.`user_id`
-                    GROUP BY `us`.`username`
-                    HAVING ( MAX(`tr`.`date`) < (NOW() - " . $limitBeforeUnused . " ) ) OR MAX(`tr`.`date`) IS NULL
-                        LIMIT 100";
+                    $sql = "SELECT `username`, `nom`, `prenom`, `email`, `lastLogin`
+                    FROM `" . $tbl_user . "`                     
+                    WHERE `lastLogin` < (NOW() - " . $limitBeforeUnused . ") OR `lastLogin` = '0000-00-00 00:00:00' 
+                    LIMIT 100";
 
 
                     $loginWithoutAccessResults = claro_sql_query_fetch_all($sql);
