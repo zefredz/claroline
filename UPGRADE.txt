@@ -1,0 +1,175 @@
+*****************************************************
+                CLAROLINE 1.12
+*****************************************************
+
+Thank you for downloading Claroline. This text will guide you
+through the basics of installation and operation of Claroline. Please
+ensure you read this fully BEFORE proceeding with the upgrade.
+
+TABLE OF CONTENTS :
+
+1. REQUIREMENTS
+2. UPGRADE PROCEDURE
+        2.1 Upgrading from Claroline 1.10 to Claroline 1.11
+        2.2 Understanding Claroline version numbers
+        2.3 Upgrade from previous Claroline major version
+        2.4 Upgrade from previous Claroline minor version
+3. TROUBLESHOOTING
+
+1. REQUIREMENTS
+===============
+
+see INSTALL.txt
+
+2. UPGRADE PROCEDURE
+====================
+
+2.1 IMPORTANT NOTICE : UPGRADING FROM CLAROLINE 1.10 TO CLAROLINE 1.11
+----------------------------------------------------------------------
+
+When upgrading from Claroline 1.10 to Claroline 1.11 follow these instructions :
+
+1. Download 'claroline1xx.tar.gz' (UNIX, Linux) or 'claroline1xx.zip' (Windows)
+
+2. Open a shell, go to download directory and type
+
+   tar -zxvf claroline1xx.tar.gz
+
+   Windows : unzip 'claroline1xx.zip'
+
+3. Delete your directories claroline/ and web/, and then replace them with the new 
+   ones you've just extracted.  Do the same for your index.php file and the 
+   .txt files.
+
+   If you do not have a module/ directory in your old Claroline, you can copy the
+   one provided in the archive. If you already have a module/ directory, you can
+   copy the new CLCHAT module to this directory.
+
+
+        WARNING ! Don't delete the previous directories and files before
+        installing the new ones. You will loose your previous
+        configuration files (eg 'claro_main.conf.php'). Simply
+        replace the old directory with a new one with a 'copy'
+        command. That way, the new file versions will overwrite the
+        old ones and leave the others intact.
+        
+        Configuration files are located in /platform/conf/
+
+4. DO NOT execute the upgrade script this could destroy some data in your database
+
+2.2 UNDERSTANDING CLAROLINE VERSION NUMBERS
+-------------------------------------------
+
+Claroline version numbers are of the form 1.X.Y where X and Y are two numbers.
+X is called the major version number, while Y is called the minor version number
+
+For example : in version number 1.11.5, 11 is the major version number and 5 is
+the minor version number
+
+In other words, Claroline major versions differ by the major version number (for
+example 1.4.1 and 1.10.6), while minor versions have the same major version
+number but differ by the minor version number (for example 1.10.1 and 1.10.6).
+
+This is important for the Claroline upgrade process. If you want to upgrade
+Claroline between two different major version (let's say 1.9 and 1.10), you
+have to follow the instructions in section 2.2.2. If you want to upgrade
+Claroline between two minor versions of the same major version (let's say
+1.10.1 and 1.10.6), you have to follow the instructions given in section 2.2.3.
+
+2.3 UPDGRADE FROM PREVIOUS CLAROLINE MAJOR VERSION  (ex: 1.11 to 1.12)
+----------------------------------------------------------------------
+
+WARNING : if you are upgrading from 1.10 to 1.11, follow the instruction given
+in section 2.4 instead of those below !
+
+The upgrade works only from Claroline 1.5.x and above.
+Older Claroline versions should upgrade first to Claroline 1.5.x before
+upgrade to superior versions.
+
+Before upgrading we heavily recommend you do A FULL BACKUP of the previous
+Claroline directories and databases. If you are unsure how to achieve this
+please ask your hosting provider for advice.
+
+1. Download 'claroline1xx.tar.gz' (UNIX, Linux) or 'claroline1xx.zip' (Windows)
+
+2. Open a shell, go to download directory and type
+
+   tar -zxvf claroline1xx.tar.gz
+
+   Windows : unzip 'claroline1xx.zip'
+
+3. Delete your directories claroline/ and web/, and then replace them with the new 
+   ones you've just extracted.  Do the same for your index.php file and the 
+   .txt files.
+
+   If you do not have a module/ directory in your old Claroline, you can copy the
+   one provided in the archive. If you already have a module/ directory, you can
+   copy the new CLCHAT module to this directory.
+
+
+        WARNING ! Don't delete the previous directories and files before
+        installing the new ones. You will loose your previous
+        configuration files (eg 'claro_main.conf.php'). Simply
+        replace the old directory with a new one with a 'copy'
+        command. That way, the new file versions will overwrite the
+        old ones and leave the others intact.
+        
+        Configuration files are located in /platform/conf/
+
+4. Open a Web browser and go to
+
+   http://www.mydomain.org/mysite/mydir/claroline/admin/upgrade/upgrade.php
+
+   Windows with easyPhp or WampServer locally, open:
+
+   http://localhost/mydir/claroline/admin/upgrade/upgrade.php
+
+5. Follow instructions.
+
+2.4 UPGRADE FROM A PREVIOUS CLAROLINE MINOR VERSION
+---------------------------------------------------
+
+NOTE : this is also the way to upgrade Claroline from version 1.10 to version 
+1.11
+
+Follow the following instructions to upgrade to a new minor version of the same
+major version of Claroline (for example to upgrade from Claroline 1.10.1 to
+1.10.6)
+
+Before upgrading we heavily recommend you do A FULL BACKUP of the previous
+Claroline directories and databases. If you are unsure how to achieve this
+please ask your hosting provider for advice.
+
+1. Download 'claroline1xx.tar.gz'
+
+   Windows : download 'claroline1xx.zip'
+
+2. Open a shell, go to download directory and type
+
+   tar -zxvf claroline1xx.tar.gz
+
+   Windows : unzip 'claroline1xx.zip'
+
+3. Delete your directories claroline/ and web/, and then replace them with the new 
+   ones you've just extracted.  Do the same for your index.php file and the 
+   .txt files.
+
+4. Go to your campus home page to check that the platform is still running
+   correctly.
+
+5. That's all !
+
+3. TROUBLESHOOTING
+==================
+
+If the Web install doesn't work
+
+1. You can find some help and documentation on 'http://www.claroline.net'
+
+2. If you do not find any solution to your issue, ask for help on the forum
+   http://forum.claroline.net
+
+==========================================================================
+        Europe, Belgium, Louvain-la-Neuve
+        $Date$
+================================== END ===================================
