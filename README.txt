@@ -517,5 +517,6 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - $Date$
+                   Europe, Belgium, Louvain-la-Neuve
+          $Date$
 ================================== END ===================================
