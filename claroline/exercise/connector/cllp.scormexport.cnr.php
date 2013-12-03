@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     0.1 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLQWZ
  * @author      Dimitri Rambout
@@ -31,8 +31,6 @@ function getIdCounter()
  * 1) the method prepareFiles will copy all the needed files in the specied directory
  * 2) the method prepareManifestResource create a string like <resource></resource> with the correct
  * attribute based on the item
- *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 class CLQWZ_ScormExport extends PathScormExport
 {
@@ -58,7 +56,6 @@ class CLQWZ_ScormExport extends PathScormExport
   /**
    * Create files (quiz) needed in the export of this module
    *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
    * @param int $quizId id of the Quiz
    * @param object $item item of the path
    * @param string $destDir path when the files need to be copied
@@ -122,7 +119,7 @@ class CLQWZ_ScormExport extends PathScormExport
     $questionPonderationList = array();
 
     // Keep track of correct texts for fill-in type questions
-    // TODO La variable $fillAnswerList n'apparaît qu'une fois
+    // TODO La variable $fillAnswerList n'apparaï¿½t qu'une fois
     $fillAnswerList = array();
 
     // Display each question
@@ -244,7 +241,6 @@ class CLQWZ_ScormExport extends PathScormExport
   /**
    * Create a resource for the manifest
    *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
    * @param array $item item's data
    * @param string $destDir
    * @param object $locator locator of the file
@@ -261,7 +257,6 @@ class CLQWZ_ScormExport extends PathScormExport
   /**
    * Return the error
    *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
    * @return string $error
    */
   public function getError()

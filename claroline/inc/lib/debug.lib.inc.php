@@ -1,22 +1,17 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * debug functions
  * All this  function output only  if  debugClaro is on
  *
- * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @version     1.12 $Revision$
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     KERNEL
  * @author      Claro Team <cvs@claroline.net>
- * @author      Christophe Gesché <moosh@claroline.net>
+ * @author      Christophe GeschÃ© <moosh@claroline.net>
  */
 
 defined ( 'PRINT_DEBUG_INFO' ) || define ( 'PRINT_DEBUG_INFO', false ) ;
@@ -24,7 +19,7 @@ defined ( 'PRINT_DEBUG_INFO' ) || define ( 'PRINT_DEBUG_INFO', false ) ;
  * Print out  content of session's variable
  *
  * @return htmlOutput if not PRINT_DEBUG_INFO
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe GeschÃ© <moosh@claroline.net>
  *
  */
 function echo_session_value()
@@ -33,26 +28,28 @@ function echo_session_value()
     GLOBAL $statuts, $statut, $status, $is_admin ;
     if (! isset ( $is_admin ) || ! $is_admin)
     {
-        exit ( 'not aivailable' ) ;
+        exit ( 'not available' ) ;
     }
     
     $infoResult .= '
     <hr />
-    <a href="../claroline/admin/phpInfo.php">phpInfo Claroline</a>
+    <a href="../claroline/admin/phpInfo.php">Claroline system information</a>
     <PRE><strong>PHP Version</strong> : ' . phpversion () . '
-    <strong>nivo d\'err</strong> : ' . error_reporting ( 2039 ) ;
+    <strong>error level</strong> : ' . error_reporting ( 2039 ) ;
     if (isset ( $statuts ))
     {
         $infoResult .= '
-    <strong>statut</strong> : ';
+    <strong>status</strong> : ';
         print_r($statuts);
     }
+    
     if (isset($statut))
     {
         $infoResult .= '
-    <strong>statut</strong> : ';
+    <strong>status</strong> : ';
         print_r($statut);
     }
+    
     if (isset($status))
     {
         $infoResult .= "
@@ -63,20 +60,20 @@ function echo_session_value()
     if ('' != trim(get_conf('dbHost')) || '' != trim(get_conf('dbLogin')))
     {
         $infoResult .= '
-    <strong>mysql param</strong> :
-     Serveur : ' . get_conf ( 'dbHost' ) . '
+    <strong>mysql parameters</strong> :
+     Server  : ' . get_conf ( 'dbHost' ) . '
      User    : ' . get_conf ( 'dbLogin' ) ;
     }
     if (isset($_SESSION))
     {
         $infoResult .= "
-    <strong>session</strong> : ";
+    <strong>SESSION</strong> : ";
         print_r($_SESSION);
     }
     if (isset($_POST))
     {
         $infoResult .= "
-    <strong>Post</strong> : ";
+    <strong>POST</strong> : ";
         print_r($_POST);
     }
     if (isset($_GET))
@@ -87,37 +84,37 @@ function echo_session_value()
     }
     
     $infoResult .= "
-    <strong>Contantes</strong> : ";
+    <strong>Constants</strong> : ";
     print_r(get_defined_constants());
     get_current_user();
     $infoResult .= "
-    <strong>Fichiers inclus</strong> : ";
+    <strong>Included file</strong> : ";
     print_r(get_included_files());
     $infoResult .= "
     <strong>Magic quote gpc</strong> : " . get_magic_quotes_gpc () . "
     <strong>Magig quote runtime</strong> : " . get_magic_quotes_runtime () . "
-    <strong>date de dernière modification de la page</strong> : " . date ( "j-m-Y", getlastmod () ) ;
+    <strong>LAst modification of the page</strong> : " . date ( "j-m-Y", getlastmod () ) ;
     /*
-    get_cfg_var -- Retourne la valeur d'une option de PHP
-    getenv -- Retourne la valeur de la variable d'environnement.
-    ini_alter -- Change la valeur d'une option de configuration
-    ini_get -- Lit la valeur d'une option de configuration.
-    ini_get_all -- Lit toutes les valeurs de configuration
-    ini_restore -- Restaure la valeur de l'option de configuration
-    ini_set -- Change la valeur d'une option de configuration
-    putenv -- Fixe la valeur d'une variable d'environnement.
-    set_magic_quotes_runtime --  Active/désactive l'option magic_quotes_runtime.
-    set_time_limit -- Fixe le temps maximum d'exécution d'un script.
+    get_cfg_var -- get PHP config value
+    getenv -- get environment variable value
+    ini_alter -- change configuration value
+    ini_get -- get configuration value
+    ini_get_all -- get all configuration values
+    ini_restore -- restore configuration value
+    ini_set -- change configuration value
+    putenv -- set environment variable value
+    set_magic_quotes_runtime --  enable/disable magic quote gpc
+    set_time_limit -- script max execution time
     */
     $infoResult .= "
-    <strong>Type d'interface utilisé entre le serveur web et PHP</strong> : " . php_sapi_name () . "
-    <strong>informations OS</strong> : " . php_uname () . "
-    <strong>Version courante du moteur Zend</strong> : " . zend_version () . "
-    <strong>GID du propriétaire du script</strong> : " . getmygid () . "
-    <strong>inode du script</strong> : " . getmyinode () . "
-    <strong>numéro de processus courant</strong> : " . getmypid () . "
-    <strong>UID du propriétaire du script actuel</strong> : " . getmyuid () . "
-    <strong>niveau d'utilisation des ressources</strong> : " ;
+    <strong>PHP Web Server interface type (SAPI)</strong> : " . php_sapi_name () . "
+    <strong>OS information</strong> : " . php_uname () . "
+    <strong>Zend engine version</strong> : " . zend_version () . "
+    <strong>Script owner GID</strong> : " . getmygid () . "
+    <strong>Script inode</strong> : " . getmyinode () . "
+    <strong>Process number (pid)</strong> : " . getmypid () . "
+    <strong>Script owner UID</strong> : " . getmyuid () . "
+    <strong>Resource usage</strong> : " ;
     print_r ( @getrusage () ) ;
     
     $infoResult .= "
@@ -156,7 +153,7 @@ function claro_call_function( $info, $paramList = null )
 /**
  * get verbose version of file right
  * @return string
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  */
 
 function debug_IO($file = '')
