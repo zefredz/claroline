@@ -22,11 +22,6 @@ require_once dirname(__FILE__) . '/../kernel/user.lib.php';
 require_once dirname(__FILE__) . '/authdrivers.lib.php';
 require_once dirname(__FILE__) . '/ldapauthdriver.lib.php';
 
-if ( get_conf( 'claro_loadDeprecatedPearAuthDriver', true ) )
-{
-    require_once dirname(__FILE__) . '/pearauthdriver.lib.php';
-}
-
 require_once dirname(__FILE__) . '/authprofile.lib.php';
 
 class AuthManager

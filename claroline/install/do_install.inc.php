@@ -257,16 +257,6 @@ try
              * Config file to undist
              */
 
-            /*$arr_file_to_undist =
-            array (
-            $newIncludePath . '../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys . 'platform/conf'
-            );
-
-            foreach ($arr_file_to_undist as $undistFile => $undistPath)
-            {
-                claro_undist_file($undistFile,$undistPath);
-            }*/
-
             /***
              * Generate kernel conf from definition files.
              */
