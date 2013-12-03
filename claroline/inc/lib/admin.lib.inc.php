@@ -17,7 +17,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -349,7 +349,7 @@ function count_course_categories ( $courseId )
 /**
  * to know if user is registered to a course or not
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @param  int     id of user in DB
  * @param  int     id of course in DB
  * @return boolean true if user is enrolled false otherwise

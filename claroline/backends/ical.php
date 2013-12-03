@@ -8,7 +8,7 @@
  * Build iCal file for user in given course
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Gesche <moosh@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html

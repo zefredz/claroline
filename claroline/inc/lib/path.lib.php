@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * Built url and system paths.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      see 'credits' file
  * @since       Claroline 1.8.3

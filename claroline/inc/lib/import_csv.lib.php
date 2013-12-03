@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * Library for import of csv user list
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
  * @author      Guillaume Lederer <guillaume@claroline.net>
@@ -27,7 +27,7 @@ if ( count( get_included_files() ) == 1 )
  * @param origMartix array source array to be reverted
  * @param $presumedColKeyList array contain the minimum list of colum in the builded array
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  *
  */
 

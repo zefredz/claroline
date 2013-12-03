@@ -10,7 +10,7 @@
  * As from 1.9.6 uses pclzip instead of zip.lib
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
  * @author      Jean-Roch Meurisse <jmeuriss@fundp.ac.be>
  * @license     http://www.gnu.org/copyleft/gpl.html

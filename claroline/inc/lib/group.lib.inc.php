@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 )
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/CLGRP
  * @package     CLGRP
@@ -489,7 +489,7 @@ function group_count_group_of_a_user($user_id, $course_id=null)
  * @param  integer $maxMember  - max user allowed for this group
  * @return integer : id of the new group
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  */
 
 function create_group($prefixGroupName, $maxMember)

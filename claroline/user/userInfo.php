@@ -6,7 +6,7 @@
  * Mangage personal user info in a course.
  *
  * @version 1.11 $Revision$
- * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/CLUSR/
  * @package CLUSR

@@ -5,7 +5,7 @@
  * French locale for Date.js library by Henrik Lindqvist
  *
  * @version     1.0 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license      http://www.gnu.org/licenses/lgpl-3.0.txt
  *              GNU LESSER GENERAL PUBLIC LICENSE Version 3.0 or later

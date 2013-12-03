@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * This is not a thematic lib
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
  *              version 2 or later
  * @author      Claro Team <cvs@claroline.net>
@@ -1107,7 +1107,7 @@ class claro_failure
     /**
      * Pile the last failure in the failure list
      *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
      * @param  string $failureType the type of failure
      * @global array  claro_failureList
      * @return boolean false to stay consistent with the main script
@@ -1154,7 +1154,7 @@ class claro_failure
  *
  * @global boolean claro_toolViewOptionEnabled
  * @return true
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  */
 
 function claro_enable_tool_view_option()
@@ -1171,7 +1171,7 @@ function claro_enable_tool_view_option()
  * @param  $viewMode 'STUDENT' or 'COURSE_ADMIN'
  * @return true if set succeed.
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  */
 
 function claro_set_tool_view_mode($viewMode)
@@ -1316,7 +1316,7 @@ function claro_html_tool_view_option($viewModeRequested = false)
  * return the current mode in tool able to handle different view mode
  *
  * @return string 'COURSE_ADMIN' or 'STUDENT'
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  */
 
 function claro_get_tool_view_mode()
@@ -1658,7 +1658,7 @@ function http_response_splitting_workaround( $str )
  * slashes (default setting before PHP 4.3). claro_unquote_gpc() removes
  * these slashes. It needs to be called just once at the biginning
  * of the script.
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  *
  * @return void
  */

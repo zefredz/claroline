@@ -4,8 +4,8 @@
  * LDAP Authentication Driver
  *
  * @version     2.5 $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  *              GNU AFFERO GENERAL PUBLIC LICENSE version 3
  */

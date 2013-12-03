@@ -7,7 +7,7 @@
  * the Claroline log table.
  *
  * @version     Claroline 1.11 Revision: 12923 $
- * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html

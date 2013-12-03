@@ -10,7 +10,7 @@
  * adapted by Toon Van Hoecke (Dec 2003) and Hugues Peeters (March 2004)
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLCAL
  * @author      Claro Team <cvs@claroline.net>

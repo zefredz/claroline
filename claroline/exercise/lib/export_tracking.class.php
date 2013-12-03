@@ -11,7 +11,7 @@
  * of the License, or (at your option) any later version.
  * 
  * @version 1.11
- * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author Sebastien Piraux
  */
 include_once get_path ( 'incRepositorySys' ) . '/lib/csv.class.php';
@@ -407,7 +407,7 @@ function export_exercise_tracking ( $exId )
 /**
  * Exports the students's result for an exercise into a csv file
  * Shows the overall result for each student
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  */
 class ExoExportByUser extends CsvRecordlistExporter
 {
@@ -504,7 +504,7 @@ class ExoExportByUser extends CsvRecordlistExporter
 /**
  * Exports the students's result for an exercise into a csv file
  * Shows for each question : the best score, the worst score and the average score
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  */
 class ExoExportByQuestion extends CsvRecordlistExporter
 {

@@ -10,7 +10,7 @@ require_once dirname(__FILE__) . '/users/courseregistration.lib.php';
  * Course user library contains function to manage users registration and properties in course
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLUSR
  * @author      Claro Team <cvs@claroline.net>

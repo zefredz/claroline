@@ -5,7 +5,7 @@
  *
  * @version 0.1 $Revision$
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -21,7 +21,7 @@
  * 2) the method prepareManifestResource create a string like <resource></resource> with the correct
  * attribute based on the item
  *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  */
 
 class CLDOC_ScormExport extends PathScormExport
@@ -38,7 +38,7 @@ class CLDOC_ScormExport extends PathScormExport
   /**
    * Constructor
    *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
    */
   public function __construct()
   {
@@ -48,7 +48,7 @@ class CLDOC_ScormExport extends PathScormExport
   /**
    * Copy files needed in the export for this module
    *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
    * @param string $docId name of the document
    * @param object $item item of the path
    * @param string $destDir path when the files need to be copied
@@ -91,7 +91,7 @@ class CLDOC_ScormExport extends PathScormExport
   /**
    * Create a resource for the manifest
    *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
    * @param array $item item's data
    * @param string $destDir
    * @param object $locator locator of the file
@@ -111,7 +111,7 @@ class CLDOC_ScormExport extends PathScormExport
   /**
    * Return the error
    *
- * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
    * @return string $error
    */
   public function getError()
