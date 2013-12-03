@@ -45,13 +45,18 @@ See CREDITS.txt file
 4. INSTALL OR UPGRADE
    ==================
 
-See INSTALL.txt file
+See INSTALL.txt and UPGRADE.txt files
 
   PLEASE ENSURE YOU READ THIS FULLY BEFORE PROCEEDING WITH THE INSTALLATION OR 
   THE UPGRADE.
 
+5. OTHER HELP FILES
+   ================
 
-5. DOCUMENTATION
+Understanding the authentication system : AUTHENTICATION.txt
+Customizing the plateform : CUSTOMIZE.txt
+
+6. DOCUMENTATION
    =============
 
 Complete manuals for trainers and students are available in different languages
@@ -60,7 +65,7 @@ at :
   http://www.claroline.net/
 
 
-6. CONTACT
+7. CONTACT
    =======
 
         Consortium Claroline
@@ -72,10 +77,10 @@ at :
         email : info@claroline.net
         web   : http://www.claroline.net
         phone : 32 (0) 10 47 88 87
-        Fax   : 32 (0) 47 89 39
+        Fax   : 32 (0) 10 47 89 39
 
 
-7. NEW FEATURES
+8. NEW FEATURES
    ============
 
 NEW FEATURES IN CLAROLINE 1.12 SINCE CLAROLINE 1.11
@@ -512,5 +517,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - December 15 2008
+                Europe, Belgium, Louvain-la-Neuve - $Date$
 ================================== END ===================================
