@@ -12,7 +12,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author Claro Team <cvs@claroline.net>
  *
  */
-$path = dirname(__FILE__);
+$path = __DIR__;
 include_once $path . '/../../lib/answer_multiplechoice.class.php';
 include_once $path . '/../../lib/answer_truefalse.class.php';
 include_once $path . '/../../lib/answer_fib.class.php';

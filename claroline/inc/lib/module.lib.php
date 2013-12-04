@@ -334,8 +334,8 @@ function get_module_label_list( $activeModulesOnly = true )
  * Module (un)installation functions
  */
 
-require_once dirname(__FILE__) . '/sqlxtra.lib.php';
-require_once dirname(__FILE__) . '/backlog.class.php';
+require_once __DIR__ . '/sqlxtra.lib.php';
+require_once __DIR__ . '/backlog.class.php';
 
 /**
  * Install database for the given module in the given course

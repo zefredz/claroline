@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 )
 
 //------------------------------------------------------------------------------
 
-require_once dirname(__FILE__) . '/file.lib.php';
+require_once __DIR__ . '/file.lib.php';
 
 /**
  * Change the file name extension from .php to .phps

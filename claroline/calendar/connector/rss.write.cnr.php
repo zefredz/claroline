@@ -20,7 +20,7 @@ function CLCAL_write_rss($context)
         $courseId = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : claro_get_current_course_id();
     }
 
-    require_once dirname(__FILE__) . '/../lib/agenda.lib.php';
+    require_once __DIR__ . '/../lib/agenda.lib.php';
     $eventList    = agenda_get_item_list($context, 'ASC');
     $toolNameList = claro_get_tool_name_list();
 

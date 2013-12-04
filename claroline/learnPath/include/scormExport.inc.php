@@ -59,9 +59,9 @@ if ( !class_exists('ScormExport') )
     include_once get_path('incRepositorySys') . "/lib/fileUpload.lib.php";
     include_once get_path('incRepositorySys') . "/lib/thirdparty/pclzip/pclzip.lib.php";
 
-    require_once dirname(__FILE__).'/../../exercise/lib/exercise.class.php';
-    require_once dirname(__FILE__).'/../../exercise/lib/exercise.lib.php';
-    require_once dirname(__FILE__).'/../../exercise/export/scorm/scorm_classes.php';
+    require_once __DIR__.'/../../exercise/lib/exercise.class.php';
+    require_once __DIR__.'/../../exercise/lib/exercise.lib.php';
+    require_once __DIR__.'/../../exercise/export/scorm/scorm_classes.php';
 
     include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
     include_once get_path('incRepositorySys') . '/lib/form.lib.php';
@@ -481,12 +481,12 @@ if ( !class_exists('ScormExport') )
             // Copy usual files (.css, .js, .xsd, etc)
             if (
                    !claro_copy_file( $claro_stylesheet_path, $this->destDir)
-                || !claro_copy_file(dirname(__FILE__).'/../export/APIWrapper.js', $this->destDir)
-                || !claro_copy_file(dirname(__FILE__).'/../export/scores.js', $this->destDir)
-                || !claro_copy_file(dirname(__FILE__).'/../export/ims_xml.xsd', $this->destDir)
-                || !claro_copy_file(dirname(__FILE__).'/../export/imscp_rootv1p1p2.xsd', $this->destDir)
-                || !claro_copy_file(dirname(__FILE__).'/../export/imsmd_rootv1p2p1.xsd', $this->destDir)
-                || !claro_copy_file(dirname(__FILE__).'/../export/adlcp_rootv1p2.xsd', $this->destDir)
+                || !claro_copy_file(__DIR__.'/../export/APIWrapper.js', $this->destDir)
+                || !claro_copy_file(__DIR__.'/../export/scores.js', $this->destDir)
+                || !claro_copy_file(__DIR__.'/../export/ims_xml.xsd', $this->destDir)
+                || !claro_copy_file(__DIR__.'/../export/imscp_rootv1p1p2.xsd', $this->destDir)
+                || !claro_copy_file(__DIR__.'/../export/imsmd_rootv1p2p1.xsd', $this->destDir)
+                || !claro_copy_file(__DIR__.'/../export/adlcp_rootv1p2.xsd', $this->destDir)
                 || !claro_copy_file(get_path('clarolineRepositorySys') . '../web/js/jquery.js', $this->destDir)
                 || !claro_copy_file(get_path('clarolineRepositorySys') . '../web/js/claroline.js', $this->destDir)
                 || !claro_copy_file(get_path('clarolineRepositorySys') . '../web/js/claroline.ui.js', $this->destDir)

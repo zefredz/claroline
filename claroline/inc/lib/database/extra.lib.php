@@ -17,7 +17,7 @@
  * @package     kernel.database
  */
 
-require_once dirname(__FILE__) . '/database.lib.php';
+require_once __DIR__ . '/database.lib.php';
 
 class Database_Multiple_Query
 {

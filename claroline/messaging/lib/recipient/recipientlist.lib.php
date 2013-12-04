@@ -15,9 +15,9 @@
  */
 
 //load messagetoSend class
-require_once dirname(__FILE__) . '/../message/messagetosend.lib.php';
+require_once __DIR__ . '/../message/messagetosend.lib.php';
 //load notifier class
-require_once dirname(__FILE__) . '/../notification/notifier.lib.php';
+require_once __DIR__ . '/../notification/notifier.lib.php';
 
 abstract class RecipientList
 {

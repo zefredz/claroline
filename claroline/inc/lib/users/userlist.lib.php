@@ -2,8 +2,8 @@
 
 // $Id$
 
-require_once dirname(__FILE__) . '/claroclass.lib.php';
-require_once dirname(__FILE__) . '/../connectors/adminuser.lib.php';
+require_once __DIR__ . '/claroclass.lib.php';
+require_once __DIR__ . '/../connectors/adminuser.lib.php';
 
 /**
  * Set of PHP classes for user batch registration and enrolment

@@ -16,9 +16,9 @@
 
 
 //load receivedmessagebox class
-require_once dirname(__FILE__) . '/receivedmessagebox.lib.php';
+require_once __DIR__ . '/receivedmessagebox.lib.php';
 //load inboxstrategy class
-require_once dirname(__FILE__) . '/../selectorstrategy/inboxstartegy.lib.php';
+require_once __DIR__ . '/../selectorstrategy/inboxstartegy.lib.php';
 
 class InBox extends ReceivedMessageBox
 {

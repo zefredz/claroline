@@ -776,7 +776,7 @@ function claro_sql_escape($statement,$db=null)
  * @deprecated since Claroline 1.9, see claro_sql_get_tbl for details
  */
 
-require_once(dirname(__FILE__) . '/module.lib.php');
+require_once(__DIR__ . '/module.lib.php');
 function get_context_db_discriminator($toolId)
 {
 

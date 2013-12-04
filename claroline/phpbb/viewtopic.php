@@ -18,7 +18,7 @@
 
 $tlabelReq = 'CLFRM';
 //load claroline kernel
-require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
 
 //security check
 if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form( true );

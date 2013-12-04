@@ -30,7 +30,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 try
 {
-    include_once dirname(__FILE__) . '/installer.class.php';
+    include_once __DIR__ . '/installer.class.php';
 
     ! defined( 'CLARO_FILE_PERMISSIONS' ) && define( 'CLARO_FILE_PERMISSIONS', 0777 );
     $display = DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
@@ -174,9 +174,9 @@ try
             'displayDbError'
         );
         // drop existing main and stats database tables
-        $installer->executeSqlScript( file_get_contents( dirname(__FILE__) . '/uninstall.sql' ) );
+        $installer->executeSqlScript( file_get_contents( __DIR__ . '/uninstall.sql' ) );
         // create main and stats database tables
-        $installer->executeSqlScript( file_get_contents( dirname(__FILE__) . '/install.sql' ) );
+        $installer->executeSqlScript( file_get_contents( __DIR__ . '/install.sql' ) );
 
         // FILE SYSTEM OPERATION
         //

@@ -15,7 +15,7 @@
  */
 
 //load notfier class
-require_once dirname(__FILE__) . '/../notifier.lib.php';
+require_once __DIR__ . '/../notifier.lib.php';
 //load course data
 require_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
 // load  PHPMail class

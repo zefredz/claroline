@@ -16,7 +16,7 @@
 
 
 //load messagestrategy class
-require_once dirname(__FILE__) . '/selectorstrategy/selectorstrategy.lib.php';
+require_once __DIR__ . '/selectorstrategy/selectorstrategy.lib.php';
 
 class UserStrategy implements SelectorStrategy 
 {

@@ -19,7 +19,7 @@ define('RSS_FILE_EXT', 'xml');
 include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
 include_once claro_get_conf_repository() . 'rss.conf.php';
 
-require_once dirname(__FILE__) . '/thirdparty/feedcreator.class.php';
+require_once __DIR__ . '/thirdparty/feedcreator.class.php';
 
 function build_rss($context)
 {

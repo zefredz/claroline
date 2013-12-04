@@ -15,14 +15,14 @@
  */
 
 // Get required libraries
-require_once dirname(__FILE__) . '/../core/claroline.lib.php';
-require_once dirname(__FILE__) . '/../database/database.lib.php';
-require_once dirname(__FILE__) . '/../kernel/user.lib.php';
+require_once __DIR__ . '/../core/claroline.lib.php';
+require_once __DIR__ . '/../database/database.lib.php';
+require_once __DIR__ . '/../kernel/user.lib.php';
 
-require_once dirname(__FILE__) . '/authdrivers.lib.php';
-require_once dirname(__FILE__) . '/ldapauthdriver.lib.php';
+require_once __DIR__ . '/authdrivers.lib.php';
+require_once __DIR__ . '/ldapauthdriver.lib.php';
 
-require_once dirname(__FILE__) . '/authprofile.lib.php';
+require_once __DIR__ . '/authprofile.lib.php';
 
 class AuthManager
 {

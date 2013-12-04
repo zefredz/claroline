@@ -29,7 +29,7 @@ if( file_exists(get_path('rootSys').'platform/currentVersion.inc.php') )
     include (get_path('rootSys').'platform/currentVersion.inc.php');
 }
 
-require dirname(__FILE__) .'/../../inc/installedVersion.inc.php';
+require __DIR__ .'/../../inc/installedVersion.inc.php';
 
 if( ! claro_is_platform_admin() ) claro_disp_auth_form();
 

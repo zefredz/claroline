@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 )
  * @package     internal_messaging
  */
 
-require_once dirname(__FILE__) . '/lib/displaymessage.lib.php';
+require_once __DIR__ . '/lib/displaymessage.lib.php';
 // variable initilization
 
 $messageId = (isset($_GET['messageId'])) ? (int)$_GET['messageId']: NULL;

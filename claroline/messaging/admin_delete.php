@@ -17,12 +17,12 @@
  */
 
 $cidReset = true;
-require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
 // manager of the admin message box
-require_once dirname(__FILE__) . '/lib/messagebox/adminmessagebox.lib.php';
+require_once __DIR__ . '/lib/messagebox/adminmessagebox.lib.php';
 
-require_once dirname(__FILE__) . '/lib/tools.lib.php';
-require_once dirname(__FILE__) . '/lib/userlist.lib.php';
+require_once __DIR__ . '/lib/tools.lib.php';
+require_once __DIR__ . '/lib/userlist.lib.php';
 
 // move to kernel
 $claroline = Claroline::getInstance();

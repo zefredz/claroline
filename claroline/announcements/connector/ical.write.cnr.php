@@ -19,7 +19,7 @@ function CLANN_write_ical( $iCal, $context)
         $courseId = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : claro_get_current_course_id();
     }
 
-    require_once dirname(__FILE__) . '/../lib/announcement.lib.php';
+    require_once __DIR__ . '/../lib/announcement.lib.php';
     $courseData = claro_get_course_data($courseId);
 
     $toolNameList = claro_get_tool_name_list();

@@ -22,8 +22,8 @@ $_SESSION['courseSessionCode'] = null;
 // Include Library and configuration files
 require './claroline/inc/claro_init_global.inc.php'; // main init
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
-require_once dirname(__FILE__) . '/claroline/inc/lib/coursesearchbox.class.php';
-require_once dirname(__FILE__) . '/claroline/inc/lib/course/courselist.lib.php';
+require_once __DIR__ . '/claroline/inc/lib/coursesearchbox.class.php';
+require_once __DIR__ . '/claroline/inc/lib/course/courselist.lib.php';
 
 
 if (get_conf('display_former_homepage', false) || !claro_is_user_authenticated())

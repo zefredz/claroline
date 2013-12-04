@@ -2,7 +2,7 @@
 
 // $Id$
 
-require_once dirname(__FILE__) . '/classutils.lib.php';
+require_once __DIR__ . '/classutils.lib.php';
 
 /**
  * Set of PHP classes to manipulate Claroline user classes

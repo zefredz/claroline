@@ -16,9 +16,9 @@
 
 
 //load internal message class
-require_once dirname(__FILE__) . '/internalmessage.lib.php';
+require_once __DIR__ . '/internalmessage.lib.php';
 // class need to notify bye other way
-require_once dirname(__FILE__) . '/../notification/notifier.lib.php';
+require_once __DIR__ . '/../notification/notifier.lib.php';
 
 class MessageToSend extends InternalMessage
 {

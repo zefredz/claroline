@@ -14,8 +14,8 @@
  * @package     kernel.utils.ajax
  */
 
-require_once dirname(__FILE__) . '/input.lib.php';
-require_once dirname(__FILE__) . '/../core/url.lib.php';
+require_once __DIR__ . '/input.lib.php';
+require_once __DIR__ . '/../core/url.lib.php';
 
 /**
  * JSON Response

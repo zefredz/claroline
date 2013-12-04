@@ -15,7 +15,7 @@
  */
 
 //load selector strategy interface
-require_once dirname(__FILE__) . '/selectorstrategy.lib.php';
+require_once __DIR__ . '/selectorstrategy.lib.php';
 
 abstract class MessageStrategy implements SelectorStrategy 
 {

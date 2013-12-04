@@ -24,7 +24,7 @@ function CLCAL_write_ical( $iCal, $context)
     {
 
         $toolNameList = claro_get_tool_name_list();
-        require_once dirname(__FILE__) . '/../lib/agenda.lib.php';
+        require_once __DIR__ . '/../lib/agenda.lib.php';
         $eventList    = agenda_get_item_list($context,'ASC');
         
         $organizer = (array) array($courseData['titular'], $courseData['email']);

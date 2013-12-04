@@ -14,14 +14,14 @@
  * @package     display
  */
 
-require_once dirname(__FILE__) . '/phptemplate.lib.php';
-require_once dirname(__FILE__) . '/header.lib.php';
-require_once dirname(__FILE__) . '/body.lib.php';
-require_once dirname(__FILE__) . '/footer.lib.php';
-require_once dirname(__FILE__) . '/dock.lib.php';
-require_once dirname(__FILE__) . '/banner.lib.php';
-require_once dirname(__FILE__) . '/dialogBox.lib.php';
-require_once dirname(__FILE__) . '/tooltitle.lib.php';
+require_once __DIR__ . '/phptemplate.lib.php';
+require_once __DIR__ . '/header.lib.php';
+require_once __DIR__ . '/body.lib.php';
+require_once __DIR__ . '/footer.lib.php';
+require_once __DIR__ . '/dock.lib.php';
+require_once __DIR__ . '/banner.lib.php';
+require_once __DIR__ . '/dialogBox.lib.php';
+require_once __DIR__ . '/tooltitle.lib.php';
 
 /**
  * Popup helper

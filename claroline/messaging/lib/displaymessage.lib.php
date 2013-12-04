@@ -16,7 +16,7 @@
 
 
 
-require_once dirname(__FILE__) . '/permission.lib.php';
+require_once __DIR__ . '/permission.lib.php';
 FromKernel::uses('utils/htmlsanitizer.lib');
 
 class DisplayMessage

@@ -59,7 +59,7 @@ function buildICal($context, $calType='ics')
         $iCalRepositorySys =  get_path('rootSys') . get_conf('iCalRepositoryCache','tmp/cache/iCal/');
         if (!file_exists($iCalRepositorySys))
         {
-            require_once dirname(__FILE__) . '/fileManage.lib.php';
+            require_once __DIR__ . '/fileManage.lib.php';
             claro_mkdir($iCalRepositorySys, CLARO_FILE_PERMISSIONS, true);
             if (!file_exists($iCalRepositorySys)) claro_failure::set_failure('CANT_CREATE_ICAL_DIR');
         }

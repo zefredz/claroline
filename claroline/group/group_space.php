@@ -20,7 +20,7 @@ $tlabelReq = 'CLGRP';
 require '../inc/claro_init_global.inc.php';
 
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
-require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
+require_once __DIR__ . '/../messaging/lib/permission.lib.php';
 
 $toolNameList= claro_get_tool_name_list();
 $toolRepository = get_path('clarolineRepositoryWeb');

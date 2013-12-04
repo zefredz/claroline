@@ -39,13 +39,13 @@ class ClaroHeader extends CoreTemplate
             $this->addInlineJavascript("var claro_debug_mode = true;");
         }
         
-        require dirname(__FILE__) .'/../../installedVersion.inc.php';
+        require __DIR__ .'/../../installedVersion.inc.php';
         
         if ( $stable )
         { 
-            if ( file_exists( dirname(__FILE__) .'/../../../../platform/currentVersion.inc.php' ) )
+            if ( file_exists( __DIR__ .'/../../../../platform/currentVersion.inc.php' ) )
             {
-                require dirname(__FILE__) .'/../../../../platform/currentVersion.inc.php';
+                require __DIR__ .'/../../../../platform/currentVersion.inc.php';
             }
             else
             {

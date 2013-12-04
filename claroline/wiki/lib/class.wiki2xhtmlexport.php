@@ -17,10 +17,10 @@
  * @author Frederic Minne <zefredz@gmail.com>
  */
 
-require_once dirname(__FILE__) . '/class.wiki2xhtmlrenderer.php';
-require_once dirname(__FILE__) . '/class.wikistore.php';
-require_once dirname(__FILE__) . '/class.wikipage.php';
-require_once dirname(__FILE__) . '/class.wiki.php';
+require_once __DIR__ . '/class.wiki2xhtmlrenderer.php';
+require_once __DIR__ . '/class.wikistore.php';
+require_once __DIR__ . '/class.wikipage.php';
+require_once __DIR__ . '/class.wiki.php';
 
 /**
  * Export a Wiki to a single HTML formated string

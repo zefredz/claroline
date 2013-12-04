@@ -15,8 +15,8 @@
  */
 
 
-require_once dirname(__FILE__) . '/clarocategory.class.php';
-require_once dirname(__FILE__) . '/course/courselist.lib.php';
+require_once __DIR__ . '/clarocategory.class.php';
+require_once __DIR__ . '/course/courselist.lib.php';
 
 class CategoryBrowser
 {

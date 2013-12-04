@@ -16,7 +16,7 @@
 
 
 //load receivedmessagestrategy class
-require_once dirname(__FILE__).'/receivedmessagestrategy.lib.php';
+require_once __DIR__.'/receivedmessagestrategy.lib.php';
 
 class TrashBoxStrategy extends ReceivedMessageStrategy 
 {

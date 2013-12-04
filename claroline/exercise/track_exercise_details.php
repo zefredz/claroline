@@ -16,12 +16,12 @@ require '../inc/claro_init_global.inc.php';
 include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
 
-include_once dirname(__FILE__) . '/lib/exercise.class.php';
-include_once dirname(__FILE__) . '/lib/question.class.php';
-include_once dirname(__FILE__) . '/lib/answer_multiplechoice.class.php';
-include_once dirname(__FILE__) . '/lib/answer_truefalse.class.php';
-include_once dirname(__FILE__) . '/lib/answer_fib.class.php';
-include_once dirname(__FILE__) . '/lib/answer_matching.class.php';
+include_once __DIR__ . '/lib/exercise.class.php';
+include_once __DIR__ . '/lib/question.class.php';
+include_once __DIR__ . '/lib/answer_multiplechoice.class.php';
+include_once __DIR__ . '/lib/answer_truefalse.class.php';
+include_once __DIR__ . '/lib/answer_fib.class.php';
+include_once __DIR__ . '/lib/answer_matching.class.php';
 
 /**
  * extend Question class to add extract from tracking method to each answer type

@@ -17,7 +17,7 @@
  */
 
 // initialization
-require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
 FromKernel::uses('utils/htmlsanitizer.lib');
 
 // move to kernel
@@ -30,13 +30,13 @@ if ( ! claro_is_user_authenticated() )
 }
 
 include claro_get_conf_repository() . 'CLMSG.conf.php';
-require_once dirname(__FILE__).'/lib/message/messagetosend.lib.php';
-require_once dirname(__FILE__).'/lib/message/receivedmessage.lib.php';
-require_once dirname(__FILE__).'/lib/recipient/singleuserrecipient.lib.php';
-require_once dirname(__FILE__).'/lib/recipient/courserecipient.lib.php';
-require_once dirname(__FILE__).'/lib/recipient/grouprecipient.lib.php';
-require_once dirname(__FILE__).'/lib/recipient/allusersrecipient.lib.php';
-require_once dirname(__FILE__).'/lib/permission.lib.php';
+require_once __DIR__.'/lib/message/messagetosend.lib.php';
+require_once __DIR__.'/lib/message/receivedmessage.lib.php';
+require_once __DIR__.'/lib/recipient/singleuserrecipient.lib.php';
+require_once __DIR__.'/lib/recipient/courserecipient.lib.php';
+require_once __DIR__.'/lib/recipient/grouprecipient.lib.php';
+require_once __DIR__.'/lib/recipient/allusersrecipient.lib.php';
+require_once __DIR__.'/lib/permission.lib.php';
 
 $acceptedCmdList = array('rqMessageToUser','rqMessageToCourse','rqMessageToAllUsers','rqMessageToGroup', 'exSendMessage');
 

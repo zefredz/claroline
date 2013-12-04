@@ -17,7 +17,7 @@
  */
 
 
-require_once dirname(__FILE__) . '/userstrategy.lib.php';
+require_once __DIR__ . '/userstrategy.lib.php';
 
 class UserList implements CountableIterator
 {

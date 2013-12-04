@@ -10,8 +10,8 @@
  *              GNU AFFERO GENERAL PUBLIC LICENSE version 3
  */
 
-require_once dirname(__FILE__) . '/ldap.lib.php';
-require_once dirname(__FILE__) . '/authdrivers.lib.php';
+require_once __DIR__ . '/ldap.lib.php';
+require_once __DIR__ . '/authdrivers.lib.php';
 
 class ClaroLdapAuthDriver extends AbstractAuthDriver
 {

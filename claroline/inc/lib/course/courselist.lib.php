@@ -13,9 +13,9 @@
  */
 
 
-require_once dirname(__FILE__) . '/../kernel/course.lib.php';
-require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
-require_once dirname(__FILE__) . '/../categorybrowser.class.php';
+require_once __DIR__ . '/../kernel/course.lib.php';
+require_once __DIR__ . '/../utils/iterators.lib.php';
+require_once __DIR__ . '/../categorybrowser.class.php';
 
 
 interface CourseList

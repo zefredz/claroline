@@ -37,7 +37,7 @@ require_once get_path( 'incRepositorySys' ) . '/lib/course_utils.lib.php';
 require_once get_path( 'incRepositorySys' ) . '/lib/fileManage.lib.php';
 require_once get_path( 'incRepositorySys' ) . '/lib/file/garbagecollector.lib.php';
 require_once get_path( 'incRepositorySys' ) . '/lib/thirdparty/pclzip/pclzip.lib.php';
-require_once dirname(__FILE__).'/lib/score.lib.php';
+require_once __DIR__.'/lib/score.lib.php';
 
 //init general purpose vars
 $out ='';

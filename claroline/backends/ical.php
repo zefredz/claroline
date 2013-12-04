@@ -20,7 +20,7 @@ $_course = array();
 $siteName = '';
 $is_courseAllowed = false;
 
-require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
+require __DIR__ . '/../inc/claro_init_global.inc.php';
 
 include_once claro_get_conf_repository() . 'ical.conf.php';
 include_once get_path('includePath') . '/lib/ical.write.lib.php';

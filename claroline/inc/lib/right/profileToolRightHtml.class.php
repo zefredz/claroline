@@ -12,8 +12,8 @@
  * @author      Claro Team <cvs@claroline.net>
  */
 
-require_once dirname(__FILE__) . '/constants.inc.php';
-require_once dirname(__FILE__) . '/profileToolRight.class.php';
+require_once __DIR__ . '/constants.inc.php';
+require_once __DIR__ . '/profileToolRight.class.php';
 
 class RightProfileToolRightHtml
 {

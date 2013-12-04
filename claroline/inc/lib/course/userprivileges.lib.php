@@ -17,7 +17,7 @@
  * @since       Claroline 1.11
  */
 
-require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
+require_once __DIR__ . '/../utils/iterators.lib.php';
 
 /**
  * This class represents one user's privileges in a course.

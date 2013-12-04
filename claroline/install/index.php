@@ -59,7 +59,7 @@ include '../lang/english/locale_settings.php';
 
 
 require_once $newIncludePath . 'lib/user.lib.php'; // needed fo generate_passwd()
-require_once dirname(__FILE__) . '/install.lib.inc.php';
+require_once __DIR__ . '/install.lib.inc.php';
 require_once $newIncludePath . 'lib/config.lib.inc.php';
 require_once $newIncludePath . 'lib/form.lib.php';
 require_once $newIncludePath . 'lib/course.lib.inc.php';

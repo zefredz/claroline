@@ -30,8 +30,8 @@
  *
  */
 
-include_once( dirname(__FILE__) . '/fileManage.lib.php');
-include_once( dirname(__FILE__) . '/right/courseProfileToolAction.class.php');
+include_once( __DIR__ . '/fileManage.lib.php');
+include_once( __DIR__ . '/right/courseProfileToolAction.class.php');
 
 /**
  * delete a course of the plateform

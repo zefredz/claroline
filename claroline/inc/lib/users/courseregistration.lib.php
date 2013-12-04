@@ -2,7 +2,7 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-require_once dirname(__FILE__).'/userlist.lib.php';
+require_once __DIR__.'/userlist.lib.php';
 
 /**
  * This library provides a new course registration

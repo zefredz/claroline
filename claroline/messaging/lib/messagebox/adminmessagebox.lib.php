@@ -15,9 +15,9 @@
  */
 
 // load SentMessage class
-require_once dirname(__FILE__) . '/../message/sentmessage.lib.php';
+require_once __DIR__ . '/../message/sentmessage.lib.php';
 // load administration strategy (order,where,limit, clause)
-require_once dirname(__FILE__) . '/../selectorstrategy/adminboxstrategy.lib.php';
+require_once __DIR__ . '/../selectorstrategy/adminboxstrategy.lib.php';
 
 class AdminMessageBox implements Iterator 
 {

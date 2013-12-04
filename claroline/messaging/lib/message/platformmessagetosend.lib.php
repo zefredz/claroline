@@ -14,7 +14,7 @@
  * @package     internal_messaging
  */
 
-require_once dirname(__FILE__) . '/messagetosend.lib.php';
+require_once __DIR__ . '/messagetosend.lib.php';
 
 class PlatformMessageToSend extends MessageToSend
 {

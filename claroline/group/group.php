@@ -41,7 +41,7 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php' ;
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
+require_once __DIR__ . '/../messaging/lib/permission.lib.php';
 
 // use viewMode
 claro_set_display_mode_available(TRUE);
@@ -594,7 +594,7 @@ if ( is_integer($nbGroupPerUser) )
 
 if ( claro_is_user_authenticated () && get_conf( 'clgrp_displayMyGroups', true ) )
 {
-    require_once dirname(__FILE__) . '/lib/mygroups.lib.php';
+    require_once __DIR__ . '/lib/mygroups.lib.php';
     $myGroupList = new Claro_MyGroupList();
     $myGroupListTpl = new ModuleTemplate( 'CLGRP', 'mygroups.tpl.php' );
     $myGroupListTpl->assign( 'myGroupList', $myGroupList->getMyGroupList() );

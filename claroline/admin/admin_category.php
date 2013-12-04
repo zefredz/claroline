@@ -19,7 +19,7 @@ $gidReset = true; // group id
 $tidReset = true; // tool id
 
 // Load Claroline kernel
-require_once dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
+require_once __DIR__ . '/../inc/claro_init_global.inc.php';
 
 // Security check: is the user logged as administrator ?
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();

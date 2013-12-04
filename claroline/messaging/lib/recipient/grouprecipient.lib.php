@@ -17,7 +17,7 @@
 // used to get members of a group
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 //load recipientlist class
-require_once dirname(__FILE__) . '/recipientlist.lib.php';
+require_once __DIR__ . '/recipientlist.lib.php';
 
 class GroupRecipient extends RecipientList
 {

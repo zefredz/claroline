@@ -87,7 +87,7 @@ class TrackingRendererRegistry
      */
     private function loadDefaultRenderer()
     {
-        $file = dirname(__FILE__) . '/defaultTrackingRenderer.class.php';
+        $file = __DIR__ . '/defaultTrackingRenderer.class.php';
                 
         if( file_exists( $file ) )
         {

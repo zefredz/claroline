@@ -17,7 +17,7 @@
  */
 
 $cidReset = true;
-require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
 // ------------- Business Logic ---------------------------
@@ -27,7 +27,7 @@ if ( ! claro_is_user_authenticated() )
 }
 
 include claro_get_conf_repository() . 'CLMSG.conf.php';
-require_once dirname(__FILE__) . '/lib/permission.lib.php';
+require_once __DIR__ . '/lib/permission.lib.php';
 
 $userId = isset($_REQUEST['userId']) ? (int)$_REQUEST['userId'] : null;
 
@@ -79,20 +79,20 @@ if (!isset($_REQUEST['box']) || !in_array($_REQUEST['box'],$acceptedValues))
 $link_arg['box'] = $_REQUEST['box'];
 
 
-require_once dirname(__FILE__) . '/lib/tools.lib.php';
+require_once __DIR__ . '/lib/tools.lib.php';
 
 $content = "";
 if ($link_arg['box'] == "inbox")
 {
-    include dirname(__FILE__) . '/inboxcontroler.inc.php';
+    include __DIR__ . '/inboxcontroler.inc.php';
 }
 elseif ($link_arg['box'] == "outbox")
 {
-    include dirname(__FILE__) . '/outboxcontroler.inc.php';
+    include __DIR__ . '/outboxcontroler.inc.php';
 }
 else
 {
-    include dirname(__FILE__) . '/trashboxcontroler.inc.php';
+    include __DIR__ . '/trashboxcontroler.inc.php';
 }
 
 $claroline->display->banner->breadcrumbs->append($title,$_SERVER['PHP_SELF'].'?box='.$link_arg['box']);

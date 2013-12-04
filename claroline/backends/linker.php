@@ -18,7 +18,7 @@
 
 try
 {
-    require_once dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
+    require_once __DIR__ . '/../inc/claro_init_global.inc.php';
     
     FromKernel::uses( 'core/linker.lib', 'utils/ajax.lib', 'utils/input.lib' );
     

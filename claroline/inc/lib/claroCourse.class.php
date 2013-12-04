@@ -15,11 +15,11 @@
  * @since       1.9
  */
 
-require_once dirname(__FILE__) . '/backlog.class.php';
-require_once dirname(__FILE__) . '/admin.lib.inc.php'; // for delete course function
-require_once dirname(__FILE__) . '/clarocategory.class.php';
-require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
-require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+require_once __DIR__ . '/backlog.class.php';
+require_once __DIR__ . '/admin.lib.inc.php'; // for delete course function
+require_once __DIR__ . '/clarocategory.class.php';
+require_once __DIR__ . '/../../messaging/lib/message/messagetosend.lib.php';
+require_once __DIR__ . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
 
 class ClaroCourse
 {

@@ -12,7 +12,7 @@
  * @author      Claro Team <cvs@claroline.net>
  */
 
-require_once dirname(__FILE__) . '/constants.inc.php';
+require_once __DIR__ . '/constants.inc.php';
 
 /**
  * Class right profile
@@ -266,7 +266,7 @@ class RightProfile
     public function validate()
     {
         // use validator library
-        require_once dirname(__FILE__) . '/../datavalidator.lib.php';
+        require_once __DIR__ . '/../datavalidator.lib.php';
 
         // new validator
         $validator = new DataValidator();

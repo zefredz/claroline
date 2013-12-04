@@ -15,7 +15,7 @@
  */
 
 //load recipientlist class
-require_once dirname(__FILE__) . '/recipientlist.lib.php';
+require_once __DIR__ . '/recipientlist.lib.php';
 
 class UserListRecipient extends RecipientList
 {

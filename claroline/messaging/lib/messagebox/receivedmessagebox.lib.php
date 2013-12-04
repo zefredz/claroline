@@ -16,9 +16,9 @@
 
 
 //load messagebox class
-require_once dirname(__FILE__) . '/messagebox.lib.php';
+require_once __DIR__ . '/messagebox.lib.php';
 //load receivedmessage class
-require_once dirname(__FILE__) . '/../message/receivedmessage.lib.php';
+require_once __DIR__ . '/../message/receivedmessage.lib.php';
 
 class ReceivedMessageBox extends MessageBox
 {

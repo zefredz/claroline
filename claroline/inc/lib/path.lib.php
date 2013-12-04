@@ -41,7 +41,7 @@ function get_path($pathKey)
 
     if ( count($pathList) == 0 )
     {
-        $rootPath = dirname(dirname(dirname(dirname(__FILE__))));
+        $rootPath = dirname(dirname(dirname(__DIR__)));
 
         // root path
         $pathList['rootSys'] =  $rootPath . '/' ;

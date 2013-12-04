@@ -17,7 +17,7 @@
 // used to get users of a course
 require_once get_path('incRepositorySys')  . '/lib/course_user.lib.php';
 //load recipientlist class
-require_once dirname(__FILE__) . '/recipientlist.lib.php';
+require_once __DIR__ . '/recipientlist.lib.php';
 
 class CourseRecipient extends RecipientList
 {

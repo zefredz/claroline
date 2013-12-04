@@ -8,7 +8,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // Determine the directory path where this current file lies
 // This path will be useful to include the other intialisation files
 
-$includePath = realpath(dirname(__FILE__).'/../../inc');
+$includePath = realpath(__DIR__.'/../../inc');
 
 if ( file_exists($includePath . '/conf/claro_main.conf.php') )
 {
@@ -97,8 +97,8 @@ $clarolineRepositorySys = get_conf('rootSys') . $clarolineRepositoryAppend;
   ----------------------------------------------------------------------*/
 
 require_once $includePath . '/lib/config.lib.inc.php';
-require_once dirname(__FILE__) . '/configUpgrade.class.php';
-require_once dirname(__FILE__) . '/upgrade.lib.php';
+require_once __DIR__ . '/configUpgrade.class.php';
+require_once __DIR__ . '/upgrade.lib.php';
 
 /**
  * List of accepted error - See MySQL error codes :

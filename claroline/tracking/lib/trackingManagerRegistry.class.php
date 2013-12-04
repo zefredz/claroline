@@ -46,7 +46,7 @@ class TrackingManagerRegistry
 
     private function loadDefaultManager()
     {
-        $file = dirname(__FILE__) . '/defaultTrackingManager.class.php';
+        $file = __DIR__ . '/defaultTrackingManager.class.php';
                 
         if( file_exists( $file ) )
         {

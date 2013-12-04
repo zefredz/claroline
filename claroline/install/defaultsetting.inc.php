@@ -49,7 +49,7 @@ $caseSensitive = (PHP_OS == 'WIN32' || PHP_OS == 'WINNT') ? 'i' : '';
 $ereg = "#/claroline/install/".basename($_SERVER['SCRIPT_NAME'])."$#$caseSensitive";
 $urlAppendPath  = preg_replace ($ereg, '', $urlAppendPath);
 $urlForm        = 'http://' . $_SERVER['SERVER_NAME'] . ($_SERVER['SERVER_PORT']!='80'?':' . $_SERVER['SERVER_PORT']:'') . $urlAppendPath . '/';
-$pathForm       = dirname(dirname(dirname(__FILE__))) . '/';
+$pathForm       = dirname(dirname(__DIR__)) . '/';
 
 $imgRepositoryAppendForm        =  $conf_def_property_list['imgRepositoryAppend']['default'];
 $userImageRepositoryAppendForm =  $conf_def_property_list['userImageRepositoryAppend']['default'];

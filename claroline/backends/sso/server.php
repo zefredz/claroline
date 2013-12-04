@@ -28,7 +28,7 @@ $HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA)
     : file_get_contents("php://input")
     ;
 
-require_once dirname(__FILE__).'/../../inc/claro_init_global.inc.php';
+require_once __DIR__.'/../../inc/claro_init_global.inc.php';
 
 FromKernel::uses('thirdparty/nusoap/nusoap.lib');
 

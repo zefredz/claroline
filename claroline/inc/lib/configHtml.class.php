@@ -16,11 +16,11 @@ if ( count( get_included_files() ) == 1 )
  * @see     http://www.claroline.net/wiki/config_def/
  * @package CONFIG
  * @author  Claro Team <cvs@claroline.net>
- * @author  Christophe Gesché <moosh@claroline.net>
+ * @author  Christophe GeschÃ© <moosh@claroline.net>
  * @author  Mathieu Laurent <laurent@cerdecam.be>
  */
 
-require_once dirname(__FILE__) . '/config.class.php';
+require_once __DIR__ . '/config.class.php';
 
 /**
  * To use this class.

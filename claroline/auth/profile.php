@@ -139,7 +139,7 @@ if ( isset($_REQUEST['applyChange']) )
         
         // re-init the system to take new settings in account
         $uidReset = true;
-        include dirname(__FILE__) . '/../inc/claro_init_local.inc.php';
+        include __DIR__ . '/../inc/claro_init_local.inc.php';
         $dialogBox->success( get_lang('The information have been modified') );
         
         // Initialise

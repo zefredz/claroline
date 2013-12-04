@@ -19,7 +19,7 @@ $_course = array();
 
 $siteName ='';
 
-require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
+require __DIR__ . '/../inc/claro_init_global.inc.php';
 
 include claro_get_conf_repository() . 'rss.conf.php';
 

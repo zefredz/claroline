@@ -35,7 +35,7 @@
  * @package     kernel.database
  */
 
-require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
+require_once __DIR__ . '/../utils/iterators.lib.php';
 
 /**
  * Database Specific Exception

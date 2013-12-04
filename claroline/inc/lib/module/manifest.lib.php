@@ -14,7 +14,7 @@
  * @package KERNEL
  */
 
-require_once dirname(__FILE__) . '/../backlog.class.php';
+require_once __DIR__ . '/../backlog.class.php';
 
 /**
  *  Module manifest parser

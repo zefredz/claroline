@@ -25,11 +25,11 @@ define('CLARO_INCLUDE_ALLOWED', true);
 // Determine the directory path where this current file lies
 // This path will be useful to include the other intialisation files
 
-require_once  dirname(__FILE__) . '/lib/claro_main.lib.php';
+require_once  __DIR__ . '/lib/claro_main.lib.php';
 
 $_SERVER['PHP_SELF'] = php_self();
 
-$mainConfigurationFile = dirname(__FILE__) . '/../../platform/conf/claro_main.conf.php';
+$mainConfigurationFile = __DIR__ . '/../../platform/conf/claro_main.conf.php';
 
 if ( file_exists($mainConfigurationFile) )
 {

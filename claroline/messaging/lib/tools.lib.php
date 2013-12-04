@@ -49,7 +49,7 @@
      */
     function getBarMessageBox( $currentUserId, $currentSection )
     {
-        require_once dirname(__FILE__) . '/messagebox/inbox.lib.php';
+        require_once __DIR__ . '/messagebox/inbox.lib.php';
         
         $inboxWithoutFilter = new InBox($currentUserId);
 

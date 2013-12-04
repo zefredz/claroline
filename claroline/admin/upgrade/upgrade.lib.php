@@ -733,19 +733,19 @@ class UpgradeTrackingOffset
     
     public static function store($offset)
     {
-        if ( ! file_exists( dirname(__FILE__) . '/../../../platform' ) )
+        if ( ! file_exists( __DIR__ . '/../../../platform' ) )
         {
-            claro_mkdir( dirname(__FILE__) . '/../../../platform', CLARO_FILE_PERMISSIONS, true );
+            claro_mkdir( __DIR__ . '/../../../platform', CLARO_FILE_PERMISSIONS, true );
         }
         
-        file_put_contents(dirname(__FILE__) . self::$path, (int) $offset);
+        file_put_contents(__DIR__ . self::$path, (int) $offset);
     }
     
     public static function retrieve()
     {
-        if( file_exists(dirname(__FILE__) . self::$path) )
+        if( file_exists(__DIR__ . self::$path) )
         {
-            $recoveredOffset = (int) trim(file_get_contents(dirname(__FILE__) . self::$path));
+            $recoveredOffset = (int) trim(file_get_contents(__DIR__ . self::$path));
         }
         else
         {
@@ -757,9 +757,9 @@ class UpgradeTrackingOffset
     
     public static function reset()
     {
-        if( file_exists(dirname(__FILE__) . self::$path) )
+        if( file_exists(__DIR__ . self::$path) )
         {
-            unlink(dirname(__FILE__) . self::$path);
+            unlink(__DIR__ . self::$path);
         }
     }
 }

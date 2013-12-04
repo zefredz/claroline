@@ -14,7 +14,7 @@
  * @package     KERNEL
  */
 
-require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
+require __DIR__ . '/../inc/claro_init_global.inc.php';
 
 require_once get_path('incRepositorySys') . '/lib/url.lib.php';
 require_once get_path('incRepositorySys') . '/lib/file.lib.php';

@@ -15,9 +15,9 @@
  * @package     Wiki
  */
 
-require_once dirname(__FILE__) . "/class.wiki2xhtmlarea.php";
-require_once dirname(__FILE__) . "/class.wikiaccesscontrol.php";
-require_once dirname(__FILE__) . "/lib.url.php";
+require_once __DIR__ . "/class.wiki2xhtmlarea.php";
+require_once __DIR__ . "/class.wikiaccesscontrol.php";
+require_once __DIR__ . "/lib.url.php";
 
 /**
  * Generate wiki editor html code

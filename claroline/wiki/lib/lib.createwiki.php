@@ -19,11 +19,11 @@
  * @package Wiki
  */
 
-require_once dirname(__FILE__) . "/class.wikiaccesscontrol.php";
-require_once dirname(__FILE__) . "/class.wikistore.php";
-require_once dirname(__FILE__) . "/class.wikipage.php";
-require_once dirname(__FILE__) . "/class.wiki.php";
-require_once dirname(__FILE__) . "/lib.wikisql.php";
+require_once __DIR__ . "/class.wikiaccesscontrol.php";
+require_once __DIR__ . "/class.wikistore.php";
+require_once __DIR__ . "/class.wikipage.php";
+require_once __DIR__ . "/class.wiki.php";
+require_once __DIR__ . "/lib.wikisql.php";
 
 function create_wiki($gid = false, $wikiName = 'New wiki')
 {

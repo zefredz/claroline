@@ -19,58 +19,58 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * @todo use Exceptions instead of claro_failure
  */
 
-require_once dirname(__FILE__) . '/compat_php54.lib.php';
-require_once dirname(__FILE__) . '/language.lib.php';
-require_once dirname(__FILE__) . '/core/core.lib.php';
-require_once dirname(__FILE__) . '/core/context.lib.php';
+require_once __DIR__ . '/compat_php54.lib.php';
+require_once __DIR__ . '/language.lib.php';
+require_once __DIR__ . '/core/core.lib.php';
+require_once __DIR__ . '/core/context.lib.php';
 
 /**
  * SECTION :  Function to access the sql datas
  */
-require_once dirname(__FILE__) . '/sql.lib.php';
+require_once __DIR__ . '/sql.lib.php';
 
 /**
  * SECTION :  Class & function to prepare a normalised html output.
  */
-require_once dirname(__FILE__) . '/init.lib.php';
+require_once __DIR__ . '/init.lib.php';
 
 /**
  * SECTION :  Class & function to prepare a normalised html output.
  */
-require_once dirname(__FILE__) . '/path.lib.php';
+require_once __DIR__ . '/path.lib.php';
 
 
 /**
  * SECTION :  File handling functions
  */
-require_once dirname(__FILE__) . '/file.lib.php';
+require_once __DIR__ . '/file.lib.php';
 
 /**
  * SECTION : PHP COMPAT For PHP backward compatibility
  */
-require_once dirname(__FILE__) . '/compat.lib.php';
+require_once __DIR__ . '/compat.lib.php';
 
 /**
  * SECTION :  Class & function to prepare a normalised html output.
  */
-require_once dirname(__FILE__) . '/html.lib.php';
+require_once __DIR__ . '/html.lib.php';
 
 /**
  * SECTION :  Class & function to get text zone contents.
  */
-require_once dirname(__FILE__) . '/textzone.lib.php';
+require_once __DIR__ . '/textzone.lib.php';
 
 /**
  * SECTION :  Modules functions
  */
-require_once dirname(__FILE__) . '/module.lib.php';
-require_once dirname(__FILE__) . '/module/manage.lib.php';
+require_once __DIR__ . '/module.lib.php';
+require_once __DIR__ . '/module/manage.lib.php';
 
 /**
  * SECTION :  Icon functions
  * depends on module.lib.php
  */
-require_once dirname(__FILE__) . '/icon.lib.php';
+require_once __DIR__ . '/icon.lib.php';
 
 /**
  * SECTION :  Get kernel

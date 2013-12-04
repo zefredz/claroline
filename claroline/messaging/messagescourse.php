@@ -17,10 +17,10 @@
  */
 
 // initializtion
-require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
 include claro_get_conf_repository() . 'CLMSG.conf.php';
-require_once dirname(__FILE__) . '/lib/message/messagetosend.lib.php';
-require_once dirname(__FILE__) . '/lib/recipient/userlistrecipient.lib.php';
+require_once __DIR__ . '/lib/message/messagetosend.lib.php';
+require_once __DIR__ . '/lib/recipient/userlistrecipient.lib.php';
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/class.lib.php';
 require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';

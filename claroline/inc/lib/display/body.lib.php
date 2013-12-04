@@ -14,7 +14,7 @@
  * @package     display
  */
 
-require_once dirname(__FILE__) . '/course.lib.php';
+require_once __DIR__ . '/course.lib.php';
 
 class ClaroBody extends CoreTemplate
 {

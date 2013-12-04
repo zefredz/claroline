@@ -14,10 +14,10 @@
  */
 
 // Load Claroline kernel
-require_once dirname(__FILE__) . '/../../inc/claro_init_global.inc.php';
-require_once dirname(__FILE__) . '/../../inc/lib/courselist.lib.php';
-require_once dirname(__FILE__) . '/../../inc/lib/course/courselist.lib.php';
-require_once dirname(__FILE__) . '/../../inc/lib/class.lib.php';
+require_once __DIR__ . '/../../inc/claro_init_global.inc.php';
+require_once __DIR__ . '/../../inc/lib/courselist.lib.php';
+require_once __DIR__ . '/../../inc/lib/course/courselist.lib.php';
+require_once __DIR__ . '/../../inc/lib/class.lib.php';
 
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 

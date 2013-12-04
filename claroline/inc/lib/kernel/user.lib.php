@@ -16,9 +16,9 @@
  * @package     kernel.objects
  */
 
-require_once dirname(__FILE__) . '/object.lib.php';
-require_once dirname(__FILE__) . '/../core/claroline.lib.php';
-require_once dirname(__FILE__) . '/../database/database.lib.php';
+require_once __DIR__ . '/object.lib.php';
+require_once __DIR__ . '/../core/claroline.lib.php';
+require_once __DIR__ . '/../database/database.lib.php';
 
 /**
  * Object used to load and represent a user.

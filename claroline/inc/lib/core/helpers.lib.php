@@ -277,7 +277,7 @@ function get_group_tool_menu( $gid = null, $courseId = null, $active = true )
         $courseId = claro_get_current_course_id();
     }
     
-    require_once dirname(__FILE__) . '/../group.lib.inc.php';
+    require_once __DIR__ . '/../group.lib.inc.php';
     
     $groupToolList = get_group_tool_list( $courseId, $active );
 

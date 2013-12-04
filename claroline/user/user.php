@@ -34,7 +34,7 @@ require_once get_path('incRepositorySys')  . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys')  . '/lib/user.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/course_user.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/pager.lib.php';
-require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
+require_once __DIR__ . '/../messaging/lib/permission.lib.php';
 
 /*----------------------------------------------------------------------
    Load config
@@ -205,7 +205,7 @@ if ( $is_allowedToEdit )
     // Export users list
     if( $cmd == 'export' && $can_export_user_list )
     {
-        require_once( dirname(__FILE__) . '/lib/export.lib.php');
+        require_once( __DIR__ . '/lib/export.lib.php');
         
         // contruction of XML flow
         $csv = export_user_list(claro_get_current_course_id());

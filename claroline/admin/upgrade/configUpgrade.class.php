@@ -17,7 +17,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author      Mathieu Laurent <laurent@cerdecam.be>
  */
 
-require_once dirname(__FILE__) . '/../../inc/lib/config.class.php';
+require_once __DIR__ . '/../../inc/lib/config.class.php';
 
 class ConfigUpgrade extends Config
 {

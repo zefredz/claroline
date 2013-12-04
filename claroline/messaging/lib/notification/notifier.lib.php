@@ -28,7 +28,7 @@ class MessagingUserNotifier
     public static function notify ($uidList, $message, $messageId)
     {
         // list all file in ./notifier/
-        $notifierFile = new Claro_FileFinder_Extension(dirname(__FILE__) . '/notifier/', '.notifier.lib.php', false);
+        $notifierFile = new Claro_FileFinder_Extension(__DIR__ . '/notifier/', '.notifier.lib.php', false);
         
         $classNotLoad = '';
         

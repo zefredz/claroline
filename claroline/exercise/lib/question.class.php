@@ -9,7 +9,7 @@
  * @author      Claro Team <cvs@claroline.net>
  */
 
-include_once dirname(__FILE__) . '/exercise.lib.php';
+include_once __DIR__ . '/exercise.lib.php';
 
 class Question
 {
@@ -703,7 +703,7 @@ class Question
      */
     public function setAnswer()
     {
-        $path = dirname(__FILE__);
+        $path = __DIR__;
 
         switch($this->type)
         {

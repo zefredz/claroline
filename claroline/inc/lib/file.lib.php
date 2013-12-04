@@ -15,7 +15,7 @@
  * @package     KERNEL
  */
 
-require_once dirname(__FILE__) . '/core/url.lib.php';
+require_once __DIR__ . '/core/url.lib.php';
 
 function file_upload_failed( $file )
 {

@@ -15,7 +15,7 @@
  * @package     kernel.core
  */
 
-require_once dirname(__FILE__) . '/debug.lib.php';
+require_once __DIR__ . '/debug.lib.php';
 
 class Console
 {

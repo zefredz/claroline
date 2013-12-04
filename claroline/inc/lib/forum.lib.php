@@ -423,8 +423,8 @@ function trig_forum_notification($forumId)
         . '</a><br/>' . "\n"
         ;
 
-        require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
-        require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
+        require_once __DIR__ . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+        require_once __DIR__ . '/../../messaging/lib/message/platformmessagetosend.lib.php';
 
         $recipient = new UserListRecipient();
 
@@ -770,8 +770,8 @@ function trig_topic_notification($topicId)
             . '</a><br/>' . "\n"
             ;
     
-        require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
-        require_once dirname(__FILE__) . '/../../messaging/lib/message/platformmessagetosend.lib.php';
+        require_once __DIR__ . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+        require_once __DIR__ . '/../../messaging/lib/message/platformmessagetosend.lib.php';
 
         $recipient = new UserListRecipient();
 
@@ -934,7 +934,7 @@ class topicLister
                 WHERE     t.forum_id = '" . (int) $forumId . "'
                 ORDER BY  topic_time DESC";
 
-        require_once dirname(__FILE__) . '/pager.lib.php';
+        require_once __DIR__ . '/pager.lib.php';
 
         $this->sqlPager = new claro_sql_pager($sql, $start, $topicPerPage);
         $this->sqlPager->set_pager_call_param_name('start');
@@ -1008,7 +1008,7 @@ class postLister
 
                ORDER BY post_id";
 
-        require_once dirname(__FILE__) . '/pager.lib.php';
+        require_once __DIR__ . '/pager.lib.php';
 
         $this->sqlPager = new claro_sql_pager($sql, $start, $postsPerPage);
 

@@ -15,8 +15,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @since 1.6
  */
 
-require_once dirname(__FILE__) . '/user.lib.php' ;
-require_once dirname(__FILE__) . '/course_user.lib.php' ;
+require_once __DIR__ . '/user.lib.php' ;
+require_once __DIR__ . '/course_user.lib.php' ;
 
 /**
  * Get class data on the platform

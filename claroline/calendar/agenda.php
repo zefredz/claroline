@@ -20,7 +20,7 @@
 $tlabelReq  = 'CLCAL';
 $gidReset   = true;
 
-require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
 
 $_user      = claro_get_current_user_data();
 $_course    = claro_get_current_course_data();

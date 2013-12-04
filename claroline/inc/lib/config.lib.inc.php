@@ -20,8 +20,8 @@ if ( count( get_included_files() ) == 1 )
  * @author  Mathieu Laurent <laurent@cerdecam.be>
  */
 
-require_once dirname(__FILE__) . '/config.class.php';
-require_once dirname(__FILE__) . '/module/manage.lib.php';
+require_once __DIR__ . '/config.class.php';
+require_once __DIR__ . '/module/manage.lib.php';
 
 /**
  * Proceed to rename conf.php.dist file in unexisting .conf.php files

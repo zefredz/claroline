@@ -16,7 +16,7 @@
 
 
 //load internalmessage class
-require_once dirname(__FILE__) . '/internalmessage.lib.php';
+require_once __DIR__ . '/internalmessage.lib.php';
 
 abstract class StoredMessage extends InternalMessage
 {

@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 )
  * @package     internal_messaging
  */
 
-require_once dirname(__FILE__) . '/lib/messagebox/outbox.lib.php';
+require_once __DIR__ . '/lib/messagebox/outbox.lib.php';
 
 $deleteConfirmation = FALSE;
 

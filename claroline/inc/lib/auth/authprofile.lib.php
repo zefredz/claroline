@@ -1,7 +1,7 @@
 <?php // $Id$
 
-require_once dirname(__FILE__) . '/../kernel/course.lib.php';
-require_once dirname(__FILE__) . '/authmanager.lib.php';
+require_once __DIR__ . '/../kernel/course.lib.php';
+require_once __DIR__ . '/authmanager.lib.php';
 
 // vim: expandtab sw=4 ts=4 sts=4:
 

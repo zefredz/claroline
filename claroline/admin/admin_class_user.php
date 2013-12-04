@@ -77,7 +77,7 @@ if ( !empty($class_id) )
         case 'export' :
             if( $cmd == 'export' && claro_is_platform_admin() )
             {
-                require_once( dirname(__FILE__) . '/../user/lib/export.lib.php');
+                require_once( __DIR__ . '/../user/lib/export.lib.php');
                 
                 $csv = export_user_list_for_class( $class_id );
                 if( !empty($csv) )

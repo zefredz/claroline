@@ -20,7 +20,7 @@
 
 $cidReset = true;
 
-require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
 
 // check access
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();

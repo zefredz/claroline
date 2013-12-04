@@ -16,7 +16,7 @@
 
 
 //load storedmessage class
-require_once dirname(__FILE__) . '/storedmessage.lib.php';
+require_once __DIR__ . '/storedmessage.lib.php';
 
 class ReceivedMessage extends StoredMessage
 {

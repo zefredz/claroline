@@ -18,7 +18,7 @@
  *
  * @package Wiki2xhtmlArea
  */
-require_once dirname(__FILE__) . "/lib.javascript.php";
+require_once __DIR__ . "/lib.javascript.php";
 
 /**
  * Wiki2xhtml editor textarea

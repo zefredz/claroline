@@ -94,7 +94,7 @@ $menu['AdminPlatform'][] = '<a href="module/module_list.php">'.get_lang('Modules
 $menu['AdminPlatform'][] = '<a href="adminmailsystem.php">'.get_lang('Manage administrator email notifications').'</a>';
 
 
-if (file_exists(dirname(__FILE__) . '/maintenance/checkmails.php'))
+if (file_exists(__DIR__ . '/maintenance/checkmails.php'))
 {
     $menu['AdminPlatform'][] = '<a href="maintenance/checkmails.php">'.get_lang('Check and Repair emails of users').'</a>';
 }

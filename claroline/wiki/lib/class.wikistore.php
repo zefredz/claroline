@@ -19,7 +19,7 @@
  * @package Wiki
  */
 
-require_once dirname(__FILE__) . "/class.wiki.php";
+require_once __DIR__ . "/class.wiki.php";
 
 // Error codes
 !defined("WIKI_NO_TITLE_ERROR") && define( "WIKI_NO_TITLE_ERROR", "Missing title" );

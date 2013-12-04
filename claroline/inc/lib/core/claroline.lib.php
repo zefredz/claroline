@@ -18,15 +18,15 @@
  * @package     kernel.core
  */
 
-require_once dirname(__FILE__) . '/../core/debug.lib.php';
-require_once dirname(__FILE__) . '/../core/console.lib.php';
-require_once dirname(__FILE__) . '/../core/event.lib.php';
-require_once dirname(__FILE__) . '/../core/log.lib.php';
-require_once dirname(__FILE__) . '/../core/url.lib.php';
-require_once dirname(__FILE__) . '/../core/notify.lib.php';
-require_once dirname(__FILE__) . '/../display/display.lib.php';
-require_once dirname(__FILE__) . '/../database/database.lib.php';
-require_once dirname(__FILE__) . '/../utils/ajax.lib.php';
+require_once __DIR__ . '/../core/debug.lib.php';
+require_once __DIR__ . '/../core/console.lib.php';
+require_once __DIR__ . '/../core/event.lib.php';
+require_once __DIR__ . '/../core/log.lib.php';
+require_once __DIR__ . '/../core/url.lib.php';
+require_once __DIR__ . '/../core/notify.lib.php';
+require_once __DIR__ . '/../display/display.lib.php';
+require_once __DIR__ . '/../database/database.lib.php';
+require_once __DIR__ . '/../utils/ajax.lib.php';
 
 /**
  * Main Claroline class containing references to Claroline kernel objects

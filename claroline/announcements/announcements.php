@@ -347,8 +347,8 @@ if($is_allowedToEdit) // check teacher status
                     "\n" .
                     ResourceLinker::renderLinkList( $currentLocator, true );
                 
-                require_once dirname(__FILE__) . '/../messaging/lib/message/messagetosend.lib.php';
-                require_once dirname(__FILE__) . '/../messaging/lib/recipient/courserecipient.lib.php';
+                require_once __DIR__ . '/../messaging/lib/message/messagetosend.lib.php';
+                require_once __DIR__ . '/../messaging/lib/recipient/courserecipient.lib.php';
                 
                 $courseRecipient = new CourseRecipient(claro_get_current_course_id());
                 

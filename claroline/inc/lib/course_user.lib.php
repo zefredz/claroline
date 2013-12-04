@@ -1,8 +1,8 @@
 <?php // $Id$
 
-require_once dirname(__FILE__) . '/auth/authprofile.lib.php';
-require_once dirname(__FILE__) . '/course/userprivileges.lib.php';
-require_once dirname(__FILE__) . '/users/courseregistration.lib.php';
+require_once __DIR__ . '/auth/authprofile.lib.php';
+require_once __DIR__ . '/course/userprivileges.lib.php';
+require_once __DIR__ . '/users/courseregistration.lib.php';
 
 /**
  * CLAROLINE
@@ -497,8 +497,8 @@ function user_set_course_tutor($status , $userId, $courseId)
 
 function user_send_enroll_to_course_mail($userId, $data, $course=null)
 {
-    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
-    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/singleuserrecipient.lib.php';
+    require_once __DIR__ . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once __DIR__ . '/../../messaging/lib/recipient/singleuserrecipient.lib.php';
     
     $courseData = claro_get_course_data($course);
 
