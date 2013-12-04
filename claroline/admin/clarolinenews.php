@@ -41,7 +41,13 @@ $urlNewsClaroline = 'http://www.claroline.net/feed/';
 $rss = new lastRSS;
 
 // where the cached file will be written
-$rss->cache_dir = get_path('rootSys') . '/tmp/cache/';
+$rss->cache_dir = get_path('rootSys') . '/tmp/cache/news';
+
+if ( !file_exists ( get_path('rootSys') . '/tmp/cache/news' ) )
+{
+    claro_mkdir( get_path('rootSys') . '/tmp/cache/news', CLARO_FILE_PERMISSIONS );
+}
+
 // how long without refresh the cache
 $rss->cache_time = 1200;
 
