@@ -11,10 +11,8 @@
  * @author      Frédéric Minne <zefredz@claroline.net>
  */
 
-// Reset session variables
-$cidReset = true; // course id
-$gidReset = true; // group id
-$tidReset = true; // tool id
+// Reset context session variables
+$GLOBALS['contextReset'] = true;
 
 require_once '../../inc/claro_init_global.inc.php';
 
