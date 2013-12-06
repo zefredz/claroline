@@ -39,7 +39,8 @@ class CourseUserPrivileges
         $is_courseAdmin,
         $is_courseTutor,
         $is_coursePending,
-        $is_courseMember;
+        $is_courseMember,
+        $is_registeredByClass;
     
     /**
      * Constructor
@@ -61,7 +62,8 @@ class CourseUserPrivileges
                 cu.profile_id AS profileId,
                 cu.isCourseManager,
                 cu.isPending,
-                cu.tutor
+                cu.tutor,
+                cu.count_class_enrol
             FROM
                 `{$tbl_mdb_names['rel_course_user']}` `cu`
             WHERE
@@ -76,6 +78,7 @@ class CourseUserPrivileges
             $this->is_courseMember   = true;
             $this->is_courseTutor    = (bool) ($cuData['tutor'] == 1 );
             $this->is_courseAdmin    = (bool) ($cuData['isCourseManager'] == 1 );
+            $this->is_registeredByClass = ((int)$cuData['count_class_enrol'] > 0);
         }
         else // this user has no status related to this course
         {
@@ -84,6 +87,7 @@ class CourseUserPrivileges
             $this->is_courseMember   = false;
             $this->is_courseTutor    = false;
             $this->is_courseAdmin    = false;
+            $this->is_registeredByClass = false;
         }
     }
     
@@ -124,6 +128,15 @@ class CourseUserPrivileges
     }
     
     /**
+     * Is the register through a class ?
+     * @return bool
+     */
+    public function isRegisteredByClass()
+    {
+        return $this->is_registeredByClass;
+    }
+    
+    /**
      * Get the user's profile id in the course
      * @return int
      */
@@ -153,6 +166,7 @@ class CourseUserPrivileges
             $priv->is_courseMember   = true;
             $priv->is_courseTutor    = (bool) ($data['tutor'] == 1 );
             $priv->is_courseAdmin    = (bool) ($data['isCourseManager'] == 1 );
+            $priv->is_registeredByClass = ((int)$data['count_class_enrol'] > 0);
         }
         else
         {
@@ -161,6 +175,7 @@ class CourseUserPrivileges
             $priv->is_courseMember   = false;
             $priv->is_courseTutor    = false;
             $priv->is_courseAdmin    = false;
+            $priv->is_registeredByClass = false;
         }
         
         return $priv;
@@ -181,6 +196,7 @@ class CourseAnonymousUserPrivileges extends CourseUserPrivileges
         $this->is_courseMember   = false;
         $this->is_courseTutor    = false;
         $this->is_courseAdmin    = false;
+        $this->is_registeredByClass = false;
     }
     
     public static function fromArray( $courseId, $ignoredUserId = null, $ignoredData = null )
@@ -214,7 +230,8 @@ class CourseUserPrivilegesList
                     cu.profile_id AS profileId,
                     cu.isCourseManager,
                     cu.isPending,
-                    cu.tutor
+                    cu.tutor,
+                    cu.count_class_enrol
                 FROM
                     `{$tbl_mdb_names['rel_course_user']}` `cu`
                 WHERE
