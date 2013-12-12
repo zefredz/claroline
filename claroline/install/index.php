@@ -805,7 +805,7 @@ elseif(DISP_LICENSE == $display)
     .    '<textarea id="license" cols="65" rows="15">'
     ;
 
-    readfile ('../license/gpl.txt');
+    readfile ('../../LICENSE.txt');
     echo '</textarea>'
     ;
 
