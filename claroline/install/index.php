@@ -744,7 +744,8 @@ echo '<input type="hidden" name="alreadyVisited" value="1" />'                  
 .    '<input type="hidden" name="userPasswordCrypted"          value="'.$userPasswordCrypted.'" />'            ."\n"
 .    '<input type="hidden" name="encryptPassForm"              value="'.$encryptPassForm.'" />'                ."\n"
 .    '<input type="hidden" name="confirmUseExistingMainDb"     value="'.$confirmUseExistingMainDb.'" />'       ."\n"
-.    '<input type="hidden" name="confirmUseExistingStatsDb"    value="'.$confirmUseExistingStatsDb.'" />';
+.    '<input type="hidden" name="confirmUseExistingStatsDb"    value="'.$confirmUseExistingStatsDb.'" />'      . "\n"
+.    '<input type="hidden" name="clmain_serverTimezone"        value="'.$clmain_serverTimezone.'" />';
 
 
 ##### PANNELS  ######
@@ -1622,6 +1623,18 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     
+    .    '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="clmain_serverTimezone"><span class="required">*</span> '.get_lang('Server timezone').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+    .    claro_html_form_select( 'clmain_serverTimezone'
+                               , get_timezone_list ()
+                               , $clmain_serverTimezone
+                               , array('id'=>'clmain_serverTimezone')) . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
+    
     .    '</fieldset>' . "\n\n"
     
     .    '<fieldset>' . "\n"
@@ -1959,6 +1972,15 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     .    '</td>' . "\n"
     .    '<td class="checkValue">' . "\n"
     .    ucwords($languageForm)
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
+        
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
+    .    get_lang('Server timezone') . ' : ' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
+    .    ucwords($clmain_serverTimezone)
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     

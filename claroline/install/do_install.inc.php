@@ -250,6 +250,7 @@ try
             $form_value_list['allowSelfReg']     = (bool) $allowSelfReg;
             $form_value_list['platformLanguage'] = $languageForm ;
             $form_value_list['claro_stylesheet'] = 'classic';
+            $form_value_list['clmain_serverTimezone'] = $clmain_serverTimezone;
 
             ######### DEALING WITH FILES #########################################
 

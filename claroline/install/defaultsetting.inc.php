@@ -61,6 +61,7 @@ $institutionForm     = $conf_def_property_list['institution_name'] ['default'];
 $institutionUrlForm  = $conf_def_property_list['institution_url'] ['default'];
 
 $languageForm = $conf_def_property_list['platformLanguage']['default'];
+$clmain_serverTimezone = $conf_def_property_list['clmain_serverTimezone']['default'];
 
 $userPasswordCrypted = $conf_def_property_list['userPasswordCrypted']['default'];
 

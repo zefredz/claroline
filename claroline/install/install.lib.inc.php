@@ -244,3 +244,20 @@ function displayDbError( $query, $error, $errno )
         
     return true;
 }
+
+function get_timezone_list ()
+{
+    $timezone_identifiers = DateTimeZone::listIdentifiers ();
+
+    foreach ( $timezone_identifiers as $val )
+    {
+        $atz   = new DateTimeZone ( $val );
+        $aDate = new DateTime ( "now", $atz );
+        $timeArray[ "$val" ] = $val;
+    }
+
+    asort ( $timeArray );
+
+    return $timeArray;
+    
+}
