@@ -370,7 +370,7 @@ UPDATE `__CL_MAIN__category`
 SET `id` = 0 
 WHERE `code` = 'ROOT';
 
-INSERT INTO `__CL_MAIN__coursehomepage_portlet` 
+INSERT IGNORE INTO `__CL_MAIN__coursehomepage_portlet` 
 (`label`, `name`) 
 VALUES
 ('CLTI',    'Headlines'),
