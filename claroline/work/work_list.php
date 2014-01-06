@@ -56,7 +56,7 @@ $dialogBox = new DialogBox();
   ============================================================================*/
 unset ($req);
 
-$acceptedCmdList = array( 'rqDownload', 'exDownload' );
+$acceptedCmdList = array( 'rqDownload', 'exDownload','exPublishCorrections' );
 
 if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )   $cmd = $_REQUEST['cmd'];
 else                                                                            $cmd = null;
@@ -138,6 +138,18 @@ else
 }
 
 $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost ) || $is_allowedToEditAll;
+
+/*============================================================================
+    Publish all corrections
+  ============================================================================*/
+if ( $is_allowedToEditAll && $cmd == 'exPublishCorrections')
+{
+    $sql = "UPDATE `" . $tbl_wrk_submission . "` SET `visibility` = 'VISIBLE'
+     WHERE `parent_id` IS NOT NULL AND `assignment_id` = '" . $req['assignmentId'] . "'";
+    var_dump($sql);
+     if (claro_sql_query($sql))      
+    $dialogBox->success('All corrections are visible');
+}
 
 /*============================================================================
     Update notification
@@ -454,6 +466,13 @@ if ( $is_allowedToEditAll )
                    . '&assigId=' . $req['assignmentId']))
         );
     }
+    
+    $cmdList[] = array(
+        'name' => get_lang('Publish all corrections'),
+        'url' => htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+              . '?assigId=' . $req['assignmentId']
+              . '&cmd=exPublishCorrections'))
+     );
 }
 
 

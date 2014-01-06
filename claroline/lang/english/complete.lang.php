@@ -3569,3 +3569,4 @@ with the new data structure.</li>
 </ol>
 <p>Before starting the <em>Claroline Upgrade Tool</em>, we recommend you to make yourself a complete
 backup of the platform data (files and databases).</p>';
+$_lang['Publish all corrections'] = 'Publish all corrections';

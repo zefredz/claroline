@@ -3602,3 +3602,4 @@ $_lang['Web server'] = 'Serveur Web';
 $_lang['Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted'] = 'Attention. Ce fichier de configuration a été modifié manuellement. Le système va tenter de récupérer toutes les options de configuration, mais il n\'est pas garanti que les options ajoutées manuellement seront prise en compte';
 $_lang['The resource is invisible. Are you sure that you want to attach this resource ?'] = 'Cette ressource est invisible, êtes vous certain de vouloir l\'ajouter ?';
 $_lang['Move "%moduleName" to'] = 'Déplacer "%moduleName" vers';
+$_lang['Publish all corrections'] = 'Publier toutes les corrections';
