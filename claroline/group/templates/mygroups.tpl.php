@@ -1,7 +1,7 @@
+<?php if ( count( $this->myGroupList ) ): ?>
 <?php if ( !property_exists ( $this, 'displayTitle' ) || $this->displyaTitle == true ): ?>
 <h3><?php echo get_lang('My groups'); ?></h3>
 <?php endif; ?>
-<?php if ( count( $this->myGroupList ) ): ?>
 <table class="claroTable emphaseLine">
     <thead>
         <tr>
