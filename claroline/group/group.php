@@ -863,19 +863,13 @@ if( $groupList )
 }
 else
 {
-    if ( $is_allowedToManage )
-    {
-        $out .= "\n"
-        . '<tr>'
-        . '<td colspan="5" class="centerContent">'
-        . get_lang('Empty')
-        . '</td>'
-        . '</tr>'
-        ;
-    }
-    else
-    {
-        $colspan = ( $isGroupRegAllowed ? '4' : '3' );
+    $colspan = 3;
+    
+    if ( $is_allowedToManage ) $colspan += 2;
+    if ( $isTutorRegAllowed ) $colspan++;
+    if ( $isGroupRegAllowed ) $colspan++;
+    
+    
         
         $out .= "\n"
         . '<tr>'
@@ -884,7 +878,6 @@ else
         . '</td>'
         . '</tr>'
         ;
-    }
 }
 
 $out .= '</tbody>' . "\n"
