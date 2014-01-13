@@ -612,13 +612,25 @@ $out .=                                                         "\n"
       HEADINGS
    -------------*/
 
-$sortUrlList = $groupPager->get_sort_url_list($_SERVER['PHP_SELF']);
+if ( count($groupList) )
+{
 
-$out .= '<tr align="center">' . "\n"
-. '<th align="left">'
-. '&nbsp;<a href="'.claro_htmlspecialchars(Url::Contextualize( $sortUrlList['name'] )).'">'.get_lang("Groups") . '</a>'
-. '</th>' . "\n"
-;
+    $sortUrlList = $groupPager->get_sort_url_list($_SERVER['PHP_SELF']);
+
+    $out .= '<tr align="center">' . "\n"
+    . '<th align="left">'
+    . '&nbsp;<a href="'.claro_htmlspecialchars(Url::Contextualize( $sortUrlList['name'] )).'">'.get_lang("Groups") . '</a>'
+    . '</th>' . "\n"
+    ;
+}
+else
+{
+    $out .= '<tr align="center">' . "\n"
+    . '<th align="left">'
+    . get_lang("Groups")
+    . '</th>' . "\n"
+    ;
+}
 
 if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
 {
@@ -630,9 +642,18 @@ if ( $isTutorRegAllowed )
     $out .= '<th align="left">' . get_lang("Registration as tutor") . '</th>' . "\n"  ;
 }
 
-$out .= '<th>' . get_lang("Registered") . '</th>' . "\n"
-. '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['maxStudent'])).'">' . get_lang("Max.") . '</a></th>' . "\n"
-;
+if ( count( $groupList ) )
+{
+    $out .= '<th>' . get_lang("Registered") . '</th>' . "\n"
+    . '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['maxStudent'])).'">' . get_lang("Max.") . '</a></th>' . "\n"
+    ;
+}
+else
+{
+    $out .= '<th>' . get_lang("Registered") . '</th>' . "\n"
+    . '<th>'.get_lang("Max.") . '</th>' . "\n"
+    ;
+}
 
 if ( $is_allowedToManage ) // only for course administrator
 {
