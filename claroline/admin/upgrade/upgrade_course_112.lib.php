@@ -40,7 +40,7 @@ function lp_upgrade_to_112 ($course_code)
         {
         case 1 :
             // Add the field start date into lp_learnpath table
-            $sqlForUpdate[] = "ALTER TABLE   `" . $currentCourseDbNameGlu . " ADD  `startDate` DATETIME NOT NULL AFTER  `comment` ;";
+            $sqlForUpdate[] = "ALTER TABLE   `" . $currentCourseDbNameGlu . "` ADD  `startDate` DATETIME NOT NULL AFTER  `comment` ;";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
@@ -49,7 +49,7 @@ function lp_upgrade_to_112 ($course_code)
             
         case 2 :
             // Add the field start date into lp_learnpath table
-            $sqlForUpdate[] = "ALTER TABLE  `" . $currentCourseDbNameGlu . " ADD  `endDate` DATETIME NOT NULL AFTER  `comment` ;";
+            $sqlForUpdate[] = "ALTER TABLE  `" . $currentCourseDbNameGlu . "` ADD  `endDate` DATETIME NOT NULL AFTER  `comment` ;";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
