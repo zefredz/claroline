@@ -4,7 +4,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * Function to update course tool from 1.9 to 1.10
+ * Function to update course tool from 1.10/1.11 to 1.12
  *
  * - READ THE SAMPLE AND COPY PASTE IT
  * - ADD TWICE MORE COMMENT THAT YOU THINK NEEDED
@@ -17,15 +17,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     UPGRADE
  * @author      Claro Team <cvs@claroline.net>
- * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
  */
 
 /*===========================================================================
- Upgrade to claroline 1.10
+ Upgrade to claroline 1.12
  ===========================================================================*/
 
 
-function announcements_upgrade_to_112 ($course_code)
+function lp_upgrade_to_112 ($course_code)
 {
     global $currentCourseVersion;
 
