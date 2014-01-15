@@ -48,7 +48,7 @@
                 <b><?php echo $this->course['officialCode']; ?></b><br />
                 <?php echo $this->course['titular']; ?>
             </p>
-            
+                     
             <?php if ( claro_is_in_a_group() ): ?>
             
             <div class="clearer"></div>
@@ -107,6 +107,25 @@
         get_lang('Your enrolment to this course has not been validated yet')
         .'<br />'
         . get_lang( 'You won\'t be able to access all this course\'s content and/or features until the course manager grants you the access.' ) 
+    );
+
+    echo $dialogBox->render();
+?>
+<?php elseif( claro_is_course_allowed() && ! claro_is_course_member() ): ?>
+<?php
+    $dialogBox = new DialogBox();
+    
+    $dialogBox->warning(
+        get_lang("You aren't enroled to this course yet")
+            . '<br />' . get_lang("Click on the following link if you want to enroll to this course")
+            . '<br /><a href="'
+            . claro_htmlspecialchars( get_path('clarolineRepositoryWeb')
+                . 'auth/courses.php?cmd=exReg&course='
+                . claro_get_current_course_id() )
+            . '">'
+            . claro_html_icon( 'enroll' ) . ' '
+            . '<b>' . get_lang('Enrolment') . '</b>'
+            . '</a>'
     );
 
     echo $dialogBox->render();
