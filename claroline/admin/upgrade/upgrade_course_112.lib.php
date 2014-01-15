@@ -4,7 +4,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * Function to update course tool from 1.10/1.11 to 1.12
+ * Function to update course tool from 1.10 to 1.12
  *
  * - READ THE SAMPLE AND COPY PASTE IT
  * - ADD TWICE MORE COMMENT THAT YOU THINK NEEDED
@@ -40,7 +40,7 @@ function lp_upgrade_to_112 ($course_code)
         {
         case 1 :
             // Add the field start date into lp_learnpath table
-            $sqlForUpdate[] = "ALTER TABLE   `" . $currentCourseDbNameGlu . "` ADD  `startDate` DATETIME NOT NULL AFTER  `comment` ;";
+            $sqlForUpdate[] = "ALTER TABLE   `" . $currentCourseDbNameGlu . "lp_learnpath`  ADD  `startDate` DATETIME NOT NULL AFTER  `comment` ;";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;
@@ -49,7 +49,7 @@ function lp_upgrade_to_112 ($course_code)
             
         case 2 :
             // Add the field start date into lp_learnpath table
-            $sqlForUpdate[] = "ALTER TABLE  `" . $currentCourseDbNameGlu . "` ADD  `endDate` DATETIME NOT NULL AFTER  `comment` ;";
+            $sqlForUpdate[] = "ALTER TABLE  `" . $currentCourseDbNameGlu . "lp_learnpath`  ADD  `endDate` DATETIME NOT NULL AFTER  `comment` ;";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step;

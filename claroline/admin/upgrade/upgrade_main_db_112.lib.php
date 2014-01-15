@@ -10,7 +10,6 @@
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE *
  * @package     UPGRADE *
  * @author      Claro Team <cvs@claroline.net>
- * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
  *              (upgrades regarding session courses and categories)
  */
 
