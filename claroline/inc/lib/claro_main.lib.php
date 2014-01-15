@@ -1612,7 +1612,7 @@ function get_conf($param, $default = null)
 
 function claro_die($message)
 {
-    if ( class_exist('Claroline') && is_object( Claroline::getInstance ()->display ) )
+    if ( class_exists('Claroline') && is_object( Claroline::getInstance ()->display ) )
     {
         FromKernel::uses( 'display/dialogBox.lib' );
         $dialogBox = new DialogBox;
