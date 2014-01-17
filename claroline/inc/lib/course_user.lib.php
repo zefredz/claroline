@@ -1,7 +1,6 @@
 <?php // $Id$
 
 require_once __DIR__ . '/auth/authprofile.lib.php';
-require_once __DIR__ . '/course/userprivileges.lib.php';
 require_once __DIR__ . '/users/courseregistration.lib.php';
 
 /**

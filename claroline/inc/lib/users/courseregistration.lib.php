@@ -527,7 +527,12 @@ class Claro_CourseUserRegistration
      */
     protected function isUnregistrationAllowed()
     {
-        $coursePrivileges = new CourseUserPrivileges( $this->course->courseId, $this->userAuthProfile->getUserId() );
+        $user = new Claro_User( $this->userAuthProfile->getUserId() );
+        $user->load();
+        
+        $coursePrivileges = new Claro_CourseUserPrivileges( 
+            new Claro_UserPrivileges( $user ), 
+            $this->course );
         
         if ( !$this->forceUnregOfManager && $coursePrivileges->isCourseManager () && $this->userAuthProfile->getUserId() == claro_get_current_user_id () && !claro_is_platform_admin () )
         {

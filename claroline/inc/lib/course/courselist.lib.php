@@ -670,7 +670,7 @@ class CourseTreeView implements Display
     protected $courseTreeRootNode;
     
     /**
-     * @var CourseUserPrivilegesList
+     * @var Claro_CourseUserPrivilegesList
      */
     protected $courseUserPrivilegesList;
     
@@ -700,7 +700,7 @@ class CourseTreeView implements Display
      * create set a default CourseTreeViewOptions.
      * 
      * @param CourseTree
-     * @param CourseUserPrivilegesList (default: null)
+     * @param Claro_CourseUserPrivilegesList (default: null)
      * @param NotifiedCourseList (default: null)
      * @param Database_ResultSet list of categories (default: null)
      * @param int id of selected category (default: null)
@@ -972,7 +972,7 @@ class CourseTreeNodeViewFactory
         $courseListIterator = $courseList->getIterator();
         
         // User rights
-        $privilegeList = new CourseUserPrivilegesList($userId);
+        $privilegeList = new Claro_CourseUserPrivilegesList($userId);
         $privilegeList->load();
         
         // Hot courses
@@ -1021,7 +1021,7 @@ class CourseTreeNodeViewFactory
         $courseListIterator = $courseList->getIterator();
         
         // User rights
-        $privilegeList = new CourseUserPrivilegesList($userId);
+        $privilegeList = new Claro_CourseUserPrivilegesList($userId);
         $privilegeList->load();
         
         // Course tree
@@ -1056,7 +1056,7 @@ class CourseTreeNodeViewFactory
         $courseListIterator = $courseList->getIterator();
         
         // User rights
-        $privilegeList = new CourseUserPrivilegesList($userId);
+        $privilegeList = new Claro_CourseUserPrivilegesList($userId);
         $privilegeList->load();
         
         // Hot courses
@@ -1098,7 +1098,7 @@ class CourseTreeNodeViewFactory
         $courseListIterator = $courseList->getIterator();
         
         // User rights
-        $privilegeList = new CourseUserPrivilegesList(claro_get_current_user_id());
+        $privilegeList = new Claro_CourseUserPrivilegesList(claro_get_current_user_id());
         $privilegeList->load();
         
         // Course tree

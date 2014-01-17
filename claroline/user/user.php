@@ -221,11 +221,15 @@ if ( $is_allowedToEdit )
     // Validate a user (if this option is enable for the course)
     if ( $cmd == 'validation' && $req['user_id'])
     {
-        $courseUserPrivileges = new CourseUserPrivileges(  claro_get_current_course_id (), $req['user_id'] );
-        $courseUserPrivileges->load();
-        
         $courseObject = new Claro_Course(  claro_get_current_course_id ());
         $courseObject->load();
+        
+        $user = new Claro_User( $req['user_id'] );
+        $user->load();
+        
+        $courseUserPrivileges = new Claro_CourseUserPrivileges( 
+            new Claro_UserPrivileges( $user ), 
+            $courseObject );
         
         $validation = new UserCourseEnrolmentValidation( 
             $courseObject, 
