@@ -558,7 +558,7 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
         .'rows="'.$rows.'" '
         .'cols="'.$cols.'" '
         .$optAttrib.' >'
-        ."\n".claro_htmlspecialchars($content)."\n"
+        .claro_htmlspecialchars($content)
         .'</textarea>'."\n";
     }
 

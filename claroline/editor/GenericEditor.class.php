@@ -100,7 +100,7 @@ class GenericEditor
         $textArea .= 'rows="'.$this->rows.'" '
         .    'cols="'.$this->cols.'" '
         .   $this->optAttrib.' >'
-        .    "\n".claro_htmlspecialchars($this->content)."\n"
+        .   claro_htmlspecialchars($this->content)
         .    '</textarea>'."\n";
 
         return $textArea;
