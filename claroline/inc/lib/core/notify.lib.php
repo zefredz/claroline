@@ -165,7 +165,7 @@ class ClaroNotification extends EventDriven
 
         if ( claro_debug_mode() )
         {
-            Console::message( 'Data added in course tracking '
+            Console::debug( 'Data added in course tracking '
                     . $eventType . ' : '
                     . var_export( $event, true ) );
         }
