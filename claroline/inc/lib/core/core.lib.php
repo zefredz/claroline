@@ -231,3 +231,45 @@ class From
         return self::$cache[$moduleLabel];
     }
 }
+
+/**
+ * Wrapper for the module label stack array
+ */
+class Claro_ModuleLabelStack
+{
+    protected $moduleLabelStack = array();
+    
+    /**
+     * Add a label at the top of the module stack
+     * @param string $label
+     */
+    public function pushModuleLabel( $label )
+    {
+        array_push( $this->moduleLabelStack, $label );
+    }
+
+    /**
+     * Remove the modulke label at the top of the module stack
+     */
+    public function popModuleLabel()
+    {
+        $elem = array_pop( $this->moduleLabelStack );
+        return $elem;
+    }
+
+    /**
+     * Get the label of the current module
+     * @return string or false
+     */
+    public function currentModuleLabel()
+    {
+        if ( empty( $this->moduleLabelStack ) )
+        {
+            return false;
+        }
+        else
+        {
+           return $this->moduleLabelStack[count($this->moduleLabelStack)-1];
+        }
+    }
+}

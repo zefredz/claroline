@@ -18,6 +18,7 @@
  * @package     kernel.core
  */
 
+require_once __DIR__ . '/../thirdparty/Pimple/lib/Pimple.php';
 require_once __DIR__ . '/../core/debug.lib.php';
 require_once __DIR__ . '/../core/console.lib.php';
 require_once __DIR__ . '/../core/event.lib.php';
@@ -32,7 +33,7 @@ require_once __DIR__ . '/../utils/ajax.lib.php';
  * Main Claroline class containing references to Claroline kernel objects
  * This class is a Singleton
  */
-class Claroline
+class Claroline extends Pimple
 {
     // Display type constants
     const PAGE      = 'CL_PAGE';
@@ -40,42 +41,19 @@ class Claroline
     const POPUP     = 'CL_POPUP';
     const FRAME     = 'CL_FRAME';
     
-    // Kernel objects
-    /**
-     * @var EventManager
-     */
-    public $eventManager;
-    /**
-     * @var ClaroNotification
-     */
-    public $notification;
-    /**
-     * @var ClaroNotifier
-     */
-    public $notifier;
-    // Display object
-    public $display;
-    /**
-     * @var Logger
-     */
-    public $logger;
-    
-    protected $moduleLabelStack;
-    
     // this class is a singleton, use static method getInstance()
-    private function __construct()
+    public function __construct()
     {
         try
         {
             // initialize the event manager and notification classes
-            $this->eventManager = EventManager::getInstance();
-            $this->notification = ClaroNotification::getInstance();
-            $this->notifier = ClaroNotifier::getInstance();
-            
+            $this['eventManager'] = function() { return EventManager::getInstance(); };
+            $this['notification'] = function() { return ClaroNotification::getInstance(); };
+            $this['notifier'] = function() { return ClaroNotifier::getInstance(); };
             // initialize logger
-            $this->logger = new Logger();
-            
-            $this->moduleLabelStack = array();
+            $this['logger'] = function() { return new Logger(); };
+            // initialize the module stack
+            $this['moduleLabelStack'] = function() { return new Claro_ModuleLabelStack(); };
             
             if ( isset($GLOBALS['tlabelReq']) )
             {
@@ -89,6 +67,29 @@ class Claroline
             die( $e );
         }
     }
+    
+    /**
+     * Some magic for backward compatibility mode
+     * @param type $name
+     */
+    public function __get( $name )
+    {
+        if ( ! get_conf( 'backwardCompatibilityMode', true ) )
+        {
+            throw new Exception("Access to Claroline object properties has to be made using the Pimple dependency injection container instead of the old object property access.");
+        }
+        
+        Console::debug("Try to get container property {$name} as an object property instead of using the dependency injection container at ".get_debug_print_backtrace());
+        
+        if ( isset($this[$name]) )
+        {
+            return $this[$name];
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     /**
      * Add a label at the top of the module stack
@@ -96,7 +97,8 @@ class Claroline
      */
     public function pushModuleLabel( $label )
     {
-        array_push( $this->moduleLabelStack, $label );
+        $this['moduleLabelStack']->pushModuleLabel( $label );
+        Console::debug("Entering module {$label}");
     }
 
     /**
@@ -104,7 +106,8 @@ class Claroline
      */
     public function popModuleLabel()
     {
-        array_pop( $this->moduleLabelStack );
+        $label = $this['moduleLabelStack']->popModuleLabel();
+        Console::debug("Exiting module {$label}" );
     }
 
     /**
@@ -113,14 +116,7 @@ class Claroline
      */
     public function currentModuleLabel()
     {
-        if ( empty( $this->moduleLabelStack ) )
-        {
-            return false;
-        }
-        else
-        {
-           return $this->moduleLabelStack[count($this->moduleLabelStack)-1];
-        }
+        return $this['moduleLabelStack']->currentModuleLabel ();
     }
     
     /**
@@ -137,18 +133,18 @@ class Claroline
         switch ( $type )
         {
             case self::PAGE:
-                $this->display = new ClaroPage;
+                $this['display'] = new ClaroPage;
                 break;
             case self::POPUP:
-                $this->display = new ClaroPage;
-                $this->display->popupMode();
+                $this['display'] = new ClaroPage;
+                $this['display']->popupMode();
                 break;
             case self::FRAME:
-                $this->display = new ClaroPage;
-                $this->display->frameMode();
+                $this['display'] = new ClaroPage;
+                $this['display']->frameMode();
                 break;
             case self::FRAMESET:
-                $this->display = new ClaroFramesetPage;
+                $this['display'] = new ClaroFramesetPage;
                 break;
             default:
                 throw new Exception( 'Invalid display type' );
@@ -179,7 +175,7 @@ class Claroline
      */
     public static function getDisplay()
     {
-        return self::getInstance()->display;
+        return self::getInstance()['display'];
     }
 
     /**
@@ -198,7 +194,7 @@ class Claroline
      */
     public static function log( $type, $data )
     {
-        self::getInstance()->logger->log($type, $data);
+        self::getInstance()['logger']->log($type, $data);
     }
     
     protected static $db = false;
@@ -215,8 +211,7 @@ class Claroline
         {
             // self::initMainDatabase();
             self::$database = new Claroline_Database_Connection();//self::$db);
-            // mysqli
-            $GLOBALS["___mysqli_ston"] = self::$database;
+            
             self::$database->connect();
             
             // the following options are for campus where only one language is used
@@ -230,6 +225,9 @@ class Claroline
             {
                 self::$database->setCharset($charset);
             }
+            
+            // mysqli
+            $GLOBALS["___mysqli_ston"] = self::$database->getDbLink();
         }
         
         return self::$database;
