@@ -98,6 +98,14 @@ class Claro_ModuleAccessManager
         $this->database = $database ? $database : Claroline::getDatabase();
     }
     
+    /**
+     * Check if a given user is granted access right for a given action in a given context
+     * @param Claro_USerPrivileges $userPrivileges
+     * @param string $action one of the action defined in Claro_AccessManager
+     * @param Claro_Course $course
+     * @param Claro_GroupTeam $group
+     * @return boolean
+     */
     public function checkAccessRight( $userPrivileges, $action, $course = null, $group = null )
     {
         if ( $this->module->isActivated() )
@@ -336,6 +344,9 @@ class Claro_ModuleAccessManager
     }
 }
 
+/**
+ * This class is currently a wrapper for the procedural API
+ */
 class Claro_Module
 {
     protected
@@ -344,24 +355,37 @@ class Claro_Module
         $moduleData,
         $moduleContexts;
     
+    /**
+     * Represents a module
+     * @param string $moduleLabel
+     */
     public function __construct( $moduleLabel )
     {
         $this->moduleLabel = $moduleLabel;
-        $this->mainToolId = get_tool_id_from_module_label( $this->moduleLabel );
-        $this->moduleData = get_module_data( $moduleLabel );
-        $this->moduleContexts = iterator_to_array( get_module_context_list( $moduleLabel ) );
+        $this->loadModuleData();
     }
     
     protected function loadModuleData()
     {
-        
+        $this->mainToolId = get_tool_id_from_module_label( $this->moduleLabel );
+        $this->moduleData = get_module_data( $this->moduleLabel );
+        $this->moduleContexts = iterator_to_array( get_module_context_list( $this->moduleLabel ) );
     }
     
+    /**
+     * Get the label of the module
+     * @return string
+     */
     public function getLabel()
     {
         return $this->moduleLabel;
     }
     
+    /**
+     * Get module dataarray or value for the given dataName
+     * @param string $dataName optionnal wanted variable name
+     * @return mixed
+     */
     public function getData( $dataName = null )
     {
         if ( $dataName )
@@ -381,26 +405,49 @@ class Claro_Module
         }
     }
     
+    /**
+     * Get the contexts in which the module can be executed
+     * @return array of contexts (a context is represented by a string)
+     */
     public function getContexts()
     {
         return $this->moduleContexts;
     }
     
+    /**
+     * Check if the module can be executed in the given context
+     * @param string $contextName
+     * @return bool
+     */
     public function hasContext( $contextName )
     {
         return in_array ( $contextName, $this->moduleContexts );
     }
     
+    /**
+     * Get the tool id corresponding to the module in the main tool list 
+     * (i.e. the id used at the platform level, not the one that appears in 
+     * the course tool list)
+     * @return int
+     */
     public function getMainToolId()
     {
         return $this->mainToolId;
     }
     
+    /**
+     * Check if the module is activated at the platform level
+     * @return bool
+     */
     public function isActivated()
     {
         return $this->getData('activation') == 'activated';
     }
     
+    /**
+     * Get the type of the module (tool, applet, admin...)
+     * @return string
+     */
     public function getType()
     {
         return $this->getData('type');
@@ -416,6 +463,10 @@ class Claro_ModuleAccessPermissions
         $this->permissions = $permissions;
     }
     
+    /**
+     * Check if an invisible resource can be accessed for this module
+     * @return boolean
+     */
     public function isResourceAccessAllowedWhileInsivible()
     {
         if ( ! isset( $this->permissions['resourceAccessAllowedWhileInsivible'] ) )
@@ -426,6 +477,10 @@ class Claro_ModuleAccessPermissions
         return $this->permissions['resourceAccessAllowedWhileInsivible'] === true ? true : false;
     }
     
+    /**
+     * Check if the module is available when embedded
+     * @return boolean
+     */
     public function isAvailableWhenEmbedded()
     {
         if ( ! isset( $this->permissions['availableWhenEmbedded'] ) )
@@ -436,6 +491,11 @@ class Claro_ModuleAccessPermissions
         return $this->permissions['availableWhenEmbedded'] === true ? true : false;
     }
     
+    /**
+     * Load and get the permission for the requested module
+     * @param string $moduleLabel label of the requested module
+     * @return Claro_ModuleAccessPermissions
+     */
     public static function loadPermissions( $moduleLabel )
     {
         $permissions = array();
@@ -453,6 +513,9 @@ class Claro_ModuleAccessPermissions
     }
 }
 
+/**
+ * Represent a tool in a course
+ */
 class Claro_CourseTool
 {
     protected $moduleLabel, $mainToolId, $courseId, $database;
@@ -460,7 +523,13 @@ class Claro_CourseTool
     // cache
     protected $_activated = null;
     protected $_visible = null;
-
+    
+    /**
+     * 
+     * @param string $moduleLabel
+     * @param string $courseId
+     * @param Database_Connection $database (optional)
+     */
     public function __construct ( $moduleLabel, $courseId, $database = null )
     {
         $this->moduleLabel = $moduleLabel;
@@ -469,6 +538,10 @@ class Claro_CourseTool
         $this->database = $database ? $database : Claroline::getDatabase();
     }
     
+    /**
+     * Check if the tool is activated in the course
+     * @return bool
+     */
     public function isActivated()
     {
         if ( is_null( $this->_activated ) )
@@ -496,6 +569,10 @@ class Claro_CourseTool
         return $this->_activated;
     }
     
+    /**
+     * Check if the tool is visible in the course
+     * @return bool
+     */
     public function isVisible()
     {
         if ( is_null( $this->_visible ) )
