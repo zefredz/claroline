@@ -23,20 +23,24 @@ Claroline Consortium involving several institutions over the world
 
 Claroline Main contributors :
 
-    Université catholique de Louvain (UCL) :
+    * Université catholique de Louvain (UCL - http://uclouvain.be) :
 
-    Frédéric Fervaille      (frederic.fervaille@uclouvain.be)
-    Frédéric Minne          (zefredz@claroline.net)
+    Frédéric Fervaille      Developper - UCL (frederic.fervaille@uclouvain.be)
+    Frédéric Minne          Lead Developper - UCL (zefredz@claroline.net)
 
-    Facultés Universitaires Notre-Dame de la Paix (FUNDP) :
+    * Haute Ecole Leonard de Vinci (HLV - http://vinci.be) :
 
-    Laurence Dumortier      (laurence.dumortier@fundp.ac.be)
-    Jean-Roch Meurisse      (jean-roch.meurisse@fundp.ac.be)
+    Philippe Dekimpe        Developper - ECAM (dkp@ecam.be - HLV)
 
-    Claroline Consortium :
+    * Claroline Consortium (http://claroline.net) :
 
-    Philippe Dekimpe        (dkp@ecam.be - HLV)
-    Anh Thao Pham           (anhthao.pham@claroline.net)
+    Anh Thao Pham           Developper - Consortium Claroline 
+                            (anhthao.pham@claroline.net)
+
+    * Université de Namur (UNamur - http://unamur.be) :
+
+    Laurence Dumortier      Contributor (laurence.dumortier@fundp.ac.be)
+    Jean-Roch Meurisse      Contributor (jean-roch.meurisse@fundp.ac.be)
 
 Former members of the Claroline Team :
 
@@ -122,30 +126,33 @@ enhancements :                  Samuel Champagne ( schampagne@libergia.com )
                                 EXTERNAL CODE
 ------------------------------------------------------------------------------
 
-Forum tool :                    adpated from PHPBB 1.4 (http://www.phpbb.com)
-
 Zip / unzipping option  :       PclZip library - Vincent Blavet
                                 (http://www.phpconcept.net)
 
-CAS system :                    based on phpCas library from ESUP-Portail project
-                                (http://esup-phpcas.sourceforge.net/)
-
-SOAP Support :                  based on NuSOAP SOAP library by NuSphere and
-                                Dietrich Ayala
+SOAP Support :                  NuSOAP library by NuSphere and Dietrich Ayala
                                 http://sourceforge.net/projects/nusoap/
+
 
 iCal support :                  based on Michael Wimmer <flaimo@gmx.net> iCal
                                 PHP Classes
 
 RSS reader :                    based on LastRSS by http://lastrss.oslab.net/
 
-PEAR Modules :                  http://pear.php.net
+PEAR Modules :                  Services_JSON, Cache Lite, XML Serializer 
+                                http://pear.php.net
 
-PHP email transport :           based on PHP Mailer class by Brent R. Matzelle
+PHP email transport :           PHP Mailer class by Brent R. Matzelle
 
 Pimple :                        Pimple is a small Dependency Injection Container
                                 for PHP 5.3 developped by Fabien Potencier at
                                 sensiolabs http://pimple.sensiolabs.org/
+
+PDF generator :                 TCPDF by Nicola Asuni - http://tcpdf.org
+
+LaTeX generator :               MimeTeX by John Forkosh
+
+CSV Parser :                    parseCSV class by Jim Myhrberg
+                                http://code.google.com/p/parsecsv-for-php/
 
 ------------------------------------------------------------------------------
                                 GRAPHICS
