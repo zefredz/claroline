@@ -21,6 +21,47 @@ function dbg_html_var( $var )
     return claro_htmlspecialchars(var_export( $var, true ));
 }
 
+function get_debug_print_backtrace($traces_to_ignore = 1){
+    $traces = debug_backtrace();
+    $ret = array();
+    foreach($traces as $i => $call){
+        if ($i < $traces_to_ignore ) {
+            continue;
+        }
+
+        $object = '';
+        if (isset($call['class'])) {
+            $object = $call['class'].$call['type'];
+            if (is_array($call['args'])) {
+                foreach ($call['args'] as &$arg) {
+                    debug_get_arg($arg);
+                }
+            }
+        }        
+
+        $ret[] = '#'.str_pad($i - $traces_to_ignore, 3, ' ')
+        .$object.$call['function'].'('.implode(', ', $call['args'])
+        .') called at ['.$call['file'].':'.$call['line'].']';
+    }
+
+    return implode("\n",$ret);
+}
+
+function debug_get_arg(&$arg) {
+    if (is_object($arg)) {
+        $arr = (array)$arg;
+        $args = array();
+        foreach($arr as $key => $value) {
+            if (strpos($key, chr(0)) !== false) {
+                $key = '';    // Private variable found
+            }
+            $args[] =  '['.$key.'] => '.debug_get_arg($value);
+        }
+
+        $arg = get_class($arg) . ' Object ('.implode(',', $args).')';
+    }
+}
+
 class Profiler
 {
     const PROFILER_STATUS_STARTED = 'started';
