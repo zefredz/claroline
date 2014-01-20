@@ -181,8 +181,6 @@ class ClaroDock implements Display
         {
             set_current_module_label( $applet['label'] );
             
-            pushClaroMessage('Current module label set to : ' . get_current_module_label(), 'debug');
-            
             // install course applet
             if ( claro_is_in_a_course() )
             {
@@ -226,7 +224,6 @@ class ClaroDock implements Display
             }
             
             clear_current_module_label();
-            pushClaroMessage('Current module label set to : ' . get_current_module_label(), 'debug');
         }
         
         $claro_buffer->append("\n".'<!-- End of '.$this->name.' -->'."\n");

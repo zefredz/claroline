@@ -66,27 +66,36 @@ class CourseHomePagePortletIterator implements CountableIterator
         
         if ( file_exists($portletPath) )
         {
-            require_once $portletPath;
-        }
-        else
-        {
-            throw new Exception("Can\'t find the file %portletPath", array('%portletPath' => $portletPath));
-        }
-        
-        if (class_exists($portletName))
-        {
-            $courseCode     = ClaroCourse::getCodeFromId($this->courseId);
+            set_current_module_label($portlet['label']);
             
-            $portletObj = new $portletName($portlet['id'], $courseCode,
-            $portlet['courseId'], $portlet['rank'],
-            $portlet['label'], $portlet['visible']);
+            load_module_config($portlet['label']);
+            Language::load_module_translation($portlet['label']);
+                
+            require_once $portletPath;
+            
+            if (class_exists($portletName))
+            {
+                $courseCode     = ClaroCourse::getCodeFromId($this->courseId);
+
+                $portletObj = new $portletName($portlet['id'], $courseCode,
+                $portlet['courseId'], $portlet['rank'],
+                $portlet['label'], $portlet['visible']);
+
+                
+            }
+            else
+            {
+                echo get_lang("Can't find the class %portletName_portlet", array('%portletName' => $portletName));
+                $portletObj = false;
+            }
+            
+            clear_current_module_label();
             
             return $portletObj;
         }
         else
         {
-            echo get_lang("Can't find the class %portletName_portlet", array('%portletName' => $portletName));
-            return false;
+            throw new Exception("Can\'t find the file %portletPath", array('%portletPath' => $portletPath));
         }
     }
     

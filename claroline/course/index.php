@@ -81,90 +81,99 @@ if (claro_is_course_manager() && !empty($portletClass))
         . '/connector/coursehomepage.cnr.php';
     if ( file_exists($portletPath) )
     {
+        set_current_module_label($portletLabel);
+            
+        load_module_config($portletLabel);
+        Language::load_module_translation($portletLabel);
+            
         require_once $portletPath;
+    
+    
+        if ($portletCmd == 'exAdd')
+        {
+            $portlet = new $portletClass();
+            $portlet->handleForm();
+            if ($portlet->save())
+            {
+                $dialogBox->success(get_lang('Portlet created'));
+            }
+            else
+            {
+                $dialogBox->error(get_lang('Can\'t create this portlet (%portlet)', array('%portlet' => $portlet->getLabel())));
+            }
+        }
+        elseif ($portletCmd == 'delete' && !empty($portletId) && class_exists($portletClass))
+        {
+            $portlet = new $portletClass();
+            $portlet->load($portletId);
+            if ($portlet->delete())
+            {
+                $dialogBox->success(get_lang('Portlet deleted'));
+            }
+        }
+        elseif ($portletCmd == 'makeVisible' && !empty($portletId) && class_exists($portletClass))
+        {
+            $portlet = new $portletClass();
+            if ($portlet->load($portletId))
+            {
+                $portlet->makeVisible();
+                if ($portlet->save())
+                {
+                    $dialogBox->success(get_lang('Portlet visibility modified'));
+                }
+            }
+        }
+        elseif ($portletCmd == 'makeInvisible' && !empty($portletId) && class_exists($portletClass))
+        {
+            $portlet = new $portletClass();
+            if ($portlet->load($portletId))
+            {
+                $portlet->makeInvisible();
+                if ($portlet->save())
+                {
+                    $dialogBox->success(get_lang('Portlet visibility modified'));
+                }
+            }
+        }
+        elseif ($portletCmd == 'moveUp' && !empty($portletId) && class_exists($portletClass))
+        {
+            $portlet = new $portletClass();
+            $portlet->load($portletId);
+
+            if ($portlet->load($portletId))
+            {
+                if ($portlet->moveUp())
+                {
+                    $dialogBox->success(get_lang('Portlet moved up'));
+                }
+                else
+                {
+                    $dialogBox->error(get_lang('This portlet can\'t be moved up'));
+                }
+            }
+        }
+        elseif ($portletCmd == 'moveDown' && !empty($portletId) && class_exists($portletClass))
+        {
+            $portlet = new $portletClass();
+            if ($portlet->load($portletId))
+            {
+                if ($portlet->moveDown())
+                {
+                    $dialogBox->success(get_lang('Portlet moved down'));
+                }
+                else
+                {
+                    $dialogBox->error(get_lang('This portlet can\'t be moved down'));
+                }
+            }
+        }
+        
+        clear_current_module_label();
+    
     }
     else
     {
         throw new Exception(get_lang('Cannot find this portlet'));
-    }
-    
-    if ($portletCmd == 'exAdd')
-    {
-        $portlet = new $portletClass();
-        $portlet->handleForm();
-        if ($portlet->save())
-        {
-            $dialogBox->success(get_lang('Portlet created'));
-        }
-        else
-        {
-            $dialogBox->error(get_lang('Can\'t create this portlet (%portlet)', array('%portlet' => $portlet->getLabel())));
-        }
-    }
-    elseif ($portletCmd == 'delete' && !empty($portletId) && class_exists($portletClass))
-    {
-        $portlet = new $portletClass();
-        $portlet->load($portletId);
-        if ($portlet->delete())
-        {
-            $dialogBox->success(get_lang('Portlet deleted'));
-        }
-    }
-    elseif ($portletCmd == 'makeVisible' && !empty($portletId) && class_exists($portletClass))
-    {
-        $portlet = new $portletClass();
-        if ($portlet->load($portletId))
-        {
-            $portlet->makeVisible();
-            if ($portlet->save())
-            {
-                $dialogBox->success(get_lang('Portlet visibility modified'));
-            }
-        }
-    }
-    elseif ($portletCmd == 'makeInvisible' && !empty($portletId) && class_exists($portletClass))
-    {
-        $portlet = new $portletClass();
-        if ($portlet->load($portletId))
-        {
-            $portlet->makeInvisible();
-            if ($portlet->save())
-            {
-                $dialogBox->success(get_lang('Portlet visibility modified'));
-            }
-        }
-    }
-    elseif ($portletCmd == 'moveUp' && !empty($portletId) && class_exists($portletClass))
-    {
-        $portlet = new $portletClass();
-        $portlet->load($portletId);
-        
-        if ($portlet->load($portletId))
-        {
-            if ($portlet->moveUp())
-            {
-                $dialogBox->success(get_lang('Portlet moved up'));
-            }
-            else
-            {
-                $dialogBox->error(get_lang('This portlet can\'t be moved up'));
-            }
-        }
-    }
-    elseif ($portletCmd == 'moveDown' && !empty($portletId) && class_exists($portletClass))
-    {
-        $portlet = new $portletClass();
-        if ($portlet->load($portletId))
-        {
-            if ($portlet->moveDown())
-            {
-                $dialogBox->success(get_lang('Portlet moved down'));
-            }
-            else
-            {
-                $dialogBox->error(get_lang('This portlet can\'t be moved down'));
-            }
-        }
     }
 }
 

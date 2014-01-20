@@ -39,8 +39,12 @@ class CLTI_Portlet extends CourseHomePagePortlet
             {
                 if ($introItem->getVisibility() == 'SHOW')
                 {
+                    $resources = '';
+                    
                     // Display attached resources (if any)
+                    
                     $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(array('id' => $introItem->getId()));
+                    // Warning : the CLTI module label used in database is CLINTRO ! Solution database upgrade !
                     $currentLocator->setModuleLabel('CLINTRO');
                     $currentLocator->setResourceId($introItem->getId());
                     

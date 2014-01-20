@@ -89,8 +89,12 @@ try
             
             if ( file_exists( $portletPath ) )
             {
-                require_once $portletPath;
+                set_current_module_label($moduleLabel);
+                load_module_config($moduleLabel);
+                Language::load_module_translation($moduleLabel);
                 
+                require_once $portletPath;
+                                
                 $className = "{$moduleLabel}_Portlet";
                 
                 // Load portlet from database
@@ -114,8 +118,7 @@ try
                     }
                 }
                 
-                load_module_config($moduleLabel);
-                Language::load_module_translation($moduleLabel);
+                clear_current_module_label();
             }
         }
     }
