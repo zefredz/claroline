@@ -76,7 +76,7 @@ class ClarolineResourceLocator implements ResourceLocator
     {
         $this->platformId = get_conf('platform_id');
         $this->courseId = $courseId;
-        $this->moduleLabel = rtrim( $moduleLabel, '_' );
+        $this->moduleLabel = $moduleLabel ? rtrim( $moduleLabel, '_' ) : null;
         $this->resourceId = $resourceId;
         $this->teamId = $teamId;
     }
@@ -114,6 +114,11 @@ class ClarolineResourceLocator implements ResourceLocator
     public function setModuleLabel( $moduleLabel )
     {
         $this->moduleLabel = rtrim( $moduleLabel, '_' );
+        
+        if ( $this->moduleLabel === 'CLTI' )
+        {
+            $this->moduleLabel = 'CLINTRO';
+        }
     }
     
     public function inModule()
@@ -864,7 +869,7 @@ class ResourceLinkerNavigator
             $locator->setGroupId( claro_get_current_group_id() );
         }
         
-        if ( get_current_module_label() )
+        if ( get_current_module_label() && empty( $locator->getModuleLabel () ) )
         {
             $locator->setModuleLabel(get_current_module_label());
             
@@ -1163,6 +1168,9 @@ class CLINTRO_Navigator implements ModuleResourceNavigator
         return false;
     }
 }
+
+// Tool intro uses two labels CLINTRO and CLTI !?!
+class CLTI_Navigator extends CLINTRO_Navigator {};
 
 /**
  * A helper for main functions
