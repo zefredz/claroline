@@ -195,7 +195,7 @@ function claro_get_current_course_data($dataName=null)
     elseif (is_array($c) && array_key_exists($dataName,$c)) return $c[$dataName];
     else
     {
-        pushClaroMessage( __FUNCTION__ . ' : ' . claro_htmlspecialchars($dataName) . ' does not exist for course data','warning');
+        pushClaroMessage( __FUNCTION__ . ' : ' . claro_htmlspecialchars($dataName) . ' does not exist for course data','debug');
         return null;
     }
 }
