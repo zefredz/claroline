@@ -143,6 +143,10 @@ PEAR Modules :                  http://pear.php.net
 
 PHP email transport :           based on PHP Mailer class by Brent R. Matzelle
 
+Pimple :                        Pimple is a small Dependency Injection Container
+                                for PHP 5.3 developped by Fabien Potencier at
+                                sensiolabs http://pimple.sensiolabs.org/
+
 ------------------------------------------------------------------------------
                                 GRAPHICS
 ------------------------------------------------------------------------------
