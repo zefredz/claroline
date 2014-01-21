@@ -54,13 +54,6 @@ class Claroline extends Pimple
             $this['logger'] = function() { return new Logger(); };
             // initialize the module stack
             $this['moduleLabelStack'] = function() { return new Claro_ModuleLabelStack(); };
-            
-            if ( isset($GLOBALS['tlabelReq']) )
-            {
-                $this->pushModuleLabel($GLOBALS['tlabelReq']);
-                
-                pushClaroMessage("Set current module to {$GLOBALS['tlabelReq']}", 'debug');
-            }
         }
         catch ( Exception $e )
         {

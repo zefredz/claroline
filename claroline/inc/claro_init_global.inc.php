@@ -207,6 +207,11 @@ language::load_translation();
 language::load_locale_settings();
 language::load_module_translation();
 
+if ( isset($GLOBALS['tlabelReq']) )
+{
+    Claroline::getInstance ()->pushModuleLabel($GLOBALS['tlabelReq']);
+}
+
 // set the mysql connexion for the course !!! does not work ignored by mysql :(
 // I'm afraid this will not be possible if we don't reset the connection
 // We could solve this when the charset is in the session (since this will allow
