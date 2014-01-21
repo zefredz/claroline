@@ -268,3 +268,22 @@ else                $_SESSION['_uid'] = null; // unset
 if ( isset($is_platformAdmin) ) $_SESSION['is_platformAdmin'] = $is_platformAdmin;
 else                            $_SESSION['is_platformAdmin'] = null;
 
+// allow to force upgrade in development mode
+if ( defined('DEVEL_MODE') && DEVEL_MODE === true && isset($_REQUEST['force_upgrade']) && (bool) $_REQUEST['force_upgrade'] )
+{
+    $forceUpgrade = true;
+    $_SESSION['forceUpgrade'] = true;
+}
+elseif ( isset($_SESSION['forceUpgrade']) && $_SESSION['forceUpgrade'] = true )
+{
+    $forceUpgrade = true;
+}
+else
+{
+    $forceUpgrade = false;
+}
+
+// Patterns for the newest major version
+
+$patternVarVersion = '/^1.12/';
+$patternSqlVersion = '1.12%';

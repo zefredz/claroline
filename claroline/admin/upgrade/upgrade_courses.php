@@ -163,6 +163,9 @@ switch ($display)
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.6' WHERE `versionClaro` = 'error-1.6'");
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.7' WHERE `versionClaro` = 'error-1.7'");
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.8' WHERE `versionClaro` = 'error-1.8'");
+            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.9' WHERE `versionClaro` = 'error-1.9'");
+            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.10' WHERE `versionClaro` = 'error-1.10'");
+            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.11' WHERE `versionClaro` = 'error-1.11'");
         }
 
         $sql_course_to_upgrade = " SELECT c.dbName dbName,
@@ -173,17 +176,26 @@ switch ($display)
                                           c.versionClaro "
                                . " FROM `" . $tbl_course . "` `c` ";
 
-        if ( isset($_REQUEST['upgradeCoursesError']) )
+        if ( ! ( $forceUpgrade && preg_match ( $patternVarVersion, $new_version_branch ) ) )
         {
-            // retry to upgrade course where upgrade failed
-            $sql_course_to_upgrade .= " WHERE c.versionClaro not like '". $new_version_branch ."%'
-                                        ORDER BY c.dbName";
+            if ( isset($_REQUEST['upgradeCoursesError']) )
+            {
+                // retry to upgrade course where upgrade failed
+                $sql_course_to_upgrade .= " WHERE c.versionClaro not like '". $new_version_branch ."%'
+                                            ORDER BY c.dbName";
+            }
+            else
+            {
+                // not upgrade course where upgrade failed ( versionClaro == error* )
+                $sql_course_to_upgrade .= " WHERE ( c.versionClaro not like '". $new_version_branch . "%' )
+                                                  and c.versionClaro not like 'error%'
+                                            ORDER BY c.dbName ";
+            }
         }
         else
         {
-            // not upgrade course where upgrade failed ( versionClaro == error* )
-            $sql_course_to_upgrade .= " WHERE ( c.versionClaro not like '". $new_version_branch . "%' )
-                                              and c.versionClaro not like 'error%'
+            $sql_course_to_upgrade .= " WHERE c.versionClaro like '{$new_version_branch}%'
+                                        OR c.versionClaro like 'error-{$new_version_branch}'
                                         ORDER BY c.dbName ";
         }
 

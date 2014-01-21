@@ -49,9 +49,6 @@ if (!claro_is_platform_admin()) upgrade_disp_auth_form();
 
 // Pattern for this new stable version
 
-$patternVarVersion = '/^1.12/';
-$patternSqlVersion = '1.12%';
-
 // Display definition
 
 define('DISPVAL_upgrade_backup_needed'  ,__LINE__);
@@ -79,21 +76,6 @@ $is_backup_confirmed = isset($_SESSION['confirm_backup'])
 $req_upgrade_tracking_data = isset($_REQUEST['upgrade_tracking_data'])
                       ? (bool) $_REQUEST['upgrade_tracking_data']
                       : false;
-
-// allow to force upgrade in development mode
-if ( defined('DEVEL_MODE') && DEVEL_MODE === true && isset($_REQUEST['force_upgrade']) && (bool) $_REQUEST['force_upgrade'] )
-{
-    $forceUpgrade = true;
-    $_SESSION['forceUpgrade'] = true;
-}
-elseif ( isset($_SESSION['forceUpgrade']) && $_SESSION['forceUpgrade'] = true )
-{
-    $forceUpgrade = true;
-}
-else
-{
-    $forceUpgrade = false;
-}
                       
 if( $req_upgrade_tracking_data )
 {
@@ -173,8 +155,18 @@ else
     else
     {
         // count course to upgrade
-        $count_course_upgraded = count_course_upgraded($new_version_branch);
-        $count_course_to_upgrade =  $count_course_upgraded['total'] - $count_course_upgraded['upgraded'];
+        $forceCourseUpgrade = $forceUpgrade && preg_match ( $patternVarVersion, $new_version_branch ) ? true : false;
+        
+        $count_course_upgraded = count_course_upgraded($new_version_branch );
+        
+        if ( $forceCourseUpgrade )
+        {
+            $count_course_to_upgrade =  $count_course_upgraded['total'];
+        }
+        else
+        {
+            $count_course_to_upgrade =  $count_course_upgraded['total'] - $count_course_upgraded['upgraded'];
+        }
 
         if ( $count_course_to_upgrade > 0 )
         {
