@@ -25,6 +25,7 @@ include ('upgrade_course_17.lib.php');
 include ('upgrade_course_18.lib.php');
 include ('upgrade_course_19.lib.php');
 include ('upgrade_course_110.lib.php');
+include ('upgrade_course_112.lib.php');
 
 require_once $includePath . '/lib/module/manage.lib.php';
 
@@ -459,7 +460,23 @@ switch ($display)
                 
                 if ( preg_match('/^1.10/',$currentCourseVersion) || preg_match('/^1.11/',$currentCourseVersion) )
                 {
-                    // nothing to do in 1.10 or 1.11
+                    $function_list = array();
+                    
+                    if ( is_module_installed_in_course( 'CLLNP',$currentCourseCode ) )
+                    {
+                        $function_list[] = 'lp_upgrade_to_112';
+                    }
+                    
+                    foreach ( $function_list as $function )
+                    {
+                        $step = $function($currentCourseCode);
+                        if ( $step > 0 )
+                        {
+                            echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
+                            $error = true;
+                        }
+                    }
+                    
                     $currentCourseVersion = '1.12';
                     save_course_current_version($currentCourseCode,$currentCourseVersion);
                 }
