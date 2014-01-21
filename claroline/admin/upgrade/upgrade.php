@@ -49,8 +49,8 @@ if (!claro_is_platform_admin()) upgrade_disp_auth_form();
 
 // Pattern for this new stable version
 
-$patternVarVersion = '/^1.10/';
-$patternSqlVersion = '1.10%';
+$patternVarVersion = '/^1.12/';
+$patternSqlVersion = '1.12%';
 
 // Display definition
 
@@ -79,6 +79,21 @@ $is_backup_confirmed = isset($_SESSION['confirm_backup'])
 $req_upgrade_tracking_data = isset($_REQUEST['upgrade_tracking_data'])
                       ? (bool) $_REQUEST['upgrade_tracking_data']
                       : false;
+
+// allow to force upgrade in development mode
+if ( defined('DEVEL_MODE') && DEVEL_MODE === true && isset($_REQUEST['force_upgrade']) && (bool) $_REQUEST['force_upgrade'] )
+{
+    $forceUpgrade = true;
+    $_SESSION['forceUpgrade'] = true;
+}
+elseif ( isset($_SESSION['forceUpgrade']) && $_SESSION['forceUpgrade'] = true )
+{
+    $forceUpgrade = true;
+}
+else
+{
+    $forceUpgrade = false;
+}
                       
 if( $req_upgrade_tracking_data )
 {
@@ -128,12 +143,12 @@ else
 }
 
 // specific to 1.10 to 1.11 upgrade:
-if ( preg_match ( '/^1.10/', $currentClarolineVersion ) && preg_match('/^1.11/', $new_version ) )
+if ( !$forceUpgrade && preg_match ( '/^1.10/', $currentClarolineVersion ) && preg_match('/^1.11/', $new_version ) )
 {   
     $display = DISPVAL_upgrade_not_needed;
 }
 // detect minor version upgrade attempt:
-elseif ( compare_major_version ( $currentClarolineVersion, $new_version ) === 0 )
+elseif ( !$forceUpgrade && compare_major_version ( $currentClarolineVersion, $new_version ) === 0 )
 {
     $display = DISPVAL_upgrade_not_needed;
 }
@@ -189,8 +204,9 @@ switch ($display)
             '%currentClarolineVersion' => $currentClarolineVersion,
             '%new_version' => $new_version )  ) . '</h2>
               <p class="success">'.get_lang('There is no upgrade needed between those versions').'</p>
-              <ul>
-              <li><a href="../../../index.php?logout=true">'.get_lang('Access to campus').'</a></li>
+              <ul>'.
+              ((defined('DEVEL_MODE') && DEVEL_MODE ===  true) ? '<li><a href="'. $_SERVER['PHP_SELF'] . '?force_upgrade=1">'.get_lang('Force upgrade').'</a></li>' : '')
+              .'<li><a href="../../../index.php?logout=true">'.get_lang('Access to campus').'</a></li>
               </ul>';
         break;
     case DISPVAL_upgrade_backup_needed :
@@ -282,6 +298,8 @@ switch ($display)
             <ul>
             <li><a href="../../../index.php?logout=true">'.get_lang('Access to campus').'</a></li>
             </ul>';
+        
+        if ( isset($_SESSION['forceUpgrade']) ) unset($_SESSION['forceUpgrade']);
 }
 
 // Display footer
