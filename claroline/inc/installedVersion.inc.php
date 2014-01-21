@@ -19,6 +19,8 @@ $is_upgrade_available = true;
 
 $new_version = '1.12.0';
 $new_version_branch = '1.12';
+$new_patternVarVersion = '/^1.12/';
+$new_patternSqlVersion = '1.12%';
 
 /**
  * The API version indicates the last time the API has been altered.

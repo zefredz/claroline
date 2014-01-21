@@ -191,7 +191,9 @@ function get_new_version ()
     include ( get_path('incRepositorySys') . '/installedVersion.inc.php' ) ;
 
     $version = array( 'complete' => $new_version,
-                      'branch' => $new_version_branch );
+                      'branch' => $new_version_branch,
+                      'patternVarVersion' => $new_patternVarVersion,
+                      'patternSqlVersion' => $new_patternSqlVersion );
 
     return $version;
 }

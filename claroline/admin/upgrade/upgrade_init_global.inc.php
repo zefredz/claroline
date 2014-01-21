@@ -128,6 +128,8 @@ $currentDbVersion = $current_version['db'];
 $this_new_version = get_new_version();
 $new_version = $this_new_version['complete'];
 $new_version_branch = $this_new_version['branch'];
+$patternVarVersion = $this_new_version['patternVarVersion'];
+$patternSqlVersion = $this_new_version['patternSqlVersion'];
 
 /*----------------------------------------------------------------------
   Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
@@ -282,8 +284,3 @@ else
 {
     $forceUpgrade = false;
 }
-
-// Patterns for the newest major version
-
-$patternVarVersion = '/^1.12/';
-$patternSqlVersion = '1.12%';
