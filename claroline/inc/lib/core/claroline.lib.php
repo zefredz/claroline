@@ -44,7 +44,7 @@ class Claroline extends Pimple
     // this class is a singleton, use static method getInstance()
     public function __construct()
     {
-        try
+        /*try
         {
             // initialize the event manager and notification classes
             $this['eventManager'] = function() { return EventManager::getInstance(); };
@@ -58,7 +58,7 @@ class Claroline extends Pimple
         catch ( Exception $e )
         {
             die( $e );
-        }
+        }*/
     }
     
     /**
@@ -82,34 +82,6 @@ class Claroline extends Pimple
         {
             return null;
         }
-    }
-
-    /**
-     * Add a label at the top of the module stack
-     * @param string $label
-     */
-    public function pushModuleLabel( $label )
-    {
-        $this['moduleLabelStack']->pushModuleLabel( $label );
-        Console::debug("Entering module {$label}");
-    }
-
-    /**
-     * Remove the modulke label at the top of the module stack
-     */
-    public function popModuleLabel()
-    {
-        $label = $this['moduleLabelStack']->popModuleLabel();
-        Console::debug("Exiting module {$label}" );
-    }
-
-    /**
-     * Get the label of the current module
-     * @return string or false
-     */
-    public function currentModuleLabel()
-    {
-        return $this['moduleLabelStack']->currentModuleLabel ();
     }
     
     /**
@@ -156,6 +128,22 @@ class Claroline extends Pimple
         if ( ! self::$instance )
         {
             self::$instance = new self;
+            
+            try
+            {
+                // initialize the event manager and notification classes
+                self::$instance['eventManager'] = self::$instance->share( function() { return EventManager::getInstance(); } );
+                self::$instance['notification'] = self::$instance->share( function() { return ClaroNotification::getInstance(); } );
+                self::$instance['notifier'] = self::$instance->share( function() { return ClaroNotifier::getInstance(); } );
+                // initialize logger
+                self::$instance['logger'] = self::$instance->share( function() { return new Logger(); } );
+                // initialize the module stack
+                self::$instance['moduleLabelStack'] = self::$instance->share( function() { return new Claro_ModuleLabelStack(); } );
+            }
+            catch ( Exception $e )
+            {
+                die( $e );
+            }
         }
 
         return self::$instance;
