@@ -74,7 +74,19 @@ class Console
     
     protected static function _log( $message, $type, $logLevel = 0 )
     {
-        if ( claro_debug_mode () ) pushClaroMessage( $message . ' trace : ' . get_debug_print_backtrace (), $type );     
-        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= $logLevel ) Claroline::log( $type, $message );
+        $mustLogMessageInDatabase = ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= $logLevel ) ? true : false;
+        
+        if ( claro_debug_mode () )
+        {
+            $printDebugBacktrace = get_debug_print_backtrace();
+            
+            pushClaroMessage( $message . '<blockquote>' . nl2br(  $printDebugBacktrace ).'</blockquote>', $type );
+            
+            if ( $mustLogMessageInDatabase ) Claroline::getInstance()['logger']->log( $type, $message . "\n--\n" . $printDebugBacktrace );
+        }
+        else
+        {
+            if ( $mustLogMessageInDatabase ) Claroline::getInstance()['logger']->log( $type, $message );
+        }
     }
 }
