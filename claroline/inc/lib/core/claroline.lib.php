@@ -72,7 +72,7 @@ class Claroline extends Pimple
             throw new Exception("Access to Claroline object properties has to be made using the Pimple dependency injection container instead of the old object property access.");
         }
         
-        Console::debug("Try to get container property {$name} as an object property instead of using the dependency injection container at ".get_debug_print_backtrace());
+        Console::debug("Try to get container property {$name} as an object property instead of using the dependency injection container");
         
         if ( isset($this[$name]) )
         {
@@ -166,16 +166,6 @@ class Claroline extends Pimple
     public static function initDisplay( $displayType = self::PAGE )
     {
         self::getInstance()->setDisplayType( $displayType );
-    }
-
-    /**
-     * Helper to log a message
-     * @param string $type
-     * @param string $data
-     */
-    public static function log( $type, $data )
-    {
-        self::getInstance()['logger']->log($type, $data);
     }
     
     protected static $db = false;
