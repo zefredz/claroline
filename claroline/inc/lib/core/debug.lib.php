@@ -60,6 +60,19 @@ function debug_get_arg(&$arg) {
 
         $arg = get_class($arg) . ' Object ('.implode(',', $args).')';
     }
+    elseif ( is_array($arg) )
+    {
+        $arr = (array)$arg;
+        $args = array();
+        foreach($arr as $key => $value) {
+            if (strpos($key, chr(0)) !== false) {
+                $key = '';    // Private variable found
+            }
+            $args[] =  '['.$key.'] => '.debug_get_arg($value);
+        }
+
+        $arg = 'Array ('.implode(',', $args).')';
+    }
 }
 
 class Profiler
