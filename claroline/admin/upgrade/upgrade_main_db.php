@@ -48,7 +48,7 @@ $sql = "CREATE TABLE IF NOT EXISTS `" . $tbl_upgrade_status . "` (
 `claro_label` VARCHAR( 8 ) ,
 `status` TINYINT NOT NULL ,
 PRIMARY KEY ( `id` )
-)";
+) ENGINE=MyISAM";
 
 claro_sql_query($sql);
 
