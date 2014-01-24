@@ -33,8 +33,8 @@ function get_debug_print_backtrace($traces_to_ignore = 1){
         if (isset($call['class'])) {
             $object = $call['class'].$call['type'];
             if (is_array($call['args'])) {
-                foreach ($call['args'] as &$arg) {
-                    debug_get_arg($arg);
+                foreach ($call['args'] as $i => $arg) {
+                    $call['args'][$i] = debug_get_arg($arg);
                 }
             }
         }        
@@ -47,22 +47,23 @@ function get_debug_print_backtrace($traces_to_ignore = 1){
     return implode("\n",$ret);
 }
 
-function debug_get_arg(&$arg) {
-    if (is_object($arg)) {
+function debug_get_arg($arg) 
+{
+    if (is_object($arg)) 
+    {
         $arr = (array)$arg;
-        $args = array();
-        foreach($arr as $key => $value) {
-            if (strpos($key, chr(0)) !== false) {
-                $key = '';    // Private variable found
-            }
-            $args[] =  '['.$key.'] => '.debug_get_arg($value);
-        }
-
-        $arg = get_class($arg) . ' Object ('.implode(',', $args).')';
     }
     elseif ( is_array($arg) )
     {
-        $arr = (array)$arg;
+        $arr = $arg;
+    }
+    else
+    {
+        $arr = null;
+    }
+    
+    if ( $arr )
+    {
         $args = array();
         foreach($arr as $key => $value) {
             if (strpos($key, chr(0)) !== false) {
@@ -71,8 +72,18 @@ function debug_get_arg(&$arg) {
             $args[] =  '['.$key.'] => '.debug_get_arg($value);
         }
 
-        $arg = 'Array ('.implode(',', $args).')';
+        if ( is_object( $arg ) )
+        {
+            $arg = get_class($arg) . ' ('.implode(',', $args).')';
+        }
+        elseif ( is_array($arg) )
+        {
+
+            $arg = 'Array ('.implode(',', $args).')';
+        }
     }
+    
+    return $arg;
 }
 
 class Profiler
