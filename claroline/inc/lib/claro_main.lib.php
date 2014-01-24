@@ -2113,7 +2113,8 @@ function secure_backlink_url( $url )
     {
         if ( stristr ( $_SERVER['HTTP_HOST'], ':' ) )
         {
-            $http_host = explode(":", $_SERVER['HTTP_HOST']);
+            $http_hostArr = explode(":", $_SERVER['HTTP_HOST']);
+            $http_host = $http_hostArr[0];
         }
         else
         {
