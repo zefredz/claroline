@@ -21,7 +21,7 @@ function dbg_html_var( $var )
     return claro_htmlspecialchars(var_export( $var, true ));
 }
 
-function get_debug_print_backtrace($traces_to_ignore = 1){
+/*function get_debug_print_backtrace($traces_to_ignore = 1){
     $traces = debug_backtrace();
     $ret = array();
     foreach($traces as $i => $call){
@@ -84,7 +84,7 @@ function debug_get_arg($arg)
     }
     
     return $arg;
-}
+}*/
 
 class Profiler
 {

@@ -74,7 +74,7 @@ class Console
     
     protected static function _log( $message, $type, $logLevel = 0 )
     {
-        $mustLogMessageInDatabase = ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= $logLevel ) ? true : false;
+        /*$mustLogMessageInDatabase = ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= $logLevel ) ? true : false;
         
         if ( claro_debug_mode () )
         {
@@ -87,6 +87,11 @@ class Console
         else
         {
             if ( $mustLogMessageInDatabase ) Claroline::getInstance()['logger']->log( $type, $message );
-        }
+        } */
+
+        
+        if ( claro_debug_mode () ) pushClaroMessage( $message, $type );
+        
+        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= $logLevel ) Claroline::getInstance()['logger']->log( $type, $message );
     }
 }
