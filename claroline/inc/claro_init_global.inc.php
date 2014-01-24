@@ -209,7 +209,7 @@ language::load_module_translation();
 
 if ( isset($GLOBALS['tlabelReq']) )
 {
-    Claroline::getInstance ()->pushModuleLabel($GLOBALS['tlabelReq']);
+    set_current_module_label($GLOBALS['tlabelReq']);
 }
 
 // set the mysql connexion for the course !!! does not work ignored by mysql :(
