@@ -68,7 +68,7 @@ function current_user_is_allowed_to_send_message_to_user($userId)
         $select =
            "SELECT count(*)\n"
            .    " FROM `" . $tableName['im_message'] . "` as M\n"
-           .    " INNER JOIN `" . $tableName['im_recipient'] . "` as R ON M.message_id = M.message_id\n"
+           .    " INNER JOIN `" . $tableName['im_recipient'] . "` as R ON R.message_id = M.message_id\n"
            .    " WHERE (R.user_id = " . (int)claro_get_current_user_id() . " OR R.user_id = 0)\n"
            .        " AND M.sender = " . (int)$userId
            ;
