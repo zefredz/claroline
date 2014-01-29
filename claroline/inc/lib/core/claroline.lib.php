@@ -41,26 +41,6 @@ class Claroline extends Pimple
     const POPUP     = 'CL_POPUP';
     const FRAME     = 'CL_FRAME';
     
-    // this class is a singleton, use static method getInstance()
-    public function __construct()
-    {
-        /*try
-        {
-            // initialize the event manager and notification classes
-            $this['eventManager'] = function() { return EventManager::getInstance(); };
-            $this['notification'] = function() { return ClaroNotification::getInstance(); };
-            $this['notifier'] = function() { return ClaroNotifier::getInstance(); };
-            // initialize logger
-            $this['logger'] = function() { return new Logger(); };
-            // initialize the module stack
-            $this['moduleLabelStack'] = function() { return new Claro_ModuleLabelStack(); };
-        }
-        catch ( Exception $e )
-        {
-            die( $e );
-        }*/
-    }
-    
     /**
      * Some magic for backward compatibility mode
      * @param type $name
@@ -120,7 +100,7 @@ class Claroline extends Pimple
     private static $instance = false; // this class is a singleton
     
     /**
-     * Returns the singleton instance of the Claroline object
+     * Initializes and returns the instance of the Claroline object
      * @return  Claroline singleton instance
      */
     public static function getInstance()
