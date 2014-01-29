@@ -20,6 +20,9 @@ require_once __DIR__ . '/event.lib.php';
  */
 function load_current_module_listeners()
 {
+    // needed inside of the connector script
+    global $claroline;
+    
     $currentModuleLabel = get_current_module_label();
 
     $path = get_module_path( $currentModuleLabel )
