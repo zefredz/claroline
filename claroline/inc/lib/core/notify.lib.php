@@ -20,16 +20,16 @@ require_once __DIR__ . '/event.lib.php';
  */
 function load_current_module_listeners()
 {
-    $claroline = Claroline::getInstance();
+    $currentModuleLabel = get_current_module_label();
 
-    $path = get_module_path( Claroline::getInstance()->currentModuleLabel() )
+    $path = get_module_path( $currentModuleLabel )
         . '/connector/eventlistener.cnr.php';
 
     if ( file_exists( $path ) )
     {
         if ( claro_debug_mode() )
         {
-            pushClaroMessage( 'Load listeners for : ' . Claroline::getInstance()->currentModuleLabel(), 'debug' );
+            pushClaroMessage( 'Load listeners for : ' . $currentModuleLabel, 'debug' );
         }
 
         include $path;
@@ -38,7 +38,7 @@ function load_current_module_listeners()
     {
         if ( claro_debug_mode() )
         {
-            pushClaroMessage( 'No listeners for : ' . Claroline::getInstance()->currentModuleLabel(), 'warning' );
+            pushClaroMessage( 'No listeners for : ' . $currentModuleLabel, 'warning' );
         }
     }
 }
