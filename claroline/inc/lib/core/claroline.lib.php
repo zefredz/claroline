@@ -29,17 +29,22 @@ require_once __DIR__ . '/../display/display.lib.php';
 require_once __DIR__ . '/../database/database.lib.php';
 require_once __DIR__ . '/../utils/ajax.lib.php';
 
-/**
- * Main Claroline class containing references to Claroline kernel objects
- * This class is a Singleton
- */
-class Claroline extends Pimple
+interface Claroline_Constants
 {
     // Display type constants
     const PAGE      = 'CL_PAGE';
     const FRAMESET  = 'CL_FRAMESET';
     const POPUP     = 'CL_POPUP';
     const FRAME     = 'CL_FRAME';
+}
+
+/**
+ * Main Claroline class containing references to Claroline kernel objects
+ * This class is a Singleton
+ */
+class Claroline_Container extends Pimple implements Claroline_Constants
+{
+    
     
     /**
      * Some magic for backward compatibility mode
@@ -95,6 +100,14 @@ class Claroline extends Pimple
                 throw new Exception( 'Invalid display type' );
         }
     }
+}
+
+/**
+ * Main Claroline class containing references to Claroline kernel objects
+ * This class is a Singleton
+ */
+class Claroline implements Claroline_Constants
+{
     
     // Singleton instance
     private static $instance = false; // this class is a singleton
@@ -107,26 +120,34 @@ class Claroline extends Pimple
     {
         if ( ! self::$instance )
         {
-            self::$instance = new self;
-            
-            try
-            {
-                // initialize the event manager and notification classes
-                self::$instance['eventManager'] = self::$instance->share( function() { return EventManager::getInstance(); } );
-                self::$instance['notification'] = self::$instance->share( function() { return ClaroNotification::getInstance(); } );
-                self::$instance['notifier'] = self::$instance->share( function() { return ClaroNotifier::getInstance(); } );
-                // initialize logger
-                self::$instance['logger'] = self::$instance->share( function() { return new Logger(); } );
-                // initialize the module stack
-                self::$instance['moduleLabelStack'] = self::$instance->share( function() { return new Claro_ModuleLabelStack(); } );
-            }
-            catch ( Exception $e )
-            {
-                die( $e );
-            }
+            throw new Exception("Claroline container not initialized !");
         }
 
         return self::$instance;
+    }
+    
+    public static function initCoreServices()
+    {
+        if ( ! self::$instance )
+        {
+            self::$instance = new Claroline_Container;
+        }
+        
+        try
+        {
+            // initialize the event manager and notification classes
+            self::$instance['eventManager'] = self::$instance->share( function() { return EventManager::getInstance(); } );
+            self::$instance['notification'] = self::$instance->share( function() { return ClaroNotification::getInstance(); } );
+            self::$instance['notifier'] = self::$instance->share( function() { return ClaroNotifier::getInstance(); } );
+            // initialize logger
+            self::$instance['logger'] = self::$instance->share( function() { return new Logger(); } );
+            // initialize the module stack
+            self::$instance['moduleLabelStack'] = self::$instance->share( function() { return new Claro_ModuleLabelStack(); } );
+        }
+        catch ( Exception $e )
+        {
+            die( $e );
+        }
     }
 
     /**
@@ -158,48 +179,39 @@ class Claroline extends Pimple
      */
     public static function getDatabase()
     {
-        if ( ! self::$database )
-        {
-            // self::initMainDatabase();
-            self::$database = new Claroline_Database_Connection();//self::$db);
-            
-            self::$database->connect();
-            
-            // the following options are for campus where only one language is used
-            // or multiple languages but with compatible charsets (for example 
-            // english (latin1) and portuguese (latin2). @see mysql documentation 
-            // for allowed charsets
-            
-            $charset = get_conf( 'mysqlSetNames' );
-            
-            if ( !empty( $charset ) )
-            {
-                self::$database->setCharset($charset);
-            }
-            
-            // mysqli
-            $GLOBALS["___mysqli_ston"] = self::$database->getDbLink();
-        }
-        
-        return self::$database;
+        return self::$instance['database'];
     }
 
     /**
-     * Initialize the database for claro_sql_* legacy code
+     * Initialize the database
      * @return void
      * @throws Exception when the database connection cannot be created
-     * @deprecated since 1.10
+     * @deprecated since 1.12
      */
-    public static function initMainDatabase()
+   public static function initDatabaseProvider()
     {
-        if ( !self::$db )
+        if ( ! self::$instance )
         {
-            self::$db = self::getDatabase()->getDbLink();
+            self::$instance = new Claroline_Container;
         }
         
-        if ($GLOBALS['statsDbName'] == '')
+        if ( empty( self::$instance['database'] ) )
         {
-            $GLOBALS['statsDbName'] = get_conf('mainDbName');
+            $database = new Claroline_Database_Connection();
+            $database->connect();
+            
+            $charset = get_conf( 'mysqlSetNames' );
+
+            if ( !empty( $charset ) )
+            {
+                $database->setCharset($charset);
+            }
+
+            $GLOBALS["___mysqli_ston"] = $database->getDbLink();
+        
+            self::$instance['database'] = self::$instance->share( function() use ($database) {
+                return $database;
+            } );
         }
     }
 

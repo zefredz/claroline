@@ -146,6 +146,31 @@ if ( get_conf('triggerDebugMode', false) &&  isset($_REQUEST['debug']) )
     }
 }
 
+FromKernel::uses('core/claroline.lib');
+
+try
+{
+    Claroline::initDatabaseProvider();
+    
+    Claroline::initCoreServices();
+}
+catch ( Exception $e )
+{
+    if ( claro_debug_mode() ) 
+    {
+        $details = '<pre>' . var_export( $e->__toString(), true ) . '</pre>';
+    }
+    else
+    {
+        $details = '';
+    }
+    
+    die ('<center>'
+        .$e->getMessage()
+        . $details
+        .'</center>');
+}
+
 
 /*----------------------------------------------------------------------
   Include main library
@@ -164,34 +189,6 @@ if( claro_debug_mode() )
   ----------------------------------------------------------------------*/
 
 claro_unquote_gpc();
-
-/*----------------------------------------------------------------------
-  Connect to the server database and select the main claroline DB
-  ----------------------------------------------------------------------*/
-
-FromKernel::uses('core/claroline.lib');
-
-try
-{
-    // Initialize the main database connection
-    Claroline::initMainDatabase();
-}
-catch ( Exception $e )
-{
-    if ( claro_debug_mode() ) 
-    {
-        $details = '<pre>' . var_export( $e->__toString(), true ) . '</pre>';
-    }
-    else
-    {
-        $details = '';
-    }
-    
-    die ('<center>'
-        .$e->getMessage()
-        . $details
-        .'</center>');
-}
 
 /*----------------------------------------------------------------------
   Include the local (contextual) parameters of this course or section
@@ -371,8 +368,8 @@ if ( isset($_REQUEST['embedded']) && $_REQUEST['embedded'] == 'true' )
   ----------------------------------------------------------------------*/
 
 // for backward compatibility
-$GLOBALS['eventNotifier'] = $GLOBALS['claroline']->notifier;
-$GLOBALS['claro_notifier'] = $GLOBALS['claroline']->notification;
+$GLOBALS['eventNotifier'] = $GLOBALS['claroline']['notifier'];
+$GLOBALS['claro_notifier'] = $GLOBALS['claroline']['notification'];
 
 
 // Register listener in the event manager for the NOTIFICATION system :
