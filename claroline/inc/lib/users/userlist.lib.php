@@ -661,7 +661,7 @@ class Claro_BatchCourseRegistration
                 foreach ( $sessionCourseIterator as $sessionCourse )
                 {
                     $batchReg = new self( $sessionCourse, $this->database );
-                    $batchReg->removeUserIdListFromCourse( $userIdListToRemove, $class, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
+                    $batchReg->removeUserIdListFromCourse( $userIdListToRemove, $class, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession );
                     $this->result->mergeResult($batchReg->getResult () );
                 }
             }
@@ -740,7 +740,7 @@ class Claro_BatchCourseRegistration
                         if ( count( $userIdListToRemoveFromSource ) )
                         {
                             $batchReg = new self( $sourceCourse, $this->database );
-                            $batchReg->removeUserIdListFromCourse( $userIdListToRemoveFromSource, $classMode, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession, $class );
+                            $batchReg->removeUserIdListFromCourse( $userIdListToRemoveFromSource, $class, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession );
                             $this->result->mergeResult($batchReg->getResult () );
                         }
                     }
