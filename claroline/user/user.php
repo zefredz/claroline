@@ -145,6 +145,16 @@ if ( $is_allowedToEdit )
     // Unregister a user
     if ( $cmd == 'unregister')
     {
+        $forceUnenrolment = false;
+            
+        if ( claro_is_platform_admin () )
+        {
+            if ( isset($_REQUEST['force'] ) && $_REQUEST['force'] == '1' )
+            {
+                $forceUnenrolment = true;
+            }
+        }
+            
         // Unregister user from course
         // (notice : it does not delete user from claroline main DB)
         
@@ -179,24 +189,53 @@ if ( $is_allowedToEdit )
         }
         elseif ( 0 < (int)  $req['user_id'] )
         {
-            // delete user from course user list
-            if ( user_remove_from_course(  $req['user_id'], claro_get_current_course_id(), false, false, null) )
+            if ( $forceUnenrolment )
             {
-                Console::log( "{$req['user_id']} removed by user ". claro_get_current_user_id(), 'COURSE_UNSUBSCRIBE');
-                $dialogBox->success( get_lang('The user has been successfully unregistered from course') );
+                $course = new Claro_Course( claro_get_current_course_id () );
+                $course->load();
+
+                $userCourseRegistration = new Claro_CourseUserRegistration(
+                    AuthProfileManager::getUserAuthProfile($req['user_id'] ),
+                    $course
+                );
+
+                if ( claro_is_platform_admin () )
+                {
+                    $userCourseRegistration->forceUnregistrationOfManager();
+                }
+
+
+                if ( !$userCourseRegistration->forceRemoveUser( false, array() ) )
+                {
+                    $dialogBox->error( get_lang('The user cannot be removed from the course') );
+                }
+                else
+                {
+                    Console::log( "{$req['user_id']} removed [forced] by admin ". claro_get_current_user_id(), 'COURSE_UNSUBSCRIBE');
+                    $dialogBox->success( get_lang('The user has been successfully unregistered from course') );
+                }
             }
             else
             {
-                switch ( claro_failure::get_last_failure() )
+                // delete user from course user list
+                if ( user_remove_from_course(  $req['user_id'], claro_get_current_course_id(), false, false, null) )
                 {
-                    case 'cannot_unsubscribe_the_last_course_manager' :
-                        $dialogBox->error( get_lang('You cannot unsubscribe the last course manager of the course') );
-                        break;
-                    case 'course_manager_cannot_unsubscribe_himself' :
-                        $dialogBox->error( get_lang('Course manager cannot unsubscribe himself') );
-                        break;
-                    default :
-                        $dialogBox->error( get_lang('Error!! you cannot unregister a course manager') );
+                    Console::log( "{$req['user_id']} removed by user ". claro_get_current_user_id(), 'COURSE_UNSUBSCRIBE');
+                    $dialogBox->success( get_lang('The user has been successfully unregistered from course') );
+                }
+                else
+                {
+                    switch ( claro_failure::get_last_failure() )
+                    {
+                        case 'cannot_unsubscribe_the_last_course_manager' :
+                            $dialogBox->error( get_lang('You cannot unsubscribe the last course manager of the course') );
+                            break;
+                        case 'course_manager_cannot_unsubscribe_himself' :
+                            $dialogBox->error( get_lang('Course manager cannot unsubscribe himself') );
+                            break;
+                        default :
+                            $dialogBox->error( get_lang('Error!! you cannot unregister a course manager') );
+                    }
                 }
             }
         }
@@ -687,6 +726,19 @@ foreach ( $userList as $thisUser )
                         src="' . get_icon_url('unenroll_disabled') . '" />'
                     . '</a>'
                     ;
+                
+                
+                if ( claro_is_platform_admin () )
+                {
+                    $out .= '&nbsp;<a href="'.claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                        . '?cmd=unregister&force=1&user_id=' . $thisUser['user_id'] )) . '&offset='.$offset . '" '
+                        . 'onclick="return CLUSR.confirmation(\''.clean_str_for_javascript($thisUser['nom'].' '.$thisUser['prenom']).'\');">'
+                        . '<img alt="' . get_lang('Force unenrolment') . '" 
+                            title="'.get_lang('Force unenrolment').'" 
+                            src="' . get_icon_url('unenroll') . '" />'
+                        . '</a>'
+                        ;
+                }
             }
             else
             {
