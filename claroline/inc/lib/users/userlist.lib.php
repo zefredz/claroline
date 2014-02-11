@@ -403,12 +403,12 @@ class Claro_BatchCourseRegistration
             
             foreach ( $usersAlreadyInCourse as $userId => $courseUser )
             {
-                if ( !$forceClassRegistrationOfExistingClassUsers || $courseUser['count_class_enrol'] != 0 )
+                if ( $forceClassRegistrationOfExistingClassUsers /* || $courseUser['count_class_enrol'] != 0 */ )
                 {
                     $courseUser['count_user_enrol'] = 0;                 
                 }
                 
-                if ( ! array_key_exists( $courseUser['user_id'], $userListAlreadyInClass ) )
+                if ( ! array_key_exists( $courseUser['user_id'], $userListAlreadyInClass ) || $courseUser['count_class_enrol'] <= 0 )
                 {
                     $courseUser['count_class_enrol']++;
                 }
@@ -534,7 +534,6 @@ class Claro_BatchCourseRegistration
      */
     public function forceRemoveUserIdListFromCourse( $userIdList, $keepTrackingData = true, $moduleDataToPurge = array(), $unregisterFromSourceIfLastSession = true )
     {
-        var_dump(__LINE__);
         if ( ! count( $userIdList ) )
         {
             return false;
@@ -542,6 +541,8 @@ class Claro_BatchCourseRegistration
         
         $courseCode = $this->course->courseId;
         $sqlCourseCode = $this->database->quote( $courseCode );
+        
+        // var_dump($userIdList);
         
         $this->database->exec("
             UPDATE
@@ -570,8 +571,6 @@ class Claro_BatchCourseRegistration
             AND
                 `code_cours` = {$sqlCourseCode}
         ");
-                
-        // var_dump($userIdList);die();
         
         if ( $userListToRemove->numRows() )
         {
@@ -648,7 +647,7 @@ class Claro_BatchCourseRegistration
                 foreach ( $sessionCourseIterator as $sessionCourse )
                 {
                     $batchReg = new self( $sessionCourse, $this->database );
-                    $batchReg->removeUserIdListFromCourse( $userIdListToRemove, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession );
+                    $batchReg->forceRemoveUserIdListFromCourse( $userIdListToRemove, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession );
                     $this->result->mergeResult($batchReg->getResult () );
                 }
             }
@@ -662,9 +661,9 @@ class Claro_BatchCourseRegistration
                 // get userids registered in other sessions than the current one
 
                 $sessionList = $sourceCourse->getChildrenList();
-
+                
                 if ( count( $sessionList ) )
-                {
+                {  
                     $userIdListToRemoveFromSource = array();
 
                     $sessionIdList = array_keys( $sessionList );
@@ -679,7 +678,7 @@ class Claro_BatchCourseRegistration
                         WHERE
                             user_id IN (".implode( ',', $userIdListToRemove ).")
                         AND
-                            code_cours IN (".implode( ',', $sessionIdList ).")
+                            code_cours IN ('".implode( "','", $sessionIdList )."')
                         AND
                             code_cours != {$sqlCourseCode}
                     ");
@@ -696,9 +695,9 @@ class Claro_BatchCourseRegistration
 
                     foreach ( $userListToRemove as $userIdToRemove )
                     {
-                        if ( ! isset( $usersInOtherSessionsList[$userIdToRemove] ) )
+                        if ( ! isset( $usersInOtherSessionsList[$userIdToRemove['user_id']] ) )
                         {
-                            $userIdListToRemoveFromSource[] = $userIdToRemove;
+                            $userIdListToRemoveFromSource[] = $userIdToRemove['user_id'];
                         }
                     }
 
@@ -780,8 +779,6 @@ class Claro_BatchCourseRegistration
             AND
                 `code_cours` = {$sqlCourseCode}
         ");
-                
-        // var_dump($userIdList);die();
         
         if ( $userListToRemove->numRows() )
         {
