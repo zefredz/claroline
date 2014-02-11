@@ -459,6 +459,8 @@ class Claro_Course extends KernelObject
             {
                 $childrenList[$child['courseId']] = $child;
             }
+            
+            return $childrenList;
         }
         else 
         {

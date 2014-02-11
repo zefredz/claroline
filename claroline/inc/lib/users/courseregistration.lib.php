@@ -182,6 +182,43 @@ class Claro_CourseUserRegistration
         $this->forceUnregOfManager = true;
     }
     
+    public function forceRemoveUser( $keepTrackingData = true, $moduleDataToPurge = array() )
+    {
+        if ( ! $this->isUnregistrationAllowed () )
+        {
+            return false;
+        }
+        
+        if (  ! $this->isUserRegisteredToCourse () )
+            
+        {
+            $this->status = self::STATUS_SYSTEM_ERROR;
+            $this->errorMessage = get_lang('User not found in course');
+            
+            return false;
+        }
+        else
+        {  
+            $batchRegistration = new Claro_BatchCourseRegistration( $this->course );
+        
+            $batchRegistration->forceRemoveUserIdListFromCourse(
+                array($this->userAuthProfile->getUserId()),
+                $keepTrackingData, 
+                $moduleDataToPurge, 
+                true );
+            
+            if ( $batchRegistration->hasError () )
+            {
+                Console::error(var_export($batchRegistration->getErrorLog(), true));
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
+    
     public function removeUser( $keepTrackingData = true, $moduleDataToPurge = array() )
     {
         if ( ! $this->isUnregistrationAllowed () )

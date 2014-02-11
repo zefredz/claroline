@@ -403,12 +403,12 @@ class Claro_BatchCourseRegistration
             
             foreach ( $usersAlreadyInCourse as $userId => $courseUser )
             {
-                if ( !$forceClassRegistrationOfExistingClassUsers || $courseUser['count_class_enrol'] != 0 )
+                if ( $forceClassRegistrationOfExistingClassUsers /* || $courseUser['count_class_enrol'] != 0 */ )
                 {
                     $courseUser['count_user_enrol'] = 0;                 
                 }
                 
-                if ( ! array_key_exists( $courseUser['user_id'], $userListAlreadyInClass ) )
+                if ( ! array_key_exists( $courseUser['user_id'], $userListAlreadyInClass ) || $courseUser['count_class_enrol'] <= 0 )
                 {
                     $courseUser['count_class_enrol']++;
                 }
@@ -525,6 +525,202 @@ class Claro_BatchCourseRegistration
     }
     
     /**
+     * Force remove a list of users given their user id from the cours. All users' registrations (even by class) to the course will be removed
+     * @param array $userIdList list of user ids to add
+     * @param bool $keepTrackingData tracking data will be deleted if set to false (default:true, i.e. keep data)
+     * @param array $moduleDataToPurge list of module_label => (purgeTracking => bool, purgeData => bool)
+     * @param bool $unregisterFromSourceIfLastSession remove users that are in no other session course from the source course if any
+     * @return boolean
+     */
+    public function forceRemoveUserIdListFromCourse( $userIdList, $keepTrackingData = true, $moduleDataToPurge = array(), $unregisterFromSourceIfLastSession = true )
+    {
+        if ( ! count( $userIdList ) )
+        {
+            return false;
+        }
+        
+        $courseCode = $this->course->courseId;
+        $sqlCourseCode = $this->database->quote( $courseCode );
+        
+        // var_dump($userIdList);
+        
+        $this->database->exec("
+            UPDATE
+                `{$this->tableNames['rel_course_user']}`
+            SET
+                `count_class_enrol` = 0,
+                `count_user_enrol` = 0
+            WHERE
+                `code_cours` = {$sqlCourseCode}
+            AND
+                `user_id` IN (".implode( ',', $userIdList ).")
+        ");
+                
+                
+        // get the user ids to remove
+        
+        $userListToRemove = $this->database->query("
+            SELECT 
+                `user_id`
+            FROM
+                `{$this->tableNames['rel_course_user']}`
+            WHERE
+                `count_class_enrol` <= 0
+            AND
+                `count_user_enrol` <= 0
+            AND
+                `code_cours` = {$sqlCourseCode}
+        ");
+        
+        if ( $userListToRemove->numRows() )
+        {
+            $userIdListToRemove = array();
+            
+            foreach ( $userListToRemove as $user )
+            {
+                $userIdListToRemove[] = $user['user_id'];
+            }
+            
+            $sqlList = array();
+            
+            $sqlList[] = "DELETE FROM `{$this->tableNames['bb_rel_topic_userstonotify']}` WHERE user_id IN (".implode( ',', $userIdListToRemove ).")";
+            $sqlList[] = "DELETE FROM `{$this->tableNames['userinfo_content']}` WHERE user_id IN (".implode( ',', $userIdListToRemove ).")";
+            $sqlList[] = "UPDATE `{$this->tableNames['group_team']}` SET `tutor` = NULL WHERE `tutor` IN (".implode( ',', $userIdListToRemove ).")";
+            $sqlList[] = "DELETE FROM `{$this->tableNames['group_rel_team_user']}` WHERE user IN (".implode( ',', $userIdListToRemove ).")";
+            
+            if ( !$keepTrackingData )
+            {
+                $sqlList[] = "DELETE FROM `{$this->tableNames['tracking_event']}` WHERE user_id IN (".implode( ',', $userIdListToRemove ).")";
+            }
+            
+            $sqlList[] = "DELETE FROM `{$this->tableNames['rel_course_user']}` WHERE user_id IN (".implode( ',', $userIdListToRemove ).") AND `code_cours` = {$sqlCourseCode}";
+            
+            foreach ( $sqlList as $sql )
+            {
+                $this->database->exec( $sql );
+            }
+            
+            if ( !empty( $moduleDataToPurge ) )
+            {
+                foreach ( $moduleDataToPurge as $moduleData )
+                {
+                    $connectorPath = get_module_path( $moduleData['label'] ) . '/connector/adminuser.cnr.php';
+                    
+                    if ( file_exists( $connectorPath ) )
+                    {
+                        require_once $connectorPath;
+                        
+                        $connectorClass = $moduleData['label'] . '_AdminUser';
+                        
+                        if ( class_exist ( $connectorClass ) )
+                        {
+                            $connector = new $connectorClass( $this->database );
+
+                            if ( $moduleData['purgeTracking'] )
+                            {
+                                $connector->purgeUserListCourseTrackingData( $userIdListToRemove, $this->course->courseId );
+                            }
+
+                            if ( $moduleData['purgeResources'] )
+                            {
+                                $connector->purgeUserListCourseResources( $userIdListToRemove, $this->course->courseId );
+                            }
+                        }
+                        else
+                        {
+                            Console::warning("Class {$connectorClass} not found");
+                        }
+                    }
+                    else
+                    {
+                        Console::warning("No user delete connector found for module {$moduleData['label']}");
+                    }
+                }
+            }
+            
+            $this->result->addDeleted ( $userIdListToRemove );
+            
+            if ( $this->course->isSourceCourse () )
+            {
+                $sessionCourseIterator = $this->course->getChildren();
+                
+                foreach ( $sessionCourseIterator as $sessionCourse )
+                {
+                    $batchReg = new self( $sessionCourse, $this->database );
+                    $batchReg->forceRemoveUserIdListFromCourse( $userIdListToRemove, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession );
+                    $this->result->mergeResult($batchReg->getResult () );
+                }
+            }
+            
+            if ( $this->course->hasSourceCourse () && $unregisterFromSourceIfLastSession )
+            {
+                $sourceCourse = $this->course->getSourceCourse();
+                
+                $sessionCourseIterator = $sourceCourse->getChildren();
+                                 
+                // get userids registered in other sessions than the current one
+
+                $sessionList = $sourceCourse->getChildrenList();
+                
+                if ( count( $sessionList ) )
+                {  
+                    $userIdListToRemoveFromSource = array();
+
+                    $sessionIdList = array_keys( $sessionList );
+
+                    $sqlCourseCode = $this->database->quote($this->course->courseId);
+
+                    $usersInOtherSessions = $this->database->query("
+                        SELECT
+                            user_id
+                        FROM
+                            `{$this->tableNames['rel_course_user']}`
+                        WHERE
+                            user_id IN (".implode( ',', $userIdListToRemove ).")
+                        AND
+                            code_cours IN ('".implode( "','", $sessionIdList )."')
+                        AND
+                            code_cours != {$sqlCourseCode}
+                    ");
+
+
+                    // loop on $userIdList and keep only those who are not in another session and inject them in $userIdListToRemoveFromSource
+
+                    $usersInOtherSessionsList = array();
+
+                    foreach ( $usersInOtherSessions as $userNotToRemove  )
+                    {
+                        $usersInOtherSessionsList[$userNotToRemove['user_id']] = $userNotToRemove['user_id'];
+                    }
+
+                    foreach ( $userListToRemove as $userIdToRemove )
+                    {
+                        if ( ! isset( $usersInOtherSessionsList[$userIdToRemove['user_id']] ) )
+                        {
+                            $userIdListToRemoveFromSource[] = $userIdToRemove['user_id'];
+                        }
+                    }
+
+                    if ( count( $userIdListToRemoveFromSource ) )
+                    {
+                        $batchReg = new self( $sourceCourse, $this->database );
+                        $batchReg->forceRemoveUserIdListFromCourse( $userIdListToRemoveFromSource, $keepTrackingData, $moduleDataToPurge, $unregisterFromSourceIfLastSession );
+                        $this->result->mergeResult($batchReg->getResult () );
+                    }
+                }
+            }
+            
+        }
+        else
+        {
+            $this->result->setStatus(Claro_BatchRegistrationResult::STATUS_ERROR_NOTHING_TO_DO);
+            $this->result->addError(get_lang("No user to delete"));
+        }
+        
+        return !$this->result->hasError();
+    }
+    
+    /**
      * Remove a list of users given their user id from the cours
      * @param array $userIdList list of user ids to add
      * @param Claro_Class $class execute class unregistration instead of individual registration if given (default:null)
@@ -584,8 +780,6 @@ class Claro_BatchCourseRegistration
                 `code_cours` = {$sqlCourseCode}
         ");
                 
-        // var_dump($userIdList);die();
-        
         if ( $userListToRemove->numRows() )
         {
             $userIdListToRemove = array();
@@ -714,7 +908,7 @@ class Claro_BatchCourseRegistration
                             WHERE
                                 user_id IN (".implode( ',', $userIdListToRemove ).")
                             AND
-                                code_cours IN (".implode( ',', $sessionIdList ).")
+                                code_cours IN ('".implode( "','", $sessionIdList )."')
                             AND
                                 code_cours != {$sqlCourseCode}
                         ");
@@ -726,14 +920,14 @@ class Claro_BatchCourseRegistration
 
                         foreach ( $usersInOtherSessions as $userNotToRemove  )
                         {
-                            $usersInOtherSessionsList[$userNotToRemove['user_id']] = $userNotToRemove;
+                            $usersInOtherSessionsList[$userNotToRemove['user_id']] = $userNotToRemove['user_id'];
                         }
 
                         foreach ( $userListToRemove as $userIdToRemove )
                         {
-                            if ( ! isset( $usersInOtherSessionsList[$userIdToRemove] ) )
+                            if ( ! isset( $usersInOtherSessionsList[$userIdToRemove['user_id']] ) )
                             {
-                                $userIdListToRemoveFromSource[] = $userIdToRemove;
+                                $userIdListToRemoveFromSource[] = $userIdToRemove['user_id'];
                             }
                         }
                     
