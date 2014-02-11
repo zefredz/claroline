@@ -690,7 +690,7 @@ class Claro_BatchCourseRegistration
 
                     foreach ( $usersInOtherSessions as $userNotToRemove  )
                     {
-                        $usersInOtherSessionsList[$userNotToRemove['user_id']] = $userNotToRemove;
+                        $usersInOtherSessionsList[$userNotToRemove['user_id']] = $userNotToRemove['user_id'];
                     }
 
                     foreach ( $userListToRemove as $userIdToRemove )
@@ -908,7 +908,7 @@ class Claro_BatchCourseRegistration
                             WHERE
                                 user_id IN (".implode( ',', $userIdListToRemove ).")
                             AND
-                                code_cours IN (".implode( ',', $sessionIdList ).")
+                                code_cours IN ('".implode( "','", $sessionIdList )."')
                             AND
                                 code_cours != {$sqlCourseCode}
                         ");
@@ -920,14 +920,14 @@ class Claro_BatchCourseRegistration
 
                         foreach ( $usersInOtherSessions as $userNotToRemove  )
                         {
-                            $usersInOtherSessionsList[$userNotToRemove['user_id']] = $userNotToRemove;
+                            $usersInOtherSessionsList[$userNotToRemove['user_id']] = $userNotToRemove['user_id'];
                         }
 
                         foreach ( $userListToRemove as $userIdToRemove )
                         {
-                            if ( ! isset( $usersInOtherSessionsList[$userIdToRemove] ) )
+                            if ( ! isset( $usersInOtherSessionsList[$userIdToRemove['user_id']] ) )
                             {
-                                $userIdListToRemoveFromSource[] = $userIdToRemove;
+                                $userIdListToRemoveFromSource[] = $userIdToRemove['user_id'];
                             }
                         }
                     
