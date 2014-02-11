@@ -293,6 +293,7 @@ if($is_allowedToEdit) // check teacher status
                 else
                 {
                     $dialogBox->error( get_lang('The "visible from" date can\'t exceed the "visible until" date') );
+                    $emailOption = 0;
                 }
             }
             
@@ -304,6 +305,7 @@ if($is_allowedToEdit) // check teacher status
                 {
                     // Determine the rank of the new announcement
                     $insert_id = announcement_add_item($title, $content, $visible_from, $visible_until, $visibility) ;
+                    
                     if ( $insert_id )
                     {
                         $dialogBox->success( get_lang('Announcement has been added') );
@@ -326,6 +328,7 @@ if($is_allowedToEdit) // check teacher status
                 else
                 {
                     $dialogBox->error( get_lang('The "visible from" date can\'t exceed the "visible until" date') );
+                    $emailOption = 0;
                 }
             } // end elseif cmd == exCreate
             
