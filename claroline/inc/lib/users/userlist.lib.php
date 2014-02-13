@@ -947,12 +947,6 @@ class Claro_BatchCourseRegistration
             $this->result->addError(get_lang("No user to delete"));
         }
         
-        // unregister the class from the course if not already done
-        if ( $classMode && $class->isRegisteredToCourse ( $courseCode ) )
-        {
-            $class->unregisterFromCourse( $courseCode );
-        }
-        
         return !$this->result->hasError();
     }
     
