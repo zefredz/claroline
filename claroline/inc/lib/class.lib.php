@@ -388,6 +388,8 @@ function object_unregister_class_from_course( $claroClass, $courseObj, $result )
         {
             pushClaroMessage("Class has no subclass",'debug');
         }
+        
+        $claroClass->unregisterFromCourse( $courseObj->courseId );
 
         return $result;
     }
