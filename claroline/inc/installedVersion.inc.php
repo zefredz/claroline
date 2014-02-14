@@ -12,12 +12,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author      Claro Team <cvs@claroline.net>
  */
 
-$stable = true;
+$stable = false;
 $is_upgrade_available = true;
 
 // version strings : max. 10 chars
 
-$new_version = '1.12.0';
+$new_version = '1.12.0-alpha2';
 $new_version_branch = '1.12';
 $new_patternVarVersion = '/^1.12/';
 $new_patternSqlVersion = '1.12%';
