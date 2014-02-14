@@ -1,5 +1,16 @@
 <?php // $Id$
 
+if ( empty(ini_get('date.timezone') ) )
+{
+    ini_set('date.timezone','UTC');
+    date_default_timezone_set('UTC');
+}
+else
+{
+    ini_set('date.timezone',date_default_timezone_get());
+    date_default_timezone_set(date_default_timezone_get());
+}
+
 /**
  * CLAROLINE
  *
