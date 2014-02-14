@@ -30,17 +30,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 try
 {
-    if ( empty(ini_get('date.timezone') ) )
-    {
-        ini_set('date.timezone','UTC');
-        date_default_timezone_set('UTC');
-    }
-    else
-    {
-        ini_set('date.timezone',date_default_timezone_get());
-        date_default_timezone_set(date_default_timezone_get());
-    }
-    
     include_once dirname(__FILE__) . '/installer.class.php';
 
     ! defined( 'CLARO_FILE_PERMISSIONS' ) && define( 'CLARO_FILE_PERMISSIONS', 0777 );
