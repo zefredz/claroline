@@ -48,7 +48,14 @@ if ( isset($GLOBALS['clmain_serverTimezone']) )
 }
 else
 {
-    date_default_timezone_set(date_default_timezone_get());
+    if ( empty(ini_get('date.timezone') ) )
+    {
+        date_default_timezone_set('UTC');
+    }
+    else
+    {
+        date_timezone_set(date_timezone_get());
+    }
 }
 
 require_once  __DIR__ . '/lib/claro_main.lib.php';

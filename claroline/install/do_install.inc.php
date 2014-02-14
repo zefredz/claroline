@@ -30,7 +30,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 try
 {
-    date_default_timezone_set(date_default_timezone_get());
+    if ( empty(ini_get('date.timezone') ) )
+    {
+        date_default_timezone_set('UTC');
+    }
+    else
+    {
+        date_timezone_set(date_timezone_get());
+    }
     
     include_once dirname(__FILE__) . '/installer.class.php';
 
