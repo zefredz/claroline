@@ -420,6 +420,7 @@ $_lang['First'] = 'First';
 $_lang['Folder %folder is not writable'] = 'Folder %folder is not writable';
 $_lang['Force to lowercase the course code'] = 'Force to lowercase the course code';
 $_lang['Force to uppercase the course code'] = 'Force to uppercase the course code';
+$_lang['Force unenrolment'] = 'Force unenrolment';
 $_lang['Forum index'] = 'Forum index';
 $_lang['Forum locked'] = 'Forum locked';
 $_lang['Forum name cannot be empty'] = 'Forum name cannot be empty';
@@ -879,6 +880,7 @@ $_lang['The platform administrators and course creators password will remain unc
 $_lang['The requested folder %dir does not exists'] = 'The requested folder %dir does not exists';
 $_lang['The resource is invisible. Are you sure that you want to attach this resource ?'] = 'The resource is invisible. Are you sure that you want to attach this resource ?';
 $_lang['The user activation cannot be changed'] = 'The user activation cannot be changed';
+$_lang['The user cannot be removed from the course'] = 'The user cannot be removed from the course';
 $_lang['The user has been successfully unregistered for all courses'] = 'The user has been successfully unregistered for all courses';
 $_lang['The user has not been successfully unregistered for course'] = 'The user has not been successfully unregistered for course';
 $_lang['The username is case sensitive'] = 'The username is case sensitive';

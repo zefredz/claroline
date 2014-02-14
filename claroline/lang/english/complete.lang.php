@@ -3558,3 +3558,5 @@ $_lang['Web server'] = 'Web server';
 $_lang['Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted'] = 'Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted';
 $_lang['The resource is invisible. Are you sure that you want to attach this resource ?'] = 'The resource is invisible. Are you sure that you want to attach this resource ?';
 $_lang['Move "%moduleName" to'] = 'Move "%moduleName" to';
+$_lang['Force unenrolment'] = 'Force unenrolment';
+$_lang['The user cannot be removed from the course'] = 'The user cannot be removed from the course';

@@ -226,6 +226,7 @@ $_lang['Files extensions'] = 'Files extensions';
 $_lang['Files statistics'] = 'Files statistics';
 $_lang['Fill in one or more search criteria and press \'Search\''] = 'Fill in one or more search criteria and press \'Search\'';
 $_lang['Fill in the user information'] = 'Fill in the user information';
+$_lang['Force unenrolment'] = 'Force unenrolment';
 $_lang['Forum locked'] = 'Forum locked';
 $_lang['Forum name cannot be empty'] = 'Forum name cannot be empty';
 $_lang['Forum unknown'] = 'Forum unknown';
@@ -472,6 +473,7 @@ $_lang['The platform administrators and course creators password will remain unc
 $_lang['The requested folder %dir does not exists'] = 'The requested folder %dir does not exists';
 $_lang['The resource is invisible. Are you sure that you want to attach this resource ?'] = 'The resource is invisible. Are you sure that you want to attach this resource ?';
 $_lang['The user activation cannot be changed'] = 'The user activation cannot be changed';
+$_lang['The user cannot be removed from the course'] = 'The user cannot be removed from the course';
 $_lang['The user has been successfully unregistered for all courses'] = 'The user has been successfully unregistered for all courses';
 $_lang['The user has not been successfully unregistered for course'] = 'The user has not been successfully unregistered for course';
 $_lang['The users limit for this course has been reached'] = 'The users limit for this course has been reached';
