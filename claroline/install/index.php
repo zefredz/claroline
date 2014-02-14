@@ -15,11 +15,13 @@
 
 if ( empty(ini_get('date.timezone') ) )
 {
+    ini_set('date.timezone','UTC');
     date_default_timezone_set('UTC');
 }
 else
 {
-    date_timezone_set(date_timezone_get());
+    ini_set('date.timezone',date_default_timezone_get());
+    date_default_timezone_set(date_default_timezone_get());
 }
 
 /* LET DEFINE ON SEPARATE LINES !!!*/

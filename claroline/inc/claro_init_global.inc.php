@@ -1,5 +1,16 @@
 <?php // $Id$
 
+if ( empty(ini_get('date.timezone') ) )
+{
+    ini_set('date.timezone','UTC');
+    date_default_timezone_set('UTC');
+}
+else
+{
+    ini_set('date.timezone',date_default_timezone_get());
+    date_default_timezone_set(date_default_timezone_get());
+}
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
@@ -42,20 +53,10 @@ else
        .'</center>');
 }
 
-if ( isset($GLOBALS['clmain_serverTimezone']) )
+if ( !empty($GLOBALS['clmain_serverTimezone']) )
 {
+    ini_set('date.timezone', $GLOBALS['clmain_serverTimezone']);
     date_default_timezone_set($GLOBALS['clmain_serverTimezone']);
-}
-else
-{
-    if ( empty(ini_get('date.timezone') ) )
-    {
-        date_default_timezone_set('UTC');
-    }
-    else
-    {
-        date_timezone_set(date_timezone_get());
-    }
 }
 
 require_once  __DIR__ . '/lib/claro_main.lib.php';
