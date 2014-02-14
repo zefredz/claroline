@@ -1579,18 +1579,14 @@ function claro_get_conf_repository($context=array())
 
 function get_conf($param, $default = null)
 {
-    if (  claro_debug_mode ())
+    if ( ! isset($GLOBALS['_conf'][$param]) && ! isset($GLOBALS[$param]) && !defined($param))
     {
+        static $paramList = array();
 
-        if ( ! isset($GLOBALS['_conf'][$param]) && ! isset($GLOBALS[$param]) && !defined($param))
+        if (!in_array($param,$paramList))
         {
-            static $paramList = array();
-
-            if (!in_array($param,$paramList))
-            {
-                $paramList[]=$param;
-                pushClaroMessage( __FUNCTION__ .  ' : ' . claro_htmlspecialchars($param) . ' use but not set. use default :' . var_export($default,1),'debug');
-            }
+            $paramList[]=$param;
+            pushClaroMessage( __FUNCTION__ .  ' : ' . claro_htmlspecialchars($param) . ' use but not set. use default :' . var_export($default,1),'debug');
         }
     }
 
