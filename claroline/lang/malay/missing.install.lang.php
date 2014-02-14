@@ -2,6 +2,7 @@
 
 $_lang['%path is missing'] = '%path is missing';
 $_lang['%requiredMark required field'] = '%requiredMark required field';
+$_lang['--empty--'] = '--empty--';
 $_lang['A database will be created for each course.'] = 'A database will be created for each course.';
 $_lang['Absolute URL'] = 'Absolute URL';
 $_lang['Additional Information'] = 'Additional Information';
@@ -112,6 +113,7 @@ $_lang['Requirements'] = 'Requirements';
 $_lang['Retry'] = 'Retry';
 $_lang['Self-registration'] = 'Self-registration';
 $_lang['Server requirements'] = 'Server requirements';
+$_lang['Server timezone'] = 'Server timezone';
 $_lang['Server unavailable'] = 'Server unavailable';
 $_lang['Setting'] = 'Setting';
 $_lang['Single'] = 'Single';
