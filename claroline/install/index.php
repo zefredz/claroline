@@ -13,6 +13,7 @@
  * @package     INSTALL
  */
 
+date_default_timezone_set(date_default_timezone_get());
 
 /* LET DEFINE ON SEPARATE LINES !!!*/
 // __LINE__ use to have arbitrary number but order of panels

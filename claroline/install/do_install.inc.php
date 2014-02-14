@@ -30,6 +30,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 try
 {
+    date_default_timezone_set(date_default_timezone_get());
+    
     include_once dirname(__FILE__) . '/installer.class.php';
 
     ! defined( 'CLARO_FILE_PERMISSIONS' ) && define( 'CLARO_FILE_PERMISSIONS', 0777 );
