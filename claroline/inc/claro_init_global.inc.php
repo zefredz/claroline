@@ -1,5 +1,16 @@
 <?php // $Id$
 
+if ( empty(ini_get('date.timezone') ) )
+{
+    ini_set('date.timezone','UTC');
+    date_default_timezone_set('UTC');
+}
+else
+{
+    ini_set('date.timezone',date_default_timezone_get());
+    date_default_timezone_set(date_default_timezone_get());
+}
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
@@ -25,10 +36,6 @@ define('CLARO_INCLUDE_ALLOWED', true);
 // Determine the directory path where this current file lies
 // This path will be useful to include the other intialisation files
 
-require_once  __DIR__ . '/lib/claro_main.lib.php';
-
-$_SERVER['PHP_SELF'] = php_self();
-
 $mainConfigurationFile = __DIR__ . '/../../platform/conf/claro_main.conf.php';
 
 if ( file_exists($mainConfigurationFile) )
@@ -46,10 +53,15 @@ else
        .'</center>');
 }
 
-if ( get_conf('clmain_serverTimezone','') )
+if ( !empty($GLOBALS['clmain_serverTimezone']) )
 {
-    date_default_timezone_set(get_conf('clmain_serverTimezone'));
+    ini_set('date.timezone', $GLOBALS['clmain_serverTimezone']);
+    date_default_timezone_set($GLOBALS['clmain_serverTimezone']);
 }
+
+require_once  __DIR__ . '/lib/claro_main.lib.php';
+
+$_SERVER['PHP_SELF'] = php_self();
 
 // Most PHP package has increase the error reporting.
 // The line below set the error reporting to the most fitting one for Claroline
