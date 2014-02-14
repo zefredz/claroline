@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS `__CL_MAIN__course_tool`;
 DROP TABLE IF EXISTS `__CL_MAIN__class`;
 DROP TABLE IF EXISTS `__CL_MAIN__rel_class_user`;
 DROP TABLE IF EXISTS `__CL_MAIN__rel_course_class`;
+DROP TABLE IF EXISTS `__CL_MAIN__coursehomepage_portlet`;
 DROP TABLE IF EXISTS `__CL_MAIN__rel_course_portlet`;
 DROP TABLE IF EXISTS `__CL_MAIN__rel_coursehomepage_portlet`;
 DROP TABLE IF EXISTS `__CL_MAIN__config_file`;
