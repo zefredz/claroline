@@ -6,7 +6,7 @@
  * Try to create main database of claroline without remove existing content
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  * @package     UPGRADE
@@ -62,12 +62,12 @@ if ( isset($_REQUEST['cmd'])
     
     $res_listCourses = claro_sql_query($sqlListCourses);
     
-    if (mysqli_num_rows($res_listCourses))
+    if (mysql_num_rows($res_listCourses))
     {
         $restored_courses =  '<ol>' . "\n";
         $moved_courses =  '<ol>' . "\n";
         
-        while ( ( $course = mysqli_fetch_array($res_listCourses)) )
+        while ( ( $course = mysql_fetch_array($res_listCourses)) )
         {
             $currentcoursePathSys = get_path('coursesRepositorySys') . $course['coursePath'] . '/';
             $currentCourseIDsys = $course['sysCode'];

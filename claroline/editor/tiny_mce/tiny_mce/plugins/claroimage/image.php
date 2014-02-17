@@ -5,7 +5,7 @@
  *
  * $Revision$
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -22,7 +22,7 @@
  */
 
 // load Claroline kernel
-require_once __DIR__ . '/../../../../../inc/claro_init_global.inc.php';
+require_once dirname(__FILE__) . '/../../../../../inc/claro_init_global.inc.php';
 
 require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
 require_once get_path('incRepositorySys') . '/lib/image.lib.php';

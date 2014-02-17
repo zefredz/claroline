@@ -8,7 +8,7 @@
 * User desktop administration index.
 *
 * @version      $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
 * @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
 * @package      DESKTOP
 * @author       Claroline team <info@claroline.net>
@@ -21,14 +21,14 @@ $gidReset = true;
 $uidRequired = true;
 
 // load Claroline kernel
-require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
+require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
 // users authentified
 if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
 if( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed') );
 
-require_once __DIR__ . '/lib/portlet.lib.php';
+require_once dirname(__FILE__) . '/lib/portlet.lib.php';
 FromKernel::uses( 'utils/input.lib', 'utils/validator.lib' );
 
 $dialogBox = new DialogBox;

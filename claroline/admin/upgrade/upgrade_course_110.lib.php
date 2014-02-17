@@ -13,7 +13,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * function won't change, so let's go to write it.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     UPGRADE
  * @author      Claro Team <cvs@claroline.net>
@@ -240,12 +240,12 @@ function tool_intro_upgrade_to_110 ($course_code)
                             FROM `" . $currentCourseDbNameGlu . "tool_intro`
                             WHERE `tool_id` <= 0";
                 
-                $sql = mysqli_query($GLOBALS["___mysqli_ston"], $req);
+                $sql = mysql_query($req);
                 $sqlForUpdate = array();
                 
                 if ($sql)
                 {
-                    $res = mysqli_fetch_assoc($sql);
+                    $res = mysql_fetch_assoc($sql);
                     
                     // If yes: create a portlet for this course in `rel_course_portlet`
                     if (isset($res['nbToolIntro']) && $res['nbToolIntro'] > 0)
@@ -255,9 +255,9 @@ function tool_intro_upgrade_to_110 ($course_code)
                                 FROM `" . get_conf('mainTblPrefix') . "cours`
                                 WHERE `code` = '".$course_code."'";
                         
-                        $sql = mysqli_query($GLOBALS["___mysqli_ston"], $req);
+                        $sql = mysql_query($req);
                         
-                        $res = mysqli_fetch_assoc($sql);
+                        $res = mysql_fetch_assoc($sql);
                         
                         // Insert the portlet
                         $sqlForUpdate[] = "INSERT INTO `" . get_conf('mainTblPrefix') . "rel_course_portlet`

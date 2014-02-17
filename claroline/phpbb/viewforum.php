@@ -6,7 +6,7 @@
  * Displays the list of topics gathered within a forum.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @copyright   (c) 2001 The phpBB Group
  * @author      Claroline Team <info@claroline.net>
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
@@ -74,7 +74,7 @@ try
     {
         if ( ! isset( $forumId ) &&  claro_is_in_a_group() && claro_is_group_allowed() )
         {
-            $forumId = get_group_forumId( claro_get_current_group_id () );
+            $forumId = claro_get_current_group_data( 'forumId' );
             
             if ( ! $forumId )
             {

@@ -7,14 +7,14 @@
  * directory.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2.0
  * @package     KERNEL
  */
 
-require __DIR__ . '/../inc/claro_init_global.inc.php';
+require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
 require_once get_path('incRepositorySys') . '/lib/url.lib.php';
 require_once get_path('incRepositorySys') . '/lib/file.lib.php';

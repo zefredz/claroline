@@ -41,7 +41,7 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php' ;
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once __DIR__ . '/../messaging/lib/permission.lib.php';
+require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
 // use viewMode
 claro_set_display_mode_available(TRUE);
@@ -594,7 +594,7 @@ if ( is_integer($nbGroupPerUser) )
 
 if ( claro_is_user_authenticated () && get_conf( 'clgrp_displayMyGroups', true ) )
 {
-    require_once __DIR__ . '/lib/mygroups.lib.php';
+    require_once dirname(__FILE__) . '/lib/mygroups.lib.php';
     $myGroupList = new Claro_MyGroupList();
     $myGroupListTpl = new ModuleTemplate( 'CLGRP', 'mygroups.tpl.php' );
     $myGroupListTpl->assign( 'myGroupList', $myGroupList->getMyGroupList() );
@@ -612,25 +612,13 @@ $out .=                                                         "\n"
       HEADINGS
    -------------*/
 
-if ( count($groupList) )
-{
+$sortUrlList = $groupPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
-    $sortUrlList = $groupPager->get_sort_url_list($_SERVER['PHP_SELF']);
-
-    $out .= '<tr align="center">' . "\n"
-    . '<th align="left">'
-    . '&nbsp;<a href="'.claro_htmlspecialchars(Url::Contextualize( $sortUrlList['name'] )).'">'.get_lang("Groups") . '</a>'
-    . '</th>' . "\n"
-    ;
-}
-else
-{
-    $out .= '<tr align="center">' . "\n"
-    . '<th align="left">'
-    . get_lang("Groups")
-    . '</th>' . "\n"
-    ;
-}
+$out .= '<tr align="center">' . "\n"
+. '<th align="left">'
+. '&nbsp;<a href="'.claro_htmlspecialchars(Url::Contextualize( $sortUrlList['name'] )).'">'.get_lang("Groups") . '</a>'
+. '</th>' . "\n"
+;
 
 if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
 {
@@ -642,18 +630,9 @@ if ( $isTutorRegAllowed )
     $out .= '<th align="left">' . get_lang("Registration as tutor") . '</th>' . "\n"  ;
 }
 
-if ( count( $groupList ) )
-{
-    $out .= '<th>' . get_lang("Registered") . '</th>' . "\n"
-    . '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['maxStudent'])).'">' . get_lang("Max.") . '</a></th>' . "\n"
-    ;
-}
-else
-{
-    $out .= '<th>' . get_lang("Registered") . '</th>' . "\n"
-    . '<th>'.get_lang("Max.") . '</th>' . "\n"
-    ;
-}
+$out .= '<th>' . get_lang("Registered") . '</th>' . "\n"
+. '<th><a href="'.claro_htmlspecialchars(Url::Contextualize($sortUrlList['maxStudent'])).'">' . get_lang("Max.") . '</a></th>' . "\n"
+;
 
 if ( $is_allowedToManage ) // only for course administrator
 {
@@ -863,13 +842,19 @@ if( $groupList )
 }
 else
 {
-    $colspan = 3;
-    
-    if ( $is_allowedToManage ) $colspan += 2;
-    if ( $isTutorRegAllowed ) $colspan++;
-    if ( $isGroupRegAllowed ) $colspan++;
-    
-    
+    if ( $is_allowedToManage )
+    {
+        $out .= "\n"
+        . '<tr>'
+        . '<td colspan="5" class="centerContent">'
+        . get_lang('Empty')
+        . '</td>'
+        . '</tr>'
+        ;
+    }
+    else
+    {
+        $colspan = ( $isGroupRegAllowed ? '4' : '3' );
         
         $out .= "\n"
         . '<tr>'
@@ -878,6 +863,7 @@ else
         . '</td>'
         . '</tr>'
         ;
+    }
 }
 
 $out .= '</tbody>' . "\n"

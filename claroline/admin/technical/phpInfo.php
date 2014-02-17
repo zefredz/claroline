@@ -8,7 +8,7 @@
  * - credits
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author :    Christophe Gesche <moosh@claroline.net>
  * @package     MAINTENANCE
@@ -29,7 +29,7 @@ if( file_exists(get_path('rootSys').'platform/currentVersion.inc.php') )
     include (get_path('rootSys').'platform/currentVersion.inc.php');
 }
 
-require __DIR__ .'/../../inc/installedVersion.inc.php';
+require dirname(__FILE__) .'/../../inc/installedVersion.inc.php';
 
 if( ! claro_is_platform_admin() ) claro_disp_auth_form();
 
@@ -68,6 +68,11 @@ if ($is_allowedToAdmin)
     <li>
         <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpinfo" <?php echo ($cmd == 'phpinfo')? 'class="current"': ''; ?>>
         <?php echo get_lang('PHP configuration'); ?>
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=secinfo" <?php echo ($cmd == 'secinfo')? 'class="current"': ''; ?>>
+        <?php echo get_lang('PHP security information'); ?>
         </a>
     </li>
     <li>
@@ -120,6 +125,12 @@ if ($is_allowedToAdmin)
         echo phpinfoNoHtml();
         echo '</div>';
     }
+    elseif( $cmd == 'secinfo' )
+    {
+        require_once dirname(__FILE__) .'/../../inc/lib/thirdparty/PhpSecInfo/PhpSecInfo.lib.php';
+        phpsecinfo();
+
+    }
     elseif( $cmd == 'claroconf' )
     {
         echo '<div style="background-color: #dfdfff;">';
@@ -159,7 +170,7 @@ if ($is_allowedToAdmin)
                 </tr>
                 <tr>
                     <th scope="row"><?php echo get_lang('MySQL (installed/minimum)') ;?></th>
-                    <td><?php echo ((is_null($___mysqli_res = mysqli_get_server_info($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res) . ' / ' . $requiredMySqlVersion;?></td>
+                    <td><?php echo mysql_get_server_info() . ' / ' . $requiredMySqlVersion;?></td>
                 </tr>
                 <tr>
                     <th scope="row"><?php echo get_lang('Web server') ;?></th>

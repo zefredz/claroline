@@ -4,12 +4,12 @@
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
  */
 
-include_once __DIR__ . '/exercise.lib.php';
+include_once dirname(__FILE__) . '/exercise.lib.php';
 
 class Question
 {
@@ -703,7 +703,7 @@ class Question
      */
     public function setAnswer()
     {
-        $path = __DIR__;
+        $path = dirname(__FILE__);
 
         switch($this->type)
         {

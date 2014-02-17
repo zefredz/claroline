@@ -8,7 +8,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // Determine the directory path where this current file lies
 // This path will be useful to include the other intialisation files
 
-$includePath = realpath(__DIR__.'/../../inc');
+$includePath = realpath(dirname(__FILE__).'/../../inc');
 
 if ( file_exists($includePath . '/conf/claro_main.conf.php') )
 {
@@ -97,8 +97,8 @@ $clarolineRepositorySys = get_conf('rootSys') . $clarolineRepositoryAppend;
   ----------------------------------------------------------------------*/
 
 require_once $includePath . '/lib/config.lib.inc.php';
-require_once __DIR__ . '/configUpgrade.class.php';
-require_once __DIR__ . '/upgrade.lib.php';
+require_once dirname(__FILE__) . '/configUpgrade.class.php';
+require_once dirname(__FILE__) . '/upgrade.lib.php';
 
 /**
  * List of accepted error - See MySQL error codes :
@@ -128,8 +128,6 @@ $currentDbVersion = $current_version['db'];
 $this_new_version = get_new_version();
 $new_version = $this_new_version['complete'];
 $new_version_branch = $this_new_version['branch'];
-$patternVarVersion = $this_new_version['patternVarVersion'];
-$patternSqlVersion = $this_new_version['patternSqlVersion'];
 
 /*----------------------------------------------------------------------
   Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
@@ -141,12 +139,12 @@ claro_unquote_gpc();
   Connect to the server database and select the main claroline DB
   ----------------------------------------------------------------------*/
 
-$db = @($GLOBALS["___mysqli_ston"] = mysqli_connect($dbHost,  $dbLogin,  $dbPass))
+$db = @mysql_connect($dbHost, $dbLogin, $dbPass)
 or die ('<center>'
        .'WARNING ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER.'
        .'</center>');
 
-$selectResult = ((bool)mysqli_query($db, "USE $mainDbName"))
+$selectResult = mysql_select_db($mainDbName,$db)
 or die ( '<center>'
         .'WARNING ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.'
         .'</center>');
@@ -232,9 +230,9 @@ else
         }
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
-        if ( mysqli_num_rows($result) > 0)
+        if ( mysql_num_rows($result) > 0)
         {
-            $uData = mysqli_fetch_array($result);
+            $uData = mysql_fetch_array($result);
 
             // the authentification of this user is managed by claroline itself
             $password = stripslashes( $password );
@@ -270,17 +268,3 @@ else                $_SESSION['_uid'] = null; // unset
 if ( isset($is_platformAdmin) ) $_SESSION['is_platformAdmin'] = $is_platformAdmin;
 else                            $_SESSION['is_platformAdmin'] = null;
 
-// allow to force upgrade in development mode
-if ( defined('DEVEL_MODE') && DEVEL_MODE === true && isset($_REQUEST['force_upgrade']) && (bool) $_REQUEST['force_upgrade'] )
-{
-    $forceUpgrade = true;
-    $_SESSION['forceUpgrade'] = true;
-}
-elseif ( isset($_SESSION['forceUpgrade']) && $_SESSION['forceUpgrade'] = true )
-{
-    $forceUpgrade = true;
-}
-else
-{
-    $forceUpgrade = false;
-}

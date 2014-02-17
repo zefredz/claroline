@@ -6,7 +6,7 @@
  * Admin panel.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     ADMIN
  * @author      claro team <cvs@claroline.net>
@@ -94,7 +94,7 @@ $menu['AdminPlatform'][] = '<a href="module/module_list.php">'.get_lang('Modules
 $menu['AdminPlatform'][] = '<a href="adminmailsystem.php">'.get_lang('Manage administrator email notifications').'</a>';
 
 
-if (file_exists(__DIR__ . '/maintenance/checkmails.php'))
+if (file_exists(dirname(__FILE__) . '/maintenance/checkmails.php'))
 {
     $menu['AdminPlatform'][] = '<a href="maintenance/checkmails.php">'.get_lang('Check and Repair emails of users').'</a>';
 }
@@ -107,7 +107,6 @@ $menu['AdminClaroline'][] = '<a href="clarolinenews.php">'.get_lang('Claroline.n
 // Technical's administration menu
 $menu['AdminTechnical'][] = '<a href="technical/phpInfo.php">'.get_lang('System Info').'</a>';
 $menu['AdminTechnical'][] = '<a href="technical/files_stats.php">'.get_lang('Files statistics').'</a>';
-$menu['AdminTechnical'][] = '<a href="technical/admin_cache.php">'.get_lang('Manage cache').'</a>';
 
 $menu['AdminTechnical'][] = '<a href="../tracking/platform_report.php">'.get_lang('Platform statistics').'</a>';
 $menu['AdminTechnical'][] = '<a href="campusProblem.php">'.get_lang('Scan technical fault').'</a>';

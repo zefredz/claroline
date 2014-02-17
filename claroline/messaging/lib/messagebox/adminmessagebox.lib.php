@@ -6,7 +6,7 @@
  * Received adminmessagebox class
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -15,9 +15,9 @@
  */
 
 // load SentMessage class
-require_once __DIR__ . '/../message/sentmessage.lib.php';
+require_once dirname(__FILE__) . '/../message/sentmessage.lib.php';
 // load administration strategy (order,where,limit, clause)
-require_once __DIR__ . '/../selectorstrategy/adminboxstrategy.lib.php';
+require_once dirname(__FILE__) . '/../selectorstrategy/adminboxstrategy.lib.php';
 
 class AdminMessageBox implements Iterator 
 {

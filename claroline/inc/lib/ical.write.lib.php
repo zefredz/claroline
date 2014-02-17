@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 )
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLICAL
  * @author      Claro Team <cvs@claroline.net>
@@ -59,7 +59,7 @@ function buildICal($context, $calType='ics')
         $iCalRepositorySys =  get_path('rootSys') . get_conf('iCalRepositoryCache','tmp/cache/iCal/');
         if (!file_exists($iCalRepositorySys))
         {
-            require_once __DIR__ . '/fileManage.lib.php';
+            require_once dirname(__FILE__) . '/fileManage.lib.php';
             claro_mkdir($iCalRepositorySys, CLARO_FILE_PERMISSIONS, true);
             if (!file_exists($iCalRepositorySys)) claro_failure::set_failure('CANT_CREATE_ICAL_DIR');
         }

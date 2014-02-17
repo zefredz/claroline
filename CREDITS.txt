@@ -1,5 +1,5 @@
 *******************************************************************************
-                            CLAROLINE 1.12 - CREDITS
+                            CLAROLINE 1.11 - CREDITS
 *******************************************************************************
 
 ------------------------------------------------------------------------------
@@ -21,31 +21,29 @@ Claroline Consortium involving several institutions over the world
                                 CLAROLINE TEAM
 ------------------------------------------------------------------------------
 
-Claroline Main contributors :
+Claroline Consortium :
+    
+    Philippe Dekimpe        (dkp@ecam.be)
+    Stéphane Klein          (stephane.klein@claroline.net)
+    Nicolas Godfraind       (nicolas.godfraind@gmail.com)
+    Emmanuel Gevry          (emmanuel.gervy@claroline.net)
 
-    * Université catholique de Louvain (UCL - http://uclouvain.be) :
+Main contributors :
 
-    Frédéric Fervaille      Developper - UCL (frederic.fervaille@uclouvain.be)
-    Frédéric Minne          Lead Developper - UCL (zefredz@claroline.net)
+    Université catholique de Louvain (UCL) :
 
-    * Haute Ecole Leonard de Vinci (HLV - http://vinci.be) :
+    Frédéric Fervaille      (frederic.fervaille@uclouvain.be)
+    Frédéric Minne          (zefredz@claroline.net)
 
-    Philippe Dekimpe        Developper - ECAM (dkp@ecam.be - HLV)
+    Facultés Universitaires Notre-Dame de la Paix (FUNDP) :
 
-    * Claroline Consortium (http://claroline.net) :
-
-    Anh Thao Pham           Developper - Consortium Claroline 
-                            (anhthao.pham@claroline.net)
-
-    * Université de Namur (UNamur - http://unamur.be) :
-
-    Laurence Dumortier      Contributor (laurence.dumortier@fundp.ac.be)
-    Jean-Roch Meurisse      Contributor (jean-roch.meurisse@fundp.ac.be)
+    Laurence Dumortier      (laurence.dumortier@fundp.ac.be)
+    Jean-Roch Meurisse      (jean-roch.meurisse@fundp.ac.be)
 
 Former members of the Claroline Team :
 
     Antonin Bourguignon         (Developer - Claroline Consortium)
-    Christophe Gesché           aka Moosh (Developer - UCL)
+    Christophe Gesché           (moosh@claroline.net) aka Moosh
     Anais Hulet                 (Communication - CERDECAM)
     Florence Hortmans           (Communication - CERDECAM)
     Grégory Koch                (Developer - UCL)
@@ -53,22 +51,14 @@ Former members of the Claroline Team :
     Guillaume Lederer           (Developer - CERDECAM)
     Nicolas Leblanc             (Developer - CERDECAM)
     Hugues Peeters              (Developer and Project Manager - UCL)
-    Sébastien Piraux            aka Fragile (Developer CERDECAM & UCL)
+    Sébastien Piraux            (seb@claroline.net) aka Fragile
     Dimitri Rambout             (Developer - UCL)
     Philippe Van Eerdenbrugghe  (Developer - HELV)
     Aurelien Van Hamme          (Developer - CERDECAM)
 
 Former contributors :
 
-    Marina Zelwer               (marina.zelwer@univ-st-etienne.fr)
-
-Claroline Connect team :  
-    
-    Stéphane Klein              (stephane.klein@claroline.net)
-    Nicolas Godfraind           (nicolas.godfraind@gmail.com)
-    Esdras Ngongo               (esdrasngongo@gmail.com) 
-    Anh Thao Pham               (anhthao.pham@claroline.net)
-    Jorge Solis                 (jorgeluissolis@gmail.com)
+    Marina Zelwer       (marina.zelwer@univ-st-etienne.fr)
 
 ------------------------------------------------------------------------------
                                 SPECIFIC CODE CONTRIBUTIONS
@@ -83,7 +73,7 @@ Linker feature :                Renaud Fallier (captren@gmail.com)
 SCORM and IMS-QTI export :      Amand Tihon (amand@alrj.org)
 
 Administration section :        Benoit Muret (muret_ben@hotmail.com)
-                                Guillaume Lederer
+                                Guillaume Lederer (lederer@cerdecam.be)
 
 Announcement tool improvement:  Pablo Rey (prey@cesga.es)
 
@@ -98,22 +88,21 @@ LDAP :                          Roan Embrechts (roan.embrechts@ugent.be)
 Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
                                 Guillaume Lederer
 
-Quizz Tool :                    Olivier Brouckaert
-                                Sebastien Piraux
+Quizz Tool :                    Olivier Brouckaert (oli.brouckaert@skynet.be)
+                                Sebastien Piraux (piraux@cerdecam.be)
 
-Learning Path Tool :            Sebastien Piraux
+Learning Path Tool :            Sebastien Piraux (Cerdecam)
                                 Guillaume Lederer
 
-Tracking system :               Sebastien Piraux
-                                Anh Thao Pham (anhthao.pham@claroline.net)
+Tracking system :               Sebastien Piraux (piraux@cerdecam.be)
 
 Single DB customisation :       Roger Hedlund (rhedlund@passagen.se)
 
 User Image :                    Miguel (miguel@cesga.es)
                                 Patrick Cool (patrick.cool@ugent.be)
 
-Upgrade tool :                  Mathieu Laurent
-                                Christophe Gesché
+Upgrade tool :                  Mathieu Laurent (laurent@cerdecam.be)
+                                Christophe Gesché (gesche@ipm.ucl.ac.be)
 
 Export class to csv, display 
 user classes, reset all 
@@ -126,33 +115,28 @@ enhancements :                  Samuel Champagne ( schampagne@libergia.com )
                                 EXTERNAL CODE
 ------------------------------------------------------------------------------
 
+Forum tool :                    adpated from PHPBB 1.4 (http://www.phpbb.com)
+
 Zip / unzipping option  :       PclZip library - Vincent Blavet
                                 (http://www.phpconcept.net)
 
-SOAP Support :                  NuSOAP library by NuSphere and Dietrich Ayala
-                                http://sourceforge.net/projects/nusoap/
+CAS system :                    based on phpCas library from ESUP-Portail project
+                                (http://esup-phpcas.sourceforge.net/)
 
+External Authentication :       based on PEAR_Auth http://pear.php.net
+
+SOAP Support :                  based on NuSOAP SOAP library by NuSphere and
+                                Dietrich Ayala
+                                http://sourceforge.net/projects/nusoap/
 
 iCal support :                  based on Michael Wimmer <flaimo@gmx.net> iCal
                                 PHP Classes
 
 RSS reader :                    based on LastRSS by http://lastrss.oslab.net/
 
-PEAR Modules :                  Services_JSON, Cache Lite, XML Serializer 
-                                http://pear.php.net
+PEAR Modules :                  http://pear.php.net
 
-PHP email transport :           PHP Mailer class by Brent R. Matzelle
-
-Pimple :                        Pimple is a small Dependency Injection Container
-                                for PHP 5.3 developped by Fabien Potencier at
-                                sensiolabs http://pimple.sensiolabs.org/
-
-PDF generator :                 TCPDF by Nicola Asuni - http://tcpdf.org
-
-LaTeX generator :               MimeTeX by John Forkosh
-
-CSV Parser :                    parseCSV class by Jim Myhrberg
-                                http://code.google.com/p/parsecsv-for-php/
+PHP email transport :           based on PHP Mailer class by Brent R. Matzelle
 
 ------------------------------------------------------------------------------
                                 GRAPHICS
@@ -258,8 +242,6 @@ Spanish translation :           Xavier Casassas (xcc@mail.ics.co.at)
                                 Gerardo Albela Gonzalez (galbela@uvigo.es)
                                 Daniel Marimon (danielmf@gmail.com)
 
-Spanish utf8 :                  David Martin
-
 Spanish_Latin :                 Carlos Brys (brys@fce.unam.edu.ar)
                                 Mario Augusto Mendez Secaira <mendezsecaira@galileo.edu>
 
@@ -283,11 +265,12 @@ Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
 ------------------------------------------------------------------------------
 
 Deepfear, Netcraft and Siegfried from the Zone-H Team
+
 The Digital Security Research Group [DSecRG] <http://www.dsec.ru>
+
 Fernando Munoz and dimkrayan on the Claroline.net forum
+
 Gerendi Sandor Attila <http://gsasec.blogspot.com/>
-High-Tech Bridge  <https://www.htbridge.com>
-Packet Storm Security <http://packetstormsecurity.com/>
 
 =========================================================================
     Europe, Belgium, Louvain-la-Neuve

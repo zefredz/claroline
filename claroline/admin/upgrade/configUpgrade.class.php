@@ -8,7 +8,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * Config class to upgrade configuration file.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/config_def/
  * @package     CONFIG
@@ -17,7 +17,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author      Mathieu Laurent <laurent@cerdecam.be>
  */
 
-require_once __DIR__ . '/../../inc/lib/config.class.php';
+require_once dirname(__FILE__) . '/../../inc/lib/config.class.php';
 
 class ConfigUpgrade extends Config
 {

@@ -8,14 +8,14 @@
  * File handling functions.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     KERNEL
  */
 
-require_once __DIR__ . '/core/url.lib.php';
+require_once dirname(__FILE__) . '/core/url.lib.php';
 
 function file_upload_failed( $file )
 {

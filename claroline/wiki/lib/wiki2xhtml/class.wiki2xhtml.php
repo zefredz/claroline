@@ -150,7 +150,7 @@ class wiki2xhtml
 
         $this->setOpt('mail_pattern','/^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/');
 
-        $this->setOpt('acronyms_file',__DIR__.'/acronyms.txt');
+        $this->setOpt('acronyms_file',dirname(__FILE__).'/acronyms.txt');
 
         $this->acro_table = $this->__getAcronyms();
         $this->foot_notes = array();

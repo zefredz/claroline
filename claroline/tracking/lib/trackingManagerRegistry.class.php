@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLTRACK
  * @author      Claro Team <cvs@claroline.net>
@@ -46,7 +46,7 @@ class TrackingManagerRegistry
 
     private function loadDefaultManager()
     {
-        $file = __DIR__ . '/defaultTrackingManager.class.php';
+        $file = dirname(__FILE__) . '/defaultTrackingManager.class.php';
                 
         if( file_exists( $file ) )
         {

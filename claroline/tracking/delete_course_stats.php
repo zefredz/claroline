@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLTRACK
  * @author      Claro Team <cvs@claroline.net>
@@ -21,8 +21,8 @@ require_once dirname( __FILE__ ) . '/../../claroline/inc/claro_init_global.inc.p
  * Libraries
  */
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
-require_once __DIR__ . '/lib/trackingManager.class.php';
-require_once __DIR__ . '/lib/trackingManagerRegistry.class.php';
+require_once dirname(__FILE__) . '/lib/trackingManager.class.php';
+require_once dirname(__FILE__) . '/lib/trackingManagerRegistry.class.php';
 
 /*
  * Init request vars

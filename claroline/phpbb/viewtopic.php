@@ -7,7 +7,7 @@
  * As from Claroline 1.9.6, gathers functionality of deprecated scripts newtopic.php, reply.php and editpost.php
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @copyright   (c) 2001 The phpBB Group
  * @author      Claroline Team <info@claroline.net>
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
@@ -18,7 +18,7 @@
 
 $tlabelReq = 'CLFRM';
 //load claroline kernel
-require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
+require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
 //security check
 if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form( true );

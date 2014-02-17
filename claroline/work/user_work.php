@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     Claroline 1.11 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLWRK/
  * @package     CLWRK
@@ -658,8 +658,8 @@ if($is_allowedToEditAll)
 
                 if( is_array($userIdList) )
                 {
-                    require_once __DIR__ . '/../messaging/lib/message/platformmessagetosend.lib.php';
-                    require_once __DIR__ . '/../messaging/lib/recipient/userlistrecipient.lib.php';
+                    require_once dirname(__FILE__) . '/../messaging/lib/message/platformmessagetosend.lib.php';
+                    require_once dirname(__FILE__) . '/../messaging/lib/recipient/userlistrecipient.lib.php';
                     
                     // subject
                     $subject =  get_lang('New assignment feedback posted');
@@ -888,8 +888,8 @@ if( $is_allowedToSubmit )
 
                 if( is_array($userIdList) && !empty($userIdList) )
                 {
-                    require_once __DIR__ . '/../messaging/lib/message/platformmessagetosend.lib.php';
-                    require_once __DIR__ . '/../messaging/lib/recipient/userlistrecipient.lib.php';
+                    require_once dirname(__FILE__) . '/../messaging/lib/message/platformmessagetosend.lib.php';
+                    require_once dirname(__FILE__) . '/../messaging/lib/recipient/userlistrecipient.lib.php';
 
                     // subject
                     $subject = $_user['firstName'] . ' ' .$_user['lastName'] . ' : ' . get_lang('New submission posted in assignment tool.');

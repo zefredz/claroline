@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * Config lib contain function to manage conf file
  *
  * @version 1.8 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see     http://www.claroline.net/wiki/config_def/
  * @package CONFIG
@@ -20,8 +20,8 @@ if ( count( get_included_files() ) == 1 )
  * @author  Mathieu Laurent <laurent@cerdecam.be>
  */
 
-require_once __DIR__ . '/config.class.php';
-require_once __DIR__ . '/module/manage.lib.php';
+require_once dirname(__FILE__) . '/config.class.php';
+require_once dirname(__FILE__) . '/module/manage.lib.php';
 
 /**
  * Proceed to rename conf.php.dist file in unexisting .conf.php files

@@ -6,7 +6,7 @@
  * External Authentication library
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -19,7 +19,7 @@
  * and the PEAR Auth library. It allows to use external authentication system
  * for claroline login process
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @deprecated  since Claroline 1.9, use AuthManager and AuthDriver instead
  */
 class ExternalAuthentication
@@ -29,7 +29,7 @@ class ExternalAuthentication
     /**
      * constructor.
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param string $extAuthType
      * @param string $authOptionList
      */
@@ -72,7 +72,7 @@ class ExternalAuthentication
     /**
      * check if user is authenticated
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @return
      */
     function isAuth()
@@ -83,7 +83,7 @@ class ExternalAuthentication
     /**
      * record user data into the claroline system
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param array $extAuthAttribNameList - list that make correspondance
      *        between claroline attribute names and the external authentication
      *        system attribute name
@@ -180,17 +180,17 @@ class ExternalAuthentication
               ."SET ".implode(', ', $sqlPrepareList)
               .($uid ? 'WHERE user_id = '.(int)$uid : '');
 
-        $res  = mysqli_query($GLOBALS["___mysqli_ston"], $sql)
+        $res  = mysql_query($sql)
                 or die('<center>UPDATE QUERY FAILED LINE '.__LINE__.'<center>');
 
         if ($uid) $this->uid = $uid;
-        else      $this->uid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
+        else      $this->uid = mysql_insert_id();
     }
 
     /**
      * get the current uid of the logged usser
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @return int
      */
     function getUid()

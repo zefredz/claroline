@@ -8,7 +8,7 @@
  * User desktop index.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     DESKTOP
  * @author      Claroline team <info@claroline.net>
@@ -20,13 +20,13 @@ $gidReset       = true;
 $uidRequired    = true;
 
 // load Claroline kernel
-require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
+require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
 if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
 // load libraries
 FromKernel::uses('user.lib', 'utils/finder.lib');
-require_once __DIR__ . '/lib/portlet.lib.php';
+require_once dirname(__FILE__) . '/lib/portlet.lib.php';
 
 // Breadcrumb
 FromKernel::uses('display/userprofilebox.lib');
@@ -89,12 +89,8 @@ try
             
             if ( file_exists( $portletPath ) )
             {
-                set_current_module_label($moduleLabel);
-                load_module_config($moduleLabel);
-                Language::load_module_translation($moduleLabel);
-                
                 require_once $portletPath;
-                                
+                
                 $className = "{$moduleLabel}_Portlet";
                 
                 // Load portlet from database
@@ -118,7 +114,8 @@ try
                     }
                 }
                 
-                clear_current_module_label();
+                load_module_config($moduleLabel);
+                Language::load_module_translation($moduleLabel);
             }
         }
     }

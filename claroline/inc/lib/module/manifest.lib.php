@@ -7,14 +7,14 @@
  * manifest parser class and utility functions
  * 
  * @version 1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see     http://www.claroline.net/wiki/index.php/Install
  * @author  Claro Team <cvs@claroline.net>
  * @package KERNEL
  */
 
-require_once __DIR__ . '/../backlog.class.php';
+require_once dirname(__FILE__) . '/../backlog.class.php';
 
 /**
  *  Module manifest parser

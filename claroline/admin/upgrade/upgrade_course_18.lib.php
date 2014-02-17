@@ -13,13 +13,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * function won't change, so let's go to write it.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  * @package     UPGRADE
  * @author      Claro Team <cvs@claroline.net>
  * @author      Mathieu Laurent   <mla@claroline.net>
- * @author      Christophe GeschÃ© <moosh@claroline.net>
+ * @author      Christophe Gesché <moosh@claroline.net>
  */
 
 /*===========================================================================
@@ -426,7 +426,7 @@ function quiz_upgrade_to_18 ($course_code)
                             ";
                             
                 $rankList = array();
-                while ( ( $row = mysqli_fetch_array($result) ) )
+                while ( ( $row = mysql_fetch_array($result) ) )
                 {
                     if( isset($rankList[$row['exercice_id']]) )
                     {
@@ -474,7 +474,7 @@ function quiz_upgrade_to_18 ($course_code)
 
                 if ( ! $result ) return $step;
 
-                while ( ( $row = mysqli_fetch_array($result) ) )
+                while ( ( $row = mysql_fetch_array($result) ) )
                 {
                     $reponse = explode( '::',$row['reponse']);
                     
@@ -515,7 +515,7 @@ function quiz_upgrade_to_18 ($course_code)
 
                 if ( ! $result ) return $step;
                 
-                while ( ( $row = mysqli_fetch_array($result) ) )
+                while ( ( $row = mysql_fetch_array($result) ) )
                 {
                     $answerId = $row['question_id'].'-'.$row['id'];
                        $code = md5(uniqid(''));
@@ -582,7 +582,7 @@ function quiz_upgrade_to_18 ($course_code)
                 if ( ! $result ) return $step;
                 
                 // build an answer array that looks like the new db format
-                while ( ( $row = mysqli_fetch_array($result) ) )
+                while ( ( $row = mysql_fetch_array($result) ) )
                 {
                     $answerId = $row['question_id'];
                         
@@ -642,7 +642,7 @@ function quiz_upgrade_to_18 ($course_code)
     
                 if ( ! $result ) return $step;
 
-                while ( ( $row = mysqli_fetch_array($result) ) )
+                while ( ( $row = mysql_fetch_array($result) ) )
                 {
                     // create new folder
                     $exe_dirname = $currentcoursePathSys.'exercise'; // is also the dir where file where in previous versions

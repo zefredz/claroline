@@ -6,7 +6,7 @@
  * Trash box class (helper)
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -15,9 +15,9 @@
  */
 
 //load receivedmessagebox class
-require_once __DIR__.'/receivedmessagebox.lib.php';
+require_once dirname(__FILE__).'/receivedmessagebox.lib.php';
 //load trashboxstrategy class
-require_once __DIR__ . '/../selectorstrategy/trashboxstrategy.lib.php';
+require_once dirname(__FILE__) . '/../selectorstrategy/trashboxstrategy.lib.php';
 
 class TrashBox extends ReceivedMessageBox
 {

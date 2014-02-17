@@ -15,7 +15,7 @@ if ( count( get_included_files() ) == 1 )
  *
  * @version 1.9 $Revision$
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -29,7 +29,7 @@ if ( count( get_included_files() ) == 1 )
  *
  */
 
-require_once __DIR__ . '/course_user.lib.php';
+require_once dirname(__FILE__) . '/course_user.lib.php';
 
 
 /**
@@ -140,7 +140,7 @@ function define_course_keys ($wantedCode,
                                 WHERE code = '" . $keysCourseId  ."'";
 
         $resCheckCourseId    = claro_sql_query ($sqlCheckCourseId);
-        $isCheckCourseIdUsed = mysqli_fetch_array($resCheckCourseId);
+        $isCheckCourseIdUsed = mysql_fetch_array($resCheckCourseId);
 
         if (isset($isCheckCourseIdUsed[0]['existAllready']) && $isCheckCourseIdUsed[0]['existAllready'] > 0)
         {
@@ -160,7 +160,7 @@ function define_course_keys ($wantedCode,
 
         $resCheckCourseDb = claro_sql_query ($sqlCheckCourseDb);
 
-        $isCheckCourseDbUsed = mysqli_num_rows($resCheckCourseDb);
+        $isCheckCourseDbUsed = mysql_num_rows($resCheckCourseDb);
 
         if ($isCheckCourseDbUsed > 0)
         {
@@ -463,7 +463,7 @@ function register_course( $courseSysCode, $courseScreenCode, $sourceCourseId,
         return false;
     }
     
-    $courseId = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
+    $courseId = mysql_insert_id();
     
     // Insert categories
     if ( link_course_categories ( $courseId, $categories ) === false )

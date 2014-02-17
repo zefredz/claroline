@@ -1,4 +1,4 @@
-# Claroline Database version 1.12
+# Claroline Database version 1.11
 
 # MAIN TABLES
 
@@ -66,7 +66,6 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__user` (
   `creatorId` INT(11)  UNSIGNED DEFAULT NULL,
   `isPlatformAdmin` TINYINT(4) DEFAULT 0,
   `isCourseCreator` TINYINT(4) DEFAULT 0,
-  `lastLogin` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
    PRIMARY KEY  (`user_id`),
   KEY `loginpass` (`username`,`password`)
 ) ENGINE=MyISAM;
@@ -282,10 +281,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__im_message` (
   `course` varchar(40) default NULL,
   `group` int(11) default NULL,
   `tools` char(8) default NULL,
-  PRIMARY KEY  (`message_id`),
-  KEY `sender` (`sender`),
-  KEY `course` (`course`),
-  KEY `group` (`group`)
+  PRIMARY KEY  (`message_id`)
 ) ENGINE=MyISAM ;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__im_message_status` (
@@ -293,18 +289,14 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__im_message_status` (
   `message_id` int(11) NOT NULL,
   `is_read` tinyint(4) NOT NULL default '0',
   `is_deleted` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`user_id`,`message_id`),
-  KEY `user_id` (`user_id`),
-  KEY `message_id` (`message_id`)
+  PRIMARY KEY  (`user_id`,`message_id`)
 ) ENGINE=MyISAM ;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__im_recipient` (
   `message_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `sent_to` enum('toUser','toGroup','toCourse','toAll') NOT NULL,
-  PRIMARY KEY  (`message_id`,`user_id`),
-  KEY `user_id` (`user_id`),
-  KEY `message_id` (`message_id`)
+  PRIMARY KEY  (`message_id`,`user_id`)
 ) ENGINE=MyISAM ;
 
 # DESKTOP

@@ -6,7 +6,7 @@
  * Display library.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -14,14 +14,14 @@
  * @package     display
  */
 
-require_once __DIR__ . '/phptemplate.lib.php';
-require_once __DIR__ . '/header.lib.php';
-require_once __DIR__ . '/body.lib.php';
-require_once __DIR__ . '/footer.lib.php';
-require_once __DIR__ . '/dock.lib.php';
-require_once __DIR__ . '/banner.lib.php';
-require_once __DIR__ . '/dialogBox.lib.php';
-require_once __DIR__ . '/tooltitle.lib.php';
+require_once dirname(__FILE__) . '/phptemplate.lib.php';
+require_once dirname(__FILE__) . '/header.lib.php';
+require_once dirname(__FILE__) . '/body.lib.php';
+require_once dirname(__FILE__) . '/footer.lib.php';
+require_once dirname(__FILE__) . '/dock.lib.php';
+require_once dirname(__FILE__) . '/banner.lib.php';
+require_once dirname(__FILE__) . '/dialogBox.lib.php';
+require_once dirname(__FILE__) . '/tooltitle.lib.php';
 
 /**
  * Popup helper

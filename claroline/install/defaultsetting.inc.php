@@ -10,7 +10,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * Special case are set are. def file would evoluate to deprecate this script.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Install
  * @author      Claro Team <cvs@claroline.net>
@@ -49,7 +49,7 @@ $caseSensitive = (PHP_OS == 'WIN32' || PHP_OS == 'WINNT') ? 'i' : '';
 $ereg = "#/claroline/install/".basename($_SERVER['SCRIPT_NAME'])."$#$caseSensitive";
 $urlAppendPath  = preg_replace ($ereg, '', $urlAppendPath);
 $urlForm        = 'http://' . $_SERVER['SERVER_NAME'] . ($_SERVER['SERVER_PORT']!='80'?':' . $_SERVER['SERVER_PORT']:'') . $urlAppendPath . '/';
-$pathForm       = dirname(dirname(__DIR__)) . '/';
+$pathForm       = dirname(dirname(dirname(__FILE__))) . '/';
 
 $imgRepositoryAppendForm        =  $conf_def_property_list['imgRepositoryAppend']['default'];
 $userImageRepositoryAppendForm =  $conf_def_property_list['userImageRepositoryAppend']['default'];

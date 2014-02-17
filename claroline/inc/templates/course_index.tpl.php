@@ -25,9 +25,7 @@
                 {
                     if ($portlet->getVisible() || !$portlet->getVisible() && claro_is_allowed_to_edit())
                     {
-                        set_current_module_label( $portlet->getLabel() );
                         echo $portlet->render();
-                        clear_current_module_label();
                     }
                 }
             }

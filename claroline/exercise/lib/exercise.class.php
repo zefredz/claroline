@@ -5,7 +5,7 @@
  *
  * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -752,7 +752,7 @@ class Exercise
     /**
      * get quiz end message
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @return string
      */
      function getQuizEndMessage()
@@ -762,7 +762,7 @@ class Exercise
      /**
       * set end form information
       *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
       * @param string $value
       */
      function setQuizEndMessage($value)
@@ -853,7 +853,7 @@ class Exercise
     /**
      * get use same shuffle
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @return int
      */
     function getUseSameShuffle()
@@ -864,7 +864,7 @@ class Exercise
     /**
      * set use same shuffle
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param int $value
      */
     function setUseSameShuffle($value)

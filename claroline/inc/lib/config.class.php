@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * Config lib contain function to manage conf file
  *
  * @version 1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/config_def/
  * @package CONFIG
@@ -20,10 +20,10 @@ if ( count( get_included_files() ) == 1 )
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
 
-require_once __DIR__ . '/config.lib.inc.php';
-require_once __DIR__ . '/backlog.class.php';
-require_once __DIR__ . '/language.lib.php';
-require_once __DIR__ . '/user.lib.php';
+require_once dirname(__FILE__) . '/config.lib.inc.php';
+require_once dirname(__FILE__) . '/backlog.class.php';
+require_once dirname(__FILE__) . '/language.lib.php';
+require_once dirname(__FILE__) . '/user.lib.php';
 
 /**
  * To use this class.
@@ -648,7 +648,7 @@ class Config
 
         $result = claro_sql_query($sql);
 
-        if ( false !== ($row = mysqli_fetch_row($result) ) )
+        if ( false !== ($row = mysql_fetch_row($result) ) )
         {
             // return hash value
             $this->md5 = $row[0];
@@ -742,7 +742,7 @@ class Config
             return false;
         }
     }
-    
+
     function get_timezone_list ()
     {
         $timezone_identifiers = DateTimeZone::listIdentifiers ();

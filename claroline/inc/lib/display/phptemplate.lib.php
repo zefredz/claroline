@@ -8,7 +8,7 @@
  * PHP-based templating system.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -127,7 +127,7 @@ class CoreTemplate extends PhpTemplate
         {
             $this->course = claro_get_current_course_data();
             
-            require_once __DIR__ . '/../claroCourse.class.php';
+            require_once dirname(__FILE__) . '/../claroCourse.class.php';
             
             $this->courseObject = new ClaroCourse();
             $this->courseObject->load(claro_get_current_course_id());

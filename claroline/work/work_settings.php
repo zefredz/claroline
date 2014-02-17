@@ -11,7 +11,7 @@
  *  2. Send notification to students when a feedback is added
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      FUNDP - WebCampus <webcampus@fundp.ac.be>
  * @author      Jean-Roch Meurisse <jmeuriss@fundp.ac.be>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -21,7 +21,7 @@
  */
 
 $tlabelReq = 'CLWRK';
-require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
+require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
 //Security checks
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form( true );

@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLTRACK
  * @author      Claro Team <cvs@claroline.net>
@@ -14,7 +14,7 @@ $tlabelReq = 'CLQWZ';
 
 require '../inc/claro_init_global.inc.php';
 
-include_once __DIR__ . '/lib/exercise.class.php';
+include_once dirname(__FILE__) . '/lib/exercise.class.php';
 
 FromKernel::uses( 'utils/input.lib' );
 
@@ -78,7 +78,7 @@ ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize('./t
 // get the tracking of a question as a csv file
 if( get_conf( 'is_trackingEnabled' ) )
 {
-    require_once( __DIR__ . '/lib/export_tracking.class.php');
+    require_once( dirname(__FILE__) . '/lib/export_tracking.class.php');
     
     // contruction of XML flow
     switch ( $exportCsv )

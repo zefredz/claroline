@@ -20,7 +20,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *              (the announcements are display in desc order)
  *
  * @version     1.8 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLANN
  * @author      Claro Team <cvs@claroline.net>
@@ -385,7 +385,7 @@ function move_entry($item_id, $cmd, $course_id=null)
         $result = claro_sql_query($sql);
         $thisAnnouncementRankFound = false;
         $thisAnnouncementRank = '';
-        while ( (list ($announcementId, $announcementRank) = mysqli_fetch_row($result)) )
+        while ( (list ($announcementId, $announcementRank) = mysql_fetch_row($result)) )
         {
             // STEP 2 : FOUND THE NEXT ANNOUNCEMENT ID AND ORDER.
             //          COMMIT ORDER SWAP ON THE DB

@@ -1,5 +1,5 @@
 (X)HTML		: (eXtensible) HyperText Markup Language
-AFNOR		: Association FranÃ§aise de NORmalisation
+AFNOR		: Association Française de NORmalisation
 ANSI			: American National Standard Institute
 ASCII		: American Standard Code for Information Interchange
 ASP			: Active Server Pages
@@ -8,7 +8,7 @@ DHTML		: Dynamic HyperText Markup Language
 DOM			: Document Object Model
 DTD			: Document Type Definition
 ECMA			: European Computer Manufacturer Association
-FAI			: Fournisseur d'Acces Ã  Internet
+FAI			: Fournisseur d'Acces à Internet
 FAQ			: Foire Aux Questions
 FTP			: File Transfer Protocol
 FIDEV		: Formation et Insertion pour DEficients Visuels
@@ -29,7 +29,7 @@ RFC			: Request For Comment
 RSS			: RDF Site Summary
 SGML			: Standard Generalized Markup Language
 SMIL			: Synchronized Multimedia Integration Language
-SSII			: SociÃ©tÃ© de Service et d'IngÃ©nierie Informatique
+SSII			: Société de Service et d'Ingénierie Informatique
 SVG			: Scalable Vector Graphics
 TAG			: Technical Architecture Group
 TCP			: Transmission Control Protocol

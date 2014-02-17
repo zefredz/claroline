@@ -1,7 +1,8 @@
 <?php // $Id$
 
-require_once __DIR__ . '/auth/authprofile.lib.php';
-require_once __DIR__ . '/users/courseregistration.lib.php';
+require_once dirname(__FILE__) . '/auth/authprofile.lib.php';
+require_once dirname(__FILE__) . '/course/userprivileges.lib.php';
+require_once dirname(__FILE__) . '/users/courseregistration.lib.php';
 
 /**
  * CLAROLINE
@@ -9,7 +10,7 @@ require_once __DIR__ . '/users/courseregistration.lib.php';
  * Course user library contains function to manage users registration and properties in course
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLUSR
  * @author      Claro Team <cvs@claroline.net>
@@ -496,8 +497,8 @@ function user_set_course_tutor($status , $userId, $courseId)
 
 function user_send_enroll_to_course_mail($userId, $data, $course=null)
 {
-    require_once __DIR__ . '/../../messaging/lib/message/messagetosend.lib.php';
-    require_once __DIR__ . '/../../messaging/lib/recipient/singleuserrecipient.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/singleuserrecipient.lib.php';
     
     $courseData = claro_get_course_data($course);
 
@@ -568,9 +569,9 @@ function course_user_get_properties($userId, $courseId)
 
     $result = claro_sql_query($sql);
 
-    if (mysqli_num_rows($result) > 0)
+    if (mysql_num_rows($result) > 0)
     {
-        $userInfo = mysqli_fetch_array($result,  MYSQLI_ASSOC);
+        $userInfo = mysql_fetch_array($result, MYSQL_ASSOC);
         return $userInfo;
     }
 

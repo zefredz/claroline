@@ -5,7 +5,7 @@
  *
  * User lib contains function to manage users on the platform
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLUSR
  * @author      Christophe Gesche <moosh@claroline.net>
@@ -14,7 +14,7 @@
  * @author      Claro Team <cvs@claroline.net>
  */
 
-require_once(__DIR__ . '/form.lib.php');
+require_once(dirname(__FILE__) . '/form.lib.php');
 
 
 /**
@@ -251,7 +251,7 @@ function user_create($settingList, $creatorId = null)
                 creatorId    = " . ($creatorId > 0 ? (int) $creatorId : 'NULL');
     $adminId = claro_sql_query_insert_id($sql);
     if (false !== $adminId) return $adminId;
-    else return claro_failure::set_failure('Cant create user|' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . '|');
+    else return claro_failure::set_failure('Cant create user|' . mysql_error() . '|');
 }
 
 /**
@@ -327,7 +327,7 @@ function user_set_properties($userId, $propertyList)
  */
 function user_delete($userId)
 {
-    require_once __DIR__ . '/course_user.lib.php';
+    require_once dirname(__FILE__) . '/course_user.lib.php';
 
     if ( claro_get_current_user_id() == $userId ) // user cannot remove himself of the platform
     {
@@ -557,9 +557,9 @@ function user_set_platform_admin($status, $userId)
 
 function user_send_registration_mail ($userId, $data, $courseCode = null)
 {
-    require_once __DIR__ . '/sendmail.lib.php';
-    require_once __DIR__ . '/../../messaging/lib/message/messagetosend.lib.php';
-    require_once __DIR__ . '/../../messaging/lib/recipient/singleuserrecipient.lib.php';
+    require_once dirname(__FILE__) . '/sendmail.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/singleuserrecipient.lib.php';
     
     if ( ! empty($data['email']) )
     {
@@ -616,8 +616,8 @@ function user_send_registration_mail ($userId, $data, $courseCode = null)
 
 function profile_send_request_course_creator_status($explanation)
 {
-    require_once __DIR__ . '/../../messaging/lib/message/messagetosend.lib.php';
-    require_once __DIR__ . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
     
     global $_user;
 
@@ -662,8 +662,8 @@ function profile_send_request_revoquation($explanation,$login,$password)
 {
     if (empty($explanation)) return claro_failure::set_failure('EXPLANATION_EMPTY');
 
-    require_once __DIR__ . '/../../messaging/lib/message/messagetosend.lib.php';
-    require_once __DIR__ . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
     
     $_user = claro_get_current_user_data();
 
@@ -820,7 +820,7 @@ function user_validate_form_admin_user_profile($data, $userId)
  */
 function user_validate_form($formMode, $data, $userId = null)
 {
-    require_once __DIR__ .'/datavalidator.lib.php';
+    require_once dirname(__FILE__) .'/datavalidator.lib.php';
     
     if (empty($userId) || claro_is_platform_admin())
     {

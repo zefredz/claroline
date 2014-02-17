@@ -10,7 +10,7 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * requirements.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Install
  * @author      Claro Team <cvs@claroline.net>
@@ -44,17 +44,17 @@ class ClaroInstaller
         
         foreach ( $queries as $query )
         {
-            if ( ! mysqli_query($GLOBALS["___mysqli_ston"],  $this->toClaroQuery( $query['query'] ) ) )
+            if ( ! mysql_query( $this->toClaroQuery( $query['query'] ) ) )
             {
                 
                 if ( call_user_func( $onErrorCallback,
-                        $query, ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)), ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) ) )
+                        $query, mysql_error(), mysql_errno() ) )
                 {
                     continue;
                 }
                 else
                 {
-                    throw new Exception( ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)), ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) );
+                    throw new Exception( mysql_error(), mysql_errno() );
                 }
             }
         }

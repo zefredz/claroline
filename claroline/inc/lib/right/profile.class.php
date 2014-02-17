@@ -6,13 +6,13 @@
  * Library to manage profile
  *
  * @version     1.11 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     RIGHT
  * @author      Claro Team <cvs@claroline.net>
  */
 
-require_once __DIR__ . '/constants.inc.php';
+require_once dirname(__FILE__) . '/constants.inc.php';
 
 /**
  * Class right profile
@@ -266,7 +266,7 @@ class RightProfile
     public function validate()
     {
         // use validator library
-        require_once __DIR__ . '/../datavalidator.lib.php';
+        require_once dirname(__FILE__) . '/../datavalidator.lib.php';
 
         // new validator
         $validator = new DataValidator();

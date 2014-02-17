@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     1.11 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Piraux Sebastien <pir@cerdecam.be>
  * @author      Lederer Guillaume <led@cerdecam.be>
@@ -471,7 +471,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             FROM `".$TABLELEARNPATH."`";
     $result = claro_sql_query($sql);
 
-    list($rankMax) = mysqli_fetch_row($result);
+    list($rankMax) = mysql_fetch_row($result);
 
     $sql = "INSERT INTO `".$TABLELEARNPATH."`
             (`name`,`visibility`,`rank`,`comment`)
@@ -1047,7 +1047,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 FROM `".$TABLELEARNPATH."`";
         $result = claro_sql_query($sql);
 
-        list($rankMax) = mysqli_fetch_row($result);
+        list($rankMax) = mysql_fetch_row($result);
 
         if ( isset($manifestData['packageTitle']) )
         {

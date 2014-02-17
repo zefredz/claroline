@@ -18,7 +18,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * Forth block check some right
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Install
  * @author      Claro Team <cvs@claroline.net>
@@ -30,7 +30,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 try
 {
-    include_once __DIR__ . '/installer.class.php';
+    include_once dirname(__FILE__) . '/installer.class.php';
 
     ! defined( 'CLARO_FILE_PERMISSIONS' ) && define( 'CLARO_FILE_PERMISSIONS', 0777 );
     $display = DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
@@ -46,11 +46,11 @@ try
     // MAIN DB                             //
     // DB with central info  of  Claroline //
 
-    mysqli_query($GLOBALS["___mysqli_ston"], "CREATE DATABASE `" . $mainDbName . "`");
+    mysql_query("CREATE DATABASE `" . $mainDbName . "`");
 
-    if (((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) >0)
+    if (mysql_errno() >0)
     {
-        if (((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) == 1007)
+        if (mysql_errno() == 1007)
         {   // DB already exist
             if ($confirmUseExistingMainDb)
             {
@@ -68,7 +68,7 @@ try
             $mainDbNameCreationError
             = '<P class="setup_error">' . "\n"
             . '<font color="red">Warning !</font>' . "\n"
-            . '<small>[' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) . '] - ' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . '</small>' . "\n"
+            . '<small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>' . "\n"
             . '<br />' . "\n"
             . 'Error on creation ' . get_lang('Main database') . ' : <I>' . $dbHostForm . '</I>' . "\n"
             . '<br />' . "\n"
@@ -99,11 +99,11 @@ try
         if(!$singleDbForm)
         {
             // multi DB mode AND tracking has its own DB so create it
-            mysqli_query($GLOBALS["___mysqli_ston"], "CREATE DATABASE `" . $statsDbName . "`");
+            mysql_query("CREATE DATABASE `" . $statsDbName . "`");
 
-            if (((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) >0)
+            if (mysql_errno() >0)
             {
-                if (((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) == 1007)
+                if (mysql_errno() == 1007)
                 {
                     if ($confirmUseExistingStatsDb)
                     {
@@ -122,7 +122,7 @@ try
                     $statsDbNameCreationError
                     = '<P class="setup_error">' . "\n"
                     . '<font color="red">Warning !</font>' . "\n"
-                    . '<small>[' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) . '] - ' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . '</small>' . "\n"
+                    . '<small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>' . "\n"
                     . '<br />' . "\n"
                     . 'Error on creation ' . get_lang('Tracking database') . ' : <I>' . $dbStatsForm . '</I>' . "\n"
                     . '<br />' . "\n"
@@ -174,9 +174,9 @@ try
             'displayDbError'
         );
         // drop existing main and stats database tables
-        $installer->executeSqlScript( file_get_contents( __DIR__ . '/uninstall.sql' ) );
+        $installer->executeSqlScript( file_get_contents( dirname(__FILE__) . '/uninstall.sql' ) );
         // create main and stats database tables
-        $installer->executeSqlScript( file_get_contents( __DIR__ . '/install.sql' ) );
+        $installer->executeSqlScript( file_get_contents( dirname(__FILE__) . '/install.sql' ) );
 
         // FILE SYSTEM OPERATION
         //
@@ -257,6 +257,16 @@ try
             /**
              * Config file to undist
              */
+
+            /*$arr_file_to_undist =
+            array (
+            $newIncludePath . '../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys . 'platform/conf'
+            );
+
+            foreach ($arr_file_to_undist as $undistFile => $undistPath)
+            {
+                claro_undist_file($undistFile,$undistPath);
+            }*/
 
             /***
              * Generate kernel conf from definition files.

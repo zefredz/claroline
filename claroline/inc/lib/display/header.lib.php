@@ -6,7 +6,7 @@
  * Class used to configure and display the page header.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -39,13 +39,13 @@ class ClaroHeader extends CoreTemplate
             $this->addInlineJavascript("var claro_debug_mode = true;");
         }
         
-        require __DIR__ .'/../../installedVersion.inc.php';
+        require dirname(__FILE__) .'/../../installedVersion.inc.php';
         
         if ( $stable )
         { 
-            if ( file_exists( __DIR__ .'/../../../../platform/currentVersion.inc.php' ) )
+            if ( file_exists( dirname(__FILE__) .'/../../../../platform/currentVersion.inc.php' ) )
             {
-                require __DIR__ .'/../../../../platform/currentVersion.inc.php';
+                require dirname(__FILE__) .'/../../../../platform/currentVersion.inc.php';
             }
             else
             {

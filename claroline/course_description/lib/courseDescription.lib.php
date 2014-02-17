@@ -1,10 +1,11 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLDSC/
  * @author      Claro Team <cvs@claroline.net>
@@ -19,7 +20,7 @@
  *
  * @return array of arrays with data of the item
  *
- * @author Christophe GeschÃ© <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  */
 
@@ -79,6 +80,6 @@ function course_description_get_item_list($courseId = null)
 function get_tiplistinit()
 {
     $tipList = array();
-    include_once __DIR__ . '/../tiplistinit.inc.php';
+    include_once dirname(__FILE__) . '/../tiplistinit.inc.php';
     return $tipList;
 }

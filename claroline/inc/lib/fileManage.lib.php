@@ -9,12 +9,12 @@ if ( count( get_included_files() ) == 1 )
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/config_def/
  * @package     KERNEL
  * @author      Claro Team <cvs@claroline.net>
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  */
 
@@ -371,11 +371,11 @@ function form_dir_list($file, $baseWorkDir)
 
     if ( dirname($file) == '/' || dirname($file) == '\\')
     {
-        $dialogBox .= '<option value="" class="invisible">'.get_lang('root').'</option>' . "\n";
+        $dialogBox .= '<option value="" class="invisible">root</option>' . "\n";
     }
     else
     {
-        $dialogBox .= '<option value="" >'.get_lang('root').'</option>' . "\n";
+        $dialogBox .= '<option value="" >root</option>' . "\n";
     }
 
 
@@ -606,7 +606,7 @@ function claro_search_file($searchPattern             , $baseDirPath,
  * convert search string coming from the user interface
  * to a Perl Compatible Regular Expression (PCRE)
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param string search string
  * @return string Perl Compatible Regular Expression
  */
@@ -810,7 +810,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 
             $result = claro_sql_query($sql);
 
-            $num = mysqli_num_rows($result);
+            $num = mysql_num_rows($result);
 
             // the document with the exact path exists
             if ( $num )
@@ -847,7 +847,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 
             $result = claro_sql_query($sql);
 
-            $num = mysqli_num_rows($result);
+            $num = mysql_num_rows($result);
             if ($num != 0)
             {
                   //find all learning path module concerned by the deletion
@@ -857,7 +857,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                             WHERE 0=1
                             ";
 
-                  while ($list=mysqli_fetch_array($result))
+                  while ($list=mysql_fetch_array($result))
                   {
                      $sqllpm.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
                   }
@@ -877,9 +877,9 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                           WHERE 0=1
                          ";
 
-                  $result = mysqli_query($GLOBALS["___mysqli_ston"], $sqllpm);//:to reset result resused
+                  $result = mysql_query($sqllpm);//:to reset result resused
 
-                  while ($list=mysqli_fetch_array($result))
+                  while ($list=mysql_fetch_array($result))
                   {
                      $sql1.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
                      $sql2.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
@@ -894,7 +894,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                          FROM `" . $TABLEUSERMODULEPROGRESS . "`
                          WHERE 0=1
                          ";
-                  while ($list=mysqli_fetch_array($result2))
+                  while ($list=mysql_fetch_array($result2))
                   {
                      $sql.= " OR `learnPath_module_id` = '" . (int)$list['learnPath_module_id'] . "' ";
                   }

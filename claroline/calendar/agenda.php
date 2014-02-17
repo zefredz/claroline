@@ -11,7 +11,7 @@
  *         - generate an "announce" entries about an entries
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
  * @package     CLCAL
@@ -20,7 +20,7 @@
 $tlabelReq  = 'CLCAL';
 $gidReset   = true;
 
-require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
+require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
 $_user      = claro_get_current_user_data();
 $_course    = claro_get_current_course_data();

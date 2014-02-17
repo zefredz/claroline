@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 )
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/CLGRP
  * @package     CLGRP
@@ -19,7 +19,7 @@ if ( count( get_included_files() ) == 1 )
  *
  */
 
-include_once __DIR__ . '/fileManage.lib.php';
+include_once dirname(__FILE__) . '/fileManage.lib.php';
 
 /**
  * Remove all user of a group
@@ -93,7 +93,7 @@ function delete_groups($groupIdList = 'ALL')
     $tbl_courseCalendar = $tbl_c_names['calendar_event'     ];
 
     require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
-    require_once __DIR__ . '/forum.lib.php';
+    require_once dirname(__FILE__) . '/forum.lib.php';
 
     if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLWIKI'), claro_get_current_course_id() )
         && is_tool_activated_in_groups( claro_get_current_course_id(), 'CLWIKI' ) )
@@ -489,13 +489,13 @@ function group_count_group_of_a_user($user_id, $course_id=null)
  * @param  integer $maxMember  - max user allowed for this group
  * @return integer : id of the new group
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 
 function create_group($prefixGroupName, $maxMember)
 {
-    require_once __DIR__ . '/forum.lib.php';
-    require_once __DIR__ . '/fileManage.lib.php';
+    require_once dirname(__FILE__) . '/forum.lib.php';
+    require_once dirname(__FILE__) . '/fileManage.lib.php';
 
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_groups    = $tbl_cdb_names['group_team'];
@@ -601,7 +601,7 @@ function get_course_tutor_list($currentCourseId)
  */
 function get_group_tool_list($course_id=NULL,$active = true)
 {
-    // global $forumId;
+    global $forumId;
     $_groupProperties = claro_get_current_group_properties_data();
     $isAllowedToEdit = claro_is_course_manager() || claro_is_platform_admin();
 
@@ -652,7 +652,7 @@ ORDER BY tl.rank
             case 'CLFRM' :
                 if( ! empty( $_groupProperties['tools']['CLFRM'] ) || $isAllowedToEdit)
                 {
-                    $tool['url'] = claro_htmlspecialchars(Url::Contextualize('viewforum.php'));
+                    $tool['url'] = 'viewforum.php?forum=' . $forumId . claro_url_relay_context('&amp;') ; ;
                     $group_tool_list[] = $tool;
                 }
                 break;

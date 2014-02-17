@@ -6,7 +6,7 @@
  * Offers a multifield search tool for courses.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     COURSE
  * @subpackage  CLADMIN
@@ -107,7 +107,7 @@ echo $claroline->display->render();
 /**
  *This function create de select box to choose categories
  *
- * @author  - < Benoit Muret >
+ * @author  - < Benoît Muret >
  * @param   - elem            array     :     the faculties
  * @param   - father        string    :    the father of the faculty
  * @param    - $editFather    string    :    the faculty editing

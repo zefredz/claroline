@@ -11,10 +11,11 @@ if ( count( get_included_files() ) == 1 )
  * Provide function to work on  personnal editable info  of each user
  * 
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claroline Team <info@claroline.net>
- * @author      Christophe GeschÃ© <moosh@claroline.net>
+ * @author      Christophe Gesché <moosh@claroline.net>
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @package     CLUSR
  */
 
@@ -45,7 +46,7 @@ function claro_user_info_create_cat_def($title='', $comment='', $nbline='5', $co
     $sql = "SELECT MAX(`rank`) maxRank
             FROM `" . $tbl_userinfo_def . "`";
     $result = claro_sql_query($sql);
-    if ($result) $maxRank = mysqli_fetch_array($result);
+    if ($result) $maxRank = mysql_fetch_array($result);
 
     $maxRank = $maxRank['maxRank'];
 
@@ -133,7 +134,7 @@ function claro_user_info_remove_cat_def($id, $force = false, $course_id=NULL)
                ".$sqlCondition;
         $result = claro_sql_query($sql);
 
-        if ( mysqli_num_rows($result) > 0)
+        if ( mysql_num_rows($result) > 0)
         {
             return false;
         }
@@ -171,12 +172,12 @@ function claro_user_info_move_cat_rank($id, $direction, $course_id=NULL)
             WHERE id = ". (int) $id;
     $result = claro_sql_query($sql);
 
-    if (mysqli_num_rows($result) < 1)
+    if (mysql_num_rows($result) < 1)
     {
         return false;
     }
 
-    $cat = mysqli_fetch_array($result);
+    $cat = mysql_fetch_array($result);
     $rank = (int) $cat['rank'];
     return claro_user_info_move_cat_rank_by_rank($rank, $direction);
 }
@@ -221,13 +222,13 @@ function claro_user_info_move_cat_rank_by_rank($rank, $direction, $course_id=NUL
 
     $result = claro_sql_query($sql);
 
-    if (mysqli_num_rows($result) < 2)
+    if (mysql_num_rows($result) < 2)
     {
         return false;
     }
 
-    $thisCat = mysqli_fetch_array($result);
-    $nextCat = mysqli_fetch_array($result);
+    $thisCat = mysql_fetch_array($result);
+    $nextCat = mysql_fetch_array($result);
 
     $sql1 = "UPDATE `" . $tbl_userinfo_def . "`
              SET rank =" . (int) $nextCat['rank'] . "
@@ -286,7 +287,7 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
 
     $result = claro_sql_query($sql);
 
-    if (mysqli_num_rows($result) > 0)
+    if (mysql_num_rows($result) > 0)
     {
         return false;
     }

@@ -8,13 +8,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * Function to upgrade course tool 1.5 to 1.6.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  * @package     UPGRADE
  * @author      Claro Team <cvs@claroline.net>
  * @author      Mathieu Laurent   <mla@claroline.net>
- * @author      Christophe Geschï¿½ <moosh@claroline.net>
+ * @author      Christophe Gesché <moosh@claroline.net>
  */
 
 /*===========================================================================
@@ -267,7 +267,7 @@ function assignment_upgrade_to_16($course_code)
                 $sql_step2[] = "INSERT INTO `".$currentCourseDbNameGlu."wrk_assignment`
                     SET `id` = 1,
                     `title` = 'Assignments',
-                    `description`= '" . ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $work_intro) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : "")) . "',
+                    `description`= '" . mysql_real_escape_string($work_intro) . "',
                     `visibility` = 'VISIBLE',
                     `def_submission_visibility` = 'VISIBLE',
                     `assignment_type` = 'INDIVIDUAL',

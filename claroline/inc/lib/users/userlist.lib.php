@@ -2,8 +2,8 @@
 
 // $Id$
 
-require_once __DIR__ . '/claroclass.lib.php';
-require_once __DIR__ . '/../connectors/adminuser.lib.php';
+require_once dirname(__FILE__) . '/claroclass.lib.php';
+require_once dirname(__FILE__) . '/../connectors/adminuser.lib.php';
 
 /**
  * Set of PHP classes for user batch registration and enrolment
@@ -779,7 +779,7 @@ class Claro_BatchCourseRegistration
             AND
                 `code_cours` = {$sqlCourseCode}
         ");
-        
+                
         if ( $userListToRemove->numRows() )
         {
             $userIdListToRemove = array();
@@ -945,7 +945,7 @@ class Claro_BatchCourseRegistration
         {
             $this->result->setStatus(Claro_BatchRegistrationResult::STATUS_ERROR_NOTHING_TO_DO);
             $this->result->addError(get_lang("No user to delete"));
-        }
+        }        
         
         return !$this->result->hasError();
     }

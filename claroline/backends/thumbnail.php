@@ -8,7 +8,7 @@
  * Thumbnail generator.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -16,7 +16,7 @@
  * @package     KERNEL
  */
 
-require __DIR__ . '/../inc/claro_init_global.inc.php';
+require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
 require_once get_path('includePath') . '/lib/thumbnails.lib.php';
 require_once get_path('includePath') . '/lib/fileManage.lib.php';

@@ -6,7 +6,7 @@
  * Management tools for categories' tree.
  *
  * @version     $Revision: 11767 $
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
@@ -19,7 +19,7 @@ $gidReset = true; // group id
 $tidReset = true; // tool id
 
 // Load Claroline kernel
-require_once __DIR__ . '/../inc/claro_init_global.inc.php';
+require_once dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
 // Security check: is the user logged as administrator ?
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();

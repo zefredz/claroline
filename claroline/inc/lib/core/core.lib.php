@@ -8,7 +8,7 @@
  * Main core library.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -16,7 +16,7 @@
  * @package     kernel.core
  */
 
-require_once __DIR__ . '/../utils/iterators.lib.php';
+require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
 
 /**
  * Protect file path against arbitrary file inclusion
@@ -52,7 +52,7 @@ class FromKernel
     {
         $args = func_get_args();
         
-        defined('INCLUDES') || define ( 'INCLUDES', __DIR__ . '/..');
+        defined('INCLUDES') || define ( 'INCLUDES', dirname(__FILE__) . '/..');
         
         foreach ( $args as $lib )
         {
@@ -104,7 +104,7 @@ class From
         {
             if ( basename( $lib ) == '*' )
             {
-                require_once __DIR__ . '/../utils/finder.lib.php';
+                require_once dirname(__FILE__) . '/../utils/finder.lib.php';
                 
                 $localPath = get_module_path( $this->moduleLabel ) . '/lib/' . dirname( $lib );
                 
@@ -229,47 +229,5 @@ class From
         }
         
         return self::$cache[$moduleLabel];
-    }
-}
-
-/**
- * Wrapper for the module label stack array
- */
-class Claro_ModuleLabelStack
-{
-    protected $moduleLabelStack = array();
-    
-    /**
-     * Add a label at the top of the module stack
-     * @param string $label
-     */
-    public function pushModuleLabel( $label )
-    {
-        array_push( $this->moduleLabelStack, $label );
-    }
-
-    /**
-     * Remove the modulke label at the top of the module stack
-     */
-    public function popModuleLabel()
-    {
-        $elem = array_pop( $this->moduleLabelStack );
-        return $elem;
-    }
-
-    /**
-     * Get the label of the current module
-     * @return string or false
-     */
-    public function currentModuleLabel()
-    {
-        if ( empty( $this->moduleLabelStack ) )
-        {
-            return false;
-        }
-        else
-        {
-           return $this->moduleLabelStack[count($this->moduleLabelStack)-1];
-        }
     }
 }

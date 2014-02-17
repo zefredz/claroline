@@ -6,7 +6,7 @@
  * message to send class
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -16,9 +16,9 @@
 
 
 //load internal message class
-require_once __DIR__ . '/internalmessage.lib.php';
+require_once dirname(__FILE__) . '/internalmessage.lib.php';
 // class need to notify bye other way
-require_once __DIR__ . '/../notification/notifier.lib.php';
+require_once dirname(__FILE__) . '/../notification/notifier.lib.php';
 
 class MessageToSend extends InternalMessage
 {

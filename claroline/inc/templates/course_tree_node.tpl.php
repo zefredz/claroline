@@ -35,11 +35,9 @@
              * - The user isn't course member already
              * - The config says so
              */
-            if (
-                $this->viewOptions->haveToDisplayEnrollLink()
-                && !$this->courseUserPrivilegesList->getCoursePrivileges(
-                    $this->node->getCourse()->courseId)->isCourseMember()  
-            ) : ?>
+            if (!$this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId)->isCourseMember() &&
+            $this->viewOptions->haveToDisplayEnrollLink()) : ?>
             
             <a href="<?php 
                 $urlObj = Url::buildUrl(
@@ -59,15 +57,11 @@
              * - The user isn't course manager
              * - The config says so
              */
-            elseif (
-                $this->viewOptions->haveToDisplayUnenrollLink()
-                && $this->courseUserPrivilegesList->getCoursePrivileges(
-                    $this->node->getCourse()->courseId)->isCourseMember() 
-                && !$this->courseUserPrivilegesList->getCoursePrivileges(
-                    $this->node->getCourse()->courseId)->isCourseManager()
-                && !$this->courseUserPrivilegesList->getCoursePrivileges(
-                    $this->node->getCourse()->courseId)->isRegisteredByClass() 
-            ) : ?>
+            elseif ($this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId)->isCourseMember() 
+            && !$this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId)->isCourseManager()
+            && $this->viewOptions->haveToDisplayUnenrollLink()) : ?>
             
             <a href="<?php 
                 $urlObj = Url::buildUrl(
@@ -78,16 +72,8 @@
                 echo $urlObj->toUrl();
                 ?>"
                onclick="javascript:if(!confirm('<?php echo clean_str_for_javascript(get_lang('Are you sure you want to remove this course from your list ?')); ?>')) return false;">
-                <img class="enrolment" src="<?php echo get_icon_url('unenroll'); ?>" alt="<?php echo get_lang('Unenroll'); ?>" />
+                <img class="enrolment" src="<?php echo get_icon_url('unenroll'); ?>" alt="<?php echo get_lang('Enroll'); ?>" />
             </a>
-        
-        <?php
-            elseif ( $this->viewOptions->haveToDisplayUnenrollLink()
-                && $this->courseUserPrivilegesList->getCoursePrivileges(
-                    $this->node->getCourse()->courseId)->isRegisteredByClass() ):
-        ?>
-            
-            <img class="enrolment" src="<?php echo get_icon_url('unenroll_disabled'); ?>" alt="<?php echo get_lang('Unenroll disable'); ?>" title="<?php echo get_lang('You have been enrolled to this course through a class so you cannot unenroll by yourself'); ?>" />
             
         <?php endif; ?>
         

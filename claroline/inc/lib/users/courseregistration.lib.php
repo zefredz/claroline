@@ -2,7 +2,7 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-require_once __DIR__.'/userlist.lib.php';
+require_once dirname(__FILE__).'/userlist.lib.php';
 
 /**
  * This library provides a new course registration
@@ -564,12 +564,7 @@ class Claro_CourseUserRegistration
      */
     protected function isUnregistrationAllowed()
     {
-        $user = new Claro_User( $this->userAuthProfile->getUserId() );
-        $user->load();
-        
-        $coursePrivileges = new Claro_CourseUserPrivileges( 
-            new Claro_UserPrivileges( $user ), 
-            $this->course );
+        $coursePrivileges = new CourseUserPrivileges( $this->course->courseId, $this->userAuthProfile->getUserId() );
         
         if ( !$this->forceUnregOfManager && $coursePrivileges->isCourseManager () && $this->userAuthProfile->getUserId() == claro_get_current_user_id () && !claro_is_platform_admin () )
         {

@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Amand Tihon <amand.tihon@alrj.org>
  * @package     CLLNP
@@ -59,9 +59,9 @@ if ( !class_exists('ScormExport') )
     include_once get_path('incRepositorySys') . "/lib/fileUpload.lib.php";
     include_once get_path('incRepositorySys') . "/lib/thirdparty/pclzip/pclzip.lib.php";
 
-    require_once __DIR__.'/../../exercise/lib/exercise.class.php';
-    require_once __DIR__.'/../../exercise/lib/exercise.lib.php';
-    require_once __DIR__.'/../../exercise/export/scorm/scorm_classes.php';
+    require_once dirname(__FILE__).'/../../exercise/lib/exercise.class.php';
+    require_once dirname(__FILE__).'/../../exercise/lib/exercise.lib.php';
+    require_once dirname(__FILE__).'/../../exercise/export/scorm/scorm_classes.php';
 
     include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
     include_once get_path('incRepositorySys') . '/lib/form.lib.php';
@@ -141,7 +141,7 @@ if ( !class_exists('ScormExport') )
                 return false;
             }
 
-            $list = mysqli_fetch_array($result,  MYSQLI_ASSOC);
+            $list = mysql_fetch_array($result, MYSQL_ASSOC);
             if ( empty($list) )
             {
                 $this->error[] = get_lang('Learning Path not found');
@@ -181,7 +181,7 @@ if ( !class_exists('ScormExport') )
                 return false;
             }
 
-            while ($module = mysqli_fetch_array($result,  MYSQLI_ASSOC))
+            while ($module = mysql_fetch_array($result, MYSQL_ASSOC))
             {
                 // Check for SCORM content. If at least one module is SCORM, we need to export the existing SCORM package
                 if ( $module['contentType'] == 'SCORM' )       $this->fromScorm = true;
@@ -481,12 +481,12 @@ if ( !class_exists('ScormExport') )
             // Copy usual files (.css, .js, .xsd, etc)
             if (
                    !claro_copy_file( $claro_stylesheet_path, $this->destDir)
-                || !claro_copy_file(__DIR__.'/../export/APIWrapper.js', $this->destDir)
-                || !claro_copy_file(__DIR__.'/../export/scores.js', $this->destDir)
-                || !claro_copy_file(__DIR__.'/../export/ims_xml.xsd', $this->destDir)
-                || !claro_copy_file(__DIR__.'/../export/imscp_rootv1p1p2.xsd', $this->destDir)
-                || !claro_copy_file(__DIR__.'/../export/imsmd_rootv1p2p1.xsd', $this->destDir)
-                || !claro_copy_file(__DIR__.'/../export/adlcp_rootv1p2.xsd', $this->destDir)
+                || !claro_copy_file(dirname(__FILE__).'/../export/APIWrapper.js', $this->destDir)
+                || !claro_copy_file(dirname(__FILE__).'/../export/scores.js', $this->destDir)
+                || !claro_copy_file(dirname(__FILE__).'/../export/ims_xml.xsd', $this->destDir)
+                || !claro_copy_file(dirname(__FILE__).'/../export/imscp_rootv1p1p2.xsd', $this->destDir)
+                || !claro_copy_file(dirname(__FILE__).'/../export/imsmd_rootv1p2p1.xsd', $this->destDir)
+                || !claro_copy_file(dirname(__FILE__).'/../export/adlcp_rootv1p2.xsd', $this->destDir)
                 || !claro_copy_file(get_path('clarolineRepositorySys') . '../web/js/jquery.js', $this->destDir)
                 || !claro_copy_file(get_path('clarolineRepositorySys') . '../web/js/claroline.js', $this->destDir)
                 || !claro_copy_file(get_path('clarolineRepositorySys') . '../web/js/claroline.ui.js', $this->destDir)

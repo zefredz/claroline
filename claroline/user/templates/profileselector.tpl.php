@@ -12,7 +12,7 @@
         <input type="hidden" name="userId" value="<?php echo $this->userId; ?>" />
     <?php endif; ?>
     
-    <?php include __DIR__ . '/profileselector_select.tpl.php'; ?>
+    <?php include dirname(__FILE__) . '/profileselector_select.tpl.php'; ?>
     
     <input type="submit" name="submit" value="<?php echo get_lang('Enroll'); ?>" />
 </form>

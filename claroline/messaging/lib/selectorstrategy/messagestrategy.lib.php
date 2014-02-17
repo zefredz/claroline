@@ -6,7 +6,7 @@
  * messageStrategy class
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -15,7 +15,7 @@
  */
 
 //load selector strategy interface
-require_once __DIR__ . '/selectorstrategy.lib.php';
+require_once dirname(__FILE__) . '/selectorstrategy.lib.php';
 
 abstract class MessageStrategy implements SelectorStrategy 
 {

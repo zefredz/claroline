@@ -8,11 +8,11 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * This lib prupose function use by installer.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Install
  * @author      Claro Team <cvs@claroline.net>
- * @author      Christophe GeschÃ© <moosh@claroline.net>
+ * @author      Christophe Gesché <moosh@claroline.net>
  * @author      Sebastien Piraux <seb@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @package     INSTALL
@@ -131,9 +131,9 @@ function check_if_db_exist($db_name,$db=null)
         $res = claro_sql_query($sql);
     }
 
-    if( ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) == 0 )
+    if( mysql_errno() == 0 )
     {
-        $foundDbName = mysqli_fetch_array($res,  MYSQLI_NUM);
+        $foundDbName = mysql_fetch_array($res, MYSQL_NUM);
     }
     else
     {

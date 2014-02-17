@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 )
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/config_def/
  * @package     KERNEL
@@ -22,7 +22,7 @@ if ( count( get_included_files() ) == 1 )
  * Define the image to display for each file extension
  * This needs an existing image repository to works
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param  - fileName (string) - name of a file
  * @retrun - the gif image to chose
  */
@@ -165,7 +165,7 @@ function format_file_size($fileSize)
 /**
  * Transform a UNIX time stamp in human readable format date
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param - date - UNIX time stamp
  */
 
@@ -342,7 +342,7 @@ function query_make_part( $matches )
 /**
  *
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param string $curDirPath current path in the documents tree navugation
  * @return string breadcrumb trail
  */

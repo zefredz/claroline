@@ -2,4 +2,4 @@
 
 // moved to display
 
-require_once __DIR__ . '/../display/stringbuffer.lib.php';
+require_once dirname(__FILE__) . '/../display/stringbuffer.lib.php';

@@ -7,8 +7,8 @@
  *
  * Objects used to represent a user in the platform.
  *
- * @version     Claroline 1.12 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @version     Claroline 1.11 $Revision$
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -16,9 +16,9 @@
  * @package     kernel.objects
  */
 
-require_once __DIR__ . '/object.lib.php';
-require_once __DIR__ . '/../core/claroline.lib.php';
-require_once __DIR__ . '/../database/database.lib.php';
+require_once dirname(__FILE__) . '/object.lib.php';
+require_once dirname(__FILE__) . '/../core/claroline.lib.php';
+require_once dirname(__FILE__) . '/../database/database.lib.php';
 
 /**
  * Object used to load and represent a user.
@@ -63,9 +63,25 @@ class Claro_User extends KernelObject
             . "`user`.`authSource`,\n"
             . "`user`.`phoneNumber` AS `phone`,\n"
             . "`user`.`pictureUri` AS `picture`,\n"
-            . "IF( `user`.`lastLogin`<>'0000-00-00 00:00:00',UNIX_TIMESTAMP(`user`.`lastLogin`), UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 1 DAY)) ) AS `lastLogin`\n"
+            
+            . ( get_conf('is_trackingEnabled')
+                ? "UNIX_TIMESTAMP(`tracking`.`date`) "
+                : "DATE_SUB(CURDATE(), INTERVAL 1 DAY) " )
+                
+            . "AS lastLogin\n"
             . "FROM `{$tbl['user']}` AS `user`\n"
-            . "WHERE `user`.`user_id` = ".$sqlUserId."\n"         
+            
+            . ( get_conf('is_trackingEnabled')
+                ? "LEFT JOIN `{$tbl['tracking_event']}` AS `tracking`\n"
+                . "ON `user`.`user_id`  = `tracking`.`user_id`\n"
+                . "AND `tracking`.`type` = 'user_login'\n"
+                : '')
+                
+            . "WHERE `user`.`user_id` = ".$sqlUserId."\n"
+            
+            . ( get_conf('is_trackingEnabled')
+                ? "ORDER BY `tracking`.`date` DESC LIMIT 1"
+                : '')
             ;
 
         $userData = Claroline::getDatabase()->query( $sql )->fetch();
@@ -80,13 +96,7 @@ class Claro_User extends KernelObject
             $userData['isCourseCreator'] = (bool) $userData['isCourseCreator'];
             
             $this->_rawData = $userData;
-            
-            if ( claro_debug_mode () )
-            {
-                $date = date('Y-m-d H:i:s',$userData['lastLogin']);
-                Console::debug( "User {$this->_userId} loaded from database", 'debug' );
-                Console::debug( "User last seen on {$date}", 'debug' );
-            }
+            pushClaroMessage( "User {$this->_userId} loaded from database", 'debug' );
             
             $this->loadUserProperties();
         }

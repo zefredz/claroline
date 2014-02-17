@@ -15,7 +15,7 @@
  * - update course repository content
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  *
@@ -48,6 +48,9 @@ require 'upgrade_init_global.inc.php';
 if (!claro_is_platform_admin()) upgrade_disp_auth_form();
 
 // Pattern for this new stable version
+
+$patternVarVersion = '/^1.10/';
+$patternSqlVersion = '1.10%';
 
 // Display definition
 
@@ -112,25 +115,13 @@ else
   Define Display
  ---------------------------------------------------------------------*/
 
-$versionParts = preg_split( '/\./', $currentClarolineVersion );
-
-if ( isset($versionParts[1]) && ((int)$versionParts[1]) <= 8 )
-{   
-    $trackingUpgradeNeeded = true;
-}
-else
-{
-    $trackingUpgradeNeeded = false;
-    $req_upgrade_tracking_data = false;
-}
-
 // specific to 1.10 to 1.11 upgrade:
-if ( !$forceUpgrade && preg_match ( '/^1.10/', $currentClarolineVersion ) && preg_match('/^1.11/', $new_version ) )
+if ( preg_match ( '/^1.10/', $currentClarolineVersion ) && preg_match('/^1.11/', $new_version ) )
 {   
     $display = DISPVAL_upgrade_not_needed;
 }
 // detect minor version upgrade attempt:
-elseif ( !$forceUpgrade && compare_major_version ( $currentClarolineVersion, $new_version ) === 0 )
+elseif ( compare_major_version ( $currentClarolineVersion, $new_version ) === 0 )
 {
     $display = DISPVAL_upgrade_not_needed;
 }
@@ -155,18 +146,8 @@ else
     else
     {
         // count course to upgrade
-        $forceCourseUpgrade = $forceUpgrade && preg_match ( $patternVarVersion, $new_version_branch ) ? true : false;
-        
-        $count_course_upgraded = count_course_upgraded($new_version_branch );
-        
-        if ( $forceCourseUpgrade )
-        {
-            $count_course_to_upgrade =  $count_course_upgraded['total'];
-        }
-        else
-        {
-            $count_course_to_upgrade =  $count_course_upgraded['total'] - $count_course_upgraded['upgraded'];
-        }
+        $count_course_upgraded = count_course_upgraded($new_version_branch);
+        $count_course_to_upgrade =  $count_course_upgraded['total'] - $count_course_upgraded['upgraded'];
 
         if ( $count_course_to_upgrade > 0 )
         {
@@ -192,51 +173,54 @@ echo upgrade_disp_header();
 switch ($display)
 {
     case DISPVAL_upgrade_not_needed:
-        echo '<h2>'.get_lang('Claroline Upgrade Tool<br />from %currentClarolineVersion to %new_version' , array(
-            '%currentClarolineVersion' => $currentClarolineVersion,
-            '%new_version' => $new_version )  ) . '</h2>
-              <p class="success">'.get_lang('There is no upgrade needed between those versions').'</p>
-              <ul>'.
-              ((defined('DEVEL_MODE') && DEVEL_MODE ===  true) ? '<li><a href="'. $_SERVER['PHP_SELF'] . '?force_upgrade=1">'.get_lang('Force upgrade').'</a></li>' : '')
-              .'<li><a href="../../../index.php?logout=true">'.get_lang('Access to campus').'</a></li>
+        echo '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
+              <p class="success">There is no upgrade needed between those versions</p>
+              <ul>
+              <li><a href="../../../index.php?logout=true">Access to campus</a></li>
               </ul>';
         break;
     case DISPVAL_upgrade_backup_needed :
 
-        echo '<h2>'.get_lang('Claroline Upgrade Tool<br />from %currentClarolineVersion to %new_version' , array(
-            '%currentClarolineVersion' => $currentClarolineVersion,
-            '%new_version' => $new_version )  ) . '</h2>
-              <form action="' . $_SERVER['PHP_SELF'] . '" method="get">'
-              . get_block ( 'block_upgradeSteps' ) .'
-              <table> 
+        echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
+              <form action="' . $_SERVER['PHP_SELF'] . '" method="get">
+              <p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
+              installation and set them to be compatible with the new Claroline version. This upgrade
+              proceeds in three steps:
+              </p>
+              <ol>
+              <li>It will get your previous platform main settings and put them in a new configuration files</li>
+              <li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible
+              with the new data structure.</li>
+              <li>It will update one by one each course data (directories, database tables, ...)</li>
+              </ol>
+              <p>Before starting the <em>Claroline Upgrade Tool</em>, we recommend you to make yourself a complete
+              backup of the platform data (files and databases).</p>
+              <table>
               <tbody>
               <tr valign="top">
-              <td>'.get_lang('The data backup has been done').'</td>
+              <td>The data backup has been done</td>
               <td>
               <input type="radio" id="confirm_backup_yes" name="confirm_backup" value="1" />
-              <label for="confirm_backup_yes">'.get_lang('Yes').'</label><br />
+              <label for="confirm_backup_yes">Yes</label><br />
               <input type="radio" id="confirm_backup_no" name="confirm_backup" value="" checked="checked" />
-              <label for="confirm_backup_no">'.get_lang('No').'</label><br />
-              <p>'.get_lang('The <em>Claroline Upgrade Tool</em> is not able to start if you do not confirm that the data has been done.').'</p>
+              <label for="confirm_backup_no">No</label><br />
+              <p>The <em>Claroline Upgrade Tool</em> is not able to start if you do not confirm that the data has been done.</p>
               </td>
-              </tr>';
-        if ( $trackingUpgradeNeeded )
-        {
-              echo ' <tr valign="top">
-              <td>'.get_lang('Upgrade tracking data').'</td>
+              </tr>
+              <tr valign="top">
+              <td>Upgrade tracking data</td>
               <td>
               <input type="radio" id="upgrade_tracking_data_yes" name="upgrade_tracking_data" value="1" '.((isset($_SESSION['upgrade_tracking_data']) && $_SESSION['upgrade_tracking_data'])? ' checked="checked"' : '' ).'/>
-              <label for="upgrade_tracking_data_yes">'.get_lang('Yes, keep previous tracking information').'</label><br />
+              <label for="upgrade_tracking_data_yes">Yes, keep previous tracking information</label><br />
               <input type="radio" id="upgrade_tracking_data_no" name="upgrade_tracking_data" value="" '.((!isset($_SESSION['upgrade_tracking_data']) || !$_SESSION['upgrade_tracking_data'])? ' checked="checked"' : '' ).' />
-              <label for="upgrade_tracking_data_no">'.get_lang('No, forget all previously stored tracking data').'</label><br />
-              <p>'.get_lang('This may require a lot of time depending on amount of tracking data collected on your campus').'</p>
+              <label for="upgrade_tracking_data_no">No, forget all previously stored tracking data</label><br />
+              <p>This may require a lot of time dependiing on amount of tracking data collected on your campus</p>
               </td>
-              </tr>';
-        }
-        echo  '</tbody>
+              </tr>
+              </tbody>
               </table>
               
-              <div align="right"><input type="submit" value="'.get_lang('Next > ').'" /></div>
+              <div align="right"><input type="submit" value="Next > " /></div>
               </form>' . "\n" ;
 
         break;
@@ -244,54 +228,46 @@ switch ($display)
     case DISPVAL_upgrade_main_db_needed :
 
 
-        echo '<h2>'.get_lang('Claroline Upgrade Tool<br />from %currentClarolineVersion to %new_version' , array(
-            '%currentClarolineVersion' => $currentClarolineVersion,
-            '%new_version' => $new_version )  ) . '</h2>
-           <h3>'.get_lang('Done').' : </h3>
+        echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
+           <h3>Done: </h3>
            <ul>
-           <li>'.get_lang('Backup confirm').' (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">'.get_lang('Cancel').'</a>)</li>
-           <li>'.get_lang('Step 1 of 4: platform main settings').' (<a href="upgrade_conf.php">'.get_lang('Start again').'</a>)</li>
+           <li>Backup confirm (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">Cancel</a>)</li>
+           <li>Step 1 of 4: platform main settings (<a href="upgrade_conf.php">Start again</a>)</li>
            </ul>
-           <h3>'.get_lang('To do').' :</h3>
+           <h3>To do:</h3>
            <ul>
-           <li><a href="upgrade_main_db.php">'.get_lang('Step 2 of 4: main platform tables upgrade').'</a></li>
-           <li>'.get_lang('Step 3 of 4: courses upgrade').'</li>
-           <li>'.get_lang('Step 4 of 4: disable incompatible modules').'</li>
+           <li><a href="upgrade_main_db.php">Step 2 of 4: main platform tables upgrade</a></li>
+           <li>Step 3 of 4: courses upgrade</li>
+           <li>Step 4 of 4: disable incompatible modules</li>
            </ul>';
 
         break;
 
     case DISPVAL_upgrade_courses_needed :
 
-        echo  '<h2>'.get_lang('Claroline Upgrade Tool<br />from %currentClarolineVersion to %new_version' , array(
-            '%currentClarolineVersion' => $currentClarolineVersion,
-            '%new_version' => $new_version )  ) . '</h2>
-            <h3>'.get_lang('Done').' : </h3>
+        echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
+            <h3>Done :</h3>
             <ul>
-            <li>'.get_lang('Backup confirm').' (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">'.get_lang('Cancel').'</a>)</li>
-            <li>'.get_lang('Step 1 of 4: platform main settings').' (<a href="upgrade_conf.php">'.get_lang('Start again').'</a>)</li>
-            <li>'.get_lang('Step 2 of 4: main platform tables upgrade').' (<a href="upgrade_main_db.php">'.get_lang('Start again').'</a>)</li>
+            <li>Backup confirm (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">Cancel</a>)</li>
+            <li>Step 1 of 4: platform main settings (<a href="upgrade_conf.php">Start again</a>)</li>
+            <li>Step 2 of 4: main platform tables upgrade (<a href="upgrade_main_db.php">%s</a>)</li>
             </ul>
-            <h3>'.get_lang('To do').' :</h3>
+            <h3>To do:</h3>
             <ul>
-            <li><a href="upgrade_courses.php">'.get_lang('Step 3 of 4: courses upgrade').'</a> - ' 
-            . get_lang('%count_course_to_upgrade course(s) to upgrade', array( '%count_course_to_upgrade' => $count_course_to_upgrade ) ) . '</li>
-            <li>'.get_lang('Step 4 of 4: disable incompatible modules').'</li>
+            <li><a href="upgrade_courses.php">Step 3 of 4: courses upgrade</a> - ' . $count_course_to_upgrade . ' course(s) to upgrade.</li>
+            <li>Step 4 of 4: disable incompatible modules</li>
             </ul>';
 
         break;
 
     case DISPVAL_upgrade_done :
 
-        echo  '<h2>'.get_lang('Claroline Upgrade Tool<br />from %currentClarolineVersion to %new_version' , array(
-            '%currentClarolineVersion' => $currentClarolineVersion,
-            '%new_version' => $new_version )  ) . '</h2>
-            <p class="success">'.get_lang('The <em>Claroline Upgrade Tool</em> has completly upgraded your platform').'</p>
+        echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
+
+            <p class="success">The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.</p>
             <ul>
-            <li><a href="../../../index.php?logout=true">'.get_lang('Access to campus').'</a></li>
-            </ul>';
-        
-        if ( isset($_SESSION['forceUpgrade']) ) unset($_SESSION['forceUpgrade']);
+            <li><a href="../../../index.php?logout=true">Access to campus</a></li>
+            </ul>' ;
 }
 
 // Display footer

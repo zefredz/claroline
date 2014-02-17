@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLDOC
  * @author      Hugues Peeters <hugues@claroline.net>
@@ -724,11 +724,11 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             if ( claro_failure::get_last_failure() == 'FILE EXISTS' )
             {
-                $dialogBox->error( get_lang('A file with the same name already exists.') );
+                $dialogBox->error( 'A file with the same name already exists.' );
             }
             elseif (claro_failure::get_last_failure() == 'MOVE INSIDE ITSELF')
             {
-                $dialogBox->error( get_lang('You can not move an element inside itself.') );
+                $dialogBox->error( 'You can not move an element inside itself.' );
             }
 
             /* return to step 1 */
@@ -923,7 +923,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             $result = claro_sql_query ($sql);
 
-            while( $row = mysqli_fetch_array($result,  MYSQLI_ASSOC) ) $oldComment = $row['comment'];
+            while( $row = mysql_fetch_array($result, MYSQL_ASSOC) ) $oldComment = $row['comment'];
 
             //list($oldComment) = claro_sql_query_fetch_all($sql);
 

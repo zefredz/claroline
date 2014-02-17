@@ -6,7 +6,7 @@
  * CLAROLINE
  *
  * @version     1.11 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
  * as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -15,9 +15,9 @@
  * @package     Wiki
  */
 
-require_once __DIR__ . "/class.wiki2xhtmlarea.php";
-require_once __DIR__ . "/class.wikiaccesscontrol.php";
-require_once __DIR__ . "/lib.url.php";
+require_once dirname(__FILE__) . "/class.wiki2xhtmlarea.php";
+require_once dirname(__FILE__) . "/class.wikiaccesscontrol.php";
+require_once dirname(__FILE__) . "/lib.url.php";
 
 /**
  * Generate wiki editor html code

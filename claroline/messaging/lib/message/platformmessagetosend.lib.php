@@ -6,15 +6,15 @@
  * message from platform to send class
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     internal_messaging
  */
 
-require_once __DIR__ . '/messagetosend.lib.php';
+require_once dirname(__FILE__) . '/messagetosend.lib.php';
 
 class PlatformMessageToSend extends MessageToSend
 {

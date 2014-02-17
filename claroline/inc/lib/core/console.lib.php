@@ -6,8 +6,8 @@
  * Console and debug bar. Display a log message to the console and send it to
  * the Claroline log table.
  *
- * @version     Claroline 1.12 Revision: 12923 $
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @version     Claroline 1.11 Revision: 12923 $
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -15,7 +15,7 @@
  * @package     kernel.core
  */
 
-require_once __DIR__ . '/debug.lib.php';
+require_once dirname(__FILE__) . '/debug.lib.php';
 
 class Console
 {
@@ -36,62 +36,47 @@ class Console
     
     public static function message( $message )
     {
-        self::_log( $message, self::MESSAGE, self::REPORT_LEVEL_ALL );
+        pushClaroMessage( $message, self::MESSAGE );
+        Claroline::log( self::MESSAGE, $message );
     }
 
     public static function debug( $message )
     {
         if ( claro_debug_mode() )
         {
-            self::_log( $message, self::DEBUG, 0 );
+            pushClaroMessage( $message, self::DEBUG );
+            Claroline::log( self::DEBUG, $message );
         }
     }
     
     public static function warning( $message )
     {
-        self::_log( $message, self::WARNING, self::REPORT_LEVEL_WARNING );
+        if ( claro_debug_mode() ) pushClaroMessage( $message, self::WARNING );    
+        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= self::REPORT_LEVEL_WARNING ) Claroline::log( self::WARNING, $message );
     }
 
     public static function info( $message )
     {
-        self::_log( $message, self::INFO, self::REPORT_LEVEL_INFO );
+        if ( claro_debug_mode() ) pushClaroMessage( $message, self::INFO );
+        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= self::REPORT_LEVEL_INFO ) Claroline::log( self::INFO, $message );
     }
 
     public static function success( $message )
     {
-        self::_log( $message, self::SUCCESS, self::REPORT_LEVEL_SUCCESS );
+        if ( claro_debug_mode() ) pushClaroMessage( $message, self::SUCCESS );
+        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= self::REPORT_LEVEL_SUCCESS ) Claroline::log( self::SUCCESS, $message );
     }
 
     public static function error( $message )
     {
-        self::_log( $message, self::ERROR, self::REPORT_LEVEL_ERROR );
+        // claro_failure::set_failure( $message );
+        if ( claro_debug_mode() ) pushClaroMessage( $message, self::ERROR );
+        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= self::REPORT_LEVEL_ERROR ) Claroline::log( self::ERROR, $message );
     }
     
     public static function log( $message, $type )
     {
-        self::_log( $message, $type, 0 );
-    }
-    
-    protected static function _log( $message, $type, $logLevel = 0 )
-    {
-        /*$mustLogMessageInDatabase = ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= $logLevel ) ? true : false;
-        
-        if ( claro_debug_mode () )
-        {
-            $printDebugBacktrace = get_debug_print_backtrace();
-            
-            pushClaroMessage( $message . '<blockquote>' . nl2br(  $printDebugBacktrace ).'</blockquote>', $type );
-            
-            if ( $mustLogMessageInDatabase ) Claroline::getInstance()['logger']->log( $type, $message . "\n--\n" . $printDebugBacktrace );
-        }
-        else
-        {
-            if ( $mustLogMessageInDatabase ) Claroline::getInstance()['logger']->log( $type, $message );
-        } */
-
-        
-        if ( claro_debug_mode () ) pushClaroMessage( $message, $type );
-        
-        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= $logLevel ) Claroline::getInstance()['logger']->log( $type, $message );
+        if ( claro_debug_mode() ) pushClaroMessage( $message, $type );
+        Claroline::log( $type, $message );
     }
 }

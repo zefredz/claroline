@@ -13,7 +13,7 @@ if ( count( get_included_files() ) == 1 )
  * Inbox controler.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 )
  * @package     internal_messaging
  */
 
-require_once __DIR__ . '/lib/messagebox/inbox.lib.php';
+require_once dirname(__FILE__) . '/lib/messagebox/inbox.lib.php';
 
 $messageId = isset($_REQUEST['messageId']) ? (int)$_REQUEST['messageId'] : NULL;
 

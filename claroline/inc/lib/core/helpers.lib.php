@@ -8,7 +8,7 @@
  * Helper functions and classes.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -277,7 +277,7 @@ function get_group_tool_menu( $gid = null, $courseId = null, $active = true )
         $courseId = claro_get_current_course_id();
     }
     
-    require_once __DIR__ . '/../group.lib.inc.php';
+    require_once dirname(__FILE__) . '/../group.lib.inc.php';
     
     $groupToolList = get_group_tool_list( $courseId, $active );
 

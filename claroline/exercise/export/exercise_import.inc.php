@@ -4,7 +4,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * CLAROLINE
  * @version 1.8
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -30,7 +30,7 @@ function get_and_unzip_uploaded_exercise($baseWorkDir, $uploadDir)
     }
 
     //1- Unzip folder in a new repository in claroline/module
-    //include_once realpath(__DIR__ . '/../../inc/lib/pclzip/') . '/pclzip.lib.php';
+    //include_once realpath(dirname(__FILE__) . '/../../inc/lib/pclzip/') . '/pclzip.lib.php';
     require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
 
 

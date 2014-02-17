@@ -8,7 +8,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * This functions library is used by most of the pages of the learning path tool.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Piraux Sébastien <pir@cerdecam.be>
  * @author      Lederer Guillaume <led@cerdecam.be>
@@ -1499,7 +1499,7 @@ function delete_exercise_asset($exerciseId)
 }
 
 /**
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @param $pathId integer id of a learnPath
  * @return boolean true if learnpath is blocked, false instead
@@ -1568,7 +1568,7 @@ function is_learnpath_accessible( $pathId )
                           ";
                  
                  $resultblock2 = claro_sql_query($blocksql2);
-                 $moduleNumber = mysqli_num_rows($resultblock2);
+                 $moduleNumber = mysql_num_rows($resultblock2);
              }
              else
              {
@@ -1577,7 +1577,7 @@ function is_learnpath_accessible( $pathId )
              
              if ($moduleNumber!=0)
              {
-                 $listblock2 = mysqli_fetch_array($resultblock2);
+                 $listblock2 = mysql_fetch_array($resultblock2);
      
                  if (($listblock2['credit']=="NO-CREDIT") && ($upperLock == 'CLOSE'))
                  {

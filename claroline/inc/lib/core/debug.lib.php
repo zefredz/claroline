@@ -8,7 +8,7 @@
  * Debugging functions and classes.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -20,71 +20,6 @@ function dbg_html_var( $var )
 {
     return claro_htmlspecialchars(var_export( $var, true ));
 }
-
-/*function get_debug_print_backtrace($traces_to_ignore = 1){
-    $traces = debug_backtrace();
-    $ret = array();
-    foreach($traces as $i => $call){
-        if ($i < $traces_to_ignore ) {
-            continue;
-        }
-
-        $object = '';
-        if (isset($call['class'])) {
-            $object = $call['class'].$call['type'];
-            if (is_array($call['args'])) {
-                foreach ($call['args'] as $i => $arg) {
-                    $call['args'][$i] = debug_get_arg($arg);
-                }
-            }
-        }        
-
-        $ret[] = '#'.str_pad($i - $traces_to_ignore, 3, ' ')
-        .$object.$call['function'].'('.implode(', ', $call['args'])
-        .') called at ['.$call['file'].':'.$call['line'].']';
-    }
-
-    return implode("\n",$ret);
-}
-
-function debug_get_arg($arg) 
-{
-    if (is_object($arg)) 
-    {
-        $arr = (array)$arg;
-    }
-    elseif ( is_array($arg) )
-    {
-        $arr = $arg;
-    }
-    else
-    {
-        $arr = null;
-    }
-    
-    if ( $arr )
-    {
-        $args = array();
-        foreach($arr as $key => $value) {
-            if (strpos($key, chr(0)) !== false) {
-                $key = '';    // Private variable found
-            }
-            $args[] =  '['.$key.'] => '.debug_get_arg($value);
-        }
-
-        if ( is_object( $arg ) )
-        {
-            $arg = get_class($arg) . ' ('.implode(',', $args).')';
-        }
-        elseif ( is_array($arg) )
-        {
-
-            $arg = 'Array ('.implode(',', $args).')';
-        }
-    }
-    
-    return $arg;
-}*/
 
 class Profiler
 {

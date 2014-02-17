@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
@@ -66,36 +66,27 @@ class CourseHomePagePortletIterator implements CountableIterator
         
         if ( file_exists($portletPath) )
         {
-            set_current_module_label($portlet['label']);
-            
-            load_module_config($portlet['label']);
-            Language::load_module_translation($portlet['label']);
-                
             require_once $portletPath;
+        }
+        else
+        {
+            throw new Exception("Can\'t find the file %portletPath", array('%portletPath' => $portletPath));
+        }
+        
+        if (class_exists($portletName))
+        {
+            $courseCode     = ClaroCourse::getCodeFromId($this->courseId);
             
-            if (class_exists($portletName))
-            {
-                $courseCode     = ClaroCourse::getCodeFromId($this->courseId);
-
-                $portletObj = new $portletName($portlet['id'], $courseCode,
-                $portlet['courseId'], $portlet['rank'],
-                $portlet['label'], $portlet['visible']);
-
-                
-            }
-            else
-            {
-                echo get_lang("Can't find the class %portletName_portlet", array('%portletName' => $portletName));
-                $portletObj = false;
-            }
-            
-            clear_current_module_label();
+            $portletObj = new $portletName($portlet['id'], $courseCode,
+            $portlet['courseId'], $portlet['rank'],
+            $portlet['label'], $portlet['visible']);
             
             return $portletObj;
         }
         else
         {
-            throw new Exception("Can\'t find the file %portletPath", array('%portletPath' => $portletPath));
+            echo get_lang("Can't find the class %portletName_portlet", array('%portletName' => $portletName));
+            return false;
         }
     }
     

@@ -7,7 +7,7 @@
  *
  * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -18,7 +18,7 @@
  *
  * @package Wiki2xhtmlArea
  */
-require_once __DIR__ . "/lib.javascript.php";
+require_once dirname(__FILE__) . "/lib.javascript.php";
 
 /**
  * Wiki2xhtml editor textarea

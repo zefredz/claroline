@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC
  *              LICENSE version 2 or later
  * @author      see 'credits' file
@@ -278,7 +278,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
  * CLAROLINE mySQL query wrapper. It also provides a debug display which works
  * when the CLARO_DEBUG_MODE constant flag is set to on (true)
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author Christophe Gesch√© <moosh@claroline.net>
  * @param  string  $sqlQuery   - the sql query
  * @param  handler $dbHandler  - optional
@@ -297,11 +297,11 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
       }
     if ( $dbHandler == '#')
     {
-        $resultHandler =  @mysqli_query($GLOBALS["___mysqli_ston"], $sqlQuery);
+        $resultHandler =  @mysql_query($sqlQuery);
     }
     else
     {
-        $resultHandler =  @mysqli_query( $dbHandler, $sqlQuery);
+        $resultHandler =  @mysql_query($sqlQuery, $dbHandler);
     }
 
     if ( claro_debug_mode()
@@ -347,11 +347,11 @@ function claro_sql_errno($dbHandler = '#')
 {
     if ( $dbHandler == '#' )
     {
-        return ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false));
+        return mysql_errno();
     }
     else
     {
-        return ((is_object($dbHandler)) ? mysqli_errno($dbHandler) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false));
+        return mysql_errno($dbHandler);
     }
 }
 
@@ -364,11 +364,11 @@ function claro_sql_error($dbHandler = '#')
 {
     if ( $dbHandler == '#' )
     {
-        return ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false));
+        return mysql_error();
     }
     else
     {
-        return ((is_object($dbHandler)) ? mysqli_error($dbHandler) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false));
+        return mysql_error($dbHandler);
     }
 }
 
@@ -381,11 +381,11 @@ function claro_sql_select_db($dbName, $dbHandler = '#')
 {
     if ( $dbHandler == '#' )
     {
-        return ((bool)mysqli_query($GLOBALS["___mysqli_ston"], "USE $dbName"));
+        return mysql_select_db($dbName);
     }
     else
     {
-        return ((bool)mysqli_query( $dbHandler, "USE $dbName"));
+        return mysql_select_db($dbName, $dbHandler);
     }
 }
 
@@ -398,11 +398,11 @@ function claro_sql_affected_rows($dbHandler = '#')
 {
     if ( $dbHandler == '#' )
     {
-        return mysqli_affected_rows($GLOBALS["___mysqli_ston"]);
+        return mysql_affected_rows();
     }
     else
     {
-        return mysqli_affected_rows($dbHandler);
+        return mysql_affected_rows($dbHandler);
     }
 }
 
@@ -415,11 +415,11 @@ function claro_sql_insert_id($dbHandler = '#')
 {
     if ( $dbHandler == '#' )
     {
-        return ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
+        return mysql_insert_id();
     }
     else
     {
-        return ((is_null($___mysqli_res = mysqli_insert_id($dbHandler))) ? false : $___mysqli_res);
+        return mysql_insert_id($dbHandler);
     }
 }
 
@@ -430,7 +430,7 @@ function claro_sql_insert_id($dbHandler = '#')
  * @param ressource (optional) - result pointer
  * @return  names of the specified field index
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
  *  in database/database.lib.php instead
  */
@@ -442,7 +442,7 @@ function claro_sql_field_names( $sql, $resultPt = null )
 
     if ( ! array_key_exists( $sqlHash, $_colNameList) )
     {
-        if ( is_object($resultPt) && $resultPt instanceof mysqli_result )
+        if ( is_resource($resultPt) && get_resource_type($resultPt) == 'mysql result' )
         {
             // if ressource type is mysql result use it
             $releasablePt = false;
@@ -453,14 +453,14 @@ function claro_sql_field_names( $sql, $resultPt = null )
             $releasablePt = true;
         }
 
-        $resultFieldCount = (($___mysqli_tmp = mysqli_num_fields($resultPt)) ? $___mysqli_tmp : false);
+        $resultFieldCount = mysql_num_fields($resultPt);
 
         for ( $i = 0; $i < $resultFieldCount ; ++$i )
         {
-            $_colNameList[$sqlHash][] = ((($___mysqli_tmp = mysqli_fetch_field_direct($resultPt, 0)->name) && (!is_null($___mysqli_tmp))) ? $___mysqli_tmp : false);
+            $_colNameList[$sqlHash][] = mysql_field_name($resultPt, $i);
         }
 
-        if ( $releasablePt ) ((mysqli_free_result($resultPt) || (is_object($resultPt) && (get_class($resultPt) == "mysqli_result"))) ? true : false);
+        if ( $releasablePt ) mysql_free_result($resultPt);
     }
 
     return $_colNameList[$sqlHash];
@@ -487,7 +487,7 @@ function claro_sql_query_fetch_all_rows($sqlQuery, $dbHandler = '#')
     {
         $rowList = array();
 
-        while( $row = mysqli_fetch_array($result,  MYSQLI_ASSOC) )
+        while( $row = mysql_fetch_array($result, MYSQL_ASSOC) )
         {
             $rowList [] = $row;
         }
@@ -502,7 +502,7 @@ function claro_sql_query_fetch_all_rows($sqlQuery, $dbHandler = '#')
             claro_sql_field_names($sqlQuery, $result);
         }
 
-        ((mysqli_free_result($result) || (is_object($result) && (get_class($result) == "mysqli_result"))) ? true : false);
+        mysql_free_result($result);
 
         return $rowList;
     }
@@ -544,7 +544,7 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
     {
         $colList = array();
 
-        while( $row = mysqli_fetch_array($result,  MYSQLI_ASSOC) )
+        while( $row = mysql_fetch_array($result, MYSQL_ASSOC) )
         {
             foreach($row as $key => $value ) $colList[$key][] = $value;
         }
@@ -561,7 +561,7 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
             }
         } // end if( count($colList) == 0)
 
-        ((mysqli_free_result($result) || (is_object($result) && (get_class($result) == "mysqli_result"))) ? true : false);
+        mysql_free_result($result);
 
         return $colList;
 
@@ -593,7 +593,7 @@ function claro_sql_query_fetch_single_value($sqlQuery, $dbHandler = '#')
 
     if($result)
     {
-        $row = mysqli_fetch_row($result);
+        $row = mysql_fetch_row($result);
 
         if ( is_array( $row ) )
         {
@@ -604,7 +604,7 @@ function claro_sql_query_fetch_single_value($sqlQuery, $dbHandler = '#')
             $value = null;
         }
 
-        ((mysqli_free_result($result) || (is_object($result) && (get_class($result) == "mysqli_result"))) ? true : false);
+        mysql_free_result($result);
         return $value;
     }
     else
@@ -663,8 +663,8 @@ function claro_sql_query_get_single_row($sqlQuery, $dbHandler = '#')
     // TODO if $result is empty it can't return false but empty array.
     if($result)
     {
-        $row = mysqli_fetch_array($result,  MYSQLI_ASSOC);
-        ((mysqli_free_result($result) || (is_object($result) && (get_class($result) == "mysqli_result"))) ? true : false);
+        $row = mysql_fetch_array($result, MYSQL_ASSOC);
+        mysql_free_result($result);
         return $row;
     }
     else
@@ -694,8 +694,8 @@ function claro_sql_query_affected_rows($sqlQuery, $dbHandler = '#')
 
     if ($result)
     {
-        if ($dbHandler == '#') return mysqli_affected_rows($GLOBALS["___mysqli_ston"]);
-        else                   return mysqli_affected_rows($dbHandler);
+        if ($dbHandler == '#') return mysql_affected_rows();
+        else                   return mysql_affected_rows($dbHandler);
 
         // NOTE. To make claro_sql_query_affected_rows() work properly,
         // database connection is required with CLIENT_FOUND_ROWS flag.
@@ -734,8 +734,8 @@ function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
 
     if ($result)
     {
-        if ($dbHandler == '#') return ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
-        else                   return ((is_null($___mysqli_res = mysqli_insert_id($dbHandler))) ? false : $___mysqli_res);
+        if ($dbHandler == '#') return mysql_insert_id();
+        else                   return mysql_insert_id($dbHandler);
     }
     else
     {
@@ -754,8 +754,8 @@ function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
  */
 function claro_sql_escape($statement,$db=null)
 {
-    if (is_null($db)) return ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $statement) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));
-    else              return mysqli_real_escape_string( $db, $statement);
+    if (is_null($db)) return mysql_real_escape_string($statement);
+    else              return mysql_real_escape_string($statement, $db);
 
 }
 
@@ -776,7 +776,7 @@ function claro_sql_escape($statement,$db=null)
  * @deprecated since Claroline 1.9, see claro_sql_get_tbl for details
  */
 
-require_once(__DIR__ . '/module.lib.php');
+require_once(dirname(__FILE__) . '/module.lib.php');
 function get_context_db_discriminator($toolId)
 {
 

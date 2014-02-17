@@ -8,7 +8,7 @@
  * MyCalendar portlet ajax backend
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     DESKTOP
  * @author      Claroline team <info@claroline.net>
@@ -20,17 +20,17 @@ if ( isset($_REQUEST['location']) )
     // Call the right class according to the location
     if ( $_REQUEST['location'] == 'coursehomepage' )
     {
-        require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
+        require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
         
-        require_once __DIR__ . '/lib/coursehomepagecalendar.lib.php';
+        require_once dirname(__FILE__) . '/lib/coursehomepagecalendar.lib.php';
         
         $cal = new CourseHomePageCalendar(claro_htmlentities($_REQUEST['courseCode']));
     }
     elseif ( $_REQUEST['location'] == 'userdesktop' )
     {
-        require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
+        require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
         
-        require_once __DIR__ . '/lib/desktopcalendar.lib.php';
+        require_once dirname(__FILE__) . '/lib/desktopcalendar.lib.php';
         
         $cal = new UserDesktopCalendar;
     }

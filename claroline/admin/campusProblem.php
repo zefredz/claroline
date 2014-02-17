@@ -9,7 +9,7 @@
  * This script use Cache_lite.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/ADMIN
  * @author      S�bastien Piraux <pir@claroline.net>
@@ -398,10 +398,14 @@ switch ($display)
 
                 if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
                 {
-                    $sql = "SELECT `username`, `nom`, `prenom`, `email`, `lastLogin`
-                    FROM `" . $tbl_user . "`                     
-                    WHERE `lastLogin` < (NOW() - " . $limitBeforeUnused . ") OR `lastLogin` = '0000-00-00 00:00:00' 
-                    LIMIT 100";
+                    $sql = "SELECT `us`.`username`, `nom`, `prenom`, `email`, 
+                               MAX(`tr`.`date`) AS qty
+                    FROM `" . $tbl_user . "`               AS us
+                    LEFT JOIN `" . $tbl_tracking_event . "` AS tr
+                    ON`tr`.`user_id` = `us`.`user_id`
+                    GROUP BY `us`.`username`
+                    HAVING ( MAX(`tr`.`date`) < (NOW() - " . $limitBeforeUnused . " ) ) OR MAX(`tr`.`date`) IS NULL
+                        LIMIT 100";
 
 
                     $loginWithoutAccessResults = claro_sql_query_fetch_all($sql);
@@ -522,7 +526,7 @@ switch ($display)
                     $resCourseList = claro_sql_query($sql);
                     $i = 0;
                     $courseWithoutAccess = array();
-                    while ( ($course = mysqli_fetch_array($resCourseList) ) )
+                    while ( ($course = mysql_fetch_array($resCourseList) ) )
                     {
                         $tbl_course_tracking_event = get_conf('courseTablePrefix') . $course['dbName'] . get_conf('dbGlu') . "tracking_event";
                         $sql = "SELECT IF( MAX(`date`)  < (NOW() - " . $limitBeforeUnused . " ), MAX(`date`) , 'recentlyUsedOrNull' )
@@ -532,7 +536,7 @@ switch ($display)
                         $coursesNotUsedResult = claro_sql_query($sql);
 
                        
-                        if ( ( $courseAccess = mysqli_fetch_array($coursesNotUsedResult) ) )
+                        if ( ( $courseAccess = mysql_fetch_array($coursesNotUsedResult) ) )
                         {
                             if ( 'recentlyUsedOrNull' == $courseAccess['lastDate'] && 0 != $courseAccess['qty'] ) continue;
                             $courseWithoutAccess[$i][0] = $course['code'];

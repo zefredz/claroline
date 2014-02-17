@@ -6,7 +6,7 @@
  * out box  class
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -15,11 +15,11 @@
  */
 
 //load messagebox class
-require_once __DIR__ . '/messagebox.lib.php';
+require_once dirname(__FILE__) . '/messagebox.lib.php';
 //load sentMessage class
-require_once __DIR__.'/../message/sentmessage.lib.php';
+require_once dirname(__FILE__).'/../message/sentmessage.lib.php';
 //load outboxstrategy class
-require_once __DIR__.'/../selectorstrategy/outboxstrategy.lib.php';
+require_once dirname(__FILE__).'/../selectorstrategy/outboxstrategy.lib.php';
 
 
 class OutBox extends MessageBox

@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLRSS
  * @since       1.9
@@ -19,7 +19,7 @@ define('RSS_FILE_EXT', 'xml');
 include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
 include_once claro_get_conf_repository() . 'rss.conf.php';
 
-require_once __DIR__ . '/thirdparty/feedcreator.class.php';
+require_once dirname(__FILE__) . '/thirdparty/feedcreator.class.php';
 
 function build_rss($context)
 {

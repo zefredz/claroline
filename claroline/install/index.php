@@ -1,5 +1,18 @@
 <?php // $Id$
 
+/**
+ * CLAROLINE
+ *
+ * Claroline installer.
+ *
+ * @version     $Revision$
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/install/
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     INSTALL
+ */
+
 if ( empty(ini_get('date.timezone') ) )
 {
     ini_set('date.timezone','UTC');
@@ -10,20 +23,6 @@ else
     ini_set('date.timezone',date_default_timezone_get());
     date_default_timezone_set(date_default_timezone_get());
 }
-
-/**
- * CLAROLINE
- *
- * Claroline installer.
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see         http://www.claroline.net/wiki/install/
- * @author      Claro Team <cvs@claroline.net>
- * @package     INSTALL
- */
-
 
 /* LET DEFINE ON SEPARATE LINES !!!*/
 // __LINE__ use to have arbitrary number but order of panels
@@ -70,7 +69,7 @@ include '../lang/english/locale_settings.php';
 
 
 require_once $newIncludePath . 'lib/user.lib.php'; // needed fo generate_passwd()
-require_once __DIR__ . '/install.lib.inc.php';
+require_once dirname(__FILE__) . '/install.lib.inc.php';
 require_once $newIncludePath . 'lib/config.lib.inc.php';
 require_once $newIncludePath . 'lib/form.lib.php';
 require_once $newIncludePath . 'lib/course.lib.inc.php';
@@ -372,12 +371,12 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
 {
     // Check Connection //
     $databaseParam_ok = TRUE;
-    $db = @($GLOBALS["___mysqli_ston"] = mysqli_connect("$dbHostForm",  "$dbUsernameForm",  "$dbPassForm"));
+    $db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
     $stepStatus[DISP_DB_CONNECT_SETTING] = 'V';
-    if ( ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) > 0 ) // problem with server
+    if ( mysql_errno() > 0 ) // problem with server
     {
-        $no  = ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false));
-        $msg = ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false));
+        $no  = mysql_errno();
+        $msg = mysql_error();
         $msg_no_connection =
                 '<div class="claroDialogBox boxError">'
                 .    '<p>'
@@ -461,7 +460,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
     }
     else
     {
-        $db = ($GLOBALS["___mysqli_ston"] = mysqli_connect("$dbHostForm",  "$dbUsernameForm",  "$dbPassForm"));
+        $db = mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
 
         $valMain = check_if_db_exist($dbNameForm  ,$db);
         if ($dbStatsForm == $dbNameForm) $confirmUseExistingStatsDb = $confirmUseExistingMainDb ;
@@ -624,10 +623,10 @@ if( DISP_DB_NAMES_SETTING == $display )
 {
     // GET DB Names  //
     // this is  to prevent duplicate before submit
-    $db = @($GLOBALS["___mysqli_ston"] = mysqli_connect("$dbHostForm",  "$dbUsernameForm",  "$dbPassForm"));
+    $db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
     $sql = "show databases";
     $res = claro_sql_query($sql,$db);
-    while ($__dbName = mysqli_fetch_array($res,  MYSQLI_NUM))
+    while ($__dbName = mysql_fetch_array($res, MYSQL_NUM))
     {
         $existingDbs[] = $__dbName[0];
     }
@@ -817,7 +816,7 @@ elseif(DISP_LICENSE == $display)
     .    '<textarea id="license" cols="65" rows="15">'
     ;
 
-    readfile ('../../LICENSE.txt');
+    readfile ('../license/gpl.txt');
     echo '</textarea>'
     ;
 
@@ -888,7 +887,7 @@ elseif ($display == DISP_WELCOME)
     }
     
     // remove mysqlnd from client info string, if found
-    $mysql_ver = preg_replace('/^mysqlnd /', '', mysqli_get_client_info());
+    $mysql_ver = preg_replace('/^mysqlnd /', '', mysql_get_client_info());
     echo '<p>'
     .    get_lang('Please, read thoroughly the <a href="%installFileUrl">%installFileName</a> document before proceeding to installation.', array('%installFileUrl' => '../../INSTALL.txt','%installFileName'=>'INSTALL.txt'))
     .    '</p>'
@@ -903,7 +902,7 @@ elseif ($display == DISP_WELCOME)
     .    '</tr>'
     .    '<tr>'
     .    '<td>MySQL version >= 4.3</td>'
-    .    '<td>' . ( version_compare($mysql_ver, $requiredMySqlVersion, ">=" ) ? '<span class="ok">'.get_lang('Ok').'</span>':'<span class="ko">'.get_lang('Ko').'</span>') . ' (' . mysqli_get_client_info(). ')</td>'
+    .    '<td>' . ( version_compare($mysql_ver, $requiredMySqlVersion, ">=" ) ? '<span class="ok">'.get_lang('Ok').'</span>':'<span class="ko">'.get_lang('Ko').'</span>') . ' (' . mysql_get_client_info(). ')</td>'
     .    '</tr>'
  
     .    '<tr>'
@@ -1801,7 +1800,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     .    get_lang('Database password') . ' : ' . "\n"
     .    '</td>' . "\n"
     .    '<td class="checkValue">' . "\n"
-    .    claro_htmlspecialchars((empty($dbPassForm) ? get_lang('--empty--') : $dbPassForm))
+    .    claro_htmlspecialchars((empty($dbPassForm) ? '--empty--' : $dbPassForm))
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     

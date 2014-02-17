@@ -1,6 +1,5 @@
 <?php 
 
-$_lang['--empty--'] = '--empty--';
 $_lang['Administration'] = 'Administration';
 $_lang['Are directories readable ?'] = 'Are directories readable ?';
 $_lang['Are directories writable ?'] = 'Are directories writable ?';

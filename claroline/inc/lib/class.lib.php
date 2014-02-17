@@ -8,15 +8,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * Library for class
  *
  * @version 1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author Claro Team <cvs@claroline.net>
  * @author Guillaume Lederer <guillaume@claroline.net>
  * @since 1.6
  */
 
-require_once __DIR__ . '/user.lib.php' ;
-require_once __DIR__ . '/course_user.lib.php' ;
+require_once dirname(__FILE__) . '/user.lib.php' ;
+require_once dirname(__FILE__) . '/course_user.lib.php' ;
 
 /**
  * Get class data on the platform
@@ -477,7 +477,7 @@ function user_add_to_class($user_id,$class_id)
             AND `class_id` = '" . $class_id . "'";
     $handle = claro_sql_query($sql);
 
-    if ( mysqli_num_rows($handle) > 0 )
+    if ( mysql_num_rows($handle) > 0 )
     {
         return claro_failure::set_failure('USER_ALREADY_IN_CLASS'); // the user is already subscrided to the class
     }
@@ -1040,7 +1040,7 @@ function getSubClasses($class_id)
 
     $query_result = claro_sql_query($sql);
 
-    while ( ( $this_sub_class = mysqli_fetch_array($query_result) ) )
+    while ( ( $this_sub_class = mysql_fetch_array($query_result) ) )
     {
         // add this subclass id to array
         $sub_classes_list[] = $this_sub_class['id'];

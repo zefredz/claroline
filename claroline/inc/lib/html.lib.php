@@ -12,7 +12,7 @@ if ( count( get_included_files() ) == 1 )
  * uniformised output.
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      see 'credits' file
  * @package     HTML
@@ -318,7 +318,7 @@ function claro_html_message_box($message)
 * @param string $homeImg (optionnal) source url for a home icon at the trail start
 * @return string : the build breadcrumb trail
 *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
 */
 function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', $homeImg = null)
 {
@@ -1008,7 +1008,7 @@ class claro_datagrid
  *
  * @param boolean $cidRequired - if the course id is required to leave the form
  * @author Christophe gesche <moosh@claroline.net>
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 function claro_disp_auth_form($cidRequired = false)
 {
@@ -1075,7 +1075,7 @@ function claro_disp_auth_form($cidRequired = false)
  *  $elementList[2]['name' ]  = 'level1';
  *  $elementList[2]['value']  = 'level1';
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  */
 function claro_build_nested_select_menu($name, $elementList)
@@ -1124,7 +1124,7 @@ function prepare_option_tags($elementList, $deepness = 0)
 /**
  * Checks if the string has been written html style (ie &eacute; etc)
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @param string $string
  * @return boolean true if the string is written in html style, false otherwise
  */

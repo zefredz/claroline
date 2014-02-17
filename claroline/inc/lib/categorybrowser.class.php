@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
  * @since       1.10
@@ -15,8 +15,8 @@
  */
 
 
-require_once __DIR__ . '/clarocategory.class.php';
-require_once __DIR__ . '/course/courselist.lib.php';
+require_once dirname(__FILE__) . '/clarocategory.class.php';
+require_once dirname(__FILE__) . '/course/courselist.lib.php';
 
 class CategoryBrowser
 {

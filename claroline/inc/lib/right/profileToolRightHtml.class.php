@@ -6,14 +6,14 @@
  * Class to display manage profile and tool right (none, user, manager)
  *
  * @version     1.11 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLMAIN
  * @author      Claro Team <cvs@claroline.net>
  */
 
-require_once __DIR__ . '/constants.inc.php';
-require_once __DIR__ . '/profileToolRight.class.php';
+require_once dirname(__FILE__) . '/constants.inc.php';
+require_once dirname(__FILE__) . '/profileToolRight.class.php';
 
 class RightProfileToolRightHtml
 {

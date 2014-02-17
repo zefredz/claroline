@@ -6,7 +6,7 @@
  * This script prupose to user to edit his own profile.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/Auth/
  * @author      Claro Team <cvs@claroline.net>
@@ -139,7 +139,7 @@ if ( isset($_REQUEST['applyChange']) )
         
         // re-init the system to take new settings in account
         $uidReset = true;
-        include __DIR__ . '/../inc/claro_init_local.inc.php';
+        include dirname(__FILE__) . '/../inc/claro_init_local.inc.php';
         $dialogBox->success( get_lang('The information have been modified') );
         
         // Initialise

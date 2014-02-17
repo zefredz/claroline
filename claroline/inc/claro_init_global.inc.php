@@ -17,7 +17,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLKERNEL
  * @author      Claro Team <cvs@claroline.net>
@@ -158,31 +158,6 @@ if ( get_conf('triggerDebugMode', false) &&  isset($_REQUEST['debug']) )
     }
 }
 
-FromKernel::uses('core/claroline.lib');
-
-try
-{
-    Claroline::initDatabaseProvider();
-    
-    Claroline::initCoreServices();
-}
-catch ( Exception $e )
-{
-    if ( claro_debug_mode() ) 
-    {
-        $details = '<pre>' . var_export( $e->__toString(), true ) . '</pre>';
-    }
-    else
-    {
-        $details = '';
-    }
-    
-    die ('<center>'
-        .$e->getMessage()
-        . $details
-        .'</center>');
-}
-
 
 /*----------------------------------------------------------------------
   Include main library
@@ -203,6 +178,34 @@ if( claro_debug_mode() )
 claro_unquote_gpc();
 
 /*----------------------------------------------------------------------
+  Connect to the server database and select the main claroline DB
+  ----------------------------------------------------------------------*/
+
+FromKernel::uses('core/claroline.lib');
+
+try
+{
+    // Initialize the main database connection
+    Claroline::initMainDatabase();
+}
+catch ( Exception $e )
+{
+    if ( claro_debug_mode() ) 
+    {
+        $details = '<pre>' . var_export( $e->__toString(), true ) . '</pre>';
+    }
+    else
+    {
+        $details = '';
+    }
+    
+    die ('<center>'
+        .$e->getMessage()
+        . $details
+        .'</center>');
+}
+
+/*----------------------------------------------------------------------
   Include the local (contextual) parameters of this course or section
   ----------------------------------------------------------------------*/
 
@@ -215,11 +218,6 @@ require get_path('incRepositorySys') . '/claro_init_local.inc.php';
 language::load_translation();
 language::load_locale_settings();
 language::load_module_translation();
-
-if ( isset($GLOBALS['tlabelReq']) )
-{
-    set_current_module_label($GLOBALS['tlabelReq']);
-}
 
 // set the mysql connexion for the course !!! does not work ignored by mysql :(
 // I'm afraid this will not be possible if we don't reset the connection
@@ -236,16 +234,16 @@ pushClaroMessage( Claroline::getDatabase ()->getCharset (),'debug' );
 Claroline::initDisplay();
 // Assign the Claroline singleton to a variable for more convenience
 // for legacy code, it's far better to use Claroline class static methods.
-$GLOBALS['claroline'] = Claroline::getInstance();
+$claroline = Claroline::getInstance();
 
 /*===========================================================================
                      Load configuration files
  ===========================================================================*/
 
 // Course tools
-if (isset($GLOBALS['_cid']) && $GLOBALS['_courseTool']['label'])
+if (isset($_cid) && $_courseTool['label'])
 {
-    $config_code = rtrim($GLOBALS['_courseTool']['label'],'_');
+    $config_code = rtrim($_courseTool['label'],'_');
 
     if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
     {
@@ -268,9 +266,9 @@ if (isset($GLOBALS['_cid']) && $GLOBALS['_courseTool']['label'])
     }
 }
 // Other modules
-elseif ( $GLOBALS['tlabelReq'] )
+elseif ( $tlabelReq )
 {
-    $config_code = rtrim($GLOBALS['tlabelReq'],'_');
+    $config_code = rtrim($tlabelReq,'_');
 
     if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
     {
@@ -282,7 +280,7 @@ elseif ( $GLOBALS['tlabelReq'] )
     }
 }
 
-if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
+if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
 {
     /*----------------------------------------------------------------------
         Check tool access right an block unautorised users
@@ -293,7 +291,7 @@ if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
         claro_disp_auth_form(true);
     }
     
-    if ( get_module_data( $GLOBALS['tlabelReq'], 'type' ) == 'admin' && ! claro_is_platform_admin() )
+    if ( get_module_data( $tlabelReq, 'type' ) == 'admin' && ! claro_is_platform_admin() )
     {
         if ( !claro_is_user_authenticated() )
         {
@@ -305,7 +303,7 @@ if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
         }
     }
     
-    if ( get_module_data( $GLOBALS['tlabelReq'], 'type' ) == 'crsmanage' 
+    if ( get_module_data( $tlabelReq, 'type' ) == 'crsmanage' 
         && ! ( claro_is_course_manager() || claro_is_platform_admin() ) )
     {
         if ( !claro_is_user_authenticated() )
@@ -318,9 +316,9 @@ if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
         }
     }
     
-    if ( $GLOBALS['tlabelReq'] !== 'CLWRK' && $GLOBALS['tlabelReq'] !== 'CLGRP' && ! claro_is_module_allowed()
+    if ( $tlabelReq !== 'CLWRK' && $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed()
         && ! ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] 
-        && ( $GLOBALS['tlabelReq'] == 'CLQWZ' || $GLOBALS['tlabelReq'] == 'CLDOC') ) ) // WORKAROUND FOR OLD LP
+        && ( $tlabelReq == 'CLQWZ' || $tlabelReq == 'CLDOC') ) ) // WORKAROUND FOR OLD LP
     {
         if ( ! claro_is_user_authenticated() )
         {
@@ -332,12 +330,12 @@ if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
         }
     }
     
-    if ( $GLOBALS['tlabelReq'] !== 'CLGRP'
-        && $GLOBALS['tlabelReq'] !== 'CLWRK'
+    if ( $tlabelReq !== 'CLGRP'
+        && $tlabelReq !== 'CLWRK'
         && claro_is_in_a_group()
         && ( !claro_is_group_allowed()
         || ( !claro_is_allowed_to_edit()
-            && !is_tool_activated_in_groups($GLOBALS['_cid'], $GLOBALS['tlabelReq']) ) ) )
+            && !is_tool_activated_in_groups($_cid, $tlabelReq) ) ) )
     {
         claro_die( get_lang( 'Not allowed' ) );
     }
@@ -346,9 +344,9 @@ if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
         Install module
     ----------------------------------------------------------------------*/
     if ( claro_is_in_a_course()
-        && ! is_module_installed_in_course( $GLOBALS['tlabelReq'], claro_get_current_course_id() ) )
+        && ! is_module_installed_in_course( $tlabelReq, claro_get_current_course_id() ) )
     {
-        install_module_database_in_course( $GLOBALS['tlabelReq'], claro_get_current_course_id() ) ;
+        install_module_database_in_course( $tlabelReq, claro_get_current_course_id() ) ;
     }
 }
 
@@ -358,11 +356,11 @@ if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
 // if page is called from another tool ... (from LP for an example)
 if ( isset($_REQUEST['calledFrom']) )
 {
-    $GLOBALS['calledFrom'] = $_REQUEST['calledFrom'];
+    $calledFrom = $_REQUEST['calledFrom'];
 }
 else
 {
-    $GLOBALS['calledFrom'] = false;
+    $calledFrom = false;
 }
 
 // if page is embedded hide banner and footer
@@ -373,15 +371,15 @@ if ( isset($_REQUEST['embedded']) && $_REQUEST['embedded'] == 'true' )
     $GLOBALS['hide_footer'] = true;
     
     // fashion victim method
-    $GLOBALS['claroline']->setDisplayType(Claroline::FRAME);
+    $claroline->setDisplayType(Claroline::FRAME);
 }
 /*----------------------------------------------------------------------
   Initialize the event manager declarations for the notification system
   ----------------------------------------------------------------------*/
 
 // for backward compatibility
-$GLOBALS['eventNotifier'] = $GLOBALS['claroline']['notifier'];
-$GLOBALS['claro_notifier'] = $GLOBALS['claroline']['notification'];
+$GLOBALS['eventNotifier'] = $claroline->notifier;
+$GLOBALS['claro_notifier'] = $claroline->notification;
 
 
 // Register listener in the event manager for the NOTIFICATION system :
@@ -393,43 +391,43 @@ $GLOBALS['claro_notifier'] = $GLOBALS['claroline']['notification'];
 // 'update' is the name of the function called in the listener class when the event happens
 
 // register listener for access to platform
-$GLOBALS['claroline']->notification->addListener( 'platform_access', 'trackPlatformAccess');
+$claroline->notification->addListener( 'platform_access', 'trackPlatformAccess');
 // todo move this to a better place ? like end of script ?
-$GLOBALS['claroline']->notifier->event( 'platform_access' );
+$claroline->notifier->event( 'platform_access' );
 
 // we must register this listener here else it will not be registered when 'inscription login' will occur
-$GLOBALS['claroline']->notification->addListener( 'user_login', 'trackInPlatform' );
+$claroline->notification->addListener( 'user_login', 'trackInPlatform' );
 
 if ( claro_is_user_authenticated() )
 {
    //global events (can happen outside of courses too)
 
-   $GLOBALS['claroline']->notification->addListener( 'course_deleted', 'modificationDelete' );
+   $claroline->notification->addListener( 'course_deleted', 'modificationDelete' );
 }
 
 if ( claro_is_user_authenticated() && claro_is_in_a_course() )
 {
     //global events IN COURSE only
 
-    $GLOBALS['claroline']->notification->addListener( 'toollist_changed', 'modificationDefault' );
-    $GLOBALS['claroline']->notification->addListener( 'introsection_modified', 'modificationDefault' );
+    $claroline->notification->addListener( 'toollist_changed', 'modificationDefault' );
+    $claroline->notification->addListener( 'introsection_modified', 'modificationDefault' );
 
-    $GLOBALS['claroline']->notification->addListener( 'course_access', 'trackCourseAccess' );
+    $claroline->notification->addListener( 'course_access', 'trackCourseAccess' );
     // todo : should move this event to initialisation of course context
-    $GLOBALS['claroline']->notifier->event( 'course_access' );
+    $claroline->notifier->event( 'course_access' );
 }
 
 if ( claro_is_in_a_group() )
 {
-    $GLOBALS['claroline']->notification->addListener( 'group_deleted', 'modificationDelete' );
+    $claroline->notification->addListener( 'group_deleted', 'modificationDelete' );
 }
 
 if ( claro_is_in_a_tool() )
 {
     // generic tool event
-    $GLOBALS['claroline']->notification->addListener( 'tool_access', 'trackToolAccess' );
+    $claroline->notification->addListener( 'tool_access', 'trackToolAccess' );
     // todo : should move this event to initialisation of tool context
-    $GLOBALS['claroline']->notifier->event( 'tool_access' );
+    $claroline->notifier->event( 'tool_access' );
 
     // others
     load_current_module_listeners();
@@ -564,12 +562,12 @@ else
 }
 
 // reset current module label after calling the cache
-if ( isset($GLOBALS['tlabelReq']) && get_current_module_label() != $GLOBALS['tlabelReq'] )
+if ( isset($tlabelReq) && get_current_module_label() != $tlabelReq )
 {
     // reset all previous occurence of module label in stack
     while (clear_current_module_label());
     // set the current module label
-    set_current_module_label($GLOBALS['tlabelReq']);
+    set_current_module_label($tlabelReq);
 }
 
 // Add feed RSS in header
@@ -577,7 +575,7 @@ if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )
 {
     require claro_get_conf_repository() . 'rss.conf.php';
 
-    $GLOBALS['claroline']->display->header->addHtmlHeader('<link rel="alternate" type="application/rss+xml" title="' . claro_htmlspecialchars($GLOBALS['_course']['name'] . ' - ' . get_conf('siteName')) . '"'
+    $claroline->display->header->addHtmlHeader('<link rel="alternate" type="application/rss+xml" title="' . claro_htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
     .' href="' . get_path('url') . '/claroline/backends/rss.php?cidReq=' . claro_get_current_course_id() . '" />' );
 }
 
@@ -587,7 +585,7 @@ if ( claro_debug_mode() && get_conf('clmain_serverTimezone','') )
     pushClaroMessage('timezone set to '.date_default_timezone_get(),'debug');
 }
 
-if ( claro_is_in_a_course() && isset( $GLOBALS['tlabelReq'] ) && $GLOBALS['tlabelReq'] == 'CLQWZ' )
+if ( claro_is_in_a_course() && isset( $tlabelReq ) && $tlabelReq == 'CLQWZ' )
 {
     require_once get_path('incRepositorySys').'/../exercise/lib/add_missing_table.lib.php';
     init_qwz_questions_categories ();

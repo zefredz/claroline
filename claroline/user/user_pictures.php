@@ -6,7 +6,7 @@
  * Display all the pictures for a specific course list of users.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     USER
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
@@ -31,7 +31,7 @@ require_once get_path('incRepositorySys')  . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys')  . '/lib/user.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/course_user.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/pager.lib.php';
-require_once __DIR__ . '/../messaging/lib/permission.lib.php';
+require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
 /*----------------------------------------------------------------------
    Load config

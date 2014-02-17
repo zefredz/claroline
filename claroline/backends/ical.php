@@ -8,7 +8,7 @@
  * Build iCal file for user in given course
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Gesche <moosh@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -20,7 +20,7 @@ $_course = array();
 $siteName = '';
 $is_courseAllowed = false;
 
-require __DIR__ . '/../inc/claro_init_global.inc.php';
+require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
 include_once claro_get_conf_repository() . 'ical.conf.php';
 include_once get_path('includePath') . '/lib/ical.write.lib.php';

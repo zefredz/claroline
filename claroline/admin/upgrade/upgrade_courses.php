@@ -6,7 +6,7 @@
  * This script Upgrade course database and course space.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  * @package     UPGRADE
@@ -25,7 +25,6 @@ include ('upgrade_course_17.lib.php');
 include ('upgrade_course_18.lib.php');
 include ('upgrade_course_19.lib.php');
 include ('upgrade_course_110.lib.php');
-include ('upgrade_course_112.lib.php');
 
 require_once $includePath . '/lib/module/manage.lib.php';
 
@@ -111,30 +110,27 @@ switch ($display)
 {
     case DISPLAY_WELCOME_PANEL :
 
-        echo '<h2>'.get_lang('Step 3 of 4: courses upgrade').'</h2>
-            <p>
-                '.get_lang('Now the <em>Claroline Upgrade Tool</em> is going to prepare <b>course</b> data (directories and database tables) one by one and set it to be compatible with the new Claroline version').'
-            <p class="help">
-                '.get_lang('Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.').'
-            </p>
-            <p style="text-align: center">
-                <strong>' . get_lang( '%count_course_upgraded courses on %count_course already upgraded', 
-                    array('%count_course_upgraded' => $count_course_upgraded, '%count_course' => $count_course)).'</strong><br /></p>
+        echo '<h2>Step 3 of 4: courses upgrade</h2>
+             <p>Now the <em>Claroline Upgrade Tool</em> is going to prepare <b>course</b> data
+            (directories and database tables) one by one and set it to be compatible with the new
+            Claroline version.<p class="help">Note. Depending of the speed of your server or the amount
+            of data stored on your platform, this operation may take some time.</p>
+            <p style="text-align: center"><strong>' . $count_course_upgraded . ' courses
+            on ' . $count_course . ' already upgraded</strong><br /></p>
             <center>
-            <p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">'.get_lang('Launch course data upgrade').'</button></p>
+            <p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Launch course data upgrade</button></p>
             </center>';
         break;
 
     case DISPLAY_RESULT_PANEL :
 
-        echo '<h2>'.get_lang('Step 3 of 4: courses upgrade').'</h2>
-              <p>'.get_lang('The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade').'</p>';
+        echo '<h2>Step 3 of 4: courses upgrade</h2>
+              <p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>';
 
         // display course upgraded
 
-        echo '<p style="text-align: center">
-                <strong>' . get_lang( '%count_course_upgraded courses on %count_course already upgraded', 
-                    array('%count_course_upgraded' => $count_course_upgraded, '%count_course' => $count_course)).'</strong><br /></p>';
+        echo '<p style="text-align: center"><strong>' . $count_course_upgraded . ' courses
+              on ' . $count_course . ' already upgraded</strong><br /></p>';
 
         flush();
 
@@ -143,11 +139,11 @@ switch ($display)
          */
 
         echo  '<div class="help" id="refreshIfBlock">
-            <p>'.get_lang('In case of interruption <sup>*</sup>, the <em>Claroline Upgrade tool</em> should restart automatically').'</p>
+            <p>In case of interruption <sup>*</sup>, the <em>Claroline Upgrade tool</em> should restart automatically</p>
             <p style="text-align: center">
-            <button onclick="document.location=\'' . $_SERVER['PHP_SELF'].'?cmd=run\';">'.get_lang('Continue courses data upgrade').'</button>
+            <button onclick="document.location=\'' . $_SERVER['PHP_SELF'].'?cmd=run\';">Continue courses data upgrade</button>
             </p>
-            <p><small>'.get_lang('(*) see in the status bar of your browser').'</small></p>
+            <p><small>(*) see in the status bar of your browser.</small></p>
             </div>';
 
         flush();
@@ -163,9 +159,6 @@ switch ($display)
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.6' WHERE `versionClaro` = 'error-1.6'");
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.7' WHERE `versionClaro` = 'error-1.7'");
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.8' WHERE `versionClaro` = 'error-1.8'");
-            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.9' WHERE `versionClaro` = 'error-1.9'");
-            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.10' WHERE `versionClaro` = 'error-1.10'");
-            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.11' WHERE `versionClaro` = 'error-1.11'");
         }
 
         $sql_course_to_upgrade = " SELECT c.dbName dbName,
@@ -176,36 +169,27 @@ switch ($display)
                                           c.versionClaro "
                                . " FROM `" . $tbl_course . "` `c` ";
 
-        if ( ! ( $forceUpgrade && preg_match ( $patternVarVersion, $new_version_branch ) ) )
+        if ( isset($_REQUEST['upgradeCoursesError']) )
         {
-            if ( isset($_REQUEST['upgradeCoursesError']) )
-            {
-                // retry to upgrade course where upgrade failed
-                $sql_course_to_upgrade .= " WHERE c.versionClaro not like '". $new_version_branch ."%'
-                                            ORDER BY c.dbName";
-            }
-            else
-            {
-                // not upgrade course where upgrade failed ( versionClaro == error* )
-                $sql_course_to_upgrade .= " WHERE ( c.versionClaro not like '". $new_version_branch . "%' )
-                                                  and c.versionClaro not like 'error%'
-                                            ORDER BY c.dbName ";
-            }
+            // retry to upgrade course where upgrade failed
+            $sql_course_to_upgrade .= " WHERE c.versionClaro not like '". $new_version_branch ."%'
+                                        ORDER BY c.dbName";
         }
         else
         {
-            $sql_course_to_upgrade .= " WHERE c.versionClaro like '{$new_version_branch}%'
-                                        OR c.versionClaro like 'error-{$new_version_branch}'
+            // not upgrade course where upgrade failed ( versionClaro == error* )
+            $sql_course_to_upgrade .= " WHERE ( c.versionClaro not like '". $new_version_branch . "%' )
+                                              and c.versionClaro not like 'error%'
                                         ORDER BY c.dbName ";
         }
 
-        $res_course_to_upgrade = mysqli_query($GLOBALS["___mysqli_ston"], $sql_course_to_upgrade);
+        $res_course_to_upgrade = mysql_query($sql_course_to_upgrade);
 
         /*
          * Upgrade course
          */
 
-        while ( ($course = mysqli_fetch_array($res_course_to_upgrade) ) )
+        while ( ($course = mysql_fetch_array($res_course_to_upgrade) ) )
         {
             // initialise variables
 
@@ -224,9 +208,8 @@ switch ($display)
             $message = '';
 
             echo '<p><strong>' . ( $count_course_upgraded + 1 ) . ' . </strong>
-                  '.get_lang('Upgrading course').' <strong>' . $currentCourseFakeCode . '</strong><br />
-                  <small>'.get_lang('DB Name : %currentCourseDbName - Course ID : %currentCourseCode', 
-                      array('%currentCourseDbName' => $currentCourseDbName, '%currentCourseCode' => $currentCourseCode ) ) . '</small></p>';
+                  Upgrading course <strong>' . $currentCourseFakeCode . '</strong><br />
+                  <small>DB Name : ' . $currentCourseDbName . ' - Course ID : ' . $currentCourseCode . '</small></p>';
 
             /**
              * Make some check.
@@ -241,10 +224,10 @@ switch ($display)
             if ( !file_exists($currentcoursePathSys) )
             {
                 $error = true;
-                $message .= '<p class="help"><strong>'.get_lang('Course has no repository').'</strong><br />
-                             <small>' .  $currentcoursePathSys . '</small> '.get_lang('Not found').'</p>' . "\n";
-                $message .= '<p class="comment">'.get_lang('The upgrade tool is not able to upgrade this course').'<br />
-                             '.get_lang('Fix, first, the technical problem and relaunch the upgrade tool').'</p>' . "\n";
+                $message .= '<p class="help"><strong>Course has no repository.</strong><br />
+                             <small>' .  $currentcoursePathSys . '</small> Not found</p>' . "\n";
+                $message .= '<p class="comment">The upgrade tool is not able to upgrade this course.<br />
+                             Fix, first, the technical problem and relaunch the upgrade tool.</p>' . "\n";
             }
 
             if ( ! $error )
@@ -266,7 +249,7 @@ switch ($display)
                         $step = $function($currentCourseCode);
                         if ( $step > 0 )
                         {
-                            echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
+                            echo 'Error : ' . $function . ' at step . ' . $step . '<br />';
                             $error = true;
                         }
                     }
@@ -307,7 +290,7 @@ switch ($display)
                         $step = $function($currentCourseCode);
                         if ( $step > 0 )
                         {
-                            echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
+                            echo 'Error : ' . $function . ' at step ' . $step . '<br />';
                             $error = true;
                         }
                     }
@@ -348,7 +331,7 @@ switch ($display)
                         $step = $function($currentCourseCode);
                         if ( $step > 0 )
                         {
-                            echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
+                            echo 'Error : ' . $function . ' at step ' . $step . '<br />';
                             $error = true;
                         }
                     }
@@ -396,7 +379,7 @@ switch ($display)
                         $step = $function($currentCourseCode);
                         if ( $step > 0 )
                         {
-                            echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
+                            echo 'Error : ' . $function . ' at step ' . $step . '<br />';
                             $error = true;
                         }
                     }
@@ -449,7 +432,7 @@ switch ($display)
                         $step = $function($currentCourseCode);
                         if ( $step > 0 )
                         {
-                            echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
+                            echo 'Error : ' . $function . ' at step ' . $step . '<br />';
                             $error = true;
                         }
                     }
@@ -469,38 +452,15 @@ switch ($display)
                     save_course_current_version($currentCourseCode,$currentCourseVersion);
 
                 }
-                
-                if ( preg_match('/^1.10/',$currentCourseVersion) || preg_match('/^1.11/',$currentCourseVersion) )
-                {
-                    $function_list = array();
-                    
-                    if ( is_module_installed_in_course( 'CLLNP',$currentCourseCode ) )
-                    {
-                        $function_list[] = 'lp_upgrade_to_112';
-                    }
-                    
-                    foreach ( $function_list as $function )
-                    {
-                        $step = $function($currentCourseCode);
-                        if ( $step > 0 )
-                        {
-                            echo get_lang('Error : %function at step %step' , array('%function' => $function, '%step' => $step ) ) . '<br />';
-                            $error = true;
-                        }
-                    }
-                    
-                    $currentCourseVersion = '1.12';
-                    save_course_current_version($currentCourseCode,$currentCourseVersion);
-                }
 
             }
 
 
             if ( ! $error )
             {
-                if ( preg_match('/^1.12/',$currentCourseVersion) )
+                if ( preg_match('/^1.10/',$currentCourseVersion) )
                 {
-                    $message .= '<p class="success">'.get_lang('Upgrade succeeded').'</p>';
+                    $message .= '<p class="success">Upgrade succeeded</p>';
                     // course upgraded
                     $count_course_upgraded++;
                 }
@@ -508,15 +468,14 @@ switch ($display)
                 {
                     // course version unknown
                     $count_course_error++;
-                    $message .= '<p class="error">'.get_lang('Course version unknown : %currentCourseVersion', 
-                        array( '%currentCourseVersion' =>  $currentCourseVersion ) ) . '</p>';
+                    $message .= '<p class="error">Course version unknown : ' . $currentCourseVersion . '</p>';
                     log_message('Course version unknown : ' . $currentCourseVersion . '(in ' . $currentCourseCode . ')');
                 }
             }
             else
             {
                 $count_course_error++;
-                $message .= '<p class="error">'.get_lang('Upgrade failed').'</p>';
+                $message .= '<p class="error">Upgrade failed</p>';
             }
 
             // display message
@@ -534,7 +493,7 @@ switch ($display)
             $leftTime = strftime('%H:%M:%S',$leftCourses * $stepDurationAvg);
 
             $str_execution_time = sprintf(" <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. -->
-                                           <strong>".get_lang.('Expected remaining time %s')."</strong>."
+                                           <strong>Expected remaining time %s</strong>."
                                           ,$stepDuration
                                           ,$stepDurationAvg
                                           ,strftime('%H:%M:%S',$totaltime)
@@ -564,10 +523,10 @@ switch ($display)
 
             $result = claro_sql_query($sql);
 
-            if ( mysqli_num_rows($result) )
+            if ( mysql_num_rows($result) )
             {
-                echo '<p  class="error">'.get_lang('Upgrade tool is not able to upgrade the following courses').' : ';
-                while ( ( $course = mysqli_fetch_array($result)) )
+                echo '<p  class="error">Upgrade tool is not able to upgrade the following courses : ';
+                while ( ( $course = mysql_fetch_array($result)) )
                 {
                     echo $course['code'] . ' ; ';
                 }
@@ -576,15 +535,15 @@ switch ($display)
             }
 
             echo '<p class="comment">'
-                    . sprintf(get_lang('Fix first the technical problem and <a href="%s">relaunch the upgrade tool').'</a>.',
+                    . sprintf('Fix first the technical problem and <a href="%s">relaunch the upgrade tool</a>.',
                               $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
                     . '</p>';
         }
         else
         {
             // display next step
-            echo '<p class="success">'.get_lang('The Claroline upgrade process is complete').'</p>' . "\n";
-            echo '<div align="right"><p><button onclick="document.location=\'upgrade_modules.php\';">'.get_lang('Next').' &gt;</button></p></div>';
+            echo '<p class="success">The Claroline upgrade process completed</p>' . "\n";
+            echo '<div align="right"><p><button onclick="document.location=\'upgrade_modules.php\';">Next ></button></p></div>';
         }
 
         /*

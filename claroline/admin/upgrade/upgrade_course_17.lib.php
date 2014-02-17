@@ -8,13 +8,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * Function to update course tool 1.6 to 1.7.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  * @package     UPGRADE
  * @author      Claro Team <cvs@claroline.net>
  * @author      Mathieu Laurent   <mla@claroline.net>
- * @author      Christophe GeschÃ© <moosh@claroline.net>
+ * @author      Christophe Gesché <moosh@claroline.net>
  */
 
 /*===========================================================================
@@ -335,7 +335,7 @@ function forum_upgrade_to_17($course_code)
                 {
                     return $step;
                 }
-                while ( ($row = mysqli_fetch_array($result)) )
+                while ( ($row = mysql_fetch_array($result)) )
                 {
                     $sql = " UPDATE `" . $currentCourseDbNameGlu."bb_forums`
                              SET group_id = " . $row['id'] . "
@@ -423,7 +423,7 @@ function introtext_upgrade_to_17($course_code)
 
                 if ( ! $result ) return $step;
 
-                while ( ( $row = mysqli_fetch_array($result) ) )
+                while ( ( $row = mysql_fetch_array($result) ) )
                 {
                     $sql = "INSERT INTO `" . $currentCourseDbNameGlu . "tool_intro`
                             (`tool_id`,`content`)

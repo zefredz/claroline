@@ -6,7 +6,7 @@
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Gesche <moosh@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -19,7 +19,7 @@ $_course = array();
 
 $siteName ='';
 
-require __DIR__ . '/../inc/claro_init_global.inc.php';
+require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
 include claro_get_conf_repository() . 'rss.conf.php';
 

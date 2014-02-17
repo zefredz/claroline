@@ -6,33 +6,30 @@
  * Claroline notification system
  *
  * @version     Claroline 1.11 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     kernel.core
  */
 
-require_once __DIR__ . '/event.lib.php';
+require_once dirname(__FILE__) . '/event.lib.php';
 
 /**
  * Load the event listener of the current module 
  */
 function load_current_module_listeners()
 {
-    // needed inside of the connector script
-    global $claroline;
-    
-    $currentModuleLabel = get_current_module_label();
+    $claroline = Claroline::getInstance();
 
-    $path = get_module_path( $currentModuleLabel )
+    $path = get_module_path( Claroline::getInstance()->currentModuleLabel() )
         . '/connector/eventlistener.cnr.php';
 
     if ( file_exists( $path ) )
     {
         if ( claro_debug_mode() )
         {
-            pushClaroMessage( 'Load listeners for : ' . $currentModuleLabel, 'debug' );
+            pushClaroMessage( 'Load listeners for : ' . Claroline::getInstance()->currentModuleLabel(), 'debug' );
         }
 
         include $path;
@@ -41,7 +38,7 @@ function load_current_module_listeners()
     {
         if ( claro_debug_mode() )
         {
-            pushClaroMessage( 'No listeners for : ' . $currentModuleLabel, 'warning' );
+            pushClaroMessage( 'No listeners for : ' . Claroline::getInstance()->currentModuleLabel(), 'warning' );
         }
     }
 }
@@ -168,7 +165,7 @@ class ClaroNotification extends EventDriven
 
         if ( claro_debug_mode() )
         {
-            Console::debug( 'Data added in course tracking '
+            Console::message( 'Data added in course tracking '
                     . $eventType . ' : '
                     . var_export( $event, true ) );
         }
@@ -222,19 +219,13 @@ class ClaroNotification extends EventDriven
 
         if ( claro_debug_mode() )
         {
-            Console::debug( 'Data added in platform tracking '
+            Console::message( 'Data added in platform tracking '
                     . $eventType . ' : '
                     . var_export( $event, true ) );
         }
 
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_tracking_event  = $tbl_mdb_names['tracking_event'];
-        
-        if ( $uid )
-        {
-            $sql = "UPDATE `{$tbl_mdb_names['user']}` SET `lastLogin` = '{$date}' WHERE `user_id` = {$uid};";
-            claro_sql_query($sql);
-        }
 
         $sql = "INSERT INTO `" . $tbl_tracking_event . "`
                 SET `course_code` = " . ( is_null($cid) ? "NULL" : "'" . claro_sql_escape($cid) . "'" ) . ",
@@ -586,7 +577,7 @@ class ClaroNotification extends EventDriven
         // insert the relationship between the event and the assignment/exercise
         // into the 'event_resource' table
         $sql = 'INSERT INTO `' . $eventResourceTable . '` ' .
-               'SET `event_id`    = \'' . ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res) . '\', ' .
+               'SET `event_id`    = \'' . mysql_insert_id() . '\', ' .
                    '`resource_id` = \'' . $rid . '\', ' .
                    '`tool_id`     = \'' . $tid . '\', ' .
                    '`course_code` = \'' . $cid . '\'';

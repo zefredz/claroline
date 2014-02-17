@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     1.11 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Piraux Sebastien <pir@cerdecam.be>
  * @author      Lederer Guillaume <led@cerdecam.be>
@@ -119,7 +119,7 @@ switch( $cmd )
                 FROM `".$TABLEUSERMODULEPROGRESS."`
                 WHERE 1=0 ";
 
-        while ($list = mysqli_fetch_array($result))
+        while ($list = mysql_fetch_array($result))
         {
             $sql.=" OR `learnPath_module_id`=". (int)$list['learnPath_module_id'];
         }
@@ -147,7 +147,7 @@ switch( $cmd )
                  WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
         $result = claro_sql_query($query);
         
-        $list = mysqli_fetch_array($result);
+        $list = mysql_fetch_array($result);
         
         $out .= "\n"
             . '<form method="post" name="rename" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
@@ -174,7 +174,7 @@ switch( $cmd )
                     AND `module_id` != '". (int)$_REQUEST['module_id']."'";
 
             $query = claro_sql_query($sql);
-            $num = mysqli_num_rows($query);
+            $num = mysql_num_rows($query);
             if($num == 0 ) // "name" doesn't already exist
             {
                 // if no error occurred, update module's name in the database
@@ -208,7 +208,7 @@ switch( $cmd )
                     FROM `".$TABLEMODULE."`
                     WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
             $result = claro_sql_query($query);
-            $comment = mysqli_fetch_array($result);
+            $comment = mysql_fetch_array($result);
 
             if( isset($comment['comment']) )
             {
@@ -273,7 +273,7 @@ $out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">'
 
 // Display modules of the pool of this course
 
-while ($list = mysqli_fetch_array($result))
+while ($list = mysql_fetch_array($result))
 {
     //DELETE , RENAME, COMMENT
 

@@ -6,7 +6,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * Utility functions
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -19,7 +19,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 * TODO : move to a more accurate library
 *
 * @see inc/lib/immage.lib.php#cutstring
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
 * @param  string (string) string
 * @param  length (int) length of the resulting string
 * @param  allow_cut_word (boolean) allow word cutting default : TRUE

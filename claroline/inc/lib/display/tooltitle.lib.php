@@ -7,7 +7,7 @@
  * Display a tool's title with a toolbox and help link.
  *
  * @version     Claroline 1.11 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html

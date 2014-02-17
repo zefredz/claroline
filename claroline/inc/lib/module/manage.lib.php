@@ -6,7 +6,7 @@
  * Claroline extension modules management library
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html
  *      GNU GENERAL PUBLIC LICENSE version 2 or later
  * @author      Claro Team <cvs@claroline.net>
@@ -14,12 +14,12 @@
  * @todo why do we need that much identifiers for a module ?!?
  */
 
-require_once __DIR__ . '/../fileManage.lib.php';
-require_once __DIR__ . '/../right/profileToolRight.class.php';
-require_once __DIR__ . '/../right/right_profile.lib.php';
-require_once __DIR__ . '/../backlog.class.php';
+require_once dirname(__FILE__) . '/../fileManage.lib.php';
+require_once dirname(__FILE__) . '/../right/profileToolRight.class.php';
+require_once dirname(__FILE__) . '/../right/right_profile.lib.php';
+require_once dirname(__FILE__) . '/../backlog.class.php';
 // Manifest Parser and functions
-require_once __DIR__ . '/manifest.lib.php';
+require_once dirname(__FILE__) . '/manifest.lib.php';
 
 // INFORMATION AND UTILITY FUNCTIONS
 
@@ -236,7 +236,7 @@ function get_and_unzip_uploaded_package()
         $backlog_message[] = get_lang('Upload failed');
     }
     
-    require_once __DIR__ . '/../thirdparty/pclzip/pclzip.lib.php';
+    require_once dirname(__FILE__) . '/../thirdparty/pclzip/pclzip.lib.php';
 
     if (!function_exists('gzopen'))
     {
@@ -296,7 +296,7 @@ function unzip_package( $packageFileName )
     $backlog_message = array();
 
     //1- Unzip folder in a new repository in claroline/module
-    require_once __DIR__ . '/../thirdparty/pclzip/pclzip.lib.php';
+    require_once dirname(__FILE__) . '/../thirdparty/pclzip/pclzip.lib.php';
     
     if (!function_exists('gzopen'))
     {
@@ -578,7 +578,7 @@ function install_module($modulePath, $skipCheckDir = false, $registerModuleInCou
                     if ( file_exists( get_module_path($module_info['LABEL'])
                         . '/conf/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
                     {
-                        require_once __DIR__ . '/../config.lib.inc.php';
+                        require_once dirname(__FILE__) . '/../config.lib.inc.php';
                         $config = new Config($module_info['LABEL']);
                         list ($confMessage, $status ) = generate_conf($config);
 

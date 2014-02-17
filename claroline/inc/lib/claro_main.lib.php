@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * This is not a thematic lib
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
  *              version 2 or later
  * @author      Claro Team <cvs@claroline.net>
@@ -19,58 +19,58 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * @todo use Exceptions instead of claro_failure
  */
 
-require_once __DIR__ . '/compat_php54.lib.php';
-require_once __DIR__ . '/language.lib.php';
-require_once __DIR__ . '/core/core.lib.php';
-require_once __DIR__ . '/core/context.lib.php';
+require_once dirname(__FILE__) . '/compat_php54.lib.php';
+require_once dirname(__FILE__) . '/language.lib.php';
+require_once dirname(__FILE__) . '/core/core.lib.php';
+require_once dirname(__FILE__) . '/core/context.lib.php';
 
 /**
  * SECTION :  Function to access the sql datas
  */
-require_once __DIR__ . '/sql.lib.php';
+require_once dirname(__FILE__) . '/sql.lib.php';
 
 /**
  * SECTION :  Class & function to prepare a normalised html output.
  */
-require_once __DIR__ . '/init.lib.php';
+require_once dirname(__FILE__) . '/init.lib.php';
 
 /**
  * SECTION :  Class & function to prepare a normalised html output.
  */
-require_once __DIR__ . '/path.lib.php';
+require_once dirname(__FILE__) . '/path.lib.php';
 
 
 /**
  * SECTION :  File handling functions
  */
-require_once __DIR__ . '/file.lib.php';
+require_once dirname(__FILE__) . '/file.lib.php';
 
 /**
  * SECTION : PHP COMPAT For PHP backward compatibility
  */
-require_once __DIR__ . '/compat.lib.php';
+require_once dirname(__FILE__) . '/compat.lib.php';
 
 /**
  * SECTION :  Class & function to prepare a normalised html output.
  */
-require_once __DIR__ . '/html.lib.php';
+require_once dirname(__FILE__) . '/html.lib.php';
 
 /**
  * SECTION :  Class & function to get text zone contents.
  */
-require_once __DIR__ . '/textzone.lib.php';
+require_once dirname(__FILE__) . '/textzone.lib.php';
 
 /**
  * SECTION :  Modules functions
  */
-require_once __DIR__ . '/module.lib.php';
-require_once __DIR__ . '/module/manage.lib.php';
+require_once dirname(__FILE__) . '/module.lib.php';
+require_once dirname(__FILE__) . '/module/manage.lib.php';
 
 /**
  * SECTION :  Icon functions
  * depends on module.lib.php
  */
-require_once __DIR__ . '/icon.lib.php';
+require_once dirname(__FILE__) . '/icon.lib.php';
 
 /**
  * SECTION :  Get kernel
@@ -603,18 +603,20 @@ function claro_get_group_data($context, $force = false )
     if ( ! $groupDataList )
     {
         $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($cid) );
-        
-        
+
         $sql = "SELECT g.id               AS id          ,
                        g.name             AS name        ,
                        g.description      AS description ,
                        g.tutor            AS tutorId     ,
+                       f.forum_id         AS forumId     ,
                        g.secretDirectory  AS directory   ,
                        g.maxStudent       AS maxMember
 
                 FROM `" . $tbl_c_names['group_team'] . "`      g
+                LEFT JOIN `" . $tbl_c_names['bb_forums'] . "`   f
+
+                   ON    g.id = f.group_id
                 WHERE    `id` = '". (int) $gid."'";
-        
 
         $groupDataList = claro_sql_query_get_single_row($sql);
 
@@ -1107,7 +1109,7 @@ class claro_failure
     /**
      * Pile the last failure in the failure list
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      * @param  string $failureType the type of failure
      * @global array  claro_failureList
      * @return boolean false to stay consistent with the main script
@@ -1154,7 +1156,7 @@ class claro_failure
  *
  * @global boolean claro_toolViewOptionEnabled
  * @return true
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 
 function claro_enable_tool_view_option()
@@ -1171,7 +1173,7 @@ function claro_enable_tool_view_option()
  * @param  $viewMode 'STUDENT' or 'COURSE_ADMIN'
  * @return true if set succeed.
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 
 function claro_set_tool_view_mode($viewMode)
@@ -1316,7 +1318,7 @@ function claro_html_tool_view_option($viewModeRequested = false)
  * return the current mode in tool able to handle different view mode
  *
  * @return string 'COURSE_ADMIN' or 'STUDENT'
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  */
 
 function claro_get_tool_view_mode()
@@ -1608,28 +1610,21 @@ function get_conf($param, $default = null)
 
 function claro_die($message)
 {
-    if ( class_exists('Claroline') && is_object( Claroline::getInstance ()->display ) )
+    FromKernel::uses( 'display/dialogBox.lib' );
+    $dialogBox = new DialogBox;
+    $dialogBox->error( $message );
+    
+    Claroline::getInstance()->display->setContent( $dialogBox->render() );
+    
+    if ( claro_debug_mode () )
     {
-        FromKernel::uses( 'display/dialogBox.lib' );
-        $dialogBox = new DialogBox;
-        $dialogBox->error( $message );
-
-        Claroline::getInstance()->display->setContent( $dialogBox->render() );
-
-        if ( claro_debug_mode () )
-        {
-
-            pushClaroMessage(  var_export(  debug_backtrace (), true ), 'debug' );
-        }
-
-        echo Claroline::getInstance()->display->render();
-
-        die(); // necessary to prevent any continuation of the application
+        
+        pushClaroMessage(  var_export(  debug_backtrace (), true ), 'debug' );
     }
-    else
-    {
-        die($message);
-    }
+    
+    echo Claroline::getInstance()->display->render();
+
+    die(); // necessary to prevent any continuation of the application
 }
 
 
@@ -1654,7 +1649,7 @@ function http_response_splitting_workaround( $str )
  * slashes (default setting before PHP 4.3). claro_unquote_gpc() removes
  * these slashes. It needs to be called just once at the biginning
  * of the script.
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  *
  * @return void
  */

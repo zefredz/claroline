@@ -48,7 +48,7 @@
                 <b><?php echo $this->course['officialCode']; ?></b><br />
                 <?php echo $this->course['titular']; ?>
             </p>
-                     
+            
             <?php if ( claro_is_in_a_group() ): ?>
             
             <div class="clearer"></div>
@@ -100,8 +100,6 @@
             <div id="courseRightContent">
 <?php endif; ?>
                 
-<?php if ( claro_is_in_a_course ()): ?>
-                
 <?php if (claro_is_current_user_enrolment_pending()): ?>
 <?php
     $dialogBox = new DialogBox();
@@ -113,28 +111,7 @@
 
     echo $dialogBox->render();
 ?>
-<?php elseif( claro_is_course_allowed() && ! claro_is_course_member() ): ?>
-<?php
-    $dialogBox = new DialogBox();
-
-    $dialogBox->warning(
-        get_lang("You aren't enroled to this course yet")
-            . '<br />' . get_lang("Click on the following link if you want to enroll to this course")
-            . '<br /><a href="'
-            . claro_htmlspecialchars( get_path('clarolineRepositoryWeb')
-                . 'auth/courses.php?cmd=exReg&course='
-                . claro_get_current_course_id() )
-            . '">'
-            . claro_html_icon( 'enroll' ) . ' '
-            . '<b>' . get_lang('Enrolment') . '</b>'
-            . '</a>'
-    );
-
-    echo $dialogBox->render();
-?>
 <?php endif; ?>
-                
-<?php endif; ?> <!-- in a course -->
 
 <!-- Page content -->
 <?php echo $this->content;?>
@@ -147,7 +124,7 @@
         </div> <!-- courseContent -->
     </div> <!-- tabedCourse -->
 
-<?php endif; ?> <!-- in a course -->
+<?php endif; ?>
 
 <?php if ( $this->claroBodyEnd ): ?>
     

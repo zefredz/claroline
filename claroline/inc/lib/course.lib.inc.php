@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * A few functions and helpers dedicated to courses.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     COURSE
  * @author      Claro Team <cvs@claroline.net>
@@ -133,7 +133,7 @@ function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
     $result = claro_sql_query($sql);
     // first we get the categories available in DB from the SQL query result in parameter
 
-    while ($myfac = mysqli_fetch_array($result))
+    while ($myfac = mysql_fetch_array($result))
     {
         $categories[$myfac['code']]['code']   = $myfac['code'];
         $categories[$myfac['code']]['parent'] = $myfac['code_P'];

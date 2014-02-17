@@ -40,7 +40,7 @@
  * Claroline Resource Linker library.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -48,9 +48,9 @@
  * @package     kernel.core
  */
 
-require_once __DIR__ . '/url.lib.php';
-require_once __DIR__ . '/../utils/iterators.lib.php';
-require_once __DIR__ . '/../group.lib.inc.php';
+require_once dirname(__FILE__) . '/url.lib.php';
+require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
+require_once dirname(__FILE__) . '/../group.lib.inc.php';
 
 interface ResourceLocator
 {
@@ -76,7 +76,7 @@ class ClarolineResourceLocator implements ResourceLocator
     {
         $this->platformId = get_conf('platform_id');
         $this->courseId = $courseId;
-        $this->moduleLabel = $moduleLabel ? rtrim( $moduleLabel, '_' ) : null;
+        $this->moduleLabel = rtrim( $moduleLabel, '_' );
         $this->resourceId = $resourceId;
         $this->teamId = $teamId;
     }
@@ -114,11 +114,6 @@ class ClarolineResourceLocator implements ResourceLocator
     public function setModuleLabel( $moduleLabel )
     {
         $this->moduleLabel = rtrim( $moduleLabel, '_' );
-        
-        if ( $this->moduleLabel === 'CLTI' )
-        {
-            $this->moduleLabel = 'CLINTRO';
-        }
     }
     
     public function inModule()
@@ -869,7 +864,7 @@ class ResourceLinkerNavigator
             $locator->setGroupId( claro_get_current_group_id() );
         }
         
-        if ( get_current_module_label() && empty( $locator->getModuleLabel () ) )
+        if ( get_current_module_label() )
         {
             $locator->setModuleLabel(get_current_module_label());
             
@@ -1168,9 +1163,6 @@ class CLINTRO_Navigator implements ModuleResourceNavigator
         return false;
     }
 }
-
-// Tool intro uses two labels CLINTRO and CLTI !?!
-class CLTI_Navigator extends CLINTRO_Navigator {};
 
 /**
  * A helper for main functions

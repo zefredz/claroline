@@ -17,7 +17,7 @@ if (TinyMCE_Compressor::getParam("js")) {
 	 * Add any site-specific defaults here that you may wish to implement. For example:
 	 *
 	 * 	"languages" => "en",
-	 *  "cache_dir" => realpath(__DIR__ . "/../../_cache"),
+	 *  "cache_dir" => realpath(dirname(__FILE__) . "/../../_cache"),
 	 *  "files"     => "somescript,anotherscript",
 	 *  "expires"   => "1m",
 	 */
@@ -67,7 +67,7 @@ class TinyMCE_Compressor {
 		$this->settings = array_merge(self::$defaultSettings, $settings);
 
 		if (empty($this->settings["cache_dir"]))
-			$this->settings["cache_dir"] = __DIR__;
+			$this->settings["cache_dir"] = dirname(__FILE__);
 	}
 
 	/**
@@ -88,7 +88,7 @@ class TinyMCE_Compressor {
 		$files = array();
 		$supportsGzip = false;
 		$expiresOffset = $this->parseTime($this->settings["expires"]);
-		$tinymceDir = __DIR__;
+		$tinymceDir = dirname(__FILE__);
 
 		// Override settings with querystring params
 		$plugins = self::getParam("plugins");
@@ -227,7 +227,7 @@ class TinyMCE_Compressor {
 		$settings = array_merge(self::$defaultSettings, $tagSettings);
 
 		if (empty($settings["cache_dir"]))
-			$settings["cache_dir"] = __DIR__;
+			$settings["cache_dir"] = dirname(__FILE__);
 
 		$scriptSrc = $settings["url"] . "?js=1";
 

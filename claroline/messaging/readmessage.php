@@ -8,7 +8,7 @@
  * Read a message.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -17,12 +17,12 @@
  */
 
 // initializtion
-require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
-require_once __DIR__.'/lib/displaymessage.lib.php';
-require_once __DIR__.'/lib/message/receivedmessage.lib.php';
-require_once __DIR__.'/lib/message/sentmessage.lib.php';
-require_once __DIR__.'/lib/permission.lib.php';
-require_once __DIR__.'/lib/tools.lib.php';
+require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+require_once dirname(__FILE__).'/lib/displaymessage.lib.php';
+require_once dirname(__FILE__).'/lib/message/receivedmessage.lib.php';
+require_once dirname(__FILE__).'/lib/message/sentmessage.lib.php';
+require_once dirname(__FILE__).'/lib/permission.lib.php';
+require_once dirname(__FILE__).'/lib/tools.lib.php';
 
 $messageId = isset($_REQUEST['messageId']) ? (int)$_REQUEST['messageId']: NULL;
 $type = isset($_REQUEST['type']) ? claro_htmlspecialchars($_REQUEST['type']) : NULL;

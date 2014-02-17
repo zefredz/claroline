@@ -6,7 +6,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     UPGRADE
  * @author      Claro Team <cvs@claroline.net>
@@ -191,9 +191,7 @@ function get_new_version ()
     include ( get_path('incRepositorySys') . '/installedVersion.inc.php' ) ;
 
     $version = array( 'complete' => $new_version,
-                      'branch' => $new_version_branch,
-                      'patternVarVersion' => $new_patternVarVersion,
-                      'patternSqlVersion' => $new_patternSqlVersion );
+                      'branch' => $new_version_branch );
 
     return $version;
 }
@@ -234,19 +232,19 @@ function upgrade_sql_query($sql,$verbose=null)
     global $verbose;
 
     // Sql query
-    $handler = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+    $handler = mysql_query($sql);
 
     // Sql error
-    if ( ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) > 0 )
+    if ( mysql_errno() > 0 )
     {
-        if ( in_array(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)),$accepted_error_list) )
+        if ( in_array(mysql_errno(),$accepted_error_list) )
         {
             // error accepted
             if ( $verbose )
             {
-                $message = sprintf('Warning (error sql): %s -message- %s', ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)), ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false))) . "\n" ;
+                $message = sprintf('Warning (error sql): %s -message- %s', mysql_errno(), mysql_error()) . "\n" ;
                 $message .= 'statment : ' . $sql . '' . "\n";
-                $message .= mysqli_info($GLOBALS["___mysqli_ston"]) . "\n";
+                $message .= mysql_info() . "\n";
                 log_message($message);
             }
             return true;
@@ -254,9 +252,9 @@ function upgrade_sql_query($sql,$verbose=null)
         else
         {
             // error not accepted
-            $message = sprintf('Error sql: %s -message- %s', ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)), ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false))) . "\n";
+            $message = sprintf('Error sql: %s -message- %s', mysql_errno(), mysql_error()) . "\n";
             $message .= 'statment : ' . $sql . '' . "\n";
-            $message .= mysqli_info($GLOBALS["___mysqli_ston"]) . "\n";
+            $message .= mysql_info() . "\n";
             log_message($message);
             return false;
         }
@@ -305,7 +303,7 @@ function count_course_upgraded($version)
 
     $result = claro_sql_query($sql);
 
-    while ( ( $row = mysqli_fetch_array($result) ) )
+    while ( ( $row = mysql_fetch_array($result) ) )
     {
         // Count courses upgraded and upgrade failed
         if ( preg_match('/^' . $version . '/',$row['versionClaro']) )
@@ -352,7 +350,7 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
 
     $result = upgrade_sql_query($sql);
 
-    if ( mysqli_num_rows($result) == 0 )
+    if ( mysql_num_rows($result) == 0 )
     {
         // tool not registered
 
@@ -414,9 +412,9 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
 
     $result = upgrade_sql_query($sql);
 
-    if ( mysqli_num_rows($result) )
+    if ( mysql_num_rows($result) )
     {
-        $row = mysqli_fetch_array($result);
+        $row = mysql_fetch_array($result);
 
         // if $access emtpy get default access
         if ( empty($access) ) $access = $row['access'];
@@ -428,7 +426,7 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
                ('" . $row['id'] . "','" . $rank . "','" . $access . "')";
 
         $result = upgrade_sql_query($sql);
-        return ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
+        return mysql_insert_id();
     }
     else
     {
@@ -474,7 +472,7 @@ function sql_repair_main_database()
     foreach ( $tbl_names as $tbl )
     {
         $sql = "REPAIR TABLE `" . $tbl . "`";
-        mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+        mysql_query($sql);
     }
 }
 
@@ -491,7 +489,7 @@ function sql_repair_course_database($courseDbNameGlu)
     foreach ( $tbl_names as $tbl )
     {
         $sql = "REPAIR TABLE `" . $tbl . "`";
-        mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+        mysql_query($sql);
     }
 }
 
@@ -523,10 +521,10 @@ function get_upgrade_status($claro_label,$course_code=null)
 
     $result = claro_sql_query($sql);
 
-    if ( mysqli_num_rows($result) > 0 )
+    if ( mysql_num_rows($result) > 0 )
     {
         // get status
-        $row = mysqli_fetch_array($result);
+        $row = mysql_fetch_array($result);
         $status = $row['status'];
     }
     else
@@ -735,19 +733,19 @@ class UpgradeTrackingOffset
     
     public static function store($offset)
     {
-        if ( ! file_exists( __DIR__ . '/../../../platform' ) )
+        if ( ! file_exists( dirname(__FILE__) . '/../../../platform' ) )
         {
-            claro_mkdir( __DIR__ . '/../../../platform', CLARO_FILE_PERMISSIONS, true );
+            claro_mkdir( dirname(__FILE__) . '/../../../platform', CLARO_FILE_PERMISSIONS, true );
         }
         
-        file_put_contents(__DIR__ . self::$path, (int) $offset);
+        file_put_contents(dirname(__FILE__) . self::$path, (int) $offset);
     }
     
     public static function retrieve()
     {
-        if( file_exists(__DIR__ . self::$path) )
+        if( file_exists(dirname(__FILE__) . self::$path) )
         {
-            $recoveredOffset = (int) trim(file_get_contents(__DIR__ . self::$path));
+            $recoveredOffset = (int) trim(file_get_contents(dirname(__FILE__) . self::$path));
         }
         else
         {
@@ -759,9 +757,9 @@ class UpgradeTrackingOffset
     
     public static function reset()
     {
-        if( file_exists(__DIR__ . self::$path) )
+        if( file_exists(dirname(__FILE__) . self::$path) )
         {
-            unlink(__DIR__ . self::$path);
+            unlink(dirname(__FILE__) . self::$path);
         }
     }
 }

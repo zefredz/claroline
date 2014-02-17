@@ -6,7 +6,7 @@
  * Received message box  class
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -16,9 +16,9 @@
 
 
 //load messagebox class
-require_once __DIR__ . '/messagebox.lib.php';
+require_once dirname(__FILE__) . '/messagebox.lib.php';
 //load receivedmessage class
-require_once __DIR__ . '/../message/receivedmessage.lib.php';
+require_once dirname(__FILE__) . '/../message/receivedmessage.lib.php';
 
 class ReceivedMessageBox extends MessageBox
 {

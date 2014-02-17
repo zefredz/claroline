@@ -6,7 +6,7 @@
  * class to display messages
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -16,7 +16,7 @@
 
 
 
-require_once __DIR__ . '/permission.lib.php';
+require_once dirname(__FILE__) . '/permission.lib.php';
 FromKernel::uses('utils/htmlsanitizer.lib');
 
 class DisplayMessage

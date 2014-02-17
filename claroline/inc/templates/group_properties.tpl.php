@@ -94,7 +94,7 @@
 
         $selector_nb_groups .= '<option value="ALL" '
         . ($nbGroupsPerUserShow == "ALL" ? ' selected="selected" ' : '')
-        .'>'.get_lang('ALL').'</option>'. "\n"
+        .'>ALL</option>'. "\n"
         .'</select>'
         ;
 

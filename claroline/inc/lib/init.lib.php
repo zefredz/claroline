@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * Get and set value of current session.
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      see 'credits' file
  * @since       claroline 1.8.3
@@ -139,7 +139,7 @@ function claro_get_current_tool_id()
  */
 function get_current_module_label()
 {
-    return Claroline::getInstance()['moduleLabelStack']->currentModuleLabel();
+    return Claroline::getInstance()->currentModuleLabel();
 }
 
 /**
@@ -153,7 +153,7 @@ function set_current_module_label( $label )
 {
     $old = get_current_module_label();
     
-    Claroline::getInstance()['moduleLabelStack']->pushModuleLabel( $label );
+    Claroline::getInstance()->pushModuleLabel( $label );
     
     return $old;
 }
@@ -166,7 +166,7 @@ function set_current_module_label( $label )
  */
 function clear_current_module_label()
 {
-    return Claroline::getInstance()['moduleLabelStack']->popModuleLabel();
+    return Claroline::getInstance()->popModuleLabel();
 }
 
 /**
@@ -195,7 +195,7 @@ function claro_get_current_course_data($dataName=null)
     elseif (is_array($c) && array_key_exists($dataName,$c)) return $c[$dataName];
     else
     {
-        pushClaroMessage( __FUNCTION__ . ' : ' . claro_htmlspecialchars($dataName) . ' does not exist for course data','debug');
+        pushClaroMessage( __FUNCTION__ . ' : ' . claro_htmlspecialchars($dataName) . ' does not exist for course data','warning');
         return null;
     }
 }

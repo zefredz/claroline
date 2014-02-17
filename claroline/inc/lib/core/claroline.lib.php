@@ -10,7 +10,7 @@
  * display.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -18,54 +18,108 @@
  * @package     kernel.core
  */
 
-require_once __DIR__ . '/../thirdparty/Pimple/lib/Pimple.php';
-require_once __DIR__ . '/../core/debug.lib.php';
-require_once __DIR__ . '/../core/console.lib.php';
-require_once __DIR__ . '/../core/event.lib.php';
-require_once __DIR__ . '/../core/log.lib.php';
-require_once __DIR__ . '/../core/url.lib.php';
-require_once __DIR__ . '/../core/notify.lib.php';
-require_once __DIR__ . '/../display/display.lib.php';
-require_once __DIR__ . '/../database/database.lib.php';
-require_once __DIR__ . '/../utils/ajax.lib.php';
+require_once dirname(__FILE__) . '/../core/debug.lib.php';
+require_once dirname(__FILE__) . '/../core/console.lib.php';
+require_once dirname(__FILE__) . '/../core/event.lib.php';
+require_once dirname(__FILE__) . '/../core/log.lib.php';
+require_once dirname(__FILE__) . '/../core/url.lib.php';
+require_once dirname(__FILE__) . '/../core/notify.lib.php';
+require_once dirname(__FILE__) . '/../display/display.lib.php';
+require_once dirname(__FILE__) . '/../database/database.lib.php';
+require_once dirname(__FILE__) . '/../utils/ajax.lib.php';
 
-interface Claroline_Constants
+/**
+ * Main Claroline class containing references to Claroline kernel objects
+ * This class is a Singleton
+ */
+class Claroline
 {
     // Display type constants
     const PAGE      = 'CL_PAGE';
     const FRAMESET  = 'CL_FRAMESET';
     const POPUP     = 'CL_POPUP';
     const FRAME     = 'CL_FRAME';
-}
-
-/**
- * Main Claroline class containing references to Claroline kernel objects
- * This class is a Singleton
- */
-class Claroline_Container extends Pimple implements Claroline_Constants
-{
     
-    
+    // Kernel objects
     /**
-     * Some magic for backward compatibility mode
-     * @param type $name
+     * @var EventManager
      */
-    public function __get( $name )
+    public $eventManager;
+    /**
+     * @var ClaroNotification
+     */
+    public $notification;
+    /**
+     * @var ClaroNotifier
+     */
+    public $notifier;
+    // Display object
+    public $display;
+    /**
+     * @var Logger
+     */
+    public $logger;
+    
+    protected $moduleLabelStack;
+    
+    // this class is a singleton, use static method getInstance()
+    private function __construct()
     {
-        if ( ! get_conf( 'backwardCompatibilityMode', true ) )
+        try
         {
-            throw new Exception("Access to Claroline object properties has to be made using the Pimple dependency injection container instead of the old object property access.");
+            // initialize the event manager and notification classes
+            $this->eventManager = EventManager::getInstance();
+            $this->notification = ClaroNotification::getInstance();
+            $this->notifier = ClaroNotifier::getInstance();
+            
+            // initialize logger
+            $this->logger = new Logger();
+            
+            $this->moduleLabelStack = array();
+            
+            if ( isset($GLOBALS['tlabelReq']) )
+            {
+                $this->pushModuleLabel($GLOBALS['tlabelReq']);
+                
+                pushClaroMessage("Set current module to {$GLOBALS['tlabelReq']}", 'debug');
+            }
         }
-        
-        Console::debug("Try to get container property {$name} as an object property instead of using the dependency injection container");
-        
-        if ( isset($this[$name]) )
+        catch ( Exception $e )
         {
-            return $this[$name];
+            die( $e );
+        }
+    }
+
+    /**
+     * Add a label at the top of the module stack
+     * @param string $label
+     */
+    public function pushModuleLabel( $label )
+    {
+        array_push( $this->moduleLabelStack, $label );
+    }
+
+    /**
+     * Remove the modulke label at the top of the module stack
+     */
+    public function popModuleLabel()
+    {
+        array_pop( $this->moduleLabelStack );
+    }
+
+    /**
+     * Get the label of the current module
+     * @return string or false
+     */
+    public function currentModuleLabel()
+    {
+        if ( empty( $this->moduleLabelStack ) )
+        {
+            return false;
         }
         else
         {
-            return null;
+           return $this->moduleLabelStack[count($this->moduleLabelStack)-1];
         }
     }
     
@@ -83,71 +137,39 @@ class Claroline_Container extends Pimple implements Claroline_Constants
         switch ( $type )
         {
             case self::PAGE:
-                $this['display'] = new ClaroPage;
+                $this->display = new ClaroPage;
                 break;
             case self::POPUP:
-                $this['display'] = new ClaroPage;
-                $this['display']->popupMode();
+                $this->display = new ClaroPage;
+                $this->display->popupMode();
                 break;
             case self::FRAME:
-                $this['display'] = new ClaroPage;
-                $this['display']->frameMode();
+                $this->display = new ClaroPage;
+                $this->display->frameMode();
                 break;
             case self::FRAMESET:
-                $this['display'] = new ClaroFramesetPage;
+                $this->display = new ClaroFramesetPage;
                 break;
             default:
                 throw new Exception( 'Invalid display type' );
         }
     }
-}
-
-/**
- * Main Claroline class containing references to Claroline kernel objects
- * This class is a Singleton
- */
-class Claroline implements Claroline_Constants
-{
     
     // Singleton instance
     private static $instance = false; // this class is a singleton
     
     /**
-     * Initializes and returns the instance of the Claroline object
+     * Returns the singleton instance of the Claroline object
      * @return  Claroline singleton instance
      */
     public static function getInstance()
     {
         if ( ! self::$instance )
         {
-            throw new Exception("Claroline container not initialized !");
+            self::$instance = new self;
         }
 
         return self::$instance;
-    }
-    
-    public static function initCoreServices()
-    {
-        if ( ! self::$instance )
-        {
-            self::$instance = new Claroline_Container;
-        }
-        
-        try
-        {
-            // initialize the event manager and notification classes
-            self::$instance['eventManager'] = self::$instance->share( function() { return EventManager::getInstance(); } );
-            self::$instance['notification'] = self::$instance->share( function() { return ClaroNotification::getInstance(); } );
-            self::$instance['notifier'] = self::$instance->share( function() { return ClaroNotifier::getInstance(); } );
-            // initialize logger
-            self::$instance['logger'] = self::$instance->share( function() { return new Logger(); } );
-            // initialize the module stack
-            self::$instance['moduleLabelStack'] = self::$instance->share( function() { return new Claro_ModuleLabelStack(); } );
-        }
-        catch ( Exception $e )
-        {
-            die( $e );
-        }
     }
 
     /**
@@ -157,7 +179,7 @@ class Claroline implements Claroline_Constants
      */
     public static function getDisplay()
     {
-        return self::getInstance()['display'];
+        return self::getInstance()->display;
     }
 
     /**
@@ -167,6 +189,16 @@ class Claroline implements Claroline_Constants
     public static function initDisplay( $displayType = self::PAGE )
     {
         self::getInstance()->setDisplayType( $displayType );
+    }
+
+    /**
+     * Helper to log a message
+     * @param string $type
+     * @param string $data
+     */
+    public static function log( $type, $data )
+    {
+        self::getInstance()->logger->log($type, $data);
     }
     
     protected static $db = false;
@@ -179,39 +211,44 @@ class Claroline implements Claroline_Constants
      */
     public static function getDatabase()
     {
-        return self::$instance['database'];
+        if ( ! self::$database )
+        {
+            // self::initMainDatabase();
+            self::$database = new Claroline_Database_Connection();//self::$db);
+            self::$database->connect();
+            
+            // the following options are for campus where only one language is used
+            // or multiple languages but with compatible charsets (for example 
+            // english (latin1) and portuguese (latin2). @see mysql documentation 
+            // for allowed charsets
+            
+            $charset = get_conf( 'mysqlSetNames' );
+            
+            if ( !empty( $charset ) )
+            {
+                self::$database->setCharset($charset);
+            }
+        }
+        
+        return self::$database;
     }
 
     /**
-     * Initialize the database
+     * Initialize the database for claro_sql_* legacy code
      * @return void
      * @throws Exception when the database connection cannot be created
-     * @deprecated since 1.12
+     * @deprecated since 1.10
      */
-   public static function initDatabaseProvider()
+    public static function initMainDatabase()
     {
-        if ( ! self::$instance )
+        if ( !self::$db )
         {
-            self::$instance = new Claroline_Container;
+            self::$db = self::getDatabase()->getDbLink();
         }
         
-        if ( empty( self::$instance['database'] ) )
+        if ($GLOBALS['statsDbName'] == '')
         {
-            $database = new Claroline_Database_Connection();
-            $database->connect();
-            
-            $charset = get_conf( 'mysqlSetNames' );
-
-            if ( !empty( $charset ) )
-            {
-                $database->setCharset($charset);
-            }
-
-            $GLOBALS["___mysqli_ston"] = $database->getDbLink();
-        
-            self::$instance['database'] = self::$instance->share( function() use ($database) {
-                return $database;
-            } );
+            $GLOBALS['statsDbName'] = get_conf('mainDbName');
         }
     }
 

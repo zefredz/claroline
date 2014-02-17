@@ -5,7 +5,7 @@
      *
      * @version 1.7 $Revision$
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
      *
      * @license GENERAL PUBLIC LICENSE (GPL)
      * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)

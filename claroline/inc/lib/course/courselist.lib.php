@@ -4,7 +4,7 @@
  * CLAROLINE
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLCOURSELIST
  * @author      Antonin Bourguignon <antonin.bourguignon@gmail.com>
@@ -13,9 +13,9 @@
  */
 
 
-require_once __DIR__ . '/../kernel/course.lib.php';
-require_once __DIR__ . '/../utils/iterators.lib.php';
-require_once __DIR__ . '/../categorybrowser.class.php';
+require_once dirname(__FILE__) . '/../kernel/course.lib.php';
+require_once dirname(__FILE__) . '/../utils/iterators.lib.php';
+require_once dirname(__FILE__) . '/../categorybrowser.class.php';
 
 
 interface CourseList
@@ -670,7 +670,7 @@ class CourseTreeView implements Display
     protected $courseTreeRootNode;
     
     /**
-     * @var Claro_CourseUserPrivilegesList
+     * @var CourseUserPrivilegesList
      */
     protected $courseUserPrivilegesList;
     
@@ -700,7 +700,7 @@ class CourseTreeView implements Display
      * create set a default CourseTreeViewOptions.
      * 
      * @param CourseTree
-     * @param Claro_CourseUserPrivilegesList (default: null)
+     * @param CourseUserPrivilegesList (default: null)
      * @param NotifiedCourseList (default: null)
      * @param Database_ResultSet list of categories (default: null)
      * @param int id of selected category (default: null)
@@ -972,7 +972,7 @@ class CourseTreeNodeViewFactory
         $courseListIterator = $courseList->getIterator();
         
         // User rights
-        $privilegeList = new Claro_CourseUserPrivilegesList($userId);
+        $privilegeList = new CourseUserPrivilegesList($userId);
         $privilegeList->load();
         
         // Hot courses
@@ -1021,7 +1021,7 @@ class CourseTreeNodeViewFactory
         $courseListIterator = $courseList->getIterator();
         
         // User rights
-        $privilegeList = new Claro_CourseUserPrivilegesList($userId);
+        $privilegeList = new CourseUserPrivilegesList($userId);
         $privilegeList->load();
         
         // Course tree
@@ -1056,7 +1056,7 @@ class CourseTreeNodeViewFactory
         $courseListIterator = $courseList->getIterator();
         
         // User rights
-        $privilegeList = new Claro_CourseUserPrivilegesList($userId);
+        $privilegeList = new CourseUserPrivilegesList($userId);
         $privilegeList->load();
         
         // Hot courses
@@ -1098,7 +1098,7 @@ class CourseTreeNodeViewFactory
         $courseListIterator = $courseList->getIterator();
         
         // User rights
-        $privilegeList = new Claro_CourseUserPrivilegesList(claro_get_current_user_id());
+        $privilegeList = new CourseUserPrivilegesList(claro_get_current_user_id());
         $privilegeList->load();
         
         // Course tree

@@ -9,7 +9,7 @@
  * Advanced API
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -17,7 +17,7 @@
  * @package     kernel.database
  */
 
-require_once __DIR__ . '/database.lib.php';
+require_once dirname(__FILE__) . '/database.lib.php';
 
 class Database_Multiple_Query
 {

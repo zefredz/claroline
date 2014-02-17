@@ -6,7 +6,7 @@
  * PHP COMPAT For PHP backward compatibility.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -305,7 +305,7 @@ if ( !function_exists('htmlspecialchars_decode') )
 
 // Future-friendly json_encode
 if( !function_exists('json_encode') ) {
-    require_once __DIR__ . '/thirdparty/JSON.php';
+    require_once dirname(__FILE__) . '/thirdparty/JSON.php';
     
     function json_encode($data) {
         $json = new Services_JSON();

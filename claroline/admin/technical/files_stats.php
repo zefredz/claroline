@@ -6,7 +6,7 @@
  * This  tool compute the disk Usage of each course.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
  */
@@ -207,7 +207,7 @@ if ($cmd == 'run' || $inProgress)
                 $csvSubTab[$key.'_count'] = get_lang('Quantity of %ext', array('%ext' => $ext));
                 $csvSubTab[$key.'_size'] = get_lang('Size of %ext in KiB', array('%ext' => $ext));
             }
-            
+
             $csvSubTab['other_count'] = get_lang('Quantity of other files');
             $csvSubTab['other_size'] = get_lang('Size of other files');
 

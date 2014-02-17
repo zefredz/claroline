@@ -8,7 +8,7 @@
  * User list.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -17,7 +17,7 @@
  */
 
 
-require_once __DIR__ . '/userstrategy.lib.php';
+require_once dirname(__FILE__) . '/userstrategy.lib.php';
 
 class UserList implements CountableIterator
 {

@@ -7,7 +7,7 @@
  *
  * @version 1.11 $Revision$
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -19,9 +19,9 @@
  * @package Wiki
  */
 
-require_once __DIR__ . '/wiki2xhtml/class.wiki2xhtml.php';
-require_once __DIR__ . '/class.wikistore.php';
-require_once __DIR__ . '/class.wikipage.php';
+require_once dirname(__FILE__) . '/wiki2xhtml/class.wiki2xhtml.php';
+require_once dirname(__FILE__) . '/class.wikistore.php';
+require_once dirname(__FILE__) . '/class.wikipage.php';
 
 FromKernel::uses( 'utils/htmlsanitizer.lib' );
 
@@ -60,7 +60,7 @@ class Wiki2xhtmlRenderer extends wiki2xhtml
         // use setext title syntax ie ===== and ----- instead of !!! and !!
         $this->setOpt( 'active_setext_title', 1 );
         // set acronyms file
-        $this->setOpt( 'acronyms_file', __DIR__ . '/wiki2xhtml/acronyms.txt' );
+        $this->setOpt( 'acronyms_file', dirname(__FILE__) . '/wiki2xhtml/acronyms.txt' );
         // set wiki word pattern
         $this->setOpt( 'words_pattern', WIKI_WORD_PATTERN );
         // set footnotes patten

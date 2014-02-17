@@ -8,7 +8,7 @@
  * Claroline Course objects.
  *
  * @version     Claroline 1.11 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2012, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -16,9 +16,9 @@
  * @package     kernel.objects
  */
 
-require_once __DIR__ . '/object.lib.php';
-require_once __DIR__ . '/../core/claroline.lib.php';
-require_once __DIR__ . '/../database/database.lib.php';
+require_once dirname(__FILE__) . '/object.lib.php';
+require_once dirname(__FILE__) . '/../core/claroline.lib.php';
+require_once dirname(__FILE__) . '/../database/database.lib.php';
 
 /**
  * Represents a course in the platform

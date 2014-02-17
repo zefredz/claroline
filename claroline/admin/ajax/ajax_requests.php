@@ -6,7 +6,7 @@
  * Ajax requests for administration panel
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
  * @author      Antonin Bourguignon <antonin.bourguignon@claroline.net>
@@ -14,10 +14,10 @@
  */
 
 // Load Claroline kernel
-require_once __DIR__ . '/../../inc/claro_init_global.inc.php';
-require_once __DIR__ . '/../../inc/lib/courselist.lib.php';
-require_once __DIR__ . '/../../inc/lib/course/courselist.lib.php';
-require_once __DIR__ . '/../../inc/lib/class.lib.php';
+require_once dirname(__FILE__) . '/../../inc/claro_init_global.inc.php';
+require_once dirname(__FILE__) . '/../../inc/lib/courselist.lib.php';
+require_once dirname(__FILE__) . '/../../inc/lib/course/courselist.lib.php';
+require_once dirname(__FILE__) . '/../../inc/lib/class.lib.php';
 
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 

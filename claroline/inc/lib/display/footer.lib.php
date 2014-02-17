@@ -8,7 +8,7 @@
  * Claroline page footer.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -110,7 +110,7 @@ class ClaroFooter extends CoreTemplate
         $poweredByOutput = '<span class="poweredBy">'
             . get_lang('Powered by')
             . ' <a href="http://www.claroline.net" target="_blank">Claroline</a> '
-            . '&copy; 2001 - 2014'
+            . '&copy; 2001 - 2013'
             . '</span>';
         
         $this->assign( 'poweredBy', $poweredByOutput );

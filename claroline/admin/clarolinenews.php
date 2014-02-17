@@ -6,7 +6,7 @@
  * Show news read from claroline.net.
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLNEWS/
  * @author      Claro Team <cvs@claroline.net>
@@ -36,18 +36,12 @@ $noQUERY_STRING   = TRUE;
 // prepare rss reader
 //----------------------------------
 // url where the reader will have to get the rss feed
-$urlNewsClaroline = 'http://www.claroline.net/feed/';
+$urlNewsClaroline = 'http://www.claroline.net/rss.php';
 
 $rss = new lastRSS;
 
 // where the cached file will be written
-$rss->cache_dir = get_path('rootSys') . '/tmp/cache/news';
-
-if ( !file_exists ( get_path('rootSys') . '/tmp/cache/news' ) )
-{
-    claro_mkdir( get_path('rootSys') . '/tmp/cache/news', CLARO_FILE_PERMISSIONS );
-}
-
+$rss->cache_dir = get_path('rootSys') . '/tmp/cache/';
 // how long without refresh the cache
 $rss->cache_time = 1200;
 
@@ -65,8 +59,8 @@ if (false !== $rs = $rss->get($urlNewsClaroline))
     foreach ($rs['items'] as $item)
     {
         $href = $item['link'];
-        $title = claro_utf8_decode($item['title']);
-        $summary = claro_utf8_decode($rss->unhtmlentities($item['description']));
+        $title = $item['title'];
+        $summary = $rss->unhtmlentities($item['description']);
         $date = strtotime($item['pubDate']);
 
         $out .= '<div class="claroBlock">'."\n"

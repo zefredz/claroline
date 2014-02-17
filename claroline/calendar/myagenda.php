@@ -10,7 +10,7 @@
  * adapted by Toon Van Hoecke (Dec 2003) and Hugues Peeters (March 2004)
  *
  * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLCAL
  * @author      Claro Team <cvs@claroline.net>
@@ -20,7 +20,7 @@
 
 $cidReset = true;
 
-require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
+require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
 // check access
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();

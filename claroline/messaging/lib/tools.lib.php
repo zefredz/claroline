@@ -6,7 +6,7 @@
  * some function used for internal messaging system
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -49,7 +49,7 @@
      */
     function getBarMessageBox( $currentUserId, $currentSection )
     {
-        require_once __DIR__ . '/messagebox/inbox.lib.php';
+        require_once dirname(__FILE__) . '/messagebox/inbox.lib.php';
         
         $inboxWithoutFilter = new InBox($currentUserId);
 

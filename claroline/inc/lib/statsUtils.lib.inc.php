@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 )
  * CLAROLINE
  *
  * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLTRACK
  * @author      Claro Team <cvs@claroline.net>
@@ -59,7 +59,7 @@ function hoursTab($sql)
     $hours_array['total'] = 0;
     $last_hours = -1;
 
-    while( $row = @mysqli_fetch_row( $query ) )
+    while( $row = @mysql_fetch_row( $query ) )
     {
         $date_array = getdate($row[0]);
 
@@ -99,7 +99,7 @@ function daysTab($sql)
 
     $days_array['total'] = 0;
     $last_day = -1;
-    while( $row = @mysqli_fetch_row( $query ) )
+    while( $row = @mysql_fetch_row( $query ) )
     {
         $date_array = getdate($row[0]);
         $display_date = $date_array['mday'] . ' '
@@ -148,7 +148,7 @@ function monthTab($sql)
     $month_array['total'] = 0;
 
     $query = claro_sql_query( $sql );
-    while( $row = @mysqli_fetch_row( $query ) )
+    while( $row = @mysql_fetch_row( $query ) )
     {
         $date_array = getdate($row[0]);
         $month_array[$langMonthNames[$date_array['mon']-1]]++;
