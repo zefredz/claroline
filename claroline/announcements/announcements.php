@@ -289,6 +289,19 @@ if($is_allowedToEdit) // check teacher status
                         if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE) $claroling->log('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
                         $autoExportRefresh = true;
                     }
+                    else
+                    {
+                        if ( $failure = claro_failure::get_last_failure() )
+                        {
+                            $dialogBox->error( $failure );
+                        }
+                        else
+                        {
+                            $dialogBox->error( get_lang('Impossible to modify the announcement') );
+                        }
+                        
+                        $emailOption = 0;
+                    }
                 }
                 else
                 {
