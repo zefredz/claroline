@@ -387,6 +387,9 @@ class Config
                 case 'editor':
                     $acceptedValue = array_merge( $acceptedValue, $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/editor','folder') );
                     break;
+                case 'timezone':
+                    $acceptedValue = array_merge( $acceptedValue, $this->get_timezone_list() );
+                    break;
             }
         }
 
@@ -738,6 +741,23 @@ class Config
         {
             return false;
         }
+    }
+
+    function get_timezone_list ()
+    {
+        $timezone_identifiers = DateTimeZone::listIdentifiers ();
+
+        foreach ( $timezone_identifiers as $val )
+        {
+            $atz   = new DateTimeZone ( $val );
+            $aDate = new DateTime ( "now", $atz );
+            $timeArray[ "$val" ] = $val;
+        }
+
+        asort ( $timeArray );
+
+        return $timeArray;
+
     }
 
     /**

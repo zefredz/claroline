@@ -839,8 +839,9 @@ $conf_def_property_list['crslist_DisplayUnpublishedToAllUsers'] =
 $conf_def_property_list['clmain_serverTimezone'] =
     array('label' => 'Set server timezone'
         , 'description' => 'Set this value to use another timezone than the one defined by PHP. See http://www.php.net/manual/en/timezones.php for a list of accepted timezones (for instance Europe/Brussels)'
-        , 'default' => ''
-        , 'type' => 'string'
+        , 'default' => 'Europe/Brussels'
+        , 'type' => 'enum'
+        , 'acceptedValueType' => 'timezone'
 );
 
 $conf_def_property_list['mysqlSetNames'] =

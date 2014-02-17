@@ -16,7 +16,7 @@ if ( count( get_included_files() ) == 1 )
  * @see     http://www.claroline.net/wiki/config_def/
  * @package CONFIG
  * @author  Claro Team <cvs@claroline.net>
- * @author  Christophe Gesché <moosh@claroline.net>
+ * @author  Christophe Geschï¿½ <moosh@claroline.net>
  * @author  Mathieu Laurent <laurent@cerdecam.be>
  */
 
@@ -281,6 +281,9 @@ class ConfigHtml extends Config
                         case 'editor' :
                             $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/editor','folder');
                             break;
+                        case 'timezone':
+                            $property_def['acceptedValue'] = $this->get_timezone_list();
+                            break;
                     }
                     
                     ksort( $property_def['acceptedValue'] );
@@ -428,6 +431,23 @@ class ConfigHtml extends Config
         }
 
         return $elt_form;
+    }
+
+    function get_timezone_list ()
+    {
+        $timezone_identifiers = DateTimeZone::listIdentifiers ();
+
+        foreach ( $timezone_identifiers as $val )
+        {
+            $atz   = new DateTimeZone ( $val );
+            $aDate = new DateTime ( "now", $atz );
+            $timeArray[ "$val" ] = $val;
+        }
+
+        asort ( $timeArray );
+
+        return $timeArray;
+
     }
 
     /**
