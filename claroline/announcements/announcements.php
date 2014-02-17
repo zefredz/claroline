@@ -324,6 +324,19 @@ if($is_allowedToEdit) // check teacher status
                         if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) $claroline->log('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
                         $autoExportRefresh = true;
                     }
+                    else
+                    {
+                        if ( $failure = claro_failure::get_last_failure() )
+                        {
+                            $dialogBox->error( $failure );
+                        }
+                        else
+                        {
+                            $dialogBox->error( get_lang('Impossible to add the announcement') );
+                        }
+                        
+                        $emailOption = 0;
+                    }
                 }
                 else
                 {
