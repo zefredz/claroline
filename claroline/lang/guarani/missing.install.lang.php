@@ -112,6 +112,7 @@ $_lang['Requirements'] = 'Requirements';
 $_lang['Retry'] = 'Retry';
 $_lang['Self-registration'] = 'Self-registration';
 $_lang['Server requirements'] = 'Server requirements';
+$_lang['Server timezone'] = 'Server timezone';
 $_lang['Server unavailable'] = 'Server unavailable';
 $_lang['Setting'] = 'Setting';
 $_lang['Single'] = 'Single';

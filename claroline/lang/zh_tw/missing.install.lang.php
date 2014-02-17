@@ -20,6 +20,7 @@ $_lang['Ok'] = 'Ok';
 $_lang['Password'] = 'Password';
 $_lang['Platform settings'] = 'Platform settings';
 $_lang['Retry'] = 'Retry';
+$_lang['Server timezone'] = 'Server timezone';
 $_lang['User'] = 'User';
 $_lang['Users'] = 'Users';
 $_lang['Yes'] = 'Yes';
