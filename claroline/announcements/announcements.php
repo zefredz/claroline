@@ -289,6 +289,19 @@ if($is_allowedToEdit) // check teacher status
                         if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE) $claroling->log('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
                         $autoExportRefresh = true;
                     }
+                    else
+                    {
+                        if ( $failure = claro_failure::get_last_failure() )
+                        {
+                            $dialogBox->error( $failure );
+                        }
+                        else
+                        {
+                            $dialogBox->error( get_lang('Impossible to modify the announcement') );
+                        }
+                        
+                        $emailOption = 0;
+                    }
                 }
                 else
                 {
@@ -323,6 +336,19 @@ if($is_allowedToEdit) // check teacher status
                         $eventNotifier->notifyCourseEvent('anouncement_added',claro_get_current_course_id(), claro_get_current_tool_id(), $insert_id, claro_get_current_group_id(), '0');
                         if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) $claroline->log('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
                         $autoExportRefresh = true;
+                    }
+                    else
+                    {
+                        if ( $failure = claro_failure::get_last_failure() )
+                        {
+                            $dialogBox->error( $failure );
+                        }
+                        else
+                        {
+                            $dialogBox->error( get_lang('Impossible to add the announcement') );
+                        }
+                        
+                        $emailOption = 0;
                     }
                 }
                 else
