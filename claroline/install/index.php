@@ -12,8 +12,9 @@
  * @author      Claro Team <cvs@claroline.net>
  * @package     INSTALL
  */
+$tz = ini_get('date.timezone');
 
-if ( empty(ini_get('date.timezone') ) )
+if ( empty( $tz ) )
 {
     ini_set('date.timezone','UTC');
     date_default_timezone_set('UTC');
