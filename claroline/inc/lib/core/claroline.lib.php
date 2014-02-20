@@ -9,7 +9,7 @@
  * class providing classes and methods to deal with the kernel and the page
  * display.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -28,6 +28,8 @@ require_once __DIR__ . '/../core/notify.lib.php';
 require_once __DIR__ . '/../display/display.lib.php';
 require_once __DIR__ . '/../database/database.lib.php';
 require_once __DIR__ . '/../utils/ajax.lib.php';
+require_once __DIR__ . '/../utils/input.lib.php';
+require_once __DIR__ . '/accessmanager.lib.php';
 
 interface Claroline_Constants
 {
@@ -128,9 +130,9 @@ class Claroline implements Claroline_Constants
     
     public static function initCoreServices()
     {
-        if ( ! self::$instance )
+        if ( ! self::$instance || empty( self::$instance['database'] ) )
         {
-            self::$instance = new Claroline_Container;
+            throw new Exception('FATAL ERROR: the database provider is not initialize. You have to call Claroline::initDatabaseProvider before calling Claroline::initCoreServices');
         }
         
         try
@@ -139,10 +141,12 @@ class Claroline implements Claroline_Constants
             self::$instance['eventManager'] = self::$instance->share( function() { return EventManager::getInstance(); } );
             self::$instance['notification'] = self::$instance->share( function() { return ClaroNotification::getInstance(); } );
             self::$instance['notifier'] = self::$instance->share( function() { return ClaroNotifier::getInstance(); } );
-            // initialize logger
+            // initialize other service providers
             self::$instance['logger'] = self::$instance->share( function() { return new Logger(); } );
-            // initialize the module stack
             self::$instance['moduleLabelStack'] = self::$instance->share( function() { return new Claro_ModuleLabelStack(); } );
+            self::$instance['accessManager'] = self::$instance->share( function() { return new Claro_AccessManager(); } );
+            self::$instance['userInput'] = self::$instance->share( function() { return Claro_UserInput::getInstance(); } );
+            self::$instance['ajaxServiceBroker'] = self::$instance->share( function() { return new Ajax_Remote_Service_Broker(); } );
         }
         catch ( Exception $e )
         {
@@ -188,7 +192,7 @@ class Claroline implements Claroline_Constants
      * @throws Exception when the database connection cannot be created
      * @deprecated since 1.12
      */
-   public static function initDatabaseProvider()
+    public static function initDatabaseProvider()
     {
         if ( ! self::$instance )
         {
@@ -215,8 +219,6 @@ class Claroline implements Claroline_Constants
         }
     }
 
-    protected static $_ajaxServiceBroker = false;
-
     /**
      * Get kernel Ajax Service Broker instance
      * @return Ajax_Remote_Service_Broker
@@ -224,11 +226,6 @@ class Claroline implements Claroline_Constants
      */
     public static function ajaxServiceBroker()
     {
-        if ( ! self::$_ajaxServiceBroker )
-        {
-            self::$_ajaxServiceBroker = new Ajax_Remote_Service_Broker();
-        }
-
-        return self::$_ajaxServiceBroker;
+        return self::$instance['ajaxServiceBroker'];
     }
 }
