@@ -17,8 +17,8 @@
  */
 
 // load helpers and output buffering libs
-FromKernel::uses ( 'core/helpers.lib', 'display/ob.lib' );
-
+require_once __DIR__ . '/../core/helpers.lib.php';
+require_once __DIR__ . '/ob.lib.php';
 /**
  * Simple PHP-based template class
  */

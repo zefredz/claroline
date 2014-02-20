@@ -332,7 +332,7 @@ class AuthDriverManager
                 // load dynamic drivers
                 if ( ! file_exists ( get_path('rootSys') . 'platform/conf/extauth/drivers' ) )
                 {
-                    FromKernel::uses('fileManage.lib');
+                    require_once __DIR__ . '/../fileManage.lib.php';
                     claro_mkdir(get_path('rootSys') . 'platform/conf/extauth/drivers', CLARO_FILE_PERMISSIONS, true );
                 }
                 
@@ -423,7 +423,7 @@ class AuthDriverManager
         // load dynamic drivers
         if ( ! file_exists ( get_path('rootSys') . 'platform/conf/extauth' ) )
         {
-            FromKernel::uses('fileManage.lib');
+            require_once __DIR__ . '/../fileManage.lib.php';
             claro_mkdir(get_path('rootSys') . 'platform/conf/extauth', CLARO_FILE_PERMISSIONS, true );
         }
         

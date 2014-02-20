@@ -2,7 +2,7 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-FromKernel::uses('user.lib');
+require_once __DIR__ . '/../user.lib.php';
 
  /**
  * CLAROLINE

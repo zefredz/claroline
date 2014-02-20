@@ -16,7 +16,7 @@
  * @package     KERNEL
  */
 
-FromKernel::uses ( 'core/url.lib' );
+require_once  __DIR__ . '/url.lib.php';
 
 /**
  * Create an html attribute list from an associative array attribute=>value

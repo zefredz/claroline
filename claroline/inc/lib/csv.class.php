@@ -1,7 +1,5 @@
 <?php // $Id$
 
-FromKernel::uses('csvexporter.class');
-
 /**
  * CLAROLINE
  *
@@ -17,6 +15,8 @@ FromKernel::uses('csvexporter.class');
  * @package     KERNEL
  * @author      Claro Team <cvs@claroline.net>
  */
+
+require_once __DIR__ . '/csvexporter.class.php';
 
 class CsvRecordlistExporter // extends CsvExporter
 {

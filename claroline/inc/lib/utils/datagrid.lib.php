@@ -14,7 +14,7 @@
  * @package     utils
  */
 
-FromKernel::uses( 'utils/html.lib' );
+require_once __DIR__ . '/html.lib.php';
 
 class Claro_Utils_Datagrid extends Claro_Html_Element
 {

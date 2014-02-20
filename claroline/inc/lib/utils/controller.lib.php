@@ -13,8 +13,9 @@
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     utils
  */
- 
-FromKernel::uses ( 'utils/input.lib', 'display/ob.lib' );
+
+require_once __DIR__ . '/input.lib.php';
+require_once __DIR__ . '/../display/ob.lib.php';
 
 /**
  * Rudimentary controller interface

@@ -16,7 +16,8 @@
  * @package     display
  */
 
-FromKernel::uses ( 'display/breadcrumbs.lib', 'display/viewmode.lib' );
+require_once __DIR__ . '/breadcrumbs.lib.php';
+require_once __DIR__ . '/viewmode.lib.php';
 
 class ClaroBanner extends CoreTemplate
 {

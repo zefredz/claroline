@@ -1610,7 +1610,7 @@ function claro_die($message)
 {
     if ( class_exists('Claroline') && is_object( Claroline::getInstance ()->display ) )
     {
-        FromKernel::uses( 'display/dialogBox.lib' );
+        require_once __DIR__ . '/display/dialogBox.lib.php';
         $dialogBox = new DialogBox;
         $dialogBox->error( $message );
 

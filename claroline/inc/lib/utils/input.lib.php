@@ -16,7 +16,7 @@
  * @package     utils
  */
  
-FromKernel::uses ( 'utils/validator.lib' );
+require_once __DIR__ . '/validator.lib.php';
 
 /**
  * Data Input Exception, thrown when an input value does not match

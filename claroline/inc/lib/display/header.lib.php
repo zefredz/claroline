@@ -14,7 +14,7 @@
  * @package     display
  */
 
-FromKernel::uses( 'core/loader.lib' );
+require_once __DIR__ . '/../core/loader.lib.php';
 
 class ClaroHeader extends CoreTemplate
 {

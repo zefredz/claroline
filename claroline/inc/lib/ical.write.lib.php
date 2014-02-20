@@ -1,10 +1,5 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
@@ -24,7 +19,7 @@ if ( count( get_included_files() ) == 1 )
 require_once claro_get_conf_repository() . 'rss.conf.php';
 require_once claro_get_conf_repository() . 'ical.conf.php';
 
-FromKernel::uses('thirdparty/icalendar/class.iCal.inc');
+require_once __DIR__ . '/thirdparty/icalendar/class.iCal.inc.php';
 
 
 /**

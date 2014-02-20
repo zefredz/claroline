@@ -15,13 +15,7 @@
  * @package     display
  */
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
-// load exception_error_handler
-FromKernel::uses ( 'core/exception.lib' );
+require_once __DIR__ . '/../core/exception.lib.php';
 
 /**
  * Exception handler to be used inside an output buffer
