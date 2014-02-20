@@ -210,7 +210,8 @@ class Claroline implements Claroline_Constants
             {
                 $database->setCharset($charset);
             }
-
+            
+            // claro_sql_* and mysqli_* backward compatibility hack
             $GLOBALS["___mysqli_ston"] = $database->getDbLink();
         
             self::$instance['database'] = self::$instance->share( function() use ($database) {
