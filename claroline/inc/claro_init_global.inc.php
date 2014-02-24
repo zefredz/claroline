@@ -25,14 +25,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author      Claro Team <cvs@claroline.net>
  */
 
-// The CLARO_INCLUDE_ALLOWED constant allows to include PHP file further in the
-// code. Files which are meant to be included check if this constant is defined.
-// If it isn't the case, these files immediately die.
-// This process prevents hacking by direct calls of included file and setting
-// of global variable (when PHP register_globals is set to 'ON')
-
-define('CLARO_INCLUDE_ALLOWED', true);
-
 // include the main Claroline platform configuration file
 
 // Determine the directory path where this current file lies
