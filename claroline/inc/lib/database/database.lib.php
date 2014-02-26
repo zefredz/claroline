@@ -273,6 +273,7 @@ class Mysql_Database_Connection implements Database_Connection
         }
         else
         {
+            @mysql_query( "SET CHARACTER SET '{$charset}'", $this->dbLink );
             @mysql_query( "SET NAMES '{$charset}'", $this->dbLink );
         }
     }
