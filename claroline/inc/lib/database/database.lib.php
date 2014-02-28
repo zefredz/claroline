@@ -112,7 +112,7 @@ interface Database_Connection
      * Get connexion charset 
      * @return string connexion charset
      */
-    public function getCharset();
+    // public function getCharset();
 }
 
 /**
@@ -267,12 +267,8 @@ class Mysql_Database_Connection implements Database_Connection
     
     public function setCharset( $charset )
     {
-        @mysqli_set_charset( $charset, $this->dbLink );
-    }
-    
-    public function getCharset()
-    {
-        return mysqli_character_set_name( $this->dbLink );
+        @mysqli_query( $this->dbLink, "SET CHARACTER SET {$charset}" );
+        @mysqli_query( $this->dbLink, "SET NAMES {$charset}" );
     }
 }
 
