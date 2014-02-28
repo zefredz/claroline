@@ -56,19 +56,6 @@ class CLTI_Portlet extends CourseHomePagePortlet
                              . '<dd'.(!$toolIntroIterator->hasNext()?' class="last"':'').'>' . "\n"
                              . claro_parse_user_text($introItem->getContent()) . "\n"
                              . $resources
-                             . (claro_is_allowed_to_edit() ?
-                               '<div class="manageTools"><a
-                                    href="'.claro_htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=rqEd&amp;id='.$introItem->getId())).'"
-                                    title="'.get_lang('Edit this item').'">
-                                    <img src="'.get_icon_url('edit').'" alt="'.get_lang('Edit').'" />
-                                </a>
-                                
-                                <a
-                                    href="'.claro_htmlspecialchars(Url::Contextualize(get_module_url('CLTI').'/index.php?cmd=exDel&amp;id='.$introItem->getId())).'"
-                                    title="'.get_lang('Delete this item').'">
-                                    <img src="'.get_icon_url('delete').'" alt="'.get_lang('Delete').'" />
-                                </a></div>' :
-                               '')
                              . '</dd>' . "\n";
                 }
             }
