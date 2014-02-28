@@ -57,7 +57,7 @@ function claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $u
     $dayField = claro_html_form_select( $dayFieldName
                                    , $available_days
                                    , $selDay
-                                   , array('id'=> $dayFieldName)
+                                   , array('id'=> $dayFieldName,'autocomplete'=>'off')
                                    );
 
     // month field
@@ -82,7 +82,7 @@ function claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $u
     $monthField = claro_html_form_select( $monthFieldName
                                    , $available_months
                                    , $selMonth
-                                   , array('id'=> $monthFieldName)
+                                   , array('id'=> $monthFieldName,'autocomplete'=>'off')
                                    );
     // year field
     $thisYear = date('Y');
@@ -91,7 +91,7 @@ function claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $u
     $yearField = claro_html_form_select( $yearFieldName
                                    , $available_years
                                    , $selYear
-                                   , array('id'=> $yearFieldName)
+                                   , array('id'=> $yearFieldName,'autocomplete'=>'off')
                                    );
 
     return $dayField . '&nbsp;' . $monthField . '&nbsp;' . $yearField;
