@@ -39,7 +39,7 @@
         <div class="collapsible-wrapper">
             <dl>
                 <dt>
-                    <input name="visibility" id="visible" value="1" type="radio"'<?php if (!isset($this->announcement['visibility']) || $this->announcement['visibility'] == 'SHOW') : ?> checked="checked"<?php endif; ?> />
+                    <input name="visibility" id="visible" value="1" type="radio"'<?php if (!isset($this->announcement['visibility']) || $this->announcement['visibility'] == 'SHOW') : ?> checked="checked"<?php endif; ?> autocomplete="off"  />
                     <label for="visible">
                         <img src="<?php echo get_icon_url('visible'); ?>" alt="<?php echo get_lang('Visible'); ?>" />
                         <?php echo get_lang('Visible'); ?>
@@ -47,7 +47,7 @@
                 </dt>
                 <dt>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <input name="enable_visible_from" id="enable_visible_from" type="checkbox"<?php if (isset($this->announcement['visibleFrom'])) : ?> checked="checked"<?php endif; ?> />
+                    <input name="enable_visible_from" id="enable_visible_from" type="checkbox"<?php if (isset($this->announcement['visibleFrom'])) : ?> checked="checked"<?php endif; ?> autocomplete="off" />
                     <label for="enable_visible_from">
                         <?php echo get_lang('Visible from'); ?> (<?php echo get_lang('included'); ?>)
                     </label>
@@ -58,7 +58,7 @@
                 </dd>
                 <dt>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <input name="enable_visible_until" id="enable_visible_until" type="checkbox"<?php if (isset($this->announcement['visibleUntil'])) : ?> checked="checked"<?php endif; ?> />
+                    <input name="enable_visible_until" id="enable_visible_until" type="checkbox"<?php if (isset($this->announcement['visibleUntil'])) : ?> checked="checked"<?php endif; ?> autocomplete="off" />
                     <label for="enable_visible_until">
                         <?php echo get_lang('Visible until'); ?> (<?php echo get_lang('included'); ?>)
                     </label>
@@ -68,7 +68,7 @@
                                 ((isset($this->announcement['visibleUntil']) ? strtotime($this->announcement['visibleUntil']) : (strtotime('Now +1 day')))), 'long' ); ?>
                 </dd>
                 <dt>
-                    <input name="visibility" id="invisible" value="0" type="radio"<?php if (isset($this->announcement['visibility']) && $this->announcement['visibility'] == 'HIDE') : ?> checked="checked"<?php endif; ?> />
+                    <input name="visibility" id="invisible" value="0" type="radio"<?php if (isset($this->announcement['visibility']) && $this->announcement['visibility'] == 'HIDE') : ?> checked="checked"<?php endif; ?> autocomplete="off" />
                     <label for="invisible">
                         <img src="<?php echo get_icon_url('invisible'); ?>" alt="<?php echo get_lang('Invisible'); ?>" />
                         <?php echo get_lang('Invisible'); ?>
