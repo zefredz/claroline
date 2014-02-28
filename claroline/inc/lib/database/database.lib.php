@@ -269,12 +269,14 @@ class Mysql_Database_Connection implements Database_Connection
     {
         if ( function_exists( 'mysql_set_charset' ) )
         {
+            pushClaroMessage('mysql_set_charset');
             @mysql_set_charset( $charset, $this->dbLink );
         }
         else
         {
-            @mysql_query( "SET CHARACTER SET '{$charset}'", $this->dbLink );
-            @mysql_query( "SET NAMES '{$charset}'", $this->dbLink );
+            pushClaroMessage('set names');
+            @mysql_query( "SET CHARACTER SET {$charset}", $this->dbLink );
+            @mysql_query( "SET NAMES {$charset}", $this->dbLink );
         }
     }
     
