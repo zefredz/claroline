@@ -15,120 +15,157 @@
 //                   CLAROLINE DB    QUERY WRAPPRER MODULE
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Get main database table aliases
+ * @return array 
+ */
+function get_main_tbl_aliases()
+{
+    return array (    
+        'course'                    => 'cours',
+        'user_category'             => 'class',
+        'user_rel_profile_category' => 'rel_class_user',
+        'course_user'               => 'rel_course_user',
+        'tool'                      => 'course_tool'
+    );
+}
 
 /**
- * Return the tablename for a tool, dependig on the execution context
- * WARNING DO NOT USE THIS FUNCTION UNTIL THE deprecated TAG IS REMOVE
+ * Get course database table aliases
+ * @return array 
+ */
+function get_course_tbl_aliases()
+{
+    return array(
+        'links'                  => 'lnk_links',
+        'resources'              => 'lnk_resources',
+        'tool'                   => 'tool_list'
+    );
+}
+
+
+/**
+ * Return the tablename for a tool, depending on the execution context (course or not)
  *
  * @param array $tableList
- * @param array $contextData id To discrim table. Do not add context Id
- *  of an context active but managed by tool.
- * @return array
- * @deprecated for modules since Claroline 1.9, use get_module_main_tbl and
- *  get_module_course_tbl instead
- * @todo rewrite to use new Claroline core/context.lib.php
+ * @param string $courseCode
+ * @return array of table names
  */
-function claro_sql_get_tbl( $tableList, $contextData=null)
+function claro_sql_get_tbl( $tableList, $courseCode = null, $courseDbNameGlued = null )
 {
-    /**
-     * If it's in a course, $courseId is set or $courseId is null but not claro_get_current_course_id()
-     * if both are null, it's a main table
-     *
-     * when
-     */
 
-    if( ! is_array($tableList))
+    if( ! is_array( $tableList ) )
     {
-        $tableListArr[] = $tableList;
-        $tableList = $tableListArr;
+        $arrTblName = array( $tableList );
     }
-    else $tableList = $tableList;
-
-    /**
-     * Tool Context capatibility
-     *
-     * There is many context in claroline,
-     * a new tool can don't provide initially
-     * all field to discrim each context in fields.
-     * When a tool can't discrim a context,
-     * the table would be duplicated for each instance
-     * and the name of table (or db) contain the discriminator
-     *
-     * This extreme modularity provide an easy growing
-     * and integration but
-     * easy
-     *
-     * Easy can't mean slowly.
-     * If  I prupose a blog tool wich can't discrim user
-     * I need to duplicate all blog table (in same or separate db).
-     */
-
-    if (!is_array($contextData)) $contextData = array();
-
-    if ( isset($GLOBALS['_courseTool']['label']) )
+    else 
     {
-        $toolId = rtrim($GLOBALS['_courseTool']['label'],'_');
+        $arrTblName = $tableList;
+    }
+    
+    // we are in a course
+    if ( ! empty( $courseCode ) )
+    {
+        $currentCourseDbNameGlu = claro_get_course_db_name_glued( $courseCode );
+
+        if ( ! $currentCourseDbNameGlu )
+        {
+            throw new Exception('Invalid course !');
+        }
+
+        return __claro_sql_get_course_tbl_private( $tableList, $currentCourseDbNameGlu );
     }
     else
     {
-        $toolId = null;
-    }
+        
+        $aliases = get_main_tbl_aliases();
+    
+        $mainDbNameGlu = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix');
 
-    $contextDependance = get_context_db_discriminator($toolId);
-    // Now place discriminator in db & table name.
-    // if a context is needed ($contextData) and $contextDependance is found,
-    // add the discriminator in schema name or table prefix
-    $schemaPrefix = array();
+        $arrToReturn = array();
 
-    if (is_array($contextDependance) )
-    {
-        if (array_key_exists('schema',$contextDependance))
+        foreach ( $arrTblName as $name )
         {
-            if (array_key_exists(CLARO_CONTEXT_COURSE,$contextData)
-            && !is_null($contextData[CLARO_CONTEXT_COURSE])
-            && in_array(CLARO_CONTEXT_COURSE, $contextDependance['schema']))
+            if ( array_key_exists( $name, $aliases ) )
             {
-                $schemaPrefix[] = get_conf('courseTablePrefix') . claro_get_course_db_name($contextData[CLARO_CONTEXT_COURSE]);
+                $arrToReturn[$name] = $mainDbNameGlu . $aliases[$name];
+            }
+            else
+            {
+                $arrToReturn[$name] = $mainDbNameGlu . $name;
             }
         }
 
-        $tablePrefix = '';
+        return $arrToReturn;
+    }
+}
 
-        if (array_key_exists('table',$contextDependance))
+/**
+ * DO NOT CALLK OUTSIDE OF THIS LIBRARY
+ * Return the tablename for a tool, depending on the execution context (course or not)
+ *
+ * @private
+ * @param array $tableList
+ * @param string $courseDbNameGlued (use only for internals)
+ * @return array of table names
+ */
+function __claro_sql_get_course_tbl_private( $tableList, $courseDbNameGlued = null )
+{
+    $aliases = get_course_tbl_aliases();
+
+    $arrToReturn = array();
+
+    foreach ( $tableList as $name )
+    {
+        if ( array_key_exists( $name, $aliases ) )
         {
-            if (array_key_exists(CLARO_CONTEXT_COURSE,$contextData)
-            && !is_null($contextData[CLARO_CONTEXT_COURSE])
-            && in_array(CLARO_CONTEXT_COURSE, $contextDependance['table']))
-            {
-                $tablePrefix .= 'C_' . $contextData[CLARO_CONTEXT_COURSE] . '_';
-            }
+            $arrToReturn[$name] = $courseDbNameGlued . $aliases[$name];
+        }
+        else
+        {
+            $arrToReturn[$name] = $courseDbNameGlued . $name;
+        }
+
+    }
+
+    return $arrToReturn;
+}
+
+// Helpers and backward compatibility functions
+
+/**
+ * Get list of module table names 'localized' for the given course
+ * @param array $arrTblName of tableName
+ * @param string $courseCode course code
+ * @return array $tableName => $dbNameGlue . $tableName
+ * @throws Exception if no course code given and not in a course or
+ *  course not valid
+ */
+function get_module_course_tbl( $arrTblName, $courseCode = null )
+{
+    if ( empty ( $courseCode ) )
+    {
+        if ( ! claro_is_in_a_course() )
+        {
+            throw new Exception('Not in a course !');
+        }
+        else
+        {
+            $courseCode = claro_get_current_course_id();
         }
     }
+    
+    return claro_sql_get_tbl( $arrTblName, $courseCode );
+}
 
-    //$schemaPrefix = (0==count($schemaPrefix) ? get_conf('mainDbName') : implode(get_conf('dbGlu'),$schemaPrefix)); // ne pas utiliser dbGlu tant qu'il peut valoir .
-    $schemaPrefix = (0 == count($schemaPrefix) ? get_conf('mainDbName') : implode('_',$schemaPrefix));
-    $tablePrefix  = ('' == $tablePrefix) ? get_conf('mainTblPrefix') : $tablePrefix;
-
-    foreach ($tableList as $tableId)
-    {
-        /**
-         *  Read this  to understand chanche  since  previous version thant 1.8
-         *
-         * Until 1.8  there was 2 functions
-         *
-         * function claro_sql_get_main_tbl()
-         * function claro_sql_get_course_tbl($dbNameGlued = null)
-         *
-         * both was using  conf values
-         * claro_sql_get_main_tbl was using  conf values
-         * * get_conf('mainDbName')
-         * * get_conf('mainTblPrefix')
-         *
-         */
-        $tableNameList[$tableId] = $schemaPrefix . '`.`' . $tablePrefix . $tableId;
-    }
-
-    return $tableNameList;
+/**
+ * Get list of module table names 'localized' for the main db
+ * @param array $arrTblName of tableName
+ * @return array $tableName => mainTblPrefix . $tableName
+ */
+function get_module_main_tbl( $arrTblName )
+{
+    return claro_sql_get_tbl( $arrTblName );
 }
 
 /**
@@ -137,7 +174,7 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
  * @return array list of the central claroline database tables
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @deprecated for module development since Claroline 1.9, use
- *  get_module_main_tbl instead
+ *  get_module_main_tbl or claro_sql_get_tbl instead
  */
 function claro_sql_get_main_tbl()
 {
@@ -145,44 +182,43 @@ function claro_sql_get_main_tbl()
     
     if ( count($mainTblList) == 0 )
     {
-        $mainTblList= array (
-        'coursehomepage_portlet'    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'coursehomepage_portlet',
-        'config_property'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'config_property',
-        'config_file'               => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'config_file',
-        'course'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours',
-        'category'                  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'category',
-        'event_resource'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'event_resource',
-        'user'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user',
-        'tool'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'course_tool',
-        'user_category'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'class',
-        'user_rel_profile_category' => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_class_user',
-        'class'                     => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'class',
-        'rel_class_user'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_class_user',
-        'rel_course_category'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_category',
-        'rel_course_class'          => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_class',
-        'rel_course_portlet'        => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_portlet',
-        'rel_course_user'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_user',
-        'sso'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'sso',
-        'notify'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'notify',
-        'upgrade_status'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'upgrade_status',
-        'module'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'module',
-        'module_info'               => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'module_info',
-        'module_contexts'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'module_contexts',
-        'dock'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'dock',
-        'right_profile'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_profile',
-        'right_rel_profile_action'  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_rel_profile_action',
-        'right_action'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_action',
-        'user_property'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user_property',
-        'property_definition'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'property_definition',
-        'im_message'                => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'im_message',
-        'im_message_status'         => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'im_message_status',
-        'im_recipient'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'im_recipient',
-        'desktop_portlet'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'desktop_portlet',
-        'desktop_portlet_data'      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'desktop_portlet_data',
-        
-        'tracking_event'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_event',
-        'log'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log'
-        );
+        $mainTblList = claro_sql_get_tbl ( array(
+            'coursehomepage_portlet',
+            'config_property',
+            'config_file',
+            'course',
+            'category',
+            'event_resource',
+            'user',
+            'tool',
+            'user_category',
+            'user_rel_profile_category',
+            'class',
+            'rel_class_user',
+            'rel_course_category',
+            'rel_course_class',
+            'rel_course_portlet',
+            'rel_course_user',
+            'sso',
+            'notify',
+            'upgrade_status',
+            'module',
+            'module_info',
+            'module_contexts',
+            'dock',
+            'right_profile',
+            'right_rel_profile_action',
+            'right_action',
+            'user_property',
+            'property_definition',
+            'im_message',
+            'im_message_status',
+            'im_recipient',
+            'desktop_portlet',
+            'desktop_portlet_data',
+            'tracking_event',
+            'log'
+        ) );
     }
     
     return $mainTblList;
@@ -195,10 +231,11 @@ function claro_sql_get_main_tbl()
  *         will be taken.
  * @return array list of the current course database tables
  * @deprecated for module development since Claroline 1.9, use
- *  get_module_course_tbl instead
+ *  get_module_course_tbl or claro_get_sql_tbl instead
  */
 function claro_sql_get_course_tbl($dbNameGlued = null)
 {
+    
     global $_course;
     static $courseTblList = array();
     static $courseDbInCache = null;
@@ -219,55 +256,51 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
     if ( count($courseTblList) == 0 || $forceTableSet )
     {
         // FIXME remove tables of up to date modules
-        $courseTblList = array(
-
-              'announcement'           => $courseDbInCache . 'announcement',
-              'bb_categories'          => $courseDbInCache . 'bb_categories',
-              'bb_forums'              => $courseDbInCache . 'bb_forums',
-              'bb_posts'               => $courseDbInCache . 'bb_posts',
-              'bb_posts_text'          => $courseDbInCache . 'bb_posts_text',
-              'bb_priv_msgs'           => $courseDbInCache . 'bb_priv_msgs',
-              'bb_rel_topic_userstonotify'
-                            => $courseDbInCache . 'bb_rel_topic_userstonotify',
-              'bb_rel_forum_userstonotify'
-                            => $courseDbInCache . 'bb_rel_forum_userstonotify',
-              'bb_topics'              => $courseDbInCache . 'bb_topics',
-              'bb_users'               => $courseDbInCache . 'bb_users',
-              'bb_whosonline'          => $courseDbInCache . 'bb_whosonline',
-
-              'calendar_event'         => $courseDbInCache . 'calendar_event',
-              'course_description'     => $courseDbInCache . 'course_description',
-              'document'               => $courseDbInCache . 'document',
-              'course_properties'      => $courseDbInCache . 'course_properties',
-              'group_property'         => $courseDbInCache . 'group_property',
-              'group_rel_team_user'    => $courseDbInCache . 'group_rel_team_user',
-              'group_team'             => $courseDbInCache . 'group_team',
-              'lp_learnPath'           => $courseDbInCache . 'lp_learnPath',
-              'lp_rel_learnPath_module'=> $courseDbInCache . 'lp_rel_learnPath_module',
-              'lp_user_module_progress'=> $courseDbInCache . 'lp_user_module_progress',
-              'lp_module'              => $courseDbInCache . 'lp_module',
-              'lp_asset'               => $courseDbInCache . 'lp_asset',
-              'qwz_exercise'           => $courseDbInCache . 'qwz_exercise' ,
-              'qwz_question'           => $courseDbInCache . 'qwz_question',
-              'qwz_rel_exercise_question'     => $courseDbInCache . 'qwz_rel_exercise_question',
-              'qwz_answer_truefalse'   => $courseDbInCache . 'qwz_answer_truefalse',
-              'qwz_answer_multiple_choice'    => $courseDbInCache . 'qwz_answer_multiple_choice',
-              'qwz_answer_fib'         => $courseDbInCache . 'qwz_answer_fib',
-              'qwz_answer_matching'    => $courseDbInCache . 'qwz_answer_matching',
-              'tool_intro'             => $courseDbInCache . 'tool_intro',
-              'tool'                   => $courseDbInCache . 'tool_list',
-              'tracking_event'         => $courseDbInCache . 'tracking_event',
-              'userinfo_content'       => $courseDbInCache . 'userinfo_content',
-              'userinfo_def'           => $courseDbInCache . 'userinfo_def',
-              'wrk_assignment'         => $courseDbInCache . 'wrk_assignment',
-              'wrk_submission'         => $courseDbInCache . 'wrk_submission',
-              'links'                  => $courseDbInCache . 'lnk_links',
-              'resources'              => $courseDbInCache . 'lnk_resources',
-              'wiki_properties'        => $courseDbInCache . 'wiki_properties',
-              'wiki_pages'             => $courseDbInCache . 'wiki_pages',
-              'wiki_pages_content'     => $courseDbInCache . 'wiki_pages_content',
-              'wiki_acls'              => $courseDbInCache . 'wiki_acls'
-              ); // end array
+        $courseTblList = __claro_sql_get_course_tbl_private( array(
+              'announcement',
+              'bb_categories',
+              'bb_forums',
+              'bb_posts' ,
+              'bb_posts_text',
+              'bb_priv_msgs',
+              'bb_rel_topic_userstonotify',
+              'bb_rel_forum_userstonotify',
+              'bb_topics',
+              'bb_users',
+              'bb_whosonline',
+              'calendar_event',
+              'course_description',
+              'document',
+              'course_properties',
+              'group_property',
+              'group_rel_team_user',
+              'group_team',
+              'lp_learnPath',
+              'lp_rel_learnPath_module',
+              'lp_user_module_progress',
+              'lp_module',
+              'lp_asset',
+              'qwz_exercise',
+              'qwz_question',
+              'qwz_rel_exercise_question',
+              'qwz_answer_truefalse',
+              'qwz_answer_multiple_choice',
+              'qwz_answer_fib',
+              'qwz_answer_matching',
+              'tool_intro',
+              'tool',
+              'tracking_event',
+              'userinfo_content',
+              'userinfo_def',
+              'wrk_assignment',
+              'wrk_submission',
+              'links',
+              'resources',
+              'wiki_properties',
+              'wiki_pages',
+              'wiki_pages_content',
+              'wiki_acls',
+              ), $courseDbInCache );
 
     } // end if ( count($course_tbl) == 0 )
 
@@ -756,60 +789,5 @@ function claro_sql_escape($statement,$db=null)
 {
     if (is_null($db)) return ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $statement) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));
     else              return mysqli_real_escape_string( $db, $statement);
-
-}
-
-
-
-/**
- * Return an array of 2 array containing context wich can't be manage by tool
- * and where to store the discriminator.
- *
- * By default it's in table name except of course context wich follow singleDbMode value.
- *
- * DO NOT USE THIS FUNCTION !
- *
- * @param string $toolId claro_label
- * @return array of array
- *
- * @since 1.8
- * @deprecated since Claroline 1.9, see claro_sql_get_tbl for details
- */
-
-require_once(__DIR__ . '/module.lib.php');
-function get_context_db_discriminator($toolId)
-{
-
-    // array ( CLARO_CONTEXT_USER, CLARO_CONTEXT_COURSE, CLARO_CONTEXT_GROUP, 'toolInstance', 'session')
-
-    // This fixed result would became result of config
-    // Admin can select for each context for each tool,
-    // if the descriminator needed (because not managed by tool )
-    // would be placed in table name or schema name.
-
-    // switch n'as plus trop de sens ici.
-    // le default  devrait probablement sortir
-    // et le switch des debrayages dans if (!get_conf('singleDbEnabled'))
-    // parce que si singleDbEnabled =true $genericConfig['schema'] DOIT tre vide
-
-    switch ($toolId)
-    {
-// ie        case 'CLANN' : return array('schema' => array (CLARO_CONTEXT_COURSE), 'table' => array(CLARO_CONTEXT_GROUP));
-// ie        case 'CLWIKI' : return array('schema' => array (CLARO_CONTEXT_COURSE, CLARO_CONTEXT_GROUP));
-        default:
-            $dependance = get_module_db_dependance($toolId);
-
-            // By default all is in tableName except for course wich follow singleDbEnabled;
-            $genericConfig['table'] = $dependance ;
-            if(is_array($dependance) && in_array(CLARO_CONTEXT_COURSE,$dependance))
-            {
-                if (!get_conf('singleDbEnabled'))
-                {
-                    $genericConfig['schema'] = array(CLARO_CONTEXT_COURSE);
-                    $genericConfig['table'] = array_diff ($genericConfig['table'], $genericConfig['schema'] );
-                }
-            }
-            return $genericConfig;
-    }
 
 }
