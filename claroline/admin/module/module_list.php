@@ -420,7 +420,7 @@ switch ( $cmd )
                 }
                 else
                 {
-                    $dialogBox->error( get_lang ( 'Module installation failed' ) );
+                    $dialogBox->error( Backlog_Reporter::report( get_lang ( 'Module installation failed' ) , $details ) );
                 }
             }
 
