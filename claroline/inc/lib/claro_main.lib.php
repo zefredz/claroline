@@ -63,8 +63,8 @@ require_once __DIR__ . '/textzone.lib.php';
 /**
  * SECTION :  Modules functions
  */
-require_once __DIR__ . '/module.lib.php';
 require_once __DIR__ . '/module/manage.lib.php';
+require_once __DIR__ . '/module/module.lib.php';
 
 /**
  * SECTION :  Icon functions
