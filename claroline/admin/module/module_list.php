@@ -61,10 +61,7 @@ $nonuninstalable_tool_array = get_not_uninstallable_tool_list();
 
 //SQL table name
 
-$tbl_name        = claro_sql_get_main_tbl();
-$tbl_module      = $tbl_name['module'];
-$tbl_dock        = $tbl_name['dock'];
-$tbl_course_tool = $tbl_name['tool'];
+
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
@@ -704,57 +701,7 @@ if ( empty( $typeReq ) && $module_id )
 // $moduleTypeList = claro_get_module_types();
 // $moduleTypeList = array_merge($moduleTypeList, array_keys($typeLabel));
 
-switch($typeReq)
-{
-    case 'applet' :
-
-        $sqlSelectType = "       D.`id`    AS dock_id, " . "\n"
-        .                "       D.`name`  AS dockname," . "\n"
-        ;
-
-        $sqlJoinType = " LEFT JOIN `" . $tbl_dock . "` AS D " . "\n"
-        .              "        ON D.`module_id`= M.id " . "\n"
-        ;
-        $orderType = "";
-        break;
-
-    case 'tool'   :
-        $sqlSelectType = "       CT.`id`    AS courseToolId, " . "\n"
-        .                "       CT.`icon`  AS icon," . "\n"
-        .                "       CT.`script_url` AS script_url," . "\n"
-        .                "       CT.`def_rank` AS rank," . "\n"
-        .                "       CT.`def_access` AS visibility," . "\n"
-        ;
-        $sqlJoinType = " LEFT JOIN `" . $tbl_course_tool . "` AS CT " . "\n"
-        .              "        ON CT.`claro_label`= M.label " . "\n"
-        ;
-        $orderType = "ORDER BY `def_rank` \n";
-        break;
-    
-     default :
-        $sqlSelectType = "" ;
-        $sqlJoinType = "" ;
-        $orderType = "" ;
-
-}
-
-$sql = "
-    SELECT M.`id`     AS `id`,
-           M.`label`  AS `label`,
-           M.`name`            AS `name`,
-           M.`activation`      AS `activation`,
-           " . $sqlSelectType . "
-           M.`type`            AS `type`
-      FROM `" . $tbl_module . "` AS M
-            " . $sqlJoinType . "
-     WHERE M.`type` = '" . claro_sql_escape ( $typeReq ) . "'
-  GROUP BY `id`
-  " . $orderType . "
-  " ;
-
-//pager creation
-
-$myPager    = new claro_sql_pager($sql, $offset, $modulePerPage);
+$myPager = get_admin_module_list_pager( $typeReq, $offset, $modulePerPage );
 $moduleList = $myPager->get_result_list();
 
 //find docks in which the modules do appear.
