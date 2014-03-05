@@ -95,6 +95,7 @@ $moduleTypeList = get_available_module_types();
 
 
 $cmd          = (isset($_REQUEST['cmd'])          ? $_REQUEST['cmd']          : null);
+$module_label = (isset($_REQUEST['module_label']) ? $_REQUEST['module_label'] : null );
 $module_id    = (isset($_REQUEST['module_id'])    ? $_REQUEST['module_id']    : null );
 $courseToolId = (isset($_REQUEST['courseToolId']) ? $_REQUEST['courseToolId'] : null );
 $typeReq      = (isset($_REQUEST['typeReq'])      ? $_REQUEST['typeReq']      : 'tool');
@@ -186,7 +187,7 @@ switch ( $cmd )
     {
         $visibility = ( 'byDefaultVisible' == $cmd ) ? true : false;
 
-        $success = set_tool_visibility_at_course_creation( $module_id, $visibility );
+        $success = set_tool_visibility_at_course_creation( $module_label, $visibility );
 
         if ( $success )
         {
@@ -1037,8 +1038,8 @@ foreach($moduleList as $module)
 
             if ( 'ALL' == $module['visibility'] )
             {
-                $out .= '<a href="module_list.php?cmd=byDefaultInvisible&amp;module_id='
-                . $module['id'] . '&amp;typeReq=' . $typeReq .'" '
+                $out .= '<a href="module_list.php?cmd=byDefaultInvisible&amp;module_label='
+                . $module['label'] . '&amp;typeReq=' . $typeReq .'" '
                 . 'title="'.get_lang('Visible - Click to make invisible').'">'
                 . '<img src="' . get_icon_url('visible')
                 . '" alt="'. get_lang('Visible') . '" /></a>'
@@ -1046,8 +1047,8 @@ foreach($moduleList as $module)
             }
             else
             {
-                $out .= '<a href="module_list.php?cmd=byDefaultVisible&amp;module_id='
-                . $module['id'] . '&amp;typeReq='.$typeReq.'" '
+                $out .= '<a href="module_list.php?cmd=byDefaultVisible&amp;module_label='
+                . $module['label'] . '&amp;typeReq='.$typeReq.'" '
                 . 'title="'.get_lang('Invisible - Click to make visible').'">'
                 . '<img src="' . get_icon_url('invisible')
                 . '" alt="'. get_lang('Invisible') . '"/></a>';
