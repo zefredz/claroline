@@ -28,7 +28,7 @@ else
     $tpl->assign('module', $module);
 }
 
-$tpl->assign('block',$block);
+$tpl->assign('block',get_block($block));
 
 $claroline->setDisplayType(Claroline::POPUP);
 
