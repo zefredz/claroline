@@ -51,7 +51,7 @@ function get_course_tbl_aliases()
  * @param string $courseCode
  * @return array of table names
  */
-function claro_sql_get_tbl( $tableList, $courseCode = null, $courseDbNameGlued = null )
+function claro_sql_get_tbl( $tableList, $courseCode = null )
 {
 
     if( ! is_array( $tableList ) )
