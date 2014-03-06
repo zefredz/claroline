@@ -20,7 +20,7 @@ else
 
 if ( $moduleName = get_module_data($module, 'moduleName') )
 {
-    load_module_language($module);
+    language::load_module_translation($module);
     $tpl->assign('module', $moduleName);
 }
 else
@@ -28,7 +28,7 @@ else
     $tpl->assign('module', $module);
 }
 
-$tpl->assign('block',$block);
+$tpl->assign('block', get_block($block));
 
 $claroline->setDisplayType(Claroline::POPUP);
 
