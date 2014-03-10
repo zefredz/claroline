@@ -236,7 +236,8 @@ function claro_sql_get_main_tbl()
 function claro_sql_get_course_tbl($dbNameGlued = null)
 {
     
-    global $_course;
+    $_course = get_init('_course');
+    
     static $courseTblList = array();
     static $courseDbInCache = null;
 

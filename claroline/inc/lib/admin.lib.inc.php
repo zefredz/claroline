@@ -45,8 +45,6 @@ include_once( __DIR__ . '/right/courseProfileToolAction.class.php');
  */
 function delete_course($code, $sourceCourseId)
 {
-    global $eventNotifier;
-
     // Declare needed tables
     $tbl_mdb_names              = claro_sql_get_main_tbl();
     $tbl_course                 = $tbl_mdb_names['course'];
@@ -135,7 +133,7 @@ function delete_course($code, $sourceCourseId)
     $args['gid'] = null;
     $args['uid'] = $GLOBALS['_uid'];
 
-    $eventNotifier->notifyEvent("course_deleted",$args);
+    $GLOBALS['eventNotifier']->notifyEvent("course_deleted",$args);
 
     if ( $currentCourseId == $code )
     {

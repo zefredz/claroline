@@ -1094,6 +1094,8 @@ $claro_failureList = array();
  */
 class claro_failure
 {
+    
+    static $claro_failureList = array();
     /*
     * IMPLEMENTATION NOTE : For now the $claro_failureList list is set to the
     * global scope, as PHP 4 is unable to manage static variable in class. But
@@ -1115,9 +1117,7 @@ class claro_failure
 
     public static function set_failure($failureType)
     {
-        global $claro_failureList;
-
-        $claro_failureList[] = $failureType;
+        self::$claro_failureList[] = $failureType;
 
         pushClaroMessage('set failure : ' . var_export($failureType,1),'set_failure');
 
@@ -1134,10 +1134,8 @@ class claro_failure
 
     public static function get_last_failure()
     {
-        global $claro_failureList;
-
-        if( isset( $claro_failureList[ count($claro_failureList) - 1 ] ) )
-        return $claro_failureList[ count($claro_failureList) - 1 ];
+        if( isset( self::$claro_failureList[ count(self::$claro_failureList) - 1 ] ) )
+        return self::$claro_failureList[ count(self::$claro_failureList) - 1 ];
         else
         return '';
     }
@@ -1159,8 +1157,7 @@ class claro_failure
 
 function claro_enable_tool_view_option()
 {
-    global $claro_toolViewOptionEnabled;
-    $claro_toolViewOptionEnabled = true;
+    $GLOBALS['claro_toolViewOptionEnabled'] = true;
     return true;
 }
 
@@ -1388,8 +1385,7 @@ function claro_is_allowed_to_edit()
 
 function claro_is_display_mode_available()
 {
-    global $is_display_mode_available;
-    return $is_display_mode_available;
+    return isset($GLOBALS['is_display_mode_available']) ? $GLOBALS['is_display_mode_available'] : false;
 }
 
 /**
@@ -1403,8 +1399,7 @@ function claro_is_display_mode_available()
 
 function claro_set_display_mode_available($mode)
 {
-    global $is_display_mode_available;
-    $is_display_mode_available = $mode;
+    $GLOBALS['is_display_mode_available'] = $mode;
 }
 
 
@@ -1482,8 +1477,6 @@ function claro_mktime()
 
 function claro_is_javascript_enabled()
 {
-    global $_COOKIE;
-
     if ( isset( $_COOKIE['javascriptEnabled'] ) && $_COOKIE['javascriptEnabled'] == true)
     {
         return true;
@@ -1719,11 +1712,12 @@ function claro_get_current_context($contextKeys = null)
  * in debug mod this stack is output in footer
  * @author Christophe Gesche <moosh@claroline.net>
  */
-if (!isset($claroErrorList)) $claroErrorList= array();
+
 function pushClaroMessage($message,$errorClass='error')
 {
-    global $claroErrorList;
-    $claroErrorList[$errorClass][]= $message;
+    if (!isset($GLOBALS['claroErrorList'])) $GLOBALS['claroErrorList']= array();
+    
+    $GLOBALS['claroErrorList'][$errorClass][]= $message;
     return true;
 }
 
@@ -1735,17 +1729,27 @@ function getClaroMessageList($errorClass=null)
     if (isset($GLOBALS['claroErrorList']))
     {
         $claroErrorList = $GLOBALS['claroErrorList'];
-        if (is_null($errorClass)) $returnedClaroErrorList = $claroErrorList;
+        
+        if (is_null($errorClass))
+        {
+            $returnedClaroErrorList = $claroErrorList;
+        }
         else
         {
             if (array_key_exists($errorClass,$claroErrorList))
             {
                 $returnedClaroErrorList[$errorClass] = $claroErrorList[$errorClass];
             }
-            else $returnedClaroErrorList[]=array();
+            else
+            {
+                $returnedClaroErrorList[]=array();
+            }
         }
     }
-    else $returnedClaroErrorList[]=array();
+    else
+    {
+        $returnedClaroErrorList[]=array();
+    }
 
     return $returnedClaroErrorList;
 }

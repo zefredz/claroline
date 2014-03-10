@@ -1063,11 +1063,7 @@ class postLister
 
 function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
-    global $forum_name, $topic_title;
-
     $toolList = array();
-
-    $html = '';
 
     switch ( $pagetype )
     {
@@ -1150,8 +1146,6 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
 function get_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
-    global $forum_name, $topic_title;
-    
     $toolList = array();
     
     switch ( $pagetype )
@@ -1230,8 +1224,6 @@ function get_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 
 
 function disp_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
-    global $forum_name, $topic_title;
-
     $toolList = array();
 
     switch ( $pagetype )

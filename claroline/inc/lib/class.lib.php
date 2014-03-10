@@ -963,8 +963,6 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
  *
  * @param  the pre-selected class'id in the select box
  * @param  space to display for children to show deepness
- * @global $tbl_class
- * @global get_lang('TopLevel')
  * @return void
 */
 

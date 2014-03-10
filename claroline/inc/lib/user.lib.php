@@ -619,7 +619,7 @@ function profile_send_request_course_creator_status($explanation)
     require_once __DIR__ . '/../../messaging/lib/message/messagetosend.lib.php';
     require_once __DIR__ . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
     
-    global $_user;
+    $_user = get_init('_user');
 
     $mailToUidList = claro_get_uid_of_request_admin();
     if(empty($mailToUidList)) $mailToUidList = claro_get_uid_of_platform_admin();

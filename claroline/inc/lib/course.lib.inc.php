@@ -69,9 +69,8 @@ function create_select_box_language($selected=NULL)
 
         $selectBox .= '>' . $entries;
 
-        global $langNameOfLang;
-        if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries] != '' && $langNameOfLang[$entries] != $entries)
-            $selectBox .= ' - ' . $langNameOfLang[$entries];
+        if (!empty($GLOBALS['langNameOfLang'][$entries]) && $GLOBALS['langNameOfLang'][$entries] != '' && $GLOBALS['langNameOfLang'][$entries] != $entries)
+            $selectBox .= ' - ' . $GLOBALS['langNameOfLang'][$entries];
 
         $selectBox .= '</option>' . "\n";
     }

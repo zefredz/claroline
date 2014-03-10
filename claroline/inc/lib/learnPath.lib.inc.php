@@ -84,7 +84,7 @@ function commentBox($type, $mode)
     $out = '';
     
     // globals
-    global $is_allowedToEdit;
+    $is_allowedToEdit = $GLOBALS['is_allowedToEdit'];
     
     // will be set 'true' if the comment has to be displayed
     $dsp = false;
@@ -250,9 +250,8 @@ function nameBox($type, $mode)
     $out = '';
     
     // globals
-    global $is_allowedToEdit;
-    global $urlAppend;
-
+    $is_allowedToEdit = $GLOBALS['is_allowedToEdit'];
+    
     // $dsp will be set 'true' if the comment has to be displayed
     $dsp = false;
 
@@ -356,7 +355,7 @@ function documentDefaultTimeBox( $mode )
     $out = '';
     
     // globals
-    global $is_allowedToEdit;
+    $is_allowedToEdit = $GLOBALS['is_allowedToEdit'];
 
     $dsp = false;
     $colName = 'launch_data';
@@ -510,8 +509,6 @@ function documentDefaultTimeBox( $mode )
  */
 function setOrderTab ( $formValuesTab )
 {
-    global $dialogBox;
-
     $tabOrder = array(); // declaration to avoid bug in "elseif (in_array ... "
     $i = 0;
     foreach ( $formValuesTab as $key => $requiredOrder)
@@ -519,12 +516,12 @@ function setOrderTab ( $formValuesTab )
         // error if input is not a number
         if( !is_num($requiredOrder) )
         {
-            $dialogBox .= get_lang('ErrorInvalidParms');
+            $GLOBALS['dialogBox'] .= get_lang('ErrorInvalidParms');
             return 0;
         }
         elseif( in_array($requiredOrder, $tabOrder) )
         {
-            $dialogBox .= get_lang('Error : One or more values are doubled');
+            $GLOBALS['dialogBox'] .= get_lang('Error : One or more values are doubled');
             return 0;
         }
         // $tabInvert = required order => id module
@@ -863,21 +860,19 @@ function display_my_exercises($dialogBox)
 
 function display_my_documents($dialogBox)
 {
-    global $is_allowedToEdit;
-
-    global $curDirName;
-    global $curDirPath;
-    global $parentDir;
-
-    global $fileList;
+    $is_allowedToEdit = $GLOBALS['is_allowedToEdit'];
+    
+    // read-only globals
+    $curDirName = $GLOBALS['curDirName'];
+    $curDirPath = $GLOBALS['curDirPath'];
+    $parentDir = $GLOBALS['parentDir'];
+    $fileList = $GLOBALS['fileList'];
     
     /**
      * DISPLAY
      */
     
-    $out = '';
-    
-    $out .= '<!-- display_my_documents output -->' . "\n";
+    $out = '<!-- display_my_documents output -->' . "\n";
 
     $dspCurDirName = claro_htmlspecialchars($curDirName);
     $cmdCurDirPath = rawurlencode($curDirPath);

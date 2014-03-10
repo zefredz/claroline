@@ -84,8 +84,6 @@ function empty_group($groupIdList = 'ALL', $course_id = null)
 
 function delete_groups($groupIdList = 'ALL')
 {
-    global $eventNotifier;
-
     $tbl_c_names = claro_sql_get_course_tbl();
 
     $tbl_groups         = $tbl_c_names['group_team'         ];
@@ -130,7 +128,7 @@ function delete_groups($groupIdList = 'ALL')
         {
             $sql_condition = '  WHERE id = ' . (int)$groupIdList ;
 
-            $eventNotifier->notifyCourseEvent('group_deleted'
+            $GLOBALS['eventNotifier']->notifyCourseEvent('group_deleted'
             , claro_get_current_course_id()
             , claro_get_current_tool_id()
             , '0'
@@ -159,7 +157,7 @@ function delete_groups($groupIdList = 'ALL')
 
     foreach ($groupList['id'] as $thisGroupId )
     {
-        $eventNotifier->notifyCourseEvent('group_deleted'
+        $GLOBALS['eventNotifier']->notifyCourseEvent('group_deleted'
         , claro_get_current_course_id()
         , claro_get_current_tool_id()
         , '0'
@@ -601,7 +599,6 @@ function get_course_tutor_list($currentCourseId)
  */
 function get_group_tool_list($course_id=NULL,$active = true)
 {
-    // global $forumId;
     $_groupProperties = claro_get_current_group_properties_data();
     $isAllowedToEdit = claro_is_course_manager() || claro_is_platform_admin();
 

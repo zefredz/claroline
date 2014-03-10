@@ -169,8 +169,6 @@ class language
 
     public static function load_translation ( $language = null )
     {
-        // global $_lang;
-        
         if ( ! isset($GLOBALS['_lang']) ) $GLOBALS['_lang'] = array();
 
         /*----------------------------------------------------------------------
@@ -231,15 +229,6 @@ class language
 
     public static function load_locale_settings( $language = null )
     {
-        global $_locale, $charset,
-               // FIXME : The following line MUST be removed use $_locale array instead
-               $iso639_1_code, $iso639_2_code,
-               $langNameOfLang , $langDay_of_weekNames, $langMonthNames, $byteUnits,
-               $text_dir, $left_font_family, $right_font_family,
-               $number_thousands_separator, $number_decimal_separator,
-               $dateFormatCompact, $dateFormatShort, $dateFormatLong, $dateTimeFormatLong,
-               $dateFormatNumeric,$dateTimeFormatShort, $timeNoSecFormat;
-        
         if ( is_null( $language ) )
         {
             $language = language::current_language();
@@ -265,6 +254,22 @@ class language
         $GLOBALS['langNameOfLang'] = $langNameOfLang;
         $GLOBALS['langDay_of_weekNames'] = $langDay_of_weekNames;
         $GLOBALS['langMonthNames'] = $langMonthNames;
+        $GLOBALS['charset'] = $charset;
+        $GLOBALS['iso639_1_code'] = $iso639_1_code;
+        $GLOBALS['iso639_2_code'] = $iso639_2_code;
+        $GLOBALS['byteUnits'] = $byteUnits;
+        $GLOBALS['text_dir'] = $text_dir;
+        $GLOBALS['left_font_family'] = $left_font_family;
+        $GLOBALS['right_font_family'] = $right_font_family;
+        $GLOBALS['number_thousands_separator'] = $number_thousands_separator;
+        $GLOBALS['number_decimal_separator'] = $number_decimal_separator;
+        $GLOBALS['dateFormatCompact'] = $dateFormatCompact;
+        $GLOBALS['dateFormatShort'] = $dateFormatShort;
+        $GLOBALS['dateFormatLong'] = $dateFormatLong;
+        $GLOBALS['dateTimeFormatLong'] = $dateTimeFormatLong;
+        $GLOBALS['dateFormatNumeric'] = $dateFormatNumeric;
+        $GLOBALS['dateTimeFormatShort'] = $dateTimeFormatShort;
+        $GLOBALS['timeNoSecFormat'] = $timeNoSecFormat;
     }
     
     public static function load_module_translation( $moduleLabel = null, $language = null )
@@ -354,7 +359,8 @@ class language
     public static function current_language()
     {
         // FIXME : use init.lib instead of global variables !!!
-        global $_course, $_user, $platformLanguage;
+        $_course = get_init('_course');
+        $_user = get_init('_user');
 
         if ( claro_is_in_a_course() && isset($_course['language']) )
         {
@@ -382,7 +388,7 @@ class language
                     if ( empty($_SESSION['language']) )
                     {
                         // default platform language
-                        return $platformLanguage;
+                        return $GLOBALS['platformLanguage'];
                     }
                     else
                     {
@@ -440,12 +446,10 @@ function get_language_list()
 
 function get_language_to_display_list( $param = 'language_to_display' )
 {
-    global $platformLanguage;
-
     $language_list = array();
 
     $language_to_display_list = get_conf( $param );
-    $language_to_display_list[] = $platformLanguage;
+    $language_to_display_list[] = $GLOBALS['platformLanguage'];
 
     foreach ( $language_to_display_list as $language )
     {
@@ -461,12 +465,10 @@ function get_language_to_display_list( $param = 'language_to_display' )
 
 function get_translation_of_language($language)
 {
-    global $langNameOfLang;
-
-    if ( !empty($langNameOfLang[$language])
-            && $langNameOfLang[$language]!=$language )
+    if ( !empty($GLOBALS['langNameOfLang'][$language])
+            && $GLOBALS['langNameOfLang'][$language]!=$language )
     {
-        return $langNameOfLang[$language];
+        return $GLOBALS['langNameOfLang'][$language];
     }
     else
     {
@@ -485,19 +487,17 @@ function get_translation_of_language($language)
  */
 function get_lang_month_name_list($size='long')
 {
-    global $langMonthNames ;
-
     switch ($size)
     {
         case 'abbr' :
-            $nameList = $langMonthNames['init'];
+            $nameList = $GLOBALS['langMonthNames']['init'];
             break;
         case 'short' :
-            $nameList = $langMonthNames['short'];
+            $nameList = $GLOBALS['langMonthNames']['short'];
             break;
         case 'long' :
         default :
-            $nameList = $langMonthNames['long'];
+            $nameList = $GLOBALS['langMonthNames']['long'];
             break;
     }
     return $nameList;
@@ -514,19 +514,17 @@ function get_lang_month_name_list($size='long')
 
 function get_lang_weekday_name_list($size='long')
 {
-    global $langDay_of_weekNames;
-
     switch ($size)
     {
         case 'abbr' :
-            $nameList = $langDay_of_weekNames['init'];
+            $nameList = $GLOBALS['langDay_of_weekNames']['init'];
             break;
         case 'short' :
-            $nameList = $langDay_of_weekNames['short'];
+            $nameList = $GLOBALS['langDay_of_weekNames']['short'];
             break;
         case 'long' :
         default :
-            $nameList = $langDay_of_weekNames['long'];
+            $nameList = $GLOBALS['langDay_of_weekNames']['long'];
             break;
     }
     return $nameList;

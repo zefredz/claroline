@@ -401,8 +401,6 @@ function register_course( $courseSysCode, $courseScreenCode, $sourceCourseId,
                           $extLinkName='', $extLinkUrl='',$publicationDate,
                           $expirationDate, $status, $userLimit)
 {
-    global $versionDb, $clarolineVersion;
-    
     $tblList                    = claro_sql_get_main_tbl();
     $tbl_course                 = $tblList['course'];
     $tbl_category               = $tblList['category'];
@@ -447,8 +445,8 @@ function register_course( $courseSysCode, $courseScreenCode, $sourceCourseId,
             expirationDate       = FROM_UNIXTIME(" . claro_sql_escape($expirationDate)  . "),
             status               = '" . claro_sql_escape($status)           . "',
             userLimit            = '" . (int) $userLimit                    . "',
-            versionDb            = '" . claro_sql_escape($versionDb)        . "',
-            versionClaro         = '" . claro_sql_escape($clarolineVersion) . "',
+            versionDb            = '" . claro_sql_escape($GLOBALS['versionDb'])        . "',
+            versionClaro         = '" . claro_sql_escape($GLOBALS['clarolineVersion']) . "',
             lastEdit             = NOW(),
             lastVisit            = NULL,
             titulaires           = '" . claro_sql_escape($titular)          . "',

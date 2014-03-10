@@ -1561,24 +1561,22 @@ function claro_html_duration( $duration  )
 /**
  * Return the breadcrumb to display in the header
  *
- * @global string  $nameTools
- * @global array   $interbredcrump
- * @global boolean $noPHP_SELF
- * @global boolean $noQUERY_STRING
+ * @global string  $GLOBALS['nameTools']
+ * @global array   $GLOBALS['interbredcrump']
+ * @global boolean $GLOBALS['noPHP_SELF']
+ * @global boolean $GLOBALS['noQUERY_STRING']
  *
  * @return string html content
  */
 
 function claro_html_breadcrumb()
 {
-    // dirty global to keep value (waiting a refactoring)
-    global $nameTools, $interbredcrump, $noPHP_SELF, $noQUERY_STRING;
     /******************************************************************************
-    BREADCRUMB LINE
-    ******************************************************************************/
+     BREADCRUMB LINE
+     ******************************************************************************/
     $htmlBC = '';
 
-    if( claro_is_in_a_course() || isset($nameTools) || ( isset($interbredcrump) && is_array($interbredcrump) ) )
+    if( claro_is_in_a_course() || isset($GLOBALS['nameTools']) || ( isset($GLOBALS['interbredcrump']) && is_array($GLOBALS['interbredcrump']) ) )
     {
         $htmlBC .= '<div id="breadcrumbLine">' . "\n\n"
         .  '<hr />'
@@ -1605,24 +1603,24 @@ function claro_html_breadcrumb()
             $breadcrumbNameList[] = claro_get_current_group_data('name');
         }
 
-        if (isset($interbredcrump) && is_array($interbredcrump) )
+        if (isset($GLOBALS['interbredcrump']) && is_array($GLOBALS['interbredcrump']) )
         {
-            while ( (list(,$bredcrumpStep) = each($interbredcrump)) )
+            while ( (list(,$bredcrumpStep) = each($GLOBALS['interbredcrump'])) )
             {
                 $breadcrumbUrlList[] = $bredcrumpStep['url'];
                 $breadcrumbNameList[] = $bredcrumpStep['name'];
             }
         }
 
-        if (isset($nameTools) )
+        if (isset($GLOBALS['nameTools']) )
         {
-            $breadcrumbNameList[] = $nameTools;
+            $breadcrumbNameList[] = $GLOBALS['nameTools'];
 
-            if (isset($noPHP_SELF) && $noPHP_SELF)
+            if (isset($GLOBALS['noPHP_SELF']) && $GLOBALS['noPHP_SELF'])
             {
                 $breadcrumbUrlList[] = null;
             }
-            elseif ( isset($noQUERY_STRING) && $noQUERY_STRING)
+            elseif ( isset($GLOBALS['noQUERY_STRING']) && $GLOBALS['noQUERY_STRING'])
             {
                 $breadcrumbUrlList[] = $_SERVER['PHP_SELF'];
             }

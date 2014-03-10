@@ -21,7 +21,7 @@ require_once __DIR__ . '/event.lib.php';
 function load_current_module_listeners()
 {
     // needed inside of the connector script
-    global $claroline;
+    $claroline = Claroline::getInstance ();
     
     $currentModuleLabel = get_current_module_label();
 
@@ -963,7 +963,6 @@ class ClaroNotification extends EventDriven
      */
     public function isANotifiedRessource($course_id, $date, $user_id, $group_id, $tool_id, $ressourceId,$setAsViewed=TRUE)
     {
-        // global $fileList, $fileKey; //needed for the document tool
         $keysStrings = $course_id . ':' . $tool_id . ':' . $group_id . ':';
 
         // see if the ressource is new AND not consulted yet
@@ -1007,7 +1006,6 @@ class ClaroNotification extends EventDriven
      */
     public function isANotifiedDocument($course_id, $date, $user_id, $group_id, $tool_id, $thisFile,$setAsViewed=TRUE)
     {
-        // global $fileList, $fileKey; //needed for the document tool
         $keysStrings = $course_id . ':' . $tool_id . ':' . $group_id . ':';
 
         // see if the ressource is new AND not consulted yet

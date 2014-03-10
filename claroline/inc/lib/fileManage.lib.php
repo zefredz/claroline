@@ -694,8 +694,6 @@ function get_link_file_url($file)
 
 function update_db_info($action, $filePath, $newParamList = array())
 {
-    global $dbTable; // table 'document'
-    
     if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
     {
         $modifier = '';
@@ -711,7 +709,7 @@ function update_db_info($action, $filePath, $newParamList = array())
 
     if ($action == 'delete') // case for a delete
     {
-        $theQuery = "DELETE FROM `".$dbTable."`
+        $theQuery = "DELETE FROM `".$GLOBALS['dbTable']."`
                      WHERE path=\"".claro_sql_escape($filePath)."\"
                      OR    path LIKE \"".claro_sql_escape($filePath)."/%\"";
 
@@ -722,7 +720,7 @@ function update_db_info($action, $filePath, $newParamList = array())
         // GET OLD PARAMETERS IF THEY EXIST
 
         $sql = "SELECT path, comment, visibility
-                FROM `".$dbTable."`
+                FROM `".$GLOBALS['dbTable']."`
                 WHERE {$modifier} path=\"".claro_sql_escape($filePath)."\"";
 
         $result = claro_sql_query_fetch_all($sql);
@@ -736,7 +734,7 @@ function update_db_info($action, $filePath, $newParamList = array())
                 if ( $newVisibility != 'i' ) $newVisibility = 'v';
                 $insertedPath = ( $newPath ? $newPath : $filePath);
 
-                $theQuery = "INSERT INTO `".$dbTable."`
+                $theQuery = "INSERT INTO `".$GLOBALS['dbTable']."`
                              SET path       = \"".claro_sql_escape($insertedPath)."\",
                                  comment    = \"".claro_sql_escape($newComment)."\",
                                  visibility = \"".claro_sql_escape($newVisibility)."\"";
@@ -751,12 +749,12 @@ function update_db_info($action, $filePath, $newParamList = array())
             if ( empty($newComment) && $newVisibility == 'v')
             {
                 // NO RELEVANT PARAMETERS ANYMORE => DELETE THE RECORD
-                $theQuery = "DELETE FROM `".$dbTable."`
+                $theQuery = "DELETE FROM `".$GLOBALS['dbTable']."`
                              WHERE {$modifier} path=\"".$filePath."\"";
             }
             else
             {
-                $theQuery = "UPDATE `" . $dbTable . "`
+                $theQuery = "UPDATE `" . $GLOBALS['dbTable'] . "`
                              SET   comment    = '" . claro_sql_escape($newComment) . "',
                                    visibility = '" . claro_sql_escape($newVisibility) . "'
                              WHERE {$modifier} path     = '" . claro_sql_escape($filePath) . "'";
@@ -767,7 +765,7 @@ function update_db_info($action, $filePath, $newParamList = array())
 
         if ( $newPath )
         {
-            $theQuery = "UPDATE `" . $dbTable . "`
+            $theQuery = "UPDATE `" . $GLOBALS['dbTable'] . "`
                         SET path = CONCAT('" . claro_sql_escape($newPath) . "',
                                    SUBSTRING(path, LENGTH('" . claro_sql_escape($filePath) . "')+1) )
                         WHERE {$modifier} path = '" . claro_sql_escape($filePath) . "'
@@ -783,9 +781,6 @@ function update_db_info($action, $filePath, $newParamList = array())
 
 function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 {
-    global $TABLEASSET, $TABLELEARNPATHMODULE,
-           $TABLEUSERMODULEPROGRESS, $TABLEMODULE;
-           
     if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
     {
         $modifier = '';
@@ -806,7 +801,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
             }
 
             // Find and update assets that are concerned by this move
-            $sql = "SELECT `path` FROM `" . $TABLEASSET . "` WHERE {$modifier} `path` = '" . claro_sql_escape($oldPath) . "%'";
+            $sql = "SELECT `path` FROM `" . $GLOBALS['TABLEASSET'] . "` WHERE {$modifier} `path` = '" . claro_sql_escape($oldPath) . "%'";
 
             $result = claro_sql_query($sql);
 
@@ -816,14 +811,14 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
             if ( $num )
             {
 
-                $sql = "UPDATE `" . $TABLEASSET . "`
+                $sql = "UPDATE `" . $GLOBALS['TABLEASSET'] . "`
                         SET `path` = '" . claro_sql_escape($newPath) . "'
                         WHERE {$modifier} `path` = '" . claro_sql_escape($oldPath) . "'";
             }
             // a document in the renamed directory exists
             else
             {
-                $sql = "UPDATE `" . $TABLEASSET . "`
+                $sql = "UPDATE `" . $GLOBALS['TABLEASSET'] . "`
                         SET path = CONCAT('" . claro_sql_escape($newPath) . "',
                                    SUBSTRING(path, LENGTH('" . claro_sql_escape($oldPath) . "')+1) )
                         WHERE {$modifier} path = '" . claro_sql_escape($oldPath) . "'
@@ -841,7 +836,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
             // find all assets concerned by this deletion
 
             $sql ="SELECT *
-                   FROM `" . $TABLEASSET . "`
+                   FROM `" . $GLOBALS['TABLEASSET'] . "`
                    WHERE {$modifier} `path` LIKE '" . claro_sql_escape($oldPath) . "%'
                    ";
 
@@ -853,7 +848,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                   //find all learning path module concerned by the deletion
 
                   $sqllpm ="SELECT *
-                            FROM `" . $TABLELEARNPATHMODULE . "`
+                            FROM `" . $GLOBALS['TABLELEARNPATHMODULE'] . "`
                             WHERE 0=1
                             ";
 
@@ -867,13 +862,13 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                   //delete the learning path module(s)
 
                   $sql1 ="DELETE
-                          FROM `" . $TABLELEARNPATHMODULE . "`
+                          FROM `" . $GLOBALS['TABLELEARNPATHMODULE'] . "`
                           WHERE 0=1
                           ";
 
                   // delete the module(s) concerned
                   $sql2 ="DELETE
-                          FROM `" . $TABLEMODULE . "`
+                          FROM `" . $GLOBALS['TABLEMODULE'] . "`
                           WHERE 0=1
                          ";
 
@@ -891,7 +886,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                   //delete the user module progress concerned
 
                   $sql ="DELETE
-                         FROM `" . $TABLEUSERMODULEPROGRESS . "`
+                         FROM `" . $GLOBALS['TABLEUSERMODULEPROGRESS'] . "`
                          WHERE 0=1
                          ";
                   while ($list=mysqli_fetch_array($result2))
@@ -904,7 +899,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                   // delete the assets
 
                   $sql ="DELETE
-                         FROM `" . $TABLEASSET . "`
+                         FROM `" . $GLOBALS['TABLEASSET'] . "`
                          WHERE
                          {$modifier} `path` LIKE '" . claro_sql_escape($oldPath) . "%'
                          ";

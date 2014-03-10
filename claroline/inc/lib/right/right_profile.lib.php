@@ -194,20 +194,17 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
 
 function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = null, $courseId = null)
 {
-    global $_mainToolId;
-    global $_profileId;
-
     // load tool id
     if ( is_null($tid) )
     {
-        if ( !empty($_mainToolId) ) $tid = $_mainToolId ;
+        if ( !empty($GLOBALS['_mainToolId']) ) $tid = $GLOBALS['_mainToolId'] ;
         else                        return false ;
     }
 
     // load profile id
     if ( is_null($profileId) )
     {
-        if ( !empty($_profileId) ) $profileId = $_profileId ;
+        if ( !empty($GLOBALS['_profileId']) ) $profileId = $GLOBALS['_profileId'] ;
         else                        return false ;
     }
 
@@ -314,15 +311,13 @@ function claro_is_allowed_tool_edit ($tid = null, $profileId = null, $courseId =
 
 function claro_is_tool_activated ($tid, $courseId)
 {
-    global $_mainToolId;
-
     static $activation = false;
     static $toolCourseActivation = false;
 
     // load tool id
     if ( is_null($tid) )
     {
-        if ( !empty($_mainToolId) ) $tid = $_mainToolId ;
+        if ( !empty($GLOBALS['_mainToolId']) ) $tid = $GLOBALS['_mainToolId'] ;
         else                        return false ;
     }
 
@@ -401,14 +396,12 @@ function claro_is_tool_activated ($tid, $courseId)
 
 function claro_is_tool_visible ($tid, $courseId)
 {
-    global $_mainToolId;
-
     static $toolVisibilityCache = false;
 
     // load tool id
     if ( is_null($tid) )
     {
-        if ( !empty($_mainToolId) ) $tid = $_mainToolId ;
+        if ( !empty($GLOBALS['_mainToolId']) ) $tid = $GLOBALS['_mainToolId'] ;
         else                        return false ;
     }
 

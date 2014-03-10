@@ -83,10 +83,8 @@ function cutstring( $str, $length, $allow_cut_word = true,
 */
 function is_image($fileName)
 {
-    global $allowedImageTypes;
-
     // if file extension is an allowed image extension
-    if (preg_match("/\.(" . $allowedImageTypes . ")$/i", $fileName))
+    if (preg_match("/\.(" . $GLOBALS['allowedImageTypes'] . ")$/i", $fileName))
     {
         return true;
     }
@@ -164,10 +162,8 @@ function get_image_thumbnail_url( $file, $context = null )
 */
 function create_thumbnail($file, $thumbWidth, $title = '')
 {
-    global $courseDir;
-
     $imgPath = get_path('coursesRepositorySys')
-        . $courseDir
+        . $GLOBALS['courseDir']
         . $file
         ;
 
@@ -308,9 +304,6 @@ function get_previous_image_index($imageList, $index)
 */
 function display_link_to_previous_image($imageList, $fileList, $current)
 {
-    global $curDirPath;
-    global $searchCmdUrl;
-
     // get previous image
     $prevStyle = 'prev';
 
@@ -330,8 +323,8 @@ function display_link_to_previous_image($imageList, $fileList, $current)
             ;
 
         $html .= "<a href=\"" . claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . "?docView=image&file="
-            . download_url_encode($prevName) . "&cwd=" . $curDirPath
-            . $searchCmdUrl ) ) . "\">" . "&lt;&lt;&nbsp;" . basename($prevName) . "</a>\n"
+            . download_url_encode($prevName) . "&cwd=" . $GLOBALS['curDirPath']
+            . $GLOBALS['searchCmdUrl'] ) ) . "\">" . "&lt;&lt;&nbsp;" . basename($prevName) . "</a>\n"
             ;
 
         $html .= "<br /><br />\n";
@@ -339,7 +332,7 @@ function display_link_to_previous_image($imageList, $fileList, $current)
         // display thumbnail
         $html .= "<a href=\"" . claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
             . "?docView=image&file=" . download_url_encode($prevName)
-            . "&cwd=" . $curDirPath . $searchCmdUrl )) . "\">"
+            . "&cwd=" . $GLOBALS['curDirPath'] . $GLOBALS['searchCmdUrl'] )) . "\">"
             . create_thumbnail($prevName, get_conf('thumbnailWidth'))
             ."</a>\n"
             ;
@@ -370,9 +363,6 @@ function display_link_to_previous_image($imageList, $fileList, $current)
 */
 function display_link_to_next_image($imageList, $fileList, $current)
 {
-    global $curDirPath;
-    global $searchCmdUrl;
-
     // get next image
     $nextStyle = 'next';
 
@@ -391,7 +381,7 @@ function display_link_to_next_image($imageList, $fileList, $current)
 
         $html .= "<a href=\"" . claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
             . "?docView=image&file=" . download_url_encode($nextName)
-            . "&cwd=" . $curDirPath . $searchCmdUrl )) ."\">". basename($nextName)
+            . "&cwd=" . $GLOBALS['curDirPath'] . $GLOBALS['searchCmdUrl'] )) ."\">". basename($nextName)
             . "&nbsp;&gt;&gt;</a>\n"
             ;
 
@@ -400,7 +390,7 @@ function display_link_to_next_image($imageList, $fileList, $current)
         // display thumbnail
         $html .= "<a href=\"" . claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
             . "?docView=image&file=" . download_url_encode($nextName)
-            . "&cwd=" . $curDirPath . $searchCmdUrl )). "\">"
+            . "&cwd=" . $GLOBALS['curDirPath'] . $GLOBALS['searchCmdUrl'] )). "\">"
             . create_thumbnail($nextName, get_conf('thumbnailWidth') )
             . "</a>\n"
             ;
@@ -517,8 +507,6 @@ function get_page_number($offset)
 function display_thumbnails($imageList, $fileList, $page
     , $thumbnailWidth, $colWidth, $numberOfCols, $numberOfRows)
 {
-    global $curDirPath;
-    global $searchCmdUrl;
 
     // get index of first thumbnail on the page
     $displayed = get_offset($page);
@@ -563,7 +551,7 @@ function display_thumbnails($imageList, $fileList, $page
                 . claro_htmlspecialchars(
                     Url::Contextualize( $_SERVER['PHP_SELF'] . "?docView=image&file="
                     . download_url_encode($fileName)
-                    . "&cwd=". $curDirPath . $searchCmdUrl ))
+                    . "&cwd=". $GLOBALS['curDirPath'] . $GLOBALS['searchCmdUrl'] ))
                 ."\">"
                 ;
 

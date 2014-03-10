@@ -264,8 +264,7 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
 
     if (empty($user_ip))
     {
-        global $REMOTE_ADDR;
-        $user_ip = $REMOTE_ADDR;
+        $user_ip = $_SERVER['REMOTE_ADDR'];
     }
 
     $content = trim($content);
@@ -308,7 +307,7 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
  *
  * @param  integer $def_id,
  * @param  integer $user_id,
- * @param  string  $user_ip, DEFAULT $REMOTE_ADDR
+ * @param  string  $user_ip, DEFAULT $_SERVER['REMOTE_ADDR']
  * @param  string  $content ; if empty call delete the bloc
  * @return boolean true if succeed, else bolean false
  */
@@ -320,8 +319,7 @@ function claro_user_info_edit_cat_content($def_id, $user_id, $content ="", $user
 
     if (empty($user_ip))
     {
-        global $REMOTE_ADDR;
-        $user_ip = $REMOTE_ADDR;
+        $user_ip = $_SERVER['REMOTE_ADDR'];
     }
 
     if (0 == (int) $user_id || 0 == (int) $def_id)
