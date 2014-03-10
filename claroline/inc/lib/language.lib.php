@@ -34,13 +34,13 @@
 
 function get_lang ($name,$var_to_replace=null)
 {
-    global $_lang;
-
+    if ( ! isset($GLOBALS['_lang']) ) $GLOBALS['_lang'] = array();
+    
     $translation = '';
 
-    if ( isset($_lang[$name]) )
+    if ( isset($GLOBALS['_lang'][$name]) )
     {
-        $translation = $_lang[$name];
+        $translation = $GLOBALS['_lang'][$name];
     }
     else
     {
@@ -169,7 +169,9 @@ class language
 
     public static function load_translation ( $language = null )
     {
-        global $_lang;
+        // global $_lang;
+        
+        if ( ! isset($GLOBALS['_lang']) ) $GLOBALS['_lang'] = array();
 
         /*----------------------------------------------------------------------
           Initialise language array
@@ -223,6 +225,8 @@ class language
                 include($language_file);
             }
         }
+        
+        $GLOBALS['_lang'] = array_merge($GLOBALS['_lang'], $_lang);
     }
 
     public static function load_locale_settings( $language = null )
@@ -265,7 +269,9 @@ class language
     
     public static function load_module_translation( $moduleLabel = null, $language = null )
     {
-        global $_lang;
+        if ( ! isset($GLOBALS['_lang']) ) $GLOBALS['_lang'] = array();
+        
+        $_lang = array();
         
         $moduleLabel = is_null( $moduleLabel ) ? get_current_module_label() : $moduleLabel;
         
@@ -341,6 +347,8 @@ class language
         {
             // Not in a module
         }
+        
+        $GLOBALS['_lang'] = array_merge($GLOBALS['_lang'], $_lang);
     }
 
     public static function current_language()

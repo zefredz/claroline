@@ -8,7 +8,7 @@
 </tr>
 <tr>
   <td>
-    <?php echo $this->block; ?> 
+    <?php echo get_block($this->block); ?> 
   </td>
 </tr>
 </table>
