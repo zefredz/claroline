@@ -268,6 +268,7 @@ if($is_allowedToEdit) // check teacher status
             // Modification of an announcement
             if ( 'exEdit' == $cmd )
             {
+                
                 // One of the two visible date fields is null OR the "from" field is <= the "until" field
                 if ((is_null($visible_from) || is_null($visible_until)) || ($visible_from <= $visible_until))
                 {
@@ -297,7 +298,18 @@ if($is_allowedToEdit) // check teacher status
                         }
                         else
                         {
-                            $dialogBox->error( get_lang('Impossible to modify the announcement') );
+                            if (  ($visible_from > $visible_until) )
+                            {
+                                $dialogBox->error( get_lang('Impossible to add the announcement') 
+                                    . '<br />'
+                                    . get_lang('The date from which the announcement will be visible is in the future relative to the date after which the announcement will stop being visible')
+                                    . '<br />' 
+                                    . get_lang('Please check de visibility dates in the advanced options when creating or editing the announcement to fix this error') );
+                            }
+                            else
+                            {
+                                $dialogBox->error( get_lang('Impossible to add the announcement') );
+                            }
                         }
                         
                         $emailOption = 0;
@@ -345,7 +357,18 @@ if($is_allowedToEdit) // check teacher status
                         }
                         else
                         {
-                            $dialogBox->error( get_lang('Impossible to add the announcement') );
+                            if (  ($visible_from > $visible_until) )
+                            {
+                                $dialogBox->error( get_lang('Impossible to add the announcement') 
+                                    . '<br />'
+                                    . get_lang('The date from which the announcement will be visible is in the future relative to the date after which the announcement will stop being visible')
+                                    . '<br />' 
+                                    . get_lang('Please check de visibility dates in the advanced options when creating or editing the announcement to fix this error') );
+                            }
+                            else
+                            {
+                                $dialogBox->error( get_lang('Impossible to add the announcement') );
+                            }
                         }
                         
                         $emailOption = 0;
