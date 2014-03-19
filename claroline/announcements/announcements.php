@@ -298,6 +298,11 @@ if($is_allowedToEdit) // check teacher status
                         else
                         {
                             $dialogBox->error( get_lang('Impossible to modify the announcement') );
+                            
+                            if ( strlen($title) > 80 )
+                            {
+                                $dialogBox->error( get_lang('The title is too long (max. 80 characters)') );
+                            }
                         }
                         
                         $emailOption = 0;

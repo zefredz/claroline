@@ -17,7 +17,7 @@
             <dd>
                 <input type="text" id="title" name="title"
                 value = "<?php if (isset($this->announcement['title'])) : ?><?php echo claro_htmlspecialchars($this->announcement['title']); ?><?php endif; ?>"
-                size="80" />
+                size="80" maxlength="80" />
             </dd>
             
             <dt><label for="newContent"><?php echo get_lang('Content'); ?></label></dt>
