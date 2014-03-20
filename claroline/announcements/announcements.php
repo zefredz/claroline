@@ -107,6 +107,8 @@ if  ( isset($_REQUEST['viewMode']) )
 $id     = isset($_REQUEST['id'])  ? (int) $_REQUEST['id']   : 0;
 $cmd    = isset($_REQUEST['cmd']) ? $cmd = $_REQUEST['cmd'] : '';
 
+$collapseAdvancedByDefault = true;
+
 if($is_allowedToEdit) // check teacher status
 {
     if( isset($_REQUEST['cmd'])
@@ -268,6 +270,7 @@ if($is_allowedToEdit) // check teacher status
             // Modification of an announcement
             if ( 'exEdit' == $cmd )
             {
+                $errorOccurs = false;
                 
                 // One of the two visible date fields is null OR the "from" field is <= the "until" field
                 if ((is_null($visible_from) || is_null($visible_until)) || ($visible_from <= $visible_until))
@@ -304,21 +307,46 @@ if($is_allowedToEdit) // check teacher status
                             {
                                 $dialogBox->error( get_lang('The title is too long (max. 80 characters)') );
                             }
+                            
                         }
                         
                         $emailOption = 0;
+                        
+                        $errorOccurs = true;
                     }
                 }
                 else
                 {
                     $dialogBox->error( get_lang('The "visible from" date can\'t exceed the "visible until" date') );
                     $emailOption = 0;
+                    
+                    $errorOccurs = true;
+                    $collapseAdvancedByDefault = false;
+                }
+                
+                if ( $errorOccurs )
+                {
+                    $announcement = array(
+                        'id' => (int) $_REQUEST['id'],
+                        'title' => $title,
+                        'content' => $content,
+                        'visibleFrom' => $visible_from,
+                        'visibleUntil' => $visible_until,
+                        'visibility' => $visibility,
+                        'rank' => null
+                    );
+                    
+                    $displayForm = true;
+                    $formCmd = 'exEdit';
+                    
                 }
             }
             
             // Create a new announcement
             elseif ( 'exCreate' == $cmd )
             {
+                $errorOccurs = false;
+                
                 // One of the two visible date fields is null OR the "from" field is <= the "until" field
                 if ((is_null($visible_from) || is_null($visible_until)) || ($visible_from <= $visible_until))
                 {
@@ -355,12 +383,31 @@ if($is_allowedToEdit) // check teacher status
                         }
                         
                         $emailOption = 0;
+                        $errorOccurs = true;
                     }
                 }
                 else
                 {
                     $dialogBox->error( get_lang('The "visible from" date can\'t exceed the "visible until" date') );
                     $emailOption = 0;
+                    $errorOccurs = true;
+                    $collapseAdvancedByDefault = false;
+                }
+                
+                if ( $errorOccurs )
+                {
+                    $announcement = array(
+                        'id' => null,
+                        'title' => $title,
+                        'content' => $content,
+                        'visibleFrom' => $visible_from,
+                        'visibleUntil' => $visible_until,
+                        'visibility' => $visibility,
+                        'rank' => null
+                    );
+                    
+                    $displayForm = true;
+                    $formCmd = 'exCreate';
                 }
             } // end elseif cmd == exCreate
             
@@ -522,6 +569,7 @@ if ( $displayForm )
     $template->assign('relayContext', claro_form_relay_context());
     $template->assign('cmd', $formCmd);
     $template->assign('announcement', $announcement);
+    $template->assign('collapseAdvancedByDefault', $collapseAdvancedByDefault);
     
     Claroline::getDisplay()->body->appendContent($template->render());
 }

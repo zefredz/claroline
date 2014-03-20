@@ -33,7 +33,7 @@
         </dl>
     </fieldset>
     
-    <fieldset id="advancedInformation" class="collapsible collapsed">
+    <fieldset id="advancedInformation" class="collapsible<?php echo ($this->collapseAdvancedByDefault ? ' collapsed' : ''); ?>">
         <legend><a href="#" class="doCollapse"><?php echo get_lang('Visibility options'); ?></a></legend>
         
         <div class="collapsible-wrapper">
