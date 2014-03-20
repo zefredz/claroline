@@ -332,7 +332,7 @@ if($is_allowedToEdit) // check teacher status
                         'content' => $content,
                         'visibleFrom' => $visible_from,
                         'visibleUntil' => $visible_until,
-                        'visibility' => $visibility,
+                        'visibility' => $visibility ? "SHOW" : "HIDE",
                         'rank' => null
                     );
                     
@@ -402,7 +402,7 @@ if($is_allowedToEdit) // check teacher status
                         'content' => $content,
                         'visibleFrom' => $visible_from,
                         'visibleUntil' => $visible_until,
-                        'visibility' => $visibility,
+                        'visibility' => $visibility ? "SHOW" : "HIDE",
                         'rank' => null
                     );
                     
