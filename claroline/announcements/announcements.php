@@ -339,6 +339,7 @@ if($is_allowedToEdit) // check teacher status
                     $displayForm = true;
                     $formCmd = 'exEdit';
                     
+                    $dialogBox->warning( get_lang('All modifications made to linked resources have been lost and need to be redone before saving') );
                 }
             }
             
@@ -408,6 +409,8 @@ if($is_allowedToEdit) // check teacher status
                     
                     $displayForm = true;
                     $formCmd = 'exCreate';
+                    
+                    $dialogBox->warning( get_lang('All modifications made to linked resources have been lost and need to be redone before saving') );
                 }
             } // end elseif cmd == exCreate
             
