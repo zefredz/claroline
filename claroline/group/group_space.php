@@ -82,19 +82,20 @@ $userGroupQuotaExceeded = (bool) (  $_groupProperties ['nbGroupPerUser'] <= $use
 && ! is_null($_groupProperties['nbGroupPerUser']) && ($_groupProperties ['nbGroupPerUser'] != 'ALL' )); // no limit assign to group per user;
 
 $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
-&& ( ! $groupMemberQuotaExceeded )
-&& ( ! $userGroupQuotaExceeded )
-&& ( ! claro_is_course_tutor() ||
-     ( claro_is_course_tutor()
-       &&
-       get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
-       )));
+    && ( ! $groupMemberQuotaExceeded )
+    && ( ! $userGroupQuotaExceeded )
+    && ( ! claro_is_course_tutor() ||
+         ( claro_is_course_tutor()
+           &&
+           get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
+           )));
 
 $is_allowedToSelfRegInGroup  = (bool) $is_allowedToSelfRegInGroup && claro_is_in_a_course() && ( ! claro_is_group_member() ) && claro_is_course_member();
+
 $is_allowedToSelfUnregInGroup  = (bool) $_groupProperties ['unregistrationAllowed'] && claro_is_in_a_course() && claro_is_group_member() && claro_is_course_member();
 
-$is_allowedToDocAccess = (bool) ( claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor());
-$is_allowedToChatAccess     = (bool) (     claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor() );
+/*$is_allowedToDocAccess = (bool) ( $is_allowedToManage || claro_is_group_member() ||  claro_is_group_tutor());
+$is_allowedToChatAccess     = (bool) ( $is_allowedToManage || claro_is_group_member() ||  claro_is_group_tutor() );*/
 
 $isTutorRegAllowed = ( $is_allowedToManage || $_groupProperties ['tutorRegistrationAllowed'] ) 
     && !claro_is_group_member() 
@@ -383,7 +384,7 @@ foreach($toolList as $thisTool)
     $style = '';
 
     // patchy
-    if ( claro_is_platform_admin() || claro_is_course_manager() )
+    if ( claro_is_platform_admin() || claro_is_allowed_to_edit() )
     {
         if ( !$_groupProperties['tools'][$thisTool['label']])
         {

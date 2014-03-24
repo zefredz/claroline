@@ -648,7 +648,8 @@ if ( claro_is_in_a_group() )
         && $_REQUEST['registration'] == '1' 
     ) )
     {
-        if (! claro_is_group_allowed() )
+        if ( ! claro_is_allowed_to_edit() 
+            && ! claro_is_group_allowed() )
         { 
             if ( !claro_is_user_authenticated() ) 
             {
