@@ -1611,8 +1611,7 @@ function claro_die($message)
 
         if ( claro_debug_mode () )
         {
-
-            pushClaroMessage(  var_export(  debug_backtrace (), true ), 'debug' );
+            pushClaroMessage(  var_export(  debug_backtrace (), true ), 'error' );
         }
 
         echo Claroline::getInstance()->display->render();
