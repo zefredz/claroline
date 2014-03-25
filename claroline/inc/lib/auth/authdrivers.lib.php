@@ -120,6 +120,9 @@ abstract class AbstractAuthDriver implements AuthDriver
     
     // abstract public function getUserData();
     
+    /**
+     * @see AuthDriver
+     */
     public function setDriverOptions( $driverConfig )
     {
         $this->driverConfig = $driverConfig;
@@ -184,22 +187,34 @@ abstract class AbstractAuthDriver implements AuthDriver
         $this->extraMessage = $message;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function getFailureMessage()
     {
         return $this->extraMessage;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function getAuthSource()
     {
         return $this->authSourceName;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function setAuthenticationParams( $username, $password )
     {
         $this->username = $username;
         $this->password = $password;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function getFilteredUserData()
     {
         $data  = $this->getUserData();
@@ -237,16 +252,25 @@ abstract class AbstractAuthDriver implements AuthDriver
         return $data;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function userRegistrationAllowed()
     {
         return $this->userRegistrationAllowed;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function userUpdateAllowed()
     {
         return $this->userUpdateAllowed;
     }
-
+    
+    /**
+     * @see AuthDriver
+     */
     public function getAuthProfileOptions()
     {
         return $this->authProfileOptions;
@@ -261,6 +285,9 @@ class LocalDatabaseAuthDriver extends AbstractAuthDriver
 {
     protected $userId;
     
+    /**
+     * @see AuthDriver
+     */
     public function setAuthenticationParams( $username, $password )
     {
         $this->username = $username;
@@ -275,6 +302,9 @@ class LocalDatabaseAuthDriver extends AbstractAuthDriver
         }
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function authenticate()
     {
         if ( empty( $this->username ) || empty( $this->password ) )
@@ -316,21 +346,33 @@ class LocalDatabaseAuthDriver extends AbstractAuthDriver
         }
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function userRegistrationAllowed()
     {
         return false;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function userUpdateAllowed()
     {
         return false;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function getUserData()
     {
         return null;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function getFilteredUserData()
     {
         return array();
@@ -342,11 +384,17 @@ class LocalDatabaseAuthDriver extends AbstractAuthDriver
  */
 class ClarolineLocalAuthDriver extends LocalDatabaseAuthDriver
 {
+    /**
+     * @see AuthDriver
+     */
     public function getAuthSource()
     {
         return 'claroline';
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function setDriverOptions($driverConfig)
     {
         // skip
@@ -362,16 +410,25 @@ class TemporaryAccountAuthDriver extends LocalDatabaseAuthDriver
 {
     protected $failureMsg = null;
     
+    /**
+     * @see AuthDriver
+     */
     public function getAuthSource()
     {
         return 'temp';
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function getFilteredUserData()
     {
         return array();
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function authenticate()
     {
         if ( parent::authenticate() )
@@ -417,6 +474,9 @@ class TemporaryAccountAuthDriver extends LocalDatabaseAuthDriver
         }
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function setDriverOptions($driverConfig)
     {
         // skip
@@ -428,6 +488,9 @@ class TemporaryAccountAuthDriver extends LocalDatabaseAuthDriver
  */
 class UserDisabledAuthDriver extends LocalDatabaseAuthDriver
 {
+    /**
+     * @see AuthDriver
+     */
     public function getFailureMessage()
     {
         // we use get_lang here to force the language file builder to add this
@@ -436,16 +499,25 @@ class UserDisabledAuthDriver extends LocalDatabaseAuthDriver
         return get_lang('This account has been disabled, please contact the platform administrator');
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function getAuthSource()
     {
         return 'disabled';
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function authenticate()
     {
         return false;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function setDriverOptions($driverConfig)
     {
         // skip
