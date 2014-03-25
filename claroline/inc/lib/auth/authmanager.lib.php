@@ -24,10 +24,17 @@ require_once __DIR__ . '/ldapauthdriver.lib.php';
 
 require_once __DIR__ . '/authprofile.lib.php';
 
+/**
+ * Authentication manager. This is the class that executes the authentication 
+ * process in Claroline
+ */
 class AuthManager
 {
     protected static $extraMessage = null;
     
+    /**
+     * @return string failure message
+     */
     public static function getFailureMessage()
     {
         return self::$extraMessage;
@@ -38,6 +45,12 @@ class AuthManager
         self::$extraMessage = $message;
     }
     
+    /**
+     * Authenticate the user
+     * @param string $username
+     * @param string $password
+     * @return false or Claro_CurrentUser instance
+     */
     public static function authenticate( $username, $password )
     {
         if ( !empty($username) && $authSource = AuthUserTable::getAuthSource( $username ) )
@@ -128,8 +141,16 @@ class AuthManager
     }
 }
 
+/**
+ * Access the user authentication table
+ */
 class AuthUserTable
 {
+    /**
+     * Check if a user exists given its username
+     * @param string $username
+     * @return bool
+     */
     public static function userExists( $username )
     {
         $tbl = claro_sql_get_main_tbl();
@@ -153,6 +174,12 @@ class AuthUserTable
         }
     }
     
+    /**
+     * Check if a user identified by its username is registrered with the given authentication source
+     * @param string $username
+     * @param string $authSourceName name of the authentication source
+     * @return bool
+     */
     public static function registered( $username, $authSourceName )
     {
         $tbl = claro_sql_get_main_tbl();
@@ -181,6 +208,11 @@ class AuthUserTable
         }
     }
     
+    /**
+     * Retrieve the authentication source for a given user identified by its username
+     * @param string $username
+     * @return string authentication source name
+     */
     public static function getAuthSource( $username )
     {
         $tbl = claro_sql_get_main_tbl();
@@ -196,16 +228,33 @@ class AuthUserTable
         return  Claroline::getDatabase()->query( $sql )->fetch(Database_ResultSet::FETCH_VALUE);
     }
     
+    /**
+     * Create a user given its attributes
+     * @param array $userAttrList array of user attributes
+     * @return int $uid or false
+     */
     public static function createUser( $userAttrList )
     {
         return self::registerUser( $userAttrList, null );
     }
     
+    /**
+     * Update a user given its attributes and user id
+     * @param int $uid user id
+     * @param array $userAttrList array of user attributes
+     * @return int $uid or false
+     */
     public static function updateUser( $uid, $userAttrList )
     {
         return self::registerUser( $userAttrList, $uid );
     }
     
+    /**
+     * Create or update a user
+     * @param array $userAttrList
+     * @param int $uid
+     * @return boolean false on error or int $uid
+     */
     protected static function registerUser( $userAttrList, $uid = null )
     {
         $preparedList = array();
@@ -265,11 +314,19 @@ class AuthUserTable
     }
 }
 
+/**
+ * Authentication drivers manager. One driver is associated with one 
+ * authentication source name
+ */
 class AuthDriverManager
 {
     protected static $drivers = false;
     protected static $driversAllowingLostPassword = false;
     
+    /**
+     * Register the available drivers
+     * @return array of drivers
+     */
     public static function getRegisteredDrivers()
     {
         if ( ! self::$drivers )
@@ -280,6 +337,12 @@ class AuthDriverManager
         return  self::$drivers;
     }
     
+    /**
+     * Get the driver corresponding to an authentication source
+     * @param type $authSource
+     * @return type
+     * @throws Exception
+     */
     public static function getDriver( $authSource )
     {
         if ( ! self::$drivers )
@@ -297,6 +360,13 @@ class AuthDriverManager
         }
     }
     
+    /**
+     * Load a driver given its driver configuration file path
+     * @param string $driverConfigPath path to the configuration file of the driver
+     * @return void
+     * @throws Exception in case of error (in debug mode only) in normal mode the error 
+     * is logged in the log table in the database
+     */
     protected static function loadDriver ( $driverConfigPath )
     {
         if ( !file_exists( $driverConfigPath ) )
@@ -379,6 +449,11 @@ class AuthDriverManager
         }
     }
     
+    /**
+     * Get the list of authentication source names for which the driver supports 
+     * the lost password script
+     * @return array of authentication source names
+     */
     public static function getDriversAllowingLostPassword()
     {
         if ( ! self::$drivers )
@@ -389,6 +464,11 @@ class AuthDriverManager
         return self::$driversAllowingLostPassword;
     }
     
+    /**
+     * Check if the driver of a given authentication source supports the lost password script
+     * @param string $authSourceName authentication source name
+     * @return boolean
+     */
     public static function checkIfDriverSupportsLostPassword( $authSourceName )
     {
         if ( ! self::$drivers )
@@ -406,6 +486,9 @@ class AuthDriverManager
         }
     }
     
+    /**
+     * Initialize the authentication driver list
+     */
     protected static function initDriverList()
     {
         // load static drivers

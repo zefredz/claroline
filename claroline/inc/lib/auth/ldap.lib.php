@@ -31,6 +31,11 @@ class Claro_Ldap_DataObject
         );
     }
     
+    /**
+     * Get the mapping for a given attribute name
+     * @param string $name
+     * @return string
+     */
     protected function getMappedName( $name )
     {
         if ( isset( $this->mapping[$name] ) )
@@ -43,6 +48,11 @@ class Claro_Ldap_DataObject
         }
     }
     
+    /**
+     * Black magick!
+     * @param string $name
+     * @return mixed or null
+     */
     public function __get( $name )
     {
         $name = $this->getMappedName( $name );
@@ -180,6 +190,12 @@ class Claro_Ldap
     protected $server, $port;
     protected $rootDomain;
     
+    /**
+     * Constructor for a LDAP connection
+     * @param string $server host address
+     * @param string $port
+     * @param string $rootDomain LDAP root domain
+     */
     public function __construct( $server, $port, $rootDomain = '' )
     {
         $this->server = $server;
@@ -187,12 +203,20 @@ class Claro_Ldap
         $this->rootDomain = $rootDomain;
     }
     
+    /**
+     * Destructor to free the used ressources
+     */
     public function __destruct()
     {
         $this->close();
         unset( $this->ds, $this->server, $this->port, $this->rootDomain );
     }
     
+    /**
+     * Connect to the LDAP server
+     * @return \Claro_Ldap $this
+     * @throws Exception in case of connection error
+     */
     public function connect()
     {
         $this->ds = ldap_connect( $this->server, $this->port );
@@ -209,6 +233,13 @@ class Claro_Ldap
         return $this;
     }
     
+    /**
+     * LDAP bind wrapper
+     * @param string $dn bind domain name
+     * @param string $pw bind password
+     * @return \Claro_Ldap $this
+     * @throws Exception on error
+     */
     public function bind( $dn, $pw )
     {
         if ( false === @ldap_bind( $this->ds, $dn, $pw ) )
@@ -219,6 +250,11 @@ class Claro_Ldap
         return $this;
     }
     
+    /**
+     * Anonymous LDAP bind wrapper
+     * @return \Claro_Ldap $this
+     * @throws Exception
+     */
     public function bindAnonymous()
     {
         if ( false === @ldap_bind( $this->ds ) )
@@ -229,6 +265,10 @@ class Claro_Ldap
         return $this;
     }
     
+    /**
+     * Claose the connection to the server
+     * @return \Claro_Ldap $this
+     */
     public function close()
     {
         if ( $this->ds )
@@ -305,6 +345,10 @@ class Claro_Ldap
         }
     }
     
+    /**
+     * Alias for bind
+     * @see bind
+     */
     public function authenticate( $dn, $pw )
     {
         try
@@ -324,6 +368,11 @@ class Claro_Ldap
  */
 class Claro_Ldap_Utils
 {
+    /**
+     * Decode LDAP data
+     * @param array $data data from the LDAP
+     * @return decoded data array
+     */
     public static function decode( $data )
     {
         if ( is_array( $data ) )
@@ -338,6 +387,11 @@ class Claro_Ldap_Utils
         }
     }
     
+    /**
+     * Convert from utf-8
+     * @param string $str
+     * @return string
+     */
     private static function _decode( &$str )
     {
         // $str = iconv( 'UTF-8', 'ISO-8859-1', $str );
@@ -345,6 +399,11 @@ class Claro_Ldap_Utils
         return $str;
     }
     
+    /**
+     * Encode data to send to the LDAP
+     * @param array $data original data
+     * @return array encoded data
+     */
     public static function encode( $data  )
     {
         if ( is_array( $data ) )
@@ -359,6 +418,11 @@ class Claro_Ldap_Utils
         }
     }
     
+    /**
+     * Convert to utf-8
+     * @param string $str
+     * @return string
+     */
     private static function _encode( &$str )
     {
         // $str = iconv( 'ISO-8859-1', 'UTF-8', $str );
@@ -366,6 +430,11 @@ class Claro_Ldap_Utils
         return $str;
     }
     
+    /**
+     * Remove LDAP counts from data
+     * @param array $data
+     * @return array
+     */
     public static function removeCount( $data )
     {
         if ( isset( $data['count'] ) )

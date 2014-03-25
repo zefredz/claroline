@@ -13,6 +13,9 @@
 require_once __DIR__ . '/ldap.lib.php';
 require_once __DIR__ . '/authdrivers.lib.php';
 
+/**
+ * LDAP based authentication driver
+ */
 class ClaroLdapAuthDriver extends AbstractAuthDriver
 {
     protected $driverConfig;
@@ -34,6 +37,9 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
         
     protected $user;
     
+    /**
+     * @see AuthDriver
+     */
     public function setDriverOptions( $driverConfig )
     {
         $this->driverConfig = $driverConfig;
@@ -88,6 +94,9 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
             ;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function authenticate()
     {
         $auth = new Claro_Ldap(
@@ -162,21 +171,33 @@ class ClaroLdapAuthDriver extends AbstractAuthDriver
         }
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function userRegistrationAllowed()
     {
         return $this->userRegistrationAllowed;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function userUpdateAllowed()
     {
         return $this->userUpdateAllowed;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function getAuthSource()
     {
         return $this->authSourceName;
     }
     
+    /**
+     * @see AuthDriver
+     */
     public function getUserData()
     {
         //$userData = $this->user->getData();
