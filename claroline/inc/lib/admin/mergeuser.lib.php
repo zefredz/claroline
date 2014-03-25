@@ -21,11 +21,28 @@ class MergeUser
 {
     protected  $hasError = false;
     
+    /**
+     * Check if an error occured when executing one of the methods of the Merge USer class
+     * @return bool
+     */
     public function hasError()
     {
         return $this->hasError;
     }
     
+    /**
+     * Merge two user accounts. The merged data are : platform informations and 
+     * profiles (but not the administrator status), messaging, courses and 
+     * groups, and data from the modules that support user merge operation by 
+     * implementing the Module_MergeUser API
+     * @param int $uidToRemove id of the user account to remove
+     * @param int $uidToKeep id of the user account to keep
+     * @return bool false if an error occured, true otherwise
+     * @pre two accounts $uidToRemove and $uidToKeep
+     * @post the data of the account $uidToRemove have been merged with the 
+     * data of the account $uidToKeep and the account $uidToRemove has been 
+     * deleted
+     */
     public function merge( $uidToRemove, $uidToKeep )
     {
         $mainTbl = claro_sql_get_main_tbl();
@@ -195,6 +212,11 @@ class MergeUser
         return !self::hasError();
     }
     
+    /**
+     * Merge platform messages
+     * @param int $uidToRemove id of the user to remove
+     * @param int $uidToKeep id of the user to keep
+     */
     protected function mergeMainMessaging( $uidToRemove, $uidToKeep )
     {
         $tableName = get_module_main_tbl(array('im_message','im_message_status','im_recipient'));
@@ -284,6 +306,12 @@ class MergeUser
         }
     }
     
+    /**
+     * Merge course messages
+     * @param int $uidToRemove  id of the user to remove
+     * @param int $uidToKeep  id of the user to keep
+     * @param string $thisCourseCode course sys code
+     */
     protected function mergeCourseMessaging( $uidToRemove, $uidToKeep, $thisCourseCode )
     {
         // update messaging
@@ -375,6 +403,12 @@ class MergeUser
         }
     }
     
+    /**
+     * Merge course and group data and tracking in the given course
+     * @param int $uidToRemove id of the user to remove
+     * @param int $uidToKeep id of the user to keep
+     * @param string $courseId course sys code
+     */
     protected function mergeCourseUsers( $uidToRemove, $uidToKeep, $courseId )
     {
         $courseTbl = claro_sql_get_course_tbl( claro_get_course_db_name_glued( $courseId ) );
@@ -482,6 +516,11 @@ class MergeUser
         }
     }
     
+    /**
+     * Merge platform tracking
+     * @param int $uidToRemove  id of the user to remove
+     * @param int $uidToKeep  id of the user to keep
+     */
     protected function mergeMainTrackingUsers( $uidToRemove, $uidToKeep )
     {
         $mainTbl = claro_sql_get_main_tbl();
@@ -498,6 +537,12 @@ class MergeUser
 
     }
     
+    /**
+     * Merge course data for the modules that support the Module_MergeUser API
+     * @param int $uidToRemove  id of the user to remove
+     * @param int $uidToKeep id of the user to keep
+     * @param string $courseId course sys code
+     */
     protected function mergeCourseModuleUsers( $uidToRemove, $uidToKeep, $courseId )
     {
         $courseModuleList = module_get_course_tool_list( $courseId );
@@ -535,6 +580,11 @@ class MergeUser
         }
     }
     
+    /**
+     * Merge platform data for modules that support the Module_MergeUser API
+     * @param int $uidToRemove id of the user to remove
+     * @param int $uidToKeep id of the user to keep
+     */
     protected function mergeModuleUsers( $uidToRemove, $uidToKeep )
     {
         $courseModuleList = get_module_label_list();
@@ -573,8 +623,23 @@ class MergeUser
     }
 }
 
+/**
+ * Module_MergeUSer API to be implemented in the connector/mergeuser.cnr.php file
+ * of the module
+ */
 interface Module_MergeUser
 {
+    /**
+     * Merge platform data
+     * @param int $uidToRemove id of the user to remove
+     * @param int $uidToKeep id of the user to keep
+     */
     public function mergeUsers( $uidToRemove, $uidToKeep );
+    /**
+     * Merge course data
+     * @param int $uidToRemove id of the user to remove
+     * @param int $uidToKeep id of the user to keep
+     * @param string $courseId course sys code
+     */
     public function mergeCourseUsers( $uidToRemove, $uidToKeep, $courseId );
 }
