@@ -71,8 +71,15 @@ $cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_R
 $fileId = (int) isset($_REQUEST['file']) ? $_REQUEST['file'] : null;
 if( !empty($fileId) && ! array_key_exists($fileId,$textZoneList) )
 {
-    $fileId=null;
-    $controlMsg['error'][] = get_lang('Wrong parameters');
+    /*$fileId=null;
+    $controlMsg['error'][] = get_lang('Wrong parameters');*/
+    
+    $tzName = secure_file_path($fileId);
+    
+    $textZoneList[$fileId] = array(
+        'filename' => get_path('rootSys') . "platform/textzone/{$tzName}",
+            'desc' => $tzName
+    );
 };
 
 //If choose a file to modify
