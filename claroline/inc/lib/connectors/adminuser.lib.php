@@ -43,6 +43,10 @@ abstract class GenericModule_AdminUser implements Module_AdminUser
 {
     private $database;
     
+    /**
+     * Constructor
+     * @param Database_Connection $database
+     */
     public function __construct ( $database )
     {
         $this->database = $database ? $database : Claroline::getDatabase ();

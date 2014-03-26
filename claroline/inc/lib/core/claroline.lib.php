@@ -31,6 +31,9 @@ require_once __DIR__ . '/../utils/ajax.lib.php';
 require_once __DIR__ . '/../utils/input.lib.php';
 require_once __DIR__ . '/accessmanager.lib.php';
 
+/**
+ * Define somme constants shared accross classes
+ */
 interface Claroline_Constants
 {
     // Display type constants
@@ -128,6 +131,19 @@ class Claroline implements Claroline_Constants
         return self::$instance;
     }
     
+    /**
+     * Initialize the core service providers of the platform : 
+     * ['eventManager'] : event handling 
+     * ['notification'] notifications, 
+     * ['notifier'] notifier
+     * ['logger'] log, 
+     * ['moduleLabelStack'] module statck, 
+     * ['accessManager'] access manager, 
+     * ['userInput'] user input, 
+     * ['ajaxServiceBroker'] ajax service broker
+     * @return void
+     * @throws Exception if the database connection is not initialized
+     */
     public static function initCoreServices()
     {
         if ( ! self::$instance || empty( self::$instance['database'] ) )
