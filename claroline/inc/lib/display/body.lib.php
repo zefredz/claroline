@@ -5,17 +5,20 @@
 /**
  * Class used to configure and display the page body.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     display
+ * @package     kernel.display
  */
 
 require_once __DIR__ . '/course.lib.php';
 
+/**
+ * Claroline display - page body
+ */
 class ClaroBody extends CoreTemplate
 {
     protected $content = '';
@@ -23,6 +26,9 @@ class ClaroBody extends CoreTemplate
     protected $courseTitleAndTools = true;
     protected $inPopup = false;
     
+    /**
+     * Initialize the display
+     */
     public function __construct()
     {
         parent::__construct('body.tpl.php');
@@ -44,11 +50,17 @@ class ClaroBody extends CoreTemplate
         $this->claroBodyHidden = false;
     }
     
+    /**
+     * Hide course title and tool list
+     */
     public function hideCourseTitleAndTools()
     {
         $this->hideBlock('courseTitleAndTools');
     }
     
+    /**
+     * Show course title and tool list
+     */
     public function showCourseTitleAndTools()
     {
         $this->showBlock('courseTitleAndTools');
@@ -64,7 +76,7 @@ class ClaroBody extends CoreTemplate
     
     /**
      * Set the content of the page
-     * @param   string content
+     * @param   string $content contents of the page
      */
     public function setContent( $content )
     {
@@ -73,7 +85,7 @@ class ClaroBody extends CoreTemplate
     
     /**
      * Prepend a string before the content of the page
-     * @param   string str
+     * @param   string $str add contents before the current contents of the page
      * @since Claroline 1.10.5
      */
     public function prependContent( $str )
@@ -83,7 +95,7 @@ class ClaroBody extends CoreTemplate
     
     /**
      * Append a string to the content of the page
-     * @param   string str
+     * @param   string $str add contents after the current contents of the page
      */
     public function appendContent( $str )
     {
@@ -148,6 +160,10 @@ class ClaroBody extends CoreTemplate
     
     protected static $instance = false;
     
+    /**
+     * Get an instance of the ClaroBody class
+     * @return ClaroBody
+     */
     public static function getInstance()
     {
         if ( ! self::$instance )

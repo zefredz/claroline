@@ -7,7 +7,7 @@
  *
  * Class used to configure and display the page banners.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -19,6 +19,9 @@
 require_once __DIR__ . '/breadcrumbs.lib.php';
 require_once __DIR__ . '/viewmode.lib.php';
 
+/**
+ * Claroline page banner
+ */
 class ClaroBanner extends CoreTemplate
 {
     protected static $instance = false;
@@ -27,6 +30,9 @@ class ClaroBanner extends CoreTemplate
     public $breadcrumbs;
     public $viewmode;
     
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->breadcrumbs = ClaroBreadCrumbs::getInstance();
@@ -36,6 +42,10 @@ class ClaroBanner extends CoreTemplate
         $this->breadcrumbLine = true;
     }
     
+    /**
+     * Get an instance of the banner
+     * @return ClaroBanner
+     */
     public static function getInstance()
     {
         if ( ! self::$instance )

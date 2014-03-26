@@ -5,12 +5,12 @@
 /**
  * BreadCrumbs.
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
+ * @package     kernel.display
  */
 
 /*
@@ -43,13 +43,20 @@
  * @package     display
  */
  
-class BreadCrumbs implements Display
+/**
+ * Breadcrumbs displayed in the banner of a page
+ */
+class BreadCrumbs implements Display, Countable
 {
     // protected $breadCrumbs = array();
     protected $prependBc    = array();
     protected $currentNode  = array();
     protected $appendBc     = array();
     
+    /**
+     * @see Display
+     * @return string
+     */
     public function render()
     {
         if ( $this->isEmpty() )
@@ -109,36 +116,70 @@ class BreadCrumbs implements Display
         return $out;
     }
     
+    /**
+     * Append a link to the breadcrumbs
+     * @param string $name name of the link
+     * @param string $url url of the link (opt)
+     * @param string $icon url of an icon for the link (opt)
+     */
     public function append( $name, $url = null, $icon = null )
     {
         $this->appendNode( new BreadCrumbsNode( $name, $url, $icon ) );
     }
-
+    
+    /**
+     * Prepend a link to the breadcrumbs
+     * @param string $name name of the link
+     * @param string $url url of the link (opt)
+     * @param string $icon url of an icon for the link (opt)
+     */
     public function prepend( $name, $url = null, $icon = null )
     {
         $this->prependNode( new BreadCrumbsNode( $name, $url, $icon ) );
     }
     
+    /**
+     * Set the link of the current page
+     * @param string $name name of the link
+     * @param string $url url of the link (opt)
+     * @param string $icon url of an icon for the link (opt)
+     */
     public function setCurrent( $name, $url = null, $icon = null )
     {
         $this->setCurrentNode( new BreadCrumbsNode( $name, $url, $icon ) );
     }
     
+    /**
+     * Set the current node
+     * @param BreadCrumbsNode $node
+     */
     public function setCurrentNode( $node )
     {
         $this->currentNode = array( $node );
     }
-
+    
+    /**
+     * Append a node to the breadcrumbs
+     * @param BreadCrumbsNode $node
+     */
     public function appendNode( $node )
     {
         $this->appendBc[] = $node;
     }
-
+    
+    /**
+     * Prepend a node to the breadcrumbs
+     * @param BreadCrumbsNode $node
+     */
     public function prependNode( $node )
     {
         $this->prependBc[] = $node;
     }
     
+    /**
+     * Get the size of the breadcrumbs
+     * @return type
+     */
     public function size()
     {
         return count( $this->prependBc ) +
@@ -147,23 +188,49 @@ class BreadCrumbs implements Display
             ;
     }
     
+    /**
+     * @see Countable
+     * @return int
+     */
+    public function count()
+    {
+        return $this->size();
+    }
+    
+    /**
+     * Is the breadcrumbs empty
+     * @return bool
+     */
     public function isEmpty()
     {
         return $this->size() == 0;
     }
 }
 
-class BreadCrumbsNode
+/**
+ * Node in the breadcrumbs trail
+ */
+class BreadCrumbsNode implements Display
 {
     private $name, $url, $icon;
-
+    
+    /**
+     * Construct a node
+     * @param string $name name of the node
+     * @param string $url optional url for the node
+     * @param string $icon optional icon url for the node
+     */
     public function __construct( $name, $url = null, $icon = null )
     {
         $this->icon = $icon;
         $this->name = $name;
         $this->url = $url;
     }
-
+    
+    /**
+     * @see Display
+     * @return string
+     */
     public function render()
     {
         $nodeHtml = '';
@@ -189,21 +256,34 @@ class BreadCrumbsNode
     }
 }
 
+/**
+ * Claroline helper for the breadcrumbs
+ */
 class ClaroBreadCrumbs extends BreadCrumbs
 {
     private static $instance = false;
     // private $breadCrumbs = array();
     
+    /**
+     * Constructor
+     */
     private function __construct()
     {
     }
     
+    /**
+     * Initialize the breadcrumbs content
+     */
     public function init()
     {
         $this->_compatVars();
         $this->autoPrepend();
     }
     
+    /**
+     * @see Display
+     * @return string
+     */
     public function render()
     {
         $this->init();
@@ -211,6 +291,9 @@ class ClaroBreadCrumbs extends BreadCrumbs
         return parent::render();
     }
     
+    /**
+     * Prepend nodes from the context of the page
+     */
     private function autoPrepend()
     {
         if ( empty( $this->currentNode )
@@ -268,6 +351,10 @@ class ClaroBreadCrumbs extends BreadCrumbs
             , get_icon_url('home') ) );
     }
     
+    /**
+     * Append contents based on the interbreadcrump legacy variable for backward compatibility
+     * @deprecated since Claroline 1.11
+     */
     private function _compatVars()
     {
         if ( array_key_exists( 'interbredcrump', $GLOBALS )
@@ -280,6 +367,10 @@ class ClaroBreadCrumbs extends BreadCrumbs
         }
     }
     
+    /**
+     * Get an instance of the breadcrumbs
+     * @return ClaroBreadCrumbs
+     */
     public static function getInstance()
     {
         if ( ! ClaroBreadCrumbs::$instance )
