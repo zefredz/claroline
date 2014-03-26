@@ -8,7 +8,7 @@
  * Light Object-Oriented Database Layer for Claroline :
  * Advanced API
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -19,26 +19,45 @@
 
 require_once __DIR__ . '/database.lib.php';
 
+/**
+ * Class to execute multiple mysql queries
+ */
 class Database_Multiple_Query
 {
     protected $sqlQueryArray = array();
     protected $onErrorCallback = null;
     
+    /**
+     * Create the multiple sql query handler
+     * @param type $sqlQueryString
+     */
     public function __construct( $sqlQueryString )
     {
         $this->sqlQueryArray = $this->parse( $sqlQueryString );
     }
     
+    /**
+     * Set a call back on error
+     * @param callable $callback
+     */
     public function setErrorCallback( $callback )
     {
         $this->onErrorCallback = $callback;
     }
     
+    /**
+     * Execute the queries
+     */
     public function exec()
     {
         $this->executeQueries( $this->sqlQueryArray );
     }
     
+    /**
+     * Parse the string containing multiple queries
+     * @param string $sql
+     * @return array of queries to execute
+     */
     protected function parse( $sql )
     {
         $ret = array();
@@ -156,6 +175,10 @@ class Database_Multiple_Query
         return $ret;
     }
     
+    /**
+     * Execute the queries
+     * @throws Exception if an error occurs and no callback is defined to handle errors
+     */
     protected function executeQueries()
     {
         foreach ( $this->sqlQueryArray as $query )
@@ -183,6 +206,10 @@ class Database_Multiple_Query
     }
 }
 
+/**
+ * Database library independent prepared statement
+ * @deprecated since Claroline 1.12, should be reimplemented using musqli prepared statement
+ */
 class Database_PreparedStatement
 {
     protected $dbConn;
@@ -193,22 +220,40 @@ class Database_PreparedStatement
     const MODE_QUEST = 2;
     const MODE_NONE = 3;
     
+    /**
+     * 
+     * @param Databse_Connection $database
+     */
     public function __construct( $database )
     {
         $this->dbConn = $database;
     }
     
+    /**
+     * Prepare the sql query
+     * @param string $sql
+     */
     public function prepare( $sql )
     {
         $this->sql = $sql;
         $this->parse( $sql );
     }
     
+    /**
+     * Execute a query from the given parameters and returns the result
+     * @param array $params
+     * @return Database_ResultSet
+     */
     public function query( $params = array() )
     {
         return $this->dbConn->query( $this->transformQuery( $this->sql, $params ) );
     }
     
+    /**
+     * Execute the query using the given parameters and returns the number of altered rows
+     * @param array $params
+     * @return int
+     */
     public function exec( $params = array() )
     {
         return $this->dbConn->exec( $this->transformQuery( $this->sql, $params ) );
@@ -268,6 +313,10 @@ class Database_PreparedStatement
         }
     }
     
+    /**
+     * Parse the query to be prepared
+     * @param string $sql
+     */
     protected function parse( $sql )
     {
         // if :key
@@ -287,8 +336,15 @@ class Database_PreparedStatement
     }
 }
 
+/**
+ * Claroline prepared statement helper
+ * @deprecated since Claroline 1.12, should be reimplemented using mysqli prepared statements
+ */
 class Claroline_PreparedStatement extends Database_PreparedStatement
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct( Claroline::getDatabase() );

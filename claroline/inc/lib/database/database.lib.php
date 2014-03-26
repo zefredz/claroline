@@ -26,7 +26,7 @@
  * 4. Database_Connection_Exception exception class specific to database
  *  connections
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -630,6 +630,9 @@ class Mysql_ResultSet implements Database_ResultSet
         }
     }
     
+    /**
+     * Free resources on destruction
+     */
     public function __destruct()
     {
         if ( $this->resultSet )
@@ -798,7 +801,12 @@ class Mysql_ResultSet implements Database_ResultSet
             $this->idKeyValue = null;
         }
     }
-
+    
+    /**
+     * Get mysqli fetch mode from Database_ResultSet fetch mode
+     * @param type $mode
+     * @return string
+     */
     protected function mysqlFetchMode( $mode )
     {
         switch ( $mode )
