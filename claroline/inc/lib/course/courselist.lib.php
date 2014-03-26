@@ -17,16 +17,21 @@ require_once __DIR__ . '/../kernel/course.lib.php';
 require_once __DIR__ . '/../utils/iterators.lib.php';
 require_once __DIR__ . '/../categorybrowser.class.php';
 
-
+/**
+ * Course list interface
+ */
 interface CourseList
 {
     /**
+     * Get the iterator for the course list
      * @return CourseListIterator
      */
     public function getIterator();
 }
 
-
+/**
+ * Define the common methods of the course lists
+ */
 abstract class AbstractCourseList implements CourseList
 {
     const ORDER_BY_OFFICIAL_CODE = 'UPPER(`administrativeNumber`), `intitule`';
@@ -38,6 +43,9 @@ abstract class AbstractCourseList implements CourseList
      */
     protected $orderBy;
     
+    /**
+     * Generic constructor
+     */
     public function __construct()
     {
         if (get_conf('course_order_by') == 'official_code')
@@ -51,6 +59,7 @@ abstract class AbstractCourseList implements CourseList
     }
     
     /**
+     * Set the parameter in which the courses are ordered
      * @param string
      */
     public function setOrderBy($orderBy)
@@ -59,6 +68,7 @@ abstract class AbstractCourseList implements CourseList
     }
     
     /**
+     * Set the direction of the ordering
      * @param string
      */
     public function setOrderDirection($orderDirection)
@@ -78,6 +88,10 @@ class UserCourseList extends AbstractCourseList
      */
     protected $userId;
     
+    /**
+     * Get the list of courses for a specific user
+     * @param int $userId id of the user
+     */
     public function __construct($userId)
     {
         parent::__construct();
@@ -85,6 +99,10 @@ class UserCourseList extends AbstractCourseList
         $this->userId = $userId;
     }
     
+    /**
+     * @see CourseList
+     * @return \CourseListIterator
+     */
     public function getIterator()
     {
         $tbl_mdb_names              = claro_sql_get_main_tbl();
@@ -142,6 +160,10 @@ class CategoryCourseList extends AbstractCourseList
      */
     protected $categoryId;
     
+    /**
+     * Get the course list for a given category
+     * @param int $categoryId id of the category
+     */
     public function __construct($categoryId)
     {
         parent::__construct();
@@ -149,6 +171,10 @@ class CategoryCourseList extends AbstractCourseList
         $this->categoryId = $categoryId;
     }
     
+    /**
+     * @see CourseList
+     * @return \CourseListIterator
+     */
     public function getIterator()
     {
         $tbl_mdb_names              = claro_sql_get_main_tbl();
@@ -211,6 +237,11 @@ class UserCategoryCourseList extends AbstractCourseList
      */
     protected $categoryId;
     
+    /**
+     * Get the list of courses for a specific user and a specific category
+     * @param int $userId id of the user
+     * @param int $categoryId id of the category
+     */
     public function __construct($userId, $categoryId)
     {
         parent::__construct();
@@ -219,6 +250,10 @@ class UserCategoryCourseList extends AbstractCourseList
         $this->categoryId = $categoryId;
     }
     
+    /**
+     * @see CourseList
+     * @return \CourseListIterator
+     */
     public function getIterator()
     {
         $tbl_mdb_names              = claro_sql_get_main_tbl();
@@ -270,7 +305,9 @@ class UserCategoryCourseList extends AbstractCourseList
     }
 }
 
-
+/**
+ * List of courses from a given search based on a keyword
+ */
 class SearchedCourseList extends AbstractCourseList
 {
     /**
@@ -278,6 +315,10 @@ class SearchedCourseList extends AbstractCourseList
      */
     protected $keyword;
     
+    /**
+     * Get the list of courses from a given search based on a keyword
+     * @param string $keyword search keyword
+     */
     public function __construct($keyword)
     {
         parent::__construct();
@@ -285,6 +326,10 @@ class SearchedCourseList extends AbstractCourseList
         $this->keyword = $keyword;
     }
     
+    /**
+     * @see CourseList
+     * @return \CourseListIterator
+     */
     public function getIterator()
     {
         $tbl_mdb_names              = claro_sql_get_main_tbl();
@@ -332,9 +377,15 @@ class SearchedCourseList extends AbstractCourseList
     }
 }
 
-
+/**
+ * Course list iterator
+ */
 class CourseListIterator extends RowToObjectIteratorIterator
 {
+    /**
+     * @see \RowToObjectIteratorIterator
+     * @return \Claro_Course
+     */
     public function current()
     {
         $courseData = $this->internalIterator->current();
@@ -481,11 +532,21 @@ class CourseTree
         return $this->root;
     }
     
+    /**
+     * Get a string representation of the course tree
+     * @return string
+     */
     public function __toString()
     {
         return $this->recursiveToString();
     }
     
+    /**
+     * Recursively construct the string representation of the CourseTree
+     * @param CourseTreeNode $node
+     * @param int $level
+     * @return string
+     */
     protected function recursiveToString($node = null, $level = 0)
     {
         $out = '';
@@ -523,7 +584,9 @@ class CourseTree
     }
 }
 
-
+/**
+ * Node of a CourseTree
+ */
 class CourseTreeNode
 {
     /**
@@ -543,7 +606,7 @@ class CourseTreeNode
     
     /**
      * Constructor.
-     * @param int id
+     * @param int $id node id
      */
     public function __construct($id)
     {
@@ -595,7 +658,7 @@ class CourseTreeNode
     }
     
     /**
-     * @param int id
+     * @param int $id node id
      * @return CourseTreeNode (null if doesn't exist)
      */
     public function getChild($id)
@@ -634,7 +697,7 @@ class CourseTreeNode
     }
     
     /**
-     * @param int node id
+     * @param int $id node id
      * @return $this for chaining
      */
     public function setId($id)
@@ -645,7 +708,7 @@ class CourseTreeNode
     }
     
     /**
-     * @param Claro_Course
+     * @param Claro_Course $course
      * @return $this for chaining
      */
     public function setCourse($course)
@@ -739,6 +802,10 @@ class CourseTreeView implements Display
         $this->viewOptions = $viewOptions;
     }
     
+    /**
+     * Render the CourseTreeView
+     * @return string
+     */
     public function render()
     {
         $tpl = new CoreTemplate('course_tree.tpl.php');
@@ -754,7 +821,9 @@ class CourseTreeView implements Display
     }
 }
 
-
+/**
+ * Abstract view of a course tree node
+ */
 abstract class AbstractCourseTreeNodeView implements Display
 {
     /**
@@ -817,9 +886,15 @@ abstract class AbstractCourseTreeNodeView implements Display
     }
 }
 
-
+/**
+ * View of a course tree node
+ */
 class CourseTreeNodeView extends AbstractCourseTreeNodeView
 {
+    /**
+     * Render the course tree node view
+     * @return string
+     */
     public function render()
     {
         $tpl = new CoreTemplate('course_tree_node.tpl.php');
@@ -833,9 +908,15 @@ class CourseTreeNodeView extends AbstractCourseTreeNodeView
     }
 }
 
-
+/**
+ * View of a course tree node for an anonymous user
+ */
 class CourseTreeNodeAnonymousView extends AbstractCourseTreeNodeView
 {
+    /**
+     * Render the course tree node view
+     * @return string
+     */
     public function render()
     {
         $tpl = new CoreTemplate('course_tree_node_anonymous.tpl.php');
@@ -849,9 +930,15 @@ class CourseTreeNodeAnonymousView extends AbstractCourseTreeNodeView
     }
 }
 
-
+/**
+ * View a the course tree node for a deactivated course
+ */
 class CourseTreeNodeDeactivatedView extends AbstractCourseTreeNodeView
 {
+    /**
+     * Render the course tree node view
+     * @return string
+     */
     public function render()
     {
         $tpl = new CoreTemplate('course_tree_node_deactivated.tpl.php');
@@ -865,7 +952,9 @@ class CourseTreeNodeDeactivatedView extends AbstractCourseTreeNodeView
     }
 }
 
-
+/**
+ * Options of a course tree view
+ */
 class CourseTreeViewOptions
 {
     /**
@@ -878,6 +967,14 @@ class CourseTreeViewOptions
      */
     protected $enrollLinkUrl, $unenrollLinkUrl;
     
+    /**
+     * Constructor
+     * @param bool $haveToDisplayEnrollLink set to true to display the enrol link
+     * @param bool $haveToDisplayUnenrollLink set to true to display the unenrolment link
+     * @param string $enrollLinkUrl url for the enrol link
+     * @param string $unenrollLinkUrl url for the unenrol link
+     * @param bool $classEnrolment set to true for class enrolment mode
+     */
     public function __construct(
         $haveToDisplayEnrollLink = false, 
         $haveToDisplayUnenrollLink = false,
@@ -892,6 +989,10 @@ class CourseTreeViewOptions
         $this->classEnrolment = (bool) $classEnrolment;
     }
     
+    /**
+     * Get the class enrolment mode
+     * @return bool
+     */
     public function classEnrolmentMode()
     {
         return $this->classEnrolment;
@@ -929,11 +1030,19 @@ class CourseTreeViewOptions
         return $this->unenrollLinkUrl;
     }
     
+    /**
+     * Set the display of the enrol link to true or false
+     * @param bool $bool
+     */
     public function setHaveToDisplayEnrollLink($bool)
     {
         $this->displayEnrollLink = (bool) $bool;
     }
     
+    /**
+     * Set the display of the unenrol link to true or false
+     * @param bool $bool
+     */
     public function setHaveToDisplayUnenrollLink($bool)
     {
         $this->displayUnenrollLink = (bool) $bool;
@@ -956,7 +1065,9 @@ class CourseTreeViewOptions
     }
 }
 
-
+/**
+ * Static factory of course tree views
+ */
 class CourseTreeNodeViewFactory
 {
     /**
