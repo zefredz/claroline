@@ -5,9 +5,8 @@
 /**
  * CLAROLINE
  *
- * Logging class.
  *
- * @version     Claroline 1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -16,6 +15,9 @@
  * @package     kernel.core
  */
 
+/**
+ * Logger class
+ */
 class Logger
 {
     private $tbl_log;

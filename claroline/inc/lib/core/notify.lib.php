@@ -5,7 +5,7 @@
 /**
  * Claroline notification system
  *
- * @version     Claroline 1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -57,7 +57,11 @@ class ClaroNotifier extends EventGenerator
     private function __construct()
     {
     }
-
+    
+    /**
+     * Get an instance of the ClaroNotifier
+     * @return ClaroNotifier
+     */
     public static function getInstance()
     {
         if  ( ! ClaroNotifier::$instance )
@@ -67,7 +71,16 @@ class ClaroNotifier extends EventGenerator
 
         return ClaroNotifier::$instance;
     }
-
+    
+    /**
+     * Notify an event occuring in a course
+     * @param string $eventType type of the event
+     * @param string $cid id of the course in which the event occurs
+     * @param int $tid id of the tool in which the event occurs
+     * @param string $rid id of the resource in which the event occurs
+     * @param int $gid id of the group in which the event occurs
+     * @param int $uid id of the user who triggers the event
+     */
     public function notifyCourseEvent($eventType, $cid, $tid, $rid, $gid, $uid)
     {
         $eventArgs = array();
@@ -80,7 +93,12 @@ class ClaroNotifier extends EventGenerator
 
         $this->notifyEvent($eventType, $eventArgs);
     }
-
+    
+    /**
+     * Helper for notifyEvent which initialize the event parameters 
+     * @param string $type
+     * @param array $args
+     */
     public function event( $type, $args = null)
     {
         if( !is_array($args) )
@@ -128,7 +146,11 @@ class ClaroNotification extends EventDriven
     private function __construct()
     {
     }
-
+    
+    /**
+     * Get an instance of the notification listener
+     * @return ClaroNotification
+     */
     public static function getInstance()
     {
         if  ( ! ClaroNotification::$instance )
@@ -1244,59 +1266,111 @@ class ClaroNotification extends EventDriven
     }
 
     // aliases TODO rename in all scripts !!!!
-
+    
+    /**
+     * Backward compatibility alias
+     * @see getNotifiedCourses
+     * @deprecated since Claroline 1.9
+     */
     public function get_notified_courses( $date, $user_id )
     {
         return $this->getNotifiedCourses( $date, $user_id );
     }
-
+    
+    /**
+     * Backward compatibility alias
+     * @see getNotifiedTools
+     * @deprecated since Claroline 1.9
+     */
     public function get_notified_tools( $course_id, $date, $user_id,$group_id = '0' )
     {
         return $this->getNotifiedTools( $course_id, $date, $user_id, $group_id );
     }
-
+    
+    /**
+     * Backward compatibility alias
+     * @see getNotifiedGroups
+     * @deprecated since Claroline 1.9
+     */
     public function get_notified_groups( $course_id, $date )
     {
         return $this->getNotifiedGroups( $course_id, $date );
     }
 
+    /**
+     * Backward compatibility alias
+     * @see isANotifiedRessource
+     * @deprecated since Claroline 1.9
+     */
     public function is_a_notified_ressource($course_id, $date, $user_id, $group_id, $tool_id, $ressourceId,$setAsViewed=TRUE)
     {
         return $this->isANotifiedRessource($course_id, $date, $user_id, $group_id, $tool_id, $ressourceId,$setAsViewed);
     }
-
+    
+    /**
+     * Backward compatibility alias
+     * @see isANotifiedForum
+     * @deprecated since Claroline 1.9
+     */
     public function is_a_notified_forum( $course_id, $date, $user_id, $group_id, $tool_id, $forumId )
     {
         return $this->isANotifiedForum( $course_id, $date, $user_id, $group_id, $tool_id, $forumId );
     }
-
+    
+    /**
+     * Backward compatibility alias
+     * @see isANotifiedDocument
+     * @deprecated since Claroline 1.9
+     */
     public function is_a_notified_document( $course_id, $date, $user_id, $group_id, $tool_id, $fileInfo )
     {
         return $this->isANotifiedDocument( $course_id, $date, $user_id, $group_id, $tool_id, $fileInfo );
     }
-
+    
+    /**
+     * Backward compatibility alias
+     * @see getNotifiedRessources
+     * @deprecated since Claroline 1.9
+     */
     public function get_notified_ressources( $course_id, $date, $user_id, $gid, $tid )
     {
         return $this->getNotifiedRessources( $course_id, $date, $user_id, $gid, $tid );
     }
-
+    
+    /**
+     * Backward compatibility alias
+     * @see getLastLoginBeforeToday
+     * @deprecated since Claroline 1.9
+     */
     public function get_last_login_before_today($user_id)
     {
         return $this->getLastLoginBeforeToday($user_id);
     }
-
+    
+    /**
+     * Backward compatibility alias
+     * @see getNotificationDate
+     * @deprecated since Claroline 1.9
+     */
     public function get_notification_date($user_id)
     {
-        return $this->getLastActionBeforeLoginDate($user_id);
+        return $this->getNotificationDate($user_id);
     }
-
+    
+    /**
+     * Backward compatibility alias
+     * @see getLastActionBeforeLoginDate
+     * @deprecated since Claroline 1.9
+     */
     public function get_last_action_before_login_date($user_id)
     {
         return $this->getLastActionBeforeLoginDate($user_id);
     }
 }
 
-
+/**
+ * Represents the list of course with notifications to display to the user
+ */
 class NotifiedCourseList 
 {
     /**

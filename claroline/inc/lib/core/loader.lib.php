@@ -7,7 +7,7 @@
  *
  * Loader classes for CSS and Javascript.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -30,12 +30,20 @@ class JavascriptLoader
         $this->libraries = array();
         $this->pathList = array();
     }
-
+    
+    /**
+     * Get the list of loaded libraries
+     * @return array
+     */
     public function getLibraries()
     {
         return $this->libraries;
     }
-
+    
+    /**
+     * Get the list of the name of the loaded libraries
+     * @return array
+     */
     public function loadedLibraries()
     {
         return array_keys( $this->libraries );
@@ -73,34 +81,11 @@ class JavascriptLoader
                 }
                 
                 $mtime = '';
-                /*
-                if ( get_conf('javascriptCompression', true)
-                    && file_exists( $tryPath . '/min/' . $lib . '.js' )  )
-                {
-                    $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/min/' . $lib . '.js';
-                    
-                    $mtime = filemtime($tryPath . '/min/' . $lib . '.js');
-                    
-                    if ( claro_debug_mode() )
-                    {
-                        pushClaroMessage(__Class__."::Use ".$tryPath.'/min/' .$lib.'.js', 'debug');
-                    }
-                }
-                else
-                {
-                    $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/' . $lib . '.js';
-                    
-                    $mtime = filemtime($tryPath . '/' . $lib . '.js');
-                    
-                    if ( claro_debug_mode() )
-                    {
-                        pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.js', 'debug');
-                    }
-                }*/
+               
 
-                    $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/' . $lib . '.js';
+                $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/' . $lib . '.js';
 
-                    $mtime = filemtime($tryPath . '/' . $lib . '.js');
+                $mtime = filemtime($tryPath . '/' . $lib . '.js');
                 
                 ClaroHeader::getInstance()->addHtmlHeader(
                     '<script src="'.$this->libraries[$tryPath . '/' . $lib . '.js'].'?'.$mtime.'" type="text/javascript"></script>'
@@ -118,6 +103,12 @@ class JavascriptLoader
         return false;
     }
     
+    /**
+     * Load module javascript libraries
+     * @param string $moduleLabel
+     * @param string $lib
+     * @return boolean
+     */
     public function loadFromModule( $moduleLabel, $lib )
     {
         $lib = secure_file_path( $lib );
@@ -160,7 +151,11 @@ class JavascriptLoader
             return false;
         }
     }
-
+    
+    /**
+     * Get an instance of the loader
+     * @return JavascriptLoader
+     */
     public static function getInstance()
     {
         if ( ! JavascriptLoader::$instance )
@@ -172,6 +167,9 @@ class JavascriptLoader
     }
 }
 
+/**
+ * CSS loader class
+ */
 class CssLoader
 {
     private static $instance = false;
@@ -183,12 +181,20 @@ class CssLoader
         $this->css = array();
         $this->pathList = array();
     }
-
+    
+    /**
+     * Get the loaded css
+     * @return type
+     */
     public function getCss()
     {
         return $this->css;
     }
-
+    
+    /**
+     * Get a list of the names of the loaded css
+     * @return type
+     */
     public function loadedCss()
     {
         return array_keys( $this->css );
@@ -211,8 +217,6 @@ class CssLoader
                 => get_path('url') . '/platform/css', // <-- is this useful or not ?
             get_path( 'rootSys' ) . 'web/css'
                 => get_path('url') . '/web/css',
-            /* get_path( 'rootSys' ) . 'claroline/css'
-                => get_path('url') . '/claroline/css', */ // <-- this stay there for legacy but should be removed.
             './css' => './css'
         );
         
@@ -261,6 +265,13 @@ class CssLoader
         return false;
     }
     
+    /**
+     * Load a css from a module
+     * @param string $moduleLabel
+     * @param string $lib name of the css
+     * @param media $media media to which the css applies
+     * @return boolean
+     */
     public function loadFromModule( $moduleLabel, $lib, $media = 'all' )
     {
         $lib = secure_file_path( $lib );
@@ -337,7 +348,11 @@ class CssLoader
             }
         }
     }
-
+    
+    /**
+     * Get an instance of the css loader
+     * @return CssLoader
+     */
     public static function getInstance()
     {
         if ( ! CssLoader::$instance )
