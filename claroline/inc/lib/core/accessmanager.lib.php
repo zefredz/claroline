@@ -33,6 +33,10 @@ class Claro_AccessManager
     
     protected $database;
     
+    /**
+     * Constructor
+     * @param Database_Connection $database
+     */
     public function __construct( $database = null )
     {
         $this->database = $database ? $database : Claroline::getDatabase();
@@ -92,6 +96,11 @@ class Claro_ModuleAccessManager
         $module,
         $database;
     
+    /**
+     * Constructor
+     * @param Claro_Module $module
+     * @param Database_Connection $database
+     */
     public function __construct( Claro_Module $module, $database = null )
     {
         $this->module = $module; 

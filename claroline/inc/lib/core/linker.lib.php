@@ -1,45 +1,13 @@
 <?php // $Id$
 
 // vim: expandtab sw=4 ts=4 sts=4:
-/*
- FIXME upgrade old CRL :
- 
- foreach ( $oldResource as $resource )
- {
-    $sql = "UPDATE {$tbl['lnk_resource']}
-    SET crl = '".convert_crl_from_18_to_19( $resource['crl'] )."'
-    WHERE crl = '{$resource['crl']}'"
-    
-    claro_Sql_query( $sql );
- }
- 
- function convert_crl_from_18_to_19( $crl )
- {
-    if (preg_match(
-        '!(crl://'.get_conf('platform_id').'/[^/]+/)([^/])(.*)!'),
-        $crl, $matches ) )
-    {
-        return $matches[1] . rtrim( $matches[2], '_' ) . $matches[3];
-    }
-    elseif (preg_match(
-        '!(crl://'.get_conf('platform_id').'/[^/]+/groups/\d+/)([^/])(.*)!'),
-        $crl, $matches ) )
-    {
-        return $matches[1] . rtrim( $matches[2], '_' ) . $matches[3];
-    }
-    else
-    {
-        return $crl;
-    }
- }
- */
 
 /**
  * CLAROLINE
  *
  * Claroline Resource Linker library.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -52,13 +20,16 @@ require_once __DIR__ . '/url.lib.php';
 require_once __DIR__ . '/../utils/iterators.lib.php';
 require_once __DIR__ . '/../group.lib.inc.php';
 
+/**
+ * Declare a ResourceLocator type
+ */
 interface ResourceLocator
 {
 }
 
 /**
- * Define a Claroline resource locator and provides a static method to parse a CRL into a locator
- *
+ * Define a Claroline resource locator and provides a static method to parse a 
+ * CRL into a locator
  */
 class ClarolineResourceLocator implements ResourceLocator
 {
@@ -67,7 +38,14 @@ class ClarolineResourceLocator implements ResourceLocator
             $moduleLabel,
             $resourceId,
             $teamId;
-            
+    
+    /**
+     * Construct a resource locator
+     * @param string $courseId
+     * @param string $moduleLabel
+     * @param string $resourceId
+     * @param int $teamId
+     */
     public function __construct(
             $courseId = null,
             $moduleLabel = null,
@@ -81,36 +59,64 @@ class ClarolineResourceLocator implements ResourceLocator
         $this->teamId = $teamId;
     }
     
+    /**
+     * Get the platform is
+     * @return string
+     */
     public function getPlatformId()
     {
         return $this->platformId;
     }
     
+    /**
+     * Set the platform id for cross platform resource
+     * @param string $platformId
+     */
     public function setPlatformId( $platformId )
     {
         $this->platformId = $platformId;
     }
     
+    /**
+     * Get the course id
+     * @return string
+     */
     public function getCourseId()
     {
         return $this->courseId;
     }
     
+    /**
+     * Set the course id
+     * @param string $courseId
+     */
     public function setCourseId( $courseId )
     {
         $this->courseId = $courseId;
     }
     
+    /**
+     * Is the locator related to a course ?
+     * @return bool
+     */
     public function inCourse()
     {
         return !empty( $this->courseId );
     }
     
+    /**
+     * Get the module label
+     * @return string
+     */
     public function getModuleLabel()
     {
         return $this->moduleLabel;
     }
     
+    /**
+     * Set the module label
+     * @param string $moduleLabel
+     */
     public function setModuleLabel( $moduleLabel )
     {
         $this->moduleLabel = rtrim( $moduleLabel, '_' );
@@ -121,41 +127,74 @@ class ClarolineResourceLocator implements ResourceLocator
         }
     }
     
+    /**
+     * Is the locator related to a module ?
+     * @return bool
+     */
     public function inModule()
     {
         return !empty( $this->moduleLabel );
     }
     
+    /**
+     * Get the group id
+     * @return int
+     */
     public function getGroupId()
     {
         return $this->teamId;
     }
     
+    /**
+     * Set the group id
+     * @param int $teamId
+     */
     public function setGroupId( $teamId )
     {
         $this->teamId = $teamId;
     }
     
+    /**
+     * Is the locator related to a group ?
+     * @return bool
+     */
     public function inGroup()
     {
         return !empty( $this->teamId );
     }
     
+    /**
+     * Get the resource id
+     * @return string
+     */
     public function getResourceId()
     {
         return $this->resourceId;
     }
     
+    /**
+     * Set the resource id
+     * @param string $ressourceId
+     */
     public function setResourceId( $ressourceId )
     {
         $this->resourceId = $ressourceId;
     }
     
+    /**
+     * Is the locator related to a resource
+     * @return bool
+     */
     public function hasResourceId()
     {
         return !empty( $this->resourceId );
     }
     
+    /**
+     * Get the Claroline Resource Locator (CRL) string representation of the 
+     * resource locator
+     * @return string
+     */
     public function __toString()
     {
         $crl = "crl://claroline.net/{$this->platformId}/{$this->courseId}";
@@ -178,6 +217,12 @@ class ClarolineResourceLocator implements ResourceLocator
         return $crl;
     }
     
+    /**
+     * Get a resource locator from a Claroline Resource Locator (CRL) string
+     * @param string $locatorString
+     * @return \ExternalResourceLocator|\self
+     * @throws Exception on parse error
+     */
     public static function parse( $locatorString )
     {
         if ( substr($locatorString,0,6) != 'crl://'
@@ -247,6 +292,11 @@ class ClarolineResourceLocator implements ResourceLocator
         return $locator;
     }
     
+    /**
+     * Convert a CRL string to an id
+     * @param string $crl
+     * @return string
+     */
     public static function crlToId( $crl )
     {
         $id = rawurlencode( $crl );
@@ -255,6 +305,11 @@ class ClarolineResourceLocator implements ResourceLocator
         return $id;
     }
     
+    /**
+     * Convert an id to a CRL string
+     * @param string $id
+     * @return string
+     */
     public static function idToCrl( $id )
     {
         $crl = str_replace( '::', '%', $id );
@@ -272,11 +327,19 @@ class ExternalResourceLocator implements ResourceLocator
 {
     protected $url;
     
+    /**
+     * Create an external resouce from its URL
+     * @param string $url
+     */
     public function __construct( $url )
     {
         $this->url = $url;
     }
     
+    /**
+     * Get the CRL string representation of the external resource
+     * @return type
+     */
     public function __toString()
     {
         return $this->url;
@@ -285,7 +348,6 @@ class ExternalResourceLocator implements ResourceLocator
 
 /**
  * Defines a resource
- *
  */
 class LinkerResource
 {
@@ -295,6 +357,14 @@ class LinkerResource
     protected $locator;
     protected $name;
     
+    /**
+     * Create a resource usable by the linker
+     * @param string $name name of the resource
+     * @param ResourceLocator $locator locator of the resource
+     * @param bool $isLinkable can the resource be linked
+     * @param bool $isVisible is the resource visible
+     * @param boll $isNavigable is the resource navigable (i.e. contains other resources)
+     */
     public function __construct( $name, ResourceLocator $locator, $isLinkable = true, $isVisible = true, $isNavigable = false)
     {
         $this->isLinkable = $isLinkable;
@@ -304,31 +374,55 @@ class LinkerResource
         $this->locator = $locator;
     }
     
+    /**
+     * is the resource visible
+     * @return bool
+     */
     public function isVisible()
     {
         return $this->isVisible;
     }
     
+    /**
+     * can the resource be linked
+     * @return bool
+     */
     public function isLinkable()
     {
         return $this->isLinkable;
     }
     
+    /**
+     * is the resource navigable (i.e. contains other resources)
+     * @return bool
+     */
     public function isNavigable()
     {
         return $this->isNavigable;
     }
     
+    /**
+     * Get the locator for the resource
+     * @return \ResourceLocator
+     */
     public function getLocator()
     {
         return $this->locator;
     }
     
+    /**
+     * Get the name of the resource
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
     
+    /**
+     * Convert the resource to an array
+     * @return array
+     */
     public function toArray()
     {
         ResourceLinker::init();
@@ -385,6 +479,10 @@ class LinkerResource
         }
     }
     
+    /**
+     * Get the string representation of the resource
+     * @return type
+     */
     public function __toString()
     {
         return get_class($this).' : '.$this->getName() .' at '.$this->getLocator();
@@ -401,28 +499,47 @@ class LinkerResourceIterator
 {
     protected $elementList;
     
+    /**
+     * Creates a resource iterator
+     */
     public function __construct( )
     {
         $this->elementList = array();
     }
     
+    /**
+     * Add an element to the iterator
+     * @param LinkerResource $resource
+     */
     public function addResource( $resource )
     {
         $this->elementList[] = $resource;
     }
     
+    /**
+     * Get the first resource in the iterator
+     * @return LinkerResource
+     */
     public function first()
     {
         $this->seek(0);
         return $this->current();
     }
     
+    /**
+     * Get the last resource of the iterator
+     * @return LinkerResource
+     */
     public function last()
     {
         $this->seek( count( $this->elementList ) - 1 );
         return $this->current();
     }
     
+    /**
+     * Convert the iterator to an array
+     * @return array
+     */
     public function toArray()
     {
         $elementArr = array();
@@ -437,6 +554,11 @@ class LinkerResourceIterator
     
     // Countable
     
+    /**
+     * Get the number of resources in the iterator
+     * @return int
+     * @see Countable
+     */
     public function count()
     {
         return count( $this->elementList );
@@ -446,6 +568,9 @@ class LinkerResourceIterator
     
     protected $idx = 0;
     
+    /**
+     * @see Iterator
+     */
     public function valid()
     {
         return !empty($this->elementList)
@@ -453,21 +578,33 @@ class LinkerResourceIterator
             && $this->idx < count( $this );
     }
     
+    /**
+     * @see Iterator
+     */
     public function rewind()
     {
         $this->idx = 0;
     }
     
+    /**
+     * @see Iterator
+     */
     public function next()
     {
         $this->idx++;
     }
     
+    /**
+     * @see Iterator
+     */
     public function current()
     {
         return $this->elementList[$this->idx];
     }
     
+    /**
+     * @see Iterator
+     */
     public function key()
     {
         return $this->idx;
@@ -475,6 +612,9 @@ class LinkerResourceIterator
     
     // SeekableIterator
     
+    /**
+     * @see SeekableIterator
+     */
     public function seek( $index )
     {
         $this->idx = $index;
@@ -493,6 +633,11 @@ class LinkerResourceIterator
  */
 class ResourceLinkerResolver
 {
+    /**
+     * Resolve a resource locator (i.e. translate a locator to a real worl url)
+     * @param ResourceLocator $locator
+     * @return string
+     */
     public function resolve( ResourceLocator $locator )
     {
         if ( $locator instanceof ExternalResourceLocator )
@@ -568,6 +713,11 @@ class ResourceLinkerResolver
         }
     }
     
+    /**
+     * Load the resource locator resolver for a given module
+     * @param string $moduleLabel
+     * @return \ModuleResourceResolver|boolean
+     */
     public function loadModuleResolver( $moduleLabel )
     {
         $resolverClass = $moduleLabel . '_Resolver';
@@ -592,6 +742,11 @@ class ResourceLinkerResolver
         return false;
     }
     
+    /**
+     * Get the name of a resource from its locator
+     * @param ResourceLocator $locator
+     * @return string
+     */
     public function getResourceName( ResourceLocator $locator )
     {
         if ( $locator instanceof ExternalResourceLocator )
@@ -640,11 +795,21 @@ class ResourceLinkerResolver
  */
 class CourseResolver
 {
+    /**
+     * Resolve the locator of a course
+     * @param ResourceLocator $locator
+     * @return string
+     */
     public function resolve( ResourceLocator $locator )
     {
         return get_path('clarolineRepositoryWeb') . 'course/index.php?cid='.$locator->getCourseId();
     }
     
+    /**
+     * Get the name of a course from a locator
+     * @param ResourceLocator $locator
+     * @return string
+     */
     public function getResourceName( ResourceLocator $locator )
     {
         $courseData = claro_get_course_data( $locator->getCourseId() );
@@ -658,11 +823,21 @@ class CourseResolver
  */
 class GroupResolver
 {
+    /**
+     * Resolve the locator of a group
+     * @param ResourceLocator $locator
+     * @return string
+     */
     public function resolve( ResourceLocator $locator )
     {
         return get_path('clarolineRepositoryWeb') . 'group/group_space.php';
     }
     
+    /**
+     * Get the name of a group from a locator
+     * @param ResourceLocator $locator
+     * @return string
+     */
     public function getResourceName( ResourceLocator $locator )
     {
         $groupData = claro_get_group_data( array(
@@ -673,13 +848,26 @@ class GroupResolver
     }
 }
 
+/**
+ * Resolver for a tool
+ */
 class ToolResolver
 {
+    /**
+     * Resolve the locator of a tool
+     * @param ResourceLocator $locator
+     * @return string
+     */
     public function resolve( ResourceLocator $locator )
     {
         return get_module_entry_url($locator->getModuleLabel());
     }
     
+    /**
+     * Get the name of a tool from a locator
+     * @param ResourceLocator $locator
+     * @return string
+     */
     public function getResourceName( ResourceLocator $locator )
     {
         return get_lang( get_module_data($locator->getModuleLabel(), 'moduleName' ) );
@@ -692,17 +880,37 @@ class ToolResolver
  */
 interface ModuleResourceResolver
 {
+    /**
+     * Resolve the locator of a resource in a module
+     * @param ResourceLocator $locator
+     * @return string
+     */
     public function resolve( ResourceLocator $locator );
+    
+    /**
+     * Get the name of a resource in a module from a locator
+     * @param ResourceLocator $locator
+     * @return string
+     */
     public function getResourceName( ResourceLocator $locator );
 }
 
+/**
+ * Resolver for an external URL
+ */
 class CLEXT_Resolver implements ModuleResourceResolver
 {
+    /**
+     * @see ModuleResourceResolver
+     */
     public function resolve( ResourceLocator $locator )
     {
         return $locator->getResourceId();
     }
     
+    /**
+     * @see ModuleResourceResolver
+     */
     public function getResourceName( ResourceLocator $locator )
     {
         if ( $locator instanceof ExternalResourceLocator )
@@ -746,6 +954,12 @@ class CLEXT_Resolver implements ModuleResourceResolver
  */
 class ResourceLinkerNavigator
 {
+    /**
+     * Get the list of resource in a locator
+     * @param ResourceLocator $rootNodeLocator
+     * @return array
+     * @throws Exception
+     */
     public function getResourceList( ResourceLocator $rootNodeLocator = null )
     {
         $rootNodeLocator = empty( $rootNodeLocator )
@@ -785,6 +999,11 @@ class ResourceLinkerNavigator
         }
     }
     
+    /**
+     * Check if a locator is navigable
+     * @param ExternalResourceLocator $locator
+     * @return boolean
+     */
     public function isNavigable( $locator )
     {
         if ( $locator instanceof ExternalResourceLocator )
@@ -824,6 +1043,12 @@ class ResourceLinkerNavigator
         }
     }
     
+    /**
+     * Get the linker resource corresponding to the given module and the given locator
+     * @param string $moduleLabel label of the module
+     * @param ResourceLocator $rootNodeLocator
+     * @return \LinkerResource
+     */
     protected function moduleResource( $moduleLabel, ResourceLocator $rootNodeLocator )
     {
         $resource = new LinkerResource( $moduleLabel, $rootNodeLocator, true, claro_is_tool_visible($moduleLabel), false );
@@ -831,6 +1056,11 @@ class ResourceLinkerNavigator
         return $resource;
     }
     
+    /**
+     * Load the navigator for the given module
+     * @param string $moduleLabel
+     * @return \navigatorClass|boolean
+     */
     public static function loadModuleNavigator( $moduleLabel )
     {
         $navigatorClass = $moduleLabel . '_Navigator';
@@ -855,6 +1085,11 @@ class ResourceLinkerNavigator
         return false;
     }
     
+    /**
+     * Get the locator of the current resource
+     * @param array $params
+     * @return \ClarolineResourceLocator
+     */
     public function getCurrentLocator( $params = array() )
     {
         $locator = new ClarolineResourceLocator;
@@ -884,6 +1119,11 @@ class ResourceLinkerNavigator
         return $locator;
     }
     
+    /**
+     * Get the parent of the given locator
+     * @param ResourceLocator $locator
+     * @return ClarolineResourceLocator|boolean
+     */
     public function getParent( ResourceLocator $locator )
     {
         if ( $locator instanceof ExternalResourceLocator )
@@ -941,8 +1181,17 @@ class ResourceLinkerNavigator
  */
 interface ResourceNavigator
 {
+    /**
+     * Get the list of resource located at the given locator
+     * @param ResourceLocator $rootNodeLocator
+     * @return array
+     */
     public function getResourceList( ResourceLocator $rootNodeLocator );
-    
+    /**
+     * Is the resource located at the given locator navigable ?
+     * @param ResourceLocator $locator
+     * @retrun boolean
+     */
     public function isNavigable( ResourceLocator $locator );
 }
 
@@ -952,8 +1201,18 @@ interface ResourceNavigator
  */
 interface ModuleResourceNavigator extends ResourceNavigator
 {
+    /**
+     * Get the id of a resource
+     * @param array $params
+     * @return string
+     */
     public function getResourceId( $params = array() );
     
+    /**
+     * Get the id of the parent of the resource corresponding to the given locator
+     * @param ResourceLocator $locator
+     * @return string
+     */
     public function getParentResourceId( ResourceLocator $locator );
 }
 
@@ -963,6 +1222,9 @@ interface ModuleResourceNavigator extends ResourceNavigator
  */
 class CourseNavigator implements ResourceNavigator
 {
+    /**
+     * @see ResourceNavigator
+     */
     public function getResourceList( ResourceLocator $rootNodeLocator )
     {
         $courseToolList = claro_get_course_tool_list(
@@ -1013,6 +1275,9 @@ class CourseNavigator implements ResourceNavigator
         return $courseResource;
     }
     
+    /**
+     * @see ResourceNavigator
+     */
     public function isNavigable( ResourceLocator $locator )
     {
         // FIXME : a bit more security here !!!!
@@ -1026,6 +1291,9 @@ class CourseNavigator implements ResourceNavigator
  */
 class GroupNavigator implements ResourceNavigator
 {
+    /**
+     * @see ResourceNavigator
+     */
     public function getResourceList( ResourceLocator $rootNodeLocator )
     {
         $groupToolList = get_activated_group_tool_label_list( $rootNodeLocator->getCourseId() );
@@ -1072,6 +1340,9 @@ class GroupNavigator implements ResourceNavigator
         return $groupResource;
     }
     
+    /**
+     * @see ResourceNavigator
+     */
     public function isNavigable( ResourceLocator $locator )
     {
         // FIXME : a bit more security here !!!!
@@ -1079,8 +1350,16 @@ class GroupNavigator implements ResourceNavigator
     }
 }
 
+/**
+ * Implements the navigator for the group space
+ */
 class CLGRP_Navigator implements ModuleResourceNavigator
 {
+    /**
+     * Get the list of resources at the given locator
+     * @param ResourceLocator $rootNodeLocator
+     * @return \LinkerResourceIterator
+     */
     public function getResourceList( ResourceLocator $rootNodeLocator )
     {
         $tbl_cdb_names = get_module_course_tbl(array('group_team'), $rootNodeLocator->getCourseId() );
@@ -1116,6 +1395,9 @@ class CLGRP_Navigator implements ModuleResourceNavigator
         return $groupList;
     }
     
+    /**
+     * @see ModuleResourceNavigator
+     */
     public function getResourceId( $params = array() )
     {
         if ( ! isset($params['gid']) )
@@ -1126,11 +1408,19 @@ class CLGRP_Navigator implements ModuleResourceNavigator
         return "groups/{$params['gid']}";
     }
     
+    /**
+     * @see ModuleResourceNavigator
+     */
     public function getParentResourceId( ResourceLocator $locator )
     {
         return false;
     }
     
+    /**
+     * Is the resource at the given locator navigable ?
+     * @param ResourceLocator $locator
+     * @return boolean
+     */
     public function isNavigable( ResourceLocator $locator )
     {
         return true;
@@ -1143,11 +1433,19 @@ class CLGRP_Navigator implements ModuleResourceNavigator
  */
 class CLINTRO_Navigator implements ModuleResourceNavigator
 {
+    /**
+     * Get the list of resources at the given locator
+     * @param ResourceLocator $rootNodeLocator
+     * @return \LinkerResourceIterator
+     */
     public function getResourceList( ResourceLocator $rootNodeLocator )
     {
         // should not be called
     }
     
+    /**
+     * @see ModuleResourceNavigator
+     */
     public function getResourceId( $params = array() )
     {
         if ( ! isset($params['id']) )
@@ -1158,11 +1456,19 @@ class CLINTRO_Navigator implements ModuleResourceNavigator
         return $params['id'];
     }
     
+    /**
+     * @see ModuleResourceNavigator
+     */
     public function getParentResourceId( ResourceLocator $locator )
     {
         return null;
     }
     
+    /**
+     * Is the resource at the given locator navigable ?
+     * @param ResourceLocator $locator
+     * @return boolean
+     */
     public function isNavigable( ResourceLocator $locator )
     {
         return false;
@@ -1184,6 +1490,9 @@ class ResourceLinker
     private static $_initialized = false;
     private static $_userAgentInitialized = false;
     
+    /**
+     * Initialize the resource linker
+     */
     public static function init()
     {
         if ( ! self::$_initialized )
@@ -1195,6 +1504,9 @@ class ResourceLinker
         }
     }
     
+    /**
+     * Initialize the user agent libraries
+     */
     public static function initUserAgent()
     {
         if ( ! self::$_userAgentInitialized )
@@ -1204,6 +1516,10 @@ class ResourceLinker
         }
     }
     
+    /**
+     * Set the locator for the current resource
+     * @param ResourceLocator $locator
+     */
     public static function setCurrentLocator( ResourceLocator $locator )
     {
         // Init Client Side Linker
@@ -1215,6 +1531,11 @@ class ResourceLinker
         );
     }
     
+    /**
+     * Render the HTML block of the linker
+     * @param string $backendUrl
+     * @return string
+     */
     public static function renderLinkerBlock($backendUrl = null)
     {
         if( empty($backendUrl) )
@@ -1255,6 +1576,12 @@ class ResourceLinker
             ;
     }
     
+    /**
+     * Render the HTML list of link pointing from the given locator to other resources
+     * @param ResourceLocator $locator
+     * @param bool $forExternalUse
+     * @return string
+     */
     public static function renderLinkList( ResourceLocator $locator, $forExternalUse = false )
     {
         self::init();
@@ -1308,6 +1635,11 @@ class ResourceLinker
         return $htmlLinkList;
     }
     
+    /**
+     * Update the list of links pointing from the given locator to other resources
+     * @param ResourceLocator $locator
+     * @param array $resourceList
+     */
     public static function updateLinkList( ResourceLocator $locator, array $resourceList = array() )
     {
         $alreadyLinkedResourceList = self::getLinkList( $locator );
@@ -1368,12 +1700,22 @@ class ResourceLinker
         return self::$Resolver->resolve( $locator );
     }
     
+    /**
+     * Get the locator for the current resource
+     * @param array $params extra parameters
+     * @return string
+     */
     public static function getCurrentLocator( $params = array() )
     {
         self::init();
         return self::$Navigator->getCurrentLocator( $params );
     }
     
+    /**
+     * Get the id of the locator and add it to the database if it is missing
+     * @param ResourceLocator $locator
+     * @return int
+     */
     public static function getLocatorIdAndAddIfMissing( ResourceLocator $locator )
     {
         $tbl = claro_sql_get_course_tbl();
@@ -1402,6 +1744,12 @@ class ResourceLinker
         }
     }
     
+    /**
+     * Add a link between the two given locators
+     * @param ResourceLocator $locatorFrom
+     * @param ResourceLocator $locatorTo
+     * @return boolean
+     */
     public static function addLink( $locatorFrom, $locatorTo )
     {
         $crlFromId = self::getLocatorIdAndAddIfMissing( $locatorFrom );
@@ -1436,6 +1784,12 @@ class ResourceLinker
         }
     }
     
+    /**
+     * Remove a link between the two given locators
+     * @param ResourceLocator $locatorFrom
+     * @param ResourceLocator $locatorTo
+     * @return boolean
+     */
     public static function removeLink( $locatorFrom, $locatorTo )
     {
         $crlFromId = self::getLocatorIdAndAddIfMissing( $locatorFrom );
@@ -1455,6 +1809,11 @@ class ResourceLinker
         return Claroline::getDatabase()->affectedRows();
     }
     
+    /**
+     * Get the list of link pointing from the given locator
+     * @param ResourceLocator $locator
+     * @return CountableIterator
+     */
     public static function getLinkList( $locator )
     {
         $tbl = claro_sql_get_course_tbl();

@@ -7,7 +7,7 @@
  *
  * Debugging functions and classes.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -16,6 +16,11 @@
  * @package     kernel.core
  */
 
+/**
+ * Get html debug string for a variable
+ * @param mixed $var
+ * @return string
+ */
 function dbg_html_var( $var )
 {
     return claro_htmlspecialchars(var_export( $var, true ));
@@ -86,6 +91,9 @@ function debug_get_arg($arg)
     return $arg;
 }*/
 
+/**
+ * Profiler, the output is sent to the console
+ */
 class Profiler
 {
     const PROFILER_STATUS_STARTED = 'started';
@@ -96,13 +104,21 @@ class Profiler
     private $status;
     private $endTime;
     private $log;
-
+    
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->log = array();
         $this->status = self::PROFILER_STATUS_NOT_STARTED;
     }
-
+    
+    /**
+     * Start the timer
+     * @param bool $restart
+     * @return void
+     */
     public function start( $restart = false )
     {
         if ( $this->status == self::PROFILER_STATUS_STARTED
@@ -116,12 +132,18 @@ class Profiler
         
         Console::log(sprintf("&gt;&gt; Profiler (re)started at %f", $this->startTime), 'profile');
     }
-
+    
+    /**
+     * Restart the timer
+     */
     public function restart()
     {
         $this->start( true );
     }
 
+    /**
+     * Stop profiling and add the report to the console
+     */
     public function stop()
     {
         if ( $this->status != self::PROFILER_STATUS_STARTED )
@@ -137,7 +159,13 @@ class Profiler
             sprintf("** Elapsed time : %f seconds **", $this->getElapsedTime())
             , 'profile');
     }
-
+    
+    /**
+     * Add a mark (timestamp + message) to the profiling
+     * @param string $file
+     * @param string $line
+     * @param string $msg
+     */
     public function mark( $file, $line, $msg = '##MARK##' )
     {
         if ( $this->status != self::PROFILER_STATUS_STARTED )
@@ -156,12 +184,20 @@ class Profiler
         $this->log[] = $mark;
         Console::log($mark, 'profile');
     }
-
+    
+    /**
+     * Return the total elapsed time
+     * @return type
+     */
     public function getElapsedTime()
     {
         return $this->endTime - $this->startTime;
     }
-
+    
+    /**
+     * Get the current time
+     * @return float
+     */
     private function _getCurrentTime()
     {
         list($usec, $sec) = explode(" ", microtime());

@@ -7,7 +7,7 @@
  *
  * Exception library.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -15,11 +15,6 @@
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
  * @package     kernel.core
  */
-
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
 
 // PHP Error to Exception converter
 
