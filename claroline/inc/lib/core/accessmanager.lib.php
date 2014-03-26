@@ -212,7 +212,14 @@ class Claro_ModuleAccessManager
             return false;
         }
     }
-
+    
+    /**
+     * Validate the type and context of a module with the privileges of the user
+     * @param Claro_UserPrivileges $userPrivileges
+     * @param Claro_Course $course
+     * @param Claro_GroupTeam $group
+     * @return boolean true if valid, false if not
+     */
     protected function validateTypeAndContext( $userPrivileges, $course = null, $group = null )
     {
         if ( !$this->module->isActivated() )
@@ -261,8 +268,13 @@ class Claro_ModuleAccessManager
         }
     }
     
-    // platform context 
+    // platform context
     
+    /**
+     * Check if a user is allowed to read resources at the platform level
+     * @param Claro_UserPrivileges $userPrivileges
+     * @return boolean
+     */
     protected function isAllowedToRead( $userPrivileges )
     {
         if ( $this->module->getType() == 'tool' )
@@ -275,6 +287,11 @@ class Claro_ModuleAccessManager
         }
     }
     
+    /**
+     * Check if a user is allowed to modify a resource at the platform level
+     * @param Claro_UserPrivileges $userPrivileges
+     * @return bool
+     */
     protected function isAllowedToEdit( $userPrivileges )
     {
         return $this->module->hasContext('platform')
@@ -283,12 +300,24 @@ class Claro_ModuleAccessManager
     
     // course context
     
+    /**
+     * Check if a user is allowed to read a resources from the user's course privileges
+     * @param Claro_UserPrivileges $userPrivileges
+     * @param Claro_CourseUSerPrivileges $coursePrivileges
+     * @return bool
+     */
     protected function isAllowedToReadInCourse( $userPrivileges, $coursePrivileges )
     {
         return $coursePrivileges->isCourseManager()
             || $coursePrivileges->getCourseUserProfile()->profileAllowsToRead($this->module);
     }
     
+    /**
+     * Check if a user is allowed to modify a resources from the user's course privileges
+     * @param Claro_UserPrivileges $userPrivileges
+     * @param Claro_CourseUSerPrivileges $coursePrivileges
+     * @return bool
+     */
     protected function isAllowedToEditInCourse( $userPrivileges, $coursePrivileges )
     {
         if ( $coursePrivileges->isCourseManager() )
@@ -305,6 +334,13 @@ class Claro_ModuleAccessManager
     
     // group context
     
+    /**
+     * Check if a user is allowed to access a resources from the user's group privileges
+     * @param Claro_UserPrivileges $userPrivileges
+     * @param Claro_CourseUserPrivileges $coursePrivileges
+     * @param Claro_GroupUserPrivileges $groupPrivileges
+     * @return boolean
+     */
     protected function isAllowedToReadInGroup( $userPrivileges, $coursePrivileges, $groupPrivileges )
     {   
         if ( $this->canAccessModuleInGroup( $userPrivileges, $coursePrivileges, $groupPrivileges ) )
@@ -317,6 +353,13 @@ class Claro_ModuleAccessManager
         }
     }
     
+    /**
+     * Check if a user is allowed to modify a resources from the user's group privileges
+     * @param Claro_UserPrivileges $userPrivileges
+     * @param Claro_CourseUserPrivileges $coursePrivileges
+     * @param Claro_GroupUserPrivileges $groupPrivileges
+     * @return boolean
+     */
     protected function isAllowedToEditInGroup( $userPrivileges, $coursePrivileges, $groupPrivileges )
     {
         if ( $this->canAccessModuleInGroup( $userPrivileges, $coursePrivileges, $groupPrivileges ) )
@@ -329,6 +372,13 @@ class Claro_ModuleAccessManager
         }
     }
     
+    /**
+     * Check if a user is allowed to access a module from the user's group privileges
+     * @param Claro_UserPrivileges $userPrivileges
+     * @param Claro_CourseUserPrivileges $coursePrivileges
+     * @param Claro_GroupUserPrivileges $groupPrivileges
+     * @return boolean
+     */
     protected function canAccessModuleInGroup( $userPrivileges, $coursePrivileges, $groupPrivileges )
     {        
         $courseUserProfile = new Claro_CourseUserProfile( $userPrivileges, $coursePrivileges );
@@ -374,6 +424,9 @@ class Claro_Module
         $this->loadModuleData();
     }
     
+    /**
+     * Load the module data
+     */
     protected function loadModuleData()
     {
         $this->mainToolId = get_tool_id_from_module_label( $this->moduleLabel );
@@ -463,10 +516,17 @@ class Claro_Module
     }
 }
 
+/**
+ * Access permissions of a module
+ */
 class Claro_ModuleAccessPermissions
 {
     private $permissions;
     
+    /**
+     * 
+     * @param array $permissions
+     */
     protected function __construct( $permissions )
     {
         $this->permissions = $permissions;

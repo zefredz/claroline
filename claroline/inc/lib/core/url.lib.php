@@ -7,7 +7,7 @@
  *
  * Url manipulation library.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -61,6 +61,11 @@ class Url
         $this->url['query'] = $queryArr;
     }
     
+    /**
+     * Black Magick!
+     * @param string $name
+     * @return mixed
+     */
     public function __get( $name )
     {
         if ( isset( $this->url[$name] ) )
@@ -73,6 +78,11 @@ class Url
         }
     }
     
+    /**
+     * Black Magick!
+     * @param string $name
+     * @param mixed $value
+     */
     public function __set( $name, $value )
     {
         if ( isset( $this->url[$name] ) )
