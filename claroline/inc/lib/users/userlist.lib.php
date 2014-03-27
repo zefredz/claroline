@@ -611,7 +611,7 @@ class Claro_BatchCourseRegistration
                         
                         $connectorClass = $moduleData['label'] . '_AdminUser';
                         
-                        if ( class_exist ( $connectorClass ) )
+                        if ( class_exists ( $connectorClass ) )
                         {
                             $connector = new $connectorClass( $this->database );
 
