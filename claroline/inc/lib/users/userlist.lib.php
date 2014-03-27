@@ -8,12 +8,11 @@ require_once __DIR__ . '/../connectors/adminuser.lib.php';
 /**
  * Set of PHP classes for user batch registration and enrolment
  *
- * @version Claroline 1.11 $Revision$
- * @copyright (c) 2013 Universite catholique de Louvain (UCL)
+ * @version Claroline 1.12 $Revision$
+ * @copyright (c) 2001-2014 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package kernel
+ * @package kernel.users
  * @author Frederic Minne <zefredz@claroline.net>
- * @todo move to Claroline kernel
  */
 
 /**

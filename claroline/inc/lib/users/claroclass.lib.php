@@ -7,12 +7,11 @@ require_once __DIR__ . '/classutils.lib.php';
 /**
  * Set of PHP classes to manipulate Claroline user classes
  *
- * @version 1.11 $Revision$
- * @copyright (c) 2013 Universite catholique de Louvain (UCL)
+ * @version Claroline 1.12 $Revision$
+ * @copyright (c) 2001-2014 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package kernel
+ * @package kernel.users
  * @author Frederic Minne <zefredz@claroline.net>
- * @todo move to Claroline kernel
  */
 
 /**
@@ -57,6 +56,11 @@ class Claro_Class
         $this->database = $database ? $database : Claroline::getDatabase();    
     }
     
+    /**
+     * Populate from an array
+     * @param array $data
+     * @throws Claro_Class_Exception
+     */
     public function fromArray( $data )
     {
         if ( !isset( $data['id'] ) || ! isset($data['name']) )
@@ -459,6 +463,9 @@ class Claro_Class
         ")->numRows() > 0;
     }
     
+    /**
+     * Load list of subclasses of the class
+     */
     protected function loadSubclassesList()
     {
         $parentId = $this->database->escape($this->id);
@@ -487,6 +494,10 @@ class Claro_Class
         $this->subClassesIterator = new Claro_ClassIterator( $subclasses, $this->database );
     }
     
+    /**
+     * Does the class have subclasses ?
+     * @return boolean
+     */
     public function hasSubclasses()
     {
         if ( is_null($this->subClassesIterator ) )
@@ -497,6 +508,11 @@ class Claro_Class
         return count( $this->subClassesIdList ) > 0;
     }
     
+    /**
+     * Get an Iterator of the subclasses of the current class
+     * @return Claro_ClassIterator
+     * @throws Claro_Class_Exception
+     */
     public function getSubClassesIterator()
     {
         if ( ! $this->hasSubclasses () )
@@ -509,6 +525,11 @@ class Claro_Class
         }
     }
     
+    /**
+     * Get the list of subclasses ids
+     * @return array of [id => id]
+     * @throws Claro_Class_Exception
+     */
     public function getSubClassesIdList()
     {
         if ( ! $this->hasSubclasses () )
@@ -521,16 +542,35 @@ class Claro_Class
         }
     }
     
+    /**
+     * Does the class have a parent ?
+     * @return boolean
+     */
     public function hasParent()
     {
         return $this->parentId ? true : false;
     }
     
+    /**
+     * Get the parent class of the class
+     * @return Claro_Class
+     * @throws Claro_Class_Exception if no parent
+     */
     public function getParent()
     {
         if ( ! $this->hasParent () )
         {
             throw new Claro_Class_Exception("This class has no parent");
+        }
+        else
+        {
+            if ( is_null( $this->parentClass ) )
+            {
+                $this->parentClass = new Claro_Class($this->database);
+                $this->parentClass->load($this->parentId);
+            }
+            
+            return $this->parentClass;
         }
     }
 }
@@ -880,16 +920,28 @@ class Claro_ClassUserList
     }
 }
 
+/**
+ * List of the class in a course
+ */
 class Claro_CourseClassList
 {
     private $course, $database;
     
+    /**
+     * Get the list of the class of the given course
+     * @param Claro_Course $course
+     * @param Database_Connection $database optional
+     */
     public function __construct ( $course, $database = null )
     {
         $this->course = $course;
         $this->database = $database ? $database : Claroline::getDatabase();
     }
     
+    /**
+     * Get an iterator of the classes in the course
+     * @return \Claro_ClassIterator
+     */
     public function getClassListIterator()
     {
         $tbl  = claro_sql_get_main_tbl();
@@ -916,16 +968,28 @@ class Claro_CourseClassList
     }
 }
 
+/**
+ * Iterator of classes
+ */
 class Claro_ClassIterator extends RowToObjectIteratorIterator
 {
     protected
         $database;
     
+    /**
+     * Constructor
+     * @param CountableIterator $internalIterator
+     * @param Database_Connection $database optional
+     */
     public function __construct ( CountableIterator $internalIterator, $database = null )
     {
         $this->database = $database ? $database : Claroline::getDatabase();
         parent::__construct ( $internalIterator );
     }
+    /**
+     * @see RowToObjectIteratorIterator
+     * @return \Claro_Class
+     */
     public function current ()
     {
         $claroClass = new Claro_Class();

@@ -8,13 +8,13 @@ require_once __DIR__.'/userlist.lib.php';
  * This library provides a new course registration
  * mechanism that uses those profile to enrol a user in a course.
  *
- * @version     1.11 $Revision$
- * @copyright   2001-2012 Universite catholique de Louvain (UCL)
+ * @version     Claroline 1.12 $Revision$
+ * @copyright   (c) 2001-2014 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.auth
+ * @package     kernel.users
  * @since       1.11
  */
 
@@ -100,21 +100,37 @@ class Claro_CourseUserRegistration
         return $this->errorMessage;
     }
     
+    /**
+     * Set the registration key for the registration protected by enrolment key
+     * @param string $registrationKey
+     */
     public function setUserRegistrationKey( $registrationKey )
     {
         $this->givenCourseKey = $registrationKey;
     }
     
+    /**
+     * Set the id of the category for the registration by category
+     * @param int $categoryId
+     */
     public function setCategoryId( $categoryId )
     {
         $this->categoryId = $categoryId;
     }
     
+    /**
+     * Ignore the registration key while doing the registration even for 
+     * registration using an enrolment key
+     */
     public function ignoreRegistrationKeyCheck()
     {
         $this->ignoreRegistrationKeyCheck = true;
     }
     
+    /**
+     * Ignore the category id while doing the registration even foir 
+     * registration by category
+     */
     public function ignoreCategoryRegistrationCheck()
     {
         $this->ignoreCategoryRegistrationCheck = true;
@@ -177,11 +193,20 @@ class Claro_CourseUserRegistration
         $this->isSuperUser = true;
     }
     
+    /**
+     * Force the unregistration even if the user is course manager
+     */
     public function forceUnregistrationOfManager()
     {
         $this->forceUnregOfManager = true;
     }
     
+    /**
+     * Force the unregistration of the user
+     * @param boolean $keepTrackingData
+     * @param array $moduleDataToPurge
+     * @return boolean
+     */
     public function forceRemoveUser( $keepTrackingData = true, $moduleDataToPurge = array() )
     {
         if ( ! $this->isUnregistrationAllowed () )
@@ -219,6 +244,12 @@ class Claro_CourseUserRegistration
         }
     }
     
+    /**
+     * Unregister a user
+     * @param boolean $keepTrackingData
+     * @param array $moduleDataToPurge
+     * @return boolean
+     */
     public function removeUser( $keepTrackingData = true, $moduleDataToPurge = array() )
     {
         if ( ! $this->isUnregistrationAllowed () )
@@ -437,6 +468,10 @@ class Claro_CourseUserRegistration
     
     // business logic...
     
+    /**
+     * Is the user registered to the course ?
+     * @return boolean
+     */
     protected function isUserRegisteredToCourse()
     {
         $tbl_mdb_names          = claro_sql_get_main_tbl();
@@ -533,6 +568,10 @@ class Claro_CourseUserRegistration
         }
     }
     
+    /**
+     * Check if there is only one manager left in the course
+     * @return boolean
+     */
     protected function onlyOneCourseManagerLeft( )
     {
         $tbl_mdb_names          = claro_sql_get_main_tbl();
@@ -559,7 +598,7 @@ class Claro_CourseUserRegistration
     }
     
     /**
-     * Is the user allowed to enrol to the course
+     * Is the user allowed to unenrol from the course ?
      * @return boolean
      */
     protected function isUnregistrationAllowed()
@@ -606,7 +645,7 @@ class Claro_CourseUserRegistration
     }
     
     /**
-     * Is the validation required
+     * Is the validation required ?
      * @return boolean
      */
     public function isValidationRequired()
@@ -624,6 +663,10 @@ class Claro_CourseUserRegistration
         return $this->userAuthProfile->getCourseProfile();
     }
     
+    /**
+     * Check the registration key provided for the registration
+     * @return boolean
+     */
     protected function checkRegistrationKey()
     {
         if ( $this->getCourseRegistrationMode() == 'open' && !empty( $this->course->registrationKey ) )
@@ -652,7 +695,7 @@ class Claro_CourseUserRegistration
     }
     
     /**
-     * Is the registration allowed in the current course
+     * Is the registration allowed in the current course ?
      * @return boolean
      */
     protected function isCourseRegistrationAllowed()
@@ -723,6 +766,10 @@ class Claro_CourseUserRegistration
         return $isUserAllowedToEnrol;
     }
     
+    /**
+     * Is unregistration allowed for the course ?
+     * @return boolean
+     */
     protected function isCourseUnregistrationAllowed()
     {
         // Check if course available or option set to allow unregistration from unavailable course
