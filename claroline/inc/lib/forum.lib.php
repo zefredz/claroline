@@ -1,21 +1,16 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * Library for forum tool
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
- * @copyright   (C) 2001 The phpBB Group
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
  * @package     CLFRM
+ * @fixme       move to CLFRM module
  * @since       1.6
  */
 
@@ -36,7 +31,6 @@ define ('GROUP_FORUMS_CATEGORY', 1);
  *
  * @return integer qty
  */
-
 function get_total_posts($id, $type = 'all', $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
@@ -78,7 +72,6 @@ function get_total_posts($id, $type = 'all', $course_id=NULL)
  *
  * @return true if $post_id is first in the $topic_id
  */
-
 function is_first_post($topic_id, $post_id)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -97,7 +90,6 @@ function is_first_post($topic_id, $post_id)
 /**
  * Displays an error message and exits the script. Used in the posting files.
  */
-
 function error_die($msg)
 {
     echo '<table border="0" align="center" width="100%">'."\n"
@@ -117,7 +109,6 @@ function error_die($msg)
  * @param int topicId (optionnal)
  * @return boolean true if succeeds, false otherwise
  */
-
 function sync($forumId, $topicId = null)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -200,12 +191,8 @@ function sync($forumId, $topicId = null)
  * Convert a SQL date or datetime to a unix time stamp
  *
  * @param string SQL DATETIME or DATE
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
- *
  * @return int unix time stamp
  */
-
 function datetime_to_timestamp($dateTime)
 {
     $year = $month = $day = $hour = $min = $sec = 0;
@@ -233,12 +220,10 @@ function datetime_to_timestamp($dateTime)
 /**
  * Get the forum settings of a forum
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @param  int $forumId
  * @param  int $topicId (optional)
  * @return array forum settings or false
  */
-
 function get_forum_settings($forumId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -276,11 +261,9 @@ function get_forum_settings($forumId)
 /**
  * Get topic settings of a topic
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @param  int $topicId
  * @return array topic settings
  */
-
 function get_topic_settings($topicId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -302,13 +285,11 @@ function get_topic_settings($topicId)
 }
 
 /**
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * Subscribe to forum notifications
  * @param int $userId
  * @param int $forumId
  * @return void
  */
-
 function request_forum_notification($forumId, $userId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -326,13 +307,11 @@ function request_forum_notification($forumId, $userId)
 }
 
 /**
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * Unsubscribe from forum notifications
  * @param int $userId
  * @param int $forumId (optionnal)
  * @return void
  */
-
 function cancel_forum_notification($forumId = null, $userId = null)
 {
     $tbl_cdb_names   = claro_sql_get_course_tbl();
@@ -351,13 +330,11 @@ function cancel_forum_notification($forumId = null, $userId = null)
 
 
 /**
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * Has the user subscribe to forum notifications
  * @param int $userId
  * @param int $forumId
  * @return bool
  */
-
 function is_forum_notification_requested($forumId, $userId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -372,7 +349,10 @@ function is_forum_notification_requested($forumId, $userId)
     else                                            return false;
 }
 
-
+/**
+ * Trigger froum notifications
+ * @param int $forumId
+ */
 function trig_forum_notification($forumId)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -450,8 +430,7 @@ function trig_forum_notification($forumId)
 /**
  * create a new topic
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
- * @param string $subject
+ * param string $subject
  * @param string $time
  * @param int $forumId
  * @param int $userId
@@ -459,7 +438,6 @@ function trig_forum_notification($forumId)
  * @param string $userLastname
  * @return integer id of the new topic
  */
-
 function create_new_topic($subject, $time, $forumId
                          , $userId, $userFirstname, $userLastname, $course_id=NULL)
 {
@@ -491,11 +469,9 @@ function create_new_topic($subject, $time, $forumId
 /**
  * get the main settings of a post
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @param int $postId
  * @return array containing poster_id, forum_id, topic_id and post_time
  */
-
 function get_post_settings($postId)
 {
     $tbl_cdb_names  = claro_sql_get_course_tbl();
@@ -525,8 +501,6 @@ function get_post_settings($postId)
  * @return  integer id of the new post
  *
  */
-
-
 function create_new_post($topicId, $forumId, $userId, $time, $posterIp
                         , $userLastname, $userFirstname, $message, $course_id=NULL)
 {
@@ -588,12 +562,13 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
 
 
 /**
+ * Update a post
  *
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @param int $post_id
+ * @param int $topic_id
+ * @param string $message
+ * @param string $subject
  */
-
-
 function update_post($post_id, $topic_id, $message, $subject = '')
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -618,15 +593,13 @@ function update_post($post_id, $topic_id, $message, $subject = '')
 }
 
 /**
+ * Delete a post
  *
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @param int $postId
  * @param int $topciId
  * @param int $forumId
  * @return boolean true if succeeds, false otherwise
  */
-
 function delete_post($postId, $topicId, $forumId)
 {
     $tbl_cdb_names  = claro_sql_get_course_tbl();
@@ -649,13 +622,11 @@ function delete_post($postId, $topicId, $forumId)
 
 
 /**
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * Subscribe to topic notifications
  * @param int $userId
  * @param int $topicId
  * @return void
  */
-
 function request_topic_notification($topicId, $userId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -673,13 +644,11 @@ function request_topic_notification($topicId, $userId)
 }
 
 /**
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * Unsusbcribe from topic notifications
  * @param int $userId
  * @param int $topicId (optionnal)
  * @return void
  */
-
 function cancel_topic_notification($topicId = null, $userId = null)
 {
     $tbl_cdb_names   = claro_sql_get_course_tbl();
@@ -698,13 +667,11 @@ function cancel_topic_notification($topicId = null, $userId = null)
 
 
 /**
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * Has the user subscribed to topic notifications
  * @param int $userId
  * @param int $topicId
  * @return bool
  */
-
 function is_topic_notification_requested($topicId, $userId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -719,7 +686,10 @@ function is_topic_notification_requested($topicId, $userId)
     else                                            return false;
 }
 
-
+/**
+ * Trigger topic notifications
+ * @param int $topicId
+ */
 function trig_topic_notification($topicId)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -797,14 +767,12 @@ function trig_topic_notification($topicId)
 
 /**
  * Display formated message with several 'return to ...' possibility
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * 
  * @param string $message
  * @param int $forumId (optional)
  * @param int $topicId (optional)
  * @return void
  */
-
 function disp_confirmation_message ($message, $forumId = false, $topicId = false)
 {
     $out = '';
@@ -841,7 +809,6 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
  * Display a mini pager. At the opposite of the claro_sql_pager, it doesn't
  * depend of SQL, but you have to know before the total count of item.
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @param string $url - url to be used
  * @param string $offsetParam - param to introduce to call the pager offset
  * @param int    $total - total number of items
@@ -850,8 +817,6 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
  *               the remaining pages are replaced by a '...' except the last one.
  * @return void
  */
-
-
 function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
 {
     $pageList  = array();
@@ -905,7 +870,6 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
  * @see    claro_sql_pager class
  * @package CLFRM
  */
-
 class topicLister
 {
     var $sqlPager;
@@ -913,13 +877,12 @@ class topicLister
     /**
      * class constructor
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
      * @param int $forumId     id of the current forum
      * @param int $start       post where to start
      * @param int $postPerPage number of post to display per page
      */
 
-    function topicLister($forumId, $start = 1, $topicPerPage = 10)
+    function __construct($forumId, $start = 1, $topicPerPage = 10)
     {
         $tbl_cdb_names = claro_sql_get_course_tbl();
         $tbl_topics    = $tbl_cdb_names['bb_topics'];
@@ -943,7 +906,6 @@ class topicLister
     /**
      * return all the topic list of the current forum
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
      * @return array post list
      */
 
@@ -955,7 +917,6 @@ class topicLister
     /**
      * display a pager tool bar
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
      * @param string $url page where to point
      * @return void
      */
@@ -971,11 +932,8 @@ class topicLister
  * Class building a list of all the post of specific topic, with pager options
  * The class is actually based on the claro_sql_pager class
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @see    claro_sql_pager class
- * @package CLFRM
  */
-
 class postLister
 {
     var $sqlPager;
@@ -989,7 +947,7 @@ class postLister
      * @param int $postPerPage number of post to display per page
      */
 
-    function postLister($topicId, $start = 1, $postsPerPage = 10)
+    function __construct($topicId, $start = 1, $postsPerPage = 10)
     {
         $tbl_cdb_names = claro_sql_get_course_tbl();
         $tbl_posts            = $tbl_cdb_names['bb_posts'];
@@ -1018,7 +976,6 @@ class postLister
     /**
      * return all the post list of the current topic
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
      * @return array post list
      */
 
@@ -1030,7 +987,6 @@ class postLister
     /**
      * display a pager tool bar
      *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
      * @param string $url page where to point
      * @return void
      */
@@ -1040,7 +996,7 @@ class postLister
         return $this->sqlPager->disp_pager_tool_bar($pagerUrl);
     }
 
-        /**
+    /**
      * return count of post of the current topic
      *
      * @author Christophe Gesche <moosh@claroline.net>
@@ -1060,7 +1016,6 @@ class postLister
  * @author Mathieu Laurent <mla@claroline.net>
  * @return void
  */
-
 function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
     $toolList = array();
@@ -1143,7 +1098,6 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
  * @author Mathieu Laurent <mla@claroline.net>
  * @return array
  */
-
 function get_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
     $toolList = array();
@@ -1221,7 +1175,6 @@ function get_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @return Array of Array
  */
-
 function disp_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
     $toolList = array();
@@ -1298,6 +1251,10 @@ function disp_forum_toolbar_array($pagetype, $forum_id, $cat_id = 0, $topic_id =
     return $toolList;
 }
 
+/**
+ * Dispaly forum search box
+ * @return string
+ */
 function disp_search_box()
 {
     if (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'rqSearch' )
@@ -1320,6 +1277,15 @@ function disp_search_box()
     }
 }
 
+/**
+ * Display forum breadcrumbs
+ * @param string $pagetype 'viewforum', 'viewtopic', 'add', 'edit', 'reply', 'quote', 'viewsearch'
+ * @param int $forum_id
+ * @param string $forum_name
+ * @param int $topic_id
+ * @param string $topic_name
+ * @return string
+ */
 function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0, $topic_name = '' )
 {
     $bc = new BreadCrumbs;
@@ -1393,10 +1359,7 @@ function disp_forum_breadcrumb( $pagetype, $forum_id, $forum_name, $topic_id = 0
  *
  * @param int $forumId forum id
  * @return boolean - true if it succeed, flase otherwise
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  */
-
 function delete_all_post_in_forum($forumId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -1485,7 +1448,6 @@ function update_category_title( $catId, $catTitle )
  * @param integer $cat_id
  * @return boolean true if set.
  */
-
 function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_post_allowed, $cat_id, $anonymity_type='forbidden' )
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
@@ -1596,6 +1558,11 @@ function delete_category($cat_id)
     }
 }
 
+/**
+ * Delete a forum
+ * @param int $forum_id
+ * @return boolean
+ */
 function delete_forum($forum_id)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -1627,7 +1594,6 @@ function delete_forum($forum_id)
  * @return integer id of new forum;
  *
  */
-
 function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $anonymity_type = 'forbidden', $group_id = null, $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
@@ -1668,6 +1634,7 @@ function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $a
 
     return claro_sql_query_insert_id($sql);
 }
+
 /**
  * swap rank of a forum in a category with his neiborgth
  *
@@ -1873,7 +1840,6 @@ function move_down_category($cat_id)
                  forum_topics, forum_posts, forum_last_post_id, cat_id,
                  forum_type, forum_order, poster_id, post_time, group_id)
  */
-
 function get_forum_list()
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -1902,7 +1868,6 @@ function get_forum_list()
                  forum_topics, forum_posts, forum_last_post_id, cat_id,
                  forum_type, forum_order, poster_id, post_time, group_id)
  */
-
 function get_post_list( $topic_id )
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -2086,7 +2051,6 @@ function set_topic_lock_status( $topicId, $lock )
  * @param int $topicId
  * @return boolean - true if it succeed, false otherwise
  */
-
 function delete_all_posts_in_topic( $topicId )
 {
     $tbl = claro_sql_get_course_tbl();
@@ -2113,6 +2077,11 @@ function delete_all_posts_in_topic( $topicId )
     return $deletedCount;
 }
 
+/**
+ * Delete a topic
+ * @param int $topicId
+ * @return boolean
+ */
 function delete_topic( $topicId )
 {
     $deletedCount = delete_all_posts_in_topic( $topicId );
@@ -2152,6 +2121,11 @@ function delete_topic( $topicId )
     }
 }
 
+/**
+ * Get the access mode to group forum
+ * @param array $forum forum info
+ * @return string|boolean
+ */
 function get_access_mode_to_group_forum( $forum )
 {
     if( claro_is_user_authenticated() )

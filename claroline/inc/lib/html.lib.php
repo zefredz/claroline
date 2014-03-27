@@ -1,21 +1,16 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * This lib provide html stream for various
  * uniformised output.
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      see 'credits' file
- * @package     HTML
+ * @package     kernel.display
  */
 
 
@@ -71,7 +66,6 @@ function claro_html_list($itemList, $attrBloc=array())
  *
  * @return string : list content as an horizontal menu.
  */
-
 function claro_html_menu_horizontal($itemList)
 {
     if( !empty($itemList) && is_array($itemList))
@@ -98,8 +92,7 @@ function claro_html_menu_horizontal($itemList)
  * @param string $currentClassName css class name
  * @return array
  */
- 
- function prepared_section_to_tabs($section_list, $section_selected='',$url_params = null, $currentClassName='current')
+function prepared_section_to_tabs($section_list, $section_selected='',$url_params = null, $currentClassName='current')
 {
     $tabList=array();
         
@@ -318,7 +311,6 @@ function claro_html_message_box($message)
 * @param string $homeImg (optionnal) source url for a home icon at the trail start
 * @return string : the build breadcrumb trail
 *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 */
 function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', $homeImg = null)
 {
@@ -565,18 +557,27 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
     return $returnString;
 }
 
-
+/**
+ * Get textarea with simplified text editor
+ * @param string $name
+ * @param string $content
+ * @return string
+ */
 function claro_html_simple_textarea($name, $content = '')
 {
     return claro_html_textarea_editor($name, $content, 20, 80, '', 'simple');
 }
 
-
+/**
+ * Get textarea with advanced text editor
+ * @param string $name
+ * @param string $content
+ * @return string
+ */
 function claro_html_advanced_textarea($name, $content = '')
 {
     return claro_html_textarea_editor($name, $content, 20, 80, '', 'advanced');
 }
-
 
 /**
  *
@@ -605,8 +606,8 @@ DEFINE('DG_ORDER_COLS_BY_TITLE','DG_ORDER_COLS_BY_TITLE'.__FILE__.__LINE__);
  * set_counterLine(bool 'dispCounter')
  * set_colDecoration(string columnName,string pattern, array param)
  *
- * @package HTML
  * @author Christophe Gesche <moosh@claroline.net>
+ * @deprecated since Claroline 1.12 use Claro_Utils_Datagrid or templates instead
  *
  */
 class claro_datagrid
@@ -628,8 +629,11 @@ class claro_datagrid
     private $dispIdCol = true;
     private $internalKey = 0;
 
-
-    function claro_datagrid($datagrid = null)
+    /**
+     * 
+     * @param array $datagrid
+     */
+    function __construct($datagrid = null)
     {
         if (!is_null($datagrid))    $this->set_grid($datagrid);
 
@@ -653,7 +657,10 @@ class claro_datagrid
 
     }
 
-
+    /**
+     * Set option list
+     * @param array $option_list
+     */
     function set_option_list($option_list)
     {
         foreach ( $option_list as $option => $value )
@@ -840,7 +847,10 @@ class claro_datagrid
         return $this->decorationList;
     }
     
-    
+    /**
+     * Render the datagrid
+     * @return string
+     */
     function render()
     {
         $stream = '';
@@ -1008,7 +1018,6 @@ class claro_datagrid
  *
  * @param boolean $cidRequired - if the course id is required to leave the form
  * @author Christophe gesche <moosh@claroline.net>
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  */
 function claro_disp_auth_form($cidRequired = false)
 {
@@ -1075,8 +1084,6 @@ function claro_disp_auth_form($cidRequired = false)
  *  $elementList[2]['name' ]  = 'level1';
  *  $elementList[2]['value']  = 'level1';
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
- *
  */
 function claro_build_nested_select_menu($name, $elementList)
 {
@@ -1123,8 +1130,6 @@ function prepare_option_tags($elementList, $deepness = 0)
 
 /**
  * Checks if the string has been written html style (ie &eacute; etc)
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @param string $string
  * @return boolean true if the string is written in html style, false otherwise
  */
@@ -1258,7 +1263,11 @@ function make_spoiler($text)
     return $out;
 }
 
-
+/**
+ * Clean spoiler start code
+ * @param array $match
+ * @return boolean
+ */
 function clean_spoilerStart($match)
 {
     if(isset($match[4]))
@@ -1272,7 +1281,11 @@ function clean_spoilerStart($match)
     
 }
 
-
+/**
+ * Clean spoiler end code
+ * @param array $match
+ * @return string
+ */
 function clean_spoilerEnd($match)
 {
     return '[/spoiler]';
@@ -1299,6 +1312,11 @@ function add_spoiler($match)
     return $out;
 }
 
+/**
+ * Cleanup LaTeX generated code and replace with [latex] tags
+ * @param string $text
+ * @return string
+ */
 function cleanUpLaTeX( $text )
 {
     $claro_texRendererUrl = get_conf('claro_texRendererUrl');
@@ -1336,6 +1354,11 @@ function cleanUpLaTeX( $text )
     return $text;
 }
 
+/**
+ * URL to LaTeX converter
+ * @param array $matches
+ * @return boolean
+ */
 function deUrlizeLaTeX( $matches )
 {
     if ( count($matches) < 5 )
@@ -1345,9 +1368,6 @@ function deUrlizeLaTeX( $matches )
 
     return '[tex]'.rawurldecode($matches[4]).'[/tex]';
 }
-
-
-
 
 /**
  * Parse the user text to transform bb code style tex tags to
@@ -1382,7 +1402,11 @@ function renderTex($text)
     return $text;
 }
 
-
+/**
+ * Callback function to render LaTeX
+ * @param array $matches
+ * @return string|boolean
+ */
 function renderTexCallback( $matches )
 {
     if(isset($matches[1]))
@@ -1480,38 +1504,10 @@ function make_clickable($text)
  */
 
 /**
- * Enhance a simple textarea with an inline html editor.
- *
- * @param string $name name attribute for <textarea> tag
- * @param string $content content to prefill the area
- * @param integer $rows count of rows for the displayed editor area
- * @param integer $cols count of columns for the displayed editor area
- * @param string $optAttrib    optional - additionnal tag attributes
- *                                       (wrap, class, ...)
- * @return string html output for standard textarea or Wysiwyg editor
- *
- * @deprecated would be removed after 1.8
- * @see claro_html_textarea_editor
- *
- */
-function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttrib='')
-{
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-    ? claro_html_debug_backtrace()
-    : 'claro_html_debug_backtrace() not defined'
-    )
-    .'claro_disp_textarea_editor() is deprecated , use claro_html_textarea_editor()','error');
-
-    // becomes a alias while the function call is not replaced by the new one
-    return claro_html_textarea_editor($name,$content,$rows,$cols,$optAttrib);
-}
-
-/**
  * transform content in a html display
  * @param  - string $string string to htmlize
  * @return  - string htmlized
  */
-
 function htmlize($phrase)
 {
     // TODO use textile project here
@@ -1523,7 +1519,6 @@ function htmlize($phrase)
  * @author Sebastien Piraux <pir@cerdecam.be>
  * @param integer duration time in seconds to convert to a human readable duration
  */
-
 function claro_disp_duration( $duration  )
 {
     pushClaroMessage( (function_exists('claro_html_debug_backtrace')
@@ -1534,6 +1529,12 @@ function claro_disp_duration( $duration  )
 
     return claro_html_duration( $duration  );
 }
+
+/**
+ * Convert duration to HTML
+ * @param int $duration
+ * @return string
+ */
 function claro_html_duration( $duration  )
 {
     if( $duration == 0 ) return '0 '.get_lang('SecondShort');
@@ -1556,143 +1557,6 @@ function claro_html_duration( $duration  )
     if( $duration > 0 ) $durationString .= $duration . ' ' . get_lang('SecondShort');
 
     return $durationString;
-}
-
-/**
- * Return the breadcrumb to display in the header
- *
- * @global string  $GLOBALS['nameTools']
- * @global array   $GLOBALS['interbredcrump']
- * @global boolean $GLOBALS['noPHP_SELF']
- * @global boolean $GLOBALS['noQUERY_STRING']
- *
- * @return string html content
- */
-
-function claro_html_breadcrumb()
-{
-    /******************************************************************************
-     BREADCRUMB LINE
-     ******************************************************************************/
-    $htmlBC = '';
-
-    if( claro_is_in_a_course() || isset($GLOBALS['nameTools']) || ( isset($GLOBALS['interbredcrump']) && is_array($GLOBALS['interbredcrump']) ) )
-    {
-        $htmlBC .= '<div id="breadcrumbLine">' . "\n\n"
-        .  '<hr />'
-        . "\n"
-        ;
-
-        $breadcrumbUrlList = array();
-        $breadcrumbNameList = array();
-
-        $breadcrumbUrlList[]  = get_path('url') . '/index.php';
-        $breadcrumbNameList[] = get_conf('siteName');
-
-        if ( claro_is_in_a_course() )
-        {
-            $breadcrumbUrlList[]  = get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . claro_htmlspecialchars(claro_get_current_course_id());
-            $breadcrumbNameList[] = claro_get_current_course_data('officialCode');
-        }
-
-        if ( claro_is_in_a_group() )
-        {
-            $breadcrumbUrlList[]  = get_module_url('CLGRP') . '/index.php?cidReq=' . claro_htmlspecialchars(claro_get_current_course_id());
-            $breadcrumbNameList[] = get_lang('Groups');
-            $breadcrumbUrlList[]  = get_module_url('CLGRP') . '/group_space.php?cidReq=' . claro_htmlspecialchars(claro_get_current_course_id()).'&gidReq=' . (int) claro_get_current_group_id();
-            $breadcrumbNameList[] = claro_get_current_group_data('name');
-        }
-
-        if (isset($GLOBALS['interbredcrump']) && is_array($GLOBALS['interbredcrump']) )
-        {
-            while ( (list(,$bredcrumpStep) = each($GLOBALS['interbredcrump'])) )
-            {
-                $breadcrumbUrlList[] = $bredcrumpStep['url'];
-                $breadcrumbNameList[] = $bredcrumpStep['name'];
-            }
-        }
-
-        if (isset($GLOBALS['nameTools']) )
-        {
-            $breadcrumbNameList[] = $GLOBALS['nameTools'];
-
-            if (isset($GLOBALS['noPHP_SELF']) && $GLOBALS['noPHP_SELF'])
-            {
-                $breadcrumbUrlList[] = null;
-            }
-            elseif ( isset($GLOBALS['noQUERY_STRING']) && $GLOBALS['noQUERY_STRING'])
-            {
-                $breadcrumbUrlList[] = $_SERVER['PHP_SELF'];
-            }
-            else
-            {
-                // set Query string to empty if not exists
-                if (!isset($_SERVER['QUERY_STRING'])) $_SERVER['QUERY_STRING'] = '';
-                $breadcrumbUrlList[] = $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
-            }
-        }
-
-        $htmlBC .= claro_html_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList,
-        ' &gt; ', get_icon_url('home'));
-
-
-        if ( !claro_is_user_authenticated() )
-        {
-            $htmlBC .= "\n".'<div id="toolViewOption" style="padding-right:10px">'
-            .'<a href="' . get_path('clarolineRepositoryWeb') . 'auth/login.php'
-            .'?sourceUrl='.urlencode(base64_encode( (isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])). '" target="_top">'
-            .get_lang('Login')
-            .'</a>'
-            .'</div>'."\n";
-        }
-        elseif ( claro_is_in_a_course() && ! claro_is_course_member() && claro_get_current_course_data('registrationAllowed') && ! claro_is_platform_admin() )
-        {
-            $htmlBC .= '<div id="toolViewOption">'
-            .    '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">'
-            .     '<img src="' . get_icon_url('enroll') . '" alt="" /> '
-            .    '<b>' . get_lang('Enrolment') . '</b>'
-            .    '</a>'
-            .    '</div>' . "\n"
-            ;
-        }
-        elseif ( claro_is_display_mode_available() )
-        {
-            $htmlBC .= "\n"
-            .          '<div id="toolViewOption">' . "\n"
-            ;
-
-            if ( isset($_REQUEST['View mode']) )
-            {
-                $htmlBC .= claro_html_tool_view_option($_REQUEST['View mode']);
-            }
-            else
-            {
-                $htmlBC .= claro_html_tool_view_option();
-            }
-
-            if ( claro_is_platform_admin() && ! claro_is_course_member() )
-            {
-                $htmlBC .= ' | <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">';
-                $htmlBC .= '<img src="' . get_icon_url('enroll') . '" alt="" /> ';
-                $htmlBC .= '<b>' . get_lang('Enrolment') . '</b>';
-                $htmlBC .= '</a>';
-            }
-
-            $htmlBC .= "\n".'</div>' ."\n";
-        }
-
-
-        $htmlBC .= '<div class="spacer"></div>' ."\n"
-        .          '<hr />' ."\n"
-        .          '</div>' . "\n"
-        ;
-
-    } // end if claro_is_in_a_course() isset($nameTools) && is_array($interbredcrump)
-    else
-    {
-        // $htmlBC .= '<div style="height:1em"></div>';
-    }
-    return $htmlBC;
 }
 
 /**
@@ -1768,4 +1632,127 @@ function claro_html_tab_bar( $section_list,
     }
     
     return $menu;
+}
+
+/**
+ * return html to display a media from the media.
+ *
+ * jpg/jpeg, gif, png, bmp are include in a img tag
+ * swf, flv,mp3 are embed
+ * other are linked
+ *
+ * @param string $filePath
+ * @return string html to include in the page
+ */
+function claro_html_media_player($filePath, $fileUrl)
+{
+     //if( !file_exists($filePath) )return false;
+
+    // get extension
+    $pathParts = pathinfo($filePath);
+
+    // filename
+    if( isset($pathParts['basename']) ) $basename = $pathParts['basename'];
+    else                                $basename = '';
+    
+    // extension
+    if( isset($pathParts['extension']) )    $extension = strtolower($pathParts['extension']);
+    else                                    $extension = '';
+
+    $returnedString = '<p>'."\n";
+    switch($extension)
+    {
+        //-- image
+        case 'jpg' :
+        case 'jpeg' :
+        case 'gif' :
+        case 'png' :
+        case 'bmp' :
+            $returnedString .= '<img src="'.$fileUrl.'" alt="'.$basename.'" />'."\n";
+            break;
+
+        //-- flash animation
+        case 'swf' :
+            $returnedString .=
+                '<object type="application/x-shockwave-flash" data="'.$fileUrl.'" width="320" height="240">' . "\n"
+                .'<param name="movie" value="'.$fileUrl.'">' . "\n"
+                .'<param name="wmode" value="transparent" />'
+                .'<small>' . "\n"
+                .'<a href="'.$fileUrl.'">'.get_lang('Download file').'</a>' . "\n"
+                .'</small>'."\n"
+                .'</object>' . "\n";
+        break;
+
+        //-- flash video
+        case 'flv' :
+            $playerUrl = get_conf('urlAppend') . '/claroline/inc/swf/player_flv.swf';
+            $skinUrl = get_conf('urlAppend') . '/claroline/inc/swf/player_flv.jpg';
+
+            $params[] = 'flv='.$fileUrl;
+            $params[] = 'fake='.time();
+            $params[] = 'showstop=1';
+            $params[] = 'skin=' . $skinUrl;
+            $params[] = 'margin=10';
+            $params[] = 'showvolume=1';
+            $params[] = 'loadingcolor=0';
+            $params[] = 'bgcolor1=ffffff';
+            $params[] = 'bgcolor2=cccccc';
+            $params[] = 'buttoncolor=999999';
+            $params[] = 'buttonovercolor=0';
+            $params[] = 'slidercolor1=cccccc';
+            $params[] = 'slidercolor2=aaaaaa';
+            $params[] = 'sliderovercolor=666666';
+            $params[] = 'playercolor=eeeeee';
+            // for IE, to prevent a display bug (player is shown but is very small)
+            $params[] = 'width=320';
+            $params[] = 'height=240';
+
+            $returnedString .=
+                '<object type="application/x-shockwave-flash" data="'.$playerUrl.'?'.implode('&amp;',$params).'" width="320" height="240">' . "\n"
+                .'<param name="movie" value="'.$playerUrl.'?'.implode('&amp;',$params).'" />' . "\n"
+                //.'<param name="FlashVars" value="'.implode('&amp;',$params).'" />' . "\n"
+                .'<param name="wmode" value="transparent" />' . "\n"
+                .'</object>' . "\n";
+        break;
+
+        //-- mp3 sound
+        case 'mp3' :
+            // more infos about mp3 player : http://resources.neolao.com/flash/components/player_mp3
+            $playerUrl = get_conf('urlAppend') . '/claroline/inc/swf/player_mp3.swf';
+
+            $params[] = 'mp3='.$fileUrl;
+            $params[] = 'fake='.time();
+            $params[] = 'showstop=1';
+            $params[] = 'showinfo=1';
+            $params[] = 'loadingcolor=0';
+            $params[] = 'bgcolor1=eeeeee';
+            $params[] = 'bgcolor2=eeeeee';
+            $params[] = 'buttoncolor=999999';
+            $params[] = 'buttonovercolor=0';
+            $params[] = 'slidercolor1=cccccc';
+            $params[] = 'slidercolor2=999999';
+            $params[] = 'sliderovercolor=666666';
+            $params[] = 'textcolor=0';
+
+            $returnedString .=
+                '<object type="application/x-shockwave-flash" data="'.$playerUrl.'" width="200" height="20">' . "\n"
+                .'<param name="movie" value="'.$playerUrl.'" />' . "\n"
+                .'<param name="FlashVars" value="'.implode('&amp;',$params).'" />' . "\n"
+                .'<param name="wmode" value="transparent" />' . "\n"
+                .'</object>' . "\n"
+                .'<br />' . "\n"
+                .'<small>' . "\n"
+                .'<a href="'.$fileUrl.'" target="_blank">'.get_lang('Download file').'</a>' . "\n"
+                .'</small>'."\n\n";
+        break;
+
+        //-- not implemented media player
+        default :
+            $returnedString .= '<a href="'.$fileUrl.'" target="_blank">'.get_lang('Download file').'</a>'."\n";
+        break;
+
+    }
+    $returnedString .= '</p>'."\n";
+
+    return $returnedString;
 }

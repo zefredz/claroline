@@ -1,18 +1,13 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/CLGRP
- * @package     CLGRP
+ * @package     kernel.group
  * @author      Claro Team <cvs@claroline.net>
  * @author      Christophe Gesche <moosh@claroline.net>
  * @author      Hugues Peeters <hugues.peeters@claroline.net>
@@ -33,7 +28,6 @@ include_once __DIR__ . '/fileManage.lib.php';
  * @throws claro_failure errors
  *
  */
-
 function empty_group($groupIdList = 'ALL', $course_id = null)
 {
     $groupFilter = false;
@@ -81,7 +75,6 @@ function empty_group($groupIdList = 'ALL', $course_id = null)
  * @return integer : number of groups deleted.
  * @throws claro_failure
  */
-
 function delete_groups($groupIdList = 'ALL')
 {
     $tbl_c_names = claro_sql_get_course_tbl();
@@ -228,7 +221,6 @@ function delete_groups($groupIdList = 'ALL')
 /**
  * Alias of delete_groups() called without parameters
  */
-
 function deleteAllGroups()
 {
     return delete_groups('ALL');
@@ -247,7 +239,6 @@ function deleteAllGroups()
  *
  * @return void
  */
-
 function fill_in_groups($nbGroupPerUser, $course_id )
 {
     $tbl_m_names = claro_sql_get_main_tbl();
@@ -568,7 +559,6 @@ function create_group($prefixGroupName, $maxMember)
  * @param string $currentCourseId
  * @return array (userId, name, firstname)
  */
-
 function get_course_tutor_list($currentCourseId)
 {
     $tbl = claro_sql_get_main_tbl();
@@ -674,7 +664,6 @@ ORDER BY tl.rank
  * @param course_syscode $course
  *
  */
-
 function get_user_group_list($userId,$course=null)
 {
     if ( !is_null( $course ) )
@@ -715,7 +704,6 @@ function get_user_group_list($userId,$course=null)
  * @param integer $uid uid to find groups where he's tutor
  * @return array of integer : group list
  */
-
 function get_tutor_group_list($uid)
 {
     $tbl_cdb_names     = claro_sql_get_course_tbl();
@@ -736,7 +724,6 @@ function get_tutor_group_list($uid)
  * @param int $gid groupe identification
  * @return array of int: list of user
  */
-
 function get_group_user_list($gid, $courseId =  NULL)
 {
     $mainTableName = get_module_main_tbl(array('user','rel_course_user'));

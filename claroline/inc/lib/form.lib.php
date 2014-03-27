@@ -1,14 +1,9 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLCRS/
@@ -17,9 +12,8 @@ if ( count( get_included_files() ) == 1 )
  *
  */
 
-$formSize = 40;
-
 /**
+ * Display a date form element
  * @param string  $dayFieldName attribute name of the input DAY
  * @param string  $monthFieldName attribute name of the input MONTH
  * @param string  $yearFieldName attribute name of the input YEAR
@@ -31,18 +25,6 @@ $formSize = 40;
  * @return string html stream to output input tag for a date
  *
  */
-
-function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $unixDate = 0, $formatMonth = 'numeric' )
-{
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-             ? claro_html_debug_backtrace()
-             : 'claro_html_debug_backtrace() not defined'
-             )
-             .'claro_disp_date_form() is deprecated , use claro_html_date_form()','error');
-
-    return claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $unixDate, $formatMonth );
-}
-
 function claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $unixDate = 0, $formatMonth = 'numeric' )
 {
     if( $unixDate == 0) $selectedDate = date('Y-m-d');
@@ -109,21 +91,6 @@ function claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $u
  * @author S�bastien Piraux <pir@cerdecam.be>
  *
  */
-
-
-function claro_disp_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
-{
-
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-             ? claro_html_debug_backtrace()
-             : 'claro_html_debug_backtrace() not defined'
-             )
-             .'claro_disp_time_form() is deprecated , use claro_html_time_form()','error');
-
-
-    return claro_html_time_form($hourFieldName, $minuteFieldName, $unixDate);
-}
-
 function claro_html_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
 {
     if( $unixDate == 0) $selectedTime = date("H:i");
@@ -244,7 +211,6 @@ function claro_html_option_list($list_option, $preselect, $reverted = false)
  * @return string html for a field label wich is required.
  * @since 1.8
  */
-
 function form_required_field($field)
 {
     return '<span class="required">*</span>&nbsp;' . $field;
@@ -257,7 +223,6 @@ function form_required_field($field)
  * @return string html for a field label wich is required.
  * @since 1.8
  */
-
 function form_row($legend, $element)
 {
     return '<tr valign="top">' . "\n"
