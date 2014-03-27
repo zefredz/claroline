@@ -5,15 +5,18 @@
 /**
  * Data validator library
  *
- * @version     1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     utils
+ * @package     kernel.utils
  */
 
+/**
+ * Validator interface
+ */
 interface Claro_Validator
 {
     /**
@@ -139,16 +142,31 @@ class Claro_Validator_ValueType implements Claro_Validator
         }
     }
     
+    /**
+     * Check if the value is a string representation of a boolean
+     * @param string $value
+     * @return boolean
+     */
     private static function booleanString( $value )
     {
         return strtolower( $value ) == 'true' || strtolower( $value ) == 'false';
     }
     
+    /**
+     * Check if the value is a string representation of a float
+     * @param string $value
+     * @return boolean
+     */
     private static function floatString( $value )
     {
         return is_numeric( $value ) && (float) $value == $value;
     }
     
+    /**
+     * Check if the value is a string representation of an integer
+     * @param string $value
+     * @return boolean
+     */
     private static function integerString( $value )
     {
         return is_numeric( $value ) && (int) $value == $value;
@@ -275,8 +293,9 @@ class Claro_Validator_CustomNotEmpty implements Claro_Validator
     }
 }
 
-// for debugging :
-
+/**
+ * Dummy validator that always fails
+ */
 class Claro_Validator_AlwaysFail implements Claro_Validator
 {
     /**
@@ -288,6 +307,9 @@ class Claro_Validator_AlwaysFail implements Claro_Validator
     }
 }
 
+/**
+ * Dummy validator that always succeeds
+ */
 class Claro_Validator_AlwaysSucceed implements Claro_Validator
 {
     /**

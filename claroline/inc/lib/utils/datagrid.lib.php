@@ -5,17 +5,20 @@
 /**
  * Datagrid library
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     utils
+ * @package     kernel.utils
  */
 
 require_once __DIR__ . '/html.lib.php';
 
+/**
+ * HTML datagrid with internal templating
+ */
 class Claro_Utils_Datagrid extends Claro_Html_Element
 {
     protected $lineNumber = 0;
@@ -129,6 +132,10 @@ class Claro_Utils_Datagrid extends Claro_Html_Element
         return count( $this->rows );
     }
     
+    /**
+     * Render the table head
+     * @return string
+     */
     protected function renderHeader()
     {
         $header = !empty($this->title) 
@@ -148,6 +155,10 @@ class Claro_Utils_Datagrid extends Claro_Html_Element
         return $header;
     }
     
+    /**
+     * Render the table body
+     * @return string
+     */
     protected function renderBody()
     {
         if ( ! count( $this->rows ) )
@@ -192,6 +203,10 @@ class Claro_Utils_Datagrid extends Claro_Html_Element
         }
     }
     
+    /**
+     * Render the table footer
+     * @return type
+     */
     protected function renderFooter()
     {
         return !empty($this->footer)
@@ -201,6 +216,7 @@ class Claro_Utils_Datagrid extends Claro_Html_Element
     }
     
     /**
+     * Render the datagrid
      * @see     Claro_HTML_Element
      */
     public function render()

@@ -4,10 +4,10 @@
 
 /**
  * @author  Frederic Minne <zefredz@claroline.net>
- * @copyright Copyright &copy; 2006-2007, Frederic Minne
+ * @copyright (c) 2001-2014 Universite catholique de Louvain
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License
- * @version 1.0
- * @package HTML
+ * @version Claroline 1.12 $Revision$
+ * @package kernel.utils
  */
  
 /**
@@ -412,6 +412,12 @@ function claro_html_sanitize_all( $str )
     return $san->sanitize( $str );
 }
 
+/**
+ * HTML sanitizer for editor
+ * @staticvar null $san
+ * @param string $str
+ * @return string
+ */
 function claro_html_sanitize_editor( $str )
 {
     static $san = null;

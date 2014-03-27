@@ -5,13 +5,13 @@
 /**
  * Html library
  *
- * @version     1.9 $Revision$
+ * @version     CLarolin 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     utils
+ * @package     kernel.utils
  */
 
 /**
@@ -69,6 +69,9 @@ class Claro_Html_Element implements Claro_Renderer
         $this->content = '';
     }
     
+    /**
+     * Free ressources on object destruction
+     */
     public function __destruct()
     {
         if ( array_key_exists( 'id', $this->attributes ) )
@@ -182,10 +185,18 @@ class Claro_Html_Element implements Claro_Renderer
     }
 }
 
+/**
+ * HTML container
+ */
 class Claro_Html_Container extends Claro_Html_Element
 {
     protected $elems;
     
+    /**
+     * Constructor
+     * @param string $name
+     * @param array $attributes
+     */
     public function __construct( $name, $attributes = array() )
     {
         parent::__construct( $name, $attributes );
@@ -193,17 +204,29 @@ class Claro_Html_Container extends Claro_Html_Element
         $this->elems = array();
     }
     
+    /**
+     * Add an element to the container
+     * @param Claro_Html_Element $element
+     */
     public function addElement( $element )
     {
         $this->elems[] = $element;
     }
     
+    /**
+     * Render the container in HTML
+     * @return string
+     */
     public function render()
     {
         $this->setContent( $this->renderElems() );
         return parent::render();
     }
     
+    /**
+     * Render the contained elements
+     * @return string
+     */
     protected function renderElems()
     {
         $tmp = '';
@@ -215,6 +238,9 @@ class Claro_Html_Container extends Claro_Html_Element
     }
 }
 
+/**
+ * Composite element
+ */
 class Claro_Html_Composite implements Claro_Renderer
 {
     protected $elems;
@@ -224,11 +250,19 @@ class Claro_Html_Composite implements Claro_Renderer
         $this->elems = array();
     }
     
+    /**
+     * Add an element
+     * @param Claro_Html_Element $element
+     */
     public function addElement( $element )
     {
         $this->elems[] = $element;
     }
     
+    /**
+     * Render the composite element
+     * @return string
+     */
     public function render()
     {
         $tmp = '';

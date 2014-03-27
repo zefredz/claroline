@@ -5,13 +5,13 @@
 /**
  * Ajax utility functions and classes
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.utils.ajax
+ * @package     kernel.utils
  */
 
 require_once __DIR__ . '/input.lib.php';
@@ -277,6 +277,14 @@ abstract class Ajax_Remote_Module_Service implements Ajax_Remote_Service
         return  $url;
     }
     
+    /**
+     * Add array of parameters to the url
+     * @param string $url
+     * @param string $method
+     * @param array $parameters array of ['name' => 'value']
+     * @return string
+     * @throws Exception
+     */
     private function addParametersToInvokationUrl( $url, $method = null, $parameters = null )
     {
         $url->addParam( 'moduleLabel', $this->getModuleLabel() );

@@ -7,13 +7,13 @@
  * Replacement for $_GET and $_POST
  * Do not handle $_COOKIES !
  *
- * @version     1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     utils
+ * @package     kernel.utils
  */
  
 require_once __DIR__ . '/validator.lib.php';
