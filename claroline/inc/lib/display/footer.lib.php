@@ -7,26 +7,36 @@
  *
  * Claroline page footer.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     display
+ * @package     kernel.display
  */
  
+/**
+ * Claroline page footer
+ */
 class ClaroFooter extends CoreTemplate
 {
     private static $instance = false;
     
     private $hidden = false;
     
+    /**
+     * Initialize the footer
+     */
     public function __construct()
     {
         parent::__construct('footer.tpl.php');
     }
     
+    /**
+     * Get an instance of the footer
+     * @return ClaroFooter
+     */
     public static function getInstance()
     {
         if ( ! self::$instance )
@@ -37,16 +47,27 @@ class ClaroFooter extends CoreTemplate
         return self::$instance;
     }
     
+    /**
+     * Hide the footer
+     */
     public function hide()
     {
         $this->hidden = true;
     }
     
+    /**
+     * Show the footer
+     */
     public function show()
     {
         $this->hidden = false;
     }
     
+    /**
+     * Render the footer as HTML
+     * @see Display
+     * @return string
+     */
     public function render()
     {
         if ( $this->hidden )

@@ -1,6 +1,4 @@
-<?php
-
-// $Id$
+<?php // $Id$
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
@@ -129,26 +127,49 @@ class ToolTitle implements Display
         }
     }
     
+    /**
+     * Set the url to the tool help
+     * @param string $helpUrl
+     */
     public function setHelpUrl( $helpUrl )
     {
         $this->helpUrl = $helpUrl;
     }
     
+    /**
+     * Set the subtitle
+     * @param string $subTitle
+     */
     public function setSubTitle( $subTitle )
     {
         $this->subTitle = $subTitle;
     }
     
+    /**
+     * Set the super title
+     * @param string $superTitle
+     */
     public function superTitle( $superTitle )
     {
         $this->superTitle = $superTitle;
     }
     
+    /**
+     * Set the main title
+     * @param string $mainTitle
+     */
     public function setMainTitle( $mainTitle )
     {
         $this->mainTitle = $mainTitle;
     }
     
+    /**
+     * Add a command link to the menu
+     * @param string $name name of the command
+     * @param string $url url of the script to execute the command
+     * @param string $iconUrl url if the optional icon
+     * @param array $extraParams array of extra parameters to add to the link (html)
+     */
     public function addCommand( $name, $url, $iconUrl = null, $extraParams = null )
     {
         $this->commandList[] = array(
@@ -159,6 +180,13 @@ class ToolTitle implements Display
         );
     }
     
+    /**
+     * Add a list of commands
+     * @param array $commandList array of ['name' => name, 'url' => url, 
+     *  'img' => icon url, 'params' => array of extra parameters]
+     * @param bool $replace if set to true, the list of current commands will 
+     *  be replaced with the new one, else it will be merged
+     */
     public function addCommandList( $commandList, $replace = false )
     {
         if ( $replace )
@@ -171,6 +199,14 @@ class ToolTitle implements Display
         }
     }
     
+    /**
+     * Add an advanced command link to the menu
+     * @param string $name name of the command
+     * @param string $url url of the script to execute the command
+     * @param string $iconUrl url if the optional icon
+     * @param array $extraParams array of extra parameters to add to the link (html)
+     * @param type $extraParams
+     */
     public function addAdvancedCommand( $name, $url, $iconUrl = null, $extraParams = null )
     {
         $this->advancedCommandList[] = array(
@@ -181,6 +217,13 @@ class ToolTitle implements Display
         );
     }
     
+    /**
+     * Add a list of advanced commands
+     * @param array $commandList array of ['name' => name, 'url' => url, 
+     *  'img' => icon url, 'params' => array of extra parameters]
+     * @param bool $replace if set to true, the list of current advanced commands will 
+     *  be replaced with the new one, else it will be merged
+     */
     public function addAdvancedCommandList( $commandList, $replace = false )
     {
         if ( $replace )
@@ -195,6 +238,7 @@ class ToolTitle implements Display
 
     /**
      * Render the tool title and command list
+     * @see Display
      * @return string
      */
     public function render ()

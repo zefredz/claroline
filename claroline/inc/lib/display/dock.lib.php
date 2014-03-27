@@ -5,44 +5,70 @@
 /**
  * Dock display lib.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     display
+ * @package     kernel.display
  */
 
+/**
+ * Simple string buffer
+ * @todo merge with Claro_StringBuffer
+ */
 class ClaroBuffer
 {
     private $_buffer;
     
+    /**
+     * Initialize the buffer
+     */
     public function __construct()
     {
         $this->clear();
     }
     
+    /**
+     * Clear the buffer
+     */
     public function clear()
     {
         $this->_buffer = '';
     }
     
+    /**
+     * Append contents to the buffer
+     * @param string $str
+     */
     public function append( $str )
     {
         $this->_buffer .= $str;
     }
     
+    /**
+     * Replace the contents of the buffer
+     * @param string $str
+     */
     public function replace( $str )
     {
         $this->_buffer = $str;
     }
 
+    /**
+     * Get the contents of the buffer
+     * @return string
+     */
     public function getContent()
     {
         return $this->_buffer;
     }
 
+    /**
+     * Flush the buffer
+     * @return string
+     */
     public function flush()
     {
         $buffer = $this->_buffer;
@@ -51,17 +77,26 @@ class ClaroBuffer
     }
 }
 
+/**
+ * Applet list of the dock
+ */
 class DockAppletList
 {
     private static $instance = false;
 
     private $_dockAppletList = array();
     
+    /**
+     * Initialize the list
+     */
     private function __construct()
     {
         $this->load();
     }
     
+    /**
+     * Load the list of applets in dock
+     */
     public function load()
     {
         $tblNameList = claro_sql_get_main_tbl();
@@ -106,6 +141,11 @@ class DockAppletList
         }
     }
     
+    /**
+     * Get the list of applets for the given dock
+     * @param string $dockName
+     * @return array
+     */
     public function getAppletList( $dockName )
     {
         if ( array_key_exists( $dockName, $this->_dockAppletList ) )
@@ -118,6 +158,10 @@ class DockAppletList
         }
     }
     
+    /**
+     * Get an instance of the dock list
+     * @return DockAppletList
+     */
     public static function getInstance()
     {
         if ( ! DockAppletList::$instance )
@@ -129,12 +173,19 @@ class DockAppletList
     }
 }
 
+/**
+ * Dock to display applets
+ */
 class ClaroDock implements Display
 {
     protected $name;
     protected $appletList;
     protected $_useList = false;
 
+    /**
+     * Create a dock with the given name and initialize the dock contents
+     * @param string $name
+     */
     public function __construct( $name )
     {
         $this->name = $name;
@@ -142,6 +193,7 @@ class ClaroDock implements Display
     }
     
     /**
+     * Use list to display the dock
      * @since Claroline 1.10
      */
     public function mustUseList()
@@ -150,6 +202,7 @@ class ClaroDock implements Display
     }
     
     /**
+     * Check if must use list in the display
      * @since Claroline 1.10
      */
     protected function useList()
@@ -157,11 +210,18 @@ class ClaroDock implements Display
         return $this->_useList;
     }
     
+    /**
+     * Get the name of the dock
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
     
+    /**
+     * Load the list of applets of the dock
+     */
     public function loadAppletList()
     {
         
@@ -169,6 +229,11 @@ class ClaroDock implements Display
         $this->appletList = $dockAppletList->getAppletList( $this->name );
     }
 
+    /**
+     * Render the dock to HTML
+     * @see Display
+     * @return string
+     */
     public function render()
     {
         $claro_buffer = new ClaroBuffer;

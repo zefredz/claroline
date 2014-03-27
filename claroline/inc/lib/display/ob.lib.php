@@ -6,19 +6,20 @@
  * Output buffering functions to provide output
  * buffering with error and exception handling
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     display
+ * @package     kernel.display
  */
 
 require_once __DIR__ . '/../core/exception.lib.php';
 
 /**
  * Exception handler to be used inside an output buffer
+ * @param Exception $e
  */
 function claro_ob_exception_handler( $e )
 {

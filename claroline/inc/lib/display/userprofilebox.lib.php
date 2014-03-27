@@ -9,26 +9,36 @@ require_once __DIR__ . '/../user.lib.php';
  *
  * User account summary.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claroline team <info@claroline.net>
- * @package     DESKTOP
+ * @package     kernel.display
  */
 
+/**
+ * Profile box of a user
+ */
 class UserProfileBox implements Display
 {
     protected $condensedMode;
     protected $userId;
     
-    
-    public function __construct( $condensedMode = false )
+    /**
+     * Create a profile box
+     * @param bool $condensedMode display a consensed profile box instead of the full one (default false)
+     * @param int $userId optional user id, if not given the current user will be used
+     */
+    public function __construct( $condensedMode = false, $userId = null )
     {
         $this->condensedMode = $condensedMode;
-        $this->userId = claro_get_current_user_id();
+        $this->userId = $userId ? $userId : claro_get_current_user_id();
     }
     
-    
+    /**
+     * Set the user id
+     * @param int $userId
+     */
     public function setUserId( $userId )
     {
         $this->userId = (int) $userId;
@@ -36,7 +46,9 @@ class UserProfileBox implements Display
     
     
     /**
-     * Render content
+     * Render the profile box in HTML
+     * @see Display
+     * @return string
      */
     public function render()
     {

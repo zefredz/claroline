@@ -5,15 +5,18 @@
 /**
  * Course tool list display class
  *
- * @version     Claroline 1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     display
+ * @package     kernel.display
  */
 
+/**
+ * Tool list for the current course
+ */
 class CurrentCourseToolListBlock implements Display
 {
     protected
@@ -24,6 +27,9 @@ class CurrentCourseToolListBlock implements Display
         $viewMode,
         $courseObject;
     
+    /**
+     * Construct the tool list for the current course
+     */
     public function __construct()
     {
         $this->courseCode = claro_get_current_course_id();
@@ -38,16 +44,28 @@ class CurrentCourseToolListBlock implements Display
         $this->template = new CoreTemplate('coursetoollist.tpl.php');
     }
     
+    /**
+     * Set the view mode
+     * @param string $viewMode STUDENT or MANAGER
+     */
     public function setViewMode( $viewMode )
     {
         $this->viewMode = $viewMode;
     }
     
+    /**
+     * Get the label of the current tool
+     * @return string
+     */
     protected function getCurrentToolLabel()
     {
         return $GLOBALS['tlabelReq'];
     }
     
+    /**
+     * Get the date of the last action of the user
+     * @return string
+     */
     protected function getUserLastAction()
     {
         return (
@@ -57,6 +75,10 @@ class CurrentCourseToolListBlock implements Display
         );
     }
     
+    /**
+     * Get the list of links to the modules in the course
+     * @return array
+     */
     protected function getModuleLinkList()
     {
         //$toolNameList = claro_get_tool_name_list();
@@ -146,6 +168,10 @@ class CurrentCourseToolListBlock implements Display
         return $toolLinkList;
     }
     
+    /**
+     * Get the list of extra tool list
+     * @return array
+     */
     protected function getExtraToolLinkList()
     {
         $otherToolsList = array();
@@ -165,6 +191,10 @@ class CurrentCourseToolListBlock implements Display
         return $otherToolsList;
     }
     
+    /**
+     * Get the list of course manager's tools
+     * @return array
+     */
     protected function getManagerLinkList()
     {
         $courseManageToolLinkList = array();
@@ -219,6 +249,11 @@ class CurrentCourseToolListBlock implements Display
 
     }
     
+    /**
+     * Render the tool list block
+     * @see Display
+     * @return string
+     */
     public function render()
     {
         $this->template->assign( 'toolLinkList', $this->getModuleLinkList() );

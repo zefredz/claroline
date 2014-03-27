@@ -5,31 +5,31 @@
 /**
  * View mode block. Display view mode switch, enrolment link and login link
  *
- * @version     Claroline 1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     display
+ * @package     kernel.display
  * @since       1.9
  */
 
 require_once __DIR__.'/../course_user.lib.php';
 
+/**
+ * Claroline view mode switch, login and enroll links based on context
+ * @since Claroline 1.12 the constructor is public
+ */
 class ClaroViewMode implements Display
 {
     protected static $instance = false;
     
-    
     /**
-     * Contructor.
+     * Render the view mode switch as HTML
+     * @see Display
+     * @return string
      */
-    protected function __construct()
-    {
-    }
-    
-    
     public function render()
     {
         $out = '';
@@ -63,7 +63,6 @@ class ClaroViewMode implements Display
         return $out;
     }
     
-    
     /**
      * Render a dropdown list to switch "student" and "course manager" mode.
      */
@@ -85,7 +84,6 @@ class ClaroViewMode implements Display
         return $out;
     }
     
-    
     /**
      * Render a link to register.
      */
@@ -101,7 +99,6 @@ class ClaroViewMode implements Display
             . '</a>'
             ;
     }
-    
     
     /**
      * Render a link to log in.
@@ -123,7 +120,10 @@ class ClaroViewMode implements Display
             ;
     }
     
-    
+    /**
+     * Get an instance of the view mode switch
+     * @return ClaroViewMode
+     */
     public static function getInstance()
     {
         if ( ! ClaroViewMode::$instance )

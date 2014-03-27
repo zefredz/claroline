@@ -19,6 +19,7 @@
 // load helpers and output buffering libs
 require_once __DIR__ . '/../core/helpers.lib.php';
 require_once __DIR__ . '/ob.lib.php';
+
 /**
  * Simple PHP-based template class
  */
@@ -36,7 +37,7 @@ class PhpTemplate implements Display
     }
     
     /**
-     * Assign a value to a variable
+     * Assign a value to a variable of the template
      * @param   string $name
      * @param   mixed $value
      */
@@ -94,12 +95,12 @@ class PhpTemplate implements Display
  *  - current course
  *  - current user
  * Search for template files in platform/templates and in claroline/inc/templates
- * @throws  Exception if template file not found
  */
 class CoreTemplate extends PhpTemplate
 {
     /**
      * @param   string $template name of the template
+     * @throws  Exception if template file not found
      */
     public function __construct( $template )
     {
@@ -152,13 +153,13 @@ class CoreTemplate extends PhpTemplate
 /**
  * Extended PHP-based template class for a module
  * Search for template files in platform/templates/MODULELABEL and in module/MODULELABEL/templates
- * @throws  Exception if template file not found
  */
 class ModuleTemplate extends PhpTemplate
 {
     /**
      * @param   string $moduleLabel label of the module
      * @param   string $template name of the template
+     * @throws  Exception if template file not found
      */
     public function __construct( $moduleLabel, $template )
     {

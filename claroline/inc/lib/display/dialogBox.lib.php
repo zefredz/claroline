@@ -7,12 +7,12 @@
  *
  * Dialog box.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2.0 or later
- * @package     display
+ * @package     kernel.display
  */
 
 /**
@@ -39,6 +39,7 @@ class DialogBox implements Display
 
     /**
      * @since Claroline 1.9.6
+     * Dialog box types
      **/
     const
         DIALOG_INFO =       'DIALOG_INFO',
@@ -49,7 +50,7 @@ class DialogBox implements Display
         DIALOG_FORM =       'DIALOG_FORM',
         DIALOG_TITLE =      'DIALOG_TITLE';
 
-    /*
+    /**
      * Constructor
      */
     public function __construct()
@@ -63,7 +64,7 @@ class DialogBox implements Display
         $this->_size[self::DIALOG_TITLE] = 0;
     }
 
-    /*
+    /**
      * Add a standard message
      * @param $msg string text to show in dialog
      * @return $this
@@ -77,7 +78,7 @@ class DialogBox implements Display
         return $this;
     }
 
-    /*
+    /**
      * Add a success message
      * @param $msg string text to show in dialog
      * @return $this
@@ -91,7 +92,7 @@ class DialogBox implements Display
         return $this;
     }
 
-    /*
+    /**
      * Add a success message
      * @param $msg string text to show in dialog
      * @return $this
@@ -105,7 +106,7 @@ class DialogBox implements Display
         return $this;
     }
 
-    /*
+    /**
      * Add an error message
      * @param $msg string text to show in dialog
      * @return $this
@@ -119,7 +120,7 @@ class DialogBox implements Display
         return $this;
     }
 
-    /*
+    /**
      * Add a question
      * @param $msg string text to show in dialog
      * @return $this
@@ -133,7 +134,7 @@ class DialogBox implements Display
         return $this;
     }
 
-    /*
+    /**
      * Add a form
      * @param $msg string text to show in dialog
      * @return $this
@@ -147,7 +148,7 @@ class DialogBox implements Display
         return $this;
     }
 
-    /*
+    /**
      * Add a title message
      * @param $msg string text to show in dialog
      * @return $this
@@ -161,7 +162,7 @@ class DialogBox implements Display
         return $this;
     }
 
-    /*
+    /**
      * internal function used by helpers
      * @param $msg string text to show in dialog
      * @param $type type of message to be added
@@ -175,7 +176,7 @@ class DialogBox implements Display
         return $this;
     }
 
-    /*
+    /**
      * Set which style should the box have
      * @param $boxType string text to show in dialog
      * @return $this
@@ -188,7 +189,7 @@ class DialogBox implements Display
         return $this;
     }
 
-    /*
+    /**
      * returns html required to display the dialog box
      * @return string
      */

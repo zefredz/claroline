@@ -5,13 +5,13 @@
 /**
  * Display library.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     display
+ * @package     kernel.display
  */
 
 require_once __DIR__ . '/phptemplate.lib.php';
@@ -77,7 +77,7 @@ interface Display
 
 
 /**
- * Claroline script embed class
+ * Claroline Page display
  *
  * @access  public
  */
@@ -89,6 +89,9 @@ class ClaroPage implements Display
     private $bannerAtEnd = false;
     private $inPopup = false;
 
+    /**
+     * Get the main page display
+     */
     public function __construct()
     {
         // HACK : force loading translation here to avoid having to rewrite the kernel !
@@ -104,23 +107,33 @@ class ClaroPage implements Display
      * Set page content
      *
      * @access  public
-     * @param   string content, page content
+     * @param   string $content, page content
      */
     public function setContent( $content )
     {
         $this->body->setContent( $content );
     }
     
+    /**
+     * Add javascript to be executed on body load
+     * @param string $function
+     */
     public function addBodyOnload( $function )
     {
         $this->jsBodyOnload[] = $function;
     }
 
+    /**
+     * Enable braille mode
+     */
     public function brailleMode()
     {
         $this->bannerAtEnd = true;
     }
 
+    /**
+     * Enable the popup mode for the display
+     */
     public function popupMode()
     {
         $this->body->popupMode();
@@ -129,6 +142,9 @@ class ClaroPage implements Display
         $this->body->hideCourseTitleAndTools();
     }
 
+    /**
+     * Enable in frame display mode
+     */
     public function frameMode()
     {
         $this->banner->hide();
@@ -136,6 +152,9 @@ class ClaroPage implements Display
         $this->body->hideCourseTitleAndTools();
     }
     
+    /**
+     * Retrieve the variables from the GLOBAL scope and execution context
+     */
     private function _globalVarsCompat()
     {
         if ( isset( $GLOBALS['claroBodyOnload'] ) && !empty($GLOBALS['claroBodyOnload']) )
@@ -181,7 +200,6 @@ class ClaroPage implements Display
         }
     }
 
-    // output methods
     /**
      * Generate and set output to client
      *
@@ -273,9 +291,9 @@ class ClaroFrame implements Display
      * Constructor
      *
      * @access  public
-     * @param   string name, frame name
-     * @param   string src, frame content url
-     * @param   string id, frame id, optional, if not given the name will be
+     * @param   string $name, frame name
+     * @param   string $src, frame content url
+     * @param   string $id, frame id, optional, if not given the name will be
      *  used as the frame id
      */
     public function __construct( $name, $src, $id = '' )
@@ -289,7 +307,7 @@ class ClaroFrame implements Display
      * Allow scrolling in frame
      *
      * @access  public
-     * @param   bool auto, set to true to allow auto scrolling
+     * @param   bool $auto, set to true to allow auto scrolling
      */
     public function allowScrolling( $auto = false )
     {
@@ -321,7 +339,7 @@ class ClaroFrame implements Display
      * Set space between frames
      *
      * @access  public
-     * @param   int spacing, frame spacing
+     * @param   int $spacing, frame spacing
      */
     public function setFrameSpacing( $spacing )
     {
@@ -371,7 +389,7 @@ class ClaroFrameset implements Display
      * Add a frame or frameset object to the current frameset
      *
      * @access  public
-     * @param   ClaroFramesetElement claroFrame, frame to add could be a
+     * @param   ClaroFramesetElement $claroFrame, frame to add could be a
      *  ClaroFrame or a ClaroFrameset or any other convenient Object
      *  implementing the ClaroFramesetElement API
      */
@@ -384,10 +402,10 @@ class ClaroFrameset implements Display
      * Add a frame or frameset object to the current frameset as a new row
      *
      * @access  public
-     * @param   ClaroFramesetElement claroFrame, frame to add could be a
+     * @param   ClaroFramesetElement $claroFrame, frame to add could be a
      *  ClaroFrame or a ClaroFrameset or any other convenient Object
      *  implementing the ClaroFramesetElement API
-     * @param   mixed size, row size, could be an int or '*'
+     * @param   mixed $size, row size, could be an int or '*'
      */
     public function addRow( $claroFrame, $size )
     {
@@ -399,10 +417,10 @@ class ClaroFrameset implements Display
      * Add a frame or frameset object to the current frameset as a new colum
      *
      * @access  public
-     * @param   ClaroFramesetElement claroFrame, frame to add could be a
+     * @param   ClaroFramesetElement $claroFrame, frame to add could be a
      *  ClaroFrame or a ClaroFrameset or any other convenient Object
      *  implementing the ClaroFramesetElement API
-     * @param   mixed size, column size, could be an int or '*'
+     * @param   mixed $size, column size, could be an int or '*'
      */
     public function addCol( $claroFrame, $size )
     {
@@ -447,6 +465,9 @@ class ClaroFramesetPage extends ClaroFrameset
 {
     public $header;
     
+    /**
+     * Create a frameset display
+     */
     public function __construct()
     {
         // HACK : force loading translation here to avoid having to rewrite the kernel !
