@@ -236,7 +236,7 @@ $action = ( isset( $_CLEAN['action'] ) ) ? $_CLEAN['action'] : 'show';
 
 // get request variables
 
-$creatorId = claro_get_current_user_id();
+$creatorId = claro_is_user_authenticated() ? claro_get_current_user_id() : 0;
 
 $versionId = ( isset( $_REQUEST['versionId'] ) ) ? (int) $_REQUEST['versionId'] : 0;
 
