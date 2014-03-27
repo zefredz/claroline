@@ -271,7 +271,7 @@ $cmdList[] = array(
     'url' => $_SERVER['PHP_SELF'] . '?cmd=rqAdd'
 );
 
-if ( class_exist ())
+if ( is_there_any_classes ())
 {
     $cmdList[] = array(
         'img' => 'class',

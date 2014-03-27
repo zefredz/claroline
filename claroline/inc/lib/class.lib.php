@@ -7,12 +7,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * Library for class
  *
- * @version 1.9 $Revision$
+ * @version Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author Claro Team <cvs@claroline.net>
  * @author Guillaume Lederer <guillaume@claroline.net>
  * @since 1.6
+ * @package kernel.class
  */
 
 require_once __DIR__ . '/user.lib.php' ;
@@ -25,7 +26,6 @@ require_once __DIR__ . '/course_user.lib.php' ;
  *
  * @return  array( `id`, `name`, `class_parent_id`, `class_level`)
  */
-
 function class_get_properties ( $classId )
 {
     $tbl = claro_sql_get_main_tbl();
@@ -50,7 +50,6 @@ function class_get_properties ( $classId )
  * @param $parentId
  *
  */
-
 function class_create ( $className, $parentId )
 {
     $tbl = claro_sql_get_main_tbl();
@@ -86,7 +85,6 @@ function class_create ( $className, $parentId )
  * @param $className string
  * @param $parentId integer
  */
-
 function class_set_properties ( $classId, $className, $parentId = 0 )
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -116,7 +114,6 @@ function class_set_properties ( $classId, $className, $parentId = 0 )
  *
  * @return true if everything is good or an error string
 */
-
 function delete_class($class_id)
 {
     
@@ -211,7 +208,6 @@ function delete_class($class_id)
  *
  * @return true if everything is good or an error string
  **/
-
 function move_class($class_id, $class_id_towards)
 {
     $tbl_mdb_names      = claro_sql_get_main_tbl();
@@ -409,7 +405,6 @@ function object_unregister_class_from_course( $claroClass, $courseObj, $result )
  *
  * @return Claro_BatchRegistrationResult
  */
-
 function unregister_class_to_course($class_id, $course_code)
 {
     $claroClass = new Claro_Class( Claroline::getDatabase() );
@@ -434,7 +429,6 @@ function unregister_class_to_course($class_id, $course_code)
  * @return boolean TRUE  if subscribtion succeed
  *         boolean FALSE otherwise.
  */
-
 function user_add_to_class($user_id,$class_id)
 {
     $user_id  = (int)$user_id;
@@ -522,7 +516,6 @@ function user_add_to_class($user_id,$class_id)
  * @return boolean TRUE  if subscribtion succeed
  *         boolean FALSE otherwise.
  */
-
 function user_remove_to_class($user_id,$class_id)
 {
     $user_id  = (int)$user_id;
@@ -627,7 +620,6 @@ function user_remove_to_class($user_id,$class_id)
  * @return boolean TRUE  if subscribtion succeed
  *         boolean FALSE otherwise.
  */
-
 function class_remove_all_users ($classId)
 {
       $tbl_mdb_names     = claro_sql_get_main_tbl();
@@ -656,7 +648,6 @@ function class_remove_all_users ($classId)
  * @param unknown_type $deep
  * @return unknown
  */
-
 function display_tree_class_in_admin ($class_list, $parent_class = null, $deep = 0)
 {
     // Global variables needed
@@ -777,7 +768,6 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
  * @return (int) number of users in this class and its subclasses
  *
  */
-
 function get_class_user_number($class_id)
 {
     $tbl_mdb_names  = claro_sql_get_main_tbl();
@@ -819,7 +809,6 @@ function get_class_user_number($class_id)
  * @return (int) number of cours in this class
  *
 */
-
 function get_class_cours_number($class_id)
 {
     $tbl_mdb_names   = claro_sql_get_main_tbl();
@@ -844,12 +833,9 @@ function get_class_cours_number($class_id)
  * @author Guillaume Lederer
  * @param  list of all the classes informations of the platform
  * @param  list of the classes that must be visible
- * @return
- *
- * @see
+ * @return string
  *
  */
-
 function display_tree_class_in_user($class_list, $course_code, $parent_class = null, $deep = 0)
 {
 
@@ -963,9 +949,8 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
  *
  * @param  the pre-selected class'id in the select box
  * @param  space to display for children to show deepness
- * @return void
+ * @return string
 */
-
 function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;")
 {
     $tbl_mdb_names  = claro_sql_get_main_tbl();
@@ -1022,7 +1007,7 @@ function buildSelectClass($classes,$selected,$father=null,$space="&nbsp;&nbsp;&n
  * return subClass of a given class
  *
  * @param unknown_type $class_id
- * @return unknown
+ * @return array
  *
  * @since 1.8.0
  */
@@ -1057,7 +1042,6 @@ function getSubClasses($class_id)
  * @since 1.11
  * @return array(`id`,`name`,`class_parent_id`,`course_id`)
  */
-
 function get_class_list()
 {
     $tbl = claro_sql_get_main_tbl();
@@ -1079,7 +1063,6 @@ function get_class_list()
  * @since 1.8.1
  * @return array(`id`,`name`,`class_parent_id`,`course_id`)
  */
-
 function get_class_list_by_course($courseId)
 {
     $tbl = claro_sql_get_main_tbl();
@@ -1130,7 +1113,6 @@ function get_class_list_of_course($courseId)
  * @param string $classId
  * @since 1.9.1
  */
-
 function get_class_list_user_id_list($classId)
 {
     $classIdList = implode(', ',$classId);
@@ -1279,7 +1261,11 @@ function empty_all_class()
     return true;
 }
 
-function class_exist ()
+/**
+ * Is there any classes defined on the platform
+ * @return bool
+ */
+function is_there_any_classes ()
 {
     $tbl = claro_sql_get_main_tbl();
     $sql = "
