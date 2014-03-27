@@ -25,7 +25,7 @@ define ( 'BACKLOG_INFO',   'BACKLOG_INFO' );
  * @deprecated since Claroline 1.10, use exceptions, Console.lib or DialogBox 
  *  instead
  */
-class Backlog implements Display
+class Backlog
 {
     protected $_backlog = array();
     protected $_size = array();
