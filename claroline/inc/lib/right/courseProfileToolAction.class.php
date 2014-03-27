@@ -103,7 +103,7 @@ class RightCourseProfileToolRight extends RightProfileToolRight
     {
         // delete all relation
         $sql = "DELETE FROM `" . $this->tbl[ 'rel_profile_action' ] . "`
-                WHERE profile_id=" . $this->profile->id . "
+                WHERE profile_id=" . $this->profile->getId() . "
                 AND courseId = '" . claro_sql_escape ( $this->courseId ) . "'";
 
         claro_sql_query ( $sql );
