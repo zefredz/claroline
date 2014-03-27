@@ -3,7 +3,7 @@
 /**
  * Claroline extension modules cache generation functions
  *
- * @version     1.12 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html
  *      GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -12,6 +12,9 @@
  * @since       1.12
  */
 
+/**
+ * Generate the cache of translations for the module names
+ */
 function generate_module_names_translation_cache()
 {
     $cacheRepositorySys = get_path('rootSys') . get_conf('cacheRepository', 'tmp/cache/');

@@ -3,7 +3,7 @@
 /**
  * Claroline extension modules (un)registration functions
  *
- * @version     1.12 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html
  *      GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -151,7 +151,6 @@ function register_module_core($module_info)
  * @param array $moduleToolData, data from manifest
  * @return int tool id or false
  */
-
 function register_module_tool($moduleId,$module_info)
 {
     $tbl = claro_sql_get_tbl('course_tool');

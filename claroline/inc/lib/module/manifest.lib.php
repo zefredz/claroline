@@ -6,12 +6,12 @@
  * CLAROLINE
  * manifest parser class and utility functions
  * 
- * @version 1.9 $Revision$
+ * @version Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see     http://www.claroline.net/wiki/index.php/Install
  * @author  Claro Team <cvs@claroline.net>
- * @package KERNEL
+ * @package kernel.module
  */
 
 require_once __DIR__ . '/../backlog.class.php';

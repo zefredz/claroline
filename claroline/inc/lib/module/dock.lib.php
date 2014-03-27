@@ -3,7 +3,7 @@
 /**
  * Claroline extension modules docks management functions
  *
- * @version     1.12 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html
  *      GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -63,7 +63,6 @@ function add_module_in_dock( $moduleId, $newDockName )
  * @param integer $moduleId
  * @param string  $dockName
  */
-
 function remove_module_dock($moduleId, $dockName)
 {
     $tbl = claro_sql_get_main_tbl();
@@ -122,7 +121,6 @@ function remove_module_dock($moduleId, $dockName)
  * @param string $dockName
  * @param string $direction 'up' or 'down'
  */
-
 function move_module_in_dock($moduleId, $dockName, $direction)
 {
     $tbl = claro_sql_get_main_tbl();
@@ -202,7 +200,6 @@ function move_module_in_dock($moduleId, $dockName, $direction)
  * Function used by the SAX xml parser when the parser meets a opening tag
  * @param tring $dockName the dock from which we want this info
  * @return int the max rank used for this dock
- *
  */
 function get_max_rank_in_dock($dockName)
 {
@@ -273,4 +270,3 @@ function get_dock_list($moduleType)
     }
     return $dockList;
 }
-

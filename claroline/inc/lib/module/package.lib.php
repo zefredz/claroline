@@ -3,7 +3,7 @@
 /**
  * Claroline extension modules package related functions
  *
- * @version     1.12 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html
  *      GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -135,4 +135,3 @@ function is_package_file($packagePath)
      if ('.zip' == strtolower(substr($packagePath,-4,4))) return true;
      return false;
 }
-

@@ -5,7 +5,7 @@
  *
  * Claroline extension modules management library
  *
- * @version     1.12 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html
  *      GNU GENERAL PUBLIC LICENSE version 2 or later
@@ -344,6 +344,13 @@ function set_tool_visibility_at_course_creation($moduleLabel,$visibility)
     ");
 }
 
+/**
+ * Get pager for the list of modules in module list administration
+ * @param string $typeReq type of modules requested
+ * @param int $offset
+ * @param int $modulePerPage
+ * @return \claro_sql_pager
+ */
 function get_admin_module_list_pager( $typeReq, $offset, $modulePerPage )
 {
     $tbl_name        = claro_sql_get_main_tbl();
