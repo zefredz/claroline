@@ -4,12 +4,12 @@
 
 /**
  *
- * @version     Claroline 1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   2001-2012 Universite catholique de Louvain (UCL)
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     icterms
+ * @package     kernel.core
  */
 
 /**

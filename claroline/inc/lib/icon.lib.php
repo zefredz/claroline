@@ -2,20 +2,15 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * Icon library
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE
- * @package     KERNEL
+ * @package     kernel.display
  */
 
 /**
@@ -33,19 +28,6 @@ function get_current_iconset_url()
 {
      return get_path('imgRepositoryWeb');
 }
-
-/**
- * Returns the url of the given icon, replaced by get_icon_url()
- * @deprecated
- * @since v1.9
- * @see get_icon_url()
- */
- 
-function get_icon( $fileName )
-{
-    return get_icon_url( $fileName );
-}
-
 
 /**
  * Returns the url of the given icon

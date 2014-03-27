@@ -5,11 +5,11 @@
  *
  * Language library.  Contains function to manage l10n.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLUSR
- * @package     CLUSR
+ * @package     kernel.core
  * @author      Claro Team <cvs@claroline.net>
  */
 
@@ -31,7 +31,6 @@
  * @return
  *   The translated string.
  */
-
 function get_lang ($name,$var_to_replace=null)
 {
     if ( ! isset($GLOBALS['_lang']) ) $GLOBALS['_lang'] = array();
@@ -108,7 +107,6 @@ if ( ! function_exists( 'cmp_string_by_length' ) )
  * @return block translation
  *
  */
-
 function get_block ($name,$var_to_replace=null)
 {
     if ( !empty($var_to_replace) && is_array($var_to_replace) )
@@ -121,7 +119,12 @@ function get_block ($name,$var_to_replace=null)
     }
 }
 
-
+/**
+ * Get locale information
+ * @staticvar array $initValueList
+ * @param string $localeInfoName
+ * @return mixed|null
+ */
 function get_locale($localeInfoName)
 {
     static $initValueList = array('englishLangName',
@@ -156,7 +159,9 @@ function get_locale($localeInfoName)
 
 }
 
-
+/**
+ * Language l10n class
+ */
 class language
 {
     /**
@@ -166,7 +171,6 @@ class language
      * @param string $mode     TRANSLATION or PRODUCTION (default : PRODUCTION)
      *
      */
-
     public static function load_translation ( $language = null )
     {
         if ( ! isset($GLOBALS['_lang']) ) $GLOBALS['_lang'] = array();
@@ -226,7 +230,11 @@ class language
         
         $GLOBALS['_lang'] = array_merge($GLOBALS['_lang'], $_lang);
     }
-
+    
+    /**
+     * Load locale settings
+     * @param string $language
+     */
     public static function load_locale_settings( $language = null )
     {
         if ( is_null( $language ) )
@@ -272,6 +280,11 @@ class language
         $GLOBALS['timeNoSecFormat'] = $timeNoSecFormat;
     }
     
+    /**
+     * Load module translation
+     * @param string $moduleLabel
+     * @param string $language
+     */
     public static function load_module_translation( $moduleLabel = null, $language = null )
     {
         if ( ! isset($GLOBALS['_lang']) ) $GLOBALS['_lang'] = array();
@@ -355,7 +368,11 @@ class language
         
         $GLOBALS['_lang'] = array_merge($GLOBALS['_lang'], $_lang);
     }
-
+    
+    /**
+     * Get the current language name
+     * @return string
+     */
     public static function current_language()
     {
         // FIXME : use init.lib instead of global variables !!!
@@ -407,8 +424,8 @@ language.
 *   The form works with or without javascript
 *   TODO : need some refactoring there is a lot of function to get platform
 language
+ * @return array
 */
-
 function get_language_list()
 {
     // language path
@@ -444,6 +461,11 @@ function get_language_list()
     }
 }
 
+/**
+ * Get language list for display purpose
+ * @param string $param
+ * @return array
+ */
 function get_language_to_display_list( $param = 'language_to_display' )
 {
     $language_list = array();
@@ -463,6 +485,11 @@ function get_language_to_display_list( $param = 'language_to_display' )
     return $language_list;
 }
 
+/**
+ * Get translation of a language name
+ * @param string $language
+ * @return string
+ */
 function get_translation_of_language($language)
 {
     if ( !empty($GLOBALS['langNameOfLang'][$language])
@@ -511,7 +538,6 @@ function get_lang_month_name_list($size='long')
  *                           'short' or 'abbr' for abbreviation
  * @return array of 7 strings (0 = monday)
  */
-
 function get_lang_weekday_name_list($size='long')
 {
     switch ($size)
@@ -539,7 +565,6 @@ function get_lang_weekday_name_list($size='long')
          I suggest to use the format you can find in trad4all.inc.php files
  * @param timestamp timestamp of date to format
  */
-
 function claro_disp_localised_date($formatOfDate,$timestamp = -1)
 {
     pushClaroMessage( (function_exists('claro_html_debug_backtrace')
@@ -551,6 +576,12 @@ function claro_disp_localised_date($formatOfDate,$timestamp = -1)
     return claro_html_localised_date($formatOfDate,$timestamp);
 }
 
+/**
+ * L10N date for display purpose
+ * @param string $formatOfDate
+ * @param int $timestamp
+ * @return string
+ */
 function claro_html_localised_date($formatOfDate,$timestamp = -1) //PMAInspiration :)
 {
     $langDay_of_weekNames['long'] = get_lang_weekday_name_list('long');
@@ -661,6 +692,10 @@ function claro_utf8_decode($str, $toCharset = '')
     }
 }
 
+/**
+ * Encode an array of string in utf-8 using array walk
+ * @param array $var
+ */
 function claro_utf8_encode_array( &$var )
 {
     if ( !is_array( $var ) )
@@ -692,6 +727,11 @@ class JavascriptLanguage
 {    
     private static $variables = array();
     
+    /**
+     * Add a variable to the Javascript for client-side L10N
+     * @param string $varName
+     * @param string $varValue
+     */
     public function addLangVar ( $varName, $varValue = null )
     {
         self::$variables[$varName] = $varValue ? $varValue : get_lang($varName);
@@ -714,6 +754,10 @@ class JavascriptLanguage
         return implode ( ",\n\t", $pack ) . "\n";
     }
     
+    /**
+     * Build the javascript for client side L10N
+     * @return string
+     */
     public function buildJavascript()
     {
         return "
@@ -746,6 +790,10 @@ var __ = (function(){
     
     protected static $instance = false;
     
+    /**
+     * Get an instance of the JavascriptLanguage class
+     * @return type
+     */
     public static function getInstance()
     {
         if ( ! self::$instance )

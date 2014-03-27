@@ -5,12 +5,12 @@
 /**
  * Image manipulation library
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE
- * @package     KERNEL
+ * @package     kernel.file
  */
 
 require_once __DIR__ . '/core/url.lib.php';
@@ -23,14 +23,12 @@ require_once __DIR__ . '/core/url.lib.php';
 * @private allowedImageTypes
 */
 // allowed image extensions
-$allowedImageTypes = 'jpg|png|gif|jpeg|bmp';
+$GLOBALS['allowedImageTypes'] = 'jpg|png|gif|jpeg|bmp';
 
 /**
 * cut string allowing word integrity preservation
 *
-* TODO : move to a more accurate library
-*
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+* @todo move to a more accurate library
 * @param  string (string) string
 * @param  length (int) length of the resulting string
 * @param  allow_cut_word (boolean) allow word cutting default : true
@@ -74,7 +72,6 @@ function cutstring( $str, $length, $allow_cut_word = true,
 /**
 * identifies images (i.e. if file extension is an allowed image extension)
 *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  string (string) file name
 * @return (bool) true if the given file is an image file
 *    else return false
@@ -97,7 +94,6 @@ function is_image($fileName)
 /**
 * get image list from fileList
 *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  fileList (array) list of files in the current directory
 * @param  allowed (bool) true if current user is allowed to view invisible images
 * @return (array) array containing the index of image files in fileList
@@ -125,7 +121,6 @@ function get_image_list($fileList, $allowed = false)
 /**
 * get image color depth from image info
 *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  img (string) path to image file
 * @return (int) image depth in bits
 * @see    document.php#$fileList
@@ -150,7 +145,6 @@ function get_image_thumbnail_url( $file, $context = null )
 * this function could be modified to use any other method to
 * create thumbnails
 *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  file (string) image name
 * @param  thumbWidth (int) width for thumbnails
 * @param  title (string) long description of the image
@@ -190,6 +184,12 @@ function create_thumbnail($file, $thumbWidth, $title = '')
 
 }
 
+/**
+ * Search for index of image file in file list
+ * @param string $file
+ * @param array $filePathList
+ * @return int
+ */
 function image_search($file, $filePathList)
 {
     // return array_search( $file, $filePathList );
@@ -211,7 +211,6 @@ function image_search($file, $filePathList)
 /**
 * get the index of the current image in imageList from its index in fileList
 *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  imageList (array) list of index of image files in the current directory
 * @param  fileIndex (array) index of image in fileList
 * @return (int) index of current image in imageList
@@ -232,8 +231,6 @@ function get_current_index($imageList, $fileIndex)
 
 /**
 * return true if there one or more image after the current image in imageList
-*
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  imageList (array) list of image indices
 * @param  index (int) index of current image in imageList
 * @return (bool) true if there is one or more images after the current image
@@ -247,7 +244,6 @@ function has_next_image($imageList, $index)
 /**
 * return true if there one or more image before the current image in imageList
 *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  imageList (array) list of image indices
 * @param  index (int) index of current image in imageList
 * @return (bool) true if there is one or more images before the current image
@@ -261,7 +257,6 @@ function has_previous_image($imageList, $index)
 /**
 * return the index of the next image in imageList
 *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  imageList (array) list of image indices
 * @param  index (int) index of current image in imageList
 * @return (int) index of the next image in imageList
@@ -277,7 +272,6 @@ function get_next_image_index($imageList, $index)
 /**
 * return the index of the previous image in imageList
 *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  imageList (array) list of image indices
 * @param  index (int) index of current image in imageList
 * @return (int) index of the previous image in imageList
@@ -295,7 +289,6 @@ function get_previous_image_index($imageList, $index)
 * display link and thumbnail of previous image
 * TODO : see if this function can be merge with display_link_to_next_image
 *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  imageList (array) list of image indices
 * @param  fileList (array) list of files in the current directory
 * @param  current (int) index of current image in imageList
@@ -354,7 +347,6 @@ function display_link_to_previous_image($imageList, $fileList, $current)
 * display link and thumbnail of next image
 * TODO : see if this function can be merge with display_link_to_previous_image
 *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  imageList (array) list of image indices
 * @param  fileList (array) list of files in the current directory
 * @param  current (int) index of current image in imageList
@@ -416,8 +408,6 @@ function display_link_to_next_image($imageList, $fileList, $current)
 
 /**
 * return true if there are one or more pages left to display after the current one
-*
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  imageList (array) list of image indices
 * @param  page (int) number of current page
 * @return (bool) true if there are one or more pages left to display after the current one
@@ -439,8 +429,6 @@ function has_next_page($imageList, $page)
 
 /**
 * return true if there one or more pages left to display before the current one
-*
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  imageList (array) list of image indices
 * @param  index (int) index of current image in imageList
 * @return (bool) true if there are one or more pages left to display before the current one
@@ -452,8 +440,6 @@ function has_previous_page($imageList, $page)
 
 /**
 * return the index of the first image of the given page in imageList
-*
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  page (int) number of the page
 * @return (int) index of the first image of the given page in imageList
 */
@@ -476,8 +462,6 @@ function get_offset($page)
 
 /**
 * return the number of the page on which the image is located
-*
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param  offset (int) index of the image in imageList
 * @return (int) number of the page on which the image is located
 */
@@ -493,8 +477,6 @@ function get_page_number($offset)
 
 /**
 * display a page of thumbnails
-*
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
 * @param imageList (array) list containing all image file names
 * @param fileList (array) file properties
 * @param page (int) current page number

@@ -7,12 +7,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * This functions library is used by most of the pages of the learning path tool.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Piraux Sébastien <pir@cerdecam.be>
  * @author      Lederer Guillaume <led@cerdecam.be>
  * @package     CLLNP
+ * @fixme       move to CLLNP module
  */
 
 
@@ -857,7 +858,6 @@ function display_my_exercises($dialogBox)
   * @author Piraux S�bastien <pir@cerdecam.be>
   * @author Lederer Guillaume <led@cerdecam.be>
   */
-
 function display_my_documents($dialogBox)
 {
     $is_allowedToEdit = $GLOBALS['is_allowedToEdit'];
@@ -1246,6 +1246,7 @@ function delete_module_tree($module_tree)
     }
     if ( isset($module['children']) &&  is_array($module['children']) ) delete_module_tree($module['children']);
 }
+
 /**
  * This function return the node with $module_id (recursive)
  *
@@ -1304,6 +1305,7 @@ function seconds_to_scorm_time($time)
 
     return     $hours . ':' . $min . ':' . $sec;
 }
+
 /**
   * This function allow to see if a time string is the SCORM requested format : hhhh:mm:ss.cc
   *
@@ -1416,7 +1418,11 @@ function addScormTime($time1, $time2)
     }
 }
 
-
+/**
+ * Delete an exercise asset
+ * @param int $exerciseId
+ * @return boolean
+ */
 function delete_exercise_asset($exerciseId)
 {
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued());
@@ -1494,13 +1500,11 @@ function delete_exercise_asset($exerciseId)
 }
 
 /**
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
- *
+ * Is the given learning path accessible
  * @param $pathId integer id of a learnPath
  * @return boolean true if learnpath is blocked, false instead
  *
- **/
-
+ */
 function is_learnpath_accessible( $pathId )
 {
     $blocked = false;
@@ -1591,6 +1595,13 @@ function is_learnpath_accessible( $pathId )
     return $blocked;
 }
 
+/**
+ * Get progression in the given module
+ * @param int $user_id
+ * @param int $learnPath_id
+ * @param int $learnPath_module_id
+ * @return boolean
+ */
 function getModuleProgression($user_id = 0, $learnPath_id = 0 ,$learnPath_module_id = 0)
 {
     if(empty($user_id) || empty($learnPath_module_id) || empty($learnPath_id))
@@ -1609,6 +1620,12 @@ function getModuleProgression($user_id = 0, $learnPath_id = 0 ,$learnPath_module
     return claro_sql_query_fetch_single_row($sql);
 }
 
+/**
+ * Get list of module progressions in the given learning path
+ * @param int $user_id
+ * @param int $learnPath_id
+ * @return boolean
+ */
 function getModuleProgressionList($user_id = 0, $learnPath_id = 0)
 {
     if(empty($user_id) || empty($learnPath_id))
@@ -1626,6 +1643,12 @@ function getModuleProgressionList($user_id = 0, $learnPath_id = 0)
     return claro_sql_query_fetch_all($sql);
 }
 
+/**
+ * Is the given LP progression empty ?
+ * @param int $user_id
+ * @param int $learnPath_id
+ * @return boolean
+ */
 function isLearnPathProgressionEmpty($user_id = 0, $learnPath_id = 0)
 {
     if(empty($user_id) || empty($learnPath_id))
@@ -1642,6 +1665,13 @@ function isLearnPathProgressionEmpty($user_id = 0, $learnPath_id = 0)
     return true;
 }
 
+/**
+ * Reset the progression in the given module
+ * @param int $user_id
+ * @param int $learnPath_id
+ * @param int $learnPath_module_id
+ * @return boolean
+ */
 function resetModuleProgression($user_id = 0, $learnPath_id = 0, $learnPath_module_id = 0)
 {
     if(empty($user_id) || empty($learnPath_module_id) || empty($learnPath_id))
@@ -1660,6 +1690,12 @@ function resetModuleProgression($user_id = 0, $learnPath_id = 0, $learnPath_modu
     return claro_sql_query($sql);
 }
 
+/**
+ * Reset progression for all modules in a given learning path
+ * @param int $user_id
+ * @param int $learnPath_id
+ * @return boolean
+ */
 function resetModuleProgressionByPathId($user_id = 0, $learnPath_id = 0)
 {
     if(empty($user_id) || empty($learnPath_id))
@@ -1677,6 +1713,15 @@ function resetModuleProgressionByPathId($user_id = 0, $learnPath_id = 0)
     return claro_sql_query($sql);
 }
 
+/**
+ * Copy the progression of a module to another user
+ * @param int $user_id_from
+ * @param int $user_id_to
+ * @param int $learnPath_id
+ * @param int $learnPath_module_id
+ * @param boolean $resetLocation
+ * @return boolean
+ */
 function copyModuleProgression($user_id_from = 0, $user_id_to = 0, $learnPath_id = 0, $learnPath_module_id = 0, $resetLocation = true)
 {
     if(empty($learnPath_id) || empty($learnPath_module_id) || empty($user_id_from) || empty($user_id_to))
@@ -1703,6 +1748,14 @@ function copyModuleProgression($user_id_from = 0, $user_id_to = 0, $learnPath_id
     return true;
 }
 
+/**
+ * Update the progression in a module
+ * @param int $user_id
+ * @param array $user_progression
+ * @param int $learnPath_id
+ * @param int $learnPath_module_id
+ * @return boolean
+ */
 function updateModuleProgression($user_id = 0, $user_progression = array(), $learnPath_id = 0, $learnPath_module_id = 0)
 {
     if(empty($learnPath_id) || empty($learnPath_module_id) || empty($user_id) || !is_array($user_progression))
@@ -1750,6 +1803,14 @@ function updateModuleProgression($user_id = 0, $user_progression = array(), $lea
     return claro_sql_query($sql);
 }
 
+/**
+ * Copy the progression in a learning path from a user to another
+ * @param int $user_id_from
+ * @param int $user_id_to
+ * @param int $learnPath_id
+ * @param boolean $resetLocation
+ * @return boolean
+ */
 function copyLearnPathProgression($user_id_from = 0, $user_id_to = 0, $learnPath_id = 0, $resetLocation = true)
 {
     if(empty($learnPath_id) || empty($user_id_from) || empty($user_id_to))

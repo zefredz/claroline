@@ -3,10 +3,10 @@
 /**
  * CLAROLINE
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLICAL
+ * @package     kernel.connectors
  * @author      Claro Team <cvs@claroline.net>
  */
 

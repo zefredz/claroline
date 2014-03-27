@@ -1,21 +1,16 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * Get and set value of current session.
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      see 'credits' file
  * @since       claroline 1.8.3
- * @package     KERNEL
+ * @package     kernel.core
  *
  */
 
@@ -269,7 +264,6 @@ function claro_get_current_group_data($dataName=null)
  * @author Christophe Gesche <moosh@claroline.net>
  * @return array of all value or value of given property name
  */
-
 function claro_get_current_course_user_data($dataName=null)
 {
     // $cu = claro_get_course_user_data(claro_get_current_course_id(),claro_get_current_user_id());
@@ -293,7 +287,6 @@ function claro_get_current_course_user_data($dataName=null)
  * @author Christophe Gesche <moosh@claroline.net>
  * @return array of all value or value of given property name
  */
-
 function claro_get_current_course_tool_data($dataName=null)
 {
     $ct = get_init('_courseTool');
@@ -313,7 +306,6 @@ function claro_get_current_course_tool_data($dataName=null)
  * @author Christophe Gesche <moosh@claroline.net>
  * @return array of all value or value of given property name
  */
-
 function claro_get_current_course_tool_list_data($dataName=null)
 {
     $ctl = get_init('_courseToolList');
@@ -343,7 +335,6 @@ function claro_get_current_course_tool_list_data($dataName=null)
  * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
-
 function claro_is_course_member()
 {
     return get_init('is_courseMember');
@@ -353,8 +344,7 @@ function claro_is_course_member()
  * Return the right of the current user
  *
  * @author Christophe Gesche <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 function claro_is_course_tutor()
 {
@@ -402,7 +392,6 @@ function  claro_is_course_manager()
  * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
-
 function claro_is_course_allowed()
 {
     return get_init('is_courseAllowed') && claro_is_course_enable();
@@ -414,7 +403,6 @@ function claro_is_course_allowed()
  * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
-
 function  claro_is_allowed_to_create_course()
 {
     return get_init('is_allowedCreateCourse');
@@ -426,7 +414,6 @@ function  claro_is_allowed_to_create_course()
  * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
-
 function  claro_is_group_member()
 {
     return get_init('is_groupMember');
@@ -438,7 +425,6 @@ function  claro_is_group_member()
  * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
-
 function  claro_is_group_tutor()
 {
     return get_init('is_groupTutor');
@@ -450,7 +436,6 @@ function  claro_is_group_tutor()
  * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
-
 function  claro_is_group_allowed()
 {
     return is_null(get_init('is_groupAllowed'))? false : get_init('is_groupAllowed');
@@ -462,7 +447,6 @@ function  claro_is_group_allowed()
  * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
  */
-
 function claro_is_tool_allowed()
 {
     return get_init('is_toolAllowed');
@@ -511,7 +495,6 @@ function claro_is_module_allowed()
  * @return string param value
  * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
  */
-
 function get_init($param)
 {
     static $initValueList = array( '_uid'                   // claro_get_current_user_id()
@@ -563,7 +546,6 @@ function get_init($param)
  * @return array('role')
  * @author Christophe Gesche <moosh@claroline.net>
  */
-
 function claro_get_course_user_data($cid,$uid,$ignoreCache=false)
 {
     $properties = claro_get_course_user_properties($cid,$uid,$ignoreCache);
@@ -579,7 +561,6 @@ function claro_get_course_user_data($cid,$uid,$ignoreCache=false)
  * @return array('_profileId','is_courseMember','is_courseTutor','is_courseAdmin')
  * @author Christophe Gesche <moosh@claroline.net>
  */
-
 function claro_get_course_user_privilege($cid,$uid,$ignoreCache=false)
 {
     $properties = claro_get_course_user_properties($cid,$uid,$ignoreCache);
@@ -602,8 +583,6 @@ function claro_get_course_user_privilege($cid,$uid,$ignoreCache=false)
  * @see claro_get_course_user_privilege($cid,$uid,$ignoreCache=false)
  * @author Christophe Gesche <moosh@claroline.net>
  */
-
-
 function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
 {
     $admin = claro_is_platform_admin();
