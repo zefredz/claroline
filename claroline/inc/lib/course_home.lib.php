@@ -1,17 +1,12 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package CLHOME
+ * @package kernel.course
  * @author Claro Team <cvs@claroline.net>
  */
 
@@ -23,8 +18,6 @@ if ( count( get_included_files() ) == 1 )
  * @param  string $tool_label
  * @return void
  */
-
-
 function insert_course_tool($tool_label)
 {
     $tbl_mdb_names        = claro_sql_get_main_tbl();
@@ -73,8 +66,6 @@ function insert_course_tool($tool_label)
  * @return array containing 'id', 'name', 'visibility', 'rank', 'url', 'label',
  *                          'icon', 'access_manager'
  */
-
-
 function get_course_tool_settings ($toolId)
 {
     $tbl_mdb_names        = claro_sql_get_main_tbl();
@@ -118,7 +109,6 @@ function get_course_tool_settings ($toolId)
  * @param boolean $value
  * @return
  */
-
 function set_course_tool_visibility($toolId, $value)
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
@@ -144,8 +134,6 @@ function set_course_tool_visibility($toolId, $value)
  * @param string $url new url
  * @return bool true if it suceeds, false otherwise
  */
-
-
 function set_local_course_tool($toolId, $name, $url)
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
@@ -188,8 +176,6 @@ function set_local_course_tool($toolId, $name, $url)
  * @param boolean $visibility
  * @return bool true if it succeeds, false otherwise
  */
-
-
 function insert_local_course_tool($name, $url, $visibility = true)
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
@@ -224,8 +210,6 @@ function insert_local_course_tool($name, $url, $visibility = true)
  * @param int $toolId
  * @return bool true if it succeeds, false otherwise
  */
-
-
 function delete_course_tool($toolId)
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
@@ -244,8 +228,6 @@ function delete_course_tool($toolId)
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @return int
  */
-
-
 function get_next_course_tool_rank()
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
@@ -268,7 +250,6 @@ function get_next_course_tool_rank()
  * @param inti $offset (optional)
  * @return boolean true if succeeds, false otherwise
  */
-
 function offset_course_tool_rank_from($startRank, $offset = 1)
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
@@ -286,16 +267,25 @@ function offset_course_tool_rank_from($startRank, $offset = 1)
 
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Move a tool one step up in the tool list
+ * @param int $toolId
+ * @return boolean
+ */
 function move_up_course_tool($toolId)
 {
     return move_course_tool($toolId, 'UP');
 }
 
+/**
+ * Move a tool one step down in the tool list
+ * @param int $toolId
+ * @return boolean
+ */
 function move_down_course_tool($toolId)
 {
     return move_course_tool($toolId, 'DOWN');
 }
-
 
 /**
  * move a tool up or down
@@ -303,10 +293,8 @@ function move_down_course_tool($toolId)
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @param int $reqToolId - the tool to move
  * @param string $moveDirection - should be 'UP' or 'DOWN'
- * @return
+ * @return boolean
  */
-
-
 function move_course_tool($reqToolId, $moveDirection)
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();

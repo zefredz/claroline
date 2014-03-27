@@ -1,19 +1,14 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  * 
  * A few functions and helpers dedicated to courses.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     COURSE
+ * @package     kernel.course
  * @author      Claro Team <cvs@claroline.net>
  * @author      Muret Benoit <muret_ben@hotmail.com>
  */
@@ -231,7 +226,10 @@ function get_full_path($categories, $catcode = NULL, $separator = ' > ')
     }
 }
 
-
+/**
+ * Get flat language list
+ * @return array
+ */
 function claro_get_lang_flat_list()
 {
     $language_array = claro_get_language_list();

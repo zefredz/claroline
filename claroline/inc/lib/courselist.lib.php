@@ -5,13 +5,14 @@
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLCOURSELIST
+ * @package     kernel.course
  * @author      Claro Team <cvs@claroline.net>
  * @since       1.9
  */
+
 require_once dirname ( __FILE__ ) . '/categorybrowser.class.php';
 
 /**
@@ -382,6 +383,11 @@ function build_category_trail ( $categoriesList, $requiredId )
     return implode ( ' &gt; ', $trail );
 }
 
+/**
+ * Is the user allowed to see deactivated course
+ * @param array $course
+ * @return boolean
+ */
 function is_user_allowed_to_see_desactivated_course ( $course )
 {
     return claro_is_platform_admin () || $course[ 'isCourseManager' ] == '1'

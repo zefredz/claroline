@@ -17,6 +17,7 @@
  * @todo        this class deserves to get splitted into 2 parts (at least), 
  *              including a view part with the render and view options get and 
  *              set methods.
+ * @package     kernel.course
  */
 
 class CourseSearchBox implements Display
@@ -49,6 +50,10 @@ class CourseSearchBox implements Display
      */
     protected $viewOptions;
     
+    /**
+     * Construct the serach box
+     * @param string $formAction
+     */
     public function __construct($formAction)
     {
         $this->formAction   = $formAction;
@@ -66,6 +71,9 @@ class CourseSearchBox implements Display
         $this->viewOptions = new CourseTreeViewOptions();
     }
     
+    /**
+     * Get search result
+     */
     protected function fetchResults()
     {
         $this->searchResults = 
@@ -89,6 +97,7 @@ class CourseSearchBox implements Display
     }
     
     /**
+     * Get the populated template of the search box
      * @return CoreTemplate
      */
     public function getTemplate()
@@ -107,6 +116,10 @@ class CourseSearchBox implements Display
         return $template;
     }
     
+    /**
+     * Render the search box
+     * @return string
+     */
     public function render()
     {
         return $this->getTemplate()->render();

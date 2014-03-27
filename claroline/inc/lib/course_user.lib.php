@@ -8,10 +8,10 @@ require_once __DIR__ . '/users/courseregistration.lib.php';
  *
  * Course user library contains function to manage users registration and properties in course
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLUSR
+ * @package     kernel.users
  * @author      Claro Team <cvs@claroline.net>
  * @author      Christophe Gesche <moosh@claroline.net>
  * @author      Mathieu Laurent <laurent@cerdecam.be>
@@ -31,7 +31,6 @@ require_once __DIR__ . '/users/courseregistration.lib.php';
  * @param int $class_id
  * @return boolean TRUE  if it succeeds, FALSE otherwise
  */
-
 function user_add_to_course(
     $userId, $courseCode, $admin = false, $tutor = false,
     $class_id = null )
@@ -89,7 +88,6 @@ function user_add_to_course(
  * @param string $courseId - sys code of the course
  * @return boolean
  */
-
 function is_course_registration_allowed($courseId)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -132,7 +130,6 @@ function is_course_registration_allowed($courseId)
  * @param string $courseId - sys code of the course
  * @return string registration key
  */
-
 function get_course_registration_key($courseId)
 {
     $tbl = claro_sql_get_main_tbl();
@@ -347,7 +344,6 @@ function user_remove_userlist_from_course( $userIdList, $courseCodeList = array(
  * @return boolean TRUE        if removing suceed
  *         boolean FALSE       otherwise.
  */
-
 function user_remove_from_group($userId, $courseId)
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
@@ -371,7 +367,6 @@ function user_remove_from_group($userId, $courseId)
  * @return boolean TRUE        if removing suceed
  *         boolean FALSE       otherwise.
  */
-
 function user_delete_course_tracking_data($userId, $courseId)
 {
     $dbNameGlued   = claro_get_course_db_name_glued($courseId);
@@ -394,7 +389,6 @@ function user_delete_course_tracking_data($userId, $courseId)
  *
  * @return boolean TRUE if update succeed, FALSE otherwise.
  */
-
 function user_set_course_properties($userId, $courseId, $propertyList)
 {
     $tbl = claro_sql_get_main_tbl();
@@ -457,7 +451,6 @@ function user_set_course_properties($userId, $courseId, $propertyList)
  * @return boolean TRUE  if update succeed
  *         boolean FALSE otherwise.
  */
-
 function user_set_course_manager($status, $userId, $courseId)
 {
     return user_set_course_properties($userId, $courseId,
@@ -476,7 +469,6 @@ function user_set_course_manager($status, $userId, $courseId)
  * @return boolean TRUE  if update succeed
  *         boolean FALSE otherwise.
  */
-
 function user_set_course_tutor($status , $userId, $courseId)
 {
     $status = ($status == true) ? 1 : 0;
@@ -493,7 +485,6 @@ function user_set_course_tutor($status , $userId, $courseId)
  * @param $data array
  * @return boolean
  */
-
 function user_send_enroll_to_course_mail($userId, $data, $course=null)
 {
     require_once __DIR__ . '/../../messaging/lib/message/messagetosend.lib.php';
@@ -535,7 +526,6 @@ function user_send_enroll_to_course_mail($userId, $data, $course=null)
  * @return array   containing user info as 'lastName', 'firstName'
  *           'email', 'role'
  */
-
 function course_user_get_properties($userId, $courseId)
 {
     if (0 == (int) $userId)
@@ -583,7 +573,6 @@ function course_user_get_properties($userId, $courseId)
  * @param $data array to fill the form
  * @todo $courseManagerChecked never used
  */
-
 function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null )
 {
 
@@ -727,6 +716,12 @@ function claro_count_pending_users( $courseId = null )
         AND isPending = 1")->numRows();
 }
 
+/**
+ * Is the registration of the user in the course waiting to be validated by the course manager ?
+ * @param string $courseId
+ * @param int $userId
+ * @return type
+ */
 function claro_is_course_registration_pending( $courseId = null, $userId = null )
 {
     if ( !$courseId )
@@ -744,6 +739,11 @@ function claro_is_course_registration_pending( $courseId = null, $userId = null 
     return $privileges['is_coursePending'];
 }
 
+/**
+ * Is the registration of the current user in the current course waiting to be 
+ * validated by the course manager ?
+ * @return type
+ */
 function claro_is_current_user_enrolment_pending()
 {
     return !claro_is_platform_admin() && claro_is_course_registration_pending();
@@ -765,7 +765,11 @@ class UserCourseEnrolmentValidation
         $isPending, 
         $validationCanBeChanged;
     
-    
+    /**
+     * Construct course enrolment validation
+     * @param Claro_Course $course
+     * @param Claro_CourseUserPrivileges $privileges
+     */
     public function __construct( $course, $privileges )
     {
         $this->privileges = $privileges;    
@@ -791,26 +795,48 @@ class UserCourseEnrolmentValidation
         }
     }
     
+    /**
+     * Is validation status editable ?
+     * @return boolean
+     */
     public function isModifiable()
     {
         return $this->validationCanBeChanged;
     }
     
+    /**
+     * Is the validation pending ?
+     * @return boolean
+     */
     public function isPending()
     {
         return $this->isPending;
     }
     
+    /**
+     * Grant access (i.e. validate registration)
+     * @return boolean
+     */
     public function grant()
     {
         return $this->changeValidation(self::ENROLMENT_NOTPENDING);
     }
     
+    /**
+     * Revoke access (i.e. invalidate registration)
+     * @return boolean
+     */
     public function revoke()
     {
         return $this->changeValidation(self::ENROLMENT_PENDING);
     }
     
+    /**
+     * Change validation status
+     * @param int $pendingStatus ENROLMENT_PENDING or ENROLMENT_NOTPENDING
+     * @return boolean
+     * @throws Exception
+     */
     protected function changeValidation( $pendingStatus )
     {
         if (!$this->isModifiable())
