@@ -6,7 +6,7 @@
  * DataValidator class
  * Validates the content of data chained into an array according to a set
  * of defined rules. You can define your own validation rules (by creating
- * functions) but the class also provides a list of predefined rules.
+ * public functions) but the class also provides a list of predefined rules.
  *
  * Example :
  *
@@ -30,13 +30,13 @@
  *     echo explode(', ', $validator->getErrorList() );
  *   }
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Hugues Peeters <hugues.peeters@advalvas.be>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
+ * @package     kernel.utils
  * @deprecated  since 1.9, use utils/validator.lib instead
  */
 
@@ -47,7 +47,8 @@ define ('DATAVALIDATOR_STRICT_MODE', true);
  */
 class DataValidator
 {
-    var $dataList           = array(),
+    protected 
+        $dataList           = array(),
         $errorList          = array(),
         $ruleNameList       = array(),
         $ruleParamList      = array(),
@@ -60,7 +61,7 @@ class DataValidator
      * @param array
      */
 
-    function setDataList($dataList)
+    public function setDataList($dataList)
     {
         $this->dataList = $dataList;
     }
@@ -69,7 +70,7 @@ class DataValidator
      * @return array
      */
 
-    function getDataList()
+    public function getDataList()
     {
         return $this->dataList;
     }
@@ -84,10 +85,10 @@ class DataValidator
      *        regex, compare, nonzero, min, max, range, maxlength, minlength,
      *        rangelength, nopunctuation, email, ip, hostname
      * @param array $xtraParamList additional parameters required for the
-     *                             function rule
+     *                             public function rule
      */
 
-    function addRule($dataKey, $errorMessage, $rule, $xtraParamList = array() )
+    public function addRule($dataKey, $errorMessage, $rule, $xtraParamList = array() )
     {
         if ( 'required' == $rule )
         {
@@ -117,7 +118,7 @@ class DataValidator
      * @return boolean
      */
 
-    function validate( $strict = false )
+    public function validate( $strict = false )
     {
         $this->wrongDataList    = array();
         $this->errorMessageList = array();
@@ -196,7 +197,7 @@ class DataValidator
      * @return array
      */
 
-    function getWrongDataKeyList()
+    public function getWrongDataKeyList()
     {
         return array_unique($this->wrongDataList);
     }
@@ -205,7 +206,7 @@ class DataValidator
      * @return array
      */
 
-    function getRightDataKeyList()
+    public function getRightDataKeyList()
     {
         return array_values(array_diff( array_keys($this->dataList) ,
                                         $this->getWrongDataKeyList()
@@ -219,7 +220,7 @@ class DataValidator
      * @return array
      */
 
-    function getErrorList( $dataKey = null )
+    public function getErrorList( $dataKey = null )
     {
         if ( is_null ($dataKey))
         {
@@ -247,8 +248,7 @@ class DataValidator
      * @param $data
      * @return boolean
      */
-
-    function rl_required($data)
+    public function rl_required($data)
     {
         return trim($data) != '';
     }
@@ -258,8 +258,7 @@ class DataValidator
      * @param $data
      * @return boolean
      */
-
-    function rl_numeric($data)
+    public function rl_numeric($data)
     {
         return is_numeric($data);
     }
@@ -269,8 +268,7 @@ class DataValidator
      * @param $data
      * @return boolean
      */
-
-    function rl_alphanumeric($data)
+    public function rl_alphanumeric($data)
     {
         return ctype_alnum($data);
     }
@@ -280,8 +278,7 @@ class DataValidator
      * @param $data
      * @return boolean
      */
-
-    function rl_lettersonly($data)
+    public function rl_lettersonly($data)
     {
         return ctype_alpha($data);
     }
@@ -291,8 +288,7 @@ class DataValidator
      * @param $data
      * @return boolean
      */
-
-    function rl_regex($data, $rx)
+    public function rl_regex($data, $rx)
     {
         return preg_match($rx, $data);
     }
@@ -303,8 +299,7 @@ class DataValidator
      * @param string $rx regular expression
      * @return boolean
      */
-
-    function rl_compare($dataA, $dataB)
+    public function rl_compare($dataA, $dataB)
     {
         return $dataA == $dataB;
     }
@@ -314,8 +309,7 @@ class DataValidator
      * @param $data
      * @return boolean
      */
-
-    function rl_nonzero($data)
+    public function rl_nonzero($data)
     {
         return 0 != (int) $data;
     }
@@ -326,8 +320,7 @@ class DataValidator
      * @param $value
      * @return boolean
      */
-
-    function rl_min($data, $value)
+    public function rl_min($data, $value)
     {
         return ( (float)$data ) >= ( (float)$value );
     }
@@ -338,8 +331,7 @@ class DataValidator
      * @param $value
      * @return boolean
      */
-
-    function rl_max($data, $value)
+    public function rl_max($data, $value)
     {
         return ( (float)$data ) <= ( (float)$value );
     }
@@ -351,8 +343,7 @@ class DataValidator
      * @param $max maximum value
      * @return boolean
      */
-
-    function rl_range($data, $min, $max)
+    public function rl_range($data, $min, $max)
     {
         return    $this->rl_min($data, $min) && $this->rl_max($data, $max);
     }
@@ -363,8 +354,7 @@ class DataValidator
      * @param int $length maximum number of characters
      * @return boolean
      */
-
-    function rl_maxlength($data, $length)
+    public function rl_maxlength($data, $length)
     {
         return (strlen(trim($data))) <= (int) $length;
     }
@@ -375,8 +365,7 @@ class DataValidator
      * @param int $length minimum number of characters
      * @return boolean
      */
-
-    function rl_minlength($data, $length)
+    public function rl_minlength($data, $length)
     {
         return (strlen(trim($data))) >= (int)$length;
     }
@@ -388,8 +377,7 @@ class DataValidator
      * @param int $maxlength maximum number of characters
      * @return boolean
      */
-
-    function rl_rangelength($data, $minlength, $maxlength)
+    public function rl_rangelength($data, $minlength, $maxlength)
     {
         return   $this->rl_maxlength($data, $maxlength)
               && $this->rl_minlength($data, $minlength);
@@ -400,8 +388,7 @@ class DataValidator
      * @param string $data
      * @return boolean
      */
-
-    function rl_nopunctuation($data)
+    public function rl_nopunctuation($data)
     {
         return ! preg_match('/[().\/*\\^?#!@$%+=,"\'><~\[\]{}"\']/', $data);
     }
@@ -411,8 +398,7 @@ class DataValidator
      * @param $data
      * @return boolean
      */
-
-    function rl_email($data)
+    public function rl_email($data)
     {
         static $usernameRx = '/^((\"[^\"\f\n\r\t\v\b]+\")|([\w\!\#\$\%\&\'\*\+\-\~\/\^\`\|\{\}]+(\.[\w\!\#\$\%\&\'\*\+\-\~\/\^\`\|\{\}]+)*))$/';
 
@@ -430,8 +416,7 @@ class DataValidator
      * @param $data
      * @return boolean
      */
-
-    function rl_ip($data)
+    public function rl_ip($data)
     {
         return (bool) ip2long($data);
     }
@@ -441,8 +426,7 @@ class DataValidator
      * @param $data
      * @return boolean
      */
-
-    function rl_hostname($data)
+    public function rl_hostname($data)
     {
         static $domainNameRx = '/^(?:[^\W_](?:[^\W_]|-){0,61}[^\W_]\.)+[a-zA-Z]{2,6}\.?$/';
         static $localNameRx  = '/^(?:[^\W_](?:[^\W_]|-){0,61}[^\W_]\.)*(?:[^\W_](?:[^\W_]|-){0,61}[^\W_])\.?$/';
