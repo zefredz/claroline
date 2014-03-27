@@ -7,13 +7,13 @@
  *
  * Objects used to represent groups in the platform.
  *
- * @version     Claroline 1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.objects
+ * @package     kernel.kernel
  */
 
 require_once __DIR__ . '/object.lib.php';
@@ -61,6 +61,7 @@ implements
 
     /**
      * Load group properties defined for the course
+     * @throws Exception on loading error
      */
     protected function loadGroupCourseProperties()
     {   
@@ -76,6 +77,7 @@ implements
 
     /**
      * Load group specific properties
+     * @throws Exception on loading error
      */
     protected function loadGroupTeamProperties()
     {
@@ -117,6 +119,7 @@ implements
      *      $userProperties->status : boolean
      *      $userProperties->role : string or null
      *      $userProperties->isGroupTutor : boolean
+     * @throws Exception on loading error
      */
     public function getUserPropertiesInGroup( Claro_User $userObj )
     {
@@ -245,14 +248,20 @@ implements
  */
 class Claro_CurrentGroupTeam extends Claro_GroupTeam
 {
+    /**
+     * Create an instance of the current group
+     * @param int $groupId optional group Id
+     */
     public function __construct( $groupId = null )
     {
+        $course = Claro_CurrentCourse::getInstance();
+        
         $groupId = empty( $groupId )
             ? claro_get_current_group_id()
             : $groupId
             ;
 
-        parent::__construct( $groupId );
+        parent::__construct( $course, $groupId );
     }
     
     protected static $instance = false;
