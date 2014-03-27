@@ -1,35 +1,34 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * Tree class
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
+ * @package     kernel.utils
+ * @fixme seems not to be used anymore
  */
 
+/**
+ * Left-right tree
+ */
 class Tree
 {
     // name of the sql table containing the tree nodes
-    var $table;
+    protected $table;
     // name of the 'left' column in $table
-    var $leftCol;
+    protected $leftCol;
     // name of the 'right' column in $table
-    var $rightCol;
+    protected $rightCol;
     // name of the 'deep' column in table : # of ancestor of the node
-    var $deepCol;
+    protected $deepCol;
     // name of the 'tree' column in table : allows many trees in a same table
     // default value is empty and means that we will only  have one tree in our table
     // e.g. : it could be session id in works
-    var $treeCol;
+    protected $treeCol;
 
     /**
      * constructor, build a tree object
@@ -41,7 +40,7 @@ class Tree
      * @author Fragile <pir@cerdecam.be>
      * @access public
      */
-    function Tree($table, $leftCol = 'left', $rightCol = 'right', $deepCol = 'deep', $treeCol = '')
+    public function __construct($table, $leftCol = 'left', $rightCol = 'right', $deepCol = 'deep', $treeCol = '')
     {
         $this->table = $table;
         $this->leftCol = $leftCol;
@@ -58,7 +57,7 @@ class Tree
      * @author Fragile <pir@cerdecam.be>
      * @access public
      */
-    function newRoot( $tree = "", $values = "" )
+    public function newRoot( $tree = "", $values = "" )
     {
         $node['left']     = 1;
         $node['right']     = 2;
@@ -78,7 +77,7 @@ class Tree
      * @author Fragile <pir@cerdecam.be>
      * @access public
      */
-    function newFirstChild( $id , $values = "" )
+    public function newFirstChild( $id , $values = "" )
     {
         $node = $this->getPosition( $id );
 
@@ -100,7 +99,7 @@ class Tree
      * @author Fragile <pir@cerdecam.be>
      * @access public
      */
-    function newLastChild( $id , $values = "" )
+    public function newLastChild( $id , $values = "" )
     {
         $node = $this->getPosition( $id );
 
@@ -123,7 +122,7 @@ class Tree
      * @author Fragile <pir@cerdecam.be>
      * @access public
      */
-    function newPrevBrother( $id , $values = "" )
+    public function newPrevBrother( $id , $values = "" )
     {
         $node = $this->getPosition( $id );
 
@@ -146,7 +145,7 @@ class Tree
      * @author Fragile <pir@cerdecam.be>
      * @access public
      */
-    function newNextBrother( $id , $values = "" )
+    public function newNextBrother( $id , $values = "" )
     {
         $node = $this->getPosition( $id );
 
@@ -166,7 +165,7 @@ class Tree
      * @author Fragile <pir@cerdecam.be>
      * @access public
      */
-    function deleteNode( $id )
+    public function deleteNode( $id )
     {
         $node = $this->getPosition( $id );
 
@@ -194,7 +193,7 @@ class Tree
      * @author Fragile <pir@cerdecam.be>
      * @access private
      */
-    function _addNode($node, $values = "")
+    protected function _addNode($node, $values = "")
     {
         if ( strlen($values) > 0) $values .= ",";
 
@@ -215,7 +214,7 @@ class Tree
      * @author Fragile <pir@cerdecam.be>
      * @access private
      */
-    function _shiftPositions($from, $delta, $tree)
+    protected function _shiftPositions($from, $delta, $tree)
     {
         $sql = "UPDATE `".$this->table."`
                 SET `".$this->leftCol."` = `".$this->leftCol."` + ".$delta."
@@ -241,9 +240,9 @@ class Tree
      * @return array $left, $right and $deep attributes of the father
      * @author Fragile <pir@cerdecam.be>
      * @access public
-     * @desc required by makeRoom function
+     * @desc required by makeRoom public function
      */
-    function getPosition($id)
+    public function getPosition($id)
     {
         $sql = "SELECT `".$this->leftCol."`, `".$this->rightCol."`, `".$this->deepCol."`";
         if( !empty($this->treeCol) ) $sql .= " , `".$this->treeCol."`";
@@ -275,7 +274,7 @@ class Tree
      * @author Fragile <pir@cerdecam.be>
      * @access public
      */
-    function getChildren($id, $direct = FALSE)
+    public function getChildren($id, $direct = FALSE)
     {
         $node = $this->getPosition( $id );
 
@@ -303,7 +302,7 @@ class Tree
      * @author Fragile <pir@cerdecam.be>
      * @access public
      */
-    function countChildren( $id, $direct = FALSE )
+    public function countChildren( $id, $direct = FALSE )
     {
         if( $direct )
         {
@@ -334,10 +333,10 @@ class Tree
      * @param $id id of the root of the tree to display
      * @author Fragile <pir@cerdecam.be>
      * @access public
-     * @desc required by makeRoom function
+     * @desc required by makeRoom public function
      */
-    // this function exists mainly for debug purpose
-    function printTree ( $id, $attributes = "" )
+    // this public function exists mainly for debug purpose
+    public function printTree ( $id, $attributes = "" )
     {
         $node = $this->getPosition( $id );
 
