@@ -1,22 +1,17 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
- * Config lib contain function to manage conf file
+ * Config lib contain public function to manage conf file
  *
- * @version 1.9 $Revision$
+ * @version Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/config_def/
- * @package CONFIG
+ * @package kernel.config
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesch� <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
 
@@ -26,6 +21,8 @@ require_once __DIR__ . '/language.lib.php';
 require_once __DIR__ . '/user.lib.php';
 
 /**
+ * Configuration of Claroline
+ * 
  * To use this class.
  *
  * Example :
@@ -37,49 +34,47 @@ require_once __DIR__ . '/user.lib.php';
  *                     and this property is in memory,
  *                     the value would be write in the new config file)
  */
-
 class Config
 {
     // config code
-    var $config_code;
+    protected $config_code;
 
     // path of the configuration file
-    var $config_filename;
+    protected $config_filename;
 
     // path of the definition file
-    var $def_filename;
+    protected $def_filename;
 
     // list of properties and values
-    var $property_list = array();
+    protected $property_list = array();
 
     // definition of configuration file
-    var $conf_def = array();
+    protected $conf_def = array();
 
     // dirname of config folder
-    var $conf_dirname = '';
+    protected $conf_dirname = '';
 
     // dirname of def folder
-    var $def_dirname = '';
+    protected $def_dirname = '';
 
     // list of property definition
-    var $conf_def_property_list = array();
+    protected $conf_def_property_list = array();
 
     // md5 of the properties
-    var $md5;
+    protected $md5;
 
     // backlog object
-    var $backlog;
+    protected $backlog;
 
     // definition file loaded
-    var $def_loaded;
+    protected $def_loaded;
 
     /**
      * constructor, build a config object
      *
      * @param string $config_code
      */
-
-    function Config($config_code)
+    public function __construct($config_code)
     {
         $this->config_code = $config_code;
         $this->conf_dirname = claro_get_conf_repository(); // in 1.8 is 'platform/conf' folder
@@ -90,9 +85,9 @@ class Config
 
     /**
      * load definition and configuration file
+     * @return boolean
      */
-
-    function load()
+    public function load()
     {
         // search config file
         $def_filename = $this->def_dirname . '/' . $this->config_code . '.def.conf.inc.php';
@@ -126,9 +121,9 @@ class Config
 
     /**
      * Initialise property list : get default values in definition file and overwrite then with values in configuration file
+     * @return array
      */
-
-    function init_property_list()
+    public function init_property_list()
     {
         $this->property_list = array();
 
@@ -192,8 +187,7 @@ class Config
     /**
      * Read defintion file and set value of $conf_def and $conf_def_property_list
      */
-
-    function load_def_file()
+    public function load_def_file()
     {
         // get $conf_def and $conf_def_property_list from definition file
         $def_filename = $this->def_filename;
@@ -212,8 +206,7 @@ class Config
      *
      * @return string : complete path and name of config file
      */
-
-    function build_config_filename()
+    public function build_config_filename()
     {
         if ( !empty($this->conf_def['config_file']) )
         {
@@ -232,8 +225,7 @@ class Config
      *
      * @return string name of the current config
      */
-
-    function get_conf_name()
+    public function get_conf_name()
     {
         if ( !empty($this->conf_def['config_name']) )
         {
@@ -254,8 +246,7 @@ class Config
      * @param string $name value name
      * @return value of the givent property | null if not found
      */
-
-    function get_property($name)
+    public function get_property($name)
     {
         if ( isset($this->property_list[$name]) )
         {
@@ -275,8 +266,7 @@ class Config
      *
      * @return boolean true on success | false if unvalid or unknow value
      */
-
-    function set_property($name,$value)
+    public function set_property($name,$value)
     {
         if ( isset($this->conf_def_property_list[$name]) )
         {
@@ -302,8 +292,7 @@ class Config
      *
      * @return array associative list property name/value
      */
-
-    function get_property_list()
+    public function get_property_list()
     {
         return $this->property_list;
     }
@@ -319,8 +308,7 @@ class Config
      * @return boolean : true if ALL know value are valid.
      *
      */
-
-    function validate($newPropertyList)
+    public function validate($newPropertyList)
     {
         $valid = true;
 
@@ -350,10 +338,9 @@ class Config
      *
      * @param string $name
      * @param string $value
-     *
+     * @return boolean
      */
-
-    function validate_property($name,$value)
+    public function validate_property($name,$value)
     {
         $valid = true;
 
@@ -498,9 +485,11 @@ class Config
 
     /**
      * Save all properties in config file
+     * 
+     * @param string $generatorFile
+     * @return boolean
      */
-
-    function save($generatorFile=__FILE__)
+    public function save($generatorFile=__FILE__)
     {
         // split generation file
 
@@ -636,9 +625,9 @@ class Config
 
     /**
      * Init the value of md5
+     * @return string
      */
-
-    function init_md5()
+    public function init_md5()
     {
         $tbl = claro_sql_get_main_tbl();
 
@@ -663,27 +652,27 @@ class Config
 
     /**
      * Get the md5 value
+     * @return string
      */
-
-    function get_md5()
+    public function get_md5()
     {
         return $this->md5;
     }
 
     /**
      * Calculate the md5 value of the config file
+     * @return string
      */
-
-    function calculate_md5()
+    public function calculate_md5()
     {
         return md5_file($this->config_filename);
     }
 
     /**
      * Save md5 in database and re-initialise the value of md5
+     * @retrun boolean
      */
-
-    function save_md5()
+    public function save_md5()
     {
         // get table name of config file
         $mainTbl = claro_sql_get_main_tbl();
@@ -722,9 +711,9 @@ class Config
 
     /**
      * Verify if config file is manually updated
+     * @retrun boolean
      */
-
-    function is_modified()
+    public function is_modified()
     {
         $current_md5 = '';
 
@@ -742,8 +731,12 @@ class Config
             return false;
         }
     }
-    
-    function get_timezone_list ()
+   
+    /**
+     * Get list of supported timezones
+     * @return array
+     */
+    public function get_timezone_list ()
     {
         $timezone_identifiers = DateTimeZone::listIdentifiers ();
 
@@ -762,9 +755,13 @@ class Config
 
     /**
      * Retrieve accepted value from a folder (ie : lang folder, css, folder, ...)
+     * @param string $path
+     * @param string $elt_type
+     * @param string $elt_extension
+     * @param string $elt_disallowed
+     * @return array
      */
-
-    function retrieve_accepted_values_from_folder($path,$elt_type,$elt_extension=null,$elt_disallowed=null)
+    public function retrieve_accepted_values_from_folder($path,$elt_type,$elt_extension=null,$elt_disallowed=null)
     {
         // init accepted_values list
         $accepted_values = array();
@@ -831,9 +828,9 @@ class Config
 
     /**
      * Return the name (public label) of the config class
+     * @return string
      */
-
-    function get_conf_class()
+    public function get_conf_class()
     {
         $class = isset($this->conf_def['config_class'])
         ? strtolower($this->conf_def['config_class'])
@@ -844,9 +841,9 @@ class Config
 
     /**
      * Return the filename of configuration file
+     * @return string
      */
-
-    function get_config_filename()
+    public function get_config_filename()
     {
         return $this->config_filename;
     }

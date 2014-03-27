@@ -1,20 +1,15 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
- * Config lib contain function to manage conf file
+ * Config lib contain public function to manage conf file
  *
- * @version 1.9 $Revision$
+ * @version Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2011, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see     http://www.claroline.net/wiki/config_def/
- * @package CONFIG
+ * @package kernel.config
  * @author  Claro Team <cvs@claroline.net>
  * @author  Christophe Gesché <moosh@claroline.net>
  * @author  Mathieu Laurent <laurent@cerdecam.be>
@@ -37,11 +32,16 @@ require_once __DIR__ . '/config.class.php';
 
 class ConfigHtml extends Config
 {
-    var $back_url = null;
-
-    function ConfigHtml($config_code, $back_url)
+    protected $back_url = null;
+    
+    /**
+     * Construct the config form
+     * @param string $config_code
+     * @param string $back_url url to go back to
+     */
+    public function __construct($config_code, $back_url)
     {
-        parent::Config($config_code);
+        parent::__construct($config_code);
 
         $this->backUrl = $back_url;
     }
@@ -53,8 +53,7 @@ class ConfigHtml extends Config
      * @param string $url_params appeded to POST query
      * @return the HTML code to display web form to edit config file
      */
-
-    function display_form($property_list = null,$section_selected = null,$url_params = null)
+    public function display_form($property_list = null,$section_selected = null,$url_params = null)
     {
         $form = '';
 
@@ -148,9 +147,11 @@ class ConfigHtml extends Config
 
     /**
      * Display the form elt of a property
+     * @param string $name
+     * @param string $value
+     * @return string
      */
-
-    function display_form_elt($name,$value)
+    protected function display_form_elt($name,$value)
     {
 
         $elt_form = '';
@@ -432,29 +433,12 @@ class ConfigHtml extends Config
 
         return $elt_form;
     }
-    
-    function get_timezone_list ()
-    {
-        $timezone_identifiers = DateTimeZone::listIdentifiers ();
-
-        foreach ( $timezone_identifiers as $val )
-        {
-            $atz   = new DateTimeZone ( $val );
-            $aDate = new DateTime ( "now", $atz );
-            $timeArray[ "$val" ] = $val;
-        }
-
-        asort ( $timeArray );
-
-        return $timeArray;
-
-    }
 
     /**
      * Return list of displayed section
+     * @return array
      */
-
-    function get_def_section_list()
+    protected function get_def_section_list()
     {
         $section_list = array();
 
@@ -478,9 +462,9 @@ class ConfigHtml extends Config
 
     /**
      * Display section menu
+     * @return string
      */
-
-    function display_section_menu($section_selected,$url_params = null)
+    public function display_section_menu($section_selected,$url_params = null)
     {
         $menu = '';
 

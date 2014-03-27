@@ -1,22 +1,17 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * Config lib contain function to manage conf file
  *
- * @version 1.8 $Revision$
+ * @version Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see     http://www.claroline.net/wiki/config_def/
- * @package CONFIG
+ * @package kernel.config
  * @author  Claro Team <cvs@claroline.net>
- * @author  Christophe Gesch� <moosh@claroline.net>
+ * @author  Christophe Gesché <moosh@claroline.net>
  * @author  Mathieu Laurent <laurent@cerdecam.be>
  */
 
@@ -27,13 +22,10 @@ require_once __DIR__ . '/module/manage.lib.php';
  * Proceed to rename conf.php.dist file in unexisting .conf.php files
  *
  * @param string $file syspath:complete path to .dist file
- *
  * @return boolean whether succes return true
- *
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
  */
-
 function claro_undist_file ($distFile,$destinationPath='')
 {
     if ( !empty($destinationPath) )
@@ -96,11 +88,8 @@ function claro_undist_file ($distFile,$destinationPath='')
  * The boolean value as string
  *
  * @param $booleanState boolean
- *
  * @return string boolean value as string
- *
  */
-
 function trueFalse($booleanState)
 {
     return ($booleanState?'TRUE':'FALSE');
@@ -114,7 +103,6 @@ function trueFalse($booleanState)
  *
  * @todo $centralizedDef won't be hardcoded.
  */
-
 function claro_get_conf_def_file($configCode)
 {
     $centralizedDef = array('CLCRS','CLAUTH', 'CLMSG', 'CLSSO',  'CLCAS', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL' ,'CLRSS','CLICAL','CLGRP');
@@ -130,7 +118,6 @@ function claro_get_conf_def_file($configCode)
  *
  * @return array list of messages and error tag
  */
-
 function generate_conf(&$config,$properties = null)
 {
     // load configuration if not loaded before
@@ -174,8 +161,8 @@ function generate_conf(&$config,$properties = null)
 
 /**
  * Return list of folder where we can retrieve definition configuration file
+ * @return array
  */
-
 function get_def_folder_list ( $type = 'all' )
 {
     $folderList = array();
@@ -202,7 +189,6 @@ function get_def_folder_list ( $type = 'all' )
  * Return array list of found definition files
  * @return array list of found definition files
  */
-
 function get_config_code_list($type = 'all')
 {
     $configCodeList = array();
@@ -229,8 +215,8 @@ function get_config_code_list($type = 'all')
 
 /**
  * Return config code list with name and class of the configuration
+ * @return array [config_code => ['name' => name, 'value' => value], ...]
  */
-
 function get_config_code_class_list ( $type = 'all' )
 {
     $configCodeClassList = array();
