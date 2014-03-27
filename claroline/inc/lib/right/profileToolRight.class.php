@@ -5,15 +5,18 @@
  *
  * Class to manage profile and tool right (none, user, manager)
  *
- * @version     1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLMAIN
+ * @package     kernel.right
  * @author      Claro Team <cvs@claroline.net>
  */
 require_once dirname ( __FILE__ ) . '/constants.inc.php';
 require_once dirname ( __FILE__ ) . '/profileToolAction.class.php';
 
+/**
+ * Right of a profile
+ */
 class RightProfileToolRight extends RightProfileToolAction
 {
 

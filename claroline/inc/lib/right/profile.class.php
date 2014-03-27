@@ -5,10 +5,10 @@
  *
  * Library to manage profile
  *
- * @version     1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     RIGHT
+ * @package     kernel.right
  * @author      Claro Team <cvs@claroline.net>
  */
 
@@ -24,78 +24,77 @@ class RightProfile
      * @var $id id ofthe profile, -1 if profile doesn't exists already
      */
 
-    var $id;
+    protected $id;
 
     /**
      * @var $label
      */
 
-    var $label;
+    protected $label;
 
     /**
      * @var $name name of the profile
      */
 
-    var $name;
+    protected $name;
 
     /**
      * @var $type type of the profile
      */
 
-    var $type;
+    protected $type;
 
     /**
      * @var $description description of the profile
      */
 
-    var $description;
+    protected $description;
 
     /**
      * @var $isLocked is profile locked
      */
 
-    var $isLocked;
+    protected $isLocked;
 
     /**
      * @var $isRequired is profile locked
      */
 
-    var $isRequired;
+    protected $isRequired;
 
     /**
      * @var $isCourseManager user can edit course settings
      */
 
-    var $isCourseManager;
+    protected $isCourseManager;
 
     /**
      * @var $isTutor user is a tutor
      */
 
-    var $isTutor;
+    protected $isTutor;
 
     /**
      * @var $isUserPublic user is a displayed in user list
      */
 
-    var $isUserPublic;
+    protected $isUserPublic;
 
     /**
      * @var $isEmailNotify user receive announcement, ... from course
      */
 
-    var $isEmailNotify;
+    protected $isEmailNotify;
 
     /**
      * @var $tbl array with all tables name;
      */
 
-    var $tbl = array() ;
+    protected $tbl = array() ;
 
     /**
      * Constructor
      */
-
     public function __construct()
     {
         $this->id = 0 ;
@@ -122,7 +121,6 @@ class RightProfile
      * @param integer $id identifier of profile
      * @return boolean load successfull
      */
-
     public function load($id)
     {
         $sql = " SELECT profile_id,
@@ -170,7 +168,6 @@ class RightProfile
      *
      * @return mixed false or id of the profile
      */
-
     public function save()
     {
         if ( $this->id == 0 )
@@ -237,7 +234,6 @@ class RightProfile
      * @todo TODO Possibility to delete used profile ?
      * @return boolean
      */
-
     public function delete()
     {
         if ( ! $this->isRequired )
@@ -262,7 +258,6 @@ class RightProfile
      *
      * @return boolean
      */
-
     public function validate()
     {
         // use validator library
@@ -295,7 +290,6 @@ class RightProfile
      *
      * @return integer
      */
-
     public function getId()
     {
         return $this->id;
@@ -306,7 +300,6 @@ class RightProfile
      *
      * @return string
      */
-
     public function getLabel()
     {
         return $this->label;
@@ -317,7 +310,6 @@ class RightProfile
      *
      * @return string
      */
-
     public function getName()
     {
         return get_lang($this->name);
@@ -328,7 +320,6 @@ class RightProfile
      *
      * @return string
      */
-
     public function getType()
     {
         return $this->type;
@@ -339,7 +330,6 @@ class RightProfile
      *
      * @return string
      */
-
     public function getDescription()
     {
         return get_lang($this->description);
@@ -350,7 +340,6 @@ class RightProfile
      *
      * @return boolean
      */
-
     public function isRequired()
     {
         return (bool) $this->isRequired;
@@ -361,7 +350,6 @@ class RightProfile
      *
      * @return boolean
      */
-
     public function isLocked()
     {
         return (bool) $this->isLocked;
@@ -372,7 +360,6 @@ class RightProfile
      *
      * @return boolean
      */
-
     public function isCourseManager()
     {
         return (bool) $this->iscourseManager;
@@ -383,7 +370,6 @@ class RightProfile
      *
      * @return boolean
      */
-
     public function isUserPublic()
     {
         return (bool) $this->isUserPublic;
@@ -394,7 +380,6 @@ class RightProfile
      *
      * @return boolean
      */
-
     public function isMailNotify()
     {
         return (bool) $this->isMailNotify;
@@ -624,7 +609,6 @@ class RightProfile
      * Validate profile form data
      * @return boolean
      */
-
     public function validateForm()
     {
         if ( isset($_REQUEST['id']) ) $this->id = (int)$_REQUEST['profile_id'];

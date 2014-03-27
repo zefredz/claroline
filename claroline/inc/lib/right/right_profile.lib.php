@@ -1,19 +1,14 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * Library profile.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12$Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     RIGHT
+ * @package     kernel.right
  * @author      Claro Team <cvs@claroline.net>
  */
 
@@ -22,9 +17,8 @@ require_once 'courseProfileToolAction.class.php';
 
 /**
  * Get all names of profile in an array where key are profileId
- * return array assoc profileId => profileName
+ * @return array assoc profileId => profileName
  */
-
 function claro_get_all_profile_name_list ()
 {
     $profileList = null;
@@ -61,9 +55,10 @@ function claro_get_all_profile_name_list ()
 }
 
 /**
- * Get profileId
+ * Get profile Id for profile label
+ * @param string $profileLabel label of the profile
+ * @return int id of the profile
  */
-
 function claro_get_profile_id ($profileLabel)
 {
     $profileList = claro_get_all_profile_name_list();
@@ -83,7 +78,6 @@ function claro_get_profile_id ($profileLabel)
  * @param integer $profileId profile identifier
  * @return array ['tool_id']['action_name'] value
  */
-
 function claro_get_profile_name ($profileId)
 {
     $profileList = claro_get_all_profile_name_list();
@@ -103,7 +97,6 @@ function claro_get_profile_name ($profileId)
  * @param integer $profileId profile identifier
  * @return array ['tool_id']['action_name'] value
  */
-
 function claro_get_profile_label ($profileId)
 {
     $profileList = claro_get_all_profile_name_list();
@@ -125,7 +118,6 @@ function claro_get_profile_label ($profileId)
  * @param integer $courseId course identifier
  * @return array ['tool_id']['action_name'] value
  */
-
 function claro_get_course_profile_right ($profileId = null, $courseId = null)
 {
     $courseProfileRightList = null;
@@ -191,7 +183,6 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
  * @param string $courseId course identifier
  * @return boolean 'true' if it's allowed
  */
-
 function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = null, $courseId = null)
 {
     // load tool id
@@ -241,7 +232,6 @@ function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = nu
  * @param string $courseId course identifier
  * @return boolean 'true' if it's allowed
  */
-
 function claro_is_allowed_tool_read ($tid = null, $profileId = null, $courseId = null)
 {
     if ( claro_is_tool_activated($tid,$courseId) )
@@ -287,7 +277,6 @@ function claro_is_allowed_tool_read ($tid = null, $profileId = null, $courseId =
  * @param string $courseId course identifier
  * @return boolean 'true' if it's allowed
  */
-
 function claro_is_allowed_tool_edit ($tid = null, $profileId = null, $courseId = null)
 {
     if ( claro_is_tool_activated($tid,$courseId) )
@@ -308,7 +297,6 @@ function claro_is_allowed_tool_edit ($tid = null, $profileId = null, $courseId =
  *
  * @return boolean 'true' if it's activated
  */
-
 function claro_is_tool_activated ($tid, $courseId)
 {
     static $activation = false;
@@ -393,7 +381,6 @@ function claro_is_tool_activated ($tid, $courseId)
  *
  * @return boolean 'true' if it's visible
  */
-
 function claro_is_tool_visible ($tid, $courseId)
 {
     static $toolVisibilityCache = false;

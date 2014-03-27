@@ -5,16 +5,19 @@
  *
  * Class to display manage profile and tool right (none, user, manager)
  *
- * @version     1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLMAIN
+ * @package     kernel.right
  * @author      Claro Team <cvs@claroline.net>
  */
 
 require_once __DIR__ . '/constants.inc.php';
 require_once __DIR__ . '/profileToolRight.class.php';
 
+/**
+ * HTML display for profile management
+ */
 class RightProfileToolRightHtml
 {
 
@@ -22,30 +25,30 @@ class RightProfileToolRightHtml
      * @var $rightProfileToolRight RightProfileToolRight object
      */
 
-    var $rightProfileToolRightList = array();
+    protected $rightProfileToolRightList = array();
 
     /**
      * @var $displayMode
      */
 
-    var $displayMode = '';
+    protected $displayMode = '';
 
     /**
      * @var $urlParamAppend
      */
 
-    var $urlParamAppendList = array();
+    protected $urlParamAppendList = array();
 
     /**
      * @var $courseToolInfo
      */
 
-    var $courseToolInfo = array();
+    protected $courseToolInfo = array();
 
     /**
      * Constructor
+     * @param RightProfileToolRight $rightProfileToolRight
      */
-
     public function __construct($rightProfileToolRight=null)
     {
         if ( $rightProfileToolRight )
@@ -57,19 +60,19 @@ class RightProfileToolRightHtml
 
     /**
      * Add Right Profile object
+     * @param RightProfileToolRight $rightProfileToolRight
      */
-
     public function addRightProfileToolRight ($rightProfileToolRight)
     {
         // get profileId
-        $profileId = $rightProfileToolRight->profile->getId();
+        $profileId = $rightProfileToolRight->getProfile()->getId();
         $this->rightProfileToolRightList[$profileId] = &$rightProfileToolRight;
     }
 
     /**
      * Set course tool info ('icon','tid','visibility','activation')
+     * @param array $courseToolInfo
      */
-
     public function setCourseToolInfo ($courseToolInfo)
     {
         $this->courseToolInfo = $courseToolInfo;
@@ -77,8 +80,8 @@ class RightProfileToolRightHtml
 
     /**
      * Is set course Tool Info
+     * @return boolean
      */
-
     public function isSetCourseToolInfo ()
     {
         return (bool) count($this->courseToolInfo);
@@ -86,8 +89,8 @@ class RightProfileToolRightHtml
 
     /**
      * Set display mode
+     * @param string $value display mode
      */
-
     public function setDisplayMode($value)
     {
         $this->displayMode = $value ;
@@ -95,8 +98,9 @@ class RightProfileToolRightHtml
 
     /**
      * Set Url param append
+     * @param string $paramName
+     * @param mixed $paramValue
      */
-
     public function addUrlParam($paramName,$paramValue)
     {
         $this->urlParamAppendList[$paramName] = $paramValue;
@@ -104,8 +108,8 @@ class RightProfileToolRightHtml
 
     /**
      * Display table with tool/right of the profile
+     * @return string
      */
-
     public function displayProfileToolRightList()
     {
 
@@ -115,7 +119,7 @@ class RightProfileToolRightHtml
         
         foreach ( $this->rightProfileToolRightList as $profile_id => $rightProfileToolRight )
         {
-            $isLocked = $rightProfileToolRight->profile->isLocked();
+            $isLocked = $rightProfileToolRight->getProfile()->isLocked();
             $className = get_class($rightProfileToolRight);
 
             // use strtolower for PHP4 : get_class returns class name in lowercase
@@ -133,7 +137,7 @@ class RightProfileToolRightHtml
                 $displayMode = $this->displayMode;
             }
             
-            foreach ( $rightProfileToolRight->toolActionList as $tool_id => $action_list )
+            foreach ( $rightProfileToolRight->getToolActionList() as $tool_id => $action_list )
             {
                 $action_right = $rightProfileToolRight->getToolRight($tool_id);
 

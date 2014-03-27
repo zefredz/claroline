@@ -12,33 +12,36 @@ if ( count ( get_included_files () ) == 1 )
  *
  * Class to manage relation between profile and tool action
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     RIGHT
+ * @package     kernel.right
  * @author      Claro Team <cvs@claroline.net>
  */
 require_once dirname ( __FILE__ ) . '/constants.inc.php';
 require_once dirname ( __FILE__ ) . '/profile.class.php';
 require_once dirname ( __FILE__ ) . '/toolAction.class.php';
 
+/**
+ * Action for the right management
+ */
 class RightProfileToolAction
 {
 
     /**
      * @var $profile profile object
      */
-    var $profile;
+    protected $profile;
 
     /**
      * @array $toolActionList list action of the profile and their values
      */
-    var $toolActionList = array ( );
+    protected $toolActionList = array ( );
 
     /**
      * @array $tbl list of table (DB)
      */
-    var $tbl;
+    protected $tbl;
 
     /**
      * Constructor
@@ -74,7 +77,7 @@ class RightProfileToolAction
         $sql = " SELECT A.id, A.name, A.tool_id, CT.claro_label
                  FROM `" . $this->tbl[ 'action' ] . "` `A`,
                       `" . $this->tbl[ 'course_tool' ] . "` `CT`
-                 WHERE type = '" . claro_sql_escape ( $this->profile->type ) . "'
+                 WHERE type = '" . claro_sql_escape ( $this->profile->getType() ) . "'
                     AND A.tool_id = CT.id
                  ORDER BY CT.def_rank";
 
@@ -92,7 +95,7 @@ class RightProfileToolAction
         $sql = " SELECT PA.action_id, PA.value, A.tool_id, A.name
                  FROM `" . $this->tbl[ 'rel_profile_action' ] . "` `PA`,
                       `" . $this->tbl[ 'action' ] . "` `A`
-                 WHERE PA.profile_id = " . $this->profile->id . "
+                 WHERE PA.profile_id = " . $this->profile->getId() . "
                  AND PA.action_id = A.id
                  AND PA.courseId = ''";
 
@@ -121,7 +124,7 @@ class RightProfileToolAction
 
         // delete all relation
         $sql = "DELETE FROM `" . $this->tbl[ 'rel_profile_action' ] . "`
-                WHERE profile_id=" . $this->profile->id . "
+                WHERE profile_id=" . $this->profile->getId() . "
                 AND courseId = '' ";
 
         claro_sql_query ( $sql );
@@ -144,7 +147,7 @@ class RightProfileToolAction
                 $actionId = $action->getId ();
 
                 $sql = "INSERT INTO `" . $this->tbl[ 'rel_profile_action' ] . "`
-                        SET profile_id = " . $this->profile->id . ",
+                        SET profile_id = " . $this->profile->getId() . ",
                          action_id = " . $actionId . ",
                          value = " . $actionValue . ",
                          courseId = '' ";
@@ -196,5 +199,13 @@ class RightProfileToolAction
     {
         return $this->toolActionList;
     }
-
+    
+    /**
+     * Get profile
+     * @return RightProfile
+     */
+    public function getProfile()
+    {
+        return $this->profile;
+    }
 }

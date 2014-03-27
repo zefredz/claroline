@@ -5,22 +5,25 @@
  *
  * Class to manage tool action
  *
- * @version     1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     RIGHT
+ * @package     kernel.right
  * @author      Claro Team <cvs@claroline.net>
  */
 require_once dirname ( __FILE__ ) . '/constants.inc.php';
 
+/**
+ * Action
+ */
 class RightToolAction
 {
 
-    var $name;
-    var $description;
-    var $toolId;
-    var $type;
-    var $tbl = array ( );
+    protected $name;
+    protected $description;
+    protected $toolId;
+    protected $type;
+    protected $tbl = array ( );
 
     /**
      * Constructor
