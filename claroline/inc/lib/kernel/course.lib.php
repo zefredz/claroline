@@ -7,13 +7,13 @@
  *
  * Claroline Course objects.
  *
- * @version     Claroline 1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.objects
+ * @package     kernel.kernel
  */
 
 require_once __DIR__ . '/object.lib.php';
@@ -263,6 +263,9 @@ class Claro_Course extends KernelObject
         $this->_rawData['groupProperties'] = $groupProperties;
     }
     
+    /**
+     * Load the code of the source course if any
+     */
     protected function loadSourceCourseCode()
     {
         if ( $this->_rawData['sourceCourseId'] )
@@ -398,6 +401,11 @@ class Claro_Course extends KernelObject
         }
     }
     
+    /**
+     * Get the list of child courses of a source course
+     * @param boolean $forceRefresh force to refresh the cached data
+     * @return Database_ResultSet
+     */
     protected function _getChildrenList( $forceRefresh = false )
     {
         if ( ! $this->_children || $forceRefresh )
@@ -445,8 +453,10 @@ class Claro_Course extends KernelObject
     
     /**
      * Get children id list
+     * @param boolean $forceRefresh force to refresh the cached data
+     * @return array of [id => child]
+     * @throws Exception if not a session course
      */
-    
     public function getChildrenList( $forceRefresh = false )
     {
         if ( $this->isSourceCourse() )
@@ -576,6 +586,10 @@ class Claro_Course extends KernelObject
  */
 class Claro_CurrentCourse extends Claro_Course
 {
+    /**
+     * Create an instance of the current course
+     * @param string $courseId id of the course (optional)
+     */
     public function __construct( $courseId = null )
     {
         $courseId = empty( $courseId )
@@ -589,7 +603,7 @@ class Claro_CurrentCourse extends Claro_Course
     protected static $instance = false;
 
     /**
-     * Singleton constructor
+     * Get an instance of the current course
      * @param int $courseId course code
      * @param boolean $forceReload force relaoding the course
      * @return Claro_CurrentCourse
@@ -614,8 +628,15 @@ class Claro_CurrentCourse extends Claro_Course
     }
 }
 
+/**
+ * Course iterator
+ */
 class Claro_CourseIterator extends RowToObjectIteratorIterator
 {
+    /**
+     * @see RowToObjectIteratorIterator
+     * @return \Claro_Course
+     */
     public function current ()
     {
         $courseData = $this->internalIterator->current();

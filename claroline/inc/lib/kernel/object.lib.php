@@ -8,13 +8,13 @@
  * "Magic" class to represent kernel objects. Defines __get, __set, __isset and
  * __unset magic methods.
  *
- * @version     Claroline 1.11 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.objects
+ * @package     kernel.kernel
  */
 
 abstract class KernelObject
@@ -106,6 +106,7 @@ abstract class KernelObject
     
     /**
      * Load user properties from session
+     * @throws Exception if no data found in session
      */
     public function loadFromSession()
     {
@@ -120,6 +121,10 @@ abstract class KernelObject
         }
     }
     
+    /**
+     * Load the object
+     * @param boolean $refresh refresh the cached data
+     */
     public function load( $refresh = false )
     {
         if ( empty( $this->_rawData ) || $refresh )
@@ -128,5 +133,10 @@ abstract class KernelObject
         }
     }
     
+    /**
+     * Load object from the database
+     * Implementation tip : This method must populate _rawData with the loaded data
+     * @fixme this method should retrun the loaded data as an array in order to populate _rawData within the load() method ! 
+     */
     abstract protected function loadFromDatabase();
 }

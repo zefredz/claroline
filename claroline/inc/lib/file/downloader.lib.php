@@ -5,13 +5,13 @@
 /**
  * Downloader classes
  *
- * @version     1.10 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     kernel.core
+ * @package     kernel.file
  */
 
 /**
@@ -35,13 +35,26 @@ interface Claro_Downloader
     public function getFilePath( $requestedUrl );
 }
 
+/**
+ * Downloader class for platrform documents
+ */
 class Claro_PlatformDocumentsDownloader implements Claro_Downloader
 {
+    /**
+     * @see Claro_Downloade
+     * @param string $requestedUrl
+     * @return boolean
+     */
     public function isAllowedToDownload( $requestedUrl )
     {
         return true;
     }
     
+    /**
+     * @see Claro_Downloade
+     * @param string $requestedUrl
+     * @return string
+     */
     public function getFilePath( $requestedUrl )
     {
         $requestedUrl = secure_file_path( $requestedUrl );
@@ -59,11 +72,20 @@ class Claro_Generic_Module_Downloader implements Claro_Downloader
 {
     protected $moduleLabel;
     
+    /**
+     * Get the generic module downloader for the given module
+     * @param string $moduleLabel label of the module
+     */
     public function __construct( $moduleLabel )
     {
         $this->moduleLabel = $moduleLabel;
     }
     
+    /**
+     * Is the access to the module allowed ?
+     * @fixme check if coherent with access manager and use access manager instead
+     * @return boolean
+     */
     protected function isModuleAllowed()
     {
         $moduleData = get_module_data( $this->moduleLabel );
@@ -133,6 +155,11 @@ class Claro_Generic_Module_Downloader implements Claro_Downloader
         }
     }
     
+    /**
+     * @see Claro_Downloader
+     * @param string $requestedUrl
+     * @return boolean
+     */
     public function isAllowedToDownload( $requestedUrl )
     {
         if ( ! $this->isModuleAllowed() )
@@ -173,6 +200,11 @@ class Claro_Generic_Module_Downloader implements Claro_Downloader
         }
     }
     
+    /**
+     * @see Claro_Downloader
+     * @param string $requestedUrl
+     * @return string
+     */
     public function getFilePath( $requestedUrl )
     {
         if ( claro_is_in_a_course() )
