@@ -8,14 +8,14 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * This lib contain many parts of frequently used function.
  * This is not a thematic lib
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GENERAL PUBLIC LICENSE
  *              version 2 or later
  * @author      Claro Team <cvs@claroline.net>
- * @package     kernel
+ * @package     kernel.core
  *
- * @todo why do we need that much identifiers for a module ?!?
+ * @todo why do we need that many identifiers for a module ?!?
  * @todo use Exceptions instead of claro_failure
  */
 
@@ -1205,8 +1205,6 @@ function claro_set_tool_view_mode($viewMode)
  * @see claro_set_tool_view_mode()
  * @return true;
  */
-
-
 function claro_disp_tool_view_option($viewModeRequested = false)
 {
     pushClaroMessage( (function_exists('claro_html_debug_backtrace')
@@ -1218,6 +1216,12 @@ function claro_disp_tool_view_option($viewModeRequested = false)
     return claro_html_tool_view_option($viewModeRequested);
 }
 
+/**
+ * Display the toolview links
+ * @param string $viewModeRequested
+ * @return boolean
+ * @fixme should be merged with view mode
+ */
 function claro_html_tool_view_option($viewModeRequested = false)
 {
     if ( ! claro_is_course_manager() || ! claro_is_display_mode_available() ) return false;
@@ -1307,15 +1311,11 @@ function claro_html_tool_view_option($viewModeRequested = false)
     ;
 }
 
-
-
 /**
  * return the current mode in tool able to handle different view mode
  *
  * @return string 'COURSE_ADMIN' or 'STUDENT'
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  */
-
 function claro_get_tool_view_mode()
 {
     // check first if a viewMode has been requested
@@ -1341,13 +1341,10 @@ function claro_get_tool_view_mode()
  * Function that removes the need to directly use is_courseAdmin global in
  * tool scripts. It returns true or false depending on the user's rights in
  * this particular course.
- *
- * @version 1.1, February 2004
  * @return boolean true: the user has the rights to edit, false: he does not
  * @author Roan Embrechts
  * @author Patrick Cool
  */
-
 function claro_is_allowed_to_edit()
 {
     if ( claro_is_course_manager() )
@@ -1377,7 +1374,7 @@ function claro_is_allowed_to_edit()
 }
 
 /**
- *
+ * Is the display mode available for the current context ?
  *
  * @return boolean
  * @author Hugues Peeters <hugues.peeters@claroline.net>
@@ -1389,14 +1386,12 @@ function claro_is_display_mode_available()
 }
 
 /**
- *
+ * Make the display mode available for the current context
  *
  * @param boolean $mode state to set in mode
  * @return boolean mode
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  */
-
-
 function claro_set_display_mode_available($mode)
 {
     $GLOBALS['is_display_mode_available'] = $mode;
@@ -1474,7 +1469,6 @@ function claro_mktime()
  * @return boolean enabling state of javascript
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  */
-
 function claro_is_javascript_enabled()
 {
     if ( isset( $_COOKIE['javascriptEnabled'] ) && $_COOKIE['javascriptEnabled'] == true)
@@ -1569,7 +1563,6 @@ function claro_get_conf_repository($context=array())
  * @return string param value
  * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
 */
-
 function get_conf($param, $default = null)
 {
     /* if ( ! isset($GLOBALS['_conf'][$param]) && ! isset($GLOBALS[$param]) && !defined($param))
@@ -1598,7 +1591,6 @@ function get_conf($param, $default = null)
  *
  * @param string message
  */
-
 function claro_die($message)
 {
     if ( class_exists('Claroline') && is_object( Claroline::getInstance ()->display ) )
@@ -1631,7 +1623,6 @@ function claro_die($message)
  * @return string clean string to filter http_response_splitting attack
  * @see http://www.saintcorporation.com/cgi-bin/demo_tut.pl?tutorial_name=HTTP_Response_Splitting.html
  */
-
 function http_response_splitting_workaround( $str )
 {
     $dangerousCharactersPattern = '~(\r\n|\r|\n|%0a|%0d|%0D|%0A)~';
@@ -1650,7 +1641,6 @@ function http_response_splitting_workaround( $str )
  *
  * @return void
  */
-
 function claro_unquote_gpc()
 {
     if ( ! defined('CL_GPC_UNQUOTED') )
@@ -1711,7 +1701,6 @@ function claro_get_current_context($contextKeys = null)
  * in debug mod this stack is output in footer
  * @author Christophe Gesche <moosh@claroline.net>
  */
-
 function pushClaroMessage($message,$errorClass='error')
 {
     if (!isset($GLOBALS['claroErrorList'])) $GLOBALS['claroErrorList']= array();
@@ -1780,7 +1769,6 @@ function claro_get_user_tool_list($activeOnly=true)
  * Safe redirect
  * Works around IIS Bug
  */
-
 function claro_redirect($location)
 {
     // IIS prefers Refresh over Location

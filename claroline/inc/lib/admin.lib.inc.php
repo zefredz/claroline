@@ -15,16 +15,11 @@
  *     Add users with CSV files
  *     ...see details of pre/post for each function's proper use.
  *
- * @version 1.9 $Revision$
- *
+ * @version Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
- *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @see http://www.claroline.net/wiki/CLCRS/
- *
- * @package COURSE
- *
+ * @package kernel.course
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesche <moosh@claroline.net>
  *

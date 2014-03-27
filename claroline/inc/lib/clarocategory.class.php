@@ -5,12 +5,13 @@
  *
  * ClaroCategory Class
  *
- * @version $Revision$
+ * @version Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author Claro Team <cvs@claroline.net>
  * @author Antonin Bourguignon <antonin.bourguignon@claroline.net>
  * @since 1.10
+ * @package kernel.category
  */
 
 
@@ -20,6 +21,9 @@ require_once __DIR__ . '/claroCourse.class.php';
 require_once __DIR__ . '/course.lib.inc.php'; // Contains certain usefull functions for this class: claro_get_lang_flat_list(), ...
 require_once __DIR__ . '/../../messaging/lib/message/messagetosend.lib.php';
 
+/**
+ * Course category
+ */
 class ClaroCategory
 {
     // Identifier
@@ -51,7 +55,15 @@ class ClaroCategory
     
     
     /**
-     * Constructor
+     * Construct a category
+     * @param int $id
+     * @param string $name
+     * @param string $code
+     * @param int $parentId
+     * @param int $rank
+     * @param int $visible
+     * @param int $canHaveCoursesChild
+     * @param int $rootCourse numeric id of the category root course
      */
     public function __construct ($id = null, $name = null, $code = null, $parentId = null, $rank = null, $visible = 1, $canHaveCoursesChild = 1, $rootCourse = null)
     {
@@ -70,7 +82,7 @@ class ClaroCategory
     /**
      * Load category data from database in the current object.
      *
-     * @param int       category identifier
+     * @param int    $id   category identifier
      * @return bool     success
      */
     public function load ($id)
@@ -147,9 +159,11 @@ class ClaroCategory
     
     
     /**
-     * Get the complete path of a category.
-     *
-     * @return string   path.
+     * Get the complete path of a category. 
+     * @param int $categoryId
+     * @param array $categoriesList
+     * @param string $separator
+     * @return string
      * @example echo getPath($categoryId, $categoriesList) will show "Category A > Category B > Category C"
      */
     public static function getPath ( $categoryId, $categoriesList = null, $separator = ' > ' )
@@ -256,7 +270,7 @@ class ClaroCategory
     /**
      * Return a list of categories associated to a list of courses
      *
-     * @param array     list of courses
+     * @param array  $courses  list of courses
      * @return array    list of categories associated to courses
      */
     public static function getCoursesCategories ( $courses )
@@ -324,7 +338,8 @@ class ClaroCategory
     /**
      * Return a list of categories associated to a list of courses
      *
-     * @param int user id
+     * @param int $userId user id
+     * @param string $separator
      * @return array list of categories associated to the user
      */
     public static function getUserCategoriesFlat ( $userId, $separator = '>' )
@@ -367,7 +382,8 @@ class ClaroCategory
     /**
      * Return a list of categories associated to a list of courses
      *
-     * @param int user id
+     * @param int $userId user id
+     * @param string $separator
      * @return Database_ResultSet list of categories associated to the user
      */
     public static function getUserCategories ( $userId, $separator = '>' )
@@ -411,6 +427,8 @@ class ClaroCategory
      * Turn an array of categories into an array of "flat" categories 
      * (each array entry contains the whole path to a category).
      *
+     * @param array $categoryList
+     * @param string $separator
      * @return array
      */
     public static function flatCategoryList($categoryList, $separator)
@@ -434,8 +452,8 @@ class ClaroCategory
      * Count the number of courses for the specified category
      * (not recursive: only works on one level of the tree).
      * The count does NOT include root courses.
-     *
-     * @return int      number of courses
+     * @param int $id category id
+     * @return int     number of courses
      */
     public static function countCourses ($id)
     {
@@ -447,8 +465,8 @@ class ClaroCategory
      * Count the number of courses for the specified category
      * and all its sub categories (recursivly).
      * The count does NOT include root courses.
-     *
-     * @return int      number of courses
+     * @param int $id category id
+     * @return int     number of courses
      */
     public static function countAllCourses ($id)
     {
@@ -459,8 +477,8 @@ class ClaroCategory
     /**
      * Count the number of sub categories of the current category
      * (not recursive: only works on one level of the tree).
-     *
-     * @return int      number of sub categories
+     * @param int $id category id
+     * @return int   number of sub categories
      */
     public static function countSubCategories ($id)
     {
@@ -470,8 +488,8 @@ class ClaroCategory
     
     /**
      * Count the number of sub categories of the current category (recursivly).
-     *
-     * @return int      number of sub categories
+     * @param int $id category id
+     * @return int   number of sub categories
      */
     public static function countAllSubCategories ($id)
     {
@@ -482,8 +500,8 @@ class ClaroCategory
     /**
      * Check if a user is registered to a category.
      *
-     * @param int       identifier of the user
-     * @param int       identifier of the category
+     * @param int   $userId    identifier of the user
+     * @param int    $categoryId   identifier of the category
      * @return bool     user is registered to category
      */
     public static function isRegistredToCategory ($userId, $categoryId)
@@ -595,7 +613,7 @@ class ClaroCategory
      * Exchange ranks between the current category and another one
      * and save the modification in database.
      *
-     * @param int       identifier of the other category
+     * @param int   $id    identifier of the other category
      */
     public function exchangeRanks ($id)
     {
@@ -632,7 +650,7 @@ class ClaroCategory
     /**
      * Check if the specified category is a child of the current category.
      *
-     * @param int       identifier of the category we want to check
+     * @param int   $id    identifier of the category we want to check
      * @return bool     result: TRUE if the specified category is the child
      *                  of the current category
      */
@@ -915,7 +933,10 @@ class ClaroCategory
         return $html;
     }
     
-    
+    /**
+     * Get the string representation of the category
+     * @return string
+     */
     public function __toString()
     {
         return "[{$this->code}] {$this->name}";

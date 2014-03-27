@@ -8,7 +8,7 @@
  * @version     $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     Kernel
+ * @package     kernel.course
  * @author      Claro Team <cvs@claroline.net>
  * @author      Mathieu Laurent <laurent@cerdecam.be>
  * @author      Sebastien Piraux <piraux@cerdecam.be>
@@ -21,6 +21,12 @@ require_once __DIR__ . '/clarocategory.class.php';
 require_once __DIR__ . '/../../messaging/lib/message/messagetosend.lib.php';
 require_once __DIR__ . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
 
+/**
+ * Class used for course creation and modification
+ * 
+ * Note : Not to be confused with the Claro_Course kernel object that represents 
+ *  a course already in the database
+ */
 class ClaroCourse
 {
     // Identifier
@@ -95,6 +101,9 @@ class ClaroCourse
     
     /**
      * Constructor
+     * @param string $creatorFirstName
+     * @param string $creatorLastName
+     * @param string $creatorEmail
      */
     public function __construct ($creatorFirstName = '', $creatorLastName = '', $creatorEmail = '')
     {
@@ -371,7 +380,8 @@ class ClaroCourse
     
     /**
      * Check if the course has session courses.
-     *
+     * 
+     * @param int $id numeric id of the course
      * @return boolean  TRUE if the course is a source course
      *                  FALSE otherwise
      * @since 1.10
@@ -401,7 +411,7 @@ class ClaroCourse
     
     /**
      * Check if the course is a session of another course.
-     *
+     * @param int $id numeric id of the course
      * @return boolean  TRUE if the course is a session course
      *                  FALSE otherwise
      * @since 1.10
@@ -543,7 +553,7 @@ class ClaroCourse
     /**
      * Get related course to the current course (parent or child) for a
      * given user.
-     *
+     * @param int $userId id of the user
      * @return array    courses
      * @since 1.11
      */
@@ -597,8 +607,8 @@ class ClaroCourse
      * is specified, only get courses linked to this category.  You can also
      * specify visibility.
      *
-     * @param int       identifier of category (default: null)
-     * @param bool      visibility (1 = only visible, 0 = only invisible, null = all; default: null)
+     * @param int $categoryId identifier of category (default: null)
+     * @param int $visibility visibility (1 = only visible, 0 = only invisible, null = all; default: null)
      * @since 1.10
      */
     public static function getAllCourses ($categoryId = null, $visibility = null)
@@ -611,8 +621,8 @@ class ClaroCourse
      * Get courses that can be displayed to normal users.  More restricted
      * than getAllCourses() method.
      *
-     * @param int       identifier of category (default: null)
-     * @param int       identifier of user (default: null)
+     * @param int  $categoryId identifier of category (default: null)
+     * @param int  $userId identifier of user (default: null)
      * @since 1.10
      */
     public static function getRestrictedCourses ($categoryId = null, $userId = null)

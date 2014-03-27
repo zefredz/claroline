@@ -7,12 +7,12 @@
  *
  * Backlog.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
+ * @package     kernel.core
  */
 
 define ( 'BACKLOG_SUCCESS', 'BACKLOG_SUCCESS' );
@@ -25,49 +25,78 @@ define ( 'BACKLOG_INFO',   'BACKLOG_INFO' );
  * @deprecated since Claroline 1.10, use exceptions, Console.lib or DialogBox 
  *  instead
  */
-class Backlog
+class Backlog implements Display
 {
-    var $_backlog = array();
-    var $_size = array();
-
-    function Backlog()
+    protected $_backlog = array();
+    protected $_size = array();
+    
+    /**
+     * Initialize backlog
+     */
+    public function __construct()
     {
         $this->_size[BACKLOG_SUCCESS] = 0;
         $this->_size[BACKLOG_FAILURE] = 0;
         $this->_size[BACKLOG_DEBUG] = 0;
         $this->_size[BACKLOG_INFO] = 0;
     }
-
-    function success( $msg )
+    
+    /**
+     * Add success message to backlog
+     * @param string $msg
+     */
+    public function success( $msg )
     {
         $this->message( $msg, BACKLOG_SUCCESS );
         $this->_size[BACKLOG_SUCCESS]++;
     }
-
-    function failure( $msg )
+    
+    /**
+     * Add failure message to backlog
+     * @param string $msg
+     */
+    public function failure( $msg )
     {
         $this->message( $msg, BACKLOG_FAILURE );
         $this->_size[BACKLOG_FAILURE]++;
     }
-
-    function debug( $msg )
+    
+    /**
+     * Add debug message to backlog
+     * @param string $msg
+     */
+    public function debug( $msg )
     {
         $this->message( $msg, BACKLOG_DEBUG );
         $this->_size[BACKLOG_DEBUG]++;
     }
-
-    function info( $msg )
+    
+    /**
+     * Add information message to backlog
+     * @param string $msg
+     */
+    public function info( $msg )
     {
         $this->message( $msg, BACKLOG_INFO );
         $this->_size[BACKLOG_INFO]++;
     }
-
-    function message( $msg, $type )
+    
+    /**
+     * Add message to backlog
+     * @param string $msg
+     * @param type
+     */
+    protected function message( $msg, $type )
     {
         $this->_backlog[] = array( 'type' => $type, 'msg' => $msg );
     }
-
-    function size( $type = null )
+    
+    /**
+     * Get size of the backlog by type
+     * @param string $type type, if none given, the function will return the total size of the backlog
+     * @return int
+     */
+    public function size( $type = null )
     {
         switch ( $type )
         {
@@ -85,8 +114,14 @@ class Backlog
             }
         }
     }
-
-    function output()
+    
+    /**
+     * Render the backlog to HTML
+     * @see Display
+     * @return string
+     * @since Claroline 1.12
+     */
+    public function render()
     {
         $out = array();
 
@@ -124,45 +159,31 @@ class Backlog
 
         return implode( '<br />' . "\n", $out );
     }
-
-    function append( $other )
+    
+    /**
+     * Alias of render()
+     * @return string
+     */
+    public function output()
     {
-        if ( is_a( $other, 'Backlog' ) )
-        {
-            $this->_backlog = array_merge( $this->_backlog, $other->_backlog );
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return $this->render();
     }
-
-    function main()
+    
+    /**
+     * Append another backlog to the current one
+     * @param Backlog $other
+     * @return \Backlog $this
+     */
+    public function append( Backlog $other )
     {
-        $bl = new Backlog;
-        echo '<pre>';
-        $bl->success( 'message success 1' );
-        $bl->debug( 'message debug 1' );
-        $bl->failure( 'message failure 1' );
-        $bl->success( 'message success 2' );
-        $bl->info( 'message info 1' );
-        var_dump( $bl->size() );
-        var_dump( $bl->_size );
-        echo '</pre>';
-
-        echo '<pre>';
-        echo $bl->output();
-        echo '</pre>';
-        
-        echo 'Append';
-        echo '<pre>';
-        $bl->append( $bl );
-        echo $bl->output();
-        echo '</pre>';
+        $this->_backlog = array_merge( $this->_backlog, $other->_backlog );
+        return $this;
     }
 }
 
+/**
+ * HTML report viewer for Backlog message
+ */
 class Backlog_Reporter
 {
     public static function report( $summary, $details, $label = '', $focus = false )
@@ -205,9 +226,4 @@ __ERRDISP__;
 
         return $display;
     }
-}
-
-if ( basename( $_SERVER['PHP_SELF'] ) === basename(__FILE__) )
-{
-    Backlog::main();
 }

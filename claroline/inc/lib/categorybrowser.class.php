@@ -12,12 +12,16 @@
  * @todo        this class deserves to get splitted into 2 parts (at least), 
  *              including a view part with the render and view options get and 
  *              set methods.
+ * @package     kernel.category
  */
 
 
 require_once __DIR__ . '/clarocategory.class.php';
 require_once __DIR__ . '/course/courselist.lib.php';
 
+/**
+ * Category browser to display and browse the category tree
+ */
 class CategoryBrowser
 {
     // Identifier of the selected category

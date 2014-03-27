@@ -5,12 +5,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * Utility functions
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
+ * @package     kernel.utils
  */
 
 /**
