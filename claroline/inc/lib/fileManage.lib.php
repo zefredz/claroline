@@ -1,18 +1,13 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/config_def/
- * @package     KERNEL
+ * @package     kernel.file
  * @author      Claro Team <cvs@claroline.net>
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  *
@@ -25,7 +20,6 @@ if ( count( get_included_files() ) == 1 )
  * @return - boolean TRUE if the file or the directory exists
  *           boolean FALSE otherwise.
  */
-
 function check_name_exist($filePath)
 {
     clearstatcache();
@@ -39,7 +33,6 @@ function check_name_exist($filePath)
  * @return - boolean - true if the delete succeed
  *           boolean - false otherwise.
  */
-
 function claro_delete_file($filePath)
 {
     if( is_file($filePath) )
@@ -98,7 +91,6 @@ function claro_delete_file($filePath)
  *         - boolean - false otherwise
  * @see    - rename() uses the check_name_exist() and php2phps() functions
  */
-
 function claro_rename_file($oldFilePath, $newFilePath)
 {
     if (realpath($oldFilePath) == realpath($newFilePath) ) return true;
@@ -161,8 +153,6 @@ function claro_rename_file($oldFilePath, $newFilePath)
  * @return - boolean - true if the move succeed
  *           boolean - false otherwise.
  */
-
-
 function claro_move_file($sourcePath, $targetPath)
 {
     if (realpath($sourcePath) == realpath($targetPath) ) return true;
@@ -198,7 +188,6 @@ function claro_move_file($sourcePath, $targetPath)
  * @param  - $targetPath (String) - the path of the destination directory
  * @return - void no return !!
  */
-
 function claro_copy_file($sourcePath, $targetPath)
 {
     $fileName = basename($sourcePath);
@@ -262,7 +251,6 @@ function claro_copy_file($sourcePath, $targetPath)
  * @param string $filePath
  * @return string dir name
  */
-
 function claro_dirname($filePath)
 {
      return str_replace('\\', '', dirname($filePath) );
@@ -285,7 +273,6 @@ function claro_dirname($filePath)
  * @param  mode (string) - ALL, FILE, DIR : specify what will be listed
  * @return an array containing the path of all the subdirectories
  */
-
 function index_dir($dirPath, $mode = 'ALL' )
 {
     $files = array();
@@ -330,7 +317,6 @@ function index_dir($dirPath, $mode = 'ALL' )
  *           false, if there is no directory
  * @see    - index_and_sort_dir uses the index_dir() function
  */
-
 function index_and_sort_dir($path)
 {
     $dir_list = index_dir($path, 'DIR');
@@ -353,7 +339,6 @@ function index_and_sort_dir($path)
  * @param file        string: filename to o move
  * @param baseWorkDir string: complete path to root directory to prupose as target for move
  */
-
 function form_dir_list($file, $baseWorkDir)
 {
 
@@ -433,7 +418,6 @@ function form_dir_list($file, $baseWorkDir)
  * @param boolean $recursive (optional)
  * @return boolean TRUE if succeed, false otherwise
  */
-
 function claro_mkdir($pathName, $mode = 0777, $recursive = false)
 {
     if ($recursive)
@@ -514,7 +498,6 @@ function claro_mkdir_tmp($dir, $prefix = 'tmp', $mode = 0777)
  * @param     string    $path path to size
  * @param     boolean $recursive if true , include subdir in total
  */
-
 function claro_get_file_size($filePath)
 {
     if     ( is_file($filePath) ) return filesize($filePath);
@@ -533,7 +516,6 @@ function claro_get_file_size($filePath)
  *        that have to be excluded from the search
  * @return array path list of the files fitting the search pattern
  */
-
 function claro_search_file($searchPattern             , $baseDirPath,
                            $recursive        = false , $fileType = 'ALL',
                            $excludedPathList = array()                    )
@@ -610,8 +592,6 @@ function claro_search_file($searchPattern             , $baseDirPath,
  * @param string search string
  * @return string Perl Compatible Regular Expression
  */
-
-
 function search_string_to_pcre($searchPattern)
 {
     $searchPattern   = str_replace('.', '\\.', $searchPattern);
@@ -628,7 +608,6 @@ function search_string_to_pcre($searchPattern)
  * @param $cidReq course identifier
  * @return list of invisible document
  */
-
 function getInvisibleDocumentList ( $baseWorkDir, $cidReq = null )
 {
     $documentList = array();
@@ -661,7 +640,6 @@ function getInvisibleDocumentList ( $baseWorkDir, $cidReq = null )
  * @param param string $file complete file path
  * @return string url
  */
-
 function get_link_file_url($file)
 {
    $fileContent = implode("\n", file ($file));
@@ -691,7 +669,6 @@ function get_link_file_url($file)
  *                              'path', 'visibility' and 'comment'
  *
  */
-
 function update_db_info($action, $filePath, $newParamList = array())
 {
     if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
@@ -778,7 +755,13 @@ function update_db_info($action, $filePath, $newParamList = array())
 
 //------------------------------------------------------------------------------
 
-
+/**
+ * Update document path in learning path assets
+ * @param string $type
+ * @param string $oldPath
+ * @param string $newPath
+ * @return boolean
+ */
 function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 {
     if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
@@ -918,7 +901,6 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
  *
  * @return string html body content
  */
-
 function get_html_body_content($html)
 {
     $body_open_pattern = '/<body[^<>]*>/';

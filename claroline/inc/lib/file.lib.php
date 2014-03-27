@@ -7,31 +7,51 @@
  *
  * File handling functions.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
+ * @package     kernel.file
  */
 
 require_once __DIR__ . '/core/url.lib.php';
 
+/**
+ * Check if file upload has failed
+ * @param array $file
+ * @return boolean
+ */
 function file_upload_failed( $file )
 {
     return get_file_upload_errno( $file ) > 0;
 }
 
+/**
+ * Get file upload error message
+ * @param array $file
+ * @return int
+ */
 function get_file_upload_errno( $file )
 {
     return (int) $file['error'];
 }
 
+/**Get file upload error message
+ * 
+ * @param array $file
+ * @return string
+ */
 function get_file_upload_error_message( $file )
 {
     return get_file_upload_errstring_from_errno( get_file_upload_errno( $file ) );
 }
 
+/**
+ * Get file upload error string from errno
+ * @param int $errorLevel
+ * @return string
+ */
 function get_file_upload_errstring_from_errno( $errorLevel )
 {
     if ( !defined( 'UPLOAD_ERR_CANT_WRITE' ) )

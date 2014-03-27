@@ -1,19 +1,14 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * FILE UPLOAD LIBRARY
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLDOC
+ * @package     kernel.file
  * @author      Hugues Peeters <hugues@claroline.net>
  * @author      Claro Team <cvs@claroline.net>
  *
@@ -30,7 +25,6 @@ require_once __DIR__ . '/file.lib.php';
  * @param  string $fileName Name of a file
  * @return string : the filename phps'ized
  */
-
 function php2phps ($fileName)
 {
     $fileName = preg_replace('/\.(php.?|phtml.?)(\.){0,1}.*$/i', '.phps', $fileName);
@@ -45,8 +39,6 @@ function php2phps ($fileName)
  *
  * @return string : 'Apache safe' file name
  */
-
-
 function htaccess2txt($fileName)
 {
     $fileName = str_ireplace('.htaccess', 'htaccess.txt', $fileName);
@@ -62,8 +54,6 @@ function htaccess2txt($fileName)
  * @return - string innocuous filename
  * @see    - htaccess2txt and php2phps
  */
-
-
 function get_secure_file_name($fileName)
 {
     $fileName = php2phps($fileName);
@@ -87,7 +77,6 @@ function get_secure_file_name($fileName)
  *
  * @see    - enough_size() uses  dir_total_space() function
  */
-
 function enough_size($fileSize, $dir, $maxDirSpace)
 {
     if ($maxDirSpace)
@@ -111,7 +100,6 @@ function enough_size($fileSize, $dir, $maxDirSpace)
  * @param string $dirPath Size of the file in byte
  * @return integer : the directory size in bytes
  */
-
 function dir_total_space($dirPath)
 {
     $sumSize = 0;
@@ -154,7 +142,6 @@ function dir_total_space($dirPath)
  * @return string : extension (empty string if the file has already an extension)
  *
  */
-
 function add_extension_for_uploaded_file($uploadedFile)
 {
     // CHECK IF THE FILE NAME HAS ALREADY AN EXTENSION
@@ -184,7 +171,6 @@ function add_extension_for_uploaded_file($uploadedFile)
  * @return mixed : string  : extension
  *              or false   : if no extension is found
  */
-
 function get_extension_from_file_name($fileName)
 {
     if ( preg_match('/.+\.([a-zA-Z0-9]+)$/', $fileName, $matchList) )
@@ -201,7 +187,6 @@ function get_extension_from_file_name($fileName)
  * @return mixed : string  : extension
  *              or false   : if no extension is found
  */
-
 function get_extension_from_mime_type($mimeType)
 {
     list($mimeTypeList, $extensionList) = get_mime_type_extension_map();
@@ -217,7 +202,6 @@ function get_extension_from_mime_type($mimeType)
  * @param string $extension (doc, rtf, ...)
  * @return string - corresponding mime type
  */
-
 function get_mime_type_from_extension($extension)
 {
     // remove the dot prefix, in case of ...
@@ -239,7 +223,6 @@ function get_mime_type_from_extension($extension)
  *         the firt one with the MIME TYPES, and the second with the
  *         corresponding EXTENSIONS. keys of both sub arrays are mapped
  */
-
 function get_mime_type_extension_map()
 {
     static $typeList = array(); static $extList= array();
@@ -294,7 +277,6 @@ function get_mime_type_extension_map()
  * @param string $allowPHP     - if set to true, then there is no security check for .php files (works for zip archives only)
  * @return boolean : true if it succeds, false otherwise
  */
-
 function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFilledSpace, $uncompress= '', $allowPHP = false)
 {
 
@@ -356,7 +338,6 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
  *
  * @return boolean true if it succeeds false otherwise
  */
-
 function treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath,
                                           $baseWorkDir, $maxFilledSpace,$allowPHP= false)
 {
@@ -429,7 +410,6 @@ function treat_secure_file_unzip($fileName, $filePath,
  * @param  string $htmlFile
  * @return array -  images path list
  */
-
 function search_img_from_html($htmlFile)
 {
     $imgPathList = array();
@@ -473,7 +453,6 @@ function search_img_from_html($htmlFile)
  * @return string actual directory name if it succeeds,
  *         boolean false otherwise
  */
-
 function create_unexisting_directory($desiredDirName)
 {
 
@@ -492,8 +471,6 @@ function create_unexisting_directory($desiredDirName)
  * @return string actual file name if it succeeds,
  *         boolean false otherwise
  */
-
-
 function get_unexisting_file_name($desiredDirName)
 {
     $nb = '';
@@ -516,7 +493,6 @@ function get_unexisting_file_name($desiredDirName)
  * @param  string $destPath
  * @return string $destPath
  */
-
 function move_uploaded_file_collection_into_directory($uploadedFileCollection, $destPath)
 {
     $uploadedFileNb = count($uploadedFileCollection['name']);
@@ -546,6 +522,14 @@ function move_uploaded_file_collection_into_directory($uploadedFileCollection, $
     return $newFileList;
 }
 
+/**
+ * Replace image url in HTML file
+ * @param string $originalImgPath
+ * @param string $newImgPath
+ * @param string $htmlFile
+ * @return boolean
+ * @fixme remove die() from function code
+ */
 function replace_img_path_in_html_file($originalImgPath, $newImgPath, $htmlFile)
 {
     /*
@@ -592,7 +576,6 @@ function replace_img_path_in_html_file($originalImgPath, $newImgPath, $htmlFile)
  * @param string $url
  * @return void
  */
-
 function create_link_file($filePath, $url)
 {
 
@@ -611,6 +594,13 @@ function create_link_file($filePath, $url)
     create_file($filePath, $fileContent);
 }
 
+/**
+ * Create a file with the given contents
+ * @param string $filePath
+ * @param string fileContent
+ * @return boolean
+ * @fixme use file_put_contents
+ */
 function create_file($filePath, $fileContent)
 {
     $fp = fopen ($filePath, 'w') or die ('can not create file');

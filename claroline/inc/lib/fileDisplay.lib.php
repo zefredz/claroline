@@ -1,22 +1,16 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/config_def/
- * @package     KERNEL
+ * @package     kernel.file
  * @author      Claro Team <cvs@claroline.net>
  *
  */
-
 
 /**
  * Define the image to display for each file extension
@@ -26,7 +20,6 @@ if ( count( get_included_files() ) == 1 )
  * @param  - fileName (string) - name of a file
  * @retrun - the gif image to chose
  */
-
 function choose_image($fileName)
 {
     static $type, $image;
@@ -132,7 +125,6 @@ function choose_image($fileName)
  * @author - ???
  * @param  - fileSize (int) - size of the file in bytes
  */
-
 function format_file_size($fileSize)
 {
     if($fileSize >= 1073741824)
@@ -165,7 +157,6 @@ function format_file_size($fileSize)
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @param - date - UNIX time stamp
  */
-
 function format_date($fileDate)
 {
     return claro_html_localised_date( get_locale( 'dateFormatNumeric' ), $fileDate );
@@ -180,12 +171,16 @@ function format_date($fileDate)
  * @param - url (string) - relative local path of the file on the Hard disk
  * @return - relative url
  */
-
 function url_already_encoded( $url )
 {
     return ( false !== strpos( $url, '%' ) );
 }
 
+/**
+ * Format url
+ * @param string $url
+ * @return string
+ */
 function format_url($url)
 {
     if ( url_already_encoded( $url ) )
@@ -335,24 +330,11 @@ function query_make_part( $matches )
 
 //------------------------------------------------------------------------------
 
-
 /**
- *
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
- * @param string $curDirPath current path in the documents tree navugation
- * @return string breadcrumb trail
+ * Create HTML breadcrumps trail for a document
+ * @param string $curDirPath
+ * @return string
  */
-
-function claro_disp_document_breadcrumb($curDirPath)
-{
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-                 ? claro_html_debug_backtrace()
-                 : 'claro_html_debug_backtrace() not defined'
-                 )
-                 .'claro_disp_document_breadcrumb is deprecated , use claro_html_document_breadcrumb','error');
-   return claro_html_document_breadcrumb($curDirPath);
-}
 function claro_html_document_breadcrumb($curDirPath)
 {
     $curDirPathList = explode('/', $curDirPath);
