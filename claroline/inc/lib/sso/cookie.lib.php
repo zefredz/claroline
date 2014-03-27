@@ -5,21 +5,24 @@
 /**
  * SingleSignOn cookie
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     PACKAGE_NAME
+ * @package     kernel.sso
  */
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
+/**
+ * Single sign on cookie management class
+ */
 class SingleSignOnCookie
 {
+    /**
+     * Set the sso cookie for the given user
+     * @param int $_uid
+     * @return boolean
+     */
     public static function setForUser( $_uid )
     {
         $tbl = claro_sql_get_main_tbl();
