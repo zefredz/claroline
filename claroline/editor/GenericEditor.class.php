@@ -4,52 +4,60 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/config_def/
- * @package     EDITOR
+ * @package     kernel.editor
  * @author      Claro Team <cvs@claroline.net>
  * @author      Sebastien Piraux <pir@cerdecam.be>
  */
  
 /**
  * Class to manage htmlarea overring simple textarea html
- * @package EDITOR
  */
 class GenericEditor
 {
     /**
-     * @var $name content for attribute name and id of textarea
+     * @protected $name content for attribute name and id of textarea
      */
-    var $name;
+    protected $name;
 
     /**
-     * @var $content content of textarea
+     * @protected $content content of textarea
      */
-    var $content;
+    protected $content;
     
     /**
-     * @var $rows number of lines of textarea
+     * @protected $rows number of lines of textarea
      */
-    var $rows;
+    protected $rows;
 
     /**
-     * @var $cols number of cols of textarea
+     * @protected $cols number of cols of textarea
      */
-    var $cols;
+    protected $cols;
 
     /**
-     * @var $optAttrib additionnal attributes that can be added to textarea
+     * @protected $optAttrib additionnal attributes that can be added to textarea
      */
-    var $optAttrib;
+    protected $optAttrib;
 
     /**
-     * @var $webPath path to access via the web to the directory of the editor
+     * @protected $webPath path to access via the web to the directory of the editor
      */
-    var $webPath;
-
-    function GenericEditor( $name,$content,$rows,$cols,$optAttrib,$webPath )
+    protected $webPath;
+    
+    /**
+     * Constructor
+     * @param string $name name and id of textarea
+     * @param string $content content of textarea
+     * @param string $rows number of rows of textarea
+     * @param string $cols number of cols of textarea
+     * @param array $optAttrib additionnal attributes that can be added to textarea
+     * @param string $webPath path to access via the web to the directory of the editor
+     */
+    public function __construct( $name,$content,$rows,$cols,$optAttrib,$webPath )
     {
         $this->name = $name;
         $this->content = $content;
@@ -66,7 +74,7 @@ class GenericEditor
      * $returnString .= $this->getTextArea();
      * @return string html code needed to display an advanced (default) version of the editor
        */
-    function getAdvancedEditor()
+    public function getAdvancedEditor()
     {
         return $this->getTextArea();
     }
@@ -76,7 +84,7 @@ class GenericEditor
      * ! Needs to be overloaded by extending classes
      * @return string html code needed to display a simple version of the editor
        */
-    function getSimpleEditor()
+    public function getSimpleEditor()
     {
         return $this->getTextArea();
     }
@@ -87,7 +95,7 @@ class GenericEditor
      * @access private
      * @return string html code needed to display the default textarea
      */
-    function getTextArea($class = '')
+    public function getTextArea($class = '')
     {
         $textArea = "\n"
         .    '<textarea '

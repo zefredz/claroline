@@ -1,23 +1,17 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
- * Driver for tinyMCE wysiwyg editor ( http://tinymce.moxiecode.com/ )
+ * TinyMCE wysiwyg editor ( http://tinymce.moxiecode.com/ )
  *
- * @version 1.8 $Revision$
- *
+ * @version Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
- *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @see http://www.claroline.net/wiki/config_def/
- *
- * @package EDITOR
- *
+ * @package kernel.editor
  * @author Claro Team <cvs@claroline.net>
  * @author Sebastien Piraux <pir@cerdecam.be>
- *
  */
 
 /**
@@ -27,8 +21,9 @@ Claroline::getInstance()->display->header->addInlineJavascript('var mimeTexURL =
 
 
 require_once __DIR__ . '/../GenericEditor.class.php';
+
 /**
- * Class to manage htmlarea overring simple textarea html
+ * Class to use TinyMCE wysiwyg editor
  * @package EDITOR
  */
 class editor extends GenericEditor
@@ -52,7 +47,7 @@ class editor extends GenericEditor
      */
     public function editor( $name,$content,$rows,$cols,$optAttrib,$webPath )
     {
-        parent::GenericEditor( $name,$content,$rows,$cols,$optAttrib,$webPath );
+        parent::__construct( $name,$content,$rows,$cols,$optAttrib,$webPath );
 
         $this->_tag = '<!-- content: html tiny_mce -->';
 
