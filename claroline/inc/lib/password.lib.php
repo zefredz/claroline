@@ -3,12 +3,13 @@
 /**
  * Random password generator
  *
- * @version     1.0
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Christophe Gesche <moosh@claroline.net>
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  *              GNU AFFERO GENERAL PUBLIC LICENSE version 3
+ * @package     kernel.utils
  */
 
 define ( 'MK_PASSWORD_DEFAULT_LENGTH', 12 );

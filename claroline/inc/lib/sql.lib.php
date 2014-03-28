@@ -3,12 +3,12 @@
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC
  *              LICENSE version 2 or later
  * @author      see 'credits' file
- * @package     KERNEL
+ * @package     kernel.database
  */
 
 //////////////////////////////////////////////////////////////////////////////
@@ -312,10 +312,9 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
  * CLAROLINE mySQL query wrapper. It also provides a debug display which works
  * when the CLARO_DEBUG_MODE constant flag is set to on (true)
  *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author Christophe Gesch√© <moosh@claroline.net>
  * @param  string  $sqlQuery   - the sql query
- * @param  handler $dbHandler  - optional
+ * @param ressource $dbHandler mysql connection ressource
  * @return handler             - the result handler
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
  *  in database/database.lib.php instead
@@ -374,6 +373,7 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
 
 /**
  * CLAROLINE mySQL errno wrapper.
+ * @param ressource $dbHandler mysql connection ressource
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
  *  in database/database.lib.php instead
  */
@@ -391,6 +391,7 @@ function claro_sql_errno($dbHandler = '#')
 
 /**
  * CLAROLINE mySQL error wrapper.
+ * @param ressource $dbHandler mysql connection ressource
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
  *  in database/database.lib.php instead
  */
@@ -408,6 +409,7 @@ function claro_sql_error($dbHandler = '#')
 
 /**
  * CLAROLINE mySQL selectDb wrapper.
+ * @param ressource $dbHandler mysql connection ressource
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
  *  in database/database.lib.php instead
  */
@@ -425,6 +427,7 @@ function claro_sql_select_db($dbName, $dbHandler = '#')
 
 /**
  * CLAROLINE mySQL affected rows wrapper.
+ * @param ressource $dbHandler mysql connection ressource
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
  *  in database/database.lib.php instead
  */
@@ -442,6 +445,7 @@ function claro_sql_affected_rows($dbHandler = '#')
 
 /**
  * CLAROLINE mySQL insert id wrapper.
+ * @param ressource $dbHandler mysql connection ressource
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
  *  in database/database.lib.php instead
  */
@@ -461,10 +465,8 @@ function claro_sql_insert_id($dbHandler = '#')
  * Get the name of the specified fields in a query result
  *
  * @param string $sq - SQL query
- * @param ressource (optional) - result pointer
+ * @param ressource $resultPt (optional) - result pointer
  * @return  names of the specified field index
- *
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
  *  in database/database.lib.php instead
  */
@@ -512,7 +514,6 @@ function claro_sql_field_names( $sql, $resultPt = null )
  * @deprecated since Claroline 1.9, use Claroline::getDatabase() and new classes
  *  in database/database.lib.php instead
  */
-
 function claro_sql_query_fetch_all_rows($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
@@ -706,8 +707,6 @@ function claro_sql_query_get_single_row($sqlQuery, $dbHandler = '#')
         return false;
     }
 }
-
-
 
 /**
  * CLAROLINE SQL query wrapper returning the number of rows affected by the

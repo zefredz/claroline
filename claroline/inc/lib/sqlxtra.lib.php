@@ -3,12 +3,12 @@
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *              version 2 or later
  * @author      see 'credits' file
- * @package     KERNEL
+ * @package     kernel.database
  */
 
 /**

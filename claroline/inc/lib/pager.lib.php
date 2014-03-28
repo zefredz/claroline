@@ -1,9 +1,17 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
+/**
+ * Pager classes allowing to manage the paging system into claroline
+ *           
+ * @version     Claroline 1.12 $Revision$
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     kernel.utils
+ * @since 1.6
+ */
 
 /**
  * Pager class allowing to manage the paging system into claroline
@@ -12,16 +20,9 @@ if ( count( get_included_files() ) == 1 )
  *           $myPager->set_pager_call_param_name('myOffset') // optionnal
  *           echo $myPager->disp_pager_tool_bar();
  *           
- * @version     1.9 $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @license     http://www.gnu.org/copyleft/gpl.html
- *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
- * @since 1.6
  */
-
 class claro_pager
 {
     var $offsetCount = null;
@@ -36,7 +37,7 @@ class claro_pager
      * @since
      */
 
-    function claro_pager($totalItemCount, $offset = 0, $step = 20)
+    function __construct($totalItemCount, $offset = 0, $step = 20)
     {
         $this->offset         = (int) $offset;
         $this->step           = (int) $step;
@@ -335,7 +336,6 @@ class claro_pager
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  *
  */
-
 class claro_sql_pager extends claro_pager // implements sortable
 {
     var $sortKeyList = array(),
@@ -350,7 +350,7 @@ class claro_sql_pager extends claro_pager // implements sortable
      * @param int $step current step paging
      */
 
-    function claro_sql_pager($sql, $offset = 0, $step = 20)
+    function __construct($sql, $offset = 0, $step = 20)
     {
         $this->sql       = trim($sql);
         $this->offset    = max(0,(int) $offset);
@@ -621,10 +621,10 @@ class claro_array_pager extends claro_pager
      * constructor
      */
 
-    function claro_array_pager($array, $offset = 0, $step = 20)
+    function __construct($array, $offset = 0, $step = 20)
     {
         $this->baseArray = $array;
-        parent::claro_pager( count($array), $offset, $step);
+        parent::__construct( count($array), $offset, $step);
         $this->set_sort_key_call_param_name('sort');
         $this->set_sort_dir_call_param_name('dir');
     }
@@ -809,7 +809,7 @@ class claro_object_pager extends claro_pager
     {
         $this->baseObject = & $object;
 
-        parent::claro_pager( $this->baseObject->get_total_item_count(), $offset, $step);
+        parent::__construct( $this->baseObject->get_total_item_count(), $offset, $step);
     }
 }
 

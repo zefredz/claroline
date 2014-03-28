@@ -2,11 +2,6 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * Thumbnails library
  *
@@ -15,10 +10,15 @@ if ( count( get_included_files() ) == 1 )
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
+ * @package     kernel.file
  * @todo        phpdoc
  */
 
+/**
+ * Get image extension from file pathname
+ * @param string $imgPath
+ * @return string
+ */
 function img_get_extension( $imgPath )
 {
     $pathInfo = pathinfo( $imgPath );
@@ -26,24 +26,44 @@ function img_get_extension( $imgPath )
     return strtolower( $pathInfo['extension'] );
 }
 
+/**
+ * Check if the type (extension) of the image is supported by the platform
+ * @param string $type
+ * @return boolean
+ */
 function img_is_type_supported( $type )
 {
     $imgSupportedType = array( 'jpg', 'jpeg', 'gif', 'png', 'bmp' );
     return in_array( strtolower($type), $imgSupportedType );
 }
 
+/**
+ * Thumbnails generator
+ */
 class Thumbnailer
 {
-    var $thumbnailDirectory;
-    var $documentRootDir;
+    protected $thumbnailDirectory;
+    protected $documentRootDir;
     
-    function Thumbnailer( $thumbnailDirectory, $documentRootDir )
+    /**
+     * Constructor
+     * @param string $thumbnailDirectory folder in which the thumbnails will be stored
+     * @param string $documentRootDir folder in which the original images are located
+     */
+    public function __construct( $thumbnailDirectory, $documentRootDir )
     {
         $this->thumbnailDirectory = $thumbnailDirectory;
         $this->documentRootDir = $documentRootDir;
     }
     
-    function createThumbnail( $srcFile, $thumbHeight, $thumbWidth )
+    /**
+     * Create a thumbnail from an original image
+     * @param string $srcFile path of the image relative to $documentRootDir
+     * @param int $thumbHeight height of the thumbnail
+     * @param int $thumbWidth width of the thumbnail
+     * @return string|boolean path of the thumbnail or false
+     */
+    public function createThumbnail( $srcFile, $thumbHeight, $thumbWidth )
     {
         $srcPath = $this->documentRootDir . '/' . $srcFile;
         
@@ -115,7 +135,16 @@ class Thumbnailer
         return $thumbPath;
     }
     
-    function getThumbnail( $imgPath, $newHeight, $newWidth )
+    /**
+     * Get the path of the thumbnail for the given original image. If the 
+     * thumbnail does not exists or if the original image has changed since the
+     * creation of the thumbnail, the will be (re)generated
+     * @param string $imgPath path of the original image relative to $documentRootDir
+     * @param int $newHeight height of the thumbnail
+     * @param int $newWidth width of the thumbnail
+     * @return string path of the thumbnail
+     */
+    public function getThumbnail( $imgPath, $newHeight, $newWidth )
     {
         $thumbName = md5($imgPath) . '_' . $newWidth . 'x' . $newHeight . '.jpg';
         $thumbPath = $this->thumbnailDirectory . '/' . $thumbName;

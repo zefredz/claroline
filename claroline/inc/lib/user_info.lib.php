@@ -1,21 +1,16 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * Provide function to work on  personnal editable info  of each user
  * 
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Gesché <moosh@claroline.net>
- * @package     CLUSR
+ * @package     kernel.users
  */
 
 
@@ -31,7 +26,6 @@ CATEGORIES DEFINITION TREATMENT
  * @param  int    $nbline - lines number for the field the user will fill.
  * @return boolean TRUE if succeed, else boolean FALSE
  */
-
 function claro_user_info_create_cat_def($title='', $comment='', $nbline='5', $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
@@ -72,7 +66,6 @@ function claro_user_info_create_cat_def($title='', $comment='', $nbline='5', $co
  * @param   integer $nbline - lines number for the field the user will fill.
  * @return  boolean true if succeed, else otherwise
  */
-
 function claro_user_info_edit_cat_def($id, $title, $comment, $nbline, $course_id=NULL)
 {
 
@@ -109,7 +102,6 @@ function claro_user_info_edit_cat_def($id, $title, $comment, $nbline, $course_id
  * @return bollean  - TRUE if succeed, ELSE otherwise
  *
  */
-
 function claro_user_info_remove_cat_def($id, $force = false, $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
@@ -154,7 +146,6 @@ function claro_user_info_remove_cat_def($id, $force = false, $course_id=NULL)
  *
  * @return - boolean true if succeed, else bolean false
  */
-
 function claro_user_info_move_cat_rank($id, $direction, $course_id=NULL)
 {
 
@@ -191,7 +182,6 @@ function claro_user_info_move_cat_rank($id, $direction, $course_id=NULL)
  *
  * @return - boolean true if succeed, else bolean false
  */
-
 function claro_user_info_move_cat_rank_by_rank($rank, $direction, $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
@@ -256,7 +246,6 @@ CATEGORIES CONTENT TREATMENT
  * @param  string $content
  * @return boolean true if succeed, else bolean false
  */
-
 function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $user_ip="", $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
@@ -311,7 +300,6 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
  * @param  string  $content ; if empty call delete the bloc
  * @return boolean true if succeed, else bolean false
  */
-
 function claro_user_info_edit_cat_content($def_id, $user_id, $content ="", $user_ip="", $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
@@ -353,7 +341,6 @@ function claro_user_info_edit_cat_content($def_id, $user_id, $content ="", $user
  * @param  integer $user_id
  * @return boolean true if succeed, else bolean false
  */
-
 function claro_user_info_cleanout_cat_content($user_id, $def_id, $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
@@ -387,7 +374,6 @@ SHOW USER INFORMATION TREATMENT
  *
  *
  */
-
 function claro_user_info_get_course_user_info($user_id, $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
@@ -417,7 +403,6 @@ function claro_user_info_get_course_user_info($user_id, $course_id=NULL)
  *           'nbline', 'contentId' and 'content'
  *
  */
-
 function claro_user_info_get_cat_content($userId, $catId, $course_id = NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));

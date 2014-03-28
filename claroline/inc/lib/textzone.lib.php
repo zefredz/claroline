@@ -3,13 +3,14 @@
 // $Id$
 
 /**
- *
- * @version     1.11 $Revision$
+ * Claroline editable textzone to display texts defined by the administrator 
+ * in several places of the platform
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Christophe Gesché <moosh@claroline.net>
  * @since       1.8.1
- * @package     KERNEL
+ * @package     kernel.display
  */
 class claro_text_zone
 {

@@ -1,21 +1,16 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
  * Built url and system paths.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      see 'credits' file
  * @since       Claroline 1.8.3
- * @package     KERNEL
+ * @package     kernel.core
  */
 
 
@@ -86,36 +81,6 @@ function get_path($pathKey)
         trigger_error('Claroline : Unknown path name "' . $pathKey . '" passed to get_path function' , E_USER_NOTICE);
         return false;
     }
-
-}
-
-/**
- * return prefix for urls to externalize
- */
-function get_url_domain()
-{
-    /*
-    Array
-    (
-    [scheme] => http
-    [host] => hostname
-    [user] => username     [pass] => password
-    [path] => /path
-    [query] => arg=value
-    [fragment] => anchor
-    )
-    */
-
-    $urlPart = parse_url(get_conf('rootWeb'));
-
-    $url  = $urlPart[scheme] . '://';
-    if(! empty($urlPart[user]))
-    {
-        $url .= $urlPart[user] ;
-        if(! empty($urlPart[pass])) $url .= ':' . $urlPart[pass] ;
-        $url .= '@' ;
-    }
-    $url .= $urlPart[host] . '/';
 
 }
 

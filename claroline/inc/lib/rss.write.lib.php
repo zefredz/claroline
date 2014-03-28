@@ -3,10 +3,10 @@
 /**
  * CLAROLINE
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLRSS
+ * @package     kernel.connectors
  * @since       1.9
  * @author      Claro Team <cvs@claroline.net>
  * @see         http://www.stervinou.com/projets/rss/
@@ -21,6 +21,11 @@ include_once claro_get_conf_repository() . 'rss.conf.php';
 
 require_once __DIR__ . '/thirdparty/feedcreator.class.php';
 
+/**
+ * Build RSS for the given context
+ * @param array $context execution context (course, group)
+ * @return string|boolean false on error
+ */
 function build_rss($context)
 {
     if (is_array($context) && count($context) > 0)

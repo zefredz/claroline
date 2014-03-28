@@ -1,18 +1,13 @@
 <?php // $Id$
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * CLAROLINE
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/index.php/Libs-mail
- * @package     KERNEL
+ * @package     kernel.utils
  * @author      Claro Team <cvs@claroline.net>
  *
  */
@@ -20,9 +15,15 @@ if ( count( get_included_files() ) == 1 )
 require_once __DIR__ . '/thirdparty/phpmailer/class.phpmailer.php' ;
 include_once __DIR__ . '/user.lib.php' ;
 
+/**
+ * Claroline mailing system
+ */
 class ClaroPHPMailer extends PHPMailer
 {
-    function ClaroPHPMailer()
+    /**
+     * INitialize the mailer
+     */
+    public function __construct()
     {
     	//prevent phpMailer from echo'ing anything
         parent::__construct(true);
@@ -66,18 +67,28 @@ class ClaroPHPMailer extends PHPMailer
      * @access private
      * @return string
      */
-    function Lang($key) {
+    public function Lang($key) {
             return "Language string failed to load: " . $key . " ";
     }
-
-    function getError ()
+    
+    /**
+     * Get error
+     * @return string
+     */
+    public function getError ()
     {
         return $this->ErrorInfo;
     }    
     
-    function Send(){
+    /**
+     * Send the message
+     * @return boolean
+     */
+    public function Send()
+    {
         // errors can be retrieved when return value is false by calling getError method
-        try{
+        try
+        {
         	return parent::Send();
         }
         catch (phpmailerException $e)
@@ -88,9 +99,16 @@ class ClaroPHPMailer extends PHPMailer
 }
 
 /**
- * Send e-mail using Main settings
+ * Helper to send e-mail
+ * 
+ * @param string $subject
+ * @param string $message
+ * @param string $to destination email address
+ * @param string $toName destination name
+ * @param string $from sender email address (default: platform contact address)
+ * @param string $fromName sender name (default: platform contact name)
+ * @return boolean
  */
-
 function claro_mail($subject, $message, $to, $toName, $from, $fromName)
 {
     $mail = new ClaroPHPMailer();
@@ -123,21 +141,16 @@ function claro_mail($subject, $message, $to, $toName, $from, $fromName)
 }
 
  /**
-  * Send e-mail to Claroline users form their ID a user of Claroline
-  *
-  * Send e-mail to Claroline users form their ID a user of Claroline
-  * default from clause in email address will be the platorm admin adress
-  * default from name clause in email will be the platform admin name and surname
+  * Send e-mail to Claroline users form their user ID in Claroline
   *
   * @author Hugues Peeters <peeters@advalavas.be>
   * @param  int or array $userIdList - sender id's
   * @param  string $message - mail content
   * @param  string $subject - mail subject
-  * @param  string $specificFrom (optional) sender's email address
-  * @param  string  $specificFromName (optional) sender's name
+  * @param  string $specificFrom (optional) sender's email address (default: platform contact address)
+  * @param  string  $specificFromName (optional) sender's name (default: platform contact name)
   * @return int total count of sent email
   */
-
 function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $specificFromName='' )
 {
     if ( ! is_array($userIdList) ) $userIdList = array($userIdList);

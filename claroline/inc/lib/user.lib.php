@@ -4,10 +4,10 @@
  * CLAROLINE
  *
  * User lib contains function to manage users on the platform
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLUSR
+ * @package     kernel.users
  * @author      Christophe Gesche <moosh@claroline.net>
  * @author      Mathieu Laurent <laurent@cerdecam.be>
  * @author      Hugues Peeters <hugues.peeters@advalvas.be>
@@ -260,7 +260,6 @@ function user_create($settingList, $creatorId = null)
  * @param $propertyList array
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
-
 function user_set_properties($userId, $propertyList)
 {
     $tbl = claro_sql_get_main_tbl();
@@ -381,7 +380,6 @@ function user_delete($userId)
  * @author Christophe Gesche <Moosh@claroline.net>
  *
  */
-
 function claro_get_uid_of_platform_admin()
 {
     $tbl = claro_sql_get_main_tbl();
@@ -398,9 +396,7 @@ function claro_get_uid_of_platform_admin()
 /**
  * @return list of users wich have status to receipt REQUESTS
  * @author Christophe Gesche <Moosh@claroline.net>
- *
  */
-
 function claro_get_uid_of_request_admin()
 {
     $tbl = claro_sql_get_main_tbl();
@@ -425,7 +421,6 @@ function claro_get_uid_of_request_admin()
  * @author Christophe Gesche <Moosh@claroline.net>
  *
  */
-
 function claro_get_uid_of_platform_contact()
 {
     $tbl = claro_sql_get_main_tbl();
@@ -450,7 +445,6 @@ function claro_get_uid_of_platform_contact()
  * @author Christophe Gesche <Moosh@claroline.net>
  *
  */
-
 function claro_get_uid_of_system_notification_recipient()
 {
     $tbl = claro_sql_get_main_tbl();
@@ -468,6 +462,12 @@ function claro_get_uid_of_system_notification_recipient()
     return $resultList['id'];
 }
 
+/**
+ * Enable or disable system notifications for the given user
+ * @param int $user_id
+ * @param boolean $state true to enable, false to disable
+ * @return int
+ */
 function claro_set_uid_recipient_of_system_notification($user_id,$state=true)
 {
    $tbl = claro_sql_get_main_tbl();
@@ -485,6 +485,12 @@ function claro_set_uid_recipient_of_system_notification($user_id,$state=true)
 
 }
 
+/**
+ * (Un)set the user as a platform contact
+ * @param int $user_id
+ * @param boolean $state true to set, false to unset
+ * @return int
+ */
 function claro_set_uid_of_platform_contact($user_id,$state=true)
 {
    $tbl = claro_sql_get_main_tbl();
@@ -502,6 +508,12 @@ function claro_set_uid_of_platform_contact($user_id,$state=true)
 
 }
 
+/**
+ * (Un)mark the user as a recipient for platform requests
+ * @param int $user_id
+ * @param boolean $state
+ * @return int
+ */
 function claro_set_uid_recipient_of_request_admin($user_id,$state=true)
 {
    $tbl = claro_sql_get_main_tbl();
@@ -525,7 +537,6 @@ function claro_set_uid_recipient_of_request_admin($user_id,$state=true)
  * @return boolean
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
  */
-
 function user_is_admin($userId)
 {
     $userPropertyList = user_get_properties($userId);
@@ -540,7 +551,6 @@ function user_is_admin($userId)
  * @param  int     $userId
  * @return boolean 'true' if it succeeds, 'false' otherwise
  */
-
 function user_set_platform_admin($status, $userId)
 {
     return user_set_properties($userId, array('isPlatformAdmin' => (bool) $status) );
@@ -554,7 +564,6 @@ function user_set_platform_admin($status, $userId)
  * @param mixed $data array of user data or null to keep data following $userId param.
  * @return boolean
  */
-
 function user_send_registration_mail ($userId, $data, $courseCode = null)
 {
     require_once __DIR__ . '/sendmail.lib.php';
@@ -613,7 +622,6 @@ function user_send_registration_mail ($userId, $data, $courseCode = null)
  * @param string explanation message
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
-
 function profile_send_request_course_creator_status($explanation)
 {
     require_once __DIR__ . '/../../messaging/lib/message/messagetosend.lib.php';
@@ -657,7 +665,6 @@ function profile_send_request_course_creator_status($explanation)
  * @param string explanation message
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
-
 function profile_send_request_revoquation($explanation,$login,$password)
 {
     if (empty($explanation)) return claro_failure::set_failure('EXPLANATION_EMPTY');
@@ -698,7 +705,6 @@ function profile_send_request_revoquation($explanation,$login,$password)
     
     return true;
 }
-
 
 /**
  * Generates randomly password
@@ -966,7 +972,6 @@ function user_check_authentication( $password, $login )
  * @return boolean true if not too much easy to find
  *
  */
-
 function is_password_secure_enough($requestedPassword, $forbiddenValueList)
 {
     foreach ( $forbiddenValueList as $thisValue )
@@ -1000,7 +1005,6 @@ function is_password_secure_enough($requestedPassword, $forbiddenValueList)
  * @param integer user_id
  * @return boolean
  */
-
 function is_username_available($username, $userId = null)
 {
     $tbl = claro_sql_get_main_tbl();
@@ -1214,6 +1218,7 @@ function user_html_search_form( $data )
 
     return $html;
 }
+
 /**
  * @param array $criterionList -
  *        Allowed keys are 'name', 'firstname', 'email', 'officialCode','username'
@@ -1225,7 +1230,6 @@ function user_html_search_form( $data )
  *        define if criterion comparison use wildcard or not
  * @return array : existing users who met the criterions
  */
-
 function user_search( $criterionList = array() , $courseId = null, $allCriterion = true, $strictCompare = false, $ignoreDisabledAccounts = false )
 {
     $validatedCritList = array('lastname' => '', 'firstname'    => '',
@@ -1376,7 +1380,6 @@ function get_user_property_list($userId, $force = false, $getUndefinedProperties
  * @param string $propertyId
  * @return mixed value of the selected property for given user
  */
-
 function get_user_property($userId,$propertyId, $force = false)
 {
     static $userPropertyList = array();
@@ -1535,6 +1538,11 @@ function claro_get_user_course_list($user_id = null)
     return $userCourseList;
 }
 
+/**
+ * Get the path in which to store user private files like the profile picture
+ * @param int $userId
+ * @return string
+ */
 function user_get_private_folder_path( $userId )
 {
     return get_path('userRepositorySys')
@@ -1542,6 +1550,11 @@ function user_get_private_folder_path( $userId )
         ;
 }
 
+/**
+ * Get the url of the folder in which user private files like the profile picture are stored
+ * @param int $userId
+ * @return string
+ */
 function user_get_private_folder_url( $userId )
 {
     return get_path('userRepositoryWeb')
@@ -1549,6 +1562,11 @@ function user_get_private_folder_url( $userId )
         ;
 }
 
+/**
+ * Get the path of the user profile picture
+ * @param array $userData
+ * @return string|boolean
+ */
 function user_get_picture_path( $userData )
 {
     if ( !empty( $userData['picture'] ) )
@@ -1563,6 +1581,11 @@ function user_get_picture_path( $userData )
     }
 }
 
+/**
+ * Get the url of the user profile picture
+ * @param array $userData
+ * @return string|boolean
+ */
 function user_get_picture_url( $userData )
 {
     if ( !empty( $userData['picture'] ) )
@@ -1577,6 +1600,11 @@ function user_get_picture_url( $userData )
     }
 }
 
+/**
+ * Get extra user data define using the user properties
+ * @param int $userId
+ * @return array
+ */
 function user_get_extra_data($userId)
 {
     $extraInfo = array();

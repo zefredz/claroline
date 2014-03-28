@@ -2,20 +2,15 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * Url handling library
  *
- * @version     1.9 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     KERNEL
+ * @package     kernel.core
  */
 
 /**
@@ -102,6 +97,11 @@ function get_request_uri()
     }
 }
 
+/**
+ * Get the path info of a requested url
+ * @fixme this seems to work only for the download backend
+ * @return string
+ */
 function get_path_info()
 {
     if ( isset( $_SERVER['PATH_INFO'] ) && !empty($_SERVER['PATH_INFO']) )
