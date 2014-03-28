@@ -1,5 +1,45 @@
 <?php // $Id$
 
+if ( count( get_included_files() ) == 1 ) die( '---' );
+
+/**
+ * This is the boostrap that initialize the Claroline platform to be used in a script.
+ * 
+ * This file must required or included at the start of any Claroline script in order 
+ * to use the services offered by the platform such as : session, database connection, 
+ * authentication
+ * 
+ * The following variable can be specified before including the script :
+ * 
+ * string $tlabelReq    the module label of the module that calls the bootstrap
+ * boolean $uidReset    set to true to reset the user context
+ * boolean $cidReset    set to true to reset the course context
+ * boolean $gidReset    set to true to reset the group context
+ * 
+ * This boostrap also call the context initialization script that initialize the module, 
+ * user, course, group and permissions. (@see claro_init_local.inc.php for the complete 
+ * initalization script documentation)
+ * 
+ * This bootstrap is also responsible to control grant or deny the access based on context, 
+ * activate debug features in debug mode, load common libraries, stylesheets and javascript, 
+ * protect the platform against common web-based vulnerabilities, load configuration and 
+ * translations...
+ * 
+ * Initialize the following variables :
+ * 
+ * $GLOBALS['claroline']    instance of the Claroline platform container that provides
+ *                          the service providers for the platform also avaible using 
+ *                          the Claroline::getInstance() method
+ *
+ * @version     Claroline 1.12 $Revision$
+ * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     kernel
+ * @author      Claro Team <cvs@claroline.net>
+ */
+
+// initialize the timezone for PHP5+
+
 $tz = ini_get('date.timezone');
 
 if ( empty( $tz ) )
@@ -12,18 +52,6 @@ else
     ini_set('date.timezone',date_default_timezone_get());
     date_default_timezone_set(date_default_timezone_get());
 }
-
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
-/**
- * CLAROLINE
- *
- * @version     $Revision$
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
- * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     CLKERNEL
- * @author      Claro Team <cvs@claroline.net>
- */
 
 // include the main Claroline platform configuration file
 
