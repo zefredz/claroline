@@ -4,7 +4,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
@@ -31,7 +31,9 @@ CREATE TABLE `__CL_COURSE__course_description` (
 
 */
 
-
+/**
+ * Course description
+ */
 class CourseDescription
 {
     /**
@@ -68,7 +70,7 @@ class CourseDescription
     /**
      * constructor
      *
-     * @param $course_id
+     * @param $course_id course id (sys code)
      */
     public function __construct($course_id = null)
     {

@@ -3,7 +3,7 @@
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see         http://www.claroline.net/wiki/CLDSC/
@@ -22,7 +22,6 @@
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-
 function course_description_get_item_list($courseId = null)
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
@@ -75,7 +74,6 @@ function course_description_get_item_list($courseId = null)
  * @return array ('title','isEditable','question','information')
  *
  */
-
 function get_tiplistinit()
 {
     $tipList = array();
