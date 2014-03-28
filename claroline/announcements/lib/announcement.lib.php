@@ -19,7 +19,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * ordre      : order of the announcement display
  *              (the announcements are display in desc order)
  *
- * @version     1.8 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLANN
@@ -106,6 +106,11 @@ function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $
     return claro_sql_query_fetch_all_rows($sql);
 }
 
+/**
+ * Get items to be displayed in the announcements portlet
+ * @param array $personnalCourseList list of course codes
+ * @return array
+ */
 function announcement_get_items_portlet($personnalCourseList)
 {
     $courseDigestList = array();
@@ -174,6 +179,12 @@ function announcement_get_items_portlet($personnalCourseList)
     return $courseDigestList;
 }
 
+/**
+ * Get items for the given context
+ * @param array $context [CLARO_CONTEXT_COURSE => course code]
+ * @param string $order
+ * @return array
+ */
 function announcement_get_item_list($context, $order='DESC')
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($context[CLARO_CONTEXT_COURSE]));
@@ -425,6 +436,11 @@ function move_entry($item_id, $cmd, $course_id=null)
     }
 }
 
+/**
+ * Get max an min rank for announcements
+ * @param string $course_id
+ * @return Database_ResultSet
+ */
 function clann_get_max_and_min_rank( $course_id = null )
 {
     $course_id = is_null($course_id) ? claro_get_current_course_id() : $course_id;
