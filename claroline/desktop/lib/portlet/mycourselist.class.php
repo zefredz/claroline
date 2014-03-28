@@ -2,17 +2,15 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
  * User desktop : course list portlet.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     DESKTOP
+ * @package     kernel.desktop
  * @author      Claroline Team <info@claroline.net>
  * @fixme       should not be a portlet anymore
  */
@@ -22,18 +20,27 @@ FromKernel::uses('courselist.lib');
 // we need CLHOME conf file for render_user_course_list function
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
+/**
+ * USer's courselist
+ */
 class MyCourseList extends UserDesktopPortlet
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->name = 'My course list';
         $this->label = 'mycourselist';
     }
     
+    /**
+     * Render the contents of the course list
+     * @global type $platformLanguage
+     * @return type
+     */
     public function renderContent()
     {
-        global $platformLanguage;
-        
         $out = '';
         
         // Last user action
@@ -124,7 +131,10 @@ class MyCourseList extends UserDesktopPortlet
         return $this->content;
     }
     
-    
+    /**
+     * Render the title of the portlet
+     * @return string
+     */
     public function renderTitle()
     {
         $output = get_lang('My course list');
@@ -132,6 +142,10 @@ class MyCourseList extends UserDesktopPortlet
         return $output;
     }
     
+    /**
+     * Render the portlet as HTML
+     * @return string
+     */
     public function render()
     {
         return '<div class="portlet'.(!empty($this->label)?' '.$this->label:'').'">' . "\n"

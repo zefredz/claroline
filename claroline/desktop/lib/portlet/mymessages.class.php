@@ -2,27 +2,32 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
  * User desktop : internal messaging portlet
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     DESKTOP
+ * @package     kernel.desktop
  * @author      Claroline Team <info@claroline.net>
  */
 
 require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/tools.lib.php';
 require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/messagebox/inbox.lib.php';
 
+/**
+ * Message list portlet
+ */
 class MyMessages extends UserDesktopPortlet
 {
     protected $inbox;
     
+    /**
+     * Constructor
+     * @param string $label ignored...
+     */
     public function __construct($label)
     {
         parent::__construct($label);
@@ -34,7 +39,10 @@ class MyMessages extends UserDesktopPortlet
         $this->inbox->getMessageStrategy()->setNumberOfMessagePerPage( get_conf('myboxNumberOfMessage',5) );
     }
     
-    
+    /**
+     * Render the contents of the portlet
+     * @return string
+     */
     public function renderContent()
     {
         $output = '';
@@ -97,7 +105,10 @@ class MyMessages extends UserDesktopPortlet
         return $output;
     }
     
-    
+    /**
+     * Render the title of the portlet
+     * @return string
+     */
     public function renderTitle()
     {
         $output = get_lang('My %numberOfMessages last messages', array( '%numberOfMessages' => get_conf('myboxNumberOfMessage',5) ) );

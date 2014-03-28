@@ -2,22 +2,23 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
 /**
  * CLAROLINE
  *
  * User desktop portlet classes.
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     DESKTOP
+ * @package     kernel.desktop
  * @author      Claroline Team <info@claroline.net>
  */
 
 require_once get_path('includePath') . '/lib/portlet.class.php';
 
+/**
+ * Abstract desktop portlet to be implemented by module connectors
+ */
 abstract class UserDesktopPortlet extends Portlet
 {
     /**
@@ -25,27 +26,46 @@ abstract class UserDesktopPortlet extends Portlet
      */
     protected $name, $label;
     
+    /**
+     * Get the name of the portlet
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
     
+    /**
+     * Get the label of the portlet
+     * @return string
+     */
     public function getLabel()
     {
         return $this->label;
     }
     
+    /**
+     * Set the name of the protlet
+     * @param string $name
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
     
+    /**
+     * Set the label of the portlet
+     * @param string $label
+     */
     public function setLabel($label)
     {
         $this->label = $label;
     }
 }
 
+/**
+ * List of portlets
+ */
 class PortletList
 {
     private $tblDesktopPortlet;
@@ -54,15 +74,22 @@ class PortletList
     const DOWN = 'down';
     const VISIBLE = 'visible';
     const INVISIBLE = 'invisible';
-
+    
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         // convert to Claroline course table names
         $tbl_lp_names = get_module_main_tbl( array('desktop_portlet') );
         $this->tblDesktopPortlet = $tbl_lp_names['desktop_portlet'];
     }
-
-    // load
+    
+    /**
+     * Load the properties of a portlet given its label
+     * @param string $label
+     * @return boolean|array portlet properties
+     */
     public function loadPortlet( $label )
     {
         $sql = "SELECT
@@ -84,7 +111,12 @@ class PortletList
             return $data;
         }
     }
-
+    
+    /**
+     * Load the properties of all portlets
+     * @param boolean $visibility if set to true only visible portlets will be loaded
+     * @return boolean|array portlet properties
+     */
     public function loadAll( $visibility = false )
     {
         $sql = "SELECT
@@ -108,6 +140,14 @@ class PortletList
     }
 
     // save
+    /**
+     * Add a portlet
+     * @param string $label
+     * @param string $name
+     * @param int $rank default null, will be generated if none given
+     * @param boolean $visible default true, visible by default
+     * @return boolean
+     */
     public function addPortlet( $label, $name, $rank = null, $visible = true )
     {
         if ( Claroline::getDatabase()->query("SELECT `label` FROM `{$this->tblDesktopPortlet}` WHERE `label` = '" . claro_sql_escape($label) . "'")->numRows() )
@@ -137,7 +177,12 @@ class PortletList
                     
         return ( claro_sql_query($sql) != false );
     }
-
+    
+    /**
+     * Move a portlet in the list
+     * @param string $label label of the portlet
+     * @param string $direction PortletList::UP or PortletList::DOWN, default PortletList::UP
+     */
     private function movePortlet($label, $direction)
     {
         switch ($direction)
@@ -214,17 +259,31 @@ class PortletList
             }
         }
     }
-
+    
+    /**
+     * Move the portlet one step up in the list
+     * @param string $label label of the portlet
+     */
     public function moveUp( $label )
     {
         $this->movePortlet( $label, self::UP );
     }
     
+    /**
+     * Move the portlet one step down in the list
+     * @param string $label label of the portlet
+     */
     public function moveDown( $label )
     {
         $this->movePortlet( $label, self::DOWN );
     }
     
+    /**
+     * Set the visibility of the portlet
+     * @param string $label label of the portlet
+     * @param boolean $visibility true to make visible, false to hide
+     * @return boolean
+     */
     private function setVisibility( $label, $visibility )
     {
         $sql = "UPDATE `".$this->tblDesktopPortlet."`
@@ -236,12 +295,20 @@ class PortletList
 
         return true;
     }
-
+    
+    /**
+     * Make the portlet visible
+     * @param string $label label of the portlet
+     */
     public function setVisible( $label )
     {
         $this->setVisibility( $label, self::VISIBLE);
     }
-
+    
+    /**
+     * Make the portlet invisible
+     * @param string $label label of the portlet
+     */
     public function setInvisible( $label )
     {
         $this->setVisibility( $label, self::INVISIBLE);
