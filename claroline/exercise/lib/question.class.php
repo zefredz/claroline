@@ -3,10 +3,11 @@
 /**
  * CLAROLINE
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author      Claro Team <cvs@claroline.net>
+ * @package     CLQWZ
  */
 
 include_once __DIR__ . '/exercise.lib.php';
@@ -14,7 +15,7 @@ include_once __DIR__ . '/exercise.lib.php';
 class Question
 {
     /**
-     * @var $id id of question, -1 if question doesn't exist already
+     * @var int $id id of question, -1 if question doesn't exist already
      */
     public $id;
     
@@ -45,47 +46,47 @@ class Question
     public $grade;
     
     /**
-     * @var $categoryId  id of the question category
+     * @var int $categoryId  id of the question category
      */
      public $categoryId;
      
      /**
-     * @var $categoryTitle  title of the question category
+     * @var string $categoryTitle  title of the question category
      */
      public $categoryTitle;
     
     /**
-     * @var $questionDirSys
+     * @var string $questionDirSys
      */
     public $questionDirSys;
     
     /**
-     * @var $questionDirWeb
+     * @var string $questionDirWeb
      */
     public $questionDirWeb;
     
     /**
-     * @var $answer answer object
+     * @var answer $answer answer object
      */
     public $answer;
     
     /**
-     * @var $exerciseId parent exercise id of the current question (optional)
+     * @var int $exerciseId parent exercise id of the current question (optional)
      */
     public $exerciseId;
     
     /**
-     * @var $tmpQuestionDirSys use for attachment upload on question creation
+     * @var string $tmpQuestionDirSys use for attachment upload on question creation
      */
     public $tmpQuestionDirSys;
             
     /**
-     * @var $tblQuestion
+     * @var string $tblQuestion
      */
     protected $tblQuestion;
         
     /**
-     * @var $tblRelExerciseQuestion
+     * @var string $tblRelExerciseQuestion
      */
     protected $tblRelExerciseQuestion;
     
@@ -94,10 +95,33 @@ class Question
      */
     protected  $tblQuestionCategory;
     
+    /**
+     * Course data
+     * @var array
+     */
+    protected $_course;
     
+    /**
+     * Constructor
+     * @param string $course_id course id (sys code)
+     * @throws Exception
+     */
     public function __construct($course_id = null)
     {
-        global $_course;
+        if ( is_null( $course_id ) )
+        {
+            $course_id = claro_get_current_course_id();
+            $this->_course = get_init('_course');
+        }
+        else
+        {
+            $this->_course = claro_get_course_data($course_id);
+            
+            if ( !$this->_course )
+            {
+                throw new Exception ("Course not found {$course_id}");
+            }
+        }
         
         $this->id = (int) -1;
         $this->title = '';
@@ -115,7 +139,7 @@ class Question
         $this->questionDirSys = '';
         $this->questionDirWeb = '';
         
-        $this->tmpQuestionDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'exercise/tmp'.uniqid('').'/';
+        $this->tmpQuestionDirSys = get_conf('coursesRepositorySys').$this->_course['path'].'/'.'exercise/tmp'.uniqid('').'/';
 
         $tbl_cdb_names = get_module_course_tbl( array( 'qwz_question', 'qwz_rel_exercise_question', 'qwz_questions_categories' ), $course_id );
         $this->tblQuestion = $tbl_cdb_names['qwz_question'];
@@ -335,10 +359,8 @@ class Question
      */
     public function buildDirPaths()
     {
-        global $_course;
-        
-        $this->questionDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'exercise/question_'.$this->id.'/';
-        $this->questionDirWeb = get_conf('coursesRepositoryWeb').$_course['path'].'/'.'exercise/question_'.$this->id.'/';
+        $this->questionDirSys = get_conf('coursesRepositorySys').$this->_course['path'].'/'.'exercise/question_'.$this->id.'/';
+        $this->questionDirWeb = get_conf('coursesRepositoryWeb').$this->_course['path'].'/'.'exercise/question_'.$this->id.'/';
     }
     
     /**
@@ -779,6 +801,9 @@ class Question
     }
 }
 
+/**
+ * Category of a question
+ */
 class QuestionCategory
 {
     /**
@@ -796,9 +821,14 @@ class QuestionCategory
      */
     public $description;
     
-    
+    /**
+     * Constructor
+     * @param string $course_id id of the course
+     */
     public function __construct($course_id = null)
     {
+        $course_id = $course_id ? $course_id : claro_get_current_course_id();
+        
         $this->id = (int) -1;
         $this->title = '';
         $this->description = '';
@@ -977,12 +1007,20 @@ class QuestionCategory
         $this->description = trim($value);
     }
     
+    /**
+     * Set the id of the category
+     * @param int $id
+     */
     public function setId ($id)
     {
     	
     	$this->id = (int)$id;
     }
     
+    /**
+     * Check if the title of the category already exists
+     * @return boolean
+     */
     public function titleAlreadyExists()
     {
     	$sql = "SELECT `id`, `title` FROM `" . $this->tblQuestionCategory . "`
