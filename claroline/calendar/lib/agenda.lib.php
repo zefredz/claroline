@@ -12,7 +12,7 @@ if ( count ( get_included_files () ) == 1 )
  *         - Add entries
  *         - generate an "announce" entries about an entries
  *
- * @version     1.8 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     CLCAL
@@ -285,6 +285,14 @@ function get_agenda_next_items_list ( $thisCourse, $nbEvents, $month, $year )
     return claro_sql_query_fetch_all_rows ( $sql );
 }
 
+/**
+ * Get items from the agenda for the given course list and given month and year
+ * for the compact display
+ * @param array $userCourseList
+ * @param string $month
+ * @param string $year
+ * @return array
+ */
 function get_agenda_items_compact_mode ( $userCourseList, $month, $year )
 {
     $courseDigestList = array ( );
@@ -343,6 +351,14 @@ function get_agenda_items_compact_mode ( $userCourseList, $month, $year )
     return $courseDigestList;
 }
 
+/**
+ * Get items from the agenda for the given course list and given month and year
+ * for the full display
+ * @param array $userCourseList
+ * @param string $month
+ * @param string $year
+ * @return array
+ */
 function get_agenda_items ( $userCourseList, $month, $year )
 {
     $items = array ( );
@@ -408,16 +424,6 @@ function get_agenda_items ( $userCourseList, $month, $year )
     }
 
     return $agendaItemList;
-}
-
-function claro_disp_monthly_calendar ( $agendaItemList, $month, $year, $weekdaynames, $monthName )
-{
-
-    pushClaroMessage ( (function_exists ( 'claro_html_debug_backtrace' ) ? claro_html_debug_backtrace () : 'claro_html_debug_backtrace() not defined'
-        )
-        . 'claro_disp_monthly_calendar is deprecated , use claro_html_monthly_calendar', 'error' );
-
-    return claro_html_monthly_calendar ( $agendaItemList, $month, $year, $weekdaynames, $monthName );
 }
 
 /**

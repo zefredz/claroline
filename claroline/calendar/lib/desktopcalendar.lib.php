@@ -7,7 +7,7 @@
  *
  * User desktop : MyCalendar portlet calendar class
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     DESKTOP
@@ -20,6 +20,9 @@ From::Module('CLCAL')->uses('agenda.lib');
 
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
+/**
+ * Calendar to display on the user desktop
+ */
 class UserDesktopCalendar
 {
     protected $year;
@@ -37,32 +40,57 @@ class UserDesktopCalendar
         $this->year = $today['year'];
     }
     
+    /**
+     * Set the year
+     * @param int $year
+     */
     public function setYear( $year )
     {
         $this->year = $year;
     }
     
+    /**
+     * Set the month
+     * @param int $month
+     */
     public function setMonth( $month )
     {
         $this->month = $month;
     }
     
+    /**
+     * Get the name of the month
+     * @return string
+     */
     public function getMonthName()
     {
         $langMonthNames = get_locale('langMonthNames');
         return $langMonthNames['long'][$this->month -1];
     }
     
+    /**
+     * Get the month
+     * @return int
+     */
     public function getMonth()
     {
         return $this->month;
     }
     
+    /**
+     * Get the year
+     * @return int
+     */
     public function getYear()
     {
         return $this->year;
     }
     
+    /**
+     * Generate min-calendar for ajax requests
+     * @param array $agendaItemList list of items to display into the calendar
+     * @return string
+     */
     protected function ajaxMiniCalendar( $agendaItemList )
     {
         $weekdaynames = get_locale('langDay_of_weekNames');
@@ -228,6 +256,10 @@ var UserDesktopCalendar = {
         return $htmlStream;
     }
     
+    /**
+     * Render the calendar as HTML
+     * @return string
+     */
     public function render()
     {
         $userCourseList = get_user_course_list( claro_get_current_user_id() );

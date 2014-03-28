@@ -7,10 +7,10 @@
  *
  * Course home page : MyCalendar portlet calendar class
  *
- * @version     $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @package     DESKTOP
+ * @package     CLANN
  * @author      Claroline team <info@claroline.net>
  * @since       1.10
  */
@@ -20,12 +20,19 @@ From::Module('CLCAL')->uses('agenda.lib');
 
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
+/**
+ * Course home page calendar
+ */
 class CourseHomePageCalendar
 {
     protected $courseCode;
     protected $year;
     protected $month;
     
+    /**
+     * Get the calendar for the given course
+     * @param string $courseCode course sys code
+     */
     public function __construct($courseCode)
     {
         if (file_exists(claro_get_conf_repository() . 'CLCAL.conf.php'))
@@ -39,32 +46,56 @@ class CourseHomePageCalendar
         $this->year         = $today['year'];
     }
     
+    /**
+     * Set the year
+     * @param int $year
+     */
     public function setYear( $year )
     {
         $this->year = $year;
     }
     
+    /**
+     * Set the month
+     * @param int $month
+     */
     public function setMonth( $month )
     {
         $this->month = $month;
     }
     
+    /**
+     * Get the name of the month
+     * @return string
+     */
     public function getMonthName()
     {
         $langMonthNames = get_locale('langMonthNames');
         return $langMonthNames['long'][$this->month -1];
     }
     
+    /**
+     * Get the month
+     * @return int
+     */
     public function getMonth()
     {
         return $this->month;
     }
     
+    /**
+     * Get the year
+     * @return int
+     */
     public function getYear()
     {
         return $this->year;
     }
     
+    /**
+     * Render the calendar as HTML
+     * @return string
+     */
     public function render()
     {
         // Select current course's datas
