@@ -1,6 +1,22 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
+// define timezone
+
+$tz = ini_get('date.timezone');
+
+if ( empty( $tz ) )
+{
+    ini_set('date.timezone','UTC');
+    date_default_timezone_set('UTC');
+}
+else
+{
+    ini_set('date.timezone',date_default_timezone_get());
+    date_default_timezone_set(date_default_timezone_get());
+}
+
+
 // Most PHP package has increase the error reporting.
 // The line below set the error reporting to the most fitting one for Claroline
 //error_reporting(error_reporting() & ~ E_NOTICE);

@@ -535,7 +535,7 @@ switch ($display)
             $leftTime = strftime('%H:%M:%S',$leftCourses * $stepDurationAvg);
 
             $str_execution_time = sprintf(" <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. -->
-                                           <strong>".get_lang.('Expected remaining time %s')."</strong>."
+                                           <strong>".get_lang('Expected remaining time %s')."</strong>."
                                           ,$stepDuration
                                           ,$stepDurationAvg
                                           ,strftime('%H:%M:%S',$totaltime)
