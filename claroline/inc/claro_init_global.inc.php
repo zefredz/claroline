@@ -609,12 +609,6 @@ if ( claro_debug_mode() && get_conf('clmain_serverTimezone','') )
     pushClaroMessage('timezone set to '.date_default_timezone_get(),'debug');
 }
 
-if ( claro_is_in_a_course() && isset( $GLOBALS['tlabelReq'] ) && $GLOBALS['tlabelReq'] == 'CLQWZ' )
-{
-    require_once get_path('incRepositorySys').'/../exercise/lib/add_missing_table.lib.php';
-    init_qwz_questions_categories ();
-}
-
 if ( !claro_is_platform_admin () )
 {
     $courseStatus = claro_get_current_course_data ( 'status' );
