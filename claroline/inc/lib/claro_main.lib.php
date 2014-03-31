@@ -1005,6 +1005,7 @@ function claro_get_tool_name ( $identifier )
 function claro_get_module_name ( $identifier )
 {
     static $cachedModuleIdList = null ;
+    
     if ( is_numeric($identifier) )
     {
         // identifier is a tool_id
@@ -1043,8 +1044,7 @@ function claro_get_module_name ( $identifier )
     {
         return get_lang($toolNameList[$toolLabel]);
     }
-/*
-    if ( isset($toolNameList[$toolLabel]) )
+    else
     {
 
         $moduleData = get_module_data($toolLabel);
@@ -1053,10 +1053,11 @@ function claro_get_module_name ( $identifier )
             $moduleName = $moduleData['moduleName'];
             return  get_lang($moduleName);
         }
+        else
+        {
+            return get_lang('No tool name') ;
+        }
     }
-*/
-    return get_lang('No tool name') ;
-
 }
 
 /**
