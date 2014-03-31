@@ -65,3 +65,40 @@ function lp_upgrade_to_112 ($course_code)
     
     return false;
 }
+
+function exercises_upgrade_to_112 ($course_code)
+{
+    global $currentCourseVersion;
+
+    $versionRequiredToProceed = '/^1.10/';
+    
+    $tool = 'CLQWZ';
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+    
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    {
+        // On init , $step = 1
+        switch( $step = get_upgrade_status($tool,$course_code) )
+        {
+            case 1 :
+                
+                // Add the attribute sourceCourseId to the course table
+                $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $currentCourseDbNameGlu . "qwz_questions_categories` (
+                    `id` int(11) NOT NULL auto_increment,
+                    `title` varchar(50) NOT NULL,
+                    `description` TEXT,
+                    PRIMARY KEY (`id`)
+                    ) ENGINE=MyISAM COMMENT='Record the categories of questions';";
+                
+                $step = set_upgrade_status( $tool, $step+1, $course_code);
+
+
+            default :
+                
+                $step = set_upgrade_status($tool, 0);
+                return $step;
+        }
+    }
+    
+    return false;
+}
