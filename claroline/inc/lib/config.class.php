@@ -118,6 +118,16 @@ class Config
             return false;
         }
     }
+    
+    /**
+     * Is the definition file loaded for this configuration ?
+     * @return boolean
+     * @since Claroline 1.12
+     */
+    public function is_def_loaded()
+    {
+        return $this->def_loaded == true;
+    }
 
     /**
      * Initialise property list : get default values in definition file and overwrite then with values in configuration file

@@ -121,7 +121,7 @@ function claro_get_conf_def_file($configCode)
 function generate_conf(&$config,$properties = null)
 {
     // load configuration if not loaded before
-    if ( !$config->def_loaded )
+    if ( !$config->is_def_loaded() )
     {
         if ( !$config->load() )
         {
