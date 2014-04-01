@@ -811,7 +811,7 @@ if ($typeReq == 'applet')
 {
     $out .= '<th>' . get_lang('Display')             . '</th>' . "\n";
 }
-else
+elseif ( $module['type'] == 'tool' )
 {
     $out .= '<th colspan="2">' . get_lang('Order')       . '</th>' . "\n";
 }
@@ -895,7 +895,7 @@ foreach($moduleList as $module)
 
         $out .= '</small></td>' . "\n";
     }
-    else
+    elseif ( $module['type'] == 'tool' )
     {
         // Up command
         if (isset( $module[ 'rank' ] ) && $course_tool_min_rank != $module [ 'rank' ])
