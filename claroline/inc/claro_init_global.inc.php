@@ -187,6 +187,10 @@ try
     Claroline::initDatabaseProvider();
     
     Claroline::initCoreServices();
+    
+    // Assign the Claroline singleton to a variable for more convenience
+    // for legacy code, it's far better to use Claroline class static methods.
+    $GLOBALS['claroline'] = Claroline::getInstance();
 }
 catch ( Exception $e )
 {
@@ -254,11 +258,7 @@ pushClaroMessage( get_locale('charset') . ':' . Claroline::getDatabase ()->getCh
 pushClaroMessage( Claroline::getDatabase ()->getCharset (),'debug' );
  */
 
-// Initialize the claroline display
 Claroline::initDisplay();
-// Assign the Claroline singleton to a variable for more convenience
-// for legacy code, it's far better to use Claroline class static methods.
-$GLOBALS['claroline'] = Claroline::getInstance();
 
 /*===========================================================================
                      Load configuration files
