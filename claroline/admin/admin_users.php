@@ -359,13 +359,33 @@ foreach ($userList as $userKey => $user)
     .                                   '</a>' . "\n"
     ;
     
-    $userGrid[$userKey]['delete'] = '<a href="' . claro_htmlspecialchars($_SERVER['PHP_SELF']
-    .                               '?cmd=exDelete&user_id=' . $user['user_id']
-    .                               '&offset=' . $offset . $addToURL) . '" '
-    .                               'onclick="return ADMIN.confirmationDel(\''.clean_str_for_javascript($user['firstname'].' ' . $user['name'] .' (' . $user['user_id']).')\');">' . "\n"
-    .                               '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
-    .                               '</a> '."\n"
-    ;
+    $sort = '';
+    if (isset($_REQUEST['sort']))
+    {
+        $sort = '&sort='. $_REQUEST['sort']. '&dir='.$_REQUEST['dir'];
+    }
+    
+    if ($sort == '')
+    {
+        $userGrid[$userKey]['delete'] = '<a href="' . claro_htmlspecialchars($_SERVER['PHP_SELF']
+        .                               '?cmd=exDelete&user_id=' . $user['user_id']
+        .                               '&offset=' . $offset . $addToURL) . '" '
+        .                               'onclick="return ADMIN.confirmationDel(\''.clean_str_for_javascript($user['firstname'].' ' . $user['name'] .' (' . $user['user_id']).')\');">' . "\n"
+        .                               '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
+        .                               '</a> '."\n"
+        ;
+    }
+    else 
+    {
+        $userGrid[$userKey]['delete'] = '<a href="' . claro_htmlspecialchars($_SERVER['PHP_SELF']
+        .                               '?cmd=exDelete&user_id=' . $user['user_id']
+        .                               $sort
+        .                               '&offset=' . $offset . $addToURL) . '" '
+        .                               'onclick="return ADMIN.confirmationDel(\''.clean_str_for_javascript($user['firstname'].' ' . $user['name'] .' (' . $user['user_id']).')\');">' . "\n"
+        .                               '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
+        .                               '</a> '."\n"
+        ;     
+    }
 
     if (! $user['isPlatformAdmin'])
     {
