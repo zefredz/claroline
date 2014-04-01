@@ -40,7 +40,14 @@ if ( isset($_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'run' )
     $modules = claro_sql_query_fetch_all( "SELECT label, id, name FROM `{$tbl_module}`" );
     
     $deactivatedModules = array();
-    $readOnlyModules = array( 'CLDOC', 'CLGRP', 'CLUSR' );
+    $readOnlyModules = array(
+        'CLDOC',
+        'CLGRP',
+        'CLUSR',
+        'CLFRM',
+        'CLLNP'
+    );
+    
     $version = '';
     
     foreach ( $modules as $module )
