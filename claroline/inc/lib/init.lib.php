@@ -134,7 +134,7 @@ function claro_get_current_tool_id()
  */
 function get_current_module_label()
 {
-    return Claroline::getInstance()['moduleLabelStack']->currentModuleLabel();
+    return $GLOBALS['claroline']['moduleLabelStack']->currentModuleLabel();
 }
 
 /**
@@ -148,7 +148,7 @@ function set_current_module_label( $label )
 {
     $old = get_current_module_label();
     
-    Claroline::getInstance()['moduleLabelStack']->pushModuleLabel( $label );
+    $GLOBALS['claroline']['moduleLabelStack']->pushModuleLabel( $label );
     
     return $old;
 }
@@ -161,7 +161,7 @@ function set_current_module_label( $label )
  */
 function clear_current_module_label()
 {
-    return Claroline::getInstance()['moduleLabelStack']->popModuleLabel();
+    return $GLOBALS['claroline']['moduleLabelStack']->popModuleLabel();
 }
 
 /**

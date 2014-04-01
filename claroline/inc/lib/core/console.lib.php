@@ -130,16 +130,16 @@ class Console
             
             pushClaroMessage( $message . '<blockquote>' . nl2br(  $printDebugBacktrace ).'</blockquote>', $type );
             
-            if ( $mustLogMessageInDatabase ) Claroline::getInstance()['logger']->log( $type, $message . "\n--\n" . $printDebugBacktrace );
+            if ( $mustLogMessageInDatabase ) $GLOBALS['claroline']['logger']->log( $type, $message . "\n--\n" . $printDebugBacktrace );
         }
         else
         {
-            if ( $mustLogMessageInDatabase ) Claroline::getInstance()['logger']->log( $type, $message );
+            if ( $mustLogMessageInDatabase ) $GLOBALS['claroline']['logger']->log( $type, $message );
         } */
 
         
         if ( claro_debug_mode () ) pushClaroMessage( $message, $type );
         
-        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= $logLevel ) Claroline::getInstance()['logger']->log( $type, $message );
+        if ( get_conf( 'log_report_level', self::REPORT_LEVEL_ALL ) >= $logLevel ) $GLOBALS['claroline']['logger']->log( $type, $message );
     }
 }
