@@ -173,7 +173,7 @@ function delete_class($class_id)
         {
             foreach ($courseList as $course)
             {
-                user_remove_from_course($user['user_id'], $course['code'], false , true);
+                user_remove_from_course($user['user_id'], $course['code'], false , $class_id);
             }
         }
 

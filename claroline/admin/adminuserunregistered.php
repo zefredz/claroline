@@ -42,7 +42,7 @@ if ( isset($_REQUEST['cmd'] ) && claro_is_platform_admin() )
 {
     if ( $_REQUEST['cmd'] == 'UnReg' )
     {
-        if ( user_remove_from_course($user_id, $_REQUEST['cidToEdit'],true, false) )
+        if ( user_remove_from_course($user_id, $_REQUEST['cidToEdit'],true, null) )
         {
             $dialogBox->success( get_lang('The user has been successfully unregistered') );
         }

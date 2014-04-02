@@ -65,7 +65,7 @@ if ( 'rqRmAll' == $cmd)
     $ok = true;
     foreach ($courseList as $course)
     {
-        if ( !user_remove_from_course($uidToEdit,$course['sysCode'],true,false) )
+        if ( !user_remove_from_course($uidToEdit,$course['sysCode'],true,null) )
         {
             $ok = false;
             $dialogBox->error( get_lang('The user has not been successfully unregistered for course '. $course['sysCode']) );
@@ -80,7 +80,7 @@ if ( 'rqRmAll' == $cmd)
 // Execute command
 if ('rem_user' == $do )
 {
-    if ( user_remove_from_course($uidToEdit,$courseId,true,false) )
+    if ( user_remove_from_course($uidToEdit,$courseId,true,null) )
     {
         $dialogBox->success( get_lang('The user has been successfully unregistered') );
     }

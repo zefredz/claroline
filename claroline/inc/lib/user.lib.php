@@ -347,7 +347,7 @@ function user_delete($userId)
     $courseList = claro_sql_query_fetch_all_cols($sql);
 
     $log = array();
-    if ( user_remove_from_course($userId, $courseList['code'], true, true ) == false ) return false;
+    if ( user_remove_from_course($userId, $courseList['code'], true, null ) == false ) return false;
     else
     {
         foreach ($courseList['code'] as $k=>$courseCode) $log['course_' . $k] = $courseCode;
