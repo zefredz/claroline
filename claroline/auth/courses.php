@@ -79,10 +79,19 @@ Define user we are working with and build enroll URL
 // URL parameters for the navigation
 $urlParamList = array();
 
+// newLink for navigation
+$newLink = '';
+
 if ( !empty($categoryId) )
 {
     $urlParamList['categoryId'] = $categoryId;
 }
+
+ if (isset($_REQUEST['coursesearchbox_keyword']))
+{
+    $urlParamList['coursesearchbox_keyword'] = $_REQUEST['coursesearchbox_keyword'];
+}
+
 
 if ( claro_is_platform_admin() )
 {
@@ -230,6 +239,9 @@ if ( $cmd == 'exUnreg' )
     {
         $claroline->log('COURSE_UNSUBSCRIBE', array('user'=>$userId,'course'=>$courseCode));
         $dialogBox->success( get_lang('Your enrolment on the course has been removed') );
+        $newLink = '<p><a class="backLink" href="'.$_SERVER['PHP_SELF'].'?cmd=rqUnreg'.$url.'">'. 
+                    get_lang('Remove course enrolment') .'</a></p>';
+
     }
     else
     {
@@ -299,6 +311,14 @@ if ( $cmd == 'exReg' )
         else
         {
             $dialogBox->success( get_lang('You\'ve been enroled on the course') );
+            $url = '';
+            foreach ($urlParamList as $key=>$info)
+            {
+                $url .= '&'.$key.'='.$info;
+            }
+            $newLink = '<p><a class="backLink" href="'.$_SERVER['PHP_SELF'].'?cmd=rqReg'.$url.'">'. 
+                    get_lang('Enrol on a new course') .'</a></p>';
+      
         }
         
         $properties = array();
@@ -443,7 +463,6 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
    Display Section
   =====================================================================*/
 
-$newLink = '';
 // Set the back link
 if ( $cmd == 'rqReg' && ( !empty($categoryId) || !empty($parentCategoryId) ) )
 {
