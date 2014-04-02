@@ -1567,8 +1567,12 @@ function delete_forum($forum_id)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_forum_forums     = $tbl_cdb_names['bb_forums'];
+    $tbl_forum_notify     = $tbl_cdb_names['bb_rel_forum_userstonotify'];
 
     delete_all_post_in_forum($forum_id);
+    $sql = "DELETE FROM `" . $tbl_forum_notify . "`
+            WHERE `forum_id` = " . (int) $forum_id ;
+    Claroline::getDatabase()->exec( $sql );
 
 
     $sql = "DELETE FROM `" . $tbl_forum_forums . "`
@@ -1860,6 +1864,17 @@ function get_forum_list()
 
      return claro_sql_query_fetch_all($sql);
 }
+function get_topic_count( $forum_id )
+{
+     $tbl_cdb_names = claro_sql_get_course_tbl();
+     $tbl_topics = $tbl_cdb_names['bb_topics' ];
+     
+     return Claroline::getDatabase()->query( 
+             "SELECT `topic_id` 
+                FROM " . $tbl_topics . " 
+               WHERE `forum_id` = " . (int)$forum_id 
+             )->numRows();
+} 
 
 /**
  * Returns the list of posts within a topic
