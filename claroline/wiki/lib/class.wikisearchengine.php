@@ -273,7 +273,7 @@ class WikiSearchEngine
 
         foreach ( $keywords as $keyword )
         {
-            $searchTitleArr[] = $groupstr." AND (w.`title` LIKE '%".$this->escape(keyword)."%' "
+            $searchTitleArr[] = $groupstr." AND (w.`title` LIKE '%".$this->con->escape(keyword)."%' "
                 . "OR w.`description` LIKE '%".$this->con->escape($keyword)."%') "
                 ;
         }
