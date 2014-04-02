@@ -138,7 +138,7 @@ class csvUserList extends CsvRecordlistExporter
                WHERE `U`.`user_id` = `CU`.`user_id`
                AND   `CU`.`code_cours`= '" . claro_sql_escape($this->course_id) . "'
                GROUP BY U.`user_id`
-               ORDER BY U.`user_id`";
+		      ORDER BY `lastname`";
 
         $userList = claro_sql_query_fetch_all($sql);
 
@@ -147,6 +147,7 @@ class csvUserList extends CsvRecordlistExporter
         {
             // add titles at row 0, for that get the keys of the first row of array
             $this->recordList[0] = array_keys($userList[0]);
+            $this->recordList[0][0] = 'id';
 
             $i = 1;
 
