@@ -65,7 +65,8 @@ if ( get_conf('is_trackingEnabled') )
     $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
           FROM `".$tbl_user."` AS U, `".$tbl_rel_course_user."`     AS CU
           WHERE U.`user_id`= CU.`user_id`
-           AND CU.`code_cours` = '". claro_sql_escape(claro_get_current_course_id()) ."'";
+           AND CU.`code_cours` = '". claro_sql_escape(claro_get_current_course_id()) ."' 
+               ORDER BY `nom`, `prenom`";
     $usersList = claro_sql_query_fetch_all($sql);
     
     // display tab header

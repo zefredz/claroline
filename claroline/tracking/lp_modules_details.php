@@ -170,6 +170,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
         if( $module['scoreMax'] > 0 )
         {
             $progress = @round($module['raw']/$module['scoreMax']*100);
+            $progress = min($progress, 100);
         }
         else
         {

@@ -152,7 +152,8 @@ if ( get_conf('is_trackingEnabled') )
                     FROM `".$TABLEUSER."` AS U,
                          `".$TABLECOURSUSER."` AS CU
                     WHERE U.`user_id`= CU.`user_id`
-                    AND CU.`code_cours` = '". claro_sql_escape(claro_get_current_course_id()) ."'";
+                    AND CU.`code_cours` = '". claro_sql_escape(claro_get_current_course_id()) ."'  
+                        ORDER BY `nom`, `prenom`";
 
             $usersList = claro_sql_query_fetch_all($sql);
     
