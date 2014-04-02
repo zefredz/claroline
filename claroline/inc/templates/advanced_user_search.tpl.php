@@ -49,7 +49,7 @@
   </tr>
   <tr>
     <td align="right">
-      <label for="action"><?php echo get_lang('Action') ?></label> : <br />
+      <label for="action"><?php echo get_lang('Role') ?></label> : <br />
     </td>
     <td>
       <?php
