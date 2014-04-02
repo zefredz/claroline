@@ -62,6 +62,7 @@ try
     $userInput->setValidator( 'forum', new Claro_Validator_ValueType( 'numeric' ) );
     $userInput->setValidator( 'forum', new Claro_Validator_NotEmpty() );
     $userInput->setValidator( 'start', new Claro_Validator_ValueType( 'numeric' ) );
+    $userInput->setValidator( 'viewall', new Claro_Validator_ValueType( 'numeric' ) );
 
     //collect user input
     $cmd = $userInput->get( 'cmd', 'show' );
@@ -88,6 +89,7 @@ try
     }
     
     $start = $userInput->get( 'start', 0 );
+    $viewall = $userInput->get( 'viewall', 0 );
     //TODO notification commands should be handled by ajax calls
     if( !in_array( $cmd, array( 'exNotify', 'exdoNotNotify', 'show' ) ) )
     {
@@ -286,6 +288,17 @@ else
     $cmdList = array();
 }
 
+if( !$viewall )
+{
+    $viewallUrl = claro_htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+                . '?forum=' . $forumId
+                . '&amp;viewall=1' ) );
+    $cmdList[] = array( 
+        'name' => get_lang( 'Full review' ),
+        'url' => $viewallUrl
+        );
+}
+
 $out .= claro_html_tool_title( get_lang( 'Forums' ), $is_allowedToEdit ? get_help_page_url('blockForumsHelp','CLFRM') : false, $cmdList );
 
 if( !$viewAllowed )
@@ -315,8 +328,15 @@ else
     $out .= disp_forum_breadcrumb( $pagetype, $forumId, $forum_name );
     
     $out .= $dialogBox->render();
-    
-    $topicLister = new topicLister($forumId, $start, get_conf( 'topics_per_page' ) );
+
+    if( !$viewall )
+    {    
+        $topicLister = new topicLister($forumId, $start, get_conf( 'topics_per_page' ) );
+    }
+    else
+    {
+        $topicLister = new topicLister($forumId, $start, get_topic_count( $forumId ) );
+    }
     $topicList   = $topicLister->get_topic_list();
     $pagerUrl = claro_htmlspecialchars( Url::Contextualize( get_module_url( 'CLFRM' ) . '/viewforum.php?forum=' . $forumId ) );
     
