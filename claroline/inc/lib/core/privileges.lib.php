@@ -97,7 +97,7 @@ class Claro_UserPrivileges
      */
     public function getGroupPrivileges( $course, $group )
     {
-        return $this->getUserCoursePrivilege( $course )
+        return $this->getCoursePrivileges( $course )
             ->getGroupPrivileges( $group );
     }
     
@@ -197,6 +197,7 @@ class Claro_CourseUserPrivileges
         $this->database = $database ? $database : Claroline::getDatabase();
         
         $this->courseId = $course->courseId;
+        
         $this->userId = $userPrivileges->getUserId();
         
         $this->userPrivileges = $userPrivileges;
@@ -230,7 +231,7 @@ class Claro_CourseUserPrivileges
         $course_user_privilege = array();
         
         if ( $this->userPrivileges->isAuthenticated() )
-        {
+        {            
             $tbl_mdb_names = claro_sql_get_main_tbl();
             $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
@@ -257,7 +258,7 @@ class Claro_CourseUserPrivileges
                 $course_user_privilege['is_registeredByClass'] = ((int)$cuData['count_class_enrol'] > 0);
             }
             else // this user has no status related to this course
-            {
+            {                
                 $course_user_privilege['_profileId'] = claro_get_profile_id('guest');
 
                 $course_user_privilege['is_courseMember']   = false;
@@ -268,7 +269,7 @@ class Claro_CourseUserPrivileges
             }
         }
         else // the user is anonymous
-        {
+        {      
             $course_user_privilege['_profileId'] = claro_get_profile_id('anonymous');
             
             $course_user_privilege['is_courseMember']   = false;
@@ -277,7 +278,7 @@ class Claro_CourseUserPrivileges
             $course_user_privilege['is_courseTutor']    = false;
             $course_user_privilege['is_registeredByClass'] = false;
         }
-
+        
         return $course_user_privilege;
     }
     
@@ -524,7 +525,7 @@ class Claro_GroupUserPrivileges
     public function isGroupTutor()
     {
         return $this->userPrivileges->isAuthenticated() 
-            && $this->groupProperties['tutorId'] == $this->userPrivileges->getUserId()
+            && (! empty($this->group->getTutor()) && $this->group->getTutor()->userId == $this->userPrivileges->getUserId())
             ;
     }
     
@@ -548,6 +549,7 @@ class Claro_GroupUserPrivileges
     {
         return $this->coursePrivileges->isSuperUser() 
             || $this->isGroupTutor()
+            || $this->coursePrivileges->getCourseUserProfile()->profileAllowsToEdit( new Claro_Module('CLGRP')  )
             ;
     }
 }
@@ -746,5 +748,118 @@ class Claro_CourseUserPrivilegesList
         $it = new Claro_CourseUserPrivilegesIterator( $this->userId, $this->coursePrivilegesList );
         
         return $it;
+    }
+}
+
+/**
+ * This class is currently a wrapper for the procedural API
+ */
+class Claro_Module
+{
+    protected
+        $moduleLabel, 
+        $mainToolId,
+        $moduleData,
+        $moduleContexts;
+    
+    /**
+     * Represents a module
+     * @param string $moduleLabel
+     */
+    public function __construct( $moduleLabel )
+    {
+        $this->moduleLabel = $moduleLabel;
+        $this->loadModuleData();
+    }
+    
+    /**
+     * Load the module data
+     */
+    protected function loadModuleData()
+    {
+        $this->mainToolId = get_tool_id_from_module_label( $this->moduleLabel );
+        $this->moduleData = get_module_data( $this->moduleLabel );
+        $this->moduleContexts = iterator_to_array( get_module_context_list( $this->moduleLabel ) );
+    }
+    
+    /**
+     * Get the label of the module
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->moduleLabel;
+    }
+    
+    /**
+     * Get module dataarray or value for the given dataName
+     * @param string $dataName optionnal wanted variable name
+     * @return mixed
+     */
+    public function getData( $dataName = null )
+    {
+        if ( $dataName )
+        {
+            if ( isset ( $this->moduleData[$dataName] ) )
+            {
+                return $this->moduleData[$dataName];
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            return $this->moduleData;
+        }
+    }
+    
+    /**
+     * Get the contexts in which the module can be executed
+     * @return array of contexts (a context is represented by a string)
+     */
+    public function getContexts()
+    {
+        return $this->moduleContexts;
+    }
+    
+    /**
+     * Check if the module can be executed in the given context
+     * @param string $contextName
+     * @return bool
+     */
+    public function hasContext( $contextName )
+    {
+        return in_array ( $contextName, $this->moduleContexts );
+    }
+    
+    /**
+     * Get the tool id corresponding to the module in the main tool list 
+     * (i.e. the id used at the platform level, not the one that appears in 
+     * the course tool list)
+     * @return int
+     */
+    public function getMainToolId()
+    {
+        return $this->mainToolId;
+    }
+    
+    /**
+     * Check if the module is activated at the platform level
+     * @return bool
+     */
+    public function isActivated()
+    {
+        return $this->getData('activation') == 'activated';
+    }
+    
+    /**
+     * Get the type of the module (tool, applet, admin...)
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->getData('type');
     }
 }
