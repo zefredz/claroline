@@ -116,6 +116,7 @@ function claro_get_course_data($courseId = NULL, $force = false )
             // Get course datas
             $sql =  "SELECT
                     c.cours_id              AS id,
+                    c.code                  AS courseId,
                     c.code                  AS sysCode,
                     c.isSourceCourse        AS isSourceCourse,
                     c.sourceCourseId        AS sourceCourseId,
