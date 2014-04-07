@@ -4,10 +4,10 @@
 
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
-$claroline->notification->addListener( 'exercise_visible',      'modificationDefault' );
-$claroline->notification->addListener( 'exercise_invisible',    'modificationDelete' );
-$claroline->notification->addListener( 'exercise_deleted',      'modificationDelete' );
+$GLOBALS['claroline']->notification->addListener( 'exercise_visible',      'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'exercise_invisible',    'modificationDelete' );
+$GLOBALS['claroline']->notification->addListener( 'exercise_deleted',      'modificationDelete' );
 
-$claroline->notification->addListener( 'exercise_added',        'calendarAddEvent' );
-$claroline->notification->addListener( 'exercise_deleted',      'calendarDeleteEvent' );
-$claroline->notification->addListener( 'exercise_updated',      'calendarUpdateEvent' );
+$GLOBALS['claroline']->notification->addListener( 'exercise_added',        'calendarAddEvent' );
+$GLOBALS['claroline']->notification->addListener( 'exercise_deleted',      'calendarDeleteEvent' );
+$GLOBALS['claroline']->notification->addListener( 'exercise_updated',      'calendarUpdateEvent' );

@@ -358,6 +358,6 @@ $out .= $display->render();
 //-- pager
 $out .= $myPager->disp_pager_tool_bar($pagerUrl);
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

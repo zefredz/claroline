@@ -343,7 +343,7 @@ if ($displayResultUserSearch)
                 }
             }
             </script>';
-        $claroline->display->header->addHtmlHeader($javascriptDelete);
+        $GLOBALS['claroline']->display->header->addHtmlHeader($javascriptDelete);
  
         foreach ($userList as $user)
         {
@@ -411,7 +411,7 @@ if ($displayRemoveOlderThanConfirmation)
                     $("#dateinput").datepicker({dateFormat: \'dd/mm/yy\'});
                 });
             </script>';
-        $claroline->display->header->addHtmlHeader($javascript);
+        $GLOBALS['claroline']->display->header->addHtmlHeader($javascript);
             
         $disp = get_lang('Choose a date')
                 .' :<br />'
@@ -438,7 +438,7 @@ if ($displayRemoveOlderThanConfirmation)
                 window.location=\'admin.php\';
             }
             </script>';
-        $claroline->display->header->addHtmlHeader($javascriptDelete);
+        $GLOBALS['claroline']->display->header->addHtmlHeader($javascriptDelete);
         
         $dialogBox = new DialogBox();
         $dialogBox->setBoxType('question');
@@ -489,14 +489,14 @@ if ($displayRemovePlatformMessageValidated)
 // ------------- end platform message
 
 // ------------------- render ----------------------------
-$claroline->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
-$claroline->display->banner->breadcrumbs->append(get_lang('Internal messaging'),'admin.php');
-$claroline->display->banner->breadcrumbs->append(get_lang('Delete'),'admin_delete.php?cmd='.addslashes($_REQUEST['cmd']));
+$GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
+$GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('Internal messaging'),'admin.php');
+$GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('Delete'),'admin_delete.php?cmd='.addslashes($_REQUEST['cmd']));
 
 $title['mainTitle'] = get_lang('Internal messaging') . ' - ' . get_lang('Delete');
 $title['subTitle'] = $subTitle;
-$claroline->display->body->appendContent(claro_html_tool_title($title));
+$GLOBALS['claroline']->display->body->appendContent(claro_html_tool_title($title));
 
-$claroline->display->body->appendContent($content);
+$GLOBALS['claroline']->display->body->appendContent($content);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

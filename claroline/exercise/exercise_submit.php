@@ -61,7 +61,7 @@ if( $inOldLP )
     $tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
     $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
 
-    $claroline->setDisplayType(Claroline::FRAME);
+    $GLOBALS['claroline']->setDisplayType(Claroline::FRAME);
 }
 
 // Command list
@@ -120,9 +120,9 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
 
             $content = $dialogBox->render();
 
-            $claroline->display->body->appendContent($content);
+            $GLOBALS['claroline']->display->body->appendContent($content);
 
-            echo $claroline->display->render();
+            echo $GLOBALS['claroline']->display->render();
             //header("Location: ./exercise.php");
             exit();
         }
@@ -536,7 +536,7 @@ if( $inLP )
 
     if( !empty($jsForLP) )
     {
-        $claroline->display->header->addInlineJavascript($jsForLP);
+        $GLOBALS['claroline']->display->header->addInlineJavascript($jsForLP);
     }
 }
 
@@ -991,7 +991,7 @@ $htmlHeaders = "\n".'
     }
 </script>' . "\n\n";
 
-$claroline->display->header->addHtmlHeader($htmlHeaders);
+$GLOBALS['claroline']->display->header->addHtmlHeader($htmlHeaders);
 
 //-- title
 $content = '';
@@ -1009,6 +1009,6 @@ $content .= $dialogBox->render();
 
 $content .= $out;
 
-$claroline->display->body->appendContent($content);
+$GLOBALS['claroline']->display->body->appendContent($content);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

@@ -53,7 +53,7 @@ switch( $help )
 
 $hide_footer = true;
 
-$claroline->setDisplayType(Claroline::POPUP);
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->setDisplayType(Claroline::POPUP);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

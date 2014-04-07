@@ -409,7 +409,7 @@ $GLOBALS['claro_notifier'] = $GLOBALS['claroline']['notification'];
 // Register listener in the event manager for the NOTIFICATION system :
 // EXAMPLE :
 //
-//  $claroline->notification->addListener( 'document_visible', 'update' );
+//  $GLOBALS['claroline']->notification->addListener( 'document_visible', 'update' );
 //
 // 'document_visible' is the name of the event that you want to track
 // 'update' is the name of the function called in the listener class when the event happens

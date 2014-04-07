@@ -130,6 +130,6 @@ else
     $out .= get_lang('Tracking has been disabled by system administrator.');
 }
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

@@ -69,11 +69,11 @@ $content .=
         .'</ul>'."\n"
         ;
 
-$claroline->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
-$claroline->display->banner->breadcrumbs->append(get_lang('Internal messaging'),'admin.php');
+$GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
+$GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('Internal messaging'),'admin.php');
 
 
-$claroline->display->body->appendContent(claro_html_tool_title(get_lang('Administration')));
-$claroline->display->body->appendContent($content);
+$GLOBALS['claroline']->display->body->appendContent(claro_html_tool_title(get_lang('Administration')));
+$GLOBALS['claroline']->display->body->appendContent($content);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

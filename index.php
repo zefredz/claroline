@@ -143,11 +143,11 @@ if (get_conf('display_former_homepage', false) || !claro_is_user_authenticated()
     
     
     // Render
-    $claroline->display->body->setContent($template->render());
+    $GLOBALS['claroline']->display->body->setContent($template->render());
     
     if (!(isset($_REQUEST['logout']) && isset($_SESSION['isVirtualUser'])))
     {
-        echo $claroline->display->render();
+        echo $GLOBALS['claroline']->display->render();
     }
 }
 else
@@ -183,4 +183,4 @@ if (isset($_REQUEST['logout']))
 }
 
 // Hide breadcrumbs and view mode on platform home page
-// $claroline->display->banner->hideBreadcrumbLine();
+// $GLOBALS['claroline']->display->banner->hideBreadcrumbLine();

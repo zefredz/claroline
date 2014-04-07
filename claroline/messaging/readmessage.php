@@ -196,7 +196,7 @@ if ($type == "received")
                 }
             }
             </script>';
-            $claroline->display->header->addHtmlHeader($javascriptDelete);
+            $GLOBALS['claroline']->display->header->addHtmlHeader($javascriptDelete);
             
             $action[] = ' <a href="'.$_SERVER['PHP_SELF'].'?cmd=rqDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'"
              onclick="return deleteMessage(\''.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'\')">'
@@ -221,23 +221,23 @@ if ($type == "received")
 {
     if ($message->isDeleted())
     {
-        $claroline->display->banner->breadcrumbs->append(get_lang('My messages'),'./messagebox.php?box=trashbox&amp;userId='.$userId);
+        $GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('My messages'),'./messagebox.php?box=trashbox&amp;userId='.$userId);
     }
     else
     {
-        $claroline->display->banner->breadcrumbs->append(get_lang('My messages'),'./messagebox.php?box=inbox&amp;userId='.$userId);
+        $GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('My messages'),'./messagebox.php?box=inbox&amp;userId='.$userId);
     }
 }
 else
 {
-    $claroline->display->banner->breadcrumbs->append(get_lang('My messages'),'./messagebox.php?box=outbox&amp;userId='.$userId);
+    $GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('My messages'),'./messagebox.php?box=outbox&amp;userId='.$userId);
 }
 
-$claroline->display->banner->breadcrumbs->append(get_lang('Message'));
-$claroline->display->body->appendContent(claro_html_tool_title(get_lang('Message')));
-$claroline->display->body->appendContent(getBarMessageBox($userId, $currentSection ));
-$claroline->display->body->appendContent($content);
+$GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('Message'));
+$GLOBALS['claroline']->display->body->appendContent(claro_html_tool_title(get_lang('Message')));
+$GLOBALS['claroline']->display->body->appendContent(getBarMessageBox($userId, $currentSection ));
+$GLOBALS['claroline']->display->body->appendContent($content);
 
 // ------------- Display page -----------------------------
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();
 // ------------- End of script ----------------------------

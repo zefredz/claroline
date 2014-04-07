@@ -548,7 +548,7 @@ if( $topicSettingList )
     {
         increase_topic_view_count( $topicId );
         $claro_notifier->is_a_notified_ressource( claro_get_current_course_id(), $claro_notifier->get_notification_date( claro_get_current_user_id() ), claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forumId . "-" . $topicId );
-        //$claroline->notifier->event( 'forum_read_topic', array( 'data' => array( 'topic_id' => $topicId ) ) );
+        //$GLOBALS['claroline']->notifier->event( 'forum_read_topic', array( 'data' => array( 'topic_id' => $topicId ) ) );
     }
     
     if( $is_postAllowed )
@@ -630,6 +630,6 @@ $out = claro_html_tool_title( $nameTools, $is_allowedToEdit ? get_help_page_url(
 
 ClaroBreadCrumbs::getInstance()->setCurrent( get_lang( 'Forums' ), 'index.php' );
 
-$claroline->display->body->appendContent( $out );
+$GLOBALS['claroline']->display->body->appendContent( $out );
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

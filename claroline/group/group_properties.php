@@ -37,7 +37,7 @@ $_groupProperties = claro_get_main_group_properties(claro_get_current_course_id(
 // session_register('_groupProperties');
 $_SESSION['_groupProperties'] =& $_groupProperties;
 
-$claroline->display->body->appendContent( claro_html_tool_title(
+$GLOBALS['claroline']->display->body->appendContent( claro_html_tool_title(
     array(
         'supraTitle' => get_lang("Groups"),
         'mainTitle' => $nameTools
@@ -62,6 +62,6 @@ $tpl->assign( 'tutorRegistrationAllowedInGroup',
 $tpl->assign( 'groupPrivate', $_groupProperties ['private'] );
 $tpl->assign( 'tools', $_groupProperties ['tools'] );
 
-$claroline->display->body->appendContent($tpl->render());
+$GLOBALS['claroline']->display->body->appendContent($tpl->render());
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

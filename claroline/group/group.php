@@ -160,7 +160,7 @@ if ( $is_allowedToManage )
 
         $dialogBox->success( get_lang("%groupQty group(s) has (have) been added", array('%groupQty' => count($groupCreatedList))) );
 
-        $claroline->log( 'GROUPMANAGING' , array ('CREATE_GROUP' => $groupQuantity) );
+        $GLOBALS['claroline']['logger']->log( 'GROUPMANAGING' , array ('CREATE_GROUP' => $groupQuantity) );
 
     }    // end if $submit
 
@@ -226,7 +226,7 @@ if ( $is_allowedToManage )
 
             if ($nbGroupDeleted > 0) $message = get_lang("All groups have been deleted");
             else                     $message = get_lang("No group deleted");
-            $claroline->log('GROUPMANAGING',array ('DELETE_GROUP' => $nbGroupDeleted));
+            $GLOBALS['claroline']['logger']->log('GROUPMANAGING',array ('DELETE_GROUP' => $nbGroupDeleted));
 
         }
         elseif(0 < (int)$_REQUEST['id'])
@@ -257,7 +257,7 @@ if ( $is_allowedToManage )
 
         if (empty_group())
         {
-            $claroline->log('GROUPMANAGING',array ('EMPTY_GROUP' => TRUE));
+            $GLOBALS['claroline']['logger']->log('GROUPMANAGING',array ('EMPTY_GROUP' => TRUE));
             $dialogBox->success( get_lang("All groups are now empty") );
         }
         else
@@ -275,7 +275,7 @@ if ( $is_allowedToManage )
     elseif ( 'exFillGroup' == $cmd  )
     {
         fill_in_groups($nbGroupPerUser, claro_get_current_course_id());
-        $claroline->log('GROUPMANAGING',array ('FILL_GROUP' => TRUE));
+        $GLOBALS['claroline']['logger']->log('GROUPMANAGING',array ('FILL_GROUP' => TRUE));
 
         $dialogBox->success( get_lang("Groups have been filled (or completed) by students present in the 'Users' list.") );
 
@@ -375,7 +375,7 @@ if ( $is_allowedToManage )
 
         $dialogBox->success( get_lang("Group settings have been modified") );
         
-        $claroline->log('GROUPMANAGING',array ('CONFIG_GROUP' => TRUE));
+        $GLOBALS['claroline']['logger']->log('GROUPMANAGING',array ('CONFIG_GROUP' => TRUE));
 
         $cidReset = TRUE;
         $cidReq   = claro_get_current_course_id();
@@ -884,6 +884,6 @@ $out .= '</tbody>' . "\n"
 . '</table>' . "\n"
 ;
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

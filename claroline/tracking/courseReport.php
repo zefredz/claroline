@@ -52,7 +52,7 @@ CssLoader::getInstance()->load( 'tracking', 'screen');
 JavascriptLoader::getInstance()->load('tracking');
 
 // initialize output
-$claroline->setDisplayType( Claroline::PAGE );
+$GLOBALS['claroline']->setDisplayType( Claroline::PAGE );
 
 $nameTools = get_lang('Statistics');
 
@@ -89,6 +89,6 @@ foreach( $courseTrackingRendererList as $ctr )
 /*
  * Output rendering
  */
-$claroline->display->body->setContent($html);
+$GLOBALS['claroline']->display->body->setContent($html);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

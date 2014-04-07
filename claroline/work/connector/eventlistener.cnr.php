@@ -7,14 +7,14 @@ if ( count( get_included_files() ) == 1 )
     die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
 }
 
-$claroline->notification->addListener( 'work_added',                'modificationDefault' );
-$claroline->notification->addListener( 'work_visible',              'modificationDefault' );
-$claroline->notification->addListener( 'work_invisible',            'modificationDelete' );
-$claroline->notification->addListener( 'work_deleted',              'modificationDelete' );
-$claroline->notification->addListener( 'work_submission_posted',    'modificationDefault' );
-$claroline->notification->addListener( 'work_correction_posted',    'modificationDefault' );
-$claroline->notification->addListener( 'work_feedback_posted',      'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'work_added',                'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'work_visible',              'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'work_invisible',            'modificationDelete' );
+$GLOBALS['claroline']->notification->addListener( 'work_deleted',              'modificationDelete' );
+$GLOBALS['claroline']->notification->addListener( 'work_submission_posted',    'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'work_correction_posted',    'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'work_feedback_posted',      'modificationDefault' );
 
-$claroline->notification->addListener( 'work_added',                'calendarAddEvent' );
-$claroline->notification->addListener( 'work_deleted',              'calendarDeleteEvent' );
-$claroline->notification->addListener( 'work_updated',              'calendarUpdateEvent' );
+$GLOBALS['claroline']->notification->addListener( 'work_added',                'calendarAddEvent' );
+$GLOBALS['claroline']->notification->addListener( 'work_deleted',              'calendarDeleteEvent' );
+$GLOBALS['claroline']->notification->addListener( 'work_updated',              'calendarUpdateEvent' );

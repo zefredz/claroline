@@ -12,8 +12,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-$claroline->notification->addListener( 'anouncement_visible',   'modificationDefault' );
-$claroline->notification->addListener( 'anouncement_added',     'modificationDefault' );
-$claroline->notification->addListener( 'anouncement_modified',  'modificationDefault' );
-$claroline->notification->addListener( 'anouncement_deleted',   'modificationDelete' );
-$claroline->notification->addListener( 'anouncement_invisible', 'modificationDelete' );
+$GLOBALS['claroline']->notification->addListener( 'anouncement_visible',   'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'anouncement_added',     'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'anouncement_modified',  'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'anouncement_deleted',   'modificationDelete' );
+$GLOBALS['claroline']->notification->addListener( 'anouncement_invisible', 'modificationDelete' );

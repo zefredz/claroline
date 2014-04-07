@@ -1017,6 +1017,6 @@ $out .= '</tbody>' . "\n"
 //Display BOTTOM Pager list
 if ( $myPager->get_previous_offset() ) $out .= $myPager->disp_pager_tool_bar ( 'module_list.php?typeReq=' . $typeReq ) ;
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

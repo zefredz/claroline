@@ -412,6 +412,6 @@ elseif ( claro_is_user_authenticated () && $moduleNb > 0 )
 }
 $out .= '</table>' . "\n\n";
 
-$claroline->display->body->appendContent ( $out );
+$GLOBALS['claroline']->display->body->appendContent ( $out );
 
-echo $claroline->display->render ();
+echo $GLOBALS['claroline']->display->render ();

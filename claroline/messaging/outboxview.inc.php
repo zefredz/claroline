@@ -46,7 +46,7 @@ $javascriptSearchBox = '
             });
         });
     </script>';
-$claroline->display->header->addHtmlHeader($javascriptSearchBox);
+$GLOBALS['claroline']->display->header->addHtmlHeader($javascriptSearchBox);
 
 $arg_search = makeArgLink($link_arg,array('SelectorReadStatus','SelectorName','SelectorSubject'));
 $linkSearch = $linkPage."?".$arg_search;

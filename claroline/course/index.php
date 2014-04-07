@@ -55,7 +55,7 @@ $portletiterator = new CourseHomePagePortletIterator(ClaroCourse::getIdFromCode(
 if ( file_exists( get_conf('coursesRepositorySys')
         . $_course['path'] . '/css/course.css' ) )
 {
-    $claroline->display->header->addHtmlHeader(
+    $GLOBALS['claroline']->display->header->addHtmlHeader(
         '<link rel="stylesheet" media="screen" type="text/css" href="'
         . get_path('url') . '/' . get_path('coursesRepositoryAppend')
         . $_course['path'] . '/css/course.css" />');
@@ -266,6 +266,6 @@ $template->assign('dialogBox', $dialogBox);
 $template->assign('activablePortlets', $activablePortlets);
 $template->assign('portletIterator', $portletiterator);
 
-$claroline->display->body->setContent($template->render());
+$GLOBALS['claroline']->display->body->setContent($template->render());
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

@@ -199,7 +199,7 @@ else
 if ($displayForm)
 {
 
-    $claroline->display->header->addHtmlHeader( '<script type="text/javascript" language="JavaScript">
+    $GLOBALS['claroline']->display->header->addHtmlHeader( '<script type="text/javascript" language="JavaScript">
         
         <!-- Begin javascript menu swapper
         
@@ -371,9 +371,9 @@ if ($displayForm)
     ;
     
 }
-$claroline->display->body->appendContent(claro_html_tool_title(get_lang('Messages to selected users')));
-$claroline->display->body->appendContent($content);
+$GLOBALS['claroline']->display->body->appendContent(claro_html_tool_title(get_lang('Messages to selected users')));
+$GLOBALS['claroline']->display->body->appendContent($content);
 
 // ------------- Display page -----------------------------
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();
 // ------------- End of script ----------------------------

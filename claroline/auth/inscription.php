@@ -90,7 +90,7 @@ if ( get_conf('allowSelfReg', false) )
                 $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
                 
                 // track user login
-                $claroline->notifier->event( 'user_login', array('data' => array('ip' => $_SERVER['REMOTE_ADDR']) ) );
+                $GLOBALS['claroline']->notifier->event( 'user_login', array('data' => array('ip' => $_SERVER['REMOTE_ADDR']) ) );
                 
                 // last user login date is now
                 $user_last_login_datetime = 0; // used as a unix timestamp it will correspond to : 1 1 1970
@@ -231,6 +231,6 @@ elseif ( DISP_REGISTRATION_FORM == $display )
     $out .= user_html_form();
 }
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

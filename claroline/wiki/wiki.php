@@ -829,6 +829,6 @@ $output .= $out;
 
 // ------------ End of display ---------------
 
-$claroline->display->body->appendContent($output);
+$GLOBALS['claroline']->display->body->appendContent($output);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

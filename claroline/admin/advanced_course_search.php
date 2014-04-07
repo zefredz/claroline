@@ -97,9 +97,9 @@ $tpl->assign('visibility', $visibility);
 
 $out .= $tpl->render();
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();
 
 //NEEDED FUNCTION (to be moved in libraries)
 

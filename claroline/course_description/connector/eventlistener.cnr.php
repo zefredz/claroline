@@ -12,7 +12,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author      Claro Team <cvs@claroline.net>
  */
 
-$claroline->notification->addListener( 'course_description_added',      'modificationDefault' );
-$claroline->notification->addListener( 'course_description_modified',   'modificationDefault' );
-$claroline->notification->addListener( 'course_description_visible',    'modificationDefault' );
-$claroline->notification->addListener( 'course_description_deleted',    'modificationDelete' );
+$GLOBALS['claroline']->notification->addListener( 'course_description_added',      'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'course_description_modified',   'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'course_description_visible',    'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'course_description_deleted',    'modificationDelete' );

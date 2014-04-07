@@ -189,9 +189,9 @@ if ($cmd == 'run' || $inProgress)
             $template->assign('stats', $stats);
             $template->assign('formAction', $_SERVER['PHP_SELF']);
             
-            $claroline->display->body->appendContent($template->render());
+            $GLOBALS['claroline']->display->body->appendContent($template->render());
             
-            echo $claroline->display->render();
+            echo $GLOBALS['claroline']->display->render();
         }
         elseif ($viewAs == 'csv')
         {
@@ -250,8 +250,8 @@ if ($cmd == 'run' || $inProgress)
                                         '<br />' . get_lang('Course actually treated : '). $course['title'] .
                                         '<br />' . get_lang(' Number of course treated : ' ). count($stats) );
         
-        $claroline->display->body->appendContent($dialogBox->render());
-        echo $claroline->display->render();
+        $GLOBALS['claroline']->display->body->appendContent($dialogBox->render());
+        echo $GLOBALS['claroline']->display->render();
     }
 }
 else
@@ -274,9 +274,9 @@ else
     $template->assign('formAction', $_SERVER['PHP_SELF']);
     $template->assign('cancelUrl', get_path('rootAdminWeb'));
     
-    $claroline->display->body->appendContent($template->render());
+    $GLOBALS['claroline']->display->body->appendContent($template->render());
 
-    echo $claroline->display->render();
+    echo $GLOBALS['claroline']->display->render();
 }
 
 

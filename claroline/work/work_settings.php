@@ -128,6 +128,6 @@ $out .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang( 'Assignments' ), Url::Contextualize('work.php') );
 
-$claroline->display->body->appendContent( $out );
+$GLOBALS['claroline']->display->body->appendContent( $out );
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

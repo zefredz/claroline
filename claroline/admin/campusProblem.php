@@ -734,6 +734,6 @@ switch ($display)
     default:trigger_error('display (' . $display . ') unknown', E_USER_NOTICE);
 }
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

@@ -451,7 +451,7 @@ $out .= '<form action="'. claro_htmlspecialchars($returl) .'" method="post" targ
 // footer
 $hide_footer = TRUE;
 
-$claroline->setDisplayType(Claroline::FRAME);
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->setDisplayType(Claroline::FRAME);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

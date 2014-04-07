@@ -677,6 +677,6 @@ $out .= '</tbody>' . "\n"
 
 . $workPager->disp_pager_tool_bar(Url::Contextualize($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId']));
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

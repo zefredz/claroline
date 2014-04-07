@@ -215,6 +215,6 @@ $template->assign('userProfileBox', $userProfileBox);
 $template->assign('outPortlet', $outPortlet);
 $template->assign('mycourselist', $myCourseList->render());
 
-$claroline->display->body->appendContent($template->render());
+$GLOBALS['claroline']->display->body->appendContent($template->render());
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

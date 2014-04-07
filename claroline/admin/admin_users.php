@@ -517,9 +517,9 @@ if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($url);
 
 JavascriptLoader::getInstance()->load('admin_users');
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();
 
 /**
  *

@@ -152,9 +152,9 @@ if (!claro_is_user_authenticated() && $uidRequired)
     $template->assign('defaultLoginValue', $defaultLoginValue);
     $template->assign('sourceUrl', $sourceUrl);
     
-    $claroline->display->body->appendContent($template->render());
+    $GLOBALS['claroline']->display->body->appendContent($template->render());
     
-    echo $claroline->display->render();
+    echo $GLOBALS['claroline']->display->render();
 }
 // The script needs a course id, but no course is set
 elseif (!claro_is_in_a_course() && $cidRequired)
@@ -178,9 +178,9 @@ elseif (!claro_is_in_a_course() && $cidRequired)
     $template->assign('cidRequired', $cidRequired);
     $template->assign('courseList', $courseList);
     
-    $claroline->display->body->appendContent($template->render());
+    $GLOBALS['claroline']->display->body->appendContent($template->render());
     
-    echo $claroline->display->render();
+    echo $GLOBALS['claroline']->display->render();
 }
 // Login succeeded
 else
@@ -188,7 +188,7 @@ else
     if(!isset($userLoggedOnCas))
         $userLoggedOnCas = false;
     
-    $claroline->notifier->event( 'user_login', array('data' => array('ip' => $_SERVER['REMOTE_ADDR']) ) );
+    $GLOBALS['claroline']->notifier->event( 'user_login', array('data' => array('ip' => $_SERVER['REMOTE_ADDR']) ) );
     
     if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
     {
@@ -245,9 +245,9 @@ else
             $out .= '</p>' . "\n";
         }
         
-        $claroline->display->body->appendContent($out);
+        $GLOBALS['claroline']->display->body->appendContent($out);
         
-        echo $claroline->display->render();
+        echo $GLOBALS['claroline']->display->render();
     }
     elseif($userLoggedOnCas && isset($_SESSION['casCallBackUrl']))
     {

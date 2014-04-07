@@ -237,7 +237,7 @@ if ( $cmd == 'exUnreg' )
 {
     if ( user_remove_from_course($userId, $courseCode, false, false, null) )
     {
-        $claroline->log('COURSE_UNSUBSCRIBE', array('user'=>$userId,'course'=>$courseCode));
+        $GLOBALS['claroline']['logger']->log('COURSE_UNSUBSCRIBE', array('user'=>$userId,'course'=>$courseCode));
         $dialogBox->success( get_lang('Your enrolment on the course has been removed') );
         $newLink = '<p><a class="backLink" href="'.$_SERVER['PHP_SELF'].'?cmd=rqUnreg'.$url.'">'. 
                     get_lang('Remove course enrolment') .'</a></p>';
@@ -299,7 +299,7 @@ if ( $cmd == 'exReg' )
     
     if ( $courseRegistration->addUser() )
     {
-        $claroline->log('COURSE_SUBSCRIBE',array('user'=>$userId,'course'=>$courseCode));
+        $GLOBALS['claroline']['logger']->log('COURSE_SUBSCRIBE',array('user'=>$userId,'course'=>$courseCode));
         
         $displayMode = DISPLAY_MESSAGE_SCREEN;
         
@@ -662,6 +662,6 @@ if ($newLink != '')
 }
 $out .= $backLink;
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

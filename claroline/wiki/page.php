@@ -521,7 +521,7 @@ switch( $action )
             $title = $wikiPage->getTitle();
 
             $claroline = Claroline::getInstance();
-            $claroline->notifier->event('wiki_read_page', array( 'data' => array('wiki_id' => $wikiId, 'title' => $title, 'version_id' => $versionId ) ) );
+            $GLOBALS['claroline']->notifier->event('wiki_read_page', array( 'data' => array('wiki_id' => $wikiId, 'title' => $title, 'version_id' => $versionId ) ) );
         }
         else
         {
@@ -1473,6 +1473,6 @@ $output .= $out;
 
 // ------------ End of wiki script ---------------
 
-$claroline->display->body->appendContent($output);
+$GLOBALS['claroline']->display->body->appendContent($output);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

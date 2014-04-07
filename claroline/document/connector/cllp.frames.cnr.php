@@ -40,7 +40,7 @@ if( !$inLP )
 
 $url = Url::Contextualize(get_path('url') . '/claroline/backends/download.php?url=' . $_REQUEST['url']);
 
-$claroline->setDisplayType( Claroline::FRAMESET );
+$GLOBALS['claroline']->setDisplayType( Claroline::FRAMESET );
 
 $docFrame = new ClaroFrame('document', $url);
 $docFrame->allowScrolling(true);
@@ -51,8 +51,8 @@ $progressFrame->disableResize(true);
 $progressFrame->noFrameBorder();
 
 
-$claroline->display->addRow($docFrame, '*');
-$claroline->display->addRow($progressFrame, '50');
+$GLOBALS['claroline']->display->addRow($docFrame, '*');
+$GLOBALS['claroline']->display->addRow($progressFrame, '50');
 
 // output outer frameset with inner frameset within in embedded mode
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

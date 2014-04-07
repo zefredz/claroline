@@ -286,6 +286,6 @@ $out .= '</tbody>' . "\n\n"
 //-- pager
 $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

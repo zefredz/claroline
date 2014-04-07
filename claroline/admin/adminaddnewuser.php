@@ -130,6 +130,6 @@ else // $display == DISP_REGISTRATION_FORM;
     $out .= user_html_form();
 }
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

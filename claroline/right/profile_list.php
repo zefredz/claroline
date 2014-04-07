@@ -90,6 +90,6 @@ foreach ( $profileList as $thisProfile )
 
 $out .= '</tbody></table>';
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

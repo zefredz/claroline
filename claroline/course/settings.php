@@ -168,7 +168,7 @@ if ( $course->load($current_cid) )
     {
         if ( $course->delete() )
         {
-            $claroline->log( 'DELETION COURSE' , array ('courseName' => $course->title, 'uid' => claro_get_current_user_id()));
+            $GLOBALS['claroline']['logger']->log( 'DELETION COURSE' , array ('courseName' => $course->title, 'uid' => claro_get_current_user_id()));
             if( $adminContext )
             {
                 claro_redirect( get_path('rootAdminWeb') . '/admin_courses.php');
@@ -274,6 +274,6 @@ elseif( $display == DISP_COURSE_RQ_DELETE )
     $out .= $course->displayDeleteConfirmation();
 }
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

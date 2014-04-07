@@ -177,9 +177,9 @@ else
     $out .= $dialogBox->render();
 }
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();
 
 //******************
 function getLearnpathProgressStudentRow($path_id, $user)

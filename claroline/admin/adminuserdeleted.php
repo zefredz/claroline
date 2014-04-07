@@ -50,7 +50,7 @@ $dialogBox = new DialogBox();
 
 if ( $cmd == 'exDelete' && $req['uidToEdit'] )
 {
-    $claroline->log( 'DELETE_USER' , array ('USER' => $req['uidToEdit']) );
+    $GLOBALS['claroline']['logger']->log( 'DELETE_USER' , array ('USER' => $req['uidToEdit']) );
     if(false !== $deletionResult = user_delete($req['uidToEdit']))
     $dialogBox->success( get_lang('Deletion of the user was done sucessfully') );
     else
@@ -92,6 +92,6 @@ $out .= '<p>'
 .    '</p>'
 ;
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

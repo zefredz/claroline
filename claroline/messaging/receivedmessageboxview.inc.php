@@ -99,7 +99,7 @@ $javascriptSearchBox = '
         });
     </script>';
 
-$claroline->display->header->addHtmlHeader($javascriptSearchBox);
+$GLOBALS['claroline']->display->header->addHtmlHeader($javascriptSearchBox);
     
 $arg_search = makeArgLink($link_arg,array('SelectorReadStatus','search','searchStrategy'));
 $linkSearch = $linkPage."?".$arg_search;
@@ -201,7 +201,7 @@ else
             }
         }
         </script>';
-    $claroline->display->header->addHtmlHeader($javascriptDelete);
+    $GLOBALS['claroline']->display->header->addHtmlHeader($javascriptDelete);
     
     $arg_deleting = makeArgLink($link_arg);
     
@@ -409,7 +409,7 @@ if ($link_arg['box'] == "trashbox")
             }
         }
         </script>';
-    $claroline->display->header->addHtmlHeader($javascriptDelete);
+    $GLOBALS['claroline']->display->header->addHtmlHeader($javascriptDelete);
     
     $content .= "<br />";
     $menu[] = '<a href="'.$linkToRqEmptyTrashBox.'"

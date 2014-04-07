@@ -156,6 +156,6 @@ $template = new CoreTemplate('admin_panel.tpl.php');
 $template->assign('dialogBox', $dialogBox);
 $template->assign('menu', $menu);
 
-$claroline->display->body->appendContent($template->render());
+$GLOBALS['claroline']->display->body->appendContent($template->render());
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

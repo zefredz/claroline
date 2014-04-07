@@ -228,6 +228,6 @@ $("#buttonOK").hide();
 /*
  * Output rendering
  */
-$claroline->display->body->setContent($output);
+$GLOBALS['claroline']->display->body->setContent($output);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

@@ -194,6 +194,6 @@ $out .= claro_html_tool_title(get_lang('Learning path content'));
 // display list of modules used by this learning path
 $out .= display_path_content();
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

@@ -30,9 +30,9 @@ else
 
 $tpl->assign('block', $block);
 
-$claroline->setDisplayType(Claroline::POPUP);
+$GLOBALS['claroline']->setDisplayType(Claroline::POPUP);
 
-$claroline->display->header->setTitle(get_lang('Claroline help'));
-$claroline->display->body->appendContent($tpl->render());
+$GLOBALS['claroline']->display->header->setTitle(get_lang('Claroline help'));
+$GLOBALS['claroline']->display->body->appendContent($tpl->render());
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

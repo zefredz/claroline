@@ -187,6 +187,6 @@ $out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "
     . '</table>' . "\n"
     ;
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

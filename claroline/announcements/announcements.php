@@ -157,7 +157,7 @@ if($is_allowedToEdit) // check teacher status
             {
                 $dialogBox->success( get_lang('Announcement has been deleted') );
                 
-                if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) $claroline->log('ANNOUNCEMENT',array('DELETE_ENTRY'=>$id));
+                if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) $GLOBALS['claroline']['logger']->log('ANNOUNCEMENT',array('DELETE_ENTRY'=>$id));
                 $eventNotifier->notifyCourseEvent('anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
                 $autoExportRefresh = true;
                 
@@ -177,7 +177,7 @@ if($is_allowedToEdit) // check teacher status
             {
                 $dialogBox->success( get_lang('Announcements list has been cleared up') );
                 
-                if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) $claroline->log('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
+                if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) $GLOBALS['claroline']['logger']->log('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
                 $eventNotifier->notifyCourseEvent('all_anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $announcementList , claro_get_current_group_id(), '0');
                 $autoExportRefresh = true;
                 
@@ -369,7 +369,7 @@ if($is_allowedToEdit) // check teacher status
                         ResourceLinker::updateLinkList( $currentLocator, $resourceList );
                         
                         $eventNotifier->notifyCourseEvent('anouncement_added',claro_get_current_course_id(), claro_get_current_tool_id(), $insert_id, claro_get_current_group_id(), '0');
-                        if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) $claroline->log('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
+                        if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) $GLOBALS['claroline']['logger']->log('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
                         $autoExportRefresh = true;
                     }
                     else

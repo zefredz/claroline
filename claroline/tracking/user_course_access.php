@@ -153,7 +153,7 @@ $accessList = claro_sql_query_fetch_all($sqlAccessDates);
 CssLoader::getInstance()->load( 'tracking', 'screen');
 
 // initialize output
-$claroline->setDisplayType( Claroline::PAGE );
+$GLOBALS['claroline']->setDisplayType( Claroline::PAGE );
 
 // FIXME (link + parameters)
 $nameTools = get_lang('User access to course');
@@ -272,6 +272,6 @@ $output .= "\n" . '</div>' . "\n";
  * Output rendering
  */
 
-$claroline->display->body->setContent($output);
+$GLOBALS['claroline']->display->body->setContent($output);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

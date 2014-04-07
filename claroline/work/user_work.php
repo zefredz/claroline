@@ -341,9 +341,9 @@ if ( $cmd == 'exDownload' )
     $interbredcrump[]= array ('url' => Url::Contextualize("../work/work.php"), 'name' => get_lang('Assignments'));
     $interbredcrump[]= array ('url' => Url::Contextualize("../work/work_list.php?authId=".$_REQUEST['authId']."&assigId=".$assignmentId ), 'name' => get_lang('Assignment'));
     
-    $claroline->display->body->appendContent($dialogBox->render());
+    $GLOBALS['claroline']->display->body->appendContent($dialogBox->render());
 
-    echo $claroline->display->render();
+    echo $GLOBALS['claroline']->display->render();
     
     die();
 }
@@ -1710,6 +1710,6 @@ if( $dispWrkLst )
     }
 }
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

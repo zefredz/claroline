@@ -591,6 +591,6 @@ catch( Exception $ex )
 
 ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, 'index.php' );
 
-$claroline->display->body->appendContent( $out );
+$GLOBALS['claroline']->display->body->appendContent( $out );
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

@@ -201,6 +201,6 @@ $html .= $dialogBox->render();
  */
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics'), 'courseReport.php' );
 
-$claroline->display->body->setContent($html);
+$GLOBALS['claroline']->display->body->setContent($html);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

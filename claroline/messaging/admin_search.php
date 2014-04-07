@@ -338,7 +338,7 @@ if ($arguments['search'] == 'olderThan')
                 $("#dateinput").datepicker({dateFormat: \'dd/mm/yy\'});
             });
         </script>';
-    $claroline->display->header->addHtmlHeader($javascript);
+    $GLOBALS['claroline']->display->header->addHtmlHeader($javascript);
     $disp = "\n"
         . get_lang('Select date') . '<br />'."\n"
         . '<form action="'.$_SERVER['PHP_SELF'].'?search=olderThan" method="post">'."\n"
@@ -381,7 +381,7 @@ if ($arguments['search'] == 'timeInterval')
                 }
             });
         </script>';
-    $claroline->display->header->addHtmlHeader($javascript);
+    $GLOBALS['claroline']->display->header->addHtmlHeader($javascript);
     $disp = "\n"
         . get_lang('Select interval') . '<br />'."\n"
         . '<form action="'.$_SERVER['PHP_SELF'].'?search=timeInterval" method="post">'."\n"
@@ -429,7 +429,7 @@ if ($displayTable)
            }
         }
     </script>';
-    $claroline->display->header->addHtmlHeader($javascriptDelete);
+    $GLOBALS['claroline']->display->header->addHtmlHeader($javascriptDelete);
     $argDeleteSelection = makeArgLink($arguments,array('cmd'));
     $content .= '<form action="'.$_SERVER['PHP_SELF'].'?'.$argDeleteSelection.'" method="post"
                     onsubmit="return deleteSelection(this)">'."\n"
@@ -485,7 +485,7 @@ if ($displayTable)
                 }
             }
             </script>';
-        $claroline->display->header->addHtmlHeader($javascriptDelete);
+        $GLOBALS['claroline']->display->header->addHtmlHeader($javascriptDelete);
         
         foreach ($box as $key => $message)
         {
@@ -543,13 +543,13 @@ if ($displayTable)
 }
 
 // ------------------- render ----------------------------
-$claroline->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
-$claroline->display->banner->breadcrumbs->append(get_lang('Internal messaging'),'admin.php');
-$claroline->display->banner->breadcrumbs->append(get_lang('Search'),'admin_search.php?search='.addslashes($arguments['search']));
+$GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
+$GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('Internal messaging'),'admin.php');
+$GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('Search'),'admin_search.php?search='.addslashes($arguments['search']));
 
 $title['mainTitle'] = get_lang('Internal messaging') . ' - ' . get_lang('Search');
 $title['subTitle'] = $subTitle;
-$claroline->display->body->appendContent(claro_html_tool_title($title));
-$claroline->display->body->appendContent($content);
+$GLOBALS['claroline']->display->body->appendContent(claro_html_tool_title($title));
+$GLOBALS['claroline']->display->body->appendContent($content);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

@@ -135,7 +135,7 @@ if ( isset($_REQUEST['applyChange']) )
         user_set_properties(claro_get_current_user_id(), $userData);
         set_user_property(claro_get_current_user_id(), 'skype', $userData['skype']);
         
-        $claroline->log('PROFILE_UPDATE', array('user'=>claro_get_current_user_id()));
+        $GLOBALS['claroline']['logger']->log('PROFILE_UPDATE', array('user'=>claro_get_current_user_id()));
         
         // re-init the system to take new settings in account
         $uidReset = true;
@@ -371,6 +371,6 @@ switch ( $display )
 
 } // end switch display
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

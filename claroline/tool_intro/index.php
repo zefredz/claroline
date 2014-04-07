@@ -103,7 +103,7 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             $dialogBox->success( get_lang('Introduction added') );
             
             // Notify that the introsection has been created
-            $claroline->notifier->notifyCourseEvent('introsection_created', claro_get_current_course_id(), claro_get_current_tool_id(), $toolIntro->getId(), claro_get_current_group_id(), '0');
+            $GLOBALS['claroline']->notifier->notifyCourseEvent('introsection_created', claro_get_current_course_id(), claro_get_current_tool_id(), $toolIntro->getId(), claro_get_current_group_id(), '0');
         }
     }
     
@@ -130,7 +130,7 @@ if ( isset( $cmd ) && $isAllowedToEdit )
             $dialogBox->success( get_lang('Introduction modified') );
             
             // Notify that the introsection has been modified
-            $claroline->notifier->notifyCourseEvent('introsection_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $toolIntro->getId(), claro_get_current_group_id(), '0');
+            $GLOBALS['claroline']->notifier->notifyCourseEvent('introsection_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $toolIntro->getId(), claro_get_current_group_id(), '0');
         }
     }
     
@@ -273,4 +273,4 @@ $output .= $toolIntroForm
 Claroline::getDisplay()->body->appendContent($output);
 
 // Render output
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

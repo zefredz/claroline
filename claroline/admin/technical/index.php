@@ -31,6 +31,6 @@ $out .= claro_html_tool_title(array('mainTitle'=>$nameTools))
       . '<li><a href="./phpInfo.php">' . get_lang('PHP system information') . '</a></li>'."\n"
       . '</ul>'."\n";
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

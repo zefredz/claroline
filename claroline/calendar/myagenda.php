@@ -75,6 +75,6 @@ $out .= claro_html_tool_title($nameTools)
 .    claro_html_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName)
 ;
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

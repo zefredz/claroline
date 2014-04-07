@@ -145,7 +145,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )
         $addForm = TRUE;
         
         // breadcrump
-        $claroline->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
+        $GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
     }
     
     if ($_REQUEST['cmd'] ==  'rqMessageToGroup')
@@ -247,7 +247,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )
                     $recipient = new AllUsersRecipient();
                     
                     // breadcrump
-                    $claroline->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
+                    $GLOBALS['claroline']->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
                 }
                 elseif ($_REQUEST['typeRecipient'] == 'group')
                 {
@@ -303,9 +303,9 @@ if ($addForm)
      ;
 }
 
-$claroline->display->body->appendContent(claro_html_tool_title(get_lang('Compose a message')));
-$claroline->display->body->appendContent($content);
+$GLOBALS['claroline']->display->body->appendContent(claro_html_tool_title(get_lang('Compose a message')));
+$GLOBALS['claroline']->display->body->appendContent($content);
 
 // ------------- Display page -----------------------------
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();
 // ------------- End of script ----------------------------

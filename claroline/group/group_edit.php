@@ -238,6 +238,6 @@ $out .= $dialogBox->render();
 
 $out .= $template->render();
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

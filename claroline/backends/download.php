@@ -30,7 +30,7 @@ $isDownloadable = true ;
 
 if ( claro_is_in_a_course() && ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
-$claroline->notification->addListener( 'download', 'trackInCourse' );
+$GLOBALS['claroline']->notification->addListener( 'download', 'trackInCourse' );
 
 if ( isset($_REQUEST['url']) )
 {
@@ -137,7 +137,7 @@ if ( $isDownloadable )
     // workaround for HTML files and Links
     if ( $mimeType == 'text/html' && $extension != 'url' )
     {
-        $claroline->notifier->event('download', array( 'data' => array('url' => $requestUrl) ) );
+        $GLOBALS['claroline']->notifier->event('download', array( 'data' => array('url' => $requestUrl) ) );
 
         if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
         {
@@ -158,7 +158,7 @@ if ( $isDownloadable )
         {
             if ( claro_send_file( $pathInfo )  !== false )
             {
-                $claroline->notifier->event('download', array( 'data' => array('url' => $requestUrl) ) );
+                $GLOBALS['claroline']->notifier->event('download', array( 'data' => array('url' => $requestUrl) ) );
             }
             else
             {
@@ -193,9 +193,9 @@ else
 
     $out .= $dialogBox->render();
 
-    $claroline->display->body->appendContent($out);
+    $GLOBALS['claroline']->display->body->appendContent($out);
 
-    echo $claroline->display->render();
+    echo $GLOBALS['claroline']->display->render();
 
     exit;
 }

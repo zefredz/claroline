@@ -155,6 +155,6 @@ $out .= $dialogBox->render();
 $out .= $question->getQuestionHtml();
 $out .= $question->answer->getFormHtml($exId,$askDuplicate);
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

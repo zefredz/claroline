@@ -48,7 +48,7 @@ $jsloader->loadFromModule('CLLP', 'scormtime');
 $jsloader->load('cllp.cnr');
 
 
-$claroline->setDisplayType( Claroline::FRAME );
+$GLOBALS['claroline']->setDisplayType( Claroline::FRAME );
 
 $out = '';
 
@@ -74,6 +74,6 @@ $out .= '<div>' . "\n"
 .    '</form>' . "\n"
 .    '</div>' . "\n";
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

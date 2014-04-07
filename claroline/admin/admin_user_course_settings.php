@@ -210,6 +210,6 @@ $out .= course_user_html_form ( $courseUserProperties, $cidToEdit, $uidToEdit, $
 .    '</p>'
 ;
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

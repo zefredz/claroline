@@ -12,11 +12,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author      Claro Team <cvs@claroline.net>
  */
 
-$claroline->notification->addListener( 'agenda_event_visible',      'modificationDefault' );
-$claroline->notification->addListener( 'agenda_event_added',        'modificationDefault' );
-$claroline->notification->addListener( 'agenda_event_modified',     'modificationDefault' );
-$claroline->notification->addListener( 'agenda_event_deleted',      'modificationDelete' );
-$claroline->notification->addListener( 'agenda_event_invisible',    'modificationDelete' );
+$GLOBALS['claroline']->notification->addListener( 'agenda_event_visible',      'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'agenda_event_added',        'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'agenda_event_modified',     'modificationDefault' );
+$GLOBALS['claroline']->notification->addListener( 'agenda_event_deleted',      'modificationDelete' );
+$GLOBALS['claroline']->notification->addListener( 'agenda_event_invisible',    'modificationDelete' );
 
-$claroline->notification->addListener( 'agenda_event_deleted',      'deleteEventResource' );
-$claroline->notification->addListener( 'agenda_event_list_deleted', 'deleteEventResourceList' );
+$GLOBALS['claroline']->notification->addListener( 'agenda_event_deleted',      'deleteEventResource' );
+$GLOBALS['claroline']->notification->addListener( 'agenda_event_list_deleted', 'deleteEventResourceList' );

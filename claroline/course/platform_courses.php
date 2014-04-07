@@ -34,10 +34,10 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' )
 // Display
 $template = $categoryBrowser->getTemplate();
 
-$claroline->display->body->appendContent($template->render());
+$GLOBALS['claroline']->display->body->appendContent($template->render());
 
 $searchbox = new CourseSearchBox($_SERVER['REQUEST_URI']);
 
-$claroline->display->body->appendContent($searchbox->render());
+$GLOBALS['claroline']->display->body->appendContent($searchbox->render());
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

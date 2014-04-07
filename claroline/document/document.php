@@ -2163,9 +2163,9 @@ else
           . '</table>' . "\n";
 } // END ELSE VIEW IMAGE
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();
 
 // call the garbage collector to remove temporary files
 

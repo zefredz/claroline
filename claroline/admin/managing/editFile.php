@@ -214,6 +214,6 @@ if( $display == DISP_FILE_LIST || $display == DISP_EDIT_FILE || $display == DISP
 
 }
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

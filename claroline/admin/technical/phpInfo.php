@@ -48,7 +48,7 @@ if ($is_allowedToAdmin)
 {
     $htmlHeadXtra[] = phpinfo_getStyle();
 
-    $claroline->display->body->appendContent( 
+    $GLOBALS['claroline']->display->body->appendContent( 
         claro_html_tool_title( 
             array( 'mainTitle'=>$nameTools, 'subTitle'=> get_conf('siteName') ) ) );
 
@@ -183,6 +183,6 @@ else // is not allowed
 $contents = ob_get_contents();
 ob_end_clean();
 
-$claroline->display->body->appendContent( $contents );
+$GLOBALS['claroline']->display->body->appendContent( $contents );
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

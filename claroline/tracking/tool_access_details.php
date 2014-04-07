@@ -228,6 +228,6 @@ else // not allowed to track
 /*
  * Output rendering
  */
-$claroline->display->body->setContent($html);
+$GLOBALS['claroline']->display->body->setContent($html);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();

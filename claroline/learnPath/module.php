@@ -105,8 +105,8 @@ if(!empty($_REQUEST['copyFrom']) && $is_allowedToEdit)
     if($copyError)
     {
         $dialogBox->error(get_lang('An error occured while accessing student module'));
-        $claroline->display->body->appendContent($dialogBox->render());
-        echo $claroline->display->render();
+        $GLOBALS['claroline']->display->body->appendContent($dialogBox->render());
+        echo $GLOBALS['claroline']->display->render();
         exit();
     }
     else
@@ -464,6 +464,6 @@ if( $is_allowedToEdit ) // for teacher only
     }
 } // if ($is_allowedToEdit)
 
-$claroline->display->body->appendContent($out);
+$GLOBALS['claroline']->display->body->appendContent($out);
 
-echo $claroline->display->render();
+echo $GLOBALS['claroline']->display->render();
