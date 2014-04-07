@@ -1098,3 +1098,31 @@ $_SESSION['is_toolAllowed'] = $GLOBALS['is_toolAllowed'];
  ---------------------------------------------------------------------------*/
 
 $_SESSION['_courseToolList'] = $GLOBALS['_courseToolList'];
+
+/* ---------------------------------------------------------------------------
+ * Populate $claroline context and privileges
+ * --------------------------------------------------------------------------
+ */
+
+if ( claro_is_user_authenticated () )
+{
+    $GLOBALS['claroline']['user'] = Claro_CurrentUser::getInstance();
+    $GLOBALS['claroline']['privileges.user'] = new Claro_UserPrivileges($GLOBALS['claroline']['user']);
+}
+else
+{
+    $GLOBALS['claroline']['user'] = null;
+    $GLOBALS['claroline']['privileges.user'] = new Claro_UserPrivileges($GLOBALS['claroline']['user']);
+}
+
+if ( claro_is_in_a_course () )
+{
+    $GLOBALS['claroline']['course'] =  Claro_CurrentCourse::getInstance();
+    $GLOBALS['claroline']['privileges.course'] = $GLOBALS['claroline']['privileges.user']->getCoursePrivileges( $GLOBALS['claroline']['course'] );
+}
+
+if ( claro_is_in_a_group () )
+{
+    $GLOBALS['claroline']['group'] = Claro_CurrentGroupTeam::getInstance();
+    $GLOBALS['claroline']['privileges.group'] = $GLOBALS['claroline']['privileges.user']->getGroupPrivileges( $GLOBALS['claroline']['course'], $GLOBALS['claroline']['group'] );
+}
