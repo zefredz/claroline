@@ -67,10 +67,10 @@ class JavascriptLoader
         
         foreach ( $this->pathList as $tryPath => $tryUrl )
         {
-            if ( claro_debug_mode() )
+            /*if ( claro_debug_mode() )
             {
                 pushClaroMessage(__Class__."::Try to find {$lib} in {$tryPath}", 'debug');
-            }
+            }*/
             
             
             if ( file_exists ( $tryPath . '/' . $lib . '.js' ) )
@@ -113,10 +113,10 @@ class JavascriptLoader
     {
         $lib = secure_file_path( $lib );
         
-        if ( claro_debug_mode() )
+        /*if ( claro_debug_mode() )
         {
             pushClaroMessage(__Class__."::Try to find {$lib} in {$moduleLabel}", 'debug');
-        }
+        }*/
         
         $path = get_module_path( $moduleLabel ) . '/js/' . $lib . '.js';
         $url = get_module_url( $moduleLabel ) . '/js/' . $lib . '.js';
@@ -130,10 +130,10 @@ class JavascriptLoader
             
             $this->libraries[$path] = $url;
             
-            if ( claro_debug_mode() )
+            /* if ( claro_debug_mode() )
             {
                 pushClaroMessage(__Class__."::Use {$path}::{$url}", 'debug');
-            }
+            } */
             
             ClaroHeader::getInstance()->addHtmlHeader(
                 '<script src="'.$url.'?'.filemtime($path).'" type="text/javascript"></script>'
@@ -224,10 +224,10 @@ class CssLoader
 
         foreach ( $this->pathList as $tryPath => $tryUrl )
         {
-            if ( claro_debug_mode() )
+            /* if ( claro_debug_mode() )
             {
                 pushClaroMessage(__Class__."::Try ".$tryPath.'/'.$css.'.css', 'debug');
-            }
+            } */
 
             if ( file_exists ( $tryPath . '/' . $css . '.css' ) )
             {
@@ -236,10 +236,10 @@ class CssLoader
                     return false;
                 }
                 
-                if ( claro_debug_mode() )
+                /* if ( claro_debug_mode() )
                 {
                     pushClaroMessage(__Class__."::Use ".$tryPath.'/'.$css.'.css', 'debug');
-                }
+                } */
 
                 $this->css[$tryPath . '/' . $css . '.css'] = array(
                     'url' => $tryUrl . '/' . $css . '.css' . '?' . filemtime($tryPath . '/' . $css . '.css'),
@@ -307,10 +307,10 @@ class CssLoader
             $path = $cssTry['path'];
             $url = $cssTry['url'];
 
-            if ( claro_debug_mode() )
+            /*if ( claro_debug_mode() )
             {
                 pushClaroMessage(__Class__."::Try {$path}::{$url} for {$moduleLabel}", 'debug');
-            }
+            }*/
 
             if ( file_exists( $path ) )
             {
@@ -324,10 +324,10 @@ class CssLoader
                     'media' => $media
                 );
 
-                if ( claro_debug_mode() )
+                /*if ( claro_debug_mode() )
                 {
                     pushClaroMessage(__Class__."::Use {$path}::{$url} for {$moduleLabel}", 'debug');
-                }
+                }*/
 
                 ClaroHeader::getInstance()->addHtmlHeader(
                     '<link rel="stylesheet" type="text/css"'
