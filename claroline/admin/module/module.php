@@ -609,7 +609,7 @@ switch ($item)
         $form = $config->display_section_menu($section_selected,$url_params);
 
            // init config name
-        $config_name = $config->config_code;
+        $config_name = $config->get_conf_code ();
 
         if ( isset($_REQUEST['cmd']) && isset($_REQUEST['property']) )
         {
