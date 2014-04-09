@@ -229,6 +229,16 @@ class Config
             return $this->conf_dirname . $this->config_code . '.conf.php';
         }
     }
+    
+    /**
+     * Get the code of configuration
+     *
+     * @return string code of the current config
+     */
+    public function get_conf_code()
+    {
+        return $this->conf_code;
+    }
 
     /**
      * Get the name of configuration in definition
