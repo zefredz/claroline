@@ -163,14 +163,16 @@ function get_course_tool_list($cid)
 
 /**
  * Save a course property in 'course_properties' table
+ * $category added in Claroline 1.12
  * @param  string $propertyName
  * @param  string $propertyValue
  * @param  string $cid
+ * @param  string $category
  * @return boolean true on success, false on failure
  * @author Jean-Roch Meurisse <jmeuriss@fundp.ac.be>
  * @since 1.9.5
  */
-function save_course_property( $propertyName, $propertyValue, $cid )
+function save_course_property( $propertyName, $propertyValue, $cid, $category = 'MAIN' )
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_course_properties = $tbl_cdb_names['course_properties'];
@@ -178,15 +180,17 @@ function save_course_property( $propertyName, $propertyValue, $cid )
         "SELECT `id`
            FROM `" . $tbl_course_properties . "`
           WHERE `name` = " . Claroline::getDatabase()->quote( $propertyName ) . "
-            AND `category` = 'MAIN'";
+            AND `category` = " . Claroline::getDatabase()->quote( $category );
+    
     $exists = Claroline::getDatabase()->query( $check )->numRows();
+    
     if( $exists )
     {
         $statement =
             "UPDATE `" . $tbl_course_properties . "`
                 SET `value` = " . Claroline::getDatabase()->quote( $propertyValue ) . "
               WHERE `name` = " . Claroline::getDatabase()->quote( $propertyName ) . "
-                AND `category` = 'MAIN'";
+                AND `category` = " . Claroline::getDatabase()->quote( $category );
     }
     else
     {
@@ -194,7 +198,7 @@ function save_course_property( $propertyName, $propertyValue, $cid )
             "INSERT INTO `" . $tbl_course_properties . "`
                      SET `name` = " . Claroline::getDatabase()->quote( $propertyName ) . ",
                          `value` = " . Claroline::getDatabase()->quote( $propertyValue ) . ",
-                         `category` = 'MAIN'";
+                         `category` = " . Claroline::getDatabase()->quote( $category );
     }
     return Claroline::getDatabase()->exec( $statement );
 }
