@@ -313,7 +313,9 @@ $config_code = $module['label'];
 // new config object
 require_once get_path('incRepositorySys') . '/lib/configHtml.class.php';
 
-$config = new ConfigHtml($config_code, $_SERVER['HTTP_REFERER']);
+$backlink = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : $_SERVER['PHP_SELF'] ;
+
+$config = new ConfigHtml($config_code, $backlink );
 
 if ( $config->load() )
 {
