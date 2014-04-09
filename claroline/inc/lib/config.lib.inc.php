@@ -131,8 +131,8 @@ function generate_conf(&$config,$properties = null)
         }
     }
 
-    $config_code = $config->conf_def['config_code'];
-    $config_name = $config->conf_def['config_name'];
+    $config_code = $config->get_conf_code();
+    $config_name = $config->get_conf_name();
 
     // validate config
     if ( $config->validate($properties) )

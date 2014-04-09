@@ -237,7 +237,14 @@ class Config
      */
     public function get_conf_code()
     {
-        return $this->config_code;
+        if ( !empty($this->conf_def['config_code']) )
+        {
+            return $this->conf_def['config_code'];
+        }
+        else
+        {
+            return $this->config_code;
+        }
     }
 
     /**
