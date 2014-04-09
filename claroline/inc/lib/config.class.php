@@ -237,7 +237,7 @@ class Config
      */
     public function get_conf_code()
     {
-        return $this->conf_code;
+        return $this->config_code;
     }
 
     /**
