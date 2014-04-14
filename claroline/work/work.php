@@ -548,15 +548,27 @@ if ($is_allowedToEdit)
 if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 {
     $headerUrl = $assignmentPager->get_sort_url_list($_SERVER['PHP_SELF']);
-
+    
     $out .= $assignmentPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
-
-    $out .= '<table class="claroTable" width="100%">' . "\n"
-    .     '<tr class="headerX">'
-    .     '<th><a href="' . $headerUrl['title'] . '">' . get_lang('Title') . '</a></th>' . "\n"
-    .     '<th><a href="' . $headerUrl['assignment_type'] . '">' . get_lang('Type') . '</a></th>' . "\n"
-    .     '<th><a href="' . $headerUrl['start_date_unix'] . '">' . get_lang('Start date') . '</a></th>' . "\n"
-    .     '<th><a href="' . $headerUrl['end_date_unix'] . '">' . get_lang('End date') . '</a></th>' . "\n";
+    
+    if ( count( $assignmentPager->get_result_list () ) )
+    {
+        $out .= '<table class="claroTable" width="100%">' . "\n"
+        .     '<tr class="headerX">'
+        .     '<th><a href="' . $headerUrl['title'] . '">' . get_lang('Title') . '</a></th>' . "\n"
+        .     '<th><a href="' . $headerUrl['assignment_type'] . '">' . get_lang('Type') . '</a></th>' . "\n"
+        .     '<th><a href="' . $headerUrl['start_date_unix'] . '">' . get_lang('Start date') . '</a></th>' . "\n"
+        .     '<th><a href="' . $headerUrl['end_date_unix'] . '">' . get_lang('End date') . '</a></th>' . "\n";
+    }
+    else
+    {
+        $out .= '<table class="claroTable" width="100%">' . "\n"
+        .     '<tr class="headerX">'
+        .     '<th>' . get_lang('Title') . '</th>' . "\n"
+        .     '<th>' . get_lang('Type') . '</th>' . "\n"
+        .     '<th>' . get_lang('Start date') . '</th>' . "\n"
+        .     '<th>' . get_lang('End date') . '</th>' . "\n";
+    }
 
     $colspan = 4;
 
