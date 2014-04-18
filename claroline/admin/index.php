@@ -108,6 +108,7 @@ $menu['AdminClaroline'][] = '<a href="clarolinenews.php">'.get_lang('Claroline.n
 $menu['AdminTechnical'][] = '<a href="technical/phpInfo.php">'.get_lang('System Info').'</a>';
 $menu['AdminTechnical'][] = '<a href="technical/files_stats.php">'.get_lang('Files statistics').'</a>';
 $menu['AdminTechnical'][] = '<a href="technical/admin_cache.php">'.get_lang('Manage cache').'</a>';
+$menu['AdminTechnical'][] = '<a href="technical/admin_cache.php">'.get_lang('Manage webservices keyring').'</a>';
 
 $menu['AdminTechnical'][] = '<a href="../tracking/platform_report.php">'.get_lang('Platform statistics').'</a>';
 $menu['AdminTechnical'][] = '<a href="campusProblem.php">'.get_lang('Scan technical fault').'</a>';

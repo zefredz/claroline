@@ -15,6 +15,7 @@
  */
 
 require_once __DIR__ . '/input.lib.php';
+require_once __DIR__ . '/keyring.lib.php';
 require_once __DIR__ . '/../core/url.lib.php';
 
 /**
