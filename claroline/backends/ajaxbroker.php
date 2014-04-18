@@ -37,6 +37,9 @@ try
 
         if ( $moduleLabel )
         {
+            load_module_config($moduleLabel);
+            language::load_module_translation($moduleLabel);
+            
             Ajax_Remote_Module_Service::registerModuleServiceInstance( $moduleLabel );
         }
 
