@@ -148,4 +148,5 @@ $_lang['e.g.'] = 'par ex.';
 $_lang['empty'] = 'non spécifié';
 $_lang['or'] = 'ou';
 $_lang['Platform settings'] = 'Paramètres de la plateforme';
-?>
+$_lang['--empty--'] = '--vide--';
+$_lang['Server timezone'] = 'Fuseau horaire du serveur';
