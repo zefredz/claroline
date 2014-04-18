@@ -39,12 +39,12 @@ class Claro_Html_Element implements Claro_Renderer
     protected $content;
     
     /**
-     * @param   string $name html element name ('input', 'p'...)
+     * @param   string $elementName html element name ('input', 'p'...)
      * @param   array $attributes associative array of attributes
      * @param   bool $autoClose set to true for an autoclosed element 
      *  (&lt;input /&gt;, &lt;img /&gt;...), default false
      */
-    public function __construct( $name, $attributes = null, $autoClose = false )
+    public function __construct( $elementName, $attributes = array(), $autoClose = false )
     {
         if ( !is_array( $attributes ) || empty( $attributes ) )
         {
@@ -53,17 +53,10 @@ class Claro_Html_Element implements Claro_Renderer
         
         if ( array_key_exists( 'id', $attributes ) )
         {
-            if ( in_array( $attributes['id'], self::$ids ) )
-            {
-                throw new Exception("A html element of id {$attributes['id']} already exists");
-            }
-            else
-            {
-                self::$ids[] = $attributes['id'];
-            }
+            $this->setId($attributes['id']);
         }
         
-        $this->name = $name;
+        $this->elementName = $elementName;
         $this->attributes = $attributes;
         $this->autoClose = $autoClose;
         $this->content = '';
@@ -90,6 +83,18 @@ class Claro_Html_Element implements Claro_Renderer
         }
     }
     
+    protected function setId( $id )
+    {
+        if ( in_array( $id, self::$ids ) )
+        {
+            throw new Exception("A html element of id {$id} already exists");
+        }
+        else
+        {
+            self::$ids[] = $id;
+        }
+    }
+    
     /**
      * Set the element content
      * @param   string $content
@@ -104,13 +109,13 @@ class Claro_Html_Element implements Claro_Renderer
      */
     public function render()
     {
-        return "<{$this->name}"
+        return "<{$this->elementName}"
             . ( !empty( $this->attributes )
                 ? $this->formatAttributes( $this->attributes ) 
                 : '' )
             . ( $this->autoClose
                 ? " />"
-                : ">{$this->content}</{$this->name}>" )
+                : ">{$this->content}</{$this->elementName}>" )
             ;
     }
     
@@ -184,20 +189,29 @@ class Claro_Html_Element implements Claro_Renderer
         $this->attributes[$name] = $value;
     }
     
+    /**
+     * Unset a given attribute
+     * @param string $name attribute name
+     */
     public function unsetAttribute( $name )
     {
         unset( $this->attributes[$name] );
     }
     
-    public function appendAttributes( $attr = null )
+    /**
+     * Append an associative array of attributes
+     * @param array $attr
+     */
+    public function appendAttributes( $attr )
     {
-        if ( is_array( $attr ) )
-        {
-            $this->attributes = array_merge( $this->attributes, $attr );
-        }
+        $this->attributes = array_merge( $this->attributes, $attr );
     }
     
-    public function renderAttributes()
+    /**
+     * Alias of format attributes
+     * @return string
+     */
+    protected function renderAttributes()
     {
         return $this->formatAttributes($this->attributes);
     }
@@ -212,12 +226,12 @@ class Claro_Html_Container extends Claro_Html_Element
     
     /**
      * Constructor
-     * @param string $name
+     * @param string $elementName
      * @param array $attributes
      */
-    public function __construct( $name, $attributes = array() )
+    public function __construct( $elementName, $attributes = array() )
     {
-        parent::__construct( $name, $attributes );
+        parent::__construct( $elementName, $attributes );
         
         $this->elems = array();
     }
@@ -263,6 +277,9 @@ class Claro_Html_Composite implements Claro_Renderer
 {
     protected $elems;
     
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->elems = array();
@@ -292,70 +309,92 @@ class Claro_Html_Composite implements Claro_Renderer
     }
 }
 
-class Claro_Html_Element_AutoClose extends Claro_Html_Element
+/**
+ * HTML auto-closing element (i.e. no closing tag) <element />
+ */
+abstract class Claro_Html_Element_AutoClose extends Claro_Html_Element
 {
-    public function render()
+    public function __construct ( $elementName, $attributes = array() )
     {
-        return "<{$this->name}".$this->renderAttributes()." />";
+        parent::__construct ( $elementName, $attributes, true );
     }
 }
 
-class Claro_Html_Element_OpenClose extends Claro_Html_Element
+/**
+ * HTML element with opening/closing tag <element></element>
+ */
+abstract class Claro_Html_Element_OpenClose extends Claro_Html_Element
 {
     protected $content = '';
     
-    public function setContent( $content )
+    public function __construct ( $elementName, $attributes = array() )
     {
-        $this->content = $content;
-    }
-    
-    public function render()
-    {
-        return "<{$this->name}".$this->renderAttributes().">"
-            . $this->content
-            . "</{$this->name}>"
-            ;
+        parent::__construct ( $elementName, $attributes, false );
     }
 }
 
-class Claro_Form_Element extends Claro_Html_Element
+/**
+ * Element of an HTML form
+ */
+abstract class Claro_Form_Element extends Claro_Html_Element
 {  
-    public function renderAttributes()
+    protected static $id = 1;
+    
+    /**
+     * @see Claro_Html_Element
+     * @param string $elementName
+     * @param array $attributes
+     * @param boolean $autoClose
+     */
+    public function __construct( $elementName, $attributes = array(), $autoClose = false )
+    {        
+        if ( ! array_key_exists( 'id', $attributes ) )
+        {
+            $attributes['id'] = $elementName .'_'. self::$id++;
+        }
+        
+        parent::__construct( $elementName, $attributes, $autoClose );
+    }
+    
+    public function setName( $attributeName )
+    {
+        $this->setAttribute( 'name', $attributeName );
+    }
+    
+    /**
+     * @see Claro_Html_Element
+     * @throws Exception if no name given in attributes
+     */
+    public function renderAttributes ()
     {
         if ( ! array_key_exists( 'name', $this->attributes ) )
         {
             throw new Exception ('Form elements must have a name');
         }
         
-        $this->getId(); 
-        
-        return parent::renderAttributes();
+        parent::renderAttributes ();
     }
 }
 
-class Claro_Form_Element_AutoClose extends Claro_Form_Element
+/**
+ * HTML auto close <element /> for a form
+ */
+abstract class Claro_Form_Element_AutoClose extends Claro_Form_Element
 {
-    public function render()
+    public function __construct ( $elementName, $attributes = array() )
     {
-        return "<{$this->name}".$this->renderAttributes()." />";
+        parent::__construct ( $elementName, $attributes, true );
     }
 }
 
-class Claro_Form_Element_OpenClose extends Claro_Form_Element
+/**
+ * 
+ */
+abstract class Claro_Form_Element_OpenClose extends Claro_Form_Element
 {
-    protected $content = '';
-    
-    public function setContent( $content )
+    public function __construct ( $elementName, $attributes = array() )
     {
-        $this->content = $content;
-    }
-    
-    public function render()
-    {
-        return "<{$this->name}".$this->renderAttributes().">"
-            . $this->content
-            . "</{$this->name}>"
-            ;
+        parent::__construct ( $elementName, $attributes, false );
     }
 }
 
@@ -487,7 +526,7 @@ class Claro_Html_Input_Generic extends Claro_Form_Element_AutoClose
         parent::__construct( 'input' );
         
         $this->setAttribute( 'type', $type );
-        $this->setAttribute( 'name', $name );
+        $this->setName( $name );
         $this->setAttribute( 'value', $value );
         if (is_array($extra)) $this->appendAttributes( $extra );
     }
@@ -663,7 +702,7 @@ class Claro_Html_Input_RadioList
     
     public function __construct( $name, $list, $checked = '' )
     {
-        $this->name = $name; 
+        $this->elementName = $name; 
         $this->checked = $checked;
         
         foreach ( $list as $value => $label )
@@ -692,7 +731,7 @@ class Claro_Html_Input_CheckboxList
     
     public function __construct( $name, $list, $checked = '' )
     {
-        $this->name = $name; 
+        $this->elementName = $name; 
         $this->checked = $checked;
         
         foreach ( $list as $value => $label )
@@ -720,7 +759,7 @@ class Claro_Html_Textarea extends Claro_Form_Element_OpenClose
     {
         parent::__construct( 'textarea' );
         
-        $this->setAttribute( 'name', $name );
+        $this->setName( $name );
         $this->setAttribute( 'rows', $rows );
         $this->setAttribute( 'cols', $cols );
         
@@ -801,7 +840,7 @@ class Claro_Html_Select extends Claro_Form_Element_OpenClose
     {
         parent::__construct( 'select' );
         
-        $this->setAttribute( 'name', $name );
+        $this->setName( $name );
         
         if ( is_array($extra) ) $this->appendAttributes( $extra );
     }
