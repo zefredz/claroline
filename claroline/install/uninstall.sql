@@ -31,3 +31,4 @@ DROP TABLE IF EXISTS `__CL_MAIN__desktop_portlet_data`;
 DROP TABLE IF EXISTS `__CL_MAIN__tracking_event`;
 DROP TABLE IF EXISTS `__CL_MAIN__log`;
 DROP TABLE IF EXISTS `__CL_MAIN__event_resource`;
+DROP TABLE IF EXISTS `__CL_MAIN__clkrng_keyring`;
