@@ -84,6 +84,7 @@ $typeLabel['tool']    = get_lang('Tools');
 $typeLabel['applet']  = get_lang('Applets');
 $typeLabel['crsmanage'] = get_lang('Course management tools');
 $typeLabel['admin']  = get_lang('Administration tools');
+$typeLabel['websvc']  = get_lang('Web services');
 //$typeLabel['lang']    = get_lang('Language packs');
 //$typeLabel['theme']   = get_lang('Themes');
 //$typeLabel['extauth'] = get_lang('External authentication drivers');
@@ -807,13 +808,19 @@ $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspaci
 .    '<th>' . get_lang('Module name')         . '</th>' . "\n"
 .    '<th>' . get_lang('Module administration')         . '</th>' . "\n";
 
+$colspanEmpty = 6;
+
 if ($typeReq == 'applet')
 {
     $out .= '<th>' . get_lang('Display')             . '</th>' . "\n";
+    
+    $colspanEmpty = 7;
 }
-elseif ( $module['type'] == 'tool' )
+elseif ( $typeReq == 'tool' )
 {
     $out .= '<th colspan="2">' . get_lang('Order')       . '</th>' . "\n";
+    
+    $colspanEmpty = 8;
 }
 
 $out .= '<th>' . get_lang('Properties')          . '</th>' . "\n"
@@ -832,181 +839,188 @@ $out .=   '</tr>' . "\n"
 
 
 // Start the list of modules...
-foreach($moduleList as $module)
+if ( count($moduleList) )
 {
-    // Display settings...
-    $class_css = ($module['activation'] == 'activated') ? '' : ' class="invisible" ';
-
-    // Find icon
-    $modulePath = get_module_path($module['label']);
-
-    switch ( $typeReq )
+    foreach($moduleList as $module)
     {
-        case 'crsmanage':
-        case 'admin':
-            $moduleDefaultIcon = 'settings';
-            break;
-        default:
-            $moduleDefaultIcon = 'exe';
-            break;
-    }
-    
-    $iconUrl = get_module_icon_url( 
-        $module['label'] , 
-        array_key_exists('icon',$module) ? $module['icon'] : null, 
-        $moduleDefaultIcon );
-    
-    $icon = '<img src="'.$iconUrl.'" alt="" />';
+        // Display settings...
+        $class_css = ($module['activation'] == 'activated') ? '' : ' class="invisible" ';
 
-    // Module_id and icon column
-    $out .=  "\n"  . '<tr ' . $class_css . '>' . "\n"
-    .    '<td align="center">' . $icon . '</td>' . "\n";
+        // Find icon
+        $modulePath = get_module_path($module['label']);
 
-    // Name column
-
-    $moduleName = $module['name'];
-    
-    $out .= '<td align="left">' . get_lang($moduleName) . '</td>' . "\n";
-
-    if (file_exists(get_module_path($module['label']) . '/admin.php') && ($module['type']!='tool'))
-    {
-        $out .= '<td align="left"><a href="' . get_module_url($module['label']) . '/admin.php" >' . get_lang('Go to administration') . '</a></td>' . "\n";
-    }
-    else
-    {
-        $out .= '<td align="left">-</td>' . "\n";
-    }
-
-    // Displaying location column
-    if ( $module['type'] == 'applet' )
-    {
-        $out .= '<td align="left"><small>';
-        if (empty($module_dock[$module['id']]))
+        switch ( $typeReq )
         {
-            $out .= '<span align="center">' . get_lang('No dock chosen') . '</span>';
+            case 'crsmanage':
+            case 'admin':
+                $moduleDefaultIcon = 'settings';
+                break;
+            default:
+                $moduleDefaultIcon = 'exe';
+                break;
+        }
+
+        $iconUrl = get_module_icon_url( 
+            $module['label'] , 
+            array_key_exists('icon',$module) ? $module['icon'] : null, 
+            $moduleDefaultIcon );
+
+        $icon = '<img src="'.$iconUrl.'" alt="" />';
+
+        // Module_id and icon column
+        $out .=  "\n"  . '<tr ' . $class_css . '>' . "\n"
+        .    '<td align="center">' . $icon . '</td>' . "\n";
+
+        // Name column
+
+        $moduleName = $module['name'];
+
+        $out .= '<td align="left">' . get_lang($moduleName) . '</td>' . "\n";
+
+        if (file_exists(get_module_path($module['label']) . '/admin.php') && ($module['type']!='tool'))
+        {
+            $out .= '<td align="left"><a href="' . get_module_url($module['label']) . '/admin.php" >' . get_lang('Go to administration') . '</a></td>' . "\n";
         }
         else
         {
-            foreach ( $module_dock [ $module [ 'id' ] ] as $dock )
+            $out .= '<td align="left">-</td>' . "\n";
+        }
+
+        // Displaying location column
+        if ( $module['type'] == 'applet' )
+        {
+            $out .= '<td align="left"><small>';
+            if (empty($module_dock[$module['id']]))
             {
-                $out .= '<a href="module_dock.php?dock=' . $dock [ 'dockname' ] . '">' . $dockList [ $dock [ 'dockname' ] ] . '</a> <br/>' ;
+                $out .= '<span align="center">' . get_lang('No dock chosen') . '</span>';
+            }
+            else
+            {
+                foreach ( $module_dock [ $module [ 'id' ] ] as $dock )
+                {
+                    $out .= '<a href="module_dock.php?dock=' . $dock [ 'dockname' ] . '">' . $dockList [ $dock [ 'dockname' ] ] . '</a> <br/>' ;
+                }
+            }
+
+            $out .= '</small></td>' . "\n";
+        }
+        elseif ( $module['type'] == 'tool' )
+        {
+            // Up command
+            if (isset( $module[ 'rank' ] ) && $course_tool_min_rank != $module [ 'rank' ])
+            {
+                $out .= '<td align="center">'
+                .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvUp">'
+                .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
+                .    '</a>'
+                .    '</td>' . "\n";
+            }
+            else
+            {
+                $out .= '<td>&nbsp;</td>' . "\n" ;
+            }
+
+            // Down command
+            if (isset( $module[ 'rank' ] ) && $course_tool_max_rank != $module [ 'rank' ])
+            {
+                $out .= '<td align="center">'
+                .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvDown">'
+                .    '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
+                .    '</a>'
+                .    '</td>' . "\n";
+            }
+            else
+            {
+                $out .= '<td>&nbsp;</td>' . "\n" ;
             }
         }
 
-        $out .= '</small></td>' . "\n";
-    }
-    elseif ( $module['type'] == 'tool' )
-    {
-        // Up command
-        if (isset( $module[ 'rank' ] ) && $course_tool_min_rank != $module [ 'rank' ])
-        {
-            $out .= '<td align="center">'
-            .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvUp">'
-            .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
-            .    '</a>'
-            .    '</td>' . "\n";
-        }
-        else
-        {
-            $out .= '<td>&nbsp;</td>' . "\n" ;
-        }
-
-        // Down command
-        if (isset( $module[ 'rank' ] ) && $course_tool_max_rank != $module [ 'rank' ])
-        {
-            $out .= '<td align="center">'
-            .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvDown">'
-            .    '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
-            .    '</a>'
-            .    '</td>' . "\n";
-        }
-        else
-        {
-            $out .= '<td>&nbsp;</td>' . "\n" ;
-        }
-    }
-
-    // Properties link
-    $out .= '<td align="center">'
-    .    '<a href="module.php?module_id='.$module['id'].'">'
-    .    '<img src="' . get_icon_url('settings') . '" alt="' . get_lang('Properties') . '" />'
-    .    '</a>'
-    .    '</td>' . "\n";
-
-    // Uninstall link
-    if (!in_array($module['label'],$nonuninstalable_tool_array))
-    {
+        // Properties link
         $out .= '<td align="center">'
-        .    '<a onclick="return ADMIN.confirmationUninstall(\''.clean_str_for_javascript($module['name']).'\');" '
-        .    'href="'.claro_htmlspecialchars('module_list.php?module_id=' . $module['id'] . '&typeReq='.$typeReq.'&cmd=exUninstall').'" >'
-        .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
+        .    '<a href="module.php?module_id='.$module['id'].'">'
+        .    '<img src="' . get_icon_url('settings') . '" alt="' . get_lang('Properties') . '" />'
         .    '</a>'
         .    '</td>' . "\n";
-        ;
-    }
-    else
-    {
-        $out .= '<td align="center">-</td>' . "\n" ;
-    }
 
-    // Activation link
-    $out .= '<td align="center" >' ;
-
-    if (in_array ( $module [ 'label' ], $undeactivable_tool_array ))
-    {
-        $out .= '-';
-    }
-    else
-    {
-        if ( 'activated' == $module['activation'] )
+        // Uninstall link
+        if (!in_array($module['label'],$nonuninstalable_tool_array))
         {
-            $out .= '<a href="module_list.php?cmd=desactiv&amp;module_id='
-            . $module['id'] . '&amp;typeReq=' . $typeReq .'" '
-            . 'title="'.get_lang('Activated - Click to deactivate').'">'
-            . '<img src="' . get_icon_url('on')
-            . '" alt="'. get_lang('Activated') . '" /></a>'
+            $out .= '<td align="center">'
+            .    '<a onclick="return ADMIN.confirmationUninstall(\''.clean_str_for_javascript($module['name']).'\');" '
+            .    'href="'.claro_htmlspecialchars('module_list.php?module_id=' . $module['id'] . '&typeReq='.$typeReq.'&cmd=exUninstall').'" >'
+            .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
+            .    '</a>'
+            .    '</td>' . "\n";
             ;
         }
         else
         {
-            $out .= '<a href="module_list.php?cmd=activ&amp;module_id='
-            . $module['id'] . '&amp;typeReq='.$typeReq.'" '
-            . 'title="'.get_lang('Deactivated - Click to activate').'">'
-            . '<img src="' . get_icon_url('off')
-            . '" alt="'. get_lang('Deactivated') . '"/></a>';
+            $out .= '<td align="center">-</td>' . "\n" ;
         }
-    }
-    $out .= '</td>' . "\n";
-            
-    // Visibility by default at course creation
-    if  ($typeReq == 'tool')
-    {
+
+        // Activation link
         $out .= '<td align="center" >' ;
 
-            if ( 'ALL' == $module['visibility'] )
+        if (in_array ( $module [ 'label' ], $undeactivable_tool_array ))
+        {
+            $out .= '-';
+        }
+        else
+        {
+            if ( 'activated' == $module['activation'] )
             {
-                $out .= '<a href="module_list.php?cmd=byDefaultInvisible&amp;module_label='
-                . $module['label'] . '&amp;typeReq=' . $typeReq .'" '
-                . 'title="'.get_lang('Visible - Click to make invisible').'">'
-                . '<img src="' . get_icon_url('visible')
-                . '" alt="'. get_lang('Visible') . '" /></a>'
+                $out .= '<a href="module_list.php?cmd=desactiv&amp;module_id='
+                . $module['id'] . '&amp;typeReq=' . $typeReq .'" '
+                . 'title="'.get_lang('Activated - Click to deactivate').'">'
+                . '<img src="' . get_icon_url('on')
+                . '" alt="'. get_lang('Activated') . '" /></a>'
                 ;
             }
             else
             {
-                $out .= '<a href="module_list.php?cmd=byDefaultVisible&amp;module_label='
-                . $module['label'] . '&amp;typeReq='.$typeReq.'" '
-                . 'title="'.get_lang('Invisible - Click to make visible').'">'
-                . '<img src="' . get_icon_url('invisible')
-                . '" alt="'. get_lang('Invisible') . '"/></a>';
+                $out .= '<a href="module_list.php?cmd=activ&amp;module_id='
+                . $module['id'] . '&amp;typeReq='.$typeReq.'" '
+                . 'title="'.get_lang('Deactivated - Click to activate').'">'
+                . '<img src="' . get_icon_url('off')
+                . '" alt="'. get_lang('Deactivated') . '"/></a>';
             }
-
+        }
         $out .= '</td>' . "\n";
-    }
-    
-    //end table line
 
-    $out .=  '</tr>' . "\n\n";
+        // Visibility by default at course creation
+        if  ($typeReq == 'tool')
+        {
+            $out .= '<td align="center" >' ;
+
+                if ( 'ALL' == $module['visibility'] )
+                {
+                    $out .= '<a href="module_list.php?cmd=byDefaultInvisible&amp;module_label='
+                    . $module['label'] . '&amp;typeReq=' . $typeReq .'" '
+                    . 'title="'.get_lang('Visible - Click to make invisible').'">'
+                    . '<img src="' . get_icon_url('visible')
+                    . '" alt="'. get_lang('Visible') . '" /></a>'
+                    ;
+                }
+                else
+                {
+                    $out .= '<a href="module_list.php?cmd=byDefaultVisible&amp;module_label='
+                    . $module['label'] . '&amp;typeReq='.$typeReq.'" '
+                    . 'title="'.get_lang('Invisible - Click to make visible').'">'
+                    . '<img src="' . get_icon_url('invisible')
+                    . '" alt="'. get_lang('Invisible') . '"/></a>';
+                }
+
+            $out .= '</td>' . "\n";
+        }
+
+        //end table line
+
+        $out .=  '</tr>' . "\n\n";
+    }
+}
+else
+{
+    $out .= '<tr><td colspan='.$colspanEmpty.'>'.get_lang('Empty').'</td></tr>' . "\n\n";
 }
 
 // End table

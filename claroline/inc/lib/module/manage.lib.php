@@ -317,7 +317,7 @@ function count_modules_by_type( $onlyActivated = true )
  */
 function get_available_module_types()
 {
-    return array( 'tool', 'applet', 'crsmanage', 'admin' );
+    return array( 'tool', 'applet', 'crsmanage', 'admin', 'websvc' );
 }
 
 /**
