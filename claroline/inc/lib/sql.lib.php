@@ -26,7 +26,8 @@ function get_main_tbl_aliases()
         'user_category'             => 'class',
         'user_rel_profile_category' => 'rel_class_user',
         'course_user'               => 'rel_course_user',
-        'tool'                      => 'course_tool'
+        'tool'                      => 'course_tool',
+        'keyring'                   => 'clkrng_keyring'
     );
 }
 
@@ -217,7 +218,8 @@ function claro_sql_get_main_tbl()
             'desktop_portlet',
             'desktop_portlet_data',
             'tracking_event',
-            'log'
+            'log',
+            'clkrng_keyring'
         ) );
     }
     

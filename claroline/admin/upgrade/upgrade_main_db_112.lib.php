@@ -76,3 +76,34 @@ function upgrade_user_to_112()
     
     return false;
 }
+
+function upgrade_keyring_to_112()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    
+    $label = 'USERS_112';
+    
+    switch( $step = get_upgrade_status($tool) )
+    {
+        case 1:
+            // check if column already exists
+            upgrade_sql_query( "
+                CREATE TABLE IF NOT EXISTS {$tbl_mdb_names['clkrng_keyring']} (
+                    `service` varchar(255) NOT NULL,
+                    `host` varchar(255) NOT NULL,
+                    `key` varchar(255) NOT NULL,
+                    PRIMARY KEY (`service`, `host`),
+                    KEY (`service`),
+                    KEY (`host`)
+                ) ENGINE=MyISAM;" );
+            
+            set_upgrade_status($tool, $step+1);           
+            
+        default :
+            
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+    }
+    
+    return false;
+}
