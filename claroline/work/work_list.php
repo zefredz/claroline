@@ -603,31 +603,54 @@ $out .= $dialogBox->render();
  */
 $headerUrl = $workPager->get_sort_url_list(Url::Contextualize($_SERVER['PHP_SELF'] . '?assigId=' . $req['assignmentId']) );
 
-$out .= $workPager->disp_pager_tool_bar(Url::Contextualize($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId']))
+if ( count( $workList ) )
+{
+    $out .= $workPager->disp_pager_tool_bar(Url::Contextualize($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId']))
 
-. '<table class="claroTable emphaseLine" width="100%">' . "\n"
-. '<thead>' . "\n"
-. '<tr class="headerX">' . "\n"
-. '<th>'
-. '<a href="' . $headerUrl['name'] . '">'
-. get_lang('Author(s)')
-. '</a>'
-. '</th>' . "\n"
-. '<th>'
-. '<a href="' . $headerUrl['last_edit_date'] . '">'
-. get_lang('Last submission')
-. '</a>'
-. '</th>' . "\n"
-. '<th>'
-. '<a href="' . $headerUrl['submissionCount'] . '">'
-. get_lang('Submissions')
-. '</a>'
-. '</th>' . "\n"
-. '<th>'
-. '<a href="' . $headerUrl['feedbackCount'] . '">'
-. get_lang('Feedbacks')
-. '</a>'
-. '</th>' . "\n";
+    . '<table class="claroTable emphaseLine" width="100%">' . "\n"
+    . '<thead>' . "\n"
+    . '<tr class="headerX">' . "\n"
+    . '<th>'
+    . '<a href="' . $headerUrl['name'] . '">'
+    . get_lang('Author(s)')
+    . '</a>'
+    . '</th>' . "\n"
+    . '<th>'
+    . '<a href="' . $headerUrl['last_edit_date'] . '">'
+    . get_lang('Last submission')
+    . '</a>'
+    . '</th>' . "\n"
+    . '<th>'
+    . '<a href="' . $headerUrl['submissionCount'] . '">'
+    . get_lang('Submissions')
+    . '</a>'
+    . '</th>' . "\n"
+    . '<th>'
+    . '<a href="' . $headerUrl['feedbackCount'] . '">'
+    . get_lang('Feedbacks')
+    . '</a>'
+    . '</th>' . "\n";
+}
+else
+{
+        $out .= $workPager->disp_pager_tool_bar(Url::Contextualize($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId']))
+
+    . '<table class="claroTable emphaseLine" width="100%">' . "\n"
+    . '<thead>' . "\n"
+    . '<tr class="headerX">' . "\n"
+    . '<th>'
+    . get_lang('Author(s)')
+    . '</th>' . "\n"
+    . '<th>'
+    . get_lang('Last submission')
+    . '</th>' . "\n"
+    . '<th>'
+    . get_lang('Submissions')
+    . '</th>' . "\n"
+    . '<th>'
+    . get_lang('Feedbacks')
+    . '</th>' . "\n";
+}
 
 if( $is_allowedToEditAll )
 {
