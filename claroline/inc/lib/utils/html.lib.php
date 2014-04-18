@@ -83,6 +83,11 @@ class Claro_Html_Element implements Claro_Renderer
         }
     }
     
+    /**
+     * Set the id of the element
+     * @param string $id
+     * @throws Exception
+     */
     protected function setId( $id )
     {
         if ( in_array( $id, self::$ids ) )
@@ -275,6 +280,10 @@ class Claro_Html_Container extends Claro_Html_Element
  */
 class Claro_Html_Composite implements Claro_Renderer
 {
+    /**
+     * Array of HTML elements contained in the composite element
+     * @var array 
+     */
     protected $elems;
     
     /**
@@ -314,6 +323,11 @@ class Claro_Html_Composite implements Claro_Renderer
  */
 abstract class Claro_Html_Element_AutoClose extends Claro_Html_Element
 {
+    /**
+     * @see Claro_Html_Element
+     * @param string $elementName
+     * @param array $attributes
+     */
     public function __construct ( $elementName, $attributes = array() )
     {
         parent::__construct ( $elementName, $attributes, true );
@@ -325,8 +339,11 @@ abstract class Claro_Html_Element_AutoClose extends Claro_Html_Element
  */
 abstract class Claro_Html_Element_OpenClose extends Claro_Html_Element
 {
-    protected $content = '';
-    
+    /**
+     * @see Claro_Html_Element
+     * @param string $elementName
+     * @param array $attributes
+     */
     public function __construct ( $elementName, $attributes = array() )
     {
         parent::__construct ( $elementName, $attributes, false );
@@ -338,6 +355,10 @@ abstract class Claro_Html_Element_OpenClose extends Claro_Html_Element
  */
 abstract class Claro_Form_Element extends Claro_Html_Element
 {  
+    /** 
+     * Accumulator to compute the form element id
+     * @var int $id
+     */
     protected static $id = 1;
     
     /**
@@ -356,9 +377,13 @@ abstract class Claro_Form_Element extends Claro_Html_Element
         parent::__construct( $elementName, $attributes, $autoClose );
     }
     
-    public function setName( $attributeName )
+    /**
+     * Set the name attribute (not element name !) of the form element
+     * @param string $name
+     */
+    public function setName( $name )
     {
-        $this->setAttribute( 'name', $attributeName );
+        $this->setAttribute( 'name', $name );
     }
     
     /**
@@ -381,6 +406,11 @@ abstract class Claro_Form_Element extends Claro_Html_Element
  */
 abstract class Claro_Form_Element_AutoClose extends Claro_Form_Element
 {
+    /**
+     * @see Claro_Html_Element
+     * @param string $elementName
+     * @param array $attributes
+     */
     public function __construct ( $elementName, $attributes = array() )
     {
         parent::__construct ( $elementName, $attributes, true );
@@ -392,12 +422,20 @@ abstract class Claro_Form_Element_AutoClose extends Claro_Form_Element
  */
 abstract class Claro_Form_Element_OpenClose extends Claro_Form_Element
 {
+    /**
+     * @see Claro_Html_Element
+     * @param string $elementName
+     * @param array $attributes
+     */
     public function __construct ( $elementName, $attributes = array() )
     {
         parent::__construct ( $elementName, $attributes, false );
     }
 }
 
+/**
+ * HTML form
+ */
 class Claro_Html_Form extends Claro_Html_Element_OpenClose
 {
     const METHOD_POST = 'post';
@@ -407,6 +445,15 @@ class Claro_Html_Form extends Claro_Html_Element_OpenClose
     
     protected $elements = array();
     
+    protected $csrf = true, $uniqid = false;
+
+    /**
+     * Create a form
+     * @param string $action callback url for the form
+     * @param string $method method used to call the callback url 
+     *  Claro_Html_Form::METHOD_POST or Claro_Html_Form::METHOD_GET
+     * @param array $extra other attributes for the form in an associative array
+     */
     public function __construct( $action = '', $method = self::METHOD_POST, $extra = array() )
     {
         $this->action = empty( $action )
@@ -427,8 +474,22 @@ class Claro_Html_Form extends Claro_Html_Element_OpenClose
          $this->setAttribute( 'method', $this->method );
     }
     
+    /**
+     * @see Claro_Renderer
+     * @return string
+     */
     public function render()
     {
+        if ( $this->csrf )
+        {
+            $this->addElement(new Claro_Html_Input_CsrfToken());
+        }
+        
+        if ( $this->uniqid )
+        {
+            $this->addElement(new Claro_Html_Input_Uniqid());
+        }
+        
         $this->content = "\n";
         
         foreach ( $this->elements as $element )
@@ -442,27 +503,61 @@ class Claro_Html_Form extends Claro_Html_Element_OpenClose
         return parent::render();
     }
     
-    public function addElement( $element, $newline = false )
+    /**
+     * Add an element to the form
+     * @param Claro_Renderer $element element to add to the form
+     * @param boolean $newline add a new line after the element
+     */
+    public function addElement( Claro_Renderer $element, $newline = false )
     {
         $this->elements[] = array(
             'element' => $element,
             'newline' => $newline
         );
     }
+    
+    /**
+     * Disable cross-site request forgery protection
+     */
+    public function disableCsrfProtection()
+    {
+        $this->csrf = false;
+    }
+    
+    /**
+     * Enable protection against multiple submission
+     */
+    public function protectAgainstMultipleSubmision()
+    {
+        $this->uniqid = true;
+    }
 }
 
+/**
+ * HTML fieldset
+ */
 class Claro_Html_Fieldset extends Claro_Html_Element_OpenClose
 {
     protected $legend;
     protected $elements = array();
     
-    public function __construct( $legend, $extra = '' )
+    /**
+     * Create a fieldset
+     * @param Claro_Html_Legend $legend legend of the field set
+     * @param array $extra other attributes for the fieldset element in an associated array
+     */
+    public function __construct( Claro_Html_Legend $legend, $extra = array() )
     {
+        $this->legend = $legend;
         parent::__construct( 'fieldset', $extra );
-        $this->legend = new Legend( $legend );
     }
     
-    public function addElement( $element, $newline = false )
+    /**
+     * Add an element to the fieldset
+     * @param Claro_Renderer $element element to add to the form
+     * @param boolean $newline add a new line after the element
+     */
+    public function addElement( Claro_Renderer $element, $newline = false )
     {
         $this->elements[] = array(
             'element' => $element,
@@ -470,6 +565,10 @@ class Claro_Html_Fieldset extends Claro_Html_Element_OpenClose
         );
     }
     
+    /**
+     * @see Claro_Renderer
+     * @return string
+     */
     public function render()
     {
         $this->content = "\n" . $this->legend->render() . "\n";
@@ -486,22 +585,38 @@ class Claro_Html_Fieldset extends Claro_Html_Element_OpenClose
     }
 }
 
+/**
+ * Legend of a fieldset
+ */
 class Claro_Html_Legend extends Claro_Html_Element_OpenClose
 {
-    public function __construct( $legend, $extra = '' )
+    /**
+     * Create a legend element
+     * @param string $legend text of the legend
+     * @param array $extra other attributes for the fieldset element in an associated array
+     */
+    public function __construct( $legend, $extra = array() )
     {
         parent::__construct('legend', $extra);
         $this->setContent( $legend );
     }
 }
 
+/**
+ * Label of an element
+ */
 class Claro_Html_Label extends Claro_Html_Element_OpenClose
 {
     protected $label, $for, $extra;
     
-    public function __construct( $label, $for, $extra = null )
+    /**
+     * Create a label
+     * @param string $label text of the label
+     * @param string $for id of the element associated with the label
+     * @param array $attributes associative array of attributes
+     */
+    public function __construct( $label, $for, $attributes = array() )
     {
-        $attributes = is_array( $extra ) ? $extra : array();
         $attributes['for'] = $for;
            
         parent::__construct( 'label', $attributes );
@@ -515,7 +630,14 @@ class Claro_Html_Input_Generic extends Claro_Form_Element_AutoClose
     protected $label = null;
     protected $labelAfter = false;
     
-    public function __construct( $type, $name, $value = '', $extra = '' )
+    /**
+     * Generic Input element
+     * @param string $type type of input element
+     * @param string $name name attribute of the html tag of the input element
+     * @param string $value value stored in the input element
+     * @param array $extra associative array of attributes
+     */
+    public function __construct( $type, $name, $value = '', $extra = array() )
     {
         if ( ! in_array( $type
             , array( 'text','password','submit','button','image','file','radio','checkbox','hidden') ) )
@@ -531,23 +653,46 @@ class Claro_Html_Input_Generic extends Claro_Form_Element_AutoClose
         if (is_array($extra)) $this->appendAttributes( $extra );
     }
     
-    public function setLabel( $label, $after = false, $extra = '' )
+    /**
+     * Set the label of the input element
+     * @param string|Claro_Html_Label $label
+     * @param boolean $after if set to true, the label will be placed after the input instead of before
+     * @param array $extra associative array of attributes of the label
+     */
+    public function setLabel( $label, $after = false, $extra = array() )
     {
-        $this->label = new Claro_Html_Label( $label, $this->getId(), $extra );
+        if ( $label instanceof Claro_Html_Label )
+        {
+            $this->label = $label;
+        }
+        else
+        {
+            $this->label = new Claro_Html_Label( $label, $this->getId(), $extra );
+        }
+        
         $this->labelAfter = $after ? true : false;
     }
     
+    /**
+     * Disable/ignore the input in form submit
+     */
     public function disable()
     {
         $this->setAttribute( 'disabled', 'disabled' );
     }
     
+    /**
+     * Enable/unignore the input in form submit
+     */
     public function enable()
     {
         $this->unsetAttribute( 'disabled' );
     }
     
     // readonly works on text fields only (text,password and textarea
+    /**
+     * Set the input element as readonly
+     */
     public function readonly()
     {
         if ( ! in_array( $this->attributes['type'], array('text','password') ) )
@@ -558,6 +703,10 @@ class Claro_Html_Input_Generic extends Claro_Form_Element_AutoClose
         $this->setAttribute( 'readonly', 'readonly' );
     }
     
+    /**
+     * Set the input element as checked
+     * @throws Exception
+     */
     public function checked()
     {
         if ( ! in_array( $this->attributes['type'], array('radio', 'checkbox') ) )
@@ -568,6 +717,10 @@ class Claro_Html_Input_Generic extends Claro_Form_Element_AutoClose
         $this->setAttribute( 'checked', 'checked' );
     }
     
+    /**
+     * @see Claro_Renderer
+     * @return string
+     */
     public function render()
     {
         $label = is_null( $this->label )  ? ''  : $this->label->render();
@@ -579,9 +732,21 @@ class Claro_Html_Input_Generic extends Claro_Form_Element_AutoClose
     }
 }
 
+/**
+ * Text input
+ */
 class Claro_Html_Input_Text extends Claro_Html_Input_Generic
 {
-    public function __construct( $name, $value = '', $size = '', $maxlength = '', $extra = '', $password = false )
+    /**
+     * Create a text input
+     * @param string $name name attribute of the html tag of the input element
+     * @param string $value value stored in the input element
+     * @param int $size size of the element
+     * @param int $maxlength maximum length of the value stored in the element
+     * @param array $extra associative array of attributes
+     * @param boolean $password if true, create a password input instead of of a text input
+     */
+    public function __construct( $name, $value = '', $size = '', $maxlength = '', $extra = array(), $password = false )
     {
         $type = $password ? 'password' : 'text';
         
@@ -593,17 +758,38 @@ class Claro_Html_Input_Text extends Claro_Html_Input_Generic
     }
 }
 
+/**
+ * Password input
+ */
 class Claro_Html_Input_Password extends Claro_Html_Input_Text
 {
-    public function __construct( $name, $value = '', $size = '', $maxlength = '', $extra = '' )
+    /**
+     * Create a password input
+     * @param string $name name attribute of the html tag of the input element
+     * @param string $value value stored in the input element
+     * @param int $size size of the element
+     * @param int $maxlength maximum length of the value stored in the element
+     * @param array $extra associative array of attributes
+     */
+    public function __construct( $name, $value = '', $size = '', $maxlength = '', $extra = array() )
     {
         parent::__construct( $name, $value, $size, $maxlength, $extra, true );
     }
 }
 
+/**
+ * Submit button
+ */
 class Claro_Html_Input_Submit extends Claro_Html_Input_Generic
 {
-    public function __construct( $name, $value, $onsubmit = '', $extra = '' )
+    /**
+     * Create a submit button
+     * @param string $name name attribute of the html tag of the input element
+     * @param string $value value stored in the input element
+     * @param string $onsubmit javascript callback on form submit
+     * @param array $extra associative array of attributes
+     */
+    public function __construct( $name, $value, $onsubmit = '', $extra = array() )
     {
         parent::__construct( 'submit', $name, $value );
         
@@ -612,9 +798,19 @@ class Claro_Html_Input_Submit extends Claro_Html_Input_Generic
     }
 }
 
+/**
+ * Button
+ */
 class Claro_Html_Input_Button extends Claro_Html_Input_Generic
 {
-    public function __construct( $name, $value, $onclick = '', $extra = '' )
+    /**
+     * Create a button
+     * @param string $name name attribute of the html tag of the input element
+     * @param string $value value stored in the input element
+     * @param string $onclick javascript callback when the button is clicked
+     * @param array $extra associative array of attributes
+     */
+    public function __construct( $name, $value, $onclick = '', $extra = array() )
     {
         parent::__construct( 'button', $name, $value );
         
@@ -623,11 +819,21 @@ class Claro_Html_Input_Button extends Claro_Html_Input_Generic
     }
 }
 
+/**
+ * Cancel button
+ */
 class Claro_Html_Input_Cancel extends Claro_Html_Input_Button
 {
     protected $location;
     
-    public function __construct( $name, $value, $location = '', $extra = '' )
+    /**
+     * Create a submit button
+     * @param string $name name attribute of the html tag of the input element
+     * @param string $value value stored in the input element
+     * @param string $location callback url
+     * @param array $extra associative array of attributes
+     */
+    public function __construct( $name, $value, $location = '', $extra = array() )
     {
         $this->location = empty($location)? $_SERVER['PHP_SELF'] : $location;
         $onclick = "window.location='{$this->location}'";
@@ -635,6 +841,10 @@ class Claro_Html_Input_Cancel extends Claro_Html_Input_Button
         parent::__construct( $name, $value, $onclick, $extra );
     }
     
+    /**
+     * @see Claro_Renderer
+     * @return string
+     */
     public function render()
     {
         return "<a href=\"{$this->location}\">"
@@ -644,17 +854,36 @@ class Claro_Html_Input_Cancel extends Claro_Html_Input_Button
     }
 }
 
+/**
+ * File selector
+ */
 class Claro_Html_Input_File extends Claro_Html_Input_Generic
 {
-    public function __construct( $name, $value = '', $extra = '' )
+    /**
+     * Create a file selector input
+     * @param string $name name attribute of the html tag of the input element
+     * @param string $value value stored in the input element
+     * @param array $extra associative array of attributes
+     */
+    public function __construct( $name, $value = '', $extra = array() )
     {
         parent::__construct( 'file', $name, $value, $extra );
     }
 }
 
+/**
+ * Input element of type image
+ */
 class Claro_Html_Input_Image extends Claro_Html_Input_Generic
 {
-    public function __construct( $name, $src, $value = '', $extra = '' )
+    /**
+     * Create an input element of type image
+     * @param string $name name attribute of the html tag of the input element
+     * @param string $src url of the image
+     * @param string $value value stored in the input element
+     * @param array $extra associative array of attributes
+     */
+    public function __construct( $name, $src, $value = '', $extra = array() )
     {
         parent::__construct( 'image', $name, $value );
         
@@ -663,17 +892,37 @@ class Claro_Html_Input_Image extends Claro_Html_Input_Generic
     }
 }
 
+/**
+ * Hidden input element
+ */
 class Claro_Html_Input_Hidden extends Claro_Html_Input_Generic
 {
-    public function __construct( $name, $value, $extra = '' )
+    /**
+     * Create a hidden input element
+     * @param string $name name attribute of the html tag of the input element
+     * @param string $value value stored in the input element
+     * @param array $extra associative array of attributes
+     */
+    public function __construct( $name, $value, $extra = array() )
     {
         parent::__construct( 'hidden', $name, $value, $extra );
     }
 }
 
+/**
+ * Radio button
+ */
 class Claro_Html_Input_Radio extends Claro_Html_Input_Generic
 {
-    public function __construct( $name, $value, $label = '', $checked = false, $extra = '' )
+    /**
+     * Create a radio button
+     * @param string $name name attribute of the html tag of the input element
+     * @param string $value value stored in the input element
+     * @param string $label text of the button
+     * @param boolean $checked if set to true the radio button is checked
+     * @param array $extra associative array of attributes
+     */
+    public function __construct( $name, $value, $label = '', $checked = false, $extra = array() )
     {
         parent::__construct( 'radio', $name, $value, $extra );
         
@@ -683,9 +932,12 @@ class Claro_Html_Input_Radio extends Claro_Html_Input_Generic
     }
 }
 
+/**
+ * Check box
+ */
 class Claro_Html_Input_Checkbox extends Claro_Html_Input_Generic
 {
-    public function __construct( $name, $value, $label = '', $checked = false, $extra = '' )
+    public function __construct( $name, $value, $label = '', $checked = false, $extra = array() )
     {
         parent::__construct( 'checkbox', $name, $value, $extra );
         
@@ -695,11 +947,20 @@ class Claro_Html_Input_Checkbox extends Claro_Html_Input_Generic
     }
 }
 
+/**
+ * Radio button list
+ */
 class Claro_Html_Input_RadioList
 {
     protected $radioList = array();
     protected $name, $checked;
     
+    /**
+     * Generate a list of radio buttons
+     * @param string $name name attribute of the html tag
+     * @param array $list array of button text label strings
+     * @param string $checked text of the checked button in the previous list
+     */
     public function __construct( $name, $list, $checked = '' )
     {
         $this->elementName = $name; 
@@ -711,6 +972,10 @@ class Claro_Html_Input_RadioList
         }           
     }
     
+    /**
+     * @see Claro_Renderer
+     * @return string
+     */
     public function render()
     {
         $ret = '';
@@ -724,11 +989,20 @@ class Claro_Html_Input_RadioList
     }
 }
 
+/**
+ * Check box list
+ */
 class Claro_Html_Input_CheckboxList
 {
     protected $checkboxList = array();
     protected $name, $checked;
     
+    /**
+     * Generate a list of checkboxes
+     * @param string $name name attribute of the html tag
+     * @param array $list array of checkbox text label strings
+     * @param string $checked text of the checked checkbox in the previous list
+     */
     public function __construct( $name, $list, $checked = '' )
     {
         $this->elementName = $name; 
@@ -740,6 +1014,10 @@ class Claro_Html_Input_CheckboxList
         }           
     }
     
+    /**
+     * @see Claro_Renderer
+     * @return string
+     */
     public function render()
     {
         $ret = '';
@@ -753,9 +1031,20 @@ class Claro_Html_Input_CheckboxList
     }
 }
 
+/**
+ * Text area
+ */
 class Claro_Html_Textarea extends Claro_Form_Element_OpenClose
 {
-    public function __construct( $name, $value, $rows, $cols, $extra = '' )
+    /**
+     * Create a textarea
+     * @param string $name name attribute of the html tag of the input element
+     * @param string $value value stored in the textarea
+     * @param int $rows number of rows
+     * @param int $cols number of columns
+     * @param array $extra associative array of attributes
+     */
+    public function __construct( $name, $value, $rows, $cols, $extra = array() )
     {
         parent::__construct( 'textarea' );
         
@@ -769,22 +1058,40 @@ class Claro_Html_Textarea extends Claro_Form_Element_OpenClose
     }
 }
 
-abstract class Claro_Html_Select_Item extends Claro_Html_Element_OpenClose
+/**
+ * Abstract item of a select box
+ */
+abstract class Claro_Html_SelectBox_Item extends Claro_Html_Element_OpenClose
 {
+    /**
+     * Disable the item
+     */
     public function disable()
     {
         $this->setAttribute( 'disabled', 'disabled' );
     }
     
+    /**
+     * Enable the item
+     */
     public function enable()
     {
         $this->unsetAttribute( 'disabled' );
     }
 }
 
-class Claro_Html_Select_Option extends Claro_Html_Select_Item
+/**
+ * Option of a selct box
+ */
+class Claro_Html_SelectBox_Option extends Claro_Html_SelectBox_Item
 {
-    public function __construct( $label, $value, $extra = '' )
+    /**
+     * Create an option
+     * @param string $label label of the option
+     * @param string $value value of the option
+     * @param array $extra associative array of attributes
+     */
+    public function __construct( $label, $value, $extra = array() )
     {
         parent::__construct( 'option' );
         
@@ -795,17 +1102,28 @@ class Claro_Html_Select_Option extends Claro_Html_Select_Item
         $this->setContent( $label );
     }
     
+    /**
+     * Set the option as selected
+     */
     public function selected()
     {
         $this->attributes['selected'] = 'selected';
     }
 }
 
-class Claro_Html_Select_Optgroup extends Claro_Html_Select_Item
+/**
+ * Option group
+ */
+class Claro_Html_SelectBox_Optgroup extends Claro_Html_SelectBox_Item
 {
     protected $elements = array();
     
-    public function __construct( $label, $extra = '' )
+    /**
+     * Create an option group
+     * @param string $label label of the option group
+     * @param array $extra associative array of attributes
+     */
+    public function __construct( $label, $extra = array() )
     {
         parent::__construct( 'optgroup' );
         
@@ -814,11 +1132,19 @@ class Claro_Html_Select_Optgroup extends Claro_Html_Select_Item
         if ( is_array($extra) ) $this->appendAttributes( $extra );
     }
     
-    public function addClaro_Html_Select_Option( $element )
+    /**
+     * Add an option to the group
+     * @param Claro_Html_SelectBox_Option $element
+     */
+    public function addOption( Claro_Html_SelectBox_Option $element )
     {
         $this->elements[] = $element;
     }
     
+    /**
+     * @see Claro_Renderer
+     * @return string
+     */
     public function render()
     {
         $this->content = "\n";
@@ -832,11 +1158,19 @@ class Claro_Html_Select_Optgroup extends Claro_Html_Select_Item
     }
 }
 
-class Claro_Html_Select extends Claro_Form_Element_OpenClose
+/**
+ * Select box
+ */
+class Claro_Html_SelectBox extends Claro_Form_Element_OpenClose
 {
     protected $elements = array();
     
-    public function __construct( $name, $extra = '' )
+    /**
+     * Create a select box
+     * @param string $name name attribute
+     * @param array $extra other attributes
+     */
+    public function __construct( $name, $extra = array() )
     {
         parent::__construct( 'select' );
         
@@ -845,11 +1179,19 @@ class Claro_Html_Select extends Claro_Form_Element_OpenClose
         if ( is_array($extra) ) $this->appendAttributes( $extra );
     }
     
-    public function addClaro_Html_Select_Option( $element )
+    /**
+     * Add an option to the group
+     * @param Claro_Html_SelectBox_Option $element
+     */
+    public function addOption( Claro_Html_SelectBox_Option $element )
     {
         $this->elements[] = $element;
     }
     
+    /**
+     * @see Claro_Renderer
+     * @return string
+     */
     public function render()
     {
         $this->content = "\n";
@@ -862,58 +1204,54 @@ class Claro_Html_Select extends Claro_Form_Element_OpenClose
         return parent::render();
     }
     
-    public static function fromArray( $name, $optionList, $selectedValue, $extra = '' )
+    /**
+     * Create a select box from an array of option labels and values
+     * @param string $name name attribute
+     * @param array $optionList array of [value => label]
+     * @param string $selectedValue selected value
+     * @param array $extra extra attributes associative array
+     * @return \Claro_Html_SelectBox
+     */
+    public static function fromArray( $name, $optionList, $selectedValue, $extra = array() )
     {
-        $select = new Select( $name, $extra );
+        $select = new self( $name, $extra );
         
         foreach ( $optionList as $value => $label )
         {
-            $option = new Claro_Html_Select_Option( $label, $value );
+            $option = new Claro_Html_SelectBox_Option( $label, $value );
+            
             if ( $value == $selectedValue ) $option->selected();
-            $select->addClaro_Html_Select_Option( $option );
+            
+            $select->addClaro_Html_SelectBox_Option( $option );
         }
         
         return $select;
     }
 }
 
+/**
+ *  Cross-site request forgery protection token
+ */
 class Claro_Html_Input_CsrfToken extends Claro_Html_Input_Hidden
 {
-    protected $token;
-    protected $time;
-    
     public function __construct()
     {
-        $this->token = md5(uniqid(rand(),true));
-        $this->time = time();
-        
-        parent::__construct( 'token', $this->token, array( 'id' => '_token' ) );
-    }
-    
-    public function getToken()
-    {
-        return $this->token;
-    }
-    
-    public function getTime()
-    {
-        return $this->time;
-    }
-    
-    public static function checkToken( $tokenToCheck, $csrfToken, $csrfTime )
-    {
-        if ( $csrfToken != $tokenToCheck
-            || ( time() - $csrfTime ) > 60 )
+        if ( claro_is_user_authenticated() )
         {
-            return false;
+            $token = $_SESSION['csrf_token'];
         }
         else
         {
-            return true;
+            $token = '';
         }
+        
+        parent::__construct( 'csrf_token', $token, array( 'id' => 'csrf_token' ) );
     }
 }
 
+/**
+ * Protection against multiple form submissions
+ */
 class Claro_Html_Input_Uniqid extends Claro_Html_Input_Hidden
 {
     protected $formId;
