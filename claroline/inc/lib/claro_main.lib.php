@@ -1647,7 +1647,7 @@ function claro_unquote_gpc()
 {
     if ( ! defined('CL_GPC_UNQUOTED') )
     {
-        if ( get_magic_quotes_gpc() )
+        if ( version_compare( PHP_VERSION, '5.4.0', '<' ) && get_magic_quotes_gpc() )
         {
             /*
             * The new version is written in a safer approach inspired by Ilia
@@ -1682,6 +1682,10 @@ function claro_unquote_gpc()
             define('CL_GPC_UNQUOTED', true);
 
         } // end if get_magic_quotes_gpc
+        else
+        {
+            define('CL_GPC_UNQUOTED', true);
+        }
     }
 }
 
