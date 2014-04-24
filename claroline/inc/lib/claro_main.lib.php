@@ -1639,7 +1639,7 @@ function http_response_splitting_workaround( $str )
  * slashes (default setting before PHP 4.3). claro_unquote_gpc() removes
  * these slashes. It needs to be called just once at the biginning
  * of the script.
- * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
+ * @deprecated since Claroline 1.12
  *
  * @return void
  */
