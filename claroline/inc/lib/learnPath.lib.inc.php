@@ -85,7 +85,7 @@ function commentBox($type, $mode)
     $out = '';
     
     // globals
-    $is_allowedToEdit = $GLOBALS['is_allowedToEdit'];
+    $is_allowedToEdit = claro_is_allowed_to_edit();
     
     // will be set 'true' if the comment has to be displayed
     $dsp = false;
@@ -251,7 +251,7 @@ function nameBox($type, $mode)
     $out = '';
     
     // globals
-    $is_allowedToEdit = $GLOBALS['is_allowedToEdit'];
+    $is_allowedToEdit = claro_is_allowed_to_edit();
     
     // $dsp will be set 'true' if the comment has to be displayed
     $dsp = false;
