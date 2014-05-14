@@ -14,6 +14,7 @@
 <thead>
   <tr class="headerX">
     <th><?php echo get_lang('Category label'); ?></th>
+    <th><?php echo get_lang('Dedicated course'); ?></th>
     <th><?php echo get_lang('Courses'); ?></th>
     <th><?php echo get_lang('Visibility'); ?></th>
     <th><?php echo get_lang('Edit'); ?></th>
@@ -24,7 +25,7 @@
 <tbody>
   <?php if (count($this->categories) == 0) : ?>
   <tr>
-    <td colspan="6">
+    <td colspan="7">
         <?php echo get_lang('There are no cateogries right now.  Use the link above to add some.'); ?>
     </td>
   </tr>
@@ -32,6 +33,7 @@
   <?php foreach ($this->categories as $elmt) : ?>
   <tr>
     <td><?php echo str_repeat('&nbsp;', 4*$elmt['level']) . $elmt['name'] . ' (' . $elmt['code'] . ')'; ?></td>
+    <td><?php echo (!is_null($elmt['dedicatedCourse']) ? ($elmt['dedicatedCourse'] . ' (' . $elmt['dedicatedCourseCode'] . ')') : ('')); ?></td>
     <td align="center"><?php echo $elmt['nbCourses']; ?></td>
     <td align="center">
        <a href="<?php echo claro_htmlspecialchars(URL::Contextualize('?cmd=exVisibility&amp;categoryId=' . $elmt['id'])); ?>">

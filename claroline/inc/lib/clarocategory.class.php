@@ -686,7 +686,7 @@ class ClaroCategory
                
         if ( isset($_REQUEST['category_visible']) )             $this->visible = trim(strip_tags($_REQUEST['category_visible']));
         if ( isset($_REQUEST['category_can_have_courses']) )    $this->canHaveCoursesChild = trim(strip_tags($_REQUEST['category_can_have_courses']));
-        // if ( isset($_REQUEST['category_root_course']) )         $this->rootCourse = trim(strip_tags($_REQUEST['category_root_course']));
+        if ( isset($_REQUEST['category_root_course']) )         $this->rootCourse = trim(strip_tags($_REQUEST['category_root_course']));
     }
     
     
@@ -912,7 +912,7 @@ class ClaroCategory
             . '</dd>' . "\n" ;
             
         // Category's dedicated course/board
-        /* $html .= '<dt>'
+        $html .= '<dt>'
             . '<label for="category_root_course">'
             . get_lang('Category\'s board')
             . '</label></dt>'
@@ -921,7 +921,7 @@ class ClaroCategory
             . $coursesHtmlList
             . '</select><br />'
             . '<span class="notice">'.get_lang('Dedicate a course to this category.  The course has to be linked to the category first.').'</span>'
-            . '</dd>' . "\n" ;*/
+            . '</dd>' . "\n" ;
             
         // Form's footer
         $html .= '</dl></fieldset>' . "\n"

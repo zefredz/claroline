@@ -180,6 +180,41 @@ function claro_get_categories($parent, $visibility)
     return Claroline::getDatabase()->query($sql);
 }
 
+function claro_get_all_category_root_courses( $force = false )
+{
+    static $catRootCourseList = false;
+    
+    if ( $force || ! is_array( $catRootCourseList ) )
+    {
+        $catRootCourseList = array();
+        
+        // Get table name
+        $tbl_mdb_names              = claro_sql_get_main_tbl();
+        $tbl_course                 = $tbl_mdb_names['course'];
+        $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
+
+        $sql = "SELECT 
+                    rcc.categoryId AS categoryId, 
+                    co.intitule AS dedicatedCourse,
+                    co.code AS dedicatedCourseCode
+
+                FROM `" . $tbl_course . "` AS co
+
+                LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
+                ON rcc.courseId = co.cours_id 
+
+                WHERE rcc.rootCourse = 1";
+
+        $result = Claroline::getDatabase()->query($sql);
+
+        foreach ( $result as $rootCourse )
+        {
+            $catRootCourseList[$rootCourse['categoryId']] = $rootCourse;
+        }
+    }
+    
+    return $catRootCourseList;
+}
 
 /**
  * Return all the categories from the node $parent (recursivly).  Also returns
@@ -197,7 +232,7 @@ function claro_get_all_categories($parent = 0, $level = 0, $visibility = null)
     // Get table name
     $tbl_mdb_names              = claro_sql_get_main_tbl();
     $tbl_category               = $tbl_mdb_names['category'];
-    $tbl_course                 = $tbl_mdb_names['course'];
+    // $tbl_course                 = $tbl_mdb_names['course'];
     $tbl_rel_course_category    = $tbl_mdb_names['rel_course_category'];
     
     // Retrieve all children of the id $parent
@@ -207,17 +242,12 @@ function claro_get_all_categories($parent = 0, $level = 0, $visibility = null)
             ca.idParent,
             ca.rank,
             ca.visible,
-            ca.canHaveCoursesChild,
-            co.intitule AS dedicatedCourse,
-            co.code AS dedicatedCourseCode
+            ca.canHaveCoursesChild
             
             FROM `" . $tbl_category . "` AS ca
             
             LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
             ON rcc.categoryId = ca.id
-            
-            LEFT JOIN `" . $tbl_course . "` AS co
-            ON rcc.courseId = co.cours_id AND rcc.rootCourse = 1
             
             WHERE ca.idParent = " . (int) $parent;
     
@@ -243,10 +273,24 @@ function claro_get_all_categories($parent = 0, $level = 0, $visibility = null)
     $result = Claroline::getDatabase()->query($sql);
     $result_array = array();
     
+    $catRootCourses = claro_get_all_category_root_courses();
+    
     // Get each child
     foreach ( $result as $row )
     {
         $row['level'] = $level;
+        
+        if ( isset($catRootCourses[$row['id']]) )
+        {
+            $row['dedicatedCourse'] = $catRootCourses[$row['id']]['dedicatedCourse'];
+            $row['dedicatedCourseCode'] = $catRootCourses[$row['id']]['dedicatedCourseCode'];
+        }
+        else
+        {
+            $row['dedicatedCourse'] = null;
+            $row['dedicatedCourseCode'] = null;
+        }
+        
         $result_array[] = $row;
         // Call this function again to get the next level of the tree
         $result_array = array_merge( $result_array, claro_get_all_categories($row['id'], $level+1) );
@@ -354,21 +398,24 @@ function claro_insert_cat_datas($name, $code, $idParent, $rank, $visible, $canHa
  */
 function claro_update_cat_datas($id, $name, $code, $idParent, $rank, $visible, $canHaveCoursesChild, $rootCourse)
 {
+    var_dump($rootCourse);
     // Get table name
     $tbl_mdb_names   = claro_sql_get_main_tbl();
     $tbl_category    = $tbl_mdb_names['category'];
     $tbl_rel_course_category   = $tbl_mdb_names['rel_course_category'];
     
+    $sql = "SELECT rcc.courseId
+            FROM `" . $tbl_rel_course_category . "` AS rcc
+            WHERE rcc.categoryId = " . (int) $id . "
+            AND rootCourse = 1";
+
+    $result = Claroline::getDatabase()->query($sql);
+    $courseId = $result->fetch(Database_ResultSet::FETCH_VALUE);
+    
     // New root course ?
-    if (!is_null($rootCourse))
+    if ( $rootCourse )
     {
-        $sql = "SELECT rcc.courseId
-                FROM `" . $tbl_rel_course_category . "` AS rcc
-                WHERE rcc.categoryId = " . (int) $id . "
-                AND rootCourse = 1";
         
-        $result = Claroline::getDatabase()->query($sql);
-        $course = $result->fetch(Database_ResultSet::FETCH_VALUE);
         
         // Unset the previous rootCourse
         if (isset($course['courseId']) && $course['courseId'] != $rootCourse)
@@ -376,17 +423,28 @@ function claro_update_cat_datas($id, $name, $code, $idParent, $rank, $visible, $
             $sql = "UPDATE `" . $tbl_rel_course_category . "` SET
                     rootCourse = 0
                     WHERE categoryId = " . (int) $id . "
-                    AND courseId = " . $course['courseId'];
+                    AND courseId = " . (int) $courseId;
             
             Claroline::getDatabase()->exec($sql);
         }
         
-        // Set the new rootCourse
-        $sql = "UPDATE `" . $tbl_rel_course_category . "` SET
-                rootCourse = 1
-                WHERE categoryId = " . (int) $id . "
-                AND courseId = " . $rootCourse;
         
+        $sql = "UPDATE `" . $tbl_rel_course_category . "` SET
+            rootCourse = 1
+            WHERE categoryId = " . (int) $id . "
+            AND courseId = " . $rootCourse;
+
+        
+        Claroline::getDatabase()->exec($sql);
+    }
+    // Remove dedicated course
+    elseif ( $rootCourse === '0' )
+    {
+        $sql = "UPDATE `" . $tbl_rel_course_category . "` SET
+                rootCourse = 0
+                WHERE categoryId = " . (int) $id . "
+                AND courseId = " . (int) $courseId;
+
         Claroline::getDatabase()->exec($sql);
     }
     
