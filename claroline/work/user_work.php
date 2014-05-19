@@ -625,7 +625,7 @@ if($is_allowedToEditAll)
             $submission->setUserId(claro_get_current_user_id());
             $submission->setTitle($wrkForm['wrkTitle']);
             $submission->setAuthor($wrkForm['wrkAuthors']);
-            $submission->setVisibility($assignment->getDefaultSubmissionVisibility());
+            $submission->setVisibility( get_conf('clwrk_feedbackVisibleByDefault',false) ? 'VISIBLE' : $assignment->getDefaultSubmissionVisibility() );
             $submission->setSubmittedText($wrkForm['wrkTxt']);
             $submission->setSubmittedFilename($wrkForm['filename']);
 

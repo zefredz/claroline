@@ -48,6 +48,11 @@ $conf_def['section']['submissions']['description']= 'Other submission options';
 $conf_def['section']['submissions']['properties'] =
 array ( 'clwrk_endDateDelay' );
 
+$conf_def['section']['submissions']['label']      = 'Feedback';
+$conf_def['section']['submissions']['description']= 'Feedback options';
+$conf_def['section']['submissions']['properties'] =
+array ( 'clwrk_feedbackVisibleByDefault' );
+
 //PROPERTIES
 
 $conf_def_property_list['confval_def_sub_vis_change_only_new'] =
@@ -171,5 +176,15 @@ array ('label'       => 'Path to the temporary folder used to generate the zip a
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       ,'technicalInfo' => 'Path to the temporary zip folder'
+      );
+
+$conf_def_property_list['clwrk_feedbackVisibleByDefault'] =
+array ('label'         => 'Feedback visible by default'
+      ,'description'   => 'Override the default assignment submission visibility and make the submitted feedbacks visible by default'
+      ,'display'       => TRUE
+      ,'readonly'      => FALSE
+      ,'default'       => FALSE
+      ,'type'          => 'boolean'
+      ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
       );
 
