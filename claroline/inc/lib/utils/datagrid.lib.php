@@ -15,11 +15,12 @@
  */
 
 require_once __DIR__ . '/html.lib.php';
+require_once __DIR__ . '/htmlsanitizer.lib.php';
 
 /**
  * HTML datagrid with internal templating
  */
-class Claro_Utils_Datagrid extends Claro_Html_Element
+class Claro_Html_Datagrid extends Claro_Html_Element
 {
     protected $lineNumber = 0;
     protected $lineCount = 0;
@@ -32,6 +33,9 @@ class Claro_Utils_Datagrid extends Claro_Html_Element
     protected $title = '';
     protected $footer = '';
     protected $emptyMessage = '';
+    
+    protected $_allowCallback = false;
+    protected $_callBack = array();
     
     /**
      * @param   array $attributes attributes of the table element
@@ -221,9 +225,29 @@ class Claro_Utils_Datagrid extends Claro_Html_Element
      */
     public function render()
     {
-        $this->setContent( $this->renderHeader().$this->renderFooter().$this->renderBody() );
+        $this->setContent( $this->renderHeader().$this->renderBody().$this->renderFooter() );
         
         return parent::render();
+    }
+    
+    /**
+     * Allow callbacks for keys
+     */
+    function allowCallback()
+    {
+        $this->_allowCallback = true;
+    }
+    
+    /**
+     * Register a callback for a given key
+     * @param string $key
+     * @param callable $callback
+     */
+    function registerCallback( $key, $callback )
+    {
+        $this->_callBack[$key] = $callback;
+        
+        return $this;
     }
     
     /**
@@ -237,10 +261,45 @@ class Claro_Utils_Datagrid extends Claro_Html_Element
      */
     protected function replace( $key, $value, $output )
     {
+        if ( $this->lineNumber !== 0 )
+        {
+            $output = preg_replace('/%ifisfirst\([^\)]*\)%/','', $output);
+        }
+        else
+        {
+            $output = preg_replace('/%ifisfirst\(([^\)]*)\)%/',"$1", $output);
+        }
+
+        if ( $this->lineNumber !== ( $this->lineCount - 1 ) )
+        {
+            $output = preg_replace('/%ifislast\([^\)]*\)%/','', $output);
+        }
+        else
+        {
+            $output = preg_replace('/%ifislast\(([^\)]*)\)%/',"$1", $output);
+        }
+        
+        if ( $this->_allowCallback && array_key_exists( $key, $this->_callBack ) )
+        {
+            $matches = array();
+
+            if ( preg_match( "/%apply\(\s*([\w_]+)\s*,\s*(".$key.")\s*\)%/", $output, $matches ) )
+            {
+                if ( $this->_callBack[$key] == $matches[1] )
+                {
+                    $replacement = call_user_func( $matches[1], $value, $matches[2] );
+                    $output = preg_replace( "/%apply\(\s*([\w_]+)\s*,\s*(".$key.")\s*\)%/"
+                        , $replacement, $output );
+                }
+            }
+        }
+        
+        $output = str_replace( "%san($key)%", claro_html_sanitize_all( $value ), $output );
         $output = str_replace( "%$key%", $value, $output );
-        $output = str_replace( "%html($key)%", claro_htmlspecialchars( $value ), $output );
         $output = str_replace( "%uu($key)%", rawurlencode( $value ), $output );
         $output = str_replace( "%int($key)%", (int) $value, $output );
+        
+        $output = str_replace( "%html($key)%", claro_htmlspecialchars( $value ), $output );
         
         return $output;
     }
@@ -249,10 +308,10 @@ class Claro_Utils_Datagrid extends Claro_Html_Element
 /**
  * Automaticaly generate columns from the data rows
  */
-class Claro_Utils_Autogrid extends Claro_Utils_Datagrid
+class Claro_Html_Autogrid extends Claro_Html_Datagrid
 {
     /**
-     * @see     Claro_Utils_Datagrid
+     * @see     Claro_Html_Datagrid
      */
     public function setRows( array $rows )
     {
@@ -274,7 +333,7 @@ class Claro_Utils_Autogrid extends Claro_Utils_Datagrid
 /**
  * Datagrid using Claro tables
  */
-class Claro_Utils_Clarogrid extends Claro_Utils_Datagrid
+class Claro_Html_Clarogrid extends Claro_Html_Datagrid
 {
     protected $superHeader = '';
     
