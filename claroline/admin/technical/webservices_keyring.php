@@ -293,19 +293,19 @@ if ( 'list' == $cmd )
 
     $serviceList->addColumn(
             'edit',
-    get_lang('Edit'),
+            get_lang('Edit'),
             '<a href="'.$_SERVER['PHP_SELF']
-    .'?cmd=rqEdit&amp;serviceName=%uu(serviceName)%&amp;serviceHost=%uu(serviceHost)%">'
-    . claro_html_icon('edit').'</a>'
+                .'?cmd=rqEdit&amp;serviceName=%uu(serviceName)%&amp;serviceHost=%uu(serviceHost)%">'
+                . claro_html_icon('edit').'</a>'
     );
 
     $serviceList->addColumn(
             'delete',
-    get_lang('Delete'),
+            get_lang('Delete'),
             '<a href="'.$_SERVER['PHP_SELF']
-    .'?cmd=rqDelete&amp;serviceName=%uu(serviceName)%&amp;serviceHost=%uu(serviceHost)%" '
-    . 'onclick="return deleteService(\'%serviceName%\',\'%serviceHost%\');">'
-    . claro_html_icon('delete').'</a>'
+                .'?cmd=rqDelete&amp;serviceName=%uu(serviceName)%&amp;serviceHost=%uu(serviceHost)%" '
+                . 'onclick="return deleteService(\'%serviceName%\',\'%serviceHost%\');">'
+                . claro_html_icon('delete').'</a>'
     );
 
     $serviceList->setFooter('<a href="'
