@@ -3,7 +3,7 @@
 /**
  * Keyring management
  *
- * @version     1.12 $Revision$
+ * @version     Claroline 1.12 $Revision$
  * @copyright   2001-2014 Universite catholique de Louvain (UCL)
  * @author      Frederic Minne <zefredz@claroline.net> Revision by Sokay Benjamin
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -24,7 +24,7 @@ if ( ! claro_is_platform_admin() )
 }
 
 //Import used lib
-FromKernel::uses ('utils/input.lib','utils/validator.lib', 'utils/html.lib','utils/datagrid.lib', 'utils/keyring.lib');
+FromKernel::uses ('utils/input.lib','utils/validator.lib', 'utils/html.lib', 'utils/form.lib', 'utils/datagrid.lib', 'utils/keyring.lib');
 
 //Init vars
 $keyring = new Claro_Keyring;
@@ -99,8 +99,11 @@ if ( 'rqDelete' == $cmd)
         $form->addElement( new Claro_Html_Input_Hidden( 'cmd', 'exDelete' ) );
         $form->addElement( new Claro_Html_Input_Hidden( 'serviceName', claro_htmlspecialchars($serviceName) ) );
         $form->addElement( new Claro_Html_Input_Hidden( 'serviceHost', claro_htmlspecialchars($serviceHost) ) );
-        $form->addElement( new Claro_Html_Input_Submit( 'submit', get_lang('Yes') ) );
-        $form->addElement( new Claro_Html_Input_Cancel( 'cancel', get_lang('No'), $_SERVER['PHP_SELF'] ) );
+        
+        $submitBlock = new Claro_Form_SubmitBlock();
+        $submitBlock->setSubmit(new Claro_Html_Input_Submit( 'submit', get_lang('Yes') ));
+        $submitBlock->addButton(new Claro_Html_Input_Cancel( 'cancel', get_lang('No'), $_SERVER['PHP_SELF'] ));
+        $form->setSubmitBlock( $submitBlock );
     }
 }
 
@@ -131,16 +134,19 @@ if ( 'rqAdd' == $cmd )
 //Claro_Html_Form creation
 if ( ('rqEdit' == $cmd || 'rqAdd' == $cmd) && !$error )
 {
-    $form = new Claro_Html_Form;
-    $inputServiceName = new Claro_Html_Input_Text('serviceName', claro_htmlspecialchars($service['serviceName']) );
-    $inputServiceName->setLabel( get_lang('Service name') . ':' );
-    $form->addElement( $inputServiceName, true );
-    $inputServiceHost = new Claro_Html_Input_Text( 'serviceHost', claro_htmlspecialchars($service['serviceHost']) );
-    $inputServiceHost->setLabel( get_lang( 'Service host' )  . ':' );
-    $form->addElement( $inputServiceHost, true );
-    $inputServiceKey = new Claro_Html_Input_Text( 'serviceKey', claro_htmlspecialchars($service['serviceKey']) );
-    $inputServiceKey->setLabel( get_lang('Service key') . ':' );
-    $form->addElement( $inputServiceKey, true );
+    $form = new Claro_Form( get_lang('Service' ) );
+    
+    $form->addRow( 
+        new Claro_Html_Label( get_lang('Service name') . ':', 'serviceName' ), 
+        new Claro_Html_Input_Text('serviceName', claro_htmlspecialchars($service['serviceName']) ) );
+    
+    $form->addRow( 
+        new Claro_Html_Label( get_lang('Service host') . ':', 'serviceHost' ), 
+        new Claro_Html_Input_Text('serviceHost', claro_htmlspecialchars($service['serviceHost']) ) );
+    
+    $form->addRow( 
+        new Claro_Html_Label( get_lang('Service key') . ':', 'serviceKey' ), 
+        new Claro_Html_Input_Text('serviceKey', claro_htmlspecialchars($service['serviceKey']) ) );
 
     if ( 'rqEdit' == $cmd )
     {
@@ -149,8 +155,11 @@ if ( ('rqEdit' == $cmd || 'rqAdd' == $cmd) && !$error )
     }
 
     $form->addElement( new Claro_Html_Input_Hidden( 'cmd', ( $cmd == 'rqAdd' ? 'exAdd' : 'exEdit' ) ) );
-    $form->addElement( new Claro_Html_Input_Submit( 'submit', get_lang('Submit') ) );
-    $form->addElement( new Claro_Html_Input_Cancel( 'cancel', get_lang('Cancel'), $_SERVER['PHP_SELF'] ) );
+    
+    $submitBlock = new Claro_Form_SubmitBlock();
+    $submitBlock->setSubmit(new Claro_Html_Input_Submit( 'submit', get_lang('Yes') ));
+    $submitBlock->addButton(new Claro_Html_Input_Cancel( 'cancel', get_lang('No'), $_SERVER['PHP_SELF'] ));
+    $form->setSubmitBlock( $submitBlock );
 }
 
 //Add execution
@@ -199,20 +208,32 @@ if('exAdd'== $cmd)
     {
         $error = true;
 
-        $form = new Claro_Html_Form;
-        $inputServiceName = new Claro_Html_Input_Text('serviceName', claro_htmlspecialchars($serviceName) );
-        $inputServiceName->setLabel(get_lang('Service name') . ':' );
-        $form->addElement( $inputServiceName, true );
-        $inputServiceHost = new Claro_Html_Input_Text( 'serviceHost', claro_htmlspecialchars($serviceHost) );
-        $inputServiceHost->setLabel( get_lang( 'Service host' )  . ':' );
-        $form->addElement( $inputServiceHost, true );
-        $inputServiceKey = new Claro_Html_Input_Text( 'serviceKey', claro_htmlspecialchars($serviceKey) );
-        $inputServiceKey->setLabel( get_lang('Service key') . ':' );
-        $form->addElement( $inputServiceKey, true );
+        $form = new Claro_Form( get_lang('Service' ) );
+    
+        $form->addRow( 
+            new Claro_Html_Label( get_lang('Service name') . ':', 'serviceName' ), 
+            new Claro_Html_Input_Text('serviceName', claro_htmlspecialchars($service['serviceName']) ) );
 
-        $form->addElement( new Claro_Html_Input_Hidden( 'cmd', 'exAdd'));
-        $form->addElement( new Claro_Html_Input_Submit( 'submit', get_lang('Submit') ) );
-        $form->addElement( new Claro_Html_Input_Cancel( 'cancel', get_lang('Cancel'), $_SERVER['PHP_SELF'] ) );
+        $form->addRow( 
+            new Claro_Html_Label( get_lang('Service host') . ':', 'serviceHost' ), 
+            new Claro_Html_Input_Text('serviceHost', claro_htmlspecialchars($service['serviceHost']) ) );
+
+        $form->addRow( 
+            new Claro_Html_Label( get_lang('Service key') . ':', 'serviceKey' ), 
+            new Claro_Html_Input_Text('serviceKey', claro_htmlspecialchars($service['serviceKey']) ) );
+
+        if ( 'rqEdit' == $cmd )
+        {
+            $form->addElement( new Claro_Html_Input_Hidden( 'oldServiceName', claro_htmlspecialchars($serviceName) ) );
+            $form->addElement( new Claro_Html_Input_Hidden( 'oldServiceHost', claro_htmlspecialchars($serviceHost) ) );
+        }
+
+        $form->addElement( new Claro_Html_Input_Hidden( 'cmd', ( $cmd == 'rqAdd' ? 'exAdd' : 'exEdit' ) ) );
+
+        $submitBlock = new Claro_Form_SubmitBlock();
+        $submitBlock->setSubmit(new Claro_Html_Input_Submit( 'submit', get_lang('Yes') ));
+        $submitBlock->addButton(new Claro_Html_Input_Cancel( 'cancel', get_lang('No'), $_SERVER['PHP_SELF'] ));
+        $form->setSubmitBlock( $submitBlock );
             
     }
     else
@@ -259,7 +280,7 @@ if ( 'list' == $cmd )
 {
     $list = $keyring->getServiceList();
 
-    $serviceList = new Claro_Utils_Clarogrid;
+    $serviceList = new Claro_Html_Clarogrid;
 
     $serviceList->emphaseLine();
     $serviceList->setEmptyMessage( get_lang('No service registered') );
