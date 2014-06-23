@@ -525,7 +525,7 @@ class Claro_GroupUserPrivileges
     public function isGroupTutor()
     {
         return $this->userPrivileges->isAuthenticated() 
-            && (! empty($this->group->getTutor()) && $this->group->getTutor()->userId == $this->userPrivileges->getUserId())
+            && ($this->group->getTutor() && ($this->group->getTutor()->userId == $this->userPrivileges->getUserId()))
             ;
     }
     
