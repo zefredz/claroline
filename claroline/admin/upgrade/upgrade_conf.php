@@ -232,7 +232,7 @@ if ( $cmd == 'run' )
         }
         $output .= '</li>' . "\n" . '</ul>' . "\n"
                  . '</li>' . "\n";
-    }
+    }*/
 
     $output .= '</ol>' . "\n";
 
@@ -246,7 +246,7 @@ if ( $cmd == 'run' )
     else
     {
         $display = DISPLAY_RESULT_ERROR_PANEL;
-    } */
+    }
 
 } // end if run
 
