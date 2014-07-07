@@ -1,6 +1,6 @@
 <!-- // $Id$ -->
 
-<form id="#formPost" action="<?php echo claro_htmlspecialchars( $_SERVER['PHP_SELF'] )?>" method="post">
+<form id="formPost" action="<?php echo claro_htmlspecialchars( $_SERVER['PHP_SELF'] )?>" method="post">
     <input type="hidden" name="forum" value="<?php echo $this->forumId ?>" />
     <input type="hidden" name="topic" value="<?php echo $this->topicId ?>" />
     <input type="hidden" name="post" value="<?php echo $this->postId ?>" />
