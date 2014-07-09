@@ -123,7 +123,7 @@ function announcement_get_items_portlet($personnalCourseList)
             && is_tool_activated_in_course_lightversion( $clannToolId, $thisCourse )
             && is_tool_visible_for_portlet( $clannToolId, $thisCourse['sysCode'] ) )
         {
-            $courseEventList = announcement_get_course_item_list_portlet($thisCourse, get_conf('announcementPortletMaxItems', 3));
+            $courseEventList = announcement_get_course_item_list_portlet($thisCourse, get_conf('announcementPortletMaxItems', 5));
 
             if ( is_array($courseEventList) )
             {

@@ -12,13 +12,22 @@ $conf_def['config_class']= 'tool';
 $conf_def['section']['img_viewer']['label']='Portlet';
 $conf_def['section']['img_viewer']['description']='Options for announcements portlet';
 $conf_def['section']['img_viewer']['properties'] =
-array ( 'announcementPortletMaxItems' );
+array ( 'announcementPortletMaxItems', 'announcementCourseHomepageMaxItems' );
 
 // CONFIG PROPERTIES
 $conf_def_property_list['announcementPortletMaxItems']
 = array ('label'     => 'Max announcement number in portlet'
-        ,'description' => 'Use 0 to display all'
+        ,'description' => 'Number of items displayed for each course. Use 0 to display all'
         ,'default'   => '3'
+        ,'type'      => 'integer'
+        ,'container' => 'VAR'
+        ,'acceptedValue' => array('min' => '0')
+        );
+
+$conf_def_property_list['announcementCourseHomepageMaxItems']
+= array ('label'     => 'Max announcement number in course homepage portlet'
+        ,'description' => 'Use 0 to display all'
+        ,'default'   => '10'
         ,'type'      => 'integer'
         ,'container' => 'VAR'
         ,'acceptedValue' => array('min' => '0')

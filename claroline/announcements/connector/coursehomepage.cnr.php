@@ -32,7 +32,7 @@ class CLANN_Portlet extends CourseHomePagePortlet
             && is_tool_activated_in_course( $toolId, claro_get_current_course_id () )
             && claro_is_tool_visible( $toolId, claro_get_current_course_id () ) )
         {   
-            $announcementList = announcement_get_course_item_list_portlet($course);
+            $announcementList = announcement_get_course_item_list_portlet($course,get_conf('announcementCourseHomepageMaxItems', 10));
 
             // Manage announcement's datas
             if($announcementList)
@@ -127,6 +127,9 @@ class CLANN_Portlet extends CourseHomePagePortlet
                 . 'src="' . get_icon_url('announcement', 'CLANN') . '" '
                 . 'alt="Announcement icon" /> '
                 . get_lang('Latest announcements');
+        
+        $output .= ' <span class="separator">|</span> <a href="'.claro_htmlspecialchars(Url::Contextualize(get_module_entry_url('CLANN'))).'">'
+                    . get_lang('Display all') . '<a>';
         
         if (claro_is_allowed_to_edit())
         {
