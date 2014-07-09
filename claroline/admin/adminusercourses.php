@@ -156,15 +156,29 @@ $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF'].'?uidToEdit='. $
 $userCourseDataGrid = new claro_datagrid();
 $userCourseDataGrid->set_grid($userCourseGrid);
 
-// extended setting for this datagrid
-$userCourseDataGrid->set_colTitleList(array (
-'officialCode'     => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Course code') . '</a>'
-,'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Course title') . '</a>'
-,'profileId'  => '<a href="' . $sortUrlList['profileId'] . '">' . get_lang('User profile') . '</a>'
-,'isCourseManager' => '<a href="' . $sortUrlList['isCourseManager'] . '">' . get_lang('Role') . '</a>'
-,'edit_course_user' => get_lang('Edit settings') . '</a>'
-,'delete'   => get_lang('Unregister user')
-));
+if ( isset ( $sortUrlList['officialCode'] ) )
+{
+    // extended setting for this datagrid
+    $userCourseDataGrid->set_colTitleList(array (
+    'officialCode'     => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Course code') . '</a>'
+    ,'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Course title') . '</a>'
+    ,'profileId'  => '<a href="' . $sortUrlList['profileId'] . '">' . get_lang('User profile') . '</a>'
+    ,'isCourseManager' => '<a href="' . $sortUrlList['isCourseManager'] . '">' . get_lang('Role') . '</a>'
+    ,'edit_course_user' => get_lang('Edit settings') . '</a>'
+    ,'delete'   => get_lang('Unregister user')
+    ));
+}
+else
+{
+    $userCourseDataGrid->set_colTitleList(array (
+    'officialCode'     => get_lang('Course code')
+    ,'name'     =>  get_lang('Course title')
+    ,'profileId'  => get_lang('User profile')
+    ,'isCourseManager' => get_lang('Role')
+    ,'edit_course_user' => get_lang('Edit settings')
+    ,'delete'   => get_lang('Unregister user')
+    ));
+}
 
 if ( 0 == count($userCourseGrid)  )
 {
