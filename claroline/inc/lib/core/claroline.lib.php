@@ -177,7 +177,9 @@ class Claroline implements Claroline_Constants
      */
     public static function getDisplay()
     {
-        return self::getInstance()['display'];
+        // PHP 5.4 workaround
+        self::getInstance();
+        return self::$instance['display'];
     }
 
     /**
