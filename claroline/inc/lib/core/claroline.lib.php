@@ -33,6 +33,7 @@ require_once __DIR__ . '/accessmanager.lib.php';
 
 /**
  * Define somme constants shared accross classes
+ * @since Claroline 1.12
  */
 interface Claroline_Constants
 {
@@ -44,8 +45,10 @@ interface Claroline_Constants
 }
 
 /**
- * Main Claroline class containing references to Claroline kernel objects
- * This class is a Singleton
+ * Main Claroline class containing references to Claroline core services.
+ * This class is a dependency injection container since Claroline 1.12.
+ * @since Claroline 1.12
+ * @see Pimple
  */
 class Claroline_Container extends Pimple implements Claroline_Constants
 {
@@ -57,6 +60,10 @@ class Claroline_Container extends Pimple implements Claroline_Constants
      */
     public function __get( $name )
     {
+        /*
+         * This is only for upgrading code to the Claroline 1.12 API.
+         * This option should remain set to true in production
+         */
         if ( ! get_conf( 'backwardCompatibilityMode', true ) )
         {
             throw new Exception("Access to Claroline object properties has to be made using the Pimple dependency injection container instead of the old object property access.");
@@ -108,8 +115,13 @@ class Claroline_Container extends Pimple implements Claroline_Constants
 }
 
 /**
- * Main Claroline class containing references to Claroline kernel objects
- * This class is a Singleton
+ * Factory and helper returning the Claroline dependency injection container instance.
+ * 
+ * This class is a factory (that creates a dependency injection container) 
+ * instead of a singleton since Claroline 1.12. This class also provide some 
+ * helper methods to access database, display and ajax broker core services for
+ * backward compatibility.
+ * @see Claroline_Container for the definition of the dependency injection container class
  */
 class Claroline implements Claroline_Constants
 {
@@ -132,20 +144,26 @@ class Claroline implements Claroline_Constants
     }
     
     /**
-     * Initialize the core service providers of the platform : 
+     * Initialize the core service providers of the platform :
+     *  
      * ['eventManager'] : event handling 
-     * ['notification'] notifications, 
-     * ['notifier'] notifier
-     * ['logger'] log, 
-     * ['moduleLabelStack'] module statck, 
-     * ['accessManager'] access manager, 
-     * ['userInput'] user input, 
-     * ['ajaxServiceBroker'] ajax service broker
+     * ['notification'] : notifications, 
+     * ['notifier'] : notifier
+     * ['logger'] : log, 
+     * ['moduleLabelStack'] : module statck, 
+     * ['accessManager'] : access manager, 
+     * ['userInput'] : user input, 
+     * ['ajaxServiceBroker'] : ajax service broker
      * @return void
      * @throws Exception if the database connection is not initialized
      */
     public static function initCoreServices()
     {
+        /*
+         * core database service needed for service initialization
+         * since this method should only be called in the kernel init process, 
+         * we decided to thorw an exception if the database service is not started
+         */
         if ( ! self::$instance || empty( self::$instance['database'] ) )
         {
             throw new Exception('FATAL ERROR: the database provider is not initialize. You have to call Claroline::initDatabaseProvider before calling Claroline::initCoreServices');
@@ -153,11 +171,13 @@ class Claroline implements Claroline_Constants
         
         try
         {
-            // initialize the event manager and notification classes
+            /*
+             * initialize core services
+             * WARNING initialization order matters !
+             */
             self::$instance['eventManager'] = self::$instance->share( function() { return EventManager::getInstance(); } );
             self::$instance['notification'] = self::$instance->share( function() { return ClaroNotification::getInstance(); } );
             self::$instance['notifier'] = self::$instance->share( function() { return ClaroNotifier::getInstance(); } );
-            // initialize other service providers
             self::$instance['logger'] = self::$instance->share( function() { return new Logger(); } );
             self::$instance['moduleLabelStack'] = self::$instance->share( function() { return new Claro_ModuleLabelStack(); } );
             self::$instance['accessManager'] = self::$instance->share( function() { return new Claro_AccessManager(); } );
@@ -177,7 +197,11 @@ class Claroline implements Claroline_Constants
      */
     public static function getDisplay()
     {
-        // PHP 5.4 workaround
+        /*
+         * PHP 5.4 compatibility  workaround
+         * in PHP 5.5 one would have writen it more simply as
+         *      return self::getInstance()['display'];
+         */
         self::getInstance();
         return self::$instance['display'];
     }
@@ -190,10 +214,6 @@ class Claroline implements Claroline_Constants
     {
         self::getInstance()->setDisplayType( $displayType );
     }
-    
-    protected static $db = false;
-    // Database link
-    protected static $database = false;
 
     /**
      * Get the current database connection object
@@ -201,6 +221,16 @@ class Claroline implements Claroline_Constants
      */
     public static function getDatabase()
     {
+        /*
+         * core database service needed for service initialization
+         * since this method should only be called in the kernel init process, 
+         * we decided to thorw an exception if the database service is not started
+         */
+        if ( ! self::$instance || empty( self::$instance['database'] ) )
+        {
+            throw new Exception('FATAL ERROR: the database provider is not initialize. You have to call Claroline::initDatabaseProvider before calling Claroline::getDatabase');
+        }
+        
         return self::$instance['database'];
     }
 
@@ -219,6 +249,11 @@ class Claroline implements Claroline_Constants
         
         if ( empty( self::$instance['database'] ) )
         {
+            /* 
+             * we need to instanciate the database from the start because many 
+             * other core services are depending on it to their own 
+             * initialization 
+             */
             $database = new Claroline_Database_Connection();
             $database->connect();
             
@@ -231,7 +266,11 @@ class Claroline implements Claroline_Constants
             
             // claro_sql_* and mysqli_* backward compatibility hack
             $GLOBALS["___mysqli_ston"] = $database->getDbLink();
-        
+            
+            /*
+             * Now we can share the database as a core service provided by the
+             * dependency injection container
+             */
             self::$instance['database'] = self::$instance->share( function() use ($database) {
                 return $database;
             } );
