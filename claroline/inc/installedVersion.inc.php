@@ -47,7 +47,7 @@
 
 // stability
 
-$stable = true;
+$stable = false;
 $is_upgrade_available = true;
 
 // version strings : max. 10 chars
