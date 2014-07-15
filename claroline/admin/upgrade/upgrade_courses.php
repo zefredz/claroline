@@ -115,7 +115,7 @@ switch ($display)
             <p>
                 '.get_lang('Now the <em>Claroline Upgrade Tool</em> is going to prepare <b>course</b> data (directories and database tables) one by one and set it to be compatible with the new Claroline version').'
             <p class="help">
-                '.get_lang('Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time.').'
+                '.get_lang('Note. Depending of the speed of your server or the amount of data stored on your platform, this operation may take some time').'
             </p>
             <p style="text-align: center">
                 <strong>' . get_lang( '%count_course_upgraded courses on %count_course already upgraded', 
