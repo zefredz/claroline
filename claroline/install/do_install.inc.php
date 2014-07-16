@@ -292,9 +292,9 @@ try
 
         $fp_currentVersion = fopen($rootSys . 'platform/currentVersion.inc.php','w');
         $currentVersionStr = '<?php
-        $clarolineVersion = "'.$new_version.'";
-        $versionDb = "'.$new_version.'";
-        ?>';
+$GLOBALS[\'clarolineVersion\'] = "'.$new_version.'";
+$GLOBALS[\'versionDb\'] = "'.$new_version.'";
+';
         fwrite($fp_currentVersion, $currentVersionStr);
         fclose($fp_currentVersion);
 
