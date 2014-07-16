@@ -228,6 +228,7 @@ function get_mime_type_extension_map()
     static $typeList = array(); static $extList= array();
 
     $typeList[] = 'text/plain';                     $extList[] = 'txt';
+    
     $typeList[] = 'application/msword';             $extList[] = 'doc';
     $typeList[] = 'application/rtf';                $extList[] = 'rtf';
     $typeList[] = 'application/vnd.ms-powerpoint';  $extList[] = 'ppt';
@@ -242,21 +243,30 @@ function get_mime_type_extension_map()
     $typeList[] = 'application/zip';                $extList[] = 'zip';
     $typeList[] = 'application/x-tar';              $extList[] = 'tar';
     $typeList[] = 'application/x-tar';              $extList[] = 'tgz';
+    
     $typeList[] = 'text/html';                      $extList[] = 'htm';
     $typeList[] = 'text/plain';                     $extList[] = 'txt';
     $typeList[] = 'text/rtf';                       $extList[] = 'rtf';
+    
     $typeList[] = 'image/gif';                      $extList[] = 'gif';
     $typeList[] = 'image/jpeg';                     $extList[] = 'jpg';
     $typeList[] = 'image/png';                      $extList[] = 'png';
+    
     $typeList[] = 'audio/midi';                     $extList[] = 'mid';
     $typeList[] = 'audio/mpeg';                     $extList[] = 'mp3';
+    $typeList[] = 'audio/ogg';                      $extList[] = 'ogg';
     $typeList[] = 'audio/x-aiff';                   $extList[] = 'aif';
     $typeList[] = 'audio/x-pn-realaudio';           $extList[] = 'rm';
     $typeList[] = 'audio/x-pn-realaudio-plugin';    $extList[] = 'rpm';
     $typeList[] = 'audio/x-wav';                    $extList[] = 'wav';
+    
     $typeList[] = 'video/mpeg';                     $extList[] = 'mpg';
     $typeList[] = 'video/quicktime';                $extList[] = 'mov';
     $typeList[] = 'video/x-msvideo';                $extList[] = 'avi';
+    $typeList[] = 'video/x-flv';                    $extList[] = 'flv';
+    $typeList[] = 'video/ogg';                      $extList[] = 'ogv';
+    $typeList[] = 'video/webm';                     $extList[] = 'webm';
+    $typeList[] = 'video/mp4';                      $extList[] = 'mp4';
 
     return array($typeList, $extList);
 }
@@ -634,15 +644,15 @@ function create_file($filePath, $fileContent)
  */
 function get_max_upload_size($maxFilledSpace, $baseWorkDir)
 {
-        $php_uploadMaxFile = ini_get('upload_max_filesize');
-        if (strstr($php_uploadMaxFile, 'M')) $php_uploadMaxFile = intval($php_uploadMaxFile) * 1048576;
-        $php_postMaxFile  = ini_get('post_max_size');
-        if (strstr($php_postMaxFile, 'M')) $php_postMaxFile     = intval($php_postMaxFile) * 1048576;
-        $docRepSpaceAvailable  = $maxFilledSpace - dir_total_space($baseWorkDir);
+    $php_uploadMaxFile = ini_get('upload_max_filesize');
+    if (strstr($php_uploadMaxFile, 'M')) $php_uploadMaxFile = intval($php_uploadMaxFile) * 1048576;
+    $php_postMaxFile  = ini_get('post_max_size');
+    if (strstr($php_postMaxFile, 'M')) $php_postMaxFile     = intval($php_postMaxFile) * 1048576;
+    $docRepSpaceAvailable  = $maxFilledSpace - dir_total_space($baseWorkDir);
 
-        $fileSizeLimitList = array( $php_uploadMaxFile, $php_postMaxFile , $docRepSpaceAvailable );
-        sort($fileSizeLimitList);
-        list($maxFileSize) = $fileSizeLimitList;
+    $fileSizeLimitList = array( $php_uploadMaxFile, $php_postMaxFile , $docRepSpaceAvailable );
+    sort($fileSizeLimitList);
+    list($maxFileSize) = $fileSizeLimitList;
 
     return $maxFileSize;
 }
