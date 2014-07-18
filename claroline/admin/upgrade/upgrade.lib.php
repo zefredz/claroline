@@ -154,9 +154,6 @@ $GLOBALS[\'versionDb\'] = "' . $databaseVersion . '";
 
 function get_current_version ()
 {
-    global $clarolineVersion, $versionDb;
-    global $rootSys;
-
     if ( file_exists(get_path('rootSys').'platform/currentVersion.inc.php') )
     {
         // get claroline version in get_path('rootSys') folder
@@ -169,8 +166,8 @@ function get_current_version ()
         include (get_path('incRepositorySys').'/currentVersion.inc.php');
     }
 
-    $current_version['claroline'] = $clarolineVersion;
-    $current_version['db'] = $versionDb;
+    $current_version['claroline'] = $GLOBALS['clarolineVersion'];
+    $current_version['db'] = $GLOBALS['versionDb'];
 
     return $current_version;
 }
