@@ -134,9 +134,9 @@ function save_current_version_file ( $clarolineVersion, $databaseVersion )
 
     // build content
     $currentVersionStr = '<?php
-$clarolineVersion = "' . $clarolineVersion . '";
-$versionDb = "' . $databaseVersion . '";
-?>';
+$GLOBALS[\'clarolineVersion\'] = "' . $clarolineVersion . '";
+$GLOBALS[\'versionDb\'] = "' . $databaseVersion . '";
+';
 
     // write content in file
     fwrite($fp_currentVersion, $currentVersionStr);
