@@ -27,34 +27,32 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 function lp_upgrade_to_112 ($course_code)
 {
     global $currentCourseVersion;
-
-    $versionRequiredToProceed = '/^1.10/';
     
-    $tool = 'LP';
+    $tool = 'CLLP112';
     $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
 
-    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    if ( preg_match('/^1.10/',$currentCourseVersion) || preg_match('/^1.11/',$currentCourseVersion)  )
     {
         // On init , $step = 1
         switch( $step = get_upgrade_status($tool,$course_code) )
         {
-        case 1 :
-            // Add the field start date into lp_learnpath table
-            $sqlForUpdate[] = "ALTER TABLE   `" . $currentCourseDbNameGlu . "lp_learnpath`  ADD  `startDate` DATETIME NOT NULL AFTER  `comment` ;";
+            case 1 :
+                // Add the field start date into lp_learnpath table
+                $sqlForUpdate[] = "ALTER TABLE   `" . $currentCourseDbNameGlu . "lp_learnPath`  ADD  `startDate` DATETIME NOT NULL AFTER  `comment` ;";
 
-            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
-            else return $step;
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                else return $step;
 
-            unset($sqlForUpdate);
-            
-        case 2 :
-            // Add the field start date into lp_learnpath table
-            $sqlForUpdate[] = "ALTER TABLE  `" . $currentCourseDbNameGlu . "lp_learnpath`  ADD  `endDate` DATETIME NOT NULL AFTER  `comment` ;";
+                unset($sqlForUpdate);
 
-            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
-            else return $step;
+            case 2 :
+                // Add the field start date into lp_learnpath table
+                $sqlForUpdate[] = "ALTER TABLE  `" . $currentCourseDbNameGlu . "lp_learnPath`  ADD  `endDate` DATETIME NOT NULL AFTER  `comment` ;";
 
-            unset($sqlForUpdate);
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                else return $step;
+
+                unset($sqlForUpdate);
             
             default :
                 
@@ -69,13 +67,11 @@ function lp_upgrade_to_112 ($course_code)
 function exercises_upgrade_to_112 ($course_code)
 {
     global $currentCourseVersion;
-
-    $versionRequiredToProceed = '/^1.10/';
     
-    $tool = 'CLQWZ';
+    $tool = 'CLQWZ112';
     $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
     
-    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    if ( preg_match('/^1.10/',$currentCourseVersion) || preg_match('/^1.11/',$currentCourseVersion) )
     {
         // On init , $step = 1
         switch( $step = get_upgrade_status($tool,$course_code) )
