@@ -64,7 +64,7 @@ class Config
     protected $md5;
 
     // backlog object
-    protected $backlog;
+    public $backlog;
 
     // definition file loaded
     protected $def_loaded;
@@ -402,7 +402,7 @@ class Config
                     $acceptedValue = array_merge( $acceptedValue, $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/editor','folder') );
                     break;
                 case 'timezone':
-                    $acceptedValue = array_merge( $acceptedValue, $this->get_timezone_list() );
+                    $acceptedValue = array_merge( $acceptedValue, $this->get_timezone_list(), array('') );
                     break;
             }
         }
@@ -797,7 +797,7 @@ class Config
         
         if ( !$dirname || ! is_dir($dirname) )
         {
-            $this->backlog->failure('Directory not found or not a directory');
+            $this->backlog->failure('Directory not found or not a directory: ' . $path);
             return array();
         }
         else
