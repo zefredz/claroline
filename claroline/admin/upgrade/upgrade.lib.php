@@ -165,7 +165,17 @@ function get_current_version ()
         // before the clarolineVersion was in claro_main.conf.php
         include (get_path('incRepositorySys').'/currentVersion.inc.php');
     }
-
+    
+    if ( isset ( $versionDb ) )
+    {
+        $GLOBALS['versionDb'] = $versionDb;
+    }
+    
+    if ( isset( $clarolineVersion ) )
+    {
+        $GLOBALS['clarolineVersion'] = $clarolineVersion;
+    }
+    
     $current_version['claroline'] = $GLOBALS['clarolineVersion'];
     $current_version['db'] = $GLOBALS['versionDb'];
 
