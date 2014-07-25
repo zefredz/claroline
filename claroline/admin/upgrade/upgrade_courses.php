@@ -476,8 +476,8 @@ switch ($display)
                     
                     if ( is_module_installed_in_course( 'CLLNP',$currentCourseCode ) )
                     {
-                        $function_list[] = 'lp_upgrade_to_112';
-                        $function_list[] = 'exercises_upgrade_to_112';
+                        $function_list[] .= 'lp_upgrade_to_112';
+                        $function_list[] .= 'exercises_upgrade_to_112';
                     }
                     
                     foreach ( $function_list as $function )
