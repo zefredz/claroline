@@ -339,14 +339,16 @@ class CssLoader
             }
             else
             {
-                if ( claro_debug_mode() )
-                {
-                    pushClaroMessage(__Class__."::Cannot found css {$lib} for {$moduleLabel}", 'error');
-                }
-
-                return false;
+                // continue
             }
         }
+        
+        if ( claro_debug_mode() )
+        {
+            pushClaroMessage(__Class__."::Cannot found css {$lib} for {$moduleLabel}", 'error');
+        }
+
+        return false;
     }
     
     /**
