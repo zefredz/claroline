@@ -328,7 +328,7 @@ switch ( $display )
         
         if ( preg_match('/^1.10/',$currentDbVersion) || preg_match('/^1.11/',$currentDbVersion) )
         {
-            $function_list = array('upgrade_user_to_112');
+            $function_list = array('upgrade_user_to_112' , 'upgrade_keyring_to_112');
             
             
             foreach ( $function_list as $function )
