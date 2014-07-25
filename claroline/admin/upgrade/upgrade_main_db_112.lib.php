@@ -17,7 +17,7 @@ function upgrade_user_to_112()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     
-    $label = 'USERS_112';
+    $tool = 'USER112';
     
     switch( $step = get_upgrade_status($tool) )
     {
@@ -81,14 +81,15 @@ function upgrade_keyring_to_112()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     
-    $label = 'USERS_112';
+    $tool = 'CLKRNG112';
     
     switch( $step = get_upgrade_status($tool) )
     {
         case 1:
             // check if column already exists
+            
             upgrade_sql_query( "
-                CREATE TABLE IF NOT EXISTS {$tbl_mdb_names['clkrng_keyring']} (
+                CREATE TABLE IF NOT EXISTS `{$tbl_mdb_names['clkrng_keyring']}` (
                     `service` varchar(255) NOT NULL,
                     `host` varchar(255) NOT NULL,
                     `key` varchar(255) NOT NULL,
