@@ -371,11 +371,22 @@ $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
 $courseDataGrid = new claro_datagrid($courseDataList);
 
-$courseDataGrid->set_colTitleList(array ( 'officialCode' => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Course code')        . '</a>'
+if ( count( $courseDataList ) )
+{
+    $courseDataGrid->set_colTitleList(array ( 'officialCode' => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Course code')        . '</a>'
                                         , 'intitule'     => '<a href="' . $sortUrlList['intitule'    ] . '">' . get_lang('Course title') . '</a>'
                                         , 'qty_cm'       => get_lang('Course members')
                                         , 'cmdSetting'   => get_lang('Course settings')
                                         , 'cmdDelete'    => get_lang('Delete')));
+}
+else
+{
+    $courseDataGrid->set_colTitleList(array ( 'officialCode' => get_lang('Course code')
+                                        , 'intitule'     => get_lang('Course title')
+                                        , 'qty_cm'       => get_lang('Course members')
+                                        , 'cmdSetting'   => get_lang('Course settings')
+                                        , 'cmdDelete'    => get_lang('Delete')));
+}
 
 $courseDataGrid->set_colAttributeList( array ( 'qty_cm'     => array ('align' => 'right')
                                              , 'cmdSetting' => array ('align' => 'center')
