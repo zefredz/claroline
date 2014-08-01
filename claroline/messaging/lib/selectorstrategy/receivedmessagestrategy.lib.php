@@ -25,7 +25,7 @@ class ReceivedMessageStrategy extends MessageStrategy
     const ONLY_DELETED = "R.is_deleted = 1";
     const ONLY_NOT_DELETED = "R.is_deleted = 0";
 
-    const SEARCH_SELECT = "CONCAT(U.prenom,' ',U.nom) LIKE '%%search%%' OR U.prenom LIKE '%%search%%' OR U.nom LIKE '%%search%%' OR M.subject LIKE '%%search%%' OR M.course LIKE '%%search%%'";
+    const SEARCH_SELECT = "CONCAT(COALESCE(U.prenom,'-'),' ',COALESCE(U.nom,'-')) LIKE '%%search%%' OR U.prenom LIKE '%%search%%' OR U.nom LIKE '%%search%%' OR M.subject LIKE '%%search%%' OR M.course LIKE '%%search%%'";
     
     const ORDER_BY_DATE = "M.send_time %order%";
     const ORDER_BY_SENDER = "U.nom %order%, U.prenom %order%";

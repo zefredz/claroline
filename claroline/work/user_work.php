@@ -106,21 +106,35 @@ if ( !$assignmentId || !$assignment->load($assignmentId) )
   --------------------------------------------------------------------*/
 if( isset($_REQUEST['authId']) && !empty($_REQUEST['authId']) )
 {
-      if( $assignment->getAssignmentType() == 'GROUP')
+    if( $assignment->getAssignmentType() == 'GROUP')
     {
         $sql = "SELECT `name`
                 FROM `" . $tbl_group_team . "`
                 WHERE `id` = " . (int) $_REQUEST['authId'];
         $authField = 'group_id';
+        
+        $authName = claro_sql_query_get_single_value($sql);
     }
     else
     {
-        $sql = "SELECT CONCAT(`nom`,' ',`prenom`) as `authName`
+        $sql = "SELECT `nom` AS lastname, prenom AS firstname
                 FROM `" . $tbl_user . "`
                 WHERE `user_id` = " . (int) $_REQUEST['authId'];
         $authField = 'user_id';
+        
+        $authorName = claro_sql_query_fetch_single_row($sql);
+    
+        $authName = null;
+
+        if ( $authorName && ( !empty( $authorName['firstname'] ) || !empty( $authorName['lastname']  ) ) )
+        {
+            $authName = get_lang('%firstname %lastname', array('%firstname' => $authorName['firstname'], '%lastname' => $authorName['lastname']));
+        }  
     }
-    $authName = claro_sql_query_get_single_value($sql);
+}
+else
+{
+    $authName = null;
 }
 
 $_user = claro_get_current_user_data();

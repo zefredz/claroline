@@ -46,7 +46,6 @@ $tbl_users              = $tbl_mdb_names['user'];
 
 //Get the users
 $sql = "SELECT `user`.`user_id`      AS `user_id`,
-               CONCAT(`user`.`prenom`, ' ', `user`.`nom`) AS `name`,
                `user`.`nom`          AS `lastname`,
                `user`.`prenom`       AS `firstname`,
                `user`.`email`        AS `email`,
@@ -93,9 +92,9 @@ foreach ($result as $userKey => $user)
     
     $out .= '<li>'
           . '<img width="100" height="100" src="'
-          . $picture_url.'" alt="'.$user['name'].'" />'
+          . $picture_url.'" alt="'.get_lang('%firstname %lastname', array('%firstname' => $user['firstname'], '%lastname' => $user['lastname'])).'" />'
           . '<br/>'
-          . $user['name']
+          . get_lang('%firstname %lastname', array('%firstname' => $user['firstname'], '%lastname' => $user['lastname']))
           . '</li>';
 }
 

@@ -62,7 +62,7 @@ class UserStrategy implements SelectorStrategy
         }
         
         return "WHERE nom like '%".$this->nameSearch."%' OR prenom like '%".$this->nameSearch."%' OR username like '%".$this->nameSearch."%' OR "
-        ."CONCAT(nom,' ',prenom) like '%".$this->nameSearch."%' OR CONCAT(prenom,' ',nom) like '%".$this->nameSearch."%'";
+        ."CONCAT(COALESCE(nom,''),' ',COALESCE(prenom,'')) like '%".$this->nameSearch."%' OR CONCAT(COALESCE(prenom,''),' ',COALESCE(nom,'')) like '%".$this->nameSearch."%'";
     }
     
     /**

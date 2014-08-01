@@ -151,7 +151,7 @@ AND
             $scoreListIterator = $this->database->query ( "
 SELECT 
     `u`.`user_id` AS `authId`,
-    CONCAT(`u`.`nom`, ' ', `u`.`prenom`) AS `author`,
+    CONCAT(COALESCE(`u`.`nom`,'-'), ' ', COALESCE(`u`.`prenom`,'-')) AS `author`,
     `s`.`title`,
     `s`.`id` as `submissionId`,
     COUNT(DISTINCT(`s`.`id`)) AS `submissionCount`,

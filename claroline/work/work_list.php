@@ -219,7 +219,8 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
     if( ! $is_allowedToEditAll ) $showOnlyVisibleCondition = " HAVING `submissionCount` > 0";
 
     $sql = "SELECT `u`.`user_id`                        AS `authId`,
-                   CONCAT(`u`.`nom`, ' ', `u`.`prenom`) AS `name`,
+                   `u`.`nom`                            AS `lastname`,
+                   `u`.`prenom`                         AS `firstname`,
                    `s`.`title`,
                    COUNT(DISTINCT(`s`.`id`))            AS `submissionCount`,
                    COUNT(DISTINCT(`fb`.`id`))           AS `feedbackCount`,
@@ -376,10 +377,9 @@ if( !empty($lastWorkTitleList) )
 foreach ( $workList as $workId => $thisWrk )
 {
 
-    $thisWrk['is_mine'] = (  ($assignment->getAssignmentType() == 'INDIVIDUAL' && $thisWrk['authId'] == claro_get_current_user_id())
-                          || ($assignment->getAssignmentType() == 'GROUP'      && in_array($thisWrk['authId'], $userGroupList)));
+    
 
-    if ($thisWrk['is_mine']) $workList[$workId]['name'] = '<b>' . $thisWrk['name'] . '</b>';
+    /*if ($thisWrk['is_mine']) $workList[$workId]['name'] = '<b>' . get_lang('%firstname %lastname', array('%firstname' => $thisWrk['firstname'], '%lastname' => $thisWrk['lastname'])) . '</b>';
 
     $workList[$workId]['name'] = '<a class="item" href="'.claro_htmlspecialchars(Url::Contextualize('user_work.php'
     . '?authId=' . $thisWrk['authId']
@@ -387,7 +387,7 @@ foreach ( $workList as $workId => $thisWrk )
     . '">'
     . $workList[$workId]['name']
     . '</a>'
-    ;
+    ;*/
 
 }
 
@@ -611,7 +611,7 @@ if ( count( $workList ) )
     . '<thead>' . "\n"
     . '<tr class="headerX">' . "\n"
     . '<th>'
-    . '<a href="' . $headerUrl['name'] . '">'
+    . '<a href="' . $headerUrl['lastname'] . '">'
     . get_lang('Author(s)')
     . '</a>'
     . '</th>' . "\n"
@@ -669,10 +669,19 @@ $out .= '</tr>' . "\n"
 
 foreach ( $workList as $thisWrk )
 {
+    
+    $is_mine = (  ($assignment->getAssignmentType() == 'INDIVIDUAL' && $thisWrk['authId'] == claro_get_current_user_id())
+                          || ($assignment->getAssignmentType() == 'GROUP'      && in_array($thisWrk['authId'], $userGroupList)));
 
     $out .= '<tr align="center">' . "\n"
     . '<td align="left">'
-    . $thisWrk['name']
+    . ( $is_mine ? '<strong>' : '' )
+    . '<a class="item" href="'.claro_htmlspecialchars(Url::Contextualize('user_work.php'
+        . '?authId=' . $thisWrk['authId']
+        . '&assigId=' . $req['assignmentId'] )) . '">'
+    . get_lang('%firstname %lastname', array('%firstname' => $thisWrk['firstname'], '%lastname' => $thisWrk['lastname']))
+    . '</a>'
+    . ( $is_mine ? '</strong>' : '' )
     . '</td>' . "\n"
     . '<td>'
     . ( !empty($thisWrk['title']) ? $thisWrk['title'] . '<small> ( ' . $thisWrk['last_edit_date'] . ' )</small>'  : '&nbsp;' )
