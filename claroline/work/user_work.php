@@ -128,7 +128,7 @@ if( isset($_REQUEST['authId']) && !empty($_REQUEST['authId']) )
 
         if ( $authorName && ( !empty( $authorName['firstname'] ) || !empty( $authorName['lastname']  ) ) )
         {
-            $authName = get_lang('%firstname %lastname', array('%firstname' => $authorName['firstname'], '%lastname' => $authorName['lastname']));
+            $authName = get_lang('%firstName %lastName', array('%firstName' => $authorName['firstname'], '%lastName' => $authorName['lastname']));
         }  
     }
 }

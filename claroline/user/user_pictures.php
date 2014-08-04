@@ -92,9 +92,9 @@ foreach ($result as $userKey => $user)
     
     $out .= '<li>'
           . '<img width="100" height="100" src="'
-          . $picture_url.'" alt="'.get_lang('%firstname %lastname', array('%firstname' => $user['firstname'], '%lastname' => $user['lastname'])).'" />'
+          . $picture_url.'" alt="'.get_lang('%firstName %lastName', array('%firstName' => $user['firstname'], '%lastName' => $user['lastname'])).'" />'
           . '<br/>'
-          . get_lang('%firstname %lastname', array('%firstname' => $user['firstname'], '%lastname' => $user['lastname']))
+          . get_lang('%firstName %lastName', array('%firstName' => $user['firstname'], '%lastName' => $user['lastname']))
           . '</li>';
 }
 

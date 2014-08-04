@@ -379,7 +379,7 @@ foreach ( $workList as $workId => $thisWrk )
 
     
 
-    /*if ($thisWrk['is_mine']) $workList[$workId]['name'] = '<b>' . get_lang('%firstname %lastname', array('%firstname' => $thisWrk['firstname'], '%lastname' => $thisWrk['lastname'])) . '</b>';
+    /*if ($thisWrk['is_mine']) $workList[$workId]['name'] = '<b>' . get_lang('%firstName %lastName', array('%firstName' => $thisWrk['firstname'], '%lastName' => $thisWrk['lastname'])) . '</b>';
 
     $workList[$workId]['name'] = '<a class="item" href="'.claro_htmlspecialchars(Url::Contextualize('user_work.php'
     . '?authId=' . $thisWrk['authId']
@@ -679,7 +679,7 @@ foreach ( $workList as $thisWrk )
     . '<a class="item" href="'.claro_htmlspecialchars(Url::Contextualize('user_work.php'
         . '?authId=' . $thisWrk['authId']
         . '&assigId=' . $req['assignmentId'] )) . '">'
-    . get_lang('%firstname %lastname', array('%firstname' => $thisWrk['firstname'], '%lastname' => $thisWrk['lastname']))
+    . get_lang('%firstName %lastName', array('%firstName' => $thisWrk['firstname'], '%lastName' => $thisWrk['lastname']))
     . '</a>'
     . ( $is_mine ? '</strong>' : '' )
     . '</td>' . "\n"
