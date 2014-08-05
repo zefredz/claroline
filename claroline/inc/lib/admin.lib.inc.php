@@ -153,8 +153,10 @@ function delete_course($code, $sourceCourseId)
         {
             // SEARCH ALL TABLES RELATED TO THE CURRENT COURSE
             claro_sql_query("use " . get_conf('mainDbName'));
+            
             $tbl_to_delete = claro_sql_get_course_tbl(claro_get_course_db_name_glued($currentCourseId));
-            foreach($tbl_to_delete as $tbl_name)
+            
+            foreach( $tbl_to_delete as $tbl_name )
             {
                 $sql = 'DROP TABLE IF EXISTS `' . $tbl_name . '`';
                 claro_sql_query($sql);
@@ -167,26 +169,36 @@ function delete_course($code, $sourceCourseId)
             $result = claro_sql_query($sql);
             
             // DELETE ALL TABLES OF THE CURRENT COURSE
-            $tblSurvivor = array();
+            /*$tblSurvivor = array();
+            
+            $courseTable = mysqli_fetch_array($result, MYSQLI_NUM );
+            
+            var_dump($courseTable);*/
+            
+            $tblSurvivor = claro_sql_query_fetch_all_rows($sql);
+            
+            /*var_dump($courseTable);
+            
+            die();
             
             while( false !== ($courseTable = mysqli_fetch_array($result, MYSQLI_NUM ) ))
             {
                 $tblSurvivor[]=$courseTable[0];
                 //$tblSurvivor[$courseTable]='not deleted';
-            }
+            }*/
             
-            if ( sizeof( $tblSurvivor ) > 0 )
+            if ( count( $tblSurvivor ) > 0 )
             {
-                Claroline::getInstance()->log( 
-                    'DELETE_COURSE', 
+                Console::log( 
                     array_merge(
                         array (
                             'DELETED_COURSE_CODE' => $code,
-                            'UNDELETED_TABLE_COUNTER' => sizeof( $tblSurvivor )
+                            'UNDELETED_TABLE_COUNTER' => count( $tblSurvivor )
                         ), 
                         
                         $tblSurvivor 
-                    )
+                    ),
+                    'DELETE_COURSE'
                 );
             }
         }
@@ -215,12 +227,13 @@ function delete_course($code, $sourceCourseId)
                 Console::warning( "DELETE_COURSE : Course directory not found {$currentCoursePath} for course {$currentCourseId}");
             }
             
-            Claroline::log( 'COURSE_DELETED', array(
+            Console::log(  array(
                 'courseCode' => $currentCourseId,
                 'courseDbName' => $currentCourseDbName,
                 'courseDbNameGlu' => $currentCourseDbNameGlu,
-                'coursePath' => $currentCoursePath
-            ) );
+                'coursePath' => $currentCoursePath ),
+                'COURSE_DELETED'
+            );
             
             return true;
         }
