@@ -347,12 +347,16 @@ function user_delete($userId)
     $courseList = claro_sql_query_fetch_all_cols($sql);
 
     $log = array();
-    if ( user_remove_from_course($userId, $courseList['code'], true, null ) == false ) return false;
+    if ( user_remove_from_course($userId, $courseList['code'], true, null ) == false )
+    {
+        return false;
+    }
     else
     {
         foreach ($courseList['code'] as $k=>$courseCode) $log['course_' . $k] = $courseCode;
-        Claroline::log( 'UNROL_USER_COURS' , array_merge( array ('USER' => $userId ) ,$log));
+        Console::info( 'UNROL_USER_COURS' , array_merge( array ('USER' => $userId ) ,$log));
     }
+    
     $sqlList = array(
 
     "DELETE FROM `" . $tbl['user']            . "` WHERE user_id         = " . (int) $userId ,
@@ -364,7 +368,8 @@ function user_delete($userId)
     "UPDATE `" . $tbl['user'] . "` SET `creatorId` = NULL WHERE `creatorId` = " . (int) $userId
 
     );
-    Claroline::log( 'USER_DELETED' , array_merge( array ('USER' => $userId ) ));
+    
+    Console::log(   array ('USER' => $userId ), 'USER_DELETED' );
 
     foreach($sqlList as $thisSql)
     {
