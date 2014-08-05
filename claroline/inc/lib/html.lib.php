@@ -421,7 +421,25 @@ function claro_html_msg_list($msgArrBody, $return=true)
             if( is_array($thisMsgArr) )
             {
                 $msgBox .= '<div class="' . $classMsg . '">';
-                foreach ($thisMsgArr as $anotherThis) $msgBox .= '<div class="msgLine" >' . $anotherThis . '</div>';
+                
+                foreach ($thisMsgArr as $anotherKey => $anotherThis)
+                {
+                    if ( ! is_string( $anotherThis ) )
+                    {
+                        $msgBox .= '<div class="msgLine" >' . var_export( $anotherThis, true ) . '</div>';
+                    }
+                    else
+                    {
+                        $msgBox .= '<div class="msgLine" >' . "{$anotherKey} {$anotherThis}" . '</div>';
+                    }
+                }
+                
+                $msgBox .= '</div>';
+            }
+            elseif ( ! is_string( $thisMsgArr ) )
+            {
+                $msgBox .= '<div class="' . $classMsg . '">';
+                $msgBox .= '<div class="msgLine" >' . var_export( $thisMsgArr, true ) . '</div>';
                 $msgBox .= '</div>';
             }
             else
