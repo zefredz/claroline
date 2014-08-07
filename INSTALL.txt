@@ -10,11 +10,6 @@ TABLE OF CONTENTS :
 
 1. REQUIREMENTS
 2. INSTALLATION PROCEDURE
-        2.2 Upgrading Claroline
-            2.2.0 Upgrading from Claroline 1.10 to Claroline 1.11
-            2.2.1 Understanding Claroline version numbers
-            2.2.2 Upgrade from previous Claroline major version
-            2.2.3 Upgrade from previous Claroline minor version
 3. TROUBLESHOOTING
 4. ADMINISTRATION SECTION
 
