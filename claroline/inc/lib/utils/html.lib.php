@@ -352,7 +352,7 @@ class Claro_Html_Composite implements Claro_Renderer, Countable
         $tmp = '';
         foreach ( $this->elems as $elem )
         {
-            $tmp .= $elem->render() . $separator;
+            $tmp .= $elem->render(). $this->separator;
         }
         return $tmp;
     }
