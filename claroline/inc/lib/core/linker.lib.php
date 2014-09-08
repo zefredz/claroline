@@ -1104,7 +1104,10 @@ class ResourceLinkerNavigator
             $locator->setGroupId( claro_get_current_group_id() );
         }
         
-        if ( get_current_module_label() && empty( $locator->getModuleLabel () ) )
+        // cannot use method call in empty()
+        $locatorModuleLabel = $locator->getModuleLabel ();
+        
+        if ( get_current_module_label() && empty( $locatorModuleLabel ) )
         {
             $locator->setModuleLabel(get_current_module_label());
             
