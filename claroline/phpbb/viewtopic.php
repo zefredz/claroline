@@ -407,6 +407,12 @@ else
                 $subject = isset( $subject ) ? $subject : '';
                 $message = isset( $message ) ? $message : '';
             }
+            else
+            {
+                $subject = '';
+                $message = '';
+            }
+            
             $form = new ModuleTemplate( 'CLFRM', 'forum_editpost.tpl.php' );
             
             $form->assign( 'nextCommand', 'exSavePost' );
