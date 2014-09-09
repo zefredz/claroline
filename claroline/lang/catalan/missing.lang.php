@@ -1528,6 +1528,7 @@ $_lang['Wiki description'] = 'Wiki description';
 $_lang['Wiki edition failed'] = 'Wiki edition failed';
 $_lang['Wiki edition succeed'] = 'Wiki edition succeed';
 $_lang['Will be published on'] = 'Will be published on';
+$_lang['Will delete %path'] = 'Will delete %path';
 $_lang['Work added'] = 'Work added';
 $_lang['Work modified'] = 'Work modified';
 $_lang['Work title'] = 'Work title';

@@ -1808,6 +1808,7 @@ $_lang['Wiki description'] = 'Wiki description';
 $_lang['Wiki edition failed'] = 'Wiki edition failed';
 $_lang['Wiki edition succeed'] = 'Wiki edition succeed';
 $_lang['Will be published on'] = 'Will be published on';
+$_lang['Will delete %path'] = 'Will delete %path';
 $_lang['Work title'] = 'Work title';
 $_lang['Works uploaded by the student in the name of \'Authors\''] = 'Works uploaded by the student in the name of \'Authors\'';
 $_lang['Would you like to add one ?'] = 'Would you like to add one ?';

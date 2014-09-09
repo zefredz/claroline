@@ -366,6 +366,7 @@ $_lang['View student anwsers'] = 'View student anwsers';
 $_lang['Visible - Click to make invisible'] = 'Visible - Click to make invisible';
 $_lang['Web server'] = 'Web server';
 $_lang['Web services'] = 'Web services';
+$_lang['Will delete %path'] = 'Will delete %path';
 $_lang['Wrong service key or host'] = 'Wrong service key or host';
 $_lang['Yes, keep previous tracking information'] = 'Yes, keep previous tracking information';
 $_lang['You are enrolled to this course'] = 'You are enrolled to this course';

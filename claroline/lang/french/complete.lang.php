@@ -3695,3 +3695,4 @@ $_lang['Your total score is %score'] = 'Vous avez obtenu un total de %score';
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Vous ne semblez pas être inscrit à ce cours.';
 $_lang['Zip file uploaded and uncompressed'] = ' L\'archive .zip a été récupérée et décompressée';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'L\'extension php \'zlib\' est nécessaire pour utiliser outil. Contactez l\'administrateur de la plateforme.';
+$_lang['Will delete %path'] = 'Le répertoire %path va être supprimé';

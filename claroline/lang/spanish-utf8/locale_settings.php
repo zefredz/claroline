@@ -43,7 +43,7 @@ $charset = 'utf-8';
 $text_dir = 'ltr'; // ('ltr' para izq a der, 'rtl' para der a izq)
 $left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
 $right_font_family = 'helvetica, arial, geneva, sans-serif';
-$number_thousands_separator = ',';
+$number_thousands_separator = ' ';
 $number_decimal_separator = '.';
 $byteUnits = array('Bytes', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB');
 
@@ -63,3 +63,4 @@ $dateFormatLong  = '%A, %e de %B de %Y';
 $dateFormatNumeric =  '%d/%m/%Y';
 $dateTimeFormatLong  = '%e de %B de %Y a las %H:%M';
 $timeNoSecFormat = '%H:%M';
+

@@ -692,6 +692,7 @@ $_lang['Whether include tutors in the displayed member list'] = 'Whether include
 $_lang['Wiki creation failed'] = 'Wiki creation failed';
 $_lang['Wiki deletion failed'] = 'Wiki deletion failed';
 $_lang['Wiki edition failed'] = 'Wiki edition failed';
+$_lang['Will delete %path'] = 'Will delete %path';
 $_lang['Would you like to add one ?'] = 'Would you like to add one ?';
 $_lang['Wrong service key or host'] = 'Wrong service key or host';
 $_lang['Yes, keep previous tracking information'] = 'Yes, keep previous tracking information';

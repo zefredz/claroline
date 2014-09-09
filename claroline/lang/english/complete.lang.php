@@ -3677,3 +3677,4 @@ $_lang['Your total score is %score'] = 'Your total score is %score';
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Your user profile doesn\'t seem to be enrolled on this course.';
 $_lang['Zip file uploaded and uncompressed'] = ' Zip file uploaded and uncompressed';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Zlib php extension is required to use this tool.  Please contact your platform administrator.';
+$_lang['Will delete %path'] = 'Will delete %path';

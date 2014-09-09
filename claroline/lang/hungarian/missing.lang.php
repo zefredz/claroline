@@ -653,6 +653,7 @@ $_lang['Visible in all courses on install <small>(this can take some time depend
 $_lang['Visible until'] = 'Visible until';
 $_lang['Web server'] = 'Web server';
 $_lang['Web services'] = 'Web services';
+$_lang['Will delete %path'] = 'Will delete %path';
 $_lang['Would you like to add one ?'] = 'Would you like to add one ?';
 $_lang['Wrong service key or host'] = 'Wrong service key or host';
 $_lang['Yes, keep previous tracking information'] = 'Yes, keep previous tracking information';

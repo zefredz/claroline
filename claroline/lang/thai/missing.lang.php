@@ -714,6 +714,7 @@ $_lang['Warning: When you delete a message keep in mind that it will be deleted 
 $_lang['Web server'] = 'Web server';
 $_lang['Web services'] = 'Web services';
 $_lang['Whether include tutors in the displayed member list'] = 'Whether include tutors in the displayed member list';
+$_lang['Will delete %path'] = 'Will delete %path';
 $_lang['Would you like to add one ?'] = 'Would you like to add one ?';
 $_lang['Wrong service key or host'] = 'Wrong service key or host';
 $_lang['Yes, keep previous tracking information'] = 'Yes, keep previous tracking information';

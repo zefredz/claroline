@@ -1516,8 +1516,8 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
         .    get_lang('Please enter missing information')
         .    '</p>' . "\n"
         .    '<p>'  . "\n"
-        .    ( is_array($missing_admin_data) ? 'Fill in '.implode(', ',$missing_admin_data) .'<br />' : '' )
-        .    ( is_array($error_in_admin_data) ? 'Check '.implode(', ',$error_in_admin_data) : '' )
+        .    ( is_array($missing_admin_data) ? get_lang('Fill in %fields', array( '%fields' => implode(', ',$missing_admin_data) ) ) .'<br />' : '' )
+        .    ( is_array($error_in_admin_data) ? get_lang('Check %fields', array( '%fields' => implode(', ',$error_in_admin_data) ) ) : '' )
         .    '</p>'  . "\n"
         .    '</div>'  . "\n"
         ;
@@ -1532,7 +1532,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="30" id="loginForm" name="loginForm" value="'.claro_htmlspecialchars($loginForm).'" />' . "\n"
-    .    '<span class="example">' . get_lang('e.g.') . ' jdoe</span>' . "\n"
+    .    '<span class="example">' . get_lang('e.g. jdoe') . '</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     
@@ -1542,7 +1542,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="30" id="passForm" name="passForm" value="'.claro_htmlspecialchars($passForm).'" />' . "\n"
-    .    '<span class="example">' . get_lang('e.g.') . generate_passwd(8) . '</span>' . "\n"
+    .    '<span class="example">' . get_lang('e.g. %samplePassword%', array( '%samplePassword%' => generate_passwd(8) ) ) . '</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     
@@ -1552,7 +1552,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="30" id="adminEmailForm" name="adminEmailForm" value="'.claro_htmlspecialchars($adminEmailForm).'" />' . "\n"
-    .    '<span class="example">' . get_lang('e.g.') . ' jdoe@mydomain.net</span>' . "\n"
+    .    '<span class="example">' . get_lang('e.g. jdoe@mydomain.net') . '</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
         
@@ -1562,7 +1562,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="30" id="adminNameForm" name="adminNameForm" value="'.claro_htmlspecialchars($adminNameForm).'" />' . "\n"
-    .    '<span class="example">' . get_lang('e.g.') . ' Doe</span>' . "\n"
+    .    '<span class="example">' . get_lang('e.g. Doe') . '</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     
@@ -1572,7 +1572,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="30" id="adminSurnameForm" name="adminSurnameForm" value="'.claro_htmlspecialchars($adminSurnameForm).'" />' . "\n"
-    .    '<span class="example">' . get_lang('e.g.') . ' John</span>' . "\n"
+    .    '<span class="example">' . get_lang('e.g. John') . '</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     

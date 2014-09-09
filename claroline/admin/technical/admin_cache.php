@@ -70,7 +70,7 @@ if ( ! is_null($cmd) )
             }
         }
         
-        $dialogBox->info('Will delete '.$pathToClean);
+        $dialogBox->info(get_lang('Will delete %path', array( '%path' => $pathToClean ) ) );
     }
     else
     {

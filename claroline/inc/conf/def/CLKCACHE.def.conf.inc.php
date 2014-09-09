@@ -33,7 +33,7 @@ array ( 'cache_lifeTime'
 $conf_def_property_list['cache_lifeTime']
 = array ('label'     => 'Time to keep a cache as valid'
         ,'default'   => 10
-        ,'unit'      => 'second'
+        ,'unit'      => 'seconds'
         ,'type'      => 'integer'
         ,'container' => 'VAR'
         ,'acceptedValue' => array ( 'min'=>2
