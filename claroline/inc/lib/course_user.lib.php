@@ -863,10 +863,14 @@ class UserCourseEnrolmentValidation
         {
             if ( $this->course->sourceCourseId )
             {
+                $sourceCourseCode = ClaroCourse::getCodeFromId( $this->course->sourceCourseId );
+                $sourceCourse = new Claro_Course( $sourceCourseCode );
+                $sourceCourse->load();
+                    
                 $sourceCourseRegistrationValidation = new self( 
-                    ClaroCourse::getCodeFromId( $this->course->sourceCourseId ),
+                    $sourceCourse,
                     $this->privileges
-                );
+                );  
                 
                 $sourceCourseRegistrationValidation->changeValidation( $pendingStatus );
             }
