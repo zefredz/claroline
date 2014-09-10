@@ -2,6 +2,23 @@
 
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
+ #### MAINTENANCE MODE FOR UPGRADE ####
+/*
+ * To set the platform in maintenance mode, you only need to put a 
+ * maintenance.html file at the root of your platform with a maintenance message.
+ * To disable the maintenance mode : remove or rename the maintenance.html file. 
+ * 
+ * Only the platform upgrade will be available during maintenance.
+ * WARNING : if you plan to execute the upgrade while running the maintenance 
+ * mode, remember to log into the platform before activating the maintenance mode 
+ */
+if ( file_exists ( __DIR__ . "/../../maintenance.html" ) )
+{
+    include __DIR__ . "/../../maintenance.html";
+    die ();
+}
+
+
 /**
  * This is the boostrap that initialize the Claroline platform to be used in a script.
  * 
