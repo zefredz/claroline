@@ -1871,7 +1871,7 @@ function get_topic_count( $forum_id )
      
      return Claroline::getDatabase()->query( 
              "SELECT `topic_id` 
-                FROM " . $tbl_topics . " 
+                FROM `" . $tbl_topics . "` 
                WHERE `forum_id` = " . (int)$forum_id 
              )->numRows();
 } 
