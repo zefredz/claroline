@@ -46,6 +46,7 @@ class ClaroHeader extends CoreTemplate
             if ( file_exists( __DIR__ .'/../../../../platform/currentVersion.inc.php' ) )
             {
                 require __DIR__ .'/../../../../platform/currentVersion.inc.php';
+                $clarolineVersion = $GLOBALS['clarolineVersion'];
             }
             else
             {
