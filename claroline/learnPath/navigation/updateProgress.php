@@ -48,7 +48,7 @@ $TOCurl = Url::Contextualize(get_module_url('CLLNP') . '/navigation/tableOfConte
 /*********************/
 
 // handling of the API form if posted by the SCORM API
-if($_POST['ump_id']) 
+if(!empty($_POST['ump_id'])) 
 {
   // set values for some vars because we are not sure we will change it later
   $lesson_status_value = strtoupper($_POST['lesson_status']);
@@ -117,7 +117,7 @@ if($_POST['ump_id'])
 <head>
    <title>update progression</title>
 <?php
-if($_POST['ump_id']) 
+if(!empty($_POST['ump_id'])) 
 {
 ?>
     <script type="text/javascript">
