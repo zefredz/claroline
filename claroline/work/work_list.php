@@ -286,6 +286,7 @@ else  // $assignment->getAssignmentType() == 'GROUP'
      */
     $sql = "SELECT `g`.`id`            AS `authId`,
                    `g`.`name`,
+                   `g`.`name`          AS `lastname`,
                    `s`.`title`,
                    COUNT(DISTINCT(`s`.`id`))     AS `submissionCount`,
                    COUNT(DISTINCT(`fb`.`id`))    AS `feedbackCount`,
