@@ -80,11 +80,14 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 
     // Update main group settings
     $updateStudentGroup = claro_sql_query( $sql );
+    
+    
 
     // UPDATE FORUM NAME
+    FromKernel::uses("forum.lib");
     $sql = 'UPDATE `' . $tbl_bb_forum . '`
             SET `forum_name` ="' . claro_sql_escape($name).'"
-            WHERE `forum_id` ="' . $myStudentGroup['forumId'] . '"';
+            WHERE `forum_id` ="' . get_group_forumId(claro_get_current_group_id()) . '"';
 
     claro_sql_query( $sql );
 
