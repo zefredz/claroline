@@ -678,7 +678,6 @@ foreach ( $workList as $thisWrk )
         $sql = "SELECT `name`
                 FROM `" . $tbl_group_team . "`
                 WHERE `id` = " . (int) $thisWrk['authId'];
-        $authField = 'group_id';
         
         $authName = claro_sql_query_get_single_value($sql);
     }
