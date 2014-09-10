@@ -649,7 +649,7 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
     $form .= '<tr >' . "\n"
     .  '<td align="right"><label for="applyChange">' . get_lang('Save changes') . '</label> :</td>' . "\n"
     .  '<td><input type="submit" name="applyChange" id="applyChange" value="'.get_lang('Ok').'" />&nbsp;'
-    . claro_html_button(claro_htmlspecialchars(Url::Contextualize( $_SERVER['HTTP_REFERER'] )), get_lang('Cancel')) . '</td>' . "\n"
+    . claro_html_button(claro_htmlspecialchars(Url::Contextualize(get_module_entry_url('CLUSR'))), get_lang('Cancel')) . '</td>' . "\n"
     .  '</tr>' . "\n";
 
     $form .= '</table>' . "\n"
