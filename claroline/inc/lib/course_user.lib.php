@@ -855,7 +855,7 @@ class UserCourseEnrolmentValidation
                 SET 
                     isPending = " . $pendingStatus . "
                 WHERE 
-                    `rcu`.`user_id` = " . Claroline::getDatabase()->escape($this->privileges->getUserId()) . "
+                    `rcu`.`user_id` = " . Claroline::getDatabase()->escape($this->privileges->getUserPrivileges()->getUserId()) . "
                 AND 
                     `code_cours` = " . Claroline::getDatabase()->quote($this->privileges->getCourseId()) );
 
@@ -865,7 +865,7 @@ class UserCourseEnrolmentValidation
             {
                 $sourceCourseRegistrationValidation = new self( 
                     ClaroCourse::getCodeFromId( $this->course->sourceCourseId ),
-                    $this->privileges->getUserId()
+                    $this->privileges
                 );
                 
                 $sourceCourseRegistrationValidation->changeValidation( $pendingStatus );

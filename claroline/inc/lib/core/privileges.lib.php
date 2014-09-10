@@ -394,6 +394,15 @@ class Claro_CourseUserPrivileges
     }
     
     /**
+     * Get User Privileges
+     * @return Claro_UserPrivileges
+     */
+    public function getUserPrivileges()
+    {
+        return $this->userPrivileges;
+    }
+    
+    /**
      * Create the privileges of the user in a course from an array of data
      * @param string $courseId course sys code
      * @param int $userId
