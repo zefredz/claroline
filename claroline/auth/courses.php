@@ -239,7 +239,7 @@ if ( $cmd == 'exUnreg' )
     {
         $GLOBALS['claroline']['logger']->log('COURSE_UNSUBSCRIBE', array('user'=>$userId,'course'=>$courseCode));
         $dialogBox->success( get_lang('Your enrolment on the course has been removed') );
-        $newLink = '<p><a class="backLink" href="'.$_SERVER['PHP_SELF'].'?cmd=rqUnreg'.$url.'">'. 
+        $newLink = '<p><a class="backLink" href="'.$_SERVER['PHP_SELF'].'?cmd=rqUnreg">'. 
                     get_lang('Remove course enrolment') .'</a></p>';
 
     }
