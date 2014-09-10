@@ -631,6 +631,15 @@ if ( count( $workList ) )
     . get_lang('Feedbacks')
     . '</a>'
     . '</th>' . "\n";
+    
+    if( $is_allowedToEditAll )
+    {
+        $out .= '<th>'
+        . '<a href="' . $headerUrl['maxScore'] . '">'
+        . get_lang('Best score')
+        . '</a>'
+        . '</th>' . "\n";
+    }
 }
 else
 {
@@ -651,15 +660,13 @@ else
     . '<th>'
     . get_lang('Feedbacks')
     . '</th>' . "\n";
-}
-
-if( $is_allowedToEditAll )
-{
-    $out .= '<th>'
-    . '<a href="' . $headerUrl['maxScore'] . '">'
-    . get_lang('Best score')
-    . '</a>'
-    . '</th>' . "\n";
+        
+    if( $is_allowedToEditAll )
+    {
+        $out .= '<th>'
+        . get_lang('Best score')
+        . '</th>' . "\n";
+    }
 }
 
 $out .= '</tr>' . "\n"
