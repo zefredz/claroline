@@ -122,13 +122,13 @@ function get_image_list($fileList, $allowed = false)
 * get image color depth from image info
 *
 * @param  img (string) path to image file
-* @return (int) image depth in bits
+* @return (int|null) image depth in bits or null if not defined by the image type
 * @see    document.php#$fileList
 */
 function get_image_color_depth($img)
 {
     $info = getimagesize($img);
-    return $info['bits'];
+    return isset($info['bits']) ? $info['bits'] : null;
 }
 
 function get_image_thumbnail_url( $file, $context = null )

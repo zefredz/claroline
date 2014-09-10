@@ -1711,6 +1711,11 @@ if ($docView == 'image' && isset($imageList) && count($imageList) > 0)
     // Get color depth ! used to get both mime-type and color depth working together
     $depth = get_image_color_depth( $imgPath );
     
+    if ( is_null($depth) )
+    {
+        $depth = 'unknown';
+    }
+    
     if( version_compare(phpversion(), '4.3.0', '>') )
     {
         $mime_type = image_type_to_mime_type($type);
