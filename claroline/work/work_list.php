@@ -672,6 +672,20 @@ foreach ( $workList as $thisWrk )
     
     $is_mine = (  ($assignment->getAssignmentType() == 'INDIVIDUAL' && $thisWrk['authId'] == claro_get_current_user_id())
                           || ($assignment->getAssignmentType() == 'GROUP'      && in_array($thisWrk['authId'], $userGroupList)));
+    
+    if ( $assignment->getAssignmentType() == 'GROUP' )
+    {
+        $sql = "SELECT `name`
+                FROM `" . $tbl_group_team . "`
+                WHERE `id` = " . (int) $thisWrk['authId'];
+        $authField = 'group_id';
+        
+        $authName = claro_sql_query_get_single_value($sql);
+    }
+    else
+    {
+        $authName = get_lang('%firstName %lastName', array('%firstName' => $thisWrk['firstname'], '%lastName' => $thisWrk['lastname']));
+    }
 
     $out .= '<tr align="center">' . "\n"
     . '<td align="left">'
@@ -679,7 +693,7 @@ foreach ( $workList as $thisWrk )
     . '<a class="item" href="'.claro_htmlspecialchars(Url::Contextualize('user_work.php'
         . '?authId=' . $thisWrk['authId']
         . '&assigId=' . $req['assignmentId'] )) . '">'
-    . get_lang('%firstName %lastName', array('%firstName' => $thisWrk['firstname'], '%lastName' => $thisWrk['lastname']))
+    . $authName
     . '</a>'
     . ( $is_mine ? '</strong>' : '' )
     . '</td>' . "\n"
