@@ -620,8 +620,13 @@ switch ( $displayMode )
         $out .= claro_html_tool_title(array(
                     'mainTitle' => get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'],
                     'subTitle' => get_lang('Remove course from your personal course list')))
-              . $dialogBox->render()
-              . $courseListView->render();
+              . $dialogBox->render();
+        
+        // @todo fix this instead of patching the issue
+        if ( isset( $courseListView ) )
+        {
+             $out .= $courseListView->render();
+        }
     }
     break;
     
