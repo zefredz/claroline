@@ -265,6 +265,7 @@ foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 }
 
 $userList = $myPager->get_result_list();
+
 if (is_array($userList))
 {
     $tbl_mdb_names              = claro_sql_get_main_tbl();
@@ -306,117 +307,141 @@ if (is_array($userList))
 }
 
 $userGrid = array();
+
 if (is_array($userList))
-foreach ($userList as $userKey => $user)
 {
+    foreach ($userList as $userKey => $user)
+    {
 
-    $userGrid[$userKey]['user_id']   = $user['user_id'];
-    $userGrid[$userKey]['name']      = $user['name'];
-    $userGrid[$userKey]['firstname'] = $user['firstname'];
-    $userEmailLabel=null;
-    if ( !empty($_SESSION['admin_user_search']) )
-    {
-        $bold_search = str_replace('*','.*',$_SESSION['admin_user_search']);
+        $userGrid[$userKey]['user_id']   = $user['user_id'];
+        $userGrid[$userKey]['name']      = $user['name'];
+        $userGrid[$userKey]['firstname'] = $user['firstname'];
+        $userEmailLabel=null;
 
-        $userGrid[$userKey]['name'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['name']);
-        $userGrid[$userKey]['firstname'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['firstname']);
-        $userEmailLabel  = preg_replace('/(' . $bold_search . ')/i', '<b>\\1</b>' , $user['email']);
-    }
-    
-    $userGrid[$userKey]['officialCode'] = empty($user['officialCode']) ? ' - ' : $user['officialCode'];
-    $userGrid[$userKey]['email'] = claro_html_mailTo($user['email'], $userEmailLabel);
-    
-    $userGrid[$userKey]['isCourseCreator'] =  ( $user['isCourseCreator']?get_lang('Course creator'):get_lang('User'));
-    
-    if ( $user['isPlatformAdmin'] )
-    {
-        $userGrid[$userKey]['isCourseCreator'] .= '<br /><span class="highlight">' . get_lang('Administrator').'</span>';
-    }
-    $userGrid[$userKey]['settings'] = '<a href="admin_profile.php'
-    .                                 '?uidToEdit=' . $user['user_id']
-    .                                 '&amp;cfrom=ulist' . $addToURL . '">'
-    .                                 '<img src="' . get_icon_url('usersetting') . '" alt="' . get_lang('User settings') . '" />'
-    .                                 '</a>';
-    
-    
-    
-    if (get_conf("registrationRestrictedThroughCategories"))
-    {
-        $userGrid[$userKey]['qty_category'] = '<a class="showUserCategory">'
-        .                                   '<span class="' . $user['user_id'] . '"></span>' . "\n"
-        .                                   get_lang('%nb category(ies)', array('%nb' => $user['qty_category'])) . "\n"
-        .                                   '</a>' . "\n";
-    }
-    
-    $userGrid[$userKey]['qty_class'] = '<span class="showUserClasses" ><span class="' . $user['user_id'] . '"></span>' . "\n"
-    .                                   get_lang('%nb class(es)', array('%nb' => $user['qty_class'])) . "\n"
-    .                                   '</span>' . "\n"
-    ;
-    
-    $userGrid[$userKey]['qty_course'] = '<a class="showUserCourses" href="adminusercourses.php?uidToEdit=' . $user['user_id']
-    .                                   '&amp;cfrom=ulist' . $addToURL . '"><span class="' . $user['user_id'] . '"></span>' . "\n"
-    .                                   get_lang('%nb course(s)', array('%nb' => $user['qty_course'])) . "\n"
-    .                                   '</a>' . "\n"
-    ;
-    
-    $sort = '';
-    if (isset($_REQUEST['sort']))
-    {
-        $sort = '&sort='. $_REQUEST['sort']. '&dir='.$_REQUEST['dir'];
-    }
-    
-    if ($sort == '')
-    {
-        $userGrid[$userKey]['delete'] = '<a href="' . claro_htmlspecialchars($_SERVER['PHP_SELF']
-        .                               '?cmd=exDelete&user_id=' . $user['user_id']
-        .                               '&offset=' . $offset . $addToURL) . '" '
-        .                               'onclick="return ADMIN.confirmationDel(\''.clean_str_for_javascript($user['firstname'].' ' . $user['name'] .' (' . $user['user_id']).')\');">' . "\n"
-        .                               '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
-        .                               '</a> '."\n"
+        if ( !empty($_SESSION['admin_user_search']) )
+        {
+            $bold_search = str_replace('*','.*',$_SESSION['admin_user_search']);
+
+            $userGrid[$userKey]['name'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['name']);
+            $userGrid[$userKey]['firstname'] = preg_replace('/(' . $bold_search . ')/i' , '<b>\\1</b>', $user['firstname']);
+            $userEmailLabel  = preg_replace('/(' . $bold_search . ')/i', '<b>\\1</b>' , $user['email']);
+        }
+
+        $userGrid[$userKey]['officialCode'] = empty($user['officialCode']) ? ' - ' : $user['officialCode'];
+        $userGrid[$userKey]['email'] = claro_html_mailTo($user['email'], $userEmailLabel);
+
+        $userGrid[$userKey]['isCourseCreator'] =  ( $user['isCourseCreator']?get_lang('Course creator'):get_lang('User'));
+
+        if ( $user['isPlatformAdmin'] )
+        {
+            $userGrid[$userKey]['isCourseCreator'] .= '<br /><span class="highlight">' . get_lang('Administrator').'</span>';
+        }
+
+        $userGrid[$userKey]['settings'] = '<a href="admin_profile.php'
+        .                                 '?uidToEdit=' . $user['user_id']
+        .                                 '&amp;cfrom=ulist' . $addToURL . '">'
+        .                                 '<img src="' . get_icon_url('usersetting') . '" alt="' . get_lang('User settings') . '" />'
+        .                                 '</a>';
+
+
+
+        if (get_conf("registrationRestrictedThroughCategories"))
+        {
+            $userGrid[$userKey]['qty_category'] = '<a class="showUserCategory">'
+            .                                   '<span class="' . $user['user_id'] . '"></span>' . "\n"
+            .                                   get_lang('%nb category(ies)', array('%nb' => $user['qty_category'])) . "\n"
+            .                                   '</a>' . "\n";
+        }
+
+        $userGrid[$userKey]['qty_class'] = '<span class="showUserClasses" ><span class="' . $user['user_id'] . '"></span>' . "\n"
+        .                                   get_lang('%nb class(es)', array('%nb' => $user['qty_class'])) . "\n"
+        .                                   '</span>' . "\n"
         ;
-    }
-    else 
-    {
-        $userGrid[$userKey]['delete'] = '<a href="' . claro_htmlspecialchars($_SERVER['PHP_SELF']
-        .                               '?cmd=exDelete&user_id=' . $user['user_id']
-        .                               $sort
-        .                               '&offset=' . $offset . $addToURL) . '" '
-        .                               'onclick="return ADMIN.confirmationDel(\''.clean_str_for_javascript($user['firstname'].' ' . $user['name'] .' (' . $user['user_id']).')\');">' . "\n"
-        .                               '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
-        .                               '</a> '."\n"
-        ;     
-    }
 
-    if (! $user['isPlatformAdmin'])
-    {
-        $userGrid[$userKey]['login_as'] = '<a href="' . get_conf('rootWeb') . 'index.php?'
-                                                      . 'switchToUser=' . $user['user_id']
-                                                      . '">' . "\n"
-                                            . '<img src="' . get_icon_url('login_as')
-                                               . '" alt="' . get_lang('Login as') . '" />' . "\n"
-                                        . '</a> '."\n";
-    }
-    else
-    {
-        $userGrid[$userKey]['login_as'] = ' - ';
+        $userGrid[$userKey]['qty_course'] = '<a class="showUserCourses" href="adminusercourses.php?uidToEdit=' . $user['user_id']
+        .                                   '&amp;cfrom=ulist' . $addToURL . '"><span class="' . $user['user_id'] . '"></span>' . "\n"
+        .                                   get_lang('%nb course(s)', array('%nb' => $user['qty_course'])) . "\n"
+        .                                   '</a>' . "\n"
+        ;
+
+        $sort = '';
+
+        if (isset($_REQUEST['sort']))
+        {
+            $sort = '&sort='. $_REQUEST['sort']. '&dir='.$_REQUEST['dir'];
+        }
+
+        if ($sort == '')
+        {
+            $userGrid[$userKey]['delete'] = '<a href="' . claro_htmlspecialchars($_SERVER['PHP_SELF']
+            .                               '?cmd=exDelete&user_id=' . $user['user_id']
+            .                               '&offset=' . $offset . $addToURL) . '" '
+            .                               'onclick="return ADMIN.confirmationDel(\''.clean_str_for_javascript($user['firstname'].' ' . $user['name'] .' (' . $user['user_id']).')\');">' . "\n"
+            .                               '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
+            .                               '</a> '."\n"
+            ;
+        }
+        else 
+        {
+            $userGrid[$userKey]['delete'] = '<a href="' . claro_htmlspecialchars($_SERVER['PHP_SELF']
+            .                               '?cmd=exDelete&user_id=' . $user['user_id']
+            .                               $sort
+            .                               '&offset=' . $offset . $addToURL) . '" '
+            .                               'onclick="return ADMIN.confirmationDel(\''.clean_str_for_javascript($user['firstname'].' ' . $user['name'] .' (' . $user['user_id']).')\');">' . "\n"
+            .                               '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
+            .                               '</a> '."\n"
+            ;     
+        }
+
+        if (! $user['isPlatformAdmin'])
+        {
+            $userGrid[$userKey]['login_as'] = '<a href="' . get_conf('rootWeb') . 'index.php?'
+                                                          . 'switchToUser=' . $user['user_id']
+                                                          . '">' . "\n"
+                                                . '<img src="' . get_icon_url('login_as')
+                                                   . '" alt="' . get_lang('Login as') . '" />' . "\n"
+                                            . '</a> '."\n";
+        }
+        else
+        {
+            $userGrid[$userKey]['login_as'] = ' - ';
+        }
     }
 }
 
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
-// Build the list of columns' titles
-$colTitleList = array (
-    'user_id'           => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Numero') . '</a>',
-    'name'              => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>',
-    'firstname'         => '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>',
-    'officialCode'      => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Administrative code') . '</a>',
-    'email'             => '<a href="' . $sortUrlList['email'] . '">' . get_lang('Email') . '</a>',
-    'isCourseCreator'   => '<a href="' . $sortUrlList['isCourseCreator'] . '">' . get_lang('Status') . '</a>',
-    'settings'          => get_lang('User settings')
-);
+if ( count( $userList ) )
+{
+    // Build the list of columns' titles
+    $colTitleList = array (
+        'user_id'           => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Numero') . '</a>',
+        'name'              => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>',
+        'firstname'         => '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>',
+        'officialCode'      => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Administrative code') . '</a>',
+        'email'             => '<a href="' . $sortUrlList['email'] . '">' . get_lang('Email') . '</a>',
+        'isCourseCreator'   => '<a href="' . $sortUrlList['isCourseCreator'] . '">' . get_lang('Status') . '</a>',
+        'settings'          => get_lang('User settings')
+    );
+}
+else
+{
+    // Build the list of columns' titles
+    $colTitleList = array (
+        'user_id'           => get_lang('Numero'),
+        'name'              => get_lang('Last name'),
+        'firstname'         => get_lang('First name'),
+        'officialCode'      => get_lang('Administrative code'),
+        'email'             => get_lang('Email'),
+        'isCourseCreator'   => get_lang('Status'),
+        'settings'          => get_lang('User settings')
+    );
+}
 
 if (get_conf("registrationRestrictedThroughCategories"))
+{
     $colTitleList['qty_category'] = get_lang('Categories');
+}
     
 $colTitleList['qty_class']     = get_lang('Classes');
 $colTitleList['qty_course']    = get_lang('Courses');
