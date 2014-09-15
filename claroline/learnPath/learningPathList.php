@@ -333,8 +333,8 @@ switch ( $cmd )
                 // create new learning path
                 $sql = "INSERT
                               INTO `".$TABLELEARNPATH."`
-                                     (`name`, `comment`, `rank`)
-                              VALUES ('". claro_sql_escape($_POST['newPathName']) ."','" . claro_sql_escape(trim($_POST['newComment']))."',".(int)$order.")";
+                                     (`name`, `comment`, `rank`, `startDate`, `endDate`)
+                              VALUES ('". claro_sql_escape($_POST['newPathName']) ."','" . claro_sql_escape(trim($_POST['newComment']))."',".(int)$order.", '', '')";
                 //echo $sql;
                 $lp_id = claro_sql_query_insert_id($sql);
 
