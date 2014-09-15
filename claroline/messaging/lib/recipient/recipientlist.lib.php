@@ -114,6 +114,11 @@ abstract class RecipientList
         {
             $tools = "NULL";
         }
+        
+        if ( strlen ( $subject ) >= 100 )
+        {
+            $subject = substr( $subject, 0, 97 ) . '...';
+        }
 
         // add the message in the table of messages and retrieves the ID
         $addInternalMessageSQL =
