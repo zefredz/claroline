@@ -48,7 +48,7 @@ if ( get_conf('fill_course_example',true) )
 
     // HANDMADE module type are not used for first version of claroline 1.5 beta so we don't show any exemple!
 
-    claro_sql_query("INSERT INTO `".$TABLELEARNPATH."` VALUES ('1', '".claro_sql_escape(get_lang('sampleLearnPathTitle'))."', '".claro_sql_escape(get_lang('sampleLearnPathDescription'))."', 'OPEN', 'SHOW', '1')");
+    claro_sql_query("INSERT INTO `".$TABLELEARNPATH."` VALUES ('1', '".claro_sql_escape(get_lang('sampleLearnPathTitle'))."', '".claro_sql_escape(get_lang('sampleLearnPathDescription'))."', 0, 0, 'OPEN', 'SHOW', '1')");
 
     claro_sql_query("INSERT INTO `".$TABLELEARNPATHMODULE."` VALUES ('1', '1', '1', 'OPEN', 'SHOW', '', '1', '0', '50')");
     claro_sql_query("INSERT INTO `".$TABLELEARNPATHMODULE."` VALUES ('2', '1', '2', 'OPEN', 'SHOW', '', '2', '0', '50')");
