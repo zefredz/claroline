@@ -13,6 +13,8 @@
         `learnPath_id` int(11) NOT NULL auto_increment,
         `name` varchar(255) NOT NULL default '',
         `comment` text NOT NULL,
+        `startDate` DATETIME NOT NULL DEFAULT '',
+        `endDate` DATETIME NOT NULL DEFAULT '',
         `lock` enum('OPEN','CLOSE') NOT NULL default 'OPEN',
         `visibility` enum('HIDE','SHOW') NOT NULL default 'SHOW',
         `rank` int(11) NOT NULL default '0',
