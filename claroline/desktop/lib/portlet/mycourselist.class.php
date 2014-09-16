@@ -60,7 +60,7 @@ class MyCourseList extends UserDesktopPortlet
                             . get_lang('Create a course site')
                             . '</a>' . "\n";
         }
-        elseif ( $GLOBALS['currentUser']->isCourseCreator )
+        elseif ( !empty($GLOBALS['currentUser']) && $GLOBALS['currentUser']->isCourseCreator )
         {
             $userCommands[] = '<span class="userCommandsItemDisabled">'
                             . '<img src="' . get_icon_url('courseadd') . '" alt="" /> '
