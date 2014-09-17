@@ -824,7 +824,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             $directoryName = '';
         }
 
-        $_REQUEST['newName'] = secure_file_path( trim($_REQUEST['newName']));
+        $_REQUEST['newName'] = replace_dangerous_char( secure_file_path( trim( $_REQUEST['newName'] ) ) );
 
 
         if ( ! empty($_REQUEST['newName']) )
