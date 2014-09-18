@@ -125,11 +125,11 @@
 }
 
 .hideul {
-    background: transparent url(../../claroline/desktop/img/hide.png) no-repeat top left; 
+    background: transparent url(../img/hide.png) no-repeat top left; 
 }
 
 .showul {
-    background: transparent url(../../claroline/desktop/img/show.png) no-repeat top left; 
+    background: transparent url(../img/show.png) no-repeat top left; 
 }
 
 #portletMyAnnouncements {
