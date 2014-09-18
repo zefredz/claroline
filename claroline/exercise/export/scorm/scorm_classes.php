@@ -210,11 +210,14 @@ class ScormAnswerFillInBlanks extends answerFillInBlanks
      */
     function export()
     {
+        $blankList = array();
+        
         // get all enclosed answers
         foreach( $this->answerList as $answer )
         {
             $blankList[] = '['.$answer.']';
         }
+        
         $answerCount = count($blankList);
 
         // build replacement
@@ -257,21 +260,31 @@ class ScormAnswerFillInBlanks extends answerFillInBlanks
 
         
         // apply replacement on answer
-        $displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text(htmlspecialchars_decode($this->answerText)) );
-
-        // some javascript must be added for that kind of questions
-        $out =
-            '<script type="text/javascript" language="javascript">' . "\n";
-
-        // Add the data for fillAnswerList
-        for( $i = 0; $i < $answerCount; $i++ )
+        if ( $answerCount )
         {
-            $out .= "    fillAnswerList['fill_" . $this->questionId . "_" . $i . "'] = new Array('" . $this->answerList[$i] . "', '" . $this->gradeList[$i] . "');\n";
+            $displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text(htmlspecialchars_decode($this->answerText)) );
+            
+            // some javascript must be added for that kind of questions
+            $out =
+                '<script type="text/javascript" language="javascript">' . "\n";
+
+            // Add the data for fillAnswerList
+            for( $i = 0; $i < $answerCount; $i++ )
+            {
+                $out .= "    fillAnswerList['fill_" . $this->questionId . "_" . $i . "'] = new Array('" . $this->answerList[$i] . "', '" . $this->gradeList[$i] . "');\n";
+            }
+
+            $out .=
+                '</script>' . "\n";
+        }
+        else
+        {
+            $displayedAnswer = claro_parse_user_text(htmlspecialchars_decode($this->answerText));
+            
+            $out = '';
         }
 
-        $out .=
-            '</script>' . "\n"
-        .    '<table width="100%">' . "\n\n"
+        $out .= '<table width="100%">' . "\n\n"
 
         .    '<tr>' . "\n"
         .    '<td>' . "\n"
