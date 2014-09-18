@@ -297,12 +297,12 @@ function claro_send_file( $path, $name = '', $charset = null )
         if ( strtolower( pathinfo( $path, PATHINFO_EXTENSION ) ) == "ppt" )
         {
             // force file name for ppt
-            header( 'Content-Disposition: attachment; filename="' . $name . '"' );
+            header( 'Content-Disposition: attachment; filename="' . replace_dangerous_char($name) . '"' );
         }
         else
         {
             // force file name for other files
-            header( 'Content-Disposition: inline; filename="' . $name . '"' );
+            header( 'Content-Disposition: inline; filename="' . replace_dangerous_char($name) . '"' );
         }
         
         header( 'Content-Length: '. filesize( $path ) );
@@ -359,12 +359,12 @@ function claro_send_stream( $stream, $name, $mimeType = null , $charset = null )
     if ( strtolower( pathinfo( $name, PATHINFO_EXTENSION ) ) == "ppt" )
     {
         // force file name for ppt
-        header( 'Content-Disposition: attachment; filename="' . $name . '"' );
+        header( 'Content-Disposition: attachment; filename="' . replace_dangerous_char($name) . '"' );
     }
     else
     {
         // force file name for other files
-        header( 'Content-Disposition: inline; filename="' . $name . '"' );
+        header( 'Content-Disposition: inline; filename="' . replace_dangerous_char($name) . '"' );
     }
     
     header( 'Content-Length: '. strlen( $stream ) );
@@ -601,6 +601,9 @@ function replace_dangerous_char($string, $strict = 'loose')
     }
 
     $string = str_replace("'", '', $string);
+    
+    // remove possible other spaces characters
+    $string = preg_replace( "/\s*/", "", $string );
     
     return $string;
 }
