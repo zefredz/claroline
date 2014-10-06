@@ -140,6 +140,11 @@ else
     $exId = $exercise->getId();
 }
 
+if ( !claro_is_course_member() && claro_is_course_registration_pending () && $exercise->getAnonymousAttempts () != 'ALLOWED' )
+{
+    claro_die('Not allowed');
+}
+
 // delete Random Question List
 if( isset( $_REQUEST['cmd'] )  && $_REQUEST['cmd'] == 'deleteRandomQuestionList' )
 {
