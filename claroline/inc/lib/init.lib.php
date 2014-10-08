@@ -367,6 +367,7 @@ function  claro_is_platform_admin()
  *
  * @author Christophe Gesche <moosh@claroline.net>
  * @return boolean
+ * @deprecated since version 1.12.0
  */
 function  claro_is_course_admin()
 {
