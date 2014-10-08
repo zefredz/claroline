@@ -375,6 +375,22 @@ class Claro_CourseUserPrivileges
      */
     public function getProfileId()
     {
+        if ( $this->isEnrolmentPending () )
+        {
+            return claro_get_profile_id('guest');
+        }
+        else
+        {
+            return $this->coursePrivileges[ '_profileId' ];
+        }
+    }
+    
+    /**
+     * Get the id of the profile of the user in the course
+     * @return type
+     */
+    public function getRealProfileId()
+    {
         return $this->coursePrivileges[ '_profileId' ];
     }
     

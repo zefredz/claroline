@@ -611,7 +611,17 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
         {
             $course_user_data['role'] = $cuData['role']; // not used
             
-            $course_user_privilege['_profileId']        = $cuData['profileId'];
+            if ( $cuData['isPending'] == 0 )
+            {
+                $course_user_privilege['_profileId']    = $cuData['profileId'];
+                $course_user_privilege['_profileIdDb']  = $cuData['profileId'];
+            }
+            else
+            {
+                $course_user_privilege['_profileId']    = claro_get_profile_id('guest');
+                $course_user_privilege['_profileIdDb']  = $cuData['profileId'];
+            }
+            
             $course_user_privilege['is_coursePending']  = (bool) ($cuData['isPending' ]);
             $course_user_privilege['is_courseMember']   = (bool) ($cuData['isPending' ] == 0 );
             $course_user_privilege['is_courseTutor']    = (bool) ($cuData['tutor'] == 1 );
