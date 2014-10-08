@@ -474,8 +474,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     list($rankMax) = mysqli_fetch_row($result);
 
     $sql = "INSERT INTO `".$TABLELEARNPATH."`
-            (`name`,`visibility`,`rank`,`comment`)
-            VALUES ('". claro_sql_escape( claro_utf8_decode( $lpName, get_conf( 'charset' ) ) ) ."','HIDE',".($rankMax+1).", '')";
+            (`name`,`visibility`,`rank`,`comment`, `startDate`, `endDate`)
+            VALUES ('". claro_sql_escape( claro_utf8_decode( $lpName, get_conf( 'charset' ) ) ) ."','HIDE',".($rankMax+1).", '', 0, 0)";
     claro_sql_query($sql);
 
     $tempPathId = claro_sql_insert_id();
