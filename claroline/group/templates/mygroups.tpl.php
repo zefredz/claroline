@@ -14,7 +14,7 @@
         <tr>
             <td>
                 <a href="<?php echo claro_htmlspecialchars ( Url::Contextualize ( 
-                    get_module_url ( 'CLGRP' ) ) . '/group_space.php?gidReset=true&gidReq=' . $myGroup->id ); ?>">
+                    get_module_url ( 'CLGRP' ) . '/group_space.php?gidReset=true&gidReq=' . $myGroup->id ) ); ?>">
                 <?php echo claro_htmlspecialchars ( $myGroup->name ); ?>
                 </a>
             </td>
