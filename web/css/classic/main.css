@@ -694,10 +694,10 @@ ul.coursesTabs {
 ul.coursesTabs li {
     float: left;
     margin: 0 10px 0 0;
-    padding-top: 3px;
+    padding-top: 0px;
     text-align: center;
     font-weight: bold;
-    background: url(img/bg_tab.png) repeat-x bottom #EEEEEE;
+    background: #EEEEEE;
 }
 
 ul.coursesTabs li a {
@@ -711,9 +711,14 @@ ul.coursesTabs li.more a {
     width: 30px;
 }
 
-ul.coursesTabs li.current, 
-ul.coursesTabs li:hover {
+ul.coursesTabs li.current {
+    /* background: #ddd; */
+    padding-top: 0;
+    border-top: 3px solid #336699;
     background: #ddd;
+}
+
+ul.coursesTabs li:hover {
     padding-top: 0;
     border-top: 3px solid #336699;
 }
