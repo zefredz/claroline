@@ -147,7 +147,8 @@ if ( $is_allowedToEdit )
     {
         $forceUnenrolment = false;
             
-        if ( claro_is_platform_admin () )
+        if ( claro_is_platform_admin () 
+                    || get_conf('is_coursemanager_allowed_to_force_unregistration', false ) )
         {
             if ( isset($_REQUEST['force'] ) && $_REQUEST['force'] == '1' )
             {
@@ -720,15 +721,13 @@ foreach ( $userList as $thisUser )
         {
             if ( (int)$thisUser['count_class_enrol'] > 0 )
             {
-                $out .= '<a href="javascript:warnCannotDeleteClassStudent()">'
-                    . '<img alt="' . get_lang('class enrolment') . '" 
-                        title="'.get_lang('This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead').'" 
-                        src="' . get_icon_url('unenroll_disabled') . '" />'
-                    . '</a>'
+                $out .= '<img alt="' . get_lang('class enrolment') . '" 
+                        title="'.get_lang('This student is enroled from a class').'" 
+                        src="' . get_icon_url('class') . '" />'
                     ;
                 
-                
-                if ( claro_is_platform_admin () )
+                if ( claro_is_platform_admin () 
+                    || ( $is_allowedToEdit && get_conf('is_coursemanager_allowed_to_force_unregistration', false ) ) )
                 {
                     $out .= '&nbsp;<a href="'.claro_htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
                         . '?cmd=unregister&force=1&user_id=' . $thisUser['user_id'] )) . '&offset='.$offset . '" '
@@ -738,6 +737,15 @@ foreach ( $userList as $thisUser )
                             src="' . get_icon_url('unenroll') . '" />'
                         . '</a>'
                         ;
+                }
+                else
+                {
+                    $out .= '&nbsp;<a href="#" onclick="return warnCannotDeleteClassStudent()">'
+                    . '<img alt="' . get_lang('class enrolment') . '" 
+                        title="'.get_lang('This student is enroled from a class and cannot be removed directly from the course. You have to delete the whole class instead').'" 
+                        src="' . get_icon_url('unenroll_disabled') . '" />'
+                    . '</a>'
+                    ;
                 }
             }
             else

@@ -76,6 +76,7 @@ array ( 'is_coursemanager_allowed_to_register_single_user'
       ,    'is_coursemanager_allowed_to_enroll_single_user'
       , 'is_coursemanager_allowed_to_import_user_list'
       , 'is_coursemanager_allowed_to_import_user_class'
+      , 'is_coursemanager_allowed_to_force_unregistration'
 
 );
 
@@ -115,6 +116,17 @@ array('label'         => 'Teacher can import user list in his course'
 $conf_def_property_list['is_coursemanager_allowed_to_import_user_class'] =
 array('label'         => 'Teachers are allowed to register whole classes to their courses'
      ,'default'       => TRUE
+     ,'type'          => 'boolean'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'acceptedValue' => array ('TRUE'=>'Yes'
+                              ,'FALSE'=>'No'
+                              )
+     );
+
+$conf_def_property_list['is_coursemanager_allowed_to_force_unregistration'] =
+array('label'         => 'Teachers can force unregistration of user enroled using a class'
+     ,'default'       => FALSE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
      ,'readonly'      => FALSE
