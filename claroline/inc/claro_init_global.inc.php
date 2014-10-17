@@ -332,32 +332,7 @@ if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
         claro_disp_auth_form(true);
     }
     
-    if ( get_module_data( $GLOBALS['tlabelReq'], 'type' ) == 'admin' && ! claro_is_platform_admin() )
-    {
-        if ( !claro_is_user_authenticated() )
-        {
-            claro_disp_auth_form();
-        }
-        else
-        {
-            claro_die(get_lang('Not allowed'));
-        }
-    }
-    
-    if ( get_module_data( $GLOBALS['tlabelReq'], 'type' ) == 'crsmanage' 
-        && ! ( claro_is_course_manager() || claro_is_platform_admin() ) )
-    {
-        if ( !claro_is_user_authenticated() )
-        {
-            claro_disp_auth_form(true);
-        }
-        else
-        {
-            claro_die(get_lang('Not allowed'));
-        }
-    }
-    
-    if ( $GLOBALS['tlabelReq'] !== 'CLWRK' && $GLOBALS['tlabelReq'] !== 'CLGRP' && ! claro_is_module_allowed()
+    if ( $GLOBALS['tlabelReq'] !== 'CLWRK' && $GLOBALS['tlabelReq'] !== 'CLGRP' && !claro_is_module_allowed()
         && ! ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] 
         && ( $GLOBALS['tlabelReq'] == 'CLQWZ' || $GLOBALS['tlabelReq'] == 'CLDOC') ) ) // WORKAROUND FOR OLD LP
     {
@@ -380,7 +355,19 @@ if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
     {
         claro_die( get_lang( 'Not allowed' ) );
     }
-
+    
+    if ( !claro_is_module_allowed () )
+    {
+        if ( ! claro_is_user_authenticated() )
+        {
+            claro_disp_auth_form(true);
+        }
+        else
+        {
+            claro_die( get_lang( 'Not allowed' ) );
+        }
+    }
+    
     /*----------------------------------------------------------------------
         Install module
     ----------------------------------------------------------------------*/
@@ -463,7 +450,7 @@ if ( claro_is_in_a_group() )
     $GLOBALS['claroline']->notification->addListener( 'group_deleted', 'modificationDelete' );
 }
 
-if ( claro_is_in_a_tool() )
+if ( claro_is_in_a_tool() && claro_is_tool_allowed () )
 {
     // generic tool event
     $GLOBALS['claroline']->notification->addListener( 'tool_access', 'trackToolAccess' );
@@ -603,7 +590,7 @@ else
 }
 
 // reset current module label after calling the cache
-if ( isset($GLOBALS['tlabelReq']) && get_current_module_label() != $GLOBALS['tlabelReq'] )
+if ( !empty($GLOBALS['tlabelReq']) && get_current_module_label() != $GLOBALS['tlabelReq'] )
 {
     // reset all previous occurence of module label in stack
     while (clear_current_module_label());

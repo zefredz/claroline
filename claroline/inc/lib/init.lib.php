@@ -478,9 +478,17 @@ function claro_is_module_allowed()
         // if a course tool, use claro_is_tool_allowed
         return claro_is_tool_allowed();
     }
+    elseif ( $moduleData['type'] == 'admin' )
+    {
+        return claro_is_platform_admin();
+    }
+    elseif ( $moduleData['type'] == 'crsmanage' )
+    {
+        return claro_is_in_a_course() && (claro_is_course_manager() || claro_is_platform_admin());
+    }
     else
     {
-        // if an applet "tool", return true if activated
+        // if an applet or web service "tool", return true if activated
         // and let module manage it's access by itself
         return ( $moduleData['activation'] == 'activated' );
     }
