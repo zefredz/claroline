@@ -594,6 +594,7 @@ function claro_get_course_user_privilege($cid,$uid,$ignoreCache=false)
  */
 function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
 {
+    var_dump($uid);
     $admin = claro_is_platform_admin();
     
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -638,7 +639,7 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
         }
         else // this user has no status related to this course
         {
-            $course_user_privilege['_profileId']        = claro_get_profile_id('guest');
+            $course_user_privilege['_profileId']        = empty($uid) ? claro_get_profile_id('anonymous') : claro_get_profile_id('guest');
             $course_user_privilege['is_coursePending']  = false;
             $course_user_privilege['is_courseMember']   = false;
             $course_user_privilege['is_courseAdmin']    = false;
@@ -661,6 +662,11 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
  */
 function claro_get_current_user_profile_id_in_course( $courseId = null )
 {
+    if ( !claro_is_user_authenticated () )
+    {
+        return 1; // anonymous
+    }
+    
     $courseId = empty( $courseId ) ? claro_get_current_course_id() : $courseId;
     
     $userPrivilege = claro_get_course_user_privilege(
