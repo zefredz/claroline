@@ -113,7 +113,7 @@
 
     echo $dialogBox->render();
 ?>
-<?php elseif( claro_is_course_allowed() && ! claro_is_course_member() ): ?>
+<?php elseif( claro_is_user_authenticated() && claro_is_course_allowed() && ! claro_is_course_member() ): ?>
 <?php
     $dialogBox = new DialogBox();
 
