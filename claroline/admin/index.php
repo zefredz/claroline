@@ -127,7 +127,7 @@ if ( count( $adminModuleList ) > 0 )
     {
         language::load_module_translation($module['label']);
         
-        $menu['ExtraTools'][] = '<a href="'.get_module_entry_url($module['label']).'">'.get_lang($module['name']).'</a>';
+        $menu['ExtraTools'][] = '<a href="'.get_module_entry_url($module['label']).'?cidReq=&cidReset=true">'.get_lang($module['name']).'</a>';
     }
 }
 
