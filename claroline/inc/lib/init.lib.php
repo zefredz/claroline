@@ -594,7 +594,6 @@ function claro_get_course_user_privilege($cid,$uid,$ignoreCache=false)
  */
 function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
 {
-    var_dump($uid);
     $admin = claro_is_platform_admin();
     
     $tbl_mdb_names = claro_sql_get_main_tbl();
