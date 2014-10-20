@@ -475,6 +475,11 @@ function claro_is_module_allowed()
             return get_module_data( $moduleLabel,'activation' ) == 'activated';
         }
         
+        if ( claro_is_in_a_group() && ( $GLOBALS['tlabelReq'] == 'CLGRP' || $GLOBALS['tlabelReq'] == 'CLWRK' ) )
+        {
+            return (( $moduleData['activation'] == 'activated' ) && (claro_is_group_allowed() || claro_is_allowed_to_edit()));
+        }
+        
         // if a course tool, use claro_is_tool_allowed
         return claro_is_tool_allowed();
     }
