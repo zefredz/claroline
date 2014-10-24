@@ -522,6 +522,15 @@ class Claro_GroupUserPrivileges
     
     /**
      * Get the group id
+     * @return Claro_GroupTeam
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+    
+    /**
+     * Get the group id
      * @return int
      */
     public function getGroupId()
