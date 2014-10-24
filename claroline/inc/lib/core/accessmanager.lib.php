@@ -29,7 +29,27 @@ class Claro_AccessManager
         /**
          * Can modify resources in the module and see invisible resources
          */
-        ACCESS_EDIT = 'edit';
+        ACCESS_EDIT = 'edit',
+    
+        /**
+         * Can manage the module
+         */
+        ACCESS_MANAGE = 'manage';
+    
+    const 
+        /**
+         * Can view/read/access the module but without modifying ressources
+         */
+        CONTEXT_PLATFORM = 'platform',
+        /**
+         * Can modify resources in the module and see invisible resources
+         */
+        CONTEXT_COURSE = 'course',
+    
+        /**
+         * Can manage the module
+         */
+        CONTEXT_GROUP = 'group';
     
     protected $database;
     
@@ -56,11 +76,12 @@ class Claro_AccessManager
         $moduleAccess = new Claro_ModuleAccessManager ( new Claro_Module( $moduleLabel ), $this->database );
 
         $userPrivileges = new Claro_UserPrivileges ( $user );
+        
         return $moduleAccess->checkAccessRight($userPrivileges, $action, $course, $group);
     }
     
     /**
-     * Check editor/writer/manager access right 
+     * Check editor/writer access right 
      * @param string $moduleLabel the label of the module
      * @param Claro_User $user user that wants to do the action
      * @param Claro_Course $course given course or null if not in a course (default)
@@ -83,6 +104,19 @@ class Claro_AccessManager
     public function isAllowedToRead ( $moduleLabel, $user = null, $course = null, $group = null )
     {
         return $this->checkAccessRight($moduleLabel, self::ACCESS_READ, $user, $course, $group);
+    }
+    
+    /**
+     * Check manager access right 
+     * @param string $moduleLabel the label of the module
+     * @param Claro_User $user id of the user that wants to do the action
+     * @param Claro_Course $course given course or null if not in a course (default)
+     * @param Claro_GroupTeam $group given group or null if not in a group
+     * @return boolean true if access granted, false if not 
+     */
+    public function isAllowedToManage ( $moduleLabel, $user = null, $course = null, $group = null )
+    {
+        return $this->checkAccessRight($moduleLabel, self::ACCESS_MANAGE, $user, $course, $group);
     }
 }
 
@@ -114,9 +148,17 @@ class Claro_ModuleAccessManager
      * @param Claro_Course $course
      * @param Claro_GroupTeam $group
      * @return boolean
+     * @throws Exception if invalid action supplied
      */
     public function checkAccessRight( $userPrivileges, $action, $course = null, $group = null )
     {
+        if ( $action !== Claro_AccessManager::ACCESS_READ 
+            && $action !== Claro_AccessManager::ACCESS_EDIT 
+            && $action !== Claro_AccessManager::ACCESS_MANAGE )
+        {
+            throw new Exception("Invalid action supplied : {$action}");
+        }
+        
         if ( $this->module->isActivated() )
         {
             if ( !$this->validateTypeAndContext( $userPrivileges, $course, $group ) )
@@ -124,7 +166,7 @@ class Claro_ModuleAccessManager
                 claro_debug_mode() && pushClaroMessage('wrong context :- false','debug');
                 return false;
             }
-            else
+            else // type and context validation ok
             {
                 // Über User
                 if ( $userPrivileges->isSuperUser() )
@@ -132,85 +174,196 @@ class Claro_ModuleAccessManager
                     claro_debug_mode() && pushClaroMessage('isSuperUser :- true','debug');
                     return true;
                 }
-                else
+                else // not platform super user
                 {
+                    $modulePermissions = Claro_ModuleAccessPermissions::loadPermissions($this->module->getLabel ());
+                    
                     if ( $course )
                     {
                         $coursePrivileges = $userPrivileges->getCoursePrivileges( $course );
                         
                         $courseTool = new Claro_CourseTool( $this->module->getLabel(), $coursePrivileges->getCourseId(), $this->database );
                         
-                        // Super User
                         if ( $coursePrivileges->isSuperUser() )
                         {
                             claro_debug_mode() && pushClaroMessage('isSuperUser in course :- true','debug');
                             return true;
-                        }
-                        elseif ( $coursePrivileges->isCourseAllowed() && $courseTool->isActivated () && $courseTool->isVisible() )
+                        } // end course super user
+                        elseif ( $coursePrivileges->isCourseAllowed() 
+                            && $courseTool->isActivated () 
+                            && ( get_conf( 'use_visibility_as_access', true ) && $courseTool->isVisible() ) ) // allowed in course
                         {
                             if ( $group )
                             {
-                                $groupPrivileges = $coursePrivileges->getGroupPrivileges( $group );
-                                
-                                if ( ! $groupPrivileges->isAllowedInGroup() )
-                                {
-                                    claro_debug_mode() && pushClaroMessage('group not allowed :- false','debug');
-                                    return false;
-                                }
-                                else
-                                {
-                                    if ( $action == Claro_AccessManager::ACCESS_READ )
-                                    {
-                                        claro_debug_mode() && pushClaroMessage('check group read','debug');
-                                        return $this->isAllowedToReadInGroup($userPrivileges, $coursePrivileges, $groupPrivileges);
-                                    }
-                                    else
-                                    {
-                                        claro_debug_mode() && pushClaroMessage('check group edit','debug');
-                                        return $this->isAllowedToEditInGroup($userPrivileges, $coursePrivileges, $groupPrivileges);
-                                    }
-                                }
-                            }
-                            else
+                                $groupPrivileges = $coursePrivileges->getGroupPrivileges ( $group );
+
+                                return $this->checkGroupAccessRight ( $action, $modulePermissions, $userPrivileges, $coursePrivileges, $groupPrivileges );
+                            } // end in group
+                            else // not in group
                             {
-                                if ( $action == Claro_AccessManager::ACCESS_READ )
-                                {
-                                    claro_debug_mode() && pushClaroMessage('check course read','debug');
-                                    return $this->isAllowedToReadInCourse($userPrivileges, $coursePrivileges);
-                                }
-                                else
-                                {
-                                    claro_debug_mode() && pushClaroMessage('check course edit','debug');
-                                    return $this->isAllowedToEditInCourse($userPrivileges, $coursePrivileges);
-                                }
-                            }
-                        }
+                                return $this->checkCourseAccessRight($action, $modulePermissions, $userPrivileges, $coursePrivileges);
+                            } // end not in group
+                        } // end course allowed
                         else
                         {
                             claro_debug_mode() && pushClaroMessage('not course allowed :- false','debug');
                             return false;
-                        }
-                    }
-                    else
+                        } // end course not allowed
+                    } // end in course
+                    else // not in course
                     {
-                        if ( $action == Claro_AccessManager::ACCESS_READ )
-                        {
-                            claro_debug_mode() && pushClaroMessage('check module read','debug');
-                            return $this->isAllowedToRead($userPrivileges);
-                        }
-                        else
-                        {
-                            claro_debug_mode() && pushClaroMessage('check module edit','debug');
-                            return $this->isAllowedToEdit($userPrivileges);
-                        }
-                    }
-                }   
-            }
-        }
-        else
+                        return $this->checkPlatformAccessRight($action, $modulePermissions, $userPrivileges);
+                    } // end not in course
+                } // end not platform super user   
+            } // end type and context validation ok
+        } // end module activated
+        else // module not activated
         {
             return false;
-        }
+        } // end module not activated
+    }
+    
+    protected function checkPlatformAccessRight( $action, $modulePermissions, $userPrivileges )
+    {
+        if ( !is_null ( $modulePermissions ) && $modulePermissions->overridePermission ( $action, Claro_AccessManager::CONTEXT_PLATFORM ) )
+        {
+            return $modulePermissions->moduleAccessOverride ( $action, Claro_AccessManager::CONTEXT_PLATFORM, $userPrivileges );
+        } // end module overrides course permissions
+        else // module does not override platform permissions
+        {
+            switch ( $action )
+            {
+                case Claro_AccessManager::ACCESS_READ:
+                    {
+                        claro_debug_mode () && pushClaroMessage ( 'check platform read', 'debug' );
+
+                        if ( $this->isAllowedToRead ( $userPrivileges ) )
+                        {
+                            return true;
+                        }
+                    } // no break cascading access check
+                case Claro_AccessManager::ACCESS_EDIT:
+                    {
+                        claro_debug_mode () && pushClaroMessage ( 'check platform edit', 'debug' );
+
+                        if ( $this->isAllowedToEdit ( $userPrivileges ) )
+                        {
+                            return true;
+                        }
+                    } // no break cascading access check
+                case Claro_AccessManager::ACCESS_MANAGE:
+                    {
+                        claro_debug_mode () && pushClaroMessage ( 'check platform manage', 'debug' );
+
+                        if ( $this->isAllowedToManage ( $userPrivileges ) )
+                        {
+                            return true;
+                        }
+                    } // no break cascading access check
+                default:
+                    {
+                        return false;
+                    }
+            } // end switch action
+        } // end module does not override course permissions
+    }
+    
+    protected function checkCourseAccessRight( $action, $modulePermissions, $userPrivileges, $coursePrivileges )
+    {
+        if ( !is_null ( $modulePermissions ) && $modulePermissions->overridePermission ( $action, Claro_AccessManager::CONTEXT_COURSE ) )
+        {
+            return $modulePermissions->moduleAccessOverride ( $action, Claro_AccessManager::CONTEXT_COURSE, $userPrivileges, $coursePrivileges );
+        } // end module overrides course permissions
+        else // module does not override course permissions
+        {
+            switch ( $action )
+            {
+                case Claro_AccessManager::ACCESS_READ:
+                    {
+                        claro_debug_mode () && pushClaroMessage ( 'check course read', 'debug' );
+
+                        if ( $this->isAllowedToReadInCourse ( $userPrivileges, $coursePrivileges ) )
+                        {
+                            return true;
+                        }
+                    } // no break cascading access check
+                case Claro_AccessManager::ACCESS_EDIT:
+                    {
+                        claro_debug_mode () && pushClaroMessage ( 'check course edit', 'debug' );
+
+                        if ( $this->isAllowedToEditInCourse ( $userPrivileges, $coursePrivileges ) )
+                        {
+                            return true;
+                        }
+                    } // no break cascading access check
+                case Claro_AccessManager::ACCESS_MANAGE:
+                    {
+                        claro_debug_mode () && pushClaroMessage ( 'check course manage', 'debug' );
+
+                        if ( $this->isAllowedToManageInCourse ( $userPrivileges, $coursePrivileges ) )
+                        {
+                            return true;
+                        }
+                    } // no break cascading access check
+                default:
+                    {
+                        return false;
+                    }
+            } // end switch action
+        } // end module does not override course permissions
+    }
+    
+    protected function checkGroupAccessRight( $action, $modulePermissions, $userPrivileges, $coursePrivileges, $groupPrivileges )
+    {
+        if ( !$groupPrivileges->isAllowedInGroup () )
+        {
+            claro_debug_mode () && pushClaroMessage ( 'group not allowed :- false', 'debug' );
+            return false;
+        } // end not group allowed
+        else // allowed in group
+        {
+            if ( !is_null ( $modulePermissions ) && $modulePermissions->overridePermission ( $action, Claro_AccessManager::CONTEXT_GROUP ) )
+            {
+                return $modulePermissions->moduleAccessOverride ( $action, Claro_AccessManager::CONTEXT_GROUP, $userPrivileges, $coursePrivileges, $groupPrivileges );
+            } // end module overrides group permissions
+            else // module does not override group permissions
+            {
+                switch ( $action )
+                {
+                    case Claro_AccessManager::ACCESS_READ:
+                        {
+                            claro_debug_mode () && pushClaroMessage ( 'check group read', 'debug' );
+
+                            if ( $this->isAllowedToReadInGroup ( $userPrivileges, $coursePrivileges, $groupPrivileges ) )
+                            {
+                                return true;
+                            }
+                        } // no break cascading access check
+                    case Claro_AccessManager::ACCESS_EDIT:
+                        {
+                            claro_debug_mode () && pushClaroMessage ( 'check group edit', 'debug' );
+
+                            if ( $this->isAllowedToEditInGroup ( $userPrivileges, $coursePrivileges, $groupPrivileges ) )
+                            {
+                                return true;
+                            }
+                        } // no break cascading access check
+                    case Claro_AccessManager::ACCESS_MANAGE:
+                        {
+                            claro_debug_mode () && pushClaroMessage ( 'check group manage', 'debug' );
+
+                            if ( $this->isAllowedToManageInGroup ( $userPrivileges, $coursePrivileges, $groupPrivileges ) )
+                            {
+                                return true;
+                            }
+                        } // no break cascading access check
+                    default:
+                        {
+                            return false;
+                        }
+                } // end switch group action
+            } // module does not override group permissions
+        } // end group allowed
     }
     
     /**
@@ -298,6 +451,16 @@ class Claro_ModuleAccessManager
             && $userPrivileges->isAuthenticated();
     }
     
+    /**
+     * Check if a user is allowed to manage a tool at the platform level
+     * @param Claro_UserPrivileges $userPrivileges
+     * @return bool
+     */
+    protected function isAllowedToManage( $userPrivileges )
+    {
+        return $userPrivileges->isSuperUser();
+    }
+    
     // course context
     
     /**
@@ -330,6 +493,17 @@ class Claro_ModuleAccessManager
             claro_debug_mode() && pushClaroMessage('test course profile edit','debug');
             return $coursePrivileges->getCourseUserProfile()->profileAllowsToEdit($this->module);
         }
+    }
+    
+    /**
+     * Check if a user is allowed to modify a resources from the user's course privileges
+     * @param Claro_UserPrivileges $userPrivileges
+     * @param Claro_CourseUSerPrivileges $coursePrivileges
+     * @return bool
+     */
+    protected function isAllowedToManageInCourse( $userPrivileges, $coursePrivileges )
+    {
+        return $coursePrivileges->isSuperUser();
     }
     
     // group context
@@ -373,6 +547,25 @@ class Claro_ModuleAccessManager
     }
     
     /**
+     * Check if a user is allowed to manage a tool from the user's group privileges
+     * @param Claro_UserPrivileges $userPrivileges
+     * @param Claro_CourseUserPrivileges $coursePrivileges
+     * @param Claro_GroupUserPrivileges $groupPrivileges
+     * @return boolean
+     */
+    protected function isAllowedToManageInGroup( $userPrivileges, $coursePrivileges, $groupPrivileges )
+    {
+        if ( $this->canAccessModuleInGroup( $userPrivileges, $coursePrivileges, $groupPrivileges ) )
+        {
+            return $groupPrivileges->isSuperUser ();
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
      * Check if a user is allowed to access a module from the user's group privileges
      * @param Claro_UserPrivileges $userPrivileges
      * @param Claro_CourseUserPrivileges $coursePrivileges
@@ -387,7 +580,7 @@ class Claro_ModuleAccessManager
         
         $is_allowedToAccessCLGRP = $clgrp->isActivated() 
             && $clgrp->isVisible()
-            && $courseUserProfile->profileAllowsToRead('CLGRP');
+            && $courseUserProfile->profileAllowsToRead(new Claro_Module('CLGRP'));
         
         if ( $is_allowedToAccessCLGRP )
         {
@@ -447,25 +640,87 @@ class Claro_ModuleAccessPermissions
         return $this->permissions['availableWhenEmbedded'] === true ? true : false;
     }
     
+    public function overridePermission( $action, $context )
+    {
+        if ( ! isset( $this->permissions['override'] ) )
+        {
+            return false;
+        }
+        
+        if ( ! isset($this->permissions['override'][$context]) 
+            && ! isset($this->permissions['override'][$context][$action]) )
+        {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    protected function getPermissionOverrideCallback( $context, $action )
+    {
+        $callback = $this->permissions['override'][$context][$action];
+        
+        if ( ! is_callable( $callback ) )
+        {
+            throw new Exception("Invalid permission override callback given for context {$context} and action {$action}");
+        }
+        
+        return $callback;
+    }
+    
+    public function moduleAccessOverride( $action, $context, $userPrivileges, $coursePrivileges = null, $groupPrivileges = null )
+    {
+        if ( $this->overridePermission ( $action, $context ) )
+        {
+            return null;
+        }
+        
+        $callback = $this->getPermissionOverrideCallback( $context, $action );
+        
+        switch ( $context )
+        {
+            case Claro_AccessManager::CONTEXT_PLATFORM:
+            {
+                return call_user_func( $callback,$userPrivileges );
+            } break;
+            case Claro_AccessManager::CONTEXT_COURSE:
+            {
+                return call_user_func( $callback,$userPrivileges, $coursePrivileges );
+            } break;
+            case Claro_AccessManager::CONTEXT_GROUP:
+            {
+                return call_user_func( $callback,$userPrivileges, $coursePrivileges, $groupPrivileges );
+            } break;
+            default:
+            {
+                throw new Exception("Invalid context supplied : {$context}");
+            }
+        }
+    }
+    
     /**
      * Load and get the permission for the requested module
      * @param string $moduleLabel label of the requested module
-     * @return Claro_ModuleAccessPermissions
+     * @return Claro_ModuleAccessPermissions|null
      */
     public static function loadPermissions( $moduleLabel )
     {
         $permissions = array();
         
-        $moduleAccessPermissionsPath = get_module_path( $moduleLabel ) . '/connector/permissions.ini';
+        $moduleAccessPermissionsPath = get_module_path( $moduleLabel ) . '/connector/permissions.cnr.php';
         
         if ( file_exists( $moduleAccessPermissionsPath ) )
         {
-            $permissions = parse_ini_file( $moduleAccessPermissionsPath );
+            $permissions = include( $moduleAccessPermissionsPath );
+            
+            $mAP = new self( $permissions );
+        
+            return $mAP;
         }
-        
-        $mAP = new self( $permissions );
-        
-        return $mAP;
+        else
+        {
+            return null;
+        }        
     }
 }
 
