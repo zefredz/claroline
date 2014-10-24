@@ -151,14 +151,14 @@ implements
             $userProperties->isGroupMember = false;
             $userProperties->status = false;
             $userProperties->role = null;
-            $userProperties->isGroupTutor = $this->_rawData['tutorId'] == $userId;
+            $userProperties->isGroupTutor = $this->_rawData['tutorId'] == $userObj->userId;
         }
         else
         {
             $userProperties->isGroupMember = true;
             $userProperties->status = $result['status'];
             $userProperties->role = $result['role'];
-            $userProperties->isGroupTutor = $this->_rawData['tutorId'] == $userId;
+            $userProperties->isGroupTutor = $this->_rawData['tutorId'] == $userObj->userId;
         }
 
         return $userProperties;
