@@ -215,7 +215,7 @@ class Claro_CourseUserPrivileges
     {
         if ( ! $this->courseUserProfile )
         {
-            $this->courseUserProfile = new Claro_CourseUserProfile( $this );
+            $this->courseUserProfile = new Claro_CourseUserProfile( $this->userPrivileges, $this );
         }
         
         
@@ -510,9 +510,9 @@ class Claro_GroupUserPrivileges
     {
         if ( $this->userPrivileges->isAuthenticated() && $this->coursePrivileges->isCourseMember() )
         {
-            $userGroupProperties = $this->group->getUserProperties( $this->userPrivileges->getUser() );
+            $userGroupProperties = $this->group->getUserPropertiesInGroup( $this->userPrivileges->getUser() );
 
-            $this->_isGroupMember = $userGroupProperties['isGroupMember'];
+            $this->_isGroupMember = $userGroupProperties->isGroupMember;
         }
         else
         {
@@ -573,7 +573,7 @@ class Claro_GroupUserPrivileges
     public function isSuperUser()
     {
         return $this->coursePrivileges->isSuperUser() 
-            || $this->isGroupTutor()
+            /* || $this->isGroupTutor() */ // being a group tutor does not grant you super user rights in group context, this gives you group tutor rights
             || $this->coursePrivileges->getCourseUserProfile()->profileAllowsToEdit( new Claro_Module('CLGRP')  )
             ;
     }
@@ -585,6 +585,7 @@ class Claro_GroupUserPrivileges
 class Claro_CourseUserProfile
 {
     protected 
+        $userPrivileges,
         $coursePrivileges, 
         $profileRightList = null,
         $database;
@@ -594,10 +595,11 @@ class Claro_CourseUserProfile
      * @param Claro_CourseUserPrivileges $coursePrivileges privileges of the user in the course
      * @param Database_Connection $database
      */
-    public function __construct( $coursePrivileges, $database = null )
+    public function __construct( $userPrivileges, $coursePrivileges, $database = null )
     {
         $this->database = $database ? $database : Claroline::getDatabase();
         
+        $this->userPrivileges = $userPrivileges;
         $this->coursePrivileges = $coursePrivileges;
         
         $profile = new RightProfile();
