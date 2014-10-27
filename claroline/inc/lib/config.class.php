@@ -519,6 +519,7 @@ class Config
     public function save($generatorFile=__FILE__)
     {
         // split generation file
+        $fileContent  = '';
 
         if ( strlen($generatorFile)>50 )
         {
@@ -545,109 +546,108 @@ class Config
             $fileHeader .= '/*' . str_replace('*/', '* /', $this->conf_def['technicalInfo']) . '*/' ;
         }
 
-        // open configuration file
-        if ( false !== ($handle = @fopen($this->config_filename,'w') ) )
+
+        // write header
+        $fileContent .= $fileHeader;
+
+        foreach ( $this->property_list as $name => $value )
         {
 
-            // write header
-            fwrite($handle,$fileHeader);
+            // build comment about the property
+            $propertyComment = '';
 
-            foreach ( $this->property_list as $name => $value )
+            // comment : add description
+            if ( !empty($this->conf_def_property_list[$name]['description']) )
             {
-
-                // build comment about the property
-                $propertyComment = '';
-
-                // comment : add description
-                if ( !empty($this->conf_def_property_list[$name]['description']) )
+                $propertyComment .= '/* ' . $name . ' : ' . str_replace("\n",'',$this->conf_def_property_list[$name]['description']) . ' */' . "\n";
+            }
+            else
+            {
+                if ( isset($this->conf_def_property_list[$name]['label']) )
                 {
-                    $propertyComment .= '/* ' . $name . ' : ' . str_replace("\n",'',$this->conf_def_property_list[$name]['description']) . ' */' . "\n";
+                    $propertyComment .= '/* '.$name.' : '.str_replace("\n","",$this->conf_def_property_list[$name]['label']).' */'."\n";
                 }
-                else
-                {
-                    if ( isset($this->conf_def_property_list[$name]['label']) )
-                    {
-                        $propertyComment .= '/* '.$name.' : '.str_replace("\n","",$this->conf_def_property_list[$name]['label']).' */'."\n";
-                    }
-
-                }
-
-                // comment : add technical info
-                if ( !empty($this->conf_def_property_list[$name]['technicalInfo']) )
-                {
-                    $propertyComment .= '/*'."\n"
-                    . str_replace('*/', '* /', $this->conf_def_property_list[$name]['technicalInfo'] )."\n"
-                    . '*/'."\n";
-                }
-
-                // property type define how to write the value
-                switch ($this->conf_def_property_list[$name]['type'])
-                {
-
-                    case 'boolean':
-                        if (is_bool($value)) $valueToWrite = trueFalse($value);
-                        else
-                        switch (strtoupper($value))
-                        {
-                            case 'TRUE' :
-                            case '1' :
-                                $valueToWrite = 'TRUE';
-                                break;
-                            case 'FALSE' :
-                            case '0' :
-                                $valueToWrite = 'FALSE';
-                                break;
-                            default:
-                                trigger_error('$value is not a boolean ',E_USER_NOTICE);
-                                return false;
-                        }
-
-                        break;
-                    case 'integer':
-                        $valueToWrite = $value;
-                        break;
-                    case 'multi':
-                        $valueToWrite = 'array(';
-                        if ( !empty($value) && is_array($value) ) $valueToWrite .= '\''. implode('\',\'',$value) . '\'';
-                        $valueToWrite .= ')';
-                        break;
-                    default:
-                        $valueToWrite = "'". str_replace("'","\'",$value) . "'";
-                        break;
-                }
-
-                // container : Constance or variable
-                if ( isset($this->conf_def_property_list[$name]['container'])
-                && strtoupper($this->conf_def_property_list[$name]['container']) == 'CONST' )
-                {
-                    $propertyLine = 'if (!defined("'.$name.'")) define("'.$name.'",'.$valueToWrite.');'."\n";
-                }
-                else
-                {
-                    $propertyLine = '$GLOBALS[\''.$name.'\'] = '. $valueToWrite .';'."\n";
-                    // $propertyLine = '$'.$name.' = '. $valueToWrite .';'."\n";
-                    // in the next version, config would change to
-                    // $propertyLine .= '$_conf[\''.$name.'\'] = '. $valueToWrite .';'."\n";
-                }
-                $propertyLine .= "\n\n";
-
-                fwrite($handle,$propertyComment);
-                fwrite($handle,$propertyLine);
 
             }
-            fwrite($handle,"\n".'?>');
-            fclose($handle);
 
-            // save the new md5 value
-            $this->save_md5();
+            // comment : add technical info
+            if ( !empty($this->conf_def_property_list[$name]['technicalInfo']) )
+            {
+                $propertyComment .= '/*'."\n"
+                . str_replace('*/', '* /', $this->conf_def_property_list[$name]['technicalInfo'] )."\n"
+                . '*/'."\n";
+            }
 
-            return true;
+            // property type define how to write the value
+            switch ($this->conf_def_property_list[$name]['type'])
+            {
+
+                case 'boolean':
+                    if (is_bool($value)) $valueToWrite = trueFalse($value);
+                    else
+                    switch (strtoupper($value))
+                    {
+                        case 'TRUE' :
+                        case '1' :
+                            $valueToWrite = 'TRUE';
+                            break;
+                        case 'FALSE' :
+                        case '0' :
+                            $valueToWrite = 'FALSE';
+                            break;
+                        default:
+                            trigger_error('$value is not a boolean ',E_USER_NOTICE);
+                            return false;
+                    }
+
+                    break;
+                case 'integer':
+                    $valueToWrite = $value;
+                    break;
+                case 'multi':
+                    $valueToWrite = 'array(';
+                    if ( !empty($value) && is_array($value) ) $valueToWrite .= '\''. implode('\',\'',$value) . '\'';
+                    $valueToWrite .= ')';
+                    break;
+                default:
+                    $valueToWrite = "'". str_replace("'","\'",$value) . "'";
+                    break;
+            }
+
+            // container : Constance or variable
+            if ( isset($this->conf_def_property_list[$name]['container'])
+            && strtoupper($this->conf_def_property_list[$name]['container']) == 'CONST' )
+            {
+                $propertyLine = 'if (!defined("'.$name.'")) define("'.$name.'",'.$valueToWrite.');'."\n";
+            }
+            else
+            {
+                $propertyLine = '$GLOBALS[\''.$name.'\'] = '. $valueToWrite .';'."\n";
+                // $propertyLine = '$'.$name.' = '. $valueToWrite .';'."\n";
+                // in the next version, config would change to
+                // $propertyLine .= '$_conf[\''.$name.'\'] = '. $valueToWrite .';'."\n";
+            }
+            $propertyLine .= "\n\n";
+
+            $fileContent .= $propertyComment;
+            $fileContent .= $propertyLine;
+
         }
-        else
+
+        $fileContent .= "\n";
+
+        $written = file_put_contents($this->config_filename, $fileContent);
+
+        if ( ! $written )
         {
             $this->backlog->failure(get_lang('Cannot open %filename',array('%filename'=>$this->config_filename)));
             return false;
         }
+
+        // save the new md5 value
+        $this->save_md5();
+
+        return true;
     }
 
     /**
