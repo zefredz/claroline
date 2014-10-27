@@ -1,5 +1,9 @@
 <!-- $Id$ -->
-
+<?php if ( $this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId )->isCourseMember() 
+    || $this->courseUserPrivilegesList->getCoursePrivileges(
+            $this->node->getCourse()->courseId)->isCourseManager()
+    || claro_is_platform_admin() ) : ?>
 <dt class="deactivated<?php if (!empty($this->notifiedCourseList) 
     && $this->notifiedCourseList->isCourseNotified($this->node->getCourse()->courseId)) : 
     ?> hot<?php endif; ?>">
@@ -175,3 +179,4 @@
     <?php endif; ?>
     </span>
 </dd>
+<?php endif; ?>
