@@ -79,9 +79,9 @@ class CLANN_Portlet extends UserDesktopPortlet
                         // Prepare the render
                         $displayChar = 250;
 
-                        if ( strlen ( $announcementEvent[ 'content' ] ) > $displayChar )
+                        if ( strlen ( strip_tags($announcementEvent[ 'content' ] )) > $displayChar )
                         {
-                            $content = substr ( $announcementEvent[ 'content' ], 0, $displayChar )
+                            $content = substr ( strip_tags( $announcementEvent[ 'content' ] ), 0, $displayChar )
                                 . '... <a href="'
                                 . claro_htmlspecialchars ( Url::Contextualize ( $announcementEvent[ 'url' ] ) ) . '">'
                                 . '<b>' . get_lang ( 'Read more &raquo;' ) . '</b></a>';

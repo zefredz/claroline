@@ -76,9 +76,9 @@ class CLANN_Portlet extends CourseHomePagePortlet
                     // Prepare the render
                     $displayChar = 250;
 
-                    if (strlen($announcementItem['content']) > $displayChar)
+                    if (strlen(strip_tags($announcementItem['content'])) > $displayChar)
                     {
-                        $content = substr($announcementItem['content'], 0, $displayChar)
+                        $content = substr(strip_tags($announcementItem['content']), 0, $displayChar)
                                 . '... <a href="'
                                 . claro_htmlspecialchars(Url::Contextualize($announcementItem['url'])) . '">'
                                 . '<b>' . get_lang('Read more &raquo;') . '</b></a>';
