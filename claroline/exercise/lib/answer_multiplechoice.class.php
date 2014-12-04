@@ -638,7 +638,14 @@ class answerMultipleChoice
         {
             if ( array_key_exists ( $answer[ 'id' ], $this->response ) )
             {
-                $grade += $answer[ 'grade' ];
+                if( $answer[ 'correct' ] )
+                {
+                    $grade += $answer[ 'grade' ];
+                }
+                else
+                {
+                    $grade -= abs( $answer[ 'grade' ] );
+                }
 
                 // if not multiple we only need one response so get out of the loop
                 if ( !$this->multipleAnswer )
