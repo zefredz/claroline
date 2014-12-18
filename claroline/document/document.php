@@ -112,7 +112,7 @@ if (claro_is_in_a_group() && claro_is_group_allowed())
     $courseDir         = claro_get_course_path() . '/group/' . claro_get_current_group_data('directory');
 
     $is_allowedToEdit  = claro_is_group_member() ||  claro_is_group_tutor()|| claro_is_course_manager();
-    $is_allowedToUnzip =  false;
+    $is_allowedToUnzip =  get_conf('cldoc_allowUnzipInGroups', false);
 
     if ( ! claro_is_group_allowed() )
     {

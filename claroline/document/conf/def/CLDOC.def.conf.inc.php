@@ -37,6 +37,7 @@ $conf_def[ 'section' ][ 'main' ][ 'properties' ]  =
         array ( 'openNewWindowForDoc'
             , 'cldoc_allowNonManagersToDownloadFolder'
             , 'cldoc_allowAnonymousToDownloadFolder'
+            , 'cldoc_allowUnzipInGroups'
             , 'cldoc_customTmpPath'
             , 'cldoc_notifyAllFilesWhenUncompressingArchives' );
 
@@ -63,7 +64,7 @@ $conf_def_property_list[ 'maxFilledSpace_for_course' ]
 $conf_def_property_list[ 'maxFilledSpace_for_groups' ]
         = array ( 'label'         => 'Quota for groups'
     , 'description'   => 'Disk space allowed to each group'
-    , 'default'       => '1000000'
+    , 'default'       => '10000000'
     , 'unit'          => 'bytes'
     , 'type'          => 'integer'
     , 'container'     => 'VAR'
@@ -142,6 +143,19 @@ $conf_def_property_list[ 'cldoc_allowNonManagersToDownloadFolder' ] =
             , 'default'       => TRUE
             , 'type'          => 'boolean'
             , 'acceptedValue' => array ( 'TRUE'     => 'Yes'
+                , 'FALSE'    => 'No'
+            )
+            , 'display'  => TRUE
+            , 'readonly' => FALSE
+);
+
+$conf_def_property_list[ 'cldoc_allowUnzipInGroups' ] =
+        array ( 'description'   => 'This option allows group members to use the uncompress zip archive option while uploading a documents in groups'
+            , 'label'         => 'Allow uncompress zip archive in groups'
+            , 'default'       => FALSE
+            , 'type'          => 'boolean'
+            , 'acceptedValue' => array ( 
+                  'TRUE'     => 'Yes'
                 , 'FALSE'    => 'No'
             )
             , 'display'  => TRUE
