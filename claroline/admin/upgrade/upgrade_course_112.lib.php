@@ -54,6 +54,33 @@ function lp_upgrade_to_112 ($course_code)
 
                 unset($sqlForUpdate);
             
+            case 3 :
+                // change field type from tinyint to int for the following columns in "lp_user_module_progress" table : raw, scoreMin, scoreMax
+                $sqlForUpdate[] = "ALTER TABLE  `" . $currentCourseDbNameGlu . "lp_user_module_progress`  MODIFY  `raw` INT(4) ;";
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                else return $step;
+                
+                unset($sqlForUpdate);
+                
+            case 4 :
+                // change field type from tinyint to int for the following columns in "lp_user_module_progress" table : raw, scoreMin, scoreMax
+                $sqlForUpdate[] = "ALTER TABLE  `" . $currentCourseDbNameGlu . "lp_user_module_progress`  MODIFY  `scoreMin` INT(4) ;";
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                else return $step;
+                
+                unset($sqlForUpdate);
+                
+            case 5 :
+                // change field type from tinyint to int for the following columns in "lp_user_module_progress" table : raw, scoreMin, scoreMax
+                $sqlForUpdate[] = "ALTER TABLE  `" . $currentCourseDbNameGlu . "lp_user_module_progress`  MODIFY  `scoreMax` INT(4) ;";
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+                else return $step;
+                
+                unset($sqlForUpdate);
+                
             default :
                 
                 $step = set_upgrade_status($tool, 0);
