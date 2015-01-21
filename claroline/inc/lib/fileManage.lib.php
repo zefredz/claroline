@@ -924,3 +924,21 @@ function get_html_body_content($html)
 
     return $html;
 }
+
+/**
+ * PclZip call back to rename .url to .url.html
+ * 
+ * @link http://www.phpconcept.net/pclzip/user-guide/50
+ */
+function change_url_to_html($p_event, &$p_header)
+{
+    $info = pathinfo($p_header['stored_filename']);
+
+    if ( $info['extension'] == 'url' )
+    {
+        $p_header['stored_filename'] = $info['basename'] . '.html';
+    }
+
+    return 1;
+}
+        

@@ -1174,10 +1174,10 @@ if ('exDownload' == $cmd )
         }
     
         $downloadArchive     = new PclZip($downloadArchiveFile);
-    
+        
         $downloadArchive->add($filePathList,
-                              PCLZIP_OPT_REMOVE_PATH,
-                              $requestDownloadPath);
+                        PCLZIP_CB_PRE_ADD, 'change_url_to_html',
+                        PCLZIP_OPT_REMOVE_PATH, $requestDownloadPath);
     
         if ( file_exists($downloadArchiveFile) )
         {

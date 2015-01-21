@@ -401,7 +401,8 @@ function treat_secure_file_unzip($fileName, $filePath,
 
     $extractedFileNameList = $zipFile->extract(
         PCLZIP_OPT_PATH,        $extractPath . $filePath,
-        PCLZIP_OPT_SET_CHMOD,   CLARO_FILE_PERMISSIONS );
+        PCLZIP_OPT_SET_CHMOD,   CLARO_FILE_PERMISSIONS,
+        PCLZIP_CB_PRE_EXTRACT, 'change_html_to_url' );
 
     if ( is_array($extractedFileNameList) )
     {
@@ -655,4 +656,20 @@ function get_max_upload_size($maxFilledSpace, $baseWorkDir)
     list($maxFileSize) = $fileSizeLimitList;
 
     return $maxFileSize;
+}
+
+/**
+ * PclZip call back to rename .url.html to .url
+ * 
+ * @see PclZip
+ * @link http://www.phpconcept.net/pclzip/user-guide/48
+ */
+function change_html_to_url($p_event, &$p_header)
+{
+    if ( preg_match("/\.url\.html$/", $p_header['filename']) )
+    {
+        $p_header['filename'] = preg_replace( "/\.url\.html$/", '.url', $p_header['filename'] );
+    }
+
+    return 1;
 }
