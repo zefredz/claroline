@@ -103,8 +103,7 @@ $isTutorRegAllowed = ( $is_allowedToManage || $_groupProperties ['tutorRegistrat
     && claro_is_course_tutor () 
     && !claro_get_current_group_data('tutorId');
 
-$isTutorUnregAllowed = ( $is_allowedToManage || $_groupProperties ['tutorRegistrationAllowed'] ) 
-    && claro_is_group_tutor();
+$isTutorUnregAllowed = ( ( $is_allowedToManage &&  $_groupProperties ['tutorRegistrationAllowed'] ) || claro_is_course_manager() );
 
 /**
  * SELF-REGISTRATION PROCESS

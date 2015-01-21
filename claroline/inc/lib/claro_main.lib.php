@@ -1354,10 +1354,17 @@ function claro_is_allowed_to_edit()
         $isAllowedToEdit = true;
     }
     else
-    {
+    {   
         if ( claro_is_in_a_tool() )
         {
-            $isAllowedToEdit = claro_is_allowed_tool_edit();
+            if ( claro_is_in_a_group () )
+            {
+                $isAllowedToEdit = claro_is_group_tutor();
+            }
+            else
+            {
+                $isAllowedToEdit = claro_is_allowed_tool_edit();
+            }
         }
         else
         {
