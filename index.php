@@ -166,9 +166,9 @@ if (isset($_REQUEST['logout']))
     }
     
     // notify that a user has just loggued out
-    if (isset($logout_uid)) // Set  by local_init
+    if (isset($GLOBALS['logout_uid'])) // Set  by local_init
     {
-        $eventNotifier->notifyEvent('user_logout', array('uid' => $logout_uid));
+        $eventNotifier->notifyEvent('user_logout', array('uid' => $GLOBALS['logout_uid']));
     }
     /* needed to be able to :
          - log with claroline when 'magic login' has previously been clicked
