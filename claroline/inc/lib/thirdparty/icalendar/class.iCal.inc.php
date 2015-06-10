@@ -32,17 +32,17 @@ include_once dirname(__FILE__) . '/' . 'class.iCalJournal.inc.php';
 * Create a iCalendar file for download
 *
 * $iCal = new iCal('', 0, '');
-* $iCal->addEvent(…);
-* $iCal->addToDo(…);
-* …
+* $iCal->addEvent(ï¿½);
+* $iCal->addToDo(ï¿½);
+* ï¿½
 * $iCal->outputFile('ics'); // output file as isc (xcs and rdf possible)
 *
-* Date/Time is stored with an absolute “z” value, which means that the
+* Date/Time is stored with an absolute ï¿½zï¿½ value, which means that the
 * calendar programm should import the time 1:1 not regarding timezones and
-* Daylight Saving Time. MS Outlook imports “z” dates wrong, so you have to
-* “correct” the dates BEFORE you add a new event.
+* Daylight Saving Time. MS Outlook imports ï¿½zï¿½ dates wrong, so you have to
+* ï¿½correctï¿½ the dates BEFORE you add a new event.
 * Also if you have an event series and not a single event, you have to use
-* “File >> Import” in Outlook to import the whole series and not just the
+* ï¿½File >> Importï¿½ in Outlook to import the whole series and not just the
 * first date.
 *
 * Last Change: 2003-03-29
@@ -243,7 +243,7 @@ class iCal {
         //if (!extension_loaded('mbstring')) {
             $quotprint = (string) str_replace('\r\n',chr(13) . chr(10),$quotprint);
             $quotprint = (string) str_replace('\n',chr(13) . chr(10),$quotprint);
-            $quotprint = (string) preg_replace("~([\x01-\x1F\x3D\x7F-\xFF])~e", "sprintf('=%02X', ord('\\1'))", $quotprint);
+            $quotprint = (string) preg_replace_callback("~([\x01-\x1F\x3D\x7F-\xFF])~", function ($matches) { return sprintf('=%02X', ord($matches[1])); }, $quotprint);
             $quotprint = (string) str_replace('\=0D=0A','=0D=0A',$quotprint);
             return $quotprint;
         //} else {
@@ -435,13 +435,13 @@ class iCal {
     * @param int $class  (0 = PRIVATE | 1 = PUBLIC | 2 = CONFIDENTIAL)
     * @param array $attendees  key = attendee name, value = e-mail, second value = role of the attendee [0 = CHAIR | 1 = REQ | 2 = OPT | 3 =NON] (example: array('Michi' => 'flaimo@gmx.net,1'); )
     * @param int $prio  riority = 0-9
-    * @param int $frequency  frequency: 0 = once, secoundly – yearly = 1–7
+    * @param int $frequency  frequency: 0 = once, secoundly ï¿½ yearly = 1ï¿½7
     * @param mixed $rec_end  recurrency end: ('' = forever | integer = number of times | timestring = explicit date)
-    * @param int $interval  Interval for frequency (every 2,3,4 weeks…)
+    * @param int $interval  Interval for frequency (every 2,3,4 weeksï¿½)
     * @param string $days  Array with the number of the days the event accures (example: array(0,1,5) = Sunday, Monday, Friday
-    * @param string $weekstart  Startday of the Week ( 0 = Sunday – 6 = Saturday)
+    * @param string $weekstart  Startday of the Week ( 0 = Sunday ï¿½ 6 = Saturday)
     * @param string $exept_dates  exeption dates: Array with timestamps of dates that should not be includes in the recurring event
-    * @param int $alarm  Array with all the alarm information, “''” for no alarm
+    * @param int $alarm  Array with all the alarm information, ï¿½''ï¿½ for no alarm
     * @param int $status  Status of the event (0 = TENTATIVE, 1 = CONFIRMED, 2 = CANCELLED)
     * @param string $url  optional URL for that event
     * @param string $language  Language of the strings used in the event (iso code)
@@ -476,19 +476,19 @@ class iCal {
     * @param int $duration  Duration of the todo in minutes
     * @param int $end  Start time for the event (timestamp)
     * @param int $percent  The percent completion of the ToDo
-    * @param int $prio  riority = 0–9
+    * @param int $prio  riority = 0ï¿½9
     * @param int $status  Status of the event (0 = TENTATIVE, 1 = CONFIRMED, 2 = CANCELLED)
     * @param int $class  (0 = PRIVATE | 1 = PUBLIC | 2 = CONFIDENTIAL)
-    * @param array $organizer  The organizer – use array('Name', 'name@domain.com')
+    * @param array $organizer  The organizer ï¿½ use array('Name', 'name@domain.com')
     * @param array $attendees  key = attendee name, value = e-mail, second value = role of the attendee [0 = CHAIR | 1 = REQ | 2 = OPT | 3 =NON] (example: array('Michi' => 'flaimo@gmx.net,1'); )
     * @param array $categories  Array with Strings (example: array('Freetime','Party'))
     * @param int $last_mod  Last modification of the to-to (timestamp)
-    * @param array $alarm  Array with all the alarm information, “''” for no alarm
-    * @param int $frequency  frequency: 0 = once, secoundly – yearly = 1–7
+    * @param array $alarm  Array with all the alarm information, ï¿½''ï¿½ for no alarm
+    * @param int $frequency  frequency: 0 = once, secoundly ï¿½ yearly = 1ï¿½7
     * @param mixed $rec_end  recurrency end: ('' = forever | integer = number of times | timestring = explicit date)
-    * @param int $interval  Interval for frequency (every 2,3,4 weeks…)
+    * @param int $interval  Interval for frequency (every 2,3,4 weeksï¿½)
     * @param string $days  Array with the number of the days the event accures (example: array(0,1,5) = Sunday, Monday, Friday
-    * @param string $weekstart  Startday of the Week ( 0 = Sunday – 6 = Saturday)
+    * @param string $weekstart  Startday of the Week ( 0 = Sunday ï¿½ 6 = Saturday)
     * @param string $exept_dates  exeption dates: Array with timestamps of dates that should not be includes in the recurring event
     * @param string $url  optional URL for that event
     * @param string $lang  Language of the strings used in the event (iso code)
@@ -547,14 +547,14 @@ class iCal {
     * @param int $last_mod  Last modification date for the event (timestamp)
     * @param int $status  Status of the event (0 = TENTATIVE, 1 = CONFIRMED, 2 = CANCELLED)
     * @param int $class  (0 = PRIVATE | 1 = PUBLIC | 2 = CONFIDENTIAL)
-    * @param array $organizer  The organizer – use array('Name', 'name@domain.com')
+    * @param array $organizer  The organizer ï¿½ use array('Name', 'name@domain.com')
     * @param array $attendees  key = attendee name, value = e-mail, second value = role of the attendee [0 = CHAIR | 1 = REQ | 2 = OPT | 3 =NON] (example: array('Michi' => 'flaimo@gmx.net,1'); )
     * @param array $categories  Array with Strings (example: array('Freetime','Party'))
-    * @param int $frequency  frequency: 0 = once, secoundly – yearly = 1–7
+    * @param int $frequency  frequency: 0 = once, secoundly ï¿½ yearly = 1ï¿½7
     * @param mixed $rec_end  recurrency end: ('' = forever | integer = number of times | timestring = explicit date)
-    * @param int $interval  Interval for frequency (every 2,3,4 weeks…)
+    * @param int $interval  Interval for frequency (every 2,3,4 weeksï¿½)
     * @param string $days  Array with the number of the days the event accures (example: array(0,1,5) = Sunday, Monday, Friday
-    * @param string $weekstart  Startday of the Week ( 0 = Sunday – 6 = Saturday)
+    * @param string $weekstart  Startday of the Week ( 0 = Sunday ï¿½ 6 = Saturday)
     * @param string $exept_dates  exeption dates: Array with timestamps of dates that should not be includes in the recurring event
     * @param string $url  optional URL for that event
     * @param string $lang  Language of the strings used in the event (iso code)
@@ -1610,7 +1610,7 @@ class iCal {
     /**
     * Returns the full path to the saved file where it can be downloaded.
     *
-    * Can be used for “header(Location:…”
+    * Can be used for ï¿½header(Location:ï¿½ï¿½
     *
     * @desc Returns the full path to the saved file where it can be downloaded.
     * @return string  Full http path
