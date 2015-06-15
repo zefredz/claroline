@@ -1,4 +1,4 @@
-<?php // $Id$
+<?php // $Id: claro_init_global.inc.php 14955 2014-10-20 05:41:28Z zefredz $
 
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
@@ -48,7 +48,7 @@ if ( file_exists ( __DIR__ . "/../../maintenance.html" ) )
  *                          the service providers for the platform also avaible using 
  *                          the Claroline::getInstance() method
  *
- * @version     Claroline 1.12 $Revision$
+ * @version     Claroline 1.12 $Revision: 14955 $
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package     kernel
@@ -321,6 +321,41 @@ elseif ( $GLOBALS['tlabelReq'] )
     }
 }
 
+/*===========================================================================
+                     Access Manager
+ ===========================================================================*/
+
+/**/
+// work in progress
+if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
+{
+    
+    
+    $allowed = $GLOBALS['claroline']['accessManager']->isAllowedToRead( 
+        $GLOBALS['tlabelReq'], 
+        claro_is_user_authenticated() ? Claro_CurrentUser::getInstance () : null, 
+        claro_is_in_a_course() ? Claro_CurrentCourse::getInstance () : null, 
+        claro_is_in_a_group() ? Claro_CurrentGroupTeam::getInstance () : null );
+    
+    Console::debug( $allowed ? 'AccessManager::Read::Allowed' : 'AccessManager::Read::Not allowed' );
+    
+    $allowed = $GLOBALS['claroline']['accessManager']->isAllowedToEdit( 
+        $GLOBALS['tlabelReq'], 
+        claro_is_user_authenticated() ? Claro_CurrentUser::getInstance () : null, 
+        claro_is_in_a_course() ? Claro_CurrentCourse::getInstance () : null, 
+        claro_is_in_a_group() ? Claro_CurrentGroupTeam::getInstance () : null );
+    
+    Console::debug( $allowed ? 'AccessManager::Edit::Allowed' : 'AccessManager::Edit::Not allowed' );
+    
+    $allowed = $GLOBALS['claroline']['accessManager']->isAllowedToManage( 
+        $GLOBALS['tlabelReq'], 
+        claro_is_user_authenticated() ? Claro_CurrentUser::getInstance () : null, 
+        claro_is_in_a_course() ? Claro_CurrentCourse::getInstance () : null, 
+        claro_is_in_a_group() ? Claro_CurrentGroupTeam::getInstance () : null );
+    
+    Console::debug( $allowed ? 'AccessManager::Manage::Allowed' : 'AccessManager::Manage::Not allowed' );
+}/**/
+
 if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
 {
     /*----------------------------------------------------------------------
@@ -332,7 +367,7 @@ if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
         claro_disp_auth_form(true);
     }
     
-    if ( get_module_data( $GLOBALS['tlabelReq'], 'type' ) == 'admin' && ! claro_is_platform_admin() )
+    /* if ( get_module_data( $GLOBALS['tlabelReq'], 'type' ) == 'admin' && ! claro_is_platform_admin() )
     {
         if ( !claro_is_user_authenticated() )
         {
@@ -355,7 +390,7 @@ if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
         {
             claro_die(get_lang('Not allowed'));
         }
-    }
+    } */
     
     if ( $GLOBALS['tlabelReq'] !== 'CLWRK' && $GLOBALS['tlabelReq'] !== 'CLGRP' && ! claro_is_module_allowed()
         && ! ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] 
@@ -381,17 +416,24 @@ if ( isset( $GLOBALS['tlabelReq'] ) && !empty( $GLOBALS['tlabelReq'] ) )
         claro_die( get_lang( 'Not allowed' ) );
     }
     
-    /*if ( !claro_is_module_allowed () )
+    $GLOBALS['registrationInGroup'] = ( $GLOBALS['tlabelReq'] == 'CLGRP' && ( isset( $_REQUEST['selfReg'] ) || isset($_REQUEST['doReg']) ) );
+    $GLOBALS['toolAccessThroughLP'] = ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] 
+        && ( $GLOBALS['tlabelReq'] == 'CLQWZ' || $GLOBALS['tlabelReq'] == 'CLDOC') );
+    
+    if ( ! ( $GLOBALS['registrationInGroup'] || $GLOBALS['toolAccessThroughLP'] ) )
     {
-        if ( ! claro_is_user_authenticated() )
+        if ( !claro_is_module_allowed () )
         {
-            claro_disp_auth_form(true);
+            if ( ! claro_is_user_authenticated() )
+            {
+                claro_disp_auth_form(true);
+            }
+            else
+            {
+                claro_die( get_lang( 'Not allowed' ) );
+            }
         }
-        else
-        {
-            claro_die( get_lang( 'Not allowed' ) );
-        }
-    }*/
+    }
 
     /*----------------------------------------------------------------------
         Install module
@@ -615,7 +657,7 @@ else
 }
 
 // reset current module label after calling the cache
-if ( isset($GLOBALS['tlabelReq']) && get_current_module_label() != $GLOBALS['tlabelReq'] )
+if ( !empty($GLOBALS['tlabelReq']) && get_current_module_label() != $GLOBALS['tlabelReq'] )
 {
     // reset all previous occurence of module label in stack
     while (clear_current_module_label());

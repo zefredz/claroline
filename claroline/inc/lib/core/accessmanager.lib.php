@@ -1,11 +1,11 @@
-<?php // $Id$
+<?php // $Id: accessmanager.lib.php 14958 2014-10-24 07:05:42Z zefredz $
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
  * Access manager classes
  * 
- * @version     1.12 $Revision$
+ * @version     1.12 $Revision: 14958 $
  * @copyright   (c) 2001-2014, Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
@@ -34,7 +34,19 @@ class Claro_AccessManager
         /**
          * Can manage the module
          */
-        ACCESS_MANAGE = 'manage';
+        ACCESS_MANAGE = 'manage',
+        
+        /**
+         * Can register to the module
+         * Used only in groups at this time
+         */
+        ACCESS_REGISTER = 'register',
+    
+        /**
+         * Can unregister from the module
+         * Used only in groups at this time
+         */
+        ACCESS_UNREGISTER = 'unregister';
     
     const 
         /**
@@ -62,6 +74,32 @@ class Claro_AccessManager
         $this->database = $database ? $database : Claroline::getDatabase();
     }
     
+    public function isCourseAllowed( $user, $course )
+    {
+        $userPrivileges = new Claro_UserPrivileges ( $user, $this->database );
+        $coursePrivileges = new Claro_CourseUserPrivileges($userPrivileges, $course, $this->database);
+        
+        return $coursePrivileges->isCourseAllowed();
+    }
+    
+    public function isGroupAllowed( $user, $course, $group )
+    {
+        $userPrivileges = new Claro_UserPrivileges ( $user, $this->database );
+        $coursePrivileges = new Claro_CourseUserPrivileges($userPrivileges, $course, $this->database );
+        $groupPrivileges = new Claro_GroupUserPrivileges($userPrivileges, $coursePrivileges, $group, $this->database );
+        $groupPermissions = Claro_ModuleAccessPermissions::loadPermissions('CLGRP');
+        
+        return $groupPrivileges->isAllowedInGroup () 
+            || ( 
+                $groupPermissions->overridePermission ( 
+                    Claro_AccessManager::ACCESS_REGISTER, 
+                    Claro_AccessManager::CONTEXT_GROUP ) 
+                && $groupPermissions->moduleAccessOverride ( 
+                    Claro_AccessManager::ACCESS_REGISTER, 
+                    Claro_AccessManager::CONTEXT_GROUP, 
+                    $userPrivileges, $coursePrivileges, $groupPrivileges ) );
+    }
+    
     /**
      * This is the method to check the access right 
      * @param string $moduleLabel the label of the module
@@ -75,7 +113,7 @@ class Claro_AccessManager
     {
         $moduleAccess = new Claro_ModuleAccessManager ( new Claro_Module( $moduleLabel ), $this->database );
 
-        $userPrivileges = new Claro_UserPrivileges ( $user );
+        $userPrivileges = new Claro_UserPrivileges ( $user, $this->database );
         
         return $moduleAccess->checkAccessRight($userPrivileges, $action, $course, $group);
     }
@@ -117,6 +155,47 @@ class Claro_AccessManager
     public function isAllowedToManage ( $moduleLabel, $user = null, $course = null, $group = null )
     {
         return $this->checkAccessRight($moduleLabel, self::ACCESS_MANAGE, $user, $course, $group);
+    }
+    
+    /**
+     * This is the method to check the access right 
+     * @param string $moduleLabel the label of the module
+     * @param string $action on of ACCESS_READ and ACCESS_EDIT
+     * @param Claro_User $user user that wants to do the action
+     * @param Claro_Course $course given course or null if not in a course (default)
+     * @param Claro_GroupTeam $group given group or null if not in a group
+     * @return boolean true if access granted, false if not 
+     */
+    protected function isSuperUser( $user = null, $course = null, $group = null )
+    {
+        if ( $user ) 
+        {
+            $userPrivileges = new Claro_UserPrivileges ( $user, $this->database );
+            
+            if ( $course ) 
+            {
+                $coursePrivileges = $userPrivileges->getCoursePrivileges($course);
+                
+                if ( $group ) 
+                {
+                    $groupPrivileges = $coursePrivileges->getGroupPrivileges($group);
+                    
+                    return $groupPrivileges->isSuperUser();
+                }
+                else
+                {
+                    return $coursePrivileges->isSuperUser();
+                }
+            }
+            else
+            {
+                return $userPrivileges->isSuperUser();                
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 
@@ -227,90 +306,100 @@ class Claro_ModuleAccessManager
     {
         if ( !is_null ( $modulePermissions ) && $modulePermissions->overridePermission ( $action, Claro_AccessManager::CONTEXT_PLATFORM ) )
         {
-            return $modulePermissions->moduleAccessOverride ( $action, Claro_AccessManager::CONTEXT_PLATFORM, $userPrivileges );
-        } // end module overrides course permissions
-        else // module does not override platform permissions
-        {
-            switch ( $action )
+            $permission = $modulePermissions->moduleAccessOverride ( $action, Claro_AccessManager::CONTEXT_PLATFORM, $userPrivileges );
+            
+            // if module does not ask to resume normal process, returns the module permission
+            if ( !is_null( $permission ) )
             {
-                case Claro_AccessManager::ACCESS_READ:
-                    {
-                        claro_debug_mode () && pushClaroMessage ( 'check platform read', 'debug' );
+                return $permission;
+            }
+        } // end module overrides course permissions
+        
+        // module does not override platform permissions or asked to resume normal process
+        switch ( $action )
+        {
+            case Claro_AccessManager::ACCESS_READ:
+                {
+                    claro_debug_mode () && pushClaroMessage ( 'check platform read', 'debug' );
 
-                        if ( $this->isAllowedToRead ( $userPrivileges ) )
-                        {
-                            return true;
-                        }
-                    } // no break cascading access check
-                case Claro_AccessManager::ACCESS_EDIT:
+                    if ( $this->isAllowedToRead ( $userPrivileges ) )
                     {
-                        claro_debug_mode () && pushClaroMessage ( 'check platform edit', 'debug' );
-
-                        if ( $this->isAllowedToEdit ( $userPrivileges ) )
-                        {
-                            return true;
-                        }
-                    } // no break cascading access check
-                case Claro_AccessManager::ACCESS_MANAGE:
-                    {
-                        claro_debug_mode () && pushClaroMessage ( 'check platform manage', 'debug' );
-
-                        if ( $this->isAllowedToManage ( $userPrivileges ) )
-                        {
-                            return true;
-                        }
-                    } // no break cascading access check
-                default:
-                    {
-                        return false;
+                        return true;
                     }
-            } // end switch action
-        } // end module does not override course permissions
+                } // no break cascading access check
+            case Claro_AccessManager::ACCESS_EDIT:
+                {
+                    claro_debug_mode () && pushClaroMessage ( 'check platform edit', 'debug' );
+
+                    if ( $this->isAllowedToEdit ( $userPrivileges ) )
+                    {
+                        return true;
+                    }
+                } // no break cascading access check
+            case Claro_AccessManager::ACCESS_MANAGE:
+                {
+                    claro_debug_mode () && pushClaroMessage ( 'check platform manage', 'debug' );
+
+                    if ( $this->isAllowedToManage ( $userPrivileges ) )
+                    {
+                        return true;
+                    }
+                } // no break cascading access check
+            default:
+                {
+                    return false;
+                }
+        } // end module does not override platform permissions or asked to resume normal process
     }
     
     protected function checkCourseAccessRight( $action, $modulePermissions, $userPrivileges, $coursePrivileges )
     {
         if ( !is_null ( $modulePermissions ) && $modulePermissions->overridePermission ( $action, Claro_AccessManager::CONTEXT_COURSE ) )
         {
-            return $modulePermissions->moduleAccessOverride ( $action, Claro_AccessManager::CONTEXT_COURSE, $userPrivileges, $coursePrivileges );
-        } // end module overrides course permissions
-        else // module does not override course permissions
-        {
-            switch ( $action )
+            $permission = $modulePermissions->moduleAccessOverride ( $action, Claro_AccessManager::CONTEXT_COURSE, $userPrivileges, $coursePrivileges );
+            
+            // if module does not ask to resume normal process, returns the module permission
+            if ( !is_null( $permission ) )
             {
-                case Claro_AccessManager::ACCESS_READ:
-                    {
-                        claro_debug_mode () && pushClaroMessage ( 'check course read', 'debug' );
+                return $permission;
+            }
+        } // end module overrides course permissions
+        
+        // module does not override course permissions or asked to resume normal process
+        switch ( $action )
+        {
+            case Claro_AccessManager::ACCESS_READ:
+                {
+                    claro_debug_mode () && pushClaroMessage ( 'check course read', 'debug' );
 
-                        if ( $this->isAllowedToReadInCourse ( $userPrivileges, $coursePrivileges ) )
-                        {
-                            return true;
-                        }
-                    } // no break cascading access check
-                case Claro_AccessManager::ACCESS_EDIT:
+                    if ( $this->isAllowedToReadInCourse ( $userPrivileges, $coursePrivileges ) )
                     {
-                        claro_debug_mode () && pushClaroMessage ( 'check course edit', 'debug' );
-
-                        if ( $this->isAllowedToEditInCourse ( $userPrivileges, $coursePrivileges ) )
-                        {
-                            return true;
-                        }
-                    } // no break cascading access check
-                case Claro_AccessManager::ACCESS_MANAGE:
-                    {
-                        claro_debug_mode () && pushClaroMessage ( 'check course manage', 'debug' );
-
-                        if ( $this->isAllowedToManageInCourse ( $userPrivileges, $coursePrivileges ) )
-                        {
-                            return true;
-                        }
-                    } // no break cascading access check
-                default:
-                    {
-                        return false;
+                        return true;
                     }
-            } // end switch action
-        } // end module does not override course permissions
+                } // no break cascading access check
+            case Claro_AccessManager::ACCESS_EDIT:
+                {
+                    claro_debug_mode () && pushClaroMessage ( 'check course edit', 'debug' );
+
+                    if ( $this->isAllowedToEditInCourse ( $userPrivileges, $coursePrivileges ) )
+                    {
+                        return true;
+                    }
+                } // no break cascading access check
+            case Claro_AccessManager::ACCESS_MANAGE:
+                {
+                    claro_debug_mode () && pushClaroMessage ( 'check course manage', 'debug' );
+
+                    if ( $this->isAllowedToManageInCourse ( $userPrivileges, $coursePrivileges ) )
+                    {
+                        return true;
+                    }
+                } // no break cascading access check
+            default:
+                {
+                    return false;
+                }
+        } // end module does not override course permissions or asked to resume normal process
     }
     
     protected function checkGroupAccessRight( $action, $modulePermissions, $userPrivileges, $coursePrivileges, $groupPrivileges )
@@ -324,45 +413,50 @@ class Claro_ModuleAccessManager
         {
             if ( !is_null ( $modulePermissions ) && $modulePermissions->overridePermission ( $action, Claro_AccessManager::CONTEXT_GROUP ) )
             {
-                return $modulePermissions->moduleAccessOverride ( $action, Claro_AccessManager::CONTEXT_GROUP, $userPrivileges, $coursePrivileges, $groupPrivileges );
-            } // end module overrides group permissions
-            else // module does not override group permissions
-            {
-                switch ( $action )
+                $permission = $modulePermissions->moduleAccessOverride ( $action, Claro_AccessManager::CONTEXT_GROUP, $userPrivileges, $coursePrivileges, $groupPrivileges );
+                
+                // if module does not ask to resume normal process, returns the module permission
+                if ( !is_null( $permission ) )
                 {
-                    case Claro_AccessManager::ACCESS_READ:
-                        {
-                            claro_debug_mode () && pushClaroMessage ( 'check group read', 'debug' );
+                    return $permission;
+                }
+            } // end module overrides group permissions
+            
+            // module does not override group permissions or asked to resume normal process            
+            switch ( $action )
+            {
+                case Claro_AccessManager::ACCESS_READ:
+                    {
+                        claro_debug_mode () && pushClaroMessage ( 'check group read', 'debug' );
 
-                            if ( $this->isAllowedToReadInGroup ( $userPrivileges, $coursePrivileges, $groupPrivileges ) )
-                            {
-                                return true;
-                            }
-                        } // no break cascading access check
-                    case Claro_AccessManager::ACCESS_EDIT:
+                        if ( $this->isAllowedToReadInGroup ( $userPrivileges, $coursePrivileges, $groupPrivileges ) )
                         {
-                            claro_debug_mode () && pushClaroMessage ( 'check group edit', 'debug' );
-
-                            if ( $this->isAllowedToEditInGroup ( $userPrivileges, $coursePrivileges, $groupPrivileges ) )
-                            {
-                                return true;
-                            }
-                        } // no break cascading access check
-                    case Claro_AccessManager::ACCESS_MANAGE:
-                        {
-                            claro_debug_mode () && pushClaroMessage ( 'check group manage', 'debug' );
-
-                            if ( $this->isAllowedToManageInGroup ( $userPrivileges, $coursePrivileges, $groupPrivileges ) )
-                            {
-                                return true;
-                            }
-                        } // no break cascading access check
-                    default:
-                        {
-                            return false;
+                            return true;
                         }
-                } // end switch group action
-            } // module does not override group permissions
+                    } // no break cascading access check
+                case Claro_AccessManager::ACCESS_EDIT:
+                    {
+                        claro_debug_mode () && pushClaroMessage ( 'check group edit', 'debug' );
+
+                        if ( $this->isAllowedToEditInGroup ( $userPrivileges, $coursePrivileges, $groupPrivileges ) )
+                        {
+                            return true;
+                        }
+                    } // no break cascading access check
+                case Claro_AccessManager::ACCESS_MANAGE:
+                    {
+                        claro_debug_mode () && pushClaroMessage ( 'check group manage', 'debug' );
+
+                        if ( $this->isAllowedToManageInGroup ( $userPrivileges, $coursePrivileges, $groupPrivileges ) )
+                        {
+                            return true;
+                        }
+                    } // no break cascading access check
+                default:
+                    {
+                        return false;
+                    }
+            } // module does not override group permissions or asked to resume normal process
         } // end group allowed
     }
     
@@ -656,6 +750,19 @@ class Claro_ModuleAccessPermissions
         return true;
     }
     
+    /**
+     * Get the callback to compute permissions for the given action in the given context.
+     * 
+     * A permission callback can have 3 different return values :
+     * 
+     *  true/false : to allow or disallow permission to do the action in the given context
+     *  null : to ask the access manager to continue to evaluate the permission using its normal process
+     * 
+     * @param string $context
+     * @param string $action
+     * @return callable
+     * @throws Exception
+     */
     protected function getPermissionOverrideCallback( $context, $action )
     {
         $callback = $this->permissions['override'][$context][$action];
@@ -681,15 +788,15 @@ class Claro_ModuleAccessPermissions
         {
             case Claro_AccessManager::CONTEXT_PLATFORM:
             {
-                return call_user_func( $callback,$userPrivileges );
+                return call_user_func( $callback, $userPrivileges );
             } break;
             case Claro_AccessManager::CONTEXT_COURSE:
             {
-                return call_user_func( $callback,$userPrivileges, $coursePrivileges );
+                return call_user_func( $callback, $userPrivileges, $coursePrivileges );
             } break;
             case Claro_AccessManager::CONTEXT_GROUP:
             {
-                return call_user_func( $callback,$userPrivileges, $coursePrivileges, $groupPrivileges );
+                return call_user_func( $callback, $userPrivileges, $coursePrivileges, $groupPrivileges );
             } break;
             default:
             {
