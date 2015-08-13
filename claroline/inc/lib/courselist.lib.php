@@ -178,20 +178,20 @@ function get_user_course_list ( $userId, $renew = false, $categories = false )
                        rcc.rootCourse";
 
         $sql .= "
-                
+
                 FROM `" . $tbl_courses . "` AS course
-                
+
                 LEFT JOIN `" . $tbl_rel_user_courses . "` AS rcu
                 ON rcu.user_id = " . (int) $userId . " ";
 
         if ( $categories )
             $sql .= "
-                
+
                 LEFT JOIN `" . $tbl_rel_course_category . "` AS rcc
                 ON course.cours_id = rcc.courseId";
 
         $sql .= "
-                
+
                 WHERE course.code = rcu.code_cours
                 AND (course.`status`='enable'
                       OR (course.`status` = 'date'
@@ -262,10 +262,10 @@ function get_user_course_list_desactivated ( $userId, $renew = false )
                        course.status,
                        UNIX_TIMESTAMP(course.expirationDate) AS expirationDate,
                        UNIX_TIMESTAMP(course.creationDate)     AS creationDate
-                       
+
                        FROM `" . $tbl_courses . "`           AS course,
                             `" . $tbl_link_user_courses . "` AS course_user
-                       
+
                        WHERE course.code         = course_user.code_cours
                          AND course_user.user_id = " . (int) $userId . "
                          AND (course.`status` = 'disable'
@@ -441,7 +441,7 @@ function render_user_course_list_desactivated ()
             $urlSettings = Url::Contextualize ( get_path ( 'url' ) . '/claroline/course/settings.php?cidReq='
                     . claro_htmlspecialchars ( $course[ 'sysCode' ] . '&cmd=exEnable' ) );
 
-            $out .= '<dt>' . "\n"
+            $out .= '<dt class="deactivated">' . "\n"
                 . '<img class="iconDefinitionList" src="' . get_icon_url ( 'course_deactivated' )
                 . '" alt="' . get_lang ( 'Course deactivated' ) . '" /> ';
 
@@ -449,7 +449,9 @@ function render_user_course_list_desactivated ()
             {
                 if ( claro_is_platform_admin () || $course[ 'isCourseManager' ] == '1' )
                 {
-                    $out.= '<a href="' . claro_htmlspecialchars ( $url ) . '">'
+                    $out .= "<br />\n";
+                    
+                    $out.= '<a class="invisible" href="' . claro_htmlspecialchars ( $url ) . '">'
                         . claro_htmlspecialchars ( $courseTitle )
                         . '</a>' . "\n"
                         . '<img class="qtip" src="' . get_icon_url ( 'manager' ) . '" alt="' . get_lang ( 'You are manager of this course' ) . '" /> '
@@ -598,7 +600,7 @@ function render_user_course_list ()
             }
         }
     }
-    
+
     unset ( $userCourseList );
 
     // Merge courses and their session courses (if any)
@@ -679,7 +681,7 @@ function render_user_course_list ()
             {
                 $trail = build_category_trail ( $categoryList, $category[ 'categoryId' ] );
             }
-            
+
             $reorganizedUserCategoryList[ $category[ 'categoryId' ] ][ 'trail' ] = $trail;
 
             // Put root courses aside
