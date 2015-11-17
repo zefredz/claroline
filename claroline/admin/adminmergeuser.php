@@ -67,17 +67,21 @@ try
             throw new Exception( get_lang('Cannot merge one user account with itself') );
         }
         
-        if ( ! user_get_properties( $uidToKeep ) )
+        if ( ! $userToKeep = user_get_properties( $uidToKeep ) )
         {
             throw new Exception( get_lang('User to keep not found') );
         }
         
-        if ( ! user_get_properties( $uidToRemove ) )
+        if ( ! $userToRemove = user_get_properties( $uidToRemove ) )
         {
             throw new Exception( get_lang('User to remove not found') );
         }
         
         $question = '<p>'
+            . get_lang('Attempting to merge user %userToRemove% into %userToKeep%.', array(
+                '%userToRemove' => "{$userToRemove['firstname']} {$userToRemove['lastname']}({$uidToRemove})",
+                '%userToKeep' => "{$userToKeep['firstname']} {$userToKeep['lastname']}({$uidToKeep})",
+            ))
             . get_lang('Merging users will alter the user data and cannot be undone. Are you sure to want to continue ?')
             . '</p>' . "\n"
             . '<form action="'.$_SERVER['PHP_SELF'].'?cmd=exMerge" method="post">' . "\n"
