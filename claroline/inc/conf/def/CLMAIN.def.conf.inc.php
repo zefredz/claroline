@@ -121,7 +121,8 @@ $conf_def['section']['CRSLIST']['properties'] =
         'crslist_DisplayDisableToAllUsers',
         'crslist_DisplayUnpublishedToAllUsers',
         'crslist_DisplayExpiredToAllUsers',
-        'crslist_UserCanUnregFromInactiveCourses'
+        'crslist_UserCanUnregFromInactiveCourses',
+        'crslist_AllowAccessToDisableCoursesToCourseManagers',
 );
 
 $conf_def['section']['ADVANCED']['label'] = 'Advanced settings';
@@ -830,6 +831,16 @@ $conf_def_property_list['crslist_DisplayUnpublishedToAllUsers'] =
     array('label' => 'Display unpublished courses in members\' course list'
         , 'description' => ''
         , 'default' => false
+        , 'type' => 'boolean'
+        , 'acceptedValue' => array('TRUE' => 'Yes'
+            , 'FALSE' => 'No'
+        )
+);
+
+$conf_def_property_list['crslist_AllowAccessToDisableCoursesToCourseManagers'] =
+    array('label' => 'Allow course managers to access their own disabled courses in course list'
+        , 'description' => ''
+        , 'default' => true
         , 'type' => 'boolean'
         , 'acceptedValue' => array('TRUE' => 'Yes'
             , 'FALSE' => 'No'

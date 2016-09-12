@@ -480,8 +480,19 @@ function render_user_course_list_desactivated ()
                 {
                     if ( $course[ 'isCourseManager' ] == '1' )
                     {
-                        $out.= claro_htmlspecialchars ( $courseTitle )
+                        if ( get_conf('crslist_AllowAccessToDisableCoursesToCourseManagers', true) )
+                        {
+                            $out .= '<a href="' . claro_htmlspecialchars ( $url ) . '">'
+                            . claro_htmlspecialchars ( $courseTitle )
+                            . '</a>'
                             . ' ' . get_lang ( 'Contact your administrator to reactivate it. ' );
+                        }
+                        else
+                        {
+                            $out.= claro_htmlspecialchars ( $courseTitle )
+                            . ' ' . get_lang ( 'Contact your administrator to reactivate it. ' );
+                        }
+                        
                     }
                     elseif ( get_conf ( 'crslist_DisplayDisableToAllUsers', false ) )
                     {
