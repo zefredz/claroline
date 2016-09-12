@@ -684,7 +684,7 @@ if ( !claro_is_platform_admin () )
 {
     $courseStatus = claro_get_current_course_data ( 'status' );
 
-    if ( $courseStatus == 'trash' || $courseStatus == 'disable' )
+    if ( $courseStatus == 'trash' || ( $courseStatus == 'disable' && !get_conf( 'crslist_AllowAccessToDisableCoursesToCourseManagers', true ) ) )
     {
         Claroline::getDisplay()->body->hideCourseTitleAndTools();
         claro_die( get_lang('This course is not available anymore, please contact the platform administrator.') );

@@ -235,6 +235,11 @@ if (claro_is_allowed_to_edit())
                 array('%date' => claro_date('d/m/Y', $thisCourse->expirationDate))));
         }
     }
+    elseif ( $thisCourse->status == 'disable' && get_conf( 'crslist_AllowAccessToDisableCoursesToCourseManagers', true ) )
+    {
+        $dialogBox->warning(
+            get_lang( 'This course is not available anymore, please contact the platform administrator.' ) );
+    }
     
     if ($thisCourse->userLimit > 0)
     {
